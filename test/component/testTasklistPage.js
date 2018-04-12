@@ -1,6 +1,6 @@
 const TestWrapper = require('test/util/TestWrapper'),
     sessionData = require('test/data/complete-form').formdata,
-    singleApplicantData = require('test/data/singleApplicant');;
+    singleApplicantData = require('test/data/singleApplicant');
 
 describe('task-list', () => {
     let testWrapper;

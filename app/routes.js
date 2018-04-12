@@ -5,7 +5,7 @@ const router = require('express').Router();
 const initSteps = require('app/core/initSteps');
 const services = require('app/components/services');
 const logger = require('app/components/logger');
-const {get, includes} = require('lodash');
+const {get, includes, isEqual} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 
@@ -47,16 +47,22 @@ router.use(function (req, res, next) {
     const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
 
     if (get(formdata, 'submissionReference') &&
-            !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
+        !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
     ) {
         res.redirect('documents');
     } else if (formdata.paymentPending === 'false' &&
-                !includes(config.whitelistedPagesAfterPayment, req.originalUrl)
+        !includes(config.whitelistedPagesAfterPayment, req.originalUrl)
     ) {
         res.redirect('tasklist');
     } else if (get(formdata, 'declaration.declarationCheckbox') &&
-                !includes(config.whitelistedPagesAfterDeclaration, req.originalUrl) &&
-                (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent')))
+        !includes(config.whitelistedPagesAfterDeclaration, req.originalUrl) &&
+            (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent') &&
+                req.session.haveAllExecutorsDeclared === 'true'))
+    ) {
+        res.redirect('tasklist');
+    } else if (get(formdata, 'declaration.declarationCheckbox') &&
+        (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent'))) &&
+            isEqual('/executors-invite', req.originalUrl)
     ) {
         res.redirect('tasklist');
     } else if (req.originalUrl.includes('summary') && isHardStop(formdata)) {

@@ -1,0 +1,16 @@
+{
+  "title": "Executor non application reason",
+  "question": "Why isn&rsquo;t {executorFullName} applying for probate?",
+  "questionLegend": "Why isn&rsquo;t {executorFullName} applying for probate?",
+  "optionPowerReserved": "This executor doesn&rsquo;t want to apply now, but may do in the future (this is also known as power reserved)",
+  "optionRenunciated": "This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)",
+
+  "errors": {
+    "notApplyingReason": {
+      "required": {
+        "summary": "You haven&rsquo;t selected why this executor isn&rsquo;t applying ",
+        "message": "Select the reason why the executor isn&rsquo;t applying"
+      }
+    }
+  }
+}

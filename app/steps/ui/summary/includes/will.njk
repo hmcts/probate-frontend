@@ -1,0 +1,80 @@
+{{checkanswer(
+    items = [{
+        question: content.WillLeft.question,
+        answer: fields.will.left.value,
+        visible: true
+    }],
+    url = content.WillLeft.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [{
+            question: content.WillOriginal.question,
+            answer: fields.will.original.value,
+            visible: true
+    }],
+    url = content.WillOriginal.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)
+}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.WillDate.question,
+            answer: fields.will.isWillDate.value,
+            visible: fields.will.original.value == content.WillOriginal.optionYes
+        },
+        {
+            question: content.WillDate.willDateQuestion,
+            answer: fields.will.willDate_formattedDate.value,
+            visible: fields.will.isWillDate.value == content.WillDate.optionYes
+        }
+    ],
+    url = content.WillDate.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)
+}}
+
+{{checkanswer(
+    items = [{
+        question: content.WillCodicils.question,
+        answer: fields.will.codicils.value,
+        visible: true
+        },
+        {
+            question: content.CodicilsNumber.question,
+            answer: fields.will.codicilsNumber.value,
+            visible: fields.will.codicils.value == content.WillCodicils.optionYes
+        },
+        {
+            question: content.CodicilsDate.question,
+            answer: fields.will.isCodicilsDate.value,
+            visible: fields.will.codicils.value == content.CodicilsDate.optionYes
+        },
+        {
+            question: content.CodicilsDate.codicilsDateQuestion,
+            answer: fields.will.codicilsDate_formattedDate.value,
+            visible: fields.will.codicils.value == content.CodicilsDate.optionYes and fields.will.isCodicilsDate.value == content.CodicilsDate.optionYes
+        }
+        ],
+    url = content.WillCodicils.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value)
+}}
+
+{{checkanswer(
+    items = [{
+        question: content.ApplicantExecutor.question,
+        answer: fields.applicant.executor.value,
+        visible: true
+    }],
+    url = content.ApplicantExecutor.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)
+}}

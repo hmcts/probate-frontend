@@ -1,0 +1,25 @@
+{% extends "includes/layout.html" %}
+
+{% block page_title %}
+    {{ content.title | safe }}
+{% endblock %}
+
+{% block question %}
+{% endblock %}
+
+{% block content %}
+<main id="content" role="main">
+    {% include "includes/phase_banner_beta.html" %}
+    <div class="grid-row">
+        <div class="column-two-thirds">
+            <h1 class="form-title heading-large">{{ content.pageHeader | safe }}</h1>
+            <p>{{ content.paragraph1 | safe }}</p>
+            <p>{{ content.paragraph2 | safe }}</p>
+            <p>{{ content.paragraph3 | safe }}</p>
+            <div class="form-group">
+                <p><a href="/tasklist" class="button">{{ content.continue }}</a></p>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

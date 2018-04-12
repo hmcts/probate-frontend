@@ -1,0 +1,30 @@
+{% extends "includes/layout.html" %}
+{% block page_title %}
+{{ content.title }}
+{% endblock %}
+
+{% block content %}
+
+{% from "widgets/lists.html" import taskAction, unorderedList %}
+
+<main id="content" role="main">
+    {% include "includes/phase_banner_beta.html" %}
+    <div class="grid-row">
+        <div class="column-two-thirds">
+            <h1 class="form-title heading-large">{{content.header}}</h1>
+            <p>{{content.introduction}}</p>
+            <div class="form-group">
+                <ol>
+                    {% include "ui/tasklist/includes/eligibility.html" %}
+                    {% include "ui/tasklist/includes/executors.html" %}
+                    {% include "ui/tasklist/includes/reviewAndConfirm.html" %}
+                    {% include "ui/tasklist/includes/copies.html" %}
+                    {% include "ui/tasklist/includes/payment.html" %}
+                    {% include "ui/tasklist/includes/documents.html" %}
+                </ol>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

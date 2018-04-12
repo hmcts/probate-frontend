@@ -1,0 +1,8 @@
+{
+  "title": "SMS Verification Code Generated",
+  "header1": "Send a new code to mobile number {phoneNumber}",
+  "subHeader1": "If you haven&rsquo;t received a security code you can request a new one.",
+  "header2": "If {phoneNumber} isn&rsquo;t your number",
+  "subHeader2ExecName": "If this mobile number is wrong, you&rsquo;ll need to contact {executorName} and ask them to add the correct number.",
+  "button": "Send me a new code"
+}

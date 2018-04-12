@@ -1,0 +1,16 @@
+{
+  "title": "Executor&rsquo;s name on the will",
+  "question": "Is this executor&rsquo;s name &lsquo;{executorName}&rsquo; exactly what appears on the will?",
+  "legend": "Is this executor&rsquo;s name &lsquo;{executorName}&rsquo; exactly what appears on the will?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "nameAsOnTheWill": {
+      "required": {
+        "summary": "Answer the question about the executor&rsquo;s name matching what appears on the will",
+        "message": "Select yes if their name is exactly the same on the will"
+      }
+    }
+  }
+}

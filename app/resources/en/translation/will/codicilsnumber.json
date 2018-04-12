@@ -1,0 +1,17 @@
+{
+  "title": "How many updates (&lsquo;codicils&rsquo;) were made to the will?",
+  "question": "How many updates (&lsquo;codicils&rsquo;) were made to the will?",
+
+  "errors": {
+    "codicilsNumber": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about how many updates (&lsquo;codicils&rsquo;) were made to the will",
+        "message": "Enter the number of updates (&lsquo;codicils&rsquo;)"
+      },
+      "invalid": {
+        "summary": "You haven&rsquo;t entered a valid number",
+        "message": "Enter a number"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Which executors have different names?",
+  "question": "Which executors have different names?",
+  "legend": "Which executors have different names?",
+
+  "errors": {
+    "executorsWithOtherNames": {
+      "required": {
+          "summary": "Select the executors who have different names",
+          "message": "Select the executors who have different names"      
+        }
+    }
+  }
+}

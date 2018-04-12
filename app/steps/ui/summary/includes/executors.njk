@@ -1,0 +1,232 @@
+{{checkanswer(
+    items = [{
+            question: content.ExecutorsNumber.question,
+            answer: fields.executors.executorsNumber.value,
+            visible: true
+        }
+    ],
+    url = content.ExecutorsNumber.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+{{checkanswer(
+    items = [{
+            question: content.ExecutorsAllAlive.question,
+            answer: fields.executors.allalive.value,
+            visible: fields.executors.executorsNumber.value > 1
+        }
+    ],
+    url = content.ExecutorsAllAlive.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [{
+            question: content.ExecutorsWhoDied.question,
+            answer: fields.summary.executorsWhoDied.value,
+            visible: fields.executors.allalive.value === content.ExecutorsAllAlive.optionNo
+        }
+    ],
+    url = content.ExecutorsWhoDied.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value,
+    answerIsCollection = true
+)}}
+
+{% for executor in fields.executors.list.value %}
+    {% if executor.isApplicant != true and executor.isDead === true %}
+        {{checkanswer(
+            items = [{
+                    question: content.Summary.executorsWhenDiedQuestion | replace('{executorFullName}', executor.fullName),
+                    answer: executor.diedBefore,
+                    visible: true
+                }
+            ],
+            url = content.ExecutorsWhenDied.url | replace("*", loop.index - 1 ),
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+    {% endif %}
+{% endfor %}
+<td colspan="3"><span class="heading-small">{{content.Summary.aboutYouHeading | safe}}</span></td>
+{{checkanswer(
+    items = [{
+            question: content.ApplicantName.firstName,
+            answer: fields.applicant.firstName.value,
+            visible: true
+        },
+        {
+            question: content.ApplicantName.lastName,
+            answer: fields.applicant.lastName.value,
+            visible: true
+        }
+    ],
+    url = content.ApplicantName.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [{
+        question: content.ApplicantNameAsOnWill.question | replace('{applicantName}', fields.applicant.firstName.value + ' ' + fields.applicant.lastName.value),
+        answer: fields.applicant.nameAsOnTheWill.value,
+        visible: true
+    }],
+    url = content.ApplicantNameAsOnWill.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+
+)}}
+
+{{checkanswer(
+    items = [{
+        question: content.ApplicantPhone.phoneNumber,
+        answer: fields.applicant.phoneNumber.value,
+        visible: true
+    }],
+    url = content.ApplicantPhone.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+
+)}}
+
+{{checkanswer(
+    items = [{
+        question: content.ApplicantAddress.question,
+        answer: fields.applicant.address.value,
+        visible: true
+    }],
+    url = content.ApplicantAddress.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{% if fields.executors.executorsNumber.value > 1 and fields.summary.executorsAlive.value === 'true' %}
+<td colspan="3"><span class="heading-small">{{content.Summary.otherExecutors | safe}}</span></td>
+{{checkanswer(
+    items = [{
+        question: content.ExecutorsApplying.question,
+        answer: fields.executors.otherExecutorsApplying.value,
+        visible: true
+    }],
+    url = content.ExecutorsApplying.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [{
+            question: content.ExecutorsDealingWithEstate.question,
+            answer: fields.summary.executorsDealingWithEstate.value,
+            visible: fields.executors.otherExecutorsApplying.value === content.ExecutorsApplying.optionYes
+        }
+    ],
+    url = content.ExecutorsDealingWithEstate.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value,
+    answerIsCollection = true
+)}}
+
+{% set cls = cycler(common.first,common.second,common.third,common.fourth,common.fifth) %}
+{% for executor in fields.executors.list.value %}
+    {% if executor.isApplicant != true and executor.isApplying === true %}
+    <td colspan="3"><span class="heading-small">{{content.Summary.executorApplyingForProbate |  replace("{executorOrderNumber}", cls.next())}}</span></td>
+            {{checkanswer(
+            items = [{
+                    question: content.Summary.nameOnWill,
+                    answer: executor.fullName,
+                    visible: true
+                }
+            ],
+            url = content.ExecutorsNames.url,
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+
+        {{checkanswer(
+            items = [{
+                    question: content.Summary.currentName,
+                    answer: executor.currentName,
+                    visible: executor.hasOtherName
+                }
+            ],
+            url = content.ExecutorCurrentName.url | replace("*", loop.index - 1 ),
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+
+        {{checkanswer(
+            items = [{
+                    question: content.Summary.address,
+                    answer: executor.address,
+                    visible: true
+                }
+            ],
+            url = content.ExecutorAddress.url | replace("*", loop.index - 1 ),
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+
+
+        {{checkanswer(
+            items = [{
+                    question: content.Summary.mobileNumber,
+                    answer: executor.mobile,
+                    visible: true
+                }
+            ],
+            url = content.ExecutorContactDetails.url | replace("*", loop.index - 1 ),
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+
+
+        {{checkanswer(
+            items = [{
+                    question: content.Summary.emailAddress,
+                    answer: executor.email,
+                    visible: true
+                }
+            ],
+            url = content.ExecutorContactDetails.url | replace("*", loop.index - 1 ),
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+    {% endif %}
+{% endfor %}
+{% if fields.summary.executorsPowerReservedOrRenounced.value === 'true' %}
+
+<td colspan="3"><span class="heading-small">{{content.Summary.executorsNotApplyingForProbate | safe}}</span></td>
+
+{% for executor in fields.executors.list.value %}
+
+    {% if executor.isApplicant != true and executor.isApplying != true and executor.isDead != true %}
+            {{checkanswer(
+            items = [{
+                    question: content.ExecutorRoles.question | replace("{executorFullName}", executor.fullName ),
+                    answer: executor.notApplyingReason,
+                    visible: true
+                }
+            ],
+            url = content.ExecutorRoles.url | replace("*", loop.index - 1 ),
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+
+        {{checkanswer(
+            items = [{
+                    question: content.ExecutorNotified.question |  replace("{executorName}", executor.fullName ),
+                    answer: executor.executorNotified,
+                    visible: executor.notApplyingReason == content.ExecutorRoles.optionPowerReserved
+                }
+            ],
+            url = content.ExecutorNotified.url | replace("*", loop.index - 1 ),
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+
+        {% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}

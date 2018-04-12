@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "will-date",
+  "type": "object",
+  "properties": {
+    "isWillDate": {
+      "type": "string"
+    }
+  },
+  "switch": [
+    {
+      "if": {"properties": { "isWillDate": { "enum": [""] } }},
+      "then": {"required": ["isWillDate"]},
+      "continue": false
+    },
+    {
+      "if": { "properties": { "isWillDate": { "enum": ["Yes"] } } },
+      "then": {
+        "properties": {
+          "willDate_day": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 31
+          },
+          "willDate_month": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12
+          },
+          "willDate_year": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 9999
+          },
+          "willDate_date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["willDate_day", "willDate_month", "willDate_year"]
+      },
+      "continue": false
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "title": "SMS Verification",
+  "header": "Sign in",
+  "subHeader": "Before making an application for probate, we need to confirm who you are.",
+  "securityCode": "We&rsquo;ve sent you a text message with a security code.",
+  "phoneCode" : "Check your phone for the 6-digit code and enter it in the box below.",
+  "pinLegend": "Text message code",
+  "pinText" : "Text message code",
+  "button" : "Sign in",
+  "forgottenCode": "I haven&rsquo;t received a security code",
+
+  "errors": {
+    "pin": {
+      "required": {
+        "summary": "You need to enter the security code that was sent to your phone.",
+        "message": "You need to enter the security code that was sent to your phone."
+      },
+      "invalid": {
+        "summary": "Your verification pin can only contain numbers.",
+        "message": "Your verification pin can only contain numbers."
+      },
+      "incorrect": {
+        "summary": "We don’t recognise the security code you’ve entered. Please enter the code again.",
+        "message": "We don’t recognise the security code you’ve entered. Please enter the code again."
+      }
+    }
+  }
+}

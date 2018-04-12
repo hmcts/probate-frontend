@@ -1,0 +1,15 @@
+{
+    "_links": {
+        "next_url": {
+            "href": "http://localhost:3000/payment-status",
+            "method": "GET"
+        }
+    },
+    "id": 1,
+    "amount": 21500,
+    "date_created": "2017-08-10T10:07:43.729Z",
+    "state": {
+        "finished": true,
+        "status": "success"
+    }
+}

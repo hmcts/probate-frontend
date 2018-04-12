@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "executor-current-name",
+  "type": "object",
+  "properties": {
+    "currentName": {
+        "type": "string",
+        "minLength": 2,
+        "pattern": "^[^<>]+$"
+    }
+  },
+  "required": [
+    "currentName"
+  ]
+}

@@ -1,0 +1,32 @@
+{% from "widgets/fielderror.html" import fieldError %}
+
+{% macro checkbox(name, field, text, disabled) %}
+
+<fieldset class="form-group {{ 'form-group-error' if field.error }}">
+    <legend class="visually-hidden">{{text | safe}}</legend>
+
+    {{ fieldError(field) }}
+
+    <div class="multiple-choice">
+        <input id="{{name}}" type="checkbox" name="{{name}}" value="true" {{"checked='checked'" if field.value === 'true' }}>
+        <label for="{{name}}">{{text | safe}}</label>
+    </div>
+
+</fieldset>
+{% endmacro %}
+
+{% macro checkboxes(name, field, options, legend) %}
+<fieldset id={{name}} class="form-group {{ 'form-group-error' if field.error }}">
+    <legend class="visually-hidden">{{legend | safe}}</legend>
+
+    {{ fieldError(field) }}
+
+    {% for option in options %}
+    <div class="multiple-choice">
+        <input id="{{name}}-{{loop.index}}" type="checkbox" name="{{name}}" value="{{option.option}}"  {{"checked='checked'" if option.checked}} {{'disabled' if option.disabled}}/>
+        <label for="{{name}}-{{loop.index}}">{{option.option | safe}}</label>
+    </div>
+    {% endfor %}
+
+</fieldset>
+{% endmacro %}

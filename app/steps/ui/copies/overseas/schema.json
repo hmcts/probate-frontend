@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "copies-overseas",
+  "type": "object",
+  "properties": {
+    "overseas": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

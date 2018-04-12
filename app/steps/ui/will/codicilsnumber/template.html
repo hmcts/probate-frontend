@@ -1,0 +1,26 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "widgets/numbers.html" import numberField %}
+
+{% block question %}
+    <h1 class="form-title heading-large">{{content.question | safe}}</h1>
+{% endblock %}
+
+{% block form_content %}
+    <fieldset>
+        <legend class="visually-hidden">
+            {{ content.title | safe }}
+        </legend>
+        {{numberField(
+            name = 'codicilsNumber',
+            field = fields.codicilsNumber,
+            text = content.codicilsNumber,
+            size = 5,
+            width= '1-8',
+            currency = false
+        )}}
+    </fieldset>
+    <div class="form-group">
+        <input class="button" type="submit" value="{{common.continue}}">
+    </div>
+{% endblock %}

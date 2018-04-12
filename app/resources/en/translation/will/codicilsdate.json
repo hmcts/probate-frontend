@@ -1,0 +1,56 @@
+{
+  "title": "Is there a date on the latest update (&lsquo;codicil&rsquo;)?",
+  "question": "Is there a date on the latest update (&lsquo;codicil&rsquo;)?",
+  "legend": "Is there a date on the latest update (&lsquo;codicil&rsquo;)?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "codicilsDateQuestion": "What date was the latest codicil signed?",
+  "codicilsDateExplanation": "If there is more than codicil, you need to give the date of the most recent one.",
+  "codicilsDateHint": "For example, 30 06 2016",
+  "codicilsDateLegend": "What date was the latest codicil signed?",
+
+  "errors": {
+    "isCodicilsDate": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about the date on the latest update (&lsquo;codicil&rsquo;)",
+        "message": "Please select yes if there&rsquo;s a date on the latest update"
+      }
+    },
+    "codicilsDate_day": {
+      "required": {
+        "summary": "You haven&rsquo;t entered a valid day",
+        "message": "Please enter the day"
+      },
+      "invalid": {
+        "summary": "You haven&rsquo;t entered a valid day",
+        "message": "Please enter the day"
+      }
+    },
+    "codicilsDate_month": {
+      "required": {
+        "summary": "You haven&rsquo;t entered a valid month",
+        "message": "Please enter the month"
+      },
+      "invalid": {
+        "summary": "You haven&rsquo;t entered a valid month",
+        "message": "Please enter the month"
+      }
+    },
+    "codicilsDate_year": {
+      "required": {
+        "summary": "You haven&rsquo;t entered a valid year",
+        "message": "Please enter the year"
+      },
+      "invalid": {
+        "summary": "You haven&rsquo;t entered a valid year",
+        "message": "Please enter the year"
+      }
+    },
+    "codicilsDate_date": {
+      "invalid": {
+        "summary": "You haven&rsquo;t entered a valid date",
+        "message": "Please enter a date"
+      }
+    }
+  }
+}

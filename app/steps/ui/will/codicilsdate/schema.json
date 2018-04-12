@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "codicils-date",
+  "type": "object",
+  "properties": {
+    "isCodicilsDate": {
+      "type": "string"
+    }
+  },
+  "switch": [
+    {
+      "if": {"properties": { "isCodicilsDate": { "enum": [""] } }},
+      "then": {"required": ["isCodicilsDate"]},
+      "continue": false
+    },
+    {
+      "if": { "properties": { "isCodicilsDate": { "enum": ["Yes"] } } },
+      "then": {
+        "properties": {
+          "codicilsDate_day": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 31
+          },
+          "codicilsDate_month": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12
+          },
+          "codicilsDate_year": {
+            "type": "integer",
+            "minimum": 1000,
+            "maximum": 9999
+          },
+          "codicilsDate_date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["codicilsDate_day", "codicilsDate_month", "codicilsDate_year"]
+      },
+      "continue": false
+    }
+  ]
+}

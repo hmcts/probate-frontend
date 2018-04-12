@@ -1,0 +1,39 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "widgets/numbers.html" import numberField %}
+
+{% from "widgets/lists.html" import unorderedList %}
+
+{% block question %}
+    <h1 class="form-title heading-large">{{content.question | safe}}</h1>
+{% endblock %}
+
+{% block form_content %}
+
+{{content.checklist1Header}}
+
+{{ unorderedList([content["checklist1-item1"], content["checklist1-item2"]])}}
+
+<div class="panel panel-border-narrow" id="executorNotified-2-details">
+    {{content.notExecutorYet}}
+</div>
+
+    <fieldset>
+        <legend class="visually-hidden">
+            {{ content.title | safe }}
+        </legend>
+
+ 
+        {{numberField(
+            name = 'executorsNumber',
+            field = fields.executorsNumber,
+            text = content.executorsNumber,
+            size = 5,
+            width= '1-8',
+            currency = false
+        )}}
+    </fieldset>
+    <div class="form-group">
+        <input class="button" type="submit" value="{{common.continue}}">
+    </div>
+{% endblock %}

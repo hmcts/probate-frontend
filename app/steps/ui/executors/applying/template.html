@@ -1,0 +1,26 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "widgets/radiobuttons.html" import optionsRadio %}
+{% from "widgets/lists.html" import unorderedList %}
+
+{% block question %}
+    <h1 class="formtitle heading-large">{{content.question}}</h1>
+{% endblock %}
+
+{% block form_content %}
+    
+    <p>{{content.paragraph1 | safe}}</p>
+
+    {{ unorderedList([content["applicant-rights1"], content["applicant-rights2"], content["applicant-rights3"]])}}
+
+    {{optionsRadio(content,
+        name = 'otherExecutorsApplying',
+        field = fields.otherExecutorsApplying,
+        options = ['optionYes', 'optionNo'],
+        legend = content.legend,
+        inline = true
+    )}}
+    <div class="formgroup">
+        <input class="button" type="submit" value="{{common.continue}}">
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "widgets/checkboxes.html" import checkboxes %}
+
+{% block question %}
+<h1 class="form-title heading-large">{{content.question}}</h1>
+{% endblock %}
+
+{% block form_content %}
+
+{{ checkboxes(
+    name = 'executorsWhoDied',
+    field = fields.executorsWhoDied,
+    options = fields.options.value,
+    legend = content.question
+)}}
+
+<div class="form-group">
+    <input class="button" type="submit" value="{{common.continue}}">
+</div>
+{% endblock %}
+

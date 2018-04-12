@@ -1,0 +1,34 @@
+{% extends "includes/layout.html" %}
+
+{% block page_title %}
+    {{ content.title}}
+{% endblock %}
+
+{% block content %}
+
+    <main id="content" role="main">
+
+        {% include "includes/phase_banner_beta.html" %}
+
+        <h1 class="form-title heading-large">{{content.header | safe}}</h1>
+
+        {% if fields.softStop.value === "true" %}
+
+            <p>{{content.stopParagraph1 | safe}}</p>
+
+        {% else %}
+
+            <p>{{content.successParagraph1 | safe}}</p>
+
+            <h2 class="heading-medium">{{content.successHeading1 | safe}}</h2>
+
+            <p>{{content.successParagraph2 | safe}}</p>
+
+            <p>{{content.contactProbateOffice | safe}}</p>
+
+        {% endif %}
+        <a href="{{links.surveyEndOfApplication | safe}}">{{content.survey | safe}}</a>
+
+    </main>
+
+{% endblock %}

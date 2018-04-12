@@ -1,0 +1,14 @@
+{
+  "title": "Copies - Outside the UK",
+  "question": "How many copies of the grant do you need for use outside the UK?",
+  "copies": "Number of copies",
+
+  "errors": {
+    "overseas": {
+      "invalid": {
+          "summary": "You haven&rsquo;t entered a valid number",
+          "message": "Please enter a valid number"
+      }
+    }
+  }
+}

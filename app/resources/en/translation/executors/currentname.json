@@ -1,0 +1,18 @@
+{
+  "title": "Current name",
+  "question": "What is {executorFullName}&rsquo;s current name?",
+  "currentNameHint": "Their current names will be included on the grant of probate",
+
+  "errors": {
+    "currentName": {
+      "required": {
+        "summary": "Enter the executor&rsquo;s current name",
+        "message": "Enter the executor&rsquo;s current name"
+      },
+      "invalid": {
+        "summary": "The name can only contain letters a to z, spaces, hyphens and apostrophes",
+        "message": "The name can only contain letters a to z, spaces, hyphens and apostrophes"
+      }
+    }
+  }
+}

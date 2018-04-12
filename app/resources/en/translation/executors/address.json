@@ -1,0 +1,54 @@
+{
+  "title": "Executor address",
+  "question": "What is {executorName}'s permanent address?",
+  "explanation1": "This will be printed on the grant of probate.",
+  "postcode": "Postcode",
+  "findAddress": "Find UK address",
+  "addressLabel": "Address",
+  "selectAddress": "Select address",
+  "enterManually": "Enter manually (including international addresses)",
+
+  "errors": {
+    "crossField": {
+      "oneOf": {
+        "summary": "Please select an address or enter one manually",
+        "message": "Please select an address or enter one manually"
+      }
+    },
+    "postcode": {
+      "required": {
+        "summary": "Please search for an address or enter one manually",
+        "message": "Enter the postcode"
+      },
+      "invalid": {
+        "summary": "Please search for an address or enter one manually",
+        "message": "Invalid postcode"
+      }
+    },
+    "postcodeLookup": {
+      "required": {
+        "summary": "Please search for an address or enter one manually"
+      }
+    },
+    "postcodeAddress": {
+      "required": {
+        "summary": "Please select an address or enter one manually",
+        "message": "Select an address"
+      },
+      "invalid": {
+        "summary": "The address you selected is invalid",
+        "message": "Please select a valid address"
+      }
+    },
+    "freeTextAddress": {
+      "required": {
+        "summary": "Please select an address or enter one manually",
+        "message": "Enter an address"
+      },
+      "invalid": {
+        "summary": "Please select an address or enter one manually",
+        "message": "Enter a valid address"
+      }
+    }
+  }
+}

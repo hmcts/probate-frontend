@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "assets-overseas",
+  "type": "object",
+  "properties": {
+  },
+  "required": [
+    "assetsoverseas"
+  ]
+}

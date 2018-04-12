@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "executor-roles",
+  "type": "object",
+  "properties": {
+    "notApplyingReason": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "notApplyingReason"
+  ]
+}

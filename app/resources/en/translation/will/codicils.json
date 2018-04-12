@@ -1,0 +1,16 @@
+{
+  "title": "Are there any codicils?",
+  "question": "Were any updates (&lsquo;codicils&rsquo;) made to the will?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "legend": "Were any updates (&lsquo;codicils&rsquo;) made to the will?",
+
+  "errors": {
+    "codicils": {
+      "required": {
+        "summary": "Answer the question about updates (&lsquo;codicils&rsquo;)",
+        "message": "Select yes if there are updates to the will"
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Inheritance tax details",
+  "question": "Was an inheritance tax form filled in online, or on paper?",
+  "onlineOption": "Online (an estate report was filled in)",
+  "paperOption": "On paper (the form will be posted)",
+  "legend": "Was an inheritance tax form filled in online, or on paper?",
+
+  "errors": {
+    "method": {
+      "required": {
+          "summary": "You haven&rsquo;t answered the question about inheritance tax forms",
+          "message": "Select paper or online form"
+      }
+    }
+  }
+}

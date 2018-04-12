@@ -1,0 +1,17 @@
+{
+  "title": "Do any of these executors now have a different name to that on the will?",
+  "question": "Do any of these executors now have a different name to that on the will?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "legend": "Do any of these executors now have a different name to that on the will?",
+  "paragraph1": "These names will be included on the grant of probate.",
+
+  "errors": {
+    "alias": {
+      "required": {
+          "summary": "You haven&rsquo;t answered the question",
+          "message": "Select &lsquo;yes&rsquo; if any of the executors you&rsquo;ve added have a different name to that on the will"
+      }
+    }
+  }
+}

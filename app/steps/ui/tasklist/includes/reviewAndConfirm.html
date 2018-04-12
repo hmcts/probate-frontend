@@ -1,0 +1,27 @@
+{% set previousTaskStatus = fields.previousTaskStatus.value.ReviewAndConfirmTask %}
+
+<li class="task-item">
+    <span class="heading-medium">{{content.reviewAndConfirmTask}}</span>
+    {% if fields.ReviewAndConfirmTask.value.status == 'complete' and previousTaskStatus !== 'started' %}
+        {% if fields.hasMultipleApplicants.value == 'true' and fields.alreadyDeclared.value == 'false'  %}
+            <span class="progress-status-tag">{{content.taskCompleteTag | upper}}</span>
+            <p>{{content.reviewAndConfirmTaskMultiplesParagraph1 | safe}}</p>
+            <p class="panel panel-border-wide">{{content.reviewAndConfirmTaskMultiplesParagraph2 | safe}}</p>
+            <p>{{content.reviewAndConfirmTaskMultiplesParagraph3 | safe}}</p>
+            <p>{{content.reviewAndConfirmTaskMultiplesParagraph4 | safe}}</p>
+        {% else %}
+            <span class="progress-status-tag">{{content.taskCompleteTag | upper}}</span>
+            <p>{{content.reviewAndConfirmTaskCompleteParagraph}}</p>
+        {% endif %}
+    {% else %}
+        <p>{{content.reviewAndConfirmTaskParagraph1}}</p>
+    {% endif %}
+    {{taskAction(
+    prevTaskStatus = previousTaskStatus,
+    status = fields.ReviewAndConfirmTask.value.status,
+    nextURL = 'summary/declaration',
+    checkYourAnswersURL = fields.ReviewAndConfirmTask.value.checkYourAnswersLink,
+    content = content,
+    alreadyDeclared = fields.alreadyDeclared.value
+    )}}
+</li>

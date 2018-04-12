@@ -1,0 +1,18 @@
+# exclude all by default
+
+*
+
+# exceptions from `exclude all` rule
+
+!docker/**
+!package.json
+!yarn.lock
+!app
+!app.js
+!gulpfile.js
+!tsconfig.json
+!.npmrc
+!server.js
+!app/**
+!config/**
+!test

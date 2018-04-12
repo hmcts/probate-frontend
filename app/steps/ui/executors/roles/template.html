@@ -1,0 +1,25 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "widgets/radiobuttons.html" import optionsRadio %}
+
+{% block question %}
+    <h1 class="form-title heading-large">{{content.question | replace('{executorFullName}', fields.list.value[fields.index.value].fullName) | safe}}</h1>
+{% endblock %}
+
+{% block form_content %}
+    <fieldset class="form-group {{'form-group-error' if fields.isApplying.error}} inline">
+
+        <div id="notApplyingReasons">
+            {{optionsRadio(
+		    	content = content,
+                name = 'notApplyingReason',
+                field = fields.notApplyingReason,
+                options = ['optionPowerReserved', 'optionRenunciated'],
+                legend = content.questionLegend | replace('{executorFullName}', fields.list.value[fields.index.value].fullName) | safe
+            )}}
+        </div>
+    </fieldset>
+    <div class="form-group">
+        <input class="button" type="submit" value="{{common.continue}}">
+    </div>
+{% endblock %}

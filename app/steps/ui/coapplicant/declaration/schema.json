@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "co-applicant-declaration",
+  "type": "object",
+  "properties": {},
+  "required": ["agreement"]
+}

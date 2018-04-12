@@ -1,0 +1,18 @@
+{
+  "title": "Married or enter into a civil partnership after the date stated on the will",
+  "question": "Did {deceasedName} get married or enter into a civil partnership after the date stated on the will?",
+  "questionWithCodicil": "Did {deceasedName} get married or enter into a civil partnership after the date stated on the latest codicil?",
+  "legend": "Did {deceasedName} get married or enter into a civil partnership after the date stated on the will?",
+  "legendWithCodicil": "Did {deceasedName} get married or enter into a civil partnership after the date stated on the latest codicil?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "married": {
+      "required": {
+        "summary": "Please select an option",
+        "message": "Please select an option"
+      }
+    }
+  }
+}

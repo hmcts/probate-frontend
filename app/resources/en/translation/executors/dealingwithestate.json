@@ -1,0 +1,17 @@
+{
+  "title": "Which executors will be dealing with the estate?",
+  "question": "Which executors will be dealing with the estate?",
+  "paragraph1": "These executors will be given the legal right to:",
+  "applicant-rights1": "collect the estate&rsquo;s assets (property, money and possessions)",
+  "applicant-rights2": "pay any taxes and debts",
+  "applicant-rights3": "distribute what&rsquo;s left to the people entitled to it (the &lsquo;beneficiaries&rsquo;)",
+  "applicants-not-dealing": "You&rsquo;ll be asked about executors who won&rsquo;t be dealing with the estate later in the application.",
+  "errors": {
+    "executorsApplying": {
+      "required": {
+        "summary": "Select at least one executor",
+        "message": "Select at least one executor"
+      }
+    }
+  }
+}

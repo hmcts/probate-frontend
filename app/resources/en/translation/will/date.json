@@ -1,0 +1,56 @@
+{
+  "title": "Is there a date on the will?",
+  "question": "Is there a date on the will?",
+  "legend": "Is there a date on the will?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "willDateQuestion": "What date was the original will signed and witnessed?",
+  "willDateExplanation": "If there is more than one original will, you need to give the date of the most recent one.",
+  "willDateHint": "For example, 30 06 2016",
+  "willDateLegend": "What date was the original will signed and witnessed?",
+
+  "errors": {
+    "isWillDate": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about the date on the will",
+        "message": "Please select yes if there&rsquo;s a date on the will"
+      }
+    },
+    "willDate_day": {
+      "required": {
+        "summary": "You haven&rsquo;t entered a valid day",
+        "message": "Please enter the day"
+      },
+      "invalid": {
+        "summary": "You haven&rsquo;t entered a valid day",
+        "message": "Please enter the day"
+      }
+    },
+    "willDate_month": {
+      "required": {
+        "summary": "You haven&rsquo;t entered a valid month",
+        "message": "Please enter the month"
+      },
+      "invalid": {
+        "summary": "You haven&rsquo;t entered a valid month",
+        "message": "Please enter the month"
+      }
+    },
+    "willDate_year": {
+      "required": {
+        "summary": "You haven&rsquo;t entered a valid year",
+        "message": "Please enter the year"
+      },
+      "invalid": {
+        "summary": "You haven&rsquo;t entered a valid year",
+        "message": "Please enter the year"
+      }
+    },
+    "willDate_date": {
+      "invalid": {
+        "summary": "You haven&rsquo;t entered a valid date",
+        "message": "Please enter a date"
+      }
+    }
+  }
+}

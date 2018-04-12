@@ -1,0 +1,16 @@
+{
+  "title": "Are all the executors still alive?",
+  "question": "Are all the executors alive?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "legend": "Are all the executors still alive?",
+
+  "errors": {
+    "allalive": {
+      "required": {
+        "summary": "Answer the question about living executors",
+        "message": "Select yes if all executors are still alive."
+      }
+    }
+  }
+}

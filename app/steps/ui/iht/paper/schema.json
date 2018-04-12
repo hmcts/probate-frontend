@@ -1,0 +1,70 @@
+{
+  "$schema": "https://raw.githubusercontent.com/epoberezkin/ajv/master/lib/refs/json-schema-v5.json#",
+  "id": "iht-paper",
+  "type": "object",
+  "properties": {},
+  "switch": [
+    {
+      "if": {"properties": { "form": { "enum": [""] } }},
+      "then": {"required": ["form"]},
+      "continue": false
+    },
+    {
+      "if": { "properties": { "form": { "enum": ["205"] } } },
+      "then": {
+        "properties": {
+          "gross205": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 13
+          },
+          "net205": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 13
+          }
+      },
+        "required": ["gross205", "net205"]
+      },
+      "continue": false
+    },
+    {
+      "if": { "properties": { "form": { "enum": ["207"] } } },
+      "then": {
+        "properties": {
+          "gross207": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 13
+          },
+          "net207": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 13
+          }
+      },
+        "required": ["gross207", "net207"]
+      },
+      "continue": false
+    },
+    {
+      "if": { "properties": { "form": { "enum": ["400"] } } },
+      "then": {
+        "properties": {
+          "gross400": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 13
+          },
+          "net400": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 13
+          }
+      },
+        "required": ["gross400", "net400"]
+      },
+      "continue": false
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{% extends "includes/layout.html" %}
+{% block page_title %}
+    {{ content.title  | safe}}
+{% endblock %}
+
+{% block content %}
+<main id="content" role="main">
+
+    {% include "includes/phase_banner_beta.html" %}
+    <h1 class="form-title heading-large">{{content.pageHeader | safe}}</h1>
+
+    <p>{{content.paragraph1 | replace('{leadExecFullName}', fields.leadExecFullName.value) | safe}}</p>
+    <p>{{content.paragraph2 | replace('{leadExecFullName}', fields.leadExecFullName.value) | safe}}</p>
+
+    <h2 class="heading-medium">{{content.subHeader | safe}}</h2>
+
+    <p>{{content.paragraph3 | safe}}</p>
+    <p>{{content.paragraph4 | safe}}</p>
+
+</main>
+{% endblock %}

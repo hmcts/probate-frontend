@@ -1,0 +1,32 @@
+{
+    "title": "Check legal statement and make declaration",
+    "pageHeader": "Check legal statement and make declaration",
+    "legalStatementHeader": "Legal statement",
+    "legalStatementIntro": "This statement is based on the information {mainApplicantName} has given in their application. It will be stored as a public record.",
+    "highCourtHeader": "In the High Court of Justice",
+    "familyDivisionHeader": "Family Division",
+    "probateHeader": "(Probate)",
+    "deceasedHeader": "The person who died",
+    "deceasedEstateHeader": "The estate of the person who died",
+    "executorApplyingHeader": "Executors applying for probate",
+    "executorNotApplyingHeader": "Executors not applying for probate",
+    "declarationHeader": "Declaration",
+    "agreementHeader": "Do you agree with this information?",
+    "agreementParagraph" :"By answering &lsquo;yes&rsquo; you will be confirming that:",
+    "agreementItem1":"the information in your application is correct to the best of your knowledge",
+    "agreementItem2": "you will administer the estate of the person who died according to law",
+    "agreementItem3": "your application is truthful",
+    "optionYes": "Yes, I agree that the information is correct",
+    "optionNo": "No, something is wrong with the information",
+    "optionNoText": "If you&rsquo;re not sure about any of the information in the legal statement, you should contact {mainApplicantName} before saving and continuing.",
+    "legend" : "Do you agree with this information?",
+    "submit": "Submit your response",
+    "errors": {
+      "agreement": {
+        "required": {
+          "summary": "Select yes if you agree with the legal statement",
+          "message": "Select yes if you agree with the legal statement"
+        }
+      }
+    }
+  }

@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "co-applicant-contact-details",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 254
+    },
+    "mobile": {
+      "type": "string",
+      "minLength": 11,
+      "maxLength": 13
+    }
+  },
+  "required": [
+    "email",
+    "mobile"
+  ]
+}

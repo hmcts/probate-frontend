@@ -1,0 +1,17 @@
+{
+  "title": "Did the person who died have assets outside the UK?",
+  "question": "Did the person who died have assets outside the UK?",
+  "hint": "This could be shares or property that they held outside the UK. If they did, you need special copies of the grant of probate to use outside of the UK.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "legend": "Did the person who died have assets outside the UK?",
+
+  "errors": {
+    "assetsoverseas": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about assets being held outside the UK",
+        "message": "Select yes if the person who died had assets outside the UK"
+      }
+    }
+  }
+}

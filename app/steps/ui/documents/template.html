@@ -1,0 +1,71 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "widgets/lists.html" import unorderedList %}
+{% from "widgets/checkboxes.html" import checkbox %}
+
+{% set checklistOneItems = [content["checklist1-item1"]] %}
+{% set checklistTwoItems = [content["checklist2-item1"]] %}
+{% set codicilsSuffix = "" %}
+{% set checklistThreeHeaderNumber = content.checklist3HeaderNumber %}
+
+{% if fields.codicilsNumber.value > "0" %}
+    {% set checklistOneItems = (checklistOneItems.push(content["checklist1-item2"]), checklistOneItems) %}
+    {% set checklistTwoItems = (checklistTwoItems.push(content["checklist2-item2"]), checklistTwoItems) %}
+    {% set codicilsSuffix = "-codicils" %}
+{% endif %}
+
+{% set checklistThreeItems = [content["checklist3-item1" + codicilsSuffix], content["checklist3-item2"]] %}
+
+{% if fields.hasRenunciated.value === "true" %}
+    {% set checklistThreeItems = (checklistThreeItems.push(content["checklist3-item3"] | replace('{renunciationFormLink}', links.renunciationForm)), checklistThreeItems) %}
+{% endif %}
+
+{% block question %}
+    <h1 class="form-title heading-large">{{content.header}}</h1>
+{% endblock %}
+
+{% block form_content %}
+    <p>{{ content.printPage | safe }}</p>
+
+    <h2 class="heading-medium">{{ content.heading2 | safe }}</h2>
+
+    <h3 class="heading-small">{{ content.checklist1Header | safe }}</h2>
+
+    {{ unorderedList(checklistOneItems) }}
+
+    {% if fields.hasMultipleApplicants.value === "true" %}
+
+        <h3 class="heading-small">{{ content.checklist2Header | safe }}</h2>
+
+        {{ unorderedList(checklistTwoItems) }}
+
+        {% set checklistThreeHeaderNumber = content.checklist3HeaderNumberMultipleExecutors %}
+
+    {% endif %}
+
+    <h3 class="heading-small">{{ checklistThreeHeaderNumber }} {{ content.checklist3Header | safe }}</h2>
+
+    {{ unorderedList(checklistThreeItems) }}
+
+    <p>{{ content["coverLetter" + codicilsSuffix] | safe }}</p>
+
+    <div class="panel panel-border-wide">
+        <strong class="text">{{ content.warning | safe }}</strong>
+    </div>
+
+    <h2 class="heading-medium">{{ content.heading3 | safe }}</h2>
+
+    <p>{{ content.sendDocuments }}</p>
+
+    <p>{{ content.sendDocumentsAddress | safe }}</p>
+
+    {{ checkbox(
+        name='sentDocuments',
+        field=fields.sentDocuments,
+        text=content["checkboxLabel" + codicilsSuffix]
+    ) }}
+
+    <div class="form-group">
+        <input id="button" class="button" type="submit" role="button" value="{{ common.continue }}">
+    </div>
+{% endblock %}

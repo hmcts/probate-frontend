@@ -1,0 +1,19 @@
+{
+    "title": "Will any of the other executors be dealing with the estate?",
+    "question": "Will any of the other executors be dealing with the estate?",
+    "paragraph1": "These executors will be given the legal right to:",
+    "applicant-rights1": "collect the estate&rsquo;s assets (property, money and possessions)",
+    "applicant-rights2": "pay any taxes and debts",
+    "applicant-rights3": "distribute what&rsquo;s left to the people entitled to it (the &lsquo;beneficiaries&rsquo;)",
+    "optionYes": "Yes",
+    "optionNo": "No",
+    "legend": "Will any of the other executors be dealing with the estate?",
+    "errors": {
+        "otherExecutorsApplying": {
+            "required": {
+                "summary": "Select yes if any of the other executors are dealing with the estate",
+                "message": "Select yes if any of the other executors are dealing with the estate"
+            }
+        }
+    }
+}

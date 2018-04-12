@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/epoberezkin/ajv/master/lib/refs/json-schema-v5.json#",
+  "id": "iht-value",
+  "type": "object",
+  "properties": {
+    "grossValueOnline": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 13
+    },
+    "netValueOnline": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 13
+    } 
+  },
+  "required": [
+    "grossValueOnline",
+    "netValueOnline"
+  ]
+}

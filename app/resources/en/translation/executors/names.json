@@ -1,0 +1,21 @@
+{
+  "title": "Executors&rsquo; names",
+  "question": "What are the executors&rsquo; names?",
+  "paragraph": "Write the names of all the executors, exactly as they appear on the will.",
+  "executor": "Executor",
+  "fullName": "Full name",
+  "numberOfExecutorsPage": "Change Number of Executors",
+  "errors": {
+    "executorName": {
+      "required": {
+        "summary": "You haven&rsquo;t entered an executor&rsquo;s name",
+        "message": "Please enter the executor&rsquo;s name"
+      },
+      "invalid": {
+        "summary": "The names you enter can only contain letters a to z, spaces, hyphens and apostrophes",
+        "message": "The names you enter can only contain letters a to z, spaces, hyphens and apostrophes"
+      }
+    }
+  }
+}
+

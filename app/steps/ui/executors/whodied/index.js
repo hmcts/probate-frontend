@@ -1,0 +1,43 @@
+const ValidationStep = require('app/core/steps/ValidationStep');
+const {some} = require('lodash');
+
+module.exports = class ExecutorsWhoDied extends ValidationStep {
+
+    static getUrl() {
+        return '/executors-who-died';
+    }
+
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        if (ctx.list) {
+            ctx.options = ctx.list
+            .filter(o => o.fullName)
+            .map(o => ({option: o.fullName, checked: o.isDead === true}));
+        }
+        return ctx;
+    }
+
+    pruneFormData(data) {
+        delete data.isApplying;
+        return data;
+    }
+
+    handlePost(ctx, errors) {
+        for (let i = 1; i < ctx.executorsNumber; i++) {
+            ctx.list[i].isDead  = ctx.executorsWhoDied.includes(ctx.list[i].fullName);
+            ctx.list[i] = this.pruneFormData(ctx.list[i]);
+        }
+        return [ctx, errors];
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.options;
+        delete ctx.executorsWhoDied;
+        return [ctx, formdata];
+    }
+
+    isComplete(ctx) {
+        return [some(ctx.list, exec => exec.isDead === true), 'inProgress'];
+    }
+};

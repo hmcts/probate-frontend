@@ -1,0 +1,37 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "widgets/dates.html" import date %}
+{% from "widgets/radiobuttons.html" import optionsRadio %}
+
+{% block question %}
+    <h1 class="form-title heading-large">{{content.question}}</h1>
+{% endblock %}
+
+{% block form_content %}
+    {{ optionsRadio(content,
+        name = 'isWillDate',
+        field = fields.isWillDate,
+        options = ['optionYes', 'optionNo'],
+        legend = content.legend,
+        inline = true
+    )}}
+
+    <div class="panel panel-border-narrow js-hidden" id="isWillDate-1-details">
+        <h2 class="form-title heading-medium">{{content.willDateQuestion}}</h2>
+        <p>{{content.willDateExplanation}}</p>
+        <p class="form-hint">{{content.willDateHint}}</p>
+        {{date(
+        name = 'willDate',
+        day = fields.willDate_day,
+        month = fields.willDate_month,
+        year = fields.willDate_year,
+        date = fields.willDate_date,
+        maxyear= currentYear,
+        legend = content.willDateLegend
+        )}}
+    </div>
+
+    <div class="form-group">
+        <input class="button" type="submit" value="{{common.continue}}">
+    </div>
+{% endblock %}

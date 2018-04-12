@@ -1,0 +1,11 @@
+{
+  "title": "SMS Verification Code Sent",
+  "banner": "A new security code has been sent to ",
+  "accessNotification": "You&rsquo;ll be able to access the service with the new code as soon as you receive it.",
+  "header1": "If you still haven&rsquo;t received the code",
+  "paragraph": "If you haven&rsquo;t got the code yet, make sure that:",
+  "listItem1": "your mobile has a signal",
+  "listItem2": "the mobile phone number we have is correct",
+  "listItem3": "you wait up to an hour to receive it - during busy periods, texts can be delayed",
+  "button": "Sign in"
+}

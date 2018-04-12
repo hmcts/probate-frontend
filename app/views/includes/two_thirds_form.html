@@ -1,0 +1,28 @@
+{% extends "includes/layout.html" %} 
+
+{% block page_title %}
+{{content.title | safe}}
+{% endblock %}
+
+{% block content %} 
+
+<main id="content" role="main">
+    {% include "includes/phase_banner_beta.html" %}
+
+    <div class="grid-row">
+        <div class="column-two-thirds">
+            {% block error_summary %}
+                {% include "includes/error_summary.html" %}
+            {% endblock %}
+            {% block question %}{% endblock %}
+
+            <form class="form" method="post" action="{{pageUrl}}" novalidate>
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                {% block form_content %}{% endblock %}
+            </form>
+            {% block executor_summary %}{% endblock %}
+        </div>
+    </div>
+</main>
+
+{% endblock %}

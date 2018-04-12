@@ -1,0 +1,46 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "widgets/dates.html" import date %}
+
+{% block question %}
+    <h1 class="form-title heading-large">{{content.question | safe}}</h1>
+{% endblock %}
+
+{% block form_content %}
+    <fieldset class="form-group {{ 'error' if fields.isCodicilsDate.error }} inline">
+        <legend class="visuallyhidden">{{content.question | safe}}</legend>
+        {% if fields.isCodicilsDate.error %}
+        <span class="error-message">
+            {{ fields.isCodicilsDate.errorMessage.message | safe}}
+        </span>
+        {% endif %}
+
+        <div class="multiple-choice" data-target="yes-details">
+            <input id="isCodicilsDateYes" type="radio" name="isCodicilsDate" value="{{content.optionYes}}" {{"checked='checked'" if fields.isCodicilsDate.value === content.optionYes }}>
+            <label for="isCodicilsDateYes">{{content.optionYes}}</label>
+        </div>
+
+        <div class="multiple-choice">
+            <input id="isCodicilsDateNo" type="radio" name="isCodicilsDate" value="{{content.optionNo}}" {{"checked='checked'" if fields.isCodicilsDate.value === content.optionNo }}>
+            <label for="isCodicilsDateNo">{{content.optionNo}}</label>
+        </div>
+
+        <div class="panel panel-border-narrow js-hidden" id="yes-details">
+            <h2 class="form-title heading-medium">{{content.codicilsDateQuestion}}</h2>
+            <p>{{content.codicilsDateExplanation}}</p>
+            <p class="form-hint">{{content.codicilsDateHint}}</p>
+            {{date(
+                name = 'codicilsDate',
+                day = fields.codicilsDate_day,
+                month = fields.codicilsDate_month,
+                year = fields.codicilsDate_year,
+                date = fields.codicilsDate_date,
+                maxyear= currentYear,
+                legend = content.codicilsDateLegend | safe
+            )}}
+        </div>
+    </fieldset>
+    <div class="form-group">
+        <input class="button" type="submit" value="{{common.continue}}">
+    </div>
+{% endblock %}

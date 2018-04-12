@@ -1,0 +1,65 @@
+{{checkanswer(
+    items = [{
+        question: content.IhtCompleted.question,
+        answer: fields.iht.completed.value,
+        visible: true
+    }],
+    url = content.IhtCompleted.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+{{checkanswer(
+    items = [{
+        question: content.IhtMethod.question,
+        answer: fields.iht.method.value,
+        visible: true
+    }],
+    url = content.IhtMethod.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{% set selectedOption=fields.iht.form.value %}
+
+{{checkanswer(
+    items = [{
+        question: content.IhtPaper.question,
+        answer:  content.IhtPaper['option' + selectedOption],
+        visible: fields.iht.method.value == content.IhtMethod.paperOption
+    },{
+        question: content.IhtValue.grossValue,
+        answer: fields.iht.grossValue.value,
+        visible: fields.iht.method.value == content.IhtMethod.paperOption
+    },{
+        question: content.IhtValue.netValue,
+        answer: fields.iht.netValue.value,
+        visible: fields.iht.method.value == content.IhtMethod.paperOption
+    }],
+    url = content.IhtPaper.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+{{checkanswer(
+    items = [{
+        question: content.IhtIdentifier.question,
+        answer: fields.iht.identifier.value,
+        visible: fields.iht.method.value == content.IhtMethod.onlineOption
+    }],
+    url = content.IhtIdentifier.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+{{checkanswer(
+    items = [{
+        question: content.IhtValue.grossValue,
+        answer: fields.iht.grossValue.value,
+        visible: fields.iht.method.value == content.IhtMethod.onlineOption
+    },{
+        question: content.IhtValue.netValue,
+        answer: fields.iht.netValue.value,
+        visible: fields.iht.method.value == content.IhtMethod.onlineOption
+    }],
+    url = content.IhtValue.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}

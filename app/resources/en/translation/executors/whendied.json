@@ -1,0 +1,16 @@
+{
+  "title": "When did the executor die?",
+  "question": "Did {executorFullName} die before the person who died?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "legend": "When did the executor die?",
+  "executorFullName": "",
+  "errors": {
+    "diedbefore": {
+      "required": {
+        "summary": "Answer the question about the executor&rsquo;s time of death.",
+        "message": "Select Yes if the executor died before the person who died."
+      }
+    }
+  }
+}

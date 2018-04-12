@@ -1,0 +1,18 @@
+{
+  "title": "Applicant name on the will",
+  "question": "Is your name &lsquo;{applicantName}&rsquo; exactly what appears on the will?",
+  "questionWithCodicil": "Is your name &lsquo;{applicantName}&rsquo; exactly what appears on the will or codicil?",
+  "legend": "Is your name &lsquo;{applicantName}&rsquo; exactly what appears on the will?",
+  "legendWithCodicil": "Is your name &lsquo;{applicantName}&rsquo; exactly what appears on the will or codicil?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "nameAsOnTheWill": {
+      "required": {
+        "summary": "Answer the question about your name matching the will or codicil",
+        "message": "Select yes if your name is exactly the same on the will or codicil"
+      }
+    }
+  }
+}

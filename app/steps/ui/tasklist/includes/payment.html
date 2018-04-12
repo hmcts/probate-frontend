@@ -1,0 +1,19 @@
+{% set previousTaskStatus = fields.previousTaskStatus.value.PaymentTask %}
+
+<li class="task-item">
+    <span class="heading-medium">{{content.paymentTask | safe}}</span>
+    {% if fields.PaymentTask.value.status === 'complete' and previousTaskStatus !== 'started' %}
+        <span class="progress-status-tag">{{content.taskCompleteTag | upper | safe}}</span>
+    {% else %}
+        <p>{{content.paymentTaskParagraph1 | safe}}</p>
+        <p>{{content.paymentTaskParagraph2 | safe}}</p>
+    {% endif %}
+    {{taskAction(
+        prevTaskStatus = previousTaskStatus,
+        status = fields.PaymentTask.value.status,
+        nextURL = fields.PaymentTask.value.nextURL,
+        checkYourAnswersURL = fields.PaymentTask.value.checkYourAnswersLink,
+        content = content
+    )}}
+</li>
+

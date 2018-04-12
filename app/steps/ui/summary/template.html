@@ -1,0 +1,54 @@
+{% extends "includes/layout.html" %}
+
+{% block page_title %}
+{{ content.Summary.title }}
+{% endblock %}
+
+{% block content %}
+
+<main id="content" role="main">
+    {% from "widgets/checkanswer.html" import checkanswer %}
+
+    {% include "includes/phase_banner_beta.html" %}
+    {% include "includes/error_summary.html" %}
+
+    <h1 class="heading-large">
+        {{content.Summary.heading}}
+    </h1>
+    <p>{{content.Summary.checkCarefully}}</p>
+
+    <table class="check-your-answers form-group">
+        <tbody>
+            <tr>
+                <td colspan="3">
+                    <span class="heading-medium">
+                        {{content.Summary.willWithCodicilHeading if fields.summary.codicilPresent.value === "true" else content.Summary.willHeading}}
+                    </span>
+                </td>
+            </tr>
+            {% include "ui/summary/includes/will.njk" %}
+            <tr>
+                <td colspan="3"><span class="heading-medium">{{content.Summary.ihtHeading}}</span></td>
+            </tr>
+            {% include "ui/summary/includes/iht.njk" %}
+            <tr>
+                <td colspan="3"><span class="heading-medium">{{content.Summary.applicantHeading}}</span></td>
+            </tr>
+            {% include "ui/summary/includes/executors.njk" %}
+            <tr>
+                <td colspan="3"><span class="heading-medium">{{content.Summary.deceasedHeading}}</span></td>
+            </tr>
+            {% include "ui/summary/includes/deceased.njk" %}
+        </tbody>
+    </table>
+
+    <div class="form-group">
+        {% if fields.summary.readyToDeclare.value === "true" %}
+        <p><a href="/declaration" class="button button-start">{{common.continue}}</a></p>
+        {% else %}
+        <p><a href="/summary/redirect" class="button button-start">{{common.continue}}</a></p>
+        {% endif %}
+    </div>
+</main>
+
+{% endblock %}

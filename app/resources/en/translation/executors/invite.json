@@ -1,0 +1,33 @@
+{
+  "title": "Notify the other executors who are applying for probate",
+  "question": "Notify the other executors who are applying for probate ",
+  "paragraph1": "Once you&rsquo;ve notified the other executors who are applying, they&rsquo;ll be sent an email telling them the legal statement is ready to agree.",
+
+  "paragraph2": "A grant of probate can&rsquo;t be issued until all the executors who are applying agree that the legal statement is correct.",
+  "heading1": "If the other executors who are applying don&rsquo;t agree",
+
+  "paragraph3": "Anyone who doesn&rsquo;t agree with the legal statement will be asked to contact you to discuss what needs changing.",
+
+  "paragraph4": "You can continue to make changes to your application until everyone has agreed the legal statement.",
+
+  "heading2": "If you change the information on your application",
+
+  "paragraph5": "If you make any changes, you&rsquo;ll need to contact the other applying executors to let them know the legal statement has been updated and is ready for them to agree.",
+
+  "paragraph6": "They can always see the most up to date version of the legal statement using the link we email them.",
+
+  "heading3": "The applying executors&rsquo; contact details",
+  "changeLink" : "Change",
+
+  "sendInvites": "Notify the other executors who are applying",
+
+
+  "errors": {
+    "getUrl(index": {
+      "invalid": {
+        "summary": "There was a problem with sending the emails, please try again later",
+        "message": "There was a problem with sending the emails, please try again later"
+      }
+    }
+  }
+}

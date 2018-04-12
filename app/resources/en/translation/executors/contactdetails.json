@@ -1,0 +1,33 @@
+{
+  "title": "Executor contact details",
+  "title1": "Executor email address",
+  "title2": "Executor mobile phone number",
+  "question": "What are {executorName}'s email address and mobile number?",
+  "questionHint": "This executor will be contacted and asked to confirm details of the estate.",
+  "email": "Email address",
+  "mobile": "Mobile phone number",
+  "mobileHint": "For example, 07900123456 or +33123456789",
+
+  "errors": {
+    "email": {
+      "required": {
+        "summary": "You haven&rsquo;t entered an email address",
+        "message": "Enter an email address"
+      },
+      "invalid": {
+        "summary": "You&rsquo;ve entered an invalid email address. Check the email address and enter it again.",
+        "message": "Enter an email address"
+      }
+    },
+    "mobile": {
+      "required": {
+        "summary": "You haven&rsquo;t entered a mobile phone number",
+        "message": "Enter a mobile phone number"
+      },
+      "invalid": {
+        "summary": "You haven&rsquo;t entered a valid mobile phone number",
+        "message": "Enter a mobile phone number without spaces. International numbers must start with a plus sign"
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{% from "widgets/fielderror.html" import fieldError %}
+
+{% macro numberField(text, hint, name, field, size, width, currency=true) %}
+<div class="form-group {{ 'form-group-error' if field.error }}">
+
+    <label class="form-label" for="{{name}}">{{text | safe}}</label>
+    {% if hint %}
+    <p class="form-hint">{{hint | safe}}</p>
+    {% endif %}
+
+    {{ fieldError(field) }}
+
+    {% if currency %} &pound; {% endif %} <input type="number" class="form-control {{ 'form-control-error' if field.error }} form-control-{{width}}" id="{{name}}" name="{{name}}" value="{{field.value}}" maxlength="{{size}}">
+</div>
+{% endmacro %}

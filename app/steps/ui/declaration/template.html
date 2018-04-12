@@ -1,0 +1,82 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "widgets/lists.html" import unorderedList %}
+{% from "widgets/checkboxes.html" import checkbox %}
+
+{% block question %}
+    <h1 class="form-title heading-large">{{ content.title }}</h1>
+{% endblock %}
+
+{% block form_content %}
+
+    <p>{{ fields.legalStatement.value.intro | safe }}</p>
+
+    <div class="inset-page">
+        <div class="heading-medium declaration-header">{{ content.highCourtHeader }}</div>
+        <div class="heading-small declaration-header">{{ content.familyDivisionHeader }}</div>
+        <div class="heading-small declaration-header">{{ content.probateHeader }}</div>
+
+        <h2 class="heading-medium">{{ content.legalStatementHeader }}</h2>
+        <p>{{ fields.legalStatement.value.applicant | safe }}</p>
+
+        <h3 class="heading-small">{{ content.deceasedHeader }}</h3>
+        <p>{{ fields.legalStatement.value.deceased | safe }} {{ fields.legalStatement.value.deceasedOtherNames }}</p>
+
+        <h3 class="heading-small">{{ content.deceasedEstateHeader }}</h3>
+        <p>{{ fields.legalStatement.value.deceasedEstateValue | safe }}</p>
+        <p>{{ fields.legalStatement.value.deceasedEstateLand | safe }}</p>
+
+        <h3 class="heading-small">{{ content.executorApplyingHeader }}</h3>
+        {% for executor in fields.legalStatement.value.executorsApplying %}
+            <p>{{ executor.name | safe }}</p>
+            <p>{{ executor.sign | safe }}</p>
+        {% endfor %}
+
+        {% if fields.legalStatement.value.executorsNotApplying.length > 0 %}
+            <h3 class="heading-small">{{ content.executorNotApplyingHeader }}</h3>
+            {% for executor in fields.legalStatement.value.executorsNotApplying %}
+                <p>{{ executor | safe }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <h2 class="heading-large">{{ content.declarationHeader }}</h2>
+        <p>{{ fields.declaration.value.confirm | safe }}</p>
+
+        {{ unorderedList([
+            fields.declaration.value.confirmItem1,
+            fields.declaration.value.confirmItem2,
+            fields.declaration.value.confirmItem3
+        ]) }}
+
+        <p>{{ fields.declaration.value.requests | safe }}</p>
+
+        {{ unorderedList([
+            fields.declaration.value.requestsItem1,
+            fields.declaration.value.requestsItem2
+        ]) }}
+
+        <p>{{ fields.declaration.value.understand | safe }}</p>
+
+        {{ unorderedList([
+            fields.declaration.value.understandItem1,
+            fields.declaration.value.understandItem2
+        ]) }}
+
+    </div>
+
+    {{ checkbox(
+        name='declarationCheckbox',
+        field= fields.declarationCheckbox,
+        text= fields.declaration.value.accept
+    ) }}
+
+    <div class="notice">
+        <em class="icon icon-important"><span class="visually-hidden">Warning</span></em>
+        <p>{{ fields.declaration.value.submitWarning | safe }}</p>
+    </div>
+
+    <div class="form-group">
+        <input class="button" type="submit" id="acceptAndSend" value="{{common.continue}}">
+    </div>
+
+{% endblock %}

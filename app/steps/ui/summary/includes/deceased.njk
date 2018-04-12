@@ -1,0 +1,107 @@
+{{checkanswer(
+    items = [
+        {
+            question: content.DeceasedName.firstName,
+            answer: fields.deceased.firstName.value,
+            visible: true
+        },
+        {
+            question: content.DeceasedName.lastName,
+            answer: fields.deceased.lastName.value,
+            visible: true
+        }],
+    url = content.DeceasedName.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+
+)}}
+
+{{checkanswer(
+    items = [{
+        question: content.DeceasedAlias.question,
+        answer: fields.deceased.alias.value,
+        visible: true
+    }],
+    url = content.DeceasedAlias.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{% if fields.deceased.otherNames.value.length > 0 %}
+<tr>
+    <td colspan="2">
+        <div class="grid-row">
+            <div class="column-one-half">{{content.Summary.otherNamesLabel | safe}}</div>
+            <div class="column-one-half">
+            {% for index, otherName in fields.deceased.otherNames.value %}
+                <div class="grid-row">
+                    <div class="column-one-half">{{otherName.firstName.value | safe}} {{otherName.lastName.value | safe}}</div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </td>
+    <td class="change-answer">
+        {% if fields.summary.alreadyDeclared.value == 'false' %}
+        <a href="{{content.DeceasedOtherNames.url}}">{{common.change}}<span class="visuallyhidden">{{common.change}}</span></a>
+        {%endif%}
+    </td>
+</tr>
+{% endif %}
+
+{% set deceasedName = [fields.deceased.firstName.value, fields.deceased.lastName.value] | join(" ") %}
+
+{{checkanswer(
+    items = [{
+        question: (content.DeceasedMarried.questionWithCodicil if fields.summary.codicilPresent.value === "true" else content.DeceasedMarried.question) | replace('{deceasedName}', deceasedName),
+        answer: fields.deceased.married.value,
+        visible: fields.summary.deceasedMarriedAfterDateOnCodicilOrWill.value == "true"
+    }],
+    url = content.DeceasedMarried.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [{
+        question: content.DeceasedDod.question,
+        answer: fields.deceased.dod_formattedDate.value,
+        visible: true
+    }],
+    url = content.DeceasedDod.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [{
+        question: content.DeceasedDob.question,
+        answer: fields.deceased.dob_formattedDate.value,
+        visible: true
+    }],
+    url = content.DeceasedDob.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [{
+        question: content.DeceasedDomicile.question,
+        answer: fields.deceased.domicile.value,
+        visible: true
+    }],
+    url = content.DeceasedDomicile.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [{
+        question: content.DeceasedAddress.question,
+        answer: fields.deceased.address.value,
+        visible: true
+    }],
+    url = content.DeceasedAddress.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}

@@ -1,0 +1,21 @@
+{
+  "title": "How many past and present executors are named on the will?",
+  "question": "How many past and present executors are named on the will and any updates (&lsquo;codicils&rsquo;)?",
+  "checklist1Header": "The total number must include anyone who:",
+  "checklist1-item1": "is a current executor, even if they aren&rsquo;t applying for probate",
+  "checklist1-item2": "was meant to be an executor but can&rsquo;t be one (for example, if they&rsquo;ve died and have been replaced by another executor)",
+  "notExecutorYet": "Do not include anyone who has not yet become an executor.",
+  "executorsNumber": "Total number of past and present executors",
+  "errors": {
+    "executorsNumber": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about how many executors are named in the will",
+        "message": "Enter a valid number between 1 and 20"
+      },
+      "invalid": {
+        "summary": "You haven&rsquo;t entered a valid number or the number is greater than 20",
+        "message": "Enter a valid number between 1 and 20"
+      }
+    }
+  }
+}

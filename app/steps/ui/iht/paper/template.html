@@ -1,0 +1,86 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "widgets/textfields.html" import textField %}
+
+{% block question %}
+    <h1 class="form-title heading-large">{{content.question}}</h1>
+{% endblock %}
+
+{% block form_content %}
+    <fieldset class="form-group {{ 'form-group-error' if fields['form'].error }}">
+        <legend class="visuallyhidden">{{content.question}}</legend>
+        {% if fields['form'].error %}
+            <span class="error-message">
+            {{ fields['form'].errorMessage.message | safe}}
+            </span>
+        {% endif %}
+
+        <!-- 205 -->
+        <div class="multiple-choice" data-target="205-details">
+            <input id="paper205" type="radio" name="form" value="205" {{"checked='checked'" if fields['form'].value === '205' }}>
+            <label for="paper205">{{content['option205']}}</label>
+        </div>
+
+        <div class="panel panel-border-narrow js-hidden" id="205-details">
+            {{textField(
+                name = 'gross205',
+                field = fields.gross205,
+                text = content.gross205 | safe,
+                size = 13
+            )}}
+            {{textField(
+                name = 'net205',
+                field = fields.net205,
+                text = content.net205 | safe,
+                size = 13
+            )}}
+        </div>
+
+        <!-- 207 -->
+        <div class="multiple-choice" data-target="207-details">
+            <input id="paper207" type="radio" name="form" value="207" {{"checked='checked'" if fields['form'].value === '207' }}>
+            <label for="paper207">{{content['option207']}}</label>
+        </div>
+
+        <div class="panel panel-border-narrow js-hidden" id="207-details">
+            {{textField(
+                name = 'gross207',
+                field = fields.gross207,
+                text = content.gross207 | safe,
+                size = 13
+            )}}
+            {{textField(
+                name = 'net207',
+                field = fields.net207,
+                text = content.net207 | safe,
+                size = 13
+            )}}
+        </div>
+
+        <!-- 400 & 421 -->
+        <div class="multiple-choice" data-target="400-details">
+            <input id="paper400" type="radio" name="form" value="400" {{"checked='checked'" if fields['form'].value === '400' }}>
+            <label for="paper400">{{content['option400']}}</label>
+        </div>
+
+        <div class="panel panel-border-narrow js-hidden" id="400-details">
+            {{textField(
+                name = 'gross400',
+                field = fields.gross400,
+                text = content.gross400 | safe,
+                size = 13
+            )}}
+            {{textField(
+                name = 'net400',
+                field = fields.net400,
+                text = content.net400 | safe,
+                size = 13
+            )}}
+            <p>{{content.421Info}}</p>
+        </div>
+
+    </fieldset>
+    <div class="form-group">
+        <input class="button" type="submit" value="{{common.continue}}">
+    </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{
+  "title": "Have you filled in the IHT form?",
+  "question": "Have you filled in the IHT form?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "legend": "Have you filled in the IHT form?",
+
+  "errors": {
+    "completed": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about filling in the IHT form",
+        "message": "Select yes if you&rsquo;ve completed the IHT form and sent it to HMRC"
+      }
+    }
+  }
+}

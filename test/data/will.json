@@ -1,0 +1,15 @@
+{
+  "will": {
+    "left": "Yes",
+    "original": "Yes",
+    "codicils": "No",
+    "isWillDate": "Yes",
+    "willDate_day": "12",
+    "willDate_month": "12",
+    "willDate_year": "1990",
+    "willDate_formattedDate": "12 October 1990"
+  },
+  "applicant": {
+    "executor": "Yes"
+  }
+}

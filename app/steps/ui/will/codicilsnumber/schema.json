@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "codicils-number",
+  "type": "object",
+  "properties": {
+    "codicilsNumber": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "required": [
+    "codicilsNumber"
+  ]
+}

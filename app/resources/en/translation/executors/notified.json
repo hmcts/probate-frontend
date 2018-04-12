@@ -1,0 +1,17 @@
+{
+  "title": "Executor notified",
+  "question": "Have you notified {executorName} in writing that you are applying?",
+  "legend": "Have you notified {executorName} in writing that you are applying?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "informInWriting": "You must inform the executor in writing that you are applying for probate",
+
+  "errors": {
+    "executorNotified": {
+      "required": {
+        "summary": "You haven&rsquo;t selected whether you have notified the executor in writing or not",
+        "message": "Select yes if you have have notified the executor in writing"
+      }
+    }
+  }
+}

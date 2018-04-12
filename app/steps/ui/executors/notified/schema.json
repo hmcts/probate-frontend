@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "executor-notified",
+  "type": "object",
+  "properties": {
+    "executorNotified": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "executorNotified"
+  ]
+}

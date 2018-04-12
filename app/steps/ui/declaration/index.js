@@ -28,6 +28,7 @@ module.exports = class Declaration extends ValidationStep {
         ctx.softStop = this.anySoftStops(formdata, ctx);
         ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants(get(formdata, 'executors.list'));
         ctx.hasDataChangedToSingleApplicant = !ctx.hasMultipleApplicants && ctx.hasDataChanged === true;
+        ctx.additionalInviteEmail = ctx.executorsWrapper.checkAllInvitesSent(get(formdata, 'executors.list'));
         return ctx;
     }
 
@@ -149,7 +150,7 @@ module.exports = class Declaration extends ValidationStep {
                 .replace('{applicantName}', props.mainApplicantName)
                 .replace('{applicantCurrentName}', applicantCurrentName)
                 .replace('{applicantNameOnWill}', props.executor.hasOtherName ? ` ${props.content.as} ${applicantNameOnWill}` : ''),
-            sign: props.content[`applicantSign${props.multipleApplicantSuffix}${mainApplicantSuffix}`]
+            sign: props.content[`applicantSign${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
                 .replace('{applicantName}', props.mainApplicantName)
                 .replace('{applicantCurrentName}', applicantCurrentName)
                 .replace('{deceasedName}', props.deceasedName)
@@ -181,6 +182,7 @@ module.exports = class Declaration extends ValidationStep {
         const nextStepOptions = {
             options: [
                 {key: 'hasDataChangedToSingleApplicant', value: true, choice: 'otherwise'},
+                {key: 'additionalInviteEmail', value: true, choice: 'otherExecutorsApplying'},
                 {key: 'hasDataChanged', value: true, choice: 'hasDataChanged'},
                 {key: 'hasMultipleApplicants', value: true, choice: 'otherExecutorsApplying'}
             ]
@@ -205,6 +207,7 @@ module.exports = class Declaration extends ValidationStep {
         delete ctx.executorsWrapper;
         delete ctx.hasDataChanged;
         delete ctx.hasDataChangedToSingleApplicant;
+        delete ctx.additionalInviteEmail;
         return [ctx, formdata];
     }
 };

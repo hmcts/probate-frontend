@@ -1,8 +1,7 @@
-    const initSteps = require('app/core/initSteps'),
-      journeyMap = require('app/core/journeyMap'),
-      assert = require('chai').assert,
-      completedForm = require('test/data/complete-form').formdata;
-
+const initSteps = require('app/core/initSteps'),
+  journeyMap = require('app/core/journeyMap'),
+  assert = require('chai').assert,
+  completedForm = require('test/data/complete-form').formdata;
 
 
 describe('Tasklist', function () {
@@ -120,25 +119,63 @@ describe('Tasklist', function () {
 
         it('Updates the context: Review and confirm complete (Single Applicants)', function () {
 
-            req.session.form = completedForm;
+            req.session.form = {
+                will: completedForm.will,
+                iht: completedForm.iht,
+                applicant: completedForm.applicant,
+                deceased: completedForm.deceased,
+                declaration: completedForm.declaration
+            };
+
             req.body = {};
+            const taskList = steps.TaskList;
+            ctx = taskList.getContextData(req);
+
+            assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
+            assert.equal(ctx.CopiesTask.status, 'notStarted');
+            assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+        });
+
+        it('Updates the context: Review and confirm complete (Multiple Applicants All Agreed)', function () {
+
+            req.session.form = {
+                will: completedForm.will,
+                iht: completedForm.iht,
+                applicant: completedForm.applicant,
+                deceased: completedForm.deceased,
+                executors: completedForm.executors,
+                declaration: completedForm.declaration
+            };
+
+            req.body = {};
+            req.session.haveAllExecutorsDeclared = 'true';
             const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
             ctx.alreadyDeclared = true;
+            ctx.hasMultipleApplicants = true;
 
             assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
+            assert.equal(ctx.CopiesTask.status, 'notStarted');
+            assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
         });
 
-        it('Updates the context: Review and confirm complete (Multiple Applicants)', function () {
+        it('Updates the context: Review and confirm complete (Multiple Applicants Not all have agreed)', function () {
+            req.session.form = {
+                will: completedForm.will,
+                iht: completedForm.iht,
+                applicant: completedForm.applicant,
+                deceased: completedForm.deceased,
+                executors: completedForm.executors,
+                declaration: completedForm.declaration
+            };
 
-            req.session.form = completedForm;
             req.body = {};
+            req.session.haveAllExecutorsDeclared = 'false';
             const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
-            ctx.alreadyDeclared = false;
 
-            assert.equal(ctx.ReviewAndConfirmTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
+            assert.equal(ctx.previousTaskStatus.CopiesTask, 'locked');
         });
 
         it('Updates the context: CopiesTask not started', function () {

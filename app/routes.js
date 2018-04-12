@@ -47,16 +47,16 @@ router.use(function (req, res, next) {
     const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
 
     if (get(formdata, 'submissionReference') &&
-        !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
+            !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
     ) {
         res.redirect('documents');
     } else if (formdata.paymentPending === 'false' &&
-        !includes(config.whitelistedPagesAfterPayment, req.originalUrl)
+                !includes(config.whitelistedPagesAfterPayment, req.originalUrl)
     ) {
         res.redirect('tasklist');
     } else if (get(formdata, 'declaration.declarationCheckbox') &&
-        !includes(config.whitelistedPagesAfterDeclaration, req.originalUrl) &&
-        (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent') && req.session.haveAllExecutorsDeclared === 'true'))
+                !includes(config.whitelistedPagesAfterDeclaration, req.originalUrl) &&
+                (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent')))
     ) {
         res.redirect('tasklist');
     } else if (req.originalUrl.includes('summary') && isHardStop(formdata)) {

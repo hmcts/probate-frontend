@@ -1,17 +1,17 @@
 {
-  "title": "Inheritance tax identifier",
-  "question": "Inheritance tax identifier (IHT)",
-  "ihtIdentifierHint": "This is the reference on the inheritance tax estate report.",
+  "title": "Inheritance Tax identifier (IHT)",
+  "question": "Inheritance Tax identifier (IHT)",
+  "ihtIdentifierHint": "This is the reference on the Inheritance Tax estate report.",
 
   "errors": {
     "identifier": {
       "required": {
-        "summary": "You haven&rsquo;t entered your reference",
-        "message": "Enter your reference"
+        "summary": "You need to enter the Inheritance Tax identifier",
+        "message": "Enter the Inheritance Tax identifier"
       },
       "invalid": {
-        "summary": "You haven&rsquo;t entered a valid reference",
-        "message": "Enter a valid reference"
+        "summary": "You need to enter the Inheritance Tax identifier",
+        "message": "Enter the Inheritance Tax identifier"
       }
     }
   }

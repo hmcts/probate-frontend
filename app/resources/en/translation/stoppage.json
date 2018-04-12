@@ -1,11 +1,11 @@
 {
   "title": "Probate - Unable to proceed",
   "header": "Sorry, you can&rsquo;t use the online service",
-  "contactProbateOffice": "<a rel=\"external\" href=\"http://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=735\">Please download the probate application form (PA1), print it out and fill it in.</a>",
+  "contactProbateOffice": "<a rel=\"external noopener\" href=\"http://hmctsformfinder.justice.gov.uk/HMCTS/GetForm.do?court_forms_id=735\">Please download the probate application form (PA1), print it out and fill it in.</a>",
   "defaultReason": "Unable to proceed",
   "noWill": "You can&rsquo;t use the online service because the person who died didn&rsquo;t leave a will.",
   "notOriginal": "You can&rsquo;t use the online service because you don&rsquo;t have the original will of the person who died.",
   "notExecutor": "You can&rsquo;t use the online service because you&rsquo;re not named as an executor on the will.",
   "codicils": "You can&rsquo;t use the online service because there have been updates (&lsquo;codicils&rsquo;) made to the will.",
-  "ihtNotCompleted": "You need to complete an <a rel=\"external\" href=\"{ihtNotCompleted}\"> inheritance tax form </a> before applying for probate. <br/> Your progress has been saved and will be kept for 6 months."
+  "ihtNotCompleted": "You need to complete an <a rel=\"external noopener\" href=\"{ihtNotCompleted}\">inheritance tax form</a> before applying for probate. <br/>Your progress has been saved and will be kept for 6 months."
 }

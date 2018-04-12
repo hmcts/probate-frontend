@@ -38,7 +38,7 @@ describe('submit-data', () => {
                 {'name': 'exec_3_new_name , an executor named in the will or codicils as executor_3_name, is applying for probate.',
                     'sign': 'exec_3_new_name will sign a photocopy of what they believe to be the true and original last will and testament of died_firstname died_lastname. Bob Richard Smith will send the signed photocopy to the probate registry.'
                 }],
-            'deceasedEstateValue': 'The gross value for the estate amounts to £123456 and the net value for the estate amounts to £12345.',
+            'deceasedEstateValue': 'The gross value for the estate amounts to &pound;123456 and the net value for the estate amounts to &pound;12345.',
             'deceasedEstateLand': 'To the best of our knowledge, information and belief, there was no land vested in died_firstname died_lastname which was settled previously to the death (and not by the will) of died_firstname died_lastname and which remained settled land notwithstanding such death.',
             'executorsNotApplying': [
                 'executor_2_name, an executor named in the will or codicils, is not making this application because they died before died_firstname died_lastname died.',

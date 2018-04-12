@@ -1,15 +1,15 @@
 {
-  "title": "Have you filled in the IHT form?",
-  "question": "Have you filled in the IHT form?",
+  "title": "Has an Inheritance Tax (IHT) form been filled in?",
+  "question": "Has an Inheritance Tax (IHT) form been filled in?",
   "optionYes": "Yes",
   "optionNo": "No",
-  "legend": "Have you filled in the IHT form?",
+  "legend": "Has an Inheritance Tax (IHT) form been filled in?",
 
   "errors": {
     "completed": {
       "required": {
-        "summary": "You haven&rsquo;t answered the question about filling in the IHT form",
-        "message": "Select yes if you&rsquo;ve completed the IHT form and sent it to HMRC"
+        "summary": "You haven&rsquo;t answered the question about filling in the Inheritance Tax form",
+        "message": "Answer &lsquo;yes&rsquo; if an Inheritance Tax form has been completed"
       }
     }
   }

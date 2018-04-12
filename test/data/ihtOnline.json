@@ -1,6 +1,6 @@
 {
   "iht": {
-    "method": "Online (an estate report was filled in)",
+    "method": "Through the HMRC online service",
     "identifier": "12345678F12345",
     "grossValue": "100000",
     "netValue": "10000"

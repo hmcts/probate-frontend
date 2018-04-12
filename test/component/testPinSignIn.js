@@ -1,6 +1,7 @@
 const TestWrapper = require('test/util/TestWrapper'),
 sinon = require('sinon'),
 when = require('when'),
+{assert} = require('chai'),
 services = require('app/components/services'),
 CoApplicantStartPage = require('app/steps/ui/coapplicant/startpage/index');
 
@@ -58,6 +59,25 @@ describe('pin-page', () => {
                 .end(() => {
                     testWrapper.testErrors(done, data, 'incorrect', ['pin']);
             });
+        });
+        it('test error page when form data cannot be found', (done) => {
+
+            loadFormDataStub.returns(when(Promise.resolve(new Error('ReferenceError'))));
+            testWrapper.agent.post('/prepare-session-field/pin/12345')
+                .end(() => {
+                    testWrapper.agent.post(testWrapper.pageUrl)
+                        .send({pin: '12345'})
+                        .then(response => {
+                            assert(response.status === 500);
+                            assert(response.text.includes('having technical problems'));
+                            assert(loadFormDataStub.calledOnce, 'Form data function called');
+                            done()
+                        })
+                        .catch(err => {
+                            done(err)
+                        })
+                });
+
         });
 
     });

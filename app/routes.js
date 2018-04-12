@@ -5,7 +5,7 @@ const router = require('express').Router();
 const initSteps = require('app/core/initSteps');
 const services = require('app/components/services');
 const logger = require('app/components/logger');
-const {get, includes} = require('lodash');
+const {get, includes, isEqual} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 
@@ -56,7 +56,12 @@ router.use(function (req, res, next) {
         res.redirect('tasklist');
     } else if (get(formdata, 'declaration.declarationCheckbox') &&
         !includes(config.whitelistedPagesAfterDeclaration, req.originalUrl) &&
-        (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent') && req.session.haveAllExecutorsDeclared === 'true'))
+            (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent') && req.session.haveAllExecutorsDeclared === 'true'))
+    ) {
+        res.redirect('tasklist');
+    } else if (get(formdata, 'declaration.declarationCheckbox') &&
+        (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent'))) &&
+            isEqual('/executors-invite', req.originalUrl)
     ) {
         res.redirect('tasklist');
     } else if (req.originalUrl.includes('summary') && isHardStop(formdata)) {

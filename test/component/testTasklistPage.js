@@ -1,11 +1,12 @@
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper'),
+    sessionData = require('test/data/complete-form').formdata,
+    singleApplicantData = require('test/data/singleApplicant');;
 
 describe('task-list', () => {
-    let testWrapper, sessionData, singleApplicantData;
+    let testWrapper;
 
     beforeEach(() => {
         testWrapper = new TestWrapper('TaskList');
-        sessionData = require('test/data/complete-form').formdata;
     });
 
     afterEach(() => {
@@ -69,8 +70,14 @@ describe('task-list', () => {
         });
 
         it('test right content loaded in Review and Confirm section (Single Applicant)', (done) => {
-            singleApplicantData = require('test/data/singleApplicant');
-            sessionData.executors = singleApplicantData.executors;
+            const singleApplicantSessionData = {
+                will: sessionData.will,
+                iht: sessionData.iht,
+                applicant: sessionData.applicant,
+                deceased: sessionData.deceased,
+                executors: singleApplicantData.executors,
+                declaration: sessionData.declaration
+            };
             const excludeKeys = [
                 'eligibilityTaskHeader',
                 'eligibilityTaskList-item2',
@@ -97,7 +104,7 @@ describe('task-list', () => {
             ];
 
             testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
+                .send(singleApplicantSessionData)
                 .end(() => {
                     testWrapper.testContent(done, excludeKeys);
                 });

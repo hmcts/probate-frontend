@@ -184,7 +184,6 @@ module.exports = class Declaration extends ValidationStep {
             options: [
                 {key: 'hasDataChangedAfterEmailSent', value: true, choice: 'dataChangedAfterEmailSent'},
                 {key: 'additionalInviteEmail', value: true, choice: 'otherExecutorsApplying'},
-                {key: 'hasDataChanged', value: true, choice: 'hasDataChanged'},
                 {key: 'hasMultipleApplicants', value: true, choice: 'otherExecutorsApplying'}
             ]
         };

@@ -56,8 +56,7 @@ router.use(function (req, res, next) {
         res.redirect('tasklist');
     } else if (get(formdata, 'declaration.declarationCheckbox') &&
         !includes(config.whitelistedPagesAfterDeclaration, req.originalUrl) &&
-            (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent') &&
-                req.session.haveAllExecutorsDeclared === 'true'))
+            (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent') && req.session.haveAllExecutorsDeclared === 'true'))
     ) {
         res.redirect('tasklist');
     } else if (get(formdata, 'declaration.declarationCheckbox') &&

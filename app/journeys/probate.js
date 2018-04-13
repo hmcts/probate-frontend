@@ -136,7 +136,7 @@ const stepList = {
     DeceasedAddress: 'Summary',
     Summary: 'TaskList',
     Declaration: {
-        hasDataChanged: 'ExecutorsChangeMade',
+        dataChangedAfterEmailSent: 'ExecutorsChangeMade',
         otherExecutorsApplying: 'ExecutorsInvite',
         otherwise: 'TaskList'
     },

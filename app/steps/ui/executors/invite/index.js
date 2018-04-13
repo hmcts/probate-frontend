@@ -16,7 +16,7 @@ const ValidationStep = require('app/core/steps/ValidationStep'),
         const mainExecutorName = get(formdata, 'applicant.firstName') + ' ' + get(formdata, 'applicant.lastName');
 
         yield ctx.list
-            .filter(exec => exec.isApplying && !exec.isApplicant && !exec.emailSent)
+            .filter(exec => exec.isApplying && !exec.isApplicant)
             .map(exec => {
                 const data = {
                     invitation: {

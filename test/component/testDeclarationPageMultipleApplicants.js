@@ -32,9 +32,8 @@ describe('declaration, multiple applicants', () => {
 
         sessionData.executors.list = [
             {firstName: 'an', lastName: 'applicant', isApplying: true, isApplicant: true},
-            {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', freeTextAddress: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true, emailSent: true},
-            {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', freeTextAddress: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true, emailSent: true}
-        ]
+            {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', freeTextAddress: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true},
+            {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', freeTextAddress: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true}       ]
     });
 
     afterEach(() => {
@@ -157,21 +156,6 @@ describe('declaration, multiple applicants', () => {
                 .end(() => {
                     const data = {
                         declarationCheckbox: true
-                    };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecChangeMade);
-                });
-        });
-
-        it(`test it redirects to invite page when new executor added: ${expectedNextUrlForExecInvite}`, (done) => {
-            sessionData.declaration = {
-                hasDataChanged: true
-            };
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        declarationCheckbox: true,
-                        additionalInviteEmail: true
                     };
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecChangeMade);
                 });

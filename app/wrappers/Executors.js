@@ -43,10 +43,6 @@ class Executors {
     executorsInvited() {
         return this.executorsList.filter(executor => executor.inviteId);
     }
-
-    checkAllInvitesSent() {
-        return this.executorsList.some(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent);
-    }
 }
 
 module.exports = Executors;

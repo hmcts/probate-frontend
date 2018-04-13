@@ -28,7 +28,6 @@ module.exports = class Declaration extends ValidationStep {
         ctx.softStop = this.anySoftStops(formdata, ctx);
         ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants(get(formdata, 'executors.list'));
         ctx.invitesSent = get(formdata, 'executors.invitesSent');
-        ctx.additionalInviteEmail = ctx.executorsWrapper.checkAllInvitesSent(get(formdata, 'executors.list'));
         return ctx;
     }
 
@@ -183,7 +182,6 @@ module.exports = class Declaration extends ValidationStep {
         const nextStepOptions = {
             options: [
                 {key: 'hasDataChangedAfterEmailSent', value: true, choice: 'dataChangedAfterEmailSent'},
-                {key: 'additionalInviteEmail', value: true, choice: 'otherExecutorsApplying'},
                 {key: 'hasMultipleApplicants', value: true, choice: 'otherExecutorsApplying'}
             ]
         };
@@ -208,7 +206,6 @@ module.exports = class Declaration extends ValidationStep {
         delete ctx.hasDataChanged;
         delete ctx.hasDataChangedAfterEmailSent;
         delete ctx.invitesSent;
-        delete ctx.additionalInviteEmail;
         return [ctx, formdata];
     }
 };

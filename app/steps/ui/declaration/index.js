@@ -27,7 +27,7 @@ module.exports = class Declaration extends ValidationStep {
         Object.assign(ctx, templateData);
         ctx.softStop = this.anySoftStops(formdata, ctx);
         ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants(get(formdata, 'executors.list'));
-        ctx.hasDataChangedToSingleApplicant = !ctx.hasMultipleApplicants && ctx.hasDataChanged === true;
+        ctx.invitesSent = get(formdata, 'executors.invitesSent');
         ctx.additionalInviteEmail = ctx.executorsWrapper.checkAllInvitesSent(get(formdata, 'executors.list'));
         return ctx;
     }
@@ -178,10 +178,11 @@ module.exports = class Declaration extends ValidationStep {
         }
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.hasDataChangedAfterEmailSent =  ctx.hasDataChanged && ctx.invitesSent === 'true';
         const nextStepOptions = {
             options: [
-                {key: 'hasDataChangedToSingleApplicant', value: true, choice: 'otherwise'},
+                {key: 'hasDataChangedAfterEmailSent', value: true, choice: 'dataChangedAfterEmailSent'},
                 {key: 'additionalInviteEmail', value: true, choice: 'otherExecutorsApplying'},
                 {key: 'hasDataChanged', value: true, choice: 'hasDataChanged'},
                 {key: 'hasMultipleApplicants', value: true, choice: 'otherExecutorsApplying'}
@@ -206,7 +207,8 @@ module.exports = class Declaration extends ValidationStep {
 
         delete ctx.executorsWrapper;
         delete ctx.hasDataChanged;
-        delete ctx.hasDataChangedToSingleApplicant;
+        delete ctx.hasDataChangedAfterEmailSent;
+        delete ctx.invitesSent;
         delete ctx.additionalInviteEmail;
         return [ctx, formdata];
     }

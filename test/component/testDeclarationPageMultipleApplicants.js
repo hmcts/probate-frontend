@@ -148,6 +148,10 @@ describe('declaration, multiple applicants', () => {
             sessionData.declaration = {
                 hasDataChanged: true
             };
+            sessionData = {
+                declaration: {hasDataChanged: true},
+                executors: {invitesSent: 'true'}
+            };
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

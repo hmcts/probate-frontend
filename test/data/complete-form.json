@@ -50,14 +50,20 @@
     "iht": {
       "completed": "Yes",
       "identifier": "12341234A12345",
-      "method": "Online (an estate report was filled in)",
+      "method": "Through the HMRC online service",
       "netValueOnline": "100000",
       "grossValueOnline": "150000"
     },
     "executors": {
-      "list": [{"firstName":"asd","lastName":"dsa","isApplicant":true}],
-      "executorsNumber" : 1,
-      "invitesSent": "true"
+      "list": [{"firstName":"asd","lastName":"dsa","isApplying":true,"isApplicant":true},
+                {"fullName":"Number 2","isApplying":true,"email":"test@email.com",
+                  "mobile":"07234156431","address":"test address","freeTextAddress":"test address",
+                  "inviteId":"dee-ceased-6da20103-4c99-4346-8a30-0df173e543b7","emailSent":true}],
+      "executorsNumber" : 2,
+      "invitesSent": "true",
+      "allalive":"Yes",
+      "otherExecutorsApplying":"Yes",
+      "alias":"No"
     },
     "declaration": {
       "declarationCheckbox": true

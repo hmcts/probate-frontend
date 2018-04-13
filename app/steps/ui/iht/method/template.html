@@ -5,13 +5,14 @@
 
 {% block question %}
     <h1 class="form-title heading-large">{{content.question}}</h1>
+    <p>{{content.paragraph1 | safe}}</p>
 {% endblock %}
 
 {% block form_content %}
     {{optionsRadio(content,
         name = 'method',
         field = fields.method,
-        options = ['onlineOption', 'paperOption'],
+        options = ['paperOption', 'onlineOption'],
         legend = content.legend
     )}}
     <div class="form-group">

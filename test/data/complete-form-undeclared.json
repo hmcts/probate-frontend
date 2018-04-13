@@ -50,7 +50,7 @@
     "iht": {
       "completed": "Yes",
       "identifier": "12341234A12345",
-      "method": "Online (an estate report was filled in)",
+      "method": "Through the HMRC online service",
       "netValue": 100000,
       "grossValue": 150000
     },

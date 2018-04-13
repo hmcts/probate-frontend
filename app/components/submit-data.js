@@ -26,9 +26,7 @@ const submitData = function (ctx, data) {
     mappedData.noOfApplicants = executorsWrapper.executorsApplying().length;
     mappedData.executorsApplying = executorsWrapper.executorsApplying(true);
     mappedData.executorsNotApplying = executorsWrapper.executorsNotApplying(true);
-    if (get(mappedData, 'legalStatement.deceasedEstateValue')) {
-        mappedData.legalStatement.deceasedEstateValue = mappedData.legalStatement.deceasedEstateValue.replace(/&pound;/g, '£');
-    }
+
     return mappedData;
 };
 

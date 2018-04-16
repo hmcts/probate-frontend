@@ -7,7 +7,6 @@ The Frontend Application delegates a number of backend logic to the underlying s
 ### Prerequisites
 - [Node.js](nodejs.org) >= 8.9.0
 - [yarn](yarnpkg.com)
-- [npm](npmjs.com)
 
 ### Running the application
 Install dependencies by executing the following command:  
@@ -26,7 +25,7 @@ By navigating to [https://localhost:3000](https://localhost:3000) you can partia
 
 To complete an end to end journey on the application locally without building the other services, you can run the following command which utilises stubs to mimic certain actions carried out during an end to end journey:  
 
-`$ npm start & npm run submit-stub & npm run persistence-stub & npm run business-stub & npm run payment-stub`
+`$ yarn start & yarn submit-stub & yarn persistence-stub & yarn business-stub & yarn payment-stub`
 
 As before, the application can be completed locally at [https://localhost:3000](https://localhost:3000).
 
@@ -37,6 +36,14 @@ Before submitting a Pull Request you will be required to run:
 `$ yarn eslint`
 
 We have a number of rules relating to code style that can be found in [.eslintrc.js](https://github.com/hmcts/probate-frontend/blob/develop/.eslintrc.js).
+
+### Git hooks
+We have git hooks that enforce rules for commit messages.
+
+These can be activated by running the following commands:  
+`ln -s ../../pre-commit.sh .git/hooks/pre-commit`
+
+`ln -s ../../commit-msg.sh .git/hooks/commit-msg`
 
 ### Running the tests
 Mocha is used for writing tests.  

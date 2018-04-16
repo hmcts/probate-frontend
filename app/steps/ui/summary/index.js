@@ -1,7 +1,7 @@
 const Step = require('app/core/steps/Step');
 const OptionGetRunner = require('app/core/runners/OptionGetRunner');
 const FieldError = require('app/components/error');
-const {isEmpty, map, includes, get, filter, some} = require('lodash');
+const {isEmpty, map, includes} = require('lodash');
 const utils = require('app/components/step-utils');
 const services = require('app/components/services');
 const ExecutorsWrapper = require('app/wrappers/Executors');
@@ -22,17 +22,13 @@ module.exports = class Summary extends Step {
         const errors = map(result.errors, err => {
             return FieldError(err.param, err.code, this.resourcePath, ctx);
         });
-        const executors = get(formdata, 'executors', {});
-        const executorsApplying = (new ExecutorsWrapper(executors)).executorsApplying(true);
-        const executorsList = get(formdata, 'executors.list', []);
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        const executorsApplying = executorsWrapper.executorsApplying(true);
 
-        ctx.executorsAlive = some(filter(executorsList, exec => !exec.isDead && !exec.isApplicant));
-        ctx.executorsWhoDied = filter(executorsList, exec => exec.isDead).map(exec => exec.fullName);
+        ctx.executorsAlive = executorsWrapper.hasAliveExecutors();
+        ctx.executorsWhoDied = executorsWrapper.deadExecutors().map(exec => exec.fullName);
         ctx.executorsDealingWithEstate = executorsApplying.map(exec => exec.fullName);
-        ctx.executorsPowerReservedOrRenounced = some(
-            executorsList,
-            exec => includes(['optionPowerReserved', 'optionRenunciated'], exec.notApplyingKey)
-        );
+        ctx.executorsPowerReservedOrRenounced = executorsWrapper.hasRenunciatedOrPowerReserved();
 
         utils.updateTaskStatus(ctx, ctx, this.steps);
 

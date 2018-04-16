@@ -1,17 +1,22 @@
 const testConfig = require('test/config.js');
 
 exports.config = {
-    'tests': './paths/**/*.js',
+    'tests': './paths/**/idList.js',
     'output': './output',
     'helpers': {
         'Nightmare': {
-            'url': testConfig.TestFrontendUrl || 'https://localhost:3000',
+            'url': testConfig.TestFrontendUrl || 'https://www-test.probate.reform.hmcts.net',
             'waitForTimeout': 10000,
-            'show': false,
+            'show': true,
             waitForAction: 2000,
+            restart: false,
+            keepCookies: true,
             'switches': {
                 'ignore-certificate-errors': true
             }
+        },
+        'RESTHelper': {
+            'require': './helpers/RESTHelper.js'
         }
     },
     'include': {

@@ -29,6 +29,17 @@ To complete an end to end journey on the application locally without building th
 
 As before, the application can be completed locally at [https://localhost:3000](https://localhost:3000).
 
+### Running the application in Docker
+Once you `cd ..` out of the repository you can run the following command:  
+```
+$ docker build probate-frontend -t frontend-app
+```
+This command will build the Frontend Docker image using the *Dockerfile*.  
+
+To run the Docker container:  
+```
+$ docker run -p 3000:3000 frontend-app
+```
 
 ## Developing
 ### Code style
@@ -41,9 +52,13 @@ We have a number of rules relating to code style that can be found in [.eslintrc
 We have git hooks that enforce rules for commit messages.
 
 These can be activated by running the following commands:  
-`ln -s ../../pre-commit.sh .git/hooks/pre-commit`
+```
+$ ln -s ../../pre-commit.sh .git/hooks/pre-commit
+```
 
-`ln -s ../../commit-msg.sh .git/hooks/commit-msg`
+```
+$ ln -s ../../commit-msg.sh .git/hooks/commit-msg
+```
 
 ### Running the tests
 Mocha is used for writing tests.  

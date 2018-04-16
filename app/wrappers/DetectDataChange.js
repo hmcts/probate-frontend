@@ -41,7 +41,7 @@ class DetectDataChanges {
         ) {
             if (step.section === 'executors') {
                 if (Object.keys(req.body).includes('freeTextAddress') || Object.keys(req.body).includes('email')) {
-                    const index = typeof req.params[0] === 'number' ? req.params[0] : req.session.indexPosition;
+                    const index = (req.params && !isNaN(req.params[0])) ? req.params[0] : req.session.indexPosition;
                     return this.hasChanged(req.body, formdata[step.section].list[index]);
                 } else if (req.body.executorName) {
                     const currentExecutors = executorsWrapper.executors(true).map(executor => executor.fullName);

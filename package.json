@@ -35,10 +35,10 @@
     "payment-stub": "NODE_PATH=. node test/service-stubs/payment.js"
   },
   "dependencies": {
+    "@hmcts/nodejs-logging": "^3.0.0",
     "ajv": "^4.11.0",
     "basic-auth": "^1.0.3",
     "body-parser": "^1.15.2",
-    "bunyan": "^1.8.5",
     "co": "^4.6.0",
     "connect-redis": "^3.1.0",
     "cookie-parser": "^1.4.3",
@@ -71,11 +71,8 @@
     "validator": "^9.4.1"
   },
   "devDependencies": {
-    "watch": "^1.0.1",
-    "nodemon": "^1.11.0",
     "chai": "^4.1.0",
     "codeceptjs": "1.1.5",
-    "unirest": "^0.5.1",
     "eslint": "4.1.1 ",
     "eslint-plugin-mocha": "^4.8.0",
     "istanbul": "^0.4.5",
@@ -84,6 +81,7 @@
     "mochawesome": "^2.0.0",
     "nightmare": "^2.9.1",
     "nightmare-upload": "^0.1.1",
+    "nodemon": "^1.11.0",
     "nsp": "^2.6.2",
     "pa11y": "^4.13.2",
     "phantomjs-prebuilt": "^2.1.13",
@@ -94,8 +92,10 @@
     "sonar-scanner": "^1.0.1",
     "sonarqube-scanner": "^1.1.0",
     "supertest": "^2.0.1",
+    "unirest": "^0.5.1",
+    "uuid": "^3.1.0",
+    "watch": "^1.0.1",
     "webdriverio": "^4.2.16",
-    "when": "^3.7.7",
-    "uuid": "^3.1.0"
+    "when": "^3.7.7"
   }
 }

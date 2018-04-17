@@ -112,7 +112,9 @@ variable "no_proxy" {
   default = "localhost,127.0.0.0/8,127.0.0.1,127.0.0.1*,local.home,reform.hmcts.net,*.reform.hmcts.net,betaDevBprobateApp01.reform.hmcts.net,betaDevBprobateApp02.reform.hmcts.net,betaDevBccidamAppLB.reform.hmcts.net,*.internal,*.platform.hmcts.net"
 }
 
-
+variable "probate-frontend-vault" {
+  type = "string"
+}
 
 variable "ga_tracking_url" {
   description = "Google Analytics tracking URL"
@@ -185,14 +187,6 @@ variable "probate_private_beta_auth_url" {
 
 variable "probate_frontend_protocol" {
   default = "https"
-}
-
-variable "probate_frontend_public_port" {
-  default = "443"
-}
-
-variable "probate_frontend_port" {
-  default = "3001"
 }
 
 

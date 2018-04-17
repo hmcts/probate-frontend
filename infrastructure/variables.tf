@@ -187,10 +187,6 @@ variable "probate_frontend_protocol" {
   default = "https"
 }
 
-variable probate_frontend_hostname" {
-  type = "string"
-}
-
 variable "probate_frontend_public_port" {
   default = "443"
 }

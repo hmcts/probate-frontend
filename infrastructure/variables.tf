@@ -149,10 +149,6 @@ variable "probate_frontend_use_redis" {
   default = "false"
 }
 
-variable "probate_redis_hostname" {
-  type = "string"
-}
-
 variable "redis_listen_port" {
   default = "6379"
 }

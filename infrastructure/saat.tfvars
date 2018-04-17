@@ -15,6 +15,7 @@ probate_google_track_id = "UA-93598808-1"
 probate_redis_url = "betaDevBprobatecache01.reform.hmcts.net"
 
 f5_redis_listen_port = "6379"
+probate_redis_hostname = "betaDevBprobatecache01.reform.hmcts.net"
 
 probate_frontend_https = "true"
 probate_frontend_use_auth = "false"

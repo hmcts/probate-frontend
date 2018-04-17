@@ -54,9 +54,22 @@ data "vault_generic_secret" "idam_frontend_idam_key" {
 
 locals {
   aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
+
+  previewVaultName = "${var.product}-frontend"
+  nonPreviewVaultName = "${var.product}-frontend-${var.env}"
+  vaultName = "${var.env == "preview" ? local.previewVaultName : local.nonPreviewVaultName}"
+
+  nonPreviewVaultUri = "${module.probate-frontend-vault.key_vault_uri}"
+  previewVaultUri = "https://probate-frontend-aat.vault.azure.net/"
+  vaultUri = "${var.env == "preview"? local.previewVaultUri : local.nonPreviewVaultUri}"
+  
+  //once Backend is up in CNP need to get the 
+  localBusinessServiceUrl = "http://probate-business-service-${var.env}.service.${local.aseName}.internal"
+  businessServiceUrl = "${var.env == "preview" ? "http://probate-business-service-aat.service.core-compute-aat.internal" : local.localClaimStoreUrl}"
+  // add other services
 }
 
-module "frontend" {
+module "probate-frontend" {
   source = "git@github.com:hmcts/moj-module-webapp.git?ref=master"
   product = "${var.product}-${var.microservice}"
   location = "${var.location}"
@@ -142,11 +155,11 @@ module "frontend" {
 
 module "probate-frontend-vault" {
   source              = "git@github.com:hmcts/moj-module-key-vault?ref=master"
-  name                = "probate-frontend-${var.env}"
+  name                = "${local.vaultName}"
   product             = "${var.product}"
   env                 = "${var.env}"
   tenant_id           = "${var.tenant_id}"
   object_id           = "${var.jenkins_AAD_objectId}"
   resource_group_name = "${module.probate-frontend.resource_group_name}"
-  product_group_object_id = "68839600-92da-4862-bb24-1259814d1384"
+  product_group_object_id = "core-compute/${var.env}/terraform.tfstate"
 }

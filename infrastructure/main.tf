@@ -121,7 +121,7 @@ module "probate-frontend" {
 
     // REDIS
     USE_REDIS = "${var.probate_frontend_use_redis}"
-    REDIS_HOST = "${var.probate_redis_hostname}"
+    REDIS_HOST = "${var.probate_redis_url}"
     REDIS_PORT = "${var.f5_redis_listen_port}"
 
     // IDAM

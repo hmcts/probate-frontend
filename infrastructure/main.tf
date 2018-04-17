@@ -64,8 +64,8 @@ locals {
   vaultUri = "${var.env == "preview"? local.previewVaultUri : local.nonPreviewVaultUri}"
   
   //once Backend is up in CNP need to get the 
-  localBusinessServiceUrl = "http://probate-business-service-${var.env}.service.${local.aseName}.internal"
-  businessServiceUrl = "${var.env == "preview" ? "http://probate-business-service-aat.service.core-compute-aat.internal" : local.localClaimStoreUrl}"
+  //localBusinessServiceUrl = "http://probate-business-service-${var.env}.service.${local.aseName}.internal"
+  //businessServiceUrl = "${var.env == "preview" ? "http://probate-business-service-aat.service.core-compute-aat.internal" : local.localClaimStoreUrl}"
   // add other services
 }
 

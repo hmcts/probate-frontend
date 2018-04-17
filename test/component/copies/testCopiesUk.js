@@ -31,13 +31,14 @@ describe('copies-uk', () => {
             testWrapper.testErrors(done, data, 'invalid', []);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForAssetsOverseas}`, (done) => {
-            const data = {uk: '1'};
-            testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
+        it('test errors message displayed for missing data, nothing entered', (done) => {
+            const data = {overseas: ''};
+
+            testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to next page with no input: ${expectedNextUrlForAssetsOverseas}`, (done) => {
-            const data = {};
+        it(`test it redirects to next page: ${expectedNextUrlForAssetsOverseas}`, (done) => {
+            const data = {uk: '1'};
             testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
         });
     });

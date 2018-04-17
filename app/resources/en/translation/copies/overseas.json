@@ -11,7 +11,7 @@
       },
       "required": {
         "summary": "Add the number of copies you need for outside the UK",
-        "message": "Enter the number of copies you need for outside the UK. Enter ‘0’ if you don’t need any international copies."
+        "message": "Enter the number of copies you need for outside the UK. Enter &lsquo;0&rsquo; if you don&rsquo;t need any international copies."
       }
     }
   }

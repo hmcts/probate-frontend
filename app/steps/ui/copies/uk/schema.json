@@ -7,5 +7,8 @@
       "type": "integer",
       "minimum": 0
     }
-  }
+  },
+  "required": [
+    "uk"
+  ]
 }

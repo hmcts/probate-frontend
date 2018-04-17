@@ -8,6 +8,10 @@
       "invalid": {
           "summary": "You haven&rsquo;t entered a valid number",
           "message": "Please enter a valid number"
+      },
+      "required": {
+        "summary": "Add the number of copies you need for outside the UK",
+        "message": "Enter the number of copies you need for outside the UK. Enter ‘0’ if you don’t need any international copies."
       }
     }
   }

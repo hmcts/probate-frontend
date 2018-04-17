@@ -161,5 +161,5 @@ module "probate-frontend-vault" {
   tenant_id           = "${var.tenant_id}"
   object_id           = "${var.jenkins_AAD_objectId}"
   resource_group_name = "${module.probate-frontend.resource_group_name}"
-  product_group_object_id = "core-compute/${var.env}/terraform.tfstate"
+  product_group_object_id =  "68839600-92da-4862-bb24-1259814d1384"
 }

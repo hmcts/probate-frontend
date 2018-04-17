@@ -20,4 +20,3 @@ describe('Co-Applicant', function () {
     });
 
 });
-

@@ -28,7 +28,7 @@ const ValidationStep = require('app/core/steps/ValidationStep'),
                         formdataId: session.regId,
                         leadExecutorName: mainExecutorName
                     }
-                }
+                };
                 return services.sendInvite(data, session.id, exec).then(result => {
                     if (result.name === 'Error') {
                         throw new ReferenceError('Error while sending co-applicant invitation email.');
@@ -37,7 +37,7 @@ const ValidationStep = require('app/core/steps/ValidationStep'),
                         exec.emailSent = true;
                         return exec;
                     }
-                })
+                });
             });
         ctx.invitesSent = 'true';
         return [ctx, errors];

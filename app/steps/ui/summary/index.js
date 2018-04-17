@@ -68,7 +68,7 @@ module.exports = class Summary extends Step {
 
     getContextData (req) {
         const formdata = req.session.form;
-        formdata.summary = {'readyToDeclare': includes(req.url, 'declaration')}
+        formdata.summary = {'readyToDeclare': includes(req.url, 'declaration')};
         const ctx = super.getContextData(req);
         const willWrapper = new WillWrapper(formdata.will);
         const isWillDated = willWrapper.hasWillDate();

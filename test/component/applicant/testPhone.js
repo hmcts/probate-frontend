@@ -5,7 +5,6 @@ describe('applicant-phone', () => {
     let testWrapper;
     const expectedNextUrlForApplicantAddress = ApplicantAddress.getUrl();
 
-
     beforeEach(() => {
         testWrapper = new TestWrapper('ApplicantPhone');
     });

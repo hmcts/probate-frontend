@@ -3,7 +3,6 @@ const thankYouContent = require('app/resources/en/translation/thankyou.json');
 const pageUnderTest = require('app/steps/ui/thankyou/index');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))(scenario);
 
-
 Feature('Survey link');
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
@@ -17,7 +16,6 @@ Before(() => {
 After(() => {
     TestConfigurator.getAfter();
 });
-
 
 Scenario(TestConfigurator.getScenarioName(), function* (I) {
 

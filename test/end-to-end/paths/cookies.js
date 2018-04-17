@@ -12,19 +12,15 @@ Before(() => {
     TestConfigurator.getBefore();
 });
 
-
 // eslint-disable-next-line no-undef
 After(() => {
     TestConfigurator.getAfter();
 });
 
-
-
 Scenario(TestConfigurator.getScenarioName(), (I) => {
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
-
 
     I.startApplication();
 

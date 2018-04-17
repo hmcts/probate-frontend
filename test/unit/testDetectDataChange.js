@@ -61,7 +61,7 @@ describe('DetectDataChange.js', () => {
                 };
                 const sectionData = {
                     dob_day: '31'
-                }
+                };
                 const detectDataChange = new DetectDataChange();
                 expect(detectDataChange.hasChanged(params, sectionData)).to.equal(true);
                 done();
@@ -73,7 +73,7 @@ describe('DetectDataChange.js', () => {
                 };
                 const sectionData = {
                     address: '11 Silver Street London L23 3LP'
-                }
+                };
                 const detectDataChange = new DetectDataChange();
                 expect(detectDataChange.hasChanged(params, sectionData)).to.equal(true);
                 done();
@@ -85,7 +85,7 @@ describe('DetectDataChange.js', () => {
                 };
                 const sectionData = {
                     address: '11 Silver Street London L23 3LP'
-                }
+                };
                 const detectDataChange = new DetectDataChange();
                 expect(detectDataChange.hasChanged(params, sectionData)).to.equal(true);
                 done();
@@ -98,7 +98,7 @@ describe('DetectDataChange.js', () => {
             };
             const sectionData = {
                 dob_day: '30'
-            }
+            };
             const detectDataChange = new DetectDataChange();
             expect(detectDataChange.hasChanged(params, sectionData)).to.equal(false);
             done();
@@ -143,7 +143,7 @@ describe('DetectDataChange.js', () => {
                 body: {
                     identifier: 'ref001'
                 }
-            }
+            };
             step = {
                 section: 'iht',
                 schemaFile: {

@@ -7,7 +7,6 @@ const utils = require('app/components/api-utils'),
     otp = require('otp'),
     {URLSearchParams, parse} = require('url');
 
-
 const IDAM_SERVICE_URL = config.services.idam.apiUrl;
 const VALIDATION_SERVICE_URL = config.services.validation.url;
 const SUBMIT_SERVICE_URL = config.services.submit.url;
@@ -99,7 +98,7 @@ const createPayment = function (data) {
         'Content-Type': 'application/json',
         'Authorization': data.authToken,
         'ServiceAuthorization': data.serviceAuthToken
-    }
+    };
     const body = paymentData.createPaymentData(data);
     const fetchOptions = utils.fetchOptions(body, 'POST', headers);
     const createPaymentUrl = CREATE_PAYMENT_SERVICE_URL.replace('userId', data.userId);
@@ -112,13 +111,12 @@ const findPayment = function (data) {
         'Content-Type': 'application/json',
         'Authorization': data.authToken,
         'ServiceAuthorization': data.serviceAuthToken
-    }
+    };
 
     const fetchOptions = utils.fetchOptions(data, 'GET', headers);
     const findPaymentUrl = CREATE_PAYMENT_SERVICE_URL.replace('userId', data.userId) + '/' + data.paymentId;
     return utils.fetchJson(findPaymentUrl, fetchOptions);
 };
-
 
 const findInviteLink = function (inviteId) {
     logger.info('find invite link');
@@ -168,7 +166,7 @@ const authorise = function () {
     logger.info('authorise');
     const headers = {
         'Content-Type': 'application/x-www-form-urlencoded'
-    }
+    };
     const oneTimePassword = otp ({secret: secret}).totp();
     const params = new URLSearchParams();
     params.append('microservice', serviceName);
@@ -178,20 +176,20 @@ const authorise = function () {
 };
 
 const getOauth2Token = function (code, redirectUri) {
-    logger.info('calling oauth2 token')
-    const clientName = config.services.idam.probate_oauth2_client
-    const secret = config.services.idam.probate_oauth2_secret
-    const idam_api_url = config.services.idam.apiUrl
+    logger.info('calling oauth2 token');
+    const clientName = config.services.idam.probate_oauth2_client;
+    const secret = config.services.idam.probate_oauth2_secret;
+    const idam_api_url = config.services.idam.apiUrl;
 
     const headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic ' +  new Buffer(`${clientName}:${secret}`).toString('base64')
-    }
+        'Authorization': 'Basic ' + new Buffer(`${clientName}:${secret}`).toString('base64')
+    };
 
-    const params = new URLSearchParams()
-    params.append('grant_type', 'authorization_code')
-    params.append('code', code)
-    params.append('redirect_uri', redirectUri)
+    const params = new URLSearchParams();
+    params.append('grant_type', 'authorization_code');
+    params.append('code', code);
+    params.append('redirect_uri', redirectUri);
 
     return utils.fetchJson(`${idam_api_url}/oauth2/token`, {
         method: 'POST',

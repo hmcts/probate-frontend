@@ -5,7 +5,6 @@ describe('copies-start', () => {
     let testWrapper;
     const expectedNextUrlForCopiesUk = CopiesUk.getUrl();
 
-
     beforeEach(() => {
         testWrapper = new TestWrapper('CopiesStart');
     });

@@ -31,7 +31,7 @@ describe('codicils-date', () => {
             const data = {
                 'isCodicilsDate': 'Yes'
             };
-            const  errorsToTest = ['codicilsDate_day', 'codicilsDate_month', 'codicilsDate_year']
+            const errorsToTest = ['codicilsDate_day', 'codicilsDate_month', 'codicilsDate_year'];
 
             testWrapper.testErrors(done, data, 'required', errorsToTest);
 

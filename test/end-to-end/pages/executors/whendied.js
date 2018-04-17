@@ -11,7 +11,7 @@ module.exports = function (executorNumber, diedBefore, firstRecord) {
      }
 
      if (diedBefore) {
-         I.click('#diedbefore-optionYes')
+         I.click('#diedbefore-optionYes');
      } else {
          I.click('#diedbefore-optionNo');
      }

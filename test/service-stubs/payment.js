@@ -2,7 +2,6 @@
 
 /* eslint no-console: 0 */
 
-
 const express = require('express'),
     app = express(),
     router = require('express').Router(),
@@ -26,7 +25,7 @@ router.all('*', function (req, res, next) {
 router.post('/users/:userId/payments', function (req, res) {
     const data = require('test/data/payments/create.json');
     if (req.body.reference.indexOf(FAILURE_NAME) > -1) {
-        lastId  = FAILURE_PAY_ID;
+        lastId = FAILURE_PAY_ID;
         data.id = lastId;
     } else {
         lastId = data.id;
@@ -37,7 +36,6 @@ router.post('/users/:userId/payments', function (req, res) {
     res.send(data);
     delete require.cache[require.resolve('test/data/payments/create.json')];
 });
-
 
 router.get('/users/:userId/payments/:paymentId', function (req, res) {
     const data = require('test/data/payments/find.json');
@@ -55,7 +53,6 @@ router.get('/users/:userId/payments/:paymentId', function (req, res) {
 });
 
 app.use(router);
-
 
 console.log(`Listening on: ${PAYMENT_STUB_PORT}`);
 const server = app.listen(PAYMENT_STUB_PORT);

@@ -39,4 +39,3 @@ describe('initialsFilter', function () {
         assert.equal(output, 'B J M P');
     });
 });
-

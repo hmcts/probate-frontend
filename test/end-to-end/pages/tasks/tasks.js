@@ -30,4 +30,4 @@ exports.completeExecutorsTask = function () {
     I.enterGrossAndNet();
     I.seeSummaryPage();
     I.acceptDeclaration();
-}
+};

@@ -12,20 +12,20 @@ describe('executors-invite', () => {
     const expectedNextUrlForExecInvites = ExecutorsInvitesSent.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('ExecutorsInvite')
-        sendInvitesStub = sinon.stub(services, 'sendInvite')
+        testWrapper = new TestWrapper('ExecutorsInvite');
+        sendInvitesStub = sinon.stub(services, 'sendInvite');
 
     });
 
     afterEach(() => {
-        testWrapper.destroy()
-        sendInvitesStub.restore()
+        testWrapper.destroy();
+        sendInvitesStub.restore();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done)
+            testWrapper.testContent(done);
         });
 
         it('test content displays only the applying executors but not the main applicant', (done) => {
@@ -37,7 +37,7 @@ describe('executors-invite', () => {
                             assert(response.text.includes('Andrew Wiles'));
                             assert(!response.text.includes('Pierre de Fermat'));
                             assert(!response.text.includes('Leonhard Euler'));
-                            done()
+                            done();
                         });
                 });
         });
@@ -59,11 +59,11 @@ describe('executors-invite', () => {
                             assert(response.status === 500);
                             assert(response.text.includes('Sorry, we&rsquo;re having technical problems'));
                             assert(sendInvitesStub.calledOnce, 'Send Invite function called');
-                            done()
+                            done();
                         })
                         .catch(err => {
-                            done(err)
-                        })
+                            done(err);
+                        });
                 });
         });
     });

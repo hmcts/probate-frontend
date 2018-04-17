@@ -20,7 +20,7 @@ module.exports = class ExecutorsWithOtherNames extends ValidationStep {
 
     * handlePost(ctx, errors) {
         for (let i = 1; i < ctx.executorsNumber; i++) {
-            ctx.list[i].hasOtherName  = ctx.executorsWithOtherNames.includes(ctx.list[i].fullName);
+            ctx.list[i].hasOtherName = ctx.executorsWithOtherNames.includes(ctx.list[i].fullName);
         }
         return [ctx, errors];
     }

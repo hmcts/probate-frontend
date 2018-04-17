@@ -2,7 +2,6 @@ const initSteps = require('app/core/initSteps'),
     assert = require('chai').assert,
     {set} = require('lodash');
 
-
 describe('WillDate', function () {
 
     const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui/']);
@@ -30,8 +29,6 @@ describe('WillDate', function () {
             assert.equal(ctx.willDate_date, '2000-01-01T00:00:00.000Z');
         });
 
-
-
         it('Creates a date object with full month description', function () {
 
             const WillDate = steps.WillDate;
@@ -40,8 +37,6 @@ describe('WillDate', function () {
 
             assert.equal(ctx.willDate_formattedDate, '1 January 2000');
         });
-
-
 
         it('Invalid date gives undefined response', function () {
             set(req, 'session.form.will', {
@@ -57,8 +52,6 @@ describe('WillDate', function () {
 
             assert.isUndefined(ctx.willDate_formattedDate);
         });
-
-
 
         it('Clears the three date fields when isWillDate is set to "No"', function () {
 
@@ -76,4 +69,3 @@ describe('WillDate', function () {
 
     });
 });
-

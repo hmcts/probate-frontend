@@ -4,7 +4,6 @@ const taskListContent = require('app/resources/en/translation/tasklist.json');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))(scenario);
 const {forEach} = require('lodash');
 
-
 Feature('Multiple Executor flow');
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
@@ -19,13 +18,10 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-
 Scenario(TestConfigurator.getScenarioName(), function* (I) {
-
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
-
 
     // EligibilityTask
 
@@ -47,7 +43,6 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
     }
 
     I.selectApplicantIsExecutor();
-
 
     // ExecutorsTask
     //
@@ -90,7 +85,6 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
             powerReserved = true;
         }
     });
-
 
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.selectDeceasedAlias('Yes');

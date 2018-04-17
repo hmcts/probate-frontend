@@ -53,7 +53,6 @@ exports.getStore = function (useRedis, session) {
 
 };
 
-
 exports.stringifyNumberBelow21 = function(n) {
     const stringNumbers = common.numberBelow21;
     const special = stringNumbers.split(',');
@@ -63,4 +62,3 @@ exports.stringifyNumberBelow21 = function(n) {
         return n;
 
 };
-

@@ -19,9 +19,6 @@ router.get('/health', function (req, res) {
 
 app.use(router);
 
-
-
-
 // start the app
 console.log(`Listening on: ${SUBMIT_SERVICE_PORT}`);
 const server = app.listen(SUBMIT_SERVICE_PORT);

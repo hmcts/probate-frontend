@@ -15,7 +15,7 @@ module.exports = class DeceasedMarried extends ValidationStep {
         return {
             'stepName': this.constructor.name,
             'isSoftStop': softStopForMarriedAfterWill
-        }
+        };
     }
 
     * handleGet(ctx, formdata) {

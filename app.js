@@ -100,7 +100,7 @@ exports.init = function() {
         policy: 'origin'
     }));
 
-    app.use(helmet.xssFilter({setOnOldIE: true}))
+    app.use(helmet.xssFilter({setOnOldIE: true}));
 
 // Middleware to serve static assets
     app.use('/public/stylesheets', express.static(__dirname + '/public/stylesheets'));
@@ -110,8 +110,6 @@ exports.init = function() {
     app.use('/public', express.static(__dirname + '/node_modules/govuk_template_jinja/assets'));
     app.use('/public', express.static(__dirname + '/node_modules/govuk_frontend_toolkit'));
     app.use('/public/images/icons', express.static(__dirname + '/node_modules/govuk_frontend_toolkit/images'));
-
-
 
 // Elements refers to icon folder instead of images folder
     app.use(favicon(path.join(__dirname, 'node_modules', 'govuk_template_jinja', 'assets', 'images', 'favicon.ico')));
@@ -146,10 +144,10 @@ exports.init = function() {
 
     app.use(function (req, res, next) {
         if (!req.session) {
-            return next(new Error('Unable to reach redis'))
+            return next(new Error('Unable to reach redis'));
         }
-        next() // otherwise continue
-    })
+        next(); // otherwise continue
+    });
 
     app.use(config.services.idam.probate_oauth_callback_path, security.oAuth2CallbackEndpoint());
 
@@ -159,7 +157,6 @@ exports.init = function() {
             next();
         });
     }
-
 
 // Add variables that are available in all views
     app.use(function (req, res, next) {
@@ -230,4 +227,3 @@ exports.init = function() {
 
     return {app, http};
 };
-

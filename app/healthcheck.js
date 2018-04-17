@@ -20,10 +20,10 @@ function createPromisesList(services) {
 
     return map(services,
         service => asyncFetch(service.url, fetchOpts, res => res.json().then(json => {
-                    return {'name': service.name, 'status': json.status}
+                    return {'name': service.name, 'status': json.status};
                 })
             ).catch(err => {
-            return {'name': service.name, 'status': 'ERROR'}
+            return {'name': service.name, 'status': 'ERROR'};
         }));
 }
 

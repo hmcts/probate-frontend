@@ -8,9 +8,8 @@ describe('will-codicils', () => {
     const expectedNextUrlForIhtComplete = IhtCompleted.getUrl();
     const expectedNextUrlForCodicilsNumber = CodicilsNumber.getUrl();
 
-
     beforeEach(() => {
-        testWrapper = new TestWrapper('WillCodicils')
+        testWrapper = new TestWrapper('WillCodicils');
     });
 
     afterEach(() => {

@@ -5,7 +5,6 @@ const config = require('app/config'),
 
 const logger = require('app/components/logger')('Init');
 
-
 const createPaymentData = function (data, getCaseReference = createCaseReference) {
     const body = {};
     body.amount = data.amount * 100;

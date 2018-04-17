@@ -1,14 +1,13 @@
 const initSteps = require('app/core/initSteps'),
     assert = require('chai').assert;
 
-
 describe('RemoveAlias', function () {
 
     const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
 
     describe('getContextData', function () {
         it('Removes an alias from the context', function (done) {
-            const  RemoveAlias = steps.RemoveAlias;
+            const RemoveAlias = steps.RemoveAlias;
             const req = {
                 params: ['name_1'],
                 session: {
@@ -71,7 +70,7 @@ describe('RemoveAlias', function () {
             let errors = {};
             const formdata = {};
 
-            const  RemoveAlias = steps.RemoveAlias;
+            const RemoveAlias = steps.RemoveAlias;
             [ctx, errors] = RemoveAlias.handlePost(ctx, errors, formdata).next().value;
 
             assert.deepEqual(ctx.otherNames, formdata.deceased.otherNames);

@@ -23,9 +23,9 @@ module.exports = class PinResend extends Step {
         const phoneNumber = session.phoneNumber;
         yield services.sendPin(phoneNumber, session.id).then(generatedPin => {
             if (generatedPin.name === 'Error') {
-                throw new ReferenceError('Error when trying to resend pin')
+                throw new ReferenceError('Error when trying to resend pin');
             } else {
-                session.pin = generatedPin
+                session.pin = generatedPin;
             }
         });
         return [ctx, errors];

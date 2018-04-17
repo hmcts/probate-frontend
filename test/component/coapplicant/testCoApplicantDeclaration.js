@@ -28,7 +28,7 @@ describe('co-applicant-declaration', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test right content loaded on the page', (done) => {
-            checkAllAgreedStub.returns(Promise.resolve('false'))
+            checkAllAgreedStub.returns(Promise.resolve('false'));
             const contentToExclude = [
                 'executorNotApplyingHeader'
             ];
@@ -45,7 +45,7 @@ describe('co-applicant-declaration', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            checkAllAgreedStub.returns(Promise.resolve('false'))
+            checkAllAgreedStub.returns(Promise.resolve('false'));
 
             const data = {};
 
@@ -53,7 +53,7 @@ describe('co-applicant-declaration', () => {
         });
 
         it(`test it redirects to agree page: ${expectedNextUrlForCoAppAgree}`, (done) => {
-            checkAllAgreedStub.returns(Promise.resolve('false'))
+            checkAllAgreedStub.returns(Promise.resolve('false'));
             updateInviteDataStub.returns(when(Promise.resolve('Make it pass!')));
             const data = {
                 'agreement': json.optionYes
@@ -63,7 +63,7 @@ describe('co-applicant-declaration', () => {
 
         it(`test it redirects to disagree page: ${expectedNextUrlForCoAppDisagree}`, (done) => {
             updateInviteDataStub.returns(when(Promise.resolve('Make it pass!')));
-            checkAllAgreedStub.returns(Promise.resolve('false'))
+            checkAllAgreedStub.returns(Promise.resolve('false'));
 
             const data = {
                 'agreement': json.optionNo

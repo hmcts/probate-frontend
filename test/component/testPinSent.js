@@ -5,7 +5,6 @@ describe('pin-sent', () => {
     let testWrapper;
     const expectedNextUrlForPinPage = PinPage.getUrl();
 
-
     beforeEach(() => {
         testWrapper = new TestWrapper('PinSent');
     });

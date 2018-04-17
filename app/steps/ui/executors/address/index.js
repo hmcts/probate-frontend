@@ -1,7 +1,7 @@
 const AddressStep = require('app/core/steps/AddressStep'),
     {findIndex, every, tail, get, startsWith} = require('lodash');
 
-const path =  '/executor-address/';
+const path = '/executor-address/';
 
 module.exports = class ExecutorAddress extends AddressStep {
 
@@ -65,7 +65,7 @@ module.exports = class ExecutorAddress extends AddressStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.continue =  get(ctx, 'index', -1) !== -1;
+        ctx.continue = get(ctx, 'index', -1) !== -1;
         ctx.allExecsApplying = ctx.list.filter(o => o.isDead !== true).every(o => o.isApplying);
         const nextStepOptions = {
             options: [
@@ -88,7 +88,7 @@ module.exports = class ExecutorAddress extends AddressStep {
         delete ctx.allExecsApplying;
         delete ctx.continue;
         delete ctx.index;
-        return [ctx, formdata]
+        return [ctx, formdata];
     }
 
     isComplete(ctx) {

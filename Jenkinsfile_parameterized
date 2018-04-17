@@ -24,6 +24,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 
 withParameterizedPipeline('nodejs', 'probate', 'frontend', params.ENVIRONMENT, 'sandbox') {
   after('build') {
+    sh 'yarn install'
     sh 'yarn setup'
   }
 

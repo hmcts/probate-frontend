@@ -32,7 +32,7 @@ describe('copies-uk', () => {
         });
 
         it('test errors message displayed for missing data, nothing entered', (done) => {
-            const data = {overseas: ''};
+            const data = {uk: ''};
 
             testWrapper.testErrors(done, data, 'required', []);
         });

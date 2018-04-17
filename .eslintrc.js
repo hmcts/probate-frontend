@@ -63,7 +63,7 @@ module.exports = {
                 "allowKeywords": true
             }
         ],
-        "eol-last": "off",
+        "eol-last": "error",
         "eqeqeq": "error",
         "func-call-spacing": "off",
         "func-name-matching": "error",
@@ -157,9 +157,15 @@ module.exports = {
         "no-mixed-operators": "error",
         "no-mixed-requires": "off",
         "no-multi-assign": "error",
-        "no-multi-spaces": "off",
+        "no-multi-spaces": "error",
         "no-multi-str": "error",
-        "no-multiple-empty-lines": "off",
+        "no-multiple-empty-lines": [
+            "error",
+            {
+                "max": 1,
+                "maxEOF": 0
+            }
+        ],
         "no-native-reassign": "error",
         "no-negated-condition": "off",
         "no-negated-in-lhs": "error",
@@ -260,7 +266,10 @@ module.exports = {
         "require-await": "error",
         "require-jsdoc": "off",
         "rest-spread-spacing": "error",
-        "semi": "off",
+        "semi": [
+            "error",
+            "always"
+        ],
         "semi-spacing": [
             "error",
             {
@@ -302,9 +311,9 @@ module.exports = {
         ]
     },
     "globals": {
-            "actor": true,
-            "Feature": true,
-            "Scenario": true,
-            "codecept_helper": true
-        }
+        "actor": true,
+        "Feature": true,
+        "Scenario": true,
+        "codecept_helper": true
+    }
 };

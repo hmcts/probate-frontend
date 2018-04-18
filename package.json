@@ -22,8 +22,6 @@
     "test-e2e": "NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run  -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-crossbrowser-e2e": "NODE_PATH=. codeceptjs run -c test/end-to-end/saucelabs.conf.js --steps",
     "eslint": "NODE_PATH=. eslint .",
-    "eslint-dev:all": "NODE_PATH=. eslint . -c .eslintrc-dev.js",
-    "eslint-dev:file": "NODE_PATH=. eslint -c .eslintrc-dev.js",
     "security": "NODE_PATH=. nsp check",
     "test-coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/**/test*.js'",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner",

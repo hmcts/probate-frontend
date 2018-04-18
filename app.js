@@ -22,6 +22,8 @@ const healthcheck = require(__dirname + '/app/healthcheck.js');
 const InviteSecurity = require(__dirname + '/app/invite.js');
 const fs = require('fs');
 const https = require('https');
+const ioRedis = require('ioredis');
+const RedisStore = require('connect-redis')(session);
 
 exports.init = function() {
 
@@ -144,12 +146,27 @@ exports.init = function() {
         store: utils.getStore(process.env.USE_REDIS, session)
     }));
 
+    if (config.isCNPEnabled) {
+        console.log('Connecting to redis ' + config.redis.host + ':'+ config.redis.port);
+        const client = ioRedis.createClient(config.redis.port,
+                {'password': config.redis.password,
+                    'host': config.redis.host,
+                    'port': config.redis.port,
+                    'tls': true
+                }
+            );
+        const redisClient = new RedisStore({client});
+    } else {
+        const client = ioRedis.createClient(config.redis.port, config.redis.host);
+        const redisClient = new RedisStore({client});
+    }
+
     app.use(function (req, res, next) {
         if (!req.session) {
             return next(new Error('Unable to reach redis'))
         }
         next() // otherwise continue
-    })
+    });
 
     app.use(config.services.idam.probate_oauth_callback_path, security.oAuth2CallbackEndpoint());
 

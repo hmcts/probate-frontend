@@ -8,7 +8,6 @@ describe('copies-summary', () => {
     let testWrapper;
     const expectedNextUrlForTaskList = TaskList.getUrl();
 
-
     beforeEach(() => {
         testWrapper = new TestWrapper('CopiesSummary');
     });

@@ -3,7 +3,6 @@ const testConfig = require('test/config.js');
 
 const useIdam = testConfig.TestUseIdam;
 
-
 module.exports = function () {
     if (useIdam === 'true') {
         const I = this;

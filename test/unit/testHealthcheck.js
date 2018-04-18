@@ -18,7 +18,7 @@ describe('healthcheck', () => {
                 }
 
                 const text = res.text.toLowerCase();
-                expect(text).to.contain('"status":"up"')
+                expect(text).to.contain('"status":"up"');
                 done();
             });
     });

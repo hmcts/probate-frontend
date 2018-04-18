@@ -24,7 +24,7 @@ module.exports = class ExecutorsWhoDied extends ValidationStep {
 
     handlePost(ctx, errors) {
         for (let i = 1; i < ctx.executorsNumber; i++) {
-            ctx.list[i].isDead  = ctx.executorsWhoDied.includes(ctx.list[i].fullName);
+            ctx.list[i].isDead = ctx.executorsWhoDied.includes(ctx.list[i].fullName);
             ctx.list[i] = this.pruneFormData(ctx.list[i]);
         }
         return [ctx, errors];

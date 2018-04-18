@@ -31,7 +31,6 @@ describe('submit service tests', function () {
         submitApplicationSpy.restore();
     });
 
-
     it('Should successfully submit probate application', function (done) {
 
         fetchJsonStub.returns(when('1488295566956'));

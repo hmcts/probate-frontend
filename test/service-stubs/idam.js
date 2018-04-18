@@ -9,7 +9,6 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     S2S_STUB_PORT = process.env.S2S_STUB_PORT || 4502;
 
-
     app.use(bodyParser.urlencoded({
         extended: true
     }));
@@ -22,9 +21,6 @@ router.post('/lease', function (req, res) {
 });
 
 app.use(router);
-
-
-
 
 // start the app
 console.log(`Listening on: ${S2S_STUB_PORT}`);

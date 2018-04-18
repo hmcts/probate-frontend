@@ -64,14 +64,14 @@ const fetchOptions = function (data, method, headers, proxy) {
         body: JSON.stringify(data),
         headers: new fetch.Headers(headers),
         agent: proxy ? new HttpsProxyAgent(proxy) : null
-    }
+    };
 };
 
 const retryOptions = function () {
     return {
         retries: process.env.RETRIES_NUMBER || 10,
         retryDelay: process.env.RETRY_DELAY || 1000
-    }
+    };
 };
 
 module.exports = {
@@ -79,4 +79,4 @@ module.exports = {
     fetchJson: fetchJson,
     asyncFetch: asyncFetch,
     fetchText: fetchText
-}
+};

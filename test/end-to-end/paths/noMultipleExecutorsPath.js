@@ -16,13 +16,10 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-
 Scenario(TestConfigurator.getScenarioName(), function* (I) {
-
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
-
 
     // EligibilityTask
 
@@ -44,7 +41,6 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
     }
 
     I.selectApplicantIsExecutor();
-
 
     // ExecutorsTask
     //

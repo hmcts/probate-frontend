@@ -84,7 +84,7 @@ describe('documents-page', () => {
                     ];
                     const contentData = {
                         renunciationFormLink: config.links.renunciationForm
-                    }
+                    };
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });

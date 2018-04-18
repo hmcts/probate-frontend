@@ -2,7 +2,6 @@ const TestWrapper = require('test/util/TestWrapper'),
     DeceasedName = require('app/steps/ui/deceased/name/index'),
     ExecutorRoles = require('app/steps/ui/executors/roles/index');
 
-
 describe('executor-notified', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForFirstExec = ExecutorRoles.getUrl(2);

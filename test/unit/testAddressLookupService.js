@@ -4,7 +4,7 @@ const assert = require('chai').assert;
 const sinon = require('sinon');
 const when = require('when');
 const utils = require('app/components/api-utils');
-const  services = require('app/components/services');
+const services = require('app/components/services');
 
 describe('addressLookup service tests', function () {
     let fetchJsonStub, findAddressSpy;
@@ -18,7 +18,6 @@ describe('addressLookup service tests', function () {
         fetchJsonStub.restore();
         findAddressSpy.restore();
     });
-
 
     it('Should successfully retrieve address list with postcode', function (done) {
         const expectedResponse = ['address 1', 'address 2'];
@@ -45,6 +44,5 @@ describe('addressLookup service tests', function () {
             })
             .catch(done);
     });
-
 
 });

@@ -2,7 +2,6 @@ const randomstring = require('randomstring');
 const request = require('request');
 const testConfig = require('test/config.js');
 
-
 class TestConfigurator {
 
     constructor(scenarioName) {
@@ -35,7 +34,7 @@ class TestConfigurator {
             request({
                     url: this.getTestAddUserURL(),
                     method: 'POST',
-                    json: true,   // <--Very important!!!
+                    json: true, // <--Very important!!!
                     body: userDetails
                 }
             );
@@ -51,7 +50,7 @@ class TestConfigurator {
                 }
             );
 
-            this.resetEnvVars()
+            this.resetEnvVars();
         }
     }
 

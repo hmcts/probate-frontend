@@ -85,9 +85,9 @@ module.exports = class Declaration extends ValidationStep {
 
     formatName(person, useOtherName) {
         if (useOtherName && person.hasOtherName) {
-            return person.currentName
+            return person.currentName;
         } else if (person.fullName) {
-            return person.fullName
+            return person.fullName;
         }
         return `${person.firstName} ${person.lastName}`;
     }
@@ -153,7 +153,7 @@ module.exports = class Declaration extends ValidationStep {
                 .replace('{applicantName}', props.mainApplicantName)
                 .replace('{applicantCurrentName}', applicantCurrentName)
                 .replace('{deceasedName}', props.deceasedName)
-        }
+        };
     }
 
     executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils) {
@@ -161,7 +161,7 @@ module.exports = class Declaration extends ValidationStep {
             return content[`executorNotApplyingReason${this.codicilsSuffix(hasCodicils)}`]
                 .replace('{otherExecutorName}', this.formatName(executor))
                 .replace('{otherExecutorApplying}', this.executorsNotApplyingText(executor, content))
-                .replace('{deceasedName}', deceasedName)
+                .replace('{deceasedName}', deceasedName);
         });
     }
 
@@ -178,7 +178,7 @@ module.exports = class Declaration extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.hasDataChangedAfterEmailSent =  ctx.hasDataChanged && ctx.invitesSent === 'true';
+        ctx.hasDataChangedAfterEmailSent = ctx.hasDataChanged && ctx.invitesSent === 'true';
         const nextStepOptions = {
             options: [
                 {key: 'hasDataChangedAfterEmailSent', value: true, choice: 'dataChangedAfterEmailSent'},

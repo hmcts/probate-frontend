@@ -104,7 +104,6 @@ module.exports = class PaymentStatus extends Step {
         return errors;
     }
 
-
     * handleGet(ctx) {
         return [ctx, ctx.errors];
     }

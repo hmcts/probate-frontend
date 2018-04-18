@@ -22,7 +22,7 @@ module.exports = class PinPage extends ValidationStep {
                 if (result.name === 'Error') {
                     throw new ReferenceError('Error getting the co-applicant\'s data');
                 } else {
-                    delete result.formdata.declaration.declarationCheckbox
+                    delete result.formdata.declaration.declarationCheckbox;
                     session.form = result.formdata;
             }
 });

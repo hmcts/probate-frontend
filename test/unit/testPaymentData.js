@@ -27,7 +27,7 @@ describe('PaymentData', function () {
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE1';
 
             const result = paymentData.createPaymentData(data, () => {
-return '123456'
+return '123456';
 });
 
             assert.equal(result.reference, expectedReference);
@@ -46,7 +46,7 @@ return '123456'
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE1$CODE2/1';
 
             const result = paymentData.createPaymentData(data, () => {
-return '123456'
+return '123456';
 });
 
             assert.equal(result.reference, expectedReference);
@@ -65,7 +65,7 @@ return '123456'
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE1$CODE3/2';
 
             const result = paymentData.createPaymentData(data, () => {
-return '123456'
+return '123456';
 });
 
             assert.equal(result.reference, expectedReference);
@@ -85,7 +85,7 @@ return '123456'
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE1$CODE2/3$CODE3/4';
 
             const result = paymentData.createPaymentData(data, () => {
-return '123456'
+return '123456';
 });
 
             assert.equal(result.reference, expectedReference);
@@ -104,7 +104,7 @@ return '123456'
             };
 
             const result = paymentData.createPaymentData(data, () => {
-return '123456'
+return '123456';
 });
 
             assert.deepEqual(result.reference, expectedReference);
@@ -123,7 +123,7 @@ return '123456'
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE3/6';
 
             const result = paymentData.createPaymentData(data, () => {
-return '123456'
+return '123456';
 });
 
             assert.deepEqual(result.reference, expectedReference);
@@ -143,7 +143,7 @@ return '123456'
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE2/7$CODE3/8';
 
             const result = paymentData.createPaymentData(data, () => {
-return '123456'
+return '123456';
 });
 
             assert.deepEqual(result.reference, expectedReference);
@@ -175,4 +175,3 @@ return '123456'
         });
     });
 });
-

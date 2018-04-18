@@ -17,13 +17,10 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-
 Scenario(TestConfigurator.getScenarioName(), function* (I) {
-
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
-
 
     // EligibilityTask
 
@@ -45,7 +42,6 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
     }
 
     I.selectApplicantIsExecutor();
-
 
     // ExecutorsTask
     //
@@ -85,7 +81,7 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
     const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
     I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
 
-    const executorsWithDifferentNameList = ['5']
+    const executorsWithDifferentNameList = ['5'];
     forEach(executorsWithDifferentNameList, executorNumber => {
         I.enterExecutorCurrentName(executorNumber, head(executorsWithDifferentNameList) === executorNumber);
     });
@@ -94,8 +90,6 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
         I.enterExecutorContactDetails(executorNumber, head(executorsApplyingList) === executorNumber);
         I.enterExecutorManualAddress(executorNumber);
     });
-
-
 
     const executorsAliveList = ['4', '6'];
     let powerReserved = true;
@@ -109,7 +103,6 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
             powerReserved = true;
         }
     });
-
 
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.selectDeceasedAlias('Yes');
@@ -126,7 +119,6 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
     I.selectATask(taskListContent.taskNotStarted);
 
     // Need to add email/pin functionality testing here
-
 
     // I.seeSummaryPage("declaration");
     // I.acceptDeclaration();

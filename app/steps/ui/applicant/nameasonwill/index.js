@@ -12,11 +12,11 @@ module.exports = class ApplicantNameAsOnWill extends ValidationStep {
         return {
             'stepName': this.constructor.name,
             'isSoftStop': get(formdata, 'applicant.nameAsOnTheWill') === this.generateContent(ctx, formdata).optionNo
-        }
+        };
     }
 
     * handleGet(ctx, formdata) {
-        ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicils()
+        ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicils();
         return [ctx];
     }
 

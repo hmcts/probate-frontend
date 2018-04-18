@@ -48,7 +48,7 @@ module.exports = class ExecutorContactDetails extends ValidationStep {
                     if (result.name === 'Error') {
                         throw new ReferenceError('Error updating executor\'s phone number');
                     }
-                })
+                });
         }
         return [ctx, errors];
     }

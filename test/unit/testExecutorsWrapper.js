@@ -5,7 +5,7 @@ let data;
 
 describe('Executors.js', () => {
     beforeEach(() => {
-        data =  {
+        data = {
             list: [
                 {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
                 {fullname: 'ed brown', isApplying: true}
@@ -61,7 +61,7 @@ describe('Executors.js', () => {
 
     describe('executorsNotApplying()', () => {
         beforeEach(() => {
-            data =  {
+            data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
                     {fullname: 'ed brown', isApplying: false, notApplyingKey: 'optionPowerReserved'}
@@ -107,7 +107,7 @@ describe('Executors.js', () => {
 
     describe('hasRenunciated()', () => {
         beforeEach(() => {
-            data =  {
+            data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
                     {fullname: 'ed brown', isApplying: false, notApplyingKey: 'optionRenunciated'}
@@ -133,7 +133,7 @@ describe('Executors.js', () => {
 
     describe('hasRenunciatedOrPowerReserved()', () => {
         beforeEach(() => {
-            data =  {
+            data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
                     {fullname: 'ed brown', isApplying: false, notApplyingKey: 'optionPowerReserved'},
@@ -249,7 +249,7 @@ describe('Executors.js', () => {
 
     describe('deadExecutors()', () => {
         beforeEach(() => {
-            data =  {
+            data = {
                 list: [
                     {fullname: 'ed brown', isDead: true}
                 ]

@@ -15,13 +15,11 @@ module.exports = {
 
     paymentEnvironments: ['test'],
 
-
     links: {
         cookies: 'https://www.gov.uk/help/cookies',
         terms: '/terms-conditions',
         survey: 'http://www.smartsurvey.co.uk/',
         surveyEndOfApplication: 'http://www.smartsurvey.co.uk/'
     },
-
 
 };

@@ -1,13 +1,13 @@
 const CollectionStep = require('app/core/steps/CollectionStep');
 const {findIndex, every, get} = require('lodash');
 
-const path =  '/executor-current-name/';
+const path = '/executor-current-name/';
 
 module.exports = class ExecutorCurrentName extends CollectionStep {
 
     constructor(steps, section, templatePath, i18next, schema) {
         super(steps, section, templatePath, i18next, schema);
-        this.path =  path;
+        this.path = path;
     }
 
     static getUrl(index = '*') {
@@ -32,7 +32,7 @@ module.exports = class ExecutorCurrentName extends CollectionStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.continue =  get(ctx, 'index', -1) !== -1;
+        ctx.continue = get(ctx, 'index', -1) !== -1;
         const nextStepOptions = {
             options: [
                 {key: 'continue', value: true, choice: 'continue'},

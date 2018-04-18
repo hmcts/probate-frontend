@@ -21,7 +21,6 @@ describe('persistence service tests', function () {
         saveFormDataSpy.restore();
     });
 
-
     it('Should successfully retrieve user data with id 1234', function (done) {
         const expectedResponse = {'formdata': {'firstname': 'tester', 'lastname': 'tester'}};
         fetchJsonStub.returns(when(expectedResponse));

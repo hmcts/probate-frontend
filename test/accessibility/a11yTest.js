@@ -25,7 +25,7 @@ for (const step in steps) {
         describe(`Verify accessibility for the page ${step.name}`, () => {
 
           after(function (done) {
-            checkAllAgreedStub.restore()
+            checkAllAgreedStub.restore();
             server.http.close();
             done();
           });
@@ -40,7 +40,7 @@ for (const step in steps) {
 
             before((done) => {
                 checkAllAgreedStub = sinon.stub(services, 'checkAllAgreed');
-                checkAllAgreedStub.returns(Promise.resolve('false'))
+                checkAllAgreedStub.returns(Promise.resolve('false'));
 
                 server = app.init();
                 agent = request.agent(server.app);
@@ -60,7 +60,7 @@ for (const step in steps) {
             it('should not generate any errors', () => {
 
                 const errors = results
-                        .filter((res) => res.type === 'error')
+                        .filter((res) => res.type === 'error');
 
                 expect(errors.length).to.equal(0, JSON.stringify(errors, null, 2));
             });

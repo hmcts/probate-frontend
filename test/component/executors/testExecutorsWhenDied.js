@@ -17,7 +17,7 @@ describe('executors-when-died', () => {
      const reasons = {
        'optionDiedBefore': 'This executor died (before the person who has died)',
        'optionDiedAfter': 'This executor died (after the person who has died)'
-     }
+     };
 
     let ctx =
         {
@@ -59,7 +59,6 @@ describe('executors-when-died', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
 
         it('test content loaded on the page', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
@@ -272,7 +271,6 @@ describe('executors-when-died', () => {
         it('Gets the reason key from the json and adds it to the context', function () {
 
         const ExecutorsWhenDied = steps.ExecutorsWhenDied;
-
 
         Object.keys(reasons)
             .forEach(

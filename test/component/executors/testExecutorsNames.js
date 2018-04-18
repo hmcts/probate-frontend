@@ -45,7 +45,6 @@ describe('executors-names', () => {
                 });
         });
 
-
         it('test errors message displayed for no name entered', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

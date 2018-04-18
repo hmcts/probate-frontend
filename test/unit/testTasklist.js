@@ -3,7 +3,6 @@ const initSteps = require('app/core/initSteps'),
   assert = require('chai').assert,
   completedForm = require('test/data/complete-form').formdata;
 
-
 describe('Tasklist', function () {
 
     let ctx = {};
@@ -226,7 +225,6 @@ describe('Tasklist', function () {
             assert.equal(ctx.PaymentTask.status, 'notStarted');
         });
 
-
         it('Updates the context: PaymentTask started (Fee to Pay)', function () {
 
             req.session.form = {
@@ -289,4 +287,3 @@ describe('Tasklist', function () {
 
     });
 });
-

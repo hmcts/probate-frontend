@@ -27,13 +27,11 @@ module.exports = function () {
     enterGrossAndNet: steps.iht.paper,
     selectApplicantIsExecutor: steps.applicant.executor,
 
-
     //applicant details
     enterApplicantName: steps.applicant.name,
     selectNameAsOnTheWill: steps.applicant.nameasonwill,
     enterApplicantPhone: steps.applicant.phone,
     enterAddressManually: steps.applicant.address,
-
 
     //executors
     enterTotalExecutors: steps.executors.number,
@@ -81,13 +79,11 @@ module.exports = function () {
     seeGovUkConfirmPage: steps.payment.govukconfirmpayment,
     seePaymentStatusPage: steps.payment.paymentstatus,
 
-
     // Documents
     seeDocumentsPage: steps.documents.documents,
 
     //Thank You Page
     seeThankYouPage: steps.thankyou.thankyou,
-
 
     //Eligibility task
     completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,

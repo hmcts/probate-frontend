@@ -2,13 +2,13 @@ const CollectionStep = require('app/core/steps/CollectionStep'),
     execContent = require('app/resources/en/translation/executors/executorcontent.json'),
     {findKey, findIndex, every, tail, has, get} = require('lodash');
 
-    const path =  '/executor-when-died/';
+    const path = '/executor-when-died/';
 
 module.exports = class ExecutorsWhenDied extends CollectionStep {
 
     constructor(steps, section, templatePath, i18next, schema) {
         super(steps, section, templatePath, i18next, schema);
-        this.path =  path;
+        this.path = path;
     }
 
     static getUrl(index = '*') {
@@ -40,13 +40,13 @@ module.exports = class ExecutorsWhenDied extends CollectionStep {
             ctx.list[ctx.index].notApplyingReason = execContent.optionDiedAfter;
         }
         ctx.list[ctx.index].notApplyingKey = findKey(execContent, function(o) {
- return o === ctx.list[ctx.index].notApplyingReason
+ return o === ctx.list[ctx.index].notApplyingReason;
 });
     }
 
     nextStepOptions(ctx) {
-        ctx.continue =  get(ctx, 'index', -1) !== -1;
-        ctx.allDead =  every(tail(ctx.list), exec => exec.isDead === true);
+        ctx.continue = get(ctx, 'index', -1) !== -1;
+        ctx.allDead = every(tail(ctx.list), exec => exec.isDead === true);
         const nextStepOptions = {
             options: [
                 {key: 'continue', value: true, choice: 'continue'},

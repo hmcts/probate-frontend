@@ -2,7 +2,6 @@ const TestWrapper = require('test/util/TestWrapper'),
 services = require('app/components/services'),
 sinon = require('sinon');
 
-
 describe('co-applicant-start-page', () => {
     let testWrapper, checkAllAgreedStub;
 
@@ -18,7 +17,7 @@ describe('co-applicant-start-page', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content is loaded on the page', (done) => {
-            checkAllAgreedStub.returns(Promise.resolve('false'))
+            checkAllAgreedStub.returns(Promise.resolve('false'));
             const sessionData = {
                 'applicant': {
                     'firstName': 'john', 'lastName': 'theapplicant'

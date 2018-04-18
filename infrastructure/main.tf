@@ -104,10 +104,10 @@ module "probate-frontend" {
 	  // Frontend web details
     FRONTEND_HOSTNAME ="${var.probate_frontend_hostname}"
     PUBLIC_PROTOCOL ="${var.probate_frontend_protocol}"
-    PUBLIC_PORT = "${var.probate_frontend_public_port}"
-  	PORT = "${var.probate_frontend_port}"
-  	PROBATE_HTTP_PROXY = "${var.outbound_proxy}"
-  	no_proxy = "${var.no_proxy}"
+    //PUBLIC_PORT = "${var.probate_frontend_public_port}"
+  	//PORT = "${var.probate_frontend_port}"
+  	//PROBATE_HTTP_PROXY = "${var.outbound_proxy}"
+  	//no_proxy = "${var.no_proxy}"
 
     // Service name
     SERVICE_NAME = "${var.frontend_service_name}"

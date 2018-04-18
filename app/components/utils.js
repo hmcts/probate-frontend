@@ -41,21 +41,25 @@ exports.forceHttps = function(req, res, next) {
 };
 
 exports.getStore = function (useRedis, session) {
+    const ioRedis = require('ioredis');
+    const RedisStore = require('connect-redis')(session);
+    let client;
     if (useRedis) {
-        const ioRedis = require('ioredis');
-        const RedisStore = require('connect-redis')(session);
-        const client = ioRedis.createClient(config.redis.port,
+        if (config.isCNPEnabled) {
+            client = ioRedis.createClient(config.redis.port,
                 {'password': config.redis.password,
                     'host': config.redis.host,
                     'port': config.redis.port,
                     'tls': true
                 }
             );
+        } else {
+            client = ioRedis.createClient(config.redis.port, config.redis.host);
+        }
         return new RedisStore({client});
     }
     const MemoryStore = require('express-session').MemoryStore;
     return new MemoryStore();
-
 };
 
 exports.stringifyNumberBelow21 = function(n) {

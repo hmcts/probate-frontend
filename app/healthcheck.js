@@ -29,7 +29,7 @@ function createPromisesList(services) {
 
 function getServiceHealthUrl(url) {
     let serviceHealthUrl;
-    if (config.isCNPEnabled) {
+    if (url.port) {
         serviceHealthUrl = `${url.protocol}//${url.hostname}/health`;
     } else {
         serviceHealthUrl = `${url.protocol}//${url.hostname}:${url.port}/health`;

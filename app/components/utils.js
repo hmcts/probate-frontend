@@ -44,15 +44,19 @@ exports.getStore = function (useRedis, session) {
     if (useRedis) {
         const ioRedis = require('ioredis');
         const RedisStore = require('connect-redis')(session);
-        const client = ioRedis.createClient(config.redis.port, config.redis.host);
+        const client = ioRedis.createClient(config.redis.port,
+                {'password': config.redis.password,
+                    'host': config.redis.host,
+                    'port': config.redis.port,
+                    'tls': true
+                }
+            );
         return new RedisStore({client});
     }
-
-        const MemoryStore = require('express-session').MemoryStore;
-        return new MemoryStore();
+    const MemoryStore = require('express-session').MemoryStore;
+    return new MemoryStore();
 
 };
-
 
 exports.stringifyNumberBelow21 = function(n) {
     const stringNumbers = common.numberBelow21;

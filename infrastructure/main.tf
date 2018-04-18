@@ -87,10 +87,11 @@ module "probate-frontend" {
 
     UV_THREADPOOL_SIZE = "64"
     NODE_CONFIG_DIR = "${var.node_config_dir}"
-	
+	  WEBSITE_NODE_DEFAULT_VERSION = "8.8.0"
+    
 	  // Logging vars
     REFORM_TEAM = "${var.product}"
-    REFORM_SERVICE_NAME = "${var.microservice}"
+    REFORM_SERVICE_NAME = "${var.product}-${var.microservice}"
     REFORM_ENVIRONMENT = "${var.env}"
   
 	  // Packages

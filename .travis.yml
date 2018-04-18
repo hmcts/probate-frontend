@@ -11,3 +11,4 @@ script:
   - yarn eslint
   - yarn test
   - yarn test-coverage
+  - yarn test:codecov-upload

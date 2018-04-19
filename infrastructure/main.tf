@@ -84,10 +84,10 @@ module "probate-frontend" {
     // Node specific vars
     //NODE_ENV = "${var.node_env}"
     //NODE_PATH = "${var.node_path}"
-    NODE_PATH = "D:\\home\\site\\wwwroot"
+    //NODE_PATH = "D:\\home\\site\\wwwroot"
     UV_THREADPOOL_SIZE = "64"
     NODE_CONFIG_DIR = "${var.node_config_dir}"
-	  WEBSITE_NODE_DEFAULT_VERSION = "8.8.0"
+	  //WEBSITE_NODE_DEFAULT_VERSION = "8.8.0"
     
 	  // Logging vars
     REFORM_TEAM = "${var.product}"

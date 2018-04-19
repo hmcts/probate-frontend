@@ -41,19 +41,19 @@ exports.forceHttps = function(req, res, next) {
 
 exports.getStore = function (redisConfig, session) {
     if (redisConfig.enabled === 'true') {
-        const ioRedis = require('ioredis');
+        const Redis = require('ioredis');
         const RedisStore = require('connect-redis')(session);
         let client;
-        if (redisConfig.useTLS) {
-            client = ioRedis.createClient(redisConfig.port,
-                {'password': redisConfig.password,
-                    'host': redisConfig.host,
+        if (redisConfig.useTLS === 'true') {
+            client = new Redis(redisConfig.port, redisConfig.host,
+                {
+                    'password': redisConfig.password,
                     'port': redisConfig.port,
                     'tls': true
                 }
             );
         } else {
-            client = ioRedis.createClient(redisConfig.port, redisConfig.host);
+            client = new Redis(redisConfig.port, redisConfig.host);
         }
         return new RedisStore({client});
     }

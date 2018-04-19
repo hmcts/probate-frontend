@@ -43,23 +43,19 @@ exports.getStore = function (redisConfig, session) {
     if (redisConfig.enabled === 'true') {
         const Redis = require('ioredis');
         const RedisStore = require('connect-redis')(session);
-        let client;
-        if (redisConfig.useTLS === 'true') {
-            client = new Redis(redisConfig.port, redisConfig.host,
-                {
-                    'password': redisConfig.password,
-                    'port': redisConfig.port,
-                    'tls': true
-                }
-            );
-        } else {
-            client = new Redis(redisConfig.port, redisConfig.host);
-        }
+        const tlsOptions = {
+            password: redisConfig.password,
+            tls: true
+        };
+        const redisOptions = redisConfig.useTLS === 'true' ? tlsOptions : {};
+        const client = new Redis(redisConfig.port, redisConfig.host, redisOptions);
         return new RedisStore({client});
     }
     const MemoryStore = require('express-session').MemoryStore;
     return new MemoryStore();
 };
+
+
 
 exports.stringifyNumberBelow21 = function(n) {
     const stringNumbers = common.numberBelow21;

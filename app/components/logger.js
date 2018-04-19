@@ -1,21 +1,12 @@
 /*global require, module, process */
+
 'use strict';
-const bunyan = require('bunyan');
+
+const {Logger} = require('@hmcts/nodejs-logging');
 let logger;
 
-const log = (logId) => {
-            if (!logger) {
-                logger = bunyan.createLogger({
-                        name: 'frontend',
-                        streams: [{
-                            level: process.env.LOG_LEVEL || 'debug',
-                            stream: process.stdout
-                        }
-                    ]
-                    });
-            }
-            logger.fields.id = logId;
-            return logger;
-        };
+const log = () => {
+    return (logger) ? logger : Logger.getLogger('frontend');
+};
 
 module.exports = log;

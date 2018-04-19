@@ -28,13 +28,8 @@ function createPromisesList(services) {
 }
 
 function getServiceHealthUrl(url) {
-    let serviceHealthUrl;
-    if (url.port) {
-        serviceHealthUrl = `${url.protocol}//${url.hostname}/health`;
-    } else {
-        serviceHealthUrl = `${url.protocol}//${url.hostname}:${url.port}/health`;
-    }
-    return serviceHealthUrl;
+    const port = url.port ? `:${url.port}` : '';
+    return `${url.protocol}//${url.hostname}${port}/health`;
 }
 
 router.get('/', function (req, res) {

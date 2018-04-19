@@ -141,7 +141,7 @@ exports.init = function() {
             httpOnly: true,
             sameSite: 'lax'
         },
-        store: utils.getStore(session)
+        store: utils.getStore(config.redis, session)
     }));
 
     app.use(function (req, res, next) {

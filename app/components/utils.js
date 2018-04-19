@@ -1,6 +1,5 @@
-const basicAuth = require('basic-auth'),
-    config = require('app/config.js'),
-    common = require('app/resources/en/translation/common.json');
+const basicAuth = require('basic-auth');
+const common = require('app/resources/en/translation/common.json');
 
 /**
  * Simple basic auth middleware for use with Express 4.x.
@@ -40,21 +39,21 @@ exports.forceHttps = function(req, res, next) {
   next();
 };
 
-exports.getStore = function (session) {
-    if (config.redis.enabled === 'true') {
+exports.getStore = function (redisConfig, session) {
+    if (redisConfig.enabled === 'true') {
         const ioRedis = require('ioredis');
         const RedisStore = require('connect-redis')(session);
         let client;
-        if (config.redis.useTLS) {
-            client = ioRedis.createClient(config.redis.port,
-                {'password': config.redis.password,
-                    'host': config.redis.host,
-                    'port': config.redis.port,
+        if (redisConfig.useTLS) {
+            client = ioRedis.createClient(redisConfig.port,
+                {'password': redisConfig.password,
+                    'host': redisConfig.host,
+                    'port': redisConfig.port,
                     'tls': true
                 }
             );
         } else {
-            client = ioRedis.createClient(config.redis.port, config.redis.host);
+            client = ioRedis.createClient(redisConfig.port, redisConfig.host);
         }
         return new RedisStore({client});
     }

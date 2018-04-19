@@ -8,7 +8,7 @@
   },
   "scripts": {
     "setup": "NODE_PATH=. npm run sass",
-    "start": "NODE_PATH=. node server.js",
+    "start": "node server.js",
     "debug": "NODE_PATH=. node inspect server.js",
     "prestart:dev": "npm run sass:watch",
     "start:dev": "NODE_PATH=. nodemon -e js,json --watch 'app/' --watch 'test/' -x 'node server.js'",
@@ -22,7 +22,7 @@
     "test-accessibility": "NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 15000",
     "test-e2e": "NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run  -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-crossbrowser-e2e": "NODE_PATH=. codeceptjs run -c test/end-to-end/saucelabs.conf.js --steps",
-    "test-smoke": "mocha test/smoke/healthcheck.js --timeout 15000 --reporter spec",
+    "test-smoke": "NODE_PATH=. mocha test/smoke/healthcheck.js --timeout 15000 --reporter spec",
     "lint": "NODE_PATH=. eslint .",
     "eslint": "NODE_PATH=. eslint .",
     "eslint-dev:all": "NODE_PATH=. eslint . -c .eslintrc-dev.js",

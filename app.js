@@ -141,7 +141,7 @@ exports.init = function() {
             httpOnly: true,
             sameSite: 'lax'
         },
-        store: utils.getStore(process.env.USE_REDIS, session)
+        store: utils.getStore(config.redis, session)
     }));
 
     app.use(function (req, res, next) {
@@ -149,7 +149,7 @@ exports.init = function() {
             return next(new Error('Unable to reach redis'))
         }
         next() // otherwise continue
-    })
+    });
 
     app.use(config.services.idam.probate_oauth_callback_path, security.oAuth2CallbackEndpoint());
 

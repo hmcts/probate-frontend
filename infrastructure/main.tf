@@ -55,8 +55,8 @@ data "vault_generic_secret" "idam_frontend_idam_key" {
 locals {
   aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
 
-  previewVaultName = "${var.product}-frontend"
-  nonPreviewVaultName = "${var.product}-frontend-${var.env}"
+  previewVaultName = "${var.product}-fe"  // max 24 char else used fronend
+  nonPreviewVaultName = "${var.product}-fe-${var.env}"
   vaultName = "${var.env == "preview" ? local.previewVaultName : local.nonPreviewVaultName}"
 
   nonPreviewVaultUri = "${module.probate-frontend-vault.key_vault_uri}"
@@ -87,10 +87,11 @@ module "probate-frontend" {
 
     UV_THREADPOOL_SIZE = "64"
     NODE_CONFIG_DIR = "${var.node_config_dir}"
-	
+	  WEBSITE_NODE_DEFAULT_VERSION = "8.8.0"
+    
 	  // Logging vars
     REFORM_TEAM = "${var.product}"
-    REFORM_SERVICE_NAME = "${var.microservice}"
+    REFORM_SERVICE_NAME = "${var.product}-${var.microservice}"
     REFORM_ENVIRONMENT = "${var.env}"
   
 	  // Packages
@@ -104,10 +105,10 @@ module "probate-frontend" {
 	  // Frontend web details
     FRONTEND_HOSTNAME ="${var.probate_frontend_hostname}"
     PUBLIC_PROTOCOL ="${var.probate_frontend_protocol}"
-    PUBLIC_PORT = "${var.probate_frontend_public_port}"
-  	PORT = "${var.probate_frontend_port}"
-  	PROBATE_HTTP_PROXY = "${var.outbound_proxy}"
-  	no_proxy = "${var.no_proxy}"
+    //PUBLIC_PORT = "${var.probate_frontend_public_port}"
+  	//PORT = "${var.probate_frontend_port}"
+  	//PROBATE_HTTP_PROXY = "${var.outbound_proxy}"
+  	//no_proxy = "${var.no_proxy}"
 
     // Service name
     SERVICE_NAME = "${var.frontend_service_name}"
@@ -152,6 +153,8 @@ module "probate-frontend" {
     E2E_FRONTEND_URL = "${var.probate_frontend_hostname}"
   }
 }
+
+
 
 module "probate-frontend-vault" {
   source              = "git@github.com:hmcts/moj-module-key-vault?ref=master"

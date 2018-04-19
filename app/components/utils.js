@@ -40,12 +40,12 @@ exports.forceHttps = function(req, res, next) {
   next();
 };
 
-exports.getStore = function (useRedis, session) {
-    const ioRedis = require('ioredis');
-    const RedisStore = require('connect-redis')(session);
-    let client;
-    if (useRedis) {
-        if (config.isCNPEnabled) {
+exports.getStore = function (session) {
+    if (config.redis.enabled === 'true') {
+        const ioRedis = require('ioredis');
+        const RedisStore = require('connect-redis')(session);
+        let client;
+        if (config.redis.useTLS) {
             client = ioRedis.createClient(config.redis.port,
                 {'password': config.redis.password,
                     'host': config.redis.host,

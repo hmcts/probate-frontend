@@ -52,7 +52,7 @@ module.exports = {
         host: process.env.REDIS_HOST || 'localhost',
         port: process.env.REDIS_PORT || 6379,
         password: process.env.REDIS_PASSWORD || 'dummy_password',
-        useTLS: process.env.USE_TLS || 'false',
+        useTLS: process.env.REDIS_USE_TLS || 'false',
         enabled: process.env.USE_REDIS || 'false'
     },
     dateFormat: 'DD/MM/YYYY',

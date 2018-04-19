@@ -16,7 +16,7 @@ probate_redis_url = "betaDevBprobatecache01.reform.hmcts.net"
 
 f5_redis_listen_port = "6379"
 
-probate_frontend_https = "true"
+probate_frontend_https = "false"
 probate_frontend_use_auth = "false"
 
 payment_return_url = "https://probate-frontend-sandbox.service.core-compute-sandbox.internal/payment-status"
@@ -34,9 +34,9 @@ probate_deployment_env = "test"
 
 probate_frontend_port = "3101"
 
-probate_frontend_use_idam = "true"
+probate_frontend_use_idam = "false"
 
-probate_frontend_use_redis = "true"
+probate_frontend_use_redis = "false"
 
 probate_business_service_url = "http://betaDevBprobateApp01.reform.hmcts.net:4101/validate"
 

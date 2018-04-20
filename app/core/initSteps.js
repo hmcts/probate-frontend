@@ -1,16 +1,19 @@
 'use strict';
-const requireDir = require('require-directory'),
-      i18next = require('i18next'),
-      logger = require('app/components/logger')('Init');
 
+const requireDir = require('require-directory');
+const i18next = require('i18next');
+const logger = require('app/components/logger')('Init');
+const path = require('path');
 const steps = {};
 
+<<<<<<< HEAD
 let content = {};
 
 
+=======
+>>>>>>> 8151e8a... PRO-2509: Code tidying
 const initSteps = (stepLocations) => {
-
-    content = requireDir(module, '../', {include: /resources/});
+    const content = requireDir(module, '../', {include: /resources/});
     i18next.createInstance();
     i18next.init(content, (err) => {
         if (err) {

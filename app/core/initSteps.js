@@ -6,12 +6,6 @@ const logger = require('app/components/logger')('Init');
 const path = require('path');
 const steps = {};
 
-<<<<<<< HEAD
-let content = {};
-
-
-=======
->>>>>>> 8151e8a... PRO-2509: Code tidying
 const initSteps = (stepLocations) => {
     const content = requireDir(module, '../', {include: /resources/});
     i18next.createInstance();

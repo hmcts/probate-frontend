@@ -147,6 +147,7 @@ module "probate-frontend" {
     SITE_ID = "${data.vault_generic_secret.probate_site_id.data["value"]}"
 
     // Functional tests
+    TEST_E2E_FRONTEND_URL = "${var.probate_frontend_hostname}"
     E2E_FRONTEND_URL = "${var.probate_frontend_hostname}"
   }
 }

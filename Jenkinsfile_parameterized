@@ -10,7 +10,7 @@ properties([
 ])
 
 List<LinkedHashMap<String, Object>> secrets = [
-
+	secret('TEST-E2E-FRONTEND-URL', 'TEST_E2E_FRONTEND_URL')
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {

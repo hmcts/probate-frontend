@@ -5,6 +5,7 @@ const {get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const services = require('app/components/services');
 const WillWrapper = require('app/wrappers/Will');
+const FormatName = require('app/utils/FormatName');
 
 module.exports = class Declaration extends ValidationStep {
     static getUrl() {
@@ -36,8 +37,8 @@ module.exports = class Declaration extends ValidationStep {
         const deceased = formdata.deceased || {};
         const iht = formdata.iht || {};
         const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
-        const applicantName = this.formatName(applicant);
-        const deceasedName = this.formatName(deceased);
+        const applicantName = FormatName.format(applicant);
+        const deceasedName = FormatName.format(deceased);
         const executorsApplying = ctx.executorsWrapper.executorsApplying();
         const executorsNotApplying = ctx.executorsWrapper.executorsNotApplying();
         const deceasedOtherNames = this.formatMultipleNames(get(deceased, 'otherNames'), content);
@@ -89,7 +90,7 @@ module.exports = class Declaration extends ValidationStep {
         } else if (person.fullName) {
             return person.fullName;
         }
-        return `${person.firstName} ${person.lastName}`;
+        return FormatName.format(person);
     }
 
     codicilsSuffix(hasCodicils) {

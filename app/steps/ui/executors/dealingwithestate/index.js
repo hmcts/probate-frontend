@@ -1,6 +1,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {includes, some, tail} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const FormatName = require('app/utils/FormatName');
 
 module.exports = class ExecutorsDealingWithEstate extends ValidationStep {
 
@@ -14,7 +15,7 @@ module.exports = class ExecutorsDealingWithEstate extends ValidationStep {
             ctx.options = (new ExecutorsWrapper(ctx)).aliveExecutors()
                 .map(executor => {
                     if (executor.isApplicant) {
-                        return {option: `${executor.firstName} ${executor.lastName}`, checked: true, disabled: true};
+                        return {option: FormatName.format(executor), checked: true, disabled: true};
                     }
                     return {option: executor.fullName, checked: executor.isApplying === true};
                 });

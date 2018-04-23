@@ -1,8 +1,8 @@
-const ValidationStep = require('app/core/steps/ValidationStep'),
-    services = require('app/components/services'),
-    {get} = require('lodash');
+const ValidationStep = require('app/core/steps/ValidationStep');
+const services = require('app/components/services');
+const FormatName = require('app/utils/FormatName');
 
-    module.exports = class ExecutorsInvite extends ValidationStep {
+module.exports = class ExecutorsInvite extends ValidationStep {
 
     static getUrl() {
         return '/executors-invite';
@@ -13,8 +13,6 @@ const ValidationStep = require('app/core/steps/ValidationStep'),
     }
 
     * handlePost(ctx, errors, formdata, session) {
-        const mainExecutorName = get(formdata, 'applicant.firstName') + ' ' + get(formdata, 'applicant.lastName');
-
         yield ctx.list
             .filter(exec => exec.isApplying && !exec.isApplicant)
             .map(exec => {
@@ -26,7 +24,7 @@ const ValidationStep = require('app/core/steps/ValidationStep'),
                         email: exec.email,
                         phoneNumber: exec.mobile,
                         formdataId: session.regId,
-                        leadExecutorName: mainExecutorName
+                        leadExecutorName: FormatName.format(formdata.applicant)
                     }
                 };
                 return services.sendInvite(data, session.id, exec).then(result => {

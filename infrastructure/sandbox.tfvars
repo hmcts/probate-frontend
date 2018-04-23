@@ -6,7 +6,7 @@ vault_section = "test"
 packages_environment = "test"
 packages_version = "3.0.0"
 
-probate_frontend_hostname = "probate-frontend-sandbox.service.core-compute-sandbox.internal"
+probate_frontend_hostname = "probate-frontend-sandbox-staging.service.core-compute-sandbox.internal"
 external_host_name = "probate.sandbox.platform.hmcts.net"
 outbound_proxy = ""
 
@@ -19,7 +19,7 @@ f5_redis_listen_port = "6379"
 probate_frontend_https = "false"
 probate_frontend_use_auth = "false"
 
-payment_return_url = "https://probate-frontend-sandbox.service.core-compute-sandbox.internal/payment-status"
+payment_return_url = "https://probate-frontend-sandbox-staging.service.core-compute-sandbox.internal/payment-status"
 
 payment_create_url = "https://test.payments.reform.hmcts.net:4421/users/userId/payments"
 

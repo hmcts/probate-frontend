@@ -6,7 +6,7 @@ vault_section = "preprod"
 packages_environment = "preprod"
 packages_version = "3.0.0"
 
-probate_frontend_hostname = "probate-frontend-saat.service.core-compute-saat.internal"
+probate_frontend_hostname = "probate-frontend-sandbox-saat.service.core-compute-saat.internal"
 external_host_name = "probate.saat.platform.hmcts.net"
 outbound_proxy = ""
 
@@ -20,7 +20,7 @@ f5_redis_listen_port = "6379"
 probate_frontend_https = "false"
 probate_frontend_use_auth = "false"
 
-payment_return_url = "https://probate-frontend-saat.service.core-compute-saat.internal/payment-status"
+payment_return_url = "https://probate-frontend-sandbox-saat.service.core-compute-saat.internal/payment-status"
 
 payment_create_url = "https://test.payments.reform.hmcts.net:4421/users/userId/payments"
 

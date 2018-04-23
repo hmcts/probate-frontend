@@ -1,9 +1,12 @@
 'use strict';
 
-class NameFormatter {
+class FormatName {
     static format(person) {
-        return (person) ? `${person.firstName} ${person.lastName}` : '';
+        person = person || {};
+        const firstName = person.firstName || '';
+        const lastName = person.lastName || '';
+        return `${firstName} ${lastName}`.trim();
     }
 }
 
-module.exports = NameFormatter;
+module.exports = FormatName;

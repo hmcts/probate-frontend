@@ -32,7 +32,7 @@ env.TEST_E2E_FRONTEND_URL = "${serviceName}${slotString}.service.core-compute-${
 withParameterizedPipeline('nodejs', product, component, params.ENVIRONMENT, slot) {
   after('build') {
     sh '''
-    yarn setup'
+    yarn setup
     printenv '''
   }
 

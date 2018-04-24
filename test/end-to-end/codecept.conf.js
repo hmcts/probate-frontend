@@ -9,12 +9,13 @@ exports.config = {
             'waitForTimeout': 10000,
             'show': true,
             waitForAction: 2000,
-            restart: false,
-            keepCookies: true,
+       //     restart: false,
+       //     keepCookies: true,
             'switches': {
                 'ignore-certificate-errors': true
             }
-        },
+        }
+        ,
         'RESTHelper': {
             'require': './helpers/RESTHelper.js'
         }

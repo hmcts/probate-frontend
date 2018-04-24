@@ -10,6 +10,9 @@ module.exports = {
     TestUseIdam: process.env.TEST_USE_IDAM || 'true',
     TestIdamLoginUrl: process.env.TEST_IDAM_LOGIN_URL || 'https://idam-test.dev.ccidam.reform.hmcts.net/login',
 
+    TestInviteIdListUrl: '/inviteIdList',
+    TestPinUrl: '/pin',
+    TestInvitiationUrl: '/executors/invitation',
     TestIdamAddUserUrl: '/testing-support/accounts',
     TestIdamRole: 'probate-private-beta',
     TestCitizenDomain: '@probateTest.com',

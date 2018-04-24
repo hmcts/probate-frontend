@@ -67,6 +67,9 @@ module.exports = function () {
     //Declaration Page
     acceptDeclaration: steps.declaration.declaration,
 
+    //Notify additional executors
+    notifyAdditionalExecutors: steps.executors.invite,
+
     //Asset pages
     selectOverseasAssets: steps.assets.overseas,
 

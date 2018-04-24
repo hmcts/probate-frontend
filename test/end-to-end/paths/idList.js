@@ -1,7 +1,10 @@
 const scenario = 'End-to-end journey - Multiple Executors';
 const taskListContent = require('app/resources/en/translation/tasklist.json');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))(scenario);
-const {forEach, head} = require('lodash');
+const {forEach, head, size} = require('lodash');
+const testConfig = require('test/config.js');
+
+let grabIds;
 
 Feature('Multiple Executor flow');
 
@@ -20,36 +23,35 @@ After(() => {
 
 Scenario(TestConfigurator.getScenarioName(), function* (I) {
 
-
+    // let ids = '{"ids":["deceased-first-name-deceased-last-name-f365b2e6-3806-450f-931b-36557bde451c","deceased-first-name-deceased-last-name-7eaf7c06-8cea-4f40-a147-cc5b1ac43df0"]}';
+    //
+    // let jsonObject = JSON.parse(ids);
+    //
+    // console.log('size>>>',size(jsonObject.ids));
+    //
+    // forEach(jsonObject.ids, id => {
+    //         console.log(id);
+    //        });
+    //
+    // I.amOnPage(testConfig.TestInvitiationUrl + '/deceased_first_names-deceased_last_names-3c2288e8-f819-4455-8da1-5210eb25377f');
+    // I.amOnPage('/pin');
+    // pause();
     // IDAM
     I.authenticateWithIdamIfAvailable();
-
-    I.seeCookie('__auth-token-3.0.0');
-    let cookie = yield I.grabCookie('__auth-token-3.0.0');
-    console.log('cookie val=',cookie.value);
-    console.log('here5');
-    let body = yield I.doHttpGet('https://www-test.probate.reform.hmcts.net/inviteIdList');
-    console.log('here2>>>',body);
-
-    I.setCookie('__auth-token-3.0.0',cookie.value);
 
     // EligibilityTask
 
     I.startApplication();
-    I.seeCookie('__auth-token-3.0.0');
-    // console.log('here1');
-    // let body = yield I.doHttpGet('https://www-test.probate.reform.hmcts.net/inviteIdList');
-    // console.log('here2>>>',body);
-    // console.log('cookie val=',cookie.value);
 
     I.selectATask(taskListContent.taskNotStarted);
     I.selectPersonWhoDiedLeftAWill();
 
     I.selectOriginalWill();
     I.selectAndEnterWillDate('01', '01', '1970');
-    I.selectWillCodicils('Yes');
-    I.selectWillNoOfCodicils('3');
-    I.selectAndEnterCodicilsDate('02', '02', '2010');
+    //I.selectWillCodicils('Yes');
+    I.selectWillCodicils('no');
+    //I.selectWillNoOfCodicils('3');
+    //I.selectAndEnterCodicilsDate('02', '02', '2010');
     I.selectIhtCompleted();
     I.selectInheritanceMethodPaper();
 
@@ -111,7 +113,6 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
     });
 
 
-
     const executorsAliveList = ['4', '6'];
     let powerReserved = true;
     forEach(executorsAliveList, executorNumber => {
@@ -127,8 +128,9 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
 
 
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
-    I.selectDeceasedAlias('Yes');
-    I.selectOtherNames('2');
+    //I.selectDeceasedAlias('Yes');
+    I.selectDeceasedAlias('No');
+    //I.selectOtherNames('2');
     I.selectDeceasedMarriedAfterDateOnWill('optionNo');
     I.enterDeceasedDateOfDeath('01', '01', '2017');
     I.enterDeceasedDateOfBirth('01', '01', '1950');
@@ -142,27 +144,71 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();
 
-    // I.seeCookie('__auth-token-3.0.0');
-    // console.log('cookie val=',cookie.value);
-    // console.log('here3');
-    // let body2 = yield I.doHttpGet('https://www-test.probate.reform.hmcts.net/inviteIdList');
-    // console.log('here4>>>',body2);
-
-
     // Notify additional executors Dealing with estate
     I.notifyAdditionalExecutors();
-    // pause();
-    I.seeCookie('__auth-token-3.0.0');
-    let cookie = yield I.grabCookie('__auth-token-3.0.0');
-    console.log('cookie val=',cookie.value);
-    console.log('here5');
 
-    I.setCookie('__auth-token-3.0.0',cookie.value);
+    //Retrieve the email urls for additional executors
+    I.amOnPage(testConfig.TestInviteIdListUrl);
+    grabIds = yield I.grabTextFrom('body');
+});
 
-    let body3 = yield I.doHttpGet('https://www-test.probate.reform.hmcts.net/inviteIdList');
-    pause();
-    console.log('here6>>>',body3);
-    console.log('cookie val=',cookie.value);
+
+//probably need the for loop around the scenario - so that it is a new session each time
+Scenario('pin', function* (I) {
+
+
+    let idList = JSON.parse(grabIds);
+
+    for (let i=0; i < idList.ids.length; i++) {
+        console.log('>>>>',testConfig.TestInvitiationUrl + '/' + idList.ids[i]);
+        I.amOnPage(testConfig.TestInvitiationUrl + '/' + idList.ids[i]);
+
+        I.amOnPage(testConfig.TestFrontendUrl + '/pin');
+
+        let grabPins = yield I.grabTextFrom('body');
+        let pinList = JSON.parse(grabPins);
+        console.log('pin no>>>', pinList.pin);
+        pause();
+    }
+});
+    // Somehow need to get the pin id and then put that is into the webpage.....
+
+    // let jsonObject = JSON.parse(grabIds);
+    // for (let x=0; x < jsonObject.ids.length; x++ ){
+    //     I.amOnPage(testConfig.TestInvitiationUrl + '/' + jsonObject.ids[x]);
+    //
+    //     //let response = yield I.doHttpGet('https://www-test.probate.reform.hmcts.net/pin')
+    //     //let csrf = yield I.grabValueFrom('_csrf');
+    //     //console.log('response>>>',response);
+    //     //console.log('_csrf>>>>>',csrf);
+    //     pause();
+    // }
+
+
+
+
+    // forEach(jsonObject.ids, id => {
+    //     I.amOnPage(testConfig.TestInvitiationUrl + '/' + id);
+    //     let csrf = yield I.grabValueFrom('_csrf');
+    //     console.log('_csrf>>>>>',csrf);
+    //     pause();
+    //    // I.sendPostRequest(testConfig.TestInvitiationUrl, { "email": "user@user.com" });
+    // });
+
+  //   // pause();
+  //   // I.seeCookie('__auth-token-3.0.0');
+  //   // let authCookie = yield I.grabCookie('__auth-token-3.0.0');
+  //   // let connectSidCookie = yield I.grabCookie('connect.sid');
+  //   //
+  //   // I.amOnPage('/inviteIdList', {'Cookie': authCookie + ';' + connectSidCookie});
+  //   I.amOnPage('/inviteIdList');
+  //   let grabTextFrom = yield I.grabTextFrom('body');
+  // console.log('grabTextFrom>>>',grabTextFrom);
+  //
+  //
+  //   console.log('size>>>>',size(grabTextFrom));
+  //
+  //    pause();
     //    // Need to add email/pin functionality testing here
     //    console.log('here1');
     //  //  pause();
@@ -206,4 +252,4 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
     //
     // // Thank You - Application Complete Task
     // I.seeThankYouPage();
-});
+//});

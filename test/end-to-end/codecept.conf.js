@@ -9,6 +9,7 @@ exports.config = {
             'waitForTimeout': 10000,
             'show': true,
             waitForAction: 2000,
+            'browser': 'chrome',
        //     restart: false,
        //     keepCookies: true,
             'switches': {
@@ -16,8 +17,8 @@ exports.config = {
             }
         }
         ,
-        'RESTHelper': {
-            'require': './helpers/RESTHelper.js'
+        'NightmareHelper': {
+            'require': './helpers/NightmareHelper.js'
         }
     },
     'include': {

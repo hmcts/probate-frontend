@@ -156,20 +156,39 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
 //probably need the for loop around the scenario - so that it is a new session each time
 Scenario('pin', function* (I) {
 
+    const idList = JSON.parse(grabIds);
 
-    let idList = JSON.parse(grabIds);
-
-    for (let i=0; i < idList.ids.length; i++) {
-        console.log('>>>>',testConfig.TestInvitiationUrl + '/' + idList.ids[i]);
-        I.amOnPage(testConfig.TestInvitiationUrl + '/' + idList.ids[i]);
-
+    //for (let i=0; i < idList.ids.length; i++) {
+    //     console.log('>>>>',testConfig.TestInvitiationUrl + '/' + idList.ids[i]);
+    //     I.amOnPage(testConfig.TestInvitiationUrl + '/' + idList.ids[i]);
+        I.amOnPage(testConfig.TestInvitiationUrl + '/' + idList.ids[0]);
         I.amOnPage(testConfig.TestFrontendUrl + '/pin');
 
-        let grabPins = yield I.grabTextFrom('body');
-        let pinList = JSON.parse(grabPins);
+        const grabPins = yield I.grabTextFrom('body');
+        const pinList = JSON.parse(grabPins);
         console.log('pin no>>>', pinList.pin);
-        pause();
-    }
+    I.wait(4);
+        const dummy = yield I.clickBackBrowserButton();
+    console.log('in idList');
+    pause();
+        I.enterPinCode(pinList.pin);
+
+
+        //  I.seeElement('#pin');
+        // pause();
+        //  I.fillField('#pin', pinList.pin);
+        //  pause();
+        //  I.click('.button');
+        //  pause();
+        // I.seeCurrentUrlEquals('/co-applicant-start-page');
+        // I.click('.button')
+        // pause();
+        // I.seeCurrentUrlEquals('/co-applicant-declaration');
+        // I.click('#agreement-optionYes');
+        // I.click('#acceptAndSend');
+        // pause();
+        // I.seeCurrentUrlEquals('/co-applicant-agree-page');
+   // }
 });
     // Somehow need to get the pin id and then put that is into the webpage.....
 

@@ -70,6 +70,12 @@ module.exports = function () {
     //Notify additional executors
     notifyAdditionalExecutors: steps.executors.invite,
 
+    //Pin page for additional executor
+    enterPinCode: steps.pin.signin,
+
+    //Additional executors Agree/Disagree with Statement of Truth
+    seeCoApplicantStartPage: steps.coapplicant.startPage,
+
     //Asset pages
     selectOverseasAssets: steps.assets.overseas,
 

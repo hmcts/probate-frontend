@@ -25,9 +25,9 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 String product = "probate"
 String component = "frontend"
 String slot = "sandbox"
-String serviceName = "${product}-${app}-${env}"
+String serviceName = "${product}-${component}-${env}"
 String slotString = "-${slot}"
-//env.TEST_E2E_FRONTEND_URL = "${serviceName}${slotString}.service.core-compute-${params.ENVIRONMENT}.internal"
+env.TEST_E2E_FRONTEND_URL = "${serviceName}${slotString}.service.core-compute-${params.ENVIRONMENT}.internal"
 
 withParameterizedPipeline('nodejs', product, component, params.ENVIRONMENT, slot) {
   after('build') {

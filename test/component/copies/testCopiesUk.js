@@ -37,6 +37,17 @@ describe('copies-uk', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
+        it('test errors message displayed for invalid data, negative numbers', (done) => {
+            const data = {uk: '-1'};
+
+            testWrapper.testErrors(done, data, 'invalid', []);
+        });
+
+        it(`test it redirects to next page: ${expectedNextUrlForAssetsOverseas}`, (done) => {
+            const data = {uk: '0'};
+            testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
+        });
+
         it(`test it redirects to next page: ${expectedNextUrlForAssetsOverseas}`, (done) => {
             const data = {uk: '1'};
             testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);

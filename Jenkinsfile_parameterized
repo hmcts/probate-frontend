@@ -31,8 +31,9 @@ String slotString = "-${slot}"
 
 withParameterizedPipeline('nodejs', product, component, params.ENVIRONMENT, slot) {
   after('build') {
-    sh 'yarn setup'
-    sh "printenv"
+    sh '''
+    yarn setup'
+    printenv '''
   }
 
   loadVaultSecrets(secrets)

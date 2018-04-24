@@ -29,10 +29,11 @@ String slot = "sandbox"
 withParameterizedPipeline('nodejs', product, component, params.ENVIRONMENT, slot) {
   after('build') {
     sh 'yarn setup'
+    def serviceName = "${product}-${app}-${env}"
+    def slotString = "-${slot}"
+    env.TEST_E2E_FRONTEND_URL = "${serviceName}${slotString}.service.core-compute-${params.ENVIRONMENT}.internal"
   }
-  def serviceName = "${product}-${app}-${env}"
-  def slotString = "-${slot}"
-  env.TEST_E2E_FRONTEND_URL = "${serviceName}${slotString}.service.core-compute-${params.ENVIRONMENT}.internal"
+   
   loadVaultSecrets(secrets)
   sh "printenv"
 }

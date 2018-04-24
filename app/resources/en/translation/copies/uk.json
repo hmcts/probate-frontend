@@ -7,10 +7,10 @@
     "uk": {
       "invalid": {
           "summary": "You haven&rsquo;t entered a valid number",
-          "message": "Please enter a valid number"
+          "message": "Enter a valid number"
       },
       "required": {
-        "summary": "Add the number of UK copies you need ",
+        "summary": "Enter the number of UK copies you need ",
         "message": "Enter the number of UK copies you need. Enter &lsquo;0&rsquo; if you don&rsquo;t need any copies."
       }
     }

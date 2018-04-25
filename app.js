@@ -26,22 +26,15 @@ const https = require('https');
 exports.init = function() {
 
     const app = express();
-    const port = (process.env.PORT || config.port);
+    const port = config.app.port;
     const releaseVersion = packageJson.version;
-    const username = process.env.USERNAME;
-    const password = process.env.PASSWORD;
-    const useAuth = (process.env.USE_AUTH || config.useAuth).toLowerCase();
-    const useHttps = (process.env.USE_HTTPS || config.useHttps).toLowerCase();
-    const useIDAM = (process.env.USE_IDAM || config.useIDAM).toLowerCase();
+    const username = config.app.username;
+    const password = config.app.password;
+    const useAuth = config.app.useAuth;
+    const useHttps = config.app.useHttps;
+    const useIDAM = config.app.useIDAM;
     const security = new Security(config.services.idam.loginUrl);
     const inviteSecurity = new InviteSecurity();
-
-// Enable/Disable form validation
-    process.argv.forEach(function (arg) {
-        if (arg.indexOf('DISABLE_VALIDATION') > 0) {
-            process.env.DISABLE_VALIDATION = true;
-        }
-    });
 
 // Authenticate against the environment-provided credentials, if running
 // the app in production (Heroku, effectively)
@@ -74,7 +67,7 @@ exports.init = function() {
 //security library helmet to verify 11 smaller middleware functions
     app.use(helmet());
 
-//content security policy to allow only assets from same domain
+//content security policy to allow assets from same domain
     app.use(helmet.contentSecurityPolicy({
         directives: {
             defaultSrc: ['\'self\''],
@@ -130,16 +123,16 @@ exports.init = function() {
 
 // Support session data
     app.use(session({
-        proxy: true,
-        resave: false,
-        saveUninitialized: false,
-        secret: process.env.REDIS_SECRET || 'OVERWRITE_THIS',
+        proxy: config.redis.proxy,
+        resave: config.redis.resave,
+        saveUninitialized: config.redis.saveUninitialized,
+        secret: config.redis.secret,
         cookie: {
-            secure: false,
-            httpOnly: true,
-            sameSite: 'lax'
+            secure: config.redis.cookie.secure,
+            httpOnly: config.redis.cookie.httpOnly,
+            sameSite: config.redis.cookie.sameSite
         },
-        store: utils.getStore(process.env.USE_REDIS, session)
+        store: utils.getStore(config.app.useRedis, session)
     }));
 
     app.use(function (req, res, next) {
@@ -196,7 +189,7 @@ exports.init = function() {
 
 // start the app
     let http;
-    if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'testing') {
+    if (config.nodeEnvironment === 'development' || config.nodeEnvironment === 'testing') {
         const sslDirectory = path.join(__dirname, 'app', 'resources', 'localhost-ssl');
 
         const sslOptions = {

@@ -115,7 +115,7 @@ router.get('/payment', function (req, res) {
     res.redirect(301, '/documents');
 });
 
-if (process.env.REFORM_ENVIRONMENT === 'dev' || process.env.REFORM_ENVIRONMENT === 'test') {
+if (config.environment === 'dev' || config.environment === 'test') {
     router.get('/inviteIdList', function (req, res) {
         const list = get(req, 'session.form.executors.list', []);
         res.send({'ids': list.filter(e => e.inviteId).map(e => e.inviteId)});

@@ -1,11 +1,12 @@
 const scenario = 'End-to-end journey - Multiple Executors';
 const taskListContent = require('app/resources/en/translation/tasklist.json');
-//const executorsContent = require('app/resources/en/translation/executors/otherexecutors.json');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))(scenario);
-const {forEach} = require('lodash');
+const {forEach, head, size} = require('lodash');
+const testConfig = require('test/config.js');
 
+let grabIds;
 
-Feature('Multiple Executor flow');
+Feature('Multiple Executors flow');
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
@@ -22,19 +23,19 @@ After(() => {
 
 Scenario(TestConfigurator.getScenarioName(), function* (I) {
 
-
     // IDAM
     I.authenticateWithIdamIfAvailable();
 
-
     // EligibilityTask
-
     I.startApplication();
+
     I.selectATask(taskListContent.taskNotStarted);
     I.selectPersonWhoDiedLeftAWill();
+
     I.selectOriginalWill();
     I.selectAndEnterWillDate('01', '01', '1970');
     I.selectWillCodicils('Yes');
+    I.selectWillCodicils('no');
     I.selectWillNoOfCodicils('3');
     I.selectAndEnterCodicilsDate('02', '02', '2010');
     I.selectIhtCompleted();
@@ -57,19 +58,18 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
     I.enterApplicantPhone();
     I.enterAddressManually();
 
-    const totalExecutors = '5';
+    const totalExecutors = '7';
     I.enterTotalExecutors(totalExecutors);
-    I.selectExecutorIsApplying();
     I.enterExecutorNames(totalExecutors);
 
     I.selectExecutorsAllAlive('No');
 
-    const executorsWhoDiedList = ['2', '5'];
+    const executorsWhoDiedList = ['2', '7'];
     let diedBefore = true;
     I.selectExecutorsWhoDied(executorsWhoDiedList);
 
     forEach(executorsWhoDiedList, executorNumber => {
-        I.selectExecutorsWhenDied(executorNumber, diedBefore);
+        I.selectExecutorsWhenDied(executorNumber, diedBefore, head(executorsWhoDiedList) === executorNumber);
 
         if (diedBefore) {
             diedBefore = false;
@@ -78,10 +78,31 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
         }
     });
 
-    const executorsAliveList = ['3', '4'];
+    I.selectExecutorsApplying();
+
+    const executorsApplyingList = ['3', '5'];
+    I.selectExecutorsDealingWithEstate(executorsApplyingList);
+
+    I.selectExecutorsWithDifferentNameOnWill();
+
+    const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
+    I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
+
+    const executorsWithDifferentNameList = ['5']
+    forEach(executorsWithDifferentNameList, executorNumber => {
+        I.enterExecutorCurrentName(executorNumber, head(executorsWithDifferentNameList) === executorNumber);
+    });
+
+    forEach(executorsApplyingList, executorNumber => {
+        I.enterExecutorContactDetails(executorNumber, head(executorsApplyingList) === executorNumber);
+        I.enterExecutorManualAddress(executorNumber);
+    });
+
+
+    const executorsAliveList = ['4', '6'];
     let powerReserved = true;
     forEach(executorsAliveList, executorNumber => {
-        I.selectExecutorRoles(executorNumber, powerReserved);
+        I.selectExecutorRoles(executorNumber, powerReserved, head(executorsAliveList) === executorNumber);
 
         if (powerReserved) {
             I.selectHasExecutorBeenNotified('Yes', executorNumber);
@@ -104,9 +125,48 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
     I.seeSummaryPage();
 
     // Review and confirm Task
-    I.selectATask(taskListContent.taskNotStarted);
+    I.selectATask('Start');
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();
+
+    // Notify additional executors Dealing with estate
+    I.notifyAdditionalExecutors();
+
+    //Retrieve the email urls for additional executors
+    I.amOnPage(testConfig.TestInviteIdListUrl);
+    grabIds = yield I.grabTextFrom('body');
+});
+
+
+
+Scenario('Additional Executor(s) Agree to Statment of Truth', function* (I) {
+
+    const idList = JSON.parse(grabIds);
+
+    for (let i=0; i < idList.ids.length; i++) {
+        I.amOnPage(testConfig.TestInvitiationUrl + '/' + idList.ids[i]);
+        I.amOnPage(testConfig.TestFrontendUrl + '/pin');
+
+        const grabPins = yield I.grabTextFrom('body');
+        const pinList = JSON.parse(grabPins);
+
+        const dummy = yield I.clickBackBrowserButton();
+
+        I.enterPinCode(pinList.pin);
+        I.seeCoApplicantStartPage();
+
+        I.agreeDisagreeDeclaration('Agree');
+
+        I.seeAgreePage(i);
+
+    }
+});
+
+
+Scenario('Continuation of main applicant journey', function* (I) {
+
+    // IDAM
+    I.authenticateWithIdamIfAvailable();
 
     // Extra copies task
     I.selectATask(taskListContent.taskNotStarted);
@@ -115,7 +175,8 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
         I.enterUkCopies('5');
         I.selectOverseasAssets();
         I.enterOverseasCopies('7');
-    } else {
+    }
+    else {
         I.enterUkCopies('0');
         I.selectOverseasAssets();
         I.enterOverseasCopies('0');

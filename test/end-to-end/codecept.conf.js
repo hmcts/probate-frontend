@@ -1,17 +1,14 @@
 const testConfig = require('test/config.js');
 
 exports.config = {
-    'tests': './paths/**/idList.js',
+    'tests': './paths/**/*.js',
     'output': './output',
     'helpers': {
         'Nightmare': {
             'url': testConfig.TestFrontendUrl || 'https://www-test.probate.reform.hmcts.net',
             'waitForTimeout': 10000,
-            'show': true,
+            'show': false,
             waitForAction: 2000,
-            'browser': 'chrome',
-       //     restart: false,
-       //     keepCookies: true,
             'switches': {
                 'ignore-certificate-errors': true
             }

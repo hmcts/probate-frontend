@@ -12,7 +12,6 @@ module.exports = function () {
 
     //Start application
     startApplication: steps.startPage.startPage,
-
     selectATask: steps.tasklist.tasklist,
 
     // Eligibility
@@ -75,6 +74,9 @@ module.exports = function () {
 
     //Additional executors Agree/Disagree with Statement of Truth
     seeCoApplicantStartPage: steps.coapplicant.startPage,
+    agreeDisagreeDeclaration: steps.coapplicant.declaration,
+    seeAgreePage: steps.coapplicant.agree,
+
 
     //Asset pages
     selectOverseasAssets: steps.assets.overseas,

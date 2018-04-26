@@ -69,7 +69,7 @@ locals {
   // add other services
 }
 
-module "redis-cache" {
+module "probate-frontend-redis-cache" {
   source   = "git@github.com:contino/moj-module-redis?ref=master"
   product  = "${var.product}"
   location = "${var.location}"
@@ -129,12 +129,12 @@ module "probate-frontend" {
     USE_REDIS = "${var.probate_frontend_use_redis}"
     //REDIS_HOST = "${var.probate_redis_url}"
     //REDIS_PORT = "${var.f5_redis_listen_port}"
-    //REDIS_HOST      = "${module.probate-frontend-redis-cache.host_name}"
-    //REDIS_PORT      = "${module.probate-frontend-redis-cache.redis_port}"
-    //REDIS_PASSWORD  = "${module.probate-frontend-redis-cache.access_key}"
-    REDIS_HOST                   = "${module.redis-cache.host_name}"
-    REDIS_PORT                   = "${module.redis-cache.redis_port}"
-    REDIS_PASSWORD               = "${module.redis-cache.access_key}"
+    REDIS_HOST      = "${module.probate-frontend-redis-cache.host_name}"
+    REDIS_PORT      = "${module.probate-frontend-redis-cache.redis_port}"
+    REDIS_PASSWORD  = "${module.probate-frontend-redis-cache.access_key}"
+    //REDIS_HOST                   = "${module.redis-cache.host_name}"
+    //REDIS_PORT                   = "${module.redis-cache.redis_port}"
+    //REDIS_PASSWORD               = "${module.redis-cache.access_key}"
 
     // IDAM
     USE_IDAM = "${var.probate_frontend_use_idam}"

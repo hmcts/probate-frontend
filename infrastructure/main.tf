@@ -69,6 +69,14 @@ locals {
   // add other services
 }
 
+module "probate-frontend-redis-cache" {
+  source   = "git@github.com:contino/moj-module-redis?ref=master"
+  product  = "${var.product}"
+  location = "${var.location}"
+  env      = "${var.env}"
+  subnetid = "${data.terraform_remote_state.core_apps_infrastructure.subnet_ids[2]}"
+}
+
 module "probate-frontend" {
   source = "git@github.com:hmcts/moj-module-webapp.git?ref=master"
   product = "${var.product}-${var.microservice}"
@@ -77,7 +85,7 @@ module "probate-frontend" {
   ilbIp = "${var.ilbIp}"
   is_frontend  = true
   subscription = "${var.subscription}"
-  additional_host_name = "${var.external_host_name}"
+  additional_host_name = "${var.external_host_name}"  // need to give proper url
 
   app_settings = {
     
@@ -119,8 +127,11 @@ module "probate-frontend" {
 
     // REDIS
     USE_REDIS = "${var.probate_frontend_use_redis}"
-    REDIS_HOST = "${var.probate_redis_url}"
-    REDIS_PORT = "${var.f5_redis_listen_port}"
+    //REDIS_HOST = "${var.probate_redis_url}"
+    //REDIS_PORT = "${var.f5_redis_listen_port}"
+    REDIS_HOST      = "${module.probate-frontend-redis-cache.host_name}"
+    REDIS_PORT      = "${module.probate-frontend-redis-cache.redis_port}"
+    REDIS_PASSWORD  = "${module.probate-frontend-redis-cache.access_key}"
 
     // IDAM
     USE_IDAM = "${var.probate_frontend_use_idam}"
@@ -147,8 +158,8 @@ module "probate-frontend" {
     SITE_ID = "${data.vault_generic_secret.probate_site_id.data["value"]}"
 
     // Functional tests
-    TEST_E2E_FRONTEND_URL = "${var.probate_frontend_hostname}"
-    E2E_FRONTEND_URL = "${var.probate_frontend_hostname}"
+    //TEST_E2E_FRONTEND_URL = "${var.probate_frontend_hostname}"
+    //E2E_FRONTEND_URL = "${var.probate_frontend_hostname}"
   }
 }
 

@@ -1,5 +1,5 @@
 module.exports = {
-    environment: process.env.REFORM_ENVIRONMENT || 'dev',
+    environment: process.env.REFORM_ENVIRONMENT,
     nodeEnvironment: process.env.NODE_ENV,
     gitRevision: process.env.GIT_REVISION,
     service: {
@@ -10,9 +10,9 @@ module.exports = {
         username: process.env.USERNAME,
         password: process.env.PASSWORD,
         useRedis: process.env.USE_REDIS,
-        useAuth: (process.env.USE_AUTH || 'false').toLowerCase(),
-        useIDAM: (process.env.USE_HTTPS || 'false').toLowerCase(),
-        useHttps: (process.env.USE_IDAM || 'false').toLowerCase(),
+        useAuth: process.env.USE_AUTH || 'false',
+        useHttps: process.env.USE_HTTPS || 'false',
+        useIDAM: process.env.USE_IDAM || 'false',
         port: process.env.PORT || '3000',
         useCSRFProtection: 'true',
         cookieText: 'GOV.UK uses cookies to make the site simpler. <a href="http://gov.uk/help/cookies" title="Find out more about cookies">Find out more about cookies</a>'

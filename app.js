@@ -30,9 +30,9 @@ exports.init = function() {
     const releaseVersion = packageJson.version;
     const username = config.app.username;
     const password = config.app.password;
-    const useAuth = config.app.useAuth;
-    const useHttps = config.app.useHttps;
-    const useIDAM = config.app.useIDAM;
+    const useAuth = config.app.useAuth.toLowerCase();
+    const useHttps = config.app.useHttps.toLowerCase();
+    const useIDAM = config.app.useIDAM.toLowerCase();
     const security = new Security(config.services.idam.loginUrl);
     const inviteSecurity = new InviteSecurity();
 

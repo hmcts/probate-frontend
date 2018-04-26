@@ -69,7 +69,7 @@ locals {
   // add other services
 }
 
-module "probate-frontend-redis-cache" {
+module "redis-cache" {
   source   = "git@github.com:contino/moj-module-redis?ref=master"
   product  = "${var.product}"
   location = "${var.location}"

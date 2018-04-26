@@ -85,7 +85,6 @@ module "probate-frontend" {
   ilbIp = "${var.ilbIp}"
   is_frontend  = true
   subscription = "${var.subscription}"
-  asename  = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
   additional_host_name = "${var.external_host_name}"  // need to give proper url
 
   app_settings = {

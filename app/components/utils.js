@@ -1,5 +1,5 @@
 const basicAuth = require('basic-auth'),
-    config = require('app/config.js'),
+    config = require('app/config'),
     common = require('app/resources/en/translation/common.json');
 
 /**

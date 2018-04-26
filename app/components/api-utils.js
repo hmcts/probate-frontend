@@ -4,7 +4,7 @@ const {endsWith} = require('lodash');
 
 const fetch = require('node-fetch');
 const HttpsProxyAgent = require('https-proxy-agent');
-const config = require('app/config.js');
+const config = require('app/config');
 
 const fetchJson = function (url, fetchOptions) {
     return asyncFetch(url, fetchOptions, res => res.json())

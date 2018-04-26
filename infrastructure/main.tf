@@ -85,6 +85,7 @@ module "probate-frontend" {
   ilbIp = "${var.ilbIp}"
   is_frontend  = true
   subscription = "${var.subscription}"
+  asename  = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
   additional_host_name = "${var.external_host_name}"  // need to give proper url
 
   app_settings = {
@@ -129,9 +130,12 @@ module "probate-frontend" {
     USE_REDIS = "${var.probate_frontend_use_redis}"
     //REDIS_HOST = "${var.probate_redis_url}"
     //REDIS_PORT = "${var.f5_redis_listen_port}"
-    REDIS_HOST      = "${module.probate-frontend-redis-cache.host_name}"
-    REDIS_PORT      = "${module.probate-frontend-redis-cache.redis_port}"
-    REDIS_PASSWORD  = "${module.probate-frontend-redis-cache.access_key}"
+    //REDIS_HOST      = "${module.probate-frontend-redis-cache.host_name}"
+    //REDIS_PORT      = "${module.probate-frontend-redis-cache.redis_port}"
+    //REDIS_PASSWORD  = "${module.probate-frontend-redis-cache.access_key}"
+    REDIS_HOST                   = "${module.redis-cache.host_name}"
+    REDIS_PORT                   = "${module.redis-cache.redis_port}"
+    REDIS_PASSWORD               = "${module.redis-cache.access_key}"
 
     // IDAM
     USE_IDAM = "${var.probate_frontend_use_idam}"

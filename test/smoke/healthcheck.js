@@ -4,7 +4,9 @@ const chaiHttp = require('chai-http');
 const request = require('superagent');
 //const config = require('../config');
 //const frontendUrl = config.TestFrontendUrl
-//let frontendUrl = (process.env.TEST_URL || 'http://localhost:3000')
+const frontendUrl = (process.env.TEST_URL || 'http://localhost:3000')
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const healthcheckRequest = (url, cb) => {
     return request
         .get(`${url}/health`)
@@ -20,21 +22,21 @@ chai.use(chaiHttp);
 
 describe('Probate frontend health check', () => {
     it('should return a 200 status code', done => {
-        healthcheckRequest(process.env.TEST_URL, res => {
+        healthcheckRequest(frontendUrl, res => {
             expect(res).to.have.status(200);
             done();
         });
     });
 
     it('should return status UP', done => {
-        healthcheckRequest(process.env.TEST_URL, res => {
+        healthcheckRequest(frontendUrl, res => {
             expect(res.body.status).to.equal('UP');
             done();
         });
     });
 
     it('should return the hostname', done => {
-        healthcheckRequest(process.env.TEST_URL, res => {
+        healthcheckRequest(frontendUrl, res => {
             expect(res.body).to.have.property('host');
             done();
         });

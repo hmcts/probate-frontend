@@ -1,6 +1,6 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {get} = require('lodash');
 const WillWrapper = require('app/wrappers/Will');
+const DeceasedWrapper = require('app/wrappers/Deceased');
 
 module.exports = class DeceasedMarried extends ValidationStep {
 
@@ -8,17 +8,15 @@ module.exports = class DeceasedMarried extends ValidationStep {
         return '/deceased-married';
     }
 
-    isSoftStop(formdata, ctx) {
-        const marriedAfterWill = get(formdata, 'deceased.married', {});
-        const softStopForMarriedAfterWill = marriedAfterWill === this.generateContent(ctx, formdata).optionYes;
-
+    isSoftStop(formdata) {
+        const softStopForMarriedAfterWill = (new DeceasedWrapper(formdata.deceased)).isMarried();
         return {
             'stepName': this.constructor.name,
             'isSoftStop': softStopForMarriedAfterWill
         };
     }
 
-    * handleGet(ctx, formdata) {
+    handleGet(ctx, formdata) {
         ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicilsDate();
         return [ctx];
     }

@@ -1,5 +1,5 @@
 #!/bin/bash
-FILE_PATTERN="\.(js)$"
+FILE_PATTERN="test[a-zA-Z0-9]+\.(js)$"
 FORBIDDEN_WORDS=('.only')
 FOUND_FORBIDDEN_WORDS=''
 
@@ -17,7 +17,7 @@ done
 if [[ ! -z $FOUND_FORBIDDEN_WORDS ]]
 then
     echo "Commit rejected"
-    echo "${FOUND_FORBIDDEN_WORDS%'\n'}"
+    echo -e "${FOUND_FORBIDDEN_WORDS%'\n'}"
     echo "Please remove them before committing"
     exit 1
 fi

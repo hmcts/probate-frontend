@@ -3,7 +3,8 @@ const expect = require('chai').expect;
 const chaiHttp = require('chai-http');
 const request = require('superagent');
 const config = require('../config');
-const frontendUrl = config.TestFrontendUrl;
+//const frontendUrl = config.TestFrontendUrl | ;
+const frontendUrl = process.env.TEST_URL  ;
 const healthcheckRequest = (url, cb) => {
     return request
         .get(`${url}/health`)

@@ -38,8 +38,8 @@ probate_frontend_use_idam = "true"
 
 probate_frontend_use_redis = "false"
 
-probate_business_service_url = "http://betaDevBprobateApp01.reform.hmcts.net:4101/validate"
+probate_business_service_url = "https://probate-business-service-sandbox-staging.service.core-compute-sandbox.internal/validate"
 
-probate_submit_service_url = "http://betaDevBprobateApp01.reform.hmcts.net:4102/submit"
+probate_submit_service_url = "https://probate-submit-service-sandbox-staging.service.core-compute-sandbox.internal/submit"
 
-probate_persistence_service_url = "http://betaDevBprobateApp01.reform.hmcts.net:4103/formdata"
+probate_persistence_service_url = " https://probate-persistence-service-sandbox-staging.service.core-compute-sandbox.internal/formdata"

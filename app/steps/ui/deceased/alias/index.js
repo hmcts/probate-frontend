@@ -1,6 +1,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {get} = require('lodash');
 const WillWrapper = require('app/wrappers/Will');
+const DeceasedWrapper = require('app/wrappers/Deceased');
 
 module.exports = class DeceasedAlias extends ValidationStep {
 
@@ -27,6 +28,14 @@ module.exports = class DeceasedAlias extends ValidationStep {
         const codicils = willWrapper.hasCodicils();
         ctx.deceasedMarriedAfterDateOnCodicilOrWill = isCodicilDated || (!codicils && isWillDated);
         return ctx;
+    }
+
+    handlePost(ctx, errors) {
+        const hasAlias = (new DeceasedWrapper(ctx.deceased)).hasAlias();
+        if (!hasAlias) {
+            delete ctx.otherNames;
+        }
+        return [ctx, errors];
     }
 
     action(ctx, formdata) {

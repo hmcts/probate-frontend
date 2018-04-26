@@ -37,6 +37,17 @@ describe('copies-overseas', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
+        it('test errors message displayed for invalid data, negative numbers', (done) => {
+            const data = {overseas: '-1'};
+
+            testWrapper.testErrors(done, data, 'invalid', []);
+        });
+
+        it(`test it redirects to next page: ${expectedNextUrlForCopiesSummary}`, (done) => {
+            const data = {overseas: '0'};
+            testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);
+        });
+
         it(`test it redirects to next page: ${expectedNextUrlForCopiesSummary}`, (done) => {
             const data = {overseas: '1'};
             testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);

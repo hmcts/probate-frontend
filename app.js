@@ -67,7 +67,7 @@ exports.init = function() {
 //security library helmet to verify 11 smaller middleware functions
     app.use(helmet());
 
-//content security policy to allow assets from same domain
+//content security policy to allow just assets from same domain
     app.use(helmet.contentSecurityPolicy({
         directives: {
             defaultSrc: ['\'self\''],

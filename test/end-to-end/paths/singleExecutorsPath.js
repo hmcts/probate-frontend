@@ -1,4 +1,3 @@
-const scenario = 'End-to-end journey - Multiple Executors';
 const taskListContent = require('app/resources/en/translation/tasklist.json');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 

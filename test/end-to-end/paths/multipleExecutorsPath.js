@@ -173,8 +173,7 @@ Scenario('Continuation of Main applicant journey: final stage of application' + 
         I.enterUkCopies('5');
         I.selectOverseasAssets();
         I.enterOverseasCopies('7');
-    }
-    else {
+    } else {
         I.enterUkCopies('0');
         I.selectOverseasAssets();
         I.enterOverseasCopies('0');

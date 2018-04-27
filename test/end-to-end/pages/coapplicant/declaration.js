@@ -8,8 +8,7 @@ module.exports = function (agreeDisagree) {
 
     if (agreeDisagree === 'Agree') {
         I.click('#agreement-optionYes');
-    } else
-    {
+    } else {
         I.click('#agreement-optionNo');
     }
 

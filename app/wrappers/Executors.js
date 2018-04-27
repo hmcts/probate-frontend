@@ -55,6 +55,14 @@ class Executors {
     deadExecutors() {
         return this.executorsList.filter(executor => executor.isDead);
     }
+
+    hasOtherName() {
+        return this.executorsList.some(executor => executor.hasOtherName === true);
+    }
+
+    areAllAliveExecutorsApplying() {
+        return this.aliveExecutors().every(executor => executor.isApplying);
+    }
 }
 
 module.exports = Executors;

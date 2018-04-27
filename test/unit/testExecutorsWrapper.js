@@ -1,3 +1,5 @@
+// eslint-disable-line max-lines
+
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const chai = require('chai');
 const expect = chai.expect;
@@ -266,6 +268,72 @@ describe('Executors.js', () => {
             const data = {};
             const executorsWrapper = new ExecutorsWrapper(data);
             expect(executorsWrapper.deadExecutors()).to.deep.equal([]);
+            done();
+        });
+    });
+
+    describe('hasOtherName()', () => {
+        beforeEach(() => {
+            data = {
+                list: [
+                    {fullname: 'James Miller', hasOtherName: true}
+                ]
+            };
+        });
+
+        it('should return true when there are executors with an other name', (done) => {
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.hasOtherName()).to.equal(true);
+            done();
+        });
+
+        describe('should return false', () => {
+            it('when there are no executors with an other name', (done) => {
+                delete data.list[0].hasOtherName;
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.hasOtherName()).to.equal(false);
+                done();
+            });
+
+            it('when there is no executor data', (done) => {
+                const data = {};
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.hasOtherName()).to.equal(false);
+                done();
+            });
+        });
+    });
+
+    describe('areAllAliveExecutorsApplying()', () => {
+        beforeEach(() => {
+            data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {fullname: 'ed brown', isApplying: true},
+                    {fullname: 'jake smith', isDead: true}
+                ]
+            };
+        });
+
+        describe('should return true', () => {
+            it('when all alive applicants are applying', (done) => {
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.areAllAliveExecutorsApplying()).to.equal(true);
+                done();
+            });
+
+            it('when there is no executor data', (done) => {
+                const data = {};
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.areAllAliveExecutorsApplying()).to.equal(true);
+                done();
+            });
+        });
+
+        it('should return false when not all alive applicants are applying', (done) => {
+            data.list[1].isApplying = false;
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.areAllAliveExecutorsApplying()).to.equal(false);
             done();
         });
     });

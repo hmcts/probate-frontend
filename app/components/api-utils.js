@@ -4,6 +4,7 @@ const {endsWith} = require('lodash');
 
 const fetch = require('node-fetch');
 const HttpsProxyAgent = require('https-proxy-agent');
+const config = require('app/config');
 
 const fetchJson = function (url, fetchOptions) {
     return asyncFetch(url, fetchOptions, res => res.json())
@@ -69,8 +70,8 @@ const fetchOptions = function (data, method, headers, proxy) {
 
 const retryOptions = function () {
     return {
-        retries: process.env.RETRIES_NUMBER || 10,
-        retryDelay: process.env.RETRY_DELAY || 1000
+        retries: config.utils.api.retries,
+        retryDelay: config.utils.api.retryDelay
     };
 };
 

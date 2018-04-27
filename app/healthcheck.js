@@ -8,7 +8,7 @@ const config = require('app/config'),
       url = require('url'),
       router = require('express').Router(),
       os = require('os'),
-      gitRevision = process.env.GIT_REVISION;
+      gitRevision = config.gitRevision;
 
 const services = [
     {'name': 'Validation Service', 'url': getServiceHealthUrl(url.parse(config.services.validation.url))},

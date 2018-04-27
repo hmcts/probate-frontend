@@ -1,6 +1,6 @@
 const basicAuth = require('basic-auth'),
-    config = require('app/config.js'),
-    common = require('app/resources/en/translation/common.json');
+    config = require('app/config'),
+    common = require('app/resources/en/translation/common');
 
 /**
  * Simple basic auth middleware for use with Express 4.x.

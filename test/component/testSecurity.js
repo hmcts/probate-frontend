@@ -57,7 +57,7 @@ describe('security', () => {
     }).timeout(5000);
 
     it(`Redirects to login if __auth-token does not contain current payloadVersion: ${LOGIN_URL}`, (done) => {
-        process.env.USE_IDAM = 'true';
+        config.app.useIDAM = 'true';
         const server = app.init();
         const agent = request.agent(server.app);
         agent.get(expectedNextUrlForTaskList)
@@ -65,7 +65,7 @@ describe('security', () => {
             .expect(302)
             .end((err, res) => {
                 server.http.close();
-                process.env.USE_IDAM = 'false';
+                config.app.useIDAM = 'false';
                 if (err) {
                     done(err);
                 } else {

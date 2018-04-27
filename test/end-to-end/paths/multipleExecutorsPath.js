@@ -1,6 +1,5 @@
-const scenario = 'Multiple Executors Path - Main applicant: 1st stage of completing application';
 const taskListContent = require('app/resources/en/translation/tasklist.json');
-const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))(scenario);
+const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
 
@@ -21,7 +20,7 @@ After(() => {
 });
 
 
-Scenario(TestConfigurator.getScenarioName(), function* (I) {
+Scenario('Multiple Executors Journey - Main applicant: 1st stage of completing application' + TestConfigurator.isIdamInUse(), function* (I) {
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
@@ -162,7 +161,7 @@ Scenario('Additional Executor(s) Agree to Statement of Truth', function* (I) {
 });
 
 
-Scenario('Continuation of Main applicant journey: final stage of applicantion', function* (I) {
+Scenario('Continuation of Main applicant journey: final stage of application' + TestConfigurator.isIdamInUse(), function* (I) {
 
     // IDAM
     I.authenticateWithIdamIfAvailable();

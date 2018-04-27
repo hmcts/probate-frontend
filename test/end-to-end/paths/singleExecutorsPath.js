@@ -1,8 +1,8 @@
 const scenario = 'End-to-end journey - Multiple Executors';
 const taskListContent = require('app/resources/en/translation/tasklist.json');
-const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))(scenario);
+const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
-Feature('None Multiple Executor flow');
+Feature('Single Executor flow');
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
@@ -17,7 +17,7 @@ After(() => {
 });
 
 
-Scenario(TestConfigurator.getScenarioName(), function* (I) {
+Scenario('Single Executor Journey' + TestConfigurator.isIdamInUse(), function* (I) {
 
 
     // IDAM

@@ -13,11 +13,11 @@ module.exports = function () {
         I.seeInCurrentUrl(testConfig.TestIdamLoginUrl);
 
         I.see('Sign in');
-        // I.fillField('username', process.env.testCitizenEmail);
-        // I.fillField('password', process.env.testCitizenPassword);
+        I.fillField('username', process.env.testCitizenEmail);
+        I.fillField('password', process.env.testCitizenPassword);
 
-        I.fillField('username', 'rel301@test.com');
-        I.fillField('password', 'test');
+        // I.fillField('username', 'rel301@test.com');
+        // I.fillField('password', 'test');
 
         I.click('Sign in');
     }

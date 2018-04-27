@@ -1,7 +1,7 @@
-const scenario = 'End-to-end journey - Multiple Executors';
+const scenario = 'Multiple Executors Path - Main applicant: 1st stage of completing application';
 const taskListContent = require('app/resources/en/translation/tasklist.json');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))(scenario);
-const {forEach, head, size} = require('lodash');
+const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
 
 let grabIds;
@@ -35,7 +35,6 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
     I.selectOriginalWill();
     I.selectAndEnterWillDate('01', '01', '1970');
     I.selectWillCodicils('Yes');
-    I.selectWillCodicils('no');
     I.selectWillNoOfCodicils('3');
     I.selectAndEnterCodicilsDate('02', '02', '2010');
     I.selectIhtCompleted();
@@ -139,7 +138,7 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
 
 
 
-Scenario('Additional Executor(s) Agree to Statment of Truth', function* (I) {
+Scenario('Additional Executor(s) Agree to Statement of Truth', function* (I) {
 
     const idList = JSON.parse(grabIds);
 
@@ -150,7 +149,7 @@ Scenario('Additional Executor(s) Agree to Statment of Truth', function* (I) {
         const grabPins = yield I.grabTextFrom('body');
         const pinList = JSON.parse(grabPins);
 
-        const dummy = yield I.clickBackBrowserButton();
+        yield I.clickBackBrowserButton();
 
         I.enterPinCode(pinList.pin);
         I.seeCoApplicantStartPage();
@@ -163,7 +162,7 @@ Scenario('Additional Executor(s) Agree to Statment of Truth', function* (I) {
 });
 
 
-Scenario('Continuation of main applicant journey', function* (I) {
+Scenario('Continuation of Main applicant journey: final stage of applicantion', function* (I) {
 
     // IDAM
     I.authenticateWithIdamIfAvailable();

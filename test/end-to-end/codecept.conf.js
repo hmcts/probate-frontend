@@ -1,13 +1,13 @@
 const testConfig = require('test/config.js');
 
 exports.config = {
-    'tests': './paths/**/*.js',
+    'tests': './paths/**/MultipleExecutorsPath.js',
     'output': './output',
     'helpers': {
         'Nightmare': {
             'url': testConfig.TestFrontendUrl || 'https://www-test.probate.reform.hmcts.net',
             'waitForTimeout': 10000,
-            'show': false,
+            'show': true,
             waitForAction: 2000,
             'switches': {
                 'ignore-certificate-errors': true

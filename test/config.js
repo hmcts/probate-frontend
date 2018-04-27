@@ -20,6 +20,7 @@ module.exports = {
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
 
     TestEnvEmailAddress: 'test.probate.inbox@gmail.com',
+    TestEnvMobileNumber: '07952626390',
 
     paymentEnvironments: ['test'],
 

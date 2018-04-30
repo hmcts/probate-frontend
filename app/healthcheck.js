@@ -6,7 +6,11 @@ const {map} = require('lodash');
 const url = require('url');
 const router = require('express').Router();
 const os = require('os');
+const childProcess = require('child_process');
 const gitRevision = process.env.GIT_REVISION;
+const osHostname = os.hostname();
+const gitHash = childProcess.execSync('git rev-parse HEAD');
+const gitHashString = gitHash.toString().trim();
 
 const getServiceHealthUrl = (serviceUrl) => {
     serviceUrl = url.parse(serviceUrl);
@@ -36,11 +40,15 @@ router.get('/', (req, res) => {
             'name': config.service.name,
             'status': 'UP',
             'uptime': process.uptime(),
-            'host': os.hostname(),
+            'host': osHostname,
             'version': gitRevision,
+            'hash': gitHashString,
             downstream
         });
     });
 });
 
 module.exports = router;
+module.exports.getServiceHealthUrl = getServiceHealthUrl;
+module.exports.osHostname = osHostname;
+module.exports.gitHashString = gitHashString;

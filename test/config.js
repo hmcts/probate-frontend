@@ -1,16 +1,9 @@
 module.exports = {
 
-    // TestIdamBaseUrl: process.env.TEST_IDAM_API_URL || 'http://localhost:8484',
-    // TestFrontendUrl: process.env.TEST_E2E_FRONTEND_URL || 'https://localhost:3000',
-    // TestUseIdam: process.env.TEST_USE_IDAM || 'true',
-    // TestIdamLoginUrl: process.env.TEST_IDAM_LOGIN_URL || 'https://localhost:8000/login',
-
-
-    TestIdamBaseUrl: process.env.TEST_IDAM_API_URL || 'https://idam.dev.ccidam.reform.hmcts.net',
-    TestFrontendUrl: process.env.TEST_E2E_FRONTEND_URL || 'https://www-dev.probate.reform.hmcts.net',
+    TestIdamBaseUrl: process.env.TEST_IDAM_API_URL || 'http://localhost:8484',
+    TestFrontendUrl: process.env.TEST_URL || 'https://localhost:3000',
     TestUseIdam: process.env.TEST_USE_IDAM || 'true',
-    TestIdamLoginUrl: process.env.TEST_IDAM_LOGIN_URL || 'https://idam.dev.ccidam.reform.hmcts.net/login',
-
+    TestIdamLoginUrl: process.env.TEST_IDAM_LOGIN_URL || 'https://localhost:8000/login',
 
     TestInviteIdListUrl: '/inviteIdList',
     TestPinUrl: '/pin',

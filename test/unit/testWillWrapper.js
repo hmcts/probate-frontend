@@ -3,7 +3,7 @@ const commonContent = require('app/resources/en/translation/common');
 const chai = require('chai');
 const expect = chai.expect;
 
-describe('Will.js', () => {
+describe('Willgit ', () => {
     describe('hasCodicils()', () => {
         it('should return true when there are codicils', (done) => {
             const data = {codicils: commonContent.yes};

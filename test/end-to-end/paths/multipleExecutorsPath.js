@@ -142,7 +142,7 @@ Scenario('Additional Executor(s) Agree to Statement of Truth', function* (I) {
     const idList = JSON.parse(grabIds);
 
     for (let i=0; i < idList.ids.length; i++) {
-        I.amOnPage(testConfig.TestInvitiationUrl + '/' + idList.ids[i]);
+        I.amOnPage(testConfig.TestInvitationUrl + '/' + idList.ids[i]);
         I.amOnPage(testConfig.TestFrontendUrl + '/pin');
 
         const grabPins = yield I.grabTextFrom('body');

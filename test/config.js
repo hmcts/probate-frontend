@@ -7,7 +7,7 @@ module.exports = {
 
     TestInviteIdListUrl: '/inviteIdList',
     TestPinUrl: '/pin',
-    TestInvitiationUrl: '/executors/invitation',
+    TestInvitationUrl: '/executors/invitation',
     TestIdamAddUserUrl: '/testing-support/accounts',
     TestIdamRole: 'probate-private-beta',
     TestCitizenDomain: '@probateTest.com',

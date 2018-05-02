@@ -1,10 +1,11 @@
 'use strict';
-const Step = require('app/core/steps/Step'),
-    FieldError = require('app/components/error'),
-    services = require('app/components/services'),
-    logger = require('app/components/logger')('Init'),
-    RedirectRunner = require('app/core/runners/RedirectRunner'),
-    {get} = require('lodash');
+
+const Step = require('app/core/steps/Step');
+const FieldError = require('app/components/error');
+const services = require('app/components/services');
+const logger = require('app/components/logger')('Init');
+const RedirectRunner = require('app/core/runners/RedirectRunner');
+const {get} = require('lodash');
 
 module.exports = class PaymentStatus extends Step {
 
@@ -48,11 +49,11 @@ module.exports = class PaymentStatus extends Step {
         const options = {};
 
         if (formdata.paymentPending === 'true') {
-
             const serviceAuthResult = yield services.authorise();
+
             if (serviceAuthResult.name === 'Error') {
                 options.redirect = true;
-                options.url = this.steps.PaymentBreakdown.constructor.getUrl() + '?status=failure';
+                options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
                 return options;
             }
 
@@ -64,9 +65,10 @@ module.exports = class PaymentStatus extends Step {
             };
 
             const findPaymentResponse = yield services.findPayment(data);
+
             if (get(findPaymentResponse, 'state.status') !== 'success') {
                 options.redirect = true;
-                options.url = this.steps.PaymentBreakdown.constructor.getUrl() + '?status=failure';
+                options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
             } else {
                 options.redirect = false;
                 formdata.paymentPending = 'false';
@@ -76,35 +78,40 @@ module.exports = class PaymentStatus extends Step {
             options.redirect = false;
             options.errors = yield this.sendApplication(ctx, formdata);
         }
+
         return options;
     }
 
     * sendApplication(ctx, formdata) {
-
         const submitData = {};
         const softStop = this.anySoftStops(formdata, ctx) ? 'softStop' : false;
         Object.assign(submitData, formdata);
 
         const result = yield services.submitApplication(submitData, ctx, softStop);
         let errors;
+
         if (result.name === 'Error' || result === 'DUPLICATE_SUBMISSION') {
             const keyword = result === 'DUPLICATE_SUBMISSION' ? 'duplicate' : 'failure';
             errors = [(FieldError('submit', keyword, this.resourcePath, ctx))];
             return errors;
         }
+
         logger.info({tags: 'Analytics'}, 'Application Submitted');
-        formdata.submissionReference = result;
+        formdata.submissionReference = result.submissionReference;
+        formdata.documents = {registryAddress: result.address};
 
         const saveResult = yield this.persistFormData(ctx.regId, formdata, ctx.sessionId);
+
         if (saveResult.name === 'Error') {
             logger.error('Could not persist user data', saveResult.message);
         } else {
             logger.info('Successfully persisted user data');
         }
+
         return errors;
     }
 
-    * handleGet(ctx) {
+    handleGet(ctx) {
         return [ctx, ctx.errors];
     }
 };

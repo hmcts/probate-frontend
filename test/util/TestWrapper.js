@@ -1,11 +1,11 @@
-const {forEach, filter, isEmpty, set, get, cloneDeep} = require('lodash'),
-    {expect, assert} = require('chai'),
-    app = require('app'),
-    routes = require('app/routes'),
-    config = require('app/config'),
-    request = require('supertest'),
-    journeyMap = require('app/core/journeyMap'),
-    {steps} = require('app/core/initSteps');
+const {forEach, filter, isEmpty, set, get, cloneDeep} = require('lodash');
+const {expect, assert} = require('chai');
+const app = require('app');
+const routes = require('app/routes');
+const config = require('app/config');
+const request = require('supertest');
+const journeyMap = require('app/core/journeyMap');
+const {steps} = require('app/core/initSteps');
 
 module.exports = class TestWrapper {
     constructor(stepName) {
@@ -90,6 +90,7 @@ module.exports = class TestWrapper {
     substituteContent(data, contentToSubstitute) {
         Object.entries(contentToSubstitute)
             .forEach(([key, contentValue]) => {
+                contentValue = contentValue.replace(/\n/g, '<br />\n');
                 forEach(contentValue.match(/\{(.*?)\}/g), (placeholder) => {
                     const placeholderRegex = new RegExp(placeholder, 'g');
                     placeholder = placeholder.replace(/[{}]/g, '');

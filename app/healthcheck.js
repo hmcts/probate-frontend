@@ -7,10 +7,16 @@ const url = require('url');
 const router = require('express').Router();
 const os = require('os');
 const childProcess = require('child_process');
+const logger = require('app/components/logger')();
 const gitRevision = process.env.GIT_REVISION;
 const osHostname = os.hostname();
-const gitHash = childProcess.execSync('git rev-parse HEAD');
-const gitHashString = gitHash.toString().trim();
+let gitHashString;
+try {
+    const gitHash = childProcess.execSync('git rev-parse HEAD');
+    gitHashString = gitHash.toString().trim();
+} catch (err) {
+    logger.error(err.toString());
+}
 
 const getServiceHealthUrl = (serviceUrl) => {
     serviceUrl = url.parse(serviceUrl);

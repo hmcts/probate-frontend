@@ -70,7 +70,7 @@ locals {
 }
 
 module "probate-frontend-redis-cache" {
-  source   = "git@github.com:contino/moj-module-redis?ref=master"
+  source   = "git@github.com:hmcts/moj-module-redis?ref=master"
   product  = "${var.product}"
   location = "${var.location}"
   env      = "${var.env}"
@@ -85,6 +85,7 @@ module "probate-frontend" {
   ilbIp = "${var.ilbIp}"
   is_frontend  = true
   subscription = "${var.subscription}"
+  asp_name     = ${var.product}-${var.env}-asp 
   additional_host_name = "${var.external_host_name}"  // need to give proper url
 
   app_settings = {

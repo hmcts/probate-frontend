@@ -12,9 +12,11 @@ const SUBMIT_SERVICE_PATH = config.services.submit.path;
 router.post(SUBMIT_SERVICE_PATH, (req, res) => {
     res.status(200);
     res.send({
-        'submissionReference': '1234',
-        'registrySequenceNumber': '10001',
-        'address': 'Test Address Line 1\nTest Address Line 2\nTest Address Postcode'
+        submissionReference: '6',
+        registryName: 'Birmingham',
+        registrySequenceNumber: '20000',
+        registryEmail: 'asdvavv',
+        registryAddress: 'Line 1 Bham\nLine 2 Bham\nLine 3 Bham\nPostCode Bham'
     });
 });
 

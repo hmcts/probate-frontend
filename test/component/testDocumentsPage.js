@@ -146,8 +146,8 @@ describe('documents-page', () => {
         it('test correct content loaded on the page, no codicils, single executor, specified registry address', (done) => {
             const sessionData = {
                 executors: {},
-                documents: {
-                    registryAddress: '1 Red Street\nLondon\nO1 1OL'
+                registry: {
+                    address: '1 Red Street\nLondon\nO1 1OL'
                 }
             };
             testWrapper.agent.post('/prepare-session/form')

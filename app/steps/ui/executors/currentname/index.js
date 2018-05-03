@@ -51,6 +51,6 @@ module.exports = class ExecutorCurrentName extends CollectionStep {
 
     isComplete(ctx) {
         const executorsWrapper = new ExecutorsWrapper(ctx);
-        return [executorsWrapper.hasOtherName().every(exec => exec.currentName), 'inProgress'];
+        return [executorsWrapper.executorsWithAnotherName().every(exec => exec.currentName), 'inProgress'];
     }
 };

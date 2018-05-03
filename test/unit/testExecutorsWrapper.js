@@ -337,4 +337,40 @@ describe('Executors.js', () => {
             done();
         });
     });
+
+    describe('executorsWithAnotherName()', () => {
+        beforeEach(() => {
+            data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {fullname: 'ed brown', hasOtherName: true},
+                    {fullname: 'jake smith', has: true}
+                ]
+            };
+        });
+
+        it('should return a list of executors with another name', (done) => {
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.executorsWithAnotherName()).to.deep.equal([
+                {fullname: 'ed brown', hasOtherName: true}
+            ]);
+            done();
+        });
+
+        describe('should return an empty list', () => {
+            it('when no executors have another name', (done) => {
+                data.list[1].hasOtherName = false;
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsWithAnotherName()).to.deep.equal([]);
+                done();
+            });
+
+            it('when there is no executor data', (done) => {
+                const data = {};
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsWithAnotherName()).to.deep.equal([]);
+                done();
+            });
+        });
+    });
 });

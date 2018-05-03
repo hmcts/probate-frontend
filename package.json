@@ -7,7 +7,7 @@
     "node": ">=8.9"
   },
   "scripts": {
-    "setup": "NODE_PATH=. npm run sass",
+    "setup": "NODE_PATH=. npm run sass && npm run git-info",
     "start": "NODE_PATH=. node server.js",
     "debug": "NODE_PATH=. node inspect server.js",
     "prestart:dev": "npm run sass:watch",
@@ -34,6 +34,7 @@
     "test:coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/**/test*.js'",
     "test-coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/**/test*.js'",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner",
+    "git-info": "node-git-info-json",
     "//": "The below scripts are just stubs, dont use them in production",
     "s2s-stub": "NODE_PATH=. node test/service-stubs/idam.js",
     "submit-stub": "NODE_PATH=. node test/service-stubs/submit.js",
@@ -67,6 +68,7 @@
     "mocha-lcov-reporter": "^1.3.0",
     "moment": "^2.20.1",
     "node-fetch": "^1.6.3",
+    "node-git-info-json": "^0.1.1",
     "node-sass": "^4.5.3",
     "numeral": "^2.0.6",
     "nunjucks": "^3.0.1",

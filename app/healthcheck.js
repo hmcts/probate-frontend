@@ -6,17 +6,10 @@ const {map} = require('lodash');
 const url = require('url');
 const router = require('express').Router();
 const os = require('os');
-const childProcess = require('child_process');
-const logger = require('app/components/logger')();
+const gitProperties = require('git.properties');
 const gitRevision = process.env.GIT_REVISION;
 const osHostname = os.hostname();
-let gitHashString;
-try {
-    const gitHash = childProcess.execSync('git rev-parse HEAD');
-    gitHashString = gitHash.toString().trim();
-} catch (err) {
-    logger.error(err.toString());
-}
+const gitCommitId = gitProperties.git.commit.id;
 
 const getServiceHealthUrl = (serviceUrl) => {
     serviceUrl = url.parse(serviceUrl);
@@ -48,7 +41,7 @@ router.get('/', (req, res) => {
             'uptime': process.uptime(),
             'host': osHostname,
             'version': gitRevision,
-            'hash': gitHashString,
+            gitCommitId,
             downstream
         });
     });
@@ -57,4 +50,4 @@ router.get('/', (req, res) => {
 module.exports = router;
 module.exports.getServiceHealthUrl = getServiceHealthUrl;
 module.exports.osHostname = osHostname;
-module.exports.gitHashString = gitHashString;
+module.exports.gitCommitId = gitCommitId;

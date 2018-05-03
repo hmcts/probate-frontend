@@ -34,7 +34,7 @@ describe('healthcheck.js', () => {
                 expect(res.body).to.have.property('name').and.equal(config.service.name);
                 expect(res.body).to.have.property('status').and.equal('UP');
                 expect(res.body).to.have.property('host').and.equal(healthcheck.osHostname);
-                expect(res.body).to.have.property('hash').and.equal(healthcheck.gitHashString);
+                expect(res.body).to.have.property('gitCommitId').and.equal(healthcheck.gitCommitId);
                 done();
             });
         });

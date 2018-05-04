@@ -92,5 +92,8 @@ module.exports = {
     whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou'],
     hardStopParams: ['will.left', 'will.original', 'iht.completed', 'applicant.executor'],
     nonCachedPages: ['summary', 'tasklist'],
-    healthEndpoint: '/health'
+    healthEndpoint: '/health',
+    appInsights: {
+        instrumentationKey: process.env.APPINSIGHTS_INSTRUMENTATION_KEY
+    }
 };

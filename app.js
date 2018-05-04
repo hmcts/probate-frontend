@@ -22,6 +22,7 @@ const healthcheck = require(__dirname + '/app/healthcheck.js');
 const InviteSecurity = require(__dirname + '/app/invite.js');
 const fs = require('fs');
 const https = require('https');
+const appInsights = require('applicationinsights');
 
 exports.init = function() {
 
@@ -35,6 +36,11 @@ exports.init = function() {
     const useIDAM = (process.env.USE_IDAM || config.useIDAM).toLowerCase();
     const security = new Security(config.services.idam.loginUrl);
     const inviteSecurity = new InviteSecurity();
+
+    if (config.appInsights.instrumentationKey) {
+        appInsights.setup(config.appInsights.instrumentationKey);
+        appInsights.start();
+    }
 
 // Enable/Disable form validation
     process.argv.forEach(function (arg) {

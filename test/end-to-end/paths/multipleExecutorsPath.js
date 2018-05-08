@@ -20,7 +20,7 @@ After(() => {
 });
 
 
-Scenario('Multiple Executors Journey - Main applicant: 1st stage of completing application' + TestConfigurator.isIdamInUse(), function* (I) {
+Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
@@ -137,7 +137,7 @@ Scenario('Multiple Executors Journey - Main applicant: 1st stage of completing a
 
 
 
-Scenario('Additional Executor(s) Agree to Statement of Truth', function* (I) {
+Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), function* (I) {
 
     const idList = JSON.parse(grabIds);
 
@@ -161,7 +161,7 @@ Scenario('Additional Executor(s) Agree to Statement of Truth', function* (I) {
 });
 
 
-Scenario('Continuation of Main applicant journey: final stage of application' + TestConfigurator.isIdamInUse(), function* (I) {
+Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
 
     // IDAM
     I.authenticateWithIdamIfAvailable();

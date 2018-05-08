@@ -16,7 +16,7 @@ After(() => {
 });
 
 
-Scenario('Single Executor Journey' + TestConfigurator.isIdamInUse(), function* (I) {
+Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
 
 
     // IDAM

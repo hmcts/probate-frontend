@@ -85,8 +85,8 @@ class TestConfigurator {
         return this.testBaseUrl + this.testDeleteUserUrl;
     }
 
-    isIdamInUse() {
-        return (this.useIdam === 'true') ? ' - With Idam' : ' - Without Idam';
+    idamInUseText(scenarioText) {
+        return (this.useIdam === 'true') ? scenarioText + ' - With Idam' : scenarioText + ' - Without Idam';
     }
 
      setEnvVars() {

@@ -18,10 +18,12 @@ module.exports = {
     TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER,
 
     links: {
-        cookies: 'https://www.gov.uk/help/cookies',
-        terms: process.env.TERMS_AND_CONDITIONS,
-        survey: process.env.SURVEY,
-        surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION
+        cookies: '/cookies',
+        privacy: '/privacy-policy',
+        terms: '/terms-conditions',
+        contact: '/contact-us',
+        survey: 'http://www.smartsurvey.co.uk/',
+        surveyEndOfApplication: 'http://www.smartsurvey.co.uk/'
     },
 
 };

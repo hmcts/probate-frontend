@@ -42,13 +42,6 @@ exports.init = function() {
         appInsights.start();
     }
 
-// Enable/Disable form validation
-    process.argv.forEach(function (arg) {
-        if (arg.indexOf('DISABLE_VALIDATION') > 0) {
-            process.env.DISABLE_VALIDATION = true;
-        }
-    });
-
 // Authenticate against the environment-provided credentials, if running
 // the app in production (Heroku, effectively)
     if (useAuth === 'true') {

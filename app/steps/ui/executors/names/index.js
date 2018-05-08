@@ -4,7 +4,6 @@ const resourcePath = 'executors.names';
 const i18next = require('i18next');
 const {isEmpty, size, forEach} = require('lodash');
 
-
 module.exports = class ExecutorsNames extends ValidationStep {
 
     static getUrl() {

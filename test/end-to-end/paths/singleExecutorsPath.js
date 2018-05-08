@@ -18,10 +18,8 @@ After(() => {
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
 
-
     // IDAM
     I.authenticateWithIdamIfAvailable();
-
 
     // EligibilityTask
 
@@ -43,7 +41,6 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     }
 
     I.selectApplicantIsExecutor();
-
 
     // ExecutorsTask
     //

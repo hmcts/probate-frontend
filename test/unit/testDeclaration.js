@@ -23,10 +23,10 @@ describe('invitedata tests', function () {
 
     afterEach(function () {
         updateInviteDataStub.restore();
-    })
+    });
 
     it('Success - there are no Errors in the results', (done) => {
-        updateInviteDataStub.returns(Promise.resolve({agreed: null}))
+        updateInviteDataStub.returns(Promise.resolve({agreed: null}));
         Declaration.resetAgreedFlags(executorsInvited).then((results) => {
             assert.isFalse(results.some(result => result.name === 'Error'));
             done();
@@ -35,7 +35,7 @@ describe('invitedata tests', function () {
     });
 
     it('Failure - there is an Error in the results', (done) => {
-        updateInviteDataStub.returns(Promise.resolve(new Error('Blimey')))
+        updateInviteDataStub.returns(Promise.resolve(new Error('Blimey')));
         Declaration.resetAgreedFlags(executorsInvited).then((results) => {
             assert.isTrue(results.some(result => result.name === 'Error'));
             done();

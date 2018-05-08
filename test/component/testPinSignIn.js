@@ -40,7 +40,6 @@ describe('pin-page', () => {
                 });
         });
 
-
         it('test error messages displayed for missing data', (done) => {
             const data = {pin: ''};
 
@@ -71,11 +70,11 @@ describe('pin-page', () => {
                             assert(response.status === 500);
                             assert(response.text.includes('having technical problems'));
                             assert(loadFormDataStub.calledOnce, 'Form data function called');
-                            done()
+                            done();
                         })
                         .catch(err => {
-                            done(err)
-                        })
+                            done(err);
+                        });
                 });
 
         });

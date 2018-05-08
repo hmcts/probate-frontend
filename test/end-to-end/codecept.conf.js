@@ -30,4 +30,3 @@ exports.config = {
     },
     'name': 'Codecept Tests'
 };
-

@@ -56,7 +56,6 @@ describe('executors-contact-details', () => {
                 });
         });
 
-
         it('test error messages displayed if no email entered', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

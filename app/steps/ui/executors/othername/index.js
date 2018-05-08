@@ -1,5 +1,5 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {some} = require('lodash');
+const ExecutorsWrapper = require('app/wrappers/Executors');
 
 module.exports = class ExecutorsWithOtherNames extends ValidationStep {
 
@@ -9,18 +9,17 @@ module.exports = class ExecutorsWithOtherNames extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
+        ctx.executorsWrapper = new ExecutorsWrapper(ctx);
         if (ctx.list) {
-            ctx.options = ctx.list
-            .filter(o => o.fullName)
-            .filter (o => o.isApplying === true)
-            .map(o => ({option: o.fullName, checked: o.hasOtherName === true}));
+            ctx.options = ctx.executorsWrapper.executorsApplying(true)
+                .map(o => ({option: o.fullName, checked: o.hasOtherName === true}));
         }
         return ctx;
     }
 
     * handlePost(ctx, errors) {
         for (let i = 1; i < ctx.executorsNumber; i++) {
-            ctx.list[i].hasOtherName  = ctx.executorsWithOtherNames.includes(ctx.list[i].fullName);
+            ctx.list[i].hasOtherName = ctx.executorsWithOtherNames.includes(ctx.list[i].fullName);
         }
         return [ctx, errors];
     }
@@ -29,11 +28,11 @@ module.exports = class ExecutorsWithOtherNames extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.options;
         delete ctx.executorsWithOtherNames;
+        delete ctx.executorsWrapper;
         return [ctx, formdata];
     }
 
     isComplete(ctx) {
-        return [some((ctx.list), exec => exec.hasOtherName === true), 'inProgress'];
+        return [ctx.executorsWrapper.hasOtherName(), 'inProgress'];
     }
-
 };

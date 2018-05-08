@@ -7,23 +7,21 @@
     "node": ">=4.0"
   },
   "scripts": {
-    "setup": "NODE_PATH=. npm run sass",
+    "setup": "NODE_PATH=. npm run sass && npm run sass-ie8",
     "start": "NODE_PATH=. node server.js",
     "debug": "NODE_PATH=. node inspect server.js",
     "prestart:dev": "npm run sass:watch",
     "start:dev": "NODE_PATH=. nodemon -e js,json --watch 'app/' --watch 'test/' -x 'node server.js'",
     "sass:watch": "NODE_PATH=. watch 'npm run -s sass' app/assets/sass/ &",
-    "sass": "NODE_PATH=. node-sass app/assets/sass/*.scss --output public/stylesheets --quiet --output-style expanded --source-map true --include-path node_modules/govuk_template_jinja/assets/stylesheets --include-path node_modules/govuk_frontend_toolkit/stylesheets --include-path node_modules/govuk-elements-sass/public/sass/",
-    "disable-validation": "NODE_PATH=. node setup.js -DISABLE_VALIDATION",
+    "sass": "NODE_PATH=. node-sass app/assets/sass/application.scss --output public/stylesheets --quiet --output-style expanded --source-map true --include-path node_modules/govuk_template_jinja/assets/stylesheets --include-path node_modules/govuk_frontend_toolkit/stylesheets --include-path node_modules/govuk-elements-sass/public/sass/",
+    "sass-ie8": "NODE_PATH=. node-sass app/assets/sass/application-ie8.scss --output public/stylesheets --quiet --output-style expanded --source-map true --include-path node_modules/govuk_template_jinja/assets/stylesheets --include-path node_modules/govuk_frontend_toolkit/stylesheets --include-path node_modules/govuk-elements-sass/public/sass/",
     "test": "npm run test-unit -- $@ && npm run test-accessibility -- $@ && npm run test-component -- $@",
-    "test-unit": "NODE_PATH=. LOG_LEVEL=error mocha test/unit --reporter spec --recursive --timeout 15000",
-    "test-component": "NODE_PATH=. LOG_LEVEL=error mocha test/component --reporter spec --recursive --timeout 15000",
-    "test-accessibility": "NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 15000",
+    "test-unit": "NODE_PATH=. LOG_LEVEL=none mocha test/unit --reporter spec --recursive --timeout 15000",
+    "test-component": "NODE_PATH=. LOG_LEVEL=none mocha test/component --reporter spec --recursive --timeout 15000",
+    "test-accessibility": "NODE_PATH=. LOG_LEVEL=none ENABLE_TRACKING=false mocha test/accessibility --timeout 15000",
     "test-e2e": "NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run  -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-crossbrowser-e2e": "NODE_PATH=. codeceptjs run -c test/end-to-end/saucelabs.conf.js --steps",
     "eslint": "NODE_PATH=. eslint .",
-    "eslint-dev:all": "NODE_PATH=. eslint . -c .eslintrc-dev.js",
-    "eslint-dev:file": "NODE_PATH=. eslint -c .eslintrc-dev.js",
     "security": "NODE_PATH=. nsp check",
     "test-coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/**/test*.js'",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner",
@@ -35,10 +33,10 @@
     "payment-stub": "NODE_PATH=. node test/service-stubs/payment.js"
   },
   "dependencies": {
+    "@hmcts/nodejs-logging": "^3.0.0",
     "ajv": "^4.11.0",
     "basic-auth": "^1.0.3",
     "body-parser": "^1.15.2",
-    "bunyan": "^1.8.5",
     "co": "^4.6.0",
     "connect-redis": "^3.1.0",
     "cookie-parser": "^1.4.3",
@@ -71,11 +69,8 @@
     "validator": "^9.4.1"
   },
   "devDependencies": {
-    "watch": "^1.0.1",
-    "nodemon": "^1.11.0",
     "chai": "^4.1.0",
     "codeceptjs": "1.1.5",
-    "unirest": "^0.5.1",
     "eslint": "4.1.1 ",
     "eslint-plugin-mocha": "^4.8.0",
     "istanbul": "^0.4.5",
@@ -84,6 +79,7 @@
     "mochawesome": "^2.0.0",
     "nightmare": "^2.9.1",
     "nightmare-upload": "^0.1.1",
+    "nodemon": "^1.11.0",
     "nsp": "^2.6.2",
     "pa11y": "^4.13.2",
     "phantomjs-prebuilt": "^2.1.13",
@@ -94,8 +90,10 @@
     "sonar-scanner": "^1.0.1",
     "sonarqube-scanner": "^1.1.0",
     "supertest": "^2.0.1",
+    "unirest": "^0.5.1",
+    "uuid": "^3.1.0",
+    "watch": "^1.0.1",
     "webdriverio": "^4.2.16",
-    "when": "^3.7.7",
-    "uuid": "^3.1.0"
+    "when": "^3.7.7"
   }
 }

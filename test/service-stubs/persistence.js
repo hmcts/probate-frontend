@@ -21,9 +21,8 @@ router.get('invitedata/:id', function (req, res) {
 
 router.patch('/invitedata/:id', function (req, res) {
     res.status(200);
-    res.send('SuperTrooper')
+    res.send('SuperTrooper');
 });
-
 
 router.get(`${PERSISTENCE_SERVICE_PATH}/:data`, function (req, res) {
     const data = require(`test/data/${req.params.data}`);
@@ -35,9 +34,7 @@ router.get('/health', function (req, res) {
     res.send({'status': 'UP'});
 });
 
-
 app.use(router);
-
 
 console.log(`Listening on: ${PERSISTENCE_SERVICE_PORT}`);
 const server = app.listen(PERSISTENCE_SERVICE_PORT);

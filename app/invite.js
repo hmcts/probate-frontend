@@ -12,39 +12,39 @@ const config = require('app/config'),
 
 module.exports = class InviteLink {
     verify() {
-        const self = this
+        const self = this;
 
         return function (req, res, next) {
             self.checkLinkIsValid(req, res,
                 (res) => res.redirect('/sign-in'),
-                (res) => res.redirect('/errors/404'))
-        }
+                (res) => res.redirect('/errors/404'));
+        };
     }
     checkLinkIsValid(request, response, success, failure) {
-        const inviteId = request.params.inviteId
+        const inviteId = request.params.inviteId;
 
         const isValidLink = services.findInviteLink(inviteId).then(result => {
             if (result.name === 'Error') {
-                logger.error('Error while verifying the token: ' + result.message)
-                failure(response)
+                logger.error('Error while verifying the token: ' + result.message);
+                failure(response);
             } else {
-                logger.info('Link is valid')
+                logger.info('Link is valid');
                 services.sendPin(result.phoneNumber, request.sessionID).then(generatedPin => {
-                    request.session.pin = generatedPin
-                    request.session.phoneNumber = result.phoneNumber
-                    request.session.leadExecutorName = result.mainExecutorName
-                    request.session.formdataId = result.formdataId
-                    request.session.inviteId = inviteId
-                    request.session.validLink = true
-                    success(response)
-                })
+                    request.session.pin = generatedPin;
+                    request.session.phoneNumber = result.phoneNumber;
+                    request.session.leadExecutorName = result.mainExecutorName;
+                    request.session.formdataId = result.formdataId;
+                    request.session.inviteId = inviteId;
+                    request.session.validLink = true;
+                    success(response);
+                });
             }
 
         })
         .catch(err => {
-            logger.error('Error while checking the link or sending the pin: ' + err)
-            failure(response)
-        })
+            logger.error('Error while checking the link or sending the pin: ' + err);
+            failure(response);
+        });
     }
 
     checkCoApplicant(useIDAM) {
@@ -55,7 +55,7 @@ module.exports = class InviteLink {
             } else {
                 services.checkAllAgreed(req.session.formdataId).then(result => {
                     if (result.name === 'Error') {
-                        logger.error('Error checking everyone has agreed: ' + result.message)
+                        logger.error('Error checking everyone has agreed: ' + result.message);
                         res.status(500);
                         res.render('errors/500');
                     } else {
@@ -74,8 +74,8 @@ module.exports = class InviteLink {
                             next();
                         }
                     }
-                })
+                });
             }
-        }
+        };
     }
-}
+};

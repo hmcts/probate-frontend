@@ -12,36 +12,29 @@ const routes = require(__dirname + '/app/routes');
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const config = require(__dirname + '/app/config.js');
-const utils = require(__dirname + '/app/components/utils.js');
-const packageJson = require(__dirname + '/package.json');
+const config = require(__dirname + '/app/config');
+const utils = require(__dirname + '/app/components/utils');
+const packageJson = require(__dirname + '/package');
 const Security = require(__dirname + '/app/components/security');
 const helmet = require('helmet');
 const csrf = require('csurf');
-const healthcheck = require(__dirname + '/app/healthcheck.js');
-const InviteSecurity = require(__dirname + '/app/invite.js');
+const healthcheck = require(__dirname + '/app/healthcheck');
+const InviteSecurity = require(__dirname + '/app/invite');
 const fs = require('fs');
 const https = require('https');
 
 exports.init = function() {
 
     const app = express();
-    const port = (process.env.PORT || config.port);
+    const port = config.app.port;
     const releaseVersion = packageJson.version;
-    const username = process.env.USERNAME;
-    const password = process.env.PASSWORD;
-    const useAuth = (process.env.USE_AUTH || config.useAuth).toLowerCase();
-    const useHttps = (process.env.USE_HTTPS || config.useHttps).toLowerCase();
-    const useIDAM = (process.env.USE_IDAM || config.useIDAM).toLowerCase();
+    const username = config.app.username;
+    const password = config.app.password;
+    const useAuth = config.app.useAuth.toLowerCase();
+    const useHttps = config.app.useHttps.toLowerCase();
+    const useIDAM = config.app.useIDAM.toLowerCase();
     const security = new Security(config.services.idam.loginUrl);
     const inviteSecurity = new InviteSecurity();
-
-// Enable/Disable form validation
-    process.argv.forEach(function (arg) {
-        if (arg.indexOf('DISABLE_VALIDATION') > 0) {
-            process.env.DISABLE_VALIDATION = true;
-        }
-    });
 
 // Authenticate against the environment-provided credentials, if running
 // the app in production (Heroku, effectively)
@@ -74,7 +67,7 @@ exports.init = function() {
 //security library helmet to verify 11 smaller middleware functions
     app.use(helmet());
 
-//content security policy to allow only assets from same domain
+//content security policy to allow just assets from same domain
     app.use(helmet.contentSecurityPolicy({
         directives: {
             defaultSrc: ['\'self\''],
@@ -100,7 +93,7 @@ exports.init = function() {
         policy: 'origin'
     }));
 
-    app.use(helmet.xssFilter({setOnOldIE: true}))
+    app.use(helmet.xssFilter({setOnOldIE: true}));
 
 // Middleware to serve static assets
     app.use('/public/stylesheets', express.static(__dirname + '/public/stylesheets'));
@@ -110,8 +103,6 @@ exports.init = function() {
     app.use('/public', express.static(__dirname + '/node_modules/govuk_template_jinja/assets'));
     app.use('/public', express.static(__dirname + '/node_modules/govuk_frontend_toolkit'));
     app.use('/public/images/icons', express.static(__dirname + '/node_modules/govuk_frontend_toolkit/images'));
-
-
 
 // Elements refers to icon folder instead of images folder
     app.use(favicon(path.join(__dirname, 'node_modules', 'govuk_template_jinja', 'assets', 'images', 'favicon.ico')));
@@ -132,24 +123,24 @@ exports.init = function() {
 
 // Support session data
     app.use(session({
-        proxy: true,
-        resave: false,
-        saveUninitialized: false,
-        secret: process.env.REDIS_SECRET || 'OVERWRITE_THIS',
+        proxy: config.redis.proxy,
+        resave: config.redis.resave,
+        saveUninitialized: config.redis.saveUninitialized,
+        secret: config.redis.secret,
         cookie: {
-            secure: false,
-            httpOnly: true,
-            sameSite: 'lax'
+            secure: config.redis.cookie.secure,
+            httpOnly: config.redis.cookie.httpOnly,
+            sameSite: config.redis.cookie.sameSite
         },
-        store: utils.getStore(process.env.USE_REDIS, session)
+        store: utils.getStore(config.app.useRedis, session)
     }));
 
     app.use(function (req, res, next) {
         if (!req.session) {
-            return next(new Error('Unable to reach redis'))
+            return next(new Error('Unable to reach redis'));
         }
-        next() // otherwise continue
-    })
+        next(); // otherwise continue
+    });
 
     app.use(config.services.idam.probate_oauth_callback_path, security.oAuth2CallbackEndpoint());
 
@@ -159,7 +150,6 @@ exports.init = function() {
             next();
         });
     }
-
 
 // Add variables that are available in all views
     app.use(function (req, res, next) {
@@ -199,7 +189,7 @@ exports.init = function() {
 
 // start the app
     let http;
-    if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'testing') {
+    if (config.nodeEnvironment === 'development' || config.nodeEnvironment === 'testing') {
         const sslDirectory = path.join(__dirname, 'app', 'resources', 'localhost-ssl');
 
         const sslOptions = {
@@ -230,4 +220,3 @@ exports.init = function() {
 
     return {app, http};
 };
-

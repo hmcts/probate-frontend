@@ -1,7 +1,6 @@
 const initSteps = require('app/core/initSteps'),
     assert = require('chai').assert;
 
-
 describe('AddAlias', function () {
 
     const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
@@ -26,7 +25,7 @@ describe('AddAlias', function () {
 
             const formdata = {};
 
-            const  AddAlias = steps.AddAlias;
+            const AddAlias = steps.AddAlias;
             [ctx, errors] = AddAlias.handlePost(ctx, errors, formdata).next().value;
             assert.exists(formdata.deceased.otherNames);
             done();

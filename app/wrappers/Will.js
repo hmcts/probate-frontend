@@ -18,6 +18,10 @@ class Will {
     hasCodicilsDate() {
         return this.will.isCodicilsDate === commonContent.yes;
     }
+
+    codicilsNumber() {
+        return this.will.codicilsNumber ? this.will.codicilsNumber : 0;
+    }
 }
 
 module.exports = Will;

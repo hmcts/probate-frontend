@@ -1,13 +1,13 @@
 const CollectionStep = require('app/core/steps/CollectionStep'),
     {get, some, findIndex} = require('lodash');
 
-const path =  '/executor-notified/';
+const path = '/executor-notified/';
 
 module.exports = class ExecutorNotified extends CollectionStep {
 
     constructor(steps, section, templatePath, i18next, schema) {
         super(steps, section, templatePath, i18next, schema);
-        this.path =  path;
+        this.path = path;
     }
 
     static getUrl(index = '*') {
@@ -51,7 +51,7 @@ module.exports = class ExecutorNotified extends CollectionStep {
         return {
             'stepName': this.constructor.name,
             'isSoftStop': softStopForNotNotified
-        }
+        };
     }
 
     recalcIndex(ctx) {

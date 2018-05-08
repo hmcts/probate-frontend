@@ -3,13 +3,11 @@ const TestWrapper = require('test/util/TestWrapper'),
     ExecutorContactDetails = require('app/steps/ui/executors/contactdetails/index'),
     ExecutorRoles = require('app/steps/ui/executors/roles/index');
 
-
 describe('executors-address', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForDeceasedName = DeceasedName.getUrl();
     const expectedNextUrlForExecRoles = ExecutorRoles.getUrl('*');
     const expectedNextUrlForExecContactDetails = ExecutorContactDetails.getUrl(2);
-
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorAddress');

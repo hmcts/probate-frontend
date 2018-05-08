@@ -30,7 +30,7 @@ const updateTaskStatus = function (ctx, req, steps) {
         }
         status = step.name === task.lastStep ? 'complete' : status;
         const nextURL = step.constructor.getUrl();
-        const checkYourAnswersLink = steps[task.summary].constructor.getUrl()
+        const checkYourAnswersLink = steps[task.summary].constructor.getUrl();
 
         ctx[taskName] = {status, nextURL, checkYourAnswersLink};
     });

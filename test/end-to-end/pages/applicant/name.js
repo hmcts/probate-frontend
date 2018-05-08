@@ -1,7 +1,6 @@
 const commonContent = require('app/resources/en/translation/common.json');
 const pageUnderTest = require('app/steps/ui/applicant/name/index');
 
-
 module.exports = function (firstname, lastname) {
     const I = this;
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());

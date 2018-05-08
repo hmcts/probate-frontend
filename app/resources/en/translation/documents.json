@@ -21,7 +21,7 @@
   "warning": "The grant of probate won&rsquo;t be issued if you don&rsquo;t have all the necessary documents and signatures.",
   "heading3": "Send your documents to the probate registry",
   "sendDocuments": "You should send your documents using a signed-for postal service to:",
-  "sendDocumentsAddress": "Digital Application<br>Oxford District Probate Registry<br>Combined Court Building<br>St Aldates<br>Oxford<br>OX1 1LY",
+  "sendDocumentsAddress": "Digital Application\nOxford District Probate Registry\nCombined Court Building\nSt Aldates\nOxford\nOX1 1LY",
   "checkboxLabel": "I understand that I need to sign the will before sending my documents",
   "checkboxLabel-codicils": "I understand that I need to sign the will and any &lsquo;codicils&rsquo; before sending my documents",
   "errors": {

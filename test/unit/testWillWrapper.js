@@ -12,18 +12,26 @@ describe('Will', () => {
             done();
         });
 
-        it('should return false when there are no codicils', (done) => {
-            const data = {codicils: commonContent.no};
-            const willWrapper = new WillWrapper(data);
-            expect(willWrapper.hasCodicils()).to.equal(false);
-            done();
-        });
+        describe('should return false', () => {
+            it('when there are no codicils', (done) => {
+                const data = {codicils: commonContent.no};
+                const willWrapper = new WillWrapper(data);
+                expect(willWrapper.hasCodicils()).to.equal(false);
+                done();
+            });
 
-        it('should return false when there is no will data', (done) => {
-            const data = {};
-            const willWrapper = new WillWrapper(data);
-            expect(willWrapper.hasCodicils()).to.equal(false);
-            done();
+            it('when there is no codicils property', (done) => {
+                const data = {};
+                const willWrapper = new WillWrapper(data);
+                expect(willWrapper.hasCodicils()).to.equal(false);
+                done();
+            });
+
+            it('when there is no will data', (done) => {
+                const willWrapper = new WillWrapper();
+                expect(willWrapper.hasCodicils()).to.equal(false);
+                done();
+            });
         });
     });
 
@@ -35,18 +43,26 @@ describe('Will', () => {
             done();
         });
 
-        it('should return false when there is no will date', (done) => {
-            const data = {isWillDate: commonContent.no};
-            const willWrapper = new WillWrapper(data);
-            expect(willWrapper.hasWillDate()).to.equal(false);
-            done();
-        });
+        describe('should return false', () => {
+            it('when there is no will date', (done) => {
+                const data = {isWillDate: commonContent.no};
+                const willWrapper = new WillWrapper(data);
+                expect(willWrapper.hasWillDate()).to.equal(false);
+                done();
+            });
 
-        it('should return false when there is no will data', (done) => {
-            const data = {};
-            const willWrapper = new WillWrapper(data);
-            expect(willWrapper.hasWillDate()).to.equal(false);
-            done();
+            it('when there is no isWIllDate property', (done) => {
+                const data = {};
+                const willWrapper = new WillWrapper(data);
+                expect(willWrapper.hasWillDate()).to.equal(false);
+                done();
+            });
+
+            it('when there is no will data', (done) => {
+                const willWrapper = new WillWrapper();
+                expect(willWrapper.hasWillDate()).to.equal(false);
+                done();
+            });
         });
     });
 
@@ -58,18 +74,50 @@ describe('Will', () => {
             done();
         });
 
-        it('should return false when there is no codicils date', (done) => {
-            const data = {isCodicilsDate: commonContent.no};
+        describe('should return false', () => {
+            it('when there is no codicils date', (done) => {
+                const data = {isCodicilsDate: commonContent.no};
+                const willWrapper = new WillWrapper(data);
+                expect(willWrapper.hasCodicilsDate()).to.equal(false);
+                done();
+            });
+
+            it('when isCodicilsDate property', (done) => {
+                const data = {};
+                const willWrapper = new WillWrapper(data);
+                expect(willWrapper.hasCodicilsDate()).to.equal(false);
+                done();
+            });
+
+            it('when there is no will data', (done) => {
+                const willWrapper = new WillWrapper();
+                expect(willWrapper.hasCodicilsDate()).to.equal(false);
+                done();
+            });
+        });
+    });
+
+    describe('codicilsNumber()', () => {
+        it('should return the number of codicils when there is a codicils number', (done) => {
+            const data = {codicilsNumber: 2};
             const willWrapper = new WillWrapper(data);
-            expect(willWrapper.hasCodicilsDate()).to.equal(false);
+            expect(willWrapper.codicilsNumber()).to.equal(2);
             done();
         });
 
-        it('should return false when there is no will data', (done) => {
-            const data = {};
-            const willWrapper = new WillWrapper(data);
-            expect(willWrapper.hasCodicilsDate()).to.equal(false);
-            done();
+        describe('should return 0', () => {
+            it('when there is no codicilsNumber property', (done) => {
+                const data = {};
+                const willWrapper = new WillWrapper(data);
+                expect(willWrapper.codicilsNumber()).to.equal(0);
+                done();
+            });
+
+            it('when there is no will data', (done) => {
+                const willWrapper = new WillWrapper();
+                expect(willWrapper.codicilsNumber()).to.equal(0);
+                done();
+            });
         });
     });
 });

@@ -9,13 +9,13 @@ const {get, includes, isEqual} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 
-router.all('*', function (req, res, next) {
+router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
     req.log.info(`Processing ${req.method} for ${req.originalUrl}`);
     next();
 });
 
-router.use(function (req, res, next) {
+router.use((req, res, next) => {
     if (!req.session.form) {
         req.session.form = {
             payloadVersion: config.payloadVersion,
@@ -26,7 +26,7 @@ router.use(function (req, res, next) {
     next();
 });
 
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
     services.loadFormData(req.session.regId)
         .then(result => {
             if (result.name === 'Error') {
@@ -41,7 +41,7 @@ router.get('/', function (req, res) {
         });
 });
 
-router.use(function (req, res, next) {
+router.use((req, res, next) => {
     const formdata = req.session.form;
     const isHardStop = formdata => config.hardStopParams.some(param => get(formdata, param) === commonContent.no);
     const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
@@ -56,8 +56,7 @@ router.use(function (req, res, next) {
         res.redirect('tasklist');
     } else if (get(formdata, 'declaration.declarationCheckbox') &&
         !includes(config.whitelistedPagesAfterDeclaration, req.originalUrl) &&
-            (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent') &&
-                req.session.haveAllExecutorsDeclared === 'true'))
+            (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent') && req.session.haveAllExecutorsDeclared === 'true'))
     ) {
         res.redirect('tasklist');
     } else if (get(formdata, 'declaration.declarationCheckbox') &&
@@ -112,16 +111,18 @@ Object.entries(steps).forEach(([, step]) => {
     router.post(step.constructor.getUrl(), step.runner().POST(step));
 });
 
-router.get('/payment', function (req, res) {
+router.get('/payment', (req, res) => {
     res.redirect(301, '/documents');
 });
 
-if (process.env.REFORM_ENVIRONMENT === 'dev' || process.env.REFORM_ENVIRONMENT === 'test') {
-    router.get('/inviteIdList', function (req, res) {
-        const list = get(req, 'session.form.executors.list', []);
-        res.send({'ids': list.filter(e => e.inviteId).map(e => e.inviteId)});
+if (['dev', 'test'].includes(config.environment)) {
+    router.get('/inviteIdList', (req, res) => {
+        const formdata = req.session.form;
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        res.send({'ids': executorsWrapper.executorsInvited().map(e => e.inviteId)});
     });
-    router.get('/pin', function (req, res) {
+
+    router.get('/pin', (req, res) => {
         const pin = get(req, 'session.pin', 0);
         res.send({'pin': pin});
     });

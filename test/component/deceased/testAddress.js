@@ -5,7 +5,6 @@ describe('deceased-address', () => {
     let testWrapper;
     const expectedNextUrlForSummary = Summary.getUrl();
 
-
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedAddress');
     });

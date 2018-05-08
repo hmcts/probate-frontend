@@ -1,7 +1,8 @@
-const AddressStep = require('app/core/steps/AddressStep'),
-    {findIndex, every, tail, get, startsWith} = require('lodash');
+const AddressStep = require('app/core/steps/AddressStep');
+const {findIndex, get, startsWith} = require('lodash');
+const ExecutorsWrapper = require('app/wrappers/Executors');
 
-const path =  '/executor-address/';
+const path = '/executor-address/';
 
 module.exports = class ExecutorAddress extends AddressStep {
 
@@ -19,6 +20,7 @@ module.exports = class ExecutorAddress extends AddressStep {
         } else if (startsWith(req.path, path)) {
             ctx.index = this.recalcIndex(ctx, 0);
         }
+        ctx.executorsWrapper = new ExecutorsWrapper(ctx);
         return ctx;
     }
 
@@ -47,7 +49,7 @@ module.exports = class ExecutorAddress extends AddressStep {
 
         ctx.index = this.recalcIndex(ctx, ctx.index);
         if (ctx.index === -1) {
-            ctx.allExecsApplying = ctx.list.filter(o => o.isDead !== true).every(o => o.isApplying);
+            ctx.allExecsApplying = ctx.executorsWrapper.areAllAliveExecutorsApplying();
         }
         return [ctx, errors];
     }
@@ -60,13 +62,13 @@ module.exports = class ExecutorAddress extends AddressStep {
         if (ctx.index === -1) {
             return this.next(ctx).constructor.getUrl();
         }
-            return this.next(ctx).constructor.getUrl(ctx.index);
+        return this.next(ctx).constructor.getUrl(ctx.index);
 
     }
 
     nextStepOptions(ctx) {
-        ctx.continue =  get(ctx, 'index', -1) !== -1;
-        ctx.allExecsApplying = ctx.list.filter(o => o.isDead !== true).every(o => o.isApplying);
+        ctx.continue = get(ctx, 'index', -1) !== -1;
+        ctx.allExecsApplying = ctx.executorsWrapper.areAllAliveExecutorsApplying();
         const nextStepOptions = {
             options: [
                 {key: 'continue', value: true, choice: 'continue'},
@@ -88,10 +90,14 @@ module.exports = class ExecutorAddress extends AddressStep {
         delete ctx.allExecsApplying;
         delete ctx.continue;
         delete ctx.index;
-        return [ctx, formdata]
+        delete ctx.executorsWrapper;
+        return [ctx, formdata];
     }
 
     isComplete(ctx) {
-        return [every(tail(ctx.list).filter(exec => exec.isApplying === true), exec => exec.email && exec.mobile && exec.address), 'inProgress'];
+        return [
+            ctx.executorsWrapper.executorsApplying(true).every(executor => executor.email && executor.mobile && executor.address),
+            'inProgress'
+        ];
     }
 };

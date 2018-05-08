@@ -25,7 +25,7 @@ describe('error-pages', () => {
         const routes = require('app/routes');
         routes.get('/throwError', function () {
             throw new Error('Test error');
-        })
+        });
         const server = new (require ('app').init)();
 
         const agent = request.agent(server.app);

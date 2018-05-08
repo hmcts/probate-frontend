@@ -57,7 +57,7 @@
 
     <p>{{ content.sendDocuments }}</p>
 
-    <p>{{ content.sendDocumentsAddress | safe }}</p>
+    <p>{{ fields.registryAddress.value | safe | nl2br }}</p>
 
     {{ checkbox(
         name='sentDocuments',

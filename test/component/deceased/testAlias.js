@@ -9,7 +9,6 @@ describe('deceased-alias', () => {
     const expectedNextUrlForDeceasedMarried = DeceasedMarried.getUrl();
     const expectedNextUrlForDeceasedDod = DeceasedDod.getUrl();
 
-
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedAlias');
     });

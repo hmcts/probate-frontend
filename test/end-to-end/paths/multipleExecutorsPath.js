@@ -19,8 +19,12 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
+<<<<<<< HEAD
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
+=======
+Scenario(TestConfigurator.getScenarioName(), function* (I) {
+>>>>>>> develop
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
@@ -46,7 +50,6 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     }
 
     I.selectApplicantIsExecutor();
-
 
     // ExecutorsTask
     //
@@ -86,7 +89,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
     I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
 
-    const executorsWithDifferentNameList = ['5']
+    const executorsWithDifferentNameList = ['5'];
     forEach(executorsWithDifferentNameList, executorNumber => {
         I.enterExecutorCurrentName(executorNumber, head(executorsWithDifferentNameList) === executorNumber);
     });
@@ -96,7 +99,10 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         I.enterExecutorManualAddress(executorNumber);
     });
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
     const executorsAliveList = ['4', '6'];
     let powerReserved = true;
     forEach(executorsAliveList, executorNumber => {
@@ -109,7 +115,6 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
             powerReserved = true;
         }
     });
-
 
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.selectDeceasedAlias('Yes');
@@ -179,6 +184,7 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
         I.enterOverseasCopies('0');
     }
 
+<<<<<<< HEAD
     I.seeCopiesSummary();
 
     // PaymentTask
@@ -197,4 +203,41 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     // Thank You - Application Complete Task
     I.seeThankYouPage();
+=======
+    // I.seeSummaryPage("declaration");
+    // I.acceptDeclaration();
+    //
+    // // Extra copies task
+    // I.selectATask(taskListContent.taskNotStarted);
+    //
+    // if (TestConfigurator.isFullPaymentEnvironment()) {
+    //     I.enterUkCopies("5");
+    //     I.selectOverseasAssets();
+    //     I.enterOverseasCopies("7");
+    // }
+    // else {
+    //     I.enterUkCopies("0");
+    //     I.selectOverseasAssets();
+    //     I.enterOverseasCopies("0");
+    // }
+    //
+    // I.seeCopiesSummary();
+    //
+    // // PaymentTask
+    // I.selectATask(taskListContent.taskNotStarted);
+    // I.seePaymentBreakdownPage();
+    //
+    // if (TestConfigurator.isFullPaymentEnvironment()) {
+    //     I.seeGovUkPaymentPage();
+    //     I.seeGovUkConfirmPage();
+    // }
+    //
+    // I.seePaymentStatusPage();
+    //
+    // // Send Documents Task
+    // I.seeDocumentsPage();
+    //
+    // // Thank You - Application Complete Task
+    // I.seeThankYouPage();
+>>>>>>> develop
 });

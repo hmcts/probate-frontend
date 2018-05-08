@@ -26,4 +26,4 @@ module.exports = function(env) {
   env.addFilter('initials', initialsFilter);
 
   return env;
-}
+};

@@ -1,6 +1,6 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    config = require('app/config'),
-    ThankYou = require('app/steps/ui/thankyou/index.js');
+const TestWrapper = require('test/util/TestWrapper');
+const config = require('app/config');
+const ThankYou = require('app/steps/ui/thankyou/index.js');
 
 describe('documents-page', () => {
     let testWrapper;
@@ -84,7 +84,7 @@ describe('documents-page', () => {
                     ];
                     const contentData = {
                         renunciationFormLink: config.links.renunciationForm
-                    }
+                    };
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
@@ -140,6 +140,31 @@ describe('documents-page', () => {
                         codicilsNumber: 1
                     };
                     testWrapper.testContent(done, excludeKeys, contentData);
+                });
+        });
+
+        it('test correct content loaded on the page, no codicils, single executor, specified registry address', (done) => {
+            const sessionData = {
+                executors: {},
+                documents: {
+                    registryAddress: '1 Red Street\nLondon\nO1 1OL'
+                }
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const excludeKeys = [
+                        'checklist1-item2',
+                        'checklist2Header',
+                        'checklist2-item1',
+                        'checklist2-item2',
+                        'checklist3-item1-codicils',
+                        'checklist3-item3',
+                        'coverLetter-codicils',
+                        'checkboxLabel-codicils',
+                        'sendDocumentsAddress'
+                    ];
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
 

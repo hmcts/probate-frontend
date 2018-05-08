@@ -28,7 +28,7 @@ module.exports = class ExecutorRoles extends CollectionStep {
             ctx.list[ctx.index].isApplying = false;
             ctx.list[ctx.index].notApplyingReason = ctx.notApplyingReason;
             ctx.list[ctx.index].notApplyingKey = findKey(json, function (o) {
- return o === ctx.notApplyingReason
+ return o === ctx.notApplyingReason;
 });
         }
         if (ctx.notApplyingReason !== json.optionPowerReserved) {
@@ -42,7 +42,7 @@ module.exports = class ExecutorRoles extends CollectionStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.continue =  get(ctx, 'index', -1) !== -1;
+        ctx.continue = get(ctx, 'index', -1) !== -1;
         const nextStepOptions = {
             options: [
                 {key: 'notApplyingReason', value: json.optionPowerReserved, choice: 'powerReserved'},
@@ -62,6 +62,6 @@ module.exports = class ExecutorRoles extends CollectionStep {
     }
 
     recalcIndex(ctx, index) {
-        return findIndex(ctx.list, exec =>  !exec.isDead && (ctx.otherExecutorsApplying === this.commonContent().no || !exec.isApplying), index + 1);
+        return findIndex(ctx.list, exec => !exec.isDead && (ctx.otherExecutorsApplying === this.commonContent().no || !exec.isApplying), index + 1);
     }
 };

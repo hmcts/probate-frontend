@@ -1,11 +1,11 @@
-const {forEach, filter, isEmpty, set, get, cloneDeep} = require('lodash'),
-    {expect, assert} = require('chai'),
-    app = require('app'),
-    routes = require('app/routes'),
-    config = require('app/config'),
-    request = require('supertest'),
-    journeyMap = require('app/core/journeyMap'),
-    {steps} = require('app/core/initSteps');
+const {forEach, filter, isEmpty, set, get, cloneDeep} = require('lodash');
+const {expect, assert} = require('chai');
+const app = require('app');
+const routes = require('app/routes');
+const config = require('app/config');
+const request = require('supertest');
+const journeyMap = require('app/core/journeyMap');
+const {steps} = require('app/core/initSteps');
 
 module.exports = class TestWrapper {
     constructor(stepName) {
@@ -38,20 +38,20 @@ module.exports = class TestWrapper {
         this.agent.get(this.pageUrl)
             .expect('Content-type', /html/)
             .then(response => {
-                this.assertContentIsPresent(response.text, contentToCheck)
-                done()
+                this.assertContentIsPresent(response.text, contentToCheck);
+                done();
             })
-            .catch(done)
+            .catch(done);
     }
 
     testDataPlayback(done, data) {
         this.agent.get(this.pageUrl)
             .expect('Content-type', /html/)
             .then(response => {
-                this.assertContentIsPresent(response.text, data)
-                done()
+                this.assertContentIsPresent(response.text, data);
+                done();
             })
-            .catch(done)
+            .catch(done);
     }
 
     testErrors(done, data, type, onlyKeys = []) {
@@ -67,12 +67,11 @@ module.exports = class TestWrapper {
                 forEach(expectedErrors, (value) => {
                     expect(res.text).to.contain(value[type].summary);
                     expect(res.text).to.contain(value[type].message);
-                })
-                done()
+                });
+                done();
             })
-            .catch(done)
+            .catch(done);
     }
-
 
     testRedirect(done, postData, expectedNextUrl) {
         this.agent.post(this.pageUrl)
@@ -81,7 +80,7 @@ module.exports = class TestWrapper {
             .expect('location', expectedNextUrl)
             .expect(302)
             .then(() => done())
-            .catch(done)
+            .catch(done);
     }
 
     nextStep(data = {}) {
@@ -91,12 +90,13 @@ module.exports = class TestWrapper {
     substituteContent(data, contentToSubstitute) {
         Object.entries(contentToSubstitute)
             .forEach(([key, contentValue]) => {
+                contentValue = contentValue.replace(/\n/g, '<br />\n');
                 forEach(contentValue.match(/\{(.*?)\}/g), (placeholder) => {
                     const placeholderRegex = new RegExp(placeholder, 'g');
                     placeholder = placeholder.replace(/[{}]/g, '');
                     contentValue = contentValue.replace(placeholderRegex, data[placeholder]);
                 });
-                contentToSubstitute[key]  = contentValue;
+                contentToSubstitute[key] = contentValue;
             });
     }
 
@@ -104,12 +104,12 @@ module.exports = class TestWrapper {
         Object.entries(contentToSubstitute)
             .forEach(([key, contentValue]) => {
                 forEach(contentValue[type], (errorMessageItem) => {
-                    let placeholder = errorMessageItem.match(/\{(.*?)\}/g)
+                    let placeholder = errorMessageItem.match(/\{(.*?)\}/g);
                     if (placeholder) {
                         const placeholderRegex = new RegExp(placeholder, 'g');
                         placeholder = placeholder.replace(/[{}]/g, '');
                         errorMessageItem = errorMessageItem.replace(placeholderRegex, data[placeholder]);
-                        contentToSubstitute[key][type]  = errorMessageItem;
+                        contentToSubstitute[key][type] = errorMessageItem;
                     }
                 });
             });
@@ -124,4 +124,4 @@ module.exports = class TestWrapper {
     destroy() {
         this.server.http.close();
     }
-}
+};

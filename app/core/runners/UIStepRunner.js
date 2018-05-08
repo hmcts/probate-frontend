@@ -56,6 +56,11 @@ module.exports = class UIStepRunner {
 
                 set(formdata, step.section, ctx);
 
+                if (hasDataChanged) {
+                    delete formdata.declaration.declarationCheckbox;
+                    formdata.declaration.hasDataChanged = true;
+                }
+
                 const result = yield step.persistFormData(session.regId, formdata, session.id);
                 if (result.name === 'Error') {
                     req.log.error('Could not persist user data', result.message);
@@ -65,11 +70,6 @@ module.exports = class UIStepRunner {
 
                 if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
                     session.back.push(step.constructor.getUrl());
-                }
-
-                if (hasDataChanged) {
-                    delete formdata.declaration.declarationCheckbox;
-                    formdata.declaration.hasDataChanged = true;
                 }
 
                 res.redirect(nextStepUrl);

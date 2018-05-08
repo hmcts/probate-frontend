@@ -1,5 +1,5 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {startsWith}  = require('lodash');
+const {startsWith} = require('lodash');
 
 module.exports = class CollectionStep extends ValidationStep {
 

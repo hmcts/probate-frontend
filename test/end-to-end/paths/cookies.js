@@ -11,19 +11,15 @@ Before(() => {
     TestConfigurator.getBefore();
 });
 
-
 // eslint-disable-next-line no-undef
 After(() => {
     TestConfigurator.getAfter();
 });
 
-
-
 Scenario(TestConfigurator.idamInUseText('Check that the pages display a cookie link'), (I) => {
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
-
 
     I.startApplication();
 

@@ -8,14 +8,13 @@ const proxyquire = require('proxyquire'),
 
 const services = require('app/components/services');
 
-
 chai.use(sinonChai);
 
 describe('Security middleware', function () {
-    const ROLE = 'probate-private-beta'
+    const ROLE = 'probate-private-beta';
 
     const LOGIN_URL = 'http://localhost:8000/login';
-    const LOGIN_URL_WITH_CONTINUE = LOGIN_URL + '?response_type=code&state=57473&client_id=probate&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth2%2Fcallback'
+    const LOGIN_URL_WITH_CONTINUE = LOGIN_URL + '?response_type=code&state=57473&client_id=probate&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth2%2Fcallback';
     const TOKEN = 'dummyToken';
     const API_URL = 'http://localhost:7000/';
     const appConfig = require('../../app/config');
@@ -40,17 +39,16 @@ describe('Security middleware', function () {
 
             getUserDetailsStub = sinon.stub(services, 'getUserDetails');
             getOauth2TokenStub = sinon.stub(services, 'getOauth2Token', () => {
-                return Promise.resolve({access_token: TOKEN})
+                return Promise.resolve({access_token: TOKEN});
             });
 
             security = new Security(LOGIN_URL);
             security._generateState = function () {
-                return '57473'
-            }
+                return '57473';
+            };
 
             protect = security.protect(ROLE);
             callBackEndpoint = security.oAuth2CallbackEndpoint();
-
 
             req = {cookies: [], query: {state: 'testState', code: '123'}};
             req.get = sinon.stub().returns('localhost:3000');
@@ -172,11 +170,10 @@ describe('Security middleware', function () {
             callBackEndpoint(req, res, next);
 
             checkAsync(() => {
-                expect(res.cookie).to.have.been.calledWith(SECURITY_COOKIE, TOKEN, {httpOnly: true})
+                expect(res.cookie).to.have.been.calledWith(SECURITY_COOKIE, TOKEN, {httpOnly: true});
                 done();
             });
         });
-
 
         it('should make the auth cookie secure if the protocol is https', function () {
             req.protocol = 'https';

@@ -39,7 +39,7 @@ module.exports = class PaymentBreakdown extends Step {
             uk: {number: ukCopies, cost: parseFloat(ukCopies * config.payment.copies.uk.fee)},
             overseas: {number: overseasCopies, cost: parseFloat(overseasCopies * config.payment.copies.overseas.fee)},
         };
-        const extraCopiesCost = copies.uk.cost + copies.overseas.cost
+        const extraCopiesCost = copies.uk.cost + copies.overseas.cost;
         const total = applicationFee + extraCopiesCost;
 
         ctx.copies = copies;

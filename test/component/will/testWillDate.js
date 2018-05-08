@@ -32,7 +32,7 @@ describe('will-date', () => {
             const data = {
                 'isWillDate': 'Yes'
             };
-            const  errorsToTest = ['willDate_day', 'willDate_month', 'willDate_year']
+            const errorsToTest = ['willDate_day', 'willDate_month', 'willDate_year'];
 
             testWrapper.testErrors(done, data, 'required', errorsToTest);
 

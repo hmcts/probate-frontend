@@ -24,5 +24,4 @@ module.exports = {
         surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION
     },
 
-
 };

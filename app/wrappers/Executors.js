@@ -28,9 +28,17 @@ class Executors {
         return this.executorsList.some(executor => executor.notApplyingKey === 'optionRenunciated');
     }
 
+    hasRenunciatedOrPowerReserved() {
+        return this.executorsList.some(executor => ['optionPowerReserved', 'optionRenunciated'].includes(executor.notApplyingKey));
+    }
+
     aliveExecutors(excludeApplicant) {
         const executorsList = this.executorsList.filter(executor => !executor.isDead);
         return this.excludeApplicant(executorsList, excludeApplicant);
+    }
+
+    hasAliveExecutors() {
+        return this.aliveExecutors(true).length > 0;
     }
 
     excludeApplicant(executorsList, excludeApplicant) {
@@ -44,8 +52,16 @@ class Executors {
         return this.executorsList.filter(executor => executor.inviteId);
     }
 
-    checkAllInvitesSent() {
-        return this.executorsList.some(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent);
+    deadExecutors() {
+        return this.executorsList.filter(executor => executor.isDead);
+    }
+
+    hasOtherName() {
+        return this.executorsList.some(executor => executor.hasOtherName === true);
+    }
+
+    areAllAliveExecutorsApplying() {
+        return this.aliveExecutors().every(executor => executor.isApplying);
     }
 }
 

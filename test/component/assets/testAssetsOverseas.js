@@ -7,7 +7,6 @@ describe('assets-overseas', () => {
     const expectedNextUrlForCopiesOverseas = CopiesOverseas.getUrl();
     const expectedNextUrlForCopiesSummary = CopiesSummary.getUrl();
 
-
     beforeEach(() => {
         testWrapper = new TestWrapper('AssetsOverseas');
     });

@@ -27,7 +27,6 @@ describe('deceased-otherNames', () => {
 
                         const contentData = {deceasedName: 'John Doe'};
 
-
                 testWrapper.testContent(done, [], contentData);
             });
         });

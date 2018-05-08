@@ -1,13 +1,14 @@
 const CollectionStep = require('app/core/steps/CollectionStep');
-const {findIndex, every, get} = require('lodash');
+const {findIndex, get} = require('lodash');
+const ExecutorsWrapper = require('app/wrappers/Executors');
 
-const path =  '/executor-current-name/';
+const path = '/executor-current-name/';
 
 module.exports = class ExecutorCurrentName extends CollectionStep {
 
     constructor(steps, section, templatePath, i18next, schema) {
         super(steps, section, templatePath, i18next, schema);
-        this.path =  path;
+        this.path = path;
     }
 
     static getUrl(index = '*') {
@@ -32,7 +33,7 @@ module.exports = class ExecutorCurrentName extends CollectionStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.continue =  get(ctx, 'index', -1) !== -1;
+        ctx.continue = get(ctx, 'index', -1) !== -1;
         const nextStepOptions = {
             options: [
                 {key: 'continue', value: true, choice: 'continue'},
@@ -49,7 +50,7 @@ module.exports = class ExecutorCurrentName extends CollectionStep {
     }
 
     isComplete(ctx) {
-        return [every(ctx.list.filter(exec => exec.hasOtherName === true), exec => exec.currentName), 'inProgress'];
+        const executorsWrapper = new ExecutorsWrapper(ctx);
+        return [executorsWrapper.hasOtherName().every(exec => exec.currentName), 'inProgress'];
     }
-
 };

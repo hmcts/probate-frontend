@@ -142,6 +142,5 @@ describe('summary-iht-section', () => {
                     });
         });
 
-
     });
 });

@@ -2,6 +2,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
 const {get, set, isEmpty} = require('lodash');
 const WillWrapper = require('app/wrappers/Will');
+const FormatName = require('app/utils/FormatName');
 
 module.exports = class DeceasedOtherNames extends ValidationStep {
 
@@ -29,7 +30,7 @@ module.exports = class DeceasedOtherNames extends ValidationStep {
         const isWillDated = willWrapper.hasWillDate();
         const isCodicilDated = willWrapper.hasCodicilsDate();
         const codicils = willWrapper.hasCodicils();
-        ctx.deceasedFullName = get(formdata, 'deceased.firstName') + ' ' + get(formdata, 'deceased.lastName');
+        ctx.deceasedFullName = FormatName.format(formdata.deceased);
         ctx.deceasedMarriedAfterDateOnCodicilOrWill = isCodicilDated || (!codicils && isWillDated);
         return ctx;
     }

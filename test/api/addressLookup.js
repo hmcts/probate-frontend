@@ -15,7 +15,6 @@ describe('addressLookup tests', function () {
         findAddressSpy.restore();
     });
 
-
     it('Should successfully retrieve address list with postcode', function (done) {
 
         services.findAddress('SW1H 9AJ')
@@ -47,6 +46,5 @@ describe('addressLookup tests', function () {
             })
             .catch(done);
     });
-
 
 });

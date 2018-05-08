@@ -28,7 +28,7 @@ module.exports = class TaskList extends Step {
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         utils.updateTaskStatus(ctx, req, this.steps);
 
-        ctx.hasMultipleApplicants =  executorsWrapper.hasMultipleApplicants();
+        ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
         ctx.previousTaskStatus = {
             EligibilityTask: ctx.EligibilityTask.status,

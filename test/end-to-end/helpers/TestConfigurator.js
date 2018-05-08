@@ -2,10 +2,9 @@ const randomstring = require('randomstring');
 const request = require('request');
 const testConfig = require('test/config.js');
 
-
 class TestConfigurator {
 
-    constructor(scenarioName) {
+    constructor() {
         this.testBaseUrl = testConfig.TestIdamBaseUrl;
         this.useIdam = testConfig.TestUseIdam;
         this.setTestCitizenName();
@@ -14,7 +13,6 @@ class TestConfigurator {
         this.testAddUserUrl = testConfig.TestIdamAddUserUrl;
         this.testDeleteUserUrl = this.testAddUserUrl + '/';
         this.role = testConfig.TestIdamRole;
-        this.scenarioName = scenarioName;
         this.paymentEnvironments = testConfig.paymentEnvironments;
         this.TestFrontendUrl = testConfig.TestFrontendUrl;
     }
@@ -35,7 +33,7 @@ class TestConfigurator {
             request({
                     url: this.getTestAddUserURL(),
                     method: 'POST',
-                    json: true,   // <--Very important!!!
+                    json: true, // <--Very important!!!
                     body: userDetails
                 }
             );
@@ -51,7 +49,7 @@ class TestConfigurator {
                 }
             );
 
-            this.resetEnvVars()
+            this.resetEnvVars();
         }
     }
 
@@ -86,8 +84,8 @@ class TestConfigurator {
         return this.testBaseUrl + this.testDeleteUserUrl;
     }
 
-    getScenarioName() {
-        return (this.useIdam === 'true') ? this.scenarioName + ' - With Idam' : this.scenarioName + ' - Without Idam';
+    idamInUseText(scenarioText) {
+        return (this.useIdam === 'true') ? scenarioText + ' - With Idam' : scenarioText + ' - Without Idam';
     }
 
      setEnvVars() {

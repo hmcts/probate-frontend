@@ -2,10 +2,9 @@ const {mapValues, get} = require('lodash'),
       steps = require('app/core/initSteps').steps;
 const ExecutorsWrapper = require('app/wrappers/Executors');
 
-
 const submitData = function (ctx, data) {
 
-    const mappedData = mapValues(dataMap,  path => get(data, path));
+    const mappedData = mapValues(dataMap, path => get(data, path));
 
     mappedData.copiesUK = get(data, 'copies.uk', 0);
 

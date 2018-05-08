@@ -1,11 +1,9 @@
 const TestWrapper = require('test/util/TestWrapper'),
     DeceasedDod = require('app/steps/ui/deceased/dod/index');
 
-
 describe('deceased-married', () => {
     let testWrapper;
     const expectedNextUrlForDeceasedDod = DeceasedDod.getUrl();
-
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedMarried');
@@ -35,7 +33,6 @@ describe('deceased-married', () => {
             });
 
         });
-
 
         it('test correct content is loaded on the page when there is a dated codicil', (done) => {
             const sessionData = {

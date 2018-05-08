@@ -4,7 +4,7 @@ module.exports = function () {
     const I = this;
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.click('#sentDocuments')
+    I.click('#sentDocuments');
 
     I.click('#button');
 };

@@ -5,7 +5,6 @@ describe('codicils-number', () => {
     let testWrapper;
     const expectedNextUrlForCodicilsDate = CodicilsDate.getUrl();
 
-
     beforeEach(() => {
         testWrapper = new TestWrapper('CodicilsNumber');
     });

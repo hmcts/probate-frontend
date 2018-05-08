@@ -27,4 +27,3 @@ module.exports = class WillDate extends DateStep {
         return [ctx, formdata];
     }
 };
-

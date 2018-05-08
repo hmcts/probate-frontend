@@ -12,7 +12,6 @@ module.exports = function () {
 
     //Start application
     startApplication: steps.startPage.startPage,
-
     selectATask: steps.tasklist.tasklist,
 
     // Eligibility
@@ -27,13 +26,11 @@ module.exports = function () {
     enterGrossAndNet: steps.iht.paper,
     selectApplicantIsExecutor: steps.applicant.executor,
 
-
     //applicant details
     enterApplicantName: steps.applicant.name,
     selectNameAsOnTheWill: steps.applicant.nameasonwill,
     enterApplicantPhone: steps.applicant.phone,
     enterAddressManually: steps.applicant.address,
-
 
     //executors
     enterTotalExecutors: steps.executors.number,
@@ -67,6 +64,18 @@ module.exports = function () {
     //Declaration Page
     acceptDeclaration: steps.declaration.declaration,
 
+    //Notify additional executors
+    notifyAdditionalExecutors: steps.executors.invite,
+
+    //Pin page for additional executor
+    enterPinCode: steps.pin.signin,
+
+    //Additional executors Agree/Disagree with Statement of Truth
+    seeCoApplicantStartPage: steps.coapplicant.startPage,
+    agreeDisagreeDeclaration: steps.coapplicant.declaration,
+    seeAgreePage: steps.coapplicant.agree,
+
+
     //Asset pages
     selectOverseasAssets: steps.assets.overseas,
 
@@ -81,13 +90,11 @@ module.exports = function () {
     seeGovUkConfirmPage: steps.payment.govukconfirmpayment,
     seePaymentStatusPage: steps.payment.paymentstatus,
 
-
     // Documents
     seeDocumentsPage: steps.documents.documents,
 
     //Thank You Page
     seeThankYouPage: steps.thankyou.thankyou,
-
 
     //Eligibility task
     completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,

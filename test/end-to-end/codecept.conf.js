@@ -12,6 +12,9 @@ exports.config = {
             'switches': {
                 'ignore-certificate-errors': true
             }
+        },
+        'NightmareHelper': {
+            'require': './helpers/NightmareHelper.js'
         }
     },
     'include': {
@@ -27,4 +30,3 @@ exports.config = {
     },
     'name': 'Codecept Tests'
 };
-

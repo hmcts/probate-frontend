@@ -23,7 +23,7 @@ const initSteps = (stepLocations) => {
                 return true;
             }
             return false;
-        }
+        };
         requireDir(module, location, {include: calculatePath});
     });
 
@@ -48,7 +48,7 @@ const initStep = filePath => {
     }
     resourcePath = resourcePath.replace(path.sep, '/');
     return new stepObject(steps, section.toString(), resourcePath, i18next, schema);
-}
+};
 
 module.exports = initSteps;
 module.exports.steps = steps;

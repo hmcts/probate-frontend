@@ -70,14 +70,12 @@ describe('pin-resend', () => {
                             assert(response.status === 500);
                             assert(response.text.includes('having technical problems'));
                             assert(resendPinStub.calledOnce, 'Pin resend function called');
-                            done()
+                            done();
                         })
                         .catch(err => {
-                            done(err)
-                        })
+                            done(err);
+                        });
                 });
         });
     });
 });
-
-

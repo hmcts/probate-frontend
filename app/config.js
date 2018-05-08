@@ -1,15 +1,21 @@
 module.exports = {
-    environment: 'development',
+    environment: process.env.REFORM_ENVIRONMENT,
+    nodeEnvironment: process.env.NODE_ENV,
+    gitRevision: process.env.GIT_REVISION,
     service: {
         name: 'Apply for probate',
         version: ''
     },
-    port: process.env.PORT || '3000',
-    useAuth: 'false',
-    useIDAM: 'false',
-    useHttps: 'false',
-    useCSRFProtection: 'true',
-    cookieText: 'GOV.UK uses cookies to make the site simpler. <a href="http://gov.uk/help/cookies" title="Find out more about cookies">Find out more about cookies</a>',
+    app: {
+        username: process.env.USERNAME,
+        password: process.env.PASSWORD,
+        useAuth: process.env.USE_AUTH || 'false',
+        useHttps: process.env.USE_HTTPS || 'false',
+        useIDAM: process.env.USE_IDAM || 'false',
+        port: process.env.PORT || '3000',
+        useCSRFProtection: 'true',
+        cookieText: 'GOV.UK uses cookies to make the site simpler. <a href="http://gov.uk/help/cookies" title="Find out more about cookies">Find out more about cookies</a>'
+    },
     services: {
         postcode: {
             url: process.env.POSTCODE_SERVICE_URL,
@@ -51,14 +57,23 @@ module.exports = {
     redis: {
         host: process.env.REDIS_HOST || 'localhost',
         port: process.env.REDIS_PORT || 6379,
+
         password: process.env.REDIS_PASSWORD || 'dummy_password',
         useTLS: process.env.REDIS_USE_TLS || 'false',
-        enabled: process.env.USE_REDIS || 'false'
+        enabled: process.env.USE_REDIS || 'false',
+        secret: process.env.REDIS_SECRET || 'OVERWRITE_THIS',
+        proxy: true,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            secure: false,
+            httpOnly: true,
+            sameSite: 'lax'
+        }
+
     },
     dateFormat: 'DD/MM/YYYY',
-
     payloadVersion: '3.0.0',
-
     hostname: process.env.FRONTEND_HOSTNAME || 'localhost:3000',
     gaTrackingId: process.env.GA_TRACKING_ID || '',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
@@ -69,6 +84,12 @@ module.exports = {
         surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'http://www.smartsurvey.co.uk/',
         ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',
         renunciationForm: 'public/pdf/renunciation.pdf'
+    },
+    utils: {
+        api: {
+            retries: process.env.RETRIES_NUMBER || 10,
+            retryDelay: process.env.RETRY_DELAY || 1000
+        }
     },
     payment: {
         applicationFee: 215,

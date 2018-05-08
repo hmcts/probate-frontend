@@ -1,7 +1,6 @@
 const pageUnderTest = require('app/steps/ui/startpage/index');
 const testConfig = require('test/config.js');
 
-
 module.exports = function () {
     const I = this;
 
@@ -11,7 +10,7 @@ module.exports = function () {
         I.amOnPage(pageUnderTest.getUrl());
         I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     }
-
-    I.click('Start now');
+    I.waitForVisible('.button.button-start', 5);
+    I.click('.button.button-start');
 
 };

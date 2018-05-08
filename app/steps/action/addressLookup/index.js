@@ -29,7 +29,7 @@ module.exports = class AddressLookup extends ValidationStep {
                 referrerData.addressFound = 'true';
             } else {
                 referrerData.addressFound = 'false';
-                referrerData.errors = [FieldError('postcode', 'noAddresses', this.resourcePath, ctx)]
+                referrerData.errors = [FieldError('postcode', 'noAddresses', this.resourcePath, ctx)];
             }
         } else {
             referrerData.errors = errors;

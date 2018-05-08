@@ -1,5 +1,6 @@
 const Step = require('app/core/steps/Step');
 const WillWrapper = require('app/wrappers/Will');
+const FormatName = require('app/utils/FormatName');
 
 module.exports = class CoApplicantAgreePage extends Step {
 
@@ -10,12 +11,8 @@ module.exports = class CoApplicantAgreePage extends Step {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        const applicant = formdata.applicant || {};
-        const will = formdata.will || {};
-
-        ctx.leadExecFullName = `${applicant.firstName} ${applicant.lastName}`;
-        ctx.codicilsSuffix = (new WillWrapper(will)).hasCodicils() ? '-codicils' : '';
-
+        ctx.leadExecFullName = FormatName.format(formdata.applicant);
+        ctx.codicilsSuffix = (new WillWrapper(formdata.will)).hasCodicils() ? '-codicils' : '';
         return ctx;
     }
 

@@ -5,7 +5,6 @@ describe('deceased-name', () => {
     let testWrapper;
     const expectedNextUrlForDeceasedAlias = DeceasedAlias.getUrl();
 
-
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedName');
     });

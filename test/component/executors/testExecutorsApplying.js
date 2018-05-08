@@ -5,7 +5,7 @@ const TestWrapper = require('test/util/TestWrapper'),
 describe('executorsapplying', () => {
     let testWrapper;
     const expectedNextUrlForExecDealingWith = ExecutorsDealingWithEstate.getUrl();
-    const expectedNextUrlForExecRoles  = ExecutorRoles.getUrl('*');
+    const expectedNextUrlForExecRoles = ExecutorRoles.getUrl('*');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsApplying');

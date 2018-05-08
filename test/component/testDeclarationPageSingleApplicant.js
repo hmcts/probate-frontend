@@ -6,7 +6,6 @@ describe('declaration, single applicant', () => {
     let testWrapper, contentData, sessionData;
     const expectedNextUrlForExecInvite = Taskist.getUrl();
 
-
     beforeEach(() => {
         testWrapper = new TestWrapper('Declaration');
 

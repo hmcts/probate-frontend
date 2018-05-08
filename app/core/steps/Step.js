@@ -75,7 +75,6 @@ module.exports = class Step {
         const contentCtx = Object.assign({}, formdata, ctx, this.commonProps);
         this.i18next.changeLanguage(lang);
 
-
         return mapValues(this.content, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
     }
 

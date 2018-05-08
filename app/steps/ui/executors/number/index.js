@@ -3,7 +3,7 @@ const {get, dropRight} = require('lodash');
 module.exports = class ExecutorsNumber extends ValidationStep {
 
     static getUrl() {
-        return '/executors-number'
+        return '/executors-number';
     }
 
     getContextData(req) {
@@ -43,4 +43,4 @@ module.exports = class ExecutorsNumber extends ValidationStep {
         };
         return nextStepOptions;
     }
-}
+};

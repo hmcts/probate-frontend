@@ -1,6 +1,6 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {get} = require('lodash');
 const WillWrapper = require('app/wrappers/Will');
+const DeceasedWrapper = require('app/wrappers/Deceased');
 
 module.exports = class DeceasedAlias extends ValidationStep {
 
@@ -29,15 +29,22 @@ module.exports = class DeceasedAlias extends ValidationStep {
         return ctx;
     }
 
+    handlePost(ctx, errors) {
+        const hasAlias = (new DeceasedWrapper(ctx.deceased)).hasAlias();
+        if (!hasAlias) {
+            delete ctx.otherNames;
+        }
+        return [ctx, errors];
+    }
+
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.deceasedMarriedAfterDateOnCodicilOrWill;
         return [ctx, formdata];
     }
 
-    isSoftStop(formdata, ctx) {
-        const assetsInAnotherName = get(formdata, 'deceased.alias', {});
-        const softStopForAssetsInAnotherName = assetsInAnotherName === this.generateContent(ctx, formdata).optionYes;
+    isSoftStop(formdata) {
+        const softStopForAssetsInAnotherName = (new DeceasedWrapper(formdata.deceased)).hasAlias();
         return {
             'stepName': this.constructor.name,
             'isSoftStop': softStopForAssetsInAnotherName

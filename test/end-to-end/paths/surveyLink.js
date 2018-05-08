@@ -1,8 +1,6 @@
-const scenario = 'Survey link redirects to the correct page';
 const thankYouContent = require('app/resources/en/translation/thankyou.json');
 const pageUnderTest = require('app/steps/ui/thankyou/index');
-const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))(scenario);
-
+const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
 Feature('Survey link');
 
@@ -19,7 +17,7 @@ After(() => {
 });
 
 
-Scenario(TestConfigurator.getScenarioName(), function* (I) {
+Scenario(TestConfigurator.idamInUseText('Survey link redirects to the correct page'), function* (I) {
 
     // IDAM
     I.authenticateWithIdamIfAvailable();

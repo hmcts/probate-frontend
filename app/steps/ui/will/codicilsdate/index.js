@@ -33,7 +33,6 @@ module.exports = class CodicilsDate extends DateStep {
         return {
             'stepName': this.constructor.name,
             'isSoftStop': hasCodicilsDate === false
-        }
+        };
     }
 };
-

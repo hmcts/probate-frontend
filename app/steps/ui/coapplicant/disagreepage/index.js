@@ -1,4 +1,5 @@
 const Step = require('app/core/steps/Step');
+const FormatName = require('app/utils/FormatName');
 
 module.exports = class CoApplicantDisagreePage extends Step {
 
@@ -9,12 +10,7 @@ module.exports = class CoApplicantDisagreePage extends Step {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        const applicant = formdata.applicant || {};
-
-        const leadExecFirstName = applicant.firstName;
-        const leadExecLastName = applicant.lastName;
-
-        ctx.leadExecFullName = leadExecFirstName +' '+ leadExecLastName;
+        ctx.leadExecFullName = FormatName.format(formdata.applicant);
         return ctx;
     }
 };

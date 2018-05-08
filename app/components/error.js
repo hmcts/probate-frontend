@@ -1,7 +1,6 @@
 const {filter, isEqual, map, uniqWith, forEach} = require('lodash'),
       i18next = require('i18next');
 
-
 const generateErrors = function(errs, ctx, formdata, errorPath, lang = 'en') {
         i18next.changeLanguage(lang);
         const contentCtx = Object.assign({}, formdata, ctx, {});
@@ -18,7 +17,6 @@ const generateErrors = function(errs, ctx, formdata, errorPath, lang = 'en') {
                 }
                     [, param] = e.dataPath.split('.');
                     return FieldError(param, 'invalid', errorPath);
-
 
             } catch (e) {
                 throw new ReferenceError(`Error messages have not been defined for Step in content.json for errors.${param}`);
@@ -53,4 +51,3 @@ const FieldError = function(param, keyword, resourcePath, contentCtx) {
 module.exports = FieldError;
 module.exports.generateErrors = generateErrors;
 module.exports.mapErrorsToFields = mapErrorsToFields;
-

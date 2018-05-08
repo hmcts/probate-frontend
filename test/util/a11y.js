@@ -3,9 +3,7 @@ const console = require('console');
 const pa11yRun = pa11y({
     hideElements: '.govuk-box-highlight, #logo, #footer, link[rel=mask-icon], .skipAccessTest, .button',
 	log: {
-		debug: console.log.bind(console),
-		error: console.error.bind(console),
-		info: console.log.bind(console)
+		error: console.error.bind(console)
      }
 });
 
@@ -24,4 +22,3 @@ module.exports = (testPage, title) => {
         });
     });
 };
-

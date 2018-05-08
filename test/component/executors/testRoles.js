@@ -14,7 +14,7 @@ describe('executor-roles', () => {
     const reasons = {
         'optionPowerReserved': 'This executor doesn&rsquo;t want to apply now, but may do in the future (this is also known as power reserved)',
         'optionRenunciated': 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)'
-    }
+    };
     let testWrapper, sessionData;
 
     beforeEach(() => {
@@ -152,6 +152,5 @@ describe('executor-roles', () => {
     });
 
   });
-
 
 });

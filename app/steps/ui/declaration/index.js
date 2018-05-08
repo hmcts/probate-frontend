@@ -5,6 +5,7 @@ const {get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const services = require('app/components/services');
 const WillWrapper = require('app/wrappers/Will');
+const FormatName = require('app/utils/FormatName');
 
 module.exports = class Declaration extends ValidationStep {
     static getUrl() {
@@ -36,8 +37,8 @@ module.exports = class Declaration extends ValidationStep {
         const deceased = formdata.deceased || {};
         const iht = formdata.iht || {};
         const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
-        const applicantName = this.formatName(applicant);
-        const deceasedName = this.formatName(deceased);
+        const applicantName = FormatName.format(applicant);
+        const deceasedName = FormatName.format(deceased);
         const executorsApplying = ctx.executorsWrapper.executorsApplying();
         const executorsNotApplying = ctx.executorsWrapper.executorsNotApplying();
         const deceasedOtherNames = this.formatMultipleNames(get(deceased, 'otherNames'), content);
@@ -85,11 +86,11 @@ module.exports = class Declaration extends ValidationStep {
 
     formatName(person, useOtherName) {
         if (useOtherName && person.hasOtherName) {
-            return person.currentName
+            return person.currentName;
         } else if (person.fullName) {
-            return person.fullName
+            return person.fullName;
         }
-        return `${person.firstName} ${person.lastName}`;
+        return FormatName.format(person);
     }
 
     codicilsSuffix(hasCodicils) {
@@ -153,7 +154,7 @@ module.exports = class Declaration extends ValidationStep {
                 .replace('{applicantName}', props.mainApplicantName)
                 .replace('{applicantCurrentName}', applicantCurrentName)
                 .replace('{deceasedName}', props.deceasedName)
-        }
+        };
     }
 
     executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils) {
@@ -161,7 +162,7 @@ module.exports = class Declaration extends ValidationStep {
             return content[`executorNotApplyingReason${this.codicilsSuffix(hasCodicils)}`]
                 .replace('{otherExecutorName}', this.formatName(executor))
                 .replace('{otherExecutorApplying}', this.executorsNotApplyingText(executor, content))
-                .replace('{deceasedName}', deceasedName)
+                .replace('{deceasedName}', deceasedName);
         });
     }
 
@@ -178,7 +179,7 @@ module.exports = class Declaration extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.hasDataChangedAfterEmailSent =  ctx.hasDataChanged && ctx.invitesSent === 'true';
+        ctx.hasDataChangedAfterEmailSent = ctx.hasDataChanged && ctx.invitesSent === 'true';
         const nextStepOptions = {
             options: [
                 {key: 'hasDataChangedAfterEmailSent', value: true, choice: 'dataChangedAfterEmailSent'},

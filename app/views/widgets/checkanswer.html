@@ -26,7 +26,7 @@
     <td class="change-answer">
         {% if alreadyDeclared === 'false' %}
             {% set actionLink = common.change if complete else common.answer %}
-            <a href="{{url}}">{{actionLink}}<span class="visuallyhidden">{{actionLink}}</span></a>
+            <a href="{{url}}">{{actionLink}}</a>
         {% endif %}
     </td>
 </tr>

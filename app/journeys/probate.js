@@ -31,7 +31,7 @@ const taskList = {
         lastStep: 'TaskList',
         summary: 'Summary'
     }
-}
+};
 
 const stepList = {
     StartPage: 'TaskList',

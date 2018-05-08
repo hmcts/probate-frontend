@@ -38,7 +38,6 @@ describe('stop-page', () => {
             testWrapper.testContent(done, excludeKeys);
         });
 
-
         it('test right content loaded on the page', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('notExecutor');
 

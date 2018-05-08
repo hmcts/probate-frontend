@@ -19,7 +19,7 @@ describe('co-applicant-disagree-page', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content is loaded on the page', (done) => {
-            checkAllAgreedStub.returns(Promise.resolve('false'))
+            checkAllAgreedStub.returns(Promise.resolve('false'));
             const excludeKeys = [];
 
             testWrapper.agent.post('/prepare-session/form')

@@ -80,8 +80,10 @@ module.exports = {
     gaTrackingId: process.env.GA_TRACKING_ID || '',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
     links: {
-        cookies: 'http://gov.uk/help/cookies',
+        cookies: '/cookies',
+        privacy: '/privacy-policy',
         terms: '/terms-conditions',
+        contact: '/contact-us',
         survey: process.env.SURVEY || 'http://www.smartsurvey.co.uk/',
         surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'http://www.smartsurvey.co.uk/',
         ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',

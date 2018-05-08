@@ -19,7 +19,7 @@ After(() => {
 
 
 
-Scenario('Check that the pages display a cookie link', (I) => {
+Scenario(TestConfigurator.idamInUseText('Check that the pages display a cookie link'), (I) => {
 
     // IDAM
     I.authenticateWithIdamIfAvailable();

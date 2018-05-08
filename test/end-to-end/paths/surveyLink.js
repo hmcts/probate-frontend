@@ -18,7 +18,7 @@ After(() => {
 });
 
 
-Scenario('Survey link redirects to the correct page', function* (I) {
+Scenario(TestConfigurator.idamInUseText('Survey link redirects to the correct page'), function* (I) {
 
     // IDAM
     I.authenticateWithIdamIfAvailable();

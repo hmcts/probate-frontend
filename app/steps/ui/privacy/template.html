@@ -1,0 +1,58 @@
+{% extends "includes/layout.html" %}
+{% block page_title %}
+    {{ content.title}}
+{% endblock %}
+
+{% block content %}
+
+{% from "widgets/lists.html" import unorderedList %}
+
+<main id="content" role="main">
+    <div class="column-two-thirds">
+
+        {% include "includes/phase_banner_beta.html" %}
+
+        <h1 class="form-title heading-large">{{content.heading1}}</h1>
+        <p>{{ content.paragraph1 | safe }} </p>
+
+        <h2 class="heading-medium">{{content.whoManagesThisServiceHeading}}</h2>
+        <p>{{content.whoManagesThisServiceParagraph1 | safe}}</p>
+        <p>{{content.whoManagesThisServiceParagraph2 | safe}}</p>
+        <p>{{content.whoManagesThisServiceParagraph3 | safe}}</p>
+        <p>{{content.whoManagesThisServiceParagraph4 | safe}}</p>
+
+        <h2 class="heading-medium">{{content.dataWeCollectHeading}}</h2>
+        <p>{{content.dataWeCollectParagraph1 | safe}}</p>
+        {{unorderedList([content["dataWeCollect-item1"], content["dataWeCollect-item2"], content["dataWeCollect-item3"], content["dataWeCollect-item4"], content["dataWeCollect-item5"]])}}
+
+        <h2 class="heading-medium">{{content.usingYourDataHeading}}</h2>
+        <p>{{content.usingYourDataParagraph1 | safe}}</p>
+        <p>{{content.usingYourDataParagraph2 | safe}}</p>
+        <p>{{content.usingYourDataParagraph3 | safe}}</p>
+        {{unorderedList([content["usingYourData-item1"], content["usingYourData-item2"], content["usingYourData-item3"], content["usingYourData-item4"]])}}
+
+        <h2 class="heading-medium">{{content.storingYourDataHeading1}}</h2>
+        <p>{{content.storingYourDataParagraph1 | safe}}</p>
+        <h3 class="heading-small">{{content.storingYourDataHeading2 | safe}}</h3>
+        <p>{{content.storingYourDataParagraph2 | safe}}</p>
+        <h3 class="heading-small">{{content.storingYourDataHeading3 | safe}}</h3>
+        <p>{{content.storingYourDataParagraph3 | safe}}</p>
+
+        <h2 class="heading-medium">{{content.sharingYourDataHeading}}</h2>
+        <p>{{content.sharingYourDataParagraph1 | safe}}</p>
+        <p>{{content.sharingYourDataParagraph2 | safe}}</p>
+        <p>{{content.sharingYourDataParagraph3 | safe}}</p>
+
+        <h2 class="heading-medium">{{content.yourRightsHeading}}</h2>
+        <p>{{content.yourRightsParagraph1 | safe}}</p>
+        {{unorderedList([content["yourRights-item1"], content["yourRights-item2"], content["yourRights-item3"], content["yourRights-item4"]])}}
+        <p>{{content.yourRightsParagraph2 | safe}}</p>
+
+        <h2 class="heading-medium">{{content.howToComplainHeading}}</h2>
+        <p>{{content.howToComplainParagraph1 | safe}}</p>
+        <p>{{content.howToComplainParagraph2 | safe}}</p>
+    </div>
+
+</main>
+
+{% endblock %}

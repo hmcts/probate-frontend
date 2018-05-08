@@ -11,8 +11,10 @@ module.exports = {
     TestEnvEmailAddress: 'test.probate.inbox@gmail.com',
     paymentEnvironments: ['test'],
     links: {
-        cookies: 'https://www.gov.uk/help/cookies',
+        cookies: '/cookies',
+        privacy: '/privacy-policy',
         terms: '/terms-conditions',
+        contact: '/contact-us',
         survey: 'http://www.smartsurvey.co.uk/',
         surveyEndOfApplication: 'http://www.smartsurvey.co.uk/'
     }

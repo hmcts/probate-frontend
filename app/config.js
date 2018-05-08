@@ -9,7 +9,6 @@ module.exports = {
     app: {
         username: process.env.USERNAME,
         password: process.env.PASSWORD,
-        useRedis: process.env.USE_REDIS,
         useAuth: process.env.USE_AUTH || 'false',
         useHttps: process.env.USE_HTTPS || 'false',
         useIDAM: process.env.USE_IDAM || 'false',
@@ -58,6 +57,10 @@ module.exports = {
     redis: {
         host: process.env.REDIS_HOST || 'localhost',
         port: process.env.REDIS_PORT || 6379,
+
+        password: process.env.REDIS_PASSWORD || 'dummy_password',
+        useTLS: process.env.REDIS_USE_TLS || 'false',
+        enabled: process.env.USE_REDIS || 'false',
         secret: process.env.REDIS_SECRET || 'OVERWRITE_THIS',
         proxy: true,
         resave: false,
@@ -67,6 +70,7 @@ module.exports = {
             httpOnly: true,
             sameSite: 'lax'
         }
+
     },
     dateFormat: 'DD/MM/YYYY',
     payloadVersion: '3.0.0',
@@ -108,5 +112,9 @@ module.exports = {
     whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou'],
     whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou'],
     hardStopParams: ['will.left', 'will.original', 'iht.completed', 'applicant.executor'],
-    nonCachedPages: ['summary', 'tasklist']
+    nonCachedPages: ['summary', 'tasklist'],
+    healthEndpoint: '/health',
+    appInsights: {
+        instrumentationKey: process.env.APPINSIGHTS_INSTRUMENTATION_KEY
+    }
 };

@@ -22,6 +22,7 @@ const healthcheck = require(__dirname + '/app/healthcheck');
 const InviteSecurity = require(__dirname + '/app/invite');
 const fs = require('fs');
 const https = require('https');
+const appInsights = require('applicationinsights');
 
 exports.init = function() {
 
@@ -35,6 +36,11 @@ exports.init = function() {
     const useIDAM = config.app.useIDAM.toLowerCase();
     const security = new Security(config.services.idam.loginUrl);
     const inviteSecurity = new InviteSecurity();
+
+    if (config.appInsights.instrumentationKey) {
+        appInsights.setup(config.appInsights.instrumentationKey);
+        appInsights.start();
+    }
 
 // Authenticate against the environment-provided credentials, if running
 // the app in production (Heroku, effectively)
@@ -132,7 +138,7 @@ exports.init = function() {
             httpOnly: config.redis.cookie.httpOnly,
             sameSite: config.redis.cookie.sameSite
         },
-        store: utils.getStore(config.app.useRedis, session)
+        store: utils.getStore(config.redis, session)
     }));
 
     app.use(function (req, res, next) {

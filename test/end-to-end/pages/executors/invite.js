@@ -1,6 +1,5 @@
 const pageUnderTest = require('app/steps/ui/executors/invite/index');
 
-
 module.exports = function () {
     const I = this;
 

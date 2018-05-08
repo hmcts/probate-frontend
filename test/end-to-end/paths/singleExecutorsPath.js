@@ -15,7 +15,6 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
 
     // IDAM

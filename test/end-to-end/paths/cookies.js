@@ -1,6 +1,5 @@
-const scenario = 'Check that the pages display a cookie link';
 const commonContent = require('app/resources/en/translation/common.json');
-const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))(scenario);
+const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('test/config.js');
 
 Feature('Cookies');
@@ -17,7 +16,7 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-Scenario(TestConfigurator.getScenarioName(), (I) => {
+Scenario(TestConfigurator.idamInUseText('Check that the pages display a cookie link'), (I) => {
 
     // IDAM
     I.authenticateWithIdamIfAvailable();

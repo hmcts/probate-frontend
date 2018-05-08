@@ -21,7 +21,7 @@ describe('PaymentStatus', function () {
             });
         });
 
-        it('Should not crete an error if sendApplication succeeds', function (done) {
+        it('Should not create an error if sendApplication succeeds', function (done) {
 
             require('test/service-stubs/submit');
 

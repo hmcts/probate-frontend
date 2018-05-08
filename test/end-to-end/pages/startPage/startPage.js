@@ -10,7 +10,7 @@ module.exports = function () {
         I.amOnPage(pageUnderTest.getUrl());
         I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     }
-
-    I.click('Start now');
+    I.waitForVisible('.button.button-start', 5);
+    I.click('.button.button-start');
 
 };

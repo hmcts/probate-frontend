@@ -1,9 +1,11 @@
-const scenario = 'End-to-end journey - Multiple Executors';
 const taskListContent = require('app/resources/en/translation/tasklist.json');
-const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))(scenario);
+const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {forEach, head} = require('lodash');
+const testConfig = require('test/config.js');
 
-Feature('Multiple Executor flow');
+let grabIds;
+
+Feature('Multiple Executors flow');
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
@@ -17,16 +19,22 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
+<<<<<<< HEAD
+
+Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
+=======
 Scenario(TestConfigurator.getScenarioName(), function* (I) {
+>>>>>>> develop
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
 
     // EligibilityTask
-
     I.startApplication();
+
     I.selectATask(taskListContent.taskNotStarted);
     I.selectPersonWhoDiedLeftAWill();
+
     I.selectOriginalWill();
     I.selectAndEnterWillDate('01', '01', '1970');
     I.selectWillCodicils('Yes');
@@ -91,6 +99,10 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
         I.enterExecutorManualAddress(executorNumber);
     });
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> develop
     const executorsAliveList = ['4', '6'];
     let powerReserved = true;
     forEach(executorsAliveList, executorNumber => {
@@ -114,12 +126,84 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
     I.enterDeceasedAddress();
 
     I.seeSummaryPage();
-    //
-    // // Review and confirm Task
+
+    // Review and confirm Task
+    I.selectATask('Start');
+    I.seeSummaryPage('declaration');
+    I.acceptDeclaration();
+
+    // Notify additional executors Dealing with estate
+    I.notifyAdditionalExecutors();
+
+    //Retrieve the email urls for additional executors
+    I.amOnPage(testConfig.TestInviteIdListUrl);
+    grabIds = yield I.grabTextFrom('body');
+});
+
+
+
+Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), function* (I) {
+
+    const idList = JSON.parse(grabIds);
+
+    for (let i=0; i < idList.ids.length; i++) {
+        I.amOnPage(testConfig.TestInvitationUrl + '/' + idList.ids[i]);
+        I.amOnPage(testConfig.TestFrontendUrl + '/pin');
+
+        const grabPins = yield I.grabTextFrom('body');
+        const pinList = JSON.parse(grabPins);
+
+        yield I.clickBackBrowserButton();
+
+        I.enterPinCode(pinList.pin);
+        I.seeCoApplicantStartPage();
+
+        I.agreeDisagreeDeclaration('Agree');
+
+        I.seeAgreePage(i);
+
+    }
+});
+
+
+Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
+
+    // IDAM
+    I.authenticateWithIdamIfAvailable();
+
+    // Extra copies task
     I.selectATask(taskListContent.taskNotStarted);
 
-    // Need to add email/pin functionality testing here
+    if (TestConfigurator.isFullPaymentEnvironment()) {
+        I.enterUkCopies('5');
+        I.selectOverseasAssets();
+        I.enterOverseasCopies('7');
+    } else {
+        I.enterUkCopies('0');
+        I.selectOverseasAssets();
+        I.enterOverseasCopies('0');
+    }
 
+<<<<<<< HEAD
+    I.seeCopiesSummary();
+
+    // PaymentTask
+    I.selectATask(taskListContent.taskNotStarted);
+    I.seePaymentBreakdownPage();
+
+    if (TestConfigurator.isFullPaymentEnvironment()) {
+        I.seeGovUkPaymentPage();
+        I.seeGovUkConfirmPage();
+    }
+
+    I.seePaymentStatusPage();
+
+    // Send Documents Task
+    I.seeDocumentsPage();
+
+    // Thank You - Application Complete Task
+    I.seeThankYouPage();
+=======
     // I.seeSummaryPage("declaration");
     // I.acceptDeclaration();
     //
@@ -155,4 +239,5 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
     //
     // // Thank You - Application Complete Task
     // I.seeThankYouPage();
+>>>>>>> develop
 });

@@ -15,7 +15,7 @@ const getServiceHealthUrl = (serviceUrl) => {
     serviceUrl = url.parse(serviceUrl);
     const port = serviceUrl.port ? `:${serviceUrl.port}` : '';
     return `${serviceUrl.protocol}//${serviceUrl.hostname}${port}${config.healthEndpoint}`;
-}
+};
 
 const services = [
     {'name': 'Validation Service', 'url': getServiceHealthUrl(config.services.validation.url)},
@@ -26,11 +26,11 @@ const services = [
 const createPromisesList = (services) => {
     const fetchOpts = fetchOptions({}, 'GET', {});
     return map(services, service => asyncFetch(service.url, fetchOpts, res => res.json().then(json => {
-        return {'name': service.name, 'status': json.status}
+        return {'name': service.name, 'status': json.status};
     })).catch(err => {
-        return {'name': service.name, 'status': err.toString()}
+        return {'name': service.name, 'status': err.toString()};
     }));
-}
+};
 
 router.get('/', (req, res) => {
     const healthPromises = createPromisesList(services);

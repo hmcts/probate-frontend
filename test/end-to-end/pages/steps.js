@@ -75,7 +75,6 @@ module.exports = function () {
     agreeDisagreeDeclaration: steps.coapplicant.declaration,
     seeAgreePage: steps.coapplicant.agree,
 
-
     //Asset pages
     selectOverseasAssets: steps.assets.overseas,
 

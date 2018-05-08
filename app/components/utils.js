@@ -55,8 +55,6 @@ exports.getStore = function (redisConfig, session) {
     return new MemoryStore();
 };
 
-
-
 exports.stringifyNumberBelow21 = function(n) {
     const stringNumbers = common.numberBelow21;
     const special = stringNumbers.split(',');

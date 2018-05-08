@@ -145,7 +145,7 @@ exports.init = function() {
         if (!req.session) {
             return next(new Error('Unable to reach redis'));
         }
-        next() // otherwise continue
+        next(); // otherwise continue
     });
 
     app.use(config.services.idam.probate_oauth_callback_path, security.oAuth2CallbackEndpoint());

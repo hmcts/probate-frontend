@@ -19,12 +19,7 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-<<<<<<< HEAD
-
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
-=======
-Scenario(TestConfigurator.getScenarioName(), function* (I) {
->>>>>>> develop
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
@@ -99,10 +94,6 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
         I.enterExecutorManualAddress(executorNumber);
     });
 
-<<<<<<< HEAD
-
-=======
->>>>>>> develop
     const executorsAliveList = ['4', '6'];
     let powerReserved = true;
     forEach(executorsAliveList, executorNumber => {
@@ -140,8 +131,6 @@ Scenario(TestConfigurator.getScenarioName(), function* (I) {
     grabIds = yield I.grabTextFrom('body');
 });
 
-
-
 Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), function* (I) {
 
     const idList = JSON.parse(grabIds);
@@ -165,7 +154,6 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
     }
 });
 
-
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
 
     // IDAM
@@ -184,7 +172,6 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
         I.enterOverseasCopies('0');
     }
 
-<<<<<<< HEAD
     I.seeCopiesSummary();
 
     // PaymentTask
@@ -203,41 +190,4 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     // Thank You - Application Complete Task
     I.seeThankYouPage();
-=======
-    // I.seeSummaryPage("declaration");
-    // I.acceptDeclaration();
-    //
-    // // Extra copies task
-    // I.selectATask(taskListContent.taskNotStarted);
-    //
-    // if (TestConfigurator.isFullPaymentEnvironment()) {
-    //     I.enterUkCopies("5");
-    //     I.selectOverseasAssets();
-    //     I.enterOverseasCopies("7");
-    // }
-    // else {
-    //     I.enterUkCopies("0");
-    //     I.selectOverseasAssets();
-    //     I.enterOverseasCopies("0");
-    // }
-    //
-    // I.seeCopiesSummary();
-    //
-    // // PaymentTask
-    // I.selectATask(taskListContent.taskNotStarted);
-    // I.seePaymentBreakdownPage();
-    //
-    // if (TestConfigurator.isFullPaymentEnvironment()) {
-    //     I.seeGovUkPaymentPage();
-    //     I.seeGovUkConfirmPage();
-    // }
-    //
-    // I.seePaymentStatusPage();
-    //
-    // // Send Documents Task
-    // I.seeDocumentsPage();
-    //
-    // // Thank You - Application Complete Task
-    // I.seeThankYouPage();
->>>>>>> develop
 });

@@ -16,7 +16,6 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-
 Scenario(TestConfigurator.idamInUseText('Survey link redirects to the correct page'), function* (I) {
 
     // IDAM

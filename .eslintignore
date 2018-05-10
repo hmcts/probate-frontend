@@ -1,7 +1,5 @@
 node_modules/*
 govuk/*
 public/*
-app/assets/javascripts/jquery-1.11.3.js
-app/assets/javascripts/prototype.js
-app/assets/javascripts/gatracking.js
+app/assets/javascripts/*.js
 coverage

@@ -20,11 +20,16 @@
     {% set checklistThreeItems = (checklistThreeItems.push(content["checklist3-item3"] | replace('{renunciationFormLink}', links.renunciationForm)), checklistThreeItems) %}
 {% endif %}
 
+{% if (fields.is205.value === "true") %}
+{% set checklistThreeItems = (checklistThreeItems.push(content["checklist3-item4-Form205"]), checklistThreeItems) %}
+{% endif %}
+
 {% block question %}
     <h1 class="form-title heading-large">{{content.header}}</h1>
 {% endblock %}
 
 {% block form_content %}
+
     <p>{{ content.printPage | safe }}</p>
 
     <h2 class="heading-medium">{{ content.heading2 | safe }}</h2>

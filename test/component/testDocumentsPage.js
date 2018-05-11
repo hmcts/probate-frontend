@@ -1,6 +1,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
 const ThankYou = require('app/steps/ui/thankyou/index.js');
+const ihtContent = require('app/resources/en/translation/iht/method');
 
 describe('documents-page', () => {
     let testWrapper;
@@ -30,7 +31,8 @@ describe('documents-page', () => {
                         'checklist3-item1-codicils',
                         'checklist3-item3',
                         'coverLetter-codicils',
-                        'checkboxLabel-codicils'
+                        'checkboxLabel-codicils',
+                        'checklist3-item4-Form205'
                     ];
                     testWrapper.testContent(done, excludeKeys);
                 });
@@ -54,7 +56,8 @@ describe('documents-page', () => {
                         'checklist3-item1-codicils',
                         'checklist3-item3',
                         'coverLetter-codicils',
-                        'checkboxLabel-codicils'
+                        'checkboxLabel-codicils',
+                        'checklist3-item4-Form205'
                     ];
                     testWrapper.testContent(done, excludeKeys);
                 });
@@ -80,7 +83,8 @@ describe('documents-page', () => {
                         'checklist2-item2',
                         'checklist3-item1-codicils',
                         'coverLetter-codicils',
-                        'checkboxLabel-codicils'
+                        'checkboxLabel-codicils',
+                        'checklist3-item4-Form205'
                     ];
                     const contentData = {
                         renunciationFormLink: config.links.renunciationForm
@@ -106,7 +110,8 @@ describe('documents-page', () => {
                         'checklist3-item1',
                         'checklist3-item3',
                         'coverLetter',
-                        'checkboxLabel'
+                        'checkboxLabel',
+                        'checklist3-item4-Form205'
                     ];
                     const contentData = {
                         codicilsNumber: 1
@@ -134,7 +139,8 @@ describe('documents-page', () => {
                         'checklist3-item1',
                         'checklist3-item3',
                         'coverLetter',
-                        'checkboxLabel'
+                        'checkboxLabel',
+                        'checklist3-item4-Form205'
                     ];
                     const contentData = {
                         codicilsNumber: 1
@@ -162,12 +168,86 @@ describe('documents-page', () => {
                         'checklist3-item3',
                         'coverLetter-codicils',
                         'checkboxLabel-codicils',
-                        'sendDocumentsAddress'
+                        'sendDocumentsAddress',
+                        'checklist3-item4-Form205'
                     ];
                     testWrapper.testContent(done, excludeKeys);
                 });
         });
 
+        it('test correct content loaded on the page, no codicils, single executor, online IHT', (done) => {
+            const sessionData = {
+                executors: {},
+                iht: {method: ihtContent.onlineOption}
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const excludeKeys = [
+                        'checklist1-item2',
+                        'checklist2Header',
+                        'checklist2-item1',
+                        'checklist2-item2',
+                        'checklist3-item1-codicils',
+                        'checklist3-item3',
+                        'coverLetter-codicils',
+                        'checkboxLabel-codicils',
+                        'checklist3-item4-Form205'
+                    ];
+                    testWrapper.testContent(done, excludeKeys);
+                });
+        });
+
+        it('test correct content loaded on the page, no codicils, single executor, paper IHT, 207 or 400', (done) => {
+            const sessionData = {
+                executors: {},
+                iht: {
+                    method: ihtContent.paperOption,
+                    form: '207'
+                }
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const excludeKeys = [
+                        'checklist1-item2',
+                        'checklist2Header',
+                        'checklist2-item1',
+                        'checklist2-item2',
+                        'checklist3-item1-codicils',
+                        'checklist3-item3',
+                        'coverLetter-codicils',
+                        'checkboxLabel-codicils',
+                        'checklist3-item4-Form205'
+                    ];
+                    testWrapper.testContent(done, excludeKeys);
+                });
+        });
+
+        it('test correct content loaded on the page, no codicils, single executor, paper IHT, 205', (done) => {
+            const sessionData = {
+                executors: {},
+                iht: {
+                    method: ihtContent.paperOption,
+                    form: '205'
+                }
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const excludeKeys = [
+                        'checklist1-item2',
+                        'checklist2Header',
+                        'checklist2-item1',
+                        'checklist2-item2',
+                        'checklist3-item1-codicils',
+                        'checklist3-item3',
+                        'coverLetter-codicils',
+                        'checkboxLabel-codicils'
+                    ];
+                    testWrapper.testContent(done, excludeKeys);
+                });
+        });
         it('test errors message displayed for missing data', (done) => {
             testWrapper.testErrors(done, {}, 'required', ['sentDocuments']);
         });

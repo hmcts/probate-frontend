@@ -14,4 +14,5 @@ module.exports = class IhtMethod extends ValidationStep {
         };
         return nextStepOptions;
     }
+
 };

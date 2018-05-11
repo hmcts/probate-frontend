@@ -1,4 +1,5 @@
 const TestWrapper = require('test/util/TestWrapper');
+const config = require('app/config');
 
 describe('thank-you', () => {
     let testWrapper;
@@ -26,7 +27,11 @@ describe('thank-you', () => {
                     .send(sessionData)
                     .end(() => {
                         const excludeKeys = ['stopParagraph1'];
-                        testWrapper.testContent(done, excludeKeys);
+                        const contentData = {
+                            helpLineNumber: config.links.helpLineNumber
+                        };
+
+                        testWrapper.testContent(done, excludeKeys, contentData);
                     });
         });
 
@@ -40,6 +45,7 @@ describe('thank-you', () => {
                     .send(sessionData)
                     .end(() => {
                         const excludeKeys = ['successParagraph1', 'successHeading1', 'successParagraph2', 'contactProbateOffice'];
+
                         testWrapper.testContent(done, excludeKeys);
                     });
         });

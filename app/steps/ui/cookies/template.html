@@ -1,6 +1,6 @@
 {% extends "includes/layout.html" %}
 {% block page_title %}
-    {{ content.title}}
+    {{content.title}}
 {% endblock %}
 
 {% block content %}
@@ -13,23 +13,23 @@
         {% include "includes/phase_banner_beta.html" %}
 
         <h1 class="form-title heading-large">{{content.heading1}}</h1>
-        <p>{{ content.paragraph1 | safe }} </p>
+        <p>{{content.paragraph1 | safe}}</p>
 
         <h2 class="heading-medium">{{content.howAreCookiesUsedHeading1}}</h2>
-        <p>{{content.howAreCookiesUsedParagraph1 | safe}}</p>
+        <p>{{content.howAreCookiesUsedParagraph1}}</p>
         {{unorderedList([content["howAreCookiesUsed-item1"], content["howAreCookiesUsed-item2"], content["howAreCookiesUsed-item3"]])}}
-        <p>{{content.howAreCookiesUsedParagraph2 | safe}}</p>
+        <p>{{content.howAreCookiesUsedParagraph2 | replace('{howToManageCookiesLink}', links.howToManageCookies) | safe}}</p>
 
         <h2 class="heading-medium">{{content.websiteUsageCookiesHeading1}}</h2>
-        <p>{{content.websiteUsageCookiesParagraph1 | safe}}</p>
-        <p>{{content.websiteUsageCookiesParagraph2 | safe}}</p>
+        <p>{{content.websiteUsageCookiesParagraph1}}</p>
+        <p>{{content.websiteUsageCookiesParagraph2}}</p>
         {{unorderedList([content["websiteUsageCookies-item1"], content["websiteUsageCookies-item2"], content["websiteUsageCookies-item3"], content["websiteUsageCookies-item4"]])}}
-        <p>{{content.websiteUsageCookiesParagraph3 | safe}}</p>
-        <p>{{content.websiteUsageCookiesParagraph4 | safe}}</p>
-        <p>{{content.websiteUsageCookiesParagraph5 | safe}}</p>
+        <p>{{content.websiteUsageCookiesParagraph3 | replace('{googlePrivacyPolicyLink}', links.googlePrivacyPolicy) | safe}}</p>
+        <p>{{content.websiteUsageCookiesParagraph4 | replace('{googleAnalyticsOptOutLink}', links.googleAnalyticsOptOut) | safe}}</p>
+        <p>{{content.websiteUsageCookiesParagraph5}}</p>
 
         <table>
-            <caption>{{content.websiteUsageCookiesHeading1}}</caption>
+            <caption class="visually-hidden">{{content.websiteUsageCookiesHeading1}}</caption>
             <thead>
                 <tr>
                     <th>{{content.cookieNameHeader}}</th>
@@ -45,7 +45,7 @@
                 </tr>
                 <tr>
                     <td>{{content.googleAnalyticsCookieName2}}</td>
-                    <td>{{content.googleAnalyticsCookiePurpose2 | safe}}</td>
+                    <td>{{content.googleAnalyticsCookiePurpose2}}</td>
                     <td>{{content.googleAnalyticsCookieExpiry2}}</td>
                 </tr>
             </tbody>
@@ -55,7 +55,7 @@
         <p>{{content.introMessageCookiesParagraph1 | safe}}</p>
 
         <table>
-            <caption>{{content.introMessageCookiesHeading1}}</caption>
+            <caption class="visually-hidden">{{content.introMessageCookiesHeading1}}</caption>
             <thead>
                 <tr>
                     <th>{{content.cookieNameHeader}}</th>
@@ -76,7 +76,7 @@
         <p>{{content.sessionCookiesParagraph1 | safe}}</p>
 
         <table>
-            <caption>{{content.sessionCookiesHeading1 | safe}}</caption>
+            <caption class="visually-hidden">{{content.sessionCookiesHeading1 | safe}}</caption>
             <thead>
                 <tr>
                     <th>{{content.cookieNameHeader}}</th>
@@ -93,11 +93,11 @@
             </tbody>
         </table>
 
-        <h2 class="heading-medium">{{content.identityCookiesHeading1 | safe}}</h2>
-        <p>{{content.identityCookiesParagraph1 | safe}}</p>
+        <h2 class="heading-medium">{{content.identityCookiesHeading1}}</h2>
+        <p>{{content.identityCookiesParagraph1}}</p>
 
         <table>
-            <caption>{{content.identityCookiesHeading1 | safe}}</caption>
+            <caption class="visually-hidden">{{content.identityCookiesHeading1}}</caption>
             <thead>
                 <tr>
                     <th>{{content.cookieNameHeader}}</th>
@@ -114,11 +114,11 @@
             </tbody>
         </table>
 
-        <h2 class="heading-medium">{{content.securityCookiesHeading1 | safe}}</h2>
-        <p>{{content.securityCookiesParagraph1 | safe}}</p>
+        <h2 class="heading-medium">{{content.securityCookiesHeading1}}</h2>
+        <p>{{content.securityCookiesParagraph1}}</p>
 
         <table>
-            <caption>{{content.securityCookiesHeading1 | safe}}</caption>
+            <caption class="visually-hidden">{{content.securityCookiesHeading1}}</caption>
             <thead>
                 <tr>
                     <th>{{content.cookieNameHeader}}</th>
@@ -144,7 +144,6 @@
                 </tr>
             </tbody>
         </table>
-
 
     </div>
 

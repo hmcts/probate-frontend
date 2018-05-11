@@ -18,9 +18,11 @@ module.exports = {
     },
     services: {
         postcode: {
-            url: process.env.POSTCODE_SERVICE_URL,
+            url: process.env.POSTCODE_SERVICE_URL || 'http://localhost:8585/find-address',
             token: process.env.POSTCODE_SERVICE_TOKEN,
-            proxy: process.env.http_proxy
+            proxy: process.env.http_proxy,
+            port: 8585,
+            path: '/find-address'
         },
         validation: {
             url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'

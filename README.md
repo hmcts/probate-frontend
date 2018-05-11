@@ -49,7 +49,7 @@ By navigating to [https://localhost:3000](https://localhost:3000) you can partia
 
 To complete an end to end journey on the application locally without building the other services, you can run the following command which utilises stubs to mimic certain actions carried out during an end to end journey:
 
-`$ yarn start & yarn submit-stub & yarn persistence-stub & yarn business-stub & yarn payment-stub`
+`$ yarn start & yarn submit-stub & yarn persistence-stub & yarn business-stub & yarn payment-stub & yarn find-address-stub`
 
 As before, the application can be completed locally at [https://localhost:3000](https://localhost:3000).
 

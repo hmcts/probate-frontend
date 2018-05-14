@@ -80,12 +80,27 @@ module.exports = {
     gaTrackingId: process.env.GA_TRACKING_ID || '',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
     links: {
-        cookies: 'http://gov.uk/help/cookies',
+        cookies: '/cookies',
+        privacy: '/privacy-policy',
         terms: '/terms-conditions',
-        survey: process.env.SURVEY || 'http://www.smartsurvey.co.uk/',
-        surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'http://www.smartsurvey.co.uk/',
+        contact: '/contact-us',
+        callCharges: 'https://www.gov.uk/call-charges',
+        howToManageCookies: 'https://www.aboutcookies.org',
+        googlePrivacyPolicy: 'https://www.google.com/policies/privacy/partners/',
+        googleAnalyticsOptOut: 'https://tools.google.com/dlpage/gaoptout/',
+        mojPersonalInformationCharter: 'https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter',
+        goodThingsFoundation: 'https://www.goodthingsfoundation.org',
+        subjectAccessRequest: 'https://www.gov.uk/government/publications/request-your-personal-data-from-moj',
+        complaintsProcedure: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure',
+        informationCommissionersOffice : 'https://ico.org.uk/global/contact-us',
+        survey: process.env.SURVEY || 'https://www.smartsurvey.co.uk/',
+        surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'https://www.smartsurvey.co.uk/',
         ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',
         renunciationForm: 'public/pdf/renunciation.pdf'
+    },
+    helpline: {
+        number: '0300 303 0648',
+        hours: 'Monday to Friday, 9am to 5pm'
     },
     utils: {
         api: {

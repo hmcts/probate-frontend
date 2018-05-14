@@ -1,11 +1,11 @@
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
 
-describe('terms-conditions', () => {
+describe('cookies', () => {
     let testWrapper;
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('TermsConditions');
+        testWrapper = new TestWrapper('Cookies');
     });
 
     afterEach(() => {
@@ -18,11 +18,9 @@ describe('terms-conditions', () => {
             const excludeKeys = [];
 
             const contentData = {
-                privacyLink: config.links.privacy,
-                cookiesLink: config.links.cookies,
-                helpLineNumber: config.helpline.number,
-                helpLineHours: config.helpline.hours,
-                callChargesLink: config.links.callCharges
+                howToManageCookiesLink: config.links.howToManageCookies,
+                googlePrivacyPolicyLink: config.links.googlePrivacyPolicy,
+                googleAnalyticsOptOutLink: config.links.googleAnalyticsOptOut
             };
 
             testWrapper.testContent(done, excludeKeys, contentData);

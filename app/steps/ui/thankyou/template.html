@@ -24,7 +24,7 @@
 
             <p>{{content.successParagraph2 | safe}}</p>
 
-            <p>{{content.contactProbateOffice | safe}}</p>
+            <p>{{content.contactProbateOffice | replace('{helpLineNumber}', helpline.number) | safe}}</p>
 
         {% endif %}
         <a href="{{links.surveyEndOfApplication | safe}}">{{content.survey | safe}}</a>

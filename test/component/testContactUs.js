@@ -1,11 +1,11 @@
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
 
-describe('terms-conditions', () => {
+describe('contact-us', () => {
     let testWrapper;
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('TermsConditions');
+        testWrapper = new TestWrapper('ContactUs');
     });
 
     afterEach(() => {
@@ -18,9 +18,7 @@ describe('terms-conditions', () => {
             const excludeKeys = [];
 
             const contentData = {
-                privacyLink: config.links.privacy,
-                cookiesLink: config.links.cookies,
-                helpLineNumber: config.helpline.number,
+                helpLineNumber: config.helpline.number, 
                 helpLineHours: config.helpline.hours,
                 callChargesLink: config.links.callCharges
             };

@@ -28,7 +28,7 @@ describe('thank-you', () => {
                     .end(() => {
                         const excludeKeys = ['stopParagraph1'];
                         const contentData = {
-                            helpLineNumber: config.links.helpLineNumber
+                            helpLineNumber: config.helpline.number
                         };
 
                         testWrapper.testContent(done, excludeKeys, contentData);

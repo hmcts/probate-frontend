@@ -84,8 +84,6 @@ module.exports = {
         privacy: '/privacy-policy',
         terms: '/terms-conditions',
         contact: '/contact-us',
-        helpLineNumber: '0300 303 0648',
-        helpLineHours: 'Monday to Friday, 9am to 5pm',
         callCharges: 'https://www.gov.uk/call-charges',
         howToManageCookies: 'https://www.aboutcookies.org',
         googlePrivacyPolicy: 'https://www.google.com/policies/privacy/partners/',
@@ -99,6 +97,10 @@ module.exports = {
         surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'https://www.smartsurvey.co.uk/',
         ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',
         renunciationForm: 'public/pdf/renunciation.pdf'
+    },
+    helpline: {
+        number: '0300 303 0648',
+        hours: 'Monday to Friday, 9am to 5pm'
     },
     utils: {
         api: {

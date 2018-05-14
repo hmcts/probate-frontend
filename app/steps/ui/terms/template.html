@@ -57,8 +57,8 @@
         {{unorderedList([content["disclaimer-item20"], content["disclaimer-item21"], content["disclaimer-item22"]])}}
 
         <h2 class="heading-medium">{{content.contactHeading}}</h2>
-        <p>{{content.contactParagraph1 | replace('{helpLineNumber}', links.helpLineNumber)}}</p>
-        <p>{{content.contactParagraph2 | replace('{helpLineHours}', links.helpLineHours)}}</p>
+        <p>{{content.contactParagraph1 | replace('{helpLineNumber}', helpline.number)}}</p>
+        <p>{{content.contactParagraph2 | replace('{helpLineHours}', helpline.hours)}}</p>
         <p>{{content.contactParagraph3 | replace('{callChargesLink}', links.callCharges) | safe}}</p>
 
     </div>

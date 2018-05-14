@@ -57,7 +57,8 @@ exports.init = function() {
     'currentYear': new Date().getFullYear(),
         'gaTrackingId': config.gaTrackingId,
         'enableTracking': config.enableTracking,
-        'links': config.links
+        'links': config.links,
+        'helpline': config.helpline
     };
 
     const njk = nunjucks(app, {

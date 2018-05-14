@@ -11,8 +11,8 @@
         {% include "includes/phase_banner_beta.html" %}
 
         <h1 class="form-title heading-large">{{content.heading1}}</h1>
-        <p>{{content.paragraph1 | replace('{helpLineNumber}', links.helpLineNumber)}}</p>
-        <p>{{content.paragraph2 | replace('{helpLineHours}', links.helpLineHours)}}</p>
+        <p>{{content.paragraph1 | replace('{helpLineNumber}', helpline.number)}}</p>
+        <p>{{content.paragraph2 | replace('{helpLineHours}', helpline.hours)}}</p>
         <p>{{content.paragraph3 | replace('{callChargesLink}', links.callCharges) | safe}}</p>
 
     </div>

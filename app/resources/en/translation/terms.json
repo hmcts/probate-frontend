@@ -78,5 +78,4 @@
   "contactParagraph1": "Phone: {helpLineNumber}",
   "contactParagraph2": "{helpLineHours}",
   "contactParagraph3": "<a rel=\"external noopener\" href=\"{callChargesLink}\">Find out about call charges</a>"
-
 }

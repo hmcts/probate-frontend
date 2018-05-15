@@ -10,7 +10,7 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     S2S_STUB_PORT = process.env.S2S_STUB_PORT || 4502;
 
-    let errorSequence = config.s2sStubErrorSequence;
+    const errorSequence = config.s2sStubErrorSequence;
     let iterator = 0;
 
     app.use(bodyParser.urlencoded({
@@ -27,11 +27,13 @@ router.post('/lease', function (req, res) {
 
     } else {
         res.status(401);
-        res.send(JSON.stringify({"message":"Invalid one-time password"}));
-    };
+        res.send(JSON.stringify({'message': 'Invalid one-time password'}));
+    }
 
-    iterator++;
-    if ( iterator == errorSequence.length ) iterator = 0;
+    iterator += 1;
+    if (iterator === errorSequence.length) {
+        iterator = 0;
+    }
 
 });
 
@@ -44,8 +46,8 @@ const server = app.listen(S2S_STUB_PORT);
 module.exports = server;
 
 function getShowErrorFromSeq() {
-    var showError = false;
-    if ( errorSequence.charAt(iterator) === '1' ) {
+    let showError = false;
+    if (errorSequence.charAt(iterator) === '1') {
         showError = true;
     }
 

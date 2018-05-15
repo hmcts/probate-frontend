@@ -14,10 +14,9 @@ describe('PaymentStatus', function () {
             require('test/service-stubs/idam');
 
             const PaymentStatus = steps.PaymentStatus;
-            let ctx = {total: 1};
-            let errors = [];
-            let options = {}
+            const ctx = {total: 1};
             const formdata = {paymentPending: 'true'};
+            let options = {};
 
             co(function* () {
                 options = yield PaymentStatus.runnerOptions(ctx, formdata);

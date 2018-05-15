@@ -1,5 +1,4 @@
 const initSteps = require('app/core/initSteps');
-const sinon = require('sinon');
 const assert = require('chai').assert;
 const co = require('co');
 
@@ -43,12 +42,11 @@ describe('PaymentBreakdown', function () {
             const PaymentBreakdown = steps.PaymentBreakdown;
             let ctx = {total: 1};
             let errors = [];
-            const formdata = { paymentPending: 'unknown' };
+            const formdata = {paymentPending: 'unknown'};
 
             co(function* () {
                 [ctx, errors] = yield PaymentBreakdown.handlePost(ctx, errors, formdata);
-                let nextUrl = PaymentBreakdown.nextStepUrl();
-                assert.equal(nextUrl, '/payment-status');
+                assert.equal(PaymentBreakdown.nextStepUrl(), '/payment-status');
                 done();
             })
                 .catch((err) => {

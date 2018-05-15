@@ -56,7 +56,7 @@ module.exports = class PaymentBreakdown extends Step {
 
     * handlePost(ctx, errors, formdata, session) {
 
-        if ( formdata.paymentPending !== 'unknown') {
+        if (formdata.paymentPending !== 'unknown') {
 
             if (ctx.total > 0) {
                 formdata.paymentPending = 'true';

@@ -1,6 +1,7 @@
-const initSteps = require('app/core/initSteps'),
-    assert = require('chai').assert,
-    co = require('co');
+const initSteps = require('app/core/initSteps');
+const sinon = require('sinon');
+const assert = require('chai').assert;
+const co = require('co');
 
 describe('PaymentBreakdown', function () {
 
@@ -33,8 +34,26 @@ describe('PaymentBreakdown', function () {
                 done();
             })
                 .catch((err) => {
-                    done(err);
-                });
+                done(err);
+            });
+        });
+
+        it('sets nextStepUrl to payment-status if paymentPending is unknown', function (done) {
+
+            const PaymentBreakdown = steps.PaymentBreakdown;
+            let ctx = {total: 1};
+            let errors = [];
+            const formdata = { paymentPending: 'unknown' };
+
+            co(function* () {
+                [ctx, errors] = yield PaymentBreakdown.handlePost(ctx, errors, formdata);
+                let nextUrl = PaymentBreakdown.nextStepUrl();
+                assert.equal(nextUrl, '/payment-status');
+                done();
+            })
+                .catch((err) => {
+                done(err);
+        });
         });
 
         it('sets paymentPending to true if ctx.total > 0', function (done) {

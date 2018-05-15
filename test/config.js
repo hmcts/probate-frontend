@@ -10,6 +10,7 @@ module.exports = {
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
     TestEnvEmailAddress: 'test.probate.inbox@gmail.com',
     paymentEnvironments: ['test'],
+    s2sStubErrorSequence: '000',
     links: {
         cookies: 'https://www.gov.uk/help/cookies',
         terms: '/terms-conditions',

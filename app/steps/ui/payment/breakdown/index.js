@@ -11,12 +11,14 @@ module.exports = class PaymentBreakdown extends Step {
     }
 
     * handleGet(ctx) {
+
         if (ctx.paymentError === 'failure') {
             const keyword = 'failure';
             const errors = [];
             errors.push(FieldError('payment', keyword, this.resourcePath, ctx));
             return [ctx, errors];
         }
+
         return [ctx];
     }
 
@@ -54,47 +56,55 @@ module.exports = class PaymentBreakdown extends Step {
 
     * handlePost(ctx, errors, formdata, session) {
 
-        if (ctx.total > 0) {
-            formdata.paymentPending = 'true';
+        if ( formdata.paymentPending !== 'unknown') {
 
-            if (formdata.creatingPayment !== 'true') {
-                formdata.creatingPayment = 'true';
-                session.save();
+            if (ctx.total > 0) {
+                formdata.paymentPending = 'true';
 
-                const serviceAuthResult = yield services.authorise();
-                if (serviceAuthResult.name === 'Error') {
-                    const keyword = 'failure';
-                    errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
-                    return [ctx, errors];
+                if (formdata.creatingPayment !== 'true') {
+                    formdata.creatingPayment = 'true';
+                    session.save();
+
+                    const serviceAuthResult = yield services.authorise();
+                    if (serviceAuthResult.name === 'Error') {
+                        const keyword = 'failure';
+                        errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
+                        return [ctx, errors];
+                    }
+
+                    const data = {
+                        amount: parseFloat(ctx.total),
+                        authToken: ctx.authToken,
+                        serviceAuthToken: serviceAuthResult,
+                        userId: ctx.userId,
+                        applicationFee: ctx.applicationFee,
+                        copies: ctx.copies,
+                        deceasedLastName: ctx.deceasedLastName
+                    };
+
+                    const [response, paymentReference] = yield services.createPayment(data);
+                    formdata.creatingPayment = 'false';
+                    if (response.name === 'Error') {
+                        errors.push(FieldError('authorisation', 'failure', this.resourcePath, ctx));
+                        return [ctx, errors];
+                    }
+                    ctx.paymentId = response.id;
+                    ctx.paymentReference = paymentReference;
+
+                    this.nextStepUrl = () => response._links.next_url.href;
+                } else {
+                    logger.warn('Skipping - create payment request in progress');
                 }
 
-                const data = {
-                    amount: parseFloat(ctx.total),
-                    authToken: ctx.authToken,
-                    serviceAuthToken: serviceAuthResult,
-                    userId: ctx.userId,
-                    applicationFee: ctx.applicationFee,
-                    copies: ctx.copies,
-                    deceasedLastName: ctx.deceasedLastName
-                };
-
-                const [response, paymentReference] = yield services.createPayment(data);
-                formdata.creatingPayment = 'false';
-                if (response.name === 'Error') {
-                    errors.push(FieldError('authorisation', 'failure', this.resourcePath, ctx));
-                    return [ctx, errors];
-                }
-                ctx.paymentId = response.id;
-                ctx.paymentReference = paymentReference;
-
-                this.nextStepUrl = () => response._links.next_url.href;
             } else {
-                logger.warn('Skipping - create payment request in progress');
+                formdata.paymentPending = 'false';
+                delete this.nextStepUrl;
             }
-        } else {
-            formdata.paymentPending = 'false';
-            delete this.nextStepUrl;
 
+        } else {
+            logger.warn('Skipping create payment as authorisation is unknown.');
+            this.nextStepUrl = () => this.steps.PaymentStatus.constructor.getUrl();
+            return [ctx];
         }
 
         return [ctx, errors];

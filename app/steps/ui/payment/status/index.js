@@ -48,12 +48,13 @@ module.exports = class PaymentStatus extends Step {
     * runnerOptions(ctx, formdata) {
         const options = {};
 
-        if (formdata.paymentPending === 'true') {
+        if (formdata.paymentPending === 'true' || formdata.paymentPending === 'unknown') {
             const serviceAuthResult = yield services.authorise();
 
             if (serviceAuthResult.name === 'Error') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
+                formdata.paymentPending = 'unknown';
                 return options;
             }
 

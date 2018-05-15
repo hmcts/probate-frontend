@@ -98,11 +98,7 @@ module.exports = class PaymentStatus extends Step {
 
         logger.info({tags: 'Analytics'}, 'Application Submitted');
         formdata.submissionReference = result.submissionReference;
-        formdata.registry = {
-            sequenceNumber: result.registrySequenceNumber,
-            email: result.registryEmail,
-            address: result.registryAddress
-        };
+        formdata.registry = result.registry;
 
         const saveResult = yield this.persistFormData(ctx.regId, formdata, ctx.sessionId);
 

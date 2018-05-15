@@ -13,10 +13,12 @@ router.post(SUBMIT_SERVICE_PATH, (req, res) => {
     res.status(200);
     res.send({
         submissionReference: '6',
-        registryName: 'Birmingham',
-        registrySequenceNumber: '20000',
-        registryEmail: 'asdvavv',
-        registryAddress: 'Line 1 Bham\nLine 2 Bham\nLine 3 Bham\nPostCode Bham'
+        registry: {
+            name: 'Birmingham',
+            sequenceNumber: '20000',
+            email: 'asdvavv',
+            address: 'Line 1 Bham\nLine 2 Bham\nLine 3 Bham\nPostCode Bham'
+        }
     });
 });
 

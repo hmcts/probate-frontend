@@ -18,7 +18,7 @@ describe('contact-us', () => {
             const excludeKeys = [];
 
             const contentData = {
-                helpLineNumber: config.helpline.number, 
+                helpLineNumber: config.helpline.number,
                 helpLineHours: config.helpline.hours,
                 callChargesLink: config.links.callCharges
             };

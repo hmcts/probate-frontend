@@ -84,12 +84,10 @@ const saveFormData = function (id, data, sessionID) {
         'Session-Id': sessionID
     };
     const body = {
-        id: id,
-        formdata: data,
-        submissionReference: data.submissionReference
+        formdata: data
     };
-    const fetchOptions = utils.fetchOptions(body, 'POST', headers);
-    return utils.fetchJson(`${PERSISTENCE_SERVICE_URL}`, fetchOptions);
+    const fetchOptions = utils.fetchOptions(body, 'PATCH', headers);
+    return utils.fetchJson(`${PERSISTENCE_SERVICE_URL + '/' + id}`, fetchOptions);
 };
 
 const createPayment = function (data) {

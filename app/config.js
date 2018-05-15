@@ -92,7 +92,7 @@ module.exports = {
         goodThingsFoundation: 'https://www.goodthingsfoundation.org',
         subjectAccessRequest: 'https://www.gov.uk/government/publications/request-your-personal-data-from-moj',
         complaintsProcedure: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure',
-        informationCommissionersOffice : 'https://ico.org.uk/global/contact-us',
+        informationCommissionersOffice: 'https://ico.org.uk/global/contact-us',
         survey: process.env.SURVEY || 'https://www.smartsurvey.co.uk/',
         surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'https://www.smartsurvey.co.uk/',
         ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',

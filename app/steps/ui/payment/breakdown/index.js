@@ -103,8 +103,6 @@ module.exports = class PaymentBreakdown extends Step {
 
         } else {
             logger.warn('Skipping create payment as authorisation is unknown.');
-            this.nextStepUrl = () => this.steps.PaymentStatus.constructor.getUrl();
-            return [ctx];
         }
 
         return [ctx, errors];

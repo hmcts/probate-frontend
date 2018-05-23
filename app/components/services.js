@@ -5,8 +5,8 @@ const utils = require('app/components/api-utils'),
     submitData = require('app/components/submit-data'),
     paymentData = require('app/components/payment-data'),
     otp = require('otp'),
-    {URLSearchParams, parse} = require('url');
-
+    {URLSearchParams} = require('url');
+const FormatUrl = require('app/utils/FormatUrl');
 const IDAM_SERVICE_URL = config.services.idam.apiUrl;
 const VALIDATION_SERVICE_URL = config.services.validation.url;
 const SUBMIT_SERVICE_URL = config.services.submit.url;
@@ -120,45 +120,40 @@ const findPayment = function (data) {
 
 const findInviteLink = function (inviteId) {
     logger.info('find invite link');
+    const findInviteLinkUrl = FormatUrl.format(PERSISTENCE_SERVICE_URL, `/invitedata/${inviteId}`);
     const fetchOptions = utils.fetchOptions({}, 'GET', {});
-    const findInviteHost = parse(PERSISTENCE_SERVICE_URL);
-    const findInviteLinkUrl = `${findInviteHost.protocol}//${findInviteHost.hostname}:${findInviteHost.port}/invitedata/${inviteId}`;
     return utils.fetchJson(findInviteLinkUrl, fetchOptions);
 };
 
 const updateInviteData = function (inviteId, data) {
     logger.info('update invite');
+    const findInviteLinkUrl = FormatUrl.format(PERSISTENCE_SERVICE_URL, `/invitedata/${inviteId}`);
     const headers = {
         'Content-Type': 'application/json'
     };
     const fetchOptions = utils.fetchOptions(data, 'PATCH', headers);
-    const findInviteHost = parse(PERSISTENCE_SERVICE_URL);
-    const findInviteLinkUrl = `${findInviteHost.protocol}//${findInviteHost.hostname}:${findInviteHost.port}/invitedata/${inviteId}`;
     return utils.fetchJson(findInviteLinkUrl, fetchOptions);
 };
 
 const sendInvite = function (data, sessionID) {
     logger.info('send invite');
+    const sendInviteUrl = FormatUrl.format(VALIDATION_SERVICE_URL, '/invite');
     const headers = {'Content-Type': 'application/json', 'Session-Id': sessionID};
     const fetchOptions = utils.fetchOptions(data, 'POST', headers);
-    const sendInviteHost = parse(VALIDATION_SERVICE_URL);
-    const sendInviteUrl = `${sendInviteHost.protocol}//${sendInviteHost.hostname}:${sendInviteHost.port}/invite`;
     return utils.fetchText(sendInviteUrl, fetchOptions);
 };
 
 const checkAllAgreed = function (formdataId) {
     logger.info('check all agreed');
+    const allAgreedUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/invites/allAgreed/${formdataId}`);
     const fetchOptions = utils.fetchOptions({}, 'GET', {});
-    const allAgreedHost = parse(VALIDATION_SERVICE_URL);
-    const allAgreedUrl = `${allAgreedHost.protocol}//${allAgreedHost.hostname}:${allAgreedHost.port}/invites/allAgreed/${formdataId}`;
     return utils.fetchText(allAgreedUrl, fetchOptions);
 };
 
 const sendPin = function (phoneNumber, sessionID) {
     logger.info('send pin');
+    const pinServiceUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/pin/${phoneNumber}`);
     const fetchOptions = utils.fetchOptions({}, 'GET', {'Content-Type': 'application/json', 'Session-Id': sessionID});
-    const pinServiceHost = parse(VALIDATION_SERVICE_URL);
-    const pinServiceUrl = `${pinServiceHost.protocol}//${pinServiceHost.hostname}:${pinServiceHost.port}/pin/${phoneNumber}`;
     return utils.fetchJson(pinServiceUrl, fetchOptions);
 };
 
@@ -201,12 +196,11 @@ const getOauth2Token = function (code, redirectUri) {
 
 const updatePhoneNumber = function (inviteId, data) {
     logger.info('Update Phone Number');
+    const findInviteUrl = FormatUrl.format(PERSISTENCE_SERVICE_URL, `/invitedata/${inviteId}`);
     const headers = {
         'Content-Type': 'application/json'
     };
     const fetchOptions = utils.fetchOptions(data, 'PATCH', headers);
-    const findInviteHost = parse(PERSISTENCE_SERVICE_URL);
-    const findInviteUrl = `${findInviteHost.protocol}//${findInviteHost.hostname}:${findInviteHost.port}/invitedata/${inviteId}`;
     return utils.fetchJson(findInviteUrl, fetchOptions);
 };
 

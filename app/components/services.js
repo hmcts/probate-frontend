@@ -1,11 +1,11 @@
 'use strict';
 
-const utils = require('app/components/api-utils'),
-    config = require('app/config'),
-    submitData = require('app/components/submit-data'),
-    paymentData = require('app/components/payment-data'),
-    otp = require('otp'),
-    {URLSearchParams} = require('url');
+const utils = require('app/components/api-utils');
+const config = require('app/config');
+const submitData = require('app/components/submit-data');
+const paymentData = require('app/components/payment-data');
+const otp = require('otp');
+const {URLSearchParams} = require('url');
 const FormatUrl = require('app/utils/FormatUrl');
 const IDAM_SERVICE_URL = config.services.idam.apiUrl;
 const VALIDATION_SERVICE_URL = config.services.validation.url;
@@ -15,12 +15,12 @@ const PERSISTENCE_SERVICE_URL = config.services.persistence.url;
 const CREATE_PAYMENT_SERVICE_URL = config.services.payment.createPaymentUrl;
 const TOKEN = config.services.postcode.token;
 const PROXY = config.services.postcode.proxy;
-const SERVICE_AUTHORISATION_URL = config.services.idam.s2s_url + '/lease';
+const SERVICE_AUTHORISATION_URL = `${config.services.idam.s2s_url}/lease`;
 const serviceName = config.services.idam.service_name;
 const secret = config.services.idam.service_key;
 const logger = require('app/components/logger')('Init');
 
-const getUserDetails = function (securityCookie) {
+const getUserDetails = (securityCookie) => {
     logger.info('getUserDetails');
     const url = `${IDAM_SERVICE_URL}/details`;
     const headers = {
@@ -31,7 +31,7 @@ const getUserDetails = function (securityCookie) {
     return utils.fetchJson(url, fetchOptions);
 };
 
-const findAddress = function (postcode) {
+const findAddress = (postcode) => {
     logger.info('findAddress');
     const url = `${POSTCODE_SERVICE_URL}?postcode=${encodeURIComponent(postcode)}`;
     const headers = {
@@ -42,7 +42,7 @@ const findAddress = function (postcode) {
     return utils.fetchJson(url, fetchOptions);
 };
 
-const validateFormData = function (data, sessionID) {
+const validateFormData = (data, sessionID) => {
     logger.info('validateFormData');
     const headers = {
         'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ const validateFormData = function (data, sessionID) {
     return utils.fetchJson(`${VALIDATION_SERVICE_URL}`, fetchOptions);
 };
 
-const submitApplication = function (data, ctx, softStop) {
+const submitApplication = (data, ctx, softStop) => {
     logger.info('submitApplication');
     const headers = {
         'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ const submitApplication = function (data, ctx, softStop) {
     return utils.fetchJson(`${SUBMIT_SERVICE_URL}`, fetchOptions);
 };
 
-const loadFormData = function (id, sessionID) {
+const loadFormData = (id, sessionID) => {
     logger.info('loadFormData');
     const headers = {
         'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ const loadFormData = function (id, sessionID) {
     return utils.fetchJson(`${PERSISTENCE_SERVICE_URL}/${id}`, fetchOptions);
 };
 
-const saveFormData = function (id, data, sessionID) {
+const saveFormData = (id, data, sessionID) => {
     logger.info('saveFormData');
     const headers = {
         'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ const saveFormData = function (id, data, sessionID) {
     return utils.fetchJson(`${PERSISTENCE_SERVICE_URL}`, fetchOptions);
 };
 
-const createPayment = function (data) {
+const createPayment = (data) => {
     logger.info('createPayment');
     const headers = {
         'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ const createPayment = function (data) {
     return [utils.fetchJson(createPaymentUrl, fetchOptions), body.reference];
 };
 
-const findPayment = function (data) {
+const findPayment = (data) => {
     logger.info('findPayment');
     const headers = {
         'Content-Type': 'application/json',
@@ -114,18 +114,18 @@ const findPayment = function (data) {
     };
 
     const fetchOptions = utils.fetchOptions(data, 'GET', headers);
-    const findPaymentUrl = CREATE_PAYMENT_SERVICE_URL.replace('userId', data.userId) + '/' + data.paymentId;
+    const findPaymentUrl = `${CREATE_PAYMENT_SERVICE_URL.replace('userId', data.userId)}/${data.paymentId}`;
     return utils.fetchJson(findPaymentUrl, fetchOptions);
 };
 
-const findInviteLink = function (inviteId) {
+const findInviteLink = (inviteId) => {
     logger.info('find invite link');
     const findInviteLinkUrl = FormatUrl.format(PERSISTENCE_SERVICE_URL, `/invitedata/${inviteId}`);
     const fetchOptions = utils.fetchOptions({}, 'GET', {});
     return utils.fetchJson(findInviteLinkUrl, fetchOptions);
 };
 
-const updateInviteData = function (inviteId, data) {
+const updateInviteData = (inviteId, data) => {
     logger.info('update invite');
     const findInviteLinkUrl = FormatUrl.format(PERSISTENCE_SERVICE_URL, `/invitedata/${inviteId}`);
     const headers = {
@@ -135,7 +135,7 @@ const updateInviteData = function (inviteId, data) {
     return utils.fetchJson(findInviteLinkUrl, fetchOptions);
 };
 
-const sendInvite = function (data, sessionID) {
+const sendInvite = (data, sessionID) => {
     logger.info('send invite');
     const sendInviteUrl = FormatUrl.format(VALIDATION_SERVICE_URL, '/invite');
     const headers = {'Content-Type': 'application/json', 'Session-Id': sessionID};
@@ -143,21 +143,21 @@ const sendInvite = function (data, sessionID) {
     return utils.fetchText(sendInviteUrl, fetchOptions);
 };
 
-const checkAllAgreed = function (formdataId) {
+const checkAllAgreed = (formdataId) => {
     logger.info('check all agreed');
     const allAgreedUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/invites/allAgreed/${formdataId}`);
     const fetchOptions = utils.fetchOptions({}, 'GET', {});
     return utils.fetchText(allAgreedUrl, fetchOptions);
 };
 
-const sendPin = function (phoneNumber, sessionID) {
+const sendPin = (phoneNumber, sessionID) => {
     logger.info('send pin');
     const pinServiceUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/pin/${phoneNumber}`);
     const fetchOptions = utils.fetchOptions({}, 'GET', {'Content-Type': 'application/json', 'Session-Id': sessionID});
     return utils.fetchJson(pinServiceUrl, fetchOptions);
 };
 
-const authorise = function () {
+const authorise = () => {
     logger.info('authorise');
     const headers = {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -170,7 +170,7 @@ const authorise = function () {
     return utils.fetchText(`${SERVICE_AUTHORISATION_URL}`, {method: 'POST', body: params, headers: fetchOptions.headers});
 };
 
-const getOauth2Token = function (code, redirectUri) {
+const getOauth2Token = (code, redirectUri) => {
     logger.info('calling oauth2 token');
     const clientName = config.services.idam.probate_oauth2_client;
     const secret = config.services.idam.probate_oauth2_secret;
@@ -178,7 +178,7 @@ const getOauth2Token = function (code, redirectUri) {
 
     const headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic ' + new Buffer(`${clientName}:${secret}`).toString('base64')
+        'Authorization': `Basic ${new Buffer(`${clientName}:${secret}`).toString('base64')}`
     };
 
     const params = new URLSearchParams();
@@ -194,7 +194,7 @@ const getOauth2Token = function (code, redirectUri) {
     });
 };
 
-const updatePhoneNumber = function (inviteId, data) {
+const updatePhoneNumber = (inviteId, data) => {
     logger.info('Update Phone Number');
     const findInviteUrl = FormatUrl.format(PERSISTENCE_SERVICE_URL, `/invitedata/${inviteId}`);
     const headers = {

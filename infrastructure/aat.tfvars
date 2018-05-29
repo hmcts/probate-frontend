@@ -23,7 +23,7 @@ payment_return_url = "https://probate-frontend-aat.service.core-compute-aat.inte
 
 payment_create_url = "https://preprod.payments.reform.hmcts.net:4401/users/userId/payments"
 
-idam_service_api = http://betaPreProdccidamAppLB.reform.hmcts.net:4502"
+idam_service_api = "http://betaPreProdccidamAppLB.reform.hmcts.net:4502"
 
 probate_private_beta_auth_url = "https://idam.preprod.ccidam.reform.hmcts.net/login"
 

@@ -1,7 +1,10 @@
 #!/bin/bash
+set -ex
 
 # Move to the Protractor test project folder
 cd $HOME
+
+ls -lrt
 
 cd probate-frontend
 
@@ -17,12 +20,12 @@ cd probate-frontend
 #node ./node_modules/protractor/bin/webdriver-manager start [OR webdriver-manager start] &
 #echo "Finished starting webdriver"
 printenv()
-echo "Running functional tests"
+# echo "Running functional tests"
 # The 'uluwatu-e2e-protractor' test project launch configuration file (e2e.conf.js) should be passed here.
 DISPLAY=:10 yarn run test-e2e 
 export RESULT=$?
 
-echo "functional tests have done"
+# echo "functional tests have done"
 # Close the XVFB display
 killall Xvfb
 

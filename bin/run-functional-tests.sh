@@ -21,7 +21,7 @@ echo "Running functional tests"
 DISPLAY=:10 yarn run test-e2e 
 export RESULT=$?
 
-echo "Protractor tests have done"
+echo "functional tests have done"
 # Close the XVFB display
 killall Xvfb
 

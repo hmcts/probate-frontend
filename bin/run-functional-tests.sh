@@ -1,12 +1,9 @@
 #!/bin/bash
 set -ex
 
-# Move to the Protractor test project folder
-cd $HOME
-
 ls -lrt
-
-cd probate-frontend
+pwd
+# cd probate-frontend
 
 # X11 for Ubuntu is not configured! The following configurations are needed for XVFB.
 # Make a new display :21 with virtual screen 0 with resolution 1024x768 24dpi

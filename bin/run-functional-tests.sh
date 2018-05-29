@@ -7,8 +7,8 @@ pwd
 
 # X11 for Ubuntu is not configured! The following configurations are needed for XVFB.
 # Make a new display :21 with virtual screen 0 with resolution 1024x768 24dpi
-#/bin/Xvfb :0 -screen 0 1024x768x24 -fbdir /home/jenkins/
-/bin/Xvfb :10 -screen 0 1920x1080x24 2>&1 >/dev/null &
+/bin/Xvfb :0 -screen 0 1024x768x24 -fbdir `pwd`
+#/bin/Xvfb :10 -screen 0 1920x1080x24 2>&1 >/dev/null &
 # Export the previously created display
 # export DISPLAY=:10.0
 

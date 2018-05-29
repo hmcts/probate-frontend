@@ -128,7 +128,7 @@
     answerIsCollection = true
 )}}
 
-{% set cls = cycler(common.first,common.second,common.third,common.fourth,common.fifth) %}
+{% set cls = cycler(common.second,common.third,common.fourth,common.fifth) %}
 {% for executor in fields.executors.list.value %}
     {% if executor.isApplicant != true and executor.isApplying === true %}
     <td colspan="3"><span class="heading-small">{{content.Summary.executorApplyingForProbate |  replace("{executorOrderNumber}", cls.next())}}</span></td>

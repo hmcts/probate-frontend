@@ -20,7 +20,22 @@ describe('deceased-alias', () => {
     describe('Verify Content, Errors and Redirection', () => {
 
         it('test right content loaded on the page', (done) => {
-            testWrapper.testContent(done, []);
+            const sessionData = {
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+
+                const contentData = {deceasedName: 'John Doe'};
+
+                testWrapper.testContent(done, [], contentData);
+
+            });
         });
 
         it('test alias schema validation when no data is entered', (done) => {

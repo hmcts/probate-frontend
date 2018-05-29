@@ -4,8 +4,8 @@
 {% from "widgets/radiobuttons.html" import optionsRadio %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{content.question}}</h1>
-    <p>{{content.paragraph1}}</p>
+    <h1 class="form-title heading-large">{{content.question | replace('{deceasedName}', fields.deceasedName.value) | safe }}</h1>
+    <p>{{content.paragraph1 }}</p>
 {% endblock %}
 
 {% block form_content %}

@@ -1,6 +1,6 @@
 {
   "title": "Did the person who died have assets in another name?",
-  "question": "Did the person who died have assets in another name?",
+  "question": "Did {deceasedName} have assets in another name?",
   "optionYes": "Yes",
   "optionNo": "No",
   "legend": "Did the person who died have assets in another name?",

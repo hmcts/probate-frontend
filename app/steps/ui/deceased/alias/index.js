@@ -1,6 +1,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const WillWrapper = require('app/wrappers/Will');
 const DeceasedWrapper = require('app/wrappers/Deceased');
+const FormatName = require('app/utils/FormatName');
 
 module.exports = class DeceasedAlias extends ValidationStep {
 
@@ -26,6 +27,7 @@ module.exports = class DeceasedAlias extends ValidationStep {
         const isCodicilDated = willWrapper.hasCodicilsDate();
         const codicils = willWrapper.hasCodicils();
         ctx.deceasedMarriedAfterDateOnCodicilOrWill = isCodicilDated || (!codicils && isWillDated);
+        ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
 

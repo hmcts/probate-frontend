@@ -20,13 +20,13 @@ module.exports = class ExecutorAddress extends AddressStep {
         } else if (startsWith(req.path, path)) {
             ctx.index = this.recalcIndex(ctx, 0);
         }
+        ctx.otherExecName = ctx.list[ctx.index] && ctx.list[ctx.index].fullName;
         ctx.executorsWrapper = new ExecutorsWrapper(ctx);
         return ctx;
     }
 
-    * handleGet(ctx) {
+    handleGet(ctx) {
         super.handleGet(ctx);
-        ctx.otherExecName = ctx.list[ctx.index].fullName;
         if (ctx.list[ctx.index].address) {
             ctx.address = ctx.list[ctx.index].postcodeAddress || ctx.list[ctx.index].freeTextAddress;
             ctx.postcode = ctx.list[ctx.index].postcode;
@@ -40,7 +40,7 @@ module.exports = class ExecutorAddress extends AddressStep {
         return [ctx, ctx.errors];
     }
 
-    * handlePost(ctx, errors) {
+    handlePost(ctx, errors) {
         super.handlePost(ctx, errors);
         ctx.list[ctx.index].address = ctx.postcodeAddress || ctx.freeTextAddress;
         ctx.list[ctx.index].postcode = ctx.postcode ? ctx.postcode.toUpperCase() : ctx.postcode;
@@ -86,7 +86,6 @@ module.exports = class ExecutorAddress extends AddressStep {
         delete ctx.freeTextAddress;
         delete ctx.postcode;
         delete ctx.addresses;
-        delete ctx.freeTextAddress;
         delete ctx.allExecsApplying;
         delete ctx.continue;
         delete ctx.index;

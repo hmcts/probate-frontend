@@ -10,10 +10,12 @@
 /output/
 .sonar/
 .sonarlint/
+.project
 /npm-debug.log*
 jsconfig.json
 *.tmp
 coverage
+yarn.lock
 *.iml
 /test/end-to-end/output/**
 package-lock.json

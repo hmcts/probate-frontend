@@ -10,6 +10,7 @@
 /output/
 .sonar/
 .sonarlint/
+.project
 /npm-debug.log*
 jsconfig.json
 *.tmp

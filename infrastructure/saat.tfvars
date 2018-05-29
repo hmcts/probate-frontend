@@ -43,5 +43,5 @@ probate_business_service_url = "http://probate-business-service-saat-staging.ser
 
 probate_submit_service_url = "http://probate-submit-service-saat-staging.service.core-compute-saat.internal/submit"
 
-probate_persistence_service_url = " http://probate-persistence-service-saat-staging.service.core-compute-saat.internal/formdata"
+probate_persistence_service_url = "http://probate-persistence-service-saat-staging.service.core-compute-saat.internal/formdata"
 

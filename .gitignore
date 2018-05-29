@@ -15,7 +15,6 @@
 jsconfig.json
 *.tmp
 coverage
-yarn.lock
 *.iml
 /test/end-to-end/output/**
 package-lock.json

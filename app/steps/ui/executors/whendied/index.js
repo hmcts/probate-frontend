@@ -1,10 +1,12 @@
-const CollectionStep = require('app/core/steps/CollectionStep'),
-    execContent = require('app/resources/en/translation/executors/executorcontent.json'),
-    {findKey, findIndex, every, tail, has, get} = require('lodash');
+'use strict';
 
-    const path = '/executor-when-died/';
+const CollectionStep = require('app/core/steps/CollectionStep');
+const execContent = require('app/resources/en/translation/executors/executorcontent.json');
+const {findKey, findIndex, every, tail, has, get} = require('lodash');
 
-module.exports = class ExecutorsWhenDied extends CollectionStep {
+const path = '/executor-when-died/';
+
+class ExecutorsWhenDied extends CollectionStep {
 
     constructor(steps, section, templatePath, i18next, schema) {
         super(steps, section, templatePath, i18next, schema);
@@ -15,18 +17,18 @@ module.exports = class ExecutorsWhenDied extends CollectionStep {
         return path + index;
     }
 
-  * handleGet(ctx) {
-    if (ctx.list[ctx.index]) {
-      ctx.diedbefore = ctx.list[ctx.index].diedBefore;
+    handleGet(ctx) {
+        if (ctx.list[ctx.index]) {
+            ctx.diedbefore = ctx.list[ctx.index].diedBefore;
+        }
+        return [ctx];
     }
-    return [ctx];
-  }
 
     recalcIndex(ctx, index) {
         return findIndex(ctx.list, o => o.isDead === true, index + 1);
     }
 
-    * handlePost(ctx, errors) {
+    handlePost(ctx, errors) {
         this.setNotApplyingReason(ctx);
         ctx.index = this.recalcIndex(ctx, ctx.index);
         return [ctx, errors];
@@ -39,9 +41,9 @@ module.exports = class ExecutorsWhenDied extends CollectionStep {
         } else {
             ctx.list[ctx.index].notApplyingReason = execContent.optionDiedAfter;
         }
-        ctx.list[ctx.index].notApplyingKey = findKey(execContent, function(o) {
- return o === ctx.list[ctx.index].notApplyingReason;
-});
+        ctx.list[ctx.index].notApplyingKey = findKey(execContent, o => {
+           return o === ctx.list[ctx.index].notApplyingReason;
+        });
     }
 
     nextStepOptions(ctx) {
@@ -68,4 +70,6 @@ module.exports = class ExecutorsWhenDied extends CollectionStep {
         delete ctx.allDead;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = ExecutorsWhenDied;

@@ -1,5 +1,5 @@
 module.exports = {
-    environment: process.env.REFORM_ENVIRONMENT,
+    environment: process.env.REFORM_ENVIRONMENT || 'dev',
     nodeEnvironment: process.env.NODE_ENV,
     gitRevision: process.env.GIT_REVISION,
     service: {

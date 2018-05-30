@@ -128,7 +128,9 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     //Retrieve the email urls for additional executors
     I.amOnPage(testConfig.TestInviteIdListUrl);
+    pause();
     grabIds = yield I.grabTextFrom('body');
+    pause();
 });
 
 Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), function* (I) {

@@ -5,9 +5,9 @@ exports.config = {
     'output': './output',
     'helpers': {
         'Puppeteer': {
-            'url': testConfig.TestFrontendUrl || 'https://localhost:3000',
+            'url': testConfig.TestFrontendUrl || 'http://localhost:3000',
             'waitForTimeout': 10000,
-            'show': true,
+            'show': false,
             waitForAction: 2000,
             'switches': {
                 'ignore-certificate-errors': true

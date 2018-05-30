@@ -38,11 +38,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.selectIhtCompleted();
     I.selectInheritanceMethodPaper();
 
-    if (TestConfigurator.isFullPaymentEnvironment()) {
-        I.enterGrossAndNet('205', '600000', '300000');
-    } else {
-        I.enterGrossAndNet('205', '500', '400');
-    }
+    I.enterGrossAndNet('205', '600000', '300000');
 
     I.selectApplicantIsExecutor();
 

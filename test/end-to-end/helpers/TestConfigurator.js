@@ -98,18 +98,6 @@ class TestConfigurator {
          process.env.testCitizenPassword = null;
      }
 
-     isFullPaymentEnvironment() {
-        let fullPayment = false;
-
-         for (const env of this.paymentEnvironments) {
-             if (this.TestFrontendUrl.indexOf(env) > -1) {
-                fullPayment = true;
-             }
-         }
-
-         return fullPayment;
-     }
-
 }
 
 module.exports = TestConfigurator;

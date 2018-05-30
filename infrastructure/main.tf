@@ -86,7 +86,7 @@ module "probate-frontend" {
   is_frontend  = true
   subscription = "${var.subscription}"
   asp_name     = "${var.product}-${var.env}-asp"
-  additional_host_name = "${var.external_host_name}"  // need to give proper url
+//  additional_host_name = "${var.external_host_name}"  // need to give proper url
 
   app_settings = {
     

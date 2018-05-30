@@ -1,3 +1,5 @@
+'use strict';
+
 const Step = require('app/core/steps/Step');
 const OptionGetRunner = require('app/core/runners/OptionGetRunner');
 const FieldError = require('app/components/error');
@@ -7,7 +9,7 @@ const services = require('app/components/services');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 
-module.exports = class Summary extends Step {
+class Summary extends Step {
 
     runner() {
         return new OptionGetRunner();
@@ -35,14 +37,15 @@ module.exports = class Summary extends Step {
         return [ctx, !isEmpty(errors) ? errors : null];
     }
 
-    * validateFormData(ctx, formdata) {
+    validateFormData(ctx, formdata) {
         return services.validateFormData(formdata, ctx.sessionID);
     }
 
     generateContent (ctx, formdata) {
         const content = {};
 
-        Object.keys(this.steps).filter((stepName) => stepName !== this.name)
+        Object.keys(this.steps)
+            .filter((stepName) => stepName !== this.name)
             .forEach((stepName) => {
                 const step = this.steps[stepName];
                 content[stepName] = step.generateContent(formdata[step.section], formdata);
@@ -55,7 +58,8 @@ module.exports = class Summary extends Step {
 
     generateFields (ctx, errors, formdata) {
         const fields = {};
-        Object.keys(this.steps).filter((stepName) => stepName !== this.name)
+        Object.keys(this.steps)
+            .filter((stepName) => stepName !== this.name)
             .forEach((stepName) => {
                 const step = this.steps[stepName];
                 if (isEmpty(fields[step.section])) {
@@ -81,4 +85,6 @@ module.exports = class Summary extends Step {
         ctx.deceasedMarriedAfterDateOnCodicilOrWill = isCodicilDated || (!ctx.codicilPresent && isWillDated);
         return ctx;
     }
-};
+}
+
+module.exports = Summary;

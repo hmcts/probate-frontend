@@ -1,10 +1,12 @@
-const CollectionStep = require('app/core/steps/CollectionStep'),
-    json = require('app/resources/en/translation/executors/roles.json'),
-    {get, isEmpty, every, findKey, findIndex} = require('lodash');
+'use strict';
 
-    const path = '/executor-roles/';
+const CollectionStep = require('app/core/steps/CollectionStep');
+const json = require('app/resources/en/translation/executors/roles.json');
+const {get, isEmpty, every, findKey, findIndex} = require('lodash');
 
-module.exports = class ExecutorRoles extends CollectionStep {
+const path = '/executor-roles/';
+
+class ExecutorRoles extends CollectionStep {
 
     constructor(steps, section, templatePath, i18next, schema) {
         super(steps, section, templatePath, i18next, schema);
@@ -15,7 +17,7 @@ module.exports = class ExecutorRoles extends CollectionStep {
         return path + index;
     }
 
-    * handleGet(ctx) {
+    handleGet(ctx) {
         if (ctx.list[ctx.index]) {
             ctx.isApplying = false;
             ctx.notApplyingReason = ctx.list[ctx.index].notApplyingReason;
@@ -23,13 +25,11 @@ module.exports = class ExecutorRoles extends CollectionStep {
         return [ctx];
     }
 
-    * handlePost(ctx, errors) {
+    handlePost(ctx, errors) {
         if (ctx.list[ctx.index]) {
             ctx.list[ctx.index].isApplying = false;
             ctx.list[ctx.index].notApplyingReason = ctx.notApplyingReason;
-            ctx.list[ctx.index].notApplyingKey = findKey(json, function (o) {
- return o === ctx.notApplyingReason;
-});
+            ctx.list[ctx.index].notApplyingKey = findKey(json, o => o === ctx.notApplyingReason);
         }
         if (ctx.notApplyingReason !== json.optionPowerReserved) {
             ctx.index = this.recalcIndex(ctx, ctx.index);
@@ -64,4 +64,6 @@ module.exports = class ExecutorRoles extends CollectionStep {
     recalcIndex(ctx, index) {
         return findIndex(ctx.list, exec => !exec.isDead && (ctx.otherExecutorsApplying === this.commonContent().no || !exec.isApplying), index + 1);
     }
-};
+}
+
+module.exports = ExecutorRoles;

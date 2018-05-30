@@ -1,11 +1,13 @@
-const ValidationStep = require('app/core/steps/ValidationStep'),
-    emailValidator = require('email-validator'),
-    validator = require('validator'),
-    FieldError = require('app/components/error'),
-    services = require('app/components/services'),
-    {findIndex, every, tail} = require('lodash');
+'use strict';
 
-module.exports = class ExecutorContactDetails extends ValidationStep {
+const ValidationStep = require('app/core/steps/ValidationStep');
+const emailValidator = require('email-validator');
+const validator = require('validator');
+const FieldError = require('app/components/error');
+const services = require('app/components/services');
+const {findIndex, every, tail} = require('lodash');
+
+class ExecutorContactDetails extends ValidationStep {
 
     static getUrl(index = '*') {
         return `/executor-contact-details/${index}`;
@@ -23,7 +25,7 @@ module.exports = class ExecutorContactDetails extends ValidationStep {
         return ctx;
     }
 
-    * handleGet(ctx) {
+    handleGet(ctx) {
         ctx.email = ctx.list[ctx.index].email;
         ctx.mobile = ctx.list[ctx.index].mobile;
         return [ctx];
@@ -97,4 +99,6 @@ module.exports = class ExecutorContactDetails extends ValidationStep {
     isComplete(ctx) {
         return [every(tail(ctx.list).filter(exec => exec.isApplying === true), exec => exec.email && exec.mobile && exec.address), 'inProgress'];
     }
-};
+}
+
+module.exports = ExecutorContactDetails;

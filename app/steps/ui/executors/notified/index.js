@@ -1,9 +1,11 @@
-const CollectionStep = require('app/core/steps/CollectionStep'),
-    {get, some, findIndex} = require('lodash');
+'use strict';
+
+const CollectionStep = require('app/core/steps/CollectionStep');
+const {get, some, findIndex} = require('lodash');
 
 const path = '/executor-notified/';
 
-module.exports = class ExecutorNotified extends CollectionStep {
+class ExecutorNotified extends CollectionStep {
 
     constructor(steps, section, templatePath, i18next, schema) {
         super(steps, section, templatePath, i18next, schema);
@@ -24,13 +26,13 @@ module.exports = class ExecutorNotified extends CollectionStep {
         return nextStepOptions;
     }
 
-    * handlePost(ctx, errors, formdata) {
+    handlePost(ctx, errors, formdata) {
         formdata.executors.list[ctx.index].executorNotified = ctx.executorNotified;
         ctx.index = this.recalcIndex(ctx);
         return [ctx, errors];
     }
 
-    * handleGet(ctx, formdata) {
+    handleGet(ctx, formdata) {
         const currentExecutor = formdata.executors.list[ctx.index];
         ctx.executorNotified = currentExecutor.executorNotified;
         return [ctx];
@@ -57,4 +59,6 @@ module.exports = class ExecutorNotified extends CollectionStep {
     recalcIndex(ctx) {
         return findIndex(ctx.list, exec => !exec.isDead && (ctx.otherExecutorsApplying === this.commonContent().no || !exec.isApplying), ctx.index + 1);
     }
-};
+}
+
+module.exports = ExecutorNotified;

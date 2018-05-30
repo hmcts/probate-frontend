@@ -1,17 +1,18 @@
-const Step = require('app/core/steps/Step'),
-    FieldError = require('app/components/error'),
-    config = require('app/config'),
-    services = require('app/components/services'),
-    {get} = require('lodash'),
-    logger = require('app/components/logger')('Init');
+'use strict';
 
-module.exports = class PaymentBreakdown extends Step {
+const Step = require('app/core/steps/Step');
+const FieldError = require('app/components/error');
+const config = require('app/config');
+const services = require('app/components/services');
+const {get} = require('lodash');
+const logger = require('app/components/logger')('Init');
+
+class PaymentBreakdown extends Step {
     static getUrl() {
         return '/payment-breakdown';
     }
 
-    * handleGet(ctx) {
-
+    handleGet(ctx) {
         if (ctx.paymentError === 'failure') {
             const keyword = 'failure';
             const errors = [];
@@ -55,9 +56,7 @@ module.exports = class PaymentBreakdown extends Step {
     }
 
     * handlePost(ctx, errors, formdata, session) {
-
         if (formdata.paymentPending !== 'unknown') {
-
             if (ctx.total > 0) {
                 formdata.paymentPending = 'true';
 
@@ -66,6 +65,7 @@ module.exports = class PaymentBreakdown extends Step {
                     session.save();
 
                     const serviceAuthResult = yield services.authorise();
+
                     if (serviceAuthResult.name === 'Error') {
                         const keyword = 'failure';
                         errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
@@ -84,10 +84,12 @@ module.exports = class PaymentBreakdown extends Step {
 
                     const [response, paymentReference] = yield services.createPayment(data);
                     formdata.creatingPayment = 'false';
+
                     if (response.name === 'Error') {
                         errors.push(FieldError('authorisation', 'failure', this.resourcePath, ctx));
                         return [ctx, errors];
                     }
+
                     ctx.paymentId = response.id;
                     ctx.paymentReference = paymentReference;
 
@@ -100,7 +102,6 @@ module.exports = class PaymentBreakdown extends Step {
                 formdata.paymentPending = 'false';
                 delete this.nextStepUrl;
             }
-
         } else {
             logger.warn('Skipping create payment as authorisation is unknown.');
         }
@@ -109,7 +110,7 @@ module.exports = class PaymentBreakdown extends Step {
     }
 
     isComplete(ctx, formdata) {
-        return [formdata.paymentPending === 'false' || formdata.paymentPending === 'true', 'inProgress'];
+        return [['true', 'false'].includes(formdata.paymentPending), 'inProgress'];
     }
 
     action(ctx, formdata) {
@@ -119,4 +120,6 @@ module.exports = class PaymentBreakdown extends Step {
         delete ctx.deceasedLastName;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = PaymentBreakdown;

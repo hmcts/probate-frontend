@@ -1,13 +1,13 @@
-const initSteps = require('app/core/initSteps'),
-    assert = require('chai').assert;
+'use strict';
 
-describe('AddAlias', function () {
+const initSteps = require('app/core/initSteps');
+const assert = require('chai').assert;
 
-    const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
+describe('AddAlias', () => {
+    const steps = initSteps([`${__dirname}'/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 
-    describe('handlePost', function () {
-
-        it('Adds other names to formdata', function (done) {
+    describe('handlePost', () => {
+        it('Adds other names to formdata', (done) => {
             let ctx = {
                 otherNames: {
                     name_0: {
@@ -20,17 +20,13 @@ describe('AddAlias', function () {
                     }
                 }
             };
-
             let errors = {};
-
             const formdata = {};
-
             const AddAlias = steps.AddAlias;
-            [ctx, errors] = AddAlias.handlePost(ctx, errors, formdata).next().value;
+
+            [ctx, errors] = AddAlias.handlePost(ctx, errors, formdata);
             assert.exists(formdata.deceased.otherNames);
             done();
         });
-
     });
-
 });

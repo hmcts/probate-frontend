@@ -1,3 +1,5 @@
+'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const json = require('app/resources/en/translation/executors/alias.json');
 const content = require('app/resources/en/translation/executors/alias');
@@ -22,7 +24,7 @@ module.exports = class ExecutorsAlias extends ValidationStep {
         return ctx;
     }
 
-    * handlePost(ctx, errors) {
+    handlePost(ctx, errors) {
         ctx = this.pruneFormData(ctx);
         return [ctx, errors];
     }

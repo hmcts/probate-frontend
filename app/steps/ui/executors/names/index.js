@@ -1,30 +1,32 @@
+'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
 const resourcePath = 'executors.names';
 const i18next = require('i18next');
 const {isEmpty, size, forEach} = require('lodash');
 
-module.exports = class ExecutorsNames extends ValidationStep {
+class ExecutorsNames extends ValidationStep {
 
     static getUrl() {
         return '/executors-names';
     }
 
-    * handleGet(ctx) {
+    handleGet(ctx) {
         this.createExecutorFullNameArray(ctx);
         return [ctx];
     }
 
     createExecutorFullNameArray(ctx) {
         ctx.executorName=[];
-        forEach(ctx.list, function (executor) {
+        forEach(ctx.list, (executor) => {
             if (executor && 'fullName' in executor) {
                 ctx.executorName.push(executor.fullName);
             }
         });
     }
 
-    * handlePost(ctx, errors) {
+    handlePost(ctx, errors) {
         for (let i=1; i < ctx.executorsNumber; i++) {
             if (isEmpty(ctx.list[i])) {
                 ctx.list[i] = {'fullName': ctx.executorName[i-1]};
@@ -69,12 +71,12 @@ module.exports = class ExecutorsNames extends ValidationStep {
     createErrorMessages (validationErrors, ctx) {
         const self = this;
         const errorMessages = [];
-        errorMessages.length=[ctx.executorsNumber -1];
-        validationErrors.forEach(function (validationError) {
+        errorMessages.length = [ctx.executorsNumber -1];
+        validationErrors.forEach((validationError) => {
             const index = self.getIndexFromErrorParameter(validationError);
             errorMessages[index] = self.composeMessage(ctx.executorName[index], parseInt(index) + 2);
             validationError.msg = errorMessages[index].errorMessage;
-            validationError.param = 'executorName_' + index;
+            validationError.param = `executorName_${index}`;
         });
         return errorMessages;
     }
@@ -86,8 +88,10 @@ module.exports = class ExecutorsNames extends ValidationStep {
     composeMessage (inputTextFieldValue, screenExecutorNumber) {
         const messageType = inputTextFieldValue === '' ? 'required' : 'invalid';
         const errorMessage = FieldError('executorName', messageType, resourcePath);
-        const displayExecutor = i18next.t(resourcePath + '.executor');
-        errorMessage.msg.summary = displayExecutor + ' ' + screenExecutorNumber + ': ' + errorMessage.msg.summary;
+        const displayExecutor = i18next.t(`${resourcePath}.executor`);
+        errorMessage.msg.summary = `${displayExecutor} ${screenExecutorNumber}: ${errorMessage.msg.summary}`;
         return {'error': true, 'errorMessage': errorMessage.msg};
     }
-};
+}
+
+module.exports = ExecutorsNames;

@@ -1,10 +1,12 @@
+'use strict';
+
 const CollectionStep = require('app/core/steps/CollectionStep');
 const {findIndex, get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 
 const path = '/executor-current-name/';
 
-module.exports = class ExecutorCurrentName extends CollectionStep {
+class ExecutorCurrentName extends CollectionStep {
 
     constructor(steps, section, templatePath, i18next, schema) {
         super(steps, section, templatePath, i18next, schema);
@@ -15,14 +17,14 @@ module.exports = class ExecutorCurrentName extends CollectionStep {
         return path + index;
     }
 
-    * handleGet(ctx) {
+    handleGet(ctx) {
         if (ctx.list && ctx.list[ctx.index]) {
             ctx.currentName = ctx.list[ctx.index].currentName;
         }
         return [ctx];
     }
 
-    * handlePost(ctx, errors) {
+    handlePost(ctx, errors) {
         ctx.list[ctx.index].currentName = ctx.currentName;
         ctx.index = this.recalcIndex(ctx, ctx.index);
         return [ctx, errors];
@@ -53,4 +55,6 @@ module.exports = class ExecutorCurrentName extends CollectionStep {
         const executorsWrapper = new ExecutorsWrapper(ctx);
         return [executorsWrapper.executorsWithAnotherName().every(exec => exec.currentName), 'inProgress'];
     }
-};
+}
+
+module.exports = ExecutorCurrentName;

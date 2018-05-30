@@ -6,6 +6,30 @@ const logger = require('app/components/logger')('Init');
 const path = require('path');
 const steps = {};
 
+const initStep = filePath => {
+    const stepObject = require(filePath);
+    const filePathFragments = filePath.search('ui') >= 0 ? filePath.split(`${path.sep}ui${path.sep}`) : filePath.split(`${path.sep}action${path.sep}`);
+    let resourcePath = filePathFragments[1];
+    resourcePath = resourcePath.replace(`${path.sep}index.js`, '');
+    const section = resourcePath.split(path.sep);
+
+    if (section.length > 1) {
+        section.pop();
+    }
+
+    const schemaPath = filePath.replace('index.js', 'schema');
+    let schema;
+
+    try {
+        schema = require(schemaPath);
+    } catch (e) {
+        schema = {};
+    }
+
+    resourcePath = resourcePath.replace(path.sep, '/');
+    return new stepObject(steps, section.toString(), resourcePath, i18next, schema);
+};
+
 const initSteps = (stepLocations) => {
     const content = requireDir(module, '../', {include: /resources/});
     i18next.createInstance();
@@ -28,26 +52,6 @@ const initSteps = (stepLocations) => {
     });
 
     return steps;
-};
-
-const initStep = filePath => {
-    const stepObject = require(filePath);
-    const filePathFragments = filePath.search('ui') >= 0 ? filePath.split(`${path.sep}ui${path.sep}`) : filePath.split(`${path.sep}action${path.sep}`);
-    let resourcePath = filePathFragments[1];
-    resourcePath = resourcePath.replace(`${path.sep}index.js`, '');
-    const section = resourcePath.split(path.sep);
-    if (section.length > 1) {
-        section.pop();
-    }
-    const schemaPath = filePath.replace('index.js', 'schema');
-    let schema;
-    try {
-        schema = require(schemaPath);
-    } catch (e) {
-        schema = {};
-    }
-    resourcePath = resourcePath.replace(path.sep, '/');
-    return new stepObject(steps, section.toString(), resourcePath, i18next, schema);
 };
 
 module.exports = initSteps;

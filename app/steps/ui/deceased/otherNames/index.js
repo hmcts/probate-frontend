@@ -1,10 +1,12 @@
+'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
 const {get, set, isEmpty} = require('lodash');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 
-module.exports = class DeceasedOtherNames extends ValidationStep {
+class DeceasedOtherNames extends ValidationStep {
 
     static getUrl() {
         return '/other-names';
@@ -12,9 +14,11 @@ module.exports = class DeceasedOtherNames extends ValidationStep {
 
     nextStepOptions() {
         const nextStepOptions = {
-            options: [
-                {key: 'deceasedMarriedAfterDateOnCodicilOrWill', value: true, choice: 'deceasedMarriedAfterDateOnCodicilOrWill'}
-            ]
+            options: [{
+                key: 'deceasedMarriedAfterDateOnCodicilOrWill',
+                value: true,
+                choice: 'deceasedMarriedAfterDateOnCodicilOrWill'
+            }]
         };
         return nextStepOptions;
     }
@@ -41,7 +45,11 @@ module.exports = class DeceasedOtherNames extends ValidationStep {
         const otherNameErrors = new Map();
 
         if (Object.keys(ctx.otherNames).length >= 100) {
-            otherNameErrors.set('name_101', [FieldError('numberOfOtherNames', 'maxLength', `${this.resourcePath}`, ctx)]);
+            otherNameErrors.set('name_101', [
+                FieldError('numberOfOtherNames',
+                'maxLength',
+                `${this.resourcePath}`, ctx)
+            ]);
         }
 
         Object.entries(ctx.otherNames).forEach(([index, otherName]) => {
@@ -67,13 +75,13 @@ module.exports = class DeceasedOtherNames extends ValidationStep {
                 const otherNameErrors = isEmpty(errors) ? [] : errors.get(index);
                 fields.otherNames.value.set(index, super.generateFields(otherName, otherNameErrors));
             });
-            set(errors, 'otherNames', errors ? Array.from(errors) : []);
+            set(errors, 'otherNames', Array.from(errors));
             set(fields, 'otherNames.value', Array.from(fields.otherNames.value));
         }
         return fields;
     }
 
-    * handleGet(ctx, formdata) {
+    handleGet(ctx, formdata) {
         if (ctx.errors) {
             const errors = ctx.errors;
             delete ctx.errors;
@@ -89,4 +97,6 @@ module.exports = class DeceasedOtherNames extends ValidationStep {
         delete ctx.deceasedMarriedAfterDateOnCodicilOrWill;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = DeceasedOtherNames;

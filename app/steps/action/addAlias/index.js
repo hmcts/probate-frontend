@@ -1,8 +1,10 @@
-const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames/index'),
-      {set, isEmpty} = require('lodash'),
-      ActionStepRunner = require('app/core/runners/ActionStepRunner');
+'use strict';
 
-module.exports = class AddAlias extends DeceasedOtherNames {
+const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames/index');
+const {set, isEmpty} = require('lodash');
+const ActionStepRunner = require('app/core/runners/ActionStepRunner');
+
+class AddAlias extends DeceasedOtherNames {
 
     static getUrl() {
         return '/other-names/add';
@@ -14,19 +16,19 @@ module.exports = class AddAlias extends DeceasedOtherNames {
     }
 
     runner() {
- return new ActionStepRunner();
-}
+        return new ActionStepRunner();
+    }
 
-    * handlePost(ctx, errors, formdata) {
+    handlePost(ctx, errors, formdata) {
         if (isEmpty(errors)) {
             let counter = 0;
             const otherNames = {};
             Object.entries(ctx.otherNames)
-                  .filter(([index]) => index.startsWith('name_'))
-                  .forEach(([, otherName]) => {
-                      set(otherNames, 'name_'+counter, otherName);
-                      counter += 1;
-                  });
+                .filter(([index]) => index.startsWith('name_'))
+                .forEach(([, otherName]) => {
+                    set(otherNames, `name_${counter}`, otherName);
+                    counter += 1;
+                });
             set(otherNames, ['name_', counter, '.firstName'].join(''));
             set(otherNames, ['name_', counter, '.lastName'].join(''));
             set(ctx, 'otherNames', otherNames);
@@ -36,5 +38,6 @@ module.exports = class AddAlias extends DeceasedOtherNames {
         set(formdata, 'deceased.otherNames', ctx.otherNames);
         return [ctx, errors];
     }
+}
 
-};
+module.exports = AddAlias;

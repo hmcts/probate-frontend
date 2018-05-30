@@ -1,10 +1,12 @@
+'use strict';
+
 const co = require('co');
 const {curry, set, isEmpty, forEach} = require('lodash');
 const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
 const DetectDataChange = require('app/wrappers/DetectDataChange');
 const logger = require('app/components/logger');
 
-module.exports = class UIStepRunner {
+class UIStepRunner {
 
     constructor() {
         this.GET = curry(this.handleGet);
@@ -50,7 +52,6 @@ module.exports = class UIStepRunner {
     handlePost(step, req, res) {
 
         return co(function * () {
-
             const session = req.session;
             let formdata = session.form;
             let ctx = step.getContextData(req);
@@ -90,7 +91,7 @@ module.exports = class UIStepRunner {
                 );
                 const content = step.generateContent(ctx, formdata);
                 let fields = step.generateFields(ctx, errors, formdata);
-                fields = mapErrorsToFields(errors, fields);
+                fields = mapErrorsToFields(fields, errors);
                 const common = step.commonContent();
                 res.render(step.template, {content, fields, errors, common});
             }
@@ -99,4 +100,6 @@ module.exports = class UIStepRunner {
             res.status(500).render('errors/500');
         });
     }
-};
+}
+
+module.exports = UIStepRunner;

@@ -13,33 +13,33 @@ module.exports = class UIStepRunner {
 
     handleGet(step, req, res) {
 
-        logger.info('called handleGet');
+        logger().info('called handleGet');
 
         return co(function * () {
-            logger.info('called handleGet 2');
+            logger().info('called handleGet 2');
             let errors = null;
             const session = req.session;
-            logger.info('got session data');
+            logger().info('got session data');
             const formdata = session.form;
-            logger.info('got form data');
+            logger().info('got form data');
             let ctx = step.getContextData(req);
-            logger.info('called step.getContextData');
+            logger().info('called step.getContextData');
             [ctx, errors] = yield step.handleGet(ctx, formdata);
-            logger.info('called step.handleGet');
+            logger().info('called step.handleGet');
             forEach(errors, (error) =>
             req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
         );
         const content = step.generateContent(ctx, formdata);
-        logger.info('called step.generateContent');
+        logger().info('called step.generateContent');
         const fields = step.generateFields(ctx, errors, formdata);
-        logger.info('called step.generateFields');
+        logger().info('called step.generateFields');
         if (req.query.source === 'back') {
             session.back.pop();
         } else if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
             session.back.push(step.constructor.getUrl());
         }
         const common = step.commonContent();
-        logger.info('called step.commonContent');
+        logger().info('called step.commonContent');
             res.render(step.template, {content, fields, errors, common});
         }).catch((error) => {
             req.log.error(error);

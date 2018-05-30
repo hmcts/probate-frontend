@@ -178,27 +178,27 @@ exports.init = function() {
 
     app.use('/health', healthcheck);
 
-    logger.info('checking if we are using idam');
-    logger.info(`useIDAM: ${useIDAM}`);
+    logger().info('checking if we are using idam');
+    logger().info(`useIDAM: ${useIDAM}`);
     if (useIDAM === 'true') {
-        logger.info('we are using idam');
+        logger().info('we are using idam');
         app.use(/\/((?!error)(?!sign-in)(?!pin-resend)(?!pin-sent)(?!co-applicant-*)(?!pin)(?!inviteIdList).)*/, security.protect(config.services.idam.roles));
         app.use('/', routes);
     } else {
-        logger.info('we are not using idam');
+        logger().info('we are not using idam');
         app.use('/', function (req, res, next) {
 
-            logger.info('checking session id');
+            logger().info('checking session id');
             if (req.query.id && req.query.id !== req.session.regId) {
-                logger.info('resetting session');
+                logger().info('resetting session');
                 delete req.session.form;
             }
             req.session.regId = req.query.id || req.session.regId || req.sessionID;
-            logger.info(`req.session.regId: ${req.session.regId}`);
+            logger().info(`req.session.regId: ${req.session.regId}`);
             req.authToken = config.services.payment.authorization;
-            logger.info(`req.authToken: ${req.authToken}`);
+            logger().info(`req.authToken: ${req.authToken}`);
             req.userId= config.services.payment.userId;
-            logger.info(`req.userId: ${req.userId}`);
+            logger().info(`req.userId: ${req.userId}`);
             next();
         }, routes);
     }

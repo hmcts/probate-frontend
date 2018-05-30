@@ -83,7 +83,6 @@
     "require-directory": "^2.1.1",
     "serve-favicon": "2.4.5",
     "simple-random": "^1.0.3",
-    "tunnel-agent": "^0.6.0",
     "uuid": "^3.1.0",
     "validator": "^9.4.1"
   },

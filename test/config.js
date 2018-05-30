@@ -1,23 +1,21 @@
 module.exports = {
 
     TestIdamBaseUrl: process.env.IDAM_API_URL || 'http://localhost:8484',
-    TestFrontendUrl: process.env.TEST_URL || 'http://localhost:3000',
-    TestUseIdam: process.env.USE_IDAM || 'false',
+    TestFrontendUrl: process.env.TEST_URL || 'https://localhost:3000',
+    TestUseIdam: process.env.USE_IDAM || 'true',
     TestIdamLoginUrl: process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
 
-    paymentEnvironments: ['test', 'preprod', 'prod'],
-
-    TestInviteIdListUrl: process.env.INVITE_ID_LIST_URL || '/inviteIdList',
-    TestPinUrl: process.env.PIN_URL || '/pin',
-    TestInvitationUrl: process.env.INVITATION_URL || '/executors/invitation',
-    TestIdamAddUserUrl: process.env.IDAM_ADD_USER_URL || '/testing-support/accounts',
-    TestIdamRole: process.env.IDAM_CITIZEN_ROLE || 'probate-private-beta',
-    TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '@probateTest.com',
+    TestInviteIdListUrl: process.env.INVITE_ID_LIST_URL,
+    TestPinUrl: process.env.PIN_URL,
+    TestInvitationUrl: process.env.INVITATION_URL,
+    TestIdamAddUserUrl: process.env.IDAM_ADD_USER_URL,
+    TestIdamRole: process.env.IDAM_CITIZEN_ROLE,
+    TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN,
 
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
 
-    TestEnvEmailAddress: process.TEST_EMAIL_ADDRESS || 'douglas.rice@hmcts.net',
-    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER || '07773055642',
+    TestEnvEmailAddress: process.TEST_EMAIL_ADDRESS,
+    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER,
     s2sStubErrorSequence: '000',
     links: {
         cookies: 'https://www.gov.uk/help/cookies',

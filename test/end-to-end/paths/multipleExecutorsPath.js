@@ -38,11 +38,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.selectIhtCompleted();
     I.selectInheritanceMethodPaper();
 
-    if (TestConfigurator.isFullPaymentEnvironment()) {
-        I.enterGrossAndNet('205', '600000', '300000');
-    } else {
-        I.enterGrossAndNet('205', '500', '400');
-    }
+    I.enterGrossAndNet('205', '600000', '300000');
 
     I.selectApplicantIsExecutor();
 
@@ -128,7 +124,9 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     //Retrieve the email urls for additional executors
     I.amOnPage(testConfig.TestInviteIdListUrl);
+    pause();
     grabIds = yield I.grabTextFrom('body');
+    pause();
 });
 
 Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), function* (I) {

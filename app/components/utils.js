@@ -57,6 +57,9 @@ exports.getStore = function (redisConfig, session) {
         const redisOptions = redisConfig.REDIS_USE_TLS === 'true' ? tlsOptions : {};
         logger.info('redisOptions');
         logger.info(redisOptions);
+        logger.info('REDIS_USE_TLS');
+        logger.info(redisConfig.REDIS_USE_TLS);
+        logger.info(`REDIS_USE_TLS : ${redisConfig.REDIS_USE_TLS}`);
         const client = new Redis(redisConfig.port, redisConfig.host, redisOptions);
         logger.info('REDIS LOGGING: loaded client');
         return new RedisStore({client});

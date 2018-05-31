@@ -55,7 +55,7 @@ exports.getStore = function (redisConfig, session) {
         //const useIDAM = config.app.useIDAM.toLowerCase();
         logger.info('tlsOptions');
         logger.info(tlsOptions);
-        
+
         const redisOptions = redisConfig.useTLS === 'true' ? tlsOptions : {};
         logger.info('redisOptions');
         logger.info(redisOptions);

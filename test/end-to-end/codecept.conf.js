@@ -10,7 +10,7 @@ exports.config = {
             'show': false,
             waitForAction: 2000,
             'switches': {
-                'ignoreHTTPSErrors' : true,
+                'ignoreHTTPSErrors': true,
                 'ignore-certificate-errors': true
             }
         },

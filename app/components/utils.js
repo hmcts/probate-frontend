@@ -52,14 +52,16 @@ exports.getStore = function (redisConfig, session) {
             password: redisConfig.password,
             tls: true
         };
+        //const useIDAM = config.app.useIDAM.toLowerCase();
         logger.info('tlsOptions');
         logger.info(tlsOptions);
-        const redisOptions = redisConfig.REDIS_USE_TLS === 'true' ? tlsOptions : {};
+        
+        const redisOptions = redisConfig.useTLS === 'true' ? tlsOptions : {};
         logger.info('redisOptions');
         logger.info(redisOptions);
-        logger.info('REDIS_USE_TLS');
-        logger.info(redisConfig.REDIS_USE_TLS);
-        logger.info(`REDIS_USE_TLS : ${redisConfig.REDIS_USE_TLS}`);
+        logger.info('useTLS');
+        logger.info(redisConfig.useTLS);
+        logger.info(`useTLS : ${redisConfig.useTLS}`);
         const client = new Redis(redisConfig.port, redisConfig.host, redisOptions);
         logger.info('REDIS LOGGING: loaded client');
         return new RedisStore({client});

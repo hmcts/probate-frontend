@@ -126,7 +126,7 @@ variable "use_auth" {
 }
 
 variable "redis_use_tls" {
-  default = "false"  //always true in cnp
+  default = "true"  //always true in cnp
 }
 
 variable "reform_envirionment_for_test" {

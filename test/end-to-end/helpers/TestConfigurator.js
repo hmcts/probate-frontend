@@ -8,7 +8,7 @@ class TestConfigurator {
         this.testBaseUrl = testConfig.TestIdamBaseUrl;
         this.useIdam = testConfig.TestUseIdam;
         this.setTestCitizenName();
-        this.testCitizenDomain = testConfig.TestCitizenDomain.replace("/@", "@");
+        this.testCitizenDomain = testConfig.TestCitizenDomain.replace('/@', '@');
         this.testCitizenPassword = randomstring.generate(9);
         this.testAddUserUrl = testConfig.TestIdamAddUserUrl;
         this.testDeleteUserUrl = this.testAddUserUrl + '/';

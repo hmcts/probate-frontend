@@ -125,6 +125,10 @@ variable "use_auth" {
   default = "false"
 }
 
+variable "redis_use_tls" {
+  default = "false"  //always true in cnp
+}
+
 variable "health_endpoint" {
   default = "/health"
 }

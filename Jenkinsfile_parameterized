@@ -10,9 +10,9 @@ properties([
 ])
 
 List<LinkedHashMap<String, Object>> secrets = [
-    secret('testIdamBaseUrl', 'TEST_IDAM_API_URL'),
-    secret('testIdamLoginUrl', 'TEST_IDAM_LOGIN_URL'),
-    secret('testUseIdam', 'TEST_USE_IDAM'),
+    secret('testIdamBaseUrl', 'IDAM_API_URL'),
+    secret('testIdamLoginUrl', 'IDAM_LOGIN_URL'),
+    secret('testUseIdam', 'USE_IDAM'),
     secret('testInviteIdListUrl', 'INVITE_ID_LIST_URL'),
     secret('testPinUrl', 'PIN_URL'),
     secret('testInvitationUrl', 'INVITATION_URL'),

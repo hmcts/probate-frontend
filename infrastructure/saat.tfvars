@@ -26,9 +26,9 @@ payment_create_url = "https://test.payments.reform.hmcts.net:4421/users/userId/p
 
 idam_service_api = "http://betadevbccidams2slb.reform.hmcts.net"
 
-probate_private_beta_auth_url = "http://idam-web-public-idam-saat.service.core-compute-idam-saat.internal/login"
+probate_private_beta_auth_url = "https://idam-test.dev.ccidam.reform.hmcts.net/login"
 
-idam_user_host = "http://idam-api-idam-saat.service.core-compute-idam-saat.internal"
+idam_user_host = "http://betaDevBccidamAppLB.reform.hmcts.net"
 
 probate_deployment_env = "test"
 

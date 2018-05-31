@@ -1,5 +1,6 @@
 const basicAuth = require('basic-auth');
 const common = require('app/resources/en/translation/common.json');
+const logger = require('app/components/logger')();
 
 /**
  * Simple basic auth middleware for use with Express 4.x.
@@ -40,15 +41,24 @@ exports.forceHttps = function(req, res, next) {
 };
 
 exports.getStore = function (redisConfig, session) {
+    logger.info('REDIS LOGGING: called getStore');
     if (redisConfig.enabled === 'true') {
+        logger.info(`REDIS LOGGING: redisConfig.enabled: ${redisConfig.enabled}`);
         const Redis = require('ioredis');
+        logger.info('REDIS LOGGING: loaded Redis');
         const RedisStore = require('connect-redis')(session);
+        logger.info('REDIS LOGGING: loaded RedisStore');
         const tlsOptions = {
             password: redisConfig.password,
             tls: true
         };
+        logger.info('tlsOptions');
+        logger.info(tlsOptions);
         const redisOptions = redisConfig.useTLS === 'true' ? tlsOptions : {};
+        logger.info('redisOptions');
+        logger.info(redisOptions);
         const client = new Redis(redisConfig.port, redisConfig.host, redisOptions);
+        logger.info('REDIS LOGGING: loaded client');
         return new RedisStore({client});
     }
     const MemoryStore = require('express-session').MemoryStore;

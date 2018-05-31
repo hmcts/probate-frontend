@@ -5,11 +5,10 @@ const helperName = 'Puppeteer';
 
 class PuppeteerHelper extends Helper {
 
-    clickBackBrowserButton() {
-
+    clickBrowserBackButton() {
         const page = this.helpers[helperName].page;
 
-        return page.back();
+        return page.goBack();
     }
 
 }

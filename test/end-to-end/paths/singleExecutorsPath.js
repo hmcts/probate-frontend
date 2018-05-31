@@ -66,15 +66,9 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     // Extra copies task
     I.selectATask(taskListContent.taskNotStarted);
 
-    if (TestConfigurator.isFullPaymentEnvironment()) {
-        I.enterUkCopies('5');
-        I.selectOverseasAssets();
-        I.enterOverseasCopies('7');
-    } else {
-        I.enterUkCopies('0');
-        I.selectOverseasAssets();
-        I.enterOverseasCopies('0');
-    }
+    I.enterUkCopies('5');
+    I.selectOverseasAssets();
+    I.enterOverseasCopies('7');
 
     I.seeCopiesSummary();
 
@@ -82,10 +76,8 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.selectATask(taskListContent.taskNotStarted);
     I.seePaymentBreakdownPage();
 
-    if (TestConfigurator.isFullPaymentEnvironment()) {
-        I.seeGovUkPaymentPage();
-        I.seeGovUkConfirmPage();
-    }
+    I.seeGovUkPaymentPage();
+    I.seeGovUkConfirmPage();
 
     I.seePaymentStatusPage();
 

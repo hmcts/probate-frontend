@@ -129,6 +129,9 @@ variable "redis_use_tls" {
   default = "false"  //always true in cnp
 }
 
+variable "reform_envirionment_for_test" {
+  default = "prod" 
+}
 variable "health_endpoint" {
   default = "/health"
 }

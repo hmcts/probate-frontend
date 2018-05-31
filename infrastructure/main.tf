@@ -162,6 +162,7 @@ module "probate-frontend" {
     SERVICE_ID = "${data.vault_generic_secret.probate_service_id.data["value"]}"
     SITE_ID = "${data.vault_generic_secret.probate_site_id.data["value"]}"
 
+    REFORM_ENVIRONMENT = "${var.reform_envirionment_for_test}"
     // Functional tests
     //TEST_E2E_FRONTEND_URL = "${var.probate_frontend_hostname}"
     //E2E_FRONTEND_URL = "${var.probate_frontend_hostname}"

@@ -4,6 +4,8 @@ const testConfig = require('test/config');
 module.exports = function () {
     const I = this;
 
+    I.wait(5);
+
     I.fillField('#card-no', '4242424242424242');
     I.fillField('#expiry-month', '06');
     I.fillField('#expiry-year', '99');

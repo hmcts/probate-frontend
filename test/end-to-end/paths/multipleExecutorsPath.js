@@ -124,7 +124,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     //Retrieve the email urls for additional executors
     I.amOnPage(testConfig.TestInviteIdListUrl);
-    grabIds = yield I.grabTextFrom('body');
+    grabIds = yield I.grabTextFrom('pre');
 });
 
 Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), function* (I) {
@@ -135,12 +135,12 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
         I.amOnPage(testConfig.TestInvitationUrl + '/' + idList.ids[i]);
         I.amOnPage(testConfig.TestFrontendUrl + '/pin');
 
-        const grabPins = yield I.grabTextFrom('body');
+        const grabPins = yield I.grabTextFrom('pre');
         const pinList = JSON.parse(grabPins);
 
-        yield I.clickBackBrowserButton();
+        yield I.clickBrowserBackButton();
 
-        I.enterPinCode(pinList.pin);
+        I.enterPinCode(pinList.pin.toString());
         I.seeCoApplicantStartPage();
 
         I.agreeDisagreeDeclaration('Agree');
@@ -158,15 +158,9 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     // Extra copies task
     I.selectATask(taskListContent.taskNotStarted);
 
-    if (TestConfigurator.isFullPaymentEnvironment()) {
-        I.enterUkCopies('5');
-        I.selectOverseasAssets();
-        I.enterOverseasCopies('7');
-    } else {
-        I.enterUkCopies('0');
-        I.selectOverseasAssets();
-        I.enterOverseasCopies('0');
-    }
+    I.enterUkCopies('5');
+    I.selectOverseasAssets();
+    I.enterOverseasCopies('7');
 
     I.seeCopiesSummary();
 
@@ -174,10 +168,8 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     I.selectATask(taskListContent.taskNotStarted);
     I.seePaymentBreakdownPage();
 
-    if (TestConfigurator.isFullPaymentEnvironment()) {
-        I.seeGovUkPaymentPage();
-        I.seeGovUkConfirmPage();
-    }
+    I.seeGovUkPaymentPage();
+    I.seeGovUkConfirmPage();
 
     I.seePaymentStatusPage();
 

@@ -6,6 +6,8 @@ const testConfig = require('test/config.js');
 class TestConfigurator {
 
     constructor() {
+
+        console.log('envs>>>', process.env);
         this.testBaseUrl = testConfig.TestIdamBaseUrl;
         this.useIdam = testConfig.TestUseIdam;
         this.setTestCitizenName();

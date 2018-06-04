@@ -18,7 +18,7 @@ List<LinkedHashMap<String, Object>> secrets = [
     secret('testInvitationUrl', 'INVITATION_URL'),
     secret('testIdamAddUserUrl', 'IDAM_ADD_USER_URL'),
     secret('testIdamRole', 'IDAM_CITIZEN_ROLE'),
-    secret('testCitizenDomain1', 'CITIZEN_EMAIL_DOMAIN'),
+    secret('testCitizenDomain', 'CITIZEN_EMAIL_DOMAIN'),
     secret('testEnvEmailAddress', 'TEST_EMAIL_ADDRESS'),
     secret('testEnvMobileNumber', 'TEST_MOBILE_NUMBER'),
     secret('testTerms', 'TERMS_AND_CONDITIONS'),

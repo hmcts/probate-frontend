@@ -26,12 +26,13 @@ class TestConfigurator {
                 {
                     'email': this.getTestCitizenEmail(),
                     'forename': this.getTestCitizenName(),
-                    'surname': this.getTestCitizenName(),
+                    'surname': this.getTeslogtCitizenName(),
                     'user_group_name': this.getTestRole(),
                     'password': this.getTestCitizenPassword()
                 };
 
-            console.log('getTestAddUserURL>>>', this.getTestAddUserURL);
+            console.log('userDetails>>>', userDetails);
+            console.log('getTestAddUserURL>>>', this.getTestAddUserURL());
 
             request({
                     url: this.getTestAddUserURL(),

@@ -31,7 +31,6 @@ class TestConfigurator {
                     'password': this.getTestCitizenPassword()
                 };
 
-
             console.log('userDetails>>>', userDetails);
             console.log('getTestAddUserURL>>>', this.getTestAddUserURL());
 

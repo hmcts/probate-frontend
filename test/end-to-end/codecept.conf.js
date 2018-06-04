@@ -7,7 +7,7 @@ exports.config = {
         'Puppeteer': {
             'url': testConfig.TestFrontendUrl || 'http://localhost:3000',
             'waitForTimeout': 60000,
-            'show': false,
+            'show': true,
             waitForAction: 2000,
             'chrome': {
                 'ignoreHTTPSErrors': true
@@ -18,6 +18,9 @@ exports.config = {
         },
         'PuppeteerHelper': {
             'require': './helpers/PuppeteerHelper.js'
+        },
+        'JSWaitHelper': {
+            'require': './helpers/JSWaitHelper.js'
         }
     },
     'include': {

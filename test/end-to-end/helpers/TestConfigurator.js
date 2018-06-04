@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const randomstring = require('randomstring');
 const request = require('request');
 const testConfig = require('test/config.js');
@@ -73,6 +74,8 @@ class TestConfigurator {
     }
 
     getTestCitizenEmail() {
+        console.log('this.testCitizenDomain>>>', this.testCitizenDomain);
+        console.log('full>>>', this.testCitizenName + '@' + this.testCitizenDomain);
         return this.testCitizenName + '@' + this.testCitizenDomain;
     }
 

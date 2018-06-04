@@ -35,7 +35,7 @@ probate_deployment_env = "test"
 
 probate_frontend_port = "3101"
 
-probate_frontend_use_idam = "true"
+probate_frontend_use_idam = "false"
 
 probate_frontend_use_redis = "true"
 

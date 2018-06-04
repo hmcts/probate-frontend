@@ -8,6 +8,7 @@ exports.config = {
             'url': testConfig.TestFrontendUrl || 'http://localhost:3000',
             'waitForTimeout': 60000,
              waitForAction: 2000,
+            'show': false,
             'chrome': {
                 'ignoreHTTPSErrors': true
             },

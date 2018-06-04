@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const randomstring = require('randomstring');
 const request = require('request');
 const testConfig = require('test/config.js');
@@ -6,8 +5,6 @@ const testConfig = require('test/config.js');
 class TestConfigurator {
 
     constructor() {
-
-        console.log('envs>>>', process.env);
         this.testBaseUrl = testConfig.TestIdamBaseUrl;
         this.useIdam = testConfig.TestUseIdam;
         this.setTestCitizenName();
@@ -32,9 +29,6 @@ class TestConfigurator {
                     'user_group_name': this.getTestRole(),
                     'password': this.getTestCitizenPassword()
                 };
-
-            console.log('userDetails>>>', userDetails);
-            console.log('getTestAddUserURL>>>', this.getTestAddUserURL());
 
             request({
                     url: this.getTestAddUserURL(),
@@ -79,8 +73,6 @@ class TestConfigurator {
     }
 
     getTestCitizenEmail() {
-        console.log('this.testCitizenDomain>>>', this.testCitizenDomain);
-        console.log('full>>>', this.testCitizenName + this.testCitizenDomain);
         return this.testCitizenName + this.testCitizenDomain;
     }
 
@@ -99,8 +91,6 @@ class TestConfigurator {
      setEnvVars() {
          process.env.testCitizenEmail = this.getTestCitizenEmail();
          process.env.testCitizenPassword = this.getTestCitizenPassword();
-         console.log('email env>>>', process.env.testCitizenEmail);
-         console.log('password env>>>', process.env.testCitizenPassword);
      }
 
      resetEnvVars() {

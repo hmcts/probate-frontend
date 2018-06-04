@@ -11,7 +11,6 @@ module.exports = {
     TestIdamAddUserUrl: process.env.IDAM_ADD_USER_URL,
     TestIdamRole: process.env.IDAM_CITIZEN_ROLE,
     TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN,
-
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
 
     TestEnvEmailAddress: process.TEST_EMAIL_ADDRESS,

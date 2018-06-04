@@ -248,6 +248,13 @@ describe('DetectDataChange.js', () => {
                 expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(false);
                 done();
             });
+
+            it('when step.schemaFile is undefined', (done) => {
+                delete step.schemaFile;
+                const detectDataChange = new DetectDataChange();
+                expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(false);
+                done();
+            });
         });
     });
 });

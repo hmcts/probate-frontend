@@ -7,12 +7,12 @@ exports.config = {
         'Puppeteer': {
             'url': testConfig.TestFrontendUrl || 'http://localhost:3000',
             'waitForTimeout': 60000,
-            'show': true,
-            waitForAction: 2000,
+             waitForAction: 2000,
             'chrome': {
                 'ignoreHTTPSErrors': true
             },
             'switches': {
+                'ignoreHTTPSErrors': true,
                 'ignore-certificate-errors': true
             }
         },

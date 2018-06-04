@@ -34,10 +34,12 @@ probate_deployment_env = "test"
 
 probate_frontend_port = "3101"
 
-probate_frontend_use_idam = "true"
+probate_frontend_use_idam = "false"
 
 probate_frontend_use_redis = "true"
 
+reform_envirionment_for_test = "aat"
+ 
 probate_business_service_url = "http://betaPreProdprobateApp01.reform.hmcts.net:4101/validate"
 
 probate_submit_service_url = "http://betaPreProdprobateApp01.reform.hmcts.net:4102/submit"

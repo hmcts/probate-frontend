@@ -19,6 +19,8 @@ f5_redis_listen_port = "6379"
 probate_frontend_https = "false"
 probate_frontend_use_auth = "false"
 
+reform_envirionment_for_test = "sandbox"
+
 payment_return_url = "https://probate-frontend-sandbox-staging.service.core-compute-sandbox.internal/payment-status"
 
 payment_create_url = "https://test.payments.reform.hmcts.net:4421/users/userId/payments"

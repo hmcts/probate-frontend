@@ -31,6 +31,8 @@ class TestConfigurator {
                     'password': this.getTestCitizenPassword()
                 };
 
+            console.log('getTestAddUserURL>>>', this.getTestAddUserURL);
+
             request({
                     url: this.getTestAddUserURL(),
                     method: 'POST',
@@ -94,6 +96,8 @@ class TestConfigurator {
      setEnvVars() {
          process.env.testCitizenEmail = this.getTestCitizenEmail();
          process.env.testCitizenPassword = this.getTestCitizenPassword();
+         console.log('email env>>>', process.env.testCitizenEmail);
+         console.log('password env>>>', process.env.testCitizenPassword);
      }
 
      resetEnvVars() {

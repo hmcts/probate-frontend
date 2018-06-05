@@ -8,13 +8,15 @@ class TestConfigurator {
         this.testBaseUrl = testConfig.TestIdamBaseUrl;
         this.useIdam = testConfig.TestUseIdam;
         this.setTestCitizenName();
-        this.testCitizenDomain = testConfig.TestCitizenDomain.replace('/@', '@');
+        this.testCitizenDomain = testConfig.TestCitizenDomain;
+        //.replace('/@', '@');
         this.testCitizenPassword = randomstring.generate(9);
         this.testAddUserUrl = testConfig.TestIdamAddUserUrl;
         this.testDeleteUserUrl = this.testAddUserUrl + '/';
         this.role = testConfig.TestIdamRole;
         this.paymentEnvironments = testConfig.paymentEnvironments;
         this.TestFrontendUrl = testConfig.TestFrontendUrl;
+        this.useGovPay = testConfig.TestUseGovPay;
     }
 
     getBefore() {
@@ -97,6 +99,10 @@ class TestConfigurator {
          process.env.testCitizenEmail = null;
          process.env.testCitizenPassword = null;
      }
+
+    getUseGovPay() {
+        return this.useGovPay;
+    }
 
 }
 

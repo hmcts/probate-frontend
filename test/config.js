@@ -5,6 +5,7 @@ module.exports = {
     TestUseIdam: process.env.USE_IDAM || 'true',
     TestIdamLoginUrl: process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
 
+    TestUseGovPay: process.env.USE_GOV_PAY || 'true',
     TestInviteIdListUrl: process.env.INVITE_ID_LIST_URL,
     TestPinUrl: process.env.PIN_URL,
     TestInvitationUrl: process.env.INVITATION_URL,

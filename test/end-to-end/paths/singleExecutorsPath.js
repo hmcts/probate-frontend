@@ -33,7 +33,11 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.selectIhtCompleted();
     I.selectInheritanceMethodPaper();
 
-    I.enterGrossAndNet('205', '600000', '300000');
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.enterGrossAndNet('205', '600000', '300000');
+    } else {
+        I.enterGrossAndNet('205', '500', '400');
+    }
 
     I.selectApplicantIsExecutor();
 
@@ -66,9 +70,15 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     // Extra copies task
     I.selectATask(taskListContent.taskNotStarted);
 
-    I.enterUkCopies('5');
-    I.selectOverseasAssets();
-    I.enterOverseasCopies('7');
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.enterUkCopies('5');
+        I.selectOverseasAssets();
+        I.enterOverseasCopies('7');
+    } else {
+        I.enterUkCopies('0');
+        I.selectOverseasAssets();
+        I.enterOverseasCopies('0');
+    }
 
     I.seeCopiesSummary();
 
@@ -76,8 +86,10 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.selectATask(taskListContent.taskNotStarted);
     I.seePaymentBreakdownPage();
 
-    I.seeGovUkPaymentPage();
-    I.seeGovUkConfirmPage();
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.seeGovUkPaymentPage();
+        I.seeGovUkConfirmPage();
+    }
 
     I.seePaymentStatusPage();
 

@@ -83,7 +83,7 @@ module "probate-frontend" {
   location = "${var.location}"
   env = "${var.env}"
   ilbIp = "${var.ilbIp}"
-  is_frontend  = true
+  is_frontend = "${var.env != "preview" ? 1: 0}"
   subscription = "${var.subscription}"
   asp_name     = "${var.product}-${var.env}-asp"
   additional_host_name = "${var.external_host_name}"  // need to give proper url

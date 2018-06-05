@@ -51,5 +51,12 @@ withParameterizedPipeline('nodejs', product, component, params.ENVIRONMENT, slot
   }
 
   loadVaultSecrets(secrets)
-  
+  after('functionalTest:saat') {
+        publishHTML target: [
+                reportDir            : "test/end-to-end/output/",
+                reportFiles          : "mochawesome.html",
+                reportName           : "SAAT Functional Tests",
+                alwaysLinkToLastBuild: true
+        ]
+    }
 }

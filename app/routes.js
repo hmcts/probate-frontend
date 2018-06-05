@@ -86,15 +86,12 @@ router.use((req, res, next) => {
 
 router.use((req, res, next) => {
     const formdata = req.session.form;
-    logger().info(`formdata: ${formdata}`);
     const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
-    logger().info(`hasMultipleApplicants: ${hasMultipleApplicants}`);
 
     if (hasMultipleApplicants &&
         formdata.executors.invitesSent === 'true' &&
         get(formdata, 'declaration.declarationCheckbox')
     ) {
-        logger().info('we have multiple applicants');
         services.checkAllAgreed(req.session.regId).then(data => {
             req.session.haveAllExecutorsDeclared = data;
             next();
@@ -103,21 +100,15 @@ router.use((req, res, next) => {
             next(err);
         });
     } else {
-        logger().info('we do not have multiple applicants');
         next();
     }
 });
 
 const steps = initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui/`]);
 
-logger().info(`steps: ${steps}`);
-
 Object.entries(steps).forEach(([, step]) => {
-    logger().info(`step: ${step}`);
     router.get(step.constructor.getUrl(), step.runner().GET(step));
-    logger().info('did router.get');
     router.post(step.constructor.getUrl(), step.runner().POST(step));
-    logger().info('did router.post');
 });
 
 router.get('/payment', (req, res) => {

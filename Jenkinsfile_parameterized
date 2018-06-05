@@ -52,9 +52,9 @@ withParameterizedPipeline('nodejs', product, component, params.ENVIRONMENT, slot
 
   loadVaultSecrets(secrets)
   after('functionalTest:saat') {
-	sh "cp -r test/end-to-end/output/mochawesome.* smoke-output/."
+	sh "cp -r output/mochawesome.* smoke-output/."
         publishHTML target: [
-                reportDir            : "test/end-to-end/output/",
+                reportDir            : "output/",
                 reportFiles          : "mochawesome.html",
                 reportName           : "SAAT Functional Tests",
                 alwaysLinkToLastBuild: true

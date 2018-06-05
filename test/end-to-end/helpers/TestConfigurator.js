@@ -15,6 +15,7 @@ class TestConfigurator {
         this.role = testConfig.TestIdamRole;
         this.paymentEnvironments = testConfig.paymentEnvironments;
         this.TestFrontendUrl = testConfig.TestFrontendUrl;
+        this.useGovPay = testConfig.TestUseGovPay;
     }
 
     getBefore() {
@@ -97,6 +98,10 @@ class TestConfigurator {
          process.env.testCitizenEmail = null;
          process.env.testCitizenPassword = null;
      }
+
+    getUseGovPay() {
+        return this.useGovPay;
+    }
 
 }
 

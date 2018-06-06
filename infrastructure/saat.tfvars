@@ -24,7 +24,7 @@ payment_return_url = "http://probate-frontend-saat-staging.service.core-compute-
 
 payment_create_url = "https://test.payments.reform.hmcts.net:4421/users/userId/payments"
 
-idam_service_api = "http://betadevbccidams2slb.reform.hmcts.net"
+idam_service_api = "http://rpe-service-auth-provider-saat.service.core-compute-saat.internal"
 
 probate_private_beta_auth_url = "https://idam-test.dev.ccidam.reform.hmcts.net/login"
 

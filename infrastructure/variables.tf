@@ -125,6 +125,13 @@ variable "use_auth" {
   default = "false"
 }
 
+variable "redis_use_tls" {
+  default = "true"  //always true in cnp
+}
+
+variable "reform_envirionment_for_test" {
+  default = "prod" 
+}
 variable "health_endpoint" {
   default = "/health"
 }
@@ -206,4 +213,6 @@ variable "payment_return_url" {
   type = "string"
 }
 
-
+variable "capacity" {
+  default = "1"
+}

@@ -1,6 +1,14 @@
-const {get} = require('lodash'),
-    journey = require('app/journeys/probate'),
-    steps = require('app/core/initSteps').steps;
+'use strict';
+
+const {get} = require('lodash');
+const journey = require('app/journeys/probate');
+const steps = require('app/core/initSteps').steps;
+
+const nextOptionStep = (currentStep, ctx) => {
+    const match = currentStep.nextStepOptions(ctx).options
+        .find((option) => get(ctx, option.key) === option.value);
+    return match ? match.choice : 'otherwise';
+};
 
 const nextStep = (currentStep, ctx) => {
     let nextStepName = journey.stepList[currentStep.name];
@@ -8,12 +16,6 @@ const nextStep = (currentStep, ctx) => {
         nextStepName = nextStepName[nextOptionStep(currentStep, ctx)];
     }
     return steps[nextStepName];
-};
-
-const nextOptionStep = (currentStep, ctx) => {
-    const match = currentStep.nextStepOptions(ctx).options
-                    .find((option) => get(ctx, option.key) === option.value);
-    return match ? match.choice : 'otherwise';
 };
 
 module.exports = nextStep;

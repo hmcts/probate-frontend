@@ -5,16 +5,22 @@ exports.config = {
     'output': './output',
     'helpers': {
         'Puppeteer': {
-            'url': testConfig.TestFrontendUrl || 'https://localhost:3000',
-            'waitForTimeout': 10000,
-            'show': true,
-            waitForAction: 2000,
+            'url': testConfig.TestFrontendUrl || 'http://localhost:3000',
+            'waitForTimeout': 60000,
+             waitForAction: 2000,
+            'show': false,
+            'chrome': {
+                'ignoreHTTPSErrors': true
+            },
             'switches': {
                 'ignore-certificate-errors': true
             }
         },
         'PuppeteerHelper': {
             'require': './helpers/PuppeteerHelper.js'
+        },
+        'JSWaitHelper': {
+            'require': './helpers/JSWaitHelper.js'
         }
     },
     'include': {

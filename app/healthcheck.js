@@ -3,25 +3,20 @@
 const config = require('app/config');
 const {asyncFetch, fetchOptions} = require('app/components/api-utils');
 const {map} = require('lodash');
-const url = require('url');
 const router = require('express').Router();
 const os = require('os');
 const gitProperties = require('git.properties');
+const FormatUrl = require('app/utils/FormatUrl');
 const gitRevision = process.env.GIT_REVISION;
 const osHostname = os.hostname();
 const gitCommitId = gitProperties.git.commit.id;
-const commonContent = require('app/resources/en/translation/common');
 
-const getServiceHealthUrl = (serviceUrl) => {
-    serviceUrl = url.parse(serviceUrl);
-    const port = serviceUrl.port ? `:${serviceUrl.port}` : '';
-    return `${serviceUrl.protocol}//${serviceUrl.hostname}${port}${config.healthEndpoint}`;
-};
+const formatHealthUrl = url => FormatUrl.format(url, config.healthEndpoint);
 
 const services = [
-    {'name': 'Validation Service', 'url': getServiceHealthUrl(config.services.validation.url)},
-    {'name': 'Submit Service', 'url': getServiceHealthUrl(config.services.submit.url)},
-    {'name': 'Persistence Service', 'url': getServiceHealthUrl(config.services.persistence.url)}
+    {'name': 'Validation Service', 'url': formatHealthUrl(config.services.validation.url)},
+    {'name': 'Submit Service', 'url': formatHealthUrl(config.services.submit.url)},
+    {'name': 'Persistence Service', 'url': formatHealthUrl(config.services.persistence.url)}
 ];
 
 const createPromisesList = (services) => {
@@ -49,6 +44,5 @@ router.get('/', (req, res) => {
 });
 
 module.exports = router;
-module.exports.getServiceHealthUrl = getServiceHealthUrl;
 module.exports.osHostname = osHostname;
 module.exports.gitCommitId = gitCommitId;

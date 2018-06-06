@@ -19,11 +19,13 @@ f5_redis_listen_port = "6379"
 probate_frontend_https = "true"
 probate_frontend_use_auth = "false"
 
+reform_envirionment_for_test = "preview"
+
 payment_return_url = "https://probate-frontend-preview.service.core-compute-preview.internal/payment-status"
 
 payment_create_url = "https://preprod.payments.reform.hmcts.net:4401/users/userId/payments"
 
-idam_service_api = http://betaPreProdccidamAppLB.reform.hmcts.net:4502"
+idam_service_api = "http://betaPreProdccidamAppLB.reform.hmcts.net:4502"
 
 probate_private_beta_auth_url = "https://idam.preprod.ccidam.reform.hmcts.net/login"
 

@@ -1,8 +1,10 @@
+'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {get} = require('lodash');
 const WillWrapper = require('app/wrappers/Will');
 
-module.exports = class ApplicantNameAsOnWill extends ValidationStep {
+class ApplicantNameAsOnWill extends ValidationStep {
 
     static getUrl() {
         return '/applicant-name-as-on-will';
@@ -15,9 +17,10 @@ module.exports = class ApplicantNameAsOnWill extends ValidationStep {
         };
     }
 
-    * handleGet(ctx, formdata) {
+    handleGet(ctx, formdata) {
         ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicils();
         return [ctx];
     }
+}
 
-};
+module.exports = ApplicantNameAsOnWill;

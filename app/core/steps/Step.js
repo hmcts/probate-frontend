@@ -1,3 +1,5 @@
+'use strict';
+
 const {mapValues, map, reduce, escape, isObject, isEmpty, get} = require('lodash');
 const services = require('app/components/services');
 const UIStepRunner = require('app/core/runners/UIStepRunner');
@@ -5,7 +7,7 @@ const journeyMap = require('app/core/journeyMap');
 const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
 const ExecutorsWrapper = require('app/wrappers/Executors');
 
-module.exports = class Step {
+class Step {
 
     static getUrl() {
         throw new ReferenceError('Step must override #url');
@@ -52,11 +54,11 @@ module.exports = class Step {
         return ctx;
     }
 
-    * handleGet(ctx) {
+    handleGet(ctx) {
         return [ctx];
     }
 
-    * handlePost(ctx, errors) {
+    handlePost(ctx, errors) {
         return [ctx, errors];
     }
 
@@ -87,12 +89,12 @@ module.exports = class Step {
     generateFields(ctx, errors) {
         let fields = mapValues(ctx, (value) => ({value: isObject(value) ? value : escape(value), error: false}));
         if (!isEmpty(errors)) {
-            fields = mapErrorsToFields(errors, fields);
+            fields = mapErrorsToFields(fields, errors);
         }
         return fields;
     }
 
-    * persistFormData(id, formdata, sessionID) {
+    persistFormData(id, formdata, sessionID) {
         return services.saveFormData(id, formdata, sessionID);
     }
 
@@ -132,4 +134,6 @@ module.exports = class Step {
             get(session, 'form.declaration.declarationCheckbox')
         ].every(param => param === 'true');
     }
-};
+}
+
+module.exports = Step;

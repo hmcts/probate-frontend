@@ -1,4 +1,3 @@
-//const pageUnderTest = require("app/steps/ui/payment/breakdown/index");
 const testConfig = require('test/config');
 
 module.exports = function () {

@@ -1,12 +1,13 @@
-const initSteps = require('app/core/initSteps'),
-    assert = require('chai').assert;
+'use strict';
 
-describe('RemoveAlias', function () {
+const initSteps = require('app/core/initSteps');
+const assert = require('chai').assert;
 
-    const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
+describe('RemoveAlias', () => {
+    const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 
-    describe('getContextData', function () {
-        it('Removes an alias from the context', function (done) {
+    describe('getContextData', () => {
+        it('Removes an alias from the context', (done) => {
             const RemoveAlias = steps.RemoveAlias;
             const req = {
                 params: ['name_1'],
@@ -30,7 +31,6 @@ describe('RemoveAlias', function () {
                     }
                 }
             };
-
             const expected = {
                 name_0: {
                     firstName: 'alias1',
@@ -41,15 +41,14 @@ describe('RemoveAlias', function () {
                     lastName: 'three'
                 }
             };
-
             const ret = RemoveAlias.getContextData(req);
+
             assert.deepEqual(expected, ret.otherNames);
             done();
         });
     });
 
     describe('handlePost', function () {
-
         it('updates formdata from the context', function (done) {
             let ctx = {
                 otherNames: {
@@ -69,12 +68,10 @@ describe('RemoveAlias', function () {
             };
             let errors = {};
             const formdata = {};
-
             const RemoveAlias = steps.RemoveAlias;
-            [ctx, errors] = RemoveAlias.handlePost(ctx, errors, formdata).next().value;
+            [ctx, errors] = RemoveAlias.handlePost(ctx, errors, formdata);
 
             assert.deepEqual(ctx.otherNames, formdata.deceased.otherNames);
-
             done();
         });
     });

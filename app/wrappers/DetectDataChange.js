@@ -34,6 +34,7 @@ class DetectDataChanges {
 
         if (hasMultipleApplicants &&
             (req.session.haveAllExecutorsDeclared !== 'true' || multipleApplicantsToSingle) &&
+            step.schemaFile &&
             step.schemaFile.id !== executorsInviteSchema.id &&
             formdata[step.section] &&
             formdata.declaration &&

@@ -115,7 +115,7 @@ router.get('/payment', (req, res) => {
     res.redirect(301, '/documents');
 });
 
-if (['dev', 'test', 'demo'].includes(config.environment)) {
+if (['sandbox', 'saat', 'preview', 'sprod', 'demo', 'aat'].includes(config.environment)) {
     router.get('/inviteIdList', (req, res) => {
         const formdata = req.session.form;
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);

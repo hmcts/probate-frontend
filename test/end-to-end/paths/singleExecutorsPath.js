@@ -33,7 +33,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.selectIhtCompleted();
     I.selectInheritanceMethodPaper();
 
-    if (TestConfigurator.isFullPaymentEnvironment()) {
+    if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterGrossAndNet('205', '600000', '300000');
     } else {
         I.enterGrossAndNet('205', '500', '400');
@@ -70,7 +70,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     // Extra copies task
     I.selectATask(taskListContent.taskNotStarted);
 
-    if (TestConfigurator.isFullPaymentEnvironment()) {
+    if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterUkCopies('5');
         I.selectOverseasAssets();
         I.enterOverseasCopies('7');
@@ -86,7 +86,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.selectATask(taskListContent.taskNotStarted);
     I.seePaymentBreakdownPage();
 
-    if (TestConfigurator.isFullPaymentEnvironment()) {
+    if (TestConfigurator.getUseGovPay() === 'true') {
         I.seeGovUkPaymentPage();
         I.seeGovUkConfirmPage();
     }

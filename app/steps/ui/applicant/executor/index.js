@@ -1,6 +1,9 @@
-const ValidationStep = require('app/core/steps/ValidationStep'),
-    json = require('app/resources/en/translation/applicant/executor.json');
-module.exports = class ApplicantExecutor extends ValidationStep {
+'use strict';
+
+const ValidationStep = require('app/core/steps/ValidationStep');
+const json = require('app/resources/en/translation/applicant/executor');
+
+class ApplicantExecutor extends ValidationStep {
 
     static getUrl() {
         return '/applicant-executor';
@@ -10,7 +13,7 @@ module.exports = class ApplicantExecutor extends ValidationStep {
         return this.next(ctx).constructor.getUrl('notExecutor');
     }
 
-    * handlePost(ctx, errors) {
+    handlePost(ctx, errors) {
         if (ctx.executor === json.optionNo) {
             super.setHardStop(ctx, 'notExecutor');
         }
@@ -25,5 +28,6 @@ module.exports = class ApplicantExecutor extends ValidationStep {
         };
         return nextStepOptions;
     }
+}
 
-};
+module.exports = ApplicantExecutor;

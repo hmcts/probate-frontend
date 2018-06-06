@@ -1,8 +1,10 @@
-const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames/index'),
-      {unset, set, isEmpty} = require('lodash'),
-      ActionStepRunner = require('app/core/runners/ActionStepRunner');
+'use strict';
 
-module.exports = class RemoveAlias extends DeceasedOtherNames {
+const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames/index');
+const {unset, set, isEmpty} = require('lodash');
+const ActionStepRunner = require('app/core/runners/ActionStepRunner');
+
+class RemoveAlias extends DeceasedOtherNames {
 
     static getUrl(index = '*') {
         return `/other-names/remove/${index}`;
@@ -16,15 +18,15 @@ module.exports = class RemoveAlias extends DeceasedOtherNames {
     getContextData(req) {
         const ctx = super.getContextData(req);
         ctx.index = req.params[0];
-        unset(ctx, 'otherNames.'+ctx.index);
+        unset(ctx, `otherNames.${ctx.index}`);
         return ctx;
     }
 
     runner() {
- return new ActionStepRunner();
-}
+        return new ActionStepRunner();
+    }
 
-    * handlePost(ctx, errors, formdata) {
+    handlePost(ctx, errors, formdata) {
         set(formdata, 'deceased.otherNames', ctx.otherNames);
         if (!isEmpty(errors)) {
             set(formdata, 'deceased.errors', errors);
@@ -32,4 +34,6 @@ module.exports = class RemoveAlias extends DeceasedOtherNames {
         return [ctx, errors];
     }
 
-};
+}
+
+module.exports = RemoveAlias;

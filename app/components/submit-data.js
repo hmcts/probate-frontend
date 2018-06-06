@@ -1,34 +1,8 @@
-const {mapValues, get} = require('lodash'),
-      steps = require('app/core/initSteps').steps;
+'use strict';
+
+const {mapValues, get} = require('lodash');
+const steps = require('app/core/initSteps').steps;
 const ExecutorsWrapper = require('app/wrappers/Executors');
-
-const submitData = function (ctx, data) {
-
-    const mappedData = mapValues(dataMap, path => get(data, path));
-
-    mappedData.copiesUK = get(data, 'copies.uk', 0);
-
-    if (get(data, 'assets.assetsoverseas') === steps.AssetsOverseas.generateContent(ctx).optionNo) {
-        mappedData.copiesOverseas = 0;
-    }
-
-    const ihtMethod = get(data, 'iht.method');
-    if (ihtMethod === steps.IhtMethod.generateContent(ctx).paperOption) {
-        mappedData.ihtIdentifier = steps.CopiesOverseas.commonContent().notApplicable;
-    } else {
-        mappedData.ihtIdentifier = get(data, 'iht.identifier');
-        mappedData.ihtForm = 'online';
-    }
-
-    const executorsWrapper = new ExecutorsWrapper(data.executors);
-
-    mappedData.noOfApplicants = executorsWrapper.executorsApplying().length;
-    mappedData.executorsApplying = executorsWrapper.executorsApplying(true);
-    mappedData.executorsNotApplying = executorsWrapper.executorsNotApplying(true);
-
-    return mappedData;
-};
-
 const dataMap = {
     applicantFirstName: 'applicant.firstName',
     applicantLastName: 'applicant.lastName',
@@ -69,6 +43,33 @@ const dataMap = {
     legalStatement: 'declaration.legalStatement',
     declaration: 'declaration.declaration',
     payloadVersion: 'payloadVersion'
+};
+
+const submitData = (ctx, data) => {
+    const mappedData = mapValues(dataMap, path => get(data, path));
+
+    mappedData.copiesUK = get(data, 'copies.uk', 0);
+
+    if (get(data, 'assets.assetsoverseas') === steps.AssetsOverseas.generateContent(ctx).optionNo) {
+        mappedData.copiesOverseas = 0;
+    }
+
+    const ihtMethod = get(data, 'iht.method');
+
+    if (ihtMethod === steps.IhtMethod.generateContent(ctx).paperOption) {
+        mappedData.ihtIdentifier = steps.CopiesOverseas.commonContent().notApplicable;
+    } else {
+        mappedData.ihtIdentifier = get(data, 'iht.identifier');
+        mappedData.ihtForm = 'online';
+    }
+
+    const executorsWrapper = new ExecutorsWrapper(data.executors);
+
+    mappedData.noOfApplicants = executorsWrapper.executorsApplying().length;
+    mappedData.executorsApplying = executorsWrapper.executorsApplying(true);
+    mappedData.executorsNotApplying = executorsWrapper.executorsNotApplying(true);
+
+    return mappedData;
 };
 
 module.exports = submitData;

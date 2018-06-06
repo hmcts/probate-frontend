@@ -38,7 +38,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.selectIhtCompleted();
     I.selectInheritanceMethodPaper();
 
-    if (TestConfigurator.isFullPaymentEnvironment()) {
+    if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterGrossAndNet('205', '600000', '300000');
     } else {
         I.enterGrossAndNet('205', '500', '400');
@@ -128,7 +128,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     //Retrieve the email urls for additional executors
     I.amOnPage(testConfig.TestInviteIdListUrl);
-    grabIds = yield I.grabTextFrom('body');
+    grabIds = yield I.grabTextFrom('pre');
 });
 
 Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), function* (I) {
@@ -139,12 +139,12 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
         I.amOnPage(testConfig.TestInvitationUrl + '/' + idList.ids[i]);
         I.amOnPage(testConfig.TestFrontendUrl + '/pin');
 
-        const grabPins = yield I.grabTextFrom('body');
+        const grabPins = yield I.grabTextFrom('pre');
         const pinList = JSON.parse(grabPins);
 
-        yield I.clickBackBrowserButton();
+        yield I.clickBrowserBackButton();
 
-        I.enterPinCode(pinList.pin);
+        I.enterPinCode(pinList.pin.toString());
         I.seeCoApplicantStartPage();
 
         I.agreeDisagreeDeclaration('Agree');
@@ -162,7 +162,7 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     // Extra copies task
     I.selectATask(taskListContent.taskNotStarted);
 
-    if (TestConfigurator.isFullPaymentEnvironment()) {
+    if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterUkCopies('5');
         I.selectOverseasAssets();
         I.enterOverseasCopies('7');
@@ -178,7 +178,7 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     I.selectATask(taskListContent.taskNotStarted);
     I.seePaymentBreakdownPage();
 
-    if (TestConfigurator.isFullPaymentEnvironment()) {
+    if (TestConfigurator.getUseGovPay() === 'true') {
         I.seeGovUkPaymentPage();
         I.seeGovUkConfirmPage();
     }

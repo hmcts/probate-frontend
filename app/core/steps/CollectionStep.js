@@ -1,14 +1,15 @@
-const ValidationStep = require('app/core/steps/ValidationStep');
-const {startsWith} = require('lodash');
+'use strict';
 
-module.exports = class CollectionStep extends ValidationStep {
+const ValidationStep = require('app/core/steps/ValidationStep');
+const {startsWith, findIndex} = require('lodash');
+
+class CollectionStep extends ValidationStep {
 
     nextStepUrl(ctx) {
         if (ctx.index === -1) {
             return this.next(ctx).constructor.getUrl();
         }
-            return this.next(ctx).constructor.getUrl(ctx.index);
-
+        return this.next(ctx).constructor.getUrl(ctx.index);
     }
 
     getContextData(req) {
@@ -29,8 +30,9 @@ module.exports = class CollectionStep extends ValidationStep {
         return [ctx, formdata];
     }
 
-    recalcIndex() {
-        throw new TypeError(`Step ${this.name} does not implement recalcIndex()`);
+    recalcIndex(ctx, index) {
+        return findIndex(ctx.list, o => o.isApplying === true, index + 1);
     }
+}
 
-};
+module.exports = CollectionStep;

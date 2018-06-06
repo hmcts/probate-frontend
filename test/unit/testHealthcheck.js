@@ -6,22 +6,6 @@ const healthcheck = require('app/healthcheck');
 const commonContent = require('app/resources/en/translation/common');
 
 describe('healthcheck.js', () => {
-    describe('getServiceHealthUrl()', () => {
-        describe('should return the correct url', () => {
-            it('when given a service url with a port', (done) => {
-                const serviceUrl = healthcheck.getServiceHealthUrl('http://localhost:8080/validate');
-                expect(serviceUrl).to.equal(`http://localhost:8080${config.healthEndpoint}`);
-                done();
-            });
-
-            it('when given a service url without a port', (done) => {
-                const serviceUrl = healthcheck.getServiceHealthUrl('http://localhost/validate');
-                expect(serviceUrl).to.equal(`http://localhost${config.healthEndpoint}`);
-                done();
-            });
-        });
-    });
-
     describe('/health endpoint', () => {
         it('should return the correct params', (done) => {
             const server = app.init();

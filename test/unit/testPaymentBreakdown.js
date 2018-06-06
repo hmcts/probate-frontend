@@ -1,27 +1,26 @@
+'use strict';
+
 const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
 const co = require('co');
 
-describe('PaymentBreakdown', function () {
+describe('PaymentBreakdown', () => {
+    const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 
-    const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
-
-    describe('handleGet', function () {
-        it('cleans up context', function () {
+    describe('handleGet', () => {
+        it('cleans up context', () => {
             const ctx = {
                 paymentError: 'failure'
             };
-            let errors = [];
             const PaymentBreakdown = steps.PaymentBreakdown;
-            [, errors] = PaymentBreakdown.handleGet(ctx).next().value;
+            const [, errors] = PaymentBreakdown.handleGet(ctx);
 
             assert.deepEqual(errors[0].param, 'payment');
         });
     });
 
-    describe('handlePost', function () {
-        it('sets paymentPending to false if ctx.total = 0', function (done) {
-
+    describe('handlePost', () => {
+        it('sets paymentPending to false if ctx.total = 0', (done) => {
             const PaymentBreakdown = steps.PaymentBreakdown;
             let ctx = {total: 0};
             let errors = [];
@@ -32,13 +31,12 @@ describe('PaymentBreakdown', function () {
                 assert.deepEqual(formdata.paymentPending, 'false');
                 done();
             })
-                .catch((err) => {
+            .catch((err) => {
                 done(err);
             });
         });
 
-        it('sets nextStepUrl to payment-status if paymentPending is unknown', function (done) {
-
+        it('sets nextStepUrl to payment-status if paymentPending is unknown', (done) => {
             const PaymentBreakdown = steps.PaymentBreakdown;
             let ctx = {total: 1};
             let errors = [];
@@ -49,19 +47,19 @@ describe('PaymentBreakdown', function () {
                 assert.equal(PaymentBreakdown.nextStepUrl(), '/payment-status');
                 done();
             })
-                .catch((err) => {
+            .catch((err) => {
                 done(err);
-        });
+            });
         });
 
-        it('sets paymentPending to true if ctx.total > 0', function (done) {
+        it('sets paymentPending to true if ctx.total > 0', (done) => {
             const PaymentBreakdown = steps.PaymentBreakdown;
             let ctx = {total: 215};
             let errors = [];
             const formdata = {};
             const session = {};
-            /*eslint no-empty-function: 0*/        
-            session.save = function() {};
+            /*eslint no-empty-function: 0*/
+            session.save = () => {};
             co(function* () {
                 [ctx, errors] = yield PaymentBreakdown.handlePost(ctx, errors, formdata, session);
                 assert.deepEqual(formdata.paymentPending, 'true');
@@ -73,8 +71,8 @@ describe('PaymentBreakdown', function () {
         });
     });
 
-    describe('action', function () {
-        it('cleans up context', function () {
+    describe('action', () => {
+        it('cleans up context', () => {
             let ctx = {
                 _csrf: 'dummyCSRF',
                 sessionID: 'dummySessionID',

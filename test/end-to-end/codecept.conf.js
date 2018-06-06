@@ -1,7 +1,7 @@
 const testConfig = require('test/config.js');
 
 exports.config = {
-    'tests': './paths/**/singleExecutorsPath.js',
+    'tests': './paths/**/*.js',
     'output': './output',
     'helpers': {
         'Puppeteer': {
@@ -13,7 +13,6 @@ exports.config = {
                 'ignoreHTTPSErrors': true
             },
             'switches': {
-                'ignoreHTTPSErrors': true,
                 'ignore-certificate-errors': true
             }
         },

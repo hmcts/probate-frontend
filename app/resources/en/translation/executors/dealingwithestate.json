@@ -1,7 +1,7 @@
 {
   "title": "Which executors will be dealing with the estate?",
   "question": "Which executors will be dealing with the estate?",
-  "paragraph1": "These executors will be given the legal right to:",
+  "paragraph1": "Up to 4 executors can be named on the grant of probate.",
   "applicant-rights1": "collect the estate&rsquo;s assets (property, money and possessions)",
   "applicant-rights2": "pay any taxes and debts",
   "applicant-rights3": "distribute what&rsquo;s left to the people entitled to it (the &lsquo;beneficiaries&rsquo;)",
@@ -11,7 +11,12 @@
       "required": {
         "summary": "Select at least one executor",
         "message": "Select at least one executor"
-      }
+      },
+      "invalid":{
+        "summary": "A maximum of 4 executors can named on the grant of probate. ",
+        "message": "You can not select more than 4 executors. "
     }
+
   }
 }
+  }

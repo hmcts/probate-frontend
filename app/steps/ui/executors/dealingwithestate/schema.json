@@ -2,7 +2,13 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "id": "executorsapplying",
     "type": "object",
-    "properties": {},
+    "properties": {
+        "executorsApplying": {
+            "type": "array",
+            "maxItems": 3,
+            "minItems": 0
+        }
+    },
     "required": [
         "executorsApplying"
     ]

@@ -10,7 +10,9 @@ const FormatUrl = require('app/utils/FormatUrl');
 const gitRevision = process.env.GIT_REVISION;
 const osHostname = os.hostname();
 const gitCommitId = gitProperties.git.commit.id;
+
 const formatHealthUrl = url => FormatUrl.format(url, config.healthEndpoint);
+
 const services = [
     {'name': 'Validation Service', 'url': formatHealthUrl(config.services.validation.url)},
     {'name': 'Submit Service', 'url': formatHealthUrl(config.services.submit.url)},
@@ -30,7 +32,7 @@ router.get('/', (req, res) => {
     const healthPromises = createPromisesList(services);
     Promise.all(healthPromises).then(downstream => {
         res.json({
-            'name': config.service.name,
+            'name': commonContent.serviceName,
             'status': 'UP',
             'uptime': process.uptime(),
             'host': osHostname,

@@ -1,11 +1,8 @@
 module.exports = {
+
     environment: process.env.REFORM_ENVIRONMENT || 'prod',
     nodeEnvironment: process.env.NODE_ENV,
     gitRevision: process.env.GIT_REVISION,
-    service: {
-        name: 'Apply for probate',
-        version: ''
-    },
     app: {
         username: process.env.USERNAME,
         password: process.env.PASSWORD,
@@ -13,8 +10,7 @@ module.exports = {
         useHttps: process.env.USE_HTTPS || 'false',
         useIDAM: process.env.USE_IDAM || 'false',
         port: process.env.PORT || '3000',
-        useCSRFProtection: 'true',
-        cookieText: 'GOV.UK uses cookies to make the site simpler. <a href="http://gov.uk/help/cookies" title="Find out more about cookies">Find out more about cookies</a>'
+        useCSRFProtection: 'true'
     },
     services: {
         postcode: {

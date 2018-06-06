@@ -22,6 +22,7 @@ const InviteSecurity = require(`${__dirname}/app/invite`);
 const fs = require('fs');
 const https = require('https');
 const appInsights = require('applicationinsights');
+const commonContent = require('app/resources/en/translation/common');
 
 exports.init = function() {
     const app = express();
@@ -156,11 +157,12 @@ exports.init = function() {
         });
     }
 
-    // Add variables that are available in all views
-    app.use((req, res, next) => {
-        res.locals.serviceName = config.service.name;
-        res.locals.serviceVersion = config.service.version;
-        res.locals.cookieText = config.cookieText;
+
+   // Add variables that are available in all views
+    app.use(function (req, res, next) {
+        res.locals.serviceName = commonContent.serviceName;
+        res.locals.cookieText = commonContent.cookieText;
+
         res.locals.releaseVersion = 'v' + releaseVersion;
         next();
     });

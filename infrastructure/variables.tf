@@ -213,4 +213,6 @@ variable "payment_return_url" {
   type = "string"
 }
 
-
+variable "capacity" {
+  default = "1"
+}

@@ -7,6 +7,7 @@ const router = require('express').Router();
 const os = require('os');
 const gitProperties = require('git.properties');
 const FormatUrl = require('app/utils/FormatUrl');
+const commonContent = require('app/resources/en/translation/common');
 const gitRevision = process.env.GIT_REVISION;
 const osHostname = os.hostname();
 const gitCommitId = gitProperties.git.commit.id;
@@ -32,7 +33,7 @@ router.get('/', (req, res) => {
     const healthPromises = createPromisesList(services);
     Promise.all(healthPromises).then(downstream => {
         res.json({
-            'name': config.service.name,
+            'name': commonContent.serviceName,
             'status': 'UP',
             'uptime': process.uptime(),
             'host': osHostname,

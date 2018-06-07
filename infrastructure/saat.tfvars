@@ -26,16 +26,16 @@ payment_create_url = "https://test.payments.reform.hmcts.net:4421/users/userId/p
 
 idam_service_api = "http://rpe-service-auth-provider-saat.service.core-compute-saat.internal"
 
-probate_private_beta_auth_url = "https://idam-test.dev.ccidam.reform.hmcts.net/login"
+probate_private_beta_auth_url = "http://idam-web-public-idam-saat.service.core-compute-idam-saat.internal/login"
 
-idam_user_host = "http://betaDevBccidamAppLB.reform.hmcts.net"
+idam_user_host = "http://idam-api-idam-saat.service.core-compute-idam-saat.internal"
 
 probate_deployment_env = "test"
 
 
 probate_frontend_port = "3101"
 
-probate_frontend_use_idam = "false"
+probate_frontend_use_idam = "true"
 
 probate_frontend_use_redis = "true"
 

@@ -10,11 +10,12 @@ exports.config = {
              waitForAction: 2000,
             'show': false,
             'chrome': {
-                'ignoreHTTPSErrors': true
+                'ignoreHTTPSErrors': true,
+                'ignore-certificate-errors': true,
+                'args': [
+                    '--proxy-server=proxyout.reform.hmcts.net:8080'
+                ]
             },
-            'switches': {
-                'ignore-certificate-errors': true
-            }
         },
         'PuppeteerHelper': {
             'require': './helpers/PuppeteerHelper.js'

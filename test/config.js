@@ -11,13 +11,14 @@ module.exports = {
     TestPinUrl: process.env.PIN_URL,
     TestInvitationUrl: process.env.INVITATION_URL,
     TestIdamAddUserUrl: process.env.IDAM_ADD_USER_URL,
+    TestIdamUserGroup: process.env.IDAM_USER_GROUP,
     TestIdamRole: process.env.IDAM_CITIZEN_ROLE,
     TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN,
 
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
 
-    TestEnvEmailAddress: process.TEST_EMAIL_ADDRESS || 'douglas.rice@hmcts.net',
-    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER || '07773055642',
+    TestEnvEmailAddress: process.TEST_EMAIL_ADDRESS,
+    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER,
     s2sStubErrorSequence: '000',
     links: {
         cookies: '/cookies',

@@ -13,6 +13,7 @@ class TestConfigurator {
         this.testAddUserUrl = testConfig.TestIdamAddUserUrl;
         this.testDeleteUserUrl = this.testAddUserUrl + '/';
         this.role = testConfig.TestIdamRole;
+        this.testIdamUserGroup = testConfig.TestIdamUserGroup;
         this.paymentEnvironments = testConfig.paymentEnvironments;
         this.TestFrontendUrl = testConfig.TestFrontendUrl;
         this.useGovPay = testConfig.TestUseGovPay;
@@ -27,8 +28,9 @@ class TestConfigurator {
                     'email': this.getTestCitizenEmail(),
                     'forename': this.getTestCitizenName(),
                     'surname': this.getTestCitizenName(),
-                    'user_group_name': this.getTestRole(),
-                    'password': this.getTestCitizenPassword()
+                    'password': this.getTestCitizenPassword(),
+                    'roles': [{'code': this.getTestRole()}],
+                    'userGroup': this.getTestIdamUserGroup()
                 };
 
             request({
@@ -71,6 +73,10 @@ class TestConfigurator {
 
     getTestRole() {
         return this.role;
+    }
+
+    getTestIdamUserGroup() {
+        return this.testIdamUserGroup;
     }
 
     getTestCitizenEmail() {

@@ -8,7 +8,8 @@ COPY package.json /opt/app
 # Update & Install theses apps.
 RUN apk add --no-cache git
 
-RUN yarn install --production
+RUN yarn install --production  \
+        && yarn cache clean
 
 COPY . /opt/app
 RUN yarn setup

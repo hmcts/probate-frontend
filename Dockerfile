@@ -5,7 +5,7 @@ RUN apk add --no-cache git
 # Update & Install theses apps.
 RUN apk update && apk upgrade && apk add --no-cache rsync git python make gcc g++
 
-RUN go get github.com/hmcts/probate-frontend
+# RUN go get github.com/hmcts/probate-frontend
 
 RUN mkdir -p /workspace
 

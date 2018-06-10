@@ -11,9 +11,9 @@
 !app.js
 !gulpfile.js
 !tsconfig.json
-!.npmrc
 !server.js
 !app/**
 !config/**
 !test
 !git.properties.json
+!.git

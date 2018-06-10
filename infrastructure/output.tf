@@ -5,3 +5,4 @@ output "vaultUri" {
 output "vaultName" {
   value = "${local.vaultName}"
 }
+

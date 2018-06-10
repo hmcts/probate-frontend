@@ -76,7 +76,7 @@ module "probate-frontend-redis-cache" {
   source   = "git@github.com:hmcts/moj-module-redis?ref=master"
   product  = "${var.product}-${var.microservice}-redis-cache"
   location = "${var.location}"
-  env      = "${var.redisEnv}"
+  env      = "${local.redisEnv}"
   subnetid = "${data.terraform_remote_state.core_apps_infrastructure.subnet_ids[1]}"
 }
 

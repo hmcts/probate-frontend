@@ -24,8 +24,8 @@ List<LinkedHashMap<String, Object>> secrets = [
     secret('testsurveyEndOfApplication', 'SURVEY_END_OF_APPLICATION'),
     secret('testUseGovPay', 'USE_GOV_PAY'),
     secret('testIdamProxy', 'TEST_IDAM_PROXY'),
-    secret('testRejectUnauthorised', 'TEST_REJECT_UNAUTHORISED'),
-    secret('testIdamAPIURL', 'IDAM_API_URL')
+    secret('testRejectUnauthorised', 'TEST_REJECT_UNAUTHORISED')
+    // secret('testIdamAPIURL', 'IDAM_API_URL')
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {

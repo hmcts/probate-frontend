@@ -36,7 +36,7 @@ class TestConfigurator {
                     'userGroup': {'code': this.getTestIdamUserGroup()}
                 };
 
-            console.log('url>>>>', this.getTestAddUserURL());
+            console.log('url>>>>', this.getTestAddUserURL().toString());
 
             request({
                 url: this.getTestAddUserURL(),

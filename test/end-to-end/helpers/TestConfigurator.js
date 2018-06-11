@@ -39,9 +39,10 @@ class TestConfigurator {
                 url: this.getTestAddUserURL(),
                 method: 'POST',
                 json: true, // <--Very important!!!
-                body: userDetails,
-                proxy: this.getIdamProxy(),
-                rejectUnauthorized: this.getRejectUnauthorized()
+                body: userDetails
+                //,
+  //              proxy: this.getIdamProxy(),
+    //            rejectUnauthorized: this.getRejectUnauthorized()
             });
         }
     }
@@ -50,9 +51,10 @@ class TestConfigurator {
         if (this.useIdam === 'true') {
             request({
                 url: this.getTestDeleteUserURL() + process.env.testCitizenEmail,
-                method: 'DELETE',
-                proxy: this.getIdamProxy(),
-                rejectUnauthorized: this.getRejectUnauthorized()
+                method: 'DELETE'
+                //,
+                //proxy: this.getIdamProxy(),
+                //rejectUnauthorized: this.getRejectUnauthorized()
                 }
             );
 

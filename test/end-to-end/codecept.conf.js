@@ -13,7 +13,7 @@ exports.config = {
                 'ignoreHTTPSErrors': true,
                 'ignore-certificate-errors': true,
                 'args': [
-                    '--proxy-server=proxyout.reform.hmcts.net:8080'
+                    '--proxy-server=socks5:proxyout.reform.hmcts.net:8080'
                 ]
             },
         },

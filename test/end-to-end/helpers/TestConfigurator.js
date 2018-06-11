@@ -99,6 +99,7 @@ class TestConfigurator {
     }
 
     getTestAddUserURL() {
+        console.log('getTestAddUserURL>>>', this.testBaseUrl + this.testAddUserUrl);
         return this.testBaseUrl + this.testAddUserUrl;
     }
 

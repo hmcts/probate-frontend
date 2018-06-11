@@ -2,6 +2,7 @@ const randomstring = require('randomstring');
 const request = require('request');
 const testConfig = require('test/config.js');
 
+/* eslint no-console: 0 no-unused-vars: 0 */
 class TestConfigurator {
 
     constructor() {
@@ -36,8 +37,6 @@ class TestConfigurator {
                 };
 
             console.log('url>>>>', this.getTestAddUserURL());
-
-
 
             request({
                 url: this.getTestAddUserURL(),

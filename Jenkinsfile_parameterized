@@ -25,7 +25,9 @@ List<LinkedHashMap<String, Object>> secrets = [
     secret('testTerms', 'TERMS_AND_CONDITIONS'),
     secret('testSurvey', 'SURVEY'),
     secret('testsurveyEndOfApplication', 'SURVEY_END_OF_APPLICATION'),
-    secret('testUseGovPay', 'USE_GOV_PAY')
+    secret('testUseGovPay', 'USE_GOV_PAY'),
+    secret('testIdamProxy', 'TEST_IDAM_PROXY'),
+    secret('testRejectUnauthorised', 'TEST_REJECT_UNAUTHORISED')
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {

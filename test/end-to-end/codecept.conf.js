@@ -11,10 +11,7 @@ exports.config = {
             'show': false,
             'chrome': {
                 'ignoreHTTPSErrors': true,
-                'ignore-certificate-errors': true,
-                'args': [
-                    '--proxy-server=socks5:proxyout.reform.hmcts.net:8080'
-                ]
+                'ignore-certificate-errors': true
             },
         },
         'PuppeteerHelper': {

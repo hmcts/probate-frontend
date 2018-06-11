@@ -39,10 +39,10 @@ class TestConfigurator {
                 url: this.getTestAddUserURL(),
                 method: 'POST',
                 json: true, // <--Very important!!!
-                body: userDetails
-                //,
+                body: userDetails,
   //              proxy: this.getIdamProxy(),
-    //            rejectUnauthorized: this.getRejectUnauthorized()
+                rejectUnauthorized: this.getRejectUnauthorized(),
+                requestCert: true
             });
         }
     }

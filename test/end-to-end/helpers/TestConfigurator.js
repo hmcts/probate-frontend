@@ -7,6 +7,8 @@ class TestConfigurator {
     constructor() {
         this.testBaseUrl = testConfig.TestIdamBaseUrl;
         this.useIdam = testConfig.TestUseIdam;
+        this.idamProxy = testConfig.TestIdamProxy;
+        this.rejectUnauthorized = testConfig.TestRejectUnauthorized;
         this.setTestCitizenName();
         this.testCitizenDomain = testConfig.TestCitizenDomain.replace('/@', '@');
         this.testCitizenPassword = randomstring.generate(9);
@@ -30,25 +32,28 @@ class TestConfigurator {
                     'surname': this.getTestCitizenName(),
                     'password': this.getTestCitizenPassword(),
                     'roles': [{'code': this.getTestRole()}],
-                    'userGroup': this.getTestIdamUserGroup()
+                    'userGroup': {'code': this.getTestIdamUserGroup()}
                 };
 
             request({
-                    url: this.getTestAddUserURL(),
-                    method: 'POST',
-                    json: true, // <--Very important!!!
-                    body: userDetails
-                }
-            );
+                url: this.getTestAddUserURL(),
+                method: 'POST',
+                json: true, // <--Very important!!!
+                body: userDetails,
+                proxy: this.getIdamProxy(),
+                rejectUnauthorized: this.getRejectUnauthorized(),
+            });
         }
     }
 
     getAfter() {
         if (this.useIdam === 'true') {
             request({
+                url: this.getTestDeleteUserURL() + process.env.testCitizenEmail,
+                method: 'DELETE',
+                proxy: this.getIdamProxy(),
+                rejectUnauthorized: this.getRejectUnauthorized(),
 
-                    url: this.getTestDeleteUserURL() + process.env.testCitizenEmail,
-                    method: 'DELETE'
                 }
             );
 
@@ -109,6 +114,13 @@ class TestConfigurator {
         return this.useGovPay;
     }
 
+    getIdamProxy() {
+        return this.idamProxy;
+    }
+
+    getRejectUnauthorized() {
+        return this.rejectUnauthorized;
+    }
 }
 
 module.exports = TestConfigurator;

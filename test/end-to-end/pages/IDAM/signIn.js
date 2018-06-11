@@ -9,8 +9,6 @@ module.exports = function () {
 
         I.amOnPage(pageUnderTest.getUrl());
 
-        I.seeInCurrentUrl(testConfig.TestIdamLoginUrl);
-
         I.see('Sign in');
         I.fillField('username', process.env.testCitizenEmail);
         I.fillField('password', process.env.testCitizenPassword);

@@ -2,8 +2,9 @@ module.exports = {
 
     TestIdamBaseUrl: process.env.IDAM_API_URL || 'http://localhost:8484',
     TestFrontendUrl: process.env.TEST_URL || 'http://localhost:3000',
-
-    TestUseIdam: process.env.USE_IDAM || 'false',
+    TestIdamProxy: process.env.TEST_IDAM_PROXY,
+    TestRejectUnauthorized: process.env.TEST_REJECT_UNAUTHORISED || false,
+    TestUseIdam: process.env.USE_IDAM || 'true',
     TestIdamLoginUrl: process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
 
     TestUseGovPay: process.env.USE_GOV_PAY || 'false',

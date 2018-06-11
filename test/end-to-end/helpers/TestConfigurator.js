@@ -35,14 +35,24 @@ class TestConfigurator {
                     'userGroup': {'code': this.getTestIdamUserGroup()}
                 };
 
+            console.log('url>>>>', this.getTestAddUserURL());
+
+
+
             request({
                 url: this.getTestAddUserURL(),
                 method: 'POST',
                 json: true, // <--Very important!!!
-                body: userDetails,
+                body: userDetails},
+                function (error, response, body) {
+                    // Do more stuff with 'body' here
+                    console.log('error>>>', error);
+                    console.log('response>>>', response);
+                    console.log('body>>>', body);
+
   //              proxy: this.getIdamProxy(),
-                rejectUnauthorized: this.getRejectUnauthorized(),
-                requestCert: true
+   //             rejectUnauthorized: this.getRejectUnauthorized(),
+   //             requestCert: true
             });
         }
     }

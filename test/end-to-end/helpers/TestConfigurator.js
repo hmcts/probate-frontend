@@ -41,7 +41,7 @@ class TestConfigurator {
                 json: true, // <--Very important!!!
                 body: userDetails,
              //   proxy: this.getIdamProxy(),
-                rejectUnauthorized: this.getRejectUnauthorized(),
+                rejectUnauthorized: this.getRejectUnauthorized()
             });
         }
     }
@@ -52,8 +52,7 @@ class TestConfigurator {
                 url: this.getTestDeleteUserURL() + process.env.testCitizenEmail,
                 method: 'DELETE',
                // proxy: this.getIdamProxy(),
-                rejectUnauthorized: this.getRejectUnauthorized(),
-
+                rejectUnauthorized: this.getRejectUnauthorized()
                 }
             );
 

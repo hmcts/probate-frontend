@@ -6,6 +6,7 @@ const testConfig = require('test/config.js');
 class TestConfigurator {
 
     constructor() {
+        console.log('IdamBaseUrl>>>', testConfig.TestIdamBaseUrl);
         this.testBaseUrl = testConfig.TestIdamBaseUrl;
         this.useIdam = testConfig.TestUseIdam;
         this.idamProxy = testConfig.TestIdamProxy;

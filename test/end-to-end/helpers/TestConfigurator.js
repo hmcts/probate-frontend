@@ -19,8 +19,10 @@ class TestConfigurator {
         this.role = testConfig.TestIdamRole;
         this.testIdamUserGroup = testConfig.TestIdamUserGroup;
         this.paymentEnvironments = testConfig.paymentEnvironments;
+        console.log('here2');
         this.TestFrontendUrl = testConfig.TestFrontendUrl;
         this.useGovPay = testConfig.TestUseGovPay;
+        console.log('IdamBaseUrl222>>>', testConfig.TestIdamBaseUrl);
     }
 
     getBefore() {

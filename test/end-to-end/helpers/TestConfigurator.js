@@ -8,8 +8,6 @@ class TestConfigurator {
     constructor() {
         this.testBaseUrl = testConfig.TestIdamBaseUrl;
         this.useIdam = testConfig.TestUseIdam;
-        this.idamProxy = testConfig.TestIdamProxy;
-        this.rejectUnauthorized = testConfig.TestRejectUnauthorized;
         this.setTestCitizenName();
         this.testCitizenDomain = testConfig.TestCitizenDomain.replace('/@', '@');
         this.testCitizenPassword = randomstring.generate(9);
@@ -40,16 +38,7 @@ class TestConfigurator {
                 url: this.getTestAddUserURL(),
                 method: 'POST',
                 json: true, // <--Very important!!!
-                body: userDetails},
-                function (error, response, body) {
-                    // Do more stuff with 'body' here
-                    console.log('error>>>', error);
-                    console.log('response>>>', response);
-                    console.log('body>>>', body);
-
-  //              proxy: this.getIdamProxy(),
-   //             rejectUnauthorized: this.getRejectUnauthorized(),
-   //             requestCert: true
+                body: userDetails
             });
         }
     }
@@ -59,9 +48,6 @@ class TestConfigurator {
             request({
                 url: this.getTestDeleteUserURL() + process.env.testCitizenEmail,
                 method: 'DELETE'
-                //,
-                //proxy: this.getIdamProxy(),
-                //rejectUnauthorized: this.getRejectUnauthorized()
                 }
             );
 

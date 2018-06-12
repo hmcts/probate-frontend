@@ -20,7 +20,6 @@ class TestConfigurator {
         this.paymentEnvironments = testConfig.paymentEnvironments;
         this.TestFrontendUrl = testConfig.TestFrontendUrl;
         this.useGovPay = testConfig.TestUseGovPay;
-        console.log('testConfig>>>', testConfig);
     }
 
     getBefore() {
@@ -36,8 +35,6 @@ class TestConfigurator {
                     'roles': [{'code': this.getTestRole()}],
                     'userGroup': {'code': this.getTestIdamUserGroup()}
                 };
-
-            console.log('userDetails>>>>', userDetails);
 
             request({
                 url: this.getTestAddUserURL(),

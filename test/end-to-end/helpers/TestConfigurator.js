@@ -10,7 +10,8 @@ class TestConfigurator {
         this.useIdam = testConfig.TestUseIdam;
         this.setTestCitizenName();
         this.testCitizenDomain = testConfig.TestCitizenDomain.replace('/@', '@');
-        this.testCitizenPassword = randomstring.generate(9);
+        this.testCitizenPassword = 'Oj2EnN2f9';
+        //randomstring.generate(9);
         this.testAddUserUrl = testConfig.TestIdamAddUserUrl;
         this.testDeleteUserUrl = this.testAddUserUrl + '/';
         this.role = testConfig.TestIdamRole;

@@ -18,7 +18,7 @@ module.exports = {
 
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
 
-    TestEnvEmailAddress: process.TEST_EMAIL_ADDRESS,
+    TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS,
     TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER,
     s2sStubErrorSequence: '000',
     links: {

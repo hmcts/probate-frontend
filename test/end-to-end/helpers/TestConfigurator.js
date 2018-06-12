@@ -6,7 +6,6 @@ const testConfig = require('test/config.js');
 class TestConfigurator {
 
     constructor() {
-        console.log('IdamBaseUrl>>>', testConfig.TestIdamBaseUrl);
         this.testBaseUrl = testConfig.TestIdamBaseUrl;
         this.useIdam = testConfig.TestUseIdam;
         this.idamProxy = testConfig.TestIdamProxy;
@@ -19,10 +18,8 @@ class TestConfigurator {
         this.role = testConfig.TestIdamRole;
         this.testIdamUserGroup = testConfig.TestIdamUserGroup;
         this.paymentEnvironments = testConfig.paymentEnvironments;
-        console.log('here2');
         this.TestFrontendUrl = testConfig.TestFrontendUrl;
         this.useGovPay = testConfig.TestUseGovPay;
-        console.log('IdamBaseUrl222>>>', testConfig.TestIdamBaseUrl);
         console.log('testConfig>>>', testConfig);
     }
 
@@ -40,7 +37,7 @@ class TestConfigurator {
                     'userGroup': {'code': this.getTestIdamUserGroup()}
                 };
 
-            console.log('url>>>>', this.getTestAddUserURL().toString());
+            console.log('userurl>>>>', this.getTestAddUserURL()+':1234');
 
             request({
                 url: this.getTestAddUserURL(),
@@ -103,7 +100,6 @@ class TestConfigurator {
     }
 
     getTestAddUserURL() {
-        console.log('getTestAddUserURL>>>', this.testBaseUrl + this.testAddUserUrl);
         return this.testBaseUrl + this.testAddUserUrl;
     }
 

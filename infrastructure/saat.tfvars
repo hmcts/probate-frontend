@@ -28,7 +28,7 @@ idam_service_api = "http://rpe-service-auth-provider-saat.service.core-compute-s
 
 probate_private_beta_auth_url = "http://idam-web-public-idam-saat.service.core-compute-idam-saat.internal/login"
 
-idam_user_host = "http://idam-api-idam-saat.service.core-compute-idam-saat.internal"
+idam_user_host = "http://idam-api-idam-saat.service.core-compute-idam-saat.internal:443"
 
 probate_deployment_env = "test"
 

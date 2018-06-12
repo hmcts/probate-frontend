@@ -57,17 +57,18 @@ locals {
 
   previewVaultName = "${var.product}-fe"  // max 24 char else used fronend
   nonPreviewVaultName = "${var.product}-fe-${var.env}"
-  vaultName = "${var.env == "preview" ? local.previewVaultName : local.nonPreviewVaultName}"
+  vaultName = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultName : local.nonPreviewVaultName}"
 
   nonPreviewVaultUri = "${module.probate-frontend-vault.key_vault_uri}"
-  previewVaultUri = "https://probate-frontend-aat.vault.azure.net/"
-  vaultUri = "${var.env == "preview"? local.previewVaultUri : local.nonPreviewVaultUri}"
-  
+  previewVaultUri = "https://probate-fe-aat.vault.azure.net/"
+  vaultUri = "${(var.env == "preview" || var.env == "spreview")? local.previewVaultUri : local.nonPreviewVaultUri}"
+
   //once Backend is up in CNP need to get the 
   //localBusinessServiceUrl = "http://probate-business-service-${var.env}.service.${local.aseName}.internal"
   //businessServiceUrl = "${var.env == "preview" ? "http://probate-business-service-aat.service.core-compute-aat.internal" : local.localClaimStoreUrl}"
   // add other services
 }
+
 
 module "probate-frontend-redis-cache" {
   source   = "git@github.com:hmcts/moj-module-redis?ref=master"

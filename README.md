@@ -57,7 +57,7 @@ As before, the application can be completed locally at [https://localhost:3000](
 
 Once you `cd ..` out of the repository you can run the following command:
 ```
-$ docker build probate-frontend -t frontend-app
+$ docker build -t frontend-app .
 ```
 This command will build the Frontend Docker image using the *Dockerfile*.
 

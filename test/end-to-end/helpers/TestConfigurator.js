@@ -23,7 +23,7 @@ class TestConfigurator {
         this.TestFrontendUrl = testConfig.TestFrontendUrl;
         this.useGovPay = testConfig.TestUseGovPay;
         console.log('IdamBaseUrl222>>>', testConfig.TestIdamBaseUrl);
-        console.log('IdamBaseUrl222>>>', testConfig.TestIdamRole);
+        console.log('testConfig>>>', testConfig);
     }
 
     getBefore() {

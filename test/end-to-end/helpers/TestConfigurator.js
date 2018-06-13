@@ -10,8 +10,7 @@ class TestConfigurator {
         this.useIdam = testConfig.TestUseIdam;
         this.setTestCitizenName();
         this.testCitizenDomain = testConfig.TestCitizenDomain.replace('/@', '@');
-        this.testCitizenPassword = 'Oj2EnN2f9';
-        //randomstring.generate(9);
+        this.sestCitizenPassword();
         this.testAddUserUrl = testConfig.TestIdamAddUserUrl;
         this.testDeleteUserUrl = this.testAddUserUrl + '/';
         this.role = testConfig.TestIdamRole;
@@ -71,6 +70,10 @@ class TestConfigurator {
         return this.testCitizenPassword;
     }
 
+    setTestCitizenPassword() {
+        this.testCitizenPassword = randomstring.generate({length: 5, charset: 'alphabetic'}) + randomstring.generate({length: 4, charset: 'numeric'});
+    }
+
     getTestRole() {
         return this.role;
     }
@@ -109,13 +112,6 @@ class TestConfigurator {
         return this.useGovPay;
     }
 
-    getIdamProxy() {
-        return this.idamProxy;
-    }
-
-    getRejectUnauthorized() {
-        return this.rejectUnauthorized;
-    }
 }
 
 module.exports = TestConfigurator;

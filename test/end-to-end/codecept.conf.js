@@ -1,7 +1,7 @@
 const testConfig = require('test/config.js');
 
 exports.config = {
-    'tests': './paths/**/surveyLink.js',
+    'tests': './paths/**/*.js',
     'output': './output',
     'helpers': {
         'Puppeteer': {

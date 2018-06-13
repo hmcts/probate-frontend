@@ -11,7 +11,10 @@ Before(() => {
 });
 
 // eslint-disable-next-line no-undef
-git
+After(() => {
+    TestConfigurator.getAfter();
+});
+
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
 
     // IDAM

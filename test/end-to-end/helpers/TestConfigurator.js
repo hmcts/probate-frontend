@@ -74,7 +74,7 @@ class TestConfigurator {
         const letters = randomstring.generate({length: 5, charset: 'alphabetic'});
         const captiliseFirstLetter = letters.charAt(0).toUpperCase();
 
-        this.testCitizenPassword = captiliseFirstLetter + letters.splice(1) + randomstring.generate({length: 4, charset: 'numeric'});
+        this.testCitizenPassword = captiliseFirstLetter + letters.slice(1) + randomstring.generate({length: 4, charset: 'numeric'});
         console.log('testCitizenPassword>>>'+this.testCitizenPassword);
     }
 

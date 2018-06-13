@@ -75,7 +75,6 @@ class TestConfigurator {
         const captiliseFirstLetter = letters.charAt(0).toUpperCase();
 
         this.testCitizenPassword = captiliseFirstLetter + letters.slice(1) + randomstring.generate({length: 4, charset: 'numeric'});
-        console.log('testCitizenPassword>>>'+this.testCitizenPassword);
     }
 
     getTestRole() {

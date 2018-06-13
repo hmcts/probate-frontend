@@ -10,7 +10,7 @@ class TestConfigurator {
         this.useIdam = testConfig.TestUseIdam;
         this.setTestCitizenName();
         this.testCitizenDomain = testConfig.TestCitizenDomain.replace('/@', '@');
-        this.testCitizenPassword();
+        this.setTestCitizenPassword();
         this.testAddUserUrl = testConfig.TestIdamAddUserUrl;
         this.testDeleteUserUrl = this.testAddUserUrl + '/';
         this.role = testConfig.TestIdamRole;
@@ -71,7 +71,11 @@ class TestConfigurator {
     }
 
     setTestCitizenPassword() {
-        this.testCitizenPassword = randomstring.generate({length: 5, charset: 'alphabetic'}) + randomstring.generate({length: 4, charset: 'numeric'});
+        const letters = randomstring.generate({length: 5, charset: 'alphabetic'});
+        const captiliseFirstLetter = letters.charAt(0).toUpperCase();
+
+        this.testCitizenPassword = captiliseFirstLetter + letters.splice(1) + randomstring.generate({length: 4, charset: 'numeric'});
+        console.log('testCitizenPassword>>>'+this.testCitizenPassword);
     }
 
     getTestRole() {

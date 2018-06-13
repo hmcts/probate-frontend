@@ -1,7 +1,7 @@
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('test/config.js');
 
-Feature.skip('Cookie Banner');
+Feature('Cookie Banner');
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
@@ -15,7 +15,8 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-Scenario.skip(TestConfigurator.idamInUseText('Check that the pages display a cookie banner with link'), (I) => {
+// eslint-disable-next-line no-undef
+xScenario(TestConfigurator.idamInUseText('Check that the pages display a cookie banner with link'), (I) => {
 
     // IDAM
     I.authenticateWithIdamIfAvailable();

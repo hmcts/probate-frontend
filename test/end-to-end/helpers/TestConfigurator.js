@@ -8,11 +8,9 @@ class TestConfigurator {
     constructor() {
         this.testBaseUrl = testConfig.TestIdamBaseUrl;
         this.useIdam = testConfig.TestUseIdam;
-        this.idamProxy = testConfig.TestIdamProxy;
-        this.rejectUnauthorized = testConfig.TestRejectUnauthorized;
         this.setTestCitizenName();
         this.testCitizenDomain = testConfig.TestCitizenDomain.replace('/@', '@');
-        this.testCitizenPassword = randomstring.generate(9);
+        this.setTestCitizenPassword();
         this.testAddUserUrl = testConfig.TestIdamAddUserUrl;
         this.testDeleteUserUrl = this.testAddUserUrl + '/';
         this.role = testConfig.TestIdamRole;
@@ -40,16 +38,7 @@ class TestConfigurator {
                 url: this.getTestAddUserURL(),
                 method: 'POST',
                 json: true, // <--Very important!!!
-                body: userDetails},
-                function (error, response, body) {
-                    // Do more stuff with 'body' here
-                    console.log('error>>>', error);
-                    console.log('response>>>', response);
-                    console.log('body>>>', body);
-
-  //              proxy: this.getIdamProxy(),
-   //             rejectUnauthorized: this.getRejectUnauthorized(),
-   //             requestCert: true
+                body: userDetails
             });
         }
     }
@@ -59,9 +48,6 @@ class TestConfigurator {
             request({
                 url: this.getTestDeleteUserURL() + process.env.testCitizenEmail,
                 method: 'DELETE'
-                //,
-                //proxy: this.getIdamProxy(),
-                //rejectUnauthorized: this.getRejectUnauthorized()
                 }
             );
 
@@ -82,6 +68,13 @@ class TestConfigurator {
 
     getTestCitizenPassword() {
         return this.testCitizenPassword;
+    }
+
+    setTestCitizenPassword() {
+        const letters = randomstring.generate({length: 5, charset: 'alphabetic'});
+        const captiliseFirstLetter = letters.charAt(0).toUpperCase();
+
+        this.testCitizenPassword = captiliseFirstLetter + letters.slice(1) + randomstring.generate({length: 4, charset: 'numeric'});
     }
 
     getTestRole() {
@@ -122,13 +115,6 @@ class TestConfigurator {
         return this.useGovPay;
     }
 
-    getIdamProxy() {
-        return this.idamProxy;
-    }
-
-    getRejectUnauthorized() {
-        return this.rejectUnauthorized;
-    }
 }
 
 module.exports = TestConfigurator;

@@ -11,9 +11,9 @@ Before(() => {
 });
 
 // eslint-disable-next-line no-undef
-// After(() => {
-//     TestConfigurator.getAfter();
-// });
+After(() => {
+    TestConfigurator.getAfter();
+});
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
 
@@ -42,7 +42,6 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.selectApplicantIsExecutor();
 
     // ExecutorsTask
-    //
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
     I.selectNameAsOnTheWill();

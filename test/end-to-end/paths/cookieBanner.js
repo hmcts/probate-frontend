@@ -15,7 +15,8 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-Scenario(TestConfigurator.idamInUseText('Check that the pages display a cookie banner with link'), (I) => {
+// eslint-disable-next-line no-undef
+xScenario(TestConfigurator.idamInUseText('Check that the pages display a cookie banner with link'), (I) => {
 
     // IDAM
     I.authenticateWithIdamIfAvailable();

@@ -1,13 +1,13 @@
 const testConfig = require('test/config.js');
 
 exports.config = {
-    'tests': './paths/**/singleExecutorsPath.js',
+    'tests': './paths/**/*.js',
     'output': './output',
     'helpers': {
         'Puppeteer': {
             'url': testConfig.TestFrontendUrl || 'http://localhost:3000',
             'waitForTimeout': 60000,
-             waitForAction: 2000,
+             waitForAction: 5000,
             'show': false,
             'chrome': {
                 'ignoreHTTPSErrors': true,

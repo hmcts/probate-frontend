@@ -11,7 +11,7 @@ class Healthcheck {
 
     createServicesList(urlFormatter, servicesConfig) {
         return [
-            {name: 'Validation Service', url: urlFormatter(servicesConfig.validation.url)},
+            {name: 'Business Service', url: urlFormatter(servicesConfig.validation.url)},
             {name: 'Submit Service', url: urlFormatter(servicesConfig.submit.url)},
             {name: 'Persistence Service', url: urlFormatter(servicesConfig.persistence.url)}
         ];

@@ -89,7 +89,8 @@ module "probate-frontend" {
   asp_name     = "${var.product}-${var.env}-asp"
   additional_host_name = "${var.external_host_name}"  // need to give proper url
   capacity     = "${var.capacity}"
-
+  appinsights_instrumentation_key = "${var.appinsights_instrumentation_key}"
+  
   app_settings = {
     
     // Node specific vars

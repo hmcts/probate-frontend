@@ -131,6 +131,6 @@ module.exports = {
         info: '/info'
     },
     appInsights: {
-        instrumentationKey: process.env.APPINSIGHTS_INSTRUMENTATION_KEY
+        instrumentationKey: process.env.APPINSIGHTS_INSTRUMENTATIONKEY
     }
 };

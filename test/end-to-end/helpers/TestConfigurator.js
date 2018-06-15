@@ -1,6 +1,6 @@
 const randomstring = require('randomstring');
 const request = require('request');
-const testConfig = require('test/config.js');
+const testConfig = require('test/config');
 
 /* eslint no-console: 0 no-unused-vars: 0 */
 class TestConfigurator {
@@ -18,29 +18,42 @@ class TestConfigurator {
         this.paymentEnvironments = testConfig.paymentEnvironments;
         this.TestFrontendUrl = testConfig.TestFrontendUrl;
         this.useGovPay = testConfig.TestUseGovPay;
+        this.userDetails = '';
+        this.useSidam = testConfig.TestUseSidam;
     }
 
     getBefore() {
         if (this.useIdam === 'true') {
             this.setEnvVars();
 
-            const userDetails =
-                {
-                    'email': this.getTestCitizenEmail(),
-                    'forename': this.getTestCitizenName(),
-                    'surname': this.getTestCitizenName(),
-                    'password': this.getTestCitizenPassword(),
-                    'roles': [{'code': this.getTestRole()}],
-                    'userGroup': {'code': this.getTestIdamUserGroup()}
-                };
+            if (this.useSidam === 'true') {
+                this.userDetails =
+                    {
+                        'email': this.getTestCitizenEmail(),
+                        'forename': this.getTestCitizenName(),
+                        'surname': this.getTestCitizenName(),
+                        'password': this.getTestCitizenPassword(),
+                        'roles': [{'code': this.getTestRole()}],
+                        'userGroup': {'code': this.getTestIdamUserGroup()}
+                    };
 
+            } else {
+                this.userDetails =
+                    {
+                        'email': this.getTestCitizenEmail(),
+                        'forename': this.getTestCitizenName(),
+                        'surname': this.getTestCitizenName(),
+                        'user_group_name': this.getTestRole(),
+                        'password': this.getTestCitizenPassword()
+                    };
+            }
+        }
             request({
                 url: this.getTestAddUserURL(),
                 method: 'POST',
                 json: true, // <--Very important!!!
-                body: userDetails
+                body: this.userDetails
             });
-        }
     }
 
     getAfter() {
@@ -114,7 +127,6 @@ class TestConfigurator {
     getUseGovPay() {
         return this.useGovPay;
     }
-
 }
 
 module.exports = TestConfigurator;

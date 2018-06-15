@@ -108,6 +108,7 @@
     "sonar-scanner": "^1.0.1",
     "sonarqube-scanner": "^1.1.0",
     "superagent": "^3.8.2",
+    "superagent-proxy": "^1.0.2",
     "supertest": "^2.0.1",
     "unirest": "^0.5.1",
     "uuid": "^3.1.0",

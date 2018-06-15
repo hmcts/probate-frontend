@@ -3,6 +3,7 @@ module.exports = {
     TestIdamBaseUrl: process.env.IDAM_API_URL || 'http://localhost:8484',
     TestFrontendUrl: process.env.TEST_URL || 'http://localhost:3000',
     TestUseIdam: process.env.USE_IDAM || 'true',
+    TestUseSidam: process.env.USE_SIDAM || 'true',
     TestIdamLoginUrl: process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
 
     TestUseGovPay: process.env.USE_GOV_PAY || 'false',
@@ -12,7 +13,7 @@ module.exports = {
     TestIdamAddUserUrl: process.env.IDAM_ADD_USER_URL,
     TestIdamUserGroup: process.env.IDAM_USER_GROUP,
     TestIdamRole: process.env.IDAM_CITIZEN_ROLE,
-    TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN,
+    TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '@test.com',
 
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
 

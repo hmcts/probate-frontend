@@ -11,9 +11,9 @@ Before(() => {
 });
 
 // eslint-disable-next-line no-undef
-After(() => {
-    TestConfigurator.getAfter();
-});
+// After(() => {
+//     TestConfigurator.getAfter();
+// });
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
 

@@ -47,13 +47,15 @@ class TestConfigurator {
                         'password': this.getTestCitizenPassword()
                     };
             }
-        }
+
             request({
                 url: this.getTestAddUserURL(),
                 method: 'POST',
                 json: true, // <--Very important!!!
                 body: this.userDetails
             });
+        }
+
     }
 
     getAfter() {

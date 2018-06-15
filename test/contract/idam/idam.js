@@ -1,7 +1,6 @@
 const assert = require('chai').assert;
 const expect = require('chai').expect;
 const include = require('chai').include;
-//const request = require('supertest');
 const request = require('superagent');
 
 require('superagent-proxy')(request);
@@ -28,10 +27,6 @@ describe('Idam Tests', function() {
                     expect(res.status, 200);
                 }
                 done();
-                //
-                // console.log(res)
-                // console.log(res.status, res.headers);
-                // console.log(res.body);
             });
     });
 });

@@ -11,24 +11,6 @@ const PROXY_URL = 'http://proxyout.reform.hmcts.net';
 const PROXY_PORT = 8080;
 const PROXY = PROXY_URL + ':' + PROXY_PORT;
 
-
-const content_type_json = 'application/json';
-
-const CONTENT_TYPE = 'application/x-www-form-urlencoded';
-const USERNAME = 'username';
-const PASSWORD = 'password';
-const GOOD_USERNAME_VALUE = 'testpasswordcharacters@mailinator.com';
-const GOOD_PASSWORD_VALUE = 'Pass19word';
-const BAD_USERNAME_VALUE = 'badPasswordTest@restassuredTest.com';
-const BAD_PASSWORD_VALUE = 'Pass19word';
-const ACCESS_TOKEN = 'access_token';
-const SUB = 'sub';
-const ERROR = 'error';
-const ERROR_MESSAGE = 'invalid_grant';
-
-const base_url = 'https://postcodeinfo.service.justice.gov.uk/addresses';
-const get_url = base_url + '/addresses?postcode=';
-
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 /* eslint no-console: 0 no-unused-vars: 0 */

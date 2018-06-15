@@ -79,7 +79,7 @@ describe('Address Lookup API Tests', function() {
                     if (err) {
                         console.log('error raised: ', err);
                     } else {
-                        expect(res.body.length).to.equal(0)
+                        expect(res.body.length).to.equal(0);
                     }
                     done();
                 });
@@ -96,7 +96,7 @@ describe('Address Lookup API Tests', function() {
                     if (err) {
                         console.log('error raised: ', err);
                     } else {
-                        expect(res.body.length).to.equal(0)
+                        expect(res.body.length).to.equal(0);
                     }
                     done();
                 });

@@ -51,6 +51,9 @@ module.exports = class PaymentStatus extends Step {
         if (formdata.paymentPending === 'true' || formdata.paymentPending === 'unknown') {
             const serviceAuthResult = yield services.authorise();
 
+            logger.info('serviceAuthResult');
+            logger.info(serviceAuthResult);
+
             if (serviceAuthResult.name === 'Error') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;

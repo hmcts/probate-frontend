@@ -103,6 +103,14 @@ const createPayment = (data) => {
     const body = paymentData.createPaymentData(data);
     const fetchOptions = utils.fetchOptions(body, 'POST', headers);
     const createPaymentUrl = CREATE_PAYMENT_SERVICE_URL.replace('userId', data.userId);
+    logger.info('headers');
+    logger.info(headers);
+    logger.info('body');
+    logger.info(body);
+    logger.info('fetchOptions');
+    logger.info(fetchOptions);
+    logger.info('createPaymentUrl');
+    logger.info(createPaymentUrl);
     return [utils.fetchJson(createPaymentUrl, fetchOptions), body.reference];
 };
 
@@ -116,6 +124,14 @@ const findPayment = (data) => {
 
     const fetchOptions = utils.fetchOptions(data, 'GET', headers);
     const findPaymentUrl = `${CREATE_PAYMENT_SERVICE_URL.replace('userId', data.userId)}/${data.paymentId}`;
+    logger.info('headers');
+    logger.info(headers);
+    logger.info('data');
+    logger.info(data);
+    logger.info('fetchOptions');
+    logger.info(fetchOptions);
+    logger.info('findPaymentUrl');
+    logger.info(findPaymentUrl);
     return utils.fetchJson(findPaymentUrl, fetchOptions);
 };
 
@@ -168,6 +184,14 @@ const authorise = () => {
     params.append('microservice', serviceName);
     params.append('oneTimePassword', oneTimePassword);
     const fetchOptions = utils.fetchOptions(params, 'POST', headers);
+    logger.info('headers');
+    logger.info(headers);
+    logger.info('params');
+    logger.info(params);
+    logger.info('fetchOptions');
+    logger.info(fetchOptions);
+    logger.info('SERVICE_AUTHORISATION_URL');
+    logger.info(SERVICE_AUTHORISATION_URL);
     return utils.fetchText(`${SERVICE_AUTHORISATION_URL}`, {method: 'POST', body: params, headers: fetchOptions.headers});
 };
 

@@ -48,8 +48,6 @@ class TestConfigurator {
                         'password': this.getTestCitizenPassword()
                     };
             }
-            console.log('this.getTestAddUserURL()>>>>', this.getTestAddUserURL());
-            console.log('this.userDetails>>>>', this.userDetails);
 
             request({
                 url: this.getTestAddUserURL(),

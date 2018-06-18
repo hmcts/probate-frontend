@@ -72,6 +72,11 @@ class PaymentBreakdown extends Step {
                         return [ctx, errors];
                     }
 
+                    logger.info('serviceAuthResult');
+                    logger.info(serviceAuthResult);
+                    logger.info('ctx.authToken');
+                    logger.info(ctx.authToken);
+
                     const data = {
                         amount: parseFloat(ctx.total),
                         authToken: ctx.authToken,
@@ -83,6 +88,8 @@ class PaymentBreakdown extends Step {
                     };
 
                     const [response, paymentReference] = yield services.createPayment(data);
+                    logger.info('payment response');
+                    logger.info(response);
                     formdata.creatingPayment = 'false';
 
                     if (response.name === 'Error') {

@@ -161,14 +161,14 @@ const sendPin = (phoneNumber, sessionID) => {
 const authorise = () => {
     logger.info('authorise');
     const headers = {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
     };
-    const oneTimePassword = otp ({secret: secret}).totp();
-    const params = new URLSearchParams();
-    params.append('microservice', serviceName);
-    params.append('oneTimePassword', oneTimePassword);
+    const params = {
+        microservice: serviceName,
+        oneTimePassword: otp({secret: secret}).totp()
+    };
     const fetchOptions = utils.fetchOptions(params, 'POST', headers);
-    return utils.fetchText(`${SERVICE_AUTHORISATION_URL}`, {method: 'POST', body: params, headers: fetchOptions.headers});
+    return utils.fetchText(SERVICE_AUTHORISATION_URL, fetchOptions);
 };
 
 const getOauth2Token = (code, redirectUri) => {

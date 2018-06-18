@@ -20,7 +20,7 @@ f5_redis_listen_port = "6379"
 probate_frontend_https = "false"
 probate_frontend_use_auth = "false"
 
-payment_return_url = "http://probate-frontend-saat-staging.service.core-compute-saat.internal/payment-status"
+payment_return_url = "https://probate-frontend-saat-staging.service.core-compute-saat.internal/payment-status"
 
 payment_create_url = "https://test.payments.reform.hmcts.net:4421/users/userId/payments"
 

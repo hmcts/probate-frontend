@@ -2,22 +2,23 @@ module.exports = {
 
     TestIdamBaseUrl: process.env.IDAM_API_URL || 'http://localhost:8484',
     TestFrontendUrl: process.env.TEST_URL || 'http://localhost:3000',
-
     TestUseIdam: process.env.USE_IDAM || 'true',
+    TestUseSidam: process.env.USE_SIDAM || 'true',
     TestIdamLoginUrl: process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
 
-    TestUseGovPay: process.env.USE_GOV_PAY || 'true',
+    TestUseGovPay: process.env.USE_GOV_PAY || 'false',
     TestInviteIdListUrl: process.env.INVITE_ID_LIST_URL,
     TestPinUrl: process.env.PIN_URL,
     TestInvitationUrl: process.env.INVITATION_URL,
     TestIdamAddUserUrl: process.env.IDAM_ADD_USER_URL,
+    TestIdamUserGroup: process.env.IDAM_USER_GROUP,
     TestIdamRole: process.env.IDAM_CITIZEN_ROLE,
-    TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN,
+    TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '@test.com',
 
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
 
-    TestEnvEmailAddress: process.TEST_EMAIL_ADDRESS || 'douglas.rice@hmcts.net',
-    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER || '07773055642',
+    TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS,
+    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER,
     s2sStubErrorSequence: '000',
     links: {
         cookies: '/cookies',

@@ -12,7 +12,7 @@ const gitCommitId = gitProperties.git.commit.id;
 router.get('/', (req, res) => {
     const healthcheck = new Healthcheck();
     healthcheck.getDownstream(healthcheck.health, healthDownstream => {
-        healthcheck.getDownstream(healthcheck.info, infoDownstream => {
+       healthcheck.getDownstream(healthcheck.info, infoDownstream => {
             return res.json({
                 name: commonContent.serviceName,
                 status: 'UP',
@@ -20,9 +20,9 @@ router.get('/', (req, res) => {
                 host: osHostname,
                 version: gitRevision,
                 gitCommitId,
-                downstream: healthcheck.mergeInfoAndHealthData(healthDownstream, infoDownstream)
+               downstream: healthcheck.mergeInfoAndHealthData(healthDownstream, infoDownstream)
             });
-        });
+       });
     });
 });
 

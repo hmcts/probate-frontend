@@ -3,9 +3,11 @@ const expect = require('chai').expect;
 const request = require('supertest');
 const testConfig = require('../../../test/config');
 
-const address_api_url = testConfig.TestPostcodeLookupUrl;
+//const address_api_url = testConfig.TestPostcodeLookupUrl;
+const address_api_url = 'https://postcodeinfo.service.justice.gov.uk/addresses';
 
-const ADDRESS_TOKEN = testConfig.TestPostcodeLookupToken;
+//const ADDRESS_TOKEN = testConfig.TestPostcodeLookupToken;
+const ADDRESS_TOKEN = 'Token 39b85db32c6f41f27561c49bf348a1ec10c96117';
 const content_type = 'application/json';
 const single_address_postcode = 'SW1A 1AA';
 const single_organisation_name = 'BUCKINGHAM PALACE';

@@ -20,7 +20,7 @@ f5_redis_listen_port = "6379"
 probate_frontend_https = "false"
 probate_frontend_use_auth = "false"
 
-payment_return_url = "https://probate-frontend-saat-staging.service.core-compute-saat.internal/payment-status"
+payment_return_url = "https://probate-frontend-saat.service.core-compute-saat.internal/payment-status"
 
 payment_create_url = "https://test.payments.reform.hmcts.net:4421/users/userId/payments"
 
@@ -42,9 +42,9 @@ probate_frontend_use_redis = "true"
 reform_envirionment_for_test = "saat"
 
 
-probate_business_service_url = "http://probate-business-service-saat-staging.service.core-compute-saat.internal/validate"
+probate_business_service_url = "http://probate-business-service-saat.service.core-compute-saat.internal/validate"
 
-probate_submit_service_url = "http://probate-submit-service-saat-staging.service.core-compute-saat.internal/submit"
+probate_submit_service_url = "http://probate-submit-service-saat.service.core-compute-saat.internal/submit"
 
-probate_persistence_service_url = "http://probate-persistence-service-saat-staging.service.core-compute-saat.internal/formdata"
+probate_persistence_service_url = "http://probate-persistence-service-saat.service.core-compute-saat.internal/formdata"
 

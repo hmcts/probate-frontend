@@ -29,4 +29,3 @@ xScenario(TestConfigurator.idamInUseText('Check that the pages display a cookie 
     I.waitForText('How cookies are used in this service', 60);
     I.seeCurrentUrlEquals(testConfig.links.cookies);
 });
-

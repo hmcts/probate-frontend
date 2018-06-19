@@ -2,13 +2,9 @@ const assert = require('chai').assert;
 const expect = require('chai').expect;
 const include = require('chai').include;
 const request = require('superagent');
+const testConfig = require('test/config');
 
-require('superagent-proxy')(request);
-
-const IDAM_URL = 'https://probate-frontend-saat-staging.service.core-compute-saat.internal';
-const PROXY_URL = 'http://proxyout.reform.hmcts.net';
-const PROXY_PORT = 8080;
-const PROXY = PROXY_URL + ':' + PROXY_PORT;
+const IDAM_URL = testConfig.TestIdamLoginUrl;
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
@@ -18,7 +14,6 @@ describe('Idam Tests', function() {
 
         request
             .get(IDAM_URL)
-            .proxy(PROXY)
             .timeout(3600 * 1000)
             .end((err, res) => {
                 if (err) {

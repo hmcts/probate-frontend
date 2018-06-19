@@ -2,7 +2,7 @@ const assert = require('chai').assert;
 const expect = require('chai').expect;
 const include = require('chai').include;
 const request = require('superagent');
-const testConfig = require('test/config');
+const testConfig = require('../../../test/config');
 
 const IDAM_URL = testConfig.TestIdamLoginUrl;
 

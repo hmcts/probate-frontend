@@ -23,11 +23,11 @@ payment_return_url = "https://probate-frontend-demo.service.core-compute-demo.in
 
 payment_create_url = "https://preprod.payments.reform.hmcts.net:4401/users/userId/payments"
 
-idam_service_api = "http://betaPreProdccidamAppLB.reform.hmcts.net:4502"
+idam_service_api = "http://betaPreProdccidamAppLB.reform.hmcts.net"
 
 probate_private_beta_auth_url = "https://idam.preprod.ccidam.reform.hmcts.net/login"
 
-idam_user_host = "http://betaPreProdccidamAppLB.reform.hmcts.net:4501"
+idam_user_host = "http://betaPreProdccidamAppLB.reform.hmcts.net"
 
 probate_deployment_env = "test"
 
@@ -40,8 +40,8 @@ probate_frontend_use_redis = "true"
 
 reform_envirionment_for_test = "demo"
 
-probate_business_service_url = "http://betaPreProdprobateApp01.reform.hmcts.net:4101/validate"
+probate_business_service_url = "http://probate-business-service-demo.service.core-compute-demo.internal/validate"
 
-probate_submit_service_url = "http://betaPreProdprobateApp01.reform.hmcts.net:4102/submit"
+probate_submit_service_url = "http://probate-submit-service-demo.service.core-compute-demo.internal/submit"
 
-probate_persistence_service_url = "http://betaPreProdprobateApp01.reform.hmcts.net:4103/formdata"
+probate_persistence_service_url = "http://probate-persistence-service-demo.service.core-compute-demo.internal/formdata/formdata"

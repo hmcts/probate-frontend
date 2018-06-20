@@ -5,7 +5,6 @@ module.exports = {
     TestUseIdam: process.env.USE_IDAM || 'true',
     TestUseSidam: process.env.USE_SIDAM || 'true',
     TestIdamLoginUrl: process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
-
     TestUseGovPay: process.env.USE_GOV_PAY || 'false',
     TestInviteIdListUrl: process.env.INVITE_ID_LIST_URL,
     TestPinUrl: process.env.PIN_URL,
@@ -15,8 +14,19 @@ module.exports = {
     TestIdamRole: process.env.IDAM_CITIZEN_ROLE,
     TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '@test.com',
 
-    TestPostcodeLookupToken: process.env.POSTCODE_SERVICE_TOKEN,
-    TestPostcodeLookupUrl: process.env.POSTCODE_SERVICE_URL,
+    postcodeLookup: {
+        token: process.env.ADDRESS_TOKEN,
+        url: process.env.POSTCODE_SERVICE_URL,
+        endpoint: process.env.POSTCODE_SERVICE_ENDPOINT || '/addresses',
+        contentType: 'application/json',
+        singleAddressPostcode: 'SW1A 1AA',
+        singleOrganisationName: 'BUCKINGHAM PALACE',
+        singleFormattedAddress: 'Buckingham Palace\nLondon\nSW1A 1AA',
+        multipleAddressPostcode: 'N145JY',
+        partialAddressPostcode: 'N14',
+        invalidAddressPostcode: 'Z99 9ZZ',
+        emptyAddressPostcode: ''
+    },
 
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
 

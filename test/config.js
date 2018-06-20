@@ -16,8 +16,8 @@ module.exports = {
     TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '@test.com',
 
     postcodeLookup: {
-        token: process.env.POSTCODE_SERVICE_TOKEN || 'Token 39b85db32c6f41f27561c49bf348a1ec10c96117',
-        url: process.env.POSTCODE_SERVICE_URL || 'https://postcodeinfo.service.justice.gov.uk',
+        token: process.env.POSTCODE_SERVICE_TOKEN,
+        url: process.env.POSTCODE_SERVICE_URL,
         endpoint: process.env.POSTCODE_SERVICE_ENDPOINT || '/addresses',
         contentType: 'application/json',
         singleAddressPostcode: 'SW1A 1AA',

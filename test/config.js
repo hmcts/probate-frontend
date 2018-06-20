@@ -15,8 +15,19 @@ module.exports = {
     TestIdamRole: process.env.IDAM_CITIZEN_ROLE,
     TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '@test.com',
 
-    TestPostcodeLookupToken: process.env.POSTCODE_SERVICE_TOKEN,
-    TestPostcodeLookupUrl: process.env.POSTCODE_SERVICE_URL,
+    postcodeLookup: {
+        token: process.env.POSTCODE_SERVICE_TOKEN || 'Token 39b85db32c6f41f27561c49bf348a1ec10c96117',
+        url: process.env.POSTCODE_SERVICE_URL || 'https://postcodeinfo.service.justice.gov.uk',
+        endpoint: process.env.POSTCODE_SERVICE_ENDPOINT || '/addresses',
+        contentType: 'application/json',
+        singleAddressPostcode: 'SW1A 1AA',
+        singleOrganisationName: 'BUCKINGHAM PALACE',
+        singleFormattedAddress: 'Buckingham Palace\nLondon\nSW1A 1AA',
+        multipleAddressPostcode: 'N145JY',
+        partialAddressPostcode: 'N14',
+        invalidAddressPostcode: 'Z99 9ZZ',
+        emptyAddressPostcode: ''
+    },
 
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
 

@@ -2,7 +2,7 @@ const TestWrapper = require('test/util/TestWrapper'),
     DeceasedName = require('app/steps/ui/deceased/name/index'),
     ExecutorsNames = require('app/steps/ui/executors/names/index');
 
-describe('executors-number', () => {
+describe.only('executors-number', () => {
     let testWrapper;
     const expectedNextUrlForExecNames = ExecutorsNames.getUrl();
     const expectedNextUrlForDeceasedName = DeceasedName.getUrl();

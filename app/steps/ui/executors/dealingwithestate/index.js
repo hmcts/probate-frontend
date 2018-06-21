@@ -1,4 +1,5 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
+const services = require('app/components/services');
 const {includes, some, tail} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const FormatName = require('app/utils/FormatName');
@@ -33,10 +34,19 @@ module.exports = class ExecutorsDealingWithEstate extends ValidationStep {
         return data;
     }
 
-    handlePost(ctx, errors) {
+    * handlePost(ctx, errors) {
         for (let i = 1; i < ctx.executorsNumber; i++) {
             ctx.list[i].isApplying = includes(ctx.executorsApplying, ctx.list[i].fullName);
             ctx.list[i] = this.pruneFormData(ctx.list[i]);
+
+            if (!ctx.list[i].isApplying && ctx.list[i].inviteId) {
+                yield services.removeExecutor(ctx.list[i].inviteId).then(result => {
+                    if (result.name === 'Error') {
+                        throw new Error('Error while deleting executor from invitedata table.');
+                    }
+                });
+                delete ctx.list[i].inviteId;
+            }
         }
         return [ctx, errors];
     }

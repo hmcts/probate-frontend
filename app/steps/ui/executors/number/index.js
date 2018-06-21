@@ -1,4 +1,5 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
+const services = require('app/components/services');
 const {get, dropRight} = require('lodash');
 module.exports = class ExecutorsNumber extends ValidationStep {
 
@@ -10,6 +11,7 @@ module.exports = class ExecutorsNumber extends ValidationStep {
         let ctx = super.getContextData(req);
         ctx.executorsNumber = ctx.executorsNumber ? parseInt(ctx.executorsNumber) : ctx.executorsNumber;
         ctx = this.createExecutorList(ctx, req.session.form);
+        ctx.invitesSent = get(req.session.form, 'executors.invitesSent');
         return ctx;
     }
 
@@ -23,6 +25,20 @@ module.exports = class ExecutorsNumber extends ValidationStep {
         };
 
         if (ctx.list.length > ctx.executorsNumber) {
+            if (ctx.invitesSent === 'true') {
+                ctx.list
+                    .filter(exec => exec.isApplying && !exec.isApplicant)
+                    .map(exec => {
+                        return services.removeExecutor(exec.inviteId)
+                            .then(result => {
+                                if (result.name === 'Error') {
+                                    throw new Error('Error while deleting executor from invitedata table.');
+                                }
+                                delete exec.inviteId;
+                            });
+                    });
+                delete ctx.invitesSent;
+            }
             return {
                 list: dropRight(ctx.list, ctx.list.length -1),
                 executorsNumber: ctx.executorsNumber

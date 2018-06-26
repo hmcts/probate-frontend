@@ -22,67 +22,43 @@
 }
 
 // Tasklist page start
-
 li.task-item {
-  list-style-type: decimal;
+  list-style: decimal inside none;
   border-top: 1px solid $grey-2;
   line-height: 1.5;
   padding: 20px 0 10px 0;
-  list-style-position: inside;
   font-weight: bold;
 
-  @media (min-width: 640px) {
-    font-size: 24px;
+  @include media(tablet) {
+    font-size: 22px;
+    list-style-position: outside;
   }
 
+  .task-item-header {
+    display: inline;
+
     .heading-medium {
-      width: 66.6%;
-      margin-top: 0;
-      display: inline-table;
-      float: none;
+      display: inline;
 
-      @media (min-width: 800px) {
+      @include media(tablet) {
         display: inline-table;
-
+        width: 66.6%;
+        margin-top: 0;
       }
-
-      @media (max-width: 768px) {
-        width: 100%;
-        margin-bottom: 0;
-        display: inline;
-      }
-
-      }
-
-    .list-bullet{
-      font-weight: normal;
     }
-
-
     .task-unavailable {
       background-color: $grey-2;
       color: $black;
       float: right;
-      font-weight: bold;
-
-      line-height: 1.25;
-      padding: 3px 5px 0;
-
-      @media (min-width: 640px) {
-        font-size: 16px;
-      }
-      @media (max-width: 640px) {
-        margin-bottom: 10px;
-      }
-
     }
-    .task-item-content {
-      clear: both;
+  }
+  .task-item-content {
+    font-weight: normal;
 
-      @media (min-width: 640px) {
-        font-size: 19px;
-      }
+    @include media(tablet) {
+      font-size: 19px;
     }
+  }
 }
 // Tasklist page end
 

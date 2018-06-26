@@ -1,4 +1,6 @@
 'use strict';
+
+const FormatUrl = require('app/utils/FormatUrl');
 const config = require('../config'),
     services = require('app/components/services'),
     logger = require('app/components/logger')('Init'),
@@ -56,10 +58,10 @@ module.exports = class Security {
 
     _login(req, res) {
         const state = this._generateState();
-        const returnUrl = req.protocol + '://' + req.get('host');
+        const returnUrl = FormatUrl.createHostname(req);
         this._storeRedirectCookie(req, res, returnUrl, state);
 
-        const callbackUrl = req.protocol + '://' + config.hostname + config.services.idam.probate_oauth_callback_path;
+        const callbackUrl = FormatUrl.format(returnUrl, config.services.idam.probate_oauth_callback_path);
         const redirectUrl = URL.parse(this.loginUrl, true);
         redirectUrl.query.response_type = 'code';
         redirectUrl.query.state = state;
@@ -124,7 +126,8 @@ module.exports = class Security {
     }
 
     _getTokenFromCode(req) {
-        const redirectUri = req.protocol + '://' + config.hostname + config.services.idam.probate_oauth_callback_path;
+        const hostname = FormatUrl.createHostname(req);
+        const redirectUri = FormatUrl.format(hostname, config.services.idam.probate_oauth_callback_path);
         return services.getOauth2Token(req.query.code, redirectUri);
     }
 

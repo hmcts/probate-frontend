@@ -55,7 +55,7 @@ class PaymentBreakdown extends Step {
         return ctx;
     }
 
-    * handlePost(ctx, errors, formdata, session) {
+    * handlePost(ctx, errors, formdata, session, hostname) {
         if (formdata.paymentPending !== 'unknown') {
             if (ctx.total > 0) {
                 formdata.paymentPending = 'true';
@@ -82,7 +82,7 @@ class PaymentBreakdown extends Step {
                         deceasedLastName: ctx.deceasedLastName
                     };
 
-                    const [response, paymentReference] = yield services.createPayment(data);
+                    const [response, paymentReference] = yield services.createPayment(data, hostname);
                     formdata.creatingPayment = 'false';
 
                     if (response.name === 'Error') {

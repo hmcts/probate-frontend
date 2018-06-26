@@ -137,7 +137,7 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
 
     for (let i=0; i < idList.ids.length; i++) {
         I.amOnPage(testConfig.TestInvitationUrl + '/' + idList.ids[i]);
-        I.amOnPage(testConfig.TestFrontendUrl + '/pin');
+        I.amOnPage(testConfig.TestE2EFrontendUrl + '/pin');
 
         const grabPins = yield I.grabTextFrom('pre');
         const pinList = JSON.parse(grabPins);

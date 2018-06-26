@@ -8,13 +8,9 @@ packages_version = "3.0.0"
 
 probate_frontend_hostname = "probate-frontend-preview.service.core-compute-preview.internal"
 external_host_name = "probate.preview.platform.hmcts.net"
-outbound_proxy = ""
+
 
 probate_google_track_id = "UA-93598808-1"
-
-probate_redis_url = "betaPreProdprobatecache01.reform.hmcts.net"
-
-f5_redis_listen_port = "6379"
 
 probate_frontend_https = "true"
 probate_frontend_use_auth = "false"

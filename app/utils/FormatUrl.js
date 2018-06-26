@@ -10,6 +10,10 @@ class FormatUrl {
         path = path !== '/' ? path : '';
         return `${urlParts.protocol}//${urlParts.hostname}${port}${path}`;
     }
+
+    static createHostname(req) {
+        return `${req.protocol}://${req.get('host')}`;
+    }
 }
 
 module.exports = FormatUrl;

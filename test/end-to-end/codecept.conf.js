@@ -5,16 +5,19 @@ exports.config = {
     'output': './output',
     'helpers': {
         'Puppeteer': {
-            'url': testConfig.TestFrontendUrl || 'http://localhost:3000',
+            'url': testConfig.TestE2EFrontendUrl || 'http://localhost:3000',
             'waitForTimeout': 60000,
-             waitForAction: 2000,
+            waitForAction: 7000,
             'show': false,
             'chrome': {
-                'ignoreHTTPSErrors': true
+                'ignoreHTTPSErrors': true,
+                'ignore-certificate-errors': true,
+                args: [
+                    '--no-sandbox',
+                    '--proxy-server=proxyout.reform.hmcts.net:8080',
+                    '--proxy-bypass-list=*beta*LB.reform.hmcts.net'
+                ]
             },
-            'switches': {
-                'ignore-certificate-errors': true
-            }
         },
         'PuppeteerHelper': {
             'require': './helpers/PuppeteerHelper.js'

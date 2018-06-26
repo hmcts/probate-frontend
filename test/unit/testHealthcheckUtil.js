@@ -171,6 +171,22 @@ describe('Healthcheck.js', () => {
         after(() => stopStubs());
     });
 
+    describe('status()', () => {
+        it('should return UP when all the downstream services are up', (done) => {
+            const healthcheck = new Healthcheck();
+            const status = healthcheck.status([{status: 'UP'}, {status: 'UP'}]);
+            expect(status).to.equal('UP');
+            done();
+        });
+
+        it('should return DOWN when any of the downstream services are down', (done) => {
+            const healthcheck = new Healthcheck();
+            const status = healthcheck.status([{status: 'DOWN'}, {status: 'UP'}]);
+            expect(status).to.equal('DOWN');
+            done();
+        });
+    });
+
     describe('mergeInfoAndHealthData()', () => {
         it('should return a list of merged health and info data', (done) => {
             const healthcheck = new Healthcheck();

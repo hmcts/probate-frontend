@@ -4,6 +4,7 @@ const co = require('co');
 const {curry, set, isEmpty, forEach} = require('lodash');
 const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
 const DetectDataChange = require('app/wrappers/DetectDataChange');
+const FormatUrl = require('app/utils/FormatUrl');
 
 class UIStepRunner {
 
@@ -48,7 +49,7 @@ class UIStepRunner {
             [isValid, errors] = step.validate(ctx, formdata);
             const hasDataChanged = (new DetectDataChange()).hasDataChanged(ctx, req, step);
             if (isValid) {
-                [ctx, errors] = yield step.handlePost(ctx, errors, formdata, req.session);
+                [ctx, errors] = yield step.handlePost(ctx, errors, formdata, req.session, FormatUrl.createHostname(req));
             }
 
             if (isEmpty(errors)) {

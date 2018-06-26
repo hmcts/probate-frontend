@@ -104,21 +104,9 @@ variable "probate_frontend_port" {
   default = "3001"
 }
 
-variable "outbound_proxy" {
-  default = "http://proxyout.reform.hmcts.net:8080/"
-}
-
-variable "no_proxy" {
-  default = "localhost,127.0.0.0/8,127.0.0.1,127.0.0.1*,local.home,reform.hmcts.net,*.reform.hmcts.net,betaDevBprobateApp01.reform.hmcts.net,betaDevBprobateApp02.reform.hmcts.net,betaDevBccidamAppLB.reform.hmcts.net,*.internal,*.platform.hmcts.net"
-}
-
 variable "ga_tracking_url" {
   description = "Google Analytics tracking URL"
   default = "http://www.google-analytics.com/collect"
-}
-
-variable "probate_redis_url" {
-  type = "string"
 }
 
 variable "use_auth" {
@@ -156,13 +144,7 @@ variable "probate_frontend_use_redis" {
   default = "false"
 }
 
-variable "redis_listen_port" {
-  default = "6379"
-}
 
-variable "f5_redis_listen_port" {
-  default = "6379"
-}
 
 variable "probate_frontend_https" {
   default = "false"

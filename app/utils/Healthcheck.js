@@ -3,6 +3,8 @@
 const FormatUrl = require('app/utils/FormatUrl');
 const {asyncFetch, fetchOptions} = require('app/components/api-utils');
 const config = require('app/config');
+const statusUp = 'UP';
+const statusDown = 'DOWN';
 
 class Healthcheck {
     formatUrl(endpoint) {
@@ -28,7 +30,7 @@ class Healthcheck {
 
     health({err, service, json}) {
         if (err) {
-            return {name: service.name, status: 'DOWN', error: err.toString()};
+            return {name: service.name, status: statusDown, error: err.toString()};
         }
         return {name: service.name, status: json.status};
     }
@@ -45,6 +47,10 @@ class Healthcheck {
         const services = this.createServicesList(url, config.services);
         const promises = this.createPromisesList(services, type);
         Promise.all(promises).then(downstream => callback(downstream));
+    }
+
+    status(healthDownstream) {
+        return healthDownstream.every(service => service.status === statusUp) ? statusUp : statusDown;
     }
 
     mergeInfoAndHealthData(healthDownstream, infoDownstream) {

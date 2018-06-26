@@ -22,7 +22,9 @@ List<LinkedHashMap<String, Object>> secrets = [
     secret('testTerms', 'TERMS_AND_CONDITIONS'),
     secret('testSurvey', 'SURVEY'),
     secret('testsurveyEndOfApplication', 'SURVEY_END_OF_APPLICATION'),
-    secret('testUseGovPay', 'USE_GOV_PAY')
+    secret('testUseGovPay', 'USE_GOV_PAY'),
+    secret('testPostcodeServiceUrl', 'POSTCODE_SERVICE_URL'),
+    secret('testPostCodeAddressToken', 'ADDRESS_TOKEN')
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
@@ -39,10 +41,6 @@ withPipeline("nodejs", product, component) {
     sh 'yarn setup'
   }
   
-  after('functionalTest:aat') {
-    error('Halting pipeline before prod stages')
-  }
-
   loadVaultSecrets(secrets)
   //enableSlackNotifications('#probate-jenkins')
 }

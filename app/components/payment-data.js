@@ -4,6 +4,7 @@ const config = require('app/config');
 const {get, defaultTo} = require('lodash');
 const simpleRandom = require('simple-random');
 const logger = require('app/components/logger')('Init');
+const FormatUrl = require('app/utils/FormatUrl');
 
 const createCaseReference = (deceasedLastName) => {
     let identifier = defaultTo(deceasedLastName, '');
@@ -49,12 +50,12 @@ const createPaymentReference = (data, getCaseReference) => {
     return reference;
 };
 
-const createPaymentData = (data, getCaseReference = createCaseReference) => {
+const createPaymentData = (data, hostname, getCaseReference = createCaseReference) => {
     const body = {};
     body.amount = data.amount * 100;
     body.reference = createPaymentReference(data, getCaseReference);
     body.description = `Probate Payment: ${data.amount}`;
-    body.return_url = config.services.payment.returnUrl;
+    body.return_url = FormatUrl.format(hostname, config.services.payment.returnUrlPath);
     return body;
 };
 

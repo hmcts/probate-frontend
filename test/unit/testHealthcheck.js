@@ -17,6 +17,7 @@ describe('healthcheck.js', () => {
                     throw err;
                 }
                 expect(res.body).to.have.property('name').and.equal(commonContent.serviceName);
+                // expect(res.body).to.have.property('status').and.equal('DOWN');
                 expect(res.body).to.have.property('status').and.equal('UP');
                 expect(res.body).to.have.property('host').and.equal(healthcheck.osHostname);
                 expect(res.body).to.have.property('gitCommitId').and.equal(healthcheck.gitCommitId);

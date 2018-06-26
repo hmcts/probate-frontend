@@ -12,7 +12,7 @@ describe('PaymentData', function () {
                 amount: '10',
             };
 
-            const result = paymentData.createPaymentData(data);
+            const result = paymentData.createPaymentData(data, 'https://localhost');
 
             assert.equal(result.amount, '1000');
 
@@ -26,7 +26,7 @@ describe('PaymentData', function () {
 
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE1';
 
-            const result = paymentData.createPaymentData(data, () => {
+            const result = paymentData.createPaymentData(data, 'https://localhost', () => {
 return '123456';
 });
 
@@ -45,7 +45,7 @@ return '123456';
 
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE1$CODE2/1';
 
-            const result = paymentData.createPaymentData(data, () => {
+            const result = paymentData.createPaymentData(data, 'https://localhost', () => {
 return '123456';
 });
 
@@ -64,7 +64,7 @@ return '123456';
 
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE1$CODE3/2';
 
-            const result = paymentData.createPaymentData(data, () => {
+            const result = paymentData.createPaymentData(data, 'https://localhost', () => {
 return '123456';
 });
 
@@ -84,7 +84,7 @@ return '123456';
 
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE1$CODE2/3$CODE3/4';
 
-            const result = paymentData.createPaymentData(data, () => {
+            const result = paymentData.createPaymentData(data, 'https://localhost', () => {
 return '123456';
 });
 
@@ -103,7 +103,7 @@ return '123456';
                 },
             };
 
-            const result = paymentData.createPaymentData(data, () => {
+            const result = paymentData.createPaymentData(data, 'https://localhost', () => {
 return '123456';
 });
 
@@ -122,7 +122,7 @@ return '123456';
 
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE3/6';
 
-            const result = paymentData.createPaymentData(data, () => {
+            const result = paymentData.createPaymentData(data, 'https://localhost', () => {
 return '123456';
 });
 
@@ -142,7 +142,7 @@ return '123456';
 
             const expectedReference = 'CODE4$$$123456$$$CODE5$$$CODE2/7$CODE3/8';
 
-            const result = paymentData.createPaymentData(data, () => {
+            const result = paymentData.createPaymentData(data, 'https://localhost', () => {
 return '123456';
 });
 
@@ -154,7 +154,7 @@ return '123456';
 
             const data = {};
 
-            const result = paymentData.createPaymentData(data);
+            const result = paymentData.createPaymentData(data, 'https://localhost');
 
             assert.exists(result.description);
         });
@@ -163,9 +163,9 @@ return '123456';
 
             const data = {};
 
-            const result = paymentData.createPaymentData(data);
+            const result = paymentData.createPaymentData(data, 'https://localhost');
 
-            assert.equal(result.return_url, config.services.payment.returnUrl);
+            assert.equal(result.return_url, `https://localhost${config.services.payment.returnUrlPath}`);
         });
 
         it('Limits case reference to 32 characters', function () {

@@ -6,5 +6,8 @@
   },
   "applicant": {
     "executor": "Yes"
+  },
+  "executors": {
+    "mentalCapacity": "Yes"
   }
 }

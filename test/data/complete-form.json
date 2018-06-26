@@ -58,7 +58,8 @@
       "invitesSent": "true",
       "allalive":"Yes",
       "otherExecutorsApplying":"Yes",
-      "alias":"No"
+      "alias":"No",
+      "mentalCapacity": "Yes"
     },
     "declaration": {
       "declarationCheckbox": true

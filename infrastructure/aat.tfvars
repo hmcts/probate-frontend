@@ -6,12 +6,14 @@ vault_section = "preprod"
 packages_environment = "preprod"
 packages_version = "3.0.0"
 
+
 external_host_name = "probate.aat.platform.hmcts.net"
 
 probate_google_track_id = "UA-93598808-1"
 
 probate_frontend_https = "false"
 probate_frontend_use_auth = "false"
+
 
 payment_create_url = "https://preprod.payments.reform.hmcts.net:4401/users/userId/payments"
 

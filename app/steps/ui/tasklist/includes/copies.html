@@ -1,12 +1,20 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.CopiesTask %}
 
 <li class="task-item">
-    <span class="heading-medium">{{content.copiesTask}}</span>
-    {% if fields.CopiesTask.value.status == 'complete' and previousTaskStatus !== 'started' %}
-        <span class="progress-status-tag">{{content.taskCompleteTag | upper}}</span>
-    {% else %}
-        <p>{{content.copiesTaskParagraph1}}</p>
+
+    {{taskStatus(
+        content = content,
+        title = content.copiesTask,
+        status = fields.CopiesTask.value.status,
+        previousTaskStatus = previousTaskStatus
+    )}}
+
+    {% if fields.CopiesTask.value.status !== 'complete' %}
+        <div class="task-item-content">
+            <p>{{content.copiesTaskParagraph1}}</p>
+        </div>
     {% endif %}
+
     {{taskAction(
         prevTaskStatus = previousTaskStatus,
         status = fields.CopiesTask.value.status,

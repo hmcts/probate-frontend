@@ -36,7 +36,7 @@
   "taskNotStarted": "Start",
   "taskStarted": "Continue",
   "taskComplete": "Check your answers",
-  "taskUnavailable": "You must complete the previous step before you can start this",
-  "taskCompleteTag": "Completed",
+  "taskUnavailable": "Can&rsquo;t start yet",
+  "checkYourAnswers": "Completed",
   "alreadyDeclared": "Already declared"
 }

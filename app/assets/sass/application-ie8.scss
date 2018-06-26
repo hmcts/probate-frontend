@@ -8,9 +8,14 @@ $path: "/public/images/";
 
 // Take a look at in app/assets/sass/patterns/ to see which files are imported.
 @import 'patterns/check-your-answers';
-
+@import 'patterns/task-list';
 @import 'application-common.scss';
+
 
 .multiple-choice input {
 	filter: none;
+}
+
+li.task-item , li.task-item .heading-medium {
+	float: none;
 }

@@ -29,7 +29,7 @@ describe('task-list', () => {
                 'taskStarted',
                 'taskComplete',
                 'taskUnavailable',
-                'taskCompleteTag',
+                'checkYourAnswers',
                 'alreadyDeclared',
 
             ];
@@ -57,7 +57,7 @@ describe('task-list', () => {
                 'taskStarted',
                 'taskComplete',
                 'taskUnavailable',
-                'taskCompleteTag',
+                'checkYourAnswers',
                 'alreadyDeclared',
 
             ];
@@ -99,7 +99,7 @@ describe('task-list', () => {
                 'taskStarted',
                 'taskComplete',
                 'taskUnavailable',
-                'taskCompleteTag',
+                'checkYourAnswers',
                 'alreadyDeclared',
             ];
 

@@ -1,6 +1,4 @@
 const initSteps = require('app/core/initSteps');
-const chai = require('chai');
-const assert = chai.assert;
 const when = require('when');
 const sinon = require('sinon');
 const services = require('app/components/services');
@@ -13,8 +11,7 @@ describe('ExecutorsApplying', () => {
     beforeEach(function () {
         removeExecutorStub = sinon.stub(services, 'removeExecutor');
         ctx = {
-            list: [
-                {'fullName': 'john', 'isApplying': true, 'isApplicant': true},
+            executorsInvitedList: [
                 {'fullName': 'other applicant', 'isApplying': true, 'isApplicant': false, 'inviteId': 'dummy_inviteId_1'},
                 {'fullName': 'harvey', 'isApplying': true, 'isApplicant': false, 'inviteId': 'dummy_inviteId_2'}
             ],

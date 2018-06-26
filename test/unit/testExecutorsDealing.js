@@ -1,6 +1,4 @@
 const initSteps = require('app/core/initSteps');
-const chai = require('chai');
-const assert = chai.assert;
 const when = require('when');
 const sinon = require('sinon');
 const services = require('app/components/services');

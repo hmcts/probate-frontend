@@ -1,8 +1,11 @@
+'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const services = require('app/components/services');
 const {includes, some, tail} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const FormatName = require('app/utils/FormatName');
+const logger = require('app/components/logger')('Init');
 
 module.exports = class ExecutorsDealingWithEstate extends ValidationStep {
 
@@ -42,7 +45,7 @@ module.exports = class ExecutorsDealingWithEstate extends ValidationStep {
             if (!ctx.list[i].isApplying && ctx.list[i].inviteId) {
                 yield services.removeExecutor(ctx.list[i].inviteId).then(result => {
                     if (result.name === 'Error') {
-                        throw new Error('Error while deleting executor from invitedata table.');
+                        logger.error(`Error while deleting executor from invitedata table: ${result.message}`);
                     }
                 });
                 delete ctx.list[i].inviteId;

@@ -1,9 +1,6 @@
 const initSteps = require('app/core/initSteps');
-const chai = require('chai');
-const assert = chai.assert;
 const when = require('when');
 const sinon = require('sinon');
-const {isNil} = require('lodash');
 const services = require('app/components/services');
 
 describe('ExecutorNumber', () => {
@@ -14,8 +11,8 @@ describe('ExecutorNumber', () => {
         removeExecutorStub = sinon.stub(services, 'removeExecutor');
         ctx = {
             executorsRemoved: [
-                {'fullName': 'other applicant', 'isApplying': true, 'isApplicant': false, 'inviteId': 'dummy_inviteId'},
-                {'fullName': 'harvey', 'isApplying': false, 'isApplicant': false}
+                {'fullName': 'other applicant', 'isApplying': true, 'isApplicant': false, 'inviteId': 'dummy_inviteId_1'},
+                {'fullName': 'harvey', 'isApplying': true, 'isApplicant': false, 'inviteId': 'dummy_inviteId_2'}
             ],
             list: [
                 {'fullName': 'john', 'isApplying': true, 'isApplicant': true}
@@ -29,9 +26,9 @@ describe('ExecutorNumber', () => {
         removeExecutorStub.restore();
     });
 
-    it('Removes executors from invitedata table (success)', () => {
+    it('Removes executors from invitedata table when number of executors is reduced (success)', () => {
         removeExecutorStub.returns(when(Promise.resolve()));
         [ctx] = ExecNumber.handlePost(ctx);
-        sinon.assert.calledOnce(removeExecutorStub);
+        sinon.assert.calledTwice(removeExecutorStub);
     });
 });

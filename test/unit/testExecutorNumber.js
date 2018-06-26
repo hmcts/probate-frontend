@@ -29,25 +29,9 @@ describe('ExecutorNumber', () => {
         removeExecutorStub.restore();
     });
 
-    it('Removes executors from invitedata table (success)', (done) => {
+    it('Removes executors from invitedata table (success)', () => {
         removeExecutorStub.returns(when(Promise.resolve()));
         [ctx] = ExecNumber.handlePost(ctx);
-
         sinon.assert.calledOnce(removeExecutorStub);
-        assert.isTrue(isNil(ctx.executorsRemoved));
-        done();
-    });
-
-    it('Removes executors from invitedata table (failure)', (done) => {
-        const expectedError = new Error('Error while deleting executor from invitedata table.');
-        removeExecutorStub.returns(when(expectedError));
-
-        services.removeExecutor('invalid_id')
-            .then(function(actualError) {
-                sinon.assert.alwaysCalledWith(removeExecutorStub, 'invalid_id');
-                assert.strictEqual(expectedError, actualError);
-                done();
-            })
-            .catch(done);
     });
 });

@@ -30,20 +30,6 @@ describe('ExecutorsApplying', () => {
     it('Removes executors from invitedata table when Executors applying is No (success)', () => {
         removeExecutorStub.returns(when(Promise.resolve({name: 'success!'})));
         [ctx] = ExecApplying.handlePost(ctx, json.optionNo);
-
         sinon.assert.called(removeExecutorStub);
-        // assert.lengthOf(ctx.list, 1);
-    });
-
-    it('Removes executors from invitedata table when Executors applying is No (failure)', (done) => {
-        const expectedError = new Error('Error while deleting executor from invitedata table.');
-        removeExecutorStub.returns(when(expectedError));
-        services.removeExecutor('invalid_id')
-            .then(function(actualError) {
-                sinon.assert.alwaysCalledWith(removeExecutorStub, 'invalid_id');
-                assert.strictEqual(expectedError, actualError);
-                done();
-            })
-            .catch(done);
     });
 });

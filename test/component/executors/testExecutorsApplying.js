@@ -1,6 +1,6 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    ExecutorsDealingWithEstate = require('app/steps/ui/executors/dealingwithestate/index'),
-    ExecutorRoles = require('app/steps/ui/executors/roles/index');
+const TestWrapper = require('test/util/TestWrapper');
+const ExecutorsDealingWithEstate = require('app/steps/ui/executors/dealingwithestate/index');
+const ExecutorRoles = require('app/steps/ui/executors/roles/index');
 
 describe('executorsapplying', () => {
     let testWrapper;

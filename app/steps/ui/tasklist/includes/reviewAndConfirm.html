@@ -1,7 +1,8 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.ReviewAndConfirmTask %}
 
 <li class="task-item">
-    <span class="heading-medium">{{content.reviewAndConfirmTask}}</span>
+    <h3 class="heading-medium">{{content.reviewAndConfirmTask}}</h3>
+
     {% if fields.ReviewAndConfirmTask.value.status == 'complete' and previousTaskStatus !== 'started' %}
         {% if fields.hasMultipleApplicants.value == 'true' and fields.alreadyDeclared.value == 'false'  %}
             <span class="progress-status-tag">{{content.taskCompleteTag | upper}}</span>

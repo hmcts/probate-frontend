@@ -4,7 +4,8 @@ const sinon = require('sinon');
 const services = require('app/components/services');
 
 describe('ExecutorsDealingWithEstate', () => {
-    let ctx, removeExecutorStub;
+    let ctx;
+    let removeExecutorStub;
     const ExecDealing = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).ExecutorsDealingWithEstate;
 
     beforeEach(function () {

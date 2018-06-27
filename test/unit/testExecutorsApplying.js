@@ -5,7 +5,8 @@ const services = require('app/components/services');
 const json = require('app/resources/en/translation/executors/applying.json');
 
 describe('ExecutorsApplying', () => {
-    let ctx, removeExecutorStub;
+    let ctx;
+    let removeExecutorStub;
     const ExecApplying = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).ExecutorsApplying;
 
     beforeEach(function () {

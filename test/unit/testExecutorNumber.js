@@ -4,7 +4,8 @@ const sinon = require('sinon');
 const services = require('app/components/services');
 
 describe('ExecutorNumber', () => {
-    let ctx, removeExecutorStub;
+    let ctx;
+    let removeExecutorStub;
     const ExecNumber = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).ExecutorsNumber;
 
     beforeEach(function() {

@@ -1,4 +1,4 @@
-const initSteps = require('app/core/initSteps'),
+    const initSteps = require('app/core/initSteps'),
   journeyMap = require('app/core/journeyMap'),
   assert = require('chai').assert,
   completedForm = require('test/data/complete-form').formdata;
@@ -49,6 +49,7 @@ describe('Tasklist', function () {
 
             const formdata = {will: completedForm.will, iht: completedForm.iht};
             formdata.applicant = {executor: completedForm.applicant.executor};
+            formdata.deceased = {deathCertificate: completedForm.deceased.deathCertificate};
             req.session.form = formdata;
 
             const taskList = steps.TaskList;
@@ -69,6 +70,7 @@ describe('Tasklist', function () {
                 firstName: completedForm.applicant.firstName,
                 lastName: completedForm.applicant.lastName,
             };
+            formdata.deceased = {deathCertificate: completedForm.deceased.deathCertificate};
             req.session.form = formdata;
 
             const taskList = steps.TaskList;
@@ -85,6 +87,7 @@ describe('Tasklist', function () {
 
             const formdata = {will: completedForm.will, iht: {'completed': 'Yes'}};
             formdata.applicant = completedForm.applicant;
+            formdata.deceased = {deathCertificate: 'Yes'};
             req.session.form = formdata;
 
             const taskList = steps.TaskList;

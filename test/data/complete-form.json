@@ -45,7 +45,8 @@
       "deceasedName": "Someone Else",
       "relationship": "grandparent",
       "married": "Yes",
-      "freeTextAddress": "21 Treelined Avenue,\r\nSussex."
+      "freeTextAddress": "21 Treelined Avenue,\r\nSussex.",
+      "deathCertificate": "Yes"
     },
     "iht": {
       "completed": "Yes",

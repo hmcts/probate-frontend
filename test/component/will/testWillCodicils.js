@@ -1,11 +1,11 @@
 'use strict';
-const TestWrapper = require('test/util/TestWrapper'),
-    IhtCompleted = require('app/steps/ui/iht/completed/index'),
-    CodicilsNumber = require('app/steps/ui/will/codicilsnumber/index');
+const TestWrapper = require('test/util/TestWrapper');
+const DeathCertificate = require('app/steps/ui/deceased/deathcertificate/index');
+const CodicilsNumber = require('app/steps/ui/will/codicilsnumber/index');
 
 describe('will-codicils', () => {
     let testWrapper;
-    const expectedNextUrlForIhtComplete = IhtCompleted.getUrl();
+    const expectedNextUrlForDeathCertificate = DeathCertificate.getUrl();
     const expectedNextUrlForCodicilsNumber = CodicilsNumber.getUrl();
 
     beforeEach(() => {
@@ -17,7 +17,6 @@ describe('will-codicils', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         it('test correct content loaded on the page', (done) => {
             const excludeKeys = [];
 
@@ -30,11 +29,11 @@ describe('will-codicils', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to iht completed page: ${expectedNextUrlForIhtComplete}`, (done) => {
+        it(`test it redirects to death certificate page: ${expectedNextUrlForDeathCertificate}`, (done) => {
             const data = {
                 'codicils': 'No'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtComplete);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeathCertificate);
         });
 
         it(`test it redirects to codicils number page: ${expectedNextUrlForCodicilsNumber}`, (done) => {
@@ -43,6 +42,5 @@ describe('will-codicils', () => {
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForCodicilsNumber);
         });
-
     });
 });

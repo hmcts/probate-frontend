@@ -1,9 +1,9 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    IhtCompleted = require('app/steps/ui/iht/completed/index');
+const TestWrapper = require('test/util/TestWrapper');
+const DeathCertificate = require('app/steps/ui/deceased/deathcertificate/index');
 
 describe('codicils-date', () => {
     let testWrapper;
-    const expectedNextUrlForIhtCompleted = IhtCompleted.getUrl();
+    const expectedNextUrlForDeathCertificate = DeathCertificate.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CodicilsDate');
@@ -14,17 +14,13 @@ describe('codicils-date', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         it('test right content loaded on the page', (done) => {
-
             testWrapper.testContent(done, []);
         });
 
         it('test errors message displayed for not selecting an option', (done) => {
             const data = {};
-
             testWrapper.testErrors(done, data, 'required', ['isCodicilsDate']);
-
         });
 
         it('test errors message displayed for missing data', (done) => {
@@ -32,28 +28,26 @@ describe('codicils-date', () => {
                 'isCodicilsDate': 'Yes'
             };
             const errorsToTest = ['codicilsDate_day', 'codicilsDate_month', 'codicilsDate_year'];
-
             testWrapper.testErrors(done, data, 'required', errorsToTest);
 
         });
 
-        it(`test it redirects to next page when no is selected: ${expectedNextUrlForIhtCompleted}`, (done) => {
+        it(`test it redirects to death certificate page when no is selected: ${expectedNextUrlForDeathCertificate}`, (done) => {
             const data = {
                 isCodicilsDate: 'No'
             };
             testWrapper.nextPageUrl = testWrapper.nextStep(data).constructor.getUrl();
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtCompleted);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeathCertificate);
         });
 
-        it(`test it redirects to next page when yes is selected: ${expectedNextUrlForIhtCompleted}`, (done) => {
+        it(`test it redirects to death certificate page when yes is selected: ${expectedNextUrlForDeathCertificate}`, (done) => {
             const data = {
                 isCodicilsDate: 'Yes',
                 codicilsDate_day: '01',
                 codicilsDate_month: '01',
                 codicilsDate_year: '2000'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtCompleted);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeathCertificate);
         });
-
     });
 });

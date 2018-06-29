@@ -6,15 +6,10 @@
         {% if fields.hasMultipleApplicants.value == 'true' and fields.alreadyDeclared.value == 'false'  %}
             <span class="progress-status-tag">{{content.taskCompleteTag | upper}}</span>
             <p>{{content.reviewAndConfirmTaskMultiplesParagraph1 | safe}}</p>
-            <p class="panel panel-border-wide">{{content.reviewAndConfirmTaskMultiplesParagraph2 | safe}}</p>
-            <p>{{content.reviewAndConfirmTaskMultiplesParagraph3 | safe}}</p>
-            <p>{{content.reviewAndConfirmTaskMultiplesParagraph4 | safe}}</p>
+            <p>{{content.reviewAndConfirmTaskMultiplesParagraph2 | safe}}</p>
         {% else %}
             <span class="progress-status-tag">{{content.taskCompleteTag | upper}}</span>
-            <p>{{content.reviewAndConfirmTaskCompleteParagraph}}</p>
         {% endif %}
-    {% else %}
-        <p>{{content.reviewAndConfirmTaskParagraph1}}</p>
     {% endif %}
     {{taskAction(
     prevTaskStatus = previousTaskStatus,

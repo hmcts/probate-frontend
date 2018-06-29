@@ -4,20 +4,6 @@
     <span class="heading-medium">{{content.executorsTask}}</span>
     {% if fields.ExecutorsTask.value.status === 'complete' and previousTaskStatus !== 'started' %}
         <span class="progress-status-tag">{{content.taskCompleteTag | upper}}</span>
-        <p>{{content.executorsTaskCompleteParagraph1}}</p>
-    {% else %}
-        <p>{{content.executorsTaskChecklistHeader}}</p>
-        {{unorderedList([
-            content["executorsTaskChecklist-item1"] | safe,
-            content["executorsTaskChecklist-item2"] | safe,
-            content["executorsTaskChecklist-item3"] | safe
-        ])}}
-
-        <p>{{content.executorsMultipleTaskChecklistHeader | safe}}</p>
-        {{unorderedList([
-            content["executorsMultipleTaskChecklist-item1"] | safe,
-            content["executorsMultipleTaskChecklist-item2"] | safe
-        ])}}
     {% endif %}
     {{taskAction(
         prevTaskStatus = previousTaskStatus,

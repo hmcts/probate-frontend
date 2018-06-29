@@ -5,11 +5,6 @@
     {% if fields.DocumentsTask.value.status == 'complete' and previousTaskStatus !== 'started' %}
         <span class="progress-status-tag">{{content.taskCompleteTag | upper}}</span>
     {% endif %}
-    <p>{{content.documentTaskChecklistHeader}}</p>
-    {{unorderedList([
-        content["documentTaskChecklist-item1"] | safe
-    ])}}
-    <p>{{content.documentTaskParagraph1}}</p>
     {{taskAction(
         prevTaskStatus = previousTaskStatus,
         status = fields.DocumentsTask.value.status,

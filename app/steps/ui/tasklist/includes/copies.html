@@ -4,8 +4,6 @@
     <span class="heading-medium">{{content.copiesTask}}</span>
     {% if fields.CopiesTask.value.status == 'complete' and previousTaskStatus !== 'started' %}
         <span class="progress-status-tag">{{content.taskCompleteTag | upper}}</span>
-    {% else %}
-        <p>{{content.copiesTaskParagraph1}}</p>
     {% endif %}
     {{taskAction(
         prevTaskStatus = previousTaskStatus,

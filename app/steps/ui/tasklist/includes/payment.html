@@ -4,9 +4,6 @@
     <span class="heading-medium">{{content.paymentTask | safe}}</span>
     {% if fields.PaymentTask.value.status === 'complete' and previousTaskStatus !== 'started' %}
         <span class="progress-status-tag">{{content.taskCompleteTag | upper | safe}}</span>
-    {% else %}
-        <p>{{content.paymentTaskParagraph1 | safe}}</p>
-        <p>{{content.paymentTaskParagraph2 | safe}}</p>
     {% endif %}
     {{taskAction(
         prevTaskStatus = previousTaskStatus,

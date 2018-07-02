@@ -204,6 +204,16 @@ describe('DetectDataChange.js', () => {
                 expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);
                 done();
             });
+
+            it('when executors applying tick boxes have been changed', (done) => {
+                req.session.form.executors.list[1].isApplying = false;
+                step.section = 'executors';
+                req.body = {executorsApplying: ['James Miller', 'Ed Brown']};
+                req.session.haveAllExecutorsDeclared = 'false';
+                const detectDataChange = new DetectDataChange();
+                expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);
+                done();
+            });
         });
 
         describe('should return false', () => {
@@ -224,6 +234,14 @@ describe('DetectDataChange.js', () => {
             it('when all executors have declared', (done) => {
                 req.session.haveAllExecutorsDeclared = 'true';
                 const detectDataChange = new DetectDataChange();
+                expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(false);
+                done();
+            });
+
+            it('when executors applying tick boxes have not been changed', (done) => {
+                step.section = 'executors';
+                const detectDataChange = new DetectDataChange();
+                req.session.haveAllExecutorsDeclared = 'true';
                 expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(false);
                 done();
             });

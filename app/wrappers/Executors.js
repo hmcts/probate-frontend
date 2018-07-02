@@ -67,6 +67,10 @@ class Executors {
     areAllAliveExecutorsApplying() {
         return this.aliveExecutors().every(executor => executor.isApplying);
     }
+
+    mainApplicant() {
+        return this.executorsList.filter(executor => executor.isApplicant);
+    }
 }
 
 module.exports = Executors;

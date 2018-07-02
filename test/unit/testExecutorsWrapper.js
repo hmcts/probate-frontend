@@ -373,4 +373,38 @@ describe('Executors.js', () => {
             });
         });
     });
+
+    describe('mainApplicant()', () => {
+        beforeEach(() => {
+            data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {fullname: 'ed brown', isApplying: true}
+                ]
+            };
+        });
+        it('should return the main applicant', (done) => {
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.mainApplicant()).to.deep.equal([
+                {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true}
+            ]);
+            done();
+        });
+
+        describe('should return an empty list', () => {
+            it('when none of the executors is the main applicant', (done) => {
+                data.list[0].isApplicant = false;
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.mainApplicant()).to.deep.equal([]);
+                done();
+            });
+
+            it('when there is no executor data', (done) => {
+                const data = {};
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsWithAnotherName()).to.deep.equal([]);
+                done();
+            });
+        });
+    });
 });

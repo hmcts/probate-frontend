@@ -1,5 +1,6 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {get, dropRight} = require('lodash');
+const {get} = require('lodash');
+const ExecutorsWrapper = require('app/wrappers/Executors');
 module.exports = class ExecutorsNumber extends ValidationStep {
 
     static getUrl() {
@@ -14,6 +15,7 @@ module.exports = class ExecutorsNumber extends ValidationStep {
     }
 
     createExecutorList(ctx, formdata) {
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         ctx.list = get(ctx, 'list', []);
         ctx.list[0] = {
             firstName: get(formdata, 'applicant.firstName'),
@@ -24,7 +26,7 @@ module.exports = class ExecutorsNumber extends ValidationStep {
 
         if (ctx.list.length > ctx.executorsNumber) {
             return {
-                list: dropRight(ctx.list, ctx.list.length -1),
+                list: executorsWrapper.mainApplicant(),
                 executorsNumber: ctx.executorsNumber
             };
         }

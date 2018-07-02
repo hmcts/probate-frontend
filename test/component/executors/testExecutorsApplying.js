@@ -37,7 +37,23 @@ describe('executorsapplying', () => {
 
         it(`test it redirects to executors roles if there are no other executors dealing with the estate: ${expectedNextUrlForExecRoles}`, (done) => {
             const data = {
-                'otherExecutorsApplying': 'No'
+                'otherExecutorsApplying': 'No',
+                'list': [
+                    {
+                        'lastName': 'the',
+                        'firstName': 'applicant',
+                        'isApplying': 'Yes',
+                        'isApplicant': true
+                    }, {
+                        isApplying: true,
+                        fullName: 'Ed Brown',
+                        address: '20 Green Street, London, L12 9LN'
+                    }, {
+                        isApplying: true,
+                        fullName: 'Dave Miller',
+                        address: '102 Petty Street, London, L12 9LN'
+                    }
+                ]
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForExecRoles);
         });

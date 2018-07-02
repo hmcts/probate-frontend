@@ -15,4 +15,16 @@ module.exports = class ExecutorsApplying extends ValidationStep {
         };
         return nextStepOptions;
     }
+
+    handlePost(ctx) {
+        if (ctx.otherExecutorsApplying === 'No') {
+            ctx.list
+                .filter(executor => !executor.isApplicant)
+                .map(executor => {
+                    delete executor.isApplying;
+                    return executor;
+                });
+        }
+        return [ctx];
+    }
 };

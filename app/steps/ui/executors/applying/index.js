@@ -1,5 +1,6 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const json = require('app/resources/en/translation/executors/applying.json');
+const ExecutorsWrapper = require('app/wrappers/Executors');
 
 module.exports = class ExecutorsApplying extends ValidationStep {
 
@@ -18,8 +19,8 @@ module.exports = class ExecutorsApplying extends ValidationStep {
 
     handlePost(ctx) {
         if (ctx.otherExecutorsApplying === 'No') {
-            ctx.list
-                .filter(executor => !executor.isApplicant)
+            const executorsWrapper = new ExecutorsWrapper(ctx);
+            executorsWrapper.executors(true)
                 .map(executor => {
                     delete executor.isApplying;
                     return executor;

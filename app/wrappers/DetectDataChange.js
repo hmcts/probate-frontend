@@ -49,7 +49,7 @@ class DetectDataChanges {
                     return this.isNotEqual(req.body.executorName, currentExecutors);
                 } else if (req.body.executorsApplying) {
                     const executorsApplying = executorsWrapper.executorsApplying(true).map(executor => executor.fullName);
-                    return this.isNotEqual(req.body.executorsApplying, executorsApplying) && req.session.haveAllExecutorsDeclared !== 'true';
+                    return this.isNotEqual(req.body.executorsApplying, executorsApplying);
                 }
             }
             return this.hasChanged(req.body, formdata[step.section]);

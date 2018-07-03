@@ -16,7 +16,7 @@ module.exports = class ExecutorsNumber extends ValidationStep {
 
     createExecutorList(ctx, formdata) {
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
-        ctx.list = get(ctx, 'list', []);
+        ctx.list = executorsWrapper.executors();
         ctx.list[0] = {
             firstName: get(formdata, 'applicant.firstName'),
             lastName: get(formdata, 'applicant.lastName'),

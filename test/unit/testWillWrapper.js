@@ -1,3 +1,4 @@
+'use strict';
 const WillWrapper = require('app/wrappers/Will');
 const commonContent = require('app/resources/en/translation/common');
 const chai = require('chai');

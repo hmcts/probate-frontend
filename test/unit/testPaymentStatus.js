@@ -1,3 +1,5 @@
+'use strict';
+
 const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
 const config = require('test/config');

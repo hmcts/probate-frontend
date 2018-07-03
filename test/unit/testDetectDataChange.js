@@ -123,12 +123,12 @@ describe('DetectDataChange.js', () => {
                                 isApplying: true
                             }, {
                                 isApplying: true,
-                                fullname: 'James Miller',
+                                fullName: 'James Miller',
                                 address: '11 Red Street, London, L21 1LL',
                                 email: 'jamesmiller@example.com'
                             }, {
                                 isApplying: true,
-                                fullname: 'Ed Brown',
+                                fullName: 'Ed Brown',
                                 address: '20 Green Street, London, L12 9LN'
                             }]
                         },
@@ -240,8 +240,8 @@ describe('DetectDataChange.js', () => {
 
             it('when executors applying tick boxes have not been changed', (done) => {
                 step.section = 'executors';
+                req.body.executorsApplying = ['James Miller', 'Ed Brown'];
                 const detectDataChange = new DetectDataChange();
-                req.session.haveAllExecutorsDeclared = 'true';
                 expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(false);
                 done();
             });

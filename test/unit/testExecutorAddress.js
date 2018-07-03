@@ -1,5 +1,5 @@
 /* eslint max-lines: ["error", 500] */
-
+'use strict';
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const ExecutorsWrapper = require('app/wrappers/Executors');

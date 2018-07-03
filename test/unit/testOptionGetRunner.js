@@ -1,8 +1,10 @@
-const OptionGetRunner = require('app/core/runners/OptionGetRunner'),
-      sinon = require('sinon'),
-      chai = require('chai'),
-      expect = chai.expect,
-      sinonChai = require('sinon-chai');
+'use strict';
+
+const OptionGetRunner = require('app/core/runners/OptionGetRunner');
+const sinon = require('sinon');
+const chai = require('chai');
+const expect = chai.expect;
+const sinonChai = require('sinon-chai');
 
 chai.use(sinonChai);
 

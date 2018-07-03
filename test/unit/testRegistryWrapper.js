@@ -1,3 +1,5 @@
+'use strict';
+
 const RegistryWrapper = require('app/wrappers/Registry');
 const chai = require('chai');
 const expect = chai.expect;

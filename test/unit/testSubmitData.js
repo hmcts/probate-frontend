@@ -1,3 +1,4 @@
+'use strict';
 const submitData = require('app/components/submit-data');
 const formData = require('test/data/complete-form-multipleapplicants');
 const initSteps = require('app/core/initSteps');

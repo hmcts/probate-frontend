@@ -14,6 +14,7 @@ module.exports = {
     TestIdamUserGroup: process.env.IDAM_USER_GROUP,
     TestIdamRole: process.env.IDAM_CITIZEN_ROLE,
     TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '@test.com',
+    TestRetryScenarios: process.env.RETRY_SCENARIOS || 3,
 
     postcodeLookup: {
         token: process.env.ADDRESS_TOKEN,

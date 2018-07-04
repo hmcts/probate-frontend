@@ -129,7 +129,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     //Retrieve the email urls for additional executors
     I.amOnPage(testConfig.TestInviteIdListUrl);
     grabIds = yield I.grabTextFrom('pre');
-});
+}).retry(TestConfigurator.getRetryScenarios());
 
 Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), function* (I) {
 
@@ -190,4 +190,4 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     // Thank You - Application Complete Task
     I.seeThankYouPage();
-});
+}).retry(TestConfigurator.getRetryScenarios());

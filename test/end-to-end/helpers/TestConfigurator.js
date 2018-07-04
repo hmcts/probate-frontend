@@ -20,6 +20,7 @@ class TestConfigurator {
         this.useGovPay = testConfig.TestUseGovPay;
         this.userDetails = '';
         this.useSidam = testConfig.TestUseSidam;
+        this.retryScenarios = testConfig.TestRetryScenarios;
     }
 
     getBefore() {
@@ -128,6 +129,10 @@ class TestConfigurator {
 
     getUseGovPay() {
         return this.useGovPay;
+    }
+
+    getRetryScenarios() {
+        return this.retryScenarios;
     }
 }
 

@@ -98,4 +98,4 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
 
     // Thank You - Application Complete Task
     I.seeThankYouPage();
-});
+}).retry(TestConfigurator.getRetryScenarios());

@@ -78,13 +78,6 @@ router.use((req, res, next) => {
 });
 
 router.use((req, res, next) => {
-    if (config.nonCachedPages.some(page => req.originalUrl.includes(page))) {
-        res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
-    }
-    next();
-});
-
-router.use((req, res, next) => {
     const formdata = req.session.form;
     const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
 

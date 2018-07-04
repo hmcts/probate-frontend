@@ -1,39 +1,83 @@
 'use strict';
 const initSteps = require('app/core/initSteps');
-const assert = require('chai').assert;
+const {expect, assert} = require('chai');
 
 describe('Executors-Applying', function () {
+    let ctx;
+    let formdata;
     const ExecsNumber = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).ExecutorsNumber;
 
     describe('createExecutorList', () => {
-
-        it('test only the main applicant is in the executors list when executors number is reduced', () => {
-            const ctx = {
-                executorsNumber: 2
-            };
-            const formdata = {
-                'applicant': {
+        beforeEach(() => {
+            ctx = {};
+            formdata = {
+                applicant: {
                     'firstName': 'Dave',
                     'lastName': 'Bassett'
                 },
-                list: [
-                    {
-                        'firstName': 'Dave',
-                        'lastName': 'Bassett',
-                        'isApplying': 'Yes',
-                        'isApplicant': true
-                    }, {
-                        fullName: 'Ed Brown'
-                    }, {
-                        fullName: 'Dave Miller'
-                    }
-                ],
+                executors: {
+                    list: [
+                        {
+                            'firstName': 'Dave',
+                            'lastName': 'Bassett',
+                            'isApplying': 'Yes',
+                            'isApplicant': true
+                        }, {
+                            fullName: 'Ed Brown'
+                        }, {
+                            fullName: 'Dave Miller'
+                        }
+                    ]
+                }
             };
-            ExecsNumber.createExecutorList(ctx, formdata);
+        });
+
+        it('test only the main applicant is in the executors list when executors number is reduced', () => {
+            ctx.executorsNumber = 2;
+            ctx = ExecsNumber.createExecutorList(ctx, formdata);
             assert.lengthOf(ctx.list, 1);
-            assert.equal(ctx.list[0].firstName, 'Dave');
-            assert.equal(ctx.list[0].lastName, 'Bassett');
-            assert.isTrue(ctx.list[0].isApplicant);
+            expect(ctx.list).to.deep.equal([{
+                'firstName': 'Dave',
+                'lastName': 'Bassett',
+                'isApplying': true,
+                'isApplicant': true
+            }]);
+        });
+
+        it('test only the executors list remains the same when executors number is not reduced', () => {
+            ctx.executorsNumber = 3;
+            ctx = ExecsNumber.createExecutorList(ctx, formdata);
+            assert.lengthOf(ctx.list, 3);
+            expect(ctx.list).to.deep.equal([
+                {
+                    'firstName': 'Dave',
+                    'lastName': 'Bassett',
+                    'isApplying': true,
+                    'isApplicant': true
+                }, {
+                    fullName: 'Ed Brown'
+                }, {
+                    fullName: 'Dave Miller'
+                }
+            ]);
+        });
+
+        it('test only the executors list remains the same when executors number is increased', () => {
+            ctx.executorsNumber = 5;
+            ctx = ExecsNumber.createExecutorList(ctx, formdata);
+            assert.lengthOf(ctx.list, 3);
+            expect(ctx.list).to.deep.equal([
+                {
+                    'firstName': 'Dave',
+                    'lastName': 'Bassett',
+                    'isApplying': true,
+                    'isApplicant': true
+                }, {
+                    fullName: 'Ed Brown'
+                }, {
+                    fullName: 'Dave Miller'
+                }
+            ]);
         });
     });
 });

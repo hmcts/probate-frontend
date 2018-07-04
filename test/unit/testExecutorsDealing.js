@@ -1,7 +1,7 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const assert = require('chai').assert;
+const {expect, assert} = require('chai');
 const {isNil} = require('lodash');
 
 describe('Executors-Applying', function () {
@@ -16,9 +16,10 @@ describe('Executors-Applying', function () {
             };
             ExecsDealing.pruneFormData(ctx);
             assert.isTrue(isNil(ctx.isApplying));
+            expect(ctx).to.deep.equal({fullName: 'Ed Brown'});
         });
 
-        it('test that isApplying flag is deleted when executor is not applying', () => {
+        it('test that notApplying data is pruned when executor is applying', () => {
             ctx = {
                 fullName: 'Ed Brown',
                 isApplying: true,
@@ -28,10 +29,10 @@ describe('Executors-Applying', function () {
                 notApplyingKey: 'not sure'
             };
             ExecsDealing.pruneFormData(ctx);
-            assert.isTrue(isNil(ctx.isDead));
-            assert.isTrue(isNil(ctx.diedBefore));
-            assert.isTrue(isNil(ctx.notApplyingReason));
-            assert.isTrue(isNil(ctx.notApplyingKey));
+            expect(ctx).to.deep.equal({
+                fullName: 'Ed Brown',
+                isApplying: true
+            });
         });
     });
 

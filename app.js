@@ -182,7 +182,7 @@ exports.init = function() {
     app.use('/health', healthcheck);
 
     if (useIDAM === 'true') {
-        app.use(/\/((?!error)(?!sign-in)(?!pin-resend)(?!pin-sent)(?!co-applicant-*)(?!pin)(?!inviteIdList).)*/, security.protect(config.services.idam.roles));
+        app.use(/\/((?!error)(?!sign-in)(?!pin-resend)(?!pin-sent)(?!co-applicant-*)(?!pin)(?!inviteIdList)(?!start-page).)*/, security.protect(config.services.idam.roles));
         app.use('/', routes);
     } else {
         app.use('/', (req, res, next) => {

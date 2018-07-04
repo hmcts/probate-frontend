@@ -32,12 +32,11 @@ router.get('/', (req, res) => {
             if (result.name === 'Error') {
                 req.log.debug('Failed to load user data');
                 req.log.info({tags: 'Analytics'}, 'Application Started');
-                res.redirect('start-page');
             } else {
                 req.log.debug('Successfully loaded user data');
                 req.session.form = result.formdata;
-                res.redirect('tasklist');
             }
+            res.redirect('tasklist');
         });
 });
 

@@ -1,15 +1,15 @@
 'use strict';
 
 const FormatUrl = require('app/utils/FormatUrl');
-const config = require('../config'),
-    services = require('app/components/services'),
-    logger = require('app/components/logger')('Init'),
-    URL = require('url'),
-    UUID = require('uuid/v4');
+const config = require('../config');
+const services = require('app/components/services');
+const logger = require('app/components/logger')('Init');
+const URL = require('url');
+const UUID = require('uuid/v4');
 
-const SECURITY_COOKIE = '__auth-token-' + config.payloadVersion,
-    REDIRECT_COOKIE = '__redirect',
-    ACCESS_TOKEN_OAUTH2 = 'access_token';
+const SECURITY_COOKIE = '__auth-token-' + config.payloadVersion;
+const REDIRECT_COOKIE = '__redirect';
+const ACCESS_TOKEN_OAUTH2 = 'access_token';
 
 module.exports = class Security {
 

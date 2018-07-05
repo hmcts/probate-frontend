@@ -125,7 +125,7 @@ module.exports = {
     whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou'],
     hardStopParams: ['will.left', 'will.original', 'iht.completed', 'applicant.executor'],
     nonCachedPages: ['summary', 'tasklist'],
-    nonIdamPages: ['error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-page'],
+    nonIdamPages: ['error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'start-apply'],
     endpoints: {
         health: '/health',
         info: '/info'

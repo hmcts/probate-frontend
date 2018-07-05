@@ -3,6 +3,8 @@
   "feedback": "This is a new service – your <a href=\"#\">feedback</a> will help us to improve it.",
   "serviceName": "Apply for probate",
   "start": "Start now",
+  "confirm": "Confirm your eligibility",
+  "acceptAndApply": "Accept invitation and apply",
   "back": "Back",
   "continue": "Save and continue",
   "submit": "Submit your application",

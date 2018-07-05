@@ -1,12 +1,12 @@
 const TestWrapper = require('test/util/TestWrapper'),
-    TaskList = require('app/steps/ui/tasklist/index');
+    StartApply = require('app/steps/ui/startapply/index');
 
-describe('start-page', () => {
+describe('startEligibility', () => {
     let testWrapper;
-    const expectedNextUrlForTaskList = TaskList.getUrl();
+    const expectedNextUrlForStartApply = StartApply.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('StartPage');
+        testWrapper = new TestWrapper('StartEligibility');
     });
 
     afterEach(() => {
@@ -21,8 +21,8 @@ describe('start-page', () => {
             testWrapper.testContent(done, excludeKeys);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {
-            testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList);
+        it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
+            testWrapper.testRedirect(done, {}, expectedNextUrlForStartApply);
         });
 
     });

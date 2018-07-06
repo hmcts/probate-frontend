@@ -32,7 +32,6 @@ describe('sign-out', () => {
     it('test page renders without being redirected to idam', (done) => {
         const request = require('supertest');
         const server = new (require('app').init)();
-        server.useIDAM = 'true';
         const agent = request.agent(server.app);
         agent.get('/sign-out')
             .expect('Content-type', /html/)

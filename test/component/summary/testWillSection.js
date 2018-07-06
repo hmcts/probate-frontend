@@ -3,6 +3,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const willData = require('test/data/will');
 const willContent = requireDir(module, '../../../app/resources/en/translation/will');
 const applicantContent = requireDir(module, '../../../app/resources/en/translation/applicant');
+const deceasedContent = requireDir(module, '../../../app/resources/en/translation/deceased');
 
 describe('summary-will-section', () => {
     let testWrapper, sessionData;
@@ -43,14 +44,16 @@ describe('summary-will-section', () => {
                     playbackData.dateQuestion = willContent.date.willDateQuestion;
                     playbackData.willCodicils = willContent.codicils.question;
                     playbackData.applicantExecutor = applicantContent.executor.question;
+                    playbackData.applicantExecutor = applicantContent.executor.question;
+                    playbackData.deathCertificate = deceasedContent.deathcertificate.question;
 
                     testWrapper.testDataPlayback(done, playbackData);
-                    });
-        });
+                });
+            });
 
-        it('test data is played back correctly on the summary page will section', (done) => {
+            it('test data is played back correctly on the summary page will section', (done) => {
 
-            testWrapper.agent.post('/prepare-session/form')
+                testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
                     if (err) {
@@ -63,6 +66,7 @@ describe('summary-will-section', () => {
                     playbackData.dateQuestion = willContent.date.willDateQuestion;
                     playbackData.willCodicils = willContent.codicils.question;
                     playbackData.applicantExecutor = applicantContent.executor.question;
+                    playbackData.deathCertificate = deceasedContent.deathcertificate.question;
 
                     Object.assign(playbackData, willData.will, willData.applicant);
 

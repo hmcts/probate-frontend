@@ -46,11 +46,15 @@ const stepList = {
     },
     WillDate: 'WillCodicils',
     WillCodicils: {
-        noCodicils: 'IhtCompleted',
+        noCodicils: 'DeathCertificate',
         otherwise: 'CodicilsNumber'
     },
     CodicilsNumber: 'CodicilsDate',
-    CodicilsDate: 'IhtCompleted',
+    CodicilsDate: 'DeathCertificate',
+    DeathCertificate: {
+        hasCertificate: 'IhtCompleted',
+        otherwise: 'StopPage'
+    },
     IhtCompleted: {
         completed: 'IhtMethod',
         otherwise: 'StopPage'

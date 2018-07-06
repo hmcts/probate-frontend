@@ -69,6 +69,18 @@
 
 {{checkanswer(
     items = [{
+        question: content.DeathCertificate.question,
+        answer: fields.deceased.deathCertificate.value,
+        visible: true
+    }],
+    url = content.DeathCertificate.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)
+}}
+
+{{checkanswer(
+    items = [{
         question: content.ApplicantExecutor.question,
         answer: fields.applicant.executor.value,
         visible: true

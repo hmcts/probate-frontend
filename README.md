@@ -5,6 +5,7 @@ This is the frontend application for the Probate Personal Applicants online serv
 The Frontend Application delegates a number of backend logic to the underlying services, including Persistence, Business and Submit services.
 
 ## Getting Started
+
 ### Prerequisites
 
 - [Node.js](nodejs.org) >= 8.9.0
@@ -67,6 +68,7 @@ $ docker run -p 3000:3000 frontend-app
 ```
 
 ## Developing
+
 ### Code style
 
 Before submitting a Pull Request you will be required to run:

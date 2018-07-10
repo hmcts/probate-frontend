@@ -20,7 +20,6 @@ describe('task-list', () => {
             const excludeKeys = [
                 'introduction',
                 'saveAndReturn',
-                'reviewAndConfirmTaskCompleteParagraph',
                 'reviewAndConfirmTaskMultiplesParagraph1',
                 'reviewAndConfirmTaskMultiplesParagraph2',
                 'taskNotStarted',
@@ -29,7 +28,6 @@ describe('task-list', () => {
                 'taskUnavailable',
                 'taskCompleteTag',
                 'alreadyDeclared',
-
             ];
 
             testWrapper.testContent(done, excludeKeys);
@@ -38,7 +36,6 @@ describe('task-list', () => {
         it('test right content loaded in Review and Confirm section (Multiple Applicants)', (done) => {
 
             const excludeKeys = [
-                'eligibilityTaskHeader',
                 'taskNotStarted',
                 'taskStarted',
                 'taskComplete',

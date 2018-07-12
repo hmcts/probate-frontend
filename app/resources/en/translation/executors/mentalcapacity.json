@@ -9,7 +9,7 @@
   "errors": {
     "mentalCapacity": {
       "required": {
-        "summary": "You haven&rsquo;t answered the question about executors being able to make theor own decisions",
+        "summary": "You haven&rsquo;t answered the question about executors being able to make their own decisions",
         "message": "Answer &lsquo;yes&rsquo; if all the executors are able to make their own decisions"
       }
     }

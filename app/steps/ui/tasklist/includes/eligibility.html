@@ -4,14 +4,6 @@
     <span class="heading-medium">{{content.eligibilityTask}}</span>
     {% if fields.EligibilityTask.value.status == 'complete' and previousTaskStatus !== 'started' %}
         <span class="progress-status-tag">{{content.taskCompleteTag | upper}}</span>
-        <p>{{content.eligibilityTaskCompleteParagraph1 | safe}}</p>
-    {% else %}
-        <p>{{content.eligibilityTaskHeader}}</p>
-        {{unorderedList([
-        content["eligibilityTaskList-item1"] | safe,
-        content["eligibilityTaskList-item2"] | safe,
-        content["eligibilityTaskList-item3"] | safe
-        ])}}
     {% endif %}
     {{taskAction(
         prevTaskStatus = 'complete',

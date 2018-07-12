@@ -38,6 +38,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     }
 
     I.selectApplicantIsExecutor();
+    I.selectMentallyCapable();
 
     // ExecutorsTask
     //

@@ -42,6 +42,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     }
 
     I.selectApplicantIsExecutor();
+    I.selectMentallyCapable();
 
     // ExecutorsTask
     //

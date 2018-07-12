@@ -23,6 +23,7 @@ module.exports = function () {
     selectInheritanceMethodPaper: steps.iht.method,
     enterGrossAndNet: steps.iht.paper,
     selectApplicantIsExecutor: steps.applicant.executor,
+    selectMentallyCapable: steps.executors.mentalcapacity,
 
     //applicant details
     enterApplicantName: steps.applicant.name,

@@ -30,6 +30,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.selectWillCodicils('Yes');
     I.selectWillNoOfCodicils('3');
     I.selectAndEnterCodicilsDate('02', '02', '2010');
+    I.selectDeathCertificate();
     I.selectIhtCompleted();
     I.selectInheritanceMethodPaper();
 

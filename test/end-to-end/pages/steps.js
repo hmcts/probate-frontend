@@ -21,6 +21,7 @@ module.exports = function () {
     selectWillCodicils: steps.will.codicils,
     selectWillNoOfCodicils: steps.will.codicilsnumber,
     selectAndEnterCodicilsDate: steps.will.codicilsdate,
+    selectDeathCertificate: steps.deceased.deathcertificate,
     selectIhtCompleted: steps.iht.completed,
     selectInheritanceMethodPaper: steps.iht.method,
     enterGrossAndNet: steps.iht.paper,

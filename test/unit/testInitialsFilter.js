@@ -1,3 +1,5 @@
+'use strict';
+
 const initialsFilter = require('app/components/initialsFilter');
 const assert = require('chai').assert;
 

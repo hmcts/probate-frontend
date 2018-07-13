@@ -1,5 +1,6 @@
-const initSteps = require('app/core/initSteps'),
-      assert = require('chai').assert;
+'use strict';
+const initSteps = require('app/core/initSteps');
+const assert = require('chai').assert;
 
 describe('Soft Stops', function () {
     const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui/']);

@@ -1,6 +1,7 @@
-const initSteps = require('app/core/initSteps'),
-    assert = require('chai').assert,
-    {set} = require('lodash');
+'use strict';
+const initSteps = require('app/core/initSteps');
+const assert = require('chai').assert;
+const {set} = require('lodash');
 
 describe('WillDate', function () {
 

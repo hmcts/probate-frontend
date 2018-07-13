@@ -1,3 +1,5 @@
+'use strict';
+
 const expect = require('chai').expect;
 const FormatUrl = require('app/utils/FormatUrl');
 

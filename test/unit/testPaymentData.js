@@ -1,6 +1,8 @@
-const paymentData = require('app/components/payment-data'),
-    assert = require('chai').assert,
-    config = require('app/config');
+'use strict';
+
+const paymentData = require('app/components/payment-data');
+const assert = require('chai').assert;
+const config = require('app/config');
 
 describe('PaymentData', function () {
 

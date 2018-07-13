@@ -1,7 +1,8 @@
-const initSteps = require('app/core/initSteps'),
-  journeyMap = require('app/core/journeyMap'),
-  assert = require('chai').assert,
-  completedForm = require('test/data/complete-form').formdata;
+'use strict';
+const initSteps = require('app/core/initSteps');
+const journeyMap = require('app/core/journeyMap');
+const assert = require('chai').assert;
+const completedForm = require('test/data/complete-form').formdata;
 
 describe('Tasklist', function () {
 

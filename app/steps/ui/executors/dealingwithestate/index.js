@@ -29,6 +29,8 @@ module.exports = class ExecutorsDealingWithEstate extends ValidationStep {
             delete data.diedBefore;
             delete data.notApplyingReason;
             delete data.notApplyingKey;
+        } else {
+            delete data.isApplying;
         }
         return data;
     }

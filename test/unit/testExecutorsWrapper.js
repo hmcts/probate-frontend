@@ -1,4 +1,5 @@
 // eslint-disable-line max-lines
+'use strict';
 
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const chai = require('chai');
@@ -10,7 +11,7 @@ describe('Executors.js', () => {
         data = {
             list: [
                 {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                {fullname: 'ed brown', isApplying: true}
+                {fullName: 'ed brown', isApplying: true}
             ]
         };
     });
@@ -66,7 +67,7 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullname: 'ed brown', isApplying: false, notApplyingKey: 'optionPowerReserved'}
+                    {fullName: 'ed brown', isApplying: false, notApplyingKey: 'optionPowerReserved'}
                 ]
             };
         });
@@ -112,7 +113,7 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullname: 'ed brown', isApplying: false, notApplyingKey: 'optionRenunciated'}
+                    {fullName: 'ed brown', isApplying: false, notApplyingKey: 'optionRenunciated'}
                 ]
             };
         });
@@ -138,8 +139,8 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullname: 'ed brown', isApplying: false, notApplyingKey: 'optionPowerReserved'},
-                    {fullname: 'jake smith', isApplying: false, notApplyingKey: 'optionRenunciated'}
+                    {fullName: 'ed brown', isApplying: false, notApplyingKey: 'optionPowerReserved'},
+                    {fullName: 'jake smith', isApplying: false, notApplyingKey: 'optionRenunciated'}
                 ]
             };
         });
@@ -253,7 +254,7 @@ describe('Executors.js', () => {
         beforeEach(() => {
             data = {
                 list: [
-                    {fullname: 'ed brown', isDead: true}
+                    {fullName: 'ed brown', isDead: true}
                 ]
             };
         });
@@ -276,7 +277,7 @@ describe('Executors.js', () => {
         beforeEach(() => {
             data = {
                 list: [
-                    {fullname: 'James Miller', hasOtherName: true}
+                    {fullName: 'James Miller', hasOtherName: true}
                 ]
             };
         });
@@ -309,8 +310,8 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullname: 'ed brown', isApplying: true},
-                    {fullname: 'jake smith', isDead: true}
+                    {fullName: 'ed brown', isApplying: true},
+                    {fullName: 'jake smith', isDead: true}
                 ]
             };
         });
@@ -343,8 +344,8 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullname: 'ed brown', hasOtherName: true},
-                    {fullname: 'jake smith', has: true}
+                    {fullName: 'ed brown', hasOtherName: true},
+                    {fullName: 'jake smith', has: true}
                 ]
             };
         });
@@ -352,7 +353,7 @@ describe('Executors.js', () => {
         it('should return a list of executors with another name', (done) => {
             const executorsWrapper = new ExecutorsWrapper(data);
             expect(executorsWrapper.executorsWithAnotherName()).to.deep.equal([
-                {fullname: 'ed brown', hasOtherName: true}
+                {fullName: 'ed brown', hasOtherName: true}
             ]);
             done();
         });
@@ -362,6 +363,40 @@ describe('Executors.js', () => {
                 data.list[1].hasOtherName = false;
                 const executorsWrapper = new ExecutorsWrapper(data);
                 expect(executorsWrapper.executorsWithAnotherName()).to.deep.equal([]);
+                done();
+            });
+
+            it('when there is no executor data', (done) => {
+                const data = {};
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsWithAnotherName()).to.deep.equal([]);
+                done();
+            });
+        });
+    });
+
+    describe('mainApplicant()', () => {
+        beforeEach(() => {
+            data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {fullName: 'ed brown', isApplying: true}
+                ]
+            };
+        });
+        it('should return the main applicant', (done) => {
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.mainApplicant()).to.deep.equal([
+                {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true}
+            ]);
+            done();
+        });
+
+        describe('should return an empty list', () => {
+            it('when none of the executors is the main applicant', (done) => {
+                data.list[0].isApplicant = false;
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.mainApplicant()).to.deep.equal([]);
                 done();
             });
 

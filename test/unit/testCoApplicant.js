@@ -1,6 +1,8 @@
-const initSteps = require('app/core/initSteps'),
-    assert = require('chai').assert,
-    {isNil} = require('lodash');
+'use strict';
+
+const initSteps = require('app/core/initSteps');
+const assert = require('chai').assert;
+const {isNil} = require('lodash');
 
 describe('Co-Applicant', function () {
 

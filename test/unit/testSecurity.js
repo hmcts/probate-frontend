@@ -1,10 +1,10 @@
 'use strict';
-const proxyquire = require('proxyquire'),
-    chai = require('chai'),
-    sinon = require('sinon'),
-    when = require('when'),
-    expect = chai.expect,
-    sinonChai = require('sinon-chai');
+const proxyquire = require('proxyquire');
+const chai = require('chai');
+const sinon = require('sinon');
+const when = require('when');
+const expect = chai.expect;
+const sinonChai = require('sinon-chai');
 
 const services = require('app/components/services');
 

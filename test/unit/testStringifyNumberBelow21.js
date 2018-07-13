@@ -1,5 +1,6 @@
-const utils = require('app/components/utils'),
-    assert = require('chai').assert;
+'use strict';
+const utils = require('app/components/utils');
+const assert = require('chai').assert;
 
     describe('Test stringifyNumberBelow21', function () {
 

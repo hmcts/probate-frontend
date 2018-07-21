@@ -98,7 +98,7 @@ module.exports = class Security {
 
             if (!redirectInfo) {
                 logger.error('Redirect cookie is missing');
-                self._denyAccess(res);
+                self._login(req, res);
             } else if (!req.query.code) {
                 logger.warn('No code received');
                 res.redirect(redirectInfo.continue_url);

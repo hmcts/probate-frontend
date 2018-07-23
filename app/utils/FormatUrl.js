@@ -1,6 +1,7 @@
 'use strict';
 
 const url = require('url');
+const config = require('app/config');
 
 class FormatUrl {
     static format(serviceUrl, servicePath = '') {
@@ -12,7 +13,7 @@ class FormatUrl {
     }
 
     static createHostname(req) {
-        return `${req.protocol}://${req.get('host')}`;
+        return `${config.frontendPublicHttpProtocol.toLowerCase()}://${req.get('host')}`;
     }
 }
 

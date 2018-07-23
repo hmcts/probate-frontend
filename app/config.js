@@ -3,6 +3,7 @@ module.exports = {
     environment: process.env.REFORM_ENVIRONMENT || 'prod',
     nodeEnvironment: process.env.NODE_ENV,
     gitRevision: process.env.GIT_REVISION,
+    frontendPublicHttpProtocol: process.env.PUBLIC_PROTOCOL || 'http',
     app: {
         username: process.env.USERNAME,
         password: process.env.PASSWORD,

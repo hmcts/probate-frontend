@@ -9,7 +9,7 @@ exports.config = {
             'waitForTimeout': 60000,
             waitForAction: 7000,
             'show': false,
-            'headless':true,
+            'headless': true,
             'chrome': {
                 'ignoreHTTPSErrors': true,
                 'ignore-certificate-errors': true,

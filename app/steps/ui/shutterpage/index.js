@@ -2,9 +2,11 @@
 
 const Step = require('app/core/steps/Step');
 
-module.exports = class ShutterPage extends Step {
+class ShutterPage extends Step {
 
     static getUrl() {
         return '/shutter-page';
     }
-};
+}
+
+module.exports = ShutterPage;

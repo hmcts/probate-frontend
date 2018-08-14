@@ -20,7 +20,7 @@ idam_service_api = "http://rpe-service-auth-provider-aat.service.core-compute-aa
 #probate_private_beta_auth_url = "https://idam.preprod.ccidam.reform.hmcts.net/login"
 probate_private_beta_auth_url = "https://idam-web-public-idam-aat.service.core-compute-idam-aat.internal/login"
 #idam_user_host = "https://preprod-idamapi.reform.hmcts.net:3511"
-idam_user_host = "http://idam-api-idam-aat.service.core-compute-idam-aat.internal/"
+idam_user_host = "https://idam-api.aat.platform.hmcts.net/"
 
 probate_deployment_env = "test"
 

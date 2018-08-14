@@ -42,6 +42,10 @@ withPipeline("nodejs", product, component) {
     sh 'yarn setup'
   }
   
+  before('buildinfra:prod') {
+    error 'Deliberately breaking pipeline to prevent prod deployment'
+  }
+
   loadVaultSecrets(secrets)
   //enableSlackNotifications('#probate-jenkins')
   after('functionalTest:aat') {

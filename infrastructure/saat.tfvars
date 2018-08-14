@@ -12,7 +12,7 @@ probate_google_track_id = "UA-93598808-1"
 probate_frontend_https = "false"
 probate_frontend_use_auth = "false"
 
-payment_create_url = "http://payment-api-saat.service.core-compute-saat.internal"
+payment_create_url = "http://payment-api-saat.service.core-compute-saat.internal/users/userId/payments"
 
 idam_service_api = "http://rpe-service-auth-provider-saat.service.core-compute-saat.internal"
 

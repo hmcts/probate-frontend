@@ -9,7 +9,7 @@ const setupConfig = {
     'timeout': 20000,
     'helpers': {
         WebDriverIO: {
-            url: process.env.TEST_E2E_FRONTEND_URL || 'https://localhost:3000',
+            url: process.env.TEST_URL || 'https://localhost:3000',
             browser: supportedBrowsers[browser].browserName,
             waitforTimeout: 60000,
             cssSelectorsEnabled: 'true',

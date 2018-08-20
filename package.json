@@ -22,6 +22,7 @@
     "test-accessibility": "NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 15000",
     "test-e2e": "NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run  -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-crossbrowser-e2e": "NODE_PATH=. codeceptjs run -c test/end-to-end/saucelabs.conf.js --steps",
+    "test:crossbrowser": "test/crossbrowser/runCrossBrowserTestsOvernight.sh",
     "test:smoke": "mocha test/smoke/healthcheck.js --timeout 15000 --reporter spec",
     "test-contract": "mocha test/contract/**/*.js --timeout 15000 --reporter spec",
     "lint": "NODE_PATH=. eslint .",

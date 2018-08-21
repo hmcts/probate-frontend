@@ -27,6 +27,7 @@ Scenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), funct
 
     // EligibilityTask
     I.startApplication();
+    I.startApply();
     I.selectATask(taskListContent.taskNotStarted);
     I.selectPersonWhoDiedLeftAWill();
     I.selectOriginalWill();

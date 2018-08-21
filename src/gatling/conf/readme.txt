@@ -1,0 +1,1 @@
+added to prevent docker from creating this directory with root permission on Jenkins

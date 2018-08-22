@@ -26,7 +26,6 @@ Scenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), funct
     I.authenticateWithIdamIfAvailable();
 
     // EligibilityTask
-    I.startApplication();
     I.selectATask(taskListContent.taskNotStarted);
     I.selectPersonWhoDiedLeftAWill();
     I.selectOriginalWill();

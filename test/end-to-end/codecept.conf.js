@@ -1,14 +1,14 @@
 const testConfig = require('test/config.js');
 
 exports.config = {
-    'tests': './paths/**/*.js',
+    'tests': './paths/**/saveAndCloseLink.js',
     'output': './output',
     'helpers': {
         'Puppeteer': {
             'url': testConfig.TestE2EFrontendUrl || 'http://localhost:3000',
             'waitForTimeout': 60000,
             waitForAction: 7000,
-            'show': true,
+            'show': false,
             'chrome': {
                 'ignoreHTTPSErrors': true,
                 'ignore-certificate-errors': true,

@@ -1,7 +1,7 @@
 const supportedBrowsers = require('../crossbrowser/supportedBrowsers.js');
 
-const browser = process.env.SAUCELABS_BROWSER || 'ie10_win7';
-const tunnelName = process.env.TUNNEL_IDENTIFIER || '';
+const browser = requiredValue(process.env.SAUCELABS_BROWSER, 'SAUCELABS_BROWSER');
+const tunnelName = 'reformtunnel';
 
 const setupConfig = {
     'tests': './paths/*.js',
@@ -19,25 +19,25 @@ const setupConfig = {
                 'page load': 60000,
                 implicit: 20000
             },
-            'host': 'ondemand.saucelabs.com',
-            'port': 80,
-            'user': process.env.SAUCE_USERNAME,
-            'key': process.env.SAUCE_ACCESS_KEY,
+            host: 'ondemand.saucelabs.com',
+            port: 80,
+            user: process.env.SAUCE_USERNAME,
+            key: process.env.SAUCE_ACCESS_KEY,
             desiredCapabilities: getDesiredCapabilities()
         },
 
-        'JSWait': {
-            'require': './helpers/JSWait.js'
+        JSWait: {
+            'require': './helpers/JSWaitHelper.js'
         },
 
-        'SauceLabsReportingHelper': {
+        SauceLabsReportingHelper: {
             'require': './helpers/SauceLabsReportingHelper.js'
         }
     },
-    'include': {
-        'I': './pages/steps.js'
+    include: {
+        I: './pages/steps.js'
     },
-    'mocha': {
+    mocha: {
         'reporterOptions': {
             'reportDir': process.env.E2E_CROSSBROWSER_OUTPUT_DIR || './output',
             'reportName': browser + '_report',
@@ -45,7 +45,7 @@ const setupConfig = {
             'inlineAssets': true
         }
     },
-    'name': 'frontEnd Tests'
+    name: 'frontEnd Tests'
 };
 
 function getDesiredCapabilities() {
@@ -53,6 +53,13 @@ function getDesiredCapabilities() {
     desiredCapability.tunnelIdentifier = tunnelName;
     desiredCapability.tags = ['probate'];
     return desiredCapability;
+}
+
+function requiredValue(envVariableValue, variableName) {
+  if (envVariableValue && envVariableValue.trim().length > 0) {
+    return envVariableValue.trim();
+  }
+  throw new Error(`${variableName} is a required environment variable, but wasn't set`);
 }
 
 exports.config = setupConfig;

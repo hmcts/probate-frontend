@@ -2,7 +2,7 @@
 
 properties([
         parameters([string(name: 'LIB_VERSION', defaultValue: 'master', description: 'Branch name of pipeline library to use')]),
-        pipelineTriggers([cron('15 01 * * *')])
+        pipelineTriggers([cron('05 01 * * *')])
 ])
 
 library "Infrastructure@${params.LIB_VERSION}"

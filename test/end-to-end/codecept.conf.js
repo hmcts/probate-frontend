@@ -8,7 +8,7 @@ exports.config = {
             'url': testConfig.TestE2EFrontendUrl || 'http://localhost:3000',
             'waitForTimeout': 60000,
             waitForAction: 7000,
-            'show': false,
+            'show': true,
             'chrome': {
                 'ignoreHTTPSErrors': true,
                 'ignore-certificate-errors': true,

@@ -37,7 +37,6 @@ const setupConfig = {
     include: {
         I: './pages/steps.js'
     },
-
     mocha: {
         'reporterOptions': {
             'reportDir': process.env.E2E_CROSSBROWSER_OUTPUT_DIR || './output',
@@ -46,19 +45,20 @@ const setupConfig = {
             'inlineAssets': true
         },
         'mocha-junit-reporter': {
-                    stdout: '-',
-                    options: { mochaFile: './functional-output/result.xml' }
-                  },
+             stdout: '-',
+             options: {
+               mochaFile: './functional-output/result.xml'
+             }
+        },
         mochawesome: {
-                    stdout: './functional-output/console.log',
-                    options: {
-                      reportDir: './functional-output',
-                      reportName: browser + '_report',
-                      inlineAssets: true
-                    }
-         }
+            stdout: './functional-output/console.log',
+            options: {
+              reportDir: './functional-output',
+              reportName: browser + '_report',
+              inlineAssets: true
+            }
+        }
     },
-
     name: 'frontEnd Tests'
 };
 

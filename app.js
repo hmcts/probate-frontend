@@ -19,6 +19,7 @@ const helmet = require('helmet');
 const csrf = require('csurf');
 const healthcheck = require(`${__dirname}/app/healthcheck`);
 const InviteSecurity = require(`${__dirname}/app/invite`);
+const updateInvite = require(`${__dirname}/app/updateinvite`);
 const fs = require('fs');
 const https = require('https');
 const appInsights = require('applicationinsights');
@@ -190,6 +191,7 @@ exports.init = function() {
     app.get('/executors/invitation/:inviteId', inviteSecurity.verify());
     app.use('/co-applicant-*', inviteSecurity.checkCoApplicant(useIDAM));
     app.use('/health', healthcheck);
+    app.use('/executors-update-invite', updateInvite);
     if (useIDAM === 'true') {
        const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);
        app.use(idamPages, security.protect(config.services.idam.roles));

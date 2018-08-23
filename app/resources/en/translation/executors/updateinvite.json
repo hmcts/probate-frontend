@@ -1,0 +1,20 @@
+{
+  "title": "Notify the executor whose contact details you&rsquo;ve updated",
+  "header": "Notify the executor whose contact details you&rsquo;ve updated",
+
+  "header-multiple": "Notify the executors whose contact details you&rsquo;ve updated",
+  "paragraph1": "The executors whose contact details you&rsquo;ve updated will be sent an email telling them the legal statement is ready to agree.",
+  "paragraph2": "A grant of probate can&rsquo;t be issued until all the executors who are applying agree that the legal statement is correct.",
+
+  "header1": "Updated contact details",
+  "changeLink" : "Change",
+  "sendInvites": "Notify these applying executors",
+  "errors": {
+    "getUrl(index": {
+      "invalid": {
+        "summary": "There was a problem with sending the emails, please try again later",
+        "message": "There was a problem with sending the emails, please try again later"
+      }
+    }
+  }
+}

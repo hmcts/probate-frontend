@@ -1,11 +1,13 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsInvite = require('app/steps/ui/executors/invite/index');
+const ExecutorsUpdateInvite = require('app/steps/ui/executors/updateinvite/index');
 const ExecutorsChangeMade = require('app/steps/ui/executors/changemade/index');
 const Tasklist = require('app/steps/ui/tasklist/index');
 
 describe('declaration, multiple applicants', () => {
     let testWrapper, contentData, sessionData;
     const expectedNextUrlForExecInvite = ExecutorsInvite.getUrl();
+    const expectedNextUrlForUpdateExecInvite = ExecutorsUpdateInvite.getUrl();
     const expectedNextUrlForExecChangeMade = ExecutorsChangeMade.getUrl();
     const expectedNextUrlForChangeToSingleApplicant = Tasklist.getUrl();
 
@@ -158,6 +160,19 @@ describe('declaration, multiple applicants', () => {
                         declarationCheckbox: true
                     };
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecChangeMade);
+                });
+        });
+
+        it(`test it redirects to next page when executor email has been changed: ${expectedNextUrlForUpdateExecInvite}`, (done) => {
+            sessionData.executors.list[2].emailChanged = true;
+            sessionData.executors.invitesSent = 'true';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        declarationCheckbox: true
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForUpdateExecInvite);
                 });
         });
 

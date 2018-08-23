@@ -6,6 +6,7 @@ const validator = require('validator');
 const FieldError = require('app/components/error');
 const services = require('app/components/services');
 const {findIndex, every, tail} = require('lodash');
+const ExecutorsWrapper = require('app/wrappers/Executors');
 
 class ExecutorContactDetails extends ValidationStep {
 
@@ -32,6 +33,7 @@ class ExecutorContactDetails extends ValidationStep {
     }
 
     * handlePost(ctx, errors) {
+        const executorsWrapper = new ExecutorsWrapper(ctx);
         if (!emailValidator.validate(ctx.email)) {
             errors.push(FieldError('email', 'invalid', this.resourcePath, this.generateContent()));
         }
@@ -40,15 +42,21 @@ class ExecutorContactDetails extends ValidationStep {
             errors.push(FieldError('mobile', 'invalid', this.resourcePath, this.generateContent()));
         }
 
+        if (ctx.email !== ctx.list[ctx.index].email && ctx.invitesSent === 'true') {
+            ctx.list[ctx.index].emailChanged = true;
+        }
+
+        ctx.executorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
         ctx.list[ctx.index].email = ctx.email;
         ctx.list[ctx.index].mobile = ctx.mobile;
         if (ctx.list[ctx.index].emailSent) {
             const data = {};
+            data.email = ctx.list[ctx.index].email;
             data.phoneNumber = ctx.list[ctx.index].mobile;
-            yield services.updatePhoneNumber(ctx.inviteId, data)
+            yield services.updateContactDetails(ctx.inviteId, data)
                 .then(result => {
                     if (result.name === 'Error') {
-                        throw new ReferenceError('Error updating executor\'s phone number');
+                        throw new ReferenceError('Error updating executor\'s contact details');
                     }
                 });
         }

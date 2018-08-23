@@ -1,7 +1,8 @@
 const supportedBrowsers = require('../crossbrowser/supportedBrowsers.js');
 
 const browser = requiredValue(process.env.SAUCELABS_BROWSER, 'SAUCELABS_BROWSER');
-const tunnelName = 'reformtunnel';
+const tunnelName = process.env.TUNNEL_IDENTIFIER || '';
+
 
 const setupConfig = {
     'tests': './paths/*.js',

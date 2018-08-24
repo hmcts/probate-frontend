@@ -4,8 +4,9 @@ const browser = requiredValue(process.env.SAUCELABS_BROWSER, 'SAUCELABS_BROWSER'
 const tunnelName = process.env.TUNNEL_IDENTIFIER || '';
 
 const setupConfig = {
+  output: process.cwd() + '/functional-output',
+
     'tests': './paths/*.js',
-    'output': './output',
     'timeout': 20000,
     'helpers': {
         WebDriverIO: {

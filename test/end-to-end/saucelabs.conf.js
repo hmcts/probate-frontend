@@ -4,7 +4,7 @@ const browser = requiredValue(process.env.SAUCELABS_BROWSER, 'SAUCELABS_BROWSER'
 const tunnelName = process.env.TUNNEL_IDENTIFIER || '';
 
 const setupConfig = {
-  output: process.cwd() + '/functional-output/**',
+  output: process.cwd() + '/functional-output',
 
     'tests': './paths/*.js',
     'timeout': 20000,

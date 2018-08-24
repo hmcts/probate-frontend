@@ -26,6 +26,5 @@ module.exports = function() {
 
     event.dispatcher.on(event.all.result, () => {
         const sessionId = container.helpers('WebDriverIO').browser.requestHandler.sessionID;
-        console.log('SauceOnDemandSessionID=' + sessionId + ' job-name=ProbateFrontend'); // eslint-disable-line no-console
       });
 };

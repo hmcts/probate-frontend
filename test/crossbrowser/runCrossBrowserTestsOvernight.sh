@@ -4,7 +4,7 @@ supportedBrowsers=`sed '/\/\//d' test/crossbrowser/supportedBrowsers.js | sed '/
 browsersArray=(${supportedBrowsers//$'\n'/ })
 
 
-outputDirectory="${E2E_CROSSBROWSER_OUTPUT_DIR:-functional-output/crossbrowser/reports}"
+outputDirectory="${E2E_CROSSBROWSER_OUTPUT_DIR:-functional-output}"
 
 echo
 echo "*****************************************"

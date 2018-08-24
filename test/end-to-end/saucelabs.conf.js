@@ -4,7 +4,7 @@ const browser = requiredValue(process.env.SAUCELABS_BROWSER, 'SAUCELABS_BROWSER'
 const tunnelName = process.env.TUNNEL_IDENTIFIER || '';
 
 const setupConfig = {
-  output: process.cwd() + '/functional-output',
+  output: process.cwd() + '/functional-output/**',
 
     'tests': './paths/*.js',
     'timeout': 20000,
@@ -40,7 +40,7 @@ const setupConfig = {
     },
     mocha: {
         'reporterOptions': {
-            'reportDir': './functional-output' || './output',
+            'reportDir': output,
             'reportName': browser + '_report',
             'reportTitle': 'Crossbrowser results for: ' + browser.toUpperCase(),
             'inlineAssets': true
@@ -54,7 +54,7 @@ const setupConfig = {
         mochawesome: {
             stdout: './functional-output/console.log',
             options: {
-              reportDir: './functional-output',
+              reportDir: output,
               reportName: browser + '_report',
               inlineAssets: true
             }

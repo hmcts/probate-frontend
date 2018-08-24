@@ -2,9 +2,10 @@ const supportedBrowsers = require('../crossbrowser/supportedBrowsers.js');
 
 const browser = requiredValue(process.env.SAUCELABS_BROWSER, 'SAUCELABS_BROWSER');
 const tunnelName = process.env.TUNNEL_IDENTIFIER || '';
+const output = process.cwd() + '/functional-output';
 
 const setupConfig = {
-  output: process.cwd() + '/functional-output',
+  output: output,
 
     'tests': './paths/*.js',
     'timeout': 20000,
@@ -55,7 +56,7 @@ const setupConfig = {
             stdout: './functional-output/console.log',
             options: {
               reportDir: output,
-              reportName: browser + '_report',
+              reportName: 'index',
               inlineAssets: true
             }
         }

@@ -17,6 +17,7 @@ jsconfig.json
 coverage
 *.iml
 /test/end-to-end/output/**
+functional-output
 package-lock.json
 yarn-error.log
 git.properties.json

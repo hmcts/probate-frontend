@@ -57,11 +57,4 @@ function getDesiredCapabilities() {
     return desiredCapability;
 }
 
-function requiredValue(envVariableValue, variableName) {
-  if (envVariableValue && envVariableValue.trim().length > 0) {
-    return envVariableValue.trim();
-  }
-  throw new Error(`${variableName} is a required environment variable, but wasn't set`);
-}
-
 exports.config = setupConfig;

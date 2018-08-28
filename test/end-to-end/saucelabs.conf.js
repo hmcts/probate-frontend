@@ -1,8 +1,8 @@
 const supportedBrowsers = require('../crossbrowser/supportedBrowsers.js');
 
-const browser = requiredValue(process.env.SAUCELABS_BROWSER, 'SAUCELABS_BROWSER');
+const browser = process.env.SAUCELABS_BROWSER || 'chrome';
 const tunnelName = process.env.TUNNEL_IDENTIFIER || '';
-const output = process.cwd() + '/functional-output';
+const output = process.cwd() + './functional-output/crossbrowser/reports';
 
 const setupConfig = {
   output: output,
@@ -41,27 +41,13 @@ const setupConfig = {
     },
     mocha: {
         'reporterOptions': {
-            'reportDir': output,
+            'reportDir': process.env.E2E_CROSSBROWSER_OUTPUT_DIR || './output',
             'reportName': browser + '_report',
             'reportTitle': 'Crossbrowser results for: ' + browser.toUpperCase(),
             'inlineAssets': true
-        },
-        'mocha-junit-reporter': {
-             stdout: '-',
-             options: {
-               mochaFile: './functional-output/result.xml'
-             }
-        },
-        mochawesome: {
-            stdout: './functional-output/console.log',
-            options: {
-              reportDir: output,
-              reportName: 'index',
-              inlineAssets: true
-            }
         }
     },
-    name: 'frontEnd Tests'
+    'name': 'frontEnd Tests'
 };
 
 function getDesiredCapabilities() {

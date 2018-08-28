@@ -2,7 +2,7 @@ const supportedBrowsers = require('../crossbrowser/supportedBrowsers.js');
 
 const browser = process.env.SAUCELABS_BROWSER || 'chrome';
 const tunnelName = process.env.TUNNEL_IDENTIFIER || '';
-const output = process.cwd() + './functional-output/crossbrowser/reports';
+const output = process.cwd() + '/functional-output/crossbrowser/reports';
 
 const setupConfig = {
   output: output,
@@ -41,10 +41,15 @@ const setupConfig = {
     },
     mocha: {
         'reporterOptions': {
-            'reportDir': process.env.E2E_CROSSBROWSER_OUTPUT_DIR || './output',
-            'reportName': browser + '_report',
-            'reportTitle': 'Crossbrowser results for: ' + browser.toUpperCase(),
-            'inlineAssets': true
+
+            mochawesome: {
+                    stdout: './functional-output/console.log',
+                    options: {
+                      reportDir: process.env.E2E_CROSSBROWSER_OUTPUT_DIR,
+                      reportName: 'index',
+                      inlineAssets: true
+                    }
+                  }
         }
     },
     'name': 'frontEnd Tests'

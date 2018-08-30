@@ -3,8 +3,8 @@
   "question": "Did the person who died live permanently in England or Wales, or intend to return here?",
   "hintText1": "You can only apply for probate online if the person who died was domiciled in England or Wales at the time of their death.",
   "hintText2": "You can read more about <a href=\"https://www.gov.uk/inheritance-tax/when-someone-living-outside-the-uk-dies\">domicile</a>.",
-  "option1": "Yes",
-  "option2": "No",
+  "optionYes": "Yes",
+  "optionNo": "No",
   "legend": "Did the person who died live permanently in England or Wales, or intend to return here?",
   "errors": {
     "domicile": {

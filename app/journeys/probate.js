@@ -14,7 +14,6 @@ const taskList = {
         firstStep: 'Declaration',
         lastStep: 'TaskList',
         summary: 'Summary'
-
     },
     CopiesTask: {
         firstStep: 'CopiesStart',
@@ -34,7 +33,7 @@ const taskList = {
 };
 
 const stepList = {
-    StartEligibility: 'StartApply',
+    StartEligibility: 'WillLeft',
     StartApply: 'TaskList',
 
     WillLeft: {
@@ -42,7 +41,27 @@ const stepList = {
         otherwise: 'StopPage'
     },
     WillOriginal: {
-        isOriginal: 'WillCodicils',
+        isOriginal: 'DeathCertificate',
+        otherwise: 'StopPage'
+    },
+    DeathCertificate: {
+        hasCertificate: 'DeceasedDomicile',
+        otherwise: 'StopPage'
+    },
+    DeceasedDomicile: {
+        inEnglandOrWales: 'ApplicantExecutor',
+        otherwise: 'StopPage'
+    },
+    ApplicantExecutor: {
+        isExecutor: 'MentalCapacity',
+        otherwise: 'StopPage'
+    },
+    MentalCapacity: {
+        isCapable: 'IhtCompleted',
+        otherwise: 'StopPage'
+    },
+    IhtCompleted: {
+        completed: 'StartApply',
         otherwise: 'StopPage'
     },
     WillCodicils: {
@@ -50,14 +69,6 @@ const stepList = {
         otherwise: 'CodicilsNumber'
     },
     CodicilsNumber: 'DeathCertificate',
-    DeathCertificate: {
-        hasCertificate: 'IhtCompleted',
-        otherwise: 'StopPage'
-    },
-    IhtCompleted: {
-        completed: 'IhtMethod',
-        otherwise: 'StopPage'
-    },
     IhtMethod: {
         online: 'IhtIdentifier',
         otherwise: 'IhtPaper'
@@ -66,14 +77,6 @@ const stepList = {
     IhtIdentifier: 'IhtValue',
     IhtValue: 'ApplicantExecutor',
 
-    ApplicantExecutor: {
-        isExecutor: 'MentalCapacity',
-        otherwise: 'StopPage'
-    },
-    MentalCapacity: {
-        isCapable: 'TaskList',
-        otherwise: 'StopPage'
-    },
     ApplicantName: 'ApplicantNameAsOnWill',
     ApplicantNameAsOnWill: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
@@ -135,7 +138,6 @@ const stepList = {
     DeceasedMarried: 'DeceasedDod',
     DeceasedDod: 'DeceasedDob',
     DeceasedDob: 'DeceasedDomicile',
-    DeceasedDomicile: 'DeceasedAddress',
     DeceasedAddress: 'Summary',
     Summary: 'TaskList',
     Declaration: {

@@ -91,11 +91,13 @@ module.exports = {
         survey: process.env.SURVEY || 'https://www.smartsurvey.co.uk/',
         surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'https://www.smartsurvey.co.uk/',
         ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',
-        renunciationForm: 'public/pdf/renunciation.pdf',
-        applicationForm: 'public/pdf/probate-application-form-pa1p.pdf',
-        guidance: 'public/pdf/probate-guidance-pa2sot.pdf',
-        registryInformation: 'public/pdf/probate-registries-pa4sot.pdf',
-        deathCertificate: 'https://www.gov.uk/order-copy-birth-death-marriage-certificate'
+        renunciationForm: '/public/pdf/renunciation.pdf',
+        applicationFormPA1A: '/public/pdf/probate-application-form-pa1a.pdf',
+        applicationFormPA1P: '/public/pdf/probate-application-form-pa1p.pdf',
+        guidance: '/public/pdf/probate-guidance-pa2sot.pdf',
+        registryInformation: '/public/pdf/probate-registries-pa4sot.pdf',
+        deathCertificate: 'https://www.gov.uk/order-copy-birth-death-marriage-certificate',
+        deathReportedToCoroner: 'https://www.gov.uk/after-a-death/when-a-death-is-reported-to-a-coroner'
     },
     helpline: {
         number: '0300 303 0648',
@@ -117,8 +119,8 @@ module.exports = {
                 code: process.env.UK_COPIES_FEE_CODE || 'CODE2'
             },
             overseas: {
-                 fee: 0.5,
-                 code: process.env.OVERSEAS_COPIES_FEE_CODE || 'CODE3'
+                fee: 0.5,
+                code: process.env.OVERSEAS_COPIES_FEE_CODE || 'CODE3'
             }
         },
         serviceId: process.env.SERVICE_ID || 'CODE4',

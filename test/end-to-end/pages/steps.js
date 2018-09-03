@@ -6,100 +6,102 @@ steps = requireDirectory(module);
 module.exports = function () {
 
     return actor({
-    //PreIdam
-    startApplication: steps.startEligibility.startEligibility,
-    startApply: steps.startApply.startApply,
+        // PreIdam
+        startApplication: steps.startEligibility.startEligibility,
 
-    //Sign In to IDAM
-    authenticateWithIdamIfAvailable: steps.IDAM.signIn,
+        // Eligibility
+        selectPersonWhoDiedLeftAWill: steps.will.left,
+        selectOriginalWill: steps.will.original,
+        selectDeathCertificate: steps.deceased.deathcertificate,
+        selectDeceasedDomicile: steps.deceased.domicile,
+        selectApplicantIsExecutor: steps.applicant.executor,
+        selectMentallyCapable: steps.executors.mentalcapacity,
+        selectIhtCompleted: steps.iht.completed,
+        startApply: steps.startApply.startApply,
 
-    //Start application
-    selectATask: steps.tasklist.tasklist,
+        // Sign in to IDAM
+        authenticateWithIdamIfAvailable: steps.IDAM.signIn,
 
-    // Eligibility
-    selectPersonWhoDiedLeftAWill: steps.will.left,
-    selectOriginalWill: steps.will.original,
-    selectWillCodicils: steps.will.codicils,
-    selectWillNoOfCodicils: steps.will.codicilsnumber,
-    selectDeathCertificate: steps.deceased.deathcertificate,
-    selectIhtCompleted: steps.iht.completed,
-    selectInheritanceMethodPaper: steps.iht.method,
-    enterGrossAndNet: steps.iht.paper,
-    selectApplicantIsExecutor: steps.applicant.executor,
-    selectMentallyCapable: steps.executors.mentalcapacity,
+        // Start application
+        selectATask: steps.tasklist.tasklist,
 
-    //applicant details
-    enterApplicantName: steps.applicant.name,
-    selectNameAsOnTheWill: steps.applicant.nameasonwill,
-    enterApplicantPhone: steps.applicant.phone,
-    enterAddressManually: steps.applicant.address,
+        // Old Eligibility
+        // selectWillCodicils: steps.will.codicils,
+        // selectWillNoOfCodicils: steps.will.codicilsnumber,
+        // selectInheritanceMethodPaper: steps.iht.method,
+        // enterGrossAndNet: steps.iht.paper,
 
-    //executors
-    enterTotalExecutors: steps.executors.number,
-    enterExecutorNames: steps.executors.names,
-    selectExecutorsAllAlive: steps.executors.allalive,
-    selectExecutorsWhoDied: steps.executors.whodied,
-    selectExecutorsWhenDied: steps.executors.whendied,
-    selectExecutorsApplying: steps.executors.applying,
-    selectExecutorsDealingWithEstate: steps.executors.dealingwithestate,
-    selectExecutorsWithDifferentNameOnWill: steps.executors.alias,
-    selectWhichExecutorsWithDifferentNameOnWill: steps.executors.othername,
-    enterExecutorCurrentName: steps.executors.currentname,
-    enterExecutorContactDetails: steps.executors.contactdetails,
-    enterExecutorManualAddress: steps.executors.address,
-    selectExecutorRoles: steps.executors.roles,
-    selectHasExecutorBeenNotified: steps.executors.notified,
+        // Applicant details
+        enterApplicantName: steps.applicant.name,
+        selectNameAsOnTheWill: steps.applicant.nameasonwill,
+        enterApplicantPhone: steps.applicant.phone,
+        enterAddressManually: steps.applicant.address,
 
-    //deceased details
-    enterDeceasedName: steps.deceased.name,
-    selectDeceasedAlias: steps.deceased.alias,
-    selectOtherNames: steps.deceased.otherNames,
-    selectDeceasedMarriedAfterDateOnWill: steps.deceased.married,
-    enterDeceasedDateOfBirth: steps.deceased.dob,
-    enterDeceasedDateOfDeath: steps.deceased.dod,
-    selectDeceasedDomicile: steps.deceased.domicile,
-    enterDeceasedAddress: steps.deceased.address,
+        // Executors
+        enterTotalExecutors: steps.executors.number,
+        enterExecutorNames: steps.executors.names,
+        selectExecutorsAllAlive: steps.executors.allalive,
+        selectExecutorsWhoDied: steps.executors.whodied,
+        selectExecutorsWhenDied: steps.executors.whendied,
+        selectExecutorsApplying: steps.executors.applying,
+        selectExecutorsDealingWithEstate: steps.executors.dealingwithestate,
+        selectExecutorsWithDifferentNameOnWill: steps.executors.alias,
+        selectWhichExecutorsWithDifferentNameOnWill: steps.executors.othername,
+        enterExecutorCurrentName: steps.executors.currentname,
+        enterExecutorContactDetails: steps.executors.contactdetails,
+        enterExecutorManualAddress: steps.executors.address,
+        selectExecutorRoles: steps.executors.roles,
+        selectHasExecutorBeenNotified: steps.executors.notified,
 
-    //summary page
-    seeSummaryPage: steps.summary.summary,
+        // Deceased details
+        enterDeceasedName: steps.deceased.name,
+        selectDeceasedAlias: steps.deceased.alias,
+        selectOtherNames: steps.deceased.otherNames,
+        selectDeceasedMarriedAfterDateOnWill: steps.deceased.married,
+        enterDeceasedDateOfDeath: steps.deceased.dod,
+        enterDeceasedDateOfBirth: steps.deceased.dob,
+        enterDeceasedAddress: steps.deceased.address,
 
-    //Declaration Page
-    acceptDeclaration: steps.declaration.declaration,
+        // Summary page
+        seeSummaryPage: steps.summary.summary,
 
-    //Notify additional executors
-    notifyAdditionalExecutors: steps.executors.invite,
+        // Declaration page
+        acceptDeclaration: steps.declaration.declaration,
 
-    //Pin page for additional executor
-    enterPinCode: steps.pin.signin,
+        // Notify additional executors
+        notifyAdditionalExecutors: steps.executors.invite,
 
-    //Additional executors Agree/Disagree with Statement of Truth
-    seeCoApplicantStartPage: steps.coapplicant.startPage,
-    agreeDisagreeDeclaration: steps.coapplicant.declaration,
-    seeAgreePage: steps.coapplicant.agree,
+        // Pin page for additional executor
+        enterPinCode: steps.pin.signin,
 
-    //Asset pages
-    selectOverseasAssets: steps.assets.overseas,
+        // Additional executors Agree/Disagree with Statement of Truth
+        seeCoApplicantStartPage: steps.coapplicant.startPage,
+        agreeDisagreeDeclaration: steps.coapplicant.declaration,
+        seeAgreePage: steps.coapplicant.agree,
 
-    //Copies pages
-    enterUkCopies: steps.copies.uk,
-    enterOverseasCopies: steps.copies.overseas,
-    seeCopiesSummary: steps.copies.summary,
+        // Asset pages
+        selectOverseasAssets: steps.assets.overseas,
 
-    //Payment
-    seePaymentBreakdownPage: steps.payment.paymentbreakdown,
-    seeGovUkPaymentPage: steps.payment.govukpayment,
-    seeGovUkConfirmPage: steps.payment.govukconfirmpayment,
-    seePaymentStatusPage: steps.payment.paymentstatus,
+        // Copies pages
+        enterUkCopies: steps.copies.uk,
+        enterOverseasCopies: steps.copies.overseas,
+        seeCopiesSummary: steps.copies.summary,
 
-    // Documents
-    seeDocumentsPage: steps.documents.documents,
+        // Payment
+        seePaymentBreakdownPage: steps.payment.paymentbreakdown,
+        seeGovUkPaymentPage: steps.payment.govukpayment,
+        seeGovUkConfirmPage: steps.payment.govukconfirmpayment,
+        seePaymentStatusPage: steps.payment.paymentstatus,
 
-    //Thank You Page
-    seeThankYouPage: steps.thankyou.thankyou,
+        // Documents
+        seeDocumentsPage: steps.documents.documents,
 
-    //Eligibility task
-    completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
-    completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask
+        // Thank You Page
+        seeThankYouPage: steps.thankyou.thankyou,
+
+        // Eligibility task
+        completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
+        completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask
 
     });
 };

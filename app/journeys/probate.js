@@ -1,7 +1,7 @@
 
 const taskList = {
     EligibilityTask: {
-        firstStep: 'WillLeft',
+        firstStep: 'StartEligibility',
         lastStep: 'TaskList',
         summary: 'Summary'
     },
@@ -137,7 +137,7 @@ const stepList = {
     RemoveAlias: 'DeceasedOtherNames',
     DeceasedMarried: 'DeceasedDod',
     DeceasedDod: 'DeceasedDob',
-    DeceasedDob: 'DeceasedDomicile',
+    DeceasedDob: 'DeceasedAddress',
     DeceasedAddress: 'Summary',
     Summary: 'TaskList',
     Declaration: {
@@ -150,9 +150,6 @@ const stepList = {
     ExecutorsChangeMade: 'TaskList',
     Submit: 'TaskList',
 
-    Documents: 'ThankYou',
-    ThankYou: 'TaskList',
-
     CopiesStart: 'CopiesUk',
     CopiesUk: 'AssetsOverseas',
     AssetsOverseas: {
@@ -163,7 +160,10 @@ const stepList = {
     CopiesSummary: 'TaskList',
 
     PaymentBreakdown: 'PaymentStatus',
-    PaymentStatus: 'TaskList',
+    PaymentStatus: 'Documents',
+
+    Documents: 'ThankYou',
+    ThankYou: 'TaskList',
 
     AddressLookup: 'AddressLookup',
     TaskList: 'TaskList',

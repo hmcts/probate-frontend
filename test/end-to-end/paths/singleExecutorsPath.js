@@ -19,32 +19,33 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
 
     //PreIdam
     I.startApplication();
+
+    // Eligibility task
+    I.selectPersonWhoDiedLeftAWill();
+    I.selectOriginalWill();
+    I.selectDeathCertificate();
+    I.selectDeceasedDomicile();
+    I.selectApplicantIsExecutor();
+    I.selectMentallyCapable();
+    I.selectIhtCompleted();
     I.startApply();
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
 
-    // EligibilityTask
-    I.selectATask(taskListContent.taskNotStarted);
-    I.selectPersonWhoDiedLeftAWill();
-    I.selectOriginalWill();
-    I.selectWillCodicils('Yes');
-    I.selectWillNoOfCodicils('3');
-    I.selectDeathCertificate();
-    I.selectIhtCompleted();
-    I.selectInheritanceMethodPaper();
-
-    if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterGrossAndNet('205', '600000', '300000');
-    } else {
-        I.enterGrossAndNet('205', '500', '400');
-    }
-
-    I.selectApplicantIsExecutor();
-    I.selectMentallyCapable();
-
-    // ExecutorsTask
+    // Old eligibility task
+    // I.selectATask(taskListContent.taskNotStarted);
+    // I.selectWillCodicils('Yes');
+    // I.selectWillNoOfCodicils('3');
+    // I.selectInheritanceMethodPaper();
     //
+    // if (TestConfigurator.getUseGovPay() === 'true') {
+    //     I.enterGrossAndNet('205', '600000', '300000');
+    // } else {
+    //     I.enterGrossAndNet('205', '500', '400');
+    // }
+
+    // Executors task
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
     I.selectNameAsOnTheWill();
@@ -60,11 +61,10 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.selectDeceasedMarriedAfterDateOnWill('optionNo');
     I.enterDeceasedDateOfDeath('01', '01', '2017');
     I.enterDeceasedDateOfBirth('01', '01', '1950');
-    I.selectDeceasedDomicile();
     I.enterDeceasedAddress();
     I.seeSummaryPage();
 
-    // Review and confirm Task
+    // Review and confirm task
     I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();

@@ -27,7 +27,26 @@ describe('Tasklist', () => {
         });
 
         it('Updates the context: DeceasedTask started', () => {
-            const formdata = {will: {left: 'Yes'}};
+            const formdata = {
+                will: {
+                    left: completedForm.eligibility.willLeft,
+                    original: completedForm.eligibility.willOriginal
+                },
+                deceased: {
+                    deathCertificate: completedForm.eligibility.deathCertificate,
+                    domicile: completedForm.eligibility.deceasedDomicile,
+                    firstName: completedForm.deceased.firstName
+                },
+                applicant: {
+                    executor: completedForm.eligibility.applicantExecutor
+                },
+                executors: {
+                    mentalCapacity: completedForm.eligibility.mentalCapacity
+                },
+                iht: {
+                    completed: completedForm.eligibility.ihtCompleted
+                }
+            };
             req.session.form = formdata;
             const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
@@ -43,9 +62,15 @@ describe('Tasklist', () => {
             const formdata = {
                 will: completedForm.will,
                 iht: completedForm.iht,
-                executors: {mentalCapacity: 'Yes'},
-                applicant: {executor: completedForm.applicant.executor},
-                deceased: {deathCertificate: completedForm.deceased.deathCertificate}
+                executors: {
+                    mentalCapacity: 'Yes'
+                },
+                applicant: {
+                    executor: completedForm.applicant.executor
+                },
+                deceased: {
+                    deathCertificate: completedForm.deceased.deathCertificate
+                }
             };
             req.session.form = formdata;
             const taskList = steps.TaskList;
@@ -61,13 +86,17 @@ describe('Tasklist', () => {
             const formdata = {
                 will: completedForm.will,
                 iht: completedForm.iht,
-                executors: {mentalCapacity: 'Yes'},
+                executors: {
+                    mentalCapacity: 'Yes'
+                },
                 applicant: {
                     executor: completedForm.applicant.executor,
                     firstName: completedForm.applicant.firstName,
                     lastName: completedForm.applicant.lastName,
                 },
-                deceased: {deathCertificate: completedForm.deceased.deathCertificate}
+                deceased: {
+                    deathCertificate: completedForm.deceased.deathCertificate
+                }
             };
             req.session.form = formdata;
             const taskList = steps.TaskList;
@@ -82,9 +111,13 @@ describe('Tasklist', () => {
         it('Updates the context: DeceasedTask & ExecutorsTask started (ExecutorsTask blocked)', () => {
             const formdata = {
                 will: completedForm.will,
-                iht: {'completed': 'Yes'},
+                iht: {
+                    completed: 'Yes'
+                },
                 applicant: completedForm.applicant,
-                deceased: {deathCertificate: completedForm.deceased.deathCertificate}
+                deceased: {
+                    deathCertificate: completedForm.deceased.deathCertificate
+                }
             };
             req.session.form = formdata;
             const taskList = steps.TaskList;

@@ -1,14 +1,17 @@
 {
   "formdata": {
     "payloadVersion": "1.0",
-    "will": {
-      "left": "Yes",
-      "codicils": "No",
-      "original": "Yes"
+    "eligibility": {
+      "willLeft": "Yes",
+      "willOriginal": "Yes",
+      "deathCertificate": "Yes",
+      "deceasedDomicile": "Yes",
+      "applicantExecutor": "Yes",
+      "mentalCapacity": "Yes",
+      "ihtCompleted": "Yes"
     },
     "applicant": {
       "address": "Flat 1, Somewhere Rd, Nowhere.",
-      "executor": "Yes",
       "lastName": "Smith",
       "postcode": "NW1 8SS",
       "referrer": "ApplicantAddress",
@@ -29,7 +32,6 @@
       "dod_date": "2010-03-02T00:00:00.000Z",
       "dod_formattedDate": "1 February 2000",
       "dod_year": 2010,
-      "domicile": "live permanently in England or Wales",
       "lastName": "Else",
       "postcode": "NW1 8SS",
       "referrer": "DeceasedAddress",
@@ -41,26 +43,38 @@
       "relationship": "grandparent",
       "married": "Yes",
       "freeTextAddress": "21 Treelined Avenue,\r\nSussex.",
-      "deathCertificate": "Yes"
+      "codicils": "No"
     },
     "iht": {
-      "completed": "Yes",
       "identifier": "12341234A12345",
       "method": "Through the HMRC online service",
       "netValueOnline": "100000",
       "grossValueOnline": "150000"
     },
     "executors": {
-      "list": [{"firstName":"asd","lastName":"dsa","isApplying":true,"isApplicant":true},
-                {"fullName":"Number 2","isApplying":true,"email":"test@email.com",
-                  "mobile":"07234156431","address":"test address","freeTextAddress":"test address",
-                  "inviteId":"dee-ceased-6da20103-4c99-4346-8a30-0df173e543b7","emailSent":true}],
+      "list": [
+        {
+          "firstName" :"asd",
+          "lastName": "dsa",
+          "isApplying": true,
+          "isApplicant": true
+        },
+        {
+          "fullName": "Number 2",
+          "isApplying": true,
+          "email": "test@email.com",
+          "mobile": "07234156431",
+          "address": "test address",
+          "freeTextAddress": "test address",
+          "inviteId": "dee-ceased-6da20103-4c99-4346-8a30-0df173e543b7",
+          "emailSent": true
+        }
+      ],
       "executorsNumber" : 2,
       "invitesSent": "true",
       "allalive":"Yes",
       "otherExecutorsApplying":"Yes",
-      "alias":"No",
-      "mentalCapacity": "Yes"
+      "alias":"No"
     },
     "declaration": {
       "declarationCheckbox": true

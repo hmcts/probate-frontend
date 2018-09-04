@@ -34,16 +34,16 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.authenticateWithIdamIfAvailable();
 
     // Old eligibility task
-    // I.selectATask(taskListContent.taskNotStarted);
-    // I.selectWillCodicils('Yes');
-    // I.selectWillNoOfCodicils('3');
-    // I.selectInheritanceMethodPaper();
-    //
-    // if (TestConfigurator.getUseGovPay() === 'true') {
-    //     I.enterGrossAndNet('205', '600000', '300000');
-    // } else {
-    //     I.enterGrossAndNet('205', '500', '400');
-    // }
+    I.selectATask(taskListContent.taskNotStarted);
+    I.selectWillCodicils('Yes');
+    I.selectWillNoOfCodicils('3');
+    I.selectInheritanceMethodPaper();
+
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.enterGrossAndNet('205', '600000', '300000');
+    } else {
+        I.enterGrossAndNet('205', '500', '400');
+    }
 
     // Executors task
     I.selectATask(taskListContent.taskNotStarted);

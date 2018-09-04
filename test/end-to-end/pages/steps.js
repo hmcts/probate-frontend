@@ -26,10 +26,10 @@ module.exports = function () {
         selectATask: steps.tasklist.tasklist,
 
         // Old Eligibility
-        // selectWillCodicils: steps.will.codicils,
-        // selectWillNoOfCodicils: steps.will.codicilsnumber,
-        // selectInheritanceMethodPaper: steps.iht.method,
-        // enterGrossAndNet: steps.iht.paper,
+        selectWillCodicils: steps.will.codicils,
+        selectWillNoOfCodicils: steps.will.codicilsnumber,
+        selectInheritanceMethodPaper: steps.iht.method,
+        enterGrossAndNet: steps.iht.paper,
 
         // Applicant details
         enterApplicantName: steps.applicant.name,

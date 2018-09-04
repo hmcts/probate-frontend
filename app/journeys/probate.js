@@ -33,9 +33,8 @@ const taskList = {
 };
 
 const stepList = {
+    // Eligibility Task Start
     StartEligibility: 'WillLeft',
-    StartApply: 'TaskList',
-
     WillLeft: {
         withWill: 'WillOriginal',
         otherwise: 'StopPage'
@@ -64,6 +63,10 @@ const stepList = {
         completed: 'StartApply',
         otherwise: 'StopPage'
     },
+    StartApply: 'TaskList',
+    // Eligibility Task End
+
+    // Old Eligibility Task Start
     WillCodicils: {
         noCodicils: 'DeathCertificate',
         otherwise: 'CodicilsNumber'
@@ -76,7 +79,9 @@ const stepList = {
     IhtPaper: 'ApplicantExecutor',
     IhtIdentifier: 'IhtValue',
     IhtValue: 'ApplicantExecutor',
+    // Old Eligibility Task End
 
+    // Executor Task Start
     ApplicantName: 'ApplicantNameAsOnWill',
     ApplicantNameAsOnWill: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
@@ -139,7 +144,9 @@ const stepList = {
     DeceasedDod: 'DeceasedDob',
     DeceasedDob: 'DeceasedAddress',
     DeceasedAddress: 'Summary',
-    Summary: 'TaskList',
+    // Executor Task Start
+
+    // Declaration Task Start
     Declaration: {
         dataChangedAfterEmailSent: 'ExecutorsChangeMade',
         otherExecutorsApplying: 'ExecutorsInvite',
@@ -149,7 +156,9 @@ const stepList = {
     ExecutorsInvitesSent: 'TaskList',
     ExecutorsChangeMade: 'TaskList',
     Submit: 'TaskList',
+    // Declaration Task End
 
+    // Copies Task Start
     CopiesStart: 'CopiesUk',
     CopiesUk: 'AssetsOverseas',
     AssetsOverseas: {
@@ -158,13 +167,19 @@ const stepList = {
     },
     CopiesOverseas: 'CopiesSummary',
     CopiesSummary: 'TaskList',
+    // Copies Task End
 
+    // Payment Task Start
     PaymentBreakdown: 'PaymentStatus',
     PaymentStatus: 'Documents',
+    // Payment Task End
 
+    // Documents Task Start
     Documents: 'ThankYou',
     ThankYou: 'TaskList',
+    // Documents Task End
 
+    Summary: 'TaskList',
     AddressLookup: 'AddressLookup',
     TaskList: 'TaskList',
     StopPage: 'StopPage',

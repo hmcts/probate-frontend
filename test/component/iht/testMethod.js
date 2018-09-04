@@ -1,8 +1,9 @@
 'use strict';
-const TestWrapper = require('test/util/TestWrapper'),
-    ihtMethodContent = require('app/resources/en/translation/iht/method'),
-    IhtIdentifier = require('app/steps/ui/iht/identifier/index'),
-    IhtPaper = require('app/steps/ui/iht/paper/index');
+
+const TestWrapper = require('test/util/TestWrapper');
+const ihtMethodContent = require('app/resources/en/translation/iht/method');
+const IhtIdentifier = require('app/steps/ui/iht/identifier/index');
+const IhtPaper = require('app/steps/ui/iht/paper/index');
 
 describe('iht-method', () => {
     let testWrapper;

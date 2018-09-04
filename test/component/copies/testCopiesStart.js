@@ -1,5 +1,7 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    CopiesUk = require('app/steps/ui/copies/uk/index');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const CopiesUk = require('app/steps/ui/copies/uk/index');
 
 describe('copies-start', () => {
     let testWrapper;

@@ -1,9 +1,9 @@
 const taskList = {
-    EligibilityTask: {
-        firstStep: 'StartEligibility',
-        lastStep: 'TaskList',
-        summary: 'Summary'
-    },
+    // EligibilityTask: {
+    //     firstStep: 'StartEligibility',
+    //     lastStep: 'TaskList',
+    //     summary: 'Summary'
+    // },
     DeceasedTask: {
         firstStep: 'DeceasedName',
         lastStep: 'TaskList',
@@ -170,7 +170,7 @@ const stepList = {
 
     // Payment Task -----------------------------------------------------------
     PaymentBreakdown: 'PaymentStatus',
-    PaymentStatus: 'Documents',
+    PaymentStatus: 'TaskList',
 
     // Documents Task ---------------------------------------------------------
     Documents: 'ThankYou',

@@ -1,4 +1,5 @@
 'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const commonContent = require('app/resources/en/translation/common');
 

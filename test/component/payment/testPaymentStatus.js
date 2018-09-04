@@ -1,6 +1,8 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    TaskList = require('app/steps/ui/tasklist/index'),
-    sessionData = require('test/data/complete-form-undeclared').formdata;
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const TaskList = require('app/steps/ui/tasklist/index');
+const sessionData = require('test/data/complete-form-undeclared').formdata;
 
 describe('payment-status', () => {
     let testWrapper;
@@ -13,7 +15,7 @@ describe('payment-status', () => {
         payStub = require('test/service-stubs/payment');
     });
 
-   after(() => {
+    after(() => {
         submitStub.close();
         s2sStub.close();
         payStub.close();

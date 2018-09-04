@@ -1,5 +1,7 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    ApplicantAddress = require('app/steps/ui/applicant/address/index');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const ApplicantAddress = require('app/steps/ui/applicant/address/index');
 
 describe('applicant-phone', () => {
     let testWrapper;

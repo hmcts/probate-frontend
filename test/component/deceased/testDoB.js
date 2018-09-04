@@ -1,9 +1,11 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    DeceasedDomicile = require('app/steps/ui/deceased/domicile/index');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const DeceasedDod = require('app/steps/ui/deceased/dod/index');
 
 describe('deceased-dob', () => {
     let testWrapper;
-    const expectedNextUrlForDeceasedDomicile = DeceasedDomicile.getUrl();
+    const expectedNextUrlForDeceasedDod = DeceasedDod.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedDob');
@@ -20,44 +22,36 @@ describe('deceased-dob', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-
             const errorsToTest = ['dob_day', 'dob_month', 'dob_year'];
             const data = {};
 
             testWrapper.testErrors(done, data, 'required', errorsToTest);
-
         });
 
         it('test errors message displayed for invalid date', (done) => {
-
             const errorsToTest = ['dob_date'];
             const data = {dob_day: '31', dob_month: '9', dob_year: '2000'};
 
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-
         });
 
         it('test errors message displayed for non-numeric field', (done) => {
-
             const errorsToTest = ['dob_day'];
             const data = {dob_day: 'ab', dob_month: '09', dob_year: '2000'};
 
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-
         });
 
         it('test errors message displayed for three digits in year field', (done) => {
-
             const errorsToTest = ['dob_year'];
             const data = {dob_day: '12', dob_month: '9', dob_year: '200'};
 
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-
         });
 
-        it(`test it redirects to deceased domiciled: ${expectedNextUrlForDeceasedDomicile}`, (done) => {
+        it(`test it redirects to deceased dod page: ${expectedNextUrlForDeceasedDod}`, (done) => {
             const data = {dob_day: '01', dob_month: '01', dob_year: '1945'};
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDomicile);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDod);
         });
 
     });

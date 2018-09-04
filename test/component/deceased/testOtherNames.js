@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const {set} = require('lodash');
 const DeceasedMarried = require('app/steps/ui/deceased/married/index');

@@ -16,14 +16,14 @@ const strykerConfiguration = config => {
         'app/steps/ui/deceased/**/*.js',
         '!test/component/deceased/*.js'
       ],
-    files: ['**/*','!**/node_modules/*'],
+    files: ['**/*', '!**/node_modules/*'],
     maxConcurrentTestRunners: 2,
     symlinkNodeModules: false,
-    htmlReporter: { baseDir: 'functional-output/mutation-deceased' },
+    htmlReporter: {baseDir: 'functional-output/mutation-deceased'},
     mochaOptions: {
       files:
         [
-        'test/component/deceased/*.js',
+        'test/component/deceased/*.js'
         ],
       timeout: 8000
     },

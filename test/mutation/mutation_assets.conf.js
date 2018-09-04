@@ -16,15 +16,13 @@ const strykerConfiguration = config => {
         'app/assets/javascripts/*.js',
         '!test/assets/*.js'
       ],
-    files: ['**/*','!**/node_modules/*'],
+    files: ['**/*', '!**/node_modules/*'],
     maxConcurrentTestRunners: 2,
     symlinkNodeModules: false,
-    htmlReporter: { baseDir: 'functional-output/mutation-assets' },
+    htmlReporter: {baseDir: 'functional-output/mutation-assets'},
     mochaOptions: {
       files:
-        [
-        'test/assets/*.js',
-        ],
+        ['test/assets/*.js'],
       timeout: 8000
     },
     logLevel: 'debug',

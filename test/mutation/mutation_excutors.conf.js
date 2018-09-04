@@ -16,10 +16,10 @@ const strykerConfiguration = config => {
         'app/steps/ui/executors/**/*.js',
         '!test/component/executors/*.js'
       ],
-    files: ['**/*','!**/node_modules/*'],
+    files: ['**/*', '!**/node_modules/*'],
     maxConcurrentTestRunners: 2,
     symlinkNodeModules: false,
-    htmlReporter: { baseDir: 'functional-output/mutation-executors' },
+    htmlReporter: {baseDir: 'functional-output/mutation-executors'},
     mochaOptions: {
       files:
         [

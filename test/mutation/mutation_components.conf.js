@@ -16,10 +16,10 @@ const strykerConfiguration = config => {
         'app/components/*.js',
         '!test/unit/*.js'
       ],
-    files: ['**/*','!**/node_modules/*'],
+    files: ['**/*', '!**/node_modules/*'],
     maxConcurrentTestRunners: 2,
     symlinkNodeModules: false,
-    htmlReporter: { baseDir: 'functional-output/mutation-components' },
+    htmlReporter: {baseDir: 'functional-output/mutation-components'},
     mochaOptions: {
       files:
         [

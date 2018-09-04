@@ -16,10 +16,10 @@ const strykerConfiguration = config => {
         'app/wrappers/*.js',
         '!test/component/deceased/*.js'
       ],
-    files: ['**/*','!**/node_modules/*'],
+    files: ['**/*', '!**/node_modules/*'],
     maxConcurrentTestRunners: 2,
     symlinkNodeModules: false,
-    htmlReporter: { baseDir: 'functional-output/mutation-wrappers' },
+    htmlReporter: {baseDir: 'functional-output/mutation-wrappers'},
     mochaOptions: {
       files:
         [
@@ -27,8 +27,7 @@ const strykerConfiguration = config => {
         'test/component/executors/*.js',
         'test/component/will/*.js',
         'test/unit/testWillWrapper.js',
-        'test/unit/testDeceasedWrapper.js',
-
+        'test/unit/testDeceasedWrapper.js'
         ],
       timeout: 8000
     },

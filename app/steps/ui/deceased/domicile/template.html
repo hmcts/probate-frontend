@@ -12,9 +12,10 @@
 {% block form_content %}
     {{optionsRadio(content,
         name = 'domicile',
-        field = fields['domicile'],
+        field = fields.domicile,
         options = ['optionYes', 'optionNo'],
-        legend = content.legend
+        legend = content.legend,
+        inline = true
     )}}
     <div class="form-group">
         <input class="button" type="submit" value="{{common.continue}}">

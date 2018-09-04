@@ -1,7 +1,11 @@
-
 const taskList = {
     EligibilityTask: {
         firstStep: 'StartEligibility',
+        lastStep: 'TaskList',
+        summary: 'Summary'
+    },
+    DeceasedTask: {
+        firstStep: 'DeceasedName',
         lastStep: 'TaskList',
         summary: 'Summary'
     },
@@ -33,7 +37,7 @@ const taskList = {
 };
 
 const stepList = {
-    // Eligibility Task Start
+    // Eligibility Task -------------------------------------------------------
     StartEligibility: 'WillLeft',
     WillLeft: {
         withWill: 'WillOriginal',
@@ -64,30 +68,40 @@ const stepList = {
         otherwise: 'StopPage'
     },
     StartApply: 'TaskList',
-    // Eligibility Task End
 
-    // Old Eligibility Task Start
-    WillCodicils: {
-        noCodicils: 'DeathCertificate',
-        otherwise: 'CodicilsNumber'
-    },
-    CodicilsNumber: 'DeathCertificate',
+    // Deceased Task ----------------------------------------------------------
+    DeceasedName: 'DeceasedDob',
+    DeceasedDob: 'DeceasedDod',
+    DeceasedDod: 'DeceasedAddress',
+    DeceasedAddress: 'IhtMethod',
     IhtMethod: {
         online: 'IhtIdentifier',
         otherwise: 'IhtPaper'
     },
-    IhtPaper: 'ApplicantExecutor',
+    IhtPaper: 'DeceasedAlias',
     IhtIdentifier: 'IhtValue',
-    IhtValue: 'ApplicantExecutor',
-    // Old Eligibility Task End
+    IhtValue: 'DeceasedAlias',
+    DeceasedAlias: {
+        assetsInOtherNames: 'DeceasedOtherNames',
+        otherwise: 'DeceasedMarried'
+    },
+    DeceasedOtherNames: 'DeceasedMarried',
+    AddAlias: 'DeceasedOtherNames',
+    RemoveAlias: 'DeceasedOtherNames',
+    DeceasedMarried: 'WillCodicils',
+    WillCodicils: {
+        noCodicils: 'TaskList',
+        otherwise: 'CodicilsNumber'
+    },
+    CodicilsNumber: 'TaskList',
 
-    // Executor Task Start
+    // Executor Task ----------------------------------------------------------
     ApplicantName: 'ApplicantNameAsOnWill',
     ApplicantNameAsOnWill: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
     ApplicantAddress: 'ExecutorsNumber',
     ExecutorsNumber: {
-        deceasedName: 'DeceasedName',
+        deceasedName: 'TaskList',
         otherwise: 'ExecutorsNames',
     },
     ExecutorsNames: 'ExecutorsAllAlive',
@@ -98,7 +112,7 @@ const stepList = {
     ExecutorsWhoDied: 'ExecutorsWhenDied',
     ExecutorsWhenDied: {
         continue: 'ExecutorsWhenDied',
-        allDead: 'DeceasedName',
+        allDead: 'TaskList',
         otherwise: 'ExecutorsApplying'
     },
     ExecutorsApplying: {
@@ -118,35 +132,22 @@ const stepList = {
     ExecutorContactDetails: 'ExecutorAddress',
     ExecutorAddress: {
         continue: 'ExecutorContactDetails',
-        allExecsApplying: 'DeceasedName',
+        allExecsApplying: 'TaskList',
         otherwise: 'ExecutorRoles'
     },
     ExecutorRoles: {
         continue: 'ExecutorRoles',
         powerReserved: 'ExecutorNotified',
-        otherwise: 'DeceasedName',
+        otherwise: 'TaskList',
     },
     ExecutorNameAsOnWill: 'OtherExecutors',
     ExecutorNotified: {
         roles: 'ExecutorRoles',
-        otherwise: 'DeceasedName'
+        otherwise: 'TaskList'
     },
     DeleteExecutor: 'OtherExecutors',
-    DeceasedName: 'DeceasedAlias',
-    DeceasedAlias: {
-        assetsInOtherNames: 'DeceasedOtherNames',
-        otherwise: 'DeceasedMarried'
-    },
-    DeceasedOtherNames: 'DeceasedMarried',
-    AddAlias: 'DeceasedOtherNames',
-    RemoveAlias: 'DeceasedOtherNames',
-    DeceasedMarried: 'DeceasedDod',
-    DeceasedDod: 'DeceasedDob',
-    DeceasedDob: 'DeceasedAddress',
-    DeceasedAddress: 'Summary',
-    // Executor Task Start
 
-    // Declaration Task Start
+    // Declaration Task -------------------------------------------------------
     Declaration: {
         dataChangedAfterEmailSent: 'ExecutorsChangeMade',
         otherExecutorsApplying: 'ExecutorsInvite',
@@ -156,9 +157,8 @@ const stepList = {
     ExecutorsInvitesSent: 'TaskList',
     ExecutorsChangeMade: 'TaskList',
     Submit: 'TaskList',
-    // Declaration Task End
 
-    // Copies Task Start
+    // Copies Task ------------------------------------------------------------
     CopiesStart: 'CopiesUk',
     CopiesUk: 'AssetsOverseas',
     AssetsOverseas: {
@@ -167,18 +167,16 @@ const stepList = {
     },
     CopiesOverseas: 'CopiesSummary',
     CopiesSummary: 'TaskList',
-    // Copies Task End
 
-    // Payment Task Start
+    // Payment Task -----------------------------------------------------------
     PaymentBreakdown: 'PaymentStatus',
     PaymentStatus: 'Documents',
-    // Payment Task End
 
-    // Documents Task Start
+    // Documents Task ---------------------------------------------------------
     Documents: 'ThankYou',
     ThankYou: 'TaskList',
-    // Documents Task End
 
+    // ------------------------------------------------------------------------
     Summary: 'TaskList',
     AddressLookup: 'AddressLookup',
     TaskList: 'TaskList',

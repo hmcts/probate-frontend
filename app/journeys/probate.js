@@ -73,9 +73,9 @@ const stepList = {
         online: 'IhtIdentifier',
         otherwise: 'IhtPaper'
     },
-    IhtPaper: 'DeceasedAlias',
     IhtIdentifier: 'IhtValue',
     IhtValue: 'DeceasedAlias',
+    IhtPaper: 'DeceasedAlias',
     DeceasedAlias: {
         assetsInOtherNames: 'DeceasedOtherNames',
         otherwise: 'DeceasedMarried'
@@ -90,7 +90,7 @@ const stepList = {
     },
     CodicilsNumber: 'TaskList',
 
-    // Executor Task ----------------------------------------------------------
+    // Executors Task ----------------------------------------------------------
     ApplicantName: 'ApplicantNameAsOnWill',
     ApplicantNameAsOnWill: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',

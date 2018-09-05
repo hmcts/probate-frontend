@@ -22,13 +22,19 @@ module.exports = function () {
         // Sign in to IDAM
         authenticateWithIdamIfAvailable: steps.IDAM.signIn,
 
-        // Start application
+        // Deceased
         selectATask: steps.tasklist.tasklist,
-
-        // Old Eligibility
+        enterDeceasedName: steps.deceased.name,
+        enterDeceasedDateOfBirth: steps.deceased.dob,
+        enterDeceasedDateOfDeath: steps.deceased.dod,
+        enterDeceasedAddress: steps.deceased.address,
+        selectInheritanceMethodPaper: steps.iht.method,
+        selectDeceasedAlias: steps.deceased.alias,
+        selectOtherNames: steps.deceased.otherNames,
+        selectDeceasedMarriedAfterDateOnWill: steps.deceased.married,
         selectWillCodicils: steps.will.codicils,
         selectWillNoOfCodicils: steps.will.codicilsnumber,
-        selectInheritanceMethodPaper: steps.iht.method,
+
         enterGrossAndNet: steps.iht.paper,
 
         // Applicant details
@@ -52,15 +58,6 @@ module.exports = function () {
         enterExecutorManualAddress: steps.executors.address,
         selectExecutorRoles: steps.executors.roles,
         selectHasExecutorBeenNotified: steps.executors.notified,
-
-        // Deceased details
-        enterDeceasedName: steps.deceased.name,
-        selectDeceasedAlias: steps.deceased.alias,
-        selectOtherNames: steps.deceased.otherNames,
-        selectDeceasedMarriedAfterDateOnWill: steps.deceased.married,
-        enterDeceasedDateOfDeath: steps.deceased.dod,
-        enterDeceasedDateOfBirth: steps.deceased.dob,
-        enterDeceasedAddress: steps.deceased.address,
 
         // Summary page
         seeSummaryPage: steps.summary.summary,

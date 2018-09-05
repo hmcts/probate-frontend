@@ -23,20 +23,26 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     //PreIdam
     I.startApplication();
+
+    // Eligibility Task
+    I.selectPersonWhoDiedLeftAWill();
+    I.selectOriginalWill();
+    I.selectDeathCertificate();
+    I.selectDeceasedDomicile();
+    I.selectApplicantIsExecutor();
+    I.selectMentallyCapable();
+    I.selectIhtCompleted();
     I.startApply();
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
 
-    // EligibilityTask
-
+    // Deceased Task
     I.selectATask(taskListContent.taskNotStarted);
-    I.selectPersonWhoDiedLeftAWill();
-    I.selectOriginalWill();
-    I.selectWillCodicils('Yes');
-    I.selectWillNoOfCodicils('3');
-    I.selectDeathCertificate();
-    I.selectIhtCompleted();
+    I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
+    I.enterDeceasedDateOfBirth('01', '01', '1950');
+    I.enterDeceasedDateOfDeath('01', '01', '2017');
+    I.enterDeceasedAddress();
     I.selectInheritanceMethodPaper();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
@@ -45,11 +51,13 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         I.enterGrossAndNet('205', '500', '400');
     }
 
-    I.selectApplicantIsExecutor();
-    I.selectMentallyCapable();
+    I.selectDeceasedAlias('Yes');
+    I.selectOtherNames('2');
+    I.selectDeceasedMarriedAfterDateOnWill('optionNo');
+    I.selectWillCodicils('Yes');
+    I.selectWillNoOfCodicils('3');
 
-    // ExecutorsTask
-    //
+    // Executors Task
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
     I.selectNameAsOnTheWill();
@@ -69,11 +77,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     forEach(executorsWhoDiedList, executorNumber => {
         I.selectExecutorsWhenDied(executorNumber, diedBefore, head(executorsWhoDiedList) === executorNumber);
 
-        if (diedBefore) {
-            diedBefore = false;
-        } else {
-            diedBefore = true;
-        }
+        diedBefore = !diedBefore;
     });
 
     I.selectExecutorsApplying();
@@ -109,19 +113,8 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         }
     });
 
-    I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
-    I.selectDeceasedAlias('Yes');
-    I.selectOtherNames('2');
-    I.selectDeceasedMarriedAfterDateOnWill('optionNo');
-    I.enterDeceasedDateOfDeath('01', '01', '2017');
-    I.enterDeceasedDateOfBirth('01', '01', '1950');
-    I.selectDeceasedDomicile();
-    I.enterDeceasedAddress();
-
-    I.seeSummaryPage();
-
-    // Review and confirm Task
-    I.selectATask('Start');
+    // Declaration Task
+    I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();
 

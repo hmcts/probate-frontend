@@ -21,7 +21,7 @@ After(() => {
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
 
-    //PreIdam
+    // Pre-IDAM
     I.startApplication();
     I.startApply();
 
@@ -157,6 +157,10 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
 });
 
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
+
+    // Pre-IDAM
+    I.startApplication();
+    I.startApply();
 
     // IDAM
     I.authenticateWithIdamIfAvailable();

@@ -10,6 +10,7 @@ The Frontend Application delegates a number of backend logic to the underlying s
 - [Node.js](nodejs.org) >= 8.9.0
 - [yarn](yarnpkg.com)
 
+
 ### Installation
 
 Install dependencies by executing the following command:

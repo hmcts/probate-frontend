@@ -10,7 +10,11 @@
     <p>{{content.paragraph | safe}}</p>
 
     <h2 class="heading-small">{{content.executor | safe}} 1</h2>
-    <p>{{ fields.list.value[0].firstName }} {{ fields.list.value[0].lastName }}</p>
+    {% if fields.list.value[0].alias %}
+        <p>{{fields.list.value[0].alias}}</p>
+    {% else %}
+        <p>{{ fields.list.value[0].firstName }} {{ fields.list.value[0].lastName }}</p>
+    {% endif %}
     <fieldset>
         <legend class="visually-hidden">title{{ content.title | safe }}</legend>
 

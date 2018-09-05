@@ -1,5 +1,4 @@
 'use strict';
-
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
 const resourcePath = 'executors.names';

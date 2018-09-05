@@ -89,6 +89,8 @@ describe('ApplicantNameAsOnWill', () => {
             });
             done();
         });
+    });
+
     describe('handlePost()', () => {
         let ctx;
         let errors;

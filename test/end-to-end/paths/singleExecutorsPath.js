@@ -96,7 +96,6 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.seePaymentStatusPage();
 
     // Documents Task
-    I.selectATask(taskListContent.taskNotStarted);
     I.seeDocumentsPage();
     I.seeThankYouPage();
 }).retry(TestConfigurator.getRetryScenarios());

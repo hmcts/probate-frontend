@@ -26,7 +26,7 @@ const taskList = {
     },
     DocumentsTask: {
         firstStep: 'Documents',
-        lastStep: 'TaskList',
+        lastStep: 'ThankYou',
         summary: 'Summary'
     }
 };
@@ -169,7 +169,7 @@ const stepList = {
 
     // Documents Task ---------------------------------------------------------
     Documents: 'ThankYou',
-    ThankYou: 'TaskList',
+    ThankYou: 'ThankYou',
 
     // ------------------------------------------------------------------------
     Summary: 'TaskList',

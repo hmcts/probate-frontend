@@ -1,6 +1,11 @@
 {
   "formdata": {
     "payloadVersion": "1.0",
+    "will": {
+      "left": "Yes",
+      "codicils": "No",
+      "original": "Yes"
+    },
     "eligibility": {
       "willLeft": "Yes",
       "willOriginal": "Yes",
@@ -12,6 +17,7 @@
     },
     "applicant": {
       "address": "Flat 1, Somewhere Rd, Nowhere.",
+      "executor": "Yes",
       "lastName": "Smith",
       "postcode": "NW1 8SS",
       "referrer": "ApplicantAddress",
@@ -32,6 +38,7 @@
       "dod_date": "2010-03-02T00:00:00.000Z",
       "dod_formattedDate": "1 February 2000",
       "dod_year": 2010,
+      "domicile": "Yes",
       "lastName": "Else",
       "postcode": "NW1 8SS",
       "referrer": "DeceasedAddress",
@@ -43,9 +50,10 @@
       "relationship": "grandparent",
       "married": "Yes",
       "freeTextAddress": "21 Treelined Avenue,\r\nSussex.",
-      "codicils": "No"
+      "deathCertificate": "Yes"
     },
     "iht": {
+      "completed": "Yes",
       "identifier": "12341234A12345",
       "method": "Through the HMRC online service",
       "netValueOnline": "100000",
@@ -54,7 +62,7 @@
     "executors": {
       "list": [
         {
-          "firstName" :"asd",
+          "firstName": "asd",
           "lastName": "dsa",
           "isApplying": true,
           "isApplicant": true
@@ -70,11 +78,12 @@
           "emailSent": true
         }
       ],
-      "executorsNumber" : 2,
+      "executorsNumber": 2,
       "invitesSent": "true",
-      "allalive":"Yes",
-      "otherExecutorsApplying":"Yes",
-      "alias":"No"
+      "allalive": "Yes",
+      "otherExecutorsApplying": "Yes",
+      "alias": "No",
+      "mentalCapacity": "Yes"
     },
     "declaration": {
       "declarationCheckbox": true

@@ -28,23 +28,9 @@ describe('Tasklist', () => {
 
         it('Updates the context: DeceasedTask started', () => {
             const formdata = {
-                will: {
-                    left: completedForm.eligibility.willLeft,
-                    original: completedForm.eligibility.willOriginal
-                },
                 deceased: {
-                    deathCertificate: completedForm.eligibility.deathCertificate,
-                    domicile: completedForm.eligibility.deceasedDomicile,
-                    firstName: completedForm.deceased.firstName
-                },
-                applicant: {
-                    executor: completedForm.eligibility.applicantExecutor
-                },
-                executors: {
-                    mentalCapacity: completedForm.eligibility.mentalCapacity
-                },
-                iht: {
-                    completed: completedForm.eligibility.ihtCompleted
+                    firstName: completedForm.deceased.firstName,
+                    lastName: completedForm.deceased.lastName
                 }
             };
             req.session.form = formdata;
@@ -53,23 +39,34 @@ describe('Tasklist', () => {
 
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.DeceasedTask.status, 'started');
-            assert.equal(ctx.DeceasedTask.nextURL, journeyMap(steps.WillLeft, formdata.will).constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.nextURL, journeyMap(steps.DeceasedName, formdata.deceased).constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'notStarted');
             assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
         });
 
         it('Updates the context: DeceasedTask complete, ExecutorsTask not started', () => {
             const formdata = {
-                will: completedForm.will,
-                iht: completedForm.iht,
-                executors: {
-                    mentalCapacity: 'Yes'
-                },
-                applicant: {
-                    executor: completedForm.applicant.executor
-                },
                 deceased: {
-                    deathCertificate: completedForm.deceased.deathCertificate
+                    firstName: completedForm.deceased.firstName,
+                    lastName: completedForm.deceased.lastName,
+                    dob_day: completedForm.deceased.dob_day,
+                    dob_month: completedForm.deceased.dob_month,
+                    dob_year: completedForm.deceased.dob_year,
+                    dod_day: completedForm.deceased.dod_day,
+                    dod_month: completedForm.deceased.dod_month,
+                    dod_year: completedForm.deceased.dod_year,
+                    freeTextAddress: completedForm.deceased.freeTextAddress,
+                    alias: completedForm.deceased.alias,
+                    married: completedForm.deceased.married
+                },
+                iht: {
+                    method: completedForm.iht.method,
+                    identifier: completedForm.iht.identifier,
+                    grossValueOnline: completedForm.iht.grossValueOnline,
+                    netValueOnline: completedForm.iht.netValueOnline
+                },
+                will: {
+                    codicils: completedForm.will.codicils
                 }
             };
             req.session.form = formdata;
@@ -84,18 +81,31 @@ describe('Tasklist', () => {
 
         it('Updates the context: DeceasedTask complete, ExecutorsTask started', () => {
             const formdata = {
-                will: completedForm.will,
-                iht: completedForm.iht,
-                executors: {
-                    mentalCapacity: 'Yes'
+                deceased: {
+                    firstName: completedForm.deceased.firstName,
+                    lastName: completedForm.deceased.lastName,
+                    dob_day: completedForm.deceased.dob_day,
+                    dob_month: completedForm.deceased.dob_month,
+                    dob_year: completedForm.deceased.dob_year,
+                    dod_day: completedForm.deceased.dod_day,
+                    dod_month: completedForm.deceased.dod_month,
+                    dod_year: completedForm.deceased.dod_year,
+                    freeTextAddress: completedForm.deceased.freeTextAddress,
+                    alias: completedForm.deceased.alias,
+                    married: completedForm.deceased.married
+                },
+                iht: {
+                    method: completedForm.iht.method,
+                    identifier: completedForm.iht.identifier,
+                    grossValueOnline: completedForm.iht.grossValueOnline,
+                    netValueOnline: completedForm.iht.netValueOnline
+                },
+                will: {
+                    codicils: completedForm.will.codicils
                 },
                 applicant: {
-                    executor: completedForm.applicant.executor,
                     firstName: completedForm.applicant.firstName,
-                    lastName: completedForm.applicant.lastName,
-                },
-                deceased: {
-                    deathCertificate: completedForm.deceased.deathCertificate
+                    lastName: completedForm.applicant.lastName
                 }
             };
             req.session.form = formdata;
@@ -110,13 +120,28 @@ describe('Tasklist', () => {
 
         it('Updates the context: DeceasedTask & ExecutorsTask started (ExecutorsTask blocked)', () => {
             const formdata = {
-                will: completedForm.will,
-                iht: {
-                    completed: 'Yes'
-                },
-                applicant: completedForm.applicant,
                 deceased: {
-                    deathCertificate: completedForm.deceased.deathCertificate
+                    firstName: completedForm.deceased.firstName,
+                    lastName: completedForm.deceased.lastName,
+                    dob_day: completedForm.deceased.dob_day,
+                    dob_month: completedForm.deceased.dob_month,
+                    dob_year: completedForm.deceased.dob_year,
+                    dod_day: completedForm.deceased.dod_day,
+                    dod_month: completedForm.deceased.dod_month,
+                    dod_year: completedForm.deceased.dod_year,
+                    freeTextAddress: completedForm.deceased.freeTextAddress,
+                    alias: completedForm.deceased.alias,
+                    married: completedForm.deceased.married
+                },
+                iht: {
+                    method: completedForm.iht.method,
+                    identifier: completedForm.iht.identifier,
+                    grossValueOnline: completedForm.iht.grossValueOnline,
+                    netValueOnline: completedForm.iht.netValueOnline
+                },
+                applicant: {
+                    firstName: completedForm.applicant.firstName,
+                    lastName: completedForm.applicant.lastName
                 }
             };
             req.session.form = formdata;
@@ -125,7 +150,7 @@ describe('Tasklist', () => {
 
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.DeceasedTask.status, 'started');
-            assert.equal(ctx.DeceasedTask.nextURL, journeyMap(steps.IhtCompleted, formdata.iht).constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.nextURL, journeyMap(steps.DeceasedMarried, formdata.deceased).constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'started');
         });
 

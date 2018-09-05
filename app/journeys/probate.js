@@ -1,9 +1,4 @@
 const taskList = {
-    EligibilityTask: {
-        firstStep: 'StartEligibility',
-        lastStep: 'TaskList',
-        summary: 'Summary'
-    },
     DeceasedTask: {
         firstStep: 'DeceasedName',
         lastStep: 'TaskList',

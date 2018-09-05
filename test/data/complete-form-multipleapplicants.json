@@ -19,7 +19,10 @@
     "executor":"Yes",
     "firstName":"Bob Richard",
     "lastName":"Smith",
-    "nameAsOnTheWill":"Yes",
+    "namesAsOnTheWill":"No",
+    "alias":"Bobby Richard Smith",
+    "aliasReason": "other",
+    "otherReason": "nickname",
     "phoneNumber":"07934235245",
     "postcode":"SW1H 9EX",
     "addresses":[{

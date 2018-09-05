@@ -126,6 +126,10 @@ describe('submit-data', () => {
 
         assert.nestedPropertyVal(mappedData, 'applicantFirstName', 'Bob Richard');
         assert.nestedPropertyVal(mappedData, 'applicantLastName', 'Smith');
+        assert.nestedPropertyVal(mappedData, 'applicantHasAlias', 'No');
+        assert.nestedPropertyVal(mappedData, 'applicantAlias', 'Bobby Richard Smith');
+        assert.nestedPropertyVal(mappedData, 'applicantAliasReason', 'other');
+        assert.nestedPropertyVal(mappedData, 'applicantOtherReason', 'nickname');
         assert.nestedPropertyVal(mappedData, 'applicantAddress', 'Adam & Eve 81 Petty France London SW1H 9EX');
         assert.nestedPropertyVal(mappedData, 'applicantPostcode', 'SW1H 9EX');
         assert.nestedPropertyVal(mappedData, 'applicantPhone', '07934235245');

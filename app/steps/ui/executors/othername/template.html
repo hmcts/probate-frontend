@@ -8,10 +8,11 @@
 
 {% block form_content %}
     {{ checkboxes(
-            name = 'executorsWithOtherNames',
-            field = fields.executorsWithOtherNames,
-            options = fields.options.value,
-            legend = content.question
+        id = 'executorsWithOtherNames',
+        name = 'executorsWithOtherNames',
+        field = fields.executorsWithOtherNames,
+        options = fields.options.value,
+        legend = content.question
     )}}
 
 <div class="form-group">

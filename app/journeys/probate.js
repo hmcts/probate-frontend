@@ -172,6 +172,7 @@ const stepList = {
     ThankYou: 'ThankYou',
 
     // ------------------------------------------------------------------------
+    ContinueApply: 'TaskList',
     Summary: 'TaskList',
     AddressLookup: 'AddressLookup',
     TaskList: 'TaskList',

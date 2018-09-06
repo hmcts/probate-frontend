@@ -8,6 +8,7 @@ module.exports = function () {
     return actor({
         // PreIdam
         startApplication: steps.startEligibility.startEligibility,
+        continueApply: steps.continueApply.continueApply,
 
         // Eligibility
         selectPersonWhoDiedLeftAWill: steps.will.left,

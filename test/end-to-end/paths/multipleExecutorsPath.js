@@ -4,6 +4,7 @@ const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
 
 let grabIds;
+let loginCredentials = ['', ''];
 
 Feature('Multiple Executors flow');
 
@@ -21,7 +22,7 @@ After(() => {
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
 
-    //PreIdam
+    // Pre IDAM
     I.startApplication();
 
     // Eligibility Task
@@ -35,7 +36,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.startApply();
 
     // IDAM
-    I.authenticateWithIdamIfAvailable();
+    loginCredentials = I.authenticateWithIdamIfAvailable();
 
     // Deceased Task
     I.selectATask(taskListContent.taskNotStarted);
@@ -151,10 +152,13 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
 
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
 
-    // IDAM
-    I.authenticateWithIdamIfAvailable();
+    //Pre IDAM
+    I.continueApply();
 
-    // Extra copies task
+    // IDAM
+    I.authenticateWithIdamIfAvailable(loginCredentials);
+
+    // Copies Task
     I.selectATask(taskListContent.taskNotStarted);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
@@ -169,7 +173,7 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     I.seeCopiesSummary();
 
-    // PaymentTask
+    // Payment Task
     I.selectATask(taskListContent.taskNotStarted);
     I.seePaymentBreakdownPage();
 
@@ -180,9 +184,7 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     I.seePaymentStatusPage();
 
-    // Send Documents Task
+    // Documents Task
     I.seeDocumentsPage();
-
-    // Thank You - Application Complete Task
     I.seeThankYouPage();
 }).retry(TestConfigurator.getRetryScenarios());

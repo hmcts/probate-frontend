@@ -17,7 +17,7 @@
     "executor":"Yes",
     "firstName":"Bob Richard",
     "lastName":"Smith",
-    "namesAsOnTheWill":"No",
+    "nameAsOnTheWill":"No",
     "alias":"Bobby Richard Smith",
     "aliasReason": "other",
     "otherReason": "nickname",

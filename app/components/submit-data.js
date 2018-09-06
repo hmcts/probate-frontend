@@ -6,7 +6,7 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const dataMap = {
     applicantFirstName: 'applicant.firstName',
     applicantLastName: 'applicant.lastName',
-    applicantHasAlias: 'applicant.namesAsOnTheWill',
+    applicantSameWillName: 'applicant.nameAsOnTheWill',
     applicantAlias: 'applicant.alias',
     applicantAliasReason: 'applicant.aliasReason',
     applicantAddress: 'applicant.address',

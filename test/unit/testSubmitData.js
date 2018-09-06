@@ -96,7 +96,7 @@ describe('submit-data', () => {
 
         assert.nestedPropertyVal(mappedData, 'applicantFirstName', 'Bob Richard');
         assert.nestedPropertyVal(mappedData, 'applicantLastName', 'Smith');
-        assert.nestedPropertyVal(mappedData, 'applicantHasAlias', 'No');
+        assert.nestedPropertyVal(mappedData, 'applicantSameWillName', 'No');
         assert.nestedPropertyVal(mappedData, 'applicantAlias', 'Bobby Richard Smith');
         assert.nestedPropertyVal(mappedData, 'applicantAliasReason', 'other');
         assert.nestedPropertyVal(mappedData, 'applicantOtherReason', 'nickname');

@@ -114,13 +114,16 @@ class Declaration extends ValidationStep {
     executorsApplyingText(props) {
         const mainApplicantSuffix = (props.hasMultipleApplicants && props.executor.isApplicant) ? '-mainApplicant' : '';
         const codicilsSuffix = this.codicilsSuffix(props.hasCodicils);
-        const applicantNameOnWill = FormatName.formatName(props.executor);
-        const applicantCurrentName = FormatName.formatName(props.executor, true);
+        const aliasSuffix = (props.hasMultipleApplicants && props.executor.isApplicant && props.executor.alias) ? '-alias' : '';
+        const applicantNameOnWill = this.formatName(props.executor);
+        const applicantCurrentName = this.formatName(props.executor, true);
+        const aliasReason = FormatName.aliasReason(props.executor);
         return {
-            name: props.content[`applicantName${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
-                .replace('{applicantName}', props.mainApplicantName)
-                .replace('{applicantCurrentName}', applicantCurrentName)
-                .replace('{applicantNameOnWill}', props.executor.hasOtherName ? ` ${props.content.as} ${applicantNameOnWill}` : ''),
+            name: props.content[`applicantName${props.multipleApplicantSuffix}${mainApplicantSuffix}${aliasSuffix}${codicilsSuffix}`]
+                .replace('{applicantName}', props.executor.isApplicant && props.executor.alias ? FormatName.currentName(props.executor) : props.mainApplicantName)
+                .replace(/{applicantCurrentName}/g, applicantCurrentName)
+                .replace('{applicantNameOnWill}', props.executor.hasOtherName ? ` ${props.content.as} ${applicantNameOnWill}` : '')
+                .replace('{aliasReason}', aliasReason),
             sign: props.content[`applicantSign${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
                 .replace('{applicantName}', props.mainApplicantName)
                 .replace('{applicantCurrentName}', applicantCurrentName)

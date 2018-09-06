@@ -15,6 +15,8 @@ describe('ExecutorNumber', () => {
                     'firstName': 'Dave',
                     'lastName': 'Bassett',
                     'alias': 'David James',
+                    'aliasReason': 'Divorce',
+                    'otherReason': ''
                 },
                 executors: {
                     list: [
@@ -41,6 +43,8 @@ describe('ExecutorNumber', () => {
                 'firstName': 'Dave',
                 'lastName': 'Bassett',
                 'alias': 'David James',
+                'aliasReason': 'Divorce',
+                'otherReason': '',
                 'isApplying': true,
                 'isApplicant': true
             }]);
@@ -55,6 +59,8 @@ describe('ExecutorNumber', () => {
                     'firstName': 'Dave',
                     'lastName': 'Bassett',
                     'alias': 'David James',
+                    'aliasReason': 'Divorce',
+                    'otherReason': '',
                     'isApplying': true,
                     'isApplicant': true
                 }, {
@@ -74,6 +80,8 @@ describe('ExecutorNumber', () => {
                     'firstName': 'Dave',
                     'lastName': 'Bassett',
                     'alias': 'David James',
+                    'aliasReason': 'Divorce',
+                    'otherReason': '',
                     'isApplying': true,
                     'isApplicant': true
                 }, {

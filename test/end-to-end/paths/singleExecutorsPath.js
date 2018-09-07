@@ -17,10 +17,8 @@ After(() => {
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
 
-    // Pre IDAM
-    I.startApplication();
-
     // Eligibility Task
+    I.startApplication();
     I.selectPersonWhoDiedLeftAWill();
     I.selectOriginalWill();
     I.selectDeathCertificate();

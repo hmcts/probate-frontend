@@ -24,8 +24,15 @@ class TestConfigurator {
     }
 
     getBefore() {
+
+        if (process.env.testCitizenEmail === this.getTestCitizenEmail()) {
+            this.setTestCitizenName();
+            this.setTestCitizenPassword();
+        }
+
+        this.setEnvVars();
+
         if (this.useIdam === 'true') {
-            this.setEnvVars();
 
             if (this.useSidam === 'true') {
                 this.userDetails =

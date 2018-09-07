@@ -14,8 +14,9 @@
 </fieldset>
 {% endmacro %}
 
-{% macro checkboxes(id, name, field, options, legend) %}
-<fieldset id="{{ name }}" class="form-group {{ 'form-group-error' if field.error }}">
+{% macro checkboxes(name, field, options, legend) %}
+{% set id = name | replace('[]', '') %}
+<fieldset id="{{ id }}" class="form-group {{ 'form-group-error' if field.error }}">
     <legend class="visually-hidden">{{ legend | safe }}</legend>
 
     {{ fieldError(field) }}

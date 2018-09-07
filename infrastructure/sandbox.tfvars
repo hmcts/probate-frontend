@@ -36,3 +36,5 @@ probate_business_service_url = "http://probate-business-service-sandbox.service.
 probate_submit_service_url = "http://probate-submit-service-sandbox.service.core-compute-sandbox.internal/submit"
 
 probate_persistence_service_url = " http://probate-persistence-service-sandbox.service.core-compute-sandbox.internal/formdata"
+
+feature_toggles_api_url = "http://rpe-feature-toggle-api-aat.service.core-compute-aat.internal"

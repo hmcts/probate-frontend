@@ -156,6 +156,8 @@ module "probate-frontend" {
     SITE_ID = "${data.vault_generic_secret.probate_site_id.data["value"]}"
 
     REFORM_ENVIRONMENT = "${var.reform_envirionment_for_test}"
+
+    FEATURE_TOGGLES_API_URL = "${var.feature_toggles_api_url}"
   }
 }
 

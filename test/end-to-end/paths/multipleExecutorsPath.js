@@ -8,19 +8,9 @@ let loginCredentials = ['', ''];
 
 Feature('Multiple Executors flow');
 
-// eslint complains that the Before/After are not used but they are by codeceptjs
-// so we have to tell eslint to not validate these
-// eslint-disable-next-line no-undef
-Before(() => {
-    TestConfigurator.getBefore();
-});
-
-// eslint-disable-next-line no-undef
-After(() => {
-    TestConfigurator.getAfter();
-});
-
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
+
+    TestConfigurator.getBefore();
 
     // Eligibility Task
     I.startApplication();
@@ -126,7 +116,6 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 }).retry(TestConfigurator.getRetryScenarios());
 
 Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), function* (I) {
-
     const idList = JSON.parse(grabIds);
 
     for (let i=0; i < idList.ids.length; i++) {
@@ -185,4 +174,4 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     // Documents Task
     I.seeDocumentsPage();
     I.seeThankYouPage();
-}).retry(TestConfigurator.getRetryScenarios());
+});

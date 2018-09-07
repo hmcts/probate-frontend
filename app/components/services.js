@@ -18,6 +18,7 @@ const PROXY = config.services.postcode.proxy;
 const SERVICE_AUTHORISATION_URL = `${config.services.idam.s2s_url}/lease`;
 const serviceName = config.services.idam.service_name;
 const secret = config.services.idam.service_key;
+const FEATURE_TOGGLE_API = config.featureToggles.api_url;
 const logger = require('app/components/logger')('Init');
 
 const getUserDetails = (securityCookie) => {
@@ -40,6 +41,17 @@ const findAddress = (postcode) => {
     };
     const fetchOptions = utils.fetchOptions({}, 'GET', headers, PROXY);
     return utils.fetchJson(url, fetchOptions);
+};
+
+const featureToggle = (featureToggleKey) => {
+    logger.info('featureToggle');
+    const url = `${FEATURE_TOGGLE_API}/api/ff4j/check/${featureToggleKey}`;
+    logger.info('url');
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+    const fetchOptions = utils.fetchOptions({}, 'GET', headers);
+    return utils.fetchText(url, fetchOptions);
 };
 
 const validateFormData = (data, sessionID) => {
@@ -225,6 +237,7 @@ const signOut = (access_token) => {
 module.exports = {
     getUserDetails,
     findAddress,
+    featureToggle,
     validateFormData,
     submitApplication,
     loadFormData,

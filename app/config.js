@@ -4,6 +4,10 @@ module.exports = {
     nodeEnvironment: process.env.NODE_ENV,
     gitRevision: process.env.GIT_REVISION,
     frontendPublicHttpProtocol: process.env.PUBLIC_PROTOCOL || 'http',
+    featureToggles: {
+        api_url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost',
+        fe_shutter_toggle: 'probate-fe-shutter'
+    },
     app: {
         username: process.env.USERNAME,
         password: process.env.PASSWORD,

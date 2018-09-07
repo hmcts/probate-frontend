@@ -188,3 +188,7 @@ variable "capacity" {
 variable "common_tags" {
   type = "map"
 }
+
+variable "feature_toggles_api_url" {
+  type = "string"
+}

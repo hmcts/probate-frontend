@@ -1,3 +1,4 @@
+// eslint-disable-line max-lines
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
@@ -7,6 +8,7 @@ const ExecutorsAdditionalInvite = require('app/steps/ui/executors/additionalinvi
 const ExecutorsChangeMade = require('app/steps/ui/executors/changemade/index');
 const Tasklist = require('app/steps/ui/tasklist/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const {assert} = require('chai');
 
 describe('declaration, multiple applicants', () => {
     let testWrapper, contentData, sessionData;
@@ -140,6 +142,201 @@ describe('declaration, multiple applicants', () => {
                 .send(sessionData)
                 .end(() => {
                     testWrapper.testContent(done, contentToExclude, contentData);
+                });
+        });
+
+        it('test right content loaded on the page, applicant has an alias, none of the other executors have a different name deceased has no other names and there are codicils', (done) => {
+            const contentToExclude = [
+                'deceasedOtherNames',
+                'executorApplyingName',
+                'executorNotApplyingHeader',
+                'executorNotApplyingReason',
+                'executorNotApplyingReason-codicils',
+                'optionDiedBefore',
+                'optionDiedAfter',
+                'optionPowerReserved',
+                'optionRenunciated',
+                'additionalExecutorNotified',
+                'intro',
+                'legalStatementApplicant',
+                'deceasedEstateLand',
+                'applicantName',
+                'applicantName-codicils',
+                'applicantName-multipleApplicants',
+                'applicantName-multipleApplicants-alias',
+                'applicantName-multipleApplicants-alias-codicils',
+                'applicantName-multipleApplicants-mainApplicant-alias',
+                'applicantName-multipleApplicants-mainApplicant-codicils',
+                'applicantName-multipleApplicants-mainApplicant-alias-codicils',
+                'applicantName-multipleApplicants-mainApplicant',
+                'applicantName-multipleApplicants-alias-codicils',
+                'applicantSign',
+                'applicantSign-codicils',
+                'applicantSign-multipleApplicants',
+                'applicantSign-multipleApplicants-mainApplicant',
+                'declarationConfirm',
+                'declarationRequests',
+                'declarationUnderstand',
+                'declarationUnderstandItem1',
+                'declarationUnderstandItem2',
+                'submitWarning'
+            ];
+            sessionData.will.codicils = 'Yes';
+            sessionData.executors.list[0].nameAsOnTheWill = 'No';
+            sessionData.executors.list[0].alias = 'Bob Alias';
+            sessionData.executors.list[0].aliasReason = 'Divorce';
+            sessionData.executors.list[1].hasOtherName = false;
+            delete sessionData.executors.list[1].currentName;
+            contentData.detailsOfApplicants = 'an applicant of flat 1, somewhere rd, nowhere., fname1 sname1 of 1 qwe\r\n1 asd\r\n1 zxc and fname4 sname4 of 4 qwe\r\n4 asd\r\n4 zxc';
+            contentData.applicantNameOnWill = '';
+            contentData.applicantCurrentName = '';
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, contentToExclude, contentData);
+                });
+        });
+
+        it('test right content loaded on the page, applicant has an alias, no executors have a different name, deceased has no other names and there are codicils', (done) => {
+            sessionData.will.codicils = 'Yes';
+            sessionData.executors.list[0].nameAsOnTheWill = 'No';
+            sessionData.executors.list[0].alias = 'Bob Alias';
+            sessionData.executors.list[0].aliasReason = 'Divorce';
+            sessionData.executors.list[1].hasOtherName = false;
+            delete sessionData.executors.list[1].currentName;
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.agent.get(testWrapper.pageUrl)
+                        .then(response => {
+                            assert(response.text.includes('an applicant, an executor named in the will or codicils as Bob Alias, is applying for probate. Their name is different because an applicant got divorced.'));
+                            assert(response.text.includes('fname1 sname1, an executor named in the will or codicils, is applying for probate.'));
+                            assert(response.text.includes('fname4 sname4, an executor named in the will or codicils, is applying for probate.'));
+                            done();
+                        })
+                        .catch(err => {
+                            done(err);
+                        });
+                });
+        });
+
+        it('test right content loaded on the page, applicant has an alias, no executors have a different name, deceased has no other names and there are no codicils', (done) => {
+            sessionData.will.codicils = 'No';
+            sessionData.executors.list[0].nameAsOnTheWill = 'No';
+            sessionData.executors.list[0].alias = 'Bob Alias';
+            sessionData.executors.list[0].aliasReason = 'Divorce';
+            sessionData.executors.list[1].hasOtherName = false;
+            delete sessionData.executors.list[1].currentName;
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.agent.get(testWrapper.pageUrl)
+                        .then(response => {
+                            assert(response.text.includes('an applicant, an executor named in the will as Bob Alias, is applying for probate. Their name is different because an applicant got divorced.'));
+                            assert(response.text.includes('fname1 sname1, an executor named in the will, is applying for probate.'));
+                            assert(response.text.includes('fname4 sname4, an executor named in the will, is applying for probate.'));
+                            done();
+                        })
+                        .catch(err => {
+                            done(err);
+                        });
+                });
+        });
+
+        it('test right content loaded on the page, applicant has an alias, one other executor has a different name (reason given as: Divorce), deceased has no other names and there are codicils', (done) => {
+            sessionData.will.codicils = 'Yes';
+            sessionData.executors.list[0].nameAsOnTheWill = 'No';
+            sessionData.executors.list[0].alias = 'Bob Alias';
+            sessionData.executors.list[0].aliasReason = 'Divorce';
+            sessionData.executors.list[1].currentNameReason = 'Divorce';
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.agent.get(testWrapper.pageUrl)
+                        .then(response => {
+                            assert(response.text.includes('an applicant, an executor named in the will or codicils as Bob Alias, is applying for probate. Their name is different because an applicant got divorced.'));
+                            assert(response.text.includes('fname1other sname1other, an executor named in the will or codicils as fname1 sname1, is applying for probate. Their name is different because fname1other sname1other got divorced.'));
+                            assert(response.text.includes('fname4 sname4, an executor named in the will or codicils, is applying for probate.'));
+                            done();
+                        })
+                        .catch(err => {
+                            done(err);
+                        });
+                });
+        });
+
+        it('test right content loaded on the page, applicant has an alias, two other executors have a different name (reason given as: Deed Poll and other), deceased has no other names and there are codicils', (done) => {
+            sessionData.will.codicils = 'Yes';
+            sessionData.executors.list[0].nameAsOnTheWill = 'No';
+            sessionData.executors.list[0].alias = 'Bob Alias';
+            sessionData.executors.list[0].aliasReason = 'Divorce';
+            sessionData.executors.list[1].currentNameReason = 'Divorce';
+            sessionData.executors.list[2].hasOtherName = true;
+            sessionData.executors.list[2].currentName = 'dave buster';
+            sessionData.executors.list[2].currentNameReason = 'other';
+            sessionData.executors.list[2].otherReason = 'they felt like it';
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.agent.get(testWrapper.pageUrl)
+                        .then(response => {
+                            assert(response.text.includes('an applicant, an executor named in the will or codicils as Bob Alias, is applying for probate. Their name is different because an applicant got divorced.'));
+                            assert(response.text.includes('fname1other sname1other, an executor named in the will or codicils as fname1 sname1, is applying for probate. Their name is different because fname1other sname1other got divorced.'));
+                            assert(response.text.includes('dave buster, an executor named in the will or codicils as fname4 sname4, is applying for probate. Their name is different because dave buster : they felt like it.'));
+                            done();
+                        });
+                });
+        });
+
+        it('test right content loaded on the page, applicant has an alias, one other executor has a different name (reason given as: Marriage), deceased has no other names and there are no codicils', (done) => {
+            sessionData.will.codicils = 'No';
+            sessionData.executors.list[0].nameAsOnTheWill = 'No';
+            sessionData.executors.list[0].alias = 'Bob Alias';
+            sessionData.executors.list[0].aliasReason = 'Divorce';
+            sessionData.executors.list[1].currentNameReason = 'Marriage';
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.agent.get(testWrapper.pageUrl)
+                        .then(response => {
+                            assert(response.text.includes('an applicant, an executor named in the will as Bob Alias, is applying for probate. Their name is different because an applicant got divorced.'));
+                            assert(response.text.includes('fname1other sname1other, an executor named in the will as fname1 sname1, is applying for probate. Their name is different because fname1other sname1other got married.'));
+                            assert(response.text.includes('fname4 sname4, an executor named in the will, is applying for probate.'));
+                            done();
+                        })
+                        .catch(err => {
+                            done(err);
+                        });
+                });
+        });
+
+        it('test right content loaded on the page, applicant has an alias, two other executors have a different name (reason given as: Deed Poll and other), deceased has no other names and there are no codicils', (done) => {
+            sessionData.will.codicils = 'No';
+            sessionData.executors.list[0].nameAsOnTheWill = 'No';
+            sessionData.executors.list[0].alias = 'Bob Alias';
+            sessionData.executors.list[0].aliasReason = 'Divorce';
+            sessionData.executors.list[1].currentNameReason = 'Divorce';
+            sessionData.executors.list[2].hasOtherName = true;
+            sessionData.executors.list[2].currentName = 'dave buster';
+            sessionData.executors.list[2].currentNameReason = 'other';
+            sessionData.executors.list[2].otherReason = 'they felt like it';
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.agent.get(testWrapper.pageUrl)
+                        .then(response => {
+                            assert(response.text.includes('an applicant, an executor named in the will as Bob Alias, is applying for probate. Their name is different because an applicant got divorced.'));
+                            assert(response.text.includes('fname1other sname1other, an executor named in the will as fname1 sname1, is applying for probate. Their name is different because fname1other sname1other got divorced.'));
+                            assert(response.text.includes('dave buster, an executor named in the will as fname4 sname4, is applying for probate. Their name is different because dave buster : they felt like it.'));
+                            done();
+                        });
                 });
         });
 

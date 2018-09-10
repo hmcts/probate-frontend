@@ -8,6 +8,7 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const services = require('app/components/services');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
+const FormatAlias = require('app/utils/FormatAlias');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -117,7 +118,7 @@ class Declaration extends ValidationStep {
         const aliasSuffix = (props.hasMultipleApplicants && (props.executor.alias || props.executor.currentName)) ? '-alias' : '';
         const applicantNameOnWill = this.formatName(props.executor);
         const applicantCurrentName = this.formatName(props.executor, true);
-        const aliasReason = FormatName.aliasReason(props.executor);
+        const aliasReason = FormatAlias.aliasReason(props.executor);
         return {
             name: props.content[`applicantName${props.multipleApplicantSuffix}${mainApplicantSuffix}${aliasSuffix}${codicilsSuffix}`]
                 .replace('{applicantName}', props.executor.isApplicant && props.executor.alias ? FormatName.currentName(props.executor) : props.mainApplicantName)

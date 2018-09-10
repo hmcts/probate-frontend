@@ -16,7 +16,8 @@ module.exports = class ExecutorsDealingWithEstate extends ValidationStep {
             ctx.options = (new ExecutorsWrapper(ctx)).aliveExecutors()
                 .map(executor => {
                     if (executor.isApplicant) {
-                        return {option: FormatName.format(executor), checked: true, disabled: true};
+                        const optionValue = executor.alias ? executor.alias : FormatName.format(executor);
+                        return {option: optionValue, checked: true, disabled: true};
                     }
                     return {option: executor.fullName, checked: executor.isApplying === true};
                 });

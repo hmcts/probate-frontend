@@ -123,12 +123,12 @@ describe('DetectDataChange.js', () => {
                                 isApplying: true
                             }, {
                                 isApplying: true,
-                                fullname: 'James Miller',
+                                fullName: 'James Miller',
                                 address: '11 Red Street, London, L21 1LL',
                                 email: 'jamesmiller@example.com'
                             }, {
                                 isApplying: true,
-                                fullname: 'Ed Brown',
+                                fullName: 'Ed Brown',
                                 address: '20 Green Street, London, L12 9LN'
                             }]
                         },
@@ -204,6 +204,16 @@ describe('DetectDataChange.js', () => {
                 expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);
                 done();
             });
+
+            it('when executors applying tick boxes have been changed', (done) => {
+                req.session.form.executors.list[1].isApplying = false;
+                step.section = 'executors';
+                req.body = {executorsApplying: ['James Miller', 'Ed Brown']};
+                req.session.haveAllExecutorsDeclared = 'false';
+                const detectDataChange = new DetectDataChange();
+                expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);
+                done();
+            });
         });
 
         describe('should return false', () => {
@@ -223,6 +233,14 @@ describe('DetectDataChange.js', () => {
 
             it('when all executors have declared', (done) => {
                 req.session.haveAllExecutorsDeclared = 'true';
+                const detectDataChange = new DetectDataChange();
+                expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(false);
+                done();
+            });
+
+            it('when executors applying tick boxes have not been changed', (done) => {
+                step.section = 'executors';
+                req.body.executorsApplying = ['James Miller', 'Ed Brown'];
                 const detectDataChange = new DetectDataChange();
                 expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(false);
                 done();

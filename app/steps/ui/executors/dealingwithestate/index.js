@@ -1,3 +1,4 @@
+'use strict';
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {includes, some, tail} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
@@ -29,6 +30,8 @@ module.exports = class ExecutorsDealingWithEstate extends ValidationStep {
             delete data.diedBefore;
             delete data.notApplyingReason;
             delete data.notApplyingKey;
+        } else {
+            delete data.isApplying;
         }
         return data;
     }

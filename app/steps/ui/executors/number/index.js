@@ -1,5 +1,9 @@
+'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {get, dropRight} = require('lodash');
+const ExecutorsWrapper = require('app/wrappers/Executors');
+const {get} = require('lodash');
+
 module.exports = class ExecutorsNumber extends ValidationStep {
 
     static getUrl() {
@@ -14,7 +18,8 @@ module.exports = class ExecutorsNumber extends ValidationStep {
     }
 
     createExecutorList(ctx, formdata) {
-        ctx.list = get(ctx, 'list', []);
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        ctx.list = executorsWrapper.executors();
         ctx.list[0] = {
             firstName: get(formdata, 'applicant.firstName'),
             lastName: get(formdata, 'applicant.lastName'),
@@ -24,7 +29,8 @@ module.exports = class ExecutorsNumber extends ValidationStep {
 
         if (ctx.list.length > ctx.executorsNumber) {
             return {
-                list: dropRight(ctx.list, ctx.list.length -1),
+                executorsRemoved: executorsWrapper.executorsInvited(),
+                list: executorsWrapper.mainApplicant(),
                 executorsNumber: ctx.executorsNumber
             };
         }

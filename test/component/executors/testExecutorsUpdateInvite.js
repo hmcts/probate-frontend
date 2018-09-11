@@ -28,6 +28,8 @@ describe('executors-update-invite', () => {
 
         it('test correct content loaded on the page when only 1 other executor has had their email changed', (done) => {
             sessionData.executors.list[1].emailChanged = true;
+            sessionData.executors.list[2].isApplying = true;
+            sessionData.executors.list[2].emailChanged = false;
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -65,6 +67,8 @@ describe('executors-update-invite', () => {
 
         it('test content displays only the single executor who has had their email changed', (done) => {
             sessionData.executors.list[1].emailChanged = true;
+            sessionData.executors.list[2].isApplying = true;
+            sessionData.executors.list[2].emailChanged = false;
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

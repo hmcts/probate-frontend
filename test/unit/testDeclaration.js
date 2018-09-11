@@ -1,6 +1,6 @@
-/*global describe, it, before, beforeEach, after, afterEach */
 'use strict';
-const assert = require('chai').assert;
+
+const {assert} = require('chai');
 const initSteps = require('app/core/initSteps');
 const services = require('app/components/services');
 const sinon = require('sinon');
@@ -34,7 +34,7 @@ describe('Declaration tests', function () {
                 assert.isFalse(results.some(result => result.name === 'Error'));
                 done();
             })
-                .catch(err => done(err));
+            .catch(err => done(err));
         });
 
         it('Failure - there is an Error in the results', (done) => {
@@ -43,7 +43,7 @@ describe('Declaration tests', function () {
                 assert.isTrue(results.some(result => result.name === 'Error'));
                 done();
             })
-                .catch(err => done(err));
+            .catch(err => done(err));
         });
     });
 
@@ -53,7 +53,6 @@ describe('Declaration tests', function () {
             ctx = {
                 hasMultipleApplicants: true,
                 hasDataChanged: false,
-                hasEmailChanged: false,
                 executorsEmailChanged: false,
                 hasDataChangedAfterEmailSent: true,
                 invitesSent: 'true',

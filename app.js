@@ -18,6 +18,7 @@ const Security = require(`${__dirname}/app/components/security`);
 const helmet = require('helmet');
 const csrf = require('csurf');
 const healthcheck = require(`${__dirname}/app/healthcheck`);
+const declaration = require(`${__dirname}/app/declaration`);
 const InviteSecurity = require(`${__dirname}/app/invite`);
 const additionalInvite = require(`${__dirname}/app/routes/additionalInvite`);
 const updateInvite = require(`${__dirname}/app/routes/updateinvite`);
@@ -194,6 +195,8 @@ exports.init = function() {
     app.use('/health', healthcheck);
     app.use('/executors-additional-invite', additionalInvite);
     app.use('/executors-update-invite', updateInvite);
+    app.use('/declaration', declaration);
+
     if (useIDAM === 'true') {
        const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);
        app.use(idamPages, security.protect(config.services.idam.roles));

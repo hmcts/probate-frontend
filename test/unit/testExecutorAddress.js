@@ -105,7 +105,7 @@ describe('ExecutorAddress', () => {
             const ctx = ExecutorAddress.getContextData(req);
 
             expect(ctx.otherExecName).to.equal(executors.list[0].fullName);
-            expect(ctx.executorsWrapper).to.deep.equal(new ExecutorsWrapper(executors));
+            expect(ctx.executorsWrapper).to.be.instanceOf(ExecutorsWrapper);
             done();
         });
     });

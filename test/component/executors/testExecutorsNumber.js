@@ -39,6 +39,12 @@ describe('executors-number', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
+        it('test it displays the errors when there are more than 20 executors', (done) => {
+            const data = {executorsNumber: 21};
+
+            testWrapper.testErrors(done, data, 'invalid', []);
+        });
+
         it(`test it redirects to next page: ${expectedNextUrlForExecNames}`, (done) => {
             const data = {executorsNumber: 2};
             testWrapper.testRedirect(done, data, expectedNextUrlForExecNames);
@@ -47,12 +53,6 @@ describe('executors-number', () => {
         it(`test it redirects to next page when there is only one executor: ${expectedNextUrlForDeceasedName}`, (done) => {
             const data = {executorsNumber: 1};
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedName);
-        });
-
-        it('test it displays the errors when there are more than 20 executors', (done) => {
-            const data = {executorsNumber: 21};
-
-            testWrapper.testErrors(done, data, 'invalid', []);
         });
     });
 });

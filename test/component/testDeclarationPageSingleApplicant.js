@@ -184,9 +184,13 @@ describe('declaration, single applicant', () => {
 
         it('test errors message displayed for missing data', (done) => {
             const data = {};
-            testWrapper.testErrors(done, data, 'required', [
-                'declarationCheckbox'
-            ]);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testErrors(done, data, 'required', [
+                        'declarationCheckbox'
+                    ]);
+                });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecInvite}`, (done) => {

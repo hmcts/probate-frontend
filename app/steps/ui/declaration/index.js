@@ -1,3 +1,4 @@
+'use strict';
 const ValidationStep = require('app/core/steps/ValidationStep');
 const executorNotifiedContent = require('app/resources/en/translation/executors/notified');
 const executorContent = require('app/resources/en/translation/executors/executorcontent');
@@ -7,7 +8,7 @@ const services = require('app/components/services');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 
-module.exports = class Declaration extends ValidationStep {
+class Declaration extends ValidationStep {
     static getUrl() {
         return '/declaration';
     }
@@ -178,10 +179,11 @@ module.exports = class Declaration extends ValidationStep {
         delete ctx.executorsWrapper;
         delete ctx.hasDataChanged;
         delete ctx.hasExecutorsToNotify;
-        delete ctx.hasEmailChanged;
         delete ctx.executorsEmailChanged;
         delete ctx.hasDataChangedAfterEmailSent;
         delete ctx.invitesSent;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = Declaration;

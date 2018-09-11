@@ -12,7 +12,7 @@ probate_google_track_id = "UA-93598808-1"
 probate_frontend_https = "true"
 probate_frontend_use_auth = "false"
 
-payment_create_url = "https://test.payments.reform.hmcts.net:4421/users/userId/payments"
+payment_create_url = "http://payment-api-saat.service.core-compute-saat.internal/users/userId/payments"
 
 idam_service_api = "http://betadevbccidams2slb.reform.hmcts.net"
 

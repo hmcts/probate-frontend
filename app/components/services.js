@@ -196,6 +196,13 @@ const getOauth2Token = (code, redirectUri) => {
     });
 };
 
+const removeExecutor = (inviteId) => {
+    logger.info('Removing executor from invitedata table');
+    const removeExecutorUrl = FormatUrl.format(PERSISTENCE_SERVICE_URL, `/invitedata/${inviteId}`);
+    const fetchOptions = utils.fetchOptions({}, 'DELETE', {});
+    return utils.fetchText(removeExecutorUrl, fetchOptions);
+};
+
 const updateContactDetails = (inviteId, data) => {
     logger.info('Update Contact Details');
     const findInviteUrl = FormatUrl.format(PERSISTENCE_SERVICE_URL, `/invitedata/${inviteId}`);
@@ -232,6 +239,7 @@ module.exports = {
     sendPin,
     sendInvite,
     updateContactDetails,
+    removeExecutor,
     checkAllAgreed,
     signOut
 };

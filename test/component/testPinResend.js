@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const sinon = require('sinon');
 const when = require('when');
@@ -23,12 +25,10 @@ describe('pin-resend', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        it('test phone number loads on the page', (done) => {
+        it('test uk local phone number loads on the page', (done) => {
             const contentData = {
                 phoneNumber: '07701111111',
             };
-
             testWrapper.agent
                 .post('/prepare-session-field')
                 .send({
@@ -40,11 +40,40 @@ describe('pin-resend', () => {
                 });
         });
 
+        it('test uk phone number with int prefix loads on the page', (done) => {
+            const contentData = {
+                phoneNumber: '+447701111111',
+            };
+            testWrapper.agent
+                .post('/prepare-session-field')
+                .send({
+                    'phoneNumber': '+447701111111',
+                    'validLink': true
+                })
+                .then(function() {
+                    testWrapper.testContent(done, ['subHeader2ExecName'], contentData);
+                });
+        });
+
+        it('test international long phone number loads on the page', (done) => {
+            const contentData = {
+                phoneNumber: '+10900111000111000111',
+            };
+            testWrapper.agent
+                .post('/prepare-session-field')
+                .send({
+                    'phoneNumber': '+10900111000111000111',
+                    'validLink': true
+                })
+                .then(function() {
+                    testWrapper.testContent(done, ['subHeader2ExecName'], contentData);
+                });
+        });
+
         it('test lead executor name loads on the page', (done) => {
             const contentData = {
                 executorName: 'Works',
             };
-
             testWrapper.agent
                 .post('/prepare-session-field')
                 .send({
@@ -83,7 +112,6 @@ describe('pin-resend', () => {
             const playbackData = {};
             playbackData.saveAndClose = commonContent.saveAndClose;
             playbackData.signOut = commonContent.signOut;
-
             testWrapper.testContentNotPresent(done, playbackData);
         });
     });

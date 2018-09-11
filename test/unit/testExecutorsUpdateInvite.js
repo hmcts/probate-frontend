@@ -44,7 +44,7 @@ describe('Update-Invite', function () {
                     'isApplying': true
                 }
             ]);
-            expect(ctx.notifyExecutorsSuffix).to.deep.equal('-multiple');
+            expect(ctx.inviteSuffix).to.deep.equal('-multiple');
             done();
         });
 
@@ -73,7 +73,7 @@ describe('Update-Invite', function () {
                     'isApplying': true
                 }
             ]);
-            expect(ctx.notifyExecutorsSuffix).to.deep.equal('');
+            expect(ctx.inviteSuffix).to.deep.equal('');
             done();
         });
     });
@@ -84,7 +84,7 @@ describe('Update-Invite', function () {
             let ctx = {
                 executorsEmailChanged: true,
                 executorsEmailChangedList: true,
-                notifyExecutorsSuffix: '-multiple'
+                inviteSuffix: '-multiple'
             };
             [ctx, formdata] = updateInvite.action(ctx, formdata);
             expect(ctx).to.deep.equal({});
@@ -95,7 +95,7 @@ describe('Update-Invite', function () {
             let ctx = {
                 executorsEmailChanged: true,
                 executorsEmailChangedList: true,
-                notifyExecutorsSuffix: '-multiple',
+                inviteSuffix: '-multiple',
                 invitesSent: 'true'
             };
             [ctx, formdata] = updateInvite.action(ctx, formdata);

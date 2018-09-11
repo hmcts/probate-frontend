@@ -42,10 +42,11 @@ class ExecutorContactDetails extends ValidationStep {
             errors.push(FieldError('mobile', 'invalid', this.resourcePath, this.generateContent()));
         }
 
-        if (ctx.email !== ctx.list[ctx.index].email && ctx.invitesSent === 'true') {
+        if (ctx.email !== ctx.list[ctx.index].email && ctx.list[ctx.index].emailSent) {
             ctx.list[ctx.index].emailChanged = true;
         }
 
+        ctx.executorsToNotifyList = executorsWrapper.executorsToNotify();
         ctx.executorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
         ctx.list[ctx.index].email = ctx.email;
         ctx.list[ctx.index].mobile = ctx.mobile;

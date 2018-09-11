@@ -4,16 +4,16 @@ const services = require('app/components/services');
 const sinon = require('sinon');
 const when = require('when');
 const {assert} = require('chai');
-const ExecutorsUpdateInviteSent = require('app/steps/ui/executors/updateinvitesent/index');
+const ExecutorsAdditionalInviteSent = require('app/steps/ui/executors/additionalinvitesent/index');
 
-describe('executors-update-invite', () => {
+describe('executors-additional-invite', () => {
     let testWrapper;
     let sendInvitesStub;
     let sessionData;
-    const expectedNextUrlForExecutorsUpdateInviteSent = ExecutorsUpdateInviteSent.getUrl();
+    const expectedNextUrlForExecutorsAdditionalInviteSent = ExecutorsAdditionalInviteSent.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('ExecutorsUpdateInvite');
+        testWrapper = new TestWrapper('ExecutorsAdditionalInvite');
         sessionData = require('test/data/executors-invites');
         sendInvitesStub = sinon.stub(services, 'sendInvite');
     });
@@ -26,10 +26,10 @@ describe('executors-update-invite', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test correct content loaded on the page when only 1 other executor has had their email changed', (done) => {
-            sessionData.executors.list[1].emailChanged = true;
-            sessionData.executors.list[2].isApplying = true;
-            sessionData.executors.list[2].emailChanged = false;
+        it('test correct content loaded on the page when only 1 other executor has been added and needs to be emailed', (done) => {
+            sessionData.executors.executorsToNotifyList = [
+                {'fullName': 'Andrew Wiles', 'isApplying': true, 'emailSent': false},
+            ];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -37,10 +37,11 @@ describe('executors-update-invite', () => {
                 });
         });
 
-        it('test correct content loaded on the page when more than 1 other executor has had their email changed', (done) => {
-            sessionData.executors.list[1].emailChanged = true;
-            sessionData.executors.list[2].isApplying = true;
-            sessionData.executors.list[2].emailChanged = true;
+        it('test correct content loaded on the page when more than 1 other executor has been added and needs to be emailed', (done) => {
+            sessionData.executors.executorsToNotifyList = [
+                {'fullName': 'Andrew Wiles', 'isApplying': true, 'emailSent': false},
+                {'fullName': 'Leonhard Euler', 'isApplying': true, 'emailSent': false}
+            ];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -48,10 +49,11 @@ describe('executors-update-invite', () => {
                 });
         });
 
-        it('test content displays only the executors who have had their emails changed', (done) => {
-            sessionData.executors.list[1].emailChanged = true;
-            sessionData.executors.list[2].isApplying = true;
-            sessionData.executors.list[2].emailChanged = true;
+        it('test content displays only the executors who have been added and need to be emailed', (done) => {
+            sessionData.executors.executorsToNotifyList = [
+                {'fullName': 'Andrew Wiles', 'isApplying': true, 'emailSent': false},
+                {'fullName': 'Leonhard Euler', 'isApplying': true, 'emailSent': false}
+            ];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -59,42 +61,28 @@ describe('executors-update-invite', () => {
                         .then(response => {
                             assert(response.text.includes('Andrew Wiles'));
                             assert(response.text.includes('Leonhard Euler'));
-                            assert(!response.text.includes('Pierre de Fermat'));
                             done();
                         });
                 });
         });
 
         it('test content displays only the single executor who has had their email changed', (done) => {
-            sessionData.executors.list[1].emailChanged = true;
-            sessionData.executors.list[2].isApplying = true;
-            sessionData.executors.list[2].emailChanged = false;
+            sessionData.executors.executorsToNotifyList = [
+                {'fullName': 'Andrew Wiles', 'isApplying': true, 'emailSent': false},
+            ];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
                             assert(response.text.includes('Andrew Wiles'));
-                            assert(!response.text.includes('Leonhard Euler'));
-                            assert(!response.text.includes('Pierre de Fermat'));
                             done();
                         });
                 });
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForExecutorsUpdateInviteSent}`, (done) => {
-            sendInvitesStub.returns(when(Promise.resolve({response: 'Make it pass!'})));
-            const data = {};
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecutorsUpdateInviteSent);
-                });
-        });
-
         it('test an error page is rendered if there is an error calling invite service', (done) => {
             sendInvitesStub.returns(when(Promise.resolve(new Error('ReferenceError'))));
-            sessionData.executors.list[1].emailChanged = true;
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -108,6 +96,19 @@ describe('executors-update-invite', () => {
                         .catch(err => {
                             done(err);
                         });
+                });
+        });
+
+        it(`test it redirects to next page: ${expectedNextUrlForExecutorsAdditionalInviteSent}`, (done) => {
+            sendInvitesStub.returns(when(Promise.resolve({response: 'Make it pass!'})));
+            const data = {};
+            sessionData.executors.executorsToNotifyList = [
+                {'fullName': 'Andrew Wiles', 'isApplying': true, 'emailSent': false},
+            ];
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForExecutorsAdditionalInviteSent);
                 });
         });
     });

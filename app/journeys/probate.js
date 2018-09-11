@@ -139,11 +139,14 @@ const stepList = {
     DeceasedAddress: 'Summary',
     Summary: 'TaskList',
     Declaration: {
+        sendAdditionalInvites: 'ExecutorsAdditionalInvite',
         executorEmailChanged: 'ExecutorsUpdateInvite',
         dataChangedAfterEmailSent: 'ExecutorsChangeMade',
         otherExecutorsApplying: 'ExecutorsInvite',
         otherwise: 'TaskList'
     },
+    ExecutorsAdditionalInvite: 'ExecutorsAdditionalInviteSent',
+    ExecutorsAdditionalInviteSent: 'TaskList',
     ExecutorsUpdateInvite: 'ExecutorsUpdateInviteSent',
     ExecutorsUpdateInviteSent: 'TaskList',
     ExecutorsInvite: 'ExecutorsInvitesSent',

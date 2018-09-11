@@ -8,17 +8,19 @@ const ExecutorsInvitesSent = require('app/steps/ui/executors/invitesent/index');
 describe('executors-invite', () => {
     let testWrapper;
     let sendInvitesStub;
-    const sessionData = require('test/data/executors-invites');
+    let sessionData;
     const expectedNextUrlForExecInvites = ExecutorsInvitesSent.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsInvite');
+        sessionData = require('test/data/executors-invites');
         sendInvitesStub = sinon.stub(services, 'sendInvite');
     });
 
     afterEach(() => {
         testWrapper.destroy();
         sendInvitesStub.restore();
+        delete require.cache[require.resolve('test/data/executors-invites')];
     });
 
     describe('Verify Content, Errors and Redirection', () => {

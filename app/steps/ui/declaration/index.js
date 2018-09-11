@@ -121,7 +121,7 @@ class Declaration extends ValidationStep {
         const aliasReason = FormatAlias.aliasReason(props.executor);
         return {
             name: props.content[`applicantName${props.multipleApplicantSuffix}${mainApplicantSuffix}${aliasSuffix}${codicilsSuffix}`]
-                .replace('{applicantName}', props.executor.isApplicant && props.executor.alias ? FormatName.currentName(props.executor) : props.mainApplicantName)
+                .replace('{applicantName}', props.executor.isApplicant && props.executor.alias ? FormatName.applicantWillName(props.executor) : props.mainApplicantName)
                 .replace(/{applicantCurrentName}/g, applicantCurrentName)
                 .replace('{applicantNameOnWill}', props.executor.hasOtherName ? ` ${props.content.as} ${applicantNameOnWill}` : '')
                 .replace('{aliasReason}', aliasReason),

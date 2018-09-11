@@ -8,7 +8,7 @@ class FormatName {
         return `${firstName} ${lastName}`.trim();
     }
 
-    static currentName(person) {
+    static applicantWillName(person) {
         person = person || {};
         const currentName = person.alias || this.format(person);
         return currentName;

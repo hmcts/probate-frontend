@@ -121,7 +121,13 @@ class TestWrapper {
                 forEach(contentValue.match(/\{(.*?)\}/g), (placeholder) => {
                     const placeholderRegex = new RegExp(placeholder, 'g');
                     placeholder = placeholder.replace(/[{}]/g, '');
-                    contentValue = contentValue.replace(placeholderRegex, data[placeholder]);
+                    if (Array.isArray(data[placeholder])) {
+                        forEach(data[placeholder], (contentData) => {
+                            contentValue = contentValue.replace(placeholderRegex, contentData);
+                        });
+                    } else {
+                        contentValue = contentValue.replace(placeholderRegex, data[placeholder]);
+                    }
                 });
                 contentToSubstitute[key] = contentValue;
             });

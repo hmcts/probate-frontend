@@ -18,6 +18,7 @@ describe('declaration, single applicant', () => {
 
         contentData = {
             applicantName: `${applicantData.firstName} ${applicantData.lastName}`,
+            applicantWillName: `${applicantData.firstName} ${applicantData.lastName}`,
             applicantAddress: applicantData.address,
             deceasedName: `${deceasedData.firstName} ${deceasedData.lastName}`,
             deceasedAddress: deceasedData.address,

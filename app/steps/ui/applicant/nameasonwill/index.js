@@ -1,8 +1,8 @@
 'use strict';
-
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {get} = require('lodash');
 const WillWrapper = require('app/wrappers/Will');
+const content = require('app/resources/en/translation/executors/applying');
 
 class ApplicantNameAsOnWill extends ValidationStep {
 
@@ -20,6 +20,15 @@ class ApplicantNameAsOnWill extends ValidationStep {
     handleGet(ctx, formdata) {
         ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicils();
         return [ctx];
+    }
+
+    nextStepOptions() {
+        const nextStepOptions = {
+            options: [
+                {key: 'nameAsOnTheWill', value: content.optionNo, choice: 'hasAlias'}
+            ]
+        };
+        return nextStepOptions;
     }
 }
 

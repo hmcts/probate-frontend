@@ -1,9 +1,12 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    ApplicantPhone = require('app/steps/ui/applicant/phone/index');
+'use strict';
+const TestWrapper = require('test/util/TestWrapper');
+const ApplicantPhone = require('app/steps/ui/applicant/phone/index');
+const ApplicantAlias = require('app/steps/ui/applicant/alias/index');
 
 describe('applicant-nameasonwill', () => {
     let testWrapper;
     const expectedNextUrlForApplicantPhone = ApplicantPhone.getUrl();
+    const expectedNextUrlForApplicantAlias = ApplicantAlias.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ApplicantNameAsOnWill');
@@ -92,7 +95,7 @@ describe('applicant-nameasonwill', () => {
             });
         });
 
-        it(`test it redirects to next page when No selected: ${expectedNextUrlForApplicantPhone}`, (done) => {
+        it(`test it redirects to next page when No selected: ${expectedNextUrlForApplicantAlias}`, (done) => {
             const sessionData = {
                 'applicant': {
                     'firstName': 'john', 'lastName': 'theapplicant'
@@ -105,7 +108,7 @@ describe('applicant-nameasonwill', () => {
                 const data = {
                     nameAsOnTheWill: 'No'
                 };
-                testWrapper.testRedirect(done, data, expectedNextUrlForApplicantPhone);
+                testWrapper.testRedirect(done, data, expectedNextUrlForApplicantAlias);
             });
         });
     });

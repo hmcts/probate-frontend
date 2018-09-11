@@ -75,7 +75,12 @@ const stepList = {
         otherwise: 'StopPage'
     },
     ApplicantName: 'ApplicantNameAsOnWill',
-    ApplicantNameAsOnWill: 'ApplicantPhone',
+    ApplicantNameAsOnWill: {
+        hasAlias: 'ApplicantAlias',
+        otherwise: 'ApplicantPhone'
+    },
+    ApplicantAlias: 'ApplicantAliasReason',
+    ApplicantAliasReason: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
     ApplicantAddress: 'ExecutorsNumber',
     ExecutorsNumber: {

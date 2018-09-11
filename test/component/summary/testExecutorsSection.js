@@ -50,6 +50,55 @@ describe('summary-executor-section', () => {
                 });
         });
 
+        it('test correct content loaded on the summary page executors section including applicant alias (Option Divorce selected), when section is complete', (done) => {
+            sessionData.applicant.nameAsOnTheWill = 'No';
+            sessionData.applicant.alias = 'Dave Buster';
+            sessionData.applicant.aliasReason = 'Divorce';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end((err) => {
+                    if (err) {
+                        throw err;
+                    }
+
+                    const playbackData = {};
+                    playbackData.firstName = applicantContent.name.firstName;
+                    playbackData.lastName = applicantContent.name.lastName;
+                    playbackData.alias = applicantContent.alias.nameOnWill;
+                    playbackData.aliasReason = applicantContent.aliasreason.optionOtherHint;
+                    playbackData.phoneNumber = applicantContent.phone.phoneNumber;
+                    playbackData.applicantAddress = applicantContent.address.question;
+                    playbackData.applicantNameAsOnWill = applicantContent.nameasonwill.question.replace('{applicantName}', FormatName.format(sessionData.applicant));
+
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
+
+        it('test correct content loaded on the summary page executors section including applicant alias (Option Other selected), when section is complete', (done) => {
+            sessionData.applicant.nameAsOnTheWill = 'No';
+            sessionData.applicant.alias = 'Dave Buster';
+            sessionData.applicant.aliasReason = 'other';
+            sessionData.applicant.otherReason = 'Because';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end((err) => {
+                    if (err) {
+                        throw err;
+                    }
+
+                    const playbackData = {};
+                    playbackData.firstName = applicantContent.name.firstName;
+                    playbackData.lastName = applicantContent.name.lastName;
+                    playbackData.alias = applicantContent.alias.nameOnWill;
+                    playbackData.aliasReason = applicantContent.aliasreason.optionOtherHint;
+                    playbackData.phoneNumber = applicantContent.phone.phoneNumber;
+                    playbackData.applicantAddress = applicantContent.address.question;
+                    playbackData.applicantNameAsOnWill = applicantContent.nameasonwill.question.replace('{applicantName}', FormatName.format(sessionData.applicant));
+
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
+
         it('test data is played back correctly on the summary page executors section', (done) => {
 
             testWrapper.agent.post('/prepare-session/form')
@@ -75,6 +124,5 @@ describe('summary-executor-section', () => {
                     testWrapper.testDataPlayback(done, playbackData);
                     });
         });
-
     });
 });

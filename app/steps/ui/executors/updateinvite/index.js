@@ -13,7 +13,7 @@ class ExecutorsUpdateInvite extends ValidationStep {
         const formdata = req.session.form;
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         ctx.executorsEmailChangedList = executorsWrapper.executorsEmailChangedList();
-        ctx.notifyExecutorsSuffix = ctx.executorsEmailChangedList.length > 1 ? '-multiple' : '';
+        ctx.inviteSuffix = ctx.executorsEmailChangedList.length > 1 ? '-multiple' : '';
         return ctx;
     }
 
@@ -21,7 +21,7 @@ class ExecutorsUpdateInvite extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.executorsEmailChanged;
         delete ctx.executorsEmailChangedList;
-        delete ctx.notifyExecutorsSuffix;
+        delete ctx.inviteSuffix;
         return [ctx, formdata];
     }
 

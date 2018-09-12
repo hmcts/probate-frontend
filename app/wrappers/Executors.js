@@ -104,6 +104,14 @@ class Executors {
         return this.executorsList.filter(executor => executor.emailChanged);
     }
 
+    hasExecutorsToNotify() {
+        return this.executorsList.some(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent);
+    }
+
+    executorsToNotify() {
+        return this.executorsList.filter(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent);
+    }
+
     executorsRemoved() {
         return this.executorsData.executorsRemoved || [];
     }

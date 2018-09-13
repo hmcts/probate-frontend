@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const sessionData = require('test/data/complete-form-undeclared');
 const services = require('app/components/services');

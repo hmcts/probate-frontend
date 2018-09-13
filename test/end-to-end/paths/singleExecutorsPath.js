@@ -17,21 +17,26 @@ After(() => {
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
 
-    //Pre-IDAM
+    // Eligibility Task
     I.startApplication();
+    I.selectPersonWhoDiedLeftAWill();
+    I.selectOriginalWill();
+    I.selectDeathCertificate();
+    I.selectDeceasedDomicile();
+    I.selectApplicantIsExecutor();
+    I.selectMentallyCapable();
+    I.selectIhtCompleted();
     I.startApply();
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
 
-    // EligibilityTask
+    // Deceased Task
     I.selectATask(taskListContent.taskNotStarted);
-    I.selectPersonWhoDiedLeftAWill();
-    I.selectOriginalWill();
-    I.selectWillCodicils('Yes');
-    I.selectWillNoOfCodicils('3');
-    I.selectDeathCertificate();
-    I.selectIhtCompleted();
+    I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
+    I.enterDeceasedDateOfBirth('01', '01', '1950');
+    I.enterDeceasedDateOfDeath('01', '01', '2017');
+    I.enterDeceasedAddress();
     I.selectInheritanceMethodPaper();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
@@ -40,11 +45,13 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
         I.enterGrossAndNet('205', '500', '400');
     }
 
-    I.selectApplicantIsExecutor();
-    I.selectMentallyCapable();
+    I.selectDeceasedAlias('Yes');
+    I.selectOtherNames('2');
+    I.selectDeceasedMarriedAfterDateOnWill('optionNo');
+    I.selectWillCodicils('Yes');
+    I.selectWillNoOfCodicils('3');
 
-    // ExecutorsTask
-    //
+    // Executors Task
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
     I.selectNameAsOnTheWill();
@@ -54,22 +61,12 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     const totalExecutors = '1';
     I.enterTotalExecutors(totalExecutors);
 
-    I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
-    I.selectDeceasedAlias('Yes');
-    I.selectOtherNames('2');
-    I.selectDeceasedMarriedAfterDateOnWill('optionNo');
-    I.enterDeceasedDateOfDeath('01', '01', '2017');
-    I.enterDeceasedDateOfBirth('01', '01', '1950');
-    I.selectDeceasedDomicile();
-    I.enterDeceasedAddress();
-    I.seeSummaryPage();
-
-    // Review and confirm Task
+    // Declaration Task
     I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();
 
-    // Extra copies task
+    // Copies Task
     I.selectATask(taskListContent.taskNotStarted);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
@@ -84,7 +81,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
 
     I.seeCopiesSummary();
 
-    // PaymentTask
+    // Payment Task
     I.selectATask(taskListContent.taskNotStarted);
     I.seePaymentBreakdownPage();
 
@@ -95,9 +92,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
 
     I.seePaymentStatusPage();
 
-    // Send Documents Task
+    // Documents Task
     I.seeDocumentsPage();
-
-    // Thank You - Application Complete Task
     I.seeThankYouPage();
 }).retry(TestConfigurator.getRetryScenarios());

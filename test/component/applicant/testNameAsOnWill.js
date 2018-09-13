@@ -1,5 +1,7 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    ApplicantPhone = require('app/steps/ui/applicant/phone/index');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const ApplicantPhone = require('app/steps/ui/applicant/phone/index');
 
 describe('applicant-nameasonwill', () => {
     let testWrapper;

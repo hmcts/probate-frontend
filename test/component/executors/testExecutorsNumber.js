@@ -1,11 +1,13 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
-const DeceasedName = require('app/steps/ui/deceased/name/index');
+const TaskList = require('app/steps/ui/tasklist/index');
 const ExecutorsNames = require('app/steps/ui/executors/names/index');
 
 describe('executors-number', () => {
     let testWrapper;
     const expectedNextUrlForExecNames = ExecutorsNames.getUrl();
-    const expectedNextUrlForDeceasedName = DeceasedName.getUrl();
+    const expectedNextUrlForTaskList = TaskList.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsNumber');
@@ -50,9 +52,9 @@ describe('executors-number', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForExecNames);
         });
 
-        it(`test it redirects to next page when there is only one executor: ${expectedNextUrlForDeceasedName}`, (done) => {
+        it(`test it redirects to tasklist when there is only one executor: ${expectedNextUrlForTaskList}`, (done) => {
             const data = {executorsNumber: 1};
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedName);
+            testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
         });
     });
 });

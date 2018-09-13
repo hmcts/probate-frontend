@@ -5,14 +5,17 @@
 
 {% block question %}
     <h1 class="form-title heading-large">{{content.question}}</h1>
+    <p>{{content.hintText1 | safe}}</p>
+    <p>{{content.hintText2 | safe}}</p>
 {% endblock %}
 
 {% block form_content %}
     {{optionsRadio(content,
         name = 'domicile',
-        field = fields['domicile'],
-        options = ['option1', 'option2'],
-        legend = content.legend
+        field = fields.domicile,
+        options = ['optionYes', 'optionNo'],
+        legend = content.legend,
+        inline = true
     )}}
     <div class="form-group">
         <input class="button" type="submit" value="{{common.continue}}">

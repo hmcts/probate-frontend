@@ -4,6 +4,7 @@ const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
 
 let grabIds;
+let loginCredentials = ['', ''];
 
 Feature('Multiple Executors flow');
 
@@ -11,22 +12,26 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     TestConfigurator.getBefore();
 
-    // Pre-IDAM
+    // Eligibility Task
     I.startApplication();
+    I.selectPersonWhoDiedLeftAWill();
+    I.selectOriginalWill();
+    I.selectDeathCertificate();
+    I.selectDeceasedDomicile();
+    I.selectApplicantIsExecutor();
+    I.selectMentallyCapable();
+    I.selectIhtCompleted();
     I.startApply();
 
     // IDAM
-    I.authenticateWithIdamIfAvailable();
+    loginCredentials = I.authenticateWithIdamIfAvailable();
 
-    // EligibilityTask
-
+    // Deceased Task
     I.selectATask(taskListContent.taskNotStarted);
-    I.selectPersonWhoDiedLeftAWill();
-    I.selectOriginalWill();
-    I.selectWillCodicils('Yes');
-    I.selectWillNoOfCodicils('3');
-    I.selectDeathCertificate();
-    I.selectIhtCompleted();
+    I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
+    I.enterDeceasedDateOfBirth('01', '01', '1950');
+    I.enterDeceasedDateOfDeath('01', '01', '2017');
+    I.enterDeceasedAddress();
     I.selectInheritanceMethodPaper();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
@@ -35,11 +40,13 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         I.enterGrossAndNet('205', '500', '400');
     }
 
-    I.selectApplicantIsExecutor();
-    I.selectMentallyCapable();
+    I.selectDeceasedAlias('Yes');
+    I.selectOtherNames('2');
+    I.selectDeceasedMarriedAfterDateOnWill('optionNo');
+    I.selectWillCodicils('Yes');
+    I.selectWillNoOfCodicils('3');
 
-    // ExecutorsTask
-    //
+    // Executors Task
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
     I.selectNameAsOnTheWill();
@@ -59,11 +66,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     forEach(executorsWhoDiedList, executorNumber => {
         I.selectExecutorsWhenDied(executorNumber, diedBefore, head(executorsWhoDiedList) === executorNumber);
 
-        if (diedBefore) {
-            diedBefore = false;
-        } else {
-            diedBefore = true;
-        }
+        diedBefore = !diedBefore;
     });
 
     I.selectExecutorsApplying();
@@ -99,19 +102,8 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         }
     });
 
-    I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
-    I.selectDeceasedAlias('Yes');
-    I.selectOtherNames('2');
-    I.selectDeceasedMarriedAfterDateOnWill('optionNo');
-    I.enterDeceasedDateOfDeath('01', '01', '2017');
-    I.enterDeceasedDateOfBirth('01', '01', '1950');
-    I.selectDeceasedDomicile();
-    I.enterDeceasedAddress();
-
-    I.seeSummaryPage();
-
-    // Review and confirm Task
-    I.selectATask('Start');
+    // Declaration Task
+    I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();
 
@@ -147,14 +139,13 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
 
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
 
-    // Pre-IDAM
-    I.startApplication();
-    I.startApply();
+    //Pre IDAM
+    I.continueApply();
 
     // IDAM
-    I.authenticateWithIdamIfAvailable();
+    I.authenticateWithIdamIfAvailable(loginCredentials);
 
-    // Extra copies task
+    // Copies Task
     I.selectATask(taskListContent.taskNotStarted);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
@@ -169,7 +160,7 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     I.seeCopiesSummary();
 
-    // PaymentTask
+    // Payment Task
     I.selectATask(taskListContent.taskNotStarted);
     I.seePaymentBreakdownPage();
 
@@ -180,9 +171,7 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     I.seePaymentStatusPage();
 
-    // Send Documents Task
+    // Documents Task
     I.seeDocumentsPage();
-
-    // Thank You - Application Complete Task
     I.seeThankYouPage();
 });

@@ -9,7 +9,7 @@ const sinon = require('sinon');
 const commonContent = require('app/resources/en/translation/common.json'),
 services = require('app/components/services');
 
-const stepsToExclude = ['StartEligibility', 'StartApply', 'PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName', 'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied'];
+const stepsToExclude = ['StartEligibility', 'StartApply', 'ContinueApply', 'PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName', 'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied'];
 const steps = initSteps.steps;
 Object.keys(steps)
         .filter(stepName => stepsToExclude.includes(stepName))

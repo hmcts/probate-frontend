@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsWhenDied = require('app/steps/ui/executors/whendied/index');
 

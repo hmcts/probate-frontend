@@ -1,9 +1,11 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    DeceasedAlias = require('app/steps/ui/deceased/alias/index');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const DeceasedDob = require('app/steps/ui/deceased/dob/index');
 
 describe('deceased-name', () => {
     let testWrapper;
-    const expectedNextUrlForDeceasedAlias = DeceasedAlias.getUrl();
+    const expectedNextUrlForDeceasedDob = DeceasedDob.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedName');
@@ -46,12 +48,12 @@ describe('deceased-name', () => {
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
+        it(`test it redirects to deceased dob page: ${expectedNextUrlForDeceasedDob}`, (done) => {
             const data = {
                 firstName: 'Bob',
                 lastName: 'Smith'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDob);
         });
 
     });

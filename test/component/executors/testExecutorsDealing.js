@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsAlias = require('app/steps/ui/executors/alias/index');
 

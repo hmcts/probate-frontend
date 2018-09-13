@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsApplying = require('app/steps/ui/executors/applying/index');
 const ExecutorsWhoDied = require('app/steps/ui/executors/whodied/index');

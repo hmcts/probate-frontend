@@ -1,9 +1,11 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    DeceasedDod = require('app/steps/ui/deceased/dod/index');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const WillCodicils = require('app/steps/ui/will/codicils/index');
 
 describe('deceased-married', () => {
     let testWrapper;
-    const expectedNextUrlForDeceasedDod = DeceasedDod.getUrl();
+    const expectedNextUrlForWillCodicils = WillCodicils.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedMarried');
@@ -63,11 +65,11 @@ describe('deceased-married', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to deceased dod: ${expectedNextUrlForDeceasedDod}`, (done) => {
+        it(`test it redirects to will codicils page: ${expectedNextUrlForWillCodicils}`, (done) => {
             const data = {
                 married: 'No'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDod);
+            testWrapper.testRedirect(done, data, expectedNextUrlForWillCodicils);
         });
 
     });

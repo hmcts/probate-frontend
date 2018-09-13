@@ -1,8 +1,10 @@
-const TestWrapper = require('test/util/TestWrapper'),
-      requireDir = require('require-directory'),
-      TaskList = require('app/steps/ui/tasklist/index'),
-      copieContent = requireDir(module, '../../../app/resources/en/translation/copies'),
-      assetsContent = requireDir(module, '../../../app/resources/en/translation/assets');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const requireDir = require('require-directory');
+const TaskList = require('app/steps/ui/tasklist/index');
+const copieContent = requireDir(module, '../../../app/resources/en/translation/copies');
+const assetsContent = requireDir(module, '../../../app/resources/en/translation/assets');
 
 describe('copies-summary', () => {
     let testWrapper;

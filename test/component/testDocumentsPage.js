@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
 const ThankYou = require('app/steps/ui/thankyou/index.js');

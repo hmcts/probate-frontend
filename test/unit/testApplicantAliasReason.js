@@ -63,7 +63,7 @@ describe('ApplicantAliasReason', () => {
             done();
         });
 
-        it('should not remove otherReason from the ctx when the aliasReason is not set to other', (done) => {
+        it('should not remove otherReason from the ctx when the aliasReason is set to other', (done) => {
             ctx = {
                 aliasReason: 'other',
                 otherReason: 'because I wanted to'

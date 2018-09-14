@@ -166,7 +166,8 @@ const checkAllAgreed = (formdataId) => {
 
 const sendPin = (phoneNumber, sessionID) => {
     logger.info('send pin');
-    const pinServiceUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/pin/${phoneNumber}`);
+    phoneNumber = encodeURIComponent(phoneNumber);
+    const pinServiceUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/pin?phoneNumber=${phoneNumber}`);
     const fetchOptions = utils.fetchOptions({}, 'GET', {'Content-Type': 'application/json', 'Session-Id': sessionID});
     return utils.fetchJson(pinServiceUrl, fetchOptions);
 };

@@ -18,12 +18,14 @@ After(() => {
 
 Scenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), function* (I) {
 
+    // Pre-IDAM
+    I.startApplication();
+    I.startApply();
+
     // IDAM
     I.authenticateWithIdamIfAvailable();
 
     // EligibilityTask
-
-    I.startApplication();
     I.selectATask(taskListContent.taskNotStarted);
     I.selectPersonWhoDiedLeftAWill();
     I.selectOriginalWill();

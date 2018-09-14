@@ -37,3 +37,7 @@ probate_business_service_url = "https://pr-42-probate-business-service-preview.s
 probate_submit_service_url = "http://probate-submit-service-aat.service.core-compute-aat.internal/submit"
 
 probate_persistence_service_url = "http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata"
+
+feature_toggles_api_url = "http://rpe-feature-toggle-api-aat.service.core-compute-aat.internal"
+asp_name = "probate-aat-asp-aat-asp"
+asp_rg = "mgmt-asp-aat"

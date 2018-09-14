@@ -1,0 +1,43 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% block question %}
+    <h1 class="form-title heading-large">{{content["header" + fields.inviteSuffix.value] | safe}}</h1>
+{% endblock %}
+
+{% block form_content %}
+
+<p>
+    {{fields.executorsToNotifyNames.value}}
+    {{content.paragraph1 | safe}}
+</p>
+<p class="panel panel-border-wide">{{content.paragraph2 | safe}}</p>
+
+<h2 class="heading-medium">{{content.heading1 | safe}}</h2>
+
+{% for executor in fields.executorsToNotifyList.value %}
+<div class="grid-row word-wrap">
+
+    <div class="column-one-quarter">
+        <p>{{executor.fullName}}</p>
+    </div>
+
+    <div class="column-one-quarter">
+        <p>{{executor.email}}</p>
+    </div>
+
+    <div class="column-one-quarter">
+        <p>{{executor.mobile}}</p>
+    </div>
+
+    <div class="column-one-quarter">
+        <p>
+            <a href="/executor-contact-details/{{loop.index0}}">{{content.changeLink}}</a>
+        </p>
+    </div>
+</div>
+{% endfor %}
+
+<div class="form-group">
+    <input class="button" type="submit" value="{{content.sendInvites}}">
+</div>
+{% endblock %}

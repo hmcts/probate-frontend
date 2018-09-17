@@ -152,3 +152,14 @@ div.declaration-header {
 #global-header .header-proposition a#sign-out-header:focus {
   color: $black;
 }
+
+.check-your-answers__question {
+    font-weight: inherit;
+}
+
+.check-your-answers__answer {
+    .check-your-answers__row {
+        border-bottom: none;
+    }
+}
+

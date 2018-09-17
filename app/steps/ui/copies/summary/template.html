@@ -15,37 +15,35 @@
     </h1>
     <p>{{content.CopiesSummary.extraCopies}}</p>
 
-    <table class="check-your-answers form-group">
-        <tbody>
-            {{checkanswer(
-                items = [
-                    {
-                        question: content.CopiesUk.question,
-                        answer: fields.copies.uk.value, 
-                        visible: true
-                    }],
-                url = content.CopiesUk.url,
-                common = common,
-                alreadyDeclared = 'false'
-            )}}
-            {{checkanswer(
-                items = [
-                    {
-                        question: content.AssetsOverseas.question,
-                        answer: fields.assets.assetsoverseas.value, 
-                        visible: true
-                    },
-                    {
-                        question: content.CopiesOverseas.question,
-                        answer: fields.copies.overseas.value, 
-                        visible: fields.assets.assetsoverseas.value == content.AssetsOverseas.optionYes
-                    }],
-                url = content.AssetsOverseas.url,
-                common = common,
-                alreadyDeclared = 'false'
-            )}}            
-        </tbody>
-    </table>
+    <dl class="check-your-answers check-your-answers--long">
+        {{checkanswer(
+            items = [
+                {
+                    question: content.CopiesUk.question,
+                    answer: fields.copies.uk.value, 
+                    visible: true
+                }],
+            url = content.CopiesUk.url,
+            common = common,
+            alreadyDeclared = 'false'
+        )}}
+        {{checkanswer(
+            items = [
+                {
+                    question: content.AssetsOverseas.question,
+                    answer: fields.assets.assetsoverseas.value, 
+                    visible: true
+                },
+                {
+                    question: content.CopiesOverseas.question,
+                    answer: fields.copies.overseas.value, 
+                    visible: fields.assets.assetsoverseas.value == content.AssetsOverseas.optionYes
+                }],
+            url = content.AssetsOverseas.url,
+            common = common,
+            alreadyDeclared = 'false'
+        )}}            
+    </dl>
     
     <div class="form-group">
         <p><a href="/tasklist" class="button button-start">{{common.continue}}</a></p>

@@ -15,30 +15,27 @@
     </h1>
     <p>{{content.Summary.checkCarefully}}</p>
 
-    <table class="check-your-answers form-group">
-        <tbody>
-            <tr>
-                <td colspan="3">
-                    <span class="heading-medium">
-                        {{content.Summary.willWithCodicilHeading if fields.summary.codicilPresent.value === "true" else content.Summary.willHeading}}
-                    </span>
-                </td>
-            </tr>
-            {% include "ui/summary/includes/will.njk" %}
-            <tr>
-                <td colspan="3"><span class="heading-medium">{{content.Summary.ihtHeading}}</span></td>
-            </tr>
-            {% include "ui/summary/includes/iht.njk" %}
-            <tr>
-                <td colspan="3"><span class="heading-medium">{{content.Summary.applicantHeading}}</span></td>
-            </tr>
-            {% include "ui/summary/includes/executors.njk" %}
-            <tr>
-                <td colspan="3"><span class="heading-medium">{{content.Summary.deceasedHeading}}</span></td>
-            </tr>
-            {% include "ui/summary/includes/deceased.njk" %}
-        </tbody>
-    </table>
+    <h2 class="heading-medium">
+        {{content.Summary.willWithCodicilHeading if fields.summary.codicilPresent.value === "true" else content.Summary.willHeading}}
+    </h2>
+    <dl class="check-your-answers check-your-answers--long">
+        {% include "ui/summary/includes/will.njk" %}
+    </dl>
+
+    <h2 class="heading-medium">{{content.Summary.ihtHeading}}</h2>
+    <dl class="check-your-answers check-your-answers--long">
+        {% include "ui/summary/includes/iht.njk" %}
+    </dl>
+
+    <h2 class="heading-medium">{{content.Summary.applicantHeading}}</h2>
+    <dl class="check-your-answers check-your-answers--long">
+        {% include "ui/summary/includes/executors.njk" %}
+    </dl>
+
+    <h2 class="heading-medium">{{content.Summary.deceasedHeading}}</h2>
+    <dl class="check-your-answers check-your-answers--long">
+        {% include "ui/summary/includes/deceased.njk" %}
+    </dl>
 
     <div class="form-group">
         {% if fields.summary.readyToDeclare.value === "true" %}

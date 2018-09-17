@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "applicant-alias-reason",
+  "type": "object",
+  "properties": {},
+  "switch": [
+    {
+      "if": {"properties": { "aliasReason": { "enum": [""] } }},
+      "then": {"required": ["aliasReason"]},
+      "continue": false
+    },
+    {
+      "if": { "properties": { "aliasReason": { "enum": ["other"] } } },
+      "then": {
+        "properties": {
+          "other": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50
+          }
+        },
+        "required": ["otherReason"]
+      },
+      "continue": false
+    }
+  ]
+}

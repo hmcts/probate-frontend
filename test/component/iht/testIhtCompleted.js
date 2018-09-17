@@ -1,10 +1,13 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    IhtMethod = require('app/steps/ui/iht/method/index'),
-    StopPage = require('app/steps/ui/stoppage/index');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const StartApply = require('app/steps/ui/startapply/index');
+const StopPage = require('app/steps/ui/stoppage/index');
+const json = require('app/resources/en/translation/iht/completed.json');
 
 describe('iht-completed', () => {
     let testWrapper;
-    const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
+    const expectedNextUrlForStartApply = StartApply.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('ihtNotCompleted');
 
     beforeEach(() => {
@@ -29,16 +32,16 @@ describe('iht-completed', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForIhtMethod}`, (done) => {
+        it(`test it redirects to next page if iht completed: ${expectedNextUrlForStartApply}`, (done) => {
             const data = {
-                'completed': 'Yes'
+                'completed': json.optionYes
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+            testWrapper.testRedirect(done, data, expectedNextUrlForStartApply);
         });
 
-        it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page if iht not completed: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                'completed': 'No'
+                'completed': json.optionNo
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });

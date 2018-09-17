@@ -5,7 +5,7 @@ module.exports = function () {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click('#domicile-option1');
+    I.click('#domicile-optionYes');
 
     I.click(commonContent.continue);
 };

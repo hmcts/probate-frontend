@@ -2,7 +2,7 @@
 
 const taskList = {
     EligibilityTask: {
-        firstStep: 'WillLeft',
+        firstStep: 'StartEligibility',
         lastStep: 'TaskList',
         summary: 'Summary'
     },
@@ -15,7 +15,6 @@ const taskList = {
         firstStep: 'Declaration',
         lastStep: 'TaskList',
         summary: 'Summary'
-
     },
     CopiesTask: {
         firstStep: 'CopiesStart',
@@ -35,29 +34,45 @@ const taskList = {
 };
 
 const stepList = {
-    StartEligibility: 'StartApply',
-    StartApply: 'TaskList',
+    // Eligibility Task Start
+    StartEligibility: 'WillLeft',
     WillLeft: {
         withWill: 'WillOriginal',
         otherwise: 'StopPage'
     },
     WillOriginal: {
-        isOriginal: 'WillCodicils',
+        isOriginal: 'DeathCertificate',
         otherwise: 'StopPage'
     },
+    DeathCertificate: {
+        hasCertificate: 'DeceasedDomicile',
+        otherwise: 'StopPage'
+    },
+    DeceasedDomicile: {
+        inEnglandOrWales: 'ApplicantExecutor',
+        otherwise: 'StopPage'
+    },
+    ApplicantExecutor: {
+        isExecutor: 'MentalCapacity',
+        otherwise: 'StopPage'
+    },
+    MentalCapacity: {
+        isCapable: 'IhtCompleted',
+        otherwise: 'StopPage'
+    },
+    IhtCompleted: {
+        completed: 'StartApply',
+        otherwise: 'StopPage'
+    },
+    StartApply: 'TaskList',
+    // Eligibility Task End
+
+    // Old Eligibility Task Start
     WillCodicils: {
         noCodicils: 'DeathCertificate',
         otherwise: 'CodicilsNumber'
     },
     CodicilsNumber: 'DeathCertificate',
-    DeathCertificate: {
-        hasCertificate: 'IhtCompleted',
-        otherwise: 'StopPage'
-    },
-    IhtCompleted: {
-        completed: 'IhtMethod',
-        otherwise: 'StopPage'
-    },
     IhtMethod: {
         online: 'IhtIdentifier',
         otherwise: 'IhtPaper'
@@ -65,21 +80,11 @@ const stepList = {
     IhtPaper: 'ApplicantExecutor',
     IhtIdentifier: 'IhtValue',
     IhtValue: 'ApplicantExecutor',
-    ApplicantExecutor: {
-        isExecutor: 'MentalCapacity',
-        otherwise: 'StopPage'
-    },
-    MentalCapacity: {
-        isCapable: 'TaskList',
-        otherwise: 'StopPage'
-    },
+    // Old Eligibility Task End
+
+    // Executor Task Start
     ApplicantName: 'ApplicantNameAsOnWill',
-    ApplicantNameAsOnWill: {
-        hasAlias: 'ApplicantAlias',
-        otherwise: 'ApplicantPhone'
-    },
-    ApplicantAlias: 'ApplicantAliasReason',
-    ApplicantAliasReason: 'ApplicantPhone',
+    ApplicantNameAsOnWill: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
     ApplicantAddress: 'ExecutorsNumber',
     ExecutorsNumber: {
@@ -138,27 +143,23 @@ const stepList = {
     RemoveAlias: 'DeceasedOtherNames',
     DeceasedMarried: 'DeceasedDod',
     DeceasedDod: 'DeceasedDob',
-    DeceasedDob: 'DeceasedDomicile',
-    DeceasedDomicile: 'DeceasedAddress',
+    DeceasedDob: 'DeceasedAddress',
     DeceasedAddress: 'Summary',
-    Summary: 'TaskList',
+    // Executor Task Start
+
+    // Declaration Task Start
     Declaration: {
-        sendAdditionalInvites: 'ExecutorsAdditionalInvite',
-        executorEmailChanged: 'ExecutorsUpdateInvite',
         dataChangedAfterEmailSent: 'ExecutorsChangeMade',
         otherExecutorsApplying: 'ExecutorsInvite',
         otherwise: 'TaskList'
     },
-    ExecutorsAdditionalInvite: 'ExecutorsAdditionalInviteSent',
-    ExecutorsAdditionalInviteSent: 'TaskList',
-    ExecutorsUpdateInvite: 'ExecutorsUpdateInviteSent',
-    ExecutorsUpdateInviteSent: 'TaskList',
     ExecutorsInvite: 'ExecutorsInvitesSent',
     ExecutorsInvitesSent: 'TaskList',
     ExecutorsChangeMade: 'TaskList',
     Submit: 'TaskList',
-    Documents: 'ThankYou',
-    ThankYou: 'TaskList',
+    // Declaration Task End
+
+    // Copies Task Start
     CopiesStart: 'CopiesUk',
     CopiesUk: 'AssetsOverseas',
     AssetsOverseas: {
@@ -167,8 +168,19 @@ const stepList = {
     },
     CopiesOverseas: 'CopiesSummary',
     CopiesSummary: 'TaskList',
+    // Copies Task End
+
+    // Payment Task Start
     PaymentBreakdown: 'PaymentStatus',
-    PaymentStatus: 'TaskList',
+    PaymentStatus: 'Documents',
+    // Payment Task End
+
+    // Documents Task Start
+    Documents: 'ThankYou',
+    ThankYou: 'TaskList',
+    // Documents Task End
+
+    Summary: 'TaskList',
     AddressLookup: 'AddressLookup',
     TaskList: 'TaskList',
     StopPage: 'StopPage',

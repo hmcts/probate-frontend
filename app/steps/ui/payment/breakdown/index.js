@@ -7,7 +7,8 @@ const services = require('app/components/services');
 const {get} = require('lodash');
 const logger = require('app/components/logger')('Init');
 
-class PaymentBreakdown extends Step {
+module.exports = class PaymentBreakdown extends Step {
+
     static getUrl() {
         return '/payment-breakdown';
     }
@@ -122,6 +123,4 @@ class PaymentBreakdown extends Step {
         delete ctx.deceasedLastName;
         return [ctx, formdata];
     }
-}
-
-module.exports = PaymentBreakdown;
+};

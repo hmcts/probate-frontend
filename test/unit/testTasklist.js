@@ -26,7 +26,7 @@ describe('Tasklist', () => {
             assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
         });
 
-        it('Updates the context: EligibilityTask started, ', () => {
+        it('Updates the context: EligibilityTask started,', () => {
             const formdata = {will: {left: 'Yes'}};
             req.session.form = formdata;
             const taskList = steps.TaskList;

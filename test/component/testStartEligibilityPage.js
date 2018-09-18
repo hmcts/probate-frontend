@@ -1,14 +1,14 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const NewWillLeft = require('app/steps/ui/will/newleft/index');
+const WillLeft = require('app/steps/ui/will/left/index');
 
 describe('startEligibility', () => {
     let testWrapper;
-    const expectedNextUrlForWillLeft = NewWillLeft.getUrl();
+    const expectedNextUrlForWillLeft = WillLeft.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('NewStartEligibility');
+        testWrapper = new TestWrapper('StartEligibility');
     });
 
     afterEach(() => {

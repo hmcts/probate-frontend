@@ -1,6 +1,6 @@
 const ValidationStep = require('app/core/steps/ValidationStep'),
-      json = require('app/resources/en/translation/iht/completed.json'),
-      {isEmpty} = require('lodash');
+    json = require('app/resources/en/translation/iht/completed.json'),
+    {isEmpty} = require('lodash');
 
 module.exports = class IhtCompleted extends ValidationStep {
 

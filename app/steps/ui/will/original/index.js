@@ -1,5 +1,5 @@
 const ValidationStep = require('app/core/steps/ValidationStep'),
-      json = require('app/resources/en/translation/will/original.json');
+    json = require('app/resources/en/translation/will/original.json');
 
 module.exports = class WillOriginal extends ValidationStep {
 

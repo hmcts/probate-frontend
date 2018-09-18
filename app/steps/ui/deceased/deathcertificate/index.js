@@ -3,7 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const content = require('app/resources/en/translation/deceased/deathcertificate');
 
-class DeathCertificate extends ValidationStep {
+module.exports = class DeathCertificate extends ValidationStep {
 
     static getUrl() {
         return '/death-certificate';
@@ -24,6 +24,4 @@ class DeathCertificate extends ValidationStep {
     isComplete(ctx) {
         return [ctx.deathCertificate === content.optionYes, 'inProgress'];
     }
-}
-
-module.exports = DeathCertificate;
+};

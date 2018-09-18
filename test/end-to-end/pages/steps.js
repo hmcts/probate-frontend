@@ -41,6 +41,8 @@ module.exports = function () {
         // Applicant details
         enterApplicantName: steps.applicant.name,
         selectNameAsOnTheWill: steps.applicant.nameasonwill,
+        enterApplicantAlias: steps.applicant.alias,
+        enterApplicantAliasReason: steps.applicant.aliasreason,
         enterApplicantPhone: steps.applicant.phone,
         enterAddressManually: steps.applicant.address,
 

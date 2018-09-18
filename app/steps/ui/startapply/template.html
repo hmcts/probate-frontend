@@ -11,29 +11,29 @@
 {% from "widgets/lists.html" import taskAction, unorderedList %}
 
 <main id="content" role="main">
-    {% include "includes/phase_banner_beta.html" %}
-    <div class="grid-row">
-        <div class="column-two-thirds">
-            <h1 class="form-title heading-large">{{content.header}}</h1>
-            <p>{{content.introduction | safe}}</p>
-            <p>{{content.paragraph1 | safe}}</p>
-            <h2 class="heading-medium">
-                {{content.feesHeader}}
-            </h2>
-            <p>{{content.paragraph2 | safe}}</p>
-            <p>{{content.paragraph3}}</p>
-            <p>{{content.paragraph4 | safe}}</p>
-            <h2 class="heading-medium">
-                {{content.feedbackHeader}}
-            </h2>
-            <p>{{content.paragraph5 | safe}}</p>
+  {% include "includes/phase_banner_beta.html" %}
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <h1 class="form-title heading-large">{{content.header}}</h1>
+      <p>{{content.introduction | safe}}</p>
+      <p>{{content.paragraph1 | safe}}</p>
+      <h2 class="heading-medium">
+        {{content.feesHeader}}
+      </h2>
+      <p>{{content.paragraph2 | safe}}</p>
+      <p>{{content.paragraph3}}</p>
+      <p>{{content.paragraph4 | safe}}</p>
+      <h2 class="heading-medium">
+        {{content.feedbackHeader}}
+      </h2>
+      <p>{{content.paragraph5 | safe}}</p>
 
 
-        </div>
     </div>
-    <div class="form-group">
-        <p><a href="/tasklist" class="button button-start">{{common.acceptAndApply}}</a></p>
-    </div>
+  </div>
+  <div class="form-group">
+    <p><a href="/tasklist" class="button button-start">{{common.acceptAndApply}}</a></p>
+  </div>
 </main>
 
 {% endblock %}

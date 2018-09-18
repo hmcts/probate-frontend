@@ -8,6 +8,7 @@ const logger = require('app/components/logger');
 const {get, includes, isEqual} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const featureToggles = require('app/featureToggles');
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
@@ -43,7 +44,8 @@ router.get('/', (req, res) => {
 router.use((req, res, next) => {
     const formdata = req.session.form;
     const isHardStop = formdata => config.hardStopParams.some(param => get(formdata, param) === commonContent.no);
-    const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
+    const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+    const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
 
     if (get(formdata, 'submissionReference') &&
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
@@ -63,12 +65,19 @@ router.use((req, res, next) => {
             isEqual('/executors-invite', req.originalUrl)
     ) {
         res.redirect('tasklist');
+    } else if (get(formdata, 'declaration.declarationCheckbox') &&
+        (!hasMultipleApplicants || !(get(formdata, 'executors.executorsEmailChanged'))) &&
+            isEqual('/executors-update-invite', req.originalUrl)
+    ) {
+        res.redirect('tasklist');
     } else if (req.originalUrl.includes('summary') && isHardStop(formdata)) {
         res.redirect('/tasklist');
     } else {
         next();
     }
 });
+
+router.use(featureToggles);
 
 router.use((req, res, next) => {
     res.locals.session = req.session;

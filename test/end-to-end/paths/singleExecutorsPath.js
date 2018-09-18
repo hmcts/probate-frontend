@@ -54,7 +54,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     // Executors Task
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
-    I.selectNameAsOnTheWill();
+    I.selectNameAsOnTheWill('optionNo');
     I.enterApplicantPhone();
     I.enterAddressManually();
 

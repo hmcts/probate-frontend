@@ -1,0 +1,20 @@
+{% extends "includes/layout.html" %}
+{% block content %}
+<main id="content" role="main">
+    {% include "includes/phase_banner_beta.html" %}
+    <div class="grid-row">
+        <div class="column-two-thirds">
+            <h1 class="form-title heading-large">{{content.header | safe}}</h1>
+            <p>{{content.paragraph1 | safe}}</p>
+            <p>{{content.paragraph2 | safe}}</p>
+            <h2 class="heading-medium">{{content.heading1  | safe}}</h2>
+            <p>{{content.paragraph3 | safe}}</p>
+            <p>{{content.paragraph4 | safe}}</p>
+            <p>{{content.paragraph5 | safe}}</p>
+            <div class="form-group">
+                <p><a href="/tasklist" class="button">{{content.continue}}</a></p>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

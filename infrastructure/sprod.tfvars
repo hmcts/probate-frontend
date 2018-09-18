@@ -41,3 +41,5 @@ probate_submit_service_url = "http://probate-submit-service-saat.service.core-co
 probate_persistence_service_url = "http://probate-persistence-service-saat.service.core-compute-saat.internal/formdata"
 
 feature_toggles_api_url = "http://rpe-feature-toggle-api-saat.service.core-compute-saat.internal"
+asp_name = "probate-sprod"
+asp_rg = "probate-shared-infrastructure-sprod"

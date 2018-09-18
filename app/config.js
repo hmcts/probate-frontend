@@ -1,12 +1,14 @@
-module.exports = {
+'use strict';
 
+const config = {
     environment: process.env.REFORM_ENVIRONMENT || 'prod',
     nodeEnvironment: process.env.NODE_ENV,
     gitRevision: process.env.GIT_REVISION,
     frontendPublicHttpProtocol: process.env.PUBLIC_PROTOCOL || 'http',
     featureToggles: {
-        api_url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost',
-        fe_shutter_toggle: 'probate-fe-shutter'
+        api_url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8282',
+        fe_shutter_toggle: 'probate-fe-shutter',
+        main_applicant_alias: 'probate-main-applicant-alias'
     },
     app: {
         username: process.env.USERNAME,
@@ -72,7 +74,6 @@ module.exports = {
             httpOnly: true,
             sameSite: 'lax'
         }
-
     },
     dateFormat: 'DD/MM/YYYY',
     payloadVersion: '4.1.0',
@@ -134,7 +135,7 @@ module.exports = {
     whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/sign-out'],
     whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/sign-out'],
     hardStopParams: ['will.left', 'will.original', 'death.certificate', 'deceased.domicile', 'applicant.executor', 'mental.capacity', 'iht.completed'],
-    nonIdamPages: ['error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'will-left', 'will-original', 'death-certificate', 'deceased-domicile', 'applicant-executor', 'mental-capacity', 'iht-completed', 'start-apply', 'continue-apply', 'stop-page'],
+    nonIdamPages: ['error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'start-apply', 'new-start-eligibility', 'new-will-left', 'new-will-original', 'new-death-certificate', 'new-deceased-domicile', 'new-applicant-executor', 'new-mental-capacity', 'new-iht-completed', 'new-start-apply'],
     endpoints: {
         health: '/health',
         info: '/info'
@@ -143,3 +144,5 @@ module.exports = {
         instrumentationKey: process.env.APPINSIGHTS_INSTRUMENTATIONKEY
     }
 };
+
+module.exports = config;

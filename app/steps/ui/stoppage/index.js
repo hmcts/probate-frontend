@@ -14,14 +14,7 @@ module.exports = class StopPage extends Step {
         const templateContent = this.generateContent(ctx, formdata)[ctx.stopReason];
 
         if (templateContent) {
-            const linkPlaceholders = templateContent.match(/{[^}]+}/g);
-            if (linkPlaceholders) {
-                ctx.linkPlaceholders = linkPlaceholders.map((placeholder) => {
-                    return placeholder.substr(1, placeholder.length - 2);
-                });
-            } else {
-                ctx.linkPlaceholders = [];
-            }
+            ctx.linkPlaceholders = this.replaceLinkPlaceholders(templateContent);
         }
 
         return ctx;
@@ -37,5 +30,15 @@ module.exports = class StopPage extends Step {
         delete ctx.linkPlaceholders;
 
         return [ctx, formdata];
+    }
+
+    replaceLinkPlaceholders(templateContent) {
+        const linkPlaceholders = templateContent.match(/{[^}]+}/g);
+
+        if (linkPlaceholders) {
+            return linkPlaceholders.map(placeholder => placeholder.substr(1, placeholder.length - 2));
+        }
+
+        return [];
     }
 };

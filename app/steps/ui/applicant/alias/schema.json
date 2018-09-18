@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "applicant-alias",
+  "type": "object",
+  "properties": {
+    "alias": {
+      "type": "string"
+    }
+  },
+  "required":[
+    "alias"
+  ]
+}

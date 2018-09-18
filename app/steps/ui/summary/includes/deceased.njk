@@ -28,25 +28,20 @@
 )}}
 
 {% if fields.deceased.otherNames.value.length > 0 %}
-<tr>
-    <td colspan="2">
-        <div class="grid-row">
-            <div class="column-one-half">{{content.Summary.otherNamesLabel | safe}}</div>
-            <div class="column-one-half">
-            {% for index, otherName in fields.deceased.otherNames.value %}
-                <div class="grid-row">
-                    <div class="column-one-half">{{otherName.firstName.value | safe}} {{otherName.lastName.value | safe}}</div>
-                </div>
-            {% endfor %}
+    <div class="check-your-answers__row">
+        <dt class="check-your-answers__question">{{content.Summary.otherNamesLabel | safe}}</dt>
+        <dd class="check-your-answers__answer">
+        {% for index, otherName in fields.deceased.otherNames.value %}
+            <div class="check-your-answers__row">
+                {{otherName.firstName.value | safe}} {{otherName.lastName.value | safe}}
             </div>
-        </div>
-    </td>
-    <td class="change-answer">
-        {% if fields.summary.alreadyDeclared.value == 'false' %}
-        <a href="{{content.DeceasedOtherNames.url}}">{{common.change}}</a>
-        {%endif%}
-    </td>
-</tr>
+        {% endfor %}
+        </dd>
+        <dd class="check-your-answers__change">{% if fields.summary.alreadyDeclared.value == 'false' %}
+            <a href="{{content.DeceasedOtherNames.url}}">{{common.change}}</a>
+            {%endif%}
+        </dd>
+    </div>
 {% endif %}
 
 {{checkanswer(

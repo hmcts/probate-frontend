@@ -192,3 +192,10 @@ variable "common_tags" {
 variable "feature_toggles_api_url" {
   type = "string"
 }
+
+variable "asp_rg" {
+  
+}
+ variable "asp_name" {
+  
+} 

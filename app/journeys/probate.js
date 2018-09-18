@@ -1,3 +1,5 @@
+'use strict';
+
 const taskList = {
     DeceasedTask: {
         firstStep: 'DeceasedName',
@@ -32,8 +34,40 @@ const taskList = {
 };
 
 const stepList = {
-    // Eligibility Task -------------------------------------------------------
-    StartEligibility: 'WillLeft',
+    NewStartEligibility: 'NewWillLeft',
+    NewWillLeft: {
+        withWill: 'NewWillOriginal',
+        otherwise: 'StopPage'
+    },
+    NewWillOriginal: {
+        isOriginal: 'NewDeathCertificate',
+        otherwise: 'StopPage'
+    },
+    NewDeathCertificate: {
+        hasCertificate: 'NewDeceasedDomicile',
+        otherwise: 'StopPage'
+    },
+    NewDeceasedDomicile: {
+        inEnglandOrWales: 'NewApplicantExecutor',
+        otherwise: 'StopPage'
+    },
+    NewApplicantExecutor: {
+        isExecutor: 'NewMentalCapacity',
+        otherwise: 'StopPage'
+    },
+    NewMentalCapacity: {
+        isCapable: 'NewIhtCompleted',
+        otherwise: 'StopPage'
+    },
+    NewIhtCompleted: {
+        completed: 'NewStartApply',
+        otherwise: 'StopPage'
+    },
+    NewStartApply: 'TaskList',
+
+    StartEligibility: 'StartApply',
+    StartApply: 'TaskList',
+
     WillLeft: {
         withWill: 'WillOriginal',
         otherwise: 'StopPage'
@@ -62,7 +96,6 @@ const stepList = {
         completed: 'StartApply',
         otherwise: 'StopPage'
     },
-    StartApply: 'TaskList',
 
     // Deceased Task ----------------------------------------------------------
     DeceasedName: 'DeceasedDob',
@@ -92,7 +125,12 @@ const stepList = {
 
     // Executors Task ----------------------------------------------------------
     ApplicantName: 'ApplicantNameAsOnWill',
-    ApplicantNameAsOnWill: 'ApplicantPhone',
+    ApplicantNameAsOnWill: {
+        hasAlias: 'ApplicantAlias',
+        otherwise: 'ApplicantPhone'
+    },
+    ApplicantAlias: 'ApplicantAliasReason',
+    ApplicantAliasReason: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
     ApplicantAddress: 'ExecutorsNumber',
     ExecutorsNumber: {
@@ -144,10 +182,16 @@ const stepList = {
 
     // Declaration Task -------------------------------------------------------
     Declaration: {
+        sendAdditionalInvites: 'ExecutorsAdditionalInvite',
+        executorEmailChanged: 'ExecutorsUpdateInvite',
         dataChangedAfterEmailSent: 'ExecutorsChangeMade',
         otherExecutorsApplying: 'ExecutorsInvite',
         otherwise: 'TaskList'
     },
+    ExecutorsAdditionalInvite: 'ExecutorsAdditionalInviteSent',
+    ExecutorsAdditionalInviteSent: 'TaskList',
+    ExecutorsUpdateInvite: 'ExecutorsUpdateInviteSent',
+    ExecutorsUpdateInviteSent: 'TaskList',
     ExecutorsInvite: 'ExecutorsInvitesSent',
     ExecutorsInvitesSent: 'TaskList',
     ExecutorsChangeMade: 'TaskList',

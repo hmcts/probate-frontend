@@ -110,7 +110,7 @@ describe('submit-data', () => {
         assert.nestedPropertyVal(mappedData, 'deceasedPostcode', 'SW1H 9EX');
         assert.nestedPropertyVal(mappedData, 'deceasedDod', '1 January 2018');
         assert.nestedPropertyVal(mappedData, 'deceasedDob', '1 January 1950');
-        assert.nestedPropertyVal(mappedData, 'deceasedDomicile', 'live (domicile) permanently in England or Wales');
+        assert.nestedPropertyVal(mappedData, 'deceasedDomicile', 'inEnglandOrWales');
         assert.nestedPropertyVal(mappedData, 'noOfExecutors', 4);
         assert.nestedPropertyVal(mappedData, 'dealingWithEstate', 'Yes');
         assert.nestedPropertyVal(mappedData, 'willLeft', 'Yes');

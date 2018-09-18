@@ -49,7 +49,7 @@
         )}}
     {% endif %}
 {% endfor %}
-<td colspan="3"><span class="heading-small">{{content.Summary.aboutYouHeading | safe}}</span></td>
+<h3 class="heading-small">{{content.Summary.aboutYouHeading | safe}}</h3>
 {{checkanswer(
     items = [{
             question: content.ApplicantName.firstName,
@@ -85,6 +85,48 @@
 
 )}}
 
+{% if fields.summary.isMainApplicantAliasToggleEnabled.value === 'true' %}
+    {% if fields.applicant.nameAsOnTheWill.value === 'No' %}
+        {{checkanswer(
+            items = [{
+                question: content.ApplicantAlias.nameOnWill,
+                answer: fields.applicant.alias.value,
+                visible: true
+            }],
+            url = content.ApplicantAlias.url,
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+
+        )}}
+
+        {% if fields.applicant.aliasReason.value === 'other' %}
+            {{checkanswer(
+                items = [{
+                    question: content.ApplicantAliasReason.optionOtherHint,
+                    answer: fields.applicant.otherReason.value,
+                    visible: true
+                }],
+                url = content.ApplicantAliasReason.url,
+                common = common,
+                alreadyDeclared = fields.summary.alreadyDeclared.value
+
+            )}}
+        {% else %}
+            {{checkanswer(
+                items = [{
+                    question: content.ApplicantAliasReason.optionOtherHint,
+                    answer: fields.applicant.aliasReason.value,
+                    visible: true
+                }],
+                url = content.ApplicantAliasReason.url,
+                common = common,
+                alreadyDeclared = fields.summary.alreadyDeclared.value
+
+            )}}
+        {% endif %}
+    {% endif %}
+{% endif %}
+
 {{checkanswer(
     items = [{
         question: content.ApplicantPhone.phoneNumber,
@@ -109,7 +151,7 @@
 )}}
 
 {% if fields.executors.executorsNumber.value > 1 and fields.summary.executorsAlive.value === 'true' %}
-<td colspan="3"><span class="heading-small">{{content.Summary.otherExecutors | safe}}</span></td>
+<h3 class="heading-small">{{content.Summary.otherExecutors | safe}}</h3>
 {{checkanswer(
     items = [{
         question: content.ExecutorsApplying.question,
@@ -123,9 +165,9 @@
 
 {{checkanswer(
     items = [{
-            question: content.ExecutorsDealingWithEstate.question,
-            answer: fields.summary.executorsDealingWithEstate.value,
-            visible: fields.executors.otherExecutorsApplying.value === content.ExecutorsApplying.optionYes
+        question: content.ExecutorsDealingWithEstate.question,
+        answer: fields.summary.executorsDealingWithEstate.value,
+        visible: fields.executors.otherExecutorsApplying.value === content.ExecutorsApplying.optionYes
         }
     ],
     url = content.ExecutorsDealingWithEstate.url,
@@ -137,7 +179,7 @@
 {% set cls = cycler(common.second,common.third,common.fourth,common.fifth) %}
 {% for executor in fields.executors.list.value %}
     {% if executor.isApplicant != true and executor.isApplying === true %}
-    <td colspan="3"><span class="heading-small">{{content.Summary.executorApplyingForProbate |  replace("{executorOrderNumber}", cls.next())}}</span></td>
+    <h3 class="heading-small">{{content.Summary.executorApplyingForProbate |  replace("{executorOrderNumber}", cls.next())}}</h3>
             {{checkanswer(
             items = [{
                     question: content.Summary.nameOnWill,
@@ -203,7 +245,7 @@
 {% endfor %}
 {% if fields.summary.executorsPowerReservedOrRenounced.value === 'true' %}
 
-<td colspan="3"><span class="heading-small">{{content.Summary.executorsNotApplyingForProbate | safe}}</span></td>
+<h3 class="heading-small">{{content.Summary.executorsNotApplyingForProbate | safe}}</h3>
 
 {% for executor in fields.executors.list.value %}
 

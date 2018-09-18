@@ -69,6 +69,15 @@ class Executors {
         return this.aliveExecutors().every(executor => executor.isApplying);
     }
 
+    removeExecutorsEmailChangedFlag() {
+        return this.executorsList.map(executor => {
+            if (executor.emailChanged) {
+                delete executor.emailChanged;
+            }
+            return executor;
+        });
+    }
+
     mainApplicant() {
         return this.executorsList.filter(executor => executor.isApplicant);
     }
@@ -85,6 +94,22 @@ class Executors {
             }
             return executor;
         });
+    }
+
+    hasExecutorsEmailChanged() {
+        return this.executorsList.some(executor => executor.emailChanged);
+    }
+
+    executorsEmailChangedList() {
+        return this.executorsList.filter(executor => executor.emailChanged);
+    }
+
+    hasExecutorsToNotify() {
+        return this.executorsList.some(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent);
+    }
+
+    executorsToNotify() {
+        return this.executorsList.filter(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent);
     }
 
     executorsRemoved() {

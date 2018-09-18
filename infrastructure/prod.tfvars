@@ -41,3 +41,5 @@ probate_persistence_service_url = "http://probate-persistence-service-prod.servi
 feature_toggles_api_url = "http://rpe-feature-toggle-api-prod.service.core-compute-prod.internal"
 
 capacity = "2"
+asp_name = "probate-prod-asp-prod-asp"
+asp_rg = "mgmt-asp-prod"

@@ -1,17 +1,15 @@
 'use strict';
 
-/* eslint no-console: 0 */
+const config = require('app/config');
+const express = require('express');
+const router = require('express').Router();
+const logger = require('app/components/logger')('Init');
+const app = express();
+const persistenceServicePort = config.services.persistence.port;
+const persistenceServicePath = config.services.persistence.path;
 
-const config = require('app/config'),
-        express = require('express'),
-        app = express(),
-        router = require('express').Router(),
-        PERSISTENCE_SERVICE_PORT = config.services.persistence.port,
-        PERSISTENCE_SERVICE_PATH = config.services.persistence.path;
-
-router.get('invitedata/:id', function (req, res) {
+router.get('invitedata/:id', (req, res) => {
     if (req.params.id === 'true') {
-        res.status(200);
         res.send({valid: true});
     } else {
         res.status(404);
@@ -19,22 +17,24 @@ router.get('invitedata/:id', function (req, res) {
     }
 });
 
-router.patch('/invitedata/:id', function (req, res) {
-    res.status(200);
+router.patch('/invitedata/:id', (req, res) => {
     res.send('SuperTrooper');
 });
 
-router.get(`${PERSISTENCE_SERVICE_PATH}/:data`, function (req, res) {
+router.get(`${persistenceServicePath}/:data`, (req, res) => {
     const data = require(`test/data/${req.params.data}`);
-    res.status(200);
     res.send(data);
 });
 
-router.get('/health', function (req, res) {
+router.get('/health', (req, res) => {
     res.send({'status': 'UP'});
 });
 
-router.get('/info', function (req, res) {
+router.get(`${config.featureToggles.path}/:featureToggleKey`, (req, res) => {
+    res.send('true');
+});
+
+router.get('/info', (req, res) => {
     res.send({
         'git': {
             'commit': {
@@ -47,7 +47,8 @@ router.get('/info', function (req, res) {
 
 app.use(router);
 
-console.log(`Listening on: ${PERSISTENCE_SERVICE_PORT}`);
-const server = app.listen(PERSISTENCE_SERVICE_PORT);
+logger.info(`Listening on: ${persistenceServicePort}`);
+
+const server = app.listen(persistenceServicePort);
 
 module.exports = server;

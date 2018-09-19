@@ -2,17 +2,21 @@
 
 const services = require('app/components/services');
 const featureToggles = require('app/config').featureToggles;
+const logger = require('app/components/logger');
 
 class FeatureToggle {
     checkToggle(params) {
-        services.featureToggle(featureToggles[params.featureToggleKey]).then(isEnabled => {
+        const featureToggleKey = params.featureToggleKey;
+        const sessionId = params.req.session.id;
+        return services.featureToggle(featureToggles[featureToggleKey]).then(isEnabled => {
+            logger(sessionId).info(`Checking feature toggle: ${featureToggleKey}, isEnabled: ${isEnabled}`);
             params.callback({
                 req: params.req,
                 res: params.res,
                 next: params.next,
                 redirectPage: params.redirectPage,
                 isEnabled: isEnabled === 'true',
-                featureToggleKey: params.featureToggleKey
+                featureToggleKey: featureToggleKey
             });
         })
         .catch(err => {

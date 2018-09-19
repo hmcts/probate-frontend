@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const services = require('app/components/services');
 const sinon = require('sinon');

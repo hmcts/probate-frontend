@@ -1,11 +1,14 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
-const WillCodicils = require('app/steps/ui/will/codicils/index');
+const DeathCertificate = require('app/steps/ui/deceased/deathcertificate/index');
 const StopPage = require('app/steps/ui/stoppage/index');
+const json = require('app/resources/en/translation/will/original.json');
 
 describe('will-original', () => {
     let testWrapper;
+    const expectedNextUrlForDeathCertificate = DeathCertificate.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('notOriginal');
-    const expectedNextUrlForWillCodicils = WillCodicils.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('WillOriginal');
@@ -29,16 +32,16 @@ describe('will-original', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to will codicils: ${expectedNextUrlForWillCodicils}`, (done) => {
+        it(`test it redirects to death certificate if original will owned: ${expectedNextUrlForDeathCertificate}`, (done) => {
             const data = {
-                'original': 'Yes'
+                'original': json.optionYes
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForWillCodicils);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeathCertificate);
         });
 
-        it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page if original will not owned: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                'original': 'No'
+                'original': json.optionNo
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });

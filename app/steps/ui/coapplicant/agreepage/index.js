@@ -1,3 +1,5 @@
+'use strict';
+
 const Step = require('app/core/steps/Step');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');

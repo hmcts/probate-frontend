@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const WillOriginal = require('app/steps/ui/will/original/index');
 const StopPage = require('app/steps/ui/stoppage/index');

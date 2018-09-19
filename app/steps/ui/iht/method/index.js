@@ -1,5 +1,8 @@
-const ValidationStep = require('app/core/steps/ValidationStep'),
-        json = require('app/resources/en/translation/iht/method.json');
+'use strict';
+
+const ValidationStep = require('app/core/steps/ValidationStep');
+const json = require('app/resources/en/translation/iht/method.json');
+
 module.exports = class IhtMethod extends ValidationStep {
 
     static getUrl() {

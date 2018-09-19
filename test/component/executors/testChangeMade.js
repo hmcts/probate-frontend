@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const Tasklist = require('app/steps/ui/tasklist/index');
 

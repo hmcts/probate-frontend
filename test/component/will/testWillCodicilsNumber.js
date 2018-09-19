@@ -1,9 +1,11 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
-const DeathCertificate = require('app/steps/ui/deceased/deathcertificate/index');
+const TaskList = require('app/steps/ui/tasklist/index');
 
 describe('codicils-number', () => {
     let testWrapper;
-    const expectedNextUrlForDeathCertificate = DeathCertificate.getUrl();
+    const expectedNextUrlForTaskList = TaskList.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CodicilsNumber');
@@ -33,9 +35,9 @@ describe('codicils-number', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForDeathCertificate}`, (done) => {
+        it(`test it redirects to tasklist: ${expectedNextUrlForTaskList}`, (done) => {
             const data = {codicilsNumber: '1'};
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeathCertificate);
+            testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
         });
     });
 });

@@ -1,10 +1,11 @@
 'use strict';
-const TestWrapper = require('test/util/TestWrapper'),
-    ApplicantExecutor = require('app/steps/ui/applicant/executor/index');
+
+const TestWrapper = require('test/util/TestWrapper');
+const DeceasedAlias = require('app/steps/ui/deceased/alias/index');
 
 describe('iht-value', () => {
     let testWrapper;
-    const expectedNextUrlForAppExec = ApplicantExecutor.getUrl();
+    const expectedNextUrlForDeceasedAlias = DeceasedAlias.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('IhtValue');
@@ -38,12 +39,12 @@ describe('iht-value', () => {
             testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['netValueOnline']);
         });
 
-        it(`test it redirects to applicant executor page: ${expectedNextUrlForAppExec}`, (done) => {
+        it(`test it redirects to deceased alias page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
             const data = {
                 'grossValueOnline': 123456,
                 'netValueOnline': 12345
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForAppExec);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
         });
 
     });

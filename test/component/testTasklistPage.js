@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const sessionData = require('test/data/complete-form').formdata;
 const singleApplicantData = require('test/data/singleApplicant');
@@ -16,7 +18,6 @@ describe('task-list', () => {
     describe('Verify Content, Errors and Redirection', () => {
 
         it('test right content loaded on the page', (done) => {
-
             const excludeKeys = [
                 'introduction',
                 'saveAndReturn',
@@ -34,7 +35,6 @@ describe('task-list', () => {
         });
 
         it('test right content loaded in Review and Confirm section (Multiple Applicants)', (done) => {
-
             const excludeKeys = [
                 'taskNotStarted',
                 'taskStarted',

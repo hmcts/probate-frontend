@@ -1,3 +1,5 @@
+'use strict';
+
 const requireDir = require('require-directory');
 const TestWrapper = require('test/util/TestWrapper');
 const willData = require('test/data/will');

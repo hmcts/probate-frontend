@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsInvite = require('app/steps/ui/executors/invite/index');
 const ExecutorsUpdateInvite = require('app/steps/ui/executors/updateinvite/index');

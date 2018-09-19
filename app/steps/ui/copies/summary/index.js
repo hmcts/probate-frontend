@@ -1,3 +1,5 @@
+'use strict';
+
 const Step = require('app/core/steps/Step');
 const copiesSteps = ['CopiesUk', 'AssetsJEGG', 'CopiesJEGG', 'AssetsOverseas', 'CopiesOverseas'];
 

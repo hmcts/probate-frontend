@@ -7,7 +7,7 @@
     {{ fieldError(field) }}
 
     <div class="multiple-choice">
-        <input id="{{name}}" type="checkbox" name="{{name}}" value="true" {{"checked='checked'" if field.value === 'true' }}>
+        <input id="{{name}}" type="checkbox" name="{{name}}" value="true" {{'checked="checked"' if field.value === 'true'}}>
         <label for="{{name}}">{{text | safe}}</label>
     </div>
 
@@ -16,14 +16,14 @@
 
 {% macro checkboxes(name, field, options, legend) %}
 {% set id = name | replace('[]', '') %}
-<fieldset id={{id}} class="form-group {{ 'form-group-error' if field.error }}">
+<fieldset id="{{id}}" class="form-group {{ 'form-group-error' if field.error }}">
     <legend class="visually-hidden">{{legend | safe}}</legend>
 
-    {{ fieldError(field) }}
+    {{fieldError(field)}}
 
     {% for option in options %}
     <div class="multiple-choice">
-        <input id="{{id}}-{{loop.index}}" type="checkbox" name="{{name}}" value="{{option.option}}"  {{"checked='checked'" if option.checked}} {{'disabled' if option.disabled}}/>
+        <input id="{{id}}-{{loop.index}}" type="checkbox" name="{{name}}" value="{{option.option}}" {{'checked="checked"' if option.checked}} {{'disabled' if option.disabled}}/>
         <label for="{{id}}-{{loop.index}}">{{option.option | safe}}</label>
     </div>
     {% endfor %}

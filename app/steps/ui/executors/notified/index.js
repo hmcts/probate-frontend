@@ -2,7 +2,6 @@
 
 const CollectionStep = require('app/core/steps/CollectionStep');
 const {get, some, findIndex} = require('lodash');
-
 const path = '/executor-notified/';
 
 class ExecutorNotified extends CollectionStep {

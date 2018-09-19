@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsNumber = require('app/steps/ui/executors/number/index');
 const testAddressData = require('test/data/find-address');

@@ -305,7 +305,7 @@ describe('ExecutorAddress', () => {
             const ExecutorAddress = steps.ExecutorAddress;
             const url = ExecutorAddress.nextStepUrl(testCtx);
 
-            expect(url).to.equal('/deceased-name');
+            expect(url).to.equal('/tasklist');
             done();
         });
 

@@ -1,4 +1,5 @@
 'use strict';
+
 const Step = require('app/core/steps/Step');
 const config = require('app/config');
 const logger = require('app/components/logger')('Init');

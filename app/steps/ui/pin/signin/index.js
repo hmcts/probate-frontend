@@ -1,7 +1,9 @@
-const WithLinkStepRunner = require('app/core/runners/WithLinkStepRunner'),
-    ValidationStep = require('app/core/steps/ValidationStep'),
-    FieldError = require('app/components/error'),
-    services = require('app/components/services');
+'use strict';
+
+const WithLinkStepRunner = require('app/core/runners/WithLinkStepRunner');
+const ValidationStep = require('app/core/steps/ValidationStep');
+const FieldError = require('app/components/error');
+const services = require('app/components/services');
 
 module.exports = class PinPage extends ValidationStep {
 

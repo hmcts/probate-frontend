@@ -4,8 +4,8 @@
   "type": "object",
   "properties": {
     "domicile": {
-        "type": "string",
-        "minLength": 1
+      "type": "string",
+      "minLength": 1
     }
   },
   "required": [

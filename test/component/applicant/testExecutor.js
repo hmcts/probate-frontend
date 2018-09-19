@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const MentalCapacity = require('app/steps/ui/executors/mentalcapacity/index');
 const StopPage = require('app/steps/ui/stoppage/index');

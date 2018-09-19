@@ -112,7 +112,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     // Notify additional executors Dealing with estate
     I.notifyAdditionalExecutors();
 
-    //Retrieve the email urls for additional executors
+    // Retrieve the email urls for additional executors
     I.amOnPage(testConfig.TestInviteIdListUrl);
     grabIds = yield I.grabTextFrom('pre');
 }).retry(TestConfigurator.getRetryScenarios());
@@ -141,7 +141,7 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
 
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
 
-    //Pre IDAM
+    // Pre IDAM
     I.continueApply();
 
     // IDAM

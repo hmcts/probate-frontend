@@ -6,5 +6,8 @@ module.exports = function () {
 
     if (testConfig.useIdam !== 'false') {
         I.amOnPage(pageUnderTest.getUrl());
+        I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     }
+
+    I.click('.button.button-start');
 };

@@ -1,3 +1,5 @@
+'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const DeceasedWrapper = require('app/wrappers/Deceased');
 const FormatName = require('app/utils/FormatName');

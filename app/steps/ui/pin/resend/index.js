@@ -1,3 +1,5 @@
+'use strict';
+
 const Step = require('app/core/steps/Step');
 const services = require('app/components/services');
 const WithLinkStepRunner = require('app/core/runners/WithLinkStepRunner');

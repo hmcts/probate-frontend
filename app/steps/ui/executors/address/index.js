@@ -1,3 +1,5 @@
+'use strict';
+
 const AddressStep = require('app/core/steps/AddressStep');
 const {findIndex, get, startsWith} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');

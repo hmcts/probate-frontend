@@ -1,5 +1,8 @@
-const ValidationStep = require('app/core/steps/ValidationStep'),
-      services = require('app/components/services');
+'use strict';
+
+const ValidationStep = require('app/core/steps/ValidationStep');
+const services = require('app/components/services');
+
 module.exports = class CoApplicantDeclaration extends ValidationStep {
 
     static getUrl() {

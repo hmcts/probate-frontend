@@ -1,5 +1,7 @@
-const Step = require('app/core/steps/Step'),
-    WithLinkStepRunner = require('app/core/runners/WithLinkStepRunner');
+'use strict';
+
+const Step = require('app/core/steps/Step');
+const WithLinkStepRunner = require('app/core/runners/WithLinkStepRunner');
 
 module.exports = class PinSent extends Step {
     static getUrl() {

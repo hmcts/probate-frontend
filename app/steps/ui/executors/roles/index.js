@@ -3,7 +3,6 @@
 const CollectionStep = require('app/core/steps/CollectionStep');
 const json = require('app/resources/en/translation/executors/roles.json');
 const {get, isEmpty, every, findKey, findIndex} = require('lodash');
-
 const path = '/executor-roles/';
 
 class ExecutorRoles extends CollectionStep {

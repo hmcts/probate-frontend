@@ -55,63 +55,63 @@ describe('Pin Creation API Tests', () => {
         });
     });
 
-    describe('Valid International Number', () => {
-        it('Returns HTTP 200 status and pin number', (done) => {
-            request(pinServiceUrl)
-                .get('')
-                .query({phoneNumber: VALID_INTERNATIONAL_TEST_NUMBER})
-                .set('Session-Id', VALID_SESSION_ID)
-                .expect(200)
-                .end((err, res) => {
-                    if (err) {
-                        logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
-                    } else {
-                        expect(err).to.be.equal(null);
-                        expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
-                        expect(res.text).is.not.equal(null);
-                    }
-                    done();
-                });
-        });
-    });
+    // describe('Valid International Number', () => {
+    //     it('Returns HTTP 200 status and pin number', (done) => {
+    //         request(pinServiceUrl)
+    //             .get('')
+    //             .query({phoneNumber: VALID_INTERNATIONAL_TEST_NUMBER})
+    //             .set('Session-Id', VALID_SESSION_ID)
+    //             .expect(200)
+    //             .end((err, res) => {
+    //                 if (err) {
+    //                     logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
+    //                 } else {
+    //                     expect(err).to.be.equal(null);
+    //                     expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
+    //                     expect(res.text).is.not.equal(null);
+    //                 }
+    //                 done();
+    //             });
+    //     });
+    // });
 
-    describe('Valid UK With 44 Prefix Number', () => {
-        it('Returns HTTP 200 status and pin number', (done) => {
-            request(pinServiceUrl)
-                .get('')
-                .query({phoneNumber: VALID_UK_WITH_PREFIX_TEST_NUMBER})
-                .set('Session-Id', VALID_SESSION_ID)
-                .expect(200)
-                .end((err, res) => {
-                    if (err) {
-                        logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
-                    } else {
-                        expect(err).to.be.equal(null);
-                        expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
-                        expect(res.text).is.not.equal(null);
-                    }
-                    done();
-                });
-        });
-    });
+    // describe('Valid UK With 44 Prefix Number', () => {
+    //     it('Returns HTTP 200 status and pin number', (done) => {
+    //         request(pinServiceUrl)
+    //             .get('')
+    //             .query({phoneNumber: VALID_UK_WITH_PREFIX_TEST_NUMBER})
+    //             .set('Session-Id', VALID_SESSION_ID)
+    //             .expect(200)
+    //             .end((err, res) => {
+    //                 if (err) {
+    //                     logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
+    //                 } else {
+    //                     expect(err).to.be.equal(null);
+    //                     expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
+    //                     expect(res.text).is.not.equal(null);
+    //                 }
+    //                 done();
+    //             });
+    //     });
+    // });
 
-   describe('Valid UK Local Number', () => {
-        it('Returns HTTP 200 status and pin number', (done) => {
-            request(pinServiceUrl)
-                .get('')
-                .query({phoneNumber: VALID_UK_LOCAL_TEST_NUMBER})
-                .set('Session-Id', VALID_SESSION_ID)
-                .expect(200)
-                .end((err, res) => {
-                    if (err) {
-                        logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
-                    } else {
-                        expect(err).to.be.equal(null);
-                        expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
-                        expect(res.text).is.not.equal(null);
-                    }
-                    done();
-                });
-        });
-    });
+//    describe('Valid UK Local Number', () => {
+//         it('Returns HTTP 200 status and pin number', (done) => {
+//             request(pinServiceUrl)
+//                 .get('')
+//                 .query({phoneNumber: VALID_UK_LOCAL_TEST_NUMBER})
+//                 .set('Session-Id', VALID_SESSION_ID)
+//                 .expect(200)
+//                 .end((err, res) => {
+//                     if (err) {
+//                         logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
+//                     } else {
+//                         expect(err).to.be.equal(null);
+//                         expect(res.header).to.have.property('content-length').eq(VALID_PIN_CONTENT_LENGTH);
+//                         expect(res.text).is.not.equal(null);
+//                     }
+//                     done();
+//                 });
+//         });
+//     });
 });

@@ -42,4 +42,4 @@ probate_persistence_service_url = "http://probate-persistence-service-saat.servi
 
 feature_toggles_api_url = "http://rpe-feature-toggle-api-saat.service.core-compute-saat.internal"
 asp_name = "probate-sprod"
-asp_rg = "probate-shared-infrastructure-sprod"
+asp_rg = "probate-sprod"

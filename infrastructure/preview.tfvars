@@ -39,5 +39,5 @@ probate_submit_service_url = "http://probate-submit-service-aat.service.core-com
 probate_persistence_service_url = "http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata"
 
 feature_toggles_api_url = "http://rpe-feature-toggle-api-aat.service.core-compute-aat.internal"
-asp_name = "probate-aat-asp-aat-asp"
-asp_rg = "mgmt-asp-aat"
+asp_name = "probate-preview"
+asp_rg = "probate-preview"

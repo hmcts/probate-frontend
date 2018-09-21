@@ -9,10 +9,10 @@ const request = require('supertest');
 const TEST_VALIDATION_SERVICE_URL = testConfig.validation.url;
 const VALID_SESSION_ID = '012233456789';
 const INVALID_TEST_NUMBER = '+$447701111111';
-const VALID_INTERNATIONAL_TEST_NUMBER = '+61437112945';
-const VALID_UK_WITH_PREFIX_TEST_NUMBER = '+447535538319';
+// const VALID_INTERNATIONAL_TEST_NUMBER = '+61437112945';
+// const VALID_UK_WITH_PREFIX_TEST_NUMBER = '+447535538319';
 const VALID_UK_LOCAL_TEST_NUMBER = '07535538319';
-const VALID_PIN_CONTENT_LENGTH = '6';
+// const VALID_PIN_CONTENT_LENGTH = '6';
 
 describe('Pin Creation API Tests', () => {
 
@@ -29,6 +29,7 @@ describe('Pin Creation API Tests', () => {
                     if (err) {
                         logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
                     } else {
+                        logger.info(`Using URL ${pinServiceUrl}`);
                         expect(err).to.be.equal(null);
                         expect(res.text).to.equal('');
                     }

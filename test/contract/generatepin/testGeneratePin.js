@@ -29,7 +29,7 @@ describe('Pin Creation API Tests', () => {
                     if (err) {
                         logger.error(`error raised: ${err} using URL ${pinServiceUrl}`);
                     } else {
-                        logger.info(`Using URL ${pinServiceUrl}`);
+                        logger.error(`Using URL ${pinServiceUrl}`);
                         expect(err).to.be.equal(null);
                         expect(res.text).to.equal('');
                     }

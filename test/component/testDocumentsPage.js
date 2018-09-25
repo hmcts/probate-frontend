@@ -1,3 +1,4 @@
+// eslint-disable-line max-lines
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
 const ThankYou = require('app/steps/ui/thankyou/index.js');
@@ -16,7 +17,7 @@ describe('documents-page', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        it('test correct content loaded on the page, no codicils, single executor', (done) => {
+        it('test correct content loaded on the page, no codicils, no alias, single executor', (done) => {
             const sessionData = {
                 executors: {}
             };
@@ -30,6 +31,7 @@ describe('documents-page', () => {
                         'checklist2-item2',
                         'checklist3-item1-codicils',
                         'checklist3-item3',
+                        'checklist3-item5-deedPoll',
                         'coverLetter-codicils',
                         'checkboxLabel-codicils',
                         'checklist3-item4-Form205'
@@ -38,7 +40,7 @@ describe('documents-page', () => {
                 });
         });
 
-        it('test correct content loaded on the page, no codicils, multiple executors', (done) => {
+        it('test correct content loaded on the page, no codicils, no alias, multiple executors', (done) => {
             const sessionData = {
                 executors: {
                     list: [
@@ -55,6 +57,7 @@ describe('documents-page', () => {
                         'checklist2-item2',
                         'checklist3-item1-codicils',
                         'checklist3-item3',
+                        'checklist3-item5-deedPoll',
                         'coverLetter-codicils',
                         'checkboxLabel-codicils',
                         'checklist3-item4-Form205'
@@ -63,7 +66,7 @@ describe('documents-page', () => {
                 });
         });
 
-        it('test correct content loaded on the page, no codicils, multiple executors with optionRenunciated', (done) => {
+        it('test correct content loaded on the page, no codicils, multiple executors, no alias, with optionRenunciated', (done) => {
             const sessionData = {
                 executors: {
                     executorsNumber: 2,
@@ -82,6 +85,7 @@ describe('documents-page', () => {
                         'checklist2-item1',
                         'checklist2-item2',
                         'checklist3-item1-codicils',
+                        'checklist3-item5-deedPoll',
                         'coverLetter-codicils',
                         'checkboxLabel-codicils',
                         'checklist3-item4-Form205'
@@ -93,7 +97,7 @@ describe('documents-page', () => {
                 });
         });
 
-        it('test correct content loaded on the page, has codicils, single executor', (done) => {
+        it('test correct content loaded on the page, has codicils, no alias, single executor', (done) => {
             const sessionData = {
                 will: {
                     codicilsNumber: '1'
@@ -109,6 +113,7 @@ describe('documents-page', () => {
                         'checklist2-item2',
                         'checklist3-item1',
                         'checklist3-item3',
+                        'checklist3-item5-deedPoll',
                         'coverLetter',
                         'checkboxLabel',
                         'checklist3-item4-Form205'
@@ -120,7 +125,7 @@ describe('documents-page', () => {
                 });
         });
 
-        it('test correct content loaded on the page, has codicils, multiple executors', (done) => {
+        it('test correct content loaded on the page, has codicils, no alias, multiple executors', (done) => {
             const sessionData = {
                 will: {
                     codicilsNumber: '1'
@@ -140,7 +145,8 @@ describe('documents-page', () => {
                         'checklist3-item3',
                         'coverLetter',
                         'checkboxLabel',
-                        'checklist3-item4-Form205'
+                        'checklist3-item4-Form205',
+                        'checklist3-item5-deedPoll'
                     ];
                     const contentData = {
                         codicilsNumber: 1
@@ -149,7 +155,7 @@ describe('documents-page', () => {
                 });
         });
 
-        it('test correct content loaded on the page, no codicils, single executor, specified registry address', (done) => {
+        it('test correct content loaded on the page, no codicils, single executor, no alias, specified registry address', (done) => {
             const sessionData = {
                 executors: {},
                 registry: {
@@ -166,6 +172,7 @@ describe('documents-page', () => {
                         'checklist2-item2',
                         'checklist3-item1-codicils',
                         'checklist3-item3',
+                        'checklist3-item5-deedPoll',
                         'coverLetter-codicils',
                         'checkboxLabel-codicils',
                         'sendDocumentsAddress',
@@ -175,7 +182,7 @@ describe('documents-page', () => {
                 });
         });
 
-        it('test correct content loaded on the page, no codicils, single executor, online IHT', (done) => {
+        it('test correct content loaded on the page, no codicils, single executor, no alias, online IHT', (done) => {
             const sessionData = {
                 executors: {},
                 iht: {method: ihtContent.onlineOption}
@@ -190,6 +197,7 @@ describe('documents-page', () => {
                         'checklist2-item2',
                         'checklist3-item1-codicils',
                         'checklist3-item3',
+                        'checklist3-item5-deedPoll',
                         'coverLetter-codicils',
                         'checkboxLabel-codicils',
                         'checklist3-item4-Form205'
@@ -198,7 +206,7 @@ describe('documents-page', () => {
                 });
         });
 
-        it('test correct content loaded on the page, no codicils, single executor, paper IHT, 207 or 400', (done) => {
+        it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 207 or 400', (done) => {
             const sessionData = {
                 executors: {},
                 iht: {
@@ -216,6 +224,7 @@ describe('documents-page', () => {
                         'checklist2-item2',
                         'checklist3-item1-codicils',
                         'checklist3-item3',
+                        'checklist3-item5-deedPoll',
                         'coverLetter-codicils',
                         'checkboxLabel-codicils',
                         'checklist3-item4-Form205'
@@ -224,7 +233,7 @@ describe('documents-page', () => {
                 });
         });
 
-        it('test correct content loaded on the page, no codicils, single executor, paper IHT, 205', (done) => {
+        it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 205', (done) => {
             const sessionData = {
                 executors: {},
                 iht: {
@@ -242,12 +251,112 @@ describe('documents-page', () => {
                         'checklist2-item2',
                         'checklist3-item1-codicils',
                         'checklist3-item3',
+                        'checklist3-item5-deedPoll',
                         'coverLetter-codicils',
                         'checkboxLabel-codicils'
                     ];
                     testWrapper.testContent(done, excludeKeys);
                 });
         });
+
+        it('test correct content loaded on the page when only one executor name changed by deed poll', (done) => {
+            const sessionData = {
+                executors: {
+                    list: [
+                        {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Marriage'},
+                        {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'Change by deed poll'},
+                        {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'Divorce'}
+                    ]
+                }
+            };
+            const contentData = {executorCurrentName: 'eddie jones'};
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const excludeKeys = [
+                        'checklist1-item2',
+                        'checklist2Header',
+                        'checklist2-item1',
+                        'checklist2-item2',
+                        'checklist3-item1-codicils',
+                        'checklist3-item3',
+                        'coverLetter-codicils',
+                        'checkboxLabel-codicils',
+                        'checklist3-item4-Form205'
+                    ];
+                    testWrapper.testContent(done, excludeKeys, contentData);
+                });
+        });
+
+        it('test correct content loaded on the page when multiple executor name changed by deed poll', (done) => {
+            const sessionData = {
+                executors: {
+                    list: [
+                        {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Change by deed poll'},
+                        {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'Change by deed poll'},
+                        {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'other', otherReason: 'Did not like my name'}
+                    ]
+                }
+            };
+            const contentData = {
+                executorCurrentName: [
+                    'jimbo fisher',
+                    'eddie jones'
+                ]
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const excludeKeys = [
+                        'checklist1-item2',
+                        'checklist2Header',
+                        'checklist2-item1',
+                        'checklist2-item2',
+                        'checklist3-item1-codicils',
+                        'checklist3-item3',
+                        'coverLetter-codicils',
+                        'checkboxLabel-codicils',
+                        'checklist3-item4-Form205'
+                    ];
+                    testWrapper.testContent(done, excludeKeys, contentData);
+                });
+        });
+
+        it('test correct content loaded on the page when all executors name changed by deed poll', (done) => {
+            const sessionData = {
+                executors: {
+                    list: [
+                        {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Change by deed poll'},
+                        {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'Change by deed poll'},
+                        {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'Change by deed poll'}
+                    ]
+                }
+            };
+            const contentData = {
+                executorCurrentName: [
+                    'jimbo fisher',
+                    'eddie jones',
+                    'bobbie houston'
+                ]
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const excludeKeys = [
+                        'checklist1-item2',
+                        'checklist2Header',
+                        'checklist2-item1',
+                        'checklist2-item2',
+                        'checklist3-item1-codicils',
+                        'checklist3-item3',
+                        'coverLetter-codicils',
+                        'checkboxLabel-codicils',
+                        'checklist3-item4-Form205'
+                    ];
+                    testWrapper.testContent(done, excludeKeys, contentData);
+                });
+        });
+
         it('test errors message displayed for missing data', (done) => {
             testWrapper.testErrors(done, {}, 'required', ['sentDocuments']);
         });

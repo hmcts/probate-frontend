@@ -24,6 +24,12 @@
 {% set checklistThreeItems = (checklistThreeItems.push(content["checklist3-item4-Form205"]), checklistThreeItems) %}
 {% endif %}
 
+{% if fields.executorsNameChangedByDeedPollList.value | length > 0 %}
+{% for executor in fields.executorsNameChangedByDeedPollList.value %}
+{% set checklistThreeItems = (checklistThreeItems.push(content["checklist3-item5-deedPoll"] | replace('{executorCurrentName}', executor)), checklistThreeItems) %}
+{% endfor %}
+{% endif %}
+
 {% block question %}
     <h1 class="form-title heading-large">{{content.header}}</h1>
 {% endblock %}
@@ -34,13 +40,13 @@
 
     <h2 class="heading-medium">{{ content.heading2 | safe }}</h2>
 
-    <h3 class="heading-small">{{ content.checklist1Header | safe }}</h2>
+    <h3 class="heading-small">{{ content.checklist1Header | safe }}</h3>
 
     {{ unorderedList(checklistOneItems) }}
 
     {% if fields.hasMultipleApplicants.value === "true" %}
 
-        <h3 class="heading-small">{{ content.checklist2Header | safe }}</h2>
+        <h3 class="heading-small">{{ content.checklist2Header | safe }}</h3>
 
         {{ unorderedList(checklistTwoItems) }}
 
@@ -48,7 +54,7 @@
 
     {% endif %}
 
-    <h3 class="heading-small">{{ checklistThreeHeaderNumber }} {{ content.checklist3Header | safe }}</h2>
+    <h3 class="heading-small">{{ checklistThreeHeaderNumber }} {{ content.checklist3Header | safe }}</h3>
 
     {{ unorderedList(checklistThreeItems) }}
 

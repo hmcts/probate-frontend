@@ -487,4 +487,72 @@ describe('Executors.js', () => {
             done();
         });
     });
+
+    describe('executorsNameChangedByDeedPoll()', () => {
+        it('should return only the lead applicant', (done) => {
+            const data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Change by deed poll'},
+                    {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'Marriage'},
+                    {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'Divorce'}
+                ]
+            };
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.executorsNameChangedByDeedPoll()).to.deep.equal(['jimbo fisher']);
+            done();
+        });
+
+        it('should return only one other executor who has name changed by deed poll', (done) => {
+            const data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Divorce'},
+                    {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'Change by deed poll'},
+                    {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'Marriage'}
+                ]
+            };
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.executorsNameChangedByDeedPoll()).to.deep.equal(['eddie jones']);
+            done();
+        });
+
+        it('should return a list of multiple executor aliases for those who gave reason for name change as deed poll', (done) => {
+            const data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Divorce'},
+                    {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'Change by deed poll'},
+                    {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'Change by deed poll'}
+                ]
+            };
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.executorsNameChangedByDeedPoll()).to.deep.equal([
+                'eddie jones',
+                'bobbie houston'
+            ]);
+            done();
+        });
+
+        describe('should return an empty list', () => {
+            it('when no executors have given deed poll as their reason for name change', (done) => {
+                const data = {
+                    list: [
+                        {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Divorce'},
+                        {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'Marriage'},
+                        {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'other', otherReason: 'Did not like my name'}
+                    ]
+                };
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsNameChangedByDeedPoll()).to.deep.equal([]);
+                done();
+            });
+
+            it('when the executors list is empty', (done) => {
+                const data = {
+                    list: []
+                };
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorsNameChangedByDeedPoll()).to.deep.equal([]);
+                done();
+            });
+        });
+    });
 });

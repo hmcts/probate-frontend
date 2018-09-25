@@ -20,6 +20,7 @@ module.exports = class Documents extends ValidationStep {
         ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
         ctx.hasRenunciated = executorsWrapper.hasRenunciated();
         ctx.is205 = formdata.iht && (formdata.iht.method === ihtContent.paperOption) && formdata.iht.form === '205';
+        ctx.executorsNameChangedByDeedPollList = executorsWrapper.executorsNameChangedByDeedPoll();
 
         return [ctx];
     }

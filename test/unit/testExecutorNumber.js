@@ -13,7 +13,10 @@ describe('ExecutorNumber', () => {
             formdata = {
                 applicant: {
                     'firstName': 'Dave',
-                    'lastName': 'Bassett'
+                    'lastName': 'Bassett',
+                    'alias': 'David James',
+                    'aliasReason': 'Divorce',
+                    'otherReason': ''
                 },
                 executors: {
                     list: [
@@ -39,6 +42,9 @@ describe('ExecutorNumber', () => {
             expect(ctx.list).to.deep.equal([{
                 'firstName': 'Dave',
                 'lastName': 'Bassett',
+                'alias': 'David James',
+                'aliasReason': 'Divorce',
+                'otherReason': '',
                 'isApplying': true,
                 'isApplicant': true
             }]);
@@ -52,6 +58,9 @@ describe('ExecutorNumber', () => {
                 {
                     'firstName': 'Dave',
                     'lastName': 'Bassett',
+                    'alias': 'David James',
+                    'aliasReason': 'Divorce',
+                    'otherReason': '',
                     'isApplying': true,
                     'isApplicant': true
                 }, {
@@ -70,6 +79,9 @@ describe('ExecutorNumber', () => {
                 {
                     'firstName': 'Dave',
                     'lastName': 'Bassett',
+                    'alias': 'David James',
+                    'aliasReason': 'Divorce',
+                    'otherReason': '',
                     'isApplying': true,
                     'isApplicant': true
                 }, {

@@ -46,6 +46,7 @@ router.get('/new-start-eligibility', (req, res, next) => {
         callback: featureToggle.togglePage
     });
 });
+
 router.get('/new-will-left', (req, res, next) => {
     featureToggle.checkToggle({
         req: req,
@@ -56,6 +57,7 @@ router.get('/new-will-left', (req, res, next) => {
         callback: featureToggle.togglePage
     });
 });
+
 router.get('/new-will-original', (req, res, next) => {
     featureToggle.checkToggle({
         req: req,
@@ -66,6 +68,7 @@ router.get('/new-will-original', (req, res, next) => {
         callback: featureToggle.togglePage
     });
 });
+
 router.get('/new-death-certificate', (req, res, next) => {
     featureToggle.checkToggle({
         req: req,
@@ -76,6 +79,7 @@ router.get('/new-death-certificate', (req, res, next) => {
         callback: featureToggle.togglePage
     });
 });
+
 router.get('/new-deceased-domicile', (req, res, next) => {
     featureToggle.checkToggle({
         req: req,
@@ -86,6 +90,7 @@ router.get('/new-deceased-domicile', (req, res, next) => {
         callback: featureToggle.togglePage
     });
 });
+
 router.get('/new-applicant-executor', (req, res, next) => {
     featureToggle.checkToggle({
         req: req,
@@ -96,6 +101,7 @@ router.get('/new-applicant-executor', (req, res, next) => {
         callback: featureToggle.togglePage
     });
 });
+
 router.get('/new-mental-capacity', (req, res, next) => {
     featureToggle.checkToggle({
         req: req,
@@ -106,6 +112,7 @@ router.get('/new-mental-capacity', (req, res, next) => {
         callback: featureToggle.togglePage
     });
 });
+
 router.get('/new-iht-completed', (req, res, next) => {
     featureToggle.checkToggle({
         req: req,
@@ -116,6 +123,7 @@ router.get('/new-iht-completed', (req, res, next) => {
         callback: featureToggle.togglePage
     });
 });
+
 router.get('/new-start-apply', (req, res, next) => {
     featureToggle.checkToggle({
         req: req,
@@ -155,6 +163,17 @@ router.get('/executor-current-name-reason/:index', (req, res, next) => {
         next: next,
         redirectPage: `/executor-current-name/${index}`,
         featureToggleKey: 'main_applicant_alias',
+        callback: featureToggle.togglePage
+    });
+});
+
+router.get('/document-upload', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        redirectPage: 'tasklist',
+        featureToggleKey: 'document_upload',
         callback: featureToggle.togglePage
     });
 });

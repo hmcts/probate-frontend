@@ -19,10 +19,11 @@ const SERVICE_AUTHORISATION_URL = `${config.services.idam.s2s_url}/lease`;
 const serviceName = config.services.idam.service_name;
 const secret = config.services.idam.service_key;
 const FEATURE_TOGGLE_URL = config.featureToggles.url;
-const logger = require('app/components/logger')('Init');
+const logger = require('app/components/logger');
+const logInfo = (message, sessionId = 'Init') => logger(sessionId).info(message);
 
 const getUserDetails = (securityCookie) => {
-    logger.info('getUserDetails');
+    logInfo('getUserDetails');
     const url = `${IDAM_SERVICE_URL}/details`;
     const headers = {
         'Content-Type': 'application/json',
@@ -33,7 +34,7 @@ const getUserDetails = (securityCookie) => {
 };
 
 const findAddress = (postcode) => {
-    logger.info('findAddress');
+    logInfo('findAddress');
     const url = `${POSTCODE_SERVICE_URL}?postcode=${encodeURIComponent(postcode)}`;
     const headers = {
         'Content-Type': 'application/json',
@@ -44,7 +45,7 @@ const findAddress = (postcode) => {
 };
 
 const featureToggle = (featureToggleKey) => {
-    logger.info('featureToggle');
+    logInfo('featureToggle');
     const url = `${FEATURE_TOGGLE_URL}${config.featureToggles.path}/${featureToggleKey}`;
     const headers = {
         'Content-Type': 'application/json'
@@ -54,7 +55,7 @@ const featureToggle = (featureToggleKey) => {
 };
 
 const validateFormData = (data, sessionID) => {
-    logger.info('validateFormData');
+    logInfo('validateFormData');
     const headers = {
         'Content-Type': 'application/json',
         'Session-Id': sessionID
@@ -64,7 +65,7 @@ const validateFormData = (data, sessionID) => {
 };
 
 const sendToSubmitService = (data, ctx, softStop) => {
-    logger.info('sendToSubmitService');
+    logInfo('sendToSubmitService');
     const headers = {
         'Content-Type': 'application/json',
         'Session-Id': ctx.sessionID,
@@ -92,18 +93,18 @@ const updateCcdCasePaymentStatus = (data, ctx) => {
 };
 
 const loadFormData = (id, sessionID) => {
-    logger.info('loadFormData');
+    logInfo('loadFormData');
     const headers = {
         'Content-Type': 'application/json',
         'Session-Id': sessionID
     };
     const fetchOptions = utils.fetchOptions({}, 'GET', headers);
-    logger.info(`loadFormData url: ${PERSISTENCE_SERVICE_URL}/${id}`);
+    logInfo(`loadFormData url: ${PERSISTENCE_SERVICE_URL}/${id}`);
     return utils.fetchJson(`${PERSISTENCE_SERVICE_URL}/${id}`, fetchOptions);
 };
 
 const saveFormData = (id, data, sessionID) => {
-    logger.info('saveFormData');
+    logInfo('saveFormData');
     const headers = {
         'Content-Type': 'application/json',
         'Session-Id': sessionID
@@ -118,7 +119,7 @@ const saveFormData = (id, data, sessionID) => {
 };
 
 const createPayment = (data, hostname) => {
-    logger.info('createPayment');
+    logInfo('createPayment');
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': data.authToken,
@@ -131,7 +132,7 @@ const createPayment = (data, hostname) => {
 };
 
 const findPayment = (data) => {
-    logger.info('findPayment');
+    logInfo('findPayment');
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': data.authToken,
@@ -144,14 +145,14 @@ const findPayment = (data) => {
 };
 
 const findInviteLink = (inviteId) => {
-    logger.info('find invite link');
+    logInfo('find invite link');
     const findInviteLinkUrl = FormatUrl.format(PERSISTENCE_SERVICE_URL, `/invitedata/${inviteId}`);
     const fetchOptions = utils.fetchOptions({}, 'GET', {});
     return utils.fetchJson(findInviteLinkUrl, fetchOptions);
 };
 
 const updateInviteData = (inviteId, data) => {
-    logger.info('update invite');
+    logInfo('update invite');
     const findInviteLinkUrl = FormatUrl.format(PERSISTENCE_SERVICE_URL, `/invitedata/${inviteId}`);
     const headers = {
         'Content-Type': 'application/json'
@@ -161,7 +162,7 @@ const updateInviteData = (inviteId, data) => {
 };
 
 const sendInvite = (data, sessionID, exec) => {
-    logger.info('send invite');
+    logInfo('send invite');
     const urlParameter = exec.inviteId ? `/${exec.inviteId}` : '';
     const sendInviteUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/invite${urlParameter}`);
     const headers = {'Content-Type': 'application/json', 'Session-Id': sessionID};
@@ -170,14 +171,14 @@ const sendInvite = (data, sessionID, exec) => {
 };
 
 const checkAllAgreed = (formdataId) => {
-    logger.info('check all agreed');
+    logInfo('check all agreed');
     const allAgreedUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/invites/allAgreed/${formdataId}`);
     const fetchOptions = utils.fetchOptions({}, 'GET', {});
     return utils.fetchText(allAgreedUrl, fetchOptions);
 };
 
 const sendPin = (phoneNumber, sessionID) => {
-    logger.info('send pin');
+    logInfo('send pin');
     phoneNumber = encodeURIComponent(phoneNumber);
     const pinServiceUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `/pin?phoneNumber=${phoneNumber}`);
     const fetchOptions = utils.fetchOptions({}, 'GET', {'Content-Type': 'application/json', 'Session-Id': sessionID});
@@ -185,7 +186,7 @@ const sendPin = (phoneNumber, sessionID) => {
 };
 
 const authorise = () => {
-    logger.info('authorise');
+    logInfo('authorise');
     const headers = {
         'Content-Type': 'application/json'
     };
@@ -198,7 +199,7 @@ const authorise = () => {
 };
 
 const getOauth2Token = (code, redirectUri) => {
-    logger.info('calling oauth2 token');
+    logInfo('calling oauth2 token');
     const clientName = config.services.idam.probate_oauth2_client;
     const secret = config.services.idam.probate_oauth2_secret;
     const idam_api_url = config.services.idam.apiUrl;
@@ -222,14 +223,14 @@ const getOauth2Token = (code, redirectUri) => {
 };
 
 const removeExecutor = (inviteId) => {
-    logger.info('Removing executor from invitedata table');
+    logInfo('Removing executor from invitedata table');
     const removeExecutorUrl = FormatUrl.format(PERSISTENCE_SERVICE_URL, `/invitedata/${inviteId}`);
     const fetchOptions = utils.fetchOptions({}, 'DELETE', {});
     return utils.fetchText(removeExecutorUrl, fetchOptions);
 };
 
 const updateContactDetails = (inviteId, data) => {
-    logger.info('Update Contact Details');
+    logInfo('Update Contact Details');
     const findInviteUrl = FormatUrl.format(PERSISTENCE_SERVICE_URL, `/invitedata/${inviteId}`);
     const headers = {
         'Content-Type': 'application/json'
@@ -239,13 +240,18 @@ const updateContactDetails = (inviteId, data) => {
 };
 
 const signOut = (access_token) => {
-    logger.info('signing out of IDAM');
+    logInfo('signing out of IDAM');
     const clientName = config.services.idam.probate_oauth2_client;
     const headers = {
         'Authorization': `Basic ${new Buffer(`${clientName}:${secret}`).toString('base64')}`,
     };
     const fetchOptions = utils.fetchOptions({}, 'DELETE', headers);
     return utils.fetchJson(`${IDAM_SERVICE_URL}/session/${access_token}`, fetchOptions);
+};
+
+const uploadDocument = (sessionId) => {
+    logInfo('Uploading document', sessionId);
+    return true;
 };
 
 module.exports = {
@@ -268,5 +274,6 @@ module.exports = {
     updateContactDetails,
     removeExecutor,
     checkAllAgreed,
-    signOut
+    signOut,
+    uploadDocument
 };

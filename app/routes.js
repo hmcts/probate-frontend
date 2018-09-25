@@ -84,6 +84,11 @@ router.use((req, res, next) => {
 
 router.use(featureToggles);
 
+router.post('/upload-document', (req, res) => {
+    services.uploadDocument(req.session.id);
+    res.send('File uploaded successfully');
+});
+
 router.use((req, res, next) => {
     res.locals.session = req.session;
     res.locals.pageUrl = req.url;

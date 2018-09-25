@@ -38,5 +38,11 @@
   "contactTelLabel" : "Phone: {helpLineNumber}",
   "contactOpeningTimes" : "({openingTimes})",
   "helpEmailLabel" : "Email:",
-  "contactEmailAddress" : "<a href=\"mailto:oxforddprenquiries@hmcts.gsi.gov.uk\">oxforddprenquiries@hmcts.gsi.gov.uk</a>"
+  "contactEmailAddress" : "<a href=\"mailto:oxforddprenquiries@hmcts.gsi.gov.uk\">oxforddprenquiries@hmcts.gsi.gov.uk</a>",
+  "documentUploadChooseFile": "Choose a file or take a photo",
+  "or": "or",
+  "documentUploadDragAndDrop": "drag and drop files here",
+  "documentUploadPreviewTitle": "Uploaded files",
+  "documentUploadNoFilesUploaded": "No files uploaded",
+  "documentUploadRemoveFile": "Remove"
 }

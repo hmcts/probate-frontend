@@ -111,13 +111,26 @@ module.exports = class TestWrapper {
         Object.entries(contentToSubstitute)
             .forEach(([key, contentValue]) => {
                 contentValue = contentValue.replace(/\n/g, '<br />\n');
-                forEach(contentValue.match(/\{(.*?)\}/g), (placeholder) => {
-                    const placeholderRegex = new RegExp(placeholder, 'g');
-                    placeholder = placeholder.replace(/[{}]/g, '');
-                    contentValue = contentValue.replace(placeholderRegex, data[placeholder]);
-                });
-                contentToSubstitute[key] = contentValue;
+                if (contentValue.match(/\{(.*?)\}/g)) {
+                    forEach(contentValue.match(/\{(.*?)\}/g), (placeholder) => {
+                        const placeholderRegex = new RegExp(placeholder, 'g');
+                        placeholder = placeholder.replace(/[{}]/g, '');
+                        if (Array.isArray(data[placeholder])) {
+                            forEach(data[placeholder], (contentData) => {
+                                const contentValueReplace = contentValue.replace(placeholderRegex, contentData);
+                                contentToSubstitute.push(contentValueReplace);
+                            });
+                            contentToSubstitute[key] = 'undefined';
+                        } else {
+                            contentValue = contentValue.replace(placeholderRegex, data[placeholder]);
+                            contentToSubstitute[key] = contentValue;
+                        }
+                    });
+                } else {
+                    contentToSubstitute[key] = contentValue;
+                }
             });
+        return contentToSubstitute.filter(content => content !== 'undefined');
     }
 
     substituteErrorsContent(data, contentToSubstitute, type) {

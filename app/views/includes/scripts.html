@@ -15,6 +15,12 @@
     <script src="/public/javascripts/ga-tracking.js"></script>
 {% endif %}
 
+<script src="/public/javascripts/dropzone.js"></script>
+<script nonce="{{nonce}}">
+    var csrfToken = "{{csrfToken}}";
+    var documentUploadRemoveFileText = "{{common.documentUploadRemoveFile}}";
+</script>
+<script src="/public/javascripts/document-upload.js"></script>
 
 <!--[if lte IE 9]>
 <script src="/public/javascripts/form-polyfill.js"></script>

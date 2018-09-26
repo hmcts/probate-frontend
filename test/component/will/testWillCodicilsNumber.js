@@ -1,5 +1,8 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const DeathCertificate = require('app/steps/ui/deceased/deathcertificate/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('codicils-number', () => {
     let testWrapper;
@@ -14,6 +17,9 @@ describe('codicils-number', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
+
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);
         });

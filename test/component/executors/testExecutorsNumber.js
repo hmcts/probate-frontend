@@ -1,6 +1,9 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedName = require('app/steps/ui/deceased/name/index');
 const ExecutorsNames = require('app/steps/ui/executors/names/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-number', () => {
     let testWrapper;
@@ -16,6 +19,8 @@ describe('executors-number', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);

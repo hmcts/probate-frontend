@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const sessionData = require('test/data/complete-form').formdata;
 const singleApplicantData = require('test/data/singleApplicant');

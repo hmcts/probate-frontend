@@ -1,7 +1,10 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedName = require('app/steps/ui/deceased/name/index');
 const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails/index');
 const ExecutorRoles = require('app/steps/ui/executors/roles/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-address', () => {
     let testWrapper, sessionData;
@@ -31,6 +34,9 @@ describe('executors-address', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
+
         it('test correct content is loaded on the page', (done) => {
             const excludeKeys = ['selectAddress'];
 

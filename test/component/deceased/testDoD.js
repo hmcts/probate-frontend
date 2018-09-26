@@ -1,5 +1,8 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    DeceasedDob = require('app/steps/ui/deceased/dob/index');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const DeceasedDob = require('app/steps/ui/deceased/dob/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('deceased-dod', () => {
     let testWrapper;
@@ -14,6 +17,8 @@ describe('deceased-dod', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test right content loaded on the page', (done) => {
 

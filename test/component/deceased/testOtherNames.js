@@ -1,8 +1,11 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const {set} = require('lodash');
 const DeceasedMarried = require('app/steps/ui/deceased/married/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
-    describe('deceased-otherNames', () => {
+describe('deceased-otherNames', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForDeceasedMarried = DeceasedMarried.getUrl();
 
@@ -16,6 +19,8 @@ const DeceasedMarried = require('app/steps/ui/deceased/married/index');
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test right content loaded on the page', (done) => {
 

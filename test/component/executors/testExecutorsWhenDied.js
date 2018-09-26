@@ -1,4 +1,5 @@
 'use strict';
+
 const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
 const TestWrapper = require('test/util/TestWrapper');
@@ -6,6 +7,7 @@ const ExecutorsWhenDied = require('app/steps/ui/executors/whendied/index');
 const DeceasedName = require('app/steps/ui/deceased/name/index');
 const ExecutorsApplying = require('app/steps/ui/executors/applying/index');
 const contentData = {executorFullName: 'many clouds'};
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-when-died', () => {
     let testWrapper, sessionData;
@@ -56,6 +58,9 @@ describe('executors-when-died', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
+
         it('test content loaded on the page', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')

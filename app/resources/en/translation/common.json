@@ -32,5 +32,11 @@
   "second" : "Second",
   "third" : "Third",
   "fourth" : "Fourth",
-  "fifth" : "Fifth"
+  "fifth" : "Fifth",
+  "helpTitle" : "Do you need help?",
+  "helpText" : "You can call or email us if you&rsquo;re having problems with this service.",
+  "contactTelLabel" : "Phone: {helpLineNumber}",
+  "contactOpeningTimes" : "({openingTimes})",
+  "helpEmailLabel" : "Email:",
+  "contactEmailAddress" : "<a href=\"mailto:oxforddprenquiries@hmcts.gsi.gov.uk\">oxforddprenquiries@hmcts.gsi.gov.uk</a>"
 }

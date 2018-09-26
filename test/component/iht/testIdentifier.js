@@ -1,6 +1,8 @@
 'use strict';
-const TestWrapper = require('test/util/TestWrapper'),
-    IhtValue = require('app/steps/ui/iht/value/index');
+
+const TestWrapper = require('test/util/TestWrapper');
+const IhtValue = require('app/steps/ui/iht/value/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('iht-identifier', () => {
     let testWrapper;
@@ -15,6 +17,8 @@ describe('iht-identifier', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test correct iht identifier page content is loaded', (done) => {
             const contentToExclude = [];

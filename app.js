@@ -235,7 +235,7 @@ exports.init = function() {
 
     app.all('*', (req, res) => {
         logger(req.sessionID).error(`Unhandled request ${req.url}`);
-        res.status(404).render('errors/404');
+        res.status(404).render('errors/404', {common: commonContent});
     });
 
     app.use((err, req, res, next) => {

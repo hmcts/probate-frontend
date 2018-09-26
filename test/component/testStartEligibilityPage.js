@@ -1,5 +1,7 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    StartApply = require('app/steps/ui/startapply/index');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const StartApply = require('app/steps/ui/startapply/index');
 
 describe('startEligibility', () => {
     let testWrapper;

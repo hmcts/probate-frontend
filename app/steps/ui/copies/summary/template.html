@@ -3,7 +3,6 @@
 {% extends "includes/layout.html" %}
 
 {% block content %}
-
 <main id="content" role="main">
     {% from "widgets/checkanswer.html" import checkanswer %}
 
@@ -20,7 +19,7 @@
             items = [
                 {
                     question: content.CopiesUk.question,
-                    answer: fields.copies.uk.value, 
+                    answer: fields.copies.uk.value,
                     visible: true
                 }],
             url = content.CopiesUk.url,
@@ -31,23 +30,25 @@
             items = [
                 {
                     question: content.AssetsOverseas.question,
-                    answer: fields.assets.assetsoverseas.value, 
+                    answer: fields.assets.assetsoverseas.value,
                     visible: true
                 },
                 {
                     question: content.CopiesOverseas.question,
-                    answer: fields.copies.overseas.value, 
+                    answer: fields.copies.overseas.value,
                     visible: fields.assets.assetsoverseas.value == content.AssetsOverseas.optionYes
                 }],
             url = content.AssetsOverseas.url,
             common = common,
             alreadyDeclared = 'false'
-        )}}            
+        )}}
     </dl>
-    
+
     <div class="form-group">
         <p><a href="/tasklist" class="button button-start">{{common.continue}}</a></p>
     </div>
+
+    {% include "includes/help_details.html" %}
 </main>
 
 {% endblock %}

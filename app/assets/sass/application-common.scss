@@ -91,13 +91,13 @@ li.task-item {
 // Helper CSS start
 
 .word-wrap {
-    word-wrap: break-word;
+  word-wrap: break-word;
 }
 
 // Prevent any item from being a link (e.g. numbers rendered on a cellular device)
 .no-link {
-    pointer-events: none;
-    text-decoration: none;
+  pointer-events: none;
+  text-decoration: none;
 }
 
 // Helper CSS end
@@ -116,6 +116,10 @@ li.task-item {
   &.co-applicant {
     margin-top: 50px;
   }
+}
+
+span.summary {
+  font-size: 16px;
 }
 
 .inset-page {
@@ -139,11 +143,15 @@ div.declaration-header {
   margin-top: 4px;
   float: right;
   color: $white;
-  text-decoration: none; }
+  text-decoration: none;
+}
+
   @include media(tablet) {
     #global-header .header-proposition #sign-out-header {
       @include bold-19;
-      margin-top: 2px; } }
+      margin-top: 2px;
+    }
+  }
 
 #global-header .header-proposition a#sign-out-header:hover {
   text-decoration: underline;
@@ -163,3 +171,6 @@ div.declaration-header {
     }
 }
 
+.help-panel {
+  margin-top: 50px;
+}

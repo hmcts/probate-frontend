@@ -1,5 +1,8 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorAddress = require('app/steps/ui/executors/address/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-contact-details', () => {
     let testWrapper, sessionData;
@@ -27,6 +30,9 @@ describe('executors-contact-details', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
+
         it('test correct content is loaded on the page', (done) => {
             const excludeKeys = [];
 

@@ -1,10 +1,12 @@
 'use strict';
+
 const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorNotified = require('app/steps/ui/executors/notified/index');
 const DeceasedName = require('app/steps/ui/deceased/name/index');
 const executorRolesContent = require('app/resources/en/translation/executors/executorcontent');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executor-roles', () => {
     const expectedNextUrlForDeceasedName = DeceasedName.getUrl();
@@ -41,6 +43,9 @@ describe('executor-roles', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
+
         it('test correct content is loaded on executor applying page', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

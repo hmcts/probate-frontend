@@ -1,4 +1,7 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('payment-breakdown', () => {
     let testWrapper;
@@ -12,6 +15,8 @@ describe('payment-breakdown', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test content loaded on the page with no extra copies', (done) => {
             const contentToExclude = ['extraCopiesFeeUk', 'extraCopiesFeeJersey', 'extraCopiesFeeOverseas'];

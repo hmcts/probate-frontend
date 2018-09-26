@@ -1,6 +1,9 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    IhtMethod = require('app/steps/ui/iht/method/index'),
-    StopPage = require('app/steps/ui/stoppage/index');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const IhtMethod = require('app/steps/ui/iht/method/index');
+const StopPage = require('app/steps/ui/stoppage/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('iht-completed', () => {
     let testWrapper;
@@ -16,6 +19,8 @@ describe('iht-completed', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];

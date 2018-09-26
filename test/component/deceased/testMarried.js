@@ -1,5 +1,8 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    DeceasedDod = require('app/steps/ui/deceased/dod/index');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const DeceasedDod = require('app/steps/ui/deceased/dod/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('deceased-married', () => {
     let testWrapper;
@@ -14,6 +17,8 @@ describe('deceased-married', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test correct content is loaded on the page', (done) => {
             const sessionData = {

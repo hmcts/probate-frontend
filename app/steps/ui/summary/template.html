@@ -3,7 +3,6 @@
 {% extends "includes/layout.html" %}
 
 {% block content %}
-
 <main id="content" role="main">
     {% from "widgets/checkanswer.html" import checkanswer %}
 
@@ -44,6 +43,7 @@
         <p><a href="/summary/redirect" class="button button-start">{{common.continue}}</a></p>
         {% endif %}
     </div>
-</main>
 
+    {% include "includes/help_details.html" %}
+</main>
 {% endblock %}

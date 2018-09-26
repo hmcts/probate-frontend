@@ -1,5 +1,8 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsAllAlive = require('app/steps/ui/executors/allalive/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-names', () => {
     let testWrapper, sessionData;
@@ -25,6 +28,8 @@ describe('executors-names', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test content loaded on the page', (done) => {
             testWrapper.agent.post('/prepare-session/form')

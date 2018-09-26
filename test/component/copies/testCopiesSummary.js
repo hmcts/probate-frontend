@@ -1,8 +1,10 @@
-const TestWrapper = require('test/util/TestWrapper'),
-      requireDir = require('require-directory'),
-      TaskList = require('app/steps/ui/tasklist/index'),
-      copieContent = requireDir(module, '../../../app/resources/en/translation/copies'),
-      assetsContent = requireDir(module, '../../../app/resources/en/translation/assets');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const requireDir = require('require-directory');
+const TaskList = require('app/steps/ui/tasklist/index');
+const copiesContent = requireDir(module, '../../../app/resources/en/translation/copies');
+const assetsContent = requireDir(module, '../../../app/resources/en/translation/assets');
 
 describe('copies-summary', () => {
     let testWrapper;
@@ -21,7 +23,7 @@ describe('copies-summary', () => {
         it('test correct content loaded on the copies summary page, when no data is entered', (done) => {
             const contentToExclude = [];
             const contentData = {};
-            contentData.ukQuestion = copieContent.uk.question;
+            contentData.ukQuestion = copiesContent.uk.question;
             contentData.overseasAssetsQuestion = assetsContent.overseas.question;
 
             testWrapper.testContent(done, contentToExclude, contentData);
@@ -38,9 +40,9 @@ describe('copies-summary', () => {
                     }
                     const contentToExclude = [];
                     const contentData = {};
-                    contentData.ukQuestion = copieContent.uk.question;
+                    contentData.ukQuestion = copiesContent.uk.question;
                     contentData.overseasAssetsQuestion = assetsContent.overseas.question;
-                    contentData.overseasCopiesQuestion = copieContent.overseas.question;
+                    contentData.overseasCopiesQuestion = copiesContent.overseas.question;
 
                     testWrapper.testContent(done, contentToExclude, contentData);
                 });

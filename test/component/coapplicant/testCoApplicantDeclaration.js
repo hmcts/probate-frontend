@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const sinon = require('sinon');
 const when = require('when');
@@ -7,6 +9,7 @@ const sessionData = require('test/data/complete-form-undeclared');
 const CoApplicantAgreePage = require('app/steps/ui/coapplicant/agreepage/index');
 const CoApplicantDisagreePage = require('app/steps/ui/coapplicant/disagreepage/index');
 const commonContent = require('app/resources/en/translation/common');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('co-applicant-declaration', () => {
     let testWrapper, updateInviteDataStub, checkAllAgreedStub;
@@ -28,6 +31,9 @@ describe('co-applicant-declaration', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
+
         it('test right content loaded on the page', (done) => {
             checkAllAgreedStub.returns(Promise.resolve('false'));
             const contentToExclude = [

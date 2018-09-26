@@ -1,7 +1,10 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
 const ThankYou = require('app/steps/ui/thankyou/index.js');
 const ihtContent = require('app/resources/en/translation/iht/method');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('documents-page', () => {
     let testWrapper;
@@ -16,6 +19,9 @@ describe('documents-page', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
+
         it('test correct content loaded on the page, no codicils, single executor', (done) => {
             const sessionData = {
                 executors: {}

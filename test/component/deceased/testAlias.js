@@ -1,6 +1,9 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames/index');
 const DeceasedMarried = require('app/steps/ui/deceased/married/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('deceased-alias', () => {
     let testWrapper;
@@ -16,6 +19,9 @@ describe('deceased-alias', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
+
         it('test right content loaded on the page', (done) => {
             const sessionData = {
                 deceased: {

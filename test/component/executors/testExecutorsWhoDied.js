@@ -1,5 +1,8 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsWhenDied = require('app/steps/ui/executors/whendied/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-who-died', () => {
     let testWrapper, sessionData;
@@ -28,6 +31,8 @@ describe('executors-who-died', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test content loaded on the page', (done) => {
             testWrapper.agent.post('/prepare-session/form')

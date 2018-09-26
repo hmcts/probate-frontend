@@ -1,6 +1,9 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const MentalCapacity = require('app/steps/ui/executors/mentalcapacity/index');
 const StopPage = require('app/steps/ui/stoppage/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('applicant-executor', () => {
     let testWrapper;
@@ -16,6 +19,9 @@ describe('applicant-executor', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
+
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);
         });

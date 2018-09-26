@@ -1,6 +1,9 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    TaskList = require('app/steps/ui/tasklist/index'),
-    sessionData = require('test/data/complete-form-undeclared').formdata;
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const TaskList = require('app/steps/ui/tasklist/index');
+const sessionData = require('test/data/complete-form-undeclared').formdata;
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('payment-status', () => {
     let testWrapper;
@@ -31,6 +34,8 @@ describe('payment-status', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test right content loaded on the page when net value is greater than 5000£', (done) => {
             testWrapper.agent.post('/prepare-session/form')

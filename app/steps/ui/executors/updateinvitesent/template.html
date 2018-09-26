@@ -1,7 +1,9 @@
 {% extends "includes/layout.html" %}
+
 {% block content %}
 <main id="content" role="main">
     {% include "includes/phase_banner_beta.html" %}
+
     <div class="grid-row">
         <div class="column-two-thirds">
             <h1 class="form-title heading-large">{{content.header | safe}}</h1>
@@ -16,5 +18,7 @@
             </div>
         </div>
     </div>
+
+    {% include "includes/help_details.html" %}
 </main>
 {% endblock content %}

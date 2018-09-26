@@ -1,5 +1,8 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-invites-sent', () => {
     let testWrapper;
@@ -14,6 +17,8 @@ describe('executors-invites-sent', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);

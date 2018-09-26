@@ -1,5 +1,7 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    PinPage = require('app/steps/ui/pin/signin/index');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const PinPage = require('app/steps/ui/pin/signin/index');
 const commonContent = require('app/resources/en/translation/common');
 
 describe('pin-sent', () => {

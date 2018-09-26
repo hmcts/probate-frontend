@@ -6,6 +6,7 @@ const services = require('app/components/services');
 const logger = require('app/components/logger')('Init');
 const URL = require('url');
 const UUID = require('uuid/v4');
+const commonContent = require('app/resources/en/translation/common');
 
 const SECURITY_COOKIE = '__auth-token-' + config.payloadVersion;
 const REDIRECT_COOKIE = '__redirect';
@@ -83,7 +84,7 @@ module.exports = class Security {
     _denyAccess(res) {
         res.clearCookie(SECURITY_COOKIE);
         res.status(403);
-        res.render('errors/403');
+        res.render('errors/403', {common: commonContent});
     }
 
     _generateState() {

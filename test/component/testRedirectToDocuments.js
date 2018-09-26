@@ -1,3 +1,5 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const DocumentsPage = require('app/steps/ui/documents/index');
 

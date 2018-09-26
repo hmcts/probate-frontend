@@ -1,6 +1,9 @@
+'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const WillOriginal = require('app/steps/ui/will/original/index');
 const StopPage = require('app/steps/ui/stoppage/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('will-left', () => {
     let testWrapper;
@@ -17,11 +20,7 @@ describe('will-left', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test right content loaded on the page', (done) => {
-            const excludeKeys = [];
-
-            testWrapper.testContent(done, excludeKeys);
-        });
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test errors message displayed for missing data', (done) => {
             const data = {};

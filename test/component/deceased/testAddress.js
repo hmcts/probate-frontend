@@ -1,5 +1,8 @@
-const TestWrapper = require('test/util/TestWrapper'),
-    Summary = require('app/steps/ui/summary/index');
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const Summary = require('app/steps/ui/summary/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('deceased-address', () => {
     let testWrapper;
@@ -14,6 +17,8 @@ describe('deceased-address', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test right content loaded on the page', (done) => {
            const excludeKeys = ['selectAddress'];

@@ -2,6 +2,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ApplicantPhone = require('app/steps/ui/applicant/phone/index');
 const ApplicantAlias = require('app/steps/ui/applicant/alias/index');
+const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('applicant-nameasonwill', () => {
     let testWrapper;
@@ -17,6 +18,8 @@ describe('applicant-nameasonwill', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+
+        testHelpBlockContent.runTest('WillLeft');
 
         it('test correct content is loaded on the page', (done) => {
             const sessionData = {

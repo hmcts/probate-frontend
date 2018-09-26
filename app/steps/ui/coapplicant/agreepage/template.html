@@ -5,20 +5,17 @@
 {% block content %}
 <main id="content" role="main">
     {% include "includes/phase_banner_beta.html" %}
+
     <h1 class="form-title heading-large">{{content.pageHeader | safe}}</h1>
-
     <p>{{content.paragraph1 | replace('{leadExecFullName}', fields.leadExecFullName.value) | safe}}</p>
-
     <h2 class="heading-medium">{{content.subHeader | safe}}</h2>
-
     <p>{{content.paragraph2 | replace('{leadExecFullName}', fields.leadExecFullName.value) | safe}}</p>
-
     <p>{{content.paragraph3 | replace('{leadExecFullName}', fields.leadExecFullName.value) | safe}}</p>
-
     <p class="panel panel-border-wide">
         {{content["paragraph4" + fields.codicilsSuffix.value] | replace('{leadExecFullName}', fields.leadExecFullName.value) | safe}}
     </p>
-
     <p>{{content.paragraph5a}}<a href="{{links.surveyEndOfApplication | safe}}">{{content.paragraph5b}}</a></p>
+
+    {% include "includes/help_details.html" %}
 </main>
 {% endblock %}

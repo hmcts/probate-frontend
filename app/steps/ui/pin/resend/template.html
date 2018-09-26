@@ -17,10 +17,12 @@
     </div>
 {% endblock %}
 
-{% block executor_summary %}
-<h2 class="heading-medium">{{content.header2 | replace('{phoneNumber}', fields.phoneNumber.value) |  safe}}</h2>
-<p>{{content.subHeader2ExecName | replace('{executorName}', fields.leadExecutorName.value) | safe}}</p>
-{% endblock %}
-
 {% block save_and_close %}
 {% endblock %}
+
+{% block executor_summary %}
+    <h2 class="heading-medium">{{content.header2 | replace('{phoneNumber}', fields.phoneNumber.value) |  safe}}</h2>
+    <p>{{content.subHeader2ExecName | replace('{executorName}', fields.leadExecutorName.value) | safe}}</p>
+{% endblock %}
+
+{% include "includes/help_details.html" %}

@@ -3,6 +3,7 @@
 {% extends "includes/layout.html" %}
 
 {% block content %}
+
 <main id="content" role="main">
     {% from "widgets/checkanswer.html" import checkanswer %}
 
@@ -14,11 +15,9 @@
     </h1>
     <p>{{content.Summary.checkCarefully}}</p>
 
-    <h2 class="heading-medium">
-        {{content.Summary.willWithCodicilHeading if fields.summary.codicilPresent.value === "true" else content.Summary.willHeading}}
-    </h2>
+    <h2 class="heading-medium">{{content.Summary.deceasedHeading}}</h2>
     <dl class="check-your-answers check-your-answers--long">
-        {% include "ui/summary/includes/will.njk" %}
+        {% include "ui/summary/includes/deceased.njk" %}
     </dl>
 
     <h2 class="heading-medium">{{content.Summary.ihtHeading}}</h2>
@@ -31,19 +30,13 @@
         {% include "ui/summary/includes/executors.njk" %}
     </dl>
 
-    <h2 class="heading-medium">{{content.Summary.deceasedHeading}}</h2>
-    <dl class="check-your-answers check-your-answers--long">
-        {% include "ui/summary/includes/deceased.njk" %}
-    </dl>
-
     <div class="form-group">
         {% if fields.summary.readyToDeclare.value === "true" %}
-        <p><a href="/declaration" class="button button-start">{{common.continue}}</a></p>
+            <p><a href="/declaration" class="button button-start">{{common.continue}}</a></p>
         {% else %}
-        <p><a href="/summary/redirect" class="button button-start">{{common.continue}}</a></p>
+            <p><a href="/summary/redirect" class="button button-start">{{common.continue}}</a></p>
         {% endif %}
     </div>
-
-    {% include "includes/help_details.html" %}
 </main>
+
 {% endblock %}

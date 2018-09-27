@@ -1,7 +1,9 @@
-const ValidationStep = require('app/core/steps/ValidationStep'),
-    validator = require('validator'),
-    numeral = require('numeral'),
-    FieldError = require('app/components/error');
+'use strict';
+
+const ValidationStep = require('app/core/steps/ValidationStep');
+const validator = require('validator');
+const numeral = require('numeral');
+const FieldError = require('app/components/error');
 
 module.exports = class IhtValue extends ValidationStep {
 
@@ -30,5 +32,4 @@ module.exports = class IhtValue extends ValidationStep {
 
         return [ctx, errors];
     }
-
 };

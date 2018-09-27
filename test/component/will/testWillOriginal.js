@@ -1,14 +1,14 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const WillCodicils = require('app/steps/ui/will/codicils/index');
+const DeathCertificate = require('app/steps/ui/deceased/deathcertificate/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('will-original', () => {
     let testWrapper;
     const expectedNextUrlForStopPage = StopPage.getUrl('notOriginal');
-    const expectedNextUrlForWillCodicils = WillCodicils.getUrl();
+    const expectedNextUrlForDeathCertificate = DeathCertificate.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('WillOriginal');
@@ -34,11 +34,11 @@ describe('will-original', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to will codicils: ${expectedNextUrlForWillCodicils}`, (done) => {
+        it(`test it redirects to Death Certificate page: ${expectedNextUrlForDeathCertificate}`, (done) => {
             const data = {
                 'original': 'Yes'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForWillCodicils);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeathCertificate);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {

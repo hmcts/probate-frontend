@@ -1,12 +1,12 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const Summary = require('app/steps/ui/summary/index');
+const IhtMethod = require('app/steps/ui/iht/method/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('deceased-address', () => {
     let testWrapper;
-    const expectedNextUrlForSummary = Summary.getUrl();
+    const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedAddress');
@@ -60,12 +60,12 @@ describe('deceased-address', () => {
 
         });
 
-        it(`test it redirects to summary page: ${expectedNextUrlForSummary}`, (done) => {
+        it(`test it redirects to IHT Method page: ${expectedNextUrlForIhtMethod}`, (done) => {
             const data = {
                 postcode: 'ea1 eaf',
                 postcodeAddress: '102 Petty France'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForSummary);
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
 
     });

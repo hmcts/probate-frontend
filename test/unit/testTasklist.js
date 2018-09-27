@@ -19,9 +19,9 @@ describe('Tasklist', () => {
             const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
-            assert.equal(ctx.EligibilityTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.EligibilityTask.status, 'notStarted');
-            assert.equal(ctx.EligibilityTask.nextURL, steps[journeyMap.taskList.EligibilityTask.firstStep].constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.status, 'notStarted');
+            assert.equal(ctx.DeceasedTask.nextURL, steps[journeyMap.taskList.DeceasedTask.firstStep].constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'notStarted');
             assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
         });
@@ -39,60 +39,66 @@ describe('Tasklist', () => {
             assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
         });
 
-        it('Updates the context: EligibilityTask complete, ExecutorsTask not started', () => {
+        it('Updates the context: DeceasedTask complete, ExecutorsTask not started', () => {
             const formdata = {
                 will: completedForm.will,
                 iht: completedForm.iht,
-                executors: {mentalCapacity: 'Yes'},
+                executors: {mentalCapacity: completedForm.executors.mentalCapacity},
                 applicant: {executor: completedForm.applicant.executor},
-                deceased: {deathCertificate: completedForm.deceased.deathCertificate}
+                deceased: completedForm.deceased
             };
             req.session.form = formdata;
             const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
-            assert.equal(ctx.EligibilityTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.EligibilityTask.status, 'complete');
+            assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.status, 'complete');
             assert.equal(ctx.ExecutorsTask.status, 'notStarted');
             assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
         });
 
-        it('Updates the context: EligibilityTask complete, ExecutorsTask started', () => {
+        it('Updates the context: DeceasedTask complete, ExecutorsTask started', () => {
             const formdata = {
                 will: completedForm.will,
                 iht: completedForm.iht,
-                executors: {mentalCapacity: 'Yes'},
+                executors: {mentalCapacity: completedForm.executors.mentalCapacity},
                 applicant: {
                     executor: completedForm.applicant.executor,
                     firstName: completedForm.applicant.firstName,
                     lastName: completedForm.applicant.lastName,
                 },
-                deceased: {deathCertificate: completedForm.deceased.deathCertificate}
+                deceased: completedForm.deceased
             };
             req.session.form = formdata;
             const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.EligibilityTask.status, 'complete');
+            assert.equal(ctx.DeceasedTask.status, 'complete');
             assert.equal(ctx.ExecutorsTask.status, 'started');
             assert.equal(ctx.ExecutorsTask.nextURL, journeyMap(steps.ApplicantName, formdata.will).constructor.getUrl());
         });
 
-        it('Updates the context: EligibilityTask & ExecutorsTask started (ExecutorsTask blocked), ', () => {
+        it('Updates the context: DeceasedTask & ExecutorsTask started (ExecutorsTask blocked), ', () => {
             const formdata = {
                 will: completedForm.will,
-                iht: {'completed': 'Yes'},
+                iht: {completed: completedForm.iht.completed},
+                executors: {mentalCapacity: completedForm.executors.mentalCapacity},
                 applicant: completedForm.applicant,
-                deceased: {deathCertificate: completedForm.deceased.deathCertificate}
+                deceased: {
+                    deathCertificate: completedForm.deceased.deathCertificate,
+                    domicile: completedForm.deceased.domicile,
+                    firstName: completedForm.deceased.firstName,
+                    lastName: completedForm.deceased.lastName
+                }
             };
             req.session.form = formdata;
             const taskList = steps.TaskList;
             ctx = taskList.getContextData(req);
 
-            assert.equal(ctx.EligibilityTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.EligibilityTask.status, 'started');
-            assert.equal(ctx.EligibilityTask.nextURL, journeyMap(steps.IhtCompleted, formdata.iht).constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.status, 'started');
+            assert.equal(ctx.DeceasedTask.nextURL, journeyMap(steps.DeceasedName, formdata.deceased).constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'started');
         });
 
@@ -110,6 +116,7 @@ describe('Tasklist', () => {
 
             assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.EligibilityTask.status, 'complete');
+            assert.equal(ctx.DeceasedTask.status, 'complete');
             assert.equal(ctx.ExecutorsTask.status, 'complete');
             assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.ReviewAndConfirmTask.status, 'notStarted');
@@ -218,7 +225,7 @@ describe('Tasklist', () => {
 
         it('Updates the context: PaymentTask started (Fee to Pay)', () => {
             req.session.form = {
-               paymentPending: 'true'
+                paymentPending: 'true'
             };
             req.body = {};
             const taskList = steps.TaskList;
@@ -230,7 +237,7 @@ describe('Tasklist', () => {
 
         it('Updates the context: PaymentTask started (No Fee)', () => {
             req.session.form = {
-               paymentPending: 'false'
+                paymentPending: 'false'
             };
             req.body = {};
             const taskList = steps.TaskList;
@@ -253,7 +260,7 @@ describe('Tasklist', () => {
             assert.equal(ctx.PaymentTask.status, 'complete');
         });
 
-        it('Updates the context: Eligibility, Executors, Review and confirm, Copies and Document tasks complete', () => {
+        it('Updates the context: Eligibility, Deceased, Executors, Review and confirm, Copies and Document tasks complete', () => {
             req.session.form = completedForm;
             req.session.form.documents = {
                 sentDocuments: 'true'
@@ -264,6 +271,7 @@ describe('Tasklist', () => {
 
             assert.equal(ctx.DocumentsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.EligibilityTask.status, 'complete');
+            assert.equal(ctx.DeceasedTask.status, 'complete');
             assert.equal(ctx.ExecutorsTask.status, 'complete');
             assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
             assert.equal(ctx.DocumentsTask.status, 'complete');

@@ -1,12 +1,12 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ApplicantExecutor = require('app/steps/ui/applicant/executor/index');
+const DeceasedAlias = require('app/steps/ui/deceased/alias/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('iht-paper', () => {
     let testWrapper;
-    const expectedNextUrlForAppExec = ApplicantExecutor.getUrl();
+    const expectedNextUrlForDeceasedAlias = DeceasedAlias.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('IhtPaper');
@@ -87,13 +87,13 @@ describe('iht-paper', () => {
             testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['net400']);
         });
 
-        it(`test it redirects to applicant executor page: ${expectedNextUrlForAppExec}`, (done) => {
+        it(`test it redirects to Deceased Alias page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
             const data = {
                 form: '205',
                 'gross205': '100000',
                 'net205': '9999'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForAppExec);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
         });
 
     });

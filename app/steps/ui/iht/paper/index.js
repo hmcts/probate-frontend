@@ -1,8 +1,10 @@
-const ValidationStep = require('app/core/steps/ValidationStep'),
-    validator = require('validator'),
-    numeral = require('numeral'),
-    FieldError = require('app/components/error'),
-    {get} = require('lodash');
+'use strict';
+
+const ValidationStep = require('app/core/steps/ValidationStep');
+const validator = require('validator');
+const numeral = require('numeral');
+const FieldError = require('app/components/error');
+const {get} = require('lodash');
 
 module.exports = class IhtPaper extends ValidationStep {
 

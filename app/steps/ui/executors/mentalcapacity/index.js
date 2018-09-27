@@ -3,7 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const content = require('app/resources/en/translation/executors/mentalcapacity');
 
-class MentalCapacity extends ValidationStep {
+module.exports = class MentalCapacity extends ValidationStep {
 
     static getUrl() {
         return '/mental-capacity';
@@ -24,6 +24,4 @@ class MentalCapacity extends ValidationStep {
     isComplete(ctx) {
         return [ctx.mentalCapacity === content.optionYes, 'inProgress'];
     }
-}
-
-module.exports = MentalCapacity;
+};

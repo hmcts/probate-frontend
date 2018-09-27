@@ -42,11 +42,10 @@ module.exports = class ExecutorsNumber extends ValidationStep {
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
-                {key: 'executorsNumber', value: 1, choice: 'deceasedName'}
+                {key: 'executorsNumber', value: 1, choice: 'oneExecutor'}
             ]
         };
-        return nextStepOptions;
     }
 };

@@ -1,6 +1,8 @@
-const ValidationStep = require('app/core/steps/ValidationStep'),
-      json = require('app/resources/en/translation/iht/completed.json'),
-      {isEmpty} = require('lodash');
+'use strict';
+
+const ValidationStep = require('app/core/steps/ValidationStep');
+const json = require('app/resources/en/translation/iht/completed.json');
+const {isEmpty} = require('lodash');
 
 module.exports = class IhtCompleted extends ValidationStep {
 

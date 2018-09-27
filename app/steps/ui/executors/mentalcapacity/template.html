@@ -4,21 +4,20 @@
 {% from "widgets/radiobuttons.html" import optionsRadio %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{content.question}}</h1>
-    <p>{{content.hintText1}}</p>
-    <p>{{content.hintText2 | safe}}</p>
+<h1 class="form-title heading-large">{{content.question}}</h1>
+<p>{{content.hintText1}}</p>
+<p>{{content.hintText2 | safe}}</p>
 {% endblock %}
 
 {% block form_content %}
-    {{ optionsRadio(content,
-        name = 'mentalCapacity',
-        field = fields.mentalCapacity,
-        options = ['optionYes', 'optionNo'],
-        legend = content.legend,
-        inline = true
-    )}}
-    <div class="form-group">
-        <input class="button" type="submit" value="{{common.continue}}">
-    </div>
+{{ optionsRadio(content,
+name = 'mentalCapacity',
+field = fields.mentalCapacity,
+options = ['optionYes', 'optionNo'],
+legend = content.legend,
+inline = true
+)}}
+<div class="form-group">
+  <input class="button" type="submit" value="{{common.continue}}">
+</div>
 {% endblock %}
-

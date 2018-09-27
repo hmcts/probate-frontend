@@ -14,7 +14,6 @@ router.get('/applicant-alias', (req, res, next) => {
         callback: featureToggle.togglePage
     });
 });
-
 router.get('/applicant-alias-reason', (req, res, next) => {
     featureToggle.checkToggle({
         req: req,
@@ -25,7 +24,6 @@ router.get('/applicant-alias-reason', (req, res, next) => {
         callback: featureToggle.togglePage
     });
 });
-
 router.get('/summary/*', (req, res, next) => {
     featureToggle.checkToggle({
         req: req,

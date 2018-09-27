@@ -1,13 +1,13 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const IhtMethod = require('app/steps/ui/iht/method/index');
+const StartApply = require('app/steps/ui/startapply/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('iht-completed', () => {
     let testWrapper;
-    const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
+    const expectedNextUrlForStartApply = StartApply.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('ihtNotCompleted');
 
     beforeEach(() => {
@@ -34,11 +34,11 @@ describe('iht-completed', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForIhtMethod}`, (done) => {
+        it(`test it redirects to Start Apply page: ${expectedNextUrlForStartApply}`, (done) => {
             const data = {
                 'completed': 'Yes'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+            testWrapper.testRedirect(done, data, expectedNextUrlForStartApply);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {

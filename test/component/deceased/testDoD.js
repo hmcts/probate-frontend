@@ -1,12 +1,12 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DeceasedDob = require('app/steps/ui/deceased/dob/index');
+const DeceasedAddress = require('app/steps/ui/deceased/address/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('deceased-dod', () => {
     let testWrapper;
-    const expectedNextUrlForDeceasedDob = DeceasedDob.getUrl();
+    const expectedNextUrlForDeceasedAddress = DeceasedAddress.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedDod');
@@ -60,13 +60,13 @@ describe('deceased-dod', () => {
 
         });
 
-        it(`test it redirects to deceased dob: ${expectedNextUrlForDeceasedDob}`, (done) => {
+        it(`test it redirects to Deceased Address page: ${expectedNextUrlForDeceasedAddress}`, (done) => {
             const data = {
                 dod_day: '01',
                 dod_month: '01',
                 dod_year: '2000'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDob);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAddress);
         });
 
     });

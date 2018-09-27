@@ -1,11 +1,11 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const StartApply = require('app/steps/ui/startapply/index');
+const WillLeft = require('app/steps/ui/will/left/index');
 
 describe('startEligibility', () => {
     let testWrapper;
-    const expectedNextUrlForStartApply = StartApply.getUrl();
+    const expectedNextUrlForWillLeft = WillLeft.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('StartEligibility');
@@ -23,8 +23,8 @@ describe('startEligibility', () => {
             testWrapper.testContent(done, excludeKeys);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
-            testWrapper.testRedirect(done, {}, expectedNextUrlForStartApply);
+        it(`test it redirects to next page: ${expectedNextUrlForWillLeft}`, (done) => {
+            testWrapper.testRedirect(done, {}, expectedNextUrlForWillLeft);
         });
 
     });

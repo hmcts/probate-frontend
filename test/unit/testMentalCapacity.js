@@ -21,7 +21,7 @@ describe('MentalCapacity.js', () => {
             const ctx = {mentalCapacity: 'Yes'};
             const MentalCapacity = steps.MentalCapacity;
             const nextStepUrl = MentalCapacity.nextStepUrl(ctx);
-            expect(nextStepUrl).to.equal('/tasklist');
+            expect(nextStepUrl).to.equal('/iht-completed');
             done();
         });
 

@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
                 req.log.debug('Successfully loaded user data');
                 req.session.form = result.formdata;
             }
-            res.redirect('tasklist');
+            res.redirect('start-eligibility');
         });
 });
 

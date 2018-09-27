@@ -1,13 +1,13 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const TaskList = require('app/steps/ui/tasklist/index');
+const IhtCompleted = require('app/steps/ui/iht/completed/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('mental-capacity', () => {
     let testWrapper;
-    const expectedNextUrlForTaskList = TaskList.getUrl();
+    const expectedNextUrlForIhtCompleted = IhtCompleted.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('mentalCapacity');
 
     beforeEach(() => {
@@ -31,11 +31,11 @@ describe('mental-capacity', () => {
             testWrapper.testErrors(done, data, 'required');
         });
 
-        it(`test it redirects to tasklist if all executors are mentally capable: ${expectedNextUrlForTaskList}`, (done) => {
+        it(`test it redirects to IHT Completed if all executors are mentally capable: ${expectedNextUrlForIhtCompleted}`, (done) => {
             const data = {
                 'mentalCapacity': 'Yes'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtCompleted);
         });
 
         it(`test it redirects to stop page if not all executors are mentally capable: ${expectedNextUrlForStopPage}`, (done) => {

@@ -54,11 +54,11 @@ data "vault_generic_secret" "idam_frontend_idam_key" {
 
 locals {
   aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
-
-  previewVaultName = "${var.product}-fe"  // max 24 char else used fronend
-  nonPreviewVaultName = "${var.product}-fe-${var.env}"
+  previewVaultName = "${var.raw_product}-aat"
+  nonPreviewVaultName = "${var.raw_product}-${var.env}"
   vaultName = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultName : local.nonPreviewVaultName}"
 
+  localenv = "${(var.env == "preview" || var.env == "spreview") ?  "aat" : "${var.env}"}"
   nonPreviewVaultUri = "${module.probate-frontend-vault.key_vault_uri}"
   previewVaultUri = "https://probate-fe-aat.vault.azure.net/"
   vaultUri = "${(var.env == "preview" || var.env == "spreview")? local.previewVaultUri : local.nonPreviewVaultUri}"
@@ -72,13 +72,32 @@ locals {
 
 module "probate-frontend-redis-cache" {
   source   = "git@github.com:hmcts/moj-module-redis?ref=master"
-  product  = "${var.product}-${var.microservice}-redis-cache"
+  product     = "${(var.env == "preview" || var.env == "spreview") ? "${var.product}-${var.microservice}-pr-redis" : "${var.product}-${var.microservice}-redis-cache"}"
   location = "${var.location}"
   env      = "${var.env}"
   subnetid = "${data.terraform_remote_state.core_apps_infrastructure.subnet_ids[1]}"
   common_tags  = "${var.common_tags}"
 }
 
+data "azurerm_key_vault" "probate_key_vault" {
+  name = "${local.vaultName}"
+  resource_group_name = "${local.vaultName}"
+}
+
+# data "azurerm_key_vault_secret" "govNotifyApiKey" {
+#   name = "probate-bo-govNotifyApiKey"
+#   vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+# }
+
+data "azurerm_key_vault_secret" "idam_secret_probate" {
+  name = "ccidam-idam-api-secrets-probate"
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+}
+
+data "azurerm_key_vault_secret" "s2s_key" {
+  name      = "microservicekey-probate-frontend"
+  vault_uri = "https://s2s-${local.localenv}.vault.azure.net/"
+}
 module "probate-frontend" {
   source = "git@github.com:hmcts/moj-module-webapp.git?ref=master"
   product = "${var.product}-${var.microservice}"
@@ -89,6 +108,7 @@ module "probate-frontend" {
   subscription = "${var.subscription}"
   asp_name     = "${var.asp_name}"
   additional_host_name = "${var.external_host_name}"  // need to give proper url
+  appinsights_instrumentation_key = "${var.appinsights_instrumentation_key}"
   capacity     = "${var.capacity}"
   common_tags  = "${var.common_tags}"
   asp_rg       = "${var.asp_rg}"
@@ -138,7 +158,8 @@ module "probate-frontend" {
     IDAM_API_URL = "${var.idam_user_host}"
     IDAM_LOGIN_URL = "${var.probate_private_beta_auth_url}"
     IDAM_S2S_URL = "${var.idam_service_api}"
-    IDAM_SERVICE_KEY = "${data.vault_generic_secret.idam_frontend_service_key.data["value"]}"
+    //IDAM_SERVICE_KEY = "${data.vault_generic_secret.idam_frontend_service_key.data["value"]}"
+    IDAM_SERVICE_KEY = "${data.azurerm_key_vault_secret.s2s_key.value}"
     IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE = "${data.vault_generic_secret.idam_frontend_idam_key.data["value"]}"
 
     //  PAYMENT
@@ -160,17 +181,4 @@ module "probate-frontend" {
 
     FEATURE_TOGGLES_API_URL = "${var.feature_toggles_api_url}"
   }
-}
-
-
-
-module "probate-frontend-vault" {
-  source              = "git@github.com:hmcts/moj-module-key-vault?ref=master"
-  name                = "${local.vaultName}"
-  product             = "${var.product}"
-  env                 = "${var.env}"
-  tenant_id           = "${var.tenant_id}"
-  object_id           = "${var.jenkins_AAD_objectId}"
-  resource_group_name = "${module.probate-frontend.resource_group_name}"
-  product_group_object_id =  "33ed3c5a-bd38-4083-84e3-2ba17841e31e"
 }

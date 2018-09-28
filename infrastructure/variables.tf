@@ -1,7 +1,9 @@
 // Infrastructural variables
 
-variable "product" {
-  default = "probate"
+variable "product" {}
+
+variable "raw_product" {
+  default = "probate" // jenkins-library overrides product for PRs and adds e.g. pr-118-probate
 }
 
 variable "microservice" {
@@ -49,6 +51,10 @@ variable "client_id" {
   description = "(Required) The object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies. This is usually sourced from environment variables and not normally required to be specified."
 }
 
+variable "appinsights_instrumentation_key" {
+  description = "Instrumentation key of the App Insights instance this webapp should use. Module will create own App Insights resource if this is not provided"
+  default = ""
+}
 variable "node_env" {
   default = "production"
 }

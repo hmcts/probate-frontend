@@ -40,5 +40,5 @@ probate_submit_service_url = "http://probate-submit-service-demo.service.core-co
 probate_persistence_service_url = "http://probate-persistence-service-demo.service.core-compute-demo.internal/formdata"
 
 feature_toggles_api_url = "http://rpe-feature-toggle-api-demo.service.core-compute-demo.internal"
-asp_name = "probate-demo-asp-demo-asp"
-asp_rg = "mgmt-asp-demo"
+asp_name = "probate-demo"
+asp_rg = "probate-demo"

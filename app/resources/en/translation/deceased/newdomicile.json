@@ -9,8 +9,8 @@
   "errors": {
     "domicile": {
       "required": {
-        "summary": "Answer the question about whether the person who died lived permanently in England and Wales",
-        "message": "Select yes if the person who died lived in England and Wales or intended to return here"
+        "summary": "Answer the question about whether the person who died lived permanently in England or Wales",
+        "message": "Select yes if the person who died lived in England or Wales or intended to return here"
       }
     }
   }

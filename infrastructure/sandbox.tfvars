@@ -39,4 +39,4 @@ probate_persistence_service_url = " http://probate-persistence-service-sandbox.s
 
 feature_toggles_api_url = "http://rpe-feature-toggle-api-aat.service.core-compute-aat.internal"
 asp_name = "probate-sandbox"
-asp_rg = "probate-shared-infrastructure-sandbox"
+asp_rg = "probate-sandbox"

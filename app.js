@@ -180,7 +180,6 @@ exports.init = function() {
     app.use(function (req, res, next) {
         res.locals.serviceName = commonContent.serviceName;
         res.locals.cookieText = commonContent.cookieText;
-
         res.locals.releaseVersion = `v${releaseVersion}`;
         next();
     });

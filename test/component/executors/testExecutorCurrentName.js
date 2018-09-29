@@ -1,15 +1,17 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails/index');
 const ExecutorCurrentName = require('app/steps/ui/executors/currentname/index');
+const ExecutorCurrentNameReason = require('app/steps/ui/executors/currentnamereason/index');
+const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executor-current-name', () => {
     let testWrapper, sessionData;
-    const ContactDetailsURL = ExecutorContactDetails.getUrl();
     const FirstExecURL = ExecutorCurrentName.getUrl(4);
     const NextExecURL = ExecutorCurrentName.getUrl(6);
+    const executorCurrentNameReasonUrl = ExecutorCurrentNameReason.getUrl();
+    const executorContactDetailsUrl = ExecutorContactDetails.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorCurrentName');
@@ -65,18 +67,18 @@ describe('executor-current-name', () => {
             });
         });
 
-        it(`test it redirects to next executor current name page, first exec: ${FirstExecURL}`, (done) => {
+        it(`test it redirects to next executor current name page, first exec: ${executorCurrentNameReasonUrl}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const data = {
                         currentName: 'another name2'
                     };
-                    testWrapper.testRedirect(done, data, FirstExecURL);
+                    testWrapper.testRedirect(done, data, executorCurrentNameReasonUrl);
                 });
         });
 
-        it(`test it redirects to next executor current name page, subsequent exec: ${NextExecURL}`, (done) => {
+        it(`test it redirects to next executor current name page, subsequent exec: ${executorCurrentNameReasonUrl}`, (done) => {
             testWrapper.pageUrl = FirstExecURL;
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -84,11 +86,11 @@ describe('executor-current-name', () => {
                     const data = {
                         currentName: 'another name'
                     };
-                    testWrapper.testRedirect(done, data, NextExecURL);
+                    testWrapper.testRedirect(done, data, executorCurrentNameReasonUrl);
                 });
         });
 
-        it(`test it redirects to executor contact details page, final exec: ${ContactDetailsURL}`, (done) => {
+        it(`test it redirects to executor contact details page, final exec: ${executorContactDetailsUrl}`, (done) => {
             testWrapper.pageUrl = NextExecURL;
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -96,7 +98,7 @@ describe('executor-current-name', () => {
                     const data = {
                         currentName: 'another name also'
                     };
-                    testWrapper.testRedirect(done, data, ContactDetailsURL);
+                    testWrapper.testRedirect(done, data, executorContactDetailsUrl);
                 });
         });
     });

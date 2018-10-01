@@ -23,6 +23,9 @@ module.exports = class ExecutorsNumber extends ValidationStep {
         ctx.list[0] = {
             firstName: get(formdata, 'applicant.firstName'),
             lastName: get(formdata, 'applicant.lastName'),
+            alias: get(formdata, 'applicant.alias'),
+            aliasReason: get(formdata, 'applicant.aliasReason'),
+            otherReason: get(formdata, 'applicant.otherReason'),
             isApplying: true,
             isApplicant: true
         };

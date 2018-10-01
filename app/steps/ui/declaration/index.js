@@ -116,8 +116,8 @@ class Declaration extends ValidationStep {
         const mainApplicantSuffix = (props.hasMultipleApplicants && props.executor.isApplicant) ? '-mainApplicant' : '';
         const codicilsSuffix = this.codicilsSuffix(props.hasCodicils);
         const aliasSuffix = (props.hasMultipleApplicants && (props.executor.alias || props.executor.currentName)) ? '-alias' : '';
-        const applicantNameOnWill = this.formatName(props.executor);
-        const applicantCurrentName = this.formatName(props.executor, true);
+        const applicantNameOnWill = FormatName.formatName(props.executor);
+        const applicantCurrentName = FormatName.formatName(props.executor, true);
         const aliasReason = FormatAlias.aliasReason(props.executor);
         return {
             name: props.content[`applicantName${props.multipleApplicantSuffix}${mainApplicantSuffix}${aliasSuffix}${codicilsSuffix}`]

@@ -19,6 +19,8 @@ describe('declaration, multiple applicants', () => {
     const expectedNextUrlForUpdateExecInvite = ExecutorsUpdateInvite.getUrl();
     const expectedNextUrlForExecChangeMade = ExecutorsChangeMade.getUrl();
     const expectedNextUrlForChangeToSingleApplicant = Tasklist.getUrl();
+    const expectedNextUrlForUpdateExecInvite = ExecutorsUpdateInvite.getUrl();
+    const expectedNextUrlForAdditionalExecInvite = ExecutorsAdditionalInvite.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('Declaration');

@@ -1,10 +1,11 @@
 'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {includes, some, tail} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const FormatName = require('app/utils/FormatName');
 
-module.exports = class ExecutorsDealingWithEstate extends ValidationStep {
+class ExecutorsDealingWithEstate extends ValidationStep {
 
     static getUrl() {
         return '/executors-dealing-with-estate';
@@ -54,4 +55,6 @@ module.exports = class ExecutorsDealingWithEstate extends ValidationStep {
     isComplete(ctx) {
         return [some(tail(ctx.list), exec => exec.isApplying === true), 'inProgress'];
     }
-};
+}
+
+module.exports = ExecutorsDealingWithEstate;

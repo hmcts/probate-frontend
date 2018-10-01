@@ -1,8 +1,10 @@
+'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const services = require('app/components/services');
 const FormatName = require('app/utils/FormatName');
 
-module.exports = class ExecutorsInvite extends ValidationStep {
+class ExecutorsInvite extends ValidationStep {
 
     static getUrl() {
         return '/executors-invite';
@@ -56,4 +58,6 @@ module.exports = class ExecutorsInvite extends ValidationStep {
         delete ctx.inviteSuffix;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = ExecutorsInvite;

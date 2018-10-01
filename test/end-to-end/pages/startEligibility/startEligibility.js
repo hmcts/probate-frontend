@@ -1,3 +1,5 @@
+'use strict';
+
 const pageUnderTest = require('app/steps/ui/starteligibility/index');
 const testConfig = require('test/config.js');
 

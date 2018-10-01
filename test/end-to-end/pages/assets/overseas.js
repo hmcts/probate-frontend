@@ -1,4 +1,6 @@
-const commonContent = require('app/resources/en/translation/common.json');
+'use strict';
+
+const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/assets/overseas/index');
 
 module.exports = function () {

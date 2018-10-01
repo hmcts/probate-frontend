@@ -1,3 +1,5 @@
+'use strict';
+
 const pageUnderTest = require('app/steps/ui/coapplicant/startpage/index');
 
 module.exports = function () {

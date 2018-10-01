@@ -1,4 +1,6 @@
-const taskListContent = require('app/resources/en/translation/tasklist.json');
+'use strict';
+
+const taskListContent = require('app/resources/en/translation/tasklist');
 
 exports.completeEligibilityTask = function () {
     const I = this;

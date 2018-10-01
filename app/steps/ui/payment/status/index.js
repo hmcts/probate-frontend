@@ -7,7 +7,7 @@ const logger = require('app/components/logger')('Init');
 const RedirectRunner = require('app/core/runners/RedirectRunner');
 const {get} = require('lodash');
 
-module.exports = class PaymentStatus extends Step {
+class PaymentStatus extends Step {
 
     runner() {
         return new RedirectRunner();
@@ -115,4 +115,6 @@ module.exports = class PaymentStatus extends Step {
     handleGet(ctx) {
         return [ctx, ctx.errors];
     }
-};
+}
+
+module.exports = PaymentStatus;

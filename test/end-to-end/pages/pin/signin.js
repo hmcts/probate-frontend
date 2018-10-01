@@ -1,3 +1,5 @@
+'use strict';
+
 const pageUnderTest = require('app/steps/ui/pin/signin/index');
 
 module.exports = function (pinCode) {

@@ -1,0 +1,16 @@
+{
+  "title": "Did the person who died leave a will",
+  "question": "Did the person who died leave a will?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "legend": "Did the person who died leave a will?",
+
+  "errors": {
+    "left": {
+      "required": {
+        "summary": "Answer the question about the will",
+        "message": "Select yes if there is a will"
+      }
+    }
+  }
+}

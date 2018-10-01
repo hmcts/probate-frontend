@@ -1,7 +1,8 @@
 'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 
-module.exports = class CopiesOverseas extends ValidationStep {
+class CopiesOverseas extends ValidationStep {
 
     static getUrl() {
         return '/copies-overseas';
@@ -21,4 +22,7 @@ module.exports = class CopiesOverseas extends ValidationStep {
     isComplete(ctx) {
         return [ctx.overseas >= 0, 'inProgress'];
     }
-};
+}
+
+module.exports = CopiesOverseas;
+

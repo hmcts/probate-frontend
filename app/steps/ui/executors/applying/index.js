@@ -1,9 +1,10 @@
 'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const json = require('app/resources/en/translation/executors/applying.json');
+const json = require('app/resources/en/translation/executors/applying');
 
-module.exports = class ExecutorsApplying extends ValidationStep {
+class ExecutorsApplying extends ValidationStep {
 
     static getUrl() {
         return '/other-executors-applying';
@@ -29,4 +30,6 @@ module.exports = class ExecutorsApplying extends ValidationStep {
         };
         return nextStepOptions;
     }
-};
+}
+
+module.exports = ExecutorsApplying;

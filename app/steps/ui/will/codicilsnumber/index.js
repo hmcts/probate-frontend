@@ -1,7 +1,8 @@
 'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 
-module.exports = class CodicilsNumber extends ValidationStep {
+class CodicilsNumber extends ValidationStep {
 
     static getUrl() {
         return '/codicils-number';
@@ -21,4 +22,6 @@ module.exports = class CodicilsNumber extends ValidationStep {
     isComplete(ctx) {
         return [ctx.codicilsNumber >= 0, 'inProgress'];
     }
-};
+}
+
+module.exports = CodicilsNumber;

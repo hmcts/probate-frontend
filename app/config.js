@@ -9,7 +9,8 @@ const config = {
         url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8282',
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
         fe_shutter_toggle: 'probate-fe-shutter',
-        main_applicant_alias: 'probate-main-applicant-alias'
+        main_applicant_alias: 'probate-main-applicant-alias',
+        screening_questions: 'probate-screening-questions'
     },
     app: {
         username: process.env.USERNAME,
@@ -136,7 +137,7 @@ const config = {
     whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/sign-out'],
     whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/sign-out'],
     hardStopParams: ['will.left', 'will.original', 'iht.completed', 'applicant.executor'],
-    nonIdamPages: ['error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'start-apply'],
+    nonIdamPages: ['error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'start-apply', 'new-start-eligibility', 'new-will-left', 'new-will-original', 'new-death-certificate', 'new-deceased-domicile', 'new-applicant-executor', 'new-mental-capacity', 'new-iht-completed', 'new-start-apply'],
     endpoints: {
         health: '/health',
         info: '/info'

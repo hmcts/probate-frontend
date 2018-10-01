@@ -1,3 +1,5 @@
+'use strict';
+
 const pageUnderTest = require('app/steps/ui/executors/invite/index');
 
 module.exports = function () {

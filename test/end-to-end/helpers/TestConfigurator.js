@@ -1,3 +1,5 @@
+'use strict';
+
 const randomstring = require('randomstring');
 const request = require('request');
 const testConfig = require('test/config');

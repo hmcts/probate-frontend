@@ -1,3 +1,5 @@
+'use strict';
+
 const event = require('codeceptjs').event;
 const container = require('codeceptjs').container;
 const exec = require('child_process').exec;

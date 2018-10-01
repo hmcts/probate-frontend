@@ -1,11 +1,13 @@
+'use strict';
+
 const {mapValues, reduce} = require('lodash');
 const Ajv = require('ajv');
-const Step = require('app/core/steps/Step'),
-      generateErrors = require('app/components/error').generateErrors;
+const Step = require('app/core/steps/Step');
+const generateErrors = require('app/components/error').generateErrors;
 
 const validator = new Ajv({allErrors: true, v5: true});
 
-module.exports = class ValidationStep extends Step {
+class ValidationStep extends Step {
 
     get schema() {
 
@@ -64,4 +66,6 @@ module.exports = class ValidationStep extends Step {
     isComplete(ctx, formdata) {
         return [this.validate(ctx, formdata)[0], 'inProgress'];
     }
-};
+}
+
+module.exports = ValidationStep;

@@ -1,8 +1,10 @@
+'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const DeceasedWrapper = require('app/wrappers/Deceased');
 const FormatName = require('app/utils/FormatName');
 
-module.exports = class DeceasedAlias extends ValidationStep {
+class DeceasedAlias extends ValidationStep {
 
     static getUrl() {
         return '/deceased-alias';
@@ -44,4 +46,6 @@ module.exports = class DeceasedAlias extends ValidationStep {
             'isSoftStop': softStopForAssetsInAnotherName
         };
     }
-};
+}
+
+module.exports = DeceasedAlias;

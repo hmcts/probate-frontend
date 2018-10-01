@@ -3,7 +3,6 @@
 const CollectionStep = require('app/core/steps/CollectionStep');
 const {findIndex, get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-
 const path = '/executor-current-name/';
 
 class ExecutorCurrentName extends CollectionStep {

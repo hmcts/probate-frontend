@@ -12,7 +12,7 @@ const SECURITY_COOKIE = '__auth-token-' + config.payloadVersion;
 const REDIRECT_COOKIE = '__redirect';
 const ACCESS_TOKEN_OAUTH2 = 'access_token';
 
-module.exports = class Security {
+class Security {
 
     constructor(loginUrl) {
         if (!loginUrl) {
@@ -152,4 +152,6 @@ module.exports = class Security {
             res.cookie(cookieName, token, {httpOnly: true});
         }
     }
-};
+}
+
+module.exports = Security;

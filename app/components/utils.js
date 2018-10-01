@@ -1,7 +1,7 @@
 'use strict';
 
 const basicAuth = require('basic-auth');
-const common = require('app/resources/en/translation/common.json');
+const common = require('app/resources/en/translation/common');
 
 /**
  * Simple basic auth middleware for use with Express 4.x.

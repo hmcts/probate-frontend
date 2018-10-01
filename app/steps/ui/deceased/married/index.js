@@ -1,8 +1,10 @@
+'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const WillWrapper = require('app/wrappers/Will');
 const DeceasedWrapper = require('app/wrappers/Deceased');
 
-module.exports = class DeceasedMarried extends ValidationStep {
+class DeceasedMarried extends ValidationStep {
 
     static getUrl() {
         return '/deceased-married';
@@ -20,4 +22,6 @@ module.exports = class DeceasedMarried extends ValidationStep {
         ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicils();
         return [ctx];
     }
-};
+}
+
+module.exports = DeceasedMarried;

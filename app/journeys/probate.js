@@ -35,6 +35,36 @@ const taskList = {
 };
 
 const stepList = {
+    NewStartEligibility: 'NewWillLeft',
+    NewWillLeft: {
+        withWill: 'NewWillOriginal',
+        otherwise: 'StopPage'
+    },
+    NewWillOriginal: {
+        isOriginal: 'NewDeathCertificate',
+        otherwise: 'StopPage'
+    },
+    NewDeathCertificate: {
+        hasCertificate: 'NewDeceasedDomicile',
+        otherwise: 'StopPage'
+    },
+    NewDeceasedDomicile: {
+        inEnglandOrWales: 'NewApplicantExecutor',
+        otherwise: 'StopPage'
+    },
+    NewApplicantExecutor: {
+        isExecutor: 'NewMentalCapacity',
+        otherwise: 'StopPage'
+    },
+    NewMentalCapacity: {
+        isCapable: 'NewIhtCompleted',
+        otherwise: 'StopPage'
+    },
+    NewIhtCompleted: {
+        completed: 'NewStartApply',
+        otherwise: 'StopPage'
+    },
+    NewStartApply: 'TaskList',
     StartEligibility: 'StartApply',
     StartApply: 'TaskList',
     WillLeft: {

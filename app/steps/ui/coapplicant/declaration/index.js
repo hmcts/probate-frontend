@@ -1,6 +1,9 @@
-const ValidationStep = require('app/core/steps/ValidationStep'),
-      services = require('app/components/services');
-module.exports = class CoApplicantDeclaration extends ValidationStep {
+'use strict';
+
+const ValidationStep = require('app/core/steps/ValidationStep');
+const services = require('app/components/services');
+
+class CoApplicantDeclaration extends ValidationStep {
 
     static getUrl() {
         return '/co-applicant-declaration';
@@ -47,4 +50,6 @@ module.exports = class CoApplicantDeclaration extends ValidationStep {
         delete ctx.declaration;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = CoApplicantDeclaration;

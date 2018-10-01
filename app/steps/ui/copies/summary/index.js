@@ -1,7 +1,9 @@
+'use strict';
+
 const Step = require('app/core/steps/Step');
 const copiesSteps = ['CopiesUk', 'AssetsJEGG', 'CopiesJEGG', 'AssetsOverseas', 'CopiesOverseas'];
 
-module.exports = class CopiesSummary extends Step {
+class CopiesSummary extends Step {
 
     static getUrl() {
         return '/copies-summary';
@@ -34,5 +36,6 @@ module.exports = class CopiesSummary extends Step {
         fields[this.section] = super.generateFields(ctx, errors, formdata);
         return fields;
     }
+}
 
-};
+module.exports = CopiesSummary;

@@ -4,7 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const {get} = require('lodash');
 
-module.exports = class ExecutorsNumber extends ValidationStep {
+class ExecutorsNumber extends ValidationStep {
 
     static getUrl() {
         return '/executors-number';
@@ -49,4 +49,6 @@ module.exports = class ExecutorsNumber extends ValidationStep {
         };
         return nextStepOptions;
     }
-};
+}
+
+module.exports = ExecutorsNumber;

@@ -22,10 +22,12 @@ describe('summary', () => {
                                     'otherNamesLabel',
                                     'willWithCodicilHeading',
                                     'otherExecutors',
+                                    'executorsWithOtherNames',
                                     'executorApplyingForProbate',
                                     'executorsNotApplyingForProbate',
                                     'nameOnWill',
                                     'currentName',
+                                    'currentNameReason',
                                     'address',
                                     'mobileNumber',
                                     'emailAddress'];

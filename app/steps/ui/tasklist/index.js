@@ -30,6 +30,7 @@ module.exports = class TaskList extends Step {
 
         ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
+
         ctx.previousTaskStatus = {
             EligibilityTask: ctx.EligibilityTask.status,
             ExecutorsTask: ctx.EligibilityTask.status,
@@ -47,6 +48,7 @@ module.exports = class TaskList extends Step {
         delete ctx.hasMultipleApplicants;
         delete ctx.alreadyDeclared;
         delete ctx.previousTaskStatus;
+        delete ctx.isScreeningQuestionsToggleEnabled;
         return [ctx, formdata];
     }
 };

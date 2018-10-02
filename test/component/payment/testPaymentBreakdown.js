@@ -5,16 +5,13 @@ const testHelpBlockContent = require('test/component/common/testHelpBlockContent
 
 describe('payment-breakdown', () => {
     let testWrapper;
-    let submitStub;
 
     beforeEach(() => {
-        submitStub = require('test/service-stubs/submit');
         testWrapper = new TestWrapper('PaymentBreakdown');
     });
 
     afterEach(() => {
-      submitStub.close();
-      testWrapper.destroy();
+        testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

@@ -9,7 +9,8 @@ const config = {
         url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8282',
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
         fe_shutter_toggle: 'probate-fe-shutter',
-        main_applicant_alias: 'probate-main-applicant-alias'
+        main_applicant_alias: 'probate-main-applicant-alias',
+        screening_questions: 'probate-screening-questions'
     },
     app: {
         username: process.env.USERNAME,
@@ -32,8 +33,9 @@ const config = {
             url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
         },
         submit: {
-            url: process.env.SUBMIT_SERVICE_URL || 'http://localhost:8181',
-            port: 8181
+            url: process.env.SUBMIT_SERVICE_URL || 'http://localhost:8181/submit',
+            port: 8181,
+            path: '/submit'
         },
         persistence: {
             url: process.env.PERSISTENCE_SERVICE_URL || 'http://localhost:8282/formdata',
@@ -46,13 +48,13 @@ const config = {
             roles: ['probate-private-beta', 'citizen'],
             s2s_url: process.env.IDAM_S2S_URL || 'http://localhost:4502',
             service_name: 'probate_frontend',
-            service_key: process.env.IDAM_SERVICE_KEY || 'AAAAAAAAAAAAAAAA',
+            service_key: process.env.IDAM_SERVICE_KEY || 'dummy_key',
             probate_oauth2_client: 'probate',
             probate_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE || '123456',
             probate_oauth_callback_path: '/oauth2/callback'
         },
         payment: {
-            createPaymentUrl: process.env.PAYMENT_CREATE_URL || 'http://localhost:8383/card-payments',
+            createPaymentUrl: process.env.PAYMENT_CREATE_URL || 'http://localhost:8383/users/userId/payments',
             authorization: process.env.PAYMENT_AUTHORIZATION || 'dummy_token',
             serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'dummy_token',
             userId: process.env.PAYMENT_USER_ID || 999999999,
@@ -117,29 +119,25 @@ const config = {
     payment: {
         applicationFee: 215,
         applicationFeeThreshold: 5000,
-        applicationFeeCode: process.env.APPLICATION_FEE_CODE || 'FEE0226',
+        applicationFeeCode: process.env.APPLICATION_FEE_CODE || 'CODE1',
         copies: {
             uk: {
                 fee: 0.5,
-                code: process.env.UK_COPIES_FEE_CODE || 'FEE0003',
-                version: '3'
+                code: process.env.UK_COPIES_FEE_CODE || 'CODE2'
             },
             overseas: {
-                 fee: 0.5,
-                 code: process.env.OVERSEAS_COPIES_FEE_CODE || 'FEE003',
-                 version: '3'
+                fee: 0.5,
+                code: process.env.OVERSEAS_COPIES_FEE_CODE || 'CODE3'
             }
         },
-        serviceId: process.env.SERVICE_ID || 'PROBATE',
-        siteId: process.env.SITE_ID || 'P223',
-        version: process.env.version || '1',
-        currency: process.env.currency || 'GBP'
+        serviceId: process.env.SERVICE_ID || 'CODE4',
+        siteId: process.env.SITE_ID || 'CODE5'
     },
     whitelistedPagesAfterSubmission: ['/documents', '/thankyou', '/sign-out'],
     whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/sign-out'],
     whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/sign-out'],
     hardStopParams: ['will.left', 'will.original', 'iht.completed', 'applicant.executor'],
-    nonIdamPages: ['error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'start-apply'],
+    nonIdamPages: ['error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'start-apply', 'new-start-eligibility', 'new-will-left', 'new-will-original', 'new-death-certificate', 'new-deceased-domicile', 'new-applicant-executor', 'new-mental-capacity', 'new-iht-completed', 'new-start-apply'],
     endpoints: {
         health: '/health',
         info: '/info'

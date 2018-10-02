@@ -1,8 +1,11 @@
-const ValidationStep = require('app/core/steps/ValidationStep'),
-    validator = require('validator'),
-    numeral = require('numeral'),
-    FieldError = require('app/components/error'),
-    {get} = require('lodash');
+'use strict';
+
+const ValidationStep = require('app/core/steps/ValidationStep');
+const validator = require('validator');
+const numeral = require('numeral');
+const FieldError = require('app/components/error');
+const {get} = require('lodash');
+const FeatureToggle = require('app/utils/FeatureToggle');
 
 module.exports = class IhtPaper extends ValidationStep {
 
@@ -10,7 +13,7 @@ module.exports = class IhtPaper extends ValidationStep {
         return '/iht-paper';
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
         ctx.grossValuePaper = ctx[`gross${ctx.form}`];
         ctx.netValuePaper = ctx[`net${ctx.form}`];
 
@@ -32,13 +35,14 @@ module.exports = class IhtPaper extends ValidationStep {
         ctx.grossValue = Math.floor(ctx.grossValue);
         ctx.netValue = Math.floor(ctx.netValue);
 
-        ctx.ihtFormId = ctx.form;
+        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
+
         return [ctx, errors];
     }
 
     isSoftStop(formdata) {
         const paperForm = get(formdata, 'iht.form', {});
-        const softStopForNotAllowedIhtPaperForm = paperForm === 'IHT400421' || paperForm === 'IHT207';
+        const softStopForNotAllowedIhtPaperForm = paperForm === '400' || paperForm === '207';
 
         return {
             'stepName': this.constructor.name,
@@ -46,10 +50,19 @@ module.exports = class IhtPaper extends ValidationStep {
         };
     }
 
+    nextStepOptions() {
+        return {
+            options: [
+                {key: 'isToggleEnabled', value: true, choice: 'toggleOn'}
+            ]
+        };
+    }
+
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.grossValuePaper;
         delete ctx.netValuePaper;
+        delete ctx.isToggleEnabled;
         return [ctx, formdata];
     }
 

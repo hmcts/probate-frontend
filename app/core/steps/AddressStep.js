@@ -1,6 +1,7 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
+const FeatureToggle = require('app/utils/FeatureToggle');
 
 class AddressStep extends ValidationStep {
 
@@ -16,7 +17,8 @@ class AddressStep extends ValidationStep {
         return [ctx];
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
+        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
         ctx.address = ctx.postcodeAddress || ctx.freeTextAddress;
         ctx.postcode = ctx.postcode ? ctx.postcode.toUpperCase() : ctx.postcode;
         if (!ctx.postcodeAddress) {
@@ -24,6 +26,12 @@ class AddressStep extends ValidationStep {
         }
         delete ctx.referrer;
         return [ctx, errors];
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.isToggleEnabled;
+        return [ctx, formdata];
     }
 }
 

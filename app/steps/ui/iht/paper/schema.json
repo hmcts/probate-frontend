@@ -10,59 +10,59 @@
       "continue": false
     },
     {
-      "if": { "properties": { "form": { "enum": ["205"] } } },
+      "if": { "properties": { "form": { "enum": ["IHT205"] } } },
       "then": {
         "properties": {
-          "gross205": {
+          "grossIHT205": {
             "type": "string",
             "minLength": 1,
             "maxLength": 13
           },
-          "net205": {
+          "netIHT205": {
             "type": "string",
             "minLength": 1,
             "maxLength": 13
           }
       },
-        "required": ["gross205", "net205"]
+        "required": ["grossIHT205", "netIHT205"]
       },
       "continue": false
     },
     {
-      "if": { "properties": { "form": { "enum": ["207"] } } },
+      "if": { "properties": { "form": { "enum": ["IHT207"] } } },
       "then": {
         "properties": {
-          "gross207": {
+          "grossIHT207": {
             "type": "string",
             "minLength": 1,
             "maxLength": 13
           },
-          "net207": {
+          "netIHT207": {
             "type": "string",
             "minLength": 1,
             "maxLength": 13
           }
       },
-        "required": ["gross207", "net207"]
+        "required": ["grossIHT207", "netIHT207"]
       },
       "continue": false
     },
     {
-      "if": { "properties": { "form": { "enum": ["400"] } } },
+      "if": { "properties": { "form": { "enum": ["IHT400421"] } } },
       "then": {
         "properties": {
-          "gross400": {
+          "grossIHT400421": {
             "type": "string",
             "minLength": 1,
             "maxLength": 13
           },
-          "net400": {
+          "netIHT400421": {
             "type": "string",
             "minLength": 1,
             "maxLength": 13
           }
       },
-        "required": ["gross400", "net400"]
+        "required": ["grossIHT400421", "netIHT400421"]
       },
       "continue": false
     }

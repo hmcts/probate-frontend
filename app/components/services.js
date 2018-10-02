@@ -63,8 +63,8 @@ const validateFormData = (data, sessionID) => {
     return utils.fetchJson(`${VALIDATION_SERVICE_URL}`, fetchOptions);
 };
 
-const submitApplication = (data, ctx, softStop) => {
-    logger.info('submitApplication');
+const sendToSubmitService = (data, ctx, softStop) => {
+    logger.info('sendToSubmitService');
     const headers = {
         'Content-Type': 'application/json',
         'Session-Id': ctx.sessionID,
@@ -75,7 +75,20 @@ const submitApplication = (data, ctx, softStop) => {
     body.softStop = softStop;
     body.applicantEmail = data.applicantEmail;
     const fetchOptions = utils.fetchOptions({submitdata: body}, 'POST', headers);
-    return utils.fetchJson(`${SUBMIT_SERVICE_URL}`, fetchOptions);
+    return utils.fetchJson(`${SUBMIT_SERVICE_URL}/submit`, fetchOptions);
+};
+
+const updateCcdCasePaymentStatus = (data, ctx) => {
+    logger.info('updateCcdCasePaymentStatus');
+    const headers = {
+        'Content-Type': 'application/json',
+        'Session-Id': ctx.sessionID,
+        'Authorization': ctx.authToken,
+        'UserId': ctx.userId
+    };
+    const body = submitData(ctx, data);
+    const fetchOptions = utils.fetchOptions({submitdata: body}, 'POST', headers);
+    return utils.fetchJson(`${SUBMIT_SERVICE_URL}/updatePaymentStatus`, fetchOptions);
 };
 
 const loadFormData = (id, sessionID) => {
@@ -109,12 +122,12 @@ const createPayment = (data, hostname) => {
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': data.authToken,
-        'ServiceAuthorization': data.serviceAuthToken
+        'ServiceAuthorization': data.serviceAuthToken,
+        'return-url': FormatUrl.format(hostname, '/payment-status')
     };
-    const body = paymentData.createPaymentData(data, hostname);
+    const body = paymentData.createPaymentData(data);
     const fetchOptions = utils.fetchOptions(body, 'POST', headers);
-    const createPaymentUrl = CREATE_PAYMENT_SERVICE_URL.replace('userId', data.userId);
-    return [utils.fetchJson(createPaymentUrl, fetchOptions), body.reference];
+    return [utils.fetchJson(CREATE_PAYMENT_SERVICE_URL, fetchOptions), body.reference];
 };
 
 const findPayment = (data) => {
@@ -126,7 +139,7 @@ const findPayment = (data) => {
     };
 
     const fetchOptions = utils.fetchOptions(data, 'GET', headers);
-    const findPaymentUrl = `${CREATE_PAYMENT_SERVICE_URL.replace('userId', data.userId)}/${data.paymentId}`;
+    const findPaymentUrl = `${CREATE_PAYMENT_SERVICE_URL}/${data.paymentId}`;
     return utils.fetchJson(findPaymentUrl, fetchOptions);
 };
 
@@ -240,7 +253,8 @@ module.exports = {
     findAddress,
     featureToggle,
     validateFormData,
-    submitApplication,
+    sendToSubmitService,
+    updateCcdCasePaymentStatus,
     loadFormData,
     saveFormData,
     createPayment,

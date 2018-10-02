@@ -53,7 +53,7 @@ describe('Soft Stops', function () {
         it('Check soft stop for iht paper 400', function () {
             const step = steps.IhtPaper;
             const formdata = {
-                iht: {form: '400'}
+                iht: {form: 'IHT400421'}
             };
 
             const result = step.isSoftStop(formdata, ctx);
@@ -64,7 +64,7 @@ describe('Soft Stops', function () {
         it('Check soft stop for iht paper 207', function () {
             const step = steps.IhtPaper;
             const formdata = {
-                iht: {form: '207'}
+                iht: {form: 'IHT207'}
             };
 
             const result = step.isSoftStop(formdata, ctx);

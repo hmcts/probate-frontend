@@ -42,9 +42,9 @@ withPipeline("nodejs", product, component) {
   after('build') {
     sh 'yarn setup'
   }
-  
+
   loadVaultSecrets(secrets)
-  //enableSlackNotifications('#probate-jenkins')
+  enableSlackNotifications('#probate-jenkins')
   after('functionalTest:aat') {
       publishHTML target: [
 

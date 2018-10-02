@@ -4,7 +4,7 @@ const Step = require('app/core/steps/Step');
 const FieldError = require('app/components/error');
 const config = require('app/config');
 const services = require('app/components/services');
-const {get} = require('lodash');
+const {get, set} = require('lodash');
 const logger = require('app/components/logger')('Init');
 
 class PaymentBreakdown extends Step {
@@ -13,14 +13,7 @@ class PaymentBreakdown extends Step {
     }
 
     handleGet(ctx) {
-        if (ctx.paymentError === 'failure') {
-            const keyword = 'failure';
-            const errors = [];
-            errors.push(FieldError('payment', keyword, this.resourcePath, ctx));
-            return [ctx, errors];
-        }
-
-        return [ctx];
+        return [ctx, ctx.errors];
     }
 
     getContextData(req) {
@@ -57,6 +50,15 @@ class PaymentBreakdown extends Step {
 
     * handlePost(ctx, errors, formdata, session, hostname) {
         if (formdata.paymentPending !== 'unknown') {
+            const result = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
+            if (errors.length > 0) {
+                logger.error('Failed to create case in CCD.');
+                return [ctx, errors];
+            }
+            formdata.submissionReference = result.submissionReference;
+            formdata.registry = result.registry;
+            set(formdata, 'ccdCase.id', result.caseId);
+            set(formdata, 'ccdCase.state', result.caseState);
             if (ctx.total > 0) {
                 formdata.paymentPending = 'true';
 
@@ -81,19 +83,21 @@ class PaymentBreakdown extends Step {
                         userId: ctx.userId,
                         applicationFee: ctx.applicationFee,
                         copies: ctx.copies,
-                        deceasedLastName: ctx.deceasedLastName
+                        deceasedLastName: ctx.deceasedLastName,
+                        ccdCaseId: formdata.ccdCase.id
                     };
 
                     const [response, paymentReference] = yield services.createPayment(data, hostname);
                     formdata.creatingPayment = 'false';
 
                     if (response.name === 'Error') {
-                        errors.push(FieldError('authorisation', 'failure', this.resourcePath, ctx));
+                        errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
                         return [ctx, errors];
                     }
 
-                    ctx.paymentId = response.id;
+                    ctx.paymentId = response.reference;
                     ctx.paymentReference = paymentReference;
+                    ctx.paymentCreatedDate = response.date_created;
 
                     this.nextStepUrl = () => response._links.next_url.href;
                 } else {
@@ -113,6 +117,21 @@ class PaymentBreakdown extends Step {
 
     isComplete(ctx, formdata) {
         return [['true', 'false'].includes(formdata.paymentPending), 'inProgress'];
+    }
+
+    * sendToSubmitService(ctx, errors, formdata, total) {
+        const softStop = this.anySoftStops(formdata, ctx) ? 'softStop' : false;
+        set(formdata, 'payment.total', total);
+        const result = yield services.sendToSubmitService(formdata, ctx, softStop);
+
+        if (result.name === 'Error' || result === 'DUPLICATE_SUBMISSION') {
+            const keyword = result === 'DUPLICATE_SUBMISSION' ? 'duplicate' : 'failure';
+            errors.push(FieldError('submit', keyword, this.resourcePath, ctx));
+        }
+
+        logger.info({tags: 'Analytics'}, 'Application Case Created');
+
+        return result;
     }
 
     action(ctx, formdata) {

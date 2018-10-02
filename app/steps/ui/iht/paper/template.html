@@ -15,64 +15,64 @@
             </span>
         {% endif %}
 
-        <!-- 205 -->
-        <div class="multiple-choice" data-target="205-details">
-            <input id="paper205" type="radio" name="form" value="205" {{"checked='checked'" if fields['form'].value === '205' }}>
-            <label for="paper205">{{content['option205']}}</label>
+        <!-- IHT205 -->
+        <div class="multiple-choice" data-target="IHT205-details">
+            <input id="paperIHT205" type="radio" name="form" value="IHT205" {{"checked='checked'" if fields['form'].value === 'IHT205' }}>
+            <label for="paperIHT205">{{content['optionIHT205']}}</label>
         </div>
 
-        <div class="panel panel-border-narrow js-hidden" id="205-details">
+        <div class="panel panel-border-narrow js-hidden" id="IHT205-details">
             {{textField(
-                name = 'gross205',
-                field = fields.gross205,
+                name = 'grossIHT205',
+                field = fields.grossIHT205,
                 text = content.gross205 | safe,
                 size = 13
             )}}
             {{textField(
-                name = 'net205',
-                field = fields.net205,
+                name = 'netIHT205',
+                field = fields.netIHT205,
                 text = content.net205 | safe,
                 size = 13
             )}}
         </div>
 
-        <!-- 207 -->
-        <div class="multiple-choice" data-target="207-details">
-            <input id="paper207" type="radio" name="form" value="207" {{"checked='checked'" if fields['form'].value === '207' }}>
-            <label for="paper207">{{content['option207']}}</label>
+        <!-- IHT207 -->
+        <div class="multiple-choice" data-target="IHT207-details">
+            <input id="paperIHT207" type="radio" name="form" value="IHT207" {{"checked='checked'" if fields['form'].value === 'IHT207' }}>
+            <label for="paperIHT207">{{content['optionIHT207']}}</label>
         </div>
 
-        <div class="panel panel-border-narrow js-hidden" id="207-details">
+        <div class="panel panel-border-narrow js-hidden" id="IHT207-details">
             {{textField(
-                name = 'gross207',
-                field = fields.gross207,
+                name = 'grossIHT207',
+                field = fields.grossIHT207,
                 text = content.gross207 | safe,
                 size = 13
             )}}
             {{textField(
-                name = 'net207',
-                field = fields.net207,
+                name = 'netIHT207',
+                field = fields.netIHT207,
                 text = content.net207 | safe,
                 size = 13
             )}}
         </div>
 
-        <!-- 400 & 421 -->
-        <div class="multiple-choice" data-target="400-details">
-            <input id="paper400" type="radio" name="form" value="400" {{"checked='checked'" if fields['form'].value === '400' }}>
-            <label for="paper400">{{content['option400']}}</label>
+        <!-- IHT400421 & 421 -->
+        <div class="multiple-choice" data-target="IHT400421-details">
+            <input id="paperIHT400421" type="radio" name="form" value="IHT400421" {{"checked='checked'" if fields['form'].value === 'IHT400421' }}>
+            <label for="paperIHT400421">{{content['optionIHT400421']}}</label>
         </div>
 
-        <div class="panel panel-border-narrow js-hidden" id="400-details">
+        <div class="panel panel-border-narrow js-hidden" id="IHT400421-details">
             {{textField(
-                name = 'gross400',
-                field = fields.gross400,
+                name = 'grossIHT400421',
+                field = fields.grossIHT400421,
                 text = content.gross400 | safe,
                 size = 13
             )}}
             {{textField(
-                name = 'net400',
-                field = fields.net400,
+                name = 'netIHT400421',
+                field = fields.netIHT400421,
                 text = content.net400 | safe,
                 size = 13
             )}}

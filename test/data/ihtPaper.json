@@ -1,7 +1,6 @@
 {
   "iht": {
      "method": "By post",
-     "form": "400",
      "grossValue": 123,
      "netValue": 111
   }

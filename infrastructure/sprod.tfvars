@@ -12,7 +12,7 @@ probate_google_track_id = "UA-93598808-1"
 probate_frontend_https = "false"
 probate_frontend_use_auth = "false"
 
-payment_create_url = "http://payment-api-saat.service.core-compute-saat.internal/card-payments"
+payment_create_url = "http://payment-api-saat.service.core-compute-saat.internal/users/userId/payments"
 
 idam_service_api = "http://rpe-service-auth-provider-saat.service.core-compute-saat.internal"
 
@@ -36,7 +36,7 @@ reform_envirionment_for_test = "sprod"
 
 probate_business_service_url = "http://probate-business-service-saat.service.core-compute-saat.internal/validate"
 
-probate_submit_service_url = "http://probate-submit-service-saat.service.core-compute-saat.internal"
+probate_submit_service_url = "http://probate-submit-service-saat.service.core-compute-saat.internal/submit"
 
 probate_persistence_service_url = "http://probate-persistence-service-saat.service.core-compute-saat.internal/formdata"
 

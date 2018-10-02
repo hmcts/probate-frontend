@@ -1,9 +1,9 @@
 {
   "title": "Which paper form was filled in",
   "question": "Which paper form was filled in?",
-  "optionIHT205": "IHT 205 - there was no inheritance tax to pay",
-  "optionIHT207": "IHT 207 - there was no inheritance tax to pay and the person who died lived abroad",
-  "optionIHT400421": "IHT 400 and 421",
+  "option205": "IHT 205 - there was no inheritance tax to pay",
+  "option207": "IHT 207 - there was no inheritance tax to pay and the person who died lived abroad",
+  "option400": "IHT 400 and 421",
   "gross205": "Enter the number added in to box D on this form (gross value &pound;)",
   "net205": "Enter the number added in to box F on this form (net value &pound;)",
   "gross207": "Enter the number added in to box C (gross value &pound;)",
@@ -19,7 +19,7 @@
         "message": "Please select a form"
       }
     },
-    "grossIHT205": {
+    "gross205": {
       "required": {
         "summary": "You haven&rsquo;t entered the gross amount",
         "message": "Please enter the gross amount"
@@ -33,7 +33,7 @@
         "message": "Invalid currency format"
       }
     },
-    "netIHT205": {
+    "net205": {
       "required": {
         "summary": "You haven&rsquo;t entered the net amount",
         "message": "Please enter the net amount"
@@ -51,7 +51,7 @@
         "message": "The net amount can&rsquo;t be greater than the gross amount"
       }
     },
-    "grossIHT207": {
+    "gross207": {
       "required": {
         "summary": "You haven&rsquo;t entered the gross amount",
         "message": "Please enter the gross amount"
@@ -65,7 +65,7 @@
         "message": "Invalid currency format"
       }
     },
-    "netIHT207": {
+    "net207": {
       "required": {
         "summary": "You haven&rsquo;t entered the net amount",
         "message": "Please enter the net amount"
@@ -83,7 +83,7 @@
         "message": "The net amount can&rsquo;t be greater than the gross amount"
       }
     },
-    "grossIHT400421": {
+    "gross400": {
       "required": {
         "summary": "You haven&rsquo;t entered the gross amount",
         "message": "Please enter the gross amount"
@@ -97,7 +97,7 @@
         "message": "Invalid currency format"
       }
     },
-    "netIHT400421": {
+    "net400": {
       "required": {
         "summary": "You haven&rsquo;t entered the net amount",
         "message": "Please enter the net amount"

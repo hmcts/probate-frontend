@@ -7,7 +7,7 @@ const FieldError = require('app/components/error');
 const {get} = require('lodash');
 const FeatureToggle = require('app/utils/FeatureToggle');
 
-class IhtPaper extends ValidationStep {
+module.exports = class IhtPaper extends ValidationStep {
 
     static getUrl() {
         return '/iht-paper';
@@ -34,7 +34,6 @@ class IhtPaper extends ValidationStep {
 
         ctx.grossValue = Math.floor(ctx.grossValue);
         ctx.netValue = Math.floor(ctx.netValue);
-        ctx.ihtFormId = ctx.form;
 
         ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
 
@@ -43,7 +42,7 @@ class IhtPaper extends ValidationStep {
 
     isSoftStop(formdata) {
         const paperForm = get(formdata, 'iht.form', {});
-        const softStopForNotAllowedIhtPaperForm = paperForm === 'IHT400421' || paperForm === 'IHT207';
+        const softStopForNotAllowedIhtPaperForm = paperForm === '400' || paperForm === '207';
 
         return {
             'stepName': this.constructor.name,
@@ -66,6 +65,5 @@ class IhtPaper extends ValidationStep {
         delete ctx.isToggleEnabled;
         return [ctx, formdata];
     }
-}
 
-module.exports = IhtPaper;
+};

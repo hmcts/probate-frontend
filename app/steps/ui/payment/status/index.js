@@ -1,11 +1,11 @@
 'use strict';
 
 const Step = require('app/core/steps/Step');
-const services = require('app/components/services');
 const FieldError = require('app/components/error');
+const services = require('app/components/services');
 const logger = require('app/components/logger')('Init');
 const RedirectRunner = require('app/core/runners/RedirectRunner');
-const {get, set} = require('lodash');
+const {get} = require('lodash');
 
 module.exports = class PaymentStatus extends Step {
 
@@ -42,7 +42,7 @@ module.exports = class PaymentStatus extends Step {
     }
 
     isComplete(ctx, formdata) {
-        return [typeof formdata.payment !== 'undefined' && (formdata.payment.status === 'Success' || formdata.payment.status === 'not_required'), 'inProgress'];
+        return [formdata.submissionReference, 'inProgress'];
     }
 
     * runnerOptions(ctx, formdata) {
@@ -66,64 +66,53 @@ module.exports = class PaymentStatus extends Step {
             };
 
             const findPaymentResponse = yield services.findPayment(data);
-            const date = typeof findPaymentResponse.date_updated === 'undefined' ? ctx.paymentCreatedDate : findPaymentResponse.date_updated;
-            Object.assign(formdata.payment, {
-                channel: findPaymentResponse.channel,
-                transactionId: findPaymentResponse.external_reference,
-                reference: findPaymentResponse.reference,
-                date: date,
-                amount: findPaymentResponse.amount,
-                status: findPaymentResponse.status,
-                siteId: findPaymentResponse.site_id
-            });
-            const [updateCcdCaseResponse, errors] = yield this.updateCcdCasePaymentStatus(ctx, formdata);
-            this.setErrors(options, errors);
-            set(formdata, 'ccdCase.state', updateCcdCaseResponse.caseState);
 
-            if (findPaymentResponse.status !== 'Success') {
+            if (get(findPaymentResponse, 'state.status') !== 'success') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
             } else {
                 options.redirect = false;
                 formdata.paymentPending = 'false';
+                options.errors = yield this.sendApplication(ctx, formdata);
             }
         } else {
-            const [updateCcdCaseResponse, errors] = yield this.updateCcdCasePaymentStatus(ctx, formdata);
-            this.setErrors(options, errors);
             options.redirect = false;
-            set(formdata, 'payment.status', 'not_required');
-            set(formdata, 'ccdCase.state', updateCcdCaseResponse.caseState);
+            options.errors = yield this.sendApplication(ctx, formdata);
         }
-        const saveFormDataResponse = services.saveFormData(ctx.regId, formdata, ctx.sessionId);
-        if (saveFormDataResponse.name === 'Error') {
-            options.errors = saveFormDataResponse;
-        }
+
         return options;
     }
 
-    * updateCcdCasePaymentStatus(ctx, formdata) {
+    * sendApplication(ctx, formdata) {
         const submitData = {};
+        const softStop = this.anySoftStops(formdata, ctx) ? 'softStop' : false;
         Object.assign(submitData, formdata);
-        let errors;
-        const result = yield services.updateCcdCasePaymentStatus(submitData, ctx);
-        logger.info({tags: 'Analytics'}, 'Payment status update');
 
-        if (result.name === 'Error') {
-            errors = [(FieldError('update', 'failure', this.resourcePath, ctx))];
-            logger.error('Could not update payment status', result.message);
-        } else {
-            logger.info('Successfully updated payment status');
+        const result = yield services.submitApplication(submitData, ctx, softStop);
+        let errors;
+
+        if (result.name === 'Error' || result === 'DUPLICATE_SUBMISSION') {
+            const keyword = result === 'DUPLICATE_SUBMISSION' ? 'duplicate' : 'failure';
+            errors = [(FieldError('submit', keyword, this.resourcePath, ctx))];
+            return errors;
         }
-        return [result, errors];
+
+        logger.info({tags: 'Analytics'}, 'Application Submitted');
+        formdata.submissionReference = result.submissionReference;
+        formdata.registry = result.registry;
+
+        const saveResult = yield this.persistFormData(ctx.regId, formdata, ctx.sessionId);
+
+        if (saveResult.name === 'Error') {
+            logger.error('Could not persist user data', saveResult.message);
+        } else {
+            logger.info('Successfully persisted user data');
+        }
+
+        return errors;
     }
 
     handleGet(ctx) {
         return [ctx, ctx.errors];
-    }
-
-    setErrors(options, errors) {
-        if (typeof errors !== 'undefined') {
-            options.errors = errors;
-        }
     }
 };

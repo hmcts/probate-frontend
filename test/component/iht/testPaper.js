@@ -35,63 +35,63 @@ describe('iht-paper', () => {
 
         it('test iht paper schema validation when form 205 is chosen', (done) => {
             const data = {
-                form: 'IHT205'
+                form: '205'
             };
 
-            testWrapper.testErrors(done, data, 'required', ['grossIHT205', 'netIHT205']);
+            testWrapper.testErrors(done, data, 'required', ['gross205', 'net205']);
         });
 
         it('test iht paper schema validation when form 205 is chosen, and net value is greater than gross value', (done) => {
             const data = {
-                form: 'IHT205',
-                grossIHT205: 999,
-                netIHT205: 1000
+                form: '205',
+                gross205: 999,
+                net205: 1000
             };
 
-            testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['netIHT205']);
+            testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['net205']);
         });
 
         it('test iht paper schema validation when form 207 is chosen', (done) => {
             const data = {
-                form: 'IHT207'
+                form: '207'
             };
 
-            testWrapper.testErrors(done, data, 'required', ['grossIHT207', 'netIHT207']);
+            testWrapper.testErrors(done, data, 'required', ['gross207', 'net207']);
         });
 
         it('test iht paper schema validation when form 207 is chosen, and net value is greater than gross value', (done) => {
             const data = {
-                form: 'IHT207',
-                grossIHT207: 999,
-                netIHT207: 1000
+                form: '207',
+                gross207: 999,
+                net207: 1000
             };
 
-            testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['netIHT207']);
+            testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['net207']);
         });
 
         it('test iht paper schema validation when form 400 is chosen', (done) => {
             const data = {
-                form: 'IHT400421'
+                form: '400'
             };
 
-            testWrapper.testErrors(done, data, 'required', ['grossIHT400421', 'netIHT400421']);
+            testWrapper.testErrors(done, data, 'required', ['gross400', 'net400']);
         });
 
         it('test iht paper schema validation when form 400 is chosen, and net value is greater than gross value', (done) => {
             const data = {
-                form: 'IHT400421',
-                grossIHT400421: 999,
-                netIHT400421: 1000
+                form: '400',
+                gross400: 999,
+                net400: 1000
             };
 
-            testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['netIHT400421']);
+            testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['net400']);
         });
 
         it(`test it redirects to applicant executor page: ${expectedNextUrlForAppExec}`, (done) => {
             const data = {
-                form: 'IHT205',
-                'grossIHT205': '100000',
-                'netIHT205': '9999'
+                form: '205',
+                'gross205': '100000',
+                'net205': '9999'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForAppExec);
         });

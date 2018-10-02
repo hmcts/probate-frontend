@@ -10,10 +10,7 @@ describe('redirect to documents', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('CopiesUk');
         sessionData = {
-            'submissionReference': 'testSubmissionReference',
-            'payment': {
-                'status': 'Success'
-            }
+            'submissionReference': 'testSubmissionReference'
         };
     });
 

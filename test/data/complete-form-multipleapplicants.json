@@ -1,142 +1,123 @@
 {
-  "payloadVersion": "2.8.2",
-  "will": {
-    "left": "Yes",
-    "original": "Yes",
-    "codicils": "Yes",
-    "codicilsNumber": 1
+  "payloadVersion":"2.8.2",
+  "will":{
+    "left":"Yes",
+    "original":"Yes",
+    "codicils":"Yes",
+    "codicilsNumber":1
   },
-  "iht": {
-    "completed": "Yes",
-    "method": "By post",
-    "form": "IHT205",
-    "grossValue": "123456",
-    "netValue": "12345"
+  "iht":{
+    "completed":"Yes",
+    "method":"Through the HMRC online service",
+    "identifier":"jkhfilwahpwi",
+    "grossValueOnline":"123456",
+    "netValueOnline":"12345",
+    "grossValue":"123456",
+    "netValue":"12345"
   },
   "applicant": {
-    "executor": "Yes",
-    "firstName": "Bob Richard",
-    "lastName": "Smith",
-    "nameAsOnTheWill": "Yes",
-    "phoneNumber": "07934235245",
-    "postcode": "SW1H 9EX",
-    "addresses": [
-      {
-        "formatted_address": "Adam & Eve 81 Petty France London SW1H 9EX"
-      }
-    ],
-    "addressFound": "true",
-    "postcodeAddress": "Adam & Eve 81 Petty France London SW1H 9EX",
-    "address": "Adam & Eve 81 Petty France London SW1H 9EX"
+    "executor":"Yes",
+    "firstName":"Bob Richard",
+    "lastName":"Smith",
+    "nameAsOnTheWill":"Yes",
+    "phoneNumber":"07934235245",
+    "postcode":"SW1H 9EX",
+    "addresses":[{
+      "formatted_address":"Adam & Eve 81 Petty France London SW1H 9EX"}],
+    "addressFound":"true",
+    "postcodeAddress":"Adam & Eve 81 Petty France London SW1H 9EX",
+    "address":"Adam & Eve 81 Petty France London SW1H 9EX",
+    "email": "test@hotmail.com"
   },
-
-  "executors": {
-    "executorsNumber": 4,
-    "list": [
-      {
-        "firstName": "Bob Richard",
-        "lastName": "Smith",
-        "isApplying": true,
-        "isApplicant": true
-      },
-      {
-        "fullName": "executor_2_name",
-        "isDead": true,
-        "diedBefore": "Yes",
-        "notApplyingReason": "This executor died (before the person who has died)",
-        "notApplyingKey": "optionDiedBefore",
-        "isApplying": false,
-        "hasOtherName": false
-      },
-      {
-        "fullName": "executor_3_name",
-        "isApplying": true,
-        "hasOtherName": true,
-        "currentName": "exec_3_new_name ",
-        "email": "haji58@hotmail.co.uk",
-        "mobile": "07963723856",
-        "address": "exec_3_address\r\n",
-        "freeTextAddress": "exec_3_address\r\n",
-        "inviteId": {},
-        "emailSent": true
-      },
-      {
-        "fullName": "executor_4_name",
-        "isDead": false,
-        "isApplying": false,
-        "hasOtherName": false,
-        "notApplyingReason": "This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)",
-        "notApplyingKey": "optionRenunciated"
-      }
-    ],
-    "allalive": "No",
-    "otherExecutorsApplying": "Yes",
-    "alias": "Yes",
-    "referrer": "ExecutorAddress",
-    "addressFound": "none",
-    "invitesSent": "true"
+  "executors":{
+    "executorsNumber":4,
+    "list":[{
+      "firstName":"Bob Richard",
+      "lastName":"Smith",
+      "isApplying":true,
+      "isApplicant":true
+    },{
+      "fullName":"executor_2_name",
+      "isDead":true,
+      "diedBefore":"Yes",
+      "notApplyingReason":"This executor died (before the person who has died)",
+      "notApplyingKey":"optionDiedBefore",
+      "isApplying":false,
+      "hasOtherName":false
+    },{
+      "fullName":"executor_3_name",
+      "isApplying":true,
+      "hasOtherName":true,
+      "currentName":"exec_3_new_name ",
+      "email":"haji58@hotmail.co.uk",
+      "mobile":"07963723856",
+      "address":"exec_3_address\r\n",
+      "freeTextAddress":"exec_3_address\r\n",
+      "inviteId":{},
+      "emailSent":true
+    },{
+      "fullName":"executor_4_name",
+      "isDead":false,
+      "isApplying":false,
+      "hasOtherName":false,
+      "notApplyingReason":"This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)",
+      "notApplyingKey":"optionRenunciated"
+    }],
+    "allalive":"No",
+    "otherExecutorsApplying":"Yes",
+    "alias":"Yes",
+    "referrer":"ExecutorAddress",
+    "addressFound":"none",
+    "invitesSent":"true"
   },
-  "deceased": {
-    "firstName": "died_firstname",
-    "lastName": "died_lastname",
-    "alias": "Yes",
-    "otherNames": {
-      "name_0": {
-        "firstName": "new_died_firstname",
-        "lastName": "new_died_lastname"
-      }
+  "deceased":{
+    "firstName":"died_firstname",
+    "lastName":"died_lastname",
+    "alias":"Yes",
+    "otherNames":{
+      "name_0":{
+        "firstName":"new_died_firstname",
+        "lastName":"new_died_lastname"
+      }},
+    "married":"No",
+    "dod_day":1,
+    "dod_month":1,
+    "dod_year":2018,
+    "dod_date":"2018-01-01T00:00:00.000Z",
+    "dod_formattedDate":"1 January 2018",
+    "dob_day":1,
+    "dob_month":1,
+    "dob_year":1950,
+    "dob_date":"1950-01-01T00:00:00.000Z",
+    "dob_formattedDate":"1 January 1950",
+    "domicile":"live (domicile) permanently in England or Wales",
+    "postcode":"SW1H 9EX",
+    "addresses":[{
+      "formatted_address":"Adam & Eve 81 Petty France London SW1H 9EX"
+    }],
+    "addressFound":"true",
+    "postcodeAddress":"Adam & Eve 81 Petty France London SW1H 9EX",
+    "address":"Adam & Eve 81 Petty France London SW1H 9EX"
+  },
+  "summary":{
+    "readyToDeclare":false
+  },
+  "copies":{"uk":"3"},
+  "assets":{
+    "assetsoverseas":"No"
+  },
+  "paymentPending":"false",
+  "creatingPayment":"false",
+  "payment":{
+    "copies":{
+      "uk":{"number":"3","cost":"1.5"},
+      "overseas":{"number":"0","cost":"0"}
     },
-    "married": "No",
-    "dod_day": 1,
-    "dod_month": 1,
-    "dod_year": 2018,
-    "dod_date": "2018-01-01T00:00:00.000Z",
-    "dod_formattedDate": "1 January 2018",
-    "dob_day": 1,
-    "dob_month": 1,
-    "dob_year": 1950,
-    "dob_date": "1950-01-01T00:00:00.000Z",
-    "dob_formattedDate": "1 January 1950",
-    "domicile": "live (domicile) permanently in England or Wales",
-    "postcode": "SW1H 9EX",
-    "addresses": [
-      {
-        "formatted_address": "Adam & Eve 81 Petty France London SW1H 9EX"
-      }
-    ],
-    "addressFound": "true",
-    "postcodeAddress": "Adam & Eve 81 Petty France London SW1H 9EX",
-    "address": "Adam & Eve 81 Petty France London SW1H 9EX"
-  },
-  "summary": {
-    "readyToDeclare": false
-  },
-  "copies": {
-    "uk": "3"
-  },
-  "assets": {
-    "assetsoverseas": "No"
-  },
-  "paymentPending": "false",
-  "creatingPayment": "false",
-  "payment": {
-    "copies": {
-      "uk": {
-        "number": "3",
-        "cost": "1.5"
-      },
-      "overseas": {
-        "number": "0",
-        "cost": "0"
-      },
-      "status": "success"
-    },
-    "applicationFee": "215",
-    "total": "216.50",
-    "userId": "999999999",
-    "paymentId": "1",
-    "paymentReference": "CODE4$$$diedlastname7297$$$CODE5$$$CODE1$CODE2/3",
-    "status": "success"
+    "applicationFee":"215",
+    "total":"216.50",
+    "userId":"999999999",
+    "paymentId":"1",
+    "paymentReference":"CODE4$$$diedlastname7297$$$CODE5$$$CODE1$CODE2/3"
   },
 
   "declaration": {
@@ -176,33 +157,5 @@
       "accept": "I confirm that I will administer the estate of the person who died according to law, and that my application is truthful.",
       "submitWarning": "Once everyone has agreed the legal statement and made their declaration, this information can&rsquo;t be changed."
     }
-  },
-  "applicantEmail": "test@hotmail.com",
-  "registry": {
-    "registry": {
-      "name": "Oxford",
-      "email": "oxford@email.com",
-      "address": "Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n",
-      "sequenceNumber": 10034
-    },
-    "submissionReference": 97
-  },
-  "ccdCase": {
-    "id": 1535395401245028
-  },
-  "paymentResponse": {
-    "id": "24",
-    "amount": 5000,
-    "state": {
-      "status": "success",
-      "finished": true
-    },
-    "description": "Probate Payment: 50",
-    "reference": "CODE4$$$Hill4314$$$CODE5$$$CODE2/100",
-    "date_created": "2018-08-29T15:25:11.920+0000",
-    "_links": {}
   }
 }
-
-
-

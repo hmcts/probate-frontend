@@ -243,9 +243,7 @@ describe('Tasklist', () => {
         it('Updates the context: PaymentTask complete', () => {
             req.session.form = {
                 paymentPending: 'false',
-                payment: {
-                    status: 'Success'
-                }
+                submissionReference: true
             };
             req.body = {};
             const taskList = steps.TaskList;

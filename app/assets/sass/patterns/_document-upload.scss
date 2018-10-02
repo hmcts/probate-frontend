@@ -47,11 +47,9 @@
   }
 }
 
-.dz-image,
-.dz-size,
-.dz-success-mark,
-.dz-error-mark {
-  display: none;
+.dz-details,
+.dz-error-message {
+  width: 80%;
 }
 
 .dz-remove {
@@ -62,4 +60,18 @@
 
 .dz-preview:first-of-type .dz-remove {
   top: 0;
+}
+
+.dz-error {
+  border-left: 5px solid $error-colour;
+  padding-left: 15px;
+
+  .dz-error-message {
+    margin-bottom: 5px;
+  }
+}
+
+.dz-error-message {
+  color: $error-colour;
+  @include bold-19;
 }

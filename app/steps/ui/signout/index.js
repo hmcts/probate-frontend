@@ -19,9 +19,13 @@ module.exports = class SignOut extends Step {
             if (errorCodes.includes(result)) {
                 throw new Error('Error while attempting to sign out of IDAM.');
             }
+
+            req.session.destroy();
             delete req.cookies;
             delete req.sessionID;
             delete req.session;
+            delete req.sessionStore;
+
             return ctx;
         })
         .catch(err => {

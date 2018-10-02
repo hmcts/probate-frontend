@@ -17,8 +17,13 @@
 
 <script src="/public/javascripts/dropzone.js"></script>
 <script nonce="{{nonce}}">
-    var csrfToken = "{{csrfToken}}";
-    var documentUploadRemoveFileText = "{{common.documentUploadRemoveFile}}";
+    var documentUploadContent = {
+        csrfToken: "{{csrfToken}}",
+        removeFileText: "{{common.documentUploadRemoveFile}}",
+        invalidFileType: "{{common.documentUploadInvalidFileType}}",
+        errorSummaryHeading: "{{common.errorSummaryHeading}}",
+        invalidFileTypeSummary: "{{common.documentUploadInvalidFileTypeSummary}}"
+    };
 </script>
 <script src="/public/javascripts/document-upload.js"></script>
 

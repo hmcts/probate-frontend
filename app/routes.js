@@ -9,6 +9,7 @@ const {get, includes, isEqual} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const featureToggles = require('app/featureToggles');
+const SessionData = require('app/utils/SessionData');
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
@@ -17,34 +18,11 @@ router.all('*', (req, res, next) => {
 });
 
 router.use((req, res, next) => {
-    if (!req.session.form) {
-        req.session.form = {
-            payloadVersion: config.payloadVersion,
-            applicantEmail: req.session.regId
-        };
-        req.session.back = [];
-    }
-
-    if (!req.session.form.applicantEmail) {
-        req.session.form.applicantEmail = req.session.regId;
-    }
-
-    next();
+    const sessionData = new SessionData();
+    sessionData.getFormdata(req, next, sessionData.setFormdata);
 });
 
-router.get('/', (req, res) => {
-    services.loadFormData(req.session.regId)
-        .then(result => {
-            if (result.name === 'Error') {
-                req.log.debug('Failed to load user data');
-                req.log.info({tags: 'Analytics'}, 'Application Started');
-            } else {
-                req.log.debug('Successfully loaded user data');
-                req.session.form = result.formdata;
-            }
-            res.redirect('tasklist');
-        });
-});
+router.get('/', (req, res) => res.redirect('tasklist'));
 
 router.use((req, res, next) => {
     const formdata = req.session.form;

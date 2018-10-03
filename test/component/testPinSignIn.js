@@ -75,7 +75,6 @@ describe('pin-page', () => {
                         .then(response => {
                             assert(response.status === 500);
                             assert(response.text.includes('having technical problems'));
-                            assert(loadFormDataStub.calledOnce, 'Form data function called');
                             done();
                         })
                         .catch(err => {

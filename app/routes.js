@@ -9,6 +9,7 @@ const {get, includes, isEqual} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const featureToggles = require('app/featureToggles');
+const SECURITY_COOKIE = '__auth-token-' + config.payloadVersion;
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
@@ -47,7 +48,12 @@ router.use((req, res, next) => {
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
 
-    if (get(formdata, 'submissionReference') &&
+    if (req.session.hasLoggedIn !== true) {
+        req.log.info('Unexpected new session found, clearing cookies so user can relogin.');
+        res.clearCookie(SECURITY_COOKIE);
+        delete req.cookies[SECURITY_COOKIE];
+        res.redirect('/');
+    } else if (get(formdata, 'submissionReference') &&
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
     ) {
         res.redirect('documents');

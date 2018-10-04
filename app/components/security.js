@@ -116,6 +116,7 @@ module.exports = class Security {
                             self._denyAccess(res);
                         }
                     } else {
+                        req.session.hasLoggedIn = true;
                         self._storeCookie(req, res, result[ACCESS_TOKEN_OAUTH2], SECURITY_COOKIE);
                         res.clearCookie(REDIRECT_COOKIE);
                         res.redirect(redirectInfo.continue_url);

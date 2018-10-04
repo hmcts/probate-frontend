@@ -1,0 +1,24 @@
+{
+  "title": "Executor Alias Reason",
+  "question": "What is the reason for {executorName}&rsquo;s name change?",
+  "optionMarriage": "Marriage",
+  "optionDivorce": "Divorce",
+  "optionDeedPoll": "Change by deed poll",
+  "optionOther": "Other",
+  "optionOtherHint": "Reason for name change",
+
+  "errors": {
+    "currentNameReason": {
+      "required": {
+        "summary": "You haven&rsquo;t selected a reason for the change of name",
+        "message": "Select a reason for the change of name"
+      }
+    },
+    "otherReason": {
+      "required": {
+        "summary": "You haven&rsquo;t entered the reason for the change of name",
+        "message": "Enter the reason for the change of name"
+      }
+    }
+  }
+}

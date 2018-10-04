@@ -34,6 +34,31 @@ class Security {
 
             // Retrieve user details
             if (securityCookie) {
+                const lostSession = !req.session.hasOwnProperty('expires');
+                logger.error(`1. Session Lost? ${lostSession} - ${req.session.expires}\n`);
+
+                if (lostSession) {
+                    logger.error(`2. Form? ${JSON.stringify(req.session.form)}\n`);
+                    logger.error(' ********************************** ');
+                    logger.error(' ********** NEW SESSION *********** ');
+                    logger.error(' ********************************** ');
+                    req.session.expires = Date.now() + (60 * 1000);
+                    return res.redirect('/');
+                } else {
+                    const sessionExpired = req.session.expires <= Date.now();
+                    if (sessionExpired) {
+                        logger.error(' ********************************** ');
+                        logger.error(' ******** EXPIRED SESSION ********* ');
+                        logger.error(' ********************************** ');
+                        res.clearCookie(SECURITY_COOKIE);
+                        delete req.cookies[SECURITY_COOKIE];            
+                        return res.redirect('/sign-out');
+                    } else {
+                        // Extend session
+                        req.session.expires = Date.now() + (60 * 1000);
+                    }
+                }
+
                 services.getUserDetails(securityCookie)
                     .then(response => {
                         if (response.name !== 'Error') {
@@ -118,6 +143,7 @@ class Security {
                             }
                         } else {
                             self._storeCookie(req, res, result[ACCESS_TOKEN_OAUTH2], SECURITY_COOKIE);
+                            req.session.expires = Date.now() + (60 * 1000);
                             res.clearCookie(REDIRECT_COOKIE);
                             res.redirect(redirectInfo.continue_url);
                         }

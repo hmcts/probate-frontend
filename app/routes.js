@@ -51,7 +51,7 @@ router.use((req, res, next) => {
     const isHardStop = formdata => config.hardStopParams.some(param => get(formdata, param) === commonContent.no);
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
-
+    
     if (get(formdata, 'submissionReference') && get(formdata, 'ccdCase.state') === 'CaseCreated' && (get(formdata, 'payment.status') === 'Success' || get(formdata, 'payment.status') === 'not_required') &&
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
     ) {

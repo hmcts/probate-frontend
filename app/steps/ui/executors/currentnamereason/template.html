@@ -1,0 +1,52 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "widgets/textfields.html" import textField %}
+{% from "widgets/radiobuttons.html" import optionsRadio %}
+
+{% block question %}
+<h1 class="form-title heading-large">{{content.question | replace('{executorName}', fields.otherExecName.value) | safe }}</h1>
+{% endblock %}
+
+{% block form_content %}
+<fieldset class="form-group {{ 'form-group-error' if fields['currentNameReason'].error }}">
+    <legend class="visuallyhidden">{{content.question}}</legend>
+    {% if fields['currentNameReason'].error %}
+    <span class="error-message">
+            {{ fields['currentNameReason'].errorMessage.message | safe}}
+        </span>
+    {% endif %}
+
+    <div class="multiple-choice">
+        <input id="aliasMarriage" type="radio" name="currentNameReason" value="Marriage" {{"checked='checked'" if fields['currentNameReason'].value === 'Marriage' }}>
+        <label for="aliasMarriage">{{content['optionMarriage']}}</label>
+    </div>
+
+    <div class="multiple-choice">
+        <input id="aliasDivorce" type="radio" name="currentNameReason" value="Divorce" {{"checked='checked'" if fields['currentNameReason'].value === 'Divorce' }}>
+        <label for="aliasDivorce">{{content['optionDivorce']}}</label>
+    </div>
+
+    <div class="multiple-choice">
+        <input id="aliasDeedPoll" type="radio" name="currentNameReason" value="Change by deed poll" {{"checked='checked'" if fields['currentNameReason'].value === 'Change by deed poll' }}>
+        <label for="aliasDeedPoll">{{content['optionDeedPoll']}}</label>
+    </div>
+
+
+    <div class="multiple-choice" data-target="other-details">
+        <input id="aliasOther" type="radio" name="currentNameReason" value="other" {{"checked='checked'" if fields['currentNameReason'].value === 'other' }}>
+        <label for="aliasOther">{{content['optionOther']}}</label>
+    </div>
+    <div class="panel panel-border-narrow js-hidden" id="other-details">
+        {{textField(
+        name = 'otherReason',
+        field = fields.otherReason,
+        text = content.optionOtherHint,
+        size = 50
+        )}}
+    </div>
+</fieldset>
+
+<div class="form-group">
+    <input class="button" type="submit" value="{{common.continue}}">
+</div>
+{% endblock %}

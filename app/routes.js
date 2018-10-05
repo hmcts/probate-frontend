@@ -19,7 +19,7 @@ router.all('*', (req, res, next) => {
 
 router.use((req, res, next) => {
     req.log.info('Checking req.session.form');
-    if (!req.session.form) {
+    if (!req.session.form && req.session.regId) {
         req.log.info('req.session.form not found: setting default formdata');
         req.session.form = {
             payloadVersion: config.payloadVersion,

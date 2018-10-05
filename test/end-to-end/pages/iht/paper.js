@@ -1,3 +1,5 @@
+'use strict';
+
 const pageUnderTest = require('app/steps/ui/iht/paper/index');
 const commonContent = require('app/resources/en/translation/common');
 

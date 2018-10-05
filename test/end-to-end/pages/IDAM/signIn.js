@@ -1,5 +1,6 @@
-const testConfig = require('test/config.js');
+'use strict';
 
+const testConfig = require('test/config.js');
 const useIdam = testConfig.TestUseIdam;
 
 module.exports = function () {

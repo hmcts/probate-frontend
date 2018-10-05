@@ -1,7 +1,7 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/executors/allalive.json');
+const json = require('app/resources/en/translation/executors/allalive');
 
 class ExecutorsAllAlive extends ValidationStep {
 

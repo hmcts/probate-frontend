@@ -1,9 +1,11 @@
-const ValidationStep = require('app/core/steps/ValidationStep'),
-        moment = require('moment'),
-        config = require('app/config'),
-        utils = require('app/components/step-utils');
+'use strict';
 
-module.exports = class DateStep extends ValidationStep {
+const ValidationStep = require('app/core/steps/ValidationStep');
+const moment = require('moment');
+const config = require('app/config');
+const utils = require('app/components/step-utils');
+
+class DateStep extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
@@ -30,5 +32,6 @@ module.exports = class DateStep extends ValidationStep {
         const month = utils.commonContent().months.split(',')[date.month()].trim();
         return `${date.date()} ${month} ${date.year()}`;
     }
+}
 
-};
+module.exports = DateStep;

@@ -1,7 +1,9 @@
-const Step = require('app/core/steps/Step'),
-    WithLinkStepRunner = require('app/core/runners/WithLinkStepRunner');
+'use strict';
 
-module.exports = class PinSent extends Step {
+const Step = require('app/core/steps/Step');
+const WithLinkStepRunner = require('app/core/runners/WithLinkStepRunner');
+
+class PinSent extends Step {
     static getUrl() {
         return '/pin-sent';
     }
@@ -15,4 +17,6 @@ module.exports = class PinSent extends Step {
         ctx.phoneNumber = req.session.phoneNumber;
         return ctx;
     }
-};
+}
+
+module.exports = PinSent;

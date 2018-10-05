@@ -1,4 +1,6 @@
-const taskListContent = require('app/resources/en/translation/tasklist.json');
+'use strict';
+
+const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('test/config.js');
 

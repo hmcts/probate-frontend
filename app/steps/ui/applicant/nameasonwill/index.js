@@ -23,6 +23,15 @@ class ApplicantNameAsOnWill extends ValidationStep {
         return [ctx];
     }
 
+    handlePost(ctx, errors) {
+        if (ctx.nameAsOnTheWill !== 'No') {
+            delete ctx.alias;
+            delete ctx.aliasReason;
+            delete ctx.otherReason;
+        }
+        return [ctx, errors];
+    }
+
     nextStepOptions() {
         const nextStepOptions = {
             options: [

@@ -12,7 +12,7 @@ const SECURITY_COOKIE = '__auth-token-' + config.payloadVersion;
 const REDIRECT_COOKIE = '__redirect';
 const ACCESS_TOKEN_OAUTH2 = 'access_token';
 
-module.exports = class Security {
+class Security {
 
     constructor(loginUrl) {
         if (!loginUrl) {
@@ -40,6 +40,11 @@ module.exports = class Security {
                             req.session.regId = response.email;
                             req.userId = response.id;
                             req.authToken = securityCookie;
+
+                            if (typeof req.session.regId !== 'string') {
+                                logger.error('req.session.regId is empty after login');
+                            }
+
                             self._authorize(res, next, response.roles, authorisedRoles);
                         } else {
                             logger.error('Error authorising user');
@@ -152,4 +157,6 @@ module.exports = class Security {
             res.cookie(cookieName, token, {httpOnly: true});
         }
     }
-};
+}
+
+module.exports = Security;

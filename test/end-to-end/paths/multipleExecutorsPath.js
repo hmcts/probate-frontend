@@ -1,4 +1,6 @@
-const taskListContent = require('app/resources/en/translation/tasklist.json');
+'use strict';
+
+const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');

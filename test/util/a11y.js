@@ -1,3 +1,5 @@
+'use strict';
+
 const pa11y = require('pa11y');
 const console = require('console');
 const pa11yRun = pa11y({

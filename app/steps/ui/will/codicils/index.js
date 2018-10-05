@@ -1,7 +1,9 @@
-const ValidationStep = require('app/core/steps/ValidationStep'),
-    json = require('app/resources/en/translation/will/codicils.json');
+'use strict';
 
-module.exports = class WillCodicils extends ValidationStep {
+const ValidationStep = require('app/core/steps/ValidationStep');
+const json = require('app/resources/en/translation/will/codicils');
+
+class WillCodicils extends ValidationStep {
 
     static getUrl() {
         return '/will-codicils';
@@ -27,4 +29,6 @@ module.exports = class WillCodicils extends ValidationStep {
         super.action(ctx, formdata);
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = WillCodicils;

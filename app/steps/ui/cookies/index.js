@@ -1,8 +1,12 @@
+'use strict';
+
 const Step = require('app/core/steps/Step');
 
-module.exports = class Cookies extends Step {
+class Cookies extends Step {
 
     static getUrl () {
         return '/cookies';
     }
-};
+}
+
+module.exports = Cookies;

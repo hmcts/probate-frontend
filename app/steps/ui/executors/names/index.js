@@ -1,15 +1,23 @@
 'use strict';
-
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
 const resourcePath = 'executors.names';
 const i18next = require('i18next');
 const {isEmpty, size, forEach} = require('lodash');
+const FormatName = require('app/utils/FormatName');
 
 class ExecutorsNames extends ValidationStep {
 
     static getUrl() {
         return '/executors-names';
+    }
+
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        const formdata = req.session.form;
+        const applicant = formdata.applicant;
+        ctx.applicantCurrentName = FormatName.currentName(applicant);
+        return ctx;
     }
 
     handleGet(ctx) {
@@ -39,6 +47,7 @@ class ExecutorsNames extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        delete ctx.applicantCurrentName;
         delete ctx.executorName;
         return [ctx, formdata];
     }

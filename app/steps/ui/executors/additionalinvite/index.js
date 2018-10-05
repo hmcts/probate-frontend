@@ -1,4 +1,5 @@
 'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
 const {size} = require('lodash');

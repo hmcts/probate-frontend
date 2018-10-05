@@ -1,7 +1,9 @@
+'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {some} = require('lodash');
 
-module.exports = class ExecutorsWhoDied extends ValidationStep {
+class ExecutorsWhoDied extends ValidationStep {
 
     static getUrl() {
         return '/executors-who-died';
@@ -40,4 +42,6 @@ module.exports = class ExecutorsWhoDied extends ValidationStep {
     isComplete(ctx) {
         return [some(ctx.list, exec => exec.isDead === true), 'inProgress'];
     }
-};
+}
+
+module.exports = ExecutorsWhoDied;

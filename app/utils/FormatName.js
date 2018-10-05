@@ -8,6 +8,12 @@ class FormatName {
         return `${firstName} ${lastName}`.trim();
     }
 
+    static currentName(person) {
+        person = person || {};
+        const currentName = person.alias || this.format(person);
+        return currentName;
+    }
+
     static formatName(person, useOtherName) {
         if (useOtherName && person.hasOtherName) {
             return person.currentName;

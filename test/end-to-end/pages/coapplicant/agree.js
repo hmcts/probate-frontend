@@ -1,3 +1,5 @@
+'use strict';
+
 const pageUnderTest = require('app/steps/ui/coapplicant/agreepage/index');
 
 module.exports = function (elementId) {

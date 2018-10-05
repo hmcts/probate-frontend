@@ -1,4 +1,5 @@
 'use strict';
+
 const Step = require('app/core/steps/Step');
 
 class ExecutorsUpdateInviteSent extends Step {

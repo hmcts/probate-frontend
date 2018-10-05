@@ -1,8 +1,12 @@
+'use strict';
+
 const Step = require('app/core/steps/Step');
 
-module.exports = class PrivacyPolicy extends Step {
+class PrivacyPolicy extends Step {
 
     static getUrl () {
         return '/privacy-policy';
     }
-};
+}
+
+module.exports = PrivacyPolicy;

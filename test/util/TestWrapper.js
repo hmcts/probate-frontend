@@ -12,7 +12,7 @@ const services = require('app/components/services');
 const sinon = require('sinon');
 let featureToggleStub;
 
-module.exports = class TestWrapper {
+class TestWrapper {
     constructor(stepName) {
         this.pageToTest = steps[stepName];
         this.pageUrl = this.pageToTest.constructor.getUrl();
@@ -158,4 +158,6 @@ module.exports = class TestWrapper {
         featureToggleStub.restore();
         this.server.http.close();
     }
-};
+}
+
+module.exports = TestWrapper;

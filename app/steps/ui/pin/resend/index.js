@@ -1,8 +1,10 @@
+'use strict';
+
 const Step = require('app/core/steps/Step');
 const services = require('app/components/services');
 const WithLinkStepRunner = require('app/core/runners/WithLinkStepRunner');
 
-module.exports = class PinResend extends Step {
+class PinResend extends Step {
 
     static getUrl() {
         return '/pin-resend';
@@ -30,4 +32,6 @@ module.exports = class PinResend extends Step {
         });
         return [ctx, errors];
     }
-};
+}
+
+module.exports = PinResend;

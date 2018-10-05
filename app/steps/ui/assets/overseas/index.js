@@ -1,7 +1,9 @@
-const ValidationStep = require('app/core/steps/ValidationStep'),
-        json = require('app/resources/en/translation/assets/overseas.json');
+'use strict';
 
-module.exports = class AssetsOverseas extends ValidationStep {
+const ValidationStep = require('app/core/steps/ValidationStep');
+const json = require('app/resources/en/translation/assets/overseas');
+
+class AssetsOverseas extends ValidationStep {
 
     static getUrl() {
         return '/assets-overseas';
@@ -15,4 +17,6 @@ module.exports = class AssetsOverseas extends ValidationStep {
         };
         return nextStepOptions;
     }
-};
+}
+
+module.exports = AssetsOverseas;

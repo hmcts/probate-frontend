@@ -1,10 +1,11 @@
+'use strict';
+
 const AddressStep = require('app/core/steps/AddressStep');
 const {findIndex, get, startsWith} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-
 const path = '/executor-address/';
 
-module.exports = class ExecutorAddress extends AddressStep {
+class ExecutorAddress extends AddressStep {
 
     static getUrl(index = '*') {
         return path + index;
@@ -99,4 +100,6 @@ module.exports = class ExecutorAddress extends AddressStep {
             'inProgress'
         ];
     }
-};
+}
+
+module.exports = ExecutorAddress;

@@ -1,9 +1,8 @@
 'use strict';
 
 const CollectionStep = require('app/core/steps/CollectionStep');
-const execContent = require('app/resources/en/translation/executors/executorcontent.json');
+const execContent = require('app/resources/en/translation/executors/executorcontent');
 const {findKey, findIndex, every, tail, has, get} = require('lodash');
-
 const path = '/executor-when-died/';
 
 class ExecutorsWhenDied extends CollectionStep {

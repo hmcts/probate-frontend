@@ -1,4 +1,5 @@
 'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 

@@ -15,6 +15,70 @@ describe('ApplicantNameAsOnWill', () => {
         });
     });
 
+    describe('handlePost()', () => {
+        let ctx;
+        let errors;
+
+        it('should return the ctx with the alias and alias reason included', (done) => {
+            ctx = {
+                nameAsOnTheWill: 'No',
+                alias: 'Bobby Alias',
+                aliasReason: 'Divorce'
+            };
+            errors = {};
+            [ctx, errors] = ApplicantNameAsOnWill.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({
+                nameAsOnTheWill: 'No',
+                alias: 'Bobby Alias',
+                aliasReason: 'Divorce'
+            });
+            done();
+        });
+
+        it('should return the ctx with the alias, alias reason and other reason included when reason is other', (done) => {
+            ctx = {
+                nameAsOnTheWill: 'No',
+                alias: 'Bobby Alias',
+                aliasReason: 'other',
+                otherReason: 'Legally changed name'
+            };
+            errors = {};
+            [ctx, errors] = ApplicantNameAsOnWill.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({
+                nameAsOnTheWill: 'No',
+                alias: 'Bobby Alias',
+                aliasReason: 'other',
+                otherReason: 'Legally changed name'
+            });
+            done();
+        });
+
+        it('should return the ctx with the alias and alias reason removed', (done) => {
+            ctx = {
+                nameAsOnTheWill: 'Yes',
+                alias: 'Bobby Alias',
+                aliasReason: 'Divorce'
+            };
+            errors = {};
+            [ctx, errors] = ApplicantNameAsOnWill.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({nameAsOnTheWill: 'Yes'});
+            done();
+        });
+
+        it('should return the ctx with the alias, alias reason and other reason removed when reason is other', (done) => {
+            ctx = {
+                nameAsOnTheWill: 'Yes',
+                alias: 'Bobby Alias',
+                aliasReason: 'other',
+                otherReason: 'Legally changed name'
+            };
+            errors = {};
+            [ctx, errors] = ApplicantNameAsOnWill.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({nameAsOnTheWill: 'Yes'});
+            done();
+        });
+    });
+
     describe('nextStepOptions()', () => {
         it('should return the correct next step options', (done) => {
             const result = ApplicantNameAsOnWill.nextStepOptions();

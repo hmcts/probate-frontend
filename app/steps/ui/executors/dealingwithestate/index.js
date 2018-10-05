@@ -1,10 +1,11 @@
 'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {includes, some, tail} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const FormatName = require('app/utils/FormatName');
 
-module.exports = class ExecutorsDealingWithEstate extends ValidationStep {
+class ExecutorsDealingWithEstate extends ValidationStep {
 
     static getUrl() {
         return '/executors-dealing-with-estate';
@@ -16,7 +17,8 @@ module.exports = class ExecutorsDealingWithEstate extends ValidationStep {
             ctx.options = (new ExecutorsWrapper(ctx)).aliveExecutors()
                 .map(executor => {
                     if (executor.isApplicant) {
-                        return {option: FormatName.format(executor), checked: true, disabled: true};
+                        const optionValue = executor.alias ? executor.alias : FormatName.format(executor);
+                        return {option: optionValue, checked: true, disabled: true};
                     }
                     return {option: executor.fullName, checked: executor.isApplying === true};
                 });
@@ -54,4 +56,6 @@ module.exports = class ExecutorsDealingWithEstate extends ValidationStep {
     isComplete(ctx) {
         return [some(tail(ctx.list), exec => exec.isApplying === true), 'inProgress'];
     }
-};
+}
+
+module.exports = ExecutorsDealingWithEstate;

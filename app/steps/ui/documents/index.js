@@ -1,10 +1,12 @@
+'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const RegistryWrapper = require('app/wrappers/Registry');
 const ihtContent = require('app/resources/en/translation/iht/method');
 
-module.exports = class Documents extends ValidationStep {
+class Documents extends ValidationStep {
 
     static getUrl() {
         return '/documents';
@@ -23,5 +25,6 @@ module.exports = class Documents extends ValidationStep {
 
         return [ctx];
     }
+}
 
-};
+module.exports = Documents;

@@ -50,14 +50,6 @@ class PaymentBreakdown extends Step {
 
     * handlePost(ctx, errors, formdata, session, hostname) {
         if (formdata.paymentPending !== 'unknown') {
-            if (!formdata.applicantEmail) {
-                logger.warn('Unable to find applicantEmail, using session.regId instead.');
-                if (session.regId) {
-                    formdata.applicantEmail = session.regId;
-                } else {
-                    logger.error('Unable to find applicantEmail or session.regId.');
-                }
-            }
             const result = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
             if (errors.length > 0) {
                 logger.error('Failed to create case in CCD.');

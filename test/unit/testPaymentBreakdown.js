@@ -31,7 +31,7 @@ describe('PaymentBreakdown', () => {
             const PaymentBreakdown = steps.PaymentBreakdown;
             let ctx = {total: 0};
             let errors = [];
-            const formdata = {applicantEmail: 'test@email.com'};
+            const formdata = {};
 
             co(function* () {
                 [ctx, errors] = yield PaymentBreakdown.handlePost(ctx, errors, formdata);
@@ -69,7 +69,6 @@ describe('PaymentBreakdown', () => {
                 creatingPayment: 'true'
             };
             const session = {
-                regId: 'test@email.com',
                 save: () => true
             };
 
@@ -77,7 +76,6 @@ describe('PaymentBreakdown', () => {
                 const [ctx, errors] = yield PaymentBreakdown.handlePost(ctxTestData,
                     errorsTestData, formdata, session, hostname);
                 assert.deepEqual(formdata, {
-                    'applicantEmail': 'test@email.com',
                     'ccdCase': {
                         'id': 1535395401245028,
                         'state': 'PaAppCreated'
@@ -130,7 +128,6 @@ describe('PaymentBreakdown', () => {
                 creatingPayment: 'false'
             };
             const session = {
-                regId: 'test@email.com',
                 save: () => true
             };
 
@@ -138,7 +135,6 @@ describe('PaymentBreakdown', () => {
                 const [ctx, errors] = yield PaymentBreakdown.handlePost(ctxTestData,
                     errorsTestData, formdata, session, hostname);
                 assert.deepEqual(formdata, {
-                    'applicantEmail': 'test@email.com',
                     'ccdCase': {
                         'id': 1535395401245028,
                         'state': 'PaAppCreated'
@@ -193,7 +189,6 @@ describe('PaymentBreakdown', () => {
             const ctxTestData = {total: 215};
             const errorsTestData = [];
             const formdata = {
-                applicantEmail: 'test@email.com',
                 creatingPayment: 'false'
             };
             const session = {
@@ -204,7 +199,6 @@ describe('PaymentBreakdown', () => {
                 const [ctx, errors] = yield PaymentBreakdown.handlePost(ctxTestData,
                     errorsTestData, formdata, session, hostname);
                 assert.deepEqual(formdata, {
-                    'applicantEmail': 'test@email.com',
                     'ccdCase': {
                         'id': 1535395401245028,
                         'state': 'PaAppCreated'

@@ -40,11 +40,6 @@ class Security {
                             req.session.regId = response.email;
                             req.userId = response.id;
                             req.authToken = securityCookie;
-
-                            if (typeof req.session.regId !== 'string') {
-                                logger.error('req.session.regId is empty after login');
-                            }
-
                             self._authorize(res, next, response.roles, authorisedRoles);
                         } else {
                             logger.error('Error authorising user');

@@ -13,17 +13,21 @@ const featureToggles = require('app/featureToggles');
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
     req.log.info(`Processing ${req.method} for ${req.originalUrl}`);
+    req.log.info(`req.session.regId: ${req.session.regId}`);
     next();
 });
 
 router.use((req, res, next) => {
+    req.log.info('Checking req.session.form');
     if (!req.session.form) {
+        req.log.info('req.session.form not found: setting default formdata');
         req.session.form = {
             payloadVersion: config.payloadVersion,
             applicantEmail: req.session.regId
         };
         req.session.back = [];
     }
+    req.log.info(req.session.form);
     next();
 });
 

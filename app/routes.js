@@ -13,6 +13,7 @@ const featureToggles = require('app/featureToggles');
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
     req.log.info(`Processing ${req.method} for ${req.originalUrl}`);
+    req.log.info(`req.session.regId is set: ${typeof req.session.regId === 'string'}`);
     next();
 });
 

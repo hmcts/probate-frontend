@@ -27,7 +27,6 @@ router.use((req, res, next) => {
         };
         req.session.back = [];
     }
-    req.session.form.isThisDeployed = 'Yes :)';
     req.log.info(req.session.form);
     next();
 });

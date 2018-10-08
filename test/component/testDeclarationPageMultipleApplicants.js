@@ -10,13 +10,9 @@ const Tasklist = require('app/steps/ui/tasklist/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const {assert} = require('chai');
 
-const {assert} = require('chai');
-
 describe('declaration, multiple applicants', () => {
     let testWrapper, contentData, sessionData;
     const expectedNextUrlForExecInvite = ExecutorsInvite.getUrl();
-    const expectedNextUrlForAdditionalExecInvite = ExecutorsAdditionalInvite.getUrl();
-    const expectedNextUrlForUpdateExecInvite = ExecutorsUpdateInvite.getUrl();
     const expectedNextUrlForExecChangeMade = ExecutorsChangeMade.getUrl();
     const expectedNextUrlForChangeToSingleApplicant = Tasklist.getUrl();
     const expectedNextUrlForUpdateExecInvite = ExecutorsUpdateInvite.getUrl();
@@ -670,6 +666,34 @@ describe('declaration, multiple applicants', () => {
                         declarationCheckbox: true
                     };
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecChangeMade);
+                });
+        });
+
+        it(`test it redirects to next page when executor has been added: ${expectedNextUrlForAdditionalExecInvite}`, (done) => {
+            sessionData.executors.list[2].emailSent = false;
+            sessionData.executors.invitesSent = 'true';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        declarationCheckbox: true
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAdditionalExecInvite);
+                });
+        });
+
+        it(`test it redirects to next page when executor email has been changed: ${expectedNextUrlForUpdateExecInvite}`, (done) => {
+            sessionData.executors.list[1].emailSent = true;
+            sessionData.executors.list[2].emailChanged = true;
+            sessionData.executors.list[2].emailSent = true;
+            sessionData.executors.invitesSent = 'true';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        declarationCheckbox: true
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForUpdateExecInvite);
                 });
         });
 

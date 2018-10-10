@@ -80,7 +80,7 @@ const sendToSubmitService = (data, ctx, softStop) => {
 };
 
 const updateCcdCasePaymentStatus = (data, ctx) => {
-    logger.info('updateCcdCasePaymentStatus');
+    logInfo('updateCcdCasePaymentStatus');
     const headers = {
         'Content-Type': 'application/json',
         'Session-Id': ctx.sessionID,

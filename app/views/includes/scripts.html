@@ -17,12 +17,16 @@
 
 <script src="/public/javascripts/dropzone.js"></script>
 <script nonce="{{nonce}}">
-    var documentUploadContent = {
+    var documentUploadConfig = {
         csrfToken: "{{csrfToken}}",
         removeFileText: "{{common.documentUploadRemoveFile}}",
         invalidFileType: "{{common.documentUploadInvalidFileType}}",
         errorSummaryHeading: "{{common.errorSummaryHeading}}",
-        invalidFileTypeSummary: "{{common.documentUploadInvalidFileTypeSummary}}"
+        invalidFileTypeSummary: "{{common.documentUploadInvalidFileTypeSummary}}",
+        maxFilesExceeded: "{{common.documentUploadMaxFilesExceeded}}".replace('{maxFiles}', "{{documentUpload.maxFiles}}"),
+        maxFilesExceededSummary: "{{common.documentUploadMaxFilesExceededSummary}}",
+        fileTypes: "{{documentUpload.fileTypes}}",
+        maxFiles: "{{documentUpload.maxFiles}}"
     };
 </script>
 <script src="/public/javascripts/document-upload.js"></script>

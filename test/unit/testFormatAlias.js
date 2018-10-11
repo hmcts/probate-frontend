@@ -6,19 +6,19 @@ describe('FormatAlias.js', () => {
     describe('aliasReason()', () => {
         it('should return correctly formatted alias reason when reason is Marriage', (done) => {
             const executor = {firstName: 'James', lastName: 'Miller', alias: 'Bob Alias', aliasReason: 'Marriage'};
-            expect(FormatAlias.aliasReason(executor)).to.equal('got married');
+            expect(FormatAlias.aliasReason(executor)).to.equal(' got married');
             done();
         });
 
         it('should return correctly formatted alias reason when reason is Divorce', (done) => {
             const executor = {firstName: 'James', lastName: 'Miller', aliasReason: 'Divorce'};
-            expect(FormatAlias.aliasReason(executor)).to.equal('got divorced');
+            expect(FormatAlias.aliasReason(executor)).to.equal(' got divorced');
             done();
         });
 
         it('should return correctly formatted alias reason when reason is Change by deed poll', (done) => {
             const executor = {firstName: 'James', lastName: 'Miller', aliasReason: 'Change by deed poll'};
-            expect(FormatAlias.aliasReason(executor)).to.equal('changed their name by deed poll');
+            expect(FormatAlias.aliasReason(executor)).to.equal(' changed their name by deed poll');
             done();
         });
 
@@ -43,19 +43,19 @@ describe('FormatAlias.js', () => {
     describe('formatAliasReason()', () => {
         it('should return the correct text when Marriage is selected as aliasReason', (done) => {
             const aliasReason = 'Marriage';
-            expect(FormatAlias.formatAliasReason(aliasReason)).to.equal('got married');
+            expect(FormatAlias.formatAliasReason(aliasReason)).to.equal(' got married');
             done();
         });
 
         it('should return the correct text when Divorce is selected as aliasReason', (done) => {
             const aliasReason = 'Divorce';
-            expect(FormatAlias.formatAliasReason(aliasReason)).to.equal('got divorced');
+            expect(FormatAlias.formatAliasReason(aliasReason)).to.equal(' got divorced');
             done();
         });
 
         it('should return the correct text when Changed by deed poll is selected as aliasReason', (done) => {
             const aliasReason = 'Change by deed poll';
-            expect(FormatAlias.formatAliasReason(aliasReason)).to.equal('changed their name by deed poll');
+            expect(FormatAlias.formatAliasReason(aliasReason)).to.equal(' changed their name by deed poll');
             done();
         });
 

@@ -75,3 +75,10 @@
   color: $error-colour;
   @include bold-19;
 }
+
+.dz-processing [data-dz-uploadprogress] {
+  background-color: $govuk-blue;
+  display: block;
+  height: 5px;
+  margin-top: 8px;
+}

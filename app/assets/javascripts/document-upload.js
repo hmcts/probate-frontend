@@ -33,7 +33,7 @@ var DocumentUpload = {
         })
         .on('error', function(file, error) {
             DocumentUpload.showErrorSummary();
-            DocumentUpload.showErrorSummaryLine(error)
+            DocumentUpload.showErrorSummaryLine(error);
         })
         .on('queuecomplete', function(file) {
             DocumentUpload.enableSubmitButton();

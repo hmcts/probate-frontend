@@ -19,14 +19,19 @@
 <script nonce="{{nonce}}">
     var documentUploadConfig = {
         csrfToken: "{{csrfToken}}",
-        removeFileText: "{{common.documentUploadRemoveFile}}",
-        invalidFileType: "{{common.documentUploadInvalidFileType}}",
-        errorSummaryHeading: "{{common.errorSummaryHeading}}",
-        invalidFileTypeSummary: "{{common.documentUploadInvalidFileTypeSummary}}",
-        maxFilesExceeded: "{{common.documentUploadMaxFilesExceeded}}".replace('{maxFiles}', "{{documentUpload.maxFiles}}"),
-        maxFilesExceededSummary: "{{common.documentUploadMaxFilesExceededSummary}}",
         fileTypes: "{{documentUpload.fileTypes}}",
-        maxFiles: "{{documentUpload.maxFiles}}"
+        maxFiles: "{{documentUpload.maxFiles}}",
+        maxFileSize: "{{documentUpload.maxFileSize}}",
+        content: {
+            removeFileText: "{{common.documentUploadRemoveFile}}",
+            invalidFileType: "{{common.documentUploadInvalidFileType}}",
+            errorSummaryHeading: "{{common.errorSummaryHeading}}",
+            invalidFileTypeSummary: "{{common.documentUploadInvalidFileTypeSummary}}",
+            maxFilesExceeded: "{{common.documentUploadMaxFilesExceeded}}".replace('{maxFiles}', "{{documentUpload.maxFiles}}"),
+            maxFilesExceededSummary: "{{common.documentUploadMaxFilesExceededSummary}}",
+            maxFileSize: "{{common.documentUploadMaxFileSize}}".replace('{maxFileSize}', "{{documentUpload.maxFileSize}}"),
+            maxFileSizeSummary: "{{common.documentUploadMaxFileSizeSummary}}",
+        }
     };
 </script>
 <script src="/public/javascripts/document-upload.js"></script>

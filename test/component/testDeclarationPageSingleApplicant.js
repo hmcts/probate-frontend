@@ -40,7 +40,7 @@ describe('declaration, single applicant', () => {
         testHelpBlockContent.runTest('WillLeft');
 
         it('test right content loaded on the page when deceased has one other name, no codicils', (done) => {
-            const contentToExclude = ['applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'executorApplyingName-codicils', 'executorNotApplyingHeader', 'executorNotApplyingReason', 'executorNotApplyingReason-codicils', 'optionDiedBefore', 'optionDiedAfter', 'optionPowerReserved', 'optionRenunciated', 'additionalExecutorNotified', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign-codicils', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-codicils', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils'];
+            const contentToExclude = ['applicantName-alias', 'applicantName-alias-codicils', 'applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'executorApplyingName-codicils', 'executorNotApplyingHeader', 'executorNotApplyingReason', 'executorNotApplyingReason-codicils', 'optionDiedBefore', 'optionDiedAfter', 'optionPowerReserved', 'optionRenunciated', 'additionalExecutorNotified', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign-codicils', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-codicils', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils'];
             sessionData.deceased.otherNames = {
                 name_0: {
                     firstName: 'James',
@@ -57,7 +57,7 @@ describe('declaration, single applicant', () => {
         });
 
         it('test right content loaded on the page when deceased has two other names, no codicils', (done) => {
-            const contentToExclude = ['applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'executorApplyingName-codicils', 'executorNotApplyingHeader', 'executorNotApplyingReason', 'executorNotApplyingReason-codicils', 'optionDiedBefore', 'optionDiedAfter', 'optionPowerReserved', 'optionRenunciated', 'additionalExecutorNotified', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign-codicils', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-codicils', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils'];
+            const contentToExclude = ['applicantName-alias', 'applicantName-alias-codicils', 'applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'executorApplyingName-codicils', 'executorNotApplyingHeader', 'executorNotApplyingReason', 'executorNotApplyingReason-codicils', 'optionDiedBefore', 'optionDiedAfter', 'optionPowerReserved', 'optionRenunciated', 'additionalExecutorNotified', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign-codicils', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-codicils', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils'];
             sessionData.deceased.otherNames = {
                 name_0: {firstName: 'James', lastName: 'Miller'},
                 name_1: {firstName: 'Joe', lastName: 'Smith'}
@@ -72,7 +72,7 @@ describe('declaration, single applicant', () => {
         });
 
         it('test right content loaded on the page when deceased has three other names, no codicils', (done) => {
-            const contentToExclude = ['applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'executorApplyingName-codicils', 'executorNotApplyingHeader', 'executorNotApplyingReason', 'executorNotApplyingReason-codicils', 'optionDiedBefore', 'optionDiedAfter', 'optionPowerReserved', 'optionRenunciated', 'additionalExecutorNotified', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign-codicils', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-codicils', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils'];
+            const contentToExclude = ['applicantName-alias', 'applicantName-alias-codicils', 'applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'executorApplyingName-codicils', 'executorNotApplyingHeader', 'executorNotApplyingReason', 'executorNotApplyingReason-codicils', 'optionDiedBefore', 'optionDiedAfter', 'optionPowerReserved', 'optionRenunciated', 'additionalExecutorNotified', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign-codicils', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-codicils', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils'];
             sessionData.deceased.otherNames = {
                 name_0: {firstName: 'James', lastName: 'Miller'},
                 name_1: {firstName: 'Joe', lastName: 'Smith'},
@@ -88,7 +88,7 @@ describe('declaration, single applicant', () => {
         });
 
         it('test right content loaded on the page when deceased has no other names, no codicils', (done) => {
-            const contentToExclude = ['applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'deceasedOtherNames', 'executorApplyingName-codicils', 'executorNotApplyingHeader', 'executorNotApplyingReason', 'executorNotApplyingReason-codicils', 'optionDiedBefore', 'optionDiedAfter', 'optionPowerReserved', 'optionRenunciated', 'additionalExecutorNotified', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign-codicils', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-codicils', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils'];
+            const contentToExclude = ['applicantName-alias', 'applicantName-alias-codicils', 'applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'deceasedOtherNames', 'executorApplyingName-codicils', 'executorNotApplyingHeader', 'executorNotApplyingReason', 'executorNotApplyingReason-codicils', 'optionDiedBefore', 'optionDiedAfter', 'optionPowerReserved', 'optionRenunciated', 'additionalExecutorNotified', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign-codicils', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-codicils', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils'];
             delete contentData.deceasedOtherNames;
 
             testWrapper.agent.post('/prepare-session/form')
@@ -99,7 +99,7 @@ describe('declaration, single applicant', () => {
         });
 
         it('test right content loaded on the page when deceased has no other names and there are codicils', (done) => {
-            const contentToExclude = ['applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'deceasedOtherNames', 'executorApplyingName', 'executorNotApplyingHeader', 'executorNotApplyingReason', 'executorNotApplyingReason-codicils', 'optionDiedBefore', 'optionDiedAfter', 'optionPowerReserved', 'optionRenunciated', 'additionalExecutorNotified', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-codicils', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils', 'applicantName'];
+            const contentToExclude = ['applicantName-alias', 'applicantName-alias-codicils', 'applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'deceasedOtherNames', 'executorApplyingName', 'executorNotApplyingHeader', 'executorNotApplyingReason', 'executorNotApplyingReason-codicils', 'optionDiedBefore', 'optionDiedAfter', 'optionPowerReserved', 'optionRenunciated', 'additionalExecutorNotified', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-codicils', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils', 'applicantName'];
             sessionData.will.codicils = 'Yes';
             delete contentData.deceasedOtherNames;
 
@@ -111,7 +111,7 @@ describe('declaration, single applicant', () => {
         });
 
         it('test right content loaded on the page when deceased has no other names, no codicils and multiple executors (optionPowerReserved and additionalExecutorNotified)', (done) => {
-            const contentToExclude = ['applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'executorApplyingName-codicils', 'deceasedOtherNames', 'executorApplyingName', 'executorNotApplyingReason-codicils', 'optionDiedBefore', 'optionDiedAfter', 'optionRenunciated', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign-codicils', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-codicils', 'applicantSign-codicils', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils', 'applicantName'];
+            const contentToExclude = ['applicantName-alias', 'applicantName-alias-codicils', 'applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'executorApplyingName-codicils', 'deceasedOtherNames', 'executorApplyingName', 'executorNotApplyingReason-codicils', 'optionDiedBefore', 'optionDiedAfter', 'optionRenunciated', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign-codicils', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-codicils', 'applicantSign-codicils', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils', 'applicantName'];
             const executor = {
                 fullName: 'James Miller',
                 isDead: false,
@@ -131,7 +131,7 @@ describe('declaration, single applicant', () => {
         });
 
         it('test right content loaded on the page when deceased has no other names, there are codicils and multiple executors (optionDiedBefore)', (done) => {
-            const contentToExclude = ['applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'deceasedOtherNames', 'executorApplyingName', 'executorNotApplyingReason', 'optionDiedAfter', 'optionPowerReserved', 'optionRenunciated', 'additionalExecutorNotified', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-codicils', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils', 'applicantName'];
+            const contentToExclude = ['applicantName-alias', 'applicantName-alias-codicils', 'applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'deceasedOtherNames', 'executorApplyingName', 'executorNotApplyingReason', 'optionDiedAfter', 'optionPowerReserved', 'optionRenunciated', 'additionalExecutorNotified', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-codicils', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils', 'applicantName'];
             const executor = {
                 fullName: 'Joe Smith',
                 isDead: true,
@@ -151,7 +151,7 @@ describe('declaration, single applicant', () => {
         });
 
         it('test right content loaded on the page when deceased has no other names, there are codicils and multiple executors (optionDiedAfter)', (done) => {
-            const contentToExclude = ['applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'deceasedOtherNames', 'executorApplyingName', 'executorNotApplyingReason', 'optionDiedBefore', 'optionPowerReserved', 'optionRenunciated', 'additionalExecutorNotified', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-codicils', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils', 'applicantName'];
+            const contentToExclude = ['applicantName-alias', 'applicantName-alias-codicils', 'applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'deceasedOtherNames', 'executorApplyingName', 'executorNotApplyingReason', 'optionDiedBefore', 'optionPowerReserved', 'optionRenunciated', 'additionalExecutorNotified', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-codicils', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils', 'applicantName'];
             const executor = {
                 fullName: 'Ed Brown',
                 isDead: true,
@@ -171,7 +171,7 @@ describe('declaration, single applicant', () => {
         });
 
         it('test right content loaded on the page when deceased has no other names, there are codicils and multiple executors (optionRenunciated)', (done) => {
-            const contentToExclude = ['applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'deceasedOtherNames', 'executorApplyingName', 'executorNotApplyingReason', 'optionDiedBefore', 'optionDiedAfter', 'optionPowerReserved', 'additionalExecutorNotified', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-codicils', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils', 'applicantName'];
+            const contentToExclude = ['applicantName-alias', 'applicantName-alias-codicils', 'applicantName-multipleApplicants-alias', 'applicantName-multipleApplicants-alias-codicils', 'applicantName-multipleApplicants-mainApplicant-alias', 'applicantName-multipleApplicants-mainApplicant-alias-codicils', 'deceasedOtherNames', 'executorApplyingName', 'executorNotApplyingReason', 'optionDiedBefore', 'optionDiedAfter', 'optionPowerReserved', 'additionalExecutorNotified', 'intro-multipleApplicants', 'legalStatementApplicant-multipleApplicants', 'deceasedEstateLand-multipleApplicants', 'applicantName-multipleApplicants', 'applicantName-multipleApplicants-codicils', 'applicantName-multipleApplicants-mainApplicant', 'applicantName-multipleApplicants-mainApplicant-codicils', 'applicantSign', 'applicantSign-multipleApplicants', 'applicantSign-multipleApplicants-codicils', 'applicantSign-multipleApplicants-mainApplicant', 'applicantSign-multipleApplicants-mainApplicant-codicils', 'declarationConfirm-multipleApplicants', 'declarationRequests-multipleApplicants', 'declarationUnderstand-multipleApplicants', 'declarationUnderstandItem1-multipleApplicants', 'declarationUnderstandItem2-multipleApplicants', 'submitWarning-multipleApplicants', 'applicantName-codicils', 'applicantName'];
             const executor = {
                 fullName: 'Fred Jones',
                 isDead: false,
@@ -206,6 +206,8 @@ describe('declaration, single applicant', () => {
                 'legalStatementApplicant-multipleApplicants',
                 'deceasedEstateLand-multipleApplicants',
                 'applicantName',
+                'applicantName-alias',
+                'applicantName-codicils',
                 'applicantName-multipleApplicants',
                 'applicantName-multipleApplicants-alias',
                 'applicantName-multipleApplicants-codicils',
@@ -232,7 +234,11 @@ describe('declaration, single applicant', () => {
             sessionData.applicant.aliasReason = 'other';
             sessionData.applicant.otherReason = 'Legal Name Change';
             sessionData.executors.list[0].alias = 'Robert Bruce';
+            sessionData.executors.list[0].aliasReason = 'other';
+            sessionData.executors.list[0].otherReason = 'Legal Name Change';
             contentData.applicantWillName = 'Robert Bruce';
+            contentData.applicantCurrentName = 'Bob Smith';
+            contentData.aliasReason = ': Legal Name Change';
             contentData.applicantCurrentNameSign = 'Robert Bruce';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -256,7 +262,9 @@ describe('declaration, single applicant', () => {
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
                 'deceasedEstateLand-multipleApplicants',
+                'applicantName',
                 'applicantName-codicils',
+                'applicantName-alias-codicils',
                 'applicantName-multipleApplicants',
                 'applicantName-multipleApplicants-alias',
                 'applicantName-multipleApplicants-codicils',
@@ -283,7 +291,11 @@ describe('declaration, single applicant', () => {
             sessionData.applicant.aliasReason = 'other';
             sessionData.applicant.otherReason = 'Legal Name Change';
             sessionData.executors.list[0].alias = 'Robert Bruce';
+            sessionData.executors.list[0].aliasReason = 'other';
+            sessionData.executors.list[0].otherReason = 'Legal Name Change';
             contentData.applicantWillName = 'Robert Bruce';
+            contentData.applicantCurrentName = 'Bob Smith';
+            contentData.aliasReason = ': Legal Name Change';
             contentData.applicantCurrentNameSign = 'Robert Bruce';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -308,6 +320,8 @@ describe('declaration, single applicant', () => {
                 'legalStatementApplicant-multipleApplicants',
                 'deceasedEstateLand-multipleApplicants',
                 'applicantName',
+                'applicantName-alias',
+                'applicantName-codicils',
                 'applicantName-multipleApplicants',
                 'applicantName-multipleApplicants-alias',
                 'applicantName-multipleApplicants-codicils',
@@ -334,6 +348,8 @@ describe('declaration, single applicant', () => {
             sessionData.applicant.aliasReason = 'other';
             sessionData.applicant.otherReason = 'Legal Name Change';
             sessionData.executors.list[0].alias = 'Robert Bruce';
+            sessionData.executors.list[0].aliasReason = 'other';
+            sessionData.executors.list[0].otherReason = 'Legal Name Change';
             sessionData.deceased.otherNames = {
                 name_0: {
                     firstName: 'James',
@@ -341,6 +357,8 @@ describe('declaration, single applicant', () => {
                 }
             };
             contentData.applicantWillName = 'Robert Bruce';
+            contentData.applicantCurrentName = 'Bob Smith';
+            contentData.aliasReason = ': Legal Name Change';
             contentData.applicantCurrentNameSign = 'Robert Bruce';
             contentData.deceasedOtherNames = 'James Miller';
             testWrapper.agent.post('/prepare-session/form')
@@ -365,7 +383,9 @@ describe('declaration, single applicant', () => {
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
                 'deceasedEstateLand-multipleApplicants',
+                'applicantName',
                 'applicantName-codicils',
+                'applicantName-alias-codicils',
                 'applicantName-multipleApplicants',
                 'applicantName-multipleApplicants-alias',
                 'applicantName-multipleApplicants-codicils',
@@ -392,6 +412,8 @@ describe('declaration, single applicant', () => {
             sessionData.applicant.aliasReason = 'other';
             sessionData.applicant.otherReason = 'Legal Name Change';
             sessionData.executors.list[0].alias = 'Robert Bruce';
+            sessionData.executors.list[0].aliasReason = 'other';
+            sessionData.executors.list[0].otherReason = 'Legal Name Change';
             sessionData.deceased.otherNames = {
                 name_0: {
                     firstName: 'James',
@@ -399,6 +421,8 @@ describe('declaration, single applicant', () => {
                 }
             };
             contentData.applicantWillName = 'Robert Bruce';
+            contentData.applicantCurrentName = 'Bob Smith';
+            contentData.aliasReason = ': Legal Name Change';
             contentData.applicantCurrentNameSign = 'Robert Bruce';
             contentData.deceasedOtherNames = 'James Miller';
             testWrapper.agent.post('/prepare-session/form')

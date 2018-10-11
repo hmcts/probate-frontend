@@ -10,7 +10,8 @@ const config = {
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
         fe_shutter_toggle: 'probate-fe-shutter',
         main_applicant_alias: 'probate-main-applicant-alias',
-        screening_questions: 'probate-screening-questions'
+        screening_questions: 'probate-screening-questions',
+        document_upload: 'probate-document-upload'
     },
     app: {
         username: process.env.USERNAME,
@@ -147,6 +148,10 @@ const config = {
     },
     appInsights: {
         instrumentationKey: process.env.APPINSIGHTS_INSTRUMENTATIONKEY
+    },
+    documentUpload: {
+        fileTypes: '.jpg,.jpeg,.bmp,.tiff,.tif,.png,.pdf',
+        maxFiles: 10
     }
 };
 

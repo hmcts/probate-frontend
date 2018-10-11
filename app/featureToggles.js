@@ -14,6 +14,7 @@ router.get('/applicant-alias', (req, res, next) => {
         callback: featureToggle.togglePage
     });
 });
+
 router.get('/applicant-alias-reason', (req, res, next) => {
     featureToggle.checkToggle({
         req: req,
@@ -24,6 +25,7 @@ router.get('/applicant-alias-reason', (req, res, next) => {
         callback: featureToggle.togglePage
     });
 });
+
 router.get('/summary/*', (req, res, next) => {
     featureToggle.checkToggle({
         req: req,
@@ -121,6 +123,38 @@ router.get('/new-start-apply', (req, res, next) => {
         next: next,
         redirectPage: 'start-apply',
         featureToggleKey: 'screening_questions',
+        callback: featureToggle.togglePage
+    });
+});
+
+router.get('/executor-current-name/:index', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'main_applicant_alias',
+        callback: featureToggle.toggleFeature
+    });
+});
+
+router.get('/executor-current-name-reason/:index', (req, res, next) => {
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        featureToggleKey: 'main_applicant_alias',
+        callback: featureToggle.toggleFeature
+    });
+});
+
+router.get('/executor-current-name-reason/:index', (req, res, next) => {
+    const index = req.params.index;
+    featureToggle.checkToggle({
+        req: req,
+        res: res,
+        next: next,
+        redirectPage: `/executor-current-name/${index}`,
+        featureToggleKey: 'main_applicant_alias',
         callback: featureToggle.togglePage
     });
 });

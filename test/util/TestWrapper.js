@@ -41,11 +41,11 @@ class TestWrapper {
 
     testContent(done, excludeKeys = [], data) {
         const contentToCheck = cloneDeep(filter(this.content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
-        this.substituteContent(data, contentToCheck);
+        const substitutedContent = this.substituteContent(data, contentToCheck);
         this.agent.get(this.pageUrl)
             .expect('Content-type', /html/)
             .then(response => {
-                this.assertContentIsPresent(response.text, contentToCheck);
+                this.assertContentIsPresent(response.text, substitutedContent);
                 done();
             })
             .catch(done);

@@ -57,6 +57,12 @@ class FormatName {
         }
         return formattedNames;
     }
+
+    static applicantWillName(person) {
+        person = person || {};
+        const currentName = person.alias || this.format(person);
+        return currentName;
+    }
 }
 
 module.exports = FormatName;

@@ -83,6 +83,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     const executorsWithDifferentNameList = ['5'];
     forEach(executorsWithDifferentNameList, executorNumber => {
         I.enterExecutorCurrentName(executorNumber, head(executorsWithDifferentNameList) === executorNumber);
+        I.enterExecutorCurrentNameReason(executorNumber, 'aliasOther', 'Because YOLO');
     });
 
     forEach(executorsApplyingList, executorNumber => {

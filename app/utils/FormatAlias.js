@@ -10,11 +10,11 @@ class FormatAlias {
 
     static formatAliasReason(aliasReason, otherReason) {
         if (aliasReason === 'Marriage') {
-            return 'got married';
+            return ' got married';
         } else if (aliasReason === 'Divorce') {
-            return 'got divorced';
+            return ' got divorced';
         } else if (aliasReason === 'Change by deed poll') {
-            return 'changed their name by deed poll';
+            return ' changed their name by deed poll';
         } else if (aliasReason === 'other') {
             return `: ${otherReason}`;
         }

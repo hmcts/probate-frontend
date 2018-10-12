@@ -77,4 +77,33 @@ describe('ApplicantAliasReason', () => {
             done();
         });
     });
+
+    describe('handlePost()', () => {
+        let ctx;
+        let errors;
+        it('should delete otherReason when the aliasReason is not set to other', (done) => {
+            ctx = {
+                aliasReason: 'Divorce',
+                otherReason: 'because I wanted to'
+            };
+            errors = {};
+            [ctx, errors] = ApplicantAliasReason.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({aliasReason: 'Divorce'});
+            done();
+        });
+
+        it('should not remove otherReason from the ctx when the aliasReason is set to other', (done) => {
+            ctx = {
+                aliasReason: 'other',
+                otherReason: 'because I wanted to'
+            };
+            errors = {};
+            [ctx, errors] = ApplicantAliasReason.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({
+                aliasReason: 'other',
+                otherReason: 'because I wanted to'
+            });
+            done();
+        });
+    });
 });

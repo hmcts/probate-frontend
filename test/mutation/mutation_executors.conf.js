@@ -13,7 +13,7 @@ const strykerConfiguration = config => {
     coverageAnalysis: 'perTest',
     mutate:
       [
-        'app/steps/ui/executors/**/*.js',
+        'app/steps/ui/executors/*/index.js',
         '!test/component/executors/*.js'
       ],
     files: ['**/*', '!**/node_modules/*'],
@@ -23,7 +23,7 @@ const strykerConfiguration = config => {
     mochaOptions: {
       files:
         [
-        'test/component/executors/*.js'
+        'test/component/executors/test*.js'
         ],
       timeout: 8000
     },

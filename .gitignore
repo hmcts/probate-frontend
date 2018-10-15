@@ -21,3 +21,4 @@ functional-output
 package-lock.json
 yarn-error.log
 git.properties.json
+.stryker-tmp/

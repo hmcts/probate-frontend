@@ -13,7 +13,7 @@ const strykerConfiguration = config => {
     coverageAnalysis: 'perTest',
     mutate:
       [
-        'app/assets/javascripts/*.js',
+          'app/steps/ui/assets/**/index.js',
         '!test/assets/*.js'
       ],
     files: ['**/*', '!**/node_modules/*'],
@@ -21,8 +21,7 @@ const strykerConfiguration = config => {
     symlinkNodeModules: false,
     htmlReporter: {baseDir: 'functional-output/mutation-assets'},
     mochaOptions: {
-      files:
-        ['test/assets/*.js'],
+      files: ['test/component/assets/test*.js'],
       timeout: 8000
     },
     logLevel: 'debug',

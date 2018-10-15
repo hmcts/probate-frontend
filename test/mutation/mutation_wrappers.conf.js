@@ -21,14 +21,16 @@ const strykerConfiguration = config => {
     symlinkNodeModules: false,
     htmlReporter: {baseDir: 'functional-output/mutation-wrappers'},
     mochaOptions: {
-      files:
-        [
-        'test/component/deceased/*.js',
-        'test/component/executors/*.js',
-        'test/component/will/*.js',
-        'test/unit/testWillWrapper.js',
-        'test/unit/testDeceasedWrapper.js'
-        ],
+      files: [
+          'test/component/deceased/*.js',
+          'test/component/executors/*.js',
+          'test/component/will/*.js',
+          'test/unit/testDeceasedWrapper.js',
+          'test/unit/testDetectDataChange.js',
+          'test/unit/testExecutorsWrapper.js',
+          'test/unit/testRegistryWrapper.js',
+          'test/unit/testWillWrapper.js'
+      ],
       timeout: 8000
     },
     logLevel: 'debug',

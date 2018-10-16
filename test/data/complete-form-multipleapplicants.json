@@ -14,20 +14,23 @@
     "netValue": "12345"
   },
   "applicant": {
-    "executor": "Yes",
-    "firstName": "Bob Richard",
-    "lastName": "Smith",
-    "nameAsOnTheWill": "Yes",
-    "phoneNumber": "07934235245",
-    "postcode": "SW1H 9EX",
-    "addresses": [
+    "executor":"Yes",
+    "firstName":"Bob Richard",
+    "lastName":"Smith",
+    "nameAsOnTheWill":"No",
+    "alias":"Bobby Richard Smith",
+    "aliasReason": "other",
+    "otherReason": "nickname",
+    "phoneNumber":"07934235245",
+    "postcode":"SW1H 9EX",
+    "addresses":[
       {
-        "formatted_address": "Adam & Eve 81 Petty France London SW1H 9EX"
+      "formatted_address":"Adam & Eve 81 Petty France London SW1H 9EX"
       }
     ],
-    "addressFound": "true",
-    "postcodeAddress": "Adam & Eve 81 Petty France London SW1H 9EX",
-    "address": "Adam & Eve 81 Petty France London SW1H 9EX"
+    "addressFound":"true",
+    "postcodeAddress":"Adam & Eve 81 Petty France London SW1H 9EX",
+    "address":"Adam & Eve 81 Petty France London SW1H 9EX",
   },
 
   "executors": {

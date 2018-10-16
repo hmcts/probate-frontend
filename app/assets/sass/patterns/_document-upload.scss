@@ -1,16 +1,26 @@
-.document-upload__dropzone {
+.document-upload__dropzone--javascript {
   border: 2px dashed $grey-1;
   overflow: hidden;
   padding: 30px;
 }
 
 .document-upload__image {
-  width: 90px;
+  display: none;
+}
+
+.document-upload__image--javascript {
+  display: block;
   float: left;
   margin-left: 100px;
+  width: 90px;
 }
 
 .document-upload__text {
+  display: none;
+}
+
+.document-upload__text--javascript {
+  display: block;
   float: left;
   padding-top: 4px;
 }

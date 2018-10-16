@@ -1,11 +1,13 @@
 $(document).ready(function () {
     DocumentUpload.initDropzone();
+    DocumentUpload.displayWidgetElements();
+    DocumentUpload.makeDropzoneLinkClickable();
 });
 
 var DocumentUpload = {
     initDropzone: function() {
         new Dropzone('.document-upload__dropzone', {
-            url: '/upload-document',
+            url: '/upload-document/add',
             previewsContainer: '.document-upload__preview',
             headers: {
                 'x-csrf-token': documentUploadConfig.csrfToken
@@ -36,7 +38,6 @@ var DocumentUpload = {
         .on('queuecomplete', function(file) {
             DocumentUpload.enableSubmitButton();
         });
-        DocumentUpload.makeDropzoneLinkClickable();
     },
     makeDropzoneLinkClickable: function() {
         $('.document-upload__dropzone-text--choose-file').click(function() {
@@ -50,13 +51,18 @@ var DocumentUpload = {
             }
         })[0];
     },
+    displayWidgetElements: function() {
+        $('.document-upload__text').addClass('document-upload__text--javascript');
+        $('.document-upload__image').addClass('document-upload__image--javascript');
+        $('.document-upload__dropzone').addClass('document-upload__dropzone--javascript');
+    },
     showEmptyListMessage: function() {
         if ($('.dz-preview').length === 0) {
-            $('.document-upload__no-files-uploaded-text').show();
+            $('.document-upload__empty-list-text').show();
         }
     },
     hideEmptyListMessage: function() {
-        $('.document-upload__no-files-uploaded-text').hide();
+        $('.document-upload__empty-list-text').hide();
     },
     showErrorSummary: function() {
         if ($('.error-summary').length === 0) {

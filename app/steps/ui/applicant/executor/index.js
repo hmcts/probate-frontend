@@ -2,6 +2,8 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const content = require('app/resources/en/translation/applicant/executor');
+const EligibilityCookie = require('app/utils/EligibilityCookie');
+const eligibilityCookie = new EligibilityCookie();
 
 class ApplicantExecutor extends ValidationStep {
 
@@ -19,6 +21,10 @@ class ApplicantExecutor extends ValidationStep {
                 {key: 'executor', value: content.optionYes, choice: 'isExecutor'}
             ]
         };
+    }
+
+    setEligibilityCookie(req, res, ctx) {
+        eligibilityCookie.setCookie(req, res, this.nextStepUrl(ctx));
     }
 }
 

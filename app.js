@@ -28,6 +28,8 @@ const appInsights = require('applicationinsights');
 const commonContent = require('app/resources/en/translation/common');
 const uuidv4 = require('uuid/v4');
 const uuid = uuidv4();
+const EligibilityCookie = require('app/utils/EligibilityCookie');
+const eligibilityCookie = new EligibilityCookie();
 
 exports.init = function() {
     const app = express();
@@ -195,6 +197,14 @@ exports.init = function() {
     app.use('/executors-additional-invite', additionalInvite);
     app.use('/executors-update-invite', updateInvite);
     app.use('/declaration', declaration);
+
+    app.use('/will-original', eligibilityCookie.checkCookie());
+    app.use('/death-certificate', eligibilityCookie.checkCookie());
+    app.use('/deceased_domicile', eligibilityCookie.checkCookie());
+    app.use('/applicant-executor', eligibilityCookie.checkCookie());
+    app.use('/mental-capacity', eligibilityCookie.checkCookie());
+    app.use('/iht-completed', eligibilityCookie.checkCookie());
+    app.use('/start-apply', eligibilityCookie.checkCookie());
 
     if (useIDAM === 'true') {
         const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);

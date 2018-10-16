@@ -54,6 +54,10 @@ class Step {
         return ctx;
     }
 
+    setEligibilityCookie(req, res, ctx) {
+        return [req, res, ctx];
+    }
+
     handleGet(ctx) {
         return [ctx];
     }

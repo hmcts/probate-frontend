@@ -2,6 +2,8 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const content = require('app/resources/en/translation/executors/mentalcapacity');
+const EligibilityCookie = require('app/utils/EligibilityCookie');
+const eligibilityCookie = new EligibilityCookie();
 
 class MentalCapacity extends ValidationStep {
 
@@ -19,6 +21,10 @@ class MentalCapacity extends ValidationStep {
                 {key: 'mentalCapacity', value: content.optionYes, choice: 'isCapable'}
             ]
         };
+    }
+
+    setEligibilityCookie(req, res, ctx) {
+        eligibilityCookie.setCookie(req, res, this.nextStepUrl(ctx));
     }
 }
 

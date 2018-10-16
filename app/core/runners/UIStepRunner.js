@@ -80,6 +80,8 @@ class UIStepRunner {
                     session.back.push(step.constructor.getUrl());
                 }
 
+                step.setEligibilityCookie(req, res, ctx);
+
                 res.redirect(nextStepUrl);
             } else {
                 forEach(errors, (error) =>

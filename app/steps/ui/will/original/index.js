@@ -2,6 +2,8 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const content = require('app/resources/en/translation/will/original');
+const EligibilityCookie = require('app/utils/EligibilityCookie');
+const eligibilityCookie = new EligibilityCookie();
 
 class WillOriginal extends ValidationStep {
 
@@ -19,6 +21,10 @@ class WillOriginal extends ValidationStep {
                 {key: 'original', value: content.optionYes, choice: 'isOriginal'}
             ]
         };
+    }
+
+    setEligibilityCookie(req, res, ctx) {
+        eligibilityCookie.setCookie(req, res, this.nextStepUrl(ctx));
     }
 }
 

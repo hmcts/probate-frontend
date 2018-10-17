@@ -174,7 +174,7 @@ class TestWrapper {
         });
     }
 
-    setCookies(res, cookies) {
+    setCookies(res, cookies = []) {
         if (cookies.length) {
             let cookiesString;
 

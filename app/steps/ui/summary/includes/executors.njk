@@ -43,7 +43,7 @@
                     visible: true
                 }
             ],
-            url = content.ExecutorsWhenDied.url | replace("*", loop.index - 1 ),
+            url = content.ExecutorsWhenDied.url | replace("*", loop.index0 ),
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
@@ -176,6 +176,21 @@
     answerIsCollection = true
 )}}
 
+{{checkanswer(
+    items = [{
+            question: content.Summary.executorsWithOtherNames,
+            answer: fields.summary.executorsWithOtherNames.value,
+            visible: fields.summary.executorsWithOtherNames.value
+        }
+    ],
+    url = content.ExecutorsWithOtherNames.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value,
+    answerIsCollection = true
+)}}
+
+
+
 {% set cls = cycler(common.second,common.third,common.fourth,common.fifth) %}
 {% for executor in fields.executors.list.value %}
     {% if executor.isApplicant != true and executor.isApplying === true %}
@@ -199,10 +214,24 @@
                     visible: executor.hasOtherName
                 }
             ],
-            url = content.ExecutorCurrentName.url | replace("*", loop.index - 1 ),
+            url = content.ExecutorCurrentName.url | replace("*", loop.index0 ),
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
+
+        {% if fields.summary.isMainApplicantAliasToggleEnabled.value === 'true' %}
+        {{checkanswer(
+            items = [{
+                    question: content.Summary.currentNameReason,
+                    answer: executor.otherReason | default(executor.currentNameReason),
+                    visible: executor.hasOtherName
+                }
+            ],
+            url = content.ExecutorCurrentNameReason.url | replace("*", loop.index0 ),
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+        {% endif %}
 
         {{checkanswer(
             items = [{
@@ -211,7 +240,7 @@
                     visible: true
                 }
             ],
-            url = content.ExecutorAddress.url | replace("*", loop.index - 1 ),
+            url = content.ExecutorAddress.url | replace("*", loop.index0 ),
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
@@ -224,7 +253,7 @@
                     visible: true
                 }
             ],
-            url = content.ExecutorContactDetails.url | replace("*", loop.index - 1 ),
+            url = content.ExecutorContactDetails.url | replace("*", loop.index0 ),
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
@@ -237,7 +266,7 @@
                     visible: true
                 }
             ],
-            url = content.ExecutorContactDetails.url | replace("*", loop.index - 1 ),
+            url = content.ExecutorContactDetails.url | replace("*", loop.index0 ),
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
@@ -257,7 +286,7 @@
                     visible: true
                 }
             ],
-            url = content.ExecutorRoles.url | replace("*", loop.index - 1 ),
+            url = content.ExecutorRoles.url | replace("*", loop.index0 ),
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
@@ -269,7 +298,7 @@
                     visible: executor.notApplyingReason == content.ExecutorRoles.optionPowerReserved
                 }
             ],
-            url = content.ExecutorNotified.url | replace("*", loop.index - 1 ),
+            url = content.ExecutorNotified.url | replace("*", loop.index0 ),
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}

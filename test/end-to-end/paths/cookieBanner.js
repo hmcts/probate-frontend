@@ -1,3 +1,5 @@
+'use strict';
+
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('test/config.js');
 

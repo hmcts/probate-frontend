@@ -1,0 +1,77 @@
+.document-upload__dropzone {
+  border: 2px dashed $grey-1;
+  overflow: hidden;
+  padding: 30px;
+}
+
+.document-upload__image {
+  width: 90px;
+  float: left;
+  margin-left: 100px;
+}
+
+.document-upload__text {
+  float: left;
+  padding-top: 4px;
+}
+
+.document-upload__dropzone-text {
+  margin: 0 0 0 50px;
+}
+
+.document-upload__dropzone-text--choose-file {
+  color: $govuk-blue;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.document-upload__dropzone-text--choose-file:hover {
+  color: $light-blue;
+}
+
+.document-upload__preview {
+  margin-bottom: 20px;
+}
+
+.cant-upload-documents {
+  margin-bottom: 40px;
+}
+
+.dz-preview {
+  border-bottom: 1px solid $grey-2;
+  padding: 10px 0;
+  position: relative;
+
+  &:first-of-type {
+    padding-top: 0;
+  }
+}
+
+.dz-details,
+.dz-error-message {
+  width: 80%;
+}
+
+.dz-remove {
+  position: absolute;
+  right: 0;
+  top: 10px;
+}
+
+.dz-preview:first-of-type .dz-remove {
+  top: 0;
+}
+
+.dz-error {
+  border-left: 5px solid $error-colour;
+  padding-left: 15px;
+
+  .dz-error-message {
+    margin-bottom: 5px;
+  }
+}
+
+.dz-error-message {
+  color: $error-colour;
+  @include bold-19;
+}

@@ -16,8 +16,8 @@ describe('executors-when-died', () => {
     const expectedNextUrlForExecsApplying = ExecutorsApplying.getUrl(2);
     const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
     const reasons = {
-    'optionDiedBefore': 'This executor died (before the person who has died)',
-    'optionDiedAfter': 'This executor died (after the person who has died)'
+        'optionDiedBefore': 'This executor died (before the person who has died)',
+        'optionDiedAfter': 'This executor died (after the person who has died)'
     };
     let ctx = {
         'list': [{
@@ -262,10 +262,10 @@ describe('executors-when-died', () => {
 
     describe('handlePost', () => {
         it('Adds the keys to the context', () => {
-        const ExecutorsWhenDied = steps.ExecutorsWhenDied;
+            const ExecutorsWhenDied = steps.ExecutorsWhenDied;
 
-        [ctx] = ExecutorsWhenDied.handlePost(ctx);
-        assert.containsAllKeys(ctx.list[1], ['notApplyingReason', 'notApplyingKey']);
+            [ctx] = ExecutorsWhenDied.handlePost(ctx);
+            assert.containsAllKeys(ctx.list[1], ['notApplyingReason', 'notApplyingKey']);
         });
 
         it('Gets the reason key from the json and adds it to the context', () => {

@@ -1,9 +1,11 @@
-const ValidationStep = require('app/core/steps/ValidationStep'),
-    validator = require('validator'),
-    numeral = require('numeral'),
-    FieldError = require('app/components/error');
+'use strict';
 
-module.exports = class IhtValue extends ValidationStep {
+const ValidationStep = require('app/core/steps/ValidationStep');
+const validator = require('validator');
+const numeral = require('numeral');
+const FieldError = require('app/components/error');
+
+class IhtValue extends ValidationStep {
 
     static getUrl() {
         return '/iht-value';
@@ -30,5 +32,6 @@ module.exports = class IhtValue extends ValidationStep {
 
         return [ctx, errors];
     }
+}
 
-};
+module.exports = IhtValue;

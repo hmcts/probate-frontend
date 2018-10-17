@@ -1,8 +1,10 @@
+'use strict';
+
 const Step = require('app/core/steps/Step');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 
-module.exports = class CoApplicantAgreePage extends Step {
+class CoApplicantAgreePage extends Step {
 
     static getUrl () {
         return '/co-applicant-agree-page';
@@ -22,4 +24,6 @@ module.exports = class CoApplicantAgreePage extends Step {
         delete ctx.codicilsSuffix;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = CoApplicantAgreePage;

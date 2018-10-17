@@ -21,11 +21,13 @@ class Healthcheck {
 
     createPromisesList(services, callback) {
         const fetchOpts = fetchOptions({}, 'GET', {});
-        return services.map(service => asyncFetch(service.url, fetchOpts, res => res.json().then(json => {
-            return callback({service: service, json: json});
-        })).catch(err => {
-            return callback({service: service, err: err});
-        }));
+        return services.map(service => asyncFetch(service.url, fetchOpts, res => res.json()
+            .then(json => {
+                return callback({service: service, json: json});
+            }))
+            .catch(err => {
+                return callback({service: service, err: err});
+            }));
     }
 
     health({err, service, json}) {

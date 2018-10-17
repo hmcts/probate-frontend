@@ -23,8 +23,18 @@ class ExecutorsWithOtherNames extends ValidationStep {
     handlePost(ctx, errors) {
         for (let i = 1; i < ctx.executorsNumber; i++) {
             ctx.list[i].hasOtherName = ctx.executorsWithOtherNames.includes(ctx.list[i].fullName);
+            ctx.list[i] = this.pruneFormData(ctx.list[i]);
         }
         return [ctx, errors];
+    }
+
+    pruneFormData(data) {
+        if (!data.hasOtherName) {
+            delete data.currentNameReason;
+            delete data.currentName;
+            delete data.otherReason;
+        }
+        return data;
     }
 
     action(ctx, formdata) {

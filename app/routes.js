@@ -24,6 +24,11 @@ router.use((req, res, next) => {
         };
         req.session.back = [];
     }
+
+    if (!req.session.form.applicantEmail) {
+        req.session.form.applicantEmail = req.session.regId;
+    }
+
     next();
 });
 
@@ -79,6 +84,11 @@ router.use((req, res, next) => {
 
 router.use(featureToggles);
 
+router.post('/upload-document', (req, res) => {
+    services.uploadDocument(req.session.id);
+    res.send('File uploaded successfully');
+});
+
 router.use((req, res, next) => {
     res.locals.session = req.session;
     res.locals.pageUrl = req.url;
@@ -93,13 +103,14 @@ router.use((req, res, next) => {
         formdata.executors.invitesSent === 'true' &&
         get(formdata, 'declaration.declarationCheckbox')
     ) {
-        services.checkAllAgreed(req.session.regId).then(data => {
-            req.session.haveAllExecutorsDeclared = data;
-            next();
-        })
-        .catch(err => {
-            next(err);
-        });
+        services.checkAllAgreed(req.session.regId)
+            .then(data => {
+                req.session.haveAllExecutorsDeclared = data;
+                next();
+            })
+            .catch(err => {
+                next(err);
+            });
     } else {
         next();
     }

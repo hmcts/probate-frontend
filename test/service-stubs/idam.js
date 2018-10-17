@@ -10,12 +10,12 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     S2S_STUB_PORT = process.env.S2S_STUB_PORT || 4502;
 
-    const errorSequence = config.s2sStubErrorSequence;
-    let iterator = 0;
+const errorSequence = config.s2sStubErrorSequence;
+let iterator = 0;
 
-    app.use(bodyParser.urlencoded({
-        extended: true
-    }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 router.post('/lease', function (req, res) {
     console.log(req.headers);

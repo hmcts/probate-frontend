@@ -1,7 +1,9 @@
+'use strict';
+
 const Step = require('app/core/steps/Step');
 const FormatName = require('app/utils/FormatName');
 
-module.exports = class CoApplicantStartPage extends Step {
+class CoApplicantStartPage extends Step {
 
     static getUrl () {
         return '/co-applicant-start-page';
@@ -15,4 +17,6 @@ module.exports = class CoApplicantStartPage extends Step {
         delete req.session.pin;
         return ctx;
     }
-};
+}
+
+module.exports = CoApplicantStartPage;

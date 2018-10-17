@@ -202,18 +202,18 @@ describe('Healthcheck.js', () => {
             ];
             const mergedData = healthcheck.mergeInfoAndHealthData(healthDownstream, infoDownstream);
             expect(mergedData).to.deep.equal([{
-                    name: 'Business Service',
-                    status: 'UP',
-                    gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e1'
-                }, {
-                    name: 'Submit Service',
-                    status: 'UP',
-                    gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e2'
-                }, {
-                    name: 'Persistence Service',
-                    status: 'UP',
-                    gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e3'
-                }]);
+                name: 'Business Service',
+                status: 'UP',
+                gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e1'
+            }, {
+                name: 'Submit Service',
+                status: 'UP',
+                gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e2'
+            }, {
+                name: 'Persistence Service',
+                status: 'UP',
+                gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e3'
+            }]);
             done();
         });
     });

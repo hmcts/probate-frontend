@@ -1,4 +1,6 @@
-const commonContent = require('app/resources/en/translation/common.json');
+'use strict';
+
+const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/executors/roles/index');
 
 module.exports = function (executorNumber, powerReserved, firstRecord) {
@@ -10,12 +12,12 @@ module.exports = function (executorNumber, powerReserved, firstRecord) {
         I.seeCurrentUrlEquals(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
     }
 
-     if (powerReserved) {
-         I.click('#notApplyingReason-optionPowerReserved');
-     } else {
-         I.click('#notApplyingReason-optionRenunciated');
-     }
+    if (powerReserved) {
+        I.click('#notApplyingReason-optionPowerReserved');
+    } else {
+        I.click('#notApplyingReason-optionRenunciated');
+    }
 
-     I.click(commonContent.continue);
+    I.click(commonContent.continue);
 
 };

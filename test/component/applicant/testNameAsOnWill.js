@@ -25,43 +25,43 @@ describe('applicant-nameasonwill', () => {
             const sessionData = {
                 'applicant': {
                     'firstName': 'john', 'lastName': 'theapplicant'
-                 }
+                }
             };
 
             const excludeKeys = ['questionWithoutName', 'questionWithCodicil', 'legendWithCodicil'];
 
             testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
+                .send(sessionData)
+                .end(() => {
 
-                const contentData = {
-                    applicantName: 'john theapplicant',
-                };
-                testWrapper.testContent(done, excludeKeys, contentData);
-            });
+                    const contentData = {
+                        applicantName: 'john theapplicant',
+                    };
+                    testWrapper.testContent(done, excludeKeys, contentData);
+                });
         });
 
         it('test correct content is loaded on the page when there is a codicil', (done) => {
             const sessionData = {
                 'applicant': {
                     'firstName': 'john', 'lastName': 'theapplicant'
-                 },
-                 will: {
-                     codicils: 'Yes'
-                 }
+                },
+                will: {
+                    codicils: 'Yes'
+                }
             };
 
             const excludeKeys = ['question', 'questionWithoutName', 'legend'];
 
             testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
+                .send(sessionData)
+                .end(() => {
 
-                const contentData = {
-                    applicantName: 'john theapplicant',
-                };
-                testWrapper.testContent(done, excludeKeys, contentData);
-            });
+                    const contentData = {
+                        applicantName: 'john theapplicant',
+                    };
+                    testWrapper.testContent(done, excludeKeys, contentData);
+                });
         });
 
         it('test errors message displayed for missing data', (done) => {
@@ -74,10 +74,10 @@ describe('applicant-nameasonwill', () => {
             const data = {};
 
             testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
-                testWrapper.testErrors(done, data, 'required', []);
-            });
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testErrors(done, data, 'required', []);
+                });
 
         });
 
@@ -89,30 +89,30 @@ describe('applicant-nameasonwill', () => {
             };
 
             testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
-                const data = {
-                    nameAsOnTheWill: 'Yes'
-                };
-                testWrapper.testRedirect(done, data, expectedNextUrlForApplicantPhone);
-            });
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        nameAsOnTheWill: 'Yes'
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantPhone);
+                });
         });
 
         it(`test it redirects to next page when No selected: ${expectedNextUrlForApplicantAlias}`, (done) => {
             const sessionData = {
                 'applicant': {
                     'firstName': 'john', 'lastName': 'theapplicant'
-                 }
+                }
             };
 
             testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
-                const data = {
-                    nameAsOnTheWill: 'No'
-                };
-                testWrapper.testRedirect(done, data, expectedNextUrlForApplicantAlias);
-            });
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        nameAsOnTheWill: 'No'
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantAlias);
+                });
         });
     });
 });

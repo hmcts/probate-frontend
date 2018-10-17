@@ -1,6 +1,8 @@
+'use strict';
+
 const Step = require('app/core/steps/Step');
 
-module.exports = class StopPage extends Step {
+class StopPage extends Step {
 
     static getUrl(reason = '*') {
         return `/stop-page/${reason}`;
@@ -41,4 +43,6 @@ module.exports = class StopPage extends Step {
 
         return [];
     }
-};
+}
+
+module.exports = StopPage;

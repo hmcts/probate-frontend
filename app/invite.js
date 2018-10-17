@@ -19,28 +19,28 @@ class InviteLink {
     checkLinkIsValid(request, response, success, failure) {
         const inviteId = request.params.inviteId;
 
-        services.findInviteLink(inviteId).then(result => {
-            if (result.name === 'Error') {
-                logger.error(`Error while verifying the token: ${result.message}`);
+        services.findInviteLink(inviteId)
+            .then(result => {
+                if (result.name === 'Error') {
+                    logger.error(`Error while verifying the token: ${result.message}`);
+                    failure(response);
+                } else {
+                    logger.info('Link is valid');
+                    services.sendPin(result.phoneNumber, request.sessionID).then(generatedPin => {
+                        request.session.pin = generatedPin;
+                        request.session.phoneNumber = result.phoneNumber;
+                        request.session.leadExecutorName = result.mainExecutorName;
+                        request.session.formdataId = result.formdataId;
+                        request.session.inviteId = inviteId;
+                        request.session.validLink = true;
+                        success(response);
+                    });
+                }
+            })
+            .catch(err => {
+                logger.error(`Error while checking the link or sending the pin: ${err}`);
                 failure(response);
-            } else {
-                logger.info('Link is valid');
-                services.sendPin(result.phoneNumber, request.sessionID).then(generatedPin => {
-                    request.session.pin = generatedPin;
-                    request.session.phoneNumber = result.phoneNumber;
-                    request.session.leadExecutorName = result.mainExecutorName;
-                    request.session.formdataId = result.formdataId;
-                    request.session.inviteId = inviteId;
-                    request.session.validLink = true;
-                    success(response);
-                });
-            }
-
-        })
-        .catch(err => {
-            logger.error(`Error while checking the link or sending the pin: ${err}`);
-            failure(response);
-        });
+            });
     }
 
     checkCoApplicant(useIDAM) {

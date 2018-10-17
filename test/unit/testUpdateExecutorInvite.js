@@ -65,10 +65,11 @@ describe('UpdateExecutorInvite.js', () => {
 
         describe('when there are emailChanged flags to remove', () => {
             it('should delete emailChanged flag', (done) => {
-                UpdateExecutorInvite.update(session).then(res => {
-                    expect(res).to.deep.equal(executorsToCheck.form.executors);
-                    done();
-                })
+                UpdateExecutorInvite.update(session)
+                    .then(res => {
+                        expect(res).to.deep.equal(executorsToCheck.form.executors);
+                        done();
+                    })
                     .catch(err => {
                         done(err);
                     });
@@ -79,10 +80,11 @@ describe('UpdateExecutorInvite.js', () => {
             it('should return the original executors data', (done) => {
                 delete session.form.executors.list[1].emailChanged;
                 delete session.form.executors.list[2].emailChanged;
-                UpdateExecutorInvite.update(session).then(res => {
-                    expect(res).to.deep.equal(executorsToCheck.form.executors);
-                    done();
-                })
+                UpdateExecutorInvite.update(session)
+                    .then(res => {
+                        expect(res).to.deep.equal(executorsToCheck.form.executors);
+                        done();
+                    })
                     .catch(err => {
                         done(err);
                     });

@@ -104,9 +104,9 @@ describe('Contact-Details', function () {
                 });
                 done();
             })
-            .catch((err) => {
-                done(err);
-            });
+                .catch((err) => {
+                    done(err);
+                });
         });
 
         it('test emailChanged flag is correctly set, executorToBeNotifiedList is populated and contact details updated', (done) => {
@@ -173,45 +173,45 @@ describe('Contact-Details', function () {
             co(function* () {
                 [ctx, errors] = yield contactDetails.handlePost(ctx, errors);
                 expect(ctx).to.deep.equal({
-                executorsNumber: 3,
-                executorsToNotifyList: [],
-                list: [
-                    {
-                        firstName: 'Lead',
-                        lastName: 'Applicant',
-                        isApplying: true,
-                        isApplicant: true
-                    },
-                    {
-                        fullName: 'Bob Cratchett',
-                        isApplying: true,
-                        email: 'cratchet@email.com',
-                        mobile: '07888888888',
-                        emailChanged: true,
-                        inviteId: 'dummy_inviteId',
-                        emailSent: true
-                    },
-                    {
-                        fullName: 'Billy Jean',
-                        isApplying: true,
-                        email: 'testemail@gmail.com',
-                        mobile: '07567567567',
-                        emailSent: true
-                    }
-                ],
-                invitesSent: 'true',
-                otherExecutorsApplying: 'Yes',
-                email: 'cratchet@email.com',
-                mobile: '07888888888',
-                index: 1,
-                otherExecName: 'Bob Cratchett',
-                executorsEmailChanged: true
+                    executorsNumber: 3,
+                    executorsToNotifyList: [],
+                    list: [
+                        {
+                            firstName: 'Lead',
+                            lastName: 'Applicant',
+                            isApplying: true,
+                            isApplicant: true
+                        },
+                        {
+                            fullName: 'Bob Cratchett',
+                            isApplying: true,
+                            email: 'cratchet@email.com',
+                            mobile: '07888888888',
+                            emailChanged: true,
+                            inviteId: 'dummy_inviteId',
+                            emailSent: true
+                        },
+                        {
+                            fullName: 'Billy Jean',
+                            isApplying: true,
+                            email: 'testemail@gmail.com',
+                            mobile: '07567567567',
+                            emailSent: true
+                        }
+                    ],
+                    invitesSent: 'true',
+                    otherExecutorsApplying: 'Yes',
+                    email: 'cratchet@email.com',
+                    mobile: '07888888888',
+                    index: 1,
+                    otherExecName: 'Bob Cratchett',
+                    executorsEmailChanged: true
                 });
                 done();
             })
-            .catch((err) => {
-                done(err);
-            });
+                .catch((err) => {
+                    done(err);
+                });
         });
     });
 });

@@ -13,8 +13,8 @@ describe('payment-breakdown', () => {
     });
 
     afterEach(() => {
-      submitStub.close();
-      testWrapper.destroy();
+        submitStub.close();
+        testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

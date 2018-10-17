@@ -24,6 +24,12 @@
 {% set checklistThreeItems = (checklistThreeItems.push(content["checklist3-item4-Form205"]), checklistThreeItems) %}
 {% endif %}
 
+{% if fields.executorsNameChangedByDeedPollList.value | length > 0 %}
+{% for executor in fields.executorsNameChangedByDeedPollList.value %}
+{% set checklistThreeItems = (checklistThreeItems.push(content["checklist3-item5-deedPoll"] | replace('{executorCurrentName}', executor)), checklistThreeItems) %}
+{% endfor %}
+{% endif %}
+
 {% block question %}
     <h1 class="form-title heading-large">{{content.header}}</h1>
 {% endblock %}

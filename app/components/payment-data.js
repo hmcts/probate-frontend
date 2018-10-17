@@ -19,7 +19,11 @@ const createPaymentData = (data) => {
         service: SERVICE_ID,
         currency: currency,
         site_id: SITE_ID,
-        fees: [createPaymentFees({
+        fees: []
+    };
+
+    if (data.applicationFee > 0) {
+        paymentData.fees.push(createPaymentFees({
             amount: data.applicationFee,
             ccdCaseId: data.ccdCaseId,
             code: APPLICATION_FEE_CODE,
@@ -27,8 +31,8 @@ const createPaymentData = (data) => {
             reference: data.userId,
             version: version,
             volume: 1
-        })]
-    };
+        }));
+    }
 
     if (data.copies.uk.number > 0) {
         paymentData.fees.push(createPaymentFees({

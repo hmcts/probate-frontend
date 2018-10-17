@@ -176,7 +176,7 @@ exports.init = function() {
         });
     }
 
-   // Add variables that are available in all views
+    // Add variables that are available in all views
     app.use(function (req, res, next) {
         res.locals.serviceName = commonContent.serviceName;
         res.locals.cookieText = commonContent.cookieText;
@@ -197,9 +197,9 @@ exports.init = function() {
     app.use('/declaration', declaration);
 
     if (useIDAM === 'true') {
-       const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);
-       app.use(idamPages, security.protect(config.services.idam.roles));
-       app.use('/', routes);
+        const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);
+        app.use(idamPages, security.protect(config.services.idam.roles));
+        app.use('/', routes);
     } else {
         app.use('/', (req, res, next) => {
             if (req.query.id && req.query.id !== req.session.regId) {

@@ -85,6 +85,6 @@ describe('persistence service tests', function () {
                 assert.strictEqual(expectedResponse, actualResponse);
                 done();
             })
-        .catch(done);
+            .catch(done);
     });
 });

@@ -57,5 +57,5 @@ describe('copies-overseas', () => {
             const data = {overseas: '1'};
             testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);
         });
-        });
+    });
 });

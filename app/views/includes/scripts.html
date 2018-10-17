@@ -15,6 +15,17 @@
     <script src="/public/javascripts/ga-tracking.js"></script>
 {% endif %}
 
+<script src="/public/javascripts/dropzone.js"></script>
+<script nonce="{{nonce}}">
+    var documentUploadContent = {
+        csrfToken: "{{csrfToken}}",
+        removeFileText: "{{common.documentUploadRemoveFile}}",
+        invalidFileType: "{{common.documentUploadInvalidFileType}}",
+        errorSummaryHeading: "{{common.errorSummaryHeading}}",
+        invalidFileTypeSummary: "{{common.documentUploadInvalidFileTypeSummary}}"
+    };
+</script>
+<script src="/public/javascripts/document-upload.js"></script>
 
 <!--[if lte IE 9]>
 <script src="/public/javascripts/form-polyfill.js"></script>

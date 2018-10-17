@@ -98,7 +98,7 @@ describe('Pin Creation API Tests', () => {
         });
     });
 
-   describe('Valid UK Local Number', () => {
+    describe('Valid UK Local Number', () => {
         it('Returns HTTP 200 status and pin number', (done) => {
             request(pinServiceUrl)
                 .get('')

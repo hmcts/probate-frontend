@@ -26,8 +26,6 @@
     "test-contract": "NODE_PATH=. LOG_LEVEL=error mocha test/contract/**/*.js --timeout 15000 --reporter spec",
     "lint": "NODE_PATH=. eslint .",
     "eslint": "NODE_PATH=. eslint .",
-    "eslint-dev:all": "NODE_PATH=. eslint . -c .eslintrc-dev.js",
-    "eslint-dev:file": "NODE_PATH=. eslint -c .eslintrc-dev.js",
     "test:nsp": "NODE_PATH=. nsp check",
     "security": "NODE_PATH=. nsp check",
     "test:functional": "npm run test-contract && ./bin/run-functional-tests.sh",

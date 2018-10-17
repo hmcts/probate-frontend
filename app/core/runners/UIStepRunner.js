@@ -23,16 +23,16 @@ class UIStepRunner {
             const featureToggles = session.featureToggles;
             [ctx, errors] = yield step.handleGet(ctx, formdata, featureToggles);
             forEach(errors, (error) =>
-            req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
-        );
-        const content = step.generateContent(ctx, formdata);
-        const fields = step.generateFields(ctx, errors, formdata);
-        if (req.query.source === 'back') {
-            session.back.pop();
-        } else if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
-            session.back.push(step.constructor.getUrl());
-        }
-        const common = step.commonContent();
+                req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
+            );
+            const content = step.generateContent(ctx, formdata);
+            const fields = step.generateFields(ctx, errors, formdata);
+            if (req.query.source === 'back') {
+                session.back.pop();
+            } else if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
+                session.back.push(step.constructor.getUrl());
+            }
+            const common = step.commonContent();
             res.render(step.template, {content, fields, errors, common});
         }).catch((error) => {
             req.log.error(error);

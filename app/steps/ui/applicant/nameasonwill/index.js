@@ -1,5 +1,4 @@
 'use strict';
-
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {get} = require('lodash');
 const WillWrapper = require('app/wrappers/Will');
@@ -21,6 +20,15 @@ class ApplicantNameAsOnWill extends ValidationStep {
     handleGet(ctx, formdata) {
         ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicils();
         return [ctx];
+    }
+
+    handlePost(ctx, errors) {
+        if (ctx.nameAsOnTheWill !== 'No') {
+            delete ctx.alias;
+            delete ctx.aliasReason;
+            delete ctx.otherReason;
+        }
+        return [ctx, errors];
     }
 
     nextStepOptions() {

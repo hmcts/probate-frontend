@@ -32,14 +32,14 @@ describe('deceased-alias', () => {
             const excludeContent = ['theDeceased'];
 
             testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
+                .send(sessionData)
+                .end(() => {
 
-                const contentData = {deceasedName: 'John Doe'};
+                    const contentData = {deceasedName: 'John Doe'};
 
-                testWrapper.testContent(done, excludeContent, contentData);
+                    testWrapper.testContent(done, excludeContent, contentData);
 
-            });
+                });
         });
 
         it('test alias schema validation when no data is entered', (done) => {
@@ -59,9 +59,9 @@ describe('deceased-alias', () => {
                 'alias': 'No'
             };
             testWrapper.agent.post('/prepare-session/form')
-                    .end(() => {
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedMarried);
-            });
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedMarried);
+                });
         });
     });
 });

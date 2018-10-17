@@ -124,7 +124,7 @@ describe('summary-executor-section', () => {
                     playbackData.exec3NotApplyingReason = executorsData.executors.list[2].notApplyingReason;
 
                     testWrapper.testDataPlayback(done, playbackData);
-                    });
+                });
         });
     });
 });

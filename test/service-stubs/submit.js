@@ -23,16 +23,16 @@ router.post(SUBMIT_SERVICE_URL + '/submit', (req, res) => {
 });
 
 router.post(SUBMIT_SERVICE_URL + '/updatePaymentStatus', (req, res) => {
-  res.status(200);
-  res.send({
-    submissionReference: '6',
-    registry: {
-      name: 'Birmingham',
-      sequenceNumber: '20000',
-      email: 'asdvavv',
-      address: 'Line 1 Bham\nLine 2 Bham\nLine 3 Bham\nPostCode Bham'
-    }
-  });
+    res.status(200);
+    res.send({
+        submissionReference: '6',
+        registry: {
+            name: 'Birmingham',
+            sequenceNumber: '20000',
+            email: 'asdvavv',
+            address: 'Line 1 Bham\nLine 2 Bham\nLine 3 Bham\nPostCode Bham'
+        }
+    });
 });
 
 router.get('/health', (req, res) => {
@@ -45,7 +45,7 @@ router.get('/info', function (req, res) {
             'commit': {
                 'time': '2018-06-05T16:31+0000',
                 'id': 'e210e75b38c6b8da03551b9f83fd909fe80832e2'
-           }
+            }
         }
     });
 });

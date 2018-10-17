@@ -18,17 +18,21 @@ describe('summary', () => {
     describe('Verify Content, Errors and Redirection', () => {
 
         it('test content loaded on the page', (done) => {
-            const contentToExclude = ['executorsWhenDiedQuestion',
-                                    'otherNamesLabel',
-                                    'willWithCodicilHeading',
-                                    'otherExecutors',
-                                    'executorApplyingForProbate',
-                                    'executorsNotApplyingForProbate',
-                                    'nameOnWill',
-                                    'currentName',
-                                    'address',
-                                    'mobileNumber',
-                                    'emailAddress'];
+            const contentToExclude = [
+                'executorsWhenDiedQuestion',
+                'otherNamesLabel',
+                'willWithCodicilHeading',
+                'otherExecutors',
+                'executorsWithOtherNames',
+                'executorApplyingForProbate',
+                'executorsNotApplyingForProbate',
+                'nameOnWill',
+                'currentName',
+                'currentNameReason',
+                'address',
+                'mobileNumber',
+                'emailAddress'
+            ];
             testWrapper.testContent(done, contentToExclude);
         });
 
@@ -53,7 +57,7 @@ describe('summary', () => {
                                 done();
                             }
                         });
-            });
+                });
         });
 
         it(`test it redirects to Task List: ${expectedNextUrlForTaskList}`, (done) => {

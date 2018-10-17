@@ -41,14 +41,14 @@ describe('co-applicant-declaration', () => {
             ];
 
             testWrapper.agent.post('/prepare-session/form')
-            .send(sessionData.formdata)
-            .end(() => {
-                const contentData = {
-                    mainApplicantName: 'Bob Smith'
-                };
+                .send(sessionData.formdata)
+                .end(() => {
+                    const contentData = {
+                        mainApplicantName: 'Bob Smith'
+                    };
 
-                testWrapper.testContent(done, contentToExclude, contentData);
-            });
+                    testWrapper.testContent(done, contentToExclude, contentData);
+                });
         });
 
         it('test errors message displayed for missing data', (done) => {

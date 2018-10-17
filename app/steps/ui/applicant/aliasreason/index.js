@@ -9,9 +9,16 @@ class ApplicantAliasReason extends ValidationStep {
         return '/applicant-alias-reason';
     }
 
+    handlePost(ctx, errors) {
+        if (ctx.aliasReason !== 'other') {
+            delete ctx.otherReason;
+        }
+        return [ctx, errors];
+    }
+
     isComplete(ctx, formdata, featureToggles) {
         const isEnabled = FeatureToggle.isEnabled(featureToggles, 'main_applicant_alias');
-        return [isEnabled ? this.validate()[0] : true, 'noProgress'];
+        return [isEnabled ? this.validate(ctx, formdata)[0] : true, 'inProgress'];
     }
 }
 

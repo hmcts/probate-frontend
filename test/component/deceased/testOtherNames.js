@@ -9,7 +9,7 @@ describe('deceased-otherNames', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForDeceasedMarried = DeceasedMarried.getUrl();
 
-        beforeEach(() => {
+    beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedOtherNames');
         sessionData = {};
     });
@@ -30,13 +30,13 @@ describe('deceased-otherNames', () => {
             const excludeKeys = ['otherName', 'removeName'];
 
             testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
+                .send(sessionData)
+                .end(() => {
 
-                        const contentData = {deceasedName: 'John Doe'};
+                    const contentData = {deceasedName: 'John Doe'};
 
-                testWrapper.testContent(done, excludeKeys, contentData);
-            });
+                    testWrapper.testContent(done, excludeKeys, contentData);
+                });
         });
 
         it('test right content loaded on the page when deceased has other names', (done) => {
@@ -48,15 +48,15 @@ describe('deceased-otherNames', () => {
             set(sessionData, 'deceased.otherNames.name_1.lastName', 'Hat');
 
             testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
+                .send(sessionData)
+                .end(() => {
 
-                        const contentData = {
-                            deceasedName: 'John Doe'
-                        };
+                    const contentData = {
+                        deceasedName: 'John Doe'
+                    };
 
-                testWrapper.testContent(done, [], contentData);
-            });
+                    testWrapper.testContent(done, [], contentData);
+                });
         });
 
         it('test otherNames schema validation when no data is entered', (done) => {

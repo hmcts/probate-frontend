@@ -23,15 +23,15 @@ describe('thank-you', () => {
                 },
             };
             testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
-                        const excludeKeys = ['stopParagraph1'];
-                        const contentData = {
-                            helpLineNumber: config.helpline.number
-                        };
+                .send(sessionData)
+                .end(() => {
+                    const excludeKeys = ['stopParagraph1'];
+                    const contentData = {
+                        helpLineNumber: config.helpline.number
+                    };
 
-                        testWrapper.testContent(done, excludeKeys, contentData);
-                    });
+                    testWrapper.testContent(done, excludeKeys, contentData);
+                });
         });
 
         it('test right content loaded on the page when soft stop', (done) => {
@@ -41,12 +41,12 @@ describe('thank-you', () => {
                 }
             };
             testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
-                        const excludeKeys = ['successParagraph1', 'successHeading1', 'successParagraph2', 'contactProbateOffice'];
+                .send(sessionData)
+                .end(() => {
+                    const excludeKeys = ['successParagraph1', 'successHeading1', 'successParagraph2', 'contactProbateOffice'];
 
-                        testWrapper.testContent(done, excludeKeys);
-                    });
+                    testWrapper.testContent(done, excludeKeys);
+                });
         });
 
     });

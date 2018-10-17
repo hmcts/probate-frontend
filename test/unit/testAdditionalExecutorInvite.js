@@ -64,42 +64,45 @@ describe('AdditionalExecutorInvite.js', () => {
 
         describe('when there are executors to be notified', () => {
             it('should set emailSent flag to true when there is only one executor to be notified', (done) => {
-                AdditionalExecutorInvite.invite(session).then(res => {
-                    assert.isDefined(res.list[2].inviteId);
-                    expect(res.list[2].emailSent).to.deep.equal(true);
-                    done();
-                })
-                .catch(err => {
-                    done(err);
-                });
+                AdditionalExecutorInvite.invite(session)
+                    .then(res => {
+                        assert.isDefined(res.list[2].inviteId);
+                        expect(res.list[2].emailSent).to.deep.equal(true);
+                        done();
+                    })
+                    .catch(err => {
+                        done(err);
+                    });
             });
 
             it('should set emailSent flag to true when there are two executors to be notified', (done) => {
                 session.form.executors.list[1].emailSent = false;
                 delete session.form.executors.list[1].inviteId;
-                AdditionalExecutorInvite.invite(session).then(res => {
-                    assert.isDefined(res.list[1].inviteId);
-                    assert.isDefined(res.list[2].inviteId);
-                    expect(res.list[1].emailSent).to.deep.equal(true);
-                    expect(res.list[2].emailSent).to.deep.equal(true);
-                    done();
-                })
-                .catch(err => {
-                    done(err);
-                });
+                AdditionalExecutorInvite.invite(session)
+                    .then(res => {
+                        assert.isDefined(res.list[1].inviteId);
+                        assert.isDefined(res.list[2].inviteId);
+                        expect(res.list[1].emailSent).to.deep.equal(true);
+                        expect(res.list[2].emailSent).to.deep.equal(true);
+                        done();
+                    })
+                    .catch(err => {
+                        done(err);
+                    });
             });
         });
 
         describe('when there are no emailChanged flags to remove', () => {
             it('should return the original executors data', (done) => {
                 session.form.executors.list[2].emailSent = true;
-                AdditionalExecutorInvite.invite(session).then(res => {
-                    expect(res).to.deep.equal(executorsToCheck.form.executors);
-                    done();
-                })
-                .catch(err => {
-                    done(err);
-                });
+                AdditionalExecutorInvite.invite(session)
+                    .then(res => {
+                        expect(res).to.deep.equal(executorsToCheck.form.executors);
+                        done();
+                    })
+                    .catch(err => {
+                        done(err);
+                    });
             });
         });
     });

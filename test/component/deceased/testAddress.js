@@ -21,7 +21,7 @@ describe('deceased-address', () => {
         testHelpBlockContent.runTest('WillLeft');
 
         it('test right content loaded on the page', (done) => {
-           const excludeKeys = ['selectAddress'];
+            const excludeKeys = ['selectAddress'];
 
             testWrapper.testContent(done, excludeKeys);
         });

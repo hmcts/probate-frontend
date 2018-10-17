@@ -189,7 +189,7 @@ describe('Security middleware', function () {
 
     function checkAsync(callback) {
         setTimeout(function() {
-          callback();
+            callback();
         }, 50);
-      }
+    }
 });

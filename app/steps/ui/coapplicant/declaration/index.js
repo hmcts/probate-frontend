@@ -1,6 +1,9 @@
-const ValidationStep = require('app/core/steps/ValidationStep'),
-      services = require('app/components/services');
-module.exports = class CoApplicantDeclaration extends ValidationStep {
+'use strict';
+
+const ValidationStep = require('app/core/steps/ValidationStep');
+const services = require('app/components/services');
+
+class CoApplicantDeclaration extends ValidationStep {
 
     static getUrl() {
         return '/co-applicant-declaration';
@@ -30,11 +33,11 @@ module.exports = class CoApplicantDeclaration extends ValidationStep {
         const data = {};
         data.agreed = (this.content.optionYes === ctx.agreement);
         yield services.updateInviteData(ctx.inviteId, data)
-        .then(result => {
-            if (result.name === 'Error') {
-                throw new ReferenceError('Error updating co-applicant\'s data');
-            }
-        });
+            .then(result => {
+                if (result.name === 'Error') {
+                    throw new ReferenceError('Error updating co-applicant\'s data');
+                }
+            });
 
         return [ctx, errors];
     }
@@ -47,4 +50,6 @@ module.exports = class CoApplicantDeclaration extends ValidationStep {
         delete ctx.declaration;
         return [ctx, formdata];
     }
-};
+}
+
+module.exports = CoApplicantDeclaration;

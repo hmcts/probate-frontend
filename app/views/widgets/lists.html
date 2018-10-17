@@ -18,9 +18,17 @@
 {% endmacro %}
 
 {% macro unorderedList(items) %}
-<ul class="list list-bullet">
-    {% for item in items %}
-        <li>{{item | safe}}</li>
-    {% endfor %}
-</ul>
+    <ul class="list list-bullet">
+        {% for item in items %}
+            <li>{{item | safe}}</li>
+        {% endfor %}
+    </ul>
+{% endmacro %}
+
+{% macro orderedList(items) %}
+    <ol class="list list-number">
+        {% for item in items %}
+            <li>{{item | safe}}</li>
+        {% endfor %}
+    </ol>
 {% endmacro %}

@@ -8,9 +8,9 @@ const app = require('app');
 const initSteps = require('app/core/initSteps');
 const {endsWith} = require('lodash');
 const sinon = require('sinon');
-const commonContent = require('app/resources/en/translation/common.json');
+const commonContent = require('app/resources/en/translation/common');
 const services = require('app/components/services');
-const stepsToExclude = ['StartEligibility', 'StartApply', 'PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName', 'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied'];
+const stepsToExclude = ['StartEligibility', 'StartApply', 'NewStartEligibility', 'NewStartApply', 'PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName', 'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied'];
 const steps = initSteps.steps;
 let checkAllAgreedStub;
 let featureToggleStub;
@@ -49,10 +49,10 @@ for (const step in steps) {
                     }
                     results = yield a11y(agent.get(step.constructor.getUrl()).url + urlSuffix, title);
                 })
-                .then(done, done)
-                .catch((error) => {
-                    done(error);
-                });
+                    .then(done, done)
+                    .catch((error) => {
+                        done(error);
+                    });
             });
 
             after(function (done) {

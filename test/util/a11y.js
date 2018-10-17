@@ -1,10 +1,12 @@
+'use strict';
+
 const pa11y = require('pa11y');
 const console = require('console');
 const pa11yRun = pa11y({
     hideElements: '.govuk-box-highlight, #logo, #footer, link[rel=mask-icon], .skipAccessTest, .button',
-	log: {
-		error: console.error.bind(console)
-     }
+    log: {
+        error: console.error.bind(console)
+    }
 });
 
 module.exports = (testPage, title) => {

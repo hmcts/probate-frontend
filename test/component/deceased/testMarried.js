@@ -29,13 +29,13 @@ describe('deceased-married', () => {
             const excludeKeys = ['questionWithCodicil', 'legendWithCodicil'];
 
             testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
+                .send(sessionData)
+                .end(() => {
 
-                const contentData = {deceasedName: 'Mana Manah'};
+                    const contentData = {deceasedName: 'Mana Manah'};
 
-                testWrapper.testContent(done, excludeKeys, contentData);
-            });
+                    testWrapper.testContent(done, excludeKeys, contentData);
+                });
 
         });
 
@@ -43,22 +43,22 @@ describe('deceased-married', () => {
             const sessionData = {
                 'deceased': {
                     'firstName': 'Mana', 'lastName': 'Manah'
-                 },
-                 will: {
-                     codicils: 'Yes'
-                 }
+                },
+                will: {
+                    codicils: 'Yes'
+                }
             };
 
             const excludeKeys = ['question', 'legend'];
 
             testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
+                .send(sessionData)
+                .end(() => {
 
-                        const contentData = {deceasedName: 'Mana Manah'};
+                    const contentData = {deceasedName: 'Mana Manah'};
 
-                testWrapper.testContent(done, excludeKeys, contentData);
-            });
+                    testWrapper.testContent(done, excludeKeys, contentData);
+                });
 
         });
 

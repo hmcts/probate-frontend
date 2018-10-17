@@ -15,18 +15,18 @@ describe('submit-data', () => {
     const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui/']);
 
     it('maps forms data', () => {
-       const data = formData;
-       req.session.form = data;
-       const sessionData = steps.PaymentStatus;
-       ctx = sessionData.getContextData(req);
+        const data = formData;
+        req.session.form = data;
+        const sessionData = steps.PaymentStatus;
+        ctx = sessionData.getContextData(req);
 
         const mappedData = submitData(ctx, data);
 
         const deceasedOtherNames = {
             'name_0': {
-            'firstName': 'new_died_firstname',
-            'lastName': 'new_died_lastname'
-        }};
+                'firstName': 'new_died_firstname',
+                'lastName': 'new_died_lastname'
+            }};
 
         const legalState = {
             'applicant': 'We, Bob Richard Smith of Adam & Eve 81 Petty France London SW1H 9EX and exec_3_new_name of exec_3_address\r\n, make the following statement:',
@@ -84,24 +84,24 @@ describe('submit-data', () => {
             'isApplying': false,
             'hasOtherName': false
         },
-            {
-                'fullName': 'executor_4_name',
-                'isDead': false,
-                'isApplying': false,
-                'hasOtherName': false,
-                'notApplyingReason': 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)',
-                'notApplyingKey': 'optionRenunciated'
-            }
+        {
+            'fullName': 'executor_4_name',
+            'isDead': false,
+            'isApplying': false,
+            'hasOtherName': false,
+            'notApplyingReason': 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)',
+            'notApplyingKey': 'optionRenunciated'
+        }
         ];
 
         const registry = {
-          'registry': {
-            'name': 'Oxford',
-            'email': 'oxford@email.com',
-            'address': 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
-            'sequenceNumber': 10034
-          },
-          'submissionReference': 97
+            'registry': {
+                'name': 'Oxford',
+                'email': 'oxford@email.com',
+                'address': 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
+                'sequenceNumber': 10034
+            },
+            'submissionReference': 97
         };
 
         const payment = {

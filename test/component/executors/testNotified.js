@@ -36,24 +36,24 @@ describe('executor-notified', () => {
         it('test right content loaded on the page', (done) => {
 
             testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
+                .send(sessionData)
+                .end(() => {
 
-                        const contentData = {executorName: 'Manah Mana'};
+                    const contentData = {executorName: 'Manah Mana'};
 
-                testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                testWrapper.testContent(done, [], contentData);
-            });
+                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+                    testWrapper.testContent(done, [], contentData);
+                });
         });
 
         it('test errors message displayed for missing data', (done) => {
             testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
-                const data = {};
-                testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                testWrapper.testErrors(done, data, 'required', []);
-            });
+                .send(sessionData)
+                .end(() => {
+                    const data = {};
+                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+                    testWrapper.testErrors(done, data, 'required', []);
+                });
 
         });
 

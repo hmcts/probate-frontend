@@ -1,17 +1,16 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/executors/alias.json');
-const content = require('app/resources/en/translation/executors/alias');
+const json = require('app/resources/en/translation/executors/alias');
 
-module.exports = class ExecutorsAlias extends ValidationStep {
+class ExecutorsAlias extends ValidationStep {
 
     static getUrl() {
         return '/executors-alias';
     }
 
     pruneFormData(ctx) {
-        if (ctx.list && ctx.alias === content.optionNo) {
+        if (ctx.list && ctx.alias === json.optionNo) {
             const list = ctx.list.map(executor => {
                 if (executor.hasOtherName) {
                     executor.hasOtherName = false;
@@ -37,5 +36,6 @@ module.exports = class ExecutorsAlias extends ValidationStep {
         };
         return nextStepOptions;
     }
+}
 
-};
+module.exports = ExecutorsAlias;

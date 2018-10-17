@@ -63,7 +63,7 @@ describe('pin-page', () => {
             testWrapper.agent.post('/prepare-session-field/pin/54321')
                 .end(() => {
                     testWrapper.testErrors(done, data, 'incorrect', ['pin']);
-            });
+                });
         });
         it('test error page when form data cannot be found', (done) => {
 

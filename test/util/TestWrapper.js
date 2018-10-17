@@ -12,7 +12,7 @@ const services = require('app/components/services');
 const sinon = require('sinon');
 let featureToggleStub;
 
-module.exports = class TestWrapper {
+class TestWrapper {
     constructor(stepName) {
         this.pageToTest = steps[stepName];
         this.pageUrl = this.pageToTest.constructor.getUrl();
@@ -41,11 +41,11 @@ module.exports = class TestWrapper {
 
     testContent(done, excludeKeys = [], data) {
         const contentToCheck = cloneDeep(filter(this.content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
-        this.substituteContent(data, contentToCheck);
+        const substitutedContent = this.substituteContent(data, contentToCheck);
         this.agent.get(this.pageUrl)
             .expect('Content-type', /html/)
             .then(response => {
-                this.assertContentIsPresent(response.text, contentToCheck);
+                this.assertContentIsPresent(response.text, substitutedContent);
                 done();
             })
             .catch(done);
@@ -75,7 +75,7 @@ module.exports = class TestWrapper {
         const expectedErrors = cloneDeep(isEmpty(onlyKeys) ? contentErrors : filter(contentErrors, (value, key) => onlyKeys.includes(key)));
         assert.isNotEmpty(expectedErrors);
         this.substituteErrorsContent(data, expectedErrors, type);
-            this.agent.post(`${this.pageUrl}`)
+        this.agent.post(`${this.pageUrl}`)
             .type('form')
             .send(data)
             .expect('Content-type', 'text/html; charset=utf-8')
@@ -118,13 +118,26 @@ module.exports = class TestWrapper {
         Object.entries(contentToSubstitute)
             .forEach(([key, contentValue]) => {
                 contentValue = contentValue.replace(/\n/g, '<br />\n');
-                forEach(contentValue.match(/\{(.*?)\}/g), (placeholder) => {
-                    const placeholderRegex = new RegExp(placeholder, 'g');
-                    placeholder = placeholder.replace(/[{}]/g, '');
-                    contentValue = contentValue.replace(placeholderRegex, data[placeholder]);
-                });
-                contentToSubstitute[key] = contentValue;
+                if (contentValue.match(/\{(.*?)\}/g)) {
+                    forEach(contentValue.match(/\{(.*?)\}/g), (placeholder) => {
+                        const placeholderRegex = new RegExp(placeholder, 'g');
+                        placeholder = placeholder.replace(/[{}]/g, '');
+                        if (Array.isArray(data[placeholder])) {
+                            forEach(data[placeholder], (contentData) => {
+                                const contentValueReplace = contentValue.replace(placeholderRegex, contentData);
+                                contentToSubstitute.push(contentValueReplace);
+                            });
+                            contentToSubstitute[key] = 'undefined';
+                        } else {
+                            contentValue = contentValue.replace(placeholderRegex, data[placeholder]);
+                            contentToSubstitute[key] = contentValue;
+                        }
+                    });
+                } else {
+                    contentToSubstitute[key] = contentValue;
+                }
             });
+        return contentToSubstitute.filter(content => content !== 'undefined');
     }
 
     substituteErrorsContent(data, contentToSubstitute, type) {
@@ -158,4 +171,6 @@ module.exports = class TestWrapper {
         featureToggleStub.restore();
         this.server.http.close();
     }
-};
+}
+
+module.exports = TestWrapper;

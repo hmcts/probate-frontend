@@ -32,12 +32,12 @@ const asyncFetch = (url, fetchOptions, parseBody) => {
                 if (res.ok) {
                     return parseBody(res);
                 }
-                    logger.error(res.statusText);
-                    return parseBody(res)
-                        .then(body => {
-                            logger.error(body);
-                            reject(new Error(res.statusText));
-                        });
+                logger.error(res.statusText);
+                return parseBody(res)
+                    .then(body => {
+                        logger.error(body);
+                        reject(new Error(res.statusText));
+                    });
 
             })
             .then(body => {

@@ -90,7 +90,7 @@ describe('executor-roles', () => {
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
                     testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedName);
-            });
+                });
         });
     });
 

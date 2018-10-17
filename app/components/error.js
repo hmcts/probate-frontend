@@ -29,8 +29,8 @@ const generateErrors = (errs, ctx, formdata, errorPath, lang = 'en') => {
                 param = e.params.missingProperty;
                 return FieldError(param, 'required', errorPath);
             }
-                [, param] = e.dataPath.split('.');
-                return FieldError(param, 'invalid', errorPath);
+            [, param] = e.dataPath.split('.');
+            return FieldError(param, 'invalid', errorPath);
 
         } catch (e) {
             throw new ReferenceError(`Error messages have not been defined for Step in content.json for errors.${param}`);

@@ -58,10 +58,10 @@ describe('executors-address', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                const data = {addressFound: 'none'};
+                    const data = {addressFound: 'none'};
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                testWrapper.testErrors(done, data, 'required', ['postcodeLookup']);
-            });
+                    testWrapper.testErrors(done, data, 'required', ['postcodeLookup']);
+                });
 
         });
 

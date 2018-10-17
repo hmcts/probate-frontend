@@ -41,8 +41,8 @@ class DeceasedOtherNames extends ValidationStep {
         if (Object.keys(ctx.otherNames).length >= 100) {
             otherNameErrors.set('name_101', [
                 FieldError('numberOfOtherNames',
-                'maxLength',
-                `${this.resourcePath}`, ctx)
+                    'maxLength',
+                    `${this.resourcePath}`, ctx)
             ]);
         }
 

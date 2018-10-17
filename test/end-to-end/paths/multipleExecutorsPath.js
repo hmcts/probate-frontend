@@ -1,4 +1,6 @@
-const taskListContent = require('app/resources/en/translation/tasklist.json');
+'use strict';
+
+const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
@@ -81,6 +83,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     const executorsWithDifferentNameList = ['5'];
     forEach(executorsWithDifferentNameList, executorNumber => {
         I.enterExecutorCurrentName(executorNumber, head(executorsWithDifferentNameList) === executorNumber);
+        I.enterExecutorCurrentNameReason(executorNumber, 'aliasOther', 'Because YOLO');
     });
 
     forEach(executorsApplyingList, executorNumber => {

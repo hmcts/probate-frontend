@@ -1,9 +1,9 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/deceased/domicile');
+const content = require('app/resources/en/translation/deceased/newdomicile');
 
-module.exports = class NewDeceasedDomicile extends ValidationStep {
+class NewDeceasedDomicile extends ValidationStep {
 
     static getUrl() {
         return '/new-deceased-domicile';
@@ -16,9 +16,11 @@ module.exports = class NewDeceasedDomicile extends ValidationStep {
     nextStepOptions() {
         const nextStepOptions = {
             options: [
-                {key: 'domicile', value: json.optionYes, choice: 'inEnglandOrWales'}
+                {key: 'domicile', value: content.optionYes, choice: 'inEnglandOrWales'}
             ]
         };
         return nextStepOptions;
     }
-};
+}
+
+module.exports = NewDeceasedDomicile;

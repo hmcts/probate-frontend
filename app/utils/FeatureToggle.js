@@ -8,20 +8,21 @@ class FeatureToggle {
     checkToggle(params) {
         const featureToggleKey = params.featureToggleKey;
         const sessionId = params.req.session.id;
-        return services.featureToggle(featureToggles[featureToggleKey]).then(isEnabled => {
-            logger(sessionId).info(`Checking feature toggle: ${featureToggleKey}, isEnabled: ${isEnabled}`);
-            params.callback({
-                req: params.req,
-                res: params.res,
-                next: params.next,
-                redirectPage: params.redirectPage,
-                isEnabled: isEnabled === 'true',
-                featureToggleKey: featureToggleKey
+        return services.featureToggle(featureToggles[featureToggleKey])
+            .then(isEnabled => {
+                logger(sessionId).info(`Checking feature toggle: ${featureToggleKey}, isEnabled: ${isEnabled}`);
+                params.callback({
+                    req: params.req,
+                    res: params.res,
+                    next: params.next,
+                    redirectPage: params.redirectPage,
+                    isEnabled: isEnabled === 'true',
+                    featureToggleKey: featureToggleKey
+                });
+            })
+            .catch(err => {
+                params.next(err);
             });
-        })
-        .catch(err => {
-            params.next(err);
-        });
     }
 
     togglePage(params) {

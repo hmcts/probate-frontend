@@ -21,9 +21,9 @@ describe('copies-start', () => {
             testWrapper.testContent(done);
         });
 
-       it(`test it redirects to next page: ${expectedNextUrlForCopiesUk}`, (done) => {
-           testWrapper.testRedirect(done, {}, expectedNextUrlForCopiesUk);
-       });
+        it(`test it redirects to next page: ${expectedNextUrlForCopiesUk}`, (done) => {
+            testWrapper.testRedirect(done, {}, expectedNextUrlForCopiesUk);
+        });
 
     });
 });

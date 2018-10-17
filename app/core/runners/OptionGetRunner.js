@@ -1,6 +1,8 @@
+'use strict';
+
 const UIStepRunner = require('app/core/runners/UIStepRunner');
 
-module.exports = class OptionGetRunner extends UIStepRunner {
+class OptionGetRunner extends UIStepRunner {
 
     handleGet(step, req, res) {
         if (req.params[0] === 'redirect') {
@@ -16,4 +18,6 @@ module.exports = class OptionGetRunner extends UIStepRunner {
         res.status(404);
         res.render('errors/404');
     }
-};
+}
+
+module.exports = OptionGetRunner;

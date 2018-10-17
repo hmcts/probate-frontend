@@ -1,10 +1,12 @@
-const {isEmpty} = require('lodash'),
-    ValidationStep = require('app/core/steps/ValidationStep'),
-    services = require('app/components/services'),
-    ActionStepRunner = require('app/core/runners/ActionStepRunner'),
-    FieldError = require('app/components/error');
+'use strict';
 
-module.exports = class AddressLookup extends ValidationStep {
+const {isEmpty} = require('lodash');
+const ValidationStep = require('app/core/steps/ValidationStep');
+const services = require('app/components/services');
+const ActionStepRunner = require('app/core/runners/ActionStepRunner');
+const FieldError = require('app/components/error');
+
+class AddressLookup extends ValidationStep {
     static getUrl() {
         return '/find-address';
     }
@@ -54,4 +56,6 @@ module.exports = class AddressLookup extends ValidationStep {
         delete referrerData.errors;
         return referrerData;
     }
-};
+}
+
+module.exports = AddressLookup;

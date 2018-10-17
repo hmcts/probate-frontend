@@ -1,7 +1,7 @@
 'use strict';
 
 const basicAuth = require('basic-auth');
-const common = require('app/resources/en/translation/common.json');
+const common = require('app/resources/en/translation/common');
 
 /**
  * Simple basic auth middleware for use with Express 4.x.
@@ -16,28 +16,28 @@ const common = require('app/resources/en/translation/common.json');
  * @returns {function} Express 4 middleware requiring the given credentials
  */
 exports.basicAuth = (username, password) => {
-	return (req, res, next) => {
-		if (!username || !password) {
-			return res.send('<h1>Error:</h1><p>Username or password not set.');
-		}
+    return (req, res, next) => {
+        if (!username || !password) {
+            return res.send('<h1>Error:</h1><p>Username or password not set.');
+        }
 
-		const user = basicAuth(req);
+        const user = basicAuth(req);
 
-		if (!user || user.name !== username || user.pass !== password) {
-			res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
-			return res.sendStatus(401);
-		}
+        if (!user || user.name !== username || user.pass !== password) {
+            res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
+            return res.sendStatus(401);
+        }
 
-		next();
-	};
+        next();
+    };
 };
 
 exports.forceHttps = function(req, res, next) {
-  if (req.headers['x-forwarded-proto'] !== 'https') {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
     // 302 temporary - this is a feature that can be disabled
-    return res.redirect(302, `https://${req.get('Host')}${req.url}`);
-  }
-  next();
+        return res.redirect(302, `https://${req.get('Host')}${req.url}`);
+    }
+    next();
 };
 
 exports.getStore = (redisConfig, session) => {

@@ -4,30 +4,28 @@ const TestWrapper = require('test/util/TestWrapper');
 const StartApply = require('app/steps/ui/startapply/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const cookies = [{
+    name: '__eligibility',
+    content: {
+        nextStepUrl: '/iht-completed',
+        pages: [
+            '/will-left',
+            '/will-original',
+            '/death-certificate',
+            '/deceased-domicile',
+            '/applicant-executor',
+            '/mental-capacity'
+        ]
+    }
+}];
 
 describe('iht-completed', () => {
     let testWrapper;
-    let cookies;
     const expectedNextUrlForStopPage = StopPage.getUrl('ihtNotCompleted');
     const expectedNextUrlForStartApply = StartApply.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('IhtCompleted');
-
-        cookies = [{
-            name: '__eligibility',
-            content: {
-                nextStepUrl: '/iht-completed',
-                pages: [
-                    '/will-left',
-                    '/will-original',
-                    '/death-certificate',
-                    '/deceased-domicile',
-                    '/applicant-executor',
-                    '/mental-capacity'
-                ]
-            }
-        }];
     });
 
     afterEach(() => {
@@ -36,9 +34,7 @@ describe('iht-completed', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it ('test the help block content is present', () => {
-            testHelpBlockContent.runTest('IhtCompleted', cookies);
-        });
+        testHelpBlockContent.runTest('IhtCompleted', cookies);
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];

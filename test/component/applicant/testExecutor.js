@@ -4,28 +4,26 @@ const TestWrapper = require('test/util/TestWrapper');
 const MentalCapacity = require('app/steps/ui/executors/mentalcapacity/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const cookies = [{
+    name: '__eligibility',
+    content: {
+        nextStepUrl: '/applicant-executor',
+        pages: [
+            '/will-left',
+            '/will-original',
+            '/death-certificate',
+            '/deceased-domicile'
+        ]
+    }
+}];
 
 describe('applicant-executor', () => {
     let testWrapper;
-    let cookies;
     const expectedNextUrlForStopPage = StopPage.getUrl('notExecutor');
     const expectedNextUrlForMentalCapacity = MentalCapacity.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ApplicantExecutor');
-
-        cookies = [{
-            name: '__eligibility',
-            content: {
-                nextStepUrl: '/applicant-executor',
-                pages: [
-                    '/will-left',
-                    '/will-original',
-                    '/death-certificate',
-                    '/deceased-domicile'
-                ]
-            }
-        }];
     });
 
     afterEach(() => {
@@ -34,9 +32,7 @@ describe('applicant-executor', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it ('test the help block content is present', () => {
-            testHelpBlockContent.runTest('ApplicantExecutor', cookies);
-        });
+        testHelpBlockContent.runTest('ApplicantExecutor', cookies);
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];

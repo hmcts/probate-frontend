@@ -49,9 +49,12 @@ class TestWrapper {
             .catch(done);
     }
 
-    testDataPlayback(done, data) {
-        this.agent.get(this.pageUrl)
-            .expect('Content-type', /html/)
+    testDataPlayback(done, data, cookies) {
+        const res = this.agent.get(this.pageUrl);
+
+        this.setCookies(res, cookies);
+
+        res.expect('Content-type', /html/)
             .then(response => {
                 this.assertContentIsPresent(response.text, data);
                 done();
@@ -173,14 +176,18 @@ class TestWrapper {
 
     setCookies(res, cookies) {
         if (cookies.length) {
+            let cookiesString;
+
             for (let i=0; i<cookies.length; i++) {
                 const cookieName = cookies[i].name;
                 const cookieContent = JSON.stringify(cookies[i].content);
 
-                cookies[i] = `${cookieName}=${cookieContent}`;
+                cookiesString = `${cookieName}=${cookieContent},`;
             }
 
-            res.set('Cookie', cookies);
+            cookiesString = cookiesString.substring(0, cookiesString.length - 1);
+
+            res.set('Cookie', cookiesString);
         }
     }
 

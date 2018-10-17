@@ -4,27 +4,25 @@ const TestWrapper = require('test/util/TestWrapper');
 const ApplicantExecutor = require('app/steps/ui/applicant/executor/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const cookies = [{
+    name: '__eligibility',
+    content: {
+        nextStepUrl: '/deceased-domicile',
+        pages: [
+            '/will-left',
+            '/will-original',
+            '/death-certificate'
+        ]
+    }
+}];
 
 describe('deceased-domicile', () => {
     let testWrapper;
-    let cookies;
     const expectedNextUrlForStopPage = StopPage.getUrl('notInEnglandOrWales');
     const expectedNextUrlForApplicantExecutor = ApplicantExecutor.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedDomicile');
-
-        cookies = [{
-            name: '__eligibility',
-            content: {
-                nextStepUrl: '/deceased-domicile',
-                pages: [
-                    '/will-left',
-                    '/will-original',
-                    '/death-certificate'
-                ]
-            }
-        }];
     });
 
     afterEach(() => {
@@ -33,9 +31,7 @@ describe('deceased-domicile', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it ('test the help block content is present', () => {
-            testHelpBlockContent.runTest('DeceasedDomicile', cookies);
-        });
+        testHelpBlockContent.runTest('DeceasedDomicile', cookies);
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];

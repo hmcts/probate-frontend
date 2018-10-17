@@ -12,16 +12,7 @@ class TestHelpBlockContent {
             it('test help block content is loaded on page', (done) => {
                 const res = testWrapper.agent.get(testWrapper.pageUrl);
 
-                if (cookies.length) {
-                    for (let i=0; i<cookies.length; i++) {
-                        const cookieName = cookies[i].name;
-                        const cookieContent = JSON.stringify(cookies[i].content);
-
-                        cookies[i] = `${cookieName}=${cookieContent}`;
-                    }
-
-                    res.set('Cookie', cookies);
-                }
+                testWrapper.setCookies(res, cookies);
 
                 res.then(() => {
                     const playbackData = {};
@@ -32,9 +23,8 @@ class TestHelpBlockContent {
                     playbackData.helpEmailLabel = common.helpEmailLabel;
                     playbackData.contactEmailAddress = common.contactEmailAddress;
 
-                    testWrapper.testDataPlayback(done, playbackData);
-                })
-                .catch(err => {
+                    testWrapper.testDataPlayback(done, playbackData, cookies);
+                }).catch(err => {
                     done(err);
                 });
             });

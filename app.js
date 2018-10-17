@@ -65,7 +65,11 @@ exports.init = function() {
         'enableTracking': config.enableTracking,
         'links': config.links,
         'helpline': config.helpline,
-        'nonce': uuid
+        'nonce': uuid,
+        'documentUpload': {
+            fileTypes: config.documentUpload.fileTypes,
+            maxFiles: config.documentUpload.maxFiles,
+        }
     };
 
     const njk = nunjucks(app, {

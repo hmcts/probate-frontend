@@ -147,6 +147,10 @@ const config = {
     },
     appInsights: {
         instrumentationKey: process.env.APPINSIGHTS_INSTRUMENTATIONKEY
+    },
+    documentUpload: {
+        fileTypes: '.jpg,.jpeg,.bmp,.tiff,.tif,.png,.pdf',
+        maxFiles: 10
     }
 };
 

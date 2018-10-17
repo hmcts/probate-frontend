@@ -10,7 +10,7 @@ const {endsWith} = require('lodash');
 const sinon = require('sinon');
 const commonContent = require('app/resources/en/translation/common');
 const services = require('app/components/services');
-const stepsToExclude = ['StartEligibility', 'StartApply', 'NewStartEligibility', 'NewStartApply', 'PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName', 'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied'];
+const stepsToExclude = ['StartEligibility', 'WillLeft', 'WillOriginal', 'DeathCertificate', 'DeceasedDomicile', 'ApplicantExecutor', 'MentalCapacity', 'IhtCompleted', 'StartApply', 'PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName', 'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied'];
 const steps = initSteps.steps;
 let checkAllAgreedStub;
 let featureToggleStub;

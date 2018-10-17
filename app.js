@@ -204,7 +204,7 @@ exports.init = function() {
 
     app.use('/will-original', eligibilityCookie.checkCookie());
     app.use('/death-certificate', eligibilityCookie.checkCookie());
-    app.use('/deceased_domicile', eligibilityCookie.checkCookie());
+    app.use('/deceased-domicile', eligibilityCookie.checkCookie());
     app.use('/applicant-executor', eligibilityCookie.checkCookie());
     app.use('/mental-capacity', eligibilityCookie.checkCookie());
     app.use('/iht-completed', eligibilityCookie.checkCookie());

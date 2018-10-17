@@ -7,11 +7,25 @@ const testHelpBlockContent = require('test/component/common/testHelpBlockContent
 
 describe('applicant-executor', () => {
     let testWrapper;
-    const expectedNextUrlForMentalCapacity = MentalCapacity.getUrl();
+    let cookies;
     const expectedNextUrlForStopPage = StopPage.getUrl('notExecutor');
+    const expectedNextUrlForMentalCapacity = MentalCapacity.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ApplicantExecutor');
+
+        cookies = [{
+            name: '__eligibility',
+            content: {
+                nextStepUrl: '/applicant-executor',
+                pages: [
+                    '/will-left',
+                    '/will-original',
+                    '/death-certificate',
+                    '/deceased-domicile'
+                ]
+            }
+        }];
     });
 
     afterEach(() => {
@@ -20,29 +34,34 @@ describe('applicant-executor', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        it ('test the help block content is present', () => {
+            testHelpBlockContent.runTest('ApplicantExecutor', cookies);
+        });
 
-        it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done);
+        it('test right content loaded on the page', (done) => {
+            const excludeKeys = [];
+
+            testWrapper.testContent(done, excludeKeys, {}, cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
             const data = {};
-            testWrapper.testErrors(done, data, 'required');
+
+            testWrapper.testErrors(done, data, 'required', [], cookies);
         });
 
-        it(`test it redirects to mental capacity page if applicant is an executor: ${expectedNextUrlForMentalCapacity}`, (done) => {
+        it(`test it redirects to Mental Capacity page: ${expectedNextUrlForMentalCapacity}`, (done) => {
             const data = {
-                'executor': 'Yes'
+                executor: 'Yes'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForMentalCapacity);
+            testWrapper.testRedirect(done, data, expectedNextUrlForMentalCapacity, cookies);
         });
 
-        it(`test it redirects to stop page if applicant is NOT an executor${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                'executor': 'No'
+                executor: 'No'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
         });
     });
 });

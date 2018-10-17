@@ -34,11 +34,14 @@ class TestWrapper {
         this.agent = request.agent(this.server.app);
     }
 
-    testContent(done, excludeKeys = [], data) {
+    testContent(done, excludeKeys = [], data, cookies = []) {
         const contentToCheck = cloneDeep(filter(this.content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
         const substitutedContent = this.substituteContent(data, contentToCheck);
-        this.agent.get(this.pageUrl)
-            .expect('Content-type', /html/)
+        const res = this.agent.get(this.pageUrl);
+
+        this.setCookies(res, cookies);
+
+        res.expect('Content-type', /html/)
             .then(response => {
                 this.assertContentIsPresent(response.text, substitutedContent);
                 done();
@@ -65,13 +68,16 @@ class TestWrapper {
             .catch(done);
     }
 
-    testErrors(done, data, type, onlyKeys = []) {
+    testErrors(done, data, type, onlyKeys = [], cookies = []) {
         const contentErrors = get(this.content, 'errors', {});
         const expectedErrors = cloneDeep(isEmpty(onlyKeys) ? contentErrors : filter(contentErrors, (value, key) => onlyKeys.includes(key)));
         assert.isNotEmpty(expectedErrors);
         this.substituteErrorsContent(data, expectedErrors, type);
-        this.agent.post(`${this.pageUrl}`)
-            .type('form')
+        const res = this.agent.post(`${this.pageUrl}`);
+
+        this.setCookies(res, cookies);
+
+        res.type('form')
             .send(data)
             .expect('Content-type', 'text/html; charset=utf-8')
             .then(res => {
@@ -95,9 +101,12 @@ class TestWrapper {
             .catch(done);
     }
 
-    testRedirect(done, postData, expectedNextUrl) {
-        this.agent.post(this.pageUrl)
-            .type('form')
+    testRedirect(done, postData, expectedNextUrl, cookies = []) {
+        const res = this.agent.post(this.pageUrl)
+
+        this.setCookies(res, cookies);
+
+        res.type('form')
             .send(postData)
             .expect('location', expectedNextUrl)
             .expect(302)
@@ -160,6 +169,19 @@ class TestWrapper {
         forEach(expectedContent, (value) => {
             expect(actualContent.toLowerCase()).to.not.contain(value.toString().toLowerCase());
         });
+    }
+
+    setCookies(res, cookies) {
+        if (cookies.length) {
+            for (let i=0; i<cookies.length; i++) {
+                const cookieName = cookies[i].name;
+                const cookieContent = JSON.stringify(cookies[i].content);
+
+                cookies[i] = `${cookieName}=${cookieContent}`;
+            }
+
+            res.set('Cookie', cookies);
+        }
     }
 
     destroy() {

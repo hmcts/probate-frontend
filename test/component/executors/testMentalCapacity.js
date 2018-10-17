@@ -7,11 +7,26 @@ const testHelpBlockContent = require('test/component/common/testHelpBlockContent
 
 describe('mental-capacity', () => {
     let testWrapper;
-    const expectedNextUrlForIhtCompleted = IhtCompleted.getUrl();
+    let cookies;
     const expectedNextUrlForStopPage = StopPage.getUrl('mentalCapacity');
+    const expectedNextUrlForIhtCompleted = IhtCompleted.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('MentalCapacity');
+
+        cookies = [{
+            name: '__eligibility',
+            content: {
+                nextStepUrl: '/mental-capacity',
+                pages: [
+                    '/will-left',
+                    '/will-original',
+                    '/death-certificate',
+                    '/deceased-domicile',
+                    '/applicant-executor'
+                ]
+            }
+        }];
     });
 
     afterEach(() => {
@@ -20,29 +35,34 @@ describe('mental-capacity', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        it ('test the help block content is present', () => {
+            testHelpBlockContent.runTest('MentalCapacity', cookies);
+        });
 
-        it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {});
+        it('test right content loaded on the page', (done) => {
+            const excludeKeys = [];
+
+            testWrapper.testContent(done, excludeKeys, {}, cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
             const data = {};
-            testWrapper.testErrors(done, data, 'required');
+
+            testWrapper.testErrors(done, data, 'required', [], cookies);
         });
 
-        it(`test it redirects to IHT Completed if all executors are mentally capable: ${expectedNextUrlForIhtCompleted}`, (done) => {
+        it(`test it redirects to IHT Completed page: ${expectedNextUrlForIhtCompleted}`, (done) => {
             const data = {
-                'mentalCapacity': 'Yes'
+                mentalCapacity: 'Yes'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtCompleted);
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtCompleted, cookies);
         });
 
-        it(`test it redirects to stop page if not all executors are mentally capable: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                'mentalCapacity': 'No'
+                mentalCapacity: 'No'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
         });
     });
 });

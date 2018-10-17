@@ -6,10 +6,27 @@ const commonContent = require('app/resources/en/translation/common');
 
 describe('start-apply', () => {
     let testWrapper;
+    let cookies;
     const expectedNextUrlForTaskList = TaskList.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('StartApply');
+
+        cookies = [{
+            name: '__eligibility',
+            content: {
+                nextStepUrl: '/start-apply',
+                pages: [
+                    '/will-left',
+                    '/will-original',
+                    '/death-certificate',
+                    '/deceased-domicile',
+                    '/applicant-executor',
+                    '/mental-capacity',
+                    '/iht-completed'
+                ]
+            }
+        }];
     });
 
     afterEach(() => {
@@ -21,11 +38,11 @@ describe('start-apply', () => {
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];
 
-            testWrapper.testContent(done, excludeKeys);
+            testWrapper.testContent(done, excludeKeys, {}, cookies);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {
-            testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList);
+            testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList, cookies);
         });
 
         it('test save and close link is not displayed on the page', (done) => {

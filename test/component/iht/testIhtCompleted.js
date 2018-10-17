@@ -7,11 +7,27 @@ const testHelpBlockContent = require('test/component/common/testHelpBlockContent
 
 describe('iht-completed', () => {
     let testWrapper;
-    const expectedNextUrlForStartApply = StartApply.getUrl();
+    let cookies;
     const expectedNextUrlForStopPage = StopPage.getUrl('ihtNotCompleted');
+    const expectedNextUrlForStartApply = StartApply.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('IhtCompleted');
+
+        cookies = [{
+            name: '__eligibility',
+            content: {
+                nextStepUrl: '/iht-completed',
+                pages: [
+                    '/will-left',
+                    '/will-original',
+                    '/death-certificate',
+                    '/deceased-domicile',
+                    '/applicant-executor',
+                    '/mental-capacity'
+                ]
+            }
+        }];
     });
 
     afterEach(() => {
@@ -20,32 +36,34 @@ describe('iht-completed', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        testHelpBlockContent.runTest('WillLeft');
+        it ('test the help block content is present', () => {
+            testHelpBlockContent.runTest('IhtCompleted', cookies);
+        });
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];
 
-            testWrapper.testContent(done, excludeKeys);
+            testWrapper.testContent(done, excludeKeys, {}, cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
             const data = {};
 
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, data, 'required', [], cookies);
         });
 
         it(`test it redirects to Start Apply page: ${expectedNextUrlForStartApply}`, (done) => {
             const data = {
-                'completed': 'Yes'
+                completed: 'Yes'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForStartApply);
+            testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                'completed': 'No'
+                completed: 'No'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
         });
 
     });

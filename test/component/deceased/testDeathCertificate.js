@@ -1,25 +1,26 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DeathCertificate = require('app/steps/ui/deceased/deathcertificate/index');
+const DeceasedDomicile = require('app/steps/ui/deceased/domicile/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
-describe('will-original', () => {
+describe('death-certificate', () => {
     let testWrapper;
     let cookies;
-    const expectedNextUrlForStopPage = StopPage.getUrl('notOriginal');
-    const expectedNextUrlForDeathCertificate = DeathCertificate.getUrl();
+    const expectedNextUrlForStopPage = StopPage.getUrl('deathCertificate');
+    const expectedNextUrlForDeceasedDomicile = DeceasedDomicile.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('WillOriginal');
+        testWrapper = new TestWrapper('DeathCertificate');
 
         cookies = [{
             name: '__eligibility',
             content: {
-                nextStepUrl: '/will-original',
+                nextStepUrl: '/death-certificate',
                 pages: [
-                    '/will-left'
+                    '/will-left',
+                    '/will-original'
                 ]
             }
         }];
@@ -32,7 +33,7 @@ describe('will-original', () => {
     describe('Verify Content, Errors and Redirection', () => {
 
         it ('test the help block content is present', () => {
-            testHelpBlockContent.runTest('WillOriginal', cookies);
+            testHelpBlockContent.runTest('DeathCertificate', cookies);
         });
 
         it('test right content loaded on the page', (done) => {
@@ -47,16 +48,16 @@ describe('will-original', () => {
             testWrapper.testErrors(done, data, 'required', [], cookies);
         });
 
-        it(`test it redirects to Death Certificate page: ${expectedNextUrlForDeathCertificate}`, (done) => {
+        it(`test it redirects to Deceased Domicile page: ${expectedNextUrlForDeceasedDomicile}`, (done) => {
             const data = {
-                original: 'Yes'
+                deathCertificate: 'Yes'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeathCertificate, cookies);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDomicile, cookies);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                original: 'No'
+                deathCertificate: 'No'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
         });

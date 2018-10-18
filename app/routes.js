@@ -86,6 +86,11 @@ router.use((req, res, next) => {
     }
 });
 
+<<<<<<< HEAD
+=======
+router.use(featureToggles);
+
+>>>>>>> PRO-3772: Variable and route renaming for document upload
 router.use('/document-upload', documentUpload);
 
 router.use((req, res, next) => {

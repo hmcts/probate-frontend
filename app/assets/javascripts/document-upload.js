@@ -7,12 +7,12 @@ $(document).ready(function () {
 var DocumentUpload = {
     initDropzone: function() {
         new Dropzone('.document-upload__dropzone', {
-            url: '/upload-document/add',
+            url: '/document-upload',
             previewsContainer: '.document-upload__preview',
             headers: {
                 'x-csrf-token': documentUploadConfig.csrfToken
             },
-            acceptedFiles: documentUploadConfig.fileTypes,
+            acceptedFiles: documentUploadConfig.validTypes,
             maxFiles: documentUploadConfig.maxFiles,
             maxFilesize: documentUploadConfig.maxFileSizeMb,
             addRemoveLinks: true,

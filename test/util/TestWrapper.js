@@ -105,7 +105,7 @@ class TestWrapper {
     }
 
     testRedirect(done, postData, expectedNextUrl, cookies = []) {
-        const res = this.agent.post(this.pageUrl)
+        const res = this.agent.post(this.pageUrl);
 
         this.setCookies(res, cookies);
 

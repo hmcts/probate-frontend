@@ -85,7 +85,7 @@ router.use((req, res, next) => {
 
 router.use(featureToggles);
 
-router.use('/upload-document', documentUpload);
+router.use('/document-upload', documentUpload);
 
 router.use((req, res, next) => {
     res.locals.session = req.session;

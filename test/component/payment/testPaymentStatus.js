@@ -17,7 +17,7 @@ describe('payment-status', () => {
         testWrapper = new TestWrapper('PaymentStatus');
 
         nock(SUBMIT_SERVICE_URL).post('/updatePaymentStatus')
-            .reply(200, {});
+            .reply(200, {caseState: 'CreatedCase'});
         nock(`${CREATE_PAYMENT_SERVICE_URL.replace('userId', USER_ID)}`).get('/1')
             .reply(200, {
                 'channel': 'Online',

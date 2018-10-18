@@ -245,6 +245,10 @@ describe('Tasklist', () => {
 
         it('Updates the context: PaymentTask complete', () => {
             req.session.form = {
+                ccdCase: {
+                    state: 'CaseCreated',
+                    id: 1535395401245028
+                },
                 paymentPending: 'false',
                 payment: {
                     status: 'Success'

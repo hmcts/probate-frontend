@@ -28,9 +28,6 @@ describe('ExecutorWhenDied', () => {
     describe('handlePost()', () => {
         let ctx;
         let errors;
-        let formdata;
-        let session;
-        let hostname;
 
         it('should return the ctx with the executor roles', (done) => {
             ctx = {

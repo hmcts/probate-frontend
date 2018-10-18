@@ -15,7 +15,7 @@ describe('DeceasedName', () => {
     });
 
     describe('action', () => {
-        it('test isToggleEnabled is removed from the context', () => {
+        it('cleans up context', () => {
             const ctx = {
                 index: 3683
             };

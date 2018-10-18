@@ -1,8 +1,12 @@
 'use strict';
 
 const fileType = require('file-type');
+<<<<<<< HEAD
 const config = require('app/config').documentUpload;
 const content = require('app/resources/en/translation/common');
+=======
+const config = require('app/config');
+>>>>>>> PRO-3772: Add document type validation
 
 class DocumentUpload {
     initDocuments(formdata) {

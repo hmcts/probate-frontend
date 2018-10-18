@@ -1,24 +1,25 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const sessionData = require('test/data/complete-form').formdata;
 const singleApplicantData = require('test/data/singleApplicant');
 
 describe('task-list', () => {
-    let testWrapper;
+    let testWrapper, sessionData;
 
     beforeEach(() => {
         testWrapper = new TestWrapper('TaskList');
+
+        sessionData = require('test/data/complete-form').formdata;
     });
 
     afterEach(() => {
+        delete require.cache[require.resolve('test/data/complete-form')];
         testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test right content loaded on the page', (done) => {
-
+        it('test right content loaded on the page (feature toggle off)', (done) => {
             const excludeKeys = [
                 'introduction',
                 'saveAndReturn',
@@ -30,13 +31,33 @@ describe('task-list', () => {
                 'taskUnavailable',
                 'checkYourAnswers',
                 'alreadyDeclared',
+                'deceasedTask'
             ];
 
-            testWrapper.testContent(done, excludeKeys);
+            sessionData.featureToggles = {
+                screening_questions: false
+            };
+
+            testWrapper.agent.post('/prepare-session/featureToggles')
+                .send(sessionData.featureToggles)
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            testWrapper.testContent(done, excludeKeys);
+                        });
+                });
         });
 
-        it('test right content loaded in Review and Confirm section (Multiple Applicants)', (done) => {
-
+        it('test right content loaded in Review and Confirm section (Multiple Applicants) (feature toggle off)', (done) => {
+            const multipleApplicantSessionData = {
+                will: sessionData.will,
+                iht: sessionData.iht,
+                applicant: sessionData.applicant,
+                deceased: sessionData.deceased,
+                executors: sessionData.executors,
+                declaration: sessionData.declaration
+            };
             const excludeKeys = [
                 'taskNotStarted',
                 'taskStarted',
@@ -44,16 +65,25 @@ describe('task-list', () => {
                 'taskUnavailable',
                 'checkYourAnswers',
                 'alreadyDeclared',
+                'deceasedTask'
             ];
 
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
+            sessionData.featureToggles = {
+                screening_questions: false
+            };
+
+            testWrapper.agent.post('/prepare-session/featureToggles')
+                .send(sessionData.featureToggles)
                 .end(() => {
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(multipleApplicantSessionData)
+                        .end(() => {
+                            testWrapper.testContent(done, excludeKeys);
+                        });
                 });
         });
 
-        it('test right content loaded in Review and Confirm section (Single Applicant)', (done) => {
+        it('test right content loaded in Review and Confirm section (Single Applicant) (feature toggle off)', (done) => {
             const singleApplicantSessionData = {
                 will: sessionData.will,
                 iht: sessionData.iht,
@@ -71,12 +101,21 @@ describe('task-list', () => {
                 'taskUnavailable',
                 'checkYourAnswers',
                 'alreadyDeclared',
+                'deceasedTask'
             ];
 
-            testWrapper.agent.post('/prepare-session/form')
-                .send(singleApplicantSessionData)
+            sessionData.featureToggles = {
+                screening_questions: false
+            };
+
+            testWrapper.agent.post('/prepare-session/featureToggles')
+                .send(sessionData.featureToggles)
                 .end(() => {
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(singleApplicantSessionData)
+                        .end(() => {
+                            testWrapper.testContent(done, excludeKeys);
+                        });
                 });
         });
     });

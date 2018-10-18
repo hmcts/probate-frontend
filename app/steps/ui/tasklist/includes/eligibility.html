@@ -2,20 +2,20 @@
 
 <li class="task-item">
     {{taskHeader(
-    number = "1.",
-    content = content,
-    title = content.eligibilityTask,
-    status = fields.EligibilityTask.value.status,
-    previousTaskStatus = 'complete'
+        number = "1.",
+        content = content,
+        title = content.eligibilityTask,
+        status = fields.EligibilityTask.value.status,
+        previousTaskStatus = 'complete'
     )}}
     <div class="task-list-items">
         {{taskAction(
-        prevTaskStatus = 'complete',
-        status = fields.EligibilityTask.value.status,
-        nextURL = fields.EligibilityTask.value.nextURL,
-        checkYourAnswersURL = fields.EligibilityTask.value.checkYourAnswersLink,
-        content = content,
-        alreadyDeclared = fields.alreadyDeclared.value
+            prevTaskStatus = 'complete',
+            status = fields.EligibilityTask.value.status,
+            nextURL = fields.EligibilityTask.value.nextURL,
+            checkYourAnswersURL = fields.EligibilityTask.value.checkYourAnswersLink,
+            content = content,
+            alreadyDeclared = fields.alreadyDeclared.value
         )}}
     </div>
 </li>

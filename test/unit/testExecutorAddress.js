@@ -3,14 +3,14 @@
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
+const ExecutorAddress = steps.ExecutorAddress;
 const executorAddressPath = '/executor-address/';
 
 describe('ExecutorAddress', () => {
-    const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
 
     describe('getUrl()', () => {
         it('returns the url with a * param when no index is given', (done) => {
-            const ExecutorAddress = steps.ExecutorAddress;
             const url = ExecutorAddress.constructor.getUrl();
 
             expect(url).to.equal(`${executorAddressPath}*`);
@@ -19,7 +19,6 @@ describe('ExecutorAddress', () => {
 
         it('returns the url with the index as a param when an index is given', (done) => {
             const param = 1;
-            const ExecutorAddress = steps.ExecutorAddress;
             const url = ExecutorAddress.constructor.getUrl(param);
 
             expect(url).to.equal(executorAddressPath + param);
@@ -39,7 +38,6 @@ describe('ExecutorAddress', () => {
                 },
                 params: [1]
             };
-            const ExecutorAddress = steps.ExecutorAddress;
             const ctx = ExecutorAddress.getContextData(req);
 
             expect(ctx.index).to.equal(req.params[0]);
@@ -59,7 +57,6 @@ describe('ExecutorAddress', () => {
                 },
                 params: ['*']
             };
-            const ExecutorAddress = steps.ExecutorAddress;
             const ctx = ExecutorAddress.getContextData(req);
 
             expect(ctx.index).to.equal(req.session.indexPosition);
@@ -80,7 +77,6 @@ describe('ExecutorAddress', () => {
                 },
                 path: executorAddressPath
             };
-            const ExecutorAddress = steps.ExecutorAddress;
             const ctx = ExecutorAddress.getContextData(req);
 
             expect(ctx.index).to.equal(1);
@@ -101,7 +97,6 @@ describe('ExecutorAddress', () => {
                 }
             };
             const executors = req.session.form.executors;
-            const ExecutorAddress = steps.ExecutorAddress;
             const ctx = ExecutorAddress.getContextData(req);
 
             expect(ctx.otherExecName).to.equal(executors.list[0].fullName);
@@ -120,7 +115,6 @@ describe('ExecutorAddress', () => {
                 index: 0,
                 errors: []
             };
-            const ExecutorAddress = steps.ExecutorAddress;
             const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
             expect(ctx.address).to.equal(testCtx.list[0].postcodeAddress);
@@ -137,7 +131,6 @@ describe('ExecutorAddress', () => {
                 index: 0,
                 errors: []
             };
-            const ExecutorAddress = steps.ExecutorAddress;
             const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
             expect(ctx.address).to.equal(testCtx.list[0].freeTextAddress);
@@ -154,7 +147,6 @@ describe('ExecutorAddress', () => {
                 index: 0,
                 errors: []
             };
-            const ExecutorAddress = steps.ExecutorAddress;
             const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
             expect(ctx.postcode).to.equal(testCtx.list[0].postcode);
@@ -171,7 +163,6 @@ describe('ExecutorAddress', () => {
                 index: 0,
                 errors: []
             };
-            const ExecutorAddress = steps.ExecutorAddress;
             const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
             expect(ctx.addresses).to.deep.equal([{formatted_address: ctx.address}]);
@@ -188,7 +179,6 @@ describe('ExecutorAddress', () => {
                 index: 0,
                 errors: []
             };
-            const ExecutorAddress = steps.ExecutorAddress;
             const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
             expect(ctx.freeTextAddress).to.deep.equal(testCtx.list[0].freeTextAddress);
@@ -202,7 +192,6 @@ describe('ExecutorAddress', () => {
                 index: 0,
                 errors: []
             };
-            const ExecutorAddress = steps.ExecutorAddress;
             const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
             expect(ctx).to.deep.equal(testCtx);
@@ -232,7 +221,6 @@ describe('ExecutorAddress', () => {
         });
 
         it('returns the correct data and errors', (done) => {
-            const ExecutorAddress = steps.ExecutorAddress;
             const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors);
 
             expect(ctx.list[0]).to.deep.equal({
@@ -248,7 +236,6 @@ describe('ExecutorAddress', () => {
 
         it('sets address to freeTextAddress if postcodeAddress is not available', (done) => {
             delete testCtx.postcodeAddress;
-            const ExecutorAddress = steps.ExecutorAddress;
             const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors);
 
             expect(ctx.list[0].address).to.equal(testCtx.freeTextAddress);
@@ -258,7 +245,6 @@ describe('ExecutorAddress', () => {
 
         it('sets allExecsApplying if there are multiple executors', (done) => {
             testCtx.index = 1;
-            const ExecutorAddress = steps.ExecutorAddress;
             const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors);
             expect(errors).to.deep.equal(testErrors);
 
@@ -276,7 +262,6 @@ describe('ExecutorAddress', () => {
                     {isApplying: true}
                 ]
             };
-            const ExecutorAddress = steps.ExecutorAddress;
             const index = ExecutorAddress.recalcIndex(testCtx, 0);
 
             expect(index).to.equal(2);
@@ -287,7 +272,6 @@ describe('ExecutorAddress', () => {
             const testCtx = {
                 list: []
             };
-            const ExecutorAddress = steps.ExecutorAddress;
             const index = ExecutorAddress.recalcIndex(testCtx, 0);
 
             expect(index).to.equal(-1);
@@ -302,7 +286,6 @@ describe('ExecutorAddress', () => {
                 index: -1,
                 executorsWrapper: new ExecutorsWrapper(this.list)
             };
-            const ExecutorAddress = steps.ExecutorAddress;
             const url = ExecutorAddress.nextStepUrl(testCtx);
 
             expect(url).to.equal('/deceased-name');
@@ -315,7 +298,6 @@ describe('ExecutorAddress', () => {
                 index: 1,
                 executorsWrapper: new ExecutorsWrapper(this.list)
             };
-            const ExecutorAddress = steps.ExecutorAddress;
             const url = ExecutorAddress.nextStepUrl(testCtx);
 
             expect(url).to.equal('/executor-contact-details/1');
@@ -324,12 +306,12 @@ describe('ExecutorAddress', () => {
     });
 
     describe('nextStepOptions()', () => {
-        it('returns the next step options', (done) => {
+        it('returns the next step options when the FT is off', (done) => {
             const testCtx = {
+                isToggleEnabled: false,
                 index: 1,
                 executorsWrapper: new ExecutorsWrapper()
             };
-            const ExecutorAddress = steps.ExecutorAddress;
             const nextStepOptions = ExecutorAddress.nextStepOptions(testCtx);
 
             expect(nextStepOptions).to.deep.equal({
@@ -340,11 +322,29 @@ describe('ExecutorAddress', () => {
             });
             done();
         });
+
+        it('returns the next step options when the FT is on', (done) => {
+            const ctx = {
+                isToggleEnabled: true,
+                index: 1,
+                executorsWrapper: new ExecutorsWrapper()
+            };
+            const nextStepOptions = ExecutorAddress.nextStepOptions(ctx);
+
+            expect(nextStepOptions).to.deep.equal({
+                options: [
+                    {key: 'continue', value: true, choice: 'continue'},
+                    {key: 'allExecsApplying', value: true, choice: 'allExecsApplyingToggleOn'}
+                ],
+            });
+            done();
+        });
     });
 
     describe('action()', () => {
         it('removes the correct values from the context', (done) => {
             const testCtx = {
+                isToggleEnabled: false,
                 otherExecName: 'James Miller',
                 address: '1 Red Street, London, L1 1LL',
                 postcodeAddress: '1 Red Street, London, L1 1LL',
@@ -357,7 +357,6 @@ describe('ExecutorAddress', () => {
                 executorsWrapper: new ExecutorsWrapper()
             };
             const testFormdata = {};
-            const ExecutorAddress = steps.ExecutorAddress;
             const action = ExecutorAddress.action(testCtx, testFormdata);
 
             expect(action).to.deep.equal([{}, testFormdata]);
@@ -384,7 +383,6 @@ describe('ExecutorAddress', () => {
                 list: executorsList,
                 executorsWrapper: new ExecutorsWrapper()
             };
-            const ExecutorAddress = steps.ExecutorAddress;
             const isComplete = ExecutorAddress.isComplete(testCtx);
 
             expect(isComplete).to.deep.equal([true, 'inProgress']);
@@ -397,7 +395,6 @@ describe('ExecutorAddress', () => {
                 list: executorsList,
                 executorsWrapper: new ExecutorsWrapper()
             };
-            const ExecutorAddress = steps.ExecutorAddress;
             const isComplete = ExecutorAddress.isComplete(testCtx);
 
             expect(isComplete).to.deep.equal([true, 'inProgress']);
@@ -410,7 +407,6 @@ describe('ExecutorAddress', () => {
                 list: executorsList,
                 executorsWrapper: new ExecutorsWrapper({list: executorsList})
             };
-            const ExecutorAddress = steps.ExecutorAddress;
             const isComplete = ExecutorAddress.isComplete(testCtx);
 
             expect(isComplete).to.deep.equal([false, 'inProgress']);

@@ -6,6 +6,11 @@ const taskList = {
         lastStep: 'TaskList',
         summary: 'Summary'
     },
+    DeceasedTask: {
+        firstStep: 'DeceasedName',
+        lastStep: 'TaskList',
+        summary: 'Summary'
+    },
     ExecutorsTask: {
         firstStep: 'ApplicantName',
         lastStep: 'TaskList',
@@ -162,6 +167,7 @@ const stepList = {
     ExecutorsWhoDied: 'ExecutorsWhenDied',
     ExecutorsWhenDied: {
         continue: 'ExecutorsWhenDied',
+        allDeadToggleOn: 'TaskList',
         allDead: 'DeceasedName',
         otherwise: 'ExecutorsApplying'
     },
@@ -186,17 +192,20 @@ const stepList = {
     ExecutorContactDetails: 'ExecutorAddress',
     ExecutorAddress: {
         continue: 'ExecutorContactDetails',
+        allExecsApplyingToggleOn: 'TaskList',
         allExecsApplying: 'DeceasedName',
         otherwise: 'ExecutorRoles'
     },
     ExecutorRoles: {
         continue: 'ExecutorRoles',
         powerReserved: 'ExecutorNotified',
+        otherwiseToggleOn: 'TaskList',
         otherwise: 'DeceasedName',
     },
     ExecutorNameAsOnWill: 'OtherExecutors',
     ExecutorNotified: {
         roles: 'ExecutorRoles',
+        otherwiseToggleOn: 'TaskList',
         otherwise: 'DeceasedName'
     },
     DeleteExecutor: 'OtherExecutors',

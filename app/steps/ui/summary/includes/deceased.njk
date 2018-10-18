@@ -77,16 +77,18 @@
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
 
-{{checkanswer(
-    items = [{
-        question: content.DeceasedDomicile.question,
-        answer: fields.deceased.domicile.value,
-        visible: true
-    }],
-    url = content.DeceasedDomicile.url,
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value
-)}}
+{% ifAsync fields.summary.isScreeningQuestionToggleEnabled.value !== 'true' %}
+    {{checkanswer(
+        items = [{
+            question: content.DeceasedDomicile.question,
+            answer: fields.deceased.domicile.value,
+            visible: true
+        }],
+        url = content.DeceasedDomicile.url,
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+    )}}
+{% endif %}
 
 {{checkanswer(
     items = [{
@@ -98,3 +100,23 @@
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
+
+{% ifAsync fields.summary.isScreeningQuestionToggleEnabled.value === 'true' %}
+    {{checkanswer(
+        items = [{
+            question: content.WillCodicils.question,
+            answer: fields.will.codicils.value,
+            visible: true
+            },
+            {
+                question: content.CodicilsNumber.question,
+                answer: fields.will.codicilsNumber.value,
+                visible: fields.will.codicils.value == content.WillCodicils.optionYes
+            }
+            ],
+        url = content.WillCodicils.url,
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value,
+        answerIsGroup = true)
+    }}
+{% endif %}

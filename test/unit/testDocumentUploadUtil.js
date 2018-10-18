@@ -1,13 +1,15 @@
 'use strict';
 
-const DocumentUpload = require('app/utils/DocumentUpload');
 const expect = require('chai').expect;
+const rewire = require('rewire');
+const DocumentUpload = rewire('app/utils/DocumentUpload');
 
-describe('DocumentUpload.js', () => {
+describe('DocumentUploadUtil', () => {
     describe('initDocuments()', () => {
         it('should return formdata.documents when formdata.documents does not exist', (done) => {
             const testFormdata = {};
-            const formdata = DocumentUpload.initDocuments(testFormdata);
+            const documentUpload = new DocumentUpload();
+            const formdata = documentUpload.initDocuments(testFormdata);
             expect(formdata).to.deep.equal({
                 documents: {}
             });
@@ -20,7 +22,8 @@ describe('DocumentUpload.js', () => {
                     sentDocuments: true
                 }
             };
-            const formdata = DocumentUpload.initDocuments(testFormdata);
+            const documentUpload = new DocumentUpload();
+            const formdata = documentUpload.initDocuments(testFormdata);
             expect(formdata).to.deep.equal({
                 documents: {
                     sentDocuments: true
@@ -32,36 +35,146 @@ describe('DocumentUpload.js', () => {
 
     describe('addDocument()', () => {
         it('should return an array of documents containing a new document when a document is given', (done) => {
-            const uploadedFile = 'death-certificate.pdf';
-            const testUploads = [
-                'will.pdf'
-            ];
-            const uploads = DocumentUpload.addDocument(uploadedFile, testUploads);
-            expect(uploads).to.deep.equal([
-                'will.pdf',
-                'death-certificate.pdf'
-            ]);
+            const uploadedDocument = {
+                originalname: 'death-certificate.pdf'
+            };
+            const testUploads = [{
+                filename: 'will.pdf'
+            }];
+            const documentUpload = new DocumentUpload();
+            const uploads = documentUpload.addDocument(uploadedDocument, testUploads);
+            expect(uploads).to.deep.equal([{
+                filename: 'will.pdf'
+            }, {
+                filename: 'death-certificate.pdf'
+            }]);
             done();
         });
 
         it('should return an array of documents without an undefined value when a document is not given', (done) => {
-            const uploadedFile = null;
-            const testUploads = [
-                'will.pdf'
-            ];
-            const uploads = DocumentUpload.addDocument(uploadedFile, testUploads);
-            expect(uploads).to.deep.equal([
-                'will.pdf'
-            ]);
+            const uploadedDocument = {};
+            const testUploads = [{
+                filename: 'will.pdf'
+            }];
+            const documentUpload = new DocumentUpload();
+            const uploads = documentUpload.addDocument(uploadedDocument, testUploads);
+            expect(uploads).to.deep.equal([{
+                filename: 'will.pdf'
+            }]);
             done();
         });
 
         it('should create and return an array of documents when an array of documents does not exist and a document is given', (done) => {
-            const uploadedFile = 'death-certificate.pdf';
-            const uploads = DocumentUpload.addDocument(uploadedFile);
-            expect(uploads).to.deep.equal([
-                'death-certificate.pdf'
-            ]);
+            const uploadedFile = {
+                originalname: 'death-certificate.pdf'
+            };
+            const documentUpload = new DocumentUpload();
+            const uploads = documentUpload.addDocument(uploadedFile);
+            expect(uploads).to.deep.equal([{
+                filename: 'death-certificate.pdf'
+            }]);
+            done();
+        });
+    });
+
+    describe('removeDocument()', () => {
+        it('should return an array of documents with a document removed when an index is given', (done) => {
+            const index = 0;
+            const testUploads = [{
+                filename: 'will.pdf'
+            }, {
+                filename: 'death-certificate.pdf'
+            }];
+            const documentUpload = new DocumentUpload();
+            const uploads = documentUpload.removeDocument(index, testUploads);
+            expect(uploads).to.deep.equal([{
+                filename: 'death-certificate.pdf'
+            }]);
+            done();
+        });
+
+        it('should return an array of documents without removing a document when a non-numeric index is given', (done) => {
+            const index = 'one';
+            const testUploads = [{
+                filename: 'will.pdf'
+            }, {
+                filename: 'death-certificate.pdf'
+            }];
+            const documentUpload = new DocumentUpload();
+            const uploads = documentUpload.removeDocument(index, testUploads);
+            expect(uploads).to.deep.equal([{
+                filename: 'will.pdf'
+            }, {
+                filename: 'death-certificate.pdf'
+            }]);
+            done();
+        });
+
+        it('should not fail when an index is given but not an array of documents', (done) => {
+            const index = 0;
+            const documentUpload = new DocumentUpload();
+            const uploads = documentUpload.removeDocument(index);
+            expect(uploads).to.deep.equal([]);
+            done();
+        });
+    });
+
+    describe('isValidType()', () => {
+        it('should return true when a valid document type is given', (done) => {
+            const revert = DocumentUpload.__set__('fileType', () => ({ext: 'jpg'}));
+            const document = {
+                buffer: 'valid'
+            };
+            const documentUpload = new DocumentUpload();
+            const isValidFile = documentUpload.isValidType(document);
+            expect(isValidFile).to.equal(true);
+            revert();
+            done();
+        });
+
+        it('should return false when no document type is found', (done) => {
+            const revert = DocumentUpload.__set__('fileType', () => null);
+            const document = {
+                buffer: 'invalid'
+            };
+            const documentUpload = new DocumentUpload();
+            const isValidFile = documentUpload.isValidType(document);
+            expect(isValidFile).to.equal(false);
+            revert();
+            done();
+        });
+
+        it('should return false when an invalid document type is found', (done) => {
+            const document = {
+                buffer: 'invalid'
+            };
+            const documentUpload = new DocumentUpload();
+            const isValidFile = documentUpload.isValidType(document);
+            expect(isValidFile).to.equal(false);
+            done();
+        });
+    });
+
+    describe('isDocumentValid()', () => {
+        it('should return true when a valid document type is given', (done) => {
+            const revert = DocumentUpload.__set__('fileType', () => ({ext: 'jpg'}));
+            const document = {
+                buffer: 'valid'
+            };
+            const documentUpload = new DocumentUpload();
+            const isDocumentValid = documentUpload.isDocumentValid(document);
+            expect(isDocumentValid).to.equal(true);
+            revert();
+            done();
+        });
+
+        it('should return false when an invalid document type is given', (done) => {
+            const document = {
+                buffer: 'invalid'
+            };
+            const documentUpload = new DocumentUpload();
+            const isDocumentValid = documentUpload.isDocumentValid(document);
+            expect(isDocumentValid).to.equal(false);
             done();
         });
     });

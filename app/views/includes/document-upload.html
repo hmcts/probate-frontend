@@ -7,8 +7,7 @@
             <p class="document-upload__dropzone-text">{{ common.documentUploadDragAndDrop }}</p>
         </div>
         <div class="document-upload__fallback fallback">
-            <form class="form" method="post" action="/upload-document/add" novalidate>
-                <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+            <form class="form" method="post" action="/document-upload?_csrf={{ csrfToken }}" enctype="multipart/form-data" novalidate>
                 <div class="form-group">
                     <input name="file" type="file">
                 </div>
@@ -21,24 +20,24 @@
     <div class="document-upload__preview" id="uploaded-files">
         <h2 class="heading-medium">{{ common.documentUploadPreviewTitle }}</h2>
 
-        {% if (fields.uploadedFiles.value === undefined or fields.uploadedFiles.value.length === 0) %}
+        {% if (fields.uploadedDocuments.value === undefined or fields.uploadedDocuments.value.length === 0) %}
             <p class="document-upload__empty-list-text">{{ common.documentUploadEmptyList }}</p>
         {% endif %}
 
-        {% for file in fields.uploadedFiles.value %}
+        {% for document in fields.uploadedDocuments.value %}
             <div class="dz-preview dz-file-preview">
                 <div class="dz-error-message">
                     <span data-dz-errormessage></span>
                 </div>
                 <div class="dz-details">
                     <div class="dz-filename">
-                        <span data-dz-name>{{ file }}</span>
+                        <span data-dz-name>{{ document }}</span>
                     </div>
                 </div>
                 <div class="dz-progress">
                     <span class="dz-upload" data-dz-uploadprogress></span>
                 </div>
-                <a class="dz-remove" href="/upload-document/remove/{{ loop.index0 }}">{{ common.documentUploadRemoveFile }}</a>
+                <a class="dz-remove" href="/document-upload/remove/{{ loop.index0 }}">{{ common.documentUploadRemoveFile }}</a>
             </div>
         {% endfor %}
 

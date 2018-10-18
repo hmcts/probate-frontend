@@ -272,6 +272,7 @@ describe('DocumentUploadUtil', () => {
             done();
         });
 
+<<<<<<< HEAD
         it('should return an error when too many documents have been uploaded', (done) => {
             const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
             const document = {
@@ -287,6 +288,15 @@ describe('DocumentUploadUtil', () => {
                 nonJs: 'maxFiles'
             });
             revert();
+=======
+        it('should return false when an invalid document type is given', (done) => {
+            const document = {
+                buffer: 'invalid'
+            };
+            const documentUpload = new DocumentUpload();
+            const isDocumentValid = documentUpload.isDocumentValid(document);
+            expect(isDocumentValid).to.equal(false);
+>>>>>>> PRO-3772: Add document upload unit tests
             done();
         });
     });

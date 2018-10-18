@@ -121,10 +121,16 @@ describe('DocumentUploadUtil', () => {
 
     describe('isValidType()', () => {
         it('should return true when a valid document type is given', (done) => {
+<<<<<<< HEAD
             const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
             const document = {
                 buffer: 'valid',
                 mimetype: 'image/jpeg'
+=======
+            const revert = DocumentUpload.__set__('fileType', () => ({ext: 'jpg'}));
+            const document = {
+                buffer: 'valid'
+>>>>>>> PRO-3772: Add document upload unit tests
             };
             const documentUpload = new DocumentUpload();
             const isValidFile = documentUpload.isValidType(document);
@@ -136,6 +142,7 @@ describe('DocumentUploadUtil', () => {
         it('should return false when no document type is found', (done) => {
             const revert = DocumentUpload.__set__('fileType', () => null);
             const document = {
+<<<<<<< HEAD
                 buffer: 'invalid',
                 mimetype: 'image/jpeg'
             };
@@ -151,6 +158,9 @@ describe('DocumentUploadUtil', () => {
             const document = {
                 buffer: 'invalid',
                 mimetype: 'image/jpeg'
+=======
+                buffer: 'invalid'
+>>>>>>> PRO-3772: Add document upload unit tests
             };
             const documentUpload = new DocumentUpload();
             const isValidFile = documentUpload.isValidType(document);
@@ -161,8 +171,12 @@ describe('DocumentUploadUtil', () => {
 
         it('should return false when an invalid document type is found', (done) => {
             const document = {
+<<<<<<< HEAD
                 buffer: 'invalid',
                 mimetype: 'text/plain'
+=======
+                buffer: 'invalid'
+>>>>>>> PRO-3772: Add document upload unit tests
             };
             const documentUpload = new DocumentUpload();
             const isValidFile = documentUpload.isValidType(document);

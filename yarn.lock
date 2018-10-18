@@ -4415,6 +4415,10 @@ lodash@^4.13.1, lodash@^4.17.3:
   version "4.17.5"
   resolved "https://artifactory.reform.hmcts.net:443/artifactory/api/npm/npm/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
+lodash@^4.13.1, lodash@^4.17.3:
+  version "4.17.5"
+  resolved "https://artifactory.reform.hmcts.net:443/artifactory/api/npm/npm/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
+
 lodash@^4.17.5:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
@@ -4615,6 +4619,14 @@ mime-types@^2.1.10, mime-types@^2.1.12, mime-types@~2.1.11, mime-types@~2.1.15, 
   resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.15.tgz#a4ebf5064094569237b8cf70046776d09fc92aed"
   dependencies:
     mime-db "~1.27.0"
+
+mime-db@~1.33.0:
+  version "1.33.0"
+  resolved "https://artifactory.reform.hmcts.net:443/artifactory/api/npm/npm/mime-db/-/mime-db-1.33.0.tgz#a3492050a5cb9b63450541e39d9788d2272783db"
+
+mime-db@~1.36.0:
+  version "1.36.0"
+  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.36.0.tgz#5020478db3c7fe93aad7bbcc4dcf869c43363397"
 
 mime-db@~1.33.0:
   version "1.33.0"
@@ -4963,6 +4975,20 @@ nocache@2.0.0:
 nock@^9.3.0:
   version "9.6.1"
   resolved "https://registry.yarnpkg.com/nock/-/nock-9.6.1.tgz#d96e099be9bc1d0189a77f4490bbbb265c381b49"
+  dependencies:
+    chai "^4.1.2"
+    debug "^3.1.0"
+    deep-equal "^1.0.0"
+    json-stringify-safe "^5.0.1"
+    lodash "^4.17.5"
+    mkdirp "^0.5.0"
+    propagate "^1.0.0"
+    qs "^6.5.1"
+    semver "^5.5.0"
+
+node-fetch@^1.0.1:
+  version "1.7.3"
+  resolved "https://artifactory.reform.hmcts.net:443/artifactory/api/npm/npm/node-fetch/-/node-fetch-1.7.3.tgz#980f6f72d85211a5347c6b2bc18c5b84c3eb47ef"
   dependencies:
     chai "^4.1.2"
     debug "^3.1.0"

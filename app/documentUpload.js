@@ -4,7 +4,6 @@ const router = require('express').Router();
 const services = require('app/components/services');
 const DocumentUpload = require('app/utils/DocumentUpload');
 const documentUpload = new DocumentUpload();
-const common = require('app/resources/en/translation/common');
 const multer = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({storage: storage});
@@ -14,17 +13,18 @@ router.post('/', upload.single('file'), (req, res, next) => {
     const uploadedDocument = req.file;
     let formdata = req.session.form;
     formdata = documentUpload.initDocuments(formdata);
+    const error = documentUpload.error(uploadedDocument);
 
-    if (documentUpload.isDocumentValid(uploadedDocument)) {
+    if (error === null) {
         logger(req.sessionID).info('Uploaded document is valid');
         services.uploadDocument(req.session.id);
         formdata.documents.uploads = documentUpload.addDocument(uploadedDocument, formdata.documents.uploads);
     } else {
         logger(req.sessionID).info('Uploaded document is invalid');
         if (req.get('x-csrf-token')) {
-            return res.status(400).send(common.documentUploadInvalidFileType);
+            return res.status(400).send(error.js);
         }
-        formdata.documents.invalid = true;
+        formdata.documents.error = error.nonJs;
     }
 
     return next();

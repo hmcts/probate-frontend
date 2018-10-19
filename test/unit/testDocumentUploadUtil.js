@@ -330,7 +330,7 @@ describe('DocumentUploadUtil', () => {
             done();
         });
 
-        it('should return false when an invalid document type is given', (done) => {
+        it('should return an error when an invalid document type is given', (done) => {
             const document = {
                 buffer: 'invalid'
             };

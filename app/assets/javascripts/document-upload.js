@@ -20,6 +20,7 @@ var DocumentUpload = {
         })
         .on('addedfile', function() {
             DocumentUpload.hideNoFilesUploadedMessage();
+            DocumentUpload.disableSubmitButton();
         })
         .on('removedfile', function(file) {
             DocumentUpload.showNoFilesUploadedMessage();
@@ -29,6 +30,9 @@ var DocumentUpload = {
         .on('error', function(file, error) {
             DocumentUpload.showErrorSummary();
             DocumentUpload.showErrorSummaryLine(documentUploadConfig[DocumentUpload.getErrorKey(error) + 'Summary'], error);
+        })
+        .on('queuecomplete', function(file) {
+            DocumentUpload.enableSubmitButton();
         });
         DocumentUpload.makeDropzoneLinkClickable();
     },
@@ -71,5 +75,11 @@ var DocumentUpload = {
         if ($('[data-dz-errormessage]:contains(' + errorMessage + ')').length === 0) {
             $('[data-fielderror="' + errorMessage + '"]').remove();
         }
+    },
+    enableSubmitButton: function() {
+        $('.button').removeAttr('disabled');
+    },
+    disableSubmitButton: function() {
+        $('.button').attr('disabled', 'disabled');
     }
 }

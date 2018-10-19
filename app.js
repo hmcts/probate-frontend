@@ -67,7 +67,7 @@ exports.init = function() {
         'documentUpload': {
             validTypes: config.documentUpload.validTypes,
             maxFiles: config.documentUpload.maxFiles,
-            maxFileSize: config.documentUpload.maxFileSize
+            maxSize: config.documentUpload.maxSize
         }
     };
 

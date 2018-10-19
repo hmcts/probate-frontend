@@ -19,10 +19,11 @@ class DocumentUpload extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
-        if (formdata.documents.invalid) {
+        const error = formdata.documents.error;
+        if (error) {
             errors = errors || [];
-            errors.push(FieldError('file', 'invalid', this.resourcePath, this.generateContent()));
-            delete formdata.documents.invalid;
+            errors.push(FieldError('file', error, this.resourcePath, this.generateContent()));
+            delete formdata.documents.error;
         }
         return [ctx, errors];
     }

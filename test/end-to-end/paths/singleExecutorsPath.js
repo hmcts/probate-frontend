@@ -2,18 +2,14 @@
 
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
-const services = require('app/components/services');
-const config = require('app/config');
-let isAliasToggledEnabled;
 
 Feature('Single Executor flow');
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
 // eslint-disable-next-line no-undef
-Before(function* () {
+Before(() => {
     TestConfigurator.getBefore();
-    isAliasToggledEnabled = yield services.featureToggle(config.featureToggles.main_applicant_alias);
 });
 
 // eslint-disable-next-line no-undef
@@ -24,7 +20,7 @@ After(() => {
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
 
     //Pre-IDAM
-//    I.startApplication();
+    //    I.startApplication();
     I.startApply();
 
     // IDAM
@@ -54,10 +50,8 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
     I.selectNameAsOnTheWill('optionNo');
-    if (isAliasToggledEnabled === true) {
-        I.enterApplicantAlias('Bob Alias');
-        I.enterApplicantAliasReason('aliasOther', 'Because YOLO');
-    }
+    I.enterApplicantAlias('Bob Alias');
+    I.enterApplicantAliasReason('aliasOther', 'Because YOLO');
     I.enterApplicantPhone();
     I.enterAddressManually();
 

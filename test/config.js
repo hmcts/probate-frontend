@@ -1,11 +1,12 @@
 module.exports = {
 
-    TestIdamBaseUrl: process.env.IDAM_API_URL || 'http://localhost:8484',
+//    TestIdamBaseUrl: process.env.IDAM_API_URL || 'http://localhost:8484',
+    TestIdamBaseUrl: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal',
     TestFrontendUrl: process.env.TEST_URL || 'http://localhost:3000',
     TestE2EFrontendUrl: process.env.TEST_E2E_URL || 'http://localhost:3000',
     TestUseIdam: process.env.USE_IDAM || 'false',
     TestUseSidam: process.env.USE_SIDAM || 'true',
-    TestIdamLoginUrl: process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
+    TestIdamLoginUrl: 'https://idam.preprod.ccidam.reform.hmcts.net/login',//process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
     TestUseGovPay: process.env.USE_GOV_PAY || 'false',
     TestInviteIdListUrl: process.env.INVITE_ID_LIST_URL,
     TestPinUrl: process.env.PIN_URL,

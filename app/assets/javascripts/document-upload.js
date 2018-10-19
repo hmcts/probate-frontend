@@ -20,7 +20,7 @@ var DocumentUpload = {
             dictRemoveFile: documentUploadConfig.content.removeFileText,
             dictInvalidFileType: documentUploadConfig.content.invalidFileType,
             dictMaxFilesExceeded: documentUploadConfig.content.maxFilesExceeded,
-            dictFileTooBig: documentUploadConfig.content.maxFileSize
+            dictFileTooBig: documentUploadConfig.content.maxSize
         })
         .on('addedfile', function() {
             DocumentUpload.hideEmptyListMessage();

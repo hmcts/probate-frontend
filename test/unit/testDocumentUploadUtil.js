@@ -171,27 +171,71 @@ describe('DocumentUploadUtil', () => {
         });
     });
 
-    describe('isDocumentValid()', () => {
-        it('should return true when a valid document type is given', (done) => {
+    describe('isValidSize()', () => {
+        it('should return true when a valid document size is given', (done) => {
+            const document = {
+                size: 2,
+            };
+            const documentUpload = new DocumentUpload();
+            const isValidSize = documentUpload.isValidSize(document);
+            expect(isValidSize).to.equal(true);
+            done();
+        });
+
+        it('should return false when an invalid document size is given', (done) => {
+            const document = {
+                size: 12,
+            };
+            const documentUpload = new DocumentUpload();
+            const isValidSize = documentUpload.isValidSize(document);
+            expect(isValidSize).to.equal(false);
+            done();
+        });
+    });
+
+    describe('error()', () => {
+        it('should return null when a valid document is given', (done) => {
             const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
             const document = {
                 buffer: 'valid',
+                size: 2,
                 mimetype: 'image/jpeg'
             };
             const documentUpload = new DocumentUpload();
-            const isDocumentValid = documentUpload.isDocumentValid(document);
-            expect(isDocumentValid).to.equal(true);
+            const error = documentUpload.error(document);
+            expect(error).to.equal(null);
             revert();
             done();
         });
 
-        it('should return false when an invalid document type is given', (done) => {
+        it('should return an error when an invalid document type is given', (done) => {
             const document = {
-                buffer: 'invalid'
+                buffer: 'invalid',
+                mimetype: 'application/msword'
             };
             const documentUpload = new DocumentUpload();
-            const isDocumentValid = documentUpload.isDocumentValid(document);
-            expect(isDocumentValid).to.equal(false);
+            const error = documentUpload.error(document);
+            expect(error).to.deep.equal({
+                js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
+                nonJs: 'type'
+            });
+            done();
+        });
+
+        it('should return an error when an invalid document size is given', (done) => {
+            const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
+            const document = {
+                buffer: 'invalid',
+                size: 12,
+                mimetype: 'image/jpeg'
+            };
+            const documentUpload = new DocumentUpload();
+            const error = documentUpload.error(document);
+            expect(error).to.deep.equal({
+                js: 'Use a file that is under 10MB and try again',
+                nonJs: 'maxSize'
+            });
+            revert();
             done();
         });
     });

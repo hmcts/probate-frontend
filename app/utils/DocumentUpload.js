@@ -29,7 +29,7 @@ class DocumentUpload {
     }
 
     isValidType(document) {
-        const validMimeTypes = config.documentUpload.validMimeTypes;
+        const validMimeTypes = config.validMimeTypes;
 
         if (!validMimeTypes.includes(document.mimetype)) {
             return false;
@@ -45,7 +45,7 @@ class DocumentUpload {
     }
 
     isValidSize(document) {
-        return document.size <= config.maxSize;
+        return document.size <= config.maxFileSizeMb;
     }
 
     error(document) {

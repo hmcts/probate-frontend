@@ -152,7 +152,7 @@ const config = {
     documentUpload: {
         validTypes: '.jpg,.jpeg,.bmp,.tiff,.tif,.png,.pdf',
         maxFiles: 10,
-        maxFileSize: 10
+        maxSize: 10000000
     }
 };
 

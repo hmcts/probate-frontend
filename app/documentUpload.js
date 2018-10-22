@@ -13,7 +13,7 @@ router.post('/', upload.single('file'), (req, res, next) => {
     const uploadedDocument = req.file;
     let formdata = req.session.form;
     formdata = documentUpload.initDocuments(formdata);
-    const error = documentUpload.error(uploadedDocument);
+    const error = documentUpload.validate(uploadedDocument, formdata.documents.uploads);
 
     if (error === null) {
         logger(req.sessionID).info('Uploaded document is valid');

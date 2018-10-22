@@ -138,3 +138,30 @@ describe('Summary', () => {
         });
     });
 });
+
+const {expect} = require('chai');
+
+describe('Summary', () => {
+    const summary = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).Summary;
+
+    describe('getUrl()', () => {
+        it('should return correct url', (done) => {
+            const url = summary.constructor.getUrl();
+            expect(url).to.include('/summary');
+            done();
+        });
+
+        it('should end with * when no index supplied', (done) => {
+            const url = summary.constructor.getUrl();
+            expect(url).to.equal('/summary/*');
+            done();
+        });
+
+        it('should end with supplied index ', (done) => {
+            const url = summary.constructor.getUrl(1);
+            expect(url).to.equal('/summary/1');
+            done();
+        });
+    });
+
+});

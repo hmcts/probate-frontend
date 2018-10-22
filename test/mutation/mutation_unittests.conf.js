@@ -14,12 +14,18 @@ const strykerConfiguration = config => {
     mutate:
       [
         'app/steps/ui/**/index.js',
-        '!test/component/executors/*.js'
+        'app/*.js',
+        'app/core/**',
+        'app/wrappers/*.js',
+        'app/journeys/*',
+        'app/utils/*',
+        '!test/component/executors/*.js',
+        '!app/config.js',
       ],
     files: ['*.js', '*.json', 'app/**', 'test/**'],
     maxConcurrentTestRunners: 1,
     symlinkNodeModules: true,
-    htmlReporter: {baseDir: 'functional-output/mutation-steps'},
+    htmlReporter: {baseDir: 'functional-output/mutation-unittests'},
     mochaOptions: {
       files:
         [

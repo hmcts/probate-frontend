@@ -6,8 +6,6 @@ const services = require('app/components/services');
 const sinon = require('sinon');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const content = require('app/resources/en/translation/declaration');
-const Declaration = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).Declaration;
-const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 
 describe('Declaration tests', () => {
     const Declaration = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).Declaration;
@@ -169,18 +167,6 @@ describe('Declaration tests', () => {
     });
 
     describe('resetAgreedFlags()', () => {
-describe('declaration unit tests', () => {
-
-    describe('getUrl()', () => {
-        it('should return correct url', (done) => {
-            const declaration = steps.Declaration;
-            const url = declaration.constructor.getUrl();
-            expect(url).to.equal('/declaration');
-            done();
-        });
-    });
-
-    describe('invitedata tests', () => {
         let updateInviteDataStub;
         const executorsInvited = [
             {inviteId: '1'},
@@ -214,6 +200,14 @@ describe('declaration unit tests', () => {
                     done();
                 })
                 .catch(err => done(err));
+        });
+    });
+
+    describe('getUrl()', () => {
+        it('should return correct url', (done) => {
+            const url = Declaration.constructor.getUrl();
+            expect(url).to.equal('/declaration');
+            done();
         });
     });
 

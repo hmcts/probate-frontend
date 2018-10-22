@@ -19,7 +19,7 @@ describe('task-list', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        it('test right content loaded on the page (feature toggle off)', (done) => {
+        it('test right content loaded on the page', (done) => {
             const excludeKeys = [
                 'introduction',
                 'saveAndReturn',
@@ -31,21 +31,17 @@ describe('task-list', () => {
                 'taskUnavailable',
                 'checkYourAnswers',
                 'alreadyDeclared',
-                'deceasedTask'
+                'eligibilityTask'
             ];
 
-            testWrapper.agent.post('/prepare-session/featureToggles')
-                .send(sessionData.featureToggles)
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, excludeKeys);
-                        });
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
 
-        it('test right content loaded in Review and Confirm section (Multiple Applicants) (feature toggle off)', (done) => {
+        it('test right content loaded in Review and Confirm section (Multiple Applicants)', (done) => {
             const multipleApplicantSessionData = {
                 will: sessionData.will,
                 iht: sessionData.iht,
@@ -61,21 +57,17 @@ describe('task-list', () => {
                 'taskUnavailable',
                 'checkYourAnswers',
                 'alreadyDeclared',
-                'deceasedTask'
+                'eligibilityTask'
             ];
 
-            testWrapper.agent.post('/prepare-session/featureToggles')
-                .send(sessionData.featureToggles)
+            testWrapper.agent.post('/prepare-session/form')
+                .send(multipleApplicantSessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(multipleApplicantSessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, excludeKeys);
-                        });
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
 
-        it('test right content loaded in Review and Confirm section (Single Applicant) (feature toggle off)', (done) => {
+        it('test right content loaded in Review and Confirm section (Single Applicant)', (done) => {
             const singleApplicantSessionData = {
                 will: sessionData.will,
                 iht: sessionData.iht,
@@ -93,17 +85,13 @@ describe('task-list', () => {
                 'taskUnavailable',
                 'checkYourAnswers',
                 'alreadyDeclared',
-                'deceasedTask'
+                'eligibilityTask'
             ];
 
-            testWrapper.agent.post('/prepare-session/featureToggles')
-                .send(sessionData.featureToggles)
+            testWrapper.agent.post('/prepare-session/form')
+                .send(singleApplicantSessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(singleApplicantSessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, excludeKeys);
-                        });
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
     });

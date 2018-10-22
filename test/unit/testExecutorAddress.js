@@ -221,7 +221,10 @@ describe('ExecutorAddress', () => {
         });
 
         it('returns the correct data and errors', (done) => {
-            const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors);
+            const featureToggles = {
+                screening_questions: true
+            };
+            const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors, null, null, null, featureToggles);
 
             expect(ctx.list[0]).to.deep.equal({
                 isApplying: true,
@@ -230,6 +233,7 @@ describe('ExecutorAddress', () => {
                 postcodeAddress: testCtx.postcodeAddress,
                 freeTextAddress: testCtx.freeTextAddress
             });
+            expect(ctx.isToggleEnabled).to.equal(true);
             expect(errors).to.deep.equal(testErrors);
             done();
         });

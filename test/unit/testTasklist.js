@@ -1,3 +1,4 @@
+// eslint-disable-line max-lines
 'use strict';
 
 const initSteps = require('app/core/initSteps');
@@ -36,25 +37,23 @@ describe('Tasklist', () => {
             assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
         });
 
-        it('Updates the context: EligibilityTask started', () => {
-            const formdata = {will: {left: 'Yes'}};
+        it('Updates the context: DeceasedTask started', () => {
+            const formdata = {deceased: {firstName: 'Test first name', lastName: 'Test last name'}};
             req.session.form = formdata;
             ctx = taskList.getContextData(req);
 
-            assert.equal(ctx.EligibilityTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.EligibilityTask.status, 'started');
-            assert.equal(ctx.EligibilityTask.nextURL, journeyMap(steps.WillLeft, formdata.will).constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.status, 'started');
+            assert.equal(ctx.DeceasedTask.nextURL, journeyMap(steps.DeceasedName, formdata.deceased).constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'notStarted');
             assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
         });
 
         it('Updates the context: DeceasedTask complete, ExecutorsTask not started', () => {
             const formdata = {
-                will: completedForm.will,
+                deceased: completedForm.deceased,
                 iht: completedForm.iht,
-                executors: {mentalCapacity: completedForm.executors.mentalCapacity},
-                applicant: {executor: completedForm.applicant.executor},
-                deceased: completedForm.deceased
+                will: completedForm.will
             };
             req.session.form = formdata;
             ctx = taskList.getContextData(req);
@@ -67,15 +66,13 @@ describe('Tasklist', () => {
 
         it('Updates the context: DeceasedTask complete, ExecutorsTask started', () => {
             const formdata = {
-                will: completedForm.will,
+                deceased: completedForm.deceased,
                 iht: completedForm.iht,
-                executors: {mentalCapacity: completedForm.executors.mentalCapacity},
+                will: completedForm.will,
                 applicant: {
-                    executor: completedForm.applicant.executor,
                     firstName: completedForm.applicant.firstName,
-                    lastName: completedForm.applicant.lastName,
-                },
-                deceased: completedForm.deceased
+                    lastName: completedForm.applicant.lastName
+                }
             };
             req.session.form = formdata;
             ctx = taskList.getContextData(req);
@@ -88,15 +85,10 @@ describe('Tasklist', () => {
 
         it('Updates the context: DeceasedTask & ExecutorsTask started (ExecutorsTask blocked)', () => {
             const formdata = {
-                will: completedForm.will,
-                iht: {completed: completedForm.iht.completed},
-                executors: {mentalCapacity: completedForm.executors.mentalCapacity},
-                applicant: completedForm.applicant,
-                deceased: {
-                    deathCertificate: completedForm.deceased.deathCertificate,
-                    domicile: completedForm.deceased.domicile,
-                    firstName: completedForm.deceased.firstName,
-                    lastName: completedForm.deceased.lastName
+                deceased: {firstName: 'Test first name', lastName: 'Test last name'},
+                applicant: {
+                    firstName: completedForm.applicant.firstName,
+                    lastName: completedForm.applicant.lastName
                 }
             };
             req.session.form = formdata;
@@ -120,7 +112,6 @@ describe('Tasklist', () => {
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.EligibilityTask.status, 'complete');
             assert.equal(ctx.DeceasedTask.status, 'complete');
             assert.equal(ctx.ExecutorsTask.status, 'complete');
             assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
@@ -261,7 +252,7 @@ describe('Tasklist', () => {
             assert.equal(ctx.PaymentTask.status, 'complete');
         });
 
-        it('Updates the context: Eligibility, Deceased, Executors, Review and confirm, Copies and Document tasks complete', () => {
+        it('Updates the context: DeceasedTask, Executors, Review and confirm, Copies and Document tasks complete', () => {
             req.session.form = completedForm;
             req.session.form.documents = {
                 sentDocuments: 'true'
@@ -270,11 +261,33 @@ describe('Tasklist', () => {
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.DocumentsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.EligibilityTask.status, 'complete');
             assert.equal(ctx.DeceasedTask.status, 'complete');
             assert.equal(ctx.ExecutorsTask.status, 'complete');
             assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
             assert.equal(ctx.DocumentsTask.status, 'complete');
+        });
+
+        it('Test the Copies Previous Task Status is set correctly', () => {
+            req.session.form = completedForm;
+
+            ctx = taskList.getContextData(req);
+
+            assert.equal(ctx.CopiesTask.status, 'complete');
+        });
+    });
+
+    describe('action', () => {
+        it('test it cleans up context', () => {
+            const ctx = {
+                hasMultipleApplicants: true,
+                alreadyDeclared: true,
+                previousTaskStatus: 'complete'
+            };
+
+            taskList.action(ctx);
+            assert.isUndefined(ctx.hasMultipleApplicants);
+            assert.isUndefined(ctx.alreadyDeclared);
+            assert.isUndefined(ctx.previousTaskStatus);
         });
     });
 });

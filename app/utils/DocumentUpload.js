@@ -48,7 +48,11 @@ class DocumentUpload {
         return document.size <= config.maxSizeBytes;
     }
 
-    error(document) {
+    isValidNumber(uploads = []) {
+        return uploads.length < config.maxFiles;
+    }
+
+    validate(document, uploads) {
         let error = null;
 
         if (error === null && !this.isValidType(document)) {
@@ -62,6 +66,13 @@ class DocumentUpload {
             error = {
                 js: content.documentUploadMaxSize,
                 nonJs: 'maxSize'
+            };
+        }
+
+        if (error === null && !this.isValidNumber(uploads)) {
+            error = {
+                js: content.documentUploadMaxFilesExceeded,
+                nonJs: 'maxFiles'
             };
         }
 

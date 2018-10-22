@@ -30,6 +30,8 @@
     "test-crossbrowser-e2e-win": "set NODE_PATH=. && codeceptjs run -c test/end-to-end/saucelabs.conf.js --steps",
     "test:smoke": "mocha test/smoke/healthcheck.js --timeout 15000 --reporter spec",
     "test-contract": "NODE_PATH=. LOG_LEVEL=error mocha test/contract/**/*.js --timeout 15000 --reporter spec",
+    "test:stryker": "NODE_PATH=. stryker run ",
+    "test:stryker-unit": "NODE_PATH=. stryker run test/mutation/mutation_unittests.conf.js",
     "test:mutation": "./bin/run-mutation-tests.sh",
     "test:stryker": "NODE_PATH=. stryker run ",
     "lint": "NODE_PATH=. eslint .",

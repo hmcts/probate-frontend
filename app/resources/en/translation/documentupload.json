@@ -20,6 +20,10 @@
       "maxSize": {
         "summary": "Your file is too large to upload. Use a file that is under 10MB and try again",
         "message": ""
+      },
+      "maxFiles": {
+        "summary": "You have uploaded too many files. You can upload a maximum of 10 files",
+        "message": ""
       }
     }
   }

@@ -29,6 +29,10 @@ class DocumentUpload {
     }
 
     isValidType(document) {
+        if (!document) {
+            return false;
+        }
+
         const validMimeTypes = config.validMimeTypes;
 
         if (!validMimeTypes.includes(document.mimetype)) {

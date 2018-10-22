@@ -272,8 +272,6 @@ describe('DocumentUploadUtil', () => {
             done();
         });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
         it('should return an error when too many documents have been uploaded', (done) => {
             const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
             const document = {
@@ -289,27 +287,19 @@ describe('DocumentUploadUtil', () => {
                 nonJs: 'maxFiles'
             });
             revert();
-=======
+            done();
+        });
+
         it('should return false when an invalid document type is given', (done) => {
-=======
-        it('should return an error when an invalid document type is given', (done) => {
-            const revert = DocumentUpload.__set__('fileType', () => ({ext: 'doc'}));
->>>>>>> PRO-3773: Update unit tests for max size validation
             const document = {
                 buffer: 'invalid'
             };
             const documentUpload = new DocumentUpload();
-<<<<<<< HEAD
-            const isDocumentValid = documentUpload.isDocumentValid(document);
-            expect(isDocumentValid).to.equal(false);
->>>>>>> PRO-3772: Add document upload unit tests
-=======
-            const error = documentUpload.error(document);
+            const error = documentUpload.validate(document);
             expect(error).to.deep.equal({
                 js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
                 nonJs: 'type'
             });
-            revert();
             done();
         });
 
@@ -320,13 +310,29 @@ describe('DocumentUploadUtil', () => {
                 size: 12000000
             };
             const documentUpload = new DocumentUpload();
-            const error = documentUpload.error(document);
+            const error = documentUpload.validate(document);
             expect(error).to.deep.equal({
                 js: 'Use a file that is under 10MB and try again',
                 nonJs: 'maxSize'
             });
             revert();
->>>>>>> PRO-3773: Update unit tests for max size validation
+            done();
+        });
+
+        it('should return an error when too many documents have been uploaded', (done) => {
+            const revert = DocumentUpload.__set__('fileType', () => ({ext: 'jpg'}));
+            const document = {
+                buffer: 'invalid',
+                size: 2000
+            };
+            const uploads = Array(10).fill({file: 'death-certificate.pdf'});
+            const documentUpload = new DocumentUpload();
+            const error = documentUpload.validate(document, uploads);
+            expect(error).to.deep.equal({
+                js: 'You can upload a maximum of 10 files',
+                nonJs: 'maxFiles'
+            });
+            revert();
             done();
         });
     });

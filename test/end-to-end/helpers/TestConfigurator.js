@@ -23,7 +23,7 @@ class TestConfigurator {
         this.userDetails = '';
         this.useSidam = testConfig.TestUseSidam;
         this.retryScenarios = testConfig.TestRetryScenarios;
-        this.isAliasToggledOn = testConfig.IsAliasToggledOn;
+        this.isAliasToggledOn = testConfig.TestAliasToggledOn;
     }
 
     getBefore() {
@@ -144,6 +144,10 @@ class TestConfigurator {
 
     getRetryScenarios() {
         return this.retryScenarios;
+    }
+
+    getIsAliasToggledOn(){
+        return this.isAliasToggledOn;
     }
 }
 

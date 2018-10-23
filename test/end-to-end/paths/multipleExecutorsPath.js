@@ -81,11 +81,13 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
 
     const executorsWithDifferentNameList = ['5'];
+
+if (TestConfigurator.getIsAliasToggledOn() === 'true') {
     forEach(executorsWithDifferentNameList, executorNumber => {
         I.enterExecutorCurrentName(executorNumber, head(executorsWithDifferentNameList) === executorNumber);
         I.enterExecutorCurrentNameReason(executorNumber, 'aliasOther', 'Because YOLO');
     });
-
+}
     forEach(executorsApplyingList, executorNumber => {
         I.enterExecutorContactDetails(executorNumber, head(executorsApplyingList) === executorNumber);
         I.enterExecutorManualAddress(executorNumber);

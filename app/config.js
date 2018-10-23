@@ -105,7 +105,7 @@ const config = {
         registryInformation: '/public/pdf/probate-registries-pa4sot.pdf',
         deathCertificate: 'https://www.gov.uk/order-copy-birth-death-marriage-certificate',
         deathReportedToCoroner: 'https://www.gov.uk/after-a-death/when-a-death-is-reported-to-a-coroner',
-        findOutNext: 'http://bbc.co.uk' // Just a placeholder
+        findOutNext: 'https://www.gov.uk/wills-probate-inheritance/once-the-grants-been-issued'
     },
     helpline: {
         number: '0300 303 0648',

@@ -1,0 +1,12 @@
+{{checkanswer(
+    items = [{
+            question: content.DocumentUpload.title,
+            answer: fields.summary.uploadedFiles.value,
+            visible: fields.uploadedFiles.value
+        }
+    ],
+    url = content.DocumentUpload.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value,
+    answerIsCollection = true
+)}}

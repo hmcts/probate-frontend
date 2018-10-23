@@ -3,7 +3,7 @@ const testConfig = require('test/config.js');
 exports.config = {
 //    'tests': './paths/**/*.js',
     'tests': './paths/**/*ExecutorsPath.js',
-//'tests': './paths/**/multipleExecutorsPath.js',
+    //'tests': './paths/**/multipleExecutorsPath.js',
     'output': './output',
     'helpers': {
         'Puppeteer': {
@@ -16,11 +16,11 @@ exports.config = {
             'chrome': {
                 'ignoreHTTPSErrors': true,
                 'ignore-certificate-errors': true,
-//                args: [
-//                    '--no-sandbox',
-//                    '--proxy-server=proxyout.reform.hmcts.net:8080',
-//                    '--proxy-bypass-list=*beta*LB.reform.hmcts.net'
-//                ]
+                //                args: [
+                //                    '--no-sandbox',
+                //                    '--proxy-server=proxyout.reform.hmcts.net:8080',
+                //                    '--proxy-bypass-list=*beta*LB.reform.hmcts.net'
+                //                ]
             },
         },
         'PuppeteerHelper': {

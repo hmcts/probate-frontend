@@ -28,6 +28,7 @@ const appInsights = require('applicationinsights');
 const commonContent = require('app/resources/en/translation/common');
 const uuidv4 = require('uuid/v4');
 const uuid = uuidv4();
+const SECURITY_COOKIE = '__auth-token-' + config.payloadVersion;
 
 exports.init = function() {
     const app = express();
@@ -152,9 +153,11 @@ exports.init = function() {
         resave: config.redis.resave,
         saveUninitialized: config.redis.saveUninitialized,
         secret: config.redis.secret,
+        rolling: true,
         cookie: {
             httpOnly: config.redis.cookie.httpOnly,
-            sameSite: config.redis.cookie.sameSite
+            sameSite: config.redis.cookie.sameSite,
+            maxAge: 1000 * 60 * 60
         },
         store: utils.getStore(config.redis, session, config.app.session.ttl)
     }));

@@ -23,8 +23,8 @@ const config = {
         useCSRFProtection: 'true',
         session: {
             expires: 3600000, // ms (60 min)
-            ttl: 86400 // s (1 day) 
-        }           
+            ttl: 86400 // s (1 day)
+        }
     },
     services: {
         postcode: {

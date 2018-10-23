@@ -1,10 +1,6 @@
 'use strict';
 
 const Step = require('app/core/steps/Step');
-const config = require('app/config');
-const logger = require('app/components/logger')('Init');
-const services = require('app/components/services');
-const SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
 
 class Timeout extends Step {
 

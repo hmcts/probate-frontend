@@ -29,7 +29,6 @@ module.exports = {
         invalidAddressPostcode: 'Z99 9ZZ',
         emptyAddressPostcode: ''
     },
-
     validation: {
         url: process.env.TEST_VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
     },

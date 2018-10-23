@@ -50,7 +50,7 @@ exports.getStore = (redisConfig, session, ttl) => {
         };
         const redisOptions = redisConfig.useTLS === 'true' ? tlsOptions : {};
         const client = new Redis(redisConfig.port, redisConfig.host, redisOptions);
-        return new RedisStore({client,ttl});
+        return new RedisStore({client, ttl});
     }
     const MemoryStore = require('express-session').MemoryStore;
     return new MemoryStore();

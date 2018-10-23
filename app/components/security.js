@@ -32,24 +32,23 @@ class Security {
                 securityCookie = req.cookies[SECURITY_COOKIE];
             }
 
-            // Retrieve user details
             if (securityCookie) {
-                const lostSession = !req.session.hasOwnProperty('expires');;
+                const lostSession = !req.session.expires;
                 const sessionExpired = req.session.expires?req.session.expires <= Date.now():false;
                 if (lostSession || sessionExpired) {
                     if (lostSession) {
-                        logger.error('The current user session is lost.')
+                        logger.error('The current user session is lost.');
                     } else {
-                        logger.error('The current user session has expired.')
+                        logger.error('The current user session has expired.');
                     }
                     logger.info('Redirecting user to the time-out page.');
                     res.clearCookie(SECURITY_COOKIE);
-                    delete req.cookies[SECURITY_COOKIE];            
+                    delete req.cookies[SECURITY_COOKIE];
                     return res.redirect('/time-out');
-                } else {
-                    logger.debug('Extending session for active user.');
-                    req.session.expires = Date.now() + config.app.session.expires;
                 }
+
+                logger.debug('Extending session for active user.');
+                req.session.expires = Date.now() + config.app.session.expires;
 
                 services.getUserDetails(securityCookie)
                     .then(response => {

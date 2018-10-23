@@ -17,7 +17,6 @@ describe('deceased-dob', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('WillLeft');
 
         it('test right content loaded on the page', (done) => {
@@ -25,45 +24,52 @@ describe('deceased-dob', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-
             const errorsToTest = ['dob_day', 'dob_month', 'dob_year'];
             const data = {};
 
             testWrapper.testErrors(done, data, 'required', errorsToTest);
-
         });
 
         it('test errors message displayed for invalid date', (done) => {
-
             const errorsToTest = ['dob_date'];
             const data = {dob_day: '31', dob_month: '9', dob_year: '2000'};
 
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-
         });
 
         it('test errors message displayed for non-numeric field', (done) => {
-
             const errorsToTest = ['dob_day'];
             const data = {dob_day: 'ab', dob_month: '09', dob_year: '2000'};
 
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-
         });
 
         it('test errors message displayed for three digits in year field', (done) => {
-
             const errorsToTest = ['dob_year'];
             const data = {dob_day: '12', dob_month: '9', dob_year: '200'};
 
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
+        });
 
+        it('test error message displayed for date in the future', (done) => {
+            const errorsToTest = ['dob_date'];
+            const data = {
+                dob_day: '12',
+                dob_month: '9',
+                dob_year: '3000'
+            };
+
+            testWrapper.testErrors(done, data, 'dateInFuture', errorsToTest);
         });
 
         it(`test it redirects to Deceased Date of Death page: ${expectedNextUrlForDeceasedDod}`, (done) => {
-            const data = {dob_day: '01', dob_month: '01', dob_year: '1945'};
+            const data = {
+                dob_day: '01',
+                dob_month: '01',
+                dob_year: '1945'
+            };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDod);
         });
-
     });
 });

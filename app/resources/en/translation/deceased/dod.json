@@ -12,7 +12,7 @@
       },
       "invalid": {
         "summary": "You haven&rsquo;t entered the date that they died",
-        "message": "Can only contain numbers"
+        "message": "Date of death can only contain numbers"
       }
     },
     "dod_month": {
@@ -22,7 +22,7 @@
       },
       "invalid": {
         "summary": "You haven&rsquo;t entered the date that they died",
-        "message": "Can only contain numbers"
+        "message": "Date of death can only contain numbers"
       }
     },
     "dod_year": {
@@ -32,13 +32,21 @@
       },
       "invalid": {
         "summary": "You haven&rsquo;t entered the date that they died",
-        "message": "Can only contain numbers"
+        "message": "Date of death can only contain numbers"
       }
     },
     "dod_date": {
       "invalid": {
-        "summary": "You haven&rsquo;t entered the date that they died",
-        "message": "Enter a date that is today or in the past"
+        "summary": "You need to enter a valid date of death",
+        "message": "Enter a valid date of death"
+      },
+      "dateInFuture": {
+        "summary": "You must enter a date of death in the past",
+        "message": "Enter a date in the past"
+      },
+      "dodBeforeDob": {
+        "summary": "The date of death you entered is before the date of birth",
+        "message": "Enter a date date of death that is after the date of birth"
       }
     }
   }

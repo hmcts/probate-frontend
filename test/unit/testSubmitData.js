@@ -95,13 +95,10 @@ describe('submit-data', () => {
         ];
 
         const registry = {
-            'registry': {
-                'name': 'Oxford',
-                'email': 'oxford@email.com',
-                'address': 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
-                'sequenceNumber': 10034
-            },
-            'submissionReference': 97
+            'name': 'Oxford',
+            'email': 'oxford@email.com',
+            'address': 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
+            'sequenceNumber': 10034
         };
 
         const payment = {
@@ -164,5 +161,6 @@ describe('submit-data', () => {
         assert.deepNestedPropertyVal(mappedData, 'payment', payment);
         assert.deepNestedPropertyVal(mappedData, 'registry', registry);
         assert.deepNestedPropertyVal(mappedData, 'caseId', 1535395401245028);
+        assert.deepNestedPropertyVal(mappedData, 'submissionReference', 97);
     });
 });

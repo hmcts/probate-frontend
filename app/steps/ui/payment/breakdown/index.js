@@ -49,6 +49,16 @@ class PaymentBreakdown extends Step {
     }
 
     * handlePost(ctx, errors, formdata, session, hostname) {
+
+        const serviceAuthResult = yield services.authorise();
+        if (serviceAuthResult.name === 'Error') {
+            const options = {};
+            options.redirect = true;
+            options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
+            formdata.paymentPending = 'unknown';
+            return options;
+        }
+        const canCreatePayment = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
         if (formdata.paymentPending !== 'unknown') {
             const result = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
             if (errors.length > 0) {
@@ -59,7 +69,7 @@ class PaymentBreakdown extends Step {
             formdata.registry = result.registry;
             set(formdata, 'ccdCase.id', result.caseId);
             set(formdata, 'ccdCase.state', result.caseState);
-            if (ctx.total > 0) {
+            if (ctx.total > 0 && canCreatePayment) {
                 formdata.paymentPending = 'true';
 
                 if (formdata.creatingPayment !== 'true') {
@@ -105,7 +115,7 @@ class PaymentBreakdown extends Step {
                 }
 
             } else {
-                formdata.paymentPending = 'false';
+                formdata.paymentPending = ctx.total === 0 ? 'false' : 'true';
                 delete this.nextStepUrl;
             }
         } else {
@@ -140,6 +150,24 @@ class PaymentBreakdown extends Step {
         delete ctx.paymentError;
         delete ctx.deceasedLastName;
         return [ctx, formdata];
+    }
+
+    * canCreatePayment(ctx, formdata, serviceAuthResult) {
+        const paymentId = get(formdata, 'payment.paymentId');
+        if (paymentId) {
+            const data = {
+                authToken: ctx.authToken,
+                serviceAuthToken: serviceAuthResult,
+                userId: ctx.userId,
+                paymentId: paymentId
+            };
+            const paymentResponse = yield services.findPayment(data);
+            if (typeof paymentResponse === 'undefined') {
+                return true;
+            }
+            return (paymentResponse.status !== 'Initiated') && (paymentResponse.status !== 'Success');
+        }
+        return true;
     }
 }
 

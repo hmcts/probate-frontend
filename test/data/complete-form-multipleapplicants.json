@@ -182,13 +182,10 @@
   },
   "applicantEmail": "test@hotmail.com",
   "registry": {
-    "registry": {
-      "name": "Oxford",
-      "email": "oxford@email.com",
-      "address": "Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n",
-      "sequenceNumber": 10034
-    },
-    "submissionReference": 97
+    "name": "Oxford",
+    "email": "oxford@email.com",
+    "address": "Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n",
+    "sequenceNumber": 10034
   },
   "ccdCase": {
     "id": 1535395401245028
@@ -204,7 +201,8 @@
     "reference": "CODE4$$$Hill4314$$$CODE5$$$CODE2/100",
     "date_created": "2018-08-29T15:25:11.920+0000",
     "_links": {}
-  }
+  },
+  "submissionReference": 97
 }
 
 

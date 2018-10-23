@@ -21,6 +21,17 @@ describe('PaymentStatus', () => {
         'external_reference': 12345
     };
 
+    const initiatedPaymentResponse = {
+        'channel': 'Online',
+        'id': 12345,
+        'reference': 'PaymentReference12345',
+        'amount': 5000,
+        'status': 'Initiated',
+        'date_updated': '2018-08-29T15:25:11.920+0000',
+        'site_id': 'siteId0001',
+        'external_reference': 12345
+    };
+
     const failedPaymentResponse = {
         'channel': 'Online',
         'id': 12345,
@@ -75,7 +86,7 @@ describe('PaymentStatus', () => {
             sinon.test((done) => {
                 const expectedFormData = {
                     'ccdCase': {
-                        'state': 'caseCreated'
+                        'state': 'CaseCreated'
                     },
                     'paymentPending': 'false',
                     'payment': {
@@ -92,7 +103,7 @@ describe('PaymentStatus', () => {
                 servicesMock.expects('findPayment').returns(
                     Promise.resolve(successfulPaymentResponse));
                 servicesMock.expects('updateCcdCasePaymentStatus').returns(
-                    Promise.resolve({'caseState': 'caseCreated'}));
+                    Promise.resolve({'caseState': 'CaseCreated'}));
                 const ctx = {
                     authToken: 'XXXXX',
                     userId: 12345,
@@ -116,7 +127,7 @@ describe('PaymentStatus', () => {
             sinon.test((done) => {
                 const expectedFormData = {
                     'ccdCase': {
-                        'state': 'caseCreated'
+                        'state': 'CaseCreated'
                     },
                     'paymentPending': 'true',
                     'payment': {
@@ -133,7 +144,7 @@ describe('PaymentStatus', () => {
                 servicesMock.expects('findPayment').returns(
                     Promise.resolve(failedPaymentResponse));
                 servicesMock.expects('updateCcdCasePaymentStatus').returns(
-                    Promise.resolve({'caseState': 'caseCreated'}));
+                    Promise.resolve({'caseState': 'CaseCreated'}));
 
                 const ctx = {
                     authToken: 'XXXXX',
@@ -223,6 +234,44 @@ describe('PaymentStatus', () => {
                 done(err);
             });
         }));
+
+        it('should set redirect to true, paymentPending to true and payment status to success if payment is successful with no case created',
+            sinon.test((done) => {
+                const expectedFormData = {
+                    'paymentPending': 'true',
+                    'payment': {
+                        'amount': 5000,
+                        'channel': 'Online',
+                        'date': '2018-08-29T15:25:11.920+0000',
+                        'reference': 'PaymentReference12345',
+                        'siteId': 'siteId0001',
+                        'status': 'Initiated',
+                        'transactionId': 12345
+                    }
+                };
+                servicesMock.expects('authorise').returns(Promise.resolve({}));
+                servicesMock.expects('findPayment').returns(
+                    Promise.resolve(initiatedPaymentResponse));
+                servicesMock.expects('updateCcdCasePaymentStatus').returns(
+                    Promise.resolve({'caseState': 'caseCreated'}));
+                const ctx = {
+                    authToken: 'XXXXX',
+                    userId: 12345,
+                    paymentId: 4567
+                };
+                const formData = {paymentPending: 'true', 'payment': {}};
+                co(function* () {
+                    const options = yield PaymentStatus.runnerOptions(ctx, formData);
+                    assert.deepEqual(options.redirect, true);
+                    assert.deepEqual(formData, expectedFormData);
+                    servicesMock.expects('findPayment').never();
+                    servicesMock.expects('authorise').never();
+                    servicesMock.expects('updateCcdCasePaymentStatus').never();
+                    done();
+                }).catch(err => {
+                    done(err);
+                });
+            }));
     });
 
 });

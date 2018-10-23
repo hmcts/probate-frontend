@@ -15,7 +15,6 @@ const taskList = {
         firstStep: 'Declaration',
         lastStep: 'TaskList',
         summary: 'Summary'
-
     },
     CopiesTask: {
         firstStep: 'CopiesStart',
@@ -87,6 +86,10 @@ const stepList = {
         isExecutor: 'MentalCapacity',
         otherwise: 'StopPage'
     },
+    MentalCapacity: {
+        isCapable: 'TaskList',
+        otherwise: 'StopPage'
+    },
     DeceasedName: {
         toggleOn: 'DeceasedDob',
         otherwise: 'DeceasedAlias'
@@ -137,10 +140,6 @@ const stepList = {
         toggleOn: 'TaskList',
         otherwise: 'DeathCertificate'
     },
-    MentalCapacity: {
-        isCapable: 'TaskList',
-        otherwise: 'StopPage'
-    },
     ApplicantName: 'ApplicantNameAsOnWill',
     ApplicantNameAsOnWill: {
         hasAlias: 'ApplicantAlias',
@@ -151,7 +150,8 @@ const stepList = {
     ApplicantPhone: 'ApplicantAddress',
     ApplicantAddress: 'ExecutorsNumber',
     ExecutorsNumber: {
-        deceasedName: 'DeceasedName',
+        oneExecutorToggleOn: 'TaskList',
+        oneExecutor: 'DeceasedName',
         otherwise: 'ExecutorsNames',
     },
     ExecutorsNames: 'ExecutorsAllAlive',

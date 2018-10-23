@@ -1,5 +1,4 @@
 module.exports = {
-
     TestIdamBaseUrl: process.env.IDAM_API_URL || 'http://localhost:8484',
     TestFrontendUrl: process.env.TEST_URL || 'http://localhost:3000',
     TestE2EFrontendUrl: process.env.TEST_E2E_URL || 'http://localhost:3000',
@@ -60,6 +59,6 @@ module.exports = {
     },
     helpline: {
         number: '0300 303 0648',
-        hours: 'Monday to Friday, 9:30am to 5pm'
+        hours: 'Monday to Friday, 9am to 5pm'
     }
 };

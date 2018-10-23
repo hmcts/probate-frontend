@@ -51,6 +51,7 @@
     "submit-stub": "NODE_PATH=. node test/service-stubs/submit.js",
     "submit-stub-win": "set NODE_PATH=.&& node test/service-stubs/submit.js",
     "persistence-stub": "NODE_PATH=. node test/service-stubs/persistence.js",
+    "persistence-stub-win": "set NODE_PATH=.&& node test/service-stubs/persistence.js",
     "business-stub": "NODE_PATH=. node test/service-stubs/business.js",
     "payment-stub": "NODE_PATH=. node test/service-stubs/payment.js",
     "payment-stub-win": "set NODE_PATH=.&& node test/service-stubs/payment.js",

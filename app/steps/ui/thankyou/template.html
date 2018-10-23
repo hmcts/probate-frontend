@@ -4,20 +4,33 @@
     <main id="content" role="main">
         {% include "includes/phase_banner_beta.html" %}
 
-        <h1 class="form-title heading-large">{{content.header | safe}}</h1>
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                {% if fields.softStop.value === "true" %}
+                    <p>{{content.stopParagraph1 | safe}}</p>
+                {% else %}
+                    <div class="govuk-box-highlight">
+                        <h1 class="heading-xlarge">
+                            {{title | safe}}
+                        </h1>
+                        <p class="font-large">
+                            <span class="font-medium">{{content.referenceNumber | safe}}</span><br>
+                            <strong class="bold">{{fields.ccdReferenceNumber.value}}</strong>
+                        </p>
+                    </div>
 
-        {% if fields.softStop.value === "true" %}
-            <p>{{content.stopParagraph1 | safe}}</p>
-        {% else %}
-            <p>{{content.successParagraph1 | safe}}</p>
-            <h2 class="heading-medium">{{content.successHeading1 | safe}}</h2>
-            <p>{{content.successParagraph2 | safe}}</p>
-            <p>{{content.contactProbateOffice | replace('{helpLineNumber}', helpline.number) | safe}}</p>
-        {% endif %}
+                    <h2 class="heading-medium">{{content.successHeading1 | safe}}</h2>
+                    <p>{{content.successParagraph1 | safe}}</p>
+                    <p>{{content.successParagraph2 | safe}}</p>
+                    <p>{{content.successParagraph3 | replace('{helpLineNumber}', helpline.number) | safe}}</p>
 
-        <a href="{{links.surveyEndOfApplication | safe}}">{{content.survey | safe}}</a>
+                    <div class="panel panel-border-wide">
+                        <p>{{content.successParagraph4 | replace('{findOutNext}', links.findOutNext) | safe}}</p>
+                    </div>
+                {% endif %}
 
-        <p></p>
-        {% include "includes/help_details.html" %}
+                <a href="{{links.surveyEndOfApplication | safe}}">{{content.survey | safe}}</a>
+            </div>
+        </div>
     </main>
 {% endblock %}

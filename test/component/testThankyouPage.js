@@ -15,19 +15,22 @@ describe('thank-you', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         it('test right content loaded on the page when NO soft stop', (done) => {
             const sessionData = {
                 applicant: {
                     nameAsOnTheWill: 'Yes'
                 },
+                ccdCase: {
+                    id: '1234-5678-9012-3456'
+                }
             };
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const excludeKeys = ['stopParagraph1'];
                     const contentData = {
-                        helpLineNumber: config.helpline.number
+                        helpLineNumber: config.helpline.number,
+                        findOutNext: config.links.findOutNext
                     };
 
                     testWrapper.testContent(done, excludeKeys, contentData);
@@ -38,16 +41,18 @@ describe('thank-you', () => {
             const sessionData = {
                 applicant: {
                     nameAsOnTheWill: 'No'
+                },
+                ccdCase: {
+                    id: '1234-5678-9012-3456'
                 }
             };
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const excludeKeys = ['successParagraph1', 'successHeading1', 'successParagraph2', 'contactProbateOffice'];
+                    const excludeKeys = ['referenceNumber', 'successHeading1', 'successParagraph1', 'successParagraph2', 'successParagraph3', 'successParagraph4'];
 
                     testWrapper.testContent(done, excludeKeys);
                 });
         });
-
     });
 });

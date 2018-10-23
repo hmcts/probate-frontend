@@ -12,13 +12,14 @@ chai.use(sinonChai);
 
 describe('Security middleware', function () {
     const ROLE = 'probate-private-beta';
-
     const LOGIN_URL = 'http://localhost:8000/login';
     const LOGIN_URL_WITH_CONTINUE = LOGIN_URL + '?response_type=code&state=57473&client_id=probate&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth2%2Fcallback';
     const TOKEN = 'dummyToken';
     const API_URL = 'http://localhost:7000/';
     const appConfig = require('../../app/config');
     const SECURITY_COOKIE = '__auth-token-' + appConfig.payloadVersion;
+    const EXPIRES_TIME = new Date() + 999999;
+    const TIMEOUT_PATH = '/time-out';
 
     describe('protect', function () {
 
@@ -90,7 +91,8 @@ describe('Security middleware', function () {
 
         it('should redirect to login page when getUserDetails returns Unauthorized', function (done) {
             req.cookies[SECURITY_COOKIE] = TOKEN;
-            req.session = {};
+
+            req.session = {expires: EXPIRES_TIME};
             req.protocol = 'http';
             const promise = when({name: 'Error', message: 'Unauthorized'});
 
@@ -109,9 +111,55 @@ describe('Security middleware', function () {
                 });
         });
 
+        it('should redirect to time-out page when session is lost', function (done) {
+            req.cookies[SECURITY_COOKIE] = TOKEN;
+            req.session = {};
+
+            req.protocol = 'http';
+            const promise = when({name: 'Error', message: 'Unauthorized'});
+
+            getUserDetailsStub.returns(promise);
+
+            protect(req, res, next);
+
+            promise
+                .then(() => {
+                    sinon.assert.calledOnce(res.redirect);
+                    expect(res.redirect).to.have.been.calledWith(TIMEOUT_PATH);
+                    done();
+                })
+                .catch((err) => {
+                    done(err);
+                });
+        });
+
+        it('should redirect to time-out page when session has expired', function (done) {
+            req.cookies[SECURITY_COOKIE] = TOKEN;
+            const TIME_IN_THE_PAST = Date.now() - 1;
+            req.session = {expires: TIME_IN_THE_PAST};
+
+            req.protocol = 'http';
+            const promise = when({name: 'Error', message: 'Unauthorized'});
+
+            getUserDetailsStub.returns(promise);
+
+            protect(req, res, next);
+
+            promise
+                .then(() => {
+                    sinon.assert.calledOnce(res.redirect);
+                    expect(res.redirect).to.have.been.calledWith(TIMEOUT_PATH);
+                    done();
+                })
+                .catch((err) => {
+                    done(err);
+                });
+        });
+
         it('should retrieve user details when auth token provided', function () {
             req.cookies[SECURITY_COOKIE] = TOKEN;
             getUserDetailsStub.returns(when({name: 'Error'}));
+            req.session = {expires: EXPIRES_TIME};
 
             protect(req, res, next);
 
@@ -121,7 +169,7 @@ describe('Security middleware', function () {
 
         it('should deny access when user roles do not match resource role', function (done) {
             req.cookies[SECURITY_COOKIE] = TOKEN;
-            req.session = {};
+            req.session = {expires: EXPIRES_TIME};
 
             const promise = when({
                 roles: ['CITIZEN', 'ROOT']
@@ -145,7 +193,7 @@ describe('Security middleware', function () {
 
         it('should grant access when user roles do match resource role - pa', function (done) {
             req.cookies[SECURITY_COOKIE] = TOKEN;
-            req.session = {};
+            req.session = {expires: EXPIRES_TIME};
 
             const promise = when({
                 roles: [ROLE, 'ROOT']

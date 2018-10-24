@@ -154,7 +154,18 @@ const config = {
     documentUpload: {
         validMimeTypes: ['image/jpeg', 'image/bmp', 'image/tiff', 'image/png', 'application/pdf'],
         maxFiles: 10,
-        maxSizeBytes: 10485760
+        maxSizeBytes: 10485760,
+        paths: {
+            upload: '/document/upload',
+            remove: '/document/delete'
+        },
+        error: {
+            invalidFileType: 'Error: invalid file type',
+            maxSize: 'Error: invalid file size',
+            maxFilesExceeded: 'Error: too many files',
+            nothingUploaded: 'Error: no files passed',
+            uploadFailed: 'Error: upload failed'
+        }
     }
 };
 

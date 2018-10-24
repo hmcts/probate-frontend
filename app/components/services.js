@@ -7,6 +7,8 @@ const paymentData = require('app/components/payment-data');
 const otp = require('otp');
 const {URLSearchParams} = require('url');
 const FormatUrl = require('app/utils/FormatUrl');
+const logger = require('app/components/logger');
+const superagent = require('superagent');
 const IDAM_SERVICE_URL = config.services.idam.apiUrl;
 const VALIDATION_SERVICE_URL = config.services.validation.url;
 const SUBMIT_SERVICE_URL = config.services.submit.url;
@@ -19,7 +21,6 @@ const SERVICE_AUTHORISATION_URL = `${config.services.idam.s2s_url}/lease`;
 const serviceName = config.services.idam.service_name;
 const secret = config.services.idam.service_key;
 const FEATURE_TOGGLE_URL = config.featureToggles.url;
-const logger = require('app/components/logger');
 const logInfo = (message, sessionId = 'Init') => logger(sessionId).info(message);
 
 const getUserDetails = (securityCookie) => {
@@ -138,7 +139,6 @@ const findPayment = (data) => {
         'Authorization': data.authToken,
         'ServiceAuthorization': data.serviceAuthToken
     };
-
     const fetchOptions = utils.fetchOptions(data, 'GET', headers);
     const findPaymentUrl = `${CREATE_PAYMENT_SERVICE_URL}/${data.paymentId}`;
     return utils.fetchJson(findPaymentUrl, fetchOptions);
@@ -203,17 +203,14 @@ const getOauth2Token = (code, redirectUri) => {
     const clientName = config.services.idam.probate_oauth2_client;
     const secret = config.services.idam.probate_oauth2_secret;
     const idam_api_url = config.services.idam.apiUrl;
-
     const headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': `Basic ${new Buffer(`${clientName}:${secret}`).toString('base64')}`
     };
-
     const params = new URLSearchParams();
     params.append('grant_type', 'authorization_code');
     params.append('code', code);
     params.append('redirect_uri', redirectUri);
-
     return utils.fetchJson(`${idam_api_url}/oauth2/token`, {
         method: 'POST',
         timeout: 10000,
@@ -243,15 +240,32 @@ const signOut = (access_token) => {
     logInfo('signing out of IDAM');
     const clientName = config.services.idam.probate_oauth2_client;
     const headers = {
-        'Authorization': `Basic ${new Buffer(`${clientName}:${secret}`).toString('base64')}`,
+        'Authorization': `Basic ${new Buffer(`${clientName}:${secret}`).toString('base64')}`
     };
     const fetchOptions = utils.fetchOptions({}, 'DELETE', headers);
     return utils.fetchJson(`${IDAM_SERVICE_URL}/session/${access_token}`, fetchOptions);
 };
 
-const uploadDocument = (sessionId) => {
+const uploadDocument = (sessionId, userId, uploadedDocument) => {
     logInfo('Uploading document', sessionId);
-    return true;
+    const uploadDocumentUrl = FormatUrl.format(VALIDATION_SERVICE_URL, config.documentUpload.paths.upload);
+    const clientName = config.services.idam.probate_oauth2_client;
+    return superagent
+        .post(uploadDocumentUrl)
+        .set('Authorization', `Basic ${new Buffer(`${clientName}:${secret}`).toString('base64')}`)
+        .set('enctype', 'multipart/form-data')
+        .set('user-id', userId)
+        .attach('file', uploadedDocument.buffer, uploadedDocument.originalname);
+};
+
+const removeDocument = (documentId, userId) => {
+    logInfo('Removing document');
+    const removeDocumentUrl = FormatUrl.format(VALIDATION_SERVICE_URL, `${config.documentUpload.paths.remove}/${documentId}`);
+    const headers = {
+        'user-id': userId
+    };
+    const fetchOptions = utils.fetchOptions({}, 'DELETE', headers);
+    return utils.fetchText(removeDocumentUrl, fetchOptions);
 };
 
 module.exports = {
@@ -275,5 +289,6 @@ module.exports = {
     removeExecutor,
     checkAllAgreed,
     signOut,
-    uploadDocument
+    uploadDocument,
+    removeDocument
 };

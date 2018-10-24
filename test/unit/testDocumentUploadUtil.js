@@ -1,3 +1,5 @@
+// eslint-disable-line max-lines
+
 'use strict';
 
 const expect = require('chai').expect;
@@ -34,44 +36,65 @@ describe('DocumentUploadUtil', () => {
     });
 
     describe('addDocument()', () => {
-        it('should return an array of documents containing a new document when a document is given', (done) => {
-            const uploadedDocument = {
-                originalname: 'death-certificate.pdf'
-            };
+        it('should return an array of documents containing a new document when a document filename and url are given', (done) => {
+            const filename = 'death-certificate.pdf';
+            const url = 'http://localhost:8383/document/abc123-death-certificate';
             const testUploads = [{
-                filename: 'will.pdf'
+                filename: 'will.pdf',
+                url: 'http://localhost:8383/document/abc123-will'
             }];
             const documentUpload = new DocumentUpload();
-            const uploads = documentUpload.addDocument(uploadedDocument, testUploads);
+            const uploads = documentUpload.addDocument(filename, url, testUploads);
             expect(uploads).to.deep.equal([{
-                filename: 'will.pdf'
+                filename: 'will.pdf',
+                url: 'http://localhost:8383/document/abc123-will'
             }, {
-                filename: 'death-certificate.pdf'
+                filename: 'death-certificate.pdf',
+                url: 'http://localhost:8383/document/abc123-death-certificate'
             }]);
             done();
         });
 
-        it('should return an array of documents without an undefined value when a document is not given', (done) => {
-            const uploadedDocument = {};
+        it('should return an array of documents without adding a document when a filename is not given', (done) => {
+            const filename = null;
+            const url = 'http://localhost:8383/document/abc123-death-certificate';
             const testUploads = [{
-                filename: 'will.pdf'
+                filename: 'will.pdf',
+                url: 'http://localhost:8383/document/abc123-will'
             }];
             const documentUpload = new DocumentUpload();
-            const uploads = documentUpload.addDocument(uploadedDocument, testUploads);
+            const uploads = documentUpload.addDocument(filename, url, testUploads);
             expect(uploads).to.deep.equal([{
-                filename: 'will.pdf'
+                filename: 'will.pdf',
+                url: 'http://localhost:8383/document/abc123-will'
+            }]);
+            done();
+        });
+
+        it('should return an array of documents without adding a document when a url is not given', (done) => {
+            const filename = 'death-certificate.pdf';
+            const url = null;
+            const testUploads = [{
+                filename: 'will.pdf',
+                url: 'http://localhost:8383/document/abc123-will'
+            }];
+            const documentUpload = new DocumentUpload();
+            const uploads = documentUpload.addDocument(filename, url, testUploads);
+            expect(uploads).to.deep.equal([{
+                filename: 'will.pdf',
+                url: 'http://localhost:8383/document/abc123-will'
             }]);
             done();
         });
 
         it('should create and return an array of documents when an array of documents does not exist and a document is given', (done) => {
-            const uploadedFile = {
-                originalname: 'death-certificate.pdf'
-            };
+            const filename = 'death-certificate.pdf';
+            const url = 'http://localhost:8383/document/abc123-death-certificate';
             const documentUpload = new DocumentUpload();
-            const uploads = documentUpload.addDocument(uploadedFile);
+            const uploads = documentUpload.addDocument(filename, url);
             expect(uploads).to.deep.equal([{
-                filename: 'death-certificate.pdf'
+                filename: 'death-certificate.pdf',
+                url: 'http://localhost:8383/document/abc123-death-certificate'
             }]);
             done();
         });
@@ -115,6 +138,23 @@ describe('DocumentUploadUtil', () => {
             const documentUpload = new DocumentUpload();
             const uploads = documentUpload.removeDocument(index);
             expect(uploads).to.deep.equal([]);
+            done();
+        });
+    });
+
+    describe('findDocumentId()', () => {
+        it('should return a document id when a document url is given', (done) => {
+            const url = 'http://localhost:8383/document/abc123-death-certificate';
+            const documentUpload = new DocumentUpload();
+            const documentId = documentUpload.findDocumentId(url);
+            expect(documentId).to.equal('abc123-death-certificate');
+            done();
+        });
+
+        it('should return an empty string when a document url is not given', (done) => {
+            const documentUpload = new DocumentUpload();
+            const documentId = documentUpload.findDocumentId();
+            expect(documentId).to.equal('');
             done();
         });
     });
@@ -250,7 +290,7 @@ describe('DocumentUploadUtil', () => {
             const error = documentUpload.validate(document);
             expect(error).to.deep.equal({
                 js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
-                nonJs: 'type'
+                nonJs: 'invalidFileType'
             });
             done();
         });
@@ -284,9 +324,104 @@ describe('DocumentUploadUtil', () => {
             const error = documentUpload.validate(document, uploads);
             expect(error).to.deep.equal({
                 js: 'You can upload a maximum of 10 files',
-                nonJs: 'maxFiles'
+                nonJs: 'maxFilesExceeded'
             });
             revert();
+            done();
+        });
+    });
+
+    describe('errorKey()', () => {
+        it('should return a key when "Error: no files passed" is given', (done) => {
+            const errorType = 'Error: no files passed';
+            const documentUpload = new DocumentUpload();
+            const result = documentUpload.errorKey(errorType);
+            expect(result).to.equal('nothingUploaded');
+            done();
+        });
+
+        it('should return a key when "Error: too many files" is given', (done) => {
+            const errorType = 'Error: too many files';
+            const documentUpload = new DocumentUpload();
+            const result = documentUpload.errorKey(errorType);
+            expect(result).to.equal('maxFilesExceeded');
+            done();
+        });
+
+        it('should return a key when "Error: invalid file type" is given', (done) => {
+            const errorType = 'Error: invalid file type';
+            const documentUpload = new DocumentUpload();
+            const result = documentUpload.errorKey(errorType);
+            expect(result).to.equal('invalidFileType');
+            done();
+        });
+
+        it('should return a key when "Error: invalid file size" is given', (done) => {
+            const errorType = 'Error: invalid file size';
+            const documentUpload = new DocumentUpload();
+            const result = documentUpload.errorKey(errorType);
+            expect(result).to.equal('maxSize');
+            done();
+        });
+
+        it('should return null when an invalid error type is given', (done) => {
+            const errorType = 'an error that does not exist';
+            const documentUpload = new DocumentUpload();
+            const result = documentUpload.errorKey(errorType);
+            expect(result).to.equal(null);
+            done();
+        });
+
+        it('should return null when no error type is given', (done) => {
+            const documentUpload = new DocumentUpload();
+            const result = documentUpload.errorKey();
+            expect(result).to.equal(null);
+            done();
+        });
+    });
+
+    describe('mapError()', () => {
+        it('should return an error when "Error: no files passed" is given', (done) => {
+            const errorType = 'Error: no files passed';
+            const documentUpload = new DocumentUpload();
+            const error = documentUpload.mapError(errorType);
+            expect(error).to.deep.equal({
+                js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
+                nonJs: 'nothingUploaded'
+            });
+            done();
+        });
+
+        it('should return an error when "Error: too many files" is given', (done) => {
+            const errorType = 'Error: too many files';
+            const documentUpload = new DocumentUpload();
+            const error = documentUpload.mapError(errorType);
+            expect(error).to.deep.equal({
+                js: 'You can upload a maximum of 10 files',
+                nonJs: 'maxFilesExceeded'
+            });
+            done();
+        });
+
+        it('should return an error when "Error: invalid file type" is given', (done) => {
+            const errorType = 'Error: invalid file type';
+            const documentUpload = new DocumentUpload();
+            const error = documentUpload.mapError(errorType);
+            expect(error).to.deep.equal({
+                js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
+                nonJs: 'invalidFileType'
+            });
+            done();
+        });
+
+        it('should return an error when "Error: invalid file size" is given', (done) => {
+            const errorType = 'Error: invalid file size';
+            const documentUpload = new DocumentUpload();
+            const error = documentUpload.mapError(errorType);
+            expect(error).to.deep.equal({
+                js: 'Use a file that is under 10MB and try again',
+                nonJs: 'maxSize'
+            });
             done();
         });
     });

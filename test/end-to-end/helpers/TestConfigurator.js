@@ -146,7 +146,7 @@ class TestConfigurator {
         return this.retryScenarios;
     }
 
-    getIsAliasToggledOn(){
+    getIsAliasToggledOn() {
         return this.isAliasToggledOn;
     }
 }

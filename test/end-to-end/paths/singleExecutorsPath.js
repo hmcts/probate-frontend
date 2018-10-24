@@ -15,7 +15,6 @@ Before(function* () {
     TestConfigurator.getBefore();
     isAliasToggledEnabled = yield services.featureToggle(config.featureToggles.main_applicant_alias);
 });
-
 // eslint-disable-next-line no-undef
 After(() => {
     TestConfigurator.getAfter();
@@ -24,7 +23,7 @@ After(() => {
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
 
     //Pre-IDAM
-//    I.startApplication();
+    //    I.startApplication();
     I.startApply();
 
     // IDAM
@@ -50,7 +49,6 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.selectMentallyCapable();
 
     // ExecutorsTask
-    //
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
     I.selectNameAsOnTheWill('optionNo');
@@ -58,6 +56,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
         I.enterApplicantAlias('Bob Alias');
         I.enterApplicantAliasReason('aliasOther', 'Because YOLO');
     }
+
     I.enterApplicantPhone();
     I.enterAddressManually();
 
@@ -110,4 +109,5 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
 
     // Thank You - Application Complete Task
     I.seeThankYouPage();
+
 }).retry(TestConfigurator.getRetryScenarios());

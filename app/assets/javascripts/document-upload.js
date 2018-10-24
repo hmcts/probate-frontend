@@ -16,6 +16,7 @@ var DocumentUpload = {
             maxFiles: documentUploadConfig.maxFiles,
             maxFilesize: documentUploadConfig.maxFileSizeMb,
             addRemoveLinks: true,
+            parallelUploads: 1,
             previewTemplate: '<div class="dz-preview dz-file-preview"><div class="dz-error-message"><span data-dz-errormessage></span></div><div class="dz-details"><div class="dz-filename"><span data-dz-name></span></div></div><div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div></div>',
             dictRemoveFile: documentUploadConfig.content.removeFileText,
             dictInvalidFileType: documentUploadConfig.content.invalidFileType,
@@ -24,11 +25,13 @@ var DocumentUpload = {
         })
         .on('addedfile', function() {
             DocumentUpload.hideEmptyListMessage();
+            DocumentUpload.addDataIndex();
         })
         .on('removedfile', function(file) {
             DocumentUpload.showEmptyListMessage();
             DocumentUpload.removeErrorSummaryLine(file.previewElement.firstElementChild.innerText);
             DocumentUpload.removeErrorSummary();
+            DocumentUpload.removeDocument(file._removeLink.dataset.index);
         })
         .on('error', function(file, error) {
             DocumentUpload.showErrorSummary();
@@ -80,5 +83,13 @@ var DocumentUpload = {
         if ($('[data-dz-errormessage]:contains(' + errorMessage + ')').length === 0) {
             $('[data-fielderror="' + errorMessage + '"]').remove();
         }
+    },
+    addDataIndex: function() {
+        $('.dz-preview').each(function(key) {
+            $(this).find('.dz-remove').attr('data-index', key);
+        });
+    },
+    removeDocument: function(index) {
+        $.get('/document-upload/remove/' + index);
     }
 }

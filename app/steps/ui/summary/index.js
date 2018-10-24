@@ -87,6 +87,7 @@ class Summary extends Step {
             .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedAlias.theDeceased);
         ctx.deceasedMarriedQuestion = (hasCodicils ? content.DeceasedMarried.questionWithCodicil : content.DeceasedMarried.question)
             .replace('{deceasedName}', deceasedName);
+        ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
         ctx.softStop = this.anySoftStops(formdata, ctx);
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
         ctx.session = req.session;

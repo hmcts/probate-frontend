@@ -12,11 +12,9 @@ class DocumentUpload {
         return formdata;
     }
 
-    addDocument(uploadedDocument, uploads = []) {
-        if (uploadedDocument.originalname) {
-            uploads.push({
-                filename: uploadedDocument.originalname
-            });
+    addDocument(filename, url, uploads = []) {
+        if (filename && url) {
+            uploads.push({filename, url});
         }
         return uploads;
     }
@@ -28,12 +26,15 @@ class DocumentUpload {
         return uploads;
     }
 
-    isValidType(document) {
-        if (!document) {
-            return false;
-        }
+    findDocumentId(url = '') {
+        return url.split('/').reduce((acc, val) => {
+            acc = val;
+            return acc;
+        });
+    }
 
-        const validMimeTypes = config.validMimeTypes;
+    isValidType(document = {}) {
+        const validMimeTypes = config.documentUpload.validMimeTypes;
 
         if (!validMimeTypes.includes(document.mimetype)) {
             return false;
@@ -60,27 +61,35 @@ class DocumentUpload {
         let error = null;
 
         if (error === null && !this.isValidType(document)) {
-            error = {
-                js: content.documentUploadInvalidFileType,
-                nonJs: 'type'
-            };
+            error = this.mapError(config.error.invalidFileType);
         }
 
         if (error === null && !this.isValidSize(document)) {
-            error = {
-                js: content.documentUploadMaxSize,
-                nonJs: 'maxSize'
-            };
+            error = this.mapError(config.error.maxSize);
         }
 
         if (error === null && !this.isValidNumber(uploads)) {
-            error = {
-                js: content.documentUploadMaxFilesExceeded,
-                nonJs: 'maxFiles'
-            };
+            error = this.mapError(config.error.maxFilesExceeded);
         }
 
         return error;
+    }
+
+    errorKey(errorType) {
+        return Object.entries(config.error).filter((value) => {
+            if (value[1] === errorType) {
+                return value;
+            }
+            return null;
+        })[0][0];
+    }
+
+    mapError(errorType) {
+        const errorKey = this.errorKey(errorType);
+        return {
+            js: content[`documentUpload-${errorKey}`],
+            nonJs: errorKey
+        };
     }
 }
 

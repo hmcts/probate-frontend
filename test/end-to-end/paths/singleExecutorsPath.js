@@ -46,7 +46,6 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.selectMentallyCapable();
 
     // ExecutorsTask
-    //
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
     I.selectNameAsOnTheWill('optionNo');

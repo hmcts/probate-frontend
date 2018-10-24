@@ -35,7 +35,7 @@
     "test:nsp": "NODE_PATH=. nsp check",
     "security": "NODE_PATH=. nsp check",
     "test:functional": "npm run test-contract && ./bin/run-functional-tests.sh",
-    "test:fullfunctional": "NODE_PATH=. codeceptjs run -c test/end-to-end/saucelabs.conf.js --steps",
+    "test:fullfunctional": "NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run  -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test:codecov-upload": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/**/test*.js' -- -R spec && codecov",
     "test:coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/unit/test*.js' './test/component/**/test*.js'",
     "test-coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/**/test*.js'",

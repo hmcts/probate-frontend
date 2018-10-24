@@ -2,19 +2,20 @@
 
 /* eslint no-console: 0 */
 
-const express = require('express'),
-    app = express(),
-    router = require('express').Router();
-router.get('invites/allAgreed/:id', function (req, res) {
+const express = require('express');
+const app = express();
+const router = require('express').Router();
+
+router.get('invites/allAgreed/:id', (req, res) => {
     res.status(200);
     res.send('false');
 });
 
-router.get('/health', function (req, res) {
+router.get('/health', (req, res) => {
     res.send({'status': 'UP'});
 });
 
-router.get('/info', function (req, res) {
+router.get('/info', (req, res) => {
     res.send({
         'git': {
             'commit': {
@@ -25,9 +26,20 @@ router.get('/info', function (req, res) {
     });
 });
 
+router.post('/document/upload', (req, res) => {
+    res.json([
+        'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
+    ]);
+});
+
+router.delete('/document/delete/:index', (req, res) => {
+    res.status(204).send(true);
+});
+
 app.use(router);
 
 console.log('Listening on: 8080');
+
 const server = app.listen(8080);
 
 module.exports = server;

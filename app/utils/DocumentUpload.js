@@ -80,12 +80,10 @@ class DocumentUpload {
     }
 
     errorKey(errorType) {
-        return Object.entries(config.error).filter((value) => {
-            if (value[1] === errorType) {
-                return value;
-            }
-            return null;
-        })[0][0];
+        const errorKey = Object.entries(config.error).filter((value) => {
+            return value[1] === errorType ? value : null;
+        });
+        return errorKey[0] ? errorKey[0][0] : null;
     }
 
     mapError(errorType) {

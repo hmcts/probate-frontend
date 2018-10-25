@@ -8,13 +8,15 @@ const oAuth2CallbackUrl = config.services.idam.probate_oauth_callback_path;
 const sinon = require('sinon');
 const services = require('app/components/services');
 const TaskList = require('app/steps/ui/tasklist/index');
+const TimeoutPage = require('app/steps/ui/timeout/index');
 
 describe('security', () => {
     const LOGIN_URL = 'https://localhost:8000/login';
     const expectedNextUrlForTaskList = TaskList.getUrl();
+    const expectedUrlForTimeoutPage = TimeoutPage.getUrl();
+    const SECURITY_COOKIE = '__auth-token-' + config.payloadVersion;
 
     it(`Redirects to login when idam returns 401 from getOauth2Token request: ${LOGIN_URL}`, (done) => {
-
         const getOauth2TokenStub = sinon.stub(services, 'getOauth2Token');
         getOauth2TokenStub.returns(Promise.resolve(new Error('Unauthorized')));
 
@@ -72,6 +74,25 @@ describe('security', () => {
                     done(err);
                 } else {
                     expect(res.headers.location).to.contain(LOGIN_URL);
+                    done();
+                }
+            });
+    }).timeout(5000);
+
+    it(`Redirects to timeout if no session is available: ${expectedUrlForTimeoutPage}`, (done) => {
+        config.app.useIDAM = 'true';
+        const server = app.init();
+        const agent = request.agent(server.app);
+        agent.get(expectedNextUrlForTaskList)
+            .set('Cookie', SECURITY_COOKIE + '=dummyToken')
+            .expect(302)
+            .end((err, res) => {
+                server.http.close();
+                config.app.useIDAM = 'false';
+                if (err) {
+                    done(err);
+                } else {
+                    expect(res.headers.location).to.contain(expectedUrlForTimeoutPage);
                     done();
                 }
             });

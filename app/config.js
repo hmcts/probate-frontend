@@ -22,8 +22,8 @@ const config = {
         port: process.env.PORT || '3000',
         useCSRFProtection: 'true',
         session: {
-            expires: 3600000, // ms (60 min)
-            ttl: 86400 // s (1 day)
+            expires: 7200000, // ms (120 min)
+            ttl: 86400 // s (1 days)
         }
     },
     services: {

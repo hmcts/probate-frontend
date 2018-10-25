@@ -1,6 +1,6 @@
 {
   "title": " You&rsquo;ve been signed out to protect your information",
   "header": " You&rsquo;ve been signed out to protect your information",
-  "paragraph1": "As you weren&rsquo;t active for 60 minutes we&rsquo;ve saved your application and signed you out.",
-  "paragraph2": "You&rsquo;ll  need to <a href='/'>sign back in</a> to complete your application."
+  "paragraph1": "As you weren&rsquo;t active for 120 minutes we&rsquo;ve saved your application and signed you out.",
+  "paragraph2": "You&rsquo;ll need to <a href='/'>sign back in</a> to complete your application."
 }

@@ -111,7 +111,7 @@ describe('Security middleware', function () {
                 });
         });
 
-        it('should redirect to time-out page when session is lost', function (done) {
+        it('should redirect to time-out page when session his lost', function (done) {
             req.cookies[SECURITY_COOKIE] = TOKEN;
             req.session = {};
 

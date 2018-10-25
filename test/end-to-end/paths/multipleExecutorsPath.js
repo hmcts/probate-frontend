@@ -80,7 +80,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
     I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
     const executorsWithDifferentNameList = ['5'];
-    if (isAliasToggledEnabled) {
+    if (isAliasToggledEnabled === 1) {
         forEach(executorsWithDifferentNameList, executorNumber => {
             I.enterExecutorCurrentName(executorNumber, head(executorsWithDifferentNameList) === executorNumber);
             I.enterExecutorCurrentNameReason(executorNumber, 'aliasOther', 'Because YOLO');

@@ -2,7 +2,7 @@ const testConfig = require('test/config.js');
 
 exports.config = {
 //    'tests': './paths/**/*.js',
-    'tests': './paths/**/SingleExecutorsPath.js',
+    'tests': './paths/**/singleExecutorsPath.js',
     //'tests': './paths/**/multipleExecutorsPath.js',
     'output': './output',
     'helpers': {

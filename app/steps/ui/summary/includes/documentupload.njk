@@ -1,6 +1,7 @@
+{% if fields.summary.uploadedDocuments.value | length > 0 %}
 {{checkanswer(
     items = [{
-            question: content.DocumentUpload.title,
+            question: content.DocumentUpload.deathCertificate,
             answer: fields.summary.uploadedDocuments.value,
             visible: fields.summary.uploadedDocuments.value
         }
@@ -10,3 +11,4 @@
     alreadyDeclared = fields.summary.alreadyDeclared.value,
     answerIsCollection = true
 )}}
+{% endif %}

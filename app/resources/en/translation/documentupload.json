@@ -11,7 +11,7 @@
   "paragraph2": "The image must be of the entire document and has to be readable by probate registry staff. You can upload most types of image.",
   "cantUploadDocumentsTitle": "If you can&rsquo;t upload your documents",
   "cantUploadDocumentsText": "Continue with your application. When you&rsquo;re finished you&rsquo;ll be given a reference number and details of where to send your documents by email or post.",
-  "checkYourAnswersSubHeading1": "Death Certificate",
+  "deathCertificate": "Death Certificate",
   "errors": {
     "file": {
       "type": {

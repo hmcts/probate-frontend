@@ -21,7 +21,10 @@
         {% include "ui/summary/includes/will.njk" %}
     </dl>
 
+
+    {% if fields.summary.uploadedDocuments.value | length > 0 %}
     <h2 class="heading-medium">{{content.Summary.uploadedDocumentsHeading}}</h2>
+    {% endif %}
     <dl class="check-your-answers check-your-answers--long">
         {% include "ui/summary/includes/documentupload.njk" %}
     </dl>

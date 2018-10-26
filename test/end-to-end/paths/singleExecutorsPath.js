@@ -4,6 +4,7 @@ const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const services = require('app/components/services');
 const config = require('app/config');
+const logger = require('app/components/logger')('Init');
 let isAliasToggledEnabled;
 
 Feature('Single Executor flow');
@@ -28,8 +29,8 @@ After(() => {
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
     isAliasToggledEnabled = yield services.featureToggle(config.featureToggles.main_applicant_alias);
-    console.log('isAliasToggledEnabled =', isAliasToggledEnabled);
-    console.log('isAliasToggledEnabled type =', typeof isAliasToggledEnabled);
+    logger.info(`isAliasToggledEnabled = ${isAliasToggledEnabled}`);
+    logger.info(`isAliasToggledEnabled type = ${typeof isAliasToggledEnabled}`);
 
     //Pre-IDAM
     //    I.startApplication();

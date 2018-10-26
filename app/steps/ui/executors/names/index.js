@@ -16,7 +16,7 @@ class ExecutorsNames extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         const applicant = formdata.applicant;
-        ctx.applicantCurrentName = FormatName.currentName(applicant);
+        ctx.applicantCurrentName = FormatName.applicantWillName(applicant);
         return ctx;
     }
 

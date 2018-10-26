@@ -8,7 +8,7 @@ class FormatName {
         return `${firstName} ${lastName}`.trim();
     }
 
-    static currentName(person) {
+    static applicantWillName(person) {
         person = person || {};
         const currentName = person.alias || this.format(person);
         return currentName;
@@ -56,12 +56,6 @@ class FormatName {
             return `${formattedNames.substring(0, lastCommaPos)} ${contentAnd} ${formattedNames.substring(lastCommaPos + separator.length)}`;
         }
         return formattedNames;
-    }
-
-    static applicantWillName(person) {
-        person = person || {};
-        const currentName = person.alias || this.format(person);
-        return currentName;
     }
 }
 

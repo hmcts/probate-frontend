@@ -21,7 +21,9 @@
       "phoneNumber": "123456780",
       "addressFound": "none",
       "freeTextAddress": "Flat 1\r\nSomewhere Rd,\r\nNowhere.",
-      "nameAsOnTheWill": "Yes"
+      "nameAsOnTheWill": "Yes",
+      "aliasReason": "Change by deed poll",
+      "alias": "Bobby Smithy"
     },
     "deceased": {
       "alias": "No",
@@ -55,7 +57,7 @@
       "grossValue": 150000
     },
     "executors": {
-      "list": [{"firstName":"Bob","lastName":"Smith","isApplicant":true,"isApplying":true}],
+      "list": [{"firstName":"Bob","lastName":"Smith","isApplicant":true,"isApplying":true, "aliasReason": "Change by deed poll", "alias": "Bobby Smithy"}],
       "executorsNumber" : 1
     },
     "assets": {

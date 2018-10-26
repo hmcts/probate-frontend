@@ -6,6 +6,9 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const dataMap = {
     applicantFirstName: 'applicant.firstName',
     applicantLastName: 'applicant.lastName',
+    applicantSameWillName: 'applicant.nameAsOnTheWill',
+    applicantAlias: 'applicant.alias',
+    applicantAliasReason: 'applicant.aliasReason',
     applicantAddress: 'applicant.address',
     applicantPostcode: 'applicant.postcode',
     applicantPhone: 'applicant.phoneNumber',
@@ -63,6 +66,10 @@ const submitData = (ctx, data) => {
     } else {
         mappedData.ihtIdentifier = get(data, 'iht.identifier');
         mappedData.ihtForm = 'online';
+    }
+
+    if (get(data, 'applicant.aliasReason') === 'other') {
+        mappedData.applicantOtherReason = get(data, 'applicant.otherReason');
     }
 
     const executorsWrapper = new ExecutorsWrapper(data.executors);

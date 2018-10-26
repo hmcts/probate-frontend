@@ -70,19 +70,19 @@ describe('FormatAlias.js', () => {
     describe('formatAliasReason() for single applicant', () => {
         it('should return the correct text when Marriage is selected as aliasReason', (done) => {
             const aliasReason = 'Marriage';
-            expect(FormatAlias.formatAliasReason(aliasReason, '', false)).to.equal('I got married');
+            expect(FormatAlias.formatAliasReason(aliasReason, '', false)).to.equal(' I got married');
             done();
         });
 
         it('should return the correct text when Divorce is selected as aliasReason', (done) => {
             const aliasReason = 'Divorce';
-            expect(FormatAlias.formatAliasReason(aliasReason, '', false)).to.equal('I got divorced');
+            expect(FormatAlias.formatAliasReason(aliasReason, '', false)).to.equal(' I got divorced');
             done();
         });
 
         it('should return the correct text when Changed by deed poll is selected as aliasReason', (done) => {
             const aliasReason = 'Change by deed poll';
-            expect(FormatAlias.formatAliasReason(aliasReason, '', false)).to.equal('I changed my name by deed poll');
+            expect(FormatAlias.formatAliasReason(aliasReason, '', false)).to.equal(' I changed my name by deed poll');
             done();
         });
 

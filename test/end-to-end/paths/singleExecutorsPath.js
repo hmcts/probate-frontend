@@ -27,8 +27,8 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
-    isAliasToggledEnabled = yield services.featureToggle(config.featureToggles.main_applicant_alias);
+Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), async function (I) {
+    isAliasToggledEnabled = await services.featureToggle(config.featureToggles.main_applicant_alias);
     logger.info(`isAliasToggledEnabled = ${isAliasToggledEnabled}`);
     logger.info(`isAliasToggledEnabled type = ${typeof isAliasToggledEnabled}`);
 

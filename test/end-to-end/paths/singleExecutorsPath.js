@@ -11,15 +11,15 @@ Feature('Single Executor flow');
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
 // eslint-disable-next-line no-undef
-Before(async () => {
-    try {
-        TestConfigurator.getBefore();
-        isAliasToggledEnabled = await services.featureToggle(config.featureToggles.main_applicant_alias);
-        // console.log('isAliasToggledEnabled =', isAliasToggledEnabled);
-        // console.log('isAliasToggledEnabled type =', typeof isAliasToggledEnabled);
-    } catch (err) {
-        throw new Error(err);
-    }
+Before(() => {
+    // try {
+    TestConfigurator.getBefore();
+    // isAliasToggledEnabled = await services.featureToggle(config.featureToggles.main_applicant_alias);
+    // console.log('isAliasToggledEnabled =', isAliasToggledEnabled);
+    // console.log('isAliasToggledEnabled type =', typeof isAliasToggledEnabled);
+    // } catch (err) {
+    //     throw new Error(err);
+    // }
 });
 // eslint-disable-next-line no-undef
 After(() => {
@@ -27,6 +27,9 @@ After(() => {
 });
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
+    isAliasToggledEnabled = yield services.featureToggle(config.featureToggles.main_applicant_alias);
+    console.log('isAliasToggledEnabled =', isAliasToggledEnabled);
+    console.log('isAliasToggledEnabled type =', typeof isAliasToggledEnabled);
 
     //Pre-IDAM
     //    I.startApplication();

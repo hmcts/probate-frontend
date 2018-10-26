@@ -65,4 +65,15 @@ describe('Summary', () => {
             });
         });
     });
+
+    describe('getContextData()', () => {
+
+        it('ctx.uploadedDocuments returns an array of uploaded documents when there uploaded documents', (done) => {
+
+        });
+
+        it('ctx.uploadedDocuments returns an empty array of uploaded documents when there no uploaded documents', (done) => {
+
+        });
+    });
 });

@@ -1,9 +1,9 @@
 const testConfig = require('test/config.js');
 
 exports.config = {
-//    'tests': './paths/**/*.js',
+    //    'tests': './paths/**/*.js',
     'tests': './paths/**/singleExecutorsPath.js',
-    //'tests': './paths/**/multipleExecutorsPath.js',
+    //    'tests': './paths/**/*ExecutorsPath.js',
     'output': './output',
     'helpers': {
         'Puppeteer': {
@@ -11,7 +11,7 @@ exports.config = {
             'waitForTimeout': 60000,
             'waitForAction': 5000,
             'getPageTimeout': 60000,
-            'show': false,
+            'show': true,
             'waitForNavigation': 'networkidle0',
             'chrome': {
                 'ignoreHTTPSErrors': true,

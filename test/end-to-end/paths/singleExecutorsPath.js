@@ -2,10 +2,10 @@
 
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
-const services = require('app/components/services');
-const config = require('app/config');
-const logger = require('app/components/logger')('Init');
-let isAliasToggledEnabled;
+//const services = require('app/components/services');
+//const config = require('app/config');
+//const logger = require('app/components/logger')('Init');
+//let isAliasToggledEnabled;
 
 Feature('Single Executor flow');
 
@@ -13,25 +13,16 @@ Feature('Single Executor flow');
 // so we have to tell eslint to not validate these
 // eslint-disable-next-line no-undef
 Before(() => {
-    // try {
     TestConfigurator.getBefore();
-    // isAliasToggledEnabled = await services.featureToggle(config.featureToggles.main_applicant_alias);
-    // console.log('isAliasToggledEnabled =', isAliasToggledEnabled);
-    // console.log('isAliasToggledEnabled type =', typeof isAliasToggledEnabled);
-    // } catch (err) {
-    //     throw new Error(err);
-    // }
 });
 // eslint-disable-next-line no-undef
 After(() => {
     TestConfigurator.getAfter();
 });
 
-Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), async function (I) {
-    isAliasToggledEnabled = await services.featureToggle(config.featureToggles.main_applicant_alias);
-    logger.info(`isAliasToggledEnabled = ${isAliasToggledEnabled}`);
-    logger.info(`isAliasToggledEnabled type = ${typeof isAliasToggledEnabled}`);
-
+Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
+    I.amOnPage('http://rpe-feature-toggle-api-aat.service.core-compute-aat.internal/api/ff4j/check/probate-main-applicant-alias');
+    const isAliasToggledEnabled = yield I.grabTextFrom('body > pre');
     //Pre-IDAM
     //    I.startApplication();
     I.startApply();

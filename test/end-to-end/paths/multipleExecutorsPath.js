@@ -3,9 +3,7 @@ const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
-const services = require('app/components/services');
-const config = require('app/config');
-let isAliasToggledEnabled;
+//let isAliasToggledEnabled;
 
 let grabIds;
 
@@ -13,13 +11,16 @@ Feature('Multiple Executors flow');
 //eslint-disable-next-line no-undef
 Before(function* () {
     TestConfigurator.getBefore();
-    isAliasToggledEnabled = yield services.featureToggle(config.featureToggles.main_applicant_alias);
+//    isAliasToggledEnabled = 'true';//yield services.featureToggle(config.featureToggles.main_applicant_alias);
 });
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
 
-    TestConfigurator.getBefore();
+//    TestConfigurator.getBefore();
+    I.amOnPage('http://rpe-feature-toggle-api-aat.service.core-compute-aat.internal/api/ff4j/check/probate-main-applicant-alias');
+    const isAliasToggledEnabled = yield I.grabTextFrom('body > pre');
     // Pre-IDAM
+
     I.startApplication();
     I.startApply();
 
@@ -49,8 +50,10 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
     I.selectNameAsOnTheWill('optionNo');
-    I.enterApplicantAlias('Bob Alias');
-    I.enterApplicantAliasReason('aliasOther', 'Because YOLO');
+    if (isAliasToggledEnabled === 'true') {
+        I.enterApplicantAlias('Bob Alias');
+        I.enterApplicantAliasReason('aliasOther', 'Because YOLO');
+    }
     I.enterApplicantPhone();
     I.enterAddressManually();
 
@@ -80,7 +83,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
     I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
     const executorsWithDifferentNameList = ['5'];
-    if (isAliasToggledEnabled === 1) {
+    if (isAliasToggledEnabled === 'true') {
         forEach(executorsWithDifferentNameList, executorNumber => {
             I.enterExecutorCurrentName(executorNumber, head(executorsWithDifferentNameList) === executorNumber);
             I.enterExecutorCurrentNameReason(executorNumber, 'aliasOther', 'Because YOLO');
@@ -126,6 +129,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     //Retrieve the email urls for additional executors
     I.amOnPage(testConfig.TestInviteIdListUrl);
     grabIds = yield I.grabTextFrom('pre');
+    //    grabIds = await I.grabTextFrom('pre');
 }).retry(TestConfigurator.getRetryScenarios());
 
 Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), function* (I) {
@@ -136,8 +140,9 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
         I.amOnPage(testConfig.TestE2EFrontendUrl + '/pin');
 
         const grabPins = yield I.grabTextFrom('pre');
+        //        const grabPins = await I.grabTextFrom('pre');
         const pinList = JSON.parse(grabPins);
-
+        //        await I.clickBrowserBackButton();
         yield I.clickBrowserBackButton();
 
         I.enterPinCode(pinList.pin.toString());
@@ -150,44 +155,44 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
     }
 });
 
-Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
-
-    // Pre-IDAM
-    I.startApplication();
-    I.startApply();
-
-    // IDAM
-    I.authenticateWithIdamIfAvailable();
-
-    // Extra copies task
-    I.selectATask(taskListContent.taskNotStarted);
-
-    if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterUkCopies('5');
-        I.selectOverseasAssets();
-        I.enterOverseasCopies('7');
-    } else {
-        I.enterUkCopies('0');
-        I.selectOverseasAssets();
-        I.enterOverseasCopies('0');
-    }
-
-    I.seeCopiesSummary();
-
-    // PaymentTask
-    I.selectATask(taskListContent.taskNotStarted);
-    I.seePaymentBreakdownPage();
-
-    if (TestConfigurator.getUseGovPay() === 'true') {
-        I.seeGovUkPaymentPage();
-        I.seeGovUkConfirmPage();
-    }
-
-    I.seePaymentStatusPage();
-
-    // Send Documents Task
-    I.seeDocumentsPage();
-
-    // Thank You - Application Complete Task
-    I.seeThankYouPage();
-});
+//Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
+//
+//    // Pre-IDAM
+//    I.startApplication();
+//    I.startApply();
+//
+//    // IDAM
+//    I.authenticateWithIdamIfAvailable();
+//
+//    // Extra copies task
+//    I.selectATask(taskListContent.taskNotStarted);
+//
+//    if (TestConfigurator.getUseGovPay() === 'true') {
+//        I.enterUkCopies('5');
+//        I.selectOverseasAssets();
+//        I.enterOverseasCopies('7');
+//    } else {
+//        I.enterUkCopies('0');
+//        I.selectOverseasAssets();
+//        I.enterOverseasCopies('0');
+//    }
+//
+//    I.seeCopiesSummary();
+//
+//    // PaymentTask
+//    I.selectATask(taskListContent.taskNotStarted);
+//    I.seePaymentBreakdownPage();
+//
+//    if (TestConfigurator.getUseGovPay() === 'true') {
+//        I.seeGovUkPaymentPage();
+//        I.seeGovUkConfirmPage();
+//    }
+//
+//    I.seePaymentStatusPage();
+//
+//    // Send Documents Task
+//    I.seeDocumentsPage();
+//
+//    // Thank You - Application Complete Task
+//    I.seeThankYouPage();
+//});

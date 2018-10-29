@@ -2,9 +2,6 @@
 
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
-//const services = require('app/components/services');
-//const config = require('app/config');
-const isAliasToggledEnabled = 'true';
 
 Feature('Single Executor flow');
 
@@ -13,10 +10,8 @@ Feature('Single Executor flow');
 // eslint-disable-next-line no-undef
 Before(() => {
     TestConfigurator.getBefore();
-    //        isAliasToggledEnabled = await services.featureToggle(config.featureToggles.main_applicant_alias);
-    // console.log('isAliasToggledEnabled =', isAliasToggledEnabled);
-    // console.log('isAliasToggledEnabled type =', typeof isAliasToggledEnabled);
 });
+
 // eslint-disable-next-line no-undef
 After(() => {
     TestConfigurator.getAfter();
@@ -25,7 +20,7 @@ After(() => {
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
 
     //Pre-IDAM
-    //    I.startApplication();
+//    I.startApplication();
     I.startApply();
 
     // IDAM
@@ -51,6 +46,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
     I.selectMentallyCapable();
 
     // ExecutorsTask
+    //
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
     I.selectNameAsOnTheWill('optionNo');
@@ -111,7 +107,6 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
 
     // Thank You - Application Complete Task
     I.seeThankYouPage();
-
 }).retry(TestConfigurator.getRetryScenarios());
 
 //'use strict';

@@ -21,8 +21,9 @@ After(() => {
 });
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
-    I.amOnPage('http://rpe-feature-toggle-api-aat.service.core-compute-aat.internal/api/ff4j/check/probate-main-applicant-alias');
-    const isAliasToggledEnabled = yield I.grabTextFrom('body > pre');
+    //    I.amOnPage('http://rpe-feature-toggle-api-aat.service.core-compute-aat.internal/api/ff4j/check/probate-main-applicant-alias');
+    //    const isAliasToggledEnabled = yield I.grabTextFrom('body > pre');
+    const isAliasToggledEnabled = 'true';
     //Pre-IDAM
     //    I.startApplication();
     I.startApply();

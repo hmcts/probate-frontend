@@ -16,13 +16,13 @@ describe('summary-documentupload-section', () => {
         testWrapper.destroy();
     });
 
-    describe.only('Verify Content, Errors and Redirection', () => {
+    describe('Verify Content, Errors and Redirection', () => {
         it('test correct content loaded on document upload section of the summary page , when no data is entered', (done) => {
             const playbackData = {
             };
             testWrapper.testDataPlayback(done, playbackData);
         });
-
+PRO
         it('test correct content loaded on document upload section of the summary page, when section is complete', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -43,9 +43,9 @@ describe('summary-documentupload-section', () => {
                     if (err) {
                         throw err;
                     }
-                    const playbackData = {
-                        deathCertificate: documentuploadContent.deathCertificate,
-                    };
+                    const playbackData = [
+                        documentuploadContent.deathCertificate
+                    ];
                     Object.assign(playbackData, documentuploadData);
                     testWrapper.testDataPlayback(done, playbackData);
                 });

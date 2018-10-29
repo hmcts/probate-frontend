@@ -1,9 +1,8 @@
 'use strict';
 
-const requireDir = require('require-directory');
 const TestWrapper = require('test/util/TestWrapper');
 const documentuploadData = require('test/data/documentupload');
-const documentuploadContent = requireDir(module, '../../../app/resources/en/translation/documentupload');
+const documentuploadContent = require('../../../app/resources/en/translation/documentupload.json');
 
 describe('summary-documentupload-section', () => {
     let testWrapper, sessionData;
@@ -17,7 +16,7 @@ describe('summary-documentupload-section', () => {
         testWrapper.destroy();
     });
 
-    describe('Verify Content, Errors and Redirection', () => {
+    describe.only('Verify Content, Errors and Redirection', () => {
         it('test correct content loaded on document upload section of the summary page , when no data is entered', (done) => {
             const playbackData = {
             };
@@ -32,7 +31,7 @@ describe('summary-documentupload-section', () => {
                         throw err;
                     }
                     const playbackData = {
-                        deathCertificate: documentuploadContent.documentupload.deathCertificate,
+                        deathCertificate: documentuploadContent.deathCertificate,
                     };
                     testWrapper.testDataPlayback(done, playbackData);
                 });
@@ -45,9 +44,9 @@ describe('summary-documentupload-section', () => {
                         throw err;
                     }
                     const playbackData = {
-                        deathCertificate: documentuploadContent.documentupload.deathCertificate,
+                        deathCertificate: documentuploadContent.deathCertificate,
                     };
-                    Object.assign(playbackData, documentuploadData, documentuploadData);
+                    Object.assign(playbackData, documentuploadData);
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });

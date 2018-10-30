@@ -154,5 +154,4 @@ const config = {
         maxFiles: 10
     }
 };
-
 module.exports = config;

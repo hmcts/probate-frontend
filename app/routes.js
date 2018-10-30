@@ -57,10 +57,10 @@ router.use((req, res, next) => {
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
     ) {
         res.redirect('documents');
-    // } else if ((get(formdata, 'ccdCase.state', '') !== 'CaseCreated' || get(formdata, 'ccdCase.id', '') === '') &&
-    //     isEqual('/documents', req.originalUrl)
-    // ) {
-    //     res.redirect('tasklist');
+    } else if ((get(formdata, 'ccdCase.state', '') !== 'CaseCreated' || get(formdata, 'ccdCase.id', '') === '') &&
+        isEqual('/documents', req.originalUrl)
+    ) {
+        res.redirect('tasklist');
     } else if (formdata.paymentPending === 'false' &&
         !includes(config.whitelistedPagesAfterPayment, req.originalUrl)
     ) {

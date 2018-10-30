@@ -176,6 +176,7 @@
     answerIsCollection = true
 )}}
 
+{% if fields.executors.alias.value === 'Yes' %}
 {{checkanswer(
     items = [{
             question: content.Summary.executorsWithOtherNames,
@@ -188,8 +189,7 @@
     alreadyDeclared = fields.summary.alreadyDeclared.value,
     answerIsCollection = true
 )}}
-
-
+{% endif %}
 
 {% set cls = cycler(common.second,common.third,common.fourth,common.fifth) %}
 {% for executor in fields.executors.list.value %}

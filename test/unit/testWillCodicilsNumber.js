@@ -99,5 +99,41 @@ describe('CodicilsNumber', () => {
             CodicilsNumber.action(ctx);
             assert.isUndefined(ctx.isToggleEnabled);
         });
+
+        it('should remove isToggleEnabled from the context', () => {
+            const ctx = {
+                isToggleEnabled: false
+            };
+            const [testCtx] = CodicilsNumber.action(ctx);
+            expect(testCtx).to.deep.equal({});
+        });
     });
+
+    describe('isComplete()', () => {
+        it('should return false when is less than 1', (done) => {
+            const ctx = {codicilsNumber: -1};
+            const codicilsNumber = steps.CodicilsNumber;
+            const val = codicilsNumber.isComplete(ctx);
+            expect(val).to.deep.equal([false, 'inProgress']);
+            done();
+        });
+
+        it('should return true when codicilsNumber is 2', (done) => {
+            const ctx = {codicilsNumber: 2};
+            const codicilsNumber = steps.CodicilsNumber;
+            const val = codicilsNumber.isComplete(ctx);
+            expect(val).to.deep.equal([true, 'inProgress']);
+            done();
+        });
+
+        it('should return true when codicilsNumber is 0', (done) => {
+            const ctx = {codicilsNumber: 0};
+            const codicilsNumber = steps.CodicilsNumber;
+            const val = codicilsNumber.isComplete(ctx);
+            expect(val).to.deep.equal([true, 'inProgress']);
+            done();
+        });
+
+    });
+
 });

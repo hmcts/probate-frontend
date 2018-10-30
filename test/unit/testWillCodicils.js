@@ -91,5 +91,31 @@ describe('WillCodicils', () => {
             WillCodicils.action(ctx);
             assert.isUndefined(ctx.isToggleEnabled);
         });
+
+        it('should remove codicilsNumber from ctx if codicils is changed to "No"', () => {
+            const ctx = {
+                left: 'Yes',
+                original: 'Yes',
+                codicils: 'No',
+                codicilsNumber: 4,
+                isToggleEnabled: false
+            };
+            const [testCtx] = WillCodicils.action(ctx);
+            assert.isUndefined(testCtx.codicilsNumber);
+            expect(ctx.codicils).to.equal('No');
+        });
+
+        it('should not delete codicilsNumber from ctx if codicils is "Yes"', () => {
+            const ctx = {
+                left: 'Yes',
+                original: 'Yes',
+                codicils: 'Yes',
+                codicilsNumber: 4,
+                isToggleEnabled: false
+            };
+            const [testCtx] = WillCodicils.action(ctx);
+            expect(ctx.codicilsNumber).to.equal(testCtx.codicilsNumber);
+            expect(ctx.codicils).to.equal('Yes');
+        });
     });
 });

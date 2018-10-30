@@ -10,6 +10,7 @@ class Will {
     hasCodicils() {
         return this.will.codicils === commonContent.yes;
     }
+
     codicilsNumber() {
         return this.will.codicilsNumber ? this.will.codicilsNumber : 0;
     }

@@ -1191,6 +1191,54 @@ describe('documents-page', () => {
                 });
         });
 
+        it('test correct content loaded on the page, CCD Case ID not present (Feature Toggle ON)', (done) => {
+            delete sessionData.ccdCase;
+
+            nock(featureToggleUrl)
+                .get(featureTogglePath)
+                .reply(200, 'true');
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const excludeKeys = [
+                        'old_header',
+                        'old_printPage',
+                        'old_heading2',
+                        'old_checklist1Header',
+                        'old_checklist1-item1',
+                        'old_checklist1-item2',
+                        'old_checklist2Header',
+                        'old_checklist2-item1',
+                        'old_checklist2-item2',
+                        'old_checklist3HeaderNumber',
+                        'old_checklist3HeaderNumberMultipleExecutors',
+                        'old_checklist3Header',
+                        'old_checklist3-item1',
+                        'old_checklist3-item1-codicils',
+                        'old_checklist3-item2',
+                        'old_checklist3-item3',
+                        'old_checklist3-item4-Form205',
+                        'old_checklist3-item5-deedPoll',
+                        'old_coverLetter',
+                        'old_coverLetter-codicils',
+                        'old_warning',
+                        'old_heading3',
+                        'old_sendDocuments',
+                        'old_sendDocumentsAddress',
+                        'text2',
+                        'text6',
+                        'checklist1-item1-codicils',
+                        'checklist2-item3-will-uploaded',
+                        'checklist2-item4-iht205',
+                        'checklist2-item5-renunciated',
+                        'checklist2-item6-deed-poll',
+                        'checkboxLabel-codicils'
+                    ];
+                    testWrapper.testContent(done, excludeKeys);
+                });
+        });
+
         it('test errors message displayed for missing data', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

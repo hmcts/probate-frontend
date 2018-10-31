@@ -29,7 +29,7 @@
   "heading2": "2. Prepare your documents",
   "heading3": "3. Send your documents",
   "text1": "You must:",
-  "text2": "Write your reference number on a plain piece of paper and include it with your documents.",
+  "text2": "Write your reference number {ccdReferenceNumber} on a plain piece of paper and include it with your documents.",
   "text3": "You&rsquo;ll need to send:",
   "text4": "If the will has been separated for photocopying or damaged in any way, please include an explanation of what happened in a cover letter.",
   "text5": "Use a signed-for delivery service. Send your documents to:",

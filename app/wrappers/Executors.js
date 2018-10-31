@@ -22,7 +22,7 @@ class Executors {
     }
 
     hasMultipleApplicants() {
-        return this.executorsList.some(executor => !executor.isApplicant && executor.isApplying === true);
+        return this.executorsList.some(executor => !executor.isApplicant && executor.isApplying);
     }
 
     hasRenunciated() {

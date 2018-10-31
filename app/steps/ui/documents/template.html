@@ -9,25 +9,25 @@
     {% set codicilsSuffix = "" %}
 
     {% if fields.hasCodicils.value === 'true' and fields.codicilsNumber.value > "0" %}
-        {% set checklistOneItems = (checklistOneItems.push(content["checklist1-item1-2"]), checklistOneItems) %}
+        {% set checklistOneItems = (checklistOneItems.push(content["checklist1-item1-codicils"]), checklistOneItems) %}
         {% set codicilsSuffix = "-codicils" %}
     {% else %}
-        {% set checklistOneItems = (checklistOneItems.push(content["checklist1-item1-1"]), checklistOneItems) %}
+        {% set checklistOneItems = (checklistOneItems.push(content["checklist1-item1-no-codicils"]), checklistOneItems) %}
     {% endif %}
     {% set checklistOneItems = (checklistOneItems.push(content["checklist1-item2"]), checklistOneItems) %}
 
     {% if fields.uploads.value | length > 0 %}
-        {% set checklistTwoItems = (checklistTwoItems.push(content["checklist2-item3"]), checklistTwoItems) %}
+        {% set checklistTwoItems = (checklistTwoItems.push(content["checklist2-item3-will-uploaded"]), checklistTwoItems) %}
     {% endif %}
     {% if (fields.is205.value === "true") %}
-        {% set checklistTwoItems = (checklistTwoItems.push(content["checklist2-item4"]), checklistTwoItems) %}
+        {% set checklistTwoItems = (checklistTwoItems.push(content["checklist2-item4-iht205"]), checklistTwoItems) %}
     {% endif %}
     {% if fields.hasRenunciated.value === "true" %}
-        {% set checklistTwoItems = (checklistTwoItems.push(content["checklist2-item5"] | replace('{renunciationFormLink}', links.renunciationForm)), checklistTwoItems) %}
+        {% set checklistTwoItems = (checklistTwoItems.push(content["checklist2-item5-renunciated"] | replace('{renunciationFormLink}', links.renunciationForm)), checklistTwoItems) %}
     {% endif %}
     {% if fields.executorsNameChangedByDeedPollList.value | length > 0 %}
         {% for executor in fields.executorsNameChangedByDeedPollList.value %}
-            {% set checklistTwoItems = (checklistTwoItems.push(content["checklist2-item6"] | replace('{executorCurrentName}', executor)), checklistTwoItems) %}
+            {% set checklistTwoItems = (checklistTwoItems.push(content["checklist2-item6-deed-poll"] | replace('{executorCurrentName}', executor)), checklistTwoItems) %}
         {% endfor %}
     {% endif %}
 {% else %}

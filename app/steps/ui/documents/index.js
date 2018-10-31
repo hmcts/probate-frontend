@@ -25,7 +25,7 @@ class Documents extends ValidationStep {
         ctx.hasRenunciated = executorsWrapper.hasRenunciated();
         ctx.is205 = formdata.iht && formdata.iht.method === ihtContent.paperOption && formdata.iht.form === 'IHT205';
         ctx.executorsNameChangedByDeedPollList = executorsWrapper.executorsNameChangedByDeedPoll();
-        ctx.ccdReferenceNumber = (formdata.ccdCase && formdata.ccdCase.id) ? formdata.ccdCase.id : '';
+        ctx.ccdReferenceNumber = (formdata.ccdCase && formdata.ccdCase.state === 'CaseCreated' && formdata.ccdCase.id) ? formdata.ccdCase.id : '';
 
         ctx.isDocumentUploadToggleEnabled = featureToggle.isEnabled(featureToggles, 'document_upload');
 

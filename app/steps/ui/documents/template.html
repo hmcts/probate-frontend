@@ -78,7 +78,9 @@
         {% endif %}
 
         <h2 class="heading-medium">{{ content.heading2 | safe }}</h2>
-        <p>{{ content.text2 | safe | replace('{ccdReferenceNumber}', fields.ccdReferenceNumber.value) }}</p>
+        {% if fields.ccdReferenceNumber.value !== '' %}
+            <p>{{ content.text2 | safe | replace('{ccdReferenceNumber}', fields.ccdReferenceNumber.value) }}</p>
+        {% endif %}
         <p>{{ content.text3 | safe }}</p>
         {{ unorderedList(checklistTwoItems) }}
         <p>{{ content.text4 | safe }}</p>

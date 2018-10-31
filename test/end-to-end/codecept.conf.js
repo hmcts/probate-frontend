@@ -2,8 +2,8 @@ const testConfig = require('test/config.js');
 
 exports.config = {
     //    'tests': './paths/**/*.js',
-    'tests': './paths/**/singleExecutorsPath.js',
-    //    'tests': './paths/**/*ExecutorsPath.js',
+    //'tests': './paths/**/singleExecutorsPath.js',
+    'tests': './paths/**/*ExecutorsPath.js',
     'output': './output',
     'helpers': {
         'Puppeteer': {

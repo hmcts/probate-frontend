@@ -21,7 +21,7 @@ class ExecutorCurrentNameReason extends ValidationStep {
             req.session.indexPosition = ctx.index;
         } else if (req.params && req.params[0] === '*') {
             ctx.index = req.session.indexPosition ||
-                            findIndex(ctx.list, o => o.hasOtherName && !o.currentNameReason, 1);
+                findIndex(ctx.list, o => o.hasOtherName && !o.currentNameReason, 1);
         } else if (startsWith(req.path, path)) {
             ctx.index = this.recalcIndex(ctx, 0);
         }
@@ -41,7 +41,9 @@ class ExecutorCurrentNameReason extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
-        if (formdata.executors.list[ctx.index].currentNameReason !== ctx.currentNameReason) {
+        if (get(formdata, 'declaration.declarationCheckbox') &&
+            formdata.executors.list[ctx.index].currentNameReason !== ctx.currentNameReason
+        ) {
             ctx.currentNameReasonUpdated = true;
         }
 

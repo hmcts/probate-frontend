@@ -25,6 +25,7 @@ class ApplicantAliasReason extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         formdata = AliasData.aliasDataRequiredAfterDeclaration(ctx, formdata);
+
         return [ctx, formdata];
     }
 }

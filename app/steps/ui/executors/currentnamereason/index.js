@@ -4,6 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex, get, startsWith} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const FeatureToggle = require('app/utils/FeatureToggle');
+const AliasData = require('app/utils/AliasData.js');
 
 const path = '/executor-current-name-reason/';
 
@@ -19,7 +20,8 @@ class ExecutorCurrentNameReason extends ValidationStep {
             ctx.index = parseInt(req.params[0]);
             req.session.indexPosition = ctx.index;
         } else if (req.params && req.params[0] === '*') {
-            ctx.index = req.session.indexPosition;
+            ctx.index = req.session.indexPosition ||
+                            findIndex(ctx.list, o => o.hasOtherName && !o.currentNameReason, 1);
         } else if (startsWith(req.path, path)) {
             ctx.index = this.recalcIndex(ctx, 0);
         }
@@ -38,7 +40,11 @@ class ExecutorCurrentNameReason extends ValidationStep {
         return [ctx];
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata) {
+        if (formdata.executors.list[ctx.index].currentNameReason !== ctx.currentNameReason) {
+            ctx.currentNameReasonUpdated = true;
+        }
+
         if (ctx.otherReason) {
             ctx.list[ctx.index].otherReason = ctx.otherReason;
         }
@@ -80,9 +86,15 @@ class ExecutorCurrentNameReason extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+
+        if (ctx.currentNameReasonUpdated) {
+            formdata = AliasData.resetDeclaration(formdata);
+        }
+
         delete ctx.index;
         delete ctx.currentNameReason;
         delete ctx.otherReason;
+        delete ctx.currentNameReasonUpdated;
         return [ctx, formdata];
     }
 }

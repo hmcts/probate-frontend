@@ -91,8 +91,8 @@ describe('DocumentUpload.js', () => {
             expect(errors).to.deep.equal([{
                 param: 'file',
                 msg: {
-                    summary: 'You have used a file type that can&rsquo;t be accepted. Save your file as a jpg, bmp, tiff, png or PDF file and try again',
-                    message: ''
+                    summary: 'documentupload.errors.file.type.summary',
+                    message: 'documentupload.errors.file.type.message'
                 }
             }]);
             done();

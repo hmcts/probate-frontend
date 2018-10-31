@@ -19,16 +19,21 @@ describe('documents-page', () => {
             id: '1234-1235-1236-1237'
         }
     };
+    const contentData = {};
 
     beforeEach(() => {
-        delete sessionData.executors;
-        delete sessionData.will;
-        delete sessionData.registry;
-        delete sessionData.iht;
+        contentData.ccdReferenceNumber = '1234-1235-1236-1237';
         testWrapper = new TestWrapper('Documents');
     });
 
     afterEach(() => {
+        delete sessionData.executors;
+        delete sessionData.will;
+        delete sessionData.registry;
+        delete sessionData.iht;
+        delete contentData.ccdCase;
+        delete contentData.renunciationFormLink;
+        delete contentData.codicilsNumber;
         testWrapper.destroy();
     });
 
@@ -77,7 +82,7 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
         it('test correct content loaded on the page, no codicils, no alias, single executor (Feature Toggle ON)', (done) => {
@@ -122,7 +127,8 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
-                    testWrapper.testContent(done, excludeKeys);
+
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
 
@@ -170,7 +176,7 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
         it('test correct content loaded on the page, no codicils, no alias, multiple executors (Feature Toggle ON)', (done) => {
@@ -219,7 +225,7 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
 
@@ -269,9 +275,8 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
-                    const contentData = {
-                        renunciationFormLink: config.links.renunciationForm
-                    };
+                    contentData.renunciationFormLink = config.links.renunciationForm;
+
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
@@ -322,9 +327,8 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
-                    const contentData = {
-                        renunciationFormLink: config.links.renunciationForm
-                    };
+                    contentData.renunciationFormLink = config.links.renunciationForm;
+
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
@@ -372,9 +376,8 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel'
                     ];
-                    const contentData = {
-                        codicilsNumber: 1
-                    };
+                    contentData.codicilsNumber = 1;
+
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
@@ -424,9 +427,8 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel'
                     ];
-                    const contentData = {
-                        codicilsNumber: 1
-                    };
+                    contentData.codicilsNumber = 1;
+
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
@@ -477,9 +479,8 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel'
                     ];
-                    const contentData = {
-                        codicilsNumber: 1
-                    };
+                    contentData.codicilsNumber = 1;
+
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
@@ -533,9 +534,8 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel'
                     ];
-                    const contentData = {
-                        codicilsNumber: 1
-                    };
+                    contentData.codicilsNumber = 1;
+
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
@@ -585,7 +585,8 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
-                    testWrapper.testContent(done, excludeKeys);
+
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
         it('test correct content loaded on the page, no codicils, single executor, no alias, specified registry address (Feature Toggle ON)', (done) => {
@@ -633,7 +634,8 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
-                    testWrapper.testContent(done, excludeKeys);
+
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
 
@@ -681,7 +683,8 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
-                    testWrapper.testContent(done, excludeKeys);
+
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
         it('test correct content loaded on the page, no codicils, single executor, no alias, online IHT (Feature Toggle ON)', (done) => {
@@ -729,7 +732,8 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
-                    testWrapper.testContent(done, excludeKeys);
+
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
 
@@ -778,7 +782,8 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
-                    testWrapper.testContent(done, excludeKeys);
+
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
         it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 207 or 400 (Feature Toggle ON)', (done) => {
@@ -827,7 +832,8 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
-                    testWrapper.testContent(done, excludeKeys);
+
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
 
@@ -875,7 +881,8 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
-                    testWrapper.testContent(done, excludeKeys);
+
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
         it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 205 (Feature Toggle ON)', (done) => {
@@ -923,7 +930,8 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
-                    testWrapper.testContent(done, excludeKeys);
+
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
 
@@ -935,7 +943,6 @@ describe('documents-page', () => {
                     {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'Divorce'}
                 ]
             };
-            const contentData = {executorCurrentName: 'eddie jones'};
             nock(featureToggleUrl)
                 .get(featureTogglePath)
                 .reply(200, 'false');
@@ -974,6 +981,9 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
+
+                    contentData.executorCurrentName = 'eddie jones';
+
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
@@ -985,7 +995,6 @@ describe('documents-page', () => {
                     {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'Divorce'}
                 ]
             };
-            const contentData = {executorCurrentName: 'eddie jones'};
             nock(featureToggleUrl)
                 .get(featureTogglePath)
                 .reply(200, 'true');
@@ -1024,6 +1033,8 @@ describe('documents-page', () => {
                         'checklist2-item5-renunciated',
                         'checkboxLabel-codicils'
                     ];
+                    contentData.executorCurrentName = 'eddie jones';
+
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
@@ -1036,12 +1047,6 @@ describe('documents-page', () => {
                     {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'other', otherReason: 'Did not like my name'}
                 ]
             };
-            const contentData = {
-                executorCurrentName: [
-                    'jimbo fisher',
-                    'eddie jones'
-                ]
-            };
             nock(featureToggleUrl)
                 .get(featureTogglePath)
                 .reply(200, 'false');
@@ -1080,6 +1085,11 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
+                    contentData.executorCurrentName = [
+                        'jimbo fisher',
+                        'eddie jones'
+                    ];
+
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
@@ -1089,12 +1099,6 @@ describe('documents-page', () => {
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Change by deed poll'},
                     {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'Change by deed poll'},
                     {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'other', otherReason: 'Did not like my name'}
-                ]
-            };
-            const contentData = {
-                executorCurrentName: [
-                    'jimbo fisher',
-                    'eddie jones'
                 ]
             };
             nock(featureToggleUrl)
@@ -1135,6 +1139,11 @@ describe('documents-page', () => {
                         'checklist2-item5-renunciated',
                         'checkboxLabel-codicils'
                     ];
+                    contentData.executorCurrentName = [
+                        'jimbo fisher',
+                        'eddie jones'
+                    ];
+
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
@@ -1187,7 +1196,7 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
 
@@ -1235,7 +1244,8 @@ describe('documents-page', () => {
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils'
                     ];
-                    testWrapper.testContent(done, excludeKeys);
+
+                    testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });
 
@@ -1248,14 +1258,12 @@ describe('documents-page', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForThankYouPage}`, (done) => {
-            const data = {
-                sentDocuments: true
-            };
+            contentData.sentDocuments = true;
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForThankYouPage);
+                    testWrapper.testRedirect(done, contentData, expectedNextUrlForThankYouPage);
                 });
         });
     });

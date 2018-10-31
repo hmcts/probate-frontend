@@ -18,7 +18,7 @@ class Documents extends ValidationStep {
         const registryAddress = (new RegistryWrapper(formdata.registry)).address();
         const content = this.generateContent(ctx, formdata);
 
-        ctx.registryAddress = registryAddress ? registryAddress : content.sendDocumentsAddress;
+        ctx.registryAddress = registryAddress ? registryAddress : content.old_sendDocumentsAddress;
         ctx.hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
         ctx.codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
         ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();

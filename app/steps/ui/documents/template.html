@@ -3,7 +3,7 @@
 {% from "widgets/lists.html" import unorderedList %}
 {% from "widgets/checkboxes.html" import checkbox %}
 
-{% if fields.isDocumentUploadToggleEnabled %}
+{% if fields.isDocumentUploadToggleEnabled.value === 'true' %}
     {% set checklistOneItems = [] %}
     {% set checklistTwoItems = [content["checklist2-item1"], content["checklist2-item2"]] %}
     {% set codicilsSuffix = "" %}
@@ -31,46 +31,45 @@
         {% endfor %}
     {% endif %}
 {% else %}
-    {% set checklistOneItems = [content["old-checklist1-item1"]] %}
-    {% set checklistTwoItems = [content["old-checklist2-item1"]] %}
+    {% set checklistOneItems = [content["old_checklist1-item1"]] %}
+    {% set checklistTwoItems = [content["old_checklist2-item1"]] %}
     {% set codicilsSuffix = "" %}
-    {% set checklistThreeHeaderNumber = content.old-checklist3HeaderNumber %}
+    {% set checklistThreeHeaderNumber = content.old_checklist3HeaderNumber %}
 
     {% if fields.codicilsNumber.value > "0" %}
-        {% set checklistOneItems = (checklistOneItems.push(content["old-checklist1-item2"]), checklistOneItems) %}
-        {% set checklistTwoItems = (checklistTwoItems.push(content["old-checklist2-item2"]), checklistTwoItems) %}
+        {% set checklistOneItems = (checklistOneItems.push(content["old_checklist1-item2"]), checklistOneItems) %}
+        {% set checklistTwoItems = (checklistTwoItems.push(content["old_checklist2-item2"]), checklistTwoItems) %}
         {% set codicilsSuffix = "-codicils" %}
     {% endif %}
 
-    {% set checklistThreeItems = [content["old-checklist3-item1" + codicilsSuffix], content["old-checklist3-item2"]] %}
+    {% set checklistThreeItems = [content["old_checklist3-item1" + codicilsSuffix], content["old_checklist3-item2"]] %}
 
     {% if fields.hasRenunciated.value === "true" %}
-        {% set checklistThreeItems = (checklistThreeItems.push(content["old-checklist3-item3"] | replace('{renunciationFormLink}', links.renunciationForm)), checklistThreeItems) %}
+        {% set checklistThreeItems = (checklistThreeItems.push(content["old_checklist3-item3"] | replace('{renunciationFormLink}', links.renunciationForm)), checklistThreeItems) %}
     {% endif %}
 
     {% if (fields.is205.value === "true") %}
-        {% set checklistThreeItems = (checklistThreeItems.push(content["old-checklist3-item4-Form205"]), checklistThreeItems) %}
+        {% set checklistThreeItems = (checklistThreeItems.push(content["old_checklist3-item4-Form205"]), checklistThreeItems) %}
     {% endif %}
 
     {% if fields.executorsNameChangedByDeedPollList.value | length > 0 %}
         {% for executor in fields.executorsNameChangedByDeedPollList.value %}
-            {% set checklistThreeItems = (checklistThreeItems.push(content["old-checklist3-item5-deedPoll"] | replace('{executorCurrentName}', executor)), checklistThreeItems) %}
+            {% set checklistThreeItems = (checklistThreeItems.push(content["old_checklist3-item5-deedPoll"] | replace('{executorCurrentName}', executor)), checklistThreeItems) %}
         {% endfor %}
     {% endif %}
 {% endif %}
 
 {% block question %}
-    {% if fields.isDocumentUploadToggleEnabled %}
+    {% if fields.isDocumentUploadToggleEnabled.value === 'true' %}
         <h1 class="form-title heading-large">{{content.header}}</h1>
     {% else %}
-        <h1 class="form-title heading-large">{{content.old-header}}</h1>
+        <h1 class="form-title heading-large">{{content.old_header}}</h1>
     {% endif %}
 {% endblock %}
 
 {% block form_content %}
 
-    {% if fields.isDocumentUploadToggleEnabled %}
-
+    {% if fields.isDocumentUploadToggleEnabled.value === 'true' %}
         <h2 class="heading-medium">{{ content.heading1 | safe }}</h2>
         <p>{{ content.text1 | safe }}</p>
         {{ unorderedList(checklistOneItems) }}
@@ -78,43 +77,39 @@
             <p>{{ content.text6 | safe }}</p>
         {% endif %}
 
-
         <h2 class="heading-medium">{{ content.heading2 | safe }}</h2>
         <p>{{ content.text2 | safe | replace('{ccdReferenceNumber}', fields.ccdReferenceNumber.value) }}</p>
         <p>{{ content.text3 | safe }}</p>
         {{ unorderedList(checklistTwoItems) }}
         <p>{{ content.text4 | safe }}</p>
 
-
         <h2 class="heading-medium">{{ content.heading3 | safe }}</h2>
         <p>{{ content.text5 | safe }}</p>
         <p>{{ content.address | safe | nl2br }}</p>
-
     {% else %}
-
-        <p>{{ content.old-printPage | safe }}</p>
-        <h2 class="heading-medium">{{ content.old-heading2 | safe }}</h2>
-        <h3 class="heading-small">{{ content.old-checklist1Header | safe }}</h3>
+        <p>{{ content.old_printPage | safe }}</p>
+        <h2 class="heading-medium">{{ content.old_heading2 | safe }}</h2>
+        <h3 class="heading-small">{{ content.old_checklist1Header | safe }}</h3>
 
         {{ unorderedList(checklistOneItems) }}
 
         {% if fields.hasMultipleApplicants.value === "true" %}
-            <h3 class="heading-small">{{ content.old-checklist2Header | safe }}</h3>
+            <h3 class="heading-small">{{ content.old_checklist2Header | safe }}</h3>
             {{ unorderedList(checklistTwoItems) }}
-            {% set checklistThreeHeaderNumber = content.old-checklist3HeaderNumberMultipleExecutors %}
+            {% set checklistThreeHeaderNumber = content.old_checklist3HeaderNumberMultipleExecutors %}
         {% endif %}
 
-        <h3 class="heading-small">{{ checklistThreeHeaderNumber }} {{ content.old-checklist3Header | safe }}</h3>
+        <h3 class="heading-small">{{ checklistThreeHeaderNumber }} {{ content.old_checklist3Header | safe }}</h3>
 
         {{ unorderedList(checklistThreeItems) }}
 
-        <p>{{ content["old-coverLetter" + codicilsSuffix] | safe }}</p>
+        <p>{{ content["old_coverLetter" + codicilsSuffix] | safe }}</p>
         <div class="panel panel-border-wide">
-            <strong class="text">{{ content.old-warning | safe }}</strong>
+            <strong class="text">{{ content.old_warning | safe }}</strong>
         </div>
 
-        <h2 class="heading-medium">{{ content.old-heading3 | safe }}</h2>
-        <p>{{ content.old-sendDocuments }}</p>
+        <h2 class="heading-medium">{{ content.old_heading3 | safe }}</h2>
+        <p>{{ content.old_sendDocuments }}</p>
         <p>{{ fields.registryAddress.value | safe | nl2br }}</p>
     {% endif %}
 

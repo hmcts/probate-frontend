@@ -69,6 +69,10 @@ describe('/executor-current-name-reason/', () => {
         });
 
         it(`test redirects from ExecutorCurrentNameReason to next ExecutorCurrentName, ${firstNameReasonUrl}`, (done) => {
+            sessionData.declaration = {
+                declarationCheckbox: 'Yes',
+                hasDataChanged: false
+            };
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -82,6 +86,10 @@ describe('/executor-current-name-reason/', () => {
         });
 
         it(`test it redirects last executor to Executor Contact Details step: ${expectedNextUrlForExecContactDetails}`, (done) => {
+            sessionData.declaration = {
+                declarationCheckbox: 'Yes',
+                hasDataChanged: false
+            };
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

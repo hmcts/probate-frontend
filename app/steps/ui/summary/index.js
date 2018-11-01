@@ -9,7 +9,6 @@ const services = require('app/components/services');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
-const featureToggle = require('app/utils/FeatureToggle');
 
 class Summary extends Step {
 
@@ -21,7 +20,7 @@ class Summary extends Step {
         return `/summary/${redirect}`;
     }
 
-    * handleGet(ctx, formdata, featureToggles) {
+    * handleGet(ctx, formdata) {
         const result = yield this.validateFormData(ctx, formdata);
         const errors = map(result.errors, err => {
             return FieldError(err.param, err.code, this.resourcePath, ctx);
@@ -33,7 +32,6 @@ class Summary extends Step {
         ctx.executorsWhoDied = executorsWrapper.deadExecutors().map(exec => exec.fullName);
         ctx.executorsDealingWithEstate = executorsApplying.map(exec => exec.fullName);
         ctx.executorsPowerReservedOrRenounced = executorsWrapper.hasRenunciatedOrPowerReserved();
-        ctx.isMainApplicantAliasToggleEnabled = featureToggle.isEnabled(featureToggles, 'main_applicant_alias');
         ctx.executorsWithOtherNames = executorsWrapper.executorsWithAnotherName().map(exec => exec.fullName);
 
         utils.updateTaskStatus(ctx, ctx, this.steps);

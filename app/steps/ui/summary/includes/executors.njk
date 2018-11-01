@@ -85,45 +85,43 @@
 
 )}}
 
-{% if fields.summary.isMainApplicantAliasToggleEnabled.value === 'true' %}
-    {% if fields.applicant.nameAsOnTheWill.value === 'No' %}
+{% if fields.applicant.nameAsOnTheWill.value === 'No' %}
+    {{checkanswer(
+        items = [{
+            question: content.ApplicantAlias.nameOnWill,
+            answer: fields.applicant.alias.value,
+            visible: true
+        }],
+        url = content.ApplicantAlias.url,
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+
+    )}}
+
+    {% if fields.applicant.aliasReason.value === 'other' %}
         {{checkanswer(
             items = [{
-                question: content.ApplicantAlias.nameOnWill,
-                answer: fields.applicant.alias.value,
+                question: content.ApplicantAliasReason.optionOtherHint,
+                answer: fields.applicant.otherReason.value,
                 visible: true
             }],
-            url = content.ApplicantAlias.url,
+            url = content.ApplicantAliasReason.url,
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
 
         )}}
+    {% else %}
+        {{checkanswer(
+            items = [{
+                question: content.ApplicantAliasReason.optionOtherHint,
+                answer: fields.applicant.aliasReason.value,
+                visible: true
+            }],
+            url = content.ApplicantAliasReason.url,
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
 
-        {% if fields.applicant.aliasReason.value === 'other' %}
-            {{checkanswer(
-                items = [{
-                    question: content.ApplicantAliasReason.optionOtherHint,
-                    answer: fields.applicant.otherReason.value,
-                    visible: true
-                }],
-                url = content.ApplicantAliasReason.url,
-                common = common,
-                alreadyDeclared = fields.summary.alreadyDeclared.value
-
-            )}}
-        {% else %}
-            {{checkanswer(
-                items = [{
-                    question: content.ApplicantAliasReason.optionOtherHint,
-                    answer: fields.applicant.aliasReason.value,
-                    visible: true
-                }],
-                url = content.ApplicantAliasReason.url,
-                common = common,
-                alreadyDeclared = fields.summary.alreadyDeclared.value
-
-            )}}
-        {% endif %}
+        )}}
     {% endif %}
 {% endif %}
 

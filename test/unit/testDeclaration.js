@@ -1,5 +1,3 @@
-// eslint-disable-line max-lines
-
 'use strict';
 
 const {assert, expect} = require('chai');
@@ -59,8 +57,7 @@ describe('Declaration tests', () => {
             };
         });
 
-        it('should return the correct data when the feature toggle is enabled', (done) => {
-            ctx.isToggleEnabled = true;
+        it('should return the correct data', (done) => {
             const data = Declaration.prepareDataForTemplate(ctx, content, formdata);
 
             expect(data.legalStatement.applicant).to.equal('We, Applicant Current Name of Applicant address, Exec 1 Current Name of Exec 1 address and Exec 2 Current Name of Exec 2 address, make the following statement:');
@@ -73,26 +70,6 @@ describe('Declaration tests', () => {
                 'sign': 'Exec 1 Current Name will sign a photocopy of what they believe to be the true and original last will and testament of Mrs Deceased. Applicant Current Name will send the signed photocopy to the probate registry.'
             }, {
                 'name': 'Exec 2 Current Name, an executor named in the will as Exec 2 Will Name, is applying for probate. Their name is different because Exec 2 Current Name got divorced.',
-                'sign': 'Exec 2 Current Name will sign a photocopy of what they believe to be the true and original last will and testament of Mrs Deceased. Applicant Current Name will send the signed photocopy to the probate registry.'
-            }]);
-
-            done();
-        });
-
-        it('should return the correct data when the feature toggle is disabled', (done) => {
-            ctx.isToggleEnabled = false;
-            const data = Declaration.prepareDataForTemplate(ctx, content, formdata);
-
-            expect(data.legalStatement.applicant).to.equal('We, Applicant Current Name of Applicant address, Exec 1 Will Name of Exec 1 address and Exec 2 Will Name of Exec 2 address, make the following statement:');
-
-            expect(data.legalStatement.executorsApplying).to.deep.equal([{
-                'name': 'Applicant Current Name, an executor named in the will, is applying for probate.',
-                'sign': 'Applicant Current Name will sign and send to the probate registry what they believe to be the true and original last will and testament of Mrs Deceased.'
-            }, {
-                'name': 'Exec 1 Current Name, an executor named in the will as Exec 1 Will Name, is applying for probate.',
-                'sign': 'Exec 1 Current Name will sign a photocopy of what they believe to be the true and original last will and testament of Mrs Deceased. Applicant Current Name will send the signed photocopy to the probate registry.'
-            }, {
-                'name': 'Exec 2 Current Name, an executor named in the will as Exec 2 Will Name, is applying for probate.',
                 'sign': 'Exec 2 Current Name will sign a photocopy of what they believe to be the true and original last will and testament of Mrs Deceased. Applicant Current Name will send the signed photocopy to the probate registry.'
             }]);
 
@@ -137,11 +114,8 @@ describe('Declaration tests', () => {
             mainApplicantName = 'Applicant Current Name';
         });
 
-        it('should return the correct data when the feature toggle is enabled', (done) => {
-            const ctx = {
-                isToggleEnabled: true
-            };
-            const data = Declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, deceasedName, mainApplicantName, ctx);
+        it('should return the correct data', (done) => {
+            const data = Declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, deceasedName, mainApplicantName);
 
             expect(data).to.deep.equal([{
                 'name': 'Applicant Current Name, an executor named in the will as Applicant Will Name, is applying for probate. Their name is different because Applicant Current Name changed their name by deed poll.',
@@ -151,26 +125,6 @@ describe('Declaration tests', () => {
                 'sign': 'Exec 1 Current Name will sign a photocopy of what they believe to be the true and original last will and testament of Mrs Deceased. Applicant Current Name will send the signed photocopy to the probate registry.'
             }, {
                 'name': 'Exec 2 Current Name, an executor named in the will as Exec 2 Will Name, is applying for probate. Their name is different because Exec 2 Current Name got divorced.',
-                'sign': 'Exec 2 Current Name will sign a photocopy of what they believe to be the true and original last will and testament of Mrs Deceased. Applicant Current Name will send the signed photocopy to the probate registry.'
-            }]);
-
-            done();
-        });
-
-        it('should return the correct data when the feature toggle is disabled', (done) => {
-            const ctx = {
-                isToggleEnabled: false
-            };
-            const data = Declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, deceasedName, mainApplicantName, ctx);
-
-            expect(data).to.deep.equal([{
-                'name': 'Applicant Current Name, an executor named in the will, is applying for probate.',
-                'sign': 'Applicant Current Name will sign and send to the probate registry what they believe to be the true and original last will and testament of Mrs Deceased.'
-            }, {
-                'name': 'Exec 1 Current Name, an executor named in the will as Exec 1 Will Name, is applying for probate.',
-                'sign': 'Exec 1 Current Name will sign a photocopy of what they believe to be the true and original last will and testament of Mrs Deceased. Applicant Current Name will send the signed photocopy to the probate registry.'
-            }, {
-                'name': 'Exec 2 Current Name, an executor named in the will as Exec 2 Will Name, is applying for probate.',
                 'sign': 'Exec 2 Current Name will sign a photocopy of what they believe to be the true and original last will and testament of Mrs Deceased. Applicant Current Name will send the signed photocopy to the probate registry.'
             }]);
 
@@ -200,28 +154,11 @@ describe('Declaration tests', () => {
             };
         });
 
-        it('should return the correct data with the feature toggle enabled', (done) => {
-            const ctx = {
-                isToggleEnabled: true
-            };
-            const data = Declaration.executorsApplyingText(ctx, props);
+        it('should return the correct data', (done) => {
+            const data = Declaration.executorsApplyingText(props);
 
             expect(data).to.deep.equal({
                 'name': 'Exec 1 Current Name, an executor named in the will as Exec 1 Will Name, is applying for probate. Their name is different because Exec 1 Current Name got married.',
-                'sign': 'Exec 1 Current Name will sign a photocopy of what they believe to be the true and original last will and testament of Mrs Deceased. Applicant Current Name will send the signed photocopy to the probate registry.'
-            });
-
-            done();
-        });
-
-        it('should return the correct data with the feature toggle disabled', (done) => {
-            const ctx = {
-                isToggleEnabled: false
-            };
-            const data = Declaration.executorsApplyingText(ctx, props);
-
-            expect(data).to.deep.equal({
-                'name': 'Exec 1 Current Name, an executor named in the will as Exec 1 Will Name, is applying for probate.',
                 'sign': 'Exec 1 Current Name will sign a photocopy of what they believe to be the true and original last will and testament of Mrs Deceased. Applicant Current Name will send the signed photocopy to the probate registry.'
             });
 
@@ -279,7 +216,6 @@ describe('Declaration tests', () => {
                 executorsEmailChanged: false,
                 hasDataChangedAfterEmailSent: true,
                 invitesSent: 'true',
-                isToggleEnabled: true
             };
             formdata = {};
         });

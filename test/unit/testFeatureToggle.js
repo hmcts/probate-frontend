@@ -24,7 +24,7 @@ describe('FeatureToggle', () => {
                 req: {session: {}},
                 res: {},
                 next: () => true,
-                featureToggleKey: 'main_applicant_alias',
+                featureToggleKey: 'document_upload',
                 callback: sinon.spy()
             };
             featureToggle.checkToggle(params).then(() => {
@@ -39,7 +39,7 @@ describe('FeatureToggle', () => {
                 req: {session: {}},
                 res: {},
                 next: sinon.spy(),
-                featureToggleKey: 'main_applicant_alias',
+                featureToggleKey: 'document_upload',
                 callback: () => true
             };
             featureToggle.checkToggle(params).then(() => {
@@ -110,12 +110,12 @@ describe('FeatureToggle', () => {
             it('when the session contains a featureToggles object and call next()', (done) => {
                 const params = {
                     req: {session: {featureToggles: {}}},
-                    featureToggleKey: 'main_applicant_alias',
+                    featureToggleKey: 'document_upload',
                     isEnabled: true,
                     next: sinon.spy()
                 };
                 featureToggle.toggleFeature(params);
-                expect(params.req.session.featureToggles).to.deep.equal({main_applicant_alias: true});
+                expect(params.req.session.featureToggles).to.deep.equal({document_upload: true});
                 expect(params.next.calledOnce).to.equal(true);
                 expect(params.next.calledWith()).to.equal(true);
                 done();
@@ -124,12 +124,12 @@ describe('FeatureToggle', () => {
             it('when the session does not contain a featureToggles object and call next()', (done) => {
                 const params = {
                     req: {session: {}},
-                    featureToggleKey: 'main_applicant_alias',
+                    featureToggleKey: 'document_upload',
                     isEnabled: true,
                     next: sinon.spy()
                 };
                 featureToggle.toggleFeature(params);
-                expect(params.req.session.featureToggles).to.deep.equal({main_applicant_alias: true});
+                expect(params.req.session.featureToggles).to.deep.equal({document_upload: true});
                 expect(params.next.calledOnce).to.equal(true);
                 expect(params.next.calledWith()).to.equal(true);
                 done();
@@ -140,8 +140,8 @@ describe('FeatureToggle', () => {
     describe('isEnabled()', () => {
         describe('should return true', () => {
             it('if the feature toggle exists and is true', (done) => {
-                const featureToggles = {main_applicant_alias: true};
-                const key = 'main_applicant_alias';
+                const featureToggles = {document_upload: true};
+                const key = 'document_upload';
                 const isEnabled = FeatureToggle.isEnabled(featureToggles, key);
                 expect(isEnabled).to.equal(true);
                 done();
@@ -150,8 +150,8 @@ describe('FeatureToggle', () => {
 
         describe('should return false', () => {
             it('if the feature toggle exists and is false', (done) => {
-                const featureToggles = {main_applicant_alias: false};
-                const key = 'main_applicant_alias';
+                const featureToggles = {document_upload: false};
+                const key = 'document_upload';
                 const isEnabled = FeatureToggle.isEnabled(featureToggles, key);
                 expect(isEnabled).to.equal(false);
                 done();
@@ -159,7 +159,7 @@ describe('FeatureToggle', () => {
 
             it('if the feature toggle does not exist', (done) => {
                 const featureToggles = {};
-                const key = 'main_applicant_alias';
+                const key = 'document_upload';
                 const isEnabled = FeatureToggle.isEnabled(featureToggles, key);
                 expect(isEnabled).to.equal(false);
                 done();
@@ -167,14 +167,14 @@ describe('FeatureToggle', () => {
 
             it('if there are no feature toggles', (done) => {
                 const featureToggles = '';
-                const key = 'main_applicant_alias';
+                const key = 'document_upload';
                 const isEnabled = FeatureToggle.isEnabled(featureToggles, key);
                 expect(isEnabled).to.equal(false);
                 done();
             });
 
             it('if the key is not specified', (done) => {
-                const featureToggles = {main_applicant_alias: false};
+                const featureToggles = {document_upload: false};
                 const key = '';
                 const isEnabled = FeatureToggle.isEnabled(featureToggles, key);
                 expect(isEnabled).to.equal(false);

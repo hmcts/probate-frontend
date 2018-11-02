@@ -93,6 +93,7 @@ describe('declaration, multiple applicants', () => {
             ];
             sessionData.will.codicils = 'No';
             sessionData.executors.list[1].hasOtherName = false;
+            delete sessionData.executors.list[1].currentName;
             sessionData.deceased.otherNames = {
                 name_0: {firstName: 'James', lastName: 'Miller'},
                 name_1: {firstName: 'Joe', lastName: 'Smith'},
@@ -150,6 +151,7 @@ describe('declaration, multiple applicants', () => {
             ];
             sessionData.will.codicils = 'Yes';
             sessionData.executors.list[1].hasOtherName = false;
+            delete sessionData.executors.list[1].currentName;
             contentData.applicantWillName = 'Bob Smith';
             contentData.detailsOfApplicants = 'Bob Smith of flat 1, somewhere rd, nowhere., fname1 sname1 of 1 qwe\r\n1 asd\r\n1 zxc and fname4 sname4 of 4 qwe\r\n4 asd\r\n4 zxc';
             contentData.applicantCurrentName = 'fname1 sname1';

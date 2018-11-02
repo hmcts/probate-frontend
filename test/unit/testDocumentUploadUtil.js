@@ -121,9 +121,10 @@ describe('DocumentUploadUtil', () => {
 
     describe('isValidType()', () => {
         it('should return true when a valid document type is given', (done) => {
-            const revert = DocumentUpload.__set__('fileType', () => ({ext: 'jpg'}));
+            const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
             const document = {
-                buffer: 'valid'
+                buffer: 'valid',
+                mimetype: 'image/jpeg'
             };
             const documentUpload = new DocumentUpload();
             const isValidFile = documentUpload.isValidType(document);
@@ -135,7 +136,21 @@ describe('DocumentUploadUtil', () => {
         it('should return false when no document type is found', (done) => {
             const revert = DocumentUpload.__set__('fileType', () => null);
             const document = {
-                buffer: 'invalid'
+                buffer: 'invalid',
+                mimetype: 'image/jpeg'
+            };
+            const documentUpload = new DocumentUpload();
+            const isValidFile = documentUpload.isValidType(document);
+            expect(isValidFile).to.equal(false);
+            revert();
+            done();
+        });
+
+        it('should return false when a document with an invalid buffer is found', (done) => {
+            const revert = DocumentUpload.__set__('fileType', () => ({mime: 'test/plain'}));
+            const document = {
+                buffer: 'invalid',
+                mimetype: 'image/jpeg'
             };
             const documentUpload = new DocumentUpload();
             const isValidFile = documentUpload.isValidType(document);
@@ -146,7 +161,8 @@ describe('DocumentUploadUtil', () => {
 
         it('should return false when an invalid document type is found', (done) => {
             const document = {
-                buffer: 'invalid'
+                buffer: 'invalid',
+                mimetype: 'text/plain'
             };
             const documentUpload = new DocumentUpload();
             const isValidFile = documentUpload.isValidType(document);
@@ -157,9 +173,10 @@ describe('DocumentUploadUtil', () => {
 
     describe('isDocumentValid()', () => {
         it('should return true when a valid document type is given', (done) => {
-            const revert = DocumentUpload.__set__('fileType', () => ({ext: 'jpg'}));
+            const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
             const document = {
-                buffer: 'valid'
+                buffer: 'valid',
+                mimetype: 'image/jpeg'
             };
             const documentUpload = new DocumentUpload();
             const isDocumentValid = documentUpload.isDocumentValid(document);

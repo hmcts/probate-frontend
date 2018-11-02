@@ -28,11 +28,19 @@ class DocumentUpload {
     }
 
     isValidType(document) {
+        const validMimeTypes = config.documentUpload.validMimeTypes;
+
+        if (!validMimeTypes.includes(document.mimetype)) {
+            return false;
+        }
+
         const uploadedDocumentType = fileType(document.buffer);
+
         if (!uploadedDocumentType) {
             return false;
         }
-        return config.documentUpload.validTypes.includes(uploadedDocumentType.ext);
+
+        return validMimeTypes.includes(uploadedDocumentType.mime);
     }
 
     isDocumentValid(document) {

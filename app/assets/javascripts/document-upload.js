@@ -12,7 +12,7 @@ var DocumentUpload = {
             headers: {
                 'x-csrf-token': documentUploadConfig.csrfToken
             },
-            acceptedFiles: documentUploadConfig.validTypes,
+            acceptedFiles: documentUploadConfig.validMimeTypes,
             maxFiles: documentUploadConfig.maxFiles,
             maxFilesize: documentUploadConfig.maxFileSizeMb,
             addRemoveLinks: true,

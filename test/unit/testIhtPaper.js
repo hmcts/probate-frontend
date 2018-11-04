@@ -99,7 +99,7 @@ describe('IhtPaper', () => {
     });
 
     describe('action', () => {
-        it('test it cleans up context', () => {
+        it('test it cleans up context', (done) => {
             const ctx = {
                 grossValuePaper: 500000,
                 netValuePaper: 400000,

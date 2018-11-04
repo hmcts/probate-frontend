@@ -3,6 +3,7 @@
 const initSteps = require('app/core/initSteps');
 const {assert, expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
+const completedForm = require('test/data/complete-form-multipleapplicants');
 
 describe('Documents', () => {
     const Documents = steps.Documents;

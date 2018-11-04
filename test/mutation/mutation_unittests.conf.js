@@ -14,13 +14,8 @@ const strykerConfiguration = config => {
         mutate:
       [
           'app/steps/ui/**/index.js',
-          // 'app/*.js',
           'app/core/**',
           'app/wrappers/*.js',
-          // 'app/journeys/*',
-          // 'app/utils/*',
-          // '!test/**',
-          // '!app/config.js',
       ],
         files: ['*.js', '*.json', 'app/**', 'test/unit/*', 'test/data/**', 'test/service-stubs/**'],
         maxConcurrentTestRunners: 1,

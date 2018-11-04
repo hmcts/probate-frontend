@@ -71,4 +71,22 @@ describe('Executors-Who-Died', function () {
             done();
         });
     });
+
+    describe('isComplete', () => {
+        it('returns true when at least one exec is dead', () => {
+            const ctx = {
+                list: [{isDead: true}, {isDead: false}]
+            };
+            const result = executorsWhoDied.isComplete(ctx);
+            expect(result).to.deep.equal([true, 'inProgress']);
+        });
+
+        it('returns false when no execs are dead', () => {
+            const ctx = {
+                list: [{isDead: false}]
+            };
+            const result = executorsWhoDied.isComplete(ctx);
+            expect(result).to.deep.equal([false, 'inProgress']);
+        });
+    });
 });

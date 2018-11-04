@@ -1,17 +1,52 @@
+/* eslint-disable max-lines */
 'use strict';
+
 const initSteps = require('app/core/initSteps');
 const services = require('app/components/services');
 const sinon = require('sinon');
 const when = require('when');
 const co = require('co');
-const {expect} = require('chai');
+const {assert, expect} = require('chai');
 
-describe('Contact-Details', function () {
+describe('ExecutorContactDetails', function () {
     let ctx;
     let errors;
     let updateContactDetailsStub;
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
     const contactDetails = steps.ExecutorContactDetails;
+
+    describe('getUrl', () => {
+        it('returns correct url', () => {
+            const url = contactDetails.constructor.getUrl();
+            expect(url).to.include('/executor-contact-details');
+        });
+
+        it('appends * when no index is given', () => {
+            const url = contactDetails.constructor.getUrl();
+            expect(url).to.equal('/executor-contact-details/*');
+        });
+
+        it('appends index to url when given', () => {
+            const url = contactDetails.constructor.getUrl(1);
+            expect(url).to.equal('/executor-contact-details/1');
+        });
+
+    });
+
+    describe('handleGet', () => {
+        it('populates "ctx.email" and "ctx.mobile" from "ctx.list"', () => {
+            const ctx = {
+                index: 1,
+                list: [
+                    {email: 'email1', mobile: '1234567890'},
+                    {email: 'email2', mobile: '0987654321'}]
+            };
+
+            const [result] = contactDetails.handleGet(ctx);
+            expect(result.email).to.equal(ctx.list[ctx.index].email);
+            expect(result.mobile).to.equal(ctx.list[ctx.index].mobile);
+        });
+    });
 
     describe('handlePost()', () => {
         beforeEach(() => {
@@ -212,6 +247,102 @@ describe('Contact-Details', function () {
                 .catch((err) => {
                     done(err);
                 });
+        });
+    });
+
+    describe('validatePhoneNumber', () => {
+
+        describe('returns true when input', () => {
+            it('starts with "0"', () => {
+                const result = contactDetails.validatePhoneNumber('0123456789');
+                assert(result, true);
+            });
+
+            it('starts with "+"', () => {
+                const result = contactDetails.validatePhoneNumber('+0123456789');
+                assert(result, true);
+            });
+
+            it('starts with "44"', () => {
+                const result = contactDetails.validatePhoneNumber('44123456789');
+                assert(result, true);
+            });
+
+            it('starts with "7"', () => {
+                const result = contactDetails.validatePhoneNumber('7123456789');
+                assert(result, true);
+            });
+        });
+
+        describe('returns false when input', () => {
+
+            it('does not start with 0,44,+ or 7', () => {
+                const result = contactDetails.validatePhoneNumber('1234567890');
+                expect(result).to.equal(false);
+            });
+
+            it('starts with a letter', () => {
+                const result = contactDetails.validatePhoneNumber('z0123456789');
+                expect(result).to.equal(false);
+            });
+
+            it('starts with "00"', () => {
+                const result = contactDetails.validatePhoneNumber('00123456789');
+                expect(result).to.equal(false);
+            });
+
+            it('is a string starting with "7"', () => {
+                const result = contactDetails.validatePhoneNumber('7mobilephone');
+                expect(result).to.equal(false);
+            });
+
+            it('is a string starting with "0"', () => {
+                const result = contactDetails.validatePhoneNumber('0mobilephone');
+                expect(result).to.equal(false);
+            });
+
+            it('is a string starting with "+"', () => {
+                const result = contactDetails.validatePhoneNumber('+mobilephone');
+                expect(result).to.equal(false);
+            });
+        });
+    });
+
+    describe('action', () => {
+        it('removes otherExecName from ctx', () => {
+            const ctx = {
+                otherExecName: 'Cher'
+            };
+            const [result] = contactDetails.action(ctx);
+            expect(result).to.deep.equal({});
+            assert.isUndefined(ctx.otherExecName);
+        });
+
+        it('removes email from ctx', () => {
+            const ctx = {
+                email: 'cher@hotmail.com'
+            };
+            const [result] = contactDetails.action(ctx);
+            expect(result).to.deep.equal({});
+            assert.isUndefined(ctx.email);
+        });
+
+        it('removes mobile from ctx', () => {
+            const ctx = {
+                mobile: '1234567890'
+            };
+            const [result] = contactDetails.action(ctx);
+            expect(result).to.deep.equal({});
+            assert.isUndefined(ctx.mobile);
+        });
+
+        it('removes index from ctx', () => {
+            const ctx = {
+                index: 1
+            };
+            const [result] = contactDetails.action(ctx);
+            expect(result).to.deep.equal({});
+            assert.isUndefined(ctx.index);
         });
     });
 });

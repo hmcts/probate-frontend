@@ -80,6 +80,24 @@ describe('ExecutorNotified', () => {
             });
             done();
         });
+
+        it('sets nextExecutor to true if index exists', () => {
+            const ctx = {index: 1};
+            ExecutorNotified.nextStepOptions(ctx);
+            expect(ctx.nextExecutor).to.equal(true);
+        });
+
+        it('sets nextExecutor to false if index is "-1"', () => {
+            const ctx = {index: -1};
+            ExecutorNotified.nextStepOptions(ctx);
+            expect(ctx.nextExecutor).to.equal(false);
+        });
+
+        it('sets nextExecutor to false if index is undefined', () => {
+            const ctx = {};
+            ExecutorNotified.nextStepOptions(ctx);
+            expect(ctx.nextExecutor).to.equal(false);
+        });
     });
 
     describe('action', () => {
@@ -98,5 +116,85 @@ describe('ExecutorNotified', () => {
             assert.isUndefined(ctx.executorName);
             assert.isUndefined(ctx.nextExecutor);
         });
+
+        it('deletes executorNotified from ctx', () => {
+            const ctx = {
+                executorNotified: 'test'
+            };
+            const [result] = ExecutorNotified.action(ctx);
+            expect(result).to.deep.equal({});
+            assert.isUndefined(ctx.executorNotified);
+        });
+
+        it('deletes executorName from ctx', () => {
+            const ctx = {
+                executorName: 'test'
+            };
+            const [result] = ExecutorNotified.action(ctx);
+            expect(result).to.deep.equal({});
+            assert.isUndefined(ctx.executorName);
+        });
+
+        it('deletes nextExecutor from ctx', () => {
+            const ctx = {
+                nextExecutor: 'test'
+            };
+            const [result] = ExecutorNotified.action(ctx);
+            expect(result).to.deep.equal({});
+            assert.isUndefined(ctx.nextExecutor);
+        });
     });
+
+    describe('recalcIndex', () => {
+        it('returns index of next alive exec', () => {
+            const index = 0;
+            const ctx = {
+                executorsNumber: 3,
+                list: [
+                    {
+                        firstName: 'Lead',
+                        lastName: 'Applicant',
+                        isApplying: true,
+                        isApplicant: true
+                    },
+                    {
+                        fullName: 'Bob Cratchett',
+                        isApplying: false,
+                        isDead: true,
+                    },
+                    {
+                        fullName: 'Billy Jean',
+                    }
+                ],
+            };
+            const nextIndex = ExecutorNotified.recalcIndex(ctx, index);
+            expect(nextIndex).to.equal(2);
+        });
+
+        it('returns -1 when no execs are alive', () => {
+            const index = 0;
+            const ctx = {
+                executorsNumber: 3,
+                list: [
+                    {
+                        firstName: 'Lead',
+                        lastName: 'Applicant',
+                        isApplying: true,
+                        isApplicant: true
+                    },
+                    {
+                        fullName: 'Bob Cratchett',
+                        isDead: true
+                    },
+                    {
+                        fullName: 'Billy Jean',
+                        isDead: true
+                    }
+                ],
+            };
+            const nextIndex = ExecutorNotified.recalcIndex(ctx, index);
+            expect(nextIndex).to.equal(-1);
+        });
+    });
+
 });

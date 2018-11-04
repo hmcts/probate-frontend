@@ -1,10 +1,17 @@
 'use strict';
 const initSteps = require('app/core/initSteps');
-const assert = require('chai').assert;
+const {assert, expect} = require('chai');
 
 describe('Executors-Applying', function () {
     let ctx;
     const ExecsApplying = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).ExecutorsApplying;
+
+    describe('getUrl', () => {
+        it('returns correct url', () => {
+            const url = ExecsApplying.constructor.getUrl();
+            expect(url).to.equal('/other-executors-applying');
+        });
+    });
 
     describe('handlePost', () => {
 
@@ -42,5 +49,13 @@ describe('Executors-Applying', function () {
             assert.isTrue(ctx.list[1].isApplying);
             assert.isTrue(ctx.list[2].isApplying);
         });
+    });
+
+    describe('nextStepOptions', () => {
+        it('returns next step options', () => {
+            const nextStep = ExecsApplying.nextStepOptions();
+            expect(nextStep).to.deep.equal({options: [{key: 'otherExecutorsApplying', value: 'Yes', choice: 'otherExecutorsApplying'}]});
+        });
+
     });
 });

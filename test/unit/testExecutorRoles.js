@@ -25,6 +25,27 @@ describe('ExecutorRoles', () => {
         });
     });
 
+    describe('handleGet', () => {
+        it('sets list.notApplyingReason to ctx if ctx.isApplying is false', () => {
+            const ctx = {
+                index: 0,
+                list: [{notApplyingReason: 'test'}],
+            };
+            const [result] = ExecutorRoles.handleGet(ctx);
+            expect(result.notApplyingReason).to.equal('test');
+            expect(result.isApplying).to.equal(false);
+        });
+
+        it('does not change ctx if no element in list based on index', () => {
+            const ctx = {
+                index: 1,
+                list: [{notApplyingReason: 'test'}],
+            };
+            const [result] = ExecutorRoles.handleGet(ctx);
+            expect(result).to.deep.equal(ctx);
+        });
+    });
+
     describe('handlePost()', () => {
         let ctx;
         let errors;
@@ -92,9 +113,29 @@ describe('ExecutorRoles', () => {
             });
             done();
         });
+
+        it('sets ctx.continue to true when index is not "-1"', () => {
+            const ctx = {index: 1};
+            ExecutorRoles.nextStepOptions(ctx);
+            expect(ctx.continue).to.equal(true);
+        });
+
+        it('sets ctx.continue to false when index is "-1"', () => {
+            const ctx = {index: -1};
+            ExecutorRoles.nextStepOptions(ctx);
+            expect(ctx.continue).to.equal(false);
+        });
+
+        it('sets ctx.continue to false if index does not exist', () => {
+            const ctx = {};
+            ExecutorRoles.nextStepOptions(ctx);
+            expect(ctx.continue).to.equal(false);
+        });
     });
 
     describe('action', () => {
+        const ctx ={};
+
         it('test it cleans up context', () => {
             const ctx = {
                 otherwise: 'something',
@@ -111,6 +152,112 @@ describe('ExecutorRoles', () => {
             assert.isUndefined(ctx.isApplying);
             assert.isUndefined(ctx.notApplyingReason);
             assert.isUndefined(ctx.continue);
+        });
+
+        it('deletes ctx.executorName', () => {
+            ctx.executorName = 'test';
+            const [result] = ExecutorRoles.action(ctx);
+            expect(result).to.deep.equal({});
+            assert.isUndefined(result.executorName);
+        });
+
+        it('deletes ctx.isApplying', () => {
+            ctx.isApplying = 'test';
+            const [result] = ExecutorRoles.action(ctx);
+            expect(result).to.deep.equal({});
+            assert.isUndefined(result.isApplying);
+        });
+
+        it('deletes ctx.notApplyingReason', () => {
+            ctx.notApplyingReason = 'test';
+            const [result] = ExecutorRoles.action(ctx);
+            expect(result).to.deep.equal({});
+            assert.isUndefined(result.notApplyingReason);
+        });
+
+        it('deletes ctx.continue', () => {
+            ctx.continue = 'test';
+            const [result] = ExecutorRoles.action(ctx);
+            expect(result).to.deep.equal({});
+            assert.isUndefined(result.continue);
+        });
+    });
+
+    describe('isComplete', () => {
+        it('returns true is every exec isApplying', () => {
+            const ctx = {
+                list: [{isApplying: true}, {isApplying: true}],
+            };
+            const isComplete = ExecutorRoles.isComplete(ctx);
+            expect(isComplete).to.deep.equal([true, 'inProgress']);
+        });
+
+        it('returns true is every exec isApplying OR has notApplyingReason', () => {
+            const ctx = {
+                list: [{notApplyingReason: 'This executor doesnt want to apply now but may do in the future'}, {isApplying: true}],
+            };
+            const isComplete = ExecutorRoles.isComplete(ctx);
+            expect(isComplete).to.deep.equal([true, 'inProgress']);
+        });
+
+        it('returns false if not all execs are applying', () => {
+            const ctx = {
+                list: [{isApplying: false}, {isApplying: true}],
+            };
+            const isComplete = ExecutorRoles.isComplete(ctx);
+            expect(isComplete).to.deep.equal([false, 'inProgress']);
+        });
+    });
+
+    describe('recalcIndex', () => {
+        it('returns index of next alive exec', () => {
+            const index = 0;
+            const ctx = {
+                executorsNumber: 3,
+                list: [
+                    {
+                        firstName: 'Lead',
+                        lastName: 'Applicant',
+                        isApplying: true,
+                        isApplicant: true
+                    },
+                    {
+                        fullName: 'Bob Cratchett',
+                        isApplying: false,
+                        isDead: true,
+                    },
+                    {
+                        fullName: 'Billy Jean',
+                    }
+                ],
+            };
+            const nextIndex = ExecutorRoles.recalcIndex(ctx, index);
+            expect(nextIndex).to.equal(2);
+        });
+
+        it('returns -1 when no execs are alive', () => {
+            const index = 0;
+            const ctx = {
+                executorsNumber: 3,
+                list: [
+                    {
+                        firstName: 'Lead',
+                        lastName: 'Applicant',
+                        isApplying: true,
+                        isApplicant: true
+                    },
+                    {
+                        fullName: 'Bob Cratchett',
+                        isDead: true
+                    },
+                    {
+                        fullName: 'Billy Jean',
+                        isDead: true
+                    }
+                ],
+            };
+            const nextIndex = ExecutorRoles.recalcIndex(ctx, index);
+            expect(nextIndex).to.equal(-1);
         });
     });
 });

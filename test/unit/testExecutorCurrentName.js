@@ -1,11 +1,30 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const expect = require('chai').expect;
-const assert = require('chai').assert;
+const {assert, expect} = require('chai');
 
 describe('ExecutorCurrentName', () => {
     const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
+
+    describe('getUrl', () => {
+        it('returns correct url', () => {
+            const ExecutorCurrentName = steps.ExecutorCurrentName;
+            const url = ExecutorCurrentName.constructor.getUrl();
+            expect(url).to.include('/executor-current-name');
+        });
+
+        it('appends * when no param is supplied', () => {
+            const ExecutorCurrentName = steps.ExecutorCurrentName;
+            const url = ExecutorCurrentName.constructor.getUrl();
+            expect(url).to.equal('/executor-current-name/*');
+        });
+
+        it('appends index when param is supplied', () => {
+            const ExecutorCurrentName = steps.ExecutorCurrentName;
+            const url = ExecutorCurrentName.constructor.getUrl(1);
+            expect(url).to.equal('/executor-current-name/1');
+        });
+    });
 
     describe('getContextData()', () => {
         it('sets the index when there is a numeric url param', (done) => {
@@ -63,6 +82,27 @@ describe('ExecutorCurrentName', () => {
 
             expect(ctx.index).to.equal(-1);
             done();
+        });
+    });
+
+    describe('handleGet', () => {
+        it('sets ctx.currentName from ctx.list based on ctx.index', () => {
+            const ctx ={
+                index: 1,
+                list: [{hasOtherName: true, currentName: 'cher'}, {fullName: 'Michael Jackson', hasOtherName: true, currentName: 'Mj'}],
+            };
+            const ExecutorCurrentName = steps.ExecutorCurrentName;
+            const [result] = ExecutorCurrentName.handleGet(ctx);
+            expect(result.currentName).to.equal(ctx.list[ctx.index].currentName);
+        });
+
+        it('does not amend ctx if ctx.list does not exist', () => {
+            const ctx ={
+                index: 1,
+            };
+            const ExecutorCurrentName = steps.ExecutorCurrentName;
+            const [result] = ExecutorCurrentName.handleGet(ctx);
+            expect(result).to.deep.equal(ctx);
         });
     });
 
@@ -132,6 +172,26 @@ describe('ExecutorCurrentName', () => {
 
             expect(action).to.deep.equal([{}, testFormdata]);
             done();
+        });
+    });
+
+    describe('isComplete', () => {
+        it('returns true when every executor has "hasOtherName" and "currentName"', () => {
+            const ctx ={
+                list: [{hasOtherName: true, currentName: 'cher'}, {fullName: 'Michael Jackson', hasOtherName: true, currentName: 'Mj'}],
+            };
+            const ExecutorCurrentName = steps.ExecutorCurrentName;
+            const result = ExecutorCurrentName.isComplete(ctx);
+            expect(result).to.deep.equal([true, 'inProgress']);
+        });
+
+        it('returns false when an executor has "hasOtherName" bt no "currentName"', () => {
+            const ctx ={
+                list: [{hasOtherName: true, currentName: 'cher'}, {fullName: 'Michael Jackson', hasOtherName: true}],
+            };
+            const ExecutorCurrentName = steps.ExecutorCurrentName;
+            const result = ExecutorCurrentName.isComplete(ctx);
+            expect(result).to.deep.equal([false, 'inProgress']);
         });
     });
 });

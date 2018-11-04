@@ -101,4 +101,98 @@ describe('Executor-Additional-Invite', function () {
             assert.equal(executorsAdditionalInvite.constructor.getUrl(), '/executors-additional-invite');
         });
     });
+
+    describe('isComplete()', () => {
+        it('returns true when invitesSent is true', (done) => {
+            ctx = {
+                list: [
+                    {
+                        firstName: 'Bob Richard',
+                        lastName: 'Smith',
+                        isApplying: true,
+                        isApplicant: true
+                    },
+                    {
+                        fullName: 'executor_2_name',
+                        isApplying: true,
+                        emailSent: true
+                    }
+                ],
+                invitesSent: 'true'
+            };
+
+            const result = executorsAdditionalInvite.isComplete(ctx);
+            expect(result).to.deep.equal([true, 'inProgress']);
+            done();
+        });
+
+        it('returns false when invitesSent is undefined', (done) => {
+            ctx = {
+                list: [
+                    {
+                        firstName: 'Bob Richard',
+                        lastName: 'Smith',
+                        isApplying: true,
+                        isApplicant: true
+                    },
+                    {
+                        fullName: 'executor_2_name',
+                        isApplying: true,
+                        emailSent: true
+                    }
+                ]
+            };
+
+            const result = executorsAdditionalInvite.isComplete(ctx);
+            expect(result).to.deep.equal([false, 'inProgress']);
+            done();
+        });
+
+        it('returns false if isApplying AND emailSent are not true', () => {
+            ctx = {
+                list: [
+                    {
+                        firstName: 'Bob Richard',
+                        lastName: 'Smith',
+                        isApplying: true,
+                        isApplicant: true
+                    },
+                    {
+                        fullName: 'executor_2_name',
+                        isDead: true,
+                        diedBefore: 'Yes',
+                        notApplyingReason: 'This executor died (before the person who has died)',
+                        notApplyingKey: 'optionDiedBefore',
+                        isApplying: false,
+                        hasOtherName: false
+                    },
+                    {
+                        fullName: 'executor_3_name',
+                        hasOtherName: true,
+                        currentName: 'exec_3_new_name ',
+                        email: 'haji58@hotmail.co.uk',
+                        mobile: '07963723856',
+                        address: 'exec_3_address\r\n',
+                        freeTextAddress: 'exec_3_address\r\n',
+                        inviteId: {},
+                        isApplying: true,
+                        emailSent: false
+                    },
+                    {
+                        fullName: 'executor_4_name',
+                        isDead: false,
+                        isApplying: false,
+                        hasOtherName: false,
+                        notApplyingReason: 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)',
+                        notApplyingKey: 'optionRenunciated'
+                    }
+                ],
+                invitesSent: 'true'
+            };
+
+            const result = executorsAdditionalInvite.isComplete(ctx);
+            expect(result).to.deep.equal([false, 'inProgress']);
+        });
+
+    });
 });

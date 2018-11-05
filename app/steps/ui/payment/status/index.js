@@ -52,7 +52,7 @@ class PaymentStatus extends Step {
             const serviceAuthResult = yield services.authorise();
 
             logger.info('Formdata at the start of runnerOptions...');
-            logger.info(formdata);
+            logger.info(Object.keys(formdata).length);
 
             if (serviceAuthResult.name === 'Error') {
                 options.redirect = true;
@@ -75,7 +75,7 @@ class PaymentStatus extends Step {
                 logger.error('Payment retrieval failed for paymentId = ' + ctx.paymentId + ' with status = ' + findPaymentResponse.status);
                 services.saveFormData(ctx.regId, formdata, ctx.sessionId);
                 logger.info('Formdata after it is saved in runnerOptions findPaymentResponse.name error block...');
-                logger.info(formdata);
+                logger.info(Object.keys(formdata).length);
                 const options = {};
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
@@ -99,7 +99,7 @@ class PaymentStatus extends Step {
                 formdata.paymentPending = 'false';
             }
             logger.info('Formdata at the end of paymentpending true or unknown block...');
-            logger.info(formdata);
+            logger.info(Object.keys(formdata).length);
         } else {
             const [updateCcdCaseResponse, errors] = yield this.updateCcdCasePaymentStatus(ctx, formdata);
             this.setErrors(options, errors);
@@ -107,12 +107,12 @@ class PaymentStatus extends Step {
             set(formdata, 'payment.status', 'not_required');
             set(formdata, 'ccdCase.state', updateCcdCaseResponse.caseState);
             logger.info('Formdata at the end of ELSE block in runnerOptions...');
-            logger.info(formdata);
+            logger.info(Object.keys(formdata).length);
         }
 
         const saveFormDataResponse = services.saveFormData(ctx.regId, formdata, ctx.sessionId);
         logger.info('Formdata after it is saved at the end of runnerOptions line 113...');
-        logger.info(formdata);
+        logger.info(Object.keys(formdata).length);
         if (saveFormDataResponse.name === 'Error') {
             options.errors = saveFormDataResponse;
         }

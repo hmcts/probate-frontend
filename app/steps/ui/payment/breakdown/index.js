@@ -98,14 +98,14 @@ class PaymentBreakdown extends Step {
                     };
 
                     logger.info('Formdata BEFORE createPayment function is called...');
-                    logger.info(formdata);
+                    logger.info(Object.keys(formdata).length);
 
                     const [response, paymentReference] = yield services.createPayment(data, hostname);
                     formdata.creatingPayment = 'false';
                     logger.info('response from createPayment function...');
-                    logger.info(response);
+                    logger.info(JSON.stringify(response));
                     logger.info('Formdata AFTER createPayment function is called...');
-                    logger.info(formdata);
+                    logger.info(Object.keys(formdata).length);
 
                     if (response.name === 'Error') {
                         errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));

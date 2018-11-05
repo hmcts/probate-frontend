@@ -91,6 +91,7 @@ class PaymentStatus extends Step {
                 logger.warn('Did not get a successful case created state.');
             } else {
                 options.redirect = false;
+
                 formdata.paymentPending = 'false';
             }
         } else {

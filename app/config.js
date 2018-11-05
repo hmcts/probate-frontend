@@ -152,7 +152,7 @@ const config = {
     documentUpload: {
         validMimeTypes: ['image/jpeg', 'image/bmp', 'image/tiff', 'image/png', 'application/pdf'],
         maxFiles: 10,
-        maxSizeBytes: 10000000
+        maxSizeBytes: 10485760
     }
 };
 

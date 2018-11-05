@@ -56,6 +56,7 @@ class PaymentBreakdown extends Step {
             options.redirect = true;
             options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
             formdata.paymentPending = 'unknown';
+            logger.info('here at code block: 1');
             return options;
         }
         const canCreatePayment = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
@@ -63,12 +64,14 @@ class PaymentBreakdown extends Step {
             const result = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
             if (errors.length > 0) {
                 logger.error('Failed to create case in CCD.');
+                logger.info('here at code block: 2');
                 return [ctx, errors];
             }
             formdata.submissionReference = result.submissionReference;
             formdata.registry = result.registry;
             set(formdata, 'ccdCase.id', result.caseId);
             set(formdata, 'ccdCase.state', result.caseState);
+            logger.info('here at code block: 3');
             if (ctx.total > 0 && canCreatePayment) {
                 formdata.paymentPending = 'true';
 
@@ -83,6 +86,8 @@ class PaymentBreakdown extends Step {
                         formdata.creatingPayment = null;
                         formdata.paymentPending = null;
                         errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
+                        logger.info('here at code block: 4');
+
                         return [ctx, errors];
                     }
 
@@ -102,6 +107,7 @@ class PaymentBreakdown extends Step {
 
                     if (response.name === 'Error') {
                         errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
+                        logger.info('here at code block: 5');
                         return [ctx, errors];
                     }
 
@@ -112,16 +118,19 @@ class PaymentBreakdown extends Step {
                     this.nextStepUrl = () => response._links.next_url.href;
                 } else {
                     logger.warn('Skipping - create payment request in progress');
+                    logger.info('here at code block: 6');
                 }
 
             } else {
                 formdata.paymentPending = ctx.total === 0 ? 'false' : 'true';
                 delete this.nextStepUrl;
+                logger.info('here at code block: 7');
             }
         } else {
             logger.warn('Skipping create payment as authorisation is unknown.');
+            logger.info('here at code block: 8');
         }
-
+        logger.info('here at code block: 9');
         return [ctx, errors];
     }
 

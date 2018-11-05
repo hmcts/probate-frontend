@@ -50,11 +50,13 @@ class PaymentStatus extends Step {
 
         if (formdata.paymentPending === 'true' || formdata.paymentPending === 'unknown') {
             const serviceAuthResult = yield services.authorise();
+            logger.info('here at code block: 10');
 
             if (serviceAuthResult.name === 'Error') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
                 formdata.paymentPending = 'unknown';
+                logger.info('here at code block: 11');
                 return options;
             }
 
@@ -68,6 +70,7 @@ class PaymentStatus extends Step {
             const findPaymentResponse = yield services.findPayment(data);
             const date = typeof findPaymentResponse.date_updated === 'undefined' ? ctx.paymentCreatedDate : findPaymentResponse.date_updated;
             this.updateFormDataPayment(formdata, findPaymentResponse, date);
+            logger.info('here at code block: 12');
             if (findPaymentResponse.name === 'Error' || findPaymentResponse.status === 'Initiated') {
                 logger.error('Payment retrieval failed for paymentId = ' + ctx.paymentId + ' with status = ' + findPaymentResponse.status);
                 services.saveFormData(ctx.regId, formdata, ctx.sessionId);
@@ -75,24 +78,28 @@ class PaymentStatus extends Step {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
                 formdata.paymentPending = 'true';
+                logger.info('here at code block: 13');
                 return options;
             }
 
             const [updateCcdCaseResponse, errors] = yield this.updateCcdCasePaymentStatus(ctx, formdata);
             this.setErrors(options, errors);
             set(formdata, 'ccdCase.state', updateCcdCaseResponse.caseState);
+            logger.info('here at code block: 14');
 
             if (findPaymentResponse.status !== 'Success') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
                 logger.error('Unable to retrieve a payment response.');
+                logger.info('here at code block: 15');
             } else if (updateCcdCaseResponse.caseState !== 'CaseCreated') {
                 options.redirect = false;
                 logger.warn('Did not get a successful case created state.');
+                logger.info('here at code block: 16');
             } else {
                 options.redirect = false;
-
                 formdata.paymentPending = 'false';
+                logger.info('here at code block: 17');
             }
         } else {
             const [updateCcdCaseResponse, errors] = yield this.updateCcdCasePaymentStatus(ctx, formdata);
@@ -100,12 +107,14 @@ class PaymentStatus extends Step {
             options.redirect = false;
             set(formdata, 'payment.status', 'not_required');
             set(formdata, 'ccdCase.state', updateCcdCaseResponse.caseState);
+            logger.info('here at code block: 18');
         }
 
         const saveFormDataResponse = services.saveFormData(ctx.regId, formdata, ctx.sessionId);
         if (saveFormDataResponse.name === 'Error') {
             options.errors = saveFormDataResponse;
         }
+        logger.info('here at code block: 19');
 
         return options;
     }

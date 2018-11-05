@@ -12,4 +12,69 @@ describe('CoApplicantAgreePage unit tests', () => {
             done();
         });
     });
+
+    describe('getContextData()', () => {
+        it('sets the codicils suffix correctly when Yes is given', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        applicant: {
+                            firstName: 'First',
+                            lastName: 'Last'
+                        },
+                        will: {
+                            codicils: 'Yes'
+                        }
+                    }
+                }
+            };
+
+            const formdata = req.session.form;
+            const coApplicantAgreePage = steps.CoApplicantAgreePage;
+            const ctx = coApplicantAgreePage.getContextData(req);
+
+            expect(ctx.codicilsSuffix).to.equal('-codicils');
+            done();
+        });
+
+        it('sets the codicils suffix correctly when Yes is given', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        applicant: {
+                            firstName: 'First',
+                            lastName: 'Last'
+                        },
+                        will: {
+                            codicils: 'No'
+                        }
+                    }
+                }
+            };
+
+            const formdata = req.session.form;
+            const coApplicantAgreePage = steps.CoApplicantAgreePage;
+            const ctx = coApplicantAgreePage.getContextData(req);
+
+            expect(ctx.codicilsSuffix).to.equal('');
+            done();
+        });
+    });
+
+    describe('action()', () => {
+        it('removes the correct values from the context', (done) => {
+            const ctx = {
+                sessionID: 'A',
+                _csrf: 'B',
+                leadExecFullName: 'Full Name',
+                codicilsSuffix: ''
+            };
+            const formdata = {};
+            const coApplicantAgreePage = steps.CoApplicantAgreePage;
+            const action = coApplicantAgreePage.action(ctx, formdata);
+
+            expect(action).to.deep.equal([{}, formdata]);
+            done();
+        });
+    });
 });

@@ -174,7 +174,7 @@ describe('DocumentUploadUtil', () => {
     describe('isValidSize()', () => {
         it('should return true when a valid document size is given', (done) => {
             const document = {
-                size: 2,
+                size: 2000000,
             };
             const documentUpload = new DocumentUpload();
             const isValidSize = documentUpload.isValidSize(document);
@@ -184,7 +184,7 @@ describe('DocumentUploadUtil', () => {
 
         it('should return false when an invalid document size is given', (done) => {
             const document = {
-                size: 12,
+                size: 12000000,
             };
             const documentUpload = new DocumentUpload();
             const isValidSize = documentUpload.isValidSize(document);
@@ -198,7 +198,7 @@ describe('DocumentUploadUtil', () => {
             const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
             const document = {
                 buffer: 'valid',
-                size: 2,
+                size: 2000000,
                 mimetype: 'image/jpeg'
             };
             const documentUpload = new DocumentUpload();
@@ -226,7 +226,7 @@ describe('DocumentUploadUtil', () => {
             const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
             const document = {
                 buffer: 'invalid',
-                size: 12,
+                size: 12000000,
                 mimetype: 'image/jpeg'
             };
             const documentUpload = new DocumentUpload();

@@ -21,7 +21,7 @@
         csrfToken: "{{csrfToken}}",
         validMimeTypes: "{{documentUpload.validMimeTypes}}",
         maxFiles: "{{documentUpload.maxFiles}}",
-        maxFileSizeMb: "{{documentUpload.maxFileSizeMb}}",
+        maxSizeBytes: "{{documentUpload.maxSizeBytes}}",
         content: {
             removeFileText: "{{common.documentUploadRemoveFile}}",
             invalidFileType: "{{common.documentUploadInvalidFileType}}",
@@ -29,8 +29,8 @@
             invalidFileTypeSummary: "{{common.documentUploadInvalidFileTypeSummary}}",
             maxFilesExceeded: "{{common.documentUploadMaxFilesExceeded}}",
             maxFilesExceededSummary: "{{common.documentUploadMaxFilesExceededSummary}}",
-            maxFileSize: "{{common.documentUploadMaxFileSize}}".replace('{maxFileSize}', "{{documentUpload.maxFileSizeMb}}"),
-            maxFileSizeSummary: "{{common.documentUploadMaxFileSizeSummary}}",
+            maxFileSize: "{{common.documentUploadMaxSize}}",
+            maxFileSizeSummary: "{{common.documentUploadMaxSizeSummary}}",
         }
     };
 </script>

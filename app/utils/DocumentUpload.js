@@ -45,7 +45,7 @@ class DocumentUpload {
     }
 
     isValidSize(document) {
-        return document.size <= config.maxFileSizeMb;
+        return document.size <= config.maxSizeBytes;
     }
 
     error(document) {

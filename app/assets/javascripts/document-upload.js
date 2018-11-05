@@ -14,7 +14,7 @@ var DocumentUpload = {
             },
             acceptedFiles: documentUploadConfig.validMimeTypes,
             maxFiles: documentUploadConfig.maxFiles,
-            maxFilesize: documentUploadConfig.maxFileSizeMb,
+            maxFilesize: documentUploadConfig.maxSizeBytes,
             addRemoveLinks: true,
             previewTemplate: '<div class="dz-preview dz-file-preview"><div class="dz-error-message"><span data-dz-errormessage></span></div><div class="dz-details"><div class="dz-filename"><span data-dz-name></span></div></div><div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div></div>',
             dictRemoveFile: documentUploadConfig.content.removeFileText,

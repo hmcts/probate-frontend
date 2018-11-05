@@ -97,8 +97,15 @@ class PaymentBreakdown extends Step {
                         ccdCaseId: formdata.ccdCase.id
                     };
 
+                    logger.info('Formdata BEFORE createPayment function is called...');
+                    logger.info(formdata);
+
                     const [response, paymentReference] = yield services.createPayment(data, hostname);
                     formdata.creatingPayment = 'false';
+                    logger.info('response from createPayment function...');
+                    logger.info(response);
+                    logger.info('Formdata AFTER createPayment function is called...');
+                    logger.info(formdata);
 
                     if (response.name === 'Error') {
                         errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));

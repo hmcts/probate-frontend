@@ -26,7 +26,7 @@ class Security {
         const self = this;
 
         return function (req, res, next) {
-
+            logger.info(`${req.sessionID}`);
             let securityCookie;
             if (req.cookies) {
                 securityCookie = req.cookies[SECURITY_COOKIE];

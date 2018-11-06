@@ -34,7 +34,7 @@ class DocumentUpload {
     }
 
     isValidType(document = {}) {
-        const validMimeTypes = config.documentUpload.validMimeTypes;
+        const validMimeTypes = config.validMimeTypes;
 
         if (!validMimeTypes.includes(document.mimetype)) {
             return false;

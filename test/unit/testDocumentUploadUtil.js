@@ -282,6 +282,7 @@ describe('DocumentUploadUtil', () => {
         });
 
         it('should return an error when an invalid document type is given', (done) => {
+            const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
             const document = {
                 buffer: 'invalid',
                 mimetype: 'application/msword'
@@ -292,6 +293,7 @@ describe('DocumentUploadUtil', () => {
                 js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
                 nonJs: 'invalidFileType'
             });
+            revert();
             done();
         });
 

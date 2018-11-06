@@ -9,8 +9,8 @@
         previousTaskStatus = fields.previousTaskStatus.value.ReviewAndConfirmTask
     )}}
     <div class="task-list-items">
-        {% if fields.ReviewAndConfirmTask.value.status == 'complete' %}
-            {% if fields.hasMultipleApplicants.value == 'true' and fields.alreadyDeclared.value == 'false'  %}
+        {% if fields.ReviewAndConfirmTask.value.status === 'complete' %}
+            {% if fields.hasMultipleApplicants.value === 'true' and fields.alreadyDeclared.value === 'false'  %}
                 <span class="progress-status-tag">{{content.taskCompleteTag | upper}}</span>
                 <p>{{content.reviewAndConfirmTaskMultiplesParagraph1 | safe}}</p>
                 <p>{{content.reviewAndConfirmTaskMultiplesParagraph2 | safe}}</p>

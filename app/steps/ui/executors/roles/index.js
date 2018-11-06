@@ -4,6 +4,7 @@ const CollectionStep = require('app/core/steps/CollectionStep');
 const json = require('app/resources/en/translation/executors/roles');
 const {get, isEmpty, every, findKey, findIndex} = require('lodash');
 const path = '/executor-roles/';
+const FeatureToggle = require('app/utils/FeatureToggle');
 
 class ExecutorRoles extends CollectionStep {
 
@@ -24,7 +25,9 @@ class ExecutorRoles extends CollectionStep {
         return [ctx];
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
+        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
+
         if (ctx.list[ctx.index]) {
             ctx.list[ctx.index].isApplying = false;
             ctx.list[ctx.index].notApplyingReason = ctx.notApplyingReason;
@@ -42,17 +45,33 @@ class ExecutorRoles extends CollectionStep {
 
     nextStepOptions(ctx) {
         ctx.continue = get(ctx, 'index', -1) !== -1;
-        const nextStepOptions = {
+
+        if (ctx.isToggleEnabled) {
+            if (ctx.notApplyingReason !== json.optionPowerReserved && ctx.continue !== true) {
+                ctx.otherwise = true;
+            }
+
+            return {
+                options: [
+                    {key: 'notApplyingReason', value: json.optionPowerReserved, choice: 'powerReserved'},
+                    {key: 'continue', value: true, choice: 'continue'},
+                    {key: 'otherwise', value: true, choice: 'otherwiseToggleOn'}
+                ]
+            };
+        }
+
+        return {
             options: [
                 {key: 'notApplyingReason', value: json.optionPowerReserved, choice: 'powerReserved'},
                 {key: 'continue', value: true, choice: 'continue'}
             ]
         };
-        return nextStepOptions;
     }
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        delete ctx.otherwise;
+        delete ctx.isToggleEnabled;
         delete ctx.executorName;
         delete ctx.isApplying;
         delete ctx.notApplyingReason;

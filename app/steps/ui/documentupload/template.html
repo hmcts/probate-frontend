@@ -6,14 +6,11 @@
     <h1 class="form-title heading-large">{{content.header}}</h1>
 {% endblock %}
 
-{% block form_content %}
-
+{% block page_content %}
     <p>{{ content.paragraph1 }}</p>
-
     <div class="panel panel-border-wide">
         <p>{{ content.help }}</p>
     </div>
-
     <details class="help-panel">
         <summary><span class="summary">{{ content.stepsTitle }}</span></summary>
         <div class="panel panel-border-narrow">
@@ -25,7 +22,6 @@
             ]) }}
         </div>
     </details>
-
     <p>{{ content.paragraph2 }}</p>
 
     {% include "includes/document-upload.html" %}
@@ -36,7 +32,9 @@
             <p>{{ content.cantUploadDocumentsText | safe }}</p>
         </div>
     </details>
+{% endblock %}
 
+{% block form_content %}
     <div class="form-group">
         <input id="button" class="button" type="submit" role="button" value="{{ common.continue }}">
     </div>

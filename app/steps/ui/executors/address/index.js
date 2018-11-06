@@ -4,6 +4,7 @@ const AddressStep = require('app/core/steps/AddressStep');
 const {findIndex, get, startsWith} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const path = '/executor-address/';
+const FeatureToggle = require('app/utils/FeatureToggle');
 
 class ExecutorAddress extends AddressStep {
 
@@ -41,8 +42,9 @@ class ExecutorAddress extends AddressStep {
         return [ctx, ctx.errors];
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
         super.handlePost(ctx, errors);
+        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
         ctx.list[ctx.index].address = ctx.postcodeAddress || ctx.freeTextAddress;
         ctx.list[ctx.index].postcode = ctx.postcode ? ctx.postcode.toUpperCase() : ctx.postcode;
         ctx.list[ctx.index].postcodeAddress = ctx.postcodeAddress;
@@ -70,17 +72,27 @@ class ExecutorAddress extends AddressStep {
     nextStepOptions(ctx) {
         ctx.continue = get(ctx, 'index', -1) !== -1;
         ctx.allExecsApplying = ctx.executorsWrapper.areAllAliveExecutorsApplying();
-        const nextStepOptions = {
+
+        if (ctx.isToggleEnabled) {
+            return {
+                options: [
+                    {key: 'continue', value: true, choice: 'continue'},
+                    {key: 'allExecsApplying', value: true, choice: 'allExecsApplyingToggleOn'}
+                ],
+            };
+        }
+
+        return {
             options: [
                 {key: 'continue', value: true, choice: 'continue'},
                 {key: 'allExecsApplying', value: true, choice: 'allExecsApplying'}
             ],
         };
-        return nextStepOptions;
     }
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        delete ctx.isToggleEnabled;
         delete ctx.otherExecName;
         delete ctx.address;
         delete ctx.postcodeAddress;

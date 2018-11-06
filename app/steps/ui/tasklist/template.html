@@ -15,7 +15,11 @@
             <p>{{content.saveAndReturn}}</p>
             <div class="form-group">
                 <ol>
-                    {% include "ui/tasklist/includes/eligibility.html" %}
+                    {% ifAsync fields.isToggleEnabled.value === 'true' %}
+                        {% include "ui/tasklist/includes/deceased.html" %}
+                    {% else %}
+                        {% include "ui/tasklist/includes/eligibility.html" %}
+                    {% endif %}
                     {% include "ui/tasklist/includes/executors.html" %}
                     {% include "ui/tasklist/includes/reviewAndConfirm.html" %}
                     {% include "ui/tasklist/includes/copies.html" %}

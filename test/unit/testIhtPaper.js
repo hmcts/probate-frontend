@@ -60,7 +60,7 @@ describe('IhtPaper', () => {
     });
 
     describe('action', () => {
-        it('test isToggleEnabled is removed from the context', () => {
+        it('test it cleans up context', () => {
             const ctx = {
                 grossValuePaper: 500000,
                 netValuePaper: 400000,

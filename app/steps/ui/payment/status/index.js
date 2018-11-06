@@ -47,7 +47,7 @@ class PaymentStatus extends Step {
 
     * runnerOptions(ctx, formdata) {
         const options = {};
-
+        logger.info(`Payment pending flag: ${formdata.paymentPending}`);
         if (formdata.paymentPending === 'true' || formdata.paymentPending === 'unknown') {
             const serviceAuthResult = yield services.authorise();
             logger.info('here at code block: 15');

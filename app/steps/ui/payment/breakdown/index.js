@@ -49,6 +49,7 @@ class PaymentBreakdown extends Step {
     }
 
     * handlePost(ctx, errors, formdata, session, hostname) {
+        logger.info(`Hostname passed to handlePost in breakdown: ${hostname}`);
 
         const serviceAuthResult = yield services.authorise();
         if (serviceAuthResult.name === 'Error') {

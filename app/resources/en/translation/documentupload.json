@@ -34,7 +34,7 @@
         "message": ""
       },
       "uploadTimeout": {
-        "summary": "The document upload timed out. The document upload timed out",
+        "summary": "It&rsquo;s taken too long to upload this file. Please either try again or reduce the size of the file",
         "message": ""
       }
     }

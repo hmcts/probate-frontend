@@ -61,24 +61,26 @@ class PaymentBreakdown extends Step {
         }
         const canCreatePayment = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
         if (formdata.paymentPending !== 'unknown') {
+            logger.info('here at code block: 2');
             const result = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
             if (errors.length > 0) {
                 logger.error('Failed to create case in CCD.');
-                logger.info('here at code block: 2');
+                logger.info('here at code block: 3');
                 return [ctx, errors];
             }
             formdata.submissionReference = result.submissionReference;
             formdata.registry = result.registry;
             set(formdata, 'ccdCase.id', result.caseId);
             set(formdata, 'ccdCase.state', result.caseState);
-            logger.info('here at code block: 3');
+            logger.info('here at code block: 4');
             if (ctx.total > 0 && canCreatePayment) {
                 formdata.paymentPending = 'true';
+                logger.info('here at code block: 5');
 
                 if (formdata.creatingPayment !== 'true') {
                     formdata.creatingPayment = 'true';
                     session.save();
-
+                    logger.info('here at code block: 6');
                     const serviceAuthResult = yield services.authorise();
 
                     if (serviceAuthResult.name === 'Error') {
@@ -86,8 +88,7 @@ class PaymentBreakdown extends Step {
                         formdata.creatingPayment = null;
                         formdata.paymentPending = null;
                         errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
-                        logger.info('here at code block: 4');
-
+                        logger.info('here at code block: 7');
                         return [ctx, errors];
                     }
 
@@ -104,33 +105,35 @@ class PaymentBreakdown extends Step {
 
                     const [response, paymentReference] = yield services.createPayment(data, hostname);
                     formdata.creatingPayment = 'false';
+                    logger.info('here at code block: 8');
 
                     if (response.name === 'Error') {
                         errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
-                        logger.info('here at code block: 5');
+                        logger.info('here at code block: 9');
                         return [ctx, errors];
                     }
 
                     ctx.paymentId = response.reference;
                     ctx.paymentReference = paymentReference;
                     ctx.paymentCreatedDate = response.date_created;
+                    logger.info('here at code block: 10');
 
                     this.nextStepUrl = () => response._links.next_url.href;
                 } else {
                     logger.warn('Skipping - create payment request in progress');
-                    logger.info('here at code block: 6');
+                    logger.info('here at code block: 11');
                 }
 
             } else {
                 formdata.paymentPending = ctx.total === 0 ? 'false' : 'true';
                 delete this.nextStepUrl;
-                logger.info('here at code block: 7');
+                logger.info('here at code block: 12');
             }
         } else {
             logger.warn('Skipping create payment as authorisation is unknown.');
-            logger.info('here at code block: 8');
+            logger.info('here at code block: 13');
         }
-        logger.info('here at code block: 9');
+        logger.info('here at code block: 14');
         return [ctx, errors];
     }
 

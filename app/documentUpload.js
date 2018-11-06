@@ -1,68 +1,19 @@
 'use strict';
 
 const router = require('express').Router();
-const services = require('app/components/services');
-const DocumentUpload = require('app/utils/DocumentUpload');
-const multer = require('multer');
-const logger = require('app/components/logger');
-const config = require('app/config').documentUpload;
-const documentUpload = new DocumentUpload();
-const storage = multer.memoryStorage();
-const upload = multer({storage: storage});
-const returnError = (req, res, next, error) => {
-    if (req.get('x-csrf-token')) {
-        return res.status(400).send(error.js);
-    }
-    req.session.form.documents.error = error.nonJs;
-    next();
-};
+const documentUpload = require('app/middleware/documentUpload');
 
-router.post('/', upload.single('file'), (req, res, next) => {
-    const uploadedDocument = req.file;
-    let formdata = req.session.form;
-    formdata = documentUpload.initDocuments(formdata);
-    const uploads = formdata.documents.uploads;
-    const error = documentUpload.validate(uploadedDocument, uploads);
+router.post(
+    '/',
+    documentUpload.getDocument(),
+    documentUpload.initTimeout(),
+    documentUpload.uploadDocument,
+    documentUpload.errorOnTimeout
+);
 
-    if (error === null) {
-        logger(req.sessionID).info('Uploaded document passed frontend validation');
-        services.uploadDocument(req.session.id, req.session.regId, uploadedDocument)
-            .then(result => {
-                const resultBody = result.body[0];
-                const filename = uploadedDocument.originalname;
-                if (resultBody.includes('http://')) {
-                    req.session.form.documents.uploads = documentUpload.addDocument(filename, resultBody, uploads);
-                    next();
-                } else {
-                    logger(req.sessionID).error('Uploaded document failed backend validation');
-                    const error = documentUpload.mapError(resultBody);
-                    returnError(req, res, next, error);
-                }
-            })
-            .catch((err) => {
-                logger(req.sessionID).error(`Document upload failed: ${err}`);
-                const error = documentUpload.mapError(config.error.uploadFailed);
-                returnError(req, res, next, error);
-            });
-    } else {
-        logger(req.sessionID).error('Uploaded document failed frontend validation');
-        returnError(req, res, next, error);
-    }
-});
-
-router.get('/remove/:index', (req, res, next) => {
-    const index = req.params.index;
-    const uploads = req.session.form.documents.uploads;
-    const {url} = uploads[index];
-    const documentId = documentUpload.findDocumentId(url);
-    services.removeDocument(documentId, req.session.regId)
-        .then(() => {
-            req.session.form.documents.uploads = documentUpload.removeDocument(req.params.index, uploads);
-            res.redirect('/document-upload');
-        })
-        .catch((err) => {
-            next(err);
-        });
-});
+router.get(
+    '/remove/:index',
+    documentUpload.removeDocument
+);
 
 module.exports = router;

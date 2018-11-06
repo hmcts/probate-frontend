@@ -127,7 +127,7 @@ const createPayment = (data, hostname) => {
         'return-url': FormatUrl.format(hostname, '/payment-status')
     };
     const returnUrl = FormatUrl.format(hostname, '/payment-status');
-    logger.info(`Return URL passed from createPayment in services: ${returnUrl}`);
+    logInfo(`Return URL passed from createPayment in services: ${returnUrl}`);
     const body = paymentData.createPaymentData(data);
     const fetchOptions = utils.fetchOptions(body, 'POST', headers);
     return [utils.fetchJson(CREATE_PAYMENT_SERVICE_URL, fetchOptions), body.reference];

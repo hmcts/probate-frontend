@@ -5,6 +5,7 @@ const {curry, set, isEmpty, forEach} = require('lodash');
 const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
 const DetectDataChange = require('app/wrappers/DetectDataChange');
 const FormatUrl = require('app/utils/FormatUrl');
+const logger = require('app/components/logger')('Init');
 
 class UIStepRunner {
 
@@ -14,7 +15,7 @@ class UIStepRunner {
     }
 
     handleGet(step, req, res) {
-
+        logger.info(`Session ID in UIStepRunner: ${req.sessionID}`);
         return co(function * () {
             let errors = null;
             const session = req.session;

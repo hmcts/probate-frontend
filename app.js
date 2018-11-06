@@ -208,6 +208,9 @@ exports.init = function() {
     } else {
         app.use('/', (req, res, next) => {
             if (req.query.id && req.query.id !== req.session.regId) {
+                logger.info('Deleting the formdata because req.query.id is not equal to req.session.regId');
+                logger.info(`In app.js: ${req.query.id}`);
+                logger.info(`In app.js: ${req.session.regId}`);
                 delete req.session.form;
             }
             req.session.regId = req.query.id || req.session.regId || req.sessionID;

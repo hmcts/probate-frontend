@@ -56,6 +56,6 @@
   "documentUpload-nothingUploaded": "Save your file as a jpg, bmp, tiff, png or PDF file and try again",
   "documentUpload-uploadFailedSummary": "Your document failed to upload",
   "documentUpload-uploadFailed": "Select your document and try again",
-  "documentUpload-uploadTimeoutSummary": "The document upload timed out",
-  "documentUpload-uploadTimeout": "The document upload timed out"
+  "documentUpload-uploadTimeoutSummary": "It&rsquo;s taken too long to upload this file",
+  "documentUpload-uploadTimeout": "Please either try again or reduce the size of the file"
 }

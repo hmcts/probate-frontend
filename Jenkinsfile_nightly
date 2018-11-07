@@ -13,11 +13,12 @@ properties([
 def product = "pro"
 def component = "pa"
 
-withNightlyPipeline("java", product, component) {
+withNightlyPipeline("nodejs", product, component) {
     env.TEST_URL = params.URL_TO_TEST
     //env.IDAM_URL = params.IDAM_URL
     //env.IDAM_WEB_URL = params.IDAM_WEB_URL
 
+    enableMutationTest()
     enableFullFunctionalTest()
 
     after('fullFunctionalTest') {

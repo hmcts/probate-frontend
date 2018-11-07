@@ -1,8 +1,7 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const chai = require('chai');
-const expect = chai.expect;
+const {assert, expect} = require('chai');
 const testSteps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const jsonAssetsOverseas = require('app/resources/en/translation/assets/overseas');
 const jsonCopiesOverseas = require('app/resources/en/translation/copies/overseas');
@@ -40,8 +39,8 @@ describe('CopiesSummary.js', () => {
             expect(generateContent.CopiesOverseas).to.deep.equal(jsonCopiesOverseas);
             expect(generateContent.CopiesSummary).to.deep.equal(jsonCopiesSummary);
             expect(generateContent.CopiesUk).to.deep.equal(jsonCopiesUk);
-            expect(generateContent.AssetsJEGG).to.deep.equal(undefined);
-            expect(generateContent.CopiesJEGG).to.deep.equal(undefined);
+            assert.isUndefined(generateContent.AssetsJEGG);
+            assert.isUndefined(generateContent.CopiesJEGG);
             done();
         });
     });

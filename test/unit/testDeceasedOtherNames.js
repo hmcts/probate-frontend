@@ -5,7 +5,6 @@ const chai = require('chai');
 const expect = chai.expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const jsonOtherNames = require('app/resources/en/translation/deceased/otherNames');
-const jsonAddAlias = require('app/resources/en/translation/addAlias');
 
 describe('DeceasedOtherNames.js', () => {
     describe('getUrl()', () => {
@@ -166,7 +165,7 @@ describe('DeceasedOtherNames.js', () => {
                     firstName: 'Harry',
                     lastName: 'Potter'
                 };
-                if (i == 0) {
+                if (i === 0) {
                     ctx.otherNames[i] = {
                         firstName: 1,
                         lastName: 1

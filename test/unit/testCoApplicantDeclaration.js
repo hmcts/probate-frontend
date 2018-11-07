@@ -3,7 +3,6 @@
 const initSteps = require('app/core/initSteps');
 const chai = require('chai');
 const expect = chai.expect;
-const assert = require('chai').assert;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const sessionData = require('test/data/complete-form').formdata;
 const json = require('app/resources/en/translation/coapplicant/declaration.json');

@@ -1,8 +1,7 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const chai = require('chai');
-const expect = chai.expect;
+const {assert, expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 
 describe('CopiesUk.js', () => {
@@ -27,8 +26,7 @@ describe('CopiesUk.js', () => {
             };
             const copiesUk = steps.CopiesUk;
             const ctx = copiesUk.getContextData(req);
-
-            expect(ctx.uk).to.deep.equal(undefined);
+            assert.isUndefined(ctx.uk);
             done();
         });
 

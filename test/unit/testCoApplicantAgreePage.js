@@ -29,7 +29,6 @@ describe('CoApplicantAgreePage unit tests', () => {
                 }
             };
 
-            const formdata = req.session.form;
             const coApplicantAgreePage = steps.CoApplicantAgreePage;
             const ctx = coApplicantAgreePage.getContextData(req);
 
@@ -52,7 +51,6 @@ describe('CoApplicantAgreePage unit tests', () => {
                 }
             };
 
-            const formdata = req.session.form;
             const coApplicantAgreePage = steps.CoApplicantAgreePage;
             const ctx = coApplicantAgreePage.getContextData(req);
 

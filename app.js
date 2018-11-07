@@ -201,6 +201,14 @@ exports.init = function() {
     app.use('/executors-update-invite', updateInvite);
     app.use('/declaration', declaration);
 
+    app.use('/payment-status', (req, res, next) => {
+        if (req.query.sessionId && !req.sessionID) {
+            req.log.info('');
+            req.sessionID = req.params.sessionId;
+        }
+        next();
+    });
+
     if (useIDAM === 'true') {
         const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);
         app.use(idamPages, security.protect(config.services.idam.roles));

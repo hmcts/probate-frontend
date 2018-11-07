@@ -111,12 +111,12 @@ describe('Security middleware', function () {
                 });
         });
 
-        it('should redirect to time-out page when session his lost', function (done) {
+        it('should redirect to time-out page when session is lost', function (done) {
             req.cookies[SECURITY_COOKIE] = TOKEN;
             req.session = {};
 
             req.protocol = 'http';
-            const promise = when({name: 'Error', message: 'Unauthorized'});
+            const promise = when({name: 'Success'});
 
             getUserDetailsStub.returns(promise);
 
@@ -139,7 +139,7 @@ describe('Security middleware', function () {
             req.session = {expires: TIME_IN_THE_PAST};
 
             req.protocol = 'http';
-            const promise = when({name: 'Error', message: 'Unauthorized'});
+            const promise = when({name: 'Success'});
 
             getUserDetailsStub.returns(promise);
 

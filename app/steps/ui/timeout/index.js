@@ -9,11 +9,14 @@ class Timeout extends Step {
     }
 
     getContextData(req) {
+        const ctx = super.getContextData(req);
         req.session.destroy();
         delete req.cookies;
         delete req.sessionID;
         delete req.session;
         delete req.sessionStore;
+
+        return ctx;
     }
 }
 

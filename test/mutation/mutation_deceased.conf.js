@@ -1,41 +1,41 @@
 const strykerConfiguration = config => {
-  config.set({
-    testRunner: 'mocha',
-    mutator: 'javascript',
-    transpilers: [],
-    reporter:
+    config.set({
+        testRunner: 'mocha',
+        mutator: 'javascript',
+        transpilers: [],
+        reporter:
       [
-        'clear-text',
-        'progress',
-        'html'
+          'clear-text',
+          'progress',
+          'html'
       ],
-    testFramework: 'mocha',
-    coverageAnalysis: 'perTest',
-    mutate:
+        testFramework: 'mocha',
+        coverageAnalysis: 'perTest',
+        mutate:
       [
-        'app/steps/ui/deceased/*/index.js',
-        '!test/component/deceased/*.js'
+          'app/steps/ui/deceased/*/index.js',
+          '!test/component/deceased/*.js'
       ],
-    files: ['**/*', '!**/node_modules/*'],
-    maxConcurrentTestRunners: 2,
-    symlinkNodeModules: false,
-    htmlReporter: {baseDir: 'functional-output/mutation-deceased'},
-    mochaOptions: {
-      files:
+        files: ['**/*', '!**/node_modules/*'],
+        maxConcurrentTestRunners: 2,
+        symlinkNodeModules: false,
+        htmlReporter: {baseDir: 'functional-output/mutation-deceased'},
+        mochaOptions: {
+            files:
         [
-        'test/component/deceased/test*.js'
+            'test/component/deceased/test*.js'
         ],
-      timeout: 8000
-    },
-    logLevel: 'debug',
-    plugins:
+            timeout: 8000
+        },
+        logLevel: 'debug',
+        plugins:
       [
-        'stryker-mocha-runner',
-        'stryker-mocha-framework',
-        'stryker-javascript-mutator',
-        'stryker-html-reporter'
+          'stryker-mocha-runner',
+          'stryker-mocha-framework',
+          'stryker-javascript-mutator',
+          'stryker-html-reporter'
       ]
-  });
+    });
 };
 
 module.exports = strykerConfiguration;

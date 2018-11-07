@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use strict';
 
 const taskListContent = require('app/resources/en/translation/tasklist');

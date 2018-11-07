@@ -5,7 +5,7 @@ const tunnelName = process.env.TUNNEL_IDENTIFIER || '';
 const output = process.cwd() + '/functional-output/crossbrowser/reports';
 
 const setupConfig = {
-  output: output,
+    output: output,
 
     'tests': './paths/*.js',
     'timeout': 20000,
@@ -43,13 +43,13 @@ const setupConfig = {
         'reporterOptions': {
 
             mochawesome: {
-                    stdout: './functional-output/console.log',
-                    options: {
-                      reportDir: process.env.E2E_CROSSBROWSER_OUTPUT_DIR,
-                      reportName: 'index',
-                      inlineAssets: true
-                    }
-                  }
+                stdout: './functional-output/console.log',
+                options: {
+                    reportDir: process.env.E2E_CROSSBROWSER_OUTPUT_DIR,
+                    reportName: 'index',
+                    inlineAssets: true
+                }
+            }
         }
     },
     'name': 'frontEnd Tests'

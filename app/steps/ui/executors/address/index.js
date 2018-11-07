@@ -98,7 +98,6 @@ class ExecutorAddress extends AddressStep {
         delete ctx.postcodeAddress;
         delete ctx.freeTextAddress;
         delete ctx.postcode;
-        delete ctx.addresses;
         delete ctx.allExecsApplying;
         delete ctx.continue;
         delete ctx.index;

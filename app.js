@@ -154,8 +154,9 @@ exports.init = function() {
         saveUninitialized: config.redis.saveUninitialized,
         secret: config.redis.secret,
         cookie: {
-            httpOnly: config.redis.cookie.httpOnly,
-            sameSite: config.redis.cookie.sameSite
+            httpOnly: config.redis.cookie.httpOnly
+            //,
+            //sameSite: config.redis.cookie.sameSite
         },
         store: utils.getStore(config.redis, session)
     }));

@@ -17,7 +17,7 @@ const strykerConfiguration = config => {
           'app/core/**',
           'app/wrappers/*.js',
       ],
-        files: ['*.js', '*.json', 'app/**', 'test/unit/*', 'test/data/**', 'test/service-stubs/**'],
+        files: ['*.js', '*.json', 'app/**', 'git.properties*', 'test/unit/*', 'test/data/**', 'test/service-stubs/**'],
         maxConcurrentTestRunners: 1,
         symlinkNodeModules: true,
         htmlReporter: {baseDir: 'functional-output/mutation-unittests'},

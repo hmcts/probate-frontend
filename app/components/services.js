@@ -126,7 +126,7 @@ const createPayment = (data, hostname, sessionId) => {
         'ServiceAuthorization': data.serviceAuthToken,
         'return-url': FormatUrl.format(hostname, `/payment-status?sessionId=${sessionId}`)
     };
-    const returnUrl = FormatUrl.format(hostname, '/payment-status');
+    const returnUrl = FormatUrl.format(hostname, `/payment-status?sessionId=${sessionId}`);
     logInfo(`Return URL passed from createPayment in services: ${returnUrl}`);
     const body = paymentData.createPaymentData(data);
     const fetchOptions = utils.fetchOptions(body, 'POST', headers);

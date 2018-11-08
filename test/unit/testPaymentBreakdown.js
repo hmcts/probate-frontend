@@ -409,7 +409,7 @@ describe('PaymentBreakdown', () => {
             };
             const PaymentBreakdown = steps.PaymentBreakdown;
             [ctx] = PaymentBreakdown.action(ctx);
-            assert.deepEqual(ctx, {});
+            assert.deepEqual(ctx, {sessionID: 'dummySessionID'});
         });
     });
 });

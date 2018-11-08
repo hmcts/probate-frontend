@@ -21,7 +21,7 @@ class Summary extends Step {
         return `/summary/${redirect}`;
     }
 
-    * handleGet(ctx, formdata) {
+    * handleGet(ctx, formdata, featureToggles) {
         const result = yield this.validateFormData(ctx, formdata);
         const errors = map(result.errors, err => {
             return FieldError(err.param, err.code, this.resourcePath, ctx);

@@ -1,7 +1,6 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const services = require('app/components/services');
 
 class AddressStep extends ValidationStep {
 

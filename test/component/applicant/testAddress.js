@@ -90,7 +90,7 @@ describe('applicant-address', () => {
             testWrapper.testContentAfterError(data, contentToCheck, done);
         });
 
-        it.only('test the address dropdown box displays all addresses when the user returns to the page', (done) => {
+        it('test the address dropdown box displays all addresses when the user returns to the page', (done) => {
             const sessionData = {
                 postcode: testAddressData[1].postcode,
                 postcodeAddress: formatAddress(testAddressData[1].formatted_address),

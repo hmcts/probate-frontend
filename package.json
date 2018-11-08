@@ -41,7 +41,8 @@
     "persistence-stub": "NODE_PATH=. node test/service-stubs/persistence.js",
     "business-stub": "NODE_PATH=. node test/service-stubs/business.js",
     "payment-stub": "NODE_PATH=. node test/service-stubs/payment.js",
-    "find-address-stub": "NODE_PATH=. node test/service-stubs/find-address.js"
+    "find-address-stub": "NODE_PATH=. node test/service-stubs/find-address.js",
+    "feature-toggle-stub": "NODE_PATH=. node test/service-stubs/feature-toggle.js"
   },
   "dependencies": {
     "@hmcts/nodejs-logging": "^3.0.0",

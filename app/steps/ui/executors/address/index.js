@@ -22,6 +22,9 @@ class ExecutorAddress extends AddressStep {
         } else if (startsWith(req.path, path)) {
             ctx.index = this.recalcIndex(ctx, 0);
         }
+        if (req.session.addresses && req.session.addresses.executors) {
+            ctx.addresses = req.session.addresses.executors[ctx.index];
+        }
         ctx.otherExecName = ctx.list[ctx.index] && ctx.list[ctx.index].fullName;
         ctx.executorsWrapper = new ExecutorsWrapper(ctx);
         return ctx;
@@ -43,7 +46,7 @@ class ExecutorAddress extends AddressStep {
     }
 
     handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
-        super.handlePost(ctx, errors);
+        super.handlePost(ctx, errors, formdata, session);
         ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
         ctx.list[ctx.index].address = ctx.postcodeAddress || ctx.freeTextAddress;
         ctx.list[ctx.index].postcode = ctx.postcode ? ctx.postcode.toUpperCase() : ctx.postcode;
@@ -54,6 +57,8 @@ class ExecutorAddress extends AddressStep {
         if (ctx.index === -1) {
             ctx.allExecsApplying = ctx.executorsWrapper.areAllAliveExecutorsApplying();
         }
+
+        session.addresses.executors[ctx.index] = ctx.addresses;
         return [ctx, errors];
     }
 

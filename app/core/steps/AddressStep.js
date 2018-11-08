@@ -5,15 +5,6 @@ const services = require('app/components/services');
 
 class AddressStep extends ValidationStep {
 
-    getContextData(req){
-        const ctx =super.getContextData(req);
-        if (req.session.addresses) {
-            ctx.addresses = req.session.addresses;
-        }
-        return ctx;
-
-    }
-
     handleGet(ctx, formdata,) {
         if (ctx.errors) {
             const errors = ctx.errors;
@@ -29,9 +20,12 @@ class AddressStep extends ValidationStep {
     handlePost(ctx, errors, formdata, session) {
         ctx.address = ctx.postcodeAddress || ctx.freeTextAddress;
         ctx.postcode = ctx.postcode ? ctx.postcode.toUpperCase() : ctx.postcode;
-        session.addresses = ctx.addresses;
         if (! ctx.postcodeAddress){
             delete ctx.addresses;
+        }
+        session.addresses = session.addresses || {};
+        if (! session.addresses.executors){
+            session.addresses.executors = []
         }
         delete ctx.referrer;
         return [ctx, errors];

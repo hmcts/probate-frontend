@@ -23,7 +23,7 @@ const config = {
         useCSRFProtection: 'true',
         session: {
             expires: 7200000, // ms (120 min)
-            ttl: 86400 // s (1 days)
+            ttl: 28800 // s (8 hours)
         }
     },
     services: {

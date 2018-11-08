@@ -34,7 +34,7 @@ class Security {
 
             if (securityCookie) {
                 const lostSession = !req.session.expires;
-                const sessionExpired = req.session.expires?req.session.expires <= Date.now():false;    
+                const sessionExpired = req.session.expires?req.session.expires <= Date.now():false;
                 services.getUserDetails(securityCookie)
                     .then(response => {
                         if (response.name !== 'Error') {
@@ -48,14 +48,13 @@ class Security {
                                 res.clearCookie(SECURITY_COOKIE);
                                 delete req.cookies[SECURITY_COOKIE];
                                 return res.redirect('/time-out');
-                            } else {
-                                req.log.debug('Extending session for active user.');
-                                req.session.expires = Date.now() + config.app.session.expires;                            
-                                req.session.regId = response.email;
-                                req.userId = response.id;
-                                req.authToken = securityCookie;
-                                self._authorize(res, next, response.roles, authorisedRoles);
                             }
+                            req.log.debug('Extending session for active user.');
+                            req.session.expires = Date.now() + config.app.session.expires;
+                            req.session.regId = response.email;
+                            req.userId = response.id;
+                            req.authToken = securityCookie;
+                            self._authorize(res, next, response.roles, authorisedRoles);
                         } else {
                             req.log.error('Error authorising user');
                             req.log.error(`Error ${JSON.stringify(response)} \n`);

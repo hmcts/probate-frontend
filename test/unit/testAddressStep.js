@@ -55,6 +55,14 @@ describe('AddressStep', () => {
     describe('handlePost()', () => {
         describe('should return ctx and errors', () => {
             it('when postcodeAddress exists', (done) => {
+                const session = {
+                    addresses: {
+                        applicant: [
+                            {address: '1 Red Road, London, LL1 1LL'},
+                            {address: '2 Green Road, London, LL2 2LL'}
+                        ]
+                    }
+                };
                 ctxToTest = {
                     postcodeAddress: '1 Red Road, London, LL1 1LL',
                     referrer: 'executorApplicant',
@@ -65,7 +73,7 @@ describe('AddressStep', () => {
                     ]
                 };
                 const addressStep = new AddressStep(steps, section, templatePath, i18next, schema);
-                const ctx = addressStep.handlePost(ctxToTest, null);
+                const ctx = addressStep.handlePost(ctxToTest, null, null, session);
                 expect(ctx).to.deep.equal([{
                     address: '1 Red Road, London, LL1 1LL',
                     postcode: 'LL1 1LL',
@@ -75,6 +83,14 @@ describe('AddressStep', () => {
                         {address: '2 Green Road, London, LL2 2LL'}
                     ]
                 }, null]);
+                expect(session).to.deep.equal({
+                    addresses: {
+                        applicant: [
+                            {address: '1 Red Road, London, LL1 1LL'},
+                            {address: '2 Green Road, London, LL2 2LL'}
+                        ]
+                    }
+                });
                 done();
             });
 
@@ -97,6 +113,20 @@ describe('AddressStep', () => {
                 }, null]);
                 done();
             });
+        });
+    });
+
+    describe('action()', () => {
+        it('removes the correct values from the context', (done) => {
+            const testCtx = {
+                addresses: [],
+            };
+            const addressStep = new AddressStep(steps, section, templatePath, i18next, schema);
+            const testFormdata = {};
+            const action = addressStep.action(testCtx, testFormdata);
+
+            expect(action).to.deep.equal([{}, testFormdata]);
+            done();
         });
     });
 });

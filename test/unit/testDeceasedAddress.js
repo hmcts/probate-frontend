@@ -14,6 +14,32 @@ describe('DeceasedAddress', () => {
         });
     });
 
+    describe('getContextData()', () => {
+        let ctx;
+        let req;
+
+        it('should return the ctx with the deceased addresses', (done) => {
+            req = {
+                session: {
+                    addresses: {
+                        deceased: [
+                            {address: '1 Red Road, London, LL1 1LL'},
+                            {address: '2 Green Road, London, LL2 2LL'}
+                        ]
+                    }
+                }
+            };
+
+            [ctx] = DeceasedAddress.getContextData(req);
+            expect(ctx).to.deep.equal = {
+                addresses: [
+                    {address: '1 Red Road, London, LL1 1LL'},
+                    {address: '2 Green Road, London, LL2 2LL'}
+                ]
+            };
+            done();
+        });
+    });
     describe('handlePost()', () => {
         let ctx;
         let errors;

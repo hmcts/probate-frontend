@@ -4,7 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 
 class AddressStep extends ValidationStep {
 
-    handleGet(ctx, formdata,) {
+    handleGet(ctx, formdata) {
         if (ctx.errors) {
             const errors = ctx.errors;
             delete ctx.errors;
@@ -19,13 +19,13 @@ class AddressStep extends ValidationStep {
     handlePost(ctx, errors, formdata, session) {
         ctx.address = ctx.postcodeAddress || ctx.freeTextAddress;
         ctx.postcode = ctx.postcode ? ctx.postcode.toUpperCase() : ctx.postcode;
-        if (! ctx.postcodeAddress){
+        if (!ctx.postcodeAddress){
             delete ctx.addresses;
         }
         session.addresses = session.addresses || {};
-        if (! session.addresses.executors){
+        /*if (! session.addresses.executors){
             session.addresses.executors = []
-        }
+        }*/
         delete ctx.referrer;
         return [ctx, errors];
     }

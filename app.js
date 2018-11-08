@@ -204,7 +204,7 @@ exports.init = function() {
     app.use('/payment-status', (req, res, next) => {
         if (!req.sessionID) {
             req.log.info('setting the session id as it was not present');
-            req.sessionID = req.session.form.sessionID;
+            req.sessionID = req.session.form.payment.sessionID;
         }
         next();
     });

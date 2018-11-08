@@ -169,29 +169,124 @@ describe('DocumentUploadUtil', () => {
             expect(isValidFile).to.equal(false);
             done();
         });
+
+        it('should return false when no document is given', (done) => {
+            const documentUpload = new DocumentUpload();
+            const isValidFile = documentUpload.isValidType();
+            expect(isValidFile).to.equal(false);
+            done();
+        });
     });
 
-    describe('isDocumentValid()', () => {
-        it('should return true when a valid document type is given', (done) => {
+    describe('isValidSize()', () => {
+        it('should return true when a valid document size is given', (done) => {
+            const document = {
+                size: 2000000,
+            };
+            const documentUpload = new DocumentUpload();
+            const isValidSize = documentUpload.isValidSize(document);
+            expect(isValidSize).to.equal(true);
+            done();
+        });
+
+        it('should return false when an invalid document size is given', (done) => {
+            const document = {
+                size: 12000000,
+            };
+            const documentUpload = new DocumentUpload();
+            const isValidSize = documentUpload.isValidSize(document);
+            expect(isValidSize).to.equal(false);
+            done();
+        });
+    });
+
+    describe('isValidNumber()', () => {
+        it('should return true when the maximum number of files have been uploaded', (done) => {
+            const uploads = Array(9).fill({file: 'death-certificate.pdf'});
+            const documentUpload = new DocumentUpload();
+            const isValidNumber = documentUpload.isValidNumber(uploads);
+            expect(isValidNumber).to.equal(true);
+            done();
+        });
+
+        it('should return true when no uploads are given', (done) => {
+            const documentUpload = new DocumentUpload();
+            const isValidNumber = documentUpload.isValidNumber();
+            expect(isValidNumber).to.equal(true);
+            done();
+        });
+
+        it('should return false when more than the maximum number of files have been uploaded', (done) => {
+            const uploads = Array(10).fill({file: 'death-certificate.pdf'});
+            const documentUpload = new DocumentUpload();
+            const isValidNumber = documentUpload.isValidNumber(uploads);
+            expect(isValidNumber).to.equal(false);
+            done();
+        });
+    });
+
+    describe('validate()', () => {
+        it('should return null when a valid document is given', (done) => {
             const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
             const document = {
                 buffer: 'valid',
+                size: 2000000,
                 mimetype: 'image/jpeg'
             };
+            const uploads = [];
             const documentUpload = new DocumentUpload();
-            const isDocumentValid = documentUpload.isDocumentValid(document);
-            expect(isDocumentValid).to.equal(true);
+            const error = documentUpload.validate(document, uploads);
+            expect(error).to.equal(null);
             revert();
             done();
         });
 
-        it('should return false when an invalid document type is given', (done) => {
+        it('should return an error when an invalid document type is given', (done) => {
             const document = {
-                buffer: 'invalid'
+                buffer: 'invalid',
+                mimetype: 'application/msword'
             };
             const documentUpload = new DocumentUpload();
-            const isDocumentValid = documentUpload.isDocumentValid(document);
-            expect(isDocumentValid).to.equal(false);
+            const error = documentUpload.validate(document);
+            expect(error).to.deep.equal({
+                js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
+                nonJs: 'type'
+            });
+            done();
+        });
+
+        it('should return an error when an invalid document size is given', (done) => {
+            const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
+            const document = {
+                buffer: 'invalid',
+                size: 12000000,
+                mimetype: 'image/jpeg'
+            };
+            const documentUpload = new DocumentUpload();
+            const error = documentUpload.validate(document);
+            expect(error).to.deep.equal({
+                js: 'Use a file that is under 10MB and try again',
+                nonJs: 'maxSize'
+            });
+            revert();
+            done();
+        });
+
+        it('should return an error when too many documents have been uploaded', (done) => {
+            const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
+            const document = {
+                buffer: 'invalid',
+                size: 2000,
+                mimetype: 'image/jpeg'
+            };
+            const uploads = Array(10).fill({file: 'death-certificate.pdf'});
+            const documentUpload = new DocumentUpload();
+            const error = documentUpload.validate(document, uploads);
+            expect(error).to.deep.equal({
+                js: 'You can upload a maximum of 10 files',
+                nonJs: 'maxFiles'
+            });
+            revert();
             done();
         });
     });

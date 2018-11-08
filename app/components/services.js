@@ -118,16 +118,14 @@ const saveFormData = (id, data, sessionID) => {
     return utils.fetchJson(`${PERSISTENCE_SERVICE_URL}`, fetchOptions);
 };
 
-const createPayment = (data, hostname, sessionId) => {
+const createPayment = (data, hostname) => {
     logInfo('createPayment');
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': data.authToken,
         'ServiceAuthorization': data.serviceAuthToken,
-        'return-url': FormatUrl.format(hostname, `/payment-status?sessionId=${sessionId}`)
+        'return-url': FormatUrl.format(hostname, '/payment-status')
     };
-    const returnUrl = FormatUrl.format(hostname, '/payment-status');
-    logInfo(`Return URL passed from createPayment in services: ${returnUrl}`);
     const body = paymentData.createPaymentData(data);
     const fetchOptions = utils.fetchOptions(body, 'POST', headers);
     return [utils.fetchJson(CREATE_PAYMENT_SERVICE_URL, fetchOptions), body.reference];

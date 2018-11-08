@@ -50,7 +50,6 @@ class PaymentBreakdown extends Step {
 
     * handlePost(ctx, errors, formdata, session, hostname) {
         logger.info(`Hostname passed to handlePost in breakdown: ${hostname}`);
-
         const serviceAuthResult = yield services.authorise();
         if (serviceAuthResult.name === 'Error') {
             const options = {};
@@ -104,7 +103,7 @@ class PaymentBreakdown extends Step {
                         ccdCaseId: formdata.ccdCase.id
                     };
 
-                    const [response, paymentReference] = yield services.createPayment(data, hostname, ctx.sessionID);
+                    const [response, paymentReference] = yield services.createPayment(data, hostname);
                     formdata.creatingPayment = 'false';
                     logger.info('here at code block: 8');
 
@@ -158,7 +157,7 @@ class PaymentBreakdown extends Step {
     }
 
     action(ctx, formdata) {
-        super.action(ctx, formdata);
+        delete ctx._csrf;
         delete ctx.authToken;
         delete ctx.paymentError;
         delete ctx.deceasedLastName;

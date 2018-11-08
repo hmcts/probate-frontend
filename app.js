@@ -202,9 +202,9 @@ exports.init = function() {
     app.use('/declaration', declaration);
 
     app.use('/payment-status', (req, res, next) => {
-        if (req.query.sessionId && !req.sessionID) {
+        if (!req.sessionID) {
             req.log.info('setting the session id as it was not present');
-            req.sessionID = req.params.sessionId;
+            req.sessionID = req.session.form.sessionID;
         }
         next();
     });

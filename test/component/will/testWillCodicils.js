@@ -34,7 +34,7 @@ describe('will-codicils', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to death certificate page: ${expectedNextUrlForTasklist}`, (done) => {
+        it(`test it redirects to tasklist page: ${expectedNextUrlForTasklist}`, (done) => {
             const sessionData = {};
             sessionData.featureToggles = {
                 screening_questions: true

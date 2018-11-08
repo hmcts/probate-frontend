@@ -70,13 +70,11 @@ describe('Summary', () => {
             let ctx = {session: {form: {}}};
             const formdata = {executors: {list: []}};
             const featureToggles = {
-                main_applicant_alias: true,
                 screening_questions: true
             };
 
             co(function* () {
                 [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
-                assert.deepEqual(ctx.isMainApplicantAliasToggleEnabled, expectedResponse);
                 assert.deepEqual(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
                 done();
             });
@@ -89,13 +87,11 @@ describe('Summary', () => {
             let ctx = {session: {form: {}}};
             const formdata = {executors: {list: []}};
             const featureToggles = {
-                main_applicant_alias: false,
                 screening_questions: false
             };
 
             co(function* () {
                 [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
-                assert.deepEqual(ctx.isMainApplicantAliasToggleEnabled, expectedResponse);
                 assert.deepEqual(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
                 done();
             });

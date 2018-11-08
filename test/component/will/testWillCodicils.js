@@ -49,7 +49,7 @@ describe('will-codicils', () => {
             const data = {
                 codicils: 'No'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeathCertificate);
+            testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
         });
 
         it(`test it redirects to tasklist page: ${expectedNextUrlForTaskList}`, (done) => {

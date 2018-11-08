@@ -81,8 +81,10 @@ describe('security', () => {
 
     it(`Redirects to timeout if no session is available: ${expectedUrlForTimeoutPage}`, (done) => {
         config.app.useIDAM = 'true';
+        const getUserDetailsStub = sinon.stub(services, 'getUserDetails');
         const server = app.init();
         const agent = request.agent(server.app);
+        getUserDetailsStub.returns(Promise.resolve({name: 'Success'}));
         agent.get(expectedNextUrlForTaskList)
             .set('Cookie', SECURITY_COOKIE + '=dummyToken')
             .expect(302)

@@ -50,6 +50,9 @@ class DetectDataChanges {
                 } else if (req.body.executorsApplying) {
                     const executorsApplying = executorsWrapper.executorsApplying(true).map(executor => executor.fullName);
                     return this.isNotEqual(req.body.executorsApplying, executorsApplying);
+                } else if (req.body.executorsWhoDied) {
+                    const executorsWhoDied = executorsWrapper.deadExecutors().map(executor => executor.fullName);
+                    return this.isNotEqual(req.body.executorsWhoDied, executorsWhoDied);
                 }
             }
             return this.hasChanged(req.body, formdata[step.section]);

@@ -43,10 +43,13 @@
   "documentUploadChooseFile": "Choose a file or take a photo",
   "documentUploadDragAndDrop": "drag and drop files here",
   "documentUploadPreviewTitle": "Uploaded files",
-  "documentUploadNoFilesUploaded": "No files uploaded",
+  "documentUploadEmptyList": "No files uploaded",
   "documentUploadRemoveFile": "Remove",
   "documentUploadInvalidFileTypeSummary": "You have used a file type that can’t be accepted",
   "documentUploadInvalidFileType": "Save your file as a jpg, bmp, tiff, png or PDF file and try again",
   "documentUploadMaxFilesExceededSummary": "You have uploaded too many files",
-  "documentUploadMaxFilesExceeded": "You can upload a maximum of {maxFiles} files"
+  "documentUploadMaxFilesExceeded": "You can upload a maximum of 10 files",
+  "documentUploadMaxSizeSummary": "Your file is too large to upload",
+  "documentUploadMaxSize": "Use a file that is under 10MB and try again",
+  "documentUploadUploadDocument": "Upload document"
 }

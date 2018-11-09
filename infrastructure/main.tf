@@ -45,10 +45,6 @@ data "azurerm_key_vault" "probate_key_vault" {
   resource_group_name = "${local.vaultName}"
 }
 
-# data "azurerm_key_vault_secret" "idam_secret_probate" {
-#   name = "ccidam-idam-api-secrets-probate"
-#   vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
-# }
 
 data "azurerm_key_vault_secret" "probate_postcode_service_token" {
   name = "postcode-service-token"
@@ -179,19 +175,13 @@ module "probate-frontend" {
     //POSTCODE_SERVICE_TOKEN = "${data.vault_generic_secret.probate_postcode_service_token.data["value"]}"
     POSTCODE_SERVICE_TOKEN = "${data.azurerm_key_vault_secret.probate_postcode_service_token.value}"
 
-    # SURVEY = "${data.vault_generic_secret.probate_survey.data["value"]}"
+
     SURVEY = "${data.azurerm_key_vault_secret.probate_survey.value}"
-    # SURVEY_END_OF_APPLICATION = "${data.vault_generic_secret.probate_survey_end.data["value"]}"
     SURVEY_END_OF_APPLICATION = "${data.azurerm_key_vault_secret.probate_survey_end.value}"
-    # APPLICATION_FEE_CODE = "${data.vault_generic_secret.probate_application_fee_code.data["value"]}"
     APPLICATION_FEE_CODE = "${data.azurerm_key_vault_secret.probate_application_fee_code.value}"
-    # UK_COPIES_FEE_CODE = "${data.vault_generic_secret.probate_uk_application_fee_code.data["value"]}"
-     UK_COPIES_FEE_CODE = "${data.azurerm_key_vault_secret.probate_uk_application_fee_code.value}"
-    # OVERSEAS_COPIES_FEE_CODE = "${data.vault_generic_secret.probate_overseas_application_fee_code.data["value"]}"
+    UK_COPIES_FEE_CODE = "${data.azurerm_key_vault_secret.probate_uk_application_fee_code.value}"
     OVERSEAS_COPIES_FEE_CODE = "${data.azurerm_key_vault_secret.probate_overseas_application_fee_code.value}"
-    # SERVICE_ID = "${data.vault_generic_secret.probate_service_id.data["value"]}"
     SERVICE_ID = "${data.azurerm_key_vault_secret.probate_service_id.value}"
-    # SITE_ID = "${data.vault_generic_secret.probate_site_id.data["value"]}"
     SITE_ID = "${data.azurerm_key_vault_secret.probate_site_id.value}"
 
     REFORM_ENVIRONMENT = "${var.reform_envirionment_for_test}"

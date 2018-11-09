@@ -3,6 +3,7 @@
 const CollectionStep = require('app/core/steps/CollectionStep');
 const {get, some, findIndex} = require('lodash');
 const path = '/executor-notified/';
+const FeatureToggle = require('app/utils/FeatureToggle');
 
 class ExecutorNotified extends CollectionStep {
 
@@ -17,15 +18,30 @@ class ExecutorNotified extends CollectionStep {
 
     nextStepOptions(ctx) {
         ctx.nextExecutor = get(ctx, 'index', -1) !== -1;
-        const nextStepOptions = {
+
+        if (ctx.isToggleEnabled) {
+            if (ctx.nextExecutor !== true) {
+                ctx.otherwise = true;
+            }
+
+            return {
+                options: [
+                    {key: 'nextExecutor', value: true, choice: 'roles'},
+                    {key: 'otherwise', value: true, choice: 'otherwiseToggleOn'}
+                ]
+            };
+        }
+
+        return {
             options: [
-                {key: 'nextExecutor', value: true, choice: 'roles'},
+                {key: 'nextExecutor', value: true, choice: 'roles'}
             ]
         };
-        return nextStepOptions;
     }
 
-    handlePost(ctx, errors, formdata) {
+    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
+        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
+
         formdata.executors.list[ctx.index].executorNotified = ctx.executorNotified;
         ctx.index = this.recalcIndex(ctx);
         return [ctx, errors];
@@ -39,6 +55,8 @@ class ExecutorNotified extends CollectionStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        delete ctx.otherwise;
+        delete ctx.isToggleEnabled;
         delete ctx.executorNotified;
         delete ctx.executorName;
         delete ctx.nextExecutor;

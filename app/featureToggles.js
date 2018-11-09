@@ -9,6 +9,9 @@ router.get('/applicant-alias-reason', (req, res, next) => featureToggle.callChec
 router.get('/summary/*', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'main_applicant_alias', featureToggle.toggleFeature));
 router.get('/tasklist', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'main_applicant_alias', featureToggle.toggleFeature));
 
+router.get('/summary/*', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.toggleFeature));
+router.get('/tasklist', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.toggleFeature));
+
 router.get('/new-start-eligibility', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.togglePage, 'start-eligibility'));
 router.get('/new-will-left', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.togglePage, 'will-left'));
 router.get('/new-will-original', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.togglePage, 'will-original'));
@@ -30,6 +33,10 @@ router.post('/will-codicils', (req, res, next) => featureToggle.callCheckToggle(
 router.post('/codicils-number', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.toggleFeature));
 
 router.post('/executors-number', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.toggleFeature));
+router.post('/executors-when-died', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.toggleFeature));
+router.post('/executors-address', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.toggleFeature));
+router.post('/executors-roles', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.toggleFeature));
+router.post('/executors-notified', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.toggleFeature));
 
 router.get('/executor-current-name/:index', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'main_applicant_alias', featureToggle.toggleFeature));
 router.get('/executor-current-name-reason/:index', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'main_applicant_alias', featureToggle.toggleFeature));

@@ -109,7 +109,6 @@ describe('DetectDataChange.js', () => {
         let ctx;
         let req;
         let step;
-
         beforeEach(() => {
             ctx = {
                 executorsNumber: 1
@@ -214,6 +213,15 @@ describe('DetectDataChange.js', () => {
                 expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);
                 done();
             });
+
+            it('when executors whoDied tick boxes have been changed', (done) => {
+                step.section = 'executors';
+                req.body = {executorsWhoDied: ['James Miller']};
+                req.session.haveAllExecutorsDeclared = 'false';
+                const detectDataChange = new DetectDataChange();
+                expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);
+                done();
+            });
         });
 
         describe('should return false', () => {
@@ -241,6 +249,19 @@ describe('DetectDataChange.js', () => {
             it('when executors applying tick boxes have not been changed', (done) => {
                 step.section = 'executors';
                 req.body.executorsApplying = ['James Miller', 'Ed Brown'];
+                const detectDataChange = new DetectDataChange();
+                expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(false);
+                done();
+            });
+
+            it('when executors whoDied tick boxes have not been changed', (done) => {
+                req.session.form.executors.list[1].isDead = true;
+                req.session.form.executors.list[1].isApplying = false;
+                req.session.form.executors.list[2].isDead = false;
+                req.session.form.executors.list[2].isApplying = true;
+                step.section = 'executors';
+                req.body = {executorsWhoDied: ['James Miller']};
+                req.session.haveAllExecutorsDeclared = 'false';
                 const detectDataChange = new DetectDataChange();
                 expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(false);
                 done();

@@ -65,9 +65,9 @@ exports.init = function() {
         'helpline': config.helpline,
         'nonce': uuid,
         'documentUpload': {
-            validTypes: config.documentUpload.validTypes,
+            validMimeTypes: config.documentUpload.validMimeTypes,
             maxFiles: config.documentUpload.maxFiles,
-            maxSize: config.documentUpload.maxSize
+            maxSizeBytes: config.documentUpload.maxSizeBytes
         }
     };
 

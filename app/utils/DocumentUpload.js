@@ -12,9 +12,11 @@ class DocumentUpload {
         return formdata;
     }
 
-    addDocument(filename, url, uploads = []) {
-        if (filename && url) {
-            uploads.push({filename, url});
+    addDocument(uploadedDocument, uploads = []) {
+        if (uploadedDocument.originalname) {
+            uploads.push({
+                filename: uploadedDocument.originalname
+            });
         }
         return uploads;
     }
@@ -26,23 +28,28 @@ class DocumentUpload {
         return uploads;
     }
 
-    findDocumentId(url = '') {
-        return url.split('/').reduce((acc, val) => {
-            acc = val;
-            return acc;
-        });
-    }
+    isValidType(document) {
+        if (!document) {
+            return false;
+        }
 
-    isValidType(document = {}) {
+        const validMimeTypes = config.validMimeTypes;
+
+        if (!validMimeTypes.includes(document.mimetype)) {
+            return false;
+        }
+
         const uploadedDocumentType = fileType(document.buffer);
+
         if (!uploadedDocumentType) {
             return false;
         }
-        return config.validTypes.includes(uploadedDocumentType.ext);
+
+        return validMimeTypes.includes(uploadedDocumentType.mime);
     }
 
     isValidSize(document) {
-        return document.size <= config.maxSize;
+        return document.size <= config.maxSizeBytes;
     }
 
     isValidNumber(uploads = []) {
@@ -53,33 +60,27 @@ class DocumentUpload {
         let error = null;
 
         if (error === null && !this.isValidType(document)) {
-            error = this.mapError(config.error.invalidFileType);
+            error = {
+                js: content.documentUploadInvalidFileType,
+                nonJs: 'type'
+            };
         }
 
         if (error === null && !this.isValidSize(document)) {
-            error = this.mapError(config.error.maxSize);
+            error = {
+                js: content.documentUploadMaxSize,
+                nonJs: 'maxSize'
+            };
         }
 
         if (error === null && !this.isValidNumber(uploads)) {
-            error = this.mapError(config.error.maxFilesExceeded);
+            error = {
+                js: content.documentUploadMaxFilesExceeded,
+                nonJs: 'maxFiles'
+            };
         }
 
         return error;
-    }
-
-    errorKey(errorType) {
-        const errorKey = Object.entries(config.error).filter((value) => {
-            return value[1] === errorType ? value : null;
-        });
-        return errorKey[0] ? errorKey[0][0] : null;
-    }
-
-    mapError(errorType) {
-        const errorKey = this.errorKey(errorType);
-        return {
-            js: content[`documentUpload-${errorKey}`],
-            nonJs: errorKey
-        };
     }
 }
 

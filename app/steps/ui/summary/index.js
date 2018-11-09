@@ -9,7 +9,7 @@ const services = require('app/components/services');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
-const featureToggle = require('app/utils/FeatureToggle');
+const FeatureToggle = require('app/utils/FeatureToggle');
 
 class Summary extends Step {
 
@@ -33,7 +33,8 @@ class Summary extends Step {
         ctx.executorsWhoDied = executorsWrapper.deadExecutors().map(exec => exec.fullName);
         ctx.executorsDealingWithEstate = executorsApplying.map(exec => exec.fullName);
         ctx.executorsPowerReservedOrRenounced = executorsWrapper.hasRenunciatedOrPowerReserved();
-        ctx.isMainApplicantAliasToggleEnabled = featureToggle.isEnabled(featureToggles, 'main_applicant_alias');
+        ctx.isMainApplicantAliasToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'main_applicant_alias');
+        ctx.isScreeningQuestionToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
         ctx.executorsWithOtherNames = executorsWrapper.executorsWithAnotherName().map(exec => exec.fullName);
 
         utils.updateTaskStatus(ctx, ctx, this.steps);

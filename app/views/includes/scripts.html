@@ -19,20 +19,18 @@
 <script nonce="{{nonce}}">
     var documentUploadConfig = {
         csrfToken: "{{csrfToken}}",
-        validTypes: "{{documentUpload.validTypes}}",
+        validMimeTypes: "{{documentUpload.validMimeTypes}}",
         maxFiles: "{{documentUpload.maxFiles}}",
-        maxSize: "{{documentUpload.maxSize}}",
+        maxSizeBytes: "{{documentUpload.maxSizeBytes}}",
         content: {
             removeFileText: "{{common.documentUploadRemoveFile}}",
+            invalidFileType: "{{common.documentUploadInvalidFileType}}",
             errorSummaryHeading: "{{common.errorSummaryHeading}}",
-            invalidFileType: "{{common['documentUpload-invalidFileType']}}",
-            invalidFileTypeSummary: "{{common['documentUpload-invalidFileTypeSummary']}}",
-            maxFilesExceeded: "{{common['documentUpload-maxFilesExceeded']}}",
-            maxFilesExceededSummary: "{{common['documentUpload-maxFilesExceededSummary']}}",
-            maxSize: "{{common['documentUpload-maxSize']}}",
-            maxSizeSummary: "{{common['documentUpload-maxSizeSummary']}}",
-            uploadFailed: "{{common['documentUpload-uploadFailed']}}",
-            uploadFailedSummary: "{{common['documentUpload-uploadFailedSummary']}}"
+            invalidFileTypeSummary: "{{common.documentUploadInvalidFileTypeSummary}}",
+            maxFilesExceeded: "{{common.documentUploadMaxFilesExceeded}}",
+            maxFilesExceededSummary: "{{common.documentUploadMaxFilesExceededSummary}}",
+            maxFileSize: "{{common.documentUploadMaxSize}}",
+            maxFileSizeSummary: "{{common.documentUploadMaxSizeSummary}}",
         }
     };
 </script>

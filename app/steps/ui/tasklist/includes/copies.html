@@ -2,19 +2,19 @@
 
 <li class="task-item">
     {{taskHeader(
-    number = "4.",
-    content = content,
-    title = content.copiesTask,
-    status = fields.CopiesTask.value.status,
-    previousTaskStatus = previousTaskStatus
+        number = "4.",
+        content = content,
+        title = content.copiesTask,
+        status = fields.CopiesTask.value.status,
+        previousTaskStatus = previousTaskStatus
     )}}
     <div class="task-list-items">
         {{taskAction(
-        prevTaskStatus = previousTaskStatus,
-        status = fields.CopiesTask.value.status,
-        nextURL = fields.CopiesTask.value.nextURL,
-        checkYourAnswersURL = fields.CopiesTask.value.checkYourAnswersLink,
-        content = content
+            prevTaskStatus = previousTaskStatus,
+            status = fields.CopiesTask.value.status,
+            nextURL = fields.CopiesTask.value.nextURL,
+            checkYourAnswersURL = fields.CopiesTask.value.checkYourAnswersLink,
+            content = content
         )}}
     </div>
 </li>

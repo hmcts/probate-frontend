@@ -74,20 +74,6 @@ describe('DeceasedAlias', () => {
         });
     });
 
-    describe('action', () => {
-        it('removes the correct values from the context', (done) => {
-            const ctx = {
-                sessionID: 'A',
-                _csrf: 'B'
-            };
-            const formdata = {};
-            const action = deceasedAlias.action(ctx, formdata);
-
-            expect(action).to.deep.equal([{}, {}]);
-            done();
-        });
-    });
-
     describe('isSoftStop', () => {
         it('returns the correct fields when Yes is given', (done) => {
             const formdata = {

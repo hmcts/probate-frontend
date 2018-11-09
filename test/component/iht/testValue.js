@@ -17,8 +17,7 @@ describe('iht-value', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('IhtValue');
 
         it('test correct iht value page content is loaded', (done) => {
             const contentToExclude = [];
@@ -49,6 +48,5 @@ describe('iht-value', () => {
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForAppExec);
         });
-
     });
 });

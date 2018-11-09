@@ -28,6 +28,7 @@ const appInsights = require('applicationinsights');
 const commonContent = require('app/resources/en/translation/common');
 const uuidv4 = require('uuid/v4');
 const uuid = uuidv4();
+const featureToggles = require('app/featureToggles');
 
 exports.init = function() {
     const app = express();
@@ -209,6 +210,8 @@ exports.init = function() {
         }
         next();
     });
+
+    app.use(featureToggles);
 
     if (useIDAM === 'true') {
         const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);

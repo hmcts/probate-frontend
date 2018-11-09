@@ -19,8 +19,7 @@ describe('deceased-otherNames', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('DeceasedOtherNames');
 
         it('test right content loaded on the page', (done) => {
 
@@ -92,6 +91,5 @@ describe('deceased-otherNames', () => {
                     testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedMarried);
                 });
         });
-
     });
 });

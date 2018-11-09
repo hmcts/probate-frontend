@@ -4,7 +4,8 @@ const TestWrapper = require('test/util/TestWrapper');
 const ExecutorCurrentName = require('app/steps/ui/executors/currentname/index');
 const ExecutorCurrentNameReason = require('app/steps/ui/executors/currentnamereason/index');
 const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
 
 describe('executor-current-name', () => {
     let testWrapper, sessionData;
@@ -17,15 +18,15 @@ describe('executor-current-name', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorCurrentName');
         sessionData = {
-            'executors': {
-                'list': [
-                    {'firstName': 'john', 'lastName': 'theapplicant', 'isApplying': true, 'isApplicant': true},
-                    {'fullName': 'executor name1', hasOtherName: false},
-                    {'fullName': 'executor name2', hasOtherName: true},
-                    {'fullName': 'executor name3', hasOtherName: false},
-                    {'fullName': 'executor name4', hasOtherName: true},
-                    {'fullName': 'executor name5', hasOtherName: false},
-                    {'fullName': 'executor name6', hasOtherName: true}
+            executors: {
+                list: [
+                    {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
+                    {fullName: 'Executor Name 1', hasOtherName: false},
+                    {fullName: 'Executor Name 2', hasOtherName: true},
+                    {fullName: 'Executor Name 3', hasOtherName: false},
+                    {fullName: 'Executor Name 4', hasOtherName: true},
+                    {fullName: 'Executor Name 5', hasOtherName: false},
+                    {fullName: 'Executor Name 6', hasOtherName: true}
                 ]
             }
         };
@@ -36,15 +37,24 @@ describe('executor-current-name', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+        it('test help block content is loaded on page', (done) => {
+            const playbackData = {};
+            playbackData.helpTitle = commonContent.helpTitle;
+            playbackData.helpText = commonContent.helpText;
+            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
 
-        testHelpBlockContent.runTest('WillLeft');
+            testWrapper.testDataPlayback(done, playbackData);
+        });
 
         it('test content loaded on the page', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        executorFullName: 'executor name2',
+                        executorFullName: 'Executor Name 2',
                     };
                     testWrapper.testContent(done, [], contentData);
                 });
@@ -62,7 +72,7 @@ describe('executor-current-name', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        currentName: '< brian'
+                        currentName: '< Brian'
                     };
                     testWrapper.testErrors(done, data, 'invalid', errorsToTest);
                 });
@@ -73,7 +83,7 @@ describe('executor-current-name', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        currentName: 'another name2'
+                        currentName: 'Another Name 2'
                     };
                     testWrapper.testRedirect(done, data, executorCurrentNameReasonFirstUrl);
                 });
@@ -85,7 +95,7 @@ describe('executor-current-name', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        currentName: 'another name'
+                        currentName: 'Another Name'
                     };
                     testWrapper.testRedirect(done, data, executorCurrentNameReasonSubsequentUrl);
                 });
@@ -97,7 +107,7 @@ describe('executor-current-name', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        currentName: 'another name also'
+                        currentName: 'Another Name Also'
                     };
                     testWrapper.testRedirect(done, data, executorContactDetailsUrl);
                 });

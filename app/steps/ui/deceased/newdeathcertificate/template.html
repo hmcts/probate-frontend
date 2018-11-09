@@ -4,19 +4,23 @@
 {% from "widgets/radiobuttons.html" import optionsRadio %}
 
 {% block question %}
-<h1 class="form-title heading-large">{{content.question}}</h1>
-<p>{{content.hintText | safe}}</p>
+  <h1 class="form-title heading-large">{{content.question}}</h1>
+  <p>{{content.hintText | safe}}</p>
 {% endblock %}
 
 {% block form_content %}
-{{optionsRadio(content,
-name = 'deathCertificate',
-field = fields.deathCertificate,
-options = ['optionYes', 'optionNo'],
-legend = content.legend,
-inline = true
-)}}
-<div class="form-group">
-  <input class="button" type="submit" value="{{common.continue}}">
-</div>
+  {{optionsRadio(content,
+    name = 'deathCertificate',
+    field = fields.deathCertificate,
+    options = ['optionYes', 'optionNo'],
+    legend = content.legend,
+    inline = true
+  )}}
+
+  <div class="form-group">
+    <input class="button" type="submit" value="{{common.continue}}">
+  </div>
 {% endblock %}
+
+{% block save_and_close %}{% endblock %}
+{% block executor_summary %}{% endblock %}

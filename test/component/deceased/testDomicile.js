@@ -17,11 +17,9 @@ describe('deceased-domicile', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('DeceasedDomicile');
 
         it('test right content loaded on the page', (done) => {
-
             testWrapper.testContent(done, []);
         });
 
@@ -29,7 +27,6 @@ describe('deceased-domicile', () => {
             const data = {};
 
             testWrapper.testErrors(done, data, 'required', []);
-
         });
 
         it(`test it redirects to deceased address: ${expectedNextUrlForDeceasedAddress}`, (done) => {
@@ -38,6 +35,5 @@ describe('deceased-domicile', () => {
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAddress);
         });
-
     });
 });

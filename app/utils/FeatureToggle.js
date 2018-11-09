@@ -44,6 +44,14 @@ class FeatureToggle {
         }
     }
 
+    toggleExistingPage(params) {
+        if (params.isEnabled) {
+            params.res.redirect(params.redirectPage);
+        } else {
+            params.next();
+        }
+    }
+
     toggleFeature(params) {
         if (!params.req.session.featureToggles) {
             params.req.session.featureToggles = {};

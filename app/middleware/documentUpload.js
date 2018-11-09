@@ -43,12 +43,9 @@ const uploadDocument = (req, res, next) => {
     let formdata = req.session.form;
     formdata = documentUpload.initDocuments(formdata);
     const uploads = formdata.documents.uploads;
+    const error = documentUpload.validate(uploadedDocument, uploads);
 
-    if (!req.error) {
-        req.error = documentUpload.validate(uploadedDocument, uploads);
-    }
-
-    if (req.error === null) {
+    if (error === null) {
         req.log.info('Uploaded document passed frontend validation');
         services.uploadDocument(req.session.id, req.session.regId, uploadedDocument)
             .then(result => {
@@ -70,7 +67,7 @@ const uploadDocument = (req, res, next) => {
             });
     } else {
         req.log.error('Uploaded document failed frontend validation');
-        returnError(req, res, next, req.error);
+        returnError(req, res, next, error);
     }
 };
 

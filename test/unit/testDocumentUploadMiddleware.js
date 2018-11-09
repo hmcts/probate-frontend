@@ -122,7 +122,6 @@ describe('DocumentUploadMiddleware', () => {
                         documents: {}
                     }
                 },
-                error: null,
                 log: {},
                 body: {
                     isUploadingDocument: 'true'
@@ -180,20 +179,17 @@ describe('DocumentUploadMiddleware', () => {
 
         describe('should return an error', () => {
             it('should return an error if the document fails frontend validation', (done) => {
-                req = Object.assign(req, {
-                    error: {
-                        js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
-                        nonJs: 'invalidFileType'
-                    },
-                    log: {
-                        error: sinon.spy()
-                    }
-                });
+                req.log.error = sinon.spy();
                 const revert = documentUploadMiddleware.__set__('returnError', sinon.spy());
+                const error = {
+                    js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
+                    nonJs: 'invalidFileType'
+                };
+                documentValidateStub.returns(error);
                 documentUploadMiddleware.uploadDocument(req, res, next);
                 expect(req.log.error.calledWith('Uploaded document failed frontend validation')).to.equal(true);
                 expect(documentUploadMiddleware.__get__('returnError').calledOnce).to.equal(true);
-                expect(documentUploadMiddleware.__get__('returnError').calledWith(req, res, next, req.error)).to.equal(true);
+                expect(documentUploadMiddleware.__get__('returnError').calledWith(req, res, next, error)).to.equal(true);
                 revert();
                 done();
             });

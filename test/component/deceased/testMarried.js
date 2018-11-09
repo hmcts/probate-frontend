@@ -17,13 +17,13 @@ describe('deceased-married', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('DeceasedMarried');
 
         it('test correct content is loaded on the page', (done) => {
             const sessionData = {
-                'deceased': {
-                    'firstName': 'Mana', 'lastName': 'Manah'
+                deceased: {
+                    firstName: 'Mana',
+                    lastName: 'Manah'
                 }
             };
             const excludeKeys = ['questionWithCodicil', 'legendWithCodicil'];
@@ -41,8 +41,9 @@ describe('deceased-married', () => {
 
         it('test correct content is loaded on the page when there are codicils', (done) => {
             const sessionData = {
-                'deceased': {
-                    'firstName': 'Mana', 'lastName': 'Manah'
+                deceased: {
+                    firstName: 'Mana',
+                    lastName: 'Manah'
                 },
                 will: {
                     codicils: 'Yes'
@@ -74,6 +75,5 @@ describe('deceased-married', () => {
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForWillCodicils);
         });
-
     });
 });

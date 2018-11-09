@@ -27,8 +27,7 @@ describe('executors-invite', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('ExecutorsInvite');
 
         it('test correct content loaded on the page when more than 1 other executor', (done) => {
             testWrapper.agent.post('/prepare-session/form')
@@ -63,7 +62,7 @@ describe('executors-invite', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForExecInvites}`, (done) => {
             sendInvitesStub.returns(when(Promise.resolve({response: 'Make it pass!'})));
-            const data = {'list': [{'firstName': 'Bob', 'lastName': 'Smith', 'isApplicant': true}]};
+            const data = {list: [{firstName: 'Bob', lastName: 'Smith', isApplicant: true}]};
 
             testWrapper.testRedirect(done, data, expectedNextUrlForExecInvites);
         });

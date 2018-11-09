@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const WillOriginal = require('app/steps/ui/will/original/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const commonContent = require('app/resources/en/translation/common');
 
 describe('will-left', () => {
     let testWrapper;
@@ -19,8 +20,11 @@ describe('will-left', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('WillLeft');
+
+        it('test content loaded on the page', (done) => {
+            testWrapper.testContent(done, []);
+        });
 
         it('test errors message displayed for missing data', (done) => {
             const data = {};
@@ -28,19 +32,27 @@ describe('will-left', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to will original: ${expectedNextUrlForWillOriginal}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForWillOriginal}`, (done) => {
             const data = {
-                'left': 'Yes'
+                left: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForWillOriginal);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                'left': 'No'
+                left: 'No'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
 
+        it('test save and close link is not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
+
+            testWrapper.testContentNotPresent(done, playbackData);
+        });
     });
 });

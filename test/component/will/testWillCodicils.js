@@ -19,8 +19,7 @@ describe('will-codicils', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('WillCodicils');
 
         it('test correct content loaded on the page', (done) => {
             const excludeKeys = [];
@@ -36,15 +35,17 @@ describe('will-codicils', () => {
 
         it(`test it redirects to TaskList page: ${expectedNextUrlForTaskList}`, (done) => {
             const data = {
-                'codicils': 'No'
+                codicils: 'No'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
         });
 
         it(`test it redirects to Codicils Number page: ${expectedNextUrlForCodicilsNumber}`, (done) => {
             const data = {
-                'codicils': 'Yes'
+                codicils: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForCodicilsNumber);
         });
     });

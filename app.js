@@ -30,6 +30,7 @@ const uuidv4 = require('uuid/v4');
 const uuid = uuidv4();
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
+const featureToggles = require('app/featureToggles');
 
 exports.init = function() {
     const app = express();
@@ -67,8 +68,9 @@ exports.init = function() {
         'helpline': config.helpline,
         'nonce': uuid,
         'documentUpload': {
-            fileTypes: config.documentUpload.fileTypes,
+            validMimeTypes: config.documentUpload.validMimeTypes,
             maxFiles: config.documentUpload.maxFiles,
+            maxSizeBytes: config.documentUpload.maxSizeBytes
         }
     };
 
@@ -209,6 +211,8 @@ exports.init = function() {
     app.use('/mental-capacity', eligibilityCookie.checkCookie());
     app.use('/iht-completed', eligibilityCookie.checkCookie());
     app.use('/start-apply', eligibilityCookie.checkCookie());
+
+    app.use(featureToggles);
 
     if (useIDAM === 'true') {
         const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);

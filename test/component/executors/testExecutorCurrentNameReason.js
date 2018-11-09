@@ -16,15 +16,15 @@ describe('/executor-current-name-reason/', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorCurrentNameReason');
         sessionData = {
-            'executors': {
-                'list': [
-                    {'firstName': 'john', 'lastName': 'theapplicant', 'isApplying': true, 'isApplicant': true},
-                    {'fullName': 'executor name1', isApplying: false},
-                    {'fullName': 'executor name2', isApplying: true, currentName: 'name2 executor', hasOtherName: true},
-                    {'fullName': 'executor name3', isApplying: true, hasOtherName: false},
-                    {'fullName': 'executor name4', isApplying: true, hasOtherName: true},
-                    {'fullName': 'executor name5', isApplying: false},
-                    {'fullName': 'executor name6', isApplying: false}
+            executors: {
+                list: [
+                    {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
+                    {fullName: 'Executor Name1', isApplying: false},
+                    {fullName: 'Executor Name2', isApplying: true, currentName: 'Name2 Executor', hasOtherName: true},
+                    {fullName: 'Executor Name3', isApplying: true, hasOtherName: false},
+                    {fullName: 'Executor Name4', isApplying: true, hasOtherName: true},
+                    {fullName: 'Executor Name5', isApplying: false},
+                    {fullName: 'Executor Name6', isApplying: false}
                 ]
             }
         };
@@ -37,14 +37,13 @@ describe('/executor-current-name-reason/', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         it('test content loaded on the page', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        executorFullName: 'executor name2',
-                        executorName: 'name2 executor'
+                        executorFullName: 'Executor Name2',
+                        executorName: 'Name2 Executor'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
                     testWrapper.testContent(done, [], contentData);
@@ -73,6 +72,7 @@ describe('/executor-current-name-reason/', () => {
                 declarationCheckbox: 'Yes',
                 hasDataChanged: false
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -90,6 +90,7 @@ describe('/executor-current-name-reason/', () => {
                 declarationCheckbox: 'Yes',
                 hasDataChanged: false
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const MentalCapacity = require('app/steps/ui/executors/mentalcapacity/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const commonContent = require('app/resources/en/translation/common');
 const cookies = [{
     name: '__eligibility',
     content: {
@@ -31,13 +32,10 @@ describe('applicant-executor', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('ApplicantExecutor', cookies);
 
-        it('test right content loaded on the page', (done) => {
-            const excludeKeys = [];
-
-            testWrapper.testContent(done, excludeKeys, {}, cookies);
+        it('test content loaded on the page', (done) => {
+            testWrapper.testContent(done, [], {}, cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
@@ -46,10 +44,11 @@ describe('applicant-executor', () => {
             testWrapper.testErrors(done, data, 'required', [], cookies);
         });
 
-        it(`test it redirects to Mental Capacity page: ${expectedNextUrlForMentalCapacity}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForMentalCapacity}`, (done) => {
             const data = {
                 executor: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForMentalCapacity, cookies);
         });
 
@@ -57,7 +56,15 @@ describe('applicant-executor', () => {
             const data = {
                 executor: 'No'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+        });
+
+        it('test save and close link is not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
+
+            testWrapper.testContentNotPresent(done, playbackData);
         });
     });
 });

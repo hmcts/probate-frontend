@@ -22,13 +22,15 @@ describe('co-applicant-start-page', () => {
         it('test correct content is loaded on the page', (done) => {
             checkAllAgreedStub.returns(Promise.resolve('false'));
             const sessionData = {
-                'applicant': {
-                    'firstName': 'john', 'lastName': 'theapplicant'
+                applicant: {
+                    firstName: 'John',
+                    lastName: 'TheApplicant'
                 },
-                'deceased': {
-                    'firstName': 'dave', 'lastName': 'bassett'
+                deceased: {
+                    firstName: 'Dave',
+                    lastName: 'Bassett'
                 },
-                'pin': '12345'
+                pin: '12345'
             };
 
             const excludeKeys = [];
@@ -36,10 +38,9 @@ describe('co-applicant-start-page', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-
                     const contentData = {
-                        leadExecutorName: 'john theapplicant',
-                        deceasedName: 'dave bassett',
+                        leadExecutorName: 'John TheApplicant',
+                        deceasedName: 'Dave Bassett',
                         pin: ''
                     };
                     testWrapper.testContent(done, excludeKeys, contentData);

@@ -6,15 +6,16 @@ const TestWrapper = require('test/util/TestWrapper');
 const ExecutorNotified = require('app/steps/ui/executors/notified/index');
 const TaskList = require('app/steps/ui/tasklist/index');
 const executorRolesContent = require('app/resources/en/translation/executors/executorcontent');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
 
 describe('executor-roles', () => {
     const expectedNextUrlForTaskList = TaskList.getUrl();
     const expectedNextUrlForExecNotified = ExecutorNotified.getUrl(1);
     const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
     const reasons = {
-        'optionPowerReserved': 'This executor doesn&rsquo;t want to apply now, but may do in the future (this is also known as power reserved)',
-        'optionRenunciated': 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)'
+        optionPowerReserved: 'This executor doesn&rsquo;t want to apply now, but may do in the future (this is also known as power reserved)',
+        optionRenunciated: 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)'
     };
     let testWrapper;
     let sessionData;
@@ -22,16 +23,17 @@ describe('executor-roles', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorRoles');
         sessionData = {
-            'applicant': {
-                'firstName': 'john', 'lastName': 'theapplicant'
+            applicant: {
+                firstName: 'John',
+                lastName: 'TheApplicant'
             },
-            'executors': {
-                'executorsNumber': 2,
-                'list': [
-                    {'firstName': 'john', 'lastName': 'theapplicant', 'isApplying': 'Yes', 'isApplicant': true},
-                    {'fullName': 'Mana Manah', 'isApplying': 'No', 'isDead': false},
-                    {'fullName': 'Mee Mee', 'isApplying': 'No', 'isDead': true},
-                    {'fullName': 'Boo Boo', 'isApplying': 'No'}
+            executors: {
+                executorsNumber: 2,
+                list: [
+                    {firstName: 'John', lastName: 'TheApplicant', isApplying: 'Yes', isApplicant: true},
+                    {fullName: 'Mana Manah', isApplying: 'No', isDead: false},
+                    {fullName: 'Mee Mee', isApplying: 'No', isDead: true},
+                    {fullName: 'Boo Boo', isApplying: 'No'}
 
                 ]
             }
@@ -43,8 +45,21 @@ describe('executor-roles', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+        it('test help block content is loaded on page', (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const playbackData = {};
+                    playbackData.helpTitle = commonContent.helpTitle;
+                    playbackData.helpText = commonContent.helpText;
+                    playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+                    playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+                    playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+                    playbackData.contactEmailAddress = commonContent.contactEmailAddress;
 
-        testHelpBlockContent.runTest('WillLeft');
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
 
         it('test correct content is loaded on executor applying page', (done) => {
             testWrapper.agent.post('/prepare-session/form')
@@ -98,18 +113,21 @@ describe('executor-roles', () => {
         it('Adds the keys to the context', () => {
             const ExecutorRoles = steps.ExecutorRoles;
             let ctx = {
-                'list': [{
-                    'lastName': 'the',
-                    'firstName': 'applicant',
-                    'isApplying': 'Yes',
-                    'isApplicant': true
-                }, {
-                    'fullName': 'another executor',
-                    'isDead': false
-                }],
-                'index': 1,
-                'isApplying': 'No',
-                'notApplyingReason': reasons.optionRenunciated
+                list: [
+                    {
+                        lastName: 'The',
+                        firstName: 'Applicant',
+                        isApplying: 'Yes',
+                        isApplicant: true
+                    },
+                    {
+                        fullName: 'Another Executor',
+                        isDead: false
+                    }
+                ],
+                index: 1,
+                isApplying: 'No',
+                notApplyingReason: reasons.optionRenunciated
             };
 
             [ctx] = ExecutorRoles.handlePost(ctx);
@@ -119,18 +137,21 @@ describe('executor-roles', () => {
         it('Gets the reason key from the json and adds it to the context', () => {
             const ExecutorRoles = steps.ExecutorRoles;
             let ctx = {
-                'list': [{
-                    'lastName': 'the',
-                    'firstName': 'applicant',
-                    'isApplying': 'Yes',
-                    'isApplicant': true
-                }, {
-                    'fullName': 'another executor',
-                    'isDead': false
-                }],
-                'index': 1,
-                'isApplying': 'No',
-                'notApplyingReason': reasons.optionRenunciated
+                list: [
+                    {
+                        lastName: 'The',
+                        firstName: 'Applicant',
+                        isApplying: 'Yes',
+                        isApplicant: true
+                    },
+                    {
+                        fullName: 'Another Executor',
+                        isDead: false
+                    }
+                ],
+                index: 1,
+                isApplying: 'No',
+                notApplyingReason: reasons.optionRenunciated
             };
 
             Object.keys(reasons).forEach(key => {

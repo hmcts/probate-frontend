@@ -4,7 +4,6 @@ const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist/index');
 const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails/index');
 const ExecutorRoles = require('app/steps/ui/executors/roles/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-address', () => {
     let testWrapper, sessionData;
@@ -15,15 +14,16 @@ describe('executors-address', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorAddress');
         sessionData = {
-            'applicant': {
-                'firstName': 'Lead', 'lastName': 'Applicant'
+            applicant: {
+                firstName: 'Lead',
+                lastName: 'Applicant'
             },
-            'executors': {
-                'executorsNumber': 3,
-                'list': [
-                    {'fullName': 'john', 'isApplying': true, 'isApplicant': true},
-                    {'fullName': 'other applicant', 'isApplying': true, 'isApplicant': true},
-                    {'fullName': 'harvey', 'isApplying': false, 'isApplicant': true}
+            executors: {
+                executorsNumber: 3,
+                list: [
+                    {fullName: 'John', isApplying: true, isApplicant: true},
+                    {fullName: 'Other Applicant', isApplying: true, isApplicant: true},
+                    {fullName: 'Harvey', isApplying: false, isApplicant: true}
                 ]
             }
         };
@@ -34,16 +34,12 @@ describe('executors-address', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
-
         it('test correct content is loaded on the page', (done) => {
             const excludeKeys = ['selectAddress'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-
                     const contentData = {
                         executorName: 'other applicant'
                     };
@@ -99,20 +95,20 @@ describe('executors-address', () => {
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testErrors(done, data, 'required', ['freeTextAddress']);
                 });
-
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {
             sessionData = {
-                'applicant': {
-                    'firstName': 'Lead', 'lastName': 'Applicant'
+                applicant: {
+                    firstName: 'Lead',
+                    lastName: 'Applicant'
                 },
-                'executors': {
-                    'executorsNumber': 3,
-                    'list': [
-                        {'fullName': 'john', 'isApplying': true, 'isApplicant': true},
-                        {'fullName': 'other applicant', 'isApplying': true, 'isApplicant': true},
-                        {'fullName': 'harvey', 'isApplying': true, 'isApplicant': true}
+                executors: {
+                    executorsNumber: 3,
+                    list: [
+                        {fullName: 'John', isApplying: true, isApplicant: true},
+                        {fullName: 'Other Applicant', isApplying: true, isApplicant: true},
+                        {fullName: 'Harvey', isApplying: true, isApplicant: true}
                     ]
                 }
             };
@@ -145,15 +141,16 @@ describe('executors-address', () => {
 
         it(`test it redirects to Executor Contact Details step: ${expectedNextUrlForExecContactDetails}`, (done) => {
             sessionData = {
-                'applicant': {
-                    'firstName': 'Lead', 'lastName': 'Applicant'
+                applicant: {
+                    firstName: 'Lead',
+                    lastName: 'Applicant'
                 },
-                'executors': {
-                    'executorsNumber': 3,
-                    'list': [
-                        {'fullName': 'john', 'isApplying': true, 'isApplicant': true},
-                        {'fullName': 'other applicant', 'isApplying': true, 'isApplicant': true},
-                        {'fullName': 'harvey', 'isApplying': true, 'isApplicant': true}
+                executors: {
+                    executorsNumber: 3,
+                    list: [
+                        {fullName: 'John', isApplying: true, isApplicant: true},
+                        {fullName: 'Other Applicant', isApplying: true, isApplicant: true},
+                        {fullName: 'Harvey', isApplying: true, isApplicant: true}
                     ]
                 }
             };
@@ -169,6 +166,5 @@ describe('executors-address', () => {
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecContactDetails);
                 });
         });
-
     });
 });

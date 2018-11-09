@@ -17,7 +17,7 @@ describe('deceased-dob', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('DeceasedDob');
 
         it('test right content loaded on the page', (done) => {
             testWrapper.testContent(done, []);

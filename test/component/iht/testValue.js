@@ -17,8 +17,7 @@ describe('iht-value', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('IhtValue');
 
         it('test correct iht value page content is loaded', (done) => {
             const contentToExclude = [];
@@ -35,8 +34,8 @@ describe('iht-value', () => {
 
         it('test iht value schema validation when invalid data is entered', (done) => {
             const data = {
-                'grossValueOnline': 12345,
-                'netValueOnline': 123456
+                grossValueOnline: 12345,
+                netValueOnline: 123456
             };
 
             testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['netValueOnline']);
@@ -44,11 +43,11 @@ describe('iht-value', () => {
 
         it(`test it redirects to Deceased Alias page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
             const data = {
-                'grossValueOnline': 123456,
-                'netValueOnline': 12345
+                grossValueOnline: 123456,
+                netValueOnline: 12345
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
         });
-
     });
 });

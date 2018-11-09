@@ -1,16 +1,26 @@
-.document-upload__dropzone {
+.document-upload__dropzone--javascript {
   border: 2px dashed $grey-1;
   overflow: hidden;
   padding: 30px;
 }
 
 .document-upload__image {
-  width: 90px;
+  display: none;
+}
+
+.document-upload__image--javascript {
+  display: block;
   float: left;
   margin-left: 100px;
+  width: 90px;
 }
 
 .document-upload__text {
+  display: none;
+}
+
+.document-upload__text--javascript {
+  display: block;
   float: left;
   padding-top: 4px;
 }
@@ -69,9 +79,20 @@
   .dz-error-message {
     margin-bottom: 5px;
   }
+
+  .dz-progress {
+    display: none;
+  }
 }
 
 .dz-error-message {
   color: $error-colour;
   @include bold-19;
+}
+
+.dz-processing [data-dz-uploadprogress] {
+  background-color: $govuk-blue;
+  display: block;
+  height: 5px;
+  margin-top: 8px;
 }

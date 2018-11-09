@@ -32,8 +32,8 @@ describe('pin-resend', () => {
             testWrapper.agent
                 .post('/prepare-session-field')
                 .send({
-                    'phoneNumber': '07701111111',
-                    'validLink': true
+                    phoneNumber: '07701111111',
+                    validLink: true
                 })
                 .then(function() {
                     testWrapper.testContent(done, ['subHeader2ExecName'], contentData);
@@ -47,8 +47,8 @@ describe('pin-resend', () => {
             testWrapper.agent
                 .post('/prepare-session-field')
                 .send({
-                    'phoneNumber': '+447701111111',
-                    'validLink': true
+                    phoneNumber: '+447701111111',
+                    validLink: true
                 })
                 .then(function() {
                     testWrapper.testContent(done, ['subHeader2ExecName'], contentData);
@@ -62,8 +62,8 @@ describe('pin-resend', () => {
             testWrapper.agent
                 .post('/prepare-session-field')
                 .send({
-                    'phoneNumber': '+10900111000111000111',
-                    'validLink': true
+                    phoneNumber: '+10900111000111000111',
+                    validLink: true
                 })
                 .then(function() {
                     testWrapper.testContent(done, ['subHeader2ExecName'], contentData);
@@ -77,8 +77,8 @@ describe('pin-resend', () => {
             testWrapper.agent
                 .post('/prepare-session-field')
                 .send({
-                    'leadExecutorName': 'Works',
-                    'validLink': true
+                    leadExecutorName: 'Works',
+                    validLink: true
                 })
                 .then(function() {
                     testWrapper.testContent(done, ['header1', 'header2'], contentData);

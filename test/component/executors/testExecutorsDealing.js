@@ -11,12 +11,12 @@ describe('executors-dealing-with-estate', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsDealingWithEstate');
         sessionData = {
-            'executors': {
-                'executorsNumber': 3,
-                'list': [
-                    {'firstName': 'john', 'lastName': 'theapplicant', 'isApplying': true, 'isApplicant': true},
-                    {'fullName': 'many clouds', isApplying: true},
-                    {'fullName': 'harvey smith', isApplying: false}
+            executors: {
+                executorsNumber: 3,
+                list: [
+                    {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
+                    {fullName: 'Many Clouds', isApplying: true},
+                    {fullName: 'Harvey Smith', isApplying: false}
                 ]
             }
         };
@@ -27,8 +27,7 @@ describe('executors-dealing-with-estate', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('ExecutorsDealingWithEstate');
 
         it('test correct content loaded on the page when lead applicant does not have an alias', (done) => {
             testWrapper.agent.post('/prepare-session/form')
@@ -80,6 +79,5 @@ describe('executors-dealing-with-estate', () => {
                     testWrapper.testErrors(done, data, 'invalid', errorsToTest);
                 });
         });
-
     });
 });

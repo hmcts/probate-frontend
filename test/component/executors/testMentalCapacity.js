@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const IhtCompleted = require('app/steps/ui/iht/completed/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const commonContent = require('app/resources/en/translation/common');
 const cookies = [{
     name: '__eligibility',
     content: {
@@ -20,8 +21,8 @@ const cookies = [{
 
 describe('mental-capacity', () => {
     let testWrapper;
-    const expectedNextUrlForStopPage = StopPage.getUrl('mentalCapacity');
     const expectedNextUrlForIhtCompleted = IhtCompleted.getUrl();
+    const expectedNextUrlForStopPage = StopPage.getUrl('mentalCapacity');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('MentalCapacity');
@@ -32,13 +33,10 @@ describe('mental-capacity', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('MentalCapacity', cookies);
 
-        it('test right content loaded on the page', (done) => {
-            const excludeKeys = [];
-
-            testWrapper.testContent(done, excludeKeys, {}, cookies);
+        it('test content loaded on the page', (done) => {
+            testWrapper.testContent(done, [], {}, cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
@@ -47,10 +45,11 @@ describe('mental-capacity', () => {
             testWrapper.testErrors(done, data, 'required', [], cookies);
         });
 
-        it(`test it redirects to IHT Completed page: ${expectedNextUrlForIhtCompleted}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForIhtCompleted}`, (done) => {
             const data = {
                 mentalCapacity: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtCompleted, cookies);
         });
 
@@ -58,7 +57,15 @@ describe('mental-capacity', () => {
             const data = {
                 mentalCapacity: 'No'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+        });
+
+        it('test save and close link is not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
+
+            testWrapper.testContentNotPresent(done, playbackData);
         });
     });
 });

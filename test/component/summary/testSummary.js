@@ -16,7 +16,6 @@ describe('summary', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         it('test content loaded on the page', (done) => {
             const contentToExclude = [
                 'executorsWhenDiedQuestion',
@@ -29,7 +28,6 @@ describe('summary', () => {
                 'nameOnWill',
                 'currentName',
                 'currentNameReason',
-                'address',
                 'mobileNumber',
                 'emailAddress'
             ];
@@ -37,7 +35,6 @@ describe('summary', () => {
         });
 
         it('test it redirects to submit', (done) => {
-
             const sessionData = {
                 applicant: {nameAsOnTheWill: 'No'}
             };
@@ -73,6 +70,5 @@ describe('summary', () => {
                     }
                 });
         });
-
     });
 });

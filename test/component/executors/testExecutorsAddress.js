@@ -41,7 +41,7 @@ describe('executors-address', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        executorName: 'other applicant'
+                        executorName: 'Other Applicant'
                     };
 
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);

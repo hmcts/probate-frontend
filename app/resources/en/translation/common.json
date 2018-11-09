@@ -38,7 +38,7 @@
   "contactTelLabel" : "Phone: {helpLineNumber}",
   "contactOpeningTimes" : "({openingTimes})",
   "helpEmailLabel" : "Email:",
-  "contactEmailAddress" : "<a href=\"mailto:oxforddprenquiries@hmcts.gsi.gov.uk\">oxforddprenquiries@hmcts.gsi.gov.uk</a>",
+  "contactEmailAddress" : "<a href=\"mailto:online_application@justice.gov.uk\">online_application@justice.gov.uk</a>",
   "or": "or",
   "documentUploadChooseFile": "Choose a file or take a photo",
   "documentUploadDragAndDrop": "drag and drop files here",

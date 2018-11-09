@@ -107,7 +107,7 @@ const config = {
     },
     helpline: {
         number: '0300 303 0648',
-        hours: 'Monday to Friday, 9am to 5pm'
+        hours: 'Monday to Friday, 9:30am to 5pm'
     },
     utils: {
         api: {

@@ -28,6 +28,14 @@ class DocumentUpload extends ValidationStep {
         return [ctx, errors];
     }
 
+    nextStepOptions() {
+        return {
+            options: [
+                {key: 'isUploadingDocument', value: 'true', choice: 'isUploadingDocument'}
+            ]
+        };
+    }
+
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.uploadedDocuments;

@@ -109,8 +109,12 @@ const stepList = {
     },
     DeceasedDomicile: 'DeceasedAddress',
     DeceasedAddress: {
-        toggleOn: 'IhtMethod',
+        toggleOn: 'DocumentUpload',
         otherwise: 'Summary'
+    },
+    DocumentUpload: {
+        isUploadingDocument: 'DocumentUpload',
+        otherwise: 'IhtMethod'
     },
     IhtMethod: {
         online: 'IhtIdentifier',
@@ -250,8 +254,7 @@ const stepList = {
         otherwise: 'CoApplicantDisagreePage'
     },
     CoApplicantAgreePage: 'CoApplicantAgreePage',
-    CoApplicantDisagreePage: 'CoApplicantDisagreePage',
-    DocumentUpload: 'DocumentUpload'
+    CoApplicantDisagreePage: 'CoApplicantDisagreePage'
 };
 
 module.exports.stepList = stepList;

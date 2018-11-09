@@ -202,6 +202,14 @@ exports.init = function() {
     app.use('/executors-update-invite', updateInvite);
     app.use('/declaration', declaration);
 
+    app.use('/payment-status', (req, res, next) => {
+        if (req.query.sessionId && !req.sessionID) {
+            req.log.info('setting the session id as it was not present');
+            req.sessionID = req.params.sessionId;
+        }
+        next();
+    });
+
     app.use(featureToggles);
 
     if (useIDAM === 'true') {

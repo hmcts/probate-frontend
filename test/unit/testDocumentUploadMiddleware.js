@@ -232,7 +232,7 @@ describe('DocumentUploadMiddleware', () => {
 
             it('if the document upload fails', (done) => {
                 documentValidateStub.returns(null);
-                uploadDocumentServiceStub.returns(Promise.reject(new Error('Error: upload failed')));
+                uploadDocumentServiceStub.returns(Promise.reject(new Error('Upload failed')));
                 const revert = documentUploadMiddleware.__set__('returnError', sinon.spy());
                 req = Object.assign(req, {
                     log: {
@@ -250,7 +250,7 @@ describe('DocumentUploadMiddleware', () => {
                 documentUploadMiddleware.uploadDocument(req, res, next);
                 setTimeout(() => {
                     expect(req.log.info.calledWith('Uploaded document passed frontend validation')).to.equal(true);
-                    expect(req.log.error.calledWith('Document upload failed: Error: Error: upload failed')).to.equal(true);
+                    expect(req.log.error.calledWith('Document upload failed: Error: Upload failed')).to.equal(true);
                     expect(documentUploadMiddleware.__get__('returnError').calledWith(req, res, next, error)).to.equal(true);
                     revert();
                     done();

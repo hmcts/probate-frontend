@@ -109,7 +109,8 @@ const stepList = {
     },
     DeceasedDomicile: 'DeceasedAddress',
     DeceasedAddress: {
-        toggleOn: 'DocumentUpload',
+        toggleOn: 'IhtMethod',
+        documentUploadToggleOn: 'DocumentUpload',
         otherwise: 'Summary'
     },
     DocumentUpload: {

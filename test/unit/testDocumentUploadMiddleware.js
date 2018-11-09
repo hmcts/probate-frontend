@@ -123,7 +123,10 @@ describe('DocumentUploadMiddleware', () => {
                     }
                 },
                 error: null,
-                log: {}
+                log: {},
+                body: {
+                    isUploadingDocument: 'true'
+                }
             };
             res = {};
             next = sinon.spy();
@@ -134,6 +137,13 @@ describe('DocumentUploadMiddleware', () => {
         afterEach(() => {
             uploadDocumentServiceStub.restore();
             documentValidateStub.restore();
+        });
+
+        it('should continue if a document is not being uploaded because the user has clicked the continue button', (done) => {
+            req.body.isUploadingDocument = null;
+            documentUploadMiddleware.uploadDocument(req, res, next);
+            expect(next.calledOnce).to.equal(true);
+            done();
         });
 
         it('should add the returned url to documents.uploads if the document upload is successful', (done) => {

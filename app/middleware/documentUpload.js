@@ -33,6 +33,12 @@ const returnError = (req, res, next, error) => {
 };
 
 const uploadDocument = (req, res, next) => {
+    const isUploadingDocument = req.body && req.body.isUploadingDocument;
+
+    if (!isUploadingDocument) {
+        return next();
+    }
+
     const uploadedDocument = req.file;
     let formdata = req.session.form;
     formdata = documentUpload.initDocuments(formdata);

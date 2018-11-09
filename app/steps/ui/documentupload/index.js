@@ -15,11 +15,12 @@ class DocumentUpload extends ValidationStep {
         if (formdata.documents && formdata.documents.uploads) {
             ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
         }
+        ctx.isUploadingDocument = req.body && req.body.isUploadingDocument;
         return ctx;
     }
 
     handlePost(ctx, errors, formdata) {
-        const error = formdata.documents.error;
+        const error = formdata.documents && formdata.documents.error;
         if (error) {
             errors = errors || [];
             errors.push(FieldError('file', error, this.resourcePath, this.generateContent()));
@@ -39,6 +40,7 @@ class DocumentUpload extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.uploadedDocuments;
+        delete ctx.isUploadingDocument;
         return [ctx, formdata];
     }
 }

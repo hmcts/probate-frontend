@@ -202,8 +202,8 @@ exports.init = function() {
     app.use('/declaration', declaration);
 
     app.use('/payment-status', (req, res, next) => {
-        logger.info(`Contents of req.session.form: ${JSON.stringify(req.session.form)}`);
         if (!req.sessionID) {
+            req.log.info(`${req.session.form}`);
             req.log.info('setting the session id as it was not present');
             req.sessionID = req.session.form.payment.sessionID;
         }

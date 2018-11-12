@@ -15,11 +15,6 @@ class ThankYou extends Step {
         }
         return ctx;
     }
-
-    handleGet(ctx, formdata) {
-        ctx.softStop = this.anySoftStops(formdata, ctx);
-        return [ctx];
-    }
 }
 
 module.exports = ThankYou;

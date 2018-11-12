@@ -19,8 +19,7 @@ describe('executors-all-alive', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('ExecutorsAllAlive');
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];
@@ -37,17 +36,16 @@ describe('executors-all-alive', () => {
 
         it(`test it redirects to executors applying: ${expectedNextUrlForExecsApplying}`, (done) => {
             const data = {
-                'allalive': 'Yes'
+                allalive: 'Yes'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForExecsApplying);
         });
 
         it(`test it redirects to which executors died: ${expectedNextUrlForExecsWhoDied}`, (done) => {
             const data = {
-                'allalive': 'No'
+                allalive: 'No'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForExecsWhoDied);
         });
-
     });
 });

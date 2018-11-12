@@ -78,6 +78,33 @@ describe('FeatureToggle', () => {
         });
     });
 
+    describe('toggleExistingPage()', () => {
+        it('should call next() when isEnabled is set to false', (done) => {
+            const params = {
+                isEnabled: false,
+                res: {},
+                next: sinon.spy()
+            };
+            featureToggle.toggleExistingPage(params);
+            expect(params.next.calledOnce).to.equal(true);
+            expect(params.next.calledWith()).to.equal(true);
+            done();
+        });
+
+        it('should redirect to the specified page when isEnabled is set to true', (done) => {
+            const params = {
+                isEnabled: true,
+                res: {redirect: sinon.spy()},
+                next: {},
+                redirectPage: '/applicant-phone'
+            };
+            featureToggle.toggleExistingPage(params);
+            expect(params.res.redirect.calledOnce).to.equal(true);
+            expect(params.res.redirect.calledWith('/applicant-phone')).to.equal(true);
+            done();
+        });
+    });
+
     describe('toggleFeature()', () => {
         describe('should set the feature toggle', () => {
             it('when the session contains a featureToggles object and call next()', (done) => {

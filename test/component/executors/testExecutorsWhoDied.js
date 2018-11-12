@@ -11,18 +11,19 @@ describe('executors-who-died', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsWhoDied');
         sessionData = {
-            'applicant': {
-                'firstName': 'john', 'lastName': 'theapplicant'
+            applicant: {
+                firstName: 'John',
+                lastName: 'TheApplicant'
             },
-            'executors': {
-                'executorsNumber': 3,
-                'list': [
-                    {'firstName': 'john', 'lastName': 'theapplicant', 'isApplying': 'Yes', 'isApplicant': true},
-                    {'fullName': 'another name'},
-                    {'fullName': 'harvey smith'}
+            executors: {
+                executorsNumber: 3,
+                list: [
+                    {firstName: 'John', lastName: 'TheApplicant', isApplying: 'Yes', isApplicant: true},
+                    {fullName: 'Another Name'},
+                    {fullName: 'Harvey Smith'}
                 ]
             },
-            'executorName': ['many', 'harvey']
+            executorName: ['many', 'harvey']
         };
     });
 
@@ -31,8 +32,7 @@ describe('executors-who-died', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('ExecutorsWhoDied');
 
         it('test content loaded on the page', (done) => {
             testWrapper.agent.post('/prepare-session/form')

@@ -21,11 +21,11 @@ describe('payment-breakdown', () => {
     afterEach(() => {
         submitStub.close();
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('PaymentBreakdown');
 
         it('test content loaded on the page with no extra copies', (done) => {
             const contentToExclude = ['extraCopiesFeeUk', 'extraCopiesFeeJersey', 'extraCopiesFeeOverseas'];
@@ -43,6 +43,7 @@ describe('payment-breakdown', () => {
                     testWrapper.testContent(done, contentToExclude);
                 });
         });
+
         it('test it displays the overseas copies fees', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({copies: {overseas: 1}, assets: {assetsoverseas: 'Yes'}})
@@ -54,6 +55,7 @@ describe('payment-breakdown', () => {
                     testWrapper.testContent(done, contentToExclude);
                 });
         });
+
         it('test error message displayed for failed authorisation', (done) => {
             const data = {};
             testWrapper.testErrors(done, data, 'failure', ['authorisation']);

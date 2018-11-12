@@ -17,8 +17,7 @@ describe('deceased-dob', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('DeceasedDob');
 
         it('test right content loaded on the page', (done) => {
             testWrapper.testContent(done, []);
@@ -64,6 +63,5 @@ describe('deceased-dob', () => {
             const data = {dob_day: '01', dob_month: '01', dob_year: '1945'};
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDomicile);
         });
-
     });
 });

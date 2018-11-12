@@ -75,8 +75,10 @@ const config = {
         //saveUninitialized: false,
         saveUninitialized: true,
         cookie: {
+            secure: true,
             httpOnly: true,
-            sameSite: 'lax'
+           // sameSite: 'lax'
+            domain: ''
         }
     },
     dateFormat: 'DD/MM/YYYY',

@@ -1,10 +1,13 @@
 'use strict';
 
 /* eslint no-console: 0 */
-
+const config = require('app/config');
 const express = require('express'),
     app = express(),
     router = require('express').Router();
+const validationServicePort = config.services.validation.port;
+const logger = require('app/components/logger')('Init');
+
 router.get('invites/allAgreed/:id', function (req, res) {
     res.status(200);
     res.send('false');
@@ -27,7 +30,7 @@ router.get('/info', function (req, res) {
 
 app.use(router);
 
-console.log('Listening on: 8080');
-const server = app.listen(8080);
+logger.info(`Listening on: ${validationServicePort}`);
+const server = app.listen(validationServicePort);
 
 module.exports = server;

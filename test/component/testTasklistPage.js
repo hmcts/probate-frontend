@@ -4,7 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const singleApplicantData = require('test/data/singleApplicant');
 const nock = require('nock');
 const config = require('app/config');
-const featureToggleUrl = config.featureToggles.url;
+const featureToggleUrl = `${config.featureToggles.url}:${config.featureToggles.port}`;
 const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
 
 describe('task-list', () => {

@@ -159,6 +159,31 @@ describe('DocumentUploadUtil', () => {
         });
     });
 
+    describe('isDocument()', () => {
+        it('should return true if the document is an object', (done) => {
+            const document = {};
+            const documentUpload = new DocumentUpload();
+            const isDocument = documentUpload.isDocument(document);
+            expect(isDocument).to.equal(true);
+            done();
+        });
+
+        it('should return false if the document is not an object', (done) => {
+            const document = '';
+            const documentUpload = new DocumentUpload();
+            const isDocument = documentUpload.isDocument(document);
+            expect(isDocument).to.equal(false);
+            done();
+        });
+
+        it('should return false if no document is given', (done) => {
+            const documentUpload = new DocumentUpload();
+            const isDocument = documentUpload.isDocument();
+            expect(isDocument).to.equal(false);
+            done();
+        });
+    });
+
     describe('isValidType()', () => {
         it('should return true when a valid document type is given', (done) => {
             const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
@@ -266,6 +291,16 @@ describe('DocumentUploadUtil', () => {
     });
 
     describe('validate()', () => {
+        it('should return an error when no document is given', (done) => {
+            const documentUpload = new DocumentUpload();
+            const error = documentUpload.validate();
+            expect(error).to.deep.equal({
+                js: 'Click &lsquo;browse&rsquo; to find a file to upload',
+                nonJs: 'nothingUploaded'
+            });
+            done();
+        });
+
         it('should return null when a valid document is given', (done) => {
             const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
             const document = {
@@ -388,7 +423,7 @@ describe('DocumentUploadUtil', () => {
             const documentUpload = new DocumentUpload();
             const error = documentUpload.mapError(errorType);
             expect(error).to.deep.equal({
-                js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
+                js: 'Click &lsquo;browse&rsquo; to find a file to upload',
                 nonJs: 'nothingUploaded'
             });
             done();

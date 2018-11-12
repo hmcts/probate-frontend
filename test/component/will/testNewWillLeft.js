@@ -7,7 +7,7 @@ const commonContent = require('app/resources/en/translation/common');
 
 const nock = require('nock');
 const config = require('app/config');
-const featureToggleUrl = config.featureToggles.url;
+const featureToggleUrl = `${config.featureToggles.url}:${config.featureToggles.port}`;
 const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
 
 describe('new-will-left', () => {

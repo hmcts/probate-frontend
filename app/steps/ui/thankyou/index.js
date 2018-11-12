@@ -15,6 +15,12 @@ class ThankYou extends Step {
         }
         return ctx;
     }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.ccdReferenceNumber;
+        return [ctx, formdata];
+    }
 }
 
 module.exports = ThankYou;

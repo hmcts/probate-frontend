@@ -34,4 +34,15 @@ describe('ThankYou', () => {
             done();
         });
     });
+
+    describe('action()', () => {
+        it('test that context variables are removed and empty object returned', () => {
+            let formdata = {};
+            let ctx = {
+                ccdReferenceNumber: '1234-1235-1236-1237'
+            };
+            [ctx, formdata] = ThankYou.action(ctx, formdata);
+            expect(ctx).to.deep.equal({});
+        });
+    });
 });

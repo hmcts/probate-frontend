@@ -15,13 +15,13 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     // Eligibility Task (pre IdAM)
     I.startEligibility();
-    I.selectPersonWhoDiedLeftAWill();
-    I.selectOriginalWill();
     I.selectDeathCertificate();
     I.selectDeceasedDomicile();
+    I.selectIhtCompleted();
+    I.selectPersonWhoDiedLeftAWill();
+    I.selectOriginalWill();
     I.selectApplicantIsExecutor();
     I.selectMentallyCapable();
-    I.selectIhtCompleted();
     I.startApply();
 
     // IdAM

@@ -2,7 +2,7 @@
 
 const taskList = {
     EligibilityTask: {
-        firstStep: 'WillLeft',
+        firstStep: 'DeathCertificate',
         lastStep: 'TaskList',
         summary: 'Summary'
     },
@@ -39,21 +39,25 @@ const taskList = {
 };
 
 const stepList = {
-    StartEligibility: 'WillLeft',
-    WillLeft: {
-        withWill: 'WillOriginal',
-        otherwise: 'StopPage'
-    },
-    WillOriginal: {
-        isOriginal: 'DeathCertificate',
-        otherwise: 'StopPage'
-    },
+    StartEligibility: 'DeathCertificate',
     DeathCertificate: {
         hasCertificate: 'DeceasedDomicile',
         otherwise: 'StopPage'
     },
     DeceasedDomicile: {
-        inEnglandOrWales: 'ApplicantExecutor',
+        inEnglandOrWales: 'IhtCompleted',
+        otherwise: 'StopPage'
+    },
+    IhtCompleted: {
+        completed: 'WillLeft',
+        otherwise: 'StopPage'
+    },
+    WillLeft: {
+        withWill: 'WillOriginal',
+        otherwise: 'StopPage'
+    },
+    WillOriginal: {
+        isOriginal: 'ApplicantExecutor',
         otherwise: 'StopPage'
     },
     ApplicantExecutor: {
@@ -61,15 +65,10 @@ const stepList = {
         otherwise: 'StopPage'
     },
     MentalCapacity: {
-        isCapable: 'IhtCompleted',
-        otherwise: 'StopPage'
-    },
-    IhtCompleted: {
-        completed: 'StartApply',
+        isCapable: 'StartApply',
         otherwise: 'StopPage'
     },
     StartApply: 'TaskList',
-
     DeceasedName: 'DeceasedDob',
     DeceasedDob: 'DeceasedDod',
     DeceasedDod: 'DeceasedAddress',

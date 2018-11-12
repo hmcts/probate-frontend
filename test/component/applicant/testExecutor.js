@@ -10,10 +10,11 @@ const cookies = [{
     content: {
         nextStepUrl: '/applicant-executor',
         pages: [
-            '/will-left',
-            '/will-original',
             '/death-certificate',
-            '/deceased-domicile'
+            '/deceased-domicile',
+            '/iht-completed',
+            '/will-left',
+            '/will-original'
         ]
     }
 }];

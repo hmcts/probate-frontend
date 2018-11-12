@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const IhtCompleted = require('app/steps/ui/iht/completed/index');
+const StartApply = require('app/steps/ui/startapply/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
@@ -10,10 +10,11 @@ const cookies = [{
     content: {
         nextStepUrl: '/mental-capacity',
         pages: [
-            '/will-left',
-            '/will-original',
             '/death-certificate',
             '/deceased-domicile',
+            '/iht-completed',
+            '/will-left',
+            '/will-original',
             '/applicant-executor'
         ]
     }
@@ -21,7 +22,7 @@ const cookies = [{
 
 describe('mental-capacity', () => {
     let testWrapper;
-    const expectedNextUrlForIhtCompleted = IhtCompleted.getUrl();
+    const expectedNextUrlForStartApply = StartApply.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('mentalCapacity');
 
     beforeEach(() => {
@@ -45,12 +46,12 @@ describe('mental-capacity', () => {
             testWrapper.testErrors(done, data, 'required', [], cookies);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForIhtCompleted}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
             const data = {
                 mentalCapacity: 'Yes'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtCompleted, cookies);
+            testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {

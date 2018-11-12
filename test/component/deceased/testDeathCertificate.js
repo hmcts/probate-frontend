@@ -5,16 +5,6 @@ const DeceasedDomicile = require('app/steps/ui/deceased/domicile/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
-const cookies = [{
-    name: '__eligibility',
-    content: {
-        nextStepUrl: '/death-certificate',
-        pages: [
-            '/will-left',
-            '/will-original'
-        ]
-    }
-}];
 
 describe('death-certificate', () => {
     let testWrapper;
@@ -30,32 +20,30 @@ describe('death-certificate', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeathCertificate', cookies);
+        testHelpBlockContent.runTest('DeathCertificate');
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {}, cookies);
+            testWrapper.testContent(done, [], {});
         });
 
         it('test errors message displayed for missing data', (done) => {
             const data = {};
 
-            testWrapper.testErrors(done, data, 'required', [], cookies);
+            testWrapper.testErrors(done, data, 'required', []);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDeceasedDomicile}`, (done) => {
             const data = {
                 deathCertificate: 'Yes'
             };
-
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDomicile, cookies);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDomicile);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
                 deathCertificate: 'No'
             };
-
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
 
         it('test save and close link is not displayed on the page', (done) => {

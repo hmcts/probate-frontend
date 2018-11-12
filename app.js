@@ -204,12 +204,12 @@ exports.init = function() {
     app.use('/executors-update-invite', updateInvite);
     app.use('/declaration', declaration);
 
-    app.use('/will-original', eligibilityCookie.checkCookie());
-    app.use('/death-certificate', eligibilityCookie.checkCookie());
     app.use('/deceased-domicile', eligibilityCookie.checkCookie());
+    app.use('/iht-completed', eligibilityCookie.checkCookie());
+    app.use('/will-left', eligibilityCookie.checkCookie());
+    app.use('/will-original', eligibilityCookie.checkCookie());
     app.use('/applicant-executor', eligibilityCookie.checkCookie());
     app.use('/mental-capacity', eligibilityCookie.checkCookie());
-    app.use('/iht-completed', eligibilityCookie.checkCookie());
     app.use('/start-apply', eligibilityCookie.checkCookie());
 
     app.use(featureToggles);

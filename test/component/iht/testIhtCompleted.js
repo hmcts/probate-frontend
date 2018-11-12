@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const StartApply = require('app/steps/ui/startapply/index');
+const WillLeft = require('app/steps/ui/will/left/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
@@ -10,19 +10,15 @@ const cookies = [{
     content: {
         nextStepUrl: '/iht-completed',
         pages: [
-            '/will-left',
-            '/will-original',
             '/death-certificate',
-            '/deceased-domicile',
-            '/applicant-executor',
-            '/mental-capacity'
+            '/deceased-domicile'
         ]
     }
 }];
 
 describe('iht-completed', () => {
     let testWrapper;
-    const expectedNextUrlForStartApply = StartApply.getUrl();
+    const expectedNextUrlForWillLeft = WillLeft.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('ihtNotCompleted');
 
     beforeEach(() => {
@@ -46,12 +42,12 @@ describe('iht-completed', () => {
             testWrapper.testErrors(done, data, 'required', [], cookies);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForWillLeft}`, (done) => {
             const data = {
                 completed: 'Yes'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
+            testWrapper.testRedirect(done, data, expectedNextUrlForWillLeft, cookies);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {

@@ -1,45 +1,45 @@
 'use strict';
 
-const content = require('app/resources/en/translation/executors/mentalcapacity');
+const content = require('app/resources/en/translation/deceased/domicile');
 const initSteps = require('app/core/initSteps');
 const chai = require('chai');
 const expect = chai.expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
-const MentalCapacity = steps.MentalCapacity;
+const DeceasedDomicile = steps.DeceasedDomicile;
 
-describe('MentalCapacity.js', () => {
+describe('DeceasedDomicile.js', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = MentalCapacity.constructor.getUrl();
-            expect(url).to.equal('/mental-capacity');
+            const url = DeceasedDomicile.constructor.getUrl();
+            expect(url).to.equal('/deceased-domicile');
             done();
         });
     });
 
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
-            const ctx = {mentalCapacity: 'Yes'};
-            const nextStepUrl = MentalCapacity.nextStepUrl(ctx);
-            expect(nextStepUrl).to.equal('/start-apply');
+            const ctx = {domicile: 'Yes'};
+            const nextStepUrl = DeceasedDomicile.nextStepUrl(ctx);
+            expect(nextStepUrl).to.equal('/iht-completed');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
-            const ctx = {mentalCapacity: 'No'};
-            const nextStepUrl = MentalCapacity.nextStepUrl(ctx);
-            expect(nextStepUrl).to.equal('/stop-page/mentalCapacity');
+            const ctx = {domicile: 'No'};
+            const nextStepUrl = DeceasedDomicile.nextStepUrl(ctx);
+            expect(nextStepUrl).to.equal('/stop-page/notInEnglandOrWales');
             done();
         });
     });
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const nextStepOptions = MentalCapacity.nextStepOptions();
+            const nextStepOptions = DeceasedDomicile.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [{
-                    key: 'mentalCapacity',
+                    key: 'domicile',
                     value: content.optionYes,
-                    choice: 'isCapable'
+                    choice: 'inEnglandOrWales'
                 }]
             });
             done();

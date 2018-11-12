@@ -1,45 +1,45 @@
 'use strict';
 
-const content = require('app/resources/en/translation/executors/mentalcapacity');
+const content = require('app/resources/en/translation/will/left');
 const initSteps = require('app/core/initSteps');
 const chai = require('chai');
 const expect = chai.expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
-const MentalCapacity = steps.MentalCapacity;
+const WillLeft = steps.WillLeft;
 
-describe('MentalCapacity.js', () => {
+describe('WillLeft.js', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = MentalCapacity.constructor.getUrl();
-            expect(url).to.equal('/mental-capacity');
+            const url = WillLeft.constructor.getUrl();
+            expect(url).to.equal('/will-left');
             done();
         });
     });
 
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
-            const ctx = {mentalCapacity: 'Yes'};
-            const nextStepUrl = MentalCapacity.nextStepUrl(ctx);
-            expect(nextStepUrl).to.equal('/start-apply');
+            const ctx = {left: 'Yes'};
+            const nextStepUrl = WillLeft.nextStepUrl(ctx);
+            expect(nextStepUrl).to.equal('/will-original');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
-            const ctx = {mentalCapacity: 'No'};
-            const nextStepUrl = MentalCapacity.nextStepUrl(ctx);
-            expect(nextStepUrl).to.equal('/stop-page/mentalCapacity');
+            const ctx = {left: 'No'};
+            const nextStepUrl = WillLeft.nextStepUrl(ctx);
+            expect(nextStepUrl).to.equal('/stop-page/noWill');
             done();
         });
     });
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const nextStepOptions = MentalCapacity.nextStepOptions();
+            const nextStepOptions = WillLeft.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [{
-                    key: 'mentalCapacity',
+                    key: 'left',
                     value: content.optionYes,
-                    choice: 'isCapable'
+                    choice: 'withWill'
                 }]
             });
             done();

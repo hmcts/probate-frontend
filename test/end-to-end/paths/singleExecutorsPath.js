@@ -21,13 +21,13 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
 
     // Eligibility Task (pre IdAM)
     I.startEligibility();
-    I.selectPersonWhoDiedLeftAWill();
-    I.selectOriginalWill();
     I.selectDeathCertificate();
     I.selectDeceasedDomicile();
+    I.selectIhtCompleted();
+    I.selectPersonWhoDiedLeftAWill();
+    I.selectOriginalWill();
     I.selectApplicantIsExecutor();
     I.selectMentallyCapable();
-    I.selectIhtCompleted();
     I.startApply();
 
     // IdAM

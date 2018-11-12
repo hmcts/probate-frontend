@@ -5,14 +5,13 @@ const ExecutorsDealingWithEstate = require('app/steps/ui/executors/dealingwithes
 const ExecutorRoles = require('app/steps/ui/executors/roles/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
-describe('executorsapplying', () => {
+describe('executors-applying', () => {
     let testWrapper;
     const expectedNextUrlForExecDealingWith = ExecutorsDealingWithEstate.getUrl();
     const expectedNextUrlForExecRoles = ExecutorRoles.getUrl('*');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsApplying');
-
     });
 
     afterEach(() => {
@@ -20,8 +19,7 @@ describe('executorsapplying', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('ExecutorsApplying');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);
@@ -35,15 +33,17 @@ describe('executorsapplying', () => {
 
         it(`test it redirects to ExecutorsDealingWithEstate if there are other executors dealing with the estate: ${expectedNextUrlForExecDealingWith}`, (done) => {
             const data = {
-                'otherExecutorsApplying': 'Yes'
+                otherExecutorsApplying: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForExecDealingWith);
         });
 
         it(`test it redirects to executors roles if there are no other executors dealing with the estate: ${expectedNextUrlForExecRoles}`, (done) => {
             const data = {
-                'otherExecutorsApplying': 'No'
+                otherExecutorsApplying: 'No'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForExecRoles);
         });
     });

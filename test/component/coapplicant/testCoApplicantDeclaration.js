@@ -31,8 +31,7 @@ describe('co-applicant-declaration', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('CoApplicantDeclaration');
 
         it('test right content loaded on the page', (done) => {
             checkAllAgreedStub.returns(Promise.resolve('false'));
@@ -63,7 +62,7 @@ describe('co-applicant-declaration', () => {
             checkAllAgreedStub.returns(Promise.resolve('false'));
             updateInviteDataStub.returns(when(Promise.resolve('Make it pass!')));
             const data = {
-                'agreement': json.optionYes
+                agreement: json.optionYes
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForCoAppAgree);
         });
@@ -73,7 +72,7 @@ describe('co-applicant-declaration', () => {
             checkAllAgreedStub.returns(Promise.resolve('false'));
 
             const data = {
-                'agreement': json.optionNo
+                agreement: json.optionNo
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForCoAppDisagree);
         });

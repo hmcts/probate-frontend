@@ -19,8 +19,7 @@ describe('will-original', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('WillOriginal');
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];
@@ -36,17 +35,16 @@ describe('will-original', () => {
 
         it(`test it redirects to will codicils: ${expectedNextUrlForWillCodicils}`, (done) => {
             const data = {
-                'original': 'Yes'
+                original: 'Yes'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForWillCodicils);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                'original': 'No'
+                original: 'No'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
-
     });
 });

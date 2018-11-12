@@ -24,9 +24,10 @@ const healthcheckRequest = (url, cb) => {
 chai.use(chaiHttp);
 
 describe('Probate frontend health check', () => {
-    it('should return a 200 status code', done => {
+
+/*    it('should return a 200 status code', done => {
         done();
-    });
+    });*/
 
 /*    it('should return a 200 status code', done => {
         healthcheckRequest(frontendUrl, res => {

@@ -33,11 +33,11 @@ class DocumentUpload {
         });
     }
 
-    isValidType(document) {
-        if (!document) {
-            return false;
-        }
+    isDocument(document) {
+        return typeof document === 'object';
+    }
 
+    isValidType(document = {}) {
         const validMimeTypes = config.validMimeTypes;
 
         if (!validMimeTypes.includes(document.mimetype)) {
@@ -63,6 +63,10 @@ class DocumentUpload {
 
     validate(document, uploads) {
         let error = null;
+
+        if (error === null && !this.isDocument(document)) {
+            error = this.mapError(config.error.nothingUploaded);
+        }
 
         if (error === null && !this.isValidType(document)) {
             error = this.mapError(config.error.invalidFileType);

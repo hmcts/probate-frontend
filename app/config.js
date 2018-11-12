@@ -67,11 +67,13 @@ const config = {
 
         password: process.env.REDIS_PASSWORD || 'dummy_password',
         useTLS: process.env.REDIS_USE_TLS || 'false',
-        enabled: process.env.USE_REDIS || 'false',
+        // enabled: process.env.USE_REDIS || 'false',
+        enabled: 'true',
         secret: process.env.REDIS_SECRET || 'OVERWRITE_THIS',
-        proxy: true,
+        //proxy: true,
         resave: false,
-        saveUninitialized: false,
+        //saveUninitialized: false,
+        saveUninitialized: true,
         cookie: {
             httpOnly: true,
             sameSite: 'lax'

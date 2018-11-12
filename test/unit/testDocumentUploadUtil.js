@@ -368,60 +368,11 @@ describe('DocumentUploadUtil', () => {
         });
     });
 
-    describe('errorKey()', () => {
-        it('should return a key when "Error: no files passed" is given', (done) => {
-            const errorType = 'Error: no files passed';
-            const documentUpload = new DocumentUpload();
-            const result = documentUpload.errorKey(errorType);
-            expect(result).to.equal('nothingUploaded');
-            done();
-        });
-
-        it('should return a key when "Error: too many files" is given', (done) => {
-            const errorType = 'Error: too many files';
-            const documentUpload = new DocumentUpload();
-            const result = documentUpload.errorKey(errorType);
-            expect(result).to.equal('maxFilesExceeded');
-            done();
-        });
-
-        it('should return a key when "Error: invalid file type" is given', (done) => {
-            const errorType = 'Error: invalid file type';
-            const documentUpload = new DocumentUpload();
-            const result = documentUpload.errorKey(errorType);
-            expect(result).to.equal('invalidFileType');
-            done();
-        });
-
-        it('should return a key when "Error: invalid file size" is given', (done) => {
-            const errorType = 'Error: invalid file size';
-            const documentUpload = new DocumentUpload();
-            const result = documentUpload.errorKey(errorType);
-            expect(result).to.equal('maxSize');
-            done();
-        });
-
-        it('should return null when an invalid error type is given', (done) => {
-            const errorType = 'an error that does not exist';
-            const documentUpload = new DocumentUpload();
-            const result = documentUpload.errorKey(errorType);
-            expect(result).to.equal(null);
-            done();
-        });
-
-        it('should return null when no error type is given', (done) => {
-            const documentUpload = new DocumentUpload();
-            const result = documentUpload.errorKey();
-            expect(result).to.equal(null);
-            done();
-        });
-    });
-
     describe('mapError()', () => {
-        it('should return an error when "Error: no files passed" is given', (done) => {
-            const errorType = 'Error: no files passed';
+        it('should return an error when nothingUploaded is given', (done) => {
+            const errorKey = 'nothingUploaded';
             const documentUpload = new DocumentUpload();
-            const error = documentUpload.mapError(errorType);
+            const error = documentUpload.mapError(errorKey);
             expect(error).to.deep.equal({
                 js: 'Click &lsquo;browse&rsquo; to find a file to upload',
                 nonJs: 'nothingUploaded'
@@ -429,10 +380,10 @@ describe('DocumentUploadUtil', () => {
             done();
         });
 
-        it('should return an error when "Error: too many files" is given', (done) => {
-            const errorType = 'Error: too many files';
+        it('should return an error when maxFilesExceeded is given', (done) => {
+            const errorKey = 'maxFilesExceeded';
             const documentUpload = new DocumentUpload();
-            const error = documentUpload.mapError(errorType);
+            const error = documentUpload.mapError(errorKey);
             expect(error).to.deep.equal({
                 js: 'You can upload a maximum of 10 files',
                 nonJs: 'maxFilesExceeded'
@@ -440,10 +391,10 @@ describe('DocumentUploadUtil', () => {
             done();
         });
 
-        it('should return an error when "Error: invalid file type" is given', (done) => {
-            const errorType = 'Error: invalid file type';
+        it('should return an error when invalidFileType is given', (done) => {
+            const errorKey = 'invalidFileType';
             const documentUpload = new DocumentUpload();
-            const error = documentUpload.mapError(errorType);
+            const error = documentUpload.mapError(errorKey);
             expect(error).to.deep.equal({
                 js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
                 nonJs: 'invalidFileType'
@@ -451,10 +402,10 @@ describe('DocumentUploadUtil', () => {
             done();
         });
 
-        it('should return an error when "Error: invalid file size" is given', (done) => {
-            const errorType = 'Error: invalid file size';
+        it('should return an error when maxSize is given', (done) => {
+            const errorKey = 'maxSize';
             const documentUpload = new DocumentUpload();
-            const error = documentUpload.mapError(errorType);
+            const error = documentUpload.mapError(errorKey);
             expect(error).to.deep.equal({
                 js: 'Use a file that is under 10MB and try again',
                 nonJs: 'maxSize'

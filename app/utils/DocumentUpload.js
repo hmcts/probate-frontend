@@ -65,33 +65,25 @@ class DocumentUpload {
         let error = null;
 
         if (error === null && !this.isDocument(document)) {
-            error = this.mapError(config.error.nothingUploaded);
+            error = this.mapError('nothingUploaded');
         }
 
         if (error === null && !this.isValidType(document)) {
-            error = this.mapError(config.error.invalidFileType);
+            error = this.mapError('invalidFileType');
         }
 
         if (error === null && !this.isValidSize(document)) {
-            error = this.mapError(config.error.maxSize);
+            error = this.mapError('maxSize');
         }
 
         if (error === null && !this.isValidNumber(uploads)) {
-            error = this.mapError(config.error.maxFilesExceeded);
+            error = this.mapError('maxFilesExceeded');
         }
 
         return error;
     }
 
-    errorKey(errorType) {
-        const errorKey = Object.entries(config.error).filter((value) => {
-            return value[1] === errorType ? value : null;
-        });
-        return errorKey[0] ? errorKey[0][0] : null;
-    }
-
-    mapError(errorType) {
-        const errorKey = this.errorKey(errorType);
+    mapError(errorKey) {
         return {
             js: content[`documentUpload-${errorKey}`],
             nonJs: errorKey

@@ -24,8 +24,21 @@
                 <div class="panel panel-border-wide">
                     <p>{{content.successParagraph4 | replace('{findOutNext}', links.findOutNext) | safe}}</p>
                 </div>
-
-                <a href="{{links.surveyEndOfApplication | safe}}">{{content.survey | safe}}</a>
+                <div class=">
+                    <h2 class="heading-medium">{{ content.saveYourApplication }}</h2>
+                    <p>{{content.saveParagraph1}}</p>
+                    <p class="save-this-page-link">
+                        <i class="icon icon-file-download"></i>
+                        <a class="anchor-margin-left" id="checkAnswerHref" href="/check-answers-pdf">{{content.checkAnswersPdf}}</a>
+                    </p>
+                    <p>
+                        <i class="icon icon-file-download"></i>
+                        <a class="anchor-margin-left" id="declarationPdfHref" href="/declaration-pdf">{{content.declarationPdf}}</a>
+                    </p>
+                </div>
+                <div class="margin-top30">
+                    <a href="{{links.surveyEndOfApplication | safe}}">{{content.survey | safe}}</a>
+                </div>
             </div>
         </div>
     </main>

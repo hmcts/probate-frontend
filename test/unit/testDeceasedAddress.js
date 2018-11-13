@@ -49,6 +49,10 @@ describe('DeceasedAddress', () => {
         let featureToggles;
 
         it('should return the ctx with the deceased address and the screening_question feature toggle', (done) => {
+            const session = {
+                addresses: {
+                }
+            };
             ctx = {
                 freeTextAddress: '143 Caerfai Bay Road',
                 postcode: 'L23 6WW'
@@ -60,6 +64,10 @@ describe('DeceasedAddress', () => {
                 address: '143 Caerfai Bay Road',
                 postcode: 'L23 6WW',
                 isToggleEnabled: false
+            });
+            expect(session).to.deep.equal({
+                addresses: {
+                }
             });
             done();
         });

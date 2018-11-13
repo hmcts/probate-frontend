@@ -23,9 +23,6 @@ class AddressStep extends ValidationStep {
             delete ctx.addresses;
         }
         session.addresses = session.addresses || {};
-        /*if (! session.addresses.executors){
-            session.addresses.executors = []
-        }*/
         delete ctx.referrer;
         return [ctx, errors];
     }

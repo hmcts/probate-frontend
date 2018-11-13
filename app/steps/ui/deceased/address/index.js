@@ -21,7 +21,9 @@ class DeceasedAddress extends AddressStep {
     handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
         super.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
         ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
-        session.addresses.deceased = ctx.addresses;
+        if (ctx.addresses) {
+            session.addresses.deceased = ctx.addresses;
+        }
         return [ctx, errors];
     }
 

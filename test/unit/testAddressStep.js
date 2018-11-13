@@ -95,6 +95,10 @@ describe('AddressStep', () => {
             });
 
             it('when freeTextAddress exists', (done) => {
+                const session = {
+                    addresses: {
+                    }
+                };
                 ctxToTest = {
                     freeTextAddress: '1 Red Road, London, LL1 1LL',
                     referrer: 'executorApplicant',
@@ -105,12 +109,16 @@ describe('AddressStep', () => {
                     ]
                 };
                 const addressStep = new AddressStep(steps, section, templatePath, i18next, schema);
-                const ctx = addressStep.handlePost(ctxToTest, null);
+                const ctx = addressStep.handlePost(ctxToTest, null, null, session);
                 expect(ctx).to.deep.equal([{
                     address: '1 Red Road, London, LL1 1LL',
                     postcode: 'LL1 1LL',
                     freeTextAddress: '1 Red Road, London, LL1 1LL'
                 }, null]);
+                expect(session).to.deep.equal({
+                    addresses: {
+                    }
+                });
                 done();
             });
         });

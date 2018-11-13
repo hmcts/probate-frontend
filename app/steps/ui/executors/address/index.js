@@ -23,7 +23,7 @@ class ExecutorAddress extends AddressStep {
             ctx.index = this.recalcIndex(ctx, 0);
         }
         if (req.session.addresses && req.session.addresses.executors) {
-            ctx.addresses = req.session.addresses.executors.index;
+            ctx.addresses = req.session.addresses.executors[ctx.index-1];
         }
         ctx.otherExecName = ctx.list[ctx.index] && ctx.list[ctx.index].fullName;
         ctx.executorsWrapper = new ExecutorsWrapper(ctx);
@@ -57,10 +57,12 @@ class ExecutorAddress extends AddressStep {
         if (ctx.index === -1) {
             ctx.allExecsApplying = ctx.executorsWrapper.areAllAliveExecutorsApplying();
         }
-        if (ctx.addresses) {
-            session.addresses.executors = session.addresses.executors || {};
+        if (ctx.addresses && !session.addresses.executors) {
+            session.addresses.executors = [];
         }
-        session.addresses.executors.index = ctx.addresses;
+        if (ctx.addresses) {
+            session.addresses.executors.push(ctx.addresses);
+        }
         return [ctx, errors];
     }
 

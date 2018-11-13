@@ -221,10 +221,24 @@ describe('ExecutorAddress', () => {
         });
 
         it('returns the correct data and errors', (done) => {
+            const session = {
+                addresses: {
+                    executors: [
+                        [
+                            {address: '1 Red Road, London, LL1 1LL'},
+                            {address: '2 Green Road, London, LL2 2LL'}
+                        ],
+                        [
+                            {address: '1 Red Road, London, LL1 1LL'},
+                            {address: '2 Green Road, London, LL2 2LL'}
+                        ]
+                    ]
+                }
+            };
             const featureToggles = {
                 screening_questions: true
             };
-            const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors, null, null, null, featureToggles);
+            const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors, null, null, session, featureToggles);
 
             expect(ctx.list[0]).to.deep.equal({
                 isApplying: true,
@@ -235,24 +249,54 @@ describe('ExecutorAddress', () => {
             });
             expect(ctx.isToggleEnabled).to.equal(true);
             expect(errors).to.deep.equal(testErrors);
+            expect(session).to.deep.equal({
+                addresses: {
+                    executors: [
+                        [
+                            {address: '1 Red Road, London, LL1 1LL'},
+                            {address: '2 Green Road, London, LL2 2LL'}
+                        ],
+                        [
+                            {address: '1 Red Road, London, LL1 1LL'},
+                            {address: '2 Green Road, London, LL2 2LL'}
+                        ]
+                    ]
+                }
+            });
             done();
         });
 
         it('sets address to freeTextAddress if postcodeAddress is not available', (done) => {
+            const session = {
+                addresses: {
+                }
+            };
             delete testCtx.postcodeAddress;
-            const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors);
+            const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors, null, session);
 
             expect(ctx.list[0].address).to.equal(testCtx.freeTextAddress);
             expect(errors).to.deep.equal(testErrors);
+            expect(session).to.deep.equal({
+                addresses: {
+                }
+            });
             done();
         });
 
         it('sets allExecsApplying if there are multiple executors', (done) => {
+            const session = {
+                addresses: {
+                }
+            };
             testCtx.index = 1;
-            const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors);
+            const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors, null, session);
             expect(errors).to.deep.equal(testErrors);
 
             expect(ctx.allExecsApplying).to.equal(true);
+            expect(session).to.deep.equal({
+                addresses: {
+                }
+            });
             done();
         });
     });

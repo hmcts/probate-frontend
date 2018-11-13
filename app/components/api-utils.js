@@ -35,7 +35,11 @@ const asyncFetch = (url, fetchOptions, parseBody) => {
                 logger.error(res.statusText);
                 return parseBody(res)
                     .then(body => {
-                        logger.error(body);
+                        if (body instanceof Buffer) {
+                            logger.error({body});
+                        } else {
+                            logger.error(body);
+                        }
                         reject(new Error(res.statusText));
                     });
 
@@ -62,6 +66,15 @@ const fetchText = (url, fetchOptions) => {
         .catch(err => err);
 };
 
+const fetchBuffer = (url, fetchOptions) => {
+    return asyncFetch(url, fetchOptions, res => res.buffer())
+        .then(buffer => buffer)
+        .catch(err => {
+            logger.error(`Error${err}`);
+            throw (err);
+        });
+};
+
 const fetchOptions = (data, method, headers, proxy) => {
     return {
         method: method,
@@ -78,6 +91,7 @@ const fetchOptions = (data, method, headers, proxy) => {
 module.exports = {
     fetchOptions: fetchOptions,
     fetchJson: fetchJson,
+    fetchBuffer: fetchBuffer,
     asyncFetch: asyncFetch,
     fetchText: fetchText
 };

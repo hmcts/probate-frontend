@@ -14,7 +14,6 @@ class ValidationStep extends Step {
         if (!this.schemaFile) {
             throw new TypeError(`Step ${this.name} has no schema file in it's resource folder`);
         }
-
         return this.schemaFile;
     }
 

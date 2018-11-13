@@ -165,6 +165,7 @@ class TestWrapper {
     destroy() {
         this.server.http.close();
     }
+
 }
 
 module.exports = TestWrapper;

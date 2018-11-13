@@ -9,6 +9,7 @@ const {get, includes, isEqual} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const documentUpload = require('app/documentUpload');
+const documentDownload = require('app/documentDownload');
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
@@ -87,6 +88,8 @@ router.use((req, res, next) => {
 });
 
 router.use('/document-upload', documentUpload);
+
+router.use(documentDownload);
 
 router.use((req, res, next) => {
     res.locals.session = req.session;

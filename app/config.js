@@ -59,6 +59,9 @@ const config = {
             serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'dummy_token',
             userId: process.env.PAYMENT_USER_ID || 999999999,
             returnUrlPath: '/payment-status'
+        },
+        businessDocument: {
+            url: process.env.BUSINESS_DOCUMENT_URL || 'http://localhost:8080/businessDocument'
         }
     },
     redis: {

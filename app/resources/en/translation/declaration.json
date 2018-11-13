@@ -64,6 +64,8 @@
   "declarationCheckbox": "I confirm that I will administer the estate of the person who died according to law, and that my application is truthful.",
   "submitWarning": "Once you click &lsquo;Save and continue&rsquo;, you cannot change your answers.",
   "submitWarning-multipleApplicants": "Once everyone has agreed the legal statement and made their declaration, this information can&rsquo;t be changed.",
+  "declarationPdf": "Legal declaration (8kb PDF)",
+  "saveThisPage": "Save this page",
   "errors": {
     "declarationCheckbox": {
       "required": {

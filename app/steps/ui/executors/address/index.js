@@ -22,7 +22,7 @@ class ExecutorAddress extends AddressStep {
         } else if (startsWith(req.path, path)) {
             ctx.index = this.recalcIndex(ctx, 0);
         }
-        if (req.session.addresses && req.session.addresses.executors) {
+        if (req.session.addresses && req.session.addresses.executors && req.session.addresses.executors[ctx.index-1]) {
             ctx.addresses = req.session.addresses.executors[ctx.index-1];
         }
         ctx.otherExecName = ctx.list[ctx.index] && ctx.list[ctx.index].fullName;
@@ -35,9 +35,8 @@ class ExecutorAddress extends AddressStep {
         if (ctx.list[ctx.index].address) {
             ctx.address = ctx.list[ctx.index].postcodeAddress || ctx.list[ctx.index].freeTextAddress;
             ctx.postcode = ctx.list[ctx.index].postcode;
-            if (ctx.list[ctx.index].postcodeAddress) {
-                ctx.addresses = [{formatted_address: ctx.address}];
-            } else {
+            ctx.postcodeAddress = ctx.list[ctx.index].postcodeAddress;
+            if (!ctx.list[ctx.index].postcodeAddress) {
                 ctx.freeTextAddress = ctx.list[ctx.index].freeTextAddress;
             }
         }

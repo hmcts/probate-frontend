@@ -164,8 +164,6 @@ describe('ExecutorAddress', () => {
                 errors: []
             };
             const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
-
-            expect(ctx.addresses).to.deep.equal([{formatted_address: ctx.address}]);
             expect(errors).to.deep.equal(testCtx.errors);
             done();
         });
@@ -215,12 +213,16 @@ describe('ExecutorAddress', () => {
                 executorsWrapper: new ExecutorsWrapper(),
                 postcodeAddress: 'the postcode address',
                 freeTextAddress: 'the free text address',
-                postcode: 'the postcode'
+                postcode: 'the postcode',
             };
             testErrors = [];
         });
 
         it('returns the correct data and errors', (done) => {
+            testCtx.addresses =[
+                {address: '1 Red Road, London, LL1 1LL'},
+                {address: '2 Green Road, London, LL2 2LL'}
+            ];
             const session = {
                 addresses: {
                     executors: [
@@ -228,17 +230,13 @@ describe('ExecutorAddress', () => {
                             {address: '1 Red Road, London, LL1 1LL'},
                             {address: '2 Green Road, London, LL2 2LL'}
                         ],
-                        [
-                            {address: '1 Red Road, London, LL1 1LL'},
-                            {address: '2 Green Road, London, LL2 2LL'}
-                        ]
                     ]
                 }
             };
             const featureToggles = {
                 screening_questions: true
             };
-            const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors, null, null, session, featureToggles);
+            const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors, null,session, null, featureToggles);
 
             expect(ctx.list[0]).to.deep.equal({
                 isApplying: true,

@@ -60,6 +60,16 @@ withNightlyPipeline("nodejs", product, component) {
     enableMutationTest()
     //enableFullFunctionalTest()
 
+    after('mutationTest') {
+        publishHTML target: [
+
+                reportDir            : "output/",
+                reportFiles          : "index.html",
+                reportName           : "Mutation Tests",
+                alwaysLinkToLastBuild: true
+        ]
+    }
+
 //    after('fullFunctionalTest') {
 //        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
 //    }

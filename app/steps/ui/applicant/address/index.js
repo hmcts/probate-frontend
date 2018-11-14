@@ -18,7 +18,9 @@ class ApplicantAddress extends AddressStep {
 
     handlePost(ctx, errors, formdata, session) {
         [ctx, errors] = super.handlePost(ctx, errors, formdata, session);
-        session.addresses.applicant = ctx.addresses;
+        if (ctx.addresses) {
+            session.addresses.applicant = ctx.addresses;
+        }
         return [ctx, errors];
     }
 }

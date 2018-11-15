@@ -31,9 +31,9 @@ describe('DeceasedAddress', () => {
 
             ctx = DeceasedAddress.getContextData(req);
             expect(ctx.addresses).to.deep.equal = [
-                    {address: '1 Red Road, London, LL1 1LL'},
-                    {address: '2 Green Road, London, LL2 2LL'}
-                ]
+                {address: '1 Red Road, London, LL1 1LL'},
+                {address: '2 Green Road, London, LL2 2LL'}
+            ]
             ;
             done();
         });

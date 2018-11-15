@@ -39,18 +39,23 @@ describe('ApplicantAddress', () => {
         });
     });
 
-    describe('handlePost()', () => {
-        let session;
+    describest('handlePost()', () => {
+        const session ={};
         let ctx;
+        const formdata ={};
         it('should save ctx addresses to the session when there are addresses', (done) => {
             ctx = {
                 addresses: [
                     {address: '1 Red Road, London, LL1 1LL'},
                     {address: '2 Green Road, London, LL2 2LL'}
-                ]
+                ],
+                postcodeAddress: 'the postcode address',
+                postcode: 'the postcode',
+                address: '1 Red Road, London, LL1 1LL',
+                referrer: ''
             };
             let errors = {};
-            [ctx, errors] = ApplicantAddress.handlePost(ctx, errors, null, null);
+            [ctx, errors] = ApplicantAddress.handlePost(ctx, errors, formdata, session);
             expect(session).to.deep.equal({
                 addresses: {
                     applicant: [

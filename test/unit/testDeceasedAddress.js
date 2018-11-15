@@ -38,19 +38,15 @@ describe('DeceasedAddress', () => {
             done();
         });
     });
-    describe('handlePost()', () => {
+    describe.only('handlePost()', () => {
         let ctx;
         let errors;
-        let formdata;
-        let session;
+        const formdata = {};
+        const session = {};
         let hostname;
         let featureToggles;
 
         it('should return the ctx with the deceased address and the screening_question feature toggle', (done) => {
-            const session = {
-                addresses: {
-                }
-            };
             ctx = {
                 freeTextAddress: '143 Caerfai Bay Road',
                 postcode: 'L23 6WW'
@@ -63,8 +59,28 @@ describe('DeceasedAddress', () => {
                 postcode: 'L23 6WW',
                 isToggleEnabled: false
             });
+            done();
+        });
+
+        it('should save ctx addresses to the session when there are addresses', (done) => {
+            ctx = {
+                addresses: [
+                    {address: '1 Red Road, London, LL1 1LL'},
+                    {address: '2 Green Road, London, LL2 2LL'}
+                ],
+                postcodeAddress: 'the postcode address',
+                postcode: 'the postcode',
+                address: '1 Red Road, London, LL1 1LL',
+                referrer: ''
+            };
+            let errors = {};
+            [ctx, errors] = DeceasedAddress.handlePost(ctx, errors, formdata, session);
             expect(session).to.deep.equal({
                 addresses: {
+                    deceased: [
+                        {address: '1 Red Road, London, LL1 1LL'},
+                        {address: '2 Green Road, London, LL2 2LL'}
+                    ],
                 }
             });
             done();

@@ -20,8 +20,7 @@ describe('iht-method', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('IhtMethod');
 
         it('test correct iht method page content is loaded', (done) => {
             const contentToExclude = [];
@@ -47,6 +46,5 @@ describe('iht-method', () => {
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtIdentifier);
         });
-
     });
 });

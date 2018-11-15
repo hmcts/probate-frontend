@@ -17,8 +17,7 @@ describe('deceased-address', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('DeceasedAddress');
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = ['selectAddress'];
@@ -30,7 +29,6 @@ describe('deceased-address', () => {
             const data = {addressFound: 'none'};
 
             testWrapper.testErrors(done, data, 'required', ['postcodeLookup']);
-
         });
 
         it('test address schema validation when address search is successful, but no address is selected/entered', (done) => {
@@ -48,7 +46,6 @@ describe('deceased-address', () => {
             };
 
             testWrapper.testErrors(done, data, 'oneOf', ['crossField']);
-
         });
 
         it('test address schema validation when address search is unsuccessful', (done) => {
@@ -57,7 +54,6 @@ describe('deceased-address', () => {
             };
 
             testWrapper.testErrors(done, data, 'required', ['freeTextAddress']);
-
         });
 
         it(`test it redirects to summary page: ${expectedNextUrlForSummary}`, (done) => {
@@ -67,6 +63,5 @@ describe('deceased-address', () => {
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForSummary);
         });
-
     });
 });

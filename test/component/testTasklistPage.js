@@ -19,6 +19,7 @@ describe('task-list', () => {
     afterEach(() => {
         delete require.cache[require.resolve('test/data/complete-form')];
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

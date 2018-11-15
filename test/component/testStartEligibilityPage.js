@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const StartApply = require('app/steps/ui/startapply/index');
 
-describe('startEligibility', () => {
+describe('start-eligibility', () => {
     let testWrapper;
     const expectedNextUrlForStartApply = StartApply.getUrl();
 

@@ -8,7 +8,7 @@ class ApplicantAddress extends AddressStep {
         return '/applicant-address';
     }
     getContextData(req) {
-        const ctx =super.getContextData(req);
+        const ctx = super.getContextData(req);
         if (req.session.addresses && req.session.addresses.applicant) {
             ctx.addresses = req.session.addresses.applicant;
         }

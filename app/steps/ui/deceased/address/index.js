@@ -10,7 +10,7 @@ class DeceasedAddress extends AddressStep {
     }
 
     getContextData(req) {
-        const ctx =super.getContextData(req);
+        const ctx = super.getContextData(req);
         if (req.session.addresses && req.session.addresses.deceased) {
             ctx.addresses = req.session.addresses.deceased;
         }

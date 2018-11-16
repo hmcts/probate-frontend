@@ -1,11 +1,24 @@
 #!groovy
 
+properties([
+    [
+        $class       : 'GithubProjectProperty',
+        displayName  : 'Probate frontend',
+        projectUrlStr: 'https://github.com/hmcts/probate-frontend'
+    ],
+    pipelineTriggers([
+        [$class: 'GitHubPushTrigger']
+    ])
+])
+
 @Library("Infrastructure")
 import uk.gov.hmcts.contino.Kubectl
 
+string type = "nodejs"
 String product = "probate"
 String component = "frontend"
-
+String vaultName = "probate"
+def channel = "#probate-jenkins"
 
 List<LinkedHashMap<String, Object>> secrets = [
     secret('testIdamBaseUrl', 'IDAM_API_URL'),
@@ -50,15 +63,20 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   ]
 }
 
-withPipeline("nodejs", product, component) {
+withPipeline(type, product, component) {
+  enableSlackNotifications(channel)
+  loadVaultSecrets(secrets)
+  setVaultName(vaultName)
+  enableDockerBuild()
+  enableDeployToAKS()
+//  enablePerformanceTest(15)
+//  enableApiGatewayTest(15)
+//  enableFullFunctionalTest(30)
+//  enableMutationTest(120)
+//  enableCrossBrowserTest(120)
   after('build') {
     sh 'yarn setup'
   }
-
-  //if (env.CHANGE_TITLE && !env.CHANGE_TITLE.startsWith('[PREVIEW]')) {
-    enableDockerBuild()
-    enableDeployToAKS()
-//  }
 
   after('aksdeploy') {
     def subscription = env.SUBSCRIPTION_NAME
@@ -76,13 +94,8 @@ withPipeline("nodejs", product, component) {
     echo "${env.FEATURE_TOGGLES_API_URL}"
   }
 
-
-  setVaultName('probate')
-  loadVaultSecrets(secrets)
-  enableSlackNotifications('#probate-jenkins')
   after('functionalTest:aat') {
       publishHTML target: [
-
               reportDir            : "output/",
               reportFiles          : "mochawesome.html",
               reportName           : "SAAT Functional Tests",

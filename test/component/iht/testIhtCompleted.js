@@ -19,8 +19,7 @@ describe('iht-completed', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('IhtCompleted');
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];
@@ -36,17 +35,16 @@ describe('iht-completed', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForIhtMethod}`, (done) => {
             const data = {
-                'completed': 'Yes'
+                completed: 'Yes'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                'completed': 'No'
+                completed: 'No'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
-
     });
 });

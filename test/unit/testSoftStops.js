@@ -76,7 +76,7 @@ describe('Soft Stops', function () {
     describe('Link placeholder replacements', function () {
         it('Filters out link URL placeholders from content', function () {
             const stopPages = {
-                noWill: {placeHolders: ['applicationFormPA1A', 'guidance', 'registryInformation']},
+                noWill: {placeHolders: ['applicationFormPA1A']},
                 notOriginal: {placeHolders: ['applicationFormPA1P', 'guidance', 'registryInformation']},
                 notExecutor: {placeHolders: ['applicationFormPA1P', 'guidance', 'registryInformation']},
                 ihtNotCompleted: {placeHolders: ['ihtNotCompleted']},

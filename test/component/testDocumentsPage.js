@@ -10,7 +10,7 @@ const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
 const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
 
-describe('documents-page', () => {
+describe('documents', () => {
     let testWrapper;
     const expectedNextUrlForThankYouPage = ThankYou.getUrl();
     const sessionData = {
@@ -38,8 +38,7 @@ describe('documents-page', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('Documents');
 
         it('test correct content loaded on the page, no codicils, no alias, single executor (Feature Toggle OFF)', (done) => {
             sessionData.executors = {};

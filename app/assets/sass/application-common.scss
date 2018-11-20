@@ -174,3 +174,11 @@ div.declaration-header {
         border-bottom: none;
     }
 }
+
+.govuk-box-highlight {
+  .heading-xlarge,
+  .font-large {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}

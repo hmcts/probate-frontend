@@ -7,7 +7,7 @@ const {assert} = require('chai');
 const services = require('app/components/services');
 const CoApplicantStartPage = require('app/steps/ui/coapplicant/startpage/index');
 const commonContent = require('app/resources/en/translation/common');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const config = require('app/config');
 
 describe('pin-page', () => {
     let testWrapper;
@@ -22,12 +22,23 @@ describe('pin-page', () => {
     afterEach(() => {
         testWrapper.destroy();
         loadFormDataStub.restore();
-
     });
 
     describe('Verify Content, Errors and Redirection', () => {
+        it('test help block content is loaded on page', (done) => {
+            testWrapper.agent.post('/prepare-session-field/validLink/true')
+                .end(() => {
+                    const playbackData = {};
+                    playbackData.helpTitle = commonContent.helpTitle;
+                    playbackData.helpText = commonContent.helpText;
+                    playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+                    playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+                    playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+                    playbackData.contactEmailAddress = commonContent.contactEmailAddress;
 
-        testHelpBlockContent.runTest('WillLeft');
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];
@@ -65,8 +76,8 @@ describe('pin-page', () => {
                     testWrapper.testErrors(done, data, 'incorrect', ['pin']);
                 });
         });
-        it('test error page when form data cannot be found', (done) => {
 
+        it('test error page when form data cannot be found', (done) => {
             loadFormDataStub.returns(when(Promise.resolve(new Error('ReferenceError'))));
             testWrapper.agent.post('/prepare-session-field/pin/12345')
                 .end(() => {
@@ -82,7 +93,6 @@ describe('pin-page', () => {
                             done(err);
                         });
                 });
-
         });
 
         it('test save and close link is not displayed on the page', (done) => {

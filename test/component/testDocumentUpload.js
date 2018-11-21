@@ -116,7 +116,7 @@ describe('document-upload', () => {
                 .set('enctype', 'multipart/form-data')
                 .field('isUploadingDocument', 'true')
                 .then((res) => {
-                    expect(res.text).to.contain('<li><a href="#file">You have used a file type that can&rsquo;t be accepted. Save your file as a jpg, bmp, tiff, png or PDF file and try again</a></li>');
+                    expect(res.text).to.contain('<li><a href="#file">You need to select a file before you can upload it. Click &lsquo;browse&rsquo; to find a file to upload</a></li>');
                     done();
                 })
                 .catch(done);

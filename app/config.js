@@ -162,7 +162,8 @@ const config = {
             maxSize: 'Error: invalid file size',
             maxFilesExceeded: 'Error: too many files',
             nothingUploaded: 'Error: no files passed',
-            uploadFailed: 'Error: upload failed'
+            uploadFailed: 'Error: upload failed',
+            uploadTimeout: 'Error: upload timed out'
         }
     }
 };

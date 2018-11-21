@@ -49,7 +49,7 @@ describe('DocumentUploadMiddleware', () => {
             const next = {};
             const revert = documentUploadMiddleware.__set__('returnError', sinon.spy());
             const error = {
-                js: 'The document upload timed out',
+                js: 'Please either try again or reduce the size of the file',
                 nonJs: 'uploadTimeout'
             };
             documentUploadMiddleware.errorOnTimeout(req, res, next);

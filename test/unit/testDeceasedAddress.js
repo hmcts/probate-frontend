@@ -1,7 +1,7 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const {expect, assert} = require('chai');
+const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const DeceasedAddress = steps.DeceasedAddress;
 
@@ -33,7 +33,8 @@ describe('DeceasedAddress', () => {
                 freeTextAddress: '143 Caerfai Bay Road',
                 address: '143 Caerfai Bay Road',
                 postcode: 'L23 6WW',
-                isToggleEnabled: false
+                isScreeningQuestionsToggleEnabled: false,
+                isDocumentUploadToggleEnabled: false
             });
             done();
         });
@@ -43,11 +44,10 @@ describe('DeceasedAddress', () => {
         it('should return the correct options', (done) => {
             const nextStepOptions = DeceasedAddress.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'isToggleEnabled',
-                    value: true,
-                    choice: 'toggleOn'
-                }]
+                options: [
+                    {key: 'isDocumentUploadToggleEnabled', value: true, choice: 'documentUploadToggleOn'},
+                    {key: 'isScreeningQuestionsToggleEnabled', value: true, choice: 'toggleOn'},
+                ]
             });
             done();
         });
@@ -55,11 +55,13 @@ describe('DeceasedAddress', () => {
 
     describe('action', () => {
         it('test isToggleEnabled is removed from the context', () => {
-            const ctx = {
-                isToggleEnabled: false
+            const ctxToTest = {
+                isScreeningQuestionsToggleEnabled: false,
+                isDocumentUploadToggleEnabled: false
             };
-            DeceasedAddress.action(ctx);
-            assert.isUndefined(ctx.isToggleEnabled);
+            const [ctx] = DeceasedAddress.action(ctxToTest);
+            expect(ctx).to.not.include.key('isScreeningQuestionsToggleEnabled');
+            expect(ctx).to.not.include.key('isDocumentUploadToggleEnabled');
         });
     });
 });

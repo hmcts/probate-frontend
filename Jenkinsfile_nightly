@@ -56,7 +56,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 withNightlyPipeline("java", product, component) {
-    setVaultName('probate')
+    setVaultName('probate-aat')
     loadVaultSecrets(secrets)
     enableFullFunctionalTest()
 

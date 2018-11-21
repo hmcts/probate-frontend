@@ -56,10 +56,6 @@ router.use((req, res, next) => {
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
     ) {
         res.redirect('documents');
-    } else if (get(formdata, 'submissionReference') && get(formdata, 'ccdCase.state') === 'CaseCreated' && (get(formdata, 'documents.sentDocuments', 'false') === 'true') && (get(formdata, 'payment.status') === 'Success' || get(formdata, 'payment.status') === 'not_required') &&
-        !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
-    ) {
-        res.redirect('thankyou');
     } else if (formdata.paymentPending === 'false' &&
         !includes(config.whitelistedPagesAfterPayment, req.originalUrl)
     ) {

@@ -22,22 +22,22 @@ var DocumentUpload = {
             dictMaxFilesExceeded: documentUploadConfig.content.maxFilesExceeded,
             dictFileTooBig: documentUploadConfig.content.maxSize
         })
-            .on('addedfile', function() {
-                DocumentUpload.hideEmptyListMessage();
-                DocumentUpload.disableSubmitButton();
-            })
-            .on('removedfile', function(file) {
-                DocumentUpload.showEmptyListMessage();
-                DocumentUpload.removeErrorSummaryLine(file.previewElement.firstElementChild.innerText);
-                DocumentUpload.removeErrorSummary();
-            })
-            .on('error', function(file, error) {
-                DocumentUpload.showErrorSummary();
-                DocumentUpload.showErrorSummaryLine(error);
-            })
-            .on('queuecomplete', function(file) {
-                DocumentUpload.enableSubmitButton();
-            });
+        .on('addedfile', function() {
+            DocumentUpload.hideEmptyListMessage();
+            DocumentUpload.disableSubmitButton();
+        })
+        .on('removedfile', function(file) {
+            DocumentUpload.showEmptyListMessage();
+            DocumentUpload.removeErrorSummaryLine(file.previewElement.firstElementChild.innerText);
+            DocumentUpload.removeErrorSummary();
+        })
+        .on('error', function(file, error) {
+            DocumentUpload.showErrorSummary();
+            DocumentUpload.showErrorSummaryLine(error);
+        })
+        .on('queuecomplete', function(file) {
+            DocumentUpload.enableSubmitButton();
+        });
     },
     makeDropzoneLinkClickable: function() {
         $('.document-upload__dropzone-text--choose-file').click(function() {

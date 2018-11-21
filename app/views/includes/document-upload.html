@@ -8,6 +8,7 @@
         </div>
         <div class="document-upload__fallback fallback">
             <form class="form" method="post" action="/document-upload?_csrf={{ csrfToken }}" enctype="multipart/form-data" novalidate>
+            <form class="form" method="post" action="/document-upload?_csrf={{ csrfToken }}" enctype="multipart/form-data" novalidate>
                 <div class="form-group">
                     <label for="file" class="visually-hidden">{{ content.title }}</label>
                     <input name="file" type="file" id="file">

@@ -1,7 +1,8 @@
 'use strict';
 
-const testConfig = require('test/config.js');
-const useIdam = testConfig.TestUseIdam;
+//const testConfig = require('test/config.js');
+//const useIdam = testConfig.TestUseIdam;
+const useIdam = 'true';
 
 module.exports = function () {
     if (useIdam === 'true') {

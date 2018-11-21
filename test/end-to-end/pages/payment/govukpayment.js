@@ -1,13 +1,13 @@
 'use strict';
 
-const testConfig = require('test/config');
+const testConfig = require('test/config.js');
 
 module.exports = function () {
     const I = this;
 
     I.fillField('#card-no', '4242424242424242');
-    I.fillField('#expiry-month', '06');
-    I.fillField('#expiry-year', '99');
+    I.fillField('#expiry-month', '12');
+    I.fillField('#expiry-year', '21');
     I.fillField('#cardholder-name', 'Test Payment');
     I.fillField('#cvc', '123');
     I.fillField('#address-line-1', '1');

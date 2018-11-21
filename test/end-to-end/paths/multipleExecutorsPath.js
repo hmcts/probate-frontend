@@ -3,17 +3,15 @@ const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
-const services = require('app/components/services');
-const config = require('app/config');
-let isAliasToggledEnabled;
+//const services = require('app/components/services');
+//const config = require('app/config');
 
 let grabIds;
 
 Feature('Multiple Executors flow');
-//eslint-disable-next-line no-undef
+// eslint-disable-next-line no-undef
 Before(function* () {
     TestConfigurator.getBefore();
-    isAliasToggledEnabled = yield services.featureToggle(config.featureToggles.main_applicant_alias);
 });
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
@@ -80,12 +78,10 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
     I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
     const executorsWithDifferentNameList = ['5'];
-    if (isAliasToggledEnabled) {
-        forEach(executorsWithDifferentNameList, executorNumber => {
-            I.enterExecutorCurrentName(executorNumber, head(executorsWithDifferentNameList) === executorNumber);
-            I.enterExecutorCurrentNameReason(executorNumber, 'aliasOther', 'Because YOLO');
-        });
-    }
+    forEach(executorsWithDifferentNameList, executorNumber => {
+        I.enterExecutorCurrentName(executorNumber, head(executorsWithDifferentNameList) === executorNumber);
+        I.enterExecutorCurrentNameReason(executorNumber, 'aliasOther', 'Because YOLO');
+    });
     forEach(executorsApplyingList, executorNumber => {
         I.enterExecutorContactDetails(executorNumber, head(executorsApplyingList) === executorNumber);
         I.enterExecutorManualAddress(executorNumber);

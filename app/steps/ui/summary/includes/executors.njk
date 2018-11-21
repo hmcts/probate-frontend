@@ -193,7 +193,7 @@
 {% for executor in fields.executors.list.value %}
     {% if executor.isApplicant != true and executor.isApplying === true %}
     <h3 class="heading-small">{{content.Summary.executorApplyingForProbate |  replace("{executorOrderNumber}", cls.next())}}</h3>
-            {{checkanswer(
+        {{checkanswer(
             items = [{
                     question: content.Summary.nameOnWill,
                     answer: executor.fullName,
@@ -217,7 +217,6 @@
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
 
-        {% if fields.summary.isMainApplicantAliasToggleEnabled.value === 'true' %}
         {{checkanswer(
             items = [{
                     question: content.Summary.currentNameReason,
@@ -229,7 +228,6 @@
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
-        {% endif %}
 
         {{checkanswer(
             items = [{
@@ -243,7 +241,6 @@
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
 
-
         {{checkanswer(
             items = [{
                     question: content.Summary.mobileNumber,
@@ -255,7 +252,6 @@
             common = common,
             alreadyDeclared = fields.summary.alreadyDeclared.value
         )}}
-
 
         {{checkanswer(
             items = [{

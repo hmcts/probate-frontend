@@ -1,4 +1,70 @@
 module.exports = {
+
+    TestIdamBaseUrl: 'https://preprod-idamapi.reform.hmcts.net:3511',
+    TestFrontendUrl: 'https://probate-frontend-aat.service.core-compute-aat.internal',
+    TestE2EFrontendUrl: 'https://probate-frontend-aat.service.core-compute-aat.internal',
+    TestUseIdam: 'true',
+    TestUseSidam: 'false',
+    TestIdamLoginUrl: 'https://idam.preprod.ccidam.reform.hmcts.net/login',
+    TestUseGovPay: 'true', //'false',
+    TestInviteIdListUrl: '/inviteIdList',
+    TestPinUrl: '/pin',
+    TestInvitationUrl: '/executors/invitation',
+    TestIdamAddUserUrl: '/testing-support/accounts',
+    TestIdamUserGroup: 'probate-private-beta',
+    TestIdamRole: 'citizen',
+    TestCitizenDomain: '/@probateTest.com',
+    TestRetryScenarios: 3,
+
+    postcodeLookup: {
+        token: process.env.ADDRESS_TOKEN,
+        url: process.env.POSTCODE_SERVICE_URL,
+        endpoint: process.env.POSTCODE_SERVICE_ENDPOINT || '/addresses',
+        contentType: 'application/json',
+        singleAddressPostcode: 'SW1A 1AA',
+        singleOrganisationName: 'BUCKINGHAM PALACE',
+        singleFormattedAddress: 'Buckingham Palace\nLondon\nSW1A 1AA',
+        multipleAddressPostcode: 'N145JY',
+        partialAddressPostcode: 'N14',
+        invalidAddressPostcode: 'Z99 9ZZ',
+        emptyAddressPostcode: ''
+    },
+
+    validation: {
+        url: process.env.TEST_VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
+    },
+
+    TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
+
+        TestEnvEmailAddress: 'test.probate.inbox@gmail.com',
+        TestEnvMobileNumber: '07952626390',
+        s2sStubErrorSequence: '000',
+        links: {
+            cookies: '/cookies',
+            terms: '/terms-conditions',
+            survey: 'http://www.smartsurvey.co.uk/s/CFZF7/',
+            surveyEndOfApplication: 'http://www.smartsurvey.co.uk/s/A2LY8/',
+            privacy: '/privacy-policy',
+            contact: '/contact-us',
+            callCharges: 'https://www.gov.uk/call-charges',
+            howToManageCookies: 'https://www.aboutcookies.org',
+            googlePrivacyPolicy: 'https://www.google.com/policies/privacy/partners/',
+            googleAnalyticsOptOut: 'https://tools.google.com/dlpage/gaoptout/',
+            mojPersonalInformationCharter: 'https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter',
+            goodThingsFoundation: 'https://www.goodthingsfoundation.org',
+            subjectAccessRequest: 'https://www.gov.uk/government/publications/request-your-personal-data-from-moj',
+            complaintsProcedure: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure',
+            informationCommissionersOffice: 'https://ico.org.uk/global/contact-us',
+            ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',
+            renunciationForm: 'public/pdf/renunciation.pdf'
+        },
+        helpline: {
+            number: '0300 303 0648',
+            hours: 'Monday to Friday, 9:30am to 5pm'
+        }
+};
+
+/*module.exports = {
     TestIdamBaseUrl: process.env.IDAM_API_URL || 'http://localhost:8484',
     TestFrontendUrl: 'https://probate-frontend-aat.service.core-compute-aat.internal', //.env.TEST_URL || 'http://localhost:3000',
     TestE2EFrontendUrl: 'https://probate-frontend-aat.service.core-compute-aat.internal', // process.env.TEST_E2E_URL || 'http://localhost:3000',
@@ -61,4 +127,4 @@ module.exports = {
         number: '0300 303 0648',
         hours: 'Monday to Friday, 9am to 5pm'
     }
-};
+};*/

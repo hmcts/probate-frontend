@@ -1,4 +1,4 @@
-const testConfig = require('test/config.js');
+//const testConfig = require('test/config.js');
 
 exports.config = {
 //    'tests': './paths/**/*.js',
@@ -6,7 +6,7 @@ exports.config = {
     'output': './output',
     'helpers': {
         'Puppeteer': {
-            'url': testConfig.TestE2EFrontendUrl || 'http://localhost:3000',
+            'url': 'https://probate-frontend-aat.service.core-compute-aat.internal', // testConfig.TestE2EFrontendUrl || 'http://localhost:3000',
             'waitForTimeout': 60000,
             'waitForAction': 5000,
             'getPageTimeout': 60000,

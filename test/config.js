@@ -36,32 +36,32 @@ module.exports = {
 
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
 
-        TestEnvEmailAddress: 'test.probate.inbox@gmail.com',
-        TestEnvMobileNumber: '07952626390',
-        s2sStubErrorSequence: '000',
-        links: {
-            cookies: '/cookies',
-            terms: '/terms-conditions',
-            survey: 'http://www.smartsurvey.co.uk/s/CFZF7/',
-            surveyEndOfApplication: 'http://www.smartsurvey.co.uk/s/A2LY8/',
-            privacy: '/privacy-policy',
-            contact: '/contact-us',
-            callCharges: 'https://www.gov.uk/call-charges',
-            howToManageCookies: 'https://www.aboutcookies.org',
-            googlePrivacyPolicy: 'https://www.google.com/policies/privacy/partners/',
-            googleAnalyticsOptOut: 'https://tools.google.com/dlpage/gaoptout/',
-            mojPersonalInformationCharter: 'https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter',
-            goodThingsFoundation: 'https://www.goodthingsfoundation.org',
-            subjectAccessRequest: 'https://www.gov.uk/government/publications/request-your-personal-data-from-moj',
-            complaintsProcedure: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure',
-            informationCommissionersOffice: 'https://ico.org.uk/global/contact-us',
-            ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',
-            renunciationForm: 'public/pdf/renunciation.pdf'
-        },
-        helpline: {
-            number: '0300 303 0648',
-            hours: 'Monday to Friday, 9:30am to 5pm'
-        }
+    TestEnvEmailAddress: 'test.probate.inbox@gmail.com',
+    TestEnvMobileNumber: '07952626390',
+    s2sStubErrorSequence: '000',
+    links: {
+        cookies: '/cookies',
+        terms: '/terms-conditions',
+        survey: 'http://www.smartsurvey.co.uk/s/CFZF7/',
+        surveyEndOfApplication: 'http://www.smartsurvey.co.uk/s/A2LY8/',
+        privacy: '/privacy-policy',
+        contact: '/contact-us',
+        callCharges: 'https://www.gov.uk/call-charges',
+        howToManageCookies: 'https://www.aboutcookies.org',
+        googlePrivacyPolicy: 'https://www.google.com/policies/privacy/partners/',
+        googleAnalyticsOptOut: 'https://tools.google.com/dlpage/gaoptout/',
+        mojPersonalInformationCharter: 'https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter',
+        goodThingsFoundation: 'https://www.goodthingsfoundation.org',
+        subjectAccessRequest: 'https://www.gov.uk/government/publications/request-your-personal-data-from-moj',
+        complaintsProcedure: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure',
+        informationCommissionersOffice: 'https://ico.org.uk/global/contact-us',
+        ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',
+        renunciationForm: 'public/pdf/renunciation.pdf'
+    },
+    helpline: {
+        number: '0300 303 0648',
+        hours: 'Monday to Friday, 9:30am to 5pm'
+    }
 };
 
 /*module.exports = {

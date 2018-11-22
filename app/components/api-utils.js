@@ -29,7 +29,6 @@ const asyncFetch = (url, fetchOptions, parseBody) => {
                 if (!endsWith(url, 'health')) {
                     logger.info(`Status: ${res.status}`);
                 }
-                logger.info(`res.ok: ${res.ok}`);
                 if (res.ok) {
                     logger.info('parseBody(res)');
                     return parseBody(res);

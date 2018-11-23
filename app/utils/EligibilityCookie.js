@@ -6,7 +6,7 @@ const eligibilityCookieRedirectUrl = config.redis.eligibilityCookie.redirectUrl;
 
 class EligibilityCookie {
     checkCookie() {
-        return function (req, res, next) {
+        return (req, res, next) => {
             if (!req.cookies[eligibilityCookieName]) {
                 res.redirect(eligibilityCookieRedirectUrl);
             } else {

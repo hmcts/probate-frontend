@@ -2,9 +2,13 @@
 
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
+const content = require('app/resources/en/translation/will/neworiginal');
+const rewire = require('rewire');
+const sinon = require('sinon');
+const schema = require('app/steps/ui/will/neworiginal/schema');
+const newWillOriginal = rewire('app/steps/ui/will/neworiginal/index');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const NewWillOriginal = steps.NewWillOriginal;
-const content = require('app/resources/en/translation/will/neworiginal');
 
 describe('NewWillOriginal', () => {
     describe('getUrl()', () => {
@@ -41,6 +45,32 @@ describe('NewWillOriginal', () => {
                     choice: 'isOriginal'
                 }]
             });
+            done();
+        });
+    });
+
+    describe('setEligibilityCookie()', () => {
+        it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
+            const revert = newWillOriginal.__set__('eligibilityCookie', {setCookie: sinon.spy()});
+            const req = {reqParam: 'req value'};
+            const res = {resParam: 'res value'};
+            const nextStepUrl = '/stop-page/notOriginal';
+            const steps = {};
+            const section = null;
+            const resourcePath = 'will/neworiginal';
+            const i18next = {};
+            const newWilOri = new newWillOriginal(steps, section, resourcePath, i18next, schema);
+
+            newWilOri.setEligibilityCookie(req, res, nextStepUrl);
+
+            expect(newWillOriginal.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
+            expect(newWillOriginal.__get__('eligibilityCookie.setCookie').calledWith(
+                {reqParam: 'req value'},
+                {resParam: 'res value'},
+                '/stop-page/notOriginal'
+            )).to.equal(true);
+
+            revert();
             done();
         });
     });

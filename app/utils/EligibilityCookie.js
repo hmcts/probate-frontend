@@ -12,10 +12,10 @@ class EligibilityCookie {
             } else {
                 const eligibilityCookie = JSON.parse(req.cookies[eligibilityCookieName]);
 
-                if (!eligibilityCookie.pages.includes(req.originalUrl) && req.originalUrl !== eligibilityCookie.nextStepUrl) {
-                    res.redirect(eligibilityCookieRedirectUrl);
-                } else {
+                if (eligibilityCookie.pages.includes(req.originalUrl) || req.originalUrl === eligibilityCookie.nextStepUrl) {
                     next();
+                } else {
+                    res.redirect(eligibilityCookieRedirectUrl);
                 }
             }
         };

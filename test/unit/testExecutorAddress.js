@@ -2,6 +2,7 @@
 
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
+const assert = require('chai').assert;
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
 const ExecutorAddress = steps.ExecutorAddress;
@@ -103,6 +104,41 @@ describe('ExecutorAddress', () => {
             expect(ctx.executorsWrapper).to.be.instanceOf(ExecutorsWrapper);
             done();
         });
+
+        it('should return the ctx with the executors addresses for the correct index', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        executors: {
+                            list: [
+                                {fullName: 'executor full name'}
+                            ],
+                            index: 2
+                        }
+                    },
+                    addresses: {
+                        executors: [
+                            [
+                                {address: '1 Red Road, London, LL1 1LL'},
+                                {address: '2 Green Road, London, LL2 2LL'}
+                            ],
+                            [
+                                {address: 'executor 2 1 Red Road, London, LL1 1LL'},
+                                {address: 'executor 2 2 Green Road, London, LL2 2LL'}
+                            ]
+                        ]
+                    }
+                }
+            };
+
+            const ctx = ExecutorAddress.getContextData(req);
+            assert.deepEqual(ctx.addresses, [
+                {address: 'executor 2 1 Red Road, London, LL1 1LL'},
+                {address: 'executor 2 2 Green Road, London, LL2 2LL'}
+            ])
+            ;
+            done();
+        });
     });
 
     describe('handleGet()', () => {
@@ -165,6 +201,7 @@ describe('ExecutorAddress', () => {
             };
             const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
             expect(errors).to.deep.equal(testCtx.errors);
+            expect(ctx).to.deep.equal(testCtx);
             done();
         });
 

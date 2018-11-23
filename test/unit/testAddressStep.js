@@ -96,8 +96,6 @@ describe('AddressStep', () => {
 
             it('when freeTextAddress exists', (done) => {
                 const session = {
-                    addresses: {
-                    }
                 };
                 ctxToTest = {
                     freeTextAddress: '1 Red Road, London, LL1 1LL',

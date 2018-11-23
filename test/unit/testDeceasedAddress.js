@@ -38,7 +38,7 @@ describe('DeceasedAddress', () => {
             done();
         });
     });
-    describe.only('handlePost()', () => {
+    describe('handlePost()', () => {
         let ctx;
         let errors;
         const formdata = {};

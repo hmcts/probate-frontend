@@ -16,7 +16,7 @@ describe('ApplicantAddress', () => {
 
     describe('getContextData()', () => {
         let ctx;
-        it('should return the ctx with the deceased addresses', (done) => {
+        it('should return the ctx with the applicant addresses', (done) => {
             const req = {
                 session: {
                     form: {},
@@ -39,7 +39,7 @@ describe('ApplicantAddress', () => {
         });
     });
 
-    describest('handlePost()', () => {
+    describe('handlePost()', () => {
         const session ={};
         let ctx;
         const formdata ={};

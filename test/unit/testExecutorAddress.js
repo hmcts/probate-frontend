@@ -254,7 +254,7 @@ describe('ExecutorAddress', () => {
         beforeEach(() => {
             testCtx = {
                 list: [{
-                    isApplying: true,
+                    isApplying: true
                 }, {
                     isApplying: true
                 }],
@@ -278,7 +278,7 @@ describe('ExecutorAddress', () => {
                         [
                             {address: '1 Red Road, London, LL1 1LL'},
                             {address: '2 Green Road, London, LL2 2LL'}
-                        ],
+                        ]
                     ]
                 }
             };

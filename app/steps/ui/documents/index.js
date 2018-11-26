@@ -31,20 +31,6 @@ class Documents extends ValidationStep {
 
         return [ctx];
     }
-
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-        delete ctx.registryAddress;
-        delete ctx.hasCodicils;
-        delete ctx.codicilsNumber;
-        delete ctx.hasMultipleApplicants;
-        delete ctx.hasRenunciated;
-        delete ctx.is205;
-        delete ctx.executorsNameChangedByDeedPollList;
-        delete ctx.ccdReferenceNumber;
-        delete ctx.isDocumentUploadToggleEnabled;
-        return [ctx, formdata];
-    }
 }
 
 module.exports = Documents;

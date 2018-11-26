@@ -1,4 +1,4 @@
-/* eslint max-lines: ["error", 500] */
+// eslint-disable-line max-lines
 
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
@@ -130,7 +130,6 @@ describe('ExecutorAddress', () => {
                     }
                 }
             };
-
             const ctx = ExecutorAddress.getContextData(req);
             assert.deepEqual(ctx.addresses, [
                 {address: 'executor 2 1 Red Road, London, LL1 1LL'},
@@ -168,7 +167,6 @@ describe('ExecutorAddress', () => {
                 errors: []
             };
             const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
-
             expect(ctx.address).to.equal(testCtx.list[0].freeTextAddress);
             expect(errors).to.deep.equal(testCtx.errors);
             done();
@@ -184,7 +182,6 @@ describe('ExecutorAddress', () => {
                 errors: []
             };
             const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
-
             expect(ctx.postcode).to.equal(testCtx.list[0].postcode);
             expect(errors).to.deep.equal(testCtx.errors);
             done();
@@ -202,6 +199,21 @@ describe('ExecutorAddress', () => {
             const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
             expect(errors).to.deep.equal(testCtx.errors);
             expect(ctx).to.deep.equal(testCtx);
+            done();
+        });
+
+        it('sets the ctx postcodeAddress when address exists', (done) => {
+            const testCtx = {
+                list: [{
+                    address: 'the address',
+                    postcodeAddress: 'the postcode address'
+                }],
+                index: 0,
+                errors: []
+            };
+            const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
+            expect(errors).to.deep.equal(testCtx.errors);
+            expect(ctx.postcodeAddress).to.equal('the postcode address');
             done();
         });
 
@@ -242,7 +254,7 @@ describe('ExecutorAddress', () => {
         beforeEach(() => {
             testCtx = {
                 list: [{
-                    isApplying: true
+                    isApplying: true,
                 }, {
                     isApplying: true
                 }],

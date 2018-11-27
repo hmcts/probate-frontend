@@ -34,6 +34,7 @@ class Summary extends Step {
         ctx.executorsDealingWithEstate = executorsApplying.map(exec => exec.fullName);
         ctx.executorsPowerReservedOrRenounced = executorsWrapper.hasRenunciatedOrPowerReserved();
         ctx.isMainApplicantAliasToggleEnabled = featureToggle.isEnabled(featureToggles, 'main_applicant_alias');
+        ctx.isDocumentUploadToggleEnabled = featureToggle.isEnabled(featureToggles, 'document_upload');
         ctx.executorsWithOtherNames = executorsWrapper.executorsWithAnotherName().map(exec => exec.fullName);
 
         utils.updateTaskStatus(ctx, ctx, this.steps);

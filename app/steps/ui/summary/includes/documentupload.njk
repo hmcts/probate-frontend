@@ -1,4 +1,4 @@
-{% if fields.summary.uploadedDocuments.value | length > 0 %}
+{% if fields.summary.uploadedDocuments.value | length > 0 and fields.summary.isDocumentUploadToggleEnabled.value === "true" %}
 {{checkanswer(
     items = [{
             question: content.DocumentUpload.deathCertificate,

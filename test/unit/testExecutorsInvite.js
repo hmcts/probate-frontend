@@ -1,7 +1,8 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const assert = require('chai').assert;
+const {assert, expect} = require('chai');
+const journey = require('app/journeys/probate');
 
 describe('Executors-Invite', () => {
     let ctx;
@@ -28,6 +29,20 @@ describe('Executors-Invite', () => {
             req.session.form.executors.executorsNumber = 3;
             ctx = ExecsInvite.getContextData(req);
             assert.equal(ctx.inviteSuffix, '-multiple');
+        });
+    });
+
+    describe('nextStepUrl()', () => {
+        it('should return url for the next step', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {};
+            const nextStepUrl = ExecsInvite.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/executors-invites-sent');
+            done();
         });
     });
 

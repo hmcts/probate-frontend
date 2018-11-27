@@ -2,6 +2,7 @@
 
 const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
+const journey = require('app/journeys/probate');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const WillCodicils = steps.WillCodicils;
 const json = require('app/resources/en/translation/will/codicils');
@@ -32,21 +33,36 @@ describe('WillCodicils', () => {
             });
             done();
         });
+    });
 
-        it('should return the ctx with the will codicils and the screening_question feature toggle off', (done) => {
+    describe('nextStepUrl()', () => {
+        it('should return url for the next step if there are codicils', (done) => {
             const req = {
-                sessionID: 'dummy_sessionId',
-                session: {form: {}, featureToggles: {screening_questions: false}},
-                body: {
-                    codicils: 'Yes'
+                session: {
+                    journey: journey
                 }
             };
-            const ctx = WillCodicils.getContextData(req);
-            expect(ctx).to.deep.equal({
-                codicils: 'Yes',
-                isToggleEnabled: false,
-                sessionID: 'dummy_sessionId'
-            });
+            const ctx = {
+                codicils: 'Yes'
+            };
+            const WillCodicils = steps.WillCodicils;
+            const nextStepUrl = WillCodicils.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/codicils-number');
+            done();
+        });
+
+        it('should return the url for the next step if there are no codicils', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                codicils: 'No'
+            };
+            const WillCodicils = steps.WillCodicils;
+            const nextStepUrl = WillCodicils.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/death-certificate');
             done();
         });
     });

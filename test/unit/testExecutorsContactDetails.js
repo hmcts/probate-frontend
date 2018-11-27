@@ -1,10 +1,12 @@
 'use strict';
+
 const initSteps = require('app/core/initSteps');
 const services = require('app/components/services');
 const sinon = require('sinon');
 const when = require('when');
 const co = require('co');
 const {expect} = require('chai');
+const journey = require('app/journeys/probate');
 
 describe('Contact-Details', function () {
     let ctx;
@@ -212,6 +214,22 @@ describe('Contact-Details', function () {
                 .catch((err) => {
                     done(err);
                 });
+        });
+    });
+
+    describe('nextStepUrl()', () => {
+        it('should return url for the next step', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                index: 1
+            };
+            const nextStepUrl = contactDetails.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/executor-address/1');
+            done();
         });
     });
 });

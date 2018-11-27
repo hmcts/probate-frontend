@@ -2,20 +2,12 @@
 
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
-const content = require('app/resources/en/translation/will/neworiginal');
 const journey = require('app/journeys/probate');
+const content = require('app/resources/en/translation/will/neworiginal');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const NewWillOriginal = steps.NewWillOriginal;
 
 describe('NewWillOriginal', () => {
-    describe('getUrl()', () => {
-        it('should return the correct url', (done) => {
-            const url = NewWillOriginal.constructor.getUrl();
-            expect(url).to.equal('/new-will-original');
-            done();
-        });
-    });
-
     describe('nextStepUrl()', () => {
         it('should return url for the next step', (done) => {
             const req = {

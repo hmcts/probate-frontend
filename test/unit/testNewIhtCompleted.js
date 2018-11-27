@@ -2,20 +2,12 @@
 
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
-const content = require('app/resources/en/translation/iht/newcompleted');
 const journey = require('app/journeys/probate');
+const content = require('app/resources/en/translation/iht/newcompleted');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const NewIhtCompleted = steps.NewIhtCompleted;
 
 describe('NewIhtCompleted', () => {
-    describe('getUrl()', () => {
-        it('should return the correct url', (done) => {
-            const url = NewIhtCompleted.constructor.getUrl();
-            expect(url).to.equal('/new-iht-completed');
-            done();
-        });
-    });
-
     describe('nextStepUrl()', () => {
         it('should return url for the next step', (done) => {
             const req = {

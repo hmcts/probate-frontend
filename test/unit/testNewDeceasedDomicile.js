@@ -2,20 +2,12 @@
 
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
-const content = require('app/resources/en/translation/deceased/newdomicile');
 const journey = require('app/journeys/probate');
+const content = require('app/resources/en/translation/deceased/newdomicile');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const NewDeceasedDomicile = steps.NewDeceasedDomicile;
 
 describe('NewDeceasedDomicile', () => {
-    describe('getUrl()', () => {
-        it('should return the correct url', (done) => {
-            const url = NewDeceasedDomicile.constructor.getUrl();
-            expect(url).to.equal('/new-deceased-domicile');
-            done();
-        });
-    });
-
     describe('nextStepUrl()', () => {
         it('should return url for the next step', (done) => {
             const req = {

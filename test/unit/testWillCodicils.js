@@ -67,6 +67,38 @@ describe('WillCodicils', () => {
         });
     });
 
+    describe('handlePost()', () => {
+        it('should return the ctx with the will codicils and the screening_question feature toggle off', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                codicils: 'Yes'
+            };
+            const WillCodicils = steps.WillCodicils;
+            const nextStepUrl = WillCodicils.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/codicils-number');
+            done();
+        });
+
+        it('should return the url for the next step if there are no codicils', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                codicils: 'No'
+            };
+            const WillCodicils = steps.WillCodicils;
+            const nextStepUrl = WillCodicils.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/death-certificate');
+            done();
+        });
+    });
+
     describe('nextStepOptions()', () => {
         it('should return the correct options when the FT is off', (done) => {
             const ctx = {

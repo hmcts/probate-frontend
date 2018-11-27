@@ -3,6 +3,7 @@
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const content = require('app/resources/en/translation/executors/newmentalcapacity');
+const journey = require('app/journeys/probate');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const NewMentalCapacity = steps.NewMentalCapacity;
 
@@ -16,16 +17,32 @@ describe('NewMentalCapacity', () => {
     });
 
     describe('nextStepUrl()', () => {
-        it('should return the correct url when Yes is given', (done) => {
-            const ctx = {mentalCapacity: content.optionYes};
-            const nextStepUrl = NewMentalCapacity.nextStepUrl(ctx);
+        it('should return url for the next step', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                mentalCapacity: 'Yes'
+            };
+            const NewMentalCapacity = steps.NewMentalCapacity;
+            const nextStepUrl = NewMentalCapacity.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/new-start-apply');
             done();
         });
 
-        it('should return the correct url when No is given', (done) => {
-            const ctx = {mentalCapacity: content.optionNo};
-            const nextStepUrl = NewMentalCapacity.nextStepUrl(ctx);
+        it('should return the url for the stop page', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                mentalCapacity: 'No'
+            };
+            const NewMentalCapacity = steps.NewMentalCapacity;
+            const nextStepUrl = NewMentalCapacity.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/mentalCapacity');
             done();
         });

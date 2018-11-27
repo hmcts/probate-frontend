@@ -26,7 +26,7 @@ class ActionStepRunner {
 
             [ctx, errors] = yield step.handlePost(ctx, errors, formdata);
 
-            const next = step.next(ctx);
+            const next = step.next(req, ctx);
             step.action(ctx, formdata);
             res.redirect(next.constructor.getUrl());
         }).catch((error) => {

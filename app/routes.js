@@ -48,6 +48,11 @@ router.get('/', (req, res) => {
 });
 
 router.use((req, res, next) => {
+    req.session.journey = require('app/journeys/probate');
+    next();
+});
+
+router.use((req, res, next) => {
     const formdata = req.session.form;
     const isHardStop = formdata => config.hardStopParams.some(param => get(formdata, param) === commonContent.no);
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);

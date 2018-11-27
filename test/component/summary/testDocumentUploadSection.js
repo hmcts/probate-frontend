@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const documentuploadData = require('test/data/documentupload');
-const documentuploadContent = require('../../../app/resources/en/translation/documentupload.json');
+const documentuploadContent = require('../../../app/resources/en/translation/documentupload');
 
 describe('summary-documentupload-section', () => {
     let testWrapper, sessionData;
@@ -22,7 +22,7 @@ describe('summary-documentupload-section', () => {
             };
             testWrapper.testDataPlayback(done, playbackData);
         });
-PRO
+
         it('test correct content loaded on document upload section of the summary page, when section is complete', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

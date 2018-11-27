@@ -9,8 +9,8 @@ class ExecutorsAllAlive extends ValidationStep {
         return '/executors-all-alive';
     }
 
-    nextStepUrl(ctx) {
-        return this.next(ctx).constructor.getUrl(1);
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl(1);
     }
 
     handlePost(ctx, errors) {

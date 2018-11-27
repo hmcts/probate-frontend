@@ -9,8 +9,8 @@ class ApplicantExecutor extends ValidationStep {
         return '/applicant-executor';
     }
 
-    nextStepUrl(ctx) {
-        return this.next(ctx).constructor.getUrl('notExecutor');
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('notExecutor');
     }
 
     handlePost(ctx, errors) {

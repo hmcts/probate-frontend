@@ -9,8 +9,8 @@ class WillLeft extends ValidationStep {
         return '/will-left';
     }
 
-    nextStepUrl(ctx) {
-        return this.next(ctx).constructor.getUrl('noWill');
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('noWill');
     }
 
     nextStepOptions() {

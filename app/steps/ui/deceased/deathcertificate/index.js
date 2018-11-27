@@ -9,8 +9,8 @@ class DeathCertificate extends ValidationStep {
         return '/death-certificate';
     }
 
-    nextStepUrl(ctx) {
-        return this.next(ctx).constructor.getUrl('deathCertificate');
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('deathCertificate');
     }
 
     nextStepOptions() {

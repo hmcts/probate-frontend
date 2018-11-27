@@ -13,22 +13,4 @@ describe('Documents', () => {
             done();
         });
     });
-
-    describe('action', () => {
-        it('cleans up context', () => {
-            let ctx = {
-                registryAddress: 'test',
-                hasCodicils: true,
-                codicilsNumber: '4',
-                hasMultipleApplicants: true,
-                hasRenunciated: false,
-                is205: true,
-                executorsNameChangedByDeedPollList: [],
-                ccdReferenceNumber: '1234-1235-1236-1237',
-                isDocumentUploadToggleEnabled: true
-            };
-            [ctx] = Documents.action(ctx);
-            assert.deepEqual(ctx, {});
-        });
-    });
 });

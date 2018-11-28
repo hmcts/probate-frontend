@@ -1,8 +1,8 @@
 module.exports = {
 
     TestIdamBaseUrl: 'https://preprod-idamapi.reform.hmcts.net:3511',
-    TestFrontendUrl: 'https://probate-frontend-aat.service.core-compute-aat.internal',
-    TestE2EFrontendUrl: 'https://probate-frontend-aat.service.core-compute-aat.internal',
+    TestFrontendUrl: 'http://probate-frontend-aat.service.core-compute-aat.internal',
+    TestE2EFrontendUrl: 'http://probate-frontend-aat.service.core-compute-aat.internal',
     TestUseIdam: 'true',
     TestUseSidam: 'false',
     TestIdamLoginUrl: 'https://idam.preprod.ccidam.reform.hmcts.net/login',

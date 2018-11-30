@@ -59,7 +59,7 @@ class DocumentUpload {
     validate(document, uploads) {
         let error = null;
 
-        if (error === null && !this.isValidType(document)) {
+        if (!this.isValidType(document)) {
             error = {
                 js: content.documentUploadInvalidFileType,
                 nonJs: 'type'

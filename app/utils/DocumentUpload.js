@@ -64,7 +64,7 @@ class DocumentUpload {
     validate(document, uploads) {
         let error = null;
 
-        if (error === null && !this.isDocument(document)) {
+        if (!this.isDocument(document)) {
             error = this.mapError('nothingUploaded');
         }
 

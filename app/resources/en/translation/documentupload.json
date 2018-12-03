@@ -30,7 +30,7 @@
         "message": ""
       },
       "nothingUploaded": {
-        "summary": "You need to select a file before you can upload it. Click &lsquo;browse&rsquo; to find a file to upload.",
+        "summary": "You need to select a file before you can upload it. Click &lsquo;browse&rsquo; to find a file to upload",
         "message": ""
       },
       "uploadTimeout": {

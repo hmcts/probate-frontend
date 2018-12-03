@@ -58,11 +58,10 @@ describe('DeceasedAddress', () => {
         it('should return the correct options', (done) => {
             const nextStepOptions = DeceasedAddress.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'isToggleEnabled',
-                    value: true,
-                    choice: 'toggleOn'
-                }]
+                options: [
+                    {key: 'isDocumentUploadToggleEnabled', value: true, choice: 'documentUploadToggleOn'},
+                    {key: 'isScreeningQuestionsToggleEnabled', value: true, choice: 'toggleOn'}
+                ]
             });
             done();
         });
@@ -74,7 +73,8 @@ describe('DeceasedAddress', () => {
                 isToggleEnabled: false
             };
             DeceasedAddress.action(ctx);
-            assert.isUndefined(ctx.isToggleEnabled);
+            assert.isUndefined(ctx.isScreeningQuestionsToggleEnabled);
+            assert.isUndefined(ctx.isDocumentUploadToggleEnabled);
         });
     });
 });

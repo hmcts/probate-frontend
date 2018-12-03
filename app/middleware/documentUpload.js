@@ -17,7 +17,7 @@ const initTimeout = () => connectTimeout(config.timeoutMs, {respond: false});
 const errorOnTimeout = (req, res, next) => {
     if (req.timedout) {
         req.log.error('Document upload timed out');
-        const error = documentUpload.mapError(config.error.uploadTimeout);
+        const error = documentUpload.mapError('uploadTimeout');
         return returnError(req, res, next, error);
     }
     next();
@@ -56,13 +56,14 @@ const uploadDocument = (req, res, next) => {
                     next();
                 } else {
                     req.log.error('Uploaded document failed backend validation');
-                    const error = documentUpload.mapError(resultBody);
+                    const errorType = Object.entries(config.error).filter(value => value[1] === resultBody)[0][0];
+                    const error = documentUpload.mapError(errorType);
                     returnError(req, res, next, error);
                 }
             })
             .catch((err) => {
                 req.log.error(`Document upload failed: ${err}`);
-                const error = documentUpload.mapError(config.error.uploadFailed);
+                const error = documentUpload.mapError('uploadFailed');
                 returnError(req, res, next, error);
             });
     } else {

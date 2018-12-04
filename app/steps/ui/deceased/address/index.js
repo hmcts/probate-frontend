@@ -9,11 +9,10 @@ class DeceasedAddress extends AddressStep {
         return '/deceased-address';
     }
 
-    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
-        super.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
-
-        return [ctx, errors];
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        ctx.isToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'screening_questions');
+        return ctx;
     }
 
     nextStepOptions() {

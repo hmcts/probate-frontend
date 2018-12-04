@@ -14,27 +14,49 @@ describe('DeceasedDod', () => {
         });
     });
 
-    describe('handlePost()', () => {
-        let ctx;
-        let errors;
-        let formdata;
-        let session;
-        let hostname;
-        let featureToggles;
-
-        it('should return the ctx with the deceased dod and the screening_question feature toggle', (done) => {
-            ctx = {
-                dob_day: '02',
-                dob_month: '03',
-                dob_year: '1952'
+    describe('getContextData()', () => {
+        it('should return the ctx with the deceased date of death and the screening_question feature toggle on', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {form: {}, featureToggles: {screening_questions: true}},
+                body: {
+                    dod_day: '02',
+                    dod_month: '03',
+                    dod_year: '1952'
+                }
             };
-            errors = {};
-            [ctx, errors] = DeceasedDod.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
+            const ctx = DeceasedDod.getContextData(req);
             expect(ctx).to.deep.equal({
-                dob_day: '02',
-                dob_month: '03',
-                dob_year: '1952',
-                isToggleEnabled: false
+                dod_day: 2,
+                dod_month: 3,
+                dod_year: 1952,
+                dod_date: '1952-03-02T00:00:00.000Z',
+                dod_formattedDate: '2 March 1952',
+                isToggleEnabled: true,
+                sessionID: 'dummy_sessionId'
+            });
+            done();
+        });
+
+        it('should return the ctx with the deceased date of death and the screening_question feature toggle off', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {form: {}, featureToggles: {screening_questions: false}},
+                body: {
+                    dod_day: '02',
+                    dod_month: '03',
+                    dod_year: '1952'
+                }
+            };
+            const ctx = DeceasedDod.getContextData(req);
+            expect(ctx).to.deep.equal({
+                dod_day: 2,
+                dod_month: 3,
+                dod_year: 1952,
+                dod_date: '1952-03-02T00:00:00.000Z',
+                dod_formattedDate: '2 March 1952',
+                isToggleEnabled: false,
+                sessionID: 'dummy_sessionId'
             });
             done();
         });

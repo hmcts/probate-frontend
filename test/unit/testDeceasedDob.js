@@ -14,27 +14,49 @@ describe('DeceasedDob', () => {
         });
     });
 
-    describe('handlePost()', () => {
-        let ctx;
-        let errors;
-        let formdata;
-        let session;
-        let hostname;
-        let featureToggles;
-
-        it('should return the ctx with the deceased dob and the screening_question feature toggle', (done) => {
-            ctx = {
-                dob_day: '02',
-                dob_month: '03',
-                dob_year: '1952'
+    describe('getContextData()', () => {
+        it('should return the ctx with the deceased date of birth and the screening_question feature toggle on', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {form: {}, featureToggles: {screening_questions: true}},
+                body: {
+                    dob_day: '02',
+                    dob_month: '03',
+                    dob_year: '1952'
+                }
             };
-            errors = {};
-            [ctx, errors] = DeceasedDob.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
+            const ctx = DeceasedDob.getContextData(req);
             expect(ctx).to.deep.equal({
-                dob_day: '02',
-                dob_month: '03',
-                dob_year: '1952',
-                isToggleEnabled: false
+                dob_day: 2,
+                dob_month: 3,
+                dob_year: 1952,
+                dob_date: '1952-03-02T00:00:00.000Z',
+                dob_formattedDate: '2 March 1952',
+                isToggleEnabled: true,
+                sessionID: 'dummy_sessionId'
+            });
+            done();
+        });
+
+        it('should return the ctx with the deceased date of birth and the screening_question feature toggle off', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {form: {}, featureToggles: {screening_questions: false}},
+                body: {
+                    dob_day: '02',
+                    dob_month: '03',
+                    dob_year: '1952'
+                }
+            };
+            const ctx = DeceasedDob.getContextData(req);
+            expect(ctx).to.deep.equal({
+                dob_day: 2,
+                dob_month: 3,
+                dob_year: 1952,
+                dob_date: '1952-03-02T00:00:00.000Z',
+                dob_formattedDate: '2 March 1952',
+                isToggleEnabled: false,
+                sessionID: 'dummy_sessionId'
             });
             done();
         });

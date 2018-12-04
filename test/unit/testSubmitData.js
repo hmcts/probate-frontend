@@ -67,6 +67,7 @@ describe('submit-data', () => {
             'isApplying': true,
             'hasOtherName': true,
             'currentName': 'exec_3_new_name ',
+            'currentNameReason': 'Divorce',
             'email': 'haji58@hotmail.co.uk',
             'mobile': '07963723856',
             'address': 'exec_3_address\r\n',

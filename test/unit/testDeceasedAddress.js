@@ -14,26 +14,41 @@ describe('DeceasedAddress', () => {
         });
     });
 
-    describe('handlePost()', () => {
-        let ctx;
-        let errors;
-        let formdata;
-        let session;
-        let hostname;
-        let featureToggles;
-
-        it('should return the ctx with the deceased address and the screening_question feature toggle', (done) => {
-            ctx = {
-                freeTextAddress: '143 Caerfai Bay Road',
-                postcode: 'L23 6WW'
+    describe('getContextData()', () => {
+        it('should return the ctx with the deceased address and the screening_question feature toggle on', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {form: {}, featureToggles: {screening_questions: true}},
+                body: {
+                    freeTextAddress: '143 Caerfai Bay Road',
+                    postcode: 'L23 6WW'
+                }
             };
-            errors = {};
-            [ctx, errors] = DeceasedAddress.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
+            const ctx = DeceasedAddress.getContextData(req);
             expect(ctx).to.deep.equal({
                 freeTextAddress: '143 Caerfai Bay Road',
-                address: '143 Caerfai Bay Road',
                 postcode: 'L23 6WW',
-                isToggleEnabled: false
+                isToggleEnabled: true,
+                sessionID: 'dummy_sessionId'
+            });
+            done();
+        });
+
+        it('should return the ctx with the deceased address and the screening_question feature toggle off', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {form: {}, featureToggles: {screening_questions: false}},
+                body: {
+                    freeTextAddress: '143 Caerfai Bay Road',
+                    postcode: 'L23 6WW'
+                }
+            };
+            const ctx = DeceasedAddress.getContextData(req);
+            expect(ctx).to.deep.equal({
+                freeTextAddress: '143 Caerfai Bay Road',
+                postcode: 'L23 6WW',
+                isToggleEnabled: false,
+                sessionID: 'dummy_sessionId'
             });
             done();
         });

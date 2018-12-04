@@ -2,6 +2,8 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const content = require('app/resources/en/translation/deceased/newdomicile');
+const EligibilityCookie = require('app/utils/EligibilityCookie');
+const eligibilityCookie = new EligibilityCookie();
 
 class NewDeceasedDomicile extends ValidationStep {
 
@@ -14,12 +16,19 @@ class NewDeceasedDomicile extends ValidationStep {
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
                 {key: 'domicile', value: content.optionYes, choice: 'inEnglandOrWales'}
             ]
         };
-        return nextStepOptions;
+    }
+
+    persistFormData() {
+        return {};
+    }
+
+    setEligibilityCookie(req, res, nextStepUrl) {
+        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 }
 

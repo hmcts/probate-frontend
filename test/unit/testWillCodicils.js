@@ -15,23 +15,37 @@ describe('WillCodicils', () => {
         });
     });
 
-    describe('handlePost()', () => {
-        let ctx;
-        let errors;
-        let formdata;
-        let session;
-        let hostname;
-        let featureToggles;
-
-        it('should return the ctx with the deceased married status and the screening_question feature toggle', (done) => {
-            ctx = {
-                codicils: 'Yes'
+    describe('getContextData()', () => {
+        it('should return the ctx with the will codicils and the screening_question feature toggle on', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {form: {}, featureToggles: {screening_questions: true}},
+                body: {
+                    codicils: 'Yes'
+                }
             };
-            errors = {};
-            [ctx, errors] = WillCodicils.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
+            const ctx = WillCodicils.getContextData(req);
             expect(ctx).to.deep.equal({
                 codicils: 'Yes',
-                isToggleEnabled: false
+                isToggleEnabled: true,
+                sessionID: 'dummy_sessionId'
+            });
+            done();
+        });
+
+        it('should return the ctx with the will codicils and the screening_question feature toggle off', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {form: {}, featureToggles: {screening_questions: false}},
+                body: {
+                    codicils: 'Yes'
+                }
+            };
+            const ctx = WillCodicils.getContextData(req);
+            expect(ctx).to.deep.equal({
+                codicils: 'Yes',
+                isToggleEnabled: false,
+                sessionID: 'dummy_sessionId'
             });
             done();
         });

@@ -19,6 +19,20 @@ describe('NewDeceasedDomicile', () => {
         });
     });
 
+    describe('handlePost()', () => {
+        it('should remove the formdata from the session', (done) => {
+            const ctx = {};
+            const errors = {};
+            const formdata = {};
+            const session = {
+                form: {}
+            };
+            NewDeceasedDomicile.handlePost(ctx, errors, formdata, session);
+            expect(session).to.deep.equal({});
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
             const ctx = {domicile: content.optionYes};

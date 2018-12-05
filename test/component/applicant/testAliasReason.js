@@ -2,9 +2,6 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ApplicantPhone = require('app/steps/ui/applicant/phone/index');
-const services = require('app/components/services');
-const sinon = require('sinon');
-let featureToggleStub;
 
 describe('applicant-alias-reason', () => {
     let testWrapper;
@@ -12,11 +9,9 @@ describe('applicant-alias-reason', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ApplicantAliasReason');
-        featureToggleStub = sinon.stub(services, 'featureToggle').returns(Promise.resolve('true'));
     });
 
     afterEach(() => {
-        featureToggleStub.restore();
         testWrapper.destroy();
     });
 

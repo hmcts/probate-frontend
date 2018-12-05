@@ -12,10 +12,14 @@ var DocumentUpload = {
             headers: {
                 'x-csrf-token': documentUploadConfig.csrfToken
             },
+            params: {
+                'isUploadingDocument': true
+            },
             acceptedFiles: documentUploadConfig.validMimeTypes,
             maxFiles: documentUploadConfig.maxFiles,
             maxFilesize: documentUploadConfig.maxSizeBytes,
             addRemoveLinks: true,
+            parallelUploads: 1,
             previewTemplate: '<div class="dz-preview dz-file-preview"><div class="dz-error-message"><span data-dz-errormessage></span></div><div class="dz-details"><div class="dz-filename"><span data-dz-name></span></div></div><div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div></div>',
             dictRemoveFile: documentUploadConfig.content.removeFileText,
             dictInvalidFileType: documentUploadConfig.content.invalidFileType,
@@ -25,11 +29,13 @@ var DocumentUpload = {
         .on('addedfile', function() {
             DocumentUpload.hideEmptyListMessage();
             DocumentUpload.disableSubmitButton();
+            DocumentUpload.addDataIndex();
         })
         .on('removedfile', function(file) {
             DocumentUpload.showEmptyListMessage();
             DocumentUpload.removeErrorSummaryLine(file.previewElement.firstElementChild.innerText);
             DocumentUpload.removeErrorSummary();
+            DocumentUpload.removeDocument(file._removeLink.dataset.index);
         })
         .on('error', function(file, error) {
             DocumentUpload.showErrorSummary();
@@ -90,5 +96,13 @@ var DocumentUpload = {
     },
     disableSubmitButton: function() {
         $('.button').attr('disabled', 'disabled');
+    },
+    addDataIndex: function() {
+        $('.dz-preview').each(function(key) {
+            $(this).find('.dz-remove').attr('data-index', key);
+        });
+    },
+    removeDocument: function(index) {
+        $.get('/document-upload/remove/' + index);
     }
 }

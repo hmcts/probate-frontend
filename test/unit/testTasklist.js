@@ -77,10 +77,11 @@ describe('Tasklist', () => {
                 screening_questions: true
             };
             ctx = taskList.getContextData(req);
+            ctx = Object.assign(ctx, formdata.deceased);
 
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.DeceasedTask.status, 'started');
-            assert.equal(ctx.DeceasedTask.nextURL, journeyMap(steps.DeceasedName, formdata.deceased).constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.nextURL, journeyMap(steps.DeceasedName, ctx).constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'notStarted');
             assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
         });
@@ -107,7 +108,9 @@ describe('Tasklist', () => {
 
         it('Updates the context: DeceasedTask complete, ExecutorsTask not started (feature toggle on)', () => {
             const formdata = {
-                deceased: completedForm.deceased
+                deceased: completedForm.deceased,
+                will: completedForm.will,
+                iht: completedForm.iht
             };
             req.session.form = formdata;
             req.session.featureToggles = {
@@ -148,6 +151,8 @@ describe('Tasklist', () => {
         it('Updates the context: DeceasedTask complete, ExecutorsTask started (feature toggle on)', () => {
             const formdata = {
                 deceased: completedForm.deceased,
+                will: completedForm.will,
+                iht: completedForm.iht,
                 applicant: {
                     firstName: completedForm.applicant.firstName,
                     lastName: completedForm.applicant.lastName
@@ -197,10 +202,11 @@ describe('Tasklist', () => {
                 screening_questions: true
             };
             ctx = taskList.getContextData(req);
+            ctx = Object.assign(ctx, formdata.deceased);
 
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.DeceasedTask.status, 'started');
-            assert.equal(ctx.DeceasedTask.nextURL, journeyMap(steps.DeceasedName, formdata.deceased).constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.nextURL, journeyMap(steps.DeceasedName, ctx).constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'started');
         });
 

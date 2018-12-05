@@ -10,8 +10,14 @@ class ThankYou extends Step {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
+        ctx.ccdReferenceNumber = '';
         if (req.session.form.ccdCase && req.session.form.ccdCase.id) {
-            ctx.ccdReferenceNumber = req.session.form.ccdCase.id;
+            ctx.ccdReferenceNumber = req.session.form.ccdCase.id.toString();
+
+            if (!ctx.ccdReferenceNumber.includes('-')) {
+                ctx.ccdReferenceNumber = ctx.ccdReferenceNumber.match(/.{1,4}/g);
+                ctx.ccdReferenceNumber = ctx.ccdReferenceNumber.join('-');
+            }
         }
         return ctx;
     }

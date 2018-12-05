@@ -2,6 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
+const content = require('app/resources/en/translation/thankyou');
 
 describe('thank-you', () => {
     let testWrapper;
@@ -15,7 +16,20 @@ describe('thank-you', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        it('test content loaded on the page', (done) => {
+        it('test content loaded on the page when CCD Case ID not present', (done) => {
+            const sessionData = {};
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        referenceNumber: content.referenceNumber
+                    };
+
+                    testWrapper.testContentNotPresent(done, contentData);
+                });
+        });
+
+        it('test content loaded on the page when CCD Case ID present', (done) => {
             const sessionData = {
                 ccdCase: {
                     id: '1234-5678-9012-3456'

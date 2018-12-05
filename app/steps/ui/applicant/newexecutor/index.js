@@ -1,7 +1,9 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/applicant/executor');
+const content = require('app/resources/en/translation/applicant/newexecutor');
+const EligibilityCookie = require('app/utils/EligibilityCookie');
+const eligibilityCookie = new EligibilityCookie();
 
 class NewApplicantExecutor extends ValidationStep {
 
@@ -9,24 +11,29 @@ class NewApplicantExecutor extends ValidationStep {
         return '/new-applicant-executor';
     }
 
+    handlePost(ctx, errors, formdata, session) {
+        delete session.form;
+        return [ctx, errors];
+    }
+
     nextStepUrl(ctx) {
         return this.next(ctx).constructor.getUrl('notExecutor');
     }
 
-    handlePost(ctx, errors) {
-        if (ctx.executor === json.optionNo) {
-            super.setHardStop(ctx, 'notExecutor');
-        }
-        return [ctx, errors];
-    }
-
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
-                {key: 'executor', value: json.optionYes, choice: 'isExecutor'}
+                {key: 'executor', value: content.optionYes, choice: 'isExecutor'}
             ]
         };
-        return nextStepOptions;
+    }
+
+    persistFormData() {
+        return {};
+    }
+
+    setEligibilityCookie(req, res, nextStepUrl) {
+        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 }
 

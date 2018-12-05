@@ -12,11 +12,9 @@ class DocumentUpload {
         return formdata;
     }
 
-    addDocument(uploadedDocument, uploads = []) {
-        if (uploadedDocument.originalname) {
-            uploads.push({
-                filename: uploadedDocument.originalname
-            });
+    addDocument(filename, url, uploads = []) {
+        if (filename && url) {
+            uploads.push({filename, url});
         }
         return uploads;
     }
@@ -28,11 +26,18 @@ class DocumentUpload {
         return uploads;
     }
 
-    isValidType(document) {
-        if (!document) {
-            return false;
-        }
+    findDocumentId(url = '') {
+        return url.split('/').reduce((acc, val) => {
+            acc = val;
+            return acc;
+        });
+    }
 
+    isDocument(document) {
+        return typeof document === 'object';
+    }
+
+    isValidType(document = {}) {
         const validMimeTypes = config.validMimeTypes;
 
         if (!validMimeTypes.includes(document.mimetype)) {
@@ -59,28 +64,30 @@ class DocumentUpload {
     validate(document, uploads) {
         let error = null;
 
+        if (!this.isDocument(document)) {
+            error = this.mapError('nothingUploaded');
+        }
+
         if (error === null && !this.isValidType(document)) {
-            error = {
-                js: content.documentUploadInvalidFileType,
-                nonJs: 'type'
-            };
+            error = this.mapError('invalidFileType');
         }
 
         if (error === null && !this.isValidSize(document)) {
-            error = {
-                js: content.documentUploadMaxSize,
-                nonJs: 'maxSize'
-            };
+            error = this.mapError('maxSize');
         }
 
         if (error === null && !this.isValidNumber(uploads)) {
-            error = {
-                js: content.documentUploadMaxFilesExceeded,
-                nonJs: 'maxFiles'
-            };
+            error = this.mapError('maxFilesExceeded');
         }
 
         return error;
+    }
+
+    mapError(errorKey) {
+        return {
+            js: content[`documentUpload-${errorKey}`],
+            nonJs: errorKey
+        };
     }
 }
 

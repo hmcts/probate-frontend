@@ -11,14 +11,13 @@ class CodicilsNumber extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        ctx.codicilsNumber = ctx.codicilsNumber ? parseInt(ctx.codicilsNumber): ctx.codicilsNumber;
+        ctx.codicilsNumber = ctx.codicilsNumber ? parseInt(ctx.codicilsNumber) : ctx.codicilsNumber;
+        ctx.isToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'screening_questions');
         return ctx;
     }
 
-    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
+    handlePost(ctx, errors) {
         ctx.codicilsNumber = ctx.codicilsNumber || 0;
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
-
         return [ctx, errors];
     }
 

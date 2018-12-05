@@ -39,21 +39,25 @@ const taskList = {
 };
 
 const stepList = {
-    NewStartEligibility: 'NewWillLeft',
-    NewWillLeft: {
-        withWill: 'NewWillOriginal',
-        otherwise: 'StopPage'
-    },
-    NewWillOriginal: {
-        isOriginal: 'NewDeathCertificate',
-        otherwise: 'StopPage'
-    },
+    NewStartEligibility: 'NewDeathCertificate',
     NewDeathCertificate: {
         hasCertificate: 'NewDeceasedDomicile',
         otherwise: 'StopPage'
     },
     NewDeceasedDomicile: {
-        inEnglandOrWales: 'NewApplicantExecutor',
+        inEnglandOrWales: 'NewIhtCompleted',
+        otherwise: 'StopPage'
+    },
+    NewIhtCompleted: {
+        completed: 'NewWillLeft',
+        otherwise: 'StopPage'
+    },
+    NewWillLeft: {
+        withWill: 'NewWillOriginal',
+        otherwise: 'StopPage'
+    },
+    NewWillOriginal: {
+        isOriginal: 'NewApplicantExecutor',
         otherwise: 'StopPage'
     },
     NewApplicantExecutor: {
@@ -61,11 +65,7 @@ const stepList = {
         otherwise: 'StopPage'
     },
     NewMentalCapacity: {
-        isCapable: 'NewIhtCompleted',
-        otherwise: 'StopPage'
-    },
-    NewIhtCompleted: {
-        completed: 'NewStartApply',
+        isCapable: 'NewStartApply',
         otherwise: 'StopPage'
     },
     NewStartApply: 'TaskList',
@@ -110,7 +110,12 @@ const stepList = {
     DeceasedDomicile: 'DeceasedAddress',
     DeceasedAddress: {
         toggleOn: 'IhtMethod',
+        documentUploadToggleOn: 'DocumentUpload',
         otherwise: 'Summary'
+    },
+    DocumentUpload: {
+        isUploadingDocument: 'DocumentUpload',
+        otherwise: 'IhtMethod'
     },
     IhtMethod: {
         online: 'IhtIdentifier',
@@ -250,8 +255,7 @@ const stepList = {
         otherwise: 'CoApplicantDisagreePage'
     },
     CoApplicantAgreePage: 'CoApplicantAgreePage',
-    CoApplicantDisagreePage: 'CoApplicantDisagreePage',
-    DocumentUpload: 'DocumentUpload'
+    CoApplicantDisagreePage: 'CoApplicantDisagreePage'
 };
 
 module.exports.stepList = stepList;

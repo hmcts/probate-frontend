@@ -3,7 +3,6 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex, get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const featureToggle = require('app/utils/FeatureToggle');
 
 class ExecutorCurrentName extends ValidationStep {
 
@@ -28,12 +27,8 @@ class ExecutorCurrentName extends ValidationStep {
         return [ctx];
     }
 
-    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
-        ctx.isToggleEnabled = featureToggle.isEnabled(featureToggles, 'main_applicant_alias');
+    handlePost(ctx, errors) {
         ctx.list[ctx.index].currentName = ctx.currentName;
-        if (!ctx.isToggleEnabled) {
-            ctx.index = this.recalcIndex(ctx, ctx.index);
-        }
         return [ctx, errors];
     }
 
@@ -62,7 +57,6 @@ class ExecutorCurrentName extends ValidationStep {
         delete ctx.index;
         delete ctx.currentName;
         delete ctx.continue;
-        delete ctx.isToggleEnabled;
         return [ctx, formdata];
     }
 

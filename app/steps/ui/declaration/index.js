@@ -9,7 +9,6 @@ const services = require('app/components/services');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const FormatAlias = require('app/utils/FormatAlias');
-const FeatureToggle = require('app/utils/FeatureToggle');
 const LegalDocumentJSONObjectBuilder = require('app/utils/LegalDocumentJSONObjectBuilder');
 const legalDocumentJSONObjBuilder = new LegalDocumentJSONObjectBuilder();
 
@@ -30,7 +29,6 @@ class Declaration extends ValidationStep {
         ctx = this.pruneFormData(req.body, ctx);
         const formdata = req.session.form;
         ctx.executorsWrapper = new ExecutorsWrapper(formdata.executors);
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'main_applicant_alias');
         const templateData = this.prepareDataForTemplate(ctx, this.generateContent(ctx, formdata), formdata);
         Object.assign(ctx, templateData);
         ctx.softStop = this.anySoftStops(formdata, ctx);
@@ -57,7 +55,7 @@ class Declaration extends ValidationStep {
             intro: content[`intro${multipleApplicantSuffix}`]
                 .replace('{applicantName}', applicantName),
             applicant: content[`legalStatementApplicant${multipleApplicantSuffix}`]
-                .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content, applicant.address, ctx.isToggleEnabled))
+                .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content, applicant.address))
                 .replace('{applicantName}', applicantName)
                 .replace('{applicantAddress}', applicant.address),
             deceased: content.legalStatementDeceased
@@ -66,7 +64,7 @@ class Declaration extends ValidationStep {
                 .replace('{deceasedDob}', deceased.dob_formattedDate)
                 .replace('{deceasedDod}', deceased.dod_formattedDate),
             deceasedOtherNames: deceasedOtherNames ? content.deceasedOtherNames.replace('{deceasedOtherNames}', deceasedOtherNames) : '',
-            executorsApplying: this.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, deceasedName, applicantName, ctx),
+            executorsApplying: this.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, deceasedName, applicantName),
             deceasedEstateValue: content.deceasedEstateValue
                 .replace('{ihtGrossValue}', iht.grossValue)
                 .replace('{ihtNetValue}', iht.netValue),
@@ -101,10 +99,10 @@ class Declaration extends ValidationStep {
         return hasMultipleApplicants ? '-multipleApplicants' : '';
     }
 
-    executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, deceasedName, mainApplicantName, ctx) {
+    executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, deceasedName, mainApplicantName) {
         const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
         return executorsApplying.map(executor => {
-            return this.executorsApplyingText(ctx,
+            return this.executorsApplyingText(
                 {
                     hasCodicils,
                     hasMultipleApplicants,
@@ -117,16 +115,16 @@ class Declaration extends ValidationStep {
         });
     }
 
-    executorsApplyingText(ctx, props) {
+    executorsApplyingText(props) {
         const mainApplicantSuffix = (props.hasMultipleApplicants && props.executor.isApplicant) ? '-mainApplicant' : '';
         const codicilsSuffix = this.codicilsSuffix(props.hasCodicils);
         const applicantNameOnWill = FormatName.formatName(props.executor);
-        const applicantCurrentName = FormatName.formatName(props.executor, ctx.isToggleEnabled || props.executor.hasOtherName);
-        const aliasSuffix = (ctx.isToggleEnabled && (props.executor.alias || props.executor.currentName)) ? '-alias' : '';
+        const applicantCurrentName = FormatName.formatName(props.executor, true);
+        const aliasSuffix = props.executor.alias || props.executor.currentName ? '-alias' : '';
         const aliasReason = FormatAlias.aliasReason(props.executor, props.hasMultipleApplicants);
         return {
             name: props.content[`applicantName${props.multipleApplicantSuffix}${mainApplicantSuffix}${aliasSuffix}${codicilsSuffix}`]
-                .replace('{applicantWillName}', ctx.isToggleEnabled && props.executor.isApplicant && props.executor.alias ? FormatName.applicantWillName(props.executor) : props.mainApplicantName)
+                .replace('{applicantWillName}', props.executor.isApplicant && props.executor.alias ? FormatName.applicantWillName(props.executor) : props.mainApplicantName)
                 .replace(/{applicantCurrentName}/g, applicantCurrentName)
                 .replace('{applicantNameOnWill}', props.executor.hasOtherName ? ` ${props.content.as} ${applicantNameOnWill}` : '')
                 .replace('{aliasReason}', aliasReason),
@@ -186,7 +184,6 @@ class Declaration extends ValidationStep {
             this.resetAgreedFlags(ctx.executorsWrapper.executorsInvited());
         }
 
-        delete ctx.isToggleEnabled;
         delete ctx.executorsWrapper;
         delete ctx.hasDataChanged;
         delete ctx.hasExecutorsToNotify;

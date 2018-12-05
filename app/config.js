@@ -9,7 +9,6 @@ const config = {
         url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8282',
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
         fe_shutter_toggle: 'probate-fe-shutter',
-        main_applicant_alias: 'probate-main-applicant-alias',
         screening_questions: 'probate-screening-questions',
         document_upload: 'probate-document-upload'
     },
@@ -67,21 +66,23 @@ const config = {
     redis: {
         host: process.env.REDIS_HOST || 'localhost',
         port: process.env.REDIS_PORT || 6379,
-
         password: process.env.REDIS_PASSWORD || 'dummy_password',
         useTLS: process.env.REDIS_USE_TLS || 'false',
         enabled: process.env.USE_REDIS || 'false',
         secret: process.env.REDIS_SECRET || 'OVERWRITE_THIS',
-        proxy: true,
         resave: false,
-        saveUninitialized: false,
+        saveUninitialized: true,
         cookie: {
             httpOnly: true,
-            sameSite: 'lax'
+            secure: true
+        },
+        eligibilityCookie: {
+            name: '__eligibility',
+            redirectUrl: '/new-start-eligibility'
         }
     },
     dateFormat: 'DD/MM/YYYY',
-    payloadVersion: '4.1.0',
+    payloadVersion: '4.1.1',
     gaTrackingId: process.env.GA_TRACKING_ID || 'UA-93598808-3',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
     links: {
@@ -156,7 +157,20 @@ const config = {
     documentUpload: {
         validMimeTypes: ['image/jpeg', 'image/bmp', 'image/tiff', 'image/png', 'application/pdf'],
         maxFiles: 10,
-        maxSizeBytes: 10485760
+        maxSizeBytes: 10485760,
+        paths: {
+            upload: '/document/upload',
+            remove: '/document/delete'
+        },
+        error: {
+            invalidFileType: 'Error: invalid file type',
+            maxSize: 'Error: invalid file size',
+            maxFilesExceeded: 'Error: too many files',
+            nothingUploaded: 'Error: no files passed',
+            uploadFailed: 'Error: upload failed',
+            uploadTimeout: 'Error: upload timed out'
+        },
+        timeoutMs: 300000
     }
 };
 

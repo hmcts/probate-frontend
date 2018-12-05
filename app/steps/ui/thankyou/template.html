@@ -10,10 +10,12 @@
                     <h1 class="heading-xlarge">
                         {{content.header | safe}}
                     </h1>
-                    <p class="font-large">
-                        <span class="font-medium">{{content.referenceNumber | safe}}</span><br>
-                        <strong class="bold">{{fields.ccdReferenceNumber.value}}</strong>
-                    </p>
+                    {% if fields.ccdReferenceNumber.value !== '' %}
+                        <p class="font-large">
+                            <span class="font-medium">{{content.referenceNumber | safe}}</span><br>
+                            <strong class="bold">{{fields.ccdReferenceNumber.value}}</strong>
+                        </p>
+                    {% endif %}
                 </div>
 
                 <h2 class="heading-medium">{{content.successHeading1 | safe}}</h2>
@@ -21,9 +23,6 @@
                 <p>{{content.successParagraph2 | safe}}</p>
                 <p>{{content.successParagraph3 | replace('{helpLineNumber}', helpline.number) | safe}}</p>
 
-                <div class="panel panel-border-wide">
-                    <p>{{content.successParagraph4 | replace('{findOutNext}', links.findOutNext) | safe}}</p>
-                </div>
                 <div class=">
                     <h2 class="heading-medium">{{ content.saveYourApplication }}</h2>
                     <p>{{content.saveParagraph1}}</p>
@@ -36,9 +35,8 @@
                         <a class="anchor-margin-left" id="declarationPdfHref" href="/declaration-pdf">{{content.declarationPdf}}</a>
                     </p>
                 </div>
-                <div class="margin-top30">
-                    <a href="{{links.surveyEndOfApplication | safe}}">{{content.survey | safe}}</a>
-                </div>
+            <div class="margin-top30">
+                <a href="{{links.surveyEndOfApplication | safe}}">{{content.survey | safe}}</a>
             </div>
         </div>
     </main>

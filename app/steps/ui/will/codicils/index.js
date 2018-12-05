@@ -14,10 +14,10 @@ class WillCodicils extends ValidationStep {
         return this.next(ctx).constructor.getUrl('codicils');
     }
 
-    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
-
-        return [ctx, errors];
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        ctx.isToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'screening_questions');
+        return ctx;
     }
 
     nextStepOptions(ctx) {

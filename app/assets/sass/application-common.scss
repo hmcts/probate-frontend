@@ -200,3 +200,11 @@ div.declaration-grid-item {
 .margin-top30 {
   margin-top: 30px;
 }
+
+.govuk-box-highlight {
+  .heading-xlarge,
+  .font-large {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}

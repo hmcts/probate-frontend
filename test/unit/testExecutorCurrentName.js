@@ -125,7 +125,6 @@ describe('ExecutorCurrentName', () => {
                 currentName: 'leatherface',
                 continue: true,
                 index: 1,
-                isToggleEnabled: true
             };
             const testFormdata = {};
             const ExecutorCurrentName = steps.ExecutorCurrentName;

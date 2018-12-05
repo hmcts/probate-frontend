@@ -18,8 +18,10 @@
     },
     {
       "fullName": "sam simms",
-      "isApplying": false,
-      "isDead": true
+      "isApplying": true,
+      "hasOtherName": true,
+      "currentName": "sam new simms",
+      "currentNameReason": "Divorce"
     },
       {
         "fullName": "sam2 simms2",

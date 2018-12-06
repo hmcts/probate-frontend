@@ -4,6 +4,7 @@ const CollectionStep = require('app/core/steps/CollectionStep');
 const execContent = require('app/resources/en/translation/executors/executorcontent');
 const {findKey, findIndex, every, tail, has, get} = require('lodash');
 const path = '/executor-when-died/';
+const FeatureToggle = require('app/utils/FeatureToggle');
 
 class ExecutorsWhenDied extends CollectionStep {
 
@@ -27,7 +28,8 @@ class ExecutorsWhenDied extends CollectionStep {
         return findIndex(ctx.list, o => o.isDead === true, index + 1);
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
+        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
         this.setNotApplyingReason(ctx);
         ctx.index = this.recalcIndex(ctx, ctx.index);
         return [ctx, errors];
@@ -48,13 +50,22 @@ class ExecutorsWhenDied extends CollectionStep {
     nextStepOptions(ctx) {
         ctx.continue = get(ctx, 'index', -1) !== -1;
         ctx.allDead = every(tail(ctx.list), exec => exec.isDead === true);
-        const nextStepOptions = {
+
+        if (ctx.isToggleEnabled) {
+            return {
+                options: [
+                    {key: 'continue', value: true, choice: 'continue'},
+                    {key: 'allDead', value: true, choice: 'allDeadToggleOn'}
+                ]
+            };
+        }
+
+        return {
             options: [
                 {key: 'continue', value: true, choice: 'continue'},
                 {key: 'allDead', value: true, choice: 'allDead'}
             ]
         };
-        return nextStepOptions;
     }
 
     isComplete(ctx) {
@@ -64,6 +75,7 @@ class ExecutorsWhenDied extends CollectionStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        delete ctx.isToggleEnabled;
         delete ctx.diedbefore;
         delete ctx.continue;
         delete ctx.allDead;

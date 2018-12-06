@@ -118,6 +118,27 @@ describe('DocumentUpload.js', () => {
             }]);
             done();
         });
+
+        it('should return an error when an uploaded document is an invalid size', (done) => {
+            const ctxToTest = {};
+            const errorsToTest = [];
+            const formdata = {
+                documents: {
+                    error: 'maxSize'
+                }
+            };
+            const DocumentUpload = steps.DocumentUpload;
+            const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
+            expect(ctx).to.deep.equal({});
+            expect(errors).to.deep.equal([{
+                param: 'file',
+                msg: {
+                    summary: 'Your file is too large to upload. Use a file that is under 10MB and try again',
+                    message: ''
+                }
+            }]);
+            done();
+        });
     });
 
     describe('action()', () => {

@@ -14,23 +14,37 @@ describe('DeceasedMarried', () => {
         });
     });
 
-    describe('handlePost()', () => {
-        let ctx;
-        let errors;
-        let formdata;
-        let session;
-        let hostname;
-        let featureToggles;
-
-        it('should return the ctx with the deceased married status and the screening_question feature toggle', (done) => {
-            ctx = {
-                married: 'Yes'
+    describe('getContextData()', () => {
+        it('should return the ctx with the deceased marital status and the screening_question feature toggle on', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {form: {}, featureToggles: {screening_questions: true}},
+                body: {
+                    married: 'Yes'
+                }
             };
-            errors = {};
-            [ctx, errors] = DeceasedMarried.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
+            const ctx = DeceasedMarried.getContextData(req);
             expect(ctx).to.deep.equal({
                 married: 'Yes',
-                isToggleEnabled: false
+                isToggleEnabled: true,
+                sessionID: 'dummy_sessionId'
+            });
+            done();
+        });
+
+        it('should return the ctx with the deceased marital status and the screening_question feature toggle off', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {form: {}, featureToggles: {screening_questions: false}},
+                body: {
+                    married: 'Yes'
+                }
+            };
+            const ctx = DeceasedMarried.getContextData(req);
+            expect(ctx).to.deep.equal({
+                married: 'Yes',
+                isToggleEnabled: false,
+                sessionID: 'dummy_sessionId'
             });
             done();
         });

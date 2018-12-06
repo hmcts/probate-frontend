@@ -14,27 +14,41 @@ describe('IhtValue', () => {
         });
     });
 
-    describe('handlePost()', () => {
-        let ctx;
-        let errors;
-        let formdata;
-        let session;
-        let hostname;
-        let featureToggles;
-
-        it('should return the ctx with the deceased married status and the screening_question feature toggle', (done) => {
-            ctx = {
-                grossValueOnline: '500000',
-                netValueOnline: '400000'
+    describe('getContextData()', () => {
+        it('should return the ctx with the iht values and the screening_question feature toggle on', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {form: {}, featureToggles: {screening_questions: true}},
+                body: {
+                    grossValueOnline: '500000',
+                    netValueOnline: '400000'
+                }
             };
-            errors = {};
-            [ctx, errors] = IhtValue.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
+            const ctx = IhtValue.getContextData(req);
             expect(ctx).to.deep.equal({
                 grossValueOnline: '500000',
-                grossValue: 500000,
                 netValueOnline: '400000',
-                netValue: 400000,
-                isToggleEnabled: false
+                isToggleEnabled: true,
+                sessionID: 'dummy_sessionId'
+            });
+            done();
+        });
+
+        it('should return the ctx with the iht values and the screening_question feature toggle off', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {form: {}, featureToggles: {screening_questions: false}},
+                body: {
+                    grossValueOnline: '500000',
+                    netValueOnline: '400000'
+                }
+            };
+            const ctx = IhtValue.getContextData(req);
+            expect(ctx).to.deep.equal({
+                grossValueOnline: '500000',
+                netValueOnline: '400000',
+                isToggleEnabled: false,
+                sessionID: 'dummy_sessionId'
             });
             done();
         });

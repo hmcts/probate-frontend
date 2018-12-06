@@ -14,38 +14,4 @@ describe('ApplicantAlias', () => {
             done();
         });
     });
-
-    describe('isComplete()', () => {
-        describe('should return the correct data when the feature toggle exists', () => {
-            it('and is enabled and the field value exists', (done) => {
-                const ApplicantAlias = steps.ApplicantAlias;
-                const ctx = {alias: 'harry potter'};
-                const formdata = {};
-                const featureToggles = {main_applicant_alias: true};
-                const isComplete = ApplicantAlias.isComplete(ctx, formdata, featureToggles);
-                expect(isComplete).to.deep.equal([true, 'inProgress']);
-                done();
-            });
-
-            it('and is disabled', (done) => {
-                const ApplicantAlias = steps.ApplicantAlias;
-                const ctx = {};
-                const formdata = {};
-                const featureToggles = {main_applicant_alias: false};
-                const isComplete = ApplicantAlias.isComplete(ctx, formdata, featureToggles);
-                expect(isComplete).to.deep.equal([true, 'inProgress']);
-                done();
-            });
-        });
-
-        it('should return the correct data when the feature toggle does not exist', (done) => {
-            const ApplicantAlias = steps.ApplicantAlias;
-            const ctx = {};
-            const formdata = {};
-            const featureToggles = {};
-            const isComplete = ApplicantAlias.isComplete(ctx, formdata, featureToggles);
-            expect(isComplete).to.deep.equal([true, 'inProgress']);
-            done();
-        });
-    });
 });

@@ -19,7 +19,6 @@ describe('will-left', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         testHelpBlockContent.runTest('WillLeft');
 
         it('test errors message displayed for missing data', (done) => {
@@ -30,17 +29,16 @@ describe('will-left', () => {
 
         it(`test it redirects to will original: ${expectedNextUrlForWillOriginal}`, (done) => {
             const data = {
-                'left': 'Yes'
+                left: 'Yes'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForWillOriginal);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                'left': 'No'
+                left: 'No'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });
-
     });
 });

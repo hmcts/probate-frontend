@@ -1,8 +1,9 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/iht/completed');
-const {isEmpty} = require('lodash');
+const content = require('app/resources/en/translation/iht/newcompleted');
+const EligibilityCookie = require('app/utils/EligibilityCookie');
+const eligibilityCookie = new EligibilityCookie();
 
 class NewIhtCompleted extends ValidationStep {
 
@@ -10,20 +11,29 @@ class NewIhtCompleted extends ValidationStep {
         return '/new-iht-completed';
     }
 
+    handlePost(ctx, errors, formdata, session) {
+        delete session.form;
+        return [ctx, errors];
+    }
+
     nextStepUrl(ctx) {
         return this.next(ctx).constructor.getUrl('ihtNotCompleted');
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
-                {key: 'completed', value: json.optionYes, choice: 'completed'}
+                {key: 'completed', value: content.optionYes, choice: 'completed'}
             ]
         };
-        return nextStepOptions;
     }
-    isComplete(ctx) {
-        return [!isEmpty(ctx.completed), 'inProgress'];
+
+    persistFormData() {
+        return {};
+    }
+
+    setEligibilityCookie(req, res, nextStepUrl) {
+        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 }
 

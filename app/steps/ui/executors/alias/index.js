@@ -15,6 +15,8 @@ class ExecutorsAlias extends ValidationStep {
                 if (executor.hasOtherName) {
                     executor.hasOtherName = false;
                     delete executor.currentName;
+                    delete executor.currentNameReason;
+                    delete executor.otherReason;
                 }
                 return executor;
             });

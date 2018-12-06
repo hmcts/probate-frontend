@@ -8,7 +8,6 @@ const logger = require('app/components/logger');
 const {get, includes, isEqual} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const featureToggles = require('app/featureToggles');
 const documentUpload = require('app/documentUpload');
 
 router.all('*', (req, res, next) => {
@@ -53,10 +52,14 @@ router.use((req, res, next) => {
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
 
-    if (get(formdata, 'submissionReference') && get(formdata, 'ccdCase.state') === 'CaseCreated' && (get(formdata, 'payment.status') === 'Success' || get(formdata, 'payment.status') === 'not_required') &&
+    if (get(formdata, 'submissionReference') && get(formdata, 'ccdCase.state') === 'CaseCreated' && (get(formdata, 'documents.sentDocuments', 'false') === 'false') && (get(formdata, 'payment.status') === 'Success' || get(formdata, 'payment.status') === 'not_required') &&
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
     ) {
         res.redirect('documents');
+    } else if (get(formdata, 'submissionReference') && get(formdata, 'ccdCase.state') === 'CaseCreated' && (get(formdata, 'documents.sentDocuments', 'false') === 'true') && (get(formdata, 'payment.status') === 'Success' || get(formdata, 'payment.status') === 'not_required') &&
+        !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
+    ) {
+        res.redirect('thankyou');
     } else if (formdata.paymentPending === 'false' &&
         !includes(config.whitelistedPagesAfterPayment, req.originalUrl)
     ) {
@@ -82,8 +85,6 @@ router.use((req, res, next) => {
         next();
     }
 });
-
-router.use(featureToggles);
 
 router.use('/document-upload', documentUpload);
 

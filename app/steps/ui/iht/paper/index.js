@@ -13,7 +13,13 @@ class IhtPaper extends ValidationStep {
         return '/iht-paper';
     }
 
-    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        ctx.isToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'screening_questions');
+        return ctx;
+    }
+
+    handlePost(ctx, errors) {
         ctx.grossValuePaper = ctx[`gross${ctx.form}`];
         ctx.netValuePaper = ctx[`net${ctx.form}`];
 
@@ -35,8 +41,6 @@ class IhtPaper extends ValidationStep {
         ctx.grossValue = Math.floor(ctx.grossValue);
         ctx.netValue = Math.floor(ctx.netValue);
         ctx.ihtFormId = ctx.form;
-
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
 
         return [ctx, errors];
     }

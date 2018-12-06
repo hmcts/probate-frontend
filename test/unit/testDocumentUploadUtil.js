@@ -159,11 +159,37 @@ describe('DocumentUploadUtil', () => {
         });
     });
 
+    describe('isDocument()', () => {
+        it('should return true if the document is an object', (done) => {
+            const document = {};
+            const documentUpload = new DocumentUpload();
+            const isDocument = documentUpload.isDocument(document);
+            expect(isDocument).to.equal(true);
+            done();
+        });
+
+        it('should return false if the document is not an object', (done) => {
+            const document = '';
+            const documentUpload = new DocumentUpload();
+            const isDocument = documentUpload.isDocument(document);
+            expect(isDocument).to.equal(false);
+            done();
+        });
+
+        it('should return false if no document is given', (done) => {
+            const documentUpload = new DocumentUpload();
+            const isDocument = documentUpload.isDocument();
+            expect(isDocument).to.equal(false);
+            done();
+        });
+    });
+
     describe('isValidType()', () => {
         it('should return true when a valid document type is given', (done) => {
-            const revert = DocumentUpload.__set__('fileType', () => ({ext: 'jpg'}));
+            const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
             const document = {
-                buffer: 'valid'
+                buffer: 'valid',
+                mimetype: 'image/jpeg'
             };
             const documentUpload = new DocumentUpload();
             const isValidFile = documentUpload.isValidType(document);
@@ -175,7 +201,21 @@ describe('DocumentUploadUtil', () => {
         it('should return false when no document type is found', (done) => {
             const revert = DocumentUpload.__set__('fileType', () => null);
             const document = {
-                buffer: 'invalid'
+                buffer: 'invalid',
+                mimetype: 'image/jpeg'
+            };
+            const documentUpload = new DocumentUpload();
+            const isValidFile = documentUpload.isValidType(document);
+            expect(isValidFile).to.equal(false);
+            revert();
+            done();
+        });
+
+        it('should return false when a document with an invalid buffer is found', (done) => {
+            const revert = DocumentUpload.__set__('fileType', () => ({mime: 'test/plain'}));
+            const document = {
+                buffer: 'invalid',
+                mimetype: 'image/jpeg'
             };
             const documentUpload = new DocumentUpload();
             const isValidFile = documentUpload.isValidType(document);
@@ -186,7 +226,8 @@ describe('DocumentUploadUtil', () => {
 
         it('should return false when an invalid document type is found', (done) => {
             const document = {
-                buffer: 'invalid'
+                buffer: 'invalid',
+                mimetype: 'text/plain'
             };
             const documentUpload = new DocumentUpload();
             const isValidFile = documentUpload.isValidType(document);
@@ -205,7 +246,7 @@ describe('DocumentUploadUtil', () => {
     describe('isValidSize()', () => {
         it('should return true when a valid document size is given', (done) => {
             const document = {
-                size: 2000,
+                size: 2000000,
             };
             const documentUpload = new DocumentUpload();
             const isValidSize = documentUpload.isValidSize(document);
@@ -213,7 +254,7 @@ describe('DocumentUploadUtil', () => {
             done();
         });
 
-        it('should return true when a valid document size is given', (done) => {
+        it('should return false when an invalid document size is given', (done) => {
             const document = {
                 size: 12000000,
             };
@@ -250,11 +291,22 @@ describe('DocumentUploadUtil', () => {
     });
 
     describe('validate()', () => {
+        it('should return an error when no document is given', (done) => {
+            const documentUpload = new DocumentUpload();
+            const error = documentUpload.validate();
+            expect(error).to.deep.equal({
+                js: 'Click &lsquo;browse&rsquo; to find a file to upload',
+                nonJs: 'nothingUploaded'
+            });
+            done();
+        });
+
         it('should return null when a valid document is given', (done) => {
-            const revert = DocumentUpload.__set__('fileType', () => ({ext: 'jpg'}));
+            const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
             const document = {
                 buffer: 'valid',
-                size: 2000
+                size: 2000000,
+                mimetype: 'image/jpeg'
             };
             const uploads = [];
             const documentUpload = new DocumentUpload();
@@ -265,9 +317,10 @@ describe('DocumentUploadUtil', () => {
         });
 
         it('should return an error when an invalid document type is given', (done) => {
-            const revert = DocumentUpload.__set__('fileType', () => ({ext: 'doc'}));
+            const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
             const document = {
-                buffer: 'invalid'
+                buffer: 'invalid',
+                mimetype: 'application/msword'
             };
             const documentUpload = new DocumentUpload();
             const error = documentUpload.validate(document);
@@ -280,10 +333,11 @@ describe('DocumentUploadUtil', () => {
         });
 
         it('should return an error when an invalid document size is given', (done) => {
-            const revert = DocumentUpload.__set__('fileType', () => ({ext: 'jpg'}));
+            const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
             const document = {
                 buffer: 'invalid',
-                size: 12000000
+                size: 12000000,
+                mimetype: 'image/jpeg'
             };
             const documentUpload = new DocumentUpload();
             const error = documentUpload.validate(document);
@@ -296,99 +350,51 @@ describe('DocumentUploadUtil', () => {
         });
 
         it('should return an error when too many documents have been uploaded', (done) => {
-            const revert = DocumentUpload.__set__('fileType', () => ({ext: 'jpg'}));
+            const revert = DocumentUpload.__set__('fileType', () => ({mime: 'image/jpeg'}));
             const document = {
                 buffer: 'invalid',
-                size: 2000
+                size: 2000,
+                mimetype: 'image/jpeg'
             };
             const uploads = Array(10).fill({file: 'death-certificate.pdf'});
             const documentUpload = new DocumentUpload();
             const error = documentUpload.validate(document, uploads);
             expect(error).to.deep.equal({
                 js: 'You can upload a maximum of 10 files',
-                nonJs: 'maxFilesExceeded'
+                nonJs: 'maxFiles'
             });
             revert();
             done();
         });
     });
 
-    describe('errorKey()', () => {
-        it('should return a key when "Error: no files passed" is given', (done) => {
-            const errorType = 'Error: no files passed';
-            const documentUpload = new DocumentUpload();
-            const result = documentUpload.errorKey(errorType);
-            expect(result).to.equal('nothingUploaded');
-            done();
-        });
-
-        it('should return a key when "Error: too many files" is given', (done) => {
-            const errorType = 'Error: too many files';
-            const documentUpload = new DocumentUpload();
-            const result = documentUpload.errorKey(errorType);
-            expect(result).to.equal('maxFilesExceeded');
-            done();
-        });
-
-        it('should return a key when "Error: invalid file type" is given', (done) => {
-            const errorType = 'Error: invalid file type';
-            const documentUpload = new DocumentUpload();
-            const result = documentUpload.errorKey(errorType);
-            expect(result).to.equal('invalidFileType');
-            done();
-        });
-
-        it('should return a key when "Error: invalid file size" is given', (done) => {
-            const errorType = 'Error: invalid file size';
-            const documentUpload = new DocumentUpload();
-            const result = documentUpload.errorKey(errorType);
-            expect(result).to.equal('maxSize');
-            done();
-        });
-
-        it('should return null when an invalid error type is given', (done) => {
-            const errorType = 'an error that does not exist';
-            const documentUpload = new DocumentUpload();
-            const result = documentUpload.errorKey(errorType);
-            expect(result).to.equal(null);
-            done();
-        });
-
-        it('should return null when no error type is given', (done) => {
-            const documentUpload = new DocumentUpload();
-            const result = documentUpload.errorKey();
-            expect(result).to.equal(null);
-            done();
-        });
-    });
-
     describe('mapError()', () => {
-        it('should return an error when "Error: no files passed" is given', (done) => {
-            const errorType = 'Error: no files passed';
+        it('should return an error when nothingUploaded is given', (done) => {
+            const errorKey = 'nothingUploaded';
             const documentUpload = new DocumentUpload();
-            const error = documentUpload.mapError(errorType);
+            const error = documentUpload.mapError(errorKey);
             expect(error).to.deep.equal({
-                js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
+                js: 'Click &lsquo;browse&rsquo; to find a file to upload',
                 nonJs: 'nothingUploaded'
             });
             done();
         });
 
-        it('should return an error when "Error: too many files" is given', (done) => {
-            const errorType = 'Error: too many files';
+        it('should return an error when maxFiles is given', (done) => {
+            const errorKey = 'maxFiles';
             const documentUpload = new DocumentUpload();
-            const error = documentUpload.mapError(errorType);
+            const error = documentUpload.mapError(errorKey);
             expect(error).to.deep.equal({
                 js: 'You can upload a maximum of 10 files',
-                nonJs: 'maxFilesExceeded'
+                nonJs: 'maxFiles'
             });
             done();
         });
 
-        it('should return an error when "Error: invalid file type" is given', (done) => {
-            const errorType = 'Error: invalid file type';
+        it('should return an error when invalidFileType is given', (done) => {
+            const errorKey = 'invalidFileType';
             const documentUpload = new DocumentUpload();
-            const error = documentUpload.mapError(errorType);
+            const error = documentUpload.mapError(errorKey);
             expect(error).to.deep.equal({
                 js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
                 nonJs: 'invalidFileType'
@@ -396,10 +402,10 @@ describe('DocumentUploadUtil', () => {
             done();
         });
 
-        it('should return an error when "Error: invalid file size" is given', (done) => {
-            const errorType = 'Error: invalid file size';
+        it('should return an error when maxSize is given', (done) => {
+            const errorKey = 'maxSize';
             const documentUpload = new DocumentUpload();
-            const error = documentUpload.mapError(errorType);
+            const error = documentUpload.mapError(errorKey);
             expect(error).to.deep.equal({
                 js: 'Use a file that is under 10MB and try again',
                 nonJs: 'maxSize'

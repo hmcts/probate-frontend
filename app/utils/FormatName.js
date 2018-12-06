@@ -15,7 +15,7 @@ class FormatName {
     }
 
     static formatName(person, useOtherName) {
-        if (useOtherName && person.hasOtherName) {
+        if (useOtherName && person.currentName) {
             return person.currentName;
         } else if (person.fullName) {
             return person.fullName;
@@ -23,8 +23,8 @@ class FormatName {
         return FormatName.format(person);
     }
 
-    static getNameAndAddress(person, contentOf, applicantAddress, toggleEnabled) {
-        const fullName = FormatName.formatName(person, toggleEnabled);
+    static getNameAndAddress(person, contentOf, applicantAddress) {
+        const fullName = FormatName.formatName(person, person.hasOtherName);
         const address = person.isApplicant ? applicantAddress : person.address;
         return address ? `${fullName} ${contentOf} ${address}` : fullName;
     }
@@ -40,11 +40,11 @@ class FormatName {
         }
     }
 
-    static formatMultipleNamesAndAddress(persons, content, applicantAddress, toggleEnabled) {
+    static formatMultipleNamesAndAddress(persons, content, applicantAddress) {
         if (persons) {
             const separator = ', ';
             const formattedNames = Object.keys(persons)
-                .map(key => FormatName.getNameAndAddress(persons[key], content.of, applicantAddress, toggleEnabled))
+                .map(key => FormatName.getNameAndAddress(persons[key], content.of, applicantAddress))
                 .join(separator);
             return FormatName.delimitNames(formattedNames, separator, content.and);
         }

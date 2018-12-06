@@ -12,19 +12,23 @@ var DocumentUpload = {
             headers: {
                 'x-csrf-token': documentUploadConfig.csrfToken
             },
-            acceptedFiles: documentUploadConfig.validTypes,
+            params: {
+                'isUploadingDocument': true
+            },
+            acceptedFiles: documentUploadConfig.validMimeTypes,
             maxFiles: documentUploadConfig.maxFiles,
-            maxFilesize: documentUploadConfig.maxSize,
+            maxFilesize: documentUploadConfig.maxSizeBytes,
             addRemoveLinks: true,
             parallelUploads: 1,
             previewTemplate: '<div class="dz-preview dz-file-preview"><div class="dz-error-message"><span data-dz-errormessage></span></div><div class="dz-details"><div class="dz-filename"><span data-dz-name></span></div></div><div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div></div>',
             dictRemoveFile: documentUploadConfig.content.removeFileText,
             dictInvalidFileType: documentUploadConfig.content.invalidFileType,
-            dictMaxFilesExceeded: documentUploadConfig.content.maxFilesExceeded,
+            dictMaxFilesExceeded: documentUploadConfig.content.maxFiles,
             dictFileTooBig: documentUploadConfig.content.maxSize
         })
         .on('addedfile', function() {
             DocumentUpload.hideEmptyListMessage();
+            DocumentUpload.disableSubmitButton();
             DocumentUpload.addDataIndex();
         })
         .on('removedfile', function(file) {
@@ -36,6 +40,9 @@ var DocumentUpload = {
         .on('error', function(file, error) {
             DocumentUpload.showErrorSummary();
             DocumentUpload.showErrorSummaryLine(error);
+        })
+        .on('queuecomplete', function(file) {
+            DocumentUpload.enableSubmitButton();
         });
     },
     makeDropzoneLinkClickable: function() {
@@ -83,6 +90,12 @@ var DocumentUpload = {
         if ($('[data-dz-errormessage]:contains(' + errorMessage + ')').length === 0) {
             $('[data-fielderror="' + errorMessage + '"]').remove();
         }
+    },
+    enableSubmitButton: function() {
+        $('.button').removeAttr('disabled');
+    },
+    disableSubmitButton: function() {
+        $('.button').attr('disabled', 'disabled');
     },
     addDataIndex: function() {
         $('.dz-preview').each(function(key) {

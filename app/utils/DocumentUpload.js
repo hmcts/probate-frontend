@@ -33,16 +33,28 @@ class DocumentUpload {
         });
     }
 
+    isDocument(document) {
+        return typeof document === 'object';
+    }
+
     isValidType(document = {}) {
+        const validMimeTypes = config.validMimeTypes;
+
+        if (!validMimeTypes.includes(document.mimetype)) {
+            return false;
+        }
+
         const uploadedDocumentType = fileType(document.buffer);
+
         if (!uploadedDocumentType) {
             return false;
         }
-        return config.validTypes.includes(uploadedDocumentType.ext);
+
+        return validMimeTypes.includes(uploadedDocumentType.mime);
     }
 
     isValidSize(document) {
-        return document.size <= config.maxSize;
+        return document.size <= config.maxSizeBytes;
     }
 
     isValidNumber(uploads = []) {
@@ -52,30 +64,26 @@ class DocumentUpload {
     validate(document, uploads) {
         let error = null;
 
+        if (!this.isDocument(document)) {
+            error = this.mapError('nothingUploaded');
+        }
+
         if (error === null && !this.isValidType(document)) {
-            error = this.mapError(config.error.invalidFileType);
+            error = this.mapError('invalidFileType');
         }
 
         if (error === null && !this.isValidSize(document)) {
-            error = this.mapError(config.error.maxSize);
+            error = this.mapError('maxSize');
         }
 
         if (error === null && !this.isValidNumber(uploads)) {
-            error = this.mapError(config.error.maxFilesExceeded);
+            error = this.mapError('maxFiles');
         }
 
         return error;
     }
 
-    errorKey(errorType) {
-        const errorKey = Object.entries(config.error).filter((value) => {
-            return value[1] === errorType ? value : null;
-        });
-        return errorKey[0] ? errorKey[0][0] : null;
-    }
-
-    mapError(errorType) {
-        const errorKey = this.errorKey(errorType);
+    mapError(errorKey) {
         return {
             js: content[`documentUpload-${errorKey}`],
             nonJs: errorKey

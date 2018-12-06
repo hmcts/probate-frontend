@@ -1,5 +1,9 @@
 {% extends "includes/layout.html" %}
 
+{% if fields.isToggleEnabled.value === 'true' %}
+    {% set displaySignOutLink = 'false' %}
+{% endif %}
+
 {% block content %}
 
     <main id="content" role="main">

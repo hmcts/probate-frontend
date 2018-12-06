@@ -19,20 +19,23 @@
 <script nonce="{{nonce}}">
     var documentUploadConfig = {
         csrfToken: "{{csrfToken}}",
-        validTypes: "{{documentUpload.validTypes}}",
+        validMimeTypes: "{{documentUpload.validMimeTypes}}",
         maxFiles: "{{documentUpload.maxFiles}}",
-        maxSize: "{{documentUpload.maxSize}}",
+        maxSizeBytes: "{{documentUpload.maxSizeBytes}}",
+        timeout: "{{documentUpload.timeout}}",
         content: {
             removeFileText: "{{common.documentUploadRemoveFile}}",
             errorSummaryHeading: "{{common.errorSummaryHeading}}",
             invalidFileType: "{{common['documentUpload-invalidFileType']}}",
             invalidFileTypeSummary: "{{common['documentUpload-invalidFileTypeSummary']}}",
-            maxFilesExceeded: "{{common['documentUpload-maxFilesExceeded']}}",
-            maxFilesExceededSummary: "{{common['documentUpload-maxFilesExceededSummary']}}",
+            maxFiles: "{{common['documentUpload-maxFiles']}}",
+            maxFilesSummary: "{{common['documentUpload-maxFilesSummary']}}",
             maxSize: "{{common['documentUpload-maxSize']}}",
             maxSizeSummary: "{{common['documentUpload-maxSizeSummary']}}",
             uploadFailed: "{{common['documentUpload-uploadFailed']}}",
-            uploadFailedSummary: "{{common['documentUpload-uploadFailedSummary']}}"
+            uploadFailedSummary: "{{common['documentUpload-uploadFailedSummary']}}",
+            uploadTimeout: "{{common['documentUpload-uploadTimeout']}}",
+            uploadTimeoutSummary: "{{common['documentUpload-uploadTimeoutSummary']}}"
         }
     };
 </script>

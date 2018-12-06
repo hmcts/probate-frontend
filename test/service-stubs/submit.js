@@ -7,12 +7,19 @@ const express = require('express');
 const app = express();
 const router = require('express').Router();
 const SUBMIT_SERVICE_PORT = config.services.submit.port;
-const SUBMIT_SERVICE_URL = config.services.submit.url;
 
-router.post(SUBMIT_SERVICE_URL + '/submit', (req, res) => {
+router.all('*', function (req, res, next) {
+    console.log('Submit Service URL being called: ' + req.url);
+    next();
+});
+
+router.post('/submit', (req, res) => {
     res.status(200);
     res.send({
+        status: 'Success',
         submissionReference: '6',
+        caseId: '1234123512361237',
+        caseState: 'PAApplicationCreated',
         registry: {
             name: 'Birmingham',
             sequenceNumber: '20000',
@@ -22,16 +29,11 @@ router.post(SUBMIT_SERVICE_URL + '/submit', (req, res) => {
     });
 });
 
-router.post(SUBMIT_SERVICE_URL + '/updatePaymentStatus', (req, res) => {
+router.post('/updatePaymentStatus', (req, res) => {
     res.status(200);
     res.send({
-        submissionReference: '6',
-        registry: {
-            name: 'Birmingham',
-            sequenceNumber: '20000',
-            email: 'asdvavv',
-            address: 'Line 1 Bham\nLine 2 Bham\nLine 3 Bham\nPostCode Bham'
-        }
+        status: 'Success',
+        caseState: 'CaseCreated'
     });
 });
 

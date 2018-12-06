@@ -3,7 +3,6 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex, get, startsWith} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const FeatureToggle = require('app/utils/FeatureToggle');
 const AliasData = require('app/utils/AliasData.js');
 
 const path = '/executor-current-name-reason/';
@@ -21,7 +20,7 @@ class ExecutorCurrentNameReason extends ValidationStep {
             req.session.indexPosition = ctx.index;
         } else if (req.params && req.params[0] === '*') {
             ctx.index = req.session.indexPosition ||
-                            findIndex(ctx.list, o => o.hasOtherName && !o.currentNameReason, 1);
+                findIndex(ctx.list, o => o.hasOtherName && !o.currentNameReason, 1);
         } else if (startsWith(req.path, path)) {
             ctx.index = this.recalcIndex(ctx, 0);
         }
@@ -41,7 +40,9 @@ class ExecutorCurrentNameReason extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
-        if (formdata.executors.list[ctx.index].currentNameReason !== ctx.currentNameReason) {
+        if (get(formdata, 'declaration.declarationCheckbox') &&
+            formdata.executors.list[ctx.index].currentNameReason !== ctx.currentNameReason
+        ) {
             ctx.currentNameReasonUpdated = true;
         }
 
@@ -78,10 +79,9 @@ class ExecutorCurrentNameReason extends ValidationStep {
         };
     }
 
-    isComplete(ctx, formdata, featureToggles) {
+    isComplete(ctx) {
         const executorsWrapper = new ExecutorsWrapper(ctx);
-        const isEnabled = FeatureToggle.isEnabled(featureToggles, 'main_applicant_alias');
-        return [isEnabled ? executorsWrapper.executorsWithAnotherName().every(exec => exec.currentNameReason) : true, 'inProgress'];
+        return [executorsWrapper.executorsWithAnotherName().every(exec => exec.currentNameReason), 'inProgress'];
     }
 
     action(ctx, formdata) {

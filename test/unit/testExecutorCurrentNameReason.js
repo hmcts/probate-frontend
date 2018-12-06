@@ -9,10 +9,10 @@ const executorCurrentNameReasonPath = '/executor-current-name-reason/';
 
 describe('ExecutorCurrentNameReason', () => {
     const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
+    const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
 
     describe('getUrl()', () => {
         it('returns the url with a * param when no index is given', (done) => {
-            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const url = ExecutorCurrentNameReason.constructor.getUrl();
 
             expect(url).to.equal(`${executorCurrentNameReasonPath}*`);
@@ -21,7 +21,6 @@ describe('ExecutorCurrentNameReason', () => {
 
         it('returns the url with the index as a param when an index is given', (done) => {
             const param = 1;
-            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const url = ExecutorCurrentNameReason.constructor.getUrl(param);
 
             expect(url).to.equal(executorCurrentNameReasonPath + param);
@@ -41,7 +40,6 @@ describe('ExecutorCurrentNameReason', () => {
                 },
                 params: [1]
             };
-            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const ctx = ExecutorCurrentNameReason.getContextData(req);
 
             expect(ctx.index).to.equal(req.params[0]);
@@ -60,7 +58,6 @@ describe('ExecutorCurrentNameReason', () => {
                 },
                 params: ['*']
             };
-            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const ctx = ExecutorCurrentNameReason.getContextData(req);
 
             expect(ctx.index).to.equal(req.session.indexPosition);
@@ -81,7 +78,6 @@ describe('ExecutorCurrentNameReason', () => {
                 },
                 params: ['*']
             };
-            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const ctx = ExecutorCurrentNameReason.getContextData(req);
 
             expect(ctx.index).to.equal(1);
@@ -103,7 +99,6 @@ describe('ExecutorCurrentNameReason', () => {
                 },
                 params: []
             };
-            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const ctx = ExecutorCurrentNameReason.getContextData(req);
 
             expect(ctx.index).to.equal(1);
@@ -128,7 +123,6 @@ describe('ExecutorCurrentNameReason', () => {
                 }
             };
             const executors = req.session.form.executors;
-            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const ctx = ExecutorCurrentNameReason.getContextData(req);
 
             expect(ctx.otherExecName).to.equal(executors.list[0].currentName);
@@ -153,7 +147,6 @@ describe('ExecutorCurrentNameReason', () => {
 
         it('returns the ctx with currentNameReason and otherReason', (done) => {
             testCtx.list[1].otherReason = 'Yolo';
-            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const [ctx] = ExecutorCurrentNameReason.handleGet(testCtx);
 
             expect(ctx).to.deep.equal({
@@ -177,7 +170,6 @@ describe('ExecutorCurrentNameReason', () => {
         it('returns the ctx with neither currentNameReason or otherReason', (done) => {
             delete testCtx.list[1].currentNameReason;
             delete testCtx.list[1].otherReason;
-            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const [ctx] = ExecutorCurrentNameReason.handleGet(testCtx);
 
             assert.isUndefined(ctx.currentNameReason);
@@ -213,7 +205,6 @@ describe('ExecutorCurrentNameReason', () => {
         });
 
         it('returns the correct data and errors', (done) => {
-            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const [ctx, errors] = ExecutorCurrentNameReason.handlePost(testCtx, testErrors, formdata);
 
             expect(ctx.list[0]).to.deep.equal({
@@ -227,7 +218,6 @@ describe('ExecutorCurrentNameReason', () => {
         it('returns the correct data for option: "other"', (done) => {
             testCtx.currentNameReason = 'other';
             testCtx.otherReason = 'it was a dare';
-            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const [ctx, errors] = ExecutorCurrentNameReason.handlePost(testCtx, testErrors, formdata);
 
             expect(ctx.list[0]).to.deep.equal({
@@ -242,12 +232,31 @@ describe('ExecutorCurrentNameReason', () => {
         it('removed otherReason when option is not "other"', (done) => {
             testCtx.currentNameReason = 'marriage';
             testCtx.otherReason = 'it was a dare';
-            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const [ctx, errors] = ExecutorCurrentNameReason.handlePost(testCtx, testErrors, formdata);
 
             expect(ctx.list[0]).to.deep.equal({
                 currentNameReason: 'marriage',
                 isApplying: true
+            });
+            expect(errors).to.deep.equal(testErrors);
+            done();
+        });
+
+        it('sets the currentNameReasonUpdated after declaration and changes to the currentNameReason', (done) => {
+            formdata.declaration = {declarationCheckbox: 'Yes'};
+            testCtx.currentNameReason = 'Marriage';
+            const [ctx, errors] = ExecutorCurrentNameReason.handlePost(testCtx, testErrors, formdata);
+            expect(ctx).to.deep.equal({
+                currentNameReasonUpdated: true,
+                list: [{
+                    currentNameReason: 'Marriage',
+                    isApplying: true,
+                }, {
+                    isApplying: true
+                }],
+                index: -1,
+                executorsWrapper: new ExecutorsWrapper(),
+                currentNameReason: 'Marriage'
             });
             expect(errors).to.deep.equal(testErrors);
             done();
@@ -263,7 +272,6 @@ describe('ExecutorCurrentNameReason', () => {
                     {isApplying: true, hasOtherName: true}
                 ]
             };
-            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const index = ExecutorCurrentNameReason.recalcIndex(testCtx, 0);
 
             expect(index).to.equal(2);
@@ -288,7 +296,6 @@ describe('ExecutorCurrentNameReason', () => {
                 index: 1,
                 executorsWrapper: new ExecutorsWrapper()
             };
-            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const nextStepOptions = ExecutorCurrentNameReason.nextStepOptions(testCtx);
 
             expect(nextStepOptions).to.deep.equal({
@@ -302,7 +309,6 @@ describe('ExecutorCurrentNameReason', () => {
 
     describe('action()', () => {
         it('removes the correct values from the context', (done) => {
-            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const testCtx = {
                 index: 2,
                 currentNameReason: 'other',
@@ -317,7 +323,6 @@ describe('ExecutorCurrentNameReason', () => {
         });
 
         it('updates the formdata when currentNameReasonUpdated is true and removes values', (done) => {
-            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const testCtx = {
                 index: 2,
                 currentNameReason: 'other',

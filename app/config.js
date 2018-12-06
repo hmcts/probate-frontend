@@ -9,7 +9,6 @@ const config = {
         url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8282',
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
         fe_shutter_toggle: 'probate-fe-shutter',
-        main_applicant_alias: 'probate-main-applicant-alias',
         screening_questions: 'probate-screening-questions',
         document_upload: 'probate-document-upload'
     },
@@ -64,21 +63,23 @@ const config = {
     redis: {
         host: process.env.REDIS_HOST || 'localhost',
         port: process.env.REDIS_PORT || 6379,
-
         password: process.env.REDIS_PASSWORD || 'dummy_password',
         useTLS: process.env.REDIS_USE_TLS || 'false',
         enabled: process.env.USE_REDIS || 'false',
         secret: process.env.REDIS_SECRET || 'OVERWRITE_THIS',
-        proxy: true,
         resave: false,
-        saveUninitialized: false,
+        saveUninitialized: true,
         cookie: {
             httpOnly: true,
-            sameSite: 'lax'
+            secure: true
+        },
+        eligibilityCookie: {
+            name: '__eligibility',
+            redirectUrl: '/new-start-eligibility'
         }
     },
     dateFormat: 'DD/MM/YYYY',
-    payloadVersion: '4.1.0',
+    payloadVersion: '4.1.1',
     gaTrackingId: process.env.GA_TRACKING_ID || 'UA-93598808-3',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
     links: {
@@ -104,11 +105,12 @@ const config = {
         guidance: '/public/pdf/probate-guidance-pa2sot.pdf',
         registryInformation: '/public/pdf/probate-registries-pa4sot.pdf',
         deathCertificate: 'https://www.gov.uk/order-copy-birth-death-marriage-certificate',
-        deathReportedToCoroner: 'https://www.gov.uk/after-a-death/when-a-death-is-reported-to-a-coroner'
+        deathReportedToCoroner: 'https://www.gov.uk/after-a-death/when-a-death-is-reported-to-a-coroner',
+        findOutNext: 'https://www.gov.uk/wills-probate-inheritance/once-the-grants-been-issued'
     },
     helpline: {
         number: '0300 303 0648',
-        hours: 'Monday to Friday, 9am to 5pm'
+        hours: 'Monday to Friday, 9:30am to 5pm'
     },
     utils: {
         api: {
@@ -141,7 +143,7 @@ const config = {
     whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/sign-out'],
     whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/sign-out'],
     hardStopParams: ['will.left', 'will.original', 'iht.completed', 'applicant.executor'],
-    nonIdamPages: ['error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'start-apply', 'new-start-eligibility', 'new-will-left', 'new-will-original', 'new-death-certificate', 'new-deceased-domicile', 'new-applicant-executor', 'new-mental-capacity', 'new-iht-completed', 'new-start-apply'],
+    nonIdamPages: ['stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'start-apply', 'new-start-eligibility', 'new-will-left', 'new-will-original', 'new-death-certificate', 'new-deceased-domicile', 'new-applicant-executor', 'new-mental-capacity', 'new-iht-completed', 'new-start-apply'],
     endpoints: {
         health: '/health',
         info: '/info'
@@ -150,9 +152,9 @@ const config = {
         instrumentationKey: process.env.APPINSIGHTS_INSTRUMENTATIONKEY
     },
     documentUpload: {
-        validTypes: '.jpg,.jpeg,.bmp,.tiff,.tif,.png,.pdf',
+        validMimeTypes: ['image/jpeg', 'image/bmp', 'image/tiff', 'image/png', 'application/pdf'],
         maxFiles: 10,
-        maxSize: 10000000,
+        maxSizeBytes: 10485760,
         paths: {
             upload: '/document/upload',
             remove: '/document/delete'
@@ -160,10 +162,12 @@ const config = {
         error: {
             invalidFileType: 'Error: invalid file type',
             maxSize: 'Error: invalid file size',
-            maxFilesExceeded: 'Error: too many files',
+            maxFiles: 'Error: too many files',
             nothingUploaded: 'Error: no files passed',
-            uploadFailed: 'Error: upload failed'
-        }
+            uploadFailed: 'Error: upload failed',
+            uploadTimeout: 'Error: upload timed out'
+        },
+        timeoutMs: 300000
     }
 };
 

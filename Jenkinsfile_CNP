@@ -1,6 +1,7 @@
 #!groovy
 
 @Library("Infrastructure")
+import uk.gov.hmcts.contino.Kubectl
 
 String product = "probate"
 String component = "frontend"
@@ -26,7 +27,18 @@ List<LinkedHashMap<String, Object>> secrets = [
     secret('testPostcodeServiceUrl', 'POSTCODE_SERVICE_URL'),
     secret('testPostCodeAddressToken', 'ADDRESS_TOKEN'),
     secret('testRunE2ETest', 'RUN_E2E_TEST'),
-    secret('testValidationServiceUrl', 'TEST_VALIDATION_SERVICE_URL')
+    secret('testValidationServiceUrl', 'TEST_VALIDATION_SERVICE_URL'),
+    secret('idam-secret-probate', 'IDAM_SECRET_PROBATE'),
+    secret('idam-s2s-secret', 'IDAM_S2S_SECRET'),
+    secret('postcode-service-url', 'PRO_POSTCODE_SERVICE_URL'),
+    secret('postcode-service-token', 'PRO_POSTCODE_SERVICE_TOKEN'),
+    secret('probate-survey', 'PRO_SURVEY'),
+    secret('probate-survey-end', 'PRO_SURVEY_END_OF_APPLICATION'),
+    secret('probate-application-fee-code', 'PRO_APPLICATION_FEE_CODE'),
+    secret('probate-uk-application-fee-code', 'PRO_UK_COPIES_FEE_CODE'),
+    secret('probate-overseas-application-fee-code', 'PRO_OVERSEAS_COPIES_FEE_CODE'),
+    secret('probate-service-id', 'PRO_SERVICE_ID'),
+    secret('probate-site-id', 'PRO_SITE_ID')
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
@@ -43,6 +55,29 @@ withPipeline("nodejs", product, component) {
     sh 'yarn setup'
   }
 
+  //if (env.CHANGE_TITLE && !env.CHANGE_TITLE.startsWith('[PREVIEW]')) {
+    enableDockerBuild()
+    enableDeployToAKS()
+//  }
+
+  after('aksdeploy') {
+    def subscription = env.SUBSCRIPTION_NAME
+    def aksServiceName = "${product}-${component}-${env.BRANCH_NAME}".toLowerCase()
+    def aksDomain = "${(env.SUBSCRIPTION_NAME in ['nonprod', 'prod']) ? 'service.core-compute-preview.internal' : 'service.core-compute-saat.internal'}"
+
+    def kubectl = new Kubectl(this, subscription, aksServiceName)
+
+    def ingressIP = kubectl.getServiceLoadbalancerIP("traefik", "kube-system")
+
+    registerConsulDns(subscription, "feature-toggle-api-${aksServiceName}", ingressIP)
+
+
+    env.FEATURE_TOGGLES_API_URL="https://feature-toggle-api-${aksServiceName}.${aksDomain}"
+    echo "${env.FEATURE_TOGGLES_API_URL}"
+  }
+
+
+  setVaultName('probate')
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
   after('functionalTest:aat') {

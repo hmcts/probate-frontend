@@ -2,6 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
+const content = require('app/resources/en/translation/thankyou');
 
 describe('thank-you', () => {
     let testWrapper;
@@ -15,39 +16,35 @@ describe('thank-you', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        it('test right content loaded on the page when NO soft stop', (done) => {
-            const sessionData = {
-                applicant: {
-                    nameAsOnTheWill: 'Yes'
-                },
-            };
+        it('test content loaded on the page when CCD Case ID not present', (done) => {
+            const sessionData = {};
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const excludeKeys = ['stopParagraph1'];
                     const contentData = {
-                        helpLineNumber: config.helpline.number
+                        referenceNumber: content.referenceNumber
                     };
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContentNotPresent(done, contentData);
                 });
         });
 
-        it('test right content loaded on the page when soft stop', (done) => {
+        it('test content loaded on the page when CCD Case ID present', (done) => {
             const sessionData = {
-                applicant: {
-                    nameAsOnTheWill: 'No'
+                ccdCase: {
+                    id: '1234-5678-9012-3456'
                 }
             };
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const excludeKeys = ['successParagraph1', 'successHeading1', 'successParagraph2', 'contactProbateOffice'];
+                    const contentData = {
+                        helpLineNumber: config.helpline.number,
+                        findOutNext: config.links.findOutNext
+                    };
 
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testContent(done, [], contentData);
                 });
         });
-
     });
 });

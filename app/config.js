@@ -54,9 +54,9 @@ const config = {
         },
         payment: {
             createPaymentUrl: process.env.PAYMENT_CREATE_URL || 'http://localhost:8383/card-payments',
-            authorization: process.env.PAYMENT_AUTHORIZATION || 'dummy_token',
-            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'dummy_token',
-            userId: process.env.PAYMENT_USER_ID || 999999999,
+            authorization: process.env.PAYMENT_AUTHORIZATION || 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ0bGdxYXFraXBwYmo5bzNjb3QxajlmcDZmMCIsInN1YiI6IjM0IiwiaWF0IjoxNTQ0MTg4ODQ0LCJleHAiOjE1NDQyMTc2NDQsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiIzNCIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.Y1aJmrSPiL_cveh_TmEWhURMAoJrNn9fSPDyhSn0MGQ',
+            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTQ0MjAzMjQ0fQ.xBj1Xd9dSWuTB3T-g09N-waS-9c-Si7W7OZLPRRCnzpMQsYHxiJRgN046j0I9QeDOv-3jVeRmDEY9GNdzQpS7Q',
+            userId: process.env.PAYMENT_USER_ID || 34,
             returnUrlPath: '/payment-status'
         },
         businessDocument: {

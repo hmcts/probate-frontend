@@ -9,6 +9,21 @@ class ThankYou extends Step {
         return '/thankyou';
     }
 
+    handleGet(ctx, formdata) {
+        ctx.displaySaveApplication = false;
+        ctx.checkAnswersSummary = false;
+        ctx.legalDeclaration = false;
+        if (formdata.checkAnswersSummary) {
+            ctx.checkAnswersSummary = true;
+            ctx.displaySaveApplication = true;
+        }
+        if (formdata.legalDeclaration) {
+            ctx.legalDeclaration = true;
+            ctx.displaySaveApplication = true;
+        }
+        return [ctx];
+    }
+
     getContextData(req) {
         const ctx = super.getContextData(req);
         ctx.ccdReferenceNumber = FormatCcdCaseId.format(req.session.form.ccdCase);

@@ -40,7 +40,8 @@ describe('summary', () => {
                 'currentNameReason',
                 'address',
                 'mobileNumber',
-                'emailAddress'
+                'emailAddress',
+                'uploadedDocumentsHeading'
             ];
             testWrapper.testContent(done, contentToExclude);
         });
@@ -62,7 +63,8 @@ describe('summary', () => {
                 'currentName',
                 'currentNameReason',
                 'mobileNumber',
-                'emailAddress'
+                'emailAddress',
+                'uploadedDocumentsHeading'
             ];
             testWrapper.testContent(done, contentToExclude);
         });

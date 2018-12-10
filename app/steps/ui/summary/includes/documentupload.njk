@@ -1,0 +1,12 @@
+{{checkanswer(
+    items = [{
+            question: content.DocumentUpload.deathCertificate,
+            answer: fields.summary.uploadedDocuments.value,
+            visible: fields.summary.uploadedDocuments.value
+        }
+    ],
+    url = content.DocumentUpload.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value,
+    answerIsCollection = true
+)}}

@@ -24,7 +24,7 @@
                 <p>{{content.successParagraph3 | replace('{helpLineNumber}', helpline.number) | safe}}</p>
 
                 {% if fields.displaySaveApplication.value === 'true' %}
-                <div class="">
+                <div class="margin-bottom50">
                     <h2 class="heading-medium">{{content.saveYourApplication}}</h2>
                     <p>{{content.saveParagraph1}}</p>
                     {% if fields.checkAnswersSummary.value === 'true' %}
@@ -42,7 +42,7 @@
                 </div>
                 {% endif %}
 
-                <div class="margin-bottom50 panel panel-border-wide">
+                <div class="panel panel-border-wide">
                     <p>{{content.successParagraph4 | replace('{findOutNext}', links.findOutNext) | safe}}</p>
                 </div>
                 <a href="{{links.surveyEndOfApplication | safe}}">{{content.survey | safe}}</a>

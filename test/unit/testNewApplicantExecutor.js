@@ -17,12 +17,17 @@ describe('NewApplicantExecutor', () => {
     });
 
     describe('nextStepUrl()', () => {
-        it('should return the correct url when Yes is given', (done) => {
-            const req = {
+        let req;
+
+        beforeEach(() => {
+            req = {
                 session: {
                     journey: journey
                 }
             };
+        });
+
+        it('should return the correct url when Yes is given', (done) => {
             const ctx = {
                 executor: 'Yes'
             };
@@ -32,11 +37,6 @@ describe('NewApplicantExecutor', () => {
         });
 
         it('should return the correct url when No is given', (done) => {
-            const req = {
-                session: {
-                    journey: journey
-                }
-            };
             const ctx = {
                 executor: 'No'
             };

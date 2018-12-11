@@ -10,6 +10,7 @@ const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const documentUpload = require('app/documentUpload');
 const documentDownload = require('app/documentDownload');
+const setJourney = require('app/middleware/setJourney');
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
@@ -47,10 +48,7 @@ router.get('/', (req, res) => {
         });
 });
 
-router.use((req, res, next) => {
-    req.session.journey = require('app/journeys/probate');
-    next();
-});
+router.use(setJourney);
 
 router.use((req, res, next) => {
     const formdata = req.session.form;

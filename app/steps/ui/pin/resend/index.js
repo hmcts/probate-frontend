@@ -26,7 +26,7 @@ class PinResend extends Step {
         const phoneNumber = session.phoneNumber;
         const pinNumber = new PinNumber(config.services.validation.url, ctx.journeyType, ctx.sessionID);
         yield pinNumber
-            .get(phoneNumber, session.id)
+            .get(phoneNumber)
             .then(generatedPin => {
                 if (generatedPin.name === 'Error') {
                     throw new ReferenceError('Error when trying to resend pin');

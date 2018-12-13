@@ -11,6 +11,7 @@
   "paragraph2": "The image must be of the entire document and has to be readable by probate registry staff. You can upload most types of image.",
   "cantUploadDocumentsTitle": "If you can&rsquo;t upload your documents",
   "cantUploadDocumentsText": "Continue with your application. When you&rsquo;re finished you&rsquo;ll be given a reference number and details of where to send your documents by email or post.",
+  "deathCertificate": "Death Certificate",
   "errors": {
     "file": {
       "invalidFileType": {
@@ -21,7 +22,7 @@
         "summary": "Your file is too large to upload. Use a file that is under 10MB and try again",
         "message": ""
       },
-      "maxFiles": {
+      "maxFilesExceeded": {
         "summary": "You have uploaded too many files. You can upload a maximum of 10 files",
         "message": ""
       },
@@ -34,7 +35,7 @@
         "message": ""
       },
       "uploadTimeout": {
-        "summary": "It&rsquo;s taken too long to upload this file. Please either try again or reduce the size of the file",
+        "summary": "The file has taken too long to upload. The file may be too big, reduce the file size and try again or post the death certificate",
         "message": ""
       }
     }

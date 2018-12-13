@@ -49,7 +49,7 @@ describe('DocumentUploadMiddleware', () => {
             const next = {};
             const revert = documentUploadMiddleware.__set__('returnError', sinon.spy());
             const error = {
-                js: 'Please either try again or reduce the size of the file',
+                js: 'The file may be too big, reduce the file size and try again or post the death certificate',
                 nonJs: 'uploadTimeout'
             };
             documentUploadMiddleware.errorOnTimeout(req, res, next);

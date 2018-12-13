@@ -1,7 +1,6 @@
 'use strict';
 const initSteps = require('app/core/initSteps');
-const chai = require('chai');
-const expect = chai.expect;
+const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 
 describe('Documents', () => {

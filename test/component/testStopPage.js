@@ -29,7 +29,7 @@ describe('stop-page', () => {
         it('test right content loaded on the page - deceased not in england or wales', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('notInEnglandOrWales');
             const excludeKeys = ['deathCertificate', 'ihtNotCompleted', 'noWill', 'notOriginal', 'notExecutor', 'mentalCapacity'];
-            testWrapper.testContent(done, excludeKeys, {applicationFormPA1P: config.links.applicationFormPA1P, guidance: config.links.guidance, registryInformation: config.links.registryInformation});
+            testWrapper.testContent(done, excludeKeys, {applicationFormPA1P: config.links.applicationFormPA1P, applicationFormPA1A: config.links.applicationFormPA1A});
         });
 
         it('test right content loaded on the page - iht not completed', (done) => {
@@ -41,25 +41,25 @@ describe('stop-page', () => {
         it('test right content loaded on the page - no will', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('noWill');
             const excludeKeys = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity'];
-            testWrapper.testContent(done, excludeKeys, {applicationFormPA1A: config.links.applicationFormPA1A, guidance: config.links.guidance, registryInformation: config.links.registryInformation});
+            testWrapper.testContent(done, excludeKeys, {applicationFormPA1A: config.links.applicationFormPA1A, whoInherits: config.links.whoInherits});
         });
 
         it('test right content loaded on the page - not original', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('notOriginal');
             const excludeKeys = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'noWill', 'notExecutor', 'mentalCapacity'];
-            testWrapper.testContent(done, excludeKeys, {applicationFormPA1P: config.links.applicationFormPA1P, guidance: config.links.guidance, registryInformation: config.links.registryInformation});
+            testWrapper.testContent(done, excludeKeys, {applicationFormPA1P: config.links.applicationFormPA1P, applicationFormPA1A: config.links.applicationFormPA1A});
         });
 
         it('test right content loaded on the page - not executor', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('notExecutor');
             const excludeKeys = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'noWill', 'notOriginal', 'mentalCapacity'];
-            testWrapper.testContent(done, excludeKeys, {applicationFormPA1P: config.links.applicationFormPA1P, guidance: config.links.guidance, registryInformation: config.links.registryInformation});
+            testWrapper.testContent(done, excludeKeys, {applicationFormPA1P: config.links.applicationFormPA1P});
         });
 
         it('test right content loaded on the page - mental capacity', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('mentalCapacity');
             const excludeKeys = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'noWill', 'notOriginal', 'notExecutor'];
-            testWrapper.testContent(done, excludeKeys, {applicationFormPA1P: config.links.applicationFormPA1P, guidance: config.links.guidance, registryInformation: config.links.registryInformation});
+            testWrapper.testContent(done, excludeKeys, {applicationFormPA1P: config.links.applicationFormPA1P, ifYoureAnExecutor: config.links.ifYoureAnExecutor});
         });
 
         it('test "sign out" link is not displayed on the page (feature toggle on)', (done) => {

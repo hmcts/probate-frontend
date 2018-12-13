@@ -100,7 +100,6 @@ const loadFormData = (id, sessionID) => {
         'Session-Id': sessionID
     };
     const fetchOptions = utils.fetchOptions({}, 'GET', headers);
-    logInfo(`loadFormData url: ${PERSISTENCE_SERVICE_URL}/${id}`);
     return utils.fetchJson(`${PERSISTENCE_SERVICE_URL}/${id}`, fetchOptions);
 };
 

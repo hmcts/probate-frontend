@@ -99,14 +99,14 @@ const config = {
         survey: process.env.SURVEY || 'https://www.smartsurvey.co.uk/',
         surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'https://www.smartsurvey.co.uk/',
         ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',
-        renunciationForm: '/public/pdf/renunciation.pdf',
-        applicationFormPA1A: '/public/pdf/probate-application-form-pa1a.pdf',
-        applicationFormPA1P: '/public/pdf/probate-application-form-pa1p.pdf',
-        guidance: '/public/pdf/probate-guidance-pa2sot.pdf',
-        registryInformation: '/public/pdf/probate-registries-pa4sot.pdf',
+        applicationFormPA15: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will',
+        applicationFormPA1A: 'https://www.gov.uk/government/publications/form-pa1a-apply-for-probate-deceased-did-not-leave-a-will',
+        applicationFormPA1P: 'https://www.gov.uk/government/publications/form-pa1p-apply-for-probate-the-deceased-had-a-will',
         deathCertificate: 'https://www.gov.uk/order-copy-birth-death-marriage-certificate',
         deathReportedToCoroner: 'https://www.gov.uk/after-a-death/when-a-death-is-reported-to-a-coroner',
-        findOutNext: 'https://www.gov.uk/wills-probate-inheritance/once-the-grants-been-issued'
+        findOutNext: 'https://www.gov.uk/wills-probate-inheritance/once-the-grants-been-issued',
+        whoInherits: 'https://www.gov.uk/inherits-someone-dies-without-will',
+        ifYoureAnExecutor: 'https://www.gov.uk/wills-probate-inheritance/if-youre-an-executor'
     },
     helpline: {
         number: '0300 303 0648',

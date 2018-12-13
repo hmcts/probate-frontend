@@ -1,5 +1,5 @@
 const initSteps = require('app/core/initSteps');
-const assert = require('chai').assert;
+const {assert, expect} = require('chai');
 const sinon = require('sinon');
 const when = require('when');
 const services = require('app/components/services');
@@ -70,12 +70,14 @@ describe('Summary', () => {
             let ctx = {session: {form: {}}};
             const formdata = {executors: {list: []}};
             const featureToggles = {
-                screening_questions: true
+                screening_questions: true,
+                document_upload: true
             };
 
             co(function* () {
                 [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
-                assert.deepEqual(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
+                assert.equal(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
+                assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
                 done();
             });
         });
@@ -87,14 +89,52 @@ describe('Summary', () => {
             let ctx = {session: {form: {}}};
             const formdata = {executors: {list: []}};
             const featureToggles = {
-                screening_questions: false
+                screening_questions: false,
+                document_upload: false
             };
 
             co(function* () {
                 [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
-                assert.deepEqual(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
+                assert.equal(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
+                assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
                 done();
             });
+        });
+    });
+
+    describe('getContextData()', () => {
+
+        it('ctx.uploadedDocuments returns an array of uploaded documents when there uploaded documents', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        documents: {
+                            uploads: [{filename: 'screenshot1.png'}, {filename: 'screenshot2.png'}]
+                        }
+                    }
+                },
+            };
+            const Summary = steps.Summary;
+            const ctx = Summary.getContextData(req);
+            expect(ctx.uploadedDocuments).to.deep.equal(['screenshot1.png', 'screenshot2.png']);
+            done();
+        });
+
+        it('ctx.uploadedDocuments returns an empty array of uploaded documents when there no uploaded documents', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        documents: {
+                            uploads: []
+                        }
+                    }
+                },
+            };
+            const Summary = steps.Summary;
+            const ctx = Summary.getContextData(req);
+            expect(ctx.uploadedDocuments).to.deep.equal([]);
+            done();
+
         });
     });
 });

@@ -56,7 +56,7 @@ module.exports = {
         complaintsProcedure: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure',
         informationCommissionersOffice: 'https://ico.org.uk/global/contact-us',
         ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',
-        renunciationForm: 'public/pdf/renunciation.pdf'
+        applicationFormPA15: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will'
     },
     helpline: {
         number: '0300 303 0648',

@@ -5,8 +5,11 @@
   "start": "Start now",
   "confirm": "Confirm your eligibility",
   "acceptAndApply": "Accept invitation and apply",
+  "checkApply": "Check you can apply",
+  "createAccount": "Create your account",
   "back": "Back",
-  "continue": "Save and continue",
+  "continue": "Continue",
+  "saveAndContinue": "Save and continue",
   "submit": "Submit your application",
   "saveAndClose": "Save and close",
   "signOut": "Sign out",
@@ -56,6 +59,6 @@
   "documentUpload-nothingUploaded": "Click &lsquo;browse&rsquo; to find a file to upload",
   "documentUpload-uploadFailedSummary": "Your document failed to upload",
   "documentUpload-uploadFailed": "Select your document and try again",
-  "documentUpload-uploadTimeoutSummary": "It&rsquo;s taken too long to upload this file",
-  "documentUpload-uploadTimeout": "Please either try again or reduce the size of the file"
+  "documentUpload-uploadTimeoutSummary": "The file has taken too long to upload",
+  "documentUpload-uploadTimeout": "The file may be too big, reduce the file size and try again or post the death certificate"
 }

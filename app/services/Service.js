@@ -9,9 +9,8 @@ const AsyncFetch = require('app/utils/AsyncFetch');
 const asyncFetch = new AsyncFetch();
 
 class Service {
-    constructor(endpoint, journeyType, sessionId) {
-        this.endpoint = this.getEndpoint(journeyType, endpoint);
-        this.journeyType = journeyType;
+    constructor(endpoint, sessionId) {
+        this.endpoint = endpoint;
         this.sessionId = sessionId;
         this.config = config;
         this.formatUrl = formatUrl;
@@ -31,17 +30,6 @@ class Service {
 
     delete() {
         throw new ReferenceError('delete() must be overridden when extending Service');
-    }
-
-    getPath(journeyType, opt1, opt2) {
-        if (['intestacy'].includes(journeyType)) {
-            return opt1;
-        }
-        return opt2;
-    }
-
-    getEndpoint(journeyType, endpoint) {
-        return this.getPath(journeyType, config.services.orchestrator.url, endpoint);
     }
 
     log(message) {

@@ -3,6 +3,7 @@
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const content = require('app/resources/en/translation/applicant/newexecutor');
+const journey = require('app/journeys/probate');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const NewApplicantExecutor = steps.NewApplicantExecutor;
 
@@ -17,15 +18,29 @@ describe('NewApplicantExecutor', () => {
 
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
-            const ctx = {executor: content.optionYes};
-            const nextStepUrl = NewApplicantExecutor.nextStepUrl(ctx);
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                executor: 'Yes'
+            };
+            const nextStepUrl = NewApplicantExecutor.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/new-mental-capacity');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
-            const ctx = {executor: content.optionNo};
-            const nextStepUrl = NewApplicantExecutor.nextStepUrl(ctx);
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                executor: 'No'
+            };
+            const nextStepUrl = NewApplicantExecutor.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/notExecutor');
             done();
         });

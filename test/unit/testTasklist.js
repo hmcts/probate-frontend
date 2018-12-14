@@ -90,7 +90,7 @@ describe('Tasklist', () => {
 
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.DeceasedTask.status, 'started');
-            assert.equal(ctx.DeceasedTask.nextURL, journeyMap(steps.DeceasedName, ctx).constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'notStarted');
             assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
         });
@@ -215,7 +215,7 @@ describe('Tasklist', () => {
 
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.DeceasedTask.status, 'started');
-            assert.equal(ctx.DeceasedTask.nextURL, journeyMap(steps.DeceasedName, ctx).constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'started');
         });
 

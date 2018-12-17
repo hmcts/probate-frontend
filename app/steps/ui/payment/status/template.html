@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block form_content %}
-    
+
     {% if errors == undefined %}
         {% if fields.paymentDue.value === 'true' %}
         <p>{{content.paragraph | safe}}</p>
@@ -18,6 +18,6 @@
         <p>{{content.callout | safe}}</p>
     </div>
     <div class="form-group">
-        <input class="button" type="submit" value="{{common.continue}}">
+        <input class="button" type="submit" value="{{common.saveAndContinue}}">
     </div>
-{% endblock %}  
+{% endblock %}

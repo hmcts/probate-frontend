@@ -42,7 +42,7 @@ describe('new-death-certificate', () => {
         });
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, []);
+            testWrapper.testContent(done, [], {deathReportedToCoroner: config.links.deathReportedToCoroner});
         });
 
         it('test errors message displayed for missing data', (done) => {

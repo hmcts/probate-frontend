@@ -1,12 +1,11 @@
-{% macro checkanswer(items, url, common, alreadyDeclared, answerIsCollection, answerIsGroup) %}
+{% macro checkanswer(items, url, common, alreadyDeclared, answerIsCollection, answerIsGroup, isComplete) %}
 
 {%  set anyVisibleItems = items | selectattr("visible") | length %}
 {% if anyVisibleItems %}
 
-    {% set complete = false  %}
     {% for item in items %}
     {% if item.visible %}
-    {% if item.answer%}{% set complete = true  %}{% endif %}
+    {% set complete = true if isComplete !== false and item.answer else false %}
         <div class="check-your-answers__row">
             <dt class="check-your-answers__question">{{item.question | safe}}</dt>
             {% if answerIsCollection %}

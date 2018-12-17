@@ -21,6 +21,13 @@
             {% include "ui/summary/includes/deceased.njk" %}
         </dl>
 
+        {% ifAsync fields.summary.isDocumentUploadToggleEnabled.value === "true" %}
+            <h2 class="heading-medium">{{content.Summary.uploadedDocumentsHeading}}</h2>
+            <dl class="check-your-answers check-your-answers--long">
+                {% include "ui/summary/includes/documentupload.njk" %}
+            </dl>
+        {% endif %}
+
         <h2 class="heading-medium">{{content.Summary.ihtHeading}}</h2>
         <dl class="check-your-answers check-your-answers--long">
             {% include "ui/summary/includes/iht.njk" %}
@@ -34,6 +41,13 @@
         <dl class="check-your-answers check-your-answers--long">
             {% include "ui/summary/includes/will.njk" %}
         </dl>
+
+        {% ifAsync fields.summary.isDocumentUploadToggleEnabled.value === "true" %}
+            <h2 class="heading-medium">{{content.Summary.uploadedDocumentsHeading}}</h2>
+            <dl class="check-your-answers check-your-answers--long">
+                {% include "ui/summary/includes/documentupload.njk" %}
+            </dl>
+        {% endif %}
 
         <h2 class="heading-medium">{{content.Summary.ihtHeading}}</h2>
         <dl class="check-your-answers check-your-answers--long">
@@ -53,9 +67,9 @@
 
     <div class="form-group">
         {% if fields.summary.readyToDeclare.value === "true" %}
-            <p><a href="/declaration" class="button button-start">{{common.continue}}</a></p>
+            <p><a href="/declaration" class="button button-start">{{common.saveAndContinue}}</a></p>
         {% else %}
-            <p><a href="/summary/redirect" class="button button-start">{{common.continue}}</a></p>
+            <p><a href="/summary/redirect" class="button button-start">{{common.saveAndContinue}}</a></p>
         {% endif %}
     </div>
 </main>

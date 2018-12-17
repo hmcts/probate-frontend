@@ -67,6 +67,10 @@ const submitData = (ctx, data) => {
         mappedData.applicantOtherReason = get(data, 'applicant.otherReason');
     }
 
+    if (get(data, 'documents.uploads')) {
+        mappedData.documentUploads = get(data, 'documents.uploads');
+    }
+
     const executorsWrapper = new ExecutorsWrapper(data.executors);
 
     mappedData.noOfApplicants = executorsWrapper.executorsApplying().length;

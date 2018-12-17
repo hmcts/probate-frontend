@@ -79,6 +79,7 @@ class PaymentBreakdown extends Step {
                     const serviceAuthResult = yield services.authorise();
 
                     if (serviceAuthResult.name === 'Error') {
+                        logger.info('serviceAuthResult Error = ' + serviceAuthResult);
                         const keyword = 'failure';
                         formdata.creatingPayment = null;
                         formdata.paymentPending = null;
@@ -98,6 +99,7 @@ class PaymentBreakdown extends Step {
                     };
 
                     const [response, paymentReference] = yield services.createPayment(data, hostname);
+                    logger.info('Payment creation in breakdown for paymentReference = ' + paymentReference + ' with response = ' + JSON.stringify(response));
                     formdata.creatingPayment = 'false';
 
                     if (response.name === 'Error') {
@@ -133,6 +135,7 @@ class PaymentBreakdown extends Step {
         const softStop = this.anySoftStops(formdata, ctx) ? 'softStop' : false;
         set(formdata, 'payment.total', total);
         const result = yield services.sendToSubmitService(formdata, ctx, softStop);
+        logger.info('sendToSubmitService result = ' + JSON.stringify(result));
 
         if (result.name === 'Error' || result === 'DUPLICATE_SUBMISSION') {
             const keyword = result === 'DUPLICATE_SUBMISSION' ? 'duplicate' : 'failure';
@@ -162,6 +165,7 @@ class PaymentBreakdown extends Step {
                 paymentId: paymentId
             };
             const paymentResponse = yield services.findPayment(data);
+            logger.info('Payment retrieval in breakdown for paymentId = ' + ctx.paymentId + ' with response = ' + JSON.stringify(paymentResponse));
             if (typeof paymentResponse === 'undefined') {
                 return true;
             }

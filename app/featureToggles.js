@@ -7,6 +7,7 @@ const featureToggle = new FeatureToggle();
 router.get('/summary/*', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.toggleFeature));
 router.get('/tasklist', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.toggleFeature));
 router.get('/stop-page/*', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.toggleFeature));
+router.get('/summary/*', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'document_upload', featureToggle.toggleFeature));
 
 router.get('/new-start-eligibility', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.togglePage, 'start-eligibility'));
 router.get('/new-death-certificate', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.togglePage, 'death-certificate'));
@@ -44,6 +45,8 @@ router.post('/executors-address', (req, res, next) => featureToggle.callCheckTog
 router.post('/executors-roles', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.toggleFeature));
 router.post('/executors-notified', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'screening_questions', featureToggle.toggleFeature));
 
+router.get('/documents', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'document_upload', featureToggle.toggleFeature));
 router.get('/document-upload', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'document_upload', featureToggle.togglePage, '/tasklist'));
+router.get('/deceased-address', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'document_upload', featureToggle.toggleFeature));
 
 module.exports = router;

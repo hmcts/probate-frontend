@@ -14,7 +14,7 @@
 {{ unorderedList([content["applicant-rights1"], content["applicant-rights2"], content["applicant-rights3"]])}}
 
 <p>{{content['applicants-not-dealing'] | safe}}</p>
-    
+
 {{ checkboxes(
     name = 'executorsApplying[]',
     field = fields.executorsApplying,
@@ -23,6 +23,6 @@
 )}}
 
 <div class="form-group">
-    <input class="button" type="submit" value="{{common.continue}}">
+    <input class="button" type="submit" value="{{common.saveAndContinue}}">
 </div>
 {% endblock %}

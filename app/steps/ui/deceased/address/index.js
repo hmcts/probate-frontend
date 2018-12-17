@@ -15,17 +15,28 @@ class DeceasedAddress extends AddressStep {
         return ctx;
     }
 
+    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
+        super.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
+        const isDocumentUploadToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'document_upload');
+        ctx.isScreeningQuestionsToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
+        ctx.isDocumentUploadToggleEnabled = ctx.isScreeningQuestionsToggleEnabled && isDocumentUploadToggleEnabled;
+
+        return [ctx, errors];
+    }
+
     nextStepOptions() {
         return {
             options: [
-                {key: 'isToggleEnabled', value: true, choice: 'toggleOn'}
+                {key: 'isDocumentUploadToggleEnabled', value: true, choice: 'documentUploadToggleOn'},
+                {key: 'isScreeningQuestionsToggleEnabled', value: true, choice: 'toggleOn'},
             ]
         };
     }
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        delete ctx.isToggleEnabled;
+        delete ctx.isScreeningQuestionsToggleEnabled;
+        delete ctx.isDocumentUploadToggleEnabled;
         return [ctx, formdata];
     }
 }

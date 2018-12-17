@@ -22,15 +22,20 @@
         validMimeTypes: "{{documentUpload.validMimeTypes}}",
         maxFiles: "{{documentUpload.maxFiles}}",
         maxSizeBytes: "{{documentUpload.maxSizeBytes}}",
+        timeout: "{{documentUpload.timeout}}",
         content: {
             removeFileText: "{{common.documentUploadRemoveFile}}",
-            invalidFileType: "{{common.documentUploadInvalidFileType}}",
             errorSummaryHeading: "{{common.errorSummaryHeading}}",
-            invalidFileTypeSummary: "{{common.documentUploadInvalidFileTypeSummary}}",
-            maxFilesExceeded: "{{common.documentUploadMaxFilesExceeded}}",
-            maxFilesExceededSummary: "{{common.documentUploadMaxFilesExceededSummary}}",
-            maxFileSize: "{{common.documentUploadMaxSize}}",
-            maxFileSizeSummary: "{{common.documentUploadMaxSizeSummary}}",
+            invalidFileType: "{{common['documentUpload-invalidFileType']}}",
+            invalidFileTypeSummary: "{{common['documentUpload-invalidFileTypeSummary']}}",
+            maxFiles: "{{common['documentUpload-maxFiles']}}",
+            maxFilesSummary: "{{common['documentUpload-maxFilesSummary']}}",
+            maxSize: "{{common['documentUpload-maxSize']}}",
+            maxSizeSummary: "{{common['documentUpload-maxSizeSummary']}}",
+            uploadFailed: "{{common['documentUpload-uploadFailed']}}",
+            uploadFailedSummary: "{{common['documentUpload-uploadFailedSummary']}}",
+            uploadTimeout: "{{common['documentUpload-uploadTimeout']}}",
+            uploadTimeoutSummary: "{{common['documentUpload-uploadTimeoutSummary']}}"
         }
     };
 </script>

@@ -7,7 +7,7 @@
 
 {% block question %}
   <h1 class="form-title heading-large">{{content.question}}</h1>
-  <p>{{content.hintText | safe}}</p>
+  <p>{{content.hintText | replace('{deathReportedToCoroner}', links.deathReportedToCoroner) | safe}}</p>
 {% endblock %}
 
 {% block form_content %}

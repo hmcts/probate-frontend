@@ -11,6 +11,11 @@ class NewWillOriginal extends ValidationStep {
         return '/new-will-original';
     }
 
+    handlePost(ctx, errors, formdata, session) {
+        delete session.form;
+        return [ctx, errors];
+    }
+
     nextStepUrl(ctx) {
         return this.next(ctx).constructor.getUrl('notOriginal');
     }

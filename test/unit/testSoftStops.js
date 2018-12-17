@@ -96,12 +96,13 @@ describe('Soft Stops', function () {
     describe('Link placeholder replacements', function () {
         it('Filters out link URL placeholders from content', function () {
             const stopPages = {
-                noWill: {placeHolders: ['applicationFormPA1A']},
-                notOriginal: {placeHolders: ['applicationFormPA1P', 'guidance', 'registryInformation']},
-                notExecutor: {placeHolders: ['applicationFormPA1P', 'guidance', 'registryInformation']},
+                deathCertificate: {placeHolders: ['deathReportedToCoroner']},
+                notInEnglandOrWales: {placeHolders: ['applicationFormPA1P', 'applicationFormPA1A']},
                 ihtNotCompleted: {placeHolders: ['ihtNotCompleted']},
-                mentalCapacity: {placeHolders: ['applicationFormPA1P', 'guidance', 'registryInformation']},
-                deathCertificate: {placeHolders: ['deathReportedToCoroner']}
+                noWill: {placeHolders: ['applicationFormPA1A', 'whoInherits']},
+                notOriginal: {placeHolders: ['applicationFormPA1P', 'applicationFormPA1A']},
+                notExecutor: {placeHolders: ['applicationFormPA1P']},
+                mentalCapacity: {placeHolders: ['applicationFormPA1P', 'ifYoureAnExecutor']}
             };
 
             Object.keys(stopPages).forEach(function(key) {
@@ -116,10 +117,10 @@ describe('Soft Stops', function () {
     describe('action()', () => {
         it('removes the correct values from the context', (done) => {
             const ctx = {
-                linkPlaceholders: ['applicationFormPA1A', 'guidance', 'registryInformation']
+                linkPlaceholders: ['applicationFormPA1A']
             };
             const testFormdata = {
-                linkPlaceholders: ['applicationFormPA1A', 'guidance', 'registryInformation']
+                linkPlaceholders: ['applicationFormPA1A']
             };
             const action = stopPage.action(ctx, testFormdata);
 

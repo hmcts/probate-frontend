@@ -18,56 +18,13 @@ describe('ThankYou', () => {
         let ctx;
         let req;
 
-        it('should return the context with an empty CCD Case Id when not present', (done) => {
-            req = {
-                session: {
-                    form: {}
-                }
-            };
-
-            ctx = ThankYou.getContextData(req);
-            expect(ctx.ccdReferenceNumber).to.deep.equal('');
-            done();
-        });
-
-        it('should return the context with the CCD Case ID when present (WITH dashes)', (done) => {
+        it('should return the context with the ccd case id', (done) => {
             req = {
                 session: {
                     form: {
                         ccdCase: {
-                            id: '1234-5678-9012-3456'
-                        }
-                    }
-                }
-            };
-
-            ctx = ThankYou.getContextData(req);
-            expect(ctx.ccdReferenceNumber).to.deep.equal('1234-5678-9012-3456');
-            done();
-        });
-
-        it('should return the context with the CCD Case ID when present (WITHOUT dashes)', (done) => {
-            req = {
-                session: {
-                    form: {
-                        ccdCase: {
-                            id: '1234567890123456'
-                        }
-                    }
-                }
-            };
-
-            ctx = ThankYou.getContextData(req);
-            expect(ctx.ccdReferenceNumber).to.deep.equal('1234-5678-9012-3456');
-            done();
-        });
-
-        it('should return the context with the CCD Case ID when present as an integer (WITHOUT dashes)', (done) => {
-            req = {
-                session: {
-                    form: {
-                        ccdCase: {
-                            id: 1234567890123456
+                            id: '1234-5678-9012-3456',
+                            state: 'CaseCreated'
                         }
                     }
                 }

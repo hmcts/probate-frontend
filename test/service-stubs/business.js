@@ -8,7 +8,6 @@ const router = require('express').Router();
 const validationServicePort = config.services.validation.port;
 const logger = require('app/components/logger')('Init');
 
-
 router.get('invites/allAgreed/:id', (req, res) => {
     res.status(200);
     res.send('false');

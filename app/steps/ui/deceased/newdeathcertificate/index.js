@@ -1,19 +1,18 @@
 'use strict';
 
-const ValidationStep = require('app/core/steps/ValidationStep');
+const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const content = require('app/resources/en/translation/deceased/newdeathcertificate');
-const EligibilityCookie = require('app/utils/EligibilityCookie');
-const eligibilityCookie = new EligibilityCookie();
+const pageUrl = '/new-death-certificate';
+const fieldKey = 'deathCertificate';
 
-class NewDeathCertificate extends ValidationStep {
+class NewDeathCertificate extends EligibilityValidationStep {
 
     static getUrl() {
-        return '/new-death-certificate';
+        return pageUrl;
     }
 
-    handlePost(ctx, errors, formdata, session) {
-        delete session.form;
-        return [ctx, errors];
+    getContextData(req, res) {
+        return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
     nextStepUrl(ctx) {
@@ -23,17 +22,9 @@ class NewDeathCertificate extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'deathCertificate', value: content.optionYes, choice: 'hasCertificate'}
+                {key: fieldKey, value: content.optionYes, choice: 'hasCertificate'}
             ]
         };
-    }
-
-    persistFormData() {
-        return {};
-    }
-
-    setEligibilityCookie(req, res, nextStepUrl) {
-        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 }
 

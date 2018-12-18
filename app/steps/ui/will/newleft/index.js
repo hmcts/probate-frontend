@@ -1,19 +1,18 @@
 'use strict';
 
-const ValidationStep = require('app/core/steps/ValidationStep');
+const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const content = require('app/resources/en/translation/will/newleft');
-const EligibilityCookie = require('app/utils/EligibilityCookie');
-const eligibilityCookie = new EligibilityCookie();
+const pageUrl = '/new-will-left';
+const fieldKey = 'left';
 
-class NewWillLeft extends ValidationStep {
+class NewWillLeft extends EligibilityValidationStep {
 
     static getUrl() {
-        return '/new-will-left';
+        return pageUrl;
     }
 
-    handlePost(ctx, errors, formdata, session) {
-        delete session.form;
-        return [ctx, errors];
+    getContextData(req, res) {
+        return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
     nextStepUrl(ctx) {
@@ -23,17 +22,9 @@ class NewWillLeft extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'left', value: content.optionYes, choice: 'withWill'}
+                {key: fieldKey, value: content.optionYes, choice: 'withWill'}
             ]
         };
-    }
-
-    persistFormData() {
-        return {};
-    }
-
-    setEligibilityCookie(req, res, nextStepUrl) {
-        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 }
 

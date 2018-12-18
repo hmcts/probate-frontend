@@ -3,10 +3,6 @@
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const content = require('app/resources/en/translation/executors/newmentalcapacity');
-const rewire = require('rewire');
-const sinon = require('sinon');
-const schema = require('app/steps/ui/executors/newmentalcapacity/schema');
-const newMentalCapacity = rewire('app/steps/ui/executors/newmentalcapacity/index');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const NewMentalCapacity = steps.NewMentalCapacity;
 
@@ -45,39 +41,6 @@ describe('NewMentalCapacity', () => {
                     choice: 'isCapable'
                 }]
             });
-            done();
-        });
-    });
-
-    describe('persistFormData()', () => {
-        it('should return an empty object', () => {
-            const result = NewMentalCapacity.persistFormData();
-            expect(result).to.deep.equal({});
-        });
-    });
-
-    describe('setEligibilityCookie()', () => {
-        it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
-            const revert = newMentalCapacity.__set__('eligibilityCookie', {setCookie: sinon.spy()});
-            const req = {reqParam: 'req value'};
-            const res = {resParam: 'res value'};
-            const nextStepUrl = '/stop-page/mentalCapacity';
-            const steps = {};
-            const section = null;
-            const resourcePath = 'executors/newmentalcapacity';
-            const i18next = {};
-            const newMenCap = new newMentalCapacity(steps, section, resourcePath, i18next, schema);
-
-            newMenCap.setEligibilityCookie(req, res, nextStepUrl);
-
-            expect(newMentalCapacity.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
-            expect(newMentalCapacity.__get__('eligibilityCookie.setCookie').calledWith(
-                {reqParam: 'req value'},
-                {resParam: 'res value'},
-                '/stop-page/mentalCapacity'
-            )).to.equal(true);
-
-            revert();
             done();
         });
     });

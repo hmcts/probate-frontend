@@ -2,11 +2,7 @@
 
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
-const rewire = require('rewire');
 const content = require('app/resources/en/translation/applicant/newexecutor');
-const sinon = require('sinon');
-const schema = require('app/steps/ui/applicant/newexecutor/schema');
-const newApplicantExecutor = rewire('app/steps/ui/applicant/newexecutor/index');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const NewApplicantExecutor = steps.NewApplicantExecutor;
 
@@ -45,39 +41,6 @@ describe('NewApplicantExecutor', () => {
                     choice: 'isExecutor'
                 }]
             });
-            done();
-        });
-    });
-
-    describe('persistFormData()', () => {
-        it('should return an empty object', () => {
-            const result = NewApplicantExecutor.persistFormData();
-            expect(result).to.deep.equal({});
-        });
-    });
-
-    describe('setEligibilityCookie()', () => {
-        it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
-            const revert = newApplicantExecutor.__set__('eligibilityCookie', {setCookie: sinon.spy()});
-            const req = {reqParam: 'req value'};
-            const res = {resParam: 'res value'};
-            const nextStepUrl = '/stop-page/notExecutor';
-            const steps = {};
-            const section = null;
-            const resourcePath = 'applicant/newexecutor';
-            const i18next = {};
-            const newAppExec = new newApplicantExecutor(steps, section, resourcePath, i18next, schema);
-
-            newAppExec.setEligibilityCookie(req, res, nextStepUrl);
-
-            expect(newApplicantExecutor.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
-            expect(newApplicantExecutor.__get__('eligibilityCookie.setCookie').calledWith(
-                {reqParam: 'req value'},
-                {resParam: 'res value'},
-                '/stop-page/notExecutor'
-            )).to.equal(true);
-
-            revert();
             done();
         });
     });

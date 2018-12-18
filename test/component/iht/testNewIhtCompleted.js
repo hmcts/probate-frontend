@@ -4,8 +4,9 @@ const TestWrapper = require('test/util/TestWrapper');
 const NewWillLeft = require('app/steps/ui/will/newleft/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
 const cookies = [{
-    name: '__eligibility',
+    name: config.redis.eligibilityCookie.name,
     content: {
         nextStepUrl: '/new-iht-completed',
         pages: [
@@ -18,6 +19,7 @@ const cookies = [{
 const nock = require('nock');
 const config = require('app/config');
 const featureToggleUrl = `${config.featureToggles.url}:${config.featureToggles.port}`;
+
 const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
 
 describe('new-iht-completed', () => {

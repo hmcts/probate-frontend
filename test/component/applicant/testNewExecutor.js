@@ -4,8 +4,9 @@ const TestWrapper = require('test/util/TestWrapper');
 const NewMentalCapacity = require('app/steps/ui/executors/newmentalcapacity/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
 const cookies = [{
-    name: '__eligibility',
+    name: config.redis.eligibilityCookie.name,
     content: {
         nextStepUrl: '/new-applicant-executor',
         pages: [
@@ -19,8 +20,7 @@ const cookies = [{
 }];
 
 const nock = require('nock');
-const config = require('app/config');
-const featureToggleUrl = `${config.featureToggles.url}:${config.featureToggles.port}`;
+const featureToggleUrl = config.featureToggles.url;
 const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
 
 describe('new-applicant-executor', () => {

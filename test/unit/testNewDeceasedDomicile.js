@@ -3,10 +3,6 @@
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const content = require('app/resources/en/translation/deceased/newdomicile');
-const rewire = require('rewire');
-const sinon = require('sinon');
-const schema = require('app/steps/ui/deceased/newdomicile/schema');
-const newDeceasedDomicile = rewire('app/steps/ui/deceased/newdomicile/index');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const NewDeceasedDomicile = steps.NewDeceasedDomicile;
 
@@ -45,39 +41,6 @@ describe('NewDeceasedDomicile', () => {
                     choice: 'inEnglandOrWales'
                 }]
             });
-            done();
-        });
-    });
-
-    describe('persistFormData()', () => {
-        it('should return an empty object', () => {
-            const result = NewDeceasedDomicile.persistFormData();
-            expect(result).to.deep.equal({});
-        });
-    });
-
-    describe('setEligibilityCookie()', () => {
-        it('should call eligibilityCookie.setCookie() with the correct params', (done) => {
-            const revert = newDeceasedDomicile.__set__('eligibilityCookie', {setCookie: sinon.spy()});
-            const req = {reqParam: 'req value'};
-            const res = {resParam: 'res value'};
-            const nextStepUrl = '/stop-page/notInEnglandOrWales';
-            const steps = {};
-            const section = null;
-            const resourcePath = 'deceased/newdomicile';
-            const i18next = {};
-            const newDecDom = new newDeceasedDomicile(steps, section, resourcePath, i18next, schema);
-
-            newDecDom.setEligibilityCookie(req, res, nextStepUrl);
-
-            expect(newDeceasedDomicile.__get__('eligibilityCookie.setCookie').calledOnce).to.equal(true);
-            expect(newDeceasedDomicile.__get__('eligibilityCookie.setCookie').calledWith(
-                {reqParam: 'req value'},
-                {resParam: 'res value'},
-                '/stop-page/notInEnglandOrWales'
-            )).to.equal(true);
-
-            revert();
             done();
         });
     });

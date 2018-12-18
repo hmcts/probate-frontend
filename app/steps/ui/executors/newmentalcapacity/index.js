@@ -1,19 +1,18 @@
 'use strict';
 
-const ValidationStep = require('app/core/steps/ValidationStep');
+const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const content = require('app/resources/en/translation/executors/newmentalcapacity');
-const EligibilityCookie = require('app/utils/EligibilityCookie');
-const eligibilityCookie = new EligibilityCookie();
+const pageUrl = '/new-mental-capacity';
+const fieldKey = 'mentalCapacity';
 
-class NewMentalCapacity extends ValidationStep {
+class NewMentalCapacity extends EligibilityValidationStep {
 
     static getUrl() {
-        return '/new-mental-capacity';
+        return pageUrl;
     }
 
-    handlePost(ctx, errors, formdata, session) {
-        delete session.form;
-        return [ctx, errors];
+    getContextData(req, res) {
+        return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
     nextStepUrl(ctx) {
@@ -23,17 +22,9 @@ class NewMentalCapacity extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'mentalCapacity', value: content.optionYes, choice: 'isCapable'}
+                {key: fieldKey, value: content.optionYes, choice: 'isCapable'}
             ]
         };
-    }
-
-    persistFormData() {
-        return {};
-    }
-
-    setEligibilityCookie(req, res, nextStepUrl) {
-        eligibilityCookie.setCookie(req, res, nextStepUrl);
     }
 }
 

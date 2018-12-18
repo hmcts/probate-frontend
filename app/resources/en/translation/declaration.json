@@ -1,6 +1,6 @@
 {
   "title": "Check the legal statement and make your declaration",
-  "intro": "This statement is based on the information you&rsquo;ve given in your application. It will be stored as a public record.",
+  "intro": "This statement is based on the information you've given in your application. It will be stored as a public record.",
   "intro-multipleApplicants": "This statement is based on the information {applicantName} has given in their application. It will be stored as a public record.",
   "highCourtHeader": "In the High Court of Justice",
   "familyDivisionHeader": "Family Division",
@@ -15,7 +15,7 @@
   "of": "of",
   "as": "as",
   "deceasedEstateHeader": "The estate of the person who died",
-  "deceasedEstateValue": "The gross value for the estate amounts to &pound;{ihtGrossValue} and the net value for the estate amounts to &pound;{ihtNetValue}.",
+  "deceasedEstateValue": "The gross value for the estate amounts to £{ihtGrossValue} and the net value for the estate amounts to £{ihtNetValue}.",
   "deceasedEstateLand": "To the best of my knowledge, information and belief, there was no land vested in {deceasedName} which was settled previously to the death (and not by the will) of {deceasedName} and which remained settled land notwithstanding such death.",
   "deceasedEstateLand-multipleApplicants": "To the best of our knowledge, information and belief, there was no land vested in {deceasedName} which was settled previously to the death (and not by the will) of {deceasedName} and which remained settled land notwithstanding such death.",
   "executorApplyingHeader": "Executors applying for probate",

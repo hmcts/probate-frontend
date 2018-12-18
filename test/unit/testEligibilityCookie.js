@@ -1,8 +1,12 @@
+// eslint-disable-line max-lines
+
 'use strict';
 
-const EligibilityCookie = require('app/utils/EligibilityCookie');
+const rewire = require('rewire');
+const EligibilityCookie = rewire('app/utils/EligibilityCookie');
 const {expect} = require('chai');
 const sinon = require('sinon');
+const config = require('app/config');
 
 describe('EligibilityCookie.js', () => {
     describe('checkCookie()', () => {
@@ -25,14 +29,15 @@ describe('EligibilityCookie.js', () => {
                 cookies: {
                     __eligibility: JSON.stringify({
                         nextStepUrl: '/new-will-original',
-                        pages: [
-                            '/new-deceased-domicile',
-                            '/new-iht-completed',
-                            '/new-will-left'
-                        ]
+                        pages: {
+                            '/new-death-certificate': {deathCertificate: 'Yes'},
+                            '/new-deceased-domicile': {domicile: 'Yes'},
+                            '/new-iht-completed': {completed: 'Yes'},
+                            '/new-will-left': {left: 'Yes'}
+                        }
                     })
                 },
-                originalUrl: '/new-death-certificate'
+                originalUrl: '/new-applicant-executor'
             };
             const res = {redirect: sinon.spy()};
             const next = {};
@@ -50,16 +55,42 @@ describe('EligibilityCookie.js', () => {
             const req = {
                 cookies: {
                     __eligibility: JSON.stringify({
-                        nextStepUrl: '/new-death-certificate',
-                        pages: [
-                            '/new-death-certificate',
-                            '/new-deceased-domicile',
-                            '/new-iht-completed',
-                            '/new-will-left'
-                        ]
+                        nextStepUrl: '/new-will-original',
+                        pages: {
+                            '/new-death-certificate': {deathCertificate: 'Yes'},
+                            '/new-deceased-domicile': {domicile: 'Yes'},
+                            '/new-iht-completed': {completed: 'Yes'},
+                            '/new-will-left': {left: 'Yes'}
+                        }
                     })
                 },
-                originalUrl: '/new-death-certificate'
+                originalUrl: '/new-iht-completed'
+            };
+            const res = {};
+            const next = sinon.spy();
+            const eligibilityCookie = new EligibilityCookie();
+
+            eligibilityCookie.checkCookie()(req, res, next);
+
+            expect(next.calledOnce).to.equal(true);
+
+            done();
+        });
+
+        it('should continue if the specified page exists is the next step', (done) => {
+            const req = {
+                cookies: {
+                    __eligibility: JSON.stringify({
+                        nextStepUrl: '/new-will-original',
+                        pages: {
+                            '/new-death-certificate': {deathCertificate: 'Yes'},
+                            '/new-deceased-domicile': {domicile: 'Yes'},
+                            '/new-iht-completed': {completed: 'Yes'},
+                            '/new-will-left': {left: 'Yes'}
+                        }
+                    })
+                },
+                originalUrl: '/new-will-original'
             };
             const res = {};
             const next = sinon.spy();
@@ -74,67 +105,38 @@ describe('EligibilityCookie.js', () => {
     });
 
     describe('setCookie()', () => {
-        it('should add the next step to the cookie if the current page exists in the cookie', (done) => {
-            const req = {originalUrl: '/new-deceased-domicile'};
+        it('should add or update the next step and the current page in the cookie ', (done) => {
+            const req = {originalUrl: '/new-iht-completed'};
             const res = {};
-            const nextStepUrl = '/new-death-certificate';
+            const nextStepUrl = '/new-will-original';
+            const fieldKey = 'completed';
+            const fieldValue = 'Yes';
             const eligibilityCookie = new EligibilityCookie();
             const readCookieStub = sinon.stub(eligibilityCookie, 'readCookie').returns({
-                pages: [
-                    '/new-deceased-domicile',
-                    '/new-iht-completed',
-                    '/new-will-left'
-                ]
-            });
-            const writeCookieStub = sinon.stub(eligibilityCookie, 'writeCookie');
-
-            eligibilityCookie.setCookie(req, res, nextStepUrl);
-
-            expect(eligibilityCookie.writeCookie.calledOnce).to.equal(true);
-            expect(eligibilityCookie.writeCookie.calledWith(
-                {originalUrl: '/new-deceased-domicile'},
-                {},
-                {
-                    pages: [
-                        '/new-deceased-domicile',
-                        '/new-iht-completed',
-                        '/new-will-left'
-                    ],
-                    nextStepUrl: '/new-death-certificate'
+                nextStepUrl: '/new-will-original',
+                pages: {
+                    '/new-death-certificate': {deathCertificate: 'Yes'},
+                    '/new-deceased-domicile': {domicile: 'Yes'},
+                    '/new-iht-completed': {completed: 'Yes'},
+                    '/new-will-left': {left: 'Yes'}
                 }
-            )).to.equal(true);
-
-            readCookieStub.restore();
-            writeCookieStub.restore();
-            done();
-        });
-
-        it('should add the next step and the current page to the cookie if the current page does not exist in the cookie', (done) => {
-            const req = {originalUrl: '/new-deceased-domicile'};
-            const res = {};
-            const nextStepUrl = '/new-death-certificate';
-            const eligibilityCookie = new EligibilityCookie();
-            const readCookieStub = sinon.stub(eligibilityCookie, 'readCookie').returns({
-                pages: [
-                    '/new-iht-completed',
-                    '/new-will-left'
-                ]
             });
             const writeCookieStub = sinon.stub(eligibilityCookie, 'writeCookie');
 
-            eligibilityCookie.setCookie(req, res, nextStepUrl);
+            eligibilityCookie.setCookie(req, res, nextStepUrl, fieldKey, fieldValue);
 
             expect(eligibilityCookie.writeCookie.calledOnce).to.equal(true);
             expect(eligibilityCookie.writeCookie.calledWith(
-                {originalUrl: '/new-deceased-domicile'},
+                {originalUrl: '/new-iht-completed'},
                 {},
                 {
-                    pages: [
-                        '/new-iht-completed',
-                        '/new-will-left',
-                        '/new-deceased-domicile'
-                    ],
-                    nextStepUrl: '/new-death-certificate'
+                    nextStepUrl: '/new-will-original',
+                    pages: {
+                        '/new-death-certificate': {'deathCertificate': 'Yes'},
+                        '/new-deceased-domicile': {'domicile': 'Yes'},
+                        '/new-iht-completed': {'completed': 'Yes'},
+                        '/new-will-left': {'left': 'Yes'}
+                    }
                 }
             )).to.equal(true);
 
@@ -152,7 +154,7 @@ describe('EligibilityCookie.js', () => {
 
             expect(json).to.deep.equal({
                 nextStepUrl: '',
-                pages: []
+                pages: {}
             });
 
             done();
@@ -162,8 +164,13 @@ describe('EligibilityCookie.js', () => {
             const req = {
                 cookies: {
                     __eligibility: JSON.stringify({
-                        nextStepUrl: '/new-iht-completed',
-                        pages: ['/new-will-left']
+                        nextStepUrl: '/new-will-original',
+                        pages: {
+                            '/new-death-certificate': {deathCertificate: 'Yes'},
+                            '/new-deceased-domicile': {domicile: 'Yes'},
+                            '/new-iht-completed': {completed: 'Yes'},
+                            '/new-will-left': {left: 'Yes'}
+                        }
                     })
                 }
             };
@@ -171,21 +178,85 @@ describe('EligibilityCookie.js', () => {
             const json = eligibilityCookie.readCookie(req);
 
             expect(json).to.deep.equal({
-                nextStepUrl: '/new-iht-completed',
-                pages: ['/new-will-left']
+                nextStepUrl: '/new-will-original',
+                pages: {
+                    '/new-death-certificate': {deathCertificate: 'Yes'},
+                    '/new-deceased-domicile': {domicile: 'Yes'},
+                    '/new-iht-completed': {completed: 'Yes'},
+                    '/new-will-left': {left: 'Yes'}
+                }
             });
 
             done();
         });
     });
 
+    describe('getAnswer()', () => {
+        it('should return an existing answer', (done) => {
+            const req = {
+                cookies: {
+                    __eligibility: JSON.stringify({
+                        nextStepUrl: '/new-will-original',
+                        pages: {
+                            '/new-death-certificate': {deathCertificate: 'Yes'}
+                        }
+                    })
+                },
+                originalUrl: '/new-death-certificate'
+            };
+            const pageUrl = '/new-death-certificate';
+            const fieldKey = 'deathCertificate';
+
+            const eligibilityCookie = new EligibilityCookie();
+            const answer = eligibilityCookie.getAnswer(req, pageUrl, fieldKey);
+
+            expect(answer).to.equal('Yes');
+
+            done();
+        });
+
+        it('should return null', (done) => {
+            const req = {
+                cookies: {},
+                originalUrl: '/new-death-certificate'
+            };
+            const pageUrl = '/new-death-certificate';
+            const fieldKey = 'deathCertificate';
+
+            const eligibilityCookie = new EligibilityCookie();
+            const answer = eligibilityCookie.getAnswer(req, pageUrl, fieldKey);
+
+            expect(answer).to.equal(null);
+
+            done();
+        });
+    });
+
     describe('writeCookie()', () => {
+        let cookieExpires;
+        let revert;
+
+        beforeEach(() => {
+            cookieExpires = new Date(Date.now() + config.redis.eligibilityCookie.expires);
+            revert = EligibilityCookie.__set__('cookieExpires', cookieExpires);
+        });
+
+        afterEach(() => {
+            revert();
+        });
+
         it('should set a cookie on https', (done) => {
+
             const req = {protocol: 'https'};
             const res = {cookie: sinon.spy()};
             const json = {
-                nextStepUrl: '/new-iht-completed',
-                pages: ['/new-will-left']
+                nextStepUrl: '/new-will-original',
+                pages: {
+                    '/new-death-certificate': {deathCertificate: 'Yes'},
+                    '/new-deceased-domicile': {domicile: 'Yes'},
+                    '/new-iht-completed': {completed: 'Yes'},
+                    '/new-will-left': {left: 'Yes'}
+                }
             };
             const eligibilityCookie = new EligibilityCookie();
 
@@ -193,12 +264,17 @@ describe('EligibilityCookie.js', () => {
 
             expect(res.cookie.calledOnce).to.equal(true);
             expect(res.cookie.calledWith(
-                '__eligibility',
+                config.redis.eligibilityCookie.name,
                 JSON.stringify({
-                    nextStepUrl: '/new-iht-completed',
-                    pages: ['/new-will-left']
+                    nextStepUrl: '/new-will-original',
+                    pages: {
+                        '/new-death-certificate': {deathCertificate: 'Yes'},
+                        '/new-deceased-domicile': {domicile: 'Yes'},
+                        '/new-iht-completed': {completed: 'Yes'},
+                        '/new-will-left': {left: 'Yes'}
+                    }
                 }),
-                {secure: true, httpOnly: true}
+                {httpOnly: true, secure: true, expires: cookieExpires, maxAge: config.redis.eligibilityCookie.expires}
             )).to.equal(true);
 
             done();
@@ -208,8 +284,13 @@ describe('EligibilityCookie.js', () => {
             const req = {};
             const res = {cookie: sinon.spy()};
             const json = {
-                nextStepUrl: '/new-iht-completed',
-                pages: ['/new-will-left']
+                nextStepUrl: '/new-will-original',
+                pages: {
+                    '/new-death-certificate': {deathCertificate: 'Yes'},
+                    '/new-deceased-domicile': {domicile: 'Yes'},
+                    '/new-iht-completed': {completed: 'Yes'},
+                    '/new-will-left': {left: 'Yes'}
+                }
             };
             const eligibilityCookie = new EligibilityCookie();
 
@@ -217,12 +298,17 @@ describe('EligibilityCookie.js', () => {
 
             expect(res.cookie.calledOnce).to.equal(true);
             expect(res.cookie.calledWith(
-                '__eligibility',
+                config.redis.eligibilityCookie.name,
                 JSON.stringify({
-                    nextStepUrl: '/new-iht-completed',
-                    pages: ['/new-will-left']
+                    nextStepUrl: '/new-will-original',
+                    pages: {
+                        '/new-death-certificate': {deathCertificate: 'Yes'},
+                        '/new-deceased-domicile': {domicile: 'Yes'},
+                        '/new-iht-completed': {completed: 'Yes'},
+                        '/new-will-left': {left: 'Yes'}
+                    }
                 }),
-                {httpOnly: true}
+                {httpOnly: true, expires: cookieExpires, maxAge: config.redis.eligibilityCookie.expires}
             )).to.equal(true);
 
             done();

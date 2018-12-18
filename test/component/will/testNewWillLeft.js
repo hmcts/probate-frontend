@@ -4,8 +4,9 @@ const TestWrapper = require('test/util/TestWrapper');
 const NewWillOriginal = require('app/steps/ui/will/neworiginal/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
 const cookies = [{
-    name: '__eligibility',
+    name: config.redis.eligibilityCookie.name,
     content: {
         nextStepUrl: '/new-will-left',
         pages: [
@@ -17,8 +18,7 @@ const cookies = [{
 }];
 
 const nock = require('nock');
-const config = require('app/config');
-const featureToggleUrl = `${config.featureToggles.url}:${config.featureToggles.port}`;
+const featureToggleUrl = config.featureToggles.url;
 const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
 
 describe('new-will-left', () => {

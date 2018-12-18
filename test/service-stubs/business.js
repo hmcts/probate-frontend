@@ -1,6 +1,5 @@
 'use strict';
 
-/* eslint no-console: 0 */
 const config = require('app/config');
 const express = require('express');
 const app = express();

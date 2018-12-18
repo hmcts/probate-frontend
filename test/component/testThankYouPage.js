@@ -32,7 +32,8 @@ describe('thank-you', () => {
         it('test content loaded on the page when CCD Case ID present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456'
+                    id: '1234-5678-9012-3456',
+                    state: 'CaseCreated'
                 }
             };
             testWrapper.agent.post('/prepare-session/form')

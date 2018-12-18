@@ -6,6 +6,7 @@ const WillWrapper = require('app/wrappers/Will');
 const RegistryWrapper = require('app/wrappers/Registry');
 const ihtContent = require('app/resources/en/translation/iht/method');
 const featureToggle = require('app/utils/FeatureToggle');
+const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
 
 class Documents extends ValidationStep {
 
@@ -25,8 +26,7 @@ class Documents extends ValidationStep {
         ctx.hasRenunciated = executorsWrapper.hasRenunciated();
         ctx.is205 = formdata.iht && formdata.iht.method === ihtContent.paperOption && formdata.iht.form === 'IHT205';
         ctx.executorsNameChangedByDeedPollList = executorsWrapper.executorsNameChangedByDeedPoll();
-        ctx.ccdReferenceNumber = (formdata.ccdCase && formdata.ccdCase.state === 'CaseCreated' && formdata.ccdCase.id) ? formdata.ccdCase.id : '';
-
+        ctx.ccdReferenceNumber = FormatCcdCaseId.format(formdata.ccdCase);
         ctx.isDocumentUploadToggleEnabled = featureToggle.isEnabled(featureToggles, 'document_upload');
 
         return [ctx];

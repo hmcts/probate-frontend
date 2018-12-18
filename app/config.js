@@ -109,7 +109,8 @@ const config = {
         deathReportedToCoroner: 'https://www.gov.uk/after-a-death/when-a-death-is-reported-to-a-coroner',
         findOutNext: 'https://www.gov.uk/wills-probate-inheritance/once-the-grants-been-issued',
         whoInherits: 'https://www.gov.uk/inherits-someone-dies-without-will',
-        ifYoureAnExecutor: 'https://www.gov.uk/wills-probate-inheritance/if-youre-an-executor'
+        ifYoureAnExecutor: 'https://www.gov.uk/wills-probate-inheritance/if-youre-an-executor',
+        renunciationForm: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will'
     },
     helpline: {
         number: '0300 303 0648',

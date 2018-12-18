@@ -9,7 +9,7 @@ const {expect} = require('chai');
 const sinon = require('sinon');
 const services = require('app/components/services');
 
-const featureToggleUrl = `${config.featureToggles.url}:${config.featureToggles.port}`;
+const featureToggleUrl = config.featureToggles.url;
 const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
 
 describe('document-upload', () => {

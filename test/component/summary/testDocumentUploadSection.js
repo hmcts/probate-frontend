@@ -6,7 +6,7 @@ const documentuploadContent = require('app/resources/en/translation/documentuplo
 const summaryContent = require('app/resources/en/translation/summary');
 const config = require('app/config');
 const nock = require('nock');
-const featureToggleUrl = `${config.featureToggles.url}:${config.featureToggles.port}`;
+const featureToggleUrl = config.featureToggles.url;
 const featureTogglePathDocument = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
 const featureTogglePathScreening = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
 

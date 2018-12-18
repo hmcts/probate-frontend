@@ -21,7 +21,6 @@ const SERVICE_AUTHORISATION_URL = `${config.services.idam.s2s_url}/lease`;
 const serviceName = config.services.idam.service_name;
 const secret = config.services.idam.service_key;
 const FEATURE_TOGGLE_URL = config.featureToggles.url;
-const FEATURE_TOGGLE_PORT = config.featureToggles.port;
 const logInfo = (message, sessionId = 'Init') => logger(sessionId).info(message);
 
 const getUserDetails = (securityCookie) => {
@@ -48,7 +47,7 @@ const findAddress = (postcode) => {
 
 const featureToggle = (featureToggleKey) => {
     logInfo('featureToggle');
-    const url = `${FEATURE_TOGGLE_URL}:${FEATURE_TOGGLE_PORT}${config.featureToggles.path}/${featureToggleKey}`;
+    const url = `${FEATURE_TOGGLE_URL}${config.featureToggles.path}/${featureToggleKey}`;
     const headers = {
         'Content-Type': 'application/json'
     };

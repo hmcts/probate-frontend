@@ -6,8 +6,7 @@ const config = {
     gitRevision: process.env.GIT_REVISION,
     frontendPublicHttpProtocol: process.env.PUBLIC_PROTOCOL || 'http',
     featureToggles: {
-        url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost',
-        port: process.env.FEATURE_TOGGLES_API_PORT || '8888',
+        url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8282',
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
         fe_shutter_toggle: 'probate-fe-shutter',
         screening_questions: 'probate-screening-questions',
@@ -31,8 +30,8 @@ const config = {
             path: '/find-address'
         },
         validation: {
-            url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8081/validate',
-            port: 8081
+            url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8080/validate',
+            port: 8080
         },
         submit: {
             url: process.env.SUBMIT_SERVICE_URL || 'http://localhost:8181',

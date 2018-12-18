@@ -4,7 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
 const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');
-const featureToggleUrl = `${config.featureToggles.url}:${config.featureToggles.port}`;
+const featureToggleUrl = config.featureToggles.url;
 const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
 
 describe('stop-page', () => {

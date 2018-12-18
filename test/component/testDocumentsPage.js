@@ -8,7 +8,7 @@ const ThankYou = require('app/steps/ui/thankyou/index.js');
 const ihtContent = require('app/resources/en/translation/iht/method');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const nock = require('nock');
-const featureToggleUrl = `${config.featureToggles.url}:${config.featureToggles.port}`;
+const featureToggleUrl = config.featureToggles.url;
 const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
 
 describe('documents', () => {

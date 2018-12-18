@@ -26,14 +26,14 @@ describe('Healthcheck.js', () => {
         it('should return a correctly formatted health url', (done) => {
             const healthcheck = new Healthcheck();
             const url = healthcheck.formatUrl(config.endpoints.health)(config.services.validation.url);
-            expect(url).to.equal('http://localhost:8081/health');
+            expect(url).to.equal('http://localhost:8080/health');
             done();
         });
 
         it('should return a correctly formatted info url', (done) => {
             const healthcheck = new Healthcheck();
             const url = healthcheck.formatUrl(config.endpoints.info)(config.services.validation.url);
-            expect(url).to.equal('http://localhost:8081/info');
+            expect(url).to.equal('http://localhost:8080/info');
             done();
         });
     });
@@ -44,7 +44,7 @@ describe('Healthcheck.js', () => {
             const url = healthcheck.formatUrl(config.endpoints.health);
             const services = healthcheck.createServicesList(url, config.services);
             expect(services).to.deep.equal([
-                {name: 'Business Service', url: 'http://localhost:8081/health'},
+                {name: 'Business Service', url: 'http://localhost:8080/health'},
                 {name: 'Submit Service', url: 'http://localhost:8181/health'},
                 {name: 'Persistence Service', url: 'http://localhost:8282/health'}
             ]);
@@ -99,7 +99,7 @@ describe('Healthcheck.js', () => {
                     expect(data).to.deep.equal([{
                         name: 'Business Service',
                         status: 'DOWN',
-                        error: 'Error: FetchError: request to http://localhost:8081/health failed, reason: connect ECONNREFUSED 127.0.0.1:8081'
+                        error: 'Error: FetchError: request to http://localhost:8080/health failed, reason: connect ECONNREFUSED 127.0.0.1:8080'
                     }, {
                         name: 'Submit Service',
                         status: 'DOWN',

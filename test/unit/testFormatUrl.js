@@ -20,14 +20,14 @@ describe('FormatUrl.js', () => {
             });
 
             it('with a new path', (done) => {
-                const serviceUrl = FormatUrl.format('http://localhost:8081/validate', '/submit');
-                expect(serviceUrl).to.equal('http://localhost:8081/submit');
+                const serviceUrl = FormatUrl.format('http://localhost:8080/validate', '/submit');
+                expect(serviceUrl).to.equal('http://localhost:8080/submit');
                 done();
             });
 
             it('with the original path', (done) => {
-                const serviceUrl = FormatUrl.format('http://localhost:8081/validate');
-                expect(serviceUrl).to.equal('http://localhost:8081/validate');
+                const serviceUrl = FormatUrl.format('http://localhost:8080/validate');
+                expect(serviceUrl).to.equal('http://localhost:8080/validate');
                 done();
             });
         });

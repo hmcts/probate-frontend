@@ -58,7 +58,6 @@ describe('thank-you', () => {
                     id: '1234-5678-9012-3456'},
                 checkAnswersSummary: '{"test":"data"}'
             };
-            const excludeKeys = ['declarationPdf'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -69,7 +68,7 @@ describe('thank-you', () => {
                         checkSummaryLink: content.checkAnswersPdf
                     };
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testDataPlayback(done, contentData);
 
                 });
         });
@@ -96,7 +95,6 @@ describe('thank-you', () => {
                     id: '1234-5678-9012-3456'},
                 legalDeclaration: '{"test":"data"}'
             };
-            const excludeKeys = ['checkAnswersPdf'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -108,7 +106,7 @@ describe('thank-you', () => {
 
                     };
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testDataPlayback(done, contentData);
                 });
         });
 
@@ -136,7 +134,6 @@ describe('thank-you', () => {
                 checkAnswersSummary: '{"test":"data"}',
                 legalDeclaration: '{"test":"data"}'
             };
-            const excludeKeys = [];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -148,7 +145,7 @@ describe('thank-you', () => {
                         declarationLink: content.declarationPdf
                     };
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testDataPlayback(done, contentData);
                 });
         });
     });

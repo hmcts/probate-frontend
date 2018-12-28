@@ -17,7 +17,7 @@ java:
     REFORM_ENVIRONMENT : aat
     USE_REDIS : true
     REDIS_USE_TLS : false
-    REDIS_HOST : redis-slave
+    REDIS_HOST : redis-master-0
     REDIS_PORT : 6379
   # Don't modify below here
   image: ${IMAGE_NAME}

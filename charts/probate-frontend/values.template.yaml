@@ -24,6 +24,7 @@ java:
   ingressHost: ${SERVICE_FQDN}
 
 redis:
+  name: blah
   ## Global Docker image registry
   ## Please, note that this will override the image registry for all the images, including dependencies, configured to use the global value
   ##

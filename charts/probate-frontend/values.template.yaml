@@ -20,8 +20,8 @@ java:
 #    REDIS_HOST : redis-master
 #    REDIS_PORT : 6379
 redis:
-  metadata:
-    name: redis-named
+#  metadata:
+#    name: redis-named
     cluster:
       enabled: true
       slaveCount: 2

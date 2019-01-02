@@ -15,16 +15,15 @@ java:
     SUBMIT_SERVICE_URL: http://probate-submit-service-aat.service.core-compute-aat.internal
     PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
     REFORM_ENVIRONMENT : aat
-#    USE_REDIS : false
-#    REDIS_USE_TLS : false
-#    REDIS_HOST : redis-master
-#    REDIS_PORT : 6379
+    USE_REDIS : true
+    REDIS_USE_TLS : false
+    REDIS_HOST : 10.97.17.136
+    REDIS_PORT : 6379
   # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
 
 redis:
-  name: blah
   ## Global Docker image registry
   ## Please, note that this will override the image registry for all the images, including dependencies, configured to use the global value
   ##

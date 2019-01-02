@@ -15,9 +15,9 @@ java:
     SUBMIT_SERVICE_URL: http://probate-submit-service-aat.service.core-compute-aat.internal
     PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
     REFORM_ENVIRONMENT : aat
-    USE_REDIS : true
+    USE_REDIS : false
     REDIS_USE_TLS : false
-    REDIS_HOST : redis-master-0
+    REDIS_HOST : redis-master
     REDIS_PORT : 6379
 redis:
   metadata:

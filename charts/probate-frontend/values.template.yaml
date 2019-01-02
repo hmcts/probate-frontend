@@ -22,9 +22,9 @@ java:
 redis:
 #  metadata:
 #    name: redis-named
-    cluster:
-      enabled: true
-      slaveCount: 2
+  cluster:
+    enabled: true
+    slaveCount: 2
 #    usePassword: false
 #    networkPolicy:
       ## Specifies whether a NetworkPolicy should be created

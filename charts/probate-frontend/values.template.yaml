@@ -15,21 +15,21 @@ java:
     SUBMIT_SERVICE_URL: http://probate-submit-service-aat.service.core-compute-aat.internal
     PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
     REFORM_ENVIRONMENT : aat
-    USE_REDIS : false
-    REDIS_USE_TLS : false
-    REDIS_HOST : redis-master
-    REDIS_PORT : 6379
-redis:
-  metadata:
-    name: redis-named
-    cluster:
-      enabled: true
-      slaveCount: 2
-    usePassword: false
-    networkPolicy:
+#    USE_REDIS : false
+#    REDIS_USE_TLS : false
+#    REDIS_HOST : redis-master
+#    REDIS_PORT : 6379
+#redis:
+#  metadata:
+#    name: redis-named
+#    cluster:
+#      enabled: true
+#      slaveCount: 2
+#    usePassword: false
+#    networkPolicy:
       ## Specifies whether a NetworkPolicy should be created
       ##
-      enabled: true
+#      enabled: true
 
       ## The Policy model to apply. When set to false, only pods with the correct
       ## client label will have network access to the port Redis is listening

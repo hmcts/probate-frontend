@@ -19,12 +19,12 @@ java:
 #    REDIS_USE_TLS : false
 #    REDIS_HOST : redis-master
 #    REDIS_PORT : 6379
-#redis:
-#  metadata:
-#    name: redis-named
-#    cluster:
-#      enabled: true
-#      slaveCount: 2
+redis:
+  metadata:
+    name: redis-named
+    cluster:
+      enabled: true
+      slaveCount: 2
 #    usePassword: false
 #    networkPolicy:
       ## Specifies whether a NetworkPolicy should be created

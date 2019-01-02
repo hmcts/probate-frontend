@@ -1,14 +1,21 @@
+// eslint-disable-line max-lines
+
 'use strict';
 
 const {assert, expect} = require('chai');
 const initSteps = require('app/core/initSteps');
-const services = require('app/components/services');
 const sinon = require('sinon');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const content = require('app/resources/en/translation/declaration');
+const rewire = require('rewire');
+const Declaration = rewire('app/steps/ui/declaration/index');
 
 describe('Declaration tests', () => {
-    const Declaration = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).Declaration;
+    const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).Declaration;
+    let section;
+    let templatePath;
+    let i18next;
+    let schema;
 
     describe('prepareDataForTemplate()', () => {
         let ctx;
@@ -55,13 +62,20 @@ describe('Declaration tests', () => {
             ctx = {
                 executorsWrapper: new ExecutorsWrapper(formdata.executors)
             };
+            section = 'declaration';
+            templatePath = 'declaration';
+            i18next = {};
+            schema = {
+                $schema: 'http://json-schema.org/draft-04/schema#',
+                properties: {}
+            };
         });
 
         it('should return the correct data', (done) => {
-            const data = Declaration.prepareDataForTemplate(ctx, content, formdata);
+            const declaration = new Declaration(steps, section, templatePath, i18next, schema);
+            const data = declaration.prepareDataForTemplate(ctx, content, formdata);
 
             expect(data.legalStatement.applicant).to.equal('We, Applicant Current Name of Applicant address, Exec 1 Current Name of Exec 1 address and Exec 2 Current Name of Exec 2 address, make the following statement:');
-
             expect(data.legalStatement.executorsApplying).to.deep.equal([{
                 name: 'Applicant Current Name, an executor named in the will as Applicant Will Name, is applying for probate. Their name is different because Applicant Current Name changed their name by deed poll.',
                 sign: 'Applicant Current Name will send to the probate registry what they believe to be the true and original last will and testament of Mrs Deceased.'
@@ -72,7 +86,6 @@ describe('Declaration tests', () => {
                 name: 'Exec 2 Current Name, an executor named in the will as Exec 2 Will Name, is applying for probate. Their name is different because Exec 2 Current Name got divorced.',
                 sign: ''
             }]);
-
             done();
         });
     });
@@ -115,7 +128,8 @@ describe('Declaration tests', () => {
         });
 
         it('should return the correct data', (done) => {
-            const data = Declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, deceasedName, mainApplicantName);
+            const declaration = new Declaration(steps, section, templatePath, i18next, schema);
+            const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, deceasedName, mainApplicantName);
 
             expect(data).to.deep.equal([{
                 name: 'Applicant Current Name, an executor named in the will as Applicant Will Name, is applying for probate. Their name is different because Applicant Current Name changed their name by deed poll.',
@@ -127,7 +141,6 @@ describe('Declaration tests', () => {
                 name: 'Exec 2 Current Name, an executor named in the will as Exec 2 Will Name, is applying for probate. Their name is different because Exec 2 Current Name got divorced.',
                 sign: ''
             }]);
-
             done();
         });
     });
@@ -156,7 +169,8 @@ describe('Declaration tests', () => {
 
         it('should return the correct content for the applicant', (done) => {
             props.executor.isApplicant = true;
-            const content = Declaration.executorsApplyingText(props);
+            const declaration = new Declaration(steps, section, templatePath, i18next, schema);
+            const content = declaration.executorsApplyingText(props);
 
             expect(content).to.deep.equal({
                 name: 'Exec 1 Current Name, an executor named in the will as Applicant Current Name, is applying for probate. Their name is different because Exec 1 Current Name got married.',
@@ -168,7 +182,8 @@ describe('Declaration tests', () => {
 
         it('should return the correct content for an other executor', (done) => {
             props.executor.isApplicant = false;
-            const content = Declaration.executorsApplyingText(props);
+            const declaration = new Declaration(steps, section, templatePath, i18next, schema);
+            const content = declaration.executorsApplyingText(props);
 
             expect(content).to.deep.equal({
                 name: 'Exec 1 Current Name, an executor named in the will as Exec 1 Will Name, is applying for probate. Their name is different because Exec 1 Current Name got married.',
@@ -180,36 +195,47 @@ describe('Declaration tests', () => {
     });
 
     describe('resetAgreedFlags()', () => {
-        let updateInviteDataStub;
-        const executorsInvited = [
-            {inviteId: '1'},
-            {inviteId: '2'},
-            {inviteId: '3'}
-        ];
-
-        beforeEach(() => {
-            updateInviteDataStub = sinon.stub(services, 'updateInviteData');
-        });
-
-        afterEach(() => {
-            updateInviteDataStub.restore();
-        });
+        const executorsList = {
+            list: [{
+                inviteId: '1'
+            }, {
+                inviteId: '2'
+            }, {
+                inviteId: '3'
+            }]
+        };
+        const ctx = {
+            executors: executorsList,
+            executorsWrapper: new ExecutorsWrapper(executorsList)
+        };
 
         it('Success - there are no Errors in the results', (done) => {
-            updateInviteDataStub.returns(Promise.resolve({agreed: null}));
-            Declaration.resetAgreedFlags(executorsInvited)
+            const revert = Declaration.__set__('InviteData', class {
+                patch() {
+                    return Promise.resolve({agreed: null});
+                }
+            });
+            const declaration = new Declaration(steps, section, templatePath, i18next, schema);
+            declaration.resetAgreedFlags(ctx)
                 .then((results) => {
                     assert.isFalse(results.some(result => result.name === 'Error'));
+                    revert();
                     done();
                 })
                 .catch(err => done(err));
         });
 
         it('Failure - there is an Error in the results', (done) => {
-            updateInviteDataStub.returns(Promise.resolve(new Error('Blimey')));
-            Declaration.resetAgreedFlags(executorsInvited)
+            const revert = Declaration.__set__('InviteData', class {
+                patch() {
+                    return Promise.resolve(new Error('Blimey'));
+                }
+            });
+            const declaration = new Declaration(steps, section, templatePath, i18next, schema);
+            declaration.resetAgreedFlags(ctx)
                 .then((results) => {
                     assert.isTrue(results.some(result => result.name === 'Error'));
+                    revert();
                     done();
                 })
                 .catch(err => done(err));
@@ -219,13 +245,13 @@ describe('Declaration tests', () => {
     describe('action()', () => {
         let ctx;
         let formdata;
-        let updateInviteDataStub;
 
         beforeEach(() => {
-            updateInviteDataStub = sinon.stub(services, 'updateInviteData');
             ctx = {
                 hasMultipleApplicants: true,
+                executorsWrapper: {},
                 hasDataChanged: false,
+                hasExecutorsToNotify: false,
                 executorsEmailChanged: false,
                 hasDataChangedAfterEmailSent: true,
                 invitesSent: 'true',
@@ -233,29 +259,24 @@ describe('Declaration tests', () => {
             formdata = {};
         });
 
-        afterEach(() => {
-            updateInviteDataStub.restore();
-        });
-
         it('test that context variables are removed and empty object returned', (done) => {
-            [ctx, formdata] = Declaration.action(ctx, formdata);
+            const declaration = new Declaration(steps, section, templatePath, i18next, schema);
+            [ctx, formdata] = declaration.action(ctx, formdata);
 
             expect(ctx).to.deep.equal({});
-
             done();
         });
 
         it('test that context variables are removed and object contains just appropriate variables', (done) => {
             ctx.softStop = false;
-            [ctx, formdata] = Declaration.action(ctx, formdata);
+            const declaration = new Declaration(steps, section, templatePath, i18next, schema);
+            [ctx, formdata] = declaration.action(ctx, formdata);
 
             expect(ctx).to.deep.equal({softStop: false});
-
             done();
         });
 
         it('test that context variables are removed and resetAgreedFlags is called', (done) => {
-            updateInviteDataStub.returns(Promise.resolve({agreed: null}));
             ctx.hasDataChanged = true;
             ctx.executors = {
                 executorsNumber: 3,
@@ -267,8 +288,13 @@ describe('Declaration tests', () => {
                 ]
             };
             ctx.executorsWrapper = new ExecutorsWrapper(ctx.executors);
-            [ctx, formdata] = Declaration.action(ctx, formdata);
+            const declaration = new Declaration(steps, section, templatePath, i18next, schema);
+            declaration.resetAgreedFlags = sinon.spy();
 
+            [ctx, formdata] = declaration.action(ctx, formdata);
+
+            expect(declaration.resetAgreedFlags.calledOnce).to.equal(true);
+            expect(declaration.resetAgreedFlags.calledWith(ctx)).to.equal(true);
             expect(ctx).to.deep.equal({
                 executors: {
                     executorsNumber: 3,
@@ -280,7 +306,6 @@ describe('Declaration tests', () => {
                     ]
                 }
             });
-
             done();
         });
     });

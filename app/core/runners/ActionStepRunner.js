@@ -24,7 +24,7 @@ class ActionStepRunner {
             let ctx = yield step.getContextData(req);
             let [, errors] = step.validate(ctx, formdata);
 
-            [ctx, errors] = yield step.handlePost(ctx, errors, formdata);
+            [ctx, errors] = yield step.handlePost(ctx, errors, formdata, req);
 
             const next = step.next(req, ctx);
             step.action(ctx, formdata);

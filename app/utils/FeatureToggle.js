@@ -1,8 +1,9 @@
 'use strict';
 
-const services = require('app/components/services');
 const featureToggles = require('app/config').featureToggles;
 const logger = require('app/components/logger');
+const FeatureToggleService = require('app/services/FeatureToggle');
+const config = require('app/config');
 
 class FeatureToggle {
     callCheckToggle(req, res, next, featureToggleKey, callback, redirectPage) {
@@ -19,7 +20,9 @@ class FeatureToggle {
     checkToggle(params) {
         const featureToggleKey = params.featureToggleKey;
         const sessionId = params.req.session.id;
-        return services.featureToggle(featureToggles[featureToggleKey])
+        const journeyType = params.req.session.form && params.req.session.form.journeyType;
+        const featureToggle = new FeatureToggleService(config.featureToggles.url, journeyType, params.req.sessionID);
+        return featureToggle.get(featureToggles[featureToggleKey])
             .then(isEnabled => {
                 logger(sessionId).info(`Checking feature toggle: ${featureToggleKey}, isEnabled: ${isEnabled}`);
                 params.callback({

@@ -29,6 +29,14 @@ const config = {
             port: 8585,
             path: '/find-address'
         },
+        orchestrator: {
+            url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8080',
+            paths: {
+                forms: '/forms',
+                submissions: '/submissions',
+                payments: '/payments'
+            }
+        },
         validation: {
             url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
         },

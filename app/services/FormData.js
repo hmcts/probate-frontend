@@ -3,30 +3,31 @@
 const Service = require('./Service');
 
 class FormData extends Service {
-    get(id, sessionId) {
-        this.log('Get form data');
-        const url = `${this.endpoint}/${id}`;
-        const headers = {
+    constructor(endpoint, journeyType, sessionId) {
+        super(endpoint, journeyType, sessionId);
+        this.path = this.getPath(this.journeyType, this.config.services.orchestrator.paths.forms, '');
+        this.headers = {
             'Content-Type': 'application/json',
-            'Session-Id': sessionId
+            'Session-Id': this.sessionId
         };
-        const fetchOptions = this.fetchOptions({}, 'GET', headers);
+    }
+
+    get(id) {
+        this.log('Get form data');
+        const url = `${this.endpoint}${this.path}/${id}`;
+        const fetchOptions = this.fetchOptions({}, 'GET', this.headers);
         return this.fetchJson(url, fetchOptions);
     }
 
-    post(id, data, sessionId) {
+    post(id, data) {
         this.log('Post form data');
-        const url = this.endpoint;
-        const headers = {
-            'Content-Type': 'application/json',
-            'Session-Id': sessionId
-        };
+        const url = this.endpoint + this.path;
         const body = {
             id: id,
             formdata: data,
             submissionReference: data.submissionReference
         };
-        const fetchOptions = this.fetchOptions(body, 'POST', headers);
+        const fetchOptions = this.fetchOptions(body, 'POST', this.headers);
         return this.fetchJson(url, fetchOptions);
     }
 }

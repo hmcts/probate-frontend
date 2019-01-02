@@ -1,9 +1,10 @@
 'use strict';
 
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const services = require('app/components/services');
 const FormatName = require('app/utils/FormatName');
-const logger = require('app/components/logger')();
+const logger = require('app/components/logger')('Init');
+const InviteLink = require('app/services/InviteLink');
+const config = require('app/config');
 
 class UpdateExecutorInvite {
     static update(session) {
@@ -24,7 +25,8 @@ class UpdateExecutorInvite {
                         leadExecutorName: FormatName.format(formdata.applicant)
                     }
                 };
-                return services.sendInvite(data, session.id, exec);
+                const inviteLink = new InviteLink(config.services.validation.url, session.form.journeyType, session.id);
+                return inviteLink.post(data, exec);
             });
         return Promise.all(promises).then(result => {
             if (result.some(r => r.name === 'Error')) {

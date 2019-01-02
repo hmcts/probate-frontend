@@ -1,8 +1,9 @@
 'use strict';
 
 const Step = require('app/core/steps/Step');
-const services = require('app/components/services');
 const WithLinkStepRunner = require('app/core/runners/WithLinkStepRunner');
+const PinNumber = require('app/services/PinNumber');
+const config = require('app/config');
 
 class PinResend extends Step {
 
@@ -23,13 +24,16 @@ class PinResend extends Step {
 
     * handlePost(ctx, errors, formdata, session) {
         const phoneNumber = session.phoneNumber;
-        yield services.sendPin(phoneNumber, session.id).then(generatedPin => {
-            if (generatedPin.name === 'Error') {
-                throw new ReferenceError('Error when trying to resend pin');
-            } else {
-                session.pin = generatedPin;
-            }
-        });
+        const pinNumber = new PinNumber(config.services.validation.url, ctx.journeyType, ctx.sessionID);
+        yield pinNumber
+            .get(phoneNumber, session.id)
+            .then(generatedPin => {
+                if (generatedPin.name === 'Error') {
+                    throw new ReferenceError('Error when trying to resend pin');
+                } else {
+                    session.pin = generatedPin;
+                }
+            });
         return [ctx, errors];
     }
 }

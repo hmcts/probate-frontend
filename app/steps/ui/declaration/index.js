@@ -5,12 +5,13 @@ const executorNotifiedContent = require('app/resources/en/translation/executors/
 const executorContent = require('app/resources/en/translation/executors/executorcontent');
 const {get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const services = require('app/components/services');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const FormatAlias = require('app/utils/FormatAlias');
 const LegalDocumentJSONObjectBuilder = require('app/utils/LegalDocumentJSONObjectBuilder');
 const legalDocumentJSONObjBuilder = new LegalDocumentJSONObjectBuilder();
+const InviteData = require('app/services/InviteData');
+const config = require('app/config');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -173,9 +174,12 @@ class Declaration extends ValidationStep {
         return nextStepOptions;
     }
 
-    resetAgreedFlags(executorsInvited) {
+    resetAgreedFlags(ctx) {
         const data = {agreed: null};
-        const promises = executorsInvited.map(exec => services.updateInviteData(exec.inviteId, data));
+        const inviteData = new InviteData(config.services.persistence.url, ctx.journeyType, ctx.sessionID);
+        const promises = ctx.executorsWrapper
+            .executorsInvited()
+            .map(exec => inviteData.patch(exec.inviteId, data));
         return Promise.all(promises);
     }
 
@@ -184,7 +188,7 @@ class Declaration extends ValidationStep {
         delete ctx.hasMultipleApplicants;
 
         if (ctx.hasDataChanged === true) {
-            this.resetAgreedFlags(ctx.executorsWrapper.executorsInvited());
+            this.resetAgreedFlags(ctx);
         }
 
         delete ctx.executorsWrapper;

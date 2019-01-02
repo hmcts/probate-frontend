@@ -1,11 +1,15 @@
 'use strict';
 
 const Step = require('app/core/steps/Step');
-const services = require('app/components/services');
 const FieldError = require('app/components/error');
 const logger = require('app/components/logger')('Init');
 const RedirectRunner = require('app/core/runners/RedirectRunner');
 const {get, set} = require('lodash');
+const CcdCasePaymentStatus = require('app/services/CcdCasePaymentStatus');
+const config = require('app/config');
+const FormData = require('app/services/FormData');
+const Payment = require('app/services/Payment');
+const Authorise = require('app/services/Authorise');
 
 class PaymentStatus extends Step {
 
@@ -47,9 +51,11 @@ class PaymentStatus extends Step {
 
     * runnerOptions(ctx, formdata) {
         const options = {};
+        const formData = new FormData(config.services.persistence.url, ctx.journeyType, ctx.sessionID);
 
         if (formdata.paymentPending === 'true' || formdata.paymentPending === 'unknown') {
-            const serviceAuthResult = yield services.authorise();
+            const authorise = new Authorise(`${config.services.idam.s2s_url}/lease`, ctx.journeyType, ctx.sessionID);
+            const serviceAuthResult = yield authorise.post();
 
             if (serviceAuthResult.name === 'Error') {
                 options.redirect = true;
@@ -65,13 +71,14 @@ class PaymentStatus extends Step {
                 paymentId: ctx.paymentId
             };
 
-            const findPaymentResponse = yield services.findPayment(data);
-            logger.info('Payment retrieval in status for paymentId = ' + ctx.paymentId + ' with response = ' + JSON.stringify(findPaymentResponse));
-            const date = typeof findPaymentResponse.date_updated === 'undefined' ? ctx.paymentCreatedDate : findPaymentResponse.date_updated;
-            this.updateFormDataPayment(formdata, findPaymentResponse, date);
-            if (findPaymentResponse.name === 'Error' || findPaymentResponse.status === 'Initiated') {
-                logger.error('Payment retrieval failed for paymentId = ' + ctx.paymentId + ' with status = ' + findPaymentResponse.status);
-                services.saveFormData(ctx.regId, formdata, ctx.sessionId);
+            const payment = new Payment(config.services.payment.createPaymentUrl, ctx.journeyType, ctx.sessionID);
+            const getPaymentResponse = yield payment.get(data);
+            logger.info('Payment retrieval in status for paymentId = ' + ctx.paymentId + ' with response = ' + JSON.stringify(getPaymentResponse));
+            const date = typeof getPaymentResponse.date_updated === 'undefined' ? ctx.paymentCreatedDate : getPaymentResponse.date_updated;
+            this.updateFormDataPayment(formdata, getPaymentResponse, date);
+            if (getPaymentResponse.name === 'Error' || getPaymentResponse.status === 'Initiated') {
+                logger.error('Payment retrieval failed for paymentId = ' + ctx.paymentId + ' with status = ' + getPaymentResponse.status);
+                formData.post(ctx.regId, formdata);
                 const options = {};
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
@@ -83,7 +90,7 @@ class PaymentStatus extends Step {
             this.setErrors(options, errors);
             set(formdata, 'ccdCase.state', updateCcdCaseResponse.caseState);
 
-            if (findPaymentResponse.status !== 'Success') {
+            if (getPaymentResponse.status !== 'Success') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
                 logger.error('Unable to retrieve a payment response.');
@@ -102,9 +109,9 @@ class PaymentStatus extends Step {
             set(formdata, 'ccdCase.state', updateCcdCaseResponse.caseState);
         }
 
-        const saveFormDataResponse = services.saveFormData(ctx.regId, formdata, ctx.sessionId);
-        if (saveFormDataResponse.name === 'Error') {
-            options.errors = saveFormDataResponse;
+        const postFormDataResponse = formData.post(ctx.regId, formdata);
+        if (postFormDataResponse.name === 'Error') {
+            options.errors = postFormDataResponse;
         }
 
         return options;
@@ -114,7 +121,8 @@ class PaymentStatus extends Step {
         const submitData = {};
         Object.assign(submitData, formdata);
         let errors;
-        const result = yield services.updateCcdCasePaymentStatus(submitData, ctx);
+        const ccdCasePaymentStatus = new CcdCasePaymentStatus(config.services.submit.url, ctx.journeyType, ctx.sessionID);
+        const result = yield ccdCasePaymentStatus.post(submitData, ctx);
 
         if (!result.caseState) {
             errors = [(FieldError('update', 'failure', this.resourcePath, ctx))];
@@ -136,15 +144,15 @@ class PaymentStatus extends Step {
         }
     }
 
-    updateFormDataPayment(formdata, findPaymentResponse, date) {
+    updateFormDataPayment(formdata, paymentResponse, date) {
         Object.assign(formdata.payment, {
-            channel: findPaymentResponse.channel,
-            transactionId: findPaymentResponse.external_reference,
-            reference: findPaymentResponse.reference,
+            channel: paymentResponse.channel,
+            transactionId: paymentResponse.external_reference,
+            reference: paymentResponse.reference,
             date: date,
-            amount: findPaymentResponse.amount,
-            status: findPaymentResponse.status,
-            siteId: findPaymentResponse.site_id
+            amount: paymentResponse.amount,
+            status: paymentResponse.status,
+            siteId: paymentResponse.site_id
         });
     }
 }

@@ -1,4 +1,5 @@
 'use strict';
+
 const initSteps = require('app/core/initSteps');
 const {assert, expect} = require('chai');
 
@@ -14,7 +15,8 @@ describe('Executor-Additional-Invite', function () {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        executors: {}
+                        executors: {},
+                        journeyType: 'probate'
                     }
                 }
             };
@@ -23,47 +25,49 @@ describe('Executor-Additional-Invite', function () {
         it('test that context variables are correctly populated for single executor to be notified', () => {
             req.session.form.executors = {
                 executorsToNotifyList: [
-                    {'fullName': 'harvey', 'isApplying': true, 'emailSent': false}]
+                    {fullName: 'harvey', isApplying: true, emailSent: false}]
             };
             ctx = executorsAdditionalInvite.getContextData(req);
             expect(ctx).to.deep.equal({
-                'executorsToNotifyList': [
+                executorsToNotifyList: [
                     {
                         'emailSent': false,
                         'fullName': 'harvey',
                         'isApplying': true
                     }
                 ],
-                'executorsToNotifyNames': 'harvey',
-                'inviteSuffix': '',
-                'sessionID': 'dummy_sessionId'
+                executorsToNotifyNames: 'harvey',
+                inviteSuffix: '',
+                sessionID: 'dummy_sessionId',
+                journeyType: 'probate'
             });
         });
 
         it('test that context variables are correctly populated for multiple executors to be notified', () => {
             req.session.form.executors = {
                 executorsToNotifyList: [
-                    {'fullName': 'other applicant', 'isApplying': true, 'emailSent': false},
-                    {'fullName': 'harvey', 'isApplying': true, 'emailSent': false}
+                    {fullName: 'other applicant', isApplying: true, emailSent: false},
+                    {fullName: 'harvey', isApplying: true, emailSent: false}
                 ]
             };
             ctx = executorsAdditionalInvite.getContextData(req);
             expect(ctx).to.deep.equal({
-                'executorsToNotifyList': [
+                executorsToNotifyList: [
                     {
-                        'emailSent': false,
-                        'fullName': 'other applicant',
-                        'isApplying': true
+                        emailSent: false,
+                        fullName: 'other applicant',
+                        isApplying: true
                     },
                     {
-                        'emailSent': false,
-                        'fullName': 'harvey',
-                        'isApplying': true
+                        emailSent: false,
+                        fullName: 'harvey',
+                        isApplying: true
                     }
                 ],
-                'executorsToNotifyNames': 'other applicant and harvey',
-                'inviteSuffix': '-multiple',
-                'sessionID': 'dummy_sessionId'
+                executorsToNotifyNames: 'other applicant and harvey',
+                inviteSuffix: '-multiple',
+                sessionID: 'dummy_sessionId',
+                journeyType: 'probate'
             });
         });
     });

@@ -1,7 +1,8 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const services = require('app/components/services');
+const InviteData = require('app/services/InviteData');
+const config = require('app/config');
 
 class CoApplicantDeclaration extends ValidationStep {
 
@@ -30,9 +31,12 @@ class CoApplicantDeclaration extends ValidationStep {
     }
 
     * handlePost(ctx, errors) {
-        const data = {};
-        data.agreed = (this.content.optionYes === ctx.agreement);
-        yield services.updateInviteData(ctx.inviteId, data)
+        const data = {
+            agreed: this.content.optionYes === ctx.agreement
+        };
+        const inviteData = new InviteData(config.services.persistence.url, ctx.journeyType, ctx.sessionID);
+
+        yield inviteData.patch(ctx.inviteId, data)
             .then(result => {
                 if (result.name === 'Error') {
                     throw new ReferenceError('Error updating co-applicant\'s data');

@@ -3,7 +3,8 @@
 const WithLinkStepRunner = require('app/core/runners/WithLinkStepRunner');
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
-const services = require('app/components/services');
+const FormData = require('app/services/FormData');
+const config = require('app/config');
 
 class PinPage extends ValidationStep {
 
@@ -19,7 +20,8 @@ class PinPage extends ValidationStep {
         if (parseInt(session.pin) !== parseInt(ctx.pin)) {
             errors.push(FieldError('pin', 'incorrect', this.resourcePath, this.generateContent()));
         } else {
-            yield services.loadFormData(session.formdataId)
+            const formData = new FormData(config.services.persistence.url, ctx.journeyType, ctx.sessionID);
+            yield formData.get(session.formdataId)
                 .then(result => {
                     if (result.name === 'Error') {
                         throw new ReferenceError('Error getting the co-applicant\'s data');

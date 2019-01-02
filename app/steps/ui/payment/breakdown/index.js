@@ -3,9 +3,11 @@
 const Step = require('app/core/steps/Step');
 const FieldError = require('app/components/error');
 const config = require('app/config');
-const services = require('app/components/services');
 const {get, set} = require('lodash');
 const logger = require('app/components/logger')('Init');
+const SubmitData = require('app/services/SubmitData');
+const Payment = require('app/services/Payment');
+const Authorise = require('app/services/Authorise');
 
 class PaymentBreakdown extends Step {
     static getUrl() {
@@ -49,8 +51,8 @@ class PaymentBreakdown extends Step {
     }
 
     * handlePost(ctx, errors, formdata, session, hostname) {
-
-        const serviceAuthResult = yield services.authorise();
+        const authorise = new Authorise(`${config.services.idam.s2s_url}/lease`, ctx.journeyType, ctx.sessionID);
+        const serviceAuthResult = yield authorise.post();
         if (serviceAuthResult.name === 'Error') {
             const options = {};
             options.redirect = true;
@@ -76,10 +78,10 @@ class PaymentBreakdown extends Step {
                     formdata.creatingPayment = 'true';
                     session.save();
 
-                    const serviceAuthResult = yield services.authorise();
+                    const serviceAuthResult = yield authorise.post();
 
                     if (serviceAuthResult.name === 'Error') {
-                        logger.info('serviceAuthResult Error = ' + serviceAuthResult);
+                        logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
                         const keyword = 'failure';
                         formdata.creatingPayment = null;
                         formdata.paymentPending = null;
@@ -98,8 +100,9 @@ class PaymentBreakdown extends Step {
                         ccdCaseId: formdata.ccdCase.id
                     };
 
-                    const [response, paymentReference] = yield services.createPayment(data, hostname);
-                    logger.info('Payment creation in breakdown for paymentReference = ' + paymentReference + ' with response = ' + JSON.stringify(response));
+                    const payment = new Payment(config.services.payment.createPaymentUrl, ctx.journeyType, ctx.sessionID);
+                    const [response, paymentReference] = yield payment.post(data, hostname);
+                    logger.info(`Payment creation in breakdown for paymentReference = ${paymentReference} with response = ${JSON.stringify(response)}`);
                     formdata.creatingPayment = 'false';
 
                     if (response.name === 'Error') {
@@ -134,8 +137,9 @@ class PaymentBreakdown extends Step {
     * sendToSubmitService(ctx, errors, formdata, total) {
         const softStop = this.anySoftStops(formdata, ctx) ? 'softStop' : false;
         set(formdata, 'payment.total', total);
-        const result = yield services.sendToSubmitService(formdata, ctx, softStop);
-        logger.info('sendToSubmitService result = ' + JSON.stringify(result));
+        const submitData = new SubmitData(config.services.submit.url, ctx.journeyType, ctx.sessionID);
+        const result = yield submitData.post(formdata, ctx, softStop);
+        logger.info(`submitData.post result = ${JSON.stringify(result)}`);
 
         if (result.name === 'Error' || result === 'DUPLICATE_SUBMISSION') {
             const keyword = result === 'DUPLICATE_SUBMISSION' ? 'duplicate' : 'failure';
@@ -164,8 +168,9 @@ class PaymentBreakdown extends Step {
                 userId: ctx.userId,
                 paymentId: paymentId
             };
-            const paymentResponse = yield services.findPayment(data);
-            logger.info('Payment retrieval in breakdown for paymentId = ' + ctx.paymentId + ' with response = ' + JSON.stringify(paymentResponse));
+            const payment = new Payment(config.services.payment.createPaymentUrl, ctx.journeyType, ctx.sessionID);
+            const paymentResponse = yield payment.get(data);
+            logger.info(`Payment retrieval in breakdown for paymentId = ${ctx.paymentId} with response = ${JSON.stringify(paymentResponse)}`);
             if (typeof paymentResponse === 'undefined') {
                 return true;
             }

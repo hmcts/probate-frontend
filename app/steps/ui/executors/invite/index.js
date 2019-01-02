@@ -1,8 +1,9 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const services = require('app/components/services');
 const FormatName = require('app/utils/FormatName');
+const InviteLink = require('app/services/InviteLink');
+const config = require('app/config');
 
 class ExecutorsInvite extends ValidationStep {
 
@@ -35,7 +36,8 @@ class ExecutorsInvite extends ValidationStep {
                         leadExecutorName: FormatName.format(formdata.applicant)
                     }
                 };
-                return services.sendInvite(data, session.id, exec).then(result => {
+                const inviteLink = new InviteLink(config.services.validation.url, ctx.journeyType, ctx.sessionID);
+                return inviteLink.post(data, exec).then(result => {
                     if (result.name === 'Error') {
                         throw new ReferenceError('Error while sending co-applicant invitation email.');
                     } else {

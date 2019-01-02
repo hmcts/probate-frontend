@@ -29,7 +29,9 @@ describe('IhtValue', () => {
                 grossValueOnline: '500000',
                 grossValue: 500000,
                 netValueOnline: '400000',
-                netValue: 400000
+                netValue: 400000,
+                sessionID: 'dummy_sessionId',
+                journeyType: 'probate'
             });
             done();
         });

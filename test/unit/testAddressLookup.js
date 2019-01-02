@@ -1,105 +1,129 @@
-const initSteps = require('app/core/initSteps'),
-    assert = require('chai').assert,
-    sinon = require('sinon'),
-    when = require('when'),
-    services = require('app/components/services');
+'use strict';
+
+const {expect} = require('chai');
 const co = require('co');
+const rewire = require('rewire');
+const AddressLookup = rewire('app/steps/action/addressLookup/index');
 
-describe('AddressLookup', function () {
+describe('AddressLookup', () => {
+    let steps;
+    let section;
+    let templatePath;
+    let i18next;
+    let schema;
+    let ctxToTest;
+    let errorsToTest;
+    let formdata;
+    let req;
 
-    const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
+    beforeEach(() => {
+        steps = {
+            ApplicantAddress: {
+                section: 'applicant'
+            }
+        };
+        section = 'applicant';
+        templatePath = 'addressLookup';
+        i18next = {};
+        schema = {
+            $schema: 'http://json-schema.org/draft-04/schema#',
+            properties: {}
+        };
+        ctxToTest = {
+            referrer: 'ApplicantAddress',
+            postcode: 'wibble'
+        };
+        errorsToTest = {};
+        formdata = {
+            applicant: {
+                someThingToLookFor: 'someThingToLookFor'
+            }
+        };
+        req = {
+            session: {
+                form: {
+                    journeyType: 'probate'
+                }
+            },
+            sessionID: 'abc12345'
+        };
+    });
 
-    describe('handlePost', function () {
+    describe('handlePost()', () => {
+        it('should add addresses to formdata', (done) => {
+            const revert = AddressLookup.__set__('PostcodeAddress', class {
+                get() {
+                    return ['address 1', 'address 2'];
+                }
+            });
 
-        let findAddressStub;
-
-        beforeEach(function () {
-            findAddressStub = sinon.stub(services, 'findAddress');
-        });
-
-        afterEach(function () {
-            findAddressStub.restore();
-        });
-
-        it('Adds addresses to formdata', function (done) {
-
-            const expectedResponse = ['address 1', 'address 2'];
-            findAddressStub.returns(when(expectedResponse));
-
-            const AddressLookup = steps.AddressLookup;
-            let ctx = {
-                referrer: 'ApplicantAddress',
-                postcode: 'SW1H 9AJ'
-            };
-            let errors = {};
-            const formdata = {applicant: {'someThingToLookFor': 'someThingToLookFor'}};
+            const addressLookup = new AddressLookup(steps, section, templatePath, i18next, schema);
 
             co(function* () {
-                [ctx, errors] = yield AddressLookup.handlePost(ctx, errors, formdata);
-                assert.deepEqual(formdata.applicant.addresses, expectedResponse);
-                assert.equal(formdata.applicant.addressFound, 'true');
+                yield addressLookup.handlePost(ctxToTest, errorsToTest, formdata, req);
+                expect(formdata.applicant.addresses).to.deep.equal(['address 1', 'address 2']);
+                expect(formdata.applicant.addressFound).to.equal('true');
+                revert();
                 done();
             });
         });
 
-        it('Creates an error if address not found', function (done) {
+        it('should create an error if address not found', (done) => {
+            const revert = AddressLookup.__set__('PostcodeAddress', class {
+                get() {
+                    return [];
+                }
+            });
 
-            const expectedResponse = {};
-            findAddressStub.returns(when(expectedResponse));
-
-            const AddressLookup = steps.AddressLookup;
-            let ctx = {
-                referrer: 'ApplicantAddress',
-                postcode: 'wibble'
-            };
-            let errors = {};
-            const formdata = {applicant: {'someThingToLookFor': 'someThingToLookFor'}};
+            const addressLookup = new AddressLookup(steps, section, templatePath, i18next, schema);
 
             co(function* () {
-                [ctx, errors] = yield AddressLookup.handlePost(ctx, errors, formdata);
-                assert.equal(formdata.applicant.addressFound, 'false');
-                assert.exists(formdata.applicant.errors[0], 'key not found');
-                done();
-            })
-                .catch((err) => {
-                    done(err);
+                yield addressLookup.handlePost(ctxToTest, errorsToTest, formdata, req);
+                expect(formdata.applicant.addressFound).to.equal('false');
+                expect(formdata.applicant.errors[0]).to.deep.equal({
+                    param: 'postcode',
+                    msg: {
+                        summary: 'addressLookup.errors.postcode.noAddresses.summary',
+                        message: 'addressLookup.errors.postcode.noAddresses.message'
+                    }
                 });
+                revert();
+                done();
+            }).catch((err) => {
+                done(err);
+            });
         });
     });
 
-    describe('getReferrerData', function () {
-        it('It gets the referer data section from the formdata', function () {
-
-            const AddressLookup = steps.AddressLookup;
-
-            const ctx = {'referrer': 'ApplicantAddress'};
-            const formdata = {applicant: {'someThingToLookFor': 'someThingToLookFor'}};
-            const ret = AddressLookup.getReferrerData(ctx, formdata);
-            assert.deepEqual(ret, {'someThingToLookFor': 'someThingToLookFor'});
+    describe('getReferrerData()', () => {
+        it('should get the referer data section from the formdata', () => {
+            const addressLookup = new AddressLookup(steps, section, templatePath, i18next, schema);
+            const referrerData = addressLookup.getReferrerData(ctxToTest, formdata);
+            expect(referrerData).to.deep.equal({
+                someThingToLookFor: 'someThingToLookFor'
+            });
         });
 
-        it('It creates the referer data section from the formdata if one does not exist', function () {
-
-            const AddressLookup = steps.AddressLookup;
-
-            const ctx = {'referrer': 'ApplicantAddress'};
-            const formdata = {};
-            const ret = AddressLookup.getReferrerData(ctx, formdata);
-            assert.deepEqual(ret, {});
+        it('should create the referer data section from the formdata if one does not exist', () => {
+            formdata = {};
+            const addressLookup = new AddressLookup(steps, section, templatePath, i18next, schema);
+            const referrerData = addressLookup.getReferrerData(ctxToTest, formdata);
+            expect(referrerData).to.deep.equal({});
         });
     });
 
-    describe('pruneReferrerData', function () {
-        it('It deletes the referer data', function () {
-            const AddressLookup = steps.AddressLookup;
-            const referrerData = {
+    describe('pruneReferrerData()', () => {
+        it('should delete the referer data', () => {
+            const addressLookup = new AddressLookup(steps, section, templatePath, i18next, schema);
+            const referrerDataToTest = {
                 addresses: 'addresses',
                 addressFound: 'addressFound',
                 postcodeAddress: 'postcodeAddress',
-                freeTextAddress: 'freeTextAddress'
+                freeTextAddress: 'freeTextAddress',
+                errors: 'errors'
             };
-            AddressLookup.pruneReferrerData(referrerData);
-            assert.deepEqual(referrerData, {});
+            const referrerData = addressLookup.pruneReferrerData(referrerDataToTest);
+            expect(referrerData).to.deep.equal({});
         });
     });
 });

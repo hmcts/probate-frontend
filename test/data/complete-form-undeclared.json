@@ -61,7 +61,15 @@
       "grossValue": 150000
     },
     "executors": {
-      "list": [{"firstName":"Bob","lastName":"Smith","isApplicant":true,"isApplying":true, "aliasReason": "Change by deed poll", "alias": "Bobby Smithy"}],
+      "list": [{
+        "firstName":"Bob",
+        "lastName":"Smith",
+        "isApplicant":true,
+        "isApplying":true,
+        "aliasReason": "Change by deed poll",
+        "alias": "Bobby Smithy",
+        "inviteId": "abc123"
+      }],
       "executorsNumber" : 1
     },
     "assets": {
@@ -76,6 +84,7 @@
       "total": 5001,
       "paymentId": 1
     },
-    "paymentPending": "true"
+    "paymentPending": "true",
+    "journeyType": "probate"
   }
 }

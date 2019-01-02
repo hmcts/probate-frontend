@@ -1,26 +1,24 @@
 'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
-const services = require('app/components/services');
-const sinon = require('sinon');
-const when = require('when');
 const {assert} = require('chai');
 const ExecutorsAdditionalInviteSent = require('app/steps/ui/executors/additionalinvitesent/index');
+const nock = require('nock');
+const config = require('app/config');
+const businessServiceUrl = config.services.validation.url.replace('/validate', '');
 
 describe('executors-additional-invite', () => {
     let testWrapper;
-    let sendInvitesStub;
     let sessionData;
     const expectedNextUrlForExecutorsAdditionalInviteSent = ExecutorsAdditionalInviteSent.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsAdditionalInvite');
         sessionData = require('test/data/executors-invites');
-        sendInvitesStub = sinon.stub(services, 'sendInvite');
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        sendInvitesStub.restore();
         delete require.cache[require.resolve('test/data/executors-invites')];
     });
 
@@ -82,7 +80,10 @@ describe('executors-additional-invite', () => {
         });
 
         it('test an error page is rendered if there is an error calling invite service', (done) => {
-            sendInvitesStub.returns(when(Promise.resolve(new Error('ReferenceError'))));
+            nock(businessServiceUrl)
+                .post('/invite')
+                .reply(500, new Error('ReferenceError'));
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -90,7 +91,6 @@ describe('executors-additional-invite', () => {
                         .then(response => {
                             assert(response.status === 500);
                             assert(response.text.includes('Sorry, we&rsquo;re having technical problems'));
-                            assert(sendInvitesStub.calledOnce, 'Send Invite function called');
                             done();
                         })
                         .catch(err => {
@@ -100,7 +100,10 @@ describe('executors-additional-invite', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecutorsAdditionalInviteSent}`, (done) => {
-            sendInvitesStub.returns(when(Promise.resolve({response: 'Make it pass!'})));
+            nock(businessServiceUrl)
+                .post('/invite')
+                .reply(200, {response: 'Make it pass!'});
+
             const data = {};
             sessionData.executors.executorsToNotifyList = [
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false},

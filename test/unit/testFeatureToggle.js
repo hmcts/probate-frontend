@@ -2,50 +2,60 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const services = require('app/components/services');
-const FeatureToggle = require('app/utils/FeatureToggle');
-let featureToggleStub;
-let featureToggle;
+const rewire = require('rewire');
+const FeatureToggle = rewire('app/utils/FeatureToggle');
 
 describe('FeatureToggle', () => {
-    beforeEach(() => {
-        featureToggleStub = sinon.stub(services, 'featureToggle');
-        featureToggle = new FeatureToggle();
-    });
-
-    afterEach(() => {
-        featureToggleStub.restore();
-    });
-
     describe('checkToggle()', () => {
         it('should call the callback function when the api returns successfully', (done) => {
-            featureToggleStub.returns(Promise.resolve('true'));
+            const revert = FeatureToggle.__set__('FeatureToggleService', class {
+                get() {
+                    return Promise.resolve('true');
+                }
+            });
             const params = {
-                req: {session: {}},
+                req: {
+                    session: {
+                        form: {}
+                    }
+                },
                 res: {},
                 next: () => true,
                 featureToggleKey: 'document_upload',
                 callback: sinon.spy()
             };
+            const featureToggle = new FeatureToggle();
+
             featureToggle.checkToggle(params).then(() => {
                 expect(params.callback.calledOnce).to.equal(true);
+                revert();
                 done();
             });
         });
 
         it('should call next() with an error when the api returns an error', (done) => {
-            featureToggleStub.returns(Promise.reject(new Error()));
+            const revert = FeatureToggle.__set__('FeatureToggleService', class {
+                get() {
+                    return Promise.reject(new Error());
+                }
+            });
             const params = {
-                req: {session: {}},
+                req: {
+                    session: {
+                        form: {}
+                    }
+                },
                 res: {},
                 next: sinon.spy(),
                 featureToggleKey: 'document_upload',
                 callback: () => true
             };
+            const featureToggle = new FeatureToggle();
+
             featureToggle.checkToggle(params).then(() => {
                 expect(params.next.calledOnce).to.equal(true);
                 expect(params.next.calledWith(new Error())).to.equal(true);
-                featureToggleStub.restore();
+                revert();
                 done();
             });
         });
@@ -58,7 +68,10 @@ describe('FeatureToggle', () => {
                 res: {},
                 next: sinon.spy()
             };
+            const featureToggle = new FeatureToggle();
+
             featureToggle.togglePage(params);
+
             expect(params.next.calledOnce).to.equal(true);
             expect(params.next.calledWith()).to.equal(true);
             done();
@@ -71,7 +84,10 @@ describe('FeatureToggle', () => {
                 next: {},
                 redirectPage: '/applicant-phone'
             };
+            const featureToggle = new FeatureToggle();
+
             featureToggle.togglePage(params);
+
             expect(params.res.redirect.calledOnce).to.equal(true);
             expect(params.res.redirect.calledWith('/applicant-phone')).to.equal(true);
             done();
@@ -85,7 +101,10 @@ describe('FeatureToggle', () => {
                 res: {},
                 next: sinon.spy()
             };
+            const featureToggle = new FeatureToggle();
+
             featureToggle.toggleExistingPage(params);
+
             expect(params.next.calledOnce).to.equal(true);
             expect(params.next.calledWith()).to.equal(true);
             done();
@@ -98,7 +117,10 @@ describe('FeatureToggle', () => {
                 next: {},
                 redirectPage: '/applicant-phone'
             };
+            const featureToggle = new FeatureToggle();
+
             featureToggle.toggleExistingPage(params);
+
             expect(params.res.redirect.calledOnce).to.equal(true);
             expect(params.res.redirect.calledWith('/applicant-phone')).to.equal(true);
             done();
@@ -114,7 +136,10 @@ describe('FeatureToggle', () => {
                     isEnabled: true,
                     next: sinon.spy()
                 };
+                const featureToggle = new FeatureToggle();
+
                 featureToggle.toggleFeature(params);
+
                 expect(params.req.session.featureToggles).to.deep.equal({document_upload: true});
                 expect(params.next.calledOnce).to.equal(true);
                 expect(params.next.calledWith()).to.equal(true);
@@ -128,7 +153,10 @@ describe('FeatureToggle', () => {
                     isEnabled: true,
                     next: sinon.spy()
                 };
+                const featureToggle = new FeatureToggle();
+
                 featureToggle.toggleFeature(params);
+
                 expect(params.req.session.featureToggles).to.deep.equal({document_upload: true});
                 expect(params.next.calledOnce).to.equal(true);
                 expect(params.next.calledWith()).to.equal(true);

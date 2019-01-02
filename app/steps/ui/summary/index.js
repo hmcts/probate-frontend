@@ -5,13 +5,14 @@ const OptionGetRunner = require('app/core/runners/OptionGetRunner');
 const FieldError = require('app/components/error');
 const {isEmpty, map, includes} = require('lodash');
 const utils = require('app/components/step-utils');
-const services = require('app/components/services');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const FeatureToggle = require('app/utils/FeatureToggle');
 const CheckAnswersSummaryJSONObjectBuilder = require('app/utils/CheckAnswersSummaryJSONObjectBuilder');
 const checkAnswersSummaryJSONObjBuilder = new CheckAnswersSummaryJSONObjectBuilder();
+const ValidateData = require('app/services/ValidateData');
+const config = require('app/config');
 
 class Summary extends Step {
 
@@ -39,12 +40,12 @@ class Summary extends Step {
         ctx.executorsWithOtherNames = executorsWrapper.executorsWithAnotherName().map(exec => exec.fullName);
 
         utils.updateTaskStatus(ctx, ctx, this.steps);
-
         return [ctx, !isEmpty(errors) ? errors : null];
     }
 
     validateFormData(ctx, formdata) {
-        return services.validateFormData(formdata, ctx.sessionID);
+        const validateData = new ValidateData(config.services.validation.url, ctx.journeyType, ctx.sessionID);
+        return validateData.post(formdata, ctx.sessionID);
     }
 
     generateContent(ctx, formdata) {

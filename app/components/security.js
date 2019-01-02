@@ -7,6 +7,7 @@ const logger = require('app/components/logger')('Init');
 const URL = require('url');
 const UUID = require('uuid/v4');
 const commonContent = require('app/resources/en/translation/common');
+const IdamSession = require('app/services/IdamSession');
 
 const SECURITY_COOKIE = '__auth-token-' + config.payloadVersion;
 const REDIRECT_COOKIE = '__redirect';
@@ -34,7 +35,9 @@ class Security {
 
             // Retrieve user details
             if (securityCookie) {
-                services.getUserDetails(securityCookie)
+                const idamSession = new IdamSession(config.services.idam.apiUrl, req.session.form.journeyType, req.sessionID);
+                idamSession
+                    .get(securityCookie)
                     .then(response => {
                         if (response.name !== 'Error') {
                             req.session.regId = response.email;

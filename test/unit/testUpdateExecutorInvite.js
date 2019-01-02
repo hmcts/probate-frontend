@@ -1,20 +1,15 @@
 'use strict';
 
-const UpdateExecutorInvite = require('app/utils/UpdateExecutorInvite');
-const services = require('app/components/services');
 const {expect} = require('chai');
-const sinon = require('sinon');
+const rewire = require('rewire');
+const UpdateExecutorInvite = rewire('app/utils/UpdateExecutorInvite');
 
-describe('UpdateExecutorInvite.js', () => {
+describe('UpdateExecutorInvite', () => {
     describe('update()', () => {
-        let sendInviteStub;
         let session;
         let executorsToCheck;
 
         beforeEach(() => {
-            sendInviteStub = sinon
-                .stub(services, 'sendInvite')
-                .returns(Promise.resolve('Success'));
             session = {
                 form: {
                     deceased: {
@@ -59,12 +54,13 @@ describe('UpdateExecutorInvite.js', () => {
             delete executorsToCheck.form.executors.list[2].emailChanged;
         });
 
-        afterEach(() => {
-            sendInviteStub.restore();
-        });
-
         describe('when there are emailChanged flags to remove', () => {
             it('should delete emailChanged flag', (done) => {
+                UpdateExecutorInvite.__set__('InviteLink', class {
+                    post() {
+                        return Promise.resolve('Success');
+                    }
+                });
                 UpdateExecutorInvite.update(session)
                     .then(res => {
                         expect(res).to.deep.equal(executorsToCheck.form.executors);

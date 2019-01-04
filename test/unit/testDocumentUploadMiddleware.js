@@ -7,7 +7,6 @@ const sinon = require('sinon');
 const rewire = require('rewire');
 const documentUploadMiddleware = rewire('app/middleware/documentUpload');
 const DocumentUpload = require('app/utils/DocumentUpload');
-const services = require('app/components/services');
 
 describe('DocumentUploadMiddleware', () => {
     describe('getDocument()', () => {
@@ -109,7 +108,6 @@ describe('DocumentUploadMiddleware', () => {
         let req;
         let res;
         let next;
-        let uploadDocumentServiceStub;
         let documentValidateStub;
 
         beforeEach(() => {
@@ -129,12 +127,10 @@ describe('DocumentUploadMiddleware', () => {
             };
             res = {};
             next = sinon.spy();
-            uploadDocumentServiceStub = sinon.stub(services, 'uploadDocument');
             documentValidateStub = sinon.stub(DocumentUpload.prototype, 'validate');
         });
 
         afterEach(() => {
-            uploadDocumentServiceStub.restore();
             documentValidateStub.restore();
         });
 
@@ -146,12 +142,17 @@ describe('DocumentUploadMiddleware', () => {
         });
 
         it('should add the returned url to documents.uploads if the document upload is successful', (done) => {
+            const revert = documentUploadMiddleware.__set__('Document', class {
+                post() {
+                    return Promise.resolve({
+                        body: [
+                            'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
+                        ]
+                    });
+                }
+            });
+
             documentValidateStub.returns(null);
-            uploadDocumentServiceStub.returns(Promise.resolve({
-                body: [
-                    'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
-                ]
-            }));
             const addDocumentStub = sinon.stub(DocumentUpload.prototype, 'addDocument').returns([{
                 filename: 'death-certificate.pdf',
                 url: 'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
@@ -173,6 +174,7 @@ describe('DocumentUploadMiddleware', () => {
                 }]);
                 expect(next.calledOnce).to.equal(true);
                 addDocumentStub.restore();
+                revert();
                 done();
             });
         });
@@ -196,16 +198,22 @@ describe('DocumentUploadMiddleware', () => {
 
             it('if the document fails backend validation', (done) => {
                 documentValidateStub.returns(null);
-                uploadDocumentServiceStub.returns(Promise.resolve({
-                    body: [
-                        'Error: invalid file type'
-                    ]
-                }));
                 const addDocumentStub = sinon.stub(DocumentUpload.prototype, 'addDocument').returns([{
                     filename: 'death-certificate.pdf',
                     url: 'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
                 }]);
-                const revert = documentUploadMiddleware.__set__('returnError', sinon.spy());
+                const revert = documentUploadMiddleware.__set__({
+                    returnError: sinon.spy(),
+                    Document: class {
+                        post() {
+                            return Promise.resolve({
+                                body: [
+                                    'Error: invalid file type'
+                                ]
+                            });
+                        }
+                    }
+                });
                 req = Object.assign(req, {
                     log: {
                         info: sinon.spy(),
@@ -232,8 +240,14 @@ describe('DocumentUploadMiddleware', () => {
 
             it('if the document upload fails', (done) => {
                 documentValidateStub.returns(null);
-                uploadDocumentServiceStub.returns(Promise.reject(new Error('Upload failed')));
-                const revert = documentUploadMiddleware.__set__('returnError', sinon.spy());
+                const revert = documentUploadMiddleware.__set__({
+                    returnError: sinon.spy(),
+                    Document: class {
+                        post() {
+                            return Promise.reject(new Error('Upload failed'));
+                        }
+                    }
+                });
                 req = Object.assign(req, {
                     log: {
                         info: sinon.spy(),
@@ -261,7 +275,6 @@ describe('DocumentUploadMiddleware', () => {
 
     describe('removeDocument()', () => {
         let req;
-        let removeDocumentStub;
 
         beforeEach(() => {
             req = {
@@ -278,35 +291,40 @@ describe('DocumentUploadMiddleware', () => {
                     index: 0
                 }
             };
-            removeDocumentStub = sinon.stub(services, 'removeDocument');
-        });
-
-        afterEach(() => {
-            removeDocumentStub.restore();
         });
 
         it('should remove a document', (done) => {
+            const revert = documentUploadMiddleware.__set__('Document', class {
+                delete() {
+                    return Promise.resolve(true);
+                }
+            });
             const res = {
                 redirect: sinon.spy()
             };
             const next = {};
-            removeDocumentStub.returns(Promise.resolve(true));
             documentUploadMiddleware.removeDocument(req, res, next);
             setTimeout(() => {
                 expect(req.session.form.documents.uploads).to.deep.equal([]);
                 expect(res.redirect.calledWith('/document-upload')).to.equal(true);
+                revert();
                 done();
             });
         });
 
         it('should return an error if a document cannot be remvoved', (done) => {
+            const error = new Error('something');
+            const revert = documentUploadMiddleware.__set__('Document', class {
+                delete() {
+                    return Promise.reject(error);
+                }
+            });
             const res = {};
             const next = sinon.spy();
-            const error = new Error('something');
-            removeDocumentStub.returns(Promise.reject(error));
             documentUploadMiddleware.removeDocument(req, res, next);
             setTimeout(() => {
                 expect(next.calledWith(error)).to.equal(true);
+                revert();
                 done();
             });
         });

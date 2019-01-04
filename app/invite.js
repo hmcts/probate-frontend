@@ -21,7 +21,7 @@ class InviteLink {
 
     checkLinkIsValid(request, response, success, failure) {
         const inviteId = request.params.inviteId;
-        const inviteLink = new InviteLinkService(config.services.persistence.url, request.session.form.journeyType, request.sessionID);
+        const inviteLink = new InviteLinkService(config.services.persistence.url, request.sessionID);
 
         inviteLink.get(inviteId)
             .then(result => {
@@ -30,7 +30,7 @@ class InviteLink {
                     failure(response);
                 } else {
                     logger.info('Link is valid');
-                    const pinNumber = new PinNumber(config.services.validation.url, request.session.form.journeyType, request.sessionID);
+                    const pinNumber = new PinNumber(config.services.validation.url, request.sessionID);
                     pinNumber
                         .get(result.phoneNumber)
                         .then(generatedPin => {

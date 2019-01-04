@@ -32,9 +32,9 @@ const config = {
         orchestrator: {
             url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8080',
             paths: {
-                forms: '/forms',
-                submissions: '/submissions',
-                payments: '/payments'
+                forms: '/forms/{applicantEmail}',
+                submissions: '/forms/{applicantEmail}/submissions',
+                payments: '/forms/{applicantEmail}/payments'
             }
         },
         validation: {
@@ -58,7 +58,8 @@ const config = {
             service_key: process.env.IDAM_SERVICE_KEY || 'AAAAAAAAAAAAAAAA',
             probate_oauth2_client: 'probate',
             probate_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE || '123456',
-            probate_oauth_callback_path: '/oauth2/callback'
+            probate_oauth_callback_path: '/oauth2/callback',
+            probate_oauth_token_path: '/oauth2/token',
         },
         payment: {
             createPaymentUrl: process.env.PAYMENT_CREATE_URL || 'http://localhost:8383/card-payments',

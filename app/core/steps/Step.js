@@ -5,8 +5,8 @@ const UIStepRunner = require('app/core/runners/UIStepRunner');
 const JourneyMap = require('app/core/JourneyMap');
 const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const FormData = require('app/services/FormData');
 const config = require('app/config');
+const ServiceMapper = require('app/utils/ServiceMapper');
 
 class Step {
 
@@ -99,7 +99,11 @@ class Step {
     }
 
     persistFormData(id, formdata, sessionID) {
-        const formData = new FormData(config.services.persistence.url, formdata.journeyType, sessionID);
+        const formData = ServiceMapper.map(
+            'FormData',
+            [config.services.persistence.url, sessionID],
+            formdata.journeyType
+        );
         return formData.post(id, formdata, sessionID);
     }
 

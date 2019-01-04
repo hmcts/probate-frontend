@@ -4,8 +4,8 @@ const Service = require('./Service');
 const superagent = require('superagent');
 
 class Document extends Service {
-    post(sessionId, userId, uploadedDocument) {
-        this.log('Post document', sessionId);
+    post(userId, uploadedDocument) {
+        this.log('Post document');
         const path = this.config.documentUpload.paths.upload;
         const url = this.formatUrl.format(this.endpoint, path);
         const clientName = this.config.services.idam.probate_oauth2_client;

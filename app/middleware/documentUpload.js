@@ -1,10 +1,10 @@
 'use strict';
 
-const config = require('app/config').documentUpload;
+const config = require('app/config');
 const DocumentUpload = require('app/utils/DocumentUpload');
-const services = require('app/components/services');
 const connectTimeout = require('connect-timeout');
 const multer = require('multer');
+const Document = require('app/services/Document');
 
 const storage = multer.memoryStorage();
 const upload = multer({storage: storage});
@@ -12,7 +12,7 @@ const documentUpload = new DocumentUpload();
 
 const getDocument = () => upload.single('file');
 
-const initTimeout = () => connectTimeout(config.timeoutMs, {respond: false});
+const initTimeout = () => connectTimeout(config.documentUpload.timeoutMs, {respond: false});
 
 const errorOnTimeout = (req, res, next) => {
     if (req.timedout) {
@@ -47,7 +47,8 @@ const uploadDocument = (req, res, next) => {
 
     if (error === null) {
         req.log.info('Uploaded document passed frontend validation');
-        services.uploadDocument(req.session.id, req.session.regId, uploadedDocument)
+        const document = new Document(config.services.validation.url, req.sessionID);
+        document.post(req.session.regId, uploadedDocument)
             .then(result => {
                 const resultBody = result.body[0];
                 const filename = uploadedDocument.originalname;
@@ -56,7 +57,7 @@ const uploadDocument = (req, res, next) => {
                     next();
                 } else {
                     req.log.error('Uploaded document failed backend validation');
-                    const errorType = Object.entries(config.error).filter(value => value[1] === resultBody)[0][0];
+                    const errorType = Object.entries(config.documentUpload.error).filter(value => value[1] === resultBody)[0][0];
                     const error = documentUpload.mapError(errorType);
                     returnError(req, res, next, error);
                 }
@@ -77,7 +78,8 @@ const removeDocument = (req, res, next) => {
     const uploads = req.session.form.documents.uploads;
     const {url} = uploads[index];
     const documentId = documentUpload.findDocumentId(url);
-    services.removeDocument(documentId, req.session.regId)
+    const document = new Document(config.services.validation.url, req.sessionID);
+    document.delete(documentId, req.session.regId)
         .then(() => {
             req.session.form.documents.uploads = documentUpload.removeDocument(index, uploads);
             res.redirect('/document-upload');

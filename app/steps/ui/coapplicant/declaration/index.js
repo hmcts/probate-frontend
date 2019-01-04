@@ -34,7 +34,7 @@ class CoApplicantDeclaration extends ValidationStep {
         const data = {
             agreed: this.content.optionYes === ctx.agreement
         };
-        const inviteData = new InviteData(config.services.persistence.url, ctx.journeyType, ctx.sessionID);
+        const inviteData = new InviteData(config.services.persistence.url, ctx.sessionID);
 
         yield inviteData.patch(ctx.inviteId, data)
             .then(result => {

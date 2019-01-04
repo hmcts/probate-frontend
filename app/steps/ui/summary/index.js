@@ -44,7 +44,7 @@ class Summary extends Step {
     }
 
     validateFormData(ctx, formdata) {
-        const validateData = new ValidateData(config.services.validation.url, ctx.journeyType, ctx.sessionID);
+        const validateData = new ValidateData(config.services.validation.url, ctx.sessionID);
         return validateData.post(formdata, ctx.sessionID);
     }
 

@@ -5,7 +5,6 @@ const sinon = require('sinon');
 const when = require('when');
 const expect = chai.expect;
 const sinonChai = require('sinon-chai');
-const services = require('app/components/services');
 const rewire = require('rewire');
 const Security = rewire('app/components/security');
 
@@ -23,14 +22,16 @@ describe('Security middleware', () => {
         let security;
         let protect;
         let callBackEndpoint;
-        let getOauth2TokenStub;
         let req;
         let res;
         let next;
+        let revertOauth2Token;
 
         beforeEach(() => {
-            getOauth2TokenStub = sinon.stub(services, 'getOauth2Token', () => {
-                return Promise.resolve({access_token: token});
+            revertOauth2Token = Security.__set__('Oauth2Token', class {
+                post() {
+                    return Promise.resolve({access_token: token});
+                }
             });
 
             security = new Security(loginUrl);
@@ -65,7 +66,7 @@ describe('Security middleware', () => {
         });
 
         afterEach(() => {
-            getOauth2TokenStub.restore();
+            revertOauth2Token();
         });
 
         it('should redirect to login page when security cookie not defined', () => {
@@ -90,7 +91,7 @@ describe('Security middleware', () => {
         });
 
         it('should redirect to login page when IdamSession.get() returns Unauthorized', (done) => {
-            Security.__set__('IdamSession', class {
+            const revert = Security.__set__('IdamSession', class {
                 get() {
                     return promise;
                 }
@@ -106,6 +107,7 @@ describe('Security middleware', () => {
                 .then(() => {
                     sinon.assert.calledOnce(res.redirect);
                     expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
+                    revert();
                     done();
                 })
                 .catch((err) => {

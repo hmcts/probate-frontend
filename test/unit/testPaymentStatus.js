@@ -5,6 +5,8 @@ const {expect} = require('chai');
 const co = require('co');
 const rewire = require('rewire');
 const PaymentStatus = rewire('app/steps/ui/payment/status/index');
+const nock = require('nock');
+const config = require('app/config');
 
 describe('PaymentStatus', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/ui/`]);
@@ -45,6 +47,7 @@ describe('PaymentStatus', () => {
         site_id: 'siteId0001',
         external_reference: 12345
     };
+    let nockMock;
 
     beforeEach(() => {
         section = 'paymentStatus';
@@ -86,14 +89,18 @@ describe('PaymentStatus', () => {
             userId: 12345,
             paymentId: 4567
         };
+        nockMock = nock(config.services.submit.url).post('/updatePaymentStatus');
     });
 
     afterEach(() => {
         revertPaymentBreakdown();
+        nock.cleanAll();
     });
 
     describe('runnerOptions', () => {
         it('should set paymentPending to unknown if there is an authorise failure', (done) => {
+            nockMock.reply(200, {caseState: 'CaseCreated'});
+
             ctx = {total: 1};
 
             const revert = PaymentStatus.__set__('Authorise', class {
@@ -123,6 +130,8 @@ describe('PaymentStatus', () => {
         });
 
         it('should set redirect to false, paymentPending to false and payment status to success if payment is successful', (done) => {
+            nockMock.reply(200, {caseState: 'CaseCreated'});
+
             const revert = PaymentStatus.__set__({
                 Payment: class {
                     get() {
@@ -145,6 +154,8 @@ describe('PaymentStatus', () => {
         });
 
         it('should set redirect to true, paymentPending to true and payment status to failure if payment is not successful', (done) => {
+            nockMock.reply(200, {caseState: 'CaseCreated'});
+
             expectedFormData.payment.status = 'Failed';
             expectedFormData.paymentPending = 'true';
 
@@ -171,6 +182,8 @@ describe('PaymentStatus', () => {
         });
 
         it('should set payment status to not_required and redirect to false when paymentPending is false', (done) => {
+            nockMock.reply(200, {caseState: 'CaseCreated'});
+
             const expectedFormData = {
                 'ccdCase': {
                     'state': 'CaseCreated'
@@ -194,12 +207,9 @@ describe('PaymentStatus', () => {
         });
 
         it('should return field error on options if updateCcdCasePaymentStatus returns error', (done) => {
+            nockMock.reply(200, {name: 'Error'});
+
             const revert = PaymentStatus.__set__({
-                CcdCasePaymentStatus: class {
-                    post() {
-                        return Promise.resolve({name: 'Error'});
-                    }
-                },
                 Payment: class {
                     get() {
                         return Promise.resolve(successfulPaymentResponse);

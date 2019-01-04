@@ -6,8 +6,6 @@ const common = require('app/resources/en/translation/common');
 const config = require('app/config');
 const nock = require('nock');
 const {expect} = require('chai');
-const sinon = require('sinon');
-const services = require('app/components/services');
 
 const featureToggleUrl = config.featureToggles.url;
 const documentUploadFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
@@ -33,13 +31,14 @@ describe('document-upload', () => {
         it('test help block content loaded on the page', (done) => {
             featureTogglesNock('true');
 
-            const playbackData = {};
-            playbackData.helpTitle = common.helpTitle;
-            playbackData.helpText = common.helpText;
-            playbackData.contactTelLabel = common.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
-            playbackData.contactOpeningTimes = common.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
-            playbackData.helpEmailLabel = common.helpEmailLabel;
-            playbackData.contactEmailAddress = common.contactEmailAddress;
+            const playbackData = {
+                helpTitle: common.helpTitle,
+                helpText: common.helpText,
+                contactTelLabel: common.contactTelLabel.replace('{helpLineNumber}', config.helpline.number),
+                contactOpeningTimes: common.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours),
+                helpEmailLabel: common.helpEmailLabel,
+                contactEmailAddress: common.contactEmailAddress
+            };
 
             testWrapper.testDataPlayback(done, playbackData);
         });
@@ -51,11 +50,11 @@ describe('document-upload', () => {
         });
 
         it('test it remains on the document upload page after uploading a document', (done) => {
-            const uploadDocumentStub = sinon.stub(services, 'uploadDocument').returns(Promise.resolve({
-                body: [
+            nock(config.services.validation.url.replace('/validate', ''))
+                .post(config.documentUpload.paths.upload)
+                .reply(200, [
                     'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
-                ]
-            }));
+                ]);
 
             testWrapper.agent
                 .post(testWrapper.pageUrl)
@@ -65,7 +64,6 @@ describe('document-upload', () => {
                 .expect('location', testWrapper.pageUrl)
                 .expect(302)
                 .then(() => {
-                    uploadDocumentStub.restore();
                     done();
                 })
                 .catch(done);

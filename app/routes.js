@@ -12,6 +12,7 @@ const documentDownload = require('app/documentDownload');
 const setJourney = require('app/middleware/setJourney');
 const FormData = require('app/services/FormData');
 const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
+const ServiceMapper = require('app/utils/ServiceMapper');
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
@@ -36,8 +37,13 @@ router.use((req, res, next) => {
 });
 
 router.get('/', (req, res) => {
-    const formData = new FormData(config.services.persistence.url, req.session.form.journeyType, req.sessionID);
-    formData.get(req.session.regId)
+    const formData = ServiceMapper.map(
+        'FormData',
+        [config.services.persistence.url, req.sessionID],
+        req.session.form.journeyType
+    );
+    formData
+        .get(req.session.regId)
         .then(result => {
             if (result.name === 'Error') {
                 req.log.debug('Failed to load user data');
@@ -110,7 +116,7 @@ router.use((req, res, next) => {
         formdata.executors.invitesSent === 'true' &&
         get(formdata, 'declaration.declarationCheckbox')
     ) {
-        const allExecutorsAgreed = new AllExecutorsAgreed(config.services.validation.url, req.session.form.journeyType, req.sessionID);
+        const allExecutorsAgreed = new AllExecutorsAgreed(config.services.validation.url, req.sessionID);
         allExecutorsAgreed.get(req.session.regId)
             .then(data => {
                 req.session.haveAllExecutorsDeclared = data;

@@ -2,19 +2,17 @@
 
 const FormatUrl = require('app/utils/FormatUrl');
 const config = require('../config');
-const services = require('app/components/services');
 const logger = require('app/components/logger')('Init');
 const URL = require('url');
 const UUID = require('uuid/v4');
 const commonContent = require('app/resources/en/translation/common');
 const IdamSession = require('app/services/IdamSession');
-
-const SECURITY_COOKIE = '__auth-token-' + config.payloadVersion;
+const Oauth2Token = require('app/services/Oauth2Token');
+const SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
 const REDIRECT_COOKIE = '__redirect';
 const ACCESS_TOKEN_OAUTH2 = 'access_token';
 
 class Security {
-
     constructor(loginUrl) {
         if (!loginUrl) {
             throw new Error('login URL required for Security');
@@ -23,10 +21,9 @@ class Security {
     }
 
     protect(authorisedRoles) {
-
         const self = this;
 
-        return function (req, res, next) {
+        return (req, res, next) => {
 
             let securityCookie;
             if (req.cookies) {
@@ -35,7 +32,7 @@ class Security {
 
             // Retrieve user details
             if (securityCookie) {
-                const idamSession = new IdamSession(config.services.idam.apiUrl, req.session.form.journeyType, req.sessionID);
+                const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
                 idamSession
                     .get(securityCookie)
                     .then(response => {
@@ -96,7 +93,7 @@ class Security {
 
     oAuth2CallbackEndpoint() {
         const self = this;
-        return function (req, res) {
+        return (req, res) => {
 
             const redirectInfo = self._getRedirectCookie(req);
 
@@ -107,7 +104,7 @@ class Security {
                 logger.warn('No code received');
                 res.redirect(redirectInfo.continue_url);
             } else if (redirectInfo.state !== req.query.state) {
-                logger.error('States do not match: ' + redirectInfo.state + ' is not ' + req.query.state);
+                logger.error(`States do not match: ${redirectInfo.state} is not ${req.query.state}`);
                 self._denyAccess(res);
             } else {
                 self._getTokenFromCode(req)
@@ -132,7 +129,9 @@ class Security {
     _getTokenFromCode(req) {
         const hostname = FormatUrl.createHostname(req);
         const redirectUri = FormatUrl.format(hostname, config.services.idam.probate_oauth_callback_path);
-        return services.getOauth2Token(req.query.code, redirectUri);
+        const journeyType = (req.session.form && req.session.form.journeyType) || 'probate';
+        const oauth2Token = new Oauth2Token(config.services.idam.apiUrl, journeyType, req.sessionID);
+        return oauth2Token.post(req.query.code, redirectUri);
     }
 
     _getRedirectCookie(req) {

@@ -26,7 +26,7 @@ class AddressLookup extends ValidationStep {
         referrerData = this.pruneReferrerData(referrerData);
         referrerData.postcode = ctx.postcode;
         if (isEmpty(errors)) {
-            const postcodeAddress = new PostcodeAddress(config.services.postcode.url, req.session.form.journeyType, req.sessionID);
+            const postcodeAddress = new PostcodeAddress(config.services.postcode.url, req.sessionID);
             const addresses = yield postcodeAddress.get(ctx.postcode);
             if (!isEmpty(addresses)) {
                 referrerData.addresses = addresses;

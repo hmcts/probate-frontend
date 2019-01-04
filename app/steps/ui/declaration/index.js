@@ -176,7 +176,7 @@ class Declaration extends ValidationStep {
 
     resetAgreedFlags(ctx) {
         const data = {agreed: null};
-        const inviteData = new InviteData(config.services.persistence.url, ctx.journeyType, ctx.sessionID);
+        const inviteData = new InviteData(config.services.persistence.url, ctx.sessionID);
         const promises = ctx.executorsWrapper
             .executorsInvited()
             .map(exec => inviteData.patch(exec.inviteId, data));

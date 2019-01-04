@@ -5,11 +5,10 @@ const FieldError = require('app/components/error');
 const logger = require('app/components/logger')('Init');
 const RedirectRunner = require('app/core/runners/RedirectRunner');
 const {get, set} = require('lodash');
-const CcdCasePaymentStatus = require('app/services/CcdCasePaymentStatus');
 const config = require('app/config');
-const FormData = require('app/services/FormData');
 const Payment = require('app/services/Payment');
 const Authorise = require('app/services/Authorise');
+const ServiceMapper = require('app/utils/ServiceMapper');
 
 class PaymentStatus extends Step {
 
@@ -51,10 +50,14 @@ class PaymentStatus extends Step {
 
     * runnerOptions(ctx, formdata) {
         const options = {};
-        const formData = new FormData(config.services.persistence.url, ctx.journeyType, ctx.sessionID);
+        const formData = ServiceMapper.map(
+            'FormData',
+            [config.services.persistence.url, ctx.sessionID],
+            ctx.journeyType
+        );
 
         if (formdata.paymentPending === 'true' || formdata.paymentPending === 'unknown') {
-            const authorise = new Authorise(`${config.services.idam.s2s_url}/lease`, ctx.journeyType, ctx.sessionID);
+            const authorise = new Authorise(`${config.services.idam.s2s_url}/lease`, ctx.sessionID);
             const serviceAuthResult = yield authorise.post();
 
             if (serviceAuthResult.name === 'Error') {
@@ -71,7 +74,7 @@ class PaymentStatus extends Step {
                 paymentId: ctx.paymentId
             };
 
-            const payment = new Payment(config.services.payment.createPaymentUrl, ctx.journeyType, ctx.sessionID);
+            const payment = new Payment(config.services.payment.createPaymentUrl, ctx.sessionID);
             const getPaymentResponse = yield payment.get(data);
             logger.info('Payment retrieval in status for paymentId = ' + ctx.paymentId + ' with response = ' + JSON.stringify(getPaymentResponse));
             const date = typeof getPaymentResponse.date_updated === 'undefined' ? ctx.paymentCreatedDate : getPaymentResponse.date_updated;
@@ -121,7 +124,11 @@ class PaymentStatus extends Step {
         const submitData = {};
         Object.assign(submitData, formdata);
         let errors;
-        const ccdCasePaymentStatus = new CcdCasePaymentStatus(config.services.submit.url, ctx.journeyType, ctx.sessionID);
+        const ccdCasePaymentStatus = ServiceMapper.map(
+            'CcdCasePaymentStatus',
+            [config.services.submit.url, ctx.sessionID],
+            ctx.journeyType
+        );
         const result = yield ccdCasePaymentStatus.post(submitData, ctx);
 
         if (!result.caseState) {

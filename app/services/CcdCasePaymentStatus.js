@@ -1,20 +1,17 @@
 'use strict';
 
 const Service = require('./Service');
-const submitData = require('app/components/submit-data');
 
 class CcdCasePaymentStatus extends Service {
-    post(data, ctx) {
-        this.log('Post ccd case payment status');
-        const url = `${this.endpoint}/updatePaymentStatus`;
+    post(ctx, logMessage, url, bodyData) {
+        this.log(logMessage);
         const headers = {
             'Content-Type': 'application/json',
             'Session-Id': ctx.sessionID,
             'Authorization': ctx.authToken,
             'UserId': ctx.userId
         };
-        const body = submitData(ctx, data);
-        const fetchOptions = this.fetchOptions({submitdata: body}, 'POST', headers);
+        const fetchOptions = this.fetchOptions(bodyData, 'POST', headers);
         return this.fetchJson(url, fetchOptions);
     }
 }

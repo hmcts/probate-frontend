@@ -6,12 +6,12 @@ const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const co = require('co');
 const submitResponse = require('test/data/send-to-submit-service');
-<<<<<<< HEAD
 const journey = require('app/journeys/probate');
-=======
 const rewire = require('rewire');
 const PaymentBreakdown = rewire('app/steps/ui/payment/breakdown/index');
->>>>>>> PRI-114: WIP
+const config = require('app/config');
+const nock = require('nock');
+const sinon = require('sinon');
 
 describe('PaymentBreakdown', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
@@ -82,21 +82,21 @@ describe('PaymentBreakdown', () => {
                 save: () => true
             };
             revertAuthorise = PaymentBreakdown.__set__({
-                SubmitData: class {
-                    post() {
-                        return Promise.resolve(submitResponse);
-                    }
-                },
                 Authorise: class {
                     post() {
                         return Promise.resolve({name: 'Success'});
                     }
                 }
             });
+
+            nock(config.services.submit.url)
+                .post('/submit')
+                .reply(200, submitResponse);
         });
 
         afterEach(() => {
             revertAuthorise();
+            nock.cleanAll();
         });
 
         it('sets paymentPending to false if ctx.total = 0', (done) => {
@@ -115,6 +115,11 @@ describe('PaymentBreakdown', () => {
         });
 
         it('sets nextStepUrl to payment-status if paymentPending is unknown', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
             let ctx = {total: 1};
             let errors = [];
             const formdata = {paymentPending: 'unknown'};
@@ -139,7 +144,7 @@ describe('PaymentBreakdown', () => {
                 const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
                 expect(formdata).to.deep.equal(expectedFormdata);
                 expect(ctx).to.deep.equal(ctxTestData);
-                expect(errors).to.equal(errorsTestData);
+                expect(errors).to.deep.equal(errorsTestData);
                 done();
             }).catch((err) => {
                 done(err);
@@ -174,7 +179,7 @@ describe('PaymentBreakdown', () => {
             co(function* () {
                 const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
                 expect(formdata).to.deep.equal(expectedFormdata);
-                expect(errors).to.equal(errorsTestData);
+                expect(errors).to.deep.equal(errorsTestData);
                 expect(ctx).to.deep.equal({
                     total: 215,
                     paymentId: 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
@@ -216,7 +221,7 @@ describe('PaymentBreakdown', () => {
             co(function* () {
                 const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
                 expect(formdata).to.deep.equal(expectedFormdata);
-                expect(errors).to.equal(errorsTestData);
+                expect(errors).to.deep.equal(errorsTestData);
                 expect(ctx).to.deep.equal({
                     total: 215,
                     paymentId: 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
@@ -231,13 +236,19 @@ describe('PaymentBreakdown', () => {
         });
 
         it('if sendToSubmitService returns DUPLICATE_SUBMISSION', (done) => {
-            const revert = PaymentBreakdown.__set__({
-                SubmitData: class {
-                    post() {
-                        return Promise.resolve('DUPLICATE_SUBMISSION');
-                    }
-                }
-            });
+            const stub = sinon
+                .stub(PaymentBreakdown.prototype, 'sendToSubmitService')
+                .returns([
+                    'DUPLICATE_SUBMISSION',
+                    [{
+                        param: 'submit',
+                        msg: {
+                            summary: 'Your application has been submitted, please return to the tasklist to continue',
+                            message: 'payment.breakdown.errors.submit.duplicate.message'
+                        }
+                    }]
+                ]);
+
             const formdata = {
                 creatingPayment: 'true'
             };
@@ -253,7 +264,7 @@ describe('PaymentBreakdown', () => {
                         message: 'payment.breakdown.errors.submit.duplicate.message'
                     }
                 }]);
-                revert();
+                stub.restore();
                 done();
             }).catch((err) => {
                 done(err);
@@ -281,7 +292,7 @@ describe('PaymentBreakdown', () => {
                 const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
                 expect(formdata).to.deep.equal(expectedFormdata);
                 expect(ctx).to.deep.equal(ctxTestData);
-                expect(errors).to.equal(errorsTestData);
+                expect(errors).to.deep.equal(errorsTestData);
                 revert();
                 done();
             }).catch((err) => {
@@ -310,7 +321,7 @@ describe('PaymentBreakdown', () => {
                 const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
                 expect(formdata).to.deep.equal(expectedFormdata);
                 expect(ctx).to.deep.equal(ctxTestData);
-                expect(errors).to.equal(errorsTestData);
+                expect(errors).to.deep.equal(errorsTestData);
                 revert();
                 done();
             }).catch((err) => {

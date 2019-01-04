@@ -6,9 +6,10 @@ const {URLSearchParams} = require('url');
 class Oauth2Token extends Service {
     post(code, redirectUri) {
         this.log('Post oauth2 token');
-        const clientName = this.config.services.idam.probate_oauth2_client;
-        const secret = this.config.services.idam.probate_oauth2_secret;
-        const url = `${this.endpoint}/oauth2/token`;
+        const idamConfig = this.config.services.idam;
+        const clientName = idamConfig.probate_oauth2_client;
+        const secret = idamConfig.probate_oauth2_secret;
+        const url = this.endpoint + idamConfig.probate_oauth_token_path;
         const headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': `Basic ${new Buffer(`${clientName}:${secret}`).toString('base64')}`

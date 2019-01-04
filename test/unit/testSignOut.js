@@ -2,17 +2,30 @@
 
 const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
-const sinon = require('sinon');
-const when = require('when');
-const services = require('app/components/services');
+const rewire = require('rewire');
+const SignOut = rewire('app/steps/ui/signout/index');
 
 describe('Sign-Out', function () {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
-    const signOut = steps.SignOut;
+    let section;
+    let templatePath;
+    let i18next;
+    let schema;
 
     it('test authToken, cookies and session data have been removed from the session', (done) => {
-        const signOutStub = sinon.stub(services, 'signOut');
-        signOutStub.returns(when(200));
+        const revert = SignOut.__set__('IdamSession', class {
+            delete() {
+                return Promise.resolve(200);
+            }
+        });
+
+        section = 'applicant';
+        templatePath = 'addressLookup';
+        i18next = {};
+        schema = {
+            $schema: 'http://json-schema.org/draft-04/schema#',
+            properties: {}
+        };
 
         const req = {
             cookies: {
@@ -34,17 +47,19 @@ describe('Sign-Out', function () {
                 applicantID: 'test@email.com'
             },
         };
+        const signOut = new SignOut(steps, section, templatePath, i18next, schema);
 
         signOut.getContextData(req).then(() => {
             assert.isUndefined(req.cookies);
             assert.isUndefined(req.sessionID);
             assert.isUndefined(req.session);
             assert.isUndefined(req.sessionStore);
+            revert();
             done();
         });
     });
 
     it('test correct url is returned from getUrl function', () => {
-        assert.equal(signOut.constructor.getUrl(), '/sign-out');
+        assert.equal(SignOut.getUrl(), '/sign-out');
     });
 });

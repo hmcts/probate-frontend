@@ -25,7 +25,7 @@ class UpdateExecutorInvite {
                         leadExecutorName: FormatName.format(formdata.applicant)
                     }
                 };
-                const inviteLink = new InviteLink(config.services.validation.url, session.form.journeyType, session.id);
+                const inviteLink = new InviteLink(config.services.validation.url, session.id);
                 return inviteLink.post(data, exec);
             });
         return Promise.all(promises).then(result => {

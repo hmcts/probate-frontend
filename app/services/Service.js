@@ -37,6 +37,10 @@ class Service {
         logger(sessionId).info(message);
     }
 
+    replaceEmailInPath(path, email) {
+        return path.replace('{applicantEmail}', email);
+    }
+
     fetchJson(url, fetchOptions) {
         return asyncFetch
             .fetch(url, fetchOptions, res => res.json())

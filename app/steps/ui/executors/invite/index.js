@@ -36,7 +36,7 @@ class ExecutorsInvite extends ValidationStep {
                         leadExecutorName: FormatName.format(formdata.applicant)
                     }
                 };
-                const inviteLink = new InviteLink(config.services.validation.url, ctx.journeyType, ctx.sessionID);
+                const inviteLink = new InviteLink(config.services.validation.url, ctx.sessionID);
                 return inviteLink.post(data, exec).then(result => {
                     if (result.name === 'Error') {
                         throw new ReferenceError('Error while sending co-applicant invitation email.');

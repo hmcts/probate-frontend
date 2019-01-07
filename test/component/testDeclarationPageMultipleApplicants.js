@@ -79,7 +79,6 @@ describe('declaration, multiple applicants', () => {
                 'applicantName-multipleApplicants-alias-codicils',
                 'applicantSign',
                 'applicantSign-codicils',
-                'applicantSign-multipleApplicants-codicils',
                 'applicantSign-multipleApplicants-mainApplicant-codicils',
                 'declarationConfirm',
                 'declarationRequests',
@@ -137,7 +136,6 @@ describe('declaration, multiple applicants', () => {
                 'applicantName-multipleApplicants-alias-codicils',
                 'applicantSign',
                 'applicantSign-codicils',
-                'applicantSign-multipleApplicants',
                 'applicantSign-multipleApplicants-mainApplicant',
                 'declarationConfirm',
                 'declarationRequests',
@@ -190,7 +188,6 @@ describe('declaration, multiple applicants', () => {
                 'applicantName-multipleApplicants-alias-codicils',
                 'applicantSign',
                 'applicantSign-codicils',
-                'applicantSign-multipleApplicants',
                 'applicantSign-multipleApplicants-mainApplicant',
                 'declarationConfirm',
                 'declarationRequests',
@@ -247,7 +244,6 @@ describe('declaration, multiple applicants', () => {
                 'applicantName-multipleApplicants-alias-codicils',
                 'applicantSign',
                 'applicantSign-codicils',
-                'applicantSign-multipleApplicants-codicils',
                 'applicantSign-multipleApplicants-mainApplicant-codicils',
                 'declarationConfirm',
                 'declarationRequests',
@@ -302,7 +298,6 @@ describe('declaration, multiple applicants', () => {
                 'applicantName-multipleApplicants-mainApplicant-codicils',
                 'applicantSign',
                 'applicantSign-codicils',
-                'applicantSign-multipleApplicants',
                 'applicantSign-multipleApplicants-mainApplicant',
                 'declarationConfirm',
                 'declarationRequests',
@@ -353,7 +348,6 @@ describe('declaration, multiple applicants', () => {
                 'applicantName-multipleApplicants-alias',
                 'applicantSign',
                 'applicantSign-codicils',
-                'applicantSign-multipleApplicants',
                 'applicantSign-multipleApplicants-mainApplicant',
                 'declarationConfirm',
                 'declarationRequests',
@@ -411,7 +405,6 @@ describe('declaration, multiple applicants', () => {
                 'applicantName-multipleApplicants-alias-codicils',
                 'applicantSign',
                 'applicantSign-codicils',
-                'applicantSign-multipleApplicants-codicils',
                 'applicantSign-multipleApplicants-mainApplicant-codicils',
                 'declarationConfirm',
                 'declarationRequests',
@@ -465,7 +458,6 @@ describe('declaration, multiple applicants', () => {
                 'applicantName-multipleApplicants-alias-codicils',
                 'applicantSign',
                 'applicantSign-codicils',
-                'applicantSign-multipleApplicants-codicils',
                 'applicantSign-multipleApplicants-mainApplicant-codicils',
                 'declarationConfirm',
                 'declarationRequests',
@@ -511,11 +503,9 @@ describe('declaration, multiple applicants', () => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
                             assert(response.text.includes('Bob Smith, an executor named in the will or codicils as Bob Alias, is applying for probate. Their name is different because Bob Smith got divorced.'));
-                            assert(response.text.includes('Bob Smith will sign and send to the probate registry what they believe to be the true and original last will and testament and any codicils of Someone Else.'));
+                            assert(response.text.includes('Bob Smith will send to the probate registry what they believe to be the true and original last will and testament and any codicils of Someone Else.'));
                             assert(response.text.includes('fname1 sname1, an executor named in the will or codicils, is applying for probate.'));
-                            assert(response.text.includes('fname1 sname1 will sign a photocopy of what they believe to be the true and original last will and testament and any codicils of Someone Else. Bob Smith will send the signed photocopy to the probate registry.'));
                             assert(response.text.includes('fname4 sname4, an executor named in the will or codicils, is applying for probate.'));
-                            assert(response.text.includes('fname4 sname4 will sign a photocopy of what they believe to be the true and original last will and testament and any codicils of Someone Else. Bob Smith will send the signed photocopy to the probate registry.'));
                             done();
                         })
                         .catch(err => {
@@ -538,11 +528,9 @@ describe('declaration, multiple applicants', () => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
                             assert(response.text.includes('Bob Smith, an executor named in the will as Bob Alias, is applying for probate. Their name is different because Bob Smith got divorced.'));
-                            assert(response.text.includes('Bob Smith will sign and send to the probate registry what they believe to be the true and original last will and testament of Someone Else.'));
+                            assert(response.text.includes('Bob Smith will send to the probate registry what they believe to be the true and original last will and testament of Someone Else.'));
                             assert(response.text.includes('fname1 sname1, an executor named in the will, is applying for probate.'));
-                            assert(response.text.includes('fname1 sname1 will sign a photocopy of what they believe to be the true and original last will and testament of Someone Else. Bob Smith will send the signed photocopy to the probate registry.'));
                             assert(response.text.includes('fname4 sname4, an executor named in the will, is applying for probate.'));
-                            assert(response.text.includes('fname4 sname4 will sign a photocopy of what they believe to be the true and original last will and testament of Someone Else. Bob Smith will send the signed photocopy to the probate registry.'));
                             done();
                         })
                         .catch(err => {
@@ -564,11 +552,9 @@ describe('declaration, multiple applicants', () => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
                             assert(response.text.includes('Bob Smith, an executor named in the will or codicils as Bob Alias, is applying for probate. Their name is different because Bob Smith got divorced.'));
-                            assert(response.text.includes('Bob Smith will sign and send to the probate registry what they believe to be the true and original last will and testament and any codicils of Someone Else.'));
+                            assert(response.text.includes('Bob Smith will send to the probate registry what they believe to be the true and original last will and testament and any codicils of Someone Else.'));
                             assert(response.text.includes('fname1other sname1other, an executor named in the will or codicils as fname1 sname1, is applying for probate. Their name is different because fname1other sname1other got divorced.'));
-                            assert(response.text.includes('fname1other sname1other will sign a photocopy of what they believe to be the true and original last will and testament and any codicils of Someone Else. Bob Smith will send the signed photocopy to the probate registry.'));
                             assert(response.text.includes('fname4 sname4, an executor named in the will or codicils, is applying for probate.'));
-                            assert(response.text.includes('fname4 sname4 will sign a photocopy of what they believe to be the true and original last will and testament and any codicils of Someone Else. Bob Smith will send the signed photocopy to the probate registry.'));
                             done();
                         })
                         .catch(err => {
@@ -594,11 +580,9 @@ describe('declaration, multiple applicants', () => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
                             assert(response.text.includes('Bob Smith, an executor named in the will or codicils as Bob Alias, is applying for probate. Their name is different because Bob Smith got divorced.'));
-                            assert(response.text.includes('Bob Smith will sign and send to the probate registry what they believe to be the true and original last will and testament and any codicils of Someone Else.'));
+                            assert(response.text.includes('Bob Smith will send to the probate registry what they believe to be the true and original last will and testament and any codicils of Someone Else.'));
                             assert(response.text.includes('fname1other sname1other, an executor named in the will or codicils as fname1 sname1, is applying for probate. Their name is different because fname1other sname1other got divorced.'));
-                            assert(response.text.includes('fname1other sname1other will sign a photocopy of what they believe to be the true and original last will and testament and any codicils of Someone Else. Bob Smith will send the signed photocopy to the probate registry.'));
                             assert(response.text.includes('dave buster, an executor named in the will or codicils as fname4 sname4, is applying for probate. Their name is different because dave buster: they felt like it.'));
-                            assert(response.text.includes('dave buster will sign a photocopy of what they believe to be the true and original last will and testament and any codicils of Someone Else. Bob Smith will send the signed photocopy to the probate registry.'));
                             done();
                         })
                         .catch(err => {
@@ -620,11 +604,9 @@ describe('declaration, multiple applicants', () => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
                             assert(response.text.includes('Bob Smith, an executor named in the will as Bob Alias, is applying for probate. Their name is different because Bob Smith got divorced.'));
-                            assert(response.text.includes('Bob Smith will sign and send to the probate registry what they believe to be the true and original last will and testament of Someone Else.'));
+                            assert(response.text.includes('Bob Smith will send to the probate registry what they believe to be the true and original last will and testament of Someone Else.'));
                             assert(response.text.includes('fname1other sname1other, an executor named in the will as fname1 sname1, is applying for probate. Their name is different because fname1other sname1other got married.'));
-                            assert(response.text.includes('fname1other sname1other will sign a photocopy of what they believe to be the true and original last will and testament of Someone Else. Bob Smith will send the signed photocopy to the probate registry.'));
                             assert(response.text.includes('fname4 sname4, an executor named in the will, is applying for probate.'));
-                            assert(response.text.includes('fname4 sname4 will sign a photocopy of what they believe to be the true and original last will and testament of Someone Else. Bob Smith will send the signed photocopy to the probate registry.'));
                             done();
                         })
                         .catch(err => {
@@ -650,11 +632,9 @@ describe('declaration, multiple applicants', () => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
                             assert(response.text.includes('Bob Smith, an executor named in the will as Bob Alias, is applying for probate. Their name is different because Bob Smith got divorced.'));
-                            assert(response.text.includes('Bob Smith will sign and send to the probate registry what they believe to be the true and original last will and testament of Someone Else.'));
+                            assert(response.text.includes('Bob Smith will send to the probate registry what they believe to be the true and original last will and testament of Someone Else.'));
                             assert(response.text.includes('fname1other sname1other, an executor named in the will as fname1 sname1, is applying for probate. Their name is different because fname1other sname1other got divorced.'));
-                            assert(response.text.includes('fname1other sname1other will sign a photocopy of what they believe to be the true and original last will and testament of Someone Else. Bob Smith will send the signed photocopy to the probate registry.'));
                             assert(response.text.includes('dave buster, an executor named in the will as fname4 sname4, is applying for probate. Their name is different because dave buster: they felt like it.'));
-                            assert(response.text.includes('dave buster will sign a photocopy of what they believe to be the true and original last will and testament of Someone Else. Bob Smith will send the signed photocopy to the probate registry.'));
                             done();
                         })
                         .catch(err => {

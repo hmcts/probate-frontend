@@ -183,9 +183,9 @@ spec:
         - containerPort: 8580
           name: http
         imagePullPolicy: Always
-#    dnsConfig:
-#      options:
-#      - name: single-request-reopen
+      dnsConfig:
+        options:
+          - name: single-request-reopen
 ---
 apiVersion: v1
 kind: Service

@@ -18,6 +18,16 @@ variable "env" {
   type = "string"
 }
 
+variable "website_local_cache_option" {
+  type = "string"
+  default = "Never"
+}
+
+variable "website_local_cache_sizeinmb" {
+  type = "string"
+  default = "0"
+}
+
 variable "ilbIp" { }
 
 variable "deployment_env" {

@@ -11,7 +11,10 @@ class DeceasedAddress extends AddressStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'screening_questions');
+        const isDocumentUploadToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'document_upload');
+        ctx.isScreeningQuestionsToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'screening_questions');
+        ctx.isDocumentUploadToggleEnabled = ctx.isScreeningQuestionsToggleEnabled && isDocumentUploadToggleEnabled;
+
         return ctx;
     }
 

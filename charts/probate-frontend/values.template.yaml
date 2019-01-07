@@ -54,8 +54,8 @@ redis:
 
   ## Cluster settings
   cluster:
-    enabled: true
-    slaveCount: 2
+    enabled: false
+    slaveCount: 0
 
   networkPolicy:
     ## Specifies whether a NetworkPolicy should be created

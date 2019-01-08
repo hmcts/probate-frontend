@@ -23,7 +23,7 @@ class Summary extends Step {
         return `/summary/${redirect}`;
     }
 
-    * handleGet(ctx, formdata, featureToggles, req) {
+    * handleGet(ctx, formdata, featureToggles) {
         const result = yield this.validateFormData(ctx, formdata);
         const errors = map(result.errors, err => {
             return FieldError(err.param, err.code, this.resourcePath, ctx);
@@ -39,7 +39,7 @@ class Summary extends Step {
         ctx.isDocumentUploadToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'document_upload');
         ctx.executorsWithOtherNames = executorsWrapper.executorsWithAnotherName().map(exec => exec.fullName);
 
-        utils.updateTaskStatus(ctx, req, this.steps);
+        utils.updateTaskStatus(ctx, ctx, this.steps);
 
         return [ctx, !isEmpty(errors) ? errors : null];
     }

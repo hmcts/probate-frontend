@@ -49,6 +49,8 @@ module.exports = {
         url: process.env.TEST_VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
     },
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
+    TestReformProxy: 'http://proxyout.reform.hmcts.net:8080',
+    TestInjectFormDataURL: 'http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata',
     TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS || 'test.probate.inbox@gmail.com',
     TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER || '07952626390',
     s2sStubErrorSequence: '000',

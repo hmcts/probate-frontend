@@ -1,7 +1,7 @@
 const testConfig = require('test/config.js');
 
 exports.config = {
-    'tests': './paths/cancelMultipleAdditionalExecutors.js',
+    'tests': './paths/**/*.js',
     'output': './output',
     'helpers': {
         'Puppeteer': {
@@ -52,3 +52,5 @@ exports.config = {
     },
     'name': 'Codecept Tests'
 };
+
+    'tests': './paths/cancelMultipleAdditionalExecutors.js',

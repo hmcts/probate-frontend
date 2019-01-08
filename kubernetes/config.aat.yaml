@@ -13,7 +13,7 @@ data:
   PAYMENT_CREATE_URL: 'http://payment-api-aat.service.core-compute-aat.internal/card-payments'
   VALIDATION_SERVICE_URL: 'http://probate-business-service-aat.service.core-compute-aat.internal/validate'
   BUSINESS_DOCUMENT_URL: 'http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument'
-  SUBMIT_SERVICE_URL: 'https://probate-submit-service-pr-115.service.core-compute-preview.internal'
+  SUBMIT_SERVICE_URL: 'http://probate-submit-service-pr-115.service.core-compute-preview.internal'
   PERSISTENCE_SERVICE_URL: 'http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata'
   REFORM_ENVIRONMENT : 'aat'
 #  FEES_URL: 'http://fees-register-api-aat.service.core-compute-aat.internal'

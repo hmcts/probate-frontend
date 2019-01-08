@@ -55,6 +55,15 @@ module.exports = {
 
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
 
+    TestNewUserForename: 'testAAT24',
+    TestNewUserSurname: 'testmail1251',
+    TestNewUserPassword: 'Probate123',
+    TestNewUserGroupName: 'probate-private-beta',
+
+    TestCreateUserURL: 'https://preprod-idamapi.reform.hmcts.net:3511/testing-support/accounts',
+    TestReformProxy: 'http://proxyout.reform.hmcts.net:8080',
+    TestInjectFormDataURL: 'http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata',
+
     TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS,
     TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER,
     s2sStubErrorSequence: '000',

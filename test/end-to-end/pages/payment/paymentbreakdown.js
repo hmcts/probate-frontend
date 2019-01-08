@@ -3,10 +3,14 @@
 const pageUnderTest = require('app/steps/ui/payment/breakdown/index');
 const paymentBreakdownContent = require('app/resources/en/translation/payment/breakdown');
 
-module.exports = function (noUKCopies, noOverseasCopies, estateNetValue) {
+module.exports = function (noUKCopies, noOverseasCopies, estateNetValue, isFailed) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    if (!isFailed) {
+        I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    } else {
+        I.seeCurrentUrlEquals('/payment-breakdown?status=failure');
+    }
 
     I.see(paymentBreakdownContent.heading);
     I.see(paymentBreakdownContent.applicationFee);

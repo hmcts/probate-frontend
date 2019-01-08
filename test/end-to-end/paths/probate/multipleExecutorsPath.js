@@ -108,7 +108,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         diedBefore = !diedBefore;
     });
 
-    I.selectExecutorsApplying();
+    I.selectExecutorsApplying('Yes');
 
     const executorsApplyingList = ['3', '5'];
     I.selectExecutorsDealingWithEstate(executorsApplyingList);

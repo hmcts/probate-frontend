@@ -42,3 +42,33 @@ Data(TestConfigurator.createFeeInfoTable()).Scenario('Check multiple application
     // Thank You - Application Complete Task
     I.seeCurrentUrlEquals('https://probate-frontend-aat.service.core-compute-aat.internal/thankyou');
 });
+
+Data(TestConfigurator.createFeeInfoTableFor1Copy()).Scenario('Check can pay after cancel payment', function* (I, current) {
+    data.copies.uk = current.noUKCopies;
+    data.copies.overseas = current.noOverseasCopies;
+    data.iht.grossValue = current.grossValue;
+    data.iht.netValue = current.netValue;
+
+    TestConfigurator.injectFormData(data, emailId);
+
+    I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');
+    I.signInWith(emailId, 'Probate123');
+
+    //PaymentTask
+    I.selectATask(taskListContent.taskNotStarted);
+    I.seePaymentBreakdownPage(current.noUKCopies, current.noOverseasCopies, current.netValue, false);
+    I.click('Cancel payment');
+    I.waitForNavigation();
+    I.click('Continue');
+    I.waitForNavigation();
+    I.seePaymentBreakdownPage(current.noUKCopies, current.noOverseasCopies, current.netValue, true);
+    I.seeGovUkPaymentPage();
+    I.seeGovUkConfirmPage();
+    I.seePaymentStatusPage();
+
+    // Send Documents Task
+    I.seeDocumentsPage();
+
+    // Thank You - Application Complete Task
+    I.seeCurrentUrlEquals('https://probate-frontend-aat.service.core-compute-aat.internal/thankyou');
+});

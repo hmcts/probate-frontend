@@ -13,12 +13,12 @@ describe('Summary', () => {
     describe('handleGet()', () => {
 
         let validateFormDataStub;
-        let req;
         let featureToggles;
+        let ctx;
 
         beforeEach(() => {
             validateFormDataStub = sinon.stub(services, 'validateFormData');
-            req = {
+            ctx = {
                 session: {
                     form: {},
                     journey: journey
@@ -35,11 +35,10 @@ describe('Summary', () => {
             const expectedResponse = ['Prince', 'Cher'];
             validateFormDataStub.returns(when(expectedResponse));
 
-            let ctx = {session: {form: {}}};
             const formdata = {executors: {list: [{fullName: 'Prince', hasOtherName: true}, {fullName: 'Cher', hasOtherName: true}]}};
 
             co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles, req);
+                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
                 assert.deepEqual(ctx.executorsWithOtherNames, expectedResponse);
                 done();
             });
@@ -49,11 +48,10 @@ describe('Summary', () => {
             const expectedResponse = [];
             validateFormDataStub.returns(when(expectedResponse));
 
-            let ctx = {session: {form: {}}};
             const formdata = {executors: {list: [{fullName: 'Prince', hasOtherName: false}, {fullName: 'Cher', hasOtherName: false}]}};
 
             co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles, req);
+                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
                 assert.deepEqual(ctx.executorsWithOtherNames, expectedResponse);
                 done();
             });
@@ -63,11 +61,10 @@ describe('Summary', () => {
             const expectedResponse = [];
             validateFormDataStub.returns(when(expectedResponse));
 
-            let ctx = {session: {form: {}}};
             const formdata = {executors: {list: []}};
 
             co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles, req);
+                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
                 assert.deepEqual(ctx.executorsWithOtherNames, expectedResponse);
                 done();
             });
@@ -77,7 +74,6 @@ describe('Summary', () => {
             const expectedResponse = true;
             validateFormDataStub.returns(when(expectedResponse));
 
-            let ctx = {session: {form: {}}};
             const formdata = {executors: {list: []}};
             const featureToggles = {
                 screening_questions: true,
@@ -85,7 +81,7 @@ describe('Summary', () => {
             };
 
             co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles, req);
+                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
                 assert.equal(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
                 assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
                 done();
@@ -96,7 +92,6 @@ describe('Summary', () => {
             const expectedResponse = false;
             validateFormDataStub.returns(when(expectedResponse));
 
-            let ctx = {session: {form: {}}};
             const formdata = {executors: {list: []}};
             const featureToggles = {
                 screening_questions: false,
@@ -104,7 +99,7 @@ describe('Summary', () => {
             };
 
             co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles, req);
+                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
                 assert.equal(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
                 assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
                 done();

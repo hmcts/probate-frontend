@@ -3,7 +3,7 @@
 const pageUnderTest = require('app/steps/ui/payment/breakdown/index');
 const paymentBreakdownContent = require('app/resources/en/translation/payment/breakdown');
 
-module.exports = function (noUKCopies, noOverseasCopies, estateNetValue) {
+module.exports = function (noUKCopies, noOverseasCopies, estateNetValue, isFailed) {
     const I = this;
 
     if (!isFailed) {

@@ -80,5 +80,9 @@ module.exports = {
     helpline: {
         number: '0300 303 0648',
         hours: 'Monday to Friday, 9:30am to 5pm'
-    }
+    },
+
+    pact: {
+        pactBrokerUrl: process.env.PACT_BROKER_URL || 'http://localhost:80'
+    },
 };

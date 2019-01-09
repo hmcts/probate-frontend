@@ -62,11 +62,6 @@ describe('PaymentStatus', () => {
                 post() {
                     return Promise.resolve({});
                 }
-            },
-            CcdCasePaymentStatus: class {
-                post() {
-                    return Promise.resolve({'caseState': 'CaseCreated'});
-                }
             }
         });
         expectedFormData = {

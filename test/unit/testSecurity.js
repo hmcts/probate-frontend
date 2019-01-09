@@ -3,10 +3,10 @@
 const chai = require('chai');
 const sinon = require('sinon');
 const when = require('when');
-const expect = chai.expect;
 const sinonChai = require('sinon-chai');
 const rewire = require('rewire');
 const Security = rewire('app/components/security');
+const expect = chai.expect;
 
 chai.use(sinonChai);
 

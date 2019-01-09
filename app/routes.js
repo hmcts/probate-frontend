@@ -10,7 +10,6 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const documentUpload = require('app/documentUpload');
 const documentDownload = require('app/documentDownload');
 const setJourney = require('app/middleware/setJourney');
-const FormData = require('app/services/FormData');
 const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
 const ServiceMapper = require('app/utils/ServiceMapper');
 

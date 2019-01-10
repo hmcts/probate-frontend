@@ -4,7 +4,7 @@ const utils = require('app/components/api-utils');
 const config = require('app/config');
 const services = require('app/components/services');
 const FormatUrl = require('app/utils/FormatUrl');
-const VALIDATION_SERVICE_URL = config.services.validation.url;
+const validationServiceUrl = config.services.validation.url;
 const logger = require('app/components/logger');
 const Authorise = require('app/services/Authorise');
 const logInfo = (message, sessionId = 'Init') => logger(sessionId).info(message);
@@ -18,7 +18,7 @@ const createCheckAnswersPdf = (formdata, sessionId) => {
             const body = {
                 checkAnswersSummary: formdata.checkAnswersSummary
             };
-            return createPDFDocument(formdata, serviceToken, body, 'generateCheckAnswersSummaryPDF');
+            return createPDFDocument(serviceToken, body, 'generateCheckAnswersSummaryPDF');
         });
 };
 
@@ -29,7 +29,7 @@ const createDeclarationPdf = (formdata, sessionId) => {
             const body = {
                 legalDeclaration: formdata.legalDeclaration
             };
-            return createPDFDocument(formdata, serviceToken, body, 'generateLegalDeclarationPDF');
+            return createPDFDocument(serviceToken, body, 'generateLegalDeclarationPDF');
         });
 };
 
@@ -44,17 +44,17 @@ const createCoverSheetPdf = (formdata, sessionId) => {
                     submitAddress: formdata.registry.address
                 }
             };
-            return createPDFDocument(formdata, serviceToken, body, 'generateBulkScanCoverSheetPDF');
+            return createPDFDocument(serviceToken, body, 'generateBulkScanCoverSheetPDF');
         });
 };
 
-const createPDFDocument = (formdata, serviceToken, body, pdfTemplate) => {
+const createPDFDocument = (serviceToken, body, pdfTemplate) => {
     const headers = {
         'Content-Type': 'application/json',
         'ServiceAuthorization': serviceToken
     };
     const fetchOptions = utils.fetchOptions(body, 'POST', headers);
-    const businessDocumentURL = FormatUrl.format(VALIDATION_SERVICE_URL, '/businessDocument');
+    const businessDocumentURL = FormatUrl.format(validationServiceUrl, '/businessDocument');
     return utils.fetchBuffer(`${businessDocumentURL}/${pdfTemplate}`, fetchOptions);
 };
 

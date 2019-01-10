@@ -7,7 +7,7 @@ exports.config = {
         'Puppeteer': {
             'url': testConfig.TestE2EFrontendUrl || 'https://probate-frontend-aat.service.core-compute-aat.internal',
             'waitForTimeout': 60000,
-            'waitForAction': 2000,
+            'waitForAction': 3500,
             'getPageTimeout': 20000,
             'show': true,
             'waitForNavigation': 'networkidle0',

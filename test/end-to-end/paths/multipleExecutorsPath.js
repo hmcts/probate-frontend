@@ -13,23 +13,28 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     TestConfigurator.getBefore();
 
-    // Pre-IDAM
-    I.startApplication();
-    I.startApply();
+    //Pre-IDAM
+    I.newStartEligibility();
+    I.newSelectDeathCertificate();
+    I.newSelectDomicile();
+    I.newSelectIhtCompleted();
+    I.newSelectWillLeft();
+    I.newSelectWillOriginal();
+    I.newSelectApplicantIsExecutor();
+    I.newSelectMentalCapacity();
+    I.newStartApply();
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
 
-    // EligibilityTask
-
+    // Tasklist: Section 1 - About the person who died
     I.selectATask(taskListContent.taskNotStarted);
-    I.selectPersonWhoDiedLeftAWill();
-    I.selectOriginalWill();
-    I.selectWillCodicils('Yes');
-    I.selectWillNoOfCodicils('3');
-    I.selectDeathCertificate();
-    I.selectIhtCompleted();
-    I.selectInheritanceMethodPaper();
+    I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
+    I.enterDeceasedDateOfBirth('01', '01', '1950');
+    I.enterDeceasedDateOfDeath('01', '01', '2017');
+    I.enterDeceasedAddress();
+    I.enterDocumentsToUpload();
+    I.selectInheritanceMethod('Post');
 
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterGrossAndNet('205', '600000', '300000');
@@ -37,16 +42,19 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         I.enterGrossAndNet('205', '500', '400');
     }
 
-    I.selectApplicantIsExecutor();
-    I.selectMentallyCapable();
+    I.selectDeceasedAlias('Yes');
+    I.selectOtherNames('2');
+    I.selectDeceasedMarriedAfterDateOnWill('optionNo');
+    I.selectWillCodicils('Yes');
+    I.selectWillNoOfCodicils('3');
 
-    // ExecutorsTask
-    //
+    // Tasklist: Section 2 - About the executors
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
+
     I.selectNameAsOnTheWill('optionNo');
-    I.enterApplicantAlias('Bob Alias');
-    I.enterApplicantAliasReason('aliasOther', 'Because YOLO');
+    I.enterApplicantAlias('test_applicant_alias');
+    I.enterApplicantAliasReason('aliasOther', 'test_other_alias_reason');
     I.enterApplicantPhone();
     I.enterAddressManually();
 
@@ -104,28 +112,14 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         }
     });
 
-    I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
-    I.selectDeceasedAlias('Yes');
-    I.selectOtherNames('2');
-    I.selectDeceasedMarriedAfterDateOnWill('optionNo');
-    I.enterDeceasedDateOfDeath('01', '01', '2017');
-    I.enterDeceasedDateOfBirth('01', '01', '1950');
-    I.selectDeceasedDomicile();
-    I.enterDeceasedAddress();
-
-    I.seeSummaryPage();
-
-    // Review and confirm Task
-    I.selectATask('Start');
+    // Tasklist: Section 3 - Check your answers and make your legal declaration
+    I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();
-
-    // Notify additional executors Dealing with estate
     I.notifyAdditionalExecutors();
-
-    //Retrieve the email urls for additional executors
     I.amOnPage(testConfig.TestInviteIdListUrl);
     grabIds = yield I.grabTextFrom('pre');
+
 }).retry(TestConfigurator.getRetryScenarios());
 
 Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), function* (I) {
@@ -153,12 +147,20 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
 
     // Pre-IDAM
-    I.startApplication();
-    I.startApply();
+    I.newStartEligibility();
+    I.newSelectDeathCertificate();
+    I.newSelectDomicile();
+    I.newSelectIhtCompleted();
+    I.newSelectWillLeft();
+    I.newSelectWillOriginal();
+    I.newSelectApplicantIsExecutor();
+    I.newSelectMentalCapacity();
+    I.newStartApply();
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
 
+    // Tasklist: Section 4 - Order extra copies of the grant of probate
     // Extra copies task
     I.selectATask(taskListContent.taskNotStarted);
 
@@ -174,7 +176,7 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     I.seeCopiesSummary();
 
-    // PaymentTask
+    // Tasklist: Section 5 - Pay and submit
     I.selectATask(taskListContent.taskNotStarted);
     I.seePaymentBreakdownPage();
 

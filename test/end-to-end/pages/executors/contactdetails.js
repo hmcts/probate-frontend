@@ -16,5 +16,5 @@ module.exports = function (executorNumber, firstRecord) {
     I.fillField('#email', testConfig.TestEnvEmailAddress);
     I.fillField('#mobile', testConfig.TestEnvMobileNumber);
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 };

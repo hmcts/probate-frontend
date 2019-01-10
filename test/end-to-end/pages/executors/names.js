@@ -15,5 +15,5 @@ module.exports = function (totalExecutors) {
         i += 1;
     }
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 };

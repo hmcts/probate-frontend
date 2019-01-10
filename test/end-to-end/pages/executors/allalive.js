@@ -13,5 +13,5 @@ module.exports = function (option) {
         I.click('#allalive-optionNo');
     }
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 };

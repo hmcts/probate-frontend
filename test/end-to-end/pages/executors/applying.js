@@ -10,6 +10,6 @@ module.exports = function () {
 
     I.click('#otherExecutorsApplying-optionYes');
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 
 };

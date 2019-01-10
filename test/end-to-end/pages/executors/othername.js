@@ -13,5 +13,5 @@ module.exports = function (executorsWithDifferentNameIdList) {
         I.checkOption('#executorsWithOtherNames-'+ executorListId);
     });
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 };

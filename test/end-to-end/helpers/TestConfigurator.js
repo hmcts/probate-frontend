@@ -171,11 +171,7 @@ class TestConfigurator {
     createFeeInfoTableFor1Copy() {
         const copiesAndEstateInfo = new DataTable(['noUKCopies', 'noOverseasCopies', 'grossValue', 'netValue']);
         copiesAndEstateInfo.add(['0', '1', '500', '400']); //1 Overseas Copy
-<<<<<<< master
         copiesAndEstateInfo.add(['1', '0', '500', '400']); //1 UK Copy
-=======
-        copiesAndEstateInfo.xadd(['1', '0', '500', '400']); //1 UK Copy
->>>>>>> PRO-4278: Added 'Change executors applying' scenario
         return copiesAndEstateInfo;
     }
 

@@ -7,14 +7,34 @@ module.exports = function () {
 
     return actor({
     //PreIdam
-        startApplication: steps.startEligibility.startEligibility,
-        startApply: steps.startApply.startApply,
+        newStartEligibility: steps.newStartEligibility.newStartEligibility,
+        newSelectDeathCertificate: steps.deceased.newDeathCertificate,
+        newSelectDomicile: steps.deceased.newDomicile,
+        newSelectIhtCompleted: steps.iht.newCompleted,
+        newSelectWillLeft: steps.will.newLeft,
+        newSelectWillOriginal: steps.will.newOriginal,
+        newSelectApplicantIsExecutor: steps.applicant.newExecutor,
+        newSelectMentalCapacity: steps.executors.newMentalCapacity,
+
+        newStartApply: steps.newStartApply.newStartApply,
 
         //Sign In to IDAM
         authenticateWithIdamIfAvailable: steps.IDAM.signIn,
 
         //Start application
         selectATask: steps.tasklist.tasklist,
+
+        //deceased details
+        enterDeceasedName: steps.deceased.name,
+        enterDeceasedDateOfBirth: steps.deceased.dob,
+        enterDeceasedDateOfDeath: steps.deceased.dod,
+        enterDocumentsToUpload: steps.documentUpload.documentUpload,
+
+        selectDeceasedAlias: steps.deceased.alias,
+        selectOtherNames: steps.deceased.otherNames,
+        selectDeceasedMarriedAfterDateOnWill: steps.deceased.married,
+        selectDeceasedDomicile: steps.deceased.domicile,
+        enterDeceasedAddress: steps.deceased.address,
 
         // Eligibility
         selectPersonWhoDiedLeftAWill: steps.will.left,
@@ -23,7 +43,7 @@ module.exports = function () {
         selectWillNoOfCodicils: steps.will.codicilsnumber,
         selectDeathCertificate: steps.deceased.deathcertificate,
         selectIhtCompleted: steps.iht.completed,
-        selectInheritanceMethodPaper: steps.iht.method,
+        selectInheritanceMethod: steps.iht.method,
         enterGrossAndNet: steps.iht.paper,
         selectApplicantIsExecutor: steps.applicant.executor,
         selectMentallyCapable: steps.executors.mentalcapacity,
@@ -52,16 +72,6 @@ module.exports = function () {
         enterExecutorManualAddress: steps.executors.address,
         selectExecutorRoles: steps.executors.roles,
         selectHasExecutorBeenNotified: steps.executors.notified,
-
-        //deceased details
-        enterDeceasedName: steps.deceased.name,
-        selectDeceasedAlias: steps.deceased.alias,
-        selectOtherNames: steps.deceased.otherNames,
-        selectDeceasedMarriedAfterDateOnWill: steps.deceased.married,
-        enterDeceasedDateOfBirth: steps.deceased.dob,
-        enterDeceasedDateOfDeath: steps.deceased.dod,
-        selectDeceasedDomicile: steps.deceased.domicile,
-        enterDeceasedAddress: steps.deceased.address,
 
         //summary page
         seeSummaryPage: steps.summary.summary,

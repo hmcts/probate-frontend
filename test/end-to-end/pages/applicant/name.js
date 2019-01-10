@@ -9,5 +9,5 @@ module.exports = function (firstname, lastname) {
     I.fillField('#firstName', firstname);
     I.fillField('#lastName', lastname);
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 };

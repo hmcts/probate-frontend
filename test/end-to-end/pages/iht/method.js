@@ -3,11 +3,16 @@
 const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/iht/method/index');
 
-module.exports = function () {
+module.exports = function (method) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click('#method-paperOption');
 
-    I.click(commonContent.continue);
+    if (method === 'Post') {
+        I.click('#method-paperOption');
+    } else {
+        I.click('#method-onlineOption');
+    }
+
+    I.click(commonContent.saveAndContinue);
 };

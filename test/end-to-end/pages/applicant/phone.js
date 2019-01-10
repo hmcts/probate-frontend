@@ -9,5 +9,5 @@ module.exports = function () {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.fillField(content.phoneNumber, '123456789');
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 };

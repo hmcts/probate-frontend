@@ -8,5 +8,5 @@ module.exports = function (option) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click('#married-' + option);
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 };

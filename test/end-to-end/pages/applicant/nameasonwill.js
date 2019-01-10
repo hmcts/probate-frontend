@@ -9,5 +9,5 @@ module.exports = function (optionValue) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click(`#nameAsOnTheWill-${optionValue}`);
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 };

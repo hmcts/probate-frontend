@@ -12,5 +12,5 @@ module.exports = function (aliasReason, aliasOther) {
         I.fillField('#otherReason', aliasOther);
     }
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 };

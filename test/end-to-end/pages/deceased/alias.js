@@ -13,5 +13,5 @@ module.exports = function (option) {
         I.click('#alias-optionNo');
     }
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 };

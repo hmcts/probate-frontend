@@ -60,10 +60,12 @@ class TestConfigurator {
 
             request({
                 url: this.getTestAddUserURL(),
+                proxy: 'socks5:proxyout.reform.hmcts.net:8080',
                 method: 'POST',
                 json: true, // <--Very important!!!
                 body: this.userDetails
             });
+
         }
 
     }

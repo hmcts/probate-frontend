@@ -10,6 +10,6 @@ module.exports = function () {
     I.click('.summary');
     I.fillField('#freeTextAddress', 'test address');
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 
 };

@@ -5,7 +5,7 @@ const submitData = require('app/components/submit-data');
 
 class ProbateSubmitData extends SubmitData {
     post(data, ctx, softStop) {
-        const logMessage = 'Post submit data';
+        const logMessage = 'Post probate submit data';
         const url = `${this.endpoint}/submit`;
         const bodyData = submitData(ctx, data);
         bodyData.softStop = softStop;

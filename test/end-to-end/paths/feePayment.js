@@ -5,12 +5,7 @@ const randomstring = require('randomstring');
 const taskListContent = require('app/resources/en/translation/tasklist');
 const data = require('test/data/payments/fee-payment');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
-const emailId = randomstring.generate(9).toLowerCase()+'@example.com';
 Feature('Fee Payment');
-
-Before(() => {
-    TestConfigurator.createAUser(emailId);
-});
 
 After(() => {
     TestConfigurator.getAfter();
@@ -22,6 +17,8 @@ Data(TestConfigurator.createFeeInfoTable()).Scenario('Check multiple application
     data.iht.grossValue = current.grossValue;
     data.iht.netValue = current.netValue;
 
+    const emailId = randomstring.generate(9).toLowerCase()+'@example.com';
+    TestConfigurator.createAUser(emailId);
     TestConfigurator.injectFormData(data, emailId);
 
     I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');
@@ -49,6 +46,8 @@ Data(TestConfigurator.createFeeInfoTableFor1Copy()).Scenario('Check can pay afte
     data.iht.grossValue = current.grossValue;
     data.iht.netValue = current.netValue;
 
+    const emailId = randomstring.generate(9).toLowerCase()+'@example.com';
+    TestConfigurator.createAUser(emailId);
     TestConfigurator.injectFormData(data, emailId);
 
     I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');

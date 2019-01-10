@@ -9,5 +9,5 @@ module.exports = function (copies) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.fillField('#overseas', copies);
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 };

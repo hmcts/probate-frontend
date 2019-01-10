@@ -7,7 +7,7 @@ module.exports = function (firstName, lastName) {
     const I = this;
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.fillField('#firstName', firstName);
-    I.fillField('lastName', lastName);
+    I.fillField('#lastName', lastName);
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 };

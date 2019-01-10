@@ -10,5 +10,5 @@ module.exports = function (totalExecutors) {
 
     I.fillField('#executorsNumber', totalExecutors);
 
-    I.click(commonContent.continue);
+    I.click(commonContent.saveAndContinue);
 };

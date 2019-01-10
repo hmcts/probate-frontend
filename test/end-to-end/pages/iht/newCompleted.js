@@ -1,13 +1,13 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/assets/overseas/index');
+const pageUnderTest = require('app/steps/ui/iht/newcompleted/index');
 
 module.exports = function () {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click('#assetsoverseas-optionYes');
+    I.click('#completed-optionYes');
 
-    I.click(commonContent.saveAndContinue);
+    I.click(commonContent.continue);
 };

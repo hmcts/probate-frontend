@@ -39,7 +39,7 @@ const createCoverSheetPdf = (formdata, sessionId) => {
                 bulkScanCoverSheet: {
                     applicantAddress: formdata.applicant.address,
                     caseReference: formdata.ccdCase.id,
-                    submitAddress: formdata.registry.registry.address
+                    submitAddress: formdata.registry.address
                 }
             };
             return createPDFDocument(formdata, serviceToken, body, 'generateBulkScanCoverSheetPDF');

@@ -24,7 +24,7 @@ const createDeclarationPdf = (formdata, sessionId) => {
     return services.authorise()
         .then(serviceToken => {
             const body = {
-                legalDeclaration: formdata.ccdCase.id
+                legalDeclaration: formdata.legalDeclaration
             };
             return createPDFDocument(formdata, serviceToken, body, 'generateLegalDeclarationPDF');
         });

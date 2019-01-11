@@ -32,6 +32,7 @@ const createDeclarationPdf = (formdata, sessionId) => {
 
 const createCoverSheetPdf = (formdata, sessionId) => {
     logInfo('Create cover sheet PDF', sessionId);
+    logInfo('Create cover sheet PDF formdata', formdata);
     return services.authorise()
         .then(serviceToken => {
             const body = {

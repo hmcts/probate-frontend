@@ -67,6 +67,17 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     I.acceptDeclaration();
     I.waitForNavigation();
 
+    //Extra Copies Task
+    I.selectATask(taskListContent.taskNotStarted);
+    I.enterUkCopies('1');
+    I.waitForNavigation();
+    I.selectOverseasAssets();
+    I.waitForNavigation();
+    I.enterOverseasCopies('1');
+    I.waitForNavigation();
+    I.seeCopiesSummary();
+    I.waitForNavigation();
+
     //PaymentTask
     I.selectATask(taskListContent.taskNotStarted);
     I.seePaymentBreakdownPage('1', '1', '8000');

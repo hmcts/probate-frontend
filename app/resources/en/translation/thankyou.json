@@ -10,7 +10,7 @@
   "survey" : "This is a new service – your feedback will help us to improve it.",
   "saveYourApplication": "Save your application",
   "saveParagraph1": "You can save or print these documents for your reference.",
-  "declarationPdf": "Legal declaration (8kb PDF)",
-  "checkAnswersPdf": "Check your answers (8kb PDF)",
-  "coverSheetPdf": "Application coversheet (25kb PDF)"
+  "declarationPdf": "Legal declaration (30kb PDF)",
+  "checkAnswersPdf": "Check your answers (10kb PDF)",
+  "coverSheetPdf": "Application coversheet (20kb PDF)"
 }

@@ -17,7 +17,8 @@ describe('Executor-Additional-Invite', function () {
                     form: {
                         executors: {},
                         journeyType: 'probate'
-                    }
+                    },
+                    journeyType: 'probate'
                 }
             };
         });

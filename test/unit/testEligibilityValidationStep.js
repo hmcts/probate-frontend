@@ -44,7 +44,8 @@ describe('EligibilityValidationStep', () => {
                 session: {
                     form: {
                         journeyType: 'probate'
-                    }
+                    },
+                    journeyType: 'probate'
                 },
                 sessionID: 'abc123'
             };

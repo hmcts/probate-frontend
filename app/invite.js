@@ -57,8 +57,7 @@ class InviteLink {
                 return res.render('errors/404');
             }
 
-            const journeyType = req.session.form && req.session.form.journeyType;
-            const allExecutorsAgreed = new AllExecutorsAgreed(config.services.validation.url, journeyType, req.sessionID);
+            const allExecutorsAgreed = new AllExecutorsAgreed(config.services.validation.url, req.sessionID);
             allExecutorsAgreed.get(req.session.formdataId).then(result => {
                 if (result.name === 'Error') {
                     logger.error(`Error checking everyone has agreed: ${result.message}`);

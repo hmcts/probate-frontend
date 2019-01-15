@@ -21,7 +21,8 @@ describe('CodicilsNumber', () => {
                 session: {
                     form: {
                         journeyType: 'probate'
-                    }
+                    },
+                    journeyType: 'probate'
                 },
                 body: {
                     codicilsNumber: '3'
@@ -42,7 +43,8 @@ describe('CodicilsNumber', () => {
                 session: {
                     form: {
                         journeyType: 'probate'
-                    }
+                    },
+                    journeyType: 'probate'
                 },
                 body: {
                     codicilsNumber: null

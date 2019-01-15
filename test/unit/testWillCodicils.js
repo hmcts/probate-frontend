@@ -24,7 +24,8 @@ describe('WillCodicils', () => {
                 session: {
                     form: {
                         journeyType: 'probate'
-                    }
+                    },
+                    journeyType: 'probate'
                 },
                 body: {
                     codicils: content.optionYes
@@ -44,7 +45,17 @@ describe('WillCodicils', () => {
         it('should return url for the next step if there are codicils', (done) => {
             const req = {
                 session: {
-                    journey: journey
+                    journey: journey,
+                    form: {
+                        journeyType: 'probate'
+                    },
+                    featureToggles: {
+                        screening_questions: false
+                    },
+                    journeyType: 'probate'
+                },
+                body: {
+                    codicils: 'Yes'
                 }
             };
             const ctx = {

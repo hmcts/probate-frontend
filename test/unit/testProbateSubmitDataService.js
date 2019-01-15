@@ -29,7 +29,7 @@ describe('ProbateSubmitDataService', () => {
                 ctx,
                 'Post probate submit data',
                 `${endpoint}/submit`,
-                bodyData
+                {submitdata: bodyData}
             )).to.equal(true);
 
             revert();

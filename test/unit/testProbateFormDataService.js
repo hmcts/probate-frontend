@@ -31,7 +31,7 @@ describe('ProbateFormDataService', () => {
         it('should call super.post()', (done) => {
             const endpoint = 'http://localhost';
             const id = 'fred@example.com';
-            const data = {testData: true};
+            const data = {submissionReference: 'sub123'};
             const probateCcdCasePaymentStatus = new ProbateFormData(endpoint, 'abc123');
             const postStub = sinon.stub(FormData.prototype, 'post');
 
@@ -39,7 +39,11 @@ describe('ProbateFormDataService', () => {
 
             expect(postStub.calledOnce).to.equal(true);
             expect(postStub.calledWith(
-                data,
+                {
+                    id: id,
+                    formdata: data,
+                    submissionReference: data.submissionReference
+                },
                 'Post probate form data',
                 endpoint
             )).to.equal(true);

@@ -24,7 +24,8 @@ describe('DeceasedAddress', () => {
                     },
                     featureToggles: {
                         document_upload: true
-                    }
+                    },
+                    journeyType: 'probate'
                 },
                 body: {
                     freeTextAddress: '143 Caerfai Bay Road',
@@ -51,7 +52,8 @@ describe('DeceasedAddress', () => {
                     },
                     featureToggles: {
                         document_upload: false
-                    }
+                    },
+                    journeyType: 'probate'
                 },
                 body: {
                     freeTextAddress: '143 Caerfai Bay Road',

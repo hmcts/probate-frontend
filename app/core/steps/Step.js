@@ -52,7 +52,7 @@ class Step {
         let ctx = {};
         Object.assign(ctx, session.form[this.section] || {});
         ctx.sessionID = req.sessionID;
-        ctx.journeyType = session.form.journeyType;
+        ctx.journeyType = session.journeyType;
         ctx = Object.assign(ctx, req.body);
 
         return ctx;

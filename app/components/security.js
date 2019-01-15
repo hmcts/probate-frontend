@@ -129,8 +129,7 @@ class Security {
     _getTokenFromCode(req) {
         const hostname = FormatUrl.createHostname(req);
         const redirectUri = FormatUrl.format(hostname, config.services.idam.probate_oauth_callback_path);
-        const journeyType = (req.session.form && req.session.form.journeyType) || 'probate';
-        const oauth2Token = new Oauth2Token(config.services.idam.apiUrl, journeyType, req.sessionID);
+        const oauth2Token = new Oauth2Token(config.services.idam.apiUrl, req.sessionID);
         return oauth2Token.post(req.query.code, redirectUri);
     }
 

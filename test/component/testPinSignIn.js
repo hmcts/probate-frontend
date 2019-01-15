@@ -56,7 +56,7 @@ describe('pin-page', () => {
                 formdataId: '12'
             };
 
-            nock(config.services.persistence.url.replace('/formdata', ''))
+            nock(config.services.persistence.url)
                 .get('/12')
                 .reply(200, formDataReturnData);
 

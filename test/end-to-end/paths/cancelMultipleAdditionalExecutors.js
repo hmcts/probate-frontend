@@ -10,16 +10,13 @@ const emailId = randomstring.generate(9).toLowerCase()+'@example.com';
 
 Feature('Cancel Multiple Executors Flow');
 
-Before(() => {
-    TestConfigurator.createAUser(emailId);
-});
-
 After(() => {
     TestConfigurator.getAfter();
 });
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
 
+    TestConfigurator.createAUser(emailId);
     TestConfigurator.injectFormData(data, emailId);
 
     I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');
@@ -43,7 +40,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.selectHasExecutorBeenNotified('Yes', '2');
     I.selectExecutorRoles('3', false, false);
     I.click(commonContent.signOut);
-});
+}).retry(TestConfigurator.getRetryScenarios());
 
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
 

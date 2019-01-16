@@ -11,10 +11,6 @@ const testConfig = require('test/config.js');
 
 Feature('Multiple Executors Renotify Flow');
 
-Before(() => {
-    TestConfigurator.createAUser(emailId);
-});
-
 After(() => {
     TestConfigurator.getAfter();
 });
@@ -24,6 +20,7 @@ let grabIdsNewExecutors;
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
 
+    TestConfigurator.createAUser(emailId);
     TestConfigurator.injectFormData(data, emailId);
 
     I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');
@@ -82,7 +79,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.amOnPage(testConfig.TestInviteIdListUrl);
     grabIdsNewExecutors = yield I.grabTextFrom('pre');
 
-});
+}).retry(TestConfigurator.getRetryScenarios());
 
 Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), function* (I) {
     const idListOriginalExecutors = JSON.parse(grabIdsOriginalExecutors);

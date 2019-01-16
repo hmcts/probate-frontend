@@ -12,15 +12,15 @@ describe('/executor-current-name-reason/', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorCurrentNameReason');
         sessionData = {
-            'executors': {
-                'list': [
-                    {'firstName': 'john', 'lastName': 'theapplicant', 'isApplying': true, 'isApplicant': true},
-                    {'fullName': 'executor name1', isApplying: false},
-                    {'fullName': 'executor name2', isApplying: true, currentName: 'name2 executor', hasOtherName: true},
-                    {'fullName': 'executor name3', isApplying: true, hasOtherName: false},
-                    {'fullName': 'executor name4', isApplying: true, hasOtherName: true},
-                    {'fullName': 'executor name5', isApplying: false},
-                    {'fullName': 'executor name6', isApplying: false}
+            executors: {
+                list: [
+                    {firstName: 'john', lastName: 'theapplicant', isApplying: true, isApplicant: true},
+                    {fullName: 'executor name1', isApplying: false},
+                    {fullName: 'executor name2', isApplying: true, currentName: 'name2 executor', hasOtherName: true},
+                    {fullName: 'executor name3', isApplying: true, hasOtherName: false},
+                    {fullName: 'executor name4', isApplying: true, hasOtherName: true},
+                    {fullName: 'executor name5', isApplying: false},
+                    {fullName: 'executor name6', isApplying: false}
                 ]
             }
         };

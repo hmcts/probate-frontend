@@ -34,10 +34,6 @@ module.exports = {
         url: process.env.TEST_VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
     },
 
-    businessDocument: {
-        url: process.env.TEST_BUSINESS_DOCUMENT_URL || 'http://localhost:8080/businessDocument'
-    },
-
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
 
     TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS,

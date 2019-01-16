@@ -40,7 +40,16 @@ class ExecutorRoles extends CollectionStep {
     }
 
     isComplete(ctx) {
-        return [every(ctx.list, exec => !isEmpty(exec.notApplyingReason) || exec.isApplying), 'inProgress'];
+        return [every(ctx.list, exec => {
+            return exec.isApplying ||
+                (
+                    !isEmpty(exec.notApplyingReason) &&
+                    (
+                        (exec.notApplyingReason === json.optionPowerReserved && !isEmpty(exec.executorNotified)) ||
+                        (exec.notApplyingReason !== json.optionPowerReserved)
+                    )
+                );
+        }), 'inProgress'];
     }
 
     nextStepOptions(ctx) {

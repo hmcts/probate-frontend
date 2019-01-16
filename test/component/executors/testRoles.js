@@ -14,8 +14,8 @@ describe('executor-roles', () => {
     const expectedNextUrlForExecNotified = ExecutorNotified.getUrl(1);
     const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
     const reasons = {
-        'optionPowerReserved': 'This executor doesn&rsquo;t want to apply now, but may do in the future (this is also known as power reserved)',
-        'optionRenunciated': 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)'
+        optionPowerReserved: 'This executor doesn&rsquo;t want to apply now, but may do in the future (this is also known as power reserved)',
+        optionRenunciated: 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)'
     };
     let testWrapper;
     let sessionData;

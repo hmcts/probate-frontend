@@ -27,7 +27,7 @@
   "header": "Send your documents",
   "heading1": "1. Prepare to send your documents",
   "heading2": "2. Send your documents to the probate registry",
-  "text1": "Write your reference number {ccdReferenceNumber} on a sheet of paper and include it with your documents.",
+  "text1": "If you don&rsquo;t have a printer, write your reference number {ccdReferenceNumber} on a sheet of paper and include it with your application.",
   "text2": "You need to send the probate registry:",
   "text3": "You&rsquo;ll need to include a cover letter if the will or codicils have changed in any way since you&rsquo;ve had them.",
   "text4": "The letter should explain whats been changed and why. ",
@@ -42,6 +42,8 @@
   "checklist2-item6-deed-poll": "copy of the deed poll document for {executorCurrentName}",
   "checkboxLabel": "I understand that I need to sign the will before sending my documents",
   "checkboxLabel-codicils": "I understand that I need to sign the will and any &lsquo;codicils&rsquo; before sending my documents",
+  "coverSheetDownloadMessage": "Download and print this",
+  "coverSheetPdf": "application coversheet",
   "errors": {
     "sentDocuments": {
       "required": {

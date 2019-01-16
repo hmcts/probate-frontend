@@ -151,19 +151,19 @@ describe('ExecutorCurrentNameReason', () => {
             const [ctx] = ExecutorCurrentNameReason.handleGet(testCtx);
 
             expect(ctx).to.deep.equal({
-                'currentNameReason': 'marriage',
-                'index': 1,
-                'list': [
+                currentNameReason: 'marriage',
+                index: 1,
+                list: [
                     {
-                        'isApplying': true
+                        isApplying: true
                     },
                     {
-                        'currentNameReason': 'marriage',
-                        'isApplying': true,
-                        'otherReason': 'Yolo'
+                        currentNameReason: 'marriage',
+                        isApplying: true,
+                        otherReason: 'Yolo'
                     }
                 ],
-                'otherReason': 'Yolo'
+                otherReason: 'Yolo'
             });
             done();
         });

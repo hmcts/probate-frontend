@@ -12,8 +12,8 @@ class ApplicantNameAsOnWill extends ValidationStep {
 
     isSoftStop (formdata, ctx) {
         return {
-            'stepName': this.constructor.name,
-            'isSoftStop': get(formdata, 'applicant.nameAsOnTheWill') === this.generateContent(ctx, formdata).optionNo
+            stepName: this.constructor.name,
+            isSoftStop: get(formdata, 'applicant.nameAsOnTheWill') === this.generateContent(ctx, formdata).optionNo
         };
     }
 

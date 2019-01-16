@@ -11,12 +11,12 @@ describe('executors-dealing-with-estate', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsDealingWithEstate');
         sessionData = {
-            'executors': {
-                'executorsNumber': 3,
-                'list': [
-                    {'firstName': 'john', 'lastName': 'theapplicant', 'isApplying': true, 'isApplicant': true},
-                    {'fullName': 'many clouds', isApplying: true},
-                    {'fullName': 'harvey smith', isApplying: false}
+            executors: {
+                executorsNumber: 3,
+                list: [
+                    {firstName: 'john', lastName: 'theapplicant', isApplying: true, isApplicant: true},
+                    {fullName: 'many clouds', isApplying: true},
+                    {fullName: 'harvey smith', isApplying: false}
                 ]
             }
         };

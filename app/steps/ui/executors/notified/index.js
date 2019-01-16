@@ -68,8 +68,8 @@ class ExecutorNotified extends CollectionStep {
         const softStopForNotNotified = some(execList, exec => exec.executorNotified === this.generateContent(ctx, formdata).optionNo);
 
         return {
-            'stepName': this.constructor.name,
-            'isSoftStop': softStopForNotNotified
+            stepName: this.constructor.name,
+            isSoftStop: softStopForNotNotified
         };
     }
 

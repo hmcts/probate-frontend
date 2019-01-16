@@ -65,7 +65,7 @@ describe('will-codicils', () => {
 
         it(`test it redirects to codicils number page: ${expectedNextUrlForCodicilsNumber}`, (done) => {
             const data = {
-                'codicils': 'Yes'
+                codicils: 'Yes'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForCodicilsNumber);
         });

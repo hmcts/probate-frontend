@@ -62,7 +62,7 @@ describe('executors-invite', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForExecInvites}`, (done) => {
             sendInvitesStub.returns(when(Promise.resolve({response: 'Make it pass!'})));
-            const data = {'list': [{'firstName': 'Bob', 'lastName': 'Smith', 'isApplicant': true}]};
+            const data = {list: [{firstName: 'Bob', lastName: 'Smith', isApplicant: true}]};
 
             testWrapper.testRedirect(done, data, expectedNextUrlForExecInvites);
         });

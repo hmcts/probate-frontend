@@ -32,14 +32,14 @@ describe('mental-capacity', () => {
 
         it(`test it redirects to tasklist if all executors are mentally capable: ${expectedNextUrlForTaskList}`, (done) => {
             const data = {
-                'mentalCapacity': 'Yes'
+                mentalCapacity: 'Yes'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
         });
 
         it(`test it redirects to stop page if not all executors are mentally capable: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                'mentalCapacity': 'No'
+                mentalCapacity: 'No'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });

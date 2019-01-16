@@ -67,8 +67,9 @@ describe('applicant-name-as-on-will', () => {
 
         it('test errors message displayed for missing data', (done) => {
             const sessionData = {
-                'applicant': {
-                    'firstName': 'john', 'lastName': 'theapplicant'
+                applicant: {
+                    firstName: 'john',
+                    lastName: 'theapplicant'
                 }
             };
 

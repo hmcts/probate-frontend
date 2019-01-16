@@ -11,36 +11,36 @@ describe('PaymentStatus', () => {
     let servicesMock;
 
     const successfulPaymentResponse = {
-        'channel': 'Online',
-        'id': 12345,
-        'reference': 'PaymentReference12345',
-        'amount': 5000,
-        'status': 'Success',
-        'date_updated': '2018-08-29T15:25:11.920+0000',
-        'site_id': 'siteId0001',
-        'external_reference': 12345
+        channel: 'Online',
+        id: 12345,
+        reference: 'PaymentReference12345',
+        amount: 5000,
+        status: 'Success',
+        date_updated: '2018-08-29T15:25:11.920+0000',
+        site_id: 'siteId0001',
+        external_reference: 12345
     };
 
     const initiatedPaymentResponse = {
-        'channel': 'Online',
-        'id': 12345,
-        'reference': 'PaymentReference12345',
-        'amount': 5000,
-        'status': 'Initiated',
-        'date_updated': '2018-08-29T15:25:11.920+0000',
-        'site_id': 'siteId0001',
-        'external_reference': 12345
+        channel: 'Online',
+        id: 12345,
+        reference: 'PaymentReference12345',
+        amount: 5000,
+        status: 'Initiated',
+        date_updated: '2018-08-29T15:25:11.920+0000',
+        site_id: 'siteId0001',
+        external_reference: 12345
     };
 
     const failedPaymentResponse = {
-        'channel': 'Online',
-        'id': 12345,
-        'reference': 'PaymentReference12345',
-        'amount': 5000,
-        'status': 'Failed',
-        'date_updated': '2018-08-29T15:25:11.920+0000',
-        'site_id': 'siteId0001',
-        'external_reference': 12345
+        channel: 'Online',
+        id: 12345,
+        reference: 'PaymentReference12345',
+        amount: 5000,
+        status: 'Failed',
+        date_updated: '2018-08-29T15:25:11.920+0000',
+        site_id: 'siteId0001',
+        external_reference: 12345
     };
 
     const PaymentStatus = steps.PaymentStatus;
@@ -85,18 +85,18 @@ describe('PaymentStatus', () => {
         it('should set redirect to false, paymentPending to false and payment status to success if payment is successful',
             sinon.test((done) => {
                 const expectedFormData = {
-                    'ccdCase': {
-                        'state': 'CaseCreated'
+                    ccdCase: {
+                        state: 'CaseCreated'
                     },
-                    'paymentPending': 'false',
-                    'payment': {
-                        'amount': 5000,
-                        'channel': 'Online',
-                        'date': '2018-08-29T15:25:11.920+0000',
-                        'reference': 'PaymentReference12345',
-                        'siteId': 'siteId0001',
-                        'status': 'Success',
-                        'transactionId': 12345
+                    paymentPending: 'false',
+                    payment: {
+                        amount: 5000,
+                        channel: 'Online',
+                        date: '2018-08-29T15:25:11.920+0000',
+                        reference: 'PaymentReference12345',
+                        siteId: 'siteId0001',
+                        status: 'Success',
+                        transactionId: 12345
                     }
                 };
                 servicesMock.expects('authorise').returns(Promise.resolve({}));
@@ -126,18 +126,18 @@ describe('PaymentStatus', () => {
         it('should set redirect to true, paymentPending to true and payment status to failure if payment is not successful',
             sinon.test((done) => {
                 const expectedFormData = {
-                    'ccdCase': {
-                        'state': 'CaseCreated'
+                    ccdCase: {
+                        state: 'CaseCreated'
                     },
-                    'paymentPending': 'true',
-                    'payment': {
-                        'amount': 5000,
-                        'channel': 'Online',
-                        'date': '2018-08-29T15:25:11.920+0000',
-                        'reference': 'PaymentReference12345',
-                        'siteId': 'siteId0001',
-                        'status': 'Failed',
-                        'transactionId': 12345
+                    paymentPending: 'true',
+                    payment: {
+                        amount: 5000,
+                        channel: 'Online',
+                        date: '2018-08-29T15:25:11.920+0000',
+                        reference: 'PaymentReference12345',
+                        siteId: 'siteId0001',
+                        status: 'Failed',
+                        transactionId: 12345
                     }
                 };
                 servicesMock.expects('authorise').returns(Promise.resolve({}));
@@ -169,13 +169,13 @@ describe('PaymentStatus', () => {
         it('should set payment status to not_required and redirect to false when paymentPending is false',
             sinon.test((done) => {
                 const expectedFormData = {
-                    'ccdCase': {
-                        'state': 'caseCreated'
+                    ccdCase: {
+                        state: 'caseCreated'
                     },
-                    'payment': {
-                        'status': 'not_required'
+                    payment: {
+                        status: 'not_required'
                     },
-                    'paymentPending': 'false'
+                    paymentPending: 'false'
                 };
 
                 servicesMock.expects('authorise').returns(Promise.resolve({}));
@@ -238,15 +238,15 @@ describe('PaymentStatus', () => {
         it('should set redirect to true, paymentPending to true and payment status to success if payment is successful with no case created',
             sinon.test((done) => {
                 const expectedFormData = {
-                    'paymentPending': 'true',
-                    'payment': {
-                        'amount': 5000,
-                        'channel': 'Online',
-                        'date': '2018-08-29T15:25:11.920+0000',
-                        'reference': 'PaymentReference12345',
-                        'siteId': 'siteId0001',
-                        'status': 'Initiated',
-                        'transactionId': 12345
+                    paymentPending: 'true',
+                    payment: {
+                        amount: 5000,
+                        channel: 'Online',
+                        date: '2018-08-29T15:25:11.920+0000',
+                        reference: 'PaymentReference12345',
+                        siteId: 'siteId0001',
+                        status: 'Initiated',
+                        transactionId: 12345
                     }
                 };
                 servicesMock.expects('authorise').returns(Promise.resolve({}));

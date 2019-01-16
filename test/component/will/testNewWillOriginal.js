@@ -67,7 +67,7 @@ describe('new-will-original', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForNewApplicantExecutor}`, (done) => {
             const data = {
-                'original': 'Yes'
+                original: 'Yes'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForNewApplicantExecutor, cookies);
@@ -75,7 +75,7 @@ describe('new-will-original', () => {
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                'original': 'No'
+                original: 'No'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);

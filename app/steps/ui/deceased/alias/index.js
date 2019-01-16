@@ -42,8 +42,8 @@ class DeceasedAlias extends ValidationStep {
     isSoftStop(formdata) {
         const softStopForAssetsInAnotherName = (new DeceasedWrapper(formdata.deceased)).hasAlias();
         return {
-            'stepName': this.constructor.name,
-            'isSoftStop': softStopForAssetsInAnotherName
+            stepName: this.constructor.name,
+            isSoftStop: softStopForAssetsInAnotherName
         };
     }
 }

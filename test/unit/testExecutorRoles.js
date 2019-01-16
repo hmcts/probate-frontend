@@ -63,6 +63,132 @@ describe('ExecutorRoles', () => {
         });
     });
 
+    describe('isComplete()', () => {
+        it('should return the correct step completion status when all executors are applying', (done) => {
+            const ctx = {
+                list: [
+                    {
+                        'lastName': 'the',
+                        'firstName': 'applicant',
+                        'isApplying': 'Yes',
+                        'isApplicant': true
+                    }, {
+                        isApplying: true,
+                        fullName: 'Ed Brown',
+                        address: '20 Green Street, London, L12 9LN'
+                    }, {
+                        isApplying: true,
+                        fullName: 'Dave Miller',
+                        address: '102 Petty Street, London, L12 9LN'
+                    }
+                ],
+            };
+            const isComplete = ExecutorRoles.isComplete(ctx);
+            expect(isComplete).to.deep.equal([true, 'inProgress']);
+            done();
+        });
+
+        it('should return the correct step completion status when not all executors are applying', (done) => {
+            const ctx = {
+                list: [
+                    {
+                        'lastName': 'the',
+                        'firstName': 'applicant',
+                        'isApplying': 'Yes',
+                        'isApplicant': true
+                    }, {
+                        isApplying: false,
+                        fullName: 'Ed Brown',
+                        address: '20 Green Street, London, L12 9LN'
+                    }, {
+                        isApplying: true,
+                        fullName: 'Dave Miller',
+                        address: '102 Petty Street, London, L12 9LN'
+                    }
+                ],
+            };
+            const isComplete = ExecutorRoles.isComplete(ctx);
+            expect(isComplete).to.deep.equal([false, 'inProgress']);
+            done();
+        });
+
+        it('should return the correct step completion status when some executors are not applying and their reason is power reserved and the notify question has been answered', (done) => {
+            const ctx = {
+                list: [
+                    {
+                        'lastName': 'the',
+                        'firstName': 'applicant',
+                        'isApplying': 'Yes',
+                        'isApplicant': true
+                    }, {
+                        isApplying: false,
+                        notApplyingReason: json.optionPowerReserved,
+                        executorNotified: 'Yes',
+                        fullName: 'Ed Brown',
+                        address: '20 Green Street, London, L12 9LN'
+                    }, {
+                        isApplying: true,
+                        fullName: 'Dave Miller',
+                        address: '102 Petty Street, London, L12 9LN'
+                    }
+                ],
+            };
+            const isComplete = ExecutorRoles.isComplete(ctx);
+            expect(isComplete).to.deep.equal([true, 'inProgress']);
+            done();
+        });
+
+        it('should return the correct step completion status when some executors are not applying and their reason is power reserved and the notify question has not been answered', (done) => {
+            const ctx = {
+                list: [
+                    {
+                        'lastName': 'the',
+                        'firstName': 'applicant',
+                        'isApplying': 'Yes',
+                        'isApplicant': true
+                    }, {
+                        isApplying: false,
+                        notApplyingReason: json.optionPowerReserved,
+                        fullName: 'Ed Brown',
+                        address: '20 Green Street, London, L12 9LN'
+                    }, {
+                        isApplying: true,
+                        fullName: 'Dave Miller',
+                        address: '102 Petty Street, London, L12 9LN'
+                    }
+                ],
+            };
+            const isComplete = ExecutorRoles.isComplete(ctx);
+            expect(isComplete).to.deep.equal([false, 'inProgress']);
+            done();
+        });
+
+        it('should return the correct step completion status when some executors are not applying and their reason is not power reserved', (done) => {
+            const ctx = {
+                list: [
+                    {
+                        'lastName': 'the',
+                        'firstName': 'applicant',
+                        'isApplying': 'Yes',
+                        'isApplicant': true
+                    }, {
+                        isApplying: false,
+                        notApplyingReason: json.optionRenunciated,
+                        fullName: 'Ed Brown',
+                        address: '20 Green Street, London, L12 9LN'
+                    }, {
+                        isApplying: true,
+                        fullName: 'Dave Miller',
+                        address: '102 Petty Street, London, L12 9LN'
+                    }
+                ],
+            };
+            const isComplete = ExecutorRoles.isComplete(ctx);
+            expect(isComplete).to.deep.equal([true, 'inProgress']);
+            done();
+        });
+    });
+
     describe('nextStepOptions()', () => {
         it('should return the correct options when the FT is off', (done) => {
             const ctx = {

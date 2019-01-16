@@ -25,7 +25,7 @@ describe('documents', () => {
             }
         };
         contentData = {
-            ccdReferenceNumber: '1234-1235-1236-1237'
+            ccdReferenceNumber: '1234-1235-1236-1237',
         };
         testWrapper = new TestWrapper('Documents');
     });
@@ -76,6 +76,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
                     testWrapper.testContent(done, excludeKeys, contentData);
@@ -172,6 +174,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
                     testWrapper.testContent(done, excludeKeys, contentData);
@@ -325,6 +329,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
                     contentData.renunciationFormLink = config.links.renunciationForm;
@@ -428,6 +434,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
                     contentData.codicilsNumber = 1;
@@ -533,6 +541,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
                     contentData.codicilsNumber = 1;
@@ -641,6 +651,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
 
@@ -741,6 +753,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
 
@@ -841,6 +855,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
 
@@ -941,6 +957,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
 
@@ -1043,6 +1061,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
 
@@ -1150,6 +1170,8 @@ describe('documents', () => {
                         'checklist2-item5-renunciated',
                         'checklist2-item6-deed-poll',
                         'checkboxLabel-codicils',
+                        'coverSheetDownloadMessage',
+                        'coverSheetPdf',
                         'warning'
                     ];
                     contentData.executorCurrentName = [

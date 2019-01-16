@@ -32,14 +32,14 @@ describe('applicant-executor', () => {
 
         it(`test it redirects to mental capacity page if applicant is an executor: ${expectedNextUrlForMentalCapacity}`, (done) => {
             const data = {
-                'executor': 'Yes'
+                executor: 'Yes'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForMentalCapacity);
         });
 
         it(`test it redirects to stop page if applicant is NOT an executor${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                'executor': 'No'
+                executor: 'No'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
         });

@@ -10,13 +10,13 @@ describe('redirect to documents', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('CopiesUk');
         sessionData = {
-            'ccdCase': {
-                'state': 'CaseCreated',
-                'id': 1535395401245028
+            ccdCase: {
+                state: 'CaseCreated',
+                id: 1535395401245028
             },
-            'submissionReference': 'testSubmissionReference',
-            'payment': {
-                'status': 'Success'
+            submissionReference: 'testSubmissionReference',
+            payment: {
+                status: 'Success'
             }
         };
     });

@@ -22,7 +22,7 @@ describe('persistence service tests', function () {
     });
 
     it('Should successfully retrieve user data with id 1234', function (done) {
-        const expectedResponse = {'formdata': {'firstname': 'tester', 'lastname': 'tester'}};
+        const expectedResponse = {formdata: {firstname: 'tester', lastname: 'tester'}};
         fetchJsonStub.returns(when(expectedResponse));
 
         services.loadFormData('1234')
@@ -35,7 +35,7 @@ describe('persistence service tests', function () {
     });
 
     it('Should successfully persist user data with id 1234', function (done) {
-        const data = {'formdata': {'firstname': 'tester', 'lastname': 'tester'}};
+        const data = {formdata: {firstname: 'tester', lastname: 'tester'}};
         fetchJsonStub.returns(when(data));
 
         services.saveFormData('1234', data)
@@ -61,7 +61,7 @@ describe('persistence service tests', function () {
     });
 
     it('Should fail to persist user data with id 1234', function (done) {
-        const data = {'formdata': {'firstname': 'tester', 'lastname': 'tester'}};
+        const data = {formdata: {firstname: 'tester', lastname: 'tester'}};
         const expectedError = new Error('Failed to retrieve user data');
         fetchJsonStub.returns(when(expectedError));
 
@@ -75,7 +75,7 @@ describe('persistence service tests', function () {
     });
 
     it('Should successfully verify link', function (done) {
-        const expectedResponse = {'valid': true};
+        const expectedResponse = {valid: true};
         const findInviteLinkUrl = 'http://localhost:8282/invitedata/true';
         fetchJsonStub.returns(when(expectedResponse));
 

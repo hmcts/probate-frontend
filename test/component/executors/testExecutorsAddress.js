@@ -148,7 +148,7 @@ describe('executors-address', () => {
                 executors: {
                     executorsNumber: 3,
                     list: [
-                        {fullName: 'John', 'isApplying': true, isApplicant: true},
+                        {fullName: 'John', isApplying: true, isApplicant: true},
                         {fullName: 'Other Applicant', isApplying: true, isApplicant: true},
                         {fullName: 'Harvey', isApplying: true, isApplicant: true}
                     ]

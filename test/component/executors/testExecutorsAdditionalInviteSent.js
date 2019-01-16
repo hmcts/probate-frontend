@@ -21,7 +21,7 @@ describe('executors-additional-invite-sent', () => {
 
         it('test correct content loaded on the page when only 1 other executor added', (done) => {
             sessionData.executors.executorsToNotifyList = [
-                {'fullName': 'other applicant', 'isApplying': true, emailSent: false},
+                {fullName: 'other applicant', isApplying: true, emailSent: false},
             ];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -32,8 +32,8 @@ describe('executors-additional-invite-sent', () => {
 
         it('test correct content loaded on the page when more than 1 other executor added', (done) => {
             sessionData.executors.executorsToNotifyList = [
-                {'fullName': 'other applicant', 'isApplying': true, emailSent: false},
-                {'fullName': 'harvey', 'isApplying': true, emailSent: false}
+                {fullName: 'other applicant', isApplying: true, emailSent: false},
+                {fullName: 'harvey', isApplying: true, emailSent: false}
             ];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -45,7 +45,7 @@ describe('executors-additional-invite-sent', () => {
         it(`test it redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {
             const data = {};
             sessionData.executors.executorsToNotifyList = [
-                {'fullName': 'other applicant', 'isApplying': true, emailSent: false},
+                {fullName: 'other applicant', isApplying: true, emailSent: false},
             ];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

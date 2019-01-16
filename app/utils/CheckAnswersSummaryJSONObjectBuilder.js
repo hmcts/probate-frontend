@@ -1,7 +1,6 @@
 'use strict';
 
-const jsdom = require('jsdom');
-const {JSDOM} = jsdom;
+const {JSDOM} = require('jsdom');
 
 class CheckAnswersSummaryJSONObjectBuilder {
 

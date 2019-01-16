@@ -35,14 +35,14 @@ describe('iht-method', () => {
 
         it(`test it redirects to iht paper: ${expectedNextUrlForIhtPaper}`, (done) => {
             const data = {
-                'method': ihtMethodContent.paperOption
+                method: ihtMethodContent.paperOption
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtPaper);
         });
 
         it(`test it redirects to iht identifier: ${expectedNextUrlForIhtIdentifier}`, (done) => {
             const data = {
-                'method': ihtMethodContent.onlineOption
+                method: ihtMethodContent.onlineOption
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtIdentifier);
         });

@@ -1,0 +1,86 @@
+{
+    "iht" : {
+      "form" : "IHT205",
+      "method" : "By post",
+      "netValue" : 6000,
+      "ihtFormId" : "IHT205",
+      "netIHT205" : "6000",
+      "grossValue" : 7000,
+      "grossIHT205" : "7000"
+    },
+    "will" : {
+      "codicils" : "Yes",
+      "codicilsNumber" : 4
+    },
+    "deceased" : {
+      "alias" : "No",
+      "address" : "Dead Doe Address",
+      "dob_day" : 1,
+      "dod_day" : 1,
+      "married" : "No",
+      "dob_date" : "1920-01-01T00:00:00.000Z",
+      "dob_year" : 1920,
+      "dod_date" : "2017-01-01T00:00:00.000Z",
+      "dod_year" : 2017,
+      "lastName" : "Doe",
+      "dob_month" : 1,
+      "dod_month" : 1,
+      "firstName" : "Dead",
+      "addressFound" : "none",
+      "deceasedName" : "Dead Doe",
+      "freeTextAddress" : "Dead Doe Address",
+      "dob_formattedDate" : "1 January 1920",
+      "dod_formattedDate" : "1 January 2017"
+    },
+    "applicant" : {
+      "address" : "John Doe Address",
+      "lastName" : "Doe",
+      "firstName" : "John",
+      "phoneNumber" : "07700900801",
+      "addressFound" : "none",
+      "freeTextAddress" : "John Doe Address",
+      "nameAsOnTheWill" : "Yes"
+    },
+    "executors" : {
+      "list" : [ {
+        "lastName" : "Doe",
+        "firstName" : "John",
+        "isApplying" : true,
+        "isApplicant" : true
+      }, {
+        "email" : "secondaryExecutor123@fakeemail.com",
+        "mobile" : "07700900469",
+        "address" : "Secondary Executor Address",
+        "fullName" : "Secondary Executor",
+        "isApplying" : true,
+        "freeTextAddress" : "Secondary Executor Address"
+      }, {
+        "email" : "thirdExecutor123@fakeemail.com",
+        "mobile" : "07700900350",
+        "address" : "Third Executor Address",
+        "fullName" : "Third Executor",
+        "isApplying" : true,
+        "freeTextAddress" : "Third Executor Address"
+      } ],
+      "alias" : "No",
+      "allalive" : "Yes",
+      "addressFound" : "none",
+      "executorsNumber" : 3,
+      "executorsEmailChanged" : false,
+      "executorsToNotifyList" : [ {
+        "email" : "secondaryExecutor123@fakeemail.com",
+        "mobile" : "07700900469",
+        "address" : "Secondary Executor Address",
+        "fullName" : "Secondary Executor",
+        "isApplying" : true,
+        "freeTextAddress" : "Secondary Executor Address"
+      }, {
+        "email" : "thirdExecutor123@fakeemail.com",
+        "mobile" : "07700900350",
+        "fullName" : "Third Executor",
+        "isApplying" : true
+      } ],
+      "otherExecutorsApplying" : "Yes"
+    },
+    "documentupload" : { }
+}

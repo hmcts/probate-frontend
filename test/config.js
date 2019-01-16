@@ -9,7 +9,7 @@ module.exports = {
     TestUseGovPay: process.env.USE_GOV_PAY || 'true',
     TestInviteIdListUrl: process.env.INVITE_ID_LIST_URL,
     TestPinUrl: process.env.PIN_URL,
-    TestInvitationUrl: process.env.INVITATION_URL,
+    TestInvitationUrl: process.env.INVITATION_URL || 'http://probate-frontend-aat.service.core-compute-aat.internal/executors/invitation',
     TestIdamAddUserUrl: process.env.IDAM_ADD_USER_URL,
     TestIdamUserGroup: process.env.IDAM_USER_GROUP,
     TestIdamRole: process.env.IDAM_CITIZEN_ROLE,

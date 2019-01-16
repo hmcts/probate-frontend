@@ -8,5 +8,4 @@ module.exports = function (email, password) {
     I.fillField('password', password);
 
     I.click('Sign in');
-    I.waitForNavigation();
 };

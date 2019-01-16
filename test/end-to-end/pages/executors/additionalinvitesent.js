@@ -8,6 +8,6 @@ module.exports = function () {
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.click(commonContent.continue);
+    I.awaitNavigation(() => I.click(commonContent.continue));
 
 };

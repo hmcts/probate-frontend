@@ -7,5 +7,5 @@ module.exports = function () {
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.click('Notify these executors');
+    I.awaitNavigation(() => I.click('Notify these executors'));
 };

@@ -82,7 +82,7 @@ describe('ExecutorCurrentName', () => {
             done();
         });
 
-        it('should return url for the next step if the index is greater than 0', (done) => {
+        it('should return url for the next step if the index is not -1', (done) => {
             const req = {
                 session: {
                     journey: journey

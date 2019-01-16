@@ -2,7 +2,6 @@
 
 const utils = require('app/components/api-utils');
 const config = require('app/config');
-const services = require('app/components/services');
 const FormatUrl = require('app/utils/FormatUrl');
 const validationServiceUrl = config.services.validation.url;
 const logger = require('app/components/logger');
@@ -24,7 +23,9 @@ const createCheckAnswersPdf = (formdata, sessionId) => {
 
 const createDeclarationPdf = (formdata, sessionId) => {
     logInfo('Create legal declaration PDF', sessionId);
-    return services.authorise()
+    const authorise = new Authorise(`${config.services.idam.s2s_url}/lease`, sessionId);
+    return authorise
+        .post()
         .then(serviceToken => {
             const body = {
                 legalDeclaration: formdata.legalDeclaration
@@ -35,7 +36,9 @@ const createDeclarationPdf = (formdata, sessionId) => {
 
 const createCoverSheetPdf = (formdata, sessionId) => {
     logInfo('Create cover sheet PDF', sessionId);
-    return services.authorise()
+    const authorise = new Authorise(`${config.services.idam.s2s_url}/lease`, sessionId);
+    return authorise
+        .post()
         .then(serviceToken => {
             const body = {
                 bulkScanCoverSheet: {

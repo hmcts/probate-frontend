@@ -17,9 +17,9 @@ module.exports = function (noUKCopies, noOverseasCopies, estateNetValue, isFaile
 
     let totalFee = 0;
 
-    totalFee += seeThenAddApplicationFee(I, estateNetValue);
-    totalFee += seeThenAddUKCopiesFee(I, noUKCopies);
-    totalFee += seeThenAddOverseasCopiesFee(I, noOverseasCopies);
+    totalFee += seeThenReturnApplicationFee(I, estateNetValue);
+    totalFee += seeThenReturnUKCopiesFee(I, noUKCopies);
+    totalFee += seeThenReturnOverseasCopiesFee(I, noOverseasCopies);
 
     I.see(paymentBreakdownContent.total);
     I.see(`£${totalFee}`);
@@ -27,7 +27,7 @@ module.exports = function (noUKCopies, noOverseasCopies, estateNetValue, isFaile
     I.awaitNavigation(() => I.click('.button'));
 };
 
-function seeThenAddApplicationFee(I, estateNetValue) {
+function seeThenReturnApplicationFee(I, estateNetValue) {
     if (estateNetValue > 5000) {
         I.see(`£${215}`);
         return 215;
@@ -36,7 +36,7 @@ function seeThenAddApplicationFee(I, estateNetValue) {
     return 0;
 }
 
-function seeThenAddUKCopiesFee(I, noUKCopies) {
+function seeThenReturnUKCopiesFee(I, noUKCopies) {
     if (noUKCopies > 0) {
         I.see(paymentBreakdownContent.extraCopiesFeeUk);
         const cost = 0.5*noUKCopies;
@@ -47,7 +47,7 @@ function seeThenAddUKCopiesFee(I, noUKCopies) {
     return 0;
 }
 
-function seeThenAddOverseasCopiesFee(I, noOverseasCopies) {
+function seeThenReturnOverseasCopiesFee(I, noOverseasCopies) {
     if (noOverseasCopies > 0) {
         I.see(paymentBreakdownContent.extraCopiesFeeOverseas);
         const cost = 0.5 * noOverseasCopies;

@@ -5,6 +5,7 @@ const randomstring = require('randomstring');
 const taskListContent = require('app/resources/en/translation/tasklist');
 const data = require('test/data/payments/fee-payment');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
+let emailId;
 Feature('Fee Payment');
 
 After(() => {
@@ -17,7 +18,7 @@ Data(TestConfigurator.createFeeInfoTable()).Scenario('Check multiple application
     data.iht.grossValue = current.grossValue;
     data.iht.netValue = current.netValue;
 
-    const emailId = randomstring.generate(9).toLowerCase()+'@example.com';
+    emailId = randomstring.generate(9).toLowerCase()+'@example.com';
     TestConfigurator.createAUser(emailId);
     TestConfigurator.injectFormData(data, emailId);
 
@@ -58,6 +59,7 @@ Data(TestConfigurator.createFeeInfoTableFor1Copy()).Scenario('Check can pay afte
     I.seePaymentBreakdownPage(current.noUKCopies, current.noOverseasCopies, current.netValue, false);
     I.click('Cancel payment');
     I.click(taskListContent.taskStarted);
+    I.waitForNavigation();
     I.seePaymentBreakdownPage(current.noUKCopies, current.noOverseasCopies, current.netValue, true);
     I.seeGovUkPaymentPage();
     I.seeGovUkConfirmPage();

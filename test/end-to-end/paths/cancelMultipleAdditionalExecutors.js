@@ -27,25 +27,20 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();
-    I.click(commonContent.saveAndClose);
-    I.waitForNavigation();
-    I.click('sign back in');
-    I.waitForNavigation();
+    I.awaitNavigation(() => I.click(commonContent.saveAndClose));
+    I.awaitNavigation(() => I.click('sign back in'));
 
     I.signInWith(emailId, 'Probate123');
-    I.click(taskListContent.taskStarted);
-    I.waitForNavigation();
+    I.awaitNavigation(() => I.click(taskListContent.taskStarted));
 
-    I.click(locate('a')
+    I.awaitNavigation(() => I.click(locate('a')
         .withAttr({href: '/other-executors-applying'})
-        .withText(commonContent.change));
-    I.waitForNavigation();
+        .withText(commonContent.change)));
     I.selectExecutorsApplying('No');
     I.selectExecutorRoles('2', true, true);
     I.selectHasExecutorBeenNotified('Yes', '2');
     I.selectExecutorRoles('3', false, false);
-    I.click(commonContent.signOut);
-    I.waitForNavigation();
+    I.awaitNavigation(() => I.click(commonContent.signOut));
 }).retry(TestConfigurator.getRetryScenarios());
 
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {

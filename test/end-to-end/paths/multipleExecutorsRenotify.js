@@ -40,40 +40,40 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');
 
     //Go to summary page
-    I.click(locate('a')
+    I.awaitNavigation(() => I.click(locate('a')
         .withAttr({href: '/summary/*'})
-        .withText(taskListContent.checkYourAnswers));
-    I.waitForNavigation();
+        .withText(taskListContent.checkYourAnswers)));
 
     //Go to executors number page
-    I.click(locate('a')
+    I.awaitNavigation(() => I.click(locate('a')
         .withAttr({href: '/executors-number'})
-        .withText(commonContent.change));
-    I.waitForNavigation();
+        .withText(commonContent.change)));
 
+    //Enter name for fourth executor
     I.enterTotalExecutors('4');
     I.fillField('#executorName_'+2, 'Fourth Executor');
-    I.click(commonContent.saveAndContinue);
-    I.waitForNavigation();
+    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
 
+    //Executors applying section
     I.selectExecutorsAllAlive('Yes');
     I.selectExecutorsApplying('Yes');
     I.click('#executorsApplying-2');
     I.click('#executorsApplying-4');
-    I.click(commonContent.saveAndContinue);
-    I.waitForNavigation();
+    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
 
     I.click('#alias-optionNo');
-    I.click(commonContent.saveAndContinue);
-    I.waitForNavigation();
-    I.click(commonContent.saveAndContinue);
-    I.waitForNavigation();
-    I.click(commonContent.saveAndContinue);
-    I.waitForNavigation();
 
+    //No need to change or fill values as they are already entered
+    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
+    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
+    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
+
+    //Fourth executor details
     I.enterExecutorContactDetails('4', false);
     I.enterExecutorManualAddress('4');
     I.selectExecutorRoles('2', false, true);
+
+    //Declaration section
     I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();

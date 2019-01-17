@@ -7,4 +7,10 @@ module.exports = function () {
     const I = this;
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.see(thankYouContent.header);
+
+    I.click('#checkAnswerHref');
+    I.click('#declarationPdfHref');
+    I.click('#coverSheetPdfHref');
+
+    I.click('#sign-out-header');
 };

@@ -6,7 +6,7 @@ const commonContent = require('app/resources/en/translation/common');
 module.exports = function () {
     const I = this;
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click('123');
 
+    I.click('#coverSheetPdfHref');
     I.click(commonContent.continue);
 };

@@ -17,28 +17,46 @@ module.exports = function (noUKCopies, noOverseasCopies, estateNetValue, isFaile
 
     let totalFee = 0;
 
+    totalFee += seeThenAddApplicationFee(I, estateNetValue);
+    totalFee += seeThenAddUKCopiesFee(I, noUKCopies);
+    totalFee += seeThenAddOverseasCopiesFee(I, noOverseasCopies);
+
+    I.see(paymentBreakdownContent.total);
+    I.see(`£${totalFee}`);
+
+    I.awaitNavigation(() => I.click('.button'));
+};
+
+function seeThenAddApplicationFee(I, estateNetValue) {
     if (estateNetValue > 5000) {
         I.see(`£${215}`);
-        totalFee += 215;
-    } else {
-        I.see(`£${0}`);
+        return 215;
     }
+    I.see(`£${0}`);
+    return 0;
+}
+
+function seeThenAddUKCopiesFee(I, noUKCopies) {
     if (noUKCopies > 0) {
         I.see(paymentBreakdownContent.extraCopiesFeeUk);
         const cost = 0.5*noUKCopies;
         I.see(`£${cost}`);
-        totalFee += cost;
-    } else {
-        I.dontSee(paymentBreakdownContent.extraCopiesFeeUk);
+        return cost;
     }
+    I.dontSee(paymentBreakdownContent.extraCopiesFeeUk);
+    return 0;
+}
+
+function seeThenAddOverseasCopiesFee(I, noOverseasCopies) {
     if (noOverseasCopies > 0) {
         I.see(paymentBreakdownContent.extraCopiesFeeOverseas);
         const cost = 0.5 * noOverseasCopies;
         I.see(`£${cost}`);
-        totalFee += cost;
-    } else {
-        I.dontSee(paymentBreakdownContent.extraCopiesFeeOverseas);
+        return cost;
     }
+    I.dontSee(paymentBreakdownContent.extraCopiesFeeOverseas);
+    return 0;
+}
 
     I.see(paymentBreakdownContent.total);
     I.see(`£${totalFee}`);

@@ -6,6 +6,8 @@ module.exports = function () {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.click('#declarationPdfHref');
+    I.switchTo();
     I.click('#declarationCheckbox');
 
     I.click('#acceptAndSend');

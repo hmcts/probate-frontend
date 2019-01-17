@@ -1,15 +1,15 @@
 const testConfig = require('test/config.js');
 
 exports.config = {
-    'tests': './paths/**/multipleExecutorsPath.js',
+    'tests': './paths/**/singleExecutorsPath.js',
     'output': './output',
     'helpers': {
         'Puppeteer': {
             'url': testConfig.TestE2EFrontendUrl || 'https://probate-frontend-aat.service.core-compute-aat.internal',
             'waitForTimeout': 60000,
-            'waitForAction': 6000,
+            'waitForAction': 3000,
             'getPageTimeout': 20000,
-            'show': false,
+            'show': true,
             'waitForNavigation': 'networkidle0',
             'chrome': {
                 'ignoreHTTPSErrors': true,

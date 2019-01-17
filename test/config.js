@@ -64,8 +64,8 @@ module.exports = {
     TestReformProxy: 'http://proxyout.reform.hmcts.net:8080',
     TestInjectFormDataURL: 'http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata',
 
-    TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS,
-    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER,
+    TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS || 'fourthExecutor123@fakeemail.com',
+    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER || '07700900042',
     s2sStubErrorSequence: '000',
     links: {
         cookies: '/cookies',

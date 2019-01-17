@@ -43,30 +43,37 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.click(locate('a')
         .withAttr({href: '/summary/*'})
         .withText(taskListContent.checkYourAnswers));
+    I.waitForNavigation();
+
     //Go to executors number page
     I.click(locate('a')
         .withAttr({href: '/executors-number'})
         .withText(commonContent.change));
+    I.waitForNavigation();
 
     I.enterTotalExecutors('4');
     I.fillField('#executorName_'+2, 'Fourth Executor');
     I.click(commonContent.saveAndContinue);
+    I.waitForNavigation();
+
     I.selectExecutorsAllAlive('Yes');
     I.selectExecutorsApplying('Yes');
     I.click('#executorsApplying-2');
     I.click('#executorsApplying-4');
     I.click(commonContent.saveAndContinue);
+    I.waitForNavigation();
+
     I.click('#alias-optionNo');
     I.click(commonContent.saveAndContinue);
+    I.waitForNavigation();
     I.click(commonContent.saveAndContinue);
+    I.waitForNavigation();
     I.click(commonContent.saveAndContinue);
-    I.fillField('#email', 'fourthExecutor123@fakeemail.com');
-    I.fillField('#mobile', '07700900042');
-    I.click(commonContent.saveAndContinue);
-    I.click('.summary');
-    I.fillField('#freeTextAddress', 'Fourth Executor Address');
-    I.click(commonContent.saveAndContinue);
-    I.selectExecutorRoles(2, false, true);
+    I.waitForNavigation();
+
+    I.enterExecutorContactDetails('4', false);
+    I.enterExecutorManualAddress('4');
+    I.selectExecutorRoles('2', false, true);
     I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();

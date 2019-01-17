@@ -6,7 +6,6 @@ const taskListContent = require('app/resources/en/translation/tasklist');
 const commonContent = require('app/resources/en/translation/common');
 const data = require('test/data/multiple-executors-section-3');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
-const emailId = randomstring.generate(9).toLowerCase()+'@example.com';
 const testConfig = require('test/config.js');
 
 Feature('Multiple Executors Renotify Flow');
@@ -20,6 +19,7 @@ let grabIdsNewExecutors;
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
 
+    const emailId = randomstring.generate(9).toLowerCase()+'@example.com';
     TestConfigurator.createAUser(emailId);
     TestConfigurator.injectFormData(data, emailId);
 

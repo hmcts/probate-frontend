@@ -69,7 +69,7 @@
 
     {% if fields.isDocumentUploadToggleEnabled.value === 'true' %}
         <h2 class="heading-medium">{{ content.heading1 | safe }}</h2>
-        <p>{{ content.coverSheetDownloadMessage }} <a id="coverSheetPdfHref" href="/cover-sheet-pdf">{{ content.coverSheetPdf }}</a>.</p>
+        <p>{{ content.coverSheetDownloadMessage }} <a href="/cover-sheet-pdf">{{ content.coverSheetPdf }}</a>.</p>
         {% if fields.ccdReferenceNumber.value !== '' %}
             <p>{{ content.text1 | safe | replace('{ccdReferenceNumber}', fields.ccdReferenceNumber.value) }}</p>
         {% endif %}

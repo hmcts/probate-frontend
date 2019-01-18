@@ -14,7 +14,7 @@ data:
   VALIDATION_SERVICE_URL: 'http://probate-business-service-aat.service.core-compute-aat.internal/validate'
   BUSINESS_DOCUMENT_URL: 'http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument'
   SUBMIT_SERVICE_URL: 'http://probate-submit-service-aat.service.core-compute-aat.internal'
-  PERSISTENCE_SERVICE_URL: 'http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata'
+  PERSISTENCE_SERVICE_URL: 'http://probate-persistence-service-pr-81.service.core-compute-preview.internal/formdata'
   REFORM_ENVIRONMENT : 'aat'
 #  FEES_URL: 'http://fees-register-api-aat.service.core-compute-aat.internal'
 #  CLAIM_STORE_URL: 'http://cmc-claim-store-aat.service.core-compute-aat.internal'

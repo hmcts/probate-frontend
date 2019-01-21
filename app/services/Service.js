@@ -32,9 +32,9 @@ class Service {
         throw new ReferenceError('delete() must be overridden when extending Service');
     }
 
-    log(message) {
+    log(message, level = 'info') {
         const sessionId = this.sessionId ? this.sessionId : 'Init';
-        logger(sessionId).info(message);
+        logger(sessionId)[level](message);
     }
 
     replaceEmailInPath(path, email) {
@@ -52,6 +52,13 @@ class Service {
         return asyncFetch
             .fetch(url, fetchOptions, res => res.text())
             .then(text => text)
+            .catch(err => err);
+    }
+
+    fetchBuffer(url, fetchOptions) {
+        return asyncFetch
+            .fetch(url, fetchOptions, res => res.buffer())
+            .then(buffer => buffer)
             .catch(err => err);
     }
 

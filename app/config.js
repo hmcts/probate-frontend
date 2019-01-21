@@ -179,6 +179,14 @@ const config = {
             uploadTimeout: 'Error: upload timed out'
         },
         timeoutMs: 300000
+    },
+    pdf: {
+        template: {
+            checkAnswers: 'generateCheckAnswersSummaryPDF',
+            legalDeclaration: 'generateLegalDeclarationPDF',
+            coverSheet: 'generateBulkScanCoverSheetPDF'
+        },
+        path: '/businessDocument'
     }
 };
 

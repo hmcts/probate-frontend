@@ -5,7 +5,7 @@ const rewire = require('rewire');
 const Service = rewire('app/services/Service');
 const fetch = require('node-fetch');
 const HttpsProxyAgent = require('https-proxy-agent');
-// const sinon = require('sinon');
+const sinon = require('sinon');
 
 describe('Service', () => {
     describe('get()', () => {
@@ -40,16 +40,39 @@ describe('Service', () => {
         });
     });
 
-    // describe('log()', () => {
-    //     it('should log a message', (done) => {
-    //         const revert = Service.__set__('logger', () => sinon.spy());
-    //         const service = new Service();
-    //         service.log();
-    //         expect(Service.__get__('logger()').calledOnce).to.equal(true);
-    //         revert();
-    //         done();
-    //     });
-    // });
+    describe('log()', () => {
+        let revert;
+
+        beforeEach(() => {
+            revert = Service.__set__('logger', sinon.stub().returns({
+                info: () => true
+            }));
+        });
+
+        afterEach(() => {
+            revert();
+        });
+
+        it('should log a message without a sessionId', (done) => {
+            const service = new Service();
+            service.log();
+            expect(Service.__get__('logger').calledOnce).to.equal(true);
+            expect(Service.__get__('logger').calledWith('Init')).to.equal(true);
+            revert();
+            done();
+        });
+
+        it('should log a message with a sessionId', (done) => {
+            const sessionId = 'sid123';
+            const service = new Service();
+            service.sessionId = sessionId;
+            service.log();
+            expect(Service.__get__('logger').calledOnce).to.equal(true);
+            expect(Service.__get__('logger').calledWith(sessionId)).to.equal(true);
+            revert();
+            done();
+        });
+    });
 
     describe('replaceEmailInPath()', () => {
         it('should replace the applicantEmail token with an email address', (done) => {
@@ -95,6 +118,28 @@ describe('Service', () => {
                 .fetchText('http://localhost/forms', {})
                 .then((res) => {
                     expect(res).to.equal('something');
+                    revert();
+                    done();
+                })
+                .catch((err) => {
+                    done(err);
+                });
+        });
+    });
+
+    describe('fetchBuffer()', () => {
+        it('should return a buffer response', (done) => {
+            const buffer = new Buffer('really interesting file contents');
+            const revert = Service.__set__('asyncFetch', class {
+                static fetch() {
+                    return Promise.resolve(buffer);
+                }
+            });
+            const service = new Service();
+            service
+                .fetchText('http://localhost/forms', {})
+                .then((res) => {
+                    expect(res).to.equal(buffer);
                     revert();
                     done();
                 })

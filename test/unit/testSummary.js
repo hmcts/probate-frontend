@@ -3,9 +3,9 @@
 const initSteps = require('app/core/initSteps');
 const {assert, expect} = require('chai');
 const co = require('co');
-const journey = require('app/journeys/probate');
 const rewire = require('rewire');
 const Summary = rewire('app/steps/ui/summary/index');
+const probateJourney = require('app/journeys/probate');
 
 describe('Summary', () => {
     const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
@@ -32,7 +32,12 @@ describe('Summary', () => {
                     return Promise.resolve(expectedResponse);
                 }
             });
-            let ctx = {session: {form: {}}};
+            let ctx = {
+                session: {
+                    form: {},
+                    journey: probateJourney
+                }
+            };
             const formdata = {executors: {list: [{fullName: 'Prince', hasOtherName: true}, {fullName: 'Cher', hasOtherName: true}]}};
             const summary = new Summary(steps, section, templatePath, i18next, schema);
 
@@ -51,7 +56,12 @@ describe('Summary', () => {
                     return Promise.resolve(expectedResponse);
                 }
             });
-            let ctx = {session: {form: {}}};
+            let ctx = {
+                session: {
+                    form: {},
+                    journey: probateJourney
+                }
+            };
             const formdata = {executors: {list: [{fullName: 'Prince', hasOtherName: false}, {fullName: 'Cher', hasOtherName: false}]}};
             const summary = new Summary(steps, section, templatePath, i18next, schema);
 
@@ -70,7 +80,12 @@ describe('Summary', () => {
                     return Promise.resolve(expectedResponse);
                 }
             });
-            let ctx = {session: {form: {}}};
+            let ctx = {
+                session: {
+                    form: {},
+                    journey: probateJourney
+                }
+            };
             const formdata = {executors: {list: []}};
             const summary = new Summary(steps, section, templatePath, i18next, schema);
 
@@ -89,7 +104,12 @@ describe('Summary', () => {
                     return Promise.resolve(expectedResponse);
                 }
             });
-            let ctx = {session: {form: {}}};
+            let ctx = {
+                session: {
+                    form: {},
+                    journey: probateJourney
+                }
+            };
             const formdata = {executors: {list: []}};
             const featureToggles = {
                 document_upload: true
@@ -112,7 +132,12 @@ describe('Summary', () => {
                     return Promise.resolve(expectedResponse);
                 }
             });
-            let ctx = {session: {form: {}}};
+            let ctx = {
+                session: {
+                    form: {},
+                    journey: probateJourney
+                }
+            };
             const formdata = {executors: {list: []}};
             const featureToggles = {
                 document_upload: false

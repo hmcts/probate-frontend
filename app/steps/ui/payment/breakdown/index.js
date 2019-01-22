@@ -51,7 +51,7 @@ class PaymentBreakdown extends Step {
     }
 
     * handlePost(ctx, errors, formdata, session, hostname) {
-        const authorise = new Authorise(`${config.services.idam.s2s_url}/lease`, ctx.sessionID);
+        const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
         const serviceAuthResult = yield authorise.post();
         if (serviceAuthResult.name === 'Error') {
             const options = {};

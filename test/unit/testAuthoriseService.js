@@ -19,7 +19,7 @@ describe('AuthoriseService', () => {
             expect(authorise.log.calledOnce).to.equal(true);
             expect(authorise.log.calledWith('Post authorise')).to.equal(true);
             expect(authorise.fetchText.calledOnce).to.equal(true);
-            expect(authorise.fetchText.calledWith(endpoint, fetchOptions)).to.equal(true);
+            expect(authorise.fetchText.calledWith(`${endpoint}/lease`, fetchOptions)).to.equal(true);
 
             logSpy.restore();
             fetchTextSpy.restore();

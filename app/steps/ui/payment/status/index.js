@@ -57,7 +57,7 @@ class PaymentStatus extends Step {
         );
 
         if (formdata.paymentPending === 'true' || formdata.paymentPending === 'unknown') {
-            const authorise = new Authorise(`${config.services.idam.s2s_url}/lease`, ctx.sessionID);
+            const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
             const serviceAuthResult = yield authorise.post();
 
             if (serviceAuthResult.name === 'Error') {

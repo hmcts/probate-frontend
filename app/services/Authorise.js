@@ -6,7 +6,7 @@ const otp = require('otp');
 class Authorise extends Service {
     post() {
         this.log('Post authorise');
-        const url = this.endpoint;
+        const url = `${this.endpoint}/lease`;
         const headers = {
             'Content-Type': 'application/json'
         };

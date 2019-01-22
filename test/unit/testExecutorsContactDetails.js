@@ -243,6 +243,7 @@ describe('Contact-Details', function () {
             const ctx = {
                 index: 1
             };
+            const contactDetails = new ContactDetails(steps, section, templatePath, i18next, schema);
             const nextStepUrl = contactDetails.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/executor-address/1');
             done();

@@ -12,5 +12,6 @@ module.exports = function (aliasReason, aliasOther) {
         I.fillField('#otherReason', aliasOther);
     }
 
-    I.click(commonContent.saveAndContinue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+
 };

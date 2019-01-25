@@ -5,6 +5,7 @@
 const initSteps = require('app/core/initSteps');
 const {assert, expect} = require('chai');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const journey = require('app/journeys/probate');
 const executorCurrentNameReasonPath = '/executor-current-name-reason/';
 
 describe('ExecutorCurrentNameReason', () => {
@@ -286,6 +287,38 @@ describe('ExecutorCurrentNameReason', () => {
             const index = ExecutorCurrentNameReason.recalcIndex(testCtx, 0);
 
             expect(index).to.equal(-1);
+            done();
+        });
+    });
+
+    describe('nextStepUrl()', () => {
+        it('should return url for the next step if the index is -1', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                index: -1
+            };
+            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
+            const nextStepUrl = ExecutorCurrentNameReason.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/executor-contact-details/*');
+            done();
+        });
+
+        it('should return url for the next step if the index is not -1', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                index: 1
+            };
+            const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
+            const nextStepUrl = ExecutorCurrentNameReason.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/executor-current-name/1');
             done();
         });
     });

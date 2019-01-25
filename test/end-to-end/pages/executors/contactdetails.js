@@ -2,7 +2,7 @@
 
 const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/executors/contactdetails/index');
-const testConfig = require('test/config.js');
+const testConfig = require('test/config');
 
 module.exports = function (executorNumber, firstRecord) {
     const I = this;
@@ -16,5 +16,6 @@ module.exports = function (executorNumber, firstRecord) {
     I.fillField('#email', testConfig.TestEnvEmailAddress);
     I.fillField('#mobile', testConfig.TestEnvMobileNumber);
 
-    I.click(commonContent.saveAndContinue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+
 };

@@ -1,5 +1,6 @@
 'use strict';
 
+const content = require('app/resources/en/translation/executors/invite');
 const pageUnderTest = require('app/steps/ui/executors/invite/index');
 
 module.exports = function () {
@@ -7,5 +8,5 @@ module.exports = function () {
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.click('Notify the other executors who are applying');
+    I.waitForNavigationToComplete(`input[value="${content.sendInvites}"]`);
 };

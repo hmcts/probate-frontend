@@ -2,7 +2,12 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "executor",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "executor": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
   "required": [
     "executor"
   ]

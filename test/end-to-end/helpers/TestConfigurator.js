@@ -5,6 +5,7 @@ const request = require('request');
 const testConfig = require('test/config');
 
 /* eslint no-console: 0 no-unused-vars: 0 */
+/* eslint-disable no-undef */
 class TestConfigurator {
 
     constructor() {
@@ -17,16 +18,16 @@ class TestConfigurator {
         this.testDeleteUserUrl = this.testAddUserUrl + '/';
         this.role = testConfig.TestIdamRole;
         this.testIdamUserGroup = testConfig.TestIdamUserGroup;
-        this.paymentEnvironments = testConfig.paymentEnvironments;
-        this.TestE2EFrontendUrl = testConfig.TestE2EFrontendUrl;
         this.useGovPay = testConfig.TestUseGovPay;
         this.userDetails = '';
         this.useSidam = testConfig.TestUseSidam;
+        this.retryFeatures = testConfig.TestRetryFeatures;
         this.retryScenarios = testConfig.TestRetryScenarios;
+        this.testUseProxy = testConfig.TestUseProxy;
+        this.testProxy = testConfig.TestProxy;
     }
 
     getBefore() {
-
         if (process.env.testCitizenEmail === this.getTestCitizenEmail()) {
             this.setTestCitizenName();
             this.setTestCitizenPassword();
@@ -58,14 +59,22 @@ class TestConfigurator {
                     };
             }
 
-            request({
-                url: this.getTestAddUserURL(),
-                proxy: 'socks5:proxyout.reform.hmcts.net:8080',
-                method: 'POST',
-                json: true, // <--Very important!!!
-                body: this.userDetails
-            });
-
+            if (this.getUseProxy() === 'true') {
+                request({
+                    url: this.getTestAddUserURL(),
+                    proxy: this.getProxy(),
+                    method: 'POST',
+                    json: true, // <--Very important!!!
+                    body: this.userDetails
+                });
+            } else {
+                request({
+                    url: this.getTestAddUserURL(),
+                    method: 'POST',
+                    json: true, // <--Very important!!!
+                    body: this.userDetails
+                });
+            }
         }
 
     }
@@ -142,8 +151,45 @@ class TestConfigurator {
         return this.useGovPay;
     }
 
+    getRetryFeatures() {
+        return this.retryFeatures;
+    }
+
     getRetryScenarios() {
         return this.retryScenarios;
+    }
+
+    getUseProxy() {
+        return this.testUseProxy;
+    }
+
+    getProxy() {
+        return this.testProxy;
+    }
+
+    injectFormData(data, emailId) {
+        const formData =
+            {
+                id: emailId,
+                formdata: {
+                    payloadVersion: '4.1.0',
+                    applicantEmail: emailId,
+                }
+            };
+        Object.assign(formData.formdata, data);
+        request({
+            url: this.testInjectFormDataURL,
+            method: 'POST',
+            headers: {'content-type': 'application/json', 'Session-Id': emailId},
+            proxy: this.testReformProxy,
+            socksProxyHost: 'localhost',
+            socksProxyPort: '9090',
+            json: true,
+            body: formData
+        },
+        function (error, response, body) {
+            console.log('This is email id ' + emailId);
+        });
     }
 }
 

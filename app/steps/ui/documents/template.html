@@ -59,17 +59,17 @@
 
 {% block question %}
     {% if fields.isDocumentUploadToggleEnabled.value === 'true' %}
-        <h1 class="form-title heading-large">{{content.header}}</h1>
+        <h1 class="form-title heading-large">{{ content.header }}</h1>
     {% else %}
-        <h1 class="form-title heading-large">{{content.old_header}}</h1>
+        <h1 class="form-title heading-large">{{ content.old_header }}</h1>
     {% endif %}
 {% endblock %}
 
 {% block form_content %}
-
     {% if fields.isDocumentUploadToggleEnabled.value === 'true' %}
         <h2 class="heading-medium">{{ content.heading1 | safe }}</h2>
-        <p>{{ content.coverSheetDownloadMessage }} <a href="/cover-sheet-pdf">{{ content.coverSheetPdf }}</a>.</p>
+        <p>{{ content.coverSheetDownloadMessage }} <a id="coverSheetPdfHref"
+                                                      href="/cover-sheet-pdf">{{ content.coverSheetPdf }}</a>.</p>
         {% if fields.ccdReferenceNumber.value !== '' %}
             <p>{{ content.text1 | safe | replace('{ccdReferenceNumber}', fields.ccdReferenceNumber.value) }}</p>
         {% endif %}
@@ -80,18 +80,17 @@
         <p>{{ content.text4 | safe }}</p>
 
         <div class="panel panel-border-wide">
-        <p>{{ content.warning | safe }}</p>
+            <p>{{ content.warning | safe }}</p>
         </div>
 
         <h2 class="heading-medium">{{ content.heading2 | safe }}</h2>
         <p>{{ content.text5 | safe }}</p>
 
         <div class="panel panel-border-narrow">
-        <p>{{ fields.registryAddress.value | safe | nl2br }}</p>
+            <p>{{ fields.registryAddress.value | safe | nl2br }}</p>
         </div>
 
         <input id="sentDocuments" type="hidden" name="sentDocuments" value="true"/>
-
     {% else %}
         <p>{{ content.old_printPage | safe }}</p>
         <h2 class="heading-medium">{{ content.old_heading2 | safe }}</h2>
@@ -124,7 +123,6 @@
             text = content["checkboxLabel" + codicilsSuffix],
             legend = content.title
         ) }}
-
     {% endif %}
 
     <div class="form-group">

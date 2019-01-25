@@ -1,17 +1,30 @@
 'use strict';
 
-const ValidationStep = require('app/core/steps/ValidationStep');
-const FeatureToggle = require('app/utils/FeatureToggle');
+const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
+const content = require('app/resources/en/translation/deceased/domicile');
+const pageUrl = '/deceased-domicile';
+const fieldKey = 'domicile';
 
-class DeceasedDomicile extends ValidationStep {
+class DeceasedDomicile extends EligibilityValidationStep {
 
     static getUrl() {
-        return '/deceased-domicile';
+        return pageUrl;
     }
 
-    isComplete(ctx, formdata, featureToggles) {
-        const isEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
-        return [isEnabled ? true : this.validate(ctx, formdata)[0], 'inProgress'];
+    getContextData(req, res) {
+        return super.getContextData(req, res, pageUrl, fieldKey);
+    }
+
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('notInEnglandOrWales');
+    }
+
+    nextStepOptions() {
+        return {
+            options: [
+                {key: fieldKey, value: content.optionYes, choice: 'inEnglandOrWales'}
+            ]
+        };
     }
 }
 

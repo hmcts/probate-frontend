@@ -1,20 +1,24 @@
 module.exports = {
 
-    TestIdamBaseUrl: process.env.IDAM_API_URL || 'https://preprod-idamapi.reform.hmcts.net:3511',
-    TestFrontendUrl: process.env.TEST_URL || 'https://probate-frontend-aat.service.core-compute-aat.internal',
-    TestE2EFrontendUrl: process.env.TEST_E2E_URL || 'https://probate-frontend-aat.service.core-compute-aat.internal',
+    TestIdamBaseUrl: process.env.IDAM_API_URL || 'http://localhost:8484',
+    TestFrontendUrl: process.env.TEST_URL || 'http://localhost:3000',
+    TestE2EFrontendUrl: process.env.TEST_E2E_URL || 'http://localhost:3000',
     TestUseIdam: process.env.USE_IDAM || 'true',
     TestUseSidam: process.env.USE_SIDAM || 'false',
-    TestIdamLoginUrl: process.env.IDAM_LOGIN_URL || 'https://idam.preprod.ccidam.reform.hmcts.net/login',
-    TestUseGovPay: process.env.USE_GOV_PAY || 'false',
-    TestInviteIdListUrl: process.env.INVITE_ID_LIST_URL || '/inviteIdList',
-    TestPinUrl: process.env.PIN_URL || '/pin',
-    TestInvitationUrl: process.env.INVITATION_URL || '/executors/invitation',
-    TestIdamAddUserUrl: process.env.IDAM_ADD_USER_URL || '/testing-support/accounts',
-    TestIdamUserGroup: process.env.IDAM_USER_GROUP || 'probate-private-beta',
-    TestIdamRole: process.env.IDAM_CITIZEN_ROLE || 'citizen',
+    TestIdamLoginUrl: process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
+    TestUseGovPay: process.env.USE_GOV_PAY || 'true',
+    TestInviteIdListUrl: process.env.INVITE_ID_LIST_URL,
+    TestPinUrl: process.env.PIN_URL,
+    TestInvitationUrl: process.env.INVITATION_URL,
+    TestIdamAddUserUrl: process.env.IDAM_ADD_USER_URL,
+    TestIdamUserGroup: process.env.IDAM_USER_GROUP,
+    TestIdamRole: process.env.IDAM_CITIZEN_ROLE,
     TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '/@probateTest.com',
-    TestRetryScenarios: process.env.RETRY_SCENARIOS || 0,
+    TestUseProxy: process.env.TEST_USE_PROXY || 'true',
+    TestProxy: process.env.TEST_PROXY || 'socks5:proxyout.reform.hmcts.net:8080',
+    TestRetryFeatures: process.env.RETRY_FEATURES || 0,
+    TestRetryScenarios: process.env.RETRY_SCENARIOS || 3,
+    TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png',
     TestWaitForDocumentUpload: 60,
 
     postcodeLookup: {
@@ -31,6 +35,20 @@ module.exports = {
         emptyAddressPostcode: ''
     },
 
+    govPayTestCardNos: {
+        validCardNo: '4242424242424242'
+    },
+
+    govPayTestCardDetails: {
+        expiryMonth: '06',
+        expiryYear: '99',
+        cardholderName: 'Test Payment',
+        cvc: '123',
+        addressLine1: '1',
+        addressCity: 'London',
+        addressPostcode: 'SW1A1AA'
+    },
+
     validation: {
         url: process.env.TEST_VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
     },
@@ -42,7 +60,7 @@ module.exports = {
     s2sStubErrorSequence: '000',
     links: {
         cookies: '/cookies',
-        terms: process.env.TERMS_AND_CONDITIONS|| '/terms-conditions',
+        terms: process.env.TERMS_AND_CONDITIONS || '/terms-conditions',
         survey: process.env.SURVEY || 'http://www.smartsurvey.co.uk/s/CFZF7/',
         surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'http://www.smartsurvey.co.uk/s/A2LY8/',
         privacy: '/privacy-policy',

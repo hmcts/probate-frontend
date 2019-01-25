@@ -9,7 +9,6 @@ const config = {
         url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8282',
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
         fe_shutter_toggle: 'probate-fe-shutter',
-        screening_questions: 'probate-screening-questions',
         document_upload: 'probate-document-upload'
     },
     app: {
@@ -75,7 +74,7 @@ const config = {
         },
         eligibilityCookie: {
             name: '__eligibility',
-            redirectUrl: '/new-start-eligibility',
+            redirectUrl: '/start-eligibility',
             expires: 1000 * 60 * 60 * 24 * 2
         }
     },
@@ -145,7 +144,7 @@ const config = {
     whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     hardStopParams: ['will.left', 'will.original', 'iht.completed', 'applicant.executor'],
-    nonIdamPages: ['stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'start-apply', 'new-start-eligibility', 'new-will-left', 'new-will-original', 'new-death-certificate', 'new-deceased-domicile', 'new-applicant-executor', 'new-mental-capacity', 'new-iht-completed', 'new-start-apply'],
+    nonIdamPages: ['stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'will-left', 'will-original', 'death-certificate', 'deceased-domicile', 'applicant-executor', 'mental-capacity', 'iht-completed', 'start-apply'],
     endpoints: {
         health: '/health',
         info: '/info'

@@ -1,13 +1,13 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DeceasedName = require('app/steps/ui/deceased/name/index');
+const TaskList = require('app/steps/ui/tasklist/index');
 const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails/index');
 const ExecutorRoles = require('app/steps/ui/executors/roles/index');
 
 describe('executors-address', () => {
     let testWrapper, sessionData;
-    const expectedNextUrlForDeceasedName = DeceasedName.getUrl();
+    const expectedNextUrlForTaskList = TaskList.getUrl();
     const expectedNextUrlForExecRoles = ExecutorRoles.getUrl('*');
     const expectedNextUrlForExecContactDetails = ExecutorContactDetails.getUrl(2);
 
@@ -41,7 +41,7 @@ describe('executors-address', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        executorName: 'other applicant'
+                        executorName: 'Other Applicant'
                     };
 
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
@@ -97,7 +97,7 @@ describe('executors-address', () => {
                 });
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForDeceasedName}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {
             sessionData = {
                 applicant: {
                     firstName: 'Lead',
@@ -121,7 +121,7 @@ describe('executors-address', () => {
                         postcodeAddress: '102 Petty France'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedName);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
                 });
         });
 

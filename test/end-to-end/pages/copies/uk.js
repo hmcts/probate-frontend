@@ -9,5 +9,6 @@ module.exports = function (copies) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.fillField('#uk', copies);
 
-    I.click(commonContent.saveAndContinue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+
 };

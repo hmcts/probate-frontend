@@ -8,71 +8,71 @@
 {% endblock %}
 
 {% block form_content %}
-
     <p>{{ fields.legalStatement.value.intro | safe }}</p>
-<div class="declaration-wrapper">
-    <div class="inset-page declaration-grid-item">
-        <div class="heading-medium declaration-header">{{ content.highCourtHeader }}</div>
-        <div class="heading-small declaration-header">{{ content.familyDivisionHeader }}</div>
-        <div class="heading-small declaration-header">{{ content.probateHeader }}</div>
+    <div class="declaration-wrapper">
+        <div class="inset-page declaration-grid-item">
+            <div class="heading-medium declaration-header">{{ content.highCourtHeader }}</div>
+            <div class="heading-small declaration-header">{{ content.familyDivisionHeader }}</div>
+            <div class="heading-small declaration-header">{{ content.probateHeader }}</div>
 
-        <h2 class="heading-medium declaration-subheader">{{ content.legalStatementHeader }}</h2>
-        <p class="declaration-item">{{ fields.legalStatement.value.applicant | safe }}</p>
+            <h2 class="heading-medium declaration-subheader">{{ content.legalStatementHeader }}</h2>
+            <p class="declaration-item">{{ fields.legalStatement.value.applicant | safe }}</p>
 
-        <h3 class="heading-small declaration-subheader">{{ content.deceasedHeader }}</h3>
-        <p class="declaration-item">{{ fields.legalStatement.value.deceased | safe }} {{ fields.legalStatement.value.deceasedOtherNames }}</p>
+            <h3 class="heading-small declaration-subheader">{{ content.deceasedHeader }}</h3>
+            <p class="declaration-item">{{ fields.legalStatement.value.deceased | safe }} {{ fields.legalStatement.value.deceasedOtherNames }}</p>
 
-        <h3 class="heading-small declaration-subheader">{{ content.deceasedEstateHeader }}</h3>
-        <p class="declaration-item">{{ fields.legalStatement.value.deceasedEstateValue | safe }}</p>
-        <p class="declaration-item">{{ fields.legalStatement.value.deceasedEstateLand | safe }}</p>
+            <h3 class="heading-small declaration-subheader">{{ content.deceasedEstateHeader }}</h3>
+            <p class="declaration-item">{{ fields.legalStatement.value.deceasedEstateValue | safe }}</p>
+            <p class="declaration-item">{{ fields.legalStatement.value.deceasedEstateLand | safe }}</p>
 
-        <h3 class="heading-small declaration-subheader">{{ content.executorApplyingHeader }}</h3>
-        {% for executor in fields.legalStatement.value.executorsApplying %}
-            <p class="declaration-item">{{ executor.name | safe }}</p>
-            {% if executor.sign !== '' %}
-                <p class="declaration-item">{{ executor.sign | safe }}</p>
-            {% endif %}
-        {% endfor %}
-
-        {% if fields.legalStatement.value.executorsNotApplying.length > 0 %}
-            <h3 class="heading-small declaration-subheader">{{ content.executorNotApplyingHeader }}</h3>
-            {% for executor in fields.legalStatement.value.executorsNotApplying %}
-                <p class="declaration-item">{{ executor | safe }}</p>
+            <h3 class="heading-small declaration-subheader">{{ content.executorApplyingHeader }}</h3>
+            {% for executor in fields.legalStatement.value.executorsApplying %}
+                <p class="declaration-item">{{ executor.name | safe }}</p>
+                {% if executor.sign !== '' %}
+                    <p class="declaration-item">{{ executor.sign | safe }}</p>
+                {% endif %}
             {% endfor %}
-        {% endif %}
 
-        <h2 class="heading-large declaration-subheader">{{ content.declarationHeader }}</h2>
-        <p class="declaration-item">{{ fields.declaration.value.confirm | safe }}</p>
+            {% if fields.legalStatement.value.executorsNotApplying.length > 0 %}
+                <h3 class="heading-small declaration-subheader">{{ content.executorNotApplyingHeader }}</h3>
+                {% for executor in fields.legalStatement.value.executorsNotApplying %}
+                    <p class="declaration-item">{{ executor | safe }}</p>
+                {% endfor %}
+            {% endif %}
 
-        {{ unorderedList([
-            fields.declaration.value.confirmItem1,
-            fields.declaration.value.confirmItem2,
-            fields.declaration.value.confirmItem3
-        ]) }}
+            <h2 class="heading-large declaration-subheader">{{ content.declarationHeader }}</h2>
+            <p class="declaration-item">{{ fields.declaration.value.confirm | safe }}</p>
 
-        <p class="declaration-item">{{ fields.declaration.value.requests | safe }}</p>
+            {{ unorderedList([
+                fields.declaration.value.confirmItem1,
+                fields.declaration.value.confirmItem2,
+                fields.declaration.value.confirmItem3
+            ]) }}
 
-        {{ unorderedList([
-            fields.declaration.value.requestsItem1,
-            fields.declaration.value.requestsItem2
-        ]) }}
+            <p class="declaration-item">{{ fields.declaration.value.requests | safe }}</p>
 
-        <p class="declaration-item">{{ fields.declaration.value.understand | safe }}</p>
+            {{ unorderedList([
+                fields.declaration.value.requestsItem1,
+                fields.declaration.value.requestsItem2
+            ]) }}
 
-        {{ unorderedList([
-            fields.declaration.value.understandItem1,
-            fields.declaration.value.understandItem2
-        ]) }}
+            <p class="declaration-item">{{ fields.declaration.value.understand | safe }}</p>
 
+            {{ unorderedList([
+                fields.declaration.value.understandItem1,
+                fields.declaration.value.understandItem2
+            ]) }}
+
+        </div>
+        <div class="declaration-grid-item">
+            <h2 class="heading-medium">{{ content.saveThisPage }}</h2>
+            <p>
+                <i class="icon icon-file-download"></i>
+                <a class="anchor-margin-left" id="declarationPdfHref"
+                   href="/declaration-pdf">{{ content.declarationPdf }}</a>
+            </p>
+        </div>
     </div>
-    <div class="declaration-grid-item">
-        <h2 class="heading-medium">{{ content.saveThisPage }}</h2>
-        <p>
-            <i class="icon icon-file-download"></i>
-            <a class="anchor-margin-left" id="declarationPdfHref" href="/declaration-pdf">{{content.declarationPdf}}</a>
-        </p>
-    </div>
-</div>
     {{ checkbox(
         name = 'declarationCheckbox',
         field = fields.declarationCheckbox,
@@ -86,7 +86,6 @@
     </div>
 
     <div class="form-group">
-        <input class="button" type="submit" id="acceptAndSend" value="{{common.saveAndContinue}}">
+        <input class="button" type="submit" id="acceptAndSend" value="{{ common.saveAndContinue }}">
     </div>
-
 {% endblock %}

@@ -9,5 +9,6 @@ module.exports = function (firstName, lastName) {
     I.fillField('#firstName', firstName);
     I.fillField('#lastName', lastName);
 
-    I.click(commonContent.saveAndContinue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+
 };

@@ -10,6 +10,6 @@ module.exports = function (executorNumber) {
     I.click('.summary');
     I.fillField('#freeTextAddress', 'additional executor test address');
 
-    I.click(commonContent.saveAndContinue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 
 };

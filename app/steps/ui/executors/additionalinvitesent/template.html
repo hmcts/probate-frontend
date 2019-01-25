@@ -3,17 +3,17 @@
 {% extends "includes/two_thirds_form.html" %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{content[fields.header.value] | safe}}</h1>
+    <h1 class="form-title heading-large">{{ content[fields.header.value] | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}
-    <p>{{content.paragraph1 | safe}}</p>
-    <p>{{content.paragraph2 | safe}}</p>
-    <h2 class="heading-medium">{{content.heading1}}</h2>
-    <p>{{content.paragraph3}}</p>
-    <p>{{content.paragraph4}}</p>
-    <p>{{content.paragraph5}}</p>
+    <p>{{ content.paragraph1 | safe }}</p>
+    <p>{{ content.paragraph2 | safe }}</p>
+    <h2 class="heading-medium">{{ content.heading1 }}</h2>
+    <p>{{ content.paragraph3 }}</p>
+    <p>{{ content.paragraph4 }}</p>
+    <p>{{ content.paragraph5 }}</p>
     <div class="form-group">
-        <input class="button" type="submit" value="{{content.continue}}">
+        <input class="button" type="submit" value="{{ content.continue }}">
     </div>
 {% endblock %}

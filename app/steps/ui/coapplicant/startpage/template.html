@@ -3,33 +3,32 @@
 {% set displaySignOutLink = 'false' %}
 
 {% block content %}
+    {% from "widgets/lists.html" import unorderedList %}
 
-{% from "widgets/lists.html" import unorderedList %}
+    <main id="content" role="main">
+        {% include "includes/phase_banner_beta.html" %}
 
-<main id="content" role="main">
-    {% include "includes/phase_banner_beta.html" %}
+        <h1 class="form-title heading-large">{{ content.header | safe }}</h1>
+        <p>{{ content.paragraph1 | replace('{leadExecutorName}', fields.leadExecFullName.value) | replace('{deceasedName}', fields.deceasedFullName.value) | safe }}</p>
+        <p>{{ content.paragraph2 | safe }}</p>
+        <h2 class="heading-medium">{{ content.subHeader1 }}</h2>
+        <p>{{ content.paragraph3 | replace('{leadExecutorName}', fields.leadExecFullName.value) | safe }}</p>
+        <p>{{ content.list1Header | replace('{leadExecutorName}', fields.leadExecFullName.value) | safe }}</p>
+        {{ unorderedList([
+            content["list1Item1"] | safe,
+            content["list1Item2"] | safe
+        ]) }}
+        <div class="form-group">
+            <p><a href="/co-applicant-declaration" class="button">{{ content.button }}</a></p>
+        </div>
+        <h3 class="heading-small">{{ content.subHeader2 | safe }}</h3>
+        <p>{{ content.list2Header | safe }}</p>
+        {{ unorderedList([
+            content["list2Item1"] | safe,
+            content["list2Item2"] | safe
+        ]) }}
+        <p>{{ content.paragraph4 | replace('{leadExecutorName}', fields.leadExecFullName.value) | safe }}</p>
 
-    <h1 class="form-title heading-large">{{content.header | safe}}</h1>
-    <p>{{content.paragraph1 | replace('{leadExecutorName}', fields.leadExecFullName.value) | replace('{deceasedName}', fields.deceasedFullName.value) | safe}}</p>
-    <p>{{content.paragraph2 | safe}}</p>
-    <h2 class="heading-medium">{{content.subHeader1}}</h2>
-    <p>{{content.paragraph3 | replace('{leadExecutorName}', fields.leadExecFullName.value) | safe}}</p>
-    <p>{{content.list1Header | replace('{leadExecutorName}', fields.leadExecFullName.value) | safe}}</p>
-    {{unorderedList([
-        content["list1Item1"] | safe,
-        content["list1Item2"] | safe
-    ])}}
-    <div class="form-group">
-        <p><a href="/co-applicant-declaration" class="button">{{content.button}}</a></p>
-    </div>
-    <h3 class="heading-small">{{content.subHeader2 | safe}}</h3>
-    <p>{{content.list2Header | safe}}</p>
-    {{unorderedList([
-      content["list2Item1"] | safe,
-      content["list2Item2"] | safe
-    ])}}
-    <p>{{content.paragraph4 | replace('{leadExecutorName}', fields.leadExecFullName.value) | safe}}</p>
-
-    {% include "includes/help_details.html" %}
-</main>
+        {% include "includes/help_details.html" %}
+    </main>
 {% endblock %}

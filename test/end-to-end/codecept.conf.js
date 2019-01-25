@@ -7,10 +7,9 @@ exports.config = {
         'Puppeteer': {
             'url': testConfig.TestE2EFrontendUrl || 'https://probate-frontend-aat.service.core-compute-aat.internal',
             'waitForTimeout': 60000,
-            'waitForAction': 3000,
             'getPageTimeout': 20000,
-            'show': true,
-            'waitForNavigation': 'networkidle0',
+            'show': false,
+            'waitForNavigation': ['domcontentloaded', 'networkidle0'],
             'chrome': {
                 'ignoreHTTPSErrors': true,
                 'ignore-certificate-errors': true,
@@ -32,6 +31,17 @@ exports.config = {
     },
     'include': {
         'I': './pages/steps.js'
+    },
+    'plugins': {
+        'autoDelay': {
+            'enabled': true
+        }
+    },
+    'multiple': {
+        'parallel': {
+            // Splits tests into 2 chunks
+            'chunks': 2
+        }
     },
     'mocha': {
         'reporterOptions': {

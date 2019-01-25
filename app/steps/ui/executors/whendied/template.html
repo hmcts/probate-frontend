@@ -4,18 +4,18 @@
 {% from "widgets/radiobuttons.html" import optionsRadio %}
 
 {% block question %}
-<h1 class="form-title heading-large">{{content.question | replace('{executorFullName}', fields.list.value[fields.index.value].fullName) | safe}}</h1>
+    <h1 class="form-title heading-large">{{ content.question | replace('{executorFullName}', fields.list.value[fields.index.value].fullName) | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}
-    {{optionsRadio(content,
+    {{ optionsRadio(content,
         name = 'diedbefore',
         field = fields.diedbefore,
         options = ['optionYes', 'optionNo'],
         legend = content.legend,
         inline = true
-    )}}
+    ) }}
     <div class="form-group">
-        <input class="button" type="submit" value="{{common.saveAndContinue}}">
+        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

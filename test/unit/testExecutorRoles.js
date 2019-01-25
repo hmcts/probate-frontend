@@ -28,12 +28,8 @@ describe('ExecutorRoles', () => {
     describe('handlePost()', () => {
         let ctx;
         let errors;
-        let formdata;
-        let session;
-        let hostname;
-        let featureToggles;
 
-        it('should return the ctx with the executor roles and the screening_question feature toggle', (done) => {
+        it('should return the ctx with the executor roles', (done) => {
             ctx = {
                 index: 0,
                 list: [
@@ -46,7 +42,7 @@ describe('ExecutorRoles', () => {
                 notApplyingReason: json.optionPowerReserved
             };
             errors = {};
-            [ctx, errors] = ExecutorRoles.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
+            [ctx, errors] = ExecutorRoles.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 index: 0,
                 list: [
@@ -56,8 +52,7 @@ describe('ExecutorRoles', () => {
                         notApplyingKey: 'optionPowerReserved'
                     }
                 ],
-                notApplyingReason: json.optionPowerReserved,
-                isToggleEnabled: false
+                notApplyingReason: json.optionPowerReserved
             });
             done();
         });
@@ -190,30 +185,13 @@ describe('ExecutorRoles', () => {
     });
 
     describe('nextStepOptions()', () => {
-        it('should return the correct options when the FT is off', (done) => {
-            const ctx = {
-                isToggleEnabled: false
-            };
+        const ctx = {};
+        it('should return the correct options', (done) => {
             const nextStepOptions = ExecutorRoles.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
                     {key: 'notApplyingReason', value: json.optionPowerReserved, choice: 'powerReserved'},
                     {key: 'continue', value: true, choice: 'continue'}
-                ]
-            });
-            done();
-        });
-
-        it('should return the correct options when the FT is on', (done) => {
-            const ctx = {
-                isToggleEnabled: true
-            };
-            const nextStepOptions = ExecutorRoles.nextStepOptions(ctx);
-            expect(nextStepOptions).to.deep.equal({
-                options: [
-                    {key: 'notApplyingReason', value: json.optionPowerReserved, choice: 'powerReserved'},
-                    {key: 'continue', value: true, choice: 'continue'},
-                    {key: 'otherwise', value: true, choice: 'otherwiseToggleOn'}
                 ]
             });
             done();
@@ -224,7 +202,6 @@ describe('ExecutorRoles', () => {
         it('test it cleans up context', () => {
             const ctx = {
                 otherwise: 'something',
-                isToggleEnabled: false,
                 executorName: 'executorName',
                 isApplying: true,
                 notApplyingReason: 'whatever',
@@ -232,7 +209,6 @@ describe('ExecutorRoles', () => {
             };
             ExecutorRoles.action(ctx);
             assert.isUndefined(ctx.otherwise);
-            assert.isUndefined(ctx.isToggleEnabled);
             assert.isUndefined(ctx.executorName);
             assert.isUndefined(ctx.isApplying);
             assert.isUndefined(ctx.notApplyingReason);

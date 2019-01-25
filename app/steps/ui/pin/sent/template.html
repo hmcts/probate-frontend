@@ -5,29 +5,29 @@
 {% from "widgets/lists.html" import unorderedList %}
 
 {% block content %}
-<main id="content">
-    <div class="govuk-box-highlight padding-small">
-        <h1 class="bold-large m-b-s">{{content.banner}}<br>{{fields.phoneNumber.value}}</h1>
-    </div>
-
-    <div class="grid-row">
-        <div class="column-two-thirds">
-            <p>{{content.accessNotification | safe}}</p>
-            <p>
-                <a href="/sign-in" class="button">{{content.button}}</a>
-            </p>
-
-            <h2 class="heading-medium">{{content.header1 | safe}}</h2>
-            <p>{{content.paragraph | safe }}</p>
-
-            {{unorderedList([
-                content.listItem1,
-                content.listItem2,
-                content.listItem3
-            ])}}
+    <main id="content">
+        <div class="govuk-box-highlight padding-small">
+            <h1 class="bold-large m-b-s">{{ content.banner }}<br>{{ fields.phoneNumber.value }}</h1>
         </div>
-    </div>
 
-    {% include "includes/help_details.html" %}
-</main>
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <p>{{ content.accessNotification | safe }}</p>
+                <p>
+                    <a href="/sign-in" class="button">{{ content.button }}</a>
+                </p>
+
+                <h2 class="heading-medium">{{ content.header1 | safe }}</h2>
+                <p>{{ content.paragraph | safe }}</p>
+
+                {{ unorderedList([
+                    content.listItem1,
+                    content.listItem2,
+                    content.listItem3
+                ]) }}
+            </div>
+        </div>
+
+        {% include "includes/help_details.html" %}
+    </main>
 {% endblock %}

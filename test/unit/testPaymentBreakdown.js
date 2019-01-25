@@ -7,6 +7,7 @@ const co = require('co');
 const services = require('app/components/services');
 const sinon = require('sinon');
 const submitResponse = require('test/data/send-to-submit-service');
+const journey = require('app/journeys/probate');
 
 describe('PaymentBreakdown', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
@@ -72,6 +73,11 @@ describe('PaymentBreakdown', () => {
 
         it('sets nextStepUrl to payment-status if paymentPending is unknown', (done) => {
             authoriseStub.returns(Promise.resolve({name: 'Success'}));
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
             const PaymentBreakdown = steps.PaymentBreakdown;
             let ctx = {total: 1};
             let errors = [];
@@ -79,7 +85,7 @@ describe('PaymentBreakdown', () => {
 
             co(function* () {
                 [ctx, errors] = yield PaymentBreakdown.handlePost(ctx, errors, formdata);
-                assert.equal(PaymentBreakdown.nextStepUrl(), '/payment-status');
+                assert.equal(PaymentBreakdown.nextStepUrl(req), '/payment-status');
                 done();
             })
                 .catch((err) => {

@@ -1,13 +1,24 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const IhtMethod = require('app/steps/ui/iht/method/index');
+const WillLeft = require('app/steps/ui/will/left/index');
 const StopPage = require('app/steps/ui/stoppage/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
+const cookies = [{
+    name: config.redis.eligibilityCookie.name,
+    content: {
+        nextStepUrl: '/iht-completed',
+        pages: [
+            '/death-certificate',
+            '/deceased-domicile'
+        ]
+    }
+}];
 
 describe('iht-completed', () => {
     let testWrapper;
-    const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
+    const expectedNextUrlForWillLeft = WillLeft.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('ihtNotCompleted');
 
     beforeEach(() => {
@@ -19,32 +30,48 @@ describe('iht-completed', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('IhtCompleted');
+        it('test help block content is loaded on page', (done) => {
+            const playbackData = {};
+            playbackData.helpTitle = commonContent.helpTitle;
+            playbackData.helpText = commonContent.helpText;
+            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
 
-        it('test right content loaded on the page', (done) => {
-            const excludeKeys = [];
+            testWrapper.testDataPlayback(done, playbackData, cookies);
+        });
 
-            testWrapper.testContent(done, excludeKeys);
+        it('test content loaded on the page', (done) => {
+            testWrapper.testContent(done, [], {}, cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, {}, 'required', [], cookies);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForIhtMethod}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForWillLeft}`, (done) => {
             const data = {
                 completed: 'Yes'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+
+            testWrapper.testRedirect(done, data, expectedNextUrlForWillLeft, cookies);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
                 completed: 'No'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+
+            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+        });
+
+        it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
+            playbackData.signOut = commonContent.signOut;
+
+            testWrapper.testContentNotPresent(done, playbackData);
         });
     });
 });

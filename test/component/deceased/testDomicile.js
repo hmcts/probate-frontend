@@ -1,12 +1,24 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DeceasedAddress = require('app/steps/ui/deceased/address/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const IhtCompleted = require('app/steps/ui/iht/completed/index');
+const StopPage = require('app/steps/ui/stoppage/index');
+const commonContent = require('app/resources/en/translation/common');
+const config = require('app/config');
+const cookies = [{
+    name: config.redis.eligibilityCookie.name,
+    content: {
+        nextStepUrl: '/deceased-domicile',
+        pages: [
+            '/death-certificate'
+        ]
+    }
+}];
 
 describe('deceased-domicile', () => {
     let testWrapper;
-    const expectedNextUrlForDeceasedAddress = DeceasedAddress.getUrl();
+    const expectedNextUrlForIhtCompleted = IhtCompleted.getUrl();
+    const expectedNextUrlForStopPage = StopPage.getUrl('notInEnglandOrWales');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedDomicile');
@@ -17,23 +29,48 @@ describe('deceased-domicile', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeceasedDomicile');
+        it('test help block content is loaded on page', (done) => {
+            const playbackData = {};
+            playbackData.helpTitle = commonContent.helpTitle;
+            playbackData.helpText = commonContent.helpText;
+            playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+            playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
+            playbackData.helpEmailLabel = commonContent.helpEmailLabel;
+            playbackData.contactEmailAddress = commonContent.contactEmailAddress;
 
-        it('test right content loaded on the page', (done) => {
-            testWrapper.testContent(done, []);
+            testWrapper.testDataPlayback(done, playbackData, cookies);
+        });
+
+        it('test content loaded on the page', (done) => {
+            testWrapper.testContent(done, [], {}, cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, {}, 'required', [], cookies);
         });
 
-        it(`test it redirects to deceased address: ${expectedNextUrlForDeceasedAddress}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForIhtCompleted}`, (done) => {
             const data = {
-                domicile: 'England or Wales'
+                domicile: 'Yes'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAddress);
+
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtCompleted, cookies);
+        });
+
+        it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
+            const data = {
+                domicile: 'No'
+            };
+
+            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+        });
+
+        it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
+            const playbackData = {};
+            playbackData.saveAndClose = commonContent.saveAndClose;
+            playbackData.signOut = commonContent.signOut;
+
+            testWrapper.testContentNotPresent(done, playbackData);
         });
     });
 });

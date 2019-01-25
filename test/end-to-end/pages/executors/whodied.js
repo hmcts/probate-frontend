@@ -13,5 +13,6 @@ module.exports = function (executorsWhoDiedList) {
         I.checkOption('#executorsWhoDied-'+(parseInt(executorNumber) - 1));
     });
 
-    I.click(commonContent.saveAndContinue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+
 };

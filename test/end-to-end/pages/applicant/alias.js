@@ -8,5 +8,5 @@ module.exports = function (alias) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.fillField('#alias', alias);
 
-    I.click(commonContent.saveAndContinue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

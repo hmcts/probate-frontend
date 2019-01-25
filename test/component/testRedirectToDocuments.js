@@ -29,7 +29,6 @@ describe('redirect to documents', () => {
         testWrapper.agent.post('/prepare-session/form')
             .send(sessionData)
             .end(() => {
-
                 testWrapper.agent.get(testWrapper.pageUrl)
                     .expect('location', 'documents')
                     .expect(302)
@@ -43,5 +42,4 @@ describe('redirect to documents', () => {
                     });
             });
     });
-
 });

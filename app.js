@@ -45,8 +45,14 @@ exports.init = function() {
     const inviteSecurity = new InviteSecurity();
 
     if (config.appInsights.instrumentationKey) {
-        appInsights.setup(config.appInsights.instrumentationKey);
-        appInsights.start();
+        appInsights.setup(config.appInsights.instrumentationKey)
+            .setAutoDependencyCorrelation(true)
+            .setAutoCollectRequests(true)
+            .setAutoCollectPerformance(true)
+            .setAutoCollectDependencies(true)
+            .setAutoCollectConsole(true, true)
+            .start();
+        appInsights.defaultClient.trackTrace({message: 'App insights activated'});
     }
 
     // Authenticate against the environment-provided credentials, if running
@@ -204,13 +210,13 @@ exports.init = function() {
     app.use('/executors-update-invite', updateInvite);
     app.use('/declaration', declaration);
 
-    app.use('/new-deceased-domicile', eligibilityCookie.checkCookie());
-    app.use('/new-iht-completed', eligibilityCookie.checkCookie());
-    app.use('/new-will-left', eligibilityCookie.checkCookie());
-    app.use('/new-will-original', eligibilityCookie.checkCookie());
-    app.use('/new-applicant-executor', eligibilityCookie.checkCookie());
-    app.use('/new-mental-capacity', eligibilityCookie.checkCookie());
-    app.use('/new-start-apply', eligibilityCookie.checkCookie());
+    app.use('/deceased-domicile', eligibilityCookie.checkCookie());
+    app.use('/iht-completed', eligibilityCookie.checkCookie());
+    app.use('/will-left', eligibilityCookie.checkCookie());
+    app.use('/will-original', eligibilityCookie.checkCookie());
+    app.use('/applicant-executor', eligibilityCookie.checkCookie());
+    app.use('/mental-capacity', eligibilityCookie.checkCookie());
+    app.use('/start-apply', eligibilityCookie.checkCookie());
 
     app.use(featureToggles);
 

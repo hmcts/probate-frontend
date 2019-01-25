@@ -1,16 +1,3 @@
-{% ifAsync fields.summary.isScreeningQuestionToggleEnabled.value !== 'true' %}
-    {{checkanswer(
-        items = [{
-            question: content.IhtCompleted.question,
-            answer: fields.iht.completed.value,
-            visible: true
-        }],
-        url = content.IhtCompleted.url,
-        common = common,
-        alreadyDeclared = fields.summary.alreadyDeclared.value
-    )}}
-{% endif %}
-
 {{checkanswer(
     items = [{
         question: content.IhtMethod.question,

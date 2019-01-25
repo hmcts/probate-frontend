@@ -14,5 +14,6 @@ module.exports = function (method) {
         I.click('#method-onlineOption');
     }
 
-    I.click(commonContent.saveAndContinue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+
 };

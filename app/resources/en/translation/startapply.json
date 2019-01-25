@@ -1,12 +1,8 @@
 {
-  "title": "Apply for probate - Invited",
-  "header": "You are invited to apply online",
-  "introduction": "Use this service to apply for probate (also known as a &lsquo;grant of probate&rsquo; or a &lsquo;grant of representation&rsquo;) in England and Wales.",
-  "paragraph1": "Fill in the application online, then send the will and death certificate to the probate registry by post.",
-  "feesHeader": "Fees",
-  "paragraph2": "It costs &pound;215 to apply for probate if the value of the estate is more than &pound;5,000. It&rsquo;s free if the value is less.",
-  "paragraph3": "Extra copies of the grant of probate cost 50p each.",
-  "paragraph4": "You&rsquo;ll need to pay online by debit or credit card.",
-  "feedbackHeader": "If you have feedback",
-  "paragraph5": "We&rsquo;re currently building this service. If you notice things that don&rsquo;t work as well as they should, you can use the &lsquo;feedback&rsquo; link at the top of the page."
+  "title": "Apply for probate - Create account",
+  "header": "Create an account",
+  "introduction": "Based on the information you&rsquo;ve given, you have everything you need to make your application for probate online.",
+  "paragraph1": "You will need an email address to create your account.",
+  "paragraph2": "You must use your own email address even if someone helps with your application. That&rsquo;s because we can&rsquo;t discuss details with anyone but the person making the application.",
+  "paragraph3": "Already registered? <a href=\"tasklist\" target=\"_self\">Log in.</a>"
 }

@@ -1,4 +1,5 @@
 'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist/index');
 
@@ -18,11 +19,11 @@ describe('executors-additional-invite-sent', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         it('test correct content loaded on the page when only 1 other executor added', (done) => {
             sessionData.executors.executorsToNotifyList = [
-                {fullName: 'other applicant', isApplying: true, emailSent: false},
+                {fullName: 'Other Applicant', isApplying: true, emailSent: false},
             ];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -32,9 +33,10 @@ describe('executors-additional-invite-sent', () => {
 
         it('test correct content loaded on the page when more than 1 other executor added', (done) => {
             sessionData.executors.executorsToNotifyList = [
-                {fullName: 'other applicant', isApplying: true, emailSent: false},
-                {fullName: 'harvey', isApplying: true, emailSent: false}
+                {fullName: 'Other Applicant', isApplying: true, emailSent: false},
+                {fullName: 'Harvey', isApplying: true, emailSent: false}
             ];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -45,8 +47,9 @@ describe('executors-additional-invite-sent', () => {
         it(`test it redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {
             const data = {};
             sessionData.executors.executorsToNotifyList = [
-                {fullName: 'other applicant', isApplying: true, emailSent: false},
+                {fullName: 'Other Applicant', isApplying: true, emailSent: false},
             ];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

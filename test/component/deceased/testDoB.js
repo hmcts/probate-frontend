@@ -2,17 +2,10 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedDod = require('app/steps/ui/deceased/dod/index');
-const DeceasedDomicile = require('app/steps/ui/deceased/domicile/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
-
-const nock = require('nock');
-const config = require('app/config');
-const featureToggleUrl = config.featureToggles.url;
-const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
 
 describe('deceased-dob', () => {
     let testWrapper;
-    const expectedNextUrlForDeceasedDomicile = DeceasedDomicile.getUrl();
     const expectedNextUrlForDeceasedDod = DeceasedDod.getUrl();
 
     beforeEach(() => {
@@ -21,7 +14,6 @@ describe('deceased-dob', () => {
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -113,25 +105,7 @@ describe('deceased-dob', () => {
                 });
         });
 
-        it(`test it redirects to deceased domicile page: ${expectedNextUrlForDeceasedDomicile}`, (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'false');
-
-            const data = {
-                dob_day: '01',
-                dob_month: '01',
-                dob_year: '1999'
-            };
-
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDomicile);
-        });
-
         it(`test it redirects to deceased dod: ${expectedNextUrlForDeceasedDod}`, (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
-
             const data = {
                 dob_day: '01',
                 dob_month: '01',

@@ -59,7 +59,7 @@ describe('applicant-name-as-on-will', () => {
                 .end(() => {
 
                     const contentData = {
-                        applicantName: 'john theapplicant',
+                        applicantName: 'John TheApplicant',
                     };
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
@@ -68,8 +68,8 @@ describe('applicant-name-as-on-will', () => {
         it('test errors message displayed for missing data', (done) => {
             const sessionData = {
                 applicant: {
-                    firstName: 'john',
-                    lastName: 'theapplicant'
+                    firstName: 'John',
+                    lastName: 'TheApplicant'
                 }
             };
 

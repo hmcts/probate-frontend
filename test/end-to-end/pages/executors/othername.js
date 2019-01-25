@@ -13,5 +13,6 @@ module.exports = function (executorsWithDifferentNameIdList) {
         I.checkOption('#executorsWithOtherNames-'+ executorListId);
     });
 
-    I.click(commonContent.saveAndContinue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+
 };

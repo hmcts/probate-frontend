@@ -1,56 +1,47 @@
 {% extends "includes/two_thirds_form.html" %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{content.question}}</h1>
+    <h1 class="form-title heading-large">{{ content.question }}</h1>
 {% endblock %}
 
 {% block form_content %}
+    <p>{{ content.paragraph1 | safe }}</p>
+    <p class="panel panel-border-wide">{{ content.paragraph2 | safe }}</p>
 
-<p>{{content.paragraph1 | safe}}</p>
+    <h2 class="heading-medium">{{ content.heading1  | safe }}</h2>
+    <p>{{ content.paragraph3 | safe }}</p>
+    <p>{{ content.paragraph4 | safe }}</p>
 
-<p class="panel panel-border-wide">{{content.paragraph2 | safe}}</p>
+    <h2 class="heading-medium">{{ content.heading2  | safe }}</h2>
+    <p>{{ content.paragraph5 | safe }}</p>
+    <p>{{ content.paragraph6 | safe }}</p>
 
-<h2 class="heading-medium">{{content.heading1  | safe}}</h2>
+    <h2 class="heading-medium">
+        {{ content["heading3" + fields.inviteSuffix.value] | safe }}
+    </h2>
 
+    {% for executor in fields.list.value %}
+        {% if executor.isApplicant !== true and executor.isApplying %}
+            <div class="grid-row word-wrap">
+                <div class="column-one-quarter">
+                    <p>{{ executor.fullName }}</p>
+                </div>
+                <div class="column-one-quarter">
+                    <p>{{ executor.email }}</p>
+                </div>
+                <div class="column-one-quarter">
+                    <p>{{ executor.mobile }}</p>
+                </div>
+                <div class="column-one-quarter">
+                    <p>
+                        <a href="/executor-contact-details/{{ loop.index - 1 }}">{{ content.changeLink }}</a>
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
 
-<p>{{content.paragraph3 | safe}}</p>
-
-<p>{{content.paragraph4 | safe}}</p>
-
-<h2 class="heading-medium">{{content.heading2  | safe}}</h2>
-
-<p>{{content.paragraph5 | safe}}</p>
-
-<p>{{content.paragraph6 | safe}}</p>
-
-<h2 class="heading-medium">
-    {{content["heading3" + fields.inviteSuffix.value] | safe}}
-</h2>
-{% for executor in fields.list.value %}
-{% if executor.isApplicant !== true and executor.isApplying %}
-<div class="grid-row word-wrap">
-
-    <div class="column-one-quarter">
-        <p>{{executor.fullName}}</p>
-    </div>
-
-    <div class="column-one-quarter">
-        <p>{{executor.email}}</p>
-    </div>
-
-    <div class="column-one-quarter">
-        <p>{{executor.mobile}}</p>
-    </div>
-
-    <div class="column-one-quarter">
-        <p>
-            <a href="/executor-contact-details/{{loop.index - 1 }}">{{content.changeLink}}</a>
-        </p>
-    </div>
-</div>
-{% endif %}
-{% endfor %}
     <div class="form-group">
-        <input class="button" type="submit" value="{{content.sendInvites}}">
+        <input class="button" type="submit" value="{{ content.sendInvites }}">
     </div>
 {% endblock %}

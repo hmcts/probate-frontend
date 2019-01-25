@@ -3,20 +3,20 @@
 {% from "widgets/textfields.html" import textField %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{content.question}}</h1>
+    <h1 class="form-title heading-large">{{ content.question }}</h1>
 {% endblock %}
 
 {% block form_content %}
     <fieldset>
         <legend class="visually-hidden">{{ content.title | safe }}</legend>
-        {{textField(
+        {{ textField(
             name = 'phoneNumber',
             field = fields.phoneNumber,
             text = content.phoneNumber,
             size = 25
-        )}}
+        ) }}
     </fieldset>
     <div class="form-group">
-        <input class="button" type="submit" value="{{common.saveAndContinue}}">
+        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

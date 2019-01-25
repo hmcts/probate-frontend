@@ -14,9 +14,9 @@ describe('executors-dealing-with-estate', () => {
             executors: {
                 executorsNumber: 3,
                 list: [
-                    {firstName: 'john', lastName: 'theapplicant', isApplying: true, isApplicant: true},
-                    {fullName: 'many clouds', isApplying: true},
-                    {fullName: 'harvey smith', isApplying: false}
+                    {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
+                    {fullName: 'Many Clouds', isApplying: true},
+                    {fullName: 'Harvey Smith', isApplying: false}
                 ]
             }
         };

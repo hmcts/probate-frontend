@@ -1,40 +1,56 @@
 'use strict';
 
-const taskListContent = require('app/resources/en/translation/tasklist');
+//const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
 
 let grabIds;
+let retries = -1;
 
-Feature('Multiple Executors flow');
+Feature('Multiple Executors flow').retry(TestConfigurator.getRetryFeatures());
+
+// eslint complains that the Before/After are not used but they are by codeceptjs
+// so we have to tell eslint to not validate these
+// eslint-disable-next-line no-undef
+BeforeSuite(() => {
+    TestConfigurator.getBefore();
+});
+
+// eslint-disable-next-line no-undef
+AfterSuite(() => {
+    TestConfigurator.getAfter();
+});
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
+    retries += 1;
 
-    TestConfigurator.getBefore();
+    if (retries >= 1) {
+        TestConfigurator.getBefore();
+    }
 
-    //Pre-IDAM
-    I.newStartEligibility();
-    I.newSelectDeathCertificate();
-    I.newSelectDomicile();
-    I.newSelectIhtCompleted();
-    I.newSelectWillLeft();
-    I.newSelectWillOriginal();
-    I.newSelectApplicantIsExecutor();
-    I.newSelectMentalCapacity();
-    I.newStartApply();
+    // Pre-IDAM
+    I.startApplication();
+    I.selectDeathCertificate('Yes');
+    I.selectDeceasedDomicile('Yes');
+    I.selectIhtCompleted('Yes');
+    I.selectPersonWhoDiedLeftAWill('Yes');
+    I.selectOriginalWill('Yes');
+    I.selectApplicantIsExecutor('Yes');
+    I.selectMentallyCapable('Yes');
+    I.startApply();
 
-    // IDAM
+    // IdAM
     I.authenticateWithIdamIfAvailable();
 
-    // Tasklist: Section 1 - About the person who died
-    I.selectATask(taskListContent.taskNotStarted);
+    // Deceased Task
+    I.selectATask();
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.enterDeceasedDateOfBirth('01', '01', '1950');
     I.enterDeceasedDateOfDeath('01', '01', '2017');
     I.enterDeceasedAddress();
-    I.enterDocumentsToUpload();
-    I.selectInheritanceMethod('Post');
+    I.selectDocumentsToUpload();
+    I.selectInheritanceMethodPaper();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterGrossAndNet('205', '600000', '300000');
@@ -44,24 +60,22 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     I.selectDeceasedAlias('Yes');
     I.selectOtherNames('2');
-    I.selectDeceasedMarriedAfterDateOnWill('optionNo');
+    I.selectDeceasedMarriedAfterDateOnWill('No');
     I.selectWillCodicils('Yes');
     I.selectWillNoOfCodicils('3');
 
-    // Tasklist: Section 2 - About the executors
-    I.selectATask(taskListContent.taskNotStarted);
+    // ExecutorsTask
+    I.selectATask();
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
-
-    I.selectNameAsOnTheWill('optionNo');
-    I.enterApplicantAlias('test_applicant_alias');
-    I.enterApplicantAliasReason('aliasOther', 'test_other_alias_reason');
+    I.selectNameAsOnTheWill('No');
+    I.enterApplicantAlias('applicant_alias');
+    I.enterApplicantAliasReason('aliasOther', 'alias_other_reason');
     I.enterApplicantPhone();
     I.enterAddressManually();
 
     const totalExecutors = '7';
     I.enterTotalExecutors(totalExecutors);
     I.enterExecutorNames(totalExecutors);
-
     I.selectExecutorsAllAlive('No');
 
     const executorsWhoDiedList = ['2', '7'];
@@ -71,11 +85,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     forEach(executorsWhoDiedList, executorNumber => {
         I.selectExecutorsWhenDied(executorNumber, diedBefore, head(executorsWhoDiedList) === executorNumber);
 
-        if (diedBefore) {
-            diedBefore = false;
-        } else {
-            diedBefore = true;
-        }
+        diedBefore = !diedBefore;
     });
 
     I.selectExecutorsApplying();
@@ -91,7 +101,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     const executorsWithDifferentNameList = ['5'];
     forEach(executorsWithDifferentNameList, executorNumber => {
         I.enterExecutorCurrentName(executorNumber, head(executorsWithDifferentNameList) === executorNumber);
-        I.enterExecutorCurrentNameReason(executorNumber, 'aliasOther', 'Because YOLO');
+        I.enterExecutorCurrentNameReason(executorNumber, 'aliasOther', 'executor_alias_reason');
     });
 
     forEach(executorsApplyingList, executorNumber => {
@@ -112,12 +122,13 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         }
     });
 
-    // Tasklist: Section 3 - Check your answers and make your legal declaration
-    I.selectATask(taskListContent.taskNotStarted);
+    // Review and Confirm Task
+    I.selectATask();
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();
     I.notifyAdditionalExecutors();
     I.amOnPage(testConfig.TestInviteIdListUrl);
+
     grabIds = yield I.grabTextFrom('pre');
 
 }).retry(TestConfigurator.getRetryScenarios());
@@ -142,27 +153,26 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
         I.seeAgreePage(i);
 
     }
-});
+}).retry(TestConfigurator.getRetryScenarios());
 
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
 
     // Pre-IDAM
-    I.newStartEligibility();
-    I.newSelectDeathCertificate();
-    I.newSelectDomicile();
-    I.newSelectIhtCompleted();
-    I.newSelectWillLeft();
-    I.newSelectWillOriginal();
-    I.newSelectApplicantIsExecutor();
-    I.newSelectMentalCapacity();
-    I.newStartApply();
+    I.startApplication();
+    I.selectDeathCertificate('Yes');
+    I.selectDeceasedDomicile('Yes');
+    I.selectIhtCompleted('Yes');
+    I.selectPersonWhoDiedLeftAWill('Yes');
+    I.selectOriginalWill('Yes');
+    I.selectApplicantIsExecutor('Yes');
+    I.selectMentallyCapable('Yes');
+    I.startApply();
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
 
-    // Tasklist: Section 4 - Order extra copies of the grant of probate
-    // Extra copies task
-    I.selectATask(taskListContent.taskNotStarted);
+    // Extra Copies Task
+    I.selectATask();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterUkCopies('5');
@@ -176,8 +186,9 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     I.seeCopiesSummary();
 
-    // Tasklist: Section 5 - Pay and submit
-    I.selectATask(taskListContent.taskNotStarted);
+    // Payment Task
+    I.selectATask();
+
     I.seePaymentBreakdownPage();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
@@ -190,6 +201,6 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     // Send Documents Task
     I.seeDocumentsPage();
 
-    // Thank You - Application Complete Task
+    // Thank You
     I.seeThankYouPage();
-});
+}).retry(TestConfigurator.getRetryScenarios());

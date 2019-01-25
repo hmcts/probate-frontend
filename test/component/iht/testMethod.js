@@ -24,12 +24,14 @@ describe('iht-method', () => {
 
         it('test correct iht method page content is loaded', (done) => {
             const contentToExclude = [];
+
             testWrapper.testContent(done, contentToExclude);
         });
 
         it('test iht method schema validation when no data is entered', (done) => {
             const errorsToTest = [];
             const data = {};
+
             testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
@@ -37,6 +39,7 @@ describe('iht-method', () => {
             const data = {
                 method: ihtMethodContent.paperOption
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtPaper);
         });
 
@@ -44,6 +47,7 @@ describe('iht-method', () => {
             const data = {
                 method: ihtMethodContent.onlineOption
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtIdentifier);
         });
     });

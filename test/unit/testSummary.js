@@ -118,7 +118,6 @@ describe('Summary', () => {
 
             co(function* () {
                 [ctx] = yield summary.handleGet(ctx, formdata, featureToggles);
-                assert.equal(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
                 assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
                 revert();
                 done();
@@ -146,7 +145,6 @@ describe('Summary', () => {
 
             co(function* () {
                 [ctx] = yield summary.handleGet(ctx, formdata, featureToggles);
-                assert.equal(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
                 assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
                 revert();
                 done();

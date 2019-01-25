@@ -22,7 +22,8 @@ describe('DeathCertificate', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
-                    form: {}
+                    form: {},
+                    journeyType: 'Probate'
                 },
                 body: {
                     deathCertificate: content.optionYes
@@ -33,7 +34,8 @@ describe('DeathCertificate', () => {
             const ctx = DeathCertificate.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                deathCertificate: content.optionYes
+                deathCertificate: content.optionYes,
+                journeyType: 'Probate'
             });
             done();
         });

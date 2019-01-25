@@ -22,7 +22,8 @@ describe('MentalCapacity', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
-                    form: {}
+                    form: {},
+                    journeyType: 'Probate'
                 },
                 body: {
                     mentalCapacity: content.optionYes
@@ -33,7 +34,8 @@ describe('MentalCapacity', () => {
             const ctx = MentalCapacity.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                mentalCapacity: content.optionYes
+                mentalCapacity: content.optionYes,
+                journeyType: 'Probate'
             });
             done();
         });

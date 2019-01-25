@@ -22,7 +22,8 @@ describe('ApplicantExecutor', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
-                    form: {}
+                    form: {},
+                    journeyType: 'Probate'
                 },
                 body: {
                     executor: content.optionYes
@@ -33,7 +34,8 @@ describe('ApplicantExecutor', () => {
             const ctx = ApplicantExecutor.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                executor: content.optionYes
+                executor: content.optionYes,
+                journeyType: 'Probate'
             });
             done();
         });

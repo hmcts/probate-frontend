@@ -22,7 +22,8 @@ describe('IhtCompleted', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
-                    form: {}
+                    form: {},
+                    journeyType: 'Probate'
                 },
                 body: {
                     completed: content.optionYes
@@ -33,7 +34,8 @@ describe('IhtCompleted', () => {
             const ctx = IhtCompleted.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                completed: content.optionYes
+                completed: content.optionYes,
+                journeyType: 'Probate'
             });
             done();
         });

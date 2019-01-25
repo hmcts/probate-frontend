@@ -22,7 +22,8 @@ describe('WillOriginal', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
-                    form: {}
+                    form: {},
+                    journeyType: 'Probate'
                 },
                 body: {
                     original: content.optionYes
@@ -33,7 +34,8 @@ describe('WillOriginal', () => {
             const ctx = WillOriginal.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                original: content.optionYes
+                original: content.optionYes,
+                journeyType: 'Probate'
             });
             done();
         });

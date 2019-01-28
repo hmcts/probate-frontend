@@ -112,9 +112,6 @@ module.exports = function () {
         completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
         completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask,
 
-        //Custom Functions 
-        awaitNavigation: steps.functions.awaitNavigation,
-
         //Error Pages
         see404ErrorPage: steps.errors.pageNotFound
 

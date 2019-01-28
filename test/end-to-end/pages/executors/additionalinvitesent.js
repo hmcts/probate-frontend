@@ -8,6 +8,6 @@ module.exports = function () {
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.awaitNavigation(() => I.click(commonContent.continue));
+    I.waitForNavigationToComplete(`input[value="${commonContent.continue}"]`);
 
 };

@@ -17,6 +17,7 @@ class TestConfigurator {
         this.testAddUserUrl = testConfig.TestIdamAddUserUrl;
         this.testDeleteUserUrl = this.testAddUserUrl + '/';
         this.role = testConfig.TestIdamRole;
+        this.testInjectFormDataURL = testConfig.TestInjectFormDataURL;
         this.testIdamUserGroup = testConfig.TestIdamUserGroup;
         this.useGovPay = testConfig.TestUseGovPay;
         this.userDetails = '';
@@ -188,7 +189,7 @@ class TestConfigurator {
             url: this.testInjectFormDataURL,
             method: 'POST',
             headers: {'content-type': 'application/json', 'Session-Id': emailId},
-            proxy: this.testReformProxy,
+            proxy: this.TestProxy,
             socksProxyHost: 'localhost',
             socksProxyPort: '9090',
             json: true,

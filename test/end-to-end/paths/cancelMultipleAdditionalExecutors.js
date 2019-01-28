@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 'use strict';
 
-const randomstring = require('randomstring');
 const taskListContent = require('app/resources/en/translation/tasklist');
 const commonContent = require('app/resources/en/translation/common');
 const data = require('test/data/multiple-executors-section-3');
@@ -10,37 +9,46 @@ let emailId;
 
 Feature('Cancel Multiple Executors Flow');
 
+// eslint complains that the Before/After are not used but they are by codeceptjs
+// so we have to tell eslint to not validate these
+// eslint-disable-next-line no-undef
+Before(() => {
+    TestConfigurator.getBefore();
+});
+
+// eslint-disable-next-line no-undef
 After(() => {
     TestConfigurator.getAfter();
 });
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
 
-    emailId = randomstring.generate(9).toLowerCase()+'@example.com';
-    TestConfigurator.createAUser(emailId);
-    TestConfigurator.injectFormData(data, emailId);
-
+    TestConfigurator.injectFormData(data, process.env.testCitizenEmail);
     I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');
-    I.signInWith(emailId, 'Probate123');
+
+    // IdAM
+    I.authenticateWithIdamIfAvailable();
 
     // Review and confirm Task
     I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
     I.acceptDeclaration();
-    I.awaitNavigation(() => I.click(commonContent.saveAndClose));
-    I.awaitNavigation(() => I.click('sign back in'));
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndClose}"]`);
+    I.waitForNavigationToComplete(locate('a')
+        .withAttr({href: '/'})
+        .withText('sign back in'));
 
     I.signInWith(emailId, 'Probate123');
-    I.awaitNavigation(() => I.click(taskListContent.taskStarted));
+    I.waitForNavigationToComplete(`input[value="${taskListContent.taskStarted}"]`);
 
-    I.awaitNavigation(() => I.click(locate('a')
+    I.waitForNavigationToComplete(locate('a')
         .withAttr({href: '/other-executors-applying'})
-        .withText(commonContent.change)));
+        .withText(commonContent.change));
     I.selectExecutorsApplying('No');
     I.selectExecutorRoles('2', true, true);
     I.selectHasExecutorBeenNotified('Yes', '2');
     I.selectExecutorRoles('3', false, false);
-    I.awaitNavigation(() => I.click(commonContent.signOut));
+    I.waitForNavigationToComplete(`input[value="${commonContent.signOut}"]`);
 }).retry(TestConfigurator.getRetryScenarios());
 
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {

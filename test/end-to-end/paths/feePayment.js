@@ -58,7 +58,7 @@ Data(TestConfigurator.createFeeInfoTableFor1Copy()).Scenario('Check can pay afte
     I.seePaymentBreakdownPage(current.noUKCopies, current.noOverseasCopies, current.netValue, false);
     I.click('Cancel payment');
     I.wait(7);
-    I.awaitNavigation(() => I.click(taskListContent.taskStarted));
+    I.waitForNavigationToComplete(`input[value="${taskListContent.taskStarted}"]`);
     I.seePaymentBreakdownPage(current.noUKCopies, current.noOverseasCopies, current.netValue, true);
     I.seeGovUkPaymentPage();
     I.seeGovUkConfirmPage();

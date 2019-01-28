@@ -40,33 +40,33 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');
 
     //Go to summary page
-    I.awaitNavigation(() => I.click(locate('a')
+    I.waitForNavigationToComplete(locate('a')
         .withAttr({href: '/summary/*'})
-        .withText(taskListContent.checkYourAnswers)));
+        .withText(taskListContent.checkYourAnswers));
 
     //Go to executors number page
-    I.awaitNavigation(() => I.click(locate('a')
+    I.waitForNavigationToComplete(locate('a')
         .withAttr({href: '/executors-number'})
-        .withText(commonContent.change)));
+        .withText(commonContent.change));
 
     //Enter name for fourth executor
     I.enterTotalExecutors('4');
     I.fillField('#executorName_'+2, 'Fourth Executor');
-    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 
     //Executors applying section
     I.selectExecutorsAllAlive('Yes');
     I.selectExecutorsApplying('Yes');
     I.click('#executorsApplying-2');
     I.click('#executorsApplying-4');
-    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 
     I.click('#alias-optionNo');
 
     //No need to change or fill values as they are already entered
-    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
-    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
-    I.awaitNavigation(() => I.click(commonContent.saveAndContinue));
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 
     //Fourth executor details
     I.enterExecutorContactDetails('4', false);

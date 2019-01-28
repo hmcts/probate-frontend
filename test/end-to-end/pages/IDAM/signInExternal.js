@@ -7,5 +7,5 @@ module.exports = function (email, password) {
     I.fillField('username', email);
     I.fillField('password', password);
 
-    I.awaitNavigation(() => I.click('Sign in'));
+    I.waitForNavigationToComplete('#input');
 };

@@ -24,7 +24,7 @@ module.exports = function (noUKCopies, noOverseasCopies, estateNetValue, isFaile
     I.see(paymentBreakdownContent.total);
     I.see(`£${totalFee}`);
 
-    I.awaitNavigation(() => I.click('.button'));
+    I.waitForNavigationToComplete('.button');
 };
 
 function seeThenReturnApplicationFee(I, estateNetValue) {

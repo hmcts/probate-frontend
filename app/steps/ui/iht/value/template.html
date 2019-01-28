@@ -3,27 +3,27 @@
 {% from "widgets/textfields.html" import textField %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{content.question}}</h1>
-    <p class="form-hint">{{content.questionHint}}</p>
+    <h1 class="form-title heading-large">{{ content.question }}</h1>
+    <p class="form-hint">{{ content.questionHint }}</p>
 {% endblock %}
 
 {% block form_content %}
     <fieldset>
         <legend class="visually-hidden">{{ content.legend | safe }}</legend>
-        {{textField(
+        {{ textField(
             name = 'grossValueOnline',
             field = fields.grossValueOnline,
             text = content.grossValue | safe,
             size = 13
-        )}}
-        {{textField(
+        ) }}
+        {{ textField(
             name = 'netValueOnline',
             field = fields.netValueOnline,
             text = content.netValue | safe,
             size = 13
-        )}}
+        ) }}
     </fieldset>
     <div class="form-group">
-        <input class="button" type="submit" value="{{common.saveAndContinue}}">
+        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

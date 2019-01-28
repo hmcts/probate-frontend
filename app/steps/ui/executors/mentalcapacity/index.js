@@ -1,28 +1,30 @@
 'use strict';
 
-const ValidationStep = require('app/core/steps/ValidationStep');
+const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
 const content = require('app/resources/en/translation/executors/mentalcapacity');
+const pageUrl = '/mental-capacity';
+const fieldKey = 'mentalCapacity';
 
-class MentalCapacity extends ValidationStep {
+class MentalCapacity extends EligibilityValidationStep {
 
     static getUrl() {
-        return '/mental-capacity';
+        return pageUrl;
     }
 
-    nextStepUrl(ctx) {
-        return this.next(ctx).constructor.getUrl('mentalCapacity');
+    getContextData(req, res) {
+        return super.getContextData(req, res, pageUrl, fieldKey);
+    }
+
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('mentalCapacity');
     }
 
     nextStepOptions() {
         return {
             options: [
-                {key: 'mentalCapacity', value: content.optionYes, choice: 'isCapable'}
+                {key: fieldKey, value: content.optionYes, choice: 'isCapable'}
             ]
         };
-    }
-
-    isComplete(ctx) {
-        return [ctx.mentalCapacity === content.optionYes, 'inProgress'];
     }
 }
 

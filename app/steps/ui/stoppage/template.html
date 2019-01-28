@@ -1,13 +1,9 @@
 {% extends "includes/layout.html" %}
 
-{% if fields.isToggleEnabled.value === 'true' %}
-    {% set displaySignOutLink = 'false' %}
-{% endif %}
+{% set displaySignOutLink = 'false' %}
 
 {% block content %}
-
     <main id="content" role="main">
-
         {% include "includes/phase_banner_beta.html" %}
 
         <h1 class="form-title heading-large">{{ content.header | safe }}</h1>
@@ -17,10 +13,8 @@
             {% set tempContent = tempContent | replace('{' + placeholder + '}', links[placeholder]) %}
         {% endfor %}
 
-        <p>{{ tempContent | safe}}</p>
+        <p>{{ tempContent | safe }}</p>
 
         {% include "includes/help_details.html" %}
-
     </main>
-
 {% endblock %}

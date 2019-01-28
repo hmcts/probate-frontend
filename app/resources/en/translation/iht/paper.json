@@ -8,8 +8,8 @@
   "net205": "Enter the number added in to box F on this form (net value &pound;)",
   "gross207": "Enter the number added in to box C (gross value &pound;)",
   "net207": "Enter the number added in to box G (net value &pound;)",
-  "gross400": "Enter the number added to box 79 (gross value in &pound;)",
-  "net400": "Enter the number added to box 96 (net value in &pound;)",
+  "gross400": "Enter the number added to box 3 of the IHT 421 form (gross value in &pound;)",
+  "net400": "Enter the number added to box 5 of the IHT 421 form (net value in &pound;)",
   "421Info": "HMRC will process these forms and send them to the probate office for you.",
 
   "errors": {

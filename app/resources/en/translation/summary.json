@@ -22,7 +22,7 @@
   "address": "Address",
   "mobileNumber": "Mobile number",
   "emailAddress": "Email address",
-  "checkAnswersPdf": "Save this page (8kb PDF)",
+  "checkAnswersPdf": "Save this page (10kb PDF)",
 
   "errors": {
     "businessError": {

@@ -1,32 +1,30 @@
 'use strict';
 
-const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/applicant/executor');
+const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
+const content = require('app/resources/en/translation/applicant/executor');
+const pageUrl = '/applicant-executor';
+const fieldKey = 'executor';
 
-class ApplicantExecutor extends ValidationStep {
+class ApplicantExecutor extends EligibilityValidationStep {
 
     static getUrl() {
-        return '/applicant-executor';
+        return pageUrl;
     }
 
-    nextStepUrl(ctx) {
-        return this.next(ctx).constructor.getUrl('notExecutor');
+    getContextData(req, res) {
+        return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
-    handlePost(ctx, errors) {
-        if (ctx.executor === json.optionNo) {
-            super.setHardStop(ctx, 'notExecutor');
-        }
-        return [ctx, errors];
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('notExecutor');
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
-                {key: 'executor', value: json.optionYes, choice: 'isExecutor'}
+                {key: fieldKey, value: content.optionYes, choice: 'isExecutor'}
             ]
         };
-        return nextStepOptions;
     }
 }
 

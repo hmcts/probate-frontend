@@ -3,49 +3,53 @@
 {% from "widgets/textfields.html" import textField %}
 
 {% block question %}
-<h1 class="form-title heading-large">{{content.question}}</h1>
+    <h1 class="form-title heading-large">{{ content.question }}</h1>
 {% endblock %}
 
 {% block form_content %}
-<fieldset class="form-group {{ 'form-group-error' if fields['aliasReason'].error }}">
-    <legend class="visuallyhidden">{{content.question}}</legend>
-    {% if fields['aliasReason'].error %}
-        <span class="error-message">
-            {{ fields['aliasReason'].errorMessage.message | safe}}
+    <fieldset class="form-group {{ 'form-group-error' if fields['aliasReason'].error }}">
+        <legend class="visuallyhidden">{{ content.question }}</legend>
+        {% if fields['aliasReason'].error %}
+            <span class="error-message">
+            {{ fields['aliasReason'].errorMessage.message | safe }}
         </span>
-    {% endif %}
+        {% endif %}
 
-    <div class="multiple-choice">
-        <input id="aliasMarriage" type="radio" name="aliasReason" value="Marriage" {{"checked='checked'" if fields['aliasReason'].value === 'Marriage' }}>
-        <label for="aliasMarriage">{{content['optionMarriage']}}</label>
+        <div class="multiple-choice">
+            <input id="aliasMarriage" type="radio" name="aliasReason"
+                   value="Marriage" {{ "checked='checked'" if fields['aliasReason'].value === 'Marriage' }}>
+            <label for="aliasMarriage">{{ content['optionMarriage'] }}</label>
+        </div>
+
+        <div class="multiple-choice">
+            <input id="aliasDivorce" type="radio" name="aliasReason"
+                   value="Divorce" {{ "checked='checked'" if fields['aliasReason'].value === 'Divorce' }}>
+            <label for="aliasDivorce">{{ content['optionDivorce'] }}</label>
+        </div>
+
+        <div class="multiple-choice">
+            <input id="aliasDeedPoll" type="radio" name="aliasReason"
+                   value="Change by deed poll" {{ "checked='checked'" if fields['aliasReason'].value === 'Change by deed poll' }}>
+            <label for="aliasDeedPoll">{{ content['optionDeedPoll'] }}</label>
+        </div>
+
+
+        <div class="multiple-choice" data-target="other-details">
+            <input id="aliasOther" type="radio" name="aliasReason"
+                   value="other" {{ "checked='checked'" if fields['aliasReason'].value === 'other' }}>
+            <label for="aliasOther">{{ content['optionOther'] }}</label>
+        </div>
+        <div class="panel panel-border-narrow js-hidden" id="other-details">
+            {{ textField(
+                name = 'otherReason',
+                field = fields.otherReason,
+                text = content.optionOtherHint,
+                size = 50
+            ) }}
+        </div>
+    </fieldset>
+
+    <div class="form-group">
+        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
-
-    <div class="multiple-choice">
-        <input id="aliasDivorce" type="radio" name="aliasReason" value="Divorce" {{"checked='checked'" if fields['aliasReason'].value === 'Divorce' }}>
-        <label for="aliasDivorce">{{content['optionDivorce']}}</label>
-    </div>
-
-    <div class="multiple-choice">
-        <input id="aliasDeedPoll" type="radio" name="aliasReason" value="Change by deed poll" {{"checked='checked'" if fields['aliasReason'].value === 'Change by deed poll' }}>
-        <label for="aliasDeedPoll">{{content['optionDeedPoll']}}</label>
-    </div>
-
-
-    <div class="multiple-choice" data-target="other-details">
-        <input id="aliasOther" type="radio" name="aliasReason" value="other" {{"checked='checked'" if fields['aliasReason'].value === 'other' }}>
-        <label for="aliasOther">{{content['optionOther']}}</label>
-    </div>
-    <div class="panel panel-border-narrow js-hidden" id="other-details">
-        {{textField(
-        name = 'otherReason',
-        field = fields.otherReason,
-        text = content.optionOtherHint,
-        size = 50
-        )}}
-    </div>
-</fieldset>
-
-<div class="form-group">
-    <input class="button" type="submit" value="{{common.saveAndContinue}}">
-</div>
 {% endblock %}

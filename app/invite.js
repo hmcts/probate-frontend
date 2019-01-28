@@ -64,10 +64,6 @@ class InviteLink {
                     const step = steps.CoApplicantAllAgreedPage;
                     const content = step.generateContent();
                     const common = step.commonContent();
-                    const formdata = req.session.form;
-                    if (formdata.will.codicils === 'Yes') {
-                        content.paragraph4 = content['paragraph4-codicils'];
-                    }
                     res.render(steps.CoApplicantAllAgreedPage.template, {content, common});
                 } else {
                     next();

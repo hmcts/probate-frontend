@@ -3,9 +3,6 @@
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
 const commonContent = require('app/resources/en/translation/common');
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
 
 describe('stop-page', () => {
     let testWrapper;
@@ -16,7 +13,6 @@ describe('stop-page', () => {
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -62,14 +58,9 @@ describe('stop-page', () => {
             testWrapper.testContent(done, excludeKeys, {applicationFormPA1P: config.links.applicationFormPA1P, ifYoureAnExecutor: config.links.ifYoureAnExecutor});
         });
 
-        it('test "sign out" link is not displayed on the page (feature toggle on)', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePath)
-                .reply(200, 'true');
-
+        it('test "sign out" link is not displayed on the page', (done) => {
             const playbackData = {};
             playbackData.signOut = commonContent.signOut;
-
             testWrapper.testContentNotPresent(done, playbackData);
         });
     });

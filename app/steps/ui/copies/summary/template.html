@@ -3,52 +3,51 @@
 {% extends "includes/layout.html" %}
 
 {% block content %}
-<main id="content" role="main">
-    {% from "widgets/checkanswer.html" import checkanswer %}
+    <main id="content" role="main">
+        {% from "widgets/checkanswer.html" import checkanswer %}
 
-    {% include "includes/phase_banner_beta.html" %}
-    {% include "includes/error_summary.html" %}
+        {% include "includes/phase_banner_beta.html" %}
+        {% include "includes/error_summary.html" %}
 
-    <h1 class="heading-large">
-        {{content.CopiesSummary.heading}}
-    </h1>
-    <p>{{content.CopiesSummary.extraCopies}}</p>
+        <h1 class="heading-large">
+            {{ content.CopiesSummary.heading }}
+        </h1>
+        <p>{{ content.CopiesSummary.extraCopies }}</p>
 
-    <dl class="check-your-answers check-your-answers--long">
-        {{checkanswer(
-            items = [
-                {
-                    question: content.CopiesUk.question,
-                    answer: fields.copies.uk.value,
-                    visible: true
-                }],
-            url = content.CopiesUk.url,
-            common = common,
-            alreadyDeclared = 'false'
-        )}}
-        {{checkanswer(
-            items = [
-                {
-                    question: content.AssetsOverseas.question,
-                    answer: fields.assets.assetsoverseas.value,
-                    visible: true
-                },
-                {
-                    question: content.CopiesOverseas.question,
-                    answer: fields.copies.overseas.value,
-                    visible: fields.assets.assetsoverseas.value == content.AssetsOverseas.optionYes
-                }],
-            url = content.AssetsOverseas.url,
-            common = common,
-            alreadyDeclared = 'false'
-        )}}
-    </dl>
+        <dl class="check-your-answers check-your-answers--long">
+            {{ checkanswer(
+                items = [
+                    {
+                        question: content.CopiesUk.question,
+                        answer: fields.copies.uk.value,
+                        visible: true
+                    }],
+                url = content.CopiesUk.url,
+                common = common,
+                alreadyDeclared = 'false'
+            ) }}
+            {{ checkanswer(
+                items = [
+                    {
+                        question: content.AssetsOverseas.question,
+                        answer: fields.assets.assetsoverseas.value,
+                        visible: true
+                    },
+                    {
+                        question: content.CopiesOverseas.question,
+                        answer: fields.copies.overseas.value,
+                        visible: fields.assets.assetsoverseas.value == content.AssetsOverseas.optionYes
+                    }],
+                url = content.AssetsOverseas.url,
+                common = common,
+                alreadyDeclared = 'false'
+            ) }}
+        </dl>
 
-    <div class="form-group">
-        <p><a href="/tasklist" class="button button-start">{{common.saveAndContinue}}</a></p>
-    </div>
+        <div class="form-group">
+            <p><a href="/tasklist" class="button button-start">{{ common.saveAndContinue }}</a></p>
+        </div>
 
-    {% include "includes/help_details.html" %}
-</main>
-
+        {% include "includes/help_details.html" %}
+    </main>
 {% endblock %}

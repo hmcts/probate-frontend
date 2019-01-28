@@ -9,6 +9,8 @@ const services = require('app/components/services');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const FormatAlias = require('app/utils/FormatAlias');
+const LegalDocumentJSONObjectBuilder = require('app/utils/LegalDocumentJSONObjectBuilder');
+const legalDocumentJSONObjBuilder = new LegalDocumentJSONObjectBuilder();
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -193,6 +195,13 @@ class Declaration extends ValidationStep {
         delete ctx.invitesSent;
         return [ctx, formdata];
     }
+
+    renderPage(res, html) {
+        const formdata = res.req.session.form;
+        formdata.legalDeclaration = legalDocumentJSONObjBuilder.build(formdata, html);
+        res.send(html);
+    }
+
 }
 
 module.exports = Declaration;

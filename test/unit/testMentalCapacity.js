@@ -1,13 +1,15 @@
 'use strict';
 
-const content = require('app/resources/en/translation/executors/mentalcapacity');
+const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
-const chai = require('chai');
-const expect = chai.expect;
+const {expect} = require('chai');
+const content = require('app/resources/en/translation/executors/mentalcapacity');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const MentalCapacity = steps.MentalCapacity;
+const pageUrl = '/mental-capacity';
+const fieldKey = 'mentalCapacity';
 
-describe('MentalCapacity.js', () => {
+describe('MentalCapacity', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = MentalCapacity.constructor.getUrl();
@@ -16,17 +18,54 @@ describe('MentalCapacity.js', () => {
         });
     });
 
+    describe('getContextData()', () => {
+        it('should return the correct context on GET', (done) => {
+            const req = {
+                method: 'GET',
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {}
+                },
+                body: {
+                    mentalCapacity: content.optionYes
+                }
+            };
+            const res = {};
+
+            const ctx = MentalCapacity.getContextData(req, res, pageUrl, fieldKey);
+            expect(ctx).to.deep.equal({
+                sessionID: 'dummy_sessionId',
+                mentalCapacity: content.optionYes
+            });
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
-        it('should return the correct url when Yes is given', (done) => {
-            const ctx = {mentalCapacity: 'Yes'};
-            const nextStepUrl = MentalCapacity.nextStepUrl(ctx);
-            expect(nextStepUrl).to.equal('/tasklist');
+        it('should return url for the next step', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                mentalCapacity: content.optionYes
+            };
+            const nextStepUrl = MentalCapacity.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/start-apply');
             done();
         });
 
-        it('should return the correct url when No is given', (done) => {
-            const ctx = {mentalCapacity: 'No'};
-            const nextStepUrl = MentalCapacity.nextStepUrl(ctx);
+        it('should return the url for the stop page', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                mentalCapacity: content.optionNo
+            };
+            const nextStepUrl = MentalCapacity.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/mentalCapacity');
             done();
         });
@@ -42,22 +81,6 @@ describe('MentalCapacity.js', () => {
                     choice: 'isCapable'
                 }]
             });
-            done();
-        });
-    });
-
-    describe('isComplete()', () => {
-        it('should return the correct values when the step is complete', (done) => {
-            const ctx = {mentalCapacity: 'Yes'};
-            const val = MentalCapacity.isComplete(ctx);
-            expect(val).to.deep.equal([true, 'inProgress']);
-            done();
-        });
-
-        it('should return the correct values when the step is not complete', (done) => {
-            const ctx = {mentalCapacity: 'No'};
-            const val = MentalCapacity.isComplete(ctx);
-            expect(val).to.deep.equal([false, 'inProgress']);
             done();
         });
     });

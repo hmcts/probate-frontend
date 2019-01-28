@@ -3,7 +3,7 @@
 {% from "widgets/numbers.html" import numberField %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{content.question | safe}}</h1>
+    <h1 class="form-title heading-large">{{ content.question | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}
@@ -11,16 +11,16 @@
         <legend class="visually-hidden">
             {{ content.title | safe }}
         </legend>
-        {{numberField(
+        {{ numberField(
             name = 'codicilsNumber',
             field = fields.codicilsNumber,
             text = content.numberOfUpdates,
             size = 5,
             width= '1-8',
             currency = false
-        )}}
+        ) }}
     </fieldset>
     <div class="form-group">
-        <input class="button" type="submit" value="{{common.saveAndContinue}}">
+        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

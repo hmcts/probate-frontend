@@ -136,10 +136,24 @@ li.task-item {
   padding-top: em(35);
 }
 
+p.declaration-item {
+  text-align: left;
+}
 div.declaration-header {
   text-align: center;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+div.declaration-wrapper {
+  @include media(tablet) {
+    display: grid;
+    grid-column-gap: 50px;
+    grid-template-columns: 3fr 1fr;
+    width: calc(133% + 50px);
+  }
+}
+div.declaration-grid-item {
+  text-align: left;
 }
 
 #global-header .header-proposition #sign-out-header {
@@ -181,6 +195,10 @@ div.declaration-header {
 
 .anchor-margin-left {
   margin-left: 10px;
+}
+
+.margin-bottom50 {
+  margin-bottom: 50px;
 }
 
 .govuk-box-highlight {

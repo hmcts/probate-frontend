@@ -7,11 +7,7 @@ module.exports = function (option) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    if (option === 'Yes') {
-        I.click('#allalive-optionYes');
-    } else {
-        I.click('#allalive-optionNo');
-    }
+    I.click('#allalive-option' + option);
 
-    I.click(commonContent.continue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

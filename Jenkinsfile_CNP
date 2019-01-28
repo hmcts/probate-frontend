@@ -1,8 +1,9 @@
 #!groovy
 
-//#@Library("Infrastructure")
-@Library("Infrastructure@fd7aef62b5503c45b4998a072175d94d62aab70e")
+@Library("Infrastructure")
+//@Library("Infrastructure@fd7aef62b5503c45b4998a072175d94d62aab70e")
 import uk.gov.hmcts.contino.Kubectl
+import uk.gov.hmcts.contino.Consul
 
 String product = "probate"
 String component = "frontend"
@@ -52,6 +53,18 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 withPipeline("nodejs", product, component) {
+   afterCheckout {
+    onMaster {
+      try {
+        sh """
+          git fetch origin demo:demo
+          git push --force origin HEAD:demo
+        """
+      } catch (err) {
+        notifyBuildEvent channel: notificationsChannel, color: 'warning', message: 'Failed to update demo branch'
+      }
+    }
+  }
   after('build') {
     sh 'yarn setup'
   }
@@ -60,7 +73,9 @@ withPipeline("nodejs", product, component) {
     enableDockerBuild()
     installCharts()
 //  }
-
+  setVaultName('probate')
+  loadVaultSecrets(secrets)
+  enableSlackNotifications('#probate-jenkins')
   after('aksdeploy') {
     def subscription = env.SUBSCRIPTION_NAME
     def aksServiceName = "${product}-${component}-${env.BRANCH_NAME}".toLowerCase()
@@ -70,17 +85,14 @@ withPipeline("nodejs", product, component) {
 
     def ingressIP = kubectl.getServiceLoadbalancerIP("traefik", "kube-system")
 
-    registerConsulDns(subscription, "feature-toggle-api-${aksServiceName}", ingressIP)
+    def consul = new Consul(this)
 
+    consul.registerDns("feature-toggle-api-${aksServiceName}", ingressIP)
 
     env.FEATURE_TOGGLES_API_URL="https://feature-toggle-api-${aksServiceName}.${aksDomain}"
     echo "${env.FEATURE_TOGGLES_API_URL}"
   }
 
-
-  setVaultName('probate')
-  loadVaultSecrets(secrets)
-  enableSlackNotifications('#probate-jenkins')
   after('functionalTest:aat') {
       publishHTML target: [
 

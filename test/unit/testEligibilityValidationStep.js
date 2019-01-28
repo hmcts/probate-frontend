@@ -4,13 +4,13 @@ const {expect} = require('chai');
 const rewire = require('rewire');
 const sinon = require('sinon');
 const EligibilityValidationStep = rewire('app/core/steps/EligibilityValidationStep');
-const schema = require('app/steps/ui/deceased/newdeathcertificate/schema');
+const schema = require('app/steps/ui/deceased/deathcertificate/schema');
 const steps = {};
 const section = 'deceased';
-const resourcePath = 'deceased/newdeathcertificate';
+const resourcePath = 'deceased/deathcertificate';
 const i18next = {};
-const pageUrl = '/new-death-certificate';
-const nextStepUrl = '/new-deceased-domicile';
+const pageUrl = '/death-certificate';
+const nextStepUrl = '/deceased-domicile';
 const fieldKey = 'deathCertificate';
 const fieldValue = 'Yes';
 
@@ -68,7 +68,7 @@ describe('EligibilityValidationStep', () => {
             const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey);
 
             expect(nextStepUrlStub.calledOnce).to.equal(true);
-            expect(nextStepUrlStub.calledWith({sessionID: 'abc123', deathCertificate: 'Yes'})).to.equal(true);
+            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', deathCertificate: 'Yes'})).to.equal(true);
             expect(setEligibilityCookieStub.calledOnce).to.equal(true);
             expect(setEligibilityCookieStub.calledWith(req, res, nextStepUrl, fieldKey, fieldValue)).to.equal(true);
             expect(ctx).to.deep.equal({sessionID: 'abc123', deathCertificate: 'Yes'});

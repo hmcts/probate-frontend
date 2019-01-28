@@ -3,19 +3,19 @@
 {% from "widgets/checkboxes.html" import checkboxes %}
 
 {% block question %}
-<h1 class="form-title heading-large">{{content.question}}</h1>
+    <h1 class="form-title heading-large">{{ content.question }}</h1>
 {% endblock %}
 
 {% block form_content %}
     {{ checkboxes(
-            name = 'executorsWithOtherNames',
-            field = fields.executorsWithOtherNames,
-            options = fields.options.value,
-            legend = content.question
-    )}}
+        name = 'executorsWithOtherNames',
+        field = fields.executorsWithOtherNames,
+        options = fields.options.value,
+        legend = content.question
+    ) }}
 
-<div class="form-group">
-    <input class="button" type="submit" value="{{common.saveAndContinue}}">
-</div>
+    <div class="form-group">
+        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    </div>
 {% endblock %}
 

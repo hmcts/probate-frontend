@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/deceased/married/index');
 module.exports = function (option) {
     const I = this;
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click('#married-' + option);
+    I.click('#married-option' + option);
 
-    I.click(commonContent.continue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

@@ -3,6 +3,10 @@
   "id": "will-original",
   "type": "object",
   "properties": {
+    "original": {
+      "type": "string",
+      "minLength": 1
+    }
   },
   "required": [
     "original"

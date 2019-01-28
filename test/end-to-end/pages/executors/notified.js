@@ -14,5 +14,5 @@ module.exports = function (executorNotified, executorNumber) {
         I.click('#executorNotified-optionNo');
     }
 
-    I.click(commonContent.continue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

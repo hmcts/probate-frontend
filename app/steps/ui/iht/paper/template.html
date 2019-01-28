@@ -3,84 +3,87 @@
 {% from "widgets/textfields.html" import textField %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{content.question}}</h1>
+    <h1 class="form-title heading-large">{{ content.question }}</h1>
 {% endblock %}
 
 {% block form_content %}
     <fieldset class="form-group {{ 'form-group-error' if fields['form'].error }}">
-        <legend class="visuallyhidden">{{content.question}}</legend>
+        <legend class="visuallyhidden">{{ content.question }}</legend>
         {% if fields['form'].error %}
             <span class="error-message">
-            {{ fields['form'].errorMessage.message | safe}}
+            {{ fields['form'].errorMessage.message | safe }}
             </span>
         {% endif %}
 
         <!-- IHT205 -->
         <div class="multiple-choice" data-target="IHT205-details">
-            <input id="paperIHT205" type="radio" name="form" value="IHT205" {{"checked='checked'" if fields['form'].value === 'IHT205' }}>
-            <label for="paperIHT205">{{content['optionIHT205']}}</label>
+            <input id="paperIHT205" type="radio" name="form"
+                   value="IHT205" {{ "checked='checked'" if fields['form'].value === 'IHT205' }}>
+            <label for="paperIHT205">{{ content['optionIHT205'] }}</label>
         </div>
 
         <div class="panel panel-border-narrow js-hidden" id="IHT205-details">
-            {{textField(
+            {{ textField(
                 name = 'grossIHT205',
                 field = fields.grossIHT205,
                 text = content.gross205 | safe,
                 size = 13
-            )}}
-            {{textField(
+            ) }}
+            {{ textField(
                 name = 'netIHT205',
                 field = fields.netIHT205,
                 text = content.net205 | safe,
                 size = 13
-            )}}
+            ) }}
         </div>
 
         <!-- IHT207 -->
         <div class="multiple-choice" data-target="IHT207-details">
-            <input id="paperIHT207" type="radio" name="form" value="IHT207" {{"checked='checked'" if fields['form'].value === 'IHT207' }}>
-            <label for="paperIHT207">{{content['optionIHT207']}}</label>
+            <input id="paperIHT207" type="radio" name="form"
+                   value="IHT207" {{ "checked='checked'" if fields['form'].value === 'IHT207' }}>
+            <label for="paperIHT207">{{ content['optionIHT207'] }}</label>
         </div>
 
         <div class="panel panel-border-narrow js-hidden" id="IHT207-details">
-            {{textField(
+            {{ textField(
                 name = 'grossIHT207',
                 field = fields.grossIHT207,
                 text = content.gross207 | safe,
                 size = 13
-            )}}
-            {{textField(
+            ) }}
+            {{ textField(
                 name = 'netIHT207',
                 field = fields.netIHT207,
                 text = content.net207 | safe,
                 size = 13
-            )}}
+            ) }}
         </div>
 
         <!-- IHT400421 & 421 -->
         <div class="multiple-choice" data-target="IHT400421-details">
-            <input id="paperIHT400421" type="radio" name="form" value="IHT400421" {{"checked='checked'" if fields['form'].value === 'IHT400421' }}>
-            <label for="paperIHT400421">{{content['optionIHT400421']}}</label>
+            <input id="paperIHT400421" type="radio" name="form"
+                   value="IHT400421" {{ "checked='checked'" if fields['form'].value === 'IHT400421' }}>
+            <label for="paperIHT400421">{{ content['optionIHT400421'] }}</label>
         </div>
 
         <div class="panel panel-border-narrow js-hidden" id="IHT400421-details">
-            {{textField(
+            {{ textField(
                 name = 'grossIHT400421',
                 field = fields.grossIHT400421,
                 text = content.gross400 | safe,
                 size = 13
-            )}}
-            {{textField(
+            ) }}
+            {{ textField(
                 name = 'netIHT400421',
                 field = fields.netIHT400421,
                 text = content.net400 | safe,
                 size = 13
-            )}}
-            <p>{{content.421Info}}</p>
+            ) }}
+            <p>{{ content.421Info }}</p>
         </div>
 
     </fieldset>
     <div class="form-group">
-        <input class="button" type="submit" value="{{common.saveAndContinue}}">
+        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

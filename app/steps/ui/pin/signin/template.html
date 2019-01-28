@@ -8,30 +8,30 @@
 {% set displaySignOutLink = 'false' %}
 
 {% block form_content %}
-    <h1 class="form-title heading-large pin-main-header">{{content.header | safe}}</h1>
-    <h2 class="form-title heading-medium pin-sub-header">{{content.subHeader | safe}}</h2>
+    <h1 class="form-title heading-large pin-main-header">{{ content.header | safe }}</h1>
+    <h2 class="form-title heading-medium pin-sub-header">{{ content.subHeader | safe }}</h2>
 
-    <p>{{content.securityCode | safe}}</p>
-    <p>{{content.phoneCode | safe}}</p>
+    <p>{{ content.securityCode | safe }}</p>
+    <p>{{ content.phoneCode | safe }}</p>
 
 
     <fieldset>
-            <legend class="visually-hidden">
-                {{ content.pinLegend | safe }}
-            </legend>
-            {{passwordField(
+        <legend class="visually-hidden">
+            {{ content.pinLegend | safe }}
+        </legend>
+        {{ passwordField(
             name = 'pin',
             field = fields.pin,
             text = content.pinText,
             size = 6,
             width = '1-4'
-            )}}
-        </fieldset>
-        <div class="form-group">
-            <input class="button" type="submit" value="{{content.button}}">
-        </div>
+        ) }}
+    </fieldset>
+    <div class="form-group">
+        <input class="button" type="submit" value="{{ content.button }}">
+    </div>
 
-    <a href="/pin-resend">{{content.forgottenCode | safe}}</a>
+    <a href="/pin-resend">{{ content.forgottenCode | safe }}</a>
 {% endblock %}
-{% block save_and_close %}
-{% endblock %}
+
+{% block save_and_close %}{% endblock %}

@@ -19,12 +19,12 @@ describe('Update-Invite', function () {
                 session: {
                     form: {
                         executors: {
-                            'executorsNumber': 3,
-                            'invitesSent': 'true',
-                            'list': [
-                                {'fullName': 'john', 'isApplying': true, 'isApplicant': true},
-                                {'fullName': 'other applicant', 'isApplying': true, 'emailChanged': true},
-                                {'fullName': 'harvey', 'isApplying': true, 'emailChanged': true}
+                            executorsNumber: 3,
+                            invitesSent: 'true',
+                            list: [
+                                {fullName: 'john', isApplying: true, isApplicant: true},
+                                {fullName: 'other applicant', isApplying: true, emailChanged: true},
+                                {fullName: 'harvey', isApplying: true, emailChanged: true}
                             ]
                         }
                     }
@@ -34,14 +34,14 @@ describe('Update-Invite', function () {
             ctx = updateInvite.getContextData(req);
             expect(ctx.executorsEmailChangedList).to.deep.equal([
                 {
-                    'emailChanged': true,
-                    'fullName': 'other applicant',
-                    'isApplying': true
+                    emailChanged: true,
+                    fullName: 'other applicant',
+                    isApplying: true
                 },
                 {
-                    'emailChanged': true,
-                    'fullName': 'harvey',
-                    'isApplying': true
+                    emailChanged: true,
+                    fullName: 'harvey',
+                    isApplying: true
                 }
             ]);
             expect(ctx.inviteSuffix).to.deep.equal('-multiple');
@@ -53,12 +53,12 @@ describe('Update-Invite', function () {
                 session: {
                     form: {
                         executors: {
-                            'executorsNumber': 3,
-                            'invitesSent': 'true',
-                            'list': [
-                                {'fullName': 'john', 'isApplying': true, 'isApplicant': true},
-                                {'fullName': 'other applicant', 'isApplying': true, 'emailChanged': true},
-                                {'fullName': 'harvey', 'isApplying': true}
+                            executorsNumber: 3,
+                            invitesSent: 'true',
+                            list: [
+                                {fullName: 'john', isApplying: true, isApplicant: true},
+                                {fullName: 'other applicant', isApplying: true, emailChanged: true},
+                                {fullName: 'harvey', isApplying: true}
                             ]
                         }
                     }
@@ -68,9 +68,9 @@ describe('Update-Invite', function () {
             ctx = updateInvite.getContextData(req);
             expect(ctx.executorsEmailChangedList).to.deep.equal([
                 {
-                    'emailChanged': true,
-                    'fullName': 'other applicant',
-                    'isApplying': true
+                    emailChanged: true,
+                    fullName: 'other applicant',
+                    isApplying: true
                 }
             ]);
             expect(ctx.inviteSuffix).to.deep.equal('');

@@ -37,7 +37,7 @@ class ExecutorsNames extends ValidationStep {
     handlePost(ctx, errors) {
         for (let i=1; i < ctx.executorsNumber; i++) {
             if (isEmpty(ctx.list[i])) {
-                ctx.list[i] = {'fullName': ctx.executorName[i-1]};
+                ctx.list[i] = {fullName: ctx.executorName[i-1]};
             } else {
                 ctx.list[i].fullName = ctx.executorName[i-1];
             }
@@ -99,7 +99,7 @@ class ExecutorsNames extends ValidationStep {
         const errorMessage = FieldError('executorName', messageType, resourcePath);
         const displayExecutor = i18next.t(`${resourcePath}.executor`);
         errorMessage.msg.summary = `${displayExecutor} ${screenExecutorNumber}: ${errorMessage.msg.summary}`;
-        return {'error': true, 'errorMessage': errorMessage.msg};
+        return {error: true, errorMessage: errorMessage.msg};
     }
 }
 

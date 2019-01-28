@@ -3,6 +3,10 @@
   "id": "iht-completed",
   "type": "object",
   "properties": {
+    "completed": {
+      "type": "string",
+      "minLength": 1
+    }
   },
   "required": [
     "completed"

@@ -1,29 +1,30 @@
 'use strict';
 
-const ValidationStep = require('app/core/steps/ValidationStep');
-const json = require('app/resources/en/translation/iht/completed');
-const {isEmpty} = require('lodash');
+const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
+const content = require('app/resources/en/translation/iht/completed');
+const pageUrl = '/iht-completed';
+const fieldKey = 'completed';
 
-class IhtCompleted extends ValidationStep {
+class IhtCompleted extends EligibilityValidationStep {
 
     static getUrl() {
-        return '/iht-completed';
+        return pageUrl;
     }
 
-    nextStepUrl(ctx) {
-        return this.next(ctx).constructor.getUrl('ihtNotCompleted');
+    getContextData(req, res) {
+        return super.getContextData(req, res, pageUrl, fieldKey);
+    }
+
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('ihtNotCompleted');
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
-                {key: 'completed', value: json.optionYes, choice: 'completed'}
+                {key: fieldKey, value: content.optionYes, choice: 'completed'}
             ]
         };
-        return nextStepOptions;
-    }
-    isComplete(ctx) {
-        return [!isEmpty(ctx.completed), 'inProgress'];
     }
 }
 

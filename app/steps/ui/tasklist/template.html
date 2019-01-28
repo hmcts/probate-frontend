@@ -1,36 +1,30 @@
 {% extends "includes/layout.html" %}
 
 {% block content %}
+    {% from "widgets/lists.html" import taskAction, unorderedList %}
+    {% from "widgets/taskheader.html" import taskHeader %}
 
-{% from "widgets/lists.html" import taskAction, unorderedList %}
-{% from "widgets/taskheader.html" import taskHeader %}
+    <main id="content" role="main">
+        {% include "includes/phase_banner_beta.html" %}
 
-<main id="content" role="main">
-    {% include "includes/phase_banner_beta.html" %}
-
-    <div class="grid-row">
-        <div class="column-two-thirds">
-            <h1 class="form-title heading-large">{{content.header}}</h1>
-            <p>{{content.introduction}}</p>
-            <p>{{content.saveAndReturn}}</p>
-            <div class="form-group">
-                <ol>
-                    {% ifAsync fields.isToggleEnabled.value === 'true' %}
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <h1 class="form-title heading-large">{{ content.header }}</h1>
+                <p>{{ content.introduction }}</p>
+                <p>{{ content.saveAndReturn }}</p>
+                <div class="form-group">
+                    <ol>
                         {% include "ui/tasklist/includes/deceased.html" %}
-                    {% else %}
-                        {% include "ui/tasklist/includes/eligibility.html" %}
-                    {% endif %}
-                    {% include "ui/tasklist/includes/executors.html" %}
-                    {% include "ui/tasklist/includes/reviewAndConfirm.html" %}
-                    {% include "ui/tasklist/includes/copies.html" %}
-                    {% include "ui/tasklist/includes/payment.html" %}
-                    {% include "ui/tasklist/includes/documents.html" %}
-                </ol>
+                        {% include "ui/tasklist/includes/executors.html" %}
+                        {% include "ui/tasklist/includes/reviewAndConfirm.html" %}
+                        {% include "ui/tasklist/includes/copies.html" %}
+                        {% include "ui/tasklist/includes/payment.html" %}
+                        {% include "ui/tasklist/includes/documents.html" %}
+                    </ol>
+                </div>
             </div>
         </div>
-    </div>
 
-    {% include "includes/help_details.html" %}
-</main>
-
+        {% include "includes/help_details.html" %}
+    </main>
 {% endblock %}

@@ -3,18 +3,23 @@ module.exports = {
     TestIdamBaseUrl: process.env.IDAM_API_URL || 'http://localhost:8484',
     TestFrontendUrl: process.env.TEST_URL || 'http://localhost:3000',
     TestE2EFrontendUrl: process.env.TEST_E2E_URL || 'http://localhost:3000',
-    TestUseIdam: process.env.USE_IDAM || 'false',
-    TestUseSidam: process.env.USE_SIDAM || 'true',
+    TestUseIdam: process.env.USE_IDAM || 'true',
+    TestUseSidam: process.env.USE_SIDAM || 'false',
     TestIdamLoginUrl: process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
-    TestUseGovPay: process.env.USE_GOV_PAY || 'false',
+    TestUseGovPay: process.env.USE_GOV_PAY || 'true',
     TestInviteIdListUrl: process.env.INVITE_ID_LIST_URL,
     TestPinUrl: process.env.PIN_URL,
     TestInvitationUrl: process.env.INVITATION_URL,
     TestIdamAddUserUrl: process.env.IDAM_ADD_USER_URL,
     TestIdamUserGroup: process.env.IDAM_USER_GROUP,
     TestIdamRole: process.env.IDAM_CITIZEN_ROLE,
-    TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '@test.com',
+    TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '/@probateTest.com',
+    TestUseProxy: process.env.TEST_USE_PROXY || 'true',
+    TestProxy: process.env.TEST_PROXY || 'socks5:proxyout.reform.hmcts.net:8080',
+    TestRetryFeatures: process.env.RETRY_FEATURES || 0,
     TestRetryScenarios: process.env.RETRY_SCENARIOS || 3,
+    TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png',
+    TestWaitForDocumentUpload: 60,
 
     postcodeLookup: {
         token: process.env.ADDRESS_TOKEN,
@@ -30,12 +35,22 @@ module.exports = {
         emptyAddressPostcode: ''
     },
 
-    validation: {
-        url: process.env.TEST_VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
+    govPayTestCardNos: {
+        validCardNo: '4242424242424242'
     },
 
-    businessDocument: {
-        url: process.env.TEST_BUSINESS_DOCUMENT_URL || 'http://localhost:8080/businessDocument'
+    govPayTestCardDetails: {
+        expiryMonth: '06',
+        expiryYear: '99',
+        cardholderName: 'Test Payment',
+        cvc: '123',
+        addressLine1: '1',
+        addressCity: 'London',
+        addressPostcode: 'SW1A1AA'
+    },
+
+    validation: {
+        url: process.env.TEST_VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
     },
 
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',

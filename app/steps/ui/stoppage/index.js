@@ -1,7 +1,6 @@
 'use strict';
 
 const Step = require('app/core/steps/Step');
-const FeatureToggle = require('app/utils/FeatureToggle');
 
 class StopPage extends Step {
 
@@ -23,16 +22,9 @@ class StopPage extends Step {
         return ctx;
     }
 
-    handleGet(ctx, formdata, featureToggles) {
-        [ctx] = super.handleGet(ctx, formdata);
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
-        return [ctx, {}];
-    }
-
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.linkPlaceholders;
-
         return [ctx, formdata];
     }
 

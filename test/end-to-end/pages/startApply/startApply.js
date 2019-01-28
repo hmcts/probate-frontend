@@ -11,6 +11,6 @@ module.exports = function () {
         I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     }
 
-    I.click('.button.button-start');
+    I.waitForNavigationToComplete('.button');
 
 };

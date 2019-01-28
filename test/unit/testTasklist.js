@@ -1,10 +1,12 @@
 // eslint-disable-line max-lines
+
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const journeyMap = require('app/core/journeyMap');
+const JourneyMap = require('app/core/JourneyMap');
 const {expect, assert} = require('chai');
 const completedForm = require('test/data/complete-form').formdata;
+const journey = require('app/journeys/probate');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui/`]);
 const taskList = steps.TaskList;
 
@@ -27,128 +29,52 @@ describe('Tasklist', () => {
     });
 
     describe('updateTaskStatus', () => {
-        it('Updates the context: neither task is started (feature toggle off)', () => {
-            req.session.featureToggles = {
-                screening_questions: false
-            };
+        let journeyMap;
 
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.EligibilityTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.EligibilityTask.status, 'notStarted');
-            assert.equal(ctx.EligibilityTask.nextURL, steps[journeyMap.taskList.EligibilityTask.firstStep].constructor.getUrl());
-            assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
+        beforeEach(() => {
+            req.session.journey = journey;
+            journeyMap = new JourneyMap(journey);
         });
 
-        it('Updates the context: neither task is started (feature toggle on)', () => {
-            req.session.featureToggles = {
-                screening_questions: true
-            };
-
+        it('Updates the context: neither task is started', () => {
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.DeceasedTask.status, 'notStarted');
-            assert.equal(ctx.DeceasedTask.nextURL, steps[journeyMap.taskList.DeceasedTask.firstStep].constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.nextURL, steps[journeyMap.taskList().DeceasedTask.firstStep].constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
+            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
         });
 
-        it('Updates the context: EligibilityTask started (feature toggle off)', () => {
-            const formdata = {will: {left: 'Yes'}};
-            req.session.form = formdata;
-            req.session.featureToggles = {
-                screening_questions: false
-            };
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.EligibilityTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.EligibilityTask.status, 'started');
-            assert.equal(ctx.EligibilityTask.nextURL, journeyMap(steps.WillLeft, formdata.will).constructor.getUrl());
-            assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
-        });
-
-        it('Updates the context: DeceasedTask started (feature toggle on)', () => {
+        it('Updates the context: DeceasedTask started', () => {
             const formdata = {deceased: {firstName: 'Test first name', lastName: 'Test last name'}};
             req.session.form = formdata;
-            req.session.featureToggles = {
-                screening_questions: true
-            };
             ctx = taskList.getContextData(req);
             ctx = Object.assign(ctx, formdata.deceased);
 
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.DeceasedTask.status, 'started');
-            assert.equal(ctx.DeceasedTask.nextURL, journeyMap(steps.DeceasedName, ctx).constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
+            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
         });
 
-        it('Updates the context: EligibilityTask complete, ExecutorsTask not started (feature toggle off)', () => {
-            const formdata = {
-                will: completedForm.will,
-                iht: completedForm.iht,
-                executors: {mentalCapacity: 'Yes'},
-                applicant: {executor: completedForm.applicant.executor},
-                deceased: {deathCertificate: completedForm.deceased.deathCertificate}
-            };
-            req.session.form = formdata;
-            req.session.featureToggles = {
-                screening_questions: false
-            };
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.EligibilityTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.EligibilityTask.status, 'complete');
-            assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
-        });
-
-        it('Updates the context: DeceasedTask complete, ExecutorsTask not started (feature toggle on)', () => {
+        it('Updates the context: DeceasedTask complete, ExecutorsTask not started', () => {
             const formdata = {
                 deceased: completedForm.deceased,
                 will: completedForm.will,
                 iht: completedForm.iht
             };
             req.session.form = formdata;
-            req.session.featureToggles = {
-                screening_questions: true
-            };
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.DeceasedTask.status, 'complete');
             assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList.ExecutorsTask.firstStep].constructor.getUrl());
+            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
         });
 
-        it('Updates the context: EligibilityTask complete, ExecutorsTask started (feature toggle off)', () => {
-            const formdata = {
-                will: completedForm.will,
-                iht: completedForm.iht,
-                executors: {mentalCapacity: 'Yes'},
-                applicant: {
-                    executor: completedForm.applicant.executor,
-                    firstName: completedForm.applicant.firstName,
-                    lastName: completedForm.applicant.lastName,
-                },
-                deceased: {deathCertificate: completedForm.deceased.deathCertificate}
-            };
-            req.session.form = formdata;
-            req.session.featureToggles = {
-                screening_questions: false
-            };
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.EligibilityTask.status, 'complete');
-            assert.equal(ctx.ExecutorsTask.status, 'started');
-            assert.equal(ctx.ExecutorsTask.nextURL, journeyMap(steps.ApplicantName, formdata.will).constructor.getUrl());
-        });
-
-        it('Updates the context: DeceasedTask complete, ExecutorsTask started (feature toggle on)', () => {
+        it('Updates the context: DeceasedTask complete, ExecutorsTask started', () => {
             const formdata = {
                 deceased: completedForm.deceased,
                 will: completedForm.will,
@@ -159,37 +85,15 @@ describe('Tasklist', () => {
                 }
             };
             req.session.form = formdata;
-            req.session.featureToggles = {
-                screening_questions: true
-            };
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.DeceasedTask.status, 'complete');
             assert.equal(ctx.ExecutorsTask.status, 'started');
-            assert.equal(ctx.ExecutorsTask.nextURL, journeyMap(steps.ApplicantName, formdata.will).constructor.getUrl());
+            assert.equal(ctx.ExecutorsTask.nextURL, journeyMap.nextStep(steps.ApplicantName, formdata.will).constructor.getUrl());
         });
 
-        it('Updates the context: EligibilityTask & ExecutorsTask started (ExecutorsTask blocked) (feature toggle off)', () => {
-            const formdata = {
-                will: completedForm.will,
-                iht: {'completed': 'Yes'},
-                applicant: completedForm.applicant,
-                deceased: {deathCertificate: completedForm.deceased.deathCertificate}
-            };
-            req.session.form = formdata;
-            req.session.featureToggles = {
-                screening_questions: false
-            };
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.EligibilityTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.EligibilityTask.status, 'started');
-            assert.equal(ctx.EligibilityTask.nextURL, journeyMap(steps.IhtCompleted, formdata.iht).constructor.getUrl());
-            assert.equal(ctx.ExecutorsTask.status, 'started');
-        });
-
-        it('Updates the context: DeceasedTask & ExecutorsTask started (ExecutorsTask blocked) (feature toggle on)', () => {
+        it('Updates the context: DeceasedTask & ExecutorsTask started (ExecutorsTask blocked)', () => {
             const formdata = {
                 deceased: {firstName: 'Test first name', lastName: 'Test last name'},
                 applicant: {
@@ -198,15 +102,12 @@ describe('Tasklist', () => {
                 }
             };
             req.session.form = formdata;
-            req.session.featureToggles = {
-                screening_questions: true
-            };
             ctx = taskList.getContextData(req);
             ctx = Object.assign(ctx, formdata.deceased);
 
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.DeceasedTask.status, 'started');
-            assert.equal(ctx.DeceasedTask.nextURL, journeyMap(steps.DeceasedName, ctx).constructor.getUrl());
+            assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).constructor.getUrl());
             assert.equal(ctx.ExecutorsTask.status, 'started');
         });
 
@@ -222,11 +123,11 @@ describe('Tasklist', () => {
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.EligibilityTask.status, 'complete');
+            assert.equal(ctx.DeceasedTask.status, 'complete');
             assert.equal(ctx.ExecutorsTask.status, 'complete');
             assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.ReviewAndConfirmTask.status, 'notStarted');
-            assert.equal(ctx.ReviewAndConfirmTask.nextURL, steps[journeyMap.taskList.ReviewAndConfirmTask.firstStep].constructor.getUrl());
+            assert.equal(ctx.ReviewAndConfirmTask.nextURL, steps[journeyMap.taskList().ReviewAndConfirmTask.firstStep].constructor.getUrl());
         });
 
         it('Updates the context: Review and confirm complete (Single Applicants)', () => {
@@ -362,31 +263,10 @@ describe('Tasklist', () => {
             assert.equal(ctx.PaymentTask.status, 'complete');
         });
 
-        it('Updates the context: Eligibility, Executors, Review and confirm, Copies and Document tasks complete (feature toggle off)', () => {
+        it('Updates the context: DeceasedTask, Executors, Review and confirm, Copies and Document tasks complete', () => {
             req.session.form = completedForm;
             req.session.form.documents = {
                 sentDocuments: 'true'
-            };
-            req.session.featureToggles = {
-                screening_questions: false
-            };
-            req.body = {};
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.DocumentsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.EligibilityTask.status, 'complete');
-            assert.equal(ctx.ExecutorsTask.status, 'complete');
-            assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-            assert.equal(ctx.DocumentsTask.status, 'complete');
-        });
-
-        it('Updates the context: DeceasedTask, Executors, Review and confirm, Copies and Document tasks complete (feature toggle on)', () => {
-            req.session.form = completedForm;
-            req.session.form.documents = {
-                sentDocuments: 'true'
-            };
-            req.session.featureToggles = {
-                screening_questions: true
             };
             req.body = {};
             ctx = taskList.getContextData(req);
@@ -398,38 +278,12 @@ describe('Tasklist', () => {
             assert.equal(ctx.DocumentsTask.status, 'complete');
         });
 
-        it('Test the Copies Previous Task Status is set correctly (feature toggle off)', () => {
+        it('Test the Copies Previous Task Status is set correctly', () => {
             req.session.form = completedForm;
-            req.session.featureToggles = {
-                screening_questions: false
-            };
-
             ctx = taskList.getContextData(req);
 
             assert.equal(ctx.CopiesTask.status, 'complete');
         });
-
-        it('Test the Copies Previous Task Status is set correctly (feature toggle on)', () => {
-            req.session.form = completedForm;
-            req.session.featureToggles = {
-                screening_questions: true
-            };
-
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.CopiesTask.status, 'complete');
-        });
-
-        it('Test the screening questions feature toggle is being set', () => {
-            req.session.featureToggles = {
-                screening_questions: true
-            };
-
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.isToggleEnabled, true);
-        });
-
     });
 
     describe('action', () => {
@@ -437,15 +291,13 @@ describe('Tasklist', () => {
             const ctx = {
                 hasMultipleApplicants: true,
                 alreadyDeclared: true,
-                previousTaskStatus: 'complete',
-                isToggleEnabled: false
+                previousTaskStatus: 'complete'
             };
 
             taskList.action(ctx);
             assert.isUndefined(ctx.hasMultipleApplicants);
             assert.isUndefined(ctx.alreadyDeclared);
             assert.isUndefined(ctx.previousTaskStatus);
-            assert.isUndefined(ctx.isToggleEnabled);
         });
     });
 });

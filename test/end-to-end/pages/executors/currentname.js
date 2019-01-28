@@ -14,5 +14,5 @@ module.exports = function (executorNumber, firstRecord) {
 
     I.fillField('#currentName', 'Executor' + executorNumber + 'Current Name');
 
-    I.click(commonContent.continue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

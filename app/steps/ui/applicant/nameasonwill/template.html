@@ -4,18 +4,19 @@
 
 {% block question %}
     <h1 class="form-title heading-large">
-        {{(content.questionWithCodicil if fields.codicilPresent.value === "true" else content.question) | replace('{applicantName}', fields.firstName.value +' '+ fields.lastName.value) | safe}}
+        {{ (content.questionWithCodicil if fields.codicilPresent.value === "true" else content.question) | replace('{applicantName}', fields.firstName.value +' '+ fields.lastName.value) | safe }}
     </h1>
 {% endblock %}
+
 {% block form_content %}
-    {{optionsRadio(content,
+    {{ optionsRadio(content,
         name = 'nameAsOnTheWill',
         field = fields.nameAsOnTheWill,
         options = ['optionYes', 'optionNo'],
         legend = (content.legendWithCodicil if fields.codicilPresent.value === "true" else content.legend) | replace('{applicantName}', fields.firstName.value + ' ' + fields.lastName.value),
-        inline = true
-    )}}
+    inline = true
+    ) }}
     <div class="form-group">
-        <input class="button" type="submit" value="{{common.saveAndContinue}}">
+        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

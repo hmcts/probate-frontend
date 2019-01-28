@@ -28,19 +28,15 @@ describe('ExecutorWhenDied', () => {
     describe('handlePost()', () => {
         let ctx;
         let errors;
-        let formdata;
-        let session;
-        let hostname;
-        let featureToggles;
 
-        it('should return the ctx with the executor roles and the screening_question feature toggle', (done) => {
+        it('should return the ctx with the executor roles', (done) => {
             ctx = {
                 index: 0,
                 list: [{}],
                 diedbefore: 'No'
             };
             errors = {};
-            [ctx, errors] = ExecutorWhenDied.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
+            [ctx, errors] = ExecutorWhenDied.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 index: -1,
                 list: [
@@ -50,18 +46,15 @@ describe('ExecutorWhenDied', () => {
                         notApplyingReason: json.optionDiedAfter
                     }
                 ],
-                diedbefore: 'No',
-                isToggleEnabled: false
+                diedbefore: 'No'
             });
             done();
         });
     });
 
     describe('nextStepOptions()', () => {
-        it('should return the correct options when the FT is off', (done) => {
-            const ctx = {
-                isToggleEnabled: false
-            };
+        it('should return the correct options', (done) => {
+            const ctx = {};
             const nextStepOptions = ExecutorWhenDied.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
@@ -71,32 +64,16 @@ describe('ExecutorWhenDied', () => {
             });
             done();
         });
-
-        it('should return the correct options when the FT is on', (done) => {
-            const ctx = {
-                isToggleEnabled: true
-            };
-            const nextStepOptions = ExecutorWhenDied.nextStepOptions(ctx);
-            expect(nextStepOptions).to.deep.equal({
-                options: [
-                    {key: 'continue', value: true, choice: 'continue'},
-                    {key: 'allDead', value: true, choice: 'allDeadToggleOn'}
-                ]
-            });
-            done();
-        });
     });
 
     describe('action', () => {
         it('test it cleans up context', () => {
             const ctx = {
-                isToggleEnabled: false,
                 diedbefore: 'No',
                 continue: true,
                 allDead: 'No',
             };
             ExecutorWhenDied.action(ctx);
-            assert.isUndefined(ctx.isToggleEnabled);
             assert.isUndefined(ctx.diedbefore);
             assert.isUndefined(ctx.continue);
             assert.isUndefined(ctx.allDead);

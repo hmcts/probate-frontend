@@ -1,21 +1,18 @@
 {% extends "includes/layout.html" %}
 
 {% block content %}
+    <main id="content" role="main">
+        {% include "includes/phase_banner_beta.html" %}
 
-<main id="content" role="main">
+        <h1 class="form-title heading-large">{{ content.question }}</h1>
+        <p>{{ content.paragraph1 | safe }}</p>
+        <p>{{ content.paragraph2 | safe }}</p>
+        <p>{{ content.paragraph3 | safe }}</p>
 
-    {% include "includes/phase_banner_beta.html" %}
+        <div class="form-group">
+            <p><a href="/copies-uk" class="button button-start">{{ common.start }}</a></p>
+        </div>
 
-    <h1 class="form-title heading-large">{{content.question}}</h1>
-    <p>{{content.paragraph1 | safe}}</p>
-    <p>{{content.paragraph2 | safe}}</p>
-    <p>{{content.paragraph3 | safe}}</p>
-
-    <div class="form-group">
-        <p><a href="/copies-uk" class="button button-start">{{common.start}}</a></p>
-    </div>
-
-    {% include "includes/help_details.html" %}
-</main>
-
+        {% include "includes/help_details.html" %}
+    </main>
 {% endblock %}

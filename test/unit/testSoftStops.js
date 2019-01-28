@@ -4,7 +4,6 @@ const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
 const expect = require('chai').expect;
 const stopPagesContent = require('../../app/resources/en/translation/stoppage.json');
-const co = require('co');
 
 describe('Soft Stops', function () {
     const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui/']);
@@ -16,27 +15,7 @@ describe('Soft Stops', function () {
         ctx = {};
     });
 
-    describe('handleGet()', () => {
-        it('should return ctx with the feature toggle', (done) => {
-            const ctxToTest = {};
-            const formdata = {};
-            const featureToggles = {
-                screening_questions: true
-            };
-
-            co(function* () {
-                const result = stopPage.handleGet(ctxToTest, formdata, featureToggles);
-                expect(result).to.deep.equal([{isToggleEnabled: true}, {}]);
-                done();
-            }).catch(err => {
-                done(err);
-            });
-
-        });
-    });
-
     describe('Soft stops for pages', function () {
-
         it('Check soft stop for applicant name as on the will', function () {
             const step = steps.ApplicantNameAsOnWill;
             const formdata = {

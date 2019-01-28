@@ -10,12 +10,12 @@ describe('Executors-Applying', function () {
 
         beforeEach(() => {
             ctx = {
-                'list': [
+                list: [
                     {
-                        'lastName': 'the',
-                        'firstName': 'applicant',
-                        'isApplying': 'Yes',
-                        'isApplicant': true
+                        lastName: 'the',
+                        firstName: 'applicant',
+                        isApplying: 'Yes',
+                        isApplicant: true
                     }, {
                         isApplying: true,
                         fullName: 'Ed Brown',

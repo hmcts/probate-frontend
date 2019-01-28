@@ -7,17 +7,21 @@ exports.config = {
         'Puppeteer': {
             'url': testConfig.TestE2EFrontendUrl || 'http://localhost:3000',
             'waitForTimeout': 60000,
-            'waitForAction': 7000,
-            'getPageTimeout': 60000,
+            'getPageTimeout': 20000,
             'show': false,
-            'waitForNavigation': 'networkidle0',
+            'waitForNavigation': ['domcontentloaded', 'networkidle0'],
             'chrome': {
                 'ignoreHTTPSErrors': true,
                 'ignore-certificate-errors': true,
+                'defaultViewport': {
+                    'width': 1280,
+                    'height': 960
+                },
                 args: [
                     '--no-sandbox',
                     '--proxy-server=proxyout.reform.hmcts.net:8080',
-                    '--proxy-bypass-list=*beta*LB.reform.hmcts.net'
+                    '--proxy-bypass-list=*beta*LB.reform.hmcts.net',
+                    '--window-size=1440,1400'
                 ]
             },
         },
@@ -27,6 +31,17 @@ exports.config = {
     },
     'include': {
         'I': './pages/steps.js'
+    },
+    'plugins': {
+        'autoDelay': {
+            'enabled': true
+        }
+    },
+    'multiple': {
+        'parallel': {
+            // Splits tests into 2 chunks
+            'chunks': 2
+        }
     },
     'mocha': {
         'reporterOptions': {

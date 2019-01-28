@@ -20,13 +20,13 @@ describe('payment-status', () => {
             .reply(200, {caseState: 'CreatedCase'});
         nock(`${CREATE_PAYMENT_SERVICE_URL.replace('userId', USER_ID)}`).get('/1')
             .reply(200, {
-                'channel': 'Online',
-                'id': 12345,
-                'reference': 'PaymentReference12345',
-                'amount': 5000,
-                'status': 'Success',
-                'date_updated': '2018-08-29T15:25:11.920+0000',
-                'site_id': 'siteId0001',
+                channel: 'Online',
+                id: 12345,
+                reference: 'PaymentReference12345',
+                amount: 5000,
+                status: 'Success',
+                date_updated: '2018-08-29T15:25:11.920+0000',
+                site_id: 'siteId0001',
             });
         nock(PERSISTENCE_URL).post('/')
             .reply(201, {});

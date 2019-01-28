@@ -1,7 +1,7 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const {expect, assert} = require('chai');
+const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const CodicilsNumber = steps.CodicilsNumber;
 
@@ -15,10 +15,10 @@ describe('CodicilsNumber', () => {
     });
 
     describe('getContextData()', () => {
-        it('should return the ctx with a valid will codicils number and the screening_question feature toggle', (done) => {
+        it('should return the ctx with a valid will codicils number', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
-                session: {form: {}, featureToggles: {screening_questions: true}},
+                session: {form: {}},
                 body: {
                     codicilsNumber: '3'
                 }
@@ -26,16 +26,15 @@ describe('CodicilsNumber', () => {
             const ctx = CodicilsNumber.getContextData(req);
             expect(ctx).to.deep.equal({
                 codicilsNumber: 3,
-                isToggleEnabled: true,
                 sessionID: 'dummy_sessionId'
             });
             done();
         });
 
-        it('should return the ctx with a null will codicils number and the screening_question feature toggle', (done) => {
+        it('should return the ctx with a null will codicils number', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
-                session: {form: {}, featureToggles: {screening_questions: false}},
+                session: {form: {}},
                 body: {
                     codicilsNumber: null
                 }
@@ -43,7 +42,6 @@ describe('CodicilsNumber', () => {
             const ctx = CodicilsNumber.getContextData(req);
             expect(ctx).to.deep.equal({
                 codicilsNumber: null,
-                isToggleEnabled: false,
                 sessionID: 'dummy_sessionId'
             });
             done();
@@ -74,30 +72,6 @@ describe('CodicilsNumber', () => {
                 codicilsNumber: 0
             });
             done();
-        });
-    });
-
-    describe('nextStepOptions()', () => {
-        it('should return the correct options', (done) => {
-            const nextStepOptions = CodicilsNumber.nextStepOptions();
-            expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'isToggleEnabled',
-                    value: true,
-                    choice: 'toggleOn'
-                }]
-            });
-            done();
-        });
-    });
-
-    describe('action', () => {
-        it('test isToggleEnabled is removed from the context', () => {
-            const ctx = {
-                isToggleEnabled: false
-            };
-            CodicilsNumber.action(ctx);
-            assert.isUndefined(ctx.isToggleEnabled);
         });
     });
 });

@@ -8,7 +8,6 @@ const config = require('app/config');
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
 const featureTogglePathDocument = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
-const featureTogglePathScreening = `${config.featureToggles.path}/${config.featureToggles.screening_questions}`;
 
 describe('summary-documentupload-section', () => {
     let testWrapper, sessionData;
@@ -25,7 +24,6 @@ describe('summary-documentupload-section', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         it('test content loaded on the page with the document upload feature toggle OFF', (done) => {
             nock(featureToggleUrl)
                 .get(featureTogglePathDocument)
@@ -39,6 +37,7 @@ describe('summary-documentupload-section', () => {
             nock(featureToggleUrl)
                 .get(featureTogglePathDocument)
                 .reply(200, 'true');
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -76,53 +75,11 @@ describe('summary-documentupload-section', () => {
                 });
         });
 
-        it('test content loaded on the page with the document upload feature toggle ON & screening question ON when there is data', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePathDocument)
-                .reply(200, 'true');
-            nock(featureToggleUrl)
-                .get(featureTogglePathScreening)
-                .reply(200, 'true');
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end((err) => {
-                    if (err) {
-                        throw err;
-                    }
-                    const playbackData = [
-                        summaryContent.uploadedDocumentsHeading,
-                        documentuploadContent.deathCertificate,
-                        documentuploadData.documents.uploads[0].filename,
-                        documentuploadData.documents.uploads[1].filename,
-                        documentuploadData.documents.uploads[2].filename
-                    ];
-                    testWrapper.testDataPlayback(done, playbackData);
-                });
-        });
-
-        it('test content loaded on the page with the document upload feature toggle ON & screening question ON when there is no data', (done) => {
-            nock(featureToggleUrl)
-                .get(featureTogglePathDocument)
-                .reply(200, 'true');
-            nock(featureToggleUrl)
-                .get(featureTogglePathScreening)
-                .reply(200, 'true');
-            testWrapper.agent.post('/prepare-session/form')
-                .send({})
-                .end((err) => {
-                    if (err) {
-                        throw err;
-                    }
-                    const playbackData = [
-                        summaryContent.uploadedDocumentsHeading,
-                        documentuploadContent.deathCertificate,
-                        summaryContent.uploadedDocumentsEmpty
-                    ];
-                    testWrapper.testDataPlayback(done, playbackData);
-                });
-        });
-
         it('test correct content loaded on document upload section of the summary page, when section is complete', (done) => {
+            nock(featureToggleUrl)
+                .get(featureTogglePathDocument)
+                .reply(200, 'true');
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -137,6 +94,10 @@ describe('summary-documentupload-section', () => {
         });
 
         it('test data is played back correctly on document upload section of the summary page', (done) => {
+            nock(featureToggleUrl)
+                .get(featureTogglePathDocument)
+                .reply(200, 'true');
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -150,7 +111,12 @@ describe('summary-documentupload-section', () => {
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
+
         it('test correct content loaded on document upload section of the summary page , when no data is entered', (done) => {
+            nock(featureToggleUrl)
+                .get(featureTogglePathDocument)
+                .reply(200, 'true');
+
             const playbackData = {
             };
             testWrapper.testDataPlayback(done, playbackData);

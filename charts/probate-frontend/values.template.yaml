@@ -23,6 +23,19 @@ nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
 
+feature-toggle-api:
+  releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
+  registerDns: false
+  importer:
+    cron:
+      enabled: false
+#    oneoff:
+#      enabled: true
+#      command: >-
+#        /scripts/add-weighted-toggle.sh cmc_admissions 'CMC admissions' '1.0' admin@example.com Password12 &&
+#        /scripts/add-toggle.sh cmc_defence_reminders 'CMC defence reminders' false admin@example.com Password12
+#      permissions: cmc-new-features-consent-given
+
 redis:
   ## Global Docker image registry
   ## Please, note that this will override the image registry for all the images, including dependencies, configured to use the global value

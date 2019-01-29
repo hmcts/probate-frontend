@@ -22,7 +22,8 @@ describe('DiedAfterOctober2014', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
-                    form: {}
+                    form: {},
+                    journeyType: 'Probate'
                 },
                 body: {
                     diedAfter: content.optionYes
@@ -33,7 +34,8 @@ describe('DiedAfterOctober2014', () => {
             const ctx = DiedAfterOctober2014.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                diedAfter: content.optionYes
+                diedAfter: content.optionYes,
+                journeyType: 'Probate'
             });
             done();
         });

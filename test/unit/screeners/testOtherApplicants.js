@@ -22,7 +22,8 @@ describe('OtherApplicants', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
-                    form: {}
+                    form: {},
+                    journeyType: 'Probate'
                 },
                 body: {
                     otherApplicants: content.optionYes
@@ -33,7 +34,8 @@ describe('OtherApplicants', () => {
             const ctx = OtherApplicants.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                otherApplicants: content.optionYes
+                otherApplicants: content.optionYes,
+                journeyType: 'Probate'
             });
             done();
         });

@@ -1,5 +1,8 @@
 nodejs:
   applicationPort: 3000
+  cpuRequests: 0.2
+  memoryLimits: 512Mi
+  cpuLimits: 1
   environment:
     REFORM_TEAM: probate
     REFORM_SERVICE_NAME: probate-frontend

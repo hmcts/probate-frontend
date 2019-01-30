@@ -29,7 +29,7 @@ nodejs:
 
 feature-toggle-api:
   releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
-  registerDns: false
+  registerDns: true
   importer:
     cron:
       enabled: false

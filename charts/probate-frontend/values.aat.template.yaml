@@ -6,6 +6,6 @@ nodejs:
     SERVICES_AUTH_PROVIDER_BASEURL : http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
     DOCUMENT_MANAGEMENT_URL : http://dm-store-aat.service.core-compute-aat.internal
 
-feature-toggle-api:
-  ingressIP: 10.97.16.227
-  consulIP: 10.97.11.254
+#feature-toggle-api:
+#  ingressIP: 10.97.16.227
+#  consulIP: 10.97.11.254

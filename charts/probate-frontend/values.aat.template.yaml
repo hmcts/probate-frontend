@@ -7,5 +7,5 @@ nodejs:
     DOCUMENT_MANAGEMENT_URL : http://dm-store-aat.service.core-compute-aat.internal
 
 feature-toggle-api:
-  ingressIP: "10.97.16.227"
-  consulIP: "10.97.11.254"
+  ingressIP: 10.97.16.227
+  consulIP: 10.97.11.254

@@ -29,6 +29,9 @@ nodejs:
 
 feature-toggle-api:
   releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
+  ingressHost: ${SERVICE_FQDN}
+  ingressIP: ${INGRESS_IP}
+  consulIP: ${CONSUL_LB_IP}
   registerDns: true
   importer:
     cron:

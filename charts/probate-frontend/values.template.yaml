@@ -6,6 +6,7 @@ nodejs:
   environment:
     REFORM_TEAM: probate
     REFORM_SERVICE_NAME: probate-frontend
+    FEATURE_TOGGLES_API_URL: http://${SERVICE_NAME}-ftr-tgl-api:8580
     IDAM_API_URL: https://preprod-idamapi.reform.hmcts.net:3511
     IDAM_URL: https://preprod-idamapi.reform.hmcts.net:3511
     IDAM_LOGIN_URL: https://idam.preprod.ccidam.reform.hmcts.net/login

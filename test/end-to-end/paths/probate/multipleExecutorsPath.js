@@ -1,6 +1,5 @@
 'use strict';
 
-//const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
@@ -215,7 +214,11 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     // Payment Task
     I.selectATask();
 
-    I.seePaymentBreakdownPage();
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.seePaymentBreakdownPage('5', '7', '300000');
+    } else {
+        I.seePaymentBreakdownPage('0', '0', '400');
+    }
 
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.seeGovUkPaymentPage();

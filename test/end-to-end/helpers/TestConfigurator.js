@@ -179,9 +179,9 @@ class TestConfigurator {
     createFeeInfoTable() {
         const copiesAndEstateInfo = new DataTable(['noUKCopies', 'noOverseasCopies', 'grossValue', 'netValue']);
         copiesAndEstateInfo.add(['0', '0', '500', '400']); //No payment
-        // copiesAndEstateInfo.add(['0', '1', '500', '400']); //1 Overseas Copy
-        // copiesAndEstateInfo.add(['1', '0', '500', '400']); //1 UK Copy
-        // copiesAndEstateInfo.add(['2', '2', '7000', '6000']); //2 copies each and application fee
+        copiesAndEstateInfo.add(['0', '1', '500', '400']); //1 Overseas Copy
+        copiesAndEstateInfo.add(['1', '0', '500', '400']); //1 UK Copy
+        copiesAndEstateInfo.add(['2', '2', '7000', '6000']); //2 copies each and application fee
         return copiesAndEstateInfo;
     }
 

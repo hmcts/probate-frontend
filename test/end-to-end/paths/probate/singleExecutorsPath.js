@@ -3,8 +3,7 @@
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
-Feature('Single Executor flow');
-// .retry(TestConfigurator.getRetryFeatures());
+Feature('Single Executor flow').retry(TestConfigurator.getRetryFeatures());
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
@@ -109,7 +108,11 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I
 
     // Payment Task
     I.selectATask(taskListContent.taskNotStarted);
-    I.seePaymentBreakdownPage();
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.seePaymentBreakdownPage('5', '7', '300000');
+    } else {
+        I.seePaymentBreakdownPage('0', '0', '400');
+    }
 
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.seeGovUkPaymentPage();

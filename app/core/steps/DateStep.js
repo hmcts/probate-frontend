@@ -25,7 +25,7 @@ class DateStep extends ValidationStep {
             ctx[month] = ctx[month] ? parseInt(ctx[month]) : ctx[month];
             ctx[year] = ctx[year] ? parseInt(ctx[year]) : ctx[year];
 
-            const date = moment(`${ctx[day]}/${ctx[month]}/${ctx[year]}`, config.dateFormat);
+            const date = moment(`${ctx[day]}/${ctx[month]}/${ctx[year]}`, config.dateFormat).parseZone();
 
             ctx[`${dateName}_date`] = null;
 

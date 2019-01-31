@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 'use strict';
 
-const randomstring = require('randomstring');
 const taskListContent = require('app/resources/en/translation/tasklist');
 const commonContent = require('app/resources/en/translation/common');
 const data = require('test/data/multiple-executors-section-3');
@@ -11,7 +10,11 @@ let emailId;
 
 Feature('Multiple Executors Renotify Flow');
 
-After(() => {
+BeforeSuite(() => {
+    TestConfigurator.getBefore();
+});
+
+AfterSuite(() => {
     TestConfigurator.getAfter();
 });
 
@@ -20,12 +23,13 @@ let grabIdsNewExecutors;
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
 
-    emailId = randomstring.generate(9).toLowerCase()+'@example.com';
-    TestConfigurator.createAUser(emailId);
+    emailId = process.env.testCitizenEmail;
     TestConfigurator.injectFormData(data, emailId);
 
     I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');
-    I.signInWith(emailId, 'Probate123');
+
+    // IDAM
+    I.authenticateWithIdamIfAvailable();
 
     // Review and confirm Task
     I.selectATask(taskListContent.taskNotStarted);
@@ -40,14 +44,10 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');
 
     //Go to summary page
-    I.waitForNavigationToComplete(locate('a')
-        .withAttr({href: '/summary/*'})
-        .withText(taskListContent.checkYourAnswers));
+    I.waitForNavigationToComplete('a[href="/summary/*"]');
 
     //Go to executors number page
-    I.waitForNavigationToComplete(locate('a')
-        .withAttr({href: '/executors-number'})
-        .withText(commonContent.change));
+    I.waitForNavigationToComplete('a[href="/executors-number"]');
 
     //Enter name for fourth executor
     I.enterTotalExecutors('4');
@@ -121,7 +121,9 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
 
     I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');
-    I.signInWith(emailId, 'Probate123');
+
+    // IDAM
+    I.authenticateWithIdamIfAvailable();
 
     //Extra Copies Task
     I.selectATask(taskListContent.taskNotStarted);
@@ -141,5 +143,5 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     I.seeDocumentsPage();
 
     // Thank You - Application Complete Task
-    I.seeCurrentUrlEquals('https://probate-frontend-aat.service.core-compute-aat.internal/thankyou');
+    I.seeThankYouPage();
 });

@@ -1,7 +1,7 @@
 const testConfig = require('test/config.js');
 
 exports.config = {
-    'tests': './paths/cancelMultipleAdditionalExecutors.js',
+    'tests': './paths/probate/cancelMultipleAdditionalExecutors.js',
     'output': './output',
     'helpers': {
         'Puppeteer': {
@@ -9,7 +9,6 @@ exports.config = {
             'waitForTimeout': 60000,
             'getPageTimeout': 20000,
             'show': true,
-            'waitForNavigation': ['domcontentloaded', 'networkidle0'],
             'chrome': {
                 'ignoreHTTPSErrors': true,
                 'ignore-certificate-errors': true,
@@ -52,5 +51,3 @@ exports.config = {
     },
     'name': 'Codecept Tests'
 };
-
-    'tests': './paths/cancelMultipleAdditionalExecutors.js',

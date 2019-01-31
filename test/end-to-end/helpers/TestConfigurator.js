@@ -26,6 +26,7 @@ class TestConfigurator {
         this.retryScenarios = testConfig.TestRetryScenarios;
         this.testUseProxy = testConfig.TestUseProxy;
         this.testProxy = testConfig.TestProxy;
+        this.testReformProxy = testConfig.TestReformProxy;
     }
 
     getBefore() {
@@ -96,7 +97,7 @@ class TestConfigurator {
         this.testCitizenName = randomstring.generate({
             length: 36,
             charset: 'alphabetic'
-        });
+        }).toLowerCase();
     }
 
     getTestCitizenName() {
@@ -175,6 +176,15 @@ class TestConfigurator {
         return copiesAndEstateInfo;
     }
 
+    createFeeInfoTable() {
+        const copiesAndEstateInfo = new DataTable(['noUKCopies', 'noOverseasCopies', 'grossValue', 'netValue']);
+        copiesAndEstateInfo.add(['0', '0', '500', '400']); //No payment
+        // copiesAndEstateInfo.add(['0', '1', '500', '400']); //1 Overseas Copy
+        // copiesAndEstateInfo.add(['1', '0', '500', '400']); //1 UK Copy
+        // copiesAndEstateInfo.add(['2', '2', '7000', '6000']); //2 copies each and application fee
+        return copiesAndEstateInfo;
+    }
+
     injectFormData(data, emailId) {
         const formData =
             {
@@ -189,7 +199,7 @@ class TestConfigurator {
             url: this.testInjectFormDataURL,
             method: 'POST',
             headers: {'content-type': 'application/json', 'Session-Id': emailId},
-            proxy: this.TestProxy,
+            proxy: this.testReformProxy,
             socksProxyHost: 'localhost',
             socksProxyPort: '9090',
             json: true,

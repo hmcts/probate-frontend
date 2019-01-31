@@ -24,7 +24,6 @@ module.exports = function () {
 
         // Sign In to IDAM
         authenticateWithIdamIfAvailable: steps.IDAM.signIn,
-        signInWith: steps.IDAM.signInExternal,
 
         // Start application
         selectATask: steps.tasklist.tasklist,
@@ -100,7 +99,7 @@ module.exports = function () {
 
         // Documents
         seeDocumentsPage: steps.documents.documents,
-        uploadDocuments: steps.documentUpload.documentUpload,
+        selectDocumentsToUpload: steps.documentUpload.documentUpload,
 
         // Thank You
         seeThankYouPage: steps.thankyou.thankyou,

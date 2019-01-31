@@ -1,8 +1,9 @@
 #!groovy
 
-//#@Library("Infrastructure")
-@Library("Infrastructure@fd7aef62b5503c45b4998a072175d94d62aab70e")
+@Library("Infrastructure")
+//@Library("Infrastructure@fd7aef62b5503c45b4998a072175d94d62aab70e")
 import uk.gov.hmcts.contino.Kubectl
+import uk.gov.hmcts.contino.Consul
 
 String product = "probate"
 String component = "frontend"
@@ -61,21 +62,22 @@ withPipeline("nodejs", product, component) {
   installCharts()
 //  }
 
-  after('aksdeploy') {
-    def subscription = env.SUBSCRIPTION_NAME
-    def aksServiceName = "${product}-${component}-${env.BRANCH_NAME}".toLowerCase()
-    def aksDomain = "${(env.SUBSCRIPTION_NAME in ['nonprod', 'prod']) ? 'service.core-compute-preview.internal' : 'service.core-compute-saat.internal'}"
+    after('aksdeploy') {
+        def subscription = env.SUBSCRIPTION_NAME
+        def aksServiceName = "${product}-${component}-${env.BRANCH_NAME}".toLowerCase()
+        def aksDomain = "${(env.SUBSCRIPTION_NAME in ['nonprod', 'prod']) ? 'service.core-compute-preview.internal' : 'service.core-compute-saat.internal'}"
 
-    def kubectl = new Kubectl(this, subscription, aksServiceName)
+        def kubectl = new Kubectl(this, subscription, aksServiceName)
 
-    def ingressIP = kubectl.getServiceLoadbalancerIP("traefik", "kube-system")
+        def ingressIP = kubectl.getServiceLoadbalancerIP("traefik", "kube-system")
 
-    registerConsulDns(subscription, "feature-toggle-api-${aksServiceName}", ingressIP)
+        def consul = new Consul(this)
 
+        consul.registerDns("feature-toggle-api-${aksServiceName}", ingressIP)
 
-    env.FEATURE_TOGGLES_API_URL="https://feature-toggle-api-${aksServiceName}.${aksDomain}"
-    echo "${env.FEATURE_TOGGLES_API_URL}"
-  }
+        env.FEATURE_TOGGLES_API_URL="https://feature-toggle-api-${aksServiceName}.${aksDomain}"
+        echo "${env.FEATURE_TOGGLES_API_URL}"
+    }
 
 
   setVaultName('probate')

@@ -63,22 +63,22 @@ withPipeline("nodejs", product, component) {
   installCharts()
 //  }
 
-    after('aksdeploy') {
-        def subscription = env.SUBSCRIPTION_NAME
-        def aksServiceName = "${product}-${component}-${env.BRANCH_NAME}".toLowerCase()
-        def aksDomain = "${(env.SUBSCRIPTION_NAME in ['nonprod', 'prod']) ? 'service.core-compute-preview.internal' : 'service.core-compute-saat.internal'}"
-
-        def kubectl = new Kubectl(this, subscription, aksServiceName)
-
-        def ingressIP = kubectl.getServiceLoadbalancerIP("traefik", "kube-system")
-
-        def consul = new Consul(this)
-
-        consul.registerDns("feature-toggle-api-${aksServiceName}-ftr-tgl-api", ingressIP)
-
-        env.FEATURE_TOGGLES_API_URL="https://feature-toggle-api-${aksServiceName}-ftr-tgl-api.${aksDomain}"
-        echo "${env.FEATURE_TOGGLES_API_URL}"
-    }
+//    after('aksdeploy') {
+//        def subscription = env.SUBSCRIPTION_NAME
+//        def aksServiceName = "${product}-${component}-${env.BRANCH_NAME}".toLowerCase()
+//        def aksDomain = "${(env.SUBSCRIPTION_NAME in ['nonprod', 'prod']) ? 'service.core-compute-preview.internal' : 'service.core-compute-saat.internal'}"
+//
+//        def kubectl = new Kubectl(this, subscription, aksServiceName)
+//
+//        def ingressIP = kubectl.getServiceLoadbalancerIP("traefik", "kube-system")
+//
+//        def consul = new Consul(this)
+//
+//        consul.registerDns("feature-toggle-api-${aksServiceName}-ftr-tgl-api", ingressIP)
+//
+//        env.FEATURE_TOGGLES_API_URL="https://feature-toggle-api-${aksServiceName}-ftr-tgl-api.${aksDomain}"
+//        echo "${env.FEATURE_TOGGLES_API_URL}"
+//    }
 
 
   setVaultName('probate')

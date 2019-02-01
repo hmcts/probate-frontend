@@ -73,9 +73,9 @@ withPipeline("nodejs", product, component) {
 
         def consul = new Consul(this)
 
-        consul.registerDns("feature-toggle-api-${aksServiceName}", ingressIP)
+        consul.registerDns("feature-toggle-api-${aksServiceName}-ftr-tgl-api", ingressIP)
 
-        env.FEATURE_TOGGLES_API_URL="https://feature-toggle-api-${aksServiceName}.${aksDomain}"
+        env.FEATURE_TOGGLES_API_URL="https://feature-toggle-api-${aksServiceName}-ftr-tgl-api.${aksDomain}"
         echo "${env.FEATURE_TOGGLES_API_URL}"
     }
 

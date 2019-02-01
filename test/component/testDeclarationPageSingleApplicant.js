@@ -472,6 +472,17 @@ describe('declaration, single applicant', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecInvite}`, (done) => {
+            sessionData = {
+                executors: {
+                    list: [
+                        {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true}
+                    ],
+                    invitesSent: 'true'
+                },
+                declaration: {
+                    hasDataChanged: false
+                }
+            };
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

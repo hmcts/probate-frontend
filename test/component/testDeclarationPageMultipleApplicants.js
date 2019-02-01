@@ -655,6 +655,15 @@ describe('declaration, multiple applicants', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecInvite}`, (done) => {
+            sessionData = {
+                executors: {
+                    list: [
+                        {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true},
+                        {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', freeTextAddress: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true},
+                        {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', freeTextAddress: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true}
+                    ]
+                }
+            };
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -666,9 +675,6 @@ describe('declaration, multiple applicants', () => {
         });
 
         it(`test it redirects to next page when the applicant has made a change: ${expectedNextUrlForExecChangeMade}`, (done) => {
-            sessionData.declaration = {
-                hasDataChanged: true
-            };
             sessionData = {
                 declaration: {hasDataChanged: true},
                 executors: {invitesSent: 'true'}
@@ -684,8 +690,16 @@ describe('declaration, multiple applicants', () => {
         });
 
         it(`test it redirects to next page when executor has been added: ${expectedNextUrlForAdditionalExecInvite}`, (done) => {
-            sessionData.executors.list[2].emailSent = false;
-            sessionData.executors.invitesSent = 'true';
+            sessionData = {
+                executors: {
+                    list: [
+                        {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true},
+                        {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', freeTextAddress: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true},
+                        {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', freeTextAddress: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true, emailSent: false}
+                    ],
+                    invitesSent: 'true'
+                }
+            };
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -697,10 +711,16 @@ describe('declaration, multiple applicants', () => {
         });
 
         it(`test it redirects to next page when executor email has been changed: ${expectedNextUrlForUpdateExecInvite}`, (done) => {
-            sessionData.executors.list[1].emailSent = true;
-            sessionData.executors.list[2].emailChanged = true;
-            sessionData.executors.list[2].emailSent = true;
-            sessionData.executors.invitesSent = 'true';
+            sessionData = {
+                executors: {
+                    list: [
+                        {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true},
+                        {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', freeTextAddress: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true, emailSent: true},
+                        {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', freeTextAddress: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true, emailChanged: true, emailSent: true}
+                    ],
+                    invitesSent: 'true'
+                }
+            };
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -712,11 +732,16 @@ describe('declaration, multiple applicants', () => {
         });
 
         it(`test it redirects to next page when the applicant has changed to a single applicant: ${expectedNextUrlForChangeToSingleApplicant}`, (done) => {
-            sessionData = Object.assign(sessionData, {
-                declaration: {hasDataChanged: true}
-            }, {
-                executors: {list: [sessionData.executors.list.shift()]}
-            });
+            sessionData = {
+                executors: {
+                    list: [
+                        {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true}
+                    ]
+                },
+                declaration: {
+                    hasDataChanged: true
+                }
+            };
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

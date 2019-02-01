@@ -62,31 +62,37 @@ describe('co-applicant-declaration', () => {
 
         it(`test it redirects to agree page: ${expectedNextUrlForCoAppAgree}`, (done) => {
             nock(persistenceServiceUrl)
-                .patch('/invitedata/undefined')
+                .patch('/invitedata/34')
                 .reply(200, 'false');
 
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData.formdata)
+            testWrapper.agent.post('/prepare-session-field/inviteId/34')
                 .end(() => {
-                    const data = {
-                        agreement: json.optionYes
-                    };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoAppAgree);
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData.formdata)
+                        .end(() => {
+                            const data = {
+                                agreement: json.optionYes
+                            };
+                            testWrapper.testRedirect(done, data, expectedNextUrlForCoAppAgree);
+                        });
                 });
         });
 
         it(`test it redirects to disagree page: ${expectedNextUrlForCoAppDisagree}`, (done) => {
             nock(persistenceServiceUrl)
-                .patch('/invitedata/undefined')
+                .patch('/invitedata/34')
                 .reply(200, 'false');
 
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData.formdata)
+            testWrapper.agent.post('/prepare-session-field/inviteId/34')
                 .end(() => {
-                    const data = {
-                        agreement: json.optionNo
-                    };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoAppDisagree);
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData.formdata)
+                        .end(() => {
+                            const data = {
+                                agreement: json.optionNo
+                            };
+                            testWrapper.testRedirect(done, data, expectedNextUrlForCoAppDisagree);
+                        });
                 });
         });
 

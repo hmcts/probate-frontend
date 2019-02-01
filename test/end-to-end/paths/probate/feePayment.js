@@ -2,8 +2,9 @@
 'use strict';
 
 const taskListContent = require('app/resources/en/translation/tasklist');
-const data = require('test/data/payments/fee-payment');
+const data = require('test/data/injecting-data/single-executor-start-from-payment-section');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
+const testConfig = require('test/config.js');
 let emailId;
 
 Feature('Fee Payment');
@@ -25,7 +26,7 @@ Data(TestConfigurator.createFeeInfoTable()).Scenario('Check multiple application
     emailId = process.env.testCitizenEmail;
     TestConfigurator.injectFormData(data, emailId);
 
-    I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');
+    I.amOnPage(testConfig.TestE2EFrontendUrl);
 
     // IdAM
     I.authenticateWithIdamIfAvailable();
@@ -55,7 +56,7 @@ Data(TestConfigurator.createFeeInfoTableFor1Copy()).Scenario('Check can pay afte
     emailId = process.env.testCitizenEmail;
     TestConfigurator.injectFormData(data, emailId);
 
-    I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');
+    I.amOnPage(testConfig.TestE2EFrontendUrl);
 
     // IdAM
     I.authenticateWithIdamIfAvailable();

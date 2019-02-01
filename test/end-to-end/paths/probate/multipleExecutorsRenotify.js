@@ -3,7 +3,7 @@
 
 const taskListContent = require('app/resources/en/translation/tasklist');
 const commonContent = require('app/resources/en/translation/common');
-const data = require('test/data/multiple-executors-section-3');
+const data = require('test/data/injecting-data/three-executors-start-from-declaration-section');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('test/config.js');
 let emailId;
@@ -26,7 +26,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     emailId = process.env.testCitizenEmail;
     TestConfigurator.injectFormData(data, emailId);
 
-    I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');
+    I.amOnPage(testConfig.TestE2EFrontendUrl);
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
@@ -41,7 +41,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     I.amOnPage(testConfig.TestInviteIdListUrl);
     grabIdsOriginalExecutors = yield I.grabTextFrom('pre');
-    I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');
+    I.amOnPage(testConfig.TestE2EFrontendUrl);
 
     //Go to summary page
     I.waitForNavigationToComplete('a[href="/summary/*"]');
@@ -120,7 +120,7 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
 
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
 
-    I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');
+    I.amOnPage(testConfig.TestE2EFrontendUrl);
 
     // IDAM
     I.authenticateWithIdamIfAvailable();
@@ -134,7 +134,7 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     //PaymentTask
     I.selectATask(taskListContent.taskNotStarted);
-    I.seePaymentBreakdownPage('1', '1', '8000');
+    I.seePaymentBreakdownPage('1', '1', '6000');
     I.seeGovUkPaymentPage();
     I.seeGovUkConfirmPage();
     I.seePaymentStatusPage();

@@ -36,12 +36,6 @@ exports.config = {
             'enabled': true
         }
     },
-    'multiple': {
-        'parallel': {
-            // Splits tests into 2 chunks
-            'chunks': 2
-        }
-    },
     'mocha': {
         'reporterOptions': {
             'reportDir': process.env.E2E_OUTPUT_DIR || './output',

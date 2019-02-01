@@ -2,8 +2,9 @@
 'use strict';
 
 const taskListContent = require('app/resources/en/translation/tasklist');
-const data = require('test/data/multiple-executors-section-3');
+const data = require('test/data/injecting-data/three-executors-start-from-declaration-section');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
+const testConfig = require('test/config.js');
 let emailId;
 
 Feature('Cancel Multiple Executors Flow');
@@ -24,7 +25,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     emailId = process.env.testCitizenEmail;
     TestConfigurator.injectFormData(data, emailId);
-    I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');
+    I.amOnPage(testConfig.TestE2EFrontendUrl);
 
     // IdAM
     I.authenticateWithIdamIfAvailable();
@@ -49,7 +50,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
 
-    I.amOnPage('https://probate-frontend-aat.service.core-compute-aat.internal');
+    I.amOnPage(testConfig.TestE2EFrontendUrl);
 
     // IdAM
     I.authenticateWithIdamIfAvailable();
@@ -68,7 +69,7 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     //PaymentTask
     I.selectATask(taskListContent.taskNotStarted);
-    I.seePaymentBreakdownPage('1', '1', '8000');
+    I.seePaymentBreakdownPage('1', '1', '6000');
     I.seeGovUkPaymentPage();
     I.seeGovUkConfirmPage();
     I.seePaymentStatusPage();

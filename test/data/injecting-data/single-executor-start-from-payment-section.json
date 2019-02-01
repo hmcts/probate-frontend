@@ -51,6 +51,12 @@
     "freeTextAddress" : "test address",
     "nameAsOnTheWill" : "Yes"
   },
+  "documents" : {
+    "uploads" : [ {
+      "url" : "http://dm-store-aat.service.core-compute-aat.internal/documents/85ce76be-1087-40ff-a8f6-204f95bddc2f",
+      "filename" : "test_file_for_document_upload.png"
+    } ]
+  },
   "executors" : {
     "list" : [ {
       "lastName" : "Doe",

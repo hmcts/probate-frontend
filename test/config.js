@@ -1,29 +1,28 @@
 module.exports = {
-
-    TestIdamBaseUrl: process.env.IDAM_API_URL || 'http://localhost:8484',
-    TestFrontendUrl: process.env.TEST_URL || 'http://localhost:3000',
-    TestE2EFrontendUrl: process.env.TEST_E2E_URL || 'http://localhost:3000',
+    TestIdamBaseUrl: process.env.IDAM_API_URL || 'https://preprod-idamapi.reform.hmcts.net:3511',
+    TestFrontendUrl: process.env.TEST_URL || 'https://probate-frontend-aat.service.core-compute-aat.internal',
+    TestE2EFrontendUrl: process.env.TEST_E2E_URL || 'https://probate-frontend-aat.service.core-compute-aat.internal',
     TestUseIdam: process.env.USE_IDAM || 'true',
+    TestInjectFormDataURL: 'http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata',
     TestUseSidam: process.env.USE_SIDAM || 'false',
-    TestIdamLoginUrl: process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
+    TestIdamLoginUrl: process.env.IDAM_LOGIN_URL || 'https://idam.preprod.ccidam.reform.hmcts.net/login',
     TestUseGovPay: process.env.USE_GOV_PAY || 'true',
-    TestInviteIdListUrl: process.env.INVITE_ID_LIST_URL,
-    TestPinUrl: process.env.PIN_URL,
-    TestInvitationUrl: process.env.INVITATION_URL,
-    TestIdamAddUserUrl: process.env.IDAM_ADD_USER_URL,
-    TestIdamUserGroup: process.env.IDAM_USER_GROUP,
-    TestIdamRole: process.env.IDAM_CITIZEN_ROLE,
-    TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '/@probateTest.com',
+    TestInviteIdListUrl: process.env.INVITE_ID_LIST_URL || '/inviteIdList',
+    TestPinUrl: process.env.PIN_URL || '/pin',
+    TestInvitationUrl: process.env.INVITATION_URL || '/executors/invitation',
+    TestIdamAddUserUrl: process.env.IDAM_ADD_USER_URL || '/testing-support/accounts',
+    TestIdamUserGroup: process.env.IDAM_USER_GROUP || 'probate-private-beta',
+    TestIdamRole: process.env.IDAM_CITIZEN_ROLE || 'citizen',
+    TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '/@probatetest.com',
     TestUseProxy: process.env.TEST_USE_PROXY || 'true',
     TestProxy: process.env.TEST_PROXY || 'socks5:proxyout.reform.hmcts.net:8080',
-    TestRetryFeatures: process.env.RETRY_FEATURES || 0,
-    TestRetryScenarios: process.env.RETRY_SCENARIOS || 3,
+    TestRetryFeatures: process.env.RETRY_FEATURES || 3,
+    TestRetryScenarios: process.env.RETRY_SCENARIOS || 0,
     TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png',
     TestWaitForDocumentUpload: 60,
-
     postcodeLookup: {
-        token: process.env.ADDRESS_TOKEN,
-        url: process.env.POSTCODE_SERVICE_URL,
+        token: process.env.ADDRESS_TOKEN || 'Token 39b85db32c6f41f27561c49bf348a1ec10c96117',
+        url: process.env.POSTCODE_SERVICE_URL || 'https://postcodeinfo.service.justice.gov.uk',
         endpoint: process.env.POSTCODE_SERVICE_ENDPOINT || '/addresses',
         contentType: 'application/json',
         singleAddressPostcode: 'SW1A 1AA',
@@ -34,11 +33,9 @@ module.exports = {
         invalidAddressPostcode: 'Z99 9ZZ',
         emptyAddressPostcode: ''
     },
-
     govPayTestCardNos: {
         validCardNo: '4242424242424242'
     },
-
     govPayTestCardDetails: {
         expiryMonth: '06',
         expiryYear: '99',
@@ -48,21 +45,19 @@ module.exports = {
         addressCity: 'London',
         addressPostcode: 'SW1A1AA'
     },
-
     validation: {
         url: process.env.TEST_VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
     },
-
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
-
-    TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS,
-    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER,
+    TestReformProxy: 'http://proxyout.reform.hmcts.net:8080',
+    TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS || 'test.probate.inbox@gmail.com',
+    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER || '07952626390',
     s2sStubErrorSequence: '000',
     links: {
         cookies: '/cookies',
-        terms: process.env.TERMS_AND_CONDITIONS,
-        survey: process.env.SURVEY,
-        surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION,
+        terms: process.env.TERMS_AND_CONDITIONS || '/terms-conditions',
+        survey: process.env.SURVEY || 'http://www.smartsurvey.co.uk/s/CFZF7/',
+        surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'http://www.smartsurvey.co.uk/s/A2LY8/',
         privacy: '/privacy-policy',
         contact: '/contact-us',
         callCharges: 'https://www.gov.uk/call-charges',

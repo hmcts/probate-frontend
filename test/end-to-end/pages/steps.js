@@ -73,6 +73,8 @@ module.exports = function () {
 
         // Notify additional executors
         notifyAdditionalExecutors: steps.executors.invite,
+        notifyNewAdditionalExecutors: steps.executors.additionalinvite,
+        seeAdditionalInvitesSentPage: steps.executors.additionalinvitesent,
 
         // Pin page for additional executor
         enterPinCode: steps.pin.signin,
@@ -112,5 +114,8 @@ module.exports = function () {
         // Eligibility task
         completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
         completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask,
+
+        //Error Pages
+        see404ErrorPage: steps.errors.pageNotFound
     });
 };

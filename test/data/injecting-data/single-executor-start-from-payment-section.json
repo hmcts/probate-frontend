@@ -1,0 +1,236 @@
+{
+  "iht" : {
+    "form" : "IHT205",
+    "method" : "By post",
+    "netValue" : 400,
+    "ihtFormId" : "IHT205",
+    "netIHT205" : "400",
+    "grossValue" : 500,
+    "grossIHT205" : "500"
+  },
+  "will" : {
+    "codicils" : "Yes",
+    "codicilsNumber" : 4
+  },
+  "assets" : {
+    "assetsoverseas" : "Yes"
+  },
+  "copies" : {
+    "uk" : 1,
+    "overseas" : 1
+  },
+  "summary" : {
+    "readyToDeclare" : true
+  },
+  "deceased" : {
+    "alias" : "No",
+    "address" : "test address\r\n",
+    "dob_day" : 1,
+    "dod_day" : 1,
+    "married" : "No",
+    "dob_date" : "1910-01-01T00:00:00.000Z",
+    "dob_year" : 1910,
+    "dod_date" : "2019-01-01T00:00:00.000Z",
+    "dod_year" : 2019,
+    "lastName" : "Doe",
+    "dob_month" : 1,
+    "dod_month" : 1,
+    "firstName" : "John",
+    "addressFound" : "none",
+    "deceasedName" : "John Doe",
+    "freeTextAddress" : "test address\r\n",
+    "dob_formattedDate" : "1 January 1910",
+    "dod_formattedDate" : "1 January 2019"
+  },
+  "applicant" : {
+    "address" : "test address",
+    "lastName" : "Doe",
+    "firstName" : "Jack",
+    "phoneNumber" : "07952626390",
+    "addressFound" : "none",
+    "freeTextAddress" : "test address",
+    "nameAsOnTheWill" : "Yes"
+  },
+  "documents" : {
+    "uploads" : [ {
+      "url" : "http://dm-store-aat.service.core-compute-aat.internal/documents/85ce76be-1087-40ff-a8f6-204f95bddc2f",
+      "filename" : "test_file_for_document_upload.png"
+    } ]
+  },
+  "executors" : {
+    "list" : [ {
+      "lastName" : "Doe",
+      "firstName" : "Jack",
+      "isApplying" : true,
+      "isApplicant" : true
+    } ],
+    "executorsNumber" : 1
+  },
+  "declaration" : {
+    "softStop" : false,
+    "declaration" : {
+      "accept" : "I confirm that I will administer the estate of the person who died according to law, and that my application is truthful.",
+      "confirm" : "I confirm that I will administer the estate of John Doe, according to law. I will:",
+      "requests" : "If the probate registry (court) asks me to do so, I will:",
+      "understand" : "I understand that:",
+      "confirmItem1" : "collect the whole estate",
+      "confirmItem2" : "keep full details (an inventory) of the estate",
+      "confirmItem3" : "keep a full account of how the estate has been administered",
+      "requestsItem1" : "provide the full details of the estate and how it has been administered",
+      "requestsItem2" : "return the grant of probate to the court",
+      "submitWarning" : "Once you click &lsquo;Save and continue&rsquo;, you cannot change your answers.",
+      "understandItem1" : "my application will be rejected if I do not answer any questions about the information I have given",
+      "understandItem2" : "criminal proceedings for fraud may be brought against me if I am found to have been deliberately untruthful or dishonest"
+    },
+    "legalStatement" : {
+      "intro" : "This statement is based on the information you've given in your application. It will be stored as a public record.",
+      "deceased" : "John Doe was born on 1 January 1910 and died on 1 January 2019, domiciled in England and Wales.",
+      "applicant" : "I, Jack Doe of test address, make the following statement:",
+      "executorsApplying" : [ {
+        "name" : "I am an executor named in the will or codicils as Jack Doe, and I am applying for probate.",
+        "sign" : "I will send to the probate registry what I believe to be the true and original last will and testament and any codicils of John Doe."
+      } ],
+      "deceasedEstateLand" : "To the best of my knowledge, information and belief, there was no land vested in John Doe which was settled previously to the death (and not by the will) of John Doe and which remained settled land notwithstanding such death.",
+      "deceasedOtherNames" : "",
+      "deceasedEstateValue" : "The gross value for the estate amounts to £500 and the net value for the estate amounts to £400.",
+      "executorsNotApplying" : [ ]
+    },
+    "hasEmailChanged" : false,
+    "declarationCheckbox" : "true"
+  },
+  "documentupload" : { },
+  "legalDeclaration" : {
+    "headers" : [ "In the High Court of Justice", "Family Division", "(Probate)" ],
+    "deceased" : "John Doe",
+    "sections" : [ {
+      "title" : "Legal statement",
+      "headingType" : "large",
+      "declarationItems" : [ {
+        "title" : "I, Jack Doe of test address, make the following statement:"
+      } ]
+    }, {
+      "title" : "The person who died",
+      "headingType" : "small",
+      "declarationItems" : [ {
+        "title" : "John Doe was born on 1 January 1910 and died on 1 January 2019, domiciled in England and Wales. "
+      } ]
+    }, {
+      "title" : "The estate of the person who died",
+      "headingType" : "small",
+      "declarationItems" : [ {
+        "title" : "The gross value for the estate amounts to £500 and the net value for the estate amounts to £400."
+      }, {
+        "title" : "To the best of my knowledge, information and belief, there was no land vested in John Doe which was settled previously to the death (and not by the will) of John Doe and which remained settled land notwithstanding such death."
+      } ]
+    }, {
+      "title" : "Executors applying for probate",
+      "headingType" : "small",
+      "declarationItems" : [ {
+        "title" : "I am an executor named in the will or codicils as Jack Doe, and I am applying for probate."
+      }, {
+        "title" : "I will send to the probate registry what I believe to be the true and original last will and testament and any codicils of John Doe."
+      } ]
+    }, {
+      "title" : "Declaration",
+      "headingType" : "large",
+      "declarationItems" : [ {
+        "title" : "I confirm that I will administer the estate of John Doe, according to law. I will:",
+        "values" : [ "collect the whole estate", "keep full details (an inventory) of the estate", "keep a full account of how the estate has been administered" ]
+      }, {
+        "title" : "If the probate registry (court) asks me to do so, I will:",
+        "values" : [ "provide the full details of the estate and how it has been administered", "return the grant of probate to the court" ]
+      }, {
+        "title" : "I understand that:",
+        "values" : [ "my application will be rejected if I do not answer any questions about the information I have given", "criminal proceedings for fraud may be brought against me if I am found to have been deliberately untruthful or dishonest" ]
+      } ]
+    } ],
+    "dateCreated" : "1/31/2019, 4:42:01 PM"
+  },
+  "checkAnswersSummary" : {
+    "sections" : [ {
+      "type" : "heading-medium",
+      "title" : "About the person who died",
+      "questionAndAnswers" : [ {
+        "answers" : [ "John" ],
+        "question" : "First name(s)"
+      }, {
+        "answers" : [ "Doe" ],
+        "question" : "Last name(s)"
+      }, {
+        "answers" : [ "No" ],
+        "question" : "Did John Doe have assets in another name?"
+      }, {
+        "answers" : [ "No" ],
+        "question" : "Did John Doe get married or enter into a civil partnership after the latest codicil was signed?"
+      }, {
+        "answers" : [ "1 January 1910" ],
+        "question" : "What was their date of birth?"
+      }, {
+        "answers" : [ "1 January 2019" ],
+        "question" : "What was the date that they died?"
+      }, {
+        "answers" : [ "test address\n" ],
+        "question" : "What was the permanent address at the time of their death?"
+      }, {
+        "answers" : [ "Yes" ],
+        "question" : "Were any updates (‘codicils’) made to the will?"
+      }, {
+        "answers" : [ "4" ],
+        "question" : "How many updates (‘codicils’) were made to the will?"
+      } ]
+    }, {
+      "type" : "heading-medium",
+      "title" : "Uploaded documents",
+      "questionAndAnswers" : [ {
+        "answers" : [ "No documents have been uploaded" ],
+        "question" : "Death Certificate"
+      } ]
+    }, {
+      "type" : "heading-medium",
+      "title" : "Inheritance tax",
+      "questionAndAnswers" : [ {
+        "answers" : [ "By post" ],
+        "question" : "How was the Inheritance Tax (IHT) form submitted?"
+      }, {
+        "answers" : [ "IHT 205 - there was no inheritance tax to pay" ],
+        "question" : "Which paper form was filled in?"
+      }, {
+        "answers" : [ "500" ],
+        "question" : "Gross value of the estate in £"
+      }, {
+        "answers" : [ "400" ],
+        "question" : "Net value of the estate in £"
+      } ]
+    }, {
+      "type" : "heading-medium",
+      "title" : "The executors",
+      "questionAndAnswers" : [ {
+        "answers" : [ "1" ],
+        "question" : "How many past and present executors are named on the will and any updates (‘codicils’)?"
+      } ]
+    }, {
+      "type" : "heading-small",
+      "title" : "About you",
+      "questionAndAnswers" : [ {
+        "answers" : [ "Jack" ],
+        "question" : "First name(s)"
+      }, {
+        "answers" : [ "Doe" ],
+        "question" : "Last name(s)"
+      }, {
+        "answers" : [ "Yes" ],
+        "question" : "Is your name ‘Jack Doe’ exactly what appears on the will?"
+      }, {
+        "answers" : [ "07952626390" ],
+        "question" : "Phone number"
+      }, {
+        "answers" : [ "test address" ],
+        "question" : "What is your address?"
+      } ]
+    } ],
+    "pageTitle" : "\n            Check your answers\n        ",
+    "mainParagraph" : "Check the information below carefully. This will form a record of your application for probate. It will also be stored as a public record, and will be able to be viewed online."
+  }
+}
+  
+  

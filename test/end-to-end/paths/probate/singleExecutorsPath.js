@@ -108,7 +108,12 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function (I)
 
     // Payment Task
     I.selectATask(taskListContent.taskNotStarted);
-    I.seePaymentBreakdownPage();
+
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.seePaymentBreakdownPage('5', '7', '300000');
+    } else {
+        I.seePaymentBreakdownPage('0', '0', '400');
+    }
 
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.seeGovUkPaymentPage();

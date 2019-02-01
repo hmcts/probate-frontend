@@ -190,7 +190,7 @@ class TestConfigurator {
             {
                 id: emailId,
                 formdata: {
-                    payloadVersion: '4.1.0',
+                    payloadVersion: '4.1.1',
                     applicantEmail: emailId,
                 }
             };

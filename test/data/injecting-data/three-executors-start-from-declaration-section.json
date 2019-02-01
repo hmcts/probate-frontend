@@ -1,0 +1,109 @@
+{
+  "iht" : {
+    "form" : "IHT205",
+    "method" : "By post",
+    "netValue" : 6000,
+    "ihtFormId" : "IHT205",
+    "netIHT205" : "6000",
+    "grossValue" : 7000,
+    "grossIHT205" : "7000"
+  },
+  "will" : {
+    "codicils" : "Yes",
+    "codicilsNumber" : 4
+  },
+  "deceased" : {
+    "alias" : "Yes",
+    "address" : "Deceased address\r\n",
+    "dob_day" : 1,
+    "dod_day" : 1,
+    "married" : "Yes",
+    "dob_date" : "1910-01-01T00:00:00.000Z",
+    "dob_year" : 1910,
+    "dod_date" : "2019-01-01T00:00:00.000Z",
+    "dod_year" : 2019,
+    "lastName" : "Doe",
+    "dob_month" : 1,
+    "dod_month" : 1,
+    "firstName" : "John",
+    "otherNames" : {
+      "name_0" : {
+        "lastName" : "Man",
+        "firstName" : "Alias"
+      },
+      "name_1" : {
+        "lastName" : "ManTwo",
+        "firstName" : "AliasTwo"
+      }
+    },
+    "addressFound" : "none",
+    "deceasedName" : "John Doe",
+    "freeTextAddress" : "Deceased address\r\n",
+    "dob_formattedDate" : "1 January 1910",
+    "dod_formattedDate" : "1 January 2019"
+  },
+  "applicant" : {
+    "alias" : "Will Name",
+    "address" : "Applicant address",
+    "lastName" : "Name",
+    "firstName" : "Full",
+    "aliasReason" : "other",
+    "otherReason" : "Because YOLO",
+    "phoneNumber" : "07952626390",
+    "addressFound" : "none",
+    "freeTextAddress" : "Applicant address",
+    "nameAsOnTheWill" : "No"
+  },
+  "documents" : {
+    "uploads" : [ {
+      "url" : "http://dm-store-aat.service.core-compute-aat.internal/documents/85ce76be-1087-40ff-a8f6-204f95bddc2f",
+      "filename" : "test_file_for_document_upload.png"
+    } ]
+  },
+  "executors" : {
+    "list" : [ {
+      "alias" : "Will Name",
+      "lastName" : "Name",
+      "firstName" : "Full",
+      "isApplying" : true,
+      "aliasReason" : "other",
+      "isApplicant" : true,
+      "otherReason" : "Because YOLO"
+    }, {
+      "email" : "test.probate.inbox@gmail.com",
+      "mobile" : "07952626390",
+      "address" : "Secondary executor address",
+      "fullName" : "Secondary Executor",
+      "isApplying" : true,
+      "freeTextAddress" : "Secondary executor address"
+    }, {
+      "email" : "test.probate.inbox@gmail.com",
+      "mobile" : "07952626390",
+      "address" : "Third Executor Address",
+      "fullName" : "Third Executor",
+      "isApplying" : true,
+      "freeTextAddress" : "Third Executor Address"
+    } ],
+    "alias" : "No",
+    "allalive" : "Yes",
+    "referrer" : "ExecutorAddress",
+    "addressFound" : "none",
+    "executorsNumber" : 3,
+    "executorsEmailChanged" : false,
+    "executorsToNotifyList" : [ {
+      "email" : "test.probate.inbox@gmail.com",
+      "mobile" : "07952626390",
+      "address" : "Secondary executor address",
+      "fullName" : "Secondary Executor",
+      "isApplying" : true,
+      "freeTextAddress" : "Secondary executor address"
+    }, {
+      "email" : "test.probate.inbox@gmail.com",
+      "mobile" : "07952626390",
+      "fullName" : "Third Executor",
+      "isApplying" : true
+    } ],
+    "otherExecutorsApplying" : "Yes"
+  },
+  "documentupload" : { }
+}

@@ -231,7 +231,7 @@ redis:
     ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
     ##
     persistence:
-      enabled: false
+      enabled: true
       ## The path the volume will be mounted at, useful when using different
       ## Redis images.
       path: /data

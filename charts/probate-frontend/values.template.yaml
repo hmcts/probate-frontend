@@ -1,8 +1,5 @@
 nodejs:
   applicationPort: 3000
-  cpuRequests: 0.2
-  memoryLimits: 512Mi
-  cpuLimits: 1
   environment:
     REFORM_TEAM: probate
     REFORM_SERVICE_NAME: probate-frontend
@@ -234,7 +231,7 @@ redis:
     ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
     ##
     persistence:
-      enabled: true
+      enabled: false
       ## The path the volume will be mounted at, useful when using different
       ## Redis images.
       path: /data

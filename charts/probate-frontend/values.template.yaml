@@ -20,7 +20,8 @@ nodejs:
     REDIS_USE_TLS : false
     REDIS_HOST : ${SERVICE_NAME}-redis-master
     REDIS_PORT : 6379
-  # Don't modify below here
+
+# Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
 

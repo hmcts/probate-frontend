@@ -3,9 +3,7 @@
 {% from "widgets/radiobuttons.html" import optionsRadio %}
 
 {% block question %}
-    <h1 class="form-title heading-large">
-        {{ (content.questionWithCodicil if fields.codicilPresent.value === "true" else content.question) | replace('{applicantName}', fields.firstName.value +' '+ fields.lastName.value) | safe }}
-    </h1>
+    <h1 class="form-title heading-large">{{ (content.questionWithCodicil if fields.codicilPresent.value === "true" else content.question) | replace('{applicantName}', fields.firstName.value +' '+ fields.lastName.value) | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}

@@ -10,12 +10,11 @@ class IhtMethod extends ValidationStep {
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
                 {key: 'method', value: json.onlineOption, choice: 'online'}
             ]
         };
-        return nextStepOptions;
     }
 }
 

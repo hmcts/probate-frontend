@@ -104,8 +104,10 @@ module.exports = function () {
 
         // Intestacy
         enterDeceasedDetails: steps.deceased.details,
+        selectAssetsOutsideEnglandWales: steps.deceased.assetsoutsideenglandwales,
+        enterValueAssetsOutsideEnglandWales: steps.deceased.valueassetsoutsideenglandwales,
 
-        //Eligibility task
+        // Eligibility task
         completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
         completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask,
     });

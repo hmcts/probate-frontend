@@ -23,7 +23,7 @@ describe('ApplicantAliasReason', () => {
                 aliasReason: 'Divorce',
                 otherReason: 'because I wanted to'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantAliasReason.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({aliasReason: 'Divorce'});
             done();
@@ -34,7 +34,7 @@ describe('ApplicantAliasReason', () => {
                 aliasReason: 'other',
                 otherReason: 'because I wanted to'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantAliasReason.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 aliasReason: 'other',
@@ -52,7 +52,7 @@ describe('ApplicantAliasReason', () => {
                 aliasReason: 'Divorce',
                 otherReason: 'because I wanted to'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantAliasReason.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({aliasReason: 'Divorce'});
             done();
@@ -63,7 +63,7 @@ describe('ApplicantAliasReason', () => {
                 aliasReason: 'other',
                 otherReason: 'because I wanted to'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantAliasReason.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 aliasReason: 'other',

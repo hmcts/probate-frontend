@@ -39,7 +39,7 @@ describe('ExecutorNotified', () => {
                     list: [{}]
                 }
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ExecutorNotified.handlePost(ctx, errors, formdata);
             expect(ctx).to.deep.equal({
                 index: -1,

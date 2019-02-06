@@ -29,8 +29,8 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "Invalid currency format",
-        "message": "Invalid currency format"
+        "summary": "You haven&rsquo;t entered a valid gross amount",
+        "message": "Enter a valid amount using numbers only"
       }
     },
     "netIHT205": {
@@ -43,8 +43,8 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "Invalid currency format",
-        "message": "Invalid currency format"
+        "summary": "You haven&rsquo;t entered a valid net amount",
+        "message": "Enter a valid amount using numbers only"
       },
       "netValueGreaterThanGross": {
         "summary": "The net amount can&rsquo;t be greater than the gross amount",
@@ -61,8 +61,8 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "Invalid currency format",
-        "message": "Invalid currency format"
+        "summary": "You haven&rsquo;t entered a valid gross amount",
+        "message": "Enter a valid amount using numbers only"
       }
     },
     "netIHT207": {
@@ -75,8 +75,8 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "Invalid currency format",
-        "message": "Invalid currency format"
+        "summary": "You haven&rsquo;t entered a valid net amount",
+        "message": "Enter a valid amount using numbers only"
       },
       "netValueGreaterThanGross": {
         "summary": "The net amount can&rsquo;t be greater than the gross amount",
@@ -93,8 +93,8 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "Invalid currency format",
-        "message": "Invalid currency format"
+        "summary": "You haven&rsquo;t entered a valid gross amount",
+        "message": "Enter a valid amount using numbers only"
       }
     },
     "netIHT400421": {
@@ -107,8 +107,8 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "Invalid currency format",
-        "message": "Invalid currency format"
+        "summary": "You haven&rsquo;t entered a valid net amount",
+        "message": "Enter a valid amount using numbers only"
       },
       "netValueGreaterThanGross": {
         "summary": "The net amount can&rsquo;t be greater than the gross amount",

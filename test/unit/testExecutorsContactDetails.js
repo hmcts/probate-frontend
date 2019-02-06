@@ -60,7 +60,7 @@ describe('Contact-Details', function () {
                 otherExecName: 'Bob Cratchett',
                 executorsEmailChanged: false
             };
-            errors = {};
+            errors = [];
         });
 
         it('test emailChanged flag is correctly set, executorToBeNotifiedList is correctly populated and contact details updated (single applicant)', (done) => {

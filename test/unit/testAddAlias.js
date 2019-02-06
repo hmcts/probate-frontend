@@ -20,7 +20,7 @@ describe('AddAlias', () => {
                     }
                 }
             };
-            let errors = {};
+            let errors = [];
             const formdata = {};
             const AddAlias = steps.AddAlias;
 

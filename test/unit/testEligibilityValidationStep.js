@@ -123,7 +123,7 @@ describe('EligibilityValidationStep', () => {
                 domicile: 'Yes',
                 completed: 'Yes'
             };
-            const errors = {};
+            const errors = [];
             const formdata = {};
             const session = {form: {}};
             const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
@@ -134,7 +134,7 @@ describe('EligibilityValidationStep', () => {
                 deathCertificate: 'Yes',
                 domicile: 'Yes',
                 completed: 'Yes'
-            }, {}]);
+            }, []]);
 
             done();
         });

@@ -5,10 +5,11 @@
 
 {% block question %}
     <h1 class="form-title heading-large">{{ content.question | replace('{deceasedName}', fields.deceasedName.value) | safe }}</h1>
-    <p>{{ content.paragraph1 }}</p>
 {% endblock %}
 
 {% block form_content %}
+    <p class="form-hint">{{ content.paragraph1 }}</p>
+
     {{ optionsRadio(content,
         name = 'alias',
         field = fields.alias,

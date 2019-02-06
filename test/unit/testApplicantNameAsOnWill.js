@@ -25,7 +25,7 @@ describe('ApplicantNameAsOnWill', () => {
                 alias: 'Bobby Alias',
                 aliasReason: 'Divorce'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantNameAsOnWill.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 nameAsOnTheWill: 'No',
@@ -42,7 +42,7 @@ describe('ApplicantNameAsOnWill', () => {
                 aliasReason: 'other',
                 otherReason: 'Legally changed name'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantNameAsOnWill.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 nameAsOnTheWill: 'No',
@@ -59,7 +59,7 @@ describe('ApplicantNameAsOnWill', () => {
                 alias: 'Bobby Alias',
                 aliasReason: 'Divorce'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantNameAsOnWill.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({nameAsOnTheWill: 'Yes'});
             done();
@@ -72,7 +72,7 @@ describe('ApplicantNameAsOnWill', () => {
                 aliasReason: 'other',
                 otherReason: 'Legally changed name'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantNameAsOnWill.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({nameAsOnTheWill: 'Yes'});
             done();

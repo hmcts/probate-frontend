@@ -30,7 +30,7 @@ rpe-feature-toggle-api:
   ingressHost: ${SERVICE_FQDN}
   ingressIP: ${INGRESS_IP}
   consulIP: ${CONSUL_LB_IP}
-  registerDns: true
+  registerDns: false
   importer:
     cron:
       enabled: false

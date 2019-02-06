@@ -25,4 +25,3 @@ COPY --from=build ${WORKDIR}/public public/
 COPY --from=build ${WORKDIR}/server.js ${WORKDIR}/app.js ${WORKDIR}/git.properties.json ./ 
 EXPOSE 3000
 USER hmcts
-

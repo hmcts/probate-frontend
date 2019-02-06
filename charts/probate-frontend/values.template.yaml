@@ -25,7 +25,7 @@ nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
 
-feature-toggle-api:
+rpe-feature-toggle-api:
   releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
   ingressHost: ${SERVICE_FQDN}
   ingressIP: ${INGRESS_IP}

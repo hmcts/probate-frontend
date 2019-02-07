@@ -56,9 +56,7 @@ describe('AddressLookup', () => {
                     return ['address 1', 'address 2'];
                 }
             });
-
             const addressLookup = new AddressLookup(steps, section, templatePath, i18next, schema);
-
             co(function* () {
                 yield addressLookup.handlePost(ctxToTest, errorsToTest, formdata, req);
                 expect(formdata.applicant.addresses).to.deep.equal(['address 1', 'address 2']);
@@ -74,9 +72,7 @@ describe('AddressLookup', () => {
                     return [];
                 }
             });
-
             const addressLookup = new AddressLookup(steps, section, templatePath, i18next, schema);
-
             co(function* () {
                 yield addressLookup.handlePost(ctxToTest, errorsToTest, formdata, req);
                 expect(formdata.applicant.addressFound).to.equal('false');

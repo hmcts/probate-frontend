@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block form_content %}
-    <p>{{ content.hintText | replace('{deathReportedToCoroner}', links.deathReportedToCoroner) | safe }}</p>
+    <p class="form-hint">{{ content.hintText | replace('{deathReportedToCoroner}', links.deathReportedToCoroner) | safe }}</p>
 
     {{ optionsRadio(content,
         name = 'deathCertificate',

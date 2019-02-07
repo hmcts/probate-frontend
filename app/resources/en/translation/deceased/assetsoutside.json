@@ -1,0 +1,17 @@
+{
+  "title": "Assets outside of England and Wales",
+  "question": "Did {deceasedName} have any assets outside of England and Wales?",
+  "hint": "Don&rsquo;t include houses or land.",
+  "legend": "Did {deceasedName} have any assets outside of England and Wales?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "assetsOutside": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about assets outside of England and Wales",
+        "message": "Answer &lsquo;yes&rsquo; if the person who died had assets outside of England and Wales"
+      }
+    }
+  }
+}

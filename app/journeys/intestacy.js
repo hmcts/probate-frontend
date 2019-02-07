@@ -5,12 +5,7 @@ const taskList = {
         firstStep: 'DeceasedDetails',
         lastStep: 'TaskList',
         summary: 'Summary'
-    },
-    // ExecutorsTask: {
-    //     firstStep: 'RelationshipToDeceased',
-    //     lastStep: 'TaskList',
-    //     summary: 'Summary'
-    // },
+    }
 };
 
 const stepList = {
@@ -32,7 +27,6 @@ const stepList = {
         withoutWillToggleOn: 'DiedAfterOctober2014',
         otherwise: 'StopPage'
     },
-    // Intestacy --------------------------------
     DiedAfterOctober2014: {
         diedAfter: 'RelationshipToDeceased',
         otherwise: 'StopPage'
@@ -45,11 +39,34 @@ const stepList = {
         noOthers: 'StartApply',
         otherwise: 'StopPage'
     },
-    // ------------------------------------------
     StartApply: 'TaskList',
-    // DeceasedDetails: 'DeceasedAddress',
-    DeceasedDetails: 'TaskList',
-
+    DeceasedDetails: 'DeceasedAddress',
+    DeceasedAddress: {
+        documentUploadToggleOn: 'DocumentUpload',
+        otherwise: 'IhtMethod'
+    },
+    DocumentUpload: {
+        isUploadingDocument: 'DocumentUpload',
+        otherwise: 'IhtMethod'
+    },
+    IhtMethod: {
+        online: 'IhtIdentifier',
+        otherwise: 'IhtPaper'
+    },
+    IhtIdentifier: 'IhtValue',
+    IhtValue: {
+        lessThanOrEqualTo250k: 'AssetsOutside',
+        otherwise: 'TaskList'
+    },
+    IhtPaper: {
+        lessThanOrEqualTo250k: 'AssetsOutside',
+        otherwise: 'TaskList'
+    },
+    AssetsOutside: {
+        hasAssetsOutside: 'ValueAssetsOutside',
+        otherwise: 'TaskList'
+    },
+    ValueAssetsOutside: 'TaskList',
     Summary: 'TaskList',
     TaskList: 'TaskList',
     StopPage: 'StopPage'

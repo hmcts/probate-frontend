@@ -1,8 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-// const DeceasedAddress = require('app/steps/ui/deceased/address/index');
-const TaskList = require('app/steps/ui/tasklist/index');
+const DeceasedAddress = require('app/steps/ui/deceased/address/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const config = require('app/config');
 const nock = require('nock');
@@ -16,8 +15,7 @@ const featureTogglesNock = (status = 'true') => {
 
 describe('deceased-details', () => {
     let testWrapper;
-    // const expectedNextUrlForDeceasedAddress = DeceasedAddress.getUrl();
-    const expectedNextUrlForTaskList = TaskList.getUrl();
+    const expectedNextUrlForDeceasedAddress = DeceasedAddress.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedDetails');
@@ -193,26 +191,8 @@ describe('deceased-details', () => {
             testWrapper.testErrors(done, data, 'dodBeforeDob', errorsToTest);
         });
 
-        // it(`test it redirects to Deceased Address page: ${expectedNextUrlForDeceasedAddress}`, (done) => {
-        //     const data = {
-        //         firstName: 'Bob',
-        //         lastName: 'Smith',
-        //         dob_day: '12',
-        //         dob_month: '9',
-        //         dob_year: '2000',
-        //         dod_day: '12',
-        //         dod_month: '9',
-        //         dod_year: '2018'
-        //     };
-        //     testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAddress);
-        // });
-
-        it(`test it redirects to TaskList page: ${expectedNextUrlForTaskList}`, (done) => {
-            const sessionData = {
-                willLeft: 'No'
-            };
-            testWrapper.agent.post('/prepare-session-field')
-                .send(sessionData)
+        it(`test it redirects to Deceased Address page: ${expectedNextUrlForDeceasedAddress}`, (done) => {
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         firstName: 'Bob',
@@ -224,7 +204,7 @@ describe('deceased-details', () => {
                         dod_month: '9',
                         dod_year: '2018'
                     };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAddress);
                 });
         });
     });

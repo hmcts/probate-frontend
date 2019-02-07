@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block form_content %}
-    <p>{{ content.paragraph1 | safe }}</p>
+    <p class="form-hint">{{ content.paragraph1 | safe }}</p>
 
     {{ optionsRadio(content,
         name = 'original',

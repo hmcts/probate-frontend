@@ -22,10 +22,11 @@
 
 {% block question %}
     <h1 class="form-title heading-large">{{ content.question | replace('{deceasedName}', fields.deceasedFullName.value) | safe }}</h1>
-    <p>{{ content.explanation1 }}</p>
 {% endblock %}
 
 {% block form_content %}
+    <p class="form-hint">{{ content.explanation1 }}</p>
+
     {% set hasOtherNames = false %}
     {% for index, otherName in fields.otherNames.value %}
         <fieldset>

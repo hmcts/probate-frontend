@@ -4,10 +4,10 @@
 
 {% block question %}
     <h1 class="form-title heading-large">{{ content.question | replace('{executorName}', fields.otherExecName.value) | safe }}</h1>
-    <p>{{ content.questionHint | safe }}</p>
 {% endblock %}
 
 {% block form_content %}
+    <p class="form-hint">{{ content.questionHint | safe }}</p>
     <fieldset>
         <legend class="visually-hidden">{{ content.title1 | safe }}</legend>
         {{ textField(

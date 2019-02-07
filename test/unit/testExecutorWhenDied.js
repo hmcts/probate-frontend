@@ -35,7 +35,7 @@ describe('ExecutorWhenDied', () => {
                 list: [{}],
                 diedbefore: 'No'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ExecutorWhenDied.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 index: -1,

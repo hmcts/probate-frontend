@@ -4,10 +4,10 @@
 
 {% block question %}
     <h1 class="form-title heading-large">{{ content.question }}</h1>
-    <p class="form-hint">{{ content.questionHint }}</p>
 {% endblock %}
 
 {% block form_content %}
+    <p class="form-hint">{{ content.questionHint }}</p>
     <fieldset>
         <legend class="visually-hidden">{{ content.legend | safe }}</legend>
         {{ textField(

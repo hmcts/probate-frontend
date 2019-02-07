@@ -38,6 +38,16 @@ class IhtPaper extends ValidationStep {
         return [ctx, errors];
     }
 
+    nextStepOptions(ctx) {
+        ctx.lessThanOrEqualTo250k = ctx.netValue <= 250000;
+
+        return {
+            options: [
+                {key: 'lessThanOrEqualTo250k', value: true, choice: 'lessThanOrEqualTo250k'}
+            ]
+        };
+    }
+
     isSoftStop(formdata) {
         const paperForm = get(formdata, 'iht.form', {});
         const softStopForNotAllowedIhtPaperForm = paperForm === 'IHT400421' || paperForm === 'IHT207';
@@ -52,6 +62,7 @@ class IhtPaper extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.grossValuePaper;
         delete ctx.netValuePaper;
+        delete ctx.lessThanOrEqualTo250k;
         return [ctx, formdata];
     }
 }

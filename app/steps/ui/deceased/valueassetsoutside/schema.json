@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "value-assets-outside",
+  "type": "object",
+  "properties": {
+    "netValueAssetsOutside": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 13
+    }
+  },
+  "required": [
+    "netValueAssetsOutside"
+  ]
+}

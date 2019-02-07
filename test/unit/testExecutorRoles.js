@@ -41,7 +41,7 @@ describe('ExecutorRoles', () => {
                 ],
                 notApplyingReason: json.optionPowerReserved
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ExecutorRoles.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 index: 0,

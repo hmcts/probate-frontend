@@ -32,6 +32,22 @@ class IhtValue extends ValidationStep {
 
         return [ctx, errors];
     }
+
+    nextStepOptions(ctx) {
+        ctx.lessThanOrEqualTo250k = ctx.netValue <= 250000;
+
+        return {
+            options: [
+                {key: 'lessThanOrEqualTo250k', value: true, choice: 'lessThanOrEqualTo250k'}
+            ]
+        };
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.lessThanOrEqualTo250k;
+        return [ctx, formdata];
+    }
 }
 
 module.exports = IhtValue;

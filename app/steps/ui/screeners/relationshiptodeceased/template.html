@@ -9,9 +9,9 @@
 {% endblock %}
 
 {% block form_content %}
-    <p>{{ content.hintText1 }}</p>
-    <p>{{ content.hintText2 }}</p>
-    <p>{{ content.hintText3 }}</p>
+    <p class="form-hint">{{ content.hintText1 }}</p>
+    <p class="form-hint">{{ content.hintText2 }}</p>
+    <p class="form-hint">{{ content.hintText3 }}</p>
 
     {{ optionsRadio(content,
         name = 'related',

@@ -5,10 +5,11 @@
 
 {% block question %}
     <h1 class="form-title heading-large">{{ content.question }}</h1>
-    <p class="form-hint">{{ content.hint }}</p>
 {% endblock %}
 
 {% block form_content %}
+    <p class="form-hint">{{ content.hint }}</p>
+
     {{ optionsRadio(content,
         name = 'assetsoverseas',
         field = fields.assetsoverseas,

@@ -23,7 +23,7 @@ const config = {
     },
     services: {
         postcode: {
-            url: process.env.POSTCODE_SERVICE_URL || 'http://localhost:8585/find-address',
+            url: 'http://localhost:8585/find-address123',
             token: process.env.POSTCODE_SERVICE_TOKEN,
             proxy: process.env.http_proxy,
             port: 8585,

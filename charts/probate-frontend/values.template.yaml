@@ -42,6 +42,13 @@ rpe-feature-toggle-api:
 #      permissions: cmc-new-features-consent-given
   java:
     releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
+    ingressHost: ${SERVICE_FQDN}
+    ingressIP: ${INGRESS_IP}
+    consulIP: ${CONSUL_LB_IP}
+    registerDns: true
+    registerAdditionalDns:
+      enabled: true
+      primaryIngressHost: feature-toggle-api-probate-frontend-pr-572-ftr-tgl-api.service.core-compute-preview.internal
     environment:
       FEATURES_DB_HOST: ${SERVICE_NAME}-ft-db
       ADMIN_USERNAME_TEST: admin@example.com

@@ -69,10 +69,10 @@ describe('PdfService', () => {
 
             pdf
                 .post(body, logMessage, headers, url)
-                .then(() => {
+                .catch(() => {
                     expect(pdf.log.calledTwice).to.equal(true);
                     expect(pdf.log.calledWith(logMessage)).to.equal(true);
-                    expect(pdf.log.calledWith(error, 'error')).to.equal(true);
+                    expect(pdf.log.calledWith('Pdf error: internal service error', 'error')).to.equal(true);
 
                     revert();
                     done();

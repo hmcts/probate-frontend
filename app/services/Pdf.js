@@ -15,7 +15,8 @@ class Pdf extends Service {
                 return this.fetchBuffer(url, fetchOptions);
             })
             .catch(err => {
-                this.log(err, 'error');
+                this.log(`Pdf error: ${this.formatErrorMessage(err)}`, 'error');
+                throw new Error(err);
             });
     }
 }

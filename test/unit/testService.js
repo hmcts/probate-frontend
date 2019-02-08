@@ -137,7 +137,7 @@ describe('Service', () => {
             });
             const service = new Service();
             service
-                .fetchText('http://localhost/forms', {})
+                .fetchBuffer('http://localhost/forms', {})
                 .then((res) => {
                     expect(res).to.equal(buffer);
                     revert();
@@ -178,6 +178,15 @@ describe('Service', () => {
             const service = new Service();
             const options = service.fetchOptions();
             expect(options.agent).to.equal(null);
+            done();
+        });
+    });
+
+    describe('formatErrorMessage()', () => {
+        it('should return a lowercase string with "Error: " removed', (done) => {
+            const service = new Service();
+            const error = service.formatErrorMessage('Error: Error: Not Found');
+            expect(error).to.equal('not found');
             done();
         });
     });

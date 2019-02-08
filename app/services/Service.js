@@ -59,7 +59,10 @@ class Service {
         return asyncFetch
             .fetch(url, fetchOptions, res => res.buffer())
             .then(buffer => buffer)
-            .catch(err => err);
+            .catch(err => {
+                this.log(`Fetch buffer error: ${this.formatErrorMessage(err)}`, 'error');
+                throw new Error(err);
+            });
     }
 
     fetchOptions(data, method, headers, proxy) {
@@ -73,6 +76,13 @@ class Service {
             headers: new fetch.Headers(headers),
             agent: proxy ? new HttpsProxyAgent(proxy) : null
         };
+    }
+
+    formatErrorMessage(error) {
+        return error
+            .toString()
+            .replace(/Error: /g, '')
+            .toLowerCase();
     }
 }
 

@@ -26,7 +26,7 @@ nodejs:
   ingressHost: ${SERVICE_FQDN}
 
 rpe-feature-toggle-api:
-  releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
+  releaseNameOverride: ${SERVICE_NAME}-ft1r-tgl-api
   ingressHost: ${SERVICE_FQDN}
   ingressIP: ${INGRESS_IP}
   consulIP: ${CONSUL_LB_IP}
@@ -41,14 +41,14 @@ rpe-feature-toggle-api:
 #        /scripts/add-toggle.sh cmc_defence_reminders 'CMC defence reminders' false admin@example.com Password12
 #      permissions: cmc-new-features-consent-given
   java:
-    releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
+    releaseNameOverride: ${SERVICE_NAME}-ft2r-tgl-api
     ingressHost: ${SERVICE_FQDN}
     ingressIP: ${INGRESS_IP}
     consulIP: ${CONSUL_LB_IP}
     registerDns: true
     registerAdditionalDns:
       enabled: true
-      primaryIngressHost: feature-toggle-api-probate-frontend-pr-572-ftr-tgl-api.service.core-compute-preview.internal
+      primaryIngressHost: feature-toggle-api-probate-frontend-pr-572-ft3r-tgl-api.service.core-compute-preview.internal
     environment:
       FEATURES_DB_HOST: ${SERVICE_NAME}-ft-db
       ADMIN_USERNAME_TEST: admin@example.com

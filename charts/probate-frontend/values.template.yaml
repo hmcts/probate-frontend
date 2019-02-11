@@ -56,6 +56,6 @@ rpe-feature-toggle-api:
 redis:
   cluster:
     enabled: false
-  master:
-    persistence:
-      enabled: false
+#  master:
+#    persistence:
+#      enabled: false

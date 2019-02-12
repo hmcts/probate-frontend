@@ -32,10 +32,6 @@ rpe-feature-toggle-api:
       enabled: false
     oneoff:
       enabled: false
-#      command: >-
-#        /scripts/add-weighted-toggle.sh cmc_admissions 'CMC admissions' '1.0' admin@example.com Password12 &&
-#        /scripts/add-toggle.sh cmc_defence_reminders 'CMC defence reminders' false admin@example.com Password12
-#      permissions: cmc-new-features-consent-given
   java:
     releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
     ingressIP: ${INGRESS_IP}
@@ -53,32 +49,12 @@ rpe-feature-toggle-api:
   postgresql:
     postgresqlDatabase: hmcts
 
-#redis:
-#  cluster:
-#    enabled: false
-#  master:
-#    persistence:
-#      enabled: false
+
 redis:
-  ## Global Docker image registry
-  ## Please, note that this will override the image registry for all the images, including dependencies, configured to use the global value
-  ##
-  # global:
-  #   imageRegistry:
-
-  ## Bitnami Redis image version
-  ## ref: https://hub.docker.com/r/bitnami/redis/tags/
-  ##
-
-
-  ## Cluster settings
   cluster:
     enabled: false
     slaveCount: 0
-
-  ## Use password authentication
   usePassword: false
-
   master:
     persistence:
       enabled: false

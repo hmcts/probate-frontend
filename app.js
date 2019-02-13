@@ -109,8 +109,12 @@ exports.init = function() {
             ],
             connectSrc: ['\'self\''],
             mediaSrc: ['\'self\''],
-            frameSrc: ['\'none\''],
-            imgSrc: ['\'self\'', 'www.google-analytics.com'],
+            frameSrc: ['vcc-eu4.8x8.com'],
+            imgSrc: [
+                '\'self\'',
+                'www.google-analytics.com',
+                'vcc-eu4.8x8.com'
+            ],
             frameAncestors: ['\'self\'']
         },
         browserSniff: true,

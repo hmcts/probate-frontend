@@ -1,0 +1,8 @@
+{
+  "copyFiles": [
+    {
+      "from": "app/assets/css/hmcts-webchat.css",
+      "to": "public/css/hmcts-webchat.css"
+    }
+  ]
+}

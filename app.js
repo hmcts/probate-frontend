@@ -115,6 +115,10 @@ exports.init = function() {
                 'www.google-analytics.com',
                 'vcc-eu4.8x8.com'
             ],
+            styleSrc: [
+                '\'self\'',
+                '\'unsafe-inline\''
+            ],
             frameAncestors: ['\'self\'']
         },
         browserSniff: true,

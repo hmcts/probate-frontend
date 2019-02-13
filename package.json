@@ -7,7 +7,7 @@
     "node": ">=8.9"
   },
   "scripts": {
-    "setup": "NODE_PATH=. npm run sass && npm run git-info && npm run sass-ie8",
+    "setup": "NODE_PATH=. npm run sass && npm run git-info && npm run sass-ie8 && copy-files-from-to --config copy-files-from-to.json",
     "start": "NODE_PATH=. node server.js",
     "debug": "NODE_PATH=. node inspect server.js",
     "prestart:dev": "npm run sass:watch",
@@ -59,6 +59,7 @@
     "connect-redis": "^3.3.3",
     "connect-timeout": "^1.9.0",
     "cookie-parser": "^1.4.3",
+    "copy-files-from-to": "^1.0.1",
     "csurf": "^1.9.0",
     "debug": "^3.1.0",
     "email-validator": "^1.1.1",

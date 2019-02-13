@@ -44,3 +44,35 @@
 <!--[if lte IE 9]>
 <script src="/public/javascripts/form-polyfill.js"></script>
 <![endif]-->
+
+<!-- This script will not interfere with the button layout, you just need to include it in the same page. It must also be within the <body> section of the page, preferably just before the ending tag. -->
+<script nonce="{{ nonce }}">
+    window.__8x8Chat = {
+        uuid: "script_4860291385c640afb2487b9.55856720",
+        tenant: "aG1jdHNzdGFnaW5nMDE",
+        channel: "Probate_Demo",
+        domain: "https://vcc-eu4.8x8.com",
+        path: "/.",
+        buttonContainerId: "__8x8-chat-button-container-script_4860291385c640afb2487b9.55856720",
+        align: "right",
+        stylesheetURL: " https://raw.githubusercontent.com/hmcts/ctsc-web-chat/master/hmcts-webchat.css",
+        onInit: function(bus) {
+            window.bus = bus;
+            //Send some data
+            bus.publish("customer:set-info", {
+                "Logged In Id": "Not logged in",
+                "Case Id": "Not available"
+            });
+        }
+    };
+
+    (function() {
+        var se = document.createElement("script");
+        se.type = "text/javascript";
+        se.async = true;
+        se.src = window.__8x8Chat.domain + window.__8x8Chat.path + "/CHAT/common/js/chat.js";
+
+        var os = document.getElementsByTagName("script")[0];
+        os.parentNode.insertBefore(se, os);
+    })();
+</script>

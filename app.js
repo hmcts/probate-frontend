@@ -104,6 +104,7 @@ exports.init = function() {
                 '\'sha256-AaA9Rn5LTFZ5vKyp3xOfFcP4YbyOjvWn2up8IKHVAKk=\'',
                 '\'sha256-G29/qSW/JHHANtFhlrZVDZW1HOkCDRc78ggbqwwIJ2g=\'',
                 'www.google-analytics.com',
+                'vcc-eu4.8x8.com',
                 `'nonce-${uuid}'`
             ],
             connectSrc: ['\'self\''],

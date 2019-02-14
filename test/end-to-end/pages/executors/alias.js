@@ -3,12 +3,12 @@
 const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/executors/alias/index');
 
-module.exports = function () {
+module.exports = function (answer) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.click('#alias-optionYes');
+    I.click(`#alias-option${answer}`);
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

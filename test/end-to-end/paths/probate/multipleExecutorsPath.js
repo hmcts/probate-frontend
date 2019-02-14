@@ -110,15 +110,13 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     I.selectExecutorsApplying('Yes');
 
-    const executorsApplyingList = ['3', '5'];
-    I.selectExecutorsDealingWithEstate(executorsApplyingList);
+    const executorsApplyingList = ['4', '6'];
+    I.selectExecutorsDealingWithEstate(executorsApplyingList, true);
+    I.selectExecutorsWithDifferentNameOnWill('Yes');
 
-    I.selectExecutorsWithDifferentNameOnWill();
+    const executorsWithDifferentNameList = ['6'];
+    I.selectWhichExecutorsWithDifferentNameOnWill(executorsApplyingList, executorsWithDifferentNameList);
 
-    const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
-    I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
-
-    const executorsWithDifferentNameList = ['5'];
     forEach(executorsWithDifferentNameList, executorNumber => {
         I.enterExecutorCurrentName(executorNumber, head(executorsWithDifferentNameList) === executorNumber);
         I.enterExecutorCurrentNameReason(executorNumber, 'aliasOther', 'executor_alias_reason');
@@ -129,10 +127,10 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         I.enterExecutorManualAddress(executorNumber);
     });
 
-    const executorsAliveList = ['4', '6'];
+    const executorsNotApplyingList = ['3', '5'];
     let powerReserved = true;
-    forEach(executorsAliveList, executorNumber => {
-        I.selectExecutorRoles(executorNumber, powerReserved, head(executorsAliveList) === executorNumber);
+    forEach(executorsNotApplyingList, executorNumber => {
+        I.selectExecutorRoles(executorNumber, powerReserved, head(executorsNotApplyingList) === executorNumber);
 
         if (powerReserved) {
             I.selectHasExecutorBeenNotified('Yes', executorNumber);

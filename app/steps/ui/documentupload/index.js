@@ -2,6 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
+const {set} = require('lodash');
 
 class DocumentUpload extends ValidationStep {
 
@@ -17,6 +18,12 @@ class DocumentUpload extends ValidationStep {
         }
         ctx.isUploadingDocument = req.body && req.body.isUploadingDocument;
         return ctx;
+    }
+
+    generateFields(ctx, errors) {
+        const fields = super.generateFields(ctx, errors);
+        set(fields, 'isDocumentUploadsPage', 'true');
+        return fields;
     }
 
     handlePost(ctx, errors, formdata) {

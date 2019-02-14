@@ -10,36 +10,38 @@
 
 {% if enableTracking === 'true' %}
     <script nonce="{{ nonce }}">
-        var gatrackingid = "{{ gaTrackingId }}";
+        const gatrackingid = "{{ gaTrackingId }}";
     </script>
     <script src="/public/javascripts/ga-tracking.js"></script>
 {% endif %}
 
-<script src="/public/javascripts/dropzone.js"></script>
-<script nonce="{{ nonce }}">
-    var documentUploadConfig = {
-        csrfToken: '{{ csrfToken }}',
-        validMimeTypes: '{{ documentUpload.validMimeTypes }}',
-        maxFiles: '{{ documentUpload.maxFiles }}',
-        maxSizeBytes: '{{ documentUpload.maxSizeBytes }}',
-        timeout: '{{ documentUpload.timeout }}',
-        content: {
-            removeFileText: '{{ common.documentUploadRemoveFile }}',
-            errorSummaryHeading: '{{ common.errorSummaryHeading }}',
-            invalidFileType: '{{ common['documentUpload-invalidFileType'] }}',
-            invalidFileTypeSummary: '{{ common['documentUpload-invalidFileTypeSummary'] }}',
-            maxFiles: '{{ common['documentUpload-maxFiles'] }}',
-            maxFilesSummary: '{{ common['documentUpload-maxFilesSummary'] }}',
-            maxSize: '{{ common['documentUpload-maxSize'] }}',
-            maxSizeSummary: '{{ common['documentUpload-maxSizeSummary'] }}',
-            uploadFailed: '{{ common['documentUpload-uploadFailed'] }}',
-            uploadFailedSummary: '{{ common['documentUpload-uploadFailedSummary'] }}',
-            uploadTimeout: '{{ common['documentUpload-uploadTimeout'] }}',
-            uploadTimeoutSummary: '{{ common['documentUpload-uploadTimeoutSummary'] }}'
-        }
-    };
-</script>
-<script src="/public/javascripts/document-upload.js"></script>
+{% if fields.isDocumentUploadsPage === 'true' %}
+    <script src="/public/javascripts/dropzone.js"></script>
+    <script nonce="{{ nonce }}">
+        const documentUploadConfig = {
+            csrfToken: '{{ csrfToken }}',
+            validMimeTypes: '{{ documentUpload.validMimeTypes }}',
+            maxFiles: '{{ documentUpload.maxFiles }}',
+            maxSizeBytes: '{{ documentUpload.maxSizeBytes }}',
+            timeout: '{{ documentUpload.timeout }}',
+            content: {
+                removeFileText: '{{ common.documentUploadRemoveFile }}',
+                errorSummaryHeading: '{{ common.errorSummaryHeading }}',
+                invalidFileType: '{{ common['documentUpload-invalidFileType'] }}',
+                invalidFileTypeSummary: '{{ common['documentUpload-invalidFileTypeSummary'] }}',
+                maxFiles: '{{ common['documentUpload-maxFiles'] }}',
+                maxFilesSummary: '{{ common['documentUpload-maxFilesSummary'] }}',
+                maxSize: '{{ common['documentUpload-maxSize'] }}',
+                maxSizeSummary: '{{ common['documentUpload-maxSizeSummary'] }}',
+                uploadFailed: '{{ common['documentUpload-uploadFailed'] }}',
+                uploadFailedSummary: '{{ common['documentUpload-uploadFailedSummary'] }}',
+                uploadTimeout: '{{ common['documentUpload-uploadTimeout'] }}',
+                uploadTimeoutSummary: '{{ common['documentUpload-uploadTimeoutSummary'] }}'
+            }
+        };
+    </script>
+    <script src="/public/javascripts/document-upload.js"></script>
+{% endif %}
 
 <!--[if lte IE 9]>
 <script src="/public/javascripts/form-polyfill.js"></script>
@@ -57,7 +59,7 @@
         stylesheetURL: 'https://cdn.jsdelivr.net/gh/hmcts/ctsc-web-chat/hmcts-webchat.css',
         linkText: '{{ common.chatOnlineWithAnAgent }}',
         additionalText: '{{ common.chatOnlineOpeningHours }}',
-        onInit: function(bus) {
+        onInit: (bus) => {
             window.bus = bus;
             bus.publish('customer:set-info', {
                 'Logged In Id': 'Not logged in',
@@ -85,14 +87,14 @@
 
             callback();
 
-            var mutationObserver = new MutationObserver(callback);
+            const mutationObserver = new MutationObserver(callback);
             mutationObserver.observe(chatContainer, {
                 childList: true,
             });
         }
     };
 
-    (function() {
+    (() => {
         const se = document.createElement('script');
         se.type = 'text/javascript';
         se.async = true;

@@ -18,24 +18,24 @@
 <script src="/public/javascripts/dropzone.js"></script>
 <script nonce="{{ nonce }}">
     var documentUploadConfig = {
-        csrfToken: "{{ csrfToken }}",
-        validMimeTypes: "{{ documentUpload.validMimeTypes }}",
-        maxFiles: "{{ documentUpload.maxFiles }}",
-        maxSizeBytes: "{{ documentUpload.maxSizeBytes }}",
-        timeout: "{{ documentUpload.timeout }}",
+        csrfToken: '{{ csrfToken }}',
+        validMimeTypes: '{{ documentUpload.validMimeTypes }}',
+        maxFiles: '{{ documentUpload.maxFiles }}',
+        maxSizeBytes: '{{ documentUpload.maxSizeBytes }}',
+        timeout: '{{ documentUpload.timeout }}',
         content: {
-            removeFileText: "{{ common.documentUploadRemoveFile }}",
-            errorSummaryHeading: "{{ common.errorSummaryHeading }}",
-            invalidFileType: "{{ common['documentUpload-invalidFileType'] }}",
-            invalidFileTypeSummary: "{{ common['documentUpload-invalidFileTypeSummary'] }}",
-            maxFiles: "{{ common['documentUpload-maxFiles'] }}",
-            maxFilesSummary: "{{ common['documentUpload-maxFilesSummary'] }}",
-            maxSize: "{{ common['documentUpload-maxSize'] }}",
-            maxSizeSummary: "{{ common['documentUpload-maxSizeSummary'] }}",
-            uploadFailed: "{{ common['documentUpload-uploadFailed'] }}",
-            uploadFailedSummary: "{{ common['documentUpload-uploadFailedSummary'] }}",
-            uploadTimeout: "{{ common['documentUpload-uploadTimeout'] }}",
-            uploadTimeoutSummary: "{{ common['documentUpload-uploadTimeoutSummary'] }}"
+            removeFileText: '{{ common.documentUploadRemoveFile }}',
+            errorSummaryHeading: '{{ common.errorSummaryHeading }}',
+            invalidFileType: '{{ common['documentUpload-invalidFileType'] }}',
+            invalidFileTypeSummary: '{{ common['documentUpload-invalidFileTypeSummary'] }}',
+            maxFiles: '{{ common['documentUpload-maxFiles'] }}',
+            maxFilesSummary: '{{ common['documentUpload-maxFilesSummary'] }}',
+            maxSize: '{{ common['documentUpload-maxSize'] }}',
+            maxSizeSummary: '{{ common['documentUpload-maxSizeSummary'] }}',
+            uploadFailed: '{{ common['documentUpload-uploadFailed'] }}',
+            uploadFailedSummary: '{{ common['documentUpload-uploadFailedSummary'] }}',
+            uploadTimeout: '{{ common['documentUpload-uploadTimeout'] }}',
+            uploadTimeoutSummary: '{{ common['documentUpload-uploadTimeoutSummary'] }}'
         }
     };
 </script>
@@ -48,31 +48,45 @@
 <!-- This script will not interfere with the button layout, you just need to include it in the same page. It must also be within the <body> section of the page, preferably just before the ending tag. -->
 <script scr="http://vcc-eu4.8x8.com/" nonce="{{ nonce }}">
     window.__8x8Chat = {
-        uuid: "script_4860291385c640afb2487b9.55856720",
-        tenant: "aG1jdHNzdGFnaW5nMDE",
-        channel: "Probate_Demo",
-        domain: "https://vcc-eu4.8x8.com",
-        path: "/.",
-        buttonContainerId: "__8x8-chat-button-container-script_4860291385c640afb2487b9.55856720",
-        align: "right",
-        stylesheetURL: "https://raw.githubusercontent.com/hmcts/ctsc-web-chat/master/hmcts-webchat.css",
+        uuid: 'script_4860291385c640afb2487b9.55856720',
+        tenant: 'aG1jdHNzdGFnaW5nMDE',
+        channel: 'Probate_Demo',
+        domain: 'https://vcc-eu4.8x8.com',
+        path: '/.',
+        buttonContainerId: '__8x8-chat-button-container-script_4860291385c640afb2487b9-55856720',
+        align: 'right',
+        stylesheetURL: 'https://cdn.jsdelivr.net/gh/hmcts/ctsc-web-chat/hmcts-webchat.css',
+        linkText: '{{ common.chatOnlineWithAnAgent }}',
+        additionalText: '{{ common.chatOnlineOpeningHours }}',
         onInit: function(bus) {
             window.bus = bus;
             //Send some data
-            bus.publish("customer:set-info", {
-                "Logged In Id": "Not logged in",
-                "Case Id": "Not available"
+            bus.publish('customer:set-info', {
+                'Logged In Id': 'Not logged in',
+                'Case Id': 'Not available'
             });
+
+            const chatContainer = document.querySelector(`#${window.__8x8Chat.buttonContainerId}`);
+            const chatLink = document.querySelector(`#${window.__8x8Chat.buttonContainerId} a`);
+
+            const br = document.createElement('br');
+            const additionalText = document.createTextNode(window.__8x8Chat.additionalText);
+
+            chatLink.innerHTML = null;
+            chatLink.innerText = window.__8x8Chat.linkText;
+
+            chatContainer.appendChild(br);
+            chatContainer.appendChild(additionalText);
         }
     };
 
     (function() {
-        var se = document.createElement("script");
-        se.type = "text/javascript";
+        const se = document.createElement('script');
+        se.type = 'text/javascript';
         se.async = true;
-        se.src = window.__8x8Chat.domain + window.__8x8Chat.path + "/CHAT/common/js/chat.js";
+        se.src = `${window.__8x8Chat.domain}${window.__8x8Chat.path}/CHAT/common/js/chat.js`;
 
-        var os = document.getElementsByTagName("script")[0];
+        const os = document.getElementsByTagName('script')[0];
         os.parentNode.insertBefore(se, os);
     })();
 </script>

@@ -10,7 +10,7 @@ module.exports = function (executorNumber, firstRecord) {
     if (firstRecord) {
         I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     } else {
-        I.seeCurrentUrlEquals(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
+        I.seeCurrentUrlEquals(pageUnderTest.getUrl(parseInt(executorNumber)-1));
     }
 
     I.fillField('#email', testConfig.TestEnvEmailAddress);

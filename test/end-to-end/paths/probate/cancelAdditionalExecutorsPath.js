@@ -2,10 +2,9 @@
 'use strict';
 
 const taskListContent = require('app/resources/en/translation/tasklist');
-const data = require('test/data/injecting-data/three-executors-start-from-declaration-section');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('test/config.js');
-let emailId;
+const {forEach, head} = require('lodash');
 
 Feature('Cancel Additional Executors Flow');
 
@@ -23,12 +22,80 @@ AfterSuite(() => {
 
 Scenario(TestConfigurator.idamInUseText('Cancel Additional Executors Journey: 1st stage of completing application'), function* (I) {
 
-    emailId = process.env.testCitizenEmail;
-    TestConfigurator.injectFormData(data, emailId);
-    I.amOnPage(testConfig.TestE2EFrontendUrl);
+    // Eligibility Task (pre IdAM)
+    I.startApplication();
+
+    I.selectDeathCertificate('No');
+    I.seeStopPage('deathCertificate');
+    I.selectDeathCertificate('Yes');
+
+    I.selectDeceasedDomicile('No');
+    I.seeStopPage('notInEnglandOrWales');
+    I.selectDeceasedDomicile('Yes');
+
+    I.selectIhtCompleted('No');
+    I.seeStopPage('ihtNotCompleted');
+    I.selectIhtCompleted('Yes');
+
+    I.selectPersonWhoDiedLeftAWill('Yes');
+
+    I.selectOriginalWill('No');
+    I.seeStopPage('notOriginal');
+    I.selectOriginalWill('Yes');
+
+    I.selectApplicantIsExecutor('No');
+    I.seeStopPage('notExecutor');
+    I.selectApplicantIsExecutor('Yes');
+
+    I.selectMentallyCapable('No');
+    I.seeStopPage('mentalCapacity');
+    I.selectMentallyCapable('Yes');
+
+    I.startApply();
 
     // IdAM
     I.authenticateWithIdamIfAvailable();
+
+    // Deceased Details
+    I.selectATask(taskListContent.taskNotStarted);
+    I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
+    I.enterDeceasedDateOfBirth('01', '01', '1950');
+    I.enterDeceasedDateOfDeath('01', '01', '2017');
+    I.enterDeceasedAddress();
+    I.selectDocumentsToUpload();
+    I.selectInheritanceMethodPaper();
+
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.enterGrossAndNet('205', '600000', '300000');
+    } else {
+        I.enterGrossAndNet('205', '500', '400');
+    }
+
+    I.selectDeceasedAlias('No');
+    I.selectDeceasedMarriedAfterDateOnWill('No');
+    I.selectWillCodicils('No');
+
+    // ExecutorsTask
+    I.selectATask(taskListContent.taskNotStarted);
+    I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
+    I.selectNameAsOnTheWill('Yes');
+    I.enterApplicantPhone();
+    I.enterAddressManually();
+
+    const totalExecutors = '3';
+    I.enterTotalExecutors(totalExecutors);
+    I.enterExecutorNames(totalExecutors);
+    I.selectExecutorsAllAlive('Yes');
+    I.selectExecutorsApplying('Yes');
+
+    const executorsApplyingList = ['2', '3'];
+    I.selectExecutorsDealingWithEstate(executorsApplyingList, false);
+    I.selectExecutorsWithDifferentNameOnWill('No');
+
+    forEach(executorsApplyingList, executorNumber => {
+        I.enterExecutorContactDetails(executorNumber, head(executorsApplyingList) === executorNumber);
+        I.enterExecutorManualAddress(executorNumber);
+    });
 
     // Review and confirm Task
     I.selectATask(taskListContent.taskNotStarted);

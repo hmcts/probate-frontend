@@ -74,7 +74,6 @@
                 const chatImg = document.querySelector(`#${window.__8x8Chat.buttonContainerId} img`);
 
                 if (chatImg) {
-                    const chatContainer = document.querySelector(`#${window.__8x8Chat.buttonContainerId}`);
                     const chatLink = document.querySelector(`#${window.__8x8Chat.buttonContainerId} a`);
 
                     const br = document.createElement('br');
@@ -88,12 +87,14 @@
                 }
             };
 
-            callback();
+            if (chatContainer) {
+                callback();
 
-            const mutationObserver = new MutationObserver(callback);
-            mutationObserver.observe(chatContainer, {
-                childList: true,
-            });
+                const mutationObserver = new MutationObserver(callback);
+                mutationObserver.observe(chatContainer, {
+                    childList: true,
+                });
+            }
         }
     };
 

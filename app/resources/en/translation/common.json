@@ -61,6 +61,6 @@
   "documentUpload-uploadFailed": "Select your document and try again",
   "documentUpload-uploadTimeoutSummary": "The file has taken too long to upload",
   "documentUpload-uploadTimeout": "The file may be too big, reduce the file size and try again or post the death certificate",
-  "chatOnlineWithAnAgent": "Chat online with an Agent",
+  "chatOnlineWithAnAgent": "Chat online with an agent",
   "chatOnlineOpeningHours": "(Monday to Friday, 9.00am to 5.00pm)"
 }

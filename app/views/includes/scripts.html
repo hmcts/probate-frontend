@@ -45,7 +45,6 @@
 <script src="/public/javascripts/form-polyfill.js"></script>
 <![endif]-->
 
-<!-- This script will not interfere with the button layout, you just need to include it in the same page. It must also be within the <body> section of the page, preferably just before the ending tag. -->
 <script scr="http://vcc-eu4.8x8.com/" nonce="{{ nonce }}">
     window.__8x8Chat = {
         uuid: 'script_4860291385c640afb2487b9.55856720',
@@ -60,23 +59,36 @@
         additionalText: '{{ common.chatOnlineOpeningHours }}',
         onInit: function(bus) {
             window.bus = bus;
-            //Send some data
             bus.publish('customer:set-info', {
                 'Logged In Id': 'Not logged in',
                 'Case Id': 'Not available'
             });
 
             const chatContainer = document.querySelector(`#${window.__8x8Chat.buttonContainerId}`);
-            const chatLink = document.querySelector(`#${window.__8x8Chat.buttonContainerId} a`);
+            const callback = () => {
+                const chatImg = document.querySelector(`#${window.__8x8Chat.buttonContainerId} img`);
 
-            const br = document.createElement('br');
-            const additionalText = document.createTextNode(window.__8x8Chat.additionalText);
+                if (chatImg) {
+                    const chatContainer = document.querySelector(`#${window.__8x8Chat.buttonContainerId}`);
+                    const chatLink = document.querySelector(`#${window.__8x8Chat.buttonContainerId} a`);
 
-            chatLink.innerHTML = null;
-            chatLink.innerText = window.__8x8Chat.linkText;
+                    const br = document.createElement('br');
+                    const additionalText = document.createTextNode(window.__8x8Chat.additionalText);
 
-            chatContainer.appendChild(br);
-            chatContainer.appendChild(additionalText);
+                    chatLink.innerHTML = null;
+                    chatLink.innerText = window.__8x8Chat.linkText;
+
+                    chatContainer.appendChild(br);
+                    chatContainer.appendChild(additionalText);
+                }
+            };
+
+            callback();
+
+            var mutationObserver = new MutationObserver(callback);
+            mutationObserver.observe(chatContainer, {
+                childList: true,
+            });
         }
     };
 

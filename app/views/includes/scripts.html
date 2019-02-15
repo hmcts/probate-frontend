@@ -54,7 +54,7 @@
         channel: 'Probate_Demo',
         domain: 'https://vcc-eu4.8x8.com',
         path: '/.',
-        buttonContainerId: '__8x8-chat-button-container-script_4860291385c640afb2487b9-55856720',
+        buttonContainerId: 'chat-button-container',
         align: 'right',
         stylesheetURL: 'https://cdn.jsdelivr.net/gh/hmcts/ctsc-web-chat/hmcts-webchat.css',
         linkText: '{{ common.chatOnlineWithAnAgent }}',
@@ -67,7 +67,7 @@
             });
 
             const chatContainer = document.querySelector(`#${window.__8x8Chat.buttonContainerId}`);
-            const callback = () => {
+            const replaceChatLink = () => {
                 const chatImg = document.querySelector(`#${window.__8x8Chat.buttonContainerId} img`);
 
                 if (chatImg) {
@@ -85,9 +85,9 @@
             };
 
             if (chatContainer) {
-                callback();
+                replaceChatLink();
 
-                const mutationObserver = new MutationObserver(callback);
+                const mutationObserver = new MutationObserver(replaceChatLink);
                 mutationObserver.observe(chatContainer, {
                     childList: true,
                 });

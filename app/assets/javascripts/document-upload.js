@@ -6,44 +6,46 @@ $(document).ready(function () {
 
 var DocumentUpload = {
     initDropzone: function() {
-        new Dropzone('.document-upload__dropzone', {
-            url: '/document-upload',
-            previewsContainer: '.document-upload__preview',
-            headers: {
-                'x-csrf-token': documentUploadConfig.csrfToken
-            },
-            params: {
-                'isUploadingDocument': true
-            },
-            acceptedFiles: documentUploadConfig.validMimeTypes,
-            maxFiles: documentUploadConfig.maxFiles,
-            maxFilesize: documentUploadConfig.maxSizeBytes,
-            addRemoveLinks: true,
-            parallelUploads: 1,
-            previewTemplate: '<div class="dz-preview dz-file-preview"><div class="dz-error-message"><span data-dz-errormessage></span></div><div class="dz-details"><div class="dz-filename"><span data-dz-name></span></div></div><div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div></div>',
-            dictRemoveFile: documentUploadConfig.content.removeFileText,
-            dictInvalidFileType: documentUploadConfig.content.invalidFileType,
-            dictMaxFilesExceeded: documentUploadConfig.content.maxFiles,
-            dictFileTooBig: documentUploadConfig.content.maxSize
-        })
-        .on('addedfile', function() {
-            DocumentUpload.hideEmptyListMessage();
-            DocumentUpload.disableSubmitButton();
-            DocumentUpload.addDataIndex();
-        })
-        .on('removedfile', function(file) {
-            DocumentUpload.showEmptyListMessage();
-            DocumentUpload.removeErrorSummaryLine(file.previewElement.firstElementChild.innerText);
-            DocumentUpload.removeErrorSummary();
-            DocumentUpload.removeDocument(file._removeLink.dataset.index);
-        })
-        .on('error', function(file, error) {
-            DocumentUpload.showErrorSummary();
-            DocumentUpload.showErrorSummaryLine(error);
-        })
-        .on('queuecomplete', function(file) {
-            DocumentUpload.enableSubmitButton();
-        });
+        if ($('.document-upload__dropzone').length) {
+            new Dropzone('.document-upload__dropzone', {
+                url: '/document-upload',
+                previewsContainer: '.document-upload__preview',
+                headers: {
+                    'x-csrf-token': documentUploadConfig.csrfToken
+                },
+                params: {
+                    'isUploadingDocument': true
+                },
+                acceptedFiles: documentUploadConfig.validMimeTypes,
+                maxFiles: documentUploadConfig.maxFiles,
+                maxFilesize: documentUploadConfig.maxSizeBytes,
+                addRemoveLinks: true,
+                parallelUploads: 1,
+                previewTemplate: '<div class="dz-preview dz-file-preview"><div class="dz-error-message"><span data-dz-errormessage></span></div><div class="dz-details"><div class="dz-filename"><span data-dz-name></span></div></div><div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div></div>',
+                dictRemoveFile: documentUploadConfig.content.removeFileText,
+                dictInvalidFileType: documentUploadConfig.content.invalidFileType,
+                dictMaxFilesExceeded: documentUploadConfig.content.maxFiles,
+                dictFileTooBig: documentUploadConfig.content.maxSize
+            })
+                .on('addedfile', function() {
+                    DocumentUpload.hideEmptyListMessage();
+                    DocumentUpload.disableSubmitButton();
+                    DocumentUpload.addDataIndex();
+                })
+                .on('removedfile', function(file) {
+                    DocumentUpload.showEmptyListMessage();
+                    DocumentUpload.removeErrorSummaryLine(file.previewElement.firstElementChild.innerText);
+                    DocumentUpload.removeErrorSummary();
+                    DocumentUpload.removeDocument(file._removeLink.dataset.index);
+                })
+                .on('error', function(file, error) {
+                    DocumentUpload.showErrorSummary();
+                    DocumentUpload.showErrorSummaryLine(error);
+                })
+                .on('queuecomplete', function(file) {
+                    DocumentUpload.enableSubmitButton();
+                });
+        }
     },
     makeDropzoneLinkClickable: function() {
         $('.document-upload__dropzone-text--choose-file').click(function() {

@@ -62,17 +62,6 @@ describe('DocumentUpload.js', () => {
         });
     });
 
-    describe('generateFields()', () => {
-        it('should generate the isDocumentUploadsPage field', (done) => {
-            const DocumentUpload = steps.DocumentUpload;
-            const fields = DocumentUpload.generateFields();
-            expect(fields).to.deep.equal({
-                isDocumentUploadsPage: 'true'
-            });
-            done();
-        });
-    });
-
     describe('handlePost()', () => {
         it('should return the origininal ctx and errors when an uploaded document is valid', (done) => {
             const ctxToTest = {};

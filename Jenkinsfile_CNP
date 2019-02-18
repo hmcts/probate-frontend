@@ -52,6 +52,8 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   ]
 }
 
+env.IDAM_URL = 'https://preprod-idamapi.reform.hmcts.net:3511'
+
 withPipeline("nodejs", product, component) {
    afterCheckout {
     onMaster {

@@ -4,22 +4,16 @@ nodejs:
     REFORM_TEAM: probate
     REFORM_SERVICE_NAME: probate-frontend
     FEATURE_TOGGLES_API_URL: http://${SERVICE_NAME}-ftr-tgl-api
-    IDAM_API_URL: https://preprod-idamapi.reform.hmcts.net:3511
-    IDAM_URL: https://preprod-idamapi.reform.hmcts.net:3511
-    IDAM_LOGIN_URL: https://idam.preprod.ccidam.reform.hmcts.net/login
-    IDAM_S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
-    S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
-    IDAM_S2S_AUTH_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
-    PAYMENT_CREATE_URL: http://payment-api-aat.service.core-compute-aat.internal/card-payments
-    VALIDATION_SERVICE_URL: http://probate-business-service-aat.service.core-compute-aat.internal/validate
-    BUSINESS_DOCUMENT_URL: http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument
-    SUBMIT_SERVICE_URL: http://probate-submit-service-aat.service.core-compute-aat.internal
-    PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
     REFORM_ENVIRONMENT : aat
     USE_REDIS : true
     REDIS_USE_TLS : false
     REDIS_HOST : ${SERVICE_NAME}-redis-master
     REDIS_PORT : 6379
+    USE_IDAM : true
+    IDAM_SERVICE_KEY : ${IDAM_S2S_SECRET}
+    IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE : ${IDAM_SECRET_PROBATE}
+    POSTCODE_SERVICE_URL : ${PRO_POSTCODE_SERVICE_URL}
+    POSTCODE_SERVICE_TOKEN : ${PRO_POSTCODE_SERVICE_TOKEN}
 
 # Don't modify below here
   image: ${IMAGE_NAME}

@@ -1,6 +1,7 @@
 nodejs:
   applicationPort: 3000
   environment:
+    PUBLIC_PROTOCOL: https
     REFORM_TEAM: probate
     REFORM_SERVICE_NAME: probate-frontend
     FEATURE_TOGGLES_API_URL: http://${SERVICE_NAME}-ftr-tgl-api

@@ -215,6 +215,10 @@ variable "feature_toggles_api_url" {
   type = "string"
 }
 
+variable "inject_form_data_url" {
+  type = "string"
+}
+
 variable "asp_rg" {
 
 }

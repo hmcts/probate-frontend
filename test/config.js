@@ -22,9 +22,10 @@ module.exports = {
     TestUseIdam: process.env.USE_IDAM || 'true',
     TestUseProxy: process.env.TEST_USE_PROXY || 'false',
     TestWaitForDocumentUpload: 60,
+
     postcodeLookup: {
-        token: process.env.ADDRESS_TOKEN || 'Token 39b85db32c6f41f27561c49bf348a1ec10c96117',
-        url: process.env.POSTCODE_SERVICE_URL || 'https://postcodeinfo.service.justice.gov.uk',
+        token: process.env.ADDRESS_TOKEN,
+        url: process.env.POSTCODE_SERVICE_URL,
         endpoint: process.env.POSTCODE_SERVICE_ENDPOINT || '/addresses',
         contentType: 'application/json',
         singleAddressPostcode: 'SW1A 1AA',
@@ -35,9 +36,11 @@ module.exports = {
         invalidAddressPostcode: 'Z99 9ZZ',
         emptyAddressPostcode: ''
     },
+
     govPayTestCardNos: {
         validCardNo: '4242424242424242'
     },
+
     govPayTestCardDetails: {
         expiryMonth: '06',
         expiryYear: '99',
@@ -47,19 +50,21 @@ module.exports = {
         addressCity: 'London',
         addressPostcode: 'SW1A1AA'
     },
+
     validation: {
         url: process.env.TEST_VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
     },
+
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',
-    TestReformProxy: 'http://proxyout.reform.hmcts.net:8080',
-    TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS || 'test.probate.inbox@gmail.com',
-    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER || '07952626390',
+
+    TestEnvEmailAddress: process.env.TEST_EMAIL_ADDRESS,
+    TestEnvMobileNumber: process.env.TEST_MOBILE_NUMBER,
     s2sStubErrorSequence: '000',
     links: {
         cookies: '/cookies',
-        terms: process.env.TERMS_AND_CONDITIONS || '/terms-conditions',
-        survey: process.env.SURVEY || 'http://www.smartsurvey.co.uk/s/CFZF7/',
-        surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'http://www.smartsurvey.co.uk/s/A2LY8/',
+        terms: process.env.TERMS_AND_CONDITIONS,
+        survey: process.env.SURVEY,
+        surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION,
         privacy: '/privacy-policy',
         contact: '/contact-us',
         callCharges: 'https://www.gov.uk/call-charges',

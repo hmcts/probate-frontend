@@ -6,7 +6,7 @@ module.exports = {
     TestUseIdam: process.env.USE_IDAM || 'true',
     TestUseSidam: process.env.USE_SIDAM || 'false',
     TestIdamLoginUrl: process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
-    TestInjectFormDataURL:  process.env.INJECT_FORM_DATA_URL || 'http://localhost:8181/formdata',
+    TestInjectFormDataURL: process.env.INJECT_FORM_DATA_URL || 'http://localhost:8181/formdata',
     TestReformProxy: 'http://proxyout.reform.hmcts.net:8080',
     TestUseGovPay: process.env.USE_GOV_PAY || 'true',
     TestInviteIdListUrl: process.env.INVITE_ID_LIST_URL,

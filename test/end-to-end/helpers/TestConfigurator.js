@@ -179,7 +179,8 @@ class TestConfigurator {
         return copiesAndEstateInfo;
     }
 
-    injectFormData(data, emailId) {
+    injectFormData(data) {
+        const emailId = this.getTestCitizenEmail();
         const formData =
             {
                 id: emailId,

@@ -5,6 +5,7 @@ const {curry, set, isEmpty, forEach} = require('lodash');
 const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
 const DetectDataChange = require('app/wrappers/DetectDataChange');
 const FormatUrl = require('app/utils/FormatUrl');
+const commonContent = require('app/resources/en/translation/common');
 
 class UIStepRunner {
 
@@ -35,14 +36,14 @@ class UIStepRunner {
             res.render(step.template, {content, fields, errors, common}, (err, html) => {
                 if (err) {
                     req.log.error(err);
-                    return res.status(500).render('errors/500');
+                    return res.status(500).render('errors/500', {common: commonContent});
                 }
                 step.renderPage(res, html);
 
             });
         }).catch((error) => {
             req.log.error(error);
-            res.status(500).render('errors/500');
+            res.status(500).render('errors/500', {common: commonContent});
         });
     }
 
@@ -95,7 +96,7 @@ class UIStepRunner {
             }
         }).catch((error) => {
             req.log.error(error);
-            res.status(500).render('errors/500');
+            res.status(500).render('errors/500', {common: commonContent});
         });
     }
 }

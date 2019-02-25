@@ -9,6 +9,7 @@ const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const documentUpload = require('app/documentUpload');
 const documentDownload = require('app/documentDownload');
+const paymentFees = require('app/paymentFees');
 const setJourney = require('app/middleware/setJourney');
 const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
 const ServiceMapper = require('app/utils/ServiceMapper');
@@ -56,6 +57,7 @@ router.get('/', (req, res) => {
 });
 
 router.use(documentDownload);
+router.use(paymentFees);
 
 router.use(setJourney);
 

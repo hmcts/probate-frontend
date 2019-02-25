@@ -37,6 +37,7 @@
     "git-info": "node-git-info-json",
     "//": "The below scripts are just stubs, don't use them in production",
     "s2s-stub": "NODE_PATH=. node test/service-stubs/idam.js",
+    "fees-api-stub": "NODE_PATH=. node test/service-stubs/fees-api.js",
     "submit-stub": "NODE_PATH=. node test/service-stubs/submit.js",
     "persistence-stub": "NODE_PATH=. node test/service-stubs/persistence.js",
     "business-stub": "NODE_PATH=. node test/service-stubs/business.js",

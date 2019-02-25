@@ -15,11 +15,14 @@ nodejs:
     BUSINESS_DOCUMENT_URL: http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument
     SUBMIT_SERVICE_URL: http://probate-submit-service-aat.service.core-compute-aat.internal
     PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
+    FEES_REGISTRY_URL: http://fees-register-api-aat.service.core-compute-aat.internal/fees-register
     REFORM_ENVIRONMENT : aat
     USE_REDIS : true
     REDIS_USE_TLS : false
     REDIS_HOST : ${SERVICE_NAME}-redis-master
     REDIS_PORT : 6379
+    POSTCODE_SERVICE_URL : ${PRO_POSTCODE_SERVICE_URL}
+    POSTCODE_SERVICE_TOKEN : ${PRO_POSTCODE_SERVICE_TOKEN}
 
 # Don't modify below here
   image: ${IMAGE_NAME}

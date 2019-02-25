@@ -8,41 +8,42 @@ const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const Payment = require('app/services/Payment');
 const Authorise = require('app/services/Authorise');
+const FeesCalculator = require('app/utils/FeesCalculator');
 
 class PaymentBreakdown extends Step {
     static getUrl() {
         return '/payment-breakdown';
     }
 
-    handleGet(ctx) {
+    handleGet(ctx, formdata) {
+        const fees = formdata.fees;
+        this.checkFeesStatus(fees);
+
+        ctx.copies = this.createCopiesLayout(formdata);
+        ctx.applicationFee = fees.applicationfee;
+        ctx.total = Number.isInteger(fees.total) ? fees.total : parseFloat(fees.total).toFixed(2);
         return [ctx, ctx.errors];
+    }
+
+    checkFeesStatus(fees) {
+        if (fees.status !== 'success') {
+            throw new Error('Unable to calculate fees from Fees Api');
+        }
+    }
+
+    createCopiesLayout(formdata) {
+        const ukCopies = formdata.fees.ukcopies;
+        const overseasCopies = formdata.fees.overseascopies;
+        return {
+            uk: {number: ukCopies, cost: formdata.fees.ukcopiesfee},
+            overseas: {number: overseasCopies, cost: formdata.fees.overseascopiesfee},
+        };
     }
 
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        const commonContent = this.commonContent();
 
-        let applicationFee;
-
-        if (get(formdata, 'iht.netValue') < config.payment.applicationFeeThreshold) {
-            applicationFee = 0;
-        } else {
-            applicationFee = config.payment.applicationFee;
-        }
-
-        const ukCopies = get(formdata, 'copies.uk', 0);
-        const overseasCopies = get(formdata, 'assets.assetsoverseas', commonContent.no) === commonContent.yes ? formdata.copies.overseas : 0;
-        const copies = {
-            uk: {number: ukCopies, cost: parseFloat(ukCopies * config.payment.copies.uk.fee)},
-            overseas: {number: overseasCopies, cost: parseFloat(overseasCopies * config.payment.copies.overseas.fee)},
-        };
-        const extraCopiesCost = copies.uk.cost + copies.overseas.cost;
-        const total = applicationFee + extraCopiesCost;
-
-        ctx.copies = copies;
-        ctx.applicationFee = applicationFee;
-        ctx.total = Number.isInteger(total) ? total : parseFloat(total).toFixed(2);
         ctx.authToken = req.authToken;
         ctx.userId = req.userId;
         ctx.deceasedLastName = get(formdata.deceased, 'lastName', '');
@@ -51,6 +52,17 @@ class PaymentBreakdown extends Step {
     }
 
     * handlePost(ctx, errors, formdata, session, hostname) {
+        const feesCalculator = new FeesCalculator(config.services.feesRegister.url, ctx.sessionID);
+        const confirmFees = yield feesCalculator.calc(formdata, ctx.authToken);
+        this.checkFeesStatus(confirmFees);
+        const originalFees = formdata.fees;
+        if (confirmFees.total !== originalFees.total) {
+            throw new Error (`Error calculated fees totals have changed from ${originalFees.total} to ${confirmFees.total}`);
+        }
+        ctx.total = originalFees.total;
+        ctx.applicationFee = originalFees.applicationfee;
+        ctx.copies = this.createCopiesLayout(formdata);
+
         const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
         const serviceAuthResult = yield authorise.post();
         if (serviceAuthResult.name === 'Error') {
@@ -161,6 +173,7 @@ class PaymentBreakdown extends Step {
         delete ctx.authToken;
         delete ctx.paymentError;
         delete ctx.deceasedLastName;
+        delete formdata.fees;
         return [ctx, formdata];
     }
 

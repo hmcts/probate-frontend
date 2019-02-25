@@ -1,0 +1,59 @@
+[
+  {
+    "code": "FEE0226",
+    "fee_type": "ranged",
+    "channel_type": {
+      "name": "default"
+    },
+    "event_type": {
+      "name": "issue"
+    },
+    "jurisdiction1": {
+      "name": "family"
+    },
+    "jurisdiction2": {
+      "name": "probate registry"
+    },
+    "service_type": {
+      "name": "probate"
+    },
+    "applicant_type": {
+      "name": "personal"
+    },
+    "fee_versions": [
+      {
+        "version": 1,
+        "valid_from": "2011-04-04T00:00:00.000+0000",
+        "description": "Personal Application for grant of Probate",
+        "status": "approved",
+        "flat_amount": {
+          "amount": 215
+        },
+        "memo_line": "Personal Application for grant of Probate",
+        "statutory_instrument": "2011 No. 588 (L. 4)",
+        "si_ref_id": "2",
+        "natural_account_code": "4481102158",
+        "fee_order_name": "Non-Contentious Probate Fees",
+        "direction": "enhanced"
+      }
+    ],
+    "current_version": {
+      "version": 1,
+      "valid_from": "2011-04-04T00:00:00.000+0000",
+      "description": "Personal Application for grant of Probate",
+      "status": "approved",
+      "flat_amount": {
+        "amount": 215
+      },
+      "memo_line": "Personal Application for grant of Probate",
+      "statutory_instrument": "2011 No. 588 (L. 4)",
+      "si_ref_id": "2",
+      "natural_account_code": "4481102158",
+      "fee_order_name": "Non-Contentious Probate Fees",
+      "direction": "enhanced"
+    },
+    "min_range": 5000.01,
+    "range_unit": "GBP",
+    "unspecified_claim_amount": false
+  }
+]

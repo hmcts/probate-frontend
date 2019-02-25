@@ -5,7 +5,6 @@ const taskListContent = require('app/resources/en/translation/tasklist');
 const data = require('test/data/injecting-data/single-executor-start-from-payment-section');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('test/config.js');
-let emailId;
 
 Feature('Fee Payment Flow');
 
@@ -23,8 +22,7 @@ Data(TestConfigurator.createFeeInfoTable()).Scenario('Fee Payment: Check payment
     data.iht.grossValue = current.grossValue;
     data.iht.netValue = current.netValue;
 
-    emailId = process.env.testCitizenEmail;
-    TestConfigurator.injectFormData(data, emailId);
+    TestConfigurator.injectFormData(data);
 
     I.amOnPage(testConfig.TestE2EFrontendUrl);
 
@@ -53,8 +51,7 @@ Data(TestConfigurator.createFeeInfoTableFor1Copy()).Scenario('Fee Payment: Check
     data.iht.grossValue = current.grossValue;
     data.iht.netValue = current.netValue;
 
-    emailId = process.env.testCitizenEmail;
-    TestConfigurator.injectFormData(data, emailId);
+    TestConfigurator.injectFormData(data);
 
     I.amOnPage(testConfig.TestE2EFrontendUrl);
 

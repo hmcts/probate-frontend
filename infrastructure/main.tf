@@ -1,12 +1,12 @@
-provider "vault" {
+#//provider "vault" {
   //  # It is strongly recommended to configure this provider through the
   //  # environment variables described above, so that each user can have
   //  # separate credentials set in the environment.
   //  #
   //  # This will default to using $VAULT_ADDR
   //  # But can be set explicitly
-  address = "https://vault.reform.hmcts.net:6200"
-}
+#//  address = "https://vault.reform.hmcts.net:6200"
+#//}
 
 provider "azurerm" {
   version = "1.19.0"

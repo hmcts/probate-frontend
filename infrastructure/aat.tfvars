@@ -44,6 +44,8 @@ probate_fees_registry_service_url = "http://fees-register-api-aat.service.core-c
 
 feature_toggles_api_url = "http://rpe-feature-toggle-api-aat.service.core-compute-aat.internal"
 
+inject_form_data_url =  "http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata"
+
 capacity = "2"
 asp_name = "probate-aat"
 asp_rg = "probate-aat"

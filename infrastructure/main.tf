@@ -191,6 +191,7 @@ module "probate-frontend" {
     REFORM_ENVIRONMENT = "${var.reform_envirionment_for_test}"
 
     FEATURE_TOGGLES_API_URL = "${var.feature_toggles_api_url}"
+    INJECT_FORM_DATA_URL = "${var.inject_form_data_url}"
 
     TESTING = "TESTING"
        // Cache

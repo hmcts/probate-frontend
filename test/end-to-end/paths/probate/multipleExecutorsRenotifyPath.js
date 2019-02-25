@@ -6,7 +6,6 @@ const commonContent = require('app/resources/en/translation/common');
 const data = require('test/data/injecting-data/three-executors-start-from-declaration-section');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('test/config.js');
-let emailId;
 
 Feature('Multiple Executors Renotify Flow');
 
@@ -23,8 +22,7 @@ let grabIdsNewExecutors;
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Renotify Journey - Main applicant: 1st stage of completing application'), function* (I) {
 
-    emailId = process.env.testCitizenEmail;
-    TestConfigurator.injectFormData(data, emailId);
+    TestConfigurator.injectFormData(data);
 
     I.amOnPage(testConfig.TestE2EFrontendUrl);
 

@@ -5,6 +5,8 @@ const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('test/config.js');
 const {forEach, head} = require('lodash');
+const paymentType = testConfig.paymentType;
+const copies = testConfig.copies;
 
 Feature('Cancel Additional Executors Flow');
 
@@ -66,9 +68,9 @@ Scenario(TestConfigurator.idamInUseText('Cancel Additional Executors Journey: 1s
     I.selectInheritanceMethodPaper();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterGrossAndNet('205', '600000', '300000');
+        I.enterGrossAndNet(paymentType.form, paymentType.pay.gross, paymentType.pay.net);
     } else {
-        I.enterGrossAndNet('205', '500', '400');
+        I.enterGrossAndNet(paymentType.form, paymentType.noPay.gross, paymentType.noPay.net);
     }
 
     I.selectDeceasedAlias('No');
@@ -129,14 +131,19 @@ Scenario(TestConfigurator.idamInUseText('Continuation of applicant journey: fina
 
     //Extra Copies Task
     I.selectATask(taskListContent.taskNotStarted);
-    I.enterUkCopies('1');
+    I.enterUkCopies(copies.pay.uk);
     I.selectOverseasAssets();
-    I.enterOverseasCopies('1');
+    I.enterOverseasCopies(copies.pay.overseas);
     I.seeCopiesSummary();
 
     //PaymentTask
     I.selectATask(taskListContent.taskNotStarted);
-    I.seePaymentBreakdownPage('1', '1', '6000');
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.seePaymentBreakdownPage(copies.pay.uk, copies.pay.overseas, paymentType.pay.net);
+    } else {
+        I.seePaymentBreakdownPage(copies.pay.uk, copies.pay.overseas, paymentType.noPay.net);
+    }
+
     I.seeGovUkPaymentPage();
     I.seeGovUkConfirmPage();
     I.seePaymentStatusPage();

@@ -6,6 +6,8 @@ const commonContent = require('app/resources/en/translation/common');
 const data = require('test/data/injecting-data/three-executors-start-from-declaration-section');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('test/config.js');
+const paymentType = testConfig.paymentType;
+const copies = testConfig.copies;
 
 Feature('Multiple Executors Renotify Flow');
 
@@ -125,14 +127,14 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     //Extra Copies Task
     I.selectATask(taskListContent.taskNotStarted);
-    I.enterUkCopies('1');
+    I.enterUkCopies(copies.pay.uk);
     I.selectOverseasAssets();
-    I.enterOverseasCopies('1');
+    I.enterOverseasCopies(copies.pay.overseas);
     I.seeCopiesSummary();
 
     //PaymentTask
     I.selectATask(taskListContent.taskNotStarted);
-    I.seePaymentBreakdownPage('1', '1', '6000');
+    I.seePaymentBreakdownPage(copies.pay.uk, copies.pay.overseas, paymentType.pay.net);
     I.seeGovUkPaymentPage();
     I.seeGovUkConfirmPage();
     I.seePaymentStatusPage();

@@ -14,8 +14,11 @@ module.exports = function (executorNumber, powerReserved, firstRecord) {
 
     if (powerReserved) {
         I.click('#notApplyingReason-optionPowerReserved');
+        I.persistExecutor(executorNumber, '{otherExecutorApplying}', 'but reserves power to do so at a later date.');
+
     } else {
         I.click('#notApplyingReason-optionRenunciated');
+        I.persistExecutor(executorNumber, '{otherExecutorApplying}', 'now and gives up the right to do so in the future.');
     }
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);

@@ -11,6 +11,7 @@ module.exports = function (executorsWhoDiedList) {
 
     forEach(executorsWhoDiedList, executorNumber => {
         I.checkOption('#executorsWhoDied-'+(parseInt(executorNumber) - 1));
+        I.persistExecutor(executorNumber, 'executorApplying', false);
     });
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);

@@ -1,0 +1,16 @@
+{
+  "{applicantName}": "",
+  "{applicantAddress}": "",
+  "{detailsOfApplicants}": "",
+  "{deceasedName}": "",
+  "{deceasedDob}": "",
+  "{deceasedDod}": "",
+  "{deceasedOtherNames}": "",
+  "{ihtGrossValue}": "",
+  "{ihtNetValue}": "",
+  "{applicantWillName}": "",
+  "{applicantCurrentName}": "",
+  "{aliasReason}": "",
+  "{applicantNameOnWill}": "",
+  "codicils": false
+}

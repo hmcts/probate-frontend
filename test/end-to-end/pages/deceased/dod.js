@@ -11,6 +11,8 @@ module.exports = function (day, month, year, saveAndClose = false) {
     I.fillField('#dod_month', month);
     I.fillField('#dod_year', year);
 
+    I.persistMainApplicant('{deceasedDod}', `${parseInt(day)} ${commonContent.months.split(', ')[month-1]} ${year}`);
+
     if (saveAndClose) {
         //I.waitForNavigationToComplete(`a[href="${commonContent.saveAndClose}"]`);
         I.waitForNavigationToComplete('.column-two-thirds > p a');

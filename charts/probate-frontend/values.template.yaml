@@ -24,7 +24,7 @@ nodejs:
     POSTCODE_SERVICE_URL : ${PRO_POSTCODE_SERVICE_URL}
     POSTCODE_SERVICE_TOKEN : ${PRO_POSTCODE_SERVICE_TOKEN}
 
-# Don't modify below here
+  # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
 

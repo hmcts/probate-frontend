@@ -11,8 +11,8 @@
     "errors": {
         "otherExecutorsApplying": {
             "required": {
-                "summary": "Select yes if any of the other executors are dealing with the estate",
-                "message": "Select yes if any of the other executors are dealing with the estate"
+                "summary": "Answer &lsquo;yes&rsquo; if any of the other executors are dealing with the estate",
+                "message": "Answer &lsquo;yes&rsquo; if any of the other executors are dealing with the estate"
             }
         }
     }

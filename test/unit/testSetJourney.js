@@ -184,4 +184,57 @@ describe('setJourney', () => {
             done();
         });
     });
+
+    describe('getJourneyName()', () => {
+        it('should return \'probate\' if session.willLeft and session.form.will.left are not set', (done) => {
+            const session = {};
+            const journeyName = setJourney.getJourneyName(session);
+            expect(journeyName).to.equal('probate');
+            done();
+        });
+
+        it('should return \'probate\' as journey name if session.willLeft is set to Yes', (done) => {
+            const session = {
+                willLeft: 'Yes'
+            };
+            const journeyName = setJourney.getJourneyName(session);
+            expect(journeyName).to.equal('probate');
+            done();
+        });
+
+        it('should return \'probate\' as journey name if session.form.will.left is set to Yes', (done) => {
+            const session = {
+                form: {
+                    will: {
+                        left: 'Yes'
+                    }
+                }
+            };
+            const journeyName = setJourney.getJourneyName(session);
+            expect(journeyName).to.equal('probate');
+            done();
+        });
+
+        it('should return \'intestacy\' if session.willLeft is set to No', (done) => {
+            const session = {
+                willLeft: 'No'
+            };
+            const journeyName = setJourney.getJourneyName(session);
+            expect(journeyName).to.equal('intestacy');
+            done();
+        });
+
+        it('should return \'intestacy\' if session.form.will.left is set to No', (done) => {
+            const session = {
+                form: {
+                    will: {
+                        left: 'No'
+                    }
+                }
+            };
+            const journeyName = setJourney.getJourneyName(session);
+            expect(journeyName).to.equal('intestacy');
+            done();
+        });
+    });
 });

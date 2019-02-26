@@ -63,7 +63,7 @@ router.use(setJourney);
 
 router.use((req, res, next) => {
     const formdata = req.session.form;
-    const isHardStop = formdata => config.hardStopParams.some(param => get(formdata, param) === commonContent.no);
+    const isHardStop = (formdata, journey) => config.hardStopParams[journey].some(param => get(formdata, param) === commonContent.no);
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
 
@@ -94,7 +94,7 @@ router.use((req, res, next) => {
             isEqual('/executors-update-invite', req.originalUrl)
     ) {
         res.redirect('tasklist');
-    } else if (req.originalUrl.includes('summary') && isHardStop(formdata)) {
+    } else if (req.originalUrl.includes('summary') && isHardStop(formdata, setJourney.getJourneyName(req.session))) {
         res.redirect('/tasklist');
     } else {
         next();

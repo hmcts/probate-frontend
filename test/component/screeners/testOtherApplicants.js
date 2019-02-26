@@ -16,7 +16,7 @@ const cookies = [{
             '/iht-completed',
             '/will-left',
             '/died-after-october-2014',
-            '/relationship-to-deceased'
+            '/related-to-deceased'
         ]
     }
 }];

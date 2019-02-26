@@ -1,0 +1,16 @@
+{
+  "title": "Place of adoption",
+  "question": "Did the adoption take place in England or Wales?",
+  "legend": "Did the adoption take place in England or Wales?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "adoptionPlace": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about where the adoption took place",
+        "message": "Answer &lsquo;yes&rsquo; if the adoption took place in England or Wales"
+      }
+    }
+  }
+}

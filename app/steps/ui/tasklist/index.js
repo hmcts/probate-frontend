@@ -35,7 +35,8 @@ class TaskList extends Step {
 
         if (setJourney.isIntestacyJourney(req.session)) {
             ctx.previousTaskStatus = {
-                DeceasedTask: ctx.DeceasedTask.status
+                DeceasedTask: ctx.DeceasedTask.status,
+                ExecutorsTask: ctx.DeceasedTask.status
             };
         } else {
             ctx.previousTaskStatus = {

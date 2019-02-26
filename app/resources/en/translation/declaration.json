@@ -1,6 +1,6 @@
 {
   "title": "Check the legal statement and make your declaration",
-  "intro": "This statement is based on the information you've given in your application. It will be stored as a public record.",
+  "intro": "This statement is based on the information you&rsquo;ve given in your application. It will be stored as a public record.",
   "intro-multipleApplicants": "This statement is based on the information {applicantName} has given in their application. It will be stored as a public record.",
   "highCourtHeader": "In the High Court of Justice",
   "familyDivisionHeader": "Family Division",

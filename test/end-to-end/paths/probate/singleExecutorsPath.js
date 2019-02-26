@@ -2,6 +2,9 @@
 
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
+const testConfig = require('test/config.js');
+const paymentType = testConfig.paymentType;
+const copies = testConfig.copies;
 
 Feature('Single Executor flow').retry(TestConfigurator.getRetryFeatures());
 
@@ -63,9 +66,9 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function (I)
     I.selectInheritanceMethodPaper();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterGrossAndNet('205', '600000', '300000');
+        I.enterGrossAndNet(paymentType.form, paymentType.pay.gross, paymentType.pay.net);
     } else {
-        I.enterGrossAndNet('205', '500', '400');
+        I.enterGrossAndNet(paymentType.form, paymentType.noPay.gross, paymentType.noPay.net);
     }
 
     I.selectDeceasedAlias('Yes');
@@ -95,13 +98,13 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function (I)
     I.selectATask(taskListContent.taskNotStarted);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterUkCopies('5');
+        I.enterUkCopies(copies.pay.uk);
         I.selectOverseasAssets();
-        I.enterOverseasCopies('7');
+        I.enterOverseasCopies(copies.pay.overseas);
     } else {
-        I.enterUkCopies('0');
+        I.enterUkCopies(copies.noPay.uk);
         I.selectOverseasAssets();
-        I.enterOverseasCopies('0');
+        I.enterOverseasCopies(copies.noPay.overseas);
     }
 
     I.seeCopiesSummary();
@@ -110,9 +113,9 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function (I)
     I.selectATask(taskListContent.taskNotStarted);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.seePaymentBreakdownPage('5', '7', '300000');
+        I.seePaymentBreakdownPage(copies.pay.uk, copies.pay.overseas, paymentType.pay.net);
     } else {
-        I.seePaymentBreakdownPage('0', '0', '400');
+        I.seePaymentBreakdownPage(copies.noPay.uk, copies.noPay.overseas, paymentType.noPay.net);
     }
 
     if (TestConfigurator.getUseGovPay() === 'true') {

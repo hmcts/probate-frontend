@@ -4,6 +4,8 @@
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
+const paymentType = testConfig.paymentType;
+const copies = testConfig.copies;
 
 let grabIds;
 let retries = -1;
@@ -73,9 +75,9 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.selectInheritanceMethodPaper();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterGrossAndNet('205', '600000', '300000');
+        I.enterGrossAndNet(paymentType.form, paymentType.pay.gross, paymentType.pay.net);
     } else {
-        I.enterGrossAndNet('205', '500', '400');
+        I.enterGrossAndNet(paymentType.form, paymentType.noPay.gross, paymentType.noPay.net);
     }
 
     I.selectDeceasedAlias('Yes');
@@ -199,13 +201,13 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     I.selectATask();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterUkCopies('5');
+        I.enterUkCopies(copies.pay.uk);
         I.selectOverseasAssets();
-        I.enterOverseasCopies('7');
+        I.enterOverseasCopies(copies.pay.overseas);
     } else {
-        I.enterUkCopies('0');
+        I.enterUkCopies(copies.noPay.uk);
         I.selectOverseasAssets();
-        I.enterOverseasCopies('0');
+        I.enterOverseasCopies(copies.noPay.overseas);
     }
 
     I.seeCopiesSummary();
@@ -214,9 +216,9 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     I.selectATask();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.seePaymentBreakdownPage('5', '7', '300000');
+        I.seePaymentBreakdownPage(copies.pay.uk, copies.pay.overseas, paymentType.pay.net);
     } else {
-        I.seePaymentBreakdownPage('0', '0', '400');
+        I.seePaymentBreakdownPage(copies.noPay.uk, copies.noPay.overseas, paymentType.noPay.net);
     }
 
     if (TestConfigurator.getUseGovPay() === 'true') {

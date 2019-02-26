@@ -50,7 +50,27 @@ module.exports = {
         addressCity: 'London',
         addressPostcode: 'SW1A1AA'
     },
-
+    paymentType: {
+        form: 205,
+        pay: {
+            gross: '600000',
+            net: '300000'
+        },
+        noPay: {
+            gross: '0',
+            net: '0'
+        }
+    },
+    copies: {
+        pay: {
+            uk: '5',
+            overseas: '7'
+        },
+        noPay: {
+            uk: '0',
+            overseas: '0'
+        }
+    },
     validation: {
         url: process.env.TEST_VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
     },

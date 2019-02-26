@@ -9,5 +9,9 @@ module.exports = function (firstname, lastname) {
     I.fillField('#firstName', firstname);
     I.fillField('#lastName', lastname);
 
+    I.persistMainApplicant('{applicantName}', `${firstname} ${lastname}`);
+    I.persistMainApplicant('{applicantWillName}', `${firstname} ${lastname}`);
+    I.persistMainApplicant('{applicantCurrentName}', `${firstname} ${lastname}`);
+
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

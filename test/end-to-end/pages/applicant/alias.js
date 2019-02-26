@@ -8,5 +8,7 @@ module.exports = function (alias) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.fillField('#alias', alias);
 
+    I.persistMainApplicant('{applicantWillName}', alias);
+
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

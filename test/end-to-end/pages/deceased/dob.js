@@ -11,5 +11,7 @@ module.exports = function (day, month, year) {
     I.fillField('#dob_month', month);
     I.fillField('#dob_year', year);
 
+    I.persistMainApplicant('{deceasedDob}', `${parseInt(day)} ${commonContent.months.split(', ')[month-1]} ${year}`);
+
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

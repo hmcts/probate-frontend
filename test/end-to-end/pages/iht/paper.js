@@ -13,5 +13,8 @@ module.exports = function (formName, grossAmount, netAmount) {
     I.fillField(`#grossIHT${formName}`, grossAmount);
     I.fillField(`#netIHT${formName}`, netAmount);
 
+    I.persistMainApplicant('{ihtGrossValue}', grossAmount);
+    I.persistMainApplicant('{ihtNetValue}', netAmount);
+
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

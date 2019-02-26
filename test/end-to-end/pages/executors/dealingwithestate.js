@@ -11,6 +11,7 @@ module.exports = function (executorsApplyingList) {
 
     forEach(executorsApplyingList, executorNumber => {
         I.checkOption('#executorsApplying-'+(parseInt(executorNumber) - 1));
+        I.persistExecutor(executorNumber, 'executorApplying', true);
     });
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);

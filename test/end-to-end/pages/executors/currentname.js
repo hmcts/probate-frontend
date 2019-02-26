@@ -13,6 +13,7 @@ module.exports = function (executorNumber, firstRecord) {
     }
 
     I.fillField('#currentName', `Executor${executorNumber} Current Name`);
+    I.persistExecutor(executorNumber, '{applicantCurrentName}', `Executor${executorNumber} Current Name`);
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

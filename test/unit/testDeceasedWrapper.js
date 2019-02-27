@@ -1,7 +1,6 @@
 const DeceasedWrapper = require('app/wrappers/Deceased');
 const commonContent = require('app/resources/en/translation/common');
-const chai = require('chai');
-const expect = chai.expect;
+const expect = require('chai').expect;
 
 describe('Deceased.js', () => {
     describe('hasAlias()', () => {

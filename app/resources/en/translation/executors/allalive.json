@@ -9,7 +9,7 @@
     "allalive": {
       "required": {
         "summary": "Answer the question about living executors",
-        "message": "Select yes if all executors are still alive."
+        "message": "Answer &lsquo;yes&rsquo; if all executors are still alive"
       }
     }
   }

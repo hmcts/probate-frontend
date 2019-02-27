@@ -3,7 +3,7 @@
 {% from "widgets/textfields.html" import textField, textFieldNoLabel %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{content.question}}</h1>
+    <h1 class="form-title heading-large">{{ content.question }}</h1>
 {% endblock %}
 
 {% block form_content %}
@@ -11,14 +11,14 @@
         <legend class="visually-hidden">
             {{ content.question | safe }}
         </legend>
-        {{textFieldNoLabel(
+        {{ textFieldNoLabel(
             name = 'identifier',
             text = content.question,
             field = fields.identifier,
             hint = content.ihtIdentifierHint
-        )}}
+        ) }}
     </fieldset>
     <div class="form-group">
-        <input class="button" type="submit" value="{{common.continue}}">
+        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

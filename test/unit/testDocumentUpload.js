@@ -1,8 +1,7 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const chai = require('chai');
-const expect = chai.expect;
+const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 
 describe('DocumentUpload.js', () => {
@@ -77,12 +76,12 @@ describe('DocumentUpload.js', () => {
             done();
         });
 
-        it('should return the correct errors when an uploaded document is invalid', (done) => {
+        it('should return an error when an uploaded document is an invalid type', (done) => {
             const ctxToTest = {};
             const errorsToTest = [];
             const formdata = {
                 documents: {
-                    invalid: true
+                    error: 'type'
                 }
             };
             const DocumentUpload = steps.DocumentUpload;
@@ -91,7 +90,91 @@ describe('DocumentUpload.js', () => {
             expect(errors).to.deep.equal([{
                 param: 'file',
                 msg: {
-                    summary: 'You have used a file type that can&rsquo;t be accepted. Save your file as a jpg, bmp, tiff, png or PDF file and try again',
+                    summary: 'documentupload.errors.file.type.summary',
+                    message: 'documentupload.errors.file.type.message'
+                }
+            }]);
+            done();
+        });
+
+        it('should return an error when an uploaded document is an invalid size', (done) => {
+            const ctxToTest = {};
+            const errorsToTest = [];
+            const formdata = {
+                documents: {
+                    error: 'maxSize'
+                }
+            };
+            const DocumentUpload = steps.DocumentUpload;
+            const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
+            expect(ctx).to.deep.equal({});
+            expect(errors).to.deep.equal([{
+                param: 'file',
+                msg: {
+                    summary: 'Your file is too large to upload. Use a file that is under 10MB and try again',
+                    message: ''
+                }
+            }]);
+            done();
+        });
+
+        it('should return an error when an uploaded document is an invalid size', (done) => {
+            const ctxToTest = {};
+            const errorsToTest = [];
+            const formdata = {
+                documents: {
+                    error: 'maxSize'
+                }
+            };
+            const DocumentUpload = steps.DocumentUpload;
+            const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
+            expect(ctx).to.deep.equal({});
+            expect(errors).to.deep.equal([{
+                param: 'file',
+                msg: {
+                    summary: 'Your file is too large to upload. Use a file that is under 10MB and try again',
+                    message: ''
+                }
+            }]);
+            done();
+        });
+
+        it('should return an error when an uploaded document is an invalid size', (done) => {
+            const ctxToTest = {};
+            const errorsToTest = [];
+            const formdata = {
+                documents: {
+                    error: 'maxSize'
+                }
+            };
+            const DocumentUpload = steps.DocumentUpload;
+            const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
+            expect(ctx).to.deep.equal({});
+            expect(errors).to.deep.equal([{
+                param: 'file',
+                msg: {
+                    summary: 'Your file is too large to upload. Use a file that is under 10MB and try again',
+                    message: ''
+                }
+            }]);
+            done();
+        });
+
+        it('should return an error when an uploaded document is an invalid size', (done) => {
+            const ctxToTest = {};
+            const errorsToTest = [];
+            const formdata = {
+                documents: {
+                    error: 'maxSize'
+                }
+            };
+            const DocumentUpload = steps.DocumentUpload;
+            const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
+            expect(ctx).to.deep.equal({});
+            expect(errors).to.deep.equal([{
+                param: 'file',
+                msg: {
+                    summary: 'Your file is too large to upload. Use a file that is under 10MB and try again',
                     message: ''
                 }
             }]);

@@ -1,0 +1,65 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "widgets/textfields.html" import textField %}
+{% from "widgets/dates.html" import date %}
+
+{% block question %}
+    <h1 class="form-title heading-large">{{ content.question | safe }}</h1>
+{% endblock %}
+
+{% block form_content %}
+    <fieldset>
+        <h2 class="form-title heading-medium">{{ content.questionName | safe }}</h2>
+        <legend class="visually-hidden">
+            {{ content.questionName | safe }}
+        </legend>
+        {{ textField(
+            name = 'firstName',
+            field = fields.firstName,
+            text = content.firstName,
+            hint = content.firstNameHint,
+            size = 30
+        ) }}
+        {{ textField(
+            name = 'lastName',
+            field = fields.lastName,
+            text = content.lastName,
+            size = 50
+        ) }}
+    </fieldset>
+    <fieldset>
+        <h2 class="form-title heading-medium">{{ content.questionDob | safe }}</h2>
+        <legend class="visually-hidden">
+            {{ content.questionDob | safe }}
+        </legend>
+        {{ date(
+            name = 'dob',
+            day = fields.dob_day,
+            month = fields.dob_month,
+            year  = fields.dob_year,
+            date = fields.dob_date,
+            maxyear = currentYear,
+            legend = content.legendDob,
+            hint = content.questionHintDob
+        ) }}
+    </fieldset>
+    <fieldset>
+        <h2 class="form-title heading-medium">{{ content.questionDod | safe }}</h2>
+        <legend class="visually-hidden">
+            {{ content.questionDod | safe }}
+        </legend>
+        {{ date(
+            name = 'dod',
+            day = fields.dod_day,
+            month = fields.dod_month,
+            year  = fields.dod_year,
+            date = fields.dod_date,
+            maxyear = currentYear,
+            legend = content.legendDod,
+            hint = content.questionHintDod
+        ) }}
+    </fieldset>
+    <div class="form-group">
+        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    </div>
+{% endblock %}

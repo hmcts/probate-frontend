@@ -14,51 +14,13 @@ describe('DeceasedName', () => {
         });
     });
 
-    describe('handlePost()', () => {
-        let ctx;
-        let errors;
-        let formdata;
-        let session;
-        let hostname;
-        let featureToggles;
-
-        it('should return the ctx with the deceased name and the screening_question feature toggle', (done) => {
-            ctx = {
-                firstName: 'Deceased FN',
-                lastName: 'Deceased FN'
-            };
-            errors = {};
-            [ctx, errors] = DeceasedName.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
-            expect(ctx).to.deep.equal({
-                firstName: 'Deceased FN',
-                lastName: 'Deceased FN',
-                isToggleEnabled: false
-            });
-            done();
-        });
-    });
-
-    describe('nextStepOptions()', () => {
-        it('should return the correct options', (done) => {
-            const nextStepOptions = DeceasedName.nextStepOptions();
-            expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'isToggleEnabled',
-                    value: true,
-                    choice: 'toggleOn'
-                }]
-            });
-            done();
-        });
-    });
-
     describe('action', () => {
-        it('test isToggleEnabled is removed from the context', () => {
+        it('cleans up context', () => {
             const ctx = {
-                isToggleEnabled: false
+                index: 3683
             };
             DeceasedName.action(ctx);
-            assert.isUndefined(ctx.isToggleEnabled);
+            assert.isUndefined(ctx.index);
         });
     });
 });

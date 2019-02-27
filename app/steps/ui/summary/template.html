@@ -3,61 +3,50 @@
 {% extends "includes/layout.html" %}
 
 {% block content %}
+    <main id="content" role="main">
+        {% from "widgets/checkanswer.html" import checkanswer %}
 
-<main id="content" role="main">
-    {% from "widgets/checkanswer.html" import checkanswer %}
+        {% include "includes/phase_banner_beta.html" %}
+        {% include "includes/error_summary.html" %}
 
-    {% include "includes/phase_banner_beta.html" %}
-    {% include "includes/error_summary.html" %}
+        <h1 class="heading-large">
+            {{ content.Summary.heading }}
+        </h1>
+        <p id="main-heading-content">{{ content.Summary.checkCarefully }}</p>
 
-    <h1 class="heading-large">
-        {{content.Summary.heading}}
-    </h1>
-    <p>{{content.Summary.checkCarefully}}</p>
-
-    {% ifAsync fields.summary.isScreeningQuestionToggleEnabled.value === 'true' %}
-        <h2 class="heading-medium">{{content.Summary.deceasedHeading}}</h2>
+        <h2 class="heading-medium">{{ content.Summary.deceasedHeading }}</h2>
         <dl class="check-your-answers check-your-answers--long">
             {% include "ui/summary/includes/deceased.njk" %}
         </dl>
 
-        <h2 class="heading-medium">{{content.Summary.ihtHeading}}</h2>
+        {% ifAsync fields.summary.isDocumentUploadToggleEnabled.value === "true" %}
+        <h2 class="heading-medium">{{ content.Summary.uploadedDocumentsHeading }}</h2>
         <dl class="check-your-answers check-your-answers--long">
-            {% include "ui/summary/includes/iht.njk" %}
+            {% include "ui/summary/includes/documentupload.njk" %}
         </dl>
-
-        <h2 class="heading-medium">{{content.Summary.applicantHeading}}</h2>
-        <dl class="check-your-answers check-your-answers--long">
-            {% include "ui/summary/includes/executors.njk" %}
-        </dl>
-    {% else %}
-        <dl class="check-your-answers check-your-answers--long">
-            {% include "ui/summary/includes/will.njk" %}
-        </dl>
-
-        <h2 class="heading-medium">{{content.Summary.ihtHeading}}</h2>
-        <dl class="check-your-answers check-your-answers--long">
-            {% include "ui/summary/includes/iht.njk" %}
-        </dl>
-
-        <h2 class="heading-medium">{{content.Summary.applicantHeading}}</h2>
-        <dl class="check-your-answers check-your-answers--long">
-            {% include "ui/summary/includes/executors.njk" %}
-        </dl>
-
-        <h2 class="heading-medium">{{content.Summary.deceasedHeading}}</h2>
-        <dl class="check-your-answers check-your-answers--long">
-            {% include "ui/summary/includes/deceased.njk" %}
-        </dl>
-    {% endif %}
-
-    <div class="form-group">
-        {% if fields.summary.readyToDeclare.value === "true" %}
-            <p><a href="/declaration" class="button button-start">{{common.continue}}</a></p>
-        {% else %}
-            <p><a href="/summary/redirect" class="button button-start">{{common.continue}}</a></p>
         {% endif %}
-    </div>
-</main>
 
+        <h2 class="heading-medium">{{ content.Summary.ihtHeading }}</h2>
+        <dl class="check-your-answers check-your-answers--long">
+            {% include "ui/summary/includes/iht.njk" %}
+        </dl>
+
+        <h2 class="heading-medium">{{ content.Summary.applicantHeading }}</h2>
+        <dl class="check-your-answers check-your-answers--long">
+            {% include "ui/summary/includes/executors.njk" %}
+        </dl>
+
+        <p class="save-this-page-link">
+            <i class="icon icon-file-download"></i>
+            <a class="anchor-margin-left" id="checkAnswerHref" href="/check-answers-pdf">{{ content.Summary.checkAnswersPdf }}</a>
+        </p>
+
+        <div class="form-group">
+            {% if fields.summary.readyToDeclare.value === "true" %}
+                <p><a href="/declaration" class="button button-start">{{ common.saveAndContinue }}</a></p>
+            {% else %}
+                <p><a href="/summary/redirect" class="button button-start">{{ common.saveAndContinue }}</a></p>
+            {% endif %}
+        </div>
+    </main>
 {% endblock %}

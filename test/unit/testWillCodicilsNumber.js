@@ -1,7 +1,7 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const {expect, assert} = require('chai');
+const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const CodicilsNumber = steps.CodicilsNumber;
 
@@ -14,49 +14,76 @@ describe('CodicilsNumber', () => {
         });
     });
 
+    describe('getContextData()', () => {
+        it('should return the ctx with a valid will codicils number', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {
+                        journeyType: 'probate'
+                    },
+                    journeyType: 'probate'
+                },
+                body: {
+                    codicilsNumber: '3'
+                }
+            };
+            const ctx = CodicilsNumber.getContextData(req);
+            expect(ctx).to.deep.equal({
+                codicilsNumber: 3,
+                sessionID: 'dummy_sessionId',
+                journeyType: 'probate'
+            });
+            done();
+        });
+
+        it('should return the ctx with a null will codicils number', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {
+                        journeyType: 'probate'
+                    },
+                    journeyType: 'probate'
+                },
+                body: {
+                    codicilsNumber: null
+                }
+            };
+            const ctx = CodicilsNumber.getContextData(req);
+            expect(ctx).to.deep.equal({
+                codicilsNumber: null,
+                sessionID: 'dummy_sessionId',
+                journeyType: 'probate'
+            });
+            done();
+        });
+    });
+
     describe('handlePost()', () => {
         let ctx;
         let errors;
-        let formdata;
-        let session;
-        let hostname;
-        let featureToggles;
 
-        it('should return the ctx with the deceased married status and the screening_question feature toggle', (done) => {
+        it('should return the ctx with the will codicils number when there are codicils', (done) => {
             ctx = {
                 codicilsNumber: '3'
             };
-            errors = {};
-            [ctx, errors] = CodicilsNumber.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
+            errors = [];
+            [ctx, errors] = CodicilsNumber.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                codicilsNumber: '3',
-                isToggleEnabled: false
+                codicilsNumber: '3'
             });
             done();
         });
-    });
 
-    describe('nextStepOptions()', () => {
-        it('should return the correct options', (done) => {
-            const nextStepOptions = CodicilsNumber.nextStepOptions();
-            expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'isToggleEnabled',
-                    value: true,
-                    choice: 'toggleOn'
-                }]
+        it('should return the ctx with the will codicils number when there are no codicils', (done) => {
+            ctx = {};
+            errors = [];
+            [ctx, errors] = CodicilsNumber.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({
+                codicilsNumber: 0
             });
             done();
-        });
-    });
-
-    describe('action', () => {
-        it('test isToggleEnabled is removed from the context', () => {
-            const ctx = {
-                isToggleEnabled: false
-            };
-            CodicilsNumber.action(ctx);
-            assert.isUndefined(ctx.isToggleEnabled);
         });
     });
 });

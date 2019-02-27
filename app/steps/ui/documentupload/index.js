@@ -15,21 +15,32 @@ class DocumentUpload extends ValidationStep {
         if (formdata.documents && formdata.documents.uploads) {
             ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
         }
+        ctx.isUploadingDocument = req.body && req.body.isUploadingDocument;
         return ctx;
     }
 
     handlePost(ctx, errors, formdata) {
-        if (formdata.documents.invalid) {
+        const error = formdata.documents && formdata.documents.error;
+        if (error) {
             errors = errors || [];
-            errors.push(FieldError('file', 'invalid', this.resourcePath, this.generateContent()));
-            delete formdata.documents.invalid;
+            errors.push(FieldError('file', error, this.resourcePath, this.generateContent()));
+            delete formdata.documents.error;
         }
         return [ctx, errors];
+    }
+
+    nextStepOptions() {
+        return {
+            options: [
+                {key: 'isUploadingDocument', value: 'true', choice: 'isUploadingDocument'}
+            ]
+        };
     }
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.uploadedDocuments;
+        delete ctx.isUploadingDocument;
         return [ctx, formdata];
     }
 }

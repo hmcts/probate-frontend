@@ -4,22 +4,18 @@ const {mapValues, reduce} = require('lodash');
 const Ajv = require('ajv');
 const Step = require('app/core/steps/Step');
 const generateErrors = require('app/components/error').generateErrors;
-
 const validator = new Ajv({allErrors: true, v5: true});
 
 class ValidationStep extends Step {
 
     get schema() {
-
         if (!this.schemaFile) {
             throw new TypeError(`Step ${this.name} has no schema file in it's resource folder`);
         }
-
         return this.schemaFile;
     }
 
     constructor(steps, section, templatePath, i18next, schema) {
-
         super(steps, section, templatePath, i18next);
 
         this.schemaFile = schema;
@@ -28,7 +24,6 @@ class ValidationStep extends Step {
     }
 
     uniqueProperties(schema) {
-
         if (schema.properties) {
             return schema.properties;
         }
@@ -47,7 +42,6 @@ class ValidationStep extends Step {
     }
 
     validate(ctx, formdata) {
-
         let [isValid, errors] = [true, {}];
 
         //remove empty fields as ajv expects them to be absent
@@ -57,7 +51,6 @@ class ValidationStep extends Step {
 
         if (ctx) {
             isValid = this.validateSchema(ctx);
-
             errors = isValid ? [] : generateErrors(this.validateSchema.errors, ctx, formdata, `${this.resourcePath}`);
         }
         return [isValid, errors];

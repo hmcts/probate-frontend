@@ -12,5 +12,4 @@ module.exports = function (elementId) {
     } else {
         I.see('All executors applying');
     }
-
 };

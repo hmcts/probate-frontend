@@ -1,8 +1,8 @@
-const OptionGetRunner = require('app/core/runners/OptionGetRunner'),
-    sinon = require('sinon'),
-    chai = require('chai'),
-    expect = chai.expect,
-    sinonChai = require('sinon-chai');
+const OptionGetRunner = require('app/core/runners/OptionGetRunner');
+const sinon = require('sinon');
+const chai = require('chai');
+const expect = chai.expect;
+const sinonChai = require('sinon-chai');
 
 chai.use(sinonChai);
 
@@ -23,6 +23,5 @@ describe('OptionGetRunner', function () {
         expect(req.log.error).to.have.been.calledWith('Post operation not defined for OptionGetRunner');
         expect(res.status).to.have.been.calledWith(404);
         expect(res.render).to.have.been.calledWith('errors/404');
-
     });
 });

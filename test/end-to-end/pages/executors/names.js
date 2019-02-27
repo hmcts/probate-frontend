@@ -15,5 +15,5 @@ module.exports = function (totalExecutors) {
         i += 1;
     }
 
-    I.click(commonContent.continue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

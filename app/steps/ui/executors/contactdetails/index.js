@@ -4,9 +4,10 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const emailValidator = require('email-validator');
 const validator = require('validator');
 const FieldError = require('app/components/error');
-const services = require('app/components/services');
 const {findIndex, every, tail} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const InviteData = require('app/services/InviteData');
+const config = require('app/config');
 
 class ExecutorContactDetails extends ValidationStep {
 
@@ -21,19 +22,22 @@ class ExecutorContactDetails extends ValidationStep {
         } else {
             ctx.index = this.recalcIndex(ctx, 0);
         }
-        ctx.inviteId = ctx.list[ctx.index].inviteId;
-        ctx.otherExecName = ctx.list[ctx.index].fullName;
+        const executor = ctx.list[ctx.index];
+        ctx.inviteId = executor.inviteId;
+        ctx.otherExecName = executor.fullName;
         return ctx;
     }
 
     handleGet(ctx) {
-        ctx.email = ctx.list[ctx.index].email;
-        ctx.mobile = ctx.list[ctx.index].mobile;
+        const executor = ctx.list[ctx.index];
+        ctx.email = executor.email;
+        ctx.mobile = executor.mobile;
         return [ctx];
     }
 
     * handlePost(ctx, errors) {
         const executorsWrapper = new ExecutorsWrapper(ctx);
+        const executor = ctx.list[ctx.index];
         if (!emailValidator.validate(ctx.email)) {
             errors.push(FieldError('email', 'invalid', this.resourcePath, this.generateContent()));
         }
@@ -42,19 +46,21 @@ class ExecutorContactDetails extends ValidationStep {
             errors.push(FieldError('mobile', 'invalid', this.resourcePath, this.generateContent()));
         }
 
-        if (ctx.email !== ctx.list[ctx.index].email && ctx.list[ctx.index].emailSent) {
-            ctx.list[ctx.index].emailChanged = true;
+        if (ctx.email !== executor.email && executor.emailSent) {
+            executor.emailChanged = true;
         }
 
         ctx.executorsToNotifyList = executorsWrapper.executorsToNotify();
         ctx.executorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
-        ctx.list[ctx.index].email = ctx.email;
-        ctx.list[ctx.index].mobile = ctx.mobile;
-        if (ctx.list[ctx.index].emailSent) {
-            const data = {};
-            data.email = ctx.list[ctx.index].email;
-            data.phoneNumber = ctx.list[ctx.index].mobile;
-            yield services.updateContactDetails(ctx.inviteId, data)
+        executor.email = ctx.email;
+        executor.mobile = ctx.mobile;
+        if (executor.emailSent) {
+            const data = {
+                email: executor.email,
+                phoneNumber: executor.mobile
+            };
+            const inviteData = new InviteData(config.services.persistence.url, ctx.sessionID);
+            yield inviteData.patch(ctx.inviteId, data)
                 .then(result => {
                     if (result.name === 'Error') {
                         throw new ReferenceError('Error updating executor\'s contact details');
@@ -92,8 +98,8 @@ class ExecutorContactDetails extends ValidationStep {
         return findIndex(ctx.list, o => o.isApplying === true && o.isDead !== true, index + 1);
     }
 
-    nextStepUrl(ctx) {
-        return this.next(ctx).constructor.getUrl(ctx.index);
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl(ctx.index);
     }
 
     action(ctx, formdata) {

@@ -1,0 +1,18 @@
+{
+  "title": "Are you the spouse, civil partner or child of the person who died",
+  "question": "Are you the spouse, civil partner or child of the person who died?",
+  "hintText1": "You must be the husband, wife, civil partner or a child over 18 to continue with your application online.",
+  "hintText2": "This does not include long-term partners who lived together but did not marry or enter into a civil partnership.",
+  "hintText3": "You may need to provide your certificate of marriage or civil partnership.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "legend": "Are you the spouse, civil partner or child of the person who died?",
+  "errors": {
+    "related": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about whether you are the spouse, civil partner or child of the person who died",
+        "message": "Answer &lsquo;yes&rsquo; if you are the spouse, civil partner or child of the person who died"
+      }
+    }
+  }
+}

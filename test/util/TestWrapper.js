@@ -6,8 +6,9 @@ const app = require('app');
 const routes = require('app/routes');
 const config = require('app/config');
 const request = require('supertest');
-const journeyMap = require('app/core/journeyMap');
+const JourneyMap = require('app/core/JourneyMap');
 const {steps} = require('app/core/initSteps');
+const journey = require('app/journeys/probate');
 
 class TestWrapper {
     constructor(stepName) {
@@ -23,7 +24,6 @@ class TestWrapper {
             Object.assign(req.session, req.body);
             res.send('OK');
         });
-
         routes.post('/prepare-session-field/:field/:value', (req, res) => {
             set(req.session, req.params.field, req.params.value);
             res.send('OK');
@@ -34,11 +34,17 @@ class TestWrapper {
         this.agent = request.agent(this.server.app);
     }
 
-    testContent(done, excludeKeys = [], data) {
+    testContent(done, excludeKeys = [], data, cookies = []) {
         const contentToCheck = cloneDeep(filter(this.content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
         const substitutedContent = this.substituteContent(data, contentToCheck);
-        this.agent.get(this.pageUrl)
-            .expect('Content-type', /html/)
+        const res = this.agent.get(this.pageUrl);
+
+        if (cookies.length) {
+            const cookiesString = this.setCookiesString(res, cookies);
+            res.set('Cookie', cookiesString);
+        }
+
+        res.expect('Content-type', /html/)
             .then(response => {
                 this.assertContentIsPresent(response.text, substitutedContent);
                 done();
@@ -46,9 +52,15 @@ class TestWrapper {
             .catch(done);
     }
 
-    testDataPlayback(done, data) {
-        this.agent.get(this.pageUrl)
-            .expect('Content-type', /html/)
+    testDataPlayback(done, data, cookies = []) {
+        const res = this.agent.get(this.pageUrl);
+
+        if (cookies.length) {
+            const cookiesString = this.setCookiesString(res, cookies);
+            res.set('Cookie', cookiesString);
+        }
+
+        res.expect('Content-type', /html/)
             .then(response => {
                 this.assertContentIsPresent(response.text, data);
                 done();
@@ -65,13 +77,19 @@ class TestWrapper {
             .catch(done);
     }
 
-    testErrors(done, data, type, onlyKeys = []) {
+    testErrors(done, data, type, onlyKeys = [], cookies = []) {
         const contentErrors = get(this.content, 'errors', {});
         const expectedErrors = cloneDeep(isEmpty(onlyKeys) ? contentErrors : filter(contentErrors, (value, key) => onlyKeys.includes(key)));
         assert.isNotEmpty(expectedErrors);
         this.substituteErrorsContent(data, expectedErrors, type);
-        this.agent.post(`${this.pageUrl}`)
-            .type('form')
+        const res = this.agent.post(`${this.pageUrl}`);
+
+        if (cookies.length) {
+            const cookiesString = this.setCookiesString(res, cookies);
+            res.set('Cookie', cookiesString);
+        }
+
+        res.type('form')
             .send(data)
             .expect('Content-type', 'text/html; charset=utf-8')
             .then(res => {
@@ -95,9 +113,15 @@ class TestWrapper {
             .catch(done);
     }
 
-    testRedirect(done, postData, expectedNextUrl) {
-        this.agent.post(this.pageUrl)
-            .type('form')
+    testRedirect(done, postData, expectedNextUrl, cookies = []) {
+        const res = this.agent.post(this.pageUrl);
+
+        if (cookies.length) {
+            const cookiesString = this.setCookiesString(res, cookies);
+            res.set('Cookie', cookiesString);
+        }
+
+        res.type('form')
             .send(postData)
             .expect('location', expectedNextUrl)
             .expect(302)
@@ -106,7 +130,8 @@ class TestWrapper {
     }
 
     nextStep(data = {}) {
-        return journeyMap(this.pageToTest, data);
+        const journeyMap = new JourneyMap(journey);
+        return journeyMap.nextStep(this.pageToTest, data);
     }
 
     substituteContent(data, contentToSubstitute) {
@@ -139,13 +164,12 @@ class TestWrapper {
         Object.entries(contentToSubstitute)
             .forEach(([key, contentValue]) => {
                 forEach(contentValue[type], (errorMessageItem) => {
-                    let placeholder = errorMessageItem.match(/\{(.*?)\}/g);
-                    if (placeholder) {
+                    forEach(errorMessageItem.match(/\{(.*?)\}/g), (placeholder) => {
                         const placeholderRegex = new RegExp(placeholder, 'g');
                         placeholder = placeholder.replace(/[{}]/g, '');
                         errorMessageItem = errorMessageItem.replace(placeholderRegex, data[placeholder]);
                         contentToSubstitute[key][type] = errorMessageItem;
-                    }
+                    });
                 });
             });
     }
@@ -162,9 +186,28 @@ class TestWrapper {
         });
     }
 
+    setCookiesString(res, cookies = []) {
+        if (cookies.length) {
+            let cookiesString;
+
+            for (let i=0; i<cookies.length; i++) {
+                const cookieName = cookies[i].name;
+                const cookieContent = JSON.stringify(cookies[i].content);
+                cookiesString = `${cookieName}=${cookieContent},`;
+            }
+
+            cookiesString = cookiesString.substring(0, cookiesString.length - 1);
+
+            return cookiesString;
+        }
+
+        return '';
+    }
+
     destroy() {
         this.server.http.close();
     }
+
 }
 
 module.exports = TestWrapper;

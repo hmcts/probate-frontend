@@ -1,8 +1,8 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const expect = require('chai').expect;
-const assert = require('chai').assert;
+const {assert, expect} = require('chai');
+const journey = require('app/journeys/probate');
 
 describe('ExecutorCurrentName', () => {
     const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
@@ -66,6 +66,38 @@ describe('ExecutorCurrentName', () => {
         });
     });
 
+    describe('nextStepUrl()', () => {
+        it('should return url for the next step if the index is -1', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                index: -1
+            };
+            const ExecutorCurrentName = steps.ExecutorCurrentName;
+            const nextStepUrl = ExecutorCurrentName.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/executor-contact-details/*');
+            done();
+        });
+
+        it('should return url for the next step if the index is not -1', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                index: 1
+            };
+            const ExecutorCurrentName = steps.ExecutorCurrentName;
+            const nextStepUrl = ExecutorCurrentName.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/executor-current-name-reason/1');
+            done();
+        });
+    });
+
     describe('nextStepOptions()', () => {
 
         it('ctx.continue returns true when next executor exists in list ', (done) => {
@@ -124,8 +156,7 @@ describe('ExecutorCurrentName', () => {
             const testCtx = {
                 currentName: 'leatherface',
                 continue: true,
-                index: 1,
-                isToggleEnabled: true
+                index: 1
             };
             const testFormdata = {};
             const ExecutorCurrentName = steps.ExecutorCurrentName;

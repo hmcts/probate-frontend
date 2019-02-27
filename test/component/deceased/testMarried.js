@@ -1,12 +1,12 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DeceasedDod = require('app/steps/ui/deceased/dod/index');
+const WillCodicils = require('app/steps/ui/will/codicils/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('deceased-married', () => {
     let testWrapper;
-    const expectedNextUrlForDeceasedDod = DeceasedDod.getUrl();
+    const expectedNextUrlForWillCodicils = WillCodicils.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedMarried');
@@ -17,13 +17,13 @@ describe('deceased-married', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('DeceasedMarried');
 
         it('test correct content is loaded on the page', (done) => {
             const sessionData = {
-                'deceased': {
-                    'firstName': 'Mana', 'lastName': 'Manah'
+                deceased: {
+                    firstName: 'Mana',
+                    lastName: 'Manah'
                 }
             };
             const excludeKeys = ['questionWithCodicil', 'legendWithCodicil'];
@@ -31,7 +31,6 @@ describe('deceased-married', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-
                     const contentData = {deceasedName: 'Mana Manah'};
 
                     testWrapper.testContent(done, excludeKeys, contentData);
@@ -41,8 +40,9 @@ describe('deceased-married', () => {
 
         it('test correct content is loaded on the page when there are codicils', (done) => {
             const sessionData = {
-                'deceased': {
-                    'firstName': 'Mana', 'lastName': 'Manah'
+                deceased: {
+                    firstName: 'Mana',
+                    lastName: 'Manah'
                 },
                 will: {
                     codicils: 'Yes'
@@ -68,12 +68,11 @@ describe('deceased-married', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to deceased dod: ${expectedNextUrlForDeceasedDod}`, (done) => {
+        it(`test it redirects to Will Codicils page: ${expectedNextUrlForWillCodicils}`, (done) => {
             const data = {
                 married: 'No'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDod);
+            testWrapper.testRedirect(done, data, expectedNextUrlForWillCodicils);
         });
-
     });
 });

@@ -9,7 +9,7 @@
     "nameAsOnTheWill": {
       "required": {
         "summary": "Answer the question about the executor&rsquo;s name matching what appears on the will",
-        "message": "Select yes if their name is exactly the same on the will"
+        "message": "Answer &lsquo;yes&rsquo; if their name is exactly the same on the will"
       }
     }
   }

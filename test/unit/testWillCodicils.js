@@ -1,7 +1,9 @@
 'use strict';
 
+const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
+const content = require('app/resources/en/translation/will/codicils');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const WillCodicils = steps.WillCodicils;
 const json = require('app/resources/en/translation/will/codicils');
@@ -15,34 +17,75 @@ describe('WillCodicils', () => {
         });
     });
 
-    describe('handlePost()', () => {
-        let ctx;
-        let errors;
-        let formdata;
-        let session;
-        let hostname;
-        let featureToggles;
-
-        it('should return the ctx with the deceased married status and the screening_question feature toggle', (done) => {
-            ctx = {
-                codicils: 'Yes'
+    describe('getContextData()', () => {
+        it('should return the ctx with the will codicils', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {
+                        journeyType: 'probate'
+                    },
+                    journeyType: 'probate'
+                },
+                body: {
+                    codicils: content.optionYes
+                }
             };
-            errors = {};
-            [ctx, errors] = WillCodicils.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
+            const ctx = WillCodicils.getContextData(req);
             expect(ctx).to.deep.equal({
                 codicils: 'Yes',
-                isToggleEnabled: false
+                sessionID: 'dummy_sessionId',
+                journeyType: 'probate'
             });
             done();
         });
     });
 
-    describe('nextStepOptions()', () => {
-        it('should return the correct options when the FT is off', (done) => {
-            const ctx = {
-                isToggleEnabled: false
+    describe('nextStepUrl()', () => {
+        it('should return url for the next step if there are codicils', (done) => {
+            const req = {
+                session: {
+                    journey: journey,
+                    form: {
+                        journeyType: 'probate'
+                    },
+                    featureToggles: {
+                        screening_questions: false
+                    },
+                    journeyType: 'probate'
+                },
+                body: {
+                    codicils: 'Yes'
+                }
             };
-            const nextStepOptions = WillCodicils.nextStepOptions(ctx);
+            const ctx = {
+                codicils: content.optionYes
+            };
+            const WillCodicils = steps.WillCodicils;
+            const nextStepUrl = WillCodicils.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/codicils-number');
+            done();
+        });
+
+        it('should return the url for the next step if there are no codicils', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                codicils: content.optionNo
+            };
+            const WillCodicils = steps.WillCodicils;
+            const nextStepUrl = WillCodicils.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/tasklist');
+            done();
+        });
+    });
+
+    describe('nextStepOptions()', () => {
+        it('should return the correct options', (done) => {
+            const nextStepOptions = WillCodicils.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'codicils',
@@ -52,30 +95,16 @@ describe('WillCodicils', () => {
             });
             done();
         });
-
-        it('should return the correct options when the FT is on', (done) => {
-            const ctx = {
-                isToggleEnabled: true
-            };
-            const nextStepOptions = WillCodicils.nextStepOptions(ctx);
-            expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'codicils',
-                    value: json.optionNo,
-                    choice: 'noCodicilsToggleOn'
-                }]
-            });
-            done();
-        });
     });
 
     describe('action', () => {
-        it('test isToggleEnabled is removed from the context', () => {
+        it('cleans up context', () => {
             const ctx = {
-                isToggleEnabled: false
+                codicils: json.optionNo,
+                codicilsNumber: 3
             };
             WillCodicils.action(ctx);
-            assert.isUndefined(ctx.isToggleEnabled);
+            assert.isUndefined(ctx.codicilsNumber);
         });
     });
 });

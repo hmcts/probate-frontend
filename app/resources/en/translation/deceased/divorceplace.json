@@ -1,0 +1,16 @@
+{
+  "title": "Where the {legalProcess} took place",
+  "question": "Did the {legalProcess} take place in England or Wales?",
+  "legend": "Did the {legalProcess} take place in England or Wales?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "divorcePlace": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about where the {legalProcess} took place",
+        "message": "Answer &lsquo;yes&rsquo; if the {legalProcess} took place in England or Wales"
+      }
+    }
+  }
+}

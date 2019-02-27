@@ -10,7 +10,7 @@
     "alias": {
       "required": {
           "summary": "You haven&rsquo;t answered the question",
-          "message": "Select &lsquo;yes&rsquo; if any of the executors you&rsquo;ve added have a different name to that on the will"
+          "message": "Answer &lsquo;yes&rsquo; if any of the executors you&rsquo;ve added have a different name to that on the will"
       }
     }
   }

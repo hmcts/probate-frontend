@@ -1,13 +1,13 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DeathCertificate = require('app/steps/ui/deceased/deathcertificate/index');
+const TaskList = require('app/steps/ui/tasklist/index');
 const CodicilsNumber = require('app/steps/ui/will/codicilsnumber/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('will-codicils', () => {
     let testWrapper;
-    const expectedNextUrlForDeathCertificate = DeathCertificate.getUrl();
+    const expectedNextUrlForTaskList = TaskList.getUrl();
     const expectedNextUrlForCodicilsNumber = CodicilsNumber.getUrl();
 
     beforeEach(() => {
@@ -19,8 +19,7 @@ describe('will-codicils', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('WillCodicils');
 
         it('test correct content loaded on the page', (done) => {
             const excludeKeys = [];
@@ -34,17 +33,19 @@ describe('will-codicils', () => {
             testWrapper.testErrors(done, data, 'required', []);
         });
 
-        it(`test it redirects to death certificate page: ${expectedNextUrlForDeathCertificate}`, (done) => {
+        it(`test it redirects to TaskList page: ${expectedNextUrlForTaskList}`, (done) => {
             const data = {
-                'codicils': 'No'
+                codicils: 'No'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeathCertificate);
+
+            testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
         });
 
-        it(`test it redirects to codicils number page: ${expectedNextUrlForCodicilsNumber}`, (done) => {
+        it(`test it redirects to Codicils Number page: ${expectedNextUrlForCodicilsNumber}`, (done) => {
             const data = {
-                'codicils': 'Yes'
+                codicils: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForCodicilsNumber);
         });
     });

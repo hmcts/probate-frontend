@@ -8,8 +8,8 @@
   "net205": "Enter the number added in to box F on this form (net value &pound;)",
   "gross207": "Enter the number added in to box C (gross value &pound;)",
   "net207": "Enter the number added in to box G (net value &pound;)",
-  "gross400": "Enter the number added in to box 3 (gross value &pound;)",
-  "net400": "Enter the number added in to box 5 (net value &pound;)",
+  "gross400": "Enter the number added to box 3 of the IHT 421 form (gross value in &pound;)",
+  "net400": "Enter the number added to box 5 of the IHT 421 form (net value in &pound;)",
   "421Info": "HMRC will process these forms and send them to the probate office for you.",
 
   "errors": {
@@ -29,8 +29,8 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "Invalid currency format",
-        "message": "Invalid currency format"
+        "summary": "You haven&rsquo;t entered a valid gross amount",
+        "message": "Enter a valid amount using numbers only"
       }
     },
     "netIHT205": {
@@ -43,8 +43,8 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "Invalid currency format",
-        "message": "Invalid currency format"
+        "summary": "You haven&rsquo;t entered a valid net amount",
+        "message": "Enter a valid amount using numbers only"
       },
       "netValueGreaterThanGross": {
         "summary": "The net amount can&rsquo;t be greater than the gross amount",
@@ -61,8 +61,8 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "Invalid currency format",
-        "message": "Invalid currency format"
+        "summary": "You haven&rsquo;t entered a valid gross amount",
+        "message": "Enter a valid amount using numbers only"
       }
     },
     "netIHT207": {
@@ -75,8 +75,8 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "Invalid currency format",
-        "message": "Invalid currency format"
+        "summary": "You haven&rsquo;t entered a valid net amount",
+        "message": "Enter a valid amount using numbers only"
       },
       "netValueGreaterThanGross": {
         "summary": "The net amount can&rsquo;t be greater than the gross amount",
@@ -93,8 +93,8 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "Invalid currency format",
-        "message": "Invalid currency format"
+        "summary": "You haven&rsquo;t entered a valid gross amount",
+        "message": "Enter a valid amount using numbers only"
       }
     },
     "netIHT400421": {
@@ -107,8 +107,8 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "Invalid currency format",
-        "message": "Invalid currency format"
+        "summary": "You haven&rsquo;t entered a valid net amount",
+        "message": "Enter a valid amount using numbers only"
       },
       "netValueGreaterThanGross": {
         "summary": "The net amount can&rsquo;t be greater than the gross amount",

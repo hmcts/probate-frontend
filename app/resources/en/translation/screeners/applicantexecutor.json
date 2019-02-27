@@ -1,0 +1,17 @@
+{
+  "title": "Are you named as an executor",
+  "question": "Are you named as an executor on the will?",
+  "hintText1": "An executor is responsible for carrying out the instructions in the will.",
+  "hintText2": "This is not the same as a beneficiary who will get money or other property from the person who died. You could be named as both an executor and a beneficiary.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "legend": "Are you named as an executor on the will?",
+  "errors": {
+    "executor": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about the executors",
+        "message": "Answer &lsquo;yes&rsquo; if you are an executor on the will"
+      }
+    }
+  }
+}

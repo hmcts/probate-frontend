@@ -9,7 +9,7 @@
     "codicils": {
       "required": {
         "summary": "Answer the question about updates (&lsquo;codicils&rsquo;)",
-        "message": "Select yes if there are updates to the will"
+        "message": "Answer &lsquo;yes&rsquo; if there are updates to the will"
       }
     }
   }

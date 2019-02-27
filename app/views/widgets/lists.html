@@ -1,17 +1,17 @@
 {% macro taskAction(prevTaskStatus, status, nextURL, checkYourAnswersURL, content, alreadyDeclared) %}
     {% if prevTaskStatus === 'complete' %}
-        {% if status == 'notStarted' %}
+        {% if status === 'notStarted' %}
             <!-- Start link -->
-            <p><a href="{{nextURL}}" class="button button-start">{{content.taskNotStarted}}</a></p>
-        {% elif status == 'started' %}
+            <p><a href="{{ nextURL }}" class="button button-start">{{ content.taskNotStarted }}</a></p>
+        {% elif status === 'started' %}
             <!-- Continue link -->
-            <p><a href="{{nextURL}}" class="button">{{content.taskStarted}}</a></p>
-        {% elif status == 'complete' %}
+            <p><a href="{{ nextURL }}" class="button">{{ content.taskStarted }}</a></p>
+        {% elif status === 'complete' %}
             <!-- Check your answers -->
             {% if alreadyDeclared === 'false' %}
-                <p><a href="{{checkYourAnswersURL}}">{{content.checkYourAnswers}}</a></p>
+                <p><a href="{{ checkYourAnswersURL }}">{{ content.checkYourAnswers }}</a></p>
             {% else %}
-                <p>{{content.alreadyDeclared}}</p>
+                <p>{{ content.alreadyDeclared }}</p>
             {% endif %}
         {% endif %}
     {% endif %}
@@ -20,7 +20,7 @@
 {% macro unorderedList(items) %}
     <ul class="list list-bullet">
         {% for item in items %}
-            <li>{{item | safe}}</li>
+            <li>{{ item | safe }}</li>
         {% endfor %}
     </ul>
 {% endmacro %}
@@ -28,7 +28,7 @@
 {% macro orderedList(items) %}
     <ol class="list list-number">
         {% for item in items %}
-            <li>{{item | safe}}</li>
+            <li>{{ item | safe }}</li>
         {% endfor %}
     </ol>
 {% endmacro %}

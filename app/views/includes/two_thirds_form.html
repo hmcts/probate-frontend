@@ -1,32 +1,30 @@
 {% extends "includes/layout.html" %}
 
 {% block content %}
-<main id="content" role="main">
+    <main id="content" role="main">
+        {% include "includes/phase_banner_beta.html" %}
 
-    {% include "includes/phase_banner_beta.html" %}
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                {% block error_summary %}
+                    {% include "includes/error_summary.html" %}
+                {% endblock %}
 
-    <div class="grid-row">
-        <div class="column-two-thirds">
+                {% block question %}{% endblock %}
 
-            {% block error_summary %}
-                {% include "includes/error_summary.html" %}
-            {% endblock %}
+                {% block page_content %}{% endblock %}
 
-            {% block question %}{% endblock %}
+                <form class="form" method="post" action="{{ pageUrl }}" novalidate>
+                    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+                    {% block form_content %}{% endblock %}
+                </form>
 
-            {% block page_content %}{% endblock %}
+                {% block save_and_close %}<p><a href="/sign-out">{{ common.saveAndClose }}</a></p>{% endblock %}
 
-            <form class="form" method="post" action="{{pageUrl}}" novalidate>
-                <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                {% block form_content %}{% endblock %}
-            </form>
+                {% block executor_summary %}{% endblock %}
 
-            {% block save_and_close %}<p><a href="/sign-out">{{common.saveAndClose}}</a></p>{% endblock %}
-
-            {% block executor_summary %}{% endblock %}
-
-            {% include "includes/help_details.html" %}
+                {% include "includes/help_details.html" %}
+            </div>
         </div>
-    </div>
-</main>
+    </main>
 {% endblock %}

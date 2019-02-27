@@ -1,67 +1,63 @@
 {% from "widgets/fielderror.html" import fieldError %}
 
 {% macro textField(id=name, text, hint, name, field, size) %}
-<div class="form-group {{ 'form-group-error' if field.error }}">
+    <div class="form-group {{ 'form-group-error' if field.error }}">
+        {% if hint %}
+            <p class="form-hint no-link">{{hint | safe}}</p>
+        {% endif %}
 
-    {% if hint %}
-    <p class="form-hint no-link">{{hint | safe}}</p>
-    {% endif %}
+        {{ fieldError(field) }}
 
-    {{ fieldError(field) }}
-
-    <label class="form-label" for="{{id}}">{{text | safe}}</label>
-    <input type="text" class="form-control {{ 'form-control-error' if field.error }} form-control-3-4" id="{{id}}" name="{{name}}" value="{{field.value  | safe}}" maxlength="{{size}}">
-</div>
+        <label class="form-label" for="{{id}}">{{text | safe}}</label>
+        <input type="text" class="form-control {{ 'form-control-error' if field.error }} form-control-3-4" id="{{id}}" name="{{name}}" value="{{field.value  | safe}}" maxlength="{{size}}">
+    </div>
 {% endmacro %}
 
 {% macro passwordField(id=name, text, hint, name, field, size, width) %}
-<div class="form-group {{ 'form-group-error' if field.error }}">
+    <div class="form-group {{ 'form-group-error' if field.error }}">
 
-    {% if hint %}
-    <p class="form-hint no-link">{{hint | safe}}</p>
-    {% endif %}
+        {% if hint %}
+            <p class="form-hint no-link">{{hint | safe}}</p>
+        {% endif %}
 
-    {{ fieldError(field) }}
+        {{ fieldError(field) }}
 
-    <label class="form-label" for="{{id}}">{{text | safe}}</label>
-    <input type="password" class="form-control {{ 'form-control-error' if field.error }} form-control-{{width}}" id="{{id}}" name="{{name}}" value="{{field.value  | safe}}" maxlength="{{size}}" size="{{size}}">
-</div>
+        <label class="form-label" for="{{id}}">{{text | safe}}</label>
+        <input type="password" class="form-control {{ 'form-control-error' if field.error }} form-control-{{width}}" id="{{id}}" name="{{name}}" value="{{field.value  | safe}}" maxlength="{{size}}" size="{{size}}">
+    </div>
 {% endmacro %}
 
 {% macro textFieldInArray(id=name, text, hint, name, fieldArray, size, index, errors) %}
-<div class="form-group {{ 'form-group-error' if errors.value[index] }}">
+    <div class="form-group {{ 'form-group-error' if errors.value[index] }}">
+        <label class="form-label no-link" for="{{id}}">{{text | safe}}</label>
 
-    <label class="form-label no-link" for="{{id}}">{{text | safe}}</label>
+        {% if hint %}
+            <div class="form-hint">{{hint | safe}}</div>
+        {% endif %}
 
-    {% if hint %}
-    <div class="form-hint">{{hint | safe}}</div>
-    {% endif %}
+        {{ fieldError(errors.value[index]) }}
 
-    {{ fieldError(errors.value[index]) }}
-
-    <input type="text" class="form-control {{ 'form-control-error' if errors.value[index]}} form-control-3-4" id="{{id}}" name="{{name}}" value="{{fieldArray.value[index] | safe}}" maxlength="{{size}}">
-</div>
+        <input type="text" class="form-control {{ 'form-control-error' if errors.value[index]}} form-control-3-4" id="{{id}}" name="{{name}}" value="{{fieldArray.value[index] | safe}}" maxlength="{{size}}">
+    </div>
 {% endmacro %}
 
 {% macro textFieldNoLabel(text, hint, name, field, size) %}
-<div class="form-group {{ 'form-group-error' if field.error }}">
+    <div class="form-group {{ 'form-group-error' if field.error }}">
+        {% if hint %}
+            <p class="form-hint no-link">{{hint}}</p>
+        {% endif %}
 
-    {% if hint %}
-    <p class="form-hint no-link">{{hint}}</p>
-    {% endif %}
+        {{ fieldError(field) }}
 
-    {{ fieldError(field) }}
-
-    <label class="visually-hidden" for="{{name}}">{{text}}</label>
-    <input type="text" class="form-control {{ 'form-control-error' if field.error }} form-control-3-4" id="{{name}}" name="{{name}}" value="{{field.value | safe}}" maxlength="{{size}}">
-</div>
+        <label class="visually-hidden" for="{{name}}">{{text}}</label>
+        <input type="text" class="form-control {{ 'form-control-error' if field.error }} form-control-3-4" id="{{name}}" name="{{name}}" value="{{field.value | safe}}" maxlength="{{size}}">
+    </div>
 {% endmacro %}
 
 {% macro textarea(text, field, name, size) %}
-<div class="form-group {{ 'form-group-error' if field.error }}">
+    <div class="form-group {{ 'form-group-error' if field.error }}">
+        {{ fieldError(field) }}
 
-    {{ fieldError(field) }}
-
-    <textarea title="{{text}}" class="form-control {{ 'form-control-error' if field.error }} form-control-3-4" rows="{{size}}" id="{{name}}" name="{{name}}">{{field.value | safe}}</textarea>
-</div>
+        <textarea title="{{text}}" class="form-control {{ 'form-control-error' if field.error }} form-control-3-4" rows="{{size}}" id="{{name}}" name="{{name}}">{{field.value | safe}}</textarea>
+    </div>
 {% endmacro %}

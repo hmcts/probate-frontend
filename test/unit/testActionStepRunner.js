@@ -1,8 +1,8 @@
-const ActionStepRunner = require('app/core/runners/ActionStepRunner'),
-    sinon = require('sinon'),
-    chai = require('chai'),
-    expect = chai.expect,
-    sinonChai = require('sinon-chai');
+const ActionStepRunner = require('app/core/runners/ActionStepRunner');
+const sinon = require('sinon');
+const chai = require('chai');
+const expect = chai.expect;
+const sinonChai = require('sinon-chai');
 
 chai.use(sinonChai);
 

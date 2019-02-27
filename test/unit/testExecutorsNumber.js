@@ -16,33 +16,9 @@ describe('ExecutorsNumber', () => {
         });
     });
 
-    describe('handlePost()', () => {
-        let ctx;
-        let errors;
-        let formdata;
-        let session;
-        let hostname;
-        let featureToggles;
-
-        it('should return the ctx with the deceased married status and the screening_question feature toggle', (done) => {
-            ctx = {
-                executorsNumber: '3'
-            };
-            errors = {};
-            [ctx, errors] = ExecutorsNumber.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
-            expect(ctx).to.deep.equal({
-                executorsNumber: '3',
-                isToggleEnabled: false
-            });
-            done();
-        });
-    });
-
     describe('nextStepOptions()', () => {
-        it('should return the correct options when the FT is off', (done) => {
-            const ctx = {
-                isToggleEnabled: false
-            };
+        it('should return the correct options', (done) => {
+            const ctx = {};
             const nextStepOptions = ExecutorsNumber.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [{
@@ -52,31 +28,6 @@ describe('ExecutorsNumber', () => {
                 }]
             });
             done();
-        });
-
-        it('should return the correct options when the FT is on', (done) => {
-            const ctx = {
-                isToggleEnabled: true
-            };
-            const nextStepOptions = ExecutorsNumber.nextStepOptions(ctx);
-            expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'executorsNumber',
-                    value: 1,
-                    choice: 'oneExecutorToggleOn'
-                }]
-            });
-            done();
-        });
-    });
-
-    describe('action', () => {
-        it('test isToggleEnabled is removed from the context', () => {
-            const ctx = {
-                isToggleEnabled: false
-            };
-            ExecutorsNumber.action(ctx);
-            assert.isUndefined(ctx.isToggleEnabled);
         });
     });
 

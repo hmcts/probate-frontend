@@ -9,9 +9,8 @@ const config = {
         url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8282',
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
         fe_shutter_toggle: 'probate-fe-shutter',
-        main_applicant_alias: 'probate-main-applicant-alias',
-        screening_questions: 'probate-screening-questions',
-        document_upload: 'probate-document-upload'
+        document_upload: 'probate-document-upload',
+        intestacy_questions: 'probate-screening-questions'
     },
     app: {
         username: process.env.USERNAME,
@@ -29,6 +28,14 @@ const config = {
             proxy: process.env.http_proxy,
             port: 8585,
             path: '/find-address'
+        },
+        orchestrator: {
+            url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8080',
+            paths: {
+                forms: '/forms/{applicantEmail}',
+                submissions: '/forms/{applicantEmail}/submissions',
+                payments: '/forms/{applicantEmail}/payments'
+            }
         },
         validation: {
             url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
@@ -51,34 +58,52 @@ const config = {
             service_key: process.env.IDAM_SERVICE_KEY || 'AAAAAAAAAAAAAAAA',
             probate_oauth2_client: 'probate',
             probate_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE || '123456',
-            probate_oauth_callback_path: '/oauth2/callback'
+            probate_oauth_callback_path: '/oauth2/callback',
+            probate_oauth_token_path: '/oauth2/token',
         },
         payment: {
             createPaymentUrl: process.env.PAYMENT_CREATE_URL || 'http://localhost:8383/card-payments',
-            authorization: process.env.PAYMENT_AUTHORIZATION || 'dummy_token',
-            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'dummy_token',
-            userId: process.env.PAYMENT_USER_ID || 999999999,
+            authorization: process.env.PAYMENT_AUTHORIZATION || 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI3bTRsNWlrZmFsZGZwbzQyaGR0ZjZiMTBmNCIsInN1YiI6IjM3IiwiaWF0IjoxNTQ5OTA1MzE2LCJleHAiOjE1NDk5MzQxMTYsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiIzNyIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.PEIyDFArolm9Am9YUVRO74zAbUSbwhlxvq-O_2gKqt8',
+            serviceAuthorization: process.env.PAYMENT_SERVICE_AUTHORIZATION || 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTQ5OTE5NzE2fQ.GJ9wLe_4it4TysL2M4ABGyvDGIc97cnryJJPd4wz7Ic5qM-k6ENlVmcLXbUqwL2LV7XuyW5MJofWJIgUPCA9lQ',
+            userId: process.env.PAYMENT_USER_ID || 37,
             returnUrlPath: '/payment-status'
+        },
+        pact: {
+            brokerUrl: process.env.PACT_BROKER_URL || 'http://localhost:80',
+            pactDirectory: 'pacts'
+        },
+        feesRegister: {
+            url: process.env.FEES_REGISTRY_URL || 'http://localhost:4411/fees-register',
+            port: 4411,
+            paths: {
+                fees: '/fees',
+                feesLookup: '/fees/lookup'
+            },
+            ihtMinAmt: 5000
         }
+
     },
     redis: {
         host: process.env.REDIS_HOST || 'localhost',
         port: process.env.REDIS_PORT || 6379,
-
         password: process.env.REDIS_PASSWORD || 'dummy_password',
         useTLS: process.env.REDIS_USE_TLS || 'false',
         enabled: process.env.USE_REDIS || 'false',
         secret: process.env.REDIS_SECRET || 'OVERWRITE_THIS',
-        proxy: true,
         resave: false,
-        saveUninitialized: false,
+        saveUninitialized: true,
         cookie: {
             httpOnly: true,
-            sameSite: 'lax'
+            secure: true
+        },
+        eligibilityCookie: {
+            name: '__eligibility',
+            redirectUrl: '/start-eligibility',
+            expires: 1000 * 60 * 60 * 24 * 2
         }
     },
     dateFormat: 'DD/MM/YYYY',
-    payloadVersion: '4.1.0',
+    payloadVersion: '4.1.1',
     gaTrackingId: process.env.GA_TRACKING_ID || 'UA-93598808-3',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
     links: {
@@ -98,17 +123,19 @@ const config = {
         survey: process.env.SURVEY || 'https://www.smartsurvey.co.uk/',
         surveyEndOfApplication: process.env.SURVEY_END_OF_APPLICATION || 'https://www.smartsurvey.co.uk/',
         ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',
-        renunciationForm: '/public/pdf/renunciation.pdf',
-        applicationFormPA1A: '/public/pdf/probate-application-form-pa1a.pdf',
-        applicationFormPA1P: '/public/pdf/probate-application-form-pa1p.pdf',
-        guidance: '/public/pdf/probate-guidance-pa2sot.pdf',
-        registryInformation: '/public/pdf/probate-registries-pa4sot.pdf',
+        applicationFormPA15: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will',
+        applicationFormPA1A: 'https://www.gov.uk/government/publications/form-pa1a-apply-for-probate-deceased-did-not-leave-a-will',
+        applicationFormPA1P: 'https://www.gov.uk/government/publications/form-pa1p-apply-for-probate-the-deceased-had-a-will',
         deathCertificate: 'https://www.gov.uk/order-copy-birth-death-marriage-certificate',
-        deathReportedToCoroner: 'https://www.gov.uk/after-a-death/when-a-death-is-reported-to-a-coroner'
+        deathReportedToCoroner: 'https://www.gov.uk/after-a-death/when-a-death-is-reported-to-a-coroner',
+        findOutNext: 'https://www.gov.uk/wills-probate-inheritance/once-the-grants-been-issued',
+        whoInherits: 'https://www.gov.uk/inherits-someone-dies-without-will',
+        ifYoureAnExecutor: 'https://www.gov.uk/wills-probate-inheritance/if-youre-an-executor',
+        renunciationForm: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will'
     },
     helpline: {
         number: '0300 303 0648',
-        hours: 'Monday to Friday, 9am to 5pm'
+        hours: 'Monday to Friday, 9:30am to 5pm'
     },
     utils: {
         api: {
@@ -137,11 +164,14 @@ const config = {
         version: process.env.version || '1',
         currency: process.env.currency || 'GBP'
     },
-    whitelistedPagesAfterSubmission: ['/documents', '/thankyou', '/sign-out'],
-    whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/sign-out'],
-    whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/sign-out'],
-    hardStopParams: ['will.left', 'will.original', 'iht.completed', 'applicant.executor'],
-    nonIdamPages: ['error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'start-apply', 'new-start-eligibility', 'new-will-left', 'new-will-original', 'new-death-certificate', 'new-deceased-domicile', 'new-applicant-executor', 'new-mental-capacity', 'new-iht-completed', 'new-start-apply'],
+    whitelistedPagesAfterSubmission: ['/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
+    whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
+    whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
+    hardStopParams: {
+        probate: [],
+        intestacy: []
+    },
+    nonIdamPages: ['stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply'],
     endpoints: {
         health: '/health',
         info: '/info'
@@ -152,8 +182,31 @@ const config = {
     documentUpload: {
         validMimeTypes: ['image/jpeg', 'image/bmp', 'image/tiff', 'image/png', 'application/pdf'],
         maxFiles: 10,
-        maxFileSizeMb: 10
-    }
+        maxSizeBytes: 10485760,
+        paths: {
+            upload: '/document/upload',
+            remove: '/document/delete'
+        },
+        error: {
+            invalidFileType: 'Error: invalid file type',
+            maxSize: 'Error: invalid file size',
+            maxFiles: 'Error: too many files',
+            nothingUploaded: 'Error: no files passed',
+            uploadFailed: 'Error: upload failed',
+            uploadTimeout: 'Error: upload timed out'
+        },
+        timeoutMs: 300000
+    },
+    pdf: {
+        template: {
+            checkAnswers: 'generateCheckAnswersSummaryPDF',
+            declaration: 'generateLegalDeclarationPDF',
+            coverSheet: 'generateBulkScanCoverSheetPDF'
+        },
+        path: '/businessDocument'
+    },
+    signOutOnStopPages: ['divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales'],
+    assetsValueThreshold: 250000
 };
 
 module.exports = config;

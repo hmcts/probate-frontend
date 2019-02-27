@@ -1,7 +1,6 @@
 'use strict';
 const initSteps = require('app/core/initSteps');
-const chai = require('chai');
-const expect = chai.expect;
+const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 
 describe('ApplicantAliasReason', () => {
@@ -23,7 +22,7 @@ describe('ApplicantAliasReason', () => {
                 aliasReason: 'Divorce',
                 otherReason: 'because I wanted to'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantAliasReason.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({aliasReason: 'Divorce'});
             done();
@@ -34,46 +33,12 @@ describe('ApplicantAliasReason', () => {
                 aliasReason: 'other',
                 otherReason: 'because I wanted to'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantAliasReason.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 aliasReason: 'other',
                 otherReason: 'because I wanted to'
             });
-            done();
-        });
-    });
-
-    describe('isComplete()', () => {
-        describe('should return the correct data when the feature toggle exists', () => {
-            it('and is enabled and the field value exists', (done) => {
-                const ApplicantAliasReason = steps.ApplicantAliasReason;
-                const ctx = {aliasReason: 'Divorce'};
-                const formdata = {};
-                const featureToggles = {main_applicant_alias: true};
-                const isComplete = ApplicantAliasReason.isComplete(ctx, formdata, featureToggles);
-                expect(isComplete).to.deep.equal([true, 'inProgress']);
-                done();
-            });
-
-            it('and is disabled', (done) => {
-                const ApplicantAliasReason = steps.ApplicantAliasReason;
-                const ctx = {};
-                const formdata = {};
-                const featureToggles = {main_applicant_alias: false};
-                const isComplete = ApplicantAliasReason.isComplete(ctx, formdata, featureToggles);
-                expect(isComplete).to.deep.equal([true, 'inProgress']);
-                done();
-            });
-        });
-
-        it('should return the correct data when the feature toggle does not exist', (done) => {
-            const ApplicantAliasReason = steps.ApplicantAliasReason;
-            const ctx = {};
-            const formdata = {};
-            const featureToggles = {};
-            const isComplete = ApplicantAliasReason.isComplete(ctx, formdata, featureToggles);
-            expect(isComplete).to.deep.equal([true, 'inProgress']);
             done();
         });
     });
@@ -86,7 +51,7 @@ describe('ApplicantAliasReason', () => {
                 aliasReason: 'Divorce',
                 otherReason: 'because I wanted to'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantAliasReason.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({aliasReason: 'Divorce'});
             done();
@@ -97,7 +62,7 @@ describe('ApplicantAliasReason', () => {
                 aliasReason: 'other',
                 otherReason: 'because I wanted to'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantAliasReason.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 aliasReason: 'other',

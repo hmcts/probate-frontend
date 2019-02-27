@@ -15,49 +15,58 @@ describe('DeceasedAddress', () => {
     });
 
     describe('getContextData()', () => {
-        let ctx;
-        it('should return the ctx with the deceased addresses', (done) => {
+        it('should return the ctx with the deceased address and the document_upload feature toggle on', (done) => {
             const req = {
+                sessionID: 'dummy_sessionId',
                 session: {
-                    form: {},
-                    addresses: {
-                        deceased: [
-                            {address: '1 Red Road, London, LL1 1LL'},
-                            {address: '2 Green Road, London, LL2 2LL'}
-                        ]
-                    }
+                    form: {
+                        journeyType: 'probate'
+                    },
+                    featureToggles: {
+                        document_upload: true
+                    },
+                    journeyType: 'probate'
+                },
+                body: {
+                    freeTextAddress: '143 Caerfai Bay Road',
+                    postcode: 'L23 6WW'
                 }
             };
-
-            ctx = DeceasedAddress.getContextData(req);
-            expect(ctx.addresses).to.deep.equal = [
-                {address: '1 Red Road, London, LL1 1LL'},
-                {address: '2 Green Road, London, LL2 2LL'}
-            ]
-            ;
-            done();
-        });
-    });
-    describe('handlePost()', () => {
-        let ctx;
-        let errors;
-        const formdata = {};
-        const session = {};
-        let hostname;
-        let featureToggles;
-
-        it('should return the ctx with the deceased address and the screening_question feature toggle', (done) => {
-            ctx = {
-                freeTextAddress: '143 Caerfai Bay Road',
-                postcode: 'L23 6WW'
-            };
-            errors = {};
-            [ctx, errors] = DeceasedAddress.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
+            const ctx = DeceasedAddress.getContextData(req);
             expect(ctx).to.deep.equal({
                 freeTextAddress: '143 Caerfai Bay Road',
-                address: '143 Caerfai Bay Road',
                 postcode: 'L23 6WW',
-                isToggleEnabled: false
+                isDocumentUploadToggleEnabled: true,
+                sessionID: 'dummy_sessionId',
+                journeyType: 'probate'
+            });
+            done();
+        });
+
+        it('should return the ctx with the deceased address and the document_upload feature toggle off', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {
+                        journeyType: 'probate'
+                    },
+                    featureToggles: {
+                        document_upload: false
+                    },
+                    journeyType: 'probate'
+                },
+                body: {
+                    freeTextAddress: '143 Caerfai Bay Road',
+                    postcode: 'L23 6WW'
+                }
+            };
+            const ctx = DeceasedAddress.getContextData(req);
+            expect(ctx).to.deep.equal({
+                freeTextAddress: '143 Caerfai Bay Road',
+                postcode: 'L23 6WW',
+                isDocumentUploadToggleEnabled: false,
+                sessionID: 'dummy_sessionId',
+                journeyType: 'probate'
             });
             done();
         });
@@ -91,23 +100,21 @@ describe('DeceasedAddress', () => {
         it('should return the correct options', (done) => {
             const nextStepOptions = DeceasedAddress.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'isToggleEnabled',
-                    value: true,
-                    choice: 'toggleOn'
-                }]
+                options: [
+                    {key: 'isDocumentUploadToggleEnabled', value: true, choice: 'documentUploadToggleOn'}
+                ]
             });
             done();
         });
     });
 
     describe('action', () => {
-        it('test isToggleEnabled is removed from the context', () => {
+        it('test variables are removed from the context', () => {
             const ctx = {
-                isToggleEnabled: false
+                isDocumentUploadToggleEnabled: false
             };
             DeceasedAddress.action(ctx);
-            assert.isUndefined(ctx.isToggleEnabled);
+            assert.isUndefined(ctx.isDocumentUploadToggleEnabled);
         });
     });
 });

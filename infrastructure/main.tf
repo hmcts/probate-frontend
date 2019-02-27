@@ -1,14 +1,16 @@
-provider "vault" {
+#//provider "vault" {
   //  # It is strongly recommended to configure this provider through the
   //  # environment variables described above, so that each user can have
   //  # separate credentials set in the environment.
   //  #
   //  # This will default to using $VAULT_ADDR
   //  # But can be set explicitly
-  address = "https://vault.reform.hmcts.net:6200"
+#//  address = "https://vault.reform.hmcts.net:6200"
+#//}
+
+provider "azurerm" {
+  version = "1.19.0"
 }
-
-
 
 # data "vault_generic_secret" "idam_frontend_service_key" {
 #   path = "secret/${var.vault_section}/ccidam/service-auth-provider/api/microservice-keys/probate-frontend"
@@ -19,12 +21,12 @@ provider "vault" {
 # }
 
 locals {
-  aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"  
+  aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
   previewVaultName = "${var.raw_product}-aat"
   nonPreviewVaultName = "${var.raw_product}-${var.env}"
   vaultName = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultName : local.nonPreviewVaultName}"
   localenv = "${(var.env == "preview" || var.env == "spreview") ? "aat": "${var.env}"}"
-  //once Backend is up in CNP need to get the 
+  //once Backend is up in CNP need to get the
   //localBusinessServiceUrl = "http://probate-business-service-${var.env}.service.${local.aseName}.internal"
   //businessServiceUrl = "${var.env == "preview" ? "http://probate-business-service-aat.service.core-compute-aat.internal" : local.localClaimStoreUrl}"
   // add other services
@@ -45,10 +47,6 @@ data "azurerm_key_vault" "probate_key_vault" {
   resource_group_name = "${local.vaultName}"
 }
 
-# data "azurerm_key_vault_secret" "idam_secret_probate" {
-#   name = "ccidam-idam-api-secrets-probate"
-#   vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
-# }
 
 data "azurerm_key_vault_secret" "probate_postcode_service_token" {
   name = "postcode-service-token"
@@ -121,23 +119,23 @@ module "probate-frontend" {
   asp_rg       = "${var.asp_rg}"
 
   app_settings = {
-    
+
     // Node specific vars
     //NODE_ENV = "${var.node_env}"
     //UV_THREADPOOL_SIZE = "64"
     //NODE_CONFIG_DIR = "${var.node_config_dir}"
-    
+
 	  // Logging vars
     REFORM_TEAM = "${var.product}"
     REFORM_SERVICE_NAME = "${var.product}-${var.microservice}"
     REFORM_ENVIRONMENT = "${var.env}"
-  
+
 	  // Packages
     PACKAGES_NAME="${var.packages_name}"
     PACKAGES_PROJECT="${var.packages_project}"
     PACKAGES_ENVIRONMENT="${var.packages_environment}"
     PACKAGES_VERSION="${var.packages_version}"
-	
+
     DEPLOYMENT_ENV="${var.deployment_env}"
 
 	  // Frontend web details
@@ -147,15 +145,17 @@ module "probate-frontend" {
     SERVICE_NAME = "${var.frontend_service_name}"
 
     VALIDATION_SERVICE_URL = "${var.probate_business_service_url}"
+    BUSINESS_DOCUMENT_URL = "${var.probate_business_service_document_url}"
     SUBMIT_SERVICE_URL = "${var.probate_submit_service_url}"
     PERSISTENCE_SERVICE_URL = "${var.probate_persistence_service_url}"
+    FEES_REGISTRY_URL = "${var.probate_fees_registry_service_url}"
     USE_HTTPS =  "${var.probate_frontend_https}"
     USE_AUTH = "${var.probate_frontend_use_auth}"
     GA_TRACKING_ID = "${var.probate_google_track_id}"
 
     // REDIS
     USE_REDIS = "${var.probate_frontend_use_redis}"
-    REDIS_USE_TLS = "${var.redis_use_tls}" 
+    REDIS_USE_TLS = "${var.redis_use_tls}"
     REDIS_HOST      = "${module.probate-frontend-redis-cache.host_name}"
     REDIS_PORT      = "${module.probate-frontend-redis-cache.redis_port}"
     REDIS_PASSWORD  = "${module.probate-frontend-redis-cache.access_key}"
@@ -179,23 +179,22 @@ module "probate-frontend" {
     //POSTCODE_SERVICE_TOKEN = "${data.vault_generic_secret.probate_postcode_service_token.data["value"]}"
     POSTCODE_SERVICE_TOKEN = "${data.azurerm_key_vault_secret.probate_postcode_service_token.value}"
 
-    # SURVEY = "${data.vault_generic_secret.probate_survey.data["value"]}"
+
     SURVEY = "${data.azurerm_key_vault_secret.probate_survey.value}"
-    # SURVEY_END_OF_APPLICATION = "${data.vault_generic_secret.probate_survey_end.data["value"]}"
     SURVEY_END_OF_APPLICATION = "${data.azurerm_key_vault_secret.probate_survey_end.value}"
-    # APPLICATION_FEE_CODE = "${data.vault_generic_secret.probate_application_fee_code.data["value"]}"
     APPLICATION_FEE_CODE = "${data.azurerm_key_vault_secret.probate_application_fee_code.value}"
-    # UK_COPIES_FEE_CODE = "${data.vault_generic_secret.probate_uk_application_fee_code.data["value"]}"
-     UK_COPIES_FEE_CODE = "${data.azurerm_key_vault_secret.probate_uk_application_fee_code.value}"
-    # OVERSEAS_COPIES_FEE_CODE = "${data.vault_generic_secret.probate_overseas_application_fee_code.data["value"]}"
+    UK_COPIES_FEE_CODE = "${data.azurerm_key_vault_secret.probate_uk_application_fee_code.value}"
     OVERSEAS_COPIES_FEE_CODE = "${data.azurerm_key_vault_secret.probate_overseas_application_fee_code.value}"
-    # SERVICE_ID = "${data.vault_generic_secret.probate_service_id.data["value"]}"
     SERVICE_ID = "${data.azurerm_key_vault_secret.probate_service_id.value}"
-    # SITE_ID = "${data.vault_generic_secret.probate_site_id.data["value"]}"
     SITE_ID = "${data.azurerm_key_vault_secret.probate_site_id.value}"
 
     REFORM_ENVIRONMENT = "${var.reform_envirionment_for_test}"
 
     FEATURE_TOGGLES_API_URL = "${var.feature_toggles_api_url}"
+
+    TESTING = "TESTING"
+       // Cache
+    WEBSITE_LOCAL_CACHE_OPTION = "${var.website_local_cache_option}"
+    WEBSITE_LOCAL_CACHE_SIZEINMB = "${var.website_local_cache_sizeinmb}"
   }
 }

@@ -1,7 +1,6 @@
 'use strict';
 const AliasData = require('app/utils/AliasData.js');
-const chai = require('chai');
-const expect = chai.expect;
+const expect = require('chai').expect;
 
 describe('AliasData.js', () => {
 
@@ -67,19 +66,19 @@ describe('AliasData.js', () => {
             };
             const result = AliasData.aliasDataRequiredAfterDeclaration(ctx, formdata);
             expect(result).to.deep.equal({
-                'applicant': {
-                    'alias': 'Bob Builder',
-                    'nameAsOnTheWill': 'No'
+                applicant: {
+                    alias: 'Bob Builder',
+                    nameAsOnTheWill: 'No'
                 },
-                'declaration': {
-                    'hasDataChanged': true
+                declaration: {
+                    hasDataChanged: true
                 },
-                'executors': {
-                    'alias': 'Yes',
-                    'hasOtherName': true,
-                    'list': [
+                executors: {
+                    alias: 'Yes',
+                    hasOtherName: true,
+                    list: [
                         {
-                            'currentName': 'dave'
+                            currentName: 'dave'
                         }
                     ]
                 }

@@ -10,7 +10,7 @@
     "executorNotified": {
       "required": {
         "summary": "You haven&rsquo;t selected whether you have notified the executor in writing or not",
-        "message": "Select yes if you have have notified the executor in writing"
+        "message": "Answer &lsquo;yes&rsquo; if you have have notified the executor in writing"
       }
     }
   }

@@ -1,6 +1,5 @@
 const FormatAlias = require('app/utils/FormatAlias');
-const chai = require('chai');
-const expect = chai.expect;
+const expect = require('chai').expect;
 
 describe('FormatAlias.js', () => {
     describe('aliasReason()', () => {

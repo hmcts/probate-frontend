@@ -5,11 +5,14 @@ const OptionGetRunner = require('app/core/runners/OptionGetRunner');
 const FieldError = require('app/components/error');
 const {isEmpty, map, includes} = require('lodash');
 const utils = require('app/components/step-utils');
-const services = require('app/components/services');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const FeatureToggle = require('app/utils/FeatureToggle');
+const CheckAnswersSummaryJSONObjectBuilder = require('app/utils/CheckAnswersSummaryJSONObjectBuilder');
+const checkAnswersSummaryJSONObjBuilder = new CheckAnswersSummaryJSONObjectBuilder();
+const ValidateData = require('app/services/ValidateData');
+const config = require('app/config');
 
 class Summary extends Step {
 
@@ -33,20 +36,19 @@ class Summary extends Step {
         ctx.executorsWhoDied = executorsWrapper.deadExecutors().map(exec => exec.fullName);
         ctx.executorsDealingWithEstate = executorsApplying.map(exec => exec.fullName);
         ctx.executorsPowerReservedOrRenounced = executorsWrapper.hasRenunciatedOrPowerReserved();
-        ctx.isMainApplicantAliasToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'main_applicant_alias');
-        ctx.isScreeningQuestionToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
+        ctx.isDocumentUploadToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'document_upload');
         ctx.executorsWithOtherNames = executorsWrapper.executorsWithAnotherName().map(exec => exec.fullName);
 
         utils.updateTaskStatus(ctx, ctx, this.steps);
-
         return [ctx, !isEmpty(errors) ? errors : null];
     }
 
     validateFormData(ctx, formdata) {
-        return services.validateFormData(formdata, ctx.sessionID);
+        const validateData = new ValidateData(config.services.validation.url, ctx.sessionID);
+        return validateData.post(formdata, ctx.sessionID);
     }
 
-    generateContent (ctx, formdata) {
+    generateContent(ctx, formdata) {
         const content = {};
 
         Object.keys(this.steps)
@@ -61,7 +63,7 @@ class Summary extends Step {
         return content;
     }
 
-    generateFields (ctx, errors, formdata) {
+    generateFields(ctx, errors, formdata) {
         const fields = {};
         Object.keys(this.steps)
             .filter((stepName) => stepName !== this.name)
@@ -75,7 +77,7 @@ class Summary extends Step {
         return fields;
     }
 
-    getContextData (req) {
+    getContextData(req) {
         const formdata = req.session.form;
         formdata.summary = {'readyToDeclare': includes(req.url, 'declaration')};
         const ctx = super.getContextData(req);
@@ -88,11 +90,21 @@ class Summary extends Step {
             .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedAlias.theDeceased);
         ctx.deceasedMarriedQuestion = (hasCodicils ? content.DeceasedMarried.questionWithCodicil : content.DeceasedMarried.question)
             .replace('{deceasedName}', deceasedName);
+        if (formdata.documents && formdata.documents.uploads) {
+            ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
+        }
         ctx.softStop = this.anySoftStops(formdata, ctx);
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
         ctx.session = req.session;
         return ctx;
     }
+
+    renderPage(res, html) {
+        const formdata = res.req.session.form;
+        formdata.checkAnswersSummary = checkAnswersSummaryJSONObjBuilder.build(html);
+        res.send(html);
+    }
+
 }
 
 module.exports = Summary;

@@ -1,104 +1,188 @@
+'use strict';
+
 const initSteps = require('app/core/initSteps');
-const assert = require('chai').assert;
-const sinon = require('sinon');
-const when = require('when');
-const services = require('app/components/services');
+const {assert, expect} = require('chai');
 const co = require('co');
+const rewire = require('rewire');
+const Summary = rewire('app/steps/ui/summary/index');
+const probateJourney = require('app/journeys/probate');
 
 describe('Summary', () => {
     const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
-    const Summary = steps.Summary;
+    let section;
+    let templatePath;
+    let i18next;
+    let schema;
+
+    beforeEach(() => {
+        section = 'summary';
+        templatePath = 'summary';
+        i18next = {};
+        schema = {
+            $schema: 'http://json-schema.org/draft-04/schema#',
+            properties: {}
+        };
+    });
 
     describe('handleGet()', () => {
-
-        let validateFormDataStub;
-
-        beforeEach(() => {
-            validateFormDataStub = sinon.stub(services, 'validateFormData');
-        });
-
-        afterEach(() => {
-            validateFormDataStub.restore();
-        });
-
         it('ctx.executorsWithOtherNames returns array of execs with other names', (done) => {
             const expectedResponse = ['Prince', 'Cher'];
-            validateFormDataStub.returns(when(expectedResponse));
-
-            let ctx = {session: {form: {}}};
+            const revert = Summary.__set__('ValidateData', class {
+                post() {
+                    return Promise.resolve(expectedResponse);
+                }
+            });
+            let ctx = {
+                session: {
+                    form: {},
+                    journey: probateJourney
+                }
+            };
             const formdata = {executors: {list: [{fullName: 'Prince', hasOtherName: true}, {fullName: 'Cher', hasOtherName: true}]}};
+            const summary = new Summary(steps, section, templatePath, i18next, schema);
 
             co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata);
+                [ctx] = yield summary.handleGet(ctx, formdata);
                 assert.deepEqual(ctx.executorsWithOtherNames, expectedResponse);
+                revert();
                 done();
             });
         });
 
         it('executorsWithOtherNames returns empty when hasOtherName is false', (done) => {
             const expectedResponse = [];
-            validateFormDataStub.returns(when(expectedResponse));
-
-            let ctx = {session: {form: {}}};
+            const revert = Summary.__set__('ValidateData', class {
+                post() {
+                    return Promise.resolve(expectedResponse);
+                }
+            });
+            let ctx = {
+                session: {
+                    form: {},
+                    journey: probateJourney
+                }
+            };
             const formdata = {executors: {list: [{fullName: 'Prince', hasOtherName: false}, {fullName: 'Cher', hasOtherName: false}]}};
+            const summary = new Summary(steps, section, templatePath, i18next, schema);
 
             co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata);
+                [ctx] = yield summary.handleGet(ctx, formdata);
                 assert.deepEqual(ctx.executorsWithOtherNames, expectedResponse);
+                revert();
                 done();
             });
         });
 
         it('executorsWithOtherNames returns empty when list is empty', (done) => {
             const expectedResponse = [];
-            validateFormDataStub.returns(when(expectedResponse));
-
-            let ctx = {session: {form: {}}};
+            const revert = Summary.__set__('ValidateData', class {
+                post() {
+                    return Promise.resolve(expectedResponse);
+                }
+            });
+            let ctx = {
+                session: {
+                    form: {},
+                    journey: probateJourney
+                }
+            };
             const formdata = {executors: {list: []}};
+            const summary = new Summary(steps, section, templatePath, i18next, schema);
 
             co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata);
+                [ctx] = yield summary.handleGet(ctx, formdata);
                 assert.deepEqual(ctx.executorsWithOtherNames, expectedResponse);
+                revert();
                 done();
             });
         });
 
         it('check feature toggles are set correctly to true', (done) => {
             const expectedResponse = true;
-            validateFormDataStub.returns(when(expectedResponse));
-
-            let ctx = {session: {form: {}}};
+            const revert = Summary.__set__('ValidateData', class {
+                post() {
+                    return Promise.resolve(expectedResponse);
+                }
+            });
+            let ctx = {
+                session: {
+                    form: {},
+                    journey: probateJourney
+                }
+            };
             const formdata = {executors: {list: []}};
             const featureToggles = {
-                main_applicant_alias: true,
-                screening_questions: true
+                document_upload: true
             };
+            const summary = new Summary(steps, section, templatePath, i18next, schema);
 
             co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
-                assert.deepEqual(ctx.isMainApplicantAliasToggleEnabled, expectedResponse);
-                assert.deepEqual(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
+                [ctx] = yield summary.handleGet(ctx, formdata, featureToggles);
+                assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
+                revert();
                 done();
             });
         });
 
         it('check feature toggles are set correctly to false', (done) => {
             const expectedResponse = false;
-            validateFormDataStub.returns(when(expectedResponse));
-
-            let ctx = {session: {form: {}}};
+            const revert = Summary.__set__('ValidateData', class {
+                post() {
+                    return Promise.resolve(expectedResponse);
+                }
+            });
+            let ctx = {
+                session: {
+                    form: {},
+                    journey: probateJourney
+                }
+            };
             const formdata = {executors: {list: []}};
             const featureToggles = {
-                main_applicant_alias: false,
-                screening_questions: false
+                document_upload: false
             };
+            const summary = new Summary(steps, section, templatePath, i18next, schema);
 
             co(function* () {
-                [ctx] = yield Summary.handleGet(ctx, formdata, featureToggles);
-                assert.deepEqual(ctx.isMainApplicantAliasToggleEnabled, expectedResponse);
-                assert.deepEqual(ctx.isScreeningQuestionToggleEnabled, expectedResponse);
+                [ctx] = yield summary.handleGet(ctx, formdata, featureToggles);
+                assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
+                revert();
                 done();
             });
+        });
+    });
+
+    describe('getContextData()', () => {
+        it('ctx.uploadedDocuments returns an array of uploaded documents when there uploaded documents', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        documents: {
+                            uploads: [{filename: 'screenshot1.png'}, {filename: 'screenshot2.png'}]
+                        }
+                    }
+                },
+            };
+            const Summary = steps.Summary;
+            const ctx = Summary.getContextData(req);
+            expect(ctx.uploadedDocuments).to.deep.equal(['screenshot1.png', 'screenshot2.png']);
+            done();
+        });
+
+        it('ctx.uploadedDocuments returns an empty array of uploaded documents when there no uploaded documents', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        documents: {
+                            uploads: []
+                        }
+                    }
+                },
+            };
+            const Summary = steps.Summary;
+            const ctx = Summary.getContextData(req);
+            expect(ctx.uploadedDocuments).to.deep.equal([]);
+            done();
         });
     });
 });

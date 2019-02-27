@@ -1,0 +1,15 @@
+{% set isUploadedDocuments = fields.summary.uploadedDocuments.value | length > 0 %}
+{{checkanswer(
+    items = [{
+            question: content.DocumentUpload.deathCertificate,
+            answer: fields.summary.uploadedDocuments.value if isUploadedDocuments else content.Summary.uploadedDocumentsEmpty,
+            visible: true
+        }
+    ],
+    url = content.DocumentUpload.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value,
+    answerIsCollection = isUploadedDocuments,
+    answerIsGroup = false,
+    isComplete = true if isUploadedDocuments else false
+)}}

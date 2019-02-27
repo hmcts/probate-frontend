@@ -1,6 +1,5 @@
 const RegistryWrapper = require('app/wrappers/Registry');
-const chai = require('chai');
-const expect = chai.expect;
+const expect = require('chai').expect;
 
 describe('Registry.js', () => {
     describe('address()', () => {

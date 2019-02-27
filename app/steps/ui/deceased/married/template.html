@@ -3,19 +3,19 @@
 {% from "widgets/radiobuttons.html" import optionsRadio %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{(content.questionWithCodicil if fields.codicilPresent.value === "true" else content.question) | replace('{deceasedName}', fields.firstName.value +' '+ fields.lastName.value) | safe}}</h1>
+    <h1 class="form-title heading-large">{{ (content.questionWithCodicil if fields.codicilPresent.value === "true" else content.question) | replace('{deceasedName}', fields.firstName.value +' '+ fields.lastName.value) | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}
-    {{optionsRadio(content,
+    {{ optionsRadio(content,
         name = 'married',
         field = fields.married,
         options = ['optionYes', 'optionNo'],
         legend = content.legend,
         legend = (content.legendWithCodicil if fields.codicilPresent.value === "true" else content.legend) | replace('{deceasedName}', fields.firstName.value + ' ' + fields.lastName.value),
         inline = true
-    )}}
+    ) }}
     <div class="form-group">
-        <input class="button" type="submit" value="{{common.continue}}">
+        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

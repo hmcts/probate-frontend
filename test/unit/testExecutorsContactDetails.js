@@ -1,21 +1,34 @@
 'use strict';
+
 const initSteps = require('app/core/initSteps');
-const services = require('app/components/services');
-const sinon = require('sinon');
-const when = require('when');
 const co = require('co');
-const {expect} = require('chai');
+const expect = require('chai').expect;
+const journey = require('app/journeys/probate');
+const rewire = require('rewire');
+const ContactDetails = rewire('app/steps/ui/executors/contactdetails/index');
 
 describe('Contact-Details', function () {
     let ctx;
     let errors;
-    let updateContactDetailsStub;
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
-    const contactDetails = steps.ExecutorContactDetails;
+    let section;
+    let templatePath;
+    let i18next;
+    let schema;
+    let formdata;
 
     describe('handlePost()', () => {
         beforeEach(() => {
-            updateContactDetailsStub = sinon.stub(services, 'updateContactDetails');
+            section = 'applicant';
+            templatePath = 'addressLookup';
+            i18next = {};
+            schema = {
+                $schema: 'http://json-schema.org/draft-04/schema#',
+                properties: {}
+            };
+            formdata = {
+                journeyType: 'probate'
+            };
             ctx = {
                 executorsNumber: 3,
                 list: [
@@ -47,18 +60,15 @@ describe('Contact-Details', function () {
                 otherExecName: 'Bob Cratchett',
                 executorsEmailChanged: false
             };
-            errors = {};
-        });
-
-        afterEach(() => {
-            updateContactDetailsStub.restore();
+            errors = [];
         });
 
         it('test emailChanged flag is correctly set, executorToBeNotifiedList is correctly populated and contact details updated (single applicant)', (done) => {
             co(function* () {
                 ctx.list[1].inviteId = 'dummy_inviteId';
                 ctx.list[1].emailChanged = true;
-                [ctx, errors] = yield contactDetails.handlePost(ctx, errors);
+                const contactDetails = new ContactDetails(steps, section, templatePath, i18next, schema);
+                [ctx, errors] = yield contactDetails.handlePost(ctx, errors, formdata);
                 expect(ctx).to.deep.equal({
                     executorsNumber: 3,
                     executorsToNotifyList: [
@@ -114,7 +124,8 @@ describe('Contact-Details', function () {
             ctx.list[2].emailSent = true;
             ctx.list[2].inviteId = 'dummy_id';
             co(function* () {
-                [ctx, errors] = yield contactDetails.handlePost(ctx, errors);
+                const contactDetails = new ContactDetails(steps, section, templatePath, i18next, schema);
+                [ctx, errors] = yield contactDetails.handlePost(ctx, errors, formdata);
                 expect(ctx).to.deep.equal({
                     executorsNumber: 3,
                     executorsToNotifyList: [
@@ -164,14 +175,20 @@ describe('Contact-Details', function () {
                 });
         });
 
-        it('test emailChanged flag is correctly set, executorToBeNotifiedList is empty, contact details updated and the updateContactDetails service is called', (done) => {
-            updateContactDetailsStub.returns(when(Promise.resolve({response: 'Make it pass!'})));
+        it('test emailChanged flag is correctly set, executorToBeNotifiedList is empty, contact details updated and the InviteData.patch() service is called', (done) => {
+            const revert = ContactDetails.__set__('InviteData', class {
+                patch() {
+                    return Promise.resolve({response: 'Make it pass!'});
+                }
+            });
+
             ctx.list[1].inviteId = 'dummy_inviteId';
             ctx.list[1].emailSent = true;
             ctx.mobile = '07888888888';
             ctx.email = 'cratchet@email.com';
             co(function* () {
-                [ctx, errors] = yield contactDetails.handlePost(ctx, errors);
+                const contactDetails = new ContactDetails(steps, section, templatePath, i18next, schema);
+                [ctx, errors] = yield contactDetails.handlePost(ctx, errors, formdata);
                 expect(ctx).to.deep.equal({
                     executorsNumber: 3,
                     executorsToNotifyList: [],
@@ -207,11 +224,29 @@ describe('Contact-Details', function () {
                     otherExecName: 'Bob Cratchett',
                     executorsEmailChanged: true
                 });
+                revert();
                 done();
             })
                 .catch((err) => {
                     done(err);
                 });
+        });
+    });
+
+    describe('nextStepUrl()', () => {
+        it('should return url for the next step', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                index: 1
+            };
+            const contactDetails = new ContactDetails(steps, section, templatePath, i18next, schema);
+            const nextStepUrl = contactDetails.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/executor-address/1');
+            done();
         });
     });
 });

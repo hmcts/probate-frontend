@@ -5,7 +5,7 @@ const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
 const {get} = require('lodash');
-const FeatureToggle = require('app/utils/FeatureToggle');
+const config = require('app/config');
 
 class IhtPaper extends ValidationStep {
 
@@ -13,7 +13,7 @@ class IhtPaper extends ValidationStep {
         return '/iht-paper';
     }
 
-    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
+    handlePost(ctx, errors) {
         ctx.grossValuePaper = ctx[`gross${ctx.form}`];
         ctx.netValuePaper = ctx[`net${ctx.form}`];
 
@@ -36,9 +36,17 @@ class IhtPaper extends ValidationStep {
         ctx.netValue = Math.floor(ctx.netValue);
         ctx.ihtFormId = ctx.form;
 
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
-
         return [ctx, errors];
+    }
+
+    nextStepOptions(ctx) {
+        ctx.lessThanOrEqualTo250k = ctx.netValue <= config.assetsValueThreshold;
+
+        return {
+            options: [
+                {key: 'lessThanOrEqualTo250k', value: true, choice: 'lessThanOrEqualTo250k'}
+            ]
+        };
     }
 
     isSoftStop(formdata) {
@@ -51,19 +59,11 @@ class IhtPaper extends ValidationStep {
         };
     }
 
-    nextStepOptions() {
-        return {
-            options: [
-                {key: 'isToggleEnabled', value: true, choice: 'toggleOn'}
-            ]
-        };
-    }
-
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.grossValuePaper;
         delete ctx.netValuePaper;
-        delete ctx.isToggleEnabled;
+        delete ctx.lessThanOrEqualTo250k;
         return [ctx, formdata];
     }
 }

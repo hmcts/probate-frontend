@@ -1,9 +1,0 @@
-{
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "new-executor",
-  "type": "object",
-  "properties": {},
-  "required": [
-    "executor"
-  ]
-}

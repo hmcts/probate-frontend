@@ -3,15 +3,11 @@
 const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/executors/allalive/index');
 
-module.exports = function (option) {
+module.exports = function (answer) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    if (option === 'Yes') {
-        I.click('#allalive-optionYes');
-    } else {
-        I.click('#allalive-optionNo');
-    }
+    I.click(`#allalive-option${answer}`);
 
-    I.click(commonContent.continue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

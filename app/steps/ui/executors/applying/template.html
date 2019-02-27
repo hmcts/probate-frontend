@@ -4,23 +4,22 @@
 {% from "widgets/lists.html" import unorderedList %}
 
 {% block question %}
-    <h1 class="formtitle heading-large">{{content.question}}</h1>
+    <h1 class="formtitle heading-large">{{ content.question }}</h1>
 {% endblock %}
 
 {% block form_content %}
+    <p>{{ content.paragraph1 | safe }}</p>
 
-    <p>{{content.paragraph1 | safe}}</p>
+    {{ unorderedList([content["applicant-rights1"], content["applicant-rights2"], content["applicant-rights3"]]) }}
 
-    {{ unorderedList([content["applicant-rights1"], content["applicant-rights2"], content["applicant-rights3"]])}}
-
-    {{optionsRadio(content,
+    {{ optionsRadio(content,
         name = 'otherExecutorsApplying',
         field = fields.otherExecutorsApplying,
         options = ['optionYes', 'optionNo'],
         legend = content.legend,
         inline = true
-    )}}
+    ) }}
     <div class="form-group">
-        <input class="button" type="submit" value="{{common.continue}}">
+        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

@@ -28,11 +28,8 @@ describe('ExecutorNotified', () => {
         let ctx;
         let errors;
         let formdata;
-        let session;
-        let hostname;
-        let featureToggles;
 
-        it('should return the ctx with the executor notified and the screening_question feature toggle', (done) => {
+        it('should return the ctx with the executor notified', (done) => {
             ctx = {
                 index: 0,
                 executorNotified: 'Yes'
@@ -42,40 +39,23 @@ describe('ExecutorNotified', () => {
                     list: [{}]
                 }
             };
-            errors = {};
-            [ctx, errors] = ExecutorNotified.handlePost(ctx, errors, formdata, session, hostname, featureToggles);
+            errors = [];
+            [ctx, errors] = ExecutorNotified.handlePost(ctx, errors, formdata);
             expect(ctx).to.deep.equal({
                 index: -1,
-                executorNotified: 'Yes',
-                isToggleEnabled: false
+                executorNotified: 'Yes'
             });
             done();
         });
     });
 
     describe('nextStepOptions()', () => {
-        it('should return the correct options when the FT is off', (done) => {
-            const ctx = {
-                isToggleEnabled: false
-            };
+        it('should return the correct options', (done) => {
+            const ctx = {};
             const nextStepOptions = ExecutorNotified.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
                     {key: 'nextExecutor', value: true, choice: 'roles'}
-                ]
-            });
-            done();
-        });
-
-        it('should return the correct options when the FT is on', (done) => {
-            const ctx = {
-                isToggleEnabled: true
-            };
-            const nextStepOptions = ExecutorNotified.nextStepOptions(ctx);
-            expect(nextStepOptions).to.deep.equal({
-                options: [
-                    {key: 'nextExecutor', value: true, choice: 'roles'},
-                    {key: 'otherwise', value: true, choice: 'otherwiseToggleOn'}
                 ]
             });
             done();
@@ -86,14 +66,12 @@ describe('ExecutorNotified', () => {
         it('test it cleans up context', () => {
             const ctx = {
                 otherwise: 'something',
-                isToggleEnabled: false,
                 executorNotified: 'Yes',
                 executorName: 'Some name',
                 nextExecutor: 'whatever'
             };
             ExecutorNotified.action(ctx);
             assert.isUndefined(ctx.otherwise);
-            assert.isUndefined(ctx.isToggleEnabled);
             assert.isUndefined(ctx.executorNotified);
             assert.isUndefined(ctx.executorName);
             assert.isUndefined(ctx.nextExecutor);

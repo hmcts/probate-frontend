@@ -1,20 +1,20 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.PaymentTask %}
 
 <li class="task-item">
-    {{taskHeader(
+    {{ taskHeader(
         number = "5.",
         content = content,
         title = content.paymentTask,
         status = fields.PaymentTask.value.status,
         previousTaskStatus = previousTaskStatus
-    )}}
+    ) }}
     <div class="task-list-items">
-        {{taskAction(
+        {{ taskAction(
             prevTaskStatus = previousTaskStatus,
             status = fields.PaymentTask.value.status,
             nextURL = fields.PaymentTask.value.nextURL,
             checkYourAnswersURL = fields.PaymentTask.value.checkYourAnswersLink,
             content = content
-        )}}
+        ) }}
     </div>
 </li>

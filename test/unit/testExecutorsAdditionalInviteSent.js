@@ -1,4 +1,5 @@
 'use strict';
+
 const initSteps = require('app/core/initSteps');
 const {assert, expect} = require('chai');
 
@@ -14,8 +15,10 @@ describe('Executor-Additional-Invite-Sent', function () {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        executors: {}
-                    }
+                        executors: {},
+                        journeyType: 'probate'
+                    },
+                    journeyType: 'probate'
                 }
             };
         });
@@ -23,45 +26,47 @@ describe('Executor-Additional-Invite-Sent', function () {
         it('test that inviteSuffix is correctly populated with empty string when only one executor is to be notified', () => {
             req.session.form.executors = {
                 executorsToNotifyList: [
-                    {'fullName': 'other applicant', 'isApplying': true}
+                    {fullName: 'other applicant', isApplying: true}
                 ]
             };
             ctx = executorsAdditionalInviteSent.getContextData(req);
             expect(ctx).to.deep.equal({
-                'executorsToNotifyList': [
+                executorsToNotifyList: [
                     {
-                        'fullName': 'other applicant',
-                        'isApplying': true
+                        fullName: 'other applicant',
+                        isApplying: true
                     }
                 ],
-                'header': 'header',
-                'inviteSuffix': '',
-                'sessionID': 'dummy_sessionId'
+                header: 'header',
+                inviteSuffix: '',
+                sessionID: 'dummy_sessionId',
+                journeyType: 'probate'
             });
         });
 
         it('test that inviteSuffix is correctly populated with -multiples when more than one executor is to be notified', () => {
             req.session.form.executors = {
                 executorsToNotifyList: [
-                    {'fullName': 'other applicant', 'isApplying': true},
-                    {'fullName': 'harvey', 'isApplying': true}
+                    {fullName: 'other applicant', isApplying: true},
+                    {fullName: 'harvey', isApplying: true}
                 ]
             };
             ctx = executorsAdditionalInviteSent.getContextData(req);
             expect(ctx).to.deep.equal({
-                'executorsToNotifyList': [
+                executorsToNotifyList: [
                     {
-                        'fullName': 'other applicant',
-                        'isApplying': true
+                        fullName: 'other applicant',
+                        isApplying: true
                     },
                     {
-                        'fullName': 'harvey',
-                        'isApplying': true
+                        fullName: 'harvey',
+                        isApplying: true
                     }
                 ],
-                'header': 'header-multiple',
-                'inviteSuffix': '-multiple',
-                'sessionID': 'dummy_sessionId'
+                header: 'header-multiple',
+                inviteSuffix: '-multiple',
+                sessionID: 'dummy_sessionId',
+                journeyType: 'probate'
             });
         });
     });
@@ -70,8 +75,8 @@ describe('Executor-Additional-Invite-Sent', function () {
         beforeEach(() => {
             ctx = {
                 executorsToNotifyList: [
-                    {'fullName': 'other applicant', 'isApplying': true},
-                    {'fullName': 'harvey', 'isApplying': true}
+                    {fullName: 'other applicant', isApplying: true},
+                    {fullName: 'harvey', isApplying: true}
                 ],
                 inviteSuffix: '-multiple',
                 header: 'header-multiple'
@@ -82,8 +87,8 @@ describe('Executor-Additional-Invite-Sent', function () {
             let formdata = {
                 executors: {
                     executorsToNotifyList: [
-                        {'fullName': 'other applicant', 'isApplying': true},
-                        {'fullName': 'harvey', 'isApplying': true}
+                        {fullName: 'other applicant', isApplying: true},
+                        {fullName: 'harvey', isApplying: true}
                     ]
                 }
             };
@@ -96,8 +101,8 @@ describe('Executor-Additional-Invite-Sent', function () {
             let formdata = {
                 executors: {
                     executorsToNotifyList: [
-                        {'fullName': 'other applicant', 'isApplying': true},
-                        {'fullName': 'harvey', 'isApplying': true}
+                        {fullName: 'other applicant', isApplying: true},
+                        {fullName: 'harvey', isApplying: true}
                     ]
                 }
             };

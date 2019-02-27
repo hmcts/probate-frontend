@@ -1,107 +1,113 @@
 'use strict';
-const proxyquire = require('proxyquire'),
-    chai = require('chai'),
-    sinon = require('sinon'),
-    when = require('when'),
-    expect = chai.expect,
-    sinonChai = require('sinon-chai');
 
-const services = require('app/components/services');
+const chai = require('chai');
+const sinon = require('sinon');
+const when = require('when');
+const sinonChai = require('sinon-chai');
+const rewire = require('rewire');
+const Security = rewire('app/components/security');
+const expect = chai.expect;
 
 chai.use(sinonChai);
 
-describe('Security middleware', function () {
-    const ROLE = 'probate-private-beta';
-
-    const LOGIN_URL = 'http://localhost:8000/login';
-    const LOGIN_URL_WITH_CONTINUE = LOGIN_URL + '?response_type=code&state=57473&client_id=probate&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth2%2Fcallback';
-    const TOKEN = 'dummyToken';
-    const API_URL = 'http://localhost:7000/';
+describe('Security middleware', () => {
+    const role = 'probate-private-beta';
+    const loginUrl = 'http://localhost:8000/login';
+    const loginUrlWithContinue = `${loginUrl}?response_type=code&state=57473&client_id=probate&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth2%2Fcallback`;
+    const token = 'dummyToken';
     const appConfig = require('../../app/config');
-    const SECURITY_COOKIE = '__auth-token-' + appConfig.payloadVersion;
+    const securityCookie = `__auth-token-${appConfig.payloadVersion}`;
 
-    describe('protect', function () {
+    describe('protect', () => {
+        let security;
+        let protect;
+        let callBackEndpoint;
+        let req;
+        let res;
+        let next;
+        let revertOauth2Token;
 
-        let security, protect, config, getUserDetailsStub, callBackEndpoint, getOauth2TokenStub;
-
-        let req, res, next;
-
-        beforeEach(function () {
-            config = {
-                idam: {
-                    apiUrl: API_URL
+        beforeEach(() => {
+            revertOauth2Token = Security.__set__('Oauth2Token', class {
+                post() {
+                    return Promise.resolve({access_token: token});
                 }
-            };
-
-            const Security = proxyquire('app/components/security', {
-                '../config': config,
             });
 
-            getUserDetailsStub = sinon.stub(services, 'getUserDetails');
-            getOauth2TokenStub = sinon.stub(services, 'getOauth2Token', () => {
-                return Promise.resolve({access_token: TOKEN});
-            });
-
-            security = new Security(LOGIN_URL);
-            security._generateState = function () {
+            security = new Security(loginUrl);
+            security._generateState = () => {
                 return '57473';
             };
 
-            protect = security.protect(ROLE);
+            protect = security.protect(role);
             callBackEndpoint = security.oAuth2CallbackEndpoint();
 
-            req = {cookies: [], query: {state: 'testState', code: '123'}};
-            req.get = sinon.stub().returns('localhost:3000');
-            res = {};
-            res.render = sinon.spy();
-            res.redirect = sinon.spy();
-            res.status = sinon.spy();
-            res.cookie = sinon.spy();
-            res.clearCookie = sinon.spy();
+            req = {
+                cookies: [],
+                query: {
+                    state: 'testState',
+                    code: '123'
+                },
+                session: {
+                    form: {
+                        journeyType: 'probate'
+                    }
+                },
+                get: sinon.stub().returns('localhost:3000')
+            };
+            res = {
+                render: sinon.spy(),
+                redirect: sinon.spy(),
+                status: sinon.spy(),
+                cookie: sinon.spy(),
+                clearCookie: sinon.spy()
+            };
             next = sinon.spy();
         });
 
-        afterEach(function () {
-            getUserDetailsStub.restore();
-            getOauth2TokenStub.restore();
+        afterEach(() => {
+            revertOauth2Token();
         });
 
-        it('should redirect to login page when security cookie not defined', function () {
+        it('should redirect to login page when security cookie not defined', () => {
             req.protocol = 'http';
             req.originalUrl = '/';
 
             protect(req, res, next);
 
             sinon.assert.calledOnce(res.redirect);
-            expect(res.redirect).to.have.been.calledWith(LOGIN_URL_WITH_CONTINUE);
+            expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
         });
 
-        it('should redirect to login page when cookies null or undefined', function () {
+        it('should redirect to login page when cookies null or undefined', () => {
             req.cookies = null;
-
             req.protocol = 'http';
             req.originalUrl = '/';
 
             protect(req, res, next);
 
             sinon.assert.calledOnce(res.redirect);
-            expect(res.redirect).to.have.been.calledWith(LOGIN_URL_WITH_CONTINUE);
+            expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
         });
 
-        it('should redirect to login page when getUserDetails returns Unauthorized', function (done) {
-            req.cookies[SECURITY_COOKIE] = TOKEN;
-            req.session = {};
+        it('should redirect to login page when IdamSession.get() returns Unauthorized', (done) => {
+            const revert = Security.__set__('IdamSession', class {
+                get() {
+                    return promise;
+                }
+            });
+
+            req.cookies[securityCookie] = token;
             req.protocol = 'http';
             const promise = when({name: 'Error', message: 'Unauthorized'});
-
-            getUserDetailsStub.returns(promise);
 
             protect(req, res, next);
 
             promise
                 .then(() => {
                     sinon.assert.calledOnce(res.redirect);
-                    expect(res.redirect).to.have.been.calledWith(LOGIN_URL_WITH_CONTINUE);
+                    expect(res.redirect).to.have.been.calledWith(loginUrlWithContinue);
+                    revert();
                     done();
                 })
                 .catch((err) => {
@@ -109,25 +115,31 @@ describe('Security middleware', function () {
                 });
         });
 
-        it('should retrieve user details when auth token provided', function () {
-            req.cookies[SECURITY_COOKIE] = TOKEN;
-            getUserDetailsStub.returns(when({name: 'Error'}));
+        it('should retrieve user details when auth token provided', () => {
+            const revert = Security.__set__('IdamSession', class {
+                get() {
+                    return Promise.resolve({name: 'Error'});
+                }
+            });
+
+            req.cookies[securityCookie] = token;
 
             protect(req, res, next);
-
-            sinon.assert.calledOnce(getUserDetailsStub);
-            sinon.assert.calledWith(getUserDetailsStub, TOKEN);
+            revert();
         });
 
-        it('should deny access when user roles do not match resource role', function (done) {
-            req.cookies[SECURITY_COOKIE] = TOKEN;
-            req.session = {};
+        it('should deny access when user roles do not match resource role', (done) => {
+            const revert = Security.__set__('IdamSession', class {
+                get() {
+                    return promise;
+                }
+            });
+
+            req.cookies[securityCookie] = token;
 
             const promise = when({
                 roles: ['CITIZEN', 'ROOT']
             });
-
-            getUserDetailsStub.returns(promise);
 
             protect(req, res, next);
 
@@ -135,6 +147,7 @@ describe('Security middleware', function () {
                 .then(() => {
                     expect(res.status).to.have.been.calledWith(403);
                     expect(res.render).to.have.been.calledWith('errors/403');
+                    revert();
                     done();
                 })
                 .catch((err) => {
@@ -143,20 +156,25 @@ describe('Security middleware', function () {
 
         });
 
-        it('should grant access when user roles do match resource role - pa', function (done) {
-            req.cookies[SECURITY_COOKIE] = TOKEN;
-            req.session = {};
+        it('should grant access when user roles do match resource role - pa', (done) => {
+            const revert = Security.__set__('IdamSession', class {
+                get() {
+                    return promise;
+                }
+            });
+
+            req.cookies[securityCookie] = token;
 
             const promise = when({
-                roles: [ROLE, 'ROOT']
+                roles: [role, 'ROOT']
             });
-            getUserDetailsStub.returns(promise);
 
             protect(req, res, next);
 
             promise
                 .then(() => {
                     expect(next).to.have.been.calledWithExactly();
+                    revert();
                     done();
                 })
                 .catch((err) => {
@@ -164,32 +182,32 @@ describe('Security middleware', function () {
                 });
         });
 
-        it('should add the auth cookie to the response', function (done) {
+        it('should add the auth cookie to the response', (done) => {
             req.protocol = 'http';
             req.cookies.__redirect = JSON.stringify({state: 'testState'});
             callBackEndpoint(req, res, next);
 
             checkAsync(() => {
-                expect(res.cookie).to.have.been.calledWith(SECURITY_COOKIE, TOKEN, {httpOnly: true});
+                expect(res.cookie).to.have.been.calledWith(securityCookie, token, {httpOnly: true});
                 done();
             });
         });
 
-        it('should make the auth cookie secure if the protocol is https', function () {
+        it('should make the auth cookie secure if the protocol is https', () => {
             req.protocol = 'https';
             req.cookies.__redirect = JSON.stringify({state: 'testState'});
 
             callBackEndpoint(req, res, next);
 
             checkAsync(() => {
-                expect(res.cookie).to.have.been.calledWith(SECURITY_COOKIE, TOKEN, {secure: true, httpOnly: true});
+                expect(res.cookie).to.have.been.calledWith(securityCookie, token, {secure: true, httpOnly: true});
             });
         });
     });
 
-    function checkAsync(callback) {
-        setTimeout(function() {
+    const checkAsync = (callback) => {
+        setTimeout(() => {
             callback();
         }, 50);
-    }
+    };
 });

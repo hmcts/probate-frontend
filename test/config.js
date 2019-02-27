@@ -3,18 +3,23 @@ module.exports = {
     TestIdamBaseUrl: process.env.IDAM_API_URL || 'http://localhost:8484',
     TestFrontendUrl: process.env.TEST_URL || 'http://localhost:3000',
     TestE2EFrontendUrl: process.env.TEST_E2E_URL || 'http://localhost:3000',
-    TestUseIdam: process.env.USE_IDAM || 'false',
-    TestUseSidam: process.env.USE_SIDAM || 'true',
+    TestUseIdam: process.env.USE_IDAM || 'true',
+    TestUseSidam: process.env.USE_SIDAM || 'false',
     TestIdamLoginUrl: process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
-    TestUseGovPay: process.env.USE_GOV_PAY || 'false',
+    TestUseGovPay: process.env.USE_GOV_PAY || 'true',
     TestInviteIdListUrl: process.env.INVITE_ID_LIST_URL,
     TestPinUrl: process.env.PIN_URL,
     TestInvitationUrl: process.env.INVITATION_URL,
     TestIdamAddUserUrl: process.env.IDAM_ADD_USER_URL,
     TestIdamUserGroup: process.env.IDAM_USER_GROUP,
     TestIdamRole: process.env.IDAM_CITIZEN_ROLE,
-    TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '@test.com',
+    TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '/@probateTest.com',
+    TestUseProxy: process.env.TEST_USE_PROXY || 'true',
+    TestProxy: process.env.TEST_PROXY || 'socks5:proxyout.reform.hmcts.net:8080',
+    TestRetryFeatures: process.env.RETRY_FEATURES || 0,
     TestRetryScenarios: process.env.RETRY_SCENARIOS || 3,
+    TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png',
+    TestWaitForDocumentUpload: 60,
 
     postcodeLookup: {
         token: process.env.ADDRESS_TOKEN,
@@ -28,6 +33,20 @@ module.exports = {
         partialAddressPostcode: 'N14',
         invalidAddressPostcode: 'Z99 9ZZ',
         emptyAddressPostcode: ''
+    },
+
+    govPayTestCardNos: {
+        validCardNo: '4242424242424242'
+    },
+
+    govPayTestCardDetails: {
+        expiryMonth: '06',
+        expiryYear: '99',
+        cardholderName: 'Test Payment',
+        cvc: '123',
+        addressLine1: '1',
+        addressCity: 'London',
+        addressPostcode: 'SW1A1AA'
     },
 
     validation: {
@@ -56,10 +75,14 @@ module.exports = {
         complaintsProcedure: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure',
         informationCommissionersOffice: 'https://ico.org.uk/global/contact-us',
         ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value',
-        renunciationForm: 'public/pdf/renunciation.pdf'
+        applicationFormPA15: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will'
     },
     helpline: {
         number: '0300 303 0648',
-        hours: 'Monday to Friday, 9am to 5pm'
-    }
+        hours: 'Monday to Friday, 9:30am to 5pm'
+    },
+
+    pact: {
+        pactBrokerUrl: process.env.PACT_BROKER_URL || 'http://localhost:80'
+    },
 };

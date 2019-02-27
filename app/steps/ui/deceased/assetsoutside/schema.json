@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "assets-outside",
+  "type": "object",
+  "properties": {
+    "assetsOutside": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "assetsOutside"
+  ]
+}

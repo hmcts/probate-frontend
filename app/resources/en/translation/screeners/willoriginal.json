@@ -1,0 +1,16 @@
+{
+  "title": "Do you have the original will",
+  "question": "Do you have the original will?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "legend": "Do you have the original will?",
+  "paragraph1": "You need the original, not a photocopy.",
+  "errors": {
+    "original": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about whether you have the original will",
+        "message": "Answer &lsquo;yes&rsquo; if you have the original will"
+      }
+    }
+  }
+}

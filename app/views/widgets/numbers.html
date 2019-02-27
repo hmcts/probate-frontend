@@ -1,16 +1,16 @@
 {% from "widgets/fielderror.html" import fieldError %}
 
 {% macro numberField(text, hint, name, field, size, width, currency=true) %}
-<div class="form-group {{ 'form-group-error' if field.error }}">
+    <div class="form-group {{ 'form-group-error' if field.error }}">
+        {% if hint %}
+            <p class="form-hint">{{ hint | safe }}</p>
+        {% endif %}
 
-    {% if hint %}
-    <p class="form-hint">{{hint | safe}}</p>
-    {% endif %}
+        {{ fieldError(field) }}
 
-    {{ fieldError(field) }}
+        <label class="form-label" for="{{ name }}">{{ text | safe }}</label>
 
-    <label class="form-label" for="{{name}}">{{text | safe}}</label>
-
-    {% if currency %} &pound; {% endif %} <input type="number" class="form-control {{ 'form-control-error' if field.error }} form-control-{{width}}" id="{{name}}" name="{{name}}" value="{{field.value}}" maxlength="{{size}}">
-</div>
+        {% if currency %} &pound; {% endif %}
+        <input type="number" class="form-control {{ 'form-control-error' if field.error }} form-control-{{ width }}" id="{{ name }}" name="{{ name }}" value="{{ field.value }}" maxlength="{{ size }}">
+    </div>
 {% endmacro %}

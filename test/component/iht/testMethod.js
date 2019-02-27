@@ -20,33 +20,35 @@ describe('iht-method', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('IhtMethod');
 
         it('test correct iht method page content is loaded', (done) => {
             const contentToExclude = [];
+
             testWrapper.testContent(done, contentToExclude);
         });
 
         it('test iht method schema validation when no data is entered', (done) => {
             const errorsToTest = [];
             const data = {};
+
             testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
         it(`test it redirects to iht paper: ${expectedNextUrlForIhtPaper}`, (done) => {
             const data = {
-                'method': ihtMethodContent.paperOption
+                method: ihtMethodContent.paperOption
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtPaper);
         });
 
         it(`test it redirects to iht identifier: ${expectedNextUrlForIhtIdentifier}`, (done) => {
             const data = {
-                'method': ihtMethodContent.onlineOption
+                method: ihtMethodContent.onlineOption
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtIdentifier);
         });
-
     });
 });

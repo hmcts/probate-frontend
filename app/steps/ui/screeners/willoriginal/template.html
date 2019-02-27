@@ -1,0 +1,28 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% set displaySignOutLink = 'false' %}
+
+{% from "widgets/radiobuttons.html" import optionsRadio %}
+
+{% block question %}
+    <h1 class="form-title heading-large">{{ content.question }}</h1>
+{% endblock %}
+
+{% block form_content %}
+    <p class="form-hint">{{ content.paragraph1 | safe }}</p>
+
+    {{ optionsRadio(content,
+        name = 'original',
+        field = fields.original,
+        options = ['optionYes', 'optionNo'],
+        legend = content.legend,
+        inline = true
+    ) }}
+
+    <div class="form-group">
+        <input class="button" type="submit" value="{{ common.continue }}">
+    </div>
+{% endblock %}
+
+{% block save_and_close %}{% endblock %}
+{% block executor_summary %}{% endblock %}

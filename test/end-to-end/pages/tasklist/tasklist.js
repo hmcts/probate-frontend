@@ -2,8 +2,9 @@
 
 const pageUnderTest = require('app/steps/ui/tasklist/index');
 
-module.exports = function (link) {
+module.exports = function () {
     const I = this;
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(link);
+
+    I.waitForNavigationToComplete('.button');
 };

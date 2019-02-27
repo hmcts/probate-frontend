@@ -18,6 +18,16 @@ variable "env" {
   type = "string"
 }
 
+variable "website_local_cache_option" {
+  type = "string"
+  default = "Never"
+}
+
+variable "website_local_cache_sizeinmb" {
+  type = "string"
+  default = "0"
+}
+
 variable "ilbIp" { }
 
 variable "deployment_env" {
@@ -26,7 +36,7 @@ variable "deployment_env" {
 
 
 variable "node_config_dir" {
-  
+
   // for Windows
   default = "D:\\home\\site\\wwwroot\\config"
 }
@@ -114,7 +124,7 @@ variable "redis_use_tls" {
 }
 
 variable "reform_envirionment_for_test" {
-  default = "prod" 
+  default = "prod"
 }
 variable "health_endpoint" {
   default = "/health"
@@ -126,21 +136,27 @@ variable "frontend_service_name" {
 
 variable "probate_business_service_url" {
   type = "string"
-}      
+}
+
+variable "probate_business_service_document_url" {
+  type = "string"
+}
 
 variable "probate_submit_service_url" {
   type = "string"
-}      
-      
+}
+
 variable "probate_persistence_service_url" {
+  type = "string"
+}
+
+variable "probate_fees_registry_service_url" {
   type = "string"
 }
 
 variable "probate_frontend_use_redis" {
   default = "false"
 }
-
-
 
 variable "probate_frontend_https" {
   default = "false"
@@ -200,8 +216,8 @@ variable "feature_toggles_api_url" {
 }
 
 variable "asp_rg" {
-  
+
 }
  variable "asp_name" {
-  
-} 
+
+}

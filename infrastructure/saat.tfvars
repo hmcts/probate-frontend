@@ -36,9 +36,13 @@ reform_envirionment_for_test = "saat"
 
 probate_business_service_url = "http://probate-business-service-saat.service.core-compute-saat.internal/validate"
 
+probate_business_service_document_url = "http://probate-business-service-saat.service.core-compute-saat.internal/businessDocument"
+
 probate_submit_service_url = "http://probate-submit-service-saat.service.core-compute-saat.internal"
 
 probate_persistence_service_url = "http://probate-persistence-service-saat.service.core-compute-saat.internal/formdata"
+
+probate_fees_registry_service_url = "http://fees-register-api-saat.service.core-compute-aat.internal/fees-register"
 
 feature_toggles_api_url = "http://rpe-feature-toggle-api-saat.service.core-compute-saat.internal"
 asp_name = "probate-saat"

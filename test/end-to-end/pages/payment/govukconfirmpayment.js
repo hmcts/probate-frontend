@@ -7,5 +7,5 @@ module.exports = function () {
 
     I.seeInCurrentUrl(testConfig.TestGovUkConfirmPaymentUrl);
 
-    I.click('#confirm');
+    I.waitForNavigationToComplete('#confirm');
 };

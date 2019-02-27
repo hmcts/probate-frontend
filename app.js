@@ -28,6 +28,9 @@ const appInsights = require('applicationinsights');
 const commonContent = require('app/resources/en/translation/common');
 const uuidv4 = require('uuid/v4');
 const uuid = uuidv4();
+const EligibilityCookie = require('app/utils/EligibilityCookie');
+const eligibilityCookie = new EligibilityCookie();
+const featureToggles = require('app/featureToggles');
 
 exports.init = function() {
     const app = express();
@@ -42,8 +45,14 @@ exports.init = function() {
     const inviteSecurity = new InviteSecurity();
 
     if (config.appInsights.instrumentationKey) {
-        appInsights.setup(config.appInsights.instrumentationKey);
-        appInsights.start();
+        appInsights.setup(config.appInsights.instrumentationKey)
+            .setAutoDependencyCorrelation(true)
+            .setAutoCollectRequests(true)
+            .setAutoCollectPerformance(true)
+            .setAutoCollectDependencies(true)
+            .setAutoCollectConsole(true, true)
+            .start();
+        appInsights.defaultClient.trackTrace({message: 'App insights activated'});
     }
 
     // Authenticate against the environment-provided credentials, if running
@@ -67,7 +76,7 @@ exports.init = function() {
         'documentUpload': {
             validMimeTypes: config.documentUpload.validMimeTypes,
             maxFiles: config.documentUpload.maxFiles,
-            maxFileSizeMb: config.documentUpload.maxFileSizeMb
+            maxSizeBytes: config.documentUpload.maxSizeBytes
         }
     };
 
@@ -201,6 +210,8 @@ exports.init = function() {
     app.use('/executors-update-invite', updateInvite);
     app.use('/declaration', declaration);
 
+    app.use(featureToggles);
+
     if (useIDAM === 'true') {
         const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);
         app.use(idamPages, security.protect(config.services.idam.roles));
@@ -216,6 +227,17 @@ exports.init = function() {
             next();
         }, routes);
     }
+
+    app.get('/deceased-domicile', eligibilityCookie.checkCookie());
+    app.get('/iht-completed', eligibilityCookie.checkCookie());
+    app.get('/will-left', eligibilityCookie.checkCookie());
+    app.get('/will-original', eligibilityCookie.checkCookie());
+    app.get('/applicant-executor', eligibilityCookie.checkCookie());
+    app.get('/mental-capacity', eligibilityCookie.checkCookie());
+    app.get('/died-after-october-2014', eligibilityCookie.checkCookie());
+    app.get('/related-to-deceased', eligibilityCookie.checkCookie());
+    app.get('/other-applicants', eligibilityCookie.checkCookie());
+    app.get('/start-apply', eligibilityCookie.checkCookie());
 
     // Start the app
     let http;

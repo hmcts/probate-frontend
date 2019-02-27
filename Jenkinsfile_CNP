@@ -1,6 +1,9 @@
 #!groovy
 
 @Library("Infrastructure")
+//@Library("Infrastructure@fd7aef62b5503c45b4998a072175d94d62aab70e")
+import uk.gov.hmcts.contino.Kubectl
+import uk.gov.hmcts.contino.Consul
 
 String product = "probate"
 String component = "frontend"
@@ -26,7 +29,18 @@ List<LinkedHashMap<String, Object>> secrets = [
     secret('testPostcodeServiceUrl', 'POSTCODE_SERVICE_URL'),
     secret('testPostCodeAddressToken', 'ADDRESS_TOKEN'),
     secret('testRunE2ETest', 'RUN_E2E_TEST'),
-    secret('testValidationServiceUrl', 'TEST_VALIDATION_SERVICE_URL')
+    secret('testValidationServiceUrl', 'TEST_VALIDATION_SERVICE_URL'),
+    secret('idam-secret-probate', 'IDAM_SECRET_PROBATE'),
+    secret('idam-s2s-secret', 'IDAM_S2S_SECRET'),
+    secret('postcode-service-url', 'PRO_POSTCODE_SERVICE_URL'),
+    secret('postcode-service-token', 'PRO_POSTCODE_SERVICE_TOKEN'),
+    secret('probate-survey', 'PRO_SURVEY'),
+    secret('probate-survey-end', 'PRO_SURVEY_END_OF_APPLICATION'),
+    secret('probate-application-fee-code', 'PRO_APPLICATION_FEE_CODE'),
+    secret('probate-uk-application-fee-code', 'PRO_UK_COPIES_FEE_CODE'),
+    secret('probate-overseas-application-fee-code', 'PRO_OVERSEAS_COPIES_FEE_CODE'),
+    secret('probate-service-id', 'PRO_SERVICE_ID'),
+    secret('probate-site-id', 'PRO_SITE_ID')
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
@@ -39,12 +53,51 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 withPipeline("nodejs", product, component) {
+   afterCheckout {
+    onMaster {
+      try {
+        sh """
+          git fetch origin demo:demo
+          git push --force origin HEAD:demo
+        """
+      } catch (err) {
+        notifyBuildEvent channel: notificationsChannel, color: 'warning', message: 'Failed to update demo branch'
+      }
+    }
+  }
   after('build') {
     sh 'yarn setup'
   }
+//  before('buildinfra:prod') {
+//    error 'Deliberately breaking pipeline to prevent prod deployment'
+//  }
 
+
+  //if (env.CHANGE_TITLE && !env.CHANGE_TITLE.startsWith('[PREVIEW]')) {
+    enableDockerBuild()
+//    installCharts()
+    enableDeployToAKS()
+//  }
+  setVaultName('probate')
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
+  after('aksdeploy') {
+    def subscription = env.SUBSCRIPTION_NAME
+    def aksServiceName = "${product}-${component}-${env.BRANCH_NAME}".toLowerCase()
+    def aksDomain = "${(env.SUBSCRIPTION_NAME in ['nonprod', 'prod']) ? 'service.core-compute-preview.internal' : 'service.core-compute-saat.internal'}"
+
+    def kubectl = new Kubectl(this, subscription, aksServiceName)
+
+    def ingressIP = kubectl.getServiceLoadbalancerIP("traefik", "kube-system")
+
+    def consul = new Consul(this)
+
+    consul.registerDns("feature-toggle-api-${aksServiceName}", ingressIP)
+
+    env.FEATURE_TOGGLES_API_URL="https://feature-toggle-api-${aksServiceName}.${aksDomain}"
+    echo "${env.FEATURE_TOGGLES_API_URL}"
+  }
+
   after('functionalTest:aat') {
       publishHTML target: [
 

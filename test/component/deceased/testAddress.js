@@ -2,11 +2,24 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const Summary = require('app/steps/ui/summary/index');
+const IhtMethod = require('app/steps/ui/iht/method/index');
+const DocumentUpload = require('app/steps/ui/documentupload/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const config = require('app/config');
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+const documentUploadFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
+const featureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(documentUploadFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('deceased-address', () => {
     let testWrapper;
     const expectedNextUrlForSummary = Summary.getUrl();
+    const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
+    const expectedNextUrlForDocumentUpload = DocumentUpload.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedAddress');
@@ -14,11 +27,11 @@ describe('deceased-address', () => {
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('DeceasedAddress', featureTogglesNock);
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = ['selectAddress'];
@@ -30,7 +43,6 @@ describe('deceased-address', () => {
             const data = {addressFound: 'none'};
 
             testWrapper.testErrors(done, data, 'required', ['postcodeLookup']);
-
         });
 
         it('test address schema validation when address search is successful, but no address is selected/entered', (done) => {
@@ -48,7 +60,6 @@ describe('deceased-address', () => {
             };
 
             testWrapper.testErrors(done, data, 'oneOf', ['crossField']);
-
         });
 
         it('test address schema validation when address search is unsuccessful', (done) => {
@@ -57,16 +68,36 @@ describe('deceased-address', () => {
             };
 
             testWrapper.testErrors(done, data, 'required', ['freeTextAddress']);
-
         });
 
-        it(`test it redirects to summary page: ${expectedNextUrlForSummary}`, (done) => {
+        it(`test it redirects to iht method page: ${expectedNextUrlForIhtMethod}`, (done) => {
+            featureTogglesNock('false');
+
             const data = {
                 postcode: 'ea1 eaf',
                 postcodeAddress: '102 Petty France'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForSummary);
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
 
+        it(`test it redirects to document upload page: ${expectedNextUrlForDocumentUpload}`, (done) => {
+            featureTogglesNock('true');
+
+            const data = {
+                postcode: 'ea1 eaf',
+                postcodeAddress: '102 Petty France'
+            };
+            testWrapper.testRedirect(done, data, expectedNextUrlForDocumentUpload);
+        });
+
+        it(`test it redirects to summary page: ${expectedNextUrlForSummary}`, (done) => {
+            featureTogglesNock('false');
+
+            const data = {
+                postcode: 'ea1 eaf',
+                postcodeAddress: '102 Petty France'
+            };
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+        });
     });
 });

@@ -24,8 +24,8 @@
     "errors": {
       "agreement": {
         "required": {
-          "summary": "Select yes if you agree with the legal statement",
-          "message": "Select yes if you agree with the legal statement"
+          "summary": "Answer &lsquo;yes&rsquo; if you agree with the legal statement",
+          "message": "Answer &lsquo;yes&rsquo; if you agree with the legal statement"
         }
       }
     }

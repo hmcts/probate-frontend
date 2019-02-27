@@ -3,32 +3,32 @@
 {% from "widgets/textfields.html" import textField %}
 
 {% block question %}
-<h1 class="form-title heading-large">{{content.question | replace('{executorName}', fields.otherExecName.value) | safe }}</h1>
-<p>{{content.questionHint | safe}}</p>
+    <h1 class="form-title heading-large">{{ content.question | replace('{executorName}', fields.otherExecName.value) | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}
-<fieldset>
-    <legend class="visually-hidden">{{ content.title1 | safe }}</legend>
-    {{textField(
-    name = 'email',
-    field = fields.email,
-    text = content.email,
-    size = 320
-    )}}
-</fieldset>
+    <p class="form-hint">{{ content.questionHint | safe }}</p>
+    <fieldset>
+        <legend class="visually-hidden">{{ content.title1 | safe }}</legend>
+        {{ textField(
+            name = 'email',
+            field = fields.email,
+            text = content.email,
+            size = 320
+        ) }}
+    </fieldset>
 
-<fieldset>
-    <legend class="visually-hidden">{{ content.title2 | safe }}</legend>
-    {{textField(
-    name = 'mobile',
-    field = fields.mobile,
-    text = content.mobile,
-    hint = content.mobileHint,
-    size = 25
-    )}}
-</fieldset>
-<div class="form-group">
-    <input class="button" type="submit" value="{{common.continue}}">
-</div>
+    <fieldset>
+        <legend class="visually-hidden">{{ content.title2 | safe }}</legend>
+        {{ textField(
+            name = 'mobile',
+            field = fields.mobile,
+            text = content.mobile,
+            hint = content.mobileHint,
+            size = 25
+        ) }}
+    </fieldset>
+    <div class="form-group">
+        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    </div>
 {% endblock %}

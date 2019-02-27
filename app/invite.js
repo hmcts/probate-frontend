@@ -1,9 +1,12 @@
 'use strict';
 
-const services = require('app/components/services');
 const logger = require('app/components/logger')('Init');
 const {isEmpty} = require('lodash');
 const steps = require('app/core/initSteps').steps;
+const InviteLinkService = require('app/services/InviteLink');
+const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
+const config = require('app/config');
+const PinNumber = require('app/services/PinNumber');
 
 class InviteLink {
     verify() {
@@ -18,23 +21,27 @@ class InviteLink {
 
     checkLinkIsValid(request, response, success, failure) {
         const inviteId = request.params.inviteId;
+        const inviteLink = new InviteLinkService(config.services.persistence.url, request.sessionID);
 
-        services.findInviteLink(inviteId)
+        inviteLink.get(inviteId)
             .then(result => {
                 if (result.name === 'Error') {
                     logger.error(`Error while verifying the token: ${result.message}`);
                     failure(response);
                 } else {
                     logger.info('Link is valid');
-                    services.sendPin(result.phoneNumber, request.sessionID).then(generatedPin => {
-                        request.session.pin = generatedPin;
-                        request.session.phoneNumber = result.phoneNumber;
-                        request.session.leadExecutorName = result.mainExecutorName;
-                        request.session.formdataId = result.formdataId;
-                        request.session.inviteId = inviteId;
-                        request.session.validLink = true;
-                        success(response);
-                    });
+                    const pinNumber = new PinNumber(config.services.validation.url, request.sessionID);
+                    pinNumber
+                        .get(result.phoneNumber)
+                        .then(generatedPin => {
+                            request.session.pin = generatedPin;
+                            request.session.phoneNumber = result.phoneNumber;
+                            request.session.leadExecutorName = result.mainExecutorName;
+                            request.session.formdataId = result.formdataId;
+                            request.session.inviteId = inviteId;
+                            request.session.validLink = true;
+                            success(response);
+                        });
                 }
             })
             .catch(err => {
@@ -50,7 +57,8 @@ class InviteLink {
                 return res.render('errors/404');
             }
 
-            services.checkAllAgreed(req.session.formdataId).then(result => {
+            const allExecutorsAgreed = new AllExecutorsAgreed(config.services.validation.url, req.sessionID);
+            allExecutorsAgreed.get(req.session.formdataId).then(result => {
                 if (result.name === 'Error') {
                     logger.error(`Error checking everyone has agreed: ${result.message}`);
                     res.status(500);
@@ -64,10 +72,6 @@ class InviteLink {
                     const step = steps.CoApplicantAllAgreedPage;
                     const content = step.generateContent();
                     const common = step.commonContent();
-                    const formdata = req.session.form;
-                    if (formdata.will.codicils === 'Yes') {
-                        content.paragraph4 = content['paragraph4-codicils'];
-                    }
                     res.render(steps.CoApplicantAllAgreedPage.template, {content, common});
                 } else {
                     next();

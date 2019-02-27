@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/epoberezkin/ajv/master/lib/refs/json-schema-v5.json#",
+  "id": "value-assets-outside",
+  "type": "object",
+  "properties": {
+    "netValueAssetsOutsideField": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 13
+    }
+  },
+  "required": [
+    "netValueAssetsOutsideField"
+  ]
+}

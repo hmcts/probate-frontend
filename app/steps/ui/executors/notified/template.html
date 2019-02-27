@@ -3,21 +3,21 @@
 {% from "widgets/radiobuttons.html" import optionsRadio %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{content.question | replace('{executorName}', fields.list.value[fields.index.value].fullName) | safe}}</h1>
+    <h1 class="form-title heading-large">{{ content.question | replace('{executorName}', fields.list.value[fields.index.value].fullName) | safe }}</h1>
 {% endblock %}
 
 {% block form_content %}
-    {{optionsRadio(content,
+    {{ optionsRadio(content,
         name = 'executorNotified',
         field = fields.executorNotified,
         options = ['optionYes', 'optionNo'],
         legend = content.legend | replace('{executorName}', fields.list.value[fields.index.value].fullName),
         inline = true
-    )}}
+    ) }}
     <div class="panel panel-border-narrow js-hidden" id="executorNotified-2-details">
-            {{content.informInWriting}}
-        </div>
+        {{ content.informInWriting }}
+    </div>
     <div class="form-group">
-        <input class="button" type="submit" value="{{common.continue}}">
+        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>
 {% endblock %}

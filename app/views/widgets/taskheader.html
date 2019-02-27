@@ -1,14 +1,12 @@
 {% macro taskHeader(content, title, status, previousTaskStatus, number) %}
-
-<div class="task-item-header">
-    <h2 class="heading-medium task-list-section"><span class="task-list-section-number">{{number}}</span>{{title}}</h2>
-    {% if status == 'complete' %}
-        <span class="task-completed">{{content.taskComplete}}</span>
-    {% else %}
-        {% if (status !== 'started' ) and (previousTaskStatus !== 'complete') %}
-            <span class="task-unavailable">{{content.taskUnavailable | safe }}</span>
+    <div class="task-item-header">
+        <h2 class="heading-medium task-list-section"><span class="task-list-section-number">{{ number }}</span>{{ title }}</h2>
+        {% if status == 'complete' %}
+            <span class="task-completed">{{ content.taskComplete }}</span>
+        {% else %}
+            {% if (status !== 'started' ) and (previousTaskStatus !== 'complete') %}
+                <span class="task-unavailable">{{ content.taskUnavailable | safe }}</span>
+            {% endif %}
         {% endif %}
-    {% endif %}
-</div>
-
+    </div>
 {% endmacro %}

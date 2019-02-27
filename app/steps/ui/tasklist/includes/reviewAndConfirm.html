@@ -1,28 +1,28 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.ReviewAndConfirmTask %}
 
 <li class="task-item">
-    {{taskHeader(
+    {{ taskHeader(
         number = "3.",
         content = content,
         title = content.reviewAndConfirmTask,
         status = fields.ReviewAndConfirmTask.value.status,
         previousTaskStatus = fields.previousTaskStatus.value.ReviewAndConfirmTask
-    )}}
+    ) }}
     <div class="task-list-items">
         {% if fields.ReviewAndConfirmTask.value.status === 'complete' %}
-            {% if fields.hasMultipleApplicants.value === 'true' and fields.alreadyDeclared.value === 'false'  %}
-                <span class="progress-status-tag">{{content.taskCompleteTag | upper}}</span>
-                <p>{{content.reviewAndConfirmTaskMultiplesParagraph1 | safe}}</p>
-                <p>{{content.reviewAndConfirmTaskMultiplesParagraph2 | safe}}</p>
+            {% if fields.hasMultipleApplicants.value === 'true' and fields.alreadyDeclared.value === 'false' %}
+                <span class="progress-status-tag">{{ content.taskCompleteTag | upper }}</span>
+                <p>{{ content.reviewAndConfirmTaskMultiplesParagraph1 | safe }}</p>
+                <p>{{ content.reviewAndConfirmTaskMultiplesParagraph2 | safe }}</p>
             {% endif %}
         {% endif %}
-        {{taskAction(
+        {{ taskAction(
             prevTaskStatus = previousTaskStatus,
             status = fields.ReviewAndConfirmTask.value.status,
             nextURL = 'summary/declaration',
             checkYourAnswersURL = fields.ReviewAndConfirmTask.value.checkYourAnswersLink,
             content = content,
             alreadyDeclared = fields.alreadyDeclared.value
-        )}}
+        ) }}
     </div>
 </li>

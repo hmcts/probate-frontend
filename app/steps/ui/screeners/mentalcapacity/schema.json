@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "mental-capacity",
+  "type": "object",
+  "properties": {
+    "mentalCapacity": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "mentalCapacity"
+  ]
+}

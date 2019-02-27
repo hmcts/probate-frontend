@@ -7,9 +7,11 @@ module.exports = function (formName, grossAmount, netAmount) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click('#paper' + formName);
-    I.fillField('#gross' + formName, grossAmount);
-    I.fillField('#net' + formName, netAmount);
 
-    I.click(commonContent.continue);
+    I.click(`#paperIHT${formName}`);
+
+    I.fillField(`#grossIHT${formName}`, grossAmount);
+    I.fillField(`#netIHT${formName}`, netAmount);
+
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

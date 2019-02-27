@@ -1,0 +1,16 @@
+{
+  "title": "Do you have a death certificate",
+  "question": "Do you have a death certificate?",
+  "hintText": "You need the original death certificate or an <a rel=\"external noopener\" href=\"{deathReportedToCoroner}\">interim death certificate</a> from the coroner.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "legend": "Do you have a death certificate?",
+  "errors": {
+    "deathCertificate": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about the death certificate",
+        "message": "Answer &lsquo;yes&rsquo; if there is a death certificate"
+      }
+    }
+  }
+}

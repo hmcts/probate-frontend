@@ -1,20 +1,15 @@
 'use strict';
 
-const AdditionalExecutorInvite = require('app/utils/AdditionalExecutorInvite');
-const services = require('app/components/services');
 const {assert, expect} = require('chai');
-const sinon = require('sinon');
+const rewire = require('rewire');
+const AdditionalExecutorInvite = rewire('app/utils/AdditionalExecutorInvite');
 
-describe('AdditionalExecutorInvite.js', () => {
+describe('AdditionalExecutorInvite', () => {
     describe('invite()', () => {
-        let sendInviteStub;
         let session;
         let executorsToCheck;
 
         beforeEach(() => {
-            sendInviteStub = sinon
-                .stub(services, 'sendInvite')
-                .returns(Promise.resolve('Success'));
             session = {
                 form: {
                     deceased: {
@@ -58,12 +53,13 @@ describe('AdditionalExecutorInvite.js', () => {
             executorsToCheck.form.executors.list[2].emailSent = true;
         });
 
-        afterEach(() => {
-            sendInviteStub.restore();
-        });
-
         describe('when there are executors to be notified', () => {
             it('should set emailSent flag to true when there is only one executor to be notified', (done) => {
+                AdditionalExecutorInvite.__set__('InviteLink', class {
+                    post() {
+                        return Promise.resolve('Success');
+                    }
+                });
                 AdditionalExecutorInvite.invite(session)
                     .then(res => {
                         assert.isDefined(res.list[2].inviteId);
@@ -76,6 +72,11 @@ describe('AdditionalExecutorInvite.js', () => {
             });
 
             it('should set emailSent flag to true when there are two executors to be notified', (done) => {
+                AdditionalExecutorInvite.__set__('InviteLink', class {
+                    post() {
+                        return Promise.resolve('Success');
+                    }
+                });
                 session.form.executors.list[1].emailSent = false;
                 delete session.form.executors.list[1].inviteId;
                 AdditionalExecutorInvite.invite(session)

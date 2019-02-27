@@ -9,28 +9,33 @@
 <script src="/public/javascripts/application.js"></script>
 
 {% if enableTracking === 'true' %}
-    <script nonce="{{nonce}}">
-        var gatrackingid = "{{gaTrackingId}}";
+    <script nonce="{{ nonce }}">
+        var gatrackingid = "{{ gaTrackingId }}";
     </script>
     <script src="/public/javascripts/ga-tracking.js"></script>
 {% endif %}
 
 <script src="/public/javascripts/dropzone.js"></script>
-<script nonce="{{nonce}}">
+<script nonce="{{ nonce }}">
     var documentUploadConfig = {
-        csrfToken: "{{csrfToken}}",
-        validMimeTypes: "{{documentUpload.validMimeTypes}}",
-        maxFiles: "{{documentUpload.maxFiles}}",
-        maxFileSizeMb: "{{documentUpload.maxFileSizeMb}}",
+        csrfToken: "{{ csrfToken }}",
+        validMimeTypes: "{{ documentUpload.validMimeTypes }}",
+        maxFiles: "{{ documentUpload.maxFiles }}",
+        maxSizeBytes: "{{ documentUpload.maxSizeBytes }}",
+        timeout: "{{ documentUpload.timeout }}",
         content: {
-            removeFileText: "{{common.documentUploadRemoveFile}}",
-            invalidFileType: "{{common.documentUploadInvalidFileType}}",
-            errorSummaryHeading: "{{common.errorSummaryHeading}}",
-            invalidFileTypeSummary: "{{common.documentUploadInvalidFileTypeSummary}}",
-            maxFilesExceeded: "{{common.documentUploadMaxFilesExceeded}}".replace('{maxFiles}', "{{documentUpload.maxFiles}}"),
-            maxFilesExceededSummary: "{{common.documentUploadMaxFilesExceededSummary}}",
-            maxFileSize: "{{common.documentUploadMaxFileSize}}".replace('{maxFileSize}', "{{documentUpload.maxFileSizeMb}}"),
-            maxFileSizeSummary: "{{common.documentUploadMaxFileSizeSummary}}",
+            removeFileText: "{{ common.documentUploadRemoveFile }}",
+            errorSummaryHeading: "{{ common.errorSummaryHeading }}",
+            invalidFileType: "{{ common['documentUpload-invalidFileType'] }}",
+            invalidFileTypeSummary: "{{ common['documentUpload-invalidFileTypeSummary'] }}",
+            maxFiles: "{{ common['documentUpload-maxFiles'] }}",
+            maxFilesSummary: "{{ common['documentUpload-maxFilesSummary'] }}",
+            maxSize: "{{ common['documentUpload-maxSize'] }}",
+            maxSizeSummary: "{{ common['documentUpload-maxSizeSummary'] }}",
+            uploadFailed: "{{ common['documentUpload-uploadFailed'] }}",
+            uploadFailedSummary: "{{ common['documentUpload-uploadFailedSummary'] }}",
+            uploadTimeout: "{{ common['documentUpload-uploadTimeout'] }}",
+            uploadTimeoutSummary: "{{ common['documentUpload-uploadTimeoutSummary'] }}"
         }
     };
 </script>

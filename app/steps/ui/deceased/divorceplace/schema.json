@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "deceased-divorce-place",
+  "type": "object",
+  "properties": {
+    "divorcePlace": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "divorcePlace"
+  ]
+}

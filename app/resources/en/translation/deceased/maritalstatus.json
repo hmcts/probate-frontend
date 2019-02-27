@@ -1,0 +1,21 @@
+{
+  "title": "Marital status of the deceased person",
+  "question": "What was {deceasedName}&rsquo;s marital status?",
+  "legend": "What was {deceasedName}&rsquo;s marital status?",
+  "optionMarried": "Married or in a civil partnership",
+  "optionDivorced": "Divorced or their civil partnership was dissolved",
+  "optionWidowed": "Widowed",
+  "optionNotMarried": "Never married",
+  "optionSeparated": "Judicially separated",
+  "divorce": "divorce",
+  "separation": "separation",
+
+  "errors": {
+    "maritalStatus": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about marital status",
+        "message": "Choose a marital status option"
+      }
+    }
+  }
+}

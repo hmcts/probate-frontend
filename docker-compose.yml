@@ -12,6 +12,7 @@ services:
       - USE_AUTH=false
       - USE_IDAM=false
       - VALIDATION_SERVICE_URL=http://business-service:8081/validate
+      - CHECK_ANSWERS_PDF_SERVICE_URL=http://business-service:8080/businessDocument/generateCheckAnswersSummaryPDF
       - SUBMIT_SERVICE_URL=http://submit-service:8181/submit
       - PERSISTENCE_SERVICE_URL=http://persistence-service:8282/formdata
       - http_proxy=

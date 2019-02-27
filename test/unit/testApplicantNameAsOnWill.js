@@ -1,7 +1,6 @@
 'use strict';
 const initSteps = require('app/core/initSteps');
-const chai = require('chai');
-const expect = chai.expect;
+const expect = require('chai').expect;
 const content = require('app/resources/en/translation/applicant/nameasonwill');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const ApplicantNameAsOnWill = steps.ApplicantNameAsOnWill;
@@ -25,7 +24,7 @@ describe('ApplicantNameAsOnWill', () => {
                 alias: 'Bobby Alias',
                 aliasReason: 'Divorce'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantNameAsOnWill.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 nameAsOnTheWill: 'No',
@@ -42,7 +41,7 @@ describe('ApplicantNameAsOnWill', () => {
                 aliasReason: 'other',
                 otherReason: 'Legally changed name'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantNameAsOnWill.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
                 nameAsOnTheWill: 'No',
@@ -59,7 +58,7 @@ describe('ApplicantNameAsOnWill', () => {
                 alias: 'Bobby Alias',
                 aliasReason: 'Divorce'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantNameAsOnWill.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({nameAsOnTheWill: 'Yes'});
             done();
@@ -72,7 +71,7 @@ describe('ApplicantNameAsOnWill', () => {
                 aliasReason: 'other',
                 otherReason: 'Legally changed name'
             };
-            errors = {};
+            errors = [];
             [ctx, errors] = ApplicantNameAsOnWill.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({nameAsOnTheWill: 'Yes'});
             done();

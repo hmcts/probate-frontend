@@ -2,9 +2,10 @@
 
 const {isEmpty} = require('lodash');
 const ValidationStep = require('app/core/steps/ValidationStep');
-const services = require('app/components/services');
 const ActionStepRunner = require('app/core/runners/ActionStepRunner');
 const FieldError = require('app/components/error');
+const PostcodeAddress = require('app/services/PostcodeAddress');
+const config = require('app/config');
 
 class AddressLookup extends ValidationStep {
     static getUrl() {
@@ -19,13 +20,14 @@ class AddressLookup extends ValidationStep {
         return this.steps[this.referrer];
     }
 
-    * handlePost (ctx, errors, formdata) {
+    * handlePost (ctx, errors, formdata, req) {
         this.referrer = ctx.referrer;
         let referrerData = this.getReferrerData(ctx, formdata);
         referrerData = this.pruneReferrerData(referrerData);
         referrerData.postcode = ctx.postcode;
         if (isEmpty(errors)) {
-            const addresses = yield services.findAddress(ctx.postcode);
+            const postcodeAddress = new PostcodeAddress(config.services.postcode.url, req.sessionID);
+            const addresses = yield postcodeAddress.get(ctx.postcode);
             if (!isEmpty(addresses)) {
                 referrerData.addresses = addresses;
                 referrerData.addressFound = 'true';

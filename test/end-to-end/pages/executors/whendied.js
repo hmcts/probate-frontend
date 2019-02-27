@@ -18,5 +18,5 @@ module.exports = function (executorNumber, diedBefore, firstRecord) {
         I.click('#diedbefore-optionNo');
     }
 
-    I.click(commonContent.continue);
+    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

@@ -4,7 +4,7 @@ const ApplicantPhone = require('app/steps/ui/applicant/phone/index');
 const ApplicantAlias = require('app/steps/ui/applicant/alias/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
-describe('applicant-nameasonwill', () => {
+describe('applicant-name-as-on-will', () => {
     let testWrapper;
     const expectedNextUrlForApplicantPhone = ApplicantPhone.getUrl();
     const expectedNextUrlForApplicantAlias = ApplicantAlias.getUrl();
@@ -18,13 +18,13 @@ describe('applicant-nameasonwill', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('ApplicantNameAsOnWill');
 
         it('test correct content is loaded on the page', (done) => {
             const sessionData = {
-                'applicant': {
-                    'firstName': 'john', 'lastName': 'theapplicant'
+                applicant: {
+                    firstName: 'John',
+                    lastName: 'TheApplicant'
                 }
             };
 
@@ -35,7 +35,7 @@ describe('applicant-nameasonwill', () => {
                 .end(() => {
 
                     const contentData = {
-                        applicantName: 'john theapplicant',
+                        applicantName: 'John TheApplicant',
                     };
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
@@ -43,8 +43,9 @@ describe('applicant-nameasonwill', () => {
 
         it('test correct content is loaded on the page when there is a codicil', (done) => {
             const sessionData = {
-                'applicant': {
-                    'firstName': 'john', 'lastName': 'theapplicant'
+                applicant: {
+                    firstName: 'John',
+                    lastName: 'TheApplicant'
                 },
                 will: {
                     codicils: 'Yes'
@@ -58,7 +59,7 @@ describe('applicant-nameasonwill', () => {
                 .end(() => {
 
                     const contentData = {
-                        applicantName: 'john theapplicant',
+                        applicantName: 'John TheApplicant',
                     };
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
@@ -66,8 +67,9 @@ describe('applicant-nameasonwill', () => {
 
         it('test errors message displayed for missing data', (done) => {
             const sessionData = {
-                'applicant': {
-                    'firstName': 'john', 'lastName': 'theapplicant'
+                applicant: {
+                    firstName: 'John',
+                    lastName: 'TheApplicant'
                 }
             };
 
@@ -83,8 +85,9 @@ describe('applicant-nameasonwill', () => {
 
         it(`test it redirects to next page when Yes selected: ${expectedNextUrlForApplicantPhone}`, (done) => {
             const sessionData = {
-                'applicant': {
-                    'firstName': 'john', 'lastName': 'theapplicant'
+                applicant: {
+                    firstName: 'John',
+                    lastName: 'TheApplicant'
                 }
             };
 
@@ -100,8 +103,9 @@ describe('applicant-nameasonwill', () => {
 
         it(`test it redirects to next page when No selected: ${expectedNextUrlForApplicantAlias}`, (done) => {
             const sessionData = {
-                'applicant': {
-                    'firstName': 'john', 'lastName': 'theapplicant'
+                applicant: {
+                    firstName: 'John',
+                    lastName: 'TheApplicant'
                 }
             };
 

@@ -14,8 +14,10 @@ class DeceasedAddress extends AddressStep {
         if (req.session.addresses && req.session.addresses.deceased) {
             ctx.addresses = req.session.addresses.deceased;
         }
-        return ctx;
 
+        ctx.isDocumentUploadToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'document_upload');
+
+        return ctx;
     }
 
     handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
@@ -24,20 +26,21 @@ class DeceasedAddress extends AddressStep {
         if (ctx.addresses) {
             session.addresses.deceased = ctx.addresses;
         }
+        ctx.isDocumentUploadToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'document_upload');
+
         return [ctx, errors];
-    }
 
     nextStepOptions() {
         return {
             options: [
-                {key: 'isToggleEnabled', value: true, choice: 'toggleOn'}
+                {key: 'isDocumentUploadToggleEnabled', value: true, choice: 'documentUploadToggleOn'}
             ]
         };
     }
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        delete ctx.isToggleEnabled;
+        delete ctx.isDocumentUploadToggleEnabled;
         return [ctx, formdata];
     }
 }

@@ -18,14 +18,16 @@
     },
     {
       "fullName": "sam simms",
-      "isApplying": false,
-      "isDead": true
+      "isApplying": true,
+      "hasOtherName": true,
+      "currentName": "sam new simms",
+      "currentNameReason": "Divorce"
     },
       {
         "fullName": "sam2 simms2",
         "isApplying": false,
         "notApplyingKey": "optionRenunciated",
-        "notApplyingReason" : "This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renun ciation, and the executor will need to fill in a form)",
+        "notApplyingReason" : "This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)",
         "executorNotified" : "Yes"
       }],
     "otherExecutors" : "No"

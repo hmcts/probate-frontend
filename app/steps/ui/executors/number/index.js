@@ -3,7 +3,6 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const {get} = require('lodash');
-const FeatureToggle = require('app/utils/FeatureToggle');
 
 class ExecutorsNumber extends ValidationStep {
 
@@ -45,32 +44,12 @@ class ExecutorsNumber extends ValidationStep {
         return [ctx.executorsNumber >= 0, 'inProgress'];
     }
 
-    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
-
-        return [ctx, errors];
-    }
-
-    nextStepOptions(ctx) {
-        if (ctx.isToggleEnabled) {
-            return {
-                options: [
-                    {key: 'executorsNumber', value: 1, choice: 'oneExecutorToggleOn'}
-                ]
-            };
-        }
-
+    nextStepOptions() {
         return {
             options: [
                 {key: 'executorsNumber', value: 1, choice: 'oneExecutor'}
             ]
         };
-    }
-
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-        delete ctx.isToggleEnabled;
-        return [ctx, formdata];
     }
 }
 

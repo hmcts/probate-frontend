@@ -3,7 +3,6 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex, get, startsWith} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const FeatureToggle = require('app/utils/FeatureToggle');
 const AliasData = require('app/utils/AliasData.js');
 
 const path = '/executor-current-name-reason/';
@@ -64,11 +63,11 @@ class ExecutorCurrentNameReason extends ValidationStep {
         return findIndex(ctx.list, o => o.hasOtherName, index + 1);
     }
 
-    nextStepUrl(ctx) {
+    nextStepUrl(req, ctx) {
         if (ctx.index === -1) {
-            return this.next(ctx).constructor.getUrl();
+            return this.next(req, ctx).constructor.getUrl();
         }
-        return this.next(ctx).constructor.getUrl(ctx.index);
+        return this.next(req, ctx).constructor.getUrl(ctx.index);
     }
 
     nextStepOptions(ctx) {
@@ -80,10 +79,9 @@ class ExecutorCurrentNameReason extends ValidationStep {
         };
     }
 
-    isComplete(ctx, formdata, featureToggles) {
+    isComplete(ctx) {
         const executorsWrapper = new ExecutorsWrapper(ctx);
-        const isEnabled = FeatureToggle.isEnabled(featureToggles, 'main_applicant_alias');
-        return [isEnabled ? executorsWrapper.executorsWithAnotherName().every(exec => exec.currentNameReason) : true, 'inProgress'];
+        return [executorsWrapper.executorsWithAnotherName().every(exec => exec.currentNameReason), 'inProgress'];
     }
 
     action(ctx, formdata) {

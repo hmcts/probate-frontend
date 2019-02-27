@@ -4,6 +4,8 @@
   "checkCarefully": "Check the information below carefully. This will form a record of your application for probate. It will also be stored as a public record, and will be able to be viewed online.",
   "willHeading": "The will",
   "willWithCodicilHeading": "The will and codicils",
+  "uploadedDocumentsHeading": "Uploaded documents",
+  "uploadedDocumentsEmpty": "No documents have been uploaded",
   "applicantHeading": "The executors",
   "deceasedHeading": "About the person who died",
   "ihtHeading": "Inheritance tax",
@@ -20,6 +22,7 @@
   "address": "Address",
   "mobileNumber": "Mobile number",
   "emailAddress": "Email address",
+  "checkAnswersPdf": "Save this page (10kb PDF)",
 
   "errors": {
     "businessError": {

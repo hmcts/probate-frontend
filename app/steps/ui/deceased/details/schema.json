@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "deceased-name-dob-dod",
+  "type": "object",
+  "properties": {
+    "firstName": {
+        "type": "string",
+        "minLength": 2,
+      "pattern": "^[^<>]+$"
+    },
+    "lastName": {
+      "type": "string",
+      "minLength": 2,
+      "pattern": "^[^<>]+$"
+    },
+    "dob_day": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 31
+    },
+    "dob_month": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 12
+    },
+    "dob_year": {
+      "type": "integer",
+      "minimum": 1000,
+      "maximum": 9999
+    },
+    "dob_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "dod_day": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 31
+    },
+    "dod_month": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 12
+    },
+    "dod_year": {
+      "type": "integer",
+      "minimum": 1000,
+      "maximum": 9999
+    },
+    "dod_date": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "lastName",
+    "firstName",
+    "dob_day",
+    "dob_month",
+    "dob_year",
+    "dod_day",
+    "dod_month",
+    "dod_year"
+  ]
+}

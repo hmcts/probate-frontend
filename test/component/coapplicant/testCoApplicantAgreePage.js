@@ -2,34 +2,36 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const sessionData = require('test/data/complete-form-undeclared');
-const services = require('app/components/services');
-const sinon = require('sinon');
 const commonContent = require('app/resources/en/translation/common');
+const nock = require('nock');
+const config = require('app/config');
+const businessServiceUrl = config.services.validation.url.replace('/validate', '');
 
 describe('co-applicant-agree-page', () => {
     let testWrapper;
-    let checkAllAgreedStub;
     let contentData;
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CoApplicantAgreePage');
-        checkAllAgreedStub = sinon.stub(services, 'checkAllAgreed');
         contentData = {
             leadExecFullName: 'Bob Smith'
         };
     });
 
     afterEach(() => {
+        nock.cleanAll();
         testWrapper.destroy();
-        checkAllAgreedStub.restore();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content is loaded on the page when there are no codicils', (done) => {
+            nock(businessServiceUrl)
+                .get('/invites/allAgreed/undefined')
+                .reply(200, false);
+
             const contentToExclude = [
                 'paragraph4-codicils'
             ];
-            checkAllAgreedStub.returns(Promise.resolve('false'));
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData.formdata)
@@ -39,11 +41,15 @@ describe('co-applicant-agree-page', () => {
         });
 
         it('test correct content is loaded on the page when there are codicils', (done) => {
+            nock(businessServiceUrl)
+                .get('/invites/allAgreed/undefined')
+                .reply(200, false);
+
             sessionData.formdata.will.codicils = commonContent.yes;
+
             const contentToExclude = [
                 'paragraph4'
             ];
-            checkAllAgreedStub.returns(Promise.resolve('false'));
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData.formdata)
@@ -53,10 +59,10 @@ describe('co-applicant-agree-page', () => {
         });
 
         it('test save and close link is not displayed on the page', (done) => {
-            const playbackData = {};
-            playbackData.saveAndClose = commonContent.saveAndClose;
-            playbackData.signOut = commonContent.signOut;
-
+            const playbackData = {
+                saveAndClose: commonContent.saveAndClose,
+                signOut: commonContent.signOut
+            };
             testWrapper.testContentNotPresent(done, playbackData);
         });
     });

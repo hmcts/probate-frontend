@@ -11,14 +11,15 @@ describe('executors-other-names', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsWithOtherNames');
         sessionData = {
-            'applicant': {
-                'firstName': 'john', 'lastName': 'theapplicant'
+            applicant: {
+                firstName: 'John',
+                lastName: 'TheApplicant'
             },
-            'executors': {
-                'executorsNumber': 2,
-                'list': [
-                    {'firstName': 'john', 'lastName': 'theapplicant', 'isApplying': 'Yes', 'isApplicant': true},
-                    {'fullName': 'Wibble Wobble-Woo', 'isApplying': true}
+            executors: {
+                executorsNumber: 2,
+                list: [
+                    {firstName: 'John', lastName: 'TheApplicant', isApplying: 'Yes', isApplicant: true},
+                    {fullName: 'Wibble Wobble-Woo', isApplying: true}
                 ]
             }
         };
@@ -29,8 +30,7 @@ describe('executors-other-names', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('ExecutorsWithOtherNames');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);

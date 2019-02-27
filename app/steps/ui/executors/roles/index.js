@@ -4,7 +4,6 @@ const CollectionStep = require('app/core/steps/CollectionStep');
 const json = require('app/resources/en/translation/executors/roles');
 const {get, isEmpty, every, findKey, findIndex} = require('lodash');
 const path = '/executor-roles/';
-const FeatureToggle = require('app/utils/FeatureToggle');
 
 class ExecutorRoles extends CollectionStep {
 
@@ -25,9 +24,7 @@ class ExecutorRoles extends CollectionStep {
         return [ctx];
     }
 
-    handlePost(ctx, errors, formdata, session, hostname, featureToggles) {
-        ctx.isToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'screening_questions');
-
+    handlePost(ctx, errors) {
         if (ctx.list[ctx.index]) {
             ctx.list[ctx.index].isApplying = false;
             ctx.list[ctx.index].notApplyingReason = ctx.notApplyingReason;
@@ -40,25 +37,20 @@ class ExecutorRoles extends CollectionStep {
     }
 
     isComplete(ctx) {
-        return [every(ctx.list, exec => !isEmpty(exec.notApplyingReason) || exec.isApplying), 'inProgress'];
+        return [every(ctx.list, exec => {
+            return exec.isApplying ||
+                (
+                    !isEmpty(exec.notApplyingReason) &&
+                    (
+                        (exec.notApplyingReason === json.optionPowerReserved && !isEmpty(exec.executorNotified)) ||
+                        (exec.notApplyingReason !== json.optionPowerReserved)
+                    )
+                );
+        }), 'inProgress'];
     }
 
     nextStepOptions(ctx) {
         ctx.continue = get(ctx, 'index', -1) !== -1;
-
-        if (ctx.isToggleEnabled) {
-            if (ctx.notApplyingReason !== json.optionPowerReserved && ctx.continue !== true) {
-                ctx.otherwise = true;
-            }
-
-            return {
-                options: [
-                    {key: 'notApplyingReason', value: json.optionPowerReserved, choice: 'powerReserved'},
-                    {key: 'continue', value: true, choice: 'continue'},
-                    {key: 'otherwise', value: true, choice: 'otherwiseToggleOn'}
-                ]
-            };
-        }
 
         return {
             options: [
@@ -71,7 +63,6 @@ class ExecutorRoles extends CollectionStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.otherwise;
-        delete ctx.isToggleEnabled;
         delete ctx.executorName;
         delete ctx.isApplying;
         delete ctx.notApplyingReason;

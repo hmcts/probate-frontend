@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "deceased-marital-status",
+  "type": "object",
+  "properties": {
+    "maritalStatus": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "maritalStatus"
+  ]
+}

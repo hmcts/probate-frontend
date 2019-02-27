@@ -3,44 +3,47 @@
 const Step = require('app/core/steps/Step');
 const FieldError = require('app/components/error');
 const config = require('app/config');
-const services = require('app/components/services');
 const {get, set} = require('lodash');
 const logger = require('app/components/logger')('Init');
+const ServiceMapper = require('app/utils/ServiceMapper');
+const Payment = require('app/services/Payment');
+const Authorise = require('app/services/Authorise');
+const FeesCalculator = require('app/utils/FeesCalculator');
 
 class PaymentBreakdown extends Step {
     static getUrl() {
         return '/payment-breakdown';
     }
 
-    handleGet(ctx) {
+    handleGet(ctx, formdata) {
+        const fees = formdata.fees;
+        this.checkFeesStatus(fees);
+
+        ctx.copies = this.createCopiesLayout(formdata);
+        ctx.applicationFee = fees.applicationfee;
+        ctx.total = Number.isInteger(fees.total) ? fees.total : parseFloat(fees.total).toFixed(2);
         return [ctx, ctx.errors];
+    }
+
+    checkFeesStatus(fees) {
+        if (fees.status !== 'success') {
+            throw new Error('Unable to calculate fees from Fees Api');
+        }
+    }
+
+    createCopiesLayout(formdata) {
+        const ukCopies = formdata.fees.ukcopies;
+        const overseasCopies = formdata.fees.overseascopies;
+        return {
+            uk: {number: ukCopies, cost: formdata.fees.ukcopiesfee},
+            overseas: {number: overseasCopies, cost: formdata.fees.overseascopiesfee},
+        };
     }
 
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        const commonContent = this.commonContent();
 
-        let applicationFee;
-
-        if (get(formdata, 'iht.netValue') < config.payment.applicationFeeThreshold) {
-            applicationFee = 0;
-        } else {
-            applicationFee = config.payment.applicationFee;
-        }
-
-        const ukCopies = get(formdata, 'copies.uk', 0);
-        const overseasCopies = get(formdata, 'assets.assetsoverseas', commonContent.no) === commonContent.yes ? formdata.copies.overseas : 0;
-        const copies = {
-            uk: {number: ukCopies, cost: parseFloat(ukCopies * config.payment.copies.uk.fee)},
-            overseas: {number: overseasCopies, cost: parseFloat(overseasCopies * config.payment.copies.overseas.fee)},
-        };
-        const extraCopiesCost = copies.uk.cost + copies.overseas.cost;
-        const total = applicationFee + extraCopiesCost;
-
-        ctx.copies = copies;
-        ctx.applicationFee = applicationFee;
-        ctx.total = Number.isInteger(total) ? total : parseFloat(total).toFixed(2);
         ctx.authToken = req.authToken;
         ctx.userId = req.userId;
         ctx.deceasedLastName = get(formdata.deceased, 'lastName', '');
@@ -49,8 +52,19 @@ class PaymentBreakdown extends Step {
     }
 
     * handlePost(ctx, errors, formdata, session, hostname) {
+        const feesCalculator = new FeesCalculator(config.services.feesRegister.url, ctx.sessionID);
+        const confirmFees = yield feesCalculator.calc(formdata, ctx.authToken);
+        this.checkFeesStatus(confirmFees);
+        const originalFees = formdata.fees;
+        if (confirmFees.total !== originalFees.total) {
+            throw new Error (`Error calculated fees totals have changed from ${originalFees.total} to ${confirmFees.total}`);
+        }
+        ctx.total = originalFees.total;
+        ctx.applicationFee = originalFees.applicationfee;
+        ctx.copies = this.createCopiesLayout(formdata);
 
-        const serviceAuthResult = yield services.authorise();
+        const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
+        const serviceAuthResult = yield authorise.post();
         if (serviceAuthResult.name === 'Error') {
             const options = {};
             options.redirect = true;
@@ -60,7 +74,8 @@ class PaymentBreakdown extends Step {
         }
         const canCreatePayment = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
         if (formdata.paymentPending !== 'unknown') {
-            const result = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
+            const [result, submissionErrors] = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
+            errors = errors.concat(submissionErrors);
             if (errors.length > 0) {
                 logger.error('Failed to create case in CCD.');
                 return [ctx, errors];
@@ -76,9 +91,10 @@ class PaymentBreakdown extends Step {
                     formdata.creatingPayment = 'true';
                     session.save();
 
-                    const serviceAuthResult = yield services.authorise();
+                    const serviceAuthResult = yield authorise.post();
 
                     if (serviceAuthResult.name === 'Error') {
+                        logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
                         const keyword = 'failure';
                         formdata.creatingPayment = null;
                         formdata.paymentPending = null;
@@ -97,7 +113,9 @@ class PaymentBreakdown extends Step {
                         ccdCaseId: formdata.ccdCase.id
                     };
 
-                    const [response, paymentReference] = yield services.createPayment(data, hostname);
+                    const payment = new Payment(config.services.payment.createPaymentUrl, ctx.sessionID);
+                    const [response, paymentReference] = yield payment.post(data, hostname);
+                    logger.info(`Payment creation in breakdown for paymentReference = ${paymentReference} with response = ${JSON.stringify(response)}`);
                     formdata.creatingPayment = 'false';
 
                     if (response.name === 'Error') {
@@ -132,7 +150,13 @@ class PaymentBreakdown extends Step {
     * sendToSubmitService(ctx, errors, formdata, total) {
         const softStop = this.anySoftStops(formdata, ctx) ? 'softStop' : false;
         set(formdata, 'payment.total', total);
-        const result = yield services.sendToSubmitService(formdata, ctx, softStop);
+        const submitData = ServiceMapper.map(
+            'SubmitData',
+            [config.services.submit.url, ctx.sessionID],
+            ctx.journeyType
+        );
+        const result = yield submitData.post(formdata, ctx, softStop);
+        logger.info(`submitData.post result = ${JSON.stringify(result)}`);
 
         if (result.name === 'Error' || result === 'DUPLICATE_SUBMISSION') {
             const keyword = result === 'DUPLICATE_SUBMISSION' ? 'duplicate' : 'failure';
@@ -141,7 +165,7 @@ class PaymentBreakdown extends Step {
 
         logger.info({tags: 'Analytics'}, 'Application Case Created');
 
-        return result;
+        return [result, errors];
     }
 
     action(ctx, formdata) {
@@ -149,6 +173,7 @@ class PaymentBreakdown extends Step {
         delete ctx.authToken;
         delete ctx.paymentError;
         delete ctx.deceasedLastName;
+        delete formdata.fees;
         return [ctx, formdata];
     }
 
@@ -161,7 +186,9 @@ class PaymentBreakdown extends Step {
                 userId: ctx.userId,
                 paymentId: paymentId
             };
-            const paymentResponse = yield services.findPayment(data);
+            const payment = new Payment(config.services.payment.createPaymentUrl, ctx.sessionID);
+            const paymentResponse = yield payment.get(data);
+            logger.info(`Payment retrieval in breakdown for paymentId = ${ctx.paymentId} with response = ${JSON.stringify(paymentResponse)}`);
             if (typeof paymentResponse === 'undefined') {
                 return true;
             }

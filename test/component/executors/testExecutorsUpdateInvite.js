@@ -1,26 +1,21 @@
 'use strict';
+
 const TestWrapper = require('test/util/TestWrapper');
-const services = require('app/components/services');
-const sinon = require('sinon');
-const when = require('when');
 const {assert} = require('chai');
 const ExecutorsUpdateInviteSent = require('app/steps/ui/executors/updateinvitesent/index');
 
 describe('executors-update-invite', () => {
     let testWrapper;
-    let sendInvitesStub;
     let sessionData;
     const expectedNextUrlForExecutorsUpdateInviteSent = ExecutorsUpdateInviteSent.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsUpdateInvite');
         sessionData = require('test/data/executors-invites');
-        sendInvitesStub = sinon.stub(services, 'sendInvite');
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        sendInvitesStub.restore();
         delete require.cache[require.resolve('test/data/executors-invites')];
     });
 
@@ -83,7 +78,6 @@ describe('executors-update-invite', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecutorsUpdateInviteSent}`, (done) => {
-            sendInvitesStub.returns(when(Promise.resolve({response: 'Make it pass!'})));
             const data = {};
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -93,7 +87,6 @@ describe('executors-update-invite', () => {
         });
 
         it('test an error page is rendered if there is an error calling invite service', (done) => {
-            sendInvitesStub.returns(when(Promise.resolve(new Error('ReferenceError'))));
             sessionData.executors.list[1].emailChanged = true;
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -102,7 +95,6 @@ describe('executors-update-invite', () => {
                         .then(response => {
                             assert(response.status === 500);
                             assert(response.text.includes('Sorry, we&rsquo;re having technical problems'));
-                            assert(sendInvitesStub.calledOnce, 'Send Invite function called');
                             done();
                         })
                         .catch(err => {

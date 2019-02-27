@@ -1,0 +1,21 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "widgets/textfields.html" import textField %}
+
+{% block question %}
+    <h1 class="form-title heading-large">{{ content.question | safe }}</h1>
+{% endblock %}
+
+{% block form_content %}
+    <p class="form-hint">{{ content.hint | safe }}</p>
+
+    {{ textField(
+        name = 'netValueAssetsOutsideField',
+        field = fields.netValueAssetsOutsideField,
+        text = content.netValue | safe,
+        size = 13
+    ) }}
+    <div class="form-group">
+        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    </div>
+{% endblock %}

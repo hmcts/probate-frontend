@@ -5,6 +5,7 @@ const {curry, set, isEmpty, forEach} = require('lodash');
 const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
 const DetectDataChange = require('app/wrappers/DetectDataChange');
 const FormatUrl = require('app/utils/FormatUrl');
+const commonContent = require('app/resources/en/translation/common');
 
 class UIStepRunner {
 
@@ -14,7 +15,6 @@ class UIStepRunner {
     }
 
     handleGet(step, req, res) {
-
         return co(function * () {
             let errors = null;
             const session = req.session;
@@ -33,19 +33,25 @@ class UIStepRunner {
                 session.back.push(step.constructor.getUrl());
             }
             const common = step.commonContent();
-            res.render(step.template, {content, fields, errors, common});
+            res.render(step.template, {content, fields, errors, common}, (err, html) => {
+                if (err) {
+                    req.log.error(err);
+                    return res.status(500).render('errors/500', {common: commonContent});
+                }
+                step.renderPage(res, html);
+
+            });
         }).catch((error) => {
             req.log.error(error);
-            res.status(500).render('errors/500');
+            res.status(500).render('errors/500', {common: commonContent});
         });
     }
 
     handlePost(step, req, res) {
-
         return co(function * () {
             const session = req.session;
             let formdata = session.form;
-            let ctx = step.getContextData(req);
+            let ctx = step.getContextData(req, res);
             let [isValid, errors] = [];
             [isValid, errors] = step.validate(ctx, formdata);
             const hasDataChanged = (new DetectDataChange()).hasDataChanged(ctx, req, step);
@@ -55,7 +61,7 @@ class UIStepRunner {
             }
 
             if (isEmpty(errors)) {
-                const nextStepUrl = step.nextStepUrl(ctx);
+                const nextStepUrl = step.nextStepUrl(req, ctx);
                 [ctx, formdata] = step.action(ctx, formdata);
 
                 set(formdata, step.section, ctx);
@@ -65,14 +71,11 @@ class UIStepRunner {
                     formdata.declaration.hasDataChanged = true;
                 }
 
-                if (!formdata.applicantEmail) {
-                    req.log.error(`We don't have applicantEmail on ${step.constructor.getUrl()} step`);
-                }
-
                 const result = yield step.persistFormData(session.regId, formdata, session.id);
+
                 if (result.name === 'Error') {
                     req.log.error('Could not persist user data', result.message);
-                } else {
+                } else if (result.formdata) {
                     req.log.info('Successfully persisted user data');
                 }
 
@@ -93,7 +96,7 @@ class UIStepRunner {
             }
         }).catch((error) => {
             req.log.error(error);
-            res.status(500).render('errors/500');
+            res.status(500).render('errors/500', {common: commonContent});
         });
     }
 }

@@ -2,7 +2,7 @@
   "title": "Executor contact details",
   "title1": "Executor email address",
   "title2": "Executor mobile phone number",
-  "question": "What are {executorName}'s email address and mobile number?",
+  "question": "What are {executorName}&rsquo;s email address and mobile number?",
   "questionHint": "This executor will be contacted and asked to confirm details of the estate.",
   "email": "Email address",
   "mobile": "Mobile phone number",
@@ -15,7 +15,7 @@
         "message": "Enter an email address"
       },
       "invalid": {
-        "summary": "You&rsquo;ve entered an invalid email address. Check the email address and enter it again.",
+        "summary": "You&rsquo;ve entered an invalid email address, check the email address and enter it again",
         "message": "Enter an email address"
       }
     },

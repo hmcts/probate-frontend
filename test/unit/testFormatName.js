@@ -1,7 +1,5 @@
-// eslint-disable-line max-lines
 const FormatName = require('app/utils/FormatName');
-const chai = require('chai');
-const expect = chai.expect;
+const expect = require('chai').expect;
 
 describe('FormatName.js', () => {
     describe('format()', () => {
@@ -104,7 +102,7 @@ describe('FormatName.js', () => {
             done();
         });
 
-        it('should return executors currentName and applicantAddress when isApplicant is true and currentName is set (toggle on)', (done) => {
+        it('should return executors currentName and applicantAddress when isApplicant is true and currentName is set', (done) => {
             const person = {
                 fullName: 'ed brown', isApplicant: true, currentName: 'eddie brunt', hasOtherName: true
             };
@@ -112,18 +110,6 @@ describe('FormatName.js', () => {
             const applicantAddress = '10 downing street';
             expect(FormatName.getNameAndAddress(person, contentOf, applicantAddress, true)).to.equal(
                 'eddie brunt of 10 downing street'
-            );
-            done();
-        });
-
-        it('should return executors currentName and applicantAddress when isApplicant is true and currentName is set (toggle off)', (done) => {
-            const person = {
-                fullName: 'ed brown', isApplicant: true, currentName: 'eddie brunt', hasOtherName: true
-            };
-            const contentOf = 'of';
-            const applicantAddress = '10 downing street';
-            expect(FormatName.getNameAndAddress(person, contentOf, applicantAddress, false)).to.equal(
-                'ed brown of 10 downing street'
             );
             done();
         });
@@ -138,7 +124,7 @@ describe('FormatName.js', () => {
             done();
         });
 
-        it('should return executors currentName and applicant.address when isApplicant is false and currentName is set (toggle on)', (done) => {
+        it('should return executors currentName and applicant.address when isApplicant is false and currentName is set', (done) => {
             const person = {
                 fullName: 'ed brown', isApplicant: false, currentName: 'eddie brunt', hasOtherName: true, address: '4 waterloo street'
             };
@@ -146,18 +132,6 @@ describe('FormatName.js', () => {
             const applicantAddress = '10 downing street';
             expect(FormatName.getNameAndAddress(person, contentOf, applicantAddress, true)).to.equal(
                 'eddie brunt of 4 waterloo street'
-            );
-            done();
-        });
-
-        it('should return executors currentName and applicant.address when isApplicant is false and currentName is set (toggle off)', (done) => {
-            const person = {
-                fullName: 'ed brown', isApplicant: false, currentName: 'eddie brunt', hasOtherName: true, address: '4 waterloo street'
-            };
-            const contentOf = 'of';
-            const applicantAddress = '10 downing street';
-            expect(FormatName.getNameAndAddress(person, contentOf, applicantAddress, false)).to.equal(
-                'ed brown of 4 waterloo street'
             );
             done();
         });
@@ -205,7 +179,7 @@ describe('FormatName.js', () => {
     });
 
     describe('formatMultipleNamesAndAddress()', () => {
-        it('should return ExecutorNames and Addresses separated with ", " along with "and" (toggle on)', (done) => {
+        it('should return ExecutorNames and Addresses separated with ", " along with "and"', (done) => {
             const persons = [
                 {fullName: 'ed brown', isApplicant: true},
                 {fullName: 'jake smith', address: '80 holt street', currentName: 'jacob marley', hasOtherName: true},
@@ -215,20 +189,6 @@ describe('FormatName.js', () => {
             const applicantAddress = '10 downing street';
             expect(FormatName.formatMultipleNamesAndAddress(persons, content, applicantAddress, true)).to.equal(
                 'ed brown of 10 downing street, jacob marley of 80 holt street and bob smith of 4 green street'
-            );
-            done();
-        });
-
-        it('should return ExecutorNames and Addresses separated with ", " along with "and" (toggle off)', (done) => {
-            const persons = [
-                {fullName: 'ed brown', isApplicant: true},
-                {fullName: 'jake smith', address: '80 holt street', currentName: 'jacob marley', hasOtherName: true},
-                {fullName: 'bob smith', address: '4 green street'}
-            ];
-            const content = {of: 'of', and: 'and'};
-            const applicantAddress = '10 downing street';
-            expect(FormatName.formatMultipleNamesAndAddress(persons, content, applicantAddress, false)).to.equal(
-                'ed brown of 10 downing street, jake smith of 80 holt street and bob smith of 4 green street'
             );
             done();
         });

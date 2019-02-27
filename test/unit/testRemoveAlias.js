@@ -66,7 +66,7 @@ describe('RemoveAlias', () => {
                     }
                 }
             };
-            let errors = {};
+            let errors = [];
             const formdata = {};
             const RemoveAlias = steps.RemoveAlias;
             [ctx, errors] = RemoveAlias.handlePost(ctx, errors, formdata);

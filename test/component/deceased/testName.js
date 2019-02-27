@@ -1,12 +1,12 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DeceasedAlias = require('app/steps/ui/deceased/alias/index');
+const DeceasedDob = require('app/steps/ui/deceased/dob/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('deceased-name', () => {
     let testWrapper;
-    const expectedNextUrlForDeceasedAlias = DeceasedAlias.getUrl();
+    const expectedNextUrlForDeceasedDob = DeceasedDob.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedName');
@@ -17,8 +17,7 @@ describe('deceased-name', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('DeceasedName');
 
         it('test right content loaded on the page', (done) => {
 
@@ -51,12 +50,12 @@ describe('deceased-name', () => {
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
+        it(`test it redirects to Deceased Date of Birth page: ${expectedNextUrlForDeceasedDob}`, (done) => {
             const data = {
                 firstName: 'Bob',
                 lastName: 'Smith'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDob);
         });
 
     });

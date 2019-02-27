@@ -53,7 +53,7 @@
         {{ unorderedList([
             fields.declaration.value.requestsItem1,
             fields.declaration.value.requestsItem2
-        ])}}
+        ]) }}
 
         <p>{{ fields.declaration.value.understand | safe }}</p>
 
@@ -93,9 +93,8 @@
     </div>
 
     <div class="form-group">
-        <input class="button" type="submit" id="acceptAndSend" value="{{content.submit}}">
+        <input class="button" type="submit" id="acceptAndSend" value="{{ content.submit }}">
     </div>
+{% endblock %}
 
-{% endblock %}
-{% block save_and_close %}
-{% endblock %}
+{% block save_and_close %}{% endblock %}

@@ -136,10 +136,24 @@ li.task-item {
   padding-top: em(35);
 }
 
+p.declaration-item {
+  text-align: left;
+}
 div.declaration-header {
   text-align: center;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+div.declaration-wrapper {
+  @include media(tablet) {
+    display: grid;
+    grid-column-gap: 50px;
+    grid-template-columns: 3fr 1fr;
+    width: calc(133% + 50px);
+  }
+}
+div.declaration-grid-item {
+  text-align: left;
 }
 
 #global-header .header-proposition #sign-out-header {
@@ -150,12 +164,12 @@ div.declaration-header {
   text-decoration: none;
 }
 
-  @include media(tablet) {
-    #global-header .header-proposition #sign-out-header {
-      @include bold-19;
-      margin-top: 2px;
-    }
+@include media(tablet) {
+  #global-header .header-proposition #sign-out-header {
+    @include bold-19;
+    margin-top: 2px;
   }
+}
 
 #global-header .header-proposition a#sign-out-header:hover {
   text-decoration: underline;
@@ -166,11 +180,31 @@ div.declaration-header {
 }
 
 .check-your-answers__question {
-    font-weight: inherit;
+  font-weight: inherit;
 }
 
 .check-your-answers__answer {
-    .check-your-answers__row {
-        border-bottom: none;
-    }
+  .check-your-answers__row {
+    border-bottom: none;
+  }
+}
+
+.save-this-page-link {
+  margin-top: 20px;
+}
+
+.anchor-margin-left {
+  margin-left: 10px;
+}
+
+.margin-bottom50 {
+  margin-bottom: 50px;
+}
+
+.govuk-box-highlight {
+  .heading-xlarge,
+  .font-large {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }

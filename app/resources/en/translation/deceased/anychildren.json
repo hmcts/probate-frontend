@@ -1,0 +1,17 @@
+{
+  "title": "Did the deceased have any children",
+  "question": "Did {deceasedName} have any children?",
+  "legend": "Did {deceasedName} have any children?",
+  "hint": "This includes adopted children but not stepchildren.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "anyChildren": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about whether the person who died had any children",
+        "message": "Answer &lsquo;yes&rsquo; if the person who died had any children"
+      }
+    }
+  }
+}

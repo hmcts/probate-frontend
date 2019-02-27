@@ -2,8 +2,7 @@
 
 const Healthcheck = require('app/utils/Healthcheck');
 const config = require('app/config');
-const chai = require('chai');
-const expect = chai.expect;
+const expect = require('chai').expect;
 let businessStub;
 let submitStub;
 let persistenceStub;

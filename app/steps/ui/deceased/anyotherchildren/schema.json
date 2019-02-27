@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "any-other-children",
+  "type": "object",
+  "properties": {
+    "anyOtherChildren": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "anyOtherChildren"
+  ]
+}

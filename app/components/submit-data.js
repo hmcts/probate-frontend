@@ -13,7 +13,6 @@ const dataMap = {
     applicantPostcode: 'applicant.postcode',
     applicantPhone: 'applicant.phoneNumber',
     applicantEmail: 'applicantEmail',
-    applicantIsExecutor: 'applicant.executor',
     deceasedFirstname: 'deceased.firstName',
     deceasedSurname: 'deceased.lastName',
     deceasedAliasAssets: 'deceased.alias',
@@ -23,14 +22,10 @@ const dataMap = {
     deceasedPostcode: 'deceased.postcode',
     deceasedDod: 'deceased.dod_formattedDate',
     deceasedDob: 'deceased.dob_formattedDate',
-    deceasedDomicile: 'deceased.domicile',
     noOfExecutors: 'executors.executorsNumber',
     dealingWithEstate: 'executors.otherExecutorsApplying',
-    willLeft: 'will.left',
-    willOriginal: 'will.original',
     willWithCodicils: 'will.codicils',
     willCodicilsNumber: 'will.codicilsNumber',
-    ihtCompleted: 'iht.completed',
     ihtForm: 'iht.form',
     ihtFormId: 'iht.ihtFormId',
     ihtIdentifier: 'iht.identifier',
@@ -70,6 +65,10 @@ const submitData = (ctx, data) => {
 
     if (get(data, 'applicant.aliasReason') === 'other') {
         mappedData.applicantOtherReason = get(data, 'applicant.otherReason');
+    }
+
+    if (get(data, 'documents.uploads')) {
+        mappedData.documentUploads = get(data, 'documents.uploads');
     }
 
     const executorsWrapper = new ExecutorsWrapper(data.executors);

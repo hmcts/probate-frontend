@@ -35,9 +35,13 @@ reform_envirionment_for_test = "demo"
 
 probate_business_service_url = "http://probate-business-service-demo.service.core-compute-demo.internal/validate"
 
+probate_business_service_document_url = "http://probate-business-service-demo.service.core-compute-demo.internal/businessDocument"
+
 probate_submit_service_url = "http://probate-submit-service-demo.service.core-compute-demo.internal"
 
 probate_persistence_service_url = "http://probate-persistence-service-demo.service.core-compute-demo.internal/formdata"
+
+probate_fees_registry_service_url = "http://fees-register-demo-aat.service.core-compute-aat.internal/fees-register"
 
 feature_toggles_api_url = "http://rpe-feature-toggle-api-demo.service.core-compute-demo.internal"
 asp_name = "probate-demo"

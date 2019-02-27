@@ -1,34 +1,31 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const services = require('app/components/services');
-const sinon = require('sinon');
-const when = require('when');
 const {assert} = require('chai');
 const ExecutorsInvitesSent = require('app/steps/ui/executors/invitesent/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const nock = require('nock');
+const config = require('app/config');
+const businessServiceUrl = config.services.validation.url.replace('/validate', '');
 
 describe('executors-invite', () => {
     let testWrapper;
-    let sendInvitesStub;
     let sessionData;
     const expectedNextUrlForExecInvites = ExecutorsInvitesSent.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsInvite');
         sessionData = require('test/data/executors-invites');
-        sendInvitesStub = sinon.stub(services, 'sendInvite');
     });
 
     afterEach(() => {
+        nock.cleanAll();
         testWrapper.destroy();
-        sendInvitesStub.restore();
         delete require.cache[require.resolve('test/data/executors-invites')];
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        testHelpBlockContent.runTest('WillLeft');
+        testHelpBlockContent.runTest('ExecutorsInvite');
 
         it('test correct content loaded on the page when more than 1 other executor', (done) => {
             testWrapper.agent.post('/prepare-session/form')
@@ -62,14 +59,20 @@ describe('executors-invite', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecInvites}`, (done) => {
-            sendInvitesStub.returns(when(Promise.resolve({response: 'Make it pass!'})));
+            nock(businessServiceUrl)
+                .post('/invite')
+                .reply(200, {response: 'Make it pass!'});
+
             const data = {'list': [{'firstName': 'Bob', 'lastName': 'Smith', 'isApplicant': true}]};
 
             testWrapper.testRedirect(done, data, expectedNextUrlForExecInvites);
         });
 
         it('test an error page is rendered if there is an error calling invite service', (done) => {
-            sendInvitesStub.returns(when(Promise.resolve(new Error('ReferenceError'))));
+            nock(businessServiceUrl)
+                .post('/invite')
+                .reply(500, new Error('ReferenceError'));
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -77,7 +80,6 @@ describe('executors-invite', () => {
                         .then(response => {
                             assert(response.status === 500);
                             assert(response.text.includes('Sorry, we&rsquo;re having technical problems'));
-                            assert(sendInvitesStub.calledOnce, 'Send Invite function called');
                             done();
                         })
                         .catch(err => {

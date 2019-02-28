@@ -12,7 +12,7 @@
     "nameAsOnTheWill": {
       "required": {
         "summary": "Answer the question about your name matching the will or codicil",
-        "message": "Select yes if your name is exactly the same on the will or codicil"
+        "message": "Answer &lsquo;yes&rsquo; if your name is exactly the same on the will or codicil"
       }
     }
   }

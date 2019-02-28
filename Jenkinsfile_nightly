@@ -64,7 +64,7 @@ withNightlyPipeline("nodejs", product, component) {
     enableFullFunctionalTest()
 
     after('fullFunctionalTest') {
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
     }
 
     //    enableSlackNotifications('#div-dev')  // can be turned back on once the overnight functionality is working fully

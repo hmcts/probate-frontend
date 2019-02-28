@@ -27,6 +27,12 @@ const setJourney = (req, res, next) => {
     next();
 };
 
+const getJourneyName = (session) => {
+    const willLeft = session.willLeft || (session.form && session.form.will && session.form.will.left);
+    return willLeft === willLeftContent.optionNo ? 'intestacy' : 'probate';
+};
+
 module.exports = setJourney;
+module.exports.getJourneyName = getJourneyName;
 module.exports.isIntestacyJourney = isIntestacyJourney;
 module.exports.setWillLeftFormdata = setWillLeftFormdata;

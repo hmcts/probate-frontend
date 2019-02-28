@@ -1,0 +1,27 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "widgets/radiobuttons.html" import optionsRadio %}
+
+{% block question %}
+    <h1 class="form-title heading-large">{{content.question | safe}}</h1>
+{% endblock %}
+
+{% set answers = [] %}
+{% if fields.deceasedMaritalStatus.value === 'Married or in a civil partnership' %}
+    {% set answers = (answers.push('optionSpousePartner'), answers) %}
+{% endif %}
+{% set answers = (answers.push('optionChild'), answers) %}
+{% set answers = (answers.push('optionAdoptedChild'), answers) %}
+{% set answers = (answers.push('optionOther'), answers) %}
+
+{% block form_content %}
+    {{optionsRadio(content,
+        name = 'relationshipToDeceased',
+        field = fields.relationshipToDeceased,
+        options = answers,
+        legend = content.legend
+    )}}
+    <div class="form-group">
+        <input class="button" type="submit" value="{{common.saveAndContinue}}">
+    </div>
+{% endblock %}

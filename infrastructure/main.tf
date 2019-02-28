@@ -1,24 +1,7 @@
-provider "vault" {
-  //  # It is strongly recommended to configure this provider through the
-  //  # environment variables described above, so that each user can have
-  //  # separate credentials set in the environment.
-  //  #
-  //  # This will default to using $VAULT_ADDR
-  //  # But can be set explicitly
-  address = "https://vault.reform.hmcts.net:6200"
-}
-
 provider "azurerm" {
   version = "1.19.0"
 }
 
-# data "vault_generic_secret" "idam_frontend_service_key" {
-#   path = "secret/${var.vault_section}/ccidam/service-auth-provider/api/microservice-keys/probate-frontend"
-# }
-
-# data "vault_generic_secret" "idam_frontend_idam_key" {
-#   path = "secret/${var.vault_section}/ccidam/idam-api/oauth2/client-secrets/probate"
-# }
 
 locals {
   aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
@@ -148,6 +131,7 @@ module "probate-frontend" {
     BUSINESS_DOCUMENT_URL = "${var.probate_business_service_document_url}"
     SUBMIT_SERVICE_URL = "${var.probate_submit_service_url}"
     PERSISTENCE_SERVICE_URL = "${var.probate_persistence_service_url}"
+    FEES_REGISTRY_URL = "${var.probate_fees_registry_service_url}"
     USE_HTTPS =  "${var.probate_frontend_https}"
     USE_AUTH = "${var.probate_frontend_use_auth}"
     GA_TRACKING_ID = "${var.probate_google_track_id}"

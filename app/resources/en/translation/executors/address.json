@@ -1,6 +1,6 @@
 {
   "title": "Executor address",
-  "question": "What is {executorName}'s permanent address?",
+  "question": "What is {executorName}&rsquo;s permanent address?",
   "explanation1": "This will be printed on the grant of probate.",
   "postcode": "Postcode",
   "findAddress": "Find UK address",

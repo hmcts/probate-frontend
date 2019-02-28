@@ -1,7 +1,7 @@
 {
   "title": "Co-Applicant Start Page",
   "header": "You&rsquo;ve been named as an executor",
-  "paragraph1": "{leadExecutorName} has told us that you'd like to apply for a grant of probate to deal with the estate of {deceasedName}.",
+  "paragraph1": "{leadExecutorName} has told us that you&rsquo;d like to apply for a grant of probate to deal with the estate of {deceasedName}.",
   "paragraph2": "Probate gives you the legal right to deal with a person&rsquo;s property, money and possessions (their &lsquo;estate&rsquo;) after they&rsquo;ve died.",
   "subHeader1": "What you need to do",
   "paragraph3": "Use this service to check that a legal statement based on the information {leadExecutorName} has given is correct.",

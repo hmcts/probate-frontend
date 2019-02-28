@@ -71,6 +71,18 @@ describe('executors-address', () => {
                 });
         });
 
+        it('should return error when freeTextAddress is over 150 characters', (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        freeTextAddress: '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111',
+                    };
+                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+                    testWrapper.testErrors(done, data, 'oneOf', ['crossField']);
+                });
+        });
+
         it('test address schema validation when address search is successful, and two addresses are provided', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

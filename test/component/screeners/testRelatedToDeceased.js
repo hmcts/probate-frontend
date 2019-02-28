@@ -9,7 +9,7 @@ const config = require('app/config');
 const cookies = [{
     name: config.redis.eligibilityCookie.name,
     content: {
-        nextStepUrl: '/relationship-to-deceased',
+        nextStepUrl: '/related-to-deceased',
         pages: [
             '/death-certificate',
             '/deceased-domicile',
@@ -29,13 +29,13 @@ const featureTogglesNock = (status = 'true') => {
         .reply(200, status);
 };
 
-describe('relationship-to-deceased', () => {
+describe('related-to-deceased', () => {
     let testWrapper;
     const expectedNextUrlForOtherApplicants = OtherApplicants.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('notRelated');
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('RelationshipToDeceased');
+        testWrapper = new TestWrapper('RelatedToDeceased');
         featureTogglesNock();
     });
 
@@ -45,7 +45,7 @@ describe('relationship-to-deceased', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('RelationshipToDeceased', featureTogglesNock, cookies);
+        testHelpBlockContent.runTest('RelatedToDeceased', featureTogglesNock, cookies);
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {}, cookies);

@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const RelationshipToDeceased = require('app/steps/ui/screeners/relationshiptodeceased/index');
+const RelatedToDeceased = require('app/steps/ui/screeners/relatedtodeceased/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
@@ -30,7 +30,7 @@ const featureTogglesNock = (status = 'true') => {
 
 describe('died-after-october-2014', () => {
     let testWrapper;
-    const expectedNextUrlForRelationshipToDeceased = RelationshipToDeceased.getUrl();
+    const expectedNextUrlForRelatedToDeceased = RelatedToDeceased.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('notDiedAfterOctober2014');
 
     beforeEach(() => {
@@ -57,14 +57,14 @@ describe('died-after-october-2014', () => {
                 });
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForRelationshipToDeceased}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForRelatedToDeceased}`, (done) => {
             testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         diedAfter: 'Yes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForRelationshipToDeceased, cookies);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForRelatedToDeceased, cookies);
                 });
         });
 

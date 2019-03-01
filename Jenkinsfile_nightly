@@ -62,6 +62,7 @@ withNightlyPipeline("nodejs", product, component) {
     setVaultName('probate')
     loadVaultSecrets(secrets)
     enableFullFunctionalTest()
+    enableSecurityScan()
 
     after('fullFunctionalTest') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'

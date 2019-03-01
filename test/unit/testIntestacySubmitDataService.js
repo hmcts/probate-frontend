@@ -11,11 +11,11 @@ describe('IntestacySubmitDataService', () => {
     describe('post()', () => {
         it('should call super.post()', (done) => {
             const endpoint = 'http://localhost';
-            const data = {applicantEmail: 'fred@example.com'};
+            const data = {applicant: {email: 'fred@example.com'}};
             const ctx = {testCtx: true};
             const softStop = false;
             const intestacySubmitData = new IntestacySubmitData(endpoint, 'abc123');
-            const path = intestacySubmitData.replaceEmailInPath(config.services.orchestrator.paths.submissions, data.applicantEmail);
+            const path = intestacySubmitData.replaceEmailInPath(config.services.orchestrator.paths.submissions, data.applicant.email);
             const postStub = sinon.stub(SubmitData.prototype, 'post');
             data.softStop = softStop;
 

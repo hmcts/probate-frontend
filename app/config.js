@@ -70,6 +70,7 @@ const config = {
         },
         pact: {
             brokerUrl: process.env.PACT_BROKER_URL || 'http://localhost:80',
+            tag: process.env.PACT_BRANCH_NAME || 'Dev',
             pactDirectory: 'pacts'
         },
         feesRegister: {

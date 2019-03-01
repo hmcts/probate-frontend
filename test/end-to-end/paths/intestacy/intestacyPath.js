@@ -17,8 +17,7 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function* (I) {
-
+Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function (I) {
     // Eligibility Task (pre IdAM)
     I.startApplication();
 

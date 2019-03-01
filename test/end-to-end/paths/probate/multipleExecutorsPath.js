@@ -22,7 +22,7 @@ AfterSuite(() => {
     TestConfigurator.getAfter();
 });
 
-Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), function* (I) {
+Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), async function (I) {
     retries += 1;
 
     if (retries >= 1) {
@@ -153,21 +153,21 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     //Retrieve the email urls for additional executors
     I.amOnPage(testConfig.TestInviteIdListUrl);
 
-    grabIds = yield I.grabTextFrom('pre');
+    grabIds = await I.grabTextFrom('pre');
 
 }).retry(TestConfigurator.getRetryScenarios());
 
-Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), function* (I) {
+Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), async function (I) {
     const idList = JSON.parse(grabIds);
 
     for (let i=0; i < idList.ids.length; i++) {
         I.amOnPage(testConfig.TestInvitationUrl + '/' + idList.ids[i]);
         I.amOnPage(testConfig.TestE2EFrontendUrl + '/pin');
 
-        const grabPins = yield I.grabTextFrom('pre');
+        const grabPins = await I.grabTextFrom('pre'); // eslint-disable-line no-await-in-loop
         const pinList = JSON.parse(grabPins);
 
-        yield I.clickBrowserBackButton();
+        await I.clickBrowserBackButton(); // eslint-disable-line no-await-in-loop
 
         I.enterPinCode(pinList.pin.toString());
         I.seeCoApplicantStartPage();
@@ -179,7 +179,7 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
     }
 }).retry(TestConfigurator.getRetryScenarios());
 
-Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
+Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function (I) {
 
     // Pre-IDAM
     I.startApplication();

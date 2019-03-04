@@ -2,8 +2,10 @@
   "title": "Payment - cost breakdown",
   "heading": "Payment",
   "applicationFee": "Application fee",
-  "extraCopiesFeeUk" : "UK copies",
-  "extraCopiesFeeOverseas" : "copies for use outside the UK",
+  "extraCopiesFeeUk" : "UK {copiesNumber}",
+  "extraCopiesFeeOverseas" : "{copiesNumber} for use outside the UK",
+  "copy": "copy",
+  "copies": "copies",
   "total": "Total due",
   "errors": {
     "authorisation": {

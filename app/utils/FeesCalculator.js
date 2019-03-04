@@ -21,7 +21,8 @@ const copiesData = {
     event: 'copies',
     jurisdiction1: 'family',
     jurisdiction2: 'probate registry',
-    service: 'probate'
+    service: 'probate',
+    keyword: 'DEF'
 };
 
 class FeesCalculator {
@@ -53,6 +54,7 @@ async function createCallsRequired(formdata, headers) {
 
     issuesData.amount_or_volume = get(formdata, 'iht.netValue', 0);
     returnResult.applicationvalue = issuesData.amount_or_volume;
+
     await feesLookup.get(issuesData, headers)
         .then((res) => {
             if (identifyAnyErrors(res)) {
@@ -79,6 +81,7 @@ async function createCallsRequired(formdata, headers) {
 
         if (returnResult.ukcopies > 1) {
             copiesData.amount_or_volume = returnResult.ukcopies - 1;
+
             delete copiesData.keyword;
             await feesLookup.get(copiesData, headers)
                 .then((res) => {
@@ -108,6 +111,7 @@ async function createCallsRequired(formdata, headers) {
 
         if (returnResult.overseascopies > 1) {
             copiesData.amount_or_volume = returnResult.overseascopies - 1;
+
             delete copiesData.keyword;
             await feesLookup.get(copiesData, headers)
                 .then((res) => {

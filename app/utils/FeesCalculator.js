@@ -21,7 +21,8 @@ const copiesData = {
     event: 'copies',
     jurisdiction1: 'family',
     jurisdiction2: 'probate registry',
-    service: 'probate'
+    service: 'probate',
+    keyword: 'DEF'
 };
 
 class FeesCalculator {
@@ -61,7 +62,7 @@ async function createCallsRequired(formdata, headers) {
                 if (identifyAnyErrors(res)) {
                     returnResult.status = 'failed';
                 } else {
-                    returnResult.applicationfee = res.fee_amount;
+                    returnResult.applicationfee += res.fee_amount;
                     returnResult.total += res.fee_amount;
                 }
             });
@@ -75,10 +76,25 @@ async function createCallsRequired(formdata, headers) {
                 if (identifyAnyErrors(res)) {
                     returnResult.status = 'failed';
                 } else {
-                    returnResult.ukcopiesfee = res.fee_amount;
+                    returnResult.ukcopiesfee += res.fee_amount;
                     returnResult.total += res.fee_amount;
                 }
             });
+
+        copiesData.amount_or_volume -= 1;
+
+        if (copiesData.amount_or_volume > 0) {
+            delete copiesData.keyword;
+            await feesLookup.get(copiesData, headers)
+                .then((res) => {
+                    if (identifyAnyErrors(res)) {
+                        returnResult.status = 'failed';
+                    } else {
+                        returnResult.ukcopiesfee += res.fee_amount;
+                        returnResult.total += res.fee_amount;
+                    }
+                });
+        }
     }
 
     copiesData.amount_or_volume = get(formdata, 'copies.overseas', 0);
@@ -89,10 +105,25 @@ async function createCallsRequired(formdata, headers) {
                 if (identifyAnyErrors(res)) {
                     returnResult.status = 'failed';
                 } else {
-                    returnResult.overseascopiesfee = res.fee_amount;
+                    returnResult.overseascopiesfee += res.fee_amount;
                     returnResult.total += res.fee_amount;
                 }
             });
+
+        copiesData.amount_or_volume -= 1;
+
+        if (copiesData.amount_or_volume > 0) {
+            delete copiesData.keyword;
+            await feesLookup.get(copiesData, headers)
+                .then((res) => {
+                    if (identifyAnyErrors(res)) {
+                        returnResult.status = 'failed';
+                    } else {
+                        returnResult.ukcopiesfee += res.fee_amount;
+                        returnResult.total += res.fee_amount;
+                    }
+                });
+        }
     }
 
     return returnResult;

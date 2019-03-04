@@ -18,7 +18,7 @@ module.exports = function () {
         selectApplicantIsExecutor: steps.screeners.applicantexecutor,
         selectMentallyCapable: steps.screeners.mentalcapacity,
         selectDiedAfterOctober2014: steps.screeners.diedafteroctober2014,
-        selectRelationshipToDeceased: steps.screeners.relationshiptodeceased,
+        selectRelatedToDeceased: steps.screeners.relatedtodeceased,
         selectOtherApplicants: steps.screeners.otherapplicants,
         startApply: steps.screeners.startapply,
 
@@ -28,7 +28,7 @@ module.exports = function () {
         // Start application
         selectATask: steps.tasklist.tasklist,
 
-        //deceased details
+        // Deceased
         enterDeceasedName: steps.deceased.name,
         enterDeceasedDateOfBirth: steps.deceased.dob,
         enterDeceasedDateOfDeath: steps.deceased.dod,
@@ -42,7 +42,7 @@ module.exports = function () {
         selectWillCodicils: steps.will.codicils,
         selectWillNoOfCodicils: steps.will.codicilsnumber,
 
-        //executors
+        // Executors
         enterApplicantName: steps.applicant.name,
         selectNameAsOnTheWill: steps.applicant.nameasonwill,
         enterApplicantAlias: steps.applicant.alias,
@@ -51,7 +51,7 @@ module.exports = function () {
         enterAddressManually: steps.applicant.address,
         enterTotalExecutors: steps.executors.number,
 
-        //Multiple Executors
+        // Multiple Executors
         enterExecutorNames: steps.executors.names,
         selectExecutorsAllAlive: steps.executors.allalive,
         selectExecutorsWhoDied: steps.executors.whodied,
@@ -67,7 +67,7 @@ module.exports = function () {
         selectExecutorRoles: steps.executors.roles,
         selectHasExecutorBeenNotified: steps.executors.notified,
 
-        //summary page
+        // Summary page
         seeSummaryPage: steps.summary.summary,
         acceptDeclaration: steps.declaration.declaration,
 
@@ -108,9 +108,10 @@ module.exports = function () {
         enterValueAssetsOutsideEnglandWales: steps.deceased.valueassetsoutsideenglandwales,
         selectDeceasedMaritalStatus: steps.deceased.maritalstatus,
         selectDeceasedDivorcePlace: steps.deceased.divorceplace,
+        selectRelationshipToDeceased: steps.applicant.relationshiptodeceased,
 
-        // Eligibility task
+        // Tasks
         completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
-        completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask,
+        completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask
     });
 };

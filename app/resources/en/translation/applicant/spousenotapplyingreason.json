@@ -1,0 +1,16 @@
+{
+  "title": "Why isn&rsquo;t the spouse applying",
+  "question": "Why isn&rsquo;t {deceasedName}&rsquo;s spouse applying?",
+  "legend": "Why isn&rsquo;t {deceasedName}&rsquo;s spouse applying?",
+  "optionRenouncing": "They don&rsquo;t want to apply and they give up the right to apply in the future (this is known as &lsquo;renunciation&rsquo;)",
+  "optionOther": "Other",
+
+  "errors": {
+    "spouseNotApplyingReason": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about why the spouse or civil partner isn&rsquo;t applying",
+        "message": "Answer the question about why the spouse or civil partner isn&rsquo;t applying"
+      }
+    }
+  }
+}

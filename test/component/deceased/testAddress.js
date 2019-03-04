@@ -70,6 +70,14 @@ describe('deceased-address', () => {
             testWrapper.testErrors(done, data, 'required', ['freeTextAddress']);
         });
 
+        it('should return error when freeTextAddress is over 150 characters', (done) => {
+            const data = {
+                freeTextAddress: '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111',
+            };
+
+            testWrapper.testErrors(done, data, 'invalid', ['freeTextAddress']);
+        });
+
         it(`test it redirects to iht method page: ${expectedNextUrlForIhtMethod}`, (done) => {
             featureTogglesNock('false');
 

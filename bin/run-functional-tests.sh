@@ -12,5 +12,5 @@ else
 fi
 
 #below 2 lines for function test output in cnp pipeline
-mkdir functional-output
+mkdir -p functional-output
 cp -r output/mochawesome.* functional-output/. 2>/dev/null

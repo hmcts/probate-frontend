@@ -150,11 +150,13 @@ variable "probate_persistence_service_url" {
   type = "string"
 }
 
+variable "probate_fees_registry_service_url" {
+  type = "string"
+}
+
 variable "probate_frontend_use_redis" {
   default = "false"
 }
-
-
 
 variable "probate_frontend_https" {
   default = "false"

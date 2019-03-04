@@ -5,6 +5,11 @@ const taskList = {
         firstStep: 'DeceasedDetails',
         lastStep: 'TaskList',
         summary: 'Summary'
+    },
+    ExecutorsTask: {
+        firstStep: 'RelationshipToDeceased',
+        lastStep: 'TaskList',
+        summary: 'Summary'
     }
 };
 
@@ -28,10 +33,10 @@ const stepList = {
         otherwise: 'StopPage'
     },
     DiedAfterOctober2014: {
-        diedAfter: 'RelationshipToDeceased',
+        diedAfter: 'RelatedToDeceased',
         otherwise: 'StopPage'
     },
-    RelationshipToDeceased: {
+    RelatedToDeceased: {
         related: 'OtherApplicants',
         otherwise: 'StopPage'
     },
@@ -56,6 +61,7 @@ const stepList = {
     },
     IhtIdentifier: 'IhtValue',
     IhtValue: {
+
         lessThanOrEqualTo250k: 'AssetsOutside',
         otherwise: 'DeceasedAlias'
     },
@@ -82,6 +88,31 @@ const stepList = {
     DivorcePlace: {
         inEnglandOrWales: 'TaskList',
         otherwise: 'StopPage'
+    },
+
+    RelationshipToDeceased: {
+        childDeceasedMarried: 'SpouseNotApplyingReason',
+        childDeceasedNotMarried: 'AnyOtherChildren',
+        adoptedChild: 'AdoptionPlace',
+        spousePartnerLessThan250k: 'ApplicantName',
+        spousePartnerMoreThan250k: 'AnyChildren',
+        otherwise: 'StopPage'
+    },
+    SpouseNotApplyingReason: {
+        renouncing: 'AnyChildren',
+        otherwise: 'StopPage'
+    },
+    AdoptionPlace: {
+        inEnglandOrWales: 'SpouseNotApplyingReason',
+        otherwise: 'StopPage'
+    },
+    AnyChildren: {
+        hadChildren: 'AllChildrenOver18',
+        otherwise: 'ApplicantName'
+    },
+    AnyOtherChildren: {
+        hadOtherChildren: 'AllChildrenOver18',
+        otherwise: 'ApplicantName'
     },
 
     Summary: 'TaskList',

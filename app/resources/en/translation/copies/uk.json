@@ -10,7 +10,7 @@
           "message": "Enter a valid number"
       },
       "required": {
-        "summary": "Enter the number of UK copies you need ",
+        "summary": "Enter the number of UK copies you need",
         "message": "Enter the number of UK copies you need. Enter &lsquo;0&rsquo; if you don&rsquo;t need any copies."
       }
     }

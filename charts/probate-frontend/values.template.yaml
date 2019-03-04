@@ -5,6 +5,19 @@ nodejs:
     REFORM_TEAM: probate
     REFORM_SERVICE_NAME: probate-frontend
     FEATURE_TOGGLES_API_URL: http://${SERVICE_NAME}-ftr-tgl-api
+
+    IDAM_API_URL: https://preprod-idamapi.reform.hmcts.net:3511
+    IDAM_URL: https://preprod-idamapi.reform.hmcts.net:3511
+    IDAM_LOGIN_URL: https://idam.preprod.ccidam.reform.hmcts.net/login
+    IDAM_S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
+    S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
+    IDAM_S2S_AUTH_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
+    PAYMENT_CREATE_URL: http://payment-api-aat.service.core-compute-aat.internal/card-payments
+    VALIDATION_SERVICE_URL: http://probate-business-service-aat.service.core-compute-aat.internal/validate
+    BUSINESS_DOCUMENT_URL: http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument
+    SUBMIT_SERVICE_URL: http://probate-submit-service-aat.service.core-compute-aat.internal
+    PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
+    FEES_REGISTRY_URL: http://fees-register-api-aat.service.core-compute-aat.internal/fees-register
     REFORM_ENVIRONMENT : aat
     USE_REDIS : true
     REDIS_USE_TLS : false
@@ -22,8 +35,10 @@ nodejs:
     OVERSEAS_COPIES_FEE_CODE : ${PRO_OVERSEAS_COPIES_FEE_CODE}
     SERVICE_ID : ${PRO_SERVICE_ID}
     SITE_ID : ${PRO_SITE_ID}
+    POSTCODE_SERVICE_URL : ${PRO_POSTCODE_SERVICE_URL}
+    POSTCODE_SERVICE_TOKEN : ${PRO_POSTCODE_SERVICE_TOKEN}
 
-# Don't modify below here
+  # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
 

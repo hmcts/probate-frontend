@@ -15,9 +15,11 @@ class DivorcePlace extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
+
         if (formdata.deceased && formdata.deceased.maritalStatus) {
             ctx.legalProcess = formdata.deceased.maritalStatus === contentMaritalStatus.optionDivorced ? contentMaritalStatus.divorce : contentMaritalStatus.separation;
         }
+
         return ctx;
     }
 

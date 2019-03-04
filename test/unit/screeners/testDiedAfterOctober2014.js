@@ -52,7 +52,7 @@ describe('DiedAfterOctober2014', () => {
                 diedAfter: content.optionYes
             };
             const nextStepUrl = DiedAfterOctober2014.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/relationship-to-deceased');
+            expect(nextStepUrl).to.equal('/related-to-deceased');
             done();
         });
 

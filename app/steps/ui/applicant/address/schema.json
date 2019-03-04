@@ -16,7 +16,7 @@
     },
     "freeTextAddress": {
       "type": "string",
-      "maxLength": 208
+      "maxLength": 150
     }
   },
   "switch": [

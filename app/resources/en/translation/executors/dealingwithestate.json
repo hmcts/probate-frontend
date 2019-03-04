@@ -13,10 +13,9 @@
         "message": "Select at least one executor"
       },
       "invalid":{
-        "summary": "A maximum of 4 executors can be named on the grant of probate.",
-        "message": "You can not select more than 4 executors."
+        "summary": "A maximum of 4 executors can be named on the grant of probate",
+        "message": "You can not select more than 4 executors"
+      }
     }
-
   }
 }
-  }

@@ -132,7 +132,6 @@ describe('submit-data', () => {
         assert.nestedPropertyVal(mappedData, 'applicantPostcode', 'SW1H 9EX');
         assert.nestedPropertyVal(mappedData, 'applicantPhone', '07934235245');
         assert.nestedPropertyVal(mappedData, 'applicantEmail', 'test@hotmail.com');
-        assert.nestedPropertyVal(mappedData, 'applicantIsExecutor', 'Yes');
         assert.nestedPropertyVal(mappedData, 'deceasedFirstname', 'died_firstname');
         assert.nestedPropertyVal(mappedData, 'deceasedSurname', 'died_lastname');
         assert.nestedPropertyVal(mappedData, 'deceasedAliasAssets', 'Yes');
@@ -142,14 +141,10 @@ describe('submit-data', () => {
         assert.nestedPropertyVal(mappedData, 'deceasedPostcode', 'SW1H 9EX');
         assert.nestedPropertyVal(mappedData, 'deceasedDod', '1 January 2018');
         assert.nestedPropertyVal(mappedData, 'deceasedDob', '1 January 1950');
-        assert.nestedPropertyVal(mappedData, 'deceasedDomicile', 'live (domicile) permanently in England or Wales');
         assert.nestedPropertyVal(mappedData, 'noOfExecutors', 4);
         assert.nestedPropertyVal(mappedData, 'dealingWithEstate', 'Yes');
-        assert.nestedPropertyVal(mappedData, 'willLeft', 'Yes');
-        assert.nestedPropertyVal(mappedData, 'willOriginal', 'Yes');
         assert.nestedPropertyVal(mappedData, 'willWithCodicils', 'Yes');
         assert.nestedPropertyVal(mappedData, 'willCodicilsNumber', 1);
-        assert.nestedPropertyVal(mappedData, 'ihtCompleted', 'Yes');
         assert.nestedPropertyVal(mappedData, 'ihtForm', 'IHT205');
         assert.nestedPropertyVal(mappedData, 'ihtGrossValue', '123456');
         assert.nestedPropertyVal(mappedData, 'ihtNetValue', '12345');

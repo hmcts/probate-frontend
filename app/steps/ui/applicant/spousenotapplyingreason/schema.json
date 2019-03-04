@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "spouse-not-applying-reason",
+  "type": "object",
+  "properties": {
+    "spouseNotApplyingReason": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "spouseNotApplyingReason"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "title": "Relationship to the deceased",
+  "question": "What was your relationship to the person who died?",
+  "legend": "What was your relationship to the person who died?",
+  "optionSpousePartner": "Husband, wife or civil partner (this does not include common law partners even if you lived together)",
+  "optionChild": "Child (this does not include stepchildren)",
+  "optionAdoptedChild": "Child who was adopted",
+  "optionOther": "Other",
+
+  "errors": {
+    "relationshipToDeceased": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about your relationship to the person who died",
+        "message": "Choose an option for your relationship to the person who died"
+      }
+    }
+  }
+}

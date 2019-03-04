@@ -4,14 +4,14 @@ const journey = require('app/journeys/intestacy');
 const initSteps = require('../../../app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-const RelationshipToDeceased = steps.RelationshipToDeceased;
-const content = require('app/resources/en/translation/screeners/relationshiptodeceased');
+const RelatedToDeceased = steps.RelatedToDeceased;
+const content = require('app/resources/en/translation/screeners/relatedtodeceased');
 
-describe('RelationshipToDeceased', () => {
+describe('RelatedToDeceased', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = RelationshipToDeceased.constructor.getUrl();
-            expect(url).to.equal('/relationship-to-deceased');
+            const url = RelatedToDeceased.constructor.getUrl();
+            expect(url).to.equal('/related-to-deceased');
             done();
         });
     });
@@ -31,7 +31,7 @@ describe('RelationshipToDeceased', () => {
             };
             const res = {};
 
-            const ctx = RelationshipToDeceased.getContextData(req, res);
+            const ctx = RelatedToDeceased.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 related: content.optionYes,
@@ -51,7 +51,7 @@ describe('RelationshipToDeceased', () => {
             const ctx = {
                 related: content.optionYes
             };
-            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
+            const nextStepUrl = RelatedToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/other-applicants');
             done();
         });
@@ -65,7 +65,7 @@ describe('RelationshipToDeceased', () => {
             const ctx = {
                 related: content.optionNo
             };
-            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
+            const nextStepUrl = RelatedToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/notRelated');
             done();
         });
@@ -73,7 +73,7 @@ describe('RelationshipToDeceased', () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const nextStepOptions = RelationshipToDeceased.nextStepOptions();
+            const nextStepOptions = RelatedToDeceased.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'related',

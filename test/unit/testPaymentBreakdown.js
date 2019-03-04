@@ -12,6 +12,7 @@ const PaymentBreakdown = rewire('app/steps/ui/payment/breakdown/index');
 const config = require('app/config');
 const nock = require('nock');
 const sinon = require('sinon');
+const FeesCalculator = require('app/utils/FeesCalculator');
 
 describe('PaymentBreakdown', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
@@ -22,6 +23,7 @@ describe('PaymentBreakdown', () => {
         $schema: 'http://json-schema.org/draft-04/schema#',
         properties: {}
     };
+    let feesCalculator;
 
     describe('handlePost', () => {
         const successfulPaymentResponse = {
@@ -59,7 +61,17 @@ describe('PaymentBreakdown', () => {
                 },
                 creatingPayment: 'true',
                 payment: {
-                    total: 215
+                    total: 216.50
+                },
+                fees: {
+                    status: 'success',
+                    applicationfee: 215,
+                    applicationvalue: 6000,
+                    ukcopies: 1,
+                    ukcopiesfee: 0.50,
+                    overseascopies: 2,
+                    overseascopiesfee: 1,
+                    total: 216.50
                 },
                 paymentPending: 'true',
                 registry: {
@@ -92,18 +104,44 @@ describe('PaymentBreakdown', () => {
             nock(config.services.submit.url)
                 .post('/submit')
                 .reply(200, submitResponse);
+
+            feesCalculator = sinon.stub(FeesCalculator.prototype, 'calc');
+
         });
 
         afterEach(() => {
             revertAuthorise();
             nock.cleanAll();
+            feesCalculator.restore();
         });
 
         it('sets paymentPending to false if ctx.total = 0', (done) => {
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
-            let ctx = {total: 0};
+            let ctx = {};
             let errors = [];
-            const formdata = {};
+            const formdata = {
+                fees: {
+                    status: 'success',
+                    applicationfee: 0,
+                    applicationvalue: 4000,
+                    ukcopies: 0,
+                    ukcopiesfee: 0,
+                    overseascopies: 0,
+                    overseascopiesfee: 0,
+                    total: 0
+                }
+            };
+
+            feesCalculator.returns(Promise.resolve({
+                status: 'success',
+                applicationfee: 0,
+                applicationvalue: 4000,
+                ukcopies: 0,
+                ukcopiesfee: 0,
+                overseascopies: 0,
+                overseascopiesfee: 0,
+                total: 0
+            }));
 
             co(function* () {
                 [ctx, errors] = yield paymentBreakdown.handlePost(ctx, errors, formdata);
@@ -122,8 +160,30 @@ describe('PaymentBreakdown', () => {
             };
             let ctx = {total: 1};
             let errors = [];
-            const formdata = {paymentPending: 'unknown'};
+            const formdata = {
+                paymentPending: 'unknown',
+                fees: {
+                    status: 'success',
+                    applicationfee: 215,
+                    applicationvalue: 6000,
+                    ukcopies: 1,
+                    ukcopiesfee: 0.50,
+                    overseascopies: 2,
+                    overseascopiesfee: 1,
+                    total: 216.50
+                }};
+
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
+            feesCalculator.returns(Promise.resolve({
+                status: 'success',
+                applicationfee: 215,
+                applicationvalue: 6000,
+                ukcopies: 1,
+                ukcopiesfee: 0.50,
+                overseascopies: 2,
+                overseascopiesfee: 1,
+                total: 216.50
+            }));
 
             co(function* () {
                 [ctx, errors] = yield paymentBreakdown.handlePost(ctx, errors, formdata);
@@ -136,8 +196,30 @@ describe('PaymentBreakdown', () => {
 
         it('sets paymentPending to true if ctx.total > 0', (done) => {
             const formdata = {
-                creatingPayment: 'true'
+                creatingPayment: 'true',
+                fees: {
+                    status: 'success',
+                    applicationfee: 215,
+                    applicationvalue: 6000,
+                    ukcopies: 1,
+                    ukcopiesfee: 0.50,
+                    overseascopies: 2,
+                    overseascopiesfee: 1,
+                    total: 216.50
+                }
             };
+
+            feesCalculator.returns(Promise.resolve({
+                status: 'success',
+                applicationfee: 215,
+                applicationvalue: 6000,
+                ukcopies: 1,
+                ukcopiesfee: 0.50,
+                overseascopies: 2,
+                overseascopiesfee: 1,
+                total: 216.50
+            }));
+
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
 
             co(function* () {
@@ -171,8 +253,30 @@ describe('PaymentBreakdown', () => {
                 }
             });
             const formdata = {
-                creatingPayment: 'false'
+                creatingPayment: 'false',
+                fees: {
+                    status: 'success',
+                    applicationfee: 215,
+                    applicationvalue: 6000,
+                    ukcopies: 1,
+                    ukcopiesfee: 0.50,
+                    overseascopies: 2,
+                    overseascopiesfee: 1,
+                    total: 216.50
+                }
             };
+
+            feesCalculator.returns(Promise.resolve({
+                status: 'success',
+                applicationfee: 215,
+                applicationvalue: 6000,
+                ukcopies: 1,
+                ukcopiesfee: 0.50,
+                overseascopies: 2,
+                overseascopiesfee: 1,
+                total: 216.50
+            }));
+
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
             expectedFormdata.creatingPayment = 'false';
 
@@ -181,7 +285,18 @@ describe('PaymentBreakdown', () => {
                 expect(formdata).to.deep.equal(expectedFormdata);
                 expect(errors).to.deep.equal(errorsTestData);
                 expect(ctx).to.deep.equal({
-                    total: 215,
+                    applicationFee: 215,
+                    copies: {
+                        uk: {
+                            cost: 0.5,
+                            number: 1
+                        },
+                        overseas: {
+                            cost: 1,
+                            number: 2
+                        }
+                    },
+                    total: 216.50,
                     paymentId: 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
                     paymentCreatedDate: '2018-08-29T15:25:11.920+0000',
                     paymentReference: 1234
@@ -213,8 +328,30 @@ describe('PaymentBreakdown', () => {
                 }
             });
             const formdata = {
-                creatingPayment: 'false'
+                creatingPayment: 'false',
+                fees: {
+                    status: 'success',
+                    applicationfee: 215,
+                    applicationvalue: 6000,
+                    ukcopies: 1,
+                    ukcopiesfee: 0.50,
+                    overseascopies: 2,
+                    overseascopiesfee: 1,
+                    total: 216.50
+                }
             };
+
+            feesCalculator.returns(Promise.resolve({
+                status: 'success',
+                applicationfee: 215,
+                applicationvalue: 6000,
+                ukcopies: 1,
+                ukcopiesfee: 0.50,
+                overseascopies: 2,
+                overseascopiesfee: 1,
+                total: 216.50
+            }));
+
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
             expectedFormdata.creatingPayment = 'false';
 
@@ -223,7 +360,18 @@ describe('PaymentBreakdown', () => {
                 expect(formdata).to.deep.equal(expectedFormdata);
                 expect(errors).to.deep.equal(errorsTestData);
                 expect(ctx).to.deep.equal({
-                    total: 215,
+                    applicationFee: 215,
+                    copies: {
+                        uk: {
+                            cost: 0.5,
+                            number: 1
+                        },
+                        overseas: {
+                            cost: 1,
+                            number: 2
+                        }
+                    },
+                    total: 216.50,
                     paymentId: 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
                     paymentReference: 1234,
                     paymentCreatedDate: '2018-08-29T15:25:11.920+0000'
@@ -250,13 +398,46 @@ describe('PaymentBreakdown', () => {
                 ]);
 
             const formdata = {
-                creatingPayment: 'true'
+                creatingPayment: 'true',
+                fees: {
+                    status: 'success',
+                    applicationfee: 215,
+                    applicationvalue: 6000,
+                    ukcopies: 1,
+                    ukcopiesfee: 0.50,
+                    overseascopies: 2,
+                    overseascopiesfee: 1,
+                    total: 216.50
+                }
+
             };
+            feesCalculator.returns(Promise.resolve({
+                status: 'success',
+                applicationfee: 215,
+                applicationvalue: 6000,
+                ukcopies: 1,
+                ukcopiesfee: 0.50,
+                overseascopies: 2,
+                overseascopiesfee: 1,
+                total: 216.50
+            }));
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
 
             co(function* () {
                 const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
-                expect(ctx).to.deep.equal({total: 215});
+                expect(ctx).to.deep.equal({
+                    total: 216.50,
+                    applicationFee: 215,
+                    copies: {
+                        uk: {
+                            cost: 0.5,
+                            number: 1
+                        },
+                        overseas: {
+                            cost: 1,
+                            number: 2
+                        }
+                    }});
                 expect(errors).to.deep.equal([{
                     param: 'submit',
                     msg: {
@@ -281,10 +462,30 @@ describe('PaymentBreakdown', () => {
             });
             const formdata = {
                 creatingPayment: 'true',
+                fees: {
+                    status: 'success',
+                    applicationfee: 215,
+                    applicationvalue: 6000,
+                    ukcopies: 1,
+                    ukcopiesfee: 0.50,
+                    overseascopies: 2,
+                    overseascopiesfee: 1,
+                    total: 216.50
+                },
                 payment: {
                     paymentId: 'RC-12345'
                 }
             };
+            feesCalculator.returns(Promise.resolve({
+                status: 'success',
+                applicationfee: 215,
+                applicationvalue: 6000,
+                ukcopies: 1,
+                ukcopiesfee: 0.50,
+                overseascopies: 2,
+                overseascopiesfee: 1,
+                total: 216.50
+            }));
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
             expectedFormdata.payment.paymentId = 'RC-12345';
 
@@ -310,12 +511,32 @@ describe('PaymentBreakdown', () => {
             });
             const formdata = {
                 creatingPayment: 'true',
+                fees: {
+                    status: 'success',
+                    applicationfee: 215,
+                    applicationvalue: 6000,
+                    ukcopies: 1,
+                    ukcopiesfee: 0.50,
+                    overseascopies: 2,
+                    overseascopiesfee: 1,
+                    total: 216.50
+                },
                 payment: {
                     paymentId: 'RC-12345'
                 }
             };
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
             expectedFormdata.payment.paymentId = 'RC-12345';
+            feesCalculator.returns(Promise.resolve({
+                status: 'success',
+                applicationfee: 215,
+                applicationvalue: 6000,
+                ukcopies: 1,
+                ukcopiesfee: 0.50,
+                overseascopies: 2,
+                overseascopiesfee: 1,
+                total: 216.50
+            }));
 
             co(function* () {
                 const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
@@ -331,16 +552,36 @@ describe('PaymentBreakdown', () => {
     });
 
     describe('action', () => {
+        beforeEach(() => {
+            feesCalculator = sinon.stub(FeesCalculator.prototype, 'calc');
+        });
+
+        afterEach(() => {
+            feesCalculator.restore();
+        });
         it('cleans up context', () => {
             let ctx = {
                 _csrf: 'dummyCSRF',
                 sessionID: 'dummySessionID',
                 authToken: 'dummyAuthToken',
                 paymentError: 'dummyError',
-                deceasedLastName: 'aName'
+                deceasedLastName: 'aName',
+            };
+            const formdata = {
+                fees: 'fees object'
             };
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
-            [ctx] = paymentBreakdown.action(ctx);
+            feesCalculator.returns(Promise.resolve({
+                status: 'success',
+                applicationfee: 215,
+                applicationvalue: 6000,
+                ukcopies: 1,
+                ukcopiesfee: 0.50,
+                overseascopies: 2,
+                overseascopiesfee: 1,
+                total: 216.50
+            }));
+            [ctx] = paymentBreakdown.action(ctx, formdata);
             expect(ctx).to.deep.equal({});
         });
     });

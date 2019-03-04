@@ -40,6 +40,8 @@ probate_submit_service_url = "http://probate-submit-service-prod.service.core-co
 
 probate_persistence_service_url = "http://probate-persistence-service-prod.service.core-compute-prod.internal/formdata"
 
+probate_fees_registry_service_url = "https://fees-register-api.platform.hmcts.net/fees-register"
+
 feature_toggles_api_url = "http://rpe-feature-toggle-api-prod.service.core-compute-prod.internal"
 
 capacity = "2"

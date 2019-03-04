@@ -1,11 +1,11 @@
 'use strict';
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
-const content = require('app/resources/en/translation/screeners/relationshiptodeceased');
-const pageUrl = '/relationship-to-deceased';
+const content = require('app/resources/en/translation/screeners/relatedtodeceased');
+const pageUrl = '/related-to-deceased';
 const fieldKey = 'related';
 
-class RelationshipToDeceased extends EligibilityValidationStep {
+class RelatedToDeceased extends EligibilityValidationStep {
 
     static getUrl() {
         return pageUrl;
@@ -28,4 +28,4 @@ class RelationshipToDeceased extends EligibilityValidationStep {
     }
 }
 
-module.exports = RelationshipToDeceased;
+module.exports = RelatedToDeceased;

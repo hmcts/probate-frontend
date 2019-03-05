@@ -16,6 +16,7 @@ nodejs:
     BUSINESS_DOCUMENT_URL: http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument
     SUBMIT_SERVICE_URL: http://probate-submit-service-aat.service.core-compute-aat.internal
     PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
+    FEES_REGISTRY_URL: http://fees-register-api-aat.service.core-compute-aat.internal/fees-register
     REFORM_ENVIRONMENT : aat
     USE_REDIS : true
     REDIS_USE_TLS : false
@@ -34,7 +35,7 @@ nodejs:
     SERVICE_ID : ${PRO_SERVICE_ID}
     SITE_ID : ${PRO_SITE_ID}
 
-# Don't modify below here
+  # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
 

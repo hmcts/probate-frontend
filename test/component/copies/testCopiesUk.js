@@ -49,12 +49,23 @@ describe('copies-uk', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForAssetsOverseas}`, (done) => {
             const data = {uk: '0'};
-            testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
+            const sessionData = require('test/data/copiesUk');
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
+                });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForAssetsOverseas}`, (done) => {
             const data = {uk: '1'};
-            testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
+            const sessionData = require('test/data/copiesUk');
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
+                });
         });
     });
 });

@@ -22,6 +22,13 @@ class CopiesUk extends ValidationStep {
     isComplete(ctx) {
         return [ctx.uk >= 0, 'inProgress'];
     }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete formdata.applicant.addresses;
+        delete formdata.deceased.addresses;
+        return [ctx, formdata];
+    }
 }
 
 module.exports = CopiesUk;

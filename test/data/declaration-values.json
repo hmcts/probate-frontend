@@ -1,6 +1,6 @@
 {
   "title": "Check the legal statement and make your declaration",
-  "intro": "This statement is based on the information you've given in your application. It will be stored as a public record.",
+  "intro": "This statement is based on the information you’ve given in your application. It will be stored as a public record.",
   "intro-multipleApplicants": "This statement is based on the information {applicantName} has given in their application. It will be stored as a public record.",
   "highCourtHeader": "In the High Court of Justice",
   "familyDivisionHeader": "Family Division",
@@ -10,7 +10,7 @@
   "legalStatementApplicant-multipleApplicants": "We, {detailsOfApplicants}, make the following statement:",
   "deceasedHeader": "The person who died",
   "legalStatementDeceased": "{deceasedName} was born on {deceasedDob} and died on {deceasedDod}, domiciled in England and Wales.",
-  "deceasedOtherNames": "They were also known as",
+  "deceasedOtherNames": "They were also known as {deceasedOtherNames}.",
   "deceasedEstateHeader": "The estate of the person who died",
   "deceasedEstateValue": "The gross value for the estate amounts to £{ihtGrossValue} and the net value for the estate amounts to £{ihtNetValue}.",
   "deceasedEstateLand": "To the best of my knowledge, information and belief, there was no land vested in {deceasedName} which was settled previously to the death (and not by the will) of {deceasedName} and which remained settled land notwithstanding such death.",
@@ -35,7 +35,6 @@
   "executorNotApplyingHeader": "Executors not applying for probate",
   "executorNotApplyingReason": "{otherExecutorName}, an executor named in the will, is not making this application {otherExecutorApplying}",
   "executorNotApplyingReason-codicils": "{otherExecutorName}, an executor named in the will or codicils, is not making this application {otherExecutorApplying}",
-  "additionalExecutorNotified": "They have been notified in writing.",
   "declarationHeader": "Declaration",
   "declarationConfirm": "I confirm that I will administer the estate of {deceasedName}, according to law. I will:",
   "declarationConfirm-multipleApplicants": "We confirm that we will administer the estate of {deceasedName}, according to law. We will:",
@@ -53,8 +52,8 @@
   "declarationUnderstandItem2": "criminal proceedings for fraud may be brought against me if I am found to have been deliberately untruthful or dishonest",
   "declarationUnderstandItem2-multipleApplicants": "criminal proceedings for fraud may be brought against us if we are found to have been deliberately untruthful or dishonest",
   "declarationCheckbox": "I confirm that I will administer the estate of the person who died according to law, and that my application is truthful.",
-  "submitWarning": "Once you click &lsquo;Save and continue&rsquo;, you cannot change your answers.",
-  "submitWarning-multipleApplicants": "Once everyone has agreed the legal statement and made their declaration, this information can&rsquo;t be changed.",
+  "submitWarning": "Once you click ‘Save and continue’, you cannot change your answers.",
+  "submitWarning-multipleApplicants": "Once everyone has agreed the legal statement and made their declaration, this information can’t be changed.",
   "declarationPdf": "Legal declaration (30kb PDF)",
   "saveThisPage": "Save this page"
 }

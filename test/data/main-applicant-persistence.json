@@ -12,7 +12,7 @@
   "{applicantCurrentName}": "",
   "{aliasReason}": "",
   "{applicantNameOnWill}": "",
-  "codicils": false,
+  "willCodicils": false,
   "executorApplying": true,
   "executorAlias": false
 }

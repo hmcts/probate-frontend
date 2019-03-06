@@ -13,18 +13,13 @@ module.exports = function (noOfAliases) {
 
     while (i <= noOfAliases) {
         if (i === 1) {
-            // I.fillField(`#otherNames_name_${i-1}_firstName`, `alias_firstnames_${i}`);
-            I.fillField(`#otherNames_name_${i-1}_firstName`, `aliasfirstnames${i}`);
-            // I.fillField(`#otherNames_name_${i-1}_lastName`, `alias_firstnames_${i}`);
-            I.fillField(`#otherNames_name_${i-1}_lastName`, `aliasfirstnames${i}`);
-            // deceasedOtherNames += `alias_firstnames_${i} alias_lastnames_${i}`;
-            deceasedOtherNames += `aliasfirstnames${i} aliaslastnames${i}`;
+            I.fillField(`#otherNames_name_${i-1}_firstName`, `alias_firstnames_${i}`);
+            I.fillField(`#otherNames_name_${i-1}_lastName`, `alias_lastnames_${i}`);
+            deceasedOtherNames += `alias_firstnames_${i} alias_lastnames_${i}`;
         } else {
             I.waitForNavigationToComplete('input[value="Add another name"]');
-            // I.fillField(`#otherNames_name_${i-1}_firstName`, `alias_firstnames_${i}`);
-            I.fillField(`#otherNames_name_${i-1}_firstName`, `aliasfirstnames${i}`);
-            // I.fillField(`#otherNames_name_${i-1}_lastName`, `alias_lastnames_${i}`);
-            I.fillField(`#otherNames_name_${i-1}_lastName`, `aliaslastnames${i}`);
+            I.fillField(`#otherNames_name_${i-1}_firstName`, `alias_firstnames_${i}`);
+            I.fillField(`#otherNames_name_${i-1}_lastName`, `alias_lastnames_${i}`);
 
             if (i < noOfAliases) {
                 connective = ', ';
@@ -32,8 +27,7 @@ module.exports = function (noOfAliases) {
                 connective = ' and ';
             }
             deceasedOtherNames += connective;
-            // deceasedOtherNames += `alias_firstnames_${i} alias_lastnames_${i}`;
-            deceasedOtherNames += `aliasfirstnames${i} aliaslastnames${i}`;
+            deceasedOtherNames += `alias_firstnames_${i} alias_lastnames_${i}`;
         }
         i += 1;
     }

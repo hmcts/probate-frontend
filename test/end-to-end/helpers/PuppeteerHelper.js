@@ -4,7 +4,7 @@ const Helper = codecept_helper;
 const helperName = 'Puppeteer';
 const mainApplicantPersistence = require('test/data/main-applicant-persistence');
 const executorPersistence = require('test/data/executor-persistence');
-let allExecutorsPersistence;
+let allExecutorsPersistence = [];
 const allDeclarationContent = require('test/data/declaration-values');
 let requiredDeclarationContent;
 const declarationContent = [];
@@ -38,13 +38,13 @@ class PuppeteerHelper extends Helper {
     }
 
     persistExecutor(id, key, value, settingId) {
-        id = settingId ? id : allExecutorsPersistence.findIndex(executor => executor.executorNumber == id);
+        id = settingId ? id : allExecutorsPersistence.findIndex(executor => executor.executorNumber == id); // eslint-disable-line
         allExecutorsPersistence[id][key] = value;
     }
 
     selectDeclarationContent() {
         requiredDeclarationContent = [];
-        const options = ['alias', 'codicils', 'multipleApplicants', 'mainApplicant'];//factors affecting the declaration content.
+        const options = ['alias', 'codicils', 'multipleApplicants', 'mainApplicant'];
         const allDeclarationKeys = Object.keys(allDeclarationContent);
         const allExecutorKeys = allDeclarationKeys.filter(key => key.includes('applicantName') === true ||
             key.includes('executorNotApplying') === true);
@@ -54,7 +54,7 @@ class PuppeteerHelper extends Helper {
             const requiredKeys = [];
 
             const mainApplicant = executor === 0;
-            const codicils = mainApplicantPersistence.codicils;
+            const codicils = mainApplicantPersistence.willCodicils;
             const multipleExecutors = allExecutorsPersistence.length > 1;
             const currentExecutorPersistence = mainApplicant ? mainApplicantPersistence : allExecutorsPersistence[executor - 1];
             const alias = currentExecutorPersistence.executorAlias;
@@ -67,20 +67,20 @@ class PuppeteerHelper extends Helper {
 
             keysWithoutOptions.forEach(key => {
                 const optionKeys = relevantKeys.filter(optionKey => optionKey.includes(key) === true);
-
                 if (optionKeys.length > 1) {
                     key = this.filterRequiredKey(optionKeys, options, optionVariables);
                 }
 
+                let keyRequired = true;
                 if (applying && key.includes('NotApplying')) {
-                    key = '';
+                    keyRequired = false;
                 } else if (!applying && key.includes('applicantName')) {
-                    key = '';
+                    keyRequired = false;
                 } else if (!deceasedAlias && key === 'deceasedOtherNames') {
-                    key = '';
+                    keyRequired = false;
                 }
 
-                if (key !== '') {
+                if (keyRequired) {
                     requiredKeys.push(key);
                 }
             });
@@ -112,17 +112,19 @@ class PuppeteerHelper extends Helper {
     }
 
     async populateDeclarationContent() {
-        mainApplicantPersistence['{detailsOfApplicants}'] = await this.constructApplicantDetails();
-
         const totalExecutors = allExecutorsPersistence.length + 1;
+
         for (let executor = 0; executor < totalExecutors; executor++) {
             const currentExecutorPersistence = (executor === 0) ? mainApplicantPersistence : allExecutorsPersistence[executor - 1];
+            currentExecutorPersistence['{deceasedName}'] = mainApplicantPersistence['{deceasedName}']; // ensure persistence contains deceased name.
+
             const requiredKeys = requiredDeclarationContent[executor];
 
             for (let i = 0; i < requiredKeys.length; i++) {
                 const key = requiredKeys[i];
                 const originalContent = allDeclarationContent[key];
                 const replacedContent = await this.replacePlaceholder(originalContent, currentExecutorPersistence); // eslint-disable-line no-await-in-loop
+
                 const replacementComplete = !replacedContent.includes('{');
                 const contentUnique = !declarationContent.includes(replacedContent);
 
@@ -131,8 +133,6 @@ class PuppeteerHelper extends Helper {
                 }
             }
         }
-        console.log(declarationContent);
-
         return declarationContent;
     }
 
@@ -140,11 +140,13 @@ class PuppeteerHelper extends Helper {
         return new Promise(resolve => {
             let details = `${mainApplicantPersistence['{applicantCurrentName}']} of ${mainApplicantPersistence['{applicantAddress}']}`;
             const applyingExecutors = allExecutorsPersistence.filter(executorPersistence => executorPersistence.executorApplying === true);
+
             applyingExecutors.forEach((executor, index) => {
                 const final = index === applyingExecutors.length - 1;
                 const connective = final ? ' and' : ',';
                 details += `${connective} ${executor['{applicantCurrentName}']} of ${executor['{applicantAddress}']}`;
             });
+
             resolve(details);
         });
     }
@@ -152,10 +154,13 @@ class PuppeteerHelper extends Helper {
     replacePlaceholder(declarationContentLine, persistence) {
         return new Promise(resolve => { // swapped out.
             for (const key in persistence) {
+
                 const placeholder = key;
                 const replacement = persistence[key];
+
                 declarationContentLine = declarationContentLine.replace(new RegExp(placeholder, 'g'), replacement);
             }
+
             resolve(declarationContentLine);
         });
     }

@@ -10,7 +10,7 @@ module.exports = function (option) {
     I.click(`#codicils-option${option}`);
 
     if (option === 'Yes') {
-        I.persistMainApplicant('codicils', true);
+        I.persistMainApplicant('willCodicils', true);
     }
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);

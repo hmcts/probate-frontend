@@ -9,6 +9,7 @@ module.exports = function (alias) {
     I.fillField('#alias', alias);
 
     I.persistMainApplicant('{applicantWillName}', alias);
+    I.persistMainApplicant('executorAlias', true);
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

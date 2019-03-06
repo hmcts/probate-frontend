@@ -12,7 +12,7 @@ module.exports = {
     TestIdamAddUserUrl: process.env.IDAM_ADD_USER_URL || '/testing-support/accounts',
     TestIdamUserGroup: process.env.IDAM_USER_GROUP || 'probate-private-beta',
     TestIdamRole: process.env.IDAM_CITIZEN_ROLE || 'citizen',
-    TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '/@probateTest.com',
+    TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '/@probatetest.com',
     TestUseProxy: process.env.TEST_USE_PROXY || 'true',
     TestProxy: process.env.TEST_PROXY || 'socks5:proxyout.reform.hmcts.net:8080',
     TestRetryFeatures: process.env.RETRY_FEATURES || 3,

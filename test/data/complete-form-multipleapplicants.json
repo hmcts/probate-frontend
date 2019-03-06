@@ -168,6 +168,7 @@
     },
     "declaration": {
       "confirm": "We confirm that we will administer the estate of died_firstname died_lastname, according to law. We will:",
+
       "confirmItem1": "collect the whole estate",
       "confirmItem2": "keep full details (an inventory) of the estate",
       "confirmItem3": "keep a full account of how the estate has been administered",

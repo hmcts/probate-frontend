@@ -15,14 +15,14 @@ module.exports = function (totalExecutors) {
         i += 1;
     }
 
-    I.intialiseExecutors(totalExecutors-1, true);
+    I.initAllExecutorsPersistence(totalExecutors-1, true);
 
     for (let i = 0; i < totalExecutors-1; i++) {
         const executorId = i + 2;
         const name = 'exec' + executorId;
         I.persistExecutor(i, 'executorNumber', executorId, true);
         I.persistExecutor(executorId, '{applicantWillName}', name);
-        I.persistExecutor(executorId, '{applicantNameOnWill}', name);
+        I.persistExecutor(executorId, '{applicantNameOnWill}', ' as '+name);
         I.persistExecutor(executorId, '{applicantCurrentName}', name);
         I.persistExecutor(executorId, '{otherExecutorName}', name);
     }

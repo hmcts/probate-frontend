@@ -9,6 +9,7 @@ module.exports = function (executorNumber) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl(parseInt(executorNumber)-1));
     I.click('.summary');
     I.fillField('#freeTextAddress', 'additional executor test address');
+    I.persistExecutor(executorNumber, '{applicantAddress}', 'additional executor test address');
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

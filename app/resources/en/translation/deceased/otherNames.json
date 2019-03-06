@@ -1,9 +1,8 @@
 {
   "title": "Deceased name",
   "question": "What other names did {deceasedName} use?",
-  "firstName": "First name(s)",
-  "firstNameHint": "Including middle names",
-  "lastName": "Last name(s)",
+  "firstName": "First name and any middle names",
+  "lastName": "Last name",
   "addAnotherName": "Add another name",
   "otherName": "Other name",
   "removeName": "Remove",

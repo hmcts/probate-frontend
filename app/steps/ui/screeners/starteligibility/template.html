@@ -18,7 +18,7 @@
                 <p>{{ content.introduction | safe }}</p>
                 <p>{{ content.paragraph1 | safe }}</p>
                 <div class="panel panel-border-wide">
-                    <p>{{ content.paragraph2 | safe }}</p>
+                    <p>{{ content.paragraph2 | replace('{applicationFormPA1P}', links.applicationFormPA1P) | replace('{applicationFormPA1A}', links.applicationFormPA1A) | safe }}</p>
                 </div>
                 <h2 class="heading-medium">
                     {{ content.multipleHeader | safe }}

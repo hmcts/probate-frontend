@@ -2,9 +2,8 @@
   "title": "Deceased name",
   "question": "What&rsquo;s the full name of the person who died?",
   "explanation1": "Use the name on the death certificate.",
-  "firstName": "First name(s)",
-  "firstNameHint": "Including middle names",
-  "lastName": "Last name(s)",
+  "firstName": "First name and any middle names",
+  "lastName": "Last name",
 
   "errors": {
     "firstName": {

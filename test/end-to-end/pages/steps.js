@@ -70,6 +70,7 @@ module.exports = function () {
         // Summary page
         seeSummaryPage: steps.summary.summary,
         acceptDeclaration: steps.declaration.declaration,
+        verifyDeclaration: steps.declaration.verify,
 
         // Notify additional executors
         notifyAdditionalExecutors: steps.executors.invite,

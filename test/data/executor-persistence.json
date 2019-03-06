@@ -5,6 +5,8 @@
   "{applicantNameOnWill}": "",
   "{otherExecutorName}": "",
   "{otherExecutorApplying}": "",
+  "{applicantAddress}": "",
   "executorNumber": "",
-  "executorApplying": false
+  "executorApplying": false,
+  "executorAlias": false
 }

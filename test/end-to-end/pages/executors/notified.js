@@ -10,8 +10,10 @@ module.exports = function (executorNotified, executorNumber) {
 
     if (executorNotified === 'Yes') {
         I.click('#executorNotified-optionYes');
+        I.persistExecutor(executorNumber, '{otherExecutorApplying}', 'but reserves power to do so at a later date. They have been notified in writing.');
     } else {
         I.click('#executorNotified-optionNo');
+        I.persistExecutor(executorNumber, '{otherExecutorApplying}', 'but reserves power to do so at a later date.');
     }
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);

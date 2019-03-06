@@ -1,0 +1,33 @@
+{
+  "iht": {
+    "method": "Through the HMRC online service",
+    "netValue": 12345,
+    "grossValue": 12345,
+    "identifier": "1234",
+    "netValueOnline": "12345",
+    "grossValueOnline": "12345"
+  },
+  "will": {
+    "codicils": "No"
+  },
+  "deceased": {
+    "alias": "No",
+    "address": "test address",
+    "dob_day": 11,
+    "dod_day": 30,
+    "married": "No",
+    "dob_date": "1996-01-11T00:00:00.000Z",
+    "dob_year": 1996,
+    "dod_date": "2019-01-30T00:00:00.000Z",
+    "dod_year": 2019,
+    "lastName": "TestSurname",
+    "dob_month": 1,
+    "dod_month": 1,
+    "firstName": "Megan",
+    "addressFound": "none",
+    "deceasedName": "Megan TestSurname",
+    "freeTextAddress": "test address",
+    "dob_formattedDate": "11 January 1996",
+    "dod_formattedDate": "30 January 2019"
+  }
+}

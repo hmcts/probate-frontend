@@ -13,7 +13,8 @@ module.exports = function (executorNumber, aliasReason, aliasOther) {
         I.fillField('#otherReason', aliasOther);
     }
 
-    I.persistExecutor(executorNumber, '{aliasReason}', ' '+aliasOther || ' '+aliasReason);
+    I.persistExecutor(executorNumber, '{aliasReason}', ': '+aliasOther || ': '+aliasReason);
+    I.persistExecutor(executorNumber, 'executorAlias', true);
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

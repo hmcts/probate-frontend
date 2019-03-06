@@ -14,11 +14,11 @@ module.exports = function (executorNumber, diedBefore, firstRecord) {
 
     if (diedBefore) {
         I.click('#diedbefore-optionYes');
-        I.persistExecutor(executorNumber, '{otherExecutorApplying}', 'because they died before {deceasedName} died.');
+        I.persistExecutor(executorNumber, '{otherExecutorApplying}', 'because they died before deceasedName died.');
 
     } else {
         I.click('#diedbefore-optionNo');
-        I.persistExecutor(executorNumber, '{otherExecutorApplying}', 'because they died after {deceasedName} died.');
+        I.persistExecutor(executorNumber, '{otherExecutorApplying}', 'because they died after deceasedName died.');
     }
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);

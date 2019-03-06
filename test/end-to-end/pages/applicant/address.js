@@ -9,6 +9,7 @@ module.exports = function () {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click('.summary');
     I.fillField('#freeTextAddress', 'test address for applicant');
+    I.persistMainApplicant('{applicantAddress}', 'test address for applicant');
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

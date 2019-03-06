@@ -8,18 +8,37 @@ module.exports = function (noOfAliases) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     let i = 1;
 
+    let deceasedOtherNames = '';
+    let connective;
+
     while (i <= noOfAliases) {
         if (i === 1) {
-            I.fillField(`#otherNames_name_${i-1}_firstName`, `alias_firstnames_${i}`);
-            I.fillField(`#otherNames_name_${i-1}_lastName`, `alias_lastnames_${i}`);
+            // I.fillField(`#otherNames_name_${i-1}_firstName`, `alias_firstnames_${i}`);
+            I.fillField(`#otherNames_name_${i-1}_firstName`, `aliasfirstnames${i}`);
+            // I.fillField(`#otherNames_name_${i-1}_lastName`, `alias_firstnames_${i}`);
+            I.fillField(`#otherNames_name_${i-1}_lastName`, `aliasfirstnames${i}`);
+            // deceasedOtherNames += `alias_firstnames_${i} alias_lastnames_${i}`;
+            deceasedOtherNames += `aliasfirstnames${i} aliaslastnames${i}`;
         } else {
             I.waitForNavigationToComplete('input[value="Add another name"]');
-            I.fillField(`#otherNames_name_${i-1}_firstName`, `alias_firstnames_${i}`);
-            I.fillField(`#otherNames_name_${i-1}_lastName`, `alias_lastnames_${i}`);
-        }
+            // I.fillField(`#otherNames_name_${i-1}_firstName`, `alias_firstnames_${i}`);
+            I.fillField(`#otherNames_name_${i-1}_firstName`, `aliasfirstnames${i}`);
+            // I.fillField(`#otherNames_name_${i-1}_lastName`, `alias_lastnames_${i}`);
+            I.fillField(`#otherNames_name_${i-1}_lastName`, `aliaslastnames${i}`);
 
+            if (i < noOfAliases) {
+                connective = ', ';
+            } else {
+                connective = ' and ';
+            }
+            deceasedOtherNames += connective;
+            // deceasedOtherNames += `alias_firstnames_${i} alias_lastnames_${i}`;
+            deceasedOtherNames += `aliasfirstnames${i} aliaslastnames${i}`;
+        }
         i += 1;
     }
+
+    I.persistMainApplicant('{deceasedOtherNames}', deceasedOtherNames);
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

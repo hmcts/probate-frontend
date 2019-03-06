@@ -1,0 +1,162 @@
+{
+  "iht": {
+    "form": "IHT205",
+    "method": "By post",
+    "netValue": 300000,
+    "ihtFormId": "IHT205",
+    "netIHT205": "300000",
+    "grossValue": 600000,
+    "grossIHT205": "600000"
+  },
+  "will": {
+    "left": "Yes",
+    "codicils": "Yes",
+    "codicilsNumber": 3
+  },
+  "deceased": {
+    "alias": "Yes",
+    "address": "test address for deceased",
+    "dob_day": 1,
+    "dod_day": 1,
+    "married": "No",
+    "dob_date": "1950-01-01T00:00:00.000Z",
+    "dob_year": 1950,
+    "dod_date": "2017-01-01T00:00:00.000Z",
+    "dod_year": 2017,
+    "lastName": "Deceased Last Name",
+    "dob_month": 1,
+    "dod_month": 1,
+    "firstName": "Deceased First Name",
+    "otherNames": {
+      "name_0": {
+        "lastName": "alias_lastnames_1",
+        "firstName": "alias_firstnames_1"
+      },
+      "name_1": {
+        "lastName": "alias_lastnames_2",
+        "firstName": "alias_firstnames_2"
+      }
+    },
+    "addressFound": "none",
+    "deceasedName": "Deceased First Name Deceased Last Name",
+    "freeTextAddress": "test address for deceased",
+    "dob_formattedDate": "1 January 1950",
+    "dod_formattedDate": "1 January 2017"
+  },
+  "applicant": {
+    "alias": "applicant_alias",
+    "address": "test address for applicant",
+    "lastName": "Applicant Last Name",
+    "firstName": "Applicant First Name",
+    "aliasReason": "other",
+    "otherReason": "alias_other_reason",
+    "phoneNumber": "123456789",
+    "addressFound": "none",
+    "freeTextAddress": "test address for applicant",
+    "nameAsOnTheWill": "No"
+  },
+  "documents": {
+    "uploads": [
+      {
+        "url": "http://dm-store-aat.service.core-compute-aat.internal/documents/aa8b9c89-4c2e-4f20-a5bf-5bd65fef6644",
+        "filename": "test_file_for_document_upload.png"
+      }
+    ]
+  },
+  "executors": {
+    "list": [
+      {
+        "alias": "applicant_alias",
+        "lastName": "Applicant Last Name",
+        "firstName": "Applicant First Name",
+        "isApplying": true,
+        "aliasReason": "other",
+        "isApplicant": true,
+        "otherReason": "alias_other_reason"
+      },
+      {
+        "isDead": true,
+        "fullName": "exec2",
+        "diedBefore": "Yes",
+        "hasOtherName": false,
+        "notApplyingKey": "optionDiedBefore",
+        "notApplyingReason": "This executor died (before the person who has died)"
+      },
+      {
+        "isDead": false,
+        "fullName": "exec3",
+        "isApplying": false,
+        "hasOtherName": false,
+        "notApplyingKey": "optionPowerReserved",
+        "executorNotified": "Yes",
+        "notApplyingReason": "This executor doesn&rsquo;t want to apply now, but may do in the future (this is also known as power reserved)"
+      },
+      {
+        "email": "test.probate.inbox@gmail.com",
+        "mobile": "07952626390",
+        "address": "additional executor test address",
+        "fullName": "exec4",
+        "isApplying": true,
+        "hasOtherName": false,
+        "freeTextAddress": "additional executor test address"
+      },
+      {
+        "isDead": false,
+        "fullName": "exec5",
+        "isApplying": false,
+        "hasOtherName": false,
+        "notApplyingKey": "optionRenunciated",
+        "notApplyingReason": "This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)"
+      },
+      {
+        "email": "test.probate.inbox@gmail.com",
+        "mobile": "07952626390",
+        "address": "additional executor test address",
+        "fullName": "exec6",
+        "isApplying": true,
+        "currentName": "Executor6 Current Name",
+        "otherReason": "executor_alias_reason",
+        "hasOtherName": true,
+        "freeTextAddress": "additional executor test address",
+        "currentNameReason": "other"
+      },
+      {
+        "isDead": true,
+        "fullName": "exec7",
+        "diedBefore": "No",
+        "hasOtherName": false,
+        "notApplyingKey": "optionDiedAfter",
+        "notApplyingReason": "This executor died (after the person who has died)"
+      }
+    ],
+    "alias": "Yes",
+    "allalive": "No",
+    "referrer": "ExecutorAddress",
+    "addressFound": "none",
+    "executorsNumber": 7,
+    "executorsEmailChanged": false,
+    "executorsToNotifyList": [
+      {
+        "email": "test.probate.inbox@gmail.com",
+        "mobile": "07952626390",
+        "address": "additional executor test address",
+        "fullName": "exec4",
+        "isApplying": true,
+        "hasOtherName": false,
+        "freeTextAddress": "additional executor test address"
+      },
+      {
+        "email": "test.probate.inbox@gmail.com",
+        "mobile": "07952626390",
+        "fullName": "exec6",
+        "isApplying": true,
+        "currentName": "Executor6 Current Name",
+        "otherReason": "executor_alias_reason",
+        "hasOtherName": true,
+        "currentNameReason": "other"
+      }
+    ],
+    "otherExecutorsApplying": "Yes"
+  },
+  "documentupload": {}
+}

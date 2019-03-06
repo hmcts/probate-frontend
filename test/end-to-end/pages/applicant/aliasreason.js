@@ -11,8 +11,6 @@ module.exports = function (aliasReason, aliasOther) {
     if (aliasOther) {
         I.fillField('#otherReason', aliasOther);
     }
-
-    I.persistMainApplicant('{aliasReason}', ': '+aliasOther || ': '+aliasReason);
-
+    I.persistMainApplicant('{aliasReason}', `: ${aliasOther}` || `: ${aliasReason}`);
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

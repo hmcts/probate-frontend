@@ -2,10 +2,8 @@
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
-// let grabIds;
 
-Feature('Multiple Executors flow');
-// .retry(TestConfigurator.getRetryFeatures());
+Feature('Multiple Executors flow').retry(TestConfigurator.getRetryFeatures());
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
@@ -50,15 +48,14 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.selectATask();
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
     I.selectNameAsOnTheWill('No');
-    I.enterApplicantAlias('applicantalias');
-    I.enterApplicantAliasReason('aliasOther', 'aliasotherreason');
+    I.enterApplicantAlias('applicant_alias');
+    I.enterApplicantAliasReason('aliasOther', 'alias_other_reason');
     I.enterApplicantPhone();
     I.enterAddressManually();
 
     const totalExecutors = '7';
     I.enterTotalExecutors(totalExecutors);
     I.enterExecutorNames(totalExecutors);
-
     I.selectExecutorsAllAlive('No');
 
     const executorsWhoDiedList = ['2', '7'];
@@ -70,10 +67,12 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
         diedBefore = !diedBefore;
     });
+
     I.selectExecutorsApplying();
 
     const executorsApplyingList = ['3', '5'];
     I.selectExecutorsDealingWithEstate(executorsApplyingList);
+
     I.selectExecutorsWithDifferentNameOnWill();
 
     const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
@@ -93,10 +92,9 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     const executorsAliveList = ['4', '6'];
     let powerReserved = true;
     forEach(executorsAliveList, executorNumber => {
-
         I.selectExecutorRoles(executorNumber, powerReserved, head(executorsAliveList) === executorNumber);
-        if (powerReserved) {
 
+        if (powerReserved) {
             I.selectHasExecutorBeenNotified('Yes', executorNumber);
             powerReserved = false;
         } else {
@@ -106,11 +104,10 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     // Review and Confirm Task
     I.selectATask();
-
     I.seeSummaryPage('declaration');
 
+    // Verify declaration
     const verifyDeclaration = true;
-    pause();
     if (verifyDeclaration) {
         await I.verifyDeclaration();
     }
@@ -122,6 +119,4 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     //Retrieve the email urls for additional executors
     I.amOnPage(testConfig.TestInviteIdListUrl);
 
-    // grabIds = yield I.grabTextFrom('pre');
-
-});
+}).retry(TestConfigurator.getRetryScenarios());

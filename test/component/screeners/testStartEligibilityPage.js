@@ -18,7 +18,10 @@ describe('start-eligibility', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test right content loaded on the page', (done) => {
-            testWrapper.testContent(done, []);
+            const excludeKeys = [
+                'paragraph2'
+            ];
+            testWrapper.testContent(done, excludeKeys);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDeathCertificate}`, (done) => {

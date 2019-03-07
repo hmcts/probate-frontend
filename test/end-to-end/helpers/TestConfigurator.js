@@ -95,7 +95,7 @@ class TestConfigurator {
         this.testCitizenName = randomstring.generate({
             length: 36,
             charset: 'alphabetic'
-        }).toLowerCase();
+        });
     }
 
     getTestCitizenName() {
@@ -176,7 +176,6 @@ class TestConfigurator {
                     applicantEmail: emailId,
                 }
             };
-        console.log(formData);
         Object.assign(formData.formdata, data);
         request({
             url: this.testInjectFormDataURL,

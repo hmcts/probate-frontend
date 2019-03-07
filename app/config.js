@@ -10,7 +10,8 @@ const config = {
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
         fe_shutter_toggle: 'probate-fe-shutter',
         document_upload: 'probate-document-upload',
-        intestacy_questions: 'probate-screening-questions'
+        intestacy_questions: 'probate-intestacy-questions',
+        fees_api: 'probate-fees-api'
     },
     app: {
         username: process.env.USERNAME,

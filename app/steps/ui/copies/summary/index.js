@@ -2,6 +2,7 @@
 
 const Step = require('app/core/steps/Step');
 const copiesSteps = ['CopiesUk', 'AssetsJEGG', 'CopiesJEGG', 'AssetsOverseas', 'CopiesOverseas'];
+const FormatName = require('app/utils/FormatName');
 
 class CopiesSummary extends Step {
 
@@ -35,6 +36,17 @@ class CopiesSummary extends Step {
             });
         fields[this.section] = super.generateFields(ctx, errors, formdata);
         return fields;
+    }
+
+    getContextData(req) {
+        const formdata = req.session.form;
+        const ctx = super.getContextData(req);
+        const deceasedName = FormatName.format(formdata.deceased);
+        const content = this.generateContent(ctx, formdata);
+
+        ctx.assetsOverseasQuestion = content.AssetsOverseas.question.replace('{deceasedName}', deceasedName);
+
+        return ctx;
     }
 }
 

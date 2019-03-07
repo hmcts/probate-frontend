@@ -287,7 +287,7 @@ describe('Declaration tests', () => {
                     {fullName: 'harvey', isApplying: true, emailChanged: true}
                 ]
             };
-            ctx.executorsWrapper = new ExecutorsWrapper(ctx.executors);
+            ctx.executorsWrapper = new ExecutorsWrapper(ctx);
             const declaration = new Declaration(steps, section, templatePath, i18next, schema);
             declaration.resetAgreedFlags = sinon.spy();
 

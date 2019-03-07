@@ -22,7 +22,20 @@ describe('assets-overseas', () => {
         testHelpBlockContent.runTest('AssetsOverseas');
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done);
+            const sessionData = {
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {deceasedName: 'John Doe'};
+
+                    testWrapper.testContent(done, [], contentData);
+                });
         });
 
         it(`test it redirects to Copies Overseas page: ${expectedNextUrlForCopiesOverseas}`, (done) => {

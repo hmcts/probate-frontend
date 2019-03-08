@@ -44,7 +44,7 @@
                 name = 'otherNames['+index+'][firstName]',
                 field = otherName['firstName'],
                 text = content.firstName,
-                size = 30
+                size = 255
             ) }}
             {{ textField(
                 id = 'otherNames_'+index+'_lastName',
@@ -52,7 +52,7 @@
                 field = otherName['lastName'],
                 text = content.lastName,
                 hint = content.lastNameHint,
-                size = 30
+                size = 255
             ) }}
         </fieldset>
     {% endfor %}

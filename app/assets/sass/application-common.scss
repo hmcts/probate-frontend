@@ -181,9 +181,12 @@ div.declaration-grid-item {
 
 .check-your-answers__question {
   font-weight: inherit;
+  word-break: break-word;
 }
 
 .check-your-answers__answer {
+  word-break: break-word;
+
   .check-your-answers__row {
     border-bottom: none;
   }

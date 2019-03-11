@@ -21,8 +21,7 @@ const copiesData = {
     event: 'copies',
     jurisdiction1: 'family',
     jurisdiction2: 'probate registry',
-    service: 'probate',
-    keyword: 'DEF'
+    service: 'probate'
 };
 
 class FeesCalculator {
@@ -65,9 +64,9 @@ async function createCallsRequired(formdata, headers) {
             }
         });
 
-    returnResult.ukcopies = get(formdata, 'copies.uk', 0);
-    if (returnResult.ukcopies > 0) {
-        copiesData.amount_or_volume = 1;
+    copiesData.amount_or_volume = get(formdata, 'copies.uk', 0);
+    returnResult.ukcopies = copiesData.amount_or_volume;
+    if (copiesData.amount_or_volume > 0) {
         copiesData.keyword = 'DEF';
         await feesLookup.get(copiesData, headers)
             .then((res) => {
@@ -95,9 +94,9 @@ async function createCallsRequired(formdata, headers) {
         }
     }
 
-    returnResult.overseascopies = get(formdata, 'copies.overseas', 0);
-    if (returnResult.overseascopies > 0) {
-        copiesData.amount_or_volume = 1;
+    copiesData.amount_or_volume = get(formdata, 'copies.overseas', 0);
+    returnResult.overseascopies = copiesData.amount_or_volume;
+    if (copiesData.amount_or_volume > 0) {
         copiesData.keyword = 'DEF';
         await feesLookup.get(copiesData, headers)
             .then((res) => {

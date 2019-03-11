@@ -9,6 +9,8 @@ const ServiceMapper = require('app/utils/ServiceMapper');
 const Payment = require('app/services/Payment');
 const Authorise = require('app/services/Authorise');
 const FeesCalculator = require('app/utils/FeesCalculator');
+const FeesCalculatorOld = require('app/utils/FeesCalculatorOld');
+const FeatureToggle = require('app/utils/FeatureToggle');
 
 class PaymentBreakdown extends Step {
     static getUrl() {
@@ -22,7 +24,8 @@ class PaymentBreakdown extends Step {
         ctx.copies = this.createCopiesLayout(formdata);
         ctx.applicationFee = fees.applicationfee;
         ctx.total = Number.isInteger(fees.total) ? fees.total : parseFloat(fees.total).toFixed(2);
-        return [ctx, ctx.errors];
+
+        return [ctx];
     }
 
     checkFeesStatus(fees) {
@@ -44,6 +47,7 @@ class PaymentBreakdown extends Step {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
 
+        ctx.isFeesApiToggleEnabled = FeatureToggle.isEnabled(req.session.featureToggles, 'fees_api');
         ctx.authToken = req.authToken;
         ctx.userId = req.userId;
         ctx.deceasedLastName = get(formdata.deceased, 'lastName', '');
@@ -51,8 +55,15 @@ class PaymentBreakdown extends Step {
         return ctx;
     }
 
+    getFeesCalculator(ctx) {
+        if (ctx.isFeesApiToggleEnabled) {
+            return new FeesCalculator(config.services.feesRegister.url, ctx.sessionID);
+        }
+        return new FeesCalculatorOld(config.services.feesRegister.url, ctx.sessionID);
+    }
+
     * handlePost(ctx, errors, formdata, session, hostname) {
-        const feesCalculator = new FeesCalculator(config.services.feesRegister.url, ctx.sessionID);
+        const feesCalculator = this.getFeesCalculator(ctx);
         const confirmFees = yield feesCalculator.calc(formdata, ctx.authToken);
         this.checkFeesStatus(confirmFees);
         const originalFees = formdata.fees;
@@ -173,6 +184,7 @@ class PaymentBreakdown extends Step {
         delete ctx.authToken;
         delete ctx.paymentError;
         delete ctx.deceasedLastName;
+        delete ctx.isFeesApiToggleEnabled;
         delete formdata.fees;
         return [ctx, formdata];
     }

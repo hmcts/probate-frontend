@@ -20,7 +20,11 @@ const config = {
         useHttps: process.env.USE_HTTPS || 'false',
         useIDAM: process.env.USE_IDAM || 'false',
         port: process.env.PORT || '3000',
-        useCSRFProtection: 'true'
+        useCSRFProtection: 'true',
+        session: {
+            expires: 3600000, // ms (60 mins)
+            ttl: 28800 // ms (8 hours)
+        }
     },
     services: {
         postcode: {
@@ -165,6 +169,7 @@ const config = {
         version: process.env.version || '1',
         currency: process.env.currency || 'GBP'
     },
+    whitelistedPagesIgnoreSessionTimeout: ['/payment-status'],
     whitelistedPagesAfterSubmission: ['/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
@@ -172,7 +177,7 @@ const config = {
         probate: [],
         intestacy: []
     },
-    nonIdamPages: ['stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply'],
+    nonIdamPages: ['stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'time-out'],
     endpoints: {
         health: '/health',
         info: '/info'

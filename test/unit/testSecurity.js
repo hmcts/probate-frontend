@@ -13,10 +13,13 @@ chai.use(sinonChai);
 describe('Security middleware', () => {
     const role = 'probate-private-beta';
     const loginUrl = 'http://localhost:8000/login';
+    const timeoutUrl = '/time-out';
     const loginUrlWithContinue = `${loginUrl}?response_type=code&state=57473&client_id=probate&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth2%2Fcallback`;
     const token = 'dummyToken';
     const appConfig = require('../../app/config');
     const securityCookie = `__auth-token-${appConfig.payloadVersion}`;
+    const expiresTime = new Date() + 999999;
+    const expiresTimeInThePast = Date.now() - 1;
 
     describe('protect', () => {
         let security;
@@ -97,6 +100,7 @@ describe('Security middleware', () => {
                 }
             });
 
+            req.session = {expires: expiresTime};
             req.cookies[securityCookie] = token;
             req.protocol = 'http';
             const promise = when({name: 'Error', message: 'Unauthorized'});
@@ -115,12 +119,91 @@ describe('Security middleware', () => {
                 });
         });
 
+        it('should redirect to time-out page when session is lost', (done) => {
+            const revert = Security.__set__('IdamSession', class {
+                get() {
+                    return promise;
+                }
+            });
+
+            req.session = {};
+            req.cookies[securityCookie] = token;
+            req.protocol = 'http';
+            const promise = when({name: 'Success'});
+
+            protect(req, res, next);
+
+            promise
+                .then(() => {
+                    sinon.assert.calledOnce(res.redirect);
+                    expect(res.redirect).to.have.been.calledWith(timeoutUrl);
+                    revert();
+                    done();
+                })
+                .catch((err) => {
+                    done(err);
+                });
+        });
+
+        it('should redirect to time-out page when session has expired', (done) => {
+            const revert = Security.__set__('IdamSession', class {
+                get() {
+                    return promise;
+                }
+            });
+
+            req.session = {expires: expiresTimeInThePast};
+            req.cookies[securityCookie] = token;
+            req.protocol = 'http';
+            const promise = when({name: 'Success'});
+
+            protect(req, res, next);
+
+            promise
+                .then(() => {
+                    sinon.assert.calledOnce(res.redirect);
+                    expect(res.redirect).to.have.been.calledWith(timeoutUrl);
+                    revert();
+                    done();
+                })
+                .catch((err) => {
+                    done(err);
+                });
+        });
+
+        it('should ignore redirect to time-out page if expired page is /payment-status', (done) => {
+            const revert = Security.__set__('IdamSession', class {
+                get() {
+                    return promise;
+                }
+            });
+
+            req.session = {expires: expiresTimeInThePast};
+            req.cookies[securityCookie] = token;
+            req.originalUrl = '/payment-status';
+            req.protocol = 'http';
+            const promise = when({name: 'Success', roles: ['probate-private-beta', 'citizen']});
+
+            protect(req, res, next);
+
+            promise
+                .then(() => {
+                    sinon.assert.notCalled(res.redirect);
+                    revert();
+                    done();
+                })
+                .catch((err) => {
+                    done(err);
+                });
+        });
+
         it('should retrieve user details when auth token provided', () => {
             const revert = Security.__set__('IdamSession', class {
                 get() {
                     return Promise.resolve({name: 'Error'});
                 }
             });
+            req.session = {expires: expiresTime};
 
             req.cookies[securityCookie] = token;
 
@@ -135,6 +218,7 @@ describe('Security middleware', () => {
                 }
             });
 
+            req.session = {expires: expiresTime};
             req.cookies[securityCookie] = token;
 
             const promise = when({
@@ -163,6 +247,7 @@ describe('Security middleware', () => {
                 }
             });
 
+            req.session = {expires: expiresTime};
             req.cookies[securityCookie] = token;
 
             const promise = when({

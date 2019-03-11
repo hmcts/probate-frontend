@@ -30,8 +30,52 @@
                 <h2 class="heading-medium">
                     {{ content.feesHeader | safe }}
                 </h2>
-                <p>{{ content.paragraph7 | safe }}</p>
-                <p>{{ content.paragraph8 | safe }}</p>
+
+                {% if fields.isFeesApiToggleEnabled.value === 'true' %}
+                    <p>{{ content.paragraph7 | safe }}</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">{{ content.tableHeadLeft | safe }}</th>
+                                <th class="numeric" scope="col">{{ content.tableHeadRight | safe }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">{{ content.tableBodyFeeRange1 | safe }}</th>
+                                <td class="numeric">{{ content.tableBodyFeeRange1Value | safe }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{{ content.tableBodyFeeRange2 | safe }}</th>
+                                <td class="numeric">{{ content.tableBodyFeeRange2Value | safe }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{{ content.tableBodyFeeRange3 | safe }}</th>
+                                <td class="numeric">{{ content.tableBodyFeeRange3Value | safe }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{{ content.tableBodyFeeRange4 | safe }}</th>
+                                <td class="numeric">{{ content.tableBodyFeeRange4Value | safe }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{{ content.tableBodyFeeRange5 | safe }}</th>
+                                <td class="numeric">{{ content.tableBodyFeeRange5Value | safe }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{{ content.tableBodyFeeRange6 | safe }}</th>
+                                <td class="numeric">{{ content.tableBodyFeeRange6Value | safe }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{{ content.tableBodyFeeRange7 | safe }}</th>
+                                <td class="numeric">{{ content.tableBodyFeeRange7Value | safe }}</td>
+                            </tr>
+                        </tbody>
+                    </table><br>
+                    <p>{{ content.paragraph8 | safe }}</p>
+                {% else %}
+                    <p>{{ content.paragraph7old | safe }}</p>
+                    <p>{{ content.paragraph8old | safe }}</p>
+                {% endif %}
                 <p>{{ content.paragraph9 | safe }}</p>
                 <h2 class="heading-medium">
                     {{ content.feedbackHeader | safe }}

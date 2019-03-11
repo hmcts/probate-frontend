@@ -2,7 +2,7 @@
 
 const FormatUrl = require('app/utils/FormatUrl');
 const config = require('../config');
-const logger = require('app/components/logger')('Init');
+const logger = require('app/components/logger');
 const URL = require('url');
 const UUID = require('uuid/v4');
 const commonContent = require('app/resources/en/translation/common');
@@ -26,24 +26,47 @@ class Security {
         return (req, res, next) => {
 
             let securityCookie;
+            req.log = logger(req.sessionID);
+
             if (req.cookies) {
                 securityCookie = req.cookies[SECURITY_COOKIE];
             }
 
-            // Retrieve user details
             if (securityCookie) {
+                const lostSession = !req.session.expires;
+                const sessionExpired = req.session.expires?req.session.expires <= Date.now():false;
+                const sessionTimeoutCheck = !config.whitelistedPagesIgnoreSessionTimeout.includes(req.originalUrl);
                 const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
                 idamSession
                     .get(securityCookie)
                     .then(response => {
                         if (response.name !== 'Error') {
+                            if (sessionTimeoutCheck && (lostSession || sessionExpired)) {
+                                if (lostSession) {
+                                    req.log.error('The current user session is lost.');
+                                } else {
+                                    req.log.error('The current user session has expired.');
+                                }
+                                req.log.info('Redirecting user to the time-out page.');
+                                res.clearCookie(SECURITY_COOKIE);
+                                if (typeof req.session.destroy === 'function') {
+                                    req.session.destroy();
+                                }
+                                delete req.cookies;
+                                delete req.sessionID;
+                                delete req.session;
+                                delete req.sessionStore;
+                                return res.redirect('/time-out');
+                            }
+                            req.log.debug('Extending session for active user.');
+                            req.session.expires = Date.now() + config.app.session.expires;
                             req.session.regId = response.email;
                             req.userId = response.id;
                             req.authToken = securityCookie;
                             self._authorize(res, next, response.roles, authorisedRoles);
                         } else {
-                            logger.error('Error authorising user');
-                            logger.error(`Error ${JSON.stringify(response)} \n`);
+                            req.log.error('Error authorising user');
+                            req.log.error(`Error ${JSON.stringify(response)} \n`);
                             if (response.message === 'Unauthorized') {
                                 self._login(req, res);
                             } else {
@@ -76,7 +99,7 @@ class Security {
         if (userRoles.some(role => authorisedRoles.includes(role))) {
             next();
         } else {
-            logger.error('[ERROR] :: Error authorising user, Role Not Authorised');
+            logger().error('[ERROR] :: Error authorising user, Role Not Authorised');
             this._denyAccess(res);
         }
     }
@@ -96,21 +119,22 @@ class Security {
         return (req, res) => {
 
             const redirectInfo = self._getRedirectCookie(req);
+            req.log = logger(req.sessionID);
 
             if (!redirectInfo) {
-                logger.error('Redirect cookie is missing');
+                req.log.error('Redirect cookie is missing');
                 self._login(req, res);
             } else if (!req.query.code) {
-                logger.warn('No code received');
+                req.log.warn('No code received');
                 res.redirect(redirectInfo.continue_url);
             } else if (redirectInfo.state !== req.query.state) {
-                logger.error(`States do not match: ${redirectInfo.state} is not ${req.query.state}`);
+                req.log.error(`States do not match: ${redirectInfo.state} is not ${req.query.state}`);
                 self._denyAccess(res);
             } else {
                 self._getTokenFromCode(req)
                     .then(result => {
                         if (result.name === 'Error') {
-                            logger.error('Error while getting the access token');
+                            req.log.error('Error while getting the access token');
                             if (result.message === 'Unauthorized') {
                                 self._login(req, res);
                             } else {
@@ -118,6 +142,7 @@ class Security {
                             }
                         } else {
                             self._storeCookie(req, res, result[ACCESS_TOKEN_OAUTH2], SECURITY_COOKIE);
+                            req.session.expires = Date.now() + config.app.session.expires;
                             res.clearCookie(REDIRECT_COOKIE);
                             res.redirect(redirectInfo.continue_url);
                         }

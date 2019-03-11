@@ -12,7 +12,6 @@ let fetchJsonStub;
 
 describe('FeesCalculator', () => {
     describe('calc()', () => {
-
         beforeEach(() => {
             feesCalculator = new FeesCalculator('http://localhost', 'dummyId');
             fetchJsonStub = sinon.stub(Service.prototype, 'fetchJson');
@@ -27,27 +26,41 @@ describe('FeesCalculator', () => {
         it('should calculate probate fees for iht and both sets of copies', (done) => {
             formdata = {
                 iht: {
-                    netValue: 6000
+                    netValue: 60000
                 },
                 copies: {
-                    uk: 1,
-                    overseas: 2
+                    uk: 2,
+                    overseas: 3
                 }
             };
 
             feesLookupStub.onCall(0).returns(Promise.resolve({
                 'code': 'FEE0219',
-                'description': 'Application for a grant of probate (Estate over £5000)',
+                'description': 'Application for a grant of probate (Estate over £50000)',
                 'version': 3,
-                'fee_amount': 215
+                'fee_amount': 250
             }));
+
             feesLookupStub.onCall(1).returns(Promise.resolve({
+                'code': 'FEE0469',
+                'description': 'Copy of a document (10 pages or less). FEE AMOUNT = 10',
+                'version': 2,
+                'fee_amount': 10
+            }));
+            feesLookupStub.onCall(2).returns(Promise.resolve({
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
                 'fee_amount': 0.5
             }));
-            feesLookupStub.onCall(2).returns(Promise.resolve({
+
+            feesLookupStub.onCall(3).returns(Promise.resolve({
+                'code': 'FEE0469',
+                'description': 'Copy of a document (10 pages or less). FEE AMOUNT = 10',
+                'version': 2,
+                'fee_amount': 10
+            }));
+            feesLookupStub.onCall(4).returns(Promise.resolve({
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
@@ -56,13 +69,13 @@ describe('FeesCalculator', () => {
 
             const expectedResponse = {
                 status: 'success',
-                applicationfee: 215,
-                applicationvalue: 6000,
-                ukcopies: 1,
-                ukcopiesfee: 0.50,
-                overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 216.50
+                applicationfee: 250,
+                applicationvalue: 60000,
+                ukcopies: 2,
+                ukcopiesfee: 10.5,
+                overseascopies: 3,
+                overseascopiesfee: 11,
+                total: 271.50
             };
 
             fetchJsonStub.returns(Promise.resolve(''));
@@ -75,10 +88,10 @@ describe('FeesCalculator', () => {
 
         });
 
-        it('should calculate probate fees for iht < £5000 and both sets of copies', (done) => {
+        it('should calculate probate fees for iht < £50000 and both sets of copies', (done) => {
             formdata = {
                 iht: {
-                    netValue: 4000
+                    netValue: 40000
                 },
                 copies: {
                     uk: 1,
@@ -87,27 +100,39 @@ describe('FeesCalculator', () => {
             };
 
             feesLookupStub.onCall(0).returns(Promise.resolve({
+                'code': 'FEE0219',
+                'description': 'Application for a grant of probate (Estate less than £50000)',
+                'version': 3,
+                'fee_amount': 0
+            }));
+            feesLookupStub.onCall(1).returns(Promise.resolve({
+                'code': 'FEE0469',
+                'description': 'Copy of a document (10 pages or less). FEE AMOUNT = 10',
+                'version': 2,
+                'fee_amount': 10
+            }));
+            feesLookupStub.onCall(2).returns(Promise.resolve({
+                'code': 'FEE0469',
+                'description': 'Copy of a document (10 pages or less). FEE AMOUNT = 10',
+                'version': 2,
+                'fee_amount': 10
+            }));
+            feesLookupStub.onCall(3).returns(Promise.resolve({
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
                 'fee_amount': 0.5
             }));
-            feesLookupStub.onCall(1).returns(Promise.resolve({
-                'code': 'FEE0003',
-                'description': 'Additional copies of the grant representation',
-                'version': 3,
-                'fee_amount': 1
-            }));
 
             const expectedResponse = {
                 status: 'success',
                 applicationfee: 0,
-                applicationvalue: 4000,
+                applicationvalue: 40000,
                 ukcopies: 1,
-                ukcopiesfee: 0.50,
+                ukcopiesfee: 10,
                 overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 1.50
+                overseascopiesfee: 10.5,
+                total: 20.5
             };
 
             fetchJsonStub.returns(Promise.resolve(''));
@@ -121,10 +146,9 @@ describe('FeesCalculator', () => {
         });
 
         it('should handle errors when fees api service is unavailable', (done) => {
-
             formdata = {
                 iht: {
-                    netValue: 6000
+                    netValue: 60000
                 },
                 copies: {
                     uk: 1,
@@ -133,19 +157,22 @@ describe('FeesCalculator', () => {
             };
 
             feesLookupStub.onCall(0).returns(Promise.resolve(
-                'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=6000&applicant_type=personal&channel=default&event=issue&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'
+                'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=6000&applicant_type=all&channel=default&event=issue&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'
             ));
             feesLookupStub.onCall(1).returns(Promise.resolve(
-                'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=1&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'
+                'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=1&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate&keyword=DEF failed, reason: connect ECONNREFUSED 127.0.0.1:80'
             ));
             feesLookupStub.onCall(2).returns(Promise.resolve(
+                'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=1&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate&keyword=DEF failed, reason: connect ECONNREFUSED 127.0.0.1:80'
+            ));
+            feesLookupStub.onCall(3).returns(Promise.resolve(
                 'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=2&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'
             ));
 
             const expectedResponse = {
                 status: 'failed',
                 applicationfee: 0,
-                applicationvalue: 6000,
+                applicationvalue: 60000,
                 ukcopies: 1,
                 ukcopiesfee: 0,
                 overseascopies: 2,
@@ -163,10 +190,9 @@ describe('FeesCalculator', () => {
         });
 
         it('should handle errors when one of the fees api call is unavailable', (done) => {
-
             formdata = {
                 iht: {
-                    netValue: 6000
+                    netValue: 60000
                 },
                 copies: {
                     uk: 1,
@@ -177,28 +203,34 @@ describe('FeesCalculator', () => {
             feesLookupStub.onCall(0).returns(Promise.resolve({
                 'code': 'string',
                 'description': 'string',
-                'fee_amount': 0,
+                'fee_amount': 250,
                 'version': 0
             }));
             feesLookupStub.onCall(1).returns(Promise.resolve(
-                'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=1&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'
+                'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=1&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate&keyword=DEF failed, reason: connect ECONNREFUSED 127.0.0.1:80'
             ));
             feesLookupStub.onCall(2).returns(Promise.resolve({
+                'code': 'FEE0469',
+                'description': 'Copy of a document (10 pages or less). FEE AMOUNT = 10',
+                'version': 2,
+                'fee_amount': 10
+            }));
+            feesLookupStub.onCall(3).returns(Promise.resolve({
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 1
+                'fee_amount': 0.5
             }));
 
             const expectedResponse = {
                 status: 'failed',
-                applicationfee: 0,
-                applicationvalue: 6000,
+                applicationfee: 250,
+                applicationvalue: 60000,
                 ukcopies: 1,
                 ukcopiesfee: 0,
                 overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 1
+                overseascopiesfee: 10.5,
+                total: 260.5
             };
 
             fetchJsonStub.returns(Promise.resolve(''));
@@ -211,10 +243,9 @@ describe('FeesCalculator', () => {
         });
 
         it('should handle errors when one of the fees api call is not found', (done) => {
-
             formdata = {
                 iht: {
-                    netValue: 6000
+                    netValue: 60000
                 },
                 copies: {
                     uk: 1,
@@ -223,30 +254,36 @@ describe('FeesCalculator', () => {
             };
 
             feesLookupStub.onCall(0).returns(Promise.resolve({
-                'message': 'fee for code=LookupFeeDto(service=probate, jurisdiction1=family, jurisdiction2=probate registry, channel=default, event=issue, applicantType=personal, amountOrVolume=4000, unspecifiedClaimAmount=false, versionStatus=approved, author=null) was not found'
+                'message': 'fee for code=LookupFeeDto(service=probate, jurisdiction1=family, jurisdiction2=probate registry, channel=default, event=issue, applicantType=all, amountOrVolume=4000, unspecifiedClaimAmount=false, versionStatus=approved, author=null) was not found'
             }));
             feesLookupStub.onCall(1).returns(Promise.resolve({
-                'code': 'FEE0003',
-                'description': 'Additional copies of the grant representation',
-                'version': 3,
-                'fee_amount': 0.50
+                'code': 'FEE0469',
+                'description': 'Copy of a document (10 pages or less). FEE AMOUNT = 10',
+                'version': 2,
+                'fee_amount': 10
             }));
             feesLookupStub.onCall(2).returns(Promise.resolve({
+                'code': 'FEE0469',
+                'description': 'Copy of a document (10 pages or less). FEE AMOUNT = 10',
+                'version': 2,
+                'fee_amount': 10
+            }));
+            feesLookupStub.onCall(3).returns(Promise.resolve({
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 1
+                'fee_amount': 0.5
             }));
 
             const expectedResponse = {
                 status: 'failed',
                 applicationfee: 0,
-                applicationvalue: 6000,
+                applicationvalue: 60000,
                 ukcopies: 1,
-                ukcopiesfee: 0.50,
+                ukcopiesfee: 10,
                 overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 1.50
+                overseascopiesfee: 10.5,
+                total: 20.5
             };
 
             fetchJsonStub.returns(Promise.resolve(''));

@@ -84,8 +84,7 @@ const config = {
             paths: {
                 fees: '/fees',
                 feesLookup: '/fees/lookup'
-            },
-            ihtMinAmt: 5000
+            }
         }
 
     },

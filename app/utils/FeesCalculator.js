@@ -2,11 +2,10 @@
 
 const {get} = require('lodash');
 const FeesLookup = require('app/services/FeesLookup');
-const config = require('app/config');
 let feesLookup;
 const issuesData = {
     amount_or_volume: 0,
-    applicant_type: 'personal',
+    applicant_type: 'all',
     channel: 'default',
     event: 'issue',
     jurisdiction1: 'family',
@@ -21,12 +20,10 @@ const copiesData = {
     event: 'copies',
     jurisdiction1: 'family',
     jurisdiction2: 'probate registry',
-    service: 'probate',
-    keyword: 'DEF'
+    service: 'probate'
 };
 
 class FeesCalculator {
-
     constructor(endpoint, sessionId) {
         this.endpoint = endpoint;
         this.sessionId = sessionId;
@@ -39,7 +36,6 @@ class FeesCalculator {
         };
         return createCallsRequired(formdata, headers);
     }
-
 }
 
 async function createCallsRequired(formdata, headers) {
@@ -56,21 +52,20 @@ async function createCallsRequired(formdata, headers) {
 
     issuesData.amount_or_volume = get(formdata, 'iht.netValue', 0);
     returnResult.applicationvalue = issuesData.amount_or_volume;
-    if (issuesData.amount_or_volume > config.services.feesRegister.ihtMinAmt) {
-        await feesLookup.get(issuesData, headers)
-            .then((res) => {
-                if (identifyAnyErrors(res)) {
-                    returnResult.status = 'failed';
-                } else {
-                    returnResult.applicationfee += res.fee_amount;
-                    returnResult.total += res.fee_amount;
-                }
-            });
-    }
+    await feesLookup.get(issuesData, headers)
+        .then((res) => {
+            if (identifyAnyErrors(res)) {
+                returnResult.status = 'failed';
+            } else {
+                returnResult.applicationfee += res.fee_amount;
+                returnResult.total += res.fee_amount;
+            }
+        });
 
     copiesData.amount_or_volume = get(formdata, 'copies.uk', 0);
     returnResult.ukcopies = copiesData.amount_or_volume;
     if (copiesData.amount_or_volume > 0) {
+        copiesData.keyword = 'DEF';
         await feesLookup.get(copiesData, headers)
             .then((res) => {
                 if (identifyAnyErrors(res)) {
@@ -100,6 +95,7 @@ async function createCallsRequired(formdata, headers) {
     copiesData.amount_or_volume = get(formdata, 'copies.overseas', 0);
     returnResult.overseascopies = copiesData.amount_or_volume;
     if (copiesData.amount_or_volume > 0) {
+        copiesData.keyword = 'DEF';
         await feesLookup.get(copiesData, headers)
             .then((res) => {
                 if (identifyAnyErrors(res)) {
@@ -119,7 +115,7 @@ async function createCallsRequired(formdata, headers) {
                     if (identifyAnyErrors(res)) {
                         returnResult.status = 'failed';
                     } else {
-                        returnResult.ukcopiesfee += res.fee_amount;
+                        returnResult.overseascopiesfee += res.fee_amount;
                         returnResult.total += res.fee_amount;
                     }
                 });
@@ -134,7 +130,7 @@ async function createCallsRequired(formdata, headers) {
  * this caters for 404 type messages etc.
  */
 function identifyAnyErrors(res) {
-    if (res.fee_amount) {
+    if (res.fee_amount >= 0) {
         return false;
     }
     return true;

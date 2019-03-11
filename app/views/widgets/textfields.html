@@ -9,7 +9,7 @@
         {{ fieldError(field) }}
 
         <label class="form-label" for="{{id}}">{{text | safe}}</label>
-        <input type="text" class="form-control {{ 'form-control-error' if field.error }} form-control-3-4" id="{{id}}" name="{{name}}" value="{{field.value  | safe}}" maxlength="{{size}}" size="{{size}}">
+        <input type="text" class="form-control {{ 'form-control-error' if field.error }} form-control-3-4" id="{{id}}" name="{{name}}" value="{{field.value  | safe}}" maxlength="{{size}}">
     </div>
 {% endmacro %}
 

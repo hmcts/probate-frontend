@@ -6,58 +6,58 @@
     </h1>
     <table class="form-group">
         <tbody>
-        <tr>
-            <td colspan="2">
-                <div class="grid-row column-two-thirds">
-                    <div class="bold-medium">{{ content.applicationFee | safe }}</div>
-                </div>
-            </td>
-            <td class="change-answer">
-                <div class="font-medium">&pound;{{ fields.applicationFee.value | safe }}</div>
-            </td>
-        </tr>
-        {% if fields.copies.value.uk.cost > 0 %}
             <tr>
                 <td colspan="2">
                     <div class="grid-row column-two-thirds">
-                        <div class="bold-medium">
-                            {{ fields.copies.value.uk.number | safe }}
-                            {{ content.extraCopiesFeeUk | replace('{copiesNumber}', content.copy) | safe if fields.copies.value.uk.number === 1 }}
-                            {{ content.extraCopiesFeeUk | replace('{copiesNumber}', content.copies) | safe if fields.copies.value.uk.number > 1 }}
-                        </div>
+                        <div class="bold-medium">{{ content.applicationFee | safe }}</div>
                     </div>
                 </td>
-                <td>
-                    <div class="font-medium">&pound;{{ fields.copies.value.uk.cost.toFixed(2) }}</div>
+                <td class="change-answer">
+                    <div class="font-medium">&pound;{{ fields.applicationFee.value | safe }}</div>
                 </td>
             </tr>
-        {% endif %}
-        {% if fields.copies.value.overseas.cost > 0 %}
+            {% if fields.copies.value.uk.cost > 0 %}
+                <tr>
+                    <td colspan="2">
+                        <div class="grid-row column-two-thirds">
+                            <div class="bold-medium">
+                                {{ fields.copies.value.uk.number | safe }}
+                                {{ content.extraCopiesFeeUk | replace('{copiesNumber}', content.copy) | safe if fields.copies.value.uk.number === 1 }}
+                                {{ content.extraCopiesFeeUk | replace('{copiesNumber}', content.copies) | safe if fields.copies.value.uk.number > 1 }}
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="font-medium">&pound;{{ fields.copies.value.uk.cost.toFixed(2) }}</div>
+                    </td>
+                </tr>
+            {% endif %}
+            {% if fields.copies.value.overseas.cost > 0 %}
+                <tr>
+                    <td colspan="2">
+                        <div class="grid-row column-two-thirds">
+                            <div class="bold-medium">
+                                {{ fields.copies.value.overseas.number| safe }}
+                                {{ content.extraCopiesFeeOverseas | replace('{copiesNumber}', content.copy) | safe if fields.copies.value.overseas.number === 1 }}
+                                {{ content.extraCopiesFeeOverseas | replace('{copiesNumber}', content.copies) | safe if fields.copies.value.overseas.number > 1 }}
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="font-medium">&pound;{{ fields.copies.value.overseas.cost.toFixed(2) }}</div>
+                    </td>
+                </tr>
+            {% endif %}
             <tr>
                 <td colspan="2">
                     <div class="grid-row column-two-thirds">
-                        <div class="bold-medium">
-                            {{ fields.copies.value.overseas.number| safe }}
-                            {{ content.extraCopiesFeeOverseas | replace('{copiesNumber}', content.copy) | safe if fields.copies.value.overseas.number === 1 }}
-                            {{ content.extraCopiesFeeOverseas | replace('{copiesNumber}', content.copies) | safe if fields.copies.value.overseas.number > 1 }}
-                        </div>
+                        <div class="bold-medium">{{ content.total | safe }}</div>
                     </div>
                 </td>
                 <td>
-                    <div class="font-medium">&pound;{{ fields.copies.value.overseas.cost.toFixed(2) }}</div>
+                    <div class="font-medium">&pound;{{ fields.total.value }}</div>
                 </td>
             </tr>
-        {% endif %}
-        <tr>
-            <td colspan="2">
-                <div class="grid-row column-two-thirds">
-                    <div class="bold-medium">{{ content.total | safe }}</div>
-                </div>
-            </td>
-            <td>
-                <div class="font-medium">&pound;{{ fields.total.value }}</div>
-            </td>
-        </tr>
         </tbody>
     </table>
     <div class="form-group">

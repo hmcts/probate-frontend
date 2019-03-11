@@ -6,7 +6,7 @@ const config = require('app/config');
 let feesLookup;
 const issuesData = {
     amount_or_volume: 0,
-    applicant_type: 'personal',
+    applicant_type: 'all',
     channel: 'default',
     event: 'issue',
     jurisdiction1: 'family',

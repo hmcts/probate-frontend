@@ -1,6 +1,5 @@
 'use strict';
 
-const nock = require('nock');
 const config = require('app/config');
 const TestWrapper = require('test/util/TestWrapper');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
@@ -8,6 +7,15 @@ const IDAM_S2S_URL = config.services.idam.s2s_url;
 const sinon = require('sinon');
 const FeesCalculator = require('app/utils/FeesCalculator');
 let feesCalculator;
+
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+const feesApiFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.fees_api}`;
+const featureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(feesApiFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('payment-breakdown', () => {
     let testWrapper;
@@ -22,14 +30,15 @@ describe('payment-breakdown', () => {
         feesCalculator = sinon.stub(FeesCalculator.prototype, 'calc');
         feesCalculator.returns(Promise.resolve({
             status: 'success',
-            applicationfee: 215,
+            applicationfee: 250,
             applicationvalue: 6000,
             ukcopies: 1,
-            ukcopiesfee: 0.50,
+            ukcopiesfee: 10,
             overseascopies: 2,
-            overseascopiesfee: 1,
-            total: 216.50
+            overseascopiesfee: 10.5,
+            total: 270.50
         }));
+        featureTogglesNock();
     });
 
     afterEach(() => {
@@ -37,13 +46,14 @@ describe('payment-breakdown', () => {
         testWrapper.destroy();
         nock.cleanAll();
         feesCalculator.restore();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('PaymentBreakdown');
+        testHelpBlockContent.runTest('PaymentBreakdown', featureTogglesNock);
 
         it('test content loaded on the page with no extra copies', (done) => {
-            const contentToExclude = ['extraCopiesFeeUk', 'extraCopiesFeeJersey', 'extraCopiesFeeOverseas'];
+            const contentToExclude = ['extraCopiesFeeUk', 'extraCopiesFeeOverseas'];
             testWrapper.testContent(done, contentToExclude);
         });
 
@@ -54,7 +64,7 @@ describe('payment-breakdown', () => {
                     if (err) {
                         throw err;
                     }
-                    const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeOverseas'];
+                    const contentToExclude = ['extraCopiesFeeUk', 'extraCopiesFeeOverseas'];
                     testWrapper.testContent(done, contentToExclude);
                 });
         });
@@ -66,32 +76,34 @@ describe('payment-breakdown', () => {
                     if (err) {
                         throw err;
                     }
-                    const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeUk'];
+                    const contentToExclude = ['extraCopiesFeeUk', 'extraCopiesFeeOverseas'];
                     testWrapper.testContent(done, contentToExclude);
                 });
         });
 
         it('test error message displayed for failed authorisation', (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send({fees: {
-                    status: 'success',
-                    applicationfee: 215,
-                    applicationvalue: 6000,
-                    ukcopies: 1,
-                    ukcopiesfee: 0.50,
-                    overseascopies: 2,
-                    overseascopiesfee: 1,
-                    total: 216.50
-                }})
-                .end((err) => {
-                    if (err) {
-                        throw err;
-                    }
-                    // const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeUk'];
-                    const data = {};
-                    testWrapper.testErrors(done, data, 'failure', ['authorisation']);
+            testWrapper.agent.post('/prepare-session/featureToggles')
+                .send({fees_api: true})
+                .then(() => {
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send({fees: {
+                            status: 'success',
+                            applicationfee: 250,
+                            applicationvalue: 60000,
+                            ukcopies: 1,
+                            ukcopiesfee: 10,
+                            overseascopies: 2,
+                            overseascopiesfee: 10.5,
+                            total: 270.50
+                        }})
+                        .end((err) => {
+                            if (err) {
+                                throw err;
+                            }
+                            const data = {};
+                            testWrapper.testErrors(done, data, 'failure', ['authorisation']);
+                        });
                 });
-
         });
     });
 });

@@ -6,7 +6,7 @@ const config = require('app/config');
 let feesLookup;
 const issuesData = {
     amount_or_volume: 0,
-    applicant_type: 'all',
+    applicant_type: 'personal',
     channel: 'default',
     event: 'issue',
     jurisdiction1: 'family',
@@ -24,7 +24,7 @@ const copiesData = {
     service: 'probate'
 };
 
-class FeesCalculatorOld {
+class FeesCalculator {
     constructor(endpoint, sessionId) {
         this.endpoint = endpoint;
         this.sessionId = sessionId;
@@ -107,4 +107,4 @@ function identifyAnyErrors(res) {
     return true;
 }
 
-module.exports = FeesCalculatorOld;
+module.exports = FeesCalculator;

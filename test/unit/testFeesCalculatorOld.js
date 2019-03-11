@@ -1,7 +1,7 @@
 'use strict';
 
 const {expect} = require('chai');
-const FeesCalculator = require('app/utils/FeesCalculator');
+const FeesCalculator = require('app/utils/FeesCalculatorOld');
 const FeesLookup = require('app/services/FeesLookup');
 const sinon = require('sinon');
 const Service = require('app/services/Service');

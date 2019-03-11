@@ -1,0 +1,19 @@
+{% extends "includes/layout.html" %}
+
+{% set displaySignOutLink = 'false' %}
+
+{% block content %}
+
+<main id="content" role="main">
+    {% include "includes/phase_banner_beta.html" %}
+
+    <div class="column-two-thirds">
+        <h1 class="form-title heading-large">{{content.header | safe}}</h1>
+        <p>{{content.paragraph1 | safe}}</p>
+        <p>{{content.paragraph2 | safe}}</p>
+    </div>
+
+    {% include "includes/help_details.html" %}
+</main>
+
+{% endblock %}

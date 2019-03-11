@@ -7,11 +7,14 @@ const config = require('app/config');
 const oAuth2CallbackUrl = config.services.idam.probate_oauth_callback_path;
 const oAuth2TokenUrl = config.services.idam.probate_oauth_token_path;
 const TaskList = require('app/steps/ui/tasklist/index');
+const TimeoutPage = require('app/steps/ui/timeout/index');
 const nock = require('nock');
 
 describe('security', () => {
     const LOGIN_URL = 'https://localhost:8000/login';
     const expectedNextUrlForTaskList = TaskList.getUrl();
+    const expectedUrlForTimeoutPage = TimeoutPage.getUrl();
+    const SECURITY_COOKIE = '__auth-token-' + config.payloadVersion;
 
     it(`Redirects to login when idam returns 401 from Oauth2Token.post() request: ${LOGIN_URL}`, (done) => {
         nock(config.services.idam.apiUrl)
@@ -72,6 +75,29 @@ describe('security', () => {
                     done(err);
                 } else {
                     expect(res.headers.location).to.contain(LOGIN_URL);
+                    done();
+                }
+            });
+    }).timeout(5000);
+
+    it(`Redirects to timeout if no session is available: ${expectedUrlForTimeoutPage}`, (done) => {
+        nock(config.services.idam.apiUrl)
+            .get('/details')
+            .reply(200, {name: 'Success'});
+
+        config.app.useIDAM = 'true';
+        const server = app.init();
+        const agent = request.agent(server.app);
+        agent.get(expectedNextUrlForTaskList)
+            .set('Cookie', SECURITY_COOKIE + '=dummyToken')
+            .expect(302)
+            .end((err, res) => {
+                server.http.close();
+                config.app.useIDAM = 'false';
+                if (err) {
+                    done(err);
+                } else {
+                    expect(res.headers.location).to.contain(expectedUrlForTimeoutPage);
                     done();
                 }
             });

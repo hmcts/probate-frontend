@@ -40,7 +40,7 @@ exports.forceHttps = function(req, res, next) {
     next();
 };
 
-exports.getStore = (redisConfig, session) => {
+exports.getStore = (redisConfig, session, ttl) => {
     if (redisConfig.enabled === 'true') {
         const Redis = require('ioredis');
         const RedisStore = require('connect-redis')(session);
@@ -50,7 +50,7 @@ exports.getStore = (redisConfig, session) => {
         };
         const redisOptions = redisConfig.useTLS === 'true' ? tlsOptions : {};
         const client = new Redis(redisConfig.port, redisConfig.host, redisOptions);
-        return new RedisStore({client});
+        return new RedisStore({client, ttl});
     }
     const MemoryStore = require('express-session').MemoryStore;
     return new MemoryStore();

@@ -175,7 +175,7 @@ exports.init = function() {
             httpOnly: config.redis.cookie.httpOnly,
             sameSite: config.redis.cookie.sameSite
         },
-        store: utils.getStore(config.redis, session)
+        store: utils.getStore(config.redis, session, config.app.session.ttl)
     }));
 
     app.use((req, res, next) => {

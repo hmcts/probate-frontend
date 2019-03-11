@@ -53,18 +53,18 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 withPipeline("nodejs", product, component) {
- //  afterCheckout {
- //   onMaster {
- //     try {
- //       sh """
- //         git fetch origin demo:demo
- //         git push --force origin HEAD:demo
- //       """
- //           } catch (err) {
- //               notifyBuildEvent channel: notificationsChannel, color: 'warning', message: 'Failed to update demo branch'
- //           }
- //       }
-  //  }
+   afterCheckout {
+    onMaster {
+      try {
+        sh """
+          git fetch origin demo:demo
+          git push --force origin HEAD:demo
+        """
+            } catch (err) {
+                notifyBuildEvent channel: notificationsChannel, color: 'warning', message: 'Failed to update demo branch'
+            }
+        }
+    }
     after('build') {
         sh 'yarn setup'
     }
@@ -94,27 +94,28 @@ withPipeline("nodejs", product, component) {
   //if (env.CHANGE_TITLE && !env.CHANGE_TITLE.startsWith('[PREVIEW]')) {
     enableDockerBuild()
 //    installCharts()
-    enableDeployToAKS()
+//    enableDeployToAKS()
+      installCharts()
 //  }
   setVaultName('probate')
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
-  after('aksdeploy') {
-    def subscription = env.SUBSCRIPTION_NAME
-    def aksServiceName = "${product}-${component}-${env.BRANCH_NAME}".toLowerCase()
-    def aksDomain = "${(env.SUBSCRIPTION_NAME in ['nonprod', 'prod']) ? 'service.core-compute-preview.internal' : 'service.core-compute-saat.internal'}"
-
-    def kubectl = new Kubectl(this, subscription, aksServiceName)
-
-    def ingressIP = kubectl.getServiceLoadbalancerIP("traefik", "admin")
-
-    def consul = new Consul(this)
-
-    consul.registerDns("feature-toggle-api-${aksServiceName}", ingressIP)
-
-    env.FEATURE_TOGGLES_API_URL="https://feature-toggle-api-${aksServiceName}.${aksDomain}"
-    echo "${env.FEATURE_TOGGLES_API_URL}"
-  }
+//  after('aksdeploy') {
+//    def subscription = env.SUBSCRIPTION_NAME
+//    def aksServiceName = "${product}-${component}-${env.BRANCH_NAME}".toLowerCase()
+//    def aksDomain = "${(env.SUBSCRIPTION_NAME in ['nonprod', 'prod']) ? 'service.core-compute-preview.internal' : 'service.core-compute-saat.internal'}"
+//
+//    def kubectl = new Kubectl(this, subscription, aksServiceName)
+//
+//    def ingressIP = kubectl.getServiceLoadbalancerIP("traefik", "kube-system")
+//
+//    def consul = new Consul(this)
+//
+//    consul.registerDns("feature-toggle-api-${aksServiceName}", ingressIP)
+//
+//    env.FEATURE_TOGGLES_API_URL="https://feature-toggle-api-${aksServiceName}.${aksDomain}"
+//    echo "${env.FEATURE_TOGGLES_API_URL}"
+//  }
 
   after('functionalTest:aat') {
       publishHTML target: [

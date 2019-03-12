@@ -1,25 +1,54 @@
 {% extends "includes/two_thirds_form.html" %}
 
+{% from "widgets/lists.html" import unorderedList %}
 {% from "widgets/numbers.html" import numberField %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
+    {% if fields.isFeesApiToggleEnabled.value === 'true' %}
+        <h1 class="form-title heading-large">{{ content.question }}</h1>
+    {% else %}
+        <h1 class="form-title heading-large">{{ content.questionOld }}</h1>
+    {% endif %}
 {% endblock %}
 
 {% block form_content %}
-    <fieldset>
-        <legend class="visually-hidden">
-            {{ content.question | safe }}
-        </legend>
-        {{ numberField(
-            name = 'uk',
-            field = fields.uk,
-            text = content.copies,
-            size = 5,
-            width= '1-8',
-            currency = false
-        ) }}
-    </fieldset>
+    {% if fields.isFeesApiToggleEnabled.value === 'true' %}
+        <p>{{ content.paragraph1 | safe }}</p>
+        <p>{{ content.paragraph2 | safe }}</p>
+        <p>{{ content.paragraph3 | safe }}</p>
+        {{ unorderedList([
+            content.bullet1 | safe,
+            content.bullet2 | safe
+        ]) }}
+
+        <fieldset>
+            <legend class="visually-hidden">
+                {{ content.question | safe }}
+            </legend>
+            {{ numberField(
+                name = 'uk',
+                field = fields.uk,
+                text = content.copies,
+                size = 5,
+                width= '1-8',
+                currency = false
+            ) }}
+        </fieldset>
+    {% else %}
+        <fieldset>
+            <legend class="visually-hidden">
+                {{ content.questionOld | safe }}
+            </legend>
+            {{ numberField(
+                name = 'uk',
+                field = fields.uk,
+                text = content.copiesOld,
+                size = 5,
+                width= '1-8',
+                currency = false
+            ) }}
+        </fieldset>
+    {% endif %}
     <div class="form-group">
         <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>

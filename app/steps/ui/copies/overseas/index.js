@@ -1,6 +1,7 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
+const featureToggle = require('app/utils/FeatureToggle');
 
 class CopiesOverseas extends ValidationStep {
 
@@ -12,6 +13,12 @@ class CopiesOverseas extends ValidationStep {
         const ctx = super.getContextData(req);
         ctx.overseas = ctx.overseas ? parseInt(ctx.overseas): ctx.overseas;
         return ctx;
+    }
+
+    handleGet(ctx, formdata, featureToggles) {
+        ctx.isFeesApiToggleEnabled = featureToggle.isEnabled(featureToggles, 'fees_api');
+
+        return [ctx];
     }
 
     handlePost(ctx, errors) {

@@ -1,7 +1,11 @@
 {
   "title": "Copies - Outside the UK",
   "question": "How many copies of the grant do you need for use outside the UK?",
-  "copies": "Number of copies",
+  "paragraph1": "For extra copies you&rsquo;ll pay:",
+  "bullet1": "&pound;10 for the first copy",
+  "bullet2": "50 pence for every copy after that",
+  "copiesOld": "Number of copies",
+  "copies": "Number of international copies",
 
   "errors": {
     "overseas": {

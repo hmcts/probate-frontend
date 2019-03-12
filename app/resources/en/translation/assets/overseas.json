@@ -1,7 +1,7 @@
 {
   "title": "Did the person who died have assets outside the UK",
   "question": "Did {deceasedName} have assets outside the UK?",
-  "hint": "This could be shares or property that they held outside the UK. If they did, you need special copies of the grant of probate to use outside of the UK.",
+  "hint": "This could be shares or property outside the UK. If so, you may need a copy of the grant of probate for use outside the UK.",
   "optionYes": "Yes",
   "optionNo": "No",
   "legend": "Did {deceasedName} have assets outside the UK?",

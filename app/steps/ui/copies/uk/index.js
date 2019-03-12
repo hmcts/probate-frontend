@@ -1,6 +1,7 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
+const featureToggle = require('app/utils/FeatureToggle');
 
 class CopiesUk extends ValidationStep {
 
@@ -12,6 +13,12 @@ class CopiesUk extends ValidationStep {
         const ctx = super.getContextData(req);
         ctx.uk = ctx.uk ? parseInt(ctx.uk): ctx.uk;
         return ctx;
+    }
+
+    handleGet(ctx, formdata, featureToggles) {
+        ctx.isFeesApiToggleEnabled = featureToggle.isEnabled(featureToggles, 'fees_api');
+
+        return [ctx];
     }
 
     handlePost(ctx, errors) {

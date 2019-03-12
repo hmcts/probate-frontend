@@ -8,12 +8,13 @@ const app = require('app');
 const initSteps = require('app/core/initSteps');
 const {endsWith} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
+const stepsWithNoSuffixInTitle = [
+    'StartEligibility', 'StartApply'
+];
 const stepsToExclude = [
-    'StartEligibility', 'ApplicantExecutor', 'DeceasedDomicile', 'MentalCapacity', 'IhtCompleted', 'WillLeft', 'WillOriginal', 'StartApply',
-    'NewStartEligibility', 'NewApplicantExecutor', 'NewDeceasedDomicile', 'NewMentalCapacity', 'NewIhtCompleted', 'NewWillLeft', 'NewWillOriginal', 'NewStartApply',
-    'DiedAfterOctober2014', 'RelationshipToDeceased', 'OtherApplicants',
-    'Summary', 'TaskList', 'PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName',
-    'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied'
+    'Summary', 'TaskList', 'AddressLookup', 'AddAlias', 'RemoveAlias',
+    'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorNotified', 'ExecutorRoles', 'ExecutorsWhenDied',
+    'PinPage', 'PinSent', 'PinResend', 'PaymentStatus', 'PaymentBreakdown'
 ];
 const steps = initSteps.steps;
 const nock = require('nock');
@@ -25,13 +26,16 @@ Object.keys(steps)
 
 for (const step in steps) {
     ((step) => {
-
         let results;
 
         describe(`Verify accessibility for the page ${step.name}`, () => {
             let server = null;
             let agent = null;
-            const title = `${step.content.title} - ${commonContent.serviceName}`
+            let title = step.content.title;
+            if (!stepsWithNoSuffixInTitle.includes(step.name)) {
+                title += ` - ${commonContent.serviceName}`;
+            }
+            title = title
                 .replace(/&lsquo;/g, '‘')
                 .replace(/&rsquo;/g, '’')
                 .replace(/\(/g, '\\(')
@@ -41,10 +45,6 @@ for (const step in steps) {
                 nock(config.services.validation.url.replace('/validate', ''))
                     .get('/invites/allAgreed/undefined')
                     .reply(200, 'false');
-
-                nock(config.featureToggles.url)
-                    .get(`${config.featureToggles.path}/probate-fees-api`)
-                    .reply(200, 'true');
 
                 nock(config.featureToggles.url)
                     .get(`${config.featureToggles.path}/probate-intestacy-questions`)

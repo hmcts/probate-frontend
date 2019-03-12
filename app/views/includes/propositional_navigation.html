@@ -1,7 +1,9 @@
 <div class="header-proposition">
     <div class="content">
         <nav id="proposition-menu">
-            <a href="/" id="proposition-name">{% if serviceName %} {{ serviceName }} {% endif %}</a>
+            {% if serviceName %}
+                <a href="/" id="proposition-name">{{ serviceName }}</a>
+            {% endif %}
             {% if displaySignOutLink !== 'false' %}
                 <a href="/sign-out" id="sign-out-header">{{ common.signOut }}</a>
             {% endif %}

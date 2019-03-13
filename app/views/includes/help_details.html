@@ -6,7 +6,7 @@
             <p>{{ helpline.number | safe }}</p>
             <p>{{ common.contactOpeningTimes | replace('{openingTimes}', helpline.hours) }}</p>
             <h4 class="heading-small">{{common.helpHeading2 | safe}}</h4>
-                <p>{{ common.helpEmailLabel | replace('{contactEmailAddress}', links.contactEmailAddress) | safe }}</p>
+            <p>{{ common.helpEmailLabel | replace('{contactEmailAddress}', links.contactEmailAddress) | safe }}</p>
         </div>
     </details>
 {% endblock %}

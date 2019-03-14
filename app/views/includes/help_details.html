@@ -4,7 +4,7 @@
         <div class="panel panel-border-narrow">
             <h4 class="heading-small">{{common.helpHeading1 | safe}}</h4>
             <p>{{ helpline.number | safe }}</p>
-            <p>{{ common.contactOpeningTimes | replace('{openingTimes}', helpline.hours) }}</p>
+            <p>{{ common.contactOpeningTimes | replace('{openingTimes}', helpline.hours) | safe }}</p>
             <h4 class="heading-small">{{common.helpHeading2 | safe}}</h4>
             <p>{{ common.helpEmailLabel | replace('{contactEmailAddress}', links.contactEmailAddress) | safe }}</p>
         </div>

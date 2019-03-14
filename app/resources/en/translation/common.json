@@ -39,7 +39,6 @@
   "helpTitle" : "Contact us for help",
   "helpHeading1": "Telephone",
   "helpHeading2": "Email",
-  "helpText" : "You can call or email us if you&rsquo;re having problems with this service.",
   "contactOpeningTimes" : "{openingTimes}.",
   "helpEmailLabel" : "Email us at <a href=\"mailto:{contactEmailAddress}\">{contactEmailAddress}</a>",
   "or": "or",

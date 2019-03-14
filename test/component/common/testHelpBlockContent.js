@@ -19,11 +19,10 @@ class TestHelpBlockContent {
                     .then(() => {
                         const playbackData = {
                             helpTitle: common.helpTitle,
-                            helpText: common.helpText,
-                            contactTelLabel: common.contactTelLabel.replace('{helpLineNumber}', config.helpline.number),
+                            helpHeading1: common.helpHeading1,
+                            helpHeading2: common.helpHeading2,
                             contactOpeningTimes: common.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours),
-                            helpEmailLabel: common.helpEmailLabel,
-                            contactEmailAddress: common.contactEmailAddress
+                            helpEmailLabel: common.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
                         };
                         testWrapper.testDataPlayback(done, playbackData, cookies);
                     })

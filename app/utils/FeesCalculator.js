@@ -63,9 +63,9 @@ async function createCallsRequired(formdata, headers) {
             }
         });
 
-    copiesData.amount_or_volume = get(formdata, 'copies.uk', 0);
-    returnResult.ukcopies = copiesData.amount_or_volume;
-    if (copiesData.amount_or_volume > 0) {
+    returnResult.ukcopies = get(formdata, 'copies.uk', 0);
+    if (returnResult.ukcopies > 0) {
+        copiesData.amount_or_volume = 1;
         copiesData.keyword = 'DEF';
         await feesLookup.get(copiesData, headers)
             .then((res) => {
@@ -77,9 +77,8 @@ async function createCallsRequired(formdata, headers) {
                 }
             });
 
-        copiesData.amount_or_volume -= 1;
-
-        if (copiesData.amount_or_volume > 0) {
+        if (returnResult.ukcopies > 1) {
+            copiesData.amount_or_volume = returnResult.ukcopies - 1;
             delete copiesData.keyword;
             await feesLookup.get(copiesData, headers)
                 .then((res) => {
@@ -93,9 +92,9 @@ async function createCallsRequired(formdata, headers) {
         }
     }
 
-    copiesData.amount_or_volume = get(formdata, 'copies.overseas', 0);
-    returnResult.overseascopies = copiesData.amount_or_volume;
-    if (copiesData.amount_or_volume > 0) {
+    returnResult.overseascopies = get(formdata, 'copies.overseas', 0);
+    if (returnResult.overseascopies > 0) {
+        copiesData.amount_or_volume = 1;
         copiesData.keyword = 'DEF';
         await feesLookup.get(copiesData, headers)
             .then((res) => {
@@ -107,9 +106,8 @@ async function createCallsRequired(formdata, headers) {
                 }
             });
 
-        copiesData.amount_or_volume -= 1;
-
-        if (copiesData.amount_or_volume > 0) {
+        if (returnResult.overseascopies > 1) {
+            copiesData.amount_or_volume = returnResult.overseascopies - 1;
             delete copiesData.keyword;
             await feesLookup.get(copiesData, headers)
                 .then((res) => {

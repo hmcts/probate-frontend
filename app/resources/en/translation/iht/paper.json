@@ -4,12 +4,12 @@
   "optionIHT205": "IHT 205 - there was no inheritance tax to pay",
   "optionIHT207": "IHT 207 - there was no inheritance tax to pay and the person who died lived abroad",
   "optionIHT400421": "IHT 400 and 421",
-  "gross205": "Enter the number added in to box D on this form (gross value &pound;)",
-  "net205": "Enter the number added in to box F on this form (net value &pound;)",
-  "gross207": "Enter the number added in to box C (gross value &pound;)",
-  "net207": "Enter the number added in to box G (net value &pound;)",
-  "gross400": "Enter the number added to box 3 of the IHT 421 form (gross value in &pound;)",
-  "net400": "Enter the number added to box 5 of the IHT 421 form (net value in &pound;)",
+  "gross205": "Enter the number added to box D (gross value in pounds)",
+  "net205": "Enter the number added to box F (net value in pounds)",
+  "gross207": "Enter the number added to box C (gross value in pounds)",
+  "net207": "Enter the number added to box G (net value in pounds)",
+  "gross400": "Enter the number added to box 3 (gross value in pounds)",
+  "net400": "Enter the number added to box 5 (net value in pounds)",
   "421Info": "HMRC will process these forms and send them to the probate office for you.",
 
   "errors": {

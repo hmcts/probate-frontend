@@ -34,38 +34,11 @@ describe('FeesCalculator', () => {
                 }
             };
 
-            feesLookupStub.onCall(0).returns(Promise.resolve({
-                code: 'FEE0219',
-                description: 'Application for a grant of probate (Estate over £50000)',
-                version: 3,
-                fee_amount: 250
-            }));
-
-            feesLookupStub.onCall(1).returns(Promise.resolve({
-                code: 'FEE0469',
-                description: 'Copy of a document (10 pages or less). FEE AMOUNT = 10',
-                version: 2,
-                fee_amount: 10
-            }));
-            feesLookupStub.onCall(2).returns(Promise.resolve({
-                code: 'FEE0003',
-                description: 'Additional copies of the grant representation',
-                version: 3,
-                fee_amount: 0.5
-            }));
-
-            feesLookupStub.onCall(3).returns(Promise.resolve({
-                code: 'FEE0469',
-                description: 'Copy of a document (10 pages or less). FEE AMOUNT = 10',
-                version: 2,
-                fee_amount: 10
-            }));
-            feesLookupStub.onCall(4).returns(Promise.resolve({
-                code: 'FEE0003',
-                description: 'Additional copies of the grant representation',
-                version: 3,
-                fee_amount: 1
-            }));
+            feesLookupStub.onCall(0).returns(Promise.resolve({code: 'FEE0219', description: 'Application for a grant of probate (Estate over £50000)', version: 3, fee_amount: 250}));
+            feesLookupStub.onCall(1).returns(Promise.resolve({code: 'FEE0469', description: 'Copy of a document (10 pages or less). FEE AMOUNT = 10', version: 2, fee_amount: 10}));
+            feesLookupStub.onCall(2).returns(Promise.resolve({code: 'FEE0003', description: 'Additional copies of the grant representation', version: 3, fee_amount: 0.5}));
+            feesLookupStub.onCall(3).returns(Promise.resolve({code: 'FEE0469', description: 'Copy of a document (10 pages or less). FEE AMOUNT = 10', version: 2, fee_amount: 10}));
+            feesLookupStub.onCall(4).returns(Promise.resolve({code: 'FEE0003', description: 'Additional copies of the grant representation', version: 3, fee_amount: 1}));
 
             const expectedResponse = {
                 status: 'success',
@@ -99,30 +72,10 @@ describe('FeesCalculator', () => {
                 }
             };
 
-            feesLookupStub.onCall(0).returns(Promise.resolve({
-                code: 'FEE0219',
-                description: 'Application for a grant of probate (Estate less than £50000)',
-                version: 3,
-                fee_amount: 0
-            }));
-            feesLookupStub.onCall(1).returns(Promise.resolve({
-                code: 'FEE0469',
-                description: 'Copy of a document (10 pages or less). FEE AMOUNT = 10',
-                version: 2,
-                fee_amount: 10
-            }));
-            feesLookupStub.onCall(2).returns(Promise.resolve({
-                code: 'FEE0469',
-                description: 'Copy of a document (10 pages or less). FEE AMOUNT = 10',
-                version: 2,
-                fee_amount: 10
-            }));
-            feesLookupStub.onCall(3).returns(Promise.resolve({
-                code: 'FEE0003',
-                description: 'Additional copies of the grant representation',
-                version: 3,
-                fee_amount: 0.5
-            }));
+            feesLookupStub.onCall(0).returns(Promise.resolve({code: 'FEE0219', description: 'Application for a grant of probate (Estate less than £50000)', version: 3, fee_amount: 0}));
+            feesLookupStub.onCall(1).returns(Promise.resolve({code: 'FEE0469', description: 'Copy of a document (10 pages or less). FEE AMOUNT = 10', version: 2, fee_amount: 10}));
+            feesLookupStub.onCall(2).returns(Promise.resolve({code: 'FEE0469', description: 'Copy of a document (10 pages or less). FEE AMOUNT = 10', version: 2, fee_amount: 10}));
+            feesLookupStub.onCall(3).returns(Promise.resolve({code: 'FEE0003', description: 'Additional copies of the grant representation', version: 3, fee_amount: 0.5}));
 
             const expectedResponse = {
                 status: 'success',
@@ -253,27 +206,10 @@ describe('FeesCalculator', () => {
                 }
             };
 
-            feesLookupStub.onCall(0).returns(Promise.resolve({
-                'message': 'fee for code=LookupFeeDto(service=probate, jurisdiction1=family, jurisdiction2=probate registry, channel=default, event=issue, applicantType=all, amountOrVolume=4000, unspecifiedClaimAmount=false, versionStatus=approved, author=null) was not found'
-            }));
-            feesLookupStub.onCall(1).returns(Promise.resolve({
-                code: 'FEE0469',
-                description: 'Copy of a document (10 pages or less). FEE AMOUNT = 10',
-                version: 2,
-                fee_amount: 10
-            }));
-            feesLookupStub.onCall(2).returns(Promise.resolve({
-                code: 'FEE0469',
-                description: 'Copy of a document (10 pages or less). FEE AMOUNT = 10',
-                version: 2,
-                fee_amount: 10
-            }));
-            feesLookupStub.onCall(3).returns(Promise.resolve({
-                code: 'FEE0003',
-                description: 'Additional copies of the grant representation',
-                version: 3,
-                fee_amount: 0.5
-            }));
+            feesLookupStub.onCall(0).returns(Promise.resolve({'message': 'fee for code=LookupFeeDto(service=probate, jurisdiction1=family, jurisdiction2=probate registry, channel=default, event=issue, applicantType=all, amountOrVolume=4000, unspecifiedClaimAmount=false, versionStatus=approved, author=null) was not found'}));
+            feesLookupStub.onCall(1).returns(Promise.resolve({code: 'FEE0469', description: 'Copy of a document (10 pages or less). FEE AMOUNT = 10', version: 2, fee_amount: 10}));
+            feesLookupStub.onCall(2).returns(Promise.resolve({code: 'FEE0469', description: 'Copy of a document (10 pages or less). FEE AMOUNT = 10', version: 2, fee_amount: 10}));
+            feesLookupStub.onCall(3).returns(Promise.resolve({code: 'FEE0003', description: 'Additional copies of the grant representation', version: 3, fee_amount: 0.5}));
 
             const expectedResponse = {
                 status: 'failed',
@@ -306,24 +242,10 @@ describe('FeesCalculator', () => {
                 }
             };
 
-            feesLookupStub.onCall(0).returns(Promise.resolve({
-                code: 'FEE0219',
-                description: 'Application for a grant of probate (Estate over £50000)',
-                version: 3,
-                fee_amount: 250
-            }));
-            feesLookupStub.onCall(1).returns(Promise.resolve({
-                message: 'fee for code=LookupFeeDto(service=probate, jurisdiction1=family, jurisdiction2=probate registry, channel=default, event=copies, keyword=WTF, applicantType=all, amountOrVolume=1, unspecifiedClaimAmount=false, versionStatus=approved, author=null) was not found'
-            }));
-            feesLookupStub.onCall(2).returns(Promise.resolve({
-                message: 'fee for code=LookupFeeDto(service=probate, jurisdiction1=family, jurisdiction2=probate registry, channel=default, event=copies, keyword=WTF, applicantType=all, amountOrVolume=1, unspecifiedClaimAmount=false, versionStatus=approved, author=null) was not found'
-            }));
-            feesLookupStub.onCall(3).returns(Promise.resolve({
-                code: 'FEE0003',
-                description: 'Additional copies of the grant representation',
-                version: 3,
-                fee_amount: 0.5
-            }));
+            feesLookupStub.onCall(0).returns(Promise.resolve({code: 'FEE0219', description: 'Application for a grant of probate (Estate over £50000)', version: 3, fee_amount: 250}));
+            feesLookupStub.onCall(1).returns(Promise.resolve({message: 'fee for code=LookupFeeDto(service=probate, jurisdiction1=family, jurisdiction2=probate registry, channel=default, event=copies, keyword=WTF, applicantType=all, amountOrVolume=1, unspecifiedClaimAmount=false, versionStatus=approved, author=null) was not found'}));
+            feesLookupStub.onCall(2).returns(Promise.resolve({message: 'fee for code=LookupFeeDto(service=probate, jurisdiction1=family, jurisdiction2=probate registry, channel=default, event=copies, keyword=WTF, applicantType=all, amountOrVolume=1, unspecifiedClaimAmount=false, versionStatus=approved, author=null) was not found'}));
+            feesLookupStub.onCall(3).returns(Promise.resolve({code: 'FEE0003', description: 'Additional copies of the grant representation', version: 3, fee_amount: 0.5}));
 
             const expectedResponse = {
                 status: 'failed',

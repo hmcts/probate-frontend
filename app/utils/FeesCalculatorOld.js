@@ -24,7 +24,7 @@ const copiesData = {
     service: 'probate'
 };
 
-class FeesCalculator {
+class FeesCalculatorOld {
     constructor(endpoint, sessionId) {
         this.endpoint = endpoint;
         this.sessionId = sessionId;
@@ -107,4 +107,4 @@ function identifyAnyErrors(res) {
     return true;
 }
 
-module.exports = FeesCalculator;
+module.exports = FeesCalculatorOld;

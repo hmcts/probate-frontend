@@ -62,10 +62,6 @@
         additionalText: '{{ common.chatOnlineOpeningHours }}',
         onInit: function(bus) {
             window.bus = bus;
-            bus.publish('customer:set-info', {
-                'Logged In Id': '',
-                'Case Id': ''
-            });
 
             const chatContainer = document.querySelector('#' + window.__8x8Chat.buttonContainerId);
             const replaceChatLink = function() {

@@ -57,23 +57,22 @@
         path: '/.',
         buttonContainerId: 'chat-button-container',
         align: 'right',
-        stylesheetURL: 'https://cdn.jsdelivr.net/gh/hmcts/ctsc-web-chat/hmcts-webchat.css',
+        stylesheetURL: location.protocol + '//' + window.location.hostname + ':' + location.port + '/assets/hmcts-webchat.css',
         linkText: '{{ common.chatOnlineWithAnAgent }}',
         additionalText: '{{ common.chatOnlineOpeningHours }}',
-        onInit: (bus) => {
+        onInit: function(bus) {
             window.bus = bus;
             bus.publish('customer:set-info', {
-                'Logged In Id': 'Not logged in',
-                'Case Id': 'Not available'
+                'Logged In Id': '',
+                'Case Id': ''
             });
 
             const chatContainer = document.querySelector('#' + window.__8x8Chat.buttonContainerId);
-            const replaceChatLink = () => {
+            const replaceChatLink = function() {
                 const chatImg = document.querySelector('#' + window.__8x8Chat.buttonContainerId + ' img');
 
                 if (chatImg) {
                     const chatLink = document.querySelector('#' + window.__8x8Chat.buttonContainerId + ' a');
-
                     const br = document.createElement('br');
                     const additionalText = document.createTextNode(window.__8x8Chat.additionalText);
 
@@ -96,7 +95,7 @@
         }
     };
 
-    (() => {
+    (function() {
         const se = document.createElement('script');
         se.type = 'text/javascript';
         se.async = true;

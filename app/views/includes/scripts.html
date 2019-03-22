@@ -57,7 +57,7 @@
         path: '/.',
         buttonContainerId: 'chat-button-container',
         align: 'right',
-        stylesheetURL: location.protocol + '//' + window.location.hostname + ':' + location.port + '/assets/hmcts-webchat.css',
+        stylesheetURL: location.protocol === 'https' ? window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/assets/hmcts-webchat.css' : 'https://cdn.jsdelivr.net/gh/hmcts/ctsc-web-chat/assets/css/hmcts-webchat.css',
         linkText: '{{ common.chatOnlineWithAnAgent }}',
         additionalText: '{{ common.chatOnlineOpeningHours }}',
         onInit: function(bus) {

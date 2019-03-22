@@ -67,12 +67,12 @@
                 'Case Id': 'Not available'
             });
 
-            const chatContainer = document.querySelector(`#${window.__8x8Chat.buttonContainerId}`);
+            const chatContainer = document.querySelector('#' + window.__8x8Chat.buttonContainerId);
             const replaceChatLink = () => {
-                const chatImg = document.querySelector(`#${window.__8x8Chat.buttonContainerId} img`);
+                const chatImg = document.querySelector('#' + window.__8x8Chat.buttonContainerId + ' img');
 
                 if (chatImg) {
-                    const chatLink = document.querySelector(`#${window.__8x8Chat.buttonContainerId} a`);
+                    const chatLink = document.querySelector('#' + window.__8x8Chat.buttonContainerId + ' a');
 
                     const br = document.createElement('br');
                     const additionalText = document.createTextNode(window.__8x8Chat.additionalText);
@@ -100,7 +100,7 @@
         const se = document.createElement('script');
         se.type = 'text/javascript';
         se.async = true;
-        se.src = `${window.__8x8Chat.domain}${window.__8x8Chat.path}/CHAT/common/js/chat.js`;
+        se.src = window.__8x8Chat.domain + window.__8x8Chat.path + '/CHAT/common/js/chat.js';
 
         const os = document.getElementsByTagName('script')[0];
         os.parentNode.insertBefore(se, os);

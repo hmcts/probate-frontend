@@ -67,8 +67,6 @@ withPipeline("nodejs", product, component) {
     }
     after('build') {
         sh 'yarn setup'
-        sh 'curl -X PATCH  https://idam-api.aat.platform.hmcts.net/testing-support/services/${SERVICE_NAME}, ${SERVICE_NAME}'
-        //        sh 'curl -X PATCH  https://idam-api.aat.platform.hmcts.net/testing-support/services/${SERVICE_NAME} -H \'Content-Type: application/json\' -H \'cache-control: no-cache\' -d \'[{"operation":"add","field":"redirect_uri","value":"http://${env.SERVICE_FQDN}"}]\''
     }
     after('test') {
         if (env.CHANGE_BRANCH || env.BRANCH_NAME == 'master') {
@@ -86,6 +84,24 @@ withPipeline("nodejs", product, component) {
             dir('pact/bin') {
                 sh './pact-broker can-i-deploy --retry-while-unknown=12 --retry-interval=10 -a probate_frontend -b ${PACT_BROKER_URL} -e ${PACT_BROKER_VERSION}'
             }
+        }
+    }
+
+    before('smoketest:aks') {
+        // workaround to fix SIDAM whitelisting for PR AKS URLs
+        try {
+            def encodedServiceName = 'probate-frontend'
+            def aksUrlToWhitelist = env.TEST_URL + '/receiver'
+            sh('curl -X PATCH https://idam-api.aat.platform.hmcts.net/testing-support/services/' + encodedServiceName +
+                    ' -H \'Content-Type: application/json\'' +
+                    ' -H \'cache-control: no-cache\'' +
+                    ' -d \'[{' +
+                    '"operation":"add",' +
+                    '"field":"redirect_uri",' +
+                    '"value":"' + aksUrlToWhitelist + '"' +
+                    '}]\'')
+        } catch (err) {
+            notifyBuildEvent channel: notificationsChannel, color: 'warning', message: 'Failed to update SIDAM PR whitelisting'
         }
     }
 //    before('buildinfra:prod') {

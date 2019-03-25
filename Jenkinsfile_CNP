@@ -67,7 +67,7 @@ withPipeline("nodejs", product, component) {
     }
     after('build') {
         sh 'yarn setup'
-        sh 'curl -X PATCH  https://idam-api.aat.platform.hmcts.net/testing-support/services/${SERVICE_NAME}, ${SERVICE_NAME}'
+       // sh 'curl -X PATCH  https://idam-api.aat.platform.hmcts.net/testing-support/services/${SERVICE_NAME}, ${SERVICE_NAME}'
         //        sh 'curl -X PATCH  https://idam-api.aat.platform.hmcts.net/testing-support/services/${SERVICE_NAME} -H \'Content-Type: application/json\' -H \'cache-control: no-cache\' -d \'[{"operation":"add","field":"redirect_uri","value":"http://${env.SERVICE_FQDN}"}]\''
     }
     after('test') {

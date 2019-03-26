@@ -70,6 +70,12 @@ withPipeline("nodejs", product, component) {
     }
     after('test') {
       if (env.CHANGE_BRANCH || env.BRANCH_NAME == 'master') {
+          env.PACT_BRANCH_NAME = env.CHANGE_BRANCH
+          env.PACT_BROKER_URL = "https://pact-broker.platform.hmcts.net"
+          if (env.BRANCH_NAME == 'master') {
+              env.PACT_BRANCH_NAME = 'master'
+          }
+          env.PACT_BROKER_VERSION = sh(returnStdout: true, script: 'git rev-parse --verify --short HEAD')
           sh 'yarn test-pact'
           sh 'yarn publish-pact'
       }

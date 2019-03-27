@@ -40,7 +40,7 @@ probate_submit_service_url = "http://probate-submit-service-aat.service.core-com
 
 probate_persistence_service_url = "http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata"
 
-probate_fees_registry_service_url = "http://fees-register-api-demo.service.core-compute-demo.internal/fees-register"
+probate_fees_registry_service_url = "http://fees-register-api-aat.service.core-compute-aat.internal/fees-register"
 
 feature_toggles_api_url = "http://rpe-feature-toggle-api-aat.service.core-compute-aat.internal"
 asp_name = "probate-preview"

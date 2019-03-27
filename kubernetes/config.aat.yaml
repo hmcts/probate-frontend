@@ -16,6 +16,6 @@ data:
   SUBMIT_SERVICE_URL: 'http://probate-submit-service-aat.service.core-compute-aat.internal'
   PERSISTENCE_SERVICE_URL: 'http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata'
   REFORM_ENVIRONMENT : 'aat'
-  FEES_REGISTRY_URL: 'http://fees-register-api-aat.service.core-compute-aat.internal/fees-register'
+  FEES_REGISTRY_URL: 'http://fees-register-api-demo.service.core-compute-demo.internal/fees-register'
 #  CLAIM_STORE_URL: 'http://cmc-claim-store-aat.service.core-compute-aat.internal'
 #  DRAFT_STORE_URL: 'http://draft-store-service-aat.service.core-compute-aat.internal'

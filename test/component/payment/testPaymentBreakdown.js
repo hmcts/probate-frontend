@@ -87,15 +87,15 @@ describe('payment-breakdown', () => {
                 .then(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send({fees: {
-                                status: 'success',
-                                applicationfee: 250,
-                                applicationvalue: 60000,
-                                ukcopies: 1,
-                                ukcopiesfee: 10,
-                                overseascopies: 2,
-                                overseascopiesfee: 10.5,
-                                total: 270.50
-                            }})
+                            status: 'success',
+                            applicationfee: 250,
+                            applicationvalue: 60000,
+                            ukcopies: 1,
+                            ukcopiesfee: 10,
+                            overseascopies: 2,
+                            overseascopiesfee: 10.5,
+                            total: 270.50
+                        }})
                         .end((err) => {
                             if (err) {
                                 throw err;

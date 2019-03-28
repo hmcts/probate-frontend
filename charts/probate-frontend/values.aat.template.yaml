@@ -5,7 +5,7 @@ nodejs:
     SERVICES_PDF_SERVICE_URL : http://cmc-pdf-service-aat.service.core-compute-aat.internal
     SERVICES_AUTH_PROVIDER_BASEURL : http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
     DOCUMENT_MANAGEMENT_URL : http://dm-store-aat.service.core-compute-aat.internal
-    FEES_REGISTRY_URL: http://fees-register-api-aat.service.core-compute-aat.internal/fees-register
+    FEES_REGISTRY_URL: http://fees-register-api-demo.service.core-compute-demo.internal/fees-register
     IDAM_API_URL: https://idam-api.aat.platform.hmcts.net
     IDAM_URL: https://idam-api.aat.platform.hmcts.net
     IDAM_LOGIN_URL: https://idam-web-public.aat.platform.hmcts.net/login

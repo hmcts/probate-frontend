@@ -13,6 +13,7 @@ const config = require('app/config');
 const nock = require('nock');
 const sinon = require('sinon');
 const FeesCalculator = require('app/utils/FeesCalculator');
+const FeesCalculatorOld = require('app/utils/FeesCalculatorOld');
 
 describe('PaymentBreakdown', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
@@ -24,6 +25,65 @@ describe('PaymentBreakdown', () => {
         properties: {}
     };
     let feesCalculator;
+
+    describe('getContextData', () => {
+        it('should return the context with the deceased name', (done) => {
+            const PaymentBreakdown = steps.PaymentBreakdown;
+            const req = {
+                sessionID: 'dummy_sessionId',
+                authToken: 'dummy_token',
+                userId: 'dummy_userId',
+                session: {
+                    form: {
+                        journeyType: 'probate',
+                        deceased: {
+                            firstName: 'Dee',
+                            lastName: 'Ceased'
+                        }
+                    },
+                    featureToggles: {
+                        fees_api: true
+                    },
+                    journeyType: 'probate'
+                },
+                query: {
+                    status: 'dummy_status'
+                }
+            };
+
+            const ctx = PaymentBreakdown.getContextData(req);
+            expect(ctx).to.deep.equal({
+                authToken: 'dummy_token',
+                userId: 'dummy_userId',
+                deceasedLastName: 'Ceased',
+                paymentError: 'dummy_status',
+                journeyType: 'probate',
+                sessionID: 'dummy_sessionId',
+                isFeesApiToggleEnabled: true
+            });
+            done();
+        });
+    });
+
+    describe('getFeesCalculator', () => {
+        it('should return the correct fee calculator with the FT on', (done) => {
+            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
+            const ctx = {
+                sessionId: 'dummyId'
+            };
+            let feeCalc;
+
+            ctx.isFeesApiToggleEnabled = true;
+            feeCalc = paymentBreakdown.getFeesCalculator(ctx);
+            expect(feeCalc).to.be.an.instanceof(FeesCalculator);
+
+            ctx.isFeesApiToggleEnabled = false;
+            feeCalc = paymentBreakdown.getFeesCalculator(ctx);
+            expect(feeCalc).to.be.an.instanceof(FeesCalculatorOld);
+
+            done();
+        });
+    });
 
     describe('handlePost', () => {
         const successfulPaymentResponse = {
@@ -52,6 +112,7 @@ describe('PaymentBreakdown', () => {
         let ctxTestData;
         let errorsTestData;
         let session;
+        const feesApiToggleStatus = true;
 
         beforeEach(() => {
             expectedFormdata = {
@@ -87,7 +148,8 @@ describe('PaymentBreakdown', () => {
             };
             hostname = 'localhost';
             ctxTestData = {
-                total: 215
+                total: 215,
+                isFeesApiToggleEnabled: feesApiToggleStatus
             };
             errorsTestData = [];
             session = {
@@ -105,7 +167,11 @@ describe('PaymentBreakdown', () => {
                 .post('/submit')
                 .reply(200, submitResponse);
 
-            feesCalculator = sinon.stub(FeesCalculator.prototype, 'calc');
+            if (ctxTestData.isFeesApiToggleEnabled) {
+                feesCalculator = sinon.stub(FeesCalculator.prototype, 'calc');
+            } else {
+                feesCalculator = sinon.stub(FeesCalculatorOld.prototype, 'calc');
+            }
 
         });
 
@@ -158,7 +224,10 @@ describe('PaymentBreakdown', () => {
                     journey: journey
                 }
             };
-            let ctx = {total: 1};
+            let ctx = {
+                total: 1,
+                isFeesApiToggleEnabled: feesApiToggleStatus
+            };
             let errors = [];
             const formdata = {
                 paymentPending: 'unknown',
@@ -299,7 +368,8 @@ describe('PaymentBreakdown', () => {
                     total: 216.50,
                     paymentId: 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
                     paymentCreatedDate: '2018-08-29T15:25:11.920+0000',
-                    paymentReference: 1234
+                    paymentReference: 1234,
+                    isFeesApiToggleEnabled: feesApiToggleStatus
                 });
                 revert();
                 done();
@@ -374,7 +444,8 @@ describe('PaymentBreakdown', () => {
                     total: 216.50,
                     paymentId: 'CODE4$$$Hill4314$$$CODE5$$$CODE2/100',
                     paymentReference: 1234,
-                    paymentCreatedDate: '2018-08-29T15:25:11.920+0000'
+                    paymentCreatedDate: '2018-08-29T15:25:11.920+0000',
+                    isFeesApiToggleEnabled: feesApiToggleStatus
                 });
                 revert();
                 done();
@@ -437,7 +508,9 @@ describe('PaymentBreakdown', () => {
                             cost: 1,
                             number: 2
                         }
-                    }});
+                    },
+                    isFeesApiToggleEnabled: feesApiToggleStatus
+                });
                 expect(errors).to.deep.equal([{
                     param: 'submit',
                     msg: {

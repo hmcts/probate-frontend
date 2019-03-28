@@ -20,7 +20,11 @@
             <tr>
                 <td colspan="2">
                     <div class="grid-row column-two-thirds">
-                        <div class="bold-medium"> {{ fields.copies.value.uk.number | safe }} {{ content.extraCopiesFeeUk | safe }}</div>
+                        <div class="bold-medium">
+                            {{ fields.copies.value.uk.number | safe }}
+                            {{ content.extraCopiesFeeUk | replace('{copiesNumber}', content.copy) | safe if fields.copies.value.uk.number === 1 }}
+                            {{ content.extraCopiesFeeUk | replace('{copiesNumber}', content.copies) | safe if fields.copies.value.uk.number > 1 }}
+                        </div>
                     </div>
                 </td>
                 <td>
@@ -32,7 +36,11 @@
             <tr>
                 <td colspan="2">
                     <div class="grid-row column-two-thirds">
-                        <div class="bold-medium"> {{ fields.copies.value.overseas.number| safe }} {{ content.extraCopiesFeeOverseas | safe }}</div>
+                        <div class="bold-medium">
+                            {{ fields.copies.value.overseas.number| safe }}
+                            {{ content.extraCopiesFeeOverseas | replace('{copiesNumber}', content.copy) | safe if fields.copies.value.overseas.number === 1 }}
+                            {{ content.extraCopiesFeeOverseas | replace('{copiesNumber}', content.copies) | safe if fields.copies.value.overseas.number > 1 }}
+                        </div>
                     </div>
                 </td>
                 <td>

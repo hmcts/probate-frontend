@@ -2,6 +2,7 @@
 
 const {get} = require('lodash');
 const FeesLookup = require('app/services/FeesLookup');
+const config = require('app/config');
 let feesLookup;
 const issuesData = {
     amount_or_volume: 0,
@@ -10,8 +11,7 @@ const issuesData = {
     event: 'issue',
     jurisdiction1: 'family',
     jurisdiction2: 'probate registry',
-    service: 'probate',
-    keyword: 'pro1'
+    service: 'probate'
 };
 
 const copiesData = {
@@ -24,7 +24,7 @@ const copiesData = {
     service: 'probate'
 };
 
-class FeesCalculator {
+class FeesCalculatorOld {
     constructor(endpoint, sessionId) {
         this.endpoint = endpoint;
         this.sessionId = sessionId;
@@ -53,72 +53,44 @@ async function createCallsRequired(formdata, headers) {
 
     issuesData.amount_or_volume = get(formdata, 'iht.netValue', 0);
     returnResult.applicationvalue = issuesData.amount_or_volume;
-    await feesLookup.get(issuesData, headers)
-        .then((res) => {
-            if (identifyAnyErrors(res)) {
-                returnResult.status = 'failed';
-            } else {
-                returnResult.applicationfee += res.fee_amount;
-                returnResult.total += res.fee_amount;
-            }
-        });
-
-    returnResult.ukcopies = get(formdata, 'copies.uk', 0);
-    if (returnResult.ukcopies > 0) {
-        copiesData.amount_or_volume = 1;
-        copiesData.keyword = 'DEF';
-        await feesLookup.get(copiesData, headers)
+    if (issuesData.amount_or_volume > config.services.feesRegister.ihtMinAmt) {
+        await feesLookup.get(issuesData, headers)
             .then((res) => {
                 if (identifyAnyErrors(res)) {
                     returnResult.status = 'failed';
                 } else {
-                    returnResult.ukcopiesfee += res.fee_amount;
+                    returnResult.applicationfee = res.fee_amount;
                     returnResult.total += res.fee_amount;
                 }
             });
-
-        if (returnResult.ukcopies > 1) {
-            copiesData.amount_or_volume = returnResult.ukcopies - 1;
-            delete copiesData.keyword;
-            await feesLookup.get(copiesData, headers)
-                .then((res) => {
-                    if (identifyAnyErrors(res)) {
-                        returnResult.status = 'failed';
-                    } else {
-                        returnResult.ukcopiesfee += res.fee_amount;
-                        returnResult.total += res.fee_amount;
-                    }
-                });
-        }
     }
 
-    returnResult.overseascopies = get(formdata, 'copies.overseas', 0);
-    if (returnResult.overseascopies > 0) {
-        copiesData.amount_or_volume = 1;
-        copiesData.keyword = 'DEF';
+    copiesData.amount_or_volume = get(formdata, 'copies.uk', 0);
+    returnResult.ukcopies = copiesData.amount_or_volume;
+    if (copiesData.amount_or_volume > 0) {
         await feesLookup.get(copiesData, headers)
             .then((res) => {
                 if (identifyAnyErrors(res)) {
                     returnResult.status = 'failed';
                 } else {
-                    returnResult.overseascopiesfee += res.fee_amount;
+                    returnResult.ukcopiesfee = res.fee_amount;
                     returnResult.total += res.fee_amount;
                 }
             });
+    }
 
-        if (returnResult.overseascopies > 1) {
-            copiesData.amount_or_volume = returnResult.overseascopies - 1;
-            delete copiesData.keyword;
-            await feesLookup.get(copiesData, headers)
-                .then((res) => {
-                    if (identifyAnyErrors(res)) {
-                        returnResult.status = 'failed';
-                    } else {
-                        returnResult.overseascopiesfee += res.fee_amount;
-                        returnResult.total += res.fee_amount;
-                    }
-                });
-        }
+    copiesData.amount_or_volume = get(formdata, 'copies.overseas', 0);
+    returnResult.overseascopies = copiesData.amount_or_volume;
+    if (copiesData.amount_or_volume > 0) {
+        await feesLookup.get(copiesData, headers)
+            .then((res) => {
+                if (identifyAnyErrors(res)) {
+                    returnResult.status = 'failed';
+                } else {
+                    returnResult.overseascopiesfee = res.fee_amount;
+                    returnResult.total += res.fee_amount;
+                }
+            });
     }
 
     return returnResult;
@@ -129,10 +101,10 @@ async function createCallsRequired(formdata, headers) {
  * this caters for 404 type messages etc.
  */
 function identifyAnyErrors(res) {
-    if (res.fee_amount >= 0) {
+    if (res.fee_amount) {
         return false;
     }
     return true;
 }
 
-module.exports = FeesCalculator;
+module.exports = FeesCalculatorOld;

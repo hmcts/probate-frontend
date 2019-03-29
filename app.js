@@ -139,7 +139,7 @@ exports.init = function() {
 
     app.use(helmet.xssFilter({setOnOldIE: true}));
 
-    app.use('/assets', express.static(`${__dirname}/node_modules/@hmcts/ctsc-web-chat/assets/css`));
+    app.use('/webchat', express.static(`${__dirname}/node_modules/@hmcts/ctsc-web-chat/assets`));
 
     // Middleware to serve static assets
     app.use('/public/stylesheets', express.static(`${__dirname}/public/stylesheets`));

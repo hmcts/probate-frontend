@@ -48,56 +48,13 @@
 <script src="/public/javascripts/form-polyfill.js"></script>
 <![endif]-->
 
-<script scr="http://vcc-eu4.8x8.com/" nonce="{{ nonce }}">
-    window.__8x8Chat = {
+<script src="/webchat/javascript/hmcts-webchat.js"></script>
+<script nonce="{{ nonce }}">
+    webchat_init({
         uuid: 'script_4860291385c640afb2487b9.55856720',
         tenant: 'aG1jdHNzdGFnaW5nMDE',
         channel: 'Probate',
-        domain: 'https://vcc-eu4.8x8.com',
-        path: '/.',
-        buttonContainerId: 'chat-button-container',
-        align: 'right',
-        stylesheetURL: location.protocol === 'https' ? window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/assets/hmcts-webchat.css' : 'https://cdn.jsdelivr.net/gh/hmcts/ctsc-web-chat/assets/css/hmcts-webchat.css',
         linkText: '{{ common.chatOnlineWithAnAgent }}',
-        additionalText: '{{ common.chatOnlineOpeningHours }}',
-        onInit: function(bus) {
-            window.bus = bus;
-
-            const chatContainer = document.querySelector('#' + window.__8x8Chat.buttonContainerId);
-            const replaceChatLink = function() {
-                const chatImg = document.querySelector('#' + window.__8x8Chat.buttonContainerId + ' img');
-
-                if (chatImg) {
-                    const chatLink = document.querySelector('#' + window.__8x8Chat.buttonContainerId + ' a');
-                    const br = document.createElement('br');
-                    const additionalText = document.createTextNode(window.__8x8Chat.additionalText);
-
-                    chatLink.innerHTML = null;
-                    chatLink.innerText = window.__8x8Chat.linkText;
-
-                    chatContainer.appendChild(br);
-                    chatContainer.appendChild(additionalText);
-                }
-            };
-
-            if (chatContainer) {
-                replaceChatLink();
-
-                const mutationObserver = new MutationObserver(replaceChatLink);
-                mutationObserver.observe(chatContainer, {
-                    childList: true,
-                });
-            }
-        }
-    };
-
-    (function() {
-        const se = document.createElement('script');
-        se.type = 'text/javascript';
-        se.async = true;
-        se.src = window.__8x8Chat.domain + window.__8x8Chat.path + '/CHAT/common/js/chat.js';
-
-        const os = document.getElementsByTagName('script')[0];
-        os.parentNode.insertBefore(se, os);
-    })();
+        additionalText: '{{ common.chatOnlineOpeningHours }}'
+    });
 </script>

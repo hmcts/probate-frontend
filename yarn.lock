@@ -16,9 +16,9 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@hmcts/ctsc-web-chat@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@hmcts/ctsc-web-chat/-/ctsc-web-chat-0.1.3.tgz#afb5734bf01992171d3706134d8e329445e702da"
+"@hmcts/ctsc-web-chat@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@hmcts/ctsc-web-chat/-/ctsc-web-chat-0.1.5.tgz#ec41879fe02576edb4e972ff2f5e1e130ed5b74c"
 
 "@hmcts/nodejs-logging@^3.0.0":
   version "3.0.0"

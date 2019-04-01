@@ -9,7 +9,8 @@
 {% block page_content %}
     <p>{{ content.paragraph1 }}</p>
     <div class="panel panel-border-wide">
-        <p>{{ content.help }}</p>
+        <p>{{ content.help1 | safe }}</p>
+        <p>{{ content.help2 | safe }}</p>
     </div>
     <details class="help-panel">
         <summary><span class="summary">{{ content.stepsTitle }}</span></summary>

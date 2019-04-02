@@ -94,7 +94,7 @@ withPipeline("nodejs", product, component) {
   //if (env.CHANGE_TITLE && !env.CHANGE_TITLE.startsWith('[PREVIEW]')) {
     enableDockerBuild()
 //    installCharts()
-//    enableDeployToAKS()
+////    enableDeployToAKS()
       installCharts()
     before('smoketest:aks') {
         // workaround to fix SIDAM whitelisting for PR AKS URLs

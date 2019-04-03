@@ -28,18 +28,18 @@
                     <p>{{ content.saveParagraph1 }}</p>
                     {% if fields.checkAnswersSummary.value === 'true' %}
                         <p class="save-this-page-link">
-                            <i class="icon icon-file-download"></i>
+                            <em class="icon icon-file-download"></em>
                             <a class="anchor-margin-left" id="checkAnswerHref" href="/check-answers-pdf">{{ content.checkAnswersPdf }}</a>
                         </p>
                     {% endif %}
                     {% if fields.legalDeclaration.value === 'true' %}
                         <p>
-                            <i class="icon icon-file-download"></i>
+                            <em class="icon icon-file-download"></em>
                             <a class="anchor-margin-left" id="declarationPdfHref" href="/declaration-pdf">{{ content.declarationPdf }}</a>
                         </p>
                     {% endif %}
                     <p>
-                        <i class="icon icon-file-download"></i>
+                        <em class="icon icon-file-download"></em>
                         <a class="anchor-margin-left" id="coverSheetPdfHref" href="/cover-sheet-pdf">{{ content.coverSheetPdf }}</a>
                     </p>
                 </div>

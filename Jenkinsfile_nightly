@@ -63,7 +63,11 @@ withNightlyPipeline("nodejs", product, component) {
     loadVaultSecrets(secrets)
     enableFullFunctionalTest()
     enableSecurityScan()
-
+    after('build') {
+        sh 'mkdir -p functional-output'
+        sh 'yarn setup'
+        sh 'yarn test-accessibility'
+    }  
     after('fullFunctionalTest') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
     }

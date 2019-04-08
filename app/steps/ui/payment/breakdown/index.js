@@ -9,7 +9,6 @@ const ServiceMapper = require('app/utils/ServiceMapper');
 const Payment = require('app/services/Payment');
 const Authorise = require('app/services/Authorise');
 const FeesCalculator = require('app/utils/FeesCalculator');
-const FeesCalculatorOld = require('app/utils/FeesCalculatorOld');
 const FeatureToggle = require('app/utils/FeatureToggle');
 
 class PaymentBreakdown extends Step {
@@ -55,16 +54,9 @@ class PaymentBreakdown extends Step {
         return ctx;
     }
 
-    getFeesCalculator(ctx) {
-        if (ctx.isFeesApiToggleEnabled) {
-            return new FeesCalculator(config.services.feesRegister.url, ctx.sessionID);
-        }
-        return new FeesCalculatorOld(config.services.feesRegister.url, ctx.sessionID);
-    }
-
     * handlePost(ctx, errors, formdata, session, hostname) {
-        const feesCalculator = this.getFeesCalculator(ctx);
-        const confirmFees = yield feesCalculator.calc(formdata, ctx.authToken);
+        const feesCalculator = new FeesCalculator(config.services.feesRegister.url, ctx.sessionID);
+        const confirmFees = yield feesCalculator.calc(formdata, ctx.authToken, ctx.isFeesApiToggleEnabled);
         this.checkFeesStatus(confirmFees);
         const originalFees = formdata.fees;
         if (confirmFees.total !== originalFees.total) {
@@ -142,7 +134,6 @@ class PaymentBreakdown extends Step {
                 } else {
                     logger.warn('Skipping - create payment request in progress');
                 }
-
             } else {
                 formdata.paymentPending = ctx.total === 0 ? 'false' : 'true';
                 delete this.nextStepUrl;

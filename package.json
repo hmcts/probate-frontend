@@ -35,7 +35,7 @@
     "test:coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/unit/test*.js' './test/component/**/test*.js'",
     "test-coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/**/test*.js'",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner",
-    "sonar-scan": "node_modules/sonar-scanner/bin/sonar-scanner -Dsonar.projectName='Probate :: frontend' -Dsonar.sources=app -Dsonar.cpd.exclusions=app/steps/** -Dsonar.exclusions=app/views/widgets/** -Dsonar.exclusions=app/utils/FeesCalculatorOld.js -Dsonar.language=js -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info",
+    "sonar-scan": "node_modules/sonar-scanner/bin/sonar-scanner -Dsonar.projectName='Probate :: frontend' -Dsonar.sources=app -Dsonar.cpd.exclusions=app/steps/** -Dsonar.exclusions=app/views/widgets/** -Dsonar.language=js -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info",
     "git-info": "node-git-info-json",
     "//": "The below scripts are just stubs, don't use them in production",
     "s2s-stub": "NODE_PATH=. node test/service-stubs/idam.js",

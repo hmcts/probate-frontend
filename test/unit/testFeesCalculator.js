@@ -1,3 +1,5 @@
+// eslint-disable-line max-lines
+
 'use strict';
 
 const {expect} = require('chai');
@@ -5,7 +7,6 @@ const FeesCalculator = require('app/utils/FeesCalculator');
 const FeesLookup = require('app/services/FeesLookup');
 const sinon = require('sinon');
 const Service = require('app/services/Service');
-let feesCalculator;
 let formdata;
 let feesLookupStub;
 let fetchJsonStub;
@@ -13,7 +14,6 @@ let fetchJsonStub;
 describe('FeesCalculator', () => {
     describe('calc()', () => {
         beforeEach(() => {
-            feesCalculator = new FeesCalculator('http://localhost', 'dummyId');
             fetchJsonStub = sinon.stub(Service.prototype, 'fetchJson');
             feesLookupStub = sinon.stub(FeesLookup.prototype, 'get');
         });
@@ -23,7 +23,9 @@ describe('FeesCalculator', () => {
             feesLookupStub.restore();
         });
 
-        it('should calculate probate fees for iht and both sets of copies', (done) => {
+        it('FT ON - should calculate probate fees for iht and both sets of copies', (done) => {
+            const feesApiFeatureToggle = true;
+            const feesCalculator = new FeesCalculator('http://localhost');
             formdata = {
                 iht: {
                     netValue: 60000
@@ -53,15 +55,52 @@ describe('FeesCalculator', () => {
 
             fetchJsonStub.returns(Promise.resolve(''));
 
-            feesCalculator.calc(formdata, 'dummyToken')
+            feesCalculator.calc(formdata, 'dummyToken', feesApiFeatureToggle)
                 .then((res) => {
                     expect(res).to.deep.equal(expectedResponse);
                     done();
                 });
+        });
+        it('FT OFF - should calculate probate fees for iht and both sets of copies', (done) => {
+            const feesApiFeatureToggle = false;
+            const feesCalculator = new FeesCalculator('http://localhost');
+            formdata = {
+                iht: {
+                    netValue: 6000
+                },
+                copies: {
+                    uk: 1,
+                    overseas: 2
+                }
+            };
 
+            feesLookupStub.onCall(0).returns(Promise.resolve({code: 'FEE0219', description: 'Application for a grant of probate (Estate over £5000)', version: 3, fee_amount: 215}));
+            feesLookupStub.onCall(1).returns(Promise.resolve({code: 'FEE0003', description: 'Additional copies of the grant representation', version: 3, fee_amount: 0.5}));
+            feesLookupStub.onCall(2).returns(Promise.resolve({code: 'FEE0003', description: 'Additional copies of the grant representation', version: 3, fee_amount: 1}));
+
+            const expectedResponse = {
+                status: 'success',
+                applicationfee: 215,
+                applicationvalue: 6000,
+                ukcopies: 1,
+                ukcopiesfee: 0.50,
+                overseascopies: 2,
+                overseascopiesfee: 1,
+                total: 216.50
+            };
+
+            fetchJsonStub.returns(Promise.resolve(''));
+
+            feesCalculator.calc(formdata, 'dummyToken', feesApiFeatureToggle)
+                .then((res) => {
+                    expect(res).to.deep.equal(expectedResponse);
+                    done();
+                });
         });
 
-        it('should calculate probate fees for iht < £50000 and both sets of copies', (done) => {
+        it('FT ON - should calculate probate fees for iht < £50000 and both sets of copies', (done) => {
+            const feesApiFeatureToggle = true;
+            const feesCalculator = new FeesCalculator('http://localhost');
             formdata = {
                 iht: {
                     netValue: 40000
@@ -90,15 +129,51 @@ describe('FeesCalculator', () => {
 
             fetchJsonStub.returns(Promise.resolve(''));
 
-            feesCalculator.calc(formdata, 'dummyToken')
+            feesCalculator.calc(formdata, 'dummyToken', feesApiFeatureToggle)
                 .then((res) => {
                     expect(res).to.deep.equal(expectedResponse);
                     done();
                 });
+        });
+        it('FT OFF - should calculate probate fees for iht < £5000 and both sets of copies', (done) => {
+            const feesApiFeatureToggle = false;
+            const feesCalculator = new FeesCalculator('http://localhost');
+            formdata = {
+                iht: {
+                    netValue: 4000
+                },
+                copies: {
+                    uk: 1,
+                    overseas: 2
+                }
+            };
 
+            feesLookupStub.onCall(0).returns(Promise.resolve({code: 'FEE0003', description: 'Additional copies of the grant representation', version: 3, fee_amount: 0.5}));
+            feesLookupStub.onCall(1).returns(Promise.resolve({code: 'FEE0003', description: 'Additional copies of the grant representation', version: 3, fee_amount: 1}));
+
+            const expectedResponse = {
+                status: 'success',
+                applicationfee: 0,
+                applicationvalue: 4000,
+                ukcopies: 1,
+                ukcopiesfee: 0.50,
+                overseascopies: 2,
+                overseascopiesfee: 1,
+                total: 1.50
+            };
+
+            fetchJsonStub.returns(Promise.resolve(''));
+
+            feesCalculator.calc(formdata, 'dummyToken', feesApiFeatureToggle)
+                .then((res) => {
+                    expect(res).to.deep.equal(expectedResponse);
+                    done();
+                });
         });
 
-        it('should handle errors when fees api service is unavailable', (done) => {
+        it('FT ON - should handle errors when fees api service is unavailable', (done) => {
+            const feesApiFeatureToggle = true;
+            const feesCalculator = new FeesCalculator('http://localhost');
             formdata = {
                 iht: {
                     netValue: 60000
@@ -109,18 +184,10 @@ describe('FeesCalculator', () => {
                 }
             };
 
-            feesLookupStub.onCall(0).returns(Promise.resolve(
-                'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=6000&applicant_type=all&channel=default&event=issue&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'
-            ));
-            feesLookupStub.onCall(1).returns(Promise.resolve(
-                'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=1&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate&keyword=DEF failed, reason: connect ECONNREFUSED 127.0.0.1:80'
-            ));
-            feesLookupStub.onCall(2).returns(Promise.resolve(
-                'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=1&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate&keyword=DEF failed, reason: connect ECONNREFUSED 127.0.0.1:80'
-            ));
-            feesLookupStub.onCall(3).returns(Promise.resolve(
-                'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=2&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'
-            ));
+            feesLookupStub.onCall(0).returns(Promise.resolve('Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=6000&applicant_type=all&channel=default&event=issue&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'));
+            feesLookupStub.onCall(1).returns(Promise.resolve('Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=1&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate&keyword=DEF failed, reason: connect ECONNREFUSED 127.0.0.1:80'));
+            feesLookupStub.onCall(2).returns(Promise.resolve('Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=1&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate&keyword=DEF failed, reason: connect ECONNREFUSED 127.0.0.1:80'));
+            feesLookupStub.onCall(3).returns(Promise.resolve('Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=2&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'));
 
             const expectedResponse = {
                 status: 'failed',
@@ -135,14 +202,52 @@ describe('FeesCalculator', () => {
 
             fetchJsonStub.returns(Promise.resolve(''));
 
-            feesCalculator.calc(formdata, 'dummyToken')
+            feesCalculator.calc(formdata, 'dummyToken', feesApiFeatureToggle)
+                .then((res) => {
+                    expect(res).to.deep.equal(expectedResponse);
+                    done();
+                });
+        });
+        it('FT OFF - should handle errors when fees api service is unavailable', (done) => {
+            const feesApiFeatureToggle = false;
+            const feesCalculator = new FeesCalculator('http://localhost');
+            formdata = {
+                iht: {
+                    netValue: 6000
+                },
+                copies: {
+                    uk: 1,
+                    overseas: 2
+                }
+            };
+
+            feesLookupStub.onCall(0).returns(Promise.resolve('Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=6000&applicant_type=personal&channel=default&event=issue&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'));
+            feesLookupStub.onCall(1).returns(Promise.resolve('Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=1&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'));
+            feesLookupStub.onCall(2).returns(Promise.resolve('Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=2&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'));
+
+            const expectedResponse = {
+                status: 'failed',
+                applicationfee: 0,
+                applicationvalue: 6000,
+                ukcopies: 1,
+                ukcopiesfee: 0,
+                overseascopies: 2,
+                overseascopiesfee: 0,
+                total: 0
+            };
+
+            fetchJsonStub.returns(Promise.resolve(''));
+
+            feesCalculator.calc(formdata, 'dummyToken', feesApiFeatureToggle)
                 .then((res) => {
                     expect(res).to.deep.equal(expectedResponse);
                     done();
                 });
         });
 
-        it('should handle errors when one of the fees api call is unavailable', (done) => {
+        it('FT ON - should handle errors when one of the fees api call is unavailable', (done) => {
+            const feesApiFeatureToggle = true;
+            const feesCalculator = new FeesCalculator('http://localhost');
             formdata = {
                 iht: {
                     netValue: 60000
@@ -153,9 +258,7 @@ describe('FeesCalculator', () => {
                 }
             };
             feesLookupStub.onCall(0).returns(Promise.resolve({code: 'FEE0219', description: 'Application for a grant of probate (Estate over £50000)', version: 3, fee_amount: 250}));
-            feesLookupStub.onCall(1).returns(Promise.resolve(
-                'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=1&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate&keyword=DEF failed, reason: connect ECONNREFUSED 127.0.0.1:80'
-            ));
+            feesLookupStub.onCall(1).returns(Promise.resolve('Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=1&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate&keyword=DEF failed, reason: connect ECONNREFUSED 127.0.0.1:80'));
             feesLookupStub.onCall(2).returns(Promise.resolve({code: 'FEE0469', description: 'Copy of a document (10 pages or less). FEE AMOUNT = 10', version: 2, fee_amount: 10}));
             feesLookupStub.onCall(3).returns(Promise.resolve({code: 'FEE0003', description: 'Additional copies of the grant representation', version: 3, fee_amount: 0.5}));
 
@@ -172,14 +275,52 @@ describe('FeesCalculator', () => {
 
             fetchJsonStub.returns(Promise.resolve(''));
 
-            feesCalculator.calc(formdata, 'dummyToken')
+            feesCalculator.calc(formdata, 'dummyToken', feesApiFeatureToggle)
+                .then((res) => {
+                    expect(res).to.deep.equal(expectedResponse);
+                    done();
+                });
+        });
+        it('FT OFF - should handle errors when one of the fees api call is unavailable', (done) => {
+            const feesApiFeatureToggle = false;
+            const feesCalculator = new FeesCalculator('http://localhost');
+            formdata = {
+                iht: {
+                    netValue: 6000
+                },
+                copies: {
+                    uk: 1,
+                    overseas: 2
+                }
+            };
+
+            feesLookupStub.onCall(0).returns(Promise.resolve({code: 'string', description: 'string', fee_amount: 0, version: 0}));
+            feesLookupStub.onCall(1).returns(Promise.resolve('Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=1&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'));
+            feesLookupStub.onCall(2).returns(Promise.resolve({code: 'FEE0003', description: 'Additional copies of the grant representation', version: 3, fee_amount: 1}));
+
+            const expectedResponse = {
+                status: 'failed',
+                applicationfee: 0,
+                applicationvalue: 6000,
+                ukcopies: 1,
+                ukcopiesfee: 0,
+                overseascopies: 2,
+                overseascopiesfee: 1,
+                total: 1
+            };
+
+            fetchJsonStub.returns(Promise.resolve(''));
+
+            feesCalculator.calc(formdata, 'dummyToken', feesApiFeatureToggle)
                 .then((res) => {
                     expect(res).to.deep.equal(expectedResponse);
                     done();
                 });
         });
 
-        it('should handle errors when one of the fees api call is not found', (done) => {
+        it('FT ON - should handle errors when one of the fees api call is not found', (done) => {
+            const feesApiFeatureToggle = true;
+            const feesCalculator = new FeesCalculator('http://localhost');
             formdata = {
                 iht: {
                     netValue: 60000
@@ -208,14 +349,52 @@ describe('FeesCalculator', () => {
 
             fetchJsonStub.returns(Promise.resolve(''));
 
-            feesCalculator.calc(formdata, 'dummyToken')
+            feesCalculator.calc(formdata, 'dummyToken', feesApiFeatureToggle)
+                .then((res) => {
+                    expect(res).to.deep.equal(expectedResponse);
+                    done();
+                });
+        });
+        it('FT OFF - should handle errors when one of the fees api call is not found', (done) => {
+            const feesApiFeatureToggle = false;
+            const feesCalculator = new FeesCalculator('http://localhost');
+            formdata = {
+                iht: {
+                    netValue: 6000
+                },
+                copies: {
+                    uk: 1,
+                    overseas: 2
+                }
+            };
+
+            feesLookupStub.onCall(0).returns(Promise.resolve({message: 'fee for code=LookupFeeDto(service=probate, jurisdiction1=family, jurisdiction2=probate registry, channel=default, event=issue, applicantType=personal, amountOrVolume=4000, unspecifiedClaimAmount=false, versionStatus=approved, author=null) was not found'}));
+            feesLookupStub.onCall(1).returns(Promise.resolve({code: 'FEE0003', description: 'Additional copies of the grant representation', version: 3, fee_amount: 0.50}));
+            feesLookupStub.onCall(2).returns(Promise.resolve({code: 'FEE0003', description: 'Additional copies of the grant representation', version: 3, fee_amount: 1}));
+
+            const expectedResponse = {
+                status: 'failed',
+                applicationfee: 0,
+                applicationvalue: 6000,
+                ukcopies: 1,
+                ukcopiesfee: 0.50,
+                overseascopies: 2,
+                overseascopiesfee: 1,
+                total: 1.50
+            };
+
+            fetchJsonStub.returns(Promise.resolve(''));
+
+            feesCalculator.calc(formdata, 'dummyToken', feesApiFeatureToggle)
                 .then((res) => {
                     expect(res).to.deep.equal(expectedResponse);
                     done();
                 });
         });
 
-        it('should handle errors when the keyword for the first copies is wrong', (done) => {
+        it('FT ON - should handle errors when the keyword for the first copies is wrong', (done) => {
+            const feesApiFeatureToggle = true;
+            const feesCalculator = new FeesCalculator('http://localhost');
             formdata = {
                 iht: {
                     netValue: 60000
@@ -244,7 +423,7 @@ describe('FeesCalculator', () => {
 
             fetchJsonStub.returns(Promise.resolve(''));
 
-            feesCalculator.calc(formdata, 'dummyToken')
+            feesCalculator.calc(formdata, 'dummyToken', feesApiFeatureToggle)
                 .then((res) => {
                     expect(res).to.deep.equal(expectedResponse);
                     done();

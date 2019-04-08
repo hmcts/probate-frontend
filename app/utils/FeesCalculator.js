@@ -2,6 +2,7 @@
 
 const {get} = require('lodash');
 const FeesLookup = require('app/services/FeesLookup');
+const config = require('app/config');
 let feesLookup;
 const issuesData = {
     amount_or_volume: 0,
@@ -10,8 +11,7 @@ const issuesData = {
     event: 'issue',
     jurisdiction1: 'family',
     jurisdiction2: 'probate registry',
-    service: 'probate',
-    keyword: 'pro1'
+    service: 'probate'
 };
 
 const copiesData = {
@@ -26,20 +26,18 @@ const copiesData = {
 
 class FeesCalculator {
     constructor(endpoint, sessionId) {
-        this.endpoint = endpoint;
-        this.sessionId = sessionId;
-        feesLookup = new FeesLookup(this.endpoint, sessionId);
+        feesLookup = new FeesLookup(endpoint, sessionId);
     }
 
-    calc(formdata, authToken) {
+    calc(formdata, authToken, newFeesToggle) {
         const headers = {
             authToken: authToken
         };
-        return createCallsRequired(formdata, headers);
+        return createCallsRequired(formdata, headers, newFeesToggle);
     }
 }
 
-async function createCallsRequired(formdata, headers) {
+async function createCallsRequired(formdata, headers, newFeesToggle) {
     const returnResult = {
         status: 'success',
         applicationfee: 0,
@@ -53,20 +51,27 @@ async function createCallsRequired(formdata, headers) {
 
     issuesData.amount_or_volume = get(formdata, 'iht.netValue', 0);
     returnResult.applicationvalue = issuesData.amount_or_volume;
-    await feesLookup.get(issuesData, headers)
-        .then((res) => {
-            if (identifyAnyErrors(res)) {
-                returnResult.status = 'failed';
-            } else {
-                returnResult.applicationfee += res.fee_amount;
-                returnResult.total += res.fee_amount;
-            }
-        });
+    if (newFeesToggle || issuesData.amount_or_volume > config.services.feesRegister.ihtMinAmt) {
+        if (newFeesToggle) {
+            issuesData.keyword = 'pro1';
+        }
+        await feesLookup.get(issuesData, headers)
+            .then((res) => {
+                if (identifyAnyErrors(res)) {
+                    returnResult.status = 'failed';
+                } else {
+                    returnResult.applicationfee += res.fee_amount;
+                    returnResult.total += res.fee_amount;
+                }
+            });
+    }
 
     returnResult.ukcopies = get(formdata, 'copies.uk', 0);
     if (returnResult.ukcopies > 0) {
-        copiesData.amount_or_volume = 1;
-        copiesData.keyword = 'DEF';
+        if (newFeesToggle) {
+            copiesData.amount_or_volume = 1;
+            copiesData.keyword = 'DEF';
+        }
         await feesLookup.get(copiesData, headers)
             .then((res) => {
                 if (identifyAnyErrors(res)) {
@@ -77,7 +82,7 @@ async function createCallsRequired(formdata, headers) {
                 }
             });
 
-        if (returnResult.ukcopies > 1) {
+        if (newFeesToggle && returnResult.ukcopies > 1) {
             copiesData.amount_or_volume = returnResult.ukcopies - 1;
             delete copiesData.keyword;
             await feesLookup.get(copiesData, headers)
@@ -94,8 +99,10 @@ async function createCallsRequired(formdata, headers) {
 
     returnResult.overseascopies = get(formdata, 'copies.overseas', 0);
     if (returnResult.overseascopies > 0) {
-        copiesData.amount_or_volume = 1;
-        copiesData.keyword = 'DEF';
+        if (newFeesToggle) {
+            copiesData.amount_or_volume = 1;
+            copiesData.keyword = 'DEF';
+        }
         await feesLookup.get(copiesData, headers)
             .then((res) => {
                 if (identifyAnyErrors(res)) {
@@ -106,7 +113,7 @@ async function createCallsRequired(formdata, headers) {
                 }
             });
 
-        if (returnResult.overseascopies > 1) {
+        if (newFeesToggle && returnResult.overseascopies > 1) {
             copiesData.amount_or_volume = returnResult.overseascopies - 1;
             delete copiesData.keyword;
             await feesLookup.get(copiesData, headers)

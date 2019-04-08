@@ -20,7 +20,6 @@ class TestConfigurator {
         this.testIdamUserGroup = testConfig.TestIdamUserGroup;
         this.useGovPay = testConfig.TestUseGovPay;
         this.userDetails = '';
-        this.useSidam = testConfig.TestUseSidam;
         this.retryFeatures = testConfig.TestRetryFeatures;
         this.retryScenarios = testConfig.TestRetryScenarios;
         this.testUseProxy = testConfig.TestUseProxy;
@@ -36,28 +35,15 @@ class TestConfigurator {
         this.setEnvVars();
 
         if (this.useIdam === 'true') {
-
-            if (this.useSidam === 'true') {
-                this.userDetails =
-                    {
-                        'email': this.getTestCitizenEmail(),
-                        'forename': this.getTestCitizenName(),
-                        'surname': this.getTestCitizenName(),
-                        'password': this.getTestCitizenPassword(),
-                        'roles': [{'code': this.getTestRole()}],
-                        'userGroup': {'code': this.getTestIdamUserGroup()}
-                    };
-
-            } else {
-                this.userDetails =
-                    {
-                        'email': this.getTestCitizenEmail(),
-                        'forename': this.getTestCitizenName(),
-                        'surname': this.getTestCitizenName(),
-                        'user_group_name': this.getTestRole(),
-                        'password': this.getTestCitizenPassword()
-                    };
-            }
+            this.userDetails =
+                {
+                    'email': this.getTestCitizenEmail(),
+                    'forename': this.getTestCitizenName(),
+                    'surname': this.getTestCitizenName(),
+                    'password': this.getTestCitizenPassword(),
+                    'roles': [{'code': this.getTestRole()}],
+                    'userGroup': {'code': this.getTestIdamUserGroup()}
+                };
 
             if (this.getUseProxy() === 'true') {
                 request({

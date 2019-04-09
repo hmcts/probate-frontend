@@ -18,7 +18,7 @@ After(() => {
 });
 
 // eslint-disable-next-line no-undef
-xScenario(TestConfigurator.idamInUseText('Intestacy Journey'), function* (I) {
+xScenario(TestConfigurator.idamInUseText('Intestacy Journey'), async function (I) {
     // Eligibility Task (pre IdAM)
     I.startApplication();
 

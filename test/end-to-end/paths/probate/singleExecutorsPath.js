@@ -17,7 +17,7 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function* (I) {
+Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function (I) {
 
     // Eligibility Task (pre IdAM)
     I.startApplication();

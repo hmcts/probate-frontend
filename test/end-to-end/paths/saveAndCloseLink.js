@@ -19,7 +19,7 @@ After(() => {
 });
 
 // eslint-disable-next-line no-undef
-Scenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), function* (I) {
+Scenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), function (I) {
 
     //Screeners & Pre-IDAM
     I.startApplication();

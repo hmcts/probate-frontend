@@ -17,7 +17,7 @@ After(() => {
 });
 
 // eslint-disable-next-line no-undef
-xScenario(TestConfigurator.idamInUseText('Survey link redirects to the correct page'), function* (I) {
+xScenario(TestConfigurator.idamInUseText('Survey link redirects to the correct page'), function (I) {
 
     //Screeners & Pre-IDAM
     I.startApplication();

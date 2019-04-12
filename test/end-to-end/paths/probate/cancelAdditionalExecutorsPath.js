@@ -22,7 +22,7 @@ AfterSuite(() => {
     TestConfigurator.getAfter();
 });
 
-Scenario(TestConfigurator.idamInUseText('Cancel Additional Executors Journey: 1st stage of completing application'), function* (I) {
+Scenario(TestConfigurator.idamInUseText('Cancel Additional Executors Journey: 1st stage of completing application'), function (I) {
 
     // Eligibility Task (pre IdAM)
     I.startApplication();
@@ -115,9 +115,10 @@ Scenario(TestConfigurator.idamInUseText('Cancel Additional Executors Journey: 1s
     I.selectHasExecutorBeenNotified('Yes', '2');
     I.selectExecutorRoles('3', false, false);
     I.waitForNavigationToComplete('a[href="/sign-out"]');
-}).retry(TestConfigurator.getRetryScenarios());
+});
+// .retry(TestConfigurator.getRetryScenarios());
 
-Scenario(TestConfigurator.idamInUseText('Continuation of applicant journey: final stage of application'), function* (I) {
+Scenario(TestConfigurator.idamInUseText('Continuation of applicant journey: final stage of application'), function (I) {
 
     I.amOnPage(testConfig.TestE2EFrontendUrl);
 

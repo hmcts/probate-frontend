@@ -22,3 +22,5 @@ yarn-error.log
 git.properties.json
 /logs/
 /pacts/
+
+test/end-to-end/_output/

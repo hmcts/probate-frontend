@@ -10,7 +10,8 @@ const copies = testConfig.copies;
 let grabIds;
 let retries = -1;
 
-Feature('Multiple Executors flow').retry(TestConfigurator.getRetryFeatures());
+Feature('Multiple Executors flow');
+// .retry(TestConfigurator.getRetryFeatures());
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
@@ -155,7 +156,8 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     grabIds = await I.grabTextFrom('pre');
 
-}).retry(TestConfigurator.getRetryScenarios());
+});
+// .retry(TestConfigurator.getRetryScenarios());
 
 Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), async function (I) {
     const idList = JSON.parse(grabIds);
@@ -177,7 +179,8 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
         I.seeAgreePage(i);
 
     }
-}).retry(TestConfigurator.getRetryScenarios());
+});
+// .retry(TestConfigurator.getRetryScenarios());
 
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function (I) {
 
@@ -233,4 +236,5 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
 
     // Thank You
     I.seeThankYouPage();
-}).retry(TestConfigurator.getRetryScenarios());
+});
+// .retry(TestConfigurator.getRetryScenarios());

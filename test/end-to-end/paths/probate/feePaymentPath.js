@@ -16,7 +16,7 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-Data(TestConfigurator.createFeeInfoTable()).Scenario('Fee Payment: Check payment for different copies and application fees', function* (I, current) {
+Data(TestConfigurator.createFeeInfoTable()).Scenario('Fee Payment: Check payment for different copies and application fees', function (I, current) {
     data.copies.uk = current.noUKCopies;
     data.copies.overseas = current.noOverseasCopies;
     data.iht.grossValue = current.grossValue;
@@ -45,7 +45,7 @@ Data(TestConfigurator.createFeeInfoTable()).Scenario('Fee Payment: Check payment
     I.seeThankYouPage();
 });
 
-Data(TestConfigurator.createFeeInfoTableFor1Copy()).Scenario('Fee Payment: Check can pay after cancel payment for no application fee', function* (I, current) {
+Data(TestConfigurator.createFeeInfoTableFor1Copy()).Scenario('Fee Payment: Check can pay after cancel payment for no application fee', function (I, current) {
     data.copies.uk = current.noUKCopies;
     data.copies.overseas = current.noOverseasCopies;
     data.iht.grossValue = current.grossValue;

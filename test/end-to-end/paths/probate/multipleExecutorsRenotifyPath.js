@@ -22,7 +22,7 @@ AfterSuite(() => {
 let grabIdsOriginalExecutors;
 let grabIdsNewExecutors;
 
-Scenario(TestConfigurator.idamInUseText('Multiple Executors Renotify Journey - Main applicant: 1st stage of completing application'), function* (I) {
+Scenario(TestConfigurator.idamInUseText('Multiple Executors Renotify Journey - Main applicant: 1st stage of completing application'), async function (I) {
 
     TestConfigurator.injectFormData(data);
 
@@ -40,7 +40,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Renotify Journey - M
     I.notifyAdditionalExecutors();
 
     I.amOnPage(testConfig.TestInviteIdListUrl);
-    grabIdsOriginalExecutors = yield I.grabTextFrom('pre');
+    grabIdsOriginalExecutors = await I.grabTextFrom('pre');
     I.amOnPage(testConfig.TestE2EFrontendUrl);
 
     //Go to summary page
@@ -85,11 +85,12 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Renotify Journey - M
 
     //Retrieve the email urls for additional executors
     I.amOnPage(testConfig.TestInviteIdListUrl);
-    grabIdsNewExecutors = yield I.grabTextFrom('pre');
+    grabIdsNewExecutors = await I.grabTextFrom('pre');
 
-}).retry(TestConfigurator.getRetryScenarios());
+});
+// .retry(TestConfigurator.getRetryScenarios());
 
-Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), function* (I) {
+Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), async function (I) {
     const idListOriginalExecutors = JSON.parse(grabIdsOriginalExecutors);
     const idListnewExecutors = JSON.parse(grabIdsNewExecutors);
 
@@ -107,10 +108,12 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
         I.amOnPage(testConfig.TestInvitationUrl + '/' + idListnewExecutors.ids[i]);
         I.amOnPage(testConfig.TestE2EFrontendUrl + '/pin');
 
-        const grabPins = yield I.grabTextFrom('pre');
+        // eslint-disable-next-line no-await-in-loop
+        const grabPins = await I.grabTextFrom('pre');
         const pinList = JSON.parse(grabPins);
 
-        yield I.clickBrowserBackButton();
+        // eslint-disable-next-line no-await-in-loop
+        await I.clickBrowserBackButton();
         I.enterPinCode(pinList.pin.toString());
         I.seeCoApplicantStartPage();
         I.agreeDisagreeDeclaration('Agree');
@@ -118,7 +121,7 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
     }
 });
 
-Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function* (I) {
+Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function (I) {
 
     I.amOnPage(testConfig.TestE2EFrontendUrl);
 

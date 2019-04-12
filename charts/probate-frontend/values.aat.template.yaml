@@ -13,7 +13,9 @@ nodejs:
     S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
     IDAM_S2S_AUTH_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
     PAYMENT_CREATE_URL: http://payment-api-aat.service.core-compute-aat.internal/card-payments
-    VALIDATION_SERVICE_URL: http://probate-business-service-aat.service.core-compute-aat.internal/validate
-    BUSINESS_DOCUMENT_URL: http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument
+    #VALIDATION_SERVICE_URL: http://probate-business-service-aat.service.core-compute-aat.internal/validate
+    #BUSINESS_DOCUMENT_URL: http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument
+    VALIDATION_SERVICE_URL: https:/probate-business-service-pr-109.service.core-compute-preview.internal/validate
+    BUSINESS_DOCUMENT_URL: https://probate-business-service-pr-109.service.core-compute-preview.internal/businessDocument
     SUBMIT_SERVICE_URL: http://probate-submit-service-aat.service.core-compute-aat.internal
     PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata

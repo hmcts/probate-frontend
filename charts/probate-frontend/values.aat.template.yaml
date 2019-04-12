@@ -1,6 +1,7 @@
 nodejs:
   environment:
-    SERVICES_PERSISTENCE_BASEURL : http://probate-persistence-service-aat.service.core-compute-aat.internal
+    #SERVICES_PERSISTENCE_BASEURL : http://probate-persistence-service-aat.service.core-compute-aat.internal
+    SERVICES_PERSISTENCE_BASEURL : http://probate-persistence-service-pr-101.service.core-compute-preview.internal
     SERVICES_NOTIFY_INVITEDATA_INVITELINK : http://probate-frontend-aat.service.core-compute-aat.internal/executors/invitation/
     SERVICES_PDF_SERVICE_URL : http://cmc-pdf-service-aat.service.core-compute-aat.internal
     SERVICES_AUTH_PROVIDER_BASEURL : http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
@@ -15,7 +16,8 @@ nodejs:
     PAYMENT_CREATE_URL: http://payment-api-aat.service.core-compute-aat.internal/card-payments
     #VALIDATION_SERVICE_URL: http://probate-business-service-aat.service.core-compute-aat.internal/validate
     #BUSINESS_DOCUMENT_URL: http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument
-    VALIDATION_SERVICE_URL: https:/probate-business-service-pr-109.service.core-compute-preview.internal/validate
-    BUSINESS_DOCUMENT_URL: https://probate-business-service-pr-109.service.core-compute-preview.internal/businessDocument
+    VALIDATION_SERVICE_URL: http:/probate-business-service-pr-109.service.core-compute-preview.internal/validate
+    BUSINESS_DOCUMENT_URL: http://probate-business-service-pr-109.service.core-compute-preview.internal/businessDocument
     SUBMIT_SERVICE_URL: http://probate-submit-service-aat.service.core-compute-aat.internal
-    PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
+    #PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
+    PERSISTENCE_SERVICE_URL : http://probate-persistence-service-pr-101.service.core-compute-preview.internal/formdata

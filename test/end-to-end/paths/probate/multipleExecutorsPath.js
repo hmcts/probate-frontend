@@ -113,11 +113,11 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     I.selectExecutorsApplying('Yes');
 
-    const executorsApplyingList = ['4', '6'];
+    const executorsApplyingList = ['3', '5'];
     I.selectExecutorsDealingWithEstate(executorsApplyingList, true);
     I.selectExecutorsWithDifferentNameOnWill('Yes');
 
-    const executorsWithDifferentNameList = ['6'];
+    const executorsWithDifferentNameList = ['5'];
     I.selectWhichExecutorsWithDifferentNameOnWill(executorsApplyingList, executorsWithDifferentNameList);
 
     forEach(executorsWithDifferentNameList, executorNumber => {
@@ -130,7 +130,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         I.enterExecutorManualAddress(executorNumber);
     });
 
-    const executorsNotApplyingList = ['3', '5'];
+    const executorsNotApplyingList = ['4', '6'];
     let powerReserved = true;
     forEach(executorsNotApplyingList, executorNumber => {
         I.selectExecutorRoles(executorNumber, powerReserved, head(executorsNotApplyingList) === executorNumber);

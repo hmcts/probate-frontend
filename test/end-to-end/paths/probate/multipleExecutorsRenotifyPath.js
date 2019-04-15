@@ -87,8 +87,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Renotify Journey - M
     I.amOnPage(testConfig.TestInviteIdListUrl);
     grabIdsNewExecutors = await I.grabTextFrom('pre');
 
-});
-// .retry(TestConfigurator.getRetryScenarios());
+}).retry(TestConfigurator.getRetryScenarios());
 
 Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), async function (I) {
     const idListOriginalExecutors = JSON.parse(grabIdsOriginalExecutors);

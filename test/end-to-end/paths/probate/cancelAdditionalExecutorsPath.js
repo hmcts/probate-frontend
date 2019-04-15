@@ -115,8 +115,7 @@ Scenario(TestConfigurator.idamInUseText('Cancel Additional Executors Journey: 1s
     I.selectHasExecutorBeenNotified('Yes', '2');
     I.selectExecutorRoles('3', false, false);
     I.waitForNavigationToComplete('a[href="/sign-out"]');
-});
-// .retry(TestConfigurator.getRetryScenarios());
+}).retry(TestConfigurator.getRetryScenarios());
 
 Scenario(TestConfigurator.idamInUseText('Continuation of applicant journey: final stage of application'), function (I) {
 

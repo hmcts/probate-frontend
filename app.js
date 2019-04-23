@@ -66,6 +66,7 @@ exports.init = function() {
     app.set('views', ['app/steps', 'app/views', 'node_modules/govuk_template_jinja/views/layouts']);
 
     const filters = require('app/components/filters.js');
+
     const globals = {
         'currentYear': new Date().getFullYear(),
         'gaTrackingId': config.gaTrackingId,

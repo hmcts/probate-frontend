@@ -123,7 +123,7 @@
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",
     "sonar-scanner": "3.0.3",
-    "sonarqube-scanner": "3.0.3",
+    "sonarqube-scanner": "^1.1.0",
     "superagent-proxy": "^1.0.2",
     "supertest": "^3.4.2",
     "unirest": "^0.5.1",

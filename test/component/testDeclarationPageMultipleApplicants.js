@@ -77,9 +77,9 @@ describe('declaration, multiple applicants', () => {
                 'applicantName-multipleApplicants-mainApplicant-codicils',
                 'applicantName-multipleApplicants-alias',
                 'applicantName-multipleApplicants-alias-codicils',
-                'applicantSign',
-                'applicantSign-codicils',
-                'applicantSign-multipleApplicants-mainApplicant-codicils',
+                'applicantSend',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants-mainApplicant-codicils',
                 'declarationConfirm',
                 'declarationRequests',
                 'declarationUnderstand',
@@ -87,7 +87,9 @@ describe('declaration, multiple applicants', () => {
                 'declarationUnderstandItem2',
                 'submitWarning',
                 'applicantName-alias',
-                'applicantName-alias-codicils'
+                'applicantName-alias-codicils',
+                'codicil',
+                'codicils'
             ];
             sessionData.will.codicils = 'No';
             sessionData.executors.list[1].hasOtherName = false;
@@ -134,9 +136,9 @@ describe('declaration, multiple applicants', () => {
                 'applicantName-multipleApplicants-mainApplicant',
                 'applicantName-multipleApplicants-alias',
                 'applicantName-multipleApplicants-alias-codicils',
-                'applicantSign',
-                'applicantSign-codicils',
-                'applicantSign-multipleApplicants-mainApplicant',
+                'applicantSend',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants-mainApplicant',
                 'declarationConfirm',
                 'declarationRequests',
                 'declarationUnderstand',
@@ -144,11 +146,16 @@ describe('declaration, multiple applicants', () => {
                 'declarationUnderstandItem2',
                 'submitWarning',
                 'applicantName-alias',
-                'applicantName-alias-codicils'
+                'applicantName-alias-codicils',
+                'codicil',
+                'codicils'
             ];
             sessionData.will.codicils = 'Yes';
+            sessionData.will.codicilsNumber = 3;
             sessionData.executors.list[1].hasOtherName = false;
             delete sessionData.executors.list[1].currentName;
+            contentData.codicilsNumber = 3;
+            contentData.codicils = 'codicils';
             contentData.applicantWillName = 'Bob Smith';
             contentData.detailsOfApplicants = 'Bob Smith of flat 1, somewhere rd, nowhere., fname1 sname1 of 1 qwe\r\n1 asd\r\n1 zxc and fname4 sname4 of 4 qwe\r\n4 asd\r\n4 zxc';
             contentData.applicantCurrentName = 'fname1 sname1';
@@ -186,9 +193,9 @@ describe('declaration, multiple applicants', () => {
                 'applicantName-multipleApplicants-alias',
                 'applicantName-multipleApplicants-codicils',
                 'applicantName-multipleApplicants-alias-codicils',
-                'applicantSign',
-                'applicantSign-codicils',
-                'applicantSign-multipleApplicants-mainApplicant',
+                'applicantSend',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants-mainApplicant',
                 'declarationConfirm',
                 'declarationRequests',
                 'declarationUnderstand',
@@ -196,15 +203,20 @@ describe('declaration, multiple applicants', () => {
                 'declarationUnderstandItem2',
                 'submitWarning',
                 'applicantName-alias',
-                'applicantName-alias-codicils'
+                'applicantName-alias-codicils',
+                'codicil',
+                'codicils'
             ];
             sessionData.will.codicils = 'Yes';
+            sessionData.will.codicilsNumber = 1;
             sessionData.executors.list[0].alias = 'larry bird';
             sessionData.executors.list[0].aliasReason = 'Divorce';
             sessionData.executors.list[0].nameAsOnTheWill = 'No';
             sessionData.executors.list[1].hasOtherName = false;
             delete sessionData.executors.list[1].currentName;
 
+            contentData.codicilsNumber = '';
+            contentData.codicils = 'codicil';
             contentData.applicantCurrentNameSign = 'fname1 sname1';
             contentData.applicantCurrentName = 'Bob Smith';
             contentData.applicantWillName = 'larry bird';
@@ -242,9 +254,9 @@ describe('declaration, multiple applicants', () => {
                 'applicantName-multipleApplicants-alias',
                 'applicantName-multipleApplicants-codicils',
                 'applicantName-multipleApplicants-alias-codicils',
-                'applicantSign',
-                'applicantSign-codicils',
-                'applicantSign-multipleApplicants-mainApplicant-codicils',
+                'applicantSend',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants-mainApplicant-codicils',
                 'declarationConfirm',
                 'declarationRequests',
                 'declarationUnderstand',
@@ -252,7 +264,9 @@ describe('declaration, multiple applicants', () => {
                 'declarationUnderstandItem2',
                 'submitWarning',
                 'applicantName-alias',
-                'applicantName-alias-codicils'
+                'applicantName-alias-codicils',
+                'codicil',
+                'codicils'
             ];
             sessionData.will.codicils = 'No';
             sessionData.executors.list[0].alias = 'larry bird';
@@ -296,9 +310,9 @@ describe('declaration, multiple applicants', () => {
                 'applicantName-multipleApplicants-mainApplicant',
                 'applicantName-multipleApplicants-mainApplicant-alias',
                 'applicantName-multipleApplicants-mainApplicant-codicils',
-                'applicantSign',
-                'applicantSign-codicils',
-                'applicantSign-multipleApplicants-mainApplicant',
+                'applicantSend',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants-mainApplicant',
                 'declarationConfirm',
                 'declarationRequests',
                 'declarationUnderstand',
@@ -306,13 +320,18 @@ describe('declaration, multiple applicants', () => {
                 'declarationUnderstandItem2',
                 'submitWarning',
                 'applicantName-alias',
-                'applicantName-alias-codicils'
+                'applicantName-alias-codicils',
+                'codicil',
+                'codicils'
             ];
             sessionData.will.codicils = 'Yes';
+            sessionData.will.codicilsNumber = 2;
             sessionData.executors.list[0].alias = 'larry bird';
             sessionData.executors.list[0].aliasReason = 'Divorce';
             sessionData.executors.list[0].nameAsOnTheWill = 'No';
             sessionData.executors.list[1].currentNameReason = 'Divorce';
+            contentData.codicilsNumber = 2;
+            contentData.codicils = 'codicils';
             contentData.aliasReason = ' got divorced';
             contentData.applicantWillName = 'fname1 sname1';
 
@@ -346,9 +365,9 @@ describe('declaration, multiple applicants', () => {
                 'applicantName-multipleApplicants-mainApplicant',
                 'applicantName-multipleApplicants-codicils',
                 'applicantName-multipleApplicants-alias',
-                'applicantSign',
-                'applicantSign-codicils',
-                'applicantSign-multipleApplicants-mainApplicant',
+                'applicantSend',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants-mainApplicant',
                 'declarationConfirm',
                 'declarationRequests',
                 'declarationUnderstand',
@@ -356,9 +375,12 @@ describe('declaration, multiple applicants', () => {
                 'declarationUnderstandItem2',
                 'submitWarning',
                 'applicantName-alias',
-                'applicantName-alias-codicils'
+                'applicantName-alias-codicils',
+                'codicil',
+                'codicils'
             ];
             sessionData.will.codicils = 'Yes';
+            sessionData.will.codicilsNumber = 1;
             sessionData.executors.list[0].alias = 'larry bird';
             sessionData.executors.list[0].aliasReason = 'Divorce';
             sessionData.executors.list[0].nameAsOnTheWill = 'No';
@@ -368,6 +390,8 @@ describe('declaration, multiple applicants', () => {
             sessionData.executors.list[2].currentNameReason = 'other';
             sessionData.executors.list[2].otherReason = 'because they wanted to';
 
+            contentData.codicilsNumber = '';
+            contentData.codicils = 'codicil';
             contentData.aliasReason = ' got divorced';
             contentData.applicantWillName = 'fname1 sname1';
             contentData.aliasReason = ' changed their name by deed poll';
@@ -403,9 +427,9 @@ describe('declaration, multiple applicants', () => {
                 'applicantName-multipleApplicants-mainApplicant',
                 'applicantName-multipleApplicants-codicils',
                 'applicantName-multipleApplicants-alias-codicils',
-                'applicantSign',
-                'applicantSign-codicils',
-                'applicantSign-multipleApplicants-mainApplicant-codicils',
+                'applicantSend',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants-mainApplicant-codicils',
                 'declarationConfirm',
                 'declarationRequests',
                 'declarationUnderstand',
@@ -413,7 +437,9 @@ describe('declaration, multiple applicants', () => {
                 'declarationUnderstandItem2',
                 'submitWarning',
                 'applicantName-alias',
-                'applicantName-alias-codicils'
+                'applicantName-alias-codicils',
+                'codicil',
+                'codicils'
             ];
             sessionData.will.codicils = 'No';
             sessionData.executors.list[0].alias = 'larry bird';
@@ -456,9 +482,9 @@ describe('declaration, multiple applicants', () => {
                 'applicantName-multipleApplicants-mainApplicant',
                 'applicantName-multipleApplicants-codicils',
                 'applicantName-multipleApplicants-alias-codicils',
-                'applicantSign',
-                'applicantSign-codicils',
-                'applicantSign-multipleApplicants-mainApplicant-codicils',
+                'applicantSend',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants-mainApplicant-codicils',
                 'declarationConfirm',
                 'declarationRequests',
                 'declarationUnderstand',
@@ -466,7 +492,9 @@ describe('declaration, multiple applicants', () => {
                 'declarationUnderstandItem2',
                 'submitWarning',
                 'applicantName-alias',
-                'applicantName-alias-codicils'
+                'applicantName-alias-codicils',
+                'codicil',
+                'codicils'
             ];
             sessionData.will.codicils = 'No';
             sessionData.executors.list[0].alias = 'larry bird';
@@ -491,6 +519,7 @@ describe('declaration, multiple applicants', () => {
 
         it('test correct executor content loaded on the page, applicant has an alias, no executors have a different name, deceased has no other names and there are codicils', (done) => {
             sessionData.will.codicils = 'Yes';
+            sessionData.will.codicilsNumber = 3;
             sessionData.executors.list[0].nameAsOnTheWill = 'No';
             sessionData.executors.list[0].alias = 'Bob Alias';
             sessionData.executors.list[0].aliasReason = 'Divorce';
@@ -503,7 +532,7 @@ describe('declaration, multiple applicants', () => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
                             assert(response.text.includes('Bob Smith, an executor named in the will or codicils as Bob Alias, is applying for probate. Their name is different because Bob Smith got divorced.'));
-                            assert(response.text.includes('Bob Smith will send to the probate registry what they believe to be the true and original last will and testament and any codicils of Someone Else.'));
+                            assert(response.text.includes('Bob Smith will send to the probate registry what we have seen and believe to be the true and original last will and testament, and 3 codicils of Someone Else.'));
                             assert(response.text.includes('fname1 sname1, an executor named in the will or codicils, is applying for probate.'));
                             assert(response.text.includes('fname4 sname4, an executor named in the will or codicils, is applying for probate.'));
                             done();
@@ -528,7 +557,7 @@ describe('declaration, multiple applicants', () => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
                             assert(response.text.includes('Bob Smith, an executor named in the will as Bob Alias, is applying for probate. Their name is different because Bob Smith got divorced.'));
-                            assert(response.text.includes('Bob Smith will send to the probate registry what they believe to be the true and original last will and testament of Someone Else.'));
+                            assert(response.text.includes('Bob Smith will send to the probate registry what we have seen and believe to be the true and original last will and testament of Someone Else.'));
                             assert(response.text.includes('fname1 sname1, an executor named in the will, is applying for probate.'));
                             assert(response.text.includes('fname4 sname4, an executor named in the will, is applying for probate.'));
                             done();
@@ -541,6 +570,7 @@ describe('declaration, multiple applicants', () => {
 
         it('test correct executor content loaded on the page, applicant has an alias, one other executor has a different name (reason given as: Divorce), deceased has no other names and there are codicils', (done) => {
             sessionData.will.codicils = 'Yes';
+            sessionData.will.codicilsNumber = 2;
             sessionData.executors.list[0].nameAsOnTheWill = 'No';
             sessionData.executors.list[0].alias = 'Bob Alias';
             sessionData.executors.list[0].aliasReason = 'Divorce';
@@ -552,7 +582,7 @@ describe('declaration, multiple applicants', () => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
                             assert(response.text.includes('Bob Smith, an executor named in the will or codicils as Bob Alias, is applying for probate. Their name is different because Bob Smith got divorced.'));
-                            assert(response.text.includes('Bob Smith will send to the probate registry what they believe to be the true and original last will and testament and any codicils of Someone Else.'));
+                            assert(response.text.includes('Bob Smith will send to the probate registry what we have seen and believe to be the true and original last will and testament, and 2 codicils of Someone Else.'));
                             assert(response.text.includes('fname1other sname1other, an executor named in the will or codicils as fname1 sname1, is applying for probate. Their name is different because fname1other sname1other got divorced.'));
                             assert(response.text.includes('fname4 sname4, an executor named in the will or codicils, is applying for probate.'));
                             done();
@@ -565,6 +595,7 @@ describe('declaration, multiple applicants', () => {
 
         it('test correct executor content loaded on the page, applicant has an alias, two other executors have a different name (reason given as: Deed Poll and other), deceased has no other names and there are codicils', (done) => {
             sessionData.will.codicils = 'Yes';
+            sessionData.will.codicilsNumber = 1;
             sessionData.executors.list[0].nameAsOnTheWill = 'No';
             sessionData.executors.list[0].alias = 'Bob Alias';
             sessionData.executors.list[0].aliasReason = 'Divorce';
@@ -580,7 +611,7 @@ describe('declaration, multiple applicants', () => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
                             assert(response.text.includes('Bob Smith, an executor named in the will or codicils as Bob Alias, is applying for probate. Their name is different because Bob Smith got divorced.'));
-                            assert(response.text.includes('Bob Smith will send to the probate registry what they believe to be the true and original last will and testament and any codicils of Someone Else.'));
+                            assert(response.text.includes('Bob Smith will send to the probate registry what we have seen and believe to be the true and original last will and testament, and  codicil of Someone Else.'));
                             assert(response.text.includes('fname1other sname1other, an executor named in the will or codicils as fname1 sname1, is applying for probate. Their name is different because fname1other sname1other got divorced.'));
                             assert(response.text.includes('dave buster, an executor named in the will or codicils as fname4 sname4, is applying for probate. Their name is different because dave buster: they felt like it.'));
                             done();
@@ -604,7 +635,7 @@ describe('declaration, multiple applicants', () => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
                             assert(response.text.includes('Bob Smith, an executor named in the will as Bob Alias, is applying for probate. Their name is different because Bob Smith got divorced.'));
-                            assert(response.text.includes('Bob Smith will send to the probate registry what they believe to be the true and original last will and testament of Someone Else.'));
+                            assert(response.text.includes('Bob Smith will send to the probate registry what we have seen and believe to be the true and original last will and testament of Someone Else.'));
                             assert(response.text.includes('fname1other sname1other, an executor named in the will as fname1 sname1, is applying for probate. Their name is different because fname1other sname1other got married.'));
                             assert(response.text.includes('fname4 sname4, an executor named in the will, is applying for probate.'));
                             done();
@@ -632,7 +663,7 @@ describe('declaration, multiple applicants', () => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
                             assert(response.text.includes('Bob Smith, an executor named in the will as Bob Alias, is applying for probate. Their name is different because Bob Smith got divorced.'));
-                            assert(response.text.includes('Bob Smith will send to the probate registry what they believe to be the true and original last will and testament of Someone Else.'));
+                            assert(response.text.includes('Bob Smith will send to the probate registry what we have seen and believe to be the true and original last will and testament of Someone Else.'));
                             assert(response.text.includes('fname1other sname1other, an executor named in the will as fname1 sname1, is applying for probate. Their name is different because fname1other sname1other got divorced.'));
                             assert(response.text.includes('dave buster, an executor named in the will as fname4 sname4, is applying for probate. Their name is different because dave buster: they felt like it.'));
                             done();

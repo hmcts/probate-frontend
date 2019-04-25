@@ -42,7 +42,7 @@ probate_submit_service_url = "http://probate-submit-service-sprod.service.core-c
 
 probate_persistence_service_url = "http://probate-persistence-service-sprod.service.core-compute-sprod.internal/formdata"
 
-probate_fees_registry_service_url = "http://fees-register-api-sprod.service.core-compute-aat.internal/fees-register"
+probate_fees_registry_service_url = "http://fees-register-api-sprod.service.core-compute-sprod.internal/fees-register"
 
 feature_toggles_api_url = "http://rpe-feature-toggle-api-sprod.service.core-compute-sprod.internal"
 asp_name = "probate-sprod"

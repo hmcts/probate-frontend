@@ -17,7 +17,8 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function* (I) {
+// eslint-disable-next-line no-undef
+xScenario(TestConfigurator.idamInUseText('Intestacy Journey'), function (I) {
 
     // Eligibility Task (pre IdAM)
     I.startApplication();
@@ -75,4 +76,4 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function* (I) {
     I.seeStopPage('divorcePlace');
     I.selectDeceasedDivorcePlace('Yes');
 
-}).retry(TestConfigurator.getRetryScenarios());
+});

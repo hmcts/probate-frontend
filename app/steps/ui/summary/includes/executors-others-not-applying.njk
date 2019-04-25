@@ -1,0 +1,27 @@
+{% for executor in fields.executors.list.value %}
+    {% if executor.isApplicant != true and executor.isApplying != true and executor.isDead != true %}
+        {{checkanswer(
+            items = [{
+                question: content.ExecutorRoles.question | replace("{executorFullName}", executor.fullName ),
+                answer: executor.notApplyingReason,
+                visible: true
+            }
+            ],
+            url = content.ExecutorRoles.url | replace("*", loop.index0 ),
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+
+        {{checkanswer(
+            items = [{
+                question: content.ExecutorNotified.question |  replace("{executorName}", executor.fullName ),
+                answer: executor.executorNotified,
+                visible: executor.notApplyingReason == content.ExecutorRoles.optionPowerReserved
+            }
+            ],
+            url = content.ExecutorNotified.url | replace("*", loop.index0 ),
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+    {% endif %}
+{% endfor %}

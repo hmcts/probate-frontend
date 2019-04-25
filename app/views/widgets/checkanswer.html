@@ -4,26 +4,26 @@
         {% for item in items %}
             {% if item.visible %}
                 {% set complete = true if isComplete !== false and item.answer else false %}
-                <div class="check-your-answers__row">
-                    <dt class="check-your-answers__question">{{ item.question | safe }}</dt>
+                <tr class="check-your-answers__row">
+                    <th class="check-your-answers__question">{{ item.question | safe }}</th>
                     {% if answerIsCollection %}
-                        <dd class="check-your-answers__answer">
+                        <td class="check-your-answers__answer">
                             {% for answ in item.answer %}
                                 <div class="check-your-answers__row">
                                     {{ answ | safe }}
                                 </div>
                             {% endfor %}
-                        </dd>
+                        </td>
                     {% else %}
-                        <dd class="check-your-answers__answer">{{ item.answer | safe }}</dd>
+                        <td class="check-your-answers__answer">{{ item.answer | safe }}</td>
                     {% endif %}
-                    <dd class="check-your-answers__change">
+                    <td class="check-your-answers__change">
                         {% if alreadyDeclared === 'false' %}
                             {% set actionLink = common.change if complete else common.answer %}
                             <a href="{{ url }}">{{ actionLink }}</a>
                         {% endif %}
-                    </dd>
-                </div>
+                    </td>
+                </tr>
             {% endif %}
         {% endfor %}
     {% endif %}

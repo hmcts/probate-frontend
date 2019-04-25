@@ -20,7 +20,7 @@ module.exports = {
     TestShowBrowser: false,
     TestUseGovPay: process.env.USE_GOV_PAY || 'true',
     TestUseIdam: process.env.USE_IDAM || 'true',
-    TestUseProxy: process.env.TEST_USE_PROXY || 'true',
+    TestUseProxy: process.env.TEST_USE_PROXY || 'false',
     TestWaitForDocumentUpload: 60,
 
     postcodeLookup: {

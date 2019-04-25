@@ -117,6 +117,7 @@ const config = {
         privacy: '/privacy-policy',
         terms: '/terms-conditions',
         contact: '/contact-us',
+        contactEmailAddress: 'contactprobate@justice.gov.uk',
         callCharges: 'https://www.gov.uk/call-charges',
         howToManageCookies: 'https://www.aboutcookies.org',
         googlePrivacyPolicy: 'https://www.google.com/policies/privacy/partners/',
@@ -141,6 +142,7 @@ const config = {
     },
     helpline: {
         number: '0300 303 0648',
+        email: 'contactprobate@justice.gov.uk',
         hours: 'Monday to Friday, 9:30am to 5pm'
     },
     utils: {

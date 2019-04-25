@@ -181,9 +181,12 @@ div.declaration-grid-item {
 
 .check-your-answers__question {
   font-weight: inherit;
+  word-break: break-word;
 }
 
 .check-your-answers__answer {
+  word-break: break-word;
+
   .check-your-answers__row {
     border-bottom: none;
   }
@@ -207,4 +210,12 @@ div.declaration-grid-item {
     margin-top: 0;
     margin-bottom: 0;
   }
+}
+
+.heading-large {
+  word-break: break-word;
+}
+
+.word-break {
+  word-break: break-word;
 }

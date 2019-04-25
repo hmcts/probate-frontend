@@ -51,11 +51,10 @@ describe('executor-roles', () => {
                 .end(() => {
                     const playbackData = {};
                     playbackData.helpTitle = commonContent.helpTitle;
-                    playbackData.helpText = commonContent.helpText;
-                    playbackData.contactTelLabel = commonContent.contactTelLabel.replace('{helpLineNumber}', config.helpline.number);
+                    playbackData.helpHeading1 = commonContent.helpHeading1;
+                    playbackData.helpHeading2 = commonContent.helpHeading2;
                     playbackData.contactOpeningTimes = commonContent.contactOpeningTimes.replace('{openingTimes}', config.helpline.hours);
-                    playbackData.helpEmailLabel = commonContent.helpEmailLabel;
-                    playbackData.contactEmailAddress = commonContent.contactEmailAddress;
+                    playbackData.helpEmailLabel = commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress);
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });

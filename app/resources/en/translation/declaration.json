@@ -31,10 +31,10 @@
   "applicantName-multipleApplicants-mainApplicant-alias": "{applicantCurrentName}, an executor named in the will as {applicantWillName}, is applying for probate. Their name is different because {applicantCurrentName}{aliasReason}.",
   "applicantName-multipleApplicants-mainApplicant-codicils": "{applicantWillName}, an executor named in the will or codicils, is applying for probate.",
   "applicantName-multipleApplicants-mainApplicant-alias-codicils": "{applicantCurrentName}, an executor named in the will or codicils as {applicantWillName}, is applying for probate. Their name is different because {applicantCurrentName}{aliasReason}.",
-  "applicantSign": "I will send to the probate registry what I believe to be the true and original last will and testament of {deceasedName}.",
-  "applicantSign-codicils": "I will send to the probate registry what I believe to be the true and original last will and testament and any codicils of {deceasedName}.",
-  "applicantSign-multipleApplicants-mainApplicant": "{applicantName} will send to the probate registry what they believe to be the true and original last will and testament of {deceasedName}.",
-  "applicantSign-multipleApplicants-mainApplicant-codicils": "{applicantName} will send to the probate registry what they believe to be the true and original last will and testament and any codicils of {deceasedName}.",
+  "applicantSend": "I will send to the probate registry what I believe to be the true and original last will and testament of {deceasedName}.",
+  "applicantSend-codicils": "I will send to the probate registry what I believe to be the true and original last will and testament, and {codicilsNumber} {codicils} of {deceasedName}.",
+  "applicantSend-multipleApplicants-mainApplicant": "{applicantName} will send to the probate registry what we have seen and believe to be the true and original last will and testament of {deceasedName}.",
+  "applicantSend-multipleApplicants-mainApplicant-codicils": "{applicantName} will send to the probate registry what we have seen and believe to be the true and original last will and testament, and {codicilsNumber} {codicils} of {deceasedName}.",
   "executorNotApplyingHeader": "Executors not applying for probate",
   "executorNotApplyingReason": "{otherExecutorName}, an executor named in the will, is not making this application {otherExecutorApplying}",
   "executorNotApplyingReason-codicils": "{otherExecutorName}, an executor named in the will or codicils, is not making this application {otherExecutorApplying}",
@@ -63,6 +63,8 @@
   "submitWarning": "Once you click &lsquo;Save and continue&rsquo;, you cannot change your answers.",
   "submitWarning-multipleApplicants": "Once everyone has agreed the legal statement and made their declaration, this information can&rsquo;t be changed.",
   "declarationPdf": "Legal declaration (30kb PDF)",
+  "codicil": "codicil",
+  "codicils": "codicils",
   "saveThisPage": "Save this page",
   "errors": {
     "declarationCheckbox": {

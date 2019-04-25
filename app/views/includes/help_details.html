@@ -2,9 +2,11 @@
     <details class="help-panel help-details">
         <summary><span class="summary help-details-summary">{{ common.helpTitle }}</span></summary>
         <div class="panel panel-border-narrow">
-            <p>{{ common.helpText | safe }}</p>
-            <p>{{ common.contactTelLabel | replace('{helpLineNumber}', helpline.number) }} {{ common.contactOpeningTimes | replace('{openingTimes}', helpline.hours) }}</p>
-            <p>{{ common.helpEmailLabel }} {{ common.contactEmailAddress | safe }}</p>
+            <h4 class="heading-small">{{common.helpHeading1 | safe}}</h4>
+            <p>{{ helpline.number | safe }}</p>
+            <p>{{ common.contactOpeningTimes | replace('{openingTimes}', helpline.hours) | safe }}</p>
+            <h4 class="heading-small">{{common.helpHeading2 | safe}}</h4>
+            <p>{{ common.helpEmailLabel | replace('{contactEmailAddress}', links.contactEmailAddress) | safe }}</p>
             <div id="ctsc-web-chat"></div>
         </div>
     </details>

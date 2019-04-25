@@ -46,7 +46,7 @@ describe('legalDeclarationPDF', () => {
 
             assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[3].title, translations.declaration.executorApplyingHeader);
             assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[3].declarationItems[0].title, replaceTokens(translations.declaration.applicantName, ['Jason Smith']));
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[3].declarationItems[1].title, replaceTokens(translations.declaration.applicantSign, ['Mike Samuels']));
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[3].declarationItems[1].title, replaceTokens(translations.declaration.applicantSend, ['Mike Samuels']));
 
             assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[4].title, translations.declaration.declarationHeader);
             assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[4].declarationItems[0].title, replaceTokens(translations.declaration.declarationConfirm, ['Mike Samuels']));

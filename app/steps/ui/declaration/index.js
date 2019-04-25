@@ -45,6 +45,7 @@ class Declaration extends ValidationStep {
         const deceased = formdata.deceased || {};
         const iht = formdata.iht || {};
         const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
+        const codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
         const applicantName = FormatName.format(applicant);
         const deceasedName = FormatName.format(deceased);
         const executorsApplying = ctx.executorsWrapper.executorsApplying();
@@ -65,7 +66,7 @@ class Declaration extends ValidationStep {
                 .replace('{deceasedDob}', deceased.dob_formattedDate)
                 .replace('{deceasedDod}', deceased.dod_formattedDate),
             deceasedOtherNames: deceasedOtherNames ? content.deceasedOtherNames.replace('{deceasedOtherNames}', deceasedOtherNames) : '',
-            executorsApplying: this.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, deceasedName, applicantName),
+            executorsApplying: this.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, applicantName),
             deceasedEstateValue: content.deceasedEstateValue
                 .replace('{ihtGrossValue}', iht.grossValue)
                 .replace('{ihtNetValue}', iht.netValue),
@@ -100,12 +101,13 @@ class Declaration extends ValidationStep {
         return hasMultipleApplicants ? '-multipleApplicants' : '';
     }
 
-    executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, deceasedName, mainApplicantName) {
+    executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, mainApplicantName) {
         const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
         return executorsApplying.map(executor => {
             return this.executorsApplyingText(
                 {
                     hasCodicils,
+                    codicilsNumber,
                     hasMultipleApplicants,
                     content,
                     multipleApplicantSuffix,
@@ -132,9 +134,21 @@ class Declaration extends ValidationStep {
             sign: ''
         };
         if (props.executor.isApplicant) {
-            content.sign = props.content[`applicantSign${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
+            content.sign = props.content[`applicantSend${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
                 .replace('{applicantName}', props.mainApplicantName)
                 .replace('{deceasedName}', props.deceasedName);
+
+            if (props.hasCodicils) {
+                if (props.codicilsNumber === 1) {
+                    content.sign = content.sign
+                        .replace('{codicilsNumber}', '')
+                        .replace('{codicils}', props.content.codicil);
+                } else {
+                    content.sign = content.sign
+                        .replace('{codicilsNumber}', props.codicilsNumber)
+                        .replace('{codicils}', props.content.codicils);
+                }
+            }
         }
         return content;
     }
@@ -205,7 +219,6 @@ class Declaration extends ValidationStep {
         formdata.legalDeclaration = legalDocumentJSONObjBuilder.build(formdata, html);
         res.send(html);
     }
-
 }
 
 module.exports = Declaration;

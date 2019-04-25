@@ -1,0 +1,65 @@
+{{checkanswer(
+    items = [{
+        question: content.Summary.nameOnWill,
+        answer: executor.fullName,
+        visible: true
+    }],
+    url = content.ExecutorsNames.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [{
+        question: content.Summary.currentName,
+        answer: executor.currentName,
+        visible: executor.hasOtherName
+    }],
+    url = content.ExecutorCurrentName.url | replace("*", loop.index0 ),
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [{
+        question: content.Summary.currentNameReason,
+        answer: executor.otherReason | default(executor.currentNameReason),
+        visible: executor.hasOtherName
+    }],
+    url = content.ExecutorCurrentNameReason.url | replace("*", loop.index0 ),
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [{
+        question: content.Summary.address,
+        answer: executor.address,
+        visible: true
+    }],
+    url = content.ExecutorAddress.url | replace("*", loop.index0 ),
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [{
+        question: content.Summary.mobileNumber,
+        answer: executor.mobile,
+        visible: true
+    }],
+    url = content.ExecutorContactDetails.url | replace("*", loop.index0 ),
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [{
+        question: content.Summary.emailAddress,
+        answer: executor.email,
+        visible: true
+    }],
+    url = content.ExecutorContactDetails.url | replace("*", loop.index0 ),
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}

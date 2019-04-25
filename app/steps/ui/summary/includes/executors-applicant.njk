@@ -1,0 +1,90 @@
+{{checkanswer(
+    items = [{
+        question: content.ApplicantName.firstName,
+        answer: fields.applicant.firstName.value,
+        visible: true
+    }, {
+        question: content.ApplicantName.lastName,
+        answer: fields.applicant.lastName.value,
+        visible: true
+    }],
+    url = content.ApplicantName.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{% set applicantNameAsOnWillQuestion = content.ApplicantNameAsOnWill.questionWithoutName %}
+
+{% if fields.applicant.firstName.value and fields.applicant.lastName.value %}
+    {% set applicantNameAsOnWillQuestion = content.ApplicantNameAsOnWill.question | replace('{applicantName}', fields.applicant.firstName.value + ' ' + fields.applicant.lastName.value) %}
+{% endif %}
+
+{{checkanswer(
+    items = [{
+        question: applicantNameAsOnWillQuestion,
+        answer: fields.applicant.nameAsOnTheWill.value,
+        visible: true
+    }],
+    url = content.ApplicantNameAsOnWill.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{% if fields.applicant.nameAsOnTheWill.value === 'No' %}
+    {{checkanswer(
+        items = [{
+            question: content.ApplicantAlias.nameOnWill,
+            answer: fields.applicant.alias.value,
+            visible: true
+        }],
+        url = content.ApplicantAlias.url,
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+    )}}
+
+    {% if fields.applicant.aliasReason.value === 'other' %}
+        {{checkanswer(
+            items = [{
+                question: content.ApplicantAliasReason.optionOtherHint,
+                answer: fields.applicant.otherReason.value,
+                visible: true
+            }],
+            url = content.ApplicantAliasReason.url,
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+    {% else %}
+        {{checkanswer(
+            items = [{
+                question: content.ApplicantAliasReason.optionOtherHint,
+                answer: fields.applicant.aliasReason.value,
+                visible: true
+            }],
+            url = content.ApplicantAliasReason.url,
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+    {% endif %}
+{% endif %}
+
+{{checkanswer(
+    items = [{
+        question: content.ApplicantPhone.phoneNumber,
+        answer: fields.applicant.phoneNumber.value,
+        visible: true
+    }],
+    url = content.ApplicantPhone.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [{
+        question: content.ApplicantAddress.question,
+        answer: fields.applicant.address.value,
+        visible: true
+    }],
+    url = content.ApplicantAddress.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}

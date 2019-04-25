@@ -10,7 +10,6 @@
             <input id="{{ name }}" type="checkbox" name="{{ name }}" value="true" {{ "checked='checked'" if field.value === 'true' }}>
             <label for="{{ name }}">{{ text | safe }}</label>
         </div>
-
     </fieldset>
 {% endmacro %}
 
@@ -23,9 +22,8 @@
 
     {% for option in options %}
         <div class="multiple-choice">
-            <input id="{{ id }}-{{ loop.index }}" type="checkbox" name="{{ name }}"
-                   value="{{ option.option }}" {{ "checked='checked'" if option.checked }} {{ 'disabled' if option.disabled }}/>
-            <label for="{{ id }}-{{ loop.index }}">{{ option.option | safe }}</label>
+            <input id="{{ id }}-{{ loop.index }}" type="checkbox" name="{{ name }}" value="{{ option.option }}" {{ "checked='checked'" if option.checked }} {{ 'disabled' if option.disabled }}/>
+            <label class ="word-break" for="{{ id }}-{{ loop.index }}">{{ option.option | safe }}</label>
         </div>
     {% endfor %}
 

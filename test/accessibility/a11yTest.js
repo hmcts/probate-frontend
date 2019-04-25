@@ -10,7 +10,6 @@ const {endsWith} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const stepsToExclude = [
     'StartEligibility', 'ApplicantExecutor', 'DeceasedDomicile', 'MentalCapacity', 'IhtCompleted', 'WillLeft', 'WillOriginal', 'StartApply',
-    'NewStartEligibility', 'NewApplicantExecutor', 'NewDeceasedDomicile', 'NewMentalCapacity', 'NewIhtCompleted', 'NewWillLeft', 'NewWillOriginal', 'NewStartApply',
     'DiedAfterOctober2014', 'RelationshipToDeceased', 'OtherApplicants',
     'Summary', 'TaskList', 'PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName',
     'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied'

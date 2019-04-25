@@ -5,66 +5,69 @@ const {assert} = require('chai');
 
 let checkAnswersSummaryJSONObjBuilder;
 
-const html = '\n' +
-    '<!DOCTYPE html>\n' +
-    '  <body>\n' +
-    '    <h1 class="heading-large">\n' +
-    '        Check your answers\n' +
-    '    </h1>\n' +
-    '    <p id="main-heading-content">Check the information below carefully. This will form a record of your application for probate. It will also be stored as a public record, and will be able to be viewed online.</p>\n' +
-    '    <h2 class="heading-medium">\n' +
-    '        The will\n' +
-    '    </h2>\n' +
-    '    <dl class="check-your-answers check-your-answers--long">\n' +
-    '        <div class="check-your-answers__row">\n' +
-    '            <dt class="check-your-answers__question">Did the person who died leave a will?</dt>\n' +
-    '            <dd class="check-your-answers__answer">Yes</dd>\n' +
-    '        </div>\n' +
-    '        <div class="check-your-answers__row">\n' +
-    '            <dt class="check-your-answers__question">Do you have the original will?</dt>\n' +
-    '            <dd class="check-your-answers__answer">Yes</dd>\n' +
-    '        </div>\n' +
-    '    </dl>\n' +
-    '    <h2 class="heading-medium">Inheritance tax</h2>\n' +
-    '    <dl class="check-your-answers check-your-answers--long">\n' +
-    '        <div class="check-your-answers__row">\n' +
-    '            <dt class="check-your-answers__question">Has an Inheritance Tax (IHT) form been filled in?</dt>\n' +
-    '            <dd class="check-your-answers__answer">Yes</dd>\n' +
-    '        </div>\n' +
-    '        <div class="check-your-answers__row">\n' +
-    '            <dt class="check-your-answers__question">How was the Inheritance Tax (IHT) form submitted?</dt>\n' +
-    '            <dd class="check-your-answers__answer">By post</dd>\n' +
-    '        </div>\n' +
-    '    </dl>\n' +
-    '    <h2 class="heading-medium">The executors</h2>\n' +
-    '    <dl class="check-your-answers check-your-answers--long">\n' +
-    '        <div class="check-your-answers__row">\n' +
-    '            <dt class="check-your-answers__question">How many past and present executors are named on the will and any updates (&lsquo;codicils&rsquo;)?</dt>\n' +
-    '            <dd class="check-your-answers__answer">1</dd>\n' +
-    '        </div>\n' +
-    '<h3 class="heading-small">About you</h3>\n' +
-    '        <div class="check-your-answers__row">\n' +
-    '            <dt class="check-your-answers__question">First name(s)</dt>\n' +
-    '            <dd class="check-your-answers__answer">Bobby</dd>\n' +
-    '        </div>\n' +
-    '        <div class="check-your-answers__row">\n' +
-    '            <dt class="check-your-answers__question">Last name(s)</dt>\n' +
-    '            <dd class="check-your-answers__answer">Brown</dd>\n' +
-    '        </div>\n' +
-    '    </dl>\n' +
-    '    <h2 class="heading-medium">About the person who died</h2>\n' +
-    '    <dl class="check-your-answers check-your-answers--long">\n' +
-    '        <div class="check-your-answers__row">\n' +
-    '            <dt class="check-your-answers__question">First name(s)</dt>\n' +
-    '            <dd class="check-your-answers__answer">Graham</dd>\n' +
-    '        </div>\n' +
-    '        <div class="check-your-answers__row">\n' +
-    '            <dt class="check-your-answers__question">Last name(s)</dt>\n' +
-    '            <dd class="check-your-answers__answer">Greene</dd>\n' +
-    '        </div>\n' +
-    '    </dl>\n' +
-    '  </body>\n' +
-    '</html>\n';
+const html = `
+<!DOCTYPE html>
+  <body>
+    <h1 class="heading-large">Check your answers</h1>
+    <p id="main-heading-content">Check the information below carefully. This will form a record of your application for probate. It will also be stored as a public record, and will be able to be viewed online.</p>
+    
+    <h2 class="heading-medium">The will</h2>
+    <table class="check-your-answers check-your-answers--long">
+        <tr class="check-your-answers__row">
+            <th class="check-your-answers__question">Did the person who died leave a will?</th>
+            <td class="check-your-answers__answer">Yes</td>
+        </tr>
+        <tr class="check-your-answers__row">
+            <th class="check-your-answers__question">Do you have the original will?</th>
+            <td class="check-your-answers__answer">Yes</td>
+        </tr>
+    </table>
+
+    <h2 class="heading-medium">Inheritance tax</h2>
+    <table class="check-your-answers check-your-answers--long">
+        <tr class="check-your-answers__row">
+            <th class="check-your-answers__question">Has an Inheritance Tax (IHT) form been filled in?</th>
+            <td class="check-your-answers__answer">Yes</td>
+        </tr>
+        <tr class="check-your-answers__row">
+            <th class="check-your-answers__question">How was the Inheritance Tax (IHT) form submitted?</th>
+            <td class="check-your-answers__answer">By post</td>
+        </tr>
+    </table>
+
+    <h2 class="heading-medium">The executors</h2>
+    <table class="check-your-answers check-your-answers--long">
+        <tr class="check-your-answers__row">
+            <th class="check-your-answers__question">How many past and present executors are named on the will and any updates (&lsquo;codicils&rsquo;)?</th>
+            <td class="check-your-answers__answer">1</td>
+        </tr>
+    </table>
+
+    <h3 class="heading-small">About you</h3>
+    <table class="check-your-answers check-your-answers--long">
+        <tr class="check-your-answers__row">
+            <th class="check-your-answers__question">First name(s)</th>
+            <td class="check-your-answers__answer">Bobby</td>
+        </tr>
+        <tr class="check-your-answers__row">
+            <th class="check-your-answers__question">Last name(s)</th>
+            <td class="check-your-answers__answer">Brown</td>
+        </tr>
+    </table>
+
+    <h2 class="heading-medium">About the person who died</h2>
+    <table class="check-your-answers check-your-answers--long">
+        <tr class="check-your-answers__row">
+            <th class="check-your-answers__question">First name(s)</th>
+            <td class="check-your-answers__answer">Graham</td>
+        </tr>
+        <tr class="check-your-answers__row">
+            <th class="check-your-answers__question">Last name(s)</th>
+            <td class="check-your-answers__answer">Greene</td>
+        </tr>
+    </table>
+  </body>
+</html>`;
 
 describe('CheckAnswersSummaryJSONObjectBuilder', function () {
     beforeEach(() => {
@@ -77,16 +80,12 @@ describe('CheckAnswersSummaryJSONObjectBuilder', function () {
             assert.exists(checkAnswersSummary);
             assertPropertyExistsAndIsEqualTo(checkAnswersSummary.mainParagraph,
                 'Check the information below carefully. This will form a record of your application for probate. It will also be stored as a public record, and will be able to be viewed online.');
-            assertPropertyExistsAndIsEqualTo(checkAnswersSummary.pageTitle, '\n' +
-                '        Check your answers\n' +
-                '    ');
+            assertPropertyExistsAndIsEqualTo(checkAnswersSummary.pageTitle, 'Check your answers');
             assert.isArray(checkAnswersSummary.sections, 'Sections exists');
             assert.lengthOf(checkAnswersSummary.sections, 5, 'Section array has length of 5');
 
             const willSection = checkAnswersSummary.sections[0];
-            assertPropertyExistsAndIsEqualTo(willSection.title, '\n' +
-                '        The will\n' +
-                '    ');
+            assertPropertyExistsAndIsEqualTo(willSection.title, 'The will');
             assertPropertyExistsAndIsEqualTo(willSection.type, 'heading-medium');
             assert.isArray(willSection.questionAndAnswers);
             assert.lengthOf(willSection.questionAndAnswers, 2, 'Will Section array has 2 questionsAndAnswers');

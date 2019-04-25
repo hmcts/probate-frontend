@@ -1,0 +1,36 @@
+{{checkanswer(
+    items = [{
+        question: content.ExecutorsApplying.question,
+        answer: fields.executors.otherExecutorsApplying.value,
+        visible: true
+    }],
+    url = content.ExecutorsApplying.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [{
+        question: content.ExecutorsDealingWithEstate.question,
+        answer: fields.summary.executorsDealingWithEstate.value,
+        visible: fields.executors.otherExecutorsApplying.value === content.ExecutorsApplying.optionYes
+    }],
+    url = content.ExecutorsDealingWithEstate.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value,
+    answerIsCollection = true
+)}}
+
+{% if fields.executors.alias.value === 'Yes' %}
+    {{checkanswer(
+        items = [{
+            question: content.Summary.executorsWithOtherNames,
+            answer: fields.summary.executorsWithOtherNames.value,
+            visible: fields.summary.executorsWithOtherNames.value
+        }],
+        url = content.ExecutorsWithOtherNames.url,
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value,
+        answerIsCollection = true
+    )}}
+{% endif %}

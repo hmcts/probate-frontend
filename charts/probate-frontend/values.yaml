@@ -1,3 +1,6 @@
+tags:
+  - idam-pr
+
 nodejs:
   applicationPort: 3000
   environment:
@@ -10,7 +13,6 @@ nodejs:
     REDIS_PORT : 6379
     USE_IDAM : true
 
-
   # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
@@ -21,8 +23,6 @@ rpe-feature-toggle-api:
       enabled: false
     oneoff:
       enabled: false
-
-
 
 redis:
   cluster:

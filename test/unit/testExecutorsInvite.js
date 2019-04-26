@@ -47,7 +47,6 @@ describe('Executors-Invite', () => {
     });
 
     describe('action', () => {
-
         it('test inviteSuffix is removed from the context', () => {
             ctx = {
                 inviteSuffix: '-multiple'

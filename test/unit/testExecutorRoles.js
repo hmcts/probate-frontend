@@ -58,6 +58,77 @@ describe('ExecutorRoles', () => {
         });
     });
 
+    describe('pruneExecutorData', () => {
+
+        const ctx = {
+            'list': [
+                {
+                    'lastName': 'Applicant',
+                    'firstName': 'Main',
+                    'isApplying': true,
+                    'isApplicant': true
+                },
+                {
+                    'email': 'probate0@mailinator.com',
+                    'mobile': '07900123456',
+                    'address': 'Princes house address',
+                    'postcode': 'NW1 8SS',
+                    'fullName': 'Prince Rogers Nelson',
+                    'hasOtherName': true,
+                    'currentName': 'Prince',
+                    'isApplying': false,
+                    'notApplyingKey': 'optionRenunciated',
+                    'freeTextAddress': 'Princes house address',
+                    'postcodeAddress': 'Adam & Eve 81 Petty France London SW1H 9EX',
+                    'notApplyingReason': 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)',
+                    'currentNameReason': 'Divorce',
+
+                }
+            ]
+        };
+
+        it('removes email from executor list data', () => {
+            const data = ExecutorRoles.pruneExecutorData(ctx.list[1]);
+            assert.isUndefined(data.email);
+        });
+
+        it('removes mobile from executor list data', () => {
+            const data = ExecutorRoles.pruneExecutorData(ctx.list[1]);
+            assert.isUndefined(data.mobile);
+        });
+
+        it('removes address from executor list data', () => {
+            const data = ExecutorRoles.pruneExecutorData(ctx.list[1]);
+            assert.isUndefined(data.address);
+        });
+
+        it('removes postcode from executor list data', () => {
+            const data = ExecutorRoles.pruneExecutorData(ctx.list[1]);
+            assert.isUndefined(data.postcode);
+        });
+
+        it('removes currentName from executor list data', () => {
+            const data = ExecutorRoles.pruneExecutorData(ctx.list[1]);
+            assert.isUndefined(data.currentName);
+        });
+
+        it('removes hasOtherName from executor list data', () => {
+            const data = ExecutorRoles.pruneExecutorData(ctx.list[1]);
+            assert.isUndefined(data.hasOtherName);
+        });
+
+        it('removes postcodeAddress from executor list data', () => {
+            const data = ExecutorRoles.pruneExecutorData(ctx.list[1]);
+            assert.isUndefined(data.postcodeAddress);
+        });
+
+        it('removes currentNameReason from executor list data', () => {
+            const data = ExecutorRoles.pruneExecutorData(ctx.list[1]);
+            assert.isUndefined(data.currentNameReason);
+        });
+
+    });
+
     describe('isComplete()', () => {
         it('should return the correct step completion status when all executors are applying', (done) => {
             const ctx = {

@@ -90,6 +90,7 @@ class ExecutorAddress extends AddressStep {
         delete ctx.continue;
         delete ctx.index;
         delete ctx.executorsWrapper;
+        delete ctx.addressFound;
         return [ctx, formdata];
     }
 

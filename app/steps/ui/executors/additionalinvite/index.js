@@ -13,6 +13,7 @@ class ExecutorsAdditionalInvite extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
+        ctx.executorsToNotifyList = new ExecutorsWrapper(ctx).executorsToNotify();
         ctx.inviteSuffix = size(ctx.executorsToNotifyList) > 1 ? '-multiple' : '';
         ctx.executorsToNotifyNames = FormatName.formatExecutorNames(ctx.executorsToNotifyList);
         return ctx;

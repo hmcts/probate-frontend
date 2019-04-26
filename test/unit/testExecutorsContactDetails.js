@@ -63,7 +63,7 @@ describe('Contact-Details', function () {
             errors = [];
         });
 
-        it('test emailChanged flag is correctly set, executorToBeNotifiedList is correctly populated and contact details updated (single applicant)', (done) => {
+        it('test emailChanged flag is correctly set and contact details updated (single applicant)', (done) => {
             co(function* () {
                 ctx.list[1].inviteId = 'dummy_inviteId';
                 ctx.list[1].emailChanged = true;
@@ -71,16 +71,6 @@ describe('Contact-Details', function () {
                 [ctx, errors] = yield contactDetails.handlePost(ctx, errors, formdata);
                 expect(ctx).to.deep.equal({
                     executorsNumber: 3,
-                    executorsToNotifyList: [
-                        {
-                            email: 'newtestemail@gmail.com',
-                            fullName: 'Bob Cratchett',
-                            inviteId: 'dummy_inviteId',
-                            emailChanged: true,
-                            isApplying: true,
-                            mobile: '07321321321'
-                        }
-                    ],
                     list: [
                         {
                             firstName: 'Lead',
@@ -119,7 +109,7 @@ describe('Contact-Details', function () {
                 });
         });
 
-        it('test emailChanged flag is correctly set, executorToBeNotifiedList is populated and contact details updated', (done) => {
+        it('test emailChanged flag is correctly set and contact details updated', (done) => {
             ctx.list[1].emailSent = false;
             ctx.list[2].emailSent = true;
             ctx.list[2].inviteId = 'dummy_id';
@@ -128,15 +118,6 @@ describe('Contact-Details', function () {
                 [ctx, errors] = yield contactDetails.handlePost(ctx, errors, formdata);
                 expect(ctx).to.deep.equal({
                     executorsNumber: 3,
-                    executorsToNotifyList: [
-                        {
-                            email: 'newtestemail@gmail.com',
-                            emailSent: false,
-                            fullName: 'Bob Cratchett',
-                            isApplying: true,
-                            mobile: '07321321321'
-                        }
-                    ],
                     list: [
                         {
                             firstName: 'Lead',
@@ -191,7 +172,6 @@ describe('Contact-Details', function () {
                 [ctx, errors] = yield contactDetails.handlePost(ctx, errors, formdata);
                 expect(ctx).to.deep.equal({
                     executorsNumber: 3,
-                    executorsToNotifyList: [],
                     list: [
                         {
                             firstName: 'Lead',

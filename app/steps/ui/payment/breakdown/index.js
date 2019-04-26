@@ -77,7 +77,7 @@ class PaymentBreakdown extends Step {
             const [result, submissionErrors] = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
             errors = errors.concat(submissionErrors);
             if (errors.length > 0) {
-                logger.error('Failed to create case in CCD.');
+                logger.error('Failed to create case in CCD.', errors);
                 return [ctx, errors];
             }
             formdata.submissionReference = result.submissionReference;

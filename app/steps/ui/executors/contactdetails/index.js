@@ -3,9 +3,9 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const emailValidator = require('email-validator');
 const validator = require('validator');
+const ExecutorsWrapper = require('app/wrappers/Executors');
 const FieldError = require('app/components/error');
 const {findIndex, every, tail} = require('lodash');
-const ExecutorsWrapper = require('app/wrappers/Executors');
 const InviteData = require('app/services/InviteData');
 const config = require('app/config');
 
@@ -50,7 +50,6 @@ class ExecutorContactDetails extends ValidationStep {
             executor.emailChanged = true;
         }
 
-        ctx.executorsToNotifyList = executorsWrapper.executorsToNotify();
         ctx.executorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
         executor.email = ctx.email;
         executor.mobile = ctx.mobile;

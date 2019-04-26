@@ -25,8 +25,9 @@ describe('executors-additional-invite', () => {
     describe('Verify Content, Errors and Redirection', () => {
 
         it('test correct content loaded on the page when only 1 other executor has been added and needs to be emailed', (done) => {
-            sessionData.executors.executorsToNotifyList = [
-                {fullName: 'Andrew Wiles', isApplying: true, emailSent: false},
+            sessionData.executors.list = [
+                {fullName: 'Applicant', isApplying: true, isApplicant: true},
+                {fullName: 'Andrew Wiles', isApplying: true, emailSent: false}
             ];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -36,7 +37,8 @@ describe('executors-additional-invite', () => {
         });
 
         it('test correct content loaded on the page when more than 1 other executor has been added and needs to be emailed', (done) => {
-            sessionData.executors.executorsToNotifyList = [
+            sessionData.executors.list = [
+                {fullName: 'Applicant', isApplying: true, isApplicant: true},
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false},
                 {fullName: 'Leonhard Euler', isApplying: true, emailSent: false}
             ];
@@ -48,7 +50,8 @@ describe('executors-additional-invite', () => {
         });
 
         it('test content displays only the executors who have been added and need to be emailed', (done) => {
-            sessionData.executors.executorsToNotifyList = [
+            sessionData.executors.list = [
+                {fullName: 'Applicant', isApplying: true, isApplicant: true},
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false},
                 {fullName: 'Leonhard Euler', isApplying: true, emailSent: false}
             ];
@@ -65,8 +68,10 @@ describe('executors-additional-invite', () => {
         });
 
         it('test content displays only the single executor who has had their email changed', (done) => {
-            sessionData.executors.executorsToNotifyList = [
+            sessionData.executors.list = [
+                {fullName: 'Applicant', isApplying: true, isApplicant: true},
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false},
+                {fullName: 'Leonhard Euler', isApplying: true, emailSent: true}
             ];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -105,8 +110,9 @@ describe('executors-additional-invite', () => {
                 .reply(200, {response: 'Make it pass!'});
 
             const data = {};
-            sessionData.executors.executorsToNotifyList = [
-                {fullName: 'Andrew Wiles', isApplying: true, emailSent: false},
+            sessionData.executors.list = [
+                {fullName: 'Applicant', isApplying: true, isApplicant: true},
+                {fullName: 'Andrew Wiles', isApplying: true, emailSent: false}
             ];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

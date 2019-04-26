@@ -79,14 +79,14 @@ describe('Executors-Applying', function () {
         });
     });
 
-    describe('pruneFormData', () => {
+    describe('pruneExecutorData', () => {
 
         it('test that isApplying flag is deleted when executor is not applying', () => {
             data = {
                 fullName: 'Ed Brown',
                 isApplying: false
             };
-            ExecsDealing.pruneFormData(data);
+            ExecsDealing.pruneExecutorData(data);
             assert.isUndefined(data.isApplying);
             expect(data).to.deep.equal({fullName: 'Ed Brown'});
         });
@@ -100,12 +100,80 @@ describe('Executors-Applying', function () {
                 notApplyingReason: 'not sure',
                 notApplyingKey: 'not sure'
             };
-            ExecsDealing.pruneFormData(data);
+            ExecsDealing.pruneExecutorData(data);
             expect(data).to.deep.equal({
                 fullName: 'Ed Brown',
                 isApplying: true
             });
         });
+
+        const ctx = {
+            'list': [
+                {
+                    'lastName': 'Applicant',
+                    'firstName': 'Main',
+                    'isApplying': true,
+                    'isApplicant': true
+                },
+                {
+                    'email': 'probate0@mailinator.com',
+                    'mobile': '07900123456',
+                    'address': 'Princes house address',
+                    'postcode': 'NW1 8SS',
+                    'fullName': 'Prince Rogers Nelson',
+                    'hasOtherName': true,
+                    'currentName': 'Prince',
+                    'isApplying': false,
+                    'notApplyingKey': 'optionRenunciated',
+                    'freeTextAddress': 'Princes house address',
+                    'postcodeAddress': 'Adam & Eve 81 Petty France London SW1H 9EX',
+                    'notApplyingReason': 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)',
+                    'currentNameReason': 'Divorce',
+
+                }
+            ]
+        };
+
+        it('removes email from data if isApplying is false', () => {
+            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
+            assert.isUndefined(data.email);
+        });
+
+        it('removes mobile from data if isApplying is false', () => {
+            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
+            assert.isUndefined(data.mobile);
+        });
+
+        it('removes address from data if isApplying is false', () => {
+            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
+            assert.isUndefined(data.address);
+        });
+
+        it('removes postcode from data if isApplying is false', () => {
+            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
+            assert.isUndefined(data.postcode);
+        });
+
+        it('removes currentName from data if isApplying is false', () => {
+            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
+            assert.isUndefined(data.currentName);
+        });
+
+        it('removes hasOtherName from data if isApplying is false', () => {
+            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
+            assert.isUndefined(data.hasOtherName);
+        });
+
+        it('removes postcodeAddress from data if isApplying is false', () => {
+            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
+            assert.isUndefined(data.postcodeAddress);
+        });
+
+        it('removes currentNameReason from data if isApplying is false', () => {
+            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
+            assert.isUndefined(data.currentNameReason);
+        });
+
     });
 
     describe('handlePost', () => {
@@ -117,16 +185,28 @@ describe('Executors-Applying', function () {
                         'firstName': 'applicant',
                         'isApplying': 'Yes',
                         'isApplicant': true
-                    }, {
+                    },
+                    {
                         fullName: 'Ed Brown',
                         address: '20 Green Street, London, L12 9LN'
-                    }, {
+                    },
+                    {
                         fullName: 'Dave Miller',
                         address: '102 Petty Street, London, L12 9LN'
+                    },
+                    {
+                        email: 'probate0@mailinator.com',
+                        mobile: '07900123456',
+                        address: 'cher address',
+                        fullName: 'Cher',
+                        isApplying: false,
+                        notApplyingKey: 'optionRenunciated',
+                        freeTextAddress: 'cher address',
+                        notApplyingReason: 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)'
                     }
                 ],
                 executorsApplying: ['Dave Miller'],
-                executorsNumber: 3
+                executorsNumber: 4
             };
         });
 
@@ -139,6 +219,20 @@ describe('Executors-Applying', function () {
         it('test executors (with checkbox checked) isApplying flag is set to true', () => {
             [ctx, errors] = ExecsDealing.handlePost(ctxTest);
             assert.isTrue(ctx.list[2].isApplying);
+            assert.isUndefined(errors);
+        });
+
+        it('should prune executor 3 data', () => {
+            [ctx, errors] = ExecsDealing.handlePost(ctxTest);
+            assert.isUndefined(ctx.list[3].isApplying);
+            assert.isUndefined(ctx.list[3].address);
+            assert.isUndefined(errors);
+        });
+
+        it('should not prune executor 2 data', () => {
+            [ctx, errors] = ExecsDealing.handlePost(ctxTest);
+            expect(ctx.list[2].isApplying).to.equal(true);
+            expect(ctx.list[2].address).to.equal('102 Petty Street, London, L12 9LN');
             assert.isUndefined(errors);
         });
     });

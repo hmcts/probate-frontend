@@ -63,7 +63,15 @@ describe('executors-invite', () => {
                 .post('/invite')
                 .reply(200, {response: 'Make it pass!'});
 
-            const data = {'list': [{'firstName': 'Bob', 'lastName': 'Smith', 'isApplicant': true}]};
+            const data = {
+                list: [
+                    {
+                        firstName: 'Bob',
+                        lastName: 'Smith',
+                        isApplicant: true
+                    }
+                ]
+            };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForExecInvites);
         });

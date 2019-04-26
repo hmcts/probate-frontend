@@ -57,7 +57,7 @@ class PaymentBreakdown extends Step {
         this.checkFeesStatus(confirmFees);
         const originalFees = formdata.fees;
         if (confirmFees.total !== originalFees.total) {
-            throw new Error (`Error calculated fees totals have changed from ${originalFees.total} to ${confirmFees.total}`);
+            throw new Error(`Error calculated fees totals have changed from ${originalFees.total} to ${confirmFees.total}`);
         }
         ctx.total = originalFees.total;
         ctx.applicationFee = originalFees.applicationfee;
@@ -66,14 +66,33 @@ class PaymentBreakdown extends Step {
         const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
         const serviceAuthResult = yield authorise.post();
         if (serviceAuthResult.name === 'Error') {
-            const options = {};
-            options.redirect = true;
-            options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
-            formdata.paymentPending = 'unknown';
-            return options;
+            logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
+            const keyword = 'failure';
+            errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
+            return [ctx, errors];
         }
-        const canCreatePayment = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
-        if (formdata.paymentPending !== 'unknown') {
+
+        const [canCreatePayment, paymentStatus] = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
+        logger.info(`canCreatePayment result = ${canCreatePayment} with status ${paymentStatus}`);
+        if (paymentStatus === 'Initiated') {
+            const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
+            const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
+            const data = {
+                authToken: ctx.authToken,
+                serviceAuthToken: serviceAuthResult,
+                userId: ctx.userId,
+                paymentId: ctx.reference
+            };
+            const getPaymentResponse = yield payment.get(data);
+            logger.info('Checking status of reference = ' + ctx.reference + ' with response = ' + getPaymentResponse.status);
+            if (getPaymentResponse.status === 'Initiated') {
+                logger.error('As payment is still Initiated, user will need to wait for this state to expire.');
+                errors.push(FieldError('payment', 'initiated', this.resourcePath, ctx));
+                return [ctx, errors];
+            }
+        }
+
+        if (typeof get(formdata, 'ccdCase.id') === 'undefined') {
             const [result, submissionErrors] = yield this.sendToSubmitService(ctx, errors, formdata, ctx.total);
             errors = errors.concat(submissionErrors);
             if (errors.length > 0) {
@@ -84,67 +103,52 @@ class PaymentBreakdown extends Step {
             formdata.registry = result.registry;
             set(formdata, 'ccdCase.id', result.caseId);
             set(formdata, 'ccdCase.state', result.caseState);
-            if (ctx.total > 0 && canCreatePayment) {
-                formdata.paymentPending = 'true';
+        }
 
-                if (formdata.creatingPayment !== 'true') {
-                    formdata.creatingPayment = 'true';
-                    session.save();
+        if (ctx.total > 0 && canCreatePayment) {
+            session.save();
 
-                    const serviceAuthResult = yield authorise.post();
-
-                    if (serviceAuthResult.name === 'Error') {
-                        logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
-                        const keyword = 'failure';
-                        formdata.creatingPayment = null;
-                        formdata.paymentPending = null;
-                        errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
-                        return [ctx, errors];
-                    }
-
-                    const data = {
-                        amount: parseFloat(ctx.total),
-                        authToken: ctx.authToken,
-                        serviceAuthToken: serviceAuthResult,
-                        userId: ctx.userId,
-                        applicationFee: ctx.applicationFee,
-                        copies: ctx.copies,
-                        deceasedLastName: ctx.deceasedLastName,
-                        ccdCaseId: formdata.ccdCase.id
-                    };
-
-                    const payment = new Payment(config.services.payment.createPaymentUrl, ctx.sessionID);
-                    const [response, paymentReference] = yield payment.post(data, hostname);
-                    logger.info(`Payment creation in breakdown for paymentReference = ${paymentReference} with response = ${JSON.stringify(response)}`);
-                    formdata.creatingPayment = 'false';
-
-                    if (response.name === 'Error') {
-                        errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
-                        return [ctx, errors];
-                    }
-
-                    ctx.paymentId = response.reference;
-                    ctx.paymentReference = paymentReference;
-                    ctx.paymentCreatedDate = response.date_created;
-
-                    this.nextStepUrl = () => response._links.next_url.href;
-                } else {
-                    logger.warn('Skipping - create payment request in progress');
-                }
-
-            } else {
-                formdata.paymentPending = ctx.total === 0 ? 'false' : 'true';
-                delete this.nextStepUrl;
+            const serviceAuthResult = yield authorise.post();
+            if (serviceAuthResult.name === 'Error') {
+                logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
+                const keyword = 'failure';
+                errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
+                return [ctx, errors];
             }
+
+            const data = {
+                amount: parseFloat(ctx.total),
+                authToken: ctx.authToken,
+                serviceAuthToken: serviceAuthResult,
+                userId: ctx.userId,
+                applicationFee: ctx.applicationFee,
+                copies: ctx.copies,
+                deceasedLastName: ctx.deceasedLastName,
+                ccdCaseId: formdata.ccdCase.id
+            };
+
+            const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
+            const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
+            const [response] = yield payment.post(data, hostname);
+            logger.info(`Payment creation in breakdown for ccdCaseId = ${formdata.ccdCase.id} with response = ${JSON.stringify(response)}`);
+            if (response.name === 'Error') {
+                errors.push(FieldError('payment', 'failure', this.resourcePath, ctx));
+                return [ctx, errors];
+            }
+            set(formdata, 'payment.reference', response.reference);
+            ctx.reference = response.reference;
+            ctx.paymentCreatedDate = response.date_created;
+
+            this.nextStepUrl = () => response._links.next_url.href;
         } else {
-            logger.warn('Skipping create payment as authorisation is unknown.');
+            delete this.nextStepUrl;
         }
 
         return [ctx, errors];
     }
 
     isComplete(ctx, formdata) {
-        return [['true', 'false'].includes(formdata.paymentPending), 'inProgress'];
+        return [typeof get(formdata, 'ccdCase.id') !== 'undefined' && (get(formdata, 'payment.total') === 0 || typeof get(formdata, 'payment.reference') !== 'undefined'), 'inProgress'];
     }
 
     * sendToSubmitService(ctx, errors, formdata, total) {
@@ -178,23 +182,37 @@ class PaymentBreakdown extends Step {
     }
 
     * canCreatePayment(ctx, formdata, serviceAuthResult) {
-        const paymentId = get(formdata, 'payment.paymentId');
-        if (paymentId) {
+        const paymentReference = get(formdata, 'payment.reference');
+        const caseId = get(formdata, 'ccdCase.id');
+        let paymentStatus;
+        let canMakePayment = true;
+        if (caseId) {
             const data = {
                 authToken: ctx.authToken,
                 serviceAuthToken: serviceAuthResult,
                 userId: ctx.userId,
-                paymentId: paymentId
+                caseId: caseId
             };
-            const payment = new Payment(config.services.payment.createPaymentUrl, ctx.sessionID);
-            const paymentResponse = yield payment.get(data);
-            logger.info(`Payment retrieval in breakdown for paymentId = ${ctx.paymentId} with response = ${JSON.stringify(paymentResponse)}`);
-            if (typeof paymentResponse === 'undefined') {
-                return true;
+            const paymentServiceUrl = config.services.payment.url + config.services.payment.paths.payments;
+            const payment = new Payment(paymentServiceUrl, ctx.sessionID);
+            const casePaymentsArray = yield payment.getCasePayments(data);
+            logger.debug(`Case payments for ${caseId} with response = ${JSON.stringify(casePaymentsArray)}`);
+            const paymentResponse = payment.identifySuccessfulOrInitiatedPayment(casePaymentsArray);
+            logger.debug(`Payment retrieval in breakdown for caseId = ${caseId} with response = ${JSON.stringify(paymentResponse)}`);
+            if (!paymentResponse) {
+                logger.info('No payments of Initiated or Success found for case.');
+            } else if (paymentResponse.status === 'Initiated' || paymentResponse.status === 'Success') {
+                paymentStatus = paymentResponse.status;
+                if (paymentResponse.payment_reference !== paymentReference) {
+                    logger.info(`Payment with status ${paymentResponse.status} found, using reference ${paymentResponse.payment_reference}.`);
+                    set(formdata, 'payment.reference', paymentResponse.payment_reference);
+                    ctx.reference = paymentResponse.payment_reference;
+                    ctx.paymentCreatedDate = paymentResponse.date_created;
+                }
+                canMakePayment = false;
             }
-            return (paymentResponse.status !== 'Initiated') && (paymentResponse.status !== 'Success');
         }
-        return true;
+        return [canMakePayment, paymentStatus];
     }
 }
 

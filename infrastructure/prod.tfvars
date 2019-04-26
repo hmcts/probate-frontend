@@ -14,7 +14,7 @@ external_host_name = "www.apply-for-probate.service.gov.uk"
 probate_frontend_https = "false"
 probate_frontend_use_auth = "false"
 
-payment_create_url = "https://payment.platform.hmcts.net/card-payments"
+payment_create_url = "https://payment.platform.hmcts.net"
 
 idam_service_api = "http://rpe-service-auth-provider-prod.service.core-compute-prod.internal"
 

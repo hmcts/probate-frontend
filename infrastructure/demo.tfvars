@@ -14,7 +14,7 @@ probate_google_track_id = "UA-93598808-1"
 probate_frontend_https = "false"
 probate_frontend_use_auth = "false"
 
-payment_create_url = "http://payment-api-demo.service.core-compute-demo.internal/card-payments"
+payment_create_url = "http://payment-api-demo.service.core-compute-demo.internal"
 
 idam_service_api = "http://rpe-service-auth-provider-demo.service.core-compute-demo.internal"
 

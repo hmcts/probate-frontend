@@ -68,7 +68,6 @@ describe('PaymentStatus', () => {
             'ccdCase': {
                 'state': 'CaseCreated'
             },
-            'paymentPending': 'false',
             'payment': {
                 'amount': 5000,
                 'channel': 'Online',
@@ -82,7 +81,8 @@ describe('PaymentStatus', () => {
         ctx = {
             authToken: 'XXXXX',
             userId: 12345,
-            paymentId: 4567
+            reference: 4567,
+            paymentDue: true
         };
         nockMock = nock(config.services.submit.url).post('/updatePaymentStatus');
     });
@@ -93,10 +93,13 @@ describe('PaymentStatus', () => {
     });
 
     describe('runnerOptions', () => {
-        it('should set paymentPending to unknown if there is an authorise failure', (done) => {
+        it('redirect if there is an authorise failure', (done) => {
             nockMock.reply(200, {caseState: 'CaseCreated'});
 
-            ctx = {total: 1};
+            ctx = {
+                total: 1,
+                paymentDue: true
+            };
 
             const revert = PaymentStatus.__set__('Authorise', class {
                 post() {
@@ -107,16 +110,12 @@ describe('PaymentStatus', () => {
                 redirect: true,
                 url: '/payment-breakdown?status=failure'
             };
-            const expectedFormData = {
-                paymentPending: 'unknown'
-            };
-            const formData = {paymentPending: 'true'};
+            const formData = {};
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
 
             co(function* () {
                 const options = yield paymentStatus.runnerOptions(ctx, formData);
                 expect(options).to.deep.equal(expectedOptions);
-                expect(formData).to.deep.equal(expectedFormData);
                 revert();
                 done();
             }).catch(err => {
@@ -124,7 +123,7 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it('should set redirect to false, paymentPending to false and payment status to success if payment is successful', (done) => {
+        it('should set redirect to false if payment is successful', (done) => {
             nockMock.reply(200, {caseState: 'CaseCreated'});
 
             const revert = PaymentStatus.__set__({
@@ -134,7 +133,7 @@ describe('PaymentStatus', () => {
                     }
                 }
             });
-            const formData = {paymentPending: 'true', 'payment': {}};
+            const formData = {'payment': {}};
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
 
             co(function* () {
@@ -148,11 +147,10 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it('should set redirect to true, paymentPending to true and payment status to failure if payment is not successful', (done) => {
+        it('should set redirect to true and payment status to failure if payment is not successful', (done) => {
             nockMock.reply(200, {caseState: 'CaseCreated'});
 
             expectedFormData.payment.status = 'Failed';
-            expectedFormData.paymentPending = 'true';
 
             const revert = PaymentStatus.__set__({
                 Payment: class {
@@ -161,7 +159,7 @@ describe('PaymentStatus', () => {
                     }
                 }
             });
-            const formData = {paymentPending: 'true', 'payment': {}};
+            const formData = {'payment': {}};
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
 
             co(function* () {
@@ -176,7 +174,7 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it('should set payment status to not_required and redirect to false when paymentPending is false', (done) => {
+        it('should set payment status to not_required and redirect to false when paymentDue is false', (done) => {
             nockMock.reply(200, {caseState: 'CaseCreated'});
 
             const expectedFormData = {
@@ -185,10 +183,17 @@ describe('PaymentStatus', () => {
                 },
                 'payment': {
                     'status': 'not_required'
-                },
-                'paymentPending': 'false'
+                }
             };
-            const formData = {paymentPending: 'false'};
+
+            ctx = {
+                authToken: 'XXXXX',
+                userId: 12345,
+                reference: 4567,
+                paymentDue: false
+            };
+
+            const formData = {};
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
 
             co(function* () {
@@ -211,7 +216,15 @@ describe('PaymentStatus', () => {
                     }
                 }
             });
-            const formData = {paymentPending: 'false'};
+
+            ctx = {
+                authToken: 'XXXXX',
+                userId: 12345,
+                reference: 4567,
+                paymentDue: false
+            };
+
+            const formData = {};
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
 
             co(function* () {
@@ -230,10 +243,9 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it('should set redirect to true, paymentPending to true and payment status to success if payment is successful with no case created', (done) => {
+        it('should set redirect to true  payment status to success if payment is successful with no case created', (done) => {
             delete expectedFormData.ccdCase;
             expectedFormData.payment.status = 'Initiated';
-            expectedFormData.paymentPending = 'true';
 
             const revert = PaymentStatus.__set__({
                 Payment: class {
@@ -242,7 +254,7 @@ describe('PaymentStatus', () => {
                     }
                 }
             });
-            const formData = {paymentPending: 'true', 'payment': {}};
+            const formData = {'payment': {}};
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
 
             co(function* () {

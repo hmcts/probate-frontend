@@ -8,20 +8,23 @@
   "errors": {
     "authorisation": {
       "failure": {
-        "summary": "We could not take your payment, please try again later"
+        "summary": "We could not take your payment, please try again later."
       }
     },
     "payment": {
       "failure": {
-        "summary": "We could not take your payment, please try again later"
+        "summary": "We could not take your payment, please try again later."
+      },
+      "initiated": {
+        "summary": "Your payment may have failed. Do not try to pay again for 2 hours."
       }
     },
     "submit": {
       "failure": {
-        "summary": "We could not take your payment, please try again later"
+        "summary": "Your application has not been sent. Try again."
       },
       "duplicate": {
-        "summary": "Your application has been submitted, please return to the tasklist to continue"
+        "summary": "Your application has been submitted, please return to the tasklist to continue."
       }
     }
   }

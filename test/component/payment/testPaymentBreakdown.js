@@ -13,8 +13,15 @@ describe('payment-breakdown', () => {
     let testWrapper;
     let submitStub;
 
-    beforeEach(() => {
+    before(() => {
         submitStub = require('test/service-stubs/submit');
+    });
+
+    after(() => {
+        submitStub.close();
+    });
+
+    beforeEach(() => {
         testWrapper = new TestWrapper('PaymentBreakdown');
         nock(IDAM_S2S_URL).post('/lease')
             .reply(200, 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG' +
@@ -33,7 +40,6 @@ describe('payment-breakdown', () => {
     });
 
     afterEach(() => {
-        submitStub.close();
         testWrapper.destroy();
         nock.cleanAll();
         feesCalculator.restore();
@@ -87,7 +93,6 @@ describe('payment-breakdown', () => {
                     if (err) {
                         throw err;
                     }
-                    // const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeUk'];
                     const data = {};
                     testWrapper.testErrors(done, data, 'failure', ['authorisation']);
                 });

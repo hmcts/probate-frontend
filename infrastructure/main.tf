@@ -158,8 +158,8 @@ module "probate-frontend" {
     //IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE = "${data.vault_generic_secret.idam_frontend_idam_key.data["value"]}"
     IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE = "${data.azurerm_key_vault_secret.idam_secret_probate.value}"
 
-    //  PAYMENT
-    PAYMENT_CREATE_URL = "${var.payment_create_url }"
+    // PAYMENT
+    PAYMENT_API_URL = "${var.payment_create_url}"
 
     // POSTCODE
     //POSTCODE_SERVICE_URL = "${data.vault_generic_secret.probate_postcode_service_url.data["value"]}"

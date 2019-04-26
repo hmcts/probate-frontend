@@ -80,11 +80,9 @@
       "overseas": 2
     },
     "payment": {
-      "paymentDue": "true",
       "total": 5001,
-      "paymentId": 1
+      "reference": 1
     },
-    "paymentPending": "true",
     "journeyType": "probate"
   }
 }

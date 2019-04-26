@@ -77,9 +77,7 @@
       "overseas": 2
     },
     "payment": {
-      "paymentDue": "true",
       "total": 5001
-    },
-    "paymentPending": "true"
+    }
   }
 }

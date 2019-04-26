@@ -75,7 +75,7 @@ router.use((req, res, next) => {
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
     ) {
         res.redirect('thankyou');
-    } else if (formdata.paymentPending === 'false' &&
+    } else if ((get(formdata, 'payment.total') === 0 || get(formdata, 'payment.status') === 'Success') &&
         !includes(config.whitelistedPagesAfterPayment, req.originalUrl)
     ) {
         res.redirect('tasklist');

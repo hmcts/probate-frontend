@@ -245,7 +245,13 @@ describe('Tasklist', () => {
 
         it('Updates the context: PaymentTask started (Fee to Pay)', () => {
             req.session.form = {
-                paymentPending: 'true'
+                payment: {
+                    reference: '1234'
+                },
+                ccdCase: {
+                    state: 'PAAppCreated',
+                    id: 1535395401245028
+                }
             };
             req.body = {};
             ctx = taskList.getContextData(req);
@@ -256,7 +262,13 @@ describe('Tasklist', () => {
 
         it('Updates the context: PaymentTask started (No Fee)', () => {
             req.session.form = {
-                paymentPending: 'false'
+                payment: {
+                    total: 0,
+                },
+                ccdCase: {
+                    state: 'PAAppCreated',
+                    id: 1535395401245028
+                }
             };
             req.body = {};
             ctx = taskList.getContextData(req);
@@ -271,9 +283,9 @@ describe('Tasklist', () => {
                     state: 'CaseCreated',
                     id: 1535395401245028
                 },
-                paymentPending: 'false',
                 payment: {
-                    status: 'Success'
+                    status: 'Success',
+                    reference: '1234'
                 }
             };
             req.body = {};

@@ -34,7 +34,7 @@ const dataMap = {
     copiesUK: 'copies.uk',
     copiesOverseas: 'copies.overseas',
     totalFee: 'payment.total',
-    paymentReference: 'payment.paymentReference',
+    reference: 'payment.reference',
     legalStatement: 'declaration.legalStatement',
     declaration: 'declaration.declaration',
     payloadVersion: 'payloadVersion',

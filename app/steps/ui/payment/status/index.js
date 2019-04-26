@@ -23,7 +23,7 @@ class PaymentStatus extends Step {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        ctx.paymentId = get(formdata, 'payment.paymentId');
+        ctx.reference = get(formdata, 'payment.reference');
         ctx.userId = req.userId;
         ctx.authToken = req.authToken;
         ctx.paymentDue = get(formdata, 'payment.total') > 0;
@@ -56,14 +56,13 @@ class PaymentStatus extends Step {
             ctx.journeyType
         );
 
-        if (formdata.paymentPending === 'true' || formdata.paymentPending === 'unknown') {
+        if (ctx.paymentDue) {
             const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
             const serviceAuthResult = yield authorise.post();
 
             if (serviceAuthResult.name === 'Error') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
-                formdata.paymentPending = 'unknown';
                 return options;
             }
 
@@ -71,21 +70,21 @@ class PaymentStatus extends Step {
                 authToken: ctx.authToken,
                 serviceAuthToken: serviceAuthResult,
                 userId: ctx.userId,
-                paymentId: ctx.paymentId
+                paymentId: ctx.reference
             };
 
-            const payment = new Payment(config.services.payment.createPaymentUrl, ctx.sessionID);
+            const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
+            const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
             const getPaymentResponse = yield payment.get(data);
-            logger.info('Payment retrieval in status for paymentId = ' + ctx.paymentId + ' with response = ' + JSON.stringify(getPaymentResponse));
+            logger.info('Payment retrieval in status for reference = ' + ctx.reference + ' with response = ' + JSON.stringify(getPaymentResponse));
             const date = typeof getPaymentResponse.date_updated === 'undefined' ? ctx.paymentCreatedDate : getPaymentResponse.date_updated;
             this.updateFormDataPayment(formdata, getPaymentResponse, date);
             if (getPaymentResponse.name === 'Error' || getPaymentResponse.status === 'Initiated') {
-                logger.error('Payment retrieval failed for paymentId = ' + ctx.paymentId + ' with status = ' + getPaymentResponse.status);
+                logger.error('Payment retrieval failed for reference = ' + ctx.reference + ' with status = ' + getPaymentResponse.status);
                 formData.post(ctx.regId, formdata);
                 const options = {};
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
-                formdata.paymentPending = 'true';
                 return options;
             }
 
@@ -102,7 +101,6 @@ class PaymentStatus extends Step {
                 logger.warn('Did not get a successful case created state.');
             } else {
                 options.redirect = false;
-                formdata.paymentPending = 'false';
             }
         } else {
             const [updateCcdCaseResponse, errors] = yield this.updateCcdCasePaymentStatus(ctx, formdata);

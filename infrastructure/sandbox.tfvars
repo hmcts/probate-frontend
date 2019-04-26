@@ -14,7 +14,7 @@ probate_frontend_use_auth = "false"
 
 reform_envirionment_for_test = "sandbox"
 
-payment_create_url = "http://payment-api-saat.service.core-compute-saat.internal/card-payments"
+payment_create_url = "http://payment-api-saat.service.core-compute-saat.internal"
 
 idam_service_api = "http://betadevbccidams2slb.reform.hmcts.net"
 

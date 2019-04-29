@@ -15,8 +15,8 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "You haven&rsquo;t entered a valid amount of assets outside England and Wales",
-        "message": "Enter a valid amount using numbers only"
+        "summary": "Net value can only contain numbers",
+        "message": "Net value must be a whole number or a number with 2 decimal places"
       }
     }
   }

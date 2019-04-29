@@ -4,12 +4,12 @@
   "optionIHT205": "IHT 205 - there was no inheritance tax to pay",
   "optionIHT207": "IHT 207 - there was no inheritance tax to pay and the person who died lived abroad",
   "optionIHT400421": "IHT 400 and 421",
-  "gross205": "Enter the number added to box D (gross value in pounds)",
-  "net205": "Enter the number added to box F (net value in pounds)",
-  "gross207": "Enter the number added to box C (gross value in pounds)",
-  "net207": "Enter the number added to box G (net value in pounds)",
-  "gross400": "Enter the number added to box 3 (gross value in pounds)",
-  "net400": "Enter the number added to box 5 (net value in pounds)",
+  "gross205": "Enter the number added to box D (gross value in &pound;)",
+  "net205": "Enter the number added to box F (net value in &pound;)",
+  "gross207": "Enter the number added to box C (gross value in &pound;)",
+  "net207": "Enter the number added to box G (net value in &pound;)",
+  "gross400": "Enter the number added to box 3 (gross value in &pound;)",
+  "net400": "Enter the number added to box 5 (net value in &pound;)",
   "421Info": "HMRC will process these forms and send them to the probate office for you.",
 
   "errors": {
@@ -19,7 +19,7 @@
         "message": "Please select a form"
       }
     },
-    "grossIHT205": {
+    "grossValueFieldIHT205": {
       "required": {
         "summary": "You haven&rsquo;t entered the gross amount",
         "message": "Please enter the gross amount"
@@ -29,11 +29,11 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "You haven&rsquo;t entered a valid gross amount",
-        "message": "Enter a valid amount using numbers only"
+        "summary": "Gross value can only contain numbers",
+        "message": "Gross value must be a whole number or a number with 2 decimal places"
       }
     },
-    "netIHT205": {
+    "netValueFieldIHT205": {
       "required": {
         "summary": "You haven&rsquo;t entered the net amount",
         "message": "Please enter the net amount"
@@ -43,15 +43,15 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "You haven&rsquo;t entered a valid net amount",
-        "message": "Enter a valid amount using numbers only"
+        "summary": "Net value can only contain numbers",
+        "message": "Net value must be a whole number or a number with 2 decimal places"
       },
       "netValueGreaterThanGross": {
         "summary": "The net amount can&rsquo;t be greater than the gross amount",
         "message": "The net amount can&rsquo;t be greater than the gross amount"
       }
     },
-    "grossIHT207": {
+    "grossValueFieldIHT207": {
       "required": {
         "summary": "You haven&rsquo;t entered the gross amount",
         "message": "Please enter the gross amount"
@@ -61,11 +61,11 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "You haven&rsquo;t entered a valid gross amount",
-        "message": "Enter a valid amount using numbers only"
+        "summary": "Gross value can only contain numbers",
+        "message": "Gross value must be a whole number or a number with 2 decimal places"
       }
     },
-    "netIHT207": {
+    "netValueFieldIHT207": {
       "required": {
         "summary": "You haven&rsquo;t entered the net amount",
         "message": "Please enter the net amount"
@@ -75,15 +75,15 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "You haven&rsquo;t entered a valid net amount",
-        "message": "Enter a valid amount using numbers only"
+        "summary": "Net value can only contain numbers",
+        "message": "Net value must be a whole number or a number with 2 decimal places"
       },
       "netValueGreaterThanGross": {
         "summary": "The net amount can&rsquo;t be greater than the gross amount",
         "message": "The net amount can&rsquo;t be greater than the gross amount"
       }
     },
-    "grossIHT400421": {
+    "grossValueFieldIHT400421": {
       "required": {
         "summary": "You haven&rsquo;t entered the gross amount",
         "message": "Please enter the gross amount"
@@ -93,11 +93,11 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "You haven&rsquo;t entered a valid gross amount",
-        "message": "Enter a valid amount using numbers only"
+        "summary": "Gross value can only contain numbers",
+        "message": "Gross value must be a whole number or a number with 2 decimal places"
       }
     },
-    "netIHT400421": {
+    "netValueFieldIHT400421": {
       "required": {
         "summary": "You haven&rsquo;t entered the net amount",
         "message": "Please enter the net amount"
@@ -107,8 +107,8 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "You haven&rsquo;t entered a valid net amount",
-        "message": "Enter a valid amount using numbers only"
+        "summary": "Net value can only contain numbers",
+        "message": "Net value must be a whole number or a number with 2 decimal places"
       },
       "netValueGreaterThanGross": {
         "summary": "The net amount can&rsquo;t be greater than the gross amount",

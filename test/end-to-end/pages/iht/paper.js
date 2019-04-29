@@ -10,8 +10,8 @@ module.exports = function (formName, grossAmount, netAmount) {
 
     I.click(`#paperIHT${formName}`);
 
-    I.fillField(`#grossIHT${formName}`, grossAmount);
-    I.fillField(`#netIHT${formName}`, netAmount);
+    I.fillField(`#grossValueFieldIHT${formName}`, grossAmount);
+    I.fillField(`#netValueFieldIHT${formName}`, netAmount);
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

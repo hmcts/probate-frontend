@@ -19,17 +19,14 @@ describe('iht-paper', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testHelpBlockContent.runTest('IhtPaper');
 
-        it('test correct iht paper page content is loaded', (done) => {
-            const contentToExclude = [];
-
-            testWrapper.testContent(done, contentToExclude);
+        it('test content loaded on the page', (done) => {
+            testWrapper.testContent(done, []);
         });
 
-        it('test iht paper schema validation when no data is entered', (done) => {
+        it('test errors message displayed for missing data', (done) => {
             const errorsToTest = ['form'];
-            const data = {};
 
-            testWrapper.testErrors(done, data, 'required', errorsToTest);
+            testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });
 
         it('test iht paper schema validation when form 205 is chosen', (done) => {
@@ -37,17 +34,17 @@ describe('iht-paper', () => {
                 form: 'IHT205'
             };
 
-            testWrapper.testErrors(done, data, 'required', ['grossIHT205', 'netIHT205']);
+            testWrapper.testErrors(done, data, 'required', ['grossValueFieldIHT205', 'netValueFieldIHT205']);
         });
 
         it('test iht paper schema validation when form 205 is chosen, and net value is greater than gross value', (done) => {
             const data = {
                 form: 'IHT205',
-                grossIHT205: 999,
-                netIHT205: 1000
+                grossValueFieldIHT205: 999,
+                netValueFieldIHT205: 1000
             };
 
-            testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['netIHT205']);
+            testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['netValueFieldIHT205']);
         });
 
         it('test iht paper schema validation when form 207 is chosen', (done) => {
@@ -55,17 +52,17 @@ describe('iht-paper', () => {
                 form: 'IHT207'
             };
 
-            testWrapper.testErrors(done, data, 'required', ['grossIHT207', 'netIHT207']);
+            testWrapper.testErrors(done, data, 'required', ['grossValueFieldIHT207', 'netValueFieldIHT207']);
         });
 
         it('test iht paper schema validation when form 207 is chosen, and net value is greater than gross value', (done) => {
             const data = {
                 form: 'IHT207',
-                grossIHT207: 999,
-                netIHT207: 1000
+                grossValueFieldIHT207: 999,
+                netValueFieldIHT207: 1000
             };
 
-            testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['netIHT207']);
+            testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['netValueFieldIHT207']);
         });
 
         it('test iht paper schema validation when form 400 is chosen', (done) => {
@@ -73,24 +70,24 @@ describe('iht-paper', () => {
                 form: 'IHT400421'
             };
 
-            testWrapper.testErrors(done, data, 'required', ['grossIHT400421', 'netIHT400421']);
+            testWrapper.testErrors(done, data, 'required', ['grossValueFieldIHT400421', 'netValueFieldIHT400421']);
         });
 
         it('test iht paper schema validation when form 400 is chosen, and net value is greater than gross value', (done) => {
             const data = {
                 form: 'IHT400421',
-                grossIHT400421: 999,
-                netIHT400421: 1000
+                grossValueFieldIHT400421: 999,
+                netValueFieldIHT400421: 1000
             };
 
-            testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['netIHT400421']);
+            testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['netValueFieldIHT400421']);
         });
 
         it(`test it redirects to Deceased Alias page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
             const data = {
                 form: 'IHT205',
-                grossIHT205: '100000',
-                netIHT205: '9999'
+                grossValueFieldIHT205: '100000',
+                netValueFieldIHT205: '9999'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
         });

@@ -51,8 +51,8 @@
       "completed": "Yes",
       "identifier": "12341234A12345",
       "method": "Through the HMRC online service",
-      "netValueOnline": "100000",
-      "grossValueOnline": "150000"
+      "netValueField": "100000",
+      "grossValueField": "150000"
     },
     "executors": {
       "list": [{"firstName":"asd","lastName":"dsa","isApplying":true,"isApplicant":true},

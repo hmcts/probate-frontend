@@ -7,7 +7,7 @@
   "netValue": "Net value of the estate in &pound;",
 
   "errors": {
-    "grossValueOnline": {
+    "grossValueField": {
       "required": {
         "summary": "You haven&rsquo;t entered the gross amount",
         "message": "Please enter the gross amount"
@@ -17,11 +17,11 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "You haven&rsquo;t entered a valid gross amount",
-        "message": "Enter a valid amount using numbers only"
+        "summary": "Gross value can only contain numbers",
+        "message": "Gross value must be a whole number or a number with 2 decimal places"
       }
     },
-    "netValueOnline": {
+    "netValueField": {
       "required": {
         "summary": "You haven&rsquo;t entered the net amount",
         "message": "Please enter the net amount"
@@ -31,8 +31,8 @@
         "message": "Invalid amount"
       },
       "invalidCurrencyFormat": {
-        "summary": "You haven&rsquo;t entered a valid net amount",
-        "message": "Enter a valid amount using numbers only"
+        "summary": "Net value can only contain numbers",
+        "message": "Net value must be a whole number or a number with 2 decimal places"
       },
       "netValueGreaterThanGross": {
         "summary": "The net amount can&rsquo;t be greater than the gross amount",

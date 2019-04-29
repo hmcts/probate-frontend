@@ -3,19 +3,19 @@
   "id": "iht-value",
   "type": "object",
   "properties": {
-    "grossValueOnline": {
+    "grossValueField": {
       "type": "string",
       "minLength": 1,
       "maxLength": 13
     },
-    "netValueOnline": {
+    "netValueField": {
       "type": "string",
       "minLength": 1,
       "maxLength": 13
-    } 
+    }
   },
   "required": [
-    "grossValueOnline",
-    "netValueOnline"
+    "grossValueField",
+    "netValueField"
   ]
 }

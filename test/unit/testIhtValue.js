@@ -20,15 +20,15 @@ describe('IhtValue', () => {
 
         it('should return the ctx with the estate values', (done) => {
             ctx = {
-                grossValueOnline: '500000',
-                netValueOnline: '400000'
+                grossValueField: '500000',
+                netValueField: '400000'
             };
             errors = [];
             [ctx, errors] = IhtValue.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                grossValueOnline: '500000',
+                grossValueField: '500000',
                 grossValue: 500000,
-                netValueOnline: '400000',
+                netValueField: '400000',
                 netValue: 400000
             });
             done();
@@ -36,54 +36,70 @@ describe('IhtValue', () => {
 
         it('should return the ctx with the estate values (values containing decimals)', (done) => {
             ctx = {
-                grossValueOnline: '500000.00',
-                netValueOnline: '400000.00'
+                grossValueField: '500000.12',
+                netValueField: '400000.34'
             };
             errors = [];
             [ctx, errors] = IhtValue.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                grossValueOnline: '500000.00',
-                grossValue: 500000,
-                netValueOnline: '400000.00',
-                netValue: 400000
+                grossValueField: '500000.12',
+                grossValue: 500000.12,
+                netValueField: '400000.34',
+                netValue: 400000.34
+            });
+            done();
+        });
+
+        it('should return the ctx with the estate values (values containing 3 decimals and thousands separators)', (done) => {
+            ctx = {
+                grossValueField: '500,000.123',
+                netValueField: '400,000.345'
+            };
+            errors = [];
+            [ctx, errors] = IhtValue.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({
+                grossValueField: '500,000.123',
+                grossValue: 500000.12,
+                netValueField: '400,000.345',
+                netValue: 400000.35
             });
             done();
         });
 
         it('should return the errors correctly', (done) => {
             ctx = {
-                grossValueOnline: '40a0000',
-                netValueOnline: '50a0000'
+                grossValueField: '40a0000',
+                netValueField: '50a0000'
             };
             errors = [];
             [ctx, errors] = IhtValue.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                grossValueOnline: '40a0000',
+                grossValueField: '40a0000',
                 grossValue: 400000,
-                netValueOnline: '50a0000',
+                netValueField: '50a0000',
                 netValue: 500000
             });
             expect(errors).to.deep.equal([
                 {
                     msg: {
-                        summary: 'You haven&rsquo;t entered a valid gross amount',
-                        message: 'Enter a valid amount using numbers only'
+                        summary: 'Gross value can only contain numbers',
+                        message: 'Gross value must be a whole number or a number with 2 decimal places'
                     },
-                    param: 'grossValueOnline'
+                    param: 'grossValueField'
                 },
                 {
                     msg: {
-                        summary: 'You haven&rsquo;t entered a valid net amount',
-                        message: 'Enter a valid amount using numbers only'
+                        summary: 'Net value can only contain numbers',
+                        message: 'Net value must be a whole number or a number with 2 decimal places'
                     },
-                    param: 'netValueOnline'
+                    param: 'netValueField'
                 },
                 {
                     msg: {
                         summary: 'The net amount can&rsquo;t be greater than the gross amount',
                         message: 'The net amount can&rsquo;t be greater than the gross amount'
                     },
-                    param: 'netValueOnline'
+                    param: 'netValueField'
                 }
             ]);
             done();

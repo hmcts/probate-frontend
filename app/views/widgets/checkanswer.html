@@ -20,7 +20,7 @@
                     <td class="check-your-answers__change">
                         {% if alreadyDeclared === 'false' %}
                             {% set actionLink = common.change if complete else common.answer %}
-                            <a href="{{ url }}">{{ actionLink }}</a>
+                            <a href="{{ url }}" aria-label="{{ actionLink }}">{{ actionLink }}</a>
                         {% endif %}
                     </td>
                 </tr>

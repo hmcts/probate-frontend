@@ -37,8 +37,9 @@
             </div>
         {% endfor %}
         </td>
-        <td class="check-your-answers__change">{% if fields.summary.alreadyDeclared.value == 'false' %}
-            <a href="{{content.DeceasedOtherNames.url}}">{{common.change}}</a>
+        <td class="check-your-answers__change">
+            {% if fields.summary.alreadyDeclared.value == 'false' %}
+                <a href="{{content.DeceasedOtherNames.url}}" aria-label="{{common.change}}">{{common.change}}</a>
             {%endif%}
         </td>
     </tr>

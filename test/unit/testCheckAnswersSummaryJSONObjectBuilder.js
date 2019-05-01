@@ -14,11 +14,11 @@ const html = `
     <h2 class="heading-medium">The will</h2>
     <table class="check-your-answers check-your-answers--long">
         <tr class="check-your-answers__row">
-            <th scope="col" class="check-your-answers__question">Did the person who died leave a will?</th>
+            <th scope="row" class="check-your-answers__question">Did the person who died leave a will?</th>
             <td class="check-your-answers__answer">Yes</td>
         </tr>
         <tr class="check-your-answers__row">
-            <th scope="col" class="check-your-answers__question">Do you have the original will?</th>
+            <th scope="row" class="check-your-answers__question">Do you have the original will?</th>
             <td class="check-your-answers__answer">Yes</td>
         </tr>
     </table>
@@ -26,11 +26,11 @@ const html = `
     <h2 class="heading-medium">Inheritance tax</h2>
     <table class="check-your-answers check-your-answers--long">
         <tr class="check-your-answers__row">
-            <th scope="col" class="check-your-answers__question">Has an Inheritance Tax (IHT) form been filled in?</th>
+            <th scope="row" class="check-your-answers__question">Has an Inheritance Tax (IHT) form been filled in?</th>
             <td class="check-your-answers__answer">Yes</td>
         </tr>
         <tr class="check-your-answers__row">
-            <th scope="col" class="check-your-answers__question">How was the Inheritance Tax (IHT) form submitted?</th>
+            <th scope="row" class="check-your-answers__question">How was the Inheritance Tax (IHT) form submitted?</th>
             <td class="check-your-answers__answer">By post</td>
         </tr>
     </table>
@@ -38,7 +38,7 @@ const html = `
     <h2 class="heading-medium">The executors</h2>
     <table class="check-your-answers check-your-answers--long">
         <tr class="check-your-answers__row">
-            <th scope="col" class="check-your-answers__question">How many past and present executors are named on the will and any updates (&lsquo;codicils&rsquo;)?</th>
+            <th scope="row" class="check-your-answers__question">How many past and present executors are named on the will and any updates (&lsquo;codicils&rsquo;)?</th>
             <td class="check-your-answers__answer">1</td>
         </tr>
     </table>
@@ -46,11 +46,11 @@ const html = `
     <h3 class="heading-small">About you</h3>
     <table class="check-your-answers check-your-answers--long">
         <tr class="check-your-answers__row">
-            <th scope="col" class="check-your-answers__question">First name(s)</th>
+            <th scope="row" class="check-your-answers__question">First name(s)</th>
             <td class="check-your-answers__answer">Bobby</td>
         </tr>
         <tr class="check-your-answers__row">
-            <th scope="col" class="check-your-answers__question">Last name(s)</th>
+            <th scope="row" class="check-your-answers__question">Last name(s)</th>
             <td class="check-your-answers__answer">Brown</td>
         </tr>
     </table>
@@ -58,11 +58,11 @@ const html = `
     <h2 class="heading-medium">About the person who died</h2>
     <table class="check-your-answers check-your-answers--long">
         <tr class="check-your-answers__row">
-            <th scope="col" class="check-your-answers__question">First name(s)</th>
+            <th scope="row" class="check-your-answers__question">First name(s)</th>
             <td class="check-your-answers__answer">Graham</td>
         </tr>
         <tr class="check-your-answers__row">
-            <th scope="col" class="check-your-answers__question">Last name(s)</th>
+            <th scope="row" class="check-your-answers__question">Last name(s)</th>
             <td class="check-your-answers__answer">Greene</td>
         </tr>
     </table>

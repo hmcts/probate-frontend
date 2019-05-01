@@ -29,7 +29,7 @@
 
 {% if fields.deceased.otherNames.value.length > 0 %}
     <tr class="check-your-answers__row">
-        <th class="check-your-answers__question">{{content.Summary.otherNamesLabel | safe}}</th>
+        <th scope="row" class="check-your-answers__question">{{content.Summary.otherNamesLabel | safe}}</th>
         <td class="check-your-answers__answer">
         {% for index, otherName in fields.deceased.otherNames.value %}
             <div class="check-your-answers__row">

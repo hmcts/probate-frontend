@@ -18,9 +18,9 @@ payment_create_url = "http://payment-api-demo.service.core-compute-demo.internal
 
 idam_service_api = "http://rpe-service-auth-provider-demo.service.core-compute-demo.internal"
 
-probate_private_beta_auth_url = "https://idam.preprod.ccidam.reform.hmcts.net/login"
+probate_private_beta_auth_url = "https://idam-web-public.demo.platform.hmcts.net/login"
 
-idam_user_host = "https://preprod-idamapi.reform.hmcts.net:3511"
+idam_user_host = "https://idam-api.demo.platform.hmcts.net"
 
 probate_deployment_env = "test"
 

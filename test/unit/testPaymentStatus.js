@@ -148,9 +148,10 @@ describe('PaymentStatus', () => {
         });
 
         it('should set redirect to true and payment status to failure if payment is not successful', (done) => {
-            nockMock.reply(200, {caseState: 'CaseCreated'});
+            nockMock.reply(200, {caseState: 'CasePaymentFailed'});
 
             expectedFormData.payment.status = 'Failed';
+            expectedFormData.ccdCase.state = 'CasePaymentFailed';
 
             const revert = PaymentStatus.__set__({
                 Payment: class {

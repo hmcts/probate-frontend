@@ -90,8 +90,10 @@ class PaymentStatus extends Step {
 
             const [updateCcdCaseResponse, errors] = yield this.updateCcdCasePaymentStatus(ctx, formdata);
             this.setErrors(options, errors);
-            set(formdata, 'ccdCase.state', updateCcdCaseResponse.caseState);
 
+            if (typeof updateCcdCaseResponse.caseState !== 'undefined') {
+                set(formdata, 'ccdCase.state', updateCcdCaseResponse.caseState);
+            }
             if (getPaymentResponse.status !== 'Success') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;

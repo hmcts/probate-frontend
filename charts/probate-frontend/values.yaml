@@ -1,0 +1,42 @@
+tags:
+  - idam-pr
+
+
+nodejs:
+  applicationPort: 3000
+  environment:
+    PUBLIC_PROTOCOL: https
+    REFORM_TEAM: probate
+    REFORM_SERVICE_NAME: probate-frontend
+    S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
+    IDAM_S2S_AUTH_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
+    PAYMENT_API_URL: http://payment-api-aat.service.core-compute-aat.internal
+    VALIDATION_SERVICE_URL: http://probate-business-service-aat.service.core-compute-aat.internal/validate
+    BUSINESS_DOCUMENT_URL: http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument
+    SUBMIT_SERVICE_URL: http://probate-submit-service-aat.service.core-compute-aat.internal
+    PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
+    FEES_REGISTRY_URL: http://fees-register-api-aat.service.core-compute-aat.internal/fees-register
+    REFORM_ENVIRONMENT : aat
+    USE_REDIS : true
+    REDIS_USE_TLS : false
+    USE_IDAM : true
+  image: 'https://hmcts.azurecr.io/hmcts/probate-frontend:latest'
+
+rpe-feature-toggle-api:
+  importer:
+    cron:
+      enabled: false
+    oneoff:
+      enabled: false
+  postgresql:
+    postgresqlDatabase: hmcts
+
+
+redis:
+  cluster:
+    enabled: false
+    slaveCount: 0
+  usePassword: false
+  master:
+    persistence:
+      enabled: false

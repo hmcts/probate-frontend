@@ -180,7 +180,7 @@ module "probate-frontend" {
 
     FEATURE_TOGGLES_API_URL = "${var.feature_toggles_api_url}"
 
-    TESTING = "TESTING"
+    //TESTING = "TESTING"
        // Cache
     WEBSITE_LOCAL_CACHE_OPTION = "${var.website_local_cache_option}"
     WEBSITE_LOCAL_CACHE_SIZEINMB = "${var.website_local_cache_sizeinmb}"

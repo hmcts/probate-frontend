@@ -102,10 +102,9 @@ describe('PaymentBreakdown', () => {
                 registry: {
                     registry: {
                         address: 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
-                        email: 'oxford@email.com',
-                        name: 'Oxford',
-                        sequenceNumber: 10034
-                    }
+                        name: 'Oxford'
+                    },
+                    submissionReference: 97
                 },
             };
             expectedPaymentFormdata = {
@@ -421,11 +420,11 @@ describe('PaymentBreakdown', () => {
                 registry: {
                     registry: {
                         address: 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
-                        email: 'oxford@email.com',
-                        name: 'Oxford',
-                        sequenceNumber: 10034
-                    }
-                }
+                        name: 'Oxford'
+                    },
+                    submissionReference: 97
+                },
+                submissionReference: 97
             };
             feesCalculator.returns(Promise.resolve({
                 status: 'success',
@@ -504,11 +503,11 @@ describe('PaymentBreakdown', () => {
                 registry: {
                     registry: {
                         address: 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
-                        email: 'oxford@email.com',
-                        name: 'Oxford',
-                        sequenceNumber: 10034
-                    }
-                }
+                        name: 'Oxford'
+                    },
+                    submissionReference: 97
+                },
+                submissionReference: 97
             };
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
             expectedPaAppCreatedFormdata.payment.reference = 'RC-67890';

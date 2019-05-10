@@ -21,8 +21,6 @@ router.post('/submit', (req, res) => {
         caseState: 'PAApplicationCreated',
         registry: {
             name: 'Birmingham',
-            sequenceNumber: '20000',
-            email: 'asdvavv',
             address: 'Line 1 Bham\nLine 2 Bham\nLine 3 Bham\nPostCode Bham'
         }
     });

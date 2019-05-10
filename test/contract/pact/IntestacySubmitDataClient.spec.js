@@ -105,9 +105,7 @@ describe('Pact Intestacy Submit Data', () => {
             },
             'registry': {
                 'name': 'Birmingham',
-                'email': 'birmingham@email.com',
-                'address': 'Line 1 Bham\nLine 2 Bham\nLine 3 Bham\nPostCode Bham',
-                'sequenceNumber': 20075
+                'address': 'Line 1 Bham\nLine 2 Bham\nLine 3 Bham\nPostCode Bham'
             },
             'declaration': {
                 'declarationCheckbox': 'Yes'
@@ -198,9 +196,7 @@ describe('Pact Intestacy Submit Data', () => {
             },
             'registry': {
                 'name': 'Birmingham',
-                'email': 'birmingham@email.com',
-                'address': 'Line 1 Bham\nLine 2 Bham\nLine 3 Bham\nPostCode Bham',
-                'sequenceNumber': 20075
+                'address': 'Line 1 Bham\nLine 2 Bham\nLine 3 Bham\nPostCode Bham'
             },
             'declaration': {
                 'declarationCheckbox': 'Yes'

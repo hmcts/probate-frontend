@@ -100,9 +100,7 @@ describe('submit-data', () => {
 
         const registry = {
             'name': 'Oxford',
-            'email': 'oxford@email.com',
-            'address': 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
-            'sequenceNumber': 10034
+            'address': 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n'
         };
 
         const payment = {

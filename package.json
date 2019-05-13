@@ -26,6 +26,7 @@
     "test-contract": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/addresslookup/*.js' 'test/contract/generatepin/*.js' --timeout 15000 --reporter spec",
     "test-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/pact/*.js' --timeout 15000 --reporter spec",
     "publish-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/publish/*.js' --timeout 15000 --reporter spec",
+    "test:pact:run-and-publish": "npm test-pact && npm publish-pact",
     "lint": "NODE_PATH=. eslint .",
     "eslint": "NODE_PATH=. eslint .",
     "test:nsp": "NODE_PATH=. nsp check",

@@ -14,7 +14,7 @@ nodejs:
     VALIDATION_SERVICE_URL: http://probate-business-service-aat.service.core-compute-aat.internal/validate
     BUSINESS_DOCUMENT_URL: http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument
     #SUBMIT_SERVICE_URL: http://probate-submit-service-aat.service.core-compute-aat.internal
-    SUBMIT_SERVICE_URL: http://probate-submit-service-pr-160.service.core-compute-preview.internal
+    SUBMIT_SERVICE_URL: http://probate-submit-service-pr-173.service.core-compute-preview.internal
     #PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
     PERSISTENCE_SERVICE_URL: http://probate-persistence-service-pr-103.service.core-compute-preview.internal/formdata
     FEES_REGISTRY_URL: http://fees-register-api-aat.service.core-compute-aat.internal/fees-register

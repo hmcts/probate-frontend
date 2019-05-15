@@ -36,6 +36,26 @@ router.use((req, res, next) => {
     next();
 });
 
+router.use('/payment-status', (req, res, next) => {
+    const formData = ServiceMapper.map(
+        'FormData',
+        [config.services.persistence.url, req.sessionID],
+        req.session.journeyType
+    );
+    formData
+        .get(req.session.regId)
+        .then(result => {
+            if (result.name === 'Error') {
+                req.log.debug('Failed to load user data');
+                req.log.info({tags: 'Analytics'}, 'Application Started');
+            } else {
+                req.log.debug('Successfully loaded user data');
+                req.session.form = result.formdata;
+                next();
+            }
+        });
+});
+
 router.get('/', (req, res) => {
     const formData = ServiceMapper.map(
         'FormData',
@@ -81,17 +101,17 @@ router.use((req, res, next) => {
         res.redirect('tasklist');
     } else if (get(formdata, 'declaration.declarationCheckbox') &&
         !includes(config.whitelistedPagesAfterDeclaration, req.originalUrl) &&
-            (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent') && req.session.haveAllExecutorsDeclared === 'true'))
+        (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent') && req.session.haveAllExecutorsDeclared === 'true'))
     ) {
         res.redirect('tasklist');
     } else if (get(formdata, 'declaration.declarationCheckbox') &&
         (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent'))) &&
-            isEqual('/executors-invite', req.originalUrl)
+        isEqual('/executors-invite', req.originalUrl)
     ) {
         res.redirect('tasklist');
     } else if (get(formdata, 'declaration.declarationCheckbox') &&
         (!hasMultipleApplicants || !(get(formdata, 'executors.executorsEmailChanged'))) &&
-            isEqual('/executors-update-invite', req.originalUrl)
+        isEqual('/executors-update-invite', req.originalUrl)
     ) {
         res.redirect('tasklist');
     } else if (req.originalUrl.includes('summary') && isHardStop(formdata, setJourney.getJourneyName(req.session))) {

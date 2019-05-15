@@ -13,6 +13,7 @@ const paymentFees = require('app/paymentFees');
 const setJourney = require('app/middleware/setJourney');
 const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
 const ServiceMapper = require('app/utils/ServiceMapper');
+const paymentBreakdown = require('app/paymentBreakdown');
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
@@ -102,6 +103,7 @@ router.use((req, res, next) => {
 });
 
 router.use('/document-upload', documentUpload);
+router.use('/payment-breakdown', paymentBreakdown);
 
 router.use((req, res, next) => {
     res.locals.session = req.session;

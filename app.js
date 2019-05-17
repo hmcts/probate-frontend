@@ -91,6 +91,7 @@ exports.init = function() {
     app.enable('trust proxy');
 
     // Security library helmet to verify 11 smaller middleware functions
+    //Do something else
     app.use(helmet());
 
     // Content security policy to allow just assets from same domain

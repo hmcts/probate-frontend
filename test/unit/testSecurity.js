@@ -171,32 +171,6 @@ describe('Security middleware', () => {
                 });
         });
 
-        it('should ignore redirect to time-out page if expired page is /payment-status', (done) => {
-            const revert = Security.__set__('IdamSession', class {
-                get() {
-                    return promise;
-                }
-            });
-
-            req.session = {expires: expiresTimeInThePast};
-            req.cookies[securityCookie] = token;
-            req.originalUrl = '/payment-status';
-            req.protocol = 'http';
-            const promise = when({name: 'Success', roles: ['probate-private-beta', 'citizen']});
-
-            protect(req, res, next);
-
-            promise
-                .then(() => {
-                    sinon.assert.notCalled(res.redirect);
-                    revert();
-                    done();
-                })
-                .catch((err) => {
-                    done(err);
-                });
-        });
-
         it('should retrieve user details when auth token provided', () => {
             const revert = Security.__set__('IdamSession', class {
                 get() {

@@ -34,6 +34,9 @@ nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
 
+postgresql:
+	  enabled: true # for rpe-feature-toggle-api
+
 rpe-feature-toggle-api:
   releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
   java:

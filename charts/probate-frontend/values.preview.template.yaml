@@ -45,7 +45,6 @@ rpe-feature-toggle-api:
       primaryIngressHost: ${SERVICE_FQDN}
       prefix: ftr-tgl
     environment:
-      FEATURES_DB_HOST: ${SERVICE_NAME}-ft-db
       ADMIN_USERNAME_TEST: admin@example.com
       ADMIN_PASSWORD_TEST: Password12
       EDITOR_USERNAME_TEST: editor@example.com

@@ -183,7 +183,7 @@ const config = {
         gop: [],
         intestacy: []
     },
-    nonIdamPages: ['stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'terms-conditions', 'privacy-policy', 'cookies'],
+    nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'terms-conditions', 'privacy-policy', 'cookies'],
     endpoints: {
         health: '/health',
         info: '/info'

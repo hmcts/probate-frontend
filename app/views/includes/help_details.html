@@ -9,7 +9,7 @@
 
     {% if fields.featureToggles.value.webchat == "true" %}
         {% set helpContent = helpContent + "<p class=\"govuk-heading-s\">" + (common.helpHeading3 | safe) + "</p>" %}
-        {% set helpContent = helpContent + "<div id=\"ctsc-web-chat\"></div>>" %}
+        {% set helpContent = helpContent + "<div id=\"ctsc-web-chat\"></div>" %}
     {% endif %}
 
     {{ govukDetails({

@@ -88,6 +88,10 @@ exports.init = function() {
         maxFiles: config.documentUpload.maxFiles,
         maxSizeBytes: config.documentUpload.maxSizeBytes
     });
+    njkEnv.addGlobal('webChat', {
+        chatId: config.webChat.chatId,
+        tenant: config.webChat.tenant
+    });
 
     filters(njkEnv);
     njkEnv.express(app);

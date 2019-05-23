@@ -1,0 +1,96 @@
+//@import 'node_modules/govuk-frontend/all';
+@import "node_modules/govuk-frontend/helpers/colour";
+@import "node_modules/govuk-frontend/helpers/font-faces";
+@import "node_modules/govuk-frontend/components/button/button";
+@import "node_modules/govuk-frontend/components/header/header";
+@import "node_modules/govuk-frontend/components/input/input";
+@import "node_modules/govuk-frontend/components/label/label";
+@import "node_modules/govuk-frontend/components/textarea/textarea";
+
+button,
+input[type="submit"] {
+  @extend .govuk-button;
+
+  $govuk-button-colour: #00823b; // sass-lint:disable no-color-literals
+  $govuk-button-hover-colour: govuk-shade($govuk-button-colour, 20%);
+  $govuk-button-shadow-colour: govuk-shade($govuk-button-colour, 60%);
+  $govuk-button-text-colour: govuk-colour("white");
+
+  background-color: $govuk-button-colour !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  color: govuk-colour("white") !important;
+  margin-bottom: 0 !important;
+  margin-top: 10px !important;
+  width: calc(100% - 40px) !important;
+
+  &:hover,
+  &:focus {
+    background-color: $govuk-button-hover-colour !important;
+  }
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"] {
+  @extend .govuk-input;
+  border-color: govuk-colour("black") !important;
+  color: black !important;
+}
+
+label {
+  @extend .govuk-label;
+
+  &.required {
+    &:after {
+      content: none;
+    }
+  }
+}
+
+textarea {
+  @extend .govuk-textarea;
+  border-color: govuk-colour("black") !important;
+  color: black !important;
+  resize: none;
+}
+
+body,
+div {
+  background-color: govuk-colour("white") !important;
+  background-image: none !important;
+}
+
+.header {
+  @extend .govuk-header;
+
+  background-color: govuk-colour("black") !important;
+  padding-top: 12px !important;
+
+  .logo {
+    margin-left: 20px;
+    margin-top: 1px;
+  }
+
+  .title {
+    font-weight: bold !important;
+  }
+}
+
+.message-history {
+  width: calc(100% - 40px) !important;
+  margin: 0 auto !important;
+}
+
+.inner-container {
+  padding: 0 !important;
+}
+
+.form-list {
+  overflow-y: initial !important;
+}
+
+.footer {
+  display: none;
+}

@@ -1,20 +1,20 @@
 {% extends "includes/layout.html" %}
 
 {% set displaySignOutLink = fields.signOutLink.value %}
+{% set tempContent = content[fields.stopReason.value] %}
 
 {% block content %}
-    <main id="content" role="main">
-        {% include "includes/phase_banner_beta.html" %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">{{ content.header | safe }}</h1>
 
-        <h1 class="form-title heading-large">{{ content.header | safe }}</h1>
+            {% for placeholder in fields.linkPlaceholders.value %}
+                {% set tempContent = tempContent | replace("{" + placeholder + "}", links[placeholder]) %}
+            {% endfor %}
 
-        {% set tempContent = content[fields.stopReason.value] %}
-        {% for placeholder in fields.linkPlaceholders.value %}
-            {% set tempContent = tempContent | replace('{' + placeholder + '}', links[placeholder]) %}
-        {% endfor %}
+            <p class="govuk-body">{{ tempContent | safe }}</p>
 
-        <p>{{ tempContent | safe }}</p>
-
-        {% include "includes/help_details.html" %}
-    </main>
+            {% include "includes/help_details.html" %}
+        </div>
+    </div>
 {% endblock %}

@@ -15,6 +15,7 @@
     }
   },
   "required":[
-    "firstName", "lastName"
+    "firstName",
+    "lastName"
   ]
 }

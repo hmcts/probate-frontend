@@ -1,25 +1,37 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/textfields.html" import textField %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question | replace('{executorFullName}', fields.list.value[fields.index.value].fullName) | safe }}</h1>
-{% endblock %}
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "input/macro.njk" import govukInput %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <fieldset>
-        <legend class="visually-hidden">
-            {{ content.question | safe }}
-        </legend>
-        {{ textField(
-            name = 'currentName',
-            field = fields.currentName,
-            text = content.currentName,
-            hint = content.currentNameHint,
-            size = 200
-        ) }}
-    </fieldset>
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    {% call govukFieldset({
+        legend: {
+            text: content.question | replace("{executorFullName}", fields.list.value[fields.index.value].fullName) | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        <p class="govuk-hint">{{ content.currentNameHint }}</p>
+        {{ govukInput({
+            label: {
+                text: content.currentName
+            },
+            id: "currentName",
+            name: "currentName",
+            value: fields.currentName.value | safe,
+            errorMessage: fields.currentName.errorMessage,
+            attributes: {
+                maxlength: 200
+            },
+            classes: "govuk-!-width-three-quarters"
+        }) }}
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

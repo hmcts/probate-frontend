@@ -31,11 +31,12 @@ describe('summary-iht-section', () => {
                     if (err) {
                         throw err;
                     }
-                    const playbackData = {};
-                    playbackData.method = ihtContent.method.question;
-                    playbackData.identifier = ihtContent.identifier.question;
-                    playbackData.grossValue = ihtContent.value.grossValue;
-                    playbackData.netValue = ihtContent.value.netValue;
+                    const playbackData = {
+                        method: ihtContent.method.question,
+                        identifier: ihtContent.identifier.question,
+                        grossValue: ihtContent.value.grossValue,
+                        netValue: ihtContent.value.netValue
+                    };
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });
@@ -50,11 +51,12 @@ describe('summary-iht-section', () => {
                     if (err) {
                         throw err;
                     }
-                    const playbackData = {};
-                    playbackData.method = ihtContent.method.question;
-                    playbackData.option = ihtContent.paper.question;
-                    playbackData.grossValue = ihtContent.value.grossValue;
-                    playbackData.netValue = ihtContent.value.netValue;
+                    const playbackData = {
+                        method: ihtContent.method.question,
+                        option: ihtContent.paper.question,
+                        grossValue: ihtContent.value.grossValue,
+                        netValue: ihtContent.value.netValue
+                    };
 
                     testWrapper.testDataPlayback(done, playbackData, [], ['form']);
                 });
@@ -68,11 +70,12 @@ describe('summary-iht-section', () => {
                     if (err) {
                         throw err;
                     }
-                    const playbackData = {};
-                    playbackData.method = ihtContent.method.question;
-                    playbackData.identifier = ihtContent.identifier.question;
-                    playbackData.grossValue = ihtContent.value.grossValue;
-                    playbackData.netValue = ihtContent.value.netValue;
+                    const playbackData = {
+                        method: ihtContent.method.question,
+                        identifier: ihtContent.identifier.question,
+                        grossValue: ihtContent.value.grossValue,
+                        netValue: ihtContent.value.netValue
+                    };
 
                     Object.assign(playbackData, sessionData.iht);
 
@@ -89,11 +92,12 @@ describe('summary-iht-section', () => {
                     if (err) {
                         throw err;
                     }
-                    const playbackData = {};
-                    playbackData.method = ihtContent.method.question;
-                    playbackData.option = ihtContent.paper.question;
-                    playbackData.grossValue = ihtContent.value.grossValue;
-                    playbackData.netValue = ihtContent.value.netValue;
+                    const playbackData = {
+                        method: ihtContent.method.question,
+                        option: ihtContent.paper.question,
+                        grossValue: ihtContent.value.grossValue,
+                        netValue: ihtContent.value.netValue
+                    };
 
                     Object.assign(playbackData, sessionData.iht);
 
@@ -110,11 +114,12 @@ describe('summary-iht-section', () => {
                     if (err) {
                         throw err;
                     }
-                    const playbackData = {};
-                    playbackData.method = ihtContent.method.question;
-                    playbackData.option = ihtContent.paper.question;
-                    playbackData.grossValue = ihtContent.value.grossValue;
-                    playbackData.netValue = ihtContent.value.netValue;
+                    const playbackData = {
+                        method: ihtContent.method.question,
+                        option: ihtContent.paper.question,
+                        grossValue: ihtContent.value.grossValue,
+                        netValue: ihtContent.value.netValue
+                    };
 
                     Object.assign(playbackData, sessionData.iht);
 
@@ -131,11 +136,12 @@ describe('summary-iht-section', () => {
                     if (err) {
                         throw err;
                     }
-                    const playbackData = {};
-                    playbackData.ihtMethod = ihtContent.method.question;
-                    playbackData.ihtOption = ihtContent.paper.question;
-                    playbackData.ihtGrossValue = ihtContent.value.grossValue;
-                    playbackData.ihtNetValue = ihtContent.value.netValue;
+                    const playbackData = {
+                        ihtMethod: ihtContent.method.question,
+                        ihtOption: ihtContent.paper.question,
+                        ihtGrossValue: ihtContent.value.grossValue,
+                        ihtNetValue: ihtContent.value.netValue
+                    };
 
                     Object.assign(playbackData, sessionData.iht);
 

@@ -1,65 +1,141 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/textfields.html" import textField %}
-{% from "widgets/dates.html" import date %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question | safe }}</h1>
-{% endblock %}
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "input/macro.njk" import govukInput %}
+{% from "date-input/macro.njk" import govukDateInput %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <fieldset>
-        <h2 class="form-title heading-medium">{{ content.questionName | safe }}</h2>
-        <legend class="visually-hidden">
-            {{ content.questionName | safe }}
-        </legend>
-        {{ textField(
-            name = 'firstName',
-            field = fields.firstName,
-            text = content.firstName,
-            hint = content.firstNameHint,
-            size = 30
-        ) }}
-        {{ textField(
-            name = 'lastName',
-            field = fields.lastName,
-            text = content.lastName,
-            size = 50
-        ) }}
-    </fieldset>
-    <fieldset>
-        <h2 class="form-title heading-medium">{{ content.questionDob | safe }}</h2>
-        <legend class="visually-hidden">
-            {{ content.questionDob | safe }}
-        </legend>
-        {{ date(
-            name = 'dob',
-            day = fields.dob_day,
-            month = fields.dob_month,
-            year  = fields.dob_year,
-            date = fields.dob_date,
-            maxyear = currentYear,
-            legend = content.legendDob,
-            hint = content.questionHintDob
-        ) }}
-    </fieldset>
-    <fieldset>
-        <h2 class="form-title heading-medium">{{ content.questionDod | safe }}</h2>
-        <legend class="visually-hidden">
-            {{ content.questionDod | safe }}
-        </legend>
-        {{ date(
-            name = 'dod',
-            day = fields.dod_day,
-            month = fields.dod_month,
-            year  = fields.dod_year,
-            date = fields.dod_date,
-            maxyear = currentYear,
-            legend = content.legendDod,
-            hint = content.questionHintDod
-        ) }}
-    </fieldset>
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    {% if errors and (fields["dob-day"].error or fields["dob-month"].error or fields["dob-year"].error or fields["dob-date"].error)%}
+        {% set inlineErrorsDob = {
+            text:
+            (
+            (fields["dob-date"].errorMessage.text + "<br>" if fields["dob-date"].errorMessage.text) +
+            (fields["dob-day"].errorMessage.text + "<br>" if fields["dob-day"].errorMessage.text) +
+            (fields["dob-month"].errorMessage.text + "<br>" if fields["dob-month"].errorMessage.text) +
+            (fields["dob-year"].errorMessage.text + "<br>" if fields["dob-year"].errorMessage.text)
+            ) | safe
+        } %}
+    {% endif %}
+    {% if errors and (fields["dod-day"].error or fields["dod-month"].error or fields["dod-year"].error or fields["dod-date"].error)%}
+        {% set inlineErrorsDod = {
+            text:
+            (
+            (fields["dod-date"].errorMessage.text + "<br>" if fields["dod-date"].errorMessage.text) +
+            (fields["dod-day"].errorMessage.text + "<br>" if fields["dod-day"].errorMessage.text) +
+            (fields["dod-month"].errorMessage.text + "<br>" if fields["dod-month"].errorMessage.text) +
+            (fields["dod-year"].errorMessage.text + "<br>" if fields["dod-year"].errorMessage.text)
+            ) | safe
+        } %}
+    {% endif %}
+
+    <h1 class="form-title govuk-heading-l">{{ content.question | safe }}</h1>
+
+    {% call govukFieldset({
+        legend: {
+            text: content.questionName | safe,
+            classes: "govuk-fieldset__legend--m"
+        }
+    }) %}
+        {{ govukInput({
+            label: {
+                text: content.firstName
+            },
+            hint: {
+                text: content.firstNameHint
+            },
+            id: "firstName",
+            name: "firstName",
+            value: fields.firstName.value | safe,
+            errorMessage: fields.firstName.errorMessage,
+            attributes: {
+                maxlength: 100
+            },
+            classes: "govuk-!-width-three-quarters"
+        }) }}
+        {{ govukInput({
+            label: {
+                text: content.lastName
+            },
+            id: "lastName",
+            name: "lastName",
+            value: fields.lastName.value | safe,
+            errorMessage: fields.lastName.errorMessage,
+            attributes: {
+                maxlength: 100
+            },
+            classes: "govuk-!-width-three-quarters"
+        }) }}
+    {% endcall %}
+
+    {{ govukDateInput({
+        id: "dob",
+        namePrefix: "dob",
+        fieldset: {
+            legend: {
+                text: content.questionDob | safe,
+                classes: "govuk-fieldset__legend--m"
+            }
+        },
+        hint: {
+            text: content.questionHintDob
+        },
+        errorMessage: inlineErrorsDob,
+        items: [
+            {
+                classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dob-day"].error or fields["dob-date"].error),
+                name: "day",
+                value: fields["dob-day"].value
+            },
+            {
+                classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dob-month"].error or fields["dob-date"].error),
+                name: "month",
+                value: fields["dob-month"].value
+            },
+            {
+                classes: "govuk-input--width-4" + (" govuk-input--error" if fields["dob-year"].error or fields["dob-date"].error),
+                name: "year",
+                value: fields["dob-year"].value
+            }
+        ]
+    }) }}
+
+    {{ govukDateInput({
+        id: "dod",
+        namePrefix: "dod",
+        fieldset: {
+            legend: {
+                text: content.questionDod | safe,
+                classes: "govuk-fieldset__legend--m"
+            }
+        },
+        hint: {
+            text: content.questionHintDod
+        },
+        errorMessage: inlineErrorsDod,
+        items: [
+            {
+                classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dod-day"].error or fields["dod-date"].error),
+                name: "day",
+                value: fields["dod-day"].value
+            },
+            {
+                classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dod-month"].error or fields["dod-date"].error),
+                name: "month",
+                value: fields["dod-month"].value
+            },
+            {
+                classes: "govuk-input--width-4" + (" govuk-input--error" if fields["dod-year"].error or fields["dod-date"].error),
+                name: "year",
+                value: fields["dod-year"].value
+            }
+        ]
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

@@ -1,22 +1,39 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/radiobuttons.html" import optionsRadio %}
-
-{% block question %}
-    <h1 class="form-title heading-large">
-        {{content.question | safe}}
-    </h1>
-{% endblock %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    {{optionsRadio(content,
-        name = 'adoptionPlace',
-        field = fields.adoptionPlace,
-        options = ['optionYes', 'optionNo'],
-        legend = content.legend,
-        inline = true
-    )}}
-    <div class="form-group">
-        <input class="button" type="submit" value="{{common.saveAndContinue}}">
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "adoptionPlace",
+        name: "adoptionPlace",
+        fieldset: {
+            legend: {
+                text: content.question | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: fields.adoptionPlace.errorMessage,
+        items: [
+            {
+                value: content["optionYes"],
+                text: content["optionYes"] | safe,
+                checked: true if fields.adoptionPlace.value == content["optionYes"] | escape
+            },
+            {
+                value: content["optionNo"],
+                text: content["optionNo"] | safe,
+                checked: true if fields.adoptionPlace.value == content["optionNo"] | escape
+            }
+        ]
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

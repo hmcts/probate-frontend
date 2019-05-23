@@ -1,24 +1,42 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% set displaySignOutLink = 'false' %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
 
-{% from "widgets/radiobuttons.html" import optionsRadio %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
-{% endblock %}
+{% set displaySignOutLink = "false" %}
 
 {% block form_content %}
-    {{ optionsRadio(content,
-        name = 'left',
-        field = fields.left,
-        options = ['optionYes', 'optionNo'],
-        legend = content.legend,
-        inline = true
-    ) }}
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "left",
+        name: "left",
+        fieldset: {
+            legend: {
+                text: content.question | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: fields.left.errorMessage,
+        items: [
+            {
+                value: content["optionYes"],
+                text: content["optionYes"] | safe,
+                checked: true if fields.left.value == content["optionYes"] | escape
+            },
+            {
+                value: content["optionNo"],
+                text: content["optionNo"] | safe,
+                checked: true if fields.left.value == content["optionNo"] | escape
+            }
+        ]
+    }) }}
 
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.continue }}">
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.continue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}
 

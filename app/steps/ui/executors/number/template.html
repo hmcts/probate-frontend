@@ -1,37 +1,47 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/numbers.html" import numberField %}
-
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "inset-text/macro.njk" import govukInsetText %}
+{% from "input/macro.njk" import govukInput %}
+{% from "button/macro.njk" import govukButton %}
 {% from "widgets/lists.html" import unorderedList %}
 
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question | safe }}</h1>
-{% endblock %}
-
 {% block form_content %}
-    {{ content.checklist1Header }}
+    {% call govukFieldset({
+        legend: {
+            text: content.question | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        <span class="govuk-hint">
+            {{ content.checklist1Header }}<br><br>
+            {{ unorderedList([content["checklist1-item1"], content["checklist1-item2"]]) }}
+            {{ govukInsetText({
+                text: content.notExecutorYet | safe
+            }) }}
+        </span>
 
-    {{ unorderedList([content["checklist1-item1"], content["checklist1-item2"]]) }}
+        {{ govukInput({
+            label: {
+                html: content.executorsNumber
+            },
+            id: "executorsNumber",
+            name: "executorsNumber",
+            type: "number",
+            value: fields.executorsNumber.value | safe,
+            errorMessage: fields.executorsNumber.errorMessage,
+            attributes: {
+                maxlength: 5
+            },
+            classes: 'govuk-input--width-3'
+        }) }}
+    {% endcall %}
 
-    <div class="panel panel-border-narrow" id="executorNotified-2-details">
-        {{ content.notExecutorYet }}
-    </div>
-
-    <fieldset>
-        <legend class="visually-hidden">
-            {{ content.title | safe }}
-        </legend>
-
-        {{ numberField(
-            name = 'executorsNumber',
-            field = fields.executorsNumber,
-            text = content.executorsNumber,
-            size = 5,
-            width= '1-8',
-            currency = false
-        ) }}
-    </fieldset>
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

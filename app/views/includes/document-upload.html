@@ -1,29 +1,43 @@
+{% from "file-upload/macro.njk" import govukFileUpload %}
+
 <div class="document-upload">
     <div class="document-upload__dropzone">
         <img src="/public/images/document-upload-arrow.png" class="document-upload__image" alt="{{ content.title }}">
         <div class="document-upload__text">
-            <p class="document-upload__dropzone-text document-upload__dropzone-text--choose-file">{{ common.documentUploadChooseFile }}</p>
-            <p class="document-upload__dropzone-text bold">{{ common.or }}</p>
-            <p class="document-upload__dropzone-text">{{ common.documentUploadDragAndDrop }}</p>
+            <p class="govuk-body document-upload__dropzone-text document-upload__dropzone-text--choose-file">{{ common.documentUploadChooseFile }}</p>
+            <p class="govuk-body document-upload__dropzone-text bold">{{ common.or }}</p>
+            <p class="govuk-body document-upload__dropzone-text">{{ common.documentUploadDragAndDrop }}</p>
         </div>
         <div class="document-upload__fallback fallback">
             <form class="form" method="post" action="/document-upload?_csrf={{ csrfToken }}" enctype="multipart/form-data" novalidate>
-                <div class="form-group">
-                    <label for="file" class="visually-hidden">{{ content.title }}</label>
-                    <input name="file" type="file" id="file">
+                <div class="govuk-form-group">
+                    {{ govukFileUpload({
+                        id: "file",
+                        name: "file",
+                        label: {
+                            text: content.title
+                        }
+                    }) }}
+
                     <input name="isUploadingDocument" type="hidden" value="true">
                 </div>
-                <div class="form-group">
-                    <input id="button" class="button-secondary" type="submit" role="button" value="{{ common.documentUploadUploadDocument }}">
+                <div class="govuk-form-group">
+                    {{ govukButton({
+                        text: common.documentUploadUploadDocument,
+                        classes: "govuk-button--secondary",
+                        attributes: {
+                            id: "button"
+                        }
+                    }) }}
                 </div>
             </form>
         </div>
     </div>
     <div class="document-upload__preview" id="uploaded-files">
-        <h2 class="heading-medium">{{ common.documentUploadPreviewTitle }}</h2>
+        <h2 class="govuk-heading-m">{{ common.documentUploadPreviewTitle }}</h2>
 
-        {% if (fields.uploadedDocuments.value === undefined or fields.uploadedDocuments.value.length === 0) %}
-            <p class="document-upload__empty-list-text">{{ common.documentUploadEmptyList }}</p>
+        {% if (fields.uploadedDocuments.value == undefined or fields.uploadedDocuments.value.length == 0) %}
+            <p class="govuk-body document-upload__empty-list-text">{{ common.documentUploadEmptyList }}</p>
         {% endif %}
 
         {% for document in fields.uploadedDocuments.value %}
@@ -39,9 +53,8 @@
                 <div class="dz-progress">
                     <span class="dz-upload" data-dz-uploadprogress></span>
                 </div>
-                <a class="dz-remove" href="/document-upload/remove/{{ loop.index0 }}">{{ common.documentUploadRemoveFile }}</a>
+                <a class="govuk-link dz-remove" href="/document-upload/remove/{{ loop.index0 }}">{{ common.documentUploadRemoveFile }}</a>
             </div>
         {% endfor %}
-
     </div>
 </div>

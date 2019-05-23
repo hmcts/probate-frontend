@@ -25,8 +25,8 @@ describe('declaration, single applicant', () => {
             applicantAddress: applicantData.address.formattedAddress,
             deceasedName: `${deceasedData.firstName} ${deceasedData.lastName}`,
             deceasedAddress: deceasedData.address.formattedAddress,
-            deceasedDob: deceasedData.dob_formattedDate,
-            deceasedDod: deceasedData.dod_formattedDate,
+            deceasedDob: deceasedData['dob-formattedDate'],
+            deceasedDod: deceasedData['dod-formattedDate'],
             ihtGrossValue: sessionData.iht.grossValueField,
             ihtNetValue: sessionData.iht.netValueField
         };

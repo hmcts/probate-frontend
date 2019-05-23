@@ -1,46 +1,45 @@
 {% extends "includes/two_thirds_form.html" %}
 
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
 {% from "widgets/lists.html" import unorderedList %}
-{% from "widgets/radiobuttons.html" import optionsRadio %}
 
-{% set displaySignOutLink = 'false' %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.pageHeader }}</h1>
-{% endblock %}
+{% set displaySignOutLink = "false" %}
 
 {% block form_content %}
-    <p>{{ content.legalStatementIntro | replace('{mainApplicantName}', fields.applicant.value.firstName + ' ' +  fields.applicant.value.lastName) | safe }}</p>
+    <h1 class="form-title govuk-heading-l">{{ content.pageHeader }}</h1>
+    <p class="govuk-body">{{ content.legalStatementIntro | replace("{mainApplicantName}", fields.applicant.value.firstName + " " +  fields.applicant.value.lastName) | safe }}</p>
     <div class="inset-page">
-        <div class="heading-medium declaration-header">{{ content.highCourtHeader }}</div>
-        <div class="heading-small declaration-header">{{ content.familyDivisionHeader }}</div>
-        <div class="heading-small declaration-header">{{ content.probateHeader }}</div>
+        <div class="govuk-heading-m declaration-header">{{ content.highCourtHeader }}</div>
+        <div class="govuk-heading-s declaration-header">{{ content.familyDivisionHeader }}</div>
+        <div class="govuk-heading-s declaration-header">{{ content.probateHeader }}</div>
 
-        <h2 class="heading-medium">{{ content.legalStatementHeader | safe }}</h2>
-        <p>{{ fields.legalStatement.value.applicant | safe }}</p>
+        <h2 class="govuk-heading-m">{{ content.legalStatementHeader | safe }}</h2>
+        <p class="govuk-body">{{ fields.legalStatement.value.applicant | safe }}</p>
 
-        <h3 class="heading-small">{{ content.deceasedHeader }}</h3>
-        <p>{{ fields.legalStatement.value.deceased | safe }} {{ fields.legalStatement.value.deceasedOtherNames }}</p>
+        <h3 class="govuk-heading-s">{{ content.deceasedHeader }}</h3>
+        <p class="govuk-body">{{ fields.legalStatement.value.deceased | safe }} {{ fields.legalStatement.value.deceasedOtherNames }}</p>
 
-        <h3 class="heading-small">{{ content.deceasedEstateHeader }}</h3>
-        <p>{{ fields.legalStatement.value.deceasedEstateValue | safe }}</p>
-        <p>{{ fields.legalStatement.value.deceasedEstateLand | safe }}</p>
+        <h3 class="govuk-heading-s">{{ content.deceasedEstateHeader }}</h3>
+        <p class="govuk-body">{{ fields.legalStatement.value.deceasedEstateValue | safe }}</p>
+        <p class="govuk-body">{{ fields.legalStatement.value.deceasedEstateLand | safe }}</p>
 
-        <h3 class="heading-small">{{ content.executorApplyingHeader }}</h3>
+        <h3 class="govuk-heading-s">{{ content.executorApplyingHeader }}</h3>
         {% for executor in fields.legalStatement.value.executorsApplying %}
-            <p>{{ executor.name | safe }}</p>
-            <p>{{ executor.sign | safe }}</p>
+            <p class="govuk-body">{{ executor.name | safe }}</p>
+            <p class="govuk-body">{{ executor.sign | safe }}</p>
         {% endfor %}
 
         {% if fields.legalStatement.value.executorsNotApplying.length > 0 %}
-            <h3 class="heading-small">{{ content.executorNotApplyingHeader }}</h3>
+            <h3 class="govuk-heading-s">{{ content.executorNotApplyingHeader }}</h3>
             {% for executor in fields.legalStatement.value.executorsNotApplying %}
-                <p>{{ executor | safe }}</p>
+                <p class="govuk-body">{{ executor | safe }}</p>
             {% endfor %}
         {% endif %}
 
-        <h2 class="heading-large">{{ content.declarationHeader }}</h2>
-        <p>{{ fields.declaration.value.confirm | safe }}</p>
+        <h2 class="govuk-heading-l">{{ content.declarationHeader }}</h2>
+        <p class="govuk-body">{{ fields.declaration.value.confirm | safe }}</p>
 
         {{ unorderedList([
             fields.declaration.value.confirmItem1,
@@ -48,14 +47,14 @@
             fields.declaration.value.confirmItem3
         ]) }}
 
-        <p>{{ fields.declaration.value.requests | safe }}</p>
+        <p class="govuk-body">{{ fields.declaration.value.requests | safe }}</p>
 
         {{ unorderedList([
             fields.declaration.value.requestsItem1,
             fields.declaration.value.requestsItem2
         ]) }}
 
-        <p>{{ fields.declaration.value.understand | safe }}</p>
+        <p class="govuk-body">{{ fields.declaration.value.understand | safe }}</p>
 
         {{ unorderedList([
             fields.declaration.value.understandItem1,
@@ -63,37 +62,60 @@
         ]) }}
 
         <div class="notice co-applicant">
-            <em class="icon icon-important"><span class="visually-hidden">Warning</span></em>
-            <p>
-                <strong class="bold-small">
+            <em class="icon icon-important"><span class="govuk-visually-hidden">Warning</span></em>
+            <p class="govuk-body">
+                <strong class="govuk-!-font-size-19 govuk-!-font-weight-bold">
                     {{ fields.declaration.value.submitWarning | safe }}
                 </strong>
             </p>
         </div>
     </div>
 
-    <h2 class="heading-medium">{{ content.agreementHeader | safe }}</h2>
-    <p>{{ content.agreementParagraph | safe }}</p>
+    <h2 class="govuk-heading-m">{{ content.agreementHeader | safe }}</h2>
+    <p class="govuk-body">{{ content.agreementParagraph | safe }}</p>
     {{ unorderedList([
         content.agreementItem1,
         content.agreementItem2,
         content.agreementItem3
     ]) }}
 
-    {{ optionsRadio(content,
-        name = 'agreement',
-        field = fields.agreement,
-        options = ['optionYes', 'optionNo'],
-        legend = content.legend,
-        inline = false
-    ) }}
+    {{ govukRadios({
+        classes: "govuk-radios",
+        idPrefix: "agreement",
+        name: "agreement",
+        fieldset: {
+            legend: {
+                text: content.legend | safe,
+                classes: "govuk-fieldset__legend--m"
+            }
+        },
+        errorMessage: fields.agreement.errorMessage,
+        items: [
+            {
+                value: content["optionYes"],
+                text: content["optionYes"] | safe,
+                checked: true if fields.agreement.value == content["optionYes"] | escape
+            },
+            {
+                value: content["optionNo"],
+                text: content["optionNo"] | safe,
+                checked: true if fields.agreement.value == content["optionNo"] | escape
+            }
+        ]
+    }) }}
 
     <div class="panel panel-border-narrow js-hidden" id="agreement-2-details">
-        <p>{{ content.optionNoText | replace('{mainApplicantName}', fields.applicant.value.firstName + ' ' +  fields.applicant.value.lastName) | safe }}</p>
+        <p class="govuk-body">{{ content.optionNoText | replace("{mainApplicantName}", fields.applicant.value.firstName + " " +  fields.applicant.value.lastName) | safe }}</p>
     </div>
 
-    <div class="form-group">
-        <input class="button" type="submit" id="acceptAndSend" value="{{ content.submit }}">
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: content.submit,
+            preventDoubleClick: true,
+            attributes: {
+                id: "acceptAndSend"
+            }
+        }) }}
     </div>
 {% endblock %}
 

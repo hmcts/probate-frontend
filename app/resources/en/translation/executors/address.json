@@ -7,6 +7,8 @@
   "country": "Country",
   "findAddress": "Find UK address",
   "addressLabel": "Address",
+  "addressLabel2": "Address Line 2",
+  "addressLabel3": "Address Line 3",
   "selectAddress": "Select address",
   "enterManually": "Enter manually (including international addresses)",
 

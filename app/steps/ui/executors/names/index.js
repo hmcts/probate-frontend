@@ -27,7 +27,7 @@ class ExecutorsNames extends ValidationStep {
     }
 
     createExecutorFullNameArray(ctx) {
-        ctx.executorName=[];
+        ctx.executorName = [];
         forEach(ctx.list, (executor) => {
             if (executor && 'fullName' in executor) {
                 ctx.executorName.push(executor.fullName);
@@ -81,26 +81,26 @@ class ExecutorsNames extends ValidationStep {
     createErrorMessages (validationErrors, ctx) {
         const self = this;
         const errorMessages = [];
-        errorMessages.length = [ctx.executorsNumber -1];
+        errorMessages.length = [ctx.executorsNumber - 1];
         validationErrors.forEach((validationError) => {
             const index = self.getIndexFromErrorParameter(validationError);
             errorMessages[index] = self.composeMessage(ctx.executorName[index], parseInt(index) + 2);
-            validationError.msg = errorMessages[index].errorMessage;
-            validationError.param = `executorName_${index}`;
+            validationError.text = errorMessages[index].text;
+            validationError.field = `executorName_${index}`;
         });
         return errorMessages;
     }
 
     getIndexFromErrorParameter(validationError) {
-        return validationError.param.split('[')[1].split(']')[0];
+        return validationError.field.split('[')[1].split(']')[0];
     }
 
     composeMessage (inputTextFieldValue, screenExecutorNumber) {
         const messageType = inputTextFieldValue === '' ? 'required' : 'invalid';
         const errorMessage = FieldError('executorName', messageType, resourcePath);
         const displayExecutor = i18next.t(`${resourcePath}.executor`);
-        errorMessage.msg.summary = `${displayExecutor} ${screenExecutorNumber}: ${errorMessage.msg.summary}`;
-        return {error: true, errorMessage: errorMessage.msg};
+        errorMessage.text = `${displayExecutor} ${screenExecutorNumber}: ${errorMessage.text}`;
+        return errorMessage;
     }
 }
 

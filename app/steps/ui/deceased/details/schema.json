@@ -4,8 +4,8 @@
   "type": "object",
   "properties": {
     "firstName": {
-        "type": "string",
-        "minLength": 2,
+      "type": "string",
+      "minLength": 2,
       "pattern": "^[^<>]+$"
     },
     "lastName": {
@@ -13,41 +13,41 @@
       "minLength": 2,
       "pattern": "^[^<>]+$"
     },
-    "dob_day": {
+    "dob-day": {
       "type": "integer",
       "minimum": 1,
       "maximum": 31
     },
-    "dob_month": {
+    "dob-month": {
       "type": "integer",
       "minimum": 1,
       "maximum": 12
     },
-    "dob_year": {
+    "dob-year": {
       "type": "integer",
       "minimum": 1000,
       "maximum": 9999
     },
-    "dob_date": {
+    "dob-date": {
       "type": "string",
       "format": "date-time"
     },
-    "dod_day": {
+    "dod-day": {
       "type": "integer",
       "minimum": 1,
       "maximum": 31
     },
-    "dod_month": {
+    "dod-month": {
       "type": "integer",
       "minimum": 1,
       "maximum": 12
     },
-    "dod_year": {
+    "dod-year": {
       "type": "integer",
       "minimum": 1000,
       "maximum": 9999
     },
-    "dod_date": {
+    "dod-date": {
       "type": "string",
       "format": "date-time"
     }
@@ -55,11 +55,11 @@
   "required": [
     "lastName",
     "firstName",
-    "dob_day",
-    "dob_month",
-    "dob_year",
-    "dod_day",
-    "dod_month",
-    "dod_year"
+    "dob-day",
+    "dob-month",
+    "dob-year",
+    "dod-day",
+    "dod-month",
+    "dod-year"
   ]
 }

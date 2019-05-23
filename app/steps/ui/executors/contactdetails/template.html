@@ -1,34 +1,54 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/textfields.html" import textField %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question | replace('{executorName}', fields.otherExecName.value) | safe }}</h1>
-{% endblock %}
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "input/macro.njk" import govukInput %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <p class="form-hint">{{ content.questionHint | safe }}</p>
-    <fieldset>
-        <legend class="visually-hidden">{{ content.title1 | safe }}</legend>
-        {{ textField(
-            name = 'email',
-            field = fields.email,
-            text = content.email,
-            size = 320
-        ) }}
-    </fieldset>
+    {% call govukFieldset({
+        legend: {
+            text: content.question | replace("{executorName}", fields.otherExecName.value) | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        <p class="govuk-hint">{{ content.questionHint | safe }}</p>
 
-    <fieldset>
-        <legend class="visually-hidden">{{ content.title2 | safe }}</legend>
-        {{ textField(
-            name = 'mobile',
-            field = fields.mobile,
-            text = content.mobile,
-            hint = content.mobileHint,
-            size = 25
-        ) }}
-    </fieldset>
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+        {{ govukInput({
+            label: {
+                text: content.email
+            },
+            id: "email",
+            name: "email",
+            value: fields.email.value | safe,
+            errorMessage: fields.email.errorMessage,
+            attributes: {
+                maxlength: 320
+            },
+            classes: "govuk-!-width-three-quarters"
+        }) }}
+
+        <p class="govuk-hint">{{ content.mobileHint | safe }}</p>
+
+        {{ govukInput({
+            label: {
+                text: content.mobile
+            },
+            id: "mobile",
+            name: "mobile",
+            value: fields.mobile.value | safe,
+            errorMessage: fields.mobile.errorMessage,
+            attributes: {
+                maxlength: 25
+            },
+            classes: "govuk-!-width-three-quarters"
+        }) }}
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

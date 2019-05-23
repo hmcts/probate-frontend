@@ -1,20 +1,42 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/radiobuttons.html" import optionsRadio %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{content.question | replace('{deceasedName}', fields.deceasedName.value) | safe}}</h1>
-{% endblock %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    {{optionsRadio(content,
-        name = 'spouseNotApplyingReason',
-        field = fields.spouseNotApplyingReason,
-        options = ['optionRenouncing', 'optionOther'],
-        legend = content.legend | replace('{deceasedName}', fields.deceasedName.value),
-        inline = true
-    )}}
-    <div class="form-group">
-        <input class="button" type="submit" value="{{common.saveAndContinue}}">
+    {{ govukRadios({
+        classes: "govuk-radios",
+        idPrefix: "spouseNotApplyingReason",
+        name: "spouseNotApplyingReason",
+        fieldset: {
+            legend: {
+                text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        hint: {
+            text: content.hint | safe
+        },
+        errorMessage: fields.spouseNotApplyingReason.errorMessage,
+        items: [
+            {
+                value: content["optionRenouncing"],
+                text: content["optionRenouncing"] | safe,
+                checked: true if fields.spouseNotApplyingReason.value == content["optionRenouncing"] | escape
+            },
+            {
+                value: content["optionOther"],
+                text: content["optionOther"] | safe,
+                checked: true if fields.spouseNotApplyingReason.value == content["optionOther"] | escape
+            }
+        ]
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

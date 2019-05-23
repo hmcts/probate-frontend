@@ -1,25 +1,31 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% block page_title %}
-    {{ content.title }}
-{% endblock %}
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "button/macro.njk" import govukButton %}
 
-{% set displaySignOutLink = 'false' %}
-
-{% block question %}
-    <h1 class="heading-large">{{ content.header1 | replace('{phoneNumber}', fields.phoneNumber.value) | safe }}</h1>
-    <p>{{ content.subHeader1 | safe }}</p>
-{% endblock %}
+{% set displaySignOutLink = "false" %}
 
 {% block form_content %}
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ content.button }}">
+    {% call govukFieldset({
+        legend: {
+            text: content.header1 | replace("{phoneNumber}", fields.phoneNumber.value) | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        <p class="govuk-body">{{ content.subHeader1 | safe }}</p>
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: content.button,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}
 
 {% block save_and_close %}{% endblock %}
-
 {% block executor_summary %}
-    <h2 class="heading-medium">{{ content.header2 | replace('{phoneNumber}', fields.phoneNumber.value) |  safe }}</h2>
-    <p>{{ content.subHeader2ExecName | replace('{executorName}', fields.leadExecutorName.value) | safe }}</p>
+    <h2 class="govuk-heading-m">{{ content.header2 | replace("{phoneNumber}", fields.phoneNumber.value) |  safe }}</h2>
+    <p class="govuk-body">{{ content.subHeader2ExecName | replace("{executorName}", fields.leadExecutorName.value) | safe }}</p>
 {% endblock %}

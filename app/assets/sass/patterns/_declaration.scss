@@ -1,0 +1,31 @@
+/*
+Declaration
+*/
+
+.declaration-header {
+  text-align: center;
+  margin-top: govuk-spacing(1);;
+  margin-bottom: govuk-spacing(6);
+
+  div {
+    margin-top: govuk-spacing(1);;
+    margin-bottom: govuk-spacing(1);;
+  }
+}
+
+.declaration-subheader {
+  margin-bottom: govuk-spacing(1);
+}
+
+.declaration-wrapper {
+  @include govuk-media-query($from: tablet) {
+    display: grid;
+    grid-column-gap: govuk-spacing(8);;
+    grid-template-columns: 3fr 1fr;
+    width: calc(133% + 50px);
+  }
+}
+
+.declaration-grid-item {
+  text-align: left;
+}

@@ -54,11 +54,11 @@ describe('applicant-address', () => {
                 .post(testWrapper.pageUrl)
                 .send(sessionData)
                 .end(() => {
-                    const contentToCheck = testAddressData.map((address, index) => {
+                    const playbackData = testAddressData.map((address, index) => {
                         const formattedAddress = formatAddress(address.formatted_address);
                         return `<option value="${index}" ${formattedAddress === sessionData.postcodeAddress ? 'selected' : ''}>${formattedAddress}</option>`;
                     });
-                    testWrapper.testDataPlayback(done, contentToCheck);
+                    testWrapper.testDataPlayback(done, playbackData);
                 });
         });
     });

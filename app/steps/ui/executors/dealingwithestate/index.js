@@ -18,9 +18,9 @@ class ExecutorsDealingWithEstate extends ValidationStep {
                 .map(executor => {
                     if (executor.isApplicant) {
                         const optionValue = executor.alias ? executor.alias : FormatName.format(executor);
-                        return {option: optionValue, checked: true, disabled: true};
+                        return {value: optionValue, text: optionValue, checked: true, disabled: true};
                     }
-                    return {option: executor.fullName, checked: executor.isApplying === true};
+                    return {value: executor.fullName, text: executor.fullName, checked: executor.isApplying === true};
                 });
         }
         return ctx;

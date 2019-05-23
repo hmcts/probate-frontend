@@ -1,21 +1,41 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/radiobuttons.html" import optionsRadio %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
-{% endblock %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <p class="form-hint">{{content.paragraph1 | safe}}</p>
+    {{ govukRadios({
+        idPrefix: "method",
+        name: "method",
+        fieldset: {
+            legend: {
+                text: content.question | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        hint: {
+            text: content.paragraph1 | safe
+        },
+        errorMessage: fields.method.errorMessage,
+        items: [
+            {
+                value: content["optionPaper"],
+                text: content["optionPaper"] | safe,
+                checked: true if fields.method.value == content["optionPaper"] | escape
+            },
+            {
+                value: content["optionOnline"],
+                text: content["optionOnline"] | safe,
+                checked: true if fields.method.value == content["optionOnline"] | escape
+            }
+        ]
+    }) }}
 
-    {{ optionsRadio(content,
-        name = 'method',
-        field = fields.method,
-        options = ['optionPaper', 'optionOnline'],
-        legend = content.legend
-    ) }}
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

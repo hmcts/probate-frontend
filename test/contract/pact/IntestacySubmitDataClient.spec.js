@@ -57,8 +57,8 @@ describe('Pact Intestacy Submit Data', () => {
             'deceased': {
                 'firstName': 'Ned',
                 'lastName': 'Stark',
-                'dob_date': '1930-01-01',
-                'dod_date': '2018-01-01',
+                'dob-date': '1930-01-01',
+                'dod-date': '2018-01-01',
                 'address': {
                     'addressLine1': 'Winterfell',
                     'postTown': 'Westeros',
@@ -150,8 +150,8 @@ describe('Pact Intestacy Submit Data', () => {
             'deceased': {
                 'firstName': 'Ned',
                 'lastName': 'Stark',
-                'dob_date': '1930-01-01',
-                'dod_date': '2018-01-01',
+                'dob-date': '1930-01-01',
+                'dod-date': '2018-01-01',
                 'address': {
                     'addressLine1': 'Winterfell',
                     'postTown': 'Westeros',

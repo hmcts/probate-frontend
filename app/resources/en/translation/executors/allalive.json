@@ -3,7 +3,6 @@
   "question": "Are all the executors alive?",
   "optionYes": "Yes",
   "optionNo": "No",
-  "legend": "Are all the executors still alive?",
 
   "errors": {
     "allalive": {

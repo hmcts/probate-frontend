@@ -10,13 +10,13 @@ module.exports = function (firstName, lastName, dob_day, dob_month, dob_year, do
     I.fillField('#firstName', firstName);
     I.fillField('#lastName', lastName);
 
-    I.fillField('#dob_day', dob_day);
-    I.fillField('#dob_month', dob_month);
-    I.fillField('#dob_year', dob_year);
+    I.fillField('#dob-day', dob_day);
+    I.fillField('#dob-month', dob_month);
+    I.fillField('#dob-year', dob_year);
 
-    I.fillField('#dod_day', dod_day);
-    I.fillField('#dod_month', dod_month);
-    I.fillField('#dod_year', dod_year);
+    I.fillField('#dod-day', dod_day);
+    I.fillField('#dod-month', dod_month);
+    I.fillField('#dod-year', dod_year);
 
     I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
 };

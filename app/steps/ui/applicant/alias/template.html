@@ -1,24 +1,36 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/textfields.html" import textField %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
-{% endblock %}
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "input/macro.njk" import govukInput %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <fieldset>
-        <legend class="visually-hidden">
-            {{ content.question | safe }}
-        </legend>
-        {{ textField(
-            name = 'alias',
-            field = fields.alias,
-            text = content.alias,
-            size = 200
-        ) }}
-    </fieldset>
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    {% call govukFieldset({
+        legend: {
+            text: content.question | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        {{ govukInput({
+            label: {
+                text: content.alias
+            },
+            id: "alias",
+            name: "alias",
+            value: fields.alias.value | safe,
+            errorMessage: fields.alias.errorMessage,
+            attributes: {
+                maxlength: 200
+            },
+            classes: "govuk-!-width-three-quarters"
+        }) }}
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

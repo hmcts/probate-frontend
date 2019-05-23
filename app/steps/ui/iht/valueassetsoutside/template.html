@@ -1,21 +1,38 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/textfields.html" import textField %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question | safe }}</h1>
-{% endblock %}
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "input/macro.njk" import govukInput %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <p class="form-hint">{{ content.hint | safe }}</p>
+    {% call govukFieldset({
+        legend: {
+            text: content.question | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        <p class="govuk-hint">{{ content.hint | safe }}</p>
 
-    {{ textField(
-        name = 'netValueAssetsOutsideField',
-        field = fields.netValueAssetsOutsideField,
-        text = content.netValue | safe,
-        size = 13
-    ) }}
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+        {{ govukInput({
+            label: {
+                text: content.netValue | safe
+            },
+            id: "netValueAssetsOutsideField",
+            name: "netValueAssetsOutsideField",
+            value: fields.netValueAssetsOutsideField.value | safe,
+            errorMessage: fields.netValueAssetsOutsideField.errorMessage,
+            attributes: {
+                maxlength: 13
+            },
+            classes: 'govuk-!-width-one-third'
+        }) }}
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

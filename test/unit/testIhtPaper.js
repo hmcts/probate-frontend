@@ -5,6 +5,8 @@ const expect = require('chai').expect;
 const contentAssetsOutside = require('app/resources/en/translation/iht/assetsoutside');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const IhtPaper = steps.IhtPaper;
+const content = require('app/resources/en/translation/iht/paper');
+const he = require('he');
 
 describe('IhtPaper', () => {
     describe('getUrl()', () => {
@@ -102,25 +104,19 @@ describe('IhtPaper', () => {
             });
             expect(errors).to.deep.equal([
                 {
-                    msg: {
-                        summary: 'Gross value can only contain numbers',
-                        message: 'Gross value must be a whole number or a number with 2 decimal places'
-                    },
-                    param: 'grossValueFieldIHT205'
+                    field: 'grossValueFieldIHT205',
+                    href: '#grossValueFieldIHT205',
+                    text: he.decode(content.errors.grossValueFieldIHT205.invalidCurrencyFormat.message)
                 },
                 {
-                    msg: {
-                        summary: 'Net value can only contain numbers',
-                        message: 'Net value must be a whole number or a number with 2 decimal places'
-                    },
-                    param: 'netValueFieldIHT205'
+                    field: 'netValueFieldIHT205',
+                    href: '#netValueFieldIHT205',
+                    text: he.decode(content.errors.netValueFieldIHT205.invalidCurrencyFormat.message)
                 },
                 {
-                    msg: {
-                        summary: 'The net amount can&rsquo;t be greater than the gross amount',
-                        message: 'The net amount can&rsquo;t be greater than the gross amount'
-                    },
-                    param: 'netValueFieldIHT205'
+                    field: 'netValueFieldIHT205',
+                    href: '#netValueFieldIHT205',
+                    text: he.decode(content.errors.netValueFieldIHT205.netValueGreaterThanGross.message)
                 }
             ]);
             done();

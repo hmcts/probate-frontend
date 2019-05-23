@@ -4,6 +4,8 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const DeceasedDetails = steps.DeceasedDetails;
+const content = require('app/resources/en/translation/deceased/details');
+const he = require('he');
 
 describe('DeceasedDetails', () => {
     describe('dateName()', () => {
@@ -28,50 +30,48 @@ describe('DeceasedDetails', () => {
 
         it('should return the ctx with the deceased name, dob and dod', (done) => {
             ctx = {
-                firstName: 'Dee',
-                lastName: 'Ceased',
-                dob_day: '02',
-                dob_month: '03',
-                dob_year: '1952',
-                dod_day: '02',
-                dod_month: '03',
-                dod_year: '2000'
+                'firstName': 'Dee',
+                'lastName': 'Ceased',
+                'dob-day': '02',
+                'dob-month': '03',
+                'dob-year': '1952',
+                'dod-day': '02',
+                'dod-month': '03',
+                'dod-year': '2000'
             };
             errors = [];
             [ctx, errors] = DeceasedDetails.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                firstName: 'Dee',
-                lastName: 'Ceased',
-                dob_day: '02',
-                dob_month: '03',
-                dob_year: '1952',
-                dod_day: '02',
-                dod_month: '03',
-                dod_year: '2000'
+                'firstName': 'Dee',
+                'lastName': 'Ceased',
+                'dob-day': '02',
+                'dob-month': '03',
+                'dob-year': '1952',
+                'dod-day': '02',
+                'dod-month': '03',
+                'dod-year': '2000'
             });
             done();
         });
 
         it('should return an error if dob is in the future', (done) => {
             ctx = {
-                firstName: 'Dee',
-                lastName: 'Ceased',
-                dob_day: '02',
-                dob_month: '03',
-                dob_year: '3000',
-                dod_day: '02',
-                dod_month: '03',
-                dod_year: '2000'
+                'firstName': 'Dee',
+                'lastName': 'Ceased',
+                'dob-day': '02',
+                'dob-month': '03',
+                'dob-year': '3000',
+                'dod-day': '02',
+                'dod-month': '03',
+                'dod-year': '2000'
             };
             errors = [];
             [ctx, errors] = DeceasedDetails.handlePost(ctx, errors);
             expect(errors).to.deep.equal([
                 {
-                    msg: {
-                        message: 'Enter a date in the past',
-                        summary: 'You must enter a date of birth in the past'
-                    },
-                    param: 'dob_date'
+                    field: 'dob-date',
+                    href: '#dob-date',
+                    text: he.decode(content.errors['dob-date'].dateInFuture.message)
                 }
             ]);
             done();
@@ -79,24 +79,22 @@ describe('DeceasedDetails', () => {
 
         it('should return an error if dod is in the future', (done) => {
             ctx = {
-                firstName: 'Dee',
-                lastName: 'Ceased',
-                dob_day: '02',
-                dob_month: '03',
-                dob_year: '2012',
-                dod_day: '02',
-                dod_month: '03',
-                dod_year: '3000'
+                'firstName': 'Dee',
+                'lastName': 'Ceased',
+                'dob-day': '02',
+                'dob-month': '03',
+                'dob-year': '2012',
+                'dod-day': '02',
+                'dod-month': '03',
+                'dod-year': '3000'
             };
             errors = [];
             [ctx, errors] = DeceasedDetails.handlePost(ctx, errors);
             expect(errors).to.deep.equal([
                 {
-                    msg: {
-                        message: 'Enter a date in the past',
-                        summary: 'You must enter a date of death in the past'
-                    },
-                    param: 'dod_date'
+                    field: 'dod-date',
+                    href: '#dod-date',
+                    text: he.decode(content.errors['dod-date'].dateInFuture.message)
                 }
             ]);
             done();
@@ -104,24 +102,22 @@ describe('DeceasedDetails', () => {
 
         it('should return an error if dob is after dod', (done) => {
             ctx = {
-                firstName: 'Dee',
-                lastName: 'Ceased',
-                dob_day: '02',
-                dob_month: '03',
-                dob_year: '2018',
-                dod_day: '02',
-                dod_month: '03',
-                dod_year: '2012'
+                'firstName': 'Dee',
+                'lastName': 'Ceased',
+                'dob-day': '02',
+                'dob-month': '03',
+                'dob-year': '2018',
+                'dod-day': '02',
+                'dod-month': '03',
+                'dod-year': '2012'
             };
             errors = [];
             [ctx, errors] = DeceasedDetails.handlePost(ctx, errors);
             expect(errors).to.deep.equal([
                 {
-                    msg: {
-                        message: 'Enter a date of birth that is before the date of death',
-                        summary: 'The date of birth you entered is after the date of death'
-                    },
-                    param: 'dob_date'
+                    field: 'dob-date',
+                    href: '#dob-date',
+                    text: he.decode(content.errors['dob-date'].dodBeforeDob.message)
                 }
             ]);
             done();

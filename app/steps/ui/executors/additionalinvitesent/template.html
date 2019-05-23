@@ -1,19 +1,31 @@
-{% set title = content["title" + fields.inviteSuffix.value] | safe %}
-
 {% extends "includes/two_thirds_form.html" %}
 
-{% block question %}
-    <h1 class="form-title heading-large">{{ content[fields.header.value] | safe }}</h1>
-{% endblock %}
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "button/macro.njk" import govukButton %}
+
+{% set title = content["title" + fields.inviteSuffix.value] | safe %}
 
 {% block form_content %}
-    <p>{{ content.paragraph1 | safe }}</p>
-    <p>{{ content.paragraph2 | safe }}</p>
-    <h2 class="heading-medium">{{ content.heading1 }}</h2>
-    <p>{{ content.paragraph3 }}</p>
-    <p>{{ content.paragraph4 }}</p>
-    <p>{{ content.paragraph5 }}</p>
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ content.continue }}">
+    {% call govukFieldset({
+        legend: {
+            text: content[fields.header.value] | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+        <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+
+        <h2 class="govuk-heading-m">{{ content.heading1 }}</h2>
+        <p class="govuk-body">{{ content.paragraph3 }}</p>
+        <p class="govuk-body">{{ content.paragraph4 }}</p>
+        <p class="govuk-body">{{ content.paragraph5 }}</p>
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: content.continue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

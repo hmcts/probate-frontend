@@ -4,11 +4,16 @@ $path: "/public/images/";
 
 // Import GOV.UK elements from /govuk-modules/, this will import the frontend toolkit and some base styles.
 // Take a look in /govuk-modules/_govuk-elements.scss to see which files are imported.
-@import 'govuk-elements';
+@import 'node_modules/govuk-frontend/all';
 
 // Take a look at in app/assets/sass/patterns/ to see which files are imported.
-@import 'patterns/check-your-answers';
+@import 'patterns/header';
+@import 'patterns/hint';
+@import 'patterns/radios';
+
 @import 'patterns/task-list';
+@import 'patterns/check-your-answers';
 @import 'patterns/document-upload';
+@import 'patterns/declaration';
 
 @import 'application-common.scss';

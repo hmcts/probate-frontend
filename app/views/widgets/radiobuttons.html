@@ -1,8 +1,8 @@
 {% from "widgets/fielderror.html" import fieldError %}
 
 {% macro optionsRadio(content, name, field, options, legend, inline = false) %}
-    <fieldset class="form-group {{ 'form-group-error' if field.error }} {{ 'inline' if inline }}" id="{{ name }}">
-        <legend class="visually-hidden">{{ legend | safe }}</legend>
+    <fieldset class="govuk-form-group {{ 'form-group-error' if field.error }} {{ 'inline' if inline }}" id="{{ name }}">
+        <legend class="govuk-visually-hidden">{{ legend | safe }}</legend>
 
         {{ fieldError(field) }}
 
@@ -17,8 +17,8 @@
 {% endmacro %}
 
 {% macro optionsRadioWithHint(content, name, field, options, legend, inline = false, hint) %}
-    <fieldset class="form-group {{ 'form-group-error' if field.error }} {{ 'inline' if inline }}" id="{{ name }}">
-        <legend class="visually-hidden">{{ legend | safe }}</legend>
+    <fieldset class="govuk-form-group {{ 'form-group-error' if field.error }} {{ 'inline' if inline }}" id="{{ name }}">
+        <legend class="govuk-visually-hidden">{{ legend | safe }}</legend>
         <p class="form-hint">{{ hint | safe }}</p>
 
         {{ fieldError(field) }}
@@ -26,7 +26,7 @@
         {% for option in options %}
             <div class="multiple-choice" data-target="{{ name }}-{{ loop.index }}-details">
                 <input id="{{ name }}-{{ option }}" type="radio" name="{{ name }}"
-                       value="{{ content[option] }}" {{ "checked='checked'" if field.value === content[option] }}>
+                       value="{{ content[option] }}" {{ "checked='checked'" if field.value == content[option] }}>
                 <label for="{{ name }}-{{ option }}">{{ content[option] | safe }}</label>
             </div>
         {% endfor %}
@@ -34,8 +34,8 @@
 {% endmacro %}
 
 {% macro optionsRadioWithLegend(content, name, field, options, legend, inline = false, hint) %}
-    <fieldset class="form-group {{ 'form-group-error' if field.error }} {{ 'inline' if inline }}" id="{{ name }}">
-        <legend class="heading-medium">{{ legend | safe }}</legend>
+    <fieldset class="govuk-form-group {{ 'form-group-error' if field.error }} {{ 'inline' if inline }}" id="{{ name }}">
+        <legend class="govuk-heading-m">{{ legend | safe }}</legend>
         <p class="form-hint">{{ hint | safe }}</p>
 
         {{ fieldError(field) }}

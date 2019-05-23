@@ -3,6 +3,8 @@
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
+const content = require('app/resources/en/translation/documentupload');
+const he = require('he');
 
 describe('DocumentUpload.js', () => {
     describe('getUrl()', () => {
@@ -88,11 +90,9 @@ describe('DocumentUpload.js', () => {
             const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
             expect(ctx).to.deep.equal({});
             expect(errors).to.deep.equal([{
-                param: 'file',
-                msg: {
-                    summary: 'documentupload.errors.file.type.summary',
-                    message: 'documentupload.errors.file.type.message'
-                }
+                field: 'file',
+                href: '#file',
+                text: 'documentupload.errors.file.type.message'
             }]);
             done();
         });
@@ -109,11 +109,9 @@ describe('DocumentUpload.js', () => {
             const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
             expect(ctx).to.deep.equal({});
             expect(errors).to.deep.equal([{
-                param: 'file',
-                msg: {
-                    summary: 'Your file is too large to upload. Use a file that is under 10MB and try again',
-                    message: ''
-                }
+                field: 'file',
+                href: '#file',
+                text: he.decode(content.errors.file.maxSize.message)
             }]);
             done();
         });
@@ -130,11 +128,9 @@ describe('DocumentUpload.js', () => {
             const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
             expect(ctx).to.deep.equal({});
             expect(errors).to.deep.equal([{
-                param: 'file',
-                msg: {
-                    summary: 'Your file is too large to upload. Use a file that is under 10MB and try again',
-                    message: ''
-                }
+                field: 'file',
+                href: '#file',
+                text: he.decode(content.errors.file.maxSize.message)
             }]);
             done();
         });
@@ -151,11 +147,9 @@ describe('DocumentUpload.js', () => {
             const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
             expect(ctx).to.deep.equal({});
             expect(errors).to.deep.equal([{
-                param: 'file',
-                msg: {
-                    summary: 'Your file is too large to upload. Use a file that is under 10MB and try again',
-                    message: ''
-                }
+                field: 'file',
+                href: '#file',
+                text: he.decode(content.errors.file.maxSize.message)
             }]);
             done();
         });
@@ -172,11 +166,9 @@ describe('DocumentUpload.js', () => {
             const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
             expect(ctx).to.deep.equal({});
             expect(errors).to.deep.equal([{
-                param: 'file',
-                msg: {
-                    summary: 'Your file is too large to upload. Use a file that is under 10MB and try again',
-                    message: ''
-                }
+                field: 'file',
+                href: '#file',
+                text: he.decode(content.errors.file.maxSize.message)
             }]);
             done();
         });

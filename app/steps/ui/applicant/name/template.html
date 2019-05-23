@@ -1,30 +1,49 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/textfields.html" import textField %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
-{% endblock %}
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "input/macro.njk" import govukInput %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <fieldset>
-        <legend class="visually-hidden">
-            {{ content.question | safe }}
-        </legend>
-        {{ textField(
-            name = 'firstName',
-            field = fields.firstName,
-            text = content.firstName,
-            size = 100
-        ) }}
-        {{ textField(
-            name = 'lastName',
-            field = fields.lastName,
-            text = content.lastName,
-            size = 100
-        ) }}
-    </fieldset>
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    {% call govukFieldset({
+        legend: {
+            text: content.question | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        {{ govukInput({
+            label: {
+                text: content.firstName
+            },
+            id: "firstName",
+            name: "firstName",
+            value: fields.firstName.value | safe,
+            errorMessage: fields.firstName.errorMessage,
+            attributes: {
+                maxlength: 100
+            },
+            classes: "govuk-!-width-three-quarters"
+        }) }}
+        {{ govukInput({
+            label: {
+                text: content.lastName
+            },
+            id: "lastName",
+            name: "lastName",
+            value: fields.lastName.value | safe,
+            errorMessage: fields.lastName.errorMessage,
+            attributes: {
+                maxlength: 100
+            },
+            classes: "govuk-!-width-three-quarters"
+        }) }}
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

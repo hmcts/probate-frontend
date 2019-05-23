@@ -1,92 +1,93 @@
 {% extends "includes/layout.html" %}
-{% block page_title %}
-    {{ content.title }}
-{% endblock %}
 
-{% set displaySignOutLink = 'false' %}
-{% set serviceName = '' %}
+{% from "table/macro.njk" import govukTable %}
+{% from "inset-text/macro.njk" import govukInsetText %}
+{% from "button/macro.njk" import govukButton %}
+
+{% set serviceName = "" %}
+{% set displaySignOutLink = "false" %}
 
 {% block content %}
-    {% from "widgets/lists.html" import taskAction, unorderedList %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="form-title govuk-heading-l">{{ content.header }}</h1>
+            <p class="govuk-body">{{ content.introduction | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
 
-    <main id="content" role="main">
-        {% include "includes/phase_banner_beta.html" %}
+            {{ govukInsetText({
+                text: content.paragraph2 | replace("{applicationFormPA1P}", links.applicationFormPA1P) | replace("{applicationFormPA1A}", links.applicationFormPA1A) | safe
+            }) }}
 
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <h1 class="form-title heading-large">{{ content.header }}</h1>
-                <p>{{ content.introduction | safe }}</p>
-                <p>{{ content.paragraph1 | safe }}</p>
-                <div class="panel panel-border-wide">
-                    <p>{{ content.paragraph2 | replace('{applicationFormPA1P}', links.applicationFormPA1P) | replace('{applicationFormPA1A}', links.applicationFormPA1A) | safe }}</p>
-                </div>
-                <h2 class="heading-medium">
-                    {{ content.multipleHeader | safe }}
-                </h2>
-                <p>{{ content.paragraph3 | safe }}</p>
-                <p>{{ content.paragraph4 | safe }}</p>
-                <p>{{ content.paragraph5 | safe }}</p>
-                <p>{{ content.paragraph6 | safe }}</p>
-                <h2 class="heading-medium">
-                    {{ content.feesHeader | safe }}
-                </h2>
+            <h2 class="govuk-heading-m">
+                {{ content.multipleHeader | safe }}
+            </h2>
+            <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph4 | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph5 | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph6 | safe }}</p>
+            <h2 class="govuk-heading-m">
+                {{ content.feesHeader | safe }}
+            </h2>
 
-                {% if fields.isFeesApiToggleEnabled.value === 'true' %}
-                    <p>{{ content.paragraph7 | safe }}</p>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th scope="col">{{ content.tableHeadLeft | safe }}</th>
-                                <th class="numeric" scope="col">{{ content.tableHeadRight | safe }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">{{ content.tableBodyFeeRange1 | safe }}</th>
-                                <td class="numeric">{{ content.tableBodyFeeRange1Value | safe }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">{{ content.tableBodyFeeRange2 | safe }}</th>
-                                <td class="numeric">{{ content.tableBodyFeeRange2Value | safe }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">{{ content.tableBodyFeeRange3 | safe }}</th>
-                                <td class="numeric">{{ content.tableBodyFeeRange3Value | safe }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">{{ content.tableBodyFeeRange4 | safe }}</th>
-                                <td class="numeric">{{ content.tableBodyFeeRange4Value | safe }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">{{ content.tableBodyFeeRange5 | safe }}</th>
-                                <td class="numeric">{{ content.tableBodyFeeRange5Value | safe }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">{{ content.tableBodyFeeRange6 | safe }}</th>
-                                <td class="numeric">{{ content.tableBodyFeeRange6Value | safe }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">{{ content.tableBodyFeeRange7 | safe }}</th>
-                                <td class="numeric">{{ content.tableBodyFeeRange7Value | safe }}</td>
-                            </tr>
-                        </tbody>
-                    </table><br>
-                    <p>{{ content.paragraph8 | safe }}</p>
-                {% else %}
-                    <p>{{ content.paragraph7old | safe }}</p>
-                    <p>{{ content.paragraph8old | safe }}</p>
-                {% endif %}
-                <p>{{ content.paragraph9 | safe }}</p>
-                <h2 class="heading-medium">
-                    {{ content.feedbackHeader | safe }}
-                </h2>
-                <p>{{ content.paragraph10 | safe }}</p>
-            </div>
+            {% if fields.isFeesApiToggleEnabled.value == "true" %}
+                <p class="govuk-body">{{ content.paragraph7 | safe }}</p>
+                {{ govukTable({
+                    caption: content.tableHeadLeft | safe,
+                    captionClasses: "govuk-visually-hidden",
+                    head: [
+                        { text: content.tableHeadLeft | safe },
+                        { text: content.tableHeadRight | safe, format: "numeric" }
+                    ],
+                    rows: [
+                        [
+                            { text: content.tableBodyFeeRange1 | safe },
+                            { text: content.tableBodyFeeRange1Value | safe, format: "numeric" }
+                        ],
+                        [
+                            { text: content.tableBodyFeeRange2 | safe },
+                            { text: content.tableBodyFeeRange2Value | safe, format: "numeric" }
+                        ],
+                        [
+                            { text: content.tableBodyFeeRange3 | safe },
+                            { text: content.tableBodyFeeRange3Value | safe, format: "numeric" }
+                        ],
+                        [
+                            { text: content.tableBodyFeeRange4 | safe },
+                            { text: content.tableBodyFeeRange4Value | safe, format: "numeric" }
+                        ],
+                        [
+                            { text: content.tableBodyFeeRange5 | safe },
+                            { text: content.tableBodyFeeRange5Value | safe, format: "numeric" }
+                        ],
+                        [
+                            { text: content.tableBodyFeeRange6 | safe },
+                            { text: content.tableBodyFeeRange6Value | safe, format: "numeric" }
+                        ],
+                        [
+                            { text: content.tableBodyFeeRange7 | safe },
+                            { text: content.tableBodyFeeRange7Value | safe, format: "numeric" }
+                        ]
+                    ]
+                }) }}
+                <p class="govuk-body">{{ content.paragraph8 | safe }}</p>
+            {% else %}
+                <p class="govuk-body">{{ content.paragraph7old | safe }}</p>
+                <p class="govuk-body">{{ content.paragraph8old | safe }}</p>
+            {% endif %}
+            <p class="govuk-body">{{ content.paragraph9 | safe }}</p>
+            <h2 class="govuk-heading-m">
+                {{ content.feedbackHeader | safe }}
+            </h2>
+            <p class="govuk-body">{{ content.paragraph10 | safe }}</p>
         </div>
-        <div class="form-group">
-            <p><a href="/death-certificate" class="button button-start">{{ common.checkApply }}</a></p>
-        </div>
+    </div>
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.checkApply,
+            href: "/death-certificate",
+            classes: "govuk-button--start"
+        }) }}
+    </div>
 
-        <p><a href="/tasklist">{{ content.paragraph11 }}</a></p>
-    </main>
+    <p class="govuk-body"><a href="/tasklist" class="govuk-link">{{ content.paragraph11 }}</a></p>
 {% endblock %}

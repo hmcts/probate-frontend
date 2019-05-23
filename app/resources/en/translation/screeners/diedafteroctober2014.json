@@ -3,7 +3,6 @@
   "question": "Did the person die after 1&nbsp;October&nbsp;2014?",
   "optionYes": "Yes",
   "optionNo": "No",
-  "legend": "Did the person die after 1 October 2014?",
   "errors": {
     "diedAfter": {
       "required": {

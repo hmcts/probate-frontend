@@ -2,6 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const AliasData = require('app/utils/AliasData.js');
+const content = require('app/resources/en/translation/applicant/aliasreason');
 
 class ApplicantAliasReason extends ValidationStep {
 
@@ -10,7 +11,7 @@ class ApplicantAliasReason extends ValidationStep {
     }
 
     handlePost(ctx, errors) {
-        if (ctx.aliasReason !== 'other') {
+        if (ctx.aliasReason !== content.optionOther) {
             delete ctx.otherReason;
         }
         return [ctx, errors];

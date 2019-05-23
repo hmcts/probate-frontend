@@ -1,56 +1,49 @@
-{% set title = content.CopiesSummary.title %}
-
 {% extends "includes/layout.html" %}
 
+{% from "summary-list/macro.njk" import govukSummaryList %}
+{% from "button/macro.njk" import govukButton %}
+{% from "widgets/checkanswer.html" import checkanswer %}
+
+{% set title = content.CopiesSummary.title %}
+
 {% block content %}
-    <main id="content" role="main">
-        {% from "widgets/checkanswer.html" import checkanswer %}
+    <h1 class="govuk-heading-l">{{ content.CopiesSummary.heading }}</h1>
+    <p class="govuk-body">{{ content.CopiesSummary.extraCopies }}</p>
+    <dl class="govuk-summary-list">
+        {{ checkanswer(
+            items = [
+                {
+                    question: content.CopiesUk.question,
+                    answer: fields.copies.uk.value,
+                    visible: true
+                }],
+            url = content.CopiesUk.url,
+            common = common,
+            alreadyDeclared = "false"
+        ) }}
+        {{ checkanswer(
+            items = [
+                {
+                    question: fields.copies.assetsOverseasQuestion.value,
+                    answer: fields.assets.assetsoverseas.value,
+                    visible: true
+                },
+                {
+                    question: content.CopiesOverseas.question,
+                    answer: fields.copies.overseas.value,
+                    visible: fields.assets.assetsoverseas.value == content.AssetsOverseas.optionYes
+                }],
+            url = content.AssetsOverseas.url,
+            common = common,
+            alreadyDeclared = "false"
+        ) }}
+    </dl>
 
-        {% include "includes/phase_banner_beta.html" %}
-        {% include "includes/error_summary.html" %}
-
-        <h1 class="heading-large">
-            {{ content.CopiesSummary.heading }}
-        </h1>
-        <p>{{ content.CopiesSummary.extraCopies }}</p>
-
-        <table class="check-your-answers check-your-answers--long">
-            <caption class="visually-hidden">{{ content.CopiesSummary.extraCopies }}</caption>
-            <tbody>
-                {{ checkanswer(
-                    items = [
-                        {
-                            question: content.CopiesUk.question,
-                            answer: fields.copies.uk.value,
-                            visible: true
-                        }],
-                    url = content.CopiesUk.url,
-                    common = common,
-                    alreadyDeclared = 'false'
-                ) }}
-                {{ checkanswer(
-                    items = [
-                        {
-                            question: fields.copies.assetsOverseasQuestion.value,
-                            answer: fields.assets.assetsoverseas.value,
-                            visible: true
-                        },
-                        {
-                            question: content.CopiesOverseas.question,
-                            answer: fields.copies.overseas.value,
-                            visible: fields.assets.assetsoverseas.value == content.AssetsOverseas.optionYes
-                        }],
-                    url = content.AssetsOverseas.url,
-                    common = common,
-                    alreadyDeclared = 'false'
-                ) }}
-            </tbody>
-        </table>
-
-        <div class="form-group">
-            <p><a href="/tasklist" class="button button-start">{{ common.saveAndContinue }}</a></p>
-        </div>
-
-        {% include "includes/help_details.html" %}
-    </main>
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            href: "/tasklist",
+            classes: "govuk-button--start"
+        }) }}
+    </div>
 {% endblock %}

@@ -1,24 +1,38 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/radiobuttons.html" import optionsRadio %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question | replace('{executorFullName}', fields.list.value[fields.index.value].fullName) | safe }}</h1>
-{% endblock %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <fieldset class="form-group {{ 'form-group-error' if fields.isApplying.error }} inline">
-        <div id="notApplyingReasons">
-            {{ optionsRadio(
-                content = content,
-                name = 'notApplyingReason',
-                field = fields.notApplyingReason,
-                options = ['optionPowerReserved', 'optionRenunciated'],
-                legend = content.questionLegend | replace('{executorFullName}', fields.list.value[fields.index.value].fullName) | safe
-            ) }}
-        </div>
-    </fieldset>
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    {{ govukRadios({
+        idPrefix: "notApplyingReason",
+        name: "notApplyingReason",
+        fieldset: {
+            legend: {
+                text: content.question | replace('{executorFullName}', fields.list.value[fields.index.value].fullName) | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: fields.notApplyingReason.errorMessage,
+        items: [
+            {
+                value: content["optionPowerReserved"],
+                text: content["optionPowerReserved"] | safe,
+                checked: true if fields.notApplyingReason.value == content["optionPowerReserved"] | escape
+            },
+            {
+                value: content["optionRenunciated"],
+                text: content["optionRenunciated"] | safe,
+                checked: true if fields.notApplyingReason.value == content["optionRenunciated"] | escape
+            }
+        ]
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

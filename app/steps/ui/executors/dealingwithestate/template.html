@@ -1,27 +1,31 @@
 {% extends "includes/two_thirds_form.html" %}
 
+{% from "checkboxes/macro.njk" import govukCheckboxes %}
+{% from "button/macro.njk" import govukButton %}
 {% from "widgets/lists.html" import unorderedList %}
-{% from "widgets/checkboxes.html" import checkboxes %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
-{% endblock %}
 
 {% block form_content %}
-    <p>{{ content.paragraph1 | safe }}</p>
+    {{ govukCheckboxes({
+        idPrefix: "executorsApplying",
+        name: "executorsApplying[]",
+        fieldset: {
+            legend: {
+                text: content.question | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        hint: {
+            text: (content.paragraph1 + "<br><br>" + unorderedList([content["applicant-rights1"], content["applicant-rights2"], content["applicant-rights3"]]) + content["applicants-not-dealing"]) | safe
+        },
+        errorMessage: fields.executorsApplying.errorMessage,
+        items: fields.options.value
+    }) }}
 
-    {{ unorderedList([content["applicant-rights1"], content["applicant-rights2"], content["applicant-rights3"]]) }}
-
-    <p>{{ content['applicants-not-dealing'] | safe }}</p>
-
-    {{ checkboxes(
-        name = 'executorsApplying[]',
-        field = fields.executorsApplying,
-        options = fields.options.value,
-        legend = content.question
-    ) }}
-
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

@@ -1,24 +1,24 @@
 {% macro taskAction(prevTaskStatus, status, nextURL, checkYourAnswersURL, content, title, alreadyDeclared) %}
-    {% if prevTaskStatus === 'complete' %}
-        {% if status === 'notStarted' %}
+    {% if prevTaskStatus == 'complete' %}
+        {% if status == 'notStarted' %}
             <!-- Start link -->
-            <p><a href="{{ nextURL }}" class="button button-start">{{ content.taskNotStarted }}</a></p>
-        {% elif status === 'started' %}
+            <p><a href="{{ nextURL }}" class="govuk-button govuk-button--start">{{ content.taskNotStarted }}</a></p>
+        {% elif status == 'started' %}
             <!-- Continue link -->
-            <p><a href="{{ nextURL }}" class="button">{{ content.taskStarted }}</a></p>
-        {% elif status === 'complete' %}
+            <p><a href="{{ nextURL }}" class="govuk-button">{{ content.taskStarted }}</a></p>
+        {% elif status == 'complete' %}
             <!-- Check your answers -->
-            {% if alreadyDeclared === 'false' %}
-                <p><a href="{{ checkYourAnswersURL }}">{{ content.checkYourAnswers }} <span class="visually-hidden">{{ title }}</span></a></p>
+            {% if alreadyDeclared == "false" %}
+                <p class="govuk-body"><a href="{{ checkYourAnswersURL }}">{{ content.checkYourAnswers }} <span class="govuk-visually-hidden">{{ title }}</span></a></p>
             {% else %}
-                <p>{{ content.alreadyDeclared }}</p>
+                <p class="govuk-body">{{ content.alreadyDeclared }}</p>
             {% endif %}
         {% endif %}
     {% endif %}
 {% endmacro %}
 
 {% macro unorderedList(items) %}
-    <ul class="list list-bullet">
+    <ul class="govuk-list govuk-list--bullet">
         {% for item in items %}
             <li>{{ item | safe }}</li>
         {% endfor %}
@@ -26,7 +26,7 @@
 {% endmacro %}
 
 {% macro orderedList(items) %}
-    <ol class="list list-number">
+    <ol class="govuk-list govuk-list--number">
         {% for item in items %}
             <li>{{ item | safe }}</li>
         {% endfor %}

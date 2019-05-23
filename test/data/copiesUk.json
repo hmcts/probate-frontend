@@ -16,13 +16,13 @@
   },
   "deceased": {
     "alias": "No",
-    "dob_day": 1,
-    "dod_day": 12,
+    "dob-day": 1,
+    "dod-day": 12,
     "married": "No",
-    "dob_date": "1950-01-01T00:00:00.000Z",
-    "dob_year": 1950,
-    "dod_date": "2017-12-12T00:00:00.000Z",
-    "dod_year": 2017,
+    "dob-date": "1950-01-01T00:00:00.000Z",
+    "dob-year": 1950,
+    "dod-date": "2017-12-12T00:00:00.000Z",
+    "dod-year": 2017,
     "lastName": "test",
     "postcode": "EN6 4RX",
     "addresses": [
@@ -219,8 +219,8 @@
         "dependent_thoroughfare_name": ""
       }
     ],
-    "dob_month": 1,
-    "dod_month": 12,
+    "dob-month": 1,
+    "dod-month": 12,
     "firstName": "test",
     "addressFound": "true",
     "deceasedName": "test test",
@@ -230,8 +230,8 @@
       "postTown": "Potters Bar",
       "postCode": "EN6 4RX"
     },
-    "dob_formattedDate": "1 January 1950",
-    "dod_formattedDate": "12 December 2017"
+    "dob-formattedDate": "1 January 1950",
+    "dod-formattedDate": "12 December 2017"
   },
   "applicant": {
     "address": {
@@ -645,7 +645,7 @@
   "checkAnswersSummary": {
     "sections": [
       {
-        "type": "heading-medium",
+        "type": "govuk-heading-m",
         "title": "About the person who died",
         "questionAndAnswers": [
           {
@@ -699,7 +699,7 @@
         ]
       },
       {
-        "type": "heading-medium",
+        "type": "govuk-heading-m",
         "title": "Uploaded documents",
         "questionAndAnswers": [
           {
@@ -711,7 +711,7 @@
         ]
       },
       {
-        "type": "heading-medium",
+        "type": "govuk-heading-m",
         "title": "Inheritance tax",
         "questionAndAnswers": [
           {
@@ -741,7 +741,7 @@
         ]
       },
       {
-        "type": "heading-medium",
+        "type": "govuk-heading-m",
         "title": "The executors",
         "questionAndAnswers": [
           {
@@ -759,7 +759,7 @@
         ]
       },
       {
-        "type": "heading-small",
+        "type": "govuk-heading-s",
         "title": "About you",
         "questionAndAnswers": [
           {
@@ -795,7 +795,7 @@
         ]
       },
       {
-        "type": "heading-small",
+        "type": "govuk-heading-s",
         "title": "Other executors applying for probate",
         "questionAndAnswers": [
           {
@@ -814,7 +814,7 @@
         ]
       },
       {
-        "type": "heading-small",
+        "type": "govuk-heading-s",
         "title": "Second executor applying for probate",
         "questionAndAnswers": [
           {
@@ -844,7 +844,7 @@
         ]
       },
       {
-        "type": "heading-small",
+        "type": "govuk-heading-s",
         "title": "Third executor applying for probate",
         "questionAndAnswers": [
           {

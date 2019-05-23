@@ -231,11 +231,9 @@ describe('PaymentStatus', () => {
             co(function* () {
                 const options = yield paymentStatus.runnerOptions(ctx, formData);
                 expect(options.errors).to.deep.equal([{
-                    param: 'update',
-                    msg: {
-                        summary: 'We could not submit your application. Your data has been saved, please try again later.',
-                        message: 'payment.status.errors.update.failure.message'
-                    }
+                    field: 'update',
+                    href: '#update',
+                    text: 'payment.status.errors.update.failure.message'
                 }]);
                 revert();
                 done();

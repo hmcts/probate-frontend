@@ -1,34 +1,41 @@
 {% extends "includes/layout.html" %}
 
-{% set displaySignOutLink = 'false' %}
+{% from "button/macro.njk" import govukButton %}
+{% from "widgets/lists.html" import unorderedList %}
+
+{% set displaySignOutLink = "false" %}
 
 {% block content %}
-    {% from "widgets/lists.html" import unorderedList %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="form-title govuk-heading-l">{{ content.header | safe }}</h1>
+            <p class="govuk-body">{{ content.paragraph1 | replace("{leadExecutorName}", fields.leadExecFullName.value) | replace("{deceasedName}", fields.deceasedFullName.value) | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
 
-    <main id="content" role="main">
-        {% include "includes/phase_banner_beta.html" %}
+            <h2 class="govuk-heading-m">{{ content.subHeader1 }}</h2>
+            <p class="govuk-body">{{ content.paragraph3 | replace("{leadExecutorName}", fields.leadExecFullName.value) | safe }}</p>
+            <p class="govuk-body">{{ content.list1Header | replace("{leadExecutorName}", fields.leadExecFullName.value) | safe }}</p>
+            {{ unorderedList([
+                content["list1Item1"] | safe,
+                content["list1Item2"] | safe
+            ]) }}
 
-        <h1 class="form-title heading-large">{{ content.header | safe }}</h1>
-        <p>{{ content.paragraph1 | replace('{leadExecutorName}', fields.leadExecFullName.value) | replace('{deceasedName}', fields.deceasedFullName.value) | safe }}</p>
-        <p>{{ content.paragraph2 | safe }}</p>
-        <h2 class="heading-medium">{{ content.subHeader1 }}</h2>
-        <p>{{ content.paragraph3 | replace('{leadExecutorName}', fields.leadExecFullName.value) | safe }}</p>
-        <p>{{ content.list1Header | replace('{leadExecutorName}', fields.leadExecFullName.value) | safe }}</p>
-        {{ unorderedList([
-            content["list1Item1"] | safe,
-            content["list1Item2"] | safe
-        ]) }}
-        <div class="form-group">
-            <p><a href="/co-applicant-declaration" class="button">{{ content.button }}</a></p>
+            <div class="govuk-form-group">
+                {{ govukButton({
+                    text: content.button,
+                    href: "/co-applicant-declaration"
+                }) }}
+            </div>
+
+            <h3 class="govuk-heading-s">{{ content.subHeader2 | safe }}</h3>
+            <p class="govuk-body">{{ content.list2Header | safe }}</p>
+            {{ unorderedList([
+                content["list2Item1"] | safe,
+                content["list2Item2"] | safe
+            ]) }}
+            <p class="govuk-body">{{ content.paragraph4 | replace("{leadExecutorName}", fields.leadExecFullName.value) | safe }}</p>
+
+            {% include "includes/help_details.html" %}
         </div>
-        <h3 class="heading-small">{{ content.subHeader2 | safe }}</h3>
-        <p>{{ content.list2Header | safe }}</p>
-        {{ unorderedList([
-            content["list2Item1"] | safe,
-            content["list2Item2"] | safe
-        ]) }}
-        <p>{{ content.paragraph4 | replace('{leadExecutorName}', fields.leadExecFullName.value) | safe }}</p>
-
-        {% include "includes/help_details.html" %}
-    </main>
+    </div>
 {% endblock %}

@@ -68,27 +68,27 @@ SET form_data =
 
          "address": "test address for deceased",
 
-         "dob_day": 1,
+         "dob-day": 1,
 
-         "dod_day": 1,
+         "dod-day": 1,
 
          "married": "No",
 
-         "dob_date": "1950-01-01T00:00:00.000Z",
+         "dob-date": "1950-01-01T00:00:00.000Z",
 
-         "dob_year": 1950,
+         "dob-year": 1950,
 
-         "dod_date": "2017-01-01T00:00:00.000Z",
+         "dod-date": "2017-01-01T00:00:00.000Z",
 
-         "dod_year": 2017,
+         "dod-year": 2017,
 
          "domicile": "live (domicile) permanently in England or Wales",
 
          "lastName": "Deceased Last Name",
 
-         "dob_month": 1,
+         "dob-month": 1,
 
-         "dod_month": 1,
+         "dod-month": 1,
 
          "firstName": "Deceased First Name",
 
@@ -114,9 +114,9 @@ SET form_data =
 
          "addressFound": "none",
 
-         "dob_formattedDate": "1 January 1950",
+         "dob-formattedDate": "1 January 1950",
 
-         "dod_formattedDate": "1 January 2017"
+         "dod-formattedDate": "1 January 2017"
 
      },
 

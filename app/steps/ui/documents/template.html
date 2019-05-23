@@ -1,31 +1,33 @@
 {% extends "includes/two_thirds_form.html" %}
 
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "button/macro.njk" import govukButton %}
 {% from "widgets/lists.html" import unorderedList %}
 {% from "widgets/checkboxes.html" import checkbox %}
 
-{% if fields.isDocumentUploadToggleEnabled.value === 'true' %}
+{% if fields.isDocumentUploadToggleEnabled.value == "true" %}
     {% set checklistOneItems = [] %}
     {% set codicilsSuffix = "" %}
 
-    {% if fields.hasCodicils.value === 'true' and fields.codicilsNumber.value > "0" %}
+    {% if fields.hasCodicils.value == "true" and fields.codicilsNumber.value > "0" %}
         {% set checklistOneItems = (checklistOneItems.push(content["checklist1-item1-codicils"]), checklistOneItems) %}
         {% set codicilsSuffix = "-codicils" %}
     {% else %}
         {% set checklistOneItems = (checklistOneItems.push(content["checklist1-item1-no-codicils"]), checklistOneItems) %}
     {% endif %}
 
-    {% if fields.uploads.value | length === 0 %}
+    {% if fields.uploads.value | length == 0 %}
         {% set checklistOneItems = (checklistOneItems.push(content["checklist2-item3-will-uploaded"]), checklistOneItems) %}
     {% endif %}
-    {% if (fields.is205.value === "true") %}
+    {% if (fields.is205.value == "true") %}
         {% set checklistOneItems = (checklistOneItems.push(content["checklist2-item4-iht205"]), checklistOneItems) %}
     {% endif %}
-    {% if fields.hasRenunciated.value === "true" %}
-        {% set checklistOneItems = (checklistOneItems.push(content["checklist2-item5-renunciated"] | replace('{renunciationFormLink}', links.renunciationForm)), checklistOneItems) %}
+    {% if fields.hasRenunciated.value == "true" %}
+        {% set checklistOneItems = (checklistOneItems.push(content["checklist2-item5-renunciated"] | replace("{renunciationFormLink}", links.renunciationForm)), checklistOneItems) %}
     {% endif %}
     {% if fields.executorsNameChangedByDeedPollList.value | length > 0 %}
         {% for executor in fields.executorsNameChangedByDeedPollList.value %}
-            {% set checklistOneItems = (checklistOneItems.push(content["checklist2-item6-deed-poll"] | replace('{executorCurrentName}', executor)), checklistOneItems) %}
+            {% set checklistOneItems = (checklistOneItems.push(content["checklist2-item6-deed-poll"] | replace("{executorCurrentName}", executor)), checklistOneItems) %}
         {% endfor %}
     {% endif %}
 {% else %}
@@ -42,90 +44,92 @@
 
     {% set checklistThreeItems = [content["old_checklist3-item1" + codicilsSuffix], content["old_checklist3-item2"]] %}
 
-    {% if fields.hasRenunciated.value === "true" %}
-        {% set checklistThreeItems = (checklistThreeItems.push(content["old_checklist3-item3"] | replace('{renunciationFormLink}', links.renunciationForm)), checklistThreeItems) %}
+    {% if fields.hasRenunciated.value == "true" %}
+        {% set checklistThreeItems = (checklistThreeItems.push(content["old_checklist3-item3"] | replace("{renunciationFormLink}", links.renunciationForm)), checklistThreeItems) %}
     {% endif %}
 
-    {% if (fields.is205.value === "true") %}
+    {% if (fields.is205.value == "true") %}
         {% set checklistThreeItems = (checklistThreeItems.push(content["old_checklist3-item4-Form205"]), checklistThreeItems) %}
     {% endif %}
 
     {% if fields.executorsNameChangedByDeedPollList.value | length > 0 %}
         {% for executor in fields.executorsNameChangedByDeedPollList.value %}
-            {% set checklistThreeItems = (checklistThreeItems.push(content["old_checklist3-item5-deedPoll"] | replace('{executorCurrentName}', executor)), checklistThreeItems) %}
+            {% set checklistThreeItems = (checklistThreeItems.push(content["old_checklist3-item5-deedPoll"] | replace("{executorCurrentName}", executor)), checklistThreeItems) %}
         {% endfor %}
     {% endif %}
 {% endif %}
 
-{% block question %}
-    {% if fields.isDocumentUploadToggleEnabled.value === 'true' %}
-        <h1 class="form-title heading-large">{{ content.header }}</h1>
-    {% else %}
-        <h1 class="form-title heading-large">{{ content.old_header }}</h1>
-    {% endif %}
-{% endblock %}
-
 {% block form_content %}
-    {% if fields.isDocumentUploadToggleEnabled.value === 'true' %}
-        <h2 class="heading-medium">{{ content.heading1 | safe }}</h2>
-        <p>{{ content.coverSheetDownloadMessage }} <a id="coverSheetPdfHref"
-                                                      href="/cover-sheet-pdf">{{ content.coverSheetPdf }}</a>.</p>
-        {% if fields.ccdReferenceNumber.value !== '' %}
-            <p>{{ content.text1 | safe | replace('{ccdReferenceNumber}', fields.ccdReferenceNumber.value) }}</p>
+    {% call govukFieldset({
+        legend: {
+            text: (content.header if fields.isDocumentUploadToggleEnabled.value == "true" else content.old_header) | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        {% if fields.isDocumentUploadToggleEnabled.value == "true" %}
+            <h2 class="govuk-heading-m">{{ content.heading1 | safe }}</h2>
+            <p class="govuk-body">{{ content.coverSheetDownloadMessage }} <a class="govuk-link" id="coverSheetPdfHref" href="/cover-sheet-pdf">{{ content.coverSheetPdf }}</a>.</p>
+            {% if fields.ccdReferenceNumber.value !== "" %}
+                <p class="govuk-body">{{ content.text1 | safe | replace("{ccdReferenceNumber}", fields.ccdReferenceNumber.value) }}</p>
+            {% endif %}
+            <p class="govuk-body">{{ content.text2 | safe }}</p>
+            {{ unorderedList(checklistOneItems) }}
+
+            <p class="govuk-body">{{ content.text3 | safe }}</p>
+            <p class="govuk-body">{{ content.text4 | safe }}</p>
+
+            <div class="panel panel-border-wide">
+                <p class="govuk-body">{{ content.warning | safe }}</p>
+            </div>
+
+            <h2 class="govuk-heading-m">{{ content.heading2 | safe }}</h2>
+            <p class="govuk-body">{{ content.text5 | safe }}</p>
+
+            <div class="panel panel-border-narrow">
+                <p class="govuk-body">{{ fields.registryAddress.value | safe | nl2br }}</p>
+            </div>
+
+            <input id="sentDocuments" type="hidden" name="sentDocuments" value="true"/>
+        {% else %}
+            <p>{{ content.old_printPage | safe }}</p>
+            <h2 class="govuk-heading-m">{{ content.old_heading2 | safe }}</h2>
+            <h3 class="govuk-heading-s">{{ content.old_checklist1Header | safe }}</h3>
+
+            {{ unorderedList(checklistOneItems) }}
+
+            {% if fields.hasMultipleApplicants.value == "true" %}
+                <h3 class="govuk-heading-s">{{ content.old_checklist2Header | safe }}</h3>
+                {{ unorderedList(checklistTwoItems) }}
+                {% set checklistThreeHeaderNumber = content.old_checklist3HeaderNumberMultipleExecutors %}
+            {% endif %}
+
+            <h3 class="govuk-heading-s">{{ checklistThreeHeaderNumber }} {{ content.old_checklist3Header | safe }}</h3>
+
+            {{ unorderedList(checklistThreeItems) }}
+
+            <p class="govuk-body">{{ content["old_coverLetter" + codicilsSuffix] | safe }}</p>
+            <div class="panel panel-border-wide">
+                <strong class="text">{{ content.old_warning | safe }}</strong>
+            </div>
+
+            <h2 class="govuk-heading-m">{{ content.old_heading3 | safe }}</h2>
+            <p class="govuk-body">{{ content.old_sendDocuments }}</p>
+            <p class="govuk-body">{{ fields.registryAddress.value | safe | nl2br }}</p>
+
+            {{ checkbox(
+                name = "sentDocuments",
+                field = fields.sentDocuments,
+                text = content["checkboxLabel" + codicilsSuffix],
+                legend = content.title
+            ) }}
         {% endif %}
-        <p>{{ content.text2 | safe }}</p>
-        {{ unorderedList(checklistOneItems) }}
+    {% endcall %}
 
-        <p>{{ content.text3 | safe }}</p>
-        <p>{{ content.text4 | safe }}</p>
-
-        <div class="panel panel-border-wide">
-            <p>{{ content.warning | safe }}</p>
-        </div>
-
-        <h2 class="heading-medium">{{ content.heading2 | safe }}</h2>
-        <p>{{ content.text5 | safe }}</p>
-
-        <div class="panel panel-border-narrow">
-            <p>{{ fields.registryAddress.value | safe | nl2br }}</p>
-        </div>
-
-        <input id="sentDocuments" type="hidden" name="sentDocuments" value="true"/>
-    {% else %}
-        <p>{{ content.old_printPage | safe }}</p>
-        <h2 class="heading-medium">{{ content.old_heading2 | safe }}</h2>
-        <h3 class="heading-small">{{ content.old_checklist1Header | safe }}</h3>
-
-        {{ unorderedList(checklistOneItems) }}
-
-        {% if fields.hasMultipleApplicants.value === "true" %}
-            <h3 class="heading-small">{{ content.old_checklist2Header | safe }}</h3>
-            {{ unorderedList(checklistTwoItems) }}
-            {% set checklistThreeHeaderNumber = content.old_checklist3HeaderNumberMultipleExecutors %}
-        {% endif %}
-
-        <h3 class="heading-small">{{ checklistThreeHeaderNumber }} {{ content.old_checklist3Header | safe }}</h3>
-
-        {{ unorderedList(checklistThreeItems) }}
-
-        <p>{{ content["old_coverLetter" + codicilsSuffix] | safe }}</p>
-        <div class="panel panel-border-wide">
-            <strong class="text">{{ content.old_warning | safe }}</strong>
-        </div>
-
-        <h2 class="heading-medium">{{ content.old_heading3 | safe }}</h2>
-        <p>{{ content.old_sendDocuments }}</p>
-        <p>{{ fields.registryAddress.value | safe | nl2br }}</p>
-
-        {{ checkbox(
-            name = 'sentDocuments',
-            field = fields.sentDocuments,
-            text = content["checkboxLabel" + codicilsSuffix],
-            legend = content.title
-        ) }}
-    {% endif %}
-
-    <div class="form-group">
-        <input id="button" class="button" type="submit" role="button" value="{{ common.continue }}">
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.continue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

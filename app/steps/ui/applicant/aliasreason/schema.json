@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$schema": "https://raw.githubusercontent.com/epoberezkin/ajv/master/lib/refs/json-schema-v5.json#",
   "id": "applicant-alias-reason",
   "type": "object",
   "properties": {},
@@ -10,10 +10,10 @@
       "continue": false
     },
     {
-      "if": { "properties": { "aliasReason": { "enum": ["other"] } } },
+      "if": { "properties": { "aliasReason": { "enum": ["Other"] } } },
       "then": {
         "properties": {
-          "other": {
+          "otherReason": {
             "type": "string",
             "minLength": 1,
             "maxLength": 50

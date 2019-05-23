@@ -49,8 +49,8 @@ describe('Pact IntestacyFormData', () => {
             'deceased': {
                 'firstName': 'Ned',
                 'lastName': 'Stark',
-                'dob_date': '1930-01-01',
-                'dod_date': '2018-01-01',
+                'dob-date': '1930-01-01',
+                'dod-date': '2018-01-01',
                 'addressFound': 'Yes',
                 'postCode': 'SW17 0QT',
                 'address': {

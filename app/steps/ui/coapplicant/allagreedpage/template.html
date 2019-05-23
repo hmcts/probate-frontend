@@ -1,18 +1,19 @@
 {% extends "includes/layout.html" %}
 
-{% set displaySignOutLink = 'false' %}
+{% set displaySignOutLink = "false" %}
 
 {% block content %}
-    <main id="content" role="main">
-        {% include "includes/phase_banner_beta.html" %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="form-title govuk-heading-l">{{ content.header | safe }}</h1>
+            <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
 
-        <h1 class="form-title heading-large">{{ content.header | safe }}</h1>
-        <p>{{ content.paragraph1 | safe }}</p>
-        <h2 class="form-title heading-medium">{{ content.subHeader | safe }}</h2>
-        <p>{{ content.paragraph2 | safe }}</p>
-        <p>{{ content.paragraph3 | safe }}</p>
-        <p>{{ content.paragraph4a }}<a href="{{ links.surveyEndOfApplication | safe }}">{{ content.paragraph4b }}</a></p>
+            <h2 class="form-title govuk-heading-m">{{ content.subHeader | safe }}</h2>
+            <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph4a }}<a href="{{ links.surveyEndOfApplication | safe }}" class="govuk-link">{{ content.paragraph4b }}</a></p>
 
-        {% include "includes/help_details.html" %}
-    </main>
+            {% include "includes/help_details.html" %}
+        </div>
+    </div>
 {% endblock %}

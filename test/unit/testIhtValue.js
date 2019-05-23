@@ -5,6 +5,8 @@ const expect = require('chai').expect;
 const contentAssetsOutside = require('app/resources/en/translation/iht/assetsoutside');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const IhtValue = steps.IhtValue;
+const content = require('app/resources/en/translation/iht/value');
+const he = require('he');
 
 describe('IhtValue', () => {
     describe('getUrl()', () => {
@@ -82,25 +84,19 @@ describe('IhtValue', () => {
             });
             expect(errors).to.deep.equal([
                 {
-                    msg: {
-                        summary: 'Gross value can only contain numbers',
-                        message: 'Gross value must be a whole number or a number with 2 decimal places'
-                    },
-                    param: 'grossValueField'
+                    field: 'grossValueField',
+                    href: '#grossValueField',
+                    text: he.decode(content.errors.grossValueField.invalidCurrencyFormat.message)
                 },
                 {
-                    msg: {
-                        summary: 'Net value can only contain numbers',
-                        message: 'Net value must be a whole number or a number with 2 decimal places'
-                    },
-                    param: 'netValueField'
+                    field: 'netValueField',
+                    href: '#netValueField',
+                    text: he.decode(content.errors.netValueField.invalidCurrencyFormat.message)
                 },
                 {
-                    msg: {
-                        summary: 'The net amount can&rsquo;t be greater than the gross amount',
-                        message: 'The net amount can&rsquo;t be greater than the gross amount'
-                    },
-                    param: 'netValueField'
+                    field: 'netValueField',
+                    href: '#netValueField',
+                    text: he.decode(content.errors.netValueField.netValueGreaterThanGross.message)
                 }
             ]);
             done();

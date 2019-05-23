@@ -4,7 +4,6 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 const content = require('app/resources/en/translation/deceased/divorceplace');
 const commonContent = require('app/resources/en/translation/common');
-const {set} = require('lodash');
 
 class DivorcePlace extends ValidationStep {
 
@@ -26,14 +25,14 @@ class DivorcePlace extends ValidationStep {
     generateFields(ctx, errors) {
         const fields = super.generateFields(ctx, errors);
 
-        set(fields, 'title.value', `${content.title} - ${commonContent.serviceName}`);
+        fields.title = `${content.title} - ${commonContent.serviceName}`;
 
         if (ctx && ctx.legalProcess) {
-            set(fields, 'title.value', fields.title.value.replace('{legalProcess}', ctx.legalProcess));
+            fields.title = fields.title.replace('{legalProcess}', ctx.legalProcess);
 
             if (fields.divorcePlace && fields.divorcePlace.error) {
-                set(fields, 'divorcePlace.errorMessage.summary', fields.divorcePlace.errorMessage.summary.replace('{legalProcess}', ctx.legalProcess));
-                set(fields, 'divorcePlace.errorMessage.message', fields.divorcePlace.errorMessage.message.replace('{legalProcess}', ctx.legalProcess));
+                fields.divorcePlace.errorMessage.text = fields.divorcePlace.errorMessage.text.replace('{legalProcess}', ctx.legalProcess);
+                errors[0].text = fields.divorcePlace.errorMessage.text.replace('{legalProcess}', ctx.legalProcess);
             }
         }
 

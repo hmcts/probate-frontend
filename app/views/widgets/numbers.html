@@ -1,7 +1,7 @@
 {% from "widgets/fielderror.html" import fieldError %}
 
 {% macro numberField(text, hint, name, field, size, width, currency=true) %}
-    <div class="form-group {{ 'form-group-error' if field.error }}">
+    <div class="govuk-form-group {{ 'form-group-error' if field.error }}">
         {% if hint %}
             <p class="form-hint">{{ hint | safe }}</p>
         {% endif %}

@@ -1,30 +1,24 @@
 {% extends "includes/layout.html" %}
 
+{% from "widgets/lists.html" import taskAction, unorderedList %}
+{% from "widgets/taskheader.html" import taskHeader %}
+
 {% block content %}
-    {% from "widgets/lists.html" import taskAction, unorderedList %}
-    {% from "widgets/taskheader.html" import taskHeader %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="form-title govuk-heading-l">{{ content.header }}</h1>
+            <p class="govuk-body">{{ content.introduction }}</p>
+            <p class="govuk-body">{{ content.saveAndReturn }}</p>
+            <ol class="task-list">
+                {% include "ui/tasklist/includes/deceased.html" %}
+                {% include "ui/tasklist/includes/executors.html" %}
+                {% include "ui/tasklist/includes/reviewAndConfirm.html" %}
+                {% include "ui/tasklist/includes/copies.html" %}
+                {% include "ui/tasklist/includes/payment.html" %}
+                {% include "ui/tasklist/includes/documents.html" %}
+            </ol>
 
-    <main id="content" role="main">
-        {% include "includes/phase_banner_beta.html" %}
-
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <h1 class="form-title heading-large">{{ content.header }}</h1>
-                <p>{{ content.introduction }}</p>
-                <p>{{ content.saveAndReturn }}</p>
-                <div class="form-group">
-                    <ol>
-                        {% include "ui/tasklist/includes/deceased.html" %}
-                        {% include "ui/tasklist/includes/executors.html" %}
-                        {% include "ui/tasklist/includes/reviewAndConfirm.html" %}
-                        {% include "ui/tasklist/includes/copies.html" %}
-                        {% include "ui/tasklist/includes/payment.html" %}
-                        {% include "ui/tasklist/includes/documents.html" %}
-                    </ol>
-                </div>
-            </div>
+            {% include "includes/help_details.html" %}
         </div>
-
-        {% include "includes/help_details.html" %}
-    </main>
+    </div>
 {% endblock %}

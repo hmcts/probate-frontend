@@ -1,50 +1,69 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/textfields.html" import textField %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
-{% endblock %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "input/macro.njk" import govukInput %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <fieldset class="form-group {{ 'form-group-error' if fields['aliasReason'].error }}">
-        <legend class="visually-hidden">{{ content.question }}</legend>
-        {% if fields['aliasReason'].error %}
-            <span class="error-message">
-                {{ fields['aliasReason'].errorMessage.message | safe }}
-            </span>
-        {% endif %}
+    {% set otherHtml %}
+        {{ govukInput({
+            label: {
+                text: content.optionOtherHint | safe
+            },
+            id: "otherReason",
+            name: "otherReason",
+            classes: "govuk-!-width-one-half",
+            value: fields.otherReason.value | safe,
+            errorMessage: fields.otherReason.errorMessage,
+            attributes: {
+                maxlength: 50
+            }
+        }) }}
+    {% endset -%}
 
-        <div class="multiple-choice">
-            <input id="aliasMarriage" type="radio" name="aliasReason" value="Marriage" {{ "checked='checked'" if fields['aliasReason'].value === 'Marriage' }}>
-            <label for="aliasMarriage">{{ content['optionMarriage'] }}</label>
-        </div>
+    {{ govukRadios({
+        classes: "govuk-radios",
+        idPrefix: "aliasReason",
+        name: "aliasReason",
+        fieldset: {
+            legend: {
+                text: content.question | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: fields.aliasReason.errorMessage,
+        items: [
+            {
+                value: content["optionMarriage"],
+                text: content["optionMarriage"] | safe,
+                checked: true if fields.aliasReason.value == content["optionMarriage"] | escape
+            },
+            {
+                value: content["optionDivorce"],
+                text: content["optionDivorce"] | safe,
+                checked: true if fields.aliasReason.value == content["optionDivorce"] | escape
+            },
+            {
+                value: content["optionDeedPoll"],
+                text: content["optionDeedPoll"] | safe,
+                checked: true if fields.aliasReason.value == content["optionDeedPoll"] | escape
+            },
+            {
+                value: content["optionOther"],
+                text: content["optionOther"] | safe,
+                checked: true if fields.aliasReason.value == content["optionOther"] | escape,
+                conditional: {
+                    html: otherHtml
+                }
+            }
+        ]
+    }) }}
 
-        <div class="multiple-choice">
-            <input id="aliasDivorce" type="radio" name="aliasReason" value="Divorce" {{ "checked='checked'" if fields['aliasReason'].value === 'Divorce' }}>
-            <label for="aliasDivorce">{{ content['optionDivorce'] }}</label>
-        </div>
-
-        <div class="multiple-choice">
-            <input id="aliasDeedPoll" type="radio" name="aliasReason" value="Change by deed poll" {{ "checked='checked'" if fields['aliasReason'].value === 'Change by deed poll' }}>
-            <label for="aliasDeedPoll">{{ content['optionDeedPoll'] }}</label>
-        </div>
-
-        <div class="multiple-choice" data-target="other-details">
-            <input id="aliasOther" type="radio" name="aliasReason" value="other" {{ "checked='checked'" if fields['aliasReason'].value === 'other' }}>
-            <label for="aliasOther">{{ content['optionOther'] }}</label>
-        </div>
-        <div class="panel panel-border-narrow js-hidden" id="other-details">
-            {{ textField(
-                name = 'otherReason',
-                field = fields.otherReason,
-                text = content.optionOtherHint,
-                size = 50
-            ) }}
-        </div>
-    </fieldset>
-
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

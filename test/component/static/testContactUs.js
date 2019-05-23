@@ -3,11 +3,11 @@
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
 
-describe('cookies', () => {
+describe('contact-us', () => {
     let testWrapper;
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('Cookies');
+        testWrapper = new TestWrapper('ContactUs');
     });
 
     afterEach(() => {
@@ -15,14 +15,12 @@ describe('cookies', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];
-
             const contentData = {
-                howToManageCookiesLink: config.links.howToManageCookies,
-                googlePrivacyPolicyLink: config.links.googlePrivacyPolicy,
-                googleAnalyticsOptOutLink: config.links.googleAnalyticsOptOut
+                helpLineNumber: config.helpline.number,
+                helpLineHours: config.helpline.hours,
+                callChargesLink: config.links.callCharges
             };
 
             testWrapper.testContent(done, excludeKeys, contentData);

@@ -14,7 +14,7 @@ class ExecutorsWithOtherNames extends ValidationStep {
         ctx.executorsWrapper = new ExecutorsWrapper(ctx);
         if (ctx.list) {
             ctx.options = ctx.executorsWrapper.executorsApplying(true).map(o => {
-                return {option: o.fullName, checked: o.hasOtherName === true};
+                return {value: o.fullName, text: o.fullName, checked: o.hasOtherName === true};
             });
         }
         return ctx;

@@ -1,86 +1,144 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/textfields.html" import textField %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
-{% endblock %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "input/macro.njk" import govukInput %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <fieldset class="form-group {{ 'form-group-error' if fields['form'].error }}">
-        <legend class="visually-hidden">{{ content.question }}</legend>
-        {% if fields['form'].error %}
-            <span class="error-message">
-                {{ fields['form'].errorMessage.message | safe }}
-            </span>
-        {% endif %}
+    {% set iht205html %}
+        {{ govukInput({
+            label: {
+                text: content.gross205 | safe
+            },
+            id: "grossValueFieldIHT205",
+            name: "grossValueFieldIHT205",
+            classes: "govuk-!-width-one-third",
+            value: fields.grossValueFieldIHT205.value | safe,
+            errorMessage: fields.grossValueFieldIHT205.errorMessage,
+            attributes: {
+                maxlength: 13
+            }
+        }) }}
+        {{ govukInput({
+            label: {
+                text: content.net205 | safe
+            },
+            id: "netValueFieldIHT205",
+            name: "netValueFieldIHT205",
+            classes: "govuk-!-width-one-third",
+            value: fields.netValueFieldIHT205.value | safe,
+            errorMessage: fields.netValueFieldIHT205.errorMessage,
+            attributes: {
+                maxlength: 13
+            }
+        }) }}
+    {% endset -%}
 
-        <!-- IHT205 -->
-        <div class="multiple-choice" data-target="IHT205-details">
-            <input id="paperIHT205" type="radio" name="form" value="IHT205" {{ "checked='checked'" if fields['form'].value === 'IHT205' }}>
-            <label for="paperIHT205">{{ content['optionIHT205'] }}</label>
+    {% set iht207html %}
+        {{ govukInput({
+            label: {
+                text: content.gross207 | safe
+            },
+            id: "grossValueFieldIHT207",
+            name: "grossValueFieldIHT207",
+            classes: "govuk-!-width-one-third",
+            value: fields.grossValueFieldIHT207.value | safe,
+            errorMessage: fields.grossValueFieldIHT207.errorMessage,
+            attributes: {
+                maxlength: 13
+            }
+        }) }}
+        {{ govukInput({
+            label: {
+                text: content.net207 | safe
+            },
+            id: "netValueFieldIHT207",
+            name: "netValueFieldIHT207",
+            classes: "govuk-!-width-one-half",
+            value: fields.netValueFieldIHT207.value | safe,
+            errorMessage: fields.netValueFieldIHT207.errorMessage,
+            attributes: {
+                maxlength: 13
+            }
+        }) }}
+    {% endset -%}
+
+    {% set iht400421html %}
+        {{ govukInput({
+            label: {
+                text: content.gross400 | safe
+            },
+            id: "grossValueFieldIHT400421",
+            name: "grossValueFieldIHT400421",
+            classes: "govuk-!-width-one-half",
+            value: fields.grossValueFieldIHT400421.value | safe,
+            errorMessage: fields.grossValueFieldIHT400421.errorMessage,
+            attributes: {
+                maxlength: 13
+            }
+        }) }}
+        {{ govukInput({
+            label: {
+                text: content.net400 | safe
+            },
+            id: "netValueFieldIHT400421",
+            name: "netValueFieldIHT400421",
+            classes: "govuk-!-width-one-half",
+            value: fields.netValueFieldIHT400421.value | safe,
+            errorMessage: fields.netValueFieldIHT400421.errorMessage,
+            attributes: {
+                maxlength: 13
+            }
+        }) }}
+        <div class="govuk-form-group">
+            <p class="govuk-body">{{ content.421Info }}</p>
         </div>
+    {% endset -%}
 
-        <div class="panel panel-border-narrow js-hidden" id="IHT205-details">
-            {{ textField(
-                name = 'grossValueFieldIHT205',
-                field = fields.grossValueFieldIHT205,
-                text = content.gross205 | safe,
-                size = 13
-            ) }}
-            {{ textField(
-                name = 'netValueFieldIHT205',
-                field = fields.netValueFieldIHT205,
-                text = content.net205 | safe,
-                size = 13
-            ) }}
-        </div>
+    {{ govukRadios({
+        classes: "govuk-radios",
+        idPrefix: "form",
+        name: "form",
+        fieldset: {
+            legend: {
+                text: content.question | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: fields.form.errorMessage,
+        items: [
+            {
+                value: "IHT205",
+                text: content["optionIHT205"] | safe,
+                checked: true if fields.form.value == "IHT205" | escape,
+                conditional: {
+                    html: iht205html
+                }
+            },
+            {
+                value: "IHT207",
+                text: content["optionIHT207"] | safe,
+                checked: true if fields.form.value == "IHT207" | escape,
+                conditional: {
+                    html: iht207html
+                }
+            },
+            {
+                value: "IHT400421",
+                text: content["optionIHT400421"] | safe,
+                checked: true if fields.form.value == "IHT400421" | escape,
+                conditional: {
+                    html: iht400421html
+                }
+            }
+        ]
+    }) }}
 
-        <!-- IHT207 -->
-        <div class="multiple-choice" data-target="IHT207-details">
-            <input id="paperIHT207" type="radio" name="form" value="IHT207" {{ "checked='checked'" if fields['form'].value === 'IHT207' }}>
-            <label for="paperIHT207">{{ content['optionIHT207'] }}</label>
-        </div>
-
-        <div class="panel panel-border-narrow js-hidden" id="IHT207-details">
-            {{ textField(
-                name = 'grossValueFieldIHT207',
-                field = fields.grossValueFieldIHT207,
-                text = content.gross207 | safe,
-                size = 13
-            ) }}
-            {{ textField(
-                name = 'netValueFieldIHT207',
-                field = fields.netValueFieldIHT207,
-                text = content.net207 | safe,
-                size = 13
-            ) }}
-        </div>
-
-        <!-- IHT400421 & 421 -->
-        <div class="multiple-choice" data-target="IHT400421-details">
-            <input id="paperIHT400421" type="radio" name="form" value="IHT400421" {{ "checked='checked'" if fields['form'].value === 'IHT400421' }}>
-            <label for="paperIHT400421">{{ content['optionIHT400421'] }}</label>
-        </div>
-
-        <div class="panel panel-border-narrow js-hidden" id="IHT400421-details">
-            {{ textField(
-                name = 'grossValueFieldIHT400421',
-                field = fields.grossValueFieldIHT400421,
-                text = content.gross400 | safe,
-                size = 13
-            ) }}
-            {{ textField(
-                name = 'netValueFieldIHT400421',
-                field = fields.netValueFieldIHT400421,
-                text = content.net400 | safe,
-                size = 13
-            ) }}
-            <p>{{ content.421Info }}</p>
-        </div>
-
-    </fieldset>
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

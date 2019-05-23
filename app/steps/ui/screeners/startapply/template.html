@@ -1,29 +1,27 @@
 {% extends "includes/layout.html" %}
-{% block page_title %}
-    {{ content.title }}
-{% endblock %}
 
-{% set displaySignOutLink = 'false' %}
-{% set serviceName = '' %}
+{% from "button/macro.njk" import govukButton %}
+
+{% set displaySignOutLink = "false" %}
+{% set serviceName = "" %}
 
 {% block content %}
-    {% from "widgets/lists.html" import taskAction, unorderedList %}
-
-    <main id="content" role="main">
-        {% include "includes/phase_banner_beta.html" %}
-
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <h1 class="form-title heading-large">{{ content.header }}</h1>
-                <p class="font-medium">{{ content.introduction | safe }}</p>
-                <p>{{ content.paragraph1 | safe }}</p>
-                <p>{{ content.paragraph2 | safe }}</p>
-            </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">{{ content.header }}</h1>
+            <p class="govuk-heading-m">{{ content.introduction | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
         </div>
-        <div class="form-group">
-            <p><a href="/tasklist" class="button button-start">{{ common.createAccount }}</a></p>
-        </div>
+    </div>
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.createAccount,
+            preventDoubleClick: true,
+            classes: "govuk-button--start",
+            href: "/tasklist"
+        }) }}
+    </div>
 
-        <p>{{ content.paragraph3 | safe }}</p>
-    </main>
+    <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
 {% endblock %}

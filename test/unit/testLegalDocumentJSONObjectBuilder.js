@@ -13,16 +13,13 @@ let legalDocumentJSONObjectBuilder;
 let sessionData;
 
 describe('legalDeclarationPDF', () => {
-
     beforeEach(() => {
         sessionData = require('test/data/legalDeclarationPDF');
         legalDocumentJSONObjectBuilder = new LegalDocumentJSONObjectBuilder();
     });
 
     describe('build', () => {
-
         it('should build the json object from html', (done) => {
-
             const legalDeclaration = legalDocumentJSONObjectBuilder.build(sessionData, html);
             assert.exists(legalDeclaration);
             //assertPropertyExistsAndIsEqualTo(legalDeclaration.date_created, '');

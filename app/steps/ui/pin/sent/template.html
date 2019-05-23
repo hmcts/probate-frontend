@@ -1,33 +1,38 @@
 {% extends "includes/layout.html" %}
 
-{% set displaySignOutLink = 'false' %}
-
+{% from "panel/macro.njk" import govukPanel %}
+{% from "button/macro.njk" import govukButton %}
 {% from "widgets/lists.html" import unorderedList %}
 
+{% set displaySignOutLink = "false" %}
+
 {% block content %}
-    <main id="content">
-        <div class="govuk-box-highlight padding-small">
-            <h1 class="bold-large m-b-s">{{ content.banner }}<br>{{ fields.phoneNumber.value }}</h1>
-        </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            {{ govukPanel({
+                titleText: content.banner,
+                html: fields.phoneNumber.value
+            }) }}
 
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <p>{{ content.accessNotification | safe }}</p>
-                <p>
-                    <a href="/sign-in" class="button">{{ content.button }}</a>
-                </p>
+            <p class="govuk-body">{{ content.accessNotification | safe }}</p>
 
-                <h2 class="heading-medium">{{ content.header1 | safe }}</h2>
-                <p>{{ content.paragraph | safe }}</p>
-
-                {{ unorderedList([
-                    content.listItem1,
-                    content.listItem2,
-                    content.listItem3
-                ]) }}
+            <div class="govuk-form-group">
+                {{ govukButton({
+                    text: content.button,
+                    href: "/sign-in"
+                }) }}
             </div>
-        </div>
 
-        {% include "includes/help_details.html" %}
-    </main>
+            <h2 class="govuk-heading-m">{{ content.header1 | safe }}</h2>
+            <p class="govuk-body">{{ content.paragraph | safe }}</p>
+
+            {{ unorderedList([
+                content.listItem1,
+                content.listItem2,
+                content.listItem3
+            ]) }}
+
+            {% include "includes/help_details.html" %}
+        </div>
+    </div>
 {% endblock %}

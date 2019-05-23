@@ -1,24 +1,36 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/textfields.html" import textField, textFieldNoLabel %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
-{% endblock %}
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "input/macro.njk" import govukInput %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <fieldset>
-        <legend class="visually-hidden">
-            {{ content.question | safe }}
-        </legend>
-        {{ textFieldNoLabel(
-            name = 'identifier',
-            text = content.question,
-            field = fields.identifier,
-            hint = content.ihtIdentifierHint
-        ) }}
-    </fieldset>
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    {% call govukFieldset({
+        legend: {
+            text: content.question | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        <p class="govuk-hint">{{ content.ihtIdentifierHint }}</p>
+
+        {{ govukInput({
+            label: {
+                text: content.question,
+                classes: "govuk-visually-hidden"
+            },
+            id: "identifier",
+            name: "identifier",
+            value: fields.identifier.value | safe,
+            errorMessage: fields.identifier.errorMessage,
+            classes: "govuk-!-width-three-quarters"
+        }) }}
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

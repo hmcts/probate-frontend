@@ -1,21 +1,39 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/radiobuttons.html" import optionsRadio %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ (content.questionWithCodicil if fields.codicilPresent.value === "true" else content.question) | replace('{deceasedName}', fields.firstName.value +' '+ fields.lastName.value) | safe }}</h1>
-{% endblock %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    {{ optionsRadio(content,
-        name = 'married',
-        field = fields.married,
-        options = ['optionYes', 'optionNo'],
-        legend = content.legend,
-        legend = (content.legendWithCodicil if fields.codicilPresent.value === "true" else content.legend) | replace('{deceasedName}', fields.firstName.value + ' ' + fields.lastName.value),
-        inline = true
-    ) }}
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "married",
+        name: "married",
+        fieldset: {
+            legend: {
+                text: (content.questionWithCodicil if fields.codicilPresent.value == "true" else content.question) | replace("{deceasedName}", fields.firstName.value +" "+ fields.lastName.value) | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: fields.married.errorMessage,
+        items: [
+            {
+                value: content["optionYes"],
+                text: content["optionYes"] | safe,
+                checked: true if fields.married.value == content["optionYes"] | escape
+            },
+            {
+                value: content["optionNo"],
+                text: content["optionNo"] | safe,
+                checked: true if fields.married.value == content["optionNo"] | escape
+            }
+        ]
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

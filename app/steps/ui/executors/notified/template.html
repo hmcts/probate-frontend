@@ -1,23 +1,46 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/radiobuttons.html" import optionsRadio %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question | replace('{executorName}', fields.list.value[fields.index.value].fullName) | safe }}</h1>
-{% endblock %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    {{ optionsRadio(content,
-        name = 'executorNotified',
-        field = fields.executorNotified,
-        options = ['optionYes', 'optionNo'],
-        legend = content.legend | replace('{executorName}', fields.list.value[fields.index.value].fullName),
-        inline = true
-    ) }}
-    <div class="panel panel-border-narrow js-hidden" id="executorNotified-2-details">
-        {{ content.informInWriting }}
-    </div>
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    {% set notNotifiedtml %}
+        <p class="govuk-body">{{ content.informInWriting }}</p>
+    {% endset -%}
+
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "executorNotified",
+        name: "executorNotified",
+        fieldset: {
+            legend: {
+                text: content.question | replace("{executorName}", fields.list.value[fields.index.value].fullName) | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: fields.executorNotified.errorMessage,
+        items: [
+            {
+                value: content["optionYes"],
+                text: content["optionYes"] | safe,
+                checked: true if fields.executorNotified.value == content["optionYes"] | escape
+            },
+            {
+                value: content["optionNo"],
+                text: content["optionNo"] | safe,
+                checked: true if fields.executorNotified.value == content["optionNo"] | escape,
+                conditional: {
+                    html: notNotifiedtml
+                }
+            }
+        ]
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

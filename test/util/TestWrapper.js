@@ -9,6 +9,7 @@ const request = require('supertest');
 const JourneyMap = require('app/core/JourneyMap');
 const {steps} = require('app/core/initSteps');
 const journey = require('app/journeys/probate');
+const he = require('he');
 
 class TestWrapper {
     constructor(stepName) {
@@ -95,8 +96,7 @@ class TestWrapper {
             .expect('Content-type', 'text/html; charset=utf-8')
             .then(res => {
                 forEach(expectedErrors, (value) => {
-                    expect(res.text).to.contain(value[type].summary);
-                    expect(res.text).to.contain(value[type].message);
+                    expect(res.text).to.contain(he.decode(value[type].message));
                 });
                 done();
             })
@@ -162,17 +162,14 @@ class TestWrapper {
     }
 
     substituteErrorsContent(data, contentToSubstitute, type) {
-        Object.entries(contentToSubstitute)
-            .forEach(([key, contentValue]) => {
-                forEach(contentValue[type], (errorMessageItem) => {
-                    forEach(errorMessageItem.match(/\{(.*?)\}/g), (placeholder) => {
-                        const placeholderRegex = new RegExp(placeholder, 'g');
-                        placeholder = placeholder.replace(/[{}]/g, '');
-                        errorMessageItem = errorMessageItem.replace(placeholderRegex, data[placeholder]);
-                        contentToSubstitute[key][type] = errorMessageItem;
-                    });
+        Object.keys(contentToSubstitute).forEach((contentKey) => {
+            Object.keys(contentToSubstitute[contentKey][type]).forEach((errorMessageKey) => {
+                forEach(contentToSubstitute[contentKey][type][errorMessageKey].match(/\{(.*?)\}/g), (placeholder) => {
+                    const placeholderRegex = new RegExp(placeholder, 'g');
+                    contentToSubstitute[contentKey][type][errorMessageKey] = contentToSubstitute[contentKey][type][errorMessageKey].replace(placeholderRegex, data[placeholder]);
                 });
             });
+        });
     }
 
     assertContentIsPresent(actualContent, expectedContent) {

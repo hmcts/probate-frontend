@@ -1,5 +1,13 @@
+/*
+Document Upload
+*/
+
+.document-upload__dropzone {
+  margin-bottom: govuk-spacing(9);
+}
+
 .document-upload__dropzone--javascript {
-  border: 2px dashed $grey-1;
+  border: 2px dashed govuk-colour("grey-1");
   overflow: hidden;
   padding: 30px;
 }
@@ -30,13 +38,13 @@
 }
 
 .document-upload__dropzone-text--choose-file {
-  color: $govuk-blue;
+  color: govuk-colour("blue");
   cursor: pointer;
   text-decoration: underline;
 }
 
 .document-upload__dropzone-text--choose-file:hover {
-  color: $light-blue;
+  color: govuk-colour("light-blue");
 }
 
 .document-upload__preview {
@@ -44,8 +52,8 @@
 }
 
 .document-upload__empty-list-text{
-  border-top: 1px solid #bfc1c3;
-  border-bottom: 1px solid #bfc1c3;
+  border-top: 1px solid govuk-colour("grey-2");
+  border-bottom: 1px solid govuk-colour("grey-2");
   padding: 10px 0 10px 0;
 }
 
@@ -54,7 +62,7 @@
 }
 
 .dz-preview {
-  border-bottom: 1px solid $grey-2;
+  border-bottom: 1px solid govuk-colour("grey-2");
   padding: 10px 0;
   position: relative;
 
@@ -79,7 +87,7 @@
 }
 
 .dz-error {
-  border-left: 5px solid $error-colour;
+  border-left: 5px solid govuk-colour("red");
   padding-left: 15px;
 
   .dz-error-message {
@@ -92,12 +100,12 @@
 }
 
 .dz-error-message {
-  color: $error-colour;
-  @include bold-19;
+  @include govuk-font(19, $weight: bold);
+  color: govuk-colour("red");
 }
 
 .dz-processing [data-dz-uploadprogress] {
-  background-color: $govuk-blue;
+  background-color: govuk-colour("blue");
   display: block;
   height: 5px;
   margin-top: 8px;

@@ -6,7 +6,8 @@ const logger = require('app/components/logger');
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
-const nunjucks = require('express-nunjucks');
+const nunjucks = require('nunjucks');
+const filters = require('app/components/filters.js');
 const routes = require(`${__dirname}/app/routes`);
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
@@ -63,34 +64,33 @@ exports.init = function() {
 
     // Application settings
     app.set('view engine', 'html');
-    app.set('views', ['app/steps', 'app/views', 'node_modules/govuk_template_jinja/views/layouts']);
+    app.set('views', ['app/steps', 'app/views', 'node_modules/govuk-frontend/', 'node_modules/govuk-frontend/components/']);
 
-    const filters = require('app/components/filters.js');
-    const globals = {
-        currentYear: new Date().getFullYear(),
-        gaTrackingId: config.gaTrackingId,
-        enableTracking: config.enableTracking,
-        links: config.links,
-        helpline: config.helpline,
-        nonce: uuid,
-        documentUpload: {
-            validMimeTypes: config.documentUpload.validMimeTypes,
-            maxFiles: config.documentUpload.maxFiles,
-            maxSizeBytes: config.documentUpload.maxSizeBytes
-        },
-        webChat: {
-            chatId: config.webChat.chatId,
-            tenant: config.webChat.tenant
-        }
-    };
-
-    const njk = nunjucks(app, {
+    const njkEnv = nunjucks.configure([
+        'app/steps',
+        'app/views',
+        'node_modules/govuk-frontend/',
+        'node_modules/govuk-frontend/components/'
+    ], {
         autoescape: true,
         watch: true,
-        noCache: true,
-        globals: globals
+        noCache: true
     });
-    filters(njk.env);
+
+    njkEnv.addGlobal('currentYear', new Date().getFullYear());
+    njkEnv.addGlobal('gaTrackingId', config.gaTrackingId);
+    njkEnv.addGlobal('enableTracking', config.enableTracking);
+    njkEnv.addGlobal('links', config.links);
+    njkEnv.addGlobal('helpline', config.helpline);
+    njkEnv.addGlobal('nonce', uuid);
+    njkEnv.addGlobal('documentUpload', {
+        validMimeTypes: config.documentUpload.validMimeTypes,
+        maxFiles: config.documentUpload.maxFiles,
+        maxSizeBytes: config.documentUpload.maxSizeBytes
+    });
+
+    filters(njkEnv);
+    njkEnv.express(app);
 
     app.enable('trust proxy');
 
@@ -153,14 +153,13 @@ exports.init = function() {
     // Middleware to serve static assets
     app.use('/public/stylesheets', express.static(`${__dirname}/public/stylesheets`));
     app.use('/public/images', express.static(`${__dirname}/app/assets/images`));
+    app.use('/public/javascripts/govuk-frontend', express.static(`${__dirname}/node_modules/govuk-frontend`));
     app.use('/public/javascripts', express.static(`${__dirname}/app/assets/javascripts`));
     app.use('/public/pdf', express.static(`${__dirname}/app/assets/pdf`));
-    app.use('/public', express.static(`${__dirname}/node_modules/govuk_template_jinja/assets`));
-    app.use('/public', express.static(`${__dirname}/node_modules/govuk_frontend_toolkit`));
-    app.use('/public/images/icons', express.static(`${__dirname}/node_modules/govuk_frontend_toolkit/images`));
+    app.use('/assets', express.static(`${__dirname}/node_modules/govuk-frontend/assets`));
 
     // Elements refers to icon folder instead of images folder
-    app.use(favicon(path.join(__dirname, 'node_modules', 'govuk_template_jinja', 'assets', 'images', 'favicon.ico')));
+    app.use(favicon(path.join(__dirname, 'node_modules', 'govuk-frontend', 'assets', 'images', 'favicon.ico')));
 
     // Support for parsing data in POSTs
     app.use(bodyParser.json());

@@ -66,7 +66,10 @@ describe('divorce-place', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testErrors(done, {}, 'required', []);
+                    const replacementData = {
+                        '{legalProcess}': 'divorce'
+                    };
+                    testWrapper.testErrors(done, replacementData, 'required', []);
                 });
         });
 

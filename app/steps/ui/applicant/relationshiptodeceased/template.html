@@ -1,27 +1,52 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/radiobuttons.html" import optionsRadio %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{content.question | safe}}</h1>
-{% endblock %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
 
 {% set answers = [] %}
-{% if fields.deceasedMaritalStatus.value === 'Married or in a civil partnership' %}
-    {% set answers = (answers.push('optionSpousePartner'), answers) %}
+{% if fields.deceasedMaritalStatus.value == "Married or in a civil partnership" %}
+    {% set answers = (answers.push({
+        value: content["optionSpousePartner"],
+        text: content["optionSpousePartner"] | safe,
+        checked: true if fields.relationshipToDeceased.value == content["optionSpousePartner"] | escape
+    }), answers) %}
 {% endif %}
-{% set answers = (answers.push('optionChild'), answers) %}
-{% set answers = (answers.push('optionAdoptedChild'), answers) %}
-{% set answers = (answers.push('optionOther'), answers) %}
+{% set answers = (answers.push({
+    value: content["optionChild"],
+    text: content["optionChild"] | safe,
+    checked: true if fields.relationshipToDeceased.value == content["optionChild"] | escape
+}), answers) %}
+{% set answers = (answers.push({
+    value: content["optionAdoptedChild"],
+    text: content["optionAdoptedChild"] | safe,
+    checked: true if fields.relationshipToDeceased.value == content["optionAdoptedChild"] | escape
+}), answers) %}
+{% set answers = (answers.push({
+    value: content["optionOther"],
+    text: content["optionOther"] | safe,
+    checked: true if fields.relationshipToDeceased.value == content["optionOther"] | escape
+}), answers) %}
 
 {% block form_content %}
-    {{optionsRadio(content,
-        name = 'relationshipToDeceased',
-        field = fields.relationshipToDeceased,
-        options = answers,
-        legend = content.legend
-    )}}
-    <div class="form-group">
-        <input class="button" type="submit" value="{{common.saveAndContinue}}">
+    {{ govukRadios({
+        classes: "govuk-radios",
+        idPrefix: "relationshipToDeceased",
+        name: "relationshipToDeceased",
+        fieldset: {
+            legend: {
+                text: content.question | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: fields.relationshipToDeceased.errorMessage,
+        items: answers
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

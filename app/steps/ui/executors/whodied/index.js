@@ -14,7 +14,7 @@ class ExecutorsWhoDied extends ValidationStep {
         if (ctx.list) {
             ctx.options = ctx.list
                 .filter(o => o.fullName)
-                .map(o => ({option: o.fullName, checked: o.isDead === true}));
+                .map(o => ({value: o.fullName, text: o.fullName, checked: o.isDead === true}));
         }
         return ctx;
     }

@@ -9,16 +9,16 @@ class CheckAnswersSummaryJSONObjectBuilder {
         const $ = (require('jquery'))(dom.window);
         const summary = {};
         summary.sections = [];
-        const sections = $('.heading-large, .heading-medium, .heading-small, .check-your-answers__row');
+        const sections = $('.govuk-heading-l, .govuk-heading-m, .govuk-heading-s, .check-your-answers__row');
         const mainParagraph = $('#main-heading-content');
         summary.mainParagraph = mainParagraph.text();
         let section;
         for (const sectElement of sections) {
             const $element = $(sectElement);
-            if ($element.hasClass('heading-large')) {
+            if ($element.hasClass('govuk-heading-l')) {
                 summary.pageTitle = $element.text();
             }
-            if ($element.hasClass('heading-medium') || $element.hasClass('heading-small')) {
+            if ($element.hasClass('govuk-heading-m') || $element.hasClass('govuk-heading-s')) {
                 section = buildSection(section, $element, summary);
             }
             if ($element.hasClass('check-your-answers__row') && $element.children().length > 0) {

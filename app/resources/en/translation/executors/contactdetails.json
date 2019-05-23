@@ -1,7 +1,5 @@
 {
   "title": "Executor contact details",
-  "title1": "Executor email address",
-  "title2": "Executor mobile phone number",
   "question": "What are {executorName}&rsquo;s email address and mobile number?",
   "questionHint": "This executor will be contacted and asked to confirm details of the estate.",
   "email": "Email address",

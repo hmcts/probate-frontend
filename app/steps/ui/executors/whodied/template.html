@@ -1,21 +1,28 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/checkboxes.html" import checkboxes %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
-{% endblock %}
+{% from "checkboxes/macro.njk" import govukCheckboxes %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    {{ checkboxes(
-        name = 'executorsWhoDied',
-        field = fields.executorsWhoDied,
-        options = fields.options.value,
-        legend = content.question
-    ) }}
+    {{ govukCheckboxes({
+        idPrefix: "executorsWhoDied",
+        name: "executorsWhoDied",
+        fieldset: {
+            legend: {
+                text: content.question | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: fields.executorsWhoDied.errorMessage,
+        items: fields.options.value
+    }) }}
 
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}
 

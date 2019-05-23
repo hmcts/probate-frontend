@@ -11,7 +11,7 @@ const FIND_ADDRESS_PORT = config.services.postcode.port;
 const FIND_ADDRESS_PATH = config.services.postcode.path;
 
 router.get(FIND_ADDRESS_PATH, (req, res) => {
-    const data = req.query.postcode === 'VALID' ? validData : [];
+    const data = req.query.postcode.toLowerCase() === 'valid' ? validData : [];
     res.status(200);
     res.send(data);
 });

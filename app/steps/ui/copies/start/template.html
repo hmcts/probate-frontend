@@ -1,18 +1,22 @@
 {% extends "includes/layout.html" %}
 
+{% from "button/macro.njk" import govukButton %}
+
 {% block content %}
-    <main id="content" role="main">
-        {% include "includes/phase_banner_beta.html" %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="form-title govuk-heading-l">{{ content.question | safe }}</h1>
+            <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
 
-        <h1 class="form-title heading-large">{{ content.question }}</h1>
-        <p>{{ content.paragraph1 | safe }}</p>
-        <p>{{ content.paragraph2 | safe }}</p>
-        <p>{{ content.paragraph3 | safe }}</p>
-
-        <div class="form-group">
-            <p><a href="/copies-uk" class="button button-start">{{ common.start }}</a></p>
+            <div class="govuk-form-group">
+                {{ govukButton({
+                    text: common.start,
+                    href: "/copies-uk",
+                    classes: "govuk-button--start"
+                }) }}
+            </div>
         </div>
-
-        {% include "includes/help_details.html" %}
-    </main>
+    </div>
 {% endblock %}

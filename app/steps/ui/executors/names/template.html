@@ -1,36 +1,48 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/textfields.html" import textFieldInArray %}
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "input/macro.njk" import govukInput %}
+{% from "button/macro.njk" import govukButton %}
 
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question | safe }}</h1>
-{% endblock %}
 
 {% block form_content %}
-    <p>{{ content.paragraph | safe }}</p>
-
-    <h2 class="heading-small">{{ content.executor | safe }} 1</h2>
-    <p>{{ fields.applicantCurrentName.value }}</p>
-    <fieldset>
-        <legend class="visually-hidden">title{{ content.title | safe }}</legend>
+    {% call govukFieldset({
+        legend: {
+            text: content.question | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        <p class="govuk-hint">{{ content.paragraph | safe }}</p>
+        <h2 class="govuk-heading-s executor-header">{{ content.executor | safe }} 1</h2>
+        <p class="govuk-body">{{ fields.applicantCurrentName.value }}</p>
 
         {% for i in range(0, fields.executorsNumber.value -1) %}
-            <label class="form-label-bold">{{ content.executor | safe }} {{ loop.index+1 }}</label>
-            {{ textFieldInArray(
-                id = 'executorName_' + i,
-                name = 'executorName[' + i  + ']',
-                fieldArray = fields.executorName,
-                text = content.fullName,
-                size = 200,
-                index = i,
-                errors = fields.errors
-            ) }}
+            <h2 class="govuk-heading-s executor-header">{{ content.executor | safe }} {{ loop.index + 1 }}</h2>
+            {{ govukInput({
+                label: {
+                    text: content.fullName
+                },
+                id: "executorName_" + i,
+                name: "executorName[" + i + "]",
+                value: fields.executorName.value[i] | safe,
+                errorMessage: fields["executorName_" + i].errorMessage,
+                attributes: {
+                    maxlength: 200
+                },
+                classes: "govuk-!-width-three-quarters"
+            }) }}
         {% endfor %}
-    </fieldset>
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
-    <div class="form-group">
-        <p><a href="/executors-number">{{ content.numberOfExecutorsPage | safe }}</a></p>
+
+    <div class="govuk-form-group">
+        <p class="govuk-body"><a href="/executors-number" class="govuk-link">{{ content.numberOfExecutorsPage | safe }}</a></p>
     </div>
 {% endblock %}

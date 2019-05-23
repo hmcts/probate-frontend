@@ -10,12 +10,12 @@
     "deceased": {
       "firstName": "sam",
       "lastName": "plummer",
-      "dob_day": 12,
-      "dob_month": 12,
-      "dob_year": 1222,
-      "dod_day": 12,
-      "dod_month": 12,
-      "dod_year": 1233
+      "dob-day": 12,
+      "dob-month": 12,
+      "dob-year": 1222,
+      "dod-day": 12,
+      "dod-month": 12,
+      "dod-year": 1233
     }
   }
 }

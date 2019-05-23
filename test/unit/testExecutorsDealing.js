@@ -49,9 +49,9 @@ describe('Executors-Applying', function () {
         it('should set the formatted lead applicant name as the option when there is no Applicant Alias', (done) => {
             ctx = ExecsDealing.getContextData(req);
             expect(ctx.options).to.deep.equal([
-                {option: 'Robert Bruce', checked: true, disabled: true},
-                {option: 'Ed Brown', checked: true},
-                {option: 'Dave Miller', checked: true}
+                {text: 'Robert Bruce', value: 'Robert Bruce', checked: true, disabled: true},
+                {text: 'Ed Brown', value: 'Ed Brown', checked: true},
+                {text: 'Dave Miller', value: 'Dave Miller', checked: true}
             ]);
             done();
         });
@@ -60,9 +60,9 @@ describe('Executors-Applying', function () {
             req.session.form.executors.list[0].alias = 'Bobby Alias';
             ctx = ExecsDealing.getContextData(req);
             expect(ctx.options).to.deep.equal([
-                {option: 'Bobby Alias', checked: true, disabled: true},
-                {option: 'Ed Brown', checked: true},
-                {option: 'Dave Miller', checked: true}
+                {text: 'Bobby Alias', value: 'Bobby Alias', checked: true, disabled: true},
+                {text: 'Ed Brown', value: 'Ed Brown', checked: true},
+                {text: 'Dave Miller', value: 'Dave Miller', checked: true}
             ]);
             done();
         });
@@ -71,16 +71,15 @@ describe('Executors-Applying', function () {
             req.session.form.executors.list[1].isApplying = false;
             ctx = ExecsDealing.getContextData(req);
             expect(ctx.options).to.deep.equal([
-                {option: 'Robert Bruce', checked: true, disabled: true},
-                {option: 'Ed Brown', checked: false},
-                {option: 'Dave Miller', checked: true}
+                {text: 'Robert Bruce', value: 'Robert Bruce', checked: true, disabled: true},
+                {text: 'Ed Brown', value: 'Ed Brown', checked: false},
+                {text: 'Dave Miller', value: 'Dave Miller', checked: true}
             ]);
             done();
         });
     });
 
     describe('pruneExecutorData', () => {
-
         it('test that isApplying flag is deleted when executor is not applying', () => {
             data = {
                 fullName: 'Ed Brown',
@@ -127,7 +126,6 @@ describe('Executors-Applying', function () {
                     'notApplyingKey': 'optionRenunciated',
                     'notApplyingReason': 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)',
                     'currentNameReason': 'Divorce',
-
                 }
             ]
         };
@@ -166,7 +164,6 @@ describe('Executors-Applying', function () {
             const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
             assert.isUndefined(data.currentNameReason);
         });
-
     });
 
     describe('handlePost', () => {

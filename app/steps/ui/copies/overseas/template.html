@@ -1,49 +1,44 @@
 {% extends "includes/two_thirds_form.html" %}
 
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "input/macro.njk" import govukInput %}
+{% from "button/macro.njk" import govukButton %}
 {% from "widgets/lists.html" import unorderedList %}
-{% from "widgets/numbers.html" import numberField %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
-{% endblock %}
 
 {% block form_content %}
-    {% if fields.isFeesApiToggleEnabled.value === 'true' %}
-        <p>{{ content.paragraph1 | safe }}</p>
+    {% call govukFieldset({
+        legend: {
+            text: content.question | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
         {{ unorderedList([
             content.bullet1 | safe,
             content.bullet2 | safe
         ]) }}
 
-        <fieldset>
-            <legend class="visually-hidden">
-                {{ content.question | safe }}
-            </legend>
-            {{ numberField(
-                name = 'overseas',
-                field = fields.overseas,
-                text = content.copies,
-                size = 5,
-                width= '1-8',
-                currency = false
-            ) }}
-        </fieldset>
-    {% else %}
-        <fieldset>
-            <legend class="visually-hidden">
-                {{ content.question | safe }}
-            </legend>
-            {{ numberField(
-                name = 'overseas',
-                field = fields.overseas,
-                text = content.copiesOld,
-                size = 5,
-                width= '1-8',
-                currency = false
-            ) }}
-        </fieldset>
-    {% endif %}
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+        {{ govukInput({
+            label: {
+                text: (content.copies if fields.isFeesApiToggleEnabled.value == "true" else content.copiesOld)
+            },
+            id: "overseas",
+            name: "overseas",
+            value: fields.overseas.value | safe,
+            errorMessage: fields.overseas.errorMessage,
+            attributes: {
+                maxlength: 5
+            },
+            classes: "govuk-input--width-3",
+            type: "number"
+        }) }}
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

@@ -1,25 +1,43 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/radiobuttons.html" import optionsRadio %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
 {% from "widgets/lists.html" import unorderedList %}
 
-{% block question %}
-    <h1 class="formtitle heading-large">{{ content.question }}</h1>
-{% endblock %}
-
 {% block form_content %}
-    <p>{{ content.paragraph1 | safe }}</p>
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "otherExecutorsApplying",
+        name: "otherExecutorsApplying",
+        fieldset: {
+            legend: {
+                text: content.question | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        hint: {
+            text: (content.paragraph1 + "<br><br>" + unorderedList([content["applicant-rights1"], content["applicant-rights2"], content["applicant-rights3"]])) | safe
+        },
+        errorMessage: fields.otherExecutorsApplying.errorMessage,
+        items: [
+            {
+                value: content["optionYes"],
+                text: content["optionYes"] | safe,
+                checked: true if fields.otherExecutorsApplying.value == content["optionYes"] | escape
+            },
+            {
+                value: content["optionNo"],
+                text: content["optionNo"] | safe,
+                checked: true if fields.otherExecutorsApplying.value == content["optionNo"] | escape
+            }
+        ]
+    }) }}
 
-    {{ unorderedList([content["applicant-rights1"], content["applicant-rights2"], content["applicant-rights3"]]) }}
-
-    {{ optionsRadio(content,
-        name = 'otherExecutorsApplying',
-        field = fields.otherExecutorsApplying,
-        options = ['optionYes', 'optionNo'],
-        legend = content.legend,
-        inline = true
-    ) }}
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

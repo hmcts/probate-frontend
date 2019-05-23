@@ -1,42 +1,51 @@
 {% extends "includes/two_thirds_form.html" %}
 
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "inset-text/macro.njk" import govukInsetText %}
+{% from "details/macro.njk" import govukDetails %}
+{% from "button/macro.njk" import govukButton %}
 {% from "widgets/lists.html" import orderedList %}
 
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.header }}</h1>
-{% endblock %}
-
 {% block page_content %}
-    <p>{{ content.paragraph1 }}</p>
-    <div class="panel panel-border-wide">
-        <p>{{ content.help1 | safe }}</p>
-        <p>{{ content.help2 | safe }}</p>
-    </div>
-    <details class="help-panel">
-        <summary><span class="summary">{{ content.stepsTitle }}</span></summary>
-        <div class="panel panel-border-narrow">
-            {{ orderedList([
-                content['steps-item1'],
-                content['steps-item2'],
-                content['steps-item3'],
-                content['steps-item4']
-            ]) }}
-        </div>
-    </details>
-    <p>{{ content.paragraph2 }}</p>
+    {% call govukFieldset({
+        legend: {
+            text: content.header | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        <p class="govuk-body">{{ content.paragraph1 }}</p>
 
-    {% include "includes/document-upload.html" %}
+        {{ govukInsetText({
+            text: (content.help1 + "<br><br>" + content.help2) | safe
+        }) }}
 
-    <details class="help-panel cant-upload-documents">
-        <summary><span class="summary">{{ content.cantUploadDocumentsTitle | safe }}</span></summary>
-        <div class="panel panel-border-narrow">
-            <p>{{ content.cantUploadDocumentsText | safe }}</p>
-        </div>
-    </details>
+        {{ govukDetails({
+            summaryText: content.stepsTitle,
+            text: orderedList([
+                content["steps-item1"],
+                content["steps-item2"],
+                content["steps-item3"],
+                content["steps-item4"]
+            ])
+        }) }}
+
+        <p class="govuk-body">{{ content.paragraph2 }}</p>
+
+        {% include "includes/document-upload.html" %}
+
+        {{ govukDetails({
+            summaryText: content.cantUploadDocumentsTitle | safe,
+            text: content.cantUploadDocumentsText | safe
+        }) }}
+    {% endcall %}
 {% endblock %}
 
 {% block form_content %}
-    <div class="form-group">
-        <input id="button" class="button" type="submit" role="button" value="{{ common.continue }}">
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.continue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

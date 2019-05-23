@@ -1,40 +1,50 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% block question %}
-    <h1 class="form-title heading-large">{{ content["header" + fields.inviteSuffix.value] | safe }}</h1>
-{% endblock %}
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <p>
-        {{ fields.executorsToNotifyNames.value }}
-        {{ content.paragraph1 | safe }}
-    </p>
-    <p class="panel panel-border-wide">{{ content.paragraph2 | safe }}</p>
+    {% call govukFieldset({
+        legend: {
+            text: content["header" + fields.inviteSuffix.value] | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        <p class="govuk-body">
+            {{ fields.executorsToNotifyNames.value }}
+            {{ content.paragraph1 | safe }}
+        </p>
+        <p class="govuk-body panel panel-border-wide">{{ content.paragraph2 | safe }}</p>
 
-    <h2 class="heading-medium">{{ content.heading1 | safe }}</h2>
+        <h2 class="govuk-heading-m">{{ content.heading1 | safe }}</h2>
 
-    {% for executor in fields.list.value %}
-    {% if executor.isApplicant !== true and executor.isApplying and executor.emailSent !== true %}
-    <div class="grid-row word-wrap">
-        <div class="column-one-quarter">
-            <p>{{ executor.fullName }}</p>
-        </div>
-        <div class="column-one-quarter">
-            <p>{{ executor.email }}</p>
-        </div>
-        <div class="column-one-quarter">
-            <p>{{ executor.mobile }}</p>
-        </div>
-        <div class="column-one-quarter">
-            <p>
-                <a href="/executor-contact-details/{{ loop.index - 1 }}">{{ content.changeLink }}</a>
-            </p>
-        </div>
-    </div>
-    {% endif %}
-    {% endfor %}
+        {% for executor in fields.list.value %}
+            {% if executor.isApplicant !== true and executor.isApplying and executor.emailSent !== true %}
+                <div class="govuk-grid-row word-wrap">
+                    <div class="govuk-grid-column-one-quarter">
+                        <p class="govuk-body">{{ executor.fullName }}</p>
+                    </div>
+                    <div class="govuk-grid-column-one-quarter">
+                        <p class="govuk-body">{{ executor.email }}</p>
+                    </div>
+                    <div class="govuk-grid-column-one-quarter">
+                        <p class="govuk-body">{{ executor.mobile }}</p>
+                    </div>
+                    <div class="govuk-grid-column-one-quarter">
+                        <p class="govuk-body">
+                            <a class="govuk-link" href="/executor-contact-details/{{ loop.index - 1 }}">{{ content.changeLink }}</a>
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endcall %}
 
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ content.sendInvites }}">
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: content.sendInvites,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

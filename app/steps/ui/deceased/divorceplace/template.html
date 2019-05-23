@@ -1,39 +1,43 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/radiobuttons.html" import optionsRadio %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
 
-{% block page_title %}
-    {{ fields.title.value }}
-{% endblock %}
-
-{% block error_summary %}
-    {% if errors %}
-        <div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
-            <h2 class="heading-medium error-summary-heading" id="error-summary-heading">
-                {{ common.errorSummaryHeading | replace('{legalProcess}', fields.legalProcess.value) | safe }}
-            </h2>
-            <ul class="error-summary-list">
-                {% for error in errors %}
-                    <li><a href="#{{ error.param }}">{{ error.msg.summary | replace('{legalProcess}', fields.legalProcess.value) | safe}}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
-{% endblock %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question | replace('{legalProcess}', fields.legalProcess.value) | safe }}</h1>
+{% block pageTitle %}
+    {{ fields.title }}
 {% endblock %}
 
 {% block form_content %}
-    {{ optionsRadio(content,
-        name = 'divorcePlace',
-        field = fields.divorcePlace,
-        options = ['optionYes', 'optionNo'],
-        legend = content.legend | replace('{legalProcess}', fields.legalProcess.value),
-        inline = true
-    ) }}
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "divorcePlace",
+        name: "divorcePlace",
+        fieldset: {
+            legend: {
+                text: content.question | replace("{legalProcess}", fields.legalProcess.value) | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: fields.divorcePlace.errorMessage,
+        items: [
+            {
+                value: content["optionYes"],
+                text: content["optionYes"] | safe,
+                checked: true if fields.divorcePlace.value == content["optionYes"] | escape
+            },
+            {
+                value: content["optionNo"],
+                text: content["optionNo"] | safe,
+                checked: true if fields.divorcePlace.value == content["optionNo"] | escape
+            }
+        ]
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

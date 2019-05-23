@@ -14,8 +14,8 @@ class DeceasedDetails extends DateStep {
     }
 
     handlePost(ctx, errors) {
-        const dob = new Date(`${ctx.dob_year}-${ctx.dob_month}-${ctx.dob_day}`);
-        const dod = new Date(`${ctx.dod_year}-${ctx.dod_month}-${ctx.dod_day}`);
+        const dob = new Date(`${ctx['dob-year']}-${ctx['dob-month']}-${ctx['dob-day']}`);
+        const dod = new Date(`${ctx['dod-year']}-${ctx['dod-month']}-${ctx['dod-day']}`);
         const today = new Date();
 
         dob.setHours(0, 0, 0, 0);
@@ -23,13 +23,13 @@ class DeceasedDetails extends DateStep {
         today.setHours(0, 0, 0, 0);
 
         if (dob >= today) {
-            errors.push(FieldError('dob_date', 'dateInFuture', this.resourcePath, this.generateContent()));
+            errors.push(FieldError('dob-date', 'dateInFuture', this.resourcePath, this.generateContent()));
         } else if (dob >= dod) {
-            errors.push(FieldError('dob_date', 'dodBeforeDob', this.resourcePath, this.generateContent()));
+            errors.push(FieldError('dob-date', 'dodBeforeDob', this.resourcePath, this.generateContent()));
         }
 
         if (dod > today) {
-            errors.push(FieldError('dod_date', 'dateInFuture', this.resourcePath, this.generateContent()));
+            errors.push(FieldError('dod-date', 'dateInFuture', this.resourcePath, this.generateContent()));
         }
 
         return [ctx, errors];

@@ -1,19 +1,54 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/radiobuttons.html" import optionsRadio %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question | replace('{deceasedName}', fields.deceasedName.value) | safe }}</h1>
-{% endblock %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    {{ optionsRadio(content,
-        name = 'maritalStatus',
-        field = fields.maritalStatus,
-        options = ['optionMarried', 'optionDivorced', 'optionWidowed', 'optionNotMarried', 'optionSeparated'],
-        legend = content.legend | replace('{deceasedName}', fields.deceasedName.value)
-    ) }}
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    {{ govukRadios({
+        classes: "govuk-radios",
+        idPrefix: "maritalStatus",
+        name: "maritalStatus",
+        fieldset: {
+            legend: {
+                text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: fields.maritalStatus.errorMessage,
+        items: [
+            {
+                value: content["optionMarried"],
+                text: content["optionMarried"] | safe,
+                checked: true if fields.maritalStatus.value == content["optionMarried"] | escape
+            },
+            {
+                value: content["optionDivorced"],
+                text: content["optionDivorced"] | safe,
+                checked: true if fields.maritalStatus.value == content["optionDivorced"] | escape
+            },
+            {
+                value: content["optionWidowed"],
+                text: content["optionWidowed"] | safe,
+                checked: true if fields.maritalStatus.value == content["optionWidowed"] | escape
+            },
+            {
+                value: content["optionNotMarried"],
+                text: content["optionNotMarried"] | safe,
+                checked: true if fields.maritalStatus.value == content["optionNotMarried"] | escape
+            },
+            {
+                value: content["optionSeparated"],
+                text: content["optionSeparated"] | safe,
+                checked: true if fields.maritalStatus.value == content["optionSeparated"] | escape
+            }
+        ]
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

@@ -67,8 +67,8 @@ class Declaration extends ValidationStep {
             deceased: content.legalStatementDeceased
                 .replace('{deceasedName}', deceasedName)
                 .replace('{deceasedAddress}', deceasedAddress.formattedAddress)
-                .replace('{deceasedDob}', deceased.dob_formattedDate)
-                .replace('{deceasedDod}', deceased.dod_formattedDate),
+                .replace('{deceasedDob}', deceased['dob-formattedDate'])
+                .replace('{deceasedDod}', deceased['dod-formattedDate']),
             deceasedOtherNames: deceasedOtherNames ? content.deceasedOtherNames.replace('{deceasedOtherNames}', deceasedOtherNames) : '',
             executorsApplying: this.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, applicantName),
             deceasedEstateValue: content.deceasedEstateValue

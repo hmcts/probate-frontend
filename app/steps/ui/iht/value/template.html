@@ -1,29 +1,51 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "widgets/textfields.html" import textField %}
-
-{% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
-{% endblock %}
+{% from "fieldset/macro.njk" import govukFieldset %}
+{% from "input/macro.njk" import govukInput %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <p class="form-hint">{{ content.questionHint }}</p>
-    <fieldset>
-        <legend class="visually-hidden">{{ content.legend | safe }}</legend>
-        {{ textField(
-            name = 'grossValueField',
-            field = fields.grossValueField,
-            text = content.grossValue | safe,
-            size = 13
-        ) }}
-        {{ textField(
-            name = 'netValueField',
-            field = fields.netValueField,
-            text = content.netValue | safe,
-            size = 13
-        ) }}
-    </fieldset>
-    <div class="form-group">
-        <input class="button" type="submit" value="{{ common.saveAndContinue }}">
+    {% call govukFieldset({
+        legend: {
+            text: content.question | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        <p class="govuk-hint">{{ content.questionHint }}</p>
+
+        {{ govukInput({
+            label: {
+                text: content.grossValue | safe
+            },
+            id: "grossValueField",
+            name: "grossValueField",
+            value: fields.grossValueField.value | safe,
+            errorMessage: fields.grossValueField.errorMessage,
+            attributes: {
+                maxlength: 13
+            },
+            classes: "govuk-!-width-one-third"
+        }) }}
+        {{ govukInput({
+            label: {
+                text: content.netValue | safe
+            },
+            id: "netValueField",
+            name: "netValueField",
+            value: fields.netValueField.value | safe,
+            errorMessage: fields.netValueField.errorMessage,
+            attributes: {
+                maxlength: 13
+            },
+            classes: "govuk-!-width-one-third"
+        }) }}
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue,
+            preventDoubleClick: true
+        }) }}
     </div>
 {% endblock %}

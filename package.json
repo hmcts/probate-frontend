@@ -48,7 +48,7 @@
     "test:fullfunctional": "NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --reporter mochawesome"
   },
   "dependencies": {
-    "@hmcts/ctsc-web-chat": "^0.1.8",
+    "@hmcts/ctsc-web-chat": "^0.1.9",
     "@hmcts/nodejs-logging": "^3.0.0",
     "@hmcts/os-places-client": "^1.0.4",
     "ajv": "^4.11.0",

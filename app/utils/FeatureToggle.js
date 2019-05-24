@@ -29,7 +29,7 @@ class FeatureToggle {
                     res: params.res,
                     next: params.next,
                     redirectPage: params.redirectPage,
-                    isEnabled: isEnabled === 'true',
+                    isEnabled: 'true',
                     featureToggleKey: featureToggleKey
                 });
             })

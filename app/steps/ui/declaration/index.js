@@ -45,7 +45,9 @@ class Declaration extends ValidationStep {
         const applicantAddress = get(applicant, 'address', {});
         const deceased = formdata.deceased || {};
         const deceasedAddress = get(deceased, 'address', {});
-        const iht = formdata.iht || {grossValue: 0, netValue: 0};
+        const iht = formdata.iht || {};
+        const ihtGrossValue = iht.grossValue ? iht.grossValue.toFixed(2) : 0;
+        const ihtNetValue = iht.netValue ? iht.netValue.toFixed(2) : 0;
         const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
         const codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
         const applicantName = FormatName.format(applicant);
@@ -70,8 +72,8 @@ class Declaration extends ValidationStep {
             deceasedOtherNames: deceasedOtherNames ? content.deceasedOtherNames.replace('{deceasedOtherNames}', deceasedOtherNames) : '',
             executorsApplying: this.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, applicantName),
             deceasedEstateValue: content.deceasedEstateValue
-                .replace('{ihtGrossValue}', iht.grossValue.toFixed(2))
-                .replace('{ihtNetValue}', iht.netValue.toFixed(2)),
+                .replace('{ihtGrossValue}', ihtGrossValue)
+                .replace('{ihtNetValue}', ihtNetValue),
             deceasedEstateLand: content[`deceasedEstateLand${multipleApplicantSuffix}`]
                 .replace(/{deceasedName}/g, deceasedName),
             executorsNotApplying: this.executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils)

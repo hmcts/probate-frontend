@@ -6,7 +6,7 @@
   "optionNo": "No",
 
   "errors": {
-    "anyChildren": {
+    "anyOtherChildren": {
       "required": {
         "summary": "You haven&rsquo;t answered the question about whether the person who died had any other children",
         "message": "Answer &lsquo;yes&rsquo; if the person who died had any other children"

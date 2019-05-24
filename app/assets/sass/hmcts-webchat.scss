@@ -66,15 +66,15 @@ div {
   @extend .govuk-header;
 
   background-color: govuk-colour("black") !important;
-  padding-top: 12px !important;
+  padding: 5px 0 !important;
 
   .logo {
-    margin-left: 20px;
-    margin-top: 1px;
+    margin: 1px 5px 0 20px !important;
   }
 
   .title {
     font-weight: bold !important;
+    margin: 7px 0 !important
   }
 }
 

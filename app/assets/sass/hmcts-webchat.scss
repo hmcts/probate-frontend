@@ -7,14 +7,14 @@
 @import "node_modules/govuk-frontend/components/label/label";
 @import "node_modules/govuk-frontend/components/textarea/textarea";
 
+$govuk-button-colour: #00823b; // sass-lint:disable no-color-literals
+$govuk-button-hover-colour: govuk-shade($govuk-button-colour, 20%);
+$govuk-button-shadow-colour: govuk-shade($govuk-button-colour, 60%);
+$govuk-button-text-colour: govuk-colour("white");
+
 button,
 input[type="submit"] {
   @extend .govuk-button;
-
-  $govuk-button-colour: #00823b; // sass-lint:disable no-color-literals
-  $govuk-button-hover-colour: govuk-shade($govuk-button-colour, 20%);
-  $govuk-button-shadow-colour: govuk-shade($govuk-button-colour, 60%);
-  $govuk-button-text-colour: govuk-colour("white");
 
   background-color: $govuk-button-colour !important;
   background-image: none !important;
@@ -36,6 +36,7 @@ input[type="email"],
 input[type="number"] {
   @extend .govuk-input;
   border-color: govuk-colour("black") !important;
+  box-shadow: none !important;
   color: black !important;
 }
 
@@ -52,6 +53,7 @@ label {
 textarea {
   @extend .govuk-textarea;
   border-color: govuk-colour("black") !important;
+  box-shadow: none !important;
   color: black !important;
   resize: none;
 }
@@ -64,17 +66,19 @@ div {
 
 .header {
   @extend .govuk-header;
+  border-width: 0 !important;
+  height: 42px !important;
 
   background-color: govuk-colour("black") !important;
-  padding: 5px 0 !important;
+  padding: 4px 0 !important;
 
   .logo {
-    margin: 1px 5px 0 20px !important;
+    margin: 0px 5px 0 20px !important;
   }
 
   .title {
     font-weight: bold !important;
-    margin: 7px 0 !important
+    margin: 6px 0 !important
   }
 }
 
@@ -93,4 +97,84 @@ div {
 
 .footer {
   display: none;
+}
+
+.translation-header {
+  display: none !important;
+}
+
+.controls {
+  background-color: transparent !important;
+
+  .end {
+    background-image: none !important;
+    background-color: transparent !important;
+    border-width: 0 !important;
+    height: 42px !important;
+    text-decoration: none !important;
+    width: auto !important;
+
+    &:after {
+      content: "close";
+      color: govuk-colour("white") !important;
+      display: block;
+      font-size: 12px;
+      padding: 16px 10px;
+    }
+  }
+}
+
+.message-history {
+  border: 0 !important;
+  width: 100% !important;
+
+  .message-wrapper {
+    padding: 25px 20px 15px 20px !important
+  }
+
+  .chat-log-msg {
+    padding: 0 !important;
+  }
+}
+
+.message-actions {
+  right: 25px !important;
+
+  .actions {
+    background-color: govuk-colour("grey-4");
+
+    .action {
+      background-color: $govuk-button-colour !important;
+      opacity: 1 !important;
+    }
+  }
+
+  .flag {
+    background-color: $govuk-button-colour !important;
+  }
+}
+
+.message-content {
+  .chat-msg-sender {
+    color: $govuk-button-colour;
+    font-size: inherit !important;
+  }
+}
+
+.message-box {
+  border-top: 2px solid govuk-colour("grey-3");
+  margin: 20px auto !important;
+  padding: 20px !important;
+
+  #message-field {
+    margin: 0 !important;
+  }
+
+  #message-counter {
+    display: none !important;
+  }
+}
+
+.confirm-close {
+  padding: 0 !important;
 }

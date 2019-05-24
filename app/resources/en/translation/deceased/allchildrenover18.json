@@ -1,0 +1,17 @@
+{
+  "title": "All children over 18",
+  "question": "Are all of {deceasedName}'s children over 18?",
+  "legend": "Are all of {deceasedName}'s children over 18?",
+  "hint": "You should include all children under 18, even if they have been adopted by another family.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "allChildrenOver18": {
+      "required": {
+        "summary": "You haven&rsquo;t answered the question about whether all the children are over 18",
+        "message": "Answer &lsquo;yes&rsquo; if all the children are over 18"
+      }
+    }
+  }
+}

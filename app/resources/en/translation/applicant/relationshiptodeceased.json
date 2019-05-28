@@ -4,7 +4,7 @@
   "legend": "What was your relationship to the person who died?",
   "optionSpousePartner": "Husband, wife or civil partner (this does not include common law partners even if you lived together)",
   "optionChild": "Child (this does not include stepchildren)",
-  "optionAdoptedChild": "Child who was adopted",
+  "optionAdoptedChild": "Child who was lawfully adopted",
   "optionOther": "Other",
 
   "errors": {

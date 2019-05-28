@@ -18,10 +18,10 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@hmcts/ctsc-web-chat@^0.1.9":
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/@hmcts/ctsc-web-chat/-/ctsc-web-chat-0.1.9.tgz#294a1c67fd4bbd4b5f2243ade940d43ddbe0b502"
-  integrity sha512-L2MV5JptAplMXuji1SLL+E/hFCHdc9ZWOgmOISawVsiQCwGODpkkF53ORDosL4DJh8HqB1lv0qBH0BufxsgXpw==
+"@hmcts/ctsc-web-chat@^0.1.10":
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/@hmcts/ctsc-web-chat/-/ctsc-web-chat-0.1.10.tgz#77e750f807fe67419f43ad190fcba4a7c88cbd4a"
+  integrity sha512-UDJoxwuTXDuOd7mfdvjsUryuWb3Rg1vf2GvIDFEB6zIoncbaEZszMOb6vsoTsZqfpP1/yFNQr9MHcvDKnoCNpA==
 
 "@hmcts/nodejs-logging@^3.0.0":
   version "3.0.0"

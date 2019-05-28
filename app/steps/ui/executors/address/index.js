@@ -35,7 +35,7 @@ class ExecutorAddress extends AddressStep {
             return [ctx, errors];
         }
 
-        if (!ctx.addressLine1 && ctx.list[ctx.index].address) {
+        if (ctx.list[ctx.index].address) {
             ctx.address = ctx.list[ctx.index].address;
             ctx.addressLine1 = get(ctx.address, 'addressLine1', '');
             ctx.addressLine2 = get(ctx.address, 'addressLine2', '');
@@ -45,10 +45,10 @@ class ExecutorAddress extends AddressStep {
             ctx.newPostCode = get(ctx.address, 'postCode', '');
             ctx.country = get(ctx.address, 'country', 'United Kingdom');
         }
-        if (!ctx.postcode && ctx.list[ctx.index].postcode) {
+        if (ctx.list[ctx.index].postcode) {
             ctx.postcode = ctx.list[ctx.index].postcode;
         }
-        if (!ctx.addresses && ctx.list[ctx.index].addresses) {
+        if (ctx.list[ctx.index].addresses) {
             ctx.addresses = ctx.list[ctx.index].addresses;
         }
 

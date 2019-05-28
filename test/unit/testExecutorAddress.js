@@ -116,7 +116,7 @@ describe('ExecutorAddress', () => {
                         addressLine3: 'line3',
                         postTown: 'town',
                         county: 'county',
-                        newPostCode: 'postcode',
+                        postCode: 'postcode',
                         country: 'country'
                     },
                 }],
@@ -126,6 +126,12 @@ describe('ExecutorAddress', () => {
             const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
             expect(ctx.address).to.equal(testCtx.list[0].address);
+            expect(ctx.addressLine1).to.equal(ctx.address.addressLine1);
+            expect(ctx.addressLine2).to.equal(ctx.address.addressLine2);
+            expect(ctx.postTown).to.equal(ctx.address.postTown);
+            expect(ctx.county).to.equal(ctx.address.county);
+            expect(ctx.newPostCode).to.equal(ctx.address.postCode);
+            expect(ctx.country).to.equal(ctx.address.country);
             expect(errors).to.deep.equal(testCtx.errors);
             done();
         });
@@ -302,7 +308,11 @@ describe('ExecutorAddress', () => {
         it('removes the correct values from the context', (done) => {
             const testCtx = {
                 otherExecName: 'James Miller',
-                address: '1 Red Street, London, L1 1LL',
+                address: {
+                    addressLine1: '1 Red Street',
+                    postTown: 'London',
+                    postCode: 'L1 1LL'
+                },
                 postcode: 'L1 1LL',
                 allExecsApplying: true,
                 continue: true,
@@ -327,7 +337,11 @@ describe('ExecutorAddress', () => {
                 isApplying: true,
                 email: 'james.miller@example.com',
                 mobile: '07909123456',
-                address: '1 Red Street, London, L1 1LL'
+                address: {
+                    addressLine1: '1 Red Street',
+                    postTown: 'London',
+                    postCode: 'L1 1LL'
+                }
             }];
         });
 

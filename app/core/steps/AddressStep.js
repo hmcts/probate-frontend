@@ -5,20 +5,6 @@ const {get} = require('lodash');
 
 class AddressStep extends ValidationStep {
 
-    getContextData(req) {
-        const ctx = super.getContextData(req);
-        if (ctx.address && !ctx.addressLine1) {
-            ctx.addressLine1 = get(ctx.address, 'addressLine1', '');
-            ctx.addressLine2 = get(ctx.address, 'addressLine2', '');
-            ctx.addressLine3 = get(ctx.address, 'addressLine3', '');
-            ctx.postTown = get(ctx.address, 'postTown', '');
-            ctx.county = get(ctx.address, 'county', '');
-            ctx.newPostCode = get(ctx.address, 'postCode', '');
-            ctx.country = get(ctx.address, 'country', 'United Kingdom');
-        }
-        return ctx;
-    }
-
     handleGet(ctx, formdata) {
 
         if (ctx.errors) {
@@ -28,6 +14,16 @@ class AddressStep extends ValidationStep {
                 delete formdata[this.section].errors;
             }
             return [ctx, errors];
+        }
+
+        if (ctx.address) {
+            ctx.addressLine1 = get(ctx.address, 'addressLine1', '');
+            ctx.addressLine2 = get(ctx.address, 'addressLine2', '');
+            ctx.addressLine3 = get(ctx.address, 'addressLine3', '');
+            ctx.postTown = get(ctx.address, 'postTown', '');
+            ctx.county = get(ctx.address, 'county', '');
+            ctx.newPostCode = get(ctx.address, 'postCode', '');
+            ctx.country = get(ctx.address, 'country', 'United Kingdom');
         }
         return [ctx];
     }
@@ -69,6 +65,10 @@ class AddressStep extends ValidationStep {
             }
         });
         return formattedAddress;
+    }
+
+    isComplete(ctx) {
+        return [Boolean(ctx.address), 'inProgress'];
     }
 
 }

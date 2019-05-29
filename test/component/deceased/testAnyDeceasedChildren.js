@@ -5,6 +5,15 @@ const AnyGrandchildrenUnder18 = require('app/steps/ui/deceased/anygrandchildrenu
 const ApplicantName = require('app/steps/ui/applicant/name/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const content = require('app/resources/en/translation/deceased/anychildren');
+const config = require('app/config');
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
+const featureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(intestacyQuestionsFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('any-deceased-children', () => {
     let testWrapper;
@@ -13,10 +22,12 @@ describe('any-deceased-children', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('AnyDeceasedChildren');
+        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -44,19 +55,25 @@ describe('any-deceased-children', () => {
         });
 
         it(`test it redirects to Any Grandchildren Under 18 page if deceased had children who died before them: ${expectedNextUrlForAnyGrandchildrenUnder18}`, (done) => {
-            const data = {
-                anyDeceasedChildren: content.optionYes
-            };
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+                .end(() => {
+                    const data = {
+                        anyDeceasedChildren: content.optionYes
+                    };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForAnyGrandchildrenUnder18);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyGrandchildrenUnder18);
+                });
         });
 
         it(`test it redirects to Applicant Name page if deceased had no children who died before them: ${expectedNextUrlForApplicantName}`, (done) => {
-            const data = {
-                anyDeceasedChildren: content.optionNo
-            };
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+                .end(() => {
+                    const data = {
+                        anyDeceasedChildren: content.optionNo
+                    };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                });
         });
     });
 });

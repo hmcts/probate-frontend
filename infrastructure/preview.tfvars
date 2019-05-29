@@ -38,6 +38,8 @@ probate_business_service_document_url = "http://probate-business-service-aat.ser
 
 probate_submit_service_url = "http://probate-submit-service-aat.service.core-compute-aat.internal"
 
+probate_orchestrator_service_url = "http://probate-orchestrator-service-aat.service.core-compute-aat.internal"
+
 probate_persistence_service_url = "http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata"
 
 probate_fees_registry_service_url = "http://fees-register-api-aat.service.core-compute-aat.internal/fees-register"

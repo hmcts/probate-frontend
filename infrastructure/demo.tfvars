@@ -39,6 +39,8 @@ probate_business_service_document_url = "http://probate-business-service-demo.se
 
 probate_submit_service_url = "http://probate-submit-service-demo.service.core-compute-demo.internal"
 
+probate_orchestrator_service_url = "http://probate-orchestrator-service-demo.service.core-compute-demo.internal"
+
 probate_persistence_service_url = "http://probate-persistence-service-demo.service.core-compute-demo.internal/formdata"
 
 probate_fees_registry_service_url = "http://fees-register-api-demo.service.core-compute-demo.internal/fees-register"

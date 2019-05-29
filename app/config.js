@@ -39,7 +39,8 @@ const config = {
             paths: {
                 forms: '/forms/{applicantEmail}',
                 submissions: '/forms/{applicantEmail}/submissions',
-                payments: '/forms/{applicantEmail}/payments'
+                payments: '/forms/{applicantEmail}/payments',
+                payment_updates: '/payment-updates'
             }
         },
         validation: {

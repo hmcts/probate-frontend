@@ -4,7 +4,7 @@
 
 {% block question %}
     <h1 class="form-title heading-large">
-        {{content.question | replace('{deceasedName}', fields.deceasedName.value) | replace('{deceasedDoD}', fields.deceasedDoD.value) | safe}}
+        {{content.question | replace('{deceasedName}', fields.deceasedName.value) | replace('{deceasedDoD}', fields.dob_formattedDate.value) | safe}}
     </h1>
 {% endblock %}
 

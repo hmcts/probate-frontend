@@ -22,8 +22,7 @@ describe('AnyDeceasedChildren', () => {
                     form: {
                         deceased: {
                             firstName: 'John',
-                            lastName: 'Doe',
-                            dod_formattedDate: '13 October 2018'
+                            lastName: 'Doe'
                         }
                     }
                 }
@@ -31,7 +30,6 @@ describe('AnyDeceasedChildren', () => {
 
             const ctx = AnyDeceasedChildren.getContextData(req);
             expect(ctx.deceasedName).to.equal('John Doe');
-            expect(ctx.deceasedDoD).to.equal('13 October 2018');
             done();
         });
     });
@@ -52,12 +50,10 @@ describe('AnyDeceasedChildren', () => {
     describe('action()', () => {
         it('cleans up context', () => {
             const ctx = {
-                deceasedName: 'Dee Ceased',
-                deceasedDoD: '1 January 1950'
+                deceasedName: 'Dee Ceased'
             };
             AnyDeceasedChildren.action(ctx);
             assert.isUndefined(ctx.deceasedName);
-            assert.isUndefined(ctx.deceasedDoD);
         });
     });
 });

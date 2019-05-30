@@ -2,7 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
-const {get, set} = require('lodash');
+const {get} = require('lodash');
 
 class DocumentUpload extends ValidationStep {
 
@@ -26,14 +26,12 @@ class DocumentUpload extends ValidationStep {
             errors = errors || [];
             errors.push(FieldError('file', error, this.resourcePath, this.generateContent()));
             delete formdata.documents.error;
-        } else {
-            set(formdata, 'documentUploadComplete', true);
         }
         return [ctx, errors];
     }
 
     isComplete(ctx, formdata) {
-        return [typeof get(formdata, 'documentUploadComplete') !== 'undefined', 'inProgress'];
+        return [typeof get(formdata, 'documentupload') !== 'undefined', 'inProgress'];
     }
 
     nextStepOptions() {

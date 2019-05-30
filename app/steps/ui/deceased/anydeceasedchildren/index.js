@@ -26,6 +26,13 @@ class AnyDeceasedChildren extends ValidationStep {
             ]
         };
     }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.deceasedName;
+        delete ctx.deceasedDoD;
+        return [ctx, formdata];
+    }
 }
 
 module.exports = AnyDeceasedChildren;

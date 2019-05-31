@@ -98,7 +98,7 @@ const config = {
         port: process.env.REDIS_PORT || 6379,
         password: process.env.REDIS_PASSWORD || 'dummy_password',
         useTLS: process.env.REDIS_USE_TLS || 'false',
-        enabled: process.env.USE_REDIS || 'false',
+        enabled: process.env.USE_REDIS2 || 'false',
         secret: process.env.REDIS_SECRET || 'OVERWRITE_THIS',
         resave: false,
         saveUninitialized: true,

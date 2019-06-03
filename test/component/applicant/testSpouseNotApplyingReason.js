@@ -54,7 +54,7 @@ describe('spouse-not-applying-reason', () => {
         });
 
         it(`test it redirects to Any Other Children page if spouse renouncing: ${expectedNextUrlForAnyOtherChildren}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         spouseNotApplyingReason: content.optionRenouncing
@@ -65,7 +65,7 @@ describe('spouse-not-applying-reason', () => {
         });
 
         it(`test it redirects to Any Other Children page if spouse not applying for other reasons: ${expectedNextUrlForStopPage}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         spouseNotApplyingReason: content.optionOther

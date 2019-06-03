@@ -55,7 +55,7 @@ describe('any-deceased-children', () => {
         });
 
         it(`test it redirects to Any Grandchildren Under 18 page if deceased had children who died before them: ${expectedNextUrlForAnyGrandchildrenUnder18}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         anyDeceasedChildren: content.optionYes
@@ -66,7 +66,7 @@ describe('any-deceased-children', () => {
         });
 
         it(`test it redirects to Applicant Name page if deceased had no children who died before them: ${expectedNextUrlForApplicantName}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         anyDeceasedChildren: content.optionNo

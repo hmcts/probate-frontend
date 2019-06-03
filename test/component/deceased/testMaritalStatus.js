@@ -56,7 +56,7 @@ describe('deceased-marital-status', () => {
         });
 
         it(`test it redirects to divorce place page if divorced: ${expectedNextUrlForDivorcePlace}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         maritalStatus: content.optionDivorced
@@ -67,7 +67,7 @@ describe('deceased-marital-status', () => {
         });
 
         it(`test it redirects to divorce place page if separated: ${expectedNextUrlForDivorcePlace}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         maritalStatus: content.optionSeparated
@@ -78,7 +78,7 @@ describe('deceased-marital-status', () => {
         });
 
         it(`test it redirects to tasklist if married: ${expectedNextUrlForTaskList}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         maritalStatus: content.optionMarried
@@ -89,7 +89,7 @@ describe('deceased-marital-status', () => {
         });
 
         it(`test it redirects to tasklist if not married: ${expectedNextUrlForTaskList}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         maritalStatus: content.optionNotMarried
@@ -100,7 +100,7 @@ describe('deceased-marital-status', () => {
         });
 
         it(`test it redirects to tasklist if widowed: ${expectedNextUrlForTaskList}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         maritalStatus: content.optionWidowed

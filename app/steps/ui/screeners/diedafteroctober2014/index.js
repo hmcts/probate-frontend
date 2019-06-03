@@ -15,6 +15,11 @@ class DiedAfterOctober2014 extends EligibilityValidationStep {
         return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
+    handlePost(ctx, errors, formdata, session) {
+        session.willLeft = ctx.left;
+        return super.handlePost(ctx, errors, formdata, session);
+    }
+
     nextStepUrl(req, ctx) {
         return this.next(req, ctx).constructor.getUrl('notDiedAfterOctober2014');
     }

@@ -53,14 +53,14 @@ describe('other-applicants', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     testWrapper.testErrors(done, {}, 'required', [], cookies);
                 });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         otherApplicants: 'No'
@@ -71,7 +71,7 @@ describe('other-applicants', () => {
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         otherApplicants: 'Yes'

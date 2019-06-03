@@ -51,14 +51,14 @@ describe('died-after-october-2014', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     testWrapper.testErrors(done, {}, 'required', [], cookies);
                 });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForRelatedToDeceased}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         diedAfter: 'Yes'
@@ -69,7 +69,7 @@ describe('died-after-october-2014', () => {
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         diedAfter: 'No'

@@ -42,7 +42,7 @@ describe('WillLeft', () => {
     });
 
     describe('handlePost()', () => {
-        it('should remove session.form and set session.caseType', (done) => {
+        it('should remove session.form and set session.willLeft', (done) => {
             const ctxToTest = {
                 left: content.optionYes
             };
@@ -53,10 +53,9 @@ describe('WillLeft', () => {
             };
             const [ctx, errors] = WillLeft.handlePost(ctxToTest, errorsToTest, formdata, session);
             expect(session).to.deep.equal({
-                caseType: 'gop'
+                willLeft: content.optionYes
             });
             expect(ctx).to.deep.equal({
-                caseType: 'gop',
                 left: content.optionYes
             });
             expect(errors).to.deep.equal({});

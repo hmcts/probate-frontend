@@ -71,7 +71,7 @@ describe('divorce-place', () => {
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         divorcePlace: content.optionNo
@@ -86,7 +86,7 @@ describe('divorce-place', () => {
         });
 
         it(`test it redirects to tasklist: ${expectedNextUrlForTaskList}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         divorcePlace: content.optionYes

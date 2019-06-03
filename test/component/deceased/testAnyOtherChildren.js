@@ -54,7 +54,7 @@ describe('any-other-children', () => {
         });
 
         it(`test it redirects to All Children Over 18 page if deceased had other children: ${expectedNextUrlForAllChildrenOver18}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         anyOtherChildren: content.optionYes
@@ -65,7 +65,7 @@ describe('any-other-children', () => {
         });
 
         it(`test it redirects to Applicant Name page if deceased had no other children: ${expectedNextUrlForApplicantName}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session-field/willLeft/No')
                 .end(() => {
                     const data = {
                         anyOtherChildren: content.optionNo

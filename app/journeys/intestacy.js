@@ -6,7 +6,7 @@ const taskList = {
         lastStep: 'TaskList',
         summary: 'Summary'
     },
-    ExecutorsTask: {
+    ApplicantsTask: {
         firstStep: 'RelationshipToDeceased',
         lastStep: 'TaskList',
         summary: 'Summary'

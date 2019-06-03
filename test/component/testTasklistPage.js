@@ -18,9 +18,10 @@ describe('task-list', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
-        it('test right content loaded on the page', (done) => {
+        it('test right content loaded on the page for a probate journey', (done) => {
             const excludeKeys = [
+                'applicantsTask',
+                'copiesTaskIntestacy',
                 'introduction',
                 'saveAndReturn',
                 'reviewAndConfirmTaskMultiplesParagraph1',
@@ -40,7 +41,7 @@ describe('task-list', () => {
                 });
         });
 
-        it('test right content loaded in Review and Confirm section (Multiple Applicants)', (done) => {
+        it('test right content loaded in Review and Confirm section (Multiple Applicants) for a probate journey', (done) => {
             const multipleApplicantSessionData = {
                 will: sessionData.will,
                 iht: sessionData.iht,
@@ -50,6 +51,8 @@ describe('task-list', () => {
                 declaration: sessionData.declaration
             };
             const excludeKeys = [
+                'applicantsTask',
+                'copiesTaskIntestacy',
                 'taskNotStarted',
                 'taskStarted',
                 'taskComplete',
@@ -65,7 +68,7 @@ describe('task-list', () => {
                 });
         });
 
-        it('test right content loaded in Review and Confirm section (Single Applicant)', (done) => {
+        it('test right content loaded in Review and Confirm section (Single Applicant) for a probate journey', (done) => {
             const singleApplicantSessionData = {
                 will: sessionData.will,
                 iht: sessionData.iht,
@@ -75,6 +78,8 @@ describe('task-list', () => {
                 declaration: sessionData.declaration
             };
             const excludeKeys = [
+                'applicantsTask',
+                'copiesTaskIntestacy',
                 'reviewAndConfirmTaskMultiplesParagraph1',
                 'reviewAndConfirmTaskMultiplesParagraph2',
                 'taskNotStarted',

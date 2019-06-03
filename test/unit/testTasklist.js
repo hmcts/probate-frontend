@@ -78,7 +78,7 @@ describe('Tasklist', () => {
             assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
         });
 
-        it('[INTESTACY] Updates the context: DeceasedTask complete, ExecutorsTask not started', () => {
+        it('[INTESTACY] Updates the context: DeceasedTask complete, ApplicantsTask not started', () => {
             const formdata = {
                 deceased: completedForm.deceased,
                 will: completedForm.will,
@@ -90,8 +90,8 @@ describe('Tasklist', () => {
 
             assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             assert.equal(ctx.DeceasedTask.status, 'complete');
-            assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
+            assert.equal(ctx.ApplicantsTask.status, 'notStarted');
+            assert.equal(ctx.ApplicantsTask.nextURL, steps[journeyMap.taskList().ApplicantsTask.firstStep].constructor.getUrl());
         });
 
         it('Updates the context: DeceasedTask complete, ExecutorsTask started', () => {

@@ -12,7 +12,11 @@ class TaskList extends Step {
     }
 
     previousTaskStatus(previousTasks) {
-        const allPreviousTasksComplete = previousTasks.every(task => task.status === 'complete');
+        console.log(previousTasks);
+        const allPreviousTasksComplete = previousTasks.every((task) => {
+            console.log(task, task.status);
+            return task.status === 'complete';
+        });
         return allPreviousTasksComplete ? 'complete' : 'started';
     }
 
@@ -32,13 +36,9 @@ class TaskList extends Step {
 
         ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
+        ctx.journeyType = setJourney.getJourneyName(req.session);
 
-        if (setJourney.isIntestacyJourney(req.session)) {
-            ctx.previousTaskStatus = {
-                DeceasedTask: ctx.DeceasedTask.status,
-                ExecutorsTask: ctx.DeceasedTask.status
-            };
-        } else {
+        if (ctx.journeyType === 'gop') {
             ctx.previousTaskStatus = {
                 DeceasedTask: ctx.DeceasedTask.status,
                 ExecutorsTask: ctx.DeceasedTask.status,
@@ -46,6 +46,14 @@ class TaskList extends Step {
                 CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
                 PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
                 DocumentsTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.PaymentTask])
+            };
+        } else {
+            ctx.previousTaskStatus = {
+                DeceasedTask: ctx.DeceasedTask.status,
+                ApplicantsTask: ctx.DeceasedTask.status,
+                ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask]),
+                CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
+                PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
             };
         }
 
@@ -57,6 +65,7 @@ class TaskList extends Step {
         delete ctx.hasMultipleApplicants;
         delete ctx.alreadyDeclared;
         delete ctx.previousTaskStatus;
+        delete ctx.journeyType;
         return [ctx, formdata];
     }
 }

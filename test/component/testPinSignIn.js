@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const {assert} = require('chai');
-const CoApplicantStartPage = require('app/steps/ui/coapplicant/startpage/index');
+const CoApplicantStartPage = require('app/steps/ui/coapplicant/startpage');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 const nock = require('nock');

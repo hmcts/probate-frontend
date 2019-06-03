@@ -34,7 +34,7 @@
 {{checkanswer(
     items = [{
         question: content.Summary.address,
-        answer: executor.address,
+        answer: executor.address.formattedAddress,
         visible: true
     }],
     url = content.ExecutorAddress.url | replace("*", loop.index0 ),

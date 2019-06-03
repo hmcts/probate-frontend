@@ -67,7 +67,7 @@
                 {% ifAsync executor.isApplicant != true and executor.isApplying === true %}
                     <h3 class="heading-small">{{content.Summary.executorApplyingForProbate | replace("{executorOrderNumber}", cls.next())}}</h3>
                     <table class="check-your-answers check-your-answers--long">
-                        <caption class="visually-hidden">{{content.Summary.executorApplyingForProbate | replace("{executorOrderNumber}", cls.next())}}</caption>
+                        <caption class="visually-hidden">{{content.Summary.executorApplyingForProbate | replace("{executorOrderNumber}", cls.current)}}</caption>
                         <tbody>
                             {% include "ui/summary/includes/executors-others-details.njk" %}
                         </tbody>

@@ -42,7 +42,7 @@ describe('WillLeft', () => {
     });
 
     describe('handlePost()', () => {
-        it('should remove session.form and set session.willLeft', (done) => {
+        it('should remove session.form and set session.caseType', (done) => {
             const ctxToTest = {
                 left: content.optionYes
             };
@@ -53,9 +53,10 @@ describe('WillLeft', () => {
             };
             const [ctx, errors] = WillLeft.handlePost(ctxToTest, errorsToTest, formdata, session);
             expect(session).to.deep.equal({
-                willLeft: content.optionYes
+                caseType: 'gop'
             });
             expect(ctx).to.deep.equal({
+                caseType: 'gop',
                 left: content.optionYes
             });
             expect(errors).to.deep.equal({});
@@ -132,7 +133,7 @@ describe('WillLeft', () => {
         });
     });
 
-    describe('action', () => {
+    describe('action()', () => {
         it('test isIntestacyQuestionsToggleEnabled is removed from the context', () => {
             const ctx = {
                 isIntestacyQuestionsToggleEnabled: false

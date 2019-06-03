@@ -33,11 +33,17 @@ describe('Pact IntestacyFormData', () => {
                 'email': 'someemailaddress@host.com',
                 'firstName': 'Jon',
                 'lastName': 'Snow',
-                'address': 'Pret a Manger St. Georges Hospital Blackshaw Road London SW17 0QT',
                 'postCode': 'SW17 0QT',
                 'phoneNumber': '123455678',
                 'addressFound': 'Yes',
-                'freeTextAddress': 'Pret a Manger St. Georges Hospital Blackshaw Road',
+                'address': {
+                    'addressLine1': 'Pret a Manger St.',
+                    'addressLine2': 'Georges Hospital',
+                    'addressLine3': 'Blackshaw Road',
+                    'postTown': 'London',
+                    'postCode': 'SW17 0QT',
+                    'country': 'United kingdom'
+                },
                 'adoptionInEnglandOrWales': 'Yes'
             },
             'deceased': {
@@ -45,10 +51,14 @@ describe('Pact IntestacyFormData', () => {
                 'lastName': 'Stark',
                 'dob_date': '1930-01-01',
                 'dod_date': '2018-01-01',
-                'address': 'Winterfell, Westeros',
                 'addressFound': 'Yes',
                 'postCode': 'SW17 0QT',
-                'freeTextAddress': 'Winterfell, Westeros',
+                'address': {
+                    'addressLine1': 'Winterfell',
+                    'postTown': 'Westeros',
+                    'postCode': 'postcode',
+                    'country': 'country'
+                },
                 'alias': 'Yes',
                 'allDeceasedChildrenOverEighteen': 'Yes',
                 'anyDeceasedChildrenDieBeforeDeceased': 'No',

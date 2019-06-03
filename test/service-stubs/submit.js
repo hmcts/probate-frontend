@@ -17,7 +17,6 @@ router.post('/submit', (req, res) => {
     res.status(200);
     res.send({
         status: 'Success',
-        submissionReference: '6',
         caseId: '1234123512361237',
         caseState: 'PAApplicationCreated',
         registry: {

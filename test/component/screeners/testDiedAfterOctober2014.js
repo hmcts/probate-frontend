@@ -1,8 +1,8 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const RelatedToDeceased = require('app/steps/ui/screeners/relatedtodeceased/index');
-const StopPage = require('app/steps/ui/stoppage/index');
+const RelatedToDeceased = require('app/steps/ui/screeners/relatedtodeceased');
+const StopPage = require('app/steps/ui/stoppage');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
@@ -51,14 +51,14 @@ describe('died-after-october-2014', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     testWrapper.testErrors(done, {}, 'required', [], cookies);
                 });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForRelatedToDeceased}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     const data = {
                         diedAfter: 'Yes'
@@ -69,7 +69,7 @@ describe('died-after-october-2014', () => {
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     const data = {
                         diedAfter: 'No'

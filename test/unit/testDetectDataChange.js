@@ -1,3 +1,4 @@
+/*eslint max-lines: ["error", 310]*/
 const DetectDataChange = require('app/wrappers/DetectDataChange');
 const expect = require('chai').expect;
 
@@ -32,22 +33,16 @@ describe('DetectDataChange.js', () => {
         });
     });
 
-    describe('sectionDataKey()', () => {
-        it('should return address when paramsKey is postcodeAddress', (done) => {
+    describe('accessDataKey()', () => {
+        it('should return address when paramsKey is address', (done) => {
             const detectDataChange = new DetectDataChange();
-            expect(detectDataChange.sectionDataKey('postcodeAddress')).to.equal('address');
+            expect(detectDataChange.accessDataKey('address')).to.equal('address.formattedAddress');
             done();
         });
 
-        it('should return address when paramsKey is freeTextAddress', (done) => {
+        it('should return the paramsKey when paramsKey is not address', (done) => {
             const detectDataChange = new DetectDataChange();
-            expect(detectDataChange.sectionDataKey('freeTextAddress')).to.equal('address');
-            done();
-        });
-
-        it('should return the paramsKey when paramsKey is not postcodeAddress or freeTextAddress', (done) => {
-            const detectDataChange = new DetectDataChange();
-            expect(detectDataChange.sectionDataKey('dob_day')).to.equal('dob_day');
+            expect(detectDataChange.accessDataKey('dob_day')).to.equal('dob_day');
             done();
         });
     });
@@ -66,29 +61,26 @@ describe('DetectDataChange.js', () => {
                 done();
             });
 
-            it('when freeTextAddress is set', (done) => {
-                const params = {
-                    freeTextAddress: '1 Silver Street London L23 3LP'
+            it('when address is set', (done) => {
+                const params = {address: {
+                    addressLine1: '1 Silver Street',
+                    formattedAddress: '1 Silver Street London L23 3LP',
+                    postTown: 'London',
+                    postCode: 'L23 3LP',
+                    country: 'United Kingdom'}
                 };
                 const sectionData = {
-                    address: '11 Silver Street London L23 3LP'
+                    address: {addressLine1: '11 Silver Street',
+                        formattedAddress: '11 Silver Street London L23 3LP',
+                        postTown: 'London',
+                        postCode: 'L23 3LP',
+                        country: 'United Kingdom'}
                 };
                 const detectDataChange = new DetectDataChange();
                 expect(detectDataChange.hasChanged(params, sectionData)).to.equal(true);
                 done();
             });
 
-            it('when postcodeAddress is set', (done) => {
-                const params = {
-                    postcodeAddress: '1 Silver Street London L23 3LP'
-                };
-                const sectionData = {
-                    address: '11 Silver Street London L23 3LP'
-                };
-                const detectDataChange = new DetectDataChange();
-                expect(detectDataChange.hasChanged(params, sectionData)).to.equal(true);
-                done();
-            });
         });
 
         it('should return false when the values are equal', (done) => {
@@ -122,12 +114,20 @@ describe('DetectDataChange.js', () => {
                             }, {
                                 isApplying: true,
                                 fullName: 'James Miller',
-                                address: '11 Red Street, London, L21 1LL',
+                                address: {addressLine1: '11 Red Street',
+                                    postTown: 'London',
+                                    postCode: 'L21 1LL',
+                                    country: 'United Kingdom',
+                                    formattedAddress: '11 Red Street London L21 1LL United Kingdom'},
                                 email: 'jamesmiller@example.com'
                             }, {
                                 isApplying: true,
                                 fullName: 'Ed Brown',
-                                address: '20 Green Street, London, L12 9LN'
+                                address: {addressLine1: '20 Green Street',
+                                    postTown: 'London',
+                                    postCode: 'L12 9LN',
+                                    country: 'United Kingdom',
+                                    formattedAddress: '20 Green Street London L12 9LN United Kingdom'}
                             }]
                         },
                         iht: {
@@ -159,7 +159,12 @@ describe('DetectDataChange.js', () => {
 
             it('when the executors address is not equal and req.params[0] is set', (done) => {
                 req.params[0] = 1;
-                req.body.freeTextAddress = ['1 Red Street, London, L21 1LL'];
+                req.body.address = {
+                    addressLine1: '1 Red Street',
+                    formattedAddress: '1 Red Street London L21 1LL United Kingdom',
+                    postTown: 'London',
+                    postCode: 'L21 1LL',
+                    country: 'United Kingdom'};
                 step.section = 'executors';
                 const detectDataChange = new DetectDataChange();
                 expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);
@@ -169,7 +174,12 @@ describe('DetectDataChange.js', () => {
             it('when the executors address is not equal and indexPosition is set', (done) => {
                 req.session.indexPosition = 1;
                 req.params[0] = '*';
-                req.body.freeTextAddress = ['1 Red Street, London, L21 1LL'];
+                req.body.address = {
+                    addressLine1: '1 Red Street',
+                    formattedAddress: '1 Red Street London L21 1LL United Kingdom',
+                    postTown: 'London',
+                    postCode: 'L21 1LL',
+                    country: 'United Kingdom'};
                 step.section = 'executors';
                 const detectDataChange = new DetectDataChange();
                 expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);

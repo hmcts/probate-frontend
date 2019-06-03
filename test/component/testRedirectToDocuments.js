@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DocumentsPage = require('app/steps/ui/documents/index');
+const DocumentsPage = require('app/steps/ui/documents');
 
 describe('redirect to documents', () => {
     let testWrapper, sessionData;
@@ -14,7 +14,6 @@ describe('redirect to documents', () => {
                 state: 'CaseCreated',
                 id: 1535395401245028
             },
-            submissionReference: 'testSubmissionReference',
             payment: {
                 status: 'Success'
             }

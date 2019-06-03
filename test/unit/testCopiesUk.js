@@ -98,7 +98,7 @@ describe('CopiesUk', () => {
         });
     });
 
-    describe('action', () => {
+    describe('action()', () => {
         it('test applicant and deceased addresses are removed from formdata', () => {
             let formdata = {
                 applicant: {
@@ -112,13 +112,37 @@ describe('CopiesUk', () => {
                         'Address1',
                         'Address2'
                     ]
+                },
+                executors: {
+                    list: [
+                        {
+                            firstName: 'Exec1',
+                            addresses: [
+                                'Address1',
+                                'Address2'
+                            ]
+                        },
+                        {
+                            firstName: 'Exec2',
+                            addresses: [
+                                'Address1',
+                                'Address2'
+                            ]
+                        }
+                    ]
                 }
             };
             let ctx = {};
             [ctx, formdata] = CopiesUk.action(ctx, formdata);
             expect(formdata).to.deep.equal({
                 applicant: {},
-                deceased: {}
+                deceased: {},
+                executors: {
+                    list: [
+                        {firstName: 'Exec1'},
+                        {firstName: 'Exec2'}
+                    ]
+                }
             });
         });
     });

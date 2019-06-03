@@ -44,6 +44,13 @@ class IhtValue extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.lessThanOrEqualTo250k;
+
+        if (ctx.netValue > config.assetsValueThreshold) {
+            delete ctx.assetsOutside;
+            delete ctx.netValueAssetsOutsideField;
+            delete ctx.netValueAssetsOutside;
+        }
+
         return [ctx, formdata];
     }
 }

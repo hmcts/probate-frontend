@@ -44,7 +44,6 @@ describe('RemoveInvitedExecutor', () => {
                                 email: 'haji58@hotmail.co.uk',
                                 mobile: '07963723856',
                                 address: 'exec_3_address\r\n',
-                                freeTextAddress: 'exec_3_address\r\n',
                                 inviteId: 'dummy_inviteId_2',
                                 emailSent: true
                             }, {
@@ -122,7 +121,6 @@ describe('RemoveInvitedExecutor', () => {
                                     currentName: 'exec_3_new_name',
                                     email: 'haji58@hotmail.co.uk',
                                     emailSent: true,
-                                    freeTextAddress: 'exec_3_address\r\n',
                                     fullName: 'executor_3_name',
                                     hasOtherName: true,
                                     inviteId: 'dummy_inviteId_2',

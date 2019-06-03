@@ -3,51 +3,42 @@
   "question": "What is {executorName}&rsquo;s permanent address?",
   "explanation1": "This will be printed on the grant of probate.",
   "postcode": "Postcode",
+  "postTown": "Town or city",
+  "country": "Country",
   "findAddress": "Find UK address",
   "addressLabel": "Address",
   "selectAddress": "Select address",
   "enterManually": "Enter manually (including international addresses)",
 
   "errors": {
-    "crossField": {
-      "oneOf": {
-        "summary": "Please select an address or enter one manually",
-        "message": "Please select an address or enter one manually"
-      }
-    },
-    "postcode": {
+    "addressLine1": {
       "required": {
-        "summary": "Please search for an address or enter one manually",
-        "message": "Enter the postcode"
+        "summary": "Enter the first line of the address",
+        "message": "Enter the first line of the address"
       },
       "invalid": {
-        "summary": "Please search for an address or enter one manually",
-        "message": "Invalid postcode"
+        "summary": "Please enter minimum length for address line 1",
+        "message": "2 - 150 characters"
       }
     },
-    "postcodeLookup": {
+    "postTown": {
       "required": {
-        "summary": "Please search for an address or enter one manually"
-      }
-    },
-    "postcodeAddress": {
-      "required": {
-        "summary": "Please select an address or enter one manually",
-        "message": "Select an address"
+        "summary": "Enter a town or city",
+        "message": "Enter a town or city"
       },
       "invalid": {
-        "summary": "The address you selected is invalid",
-        "message": "Please select a valid address"
+        "summary": "Please enter minimum length for post town",
+        "message": "2 - 50 characters"
       }
     },
-    "freeTextAddress": {
+    "newPostCode": {
       "required": {
-        "summary": "Please select an address or enter one manually",
-        "message": "Enter an address"
+        "summary": "Enter a postcode",
+        "message": "Enter a postcode"
       },
       "invalid": {
-        "summary": "Please select an address or enter one manually",
-        "message": "Enter a valid address"
+        "summary": "Please enter minimum length for post code",
+        "message": "2 - 14 characters"
       }
     }
   }

@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DeceasedAddress = require('app/steps/ui/deceased/address/index');
+const DeceasedAddress = require('app/steps/ui/deceased/address');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const config = require('app/config');
 const nock = require('nock');
@@ -192,7 +192,7 @@ describe('deceased-details', () => {
         });
 
         it(`test it redirects to Deceased Address page: ${expectedNextUrlForDeceasedAddress}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     const data = {
                         firstName: 'Bob',

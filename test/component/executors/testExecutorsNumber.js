@@ -1,8 +1,8 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const TaskList = require('app/steps/ui/tasklist/index');
-const ExecutorsNames = require('app/steps/ui/executors/names/index');
+const TaskList = require('app/steps/ui/tasklist');
+const ExecutorsNames = require('app/steps/ui/executors/names');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-number', () => {

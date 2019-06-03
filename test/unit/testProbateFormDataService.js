@@ -31,7 +31,7 @@ describe('ProbateFormDataService', () => {
         it('should call super.post()', (done) => {
             const endpoint = 'http://localhost';
             const id = 'fred@example.com';
-            const data = {submissionReference: 'sub123'};
+            const data = {};
             const probateCcdCasePaymentStatus = new ProbateFormData(endpoint, 'abc123');
             const postStub = sinon.stub(FormData.prototype, 'post');
 
@@ -42,7 +42,6 @@ describe('ProbateFormDataService', () => {
                 {
                     id: id,
                     formdata: data,
-                    submissionReference: data.submissionReference
                 },
                 'Post probate form data',
                 endpoint

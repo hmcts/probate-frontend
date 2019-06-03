@@ -1,8 +1,8 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const TaskList = require('app/steps/ui/tasklist/index');
-const CodicilsNumber = require('app/steps/ui/will/codicilsnumber/index');
+const TaskList = require('app/steps/ui/tasklist');
+const CodicilsNumber = require('app/steps/ui/will/codicilsnumber');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('will-codicils', () => {

@@ -4,7 +4,7 @@ const initSteps = require('app/core/initSteps');
 const {assert, expect} = require('chai');
 const co = require('co');
 const rewire = require('rewire');
-const Summary = rewire('app/steps/ui/summary/index');
+const Summary = rewire('app/steps/ui/summary');
 const probateJourney = require('app/journeys/probate');
 
 describe('Summary', () => {

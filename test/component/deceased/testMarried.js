@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const WillCodicils = require('app/steps/ui/will/codicils/index');
+const WillCodicils = require('app/steps/ui/will/codicils');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('deceased-married', () => {

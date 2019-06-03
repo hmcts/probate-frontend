@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ApplicantAddress = require('app/steps/ui/applicant/address/index');
+const ApplicantAddress = require('app/steps/ui/applicant/address');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('applicant-phone', () => {

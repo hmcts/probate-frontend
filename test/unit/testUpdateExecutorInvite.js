@@ -30,7 +30,6 @@ describe('UpdateExecutorInvite', () => {
                             email: 'haji58@hotmail.co.uk',
                             mobile: '07964523856',
                             address: 'exec_3_address\r\n',
-                            freeTextAddress: 'exec_3_address\r\n',
                             inviteId: 'dummy_inviteId_1',
                         }, {
                             fullName: 'executor_3_name',
@@ -41,7 +40,6 @@ describe('UpdateExecutorInvite', () => {
                             email: 'haji58@hotmail.co.uk',
                             mobile: '07963723856',
                             address: 'exec_3_address\r\n',
-                            freeTextAddress: 'exec_3_address\r\n',
                             inviteId: 'dummy_inviteId_2',
                         }],
                         otherExecutorsApplying: 'Yes',

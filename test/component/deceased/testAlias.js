@@ -1,8 +1,8 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames/index');
-const DeceasedMarried = require('app/steps/ui/deceased/married/index');
+const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames');
+const DeceasedMarried = require('app/steps/ui/deceased/married');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('deceased-alias', () => {

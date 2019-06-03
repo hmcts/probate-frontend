@@ -8,7 +8,7 @@ const co = require('co');
 const submitResponse = require('test/data/send-to-submit-service');
 const journey = require('app/journeys/probate');
 const rewire = require('rewire');
-const PaymentBreakdown = rewire('app/steps/ui/payment/breakdown/index');
+const PaymentBreakdown = rewire('app/steps/ui/payment/breakdown');
 const config = require('app/config');
 const nock = require('nock');
 const sinon = require('sinon');
@@ -105,10 +105,8 @@ describe('PaymentBreakdown', () => {
                         email: 'oxford@email.com',
                         name: 'Oxford',
                         sequenceNumber: 10034
-                    },
-                    submissionReference: 97
+                    }
                 },
-                submissionReference: 97
             };
             expectedPaymentFormdata = {
                 payment: {
@@ -397,74 +395,6 @@ describe('PaymentBreakdown', () => {
             });
         });
 
-        it('if sendToSubmitService returns DUPLICATE_SUBMISSION', (done) => {
-            const stub = sinon
-                .stub(PaymentBreakdown.prototype, 'sendToSubmitService')
-                .returns([
-                    'DUPLICATE_SUBMISSION',
-                    [{
-                        param: 'submit',
-                        msg: {
-                            summary: 'Your application has been submitted, please return to the tasklist to continue',
-                            message: 'payment.breakdown.errors.submit.duplicate.message'
-                        }
-                    }]
-                ]);
-
-            const formdata = {
-                fees: {
-                    status: 'success',
-                    applicationfee: 215,
-                    applicationvalue: 6000,
-                    ukcopies: 1,
-                    ukcopiesfee: 0.50,
-                    overseascopies: 2,
-                    overseascopiesfee: 1,
-                    total: 216.50
-                }
-
-            };
-            feesCalculator.returns(Promise.resolve({
-                status: 'success',
-                applicationfee: 215,
-                applicationvalue: 6000,
-                ukcopies: 1,
-                ukcopiesfee: 0.50,
-                overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 216.50
-            }));
-            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
-
-            co(function* () {
-                const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
-                expect(ctx).to.deep.equal({
-                    total: 216.50,
-                    applicationFee: 215,
-                    copies: {
-                        uk: {
-                            cost: 0.5,
-                            number: 1
-                        },
-                        overseas: {
-                            cost: 1,
-                            number: 2
-                        }
-                    }});
-                expect(errors).to.deep.equal([{
-                    param: 'submit',
-                    msg: {
-                        summary: 'Your application has been submitted, please return to the tasklist to continue',
-                        message: 'payment.breakdown.errors.submit.duplicate.message'
-                    }
-                }]);
-                stub.restore();
-                done();
-            }).catch((err) => {
-                done(err);
-            });
-        });
-
         it('sets reference if ctx.total > 0 and payment exists with status of Success', (done) => {
             const getCasePaymentsStub = sinon
                 .stub(Payment.prototype, 'getCasePayments')
@@ -494,10 +424,8 @@ describe('PaymentBreakdown', () => {
                         email: 'oxford@email.com',
                         name: 'Oxford',
                         sequenceNumber: 10034
-                    },
-                    submissionReference: 97
-                },
-                submissionReference: 97
+                    }
+                }
             };
             feesCalculator.returns(Promise.resolve({
                 status: 'success',
@@ -579,10 +507,8 @@ describe('PaymentBreakdown', () => {
                         email: 'oxford@email.com',
                         name: 'Oxford',
                         sequenceNumber: 10034
-                    },
-                    submissionReference: 97
-                },
-                submissionReference: 97
+                    }
+                }
             };
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
             expectedPaAppCreatedFormdata.payment.reference = 'RC-67890';

@@ -1,7 +1,7 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/deceased/dod/index');
+const pageUnderTest = require('app/steps/ui/deceased/dod');
 
 module.exports = function (day, month, year, saveAndClose = false) {
     const I = this;

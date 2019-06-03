@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const TaskList = require('app/steps/ui/tasklist/index');
+const TaskList = require('app/steps/ui/tasklist');
 const nock = require('nock');
 const config = require('app/config');
 const SUBMIT_SERVICE_URL = config.services.submit.url;

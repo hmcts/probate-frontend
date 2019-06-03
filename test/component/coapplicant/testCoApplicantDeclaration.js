@@ -1,9 +1,9 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const json = require('app/resources/en/translation/coapplicant/declaration.json');
-const CoApplicantAgreePage = require('app/steps/ui/coapplicant/agreepage/index');
-const CoApplicantDisagreePage = require('app/steps/ui/coapplicant/disagreepage/index');
+const content = require('app/resources/en/translation/coapplicant/declaration.json');
+const CoApplicantAgreePage = require('app/steps/ui/coapplicant/agreepage');
+const CoApplicantDisagreePage = require('app/steps/ui/coapplicant/disagreepage');
 const commonContent = require('app/resources/en/translation/common');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const nock = require('nock');
@@ -73,7 +73,7 @@ describe('co-applicant-declaration', () => {
                         .send(sessionData)
                         .end(() => {
                             const data = {
-                                agreement: json.optionYes
+                                agreement: content.optionYes
                             };
                             testWrapper.testRedirect(done, data, expectedNextUrlForCoAppAgree);
                         });
@@ -93,7 +93,7 @@ describe('co-applicant-declaration', () => {
                         .send(sessionData)
                         .end(() => {
                             const data = {
-                                agreement: json.optionNo
+                                agreement: content.optionNo
                             };
                             testWrapper.testRedirect(done, data, expectedNextUrlForCoAppDisagree);
                         });

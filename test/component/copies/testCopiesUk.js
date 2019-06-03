@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const AssetsOverseas = require('app/steps/ui/assets/overseas/index');
+const AssetsOverseas = require('app/steps/ui/assets/overseas');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const config = require('app/config');
 const featureToggleUrl = config.featureToggles.url;

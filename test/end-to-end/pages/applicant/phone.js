@@ -2,7 +2,7 @@
 
 const commonContent = require('app/resources/en/translation/common');
 const content = require('app/resources/en/translation/applicant/phone');
-const pageUnderTest = require('app/steps/ui/applicant/phone/index');
+const pageUnderTest = require('app/steps/ui/applicant/phone');
 
 module.exports = function () {
     const I = this;

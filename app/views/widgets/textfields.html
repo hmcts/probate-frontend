@@ -1,6 +1,6 @@
 {% from "widgets/fielderror.html" import fieldError %}
 
-{% macro textField(id=name, text, hint, name, field, size) %}
+{% macro textField(id=name, text, hint, name, field, size, width = '3-4') %}
     <div class="form-group {{ 'form-group-error' if field.error }}">
         {% if hint %}
             <p class="form-hint no-link">{{hint | safe}}</p>
@@ -9,7 +9,7 @@
         {{ fieldError(field) }}
 
         <label class="form-label" for="{{id}}">{{text | safe}}</label>
-        <input type="text" class="form-control {{ 'form-control-error' if field.error }} form-control-3-4" id="{{id}}" name="{{name}}" value="{{field.value  | safe}}" maxlength="{{size}}">
+        <input type="text" class="form-control {{ 'form-control-error' if field.error }} form-control-{{width}}" id="{{id}}" name="{{name}}" value="{{field.value  | safe}}" maxlength="{{size}}">
     </div>
 {% endmacro %}
 

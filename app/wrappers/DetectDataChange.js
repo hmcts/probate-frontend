@@ -2,6 +2,7 @@
 
 const ExecutorsWrapper = require('./Executors');
 const executorsInviteSchema = require('app/steps/ui/executors/invite/schema');
+const {get} = require('lodash');
 
 class DetectDataChanges {
     isNotEqual(val1, val2) {
@@ -9,17 +10,17 @@ class DetectDataChanges {
         return val1.toString() !== val2.toString();
     }
 
-    sectionDataKey(paramsKey) {
-        if (['postcodeAddress', 'freeTextAddress'].includes(paramsKey)) {
-            return 'address';
+    accessDataKey(paramsKey) {
+        if (['address'].includes(paramsKey)) {
+            return 'address.formattedAddress';
         }
         return paramsKey;
     }
 
     hasChanged(params, sectionData) {
         return Object.keys(params).some(paramsKey => {
-            const sectionDataKey = this.sectionDataKey(paramsKey);
-            return sectionData && sectionData[sectionDataKey] && this.isNotEqual(params[paramsKey], sectionData[sectionDataKey]);
+            const sectionDataKey = this.accessDataKey(paramsKey);
+            return sectionData && get(sectionData, sectionDataKey) && this.isNotEqual(get(params, sectionDataKey), get(sectionData, sectionDataKey));
         });
     }
 
@@ -41,7 +42,7 @@ class DetectDataChanges {
             !formdata.declaration.hasDataChanged
         ) {
             if (step.section === 'executors') {
-                if (Object.keys(req.body).includes('freeTextAddress') || Object.keys(req.body).includes('email')) {
+                if (Object.keys(req.body).includes('address') || Object.keys(req.body).includes('email')) {
                     const index = (req.params && !isNaN(req.params[0])) ? req.params[0] : req.session.indexPosition;
                     return this.hasChanged(req.body, formdata[step.section].list[index]);
                 } else if (req.body.executorName) {

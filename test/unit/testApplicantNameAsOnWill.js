@@ -1,7 +1,9 @@
 'use strict';
+
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const content = require('app/resources/en/translation/applicant/nameasonwill');
+const contentAliasReason = require('app/resources/en/translation/applicant/aliasreason');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const ApplicantNameAsOnWill = steps.ApplicantNameAsOnWill;
 
@@ -89,6 +91,21 @@ describe('ApplicantNameAsOnWill', () => {
                 }]
             });
             done();
+        });
+    });
+
+    describe('action()', () => {
+        it('test that the Value of Assets Outside England and Wales context variables are removed if No Assets Outside chosen', () => {
+            let formdata = {};
+            let ctx = {
+                nameAsOnTheWill: content.optionYes,
+                alias: 'Applicant Alias',
+                aliasReason: contentAliasReason.optionMarriage
+            };
+            [ctx, formdata] = ApplicantNameAsOnWill.action(ctx, formdata);
+            expect(ctx).to.deep.equal({
+                nameAsOnTheWill: content.optionYes
+            });
         });
     });
 });

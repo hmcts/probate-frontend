@@ -3,7 +3,7 @@
 const {expect} = require('chai');
 const co = require('co');
 const rewire = require('rewire');
-const AddressLookup = rewire('app/steps/action/addressLookup/index');
+const AddressLookup = rewire('app/steps/action/addressLookup');
 
 describe('AddressLookup', () => {
     let steps;
@@ -116,8 +116,6 @@ describe('AddressLookup', () => {
             const referrerDataToTest = {
                 addresses: 'addresses',
                 addressFound: 'addressFound',
-                postcodeAddress: 'postcodeAddress',
-                freeTextAddress: 'freeTextAddress',
                 errors: 'errors'
             };
             const referrerData = addressLookup.pruneReferrerData(referrerDataToTest);

@@ -1,4 +1,5 @@
 'use strict';
+
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
 const content = require('app/resources/en/translation/deceased/anychildren');
@@ -22,6 +23,12 @@ class AnyChildren extends ValidationStep {
                 {key: 'anyChildren', value: content.optionYes, choice: 'hadChildren'}
             ]
         };
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.deceasedName;
+        return [ctx, formdata];
     }
 }
 

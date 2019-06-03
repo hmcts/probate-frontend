@@ -15,15 +15,15 @@
     items = [{
         question: content.IhtPaper.question,
         answer:  content.IhtPaper['option' + selectedOption],
-        visible: fields.iht.method.value == content.IhtMethod.paperOption
+        visible: fields.iht.method.value == content.IhtMethod.optionPaper
     },{
         question: content.IhtValue.grossValue,
-        answer: fields.iht.grossValue.value,
-        visible: fields.iht.method.value == content.IhtMethod.paperOption
+        answer: fields.iht['grossValueField' + selectedOption].value,
+        visible: fields.iht.method.value == content.IhtMethod.optionPaper
     },{
         question: content.IhtValue.netValue,
-        answer: fields.iht.netValue.value,
-        visible: fields.iht.method.value == content.IhtMethod.paperOption
+        answer: fields.iht['netValueField' + selectedOption].value,
+        visible: fields.iht.method.value == content.IhtMethod.optionPaper
     }],
     url = content.IhtPaper.url,
     common = common,
@@ -33,7 +33,7 @@
     items = [{
         question: content.IhtIdentifier.question,
         answer: fields.iht.identifier.value,
-        visible: fields.iht.method.value == content.IhtMethod.onlineOption
+        visible: fields.iht.method.value == content.IhtMethod.optionOnline
     }],
     url = content.IhtIdentifier.url,
     common = common,
@@ -42,12 +42,12 @@
 {{checkanswer(
     items = [{
         question: content.IhtValue.grossValue,
-        answer: fields.iht.grossValue.value,
-        visible: fields.iht.method.value == content.IhtMethod.onlineOption
+        answer: fields.iht.grossValueField.value,
+        visible: fields.iht.method.value == content.IhtMethod.optionOnline
     },{
         question: content.IhtValue.netValue,
-        answer: fields.iht.netValue.value,
-        visible: fields.iht.method.value == content.IhtMethod.onlineOption
+        answer: fields.iht.netValueField.value,
+        visible: fields.iht.method.value == content.IhtMethod.optionOnline
     }],
     url = content.IhtValue.url,
     common = common,

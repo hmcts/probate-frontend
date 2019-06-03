@@ -16,7 +16,6 @@
   },
   "deceased": {
     "alias": "No",
-    "address": "67 Hill Rise Cuffley Potters Bar EN6 4RX",
     "dob_day": 1,
     "dod_day": 12,
     "married": "No",
@@ -225,12 +224,22 @@
     "firstName": "test",
     "addressFound": "true",
     "deceasedName": "test test",
-    "postcodeAddress": "67 Hill Rise Cuffley Potters Bar EN6 4RX",
+    "address": {
+      "addressLine1": "67 Hill Rise",
+      "addressLine2": "Cuffley",
+      "postTown": "Potters Bar",
+      "postCode": "EN6 4RX"
+    },
     "dob_formattedDate": "1 January 1950",
     "dod_formattedDate": "12 December 2017"
   },
   "applicant": {
-    "address": "57 Hill Rise Cuffley Potters Bar EN6 4RX",
+    "address": {
+      "addressLine1": "57 Hill Rise",
+      "addressLine2": "Cuffley",
+      "postTown": "Potters Bar",
+      "postCode": "EN6 4RX"
+    },
     "lastName": "app_test",
     "postcode": "EN6 4RX",
     "addresses": [
@@ -430,8 +439,7 @@
     "firstName": "app_test",
     "phoneNumber": "1234567890",
     "addressFound": "true",
-    "nameAsOnTheWill": "Yes",
-    "postcodeAddress": "57 Hill Rise Cuffley Potters Bar EN6 4RX"
+    "nameAsOnTheWill": "Yes"
   },
   "executors": {
     "list": [
@@ -444,24 +452,32 @@
       {
         "email": "douglas.rice@hmcts.net",
         "mobile": "07773055642",
-        "address": "61 Hill Rise Cuffley Potters Bar EN6 4RX",
         "fullName": "exec2",
         "inviteId": "test-test-e285447c-0b13-42db-8e3e-f1554b66c847",
         "postcode": "EN6 4RX",
         "emailSent": true,
         "isApplying": true,
-        "postcodeAddress": "61 Hill Rise Cuffley Potters Bar EN6 4RX"
+        "address": {
+          "addressLine1": "61 Hill Rise",
+          "addressLine2": "Cuffley",
+          "postTown": "Potters Bar",
+          "postCode": "EN6 4RX"
+        }
       },
       {
         "email": "douglas.rice@hmcts.net",
         "mobile": "07773055642",
-        "address": "63 Hill Rise Cuffley Potters Bar EN6 4RX",
+        "address": {
+          "addressLine1": "63 Hill Rise",
+          "addressLine2": "Cuffley",
+          "postTown": "Potters Bar",
+          "postCode": "EN6 4RX"
+        },
         "fullName": "exec3",
         "inviteId": "test-test-abe3aecd-a768-4231-8a67-bf3c68f7e9b0",
         "postcode": "EN6 4RX",
         "emailSent": true,
-        "isApplying": true,
-        "postcodeAddress": "63 Hill Rise Cuffley Potters Bar EN6 4RX"
+        "isApplying": true
       }
     ],
     "alias": "No",
@@ -475,11 +491,15 @@
       {
         "email": "douglas.rice@hmcts.net",
         "mobile": "07773055642",
-        "address": "61 Hill Rise Cuffley Potters Bar EN6 4RX",
+        "address": {
+          "addressLine1": "61 Hill Rise",
+          "addressLine2": "Cuffley",
+          "postTown": "Potters Bar",
+          "postCode": "EN6 4RX"
+        },
         "fullName": "exec2",
         "postcode": "EN6 4RX",
-        "isApplying": true,
-        "postcodeAddress": "61 Hill Rise Cuffley Potters Bar EN6 4RX"
+        "isApplying": true
       },
       {
         "email": "douglas.rice@hmcts.net",

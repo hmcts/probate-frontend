@@ -42,8 +42,12 @@ class Declaration extends ValidationStep {
 
     prepareDataForTemplate(ctx, content, formdata) {
         const applicant = formdata.applicant || {};
+        const applicantAddress = get(applicant, 'address', {});
         const deceased = formdata.deceased || {};
+        const deceasedAddress = get(deceased, 'address', {});
         const iht = formdata.iht || {};
+        const ihtGrossValue = iht.grossValue ? iht.grossValue.toFixed(2) : 0;
+        const ihtNetValue = iht.netValue ? iht.netValue.toFixed(2) : 0;
         const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
         const codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
         const applicantName = FormatName.format(applicant);
@@ -57,19 +61,19 @@ class Declaration extends ValidationStep {
             intro: content[`intro${multipleApplicantSuffix}`]
                 .replace('{applicantName}', applicantName),
             applicant: content[`legalStatementApplicant${multipleApplicantSuffix}`]
-                .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content, applicant.address))
+                .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content, applicantAddress))
                 .replace('{applicantName}', applicantName)
-                .replace('{applicantAddress}', applicant.address),
+                .replace('{applicantAddress}', applicantAddress.formattedAddress),
             deceased: content.legalStatementDeceased
                 .replace('{deceasedName}', deceasedName)
-                .replace('{deceasedAddress}', deceased.address)
+                .replace('{deceasedAddress}', deceasedAddress.formattedAddress)
                 .replace('{deceasedDob}', deceased.dob_formattedDate)
                 .replace('{deceasedDod}', deceased.dod_formattedDate),
             deceasedOtherNames: deceasedOtherNames ? content.deceasedOtherNames.replace('{deceasedOtherNames}', deceasedOtherNames) : '',
             executorsApplying: this.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, applicantName),
             deceasedEstateValue: content.deceasedEstateValue
-                .replace('{ihtGrossValue}', iht.grossValue)
-                .replace('{ihtNetValue}', iht.netValue),
+                .replace('{ihtGrossValue}', ihtGrossValue)
+                .replace('{ihtNetValue}', ihtNetValue),
             deceasedEstateLand: content[`deceasedEstateLand${multipleApplicantSuffix}`]
                 .replace(/{deceasedName}/g, deceasedName),
             executorsNotApplying: this.executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils)

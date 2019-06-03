@@ -1,12 +1,12 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const SpouseNotApplyingReason = require('app/steps/ui/applicant/spousenotapplyingreason/index');
-const AnyChildren = require('app/steps/ui/deceased/anychildren/index');
-const AnyOtherChildren = require('app/steps/ui/deceased/anyotherchildren/index');
-const AdoptionPlace = require('app/steps/ui/applicant/adoptionplace/index');
-const ApplicantName = require('app/steps/ui/applicant/name/index');
-const StopPage = require('app/steps/ui/stoppage/index');
+const SpouseNotApplyingReason = require('app/steps/ui/applicant/spousenotapplyingreason');
+const AnyChildren = require('app/steps/ui/deceased/anychildren');
+const AnyOtherChildren = require('app/steps/ui/deceased/anyotherchildren');
+const AdoptionPlace = require('app/steps/ui/applicant/adoptionplace');
+const ApplicantName = require('app/steps/ui/applicant/name');
+const StopPage = require('app/steps/ui/stoppage');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const content = require('app/resources/en/translation/applicant/relationshiptodeceased');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
@@ -61,7 +61,7 @@ describe('relationship-to-deceased', () => {
         });
 
         it(`test it redirects to Spouse Not Applying Reason page if relationship is Child and deceased was married: ${expectedNextUrlForSpouseNotApplyingReason}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     const sessionData = {
                         deceased: {
@@ -82,7 +82,7 @@ describe('relationship-to-deceased', () => {
         });
 
         it(`test it redirects to Any Other Children page if relationship is Child and deceased was not married: ${expectedNextUrlForAnyOtherChildren}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     const sessionData = {
                         deceased: {
@@ -103,7 +103,7 @@ describe('relationship-to-deceased', () => {
         });
 
         it(`test it redirects to Adoption Place page if relationship is Adopted Child: ${expectedNextUrlForAdoptionPlace}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     const data = {
                         relationshipToDeceased: content.optionAdoptedChild
@@ -114,7 +114,7 @@ describe('relationship-to-deceased', () => {
         });
 
         it(`test it redirects to Any Children page if relationship is Spouse/Partner and the estate value is > £250k: ${expectedNextUrlForAnyChildren}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     const sessionData = {
                         deceased: {
@@ -138,7 +138,7 @@ describe('relationship-to-deceased', () => {
         });
 
         it(`test it redirects to Applicant Name page if relationship is Spouse/Partner and the estate value is <= £250k: ${expectedNextUrlForApplicantName}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     const sessionData = {
                         deceased: {
@@ -162,7 +162,7 @@ describe('relationship-to-deceased', () => {
         });
 
         it(`test it redirects to Stop page if relationship is Other: ${expectedNextUrlForStopPage}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     const data = {
                         relationshipToDeceased: content.optionOther

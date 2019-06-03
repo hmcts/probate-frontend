@@ -4,7 +4,7 @@ const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const co = require('co');
 const rewire = require('rewire');
-const PaymentStatus = rewire('app/steps/ui/payment/status/index');
+const PaymentStatus = rewire('app/steps/ui/payment/status');
 const nock = require('nock');
 const config = require('app/config');
 
@@ -148,9 +148,10 @@ describe('PaymentStatus', () => {
         });
 
         it('should set redirect to true and payment status to failure if payment is not successful', (done) => {
-            nockMock.reply(200, {caseState: 'CaseCreated'});
+            nockMock.reply(200, {caseState: 'CasePaymentFailed'});
 
             expectedFormData.payment.status = 'Failed';
+            expectedFormData.ccdCase.state = 'CasePaymentFailed';
 
             const revert = PaymentStatus.__set__({
                 Payment: class {

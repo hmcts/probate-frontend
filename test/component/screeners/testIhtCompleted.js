@@ -1,8 +1,8 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const WillLeft = require('app/steps/ui/screeners/willleft/index');
-const StopPage = require('app/steps/ui/stoppage/index');
+const WillLeft = require('app/steps/ui/screeners/willleft');
+const StopPage = require('app/steps/ui/stoppage');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');

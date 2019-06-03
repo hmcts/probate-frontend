@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const IhtValue = require('app/steps/ui/iht/value/index');
+const IhtValue = require('app/steps/ui/iht/value');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('iht-identifier', () => {

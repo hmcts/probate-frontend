@@ -23,29 +23,43 @@ class ExecutorAddress extends AddressStep {
         }
         ctx.otherExecName = ctx.list[ctx.index] && ctx.list[ctx.index].fullName;
         ctx.executorsWrapper = new ExecutorsWrapper(ctx);
+
         return ctx;
     }
 
     handleGet(ctx) {
-        super.handleGet(ctx);
+        let errors = [];
+        [ctx, errors] = super.handleGet(ctx);
+
+        if (errors && errors.length > 0) {
+            return [ctx, errors];
+        }
+
         if (ctx.list[ctx.index].address) {
-            ctx.address = ctx.list[ctx.index].postcodeAddress || ctx.list[ctx.index].freeTextAddress;
+            ctx.address = ctx.list[ctx.index].address;
+            ctx.addressLine1 = get(ctx.address, 'addressLine1', '');
+            ctx.addressLine2 = get(ctx.address, 'addressLine2', '');
+            ctx.addressLine3 = get(ctx.address, 'addressLine3', '');
+            ctx.postTown = get(ctx.address, 'postTown', '');
+            ctx.county = get(ctx.address, 'county', '');
+            ctx.newPostCode = get(ctx.address, 'postCode', '');
+            ctx.country = get(ctx.address, 'country', 'United Kingdom');
+        }
+        if (ctx.list[ctx.index].postcode) {
             ctx.postcode = ctx.list[ctx.index].postcode;
-            if (ctx.list[ctx.index].postcodeAddress) {
-                ctx.addresses = [{formatted_address: ctx.address}];
-            } else {
-                ctx.freeTextAddress = ctx.list[ctx.index].freeTextAddress;
-            }
+        }
+        if (ctx.list[ctx.index].addresses) {
+            ctx.addresses = ctx.list[ctx.index].addresses;
         }
 
         return [ctx, ctx.errors];
     }
 
     handlePost(ctx, errors) {
-        ctx.list[ctx.index].address = ctx.postcodeAddress || ctx.freeTextAddress;
+        super.handlePost(ctx, errors);
+        ctx.list[ctx.index].address = ctx.address;
         ctx.list[ctx.index].postcode = ctx.postcode ? ctx.postcode.toUpperCase() : ctx.postcode;
-        ctx.list[ctx.index].postcodeAddress = ctx.postcodeAddress;
-        ctx.list[ctx.index].freeTextAddress = ctx.freeTextAddress;
+        ctx.list[ctx.index].addresses = ctx.addresses;
 
         ctx.index = this.recalcIndex(ctx, ctx.index);
         if (ctx.index === -1) {
@@ -81,16 +95,14 @@ class ExecutorAddress extends AddressStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.otherExecName;
-        delete ctx.address;
-        delete ctx.postcodeAddress;
-        delete ctx.freeTextAddress;
         delete ctx.postcode;
-        delete ctx.addresses;
         delete ctx.allExecsApplying;
         delete ctx.continue;
         delete ctx.index;
         delete ctx.executorsWrapper;
         delete ctx.addressFound;
+        delete ctx.address;
+        delete ctx.addresses;
         return [ctx, formdata];
     }
 

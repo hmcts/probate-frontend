@@ -42,7 +42,6 @@ const dataMap = {
     caseId: 'ccdCase.id',
     caseState: 'ccdCase.state',
     registry: 'registry',
-    submissionReference: 'submissionReference',
 };
 
 const submitData = (ctx, data) => {
@@ -56,7 +55,7 @@ const submitData = (ctx, data) => {
 
     const ihtMethod = get(data, 'iht.method');
 
-    if (ihtMethod === steps.IhtMethod.generateContent(ctx).paperOption) {
+    if (ihtMethod === steps.IhtMethod.generateContent(ctx).optionPaper) {
         mappedData.ihtIdentifier = steps.CopiesOverseas.commonContent().notApplicable;
     } else {
         mappedData.ihtIdentifier = get(data, 'iht.identifier');

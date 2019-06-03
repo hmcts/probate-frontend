@@ -1,7 +1,13 @@
 {
   "iht": {
-     "method": "By post",
-     "grossValue": 123,
-     "netValue": 111
+    "method": "By post",
+    "grossValueFieldIHT205": "123.10",
+    "netValueFieldIHT205": "111.34",
+    "grossValueFieldIHT207": "123.10",
+    "netValueFieldIHT207": "111.34",
+    "grossValueFieldIHT400421": "123.10",
+    "netValueFieldIHT400421": "111.34",
+    "grossValue": 123.1,
+    "netValue": 111.34
   }
 }

@@ -107,34 +107,31 @@ describe('ExecutorAddress', () => {
     });
 
     describe('handleGet()', () => {
-        it('sets the address to the postcodeAddress when postcodeAddress exists', (done) => {
+        it('sets the address to address of list', (done) => {
             const testCtx = {
                 list: [{
-                    address: 'the address',
-                    postcodeAddress: 'the postcode address'
+                    address: {
+                        addressLine1: 'line1',
+                        addressLine2: 'line2',
+                        addressLine3: 'line3',
+                        postTown: 'town',
+                        county: 'county',
+                        postCode: 'postcode',
+                        country: 'country'
+                    },
                 }],
                 index: 0,
                 errors: []
             };
             const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
-            expect(ctx.address).to.equal(testCtx.list[0].postcodeAddress);
-            expect(errors).to.deep.equal(testCtx.errors);
-            done();
-        });
-
-        it('sets the address to the freeTextAddress when freeTextAddress exists', (done) => {
-            const testCtx = {
-                list: [{
-                    address: 'the address',
-                    freeTextAddress: 'the postcode address'
-                }],
-                index: 0,
-                errors: []
-            };
-            const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
-
-            expect(ctx.address).to.equal(testCtx.list[0].freeTextAddress);
+            expect(ctx.address).to.equal(testCtx.list[0].address);
+            expect(ctx.addressLine1).to.equal(ctx.address.addressLine1);
+            expect(ctx.addressLine2).to.equal(ctx.address.addressLine2);
+            expect(ctx.postTown).to.equal(ctx.address.postTown);
+            expect(ctx.county).to.equal(ctx.address.county);
+            expect(ctx.newPostCode).to.equal(ctx.address.postCode);
+            expect(ctx.country).to.equal(ctx.address.country);
             expect(errors).to.deep.equal(testCtx.errors);
             done();
         });
@@ -151,38 +148,6 @@ describe('ExecutorAddress', () => {
             const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
             expect(ctx.postcode).to.equal(testCtx.list[0].postcode);
-            expect(errors).to.deep.equal(testCtx.errors);
-            done();
-        });
-
-        it('sets the addresses to address when postcodeAddress exists', (done) => {
-            const testCtx = {
-                list: [{
-                    address: 'the address',
-                    postcodeAddress: 'the postcode address'
-                }],
-                index: 0,
-                errors: []
-            };
-            const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
-
-            expect(ctx.addresses).to.deep.equal([{formatted_address: ctx.address}]);
-            expect(errors).to.deep.equal(testCtx.errors);
-            done();
-        });
-
-        it('sets the freeTextAddress to freeTextAddress when postcodeAddress does not exist', (done) => {
-            const testCtx = {
-                list: [{
-                    address: 'the address',
-                    freeTextAddress: 'the free text address'
-                }],
-                index: 0,
-                errors: []
-            };
-            const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
-
-            expect(ctx.freeTextAddress).to.deep.equal(testCtx.list[0].freeTextAddress);
             expect(errors).to.deep.equal(testCtx.errors);
             done();
         });
@@ -214,8 +179,14 @@ describe('ExecutorAddress', () => {
                 }],
                 index: 0,
                 executorsWrapper: new ExecutorsWrapper(),
-                postcodeAddress: 'the postcode address',
-                freeTextAddress: 'the free text address',
+                addressLine1: 'line1',
+                addressLine2: 'line2',
+                addressLine3: 'line3',
+                postTown: 'town',
+                county: 'county',
+                newPostCode: 'postcode',
+                country: 'country',
+                addresses: ['displayAddress1', 'displayAddress2'],
                 postcode: 'the postcode'
             };
             testErrors = [];
@@ -226,20 +197,19 @@ describe('ExecutorAddress', () => {
 
             expect(ctx.list[0]).to.deep.equal({
                 isApplying: true,
-                address: testCtx.postcodeAddress,
                 postcode: testCtx.postcode.toUpperCase(),
-                postcodeAddress: testCtx.postcodeAddress,
-                freeTextAddress: testCtx.freeTextAddress
+                address: {
+                    addressLine1: 'line1',
+                    addressLine2: 'line2',
+                    addressLine3: 'line3',
+                    formattedAddress: 'line1 line2 line3 town postcode county country ',
+                    postTown: 'town',
+                    county: 'county',
+                    postCode: 'postcode',
+                    country: 'country'
+                },
+                addresses: ['displayAddress1', 'displayAddress2']
             });
-            expect(errors).to.deep.equal(testErrors);
-            done();
-        });
-
-        it('sets address to freeTextAddress if postcodeAddress is not available', (done) => {
-            delete testCtx.postcodeAddress;
-            const [ctx, errors] = ExecutorAddress.handlePost(testCtx, testErrors);
-
-            expect(ctx.list[0].address).to.equal(testCtx.freeTextAddress);
             expect(errors).to.deep.equal(testErrors);
             done();
         });
@@ -338,11 +308,12 @@ describe('ExecutorAddress', () => {
         it('removes the correct values from the context', (done) => {
             const testCtx = {
                 otherExecName: 'James Miller',
-                address: '1 Red Street, London, L1 1LL',
-                postcodeAddress: '1 Red Street, London, L1 1LL',
-                freeTextAddress: '1 Red Street, London, L1 1LL',
+                address: {
+                    addressLine1: '1 Red Street',
+                    postTown: 'London',
+                    postCode: 'L1 1LL'
+                },
                 postcode: 'L1 1LL',
-                addresses: [],
                 allExecsApplying: true,
                 continue: true,
                 index: 0,
@@ -366,7 +337,11 @@ describe('ExecutorAddress', () => {
                 isApplying: true,
                 email: 'james.miller@example.com',
                 mobile: '07909123456',
-                address: '1 Red Street, London, L1 1LL'
+                address: {
+                    addressLine1: '1 Red Street',
+                    postTown: 'London',
+                    postCode: 'L1 1LL'
+                }
             }];
         });
 

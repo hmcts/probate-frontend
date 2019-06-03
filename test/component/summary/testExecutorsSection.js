@@ -117,6 +117,7 @@ describe('summary-executor-section', () => {
                     playbackData.applicantAddress = applicantContent.address.question;
 
                     Object.assign(playbackData, executorsData.applicant);
+                    playbackData.address = executorsData.applicant.address.formattedAddress;
                     playbackData.exec2fullName = executorsData.executors.list[1].fullName;
                     playbackData.exec2IsApplying = executorsData.executors.list[1].isApplying ? 'Yes' : 'No';
                     playbackData.exec2HasAlias = executorsData.executors.list[1].hasOtherName ? 'Yes': 'No';

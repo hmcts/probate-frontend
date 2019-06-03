@@ -1,4 +1,5 @@
 'use strict';
+
 const config = require('app/config');
 const FeesRegister = require('app/services/FeesRegister');
 const {URLSearchParams} = require('url');
@@ -10,7 +11,6 @@ class FeesLookup extends FeesRegister {
         const url = `${this.endpoint}${config.services.feesRegister.paths.feesLookup}?${params.toString()}`;
         return super.get(url, headers);
     }
-
 }
 
 module.exports = FeesLookup;

@@ -1,6 +1,6 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/thankyou/index');
+const pageUnderTest = require('app/steps/ui/thankyou');
 const thankYouContent = require('app/resources/en/translation/thankyou');
 
 module.exports = function () {

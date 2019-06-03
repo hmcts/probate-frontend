@@ -3,11 +3,11 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorsInvite = require('app/steps/ui/executors/invite/index');
-const ExecutorsUpdateInvite = require('app/steps/ui/executors/updateinvite/index');
-const ExecutorsAdditionalInvite = require('app/steps/ui/executors/additionalinvite/index');
-const ExecutorsChangeMade = require('app/steps/ui/executors/changemade/index');
-const Tasklist = require('app/steps/ui/tasklist/index');
+const ExecutorsInvite = require('app/steps/ui/executors/invite');
+const ExecutorsUpdateInvite = require('app/steps/ui/executors/updateinvite');
+const ExecutorsAdditionalInvite = require('app/steps/ui/executors/additionalinvite');
+const ExecutorsChangeMade = require('app/steps/ui/executors/changemade');
+const Tasklist = require('app/steps/ui/tasklist');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const {assert} = require('chai');
 
@@ -28,13 +28,13 @@ describe('declaration, multiple applicants', () => {
 
         contentData = {
             applicantName: `${applicantData.firstName} ${applicantData.lastName}`,
-            applicantAddress: applicantData.address,
+            applicantAddress: applicantData.address.formattedAddress,
             deceasedName: `${deceasedData.firstName} ${deceasedData.lastName}`,
-            deceasedAddress: deceasedData.address,
+            deceasedAddress: deceasedData.address.formattedAddress,
             deceasedDob: deceasedData.dob_formattedDate,
             deceasedDod: deceasedData.dod_formattedDate,
-            ihtGrossValue: sessionData.iht.grossValue,
-            ihtNetValue: sessionData.iht.netValue,
+            ihtGrossValue: sessionData.iht.grossValueField,
+            ihtNetValue: sessionData.iht.netValueField,
             detailsOfApplicants: 'Bob Smith of flat 1, somewhere rd, nowhere., fname1other sname1other of 1 qwe\r\n1 asd\r\n1 zxc and fname4 sname4 of 4 qwe\r\n4 asd\r\n4 zxc',
             applicantCurrentName: 'fname1other sname1other',
             applicantCurrentNameSign: 'fname1other sname1other',
@@ -43,8 +43,8 @@ describe('declaration, multiple applicants', () => {
 
         sessionData.executors.list = [
             {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true},
-            {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', freeTextAddress: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true},
-            {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', freeTextAddress: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true}];
+            {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: {formattedAddress: '1 qwe\r\n1 asd\r\n1 zxc'}, addressFlag: true},
+            {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: {formattedAddress: '4 qwe\r\n4 asd\r\n4 zxc'}, addressFlag: true}];
     });
 
     afterEach(() => {
@@ -690,8 +690,8 @@ describe('declaration, multiple applicants', () => {
                 executors: {
                     list: [
                         {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true},
-                        {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', freeTextAddress: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true},
-                        {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', freeTextAddress: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true}
+                        {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true},
+                        {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true}
                     ]
                 }
             };
@@ -725,8 +725,8 @@ describe('declaration, multiple applicants', () => {
                 executors: {
                     list: [
                         {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true},
-                        {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', freeTextAddress: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true},
-                        {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', freeTextAddress: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true, emailSent: false}
+                        {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true},
+                        {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true, emailSent: false}
                     ],
                     invitesSent: 'true'
                 }
@@ -746,8 +746,8 @@ describe('declaration, multiple applicants', () => {
                 executors: {
                     list: [
                         {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true},
-                        {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', freeTextAddress: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true, emailSent: true},
-                        {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', freeTextAddress: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true, emailChanged: true, emailSent: true}
+                        {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true, emailSent: true},
+                        {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true, emailChanged: true, emailSent: true}
                     ],
                     invitesSent: 'true'
                 }

@@ -10,8 +10,10 @@
     "completed": "Yes",
     "method": "By post",
     "form": "IHT205",
-    "grossValue": "123456",
-    "netValue": "12345"
+    "grossValueFieldIHT205": "123456.10",
+    "netValueFieldIHT205": "12345.34",
+    "grossValue": 123456.1,
+    "netValue": 12345.34
   },
   "applicant": {
     "executor":"Yes",
@@ -29,10 +31,14 @@
       }
     ],
     "addressFound":"true",
-    "postcodeAddress":"Adam & Eve 81 Petty France London SW1H 9EX",
-    "address":"Adam & Eve 81 Petty France London SW1H 9EX"
+    "address": {
+      "addressLine1":"Adam & Eve",
+      "addressLine2": "81 Petty France",
+      "formattedAddress":"Adam & Eve 81 Petty France London SW1H 9EX",
+      "postTown": "London",
+      "postCode": "SW1H 9EX"
+    }
   },
-
   "executors": {
     "executorsNumber": 4,
     "list": [
@@ -59,8 +65,11 @@
         "currentNameReason": "Divorce",
         "email": "haji58@hotmail.co.uk",
         "mobile": "07963723856",
-        "address": "exec_3_address\r\n",
-        "freeTextAddress": "exec_3_address\r\n",
+        "address": {
+          "addressLine1": "exec_3_address",
+          "postTown": "town",
+          "postCode": "postCode"
+        },
         "inviteId": {},
         "emailSent": true
       },
@@ -109,8 +118,13 @@
       }
     ],
     "addressFound": "true",
-    "postcodeAddress": "Adam & Eve 81 Petty France London SW1H 9EX",
-    "address": "Adam & Eve 81 Petty France London SW1H 9EX"
+    "address": {
+      "addressLine1": "Adam & Eve",
+      "addressLine2": "81 Petty France",
+      "formattedAddress": "Adam & Eve 81 Petty France London SW1H 9EX",
+      "postTown": "London",
+      "postCode": "SW1H 9EX"
+    }
   },
   "summary": {
     "readyToDeclare": false
@@ -139,7 +153,6 @@
     "reference": "RC-1234-5678-9012-3456",
     "status": "success"
   },
-
   "declaration": {
     "legalStatement": {
       "applicant": "We, Bob Richard Smith of Adam & Eve 81 Petty France London SW1H 9EX and exec_3_new_name of exec_3_address\r\n, make the following statement:",
@@ -155,7 +168,7 @@
           "sign": "exec_3_new_name will sign a photocopy of what they believe to be the true and original last will and testament of died_firstname died_lastname. Bob Richard Smith will send the signed photocopy to the probate registry."
         }
       ],
-      "deceasedEstateValue": "The gross value for the estate amounts to &pound;123456 and the net value for the estate amounts to &pound;12345.",
+      "deceasedEstateValue": "The gross value for the estate amounts to &pound;123456.10 and the net value for the estate amounts to &pound;12345.34.",
       "deceasedEstateLand": "To the best of our knowledge, information and belief, there was no land vested in died_firstname died_lastname which was settled previously to the death (and not by the will) of died_firstname died_lastname and which remained settled land notwithstanding such death.",
       "executorsNotApplying": [
         "executor_2_name, an executor named in the will or codicils, is not making this application because they died before died_firstname died_lastname died.",
@@ -199,8 +212,7 @@
     "reference": "RC-1234-5678-9012-3456",
     "date_created": "2018-08-29T15:25:11.920+0000",
     "_links": {}
-  },
-  "submissionReference": 97
+  }
 }
 
 

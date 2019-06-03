@@ -2,7 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const json = require('app/resources/en/translation/executors/applying');
+const content = require('app/resources/en/translation/executors/applying');
 
 class ExecutorsApplying extends ValidationStep {
 
@@ -25,7 +25,7 @@ class ExecutorsApplying extends ValidationStep {
     nextStepOptions() {
         const nextStepOptions = {
             options: [
-                {key: 'otherExecutorsApplying', value: json.optionYes, choice: 'otherExecutorsApplying'}
+                {key: 'otherExecutorsApplying', value: content.optionYes, choice: 'otherExecutorsApplying'}
             ]
         };
         return nextStepOptions;

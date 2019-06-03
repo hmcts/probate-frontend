@@ -20,7 +20,9 @@ class WillLeft extends EligibilityValidationStep {
     }
 
     handlePost(ctx, errors, formdata, session) {
-        session.willLeft = ctx.left;
+        session.caseType = (ctx.left === content.optionYes) ? 'gop' : 'intestacy';
+        ctx.caseType = session.caseType;
+
         return super.handlePost(ctx, errors, formdata, session);
     }
 
@@ -47,6 +49,7 @@ class WillLeft extends EligibilityValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        delete ctx.left;
         delete ctx.isIntestacyQuestionsToggleEnabled;
         return [ctx, formdata];
     }

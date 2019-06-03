@@ -99,7 +99,6 @@ class PaymentBreakdown extends Step {
                 logger.error('Failed to create case in CCD.', errors);
                 return [ctx, errors];
             }
-            formdata.submissionReference = result.submissionReference;
             formdata.registry = result.registry;
             set(formdata, 'ccdCase.id', result.caseId);
             set(formdata, 'ccdCase.state', result.caseState);
@@ -162,9 +161,8 @@ class PaymentBreakdown extends Step {
         const result = yield submitData.post(formdata, ctx, softStop);
         logger.info(`submitData.post result = ${JSON.stringify(result)}`);
 
-        if (result.name === 'Error' || result === 'DUPLICATE_SUBMISSION') {
-            const keyword = result === 'DUPLICATE_SUBMISSION' ? 'duplicate' : 'failure';
-            errors.push(FieldError('submit', keyword, this.resourcePath, ctx));
+        if (result.name === 'Error') {
+            errors.push(FieldError('submit', 'failure', this.resourcePath, ctx));
         }
 
         logger.info({tags: 'Analytics'}, 'Application Case Created');

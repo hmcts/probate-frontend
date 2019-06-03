@@ -125,8 +125,6 @@ describe('Executors-Applying', function () {
                     'currentName': 'Prince',
                     'isApplying': false,
                     'notApplyingKey': 'optionRenunciated',
-                    'freeTextAddress': 'Princes house address',
-                    'postcodeAddress': 'Adam & Eve 81 Petty France London SW1H 9EX',
                     'notApplyingReason': 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)',
                     'currentNameReason': 'Divorce',
 
@@ -164,11 +162,6 @@ describe('Executors-Applying', function () {
             assert.isUndefined(data.hasOtherName);
         });
 
-        it('removes postcodeAddress from data if isApplying is false', () => {
-            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
-            assert.isUndefined(data.postcodeAddress);
-        });
-
         it('removes currentNameReason from data if isApplying is false', () => {
             const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
             assert.isUndefined(data.currentNameReason);
@@ -201,7 +194,6 @@ describe('Executors-Applying', function () {
                         fullName: 'Cher',
                         isApplying: false,
                         notApplyingKey: 'optionRenunciated',
-                        freeTextAddress: 'cher address',
                         notApplyingReason: 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)'
                     }
                 ],

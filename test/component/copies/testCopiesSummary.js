@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const requireDir = require('require-directory');
-const TaskList = require('app/steps/ui/tasklist/index');
+const TaskList = require('app/steps/ui/tasklist');
 const copiesContent = requireDir(module, '../../../app/resources/en/translation/copies');
 const assetsContent = requireDir(module, '../../../app/resources/en/translation/assets');
 

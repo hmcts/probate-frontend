@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorsAlias = require('app/steps/ui/executors/alias/index');
+const ExecutorsAlias = require('app/steps/ui/executors/alias');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-dealing-with-estate', () => {

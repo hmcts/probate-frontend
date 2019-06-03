@@ -2,12 +2,12 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
-const content = require('app/resources/en/translation/deceased/assetsoutside');
+const content = require('app/resources/en/translation/deceased/anydeceasedchildren');
 
-class AssetsOutside extends ValidationStep {
+class AnyDeceasedChildren extends ValidationStep {
 
     static getUrl() {
-        return '/assets-outside-england-wales';
+        return '/any-deceased-children';
     }
 
     getContextData(req) {
@@ -20,10 +20,16 @@ class AssetsOutside extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'assetsOutside', value: content.optionYes, choice: 'hasAssetsOutside'}
+                {key: 'anyDeceasedChildren', value: content.optionYes, choice: 'hadDeceasedChildren'}
             ]
         };
     }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.deceasedName;
+        return [ctx, formdata];
+    }
 }
 
-module.exports = AssetsOutside;
+module.exports = AnyDeceasedChildren;

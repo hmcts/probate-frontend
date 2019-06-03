@@ -8,7 +8,7 @@ describe('Executors-Invite', () => {
     let ctx;
     const ExecsInvite = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).ExecutorsInvite;
 
-    describe('getContextData', () => {
+    describe('getContextData()', () => {
         const req = {
             session: {
                 form: {
@@ -46,7 +46,7 @@ describe('Executors-Invite', () => {
         });
     });
 
-    describe('action', () => {
+    describe('action()', () => {
         it('test inviteSuffix is removed from the context', () => {
             ctx = {
                 inviteSuffix: '-multiple'

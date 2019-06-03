@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorAddress = require('app/steps/ui/executors/address/index');
+const ExecutorAddress = require('app/steps/ui/executors/address');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 

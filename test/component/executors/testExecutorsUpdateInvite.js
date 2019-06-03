@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const {assert} = require('chai');
-const ExecutorsUpdateInviteSent = require('app/steps/ui/executors/updateinvitesent/index');
+const ExecutorsUpdateInviteSent = require('app/steps/ui/executors/updateinvitesent');
 
 describe('executors-update-invite', () => {
     let testWrapper;

@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const Tasklist = require('app/steps/ui/tasklist/index');
+const Tasklist = require('app/steps/ui/tasklist');
 
 describe('executors-change-made', () => {
     let testWrapper;

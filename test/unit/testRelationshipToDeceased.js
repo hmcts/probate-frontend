@@ -149,7 +149,7 @@ describe('RelationshipToDeceased', () => {
         });
     });
 
-    describe('action', () => {
+    describe('action()', () => {
         it('test it cleans up context', () => {
             const ctx = {
                 assetsValue: 450000,

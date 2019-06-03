@@ -30,6 +30,21 @@ class DeceasedMaritalStatus extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.deceasedName;
         delete ctx.divorcedOrSeparated;
+
+        if (formdata.deceased && formdata.deceased.maritalStatus && ctx.maritalStatus !== formdata.deceased.maritalStatus) {
+            delete ctx.divorcePlace;
+            delete ctx.anyChildren;
+            delete ctx.anyOtherChildren;
+            delete ctx.allChildrenOver18;
+            delete ctx.anyDeceasedChildren;
+            delete ctx.anyGrandchildrenUnder18;
+
+            if (formdata.applicant) {
+                delete formdata.applicant.relationshipToDeceased;
+                delete formdata.applicant.spouseNotApplyingReason;
+                delete formdata.applicant.adoptionPlace;
+            }
+        }
         return [ctx, formdata];
     }
 }

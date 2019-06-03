@@ -10,7 +10,6 @@ class FeesRegister extends Service {
         });
         return this.fetchJson(url, fetchOptions);
     }
-
 }
 
 module.exports = FeesRegister;

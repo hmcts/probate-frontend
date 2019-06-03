@@ -2,8 +2,8 @@
   "title": "How was the Inheritance Tax (IHT) form submitted",
   "question": "How was the Inheritance Tax (IHT) form submitted?",
   "paragraph1": "Say how it will be sent if you haven&rsquo;t sent it yet.",
-  "onlineOption": "Through the HMRC online service",
-  "paperOption": "By post",
+  "optionOnline": "Through the HMRC online service",
+  "optionPaper": "By post",
   "legend": "How was the Inheritance Tax (IHT) form submitted?",
 
   "errors": {

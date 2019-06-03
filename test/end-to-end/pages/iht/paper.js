@@ -1,6 +1,6 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/iht/paper/index');
+const pageUnderTest = require('app/steps/ui/iht/paper');
 const commonContent = require('app/resources/en/translation/common');
 
 module.exports = function (formName, grossAmount, netAmount) {

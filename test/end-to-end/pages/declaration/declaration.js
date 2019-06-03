@@ -1,7 +1,7 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/declaration/index');
+const pageUnderTest = require('app/steps/ui/declaration');
 
 module.exports = function () {
     const I = this;

@@ -1,8 +1,8 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const TaskList = require('app/steps/ui/tasklist/index');
-const ExecutorRoles = require('app/steps/ui/executors/roles/index');
+const TaskList = require('app/steps/ui/tasklist');
+const ExecutorRoles = require('app/steps/ui/executors/roles');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 

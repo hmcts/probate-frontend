@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const {assert} = require('chai');
-const ExecutorsAdditionalInviteSent = require('app/steps/ui/executors/additionalinvitesent/index');
+const ExecutorsAdditionalInviteSent = require('app/steps/ui/executors/additionalinvitesent');
 const nock = require('nock');
 const config = require('app/config');
 const businessServiceUrl = config.services.validation.url.replace('/validate', '');

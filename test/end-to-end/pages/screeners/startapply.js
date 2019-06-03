@@ -1,6 +1,6 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/screeners/startapply/index');
+const pageUnderTest = require('app/steps/ui/screeners/startapply');
 
 module.exports = function () {
     const I = this;

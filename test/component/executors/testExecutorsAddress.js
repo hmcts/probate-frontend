@@ -1,9 +1,9 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const TaskList = require('app/steps/ui/tasklist/index');
-const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails/index');
-const ExecutorRoles = require('app/steps/ui/executors/roles/index');
+const TaskList = require('app/steps/ui/tasklist');
+const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails');
+const ExecutorRoles = require('app/steps/ui/executors/roles');
 
 describe('executors-address', () => {
     let testWrapper, sessionData;
@@ -16,7 +16,10 @@ describe('executors-address', () => {
         sessionData = {
             applicant: {
                 firstName: 'Lead',
-                lastName: 'Applicant'
+                lastName: 'Applicant',
+                address: {
+                    formattedAddress: ''
+                }
             },
             executors: {
                 executorsNumber: 3,
@@ -50,50 +53,87 @@ describe('executors-address', () => {
 
         });
 
-        it('test address schema validation when no address search has been done', (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {addressFound: 'none'};
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testErrors(done, data, 'required', ['postcodeLookup']);
-                });
-
-        });
-
-        it('test address schema validation when address search is successful, but no address is selected/entered', (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {addressFound: 'true'};
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testErrors(done, data, 'oneOf', ['crossField']);
-                });
-        });
-
-        it('should return error when freeTextAddress is over 150 characters', (done) => {
+        it('should return error when addressLine1 is over 150 characters', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        freeTextAddress: '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111',
+                        addressLine1: '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111',
+                        postTown: 'value',
+                        newPostCode: 'value'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testErrors(done, data, 'oneOf', ['crossField']);
+                    testWrapper.testErrors(done, data, 'invalid', ['addressLine1']);
                 });
         });
 
-        it('test address schema validation when address search is successful, and two addresses are provided', (done) => {
+        it('should return error when addressLine1 is less than 2 characters', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        addressFound: 'true',
-                        freeTextAddress: 'free text address',
-                        postcodeAddress: 'postcode address'
+                        addressLine1: '1',
+                        postTown: 'value',
+                        newPostCode: 'value'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testErrors(done, data, 'oneOf', ['crossField']);
+                    testWrapper.testErrors(done, data, 'invalid', ['addressLine1']);
+                });
+        });
+
+        it('should return error when postTown is over 50 characters', (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        addressLine1: 'value',
+                        postTown: '123456789012345678901234567890123456789012345678901',
+                        newPostCode: 'value'
+                    };
+                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+                    testWrapper.testErrors(done, data, 'invalid', ['postTown']);
+                });
+        });
+
+        it('should return error when postTown is less than 2 characters', (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        addressLine1: 'value',
+                        postTown: '1',
+                        newPostCode: 'value'
+                    };
+                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+                    testWrapper.testErrors(done, data, 'invalid', ['postTown']);
+                });
+        });
+
+        it('should return error when newPostCode is over 14 characters', (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        addressLine1: 'value',
+                        postTown: 'value',
+                        newPostCode: '012345678912345'
+                    };
+                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+                    testWrapper.testErrors(done, data, 'invalid', ['newPostCode']);
+                });
+        });
+
+        it('should return error when newPostCode is less than 2 characters', (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        addressLine1: 'value',
+                        postTown: 'value',
+                        newPostCode: '0'
+                    };
+                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+                    testWrapper.testErrors(done, data, 'invalid', ['newPostCode']);
                 });
         });
 
@@ -101,11 +141,9 @@ describe('executors-address', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const data = {
-                        addressFound: 'false'
-                    };
+                    const data = {};
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testErrors(done, data, 'required', ['freeTextAddress']);
+                    testWrapper.testErrors(done, data, 'required', ['addressLine1']);
                 });
         });
 
@@ -129,8 +167,9 @@ describe('executors-address', () => {
                 .end(() => {
                     const data = {
                         index: 2,
-                        postcode: 'ea1 eaf',
-                        postcodeAddress: '102 Petty France'
+                        addressLine1: 'line1',
+                        postTown: 'town',
+                        newPostCode: 'postCode',
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
                     testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
@@ -143,8 +182,9 @@ describe('executors-address', () => {
                 .end(() => {
                     const data = {
                         index: 2,
-                        postcode: 'ea1 eaf',
-                        postcodeAddress: '102 Petty France'
+                        addressLine1: 'line1',
+                        postTown: 'town',
+                        newPostCode: 'postCode',
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecRoles);
@@ -171,8 +211,9 @@ describe('executors-address', () => {
                 .end(() => {
                     const data = {
                         index: 1,
-                        postcode: 'ea1 eaf',
-                        postcodeAddress: '102 Petty France'
+                        addressLine1: 'line1',
+                        postTown: 'town',
+                        newPostCode: 'postCode',
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecContactDetails);

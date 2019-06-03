@@ -34,6 +34,9 @@ class CopiesUk extends ValidationStep {
         super.action(ctx, formdata);
         delete formdata.applicant.addresses;
         delete formdata.deceased.addresses;
+        formdata.executors.list.forEach((executor) => {
+            delete executor.addresses;
+        });
         return [ctx, formdata];
     }
 }

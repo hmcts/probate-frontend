@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const TaskList = require('app/steps/ui/tasklist/index');
+const TaskList = require('app/steps/ui/tasklist');
 
 describe('executors-additional-invite-sent', () => {
     let testWrapper;

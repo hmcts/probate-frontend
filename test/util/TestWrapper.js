@@ -52,8 +52,9 @@ class TestWrapper {
             .catch(done);
     }
 
-    testDataPlayback(done, data, cookies = []) {
+    testDataPlayback(done, data, cookies = [], excludeKeys = []) {
         const res = this.agent.get(this.pageUrl);
+        const dataToCheck = cloneDeep(filter(data, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
 
         if (cookies.length) {
             const cookiesString = this.setCookiesString(res, cookies);
@@ -62,7 +63,7 @@ class TestWrapper {
 
         res.expect('Content-type', /html/)
             .then(response => {
-                this.assertContentIsPresent(response.text, data);
+                this.assertContentIsPresent(response.text, dataToCheck);
                 done();
             })
             .catch(done);

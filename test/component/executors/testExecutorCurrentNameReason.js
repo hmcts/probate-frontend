@@ -1,8 +1,8 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails/index');
-const ExecutorCurrentName = require('app/steps/ui/executors/currentname/index');
+const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails');
+const ExecutorCurrentName = require('app/steps/ui/executors/currentname');
 
 describe('/executor-current-name-reason/', () => {
     let testWrapper, sessionData;

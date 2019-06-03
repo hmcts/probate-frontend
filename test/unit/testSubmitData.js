@@ -38,7 +38,7 @@ describe('submit-data', () => {
                 {'name': 'exec_3_new_name , an executor named in the will or codicils as executor_3_name, is applying for probate.',
                     'sign': 'exec_3_new_name will sign a photocopy of what they believe to be the true and original last will and testament of died_firstname died_lastname. Bob Richard Smith will send the signed photocopy to the probate registry.'
                 }],
-            'deceasedEstateValue': 'The gross value for the estate amounts to &pound;123456 and the net value for the estate amounts to &pound;12345.',
+            'deceasedEstateValue': 'The gross value for the estate amounts to &pound;123456.10 and the net value for the estate amounts to &pound;12345.34.',
             'deceasedEstateLand': 'To the best of our knowledge, information and belief, there was no land vested in died_firstname died_lastname which was settled previously to the death (and not by the will) of died_firstname died_lastname and which remained settled land notwithstanding such death.',
             'executorsNotApplying': [
                 'executor_2_name, an executor named in the will or codicils, is not making this application because they died before died_firstname died_lastname died.',
@@ -70,8 +70,11 @@ describe('submit-data', () => {
             'currentNameReason': 'Divorce',
             'email': 'haji58@hotmail.co.uk',
             'mobile': '07963723856',
-            'address': 'exec_3_address\r\n',
-            'freeTextAddress': 'exec_3_address\r\n',
+            'address': {
+                'addressLine1': 'exec_3_address',
+                'postCode': 'postCode',
+                'postTown': 'town'
+            },
             'inviteId': {},
             'emailSent': true
         }];
@@ -121,13 +124,29 @@ describe('submit-data', () => {
             'userId': '999999999',
         };
 
+        const deceasedAddress = {
+            'addressLine1': 'Adam & Eve',
+            'addressLine2': '81 Petty France',
+            'formattedAddress': 'Adam & Eve 81 Petty France London SW1H 9EX',
+            'postCode': 'SW1H 9EX',
+            'postTown': 'London'
+        };
+
+        const applicantAddress = {
+            'addressLine1': 'Adam & Eve',
+            'addressLine2': '81 Petty France',
+            'formattedAddress': 'Adam & Eve 81 Petty France London SW1H 9EX',
+            'postCode': 'SW1H 9EX',
+            'postTown': 'London'
+        };
+
         assert.nestedPropertyVal(mappedData, 'applicantFirstName', 'Bob Richard');
         assert.nestedPropertyVal(mappedData, 'applicantLastName', 'Smith');
         assert.nestedPropertyVal(mappedData, 'applicantSameWillName', 'No');
         assert.nestedPropertyVal(mappedData, 'applicantAlias', 'Bobby Richard Smith');
         assert.nestedPropertyVal(mappedData, 'applicantAliasReason', 'other');
         assert.nestedPropertyVal(mappedData, 'applicantOtherReason', 'nickname');
-        assert.nestedPropertyVal(mappedData, 'applicantAddress', 'Adam & Eve 81 Petty France London SW1H 9EX');
+        assert.deepNestedPropertyVal(mappedData, 'applicantAddress', applicantAddress);
         assert.nestedPropertyVal(mappedData, 'applicantPostcode', 'SW1H 9EX');
         assert.nestedPropertyVal(mappedData, 'applicantPhone', '07934235245');
         assert.nestedPropertyVal(mappedData, 'applicantEmail', 'test@hotmail.com');
@@ -136,7 +155,7 @@ describe('submit-data', () => {
         assert.nestedPropertyVal(mappedData, 'deceasedAliasAssets', 'Yes');
         assert.deepNestedPropertyVal(mappedData, 'deceasedOtherNames', deceasedOtherNames);
         assert.nestedPropertyVal(mappedData, 'deceasedMarriedAfterDateOnWill', 'No');
-        assert.nestedPropertyVal(mappedData, 'deceasedAddress', 'Adam & Eve 81 Petty France London SW1H 9EX');
+        assert.deepNestedPropertyVal(mappedData, 'deceasedAddress', deceasedAddress);
         assert.nestedPropertyVal(mappedData, 'deceasedPostcode', 'SW1H 9EX');
         assert.nestedPropertyVal(mappedData, 'deceasedDod', '1 January 2018');
         assert.nestedPropertyVal(mappedData, 'deceasedDob', '1 January 1950');
@@ -145,8 +164,8 @@ describe('submit-data', () => {
         assert.nestedPropertyVal(mappedData, 'willWithCodicils', 'Yes');
         assert.nestedPropertyVal(mappedData, 'willCodicilsNumber', 1);
         assert.nestedPropertyVal(mappedData, 'ihtForm', 'IHT205');
-        assert.nestedPropertyVal(mappedData, 'ihtGrossValue', '123456');
-        assert.nestedPropertyVal(mappedData, 'ihtNetValue', '12345');
+        assert.nestedPropertyVal(mappedData, 'ihtGrossValue', 123456.10);
+        assert.nestedPropertyVal(mappedData, 'ihtNetValue', 12345.34);
         assert.nestedPropertyVal(mappedData, 'copiesUK', '3');
         assert.nestedPropertyVal(mappedData, 'copiesOverseas', 0);
         assert.nestedPropertyVal(mappedData, 'totalFee', '216.50');
@@ -160,6 +179,5 @@ describe('submit-data', () => {
         assert.deepNestedPropertyVal(mappedData, 'payment', payment);
         assert.deepNestedPropertyVal(mappedData, 'registry', registry);
         assert.deepNestedPropertyVal(mappedData, 'caseId', 1535395401245028);
-        assert.deepNestedPropertyVal(mappedData, 'submissionReference', 97);
     });
 });

@@ -38,7 +38,6 @@ class FeesCalculator {
         };
         return createCallsRequired(formdata, headers);
     }
-
 }
 
 async function createCallsRequired(formdata, headers) {

@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const {set} = require('lodash');
-const DeceasedMarried = require('app/steps/ui/deceased/married/index');
+const DeceasedMarried = require('app/steps/ui/deceased/married');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('deceased-otherNames', () => {

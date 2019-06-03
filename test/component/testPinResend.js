@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const {assert} = require('chai');
-const PinSent = require('app/steps/ui/pin/sent/index');
+const PinSent = require('app/steps/ui/pin/sent');
 const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');
 const config = require('app/config');

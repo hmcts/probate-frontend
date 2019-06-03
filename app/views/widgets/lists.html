@@ -1,4 +1,4 @@
-{% macro taskAction(prevTaskStatus, status, nextURL, checkYourAnswersURL, content, alreadyDeclared) %}
+{% macro taskAction(prevTaskStatus, status, nextURL, checkYourAnswersURL, content, title, alreadyDeclared) %}
     {% if prevTaskStatus === 'complete' %}
         {% if status === 'notStarted' %}
             <!-- Start link -->
@@ -9,7 +9,7 @@
         {% elif status === 'complete' %}
             <!-- Check your answers -->
             {% if alreadyDeclared === 'false' %}
-                <p><a href="{{ checkYourAnswersURL }}">{{ content.checkYourAnswers }}</a></p>
+                <p><a href="{{ checkYourAnswersURL }}">{{ content.checkYourAnswers }} <span class="visually-hidden">{{ title }}</span></a></p>
             {% else %}
                 <p>{{ content.alreadyDeclared }}</p>
             {% endif %}

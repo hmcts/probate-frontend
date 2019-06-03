@@ -4,9 +4,9 @@
 const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorsWhenDied = require('app/steps/ui/executors/whendied/index');
-const TaskList = require('app/steps/ui/tasklist/index');
-const ExecutorsApplying = require('app/steps/ui/executors/applying/index');
+const ExecutorsWhenDied = require('app/steps/ui/executors/whendied');
+const TaskList = require('app/steps/ui/tasklist');
+const ExecutorsApplying = require('app/steps/ui/executors/applying');
 const contentData = {executorFullName: 'many clouds'};
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');

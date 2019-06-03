@@ -37,7 +37,6 @@ class PaymentStatus extends Step {
         super.action(ctx, formdata);
         delete ctx.authToken;
         delete ctx.userId;
-        delete ctx.submissionReference;
         delete ctx.regId;
         delete ctx.sessionId;
         delete ctx.errors;
@@ -90,8 +89,10 @@ class PaymentStatus extends Step {
 
             const [updateCcdCaseResponse, errors] = yield this.updateCcdCasePaymentStatus(ctx, formdata);
             this.setErrors(options, errors);
-            set(formdata, 'ccdCase.state', updateCcdCaseResponse.caseState);
 
+            if (typeof updateCcdCaseResponse.caseState !== 'undefined') {
+                set(formdata, 'ccdCase.state', updateCcdCaseResponse.caseState);
+            }
             if (getPaymentResponse.status !== 'Success') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;

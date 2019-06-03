@@ -2,7 +2,9 @@
   "iht": {
     "method": "Through the HMRC online service",
     "identifier": "12345678F12345",
-    "grossValue": "100000",
-    "netValue": "10000"
+    "grossValueField": "100000.10",
+    "netValueField": "10000.34",
+    "grossValue": 100000.1,
+    "netValue": 10000.34
   }
 }

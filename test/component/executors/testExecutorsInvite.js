@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const {assert} = require('chai');
-const ExecutorsInvitesSent = require('app/steps/ui/executors/invitesent/index');
+const ExecutorsInvitesSent = require('app/steps/ui/executors/invitesent');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const nock = require('nock');
 const config = require('app/config');

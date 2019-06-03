@@ -62,6 +62,13 @@ class IhtPaper extends ValidationStep {
         delete ctx.grossValuePaper;
         delete ctx.netValuePaper;
         delete ctx.lessThanOrEqualTo250k;
+
+        if (ctx.netValue > config.assetsValueThreshold) {
+            delete ctx.assetsOutside;
+            delete ctx.netValueAssetsOutsideField;
+            delete ctx.netValueAssetsOutside;
+        }
+
         return [ctx, formdata];
     }
 }

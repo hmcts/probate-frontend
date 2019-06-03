@@ -14,7 +14,7 @@ describe('DeceasedName', () => {
         });
     });
 
-    describe('action', () => {
+    describe('action()', () => {
         it('cleans up context', () => {
             const ctx = {
                 index: 3683

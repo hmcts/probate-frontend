@@ -1,6 +1,6 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/summary/index');
+const pageUnderTest = require('app/steps/ui/summary');
 
 module.exports = function (redirect) {
     const I = this;

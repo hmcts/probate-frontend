@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ApplicantAliasReason = require('app/steps/ui/applicant/aliasreason/index');
+const ApplicantAliasReason = require('app/steps/ui/applicant/aliasreason');
 
 describe('applicant-alias', () => {
     let testWrapper;

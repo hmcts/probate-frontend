@@ -2,7 +2,7 @@
 
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
-const signOutPage = require('app/steps/ui/signout/index');
+const signOutPage = require('app/steps/ui/signout');
 
 Feature('Save And Close Link Functionality');
 

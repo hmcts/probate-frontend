@@ -16,6 +16,8 @@
     "dob_year": "1990",
     "dob_formattedDate": "12 December 1990",
     "domicile": "Yes",
-    "address": "102 Petty France London SW1 1HA"
+    "address": {
+      "formattedAddress": "102 Petty France London SW1 1HA"
+    }
   }
 }

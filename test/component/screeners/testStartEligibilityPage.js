@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DeathCertificate = require('app/steps/ui/screeners/deathcertificate/index');
+const DeathCertificate = require('app/steps/ui/screeners/deathcertificate');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 const featureToggleUrl = config.featureToggles.url;

@@ -1,17 +1,15 @@
-tags:
-  - idam-pr
-
-
 nodejs:
-  applicationPort: 3000
   environment:
-    PUBLIC_PROTOCOL: https
-    REFORM_TEAM: probate
-    REFORM_SERVICE_NAME: probate-frontend
     FEATURE_TOGGLES_API_URL: http://${SERVICE_NAME}-ftr-tgl-api
-    IDAM_API_URL: https://preprod-idamapi.reform.hmcts.net:3511
-    IDAM_URL: https://preprod-idamapi.reform.hmcts.net:3511
-    IDAM_LOGIN_URL: https://idam.preprod.ccidam.reform.hmcts.net/login
+    SERVICES_PERSISTENCE_BASEURL : http://probate-persistence-service-aat.service.core-compute-aat.internal
+    SERVICES_NOTIFY_INVITEDATA_INVITELINK : http://probate-frontend-aat.service.core-compute-aat.internal/executors/invitation/
+    SERVICES_PDF_SERVICE_URL : http://cmc-pdf-service-aat.service.core-compute-aat.internal
+    SERVICES_AUTH_PROVIDER_BASEURL : http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
+    DOCUMENT_MANAGEMENT_URL : http://dm-store-aat.service.core-compute-aat.internal
+    FEES_REGISTRY_URL: http://fees-register-api-aat.service.core-compute-aat.internal/fees-register
+    IDAM_API_URL: https://idam-api.aat.platform.hmcts.net
+    IDAM_URL: https://idam-api.aat.platform.hmcts.net
+    IDAM_LOGIN_URL: https://idam-web-public.aat.platform.hmcts.net/login
     IDAM_S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
     S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
     IDAM_S2S_AUTH_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
@@ -19,37 +17,29 @@ nodejs:
     VALIDATION_SERVICE_URL: http://probate-business-service-aat.service.core-compute-aat.internal/validate
     BUSINESS_DOCUMENT_URL: http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument
     SUBMIT_SERVICE_URL: http://probate-submit-service-aat.service.core-compute-aat.internal
+    ORCHESTRATOR_SERVICE_URL : http://probate-orchestrator-service-aat.service.core-compute-aat.internal
     PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
-    FEES_REGISTRY_URL: http://fees-register-api-aat.service.core-compute-aat.internal/fees-register
-    REFORM_ENVIRONMENT : aat
-    USE_REDIS : true
-    REDIS_USE_TLS : false
-    REDIS_HOST : ${SERVICE_NAME}-redis-master
-    REDIS_PORT : 6379
-    USE_IDAM : true
-    IDAM_SERVICE_KEY : ${IDAM_S2S_SECRET}
-    IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE : ${IDAM_SECRET_PROBATE}
-    POSTCODE_SERVICE_URL : ${PRO_POSTCODE_SERVICE_URL}
-    POSTCODE_SERVICE_TOKEN : ${PRO_POSTCODE_SERVICE_TOKEN}
-    SURVEY : ${PRO_SURVEY}
-    SURVEY_END_OF_APPLICATION : ${PRO_SURVEY_END_OF_APPLICATIONN}
-    APPLICATION_FEE_CODE : ${PRO_APPLICATION_FEE_CODEL}
-    UK_COPIES_FEE_CODE : ${PRO_UK_COPIES_FEE_CODE}
-    OVERSEAS_COPIES_FEE_CODE : ${PRO_OVERSEAS_COPIES_FEE_CODE}
-    SERVICE_ID : ${PRO_SERVICE_ID}
-    SITE_ID : ${PRO_SITE_ID}
-
-  # Don't modify below here
+    REDIS_HOST: ${SERVICE_NAME}-redis-master
+    REDIS_PORT: 6379
+    IDAM_SERVICE_KEY: ${IDAM_S2S_SECRET}
+    IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE: ${IDAM_SECRET_PROBATE}
+    POSTCODE_SERVICE_URL: ${PRO_POSTCODE_SERVICE_URL}
+    POSTCODE_SERVICE_TOKEN: ${PRO_POSTCODE_SERVICE_TOKEN}
+    SURVEY: ${PRO_SURVEY}
+    SURVEY_END_OF_APPLICATION: ${PRO_SURVEY_END_OF_APPLICATIONN}
+    APPLICATION_FEE_CODE: ${PRO_APPLICATION_FEE_CODEL}
+    UK_COPIES_FEE_CODE: ${PRO_UK_COPIES_FEE_CODE}
+    OVERSEAS_COPIES_FEE_CODE: ${PRO_OVERSEAS_COPIES_FEE_CODE}
+    SERVICE_ID: ${PRO_SERVICE_ID}
+    SITE_ID: ${PRO_SITE_ID}
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
 
+postgresql:
+  enabled: true # for rpe-feature-toggle-api
+
 rpe-feature-toggle-api:
   releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
-  importer:
-    cron:
-      enabled: false
-    oneoff:
-      enabled: false
   java:
     releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
     ingressIP: ${INGRESS_IP}
@@ -59,24 +49,10 @@ rpe-feature-toggle-api:
       primaryIngressHost: ${SERVICE_FQDN}
       prefix: ftr-tgl
     environment:
-      FEATURES_DB_HOST: ${SERVICE_NAME}-ft-db
-      ADMIN_USERNAME_TEST: admin@example.com
-      ADMIN_PASSWORD_TEST: Password12
       EDITOR_USERNAME_TEST: editor@example.com
       EDITOR_PASSWORD_TEST: Password12
-  postgresql:
-    postgresqlDatabase: hmcts
 
 idam-pr:
   service:
     name: Probate # this is the label (name) of the service as configured in IDAM. If unsure, see below.
     redirect_uri: https://${SERVICE_FQDN}/oauth2/callback # this is the application callback URL where IDAM will send back the authentication code. SERVICE_FQDN is injected by Jenkins.
-
-redis:
-  cluster:
-    enabled: false
-    slaveCount: 0
-  usePassword: false
-  master:
-    persistence:
-      enabled: false

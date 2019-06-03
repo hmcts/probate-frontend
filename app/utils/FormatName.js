@@ -25,7 +25,12 @@ class FormatName {
 
     static getNameAndAddress(person, contentOf, applicantAddress) {
         const fullName = FormatName.formatName(person, person.hasOtherName);
-        const address = person.isApplicant ? applicantAddress : person.address;
+        let address;
+        if (person.isApplicant) {
+            address = applicantAddress.formattedAddress;
+        } else {
+            address = person.address ? person.address.formattedAddress : '';
+        }
         return address ? `${fullName} ${contentOf} ${address}` : fullName;
     }
 

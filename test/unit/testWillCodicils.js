@@ -6,7 +6,6 @@ const {expect, assert} = require('chai');
 const content = require('app/resources/en/translation/will/codicils');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const WillCodicils = steps.WillCodicils;
-const json = require('app/resources/en/translation/will/codicils');
 
 describe('WillCodicils', () => {
     describe('getUrl()', () => {
@@ -89,7 +88,7 @@ describe('WillCodicils', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'codicils',
-                    value: json.optionNo,
+                    value: content.optionNo,
                     choice: 'noCodicils'
                 }]
             });
@@ -97,10 +96,10 @@ describe('WillCodicils', () => {
         });
     });
 
-    describe('action', () => {
+    describe('action()', () => {
         it('cleans up context', () => {
             const ctx = {
-                codicils: json.optionNo,
+                codicils: content.optionNo,
                 codicilsNumber: 3
             };
             WillCodicils.action(ctx);

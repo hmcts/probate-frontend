@@ -41,6 +41,8 @@ probate_business_service_document_url = "http://probate-business-service-saat.se
 
 probate_submit_service_url = "http://probate-submit-service-saat.service.core-compute-saat.internal"
 
+probate_orchestrator_service_url = "http://probate-orchestrator-service-saat.service.core-compute-saat.internal"
+
 probate_persistence_service_url = "http://probate-persistence-service-saat.service.core-compute-saat.internal/formdata"
 
 probate_fees_registry_service_url = "http://fees-register-api-saat.service.core-compute-saat.internal/fees-register"

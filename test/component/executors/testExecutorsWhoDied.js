@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorsWhenDied = require('app/steps/ui/executors/whendied/index');
+const ExecutorsWhenDied = require('app/steps/ui/executors/whendied');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-who-died', () => {

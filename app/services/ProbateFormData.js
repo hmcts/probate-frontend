@@ -15,7 +15,6 @@ class ProbateFormData extends FormData {
         const bodyData = {
             id: id,
             formdata: data,
-            submissionReference: data.submissionReference
         };
         return super.post(bodyData, logMessage, url);
     }

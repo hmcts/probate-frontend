@@ -1,8 +1,8 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const StartApply = require('app/steps/ui/screeners/startapply/index');
-const StopPage = require('app/steps/ui/stoppage/index');
+const StartApply = require('app/steps/ui/screeners/startapply');
+const StopPage = require('app/steps/ui/stoppage');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
@@ -53,14 +53,14 @@ describe('other-applicants', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     testWrapper.testErrors(done, {}, 'required', [], cookies);
                 });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     const data = {
                         otherApplicants: 'No'
@@ -71,7 +71,7 @@ describe('other-applicants', () => {
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     const data = {
                         otherApplicants: 'Yes'

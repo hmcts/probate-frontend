@@ -5,10 +5,21 @@
 const express = require('express');
 const app = express();
 const router = require('express').Router();
+const fs = require('fs');
 
 router.get('invites/allAgreed/:id', (req, res) => {
     res.status(200);
     res.send('false');
+});
+
+router.post('/invite', (req, res) => {
+    res.status(200);
+    res.send('true');
+});
+
+router.patch('/invite/:id', (req, res) => {
+    res.status(200);
+    res.send('true');
 });
 
 router.get('/health', (req, res) => {
@@ -36,6 +47,29 @@ router.delete('/document/delete/:index', (req, res) => {
     res.status(204).send(true);
 });
 
+router.post('/businessDocument/generateCheckAnswersSummaryPDF', (req, res) => {
+    fs.readFile('test/data/generic.pdf', function (err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.contentType('application/pdf');
+            res.status(200);
+            res.send(data);
+        }
+    });
+});
+
+router.post('/businessDocument/generateLegalDeclarationPDF', (req, res) => {
+    fs.readFile('test/data/generic.pdf', function (err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.contentType('application/pdf');
+            res.status(200);
+            res.send(data);
+        }
+    });
+});
 app.use(router);
 
 console.log('Listening on: 8080');

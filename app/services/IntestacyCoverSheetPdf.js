@@ -7,7 +7,7 @@ class IntestacyCoverSheetPdf extends IntestacyPdf {
         const pdfTemplate = this.config.pdf.template.coverSheet;
         const body = {
             bulkScanCoverSheet: {
-                applicantAddress: formdata.applicant.address,
+                applicantAddress: formdata.applicant.address.formattedAddress,
                 caseReference: formdata.ccdCase.id,
                 submitAddress: formdata.registry.address
             }

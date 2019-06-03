@@ -1,8 +1,8 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DivorcePlace = require('app/steps/ui/deceased/divorceplace/index');
-const TaskList = require('app/steps/ui/tasklist/index');
+const DivorcePlace = require('app/steps/ui/deceased/divorceplace');
+const TaskList = require('app/steps/ui/tasklist');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const content = require('app/resources/en/translation/deceased/maritalstatus');
 const config = require('app/config');
@@ -56,7 +56,7 @@ describe('deceased-marital-status', () => {
         });
 
         it(`test it redirects to divorce place page if divorced: ${expectedNextUrlForDivorcePlace}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     const data = {
                         maritalStatus: content.optionDivorced
@@ -67,7 +67,7 @@ describe('deceased-marital-status', () => {
         });
 
         it(`test it redirects to divorce place page if separated: ${expectedNextUrlForDivorcePlace}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     const data = {
                         maritalStatus: content.optionSeparated
@@ -78,7 +78,7 @@ describe('deceased-marital-status', () => {
         });
 
         it(`test it redirects to tasklist if married: ${expectedNextUrlForTaskList}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     const data = {
                         maritalStatus: content.optionMarried
@@ -89,7 +89,7 @@ describe('deceased-marital-status', () => {
         });
 
         it(`test it redirects to tasklist if not married: ${expectedNextUrlForTaskList}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     const data = {
                         maritalStatus: content.optionNotMarried
@@ -100,7 +100,7 @@ describe('deceased-marital-status', () => {
         });
 
         it(`test it redirects to tasklist if widowed: ${expectedNextUrlForTaskList}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/willLeft/No')
+            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
                 .end(() => {
                     const data = {
                         maritalStatus: content.optionWidowed

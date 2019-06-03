@@ -12,7 +12,9 @@ describe('IntestacyCoverSheetPdfService', () => {
             const endpoint = 'http://localhost';
             const formdata = {
                 applicant: {
-                    address: '1 Red Road, London, L1 1LL'
+                    address: {
+                        formattedAddress: '1 Red Road, London, L1 1LL'
+                    }
                 },
                 ccdCase: {
                     id: 'ccd123'

@@ -4,7 +4,7 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const AssetsOutside = steps.AssetsOutside;
-const content = require('app/resources/en/translation/deceased/assetsoutside');
+const content = require('app/resources/en/translation/iht/assetsoutside');
 
 describe('AssetsOutside', () => {
     describe('getUrl()', () => {
@@ -48,6 +48,22 @@ describe('AssetsOutside', () => {
                 }]
             });
             done();
+        });
+    });
+
+    describe('action()', () => {
+        it('test that the Value of Assets Outside England and Wales context variables are removed if No Assets Outside chosen', () => {
+            let formdata = {};
+            let ctx = {
+                deceasedName: 'Dee Ceased',
+                assetsOutside: content.optionNo,
+                netValueAssetsOutsideField: '600000',
+                netValueAssetsOutside: 600000
+            };
+            [ctx, formdata] = AssetsOutside.action(ctx, formdata);
+            expect(ctx).to.deep.equal({
+                assetsOutside: content.optionNo
+            });
         });
     });
 });

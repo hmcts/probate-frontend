@@ -1,7 +1,7 @@
 'use strict';
 const TestWrapper = require('test/util/TestWrapper');
-const ApplicantPhone = require('app/steps/ui/applicant/phone/index');
-const ApplicantAlias = require('app/steps/ui/applicant/alias/index');
+const ApplicantPhone = require('app/steps/ui/applicant/phone');
+const ApplicantAlias = require('app/steps/ui/applicant/alias');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('applicant-name-as-on-will', () => {

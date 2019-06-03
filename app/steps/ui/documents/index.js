@@ -24,7 +24,7 @@ class Documents extends ValidationStep {
         ctx.codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
         ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
         ctx.hasRenunciated = executorsWrapper.hasRenunciated();
-        ctx.is205 = formdata.iht && formdata.iht.method === ihtContent.paperOption && formdata.iht.form === 'IHT205';
+        ctx.is205 = formdata.iht && formdata.iht.method === ihtContent.optionPaper && formdata.iht.form === 'IHT205';
         ctx.executorsNameChangedByDeedPollList = executorsWrapper.executorsNameChangedByDeedPoll();
         ctx.ccdReferenceNumber = FormatCcdCaseId.format(formdata.ccdCase);
         ctx.isDocumentUploadToggleEnabled = featureToggle.isEnabled(featureToggles, 'document_upload');

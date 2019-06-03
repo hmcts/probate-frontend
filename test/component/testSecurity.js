@@ -6,7 +6,7 @@ const app = require('app');
 const config = require('app/config');
 const oAuth2CallbackUrl = config.services.idam.probate_oauth_callback_path;
 const oAuth2TokenUrl = config.services.idam.probate_oauth_token_path;
-const TaskList = require('app/steps/ui/tasklist/index');
+const TaskList = require('app/steps/ui/tasklist');
 const TimeoutPage = require('app/steps/ui/timeout/index');
 const nock = require('nock');
 

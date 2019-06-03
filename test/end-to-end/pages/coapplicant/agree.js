@@ -1,6 +1,6 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/coapplicant/agreepage/index');
+const pageUnderTest = require('app/steps/ui/coapplicant/agreepage');
 
 module.exports = function (elementId) {
     const I = this;

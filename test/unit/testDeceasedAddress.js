@@ -28,13 +28,19 @@ describe('DeceasedAddress', () => {
                     journeyType: 'probate'
                 },
                 body: {
-                    freeTextAddress: '143 Caerfai Bay Road',
+                    addressLine1: '143 Caerfai Bay Road',
+                    postTown: 'town',
+                    newPostCode: 'L23 6WW',
+                    country: 'United Kingdon',
                     postcode: 'L23 6WW'
                 }
             };
             const ctx = DeceasedAddress.getContextData(req);
             expect(ctx).to.deep.equal({
-                freeTextAddress: '143 Caerfai Bay Road',
+                addressLine1: '143 Caerfai Bay Road',
+                postTown: 'town',
+                country: 'United Kingdon',
+                newPostCode: 'L23 6WW',
                 postcode: 'L23 6WW',
                 isDocumentUploadToggleEnabled: true,
                 sessionID: 'dummy_sessionId',
@@ -56,13 +62,19 @@ describe('DeceasedAddress', () => {
                     journeyType: 'probate'
                 },
                 body: {
-                    freeTextAddress: '143 Caerfai Bay Road',
+                    addressLine1: '143 Caerfai Bay Road',
+                    postTown: 'town',
+                    newPostCode: 'L23 6WW',
+                    country: 'United Kingdon',
                     postcode: 'L23 6WW'
                 }
             };
             const ctx = DeceasedAddress.getContextData(req);
             expect(ctx).to.deep.equal({
-                freeTextAddress: '143 Caerfai Bay Road',
+                addressLine1: '143 Caerfai Bay Road',
+                postTown: 'town',
+                newPostCode: 'L23 6WW',
+                country: 'United Kingdon',
                 postcode: 'L23 6WW',
                 isDocumentUploadToggleEnabled: false,
                 sessionID: 'dummy_sessionId',
@@ -84,7 +96,7 @@ describe('DeceasedAddress', () => {
         });
     });
 
-    describe('action', () => {
+    describe('action()', () => {
         it('test variables are removed from the context', () => {
             const ctx = {
                 isDocumentUploadToggleEnabled: false

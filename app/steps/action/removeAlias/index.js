@@ -1,6 +1,6 @@
 'use strict';
 
-const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames/index');
+const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames');
 const {unset, set, isEmpty} = require('lodash');
 const ActionStepRunner = require('app/core/runners/ActionStepRunner');
 
@@ -33,7 +33,6 @@ class RemoveAlias extends DeceasedOtherNames {
         }
         return [ctx, errors];
     }
-
 }
 
 module.exports = RemoveAlias;

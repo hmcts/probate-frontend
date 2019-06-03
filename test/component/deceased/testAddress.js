@@ -1,9 +1,9 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const Summary = require('app/steps/ui/summary/index');
-const IhtMethod = require('app/steps/ui/iht/method/index');
-const DocumentUpload = require('app/steps/ui/documentupload/index');
+const Summary = require('app/steps/ui/summary');
+const IhtMethod = require('app/steps/ui/iht/method');
+const DocumentUpload = require('app/steps/ui/documentupload');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const config = require('app/config');
 const nock = require('nock');
@@ -39,51 +39,21 @@ describe('deceased-address', () => {
             testWrapper.testContent(done, excludeKeys);
         });
 
-        it('test address schema validation when no address search has been done', (done) => {
-            const data = {addressFound: 'none'};
-
-            testWrapper.testErrors(done, data, 'required', ['postcodeLookup']);
-        });
-
-        it('test address schema validation when address search is successful, but no address is selected/entered', (done) => {
-            const data = {addressFound: 'true'};
-
-            testWrapper.testErrors(done, data, 'oneOf', ['crossField']);
-
-        });
-
-        it('test address schema validation when address search is successful, and two addresses are provided', (done) => {
-            const data = {
-                addressFound: 'true',
-                freeTextAddress: 'free text address',
-                postcodeAddress: 'postcode address'
-            };
-
-            testWrapper.testErrors(done, data, 'oneOf', ['crossField']);
-        });
-
         it('test address schema validation when address search is unsuccessful', (done) => {
             const data = {
                 addressFound: 'false'
             };
 
-            testWrapper.testErrors(done, data, 'required', ['freeTextAddress']);
-        });
-
-        it('should return error when freeTextAddress is over 150 characters', (done) => {
-            const data = {
-                freeTextAddress: '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111',
-            };
-
-            testWrapper.testErrors(done, data, 'invalid', ['freeTextAddress']);
+            testWrapper.testErrors(done, data, 'required', ['addressLine1']);
         });
 
         it(`test it redirects to iht method page: ${expectedNextUrlForIhtMethod}`, (done) => {
             featureTogglesNock('false');
 
             const data = {
-                postcode: 'ea1 eaf',
-                postcodeAddress: '102 Petty France'
+                addressLine1: 'value',
+                postTown: 'value',
+                newPostCode: 'value'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
@@ -92,8 +62,9 @@ describe('deceased-address', () => {
             featureTogglesNock('true');
 
             const data = {
-                postcode: 'ea1 eaf',
-                postcodeAddress: '102 Petty France'
+                addressLine1: 'value',
+                postTown: 'value',
+                newPostCode: 'value'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForDocumentUpload);
         });
@@ -102,8 +73,9 @@ describe('deceased-address', () => {
             featureTogglesNock('false');
 
             const data = {
-                postcode: 'ea1 eaf',
-                postcodeAddress: '102 Petty France'
+                addressLine1: 'value',
+                postTown: 'value',
+                newPostCode: 'value'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });

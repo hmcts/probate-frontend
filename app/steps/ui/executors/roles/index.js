@@ -1,7 +1,7 @@
 'use strict';
 
 const CollectionStep = require('app/core/steps/CollectionStep');
-const json = require('app/resources/en/translation/executors/roles');
+const content = require('app/resources/en/translation/executors/roles');
 const {get, isEmpty, every, findKey, findIndex} = require('lodash');
 const path = '/executor-roles/';
 
@@ -29,9 +29,9 @@ class ExecutorRoles extends CollectionStep {
             ctx.list[ctx.index] = this.pruneExecutorData(ctx.list[ctx.index]);
             ctx.list[ctx.index].isApplying = false;
             ctx.list[ctx.index].notApplyingReason = ctx.notApplyingReason;
-            ctx.list[ctx.index].notApplyingKey = findKey(json, o => o === ctx.notApplyingReason);
+            ctx.list[ctx.index].notApplyingKey = findKey(content, o => o === ctx.notApplyingReason);
         }
-        if (ctx.notApplyingReason !== json.optionPowerReserved) {
+        if (ctx.notApplyingReason !== content.optionPowerReserved) {
             ctx.index = this.recalcIndex(ctx, ctx.index);
         }
         return [ctx, errors];
@@ -42,11 +42,9 @@ class ExecutorRoles extends CollectionStep {
         delete data.currentName;
         delete data.currentNameReason;
         delete data.email;
-        delete data.freeTextAddress;
         delete data.hasOtherName;
         delete data.mobile;
         delete data.postcode;
-        delete data.postcodeAddress;
         return data;
     }
 
@@ -56,8 +54,8 @@ class ExecutorRoles extends CollectionStep {
                 (
                     !isEmpty(exec.notApplyingReason) &&
                     (
-                        (exec.notApplyingReason === json.optionPowerReserved && !isEmpty(exec.executorNotified)) ||
-                        (exec.notApplyingReason !== json.optionPowerReserved)
+                        (exec.notApplyingReason === content.optionPowerReserved && !isEmpty(exec.executorNotified)) ||
+                        (exec.notApplyingReason !== content.optionPowerReserved)
                     )
                 );
         }), 'inProgress'];
@@ -68,7 +66,7 @@ class ExecutorRoles extends CollectionStep {
 
         return {
             options: [
-                {key: 'notApplyingReason', value: json.optionPowerReserved, choice: 'powerReserved'},
+                {key: 'notApplyingReason', value: content.optionPowerReserved, choice: 'powerReserved'},
                 {key: 'continue', value: true, choice: 'continue'}
             ]
         };

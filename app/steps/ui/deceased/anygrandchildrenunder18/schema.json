@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "any-grandchildren-under-18",
+  "type": "object",
+  "properties": {
+    "anyGrandchildrenUnder18": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "anyGrandchildrenUnder18"
+  ]
+}

@@ -1,6 +1,6 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/coapplicant/startpage/index');
+const pageUnderTest = require('app/steps/ui/coapplicant/startpage');
 
 module.exports = function () {
     const I = this;

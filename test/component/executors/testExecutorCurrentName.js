@@ -1,8 +1,8 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorCurrentName = require('app/steps/ui/executors/currentname/index');
-const ExecutorCurrentNameReason = require('app/steps/ui/executors/currentnamereason/index');
+const ExecutorCurrentName = require('app/steps/ui/executors/currentname');
+const ExecutorCurrentNameReason = require('app/steps/ui/executors/currentnamereason');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executor-current-name', () => {

@@ -7,28 +7,26 @@ const setJourney = rewire('app/middleware/setJourney');
 
 describe('setJourney', () => {
     describe('isIntestacyJourney()', () => {
-        it('should return false if session.willLeft and session.form.will.left are not set', (done) => {
+        it('should return false if session.caseType and session.form.caseType are not set', (done) => {
             const session = {};
             const isIntestacyJourney = setJourney.isIntestacyJourney(session);
             expect(isIntestacyJourney).to.equal(false);
             done();
         });
 
-        it('should return false if session.willLeft is set to Yes', (done) => {
+        it('should return false if session.caseType is set to \'gop\'', (done) => {
             const session = {
-                willLeft: 'Yes'
+                caseType: 'gop'
             };
             const isIntestacyJourney = setJourney.isIntestacyJourney(session);
             expect(isIntestacyJourney).to.equal(false);
             done();
         });
 
-        it('should return false if session.form.will.left is set to Yes', (done) => {
+        it('should return false if session.form.caseType is set to \'gop\'', (done) => {
             const session = {
                 form: {
-                    will: {
-                        left: 'Yes'
-                    }
+                    caseType: 'gop'
                 }
             };
             const isIntestacyJourney = setJourney.isIntestacyJourney(session);
@@ -36,21 +34,19 @@ describe('setJourney', () => {
             done();
         });
 
-        it('should return true if session.willLeft is set to No', (done) => {
+        it('should return true if session.caseType is set to \'intestacy\'', (done) => {
             const session = {
-                willLeft: 'No'
+                caseType: 'intestacy'
             };
             const isIntestacyJourney = setJourney.isIntestacyJourney(session);
             expect(isIntestacyJourney).to.equal(true);
             done();
         });
 
-        it('should return true if session.form.will.left is set to No', (done) => {
+        it('should return true if session.form.caseType is set to \'intestacy\'', (done) => {
             const session = {
                 form: {
-                    will: {
-                        left: 'No'
-                    }
+                    caseType: 'intestacy'
                 }
             };
             const isIntestacyJourney = setJourney.isIntestacyJourney(session);
@@ -59,71 +55,61 @@ describe('setJourney', () => {
         });
     });
 
-    describe('setWillLeftFormdata()', () => {
-        it('should return the original session if session.willLeft does not exist', (done) => {
+    describe('setCaseTypeFormdata()', () => {
+        it('should return the original session if session.caseType does not exist', (done) => {
             const sessionToTest = {
                 form: {}
             };
-            const session = setJourney.setWillLeftFormdata(sessionToTest);
+            const session = setJourney.setCaseTypeFormdata(sessionToTest);
             expect(session).to.deep.equal({
                 form: {}
             });
             done();
         });
 
-        it('should add session.willLeft to the form data if session.willLeft exists and session.form.will does not exist', (done) => {
+        it('should add session.caseType to the form data if session.caseType exists and session.caseType does not exist', (done) => {
             const sessionToTest = {
                 form: {},
-                willLeft: 'Yes'
+                caseType: 'gop'
             };
-            const session = setJourney.setWillLeftFormdata(sessionToTest);
+            const session = setJourney.setCaseTypeFormdata(sessionToTest);
             expect(session).to.deep.equal({
                 form: {
-                    will: {
-                        left: 'Yes'
-                    }
+                    caseType: 'gop'
                 },
-                willLeft: 'Yes'
+                caseType: 'gop'
             });
             done();
         });
 
-        it('should add session.willLeft to the form data if session.willLeft exists and session.form.will.left does not exist', (done) => {
+        it('should add session.caseType to the form data if session.caseType exists and session.form.caseType does not exist', (done) => {
             const sessionToTest = {
-                form: {
-                    will: {}
-                },
-                willLeft: 'Yes'
+                form: {},
+                caseType: 'gop'
             };
-            const session = setJourney.setWillLeftFormdata(sessionToTest);
+            const session = setJourney.setCaseTypeFormdata(sessionToTest);
             expect(session).to.deep.equal({
                 form: {
-                    will: {
-                        left: 'Yes'
-                    }
+                    caseType: 'gop'
                 },
-                willLeft: 'Yes'
+                caseType: 'gop'
             });
             done();
         });
 
-        it('should not add session.willLeft to the form data if session.willLeft exists and session.form.will.left exists', (done) => {
+        it('should not add session.caseType to the form data if session.caseType exists and session.form.caseType exists', (done) => {
             const sessionToTest = {
                 form: {
-                    will: {
-                        left: 'Yes'
-                    }
+                    caseType: 'gop'
                 },
-                willLeft: 'Yes'
+                caseType: 'gop'
             };
-            const session = setJourney.setWillLeftFormdata(sessionToTest);
+            const session = setJourney.setCaseTypeFormdata(sessionToTest);
             expect(session).to.deep.equal({
                 form: {
-                    will: {
-                        left: 'Yes'
-                    }
+                    caseType: 'gop'
                 },
-                willLeft: 'Yes'
+                caseType: 'gop'
             });
             done();
         });
@@ -159,7 +145,7 @@ describe('setJourney', () => {
             const req = {
                 session: {
                     form: {},
-                    willLeft: 'No'
+                    caseType: 'intestacy'
                 }
             };
             const res = {};
@@ -169,11 +155,9 @@ describe('setJourney', () => {
 
             expect(req.session).to.deep.equal({
                 form: {
-                    will: {
-                        left: 'No'
-                    }
+                    caseType: 'intestacy'
                 },
-                willLeft: 'No',
+                caseType: 'intestacy',
                 journey: {
                     journey: 'intestacy'
                 }
@@ -186,50 +170,46 @@ describe('setJourney', () => {
     });
 
     describe('getJourneyName()', () => {
-        it('should return \'probate\' if session.willLeft and session.form.will.left are not set', (done) => {
+        it('should return \'gop\' if session.caseType and session.form.caseType are not set', (done) => {
             const session = {};
             const journeyName = setJourney.getJourneyName(session);
-            expect(journeyName).to.equal('probate');
+            expect(journeyName).to.equal('gop');
             done();
         });
 
-        it('should return \'probate\' as journey name if session.willLeft is set to Yes', (done) => {
+        it('should return \'gop\' as journey name if session.caseType is set to \'gop\'', (done) => {
             const session = {
-                willLeft: 'Yes'
+                caseType: 'gop'
             };
             const journeyName = setJourney.getJourneyName(session);
-            expect(journeyName).to.equal('probate');
+            expect(journeyName).to.equal('gop');
             done();
         });
 
-        it('should return \'probate\' as journey name if session.form.will.left is set to Yes', (done) => {
+        it('should return \'gop\' as journey name if session.form.caseType is set to \'gop\'', (done) => {
             const session = {
                 form: {
-                    will: {
-                        left: 'Yes'
-                    }
+                    caseType: 'gop'
                 }
             };
             const journeyName = setJourney.getJourneyName(session);
-            expect(journeyName).to.equal('probate');
+            expect(journeyName).to.equal('gop');
             done();
         });
 
-        it('should return \'intestacy\' if session.willLeft is set to No', (done) => {
+        it('should return \'intestacy\' if session.caseType is set to \'intestacy\'', (done) => {
             const session = {
-                willLeft: 'No'
+                caseType: 'intestacy'
             };
             const journeyName = setJourney.getJourneyName(session);
             expect(journeyName).to.equal('intestacy');
             done();
         });
 
-        it('should return \'intestacy\' if session.form.will.left is set to No', (done) => {
+        it('should return \'intestacy\' if session.form.caseType is set to \'intestacy\'', (done) => {
             const session = {
                 form: {
-                    will: {
-                        left: 'No'
-                    }
+                    caseType: 'intestacy'
                 }
             };
             const journeyName = setJourney.getJourneyName(session);

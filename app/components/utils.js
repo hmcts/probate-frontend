@@ -1,7 +1,7 @@
 'use strict';
 
 const basicAuth = require('basic-auth');
-const common = require('app/resources/en/translation/common');
+const commonContent = require('app/resources/en/translation/common');
 
 /**
  * Simple basic auth middleware for use with Express 4.x.
@@ -57,7 +57,7 @@ exports.getStore = (redisConfig, session, ttl) => {
 };
 
 exports.stringifyNumberBelow21 = (n) => {
-    const stringNumbers = common.numberBelow21;
+    const stringNumbers = commonContent.numberBelow21;
     const special = stringNumbers.split(',');
     if (n <= 20) {
         return special[n];

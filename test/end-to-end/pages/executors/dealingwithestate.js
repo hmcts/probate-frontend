@@ -1,7 +1,7 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/executors/dealingwithestate/index');
+const pageUnderTest = require('app/steps/ui/executors/dealingwithestate');
 const {forEach} = require('lodash');
 
 module.exports = function (executorsApplyingList) {

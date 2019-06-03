@@ -1,8 +1,8 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorsDealingWithEstate = require('app/steps/ui/executors/dealingwithestate/index');
-const ExecutorRoles = require('app/steps/ui/executors/roles/index');
+const ExecutorsDealingWithEstate = require('app/steps/ui/executors/dealingwithestate');
+const ExecutorRoles = require('app/steps/ui/executors/roles');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-applying', () => {

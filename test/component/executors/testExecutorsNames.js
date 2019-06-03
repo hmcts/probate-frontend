@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorsAllAlive = require('app/steps/ui/executors/allalive/index');
+const ExecutorsAllAlive = require('app/steps/ui/executors/allalive');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 
 describe('executors-names', () => {

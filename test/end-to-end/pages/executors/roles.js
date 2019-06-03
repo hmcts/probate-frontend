@@ -1,7 +1,7 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/executors/roles/index');
+const pageUnderTest = require('app/steps/ui/executors/roles');
 
 module.exports = function (executorNumber, powerReserved, firstRecord) {
     const I = this;

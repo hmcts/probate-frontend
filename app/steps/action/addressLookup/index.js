@@ -53,8 +53,6 @@ class AddressLookup extends ValidationStep {
     pruneReferrerData(referrerData) {
         delete referrerData.addresses;
         delete referrerData.addressFound;
-        delete referrerData.postcodeAddress;
-        delete referrerData.freeTextAddress;
         delete referrerData.errors;
         return referrerData;
     }

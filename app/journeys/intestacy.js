@@ -127,6 +127,9 @@ const stepList = {
         allGrandchildrenOver18: 'ApplicantName',
         otherwise: 'StopPage'
     },
+    ApplicantName: 'ApplicantPhone',
+    ApplicantPhone: 'ApplicantAddress',
+    ApplicantAddress: 'Summary',
 
     Summary: 'TaskList',
     TaskList: 'TaskList',

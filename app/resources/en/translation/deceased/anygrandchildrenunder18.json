@@ -9,8 +9,8 @@
   "errors": {
     "anyGrandchildrenUnder18": {
       "required": {
-        "summary": "You must say whether the person who died had grandchildren who died before them",
-        "message": "Answer &lsquo;no&rsquo; if the person who died did not have grandchildren who died before them"
+        "summary": "You must say whether the child who died had children who are under 18",
+        "message": "Answer &lsquo;yes&rsquo; if the child who died had children who are under 18"
       }
     }
   }

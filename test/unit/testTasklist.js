@@ -6,20 +6,12 @@ const initSteps = require('app/core/initSteps');
 const JourneyMap = require('app/core/JourneyMap');
 const {expect, assert} = require('chai');
 const completedForm = require('test/data/complete-form').formdata;
-const journey = require('app/journeys/probate');
+const journeyProbate = require('app/journeys/probate');
+const journeyIntestacy = require('app/journeys/intestacy');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui/`]);
 const taskList = steps.TaskList;
 
 describe('Tasklist', () => {
-    let ctx = {};
-    const req = {
-        session: {
-            form: {}
-        },
-        query: {
-        }
-    };
-
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = taskList.constructor.getUrl();
@@ -31,290 +23,551 @@ describe('Tasklist', () => {
     describe('updateTaskStatus()', () => {
         let journeyMap;
 
-        beforeEach(() => {
-            req.session.journey = journey;
-            journeyMap = new JourneyMap(journey);
-        });
-
-        afterEach(() => {
-            delete req.session.caseType;
-        });
-
-        it('Updates the context: neither task is started', () => {
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.DeceasedTask.status, 'notStarted');
-            assert.equal(ctx.DeceasedTask.nextURL, steps[journeyMap.taskList().DeceasedTask.firstStep].constructor.getUrl());
-            assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
-        });
-
-        it('Updates the context: DeceasedTask started', () => {
-            const formdata = {deceased: {firstName: 'Test first name', lastName: 'Test last name'}};
-            req.session.form = formdata;
-            ctx = taskList.getContextData(req);
-            ctx = Object.assign(ctx, formdata.deceased);
-
-            assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.DeceasedTask.status, 'started');
-            assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).constructor.getUrl());
-            assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
-        });
-
-        it('Updates the context: DeceasedTask complete, ExecutorsTask not started', () => {
-            const formdata = {
-                deceased: completedForm.deceased,
-                will: completedForm.will,
-                iht: completedForm.iht
-            };
-            req.session.form = formdata;
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.DeceasedTask.status, 'complete');
-            assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
-        });
-
-        it('[INTESTACY] Updates the context: DeceasedTask complete, ExecutorsTask not started', () => {
-            const formdata = {
-                deceased: completedForm.deceased,
-                will: completedForm.will,
-                iht: completedForm.iht
-            };
-            req.session.caseType = 'intestacy';
-            req.session.form = formdata;
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.DeceasedTask.status, 'complete');
-            assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-            assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
-        });
-
-        it('Updates the context: DeceasedTask complete, ExecutorsTask started', () => {
-            const formdata = {
-                deceased: completedForm.deceased,
-                will: completedForm.will,
-                iht: completedForm.iht,
-                applicant: {
-                    firstName: completedForm.applicant.firstName,
-                    lastName: completedForm.applicant.lastName
-                }
-            };
-            req.session.form = formdata;
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.DeceasedTask.status, 'complete');
-            assert.equal(ctx.ExecutorsTask.status, 'started');
-            assert.equal(ctx.ExecutorsTask.nextURL, journeyMap.nextStep(steps.ApplicantName, formdata.will).constructor.getUrl());
-        });
-
-        it('Updates the context: DeceasedTask & ExecutorsTask started (ExecutorsTask blocked)', () => {
-            const formdata = {
-                deceased: {firstName: 'Test first name', lastName: 'Test last name'},
-                applicant: {
-                    firstName: completedForm.applicant.firstName,
-                    lastName: completedForm.applicant.lastName
-                }
-            };
-            req.session.form = formdata;
-            ctx = taskList.getContextData(req);
-            ctx = Object.assign(ctx, formdata.deceased);
-
-            assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.DeceasedTask.status, 'started');
-            assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).constructor.getUrl());
-            assert.equal(ctx.ExecutorsTask.status, 'started');
-        });
-
-        it('Updates the context: Review and confirm not started', () => {
-            const formdata = {
-                will: completedForm.will,
-                iht: completedForm.iht,
-                applicant: completedForm.applicant,
-                deceased: completedForm.deceased,
-                executors: completedForm.executors
-            };
-            req.session.form = formdata;
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.DeceasedTask.status, 'complete');
-            assert.equal(ctx.ExecutorsTask.status, 'complete');
-            assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.ReviewAndConfirmTask.status, 'notStarted');
-            assert.equal(ctx.ReviewAndConfirmTask.nextURL, steps[journeyMap.taskList().ReviewAndConfirmTask.firstStep].constructor.getUrl());
-        });
-
-        it('Updates the context: Review and confirm complete (Single Applicants)', () => {
-            req.session.form = {
-                will: completedForm.will,
-                iht: completedForm.iht,
-                applicant: completedForm.applicant,
-                deceased: completedForm.deceased,
-                declaration: completedForm.declaration
-            };
-            req.body = {};
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-            assert.equal(ctx.CopiesTask.status, 'notStarted');
-            assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-        });
-
-        it('Updates the context: Review and confirm complete (Multiple Applicants All Agreed)', () => {
-            req.session.form = {
-                will: completedForm.will,
-                iht: completedForm.iht,
-                applicant: completedForm.applicant,
-                deceased: completedForm.deceased,
-                executors: completedForm.executors,
-                declaration: completedForm.declaration
-            };
-            req.body = {};
-            req.session.haveAllExecutorsDeclared = 'true';
-            ctx = taskList.getContextData(req);
-            ctx.alreadyDeclared = true;
-            ctx.hasMultipleApplicants = true;
-
-            assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-            assert.equal(ctx.CopiesTask.status, 'notStarted');
-            assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-        });
-
-        it('Updates the context: Review and confirm complete (Multiple Applicants Not all have agreed)', () => {
-            req.session.form = {
-                will: completedForm.will,
-                iht: completedForm.iht,
-                applicant: completedForm.applicant,
-                deceased: completedForm.deceased,
-                executors: completedForm.executors,
-                declaration: completedForm.declaration
-            };
-            req.body = {};
-            req.session.haveAllExecutorsDeclared = 'false';
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-            assert.equal(ctx.previousTaskStatus.CopiesTask, 'locked');
-        });
-
-        it('Updates the context: CopiesTask not started', () => {
-            req.session.form = {};
-            req.body = {};
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-            assert.equal(ctx.CopiesTask.status, 'notStarted');
-        });
-
-        it('Updates the context: CopiesTask started', () => {
-            req.session.form = {
-                copies: {
-                    uk: 1
-                }
-            };
-            req.body = {};
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-            assert.equal(ctx.CopiesTask.status, 'started');
-        });
-
-        it('Updates the context: CopiesTask complete', () => {
-            req.session.form = completedForm;
-            req.body = {};
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-            assert.equal(ctx.CopiesTask.status, 'complete');
-        });
-
-        it('Updates the context: PaymentTask not started', () => {
-            req.session.form = {};
-            req.body = {};
-            ctx = taskList.getContextData(req);
-
-            assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.PaymentTask.status, 'notStarted');
-        });
-
-        it('Updates the context: PaymentTask started (Fee to Pay)', () => {
-            req.session.form = {
-                payment: {
-                    reference: '1234'
+        describe('Probate Journey', () => {
+            let ctx = {};
+            const req = {
+                session: {
+                    form: {}
                 },
-                ccdCase: {
-                    state: 'PAAppCreated',
-                    id: 1535395401245028
-                }
+                query: {}
             };
-            req.body = {};
-            ctx = taskList.getContextData(req);
 
-            assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.PaymentTask.status, 'started');
+            beforeEach(() => {
+                req.session.caseType = 'gop';
+                req.session.journey = journeyProbate;
+                journeyMap = new JourneyMap(journeyProbate);
+            });
+
+            afterEach(() => {
+                delete req.session.caseType;
+            });
+
+            it('Updates the context: neither task is started', () => {
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.status, 'notStarted');
+                assert.equal(ctx.DeceasedTask.nextURL, steps[journeyMap.taskList().DeceasedTask.firstStep].constructor.getUrl());
+                assert.equal(ctx.ExecutorsTask.status, 'notStarted');
+                assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
+            });
+
+            it('Updates the context: DeceasedTask started', () => {
+                const formdata = {deceased: {firstName: 'Test first name', lastName: 'Test last name'}};
+                req.session.form = formdata;
+                ctx = taskList.getContextData(req);
+                ctx = Object.assign(ctx, formdata.deceased);
+
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.status, 'started');
+                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).constructor.getUrl());
+                assert.equal(ctx.ExecutorsTask.status, 'notStarted');
+                assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
+            });
+
+            it('Updates the context: DeceasedTask complete, ExecutorsTask not started', () => {
+                const formdata = {
+                    deceased: completedForm.deceased,
+                    will: completedForm.will,
+                    iht: completedForm.iht
+                };
+                req.session.form = formdata;
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.status, 'complete');
+                assert.equal(ctx.ExecutorsTask.status, 'notStarted');
+                assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
+            });
+
+            it('Updates the context: DeceasedTask complete, ExecutorsTask started', () => {
+                const formdata = {
+                    deceased: completedForm.deceased,
+                    will: completedForm.will,
+                    iht: completedForm.iht,
+                    applicant: {
+                        firstName: completedForm.applicant.firstName,
+                        lastName: completedForm.applicant.lastName
+                    }
+                };
+                req.session.form = formdata;
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.status, 'complete');
+                assert.equal(ctx.ExecutorsTask.status, 'started');
+                assert.equal(ctx.ExecutorsTask.nextURL, journeyMap.nextStep(steps.ApplicantName, formdata.will).constructor.getUrl());
+            });
+
+            it('Updates the context: DeceasedTask & ExecutorsTask started (ExecutorsTask blocked)', () => {
+                const formdata = {
+                    deceased: {firstName: 'Test first name', lastName: 'Test last name'},
+                    applicant: {
+                        firstName: completedForm.applicant.firstName,
+                        lastName: completedForm.applicant.lastName
+                    }
+                };
+                req.session.form = formdata;
+                ctx = taskList.getContextData(req);
+                ctx = Object.assign(ctx, formdata.deceased);
+
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.status, 'started');
+                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).constructor.getUrl());
+                assert.equal(ctx.ExecutorsTask.status, 'started');
+            });
+
+            it('Updates the context: Review and confirm not started', () => {
+                const formdata = {
+                    will: completedForm.will,
+                    iht: completedForm.iht,
+                    applicant: completedForm.applicant,
+                    deceased: completedForm.deceased,
+                    executors: completedForm.executors
+                };
+                req.session.form = formdata;
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.status, 'complete');
+                assert.equal(ctx.ExecutorsTask.status, 'complete');
+                assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.ReviewAndConfirmTask.status, 'notStarted');
+                assert.equal(ctx.ReviewAndConfirmTask.nextURL, steps[journeyMap.taskList().ReviewAndConfirmTask.firstStep].constructor.getUrl());
+            });
+
+            it('Updates the context: Review and confirm complete (Single Applicants)', () => {
+                req.session.form = {
+                    will: completedForm.will,
+                    iht: completedForm.iht,
+                    applicant: completedForm.applicant,
+                    deceased: completedForm.deceased,
+                    declaration: completedForm.declaration
+                };
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
+                assert.equal(ctx.CopiesTask.status, 'notStarted');
+                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+            });
+
+            it('Updates the context: Review and confirm complete (Multiple Applicants All Agreed)', () => {
+                req.session.form = {
+                    will: completedForm.will,
+                    iht: completedForm.iht,
+                    applicant: completedForm.applicant,
+                    deceased: completedForm.deceased,
+                    executors: completedForm.executors,
+                    declaration: completedForm.declaration
+                };
+                req.body = {};
+                req.session.haveAllExecutorsDeclared = 'true';
+                ctx = taskList.getContextData(req);
+                ctx.alreadyDeclared = true;
+                ctx.hasMultipleApplicants = true;
+
+                assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
+                assert.equal(ctx.CopiesTask.status, 'notStarted');
+                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+            });
+
+            it('Updates the context: Review and confirm complete (Multiple Applicants Not all have agreed)', () => {
+                req.session.form = {
+                    will: completedForm.will,
+                    iht: completedForm.iht,
+                    applicant: completedForm.applicant,
+                    deceased: completedForm.deceased,
+                    executors: completedForm.executors,
+                    declaration: completedForm.declaration
+                };
+                req.body = {};
+                req.session.haveAllExecutorsDeclared = 'false';
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
+                assert.equal(ctx.previousTaskStatus.CopiesTask, 'locked');
+            });
+
+            it('Updates the context: CopiesTask not started', () => {
+                req.session.form = {};
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+                assert.equal(ctx.CopiesTask.status, 'notStarted');
+            });
+
+            it('Updates the context: CopiesTask started', () => {
+                req.session.form = {
+                    copies: {
+                        uk: 1
+                    }
+                };
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+                assert.equal(ctx.CopiesTask.status, 'started');
+            });
+
+            it('Updates the context: CopiesTask complete', () => {
+                req.session.form = completedForm;
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+                assert.equal(ctx.CopiesTask.status, 'complete');
+            });
+
+            it('Updates the context: PaymentTask not started', () => {
+                req.session.form = {};
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.status, 'notStarted');
+            });
+
+            it('Updates the context: PaymentTask started (Fee to Pay)', () => {
+                req.session.form = {
+                    payment: {
+                        reference: '1234'
+                    },
+                    ccdCase: {
+                        state: 'PAAppCreated',
+                        id: 1535395401245028
+                    }
+                };
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.status, 'started');
+            });
+
+            it('Updates the context: PaymentTask started (No Fee)', () => {
+                req.session.form = {
+                    payment: {
+                        total: 0,
+                    },
+                    ccdCase: {
+                        state: 'PAAppCreated',
+                        id: 1535395401245028
+                    }
+                };
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.status, 'started');
+            });
+
+            it('Updates the context: PaymentTask complete', () => {
+                req.session.form = {
+                    ccdCase: {
+                        state: 'CaseCreated',
+                        id: 1535395401245028
+                    },
+                    payment: {
+                        status: 'Success',
+                        reference: '1234'
+                    }
+                };
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.status, 'complete');
+            });
+
+            it('Updates the context: DeceasedTask, Executors, Review and confirm, Copies and Document tasks complete', () => {
+                req.session.form = completedForm;
+                req.session.form.documents = {
+                    sentDocuments: 'true'
+                };
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.DocumentsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.status, 'complete');
+                assert.equal(ctx.ExecutorsTask.status, 'complete');
+                assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
+                assert.equal(ctx.DocumentsTask.status, 'complete');
+            });
+
+            it('Test the Copies Previous Task Status is set correctly', () => {
+                req.session.form = completedForm;
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.CopiesTask.status, 'complete');
+            });
         });
 
-        it('Updates the context: PaymentTask started (No Fee)', () => {
-            req.session.form = {
-                payment: {
-                    total: 0,
+        describe('Intestacy Journey', () => {
+            let ctx = {};
+            const req = {
+                session: {
+                    form: {}
                 },
-                ccdCase: {
-                    state: 'PAAppCreated',
-                    id: 1535395401245028
-                }
+                query: {}
             };
-            req.body = {};
-            ctx = taskList.getContextData(req);
 
-            assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.PaymentTask.status, 'started');
-        });
+            beforeEach(() => {
+                req.session.caseType = 'intestacy';
+                req.session.journey = journeyIntestacy;
+                journeyMap = new JourneyMap(journeyIntestacy);
+            });
 
-        it('Updates the context: PaymentTask complete', () => {
-            req.session.form = {
-                ccdCase: {
-                    state: 'CaseCreated',
-                    id: 1535395401245028
-                },
-                payment: {
-                    status: 'Success',
-                    reference: '1234'
-                }
-            };
-            req.body = {};
-            ctx = taskList.getContextData(req);
+            afterEach(() => {
+                delete req.session.caseType;
+            });
 
-            assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.PaymentTask.status, 'complete');
-        });
+            it('Updates the context: neither task is started', () => {
+                ctx = taskList.getContextData(req);
 
-        it('Updates the context: DeceasedTask, Executors, Review and confirm, Copies and Document tasks complete', () => {
-            req.session.form = completedForm;
-            req.session.form.documents = {
-                sentDocuments: 'true'
-            };
-            req.body = {};
-            ctx = taskList.getContextData(req);
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.status, 'notStarted');
+                assert.equal(ctx.DeceasedTask.nextURL, steps[journeyMap.taskList().DeceasedTask.firstStep].constructor.getUrl());
+                assert.equal(ctx.ApplicantsTask.status, 'notStarted');
+                assert.equal(ctx.ApplicantsTask.nextURL, steps[journeyMap.taskList().ApplicantsTask.firstStep].constructor.getUrl());
+            });
 
-            assert.equal(ctx.DocumentsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-            assert.equal(ctx.DeceasedTask.status, 'complete');
-            assert.equal(ctx.ExecutorsTask.status, 'complete');
-            assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-            assert.equal(ctx.DocumentsTask.status, 'complete');
-        });
+            it('Updates the context: DeceasedTask started', () => {
+                const formdata = {
+                    deceased: {
+                        firstName: 'Test first name',
+                        lastName: 'Test last name',
+                        dob_day: 1,
+                        dob_month: 2,
+                        dob_year: 1900,
+                        dob_date: '1900-02-01T00:00:00.000Z',
+                        dob_formattedDate: '1 February 1900',
+                        dod_day: 2,
+                        dod_month: 3,
+                        dod_year: 2010,
+                        dod_date: '2010-03-02T00:00:00.000Z',
+                        dod_formattedDate: '1 February 2000'
+                    }
+                };
+                req.session.form = formdata;
+                ctx = taskList.getContextData(req);
+                ctx = Object.assign(ctx, formdata.deceased);
 
-        it('Test the Copies Previous Task Status is set correctly', () => {
-            req.session.form = completedForm;
-            ctx = taskList.getContextData(req);
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.status, 'started');
+                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedDetails, ctx).constructor.getUrl());
+                assert.equal(ctx.ApplicantsTask.status, 'notStarted');
+                assert.equal(ctx.ApplicantsTask.nextURL, steps[journeyMap.taskList().ApplicantsTask.firstStep].constructor.getUrl());
+            });
 
-            assert.equal(ctx.CopiesTask.status, 'complete');
+            it('Updates the context: DeceasedTask complete, ApplicantsTask not started', () => {
+                const formdata = {
+                    deceased: completedForm.deceased,
+                    will: completedForm.will,
+                    iht: completedForm.iht
+                };
+                req.session.form = formdata;
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.status, 'complete');
+                assert.equal(ctx.ApplicantsTask.status, 'notStarted');
+                assert.equal(ctx.ApplicantsTask.nextURL, steps[journeyMap.taskList().ApplicantsTask.firstStep].constructor.getUrl());
+            });
+
+            it('Updates the context: DeceasedTask complete, ApplicantsTask started', () => {
+                const formdata = {
+                    deceased: completedForm.deceased,
+                    iht: completedForm.iht,
+                    applicant: {
+                        relationshipToDeceased: completedForm.applicant.relationshipToDeceased,
+                        assetsValue: 300000.6
+                    }
+                };
+                req.session.form = formdata;
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.ApplicantsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.status, 'complete');
+                assert.equal(ctx.ApplicantsTask.status, 'started');
+                assert.equal(ctx.ApplicantsTask.nextURL, journeyMap.nextStep(steps.RelationshipToDeceased, formdata.applicant).constructor.getUrl());
+            });
+
+            it('Updates the context: DeceasedTask & ApplicantsTask started (ApplicantsTask blocked)', () => {
+                const formdata = {
+                    deceased: {
+                        firstName: 'Test first name',
+                        lastName: 'Test last name',
+                        dob_day: 1,
+                        dob_month: 2,
+                        dob_year: 1900,
+                        dob_date: '1900-02-01T00:00:00.000Z',
+                        dob_formattedDate: '1 February 1900',
+                        dod_day: 2,
+                        dod_month: 3,
+                        dod_year: 2010,
+                        dod_date: '2010-03-02T00:00:00.000Z',
+                        dod_formattedDate: '1 February 2000'
+                    },
+                    applicant: {
+                        relationshipToDeceased: completedForm.applicant.relationshipToDeceased
+                    }
+                };
+                req.session.form = formdata;
+                ctx = taskList.getContextData(req);
+                ctx = Object.assign(ctx, formdata.deceased);
+
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.status, 'started');
+                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedDetails, ctx).constructor.getUrl());
+                assert.equal(ctx.ApplicantsTask.status, 'started');
+            });
+
+            it('Updates the context: Review and confirm not started', () => {
+                const formdata = {
+                    will: completedForm.will,
+                    iht: completedForm.iht,
+                    applicant: completedForm.applicant,
+                    deceased: completedForm.deceased,
+                    executors: completedForm.executors
+                };
+                formdata.deceased.anyChildren = 'No';
+                req.session.form = formdata;
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.ApplicantsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.status, 'complete');
+                assert.equal(ctx.ApplicantsTask.status, 'complete');
+                assert.equal(ctx.ApplicantsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.ReviewAndConfirmTask.status, 'notStarted');
+                assert.equal(ctx.ReviewAndConfirmTask.nextURL, steps[journeyMap.taskList().ReviewAndConfirmTask.firstStep].constructor.getUrl());
+            });
+
+            it('Updates the context: Review and confirm complete (Single Applicants)', () => {
+                req.session.form = {
+                    will: completedForm.will,
+                    iht: completedForm.iht,
+                    applicant: completedForm.applicant,
+                    deceased: completedForm.deceased,
+                    declaration: completedForm.declaration
+                };
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
+                assert.equal(ctx.CopiesTask.status, 'notStarted');
+                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+            });
+
+            it('Updates the context: CopiesTask not started', () => {
+                req.session.form = {};
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+                assert.equal(ctx.CopiesTask.status, 'notStarted');
+            });
+
+            it('Updates the context: CopiesTask started', () => {
+                req.session.form = {
+                    copies: {
+                        uk: 1
+                    }
+                };
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+                assert.equal(ctx.CopiesTask.status, 'started');
+            });
+
+            it('Updates the context: CopiesTask complete', () => {
+                req.session.form = completedForm;
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+                assert.equal(ctx.CopiesTask.status, 'complete');
+            });
+
+            it('Updates the context: PaymentTask not started', () => {
+                req.session.form = {};
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.status, 'notStarted');
+            });
+
+            it('Updates the context: PaymentTask started (Fee to Pay)', () => {
+                req.session.form = {
+                    payment: {
+                        reference: '1234'
+                    },
+                    ccdCase: {
+                        state: 'PAAppCreated',
+                        id: 1535395401245028
+                    }
+                };
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.status, 'started');
+            });
+
+            it('Updates the context: PaymentTask started (No Fee)', () => {
+                req.session.form = {
+                    payment: {
+                        total: 0,
+                    },
+                    ccdCase: {
+                        state: 'PAAppCreated',
+                        id: 1535395401245028
+                    }
+                };
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.status, 'started');
+            });
+
+            it('Updates the context: PaymentTask complete', () => {
+                req.session.form = {
+                    ccdCase: {
+                        state: 'CaseCreated',
+                        id: 1535395401245028
+                    },
+                    payment: {
+                        status: 'Success',
+                        reference: '1234'
+                    }
+                };
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.status, 'complete');
+            });
+
+            it('Updates the context: DeceasedTask, Applicants, Review and confirm and Copies tasks complete', () => {
+                req.session.form = completedForm;
+                req.body = {};
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.DeceasedTask.status, 'complete');
+                assert.equal(ctx.ApplicantsTask.status, 'complete');
+                assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
+            });
+
+            it('Test the Copies Previous Task Status is set correctly', () => {
+                req.session.form = completedForm;
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.CopiesTask.status, 'complete');
+            });
         });
     });
 

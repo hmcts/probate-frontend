@@ -19,24 +19,29 @@ class TaskList extends Step {
     }
 
     copiesPreviousTaskStatus(session, ctx) {
-        if (ctx.hasMultipleApplicants && session.haveAllExecutorsDeclared === 'false') {
-            return 'locked';
+        if (ctx.journeyType === 'gop') {
+            if (ctx.hasMultipleApplicants && session.haveAllExecutorsDeclared === 'false') {
+                return 'locked';
+            }
+
+            return this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask]);
         }
 
-        return this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask]);
+        return this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask]);
     }
 
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         utils.updateTaskStatus(ctx, req, this.steps);
 
-        ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
         ctx.journeyType = setJourney.getJourneyName(req.session);
 
         if (ctx.journeyType === 'gop') {
+            const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+            ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
+
             ctx.previousTaskStatus = {
                 DeceasedTask: ctx.DeceasedTask.status,
                 ExecutorsTask: ctx.DeceasedTask.status,
@@ -48,10 +53,10 @@ class TaskList extends Step {
         } else {
             ctx.previousTaskStatus = {
                 DeceasedTask: ctx.DeceasedTask.status,
-                ExecutorsTask: ctx.DeceasedTask.status,
-                ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask]),
+                ApplicantsTask: ctx.DeceasedTask.status,
+                ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask]),
                 CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
-                PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
+                PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
             };
         }
 

@@ -6,7 +6,7 @@ const taskList = {
         lastStep: 'TaskList',
         summary: 'Summary'
     },
-    ExecutorsTask: {
+    ApplicantsTask: {
         firstStep: 'RelationshipToDeceased',
         lastStep: 'TaskList',
         summary: 'Summary'
@@ -76,7 +76,6 @@ const stepList = {
     },
     IhtIdentifier: 'IhtValue',
     IhtValue: {
-
         lessThanOrEqualTo250k: 'AssetsOutside',
         otherwise: 'DeceasedAlias'
     },

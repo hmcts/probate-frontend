@@ -16,7 +16,7 @@ class RelationshipToDeceased extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedMaritalStatus = get(formdata, 'deceased.maritalStatus');
-        ctx.assetsValue = get(formdata, 'iht.netValue', 0) + get(formdata, 'deceased.netValueAssetsOutside', 0);
+        ctx.assetsValue = get(formdata, 'iht.netValue', 0) + get(formdata, 'iht.netValueAssetsOutside', 0);
         return ctx;
     }
 

@@ -6,8 +6,23 @@ const taskList = {
         lastStep: 'TaskList',
         summary: 'Summary'
     },
-    ApplicantsTask: {
+    ExecutorsTask: {
         firstStep: 'RelationshipToDeceased',
+        lastStep: 'TaskList',
+        summary: 'Summary'
+    },
+    ReviewAndConfirmTask: {
+        firstStep: 'Declaration',
+        lastStep: 'TaskList',
+        summary: 'Summary'
+    },
+    CopiesTask: {
+        firstStep: 'CopiesStart',
+        lastStep: 'CopiesSummary',
+        summary: 'CopiesSummary'
+    },
+    PaymentTask: {
+        firstStep: 'PaymentBreakdown',
         lastStep: 'TaskList',
         summary: 'Summary'
     }
@@ -130,8 +145,18 @@ const stepList = {
     ApplicantName: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
     ApplicantAddress: 'Summary',
-
     Summary: 'TaskList',
+    Declaration: 'TaskList',
+    CopiesStart: 'CopiesUk',
+    CopiesUk: 'AssetsOverseas',
+    AssetsOverseas: {
+        assetsoverseas: 'CopiesOverseas',
+        otherwise: 'CopiesSummary'
+    },
+    CopiesOverseas: 'CopiesSummary',
+    CopiesSummary: 'TaskList',
+    PaymentBreakdown: 'PaymentStatus',
+    PaymentStatus: 'TaskList',
     TaskList: 'TaskList',
     StopPage: 'StopPage'
 };

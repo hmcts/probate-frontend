@@ -12,9 +12,7 @@ class TaskList extends Step {
     }
 
     previousTaskStatus(previousTasks) {
-        console.log(previousTasks);
         const allPreviousTasksComplete = previousTasks.every((task) => {
-            console.log(task, task.status);
             return task.status === 'complete';
         });
         return allPreviousTasksComplete ? 'complete' : 'started';
@@ -50,10 +48,10 @@ class TaskList extends Step {
         } else {
             ctx.previousTaskStatus = {
                 DeceasedTask: ctx.DeceasedTask.status,
-                ApplicantsTask: ctx.DeceasedTask.status,
-                ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask]),
+                ExecutorsTask: ctx.DeceasedTask.status,
+                ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask]),
                 CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
-                PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
+                PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
             };
         }
 

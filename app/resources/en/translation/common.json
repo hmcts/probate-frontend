@@ -40,7 +40,7 @@
   "helpHeading1": "Telephone",
   "helpHeading2": "Email",
   "contactOpeningTimes" : "{openingTimes}.",
-  "helpEmailLabel" : "Email us at <a href=\"mailto:{contactEmailAddress}\">{contactEmailAddress}</a>",
+  "helpEmailLabel" : "Email us at <a href=\"mailto:{contactEmailAddress}\" tabindex=\"-1\">{contactEmailAddress}</a>",
   "or": "or",
   "documentUploadChooseFile": "Choose a file or take a photo",
   "documentUploadDragAndDrop": "drag and drop files here",

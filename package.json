@@ -45,6 +45,7 @@
     "business-stub": "NODE_PATH=. node test/service-stubs/business.js",
     "payment-stub": "NODE_PATH=. node test/service-stubs/payment.js",
     "find-address-stub": "NODE_PATH=. node test/service-stubs/find-address.js",
+    "feature-toggles-stub": "NODE_PATH=. node test/service-stubs/feature-toggles.js",
     "test:fullfunctional": "NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --reporter mochawesome"
   },
   "dependencies": {

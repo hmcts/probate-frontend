@@ -30,10 +30,6 @@ router.get('/health', (req, res) => {
     res.send({'status': 'UP'});
 });
 
-router.get(`${config.featureToggles.path}/:featureToggleKey`, (req, res) => {
-    res.send('true');
-});
-
 router.get('/info', (req, res) => {
     res.send({
         'git': {

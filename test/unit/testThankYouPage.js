@@ -32,6 +32,7 @@ describe('ThankYou', () => {
 
             ctx = ThankYou.getContextData(req);
             expect(ctx.ccdReferenceNumber).to.deep.equal('1234-5678-9012-3456');
+            expect(ctx.ccdReferenceNumberAccessible).to.deep.equal('1 2 3 4, -, 5 6 7 8, -, 9 0 1 2, -, 3 4 5 6');
             done();
         });
     });
@@ -40,7 +41,8 @@ describe('ThankYou', () => {
         it('test that context variables are removed and empty object returned', () => {
             let formdata = {};
             let ctx = {
-                ccdReferenceNumber: '1234-1235-1236-1237'
+                ccdReferenceNumber: '1234-1235-1236-1237',
+                ccdReferenceNumberAccessible: '1 2 3 4, -, 5 6 7 8, -, 9 0 1 2, -, 3 4 5 6'
             };
             [ctx, formdata] = ThankYou.action(ctx, formdata);
             expect(ctx).to.deep.equal({});

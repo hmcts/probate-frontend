@@ -15,7 +15,8 @@
                 <p>{{ content.paragraph4 }}</p>
                 <p>
                     {{ common.contactTelLabel | replace('{helpLineNumber}', helpline.number) }} {{ common.contactOpeningTimes | replace('{openingTimes}', helpline.hours) }}<br>
-                    {{ common.helpEmailLabel }} {{ common.contactEmailAddress | safe }}
+                    <!-- {{ common.helpEmailLabel }} {{ common.contactEmailAddress | safe }} -->
+                    {{ common.helpEmailLabel | replace('{contactEmailAddress}', links.contactEmailAddress) | safe }}
                 </p>
             </div>
         </div>

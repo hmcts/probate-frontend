@@ -13,6 +13,7 @@ const paymentFees = require('app/paymentFees');
 const setJourney = require('app/middleware/setJourney');
 const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
 const ServiceMapper = require('app/utils/ServiceMapper');
+const lockPaymentAttempt = require('app/middleware/lockPaymentAttempt');
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
@@ -58,6 +59,7 @@ router.get('/', (req, res) => {
 
 router.use(documentDownload);
 router.use(paymentFees);
+router.post('/payment-breakdown', lockPaymentAttempt);
 
 router.use(setJourney);
 

@@ -103,7 +103,7 @@ const persistFormData = (id, formdata, sessionID) => {
         formdata.journeyType
     );
     return formData.post(id, formdata, sessionID);
-}
+};
 
 module.exports = {
     getDocument,

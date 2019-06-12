@@ -311,7 +311,7 @@ describe('DocumentUploadMiddleware', () => {
                 expect(req.session.form.documents.uploads).to.deep.equal([]);
                 revertDelete();
 
-                setTimeout( () => {
+                setTimeout(() => {
                     expect(res.redirect.calledWith('/document-upload')).to.equal(true);
                     revertPersist();
                     done();
@@ -335,7 +335,6 @@ describe('DocumentUploadMiddleware', () => {
                 done();
             });
         });
-
 
         it('should return an error if formdata cannot be persisted', (done) => {
             const revertDelete = documentUploadMiddleware.__set__('Document', class {

@@ -15,15 +15,12 @@ describe('DeceasedAddress', () => {
     });
 
     describe('getContextData()', () => {
-        it('should return the ctx with the deceased address and the document_upload feature toggle on', (done) => {
+        it('should return the ctx with the deceased address', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
                         journeyType: 'probate'
-                    },
-                    featureToggles: {
-                        document_upload: true
                     },
                     journeyType: 'probate'
                 },
@@ -41,39 +38,6 @@ describe('DeceasedAddress', () => {
                 postTown: 'town',
                 country: 'United Kingdon',
                 newPostCode: 'L23 6WW',
-                postcode: 'L23 6WW',
-                sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
-            });
-            done();
-        });
-
-        it('should return the ctx with the deceased address and the document_upload feature toggle off', (done) => {
-            const req = {
-                sessionID: 'dummy_sessionId',
-                session: {
-                    form: {
-                        journeyType: 'probate'
-                    },
-                    featureToggles: {
-                        document_upload: false
-                    },
-                    journeyType: 'probate'
-                },
-                body: {
-                    addressLine1: '143 Caerfai Bay Road',
-                    postTown: 'town',
-                    newPostCode: 'L23 6WW',
-                    country: 'United Kingdon',
-                    postcode: 'L23 6WW'
-                }
-            };
-            const ctx = DeceasedAddress.getContextData(req);
-            expect(ctx).to.deep.equal({
-                addressLine1: '143 Caerfai Bay Road',
-                postTown: 'town',
-                newPostCode: 'L23 6WW',
-                country: 'United Kingdon',
                 postcode: 'L23 6WW',
                 sessionID: 'dummy_sessionId',
                 journeyType: 'probate'

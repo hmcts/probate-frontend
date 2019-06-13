@@ -7,14 +7,6 @@ const config = require('app/config');
 const ThankYou = require('app/steps/ui/thankyou');
 const ihtContent = require('app/resources/en/translation/iht/method');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const documentUploadFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(documentUploadFeatureTogglePath)
-        .reply(200, status);
-};
 
 describe('documents', () => {
     let testWrapper;
@@ -37,15 +29,12 @@ describe('documents', () => {
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('Documents', featureTogglesNock);
+        testHelpBlockContent.runTest('Documents');
 
         it('test correct content loaded on the page, no codicils, no alias, single executor', (done) => {
-            featureTogglesNock('true');
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -89,8 +78,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, no alias, multiple executors', (done) => {
-            featureTogglesNock('true');
-
             sessionData.executors = {
                 list: [
                     {isApplying: true, isApplicant: true},
@@ -139,8 +126,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, no alias, multiple executors', (done) => {
-            featureTogglesNock('true');
-
             sessionData.executors = {
                 list: [
                     {isApplying: true, isApplicant: true},
@@ -189,8 +174,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, multiple executors, no alias, with optionRenunciated', (done) => {
-            featureTogglesNock('true');
-
             sessionData.executors = {
                 executorsNumber: 2,
                 list: [
@@ -242,8 +225,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, has codicils, no alias, single executor', (done) => {
-            featureTogglesNock('true');
-
             sessionData.will = {
                 codicils: 'Yes',
                 codicilsNumber: '1'
@@ -293,8 +274,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, has codicils, no alias, multiple executors', (done) => {
-            featureTogglesNock('true');
-
             sessionData.will = {
                 codicils: 'Yes',
                 codicilsNumber: '1'
@@ -349,8 +328,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, specified registry address', (done) => {
-            featureTogglesNock('true');
-
             sessionData.registry = {
                 address: '1 Red Street\nLondon\nO1 1OL'
             };
@@ -399,8 +376,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, online IHT', (done) => {
-            featureTogglesNock('true');
-
             sessionData.iht = {
                 method: ihtContent.optionOnline
             };
@@ -448,8 +423,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 207 or 400', (done) => {
-            featureTogglesNock('true');
-
             sessionData.iht = {
                 method: ihtContent.optionPaper,
                 form: 'IHT207'
@@ -498,8 +471,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 205', (done) => {
-            featureTogglesNock('true');
-
             sessionData.iht = {
                 method: ihtContent.optionPaper,
                 form: 'IHT205'
@@ -547,8 +518,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, one executor name changed by deed poll', (done) => {
-            featureTogglesNock('true');
-
             sessionData.executors = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Marriage'},
@@ -599,8 +568,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, multiple executor name changed by deed poll', (done) => {
-            featureTogglesNock('true');
-
             sessionData.executors = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Change by deed poll'},
@@ -654,8 +621,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, original will uploaded', (done) => {
-            featureTogglesNock('true');
-
             sessionData.documents = {
                 uploads: [
                     {
@@ -707,8 +672,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, original will not uploaded', (done) => {
-            featureTogglesNock('true');
-
             sessionData.documents = {
                 uploads: []
             };
@@ -755,8 +718,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, CCD Case ID not present', (done) => {
-            featureTogglesNock('true');
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -801,8 +762,6 @@ describe('documents', () => {
         });
 
         it('test correct content loaded on the page, CCD Case ID is present', (done) => {
-            featureTogglesNock('true');
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

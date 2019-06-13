@@ -3,15 +3,6 @@
 const TestWrapper = require('test/util/TestWrapper');
 const DocumentUpload = require('app/steps/ui/documentupload');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
-const config = require('app/config');
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const documentUploadFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(documentUploadFeatureTogglePath)
-        .reply(200, status);
-};
 
 describe('deceased-address', () => {
     let testWrapper;
@@ -23,11 +14,10 @@ describe('deceased-address', () => {
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeceasedAddress', featureTogglesNock);
+        testHelpBlockContent.runTest('DeceasedAddress');
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = ['selectAddress'];
@@ -44,8 +34,6 @@ describe('deceased-address', () => {
         });
 
         it(`test it redirects to document upload page: ${expectedNextUrlForDocumentUpload}`, (done) => {
-            featureTogglesNock('true');
-
             const data = {
                 addressLine1: 'value',
                 postTown: 'value',

@@ -62,10 +62,7 @@ const stepList = {
     StartApply: 'TaskList',
 
     DeceasedDetails: 'DeceasedAddress',
-    DeceasedAddress: {
-        documentUploadToggleOn: 'DocumentUpload',
-        otherwise: 'IhtMethod'
-    },
+    DeceasedAddress: 'DocumentUpload',
     DocumentUpload: {
         isUploadingDocument: 'DocumentUpload',
         otherwise: 'IhtMethod'

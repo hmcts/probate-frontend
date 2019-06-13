@@ -68,10 +68,7 @@ const stepList = {
     DeceasedName: 'DeceasedDob',
     DeceasedDob: 'DeceasedDod',
     DeceasedDod: 'DeceasedAddress',
-    DeceasedAddress: {
-        documentUploadToggleOn: 'DocumentUpload',
-        otherwise: 'IhtMethod'
-    },
+    DeceasedAddress: 'DocumentUpload',
     DocumentUpload: {
         isUploadingDocument: 'DocumentUpload',
         otherwise: 'IhtMethod'

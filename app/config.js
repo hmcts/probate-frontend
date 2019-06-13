@@ -9,7 +9,6 @@ const config = {
         url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8292',
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
         fe_shutter_toggle: 'probate-fe-shutter',
-        document_upload: 'probate-document-upload',
         intestacy_questions: 'probate-intestacy-questions',
         fees_api: 'probate-fees-api',
         port: 8292

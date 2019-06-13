@@ -257,25 +257,5 @@ describe('Documents', () => {
             expect(ctx.ccdReferenceNumber).to.equal('');
             done();
         });
-
-        it('should return true when the document upload toggle is set', (done) => {
-            const ctxToTest = {};
-            const formdata = {};
-            const featureToggles = {
-                document_upload: true
-            };
-            const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
-            expect(ctx.isDocumentUploadToggleEnabled).to.equal(true);
-            done();
-        });
-
-        it('should return false when the document upload toggle is not set', (done) => {
-            const ctxToTest = {};
-            const formdata = {};
-            const featureToggles = {};
-            const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
-            expect(ctx.isDocumentUploadToggleEnabled).to.equal(false);
-            done();
-        });
     });
 });

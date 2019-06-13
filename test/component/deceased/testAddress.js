@@ -1,8 +1,6 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const Summary = require('app/steps/ui/summary');
-const IhtMethod = require('app/steps/ui/iht/method');
 const DocumentUpload = require('app/steps/ui/documentupload');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const config = require('app/config');
@@ -17,8 +15,6 @@ const featureTogglesNock = (status = 'true') => {
 
 describe('deceased-address', () => {
     let testWrapper;
-    const expectedNextUrlForSummary = Summary.getUrl();
-    const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
     const expectedNextUrlForDocumentUpload = DocumentUpload.getUrl();
 
     beforeEach(() => {
@@ -47,17 +43,6 @@ describe('deceased-address', () => {
             testWrapper.testErrors(done, data, 'required', ['addressLine1']);
         });
 
-        it(`test it redirects to iht method page: ${expectedNextUrlForIhtMethod}`, (done) => {
-            featureTogglesNock('false');
-
-            const data = {
-                addressLine1: 'value',
-                postTown: 'value',
-                newPostCode: 'value'
-            };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
-        });
-
         it(`test it redirects to document upload page: ${expectedNextUrlForDocumentUpload}`, (done) => {
             featureTogglesNock('true');
 
@@ -67,17 +52,6 @@ describe('deceased-address', () => {
                 newPostCode: 'value'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForDocumentUpload);
-        });
-
-        it(`test it redirects to summary page: ${expectedNextUrlForSummary}`, (done) => {
-            featureTogglesNock('false');
-
-            const data = {
-                addressLine1: 'value',
-                postTown: 'value',
-                newPostCode: 'value'
-            };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
     });
 });

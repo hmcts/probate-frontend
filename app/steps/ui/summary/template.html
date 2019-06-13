@@ -19,15 +19,14 @@
             </tbody>
         </table>
 
-        {% ifAsync fields.summary.isDocumentUploadToggleEnabled.value === "true" %}
-            <h2 class="heading-medium">{{ content.Summary.uploadedDocumentsHeading }}</h2>
-            <table class="check-your-answers check-your-answers--long">
-                <caption class="visually-hidden">{{ content.Summary.uploadedDocumentsHeading }}</caption>
-                <tbody>
-                    {% include "ui/summary/includes/documentupload.njk" %}
-                </tbody>
-            </table>
-        {% endif %}
+
+        <h2 class="heading-medium">{{ content.Summary.uploadedDocumentsHeading }}</h2>
+        <table class="check-your-answers check-your-answers--long">
+            <caption class="visually-hidden">{{ content.Summary.uploadedDocumentsHeading }}</caption>
+            <tbody>
+            {% include "ui/summary/includes/documentupload.njk" %}
+            </tbody>
+        </table>
 
         <h2 class="heading-medium">{{ content.Summary.ihtHeading }}</h2>
         <table class="check-your-answers check-your-answers--long">

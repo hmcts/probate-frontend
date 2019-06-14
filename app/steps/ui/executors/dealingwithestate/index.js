@@ -47,7 +47,7 @@ class ExecutorsDealingWithEstate extends ValidationStep {
 
     handlePost(ctx, errors) {
         for (let i = 1; i < ctx.executorsNumber; i++) {
-            ctx.list[i].isApplying = includes(ctx.executorsApplying, ctx.list[i].fullName);
+            ctx.list[i].isApplying = (includes(ctx.executorsApplying, ctx.list[i].fullName) || ctx.list[i].isApplicant);
             ctx.list[i] = this.pruneExecutorData(ctx.list[i]);
         }
         return [ctx, errors];

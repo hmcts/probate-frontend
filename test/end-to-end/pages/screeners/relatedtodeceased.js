@@ -6,8 +6,8 @@ const pageUnderTest = require('app/steps/ui/screeners/relatedtodeceased');
 module.exports = function (answer) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
     I.click(`#related-option${answer}`);
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.continue}"]`);
+    I.navByClick(`input[value="${commonContent.continue}"]`);
 };

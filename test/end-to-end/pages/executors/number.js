@@ -6,9 +6,9 @@ const pageUnderTest = require('app/steps/ui/executors/number');
 module.exports = function (totalExecutors) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
 
     I.fillField('#executorsNumber', totalExecutors);
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.navByClick(commonContent.saveAndContinue);
 };

@@ -5,7 +5,7 @@ const pageUnderTest = require('app/steps/ui/deceased/details');
 
 module.exports = function (firstName, lastName, dob_day, dob_month, dob_year, dod_day, dod_month, dod_year) {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
 
     I.fillField('#firstName', firstName);
     I.fillField('#lastName', lastName);
@@ -18,5 +18,5 @@ module.exports = function (firstName, lastName, dob_day, dob_month, dob_year, do
     I.fillField('#dod_month', dod_month);
     I.fillField('#dod_year', dod_year);
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.navByClick(commonContent.saveAndContinue);
 };

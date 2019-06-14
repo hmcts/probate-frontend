@@ -1,10 +1,13 @@
 'use strict';
 
+const content = require('app/resources/en/translation/tasklist');
 const pageUnderTest = require('app/steps/ui/tasklist');
+const testConfig = require('test/config.js');
 
 module.exports = function () {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.waitForText(content.introduction, testConfig.TestWaitForTextToAppear);
+    I.amOnLoadedPage(pageUnderTest.getUrl());
 
-    I.waitForNavigationToComplete('.button');
+    I.click('.button');
 };

@@ -6,8 +6,8 @@ const pageUnderTest = require('app/steps/ui/screeners/willleft');
 module.exports = function (answer) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
     I.click(`#left-option${answer}`);
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.continue}"]`);
+    I.navByClick(commonContent.continue);
 };

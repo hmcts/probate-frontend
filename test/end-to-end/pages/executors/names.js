@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/executors/names');
 module.exports = function (totalExecutors) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
 
     let i = 0;
 
@@ -15,5 +15,5 @@ module.exports = function (totalExecutors) {
         i += 1;
     }
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.navByClick(commonContent.saveAndContinue);
 };

@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/executors/notified');
 module.exports = function (executorNotified, executorNumber) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
+    I.amOnLoadedPage(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
 
     if (executorNotified === 'Yes') {
         I.click('#executorNotified-optionYes');
@@ -14,5 +14,5 @@ module.exports = function (executorNotified, executorNumber) {
         I.click('#executorNotified-optionNo');
     }
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.navByClick(commonContent.saveAndContinue);
 };

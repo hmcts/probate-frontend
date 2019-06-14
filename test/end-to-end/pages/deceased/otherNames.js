@@ -5,7 +5,7 @@ const pageUnderTest = require('app/steps/ui/deceased/otherNames');
 
 module.exports = function (noOfAliases) {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
     let i = 1;
 
     while (i <= noOfAliases) {
@@ -13,7 +13,7 @@ module.exports = function (noOfAliases) {
             I.fillField(`#otherNames_name_${i-1}_firstName`, `alias_firstnames_${i}`);
             I.fillField(`#otherNames_name_${i-1}_lastName`, `alias_lastnames_${i}`);
         } else {
-            I.waitForNavigationToComplete('input[value="Add another name"]');
+            I.navByClick('Add another name');
             I.fillField(`#otherNames_name_${i-1}_firstName`, `alias_firstnames_${i}`);
             I.fillField(`#otherNames_name_${i-1}_lastName`, `alias_lastnames_${i}`);
         }
@@ -21,5 +21,5 @@ module.exports = function (noOfAliases) {
         i += 1;
     }
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.navByClick(commonContent.saveAndContinue);
 };

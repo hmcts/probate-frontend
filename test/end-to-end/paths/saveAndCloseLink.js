@@ -3,6 +3,7 @@
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const signOutPage = require('app/steps/ui/signout');
+const testConfig = require('test/config.js');
 
 Feature('Save And Close Link Functionality');
 
@@ -21,24 +22,15 @@ After(() => {
 // eslint-disable-next-line no-undef
 Scenario(TestConfigurator.idamInUseText('Save And Close Link Click Flow'), function (I) {
 
-    //Screeners & Pre-IDAM
-    I.startApplication();
-    I.selectDeathCertificate('Yes');
-    I.selectDeceasedDomicile('Yes');
-    I.selectIhtCompleted('Yes');
-    I.selectPersonWhoDiedLeftAWill('Yes');
-    I.selectOriginalWill('Yes');
-    I.selectApplicantIsExecutor('Yes');
-    I.selectMentallyCapable('Yes');
-    I.startApply();
-
     // IDAM
-    I.authenticateWithIdamIfAvailable();
+    I.authenticateWithIdamIfAvailable(true);
 
     // Deceased Details
     I.selectATask(taskListContent.taskNotStarted);
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
-    I.enterDeceasedDateOfBirth('01', '01', '1950');
-    I.enterDeceasedDateOfDeath('01', '01', '2017', true);
-    I.seeCurrentUrlEquals(signOutPage.getUrl());
-});
+    I.enterDeceasedDateOfBirth('01', '01', '1950', true);
+
+    I.waitForText('sign back in', testConfig.TestWaitForTextToAppear);
+    I.seeInCurrentUrl(signOutPage.getUrl());
+
+}).retry(TestConfigurator.getRetryScenarios());

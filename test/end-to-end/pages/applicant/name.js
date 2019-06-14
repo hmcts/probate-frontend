@@ -5,9 +5,9 @@ const pageUnderTest = require('app/steps/ui/applicant/name');
 
 module.exports = function (firstname, lastname) {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
     I.fillField('#firstName', firstname);
     I.fillField('#lastName', lastname);
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.navByClick(commonContent.saveAndContinue);
 };

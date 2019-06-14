@@ -6,8 +6,11 @@ const pageUnderTest = require('app/steps/ui/documents');
 module.exports = function () {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click('#coverSheetPdfHref');
+    I.amOnLoadedPage(pageUnderTest.getUrl());
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.continue}"]`);
+    if (!I.isInternetExplorer()) {
+        I.click('#coverSheetPdfHref');
+    }
+
+    I.navByClick(commonContent.continue);
 };

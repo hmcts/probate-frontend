@@ -4,7 +4,7 @@
   "version": "4.1.1",
   "private": true,
   "engines": {
-    "node": ">=8.9"
+    "node": ">=8.9.4"
   },
   "scripts": {
     "setup": "NODE_PATH=. npm run sass && npm run git-info && npm run sass-ie8 && npm run sass-webchat",
@@ -22,7 +22,7 @@
     "test:a11y": "NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 15000",
     "test-accessibility": "NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 15000",
     "test-e2e": "NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
-    "test-crossbrowser-e2e": "NODE_PATH=. codeceptjs run -c test/end-to-end/saucelabs.conf.js --steps",
+    "test:crossbrowser": "NODE_PATH=. codeceptjs run-multiple firefox -c test/end-to-end/saucelabs.conf.js --plugins retryFailedStep --steps --reporter mocha-multi",
     "test:smoke": "mocha test/smoke/healthcheck.js --timeout 25000 --reporter spec",
     "test-contract": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/addresslookup/*.js' 'test/contract/generatepin/*.js' --timeout 15000 --reporter spec",
     "test-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/pact/*.js' --timeout 15000 --reporter spec",
@@ -108,13 +108,14 @@
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.0.0",
     "chai-string": "^1.5.0",
-    "codeceptjs": "^2.0.6",
+    "codeceptjs": "^2.1.4",
     "eslint": "4.1.1 ",
     "eslint-plugin-mocha": "^4.8.0",
     "istanbul": "^0.4.5",
     "mocha": "^2.5.3",
     "mocha-jenkins-reporter": "^0.3.8",
     "mochawesome": "^2.0.0",
+    "mocha-multi": "^1.1.0",
     "nock": "^9.3.0",
     "nodemon": "^1.11.0",
     "nsp": "^2.6.2",
@@ -133,6 +134,7 @@
     "unirest": "^0.5.1",
     "uuid": "^3.1.0",
     "watch": "^1.0.1",
+    "webdriverio": "^4.14.4",
     "when": "^3.7.7"
   }
 }

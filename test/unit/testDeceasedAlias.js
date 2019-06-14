@@ -7,7 +7,7 @@ const content = require('app/resources/en/translation/deceased/alias');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const DeceasedAlias = steps.DeceasedAlias;
 
-describe('ApplicantNameAsOnWill', () => {
+describe('DeceasedAlias', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = DeceasedAlias.constructor.getUrl();
@@ -51,7 +51,10 @@ describe('ApplicantNameAsOnWill', () => {
                 lastName: 'Ceased',
                 deceasedName: 'Dee Ceased',
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
+                journeyType: 'probate',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
             done();
         });

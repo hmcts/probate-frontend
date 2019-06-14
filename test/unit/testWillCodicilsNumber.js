@@ -32,7 +32,10 @@ describe('CodicilsNumber', () => {
             expect(ctx).to.deep.equal({
                 codicilsNumber: 3,
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
+                journeyType: 'probate',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
             done();
         });
@@ -54,7 +57,10 @@ describe('CodicilsNumber', () => {
             expect(ctx).to.deep.equal({
                 codicilsNumber: null,
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
+                journeyType: 'probate',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
             done();
         });

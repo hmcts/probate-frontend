@@ -35,7 +35,10 @@ describe('DeceasedDomicile', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 domicile: content.optionYes,
-                journeyType: 'Probate'
+                journeyType: 'Probate',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
             done();
         });

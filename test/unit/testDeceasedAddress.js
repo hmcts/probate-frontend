@@ -40,7 +40,10 @@ describe('DeceasedAddress', () => {
                 newPostCode: 'L23 6WW',
                 postcode: 'L23 6WW',
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
+                journeyType: 'probate',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
             done();
         });

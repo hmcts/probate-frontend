@@ -32,7 +32,10 @@ describe('CopiesUk', () => {
             expect(ctx).to.deep.equal({
                 uk: 3,
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
+                journeyType: 'probate',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
             done();
         });

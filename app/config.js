@@ -8,10 +8,12 @@ const config = {
     featureToggles: {
         url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8292',
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
+        port: 8292,
         fe_shutter_toggle: 'probate-fe-shutter',
         intestacy_questions: 'probate-intestacy-questions',
         fees_api: 'probate-fees-api',
-        port: 8292
+        webchat: 'probate-webchat',
+        appwideToggles: ['webchat']
     },
     app: {
         username: process.env.USERNAME,
@@ -116,6 +118,10 @@ const config = {
     payloadVersion: '4.1.1',
     gaTrackingId: process.env.GA_TRACKING_ID || 'UA-93598808-3',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
+    webChat: {
+        chatId: process.env.WEBCHAT_CHAT_ID || 'script_7143406305ce667c21e2eb9.79440233',
+        tenant: process.env.WEBCHAT_TENANT || 'aG1jdHNzdGFnaW5nMDE',
+    },
     links: {
         cookies: '/cookies',
         privacy: '/privacy-policy',

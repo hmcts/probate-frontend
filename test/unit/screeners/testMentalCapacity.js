@@ -35,7 +35,10 @@ describe('MentalCapacity', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 mentalCapacity: content.optionYes,
-                journeyType: 'Probate'
+                journeyType: 'Probate',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
             done();
         });

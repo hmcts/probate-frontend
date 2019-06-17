@@ -4,11 +4,14 @@
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
+const paymentType = testConfig.paymentType;
+const copies = testConfig.copies;
 
 let grabIds;
 let retries = -1;
 
-Feature('Multiple Executors flow').retry(TestConfigurator.getRetryFeatures());
+Feature('Multiple Executors flow');
+// .retry(TestConfigurator.getRetryFeatures());
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
@@ -42,9 +45,9 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.selectInheritanceMethodPaper();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterGrossAndNet('205', '600000', '300000');
+        I.enterGrossAndNet(paymentType.form, paymentType.pay.gross, paymentType.pay.net);
     } else {
-        I.enterGrossAndNet('205', '500', '400');
+        I.enterGrossAndNet(paymentType.form, paymentType.noPay.gross, paymentType.noPay.net);
     }
 
     I.selectDeceasedAlias('Yes');
@@ -77,17 +80,15 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         diedBefore = !diedBefore;
     });
 
-    I.selectExecutorsApplying();
+    I.selectExecutorsApplying('Yes');
 
     const executorsApplyingList = ['3', '5'];
-    I.selectExecutorsDealingWithEstate(executorsApplyingList);
-
-    I.selectExecutorsWithDifferentNameOnWill();
-
-    const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
-    I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
+    I.selectExecutorsDealingWithEstate(executorsApplyingList, true);
+    I.selectExecutorsWithDifferentNameOnWill('Yes');
 
     const executorsWithDifferentNameList = ['5'];
+    I.selectWhichExecutorsWithDifferentNameOnWill(executorsApplyingList, executorsWithDifferentNameList);
+
     forEach(executorsWithDifferentNameList, executorNumber => {
         I.enterExecutorCurrentName(executorNumber, head(executorsWithDifferentNameList) === executorNumber);
         I.enterExecutorCurrentNameReason(executorNumber, 'aliasOther', 'executor_alias_reason');
@@ -98,10 +99,10 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         I.enterExecutorManualAddress(executorNumber);
     });
 
-    const executorsAliveList = ['4', '6'];
+    const executorsNotApplyingList = ['4', '6'];
     let powerReserved = true;
-    forEach(executorsAliveList, executorNumber => {
-        I.selectExecutorRoles(executorNumber, powerReserved, head(executorsAliveList) === executorNumber);
+    forEach(executorsNotApplyingList, executorNumber => {
+        I.selectExecutorRoles(executorNumber, powerReserved, head(executorsNotApplyingList) === executorNumber);
 
         if (powerReserved) {
             I.selectHasExecutorBeenNotified('Yes', executorNumber);
@@ -126,7 +127,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
 }).retry(TestConfigurator.getRetryScenarios());
 
-Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), async function (I) {
+Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Additional Executor(s) Agree to Statement of Truth'), async function (I) {
     const idList = JSON.parse(grabIds);
 
     for (let i=0; i < idList.ids.length; i++) {
@@ -148,7 +149,7 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
     }
 }).retry(TestConfigurator.getRetryScenarios());
 
-Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function (I) {
+Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Continuation of Main applicant journey: final stage of application'), function (I) {
 
     // IDAM
     I.authenticateWithIdamIfAvailable(true);
@@ -157,13 +158,13 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     I.selectATask();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterUkCopies('5');
+        I.enterUkCopies(copies.pay.uk);
         I.selectOverseasAssets();
-        I.enterOverseasCopies('7');
+        I.enterOverseasCopies(copies.pay.overseas);
     } else {
-        I.enterUkCopies('0');
+        I.enterUkCopies(copies.noPay.uk);
         I.selectOverseasAssets();
-        I.enterOverseasCopies('0');
+        I.enterOverseasCopies(copies.noPay.overseas);
     }
 
     I.seeCopiesSummary();
@@ -171,7 +172,11 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     // Payment Task
     I.selectATask();
 
-    I.seePaymentBreakdownPage();
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.seePaymentBreakdownPage(copies.pay.uk, copies.pay.overseas, paymentType.pay.net);
+    } else {
+        I.seePaymentBreakdownPage(copies.noPay.uk, copies.noPay.overseas, paymentType.noPay.net);
+    }
 
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.seeGovUkPaymentPage();

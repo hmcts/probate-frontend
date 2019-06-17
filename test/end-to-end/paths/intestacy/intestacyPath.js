@@ -2,6 +2,8 @@
 
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
+const testConfig = require('test/config.js');
+const paymentType = testConfig.paymentType;
 
 Feature('Intestacy flow');
 
@@ -62,9 +64,9 @@ xScenario(TestConfigurator.idamInUseText('Intestacy Journey'), function (I) {
     I.selectInheritanceMethodPaper();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterGrossAndNet('205', '300000', '200000');
+        I.enterGrossAndNet(paymentType.form, paymentType.pay.gross, '200000');
     } else {
-        I.enterGrossAndNet('205', '500', '400');
+        I.enterGrossAndNet(paymentType.form, paymentType.noPay.gross, paymentType.noPay.net);
     }
 
     I.selectAssetsOutsideEnglandWales('Yes');

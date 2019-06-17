@@ -24,6 +24,8 @@ class TestConfigurator {
         this.retryScenarios = testConfig.TestRetryScenarios;
         this.testUseProxy = testConfig.TestUseProxy;
         this.testProxy = testConfig.TestProxy;
+        this.testReformProxy = testConfig.TestReformProxy;
+        this.testInjectFormDataURL = testConfig.TestInjectFormDataURL;
     }
 
     getBefore() {
@@ -89,7 +91,7 @@ class TestConfigurator {
         this.testCitizenName = randomstring.generate({
             length: 36,
             charset: 'alphabetic'
-        });
+        }).toLowerCase();
     }
 
     getTestCitizenName() {
@@ -161,12 +163,29 @@ class TestConfigurator {
         return this.testProxy;
     }
 
-    injectFormData(data, emailId) {
+    createFeeInfoTable() {
+        const copiesAndEstateInfo = new DataTable(['noUKCopies', 'noOverseasCopies', 'grossValue', 'netValue']);
+        copiesAndEstateInfo.add([0, 0, 500, 400]); //No payment
+        copiesAndEstateInfo.add([0, 1, 500, 400]); //1 Overseas Copy
+        copiesAndEstateInfo.add([1, 0, 500, 400]); //1 UK Copy
+        copiesAndEstateInfo.add([2, 2, 7000, 6000]); //2 copies each and application fee
+        return copiesAndEstateInfo;
+    }
+
+    createFeeInfoTableFor1Copy() {
+        const copiesAndEstateInfo = new DataTable(['noUKCopies', 'noOverseasCopies', 'grossValue', 'netValue']);
+        copiesAndEstateInfo.add([0, 1, 500, 400]); //1 Overseas Copy
+        copiesAndEstateInfo.add([1, 0, 500, 400]); //1 UK Copy
+        return copiesAndEstateInfo;
+    }
+
+    injectFormData(data) {
+        const emailId = this.getTestCitizenEmail();
         const formData =
             {
                 id: emailId,
                 formdata: {
-                    payloadVersion: '4.1.0',
+                    payloadVersion: '4.1.1',
                     applicantEmail: emailId,
                 }
             };

@@ -23,3 +23,7 @@ git.properties.json
 /logs/
 /pacts/
 /mochawesome-report/
+
+test/end-to-end/_output/
+
+test/end-to-end/test/end-to-end/output/

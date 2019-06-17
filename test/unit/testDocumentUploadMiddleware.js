@@ -273,7 +273,7 @@ describe('DocumentUploadMiddleware', () => {
         });
     });
 
-    describe('removeDocument()', () => {
+    describe.only('removeDocument()', () => {
         let req;
 
         beforeEach(() => {
@@ -294,14 +294,11 @@ describe('DocumentUploadMiddleware', () => {
         });
 
         it('should remove a document', (done) => {
-            const revertDelete = documentUploadMiddleware.__set__('Document', class {
+            const revert = documentUploadMiddleware.__set__('Document', class {
                 delete() {
                     return Promise.resolve(true);
                 }
             });
-            const revertPersist = () => {
-                return Promise.resolve(true);
-            };
             const res = {
                 redirect: sinon.spy()
             };
@@ -309,13 +306,11 @@ describe('DocumentUploadMiddleware', () => {
             documentUploadMiddleware.removeDocument(req, res, next);
             setTimeout(() => {
                 expect(req.session.form.documents.uploads).to.deep.equal([]);
-                revertDelete();
-
                 setTimeout(() => {
                     expect(res.redirect.calledWith('/document-upload')).to.equal(true);
-                    revertPersist();
-                    done();
                 });
+                revert();
+                done();
             });
         });
 
@@ -337,23 +332,19 @@ describe('DocumentUploadMiddleware', () => {
         });
 
         it('should return an error if formdata cannot be persisted', (done) => {
-            const revertDelete = documentUploadMiddleware.__set__('Document', class {
+            const revert = documentUploadMiddleware.__set__('Document', class {
                 delete() {
                     return Promise.resolve(true);
                 }
             });
             const error = new Error('something');
-            const revertPersist = () => {
-                return Promise.resolve(error);
-            };
             const res = {};
             const next = sinon.spy();
             documentUploadMiddleware.removeDocument(req, res, next);
             setTimeout(() => {
-                revertDelete();
+                revert();
                 setTimeout(() => {
                     expect(next.calledWith(error)).to.equal(true);
-                    revertPersist();
                     done();
                 });
             });

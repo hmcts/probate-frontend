@@ -87,7 +87,7 @@ data "azurerm_key_vault_secret" "probate_webchat_id" {
 }
 
 data "azurerm_key_vault_secret" "probate_webchat_tenant" {
-  name = "probate_webchat_tenant"
+  name = "probate-webchat-tenant"
   vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
 }
 

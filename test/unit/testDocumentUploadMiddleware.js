@@ -273,7 +273,7 @@ describe('DocumentUploadMiddleware', () => {
         });
     });
 
-    describe.only('removeDocument()', () => {
+    describe('removeDocument()', () => {
         let req;
 
         beforeEach(() => {

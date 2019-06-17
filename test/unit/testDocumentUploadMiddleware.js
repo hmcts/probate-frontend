@@ -334,7 +334,7 @@ describe('DocumentUploadMiddleware', () => {
         it('should return an error if formdata cannot be persisted', (done) => {
             const revert = documentUploadMiddleware.__set__('Document', class {
                 delete() {
-                    return Promise.resolve(true);
+                    return Promise.reject(error);
                 }
             });
             const error = new Error('something');
@@ -342,11 +342,11 @@ describe('DocumentUploadMiddleware', () => {
             const next = sinon.spy();
             documentUploadMiddleware.removeDocument(req, res, next);
             setTimeout(() => {
-                revert();
                 setTimeout(() => {
                     expect(next.calledWith(error)).to.equal(true);
-                    done();
                 });
+                revert();
+                done();
             });
         });
     });

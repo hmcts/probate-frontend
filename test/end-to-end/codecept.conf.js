@@ -16,7 +16,7 @@ exports.config = {
                     'width': 1280,
                     'height': 960
                 },
-                args: [
+                'args': [
                     '--no-sandbox',
                     '--proxy-server=proxyout.reform.hmcts.net:8080',
                     '--proxy-bypass-list=*beta*LB.reform.hmcts.net',
@@ -26,6 +26,15 @@ exports.config = {
         },
         'PuppeteerHelper': {
             'require': './helpers/PuppeteerHelper.js'
+        },
+        'SauceLabsReportingHelper': {
+            'require': './helpers/SauceLabsReportingHelper.js'
+        },
+        'WebDriverHelper': {
+            'require': './helpers/WebDriverHelper.js'
+        },
+        'JSWait': {
+            'require': './helpers/JSWait.js'
         },
     },
     'include': {

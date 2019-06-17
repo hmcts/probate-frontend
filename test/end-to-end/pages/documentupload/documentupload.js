@@ -8,7 +8,6 @@ module.exports = function () {
     const I = this;
 
     I.amOnLoadedPage(pageUnderTest.getUrl());
-
     I.waitForVisible('.document-upload__dropzone-text--choose-file');
 
     I.uploadDocumentIfNotMicrosoftEdge();

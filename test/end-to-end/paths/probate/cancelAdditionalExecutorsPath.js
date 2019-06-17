@@ -8,6 +8,8 @@ const {forEach, head} = require('lodash');
 const paymentType = testConfig.paymentType;
 const copies = testConfig.copies;
 
+let retries = -1;
+
 Feature('Cancel Additional Executors Flow');
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
@@ -23,37 +25,44 @@ AfterSuite(() => {
 });
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Cancel Additional Executors: 1st stage of completing application'), function (I) {
+    retries += 1;
 
-    // Eligibility Task (pre IdAM)
-    I.startApplication();
+    if (retries >= 1) {
+        TestConfigurator.getBefore();
+    }
 
-    I.selectDeathCertificate('No');
-    I.seeStopPage('deathCertificate');
-    I.selectDeathCertificate('Yes');
+    I.amOnPage(testConfig.TestE2EFrontendUrl);
 
-    I.selectDeceasedDomicile('No');
-    I.seeStopPage('notInEnglandOrWales');
-    I.selectDeceasedDomicile('Yes');
+    // // Eligibility Task (pre IdAM)
+    // I.startApplication();
 
-    I.selectIhtCompleted('No');
-    I.seeStopPage('ihtNotCompleted');
-    I.selectIhtCompleted('Yes');
+    // I.selectDeathCertificate('No');
+    // I.seeStopPage('deathCertificate');
+    // I.selectDeathCertificate('Yes');
 
-    I.selectPersonWhoDiedLeftAWill('Yes');
+    // I.selectDeceasedDomicile('No');
+    // I.seeStopPage('notInEnglandOrWales');
+    // I.selectDeceasedDomicile('Yes');
 
-    I.selectOriginalWill('No');
-    I.seeStopPage('notOriginal');
-    I.selectOriginalWill('Yes');
+    // I.selectIhtCompleted('No');
+    // I.seeStopPage('ihtNotCompleted');
+    // I.selectIhtCompleted('Yes');
 
-    I.selectApplicantIsExecutor('No');
-    I.seeStopPage('notExecutor');
-    I.selectApplicantIsExecutor('Yes');
+    // I.selectPersonWhoDiedLeftAWill('Yes');
 
-    I.selectMentallyCapable('No');
-    I.seeStopPage('mentalCapacity');
-    I.selectMentallyCapable('Yes');
+    // I.selectOriginalWill('No');
+    // I.seeStopPage('notOriginal');
+    // I.selectOriginalWill('Yes');
 
-    I.startApply();
+    // I.selectApplicantIsExecutor('No');
+    // I.seeStopPage('notExecutor');
+    // I.selectApplicantIsExecutor('Yes');
+
+    // I.selectMentallyCapable('No');
+    // I.seeStopPage('mentalCapacity');
+    // I.selectMentallyCapable('Yes');
+
+    // I.startApply();
 
     // IdAM
     I.authenticateWithIdamIfAvailable();
@@ -153,4 +162,4 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Cancel Add
 
     // Thank You - Application Complete Task
     I.seeThankYouPage();
-});
+}).retry(TestConfigurator.getRetryScenarios());

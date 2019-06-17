@@ -6,6 +6,8 @@ const testConfig = require('test/config.js');
 const paymentType = testConfig.paymentType;
 const copies = testConfig.copies;
 
+let retries = -1;
+
 Feature('Single Executor flow').retry(TestConfigurator.getRetryFeatures());
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
@@ -21,6 +23,11 @@ After(() => {
 });
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), function (I) {
+    retries += 1;
+
+    if (retries >= 1) {
+        TestConfigurator.getBefore();
+    }
 
     // Eligibility Task (pre IdAM)
     I.startApplication();

@@ -9,6 +9,8 @@ const testConfig = require('test/config.js');
 const paymentType = testConfig.paymentType;
 const copies = testConfig.copies;
 
+let retries = -1;
+
 Feature('Multiple Executors Renotify Flow');
 
 BeforeSuite(() => {
@@ -23,6 +25,11 @@ let grabIdsOriginalExecutors;
 let grabIdsNewExecutors;
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Renotify Journey - Main applicant: 1st stage of completing application'), async function (I) {
+    retries += 1;
+
+    if (retries >= 1) {
+        TestConfigurator.getBefore();
+    }
 
     TestConfigurator.injectFormData(data);
 

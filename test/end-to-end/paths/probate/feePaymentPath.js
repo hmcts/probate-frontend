@@ -6,6 +6,8 @@ const data = require('test/data/injecting-data/single-executor-start-from-paymen
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('test/config.js');
 
+let retries = -1;
+
 Feature('Fee Payment Flow');
 
 Before(() => {
@@ -17,6 +19,12 @@ After(() => {
 });
 
 Data(TestConfigurator.createFeeInfoTable()).Scenario('Single Executor Journey - Fee Payment: Check payment for different copies and application fees', function (I, current) {
+    retries += 1;
+
+    if (retries >= 1) {
+        TestConfigurator.getBefore();
+    }
+
     data.copies.uk = current.noUKCopies;
     data.copies.overseas = current.noOverseasCopies;
     data.iht.grossValue = current.grossValue;

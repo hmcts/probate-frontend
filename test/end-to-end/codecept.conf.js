@@ -27,15 +27,6 @@ exports.config = {
         'PuppeteerHelper': {
             'require': './helpers/PuppeteerHelper.js'
         },
-        'SauceLabsReportingHelper': {
-            'require': './helpers/SauceLabsReportingHelper.js'
-        },
-        'WebDriverHelper': {
-            'require': './helpers/WebDriverHelper.js'
-        },
-        'JSWait': {
-            'require': './helpers/JSWait.js'
-        },
     },
     'include': {
         'I': './pages/steps.js'

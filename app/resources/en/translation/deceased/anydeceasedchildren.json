@@ -4,6 +4,7 @@
   "legend": "Did any of {deceasedName}&rsquo;s children die before {deceasedDoD}?",
   "optionYes": "Yes",
   "optionNo": "No",
+  "theDeceased": "the deceased",
 
   "errors": {
     "anyDeceasedChildren": {

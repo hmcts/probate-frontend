@@ -5,6 +5,7 @@
   "hint": "This includes adopted children but not stepchildren.",
   "optionYes": "Yes",
   "optionNo": "No",
+  "theDeceased": "the deceased",
 
   "errors": {
     "anyChildren": {

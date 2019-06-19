@@ -4,6 +4,7 @@
   "legend": "Why isn&rsquo;t {deceasedName}&rsquo;s spouse applying?",
   "optionRenouncing": "They don&rsquo;t want to apply and they give up the right to apply in the future (this is known as &lsquo;renunciation&rsquo;)",
   "optionOther": "Other",
+  "theDeceased": "the deceased",
 
   "errors": {
     "spouseNotApplyingReason": {

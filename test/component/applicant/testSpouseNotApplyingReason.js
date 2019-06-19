@@ -45,7 +45,7 @@ describe('spouse-not-applying-reason', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe'};
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, ['theDeceased'], contentData);
                 });
         });
 

@@ -1,5 +1,6 @@
 {{checkanswer(
-    items = [{
+    items = [
+        {
             question: content.ExecutorsNumber.question,
             answer: fields.executors.executorsNumber.value,
             visible: true
@@ -11,7 +12,8 @@
 )}}
 
 {{checkanswer(
-    items = [{
+    items = [
+        {
             question: content.ExecutorsAllAlive.question,
             answer: fields.executors.allalive.value,
             visible: fields.executors.executorsNumber.value > 1
@@ -23,7 +25,8 @@
 )}}
 
 {{checkanswer(
-    items = [{
+    items = [
+        {
             question: content.ExecutorsWhoDied.question,
             answer: fields.summary.executorsWhoDied.value,
             visible: fields.executors.allalive.value === content.ExecutorsAllAlive.optionNo
@@ -36,9 +39,10 @@
 )}}
 
 {% for executor in fields.executors.list.value %}
-    {% if executor.isApplicant != true and executor.isDead === true %}
+    {% if executor.isApplicant != true and executor.isDead == true %}
         {{checkanswer(
-            items = [{
+            items = [
+                {
                     question: content.Summary.executorsWhenDiedQuestion | replace('{executorFullName}', executor.fullName),
                     answer: executor.diedBefore,
                     visible: true

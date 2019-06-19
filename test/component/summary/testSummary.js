@@ -3,10 +3,22 @@
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
 const sessionData = require('test/data/documentupload');
+const config = require('app/config');
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
+const featureTogglesNockIntestacy = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(intestacyQuestionsFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('summary', () => {
     let testWrapper;
     const expectedNextUrlForTaskList = TaskList.getUrl();
+    const sessionDataIntestacy = {
+        caseType: 'intestacy'
+    };
 
     beforeEach(() => {
         testWrapper = new TestWrapper('Summary');
@@ -21,7 +33,6 @@ describe('summary', () => {
             const contentToExclude = [
                 'executorsWhenDiedQuestion',
                 'otherNamesLabel',
-                'willWithCodicilHeading',
                 'otherExecutors',
                 'executorsWithOtherNames',
                 'executorApplyingForProbate',
@@ -32,11 +43,38 @@ describe('summary', () => {
                 'mobileNumber',
                 'emailAddress',
                 'uploadedDocumentsHeading',
-                'uploadedDocumentsEmpty'
+                'uploadedDocumentsEmpty',
+                'aboutPeopleApplyingHeading'
             ];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, contentToExclude);
+                });
+        });
+
+        it('[INTESTACY] test content loaded on the page', (done) => {
+            featureTogglesNockIntestacy('true');
+
+            const contentToExclude = [
+                'executorsWhenDiedQuestion',
+                'otherNamesLabel',
+                'otherExecutors',
+                'executorsWithOtherNames',
+                'executorApplyingForProbate',
+                'executorsNotApplyingForProbate',
+                'nameOnWill',
+                'currentName',
+                'currentNameReason',
+                'mobileNumber',
+                'emailAddress',
+                'uploadedDocumentsHeading',
+                'uploadedDocumentsEmpty',
+                'applicantHeading'
+            ];
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionDataIntestacy)
                 .end(() => {
                     testWrapper.testContent(done, contentToExclude);
                 });

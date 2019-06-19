@@ -1,9 +1,11 @@
 {{checkanswer(
-    items = [{
-        question: content.IhtMethod.question,
-        answer: fields.iht.method.value,
-        visible: true
-    }],
+    items = [
+        {
+            question: content.IhtMethod.question,
+            answer: fields.iht.method.value,
+            visible: true
+        }
+    ],
     url = content.IhtMethod.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
@@ -12,44 +14,68 @@
 {% set selectedOption=fields.iht.form.value %}
 
 {{checkanswer(
-    items = [{
-        question: content.IhtPaper.question,
-        answer:  content.IhtPaper['option' + selectedOption],
-        visible: fields.iht.method.value == content.IhtMethod.optionPaper
-    },{
-        question: content.IhtValue.grossValue,
-        answer: fields.iht['grossValueField' + selectedOption].value,
-        visible: fields.iht.method.value == content.IhtMethod.optionPaper
-    },{
-        question: content.IhtValue.netValue,
-        answer: fields.iht['netValueField' + selectedOption].value,
-        visible: fields.iht.method.value == content.IhtMethod.optionPaper
-    }],
+    items = [
+        {
+            question: content.IhtPaper.question,
+            answer:  content.IhtPaper['option' + selectedOption],
+            visible: fields.iht.method.value == content.IhtMethod.optionPaper
+        },
+        {
+            question: content.IhtValue.grossValue,
+            answer: fields.iht['grossValueField' + selectedOption].value,
+            visible: fields.iht.method.value == content.IhtMethod.optionPaper
+        },
+        {
+            question: content.IhtValue.netValue,
+            answer: fields.iht['netValueField' + selectedOption].value,
+            visible: fields.iht.method.value == content.IhtMethod.optionPaper
+        }
+    ],
     url = content.IhtPaper.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
+
 {{checkanswer(
-    items = [{
-        question: content.IhtIdentifier.question,
-        answer: fields.iht.identifier.value,
-        visible: fields.iht.method.value == content.IhtMethod.optionOnline
-    }],
+    items = [
+        {
+            question: content.IhtIdentifier.question,
+            answer: fields.iht.identifier.value,
+            visible: fields.iht.method.value == content.IhtMethod.optionOnline
+        }
+    ],
     url = content.IhtIdentifier.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
+
 {{checkanswer(
-    items = [{
-        question: content.IhtValue.grossValue,
-        answer: fields.iht.grossValueField.value,
-        visible: fields.iht.method.value == content.IhtMethod.optionOnline
-    },{
-        question: content.IhtValue.netValue,
-        answer: fields.iht.netValueField.value,
-        visible: fields.iht.method.value == content.IhtMethod.optionOnline
-    }],
+    items = [
+        {
+            question: content.IhtValue.grossValue,
+            answer: fields.iht.grossValueField.value,
+            visible: fields.iht.method.value == content.IhtMethod.optionOnline
+        },
+        {
+            question: content.IhtValue.netValue,
+            answer: fields.iht.netValueField.value,
+            visible: fields.iht.method.value == content.IhtMethod.optionOnline
+        }
+    ],
     url = content.IhtValue.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.ValueAssetsOutside.question,
+            answer: fields.iht.netValueAssetsOutsideField.value,
+            visible: fields.summary.journeyType.value === "intestacy" and fields.iht.assetsOutside.value == content.AssetsOutside.optionYes
+        }
+    ],
+    url = content.ValueAssetsOutside.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}

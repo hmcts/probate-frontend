@@ -145,7 +145,6 @@ exports.init = function() {
     }));
 
     app.use(helmet.noCache());
-
     app.use(helmet.xssFilter({setOnOldIE: true}));
 
     app.use('/webchat', express.static(`${__dirname}/node_modules/@hmcts/ctsc-web-chat/assets`));

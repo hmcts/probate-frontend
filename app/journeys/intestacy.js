@@ -25,6 +25,11 @@ const taskList = {
         firstStep: 'PaymentBreakdown',
         lastStep: 'TaskList',
         summary: 'Summary'
+    },
+    DocumentsTask: {
+        firstStep: 'Documents',
+        lastStep: 'TaskList',
+        summary: 'Summary'
     }
 };
 
@@ -151,6 +156,8 @@ const stepList = {
     CopiesSummary: 'TaskList',
     PaymentBreakdown: 'PaymentStatus',
     PaymentStatus: 'TaskList',
+    Documents: 'ThankYou',
+    ThankYou: 'TaskList',
     TaskList: 'TaskList',
     StopPage: 'StopPage'
 };

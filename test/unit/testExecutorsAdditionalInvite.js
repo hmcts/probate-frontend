@@ -16,9 +16,9 @@ describe('Executor-Additional-Invite', function () {
                 session: {
                     form: {
                         executors: [],
-                        journeyType: 'probate'
+                        journeyType: 'gop'
                     },
-                    journeyType: 'probate'
+                    journeyType: 'gop'
                 }
             };
         });

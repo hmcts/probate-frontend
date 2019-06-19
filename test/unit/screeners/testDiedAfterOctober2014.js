@@ -23,7 +23,7 @@ describe('DiedAfterOctober2014', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {},
-                    journeyType: 'Probate'
+                    journeyType: 'gop'
                 },
                 body: {
                     diedAfter: content.optionYes
@@ -35,7 +35,7 @@ describe('DiedAfterOctober2014', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 diedAfter: content.optionYes,
-                journeyType: 'Probate',
+                journeyType: 'gop',
                 featureToggles: {
                     webchat: 'false'
                 }

@@ -14,7 +14,7 @@ describe('Executors invite endpoints', () => {
         req = {
             session: {
                 form: {
-                    journeyType: 'probate'
+                    journeyType: 'gop'
                 }
             },
             params: {

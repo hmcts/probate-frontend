@@ -117,7 +117,7 @@ describe('setJourney', () => {
 
     describe('setJourney()', () => {
         it('should set req.session with the probate journey when isIntestacyJourney is false', (done) => {
-            const revert = setJourney.__set__('probateJourney', {journey: 'probate'});
+            const revert = setJourney.__set__('probateJourney', {journey: 'gop'});
             const req = {
                 session: {
                     form: {}
@@ -131,7 +131,7 @@ describe('setJourney', () => {
             expect(req.session).to.deep.equal({
                 form: {},
                 journey: {
-                    journey: 'probate'
+                    journey: 'gop'
                 }
             });
             expect(next.calledOnce).to.equal(true);

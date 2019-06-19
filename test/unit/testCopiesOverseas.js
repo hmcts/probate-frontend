@@ -20,9 +20,9 @@ describe('CopiesOverseas', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        journeyType: 'probate'
+                        journeyType: 'gop'
                     },
-                    journeyType: 'probate'
+                    journeyType: 'gop'
                 },
                 body: {
                     overseas: '3'
@@ -32,7 +32,7 @@ describe('CopiesOverseas', () => {
             expect(ctx).to.deep.equal({
                 overseas: 3,
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate',
+                journeyType: 'gop',
                 featureToggles: {
                     webchat: 'false'
                 }

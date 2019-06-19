@@ -1,33 +1,73 @@
 'use strict';
 
+const setJourney = require('app/middleware/setJourney');
 const ValidationStep = require('app/core/steps/ValidationStep');
+const RedirectRunner = require('app/core/runners/RedirectRunner');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const RegistryWrapper = require('app/wrappers/Registry');
 const ihtContent = require('app/resources/en/translation/iht/method');
+const contentDeceasedMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
+const contentRelationshipToDeceased = require('app/resources/en/translation/applicant/relationshiptodeceased');
+const contentIhtMethod = require('app/resources/en/translation/iht/method');
 const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
 
 class Documents extends ValidationStep {
+
+    runner() {
+        return new RedirectRunner();
+    }
 
     static getUrl() {
         return '/documents';
     }
 
+    * runnerOptions(ctx, formdata) {
+        const options = {};
+
+        if (ctx.journeyType === 'intestacy') {
+            const deceasedMarried = (formdata.deceased && formdata.deceased.maritalStatus === contentDeceasedMaritalStatus.optionMarried);
+            const applicantIsChild = (formdata.applicant && (formdata.applicant.relationshipToDeceased === contentRelationshipToDeceased.optionChild || formdata.applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild));
+            const documentsUploaded = (formdata.documents && formdata.documents.uploads && formdata.documents.uploads.length);
+            const iht205Used = (formdata.iht && formdata.iht.method === contentIhtMethod.optionPaper && formdata.iht.form === 'IHT205');
+
+            if (!((deceasedMarried && applicantIsChild) || documentsUploaded || iht205Used)) {
+                options.redirect = true;
+                options.url = '/tasklist';
+            }
+        }
+
+        return options;
+    }
+
     handleGet(ctx, formdata) {
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        const willWrapper = new WillWrapper(formdata.will);
         const registryAddress = (new RegistryWrapper(formdata.registry)).address();
         const content = this.generateContent(ctx, formdata);
 
         ctx.registryAddress = registryAddress ? registryAddress : content.address;
-        ctx.hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
-        ctx.codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
-        ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
-        ctx.hasRenunciated = executorsWrapper.hasRenunciated();
+
+        if (ctx.journeyType === 'gop') {
+            ctx.hasCodicils = willWrapper.hasCodicils();
+            ctx.codicilsNumber = willWrapper.codicilsNumber();
+            ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
+            ctx.hasRenunciated = executorsWrapper.hasRenunciated();
+            ctx.executorsNameChangedByDeedPollList = executorsWrapper.executorsNameChangedByDeedPoll();
+        } else {
+            ctx.spouseRenouncing = formdata.deceased.maritalStatus === contentDeceasedMaritalStatus.optionMarried && (formdata.applicant.relationshipToDeceased === contentRelationshipToDeceased.optionChild || formdata.applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild);
+        }
+
         ctx.is205 = formdata.iht && formdata.iht.method === ihtContent.optionPaper && formdata.iht.form === 'IHT205';
-        ctx.executorsNameChangedByDeedPollList = executorsWrapper.executorsNameChangedByDeedPoll();
         ctx.ccdReferenceNumber = FormatCcdCaseId.format(formdata.ccdCase);
 
         return [ctx];
+    }
+
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        ctx.journeyType = setJourney.getJourneyName(req.session);
+        return ctx;
     }
 }
 

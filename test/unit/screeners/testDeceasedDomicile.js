@@ -23,7 +23,7 @@ describe('DeceasedDomicile', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {},
-                    journeyType: 'Probate'
+                    journeyType: 'gop'
                 },
                 body: {
                     domicile: content.optionYes
@@ -35,7 +35,7 @@ describe('DeceasedDomicile', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 domicile: content.optionYes,
-                journeyType: 'Probate',
+                journeyType: 'gop',
                 featureToggles: {
                     webchat: 'false'
                 }

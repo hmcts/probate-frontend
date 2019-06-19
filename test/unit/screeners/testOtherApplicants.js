@@ -23,7 +23,7 @@ describe('OtherApplicants', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {},
-                    journeyType: 'Probate'
+                    journeyType: 'gop'
                 },
                 body: {
                     otherApplicants: content.optionYes
@@ -35,7 +35,7 @@ describe('OtherApplicants', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 otherApplicants: content.optionYes,
-                journeyType: 'Probate',
+                journeyType: 'gop',
                 featureToggles: {
                     webchat: 'false'
                 }

@@ -36,11 +36,15 @@ module.exports = function () {
         selectDocumentsToUpload: steps.documentupload.documentupload,
         selectInheritanceMethodPaper: steps.iht.method,
         enterGrossAndNet: steps.iht.paper,
+        enterIHTIdentifier: steps.iht.identifier,
+        enterEstateValue: steps.iht.value,
         selectDeceasedAlias: steps.deceased.alias,
         selectOtherNames: steps.deceased.otherNames,
         selectDeceasedMarriedAfterDateOnWill: steps.deceased.married,
         selectWillCodicils: steps.will.codicils,
         selectWillNoOfCodicils: steps.will.codicilsnumber,
+        enterAnyChildren: steps.deceased.anychildren,
+        enterAnyOtherChildren: steps.deceased.anyotherchildren,
 
         // Executors
         enterApplicantName: steps.applicant.name,

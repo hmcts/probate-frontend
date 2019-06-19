@@ -51,6 +51,13 @@ class IhtValue extends ValidationStep {
             delete ctx.netValueAssetsOutside;
         }
 
+        if (formdata.deceased && ctx.netValue <= config.assetsValueThreshold) {
+            delete formdata.deceased.anyChildren;
+            delete formdata.deceased.allChildrenOver18;
+            delete formdata.deceased.anyDeceasedChildren;
+            delete formdata.deceased.anyGrandchildrenUnder18;
+        }
+
         return [ctx, formdata];
     }
 }

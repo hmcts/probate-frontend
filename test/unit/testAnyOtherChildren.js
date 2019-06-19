@@ -1,10 +1,14 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const expect = require('chai').expect;
+const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const AnyOtherChildren = steps.AnyOtherChildren;
 const content = require('app/resources/en/translation/deceased/anyotherchildren');
+const contentAnyOtherChildren = require('app/resources/en/translation/deceased/anyotherchildren');
+const contentAllChildrenOver18 = require('app/resources/en/translation/deceased/allchildrenover18');
+const contentAnyDeceasedChildren = require('app/resources/en/translation/deceased/anydeceasedchildren');
+const contentAnyGrandChildrenUnder18 = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
 
 describe('AnyOtherChildren', () => {
     describe('getUrl()', () => {
@@ -43,6 +47,28 @@ describe('AnyOtherChildren', () => {
                 ]
             });
             done();
+        });
+    });
+
+    describe('action()', () => {
+        it('test it cleans up context', () => {
+            const ctx = {
+                anyOtherChildren: contentAnyOtherChildren.optionNo,
+                allChildrenOver18: contentAllChildrenOver18.optionYes,
+                anyDeceasedChildren: contentAnyDeceasedChildren.optionYes,
+                anyGrandchildrenUnder18: contentAnyGrandChildrenUnder18.optionNo
+            };
+            const formdata = {
+                deceased: {
+                    anyOtherChildren: contentAnyOtherChildren.optionYes
+                }
+            };
+
+            AnyOtherChildren.action(ctx, formdata);
+
+            assert.isUndefined(ctx.allChildrenOver18);
+            assert.isUndefined(ctx.anyDeceasedChildren);
+            assert.isUndefined(ctx.anyGrandchildrenUnder18);
         });
     });
 });

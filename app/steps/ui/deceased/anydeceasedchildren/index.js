@@ -28,6 +28,11 @@ class AnyDeceasedChildren extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.deceasedName;
+
+        if (formdata.deceased && formdata.deceased.anyDeceasedChildren && ctx.anyDeceasedChildren !== formdata.deceased.anyDeceasedChildren) {
+            delete ctx.anyGrandchildrenUnder18;
+        }
+
         return [ctx, formdata];
     }
 }

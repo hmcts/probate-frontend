@@ -1,9 +1,13 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const expect = require('chai').expect;
+const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const ValueAssetsOutside = steps.ValueAssetsOutside;
+const contentAnyChildren = require('app/resources/en/translation/deceased/anychildren');
+const contentAllChildrenOver18 = require('app/resources/en/translation/deceased/allchildrenover18');
+const contentAnyDeceasedChildren = require('app/resources/en/translation/deceased/anydeceasedchildren');
+const contentAnyGrandChildrenUnder18 = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
 
 describe('ValueAssetsOutside', () => {
     describe('getUrl()', () => {
@@ -77,6 +81,30 @@ describe('ValueAssetsOutside', () => {
                 }
             ]);
             done();
+        });
+    });
+
+    describe('action()', () => {
+        it('test it cleans up formdata if netValue + netValueAssetsOutside <= £250k', () => {
+            const ctx = {
+                netValue: 150000,
+                netValueAssetsOutside: 80000
+            };
+            const formdata = {
+                deceased: {
+                    anyChildren: contentAnyChildren.optionYes,
+                    allChildrenOver18: contentAllChildrenOver18.optionYes,
+                    anyDeceasedChildren: contentAnyDeceasedChildren.optionYes,
+                    anyGrandchildrenUnder18: contentAnyGrandChildrenUnder18.optionNo
+                }
+            };
+
+            ValueAssetsOutside.action(ctx, formdata);
+
+            assert.isUndefined(formdata.deceased.anyChildren);
+            assert.isUndefined(formdata.deceased.allChildrenOver18);
+            assert.isUndefined(formdata.deceased.anyDeceasedChildren);
+            assert.isUndefined(formdata.deceased.anyGrandchildrenUnder18);
         });
     });
 });

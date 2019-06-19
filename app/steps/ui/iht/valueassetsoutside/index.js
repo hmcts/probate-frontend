@@ -4,6 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
+const config = require('app/config');
 
 class ValueAssetsOutside extends ValidationStep {
 
@@ -19,6 +20,19 @@ class ValueAssetsOutside extends ValidationStep {
         }
 
         return [ctx, errors];
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+
+        if (formdata.deceased && (ctx.netValue + ctx.netValueAssetsOutside) <= config.assetsValueThreshold) {
+            delete formdata.deceased.anyChildren;
+            delete formdata.deceased.allChildrenOver18;
+            delete formdata.deceased.anyDeceasedChildren;
+            delete formdata.deceased.anyGrandchildrenUnder18;
+        }
+
+        return [ctx, formdata];
     }
 }
 

@@ -29,7 +29,7 @@ class AssetsOutside extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.deceasedName;
 
-        if (ctx.assetsOutside === this.generateContent(ctx, formdata).optionNo) {
+        if (ctx.assetsOutside === content.optionNo) {
             delete ctx.netValueAssetsOutsideField;
             delete ctx.netValueAssetsOutside;
         }

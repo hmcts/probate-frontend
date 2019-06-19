@@ -5,6 +5,8 @@ const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const AnyDeceasedChildren = steps.AnyDeceasedChildren;
 const content = require('app/resources/en/translation/deceased/anydeceasedchildren');
+const contentAnyDeceasedChildren = require('app/resources/en/translation/deceased/anydeceasedchildren');
+const contentAnyGrandChildrenUnder18 = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
 
 describe('AnyDeceasedChildren', () => {
     describe('getUrl()', () => {
@@ -48,12 +50,22 @@ describe('AnyDeceasedChildren', () => {
     });
 
     describe('action()', () => {
-        it('cleans up context', () => {
+        it('test it cleans up context', () => {
             const ctx = {
-                deceasedName: 'Dee Ceased'
+                deceasedName: 'Dee Ceased',
+                anyDeceasedChildren: contentAnyDeceasedChildren.optionNo,
+                anyGrandchildrenUnder18: contentAnyGrandChildrenUnder18.optionNo
             };
-            AnyDeceasedChildren.action(ctx);
+            const formdata = {
+                deceased: {
+                    anyDeceasedChildren: contentAnyDeceasedChildren.optionYes
+                }
+            };
+
+            AnyDeceasedChildren.action(ctx, formdata);
+
             assert.isUndefined(ctx.deceasedName);
+            assert.isUndefined(ctx.anyGrandchildrenUnder18);
         });
     });
 });

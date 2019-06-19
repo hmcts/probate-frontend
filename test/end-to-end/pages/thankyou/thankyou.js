@@ -10,11 +10,9 @@ module.exports = function () {
     I.amOnPage(pageUnderTest.getUrl());
     I.waitForText(thankYouContent.header, testConfig.TestWaitForTextToAppear);
 
-    if (!I.isInternetExplorer()) {
-        I.click('#checkAnswerHref');
-        I.click('#declarationPdfHref');
-        I.click('#coverSheetPdfHref');
-    }
+    I.downloadPdfIfNotIE11('#checkAnswerHref');
+    I.downloadPdfIfNotIE11('#declarationPdfHref');
+    I.downloadPdfIfNotIE11('#coverSheetPdfHref');
 
     I.click('#sign-out-header');
 };

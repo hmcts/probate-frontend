@@ -25,6 +25,7 @@ module.exports = {
     TestWaitForDocumentUpload: 60,
     TestWaitForTextToAppear: 20,
     TestWaitForElementToAppear: 60,
+    TestOneMilliSecond: 1000,
 
     postcodeLookup: {
         token: process.env.ADDRESS_TOKEN,

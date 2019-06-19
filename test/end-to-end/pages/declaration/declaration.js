@@ -8,9 +8,7 @@ module.exports = function () {
 
     I.amOnLoadedPage(pageUnderTest.getUrl());
 
-    if (!I.isInternetExplorer()) {
-        I.click('#declarationPdfHref');
-    }
+    I.downloadPdfIfNotIE11('#declarationPdfHref');
 
     I.click('#declarationCheckbox');
 

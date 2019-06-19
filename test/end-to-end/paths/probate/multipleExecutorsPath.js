@@ -30,38 +30,38 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     }
 
     // Eligibility Task (pre IdAM)
-    I.startApplication();
-
-    I.selectDeathCertificate('No');
-    I.seeStopPage('deathCertificate');
-    I.selectDeathCertificate('Yes');
-
-    I.selectDeceasedDomicile('No');
-    I.seeStopPage('notInEnglandOrWales');
-    I.selectDeceasedDomicile('Yes');
-
-    I.selectIhtCompleted('No');
-    I.seeStopPage('ihtNotCompleted');
-    I.selectIhtCompleted('Yes');
-
-    I.selectPersonWhoDiedLeftAWill('Yes');
-
-    I.selectOriginalWill('No');
-    I.seeStopPage('notOriginal');
-    I.selectOriginalWill('Yes');
-
-    I.selectApplicantIsExecutor('No');
-    I.seeStopPage('notExecutor');
-    I.selectApplicantIsExecutor('Yes');
-
-    I.selectMentallyCapable('No');
-    I.seeStopPage('mentalCapacity');
-    I.selectMentallyCapable('Yes');
-
-    I.startApply();
+    // I.startApplication();
+    //
+    // I.selectDeathCertificate('No');
+    // I.seeStopPage('deathCertificate');
+    // I.selectDeathCertificate('Yes');
+    //
+    // I.selectDeceasedDomicile('No');
+    // I.seeStopPage('notInEnglandOrWales');
+    // I.selectDeceasedDomicile('Yes');
+    //
+    // I.selectIhtCompleted('No');
+    // I.seeStopPage('ihtNotCompleted');
+    // I.selectIhtCompleted('Yes');
+    //
+    // I.selectPersonWhoDiedLeftAWill('Yes');
+    //
+    // I.selectOriginalWill('No');
+    // I.seeStopPage('notOriginal');
+    // I.selectOriginalWill('Yes');
+    //
+    // I.selectApplicantIsExecutor('No');
+    // I.seeStopPage('notExecutor');
+    // I.selectApplicantIsExecutor('Yes');
+    //
+    // I.selectMentallyCapable('No');
+    // I.seeStopPage('mentalCapacity');
+    // I.selectMentallyCapable('Yes');
+    //
+    // I.startApply();
 
     // IdAM
-    I.authenticateWithIdamIfAvailable();
+    I.authenticateWithIdamIfAvailable(true);
 
     // Deceased Task
     I.selectATask();

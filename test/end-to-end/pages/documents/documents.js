@@ -8,9 +8,7 @@ module.exports = function () {
 
     I.amOnLoadedPage(pageUnderTest.getUrl());
 
-    if (!I.isInternetExplorer()) {
-        I.click('#coverSheetPdfHref');
-    }
+    I.downloadPdfIfNotIE11('#coverSheetPdfHref');
 
     I.navByClick(commonContent.continue);
 };

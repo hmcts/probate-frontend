@@ -1,6 +1,7 @@
 'use strict';
 
 const Helper = codecept_helper;
+const testConfig = require('test/config');
 
 class WebDriverHelper extends Helper {
 
@@ -10,12 +11,24 @@ class WebDriverHelper extends Helper {
         return browser.back();
     }
 
-    isInternetExplorer() {
-        return (this.helpers.WebDriverIO.config.browser === 'internet explorer');
+    async downloadPdfIfNotIE11(pdfLink) {
+        const browserName = this.helpers.WebDriverIO.config.browser;
+        const helper = this.helpers.WebDriverIO;
+
+        if (browserName !== 'internet explorer') {
+            await helper.click(pdfLink);
+        }
     }
 
-    isEdge() {
-        return (this.helpers.WebDriverIO.config.browser === 'MicrosoftEdge');
+    async uploadDocumentIfNotMicrosoftEdge() {
+        const browserName = this.helpers.WebDriverIO.config.browser;
+        const helper = this.helpers.WebDriverIO;
+
+        if (browserName !== 'MicrosoftEdge') {
+            await helper.waitForElement('.dz-hidden-input', testConfig.TestWaitForElementToAppear * testConfig.TestOneMilliSecond);
+            await helper.attachFile('.dz-hidden-input', testConfig.TestDocumentToUpload);
+            await helper.waitForEnabled('#button', testConfig.TestWaitForElementToAppear);
+        }
     }
 
 }

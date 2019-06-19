@@ -7,9 +7,7 @@ module.exports = function (redirect) {
 
     I.amOnLoadedPage(pageUnderTest.getUrl(redirect));
 
-    if (!I.isInternetExplorer()) {
-        I.click('#checkAnswerHref');
-    }
+    I.downloadPdfIfNotIE11('#checkAnswerHref');
 
     I.navByClick('.button');
 };

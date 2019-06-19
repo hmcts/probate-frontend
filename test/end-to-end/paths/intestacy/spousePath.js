@@ -18,35 +18,20 @@ After(() => {
 });
 
 // eslint-disable-next-line no-undef
-xScenario(TestConfigurator.idamInUseText('Intestacy Journey'), function (I) {
+Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function (I) {
 
     // Eligibility Task (pre IdAM)
     I.startApplication();
 
-    I.selectDeathCertificate('No');
-    I.seeStopPage('deathCertificate');
+    // Probate and Intestacy Sceeners
     I.selectDeathCertificate('Yes');
-
-    I.selectDeceasedDomicile('No');
-    I.seeStopPage('notInEnglandOrWales');
     I.selectDeceasedDomicile('Yes');
-
-    I.selectIhtCompleted('No');
-    I.seeStopPage('ihtNotCompleted');
     I.selectIhtCompleted('Yes');
-
     I.selectPersonWhoDiedLeftAWill('No');
 
-    I.selectDiedAfterOctober2014('No');
-    I.seeStopPage('notDiedAfterOctober2014');
+    // Intestacy Sceeners
     I.selectDiedAfterOctober2014('Yes');
-
-    I.selectRelatedToDeceased('No');
-    I.seeStopPage('notRelated');
     I.selectRelatedToDeceased('Yes');
-
-    I.selectOtherApplicants('Yes');
-    I.seeStopPage('otherApplicants');
     I.selectOtherApplicants('No');
 
     I.startApply();
@@ -59,28 +44,33 @@ xScenario(TestConfigurator.idamInUseText('Intestacy Journey'), function (I) {
     I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
     I.enterDeceasedAddress();
     I.selectDocumentsToUpload();
-    I.selectInheritanceMethodPaper();
+    I.selectInheritanceMethodPaper('Online');
+    I.enterIHTIdentifier();
 
-    if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterGrossAndNet('205', '300000', '200000');
+    if (TestConfigurator.getUseGovPay() !== 'true') {
+        I.enterEstateValue('300000', '200000');
     } else {
-        I.enterGrossAndNet('205', '500', '400');
+        I.enterEstateValue('500', '400');
     }
 
     I.selectAssetsOutsideEnglandWales('Yes');
     I.enterValueAssetsOutsideEnglandWales('400000');
-    I.selectDeceasedAlias('Yes');
-    I.selectOtherNames('2');
-    I.selectDeceasedMaritalStatus('Divorced');
-    I.selectDeceasedDivorcePlace('No');
-    I.seeStopPage('divorcePlace');
-    I.selectDeceasedDivorcePlace('Yes');
+    I.selectDeceasedAlias('No');
+    I.selectDeceasedMaritalStatus('Married');
 
     // Executors Task
     I.selectATask(taskListContent.taskNotStarted);
-    I.selectRelationshipToDeceased('Other');
-    I.seeStopPage('otherRelationship');
-    I.selectRelationshipToDeceased('Child');
-    // I.selectSpouseNotApplyingReason('Other');
+    I.selectRelationshipToDeceased('SpousePartner');
+    I.enterAnyChildren('No');
+    I.enterApplicantName('ApplicantFirstName', 'ApplicantLastName');
+    I.enterApplicantPhone();
+    I.enterAddressManually();
 
+    // Check your answers and declaration
+    I.seeSummaryPage('declaration');
+    I.acceptDeclaration();
+
+    // Copies Task
+    I.selectATask(taskListContent.taskNotStarted);
+    pause();
 });

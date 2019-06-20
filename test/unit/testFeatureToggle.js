@@ -21,7 +21,7 @@ describe('FeatureToggle', () => {
                 },
                 res: {},
                 next: () => true,
-                featureToggleKey: 'document_upload',
+                featureToggleKey: 'intestacy_questions',
                 callback: sinon.spy()
             };
             const featureToggle = new FeatureToggle();
@@ -47,7 +47,7 @@ describe('FeatureToggle', () => {
                 },
                 res: {},
                 next: sinon.spy(),
-                featureToggleKey: 'document_upload',
+                featureToggleKey: 'intestacy_questions',
                 callback: () => true
             };
             const featureToggle = new FeatureToggle();
@@ -132,7 +132,7 @@ describe('FeatureToggle', () => {
             it('when the session contains a featureToggles object and call next()', (done) => {
                 const params = {
                     req: {session: {featureToggles: {}}},
-                    featureToggleKey: 'document_upload',
+                    featureToggleKey: 'intestacy_questions',
                     isEnabled: true,
                     next: sinon.spy()
                 };
@@ -140,7 +140,7 @@ describe('FeatureToggle', () => {
 
                 featureToggle.toggleFeature(params);
 
-                expect(params.req.session.featureToggles).to.deep.equal({document_upload: true});
+                expect(params.req.session.featureToggles).to.deep.equal({intestacy_questions: true});
                 expect(params.next.calledOnce).to.equal(true);
                 expect(params.next.calledWith()).to.equal(true);
                 done();
@@ -149,7 +149,7 @@ describe('FeatureToggle', () => {
             it('when the session does not contain a featureToggles object and call next()', (done) => {
                 const params = {
                     req: {session: {}},
-                    featureToggleKey: 'document_upload',
+                    featureToggleKey: 'intestacy_questions',
                     isEnabled: true,
                     next: sinon.spy()
                 };
@@ -157,7 +157,7 @@ describe('FeatureToggle', () => {
 
                 featureToggle.toggleFeature(params);
 
-                expect(params.req.session.featureToggles).to.deep.equal({document_upload: true});
+                expect(params.req.session.featureToggles).to.deep.equal({intestacy_questions: true});
                 expect(params.next.calledOnce).to.equal(true);
                 expect(params.next.calledWith()).to.equal(true);
                 done();
@@ -165,11 +165,51 @@ describe('FeatureToggle', () => {
         });
     });
 
+    describe('appwideToggles()', () => {
+        it('should return ctx when no appwide toggles are present', (done) => {
+            const appwideToggles = [];
+            const req = {
+                session: {
+                    featureToggles: {}
+                }
+            };
+            let ctx = {};
+
+            ctx = FeatureToggle.appwideToggles(req, ctx, appwideToggles);
+
+            expect(ctx).to.deep.equal({});
+            done();
+        });
+
+        it('should add all appwide toggles to ctx when present', (done) => {
+            const appwideToggles = ['webchat', 'testToggle'];
+            const req = {
+                session: {
+                    featureToggles: {
+                        webchat: true,
+                        testToggle: false
+                    }
+                }
+            };
+            let ctx = {};
+
+            ctx = FeatureToggle.appwideToggles(req, ctx, appwideToggles);
+
+            expect(ctx).to.deep.equal({
+                featureToggles: {
+                    webchat: 'true',
+                    testToggle: 'false'
+                }
+            });
+            done();
+        });
+    });
+
     describe('isEnabled()', () => {
         describe('should return true', () => {
             it('if the feature toggle exists and is true', (done) => {
-                const featureToggles = {document_upload: true};
-                const key = 'document_upload';
+                const featureToggles = {intestacy_questions: true};
+                const key = 'intestacy_questions';
                 const isEnabled = FeatureToggle.isEnabled(featureToggles, key);
                 expect(isEnabled).to.equal(true);
                 done();
@@ -178,8 +218,8 @@ describe('FeatureToggle', () => {
 
         describe('should return false', () => {
             it('if the feature toggle exists and is false', (done) => {
-                const featureToggles = {document_upload: false};
-                const key = 'document_upload';
+                const featureToggles = {intestacy_questions: false};
+                const key = 'intestacy_questions';
                 const isEnabled = FeatureToggle.isEnabled(featureToggles, key);
                 expect(isEnabled).to.equal(false);
                 done();
@@ -187,7 +227,7 @@ describe('FeatureToggle', () => {
 
             it('if the feature toggle does not exist', (done) => {
                 const featureToggles = {};
-                const key = 'document_upload';
+                const key = 'intestacy_questions';
                 const isEnabled = FeatureToggle.isEnabled(featureToggles, key);
                 expect(isEnabled).to.equal(false);
                 done();
@@ -195,14 +235,14 @@ describe('FeatureToggle', () => {
 
             it('if there are no feature toggles', (done) => {
                 const featureToggles = '';
-                const key = 'document_upload';
+                const key = 'intestacy_questions';
                 const isEnabled = FeatureToggle.isEnabled(featureToggles, key);
                 expect(isEnabled).to.equal(false);
                 done();
             });
 
             it('if the key is not specified', (done) => {
-                const featureToggles = {document_upload: false};
+                const featureToggles = {intestacy_questions: false};
                 const key = '';
                 const isEnabled = FeatureToggle.isEnabled(featureToggles, key);
                 expect(isEnabled).to.equal(false);

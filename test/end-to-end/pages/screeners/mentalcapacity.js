@@ -6,8 +6,8 @@ const pageUnderTest = require('app/steps/ui/screeners/mentalcapacity');
 module.exports = function (answer) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
     I.click(`#mentalCapacity-option${answer}`);
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.continue}"]`);
+    I.navByClick(commonContent.continue);
 };

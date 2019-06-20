@@ -6,9 +6,9 @@ const pageUnderTest = require('app/steps/ui/executors/applying');
 module.exports = function () {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
 
     I.click('#otherExecutorsApplying-optionYes');
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.navByClick(commonContent.saveAndContinue);
 };

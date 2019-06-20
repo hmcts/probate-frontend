@@ -6,9 +6,11 @@ const pageUnderTest = require('app/steps/ui/declaration');
 module.exports = function () {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click('#declarationPdfHref');
+    I.amOnLoadedPage(pageUnderTest.getUrl());
+
+    I.downloadPdfIfNotIE11('#declarationPdfHref');
+
     I.click('#declarationCheckbox');
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.navByClick(commonContent.saveAndContinue);
 };

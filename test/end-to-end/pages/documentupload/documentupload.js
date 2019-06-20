@@ -2,18 +2,16 @@
 
 const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/documentupload');
-const testConfig = require('test/config');
+//const testConfig = require('test/config');
 
 module.exports = function () {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
 
-    if (I.seeElementInDOM('.dz-hidden-input')) {
-        I.attachFile('.dz-hidden-input', '/uploadDocuments/test_file_for_document_upload.png');
-        I.waitForEnabled('#button', testConfig.TestDocumentToUpload);
-        I.waitForNavigationToComplete(`input[value="${commonContent.continue}"]`);
-    } else {
-        I.awaitNavigation('#input');
-    }
+    I.waitForVisible('.document-upload__dropzone-text--choose-file');
+
+    I.uploadDocumentIfNotMicrosoftEdge();
+
+    I.navByClick(commonContent.continue);
 };

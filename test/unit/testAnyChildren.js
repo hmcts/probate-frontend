@@ -1,7 +1,7 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const expect = require('chai').expect;
+const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const AnyChildren = steps.AnyChildren;
 const content = require('app/resources/en/translation/deceased/anychildren');
@@ -43,6 +43,16 @@ describe('AnyChildren', () => {
                 ]
             });
             done();
+        });
+    });
+
+    describe('action()', () => {
+        it('cleans up context', () => {
+            const ctx = {
+                deceasedName: 'Dee Ceased'
+            };
+            AnyChildren.action(ctx);
+            assert.isUndefined(ctx.deceasedName);
         });
     });
 });

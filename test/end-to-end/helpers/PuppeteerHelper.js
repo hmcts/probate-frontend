@@ -11,7 +11,7 @@ class PuppeteerHelper extends Helper {
         return page.goBack();
     }
 
-    async waitForNavigationToComplete(locator) {
+    async navByClick(locator) {
         const page = this.helpers[helperName].page;
 
         await Promise.all([

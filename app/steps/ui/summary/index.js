@@ -8,7 +8,6 @@ const utils = require('app/components/step-utils');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
-const FeatureToggle = require('app/utils/FeatureToggle');
 const CheckAnswersSummaryJSONObjectBuilder = require('app/utils/CheckAnswersSummaryJSONObjectBuilder');
 const checkAnswersSummaryJSONObjBuilder = new CheckAnswersSummaryJSONObjectBuilder();
 const ValidateData = require('app/services/ValidateData');
@@ -24,7 +23,7 @@ class Summary extends Step {
         return `/summary/${redirect}`;
     }
 
-    * handleGet(ctx, formdata, featureToggles) {
+    * handleGet(ctx, formdata) {
         const result = yield this.validateFormData(ctx, formdata);
         const errors = map(result.errors, err => {
             return FieldError(err.param, err.code, this.resourcePath, ctx);
@@ -36,7 +35,6 @@ class Summary extends Step {
         ctx.executorsWhoDied = executorsWrapper.deadExecutors().map(exec => exec.fullName);
         ctx.executorsDealingWithEstate = executorsApplying.map(exec => exec.fullName);
         ctx.executorsPowerReservedOrRenounced = executorsWrapper.hasRenunciatedOrPowerReserved();
-        ctx.isDocumentUploadToggleEnabled = FeatureToggle.isEnabled(featureToggles, 'document_upload');
         ctx.executorsWithOtherNames = executorsWrapper.executorsWithAnotherName().map(exec => exec.fullName);
 
         utils.updateTaskStatus(ctx, ctx, this.steps);
@@ -74,6 +72,12 @@ class Summary extends Step {
                 }
             });
         fields[this.section] = super.generateFields(ctx, errors, formdata);
+
+        if (ctx) {
+            fields.featureToggles = {};
+            fields.featureToggles.value = ctx.featureToggles;
+        }
+
         return fields;
     }
 

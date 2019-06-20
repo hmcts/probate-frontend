@@ -34,6 +34,10 @@ spec:
           value: '64'
         - name: GA_TRACKING_ID
           value: 'UA-93598808-3'
+        - name: WEBCHAT_CHAT_ID
+          value: 'script_7143406305ce667c21e2eb9.79440233'
+        - name: WEBCHAT_TENANT
+          value: 'aG1jdHNzdGFnaW5nMDE'
         - name: PUBLIC_PROTOCOL
           value: 'https'
         - name: FEATURE_TOGGLES_API_URL

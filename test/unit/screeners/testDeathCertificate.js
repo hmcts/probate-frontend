@@ -35,7 +35,10 @@ describe('DeathCertificate', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 deathCertificate: content.optionYes,
-                journeyType: 'Probate'
+                journeyType: 'Probate',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
             done();
         });

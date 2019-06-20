@@ -7,12 +7,12 @@ module.exports = function (executorNumber, firstRecord) {
     const I = this;
 
     if (firstRecord) {
-        I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+        I.amOnLoadedPage(pageUnderTest.getUrl());
     } else {
-        I.seeCurrentUrlEquals(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
+        I.amOnLoadedPage(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
     }
 
     I.fillField('#currentName', `Executor${executorNumber} Current Name`);
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.navByClick(commonContent.saveAndContinue);
 };

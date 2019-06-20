@@ -5,10 +5,10 @@ const pageUnderTest = require('app/steps/ui/deceased/name');
 
 module.exports = function (firstName, lastName) {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
 
     I.fillField('#firstName', firstName);
     I.fillField('#lastName', lastName);
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.navByClick(commonContent.saveAndContinue);
 };

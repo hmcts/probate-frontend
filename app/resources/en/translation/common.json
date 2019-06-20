@@ -39,8 +39,9 @@
   "helpTitle" : "Contact us for help",
   "helpHeading1": "Telephone",
   "helpHeading2": "Email",
+  "helpHeading3": "Webchat",
   "contactOpeningTimes" : "{openingTimes}.",
-  "helpEmailLabel" : "Email us at <a href=\"mailto:{contactEmailAddress}\">{contactEmailAddress}</a>",
+  "helpEmailLabel" : "Email us at <a href=\"mailto:{contactEmailAddress}\" tabindex=\"-1\">{contactEmailAddress}</a>",
   "or": "or",
   "documentUploadChooseFile": "Choose a file or take a photo",
   "documentUploadDragAndDrop": "drag and drop files here",
@@ -59,5 +60,11 @@
   "documentUpload-uploadFailedSummary": "Your document failed to upload",
   "documentUpload-uploadFailed": "Select your document and try again",
   "documentUpload-uploadTimeoutSummary": "The file has taken too long to upload",
-  "documentUpload-uploadTimeout": "The file may be too big, reduce the file size and try again or post the death certificate"
+  "documentUpload-uploadTimeout": "The file may be too big, reduce the file size and try again or post the death certificate",
+  "chatOnlineWithAnAgent": "Chat online with an agent",
+  "chatOnlineOpeningHours": "Monday to Friday, 9:30am to 5pm",
+  "chatOnlineNoAgent": "No agents are available, please try again later.",
+  "chatOnlineTooBusy": "All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways above.",
+  "chatOnlineClosed": "Web chat is now closed.\nCome back Monday to Friday 9:30am to 5pm.",
+  "chatOnlineUnavailable": "The web chat service is temporarily unavailable, please try again later."
 }

@@ -5,8 +5,8 @@ const pageUnderTest = require('app/steps/ui/iht/assetsoutside');
 
 module.exports = function (answer) {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
     I.click(`#assetsOutside-option${answer}`);
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.navByClick(commonContent.saveAndContinue);
 };

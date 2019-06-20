@@ -3,14 +3,18 @@
 const testConfig = require('test/config.js');
 const useIdam = testConfig.TestUseIdam;
 
-module.exports = function () {
+module.exports = function (noScreenerQuestions = false) {
     if (useIdam === 'true') {
         const I = this;
 
-        I.see('Sign in');
+        if (noScreenerQuestions) {
+            I.amOnPage('/');
+        }
+
+        I.waitForText('Sign in', testConfig.TestWaitForTextToAppear);
         I.fillField('username', process.env.testCitizenEmail);
         I.fillField('password', process.env.testCitizenPassword);
 
-        I.waitForNavigationToComplete('input[value="Sign in"]');
+        I.click('Sign in');
     }
 };

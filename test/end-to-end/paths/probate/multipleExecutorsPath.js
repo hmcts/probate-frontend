@@ -30,38 +30,38 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     }
 
     // Eligibility Task (pre IdAM)
-    I.startApplication();
-
-    I.selectDeathCertificate('No');
-    I.seeStopPage('deathCertificate');
-    I.selectDeathCertificate('Yes');
-
-    I.selectDeceasedDomicile('No');
-    I.seeStopPage('notInEnglandOrWales');
-    I.selectDeceasedDomicile('Yes');
-
-    I.selectIhtCompleted('No');
-    I.seeStopPage('ihtNotCompleted');
-    I.selectIhtCompleted('Yes');
-
-    I.selectPersonWhoDiedLeftAWill('Yes');
-
-    I.selectOriginalWill('No');
-    I.seeStopPage('notOriginal');
-    I.selectOriginalWill('Yes');
-
-    I.selectApplicantIsExecutor('No');
-    I.seeStopPage('notExecutor');
-    I.selectApplicantIsExecutor('Yes');
-
-    I.selectMentallyCapable('No');
-    I.seeStopPage('mentalCapacity');
-    I.selectMentallyCapable('Yes');
-
-    I.startApply();
+    // I.startApplication();
+    //
+    // I.selectDeathCertificate('No');
+    // I.seeStopPage('deathCertificate');
+    // I.selectDeathCertificate('Yes');
+    //
+    // I.selectDeceasedDomicile('No');
+    // I.seeStopPage('notInEnglandOrWales');
+    // I.selectDeceasedDomicile('Yes');
+    //
+    // I.selectIhtCompleted('No');
+    // I.seeStopPage('ihtNotCompleted');
+    // I.selectIhtCompleted('Yes');
+    //
+    // I.selectPersonWhoDiedLeftAWill('Yes');
+    //
+    // I.selectOriginalWill('No');
+    // I.seeStopPage('notOriginal');
+    // I.selectOriginalWill('Yes');
+    //
+    // I.selectApplicantIsExecutor('No');
+    // I.seeStopPage('notExecutor');
+    // I.selectApplicantIsExecutor('Yes');
+    //
+    // I.selectMentallyCapable('No');
+    // I.seeStopPage('mentalCapacity');
+    // I.selectMentallyCapable('Yes');
+    //
+    // I.startApply();
 
     // IdAM
-    I.authenticateWithIdamIfAvailable();
+    I.authenticateWithIdamIfAvailable(true);
 
     // Deceased Task
     I.selectATask();
@@ -152,7 +152,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     //Retrieve the email urls for additional executors
     I.amOnPage(testConfig.TestInviteIdListUrl);
-
+    I.wait(10);
     grabIds = await I.grabTextFrom('pre');
 
 }).retry(TestConfigurator.getRetryScenarios());
@@ -181,21 +181,8 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
 
 Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function (I) {
 
-    // Pre-IDAM
-    I.startApplication();
-
-    I.selectDeathCertificate('Yes');
-    I.selectDeceasedDomicile('Yes');
-    I.selectIhtCompleted('Yes');
-    I.selectPersonWhoDiedLeftAWill('Yes');
-    I.selectOriginalWill('Yes');
-    I.selectApplicantIsExecutor('Yes');
-    I.selectMentallyCapable('Yes');
-
-    I.startApply();
-
     // IDAM
-    I.authenticateWithIdamIfAvailable();
+    I.authenticateWithIdamIfAvailable(true);
 
     // Extra Copies Task
     I.selectATask();

@@ -7,6 +7,7 @@ const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const config = require('app/config');
 const ServiceMapper = require('app/utils/ServiceMapper');
+const FeatureToggle = require('app/utils/FeatureToggle');
 
 class Step {
 
@@ -54,6 +55,7 @@ class Step {
         ctx.sessionID = req.sessionID;
         ctx.journeyType = session.journeyType;
         ctx = Object.assign(ctx, req.body);
+        ctx = FeatureToggle.appwideToggles(req, ctx, config.featureToggles.appwideToggles);
 
         return ctx;
     }
@@ -110,6 +112,7 @@ class Step {
     action(ctx, formdata) {
         delete ctx.sessionID;
         delete ctx.journeyType;
+        delete ctx.featureToggles;
         delete ctx._csrf;
         return [ctx, formdata];
     }

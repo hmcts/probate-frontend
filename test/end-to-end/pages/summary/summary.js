@@ -5,9 +5,9 @@ const pageUnderTest = require('app/steps/ui/summary');
 module.exports = function (redirect) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl(redirect));
-    I.click('#checkAnswerHref');
-    I.switchTo();
+    I.amOnLoadedPage(pageUnderTest.getUrl(redirect));
 
-    I.waitForNavigationToComplete('.button');
+    I.downloadPdfIfNotIE11('#checkAnswerHref');
+
+    I.navByClick('.button');
 };

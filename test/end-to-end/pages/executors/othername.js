@@ -7,11 +7,11 @@ const {forEach} = require('lodash');
 module.exports = function (executorsWithDifferentNameIdList) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
 
     forEach(executorsWithDifferentNameIdList, executorListId => {
         I.checkOption('#executorsWithOtherNames-'+ executorListId);
     });
 
-    I.waitForNavigationToComplete(`input[value="${commonContent.saveAndContinue}"]`);
+    I.navByClick(commonContent.saveAndContinue);
 };

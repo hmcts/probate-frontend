@@ -13,7 +13,7 @@
                     {% if fields.ccdReferenceNumber.value !== '' %}
                         <p class="font-large">
                             <span class="font-medium">{{ content.referenceNumber | safe }}</span><br>
-                            <strong class="bold">{{ fields.ccdReferenceNumber.value }}</strong>
+                            <strong class="bold" aria-label="{{ fields.ccdReferenceNumberAccessible.value }}">{{ fields.ccdReferenceNumber.value }}</strong>
                         </p>
                     {% endif %}
                 </div>

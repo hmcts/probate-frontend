@@ -67,16 +67,20 @@ exports.init = function() {
 
     const filters = require('app/components/filters.js');
     const globals = {
-        'currentYear': new Date().getFullYear(),
-        'gaTrackingId': config.gaTrackingId,
-        'enableTracking': config.enableTracking,
-        'links': config.links,
-        'helpline': config.helpline,
-        'nonce': uuid,
-        'documentUpload': {
+        currentYear: new Date().getFullYear(),
+        gaTrackingId: config.gaTrackingId,
+        enableTracking: config.enableTracking,
+        links: config.links,
+        helpline: config.helpline,
+        nonce: uuid,
+        documentUpload: {
             validMimeTypes: config.documentUpload.validMimeTypes,
             maxFiles: config.documentUpload.maxFiles,
             maxSizeBytes: config.documentUpload.maxSizeBytes
+        },
+        webChat: {
+            chatId: config.webChat.chatId,
+            tenant: config.webChat.tenant
         }
     };
 
@@ -104,12 +108,26 @@ exports.init = function() {
                 '\'sha256-AaA9Rn5LTFZ5vKyp3xOfFcP4YbyOjvWn2up8IKHVAKk=\'',
                 '\'sha256-G29/qSW/JHHANtFhlrZVDZW1HOkCDRc78ggbqwwIJ2g=\'',
                 'www.google-analytics.com',
+                'vcc-eu4.8x8.com',
+                'vcc-eu4b.8x8.com',
                 `'nonce-${uuid}'`
             ],
             connectSrc: ['\'self\''],
             mediaSrc: ['\'self\''],
-            frameSrc: ['\'none\''],
-            imgSrc: ['\'self\'', 'www.google-analytics.com'],
+            frameSrc: [
+                'vcc-eu4.8x8.com',
+                'vcc-eu4b.8x8.com'
+            ],
+            imgSrc: [
+                '\'self\'',
+                'www.google-analytics.com',
+                'vcc-eu4.8x8.com',
+                'vcc-eu4b.8x8.com'
+            ],
+            styleSrc: [
+                '\'self\'',
+                '\'unsafe-inline\''
+            ],
             frameAncestors: ['\'self\'']
         },
         browserSniff: true,
@@ -129,6 +147,8 @@ exports.init = function() {
     app.use(helmet.noCache());
 
     app.use(helmet.xssFilter({setOnOldIE: true}));
+
+    app.use('/webchat', express.static(`${__dirname}/node_modules/@hmcts/ctsc-web-chat/assets`));
 
     // Middleware to serve static assets
     app.use('/public/stylesheets', express.static(`${__dirname}/public/stylesheets`));

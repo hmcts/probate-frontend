@@ -81,6 +81,16 @@ data "azurerm_key_vault_secret" "probate_site_id" {
   vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
 }
 
+data "azurerm_key_vault_secret" "probate_webchat_id" {
+  name = "probate-webchat-id"
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+}
+
+data "azurerm_key_vault_secret" "probate_webchat_tenant" {
+  name = "probate-webchat-tenant"
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+}
+
 
 data "azurerm_key_vault_secret" "idam_secret_probate" {
   name = "ccidam-idam-api-secrets-probate"
@@ -141,6 +151,8 @@ module "probate-frontend" {
     USE_HTTPS =  "${var.probate_frontend_https}"
     USE_AUTH = "${var.probate_frontend_use_auth}"
     GA_TRACKING_ID = "${var.probate_google_track_id}"
+    WEBCHAT_CHAT_ID = "${data.azurerm_key_vault_secret.probate_webchat_id.value}"
+    WEBCHAT_TENANT = "${data.azurerm_key_vault_secret.probate_webchat_tenant.value}"
 
     // REDIS
     USE_REDIS = "${var.probate_frontend_use_redis}"
@@ -187,3 +199,4 @@ module "probate-frontend" {
     WEBSITE_LOCAL_CACHE_SIZEINMB = "${var.website_local_cache_sizeinmb}"
   }
 }
+

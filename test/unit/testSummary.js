@@ -96,60 +96,6 @@ describe('Summary', () => {
                 done();
             });
         });
-
-        it('check feature toggles are set correctly to true', (done) => {
-            const expectedResponse = true;
-            const revert = Summary.__set__('ValidateData', class {
-                post() {
-                    return Promise.resolve(expectedResponse);
-                }
-            });
-            let ctx = {
-                session: {
-                    form: {},
-                    journey: probateJourney
-                }
-            };
-            const formdata = {executors: {list: []}};
-            const featureToggles = {
-                document_upload: true
-            };
-            const summary = new Summary(steps, section, templatePath, i18next, schema);
-
-            co(function* () {
-                [ctx] = yield summary.handleGet(ctx, formdata, featureToggles);
-                assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
-                revert();
-                done();
-            });
-        });
-
-        it('check feature toggles are set correctly to false', (done) => {
-            const expectedResponse = false;
-            const revert = Summary.__set__('ValidateData', class {
-                post() {
-                    return Promise.resolve(expectedResponse);
-                }
-            });
-            let ctx = {
-                session: {
-                    form: {},
-                    journey: probateJourney
-                }
-            };
-            const formdata = {executors: {list: []}};
-            const featureToggles = {
-                document_upload: false
-            };
-            const summary = new Summary(steps, section, templatePath, i18next, schema);
-
-            co(function* () {
-                [ctx] = yield summary.handleGet(ctx, formdata, featureToggles);
-                assert.equal(ctx.isDocumentUploadToggleEnabled, expectedResponse);
-                revert();
-                done();
-            });
-        });
     });
 
     describe('getContextData()', () => {

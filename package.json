@@ -4,10 +4,10 @@
   "version": "4.1.1",
   "private": true,
   "engines": {
-    "node": ">=8.9"
+    "node": ">=8.9.4"
   },
   "scripts": {
-    "setup": "NODE_PATH=. npm run sass && npm run git-info && npm run sass-ie8",
+    "setup": "NODE_PATH=. npm run sass && npm run git-info && npm run sass-ie8 && npm run sass-webchat",
     "start": "NODE_PATH=. node server.js",
     "debug": "NODE_PATH=. node inspect server.js",
     "prestart:dev": "npm run sass:watch",
@@ -15,13 +15,18 @@
     "sass:watch": "NODE_PATH=. watch 'npm run -s sass' app/assets/sass/ &",
     "sass": "NODE_PATH=. node-sass app/assets/sass/application.scss --output public/stylesheets --quiet --output-style expanded --source-map true --include-path node_modules/govuk_template_jinja/assets/stylesheets --include-path node_modules/govuk_frontend_toolkit/stylesheets --include-path node_modules/govuk-elements-sass/public/sass/",
     "sass-ie8": "NODE_PATH=. node-sass app/assets/sass/application-ie8.scss --output public/stylesheets --quiet --output-style expanded --source-map true --include-path node_modules/govuk_template_jinja/assets/stylesheets --include-path node_modules/govuk_frontend_toolkit/stylesheets --include-path node_modules/govuk-elements-sass/public/sass/",
+    "sass-webchat": "NODE_PATH=. node-sass node_modules/@hmcts/ctsc-web-chat/assets/sass/hmcts-webchat.scss --output public/stylesheets --quiet --output-style expanded --source-map true --include-path node_modules/govuk_template_jinja/assets/stylesheets --include-path node_modules/govuk_frontend_toolkit/stylesheets --include-path node_modules/govuk-elements-sass/public/sass/",
     "test": "npm run test-unit -- $@ && npm run test-accessibility -- $@ && npm run test-component -- $@",
     "test-unit": "NODE_PATH=. LOG_LEVEL=error mocha test/unit --reporter spec --recursive --timeout 15000",
     "test-component": "NODE_PATH=. LOG_LEVEL=error mocha test/component --reporter spec --recursive --timeout 15000",
     "test:a11y": "NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 15000",
     "test-accessibility": "NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 15000",
     "test-e2e": "NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
-    "test-crossbrowser-e2e": "NODE_PATH=. codeceptjs run -c test/end-to-end/saucelabs.conf.js --steps",
+    "test:crossbrowser_IE11": "NODE_PATH=. codeceptjs run-multiple microsoftIE11 -c test/end-to-end/saucelabs.conf.js --plugins retryFailedStep --steps --reporter mocha-multi",
+    "test:crossbrowser_Edge": "NODE_PATH=. codeceptjs run-multiple microsoftEdge -c test/end-to-end/saucelabs.conf.js --plugins retryFailedStep --steps --reporter mocha-multi",
+    "test:crossbrowser_chrome": "NODE_PATH=. codeceptjs run-multiple chrome -c test/end-to-end/saucelabs.conf.js --plugins retryFailedStep --steps --reporter mocha-multi",
+    "test:crossbrowser_firefox": "NODE_PATH=. codeceptjs run-multiple firefox -c test/end-to-end/saucelabs.conf.js --plugins retryFailedStep --steps --reporter mocha-multi",
+    "test:crossbrowser": "./bin/run-crossbrowser-tests.sh",
     "test:smoke": "mocha test/smoke/healthcheck.js --timeout 25000 --reporter spec",
     "test-contract": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/addresslookup/*.js' 'test/contract/generatepin/*.js' --timeout 15000 --reporter spec",
     "test-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/pact/*.js' --timeout 15000 --reporter spec",
@@ -35,7 +40,7 @@
     "test:coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/unit/test*.js' './test/component/**/test*.js'",
     "test-coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/**/test*.js'",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner",
-    "sonar-scan": "node_modules/sonar-scanner/bin/sonar-scanner -Dsonar.projectName='Probate :: frontend' -Dsonar.sources=app -Dsonar.cpd.exclusions=app/steps/** -Dsonar.exclusions=app/views/widgets/** -Dsonar.language=js -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info",
+    "sonar-scan": "node_modules/sonar-scanner/bin/sonar-scanner -Dsonar.projectName='Probate :: frontend' -Dsonar.sources=app -Dsonar.language=js -Dsonar.cpd.exclusions=app/steps/ui/tasklist/includes/**,app/steps/ui/executors/roles/** -Dsonar.exclusions=app/steps/ui/tasklist/includes/** -Dsonar.exclusions=app/** -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info",
     "git-info": "node-git-info-json",
     "//": "The below scripts are just stubs, don't use them in production",
     "s2s-stub": "NODE_PATH=. node test/service-stubs/idam.js",
@@ -45,9 +50,11 @@
     "business-stub": "NODE_PATH=. node test/service-stubs/business.js",
     "payment-stub": "NODE_PATH=. node test/service-stubs/payment.js",
     "find-address-stub": "NODE_PATH=. node test/service-stubs/find-address.js",
+    "feature-toggles-stub": "NODE_PATH=. node test/service-stubs/feature-toggles.js",
     "test:fullfunctional": "NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --reporter mochawesome"
   },
   "dependencies": {
+    "@hmcts/ctsc-web-chat": "^0.1.20",
     "@hmcts/nodejs-logging": "^3.0.0",
     "@hmcts/os-places-client": "^1.0.4",
     "ajv": "^4.11.0",
@@ -105,13 +112,14 @@
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.0.0",
     "chai-string": "^1.5.0",
-    "codeceptjs": "^2.0.6",
+    "codeceptjs": "^2.1.4",
     "eslint": "4.1.1 ",
     "eslint-plugin-mocha": "^4.8.0",
     "istanbul": "^0.4.5",
     "mocha": "^2.5.3",
     "mocha-jenkins-reporter": "^0.3.8",
     "mochawesome": "^2.0.0",
+    "mocha-multi": "^1.1.0",
     "nock": "^9.3.0",
     "nodemon": "^1.11.0",
     "nsp": "^2.6.2",
@@ -130,6 +138,7 @@
     "unirest": "^0.5.1",
     "uuid": "^3.1.0",
     "watch": "^1.0.1",
+    "webdriverio": "^4.14.4",
     "when": "^3.7.7"
   }
 }

@@ -10,35 +10,35 @@
 
 {% if enableTracking === 'true' %}
     <script nonce="{{ nonce }}">
-        var gatrackingid = "{{ gaTrackingId }}";
+        const gatrackingid = "{{ gaTrackingId }}";
     </script>
     <script src="/public/javascripts/ga-tracking.js"></script>
     <noscript>
-        <img src="/public/images/noJS.png" width="1" height="1" alt="No JS" />
+        <img src="/public/images/noJS.png" width="1" height="1" alt="No JS">
     </noscript>
 {% endif %}
 
 <script src="/public/javascripts/dropzone.js"></script>
 <script nonce="{{ nonce }}">
-    var documentUploadConfig = {
-        csrfToken: "{{ csrfToken }}",
-        validMimeTypes: "{{ documentUpload.validMimeTypes }}",
-        maxFiles: "{{ documentUpload.maxFiles }}",
-        maxSizeBytes: "{{ documentUpload.maxSizeBytes }}",
-        timeout: "{{ documentUpload.timeout }}",
+    const documentUploadConfig = {
+        csrfToken: '{{ csrfToken }}',
+        validMimeTypes: '{{ documentUpload.validMimeTypes }}',
+        maxFiles: '{{ documentUpload.maxFiles }}',
+        maxSizeBytes: '{{ documentUpload.maxSizeBytes }}',
+        timeout: '{{ documentUpload.timeout }}',
         content: {
-            removeFileText: "{{ common.documentUploadRemoveFile }}",
-            errorSummaryHeading: "{{ common.errorSummaryHeading }}",
-            invalidFileType: "{{ common['documentUpload-invalidFileType'] }}",
-            invalidFileTypeSummary: "{{ common['documentUpload-invalidFileTypeSummary'] }}",
-            maxFiles: "{{ common['documentUpload-maxFiles'] }}",
-            maxFilesSummary: "{{ common['documentUpload-maxFilesSummary'] }}",
-            maxSize: "{{ common['documentUpload-maxSize'] }}",
-            maxSizeSummary: "{{ common['documentUpload-maxSizeSummary'] }}",
-            uploadFailed: "{{ common['documentUpload-uploadFailed'] }}",
-            uploadFailedSummary: "{{ common['documentUpload-uploadFailedSummary'] }}",
-            uploadTimeout: "{{ common['documentUpload-uploadTimeout'] }}",
-            uploadTimeoutSummary: "{{ common['documentUpload-uploadTimeoutSummary'] }}"
+            removeFileText: '{{ common.documentUploadRemoveFile }}',
+            errorSummaryHeading: '{{ common.errorSummaryHeading }}',
+            invalidFileType: '{{ common['documentUpload-invalidFileType'] }}',
+            invalidFileTypeSummary: '{{ common['documentUpload-invalidFileTypeSummary'] }}',
+            maxFiles: '{{ common['documentUpload-maxFiles'] }}',
+            maxFilesSummary: '{{ common['documentUpload-maxFilesSummary'] }}',
+            maxSize: '{{ common['documentUpload-maxSize'] }}',
+            maxSizeSummary: '{{ common['documentUpload-maxSizeSummary'] }}',
+            uploadFailed: '{{ common['documentUpload-uploadFailed'] }}',
+            uploadFailedSummary: '{{ common['documentUpload-uploadFailedSummary'] }}',
+            uploadTimeout: '{{ common['documentUpload-uploadTimeout'] }}',
+            uploadTimeoutSummary: '{{ common['documentUpload-uploadTimeoutSummary'] }}'
         }
     };
 </script>
@@ -47,3 +47,24 @@
 <!--[if lte IE 9]>
 <script src="/public/javascripts/form-polyfill.js"></script>
 <![endif]-->
+
+{% if fields.featureToggles.value.webchat == "true" %}
+    <script src="/webchat/javascript/hmcts-webchat.js"></script>
+    <script nonce="{{ nonce }}">
+        webchat_init({
+            uuid: '{{ webChat.chatId }}',
+            tenant: '{{ webChat.tenant }}',
+            channel: 'Probate',
+            stylesheetURL: 'https://' + window.location.hostname + '/public/stylesheets/hmcts-webchat.css',
+            busHandlerURL: 'https://' + window.location.hostname + '/webchat/javascript/busHandler.js',
+            chatDownAction: 'showMessage',
+            chatDownText: '{{ common.chatOnlineUnavailable | replace("\n", "\\n") }}',
+            linkTextAgent: '{{ common.chatOnlineWithAnAgent | replace("\n", "\\n") }}',
+            additionalText: '{{ common.chatOnlineOpeningHours | replace("\n", "\\n") }}',
+            additionalTextNoAgent: '{{ common.chatOnlineNoAgent | replace("\n", "\\n") }}',
+            additionalTextTooBusy: '{{ common.chatOnlineTooBusy | replace("\n", "\\n") }}',
+            additionalTextClosed: '{{ common.chatOnlineClosed | replace("\n", "\\n") }}',
+            chatLinkFocusable: false
+        });
+    </script>
+{% endif %}

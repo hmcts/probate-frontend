@@ -65,14 +65,10 @@ const stepList = {
         otherwise: 'StopPage'
     },
     StartApply: 'TaskList',
-
     DeceasedName: 'DeceasedDob',
     DeceasedDob: 'DeceasedDod',
     DeceasedDod: 'DeceasedAddress',
-    DeceasedAddress: {
-        documentUploadToggleOn: 'DocumentUpload',
-        otherwise: 'IhtMethod'
-    },
+    DeceasedAddress: 'DocumentUpload',
     DocumentUpload: {
         isUploadingDocument: 'DocumentUpload',
         otherwise: 'IhtMethod'
@@ -97,7 +93,6 @@ const stepList = {
         otherwise: 'CodicilsNumber'
     },
     CodicilsNumber: 'TaskList',
-
     ApplicantName: 'ApplicantNameAsOnWill',
     ApplicantNameAsOnWill: {
         hasAlias: 'ApplicantAlias',
@@ -157,7 +152,6 @@ const stepList = {
         otherwise: 'TaskList'
     },
     DeleteExecutor: 'OtherExecutors',
-
     Summary: 'TaskList',
     Declaration: {
         sendAdditionalInvites: 'ExecutorsAdditionalInvite',

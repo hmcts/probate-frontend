@@ -3,15 +3,6 @@
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
 const sessionData = require('test/data/documentupload');
-const config = require('app/config');
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const documentUploadFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.document_upload}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(documentUploadFeatureTogglePath)
-        .reply(200, status);
-};
 
 describe('summary', () => {
     let testWrapper;
@@ -23,35 +14,10 @@ describe('summary', () => {
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        it('test content loaded on the page with the document upload feature toggle OFF', (done) => {
-            featureTogglesNock('false');
-
-            const contentToExclude = [
-                'executorsWhenDiedQuestion',
-                'otherNamesLabel',
-                'willWithCodicilHeading',
-                'otherExecutors',
-                'executorsWithOtherNames',
-                'executorApplyingForProbate',
-                'executorsNotApplyingForProbate',
-                'nameOnWill',
-                'currentName',
-                'currentNameReason',
-                'mobileNumber',
-                'emailAddress',
-                'uploadedDocumentsHeading',
-                'uploadedDocumentsEmpty'
-            ];
-            testWrapper.testContent(done, contentToExclude);
-        });
-
-        it('test content loaded on the page with the document upload feature toggle ON and documents uploaded', (done) => {
-            featureTogglesNock('true');
-
+        it('test content loaded on the page and documents uploaded', (done) => {
             const contentToExclude = [
                 'executorsWhenDiedQuestion',
                 'otherNamesLabel',

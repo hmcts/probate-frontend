@@ -35,13 +35,12 @@ class Security {
             if (securityCookie) {
                 const lostSession = !req.session.expires;
                 const sessionExpired = req.session.expires?req.session.expires <= Date.now():false;
-                const sessionTimeoutCheck = !config.whitelistedPagesIgnoreSessionTimeout.includes(req.originalUrl);
                 const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
                 idamSession
                     .get(securityCookie)
                     .then(response => {
                         if (response.name !== 'Error') {
-                            if (sessionTimeoutCheck && (lostSession || sessionExpired)) {
+                            if (lostSession || sessionExpired) {
                                 if (lostSession) {
                                     req.log.error('The current user session is lost.');
                                 } else {

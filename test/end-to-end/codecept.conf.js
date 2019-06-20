@@ -34,6 +34,9 @@ exports.config = {
     'plugins': {
         'autoDelay': {
             'enabled': true
+        },
+        'retryFailedStep': {
+            'enabled': true
         }
     },
     'multiple': {

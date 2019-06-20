@@ -5,7 +5,7 @@ const pageUnderTest = require('app/steps/ui/coapplicant/agreepage');
 module.exports = function (elementId) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.amOnLoadedPage(pageUnderTest.getUrl());
 
     if (elementId === 0) {
         I.see('When everyone');

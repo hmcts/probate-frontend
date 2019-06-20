@@ -34,7 +34,10 @@ describe('WillCodicils', () => {
             expect(ctx).to.deep.equal({
                 codicils: 'Yes',
                 sessionID: 'dummy_sessionId',
-                journeyType: 'probate'
+                journeyType: 'probate',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
             done();
         });

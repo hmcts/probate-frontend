@@ -35,7 +35,10 @@ describe('ApplicantExecutor', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 executor: content.optionYes,
-                journeyType: 'Probate'
+                journeyType: 'Probate',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
             done();
         });

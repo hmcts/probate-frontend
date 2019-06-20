@@ -61,7 +61,10 @@ describe('EligibilityValidationStep', () => {
             expect(EligibilityValidationStep.__get__('eligibilityCookie.getAnswer').calledWith(req, pageUrl, fieldKey)).to.equal(true);
             expect(ctx).to.deep.equal({
                 sessionID: 'abc123',
-                journeyType: 'probate'
+                journeyType: 'probate',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
 
             revert();
@@ -76,7 +79,10 @@ describe('EligibilityValidationStep', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'abc123',
                 journeyType: 'probate',
-                deathCertificate: 'Yes'
+                deathCertificate: 'Yes',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
 
             revert();
@@ -100,14 +106,17 @@ describe('EligibilityValidationStep', () => {
             const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey, featureToggles);
 
             expect(nextStepUrlStub.calledOnce).to.equal(true);
-            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', journeyType: 'probate', deathCertificate: 'Yes', isIntestacyQuestionsToggleEnabled: true})).to.equal(true);
+            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', journeyType: 'probate', deathCertificate: 'Yes', isIntestacyQuestionsToggleEnabled: true, featureToggles: {webchat: 'false'}})).to.equal(true);
             expect(setEligibilityCookieStub.calledOnce).to.equal(true);
             expect(setEligibilityCookieStub.calledWith(req, res, nextStepUrl, fieldKey, fieldValue)).to.equal(true);
             expect(ctx).to.deep.equal({
                 sessionID: 'abc123',
                 journeyType: 'probate',
                 deathCertificate: 'Yes',
-                isIntestacyQuestionsToggleEnabled: true
+                isIntestacyQuestionsToggleEnabled: true,
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
 
             nextStepUrlStub.restore();

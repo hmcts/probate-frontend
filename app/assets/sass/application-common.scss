@@ -120,6 +120,14 @@ li.task-item {
 
 .help-details {
   margin-top: 50px;
+
+  p {
+    margin: 0;
+
+    & + h4 {
+      margin-top: 25px;
+    }
+  }
 }
 
 .help-details-summary {

@@ -6,12 +6,14 @@ const config = {
     gitRevision: process.env.GIT_REVISION,
     frontendPublicHttpProtocol: process.env.PUBLIC_PROTOCOL || 'http',
     featureToggles: {
-        url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8282',
+        url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8292',
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
+        port: 8292,
         fe_shutter_toggle: 'probate-fe-shutter',
-        document_upload: 'probate-document-upload',
         intestacy_questions: 'probate-intestacy-questions',
-        fees_api: 'probate-fees-api'
+        fees_api: 'probate-fees-api',
+        webchat: 'probate-webchat',
+        appwideToggles: ['webchat']
     },
     app: {
         username: process.env.USERNAME,
@@ -116,6 +118,10 @@ const config = {
     payloadVersion: '4.1.1',
     gaTrackingId: process.env.GA_TRACKING_ID || 'UA-93598808-3',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
+    webChat: {
+        chatId: process.env.WEBCHAT_CHAT_ID || 'script_7143406305ce667c21e2eb9.79440233',
+        tenant: process.env.WEBCHAT_TENANT || 'aG1jdHNzdGFnaW5nMDE',
+    },
     links: {
         cookies: '/cookies',
         privacy: '/privacy-policy',
@@ -176,7 +182,6 @@ const config = {
         version: process.env.version || '1',
         currency: process.env.currency || 'GBP'
     },
-    whitelistedPagesIgnoreSessionTimeout: ['/payment-status'],
     whitelistedPagesAfterSubmission: ['/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     whitelistedPagesAfterPayment: ['/tasklist', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     whitelistedPagesAfterDeclaration: ['/tasklist', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thankyou', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],

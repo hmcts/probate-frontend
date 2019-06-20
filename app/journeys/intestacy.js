@@ -6,8 +6,23 @@ const taskList = {
         lastStep: 'TaskList',
         summary: 'Summary'
     },
-    ExecutorsTask: {
+    ApplicantsTask: {
         firstStep: 'RelationshipToDeceased',
+        lastStep: 'TaskList',
+        summary: 'Summary'
+    },
+    ReviewAndConfirmTask: {
+        firstStep: 'Declaration',
+        lastStep: 'TaskList',
+        summary: 'Summary'
+    },
+    CopiesTask: {
+        firstStep: 'CopiesStart',
+        lastStep: 'CopiesSummary',
+        summary: 'CopiesSummary'
+    },
+    PaymentTask: {
+        firstStep: 'PaymentBreakdown',
         lastStep: 'TaskList',
         summary: 'Summary'
     }
@@ -47,10 +62,7 @@ const stepList = {
     StartApply: 'TaskList',
 
     DeceasedDetails: 'DeceasedAddress',
-    DeceasedAddress: {
-        documentUploadToggleOn: 'DocumentUpload',
-        otherwise: 'IhtMethod'
-    },
+    DeceasedAddress: 'DocumentUpload',
     DocumentUpload: {
         isUploadingDocument: 'DocumentUpload',
         otherwise: 'IhtMethod'
@@ -61,7 +73,6 @@ const stepList = {
     },
     IhtIdentifier: 'IhtValue',
     IhtValue: {
-
         lessThanOrEqualTo250k: 'AssetsOutside',
         otherwise: 'DeceasedAlias'
     },
@@ -120,11 +131,28 @@ const stepList = {
         otherwise: 'StopPage'
     },
     AnyDeceasedChildren: {
-        hadDeceasedChildren: 'AnyGrandchildren',
+        hadDeceasedChildren: 'AnyGrandchildrenUnder18',
         otherwise: 'ApplicantName'
     },
-
+    AnyGrandchildrenUnder18: {
+        allGrandchildrenOver18: 'ApplicantName',
+        otherwise: 'StopPage'
+    },
+    ApplicantName: 'ApplicantPhone',
+    ApplicantPhone: 'ApplicantAddress',
+    ApplicantAddress: 'Summary',
     Summary: 'TaskList',
+    Declaration: 'TaskList',
+    CopiesStart: 'CopiesUk',
+    CopiesUk: 'AssetsOverseas',
+    AssetsOverseas: {
+        assetsoverseas: 'CopiesOverseas',
+        otherwise: 'CopiesSummary'
+    },
+    CopiesOverseas: 'CopiesSummary',
+    CopiesSummary: 'TaskList',
+    PaymentBreakdown: 'PaymentStatus',
+    PaymentStatus: 'TaskList',
     TaskList: 'TaskList',
     StopPage: 'StopPage'
 };

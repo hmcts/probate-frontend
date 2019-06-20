@@ -35,7 +35,10 @@ describe('IhtCompleted', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 completed: content.optionYes,
-                journeyType: 'Probate'
+                journeyType: 'Probate',
+                featureToggles: {
+                    webchat: 'false'
+                }
             });
             done();
         });

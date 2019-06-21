@@ -3,7 +3,7 @@
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
-Feature('Intestacy flow');
+Feature('Intestacy child flow');
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
@@ -23,15 +23,32 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function (I) {
     // Eligibility Task (pre IdAM)
     I.startApplication();
 
-    // Probate and Intestacy Sceeners
+    // Probate Sceeners
+    I.selectDeathCertificate('No');
+    I.seeStopPage('deathCertificate');
     I.selectDeathCertificate('Yes');
+
+    I.selectDeceasedDomicile('No');
+    I.seeStopPage('notInEnglandOrWales');
     I.selectDeceasedDomicile('Yes');
+
+    I.selectIhtCompleted('No');
+    I.seeStopPage('ihtNotCompleted');
     I.selectIhtCompleted('Yes');
+
     I.selectPersonWhoDiedLeftAWill('No');
 
     // Intestacy Sceeners
+    I.selectDiedAfterOctober2014('No');
+    I.seeStopPage('notDiedAfterOctober2014');
     I.selectDiedAfterOctober2014('Yes');
+
+    I.selectRelatedToDeceased('No');
+    I.seeStopPage('notRelated');
     I.selectRelatedToDeceased('Yes');
+
+    I.selectOtherApplicants('Yes');
+    I.seeStopPage('otherApplicants');
     I.selectOtherApplicants('No');
 
     I.startApply();
@@ -72,18 +89,31 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function (I) {
 
     // Copies Task
     I.selectATask(taskListContent.taskNotStarted);
-    pause();
 
-    // if (TestConfigurator.getUseGovPay() === 'true') {
-    //     I.enterUkCopies('5');
-    //     I.selectOverseasAssets();
-    //     I.enterOverseasCopies('7');
-    // } else {
-    //     I.enterUkCopies('0');
-    //     I.selectOverseasAssets();
-    //     I.enterOverseasCopies('0');
-    // }
-    //
-    // I.seeCopiesSummary();
-    // I.selectATask(taskListContent.taskNotStarted);
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.enterUkCopies('5');
+        I.selectOverseasAssets();
+        I.enterOverseasCopies('7');
+    } else {
+        I.enterUkCopies('0');
+        I.selectOverseasAssets();
+        I.enterOverseasCopies('0');
+    }
+
+    I.seeCopiesSummary();
+
+    // Payment Task
+    I.selectATask(taskListContent.taskNotStarted);
+    I.seePaymentBreakdownPage();
+
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.seeGovUkPaymentPage();
+        I.seeGovUkConfirmPage();
+    }
+
+    I.seePaymentStatusPage();
+
+    // Send Documents Task
+    I.seeDocumentsPage();
+    pause();
 });

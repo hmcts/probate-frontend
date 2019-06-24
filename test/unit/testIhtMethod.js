@@ -2,9 +2,14 @@
 
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
-const content = require('app/resources/en/translation/iht/method');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const IhtMethod = steps.IhtMethod;
+const content = require('app/resources/en/translation/iht/method');
+const contentAssetsOutside = require('app/resources/en/translation/iht/assetsoutside');
+const contentAnyChildren = require('app/resources/en/translation/deceased/anychildren');
+const contentAllChildrenOver18 = require('app/resources/en/translation/deceased/allchildrenover18');
+const contentAnyDeceasedChildren = require('app/resources/en/translation/deceased/anydeceasedchildren');
+const contentAnyGrandChildrenUnder18 = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
 
 describe('IhtMethod', () => {
     describe('getUrl()', () => {
@@ -30,32 +35,72 @@ describe('IhtMethod', () => {
     });
 
     describe('action()', () => {
-        it('test that Online IHT context variables are removed if Paper Option chosen', () => {
-            let formdata = {};
+        it('test it cleans up context and formdata if Paper Option chosen', () => {
+            let formdata = {
+                iht: {
+                    method: content.optionOnline
+                },
+                deceased: {
+                    anyChildren: contentAnyChildren.optionYes,
+                    allChildrenOver18: contentAllChildrenOver18.optionYes,
+                    anyDeceasedChildren: contentAnyDeceasedChildren.optionYes,
+                    anyGrandchildrenUnder18: contentAnyGrandChildrenUnder18.optionNo
+                }
+            };
             let ctx = {
                 method: content.optionPaper,
                 identifier: '1234567890',
-                grossValueOnline: '500000',
-                netValueOnline: '400000'
+                grossValueField: '500000',
+                netValueField: '400000',
+
+                assetsOutside: contentAssetsOutside.optionYes,
+                netValueAssetsOutsideField: '150000',
+                netValueAssetsOutside: 150000
             };
             [ctx, formdata] = IhtMethod.action(ctx, formdata);
             expect(ctx).to.deep.equal({
                 method: content.optionPaper
             });
+            expect(formdata).to.deep.equal({
+                iht: {
+                    method: content.optionOnline
+                },
+                deceased: {}
+            });
         });
 
-        it('test that Paper IHT context variables are removed if Online Option chosen', () => {
-            let formdata = {};
+        it('test it cleans up context and formdata if Online Option chosen', () => {
+            let formdata = {
+                iht: {
+                    method: content.optionPaper
+                },
+                deceased: {
+                    anyChildren: contentAnyChildren.optionYes,
+                    allChildrenOver18: contentAllChildrenOver18.optionYes,
+                    anyDeceasedChildren: contentAnyDeceasedChildren.optionYes,
+                    anyGrandchildrenUnder18: contentAnyGrandChildrenUnder18.optionNo
+                }
+            };
             let ctx = {
                 method: content.optionOnline,
                 form: 'IHT205',
                 ihtFormId: 'IHT205',
-                grossIHT205: '500000',
-                netIHT205: '400000'
+                grossValueIHT205: '500000',
+                netValueIHT205: '400000',
+
+                assetsOutside: contentAssetsOutside.optionYes,
+                netValueAssetsOutsideField: '150000',
+                netValueAssetsOutside: 150000
             };
             [ctx, formdata] = IhtMethod.action(ctx, formdata);
             expect(ctx).to.deep.equal({
                 method: content.optionOnline
+            });
+            expect(formdata).to.deep.equal({
+                iht: {
+                    method: content.optionPaper
+                },
+                deceased: {}
             });
         });
     });

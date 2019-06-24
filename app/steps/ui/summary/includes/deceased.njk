@@ -102,6 +102,26 @@
 {{checkanswer(
     items = [
         {
+            question: fields.summary.deceasedDivorcePlaceQuestion.value,
+            answer: fields.deceased.divorcePlace.value,
+            visible:
+                fields.summary.journeyType.value === "intestacy"
+                and
+                (
+                    fields.deceased.maritalStatus.value == content.DeceasedMaritalStatus.optionDivorced
+                    or
+                    fields.deceased.maritalStatus.value == content.DeceasedMaritalStatus.optionSeparated
+                )
+        }
+    ],
+    url = content.DeceasedMaritalStatus.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
             question: content.DeceasedAddress.question,
             answer: fields.deceased.address.value.formattedAddress,
             visible: true

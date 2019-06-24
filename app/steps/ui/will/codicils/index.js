@@ -22,7 +22,7 @@ class WillCodicils extends ValidationStep {
     }
 
     action(ctx, formdata) {
-        if (ctx.codicils === this.generateContent(ctx, formdata).optionNo) {
+        if (ctx.codicils === content.optionNo) {
             delete ctx.codicilsNumber;
         }
         super.action(ctx, formdata);

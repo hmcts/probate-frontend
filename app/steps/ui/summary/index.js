@@ -80,6 +80,7 @@ class Summary extends Step {
 
             if (ctx.journeyType === 'intestacy') {
                 fields[this.section].deceasedMaritalStatusQuestion.value = unescape(fields[this.section].deceasedMaritalStatusQuestion.value);
+                fields[this.section].deceasedDivorcePlaceQuestion.value = unescape(fields[this.section].deceasedDivorcePlaceQuestion.value);
                 fields[this.section].deceasedAnyChildrenQuestion.value = unescape(fields[this.section].deceasedAnyChildrenQuestion.value);
                 fields[this.section].deceasedAnyOtherChildrenQuestion.value = unescape(fields[this.section].deceasedAnyOtherChildrenQuestion.value);
                 fields[this.section].deceasedAnyDeceasedChildrenQuestion.value = unescape(fields[this.section].deceasedAnyDeceasedChildrenQuestion.value);
@@ -114,6 +115,8 @@ class Summary extends Step {
         } else {
             ctx.deceasedMaritalStatusQuestion = content.DeceasedMaritalStatus.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedMaritalStatus.theDeceased);
+            ctx.deceasedDivorcePlaceQuestion = content.DivorcePlace.question
+                .replace('{legalProcess}', (formdata.deceased && formdata.deceased.maritalStatus === content.DeceasedMaritalStatus.optionDivorced) ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
             ctx.deceasedAnyChildrenQuestion = content.AnyChildren.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyChildren.theDeceased);
             ctx.deceasedAnyOtherChildrenQuestion = content.AnyOtherChildren.question

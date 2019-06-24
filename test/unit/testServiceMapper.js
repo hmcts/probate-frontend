@@ -37,5 +37,15 @@ describe('ServiceMapper', () => {
             done();
         });
 
+        it('should throw an exception', (done) => {
+            const params = ['url', 'id'];
+            try {
+                ServiceMapper.map('FormData', params, 'gop2');
+            } catch (err) {
+                expect(err.message).to.equal('Unable to identify caseType: gop2');
+                done();
+            }
+        });
+
     });
 });

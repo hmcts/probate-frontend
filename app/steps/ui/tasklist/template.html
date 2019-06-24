@@ -14,7 +14,7 @@
                 <p>{{ content.saveAndReturn }}</p>
                 <div class="form-group">
                     <ol>
-                        {% ifAsync fields.journeyType.value === "gop" %}
+                        {% ifAsync fields.caseType.value === "gop" %}
                             {% include "ui/tasklist/includes/deceased.html" %}
                             {% include "ui/tasklist/includes/executors.html" %}
                             {% include "ui/tasklist/includes/reviewAndConfirm.html" %}
@@ -22,7 +22,7 @@
                             {% include "ui/tasklist/includes/payment.html" %}
                             {% include "ui/tasklist/includes/documents.html" %}
                         {% endif %}
-                        {% ifAsync fields.journeyType.value === "intestacy" %}
+                        {% ifAsync fields.caseType.value === "intestacy" %}
                             {% include "ui/tasklist/includes/deceased.html" %}
                             {% include "ui/tasklist/includes/applicants.html" %}
                             {% include "ui/tasklist/includes/reviewAndConfirm.html" %}

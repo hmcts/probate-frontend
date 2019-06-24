@@ -22,9 +22,9 @@ describe('WillCodicils', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        journeyType: 'gop'
+                        caseType: 'gop'
                     },
-                    journeyType: 'gop'
+                    caseType: 'gop'
                 },
                 body: {
                     codicils: content.optionYes
@@ -34,7 +34,7 @@ describe('WillCodicils', () => {
             expect(ctx).to.deep.equal({
                 codicils: 'Yes',
                 sessionID: 'dummy_sessionId',
-                journeyType: 'gop',
+                caseType: 'gop',
                 featureToggles: {
                     webchat: 'false'
                 }
@@ -49,12 +49,12 @@ describe('WillCodicils', () => {
                 session: {
                     journey: journey,
                     form: {
-                        journeyType: 'gop'
+                        caseType: 'gop'
                     },
                     featureToggles: {
                         screening_questions: false
                     },
-                    journeyType: 'gop'
+                    caseType: 'gop'
                 },
                 body: {
                     codicils: 'Yes'

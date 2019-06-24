@@ -43,7 +43,7 @@ router.get('/', (req, res) => {
     const formData = ServiceMapper.map(
         'FormData',
         [config.services.persistence.url, req.sessionID],
-        req.session.journeyType
+        req.session.caseType
     );
     formData
         .get(req.session.regId)

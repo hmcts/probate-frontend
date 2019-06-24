@@ -23,7 +23,7 @@ describe('DeathCertificate', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {},
-                    journeyType: 'gop'
+                    caseType: 'gop'
                 },
                 body: {
                     deathCertificate: content.optionYes
@@ -35,7 +35,7 @@ describe('DeathCertificate', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 deathCertificate: content.optionYes,
-                journeyType: 'gop',
+                caseType: 'gop',
                 featureToggles: {
                     webchat: 'false'
                 }

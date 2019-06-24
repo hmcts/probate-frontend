@@ -28,7 +28,7 @@ describe('Pact Intestacy Submit Data', () => {
 
     const ctx = {};
     ctx.sessionID = 'someSessionId';
-    ctx.journeyType = 'intestacy';
+    ctx.caseType = 'intestacy';
     ctx.authToken = 'authToken';
     ctx.userId = 'userId';
 

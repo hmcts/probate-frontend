@@ -53,7 +53,7 @@ class Step {
         let ctx = {};
         Object.assign(ctx, session.form[this.section] || {});
         ctx.sessionID = req.sessionID;
-        ctx.journeyType = session.journeyType;
+        ctx.caseType = session.caseType;
         ctx = Object.assign(ctx, req.body);
         ctx = FeatureToggle.appwideToggles(req, ctx, config.featureToggles.appwideToggles);
 
@@ -104,14 +104,14 @@ class Step {
         const formData = ServiceMapper.map(
             'FormData',
             [config.services.persistence.url, sessionID],
-            formdata.journeyType
+            formdata.caseType
         );
         return formData.post(id, formdata, sessionID);
     }
 
     action(ctx, formdata) {
         delete ctx.sessionID;
-        delete ctx.journeyType;
+        delete ctx.caseType;
         delete ctx.featureToggles;
         delete ctx._csrf;
         return [ctx, formdata];

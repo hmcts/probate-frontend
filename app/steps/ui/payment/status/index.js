@@ -52,7 +52,7 @@ class PaymentStatus extends Step {
         const formData = ServiceMapper.map(
             'FormData',
             [config.services.persistence.url, ctx.sessionID],
-            ctx.journeyType
+            ctx.caseType
         );
 
         if (ctx.paymentDue) {
@@ -126,7 +126,7 @@ class PaymentStatus extends Step {
         const ccdCasePaymentStatus = ServiceMapper.map(
             'CcdCasePaymentStatus',
             [config.services.submit.url, ctx.sessionID],
-            ctx.journeyType
+            ctx.caseType
         );
         const result = yield ccdCasePaymentStatus.post(submitData, ctx);
 

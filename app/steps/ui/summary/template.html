@@ -8,82 +8,103 @@
         {% include "includes/phase_banner_beta.html" %}
         {% include "includes/error_summary.html" %}
 
-        <h1 class="heading-large">{{ content.Summary.heading }}</h1>
-        <p id="main-heading-content">{{ content.Summary.checkCarefully }}</p>
+        <div id="check-your-answers">
+            <h1 class="heading-large">{{ content.Summary.heading }}</h1>
+            <p id="main-heading-content">{{ content.Summary.checkCarefully }}</p>
 
-        <h2 class="heading-medium">{{ content.Summary.deceasedHeading }}</h2>
-        <table class="check-your-answers check-your-answers--long">
-            <caption class="visually-hidden">{{ content.Summary.deceasedHeading }}</caption>
-            <tbody>
-                {% include "ui/summary/includes/deceased.njk" %}
-            </tbody>
-        </table>
-
-
-        <h2 class="heading-medium">{{ content.Summary.uploadedDocumentsHeading }}</h2>
-        <table class="check-your-answers check-your-answers--long">
-            <caption class="visually-hidden">{{ content.Summary.uploadedDocumentsHeading }}</caption>
-            <tbody>
-            {% include "ui/summary/includes/documentupload.njk" %}
-            </tbody>
-        </table>
-
-        <h2 class="heading-medium">{{ content.Summary.ihtHeading }}</h2>
-        <table class="check-your-answers check-your-answers--long">
-            <caption class="visually-hidden">{{ content.Summary.ihtHeading }}</caption>
-            <tbody>
-                {% include "ui/summary/includes/iht.njk" %}
-            </tbody>
-        </table>
-
-        <h2 class="heading-medium">{{ content.Summary.applicantHeading }}</h2>
-        <table class="check-your-answers check-your-answers--long">
-            <caption class="visually-hidden">{{ content.Summary.applicantHeading }}</caption>
-            <tbody>
-                {% include "ui/summary/includes/executors.njk" %}
-            </tbody>
-        </table>
-
-        <h3 class="heading-small">{{content.Summary.aboutYouHeading | safe}}</h3>
-        <table class="check-your-answers check-your-answers--long">
-            <caption class="visually-hidden">{{ content.Summary.aboutYouHeading }}</caption>
-            <tbody>
-                {% include "ui/summary/includes/executors-applicant.njk" %}
-            </tbody>
-        </table>
-
-        {% ifAsync fields.executors.executorsNumber.value > 1 and fields.summary.executorsAlive.value === "true" %}
-            <h3 class="heading-small">{{content.Summary.otherExecutors | safe}}</h3>
+            <h2 class="heading-medium">{{ content.Summary.deceasedHeading }}</h2>
             <table class="check-your-answers check-your-answers--long">
-                <caption class="visually-hidden">{{ content.Summary.otherExecutors }}</caption>
+                <caption class="visually-hidden">{{ content.Summary.deceasedHeading }}</caption>
                 <tbody>
-                    {% include "ui/summary/includes/executors-others.njk" %}
+                    {% include "ui/summary/includes/deceased.njk" %}
                 </tbody>
             </table>
 
-            {% set cls = cycler(common.second,common.third,common.fourth,common.fifth) %}
-            {% for executor in fields.executors.list.value %}
-                {% ifAsync executor.isApplicant != true and executor.isApplying === true %}
-                    <h3 class="heading-small">{{content.Summary.executorApplyingForProbate | replace("{executorOrderNumber}", cls.next())}}</h3>
+            <h2 class="heading-medium">{{ content.Summary.uploadedDocumentsHeading }}</h2>
+            <table class="check-your-answers check-your-answers--long">
+                <caption class="visually-hidden">{{ content.Summary.uploadedDocumentsHeading }}</caption>
+                <tbody>
+                    {% include "ui/summary/includes/documentupload.njk" %}
+                </tbody>
+            </table>
+
+            <h2 class="heading-medium">{{ content.Summary.ihtHeading }}</h2>
+            <table class="check-your-answers check-your-answers--long">
+                <caption class="visually-hidden">{{ content.Summary.ihtHeading }}</caption>
+                <tbody>
+                    {% include "ui/summary/includes/iht.njk" %}
+                </tbody>
+            </table>
+
+            {% ifAsync fields.summary.journeyType.value === "gop" %}
+                <h2 class="heading-medium">{{ content.Summary.applicantHeading }}</h2>
+                <table class="check-your-answers check-your-answers--long">
+                    <caption class="visually-hidden">{{ content.Summary.applicantHeading }}</caption>
+                    <tbody>
+                        {% include "ui/summary/includes/executors.njk" %}
+                    </tbody>
+                </table>
+
+                <h3 class="heading-small">{{content.Summary.aboutYouHeading | safe}}</h3>
+                <table class="check-your-answers check-your-answers--long">
+                    <caption class="visually-hidden">{{ content.Summary.aboutYouHeading }}</caption>
+                    <tbody>
+                        {% include "ui/summary/includes/executors-applicant.njk" %}
+                    </tbody>
+                </table>
+
+                {% ifAsync fields.executors.executorsNumber.value > 1 and fields.summary.executorsAlive.value === "true" %}
+                    <h3 class="heading-small">{{content.Summary.otherExecutors | safe}}</h3>
                     <table class="check-your-answers check-your-answers--long">
-                        <caption class="visually-hidden">{{content.Summary.executorApplyingForProbate | replace("{executorOrderNumber}", cls.current)}}</caption>
+                        <caption class="visually-hidden">{{ content.Summary.otherExecutors }}</caption>
                         <tbody>
-                            {% include "ui/summary/includes/executors-others-details.njk" %}
+                            {% include "ui/summary/includes/executors-others.njk" %}
                         </tbody>
                     </table>
-                {% endif %}
-            {% endfor %}
 
-            {% ifAsync fields.summary.executorsPowerReservedOrRenounced.value === 'true' %}
-                <h3 class="heading-small">{{content.Summary.executorsNotApplyingForProbate | safe}}</h3>
+                    {% set cls = cycler(common.second,common.third,common.fourth,common.fifth) %}
+                    {% for executor in fields.executors.list.value %}
+                        {% ifAsync executor.isApplicant != true and executor.isApplying === true %}
+                            <h3 class="heading-small">{{content.Summary.executorApplyingForProbate | replace("{executorOrderNumber}", cls.next())}}</h3>
+                            <table class="check-your-answers check-your-answers--long">
+                                <caption class="visually-hidden">{{content.Summary.executorApplyingForProbate | replace("{executorOrderNumber}", cls.current)}}</caption>
+                                <tbody>
+                                    {% include "ui/summary/includes/executors-others-details.njk" %}
+                                </tbody>
+                            </table>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% ifAsync fields.summary.executorsPowerReservedOrRenounced.value === 'true' %}
+                        <h3 class="heading-small">{{content.Summary.executorsNotApplyingForProbate | safe}}</h3>
+                        <table class="check-your-answers check-your-answers--long">
+                            <caption class="visually-hidden">{{content.Summary.executorsNotApplyingForProbate}}</caption>
+                            <tbody>
+                                {% include "ui/summary/includes/executors-others-not-applying.njk" %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+
+            {% ifAsync fields.summary.journeyType.value === "intestacy" %}
+                <h2 class="heading-medium">{{content.Summary.aboutPeopleApplyingHeading | safe}}</h2>
                 <table class="check-your-answers check-your-answers--long">
-                    <caption class="visually-hidden">{{content.Summary.executorsNotApplyingForProbate}}</caption>
+                    <caption class="visually-hidden">{{ content.Summary.aboutPeopleApplyingHeading }}</caption>
                     <tbody>
-                        {% include "ui/summary/includes/executors-others-not-applying.njk" %}
+                        {% include "ui/summary/includes/applicants.njk" %}
+                    </tbody>
+                </table>
+
+                <h3 class="heading-small">{{content.Summary.aboutYouHeading | safe}}</h3>
+                <table class="check-your-answers check-your-answers--long">
+                    <caption class="visually-hidden">{{ content.Summary.aboutYouHeading }}</caption>
+                    <tbody>
+                        {% include "ui/summary/includes/executors-applicant.njk" %}
                     </tbody>
                 </table>
             {% endif %}
-        {% endif %}
+        </div>
 
         <p class="save-this-page-link">
             <em class="icon icon-file-download"></em>

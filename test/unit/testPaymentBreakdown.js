@@ -655,7 +655,7 @@ describe('PaymentBreakdown', () => {
         afterEach(() => {
             feesCalculator.restore();
         });
-        it('cleans up context', () => {
+        it('test it cleans up context', () => {
             let ctx = {
                 _csrf: 'dummyCSRF',
                 sessionID: 'dummySessionID',

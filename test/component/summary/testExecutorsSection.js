@@ -19,9 +19,7 @@ describe('summary-executor-section', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         it('test correct content loaded on the summary page executors section, when no data is entered', (done) => {
-
             const playbackData = {};
             playbackData.firstName = applicantContent.name.firstName;
             playbackData.lastName = applicantContent.name.lastName;
@@ -33,7 +31,6 @@ describe('summary-executor-section', () => {
         });
 
         it('test correct content loaded on the summary page executors section, when section is complete', (done) => {
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -102,7 +99,6 @@ describe('summary-executor-section', () => {
         });
 
         it('test data is played back correctly on the summary page executors section', (done) => {
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {

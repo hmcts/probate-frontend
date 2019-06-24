@@ -99,7 +99,118 @@ describe('Summary', () => {
     });
 
     describe('getContextData()', () => {
-        it('ctx.uploadedDocuments returns an array of uploaded documents when there uploaded documents', (done) => {
+        it('[PROBATE] return the correct properties in ctx', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {
+                        caseType: 'gop',
+                        deceased: {
+                            firstName: 'Dee',
+                            lastName: 'Ceased'
+                        },
+                        iht: {
+                            netValue: 300000
+                        }
+                    }
+                },
+            };
+            const Summary = steps.Summary;
+            const ctx = Summary.getContextData(req);
+            expect(ctx).to.deep.equal({
+                alreadyDeclared: false,
+                deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
+                deceasedMarriedQuestion: 'Did Dee Ceased get married or enter into a civil partnership after the will was signed?',
+                featureToggles: {
+                    webchat: 'false'
+                },
+                ihtTotalNetValue: 300000,
+                journeyType: 'gop',
+                readyToDeclare: false,
+                session: {
+                    form: {
+                        caseType: 'gop',
+                        deceased: {
+                            firstName: 'Dee',
+                            lastName: 'Ceased'
+                        },
+                        iht: {
+                            netValue: 300000
+                        },
+                        summary: {
+                            readyToDeclare: false
+                        }
+                    }
+                },
+                sessionID: 'dummy_sessionId',
+                softStop: false
+            });
+            done();
+        });
+
+        it('[INTESTACY] return the correct properties in ctx', (done) => {
+            const req = {
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {
+                        caseType: 'intestacy',
+                        deceased: {
+                            firstName: 'Dee',
+                            lastName: 'Ceased',
+                            dod_formattedDate: '2 February 2015'
+                        },
+                        iht: {
+                            netValue: 300000,
+                            netValueAssetsOutside: 250000,
+                            assetsOutside: 'Yes'
+                        }
+                    }
+                },
+            };
+            const Summary = steps.Summary;
+            const ctx = Summary.getContextData(req);
+            expect(ctx).to.deep.equal({
+                alreadyDeclared: false,
+                deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
+                deceasedAllChildrenOver18Question: 'Are all of Dee Ceased&rsquo;s children over 18?',
+                deceasedAnyChildrenQuestion: 'Did Dee Ceased have any children?',
+                deceasedAnyDeceasedChildrenQuestion: 'Did any of Dee Ceased&rsquo;s children die before 2 February 2015?',
+                deceasedAnyOtherChildrenQuestion: 'Did Dee Ceased have any other children?',
+                deceasedDivorcePlaceQuestion: 'Did the separation take place in England or Wales?',
+                deceasedMaritalStatusQuestion: 'What was Dee Ceased&rsquo;s marital status?',
+                deceasedSpouseNotApplyingReasonQuestion: 'Why isn&rsquo;t Dee Ceased&rsquo;s spouse applying?',
+                featureToggles: {
+                    webchat: 'false'
+                },
+                ihtTotalNetValue: 550000,
+                ihtTotalNetValueGreaterThan250k: true,
+                journeyType: 'intestacy',
+                readyToDeclare: false,
+                session: {
+                    form: {
+                        caseType: 'intestacy',
+                        deceased: {
+                            dod_formattedDate: '2 February 2015',
+                            firstName: 'Dee',
+                            lastName: 'Ceased'
+                        },
+                        iht: {
+                            assetsOutside: 'Yes',
+                            netValue: 300000,
+                            netValueAssetsOutside: 250000
+                        },
+                        summary: {
+                            readyToDeclare: false
+                        }
+                    }
+                },
+                sessionID: 'dummy_sessionId',
+                softStop: false
+            });
+            done();
+        });
+
+        it('ctx.uploadedDocuments returns an array of uploaded documents when there are uploaded documents', (done) => {
             const req = {
                 session: {
                     form: {
@@ -115,7 +226,7 @@ describe('Summary', () => {
             done();
         });
 
-        it('ctx.uploadedDocuments returns an empty array of uploaded documents when there no uploaded documents', (done) => {
+        it('ctx.uploadedDocuments returns an empty array of uploaded documents when there are no uploaded documents', (done) => {
             const req = {
                 session: {
                     form: {

@@ -1,6 +1,8 @@
 {% set isUploadedDocuments = fields.summary.uploadedDocuments.value | length > 0 %}
+
 {{checkanswer(
-    items = [{
+    items = [
+        {
             question: content.DocumentUpload.deathCertificate,
             answer: fields.summary.uploadedDocuments.value if isUploadedDocuments else content.Summary.uploadedDocumentsEmpty,
             visible: true

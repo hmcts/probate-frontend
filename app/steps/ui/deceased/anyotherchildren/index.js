@@ -24,6 +24,18 @@ class AnyOtherChildren extends ValidationStep {
             ]
         };
     }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+
+        if (formdata.deceased && formdata.deceased.anyOtherChildren && ctx.anyOtherChildren !== formdata.deceased.anyOtherChildren) {
+            delete ctx.allChildrenOver18;
+            delete ctx.anyDeceasedChildren;
+            delete ctx.anyGrandchildrenUnder18;
+        }
+
+        return [ctx, formdata];
+    }
 }
 
 module.exports = AnyOtherChildren;

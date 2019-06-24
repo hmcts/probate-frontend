@@ -1,76 +1,83 @@
 {{checkanswer(
-    items = [{
-        question: content.WillLeft.question,
-        answer: fields.will.left.value,
-        visible: true
-    }],
+    items = [
+        {
+            question: content.WillLeft.question,
+            answer: fields.will.left.value,
+            visible: true
+        }
+    ],
     url = content.WillLeft.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
 
 {{checkanswer(
-    items = [{
-            question: content.WillOriginal.question,
-            answer: fields.will.original.value,
-            visible: true
-    }],
+    items = [
+        {
+                question: content.WillOriginal.question,
+                answer: fields.will.original.value,
+                visible: true
+        }
+    ],
     url = content.WillOriginal.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
-)
-}}
+)}}
 
 {{checkanswer(
-    items = [{
-        question: content.WillCodicils.question,
-        answer: fields.will.codicils.value,
-        visible: true
+    items = [
+        {
+            question: content.WillCodicils.question,
+            answer: fields.will.codicils.value,
+            visible: true
         },
         {
             question: content.CodicilsNumber.question,
             answer: fields.will.codicilsNumber.value,
             visible: fields.will.codicils.value == content.WillCodicils.optionYes
         }
-        ],
+    ],
     url = content.WillCodicils.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value,
-    answerIsGroup = true)
-}}
+    answerIsGroup = true
+)}}
 
 {{checkanswer(
-    items = [{
-        question: content.DeathCertificate.question,
-        answer: fields.deceased.deathCertificate.value,
-        visible: true
-    }],
+    items = [
+        {
+            question: content.DeathCertificate.question,
+            answer: fields.deceased.deathCertificate.value,
+            visible: true
+        }
+    ],
     url = content.DeathCertificate.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
-)
-}}
+)}}
 
 {{checkanswer(
-    items = [{
-        question: content.ApplicantExecutor.question,
-        answer: fields.applicant.executor.value,
-        visible: true
-    }],
+    items = [
+        {
+            question: content.ApplicantExecutor.question,
+            answer: fields.applicant.executor.value,
+            visible: true
+        }
+    ],
     url = content.ApplicantExecutor.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
-)
-}}
+)}}
 
 {{checkanswer(
-    items = [{
-        question: content.MentalCapacity.question,
-        answer: fields.executors.mentalCapacity.value,
-        visible: true
-    }],
+    items = [
+        {
+            question: content.MentalCapacity.question,
+            answer: fields.executors.mentalCapacity.value,
+            visible: true
+        }
+    ],
     url = content.MentalCapacity.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
-)
-}}
+)}}

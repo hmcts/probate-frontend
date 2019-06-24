@@ -3,6 +3,7 @@
 const CollectionStep = require('app/core/steps/CollectionStep');
 const {get, some, findIndex} = require('lodash');
 const path = '/executor-notified/';
+const content = require('app/resources/en/translation/executors/notified');
 
 class ExecutorNotified extends CollectionStep {
 
@@ -46,9 +47,9 @@ class ExecutorNotified extends CollectionStep {
         return [ctx, formdata];
     }
 
-    isSoftStop(formdata, ctx) {
+    isSoftStop(formdata) {
         const execList = get(formdata, 'executors.list', []);
-        const softStopForNotNotified = some(execList, exec => exec.executorNotified === this.generateContent(ctx, formdata).optionNo);
+        const softStopForNotNotified = some(execList, exec => exec.executorNotified === content.optionNo);
 
         return {
             stepName: this.constructor.name,

@@ -5,6 +5,7 @@
   "hint": "You should include all children under 18, even if they have been adopted by another family.",
   "optionYes": "Yes",
   "optionNo": "No",
+  "theDeceased": "the deceased",
 
   "errors": {
     "allChildrenOver18": {

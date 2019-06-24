@@ -46,7 +46,7 @@ describe('any-deceased-children', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe', deceasedDoD: '13 October 2018'};
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, ['theDeceased'], contentData);
                 });
         });
 

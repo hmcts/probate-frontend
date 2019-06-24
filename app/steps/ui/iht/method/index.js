@@ -20,19 +20,48 @@ class IhtMethod extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
 
-        if (ctx.method === this.generateContent(ctx, formdata).optionPaper) {
-            delete ctx.identifier;
-            delete ctx.grossValueOnline;
-            delete ctx.netValueOnline;
-        } else {
-            delete ctx.form;
-            delete ctx.ihtFormId;
-            delete ctx.grossIHT205;
-            delete ctx.grossIHT207;
-            delete ctx.grossIHT400421;
-            delete ctx.netIHT205;
-            delete ctx.netIHT207;
-            delete ctx.netIHT400421;
+        if (formdata.iht && formdata.iht.method && ctx.method !== formdata.iht.method) {
+            if (ctx.method === content.optionPaper) {
+                delete ctx.identifier;
+
+                delete ctx.grossValue;
+                delete ctx.grossValueField;
+
+                delete ctx.netValue;
+                delete ctx.netValueField;
+            } else {
+                delete ctx.form;
+                delete ctx.ihtFormId;
+
+                delete ctx.grossValueIHT205;
+                delete ctx.grossValueFieldIHT205;
+
+                delete ctx.grossValueIHT207;
+                delete ctx.grossValueFieldIHT207;
+
+                delete ctx.grossValueIHT400421;
+                delete ctx.grossValueFieldIHT400421;
+
+                delete ctx.netValueIHT205;
+                delete ctx.netValueFieldIHT205;
+
+                delete ctx.netValueIHT207;
+                delete ctx.netValueFieldIHT207;
+
+                delete ctx.netValueIHT400421;
+                delete ctx.netValueFieldIHT400421;
+            }
+
+            delete ctx.assetsOutside;
+            delete ctx.netValueAssetsOutsideField;
+            delete ctx.netValueAssetsOutside;
+
+            if (formdata.deceased) {
+                delete formdata.deceased.anyChildren;
+                delete formdata.deceased.allChildrenOver18;
+                delete formdata.deceased.anyDeceasedChildren;
+                delete formdata.deceased.anyGrandchildrenUnder18;
+            }
         }
 
         return [ctx, formdata];

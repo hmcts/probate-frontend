@@ -7,6 +7,14 @@ const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/.
 const RelationshipToDeceased = steps.RelationshipToDeceased;
 const content = require('app/resources/en/translation/applicant/relationshiptodeceased');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
+const contentAnyChildren = require('app/resources/en/translation/deceased/anychildren');
+const contentAnyOtherChildren = require('app/resources/en/translation/deceased/anyotherchildren');
+const contentAllChildrenOver18 = require('app/resources/en/translation/deceased/allchildrenover18');
+const contentAnyDeceasedChildren = require('app/resources/en/translation/deceased/anydeceasedchildren');
+const contentAnyGrandChildrenUnder18 = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
+
+const contentAdoptionPlace = require('app/resources/en/translation/applicant/adoptionplace');
+const contentSpouseNotApplyingReason = require('app/resources/en/translation/applicant/spousenotapplyingreason');
 
 describe('RelationshipToDeceased', () => {
     describe('getUrl()', () => {
@@ -150,20 +158,47 @@ describe('RelationshipToDeceased', () => {
     });
 
     describe('action()', () => {
-        it('test it cleans up context', () => {
+        it('test it cleans up context and formdata', () => {
             const ctx = {
                 assetsValue: 450000,
                 spousePartnerLessThan250k: true,
                 spousePartnerMoreThan250k: true,
                 childDeceasedMarried: true,
-                childDeceasedNotMarried: true
+                childDeceasedNotMarried: true,
+
+                relationshipToDeceased: content.optionChild,
+                adoptionPlace: contentAdoptionPlace.optionYes,
+                spouseNotApplyingReason: contentSpouseNotApplyingReason.optionRenouncing
             };
-            RelationshipToDeceased.action(ctx);
+            const formdata = {
+                applicant: {
+                    relationshipToDeceased: content.optionAdoptedChild,
+                },
+                deceased: {
+                    anyChildren: contentAnyChildren.optionYes,
+                    anyOtherChildren: contentAnyOtherChildren.optionYes,
+                    allChildrenOver18: contentAllChildrenOver18.optionYes,
+                    anyDeceasedChildren: contentAnyDeceasedChildren.optionYes,
+                    anyGrandchildrenUnder18: contentAnyGrandChildrenUnder18.optionNo
+                }
+            };
+
+            RelationshipToDeceased.action(ctx, formdata);
+
             assert.isUndefined(ctx.assetsValue);
             assert.isUndefined(ctx.spousePartnerLessThan250k);
             assert.isUndefined(ctx.spousePartnerMoreThan250k);
             assert.isUndefined(ctx.childDeceasedMarried);
             assert.isUndefined(ctx.childDeceasedNotMarried);
+
+            assert.isUndefined(ctx.adoptionPlace);
+            assert.isUndefined(ctx.spouseNotApplyingReason);
+
+            assert.isUndefined(formdata.deceased.anyChildren);
+            assert.isUndefined(formdata.deceased.anyOtherChildren);
+            assert.isUndefined(formdata.deceased.allChildrenOver18);
+            assert.isUndefined(formdata.deceased.anyDeceasedChildren);
+            assert.isUndefined(formdata.deceased.anyGrandchildrenUnder18);
         });
     });
 });

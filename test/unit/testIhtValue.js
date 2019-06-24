@@ -1,10 +1,14 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const expect = require('chai').expect;
-const contentAssetsOutside = require('app/resources/en/translation/iht/assetsoutside');
+const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const IhtValue = steps.IhtValue;
+const contentAssetsOutside = require('app/resources/en/translation/iht/assetsoutside');
+const contentAnyChildren = require('app/resources/en/translation/deceased/anychildren');
+const contentAllChildrenOver18 = require('app/resources/en/translation/deceased/allchildrenover18');
+const contentAnyDeceasedChildren = require('app/resources/en/translation/deceased/anydeceasedchildren');
+const contentAnyGrandChildrenUnder18 = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
 
 describe('IhtValue', () => {
     describe('getUrl()', () => {
@@ -125,7 +129,7 @@ describe('IhtValue', () => {
     });
 
     describe('action()', () => {
-        it('test it cleans up context', () => {
+        it('test it cleans up context when netValue > £250k', () => {
             const ctx = {
                 netValue: 400000,
                 lessThanOrEqualTo250k: false,
@@ -133,10 +137,38 @@ describe('IhtValue', () => {
                 netValueAssetsOutsideField: '600000',
                 netValueAssetsOutside: 600000
             };
-            IhtValue.action(ctx);
+            const formdata = {};
+
+            IhtValue.action(ctx, formdata);
+
             expect(ctx).to.deep.equal({
                 netValue: 400000
             });
+        });
+
+        it('test it cleans up context and formdata when netValue <= £250k', () => {
+            const ctx = {
+                netValue: 200000,
+                lessThanOrEqualTo250k: true
+            };
+            const formdata = {
+                deceased: {
+                    anyChildren: contentAnyChildren.optionYes,
+                    allChildrenOver18: contentAllChildrenOver18.optionYes,
+                    anyDeceasedChildren: contentAnyDeceasedChildren.optionYes,
+                    anyGrandchildrenUnder18: contentAnyGrandChildrenUnder18.optionNo
+                }
+            };
+
+            IhtValue.action(ctx, formdata);
+
+            expect(ctx).to.deep.equal({
+                netValue: 200000
+            });
+            assert.isUndefined(formdata.deceased.anyChildren);
+            assert.isUndefined(formdata.deceased.allChildrenOver18);
+            assert.isUndefined(formdata.deceased.anyDeceasedChildren);
+            assert.isUndefined(formdata.deceased.anyGrandchildrenUnder18);
         });
     });
 });

@@ -31,7 +31,7 @@ describe('any-deceased-children', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('AnyDeceasedChildren');
+        testHelpBlockContent.runTest('AnyDeceasedChildren', featureTogglesNock);
 
         it('test content loaded on the page', (done) => {
             const sessionData = {

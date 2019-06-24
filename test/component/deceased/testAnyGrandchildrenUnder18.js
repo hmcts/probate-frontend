@@ -31,7 +31,7 @@ describe('any-grandchildren-under-18', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('AnyGrandchildrenUnder18');
+        testHelpBlockContent.runTest('AnyGrandchildrenUnder18', featureTogglesNock);
 
         it('test content loaded on the page', (done) => {
             const sessionData = {

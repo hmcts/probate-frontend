@@ -10,6 +10,7 @@ const journeyProbate = require('app/journeys/probate');
 const journeyIntestacy = require('app/journeys/intestacy');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui/`]);
 const taskList = steps.TaskList;
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('Tasklist', () => {
     describe('getUrl()', () => {
@@ -33,7 +34,7 @@ describe('Tasklist', () => {
             };
 
             beforeEach(() => {
-                req.session.caseType = 'gop';
+                req.session.caseType = caseTypes.GOP;
                 req.session.journey = journeyProbate;
                 journeyMap = new JourneyMap(journeyProbate);
             });
@@ -314,7 +315,7 @@ describe('Tasklist', () => {
             };
 
             beforeEach(() => {
-                req.session.caseType = 'intestacy';
+                req.session.caseType = caseTypes.INTESTACY;
                 req.session.journey = journeyIntestacy;
                 journeyMap = new JourneyMap(journeyIntestacy);
             });

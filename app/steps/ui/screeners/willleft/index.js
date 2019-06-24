@@ -5,6 +5,7 @@ const content = require('app/resources/en/translation/screeners/willleft');
 const pageUrl = '/will-left';
 const fieldKey = 'left';
 const FeatureToggle = require('app/utils/FeatureToggle');
+const caseTypes = require('app/utils/CaseTypes');
 
 class WillLeft extends EligibilityValidationStep {
 
@@ -20,7 +21,7 @@ class WillLeft extends EligibilityValidationStep {
     }
 
     handlePost(ctx, errors, formdata, session) {
-        session.caseType = (ctx.left === content.optionYes) ? 'gop' : 'intestacy';
+        session.caseType = (ctx.left === content.optionYes) ? caseTypes.GOP : caseTypes.INTESTACY;
         ctx.caseType = session.caseType;
 
         return super.handlePost(ctx, errors, formdata, session);

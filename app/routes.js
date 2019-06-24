@@ -16,6 +16,7 @@ const setJourney = require('app/middleware/setJourney');
 const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const lockPaymentAttempt = require('app/middleware/lockPaymentAttempt');
+const caseTypes = require('app/utils/CaseTypes');
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
@@ -98,7 +99,7 @@ router.use((req, res, next) => {
             isEqual('/executors-update-invite', req.originalUrl)
     ) {
         res.redirect('task-list');
-    } else if (req.originalUrl.includes('summary') && isHardStop(formdata, setJourney.getJourneyName(req.session))) {
+    } else if (req.originalUrl.includes('summary') && isHardStop(formdata, caseTypes.getCaseType(req.session))) {
         res.redirect('/task-list');
     } else {
         next();

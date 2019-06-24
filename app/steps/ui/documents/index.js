@@ -22,7 +22,7 @@ class Documents extends ValidationStep {
         return '/documents';
     }
 
-    * runnerOptions(ctx, formdata) {
+    runnerOptions(ctx, formdata) {
         const options = {};
 
         if (ctx.journeyType === 'intestacy') {

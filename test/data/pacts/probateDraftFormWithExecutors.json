@@ -10,7 +10,12 @@
       }
     },
     "married": "Yes",
-    "address": "12 Nowhere Road\r\nNotown",
+    "address": {
+      "addressLine1": "12 Nowhere Avenue",
+      "postTown": "London",
+      "postCode": "EC1 2AF",
+      "formattedAddress": "12 Nowhere Avenue London EC1 2AF "
+    },
     "dob_date": "1939-02-12T00:00:00.000Z",
     "dod_date": "2018-02-12T00:00:00.000Z",
     "dod_day": 12,
@@ -45,16 +50,23 @@
       {
         "fullName": "Graham Smith",
         "isApplying": true,
+        "isApplicant": true,
         "currentName": "Graham Poll",
         "currentNameReason": "Divorce",
         "email": "anotheremail@address.com",
         "hasOtherName": true,
         "mobile": "079898989898",
-        "address": "12 West End Avenue"
+        "address": {
+          "addressLine1": "12 Nowhere Avenue",
+          "postTown": "London",
+          "postCode": "EC1 2AF",
+          "formattedAddress": "12 Nowhere Avenue London EC1 2AF "
+        }
       },
       {
         "fullName": "Jackie Smith",
-        "isApplying": true,
+        "isApplying": false,
+        "isApplicant": false,
         "hasOtherName": false
       }
     ]

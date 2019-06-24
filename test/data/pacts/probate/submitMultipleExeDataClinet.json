@@ -84,7 +84,12 @@
     "applicant" : {
       "email" : "maggy.penelope@sellcow.net",
       "alias" : "diff SingleExeCaseDataFN",
-      "address" : "8 Neville Road London E7 9QX",
+      "address": {
+        "addressLine1": "8 Neville Road",
+        "addressLine2": "London",
+        "postCode": "E7 9QX",
+        "formattedAddress": "8 Neville Road London E7 9QX"
+      },
       "lastName" : "ExeFN ",
       "postcode" : "E7 9QX",
       "firstName" : "ExeFN ",

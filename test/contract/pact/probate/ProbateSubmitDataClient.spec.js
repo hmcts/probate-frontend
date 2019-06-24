@@ -3,15 +3,17 @@
  */
 const path = require('path');
 const chai = require('chai');
-const {Pact} = require('@pact-foundation/pact');
+const {Pact, Matchers} = require('@pact-foundation/pact');
+const {like, term} = Matchers;
 const chaiAsPromised = require('chai-as-promised');
 const ProbateSubmitData = require('app/services/ProbateSubmitData');
 const config = require('app/config');
 const expect = chai.expect;
 const getPort = require('get-port');
-const FORM_DATA_BODY_REQUEST = require('test/data/pacts/probate/submitDataClient');
-const SINGLE_EXE_FORM_DATA_BODY_REQUEST = require('test/data/pacts/probate/submitSingleExeDataClinet');
-const MULTIPLE_EXE_FORM_DATA_BODY_REQUEST = require('test/data/pacts/probate/submitMultipleExeDataClinet');
+const FORM_DATA_BODY_REQUEST = require('test/data/pacts/probate/prePaymentForm');
+const PAYMENT_DTO_BODY_REQUEST = require('test/data/pacts/probate/prePaymentDto');
+const POST_PAYMENT_FORM_DATA_BODY_REQUEST = require('test/data/pacts/probate/postPaymentMadeForm');
+const POST_PAYMENT_DTO_BODY_REQUEST = require('test/data/pacts/probate/postPaymentDto');
 chai.use(chaiAsPromised);
 
 describe('Pact Probate Submit Data', () => {
@@ -37,20 +39,39 @@ describe('Pact Probate Submit Data', () => {
         authToken: 'authToken',
         serviceAuthorization: 'someServiceAuthorization'
     };
-    function getRequestPayload(json) {
-        const expectedJSON = JSON.parse(JSON.stringify(json));
-        expectedJSON.type = 'PA';
-        return expectedJSON;
-    }
-    function getExpectedPayload(json) {
+
+    function getExpectedPayload(json, email) {
 
         const expectedJSON = JSON.parse(JSON.stringify(json));
-        expectedJSON.ccdCase = {
-            'id': 1535574519543819,
-            'state': 'PAAppCreated'
-        };
-        expectedJSON.type = 'PA';
+        expectedJSON.type = term({
+            matcher: 'PA',
+            generate: 'PA'
+        });
+
+        expectedJSON.deceased.alias = yesNoTerm();
+        expectedJSON.deceased.married = yesNoTerm();
+        expectedJSON.applicantEmail = term({
+            matcher: '[\\w+\\-.]+@[a-z\\d\\-]+(\\.[a-z\\d\\-]+)*\\.[a-z]+',
+            generate: email
+        });
+        expectedJSON.deceased.dob_date = addDateTimeTerm('1900-01-01T00:00:00.000Z');
+        expectedJSON.deceased.dod_date = addDateTimeTerm('2019-01-01T00:00:00.000Z');
+        // expectedJSON.type = 'PA';
         return expectedJSON;
+    }
+
+    function addDateTimeTerm(example) {
+        return term({
+            matcher: '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T(2[0-3]|[01][0-9]):[0-5][0-9]:00.000Z',
+            generate: example
+        });
+    }
+
+    function yesNoTerm() {
+        return term({
+            matcher: 'Yes|No',
+            generate: 'No'
+        });
     }
     // Setup a Mock Server before unit tests run.
     // This server acts as a Test Double for the real Provider API.
@@ -66,28 +87,29 @@ describe('Pact Probate Submit Data', () => {
     // This ensures what we _expect_ from the provider, is actually
     // what we've asked for (and is what gets captured in the contract)
     afterEach(() => provider.verify());
-    context('when probate partial formdata is posted', () => {
-        describe('and is required to be submitted', () => {
+    context('when probate pre payment is initiated', () => {
+        describe('and the form data is submitted', () => {
             before(() => {
                 // (2) Start the mock server
                 provider.addInteraction({
                     // The 'state' field specifies a 'Provider State'
-                    state: 'probate_orchestrator_service submits probate formdata with success',
-                    uponReceiving: 'a submit request to POST probate formdata',
+                    state: 'probate_orchestrator_service receives an initial payment',
+                    uponReceiving: 'a submit request to PUT probate formdata with initial payment',
                     withRequest: {
                         method: 'PUT',
-                        path: '/forms/someemailaddress@host.com/submissions',
+                        path: '/forms/paymentinitiated.test8@gmail.com/submissions',
+                        query: 'probateType=PA',
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': ctx.authToken,
                             'ServiceAuthorization': ctx.serviceAuthorization
                         },
-                        body: getRequestPayload(FORM_DATA_BODY_REQUEST)
+                        body: PAYMENT_DTO_BODY_REQUEST
                     },
                     willRespondWith: {
                         status: 200,
                         headers: {'Content-Type': 'application/json'},
-                        body: getExpectedPayload(FORM_DATA_BODY_REQUEST)
+                        body: like(getExpectedPayload(FORM_DATA_BODY_REQUEST, 'paymentinitiated.test8@gmail.com'))
                     }
                 });
             });
@@ -95,68 +117,36 @@ describe('Pact Probate Submit Data', () => {
             // Verify service client works as expected
             it('successfully submitted form data', (done) => {
                 const submitDataClient = new ProbateSubmitData('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
-                const verificationPromise = submitDataClient.submit(FORM_DATA_BODY_REQUEST, ctx.authToken, ctx.serviceAuthorization);
-                expect(verificationPromise).to.eventually.eql(getExpectedPayload(FORM_DATA_BODY_REQUEST)).notify(done);
+                const verificationPromise = submitDataClient.submit(FORM_DATA_BODY_REQUEST, PAYMENT_DTO_BODY_REQUEST,
+                    ctx.authToken, ctx.serviceAuthorization);
+                expect(verificationPromise).to.eventually.eql(FORM_DATA_BODY_REQUEST).notify(done);
             });
         });
     });
-    context('when probate single executor formdata is posted', () => {
-        describe('and is required to be submitted', () => {
-            before(() => {
-                // (2) Start the mock server
-                provider.addInteraction({
-                    // The 'state' field specifies a 'Provider State'
-                    state: 'probate_orchestrator_service submits single probate formdata with success',
-                    uponReceiving: 'a submit single exe request to POST probate formdata ',
-                    withRequest: {
-                        method: 'PUT',
-                        path: '/forms/ccdcasedata1@gmail.com/submissions',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': ctx.authToken,
-                            'ServiceAuthorization': ctx.serviceAuthorization
-                        },
-                        body: getRequestPayload(SINGLE_EXE_FORM_DATA_BODY_REQUEST)
-                    },
-                    willRespondWith: {
-                        status: 200,
-                        headers: {'Content-Type': 'application/json'},
-                        body: getExpectedPayload(SINGLE_EXE_FORM_DATA_BODY_REQUEST)
-                    }
-                });
-            });
 
-            // (4) write your test(s)
-            // Verify service client works as expected
-            it('successfully submitted form data', (done) => {
-                const submitDataClient = new ProbateSubmitData('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
-                const verificationPromise = submitDataClient.submit(SINGLE_EXE_FORM_DATA_BODY_REQUEST, ctx.authToken, ctx.serviceAuthorization);
-                expect(verificationPromise).to.eventually.eql(getExpectedPayload(SINGLE_EXE_FORM_DATA_BODY_REQUEST)).notify(done);
-            });
-        });
-    });
-    context('when probate multiple executor formdata is posted', () => {
-        describe('and is required to be submitted', () => {
+    context('when a probate payment is made', () => {
+        describe('and the form data is submitted', () => {
             before(() => {
                 // (2) Start the mock server
                 provider.addInteraction({
                     // The 'state' field specifies a 'Provider State'
-                    state: 'probate_orchestrator_service submits multiple probate formdata with success',
-                    uponReceiving: 'a submit multiple exe request to POST probate formdata ',
+                    state: 'probate_orchestrator_service receives a successful payment',
+                    uponReceiving: 'a submit request to PUT probate formdata with successful payment',
                     withRequest: {
                         method: 'PUT',
-                        path: '/forms/maggy.penelope@sellcow.net/submissions',
+                        path: '/forms/paymentmade.test8@gmail.com/submissions',
+                        query: 'probateType=PA',
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': ctx.authToken,
                             'ServiceAuthorization': ctx.serviceAuthorization
                         },
-                        body: getRequestPayload(MULTIPLE_EXE_FORM_DATA_BODY_REQUEST)
+                        body: POST_PAYMENT_DTO_BODY_REQUEST
                     },
                     willRespondWith: {
                         status: 200,
                         headers: {'Content-Type': 'application/json'},
-                        body: getExpectedPayload(MULTIPLE_EXE_FORM_DATA_BODY_REQUEST)
+                        body: like(getExpectedPayload(POST_PAYMENT_FORM_DATA_BODY_REQUEST, 'paymentmade.test8@gmail.com'))
                     }
                 });
             });
@@ -164,8 +154,9 @@ describe('Pact Probate Submit Data', () => {
             // Verify service client works as expected
             it('successfully submitted form data', (done) => {
                 const submitDataClient = new ProbateSubmitData('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
-                const verificationPromise = submitDataClient.submit(MULTIPLE_EXE_FORM_DATA_BODY_REQUEST, ctx.authToken, ctx.serviceAuthorization);
-                expect(verificationPromise).to.eventually.eql(getExpectedPayload(MULTIPLE_EXE_FORM_DATA_BODY_REQUEST)).notify(done);
+                const verificationPromise = submitDataClient.submit(POST_PAYMENT_FORM_DATA_BODY_REQUEST, POST_PAYMENT_DTO_BODY_REQUEST,
+                    ctx.authToken, ctx.serviceAuthorization);
+                expect(verificationPromise).to.eventually.eql(POST_PAYMENT_FORM_DATA_BODY_REQUEST).notify(done);
             });
         });
     });

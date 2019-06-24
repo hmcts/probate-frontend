@@ -1,5 +1,8 @@
 {
-  "type": "PA",
+  "type": term({
+    matcher: 'PA',
+    generate: 'PA'
+  }),
   "deceased": {
     "firstName": "partial application ",
     "lastName": "partial application ",
@@ -53,30 +56,6 @@
   "ccdCase": {
     "id": 1535574519543819,
     "state": "PAAppCreated"
-  },
-  "payment" : {
-    "date" : "2019-03-11T10:37:59.068+0000",
-    "total" : 216.5,
-    "amount" : 216.5,
-    "copies" : {
-      "uk" : {
-        "cost" : 0.5,
-        "number" : 1
-      },
-      "overseas" : {
-        "cost" : 1,
-        "number" : 2
-      }
-    },
-    "siteId" : "P223",
-    "status" : "Initiated",
-    "userId" : 831838,
-    "channel" : "online",
-    "paymentId" : "RC-1552-3006-7875-5921",
-    "reference" : "RC-1552-3006-7875-5921",
-    "transactionId" : "0cu782m4gei8k98uitap9dcv17",
-    "applicationFee" : 215,
-    "paymentCreatedDate" : "2019-03-11T10:37:59.068+0000"
   },
   "copies": {
     "uk": 2,

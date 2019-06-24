@@ -1,12 +1,14 @@
 {
     "iht" : {
-      "form" : "IHT205",
-      "method" : "By post",
-      "netValue" : 343434,
-      "ihtFormId" : "IHT205",
-      "netIHT205" : "343434",
-      "grossValue" : 3443434,
-      "grossIHT205" : "3443434"
+      "method": "By post",
+      "ihtFormId": "IHT205",
+      "form": "IHT205",
+      "grossValue": 32432324.00,
+      "netValue": 343243.00,
+      "grossValueOnline": "32432324.00",
+      "netValueOnline": "343243.00",
+      "grossValueFieldIHT205": "32432324.00",
+      "netValueFieldIHT205": "343243.00"
     },
     "will" : {
       "left" : "Yes",
@@ -53,7 +55,12 @@
     },
     "deceased" : {
       "alias" : "Yes",
-      "address" : "4 Neville Road London E7 9QX",
+      "address": {
+        "addressLine1": "4 Neville Road",
+        "addressLine2": "London",
+        "postCode": "E7 9QX",
+        "formattedAddress": "4 Neville Road London E7 9QX"
+      },
       "dob_day" : 1,
       "dod_day" : 2,
       "married" : "Yes",
@@ -91,7 +98,12 @@
     "applicant" : {
       "email" : "ccdcasedata1@gmail.com",
       "alias" : "diff TestFN TestLN",
-      "address" : "120 Caulfield Road London E6 2DG",
+      "address": {
+        "addressLine1": "120 Caulfield Road",
+        "addressLine2": "London",
+        "postCode": "E6 2DG",
+        "formattedAddress": "120 Caulfield Road London E6 2DG"
+      },
       "lastName" : "TestLN",
       "postcode" : "E6 2DG",
       "firstName" : "TestFN",

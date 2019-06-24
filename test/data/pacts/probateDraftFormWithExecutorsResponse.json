@@ -11,7 +11,12 @@
       }
     },
     "married": "Yes",
-    "address": "12 Nowhere Road\r\nNotown",
+    "address": {
+      "addressLine1": "12 Nowhere Avenue",
+      "postTown": "Notown",
+      "postCode": "EC1 2AF",
+      "formattedAddress": "12 Nowhere Avenue Notown EC1 2AF"
+    },
     "dob_date": "1939-02-12T00:00:00.000Z",
     "dod_date": "2018-02-12T00:00:00.000Z",
     "dod_day": 12,
@@ -29,9 +34,9 @@
     "lastName": "Smith",
     "address": {
       "addressLine1": "12 Nowhere Avenue",
-      "postTown": "London",
+      "postTown": "Notown",
       "postCode": "EC1 2AF",
-      "formattedAddress": "12 Nowhere Avenue London EC1 2AF"
+      "formattedAddress": "12 Nowhere Avenue Notown EC1 2AF"
     },
     "phoneNumber": "07951058088",
     "nameAsOnTheWill": "Yes"
@@ -46,17 +51,21 @@
       {
         "fullName": "Graham Smith",
         "isApplying": true,
+        "isApplicant": true,
         "currentName": "Graham Poll",
         "currentNameReason": "Divorce",
         "email": "anotheremail@address.com",
         "hasOtherName": true,
         "mobile": "079898989898",
-        "address": "12 West End Avenue"
+        "address": {
+          "addressLine1": "12 Nowhere Avenue",
+          "postTown": "Notown",
+          "postCode": "EC1 2AF"
+        }
       },
       {
         "fullName": "Jackie Smith",
-        "isApplying": true,
-        "hasOtherName": false
+        "isApplying": false
       }
     ]
   },
@@ -75,8 +84,8 @@
     "netValue": 9000.01,
     "netValueOnline": "9000.01",
     "grossValueOnline": "10000.01",
-    "grossIHT205": "10000.01",
-    "netIHT205": "9000.01"
+    "grossValueFieldIHT205": "10000.01",
+    "netValueFieldIHT205": "9000.01"
   },
   "will": {
     "codicils": "No",

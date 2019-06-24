@@ -1,0 +1,37 @@
+{
+  "amount": 215.5,
+  "description": "Probate Fees",
+  "reference": "RC-1561-0675-3177-2281",
+  "currency": "GBP",
+  "ccd_case_number": "1561067463530426",
+  "channel": "online",
+  "method": "card",
+  "external_provider": "gov pay",
+  "status": "Success",
+  "external_reference": "nh3dunh3hp2o0mv5bbsmkob511",
+  "site_id": "P223",
+  "service_name": "Probate",
+  "payment_group_reference": "2019-15610675317",
+  "fees": [
+    {
+      "id": 29,
+      "code": "FEE0226",
+      "version": "1",
+      "volume": 1,
+      "calculated_amount": 215
+    },
+    {
+      "id": 30,
+      "code": "FEE0003",
+      "version": "3",
+      "volume": 1,
+      "calculated_amount": 0.5
+    }
+  ],
+  "_links": {
+    "self": {
+      "href": "http://localhost:8383/card-payments/RC-1561-0675-3177-2281",
+      "method": "GET"
+    }
+  }
+}

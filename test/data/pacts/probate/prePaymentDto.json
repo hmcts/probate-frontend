@@ -1,0 +1,13 @@
+{
+  "reference": "RC-1561-0675-3177-2281",
+  "date_created": "2019-06-20T21:52:12.323+0000",
+  "status": "Initiated",
+  "external_reference": "nh3dunh3hp2o0mv5bbsmkob511",
+  "payment_group_reference": "2019-15610675317",
+  "_links": {
+    "next_url": {
+      "href": "https://www.payments.service.gov.uk/secure/3b3ec7af-e27c-47e7-a5c0-34d9e9b2733d",
+      "method": "GET"
+    }
+  }
+}

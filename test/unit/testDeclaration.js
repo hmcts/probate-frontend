@@ -1,5 +1,3 @@
-// eslint-disable-line max-lines
-
 'use strict';
 
 const {assert, expect} = require('chai');
@@ -10,93 +8,15 @@ const content = require('app/resources/en/translation/declaration');
 const rewire = require('rewire');
 const Declaration = rewire('app/steps/ui/declaration');
 
-describe('Declaration tests', () => {
+describe('Declaration', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).Declaration;
-    let section;
-    let templatePath;
-    let i18next;
-    let schema;
-
-    describe('prepareDataForTemplate()', () => {
-        let ctx;
-        let formdata;
-
-        beforeEach(() => {
-            formdata = {
-                applicant: {
-                    address: {
-                        formattedAddress: 'Applicant address',
-                    },
-                    isApplicant: true,
-                    firstName: 'Applicant',
-                    lastName: 'Current Name'
-                },
-                executors: {
-                    list: [{
-                        firstName: 'Applicant',
-                        lastName: 'Current Name',
-                        address: {
-                            formattedAddress: 'Applicant address',
-                        },
-                        isApplicant: true,
-                        isApplying: true,
-                        alias: 'Applicant Will Name',
-                        aliasReason: 'Change by deed poll'
-                    }, {
-                        fullName: 'Exec 1 Will Name',
-                        address: {
-                            formattedAddress: 'Exec 1 address',
-                        },
-                        isApplying: true,
-                        currentName: 'Exec 1 Current Name',
-                        currentNameReason: 'Marriage',
-                        hasOtherName: true
-                    }, {
-                        fullName: 'Exec 2 Will Name',
-                        address: {
-                            formattedAddress: 'Exec 2 address',
-                        },
-                        isApplying: true,
-                        currentName: 'Exec 2 Current Name',
-                        currentNameReason: 'Divorce',
-                        hasOtherName: true
-                    }]
-                },
-                deceased: {
-                    firstName: 'Mrs',
-                    lastName: 'Deceased'
-                }
-            };
-            ctx = {
-                executorsWrapper: new ExecutorsWrapper(formdata.executors)
-            };
-            section = 'declaration';
-            templatePath = 'declaration';
-            i18next = {};
-            schema = {
-                $schema: 'http://json-schema.org/draft-04/schema#',
-                properties: {}
-            };
-        });
-
-        it('should return the correct data', (done) => {
-            const declaration = new Declaration(steps, section, templatePath, i18next, schema);
-            const data = declaration.prepareDataForTemplate(ctx, content, formdata);
-
-            expect(data.legalStatement.applicant).to.equal('We, Applicant Current Name of Applicant address, Exec 1 Current Name of Exec 1 address and Exec 2 Current Name of Exec 2 address, make the following statement:');
-            expect(data.legalStatement.executorsApplying).to.deep.equal([{
-                name: 'Applicant Current Name, an executor named in the will as Applicant Will Name, is applying for probate. Their name is different because Applicant Current Name changed their name by deed poll.',
-                sign: 'Applicant Current Name will send to the probate registry what we have seen and believe to be the true and original last will and testament of Mrs Deceased.'
-            }, {
-                name: 'Exec 1 Current Name, an executor named in the will as Exec 1 Will Name, is applying for probate. Their name is different because Exec 1 Current Name got married.',
-                sign: ''
-            }, {
-                name: 'Exec 2 Current Name, an executor named in the will as Exec 2 Will Name, is applying for probate. Their name is different because Exec 2 Current Name got divorced.',
-                sign: ''
-            }]);
-            done();
-        });
-    });
+    const section = 'declaration';
+    const templatePath = 'declaration';
+    const i18next = {};
+    const schema = {
+        $schema: 'http://json-schema.org/draft-04/schema#',
+        properties: {}
+    };
 
     describe('executorsApplying()', () => {
         let hasMultipleApplicants;
@@ -301,6 +221,9 @@ describe('Declaration tests', () => {
                 hasExecutorsToNotify: false,
                 executorsEmailChanged: false,
                 hasDataChangedAfterEmailSent: true,
+                isIntestacyJourney: true,
+                showNetValueAssetsOutside: true,
+                ihtNetValueAssetsOutside: 300000,
                 invitesSent: 'true',
             };
             formdata = {};

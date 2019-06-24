@@ -1,4 +1,5 @@
 // eslint-disable-line max-lines
+
 'use strict';
 
 const initSteps = require('app/core/initSteps');

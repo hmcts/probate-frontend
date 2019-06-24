@@ -28,5 +28,7 @@ router.get('/spouse-not-applying-reason', (req, res, next) => featureToggle.call
 router.get('/any-other-children', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'intestacy_questions', featureToggle.togglePage, 'start-eligibility'));
 router.get('/adoption-place', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'intestacy_questions', featureToggle.togglePage, 'start-eligibility'));
 router.get('/any-children', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'intestacy_questions', featureToggle.togglePage, 'start-eligibility'));
+router.get('/any-deceased-children', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'intestacy_questions', featureToggle.togglePage, 'start-eligibility'));
+router.get('/any-grandchildren-under-18', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'intestacy_questions', featureToggle.togglePage, 'start-eligibility'));
 
 module.exports = router;

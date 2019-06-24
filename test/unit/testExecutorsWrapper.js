@@ -1,5 +1,7 @@
 // eslint-disable-line max-lines
 
+'use strict';
+
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const expect = require('chai').expect;
 let data;

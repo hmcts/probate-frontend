@@ -1,6 +1,5 @@
 'use strict';
 
-const setJourney = require('app/middleware/setJourney');
 const probateDeclarationFactory = require('app/utils/ProbateDeclarationFactory');
 const intestacyDeclarationFactory = require('app/utils/IntestacyDeclarationFactory');
 const ValidationStep = require('app/core/steps/ValidationStep');
@@ -16,6 +15,7 @@ const LegalDocumentJSONObjectBuilder = require('app/utils/LegalDocumentJSONObjec
 const legalDocumentJSONObjBuilder = new LegalDocumentJSONObjectBuilder();
 const InviteData = require('app/services/InviteData');
 const config = require('app/config');
+const caseTypes = require('app/utils/CaseTypes');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -59,7 +59,7 @@ class Declaration extends ValidationStep {
         let templateData;
         let ctx = super.getContextData(req);
         ctx = this.pruneFormData(req.body, ctx);
-        ctx.isIntestacyJourney = setJourney.isIntestacyJourney(req.session);
+        ctx.isIntestacyJourney = caseTypes.isIntestacyCaseType(req.session);
         const formdata = req.session.form;
         const content = this.generateContent(ctx, formdata);
         const formDataForTemplate = this.getFormDataForTemplate(content, formdata);

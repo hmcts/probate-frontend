@@ -36,7 +36,7 @@
                 </tbody>
             </table>
 
-            {% ifAsync fields.summary.journeyType.value === "gop" %}
+            {% ifAsync fields.summary.caseType.value === "gop" %}
                 <h2 class="heading-medium">{{ content.Summary.applicantHeading }}</h2>
                 <table class="check-your-answers check-your-answers--long">
                     <caption class="visually-hidden">{{ content.Summary.applicantHeading }}</caption>
@@ -87,7 +87,7 @@
                 {% endif %}
             {% endif %}
 
-            {% ifAsync fields.summary.journeyType.value === "intestacy" %}
+            {% ifAsync fields.summary.caseType.value === "intestacy" %}
                 <h2 class="heading-medium">{{content.Summary.aboutPeopleApplyingHeading | safe}}</h2>
                 <table class="check-your-answers check-your-answers--long">
                     <caption class="visually-hidden">{{ content.Summary.aboutPeopleApplyingHeading }}</caption>

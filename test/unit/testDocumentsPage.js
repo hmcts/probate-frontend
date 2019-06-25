@@ -283,15 +283,13 @@ describe('Documents', () => {
             });
         });
 
-        it('do not redirect if journey is intestacy and a document was uploaded', (done) => {
+        it('do not redirect if journey is intestacy and a document was not uploaded', (done) => {
             const ctx = {
                 journeyType: 'intestacy'
             };
             const formData = {
                 documents: {
-                    uploads: [
-                        'testfile.pdf'
-                    ]
+                    uploads: []
                 }
             };
             co(function* () {
@@ -368,86 +366,22 @@ describe('Documents', () => {
             });
         });
 
-        it('redirect if journey is intestacy and a document was not uploaded', (done) => {
+        it('redirect if journey is intestacy and a none of the other conditions apply', (done) => {
             const ctx = {
                 journeyType: 'intestacy'
             };
             const formData = {
+                deceased: {
+                    maritalStatus: contentDeceasedMaritalStatus.optionSeparated
+                },
                 documents: {
-                    uploads: []
-                }
-            };
-            co(function* () {
-                const options = yield Documents.runnerOptions(ctx, formData);
-
-                expect(options).to.deep.equal({
-                    redirect: true,
-                    url: '/tasklist'
-                });
-                done();
-            }).catch(err => {
-                done(err);
-            });
-        });
-
-        it('redirect if journey is intestacy and form IHT205 was not used', (done) => {
-            const ctx = {
-                journeyType: 'intestacy'
-            };
-            const formData = {
+                    uploads: [
+                        'testfile.pdf'
+                    ]
+                },
                 iht: {
                     method: contentIhtMethod.optionPaper,
                     form: 'IHT207'
-                }
-            };
-            co(function* () {
-                const options = yield Documents.runnerOptions(ctx, formData);
-
-                expect(options).to.deep.equal({
-                    redirect: true,
-                    url: '/tasklist'
-                });
-                done();
-            }).catch(err => {
-                done(err);
-            });
-        });
-
-        it('redirect if journey is intestacy and deceased was married and applicant neither child or adopted child', (done) => {
-            const ctx = {
-                journeyType: 'intestacy'
-            };
-            const formData = {
-                deceased: {
-                    maritalStatus: contentDeceasedMaritalStatus.optionMarried
-                },
-                applicant: {
-                    relationshipToDeceased: contentRelationshipToDeceased.optionSpousePartner
-                }
-            };
-            co(function* () {
-                const options = yield Documents.runnerOptions(ctx, formData);
-
-                expect(options).to.deep.equal({
-                    redirect: true,
-                    url: '/tasklist'
-                });
-                done();
-            }).catch(err => {
-                done(err);
-            });
-        });
-
-        it('redirect if journey is intestacy and deceased was not married', (done) => {
-            const ctx = {
-                journeyType: 'intestacy'
-            };
-            const formData = {
-                deceased: {
-                    maritalStatus: contentDeceasedMaritalStatus.optionDivorced
-                },
-                applicant: {
-                    relationshipToDeceased: contentRelationshipToDeceased.optionAdoptedChild
                 }
             };
             co(function* () {

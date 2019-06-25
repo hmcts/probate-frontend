@@ -26,12 +26,12 @@ class Documents extends ValidationStep {
         const options = {};
 
         if (ctx.journeyType === 'intestacy') {
-            const deceasedMarried = (formdata.deceased && formdata.deceased.maritalStatus === contentDeceasedMaritalStatus.optionMarried);
-            const applicantIsChild = (formdata.applicant && (formdata.applicant.relationshipToDeceased === contentRelationshipToDeceased.optionChild || formdata.applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild));
-            const documentsUploaded = (formdata.documents && formdata.documents.uploads && formdata.documents.uploads.length);
-            const iht205Used = (formdata.iht && formdata.iht.method === contentIhtMethod.optionPaper && formdata.iht.form === 'IHT205');
+            const deceasedMarried = Boolean(formdata.deceased && formdata.deceased.maritalStatus === contentDeceasedMaritalStatus.optionMarried);
+            const applicantIsChild = Boolean(formdata.applicant && (formdata.applicant.relationshipToDeceased === contentRelationshipToDeceased.optionChild || formdata.applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild));
+            const noDocumentsUploaded = !(formdata.documents && formdata.documents.uploads && formdata.documents.uploads.length);
+            const iht205Used = Boolean(formdata.iht && formdata.iht.method === contentIhtMethod.optionPaper && formdata.iht.form === 'IHT205');
 
-            if (!((deceasedMarried && applicantIsChild) || documentsUploaded || iht205Used)) {
+            if (!((deceasedMarried && applicantIsChild) || noDocumentsUploaded || iht205Used)) {
                 options.redirect = true;
                 options.url = '/tasklist';
             }

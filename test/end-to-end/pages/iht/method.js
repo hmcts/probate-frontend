@@ -8,8 +8,6 @@ module.exports = function (answer) {
 
     I.amOnLoadedPage(pageUnderTest.getUrl());
 
-    answer = (typeof answer === 'undefined') ? 'Paper' : answer;
-
     I.click(`#method-option${answer}`);
 
     I.navByClick(commonContent.saveAndContinue);

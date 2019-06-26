@@ -34,7 +34,7 @@ module.exports = function () {
         enterDeceasedDateOfDeath: steps.deceased.dod,
         enterDeceasedAddress: steps.deceased.address,
         selectDocumentsToUpload: steps.documentupload.documentupload,
-        selectInheritanceMethodPaper: steps.iht.method,
+        selectInheritanceMethod: steps.iht.method,
         enterGrossAndNet: steps.iht.paper,
         enterIHTIdentifier: steps.iht.identifier,
         enterEstateValue: steps.iht.value,

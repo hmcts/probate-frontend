@@ -18,7 +18,7 @@ After(() => {
 });
 
 // eslint-disable-next-line no-undef
-Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function (I) {
+Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht and death certificate uploaded'), function (I) {
 
     // Eligibility Task (pre IdAM)
     I.startApplication();
@@ -60,11 +60,11 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function (I) {
     I.selectATask(taskListContent.taskNotStarted);
     I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
     I.enterDeceasedAddress();
-    I.selectDocumentsToUpload();
+    I.selectDocumentsToUpload(true);
     I.selectInheritanceMethodPaper('Online');
     I.enterIHTIdentifier();
 
-    if (TestConfigurator.getUseGovPay() !== 'true') {
+    if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterEstateValue('300000', '200000');
     } else {
         I.enterEstateValue('500', '400');
@@ -112,8 +112,202 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function (I) {
     }
 
     I.seePaymentStatusPage();
+    I.seeThankYouPage();
+});
 
-    // Send Documents Task
+// eslint-disable-next-line no-undef
+Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Paper iht and death certificate uploaded'), function (I) {
+
+    // Eligibility Task (pre IdAM)
+    I.startApplication();
+
+    // Probate Sceeners
+    I.selectDeathCertificate('No');
+    I.seeStopPage('deathCertificate');
+    I.selectDeathCertificate('Yes');
+
+    I.selectDeceasedDomicile('No');
+    I.seeStopPage('notInEnglandOrWales');
+    I.selectDeceasedDomicile('Yes');
+
+    I.selectIhtCompleted('No');
+    I.seeStopPage('ihtNotCompleted');
+    I.selectIhtCompleted('Yes');
+
+    I.selectPersonWhoDiedLeftAWill('No');
+
+    // Intestacy Sceeners
+    I.selectDiedAfterOctober2014('No');
+    I.seeStopPage('notDiedAfterOctober2014');
+    I.selectDiedAfterOctober2014('Yes');
+
+    I.selectRelatedToDeceased('No');
+    I.seeStopPage('notRelated');
+    I.selectRelatedToDeceased('Yes');
+
+    I.selectOtherApplicants('Yes');
+    I.seeStopPage('otherApplicants');
+    I.selectOtherApplicants('No');
+
+    I.startApply();
+
+    // IdAM
+    I.authenticateWithIdamIfAvailable();
+
+    // Deceased Task
+    I.selectATask(taskListContent.taskNotStarted);
+    I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
+    I.enterDeceasedAddress();
+    I.selectDocumentsToUpload(true);
+    I.selectInheritanceMethodPaper('Paper');
+
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.enterGrossAndNet('205', '600000', '300000');
+    } else {
+        I.enterGrossAndNet('205', '500', '400');
+    }
+
+    I.selectAssetsOutsideEnglandWales('Yes');
+    I.enterValueAssetsOutsideEnglandWales('400000');
+    I.selectDeceasedAlias('No');
+    I.selectDeceasedMaritalStatus('Married');
+
+    // Executors Task
+    I.selectATask(taskListContent.taskNotStarted);
+    I.selectRelationshipToDeceased('SpousePartner');
+    I.enterAnyChildren('No');
+    I.enterApplicantName('ApplicantFirstName', 'ApplicantLastName');
+    I.enterApplicantPhone();
+    I.enterAddressManually();
+
+    // Check your answers and declaration
+    I.seeSummaryPage('declaration');
+    I.acceptDeclaration();
+
+    // Copies Task
+    I.selectATask(taskListContent.taskNotStarted);
+
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.enterUkCopies('5');
+        I.selectOverseasAssets();
+        I.enterOverseasCopies('7');
+    } else {
+        I.enterUkCopies('0');
+        I.selectOverseasAssets();
+        I.enterOverseasCopies('0');
+    }
+
+    I.seeCopiesSummary();
+
+    // Payment Task
+    I.selectATask(taskListContent.taskNotStarted);
+    I.seePaymentBreakdownPage();
+
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.seeGovUkPaymentPage();
+        I.seeGovUkConfirmPage();
+    }
+
+    I.seePaymentStatusPage();
     I.seeDocumentsPage();
-    pause();
+    I.seeThankYouPage();
+});
+
+// eslint-disable-next-line no-undef
+Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht and death certificate not uploaded'), function (I) {
+
+    // Eligibility Task (pre IdAM)
+    I.startApplication();
+
+    // Probate Sceeners
+    I.selectDeathCertificate('No');
+    I.seeStopPage('deathCertificate');
+    I.selectDeathCertificate('Yes');
+
+    I.selectDeceasedDomicile('No');
+    I.seeStopPage('notInEnglandOrWales');
+    I.selectDeceasedDomicile('Yes');
+
+    I.selectIhtCompleted('No');
+    I.seeStopPage('ihtNotCompleted');
+    I.selectIhtCompleted('Yes');
+
+    I.selectPersonWhoDiedLeftAWill('No');
+
+    // Intestacy Sceeners
+    I.selectDiedAfterOctober2014('No');
+    I.seeStopPage('notDiedAfterOctober2014');
+    I.selectDiedAfterOctober2014('Yes');
+
+    I.selectRelatedToDeceased('No');
+    I.seeStopPage('notRelated');
+    I.selectRelatedToDeceased('Yes');
+
+    I.selectOtherApplicants('Yes');
+    I.seeStopPage('otherApplicants');
+    I.selectOtherApplicants('No');
+
+    I.startApply();
+
+    // IdAM
+    I.authenticateWithIdamIfAvailable();
+
+    // Deceased Task
+    I.selectATask(taskListContent.taskNotStarted);
+    I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
+    I.enterDeceasedAddress();
+    I.selectDocumentsToUpload(false);
+    I.selectInheritanceMethodPaper('Online');
+    I.enterIHTIdentifier();
+
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.enterEstateValue('300000', '200000');
+    } else {
+        I.enterEstateValue('500', '400');
+    }
+
+    I.selectAssetsOutsideEnglandWales('Yes');
+    I.enterValueAssetsOutsideEnglandWales('400000');
+    I.selectDeceasedAlias('No');
+    I.selectDeceasedMaritalStatus('Married');
+
+    // Executors Task
+    I.selectATask(taskListContent.taskNotStarted);
+    I.selectRelationshipToDeceased('SpousePartner');
+    I.enterAnyChildren('No');
+    I.enterApplicantName('ApplicantFirstName', 'ApplicantLastName');
+    I.enterApplicantPhone();
+    I.enterAddressManually();
+
+    // Check your answers and declaration
+    I.seeSummaryPage('declaration');
+    I.acceptDeclaration();
+
+    // Copies Task
+    I.selectATask(taskListContent.taskNotStarted);
+
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.enterUkCopies('5');
+        I.selectOverseasAssets();
+        I.enterOverseasCopies('7');
+    } else {
+        I.enterUkCopies('0');
+        I.selectOverseasAssets();
+        I.enterOverseasCopies('0');
+    }
+
+    I.seeCopiesSummary();
+
+    // Payment Task
+    I.selectATask(taskListContent.taskNotStarted);
+    I.seePaymentBreakdownPage();
+
+    if (TestConfigurator.getUseGovPay() === 'true') {
+        I.seeGovUkPaymentPage();
+        I.seeGovUkConfirmPage();
+    }
+
+    I.seePaymentStatusPage();
+    I.seeDocumentsPage();
+    I.seeThankYouPage();
 });

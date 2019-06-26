@@ -62,7 +62,7 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht 
     I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
     I.enterDeceasedAddress();
     I.selectDocumentsToUpload(true);
-    I.selectInheritanceMethodPaper('Online');
+    I.selectInheritanceMethod('Online');
     I.enterIHTIdentifier();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
@@ -160,7 +160,7 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Paper iht an
     I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
     I.enterDeceasedAddress();
     I.selectDocumentsToUpload(true);
-    I.selectInheritanceMethodPaper('Paper');
+    I.selectInheritanceMethod('Paper');
 
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterGrossAndNet('205', '600000', '300000');
@@ -258,7 +258,7 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht 
     I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
     I.enterDeceasedAddress();
     I.selectDocumentsToUpload(false);
-    I.selectInheritanceMethodPaper('Online');
+    I.selectInheritanceMethod('Online');
     I.enterIHTIdentifier();
 
     if (TestConfigurator.getUseGovPay() === 'true') {

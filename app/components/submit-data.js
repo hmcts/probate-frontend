@@ -3,6 +3,9 @@
 const {mapValues, get} = require('lodash');
 const steps = require('app/core/initSteps').steps;
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const MaritalStatusEnum = require('app/utils/MaritalStatusEnum');
+const RelationshipToDeceasedEnum = require('app/utils/RelationshipToTheDeceasedEnum');
+const SpouseNotApplyingEnum = require('app/utils/SpouseNotApplyingEnum');
 const dataMap = {
     applicantFirstName: 'applicant.firstName',
     applicantLastName: 'applicant.lastName',
@@ -42,6 +45,16 @@ const dataMap = {
     caseId: 'ccdCase.id',
     caseState: 'ccdCase.state',
     registry: 'registry',
+    caseType: 'caseType',
+    deceasedHasAssetsOutsideUK: 'iht.assetsOutside',
+    foreignAssetEstateValue: 'iht.netValueAssetsOutside',
+    deceasedDivorcedInEnglandOrWales: 'deceased.legalProcess',
+    primaryApplicantAdoptionInEnglandOrWales: 'applicant.adoptionPlace',
+    deceasedOtherChildren: 'deceased.anyOtherChildren',
+    allDeceasedChildrenOverEighteen: 'deceased.allChildrenOver18',
+    anyDeceasedChildrenDieBeforeDeceased: 'deceased.anyDeceasedChildren',
+    anyDeceasedGrandChildrenUnderEighteen: 'deceased.anyGrandchildrenUnder18',
+    deceasedAnyChildren: 'deceased.anyChildren'
 };
 
 const submitData = (ctx, data) => {
@@ -76,6 +89,15 @@ const submitData = (ctx, data) => {
     mappedData.executorsApplying = executorsWrapper.executorsApplying(true);
     mappedData.executorsNotApplying = executorsWrapper.executorsNotApplying(true);
 
+    if (get(data, 'deceased.maritalStatus')) {
+        mappedData.deceasedMaritalStatus = MaritalStatusEnum.getCCDCode(get(data, 'deceased.maritalStatus'));
+    }
+    if (get(data, 'applicant.relationshipToDeceased')) {
+        mappedData.primaryApplicantRelationshipToDeceased = RelationshipToDeceasedEnum.getCCDCode(get(data, 'applicant.relationshipToDeceased'));
+    }
+    if (get(data, 'applicant.spouseNotApplyingReason')) {
+        mappedData.deceasedSpouseNotApplyingReason = SpouseNotApplyingEnum.getCCDCode(get(data, 'applicant.spouseNotApplyingReason'));
+    }
     return mappedData;
 };
 

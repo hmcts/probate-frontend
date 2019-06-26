@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-lines
 'use strict';
 
 const taskListContent = require('app/resources/en/translation/tasklist');

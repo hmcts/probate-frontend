@@ -54,6 +54,7 @@ module.exports = {
         addressCity: 'London',
         addressPostcode: 'SW1A1AA'
     },
+
     paymentType: {
         form: 205,
         pay: {
@@ -75,6 +76,7 @@ module.exports = {
             overseas: '0'
         }
     },
+
     validation: {
         url: process.env.TEST_VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
     },

@@ -18,7 +18,7 @@ After(() => {
 });
 
 // eslint-disable-next-line no-undef
-Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function (I) {
+Scenario(TestConfigurator.idamInUseText('Intestacy Child Journey - Digital iht and death certificate uploaded'), function (I) {
 
     // Eligibility Task (pre IdAM)
     I.startApplication();
@@ -50,7 +50,7 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function (I) {
     I.selectOtherApplicants('Yes');
     I.seeStopPage('otherApplicants');
     I.selectOtherApplicants('No');
-
+    //
     I.startApply();
 
     // IdAM
@@ -60,7 +60,7 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function (I) {
     I.selectATask(taskListContent.taskNotStarted);
     I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
     I.enterDeceasedAddress();
-    I.selectDocumentsToUpload();
+    I.selectDocumentsToUpload(true);
     I.selectInheritanceMethodPaper('Online');
     I.enterIHTIdentifier();
 
@@ -112,8 +112,5 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Journey'), function (I) {
     }
 
     I.seePaymentStatusPage();
-
-    // Send Documents Task
-    I.seeDocumentsPage();
-    pause();
+    I.seeThankYouPage();
 });

@@ -61,7 +61,7 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Child Journey - Digital iht a
     I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
     I.enterDeceasedAddress();
     I.selectDocumentsToUpload(true);
-    I.selectInheritanceMethodPaper('Online');
+    I.selectInheritanceMethod('Online');
     I.enterIHTIdentifier();
 
     if (TestConfigurator.getUseGovPay() === 'true') {

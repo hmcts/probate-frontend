@@ -30,11 +30,7 @@ const config = {
     },
     services: {
         postcode: {
-            url: process.env.POSTCODE_SERVICE_URL || 'http://localhost:8585/find-address',
-            token: process.env.POSTCODE_SERVICE_TOKEN,
-            proxy: process.env.http_proxy,
-            port: 8585,
-            path: '/find-address'
+            token: process.env.POSTCODE_SERVICE_TOKEN
         },
         orchestrator: {
             url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8888',

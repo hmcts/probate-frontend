@@ -4,6 +4,16 @@ const {expect} = require('chai');
 const co = require('co');
 const rewire = require('rewire');
 const AddressLookup = rewire('app/steps/action/addressLookup');
+const logger = require('app/components/logger')('Init');
+
+const expectedResponse = [{
+    formattedAddress: 'Ministry Of Justice,Seventh Floor,103 Petty France,London,SW1H 9AJ',
+    postcode: 'SW1H 9AJ'
+},
+{
+    formattedAddress: 'Ministry Of Justice,Seventh Floor,102 Petty France,London,SW1H 9AJ',
+    postcode: 'SW1H 9AJ'
+}];
 
 describe('AddressLookup', () => {
     let steps;
@@ -53,14 +63,18 @@ describe('AddressLookup', () => {
         it('should add addresses to formdata', (done) => {
             const revert = AddressLookup.__set__('PostcodeAddress', class {
                 get() {
-                    return ['address 1', 'address 2'];
+                    return expectedResponse;
                 }
             });
             const addressLookup = new AddressLookup(steps, section, templatePath, i18next, schema);
 
             co(function* () {
                 yield addressLookup.handlePost(ctxToTest, errorsToTest, formdata, req);
-                expect(formdata.applicant.addresses).to.deep.equal(['address 1', 'address 2']);
+
+                logger.error(`ACTUAL: ${JSON.stringify(formdata.applicant.addresses)}`);
+                logger.error(`EXPECTED: ${JSON.stringify(expectedResponse)}`);
+
+                expect(formdata.applicant.addresses).to.deep.equal(expectedResponse);
                 expect(formdata.applicant.addressFound).to.equal('true');
                 revert();
                 done();

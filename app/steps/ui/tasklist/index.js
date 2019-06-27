@@ -19,7 +19,7 @@ class TaskList extends Step {
     }
 
     copiesPreviousTaskStatus(session, ctx) {
-        if (ctx.caseType === 'gop') {
+        if (ctx.caseType === caseTypes.GOP) {
             if (ctx.hasMultipleApplicants && session.haveAllExecutorsDeclared === 'false') {
                 return 'locked';
             }
@@ -38,7 +38,7 @@ class TaskList extends Step {
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
         ctx.caseType = caseTypes.getCaseType(req.session);
 
-        if (ctx.caseType === 'gop') {
+        if (ctx.caseType === caseTypes.GOP) {
             const executorsWrapper = new ExecutorsWrapper(formdata.executors);
             ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
 

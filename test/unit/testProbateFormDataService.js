@@ -11,10 +11,10 @@ describe('ProbateFormDataService', () => {
         it('should call super.get()', (done) => {
             const endpoint = 'http://localhost';
             const id = 'fred@example.com';
-            const probateCcdCasePaymentStatus = new ProbateFormData(endpoint, 'abc123');
+            const probateFormData = new ProbateFormData(endpoint, 'abc123');
             const getStub = sinon.stub(FormData.prototype, 'get');
 
-            probateCcdCasePaymentStatus.get(id);
+            probateFormData.get(id);
 
             expect(getStub.calledOnce).to.equal(true);
             expect(getStub.calledWith(
@@ -32,10 +32,10 @@ describe('ProbateFormDataService', () => {
             const endpoint = 'http://localhost';
             const id = 'fred@example.com';
             const data = {};
-            const probateCcdCasePaymentStatus = new ProbateFormData(endpoint, 'abc123');
+            const probateFormData = new ProbateFormData(endpoint, 'abc123');
             const postStub = sinon.stub(FormData.prototype, 'post');
 
-            probateCcdCasePaymentStatus.post(id, data);
+            probateFormData.post(id, data);
 
             expect(postStub.calledOnce).to.equal(true);
             expect(postStub.calledWith(

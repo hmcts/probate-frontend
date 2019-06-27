@@ -1,31 +1,87 @@
+/*global describe, it, before, beforeEach, after, afterEach */
+
 'use strict';
-
-const {expect} = require('chai');
+const assert = require('chai').assert;
 const sinon = require('sinon');
+const when = require('when');
 const PostcodeAddress = require('app/services/PostcodeAddress');
+const OSPlacesClient = require('@hmcts/os-places-client').OSPlacesClient;
+const postcodeAddress = new PostcodeAddress();
 
-describe('PostcodeAddressService', () => {
-    describe('get()', () => {
-        it('should call log() and fetchJson()', (done) => {
-            const endpoint = 'http://localhost';
-            const fetchOptions = {method: 'GET'};
-            const postcode = 'SW1A 1AA';
-            const postcodeAddress = new PostcodeAddress(endpoint, 'abc123');
-            const logSpy = sinon.spy(postcodeAddress, 'log');
-            const fetchJsonSpy = sinon.spy(postcodeAddress, 'fetchJson');
-            const fetchOptionsStub = sinon.stub(postcodeAddress, 'fetchOptions').returns(fetchOptions);
+const osPlacesClientResponse =
+    {
+        valid: true,
+        addresses: [{
+            formattedAddress: 'MINISTRY OF JUSTICE,SEVENTH FLOOR,103 PETTY FRANCE,LONDON,SW1H 9AJ',
+            postcode: 'SW1H 9AJ'
+        },
+        {
+            formattedAddress: 'MINISTRY OF JUSTICE,SEVENTH FLOOR,102 PETTY FRANCE,LONDON,SW1H 9AJ',
+            postcode: 'SW1H 9AJ'
+        }]
+    };
 
-            postcodeAddress.get(postcode);
+const expectedResponse = [{
+    formattedAddress: 'MINISTRY OF JUSTICE,SEVENTH FLOOR,103 PETTY FRANCE,LONDON,SW1H 9AJ',
+    postcode: 'SW1H 9AJ'
+},
+{
+    formattedAddress: 'MINISTRY OF JUSTICE,SEVENTH FLOOR,102 PETTY FRANCE,LONDON,SW1H 9AJ',
+    postcode: 'SW1H 9AJ'
+}];
 
-            expect(postcodeAddress.log.calledOnce).to.equal(true);
-            expect(postcodeAddress.log.calledWith('Get postcode address')).to.equal(true);
-            expect(postcodeAddress.fetchJson.calledOnce).to.equal(true);
-            expect(postcodeAddress.fetchJson.calledWith(`${endpoint}?postcode=${encodeURIComponent(postcode)}`, fetchOptions)).to.equal(true);
+const expectedError = 'Error: Failed to retrieve address list';
 
-            logSpy.restore();
-            fetchJsonSpy.restore();
-            fetchOptionsStub.restore();
-            done();
-        });
+describe('addressLookup service tests', function () {
+    let lookupByPostcodeStub, findAddressSpy;
+
+    beforeEach(function () {
+        findAddressSpy = sinon.spy(postcodeAddress, 'get');
+        lookupByPostcodeStub = sinon
+            .stub(OSPlacesClient.prototype, 'lookupByPostcode');
     });
+
+    afterEach(function () {
+        lookupByPostcodeStub.restore();
+        findAddressSpy.restore();
+    });
+
+    it('Should successfully retrieve address list with postcode', function (done) {
+        lookupByPostcodeStub.returns(when(osPlacesClientResponse));
+
+        postcodeAddress.get('postcode')
+            .then(function(actualResponse) {
+                sinon.assert.alwaysCalledWith(findAddressSpy, 'postcode');
+                assert.strictEqual(JSON.stringify(expectedResponse), JSON.stringify(actualResponse));
+                done();
+            })
+            .catch(done);
+    });
+
+    it('Should retrieve an empty list for a non valid response.', function (done) {
+        lookupByPostcodeStub.returns(when({valid: false, httpStatus: 200}));
+
+        postcodeAddress.get('postcode')
+            .then(function(actualResponse) {
+                sinon.assert.alwaysCalledWith(findAddressSpy, 'postcode');
+                assert.equal('{}', JSON.stringify(actualResponse));
+                done();
+            })
+            .catch(done);
+    });
+
+    it('Should fail to retrieve the address list', function (done) {
+        lookupByPostcodeStub.returns(Promise.reject(expectedError));
+
+        postcodeAddress.get('postcode')
+            .then(() => {
+                done(new Error('Expected method to reject.'));
+            })
+            .catch((err) => {
+                sinon.assert.alwaysCalledWith(findAddressSpy, 'postcode');
+                assert.equal(err, expectedError);
+                done();
+            });
+    });
+
 });

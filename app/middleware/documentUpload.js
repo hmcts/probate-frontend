@@ -90,7 +90,7 @@ const removeDocument = (req, res, next) => {
             logger.info(err);
             next(err);
         })
-        .finally(() => {
+        .then(() => {
             res.redirect('/document-upload');
         });
 };

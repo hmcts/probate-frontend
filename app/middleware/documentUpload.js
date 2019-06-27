@@ -6,6 +6,7 @@ const connectTimeout = require('connect-timeout');
 const multer = require('multer');
 const Document = require('app/services/Document');
 const ServiceMapper = require('app/utils/ServiceMapper');
+const logger = require('app/components/logger')('Init');
 
 const storage = multer.memoryStorage();
 const upload = multer({storage: storage});
@@ -83,16 +84,14 @@ const removeDocument = (req, res, next) => {
     document.delete(documentId, req.session.regId)
         .then(() => {
             req.session.form.documents.uploads = documentUpload.removeDocument(index, uploads);
-            persistFormData(req.session.regId, req.session.form, req.sessionID)
-                .then(() => {
-                    res.redirect('/document-upload');
-                })
-                .catch((err) => {
-                    next(err);
-                });
+            persistFormData(req.session.regId, req.session.form, req.sessionID);
         })
         .catch((err) => {
+            logger.info(err);
             next(err);
+        })
+        .finally(() => {
+            res.redirect('/document-upload');
         });
 };
 

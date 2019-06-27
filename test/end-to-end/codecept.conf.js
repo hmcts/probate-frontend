@@ -27,6 +27,9 @@ exports.config = {
         'PuppeteerHelper': {
             'require': './helpers/PuppeteerHelper.js'
         },
+        'JSWait': {
+            'require': './helpers/JSWait.js'
+        },
     },
     'include': {
         'I': './pages/steps.js'

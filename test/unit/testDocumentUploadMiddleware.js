@@ -306,9 +306,7 @@ describe('DocumentUploadMiddleware', () => {
             documentUploadMiddleware.removeDocument(req, res, next);
             setTimeout(() => {
                 expect(req.session.form.documents.uploads).to.deep.equal([]);
-                setTimeout(() => {
-                    expect(res.redirect.calledWith('/document-upload')).to.equal(true);
-                });
+                expect(res.redirect.calledWith('/document-upload')).to.equal(true);
                 revert();
                 done();
             });

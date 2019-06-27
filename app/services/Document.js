@@ -26,7 +26,7 @@ class Document extends Service {
             'user-id': userId
         };
         const fetchOptions = this.fetchOptions({}, 'DELETE', headers);
-        return this.fetchText(removeDocumentUrl, fetchOptions);
+        return Promise.resolve(this.fetchText(removeDocumentUrl, fetchOptions));
     }
 }
 

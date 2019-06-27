@@ -1,6 +1,7 @@
 'use strict';
 
 const FormData = require('./FormData');
+const caseTypes = require('app/utils/CaseTypes');
 
 class IntestacyFormData extends FormData {
     get(id) {
@@ -12,6 +13,7 @@ class IntestacyFormData extends FormData {
     post(id, data) {
         const logMessage = 'Post intestacy form data';
         const url = this.endpoint;
+        data.caseType = caseTypes.INTESTACY;
         const bodyData = {
             id: id,
             formdata: data,

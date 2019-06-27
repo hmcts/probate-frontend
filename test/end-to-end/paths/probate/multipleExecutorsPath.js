@@ -6,7 +6,7 @@ const {forEach, head} = require('lodash');
 const testConfig = require('test/config.js');
 
 let grabIds;
-let retries = -1;
+let stage1retries = -1;
 
 Feature('Multiple Executors flow').retry(TestConfigurator.getRetryFeatures());
 
@@ -22,10 +22,10 @@ AfterSuite(() => {
     TestConfigurator.getAfter();
 });
 
-Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant: 1st stage of completing application'), async function (I) {
-    retries += 1;
+Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details'), async function (I) {
+    stage1retries += 1;
 
-    if (retries >= 1) {
+    if (stage1retries >= 1) {
         TestConfigurator.getBefore();
     }
 
@@ -126,7 +126,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
 }).retry(TestConfigurator.getRetryScenarios());
 
-Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Statement of Truth'), async function (I) {
+Scenario(TestConfigurator.idamInUseText('Stage 2: Additional Executor(s) Agree to Statement of Truth'), async function (I) {
     const idList = JSON.parse(grabIds);
 
     for (let i=0; i < idList.ids.length; i++) {
@@ -148,7 +148,7 @@ Scenario(TestConfigurator.idamInUseText('Additional Executor(s) Agree to Stateme
     }
 }).retry(TestConfigurator.getRetryScenarios());
 
-Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey: final stage of application'), function (I) {
+Scenario(TestConfigurator.idamInUseText('Stage 3: Continuation of Main applicant journey: final stage of application'), function (I) {
 
     // IDAM
     I.authenticateWithIdamIfAvailable(true);
@@ -181,8 +181,8 @@ Scenario(TestConfigurator.idamInUseText('Continuation of Main applicant journey:
     I.seePaymentStatusPage();
 
     // Send Documents Task
-    I.seeDocumentsPage();
+    I.retry({retries: 5, maxTimeout: 30000}).seeDocumentsPage();
 
     // Thank You
-    I.seeThankYouPage();
+    I.retry({retries: 5, maxTimeout: 30000}).seeThankYouPage();
 }).retry(TestConfigurator.getRetryScenarios());

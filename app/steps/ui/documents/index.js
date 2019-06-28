@@ -1,6 +1,5 @@
 'use strict';
 
-const setJourney = require('app/middleware/setJourney');
 const ValidationStep = require('app/core/steps/ValidationStep');
 const RedirectRunner = require('app/core/runners/RedirectRunner');
 const ExecutorsWrapper = require('app/wrappers/Executors');
@@ -11,6 +10,7 @@ const contentDeceasedMaritalStatus = require('app/resources/en/translation/decea
 const contentRelationshipToDeceased = require('app/resources/en/translation/applicant/relationshiptodeceased');
 const contentIhtMethod = require('app/resources/en/translation/iht/method');
 const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
+const caseTypes = require('app/utils/CaseTypes');
 
 class Documents extends ValidationStep {
 
@@ -25,7 +25,7 @@ class Documents extends ValidationStep {
     runnerOptions(ctx, formdata) {
         const options = {};
 
-        if (ctx.journeyType === 'intestacy') {
+        if (ctx.caseType === caseTypes.INTESTACY) {
             const deceasedMarried = Boolean(formdata.deceased && formdata.deceased.maritalStatus === contentDeceasedMaritalStatus.optionMarried);
             const applicantIsChild = Boolean(formdata.applicant && (formdata.applicant.relationshipToDeceased === contentRelationshipToDeceased.optionChild || formdata.applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild));
             const noDocumentsUploaded = !(formdata.documents && formdata.documents.uploads && formdata.documents.uploads.length);
@@ -48,7 +48,7 @@ class Documents extends ValidationStep {
 
         ctx.registryAddress = registryAddress ? registryAddress : content.address;
 
-        if (ctx.journeyType === 'gop') {
+        if (ctx.caseType === caseTypes.GOP) {
             ctx.hasCodicils = willWrapper.hasCodicils();
             ctx.codicilsNumber = willWrapper.codicilsNumber();
             ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
@@ -64,11 +64,6 @@ class Documents extends ValidationStep {
         return [ctx];
     }
 
-    getContextData(req) {
-        const ctx = super.getContextData(req);
-        ctx.journeyType = setJourney.getJourneyName(req.session);
-        return ctx;
-    }
 }
 
 module.exports = Documents;

@@ -7,6 +7,7 @@ const commonContent = require('app/resources/en/translation/common');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 const content = require('app/resources/en/translation/deceased/divorceplace');
 const config = require('app/config');
+const caseTypes = require('app/utils/CaseTypes');
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
 const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
@@ -71,7 +72,8 @@ describe('divorce-place', () => {
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
                         divorcePlace: content.optionNo
@@ -86,7 +88,8 @@ describe('divorce-place', () => {
         });
 
         it(`test it redirects to tasklist: ${expectedNextUrlForTaskList}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
                         divorcePlace: content.optionYes

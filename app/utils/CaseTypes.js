@@ -6,19 +6,21 @@ const caseTypes = {
 };
 
 const isIntestacyCaseType = (session) => {
-    if (session.caseType) {
-        return session.caseType === caseTypes.INTESTACY;
-    } else if (session.form && session.form.caseType) {
+    if (session.form && session.form.caseType) {
         return session.form.caseType === caseTypes.INTESTACY;
+    } else if (session.caseType) {
+        return session.caseType === caseTypes.INTESTACY;
     }
     return false;
 };
 
 const setCaseTypeFormdata = (session) => {
-    if (session.caseType) {
-        if (!session.form.caseType) {
-            session.form.caseType = isIntestacyCaseType(session) ? caseTypes.INTESTACY : caseTypes.GOP;
-        }
+    if (isIntestacyCaseType(session)) {
+        session.form.caseType = caseTypes.INTESTACY;
+        session.caseType = caseTypes.INTESTACY;
+    } else {
+        session.form.caseType = caseTypes.GOP;
+        session.caseType = caseTypes.GOP;
     }
     return session;
 };

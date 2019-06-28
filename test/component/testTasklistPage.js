@@ -58,13 +58,11 @@ describe('task-list', () => {
                 'alreadyDeclared'
             ];
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            sessionData.caseType = 'intestacy';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, excludeKeys);
-                        });
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
 
@@ -147,13 +145,11 @@ describe('task-list', () => {
                 'alreadyDeclared'
             ];
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            singleApplicantSessionData.caseType = 'intestacy';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(singleApplicantSessionData)
                 .end(() => {
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(singleApplicantSessionData)
-                        .end(() => {
-                            testWrapper.testContent(done, excludeKeys);
-                        });
+                    testWrapper.testContent(done, excludeKeys);
                 });
         });
     });

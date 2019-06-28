@@ -8,6 +8,7 @@ const testHelpBlockContent = require('test/component/common/testHelpBlockContent
 const content = require('app/resources/en/translation/applicant/adoptionplace');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 const config = require('app/config');
+const caseTypes= require('app/utils/CaseTypes');
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
 const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
@@ -45,7 +46,8 @@ describe('adoption-place', () => {
         });
 
         it(`test it redirects to Spouse Not Applying Reason page if adoption took place in England or Wales and deceased was married: ${expectedNextUrlForSpouseNotApplyingReason}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const sessionData = {
                         deceased: {
@@ -66,7 +68,8 @@ describe('adoption-place', () => {
         });
 
         it(`test it redirects to Any Other Children page if adoption took place in England or Wales and deceased was not married: ${expectedNextUrlForAnyOtherChildren}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const sessionData = {
                         deceased: {
@@ -87,7 +90,8 @@ describe('adoption-place', () => {
         });
 
         it(`test it redirects to Stop page if adoption took place outside England or Wales: ${expectedNextUrlForStopPage}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
                         adoptionPlace: content.optionNo

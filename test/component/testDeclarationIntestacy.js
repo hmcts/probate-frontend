@@ -19,6 +19,7 @@ const featureTogglesNock = (status = 'true') => {
         .get(intestacyQuestionsFeatureTogglePath)
         .reply(200, status);
 };
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('declaration, intestacy', () => {
     let testWrapper, contentData, sessionData;
@@ -29,6 +30,7 @@ describe('declaration, intestacy', () => {
         featureTogglesNock();
 
         sessionData = require('test/data/complete-form-undeclared').formdata;
+        sessionData.caseType = caseTypes.INTESTACY;
         const applicantData = sessionData.applicant;
         const deceasedData = sessionData.deceased;
 
@@ -132,7 +134,8 @@ describe('declaration, intestacy', () => {
             contentData.ihtNetValueAssetsOutside = sessionData.iht.netValueAssetsOutsideField;
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
@@ -212,7 +215,8 @@ describe('declaration, intestacy', () => {
 
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
@@ -292,7 +296,8 @@ describe('declaration, intestacy', () => {
 
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
@@ -372,7 +377,8 @@ describe('declaration, intestacy', () => {
 
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
@@ -452,7 +458,8 @@ describe('declaration, intestacy', () => {
 
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
@@ -532,7 +539,8 @@ describe('declaration, intestacy', () => {
 
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
@@ -612,7 +620,8 @@ describe('declaration, intestacy', () => {
 
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
@@ -692,7 +701,8 @@ describe('declaration, intestacy', () => {
 
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
@@ -772,7 +782,8 @@ describe('declaration, intestacy', () => {
 
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
@@ -858,7 +869,8 @@ describe('declaration, intestacy', () => {
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
@@ -944,7 +956,8 @@ describe('declaration, intestacy', () => {
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
@@ -1030,7 +1043,8 @@ describe('declaration, intestacy', () => {
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
@@ -1116,7 +1130,8 @@ describe('declaration, intestacy', () => {
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
@@ -1196,7 +1211,8 @@ describe('declaration, intestacy', () => {
 
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
@@ -1276,7 +1292,8 @@ describe('declaration, intestacy', () => {
 
             contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
@@ -1362,7 +1379,8 @@ describe('declaration, intestacy', () => {
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
@@ -1448,7 +1466,8 @@ describe('declaration, intestacy', () => {
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)

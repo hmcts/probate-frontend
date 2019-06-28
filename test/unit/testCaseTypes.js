@@ -60,7 +60,10 @@ describe('caseTypes', () => {
             };
             const session = caseTypes.setCaseTypeFormdata(sessionToTest);
             expect(session).to.deep.equal({
-                form: {}
+                'caseType': 'gop',
+                form: {
+                    'caseType': 'gop'
+                }
             });
             done();
         });

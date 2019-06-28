@@ -21,7 +21,10 @@ describe('setJourney', () => {
             setJourney(req, res, next);
 
             expect(req.session).to.deep.equal({
-                form: {},
+                'caseType': 'gop',
+                form: {
+                    'caseType': 'gop'
+                },
                 journey: {
                     journey: 'a probate journey'
                 }

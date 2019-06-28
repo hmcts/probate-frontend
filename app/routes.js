@@ -55,6 +55,9 @@ router.get('/', (req, res) => {
             } else {
                 req.log.debug('Successfully loaded user data');
                 req.session.form = result.formdata;
+                if (result.formdata.caseType) {
+                    req.session.caseType = result.formdata.caseType;
+                }
             }
             res.redirect('task-list');
         });

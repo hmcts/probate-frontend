@@ -46,46 +46,40 @@ describe('adoption-place', () => {
         });
 
         it(`test it redirects to Spouse Not Applying Reason page if adoption took place in England or Wales and deceased was married: ${expectedNextUrlForSpouseNotApplyingReason}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: contentMaritalStatus.optionMarried
+                }
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    const sessionData = {
-                        deceased: {
-                            maritalStatus: contentMaritalStatus.optionMarried
-                        }
+                    const data = {
+                        adoptionPlace: content.optionYes
                     };
 
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            const data = {
-                                adoptionPlace: content.optionYes
-                            };
-
-                            testWrapper.testRedirect(done, data, expectedNextUrlForSpouseNotApplyingReason);
-                        });
+                    testWrapper.testRedirect(done, data, expectedNextUrlForSpouseNotApplyingReason);
                 });
         });
 
         it(`test it redirects to Any Other Children page if adoption took place in England or Wales and deceased was not married: ${expectedNextUrlForAnyOtherChildren}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: contentMaritalStatus.optionDivorced
+                }
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    const sessionData = {
-                        deceased: {
-                            maritalStatus: contentMaritalStatus.optionDivorced
-                        }
+                    const data = {
+                        adoptionPlace: content.optionYes
                     };
 
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            const data = {
-                                adoptionPlace: content.optionYes
-                            };
-
-                            testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherChildren);
-                        });
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherChildren);
                 });
         });
 

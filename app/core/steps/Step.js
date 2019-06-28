@@ -8,6 +8,7 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const config = require('app/config');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const FeatureToggle = require('app/utils/FeatureToggle');
+const caseTypes = require('app/utils/CaseTypes');
 
 class Step {
 
@@ -53,7 +54,7 @@ class Step {
         let ctx = {};
         Object.assign(ctx, session.form[this.section] || {});
         ctx.sessionID = req.sessionID;
-        ctx.caseType = session.caseType;
+        ctx.caseType = caseTypes.getCaseType(session);
         ctx = Object.assign(ctx, req.body);
         ctx = FeatureToggle.appwideToggles(req, ctx, config.featureToggles.appwideToggles);
 

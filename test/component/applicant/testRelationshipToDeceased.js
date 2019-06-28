@@ -62,46 +62,40 @@ describe('relationship-to-deceased', () => {
         });
 
         it(`test it redirects to Spouse Not Applying Reason page if relationship is Child and deceased was married: ${expectedNextUrlForSpouseNotApplyingReason}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: contentMaritalStatus.optionMarried
+                }
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    const sessionData = {
-                        deceased: {
-                            maritalStatus: contentMaritalStatus.optionMarried
-                        }
+                    const data = {
+                        relationshipToDeceased: content.optionChild
                     };
 
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            const data = {
-                                relationshipToDeceased: content.optionChild
-                            };
-
-                            testWrapper.testRedirect(done, data, expectedNextUrlForSpouseNotApplyingReason);
-                        });
+                    testWrapper.testRedirect(done, data, expectedNextUrlForSpouseNotApplyingReason);
                 });
         });
 
         it(`test it redirects to Any Other Children page if relationship is Child and deceased was not married: ${expectedNextUrlForAnyOtherChildren}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: contentMaritalStatus.optionDivorced
+                }
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    const sessionData = {
-                        deceased: {
-                            maritalStatus: contentMaritalStatus.optionDivorced
-                        }
+                    const data = {
+                        relationshipToDeceased: content.optionChild
                     };
 
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            const data = {
-                                relationshipToDeceased: content.optionChild
-                            };
-
-                            testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherChildren);
-                        });
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherChildren);
                 });
         });
 
@@ -118,52 +112,46 @@ describe('relationship-to-deceased', () => {
         });
 
         it(`test it redirects to Any Children page if relationship is Spouse/Partner and the estate value is > £250k: ${expectedNextUrlForAnyChildren}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: contentMaritalStatus.optionMarried
+                },
+                iht: {
+                    netValue: 450000
+                }
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    const sessionData = {
-                        deceased: {
-                            maritalStatus: contentMaritalStatus.optionMarried
-                        },
-                        iht: {
-                            netValue: 450000
-                        }
+                    const data = {
+                        relationshipToDeceased: content.optionSpousePartner
                     };
 
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            const data = {
-                                relationshipToDeceased: content.optionSpousePartner
-                            };
-
-                            testWrapper.testRedirect(done, data, expectedNextUrlForAnyChildren);
-                        });
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyChildren);
                 });
         });
 
         it(`test it redirects to Applicant Name page if relationship is Spouse/Partner and the estate value is <= £250k: ${expectedNextUrlForApplicantName}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: contentMaritalStatus.optionMarried
+                },
+                iht: {
+                    netValue: 200000
+                }
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
-                    const sessionData = {
-                        deceased: {
-                            maritalStatus: contentMaritalStatus.optionMarried
-                        },
-                        iht: {
-                            netValue: 200000
-                        }
+                    const data = {
+                        relationshipToDeceased: content.optionSpousePartner
                     };
 
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            const data = {
-                                relationshipToDeceased: content.optionSpousePartner
-                            };
-
-                            testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
-                        });
+                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
                 });
         });
 

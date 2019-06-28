@@ -22,6 +22,7 @@ describe('divorce-place', () => {
     const expectedNextUrlForStopPage = StopPage.getUrl('divorcePlace');
     const expectedNextUrlForTaskList = TaskList.getUrl();
     const sessionData = {
+        caseType: caseTypes.INTESTACY,
         deceased: {
             maritalStatus: contentMaritalStatus.optionDivorced
         }
@@ -72,34 +73,26 @@ describe('divorce-place', () => {
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
-                .end(() => {
-                    const data = {
-                        divorcePlace: content.optionNo
-                    };
+            const data = {
+                divorcePlace: content.optionNo
+            };
 
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
-                        });
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
                 });
         });
 
         it(`test it redirects to tasklist: ${expectedNextUrlForTaskList}`, (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
-                .end(() => {
-                    const data = {
-                        divorcePlace: content.optionYes
-                    };
+            const data = {
+                divorcePlace: content.optionYes
+            };
 
-                    testWrapper.agent.post('/prepare-session/form')
-                        .send(sessionData)
-                        .end(() => {
-                            testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
-                        });
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
                 });
         });
     });

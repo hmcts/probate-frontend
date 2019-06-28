@@ -8,7 +8,7 @@ const caseTypes = require('app/utils/CaseTypes');
 
 describe('setJourney', () => {
     describe('setJourney()', () => {
-        it('should set req.session with the probate journey when isIntestacyJourney is false', (done) => {
+        it('should set req.journey with the probate journey when no caseType', (done) => {
             const revert = setJourney.__set__('probateJourney', {journey: 'a probate journey'});
             const req = {
                 session: {
@@ -22,7 +22,7 @@ describe('setJourney', () => {
 
             expect(req.session).to.deep.equal({
                 'caseType': 'gop',
-                form: {
+                'form': {
                     'caseType': 'gop'
                 },
                 journey: {
@@ -35,12 +35,12 @@ describe('setJourney', () => {
             done();
         });
 
-        it('should set req.session with the intestacy journey when isIntestacyJourney is true', (done) => {
-            const revert = setJourney.__set__('intestacyJourney', {journey: 'an intestacy journey'});
+        it('should set req.journey with the probate journey when session only caseType exists', (done) => {
+            const revert = setJourney.__set__('probateJourney', {journey: 'a probate journey'});
             const req = {
                 session: {
-                    form: {},
-                    caseType: caseTypes.INTESTACY
+                    caseType: caseTypes.GOP,
+                    form: {}
                 }
             };
             const res = {};
@@ -49,10 +49,97 @@ describe('setJourney', () => {
             setJourney(req, res, next);
 
             expect(req.session).to.deep.equal({
+                caseType: caseTypes.GOP,
+                form: {
+                    caseType: caseTypes.GOP
+                },
+                journey: {
+                    journey: 'a probate journey'
+                }
+            });
+            expect(next.calledOnce).to.equal(true);
+
+            revert();
+            done();
+        });
+
+        it('should set req.journey with the probate journey when session form only caseType exists', (done) => {
+            const revert = setJourney.__set__('probateJourney', {journey: 'a probate journey'});
+            const req = {
+                session: {
+                    form: {
+                        caseType: caseTypes.GOP
+                    }
+                }
+            };
+            const res = {};
+            const next = sinon.spy();
+
+            setJourney(req, res, next);
+
+            expect(req.session).to.deep.equal({
+                caseType: caseTypes.GOP,
+                form: {
+                    caseType: caseTypes.GOP,
+                },
+                journey: {
+                    journey: 'a probate journey'
+                }
+            });
+            expect(next.calledOnce).to.equal(true);
+
+            revert();
+            done();
+        });
+
+        it('should set req.journey with the intestacy journey when session caseType is intestacy', (done) => {
+            const revert = setJourney.__set__('intestacyJourney', {journey: 'an intestacy journey'});
+            const req = {
+                session: {
+                    caseType: caseTypes.INTESTACY,
+                    form: {
+                    },
+                }
+            };
+            const res = {};
+            const next = sinon.spy();
+
+            setJourney(req, res, next);
+
+            expect(req.session).to.deep.equal({
+                caseType: caseTypes.INTESTACY,
                 form: {
                     caseType: caseTypes.INTESTACY
                 },
+                journey: {
+                    journey: 'an intestacy journey'
+                }
+            });
+            expect(next.calledOnce).to.equal(true);
+
+            revert();
+            done();
+        });
+
+        it('should set req.journey with the intestacy journey when session form caseType is intestacy', (done) => {
+            const revert = setJourney.__set__('intestacyJourney', {journey: 'an intestacy journey'});
+            const req = {
+                session: {
+                    form: {
+                        caseType: caseTypes.INTESTACY
+                    },
+                }
+            };
+            const res = {};
+            const next = sinon.spy();
+
+            setJourney(req, res, next);
+
+            expect(req.session).to.deep.equal({
                 caseType: caseTypes.INTESTACY,
+                form: {
+                    caseType: caseTypes.INTESTACY,
+                },
                 journey: {
                     journey: 'an intestacy journey'
                 }

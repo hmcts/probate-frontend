@@ -221,7 +221,6 @@ describe('Declaration', () => {
                 hasExecutorsToNotify: false,
                 executorsEmailChanged: false,
                 hasDataChangedAfterEmailSent: true,
-                isIntestacyJourney: true,
                 showNetValueAssetsOutside: true,
                 ihtNetValueAssetsOutside: 300000,
                 invitesSent: 'true',

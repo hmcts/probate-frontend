@@ -82,13 +82,17 @@ const removeDocument = (req, res, next) => {
     const document = new Document(config.services.validation.url, req.sessionID);
     document.delete(documentId, req.session.regId)
         .then(() => {
+            req.log.info('start of then statement');
             req.session.form.documents.uploads = documentUpload.removeDocument(index, uploads);
             persistFormData(req.session.regId, req.session.form, req.sessionID);
+            req.log.info('end of then statement');
         })
         .catch((err) => {
+            req.log.err('expection caught ' + err);
             next(err);
         })
         .finally(() => {
+            req.log.info('remove document finally');
             res.redirect('/document-upload');
         });
 };

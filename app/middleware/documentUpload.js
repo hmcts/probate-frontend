@@ -84,10 +84,12 @@ const removeDocument = (req, res, next) => {
         .then(() => {
             req.session.form.documents.uploads = documentUpload.removeDocument(index, uploads);
             persistFormData(req.session.regId, req.session.form, req.sessionID);
-            res.redirect('/document-upload');
         })
         .catch((err) => {
             next(err);
+        })
+        .finally(() => {
+            res.redirect('/document-upload');
         });
 };
 

@@ -308,8 +308,8 @@ describe('DocumentUploadMiddleware', () => {
                 expect(req.session.form.documents.uploads).to.deep.equal([]);
                 expect(res.redirect.calledWith('/document-upload')).to.equal(true);
                 revert();
-                done();
             });
+            done();
         });
 
         it('should return an error if a document cannot be remvoved', (done) => {
@@ -325,8 +325,8 @@ describe('DocumentUploadMiddleware', () => {
             setTimeout(() => {
                 expect(next.calledWith(error)).to.equal(true);
                 revert();
-                done();
             });
+            done();
         });
     });
 });

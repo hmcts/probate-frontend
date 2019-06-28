@@ -91,7 +91,7 @@ const removeDocument = (req, res, next) => {
             req.log.err('expection caught ' + err);
             next(err);
         })
-        .finally(() => {
+        .then(() => {
             req.log.info('remove document finally');
             res.redirect('/document-upload');
         });

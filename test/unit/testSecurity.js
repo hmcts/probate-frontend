@@ -53,7 +53,7 @@ describe('Security middleware', () => {
                 },
                 session: {
                     form: {
-                        journeyType: 'probate'
+                        journeyType: 'gop'
                     }
                 },
                 get: sinon.stub().returns('localhost:3000')

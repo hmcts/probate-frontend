@@ -52,7 +52,7 @@ describe('AddressLookup', () => {
         req = {
             session: {
                 form: {
-                    journeyType: 'probate'
+                    journeyType: 'gop'
                 }
             },
             sessionID: 'abc12345'

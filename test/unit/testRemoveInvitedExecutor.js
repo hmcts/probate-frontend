@@ -81,7 +81,7 @@ describe('RemoveInvitedExecutor', () => {
                                 emailSent: true
                             }]
                         },
-                        journeyType: 'probate'
+                        journeyType: 'gop'
                     }
                 }
             };

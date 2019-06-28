@@ -23,7 +23,7 @@ describe('WillLeft', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {},
-                    journeyType: 'Probate'
+                    journeyType: 'gop'
                 },
                 body: {
                     left: content.optionYes
@@ -35,7 +35,7 @@ describe('WillLeft', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 left: content.optionYes,
-                journeyType: 'Probate',
+                journeyType: 'gop',
                 featureToggles: {
                     webchat: 'false'
                 }

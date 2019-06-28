@@ -3,30 +3,41 @@
 {% from "widgets/lists.html" import unorderedList %}
 {% from "widgets/checkboxes.html" import checkbox %}
 
-
-{% set checklistOneItems = [] %}
+{% set checklistItems = [] %}
 {% set codicilsSuffix = "" %}
 
-{% if fields.hasCodicils.value === 'true' and fields.codicilsNumber.value > "0" %}
-    {% set checklistOneItems = (checklistOneItems.push(content["checklist1-item1-codicils"]), checklistOneItems) %}
-    {% set codicilsSuffix = "-codicils" %}
-{% else %}
-    {% set checklistOneItems = (checklistOneItems.push(content["checklist1-item1-no-codicils"]), checklistOneItems) %}
-{% endif %}
+{% if fields.journeyType.value === "gop" %}
+    {% if fields.hasCodicils.value === "true" and fields.codicilsNumber.value > "0" %}
+        {% set checklistItems = (checklistItems.push(content["checklist-item1-codicils"]), checklistItems) %}
+        {% set codicilsSuffix = "-codicils" %}
+    {% else %}
+        {% set checklistItems = (checklistItems.push(content["checklist-item1-no-codicils"]), checklistItems) %}
+    {% endif %}
 
-{% if fields.uploads.value | length === 0 %}
-    {% set checklistOneItems = (checklistOneItems.push(content["checklist2-item3-will-uploaded"]), checklistOneItems) %}
-{% endif %}
-{% if (fields.is205.value === "true") %}
-    {% set checklistOneItems = (checklistOneItems.push(content["checklist2-item4-iht205"]), checklistOneItems) %}
-{% endif %}
-{% if fields.hasRenunciated.value === "true" %}
-    {% set checklistOneItems = (checklistOneItems.push(content["checklist2-item5-renunciated"] | replace('{renunciationFormLink}', links.renunciationForm)), checklistOneItems) %}
-{% endif %}
-{% if fields.executorsNameChangedByDeedPollList.value | length > 0 %}
-    {% for executor in fields.executorsNameChangedByDeedPollList.value %}
-        {% set checklistOneItems = (checklistOneItems.push(content["checklist2-item6-deed-poll"] | replace('{executorCurrentName}', executor)), checklistOneItems) %}
-    {% endfor %}
+    {% if fields.uploads.value | length === 0 %}
+        {% set checklistItems = (checklistItems.push(content["checklist-item3-will-uploaded"]), checklistItems) %}
+    {% endif %}
+    {% if (fields.is205.value === "true") %}
+        {% set checklistItems = (checklistItems.push(content["checklist-item4-iht205"]), checklistItems) %}
+    {% endif %}
+    {% if fields.hasRenunciated.value === "true" %}
+        {% set checklistItems = (checklistItems.push(content["checklist-item5-renunciated"] | replace("{renunciationFormLink}", links.renunciationForm)), checklistItems) %}
+    {% endif %}
+    {% if fields.executorsNameChangedByDeedPollList.value | length > 0 %}
+        {% for executor in fields.executorsNameChangedByDeedPollList.value %}
+            {% set checklistItems = (checklistItems.push(content["checklist-item6-deed-poll"] | replace("{executorCurrentName}", executor)), checklistItems) %}
+        {% endfor %}
+    {% endif %}
+{% else %}
+    {% if fields.spouseRenouncing.value === "true" %}
+        {% set checklistItems = (checklistItems.push(content["checklist-item2-spouse-renouncing"] | replace("{renunciationFormLink}", links.renunciationForm)), checklistItems) %}
+    {% endif %}
+    {% if fields.uploads.value | length === 0 %}
+        {% set checklistItems = (checklistItems.push(content["checklist-item3-will-uploaded"]), checklistItems) %}
+    {% endif %}
+    {% if (fields.is205.value === "true") %}
+        {% set checklistItems = (checklistItems.push(content["checklist-item4-iht205"]), checklistItems) %}
+    {% endif %}
 {% endif %}
 
 {% block question %}
@@ -35,23 +46,25 @@
 
 {% block form_content %}
     <h2 class="heading-medium">{{ content.heading1 | safe }}</h2>
-    <p>{{ content.coverSheetDownloadMessage }} <a id="coverSheetPdfHref"
-                                                      href="/cover-sheet-pdf">{{ content.coverSheetPdf }}</a>.</p>
+    <p>{{ content.coverSheetDownloadMessage }} <a id="coverSheetPdfHref" href="/cover-sheet-pdf">{{ content.coverSheetPdf }}</a>.</p>
     {% if fields.ccdReferenceNumber.value !== '' %}
         <p>{{ content.text1 | safe | replace('{ccdReferenceNumber}', fields.ccdReferenceNumber.value) }}</p>
     {% endif %}
     <p>{{ content.text2 | safe }}</p>
-    {{ unorderedList(checklistOneItems) }}
 
-    <p>{{ content.text3 | safe }}</p>
-    <p>{{ content.text4 | safe }}</p>
+    {{ unorderedList(checklistItems) }}
+
+    {% if fields.journeyType.value === "gop" %}
+        <p>{{ content.text3 | safe }}</p>
+        <p>{{ content.text4 | safe }}</p>
+    {% endif %}
 
     <div class="panel panel-border-wide">
         <p>{{ content.warning | safe }}</p>
     </div>
 
     <h2 class="heading-medium">{{ content.heading2 | safe }}</h2>
-        <p>{{ content.text5 | safe }}</p>
+    <p>{{ content.text5 | safe }}</p>
 
     <div class="panel panel-border-narrow">
         <p>{{ fields.registryAddress.value | safe | nl2br }}</p>

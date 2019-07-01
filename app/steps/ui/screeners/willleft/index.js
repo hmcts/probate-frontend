@@ -21,7 +21,7 @@ class WillLeft extends EligibilityValidationStep {
     }
 
     handlePost(ctx, errors, formdata, session) {
-        formdata.caseType = (ctx.left === content.optionYes) ? caseTypes.GOP : caseTypes.INTESTACY;
+        session.caseType = (ctx.left === content.optionYes) ? caseTypes.GOP : caseTypes.INTESTACY;
 
         return super.handlePost(ctx, errors, formdata, session);
     }

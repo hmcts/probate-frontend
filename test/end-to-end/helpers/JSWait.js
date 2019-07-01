@@ -22,10 +22,6 @@ class JSWait extends codecept_helper {
             helper.click(text, locator);
             await helper.wait(2);
         }
-
-        return Promise.all([
-            helper.click(locator)
-        ]);
     }
 
     async amOnLoadedPage (url) {

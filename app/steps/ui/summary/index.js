@@ -104,7 +104,6 @@ class Summary extends Step {
         const deceasedName = FormatName.format(formdata.deceased);
         const content = this.generateContent(ctx, formdata);
         const hasCodicils = willWrapper.hasCodicils();
-        ctx.caseType = caseTypes.getCaseType(req.session);
         ctx.ihtTotalNetValue = get(formdata, 'iht.netValue', 0);
 
         ctx.deceasedAliasQuestion = content.DeceasedAlias.question

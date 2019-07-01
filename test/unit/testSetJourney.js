@@ -21,7 +21,6 @@ describe('setJourney', () => {
             setJourney(req, res, next);
 
             expect(req.session).to.deep.equal({
-                'caseType': 'gop',
                 'form': {
                     'caseType': 'gop'
                 },
@@ -78,7 +77,6 @@ describe('setJourney', () => {
             setJourney(req, res, next);
 
             expect(req.session).to.deep.equal({
-                caseType: caseTypes.GOP,
                 form: {
                     caseType: caseTypes.GOP,
                 },
@@ -96,8 +94,8 @@ describe('setJourney', () => {
             const revert = setJourney.__set__('intestacyJourney', {journey: 'an intestacy journey'});
             const req = {
                 session: {
-                    caseType: caseTypes.INTESTACY,
                     form: {
+                        caseType: caseTypes.INTESTACY
                     },
                 }
             };
@@ -107,7 +105,6 @@ describe('setJourney', () => {
             setJourney(req, res, next);
 
             expect(req.session).to.deep.equal({
-                caseType: caseTypes.INTESTACY,
                 form: {
                     caseType: caseTypes.INTESTACY
                 },
@@ -136,7 +133,6 @@ describe('setJourney', () => {
             setJourney(req, res, next);
 
             expect(req.session).to.deep.equal({
-                caseType: caseTypes.INTESTACY,
                 form: {
                     caseType: caseTypes.INTESTACY,
                 },

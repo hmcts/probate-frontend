@@ -40,11 +40,12 @@ router.use((req, res, next) => {
     next();
 });
 
+router.use(setJourney);
+
 router.get('/', (req, res) => {
     const formData = ServiceMapper.map(
         'FormData',
-        [config.services.persistence.url, req.sessionID],
-        req.session.caseType
+        [config.services.persistence.url, req.sessionID]
     );
     formData
         .get(req.session.regId)
@@ -55,9 +56,6 @@ router.get('/', (req, res) => {
             } else {
                 req.log.debug('Successfully loaded user data');
                 req.session.form = result.formdata;
-                if (result.formdata.caseType) {
-                    req.session.caseType = result.formdata.caseType;
-                }
             }
             res.redirect('task-list');
         });
@@ -66,8 +64,6 @@ router.get('/', (req, res) => {
 router.use(documentDownload);
 router.use(paymentFees);
 router.post('/payment-breakdown', lockPaymentAttempt);
-
-router.use(setJourney);
 
 router.use((req, res, next) => {
     const formdata = req.session.form;

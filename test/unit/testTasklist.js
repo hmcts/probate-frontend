@@ -15,7 +15,7 @@ describe('Tasklist', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = taskList.constructor.getUrl();
-            expect(url).to.equal('/tasklist');
+            expect(url).to.equal('/task-list');
             done();
         });
     });

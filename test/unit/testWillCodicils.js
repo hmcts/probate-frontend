@@ -80,7 +80,7 @@ describe('WillCodicils', () => {
             };
             const WillCodicils = steps.WillCodicils;
             const nextStepUrl = WillCodicils.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/tasklist');
+            expect(nextStepUrl).to.equal('/task-list');
             done();
         });
     });

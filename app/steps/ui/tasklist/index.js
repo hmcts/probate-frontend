@@ -8,7 +8,7 @@ const setJourney = require('app/middleware/setJourney');
 class TaskList extends Step {
 
     static getUrl() {
-        return '/tasklist';
+        return '/task-list';
     }
 
     previousTaskStatus(previousTasks) {

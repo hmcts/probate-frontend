@@ -53,7 +53,7 @@ router.get('/', (req, res) => {
                 req.log.debug('Successfully loaded user data');
                 req.session.form = result.formdata;
             }
-            res.redirect('tasklist');
+            res.redirect('task-list');
         });
 });
 
@@ -76,28 +76,28 @@ router.use((req, res, next) => {
     } else if (get(formdata, 'ccdCase.state') === 'CaseCreated' && (get(formdata, 'documents.sentDocuments', 'false') === 'true') && (get(formdata, 'payment.status') === 'Success' || get(formdata, 'payment.status') === 'not_required') &&
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
     ) {
-        res.redirect('thankyou');
+        res.redirect('thank-you');
     } else if ((get(formdata, 'payment.total') === 0 || get(formdata, 'payment.status') === 'Success') &&
         !includes(config.whitelistedPagesAfterPayment, req.originalUrl)
     ) {
-        res.redirect('tasklist');
+        res.redirect('task-list');
     } else if (get(formdata, 'declaration.declarationCheckbox') &&
         !includes(config.whitelistedPagesAfterDeclaration, req.originalUrl) &&
             (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent') && req.session.haveAllExecutorsDeclared === 'true'))
     ) {
-        res.redirect('tasklist');
+        res.redirect('task-list');
     } else if (get(formdata, 'declaration.declarationCheckbox') &&
         (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent'))) &&
             isEqual('/executors-invite', req.originalUrl)
     ) {
-        res.redirect('tasklist');
+        res.redirect('task-list');
     } else if (get(formdata, 'declaration.declarationCheckbox') &&
         (!hasMultipleApplicants || !(get(formdata, 'executors.executorsEmailChanged'))) &&
             isEqual('/executors-update-invite', req.originalUrl)
     ) {
-        res.redirect('tasklist');
+        res.redirect('task-list');
     } else if (req.originalUrl.includes('summary') && isHardStop(formdata, setJourney.getJourneyName(req.session))) {
-        res.redirect('/tasklist');
+        res.redirect('/task-list');
     } else {
         next();
     }

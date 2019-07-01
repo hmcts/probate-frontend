@@ -264,7 +264,7 @@ describe('ExecutorAddress', () => {
             };
             const url = ExecutorAddress.nextStepUrl(req, testCtx);
 
-            expect(url).to.equal('/tasklist');
+            expect(url).to.equal('/task-list');
             done();
         });
 

@@ -2,6 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const singleApplicantData = require('test/data/singleApplicant');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('task-list', () => {
     let testWrapper, sessionData;
@@ -33,7 +34,7 @@ describe('task-list', () => {
                 'checkYourAnswers',
                 'alreadyDeclared'
             ];
-
+            sessionData.caseType = caseTypes.GOP;
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -57,7 +58,7 @@ describe('task-list', () => {
                 'checkYourAnswers',
                 'alreadyDeclared'
             ];
-
+            sessionData.caseType = caseTypes.INTESTACY;
             sessionData.caseType = 'intestacy';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -68,6 +69,7 @@ describe('task-list', () => {
 
         it('[PROBATE] test right content loaded in Review and Confirm section (Multiple Applicants)', (done) => {
             const multipleApplicantSessionData = {
+                caseType: caseTypes.GOP,
                 will: sessionData.will,
                 iht: sessionData.iht,
                 applicant: sessionData.applicant,
@@ -95,6 +97,7 @@ describe('task-list', () => {
 
         it('[PROBATE] test right content loaded in Review and Confirm section (Single Applicant)', (done) => {
             const singleApplicantSessionData = {
+                caseType: caseTypes.GOP,
                 will: sessionData.will,
                 iht: sessionData.iht,
                 applicant: sessionData.applicant,
@@ -124,6 +127,7 @@ describe('task-list', () => {
 
         it('[INTESTACY] test right content loaded in Review and Confirm section', (done) => {
             const singleApplicantSessionData = {
+                caseType: caseTypes.INTESTACY,
                 will: sessionData.will,
                 iht: sessionData.iht,
                 applicant: sessionData.applicant,

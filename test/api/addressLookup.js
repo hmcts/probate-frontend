@@ -1,5 +1,5 @@
-/*global describe, it, before, beforeEach, after, afterEach */
 'use strict';
+
 const assert = require('chai').assert;
 const sinon = require('sinon');
 const testConfig = require('test/config');

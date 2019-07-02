@@ -71,7 +71,7 @@ class UIStepRunner {
                     formdata.declaration.hasDataChanged = true;
                 }
 
-                const result = yield step.persistFormData(session.regId, formdata, session.id, ctx);
+                const result = yield step.persistFormData(session.regId, formdata, session.id);
 
                 if (result.name === 'Error') {
                     req.log.error('Could not persist user data', result.message);

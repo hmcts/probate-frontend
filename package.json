@@ -114,7 +114,7 @@
     "codeceptjs": "^2.1.4",
     "eslint": "6.0.1",
     "eslint-plugin-mocha": "^4.8.0",
-    "istanbul": "^0.4.5",
+    "istanbul": "^1.1.0-alpha.1",
     "mocha": "^2.5.3",
     "mocha-jenkins-reporter": "^0.3.8",
     "mocha-multi": "^1.1.0",

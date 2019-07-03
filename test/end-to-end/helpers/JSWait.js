@@ -18,10 +18,9 @@ class JSWait extends codecept_helper {
                 helper.page.waitForNavigation({waitUntil: 'networkidle0'}),
                 helper.click(text, locator)
             ]);
-        } else {
-            helper.click(text, locator);
-            await helper.wait(2);
         }
+        helper.click(text, locator);
+        await helper.wait(2);
     }
 
     async amOnLoadedPage (url) {

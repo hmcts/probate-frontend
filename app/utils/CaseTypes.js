@@ -8,8 +8,6 @@ const caseTypes = {
 const isIntestacyCaseType = (session) => {
     if (session.form && session.form.caseType) {
         return session.form.caseType === caseTypes.INTESTACY;
-    } else if (session.caseType) {
-        return session.caseType === caseTypes.INTESTACY;
     }
     return false;
 };

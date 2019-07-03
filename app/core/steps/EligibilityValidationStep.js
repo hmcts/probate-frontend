@@ -30,9 +30,8 @@ class EligibilityValidationStep extends ValidationStep {
         return ctx;
     }
 
-    handlePost(ctx, errors, formdata, session) {
+    handlePost(ctx, errors, formdata) {
         super.handlePost(ctx, formdata);
-        delete session.form;
         return [ctx, errors];
     }
 

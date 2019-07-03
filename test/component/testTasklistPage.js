@@ -59,7 +59,6 @@ describe('task-list', () => {
                 'alreadyDeclared'
             ];
             sessionData.caseType = caseTypes.INTESTACY;
-            sessionData.caseType = 'intestacy';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -149,7 +148,7 @@ describe('task-list', () => {
                 'alreadyDeclared'
             ];
 
-            singleApplicantSessionData.caseType = 'intestacy';
+            singleApplicantSessionData.caseType = caseTypes.INTESTACY;
             testWrapper.agent.post('/prepare-session/form')
                 .send(singleApplicantSessionData)
                 .end(() => {

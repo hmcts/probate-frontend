@@ -8,6 +8,7 @@ const chaiAsPromised = require('chai-as-promised');
 const IntestacySubmitData = require('app/services/IntestacySubmitData');
 const like = require('@pact-foundation/pact').Matchers.somethingLike;
 const config = require('app/config');
+const caseTypes = require('app/utils/CaseTypes');
 
 const expect = chai.expect;
 const MOCK_SERVER_PORT = 2205;
@@ -28,7 +29,7 @@ describe('Pact Intestacy Submit Data', () => {
 
     const ctx = {};
     ctx.sessionID = 'someSessionId';
-    ctx.caseType = 'intestacy';
+    ctx.caseType = caseTypes.INTESTACY;
     ctx.authToken = 'authToken';
     ctx.userId = 'userId';
 

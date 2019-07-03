@@ -125,30 +125,6 @@ describe('EligibilityValidationStep', () => {
         });
     });
 
-    describe('handlePost()', () => {
-        it('should delete the form data', (done) => {
-            const ctx = {
-                deathCertificate: 'Yes',
-                domicile: 'Yes',
-                completed: 'Yes'
-            };
-            const errors = [];
-            const formdata = {};
-            const session = {form: {}};
-            const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
-            const result = eligibilityValidationStep.handlePost(ctx, errors, formdata, session);
-
-            expect(session).to.deep.equal({});
-            expect(result).to.deep.equal([{
-                deathCertificate: 'Yes',
-                domicile: 'Yes',
-                completed: 'Yes'
-            }, []]);
-
-            done();
-        });
-    });
-
     describe('persistFormData()', () => {
         it('should return an empty object', () => {
             const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);

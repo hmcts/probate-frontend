@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-lines
 'use strict';
 
 const taskListContent = require('app/resources/en/translation/tasklist');
@@ -64,13 +63,11 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht 
     I.selectDocumentsToUpload(true);
     I.selectInheritanceMethod('Online');
     I.enterIHTIdentifier();
-
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterEstateValue('300000', '200000');
     } else {
         I.enterEstateValue('500', '400');
     }
-
     I.selectAssetsOutsideEnglandWales('Yes');
     I.enterValueAssetsOutsideEnglandWales('400000');
     I.selectDeceasedAlias('No');
@@ -90,7 +87,6 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht 
 
     // Copies Task
     I.selectATask(taskListContent.taskNotStarted);
-
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterUkCopies('5');
         I.selectOverseasAssets();
@@ -100,7 +96,6 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht 
         I.selectOverseasAssets();
         I.enterOverseasCopies('0');
     }
-
     I.seeCopiesSummary();
 
     // Payment Task
@@ -111,7 +106,6 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht 
         I.seeGovUkPaymentPage();
         I.seeGovUkConfirmPage();
     }
-
     I.seePaymentStatusPage();
     I.seeThankYouPage();
 });
@@ -161,13 +155,11 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Paper iht an
     I.enterDeceasedAddress();
     I.selectDocumentsToUpload(true);
     I.selectInheritanceMethod('Paper');
-
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterGrossAndNet('205', '600000', '300000');
     } else {
         I.enterGrossAndNet('205', '500', '400');
     }
-
     I.selectAssetsOutsideEnglandWales('Yes');
     I.enterValueAssetsOutsideEnglandWales('400000');
     I.selectDeceasedAlias('No');
@@ -187,7 +179,6 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Paper iht an
 
     // Copies Task
     I.selectATask(taskListContent.taskNotStarted);
-
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterUkCopies('5');
         I.selectOverseasAssets();
@@ -197,7 +188,6 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Paper iht an
         I.selectOverseasAssets();
         I.enterOverseasCopies('0');
     }
-
     I.seeCopiesSummary();
 
     // Payment Task
@@ -208,7 +198,6 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Paper iht an
         I.seeGovUkPaymentPage();
         I.seeGovUkConfirmPage();
     }
-
     I.seePaymentStatusPage();
     I.seeDocumentsPage();
     I.seeThankYouPage();
@@ -260,7 +249,6 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht 
     I.selectDocumentsToUpload(false);
     I.selectInheritanceMethod('Online');
     I.enterIHTIdentifier();
-
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterEstateValue('300000', '200000');
     } else {
@@ -286,7 +274,6 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht 
 
     // Copies Task
     I.selectATask(taskListContent.taskNotStarted);
-
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterUkCopies('5');
         I.selectOverseasAssets();
@@ -296,7 +283,6 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht 
         I.selectOverseasAssets();
         I.enterOverseasCopies('0');
     }
-
     I.seeCopiesSummary();
 
     // Payment Task
@@ -307,7 +293,6 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht 
         I.seeGovUkPaymentPage();
         I.seeGovUkConfirmPage();
     }
-
     I.seePaymentStatusPage();
     I.seeDocumentsPage();
     I.seeThankYouPage();

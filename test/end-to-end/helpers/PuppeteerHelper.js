@@ -18,7 +18,14 @@ class PuppeteerHelper extends Helper {
             page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']}), // The promise resolves after navigation has finished
             page.click(locator) // Clicking the link will indirectly cause a navigation
         ]);
+    }
 
+    uploadDocumentIfNotMicrosoftEdge() {
+        // comment to override eslint
+    }
+
+    downloadPdfIfNotIE11() {
+        // comment to override eslint
     }
 }
 module.exports = PuppeteerHelper;

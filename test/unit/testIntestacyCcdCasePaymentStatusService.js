@@ -22,8 +22,8 @@ describe('IntestacyCcdCasePaymentStatus', () => {
             expect(postStub.calledWith(
                 {testCtx: true},
                 'Post intestacy ccd case payment status',
-                endpoint + config.services.orchestrator.paths.payments,
-                submitData
+                `${endpoint}/updatePaymentStatus`,
+                {submitdata: submitData}
             )).to.equal(true);
 
             revert();

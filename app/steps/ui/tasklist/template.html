@@ -15,19 +15,19 @@
                 <div class="form-group">
                     <ol>
                         {% ifAsync fields.journeyType.value === "gop" %}
-                            {% include "ui/tasklist/includes/deceased.html" %}
-                            {% include "ui/tasklist/includes/executors.html" %}
-                            {% include "ui/tasklist/includes/reviewAndConfirm.html" %}
-                            {% include "ui/tasklist/includes/copies.html" %}
-                            {% include "ui/tasklist/includes/payment.html" %}
-                            {% include "ui/tasklist/includes/documents.html" %}
+                            {% include "ui/tasklist/includes/deceased.njk" %}
+                            {% include "ui/tasklist/includes/executors.njk" %}
+                            {% include "ui/tasklist/includes/reviewAndConfirm.njk" %}
+                            {% include "ui/tasklist/includes/copies.njk" %}
+                            {% include "ui/tasklist/includes/payment.njk" %}
+                            {% include "ui/tasklist/includes/documents.njk" %}
                         {% endif %}
                         {% ifAsync fields.journeyType.value === "intestacy" %}
-                            {% include "ui/tasklist/includes/deceased.html" %}
-                            {% include "ui/tasklist/includes/applicants.html" %}
-                            {% include "ui/tasklist/includes/reviewAndConfirm.html" %}
-                            {% include "ui/tasklist/includes/copies.html" %}
-                            {% include "ui/tasklist/includes/payment.html" %}
+                            {% include "ui/tasklist/includes/deceased.njk" %}
+                            {% include "ui/tasklist/includes/applicants.njk" %}
+                            {% include "ui/tasklist/includes/reviewAndConfirm.njk" %}
+                            {% include "ui/tasklist/includes/copies.njk" %}
+                            {% include "ui/tasklist/includes/payment.njk" %}
                         {% endif %}
                     </ol>
                 </div>

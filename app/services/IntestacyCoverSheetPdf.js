@@ -1,7 +1,7 @@
 'use strict';
 
 const IntestacyPdf = require('./IntestacyPdf');
-const {trim, join} = require('lodash');
+const FormatName = require('app/utils/FormatName');
 
 class IntestacyCoverSheetPdf extends IntestacyPdf {
     post(formdata) {
@@ -9,7 +9,7 @@ class IntestacyCoverSheetPdf extends IntestacyPdf {
         const body = {
             bulkScanCoverSheet: {
                 applicantAddress: formdata.applicant.address.formattedAddress,
-                applicantName: join([trim(formdata.applicant.firstName), trim(formdata.applicant.lastName)], ' '),
+                applicantName: FormatName.format(formdata.applicant),
                 caseReference: formdata.ccdCase.id,
                 submitAddress: formdata.registry.address
             }

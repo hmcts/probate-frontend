@@ -10,9 +10,7 @@
 {% block form_content %}
     <fieldset>
         <h2 class="form-title heading-medium">{{ content.questionName | safe }}</h2>
-        <legend class="visually-hidden">
-            {{ content.questionName | safe }}
-        </legend>
+        <legend class="visually-hidden">{{ content.questionName | safe }}</legend>
         {{ textField(
             name = 'firstName',
             field = fields.firstName,
@@ -29,9 +27,7 @@
     </fieldset>
     <fieldset>
         <h2 class="form-title heading-medium">{{ content.questionDob | safe }}</h2>
-        <legend class="visually-hidden">
-            {{ content.questionDob | safe }}
-        </legend>
+        <legend class="visually-hidden">{{ content.questionDob | safe }}</legend>
         {{ date(
             name = 'dob',
             day = fields.dob_day,
@@ -45,9 +41,7 @@
     </fieldset>
     <fieldset>
         <h2 class="form-title heading-medium">{{ content.questionDod | safe }}</h2>
-        <legend class="visually-hidden">
-            {{ content.questionDod | safe }}
-        </legend>
+        <legend class="visually-hidden">{{ content.questionDod | safe }}</legend>
         {{ date(
             name = 'dod',
             day = fields.dod_day,

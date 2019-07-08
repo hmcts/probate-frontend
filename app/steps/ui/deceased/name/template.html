@@ -9,9 +9,7 @@
 {% block form_content %}
     <p class="form-hint">{{ content.explanation1 }}</p>
     <fieldset>
-        <legend class="visually-hidden">
-            {{ content.question | safe }}
-        </legend>
+        <legend class="visually-hidden">{{ content.question | safe }}</legend>
         {{ textField(
             name = 'firstName',
             field = fields.firstName,

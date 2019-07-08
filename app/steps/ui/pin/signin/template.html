@@ -15,9 +15,7 @@
     <p>{{ content.phoneCode | safe }}</p>
 
     <fieldset>
-        <legend class="visually-hidden">
-            {{ content.pinLegend | safe }}
-        </legend>
+        <legend class="visually-hidden">{{ content.pinLegend | safe }}</legend>
         {{ passwordField(
             name = 'pin',
             field = fields.pin,

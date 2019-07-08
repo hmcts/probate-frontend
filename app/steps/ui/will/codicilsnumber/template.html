@@ -8,9 +8,7 @@
 
 {% block form_content %}
     <fieldset>
-        <legend class="visually-hidden">
-            {{ content.title | safe }}
-        </legend>
+        <legend class="visually-hidden">{{ content.title | safe }}</legend>
         {{ numberField(
             name = 'codicilsNumber',
             field = fields.codicilsNumber,

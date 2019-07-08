@@ -10,9 +10,7 @@
 {% block form_content %}
     <p class="form-hint">{{ content.explanation1 | safe }}</p>
     <fieldset>
-        <legend class="visually-hidden">
-            {{ content.findAddress | safe }}
-        </legend>
+        <legend class="visually-hidden">{{ content.findAddress | safe }}</legend>
         <!-- Applicant address lookup -->
         {{ addressFinder(
             fields,

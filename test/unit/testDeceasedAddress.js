@@ -20,12 +20,9 @@ describe('DeceasedAddress', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        journeyType: 'gop'
+                        caseType: 'gop'
                     },
-                    featureToggles: {
-                        document_upload: true
-                    },
-                    journeyType: 'gop'
+                    caseType: 'gop'
                 },
                 body: {
                     addressLine1: '143 Caerfai Bay Road',
@@ -43,7 +40,7 @@ describe('DeceasedAddress', () => {
                 newPostCode: 'L23 6WW',
                 postcode: 'L23 6WW',
                 sessionID: 'dummy_sessionId',
-                journeyType: 'gop',
+                caseType: 'gop',
                 featureToggles: {
                     webchat: 'false'
                 }

@@ -27,7 +27,7 @@ describe('Contact-Details', function () {
                 properties: {}
             };
             formdata = {
-                journeyType: 'gop'
+                caseType: 'gop'
             };
             ctx = {
                 executorsNumber: 3,

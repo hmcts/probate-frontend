@@ -4,6 +4,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
+const caseTypes = require('app/utils/CaseTypes');
 const ThankYou = require('app/steps/ui/thankyou');
 const deceasedMaritalStatusContent = require('app/resources/en/translation/deceased/maritalstatus');
 const ihtContent = require('app/resources/en/translation/iht/method');
@@ -19,6 +20,7 @@ describe('documents', () => {
 
     beforeEach(() => {
         sessionData = {
+            caseType: caseTypes.GOP,
             ccdCase: {
                 state: 'CaseCreated',
                 id: '1234-1235-1236-1237'
@@ -361,6 +363,7 @@ describe('documents', () => {
                     method: ihtContent.optionPaper,
                     form: 'IHT205'
                 };
+                sessionData.caseType = caseTypes.INTESTACY;
 
                 contentData.renunciationFormLink = config.links.renunciationForm;
 

@@ -1,3 +1,7 @@
+tags:
+  - rpe-feature-toggle-api-pod
+  - idam-pr
+
 nodejs:
   environment:
     FEATURE_TOGGLES_API_URL: http://${SERVICE_NAME}-ftr-tgl-api
@@ -35,8 +39,6 @@ nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
 
-postgresql:
-  enabled: true # for rpe-feature-toggle-api c
 
 rpe-feature-toggle-api:
   releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
@@ -44,6 +46,9 @@ rpe-feature-toggle-api:
     releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
     ingressIP: ${INGRESS_IP}
     consulIP: ${CONSUL_LB_IP}
+    postgresql:
+      image:
+        tag: '11.3.0'
     registerAdditionalDns:
       enabled: true
       primaryIngressHost: ${SERVICE_FQDN}
@@ -51,6 +56,14 @@ rpe-feature-toggle-api:
     environment:
       EDITOR_USERNAME_TEST: editor@example.com
       EDITOR_PASSWORD_TEST: Password12
+    importer:
+      cron:
+        enabled: false
+      oneoff:
+        enabled: false
+
+postgresql:
+  enabled: true # for rpe-feature-toggle-api
 
 idam-pr:
   service:

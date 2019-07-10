@@ -23,7 +23,7 @@ describe('WillLeft', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {},
-                    journeyType: 'gop'
+                    caseType: 'gop'
                 },
                 body: {
                     left: content.optionYes
@@ -35,7 +35,7 @@ describe('WillLeft', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 left: content.optionYes,
-                journeyType: 'gop',
+                caseType: 'gop',
                 featureToggles: {
                     webchat: 'false'
                 }
@@ -45,7 +45,7 @@ describe('WillLeft', () => {
     });
 
     describe('handlePost()', () => {
-        it('should remove session.form and set session.caseType', (done) => {
+        it('should set session.form.caseType', (done) => {
             const ctxToTest = {
                 left: content.optionYes
             };
@@ -55,11 +55,7 @@ describe('WillLeft', () => {
                 form: {}
             };
             const [ctx, errors] = WillLeft.handlePost(ctxToTest, errorsToTest, formdata, session);
-            expect(session).to.deep.equal({
-                caseType: 'gop'
-            });
             expect(ctx).to.deep.equal({
-                caseType: 'gop',
                 left: content.optionYes
             });
             expect(errors).to.deep.equal({});

@@ -1,6 +1,6 @@
 'use strict';
 
-const setJourney = require('app/middleware/setJourney');
+const caseTypes = require('app/utils/CaseTypes');
 const Step = require('app/core/steps/Step');
 const OptionGetRunner = require('app/core/runners/OptionGetRunner');
 const FieldError = require('app/components/error');
@@ -78,7 +78,7 @@ class Summary extends Step {
             fields.featureToggles = {};
             fields.featureToggles.value = ctx.featureToggles;
 
-            if (ctx.journeyType === 'intestacy') {
+            if (ctx.caseType === caseTypes.INTESTACY) {
                 fields[this.section].deceasedMaritalStatusQuestion.value = unescape(fields[this.section].deceasedMaritalStatusQuestion.value);
                 fields[this.section].deceasedDivorcePlaceQuestion.value = unescape(fields[this.section].deceasedDivorcePlaceQuestion.value);
                 fields[this.section].deceasedAnyChildrenQuestion.value = unescape(fields[this.section].deceasedAnyChildrenQuestion.value);
@@ -104,12 +104,11 @@ class Summary extends Step {
         const deceasedName = FormatName.format(formdata.deceased);
         const content = this.generateContent(ctx, formdata);
         const hasCodicils = willWrapper.hasCodicils();
-        ctx.journeyType = setJourney.getJourneyName(req.session);
         ctx.ihtTotalNetValue = get(formdata, 'iht.netValue', 0);
 
         ctx.deceasedAliasQuestion = content.DeceasedAlias.question
             .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedAlias.theDeceased);
-        if (ctx.journeyType === 'gop') {
+        if (ctx.caseType === caseTypes.GOP) {
             ctx.deceasedMarriedQuestion = (hasCodicils ? content.DeceasedMarried.questionWithCodicil : content.DeceasedMarried.question)
                 .replace('{deceasedName}', deceasedName);
         } else {
@@ -129,7 +128,7 @@ class Summary extends Step {
             ctx.deceasedSpouseNotApplyingReasonQuestion = content.SpouseNotApplyingReason.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.SpouseNotApplyingReason.theDeceased);
 
-            if (ctx.journeyType === 'intestacy' && formdata.iht && formdata.iht.assetsOutside === content.AssetsOutside.optionYes) {
+            if (ctx.caseType === caseTypes.INTESTACY && formdata.iht && formdata.iht.assetsOutside === content.AssetsOutside.optionYes) {
                 ctx.ihtTotalNetValue += formdata.iht.netValueAssetsOutside;
             }
             ctx.ihtTotalNetValueGreaterThan250k = (ctx.ihtTotalNetValue > config.assetsValueThreshold);

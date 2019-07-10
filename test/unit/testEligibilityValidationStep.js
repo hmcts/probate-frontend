@@ -43,9 +43,9 @@ describe('EligibilityValidationStep', () => {
                 method: 'GET',
                 session: {
                     form: {
-                        journeyType: 'gop'
+                        caseType: 'gop'
                     },
-                    journeyType: 'gop'
+                    caseType: 'gop'
                 },
                 sessionID: 'abc123'
             };
@@ -61,7 +61,7 @@ describe('EligibilityValidationStep', () => {
             expect(EligibilityValidationStep.__get__('eligibilityCookie.getAnswer').calledWith(req, pageUrl, fieldKey)).to.equal(true);
             expect(ctx).to.deep.equal({
                 sessionID: 'abc123',
-                journeyType: 'gop',
+                caseType: 'gop',
                 featureToggles: {
                     webchat: 'false'
                 }
@@ -78,7 +78,7 @@ describe('EligibilityValidationStep', () => {
 
             expect(ctx).to.deep.equal({
                 sessionID: 'abc123',
-                journeyType: 'gop',
+                caseType: 'gop',
                 deathCertificate: 'Yes',
                 featureToggles: {
                     webchat: 'false'
@@ -95,7 +95,7 @@ describe('EligibilityValidationStep', () => {
                 deceased: {
                     deathCertificate: 'Yes'
                 },
-                journeyType: 'gop'
+                caseType: 'gop'
             };
             const featureToggles = {
                 isIntestacyQuestionsToggleEnabled: true
@@ -106,12 +106,12 @@ describe('EligibilityValidationStep', () => {
             const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey, featureToggles);
 
             expect(nextStepUrlStub.calledOnce).to.equal(true);
-            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', journeyType: 'gop', deathCertificate: 'Yes', isIntestacyQuestionsToggleEnabled: true, featureToggles: {webchat: 'false'}})).to.equal(true);
+            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', caseType: 'gop', deathCertificate: 'Yes', isIntestacyQuestionsToggleEnabled: true, featureToggles: {webchat: 'false'}})).to.equal(true);
             expect(setEligibilityCookieStub.calledOnce).to.equal(true);
             expect(setEligibilityCookieStub.calledWith(req, res, nextStepUrl, fieldKey, fieldValue)).to.equal(true);
             expect(ctx).to.deep.equal({
                 sessionID: 'abc123',
-                journeyType: 'gop',
+                caseType: 'gop',
                 deathCertificate: 'Yes',
                 isIntestacyQuestionsToggleEnabled: true,
                 featureToggles: {
@@ -121,30 +121,6 @@ describe('EligibilityValidationStep', () => {
 
             nextStepUrlStub.restore();
             setEligibilityCookieStub.restore();
-            done();
-        });
-    });
-
-    describe('handlePost()', () => {
-        it('should delete the form data', (done) => {
-            const ctx = {
-                deathCertificate: 'Yes',
-                domicile: 'Yes',
-                completed: 'Yes'
-            };
-            const errors = [];
-            const formdata = {};
-            const session = {form: {}};
-            const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
-            const result = eligibilityValidationStep.handlePost(ctx, errors, formdata, session);
-
-            expect(session).to.deep.equal({});
-            expect(result).to.deep.equal([{
-                deathCertificate: 'Yes',
-                domicile: 'Yes',
-                completed: 'Yes'
-            }, []]);
-
             done();
         });
     });

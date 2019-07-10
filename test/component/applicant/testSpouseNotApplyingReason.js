@@ -6,6 +6,7 @@ const StopPage = require('app/steps/ui/stoppage/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const content = require('app/resources/en/translation/applicant/spousenotapplyingreason');
 const config = require('app/config');
+const caseTypes = require('app/utils/CaseTypes');
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
 const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
@@ -54,7 +55,8 @@ describe('spouse-not-applying-reason', () => {
         });
 
         it(`test it redirects to Any Other Children page if spouse renouncing: ${expectedNextUrlForAnyOtherChildren}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
                         spouseNotApplyingReason: content.optionRenouncing
@@ -65,7 +67,8 @@ describe('spouse-not-applying-reason', () => {
         });
 
         it(`test it redirects to Any Other Children page if spouse not applying for other reasons: ${expectedNextUrlForStopPage}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
                         spouseNotApplyingReason: content.optionOther

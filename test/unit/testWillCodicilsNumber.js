@@ -20,9 +20,9 @@ describe('CodicilsNumber', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        journeyType: 'gop'
+                        caseType: 'gop'
                     },
-                    journeyType: 'gop'
+                    caseType: 'gop'
                 },
                 body: {
                     codicilsNumber: '3'
@@ -32,7 +32,7 @@ describe('CodicilsNumber', () => {
             expect(ctx).to.deep.equal({
                 codicilsNumber: 3,
                 sessionID: 'dummy_sessionId',
-                journeyType: 'gop',
+                caseType: 'gop',
                 featureToggles: {
                     webchat: 'false'
                 }
@@ -45,9 +45,9 @@ describe('CodicilsNumber', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        journeyType: 'gop'
+                        caseType: 'gop'
                     },
-                    journeyType: 'gop'
+                    caseType: 'gop'
                 },
                 body: {
                     codicilsNumber: null
@@ -57,7 +57,7 @@ describe('CodicilsNumber', () => {
             expect(ctx).to.deep.equal({
                 codicilsNumber: null,
                 sessionID: 'dummy_sessionId',
-                journeyType: 'gop',
+                caseType: 'gop',
                 featureToggles: {
                     webchat: 'false'
                 }

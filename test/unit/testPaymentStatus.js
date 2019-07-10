@@ -65,6 +65,7 @@ describe('PaymentStatus', () => {
             }
         });
         expectedFormData = {
+            'caseType': 'gop',
             'ccdCase': {
                 'state': 'CaseCreated'
             },
@@ -179,6 +180,7 @@ describe('PaymentStatus', () => {
             nockMock.reply(200, {caseState: 'CaseCreated'});
 
             const expectedFormData = {
+                'caseType': 'gop',
                 'ccdCase': {
                     'state': 'CaseCreated'
                 },

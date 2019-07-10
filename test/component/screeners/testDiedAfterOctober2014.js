@@ -6,6 +6,7 @@ const StopPage = require('app/steps/ui/stoppage');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
+const caseTypes = require('app/utils/CaseTypes');
 const cookies = [{
     name: config.redis.eligibilityCookie.name,
     content: {
@@ -51,14 +52,16 @@ describe('died-after-october-2014', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.testErrors(done, {}, 'required', [], cookies);
                 });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForRelatedToDeceased}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
                         diedAfter: 'Yes'
@@ -69,7 +72,8 @@ describe('died-after-october-2014', () => {
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
                         diedAfter: 'No'

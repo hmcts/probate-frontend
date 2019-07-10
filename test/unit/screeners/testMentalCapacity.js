@@ -23,7 +23,7 @@ describe('MentalCapacity', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {},
-                    journeyType: 'gop'
+                    caseType: 'gop'
                 },
                 body: {
                     mentalCapacity: content.optionYes
@@ -35,7 +35,7 @@ describe('MentalCapacity', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 mentalCapacity: content.optionYes,
-                journeyType: 'gop',
+                caseType: 'gop',
                 featureToggles: {
                     webchat: 'false'
                 }

@@ -30,13 +30,14 @@ var DocumentUpload = {
                 .on('addedfile', function() {
                     DocumentUpload.hideEmptyListMessage();
                     DocumentUpload.disableSubmitButton();
-                    DocumentUpload.addDataIndex();
+                    DocumentUpload.updateLinkAttributes();
                 })
                 .on('removedfile', function(file) {
                     DocumentUpload.showEmptyListMessage();
                     DocumentUpload.removeErrorSummaryLine(file.previewElement.firstElementChild.innerText);
                     DocumentUpload.removeErrorSummary();
                     DocumentUpload.removeDocument(file._removeLink.dataset.index);
+                    DocumentUpload.updateLinkAttributes();
                 })
                 .on('error', function(file, error) {
                     DocumentUpload.showErrorSummary();
@@ -99,12 +100,13 @@ var DocumentUpload = {
     disableSubmitButton: function() {
         $('.button').attr('disabled', 'disabled');
     },
-    addDataIndex: function() {
+    updateLinkAttributes: function() {
         $('.dz-preview').each(function(key) {
             $(this).find('.dz-remove').attr('data-index', key);
+            $(this).find('.dz-remove').attr('href', '/document-upload/remove/' + key);
         });
     },
     removeDocument: function(index) {
         $.get('/document-upload/remove/' + index);
     }
-}
+};

@@ -125,7 +125,7 @@ describe('Summary', () => {
                     webchat: 'false'
                 },
                 ihtTotalNetValue: 300000,
-                journeyType: 'gop',
+                caseType: 'gop',
                 readyToDeclare: false,
                 session: {
                     form: {
@@ -184,7 +184,7 @@ describe('Summary', () => {
                 },
                 ihtTotalNetValue: 550000,
                 ihtTotalNetValueGreaterThan250k: true,
-                journeyType: 'intestacy',
+                caseType: 'intestacy',
                 readyToDeclare: false,
                 session: {
                     form: {

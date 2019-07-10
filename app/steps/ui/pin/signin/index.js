@@ -23,7 +23,7 @@ class PinPage extends ValidationStep {
             const formData = ServiceMapper.map(
                 'FormData',
                 [config.services.persistence.url, ctx.sessionID],
-                ctx.journeyType
+                ctx.caseType
             );
             yield formData.get(session.formdataId)
                 .then(result => {

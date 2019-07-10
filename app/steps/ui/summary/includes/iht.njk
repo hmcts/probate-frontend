@@ -72,7 +72,7 @@
         {
             question: content.ValueAssetsOutside.question,
             answer: fields.iht.netValueAssetsOutsideField.value,
-            visible: fields.summary.journeyType.value === "intestacy" and fields.iht.assetsOutside.value == content.AssetsOutside.optionYes
+            visible: fields.summary.caseType.value === "intestacy" and fields.iht.assetsOutside.value == content.AssetsOutside.optionYes
         }
     ],
     url = content.ValueAssetsOutside.url,

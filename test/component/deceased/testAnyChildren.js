@@ -6,6 +6,7 @@ const ApplicantName = require('app/steps/ui/applicant/name/index');
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const content = require('app/resources/en/translation/deceased/anychildren');
 const config = require('app/config');
+const caseTypes = require('app/utils/CaseTypes');
 const nock = require('nock');
 const featureToggleUrl = config.featureToggles.url;
 const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
@@ -54,7 +55,8 @@ describe('any-children', () => {
         });
 
         it(`test it redirects to All Children Over 18 page if deceased had children: ${expectedNextUrlForAllChildrenOver18}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
                         anyChildren: content.optionYes
@@ -65,7 +67,8 @@ describe('any-children', () => {
         });
 
         it(`test it redirects to Applicant Name page if deceased had no children: ${expectedNextUrlForApplicantName}`, (done) => {
-            testWrapper.agent.post('/prepare-session-field/caseType/intestacy')
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
                         anyChildren: content.optionNo

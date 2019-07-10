@@ -20,9 +20,9 @@ describe('CopiesUk', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        journeyType: 'gop'
+                        caseType: 'gop'
                     },
-                    journeyType: 'gop'
+                    caseType: 'gop'
                 },
                 body: {
                     uk: '3'
@@ -32,7 +32,7 @@ describe('CopiesUk', () => {
             expect(ctx).to.deep.equal({
                 uk: 3,
                 sessionID: 'dummy_sessionId',
-                journeyType: 'gop',
+                caseType: 'gop',
                 featureToggles: {
                     webchat: 'false'
                 }

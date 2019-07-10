@@ -3,7 +3,7 @@
 const Step = require('app/core/steps/Step');
 const utils = require('app/components/step-utils');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const setJourney = require('app/middleware/setJourney');
+const caseTypes = require('app/utils/CaseTypes');
 
 class TaskList extends Step {
 
@@ -19,7 +19,7 @@ class TaskList extends Step {
     }
 
     copiesPreviousTaskStatus(session, ctx) {
-        if (ctx.journeyType === 'gop') {
+        if (ctx.caseType === caseTypes.GOP) {
             if (ctx.hasMultipleApplicants && session.haveAllExecutorsDeclared === 'false') {
                 return 'locked';
             }
@@ -36,9 +36,8 @@ class TaskList extends Step {
         utils.updateTaskStatus(ctx, req, this.steps);
 
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
-        ctx.journeyType = setJourney.getJourneyName(req.session);
 
-        if (ctx.journeyType === 'gop') {
+        if (ctx.caseType === caseTypes.GOP) {
             const executorsWrapper = new ExecutorsWrapper(formdata.executors);
             ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
 
@@ -68,7 +67,7 @@ class TaskList extends Step {
         delete ctx.hasMultipleApplicants;
         delete ctx.alreadyDeclared;
         delete ctx.previousTaskStatus;
-        delete ctx.journeyType;
+        delete ctx.caseType;
         return [ctx, formdata];
     }
 }

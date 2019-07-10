@@ -159,7 +159,7 @@ class PaymentBreakdown extends Step {
         const submitData = ServiceMapper.map(
             'SubmitData',
             [config.services.submit.url, ctx.sessionID],
-            ctx.journeyType
+            ctx.caseType
         );
         const result = yield submitData.post(formdata, ctx, softStop);
         logger.info(`submitData.post result = ${JSON.stringify(result)}`);

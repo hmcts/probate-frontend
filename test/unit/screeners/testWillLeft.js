@@ -50,7 +50,8 @@ describe('WillLeft', () => {
                 left: content.optionYes
             };
             const errorsToTest = {};
-            const formdata = {};
+            const formdata = {
+            };
             const session = {
                 form: {}
             };
@@ -59,6 +60,41 @@ describe('WillLeft', () => {
                 left: content.optionYes
             });
             expect(errors).to.deep.equal({});
+            done();
+        });
+
+        it('should clear session.form except for retainedList on change of caseType', (done) => {
+            const ctxToTest = {
+                left: content.optionYes,
+                caseType: 'Intestacy'
+            };
+            const errorsToTest = {};
+            const formdata = {
+                key: 'value',
+                key2: 'value',
+                applicantEmail: 'test@email.com',
+                payloadVersion: '1.0.1',
+                screeners: {
+                    screen1: 'yes'
+                }
+            };
+            const session = {};
+            session.form = formdata;
+
+            const [ctx, errors] = WillLeft.handlePost(ctxToTest, errorsToTest, formdata, session);
+            expect(errors).to.deep.equal({});
+            expect(ctx).to.deep.equal({
+                caseType: 'Intestacy',
+                left: 'Yes'
+            });
+            expect(formdata).to.deep.equal({
+                applicantEmail: 'test@email.com',
+                caseType: 'gop',
+                payloadVersion: '1.0.1',
+                screeners: {
+                    screen1: 'yes'
+                }
+            });
             done();
         });
     });

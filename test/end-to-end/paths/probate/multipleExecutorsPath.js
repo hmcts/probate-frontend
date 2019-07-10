@@ -38,7 +38,8 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.enterDeceasedDateOfBirth('01', '01', '1950');
     I.enterDeceasedDateOfDeath('01', '01', '2017');
     I.enterDeceasedAddress();
-    I.selectDocumentsToUpload();
+    const uploadingDocuments = false;
+    I.selectDocumentsToUpload(uploadingDocuments);
     I.selectInheritanceMethod('Paper');
 
     if (TestConfigurator.getUseGovPay() === 'true') {

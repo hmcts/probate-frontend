@@ -113,6 +113,7 @@ module.exports = function () {
         selectDeceasedMaritalStatus: steps.deceased.maritalstatus,
         selectDeceasedDivorcePlace: steps.deceased.divorceplace,
         selectRelationshipToDeceased: steps.applicant.relationshiptodeceased,
+        selectSpouseNotApplyingReason: steps.applicant.spousenotapplyingreason,
 
         // Tasks
         completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,

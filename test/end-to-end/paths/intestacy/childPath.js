@@ -20,7 +20,7 @@ After(() => {
 // eslint-disable-next-line no-undef
 Scenario(TestConfigurator.idamInUseText('Intestacy Child Journey - Digital iht, death certificate uploaded and spouse not renouncing'), function (I) {
     // set variables
-    const uploadingDocuments = false;
+    const uploadingDocuments = true;
 
     // Eligibility Task (pre IdAM)
     I.startApplication();

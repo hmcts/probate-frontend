@@ -21,7 +21,16 @@ class WillLeft extends EligibilityValidationStep {
     }
 
     handlePost(ctx, errors, formdata, session) {
-        formdata.caseType = (ctx.left === content.optionYes) ? caseTypes.GOP : caseTypes.INTESTACY;
+        const pageCaseType = (ctx.left === content.optionYes) ? caseTypes.GOP : caseTypes.INTESTACY;
+        if (ctx.caseType && ctx.caseType !== pageCaseType) {
+            const retainedList = ['applicantEmail', 'payloadVersion', 'screeners'];
+            Object.keys(formdata).forEach((key) => {
+                if (!retainedList.includes(key)) {
+                    delete formdata[key];
+                }
+            });
+        }
+        formdata.caseType = pageCaseType;
 
         return super.handlePost(ctx, errors, formdata, session);
     }

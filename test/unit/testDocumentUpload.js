@@ -3,6 +3,7 @@
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
+const DocumentUpload = steps.DocumentUpload;
 
 describe('DocumentUpload.js', () => {
     describe('getUrl()', () => {
@@ -178,6 +179,31 @@ describe('DocumentUpload.js', () => {
                     message: ''
                 }
             }]);
+            done();
+        });
+    });
+
+    describe('isComplete()', () => {
+
+        let testCtx;
+
+        beforeEach(() => {
+            testCtx = {};
+        });
+
+        it('returns true if formdata has documentupload field', (done) => {
+            const testFormdata = {
+                documentupload: ''
+            };
+            const isComplete = DocumentUpload.isComplete(testCtx, testFormdata);
+            expect(isComplete).to.deep.equal([true, 'inProgress']);
+            done();
+        });
+
+        it('returns false if formdata does not have documentupload field', (done) => {
+            const testFormdata = {};
+            const isComplete = DocumentUpload.isComplete(testCtx, testFormdata);
+            expect(isComplete).to.deep.equal([false, 'inProgress']);
             done();
         });
     });

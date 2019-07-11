@@ -1,19 +1,18 @@
 'use strict';
 
-const {JSDOM} = require('jsdom');
+const cheerio = require('cheerio');
 const FormatName = require('app/utils/FormatName');
 
 class LegalDocumentJSONObjectBuilder {
 
     build(formdata, html) {
-        const dom = new JSDOM(html);
-        const $ = (require('jquery'))(dom.window);
+        const $ = cheerio.load(html);
         const legalDeclaration = {};
         legalDeclaration.headers = [];
         legalDeclaration.sections = [];
         const pageSections = $('.declaration-header, .declaration-subheader, .declaration-item, .list-bullet');
 
-        for (const sectElement of pageSections) {
+        for (const sectElement of Object.entries(pageSections)) {
             const $element = $(sectElement);
             if ($element.hasClass('declaration-header')) {
                 legalDeclaration.headers.push($element.text());
@@ -39,8 +38,12 @@ function buildDeclarationItemValues($element, legalDeclaration) {
     declarationItem.values = [];
     const children = $element.children();
     if (children.length > 0) {
-        for (const statement of children) {
-            declarationItem.values.push(statement.textContent);
+        const rows = children.parent().text()
+            .split('\n');
+        for (let i = 0; i < rows.length; ++i) {
+            if (rows[i].trim().length > 0) {
+                declarationItem.values.push(rows[i].trim());
+            }
         }
     }
     section.declarationItems.push(declarationItem);

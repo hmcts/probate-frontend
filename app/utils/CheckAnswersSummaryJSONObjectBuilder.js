@@ -1,25 +1,27 @@
 'use strict';
 
-const {JSDOM} = require('jsdom');
+const cheerio = require('cheerio');
 
 class CheckAnswersSummaryJSONObjectBuilder {
 
     build(html) {
-        const dom = new JSDOM(html);
-        const $ = (require('jquery'))(dom.window);
+        const $ = cheerio.load(html);
         const summary = {};
         summary.sections = [];
         const sections = $('#check-your-answers .heading-large, #check-your-answers .heading-medium, #check-your-answers .heading-small, #check-your-answers .check-your-answers__row');
         const mainParagraph = $('#main-heading-content');
         summary.mainParagraph = mainParagraph.text();
         let section;
-        for (const sectElement of sections) {
+        for (const sectElement of Object.entries(sections)) {
             const $element = $(sectElement);
             if ($element.hasClass('heading-large')) {
                 summary.pageTitle = $element.text();
             }
-            if ($element.hasClass('heading-medium') || $element.hasClass('heading-small')) {
-                section = buildSection(section, $element, summary);
+            if ($element.hasClass('heading-small')) {
+                section = buildSection(section, $element, summary, 'heading-small');
+            }
+            if ($element.hasClass('heading-medium')) {
+                section = buildSection(section, $element, summary, 'heading-medium');
             }
             if ($element.hasClass('check-your-answers__row') && $element.children().length > 0) {
                 buildQuestionAndAnswers($element, section);
@@ -36,10 +38,14 @@ function buildQuestionAndAnswers($element, section) {
 
     questionAndAnswer.question = question.text();
     questionAndAnswer.answers = [];
-    const children = answer.children('.check-your-answers__row');
-    if (children.length > 0) {
-        for (const answerChild of children) {
-            questionAndAnswer.answers.push(answerChild.textContent);
+    const answer_rows = answer.children('.check-your-answers__row');
+    if (answer_rows.length > 0) {
+        const rows = answer_rows.parent().text()
+            .split('\n');
+        for (let i = 0; i < rows.length; ++i) {
+            if (rows[i].trim().length > 0) {
+                questionAndAnswer.answers.push(rows[i].trim());
+            }
         }
     } else {
         questionAndAnswer.answers.push(answer.text());
@@ -47,10 +53,10 @@ function buildQuestionAndAnswers($element, section) {
     section.questionAndAnswers.push(questionAndAnswer);
 }
 
-function buildSection(section, $element, summary) {
+function buildSection(section, $element, summary, className) {
     section = {};
     section.title = $element.text();
-    section.type = $element.attr('class');
+    section.type = className;
     section.questionAndAnswers = [];
     summary.sections.push(section);
     return section;

@@ -91,6 +91,21 @@ data "azurerm_key_vault_secret" "probate_webchat_tenant" {
   vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
 }
 
+data "azurerm_key_vault_secret" "probate_webchat_button_no_agents" {
+  name = "probate-webchat-button-no-agents"
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+}
+data "azurerm_key_vault_secret" "probate_webchat_button_busy" {
+  name = "probate-webchat-button-busy"
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+}
+
+data "azurerm_key_vault_secret" "probate_webchat_button_service_closed" {
+  name = "probate-webchat-button-service-closed"
+  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+}
+
+
 
 data "azurerm_key_vault_secret" "idam_secret_probate" {
   name = "ccidam-idam-api-secrets-probate"
@@ -153,6 +168,9 @@ module "probate-frontend" {
     GA_TRACKING_ID = "${var.probate_google_track_id}"
     WEBCHAT_CHAT_ID = "${data.azurerm_key_vault_secret.probate_webchat_id.value}"
     WEBCHAT_TENANT = "${data.azurerm_key_vault_secret.probate_webchat_tenant.value}"
+    WEBCHAT_BUTTON_NO_AGENTS = "${data.azurerm_key_vault_secret.probate_webchat_button_no_agents.value}"
+    WEBCHAT_BUTTON_AGENTS_BUSY = "${data.azurerm_key_vault_secret.probate_webchat_button_busy.value}"
+    WEBCHAT_BUTTON_SERVICE_CLOSED = "${data.azurerm_key_vault_secret.probate_webchat_button_service_closed.value}"
 
     // REDIS
     USE_REDIS = "${var.probate_frontend_use_redis}"

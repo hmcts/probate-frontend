@@ -28,7 +28,7 @@ exports.completeExecutorsTask = function () {
     I.enterDeceasedDateOfBirth('1', '1', '1955');
     I.selectDeceasedDomicile();
     I.enterDeceasedAddress();
-    I.selectInheritanceMethodPaper();
+    I.selectInheritanceMethod();
     I.enterGrossAndNet();
     I.seeSummaryPage();
     I.acceptDeclaration();

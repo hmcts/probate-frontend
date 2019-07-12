@@ -115,8 +115,11 @@ const config = {
     gaTrackingId: process.env.GA_TRACKING_ID || 'UA-93598808-3',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
     webChat: {
-        chatId: process.env.WEBCHAT_CHAT_ID || 'script_7143406305ce667c21e2eb9.79440233',
-        tenant: process.env.WEBCHAT_TENANT || 'aG1jdHNzdGFnaW5nMDE',
+        chatId: process.env.WEBCHAT_CHAT_ID || '14595160855d233255b17e88.91511449',
+        tenant: process.env.WEBCHAT_TENANT || 'aG1jdHN4MTAx',
+        buttonNoAgents: process.env.WEBCHAT_BUTTON_NO_AGENTS || '2806315905d232e71137898.81655511',
+        buttonAgentsBusy: process.env.WEBCHAT_BUTTON_AGENTS_BUSY || '6100617245d23302e383e79.04188400',
+        buttonServiceClosed: process.env.WEBCHAT_BUTTON_SERVICE_CLOSED || '19684351645d232edee71e86.59595908',
     },
     links: {
         cookies: '/cookies',

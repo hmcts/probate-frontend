@@ -2,6 +2,8 @@
 
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
+const willLeft = require('app/steps/ui/screeners/willleft');
+const startApply = require('app/steps/ui/screeners/startapply');
 
 Feature('Intestacy spouse flow');
 
@@ -22,36 +24,10 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht 
     // set variables
     const uploadingDocuments = true;
 
-    // Eligibility Task (pre IdAM)
-    I.startApplication();
-
-    // Probate Sceeners
-    I.selectDeathCertificate('No');
-    I.seeStopPage('deathCertificate');
-    I.selectDeathCertificate('Yes');
-
-    I.selectDeceasedDomicile('No');
-    I.seeStopPage('notInEnglandOrWales');
-    I.selectDeceasedDomicile('Yes');
-
-    I.selectIhtCompleted('No');
-    I.seeStopPage('ihtNotCompleted');
-    I.selectIhtCompleted('Yes');
-
+    // To keep the e2e short we only answer will left question
+    I.amOnPage(willLeft.getUrl());
     I.selectPersonWhoDiedLeftAWill('No');
-
-    // Intestacy Sceeners
-    I.selectDiedAfterOctober2014('No');
-    I.seeStopPage('notDiedAfterOctober2014');
-    I.selectDiedAfterOctober2014('Yes');
-
-    I.selectRelatedToDeceased('No');
-    I.seeStopPage('notRelated');
-    I.selectRelatedToDeceased('Yes');
-
-    I.selectOtherApplicants('Yes');
-    I.seeStopPage('otherApplicants');
-    I.selectOtherApplicants('No');
+    I.amOnPage(startApply.getUrl());
 
     I.startApply();
 
@@ -109,4 +85,4 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht 
     }
     I.seePaymentStatusPage();
     I.seeThankYouPage();
-});
+}).retry(TestConfigurator.getRetryScenarios());

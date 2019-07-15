@@ -109,7 +109,7 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Child Journey - Digital iht, 
     }
     I.seePaymentStatusPage();
     I.seeThankYouPage();
-});
+}).retry(TestConfigurator.getRetryScenarios());
 
 // eslint-disable-next-line no-undef
 Scenario(TestConfigurator.idamInUseText('Intestacy Child Journey - Paper iht, no death certificate uploaded and spouse renouncing'), function (I) {
@@ -206,4 +206,4 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Child Journey - Paper iht, no
     I.seePaymentStatusPage();
     I.seeDocumentsPage(paperForm, uploadingDocuments, renouncing);
     I.seeThankYouPage();
-});
+}).retry(TestConfigurator.getRetryScenarios());

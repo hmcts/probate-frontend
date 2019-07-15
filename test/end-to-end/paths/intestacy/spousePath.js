@@ -109,4 +109,4 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht 
     }
     I.seePaymentStatusPage();
     I.seeThankYouPage();
-});
+}).retry(TestConfigurator.getRetryScenarios());

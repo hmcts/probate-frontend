@@ -7,18 +7,14 @@
 {% endblock %}
 
 {% block form_content %}
-    <fieldset class="form-group {{ 'form-group-error' if fields.isApplying.error }} inline">
-        <legend class="visually-hidden">{{ content.question | replace('{executorFullName}', fields.list.value[fields.index.value].fullName) | safe }}</legend>
-        <div id="notApplyingReasons">
-            {{ optionsRadio(
-                content = content,
-                name = 'notApplyingReason',
-                field = fields.notApplyingReason,
-                options = ['optionPowerReserved', 'optionRenunciated'],
-                legend = content.questionLegend | replace('{executorFullName}', fields.list.value[fields.index.value].fullName) | safe
-            ) }}
-        </div>
-    </fieldset>
+    {{ optionsRadio(
+        content = content,
+        name = 'notApplyingReason',
+        field = fields.notApplyingReason,
+        options = ['optionPowerReserved', 'optionRenunciated'],
+        legend = content.questionLegend | replace('{executorFullName}', fields.list.value[fields.index.value].fullName) | safe
+    ) }}
+
     <div class="form-group">
         <input class="button" type="submit" value="{{ common.saveAndContinue }}">
     </div>

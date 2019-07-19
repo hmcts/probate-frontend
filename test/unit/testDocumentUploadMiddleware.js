@@ -329,7 +329,7 @@ describe('DocumentUploadMiddleware', () => {
             });
         });
 
-        it('should return an error if formdata cannot be persisted', (done) => {
+        it.only('should return an error if formdata cannot be persisted', (done) => {
             const error = new Error('something');
 
             const revertDelete = documentUploadMiddleware.__set__('Document', class {

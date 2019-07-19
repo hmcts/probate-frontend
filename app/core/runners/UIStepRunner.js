@@ -16,7 +16,7 @@ class UIStepRunner {
     }
 
     handleGet(step, req, res) {
-        return co(function * () {
+        return co(function* () {
             let errors = null;
             const session = req.session;
             const formdata = session.form;
@@ -49,7 +49,7 @@ class UIStepRunner {
     }
 
     handlePost(step, req, res) {
-        return co(function * () {
+        return co(function* () {
             const session = req.session;
             let formdata = session.form;
             let ctx = step.getContextData(req, res);
@@ -74,9 +74,12 @@ class UIStepRunner {
 
                 if (!get(formdata, 'ccdCase.state') || get(formdata, 'ccdCase.state') === 'Draft' || get(formdata, 'ccdCase.state') === '') {
                     const result = yield step.persistFormData(session.regId, formdata, session.id, req);
-
                     if (result.name === 'Error') {
                         req.log.error('Could not persist user data', result.message);
+                        if (result.message === 'Internal Server Error') {
+                            res.status(500).render('errors/500', {common: commonContent});
+                            return;
+                        }
                     } else if (result) {
                         session.form = result;
                         req.log.info('Successfully persisted user data');

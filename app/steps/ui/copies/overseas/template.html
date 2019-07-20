@@ -4,11 +4,15 @@
 {% from "widgets/numbers.html" import numberField %}
 
 {% block question %}
-    <h1 class="form-title heading-large">{{ content.question }}</h1>
+    {% if fields.isCopiesFeesToggleEnabled.value === "true" %}
+        <h1 class="form-title heading-large">{{ content.questionOld_2 }}</h1>
+    {% else %}
+        <h1 class="form-title heading-large">{{ content.question }}</h1>
+    {% endif %}
 {% endblock %}
 
 {% block form_content %}
-    {% if fields.isFeesApiToggleEnabled.value === 'true' %}
+    {% if fields.isFeesApiToggleEnabled.value === "true" %}
         <p>{{ content.paragraph1 | safe }}</p>
         {{ unorderedList([
             content.bullet1 | safe,
@@ -16,9 +20,7 @@
         ]) }}
 
         <fieldset>
-            <legend class="visually-hidden">
-                {{ content.question | safe }}
-            </legend>
+            <legend class="visually-hidden">{{ content.question | safe }}</legend>
             {{ numberField(
                 name = 'overseas',
                 field = fields.overseas,
@@ -29,14 +31,19 @@
             ) }}
         </fieldset>
     {% else %}
+        {% if fields.isCopiesFeesToggleEnabled.value === "true" %}
+            <p>{{ content.paragraph1Old_2 | safe }}</p>
+        {% endif %}
         <fieldset>
-            <legend class="visually-hidden">
-                {{ content.question | safe }}
-            </legend>
+            {% if fields.isCopiesFeesToggleEnabled.value === "true" %}
+                <legend class="visually-hidden">{{ content.questionOld_2 | safe }}</legend>
+            {% else %}
+                <legend class="visually-hidden">{{ content.question | safe }}</legend>
+            {% endif %}
             {{ numberField(
                 name = 'overseas',
                 field = fields.overseas,
-                text = content.copiesOld,
+                text = content.copiesOld_2 if fields.isCopiesFeesToggleEnabled.value === "true" else content.copiesOld_1,
                 size = 5,
                 width= '1-8',
                 currency = false

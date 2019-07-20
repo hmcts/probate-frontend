@@ -74,7 +74,11 @@
                     <p>{{ content.paragraph8 | safe }}</p>
                 {% else %}
                     <p>{{ content.paragraph7old | safe }}</p>
-                    <p>{{ content.paragraph8old | safe }}</p>
+                    {% if fields.isCopiesFeesToggleEnabled.value === 'true' %}
+                        <p>{{ content.paragraph8old_2 | safe }}</p>
+                    {% else %}
+                        <p>{{ content.paragraph8old_1 | safe }}</p>
+                    {% endif %}
                 {% endif %}
                 <p>{{ content.paragraph9 | safe }}</p>
                 <h2 class="heading-medium">

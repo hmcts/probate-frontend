@@ -12,6 +12,7 @@ const config = {
         fe_shutter_toggle: 'probate-fe-shutter',
         intestacy_questions: 'probate-intestacy-questions',
         fees_api: 'probate-fees-api',
+        copies_fees: 'probate-copies-fees',
         webchat: 'probate-webchat',
         appwideToggles: ['webchat']
     },

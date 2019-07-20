@@ -17,6 +17,7 @@ class CopiesUk extends ValidationStep {
 
     handleGet(ctx, formdata, featureToggles) {
         ctx.isFeesApiToggleEnabled = featureToggle.isEnabled(featureToggles, 'fees_api');
+        ctx.isCopiesFeesToggleEnabled = featureToggle.isEnabled(featureToggles, 'copies_fees');
 
         return [ctx];
     }
@@ -32,8 +33,12 @@ class CopiesUk extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        delete formdata.applicant.addresses;
-        delete formdata.deceased.addresses;
+        if (formdata.applicant) {
+            delete formdata.applicant.addresses;
+        }
+        if (formdata.deceased) {
+            delete formdata.deceased.addresses;
+        }
         if (formdata.executors) {
             formdata.executors.list.forEach((executor) => {
                 delete executor.addresses;

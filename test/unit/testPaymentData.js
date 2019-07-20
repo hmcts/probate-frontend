@@ -74,14 +74,14 @@ describe('payment-data.js', () => {
 
         it('should return the uk copies when uk.copies.number > 0', (done) => {
             const data = {
-                amount: 0.50,
+                amount: 1.50,
                 description: 'Probate Fees',
                 ccdCaseId: '123',
                 applicationFee: 0,
                 copies: {
                     uk: {
                         number: 1,
-                        cost: 0.50
+                        cost: 1.50
                     },
                     overseas: {
                         number: 0,
@@ -92,14 +92,14 @@ describe('payment-data.js', () => {
             };
             const result = paymentData.createPaymentData(data);
             expect(result).to.deep.equal({
-                amount: 0.50,
+                amount: 1.50,
                 description: 'Probate Fees',
                 ccd_case_number: '123',
                 service: 'PROBATE',
                 currency: 'GBP',
                 site_id: 'P223',
                 fees: [{
-                    calculated_amount: 0.50,
+                    calculated_amount: 1.50,
                     ccd_case_number: '123',
                     code: 'FEE0003',
                     memo_line: 'Additional UK copies',
@@ -113,7 +113,7 @@ describe('payment-data.js', () => {
 
         it('should return the overseas copies when overseas.copies.number > 0', (done) => {
             const data = {
-                amount: 1,
+                amount: 3,
                 description: 'Probate Fees',
                 ccdCaseId: '123',
                 applicationFee: 0,
@@ -124,21 +124,21 @@ describe('payment-data.js', () => {
                     },
                     overseas: {
                         number: 2,
-                        cost: 1
+                        cost: 3
                     }
                 },
                 userId: '11111'
             };
             const result = paymentData.createPaymentData(data);
             expect(result).to.deep.equal({
-                amount: 1,
+                amount: 3,
                 description: 'Probate Fees',
                 ccd_case_number: '123',
                 service: 'PROBATE',
                 currency: 'GBP',
                 site_id: 'P223',
                 fees: [{
-                    calculated_amount: 1,
+                    calculated_amount: 3,
                     ccd_case_number: '123',
                     code: 'FEE003',
                     memo_line: 'Additional overseas copies',
@@ -152,25 +152,25 @@ describe('payment-data.js', () => {
 
         it('should return all fees when there is an application fee, uk copies and overseas copies', (done) => {
             const data = {
-                amount: 216.50,
+                amount: 219.50,
                 description: 'Probate Fees',
                 ccdCaseId: '123',
                 applicationFee: 215,
                 copies: {
                     uk: {
                         number: 1,
-                        cost: 0.50
+                        cost: 1.50
                     },
                     overseas: {
                         number: 2,
-                        cost: 1
+                        cost: 3
                     }
                 },
                 userId: '11111'
             };
             const result = paymentData.createPaymentData(data);
             expect(result).to.deep.equal({
-                amount: 216.50,
+                amount: 219.50,
                 description: 'Probate Fees',
                 ccd_case_number: '123',
                 service: 'PROBATE',
@@ -185,7 +185,7 @@ describe('payment-data.js', () => {
                     version: '1',
                     volume: 1
                 }, {
-                    calculated_amount: 0.50,
+                    calculated_amount: 1.50,
                     ccd_case_number: '123',
                     code: 'FEE0003',
                     memo_line: 'Additional UK copies',
@@ -193,7 +193,7 @@ describe('payment-data.js', () => {
                     version: '3',
                     volume: 1
                 }, {
-                    calculated_amount: 1,
+                    calculated_amount: 3,
                     ccd_case_number: '123',
                     code: 'FEE003',
                     memo_line: 'Additional overseas copies',
@@ -209,7 +209,7 @@ describe('payment-data.js', () => {
     describe('createPaymentFees()', () => {
         it('should return the correct data', () => {
             const params = {
-                amount: 1.50,
+                amount: 4.50,
                 ccdCaseId: 'CASEREF123',
                 code: 'CODE123',
                 memoLine: 'Additional overseas copies',

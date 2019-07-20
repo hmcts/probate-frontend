@@ -38,7 +38,7 @@ describe('PaymentBreakdown', () => {
         }];
         const successfulCasePaymentsResponse = {
             payments: [{
-                amount: 216.50,
+                amount: 219.50,
                 ccd_case_number: '1535395401245028',
                 payment_reference: 'RC-67890',
                 status: 'Success'
@@ -46,7 +46,7 @@ describe('PaymentBreakdown', () => {
         };
         const initiatedCasePaymentsResponse = {
             payments: [{
-                amount: 216.50,
+                amount: 219.50,
                 ccd_case_number: '1535395401245028',
                 payment_reference: 'RC-67890',
                 status: 'Initiated'
@@ -87,17 +87,17 @@ describe('PaymentBreakdown', () => {
                     state: 'PaAppCreated'
                 },
                 payment: {
-                    total: 216.50
+                    total: 219.50
                 },
                 fees: {
                     status: 'success',
                     applicationfee: 215,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 0.50,
+                    ukcopiesfee: 1.50,
                     overseascopies: 2,
-                    overseascopiesfee: 1,
-                    total: 216.50
+                    overseascopiesfee: 3,
+                    total: 219.50
                 },
                 registry: {
                     registry: {
@@ -110,17 +110,17 @@ describe('PaymentBreakdown', () => {
             };
             expectedPaymentFormdata = {
                 payment: {
-                    total: 216.50
+                    total: 219.50
                 },
                 fees: {
                     status: 'success',
                     applicationfee: 215,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 0.50,
+                    ukcopiesfee: 1.50,
                     overseascopies: 2,
-                    overseascopiesfee: 1,
-                    total: 216.50
+                    overseascopiesfee: 3,
+                    total: 219.50
                 }
             };
             hostname = 'localhost';
@@ -165,10 +165,10 @@ describe('PaymentBreakdown', () => {
                     applicationfee: 215,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 0.50,
+                    ukcopiesfee: 1.50,
                     overseascopies: 2,
-                    overseascopiesfee: 1,
-                    total: 216.50
+                    overseascopiesfee: 3,
+                    total: 219.50
                 }
             };
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
@@ -178,10 +178,10 @@ describe('PaymentBreakdown', () => {
                 applicationfee: 215,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 0.50,
+                ukcopiesfee: 1.50,
                 overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 216.50
+                overseascopiesfee: 3,
+                total: 219.50
             }));
 
             co(function* () {
@@ -252,10 +252,10 @@ describe('PaymentBreakdown', () => {
                     applicationfee: 215,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 0.50,
+                    ukcopiesfee: 1.50,
                     overseascopies: 2,
-                    overseascopiesfee: 1,
-                    total: 216.50
+                    overseascopiesfee: 3,
+                    total: 219.50
                 },
                 payment: {
                     reference: 'RC-12345'
@@ -266,10 +266,10 @@ describe('PaymentBreakdown', () => {
                 applicationfee: 215,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 0.50,
+                ukcopiesfee: 1.50,
                 overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 216.50
+                overseascopiesfee: 3,
+                total: 219.50
             }));
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
 
@@ -299,10 +299,10 @@ describe('PaymentBreakdown', () => {
                     applicationfee: 215,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 0.50,
+                    ukcopiesfee: 1.50,
                     overseascopies: 2,
-                    overseascopiesfee: 1,
-                    total: 216.50
+                    overseascopiesfee: 3,
+                    total: 219.50
                 }
             };
             feesCalculator.returns(Promise.resolve({
@@ -310,10 +310,10 @@ describe('PaymentBreakdown', () => {
                 applicationfee: 215,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 0.50,
+                ukcopiesfee: 1.50,
                 overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 216.50
+                overseascopiesfee: 3,
+                total: 219.50
             }));
 
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
@@ -326,15 +326,15 @@ describe('PaymentBreakdown', () => {
                     applicationFee: 215,
                     copies: {
                         uk: {
-                            cost: 0.5,
+                            cost: 1.5,
                             number: 1
                         },
                         overseas: {
-                            cost: 1,
+                            cost: 3,
                             number: 2
                         }
                     },
-                    total: 216.50,
+                    total: 219.50,
                     reference: 'RC-1234-5678-9012-3456',
                     paymentCreatedDate: '2018-08-29T15:25:11.920+0000',
                 });
@@ -359,10 +359,10 @@ describe('PaymentBreakdown', () => {
                     applicationfee: 215,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 0.50,
+                    ukcopiesfee: 1.50,
                     overseascopies: 2,
-                    overseascopiesfee: 1,
-                    total: 216.50
+                    overseascopiesfee: 3,
+                    total: 219.50
                 }
             };
             feesCalculator.returns(Promise.resolve({
@@ -370,10 +370,10 @@ describe('PaymentBreakdown', () => {
                 applicationfee: 215,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 0.50,
+                ukcopiesfee: 1.50,
                 overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 216.50
+                overseascopiesfee: 3,
+                total: 219.50
             }));
 
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
@@ -409,14 +409,14 @@ describe('PaymentBreakdown', () => {
                     applicationfee: 215,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 0.50,
+                    ukcopiesfee: 1.50,
                     overseascopies: 2,
-                    overseascopiesfee: 1,
-                    total: 216.50
+                    overseascopiesfee: 3,
+                    total: 219.50
                 },
                 payment: {
                     reference: 'RC-1234-5678-9012-3456',
-                    total: 216.5
+                    total: 219.5
                 },
                 registry: {
                     registry: {
@@ -432,10 +432,10 @@ describe('PaymentBreakdown', () => {
                 applicationfee: 215,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 0.50,
+                ukcopiesfee: 1.50,
                 overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 216.50
+                overseascopiesfee: 3,
+                total: 219.50
             }));
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
             expectedPaAppCreatedFormdata.payment.reference = 'RC-67890';
@@ -455,19 +455,19 @@ describe('PaymentBreakdown', () => {
         it('set ctx.reference to a previous successful reference for a case.', (done) => {
             const caseSuccessPaymentResponse = {
                 'payments': [{
-                    'amount': 216.50,
+                    'amount': 219.50,
                     'ccd_case_number': '1535395401245028',
                     'payment_reference': 'RC-12345',
                     'status': 'Failed'
                 }, {
-                    'amount': 216.50,
+                    'amount': 219.50,
                     'ccd_case_number': '1535395401245028',
                     'payment_reference': 'RC-67890',
                     'status': 'Success'
                 }]
             };
             const identifySuccessfulOrInitiatedPaymentResponse = {
-                'amount': 216.50,
+                'amount': 219.50,
                 'ccd_case_number': '1535395401245028',
                 'payment_reference': 'RC-67890',
                 'status': 'Success'
@@ -492,14 +492,14 @@ describe('PaymentBreakdown', () => {
                     applicationfee: 215,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 0.50,
+                    ukcopiesfee: 1.50,
                     overseascopies: 2,
-                    overseascopiesfee: 1,
-                    total: 216.50
+                    overseascopiesfee: 3,
+                    total: 219.50
                 },
                 payment: {
                     reference: 'RC-12345',
-                    total: 216.50
+                    total: 219.50
                 },
                 registry: {
                     registry: {
@@ -517,10 +517,10 @@ describe('PaymentBreakdown', () => {
                 applicationfee: 215,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 0.50,
+                ukcopiesfee: 1.50,
                 overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 216.50
+                overseascopiesfee: 3,
+                total: 219.50
             }));
 
             co(function* () {
@@ -553,10 +553,10 @@ describe('PaymentBreakdown', () => {
                     applicationfee: 215,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 0.50,
+                    ukcopiesfee: 1.50,
                     overseascopies: 2,
-                    overseascopiesfee: 1,
-                    total: 216.50
+                    overseascopiesfee: 3,
+                    total: 219.50
                 },
                 payment: {
                     reference: 'RC-12345'
@@ -569,10 +569,10 @@ describe('PaymentBreakdown', () => {
                 applicationfee: 215,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 0.50,
+                ukcopiesfee: 1.50,
                 overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 216.50
+                overseascopiesfee: 3,
+                total: 219.50
             }));
 
             co(function* () {
@@ -611,10 +611,10 @@ describe('PaymentBreakdown', () => {
                     applicationfee: 215,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 0.50,
+                    ukcopiesfee: 1.50,
                     overseascopies: 2,
-                    overseascopiesfee: 1,
-                    total: 216.50
+                    overseascopiesfee: 3,
+                    total: 219.50
                 },
                 payment: {
                     reference: 'RC-12345'
@@ -627,10 +627,10 @@ describe('PaymentBreakdown', () => {
                 applicationfee: 215,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 0.50,
+                ukcopiesfee: 1.50,
                 overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 216.50
+                overseascopiesfee: 3,
+                total: 219.50
             }));
 
             co(function* () {
@@ -672,10 +672,10 @@ describe('PaymentBreakdown', () => {
                 applicationfee: 215,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 0.50,
+                ukcopiesfee: 1.50,
                 overseascopies: 2,
-                overseascopiesfee: 1,
-                total: 216.50
+                overseascopiesfee: 3,
+                total: 219.50
             }));
             [ctx] = paymentBreakdown.action(ctx, formdata);
             expect(ctx).to.deep.equal({});

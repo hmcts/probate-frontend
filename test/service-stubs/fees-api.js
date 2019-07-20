@@ -4,30 +4,54 @@
 
 const config = require('app/config');
 const express = require('express');
+const logger = require('app/components/logger');
 const app = express();
 const router = require('express').Router();
 const FEES_API_PORT = config.services.feesRegister.port;
 
 router.get(`/fees-register${config.services.feesRegister.paths.feesLookup}`, (req, res) => {
+    let feeAmount = 0;
+    let feeAmountPerCopy;
+
     res.status(200);
-    if (req.query.event === 'issue') {
+
+    switch (req.query.event) {
+    case 'issue':
+        if (req.query.amount_or_volume > config.services.feesRegister.ihtMinAmt) {
+            feeAmount = 215;
+        }
+
+        logger().info(`Application fee: £${feeAmount}`);
+
         res.send({
             'code': 'FEE0219',
             'description': 'Application for a grant of probate (Estate over £5000)',
             'version': 3,
-            'fee_amount': 215
+            'fee_amount': feeAmount
         });
-    }
-    if (req.query.event === 'copies') {
+        break;
+    case 'copies':
+        feeAmountPerCopy = 0.5;
+        if (req.query.keyword === 'NewFee') {
+            feeAmountPerCopy = 1.5;
+        }
+        feeAmount = feeAmountPerCopy * req.query.amount_or_volume;
+
+        if (req.query.keyword) {
+            logger().info(`Keyword: ${req.query.keyword}`);
+        }
+        logger().info(`Copies fee: £${feeAmount}`);
+
         res.send({
             'code': 'FEE0003',
             'description': 'Additional copies of the grant representation',
             'version': 3,
-            'fee_amount': 0.50
+            'fee_amount': feeAmount
         });
+        break;
+    default:
+        res.send('false');
     }
-    res.status(200);
-    res.send('false');
 });
 
 router.get('/health', (req, res) => {

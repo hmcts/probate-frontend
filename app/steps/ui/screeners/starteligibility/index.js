@@ -11,6 +11,7 @@ class StartEligibility extends Step {
 
     handleGet(ctx, formdata, featureToggles) {
         ctx.isFeesApiToggleEnabled = featureToggle.isEnabled(featureToggles, 'fees_api');
+        ctx.isCopiesFeesToggleEnabled = featureToggle.isEnabled(featureToggles, 'copies_fees');
 
         return [ctx];
     }

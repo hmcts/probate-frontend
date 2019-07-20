@@ -32,10 +32,10 @@ describe('payment-breakdown', () => {
             applicationfee: 215,
             applicationvalue: 6000,
             ukcopies: 1,
-            ukcopiesfee: 0.50,
+            ukcopiesfee: 1.50,
             overseascopies: 2,
-            overseascopiesfee: 1,
-            total: 216.50
+            overseascopiesfee: 3,
+            total: 219.50
         }));
     });
 
@@ -84,10 +84,10 @@ describe('payment-breakdown', () => {
                     applicationfee: 215,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 0.50,
+                    ukcopiesfee: 1.50,
                     overseascopies: 2,
-                    overseascopiesfee: 1,
-                    total: 216.50
+                    overseascopiesfee: 3,
+                    total: 219.50
                 }})
                 .end((err) => {
                     if (err) {
@@ -96,7 +96,6 @@ describe('payment-breakdown', () => {
                     const data = {};
                     testWrapper.testErrors(done, data, 'failure', ['authorisation']);
                 });
-
         });
     });
 });

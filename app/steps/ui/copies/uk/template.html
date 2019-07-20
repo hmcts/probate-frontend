@@ -4,15 +4,19 @@
 {% from "widgets/numbers.html" import numberField %}
 
 {% block question %}
-    {% if fields.isFeesApiToggleEnabled.value === 'true' %}
+    {% if fields.isFeesApiToggleEnabled.value === "true" %}
         <h1 class="form-title heading-large">{{ content.question }}</h1>
     {% else %}
-        <h1 class="form-title heading-large">{{ content.questionOld }}</h1>
+        {% if fields.isCopiesFeesToggleEnabled.value === "true" %}
+            <h1 class="form-title heading-large">{{ content.questionOld_2 }}</h1>
+        {% else %}
+            <h1 class="form-title heading-large">{{ content.questionOld_1 }}</h1>
+        {% endif %}
     {% endif %}
 {% endblock %}
 
 {% block form_content %}
-    {% if fields.isFeesApiToggleEnabled.value === 'true' %}
+    {% if fields.isFeesApiToggleEnabled.value === "true" %}
         <p>{{ content.paragraph1 | safe }}</p>
         <p>{{ content.paragraph2 | safe }}</p>
         <p>{{ content.paragraph3 | safe }}</p>
@@ -33,12 +37,22 @@
             ) }}
         </fieldset>
     {% else %}
+        {% if fields.isCopiesFeesToggleEnabled.value === "true" %}
+            <p>{{ content.paragraph1Old_2 | safe }}</p>
+            <p>{{ content.paragraph2Old_2 | safe }}</p>
+            <p>{{ content.paragraph3Old_2 | safe }}</p>
+        {% endif %}
+
         <fieldset>
-            <legend class="visually-hidden">{{ content.questionOld | safe }}</legend>
+            {% if fields.isCopiesFeesToggleEnabled.value === "true" %}
+                <legend class="visually-hidden">{{ content.questionOld_2 | safe }}</legend>
+            {% else %}
+                <legend class="visually-hidden">{{ content.questionOld_1 | safe }}</legend>
+            {% endif %}
             {{ numberField(
                 name = 'uk',
                 field = fields.uk,
-                text = content.copiesOld,
+                text = content.copiesOld_2 if fields.isCopiesFeesToggleEnabled.value === "true" else content.copiesOld_1,
                 size = 5,
                 width= '1-8',
                 currency = false

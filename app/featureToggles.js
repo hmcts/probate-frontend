@@ -9,7 +9,13 @@ router.get('/*', (req, res, next) => featureToggle.callCheckToggle(req, res, nex
 router.get('/start-eligibility', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'fees_api', featureToggle.toggleFeature));
 router.get('/copies-uk', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'fees_api', featureToggle.toggleFeature));
 router.get('/copies-overseas', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'fees_api', featureToggle.toggleFeature));
-router.get('/payment-breakdown', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'fees_api', featureToggle.toggleFeature));
+router.all('/payment-breakdown', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'fees_api', featureToggle.toggleFeature));
+
+router.get('/start-eligibility', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'copies_fees', featureToggle.toggleFeature));
+router.get('/copies-start', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'copies_fees', featureToggle.toggleFeature));
+router.get('/copies-uk', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'copies_fees', featureToggle.toggleFeature));
+router.get('/copies-overseas', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'copies_fees', featureToggle.toggleFeature));
+router.all('/payment-breakdown', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'copies_fees', featureToggle.toggleFeature));
 
 router.post('/will-left', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'intestacy_questions', featureToggle.toggleFeature));
 router.get('/died-after-october-2014', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'intestacy_questions', featureToggle.togglePage, 'start-eligibility'));

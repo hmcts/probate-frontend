@@ -6,7 +6,11 @@
 
         <h1 class="form-title heading-large">{{ content.question }}</h1>
         <p>{{ content.paragraph1 | safe }}</p>
-        <p>{{ content.paragraph2 | safe }}</p>
+        {% if fields.isCopiesFeesToggleEnabled.value === 'true' %}
+            <p>{{ content.paragraph2_2 | safe }}</p>
+        {% else %}
+            <p>{{ content.paragraph2_1 | safe }}</p>
+        {% endif %}
         <p>{{ content.paragraph3 | safe }}</p>
 
         <div class="form-group">

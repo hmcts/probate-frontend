@@ -10,6 +10,7 @@ const journeyProbate = require('app/journeys/probate');
 const journeyIntestacy = require('app/journeys/intestacy');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui/`]);
 const taskList = steps.TaskList;
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('Tasklist', () => {
     describe('getUrl()', () => {
@@ -33,13 +34,8 @@ describe('Tasklist', () => {
             };
 
             beforeEach(() => {
-                req.session.caseType = 'gop';
                 req.session.journey = journeyProbate;
                 journeyMap = new JourneyMap(journeyProbate);
-            });
-
-            afterEach(() => {
-                delete req.session.caseType;
             });
 
             it('Updates the context: neither task is started', () => {
@@ -69,7 +65,8 @@ describe('Tasklist', () => {
                 const formdata = {
                     deceased: completedForm.deceased,
                     will: completedForm.will,
-                    iht: completedForm.iht
+                    iht: completedForm.iht,
+                    documentupload: completedForm.documentupload
                 };
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
@@ -85,6 +82,7 @@ describe('Tasklist', () => {
                     deceased: completedForm.deceased,
                     will: completedForm.will,
                     iht: completedForm.iht,
+                    documentupload: completedForm.documentupload,
                     applicant: {
                         firstName: completedForm.applicant.firstName,
                         lastName: completedForm.applicant.lastName
@@ -121,6 +119,7 @@ describe('Tasklist', () => {
                 const formdata = {
                     will: completedForm.will,
                     iht: completedForm.iht,
+                    documentupload: completedForm.documentupload,
                     applicant: completedForm.applicant,
                     deceased: completedForm.deceased,
                     executors: completedForm.executors
@@ -314,13 +313,8 @@ describe('Tasklist', () => {
             };
 
             beforeEach(() => {
-                req.session.caseType = 'intestacy';
                 req.session.journey = journeyIntestacy;
                 journeyMap = new JourneyMap(journeyIntestacy);
-            });
-
-            afterEach(() => {
-                delete req.session.caseType;
             });
 
             it('Updates the context: neither task is started', () => {
@@ -363,9 +357,11 @@ describe('Tasklist', () => {
 
             it('Updates the context: DeceasedTask complete, ApplicantsTask not started', () => {
                 const formdata = {
+                    caseType: caseTypes.INTESTACY,
                     deceased: completedForm.deceased,
                     will: completedForm.will,
-                    iht: completedForm.iht
+                    iht: completedForm.iht,
+                    documentupload: completedForm.documentupload
                 };
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
@@ -378,8 +374,10 @@ describe('Tasklist', () => {
 
             it('Updates the context: DeceasedTask complete, ApplicantsTask started', () => {
                 const formdata = {
+                    caseType: caseTypes.INTESTACY,
                     deceased: completedForm.deceased,
                     iht: completedForm.iht,
+                    documentupload: completedForm.documentupload,
                     applicant: {
                         relationshipToDeceased: completedForm.applicant.relationshipToDeceased,
                         assetsValue: 300000.6
@@ -426,8 +424,10 @@ describe('Tasklist', () => {
 
             it('Updates the context: Review and confirm not started', () => {
                 const formdata = {
+                    caseType: caseTypes.INTESTACY,
                     will: completedForm.will,
                     iht: completedForm.iht,
+                    documentupload: completedForm.documentupload,
                     applicant: completedForm.applicant,
                     deceased: completedForm.deceased,
                     executors: completedForm.executors
@@ -446,6 +446,7 @@ describe('Tasklist', () => {
 
             it('Updates the context: Review and confirm complete (Single Applicants)', () => {
                 req.session.form = {
+                    caseType: caseTypes.INTESTACY,
                     will: completedForm.will,
                     iht: completedForm.iht,
                     applicant: completedForm.applicant,
@@ -484,6 +485,7 @@ describe('Tasklist', () => {
 
             it('Updates the context: CopiesTask complete', () => {
                 req.session.form = completedForm;
+                req.session.form.caseType = caseTypes.INTESTACY;
                 req.body = {};
                 ctx = taskList.getContextData(req);
 

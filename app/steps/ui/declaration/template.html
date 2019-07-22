@@ -10,7 +10,7 @@
 {% block form_content %}
     <p class="word-break">{{ fields.legalStatement.value.intro | safe }}</p>
 
-    {% ifAsync fields.isIntestacyJourney.value === "false" %}
+    {% ifAsync fields.caseType.value === "gop" %}
         <div class="declaration-wrapper word-break">
             <div class="inset-page declaration-grid-item">
                 <div class="heading-medium declaration-header">{{ content.highCourtHeader }}</div>
@@ -45,7 +45,7 @@
             {% include "ui/declaration/includes/download.njk" %}
         </div>
     {% endif %}
-    {% ifAsync fields.isIntestacyJourney.value === "true" %}
+    {% ifAsync fields.caseType.value === "intestacy" %}
         <div class="declaration-wrapper word-break">
             <div class="inset-page declaration-grid-item">
                 <div class="heading-medium declaration-header">{{ content.highCourtHeader }}</div>

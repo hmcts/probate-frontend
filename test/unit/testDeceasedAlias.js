@@ -36,13 +36,13 @@ describe('DeceasedAlias', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        journeyType: 'gop',
+                        caseType: 'gop',
                         deceased: {
                             firstName: 'Dee',
                             lastName: 'Ceased'
                         }
                     },
-                    journeyType: 'gop'
+                    caseType: 'gop'
                 }
             };
             const ctx = DeceasedAlias.getContextData(req);
@@ -51,7 +51,7 @@ describe('DeceasedAlias', () => {
                 lastName: 'Ceased',
                 deceasedName: 'Dee Ceased',
                 sessionID: 'dummy_sessionId',
-                journeyType: 'gop',
+                caseType: 'gop',
                 featureToggles: {
                     webchat: 'false'
                 }

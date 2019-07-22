@@ -61,10 +61,11 @@
   "documentUpload-uploadFailed": "Select your document and try again",
   "documentUpload-uploadTimeoutSummary": "The file has taken too long to upload",
   "documentUpload-uploadTimeout": "The file may be too big, reduce the file size and try again or post the death certificate",
-  "chatOnlineWithAnAgent": "Chat online with an agent",
-  "chatOnlineOpeningHours": "Monday to Friday, 9:30am to 5pm",
-  "chatOnlineNoAgent": "No agents are available, please try again later.",
-  "chatOnlineTooBusy": "All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways above.",
-  "chatOnlineClosed": "Web chat is now closed.\nCome back Monday to Friday 9:30am to 5pm.",
-  "chatOnlineUnavailable": "The web chat service is temporarily unavailable, please try again later."
+  "chatDown": "The web chat service is temporarily unavailable, please try again later.",
+  "chatWithAnAgent": "Chat online with an agent",
+  "noAgentsAvailable": "No agents are available, please try again later.",
+  "allAgentsBusy": "All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways above.",
+  "chatClosed": "Web chat is now closed.\nCome back Monday to Friday 9:30am to 5pm.",
+  "chatAlreadyOpen": "A web chat window is already open.",
+  "chatOpeningHours": "Monday to Friday, 9:30am to 5pm"
 }

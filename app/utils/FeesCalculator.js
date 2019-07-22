@@ -3,44 +3,44 @@
 const {get} = require('lodash');
 const FeesLookup = require('app/services/FeesLookup');
 const config = require('app/config');
-let feesLookup;
-const issuesData = {
-    amount_or_volume: 0,
-    applicant_type: 'personal',
-    channel: 'default',
-    event: 'issue',
-    jurisdiction1: 'family',
-    jurisdiction2: 'probate registry',
-    service: 'probate'
-};
-
-const copiesData = {
-    amount_or_volume: 0,
-    applicant_type: 'all',
-    channel: 'default',
-    event: 'copies',
-    jurisdiction1: 'family',
-    jurisdiction2: 'probate registry',
-    service: 'probate'
-};
+const featureToggle = require('app/utils/FeatureToggle');
+const logger = require('app/components/logger')('Init');
 
 class FeesCalculator {
 
     constructor(endpoint, sessionId) {
         this.endpoint = endpoint;
         this.sessionId = sessionId;
-        feesLookup = new FeesLookup(this.endpoint, sessionId);
+        this.issuesData = {
+            amount_or_volume: 0,
+            applicant_type: 'personal',
+            channel: 'default',
+            event: 'issue',
+            jurisdiction1: 'family',
+            jurisdiction2: 'probate registry',
+            service: 'probate'
+        };
+        this.copiesData = {
+            amount_or_volume: 0,
+            applicant_type: 'all',
+            channel: 'default',
+            event: 'copies',
+            jurisdiction1: 'family',
+            jurisdiction2: 'probate registry',
+            service: 'probate'
+        };
+        this.feesLookup = new FeesLookup(this.endpoint, sessionId);
     }
 
-    calc(formdata, authToken) {
+    calc(formdata, authToken, featureToggles) {
         const headers = {
             authToken: authToken
         };
-        return createCallsRequired(formdata, headers);
+        return createCallsRequired(formdata, headers, featureToggles, this.feesLookup, this.issuesData, this.copiesData);
     }
 }
 
-async function createCallsRequired(formdata, headers) {
+async function createCallsRequired(formdata, headers, featureToggles, feesLookup, issuesData, copiesData) {
     const returnResult = {
         status: 'success',
         applicationfee: 0,
@@ -55,6 +55,9 @@ async function createCallsRequired(formdata, headers) {
     issuesData.amount_or_volume = get(formdata, 'iht.netValue', 0);
     returnResult.applicationvalue = issuesData.amount_or_volume;
     if (issuesData.amount_or_volume > config.services.feesRegister.ihtMinAmt) {
+        logger.info('Sending APPLICATION FEE request to API with the following payload:');
+        logger.info(JSON.stringify(issuesData));
+
         await feesLookup.get(issuesData, headers)
             .then((res) => {
                 if (identifyAnyErrors(res)) {
@@ -66,9 +69,16 @@ async function createCallsRequired(formdata, headers) {
             });
     }
 
+    if (featureToggle.isEnabled(featureToggles, 'copies_fees')) {
+        copiesData.keyword = 'NewFee';
+    }
+
     copiesData.amount_or_volume = get(formdata, 'copies.uk', 0);
     returnResult.ukcopies = copiesData.amount_or_volume;
     if (copiesData.amount_or_volume > 0) {
+        logger.info('Sending COPIES FEE request to API with the following payload:');
+        logger.info(JSON.stringify(copiesData));
+
         await feesLookup.get(copiesData, headers)
             .then((res) => {
                 if (identifyAnyErrors(res)) {
@@ -98,7 +108,7 @@ async function createCallsRequired(formdata, headers) {
 }
 
 /*
- * if no fee_amount is returned, we assume an error has occured
+ * if no fee_amount is returned, we assume an error has occurred
  * this caters for 404 type messages etc.
  */
 function identifyAnyErrors(res) {

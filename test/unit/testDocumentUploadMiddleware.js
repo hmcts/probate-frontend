@@ -312,7 +312,7 @@ describe('DocumentUploadMiddleware', () => {
             });
         });
 
-        it('should return an error if a document cannot be remvoved', (done) => {
+        it('should return an error if a document cannot be removed', (done) => {
             const error = new Error('something');
             const revert = documentUploadMiddleware.__set__('Document', class {
                 delete() {
@@ -326,6 +326,27 @@ describe('DocumentUploadMiddleware', () => {
                 expect(next.calledWith(error)).to.equal(true);
                 revert();
                 done();
+            });
+        });
+
+        it('should return an error if formdata cannot be persisted', (done) => {
+            const error = new Error('something');
+
+            const revert = documentUploadMiddleware.__set__('persistFormData', {
+                persist() {
+                    return Promise.reject(error);
+                }
+            });
+
+            const res = {};
+            const next = sinon.spy();
+            documentUploadMiddleware.removeDocument(req, res, next);
+            setTimeout(() => {
+                setTimeout(() => {
+                    expect(next.calledWith(error)).to.equal(true);
+                    revert();
+                    done();
+                });
             });
         });
     });

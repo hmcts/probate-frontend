@@ -54,7 +54,7 @@ class PaymentBreakdown extends Step {
     * handlePost(ctx, errors, formdata, session, hostname) {
         try {
             const feesCalculator = new FeesCalculator(config.services.feesRegister.url, ctx.sessionID);
-            const confirmFees = yield feesCalculator.calc(formdata, ctx.authToken);
+            const confirmFees = yield feesCalculator.calc(formdata, ctx.authToken, session.featureToggles);
             this.checkFeesStatus(confirmFees);
             const originalFees = formdata.fees;
             if (confirmFees.total !== originalFees.total) {
@@ -159,7 +159,7 @@ class PaymentBreakdown extends Step {
         const submitData = ServiceMapper.map(
             'SubmitData',
             [config.services.submit.url, ctx.sessionID],
-            ctx.journeyType
+            ctx.caseType
         );
         const result = yield submitData.post(formdata, ctx, softStop);
         logger.info(`submitData.post result = ${JSON.stringify(result)}`);

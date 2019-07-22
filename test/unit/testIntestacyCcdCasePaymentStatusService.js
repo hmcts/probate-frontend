@@ -5,7 +5,6 @@ const sinon = require('sinon');
 const rewire = require('rewire');
 const IntestacyCcdCasePaymentStatus = rewire('app/services/IntestacyCcdCasePaymentStatus');
 const CcdCasePaymentStatus = require('app/services/CcdCasePaymentStatus');
-const config = require('app/config');
 
 describe('IntestacyCcdCasePaymentStatus', () => {
     describe('post()', () => {
@@ -22,8 +21,8 @@ describe('IntestacyCcdCasePaymentStatus', () => {
             expect(postStub.calledWith(
                 {testCtx: true},
                 'Post intestacy ccd case payment status',
-                endpoint + config.services.orchestrator.paths.payments,
-                submitData
+                `${endpoint}/updatePaymentStatus`,
+                {submitdata: submitData}
             )).to.equal(true);
 
             revert();

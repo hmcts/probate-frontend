@@ -23,7 +23,7 @@ describe('ApplicantExecutor', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {},
-                    journeyType: 'gop'
+                    caseType: 'gop'
                 },
                 body: {
                     executor: content.optionYes
@@ -35,7 +35,7 @@ describe('ApplicantExecutor', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 executor: content.optionYes,
-                journeyType: 'gop',
+                caseType: 'gop',
                 featureToggles: {
                     webchat: 'false'
                 }

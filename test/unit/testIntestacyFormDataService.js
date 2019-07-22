@@ -5,7 +5,6 @@ const sinon = require('sinon');
 const rewire = require('rewire');
 const IntestacyFormData = rewire('app/services/IntestacyFormData');
 const FormData = require('app/services/FormData');
-const config = require('app/config');
 
 describe('IntestacyFormDataService', () => {
     describe('get()', () => {
@@ -13,7 +12,6 @@ describe('IntestacyFormDataService', () => {
             const endpoint = 'http://localhost';
             const userId = 'fred@example.com';
             const intestacyFormData = new IntestacyFormData(endpoint, 'abc123');
-            const path = intestacyFormData.replaceEmailInPath(config.services.orchestrator.paths.forms, userId);
             const getStub = sinon.stub(FormData.prototype, 'get');
 
             intestacyFormData.get(userId);
@@ -21,7 +19,7 @@ describe('IntestacyFormDataService', () => {
             expect(getStub.calledOnce).to.equal(true);
             expect(getStub.calledWith(
                 'Get intestacy form data',
-                endpoint + path
+                `${endpoint}/${userId}`
             )).to.equal(true);
 
             getStub.restore();
@@ -35,16 +33,18 @@ describe('IntestacyFormDataService', () => {
             const userId = 'fred@example.com';
             const data = {dataObject: true};
             const intestacyFormData = new IntestacyFormData(endpoint, 'abc123');
-            const path = intestacyFormData.replaceEmailInPath(config.services.orchestrator.paths.forms, userId);
             const postStub = sinon.stub(FormData.prototype, 'post');
 
             intestacyFormData.post(userId, data);
 
             expect(postStub.calledOnce).to.equal(true);
             expect(postStub.calledWith(
-                data,
+                {
+                    id: userId,
+                    formdata: data,
+                },
                 'Post intestacy form data',
-                endpoint + path
+                endpoint
             )).to.equal(true);
 
             postStub.restore();

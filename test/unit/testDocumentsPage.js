@@ -6,6 +6,7 @@ const initSteps = require('app/core/initSteps');
 const {assert, expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const co = require('co');
+const caseTypes = require('app/utils/CaseTypes');
 const contentDeceasedMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 const contentRelationshipToDeceased = require('app/resources/en/translation/applicant/relationshiptodeceased');
 const contentIhtMethod = require('app/resources/en/translation/iht/method');
@@ -27,7 +28,7 @@ describe('Documents', () => {
 
             beforeEach(() => {
                 ctxToTest = {
-                    journeyType: 'gop'
+                    caseType: caseTypes.GOP
                 };
             });
 
@@ -128,7 +129,7 @@ describe('Documents', () => {
 
             beforeEach(() => {
                 ctxToTest = {
-                    journeyType: 'gop'
+                    caseType: caseTypes.GOP
                 };
             });
 
@@ -270,7 +271,7 @@ describe('Documents', () => {
     describe('runnerOptions', () => {
         it('do not redirect if journey is gop', (done) => {
             const ctx = {
-                journeyType: 'gop'
+                caseType: caseTypes.GOP
             };
             const formData = {};
             co(function* () {
@@ -285,7 +286,7 @@ describe('Documents', () => {
 
         it('do not redirect if journey is intestacy and a document was not uploaded', (done) => {
             const ctx = {
-                journeyType: 'intestacy'
+                caseType: caseTypes.INTESTACY
             };
             const formData = {
                 documents: {
@@ -304,7 +305,7 @@ describe('Documents', () => {
 
         it('do not redirect if journey is intestacy and a form IHT205 was used', (done) => {
             const ctx = {
-                journeyType: 'intestacy'
+                caseType: caseTypes.INTESTACY
             };
             const formData = {
                 iht: {
@@ -324,7 +325,7 @@ describe('Documents', () => {
 
         it('do not redirect if journey is intestacy and deceased was married and applicant is child', (done) => {
             const ctx = {
-                journeyType: 'intestacy'
+                caseType: caseTypes.INTESTACY
             };
             const formData = {
                 deceased: {
@@ -346,7 +347,7 @@ describe('Documents', () => {
 
         it('do not redirect if journey is intestacy and deceased was married and applicant is adopted child', (done) => {
             const ctx = {
-                journeyType: 'intestacy'
+                caseType: caseTypes.INTESTACY
             };
             const formData = {
                 deceased: {
@@ -368,7 +369,7 @@ describe('Documents', () => {
 
         it('redirect if journey is intestacy and a none of the other conditions apply', (done) => {
             const ctx = {
-                journeyType: 'intestacy'
+                caseType: caseTypes.INTESTACY
             };
             const formData = {
                 deceased: {
@@ -389,7 +390,7 @@ describe('Documents', () => {
 
                 expect(options).to.deep.equal({
                     redirect: true,
-                    url: '/thankyou'
+                    url: '/thank-you'
                 });
                 done();
             }).catch(err => {

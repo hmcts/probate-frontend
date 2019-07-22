@@ -35,9 +35,15 @@ spec:
         - name: GA_TRACKING_ID
           value: 'UA-93598808-3'
         - name: WEBCHAT_CHAT_ID
-          value: 'script_7143406305ce667c21e2eb9.79440233'
+          value: '3077733355d19fd430f23c7.02555395'
         - name: WEBCHAT_TENANT
-          value: 'aG1jdHNzdGFnaW5nMDE'
+          value: 'c2FuZGJveGhtY3RzMDE'
+        - name: WEBCHAT_BUTTON_NO_AGENTS
+          value: '20599210435d19f59cdc3e95.94551214'
+        - name: WEBCHAT_BUTTON_AGENTS_BUSY
+          value: '8752254635d19f5bb21ff07.71234899'
+        - name: WEBCHAT_BUTTON_SERVICE_CLOSED
+          value: '4639879315d19f67c3c1055.15174024'
         - name: PUBLIC_PROTOCOL
           value: 'https'
         - name: FEATURE_TOGGLES_API_URL

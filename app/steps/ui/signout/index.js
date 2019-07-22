@@ -12,11 +12,13 @@ class SignOut extends Step {
         return '/sign-out';
     }
 
-    getContextData(req) {
+    async getContextData(req) {
         const ctx = super.getContextData(req);
         const access_token = req.cookies[SECURITY_COOKIE];
         const errorCodes = [400, 401, 403];
         const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
+
+        await this.persistFormData(req.session.regId, req.session.form, req.session.id);
 
         return idamSession.delete(access_token)
             .then(result => {
@@ -36,6 +38,7 @@ class SignOut extends Step {
                 logger.error(`Error while calling IDAM: ${err}`);
             });
     }
+
 }
 
 module.exports = SignOut;

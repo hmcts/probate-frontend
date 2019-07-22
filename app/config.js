@@ -12,6 +12,7 @@ const config = {
         fe_shutter_toggle: 'probate-fe-shutter',
         intestacy_questions: 'probate-intestacy-questions',
         fees_api: 'probate-fees-api',
+        copies_fees: 'probate-copies-fees',
         webchat: 'probate-webchat',
         appwideToggles: ['webchat']
     },
@@ -115,8 +116,11 @@ const config = {
     gaTrackingId: process.env.GA_TRACKING_ID || 'UA-93598808-3',
     enableTracking: process.env.ENABLE_TRACKING || 'true',
     webChat: {
-        chatId: process.env.WEBCHAT_CHAT_ID || 'script_7143406305ce667c21e2eb9.79440233',
-        tenant: process.env.WEBCHAT_TENANT || 'aG1jdHNzdGFnaW5nMDE',
+        chatId: process.env.WEBCHAT_CHAT_ID || '3077733355d19fd430f23c7.02555395',
+        tenant: process.env.WEBCHAT_TENANT || 'c2FuZGJveGhtY3RzMDE',
+        buttonNoAgents: process.env.WEBCHAT_BUTTON_NO_AGENTS || '20599210435d19f59cdc3e95.94551214',
+        buttonAgentsBusy: process.env.WEBCHAT_BUTTON_AGENTS_BUSY || '8752254635d19f5bb21ff07.71234899',
+        buttonServiceClosed: process.env.WEBCHAT_BUTTON_SERVICE_CLOSED || '4639879315d19f67c3c1055.15174024',
     },
     links: {
         cookies: '/cookies',

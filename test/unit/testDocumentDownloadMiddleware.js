@@ -5,6 +5,7 @@ const sinon = require('sinon');
 const rewire = require('rewire');
 const documentDownload = rewire('app/middleware/documentDownload');
 const probateJourney = require('app/journeys/probate');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('DocumentDownloadMiddleware', () => {
     describe('documentDownload()', () => {
@@ -16,7 +17,10 @@ describe('DocumentDownloadMiddleware', () => {
         beforeEach(() => {
             req = {
                 session: {
-                    journey: probateJourney
+                    journey: probateJourney,
+                    form: {
+                        caseType: caseTypes.GOP
+                    }
                 },
                 log: {
                     error: sinon.spy()

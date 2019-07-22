@@ -52,19 +52,23 @@
     <script src="/webchat/javascript/hmcts-webchat.js"></script>
     <script nonce="{{ nonce }}">
         webchat_init({
-            uuid: '{{ webChat.chatId }}',
+            uuid: 'script_{{ webChat.chatId }}',
             tenant: '{{ webChat.tenant }}',
             channel: 'Probate',
             stylesheetURL: 'https://' + window.location.hostname + '/public/stylesheets/hmcts-webchat.css',
             busHandlerURL: 'https://' + window.location.hostname + '/webchat/javascript/hmcts-webchat-busHandler.js',
+            btnNoAgents: '/{{ webChat.tenant }}/button_{{ webChat.buttonNoAgents }}/img/logo',
+            btnAgentsBusy: '/{{ webChat.tenant }}/button_{{ webChat.buttonAgentsBusy }}/img/logo',
+            btnServiceClosed: '/{{ webChat.tenant }}/button_{{ webChat.buttonServiceClosed }}/img/logo',
             chatDownAction: 'showMessage',
-            chatDownText: '{{ common.chatOnlineUnavailable | replace("\n", "\\n") }}',
-            linkTextAgent: '{{ common.chatOnlineWithAnAgent | replace("\n", "\\n") }}',
-            additionalText: '{{ common.chatOnlineOpeningHours | replace("\n", "\\n") }}',
-            additionalTextNoAgent: '{{ common.chatOnlineNoAgent | replace("\n", "\\n") }}',
-            additionalTextTooBusy: '{{ common.chatOnlineTooBusy | replace("\n", "\\n") }}',
-            additionalTextClosed: '{{ common.chatOnlineClosed | replace("\n", "\\n") }}',
-            chatLinkFocusable: false
+            chatLinkFocusable: false,
+            textChatDown: '{{ common.chatDown | replace("\n", "\\n") }}',
+            textChatClosed: '{{ common.chatClosed | replace("\n", "\\n") }}',
+            textChatWithAnAgent: '{{ common.chatWithAnAgent | replace("\n", "\\n") }}',
+            textNoAgentsAvailable: '{{ common.noAgentsAvailable | replace("\n", "\\n") }}',
+            textAllAgentsBusy: '{{ common.allAgentsBusy | replace("\n", "\\n") }}',
+            textChatAlreadyOpen: '{{ common.chatAlreadyOpen | replace("\\n", "\\\\n") }}',
+            textAdditional: '{{ common.chatOpeningHours | replace("\n", "\\n") }}',
         });
     </script>
 {% endif %}

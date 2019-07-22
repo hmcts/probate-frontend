@@ -1,5 +1,3 @@
-tags:
-  - idam-pr
 
 nodejs:
   memoryRequests: "512Mi"
@@ -29,16 +27,6 @@ nodejs:
     REDIS_USE_TLS : false
     USE_IDAM : true
   image: 'https://hmcts.azurecr.io/hmcts/probate-frontend:latest'
-
-rpe-feature-toggle-api:
-  importer:
-    cron:
-      enabled: false
-    oneoff:
-      enabled: false
-  postgresql:
-    postgresqlDatabase: hmcts
-
 
 redis:
   cluster:

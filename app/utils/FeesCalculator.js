@@ -70,7 +70,7 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
     }
 
     if (featureToggle.isEnabled(featureToggles, 'copies_fees')) {
-        copiesData.keyword = 'NewFee';
+        copiesData.keyword = 'HUG';
     }
 
     copiesData.amount_or_volume = get(formdata, 'copies.uk', 0);

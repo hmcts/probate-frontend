@@ -1,15 +1,12 @@
 #!groovy
 
-@Library("Infrastructure")
-///@Library("Infrastructure@fd7aef62b5503c45b4998a072175d94d62aab70e")
-import uk.gov.hmcts.contino.Kubectl
-import uk.gov.hmcts.contino.Consul
+@Library("Infrastructure") _
 
 String product = "probate"
 String component = "frontend"
 
-
-List<LinkedHashMap<String, Object>> secrets = [
+def secrets = [
+  'probate-${env}': [
     secret('testIdamBaseUrl', 'IDAM_API_URL'),
     secret('testIdamLoginUrl', 'IDAM_LOGIN_URL'),
     secret('testUseIdam', 'USE_IDAM'),
@@ -41,6 +38,7 @@ List<LinkedHashMap<String, Object>> secrets = [
     secret('probate-overseas-application-fee-code', 'PRO_OVERSEAS_COPIES_FEE_CODE'),
     secret('probate-service-id', 'PRO_SERVICE_ID'),
     secret('probate-site-id', 'PRO_SITE_ID')
+  ]
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
@@ -91,22 +89,18 @@ withPipeline("nodejs", product, component) {
 //        error 'Deliberately breaking pipeline to prevent prod deployment'
 //    }
 
-  //if (env.CHANGE_TITLE && !env.CHANGE_TITLE.startsWith('[PREVIEW]')) {
-    enableDockerBuild()
-      installCharts()
+  enableDockerBuild()
+  installCharts()
 
-  setVaultName('probate')
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
 
-
   after('functionalTest:aat') {
-      publishHTML target: [
-
+    publishHTML target: [
               reportDir            : "output/",
               reportFiles          : "mochawesome.html",
-              reportName           : "SAAT Functional Tests",
+              reportName           : "AAT Functional Tests",
               alwaysLinkToLastBuild: true
-      ]
+    ]
   }
 }

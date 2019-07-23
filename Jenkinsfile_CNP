@@ -38,6 +38,7 @@ def secrets = [
     secret('probate-overseas-application-fee-code', 'PRO_OVERSEAS_COPIES_FEE_CODE'),
     secret('probate-service-id', 'PRO_SERVICE_ID'),
     secret('probate-site-id', 'PRO_SITE_ID')
+  ]
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {

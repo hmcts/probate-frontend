@@ -39,9 +39,9 @@
   "helpTitle" : "Contact us for help",
   "helpHeading1": "Telephone",
   "helpHeading2": "Email",
-  "helpHeading3": "Webchat",
+  "helpHeading3": "Web chat",
   "contactOpeningTimes" : "{openingTimes}.",
-  "helpEmailLabel" : "Email us at <a href=\"mailto:{contactEmailAddress}\" tabindex=\"-1\">{contactEmailAddress}</a>",
+  "helpEmailLabel" : "Email us at <a href=\"mailto:{contactEmailAddress}\" tabindex=\"-1\">{contactEmailAddress}</a>.",
   "or": "or",
   "documentUploadChooseFile": "Choose a file or take a photo",
   "documentUploadDragAndDrop": "drag and drop files here",
@@ -65,7 +65,7 @@
   "chatWithAnAgent": "Chat online with an agent",
   "noAgentsAvailable": "No agents are available, please try again later.",
   "allAgentsBusy": "All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways above.",
-  "chatClosed": "Web chat is now closed.\nCome back Monday to Friday 9:30am to 5pm.",
+  "chatClosed": "Web chat is now closed.\nOpening hours are {chatOpeningHours}.",
   "chatAlreadyOpen": "A web chat window is already open.",
   "chatOpeningHours": "Monday to Friday, 9:30am to 5pm"
 }

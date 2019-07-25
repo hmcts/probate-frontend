@@ -1,6 +1,7 @@
 'use strict';
 
 const ProbatePdf = require('./ProbatePdf');
+const FormatName = require('app/utils/FormatName');
 
 class ProbateCoverSheetPdf extends ProbatePdf {
     post(formdata) {
@@ -8,6 +9,7 @@ class ProbateCoverSheetPdf extends ProbatePdf {
         const body = {
             bulkScanCoverSheet: {
                 applicantAddress: formdata.applicant.address.formattedAddress,
+                applicantName: FormatName.format(formdata.applicant),
                 caseReference: formdata.ccdCase.id,
                 submitAddress: formdata.registry.address
             }

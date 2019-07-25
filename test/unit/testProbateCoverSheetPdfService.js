@@ -12,6 +12,8 @@ describe('ProbateCoverSheetPdfService', () => {
             const endpoint = 'http://localhost';
             const formdata = {
                 applicant: {
+                    firstName: 'Joe',
+                    lastName: 'Bloggs',
                     address: {
                         formattedAddress: '1 Red Road, London, L1 1LL'
                     }
@@ -34,6 +36,7 @@ describe('ProbateCoverSheetPdfService', () => {
                 {
                     bulkScanCoverSheet: {
                         applicantAddress: '1 Red Road, London, L1 1LL',
+                        applicantName: 'Joe Bloggs',
                         caseReference: 'ccd123',
                         submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY'
                     }

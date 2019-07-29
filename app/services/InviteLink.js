@@ -17,6 +17,7 @@ class InviteLink extends Service {
         const url = this.formatUrl.format(this.endpoint, `/invite${urlParam}`);
         const headers = {
             'Content-Type': 'application/json',
+            'charset': 'utf-8',
             'Session-Id': this.sessionId
         };
         const fetchOptions = this.fetchOptions(data, 'POST', headers);

@@ -31,6 +31,7 @@ const uuid = uuidv4();
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
 const featureToggles = require('app/featureToggles');
+const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody');
 
 exports.init = function() {
     const app = express();
@@ -225,6 +226,8 @@ exports.init = function() {
     if (useHttps === 'true') {
         app.use(utils.forceHttps);
     }
+
+    app.post('*', sanitizeRequestBody);
 
     app.get('/executors/invitation/:inviteId', inviteSecurity.verify());
     app.use('/co-applicant-*', inviteSecurity.checkCoApplicant(useIDAM));

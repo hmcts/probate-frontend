@@ -75,7 +75,7 @@ describe('executors-names', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        executorName: ['<bob bassett']
+                        executorName: ['>bob bassett']
                     };
                     testWrapper.testErrors(done, data, 'invalid', ['executorName']);
                 });

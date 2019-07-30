@@ -68,13 +68,13 @@ describe('Pact IdamSessionClient', () => {
                             'surname': like('Test'),
                             'defaultService': like('CCD'),
                             'id': like(41),
-                            'roles': like( [
-                                "caseworker-probate",
-                                "citizen",
-                                "caseworker",
-                                "caseworker-probate-loa1",
-                                "citizen-loa1",
-                                "caseworker-loa1"
+                            'roles': like([
+                                'caseworker-probate',
+                                'citizen',
+                                'caseworker',
+                                'caseworker-probate-loa1',
+                                'citizen-loa1',
+                                'caseworker-loa1'
                             ])
                         }
                     }

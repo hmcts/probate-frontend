@@ -60,8 +60,8 @@ describe('Pact AuthoriseClient', () => {
                             'Content-Type': 'application/json',
                         },
                         body: {
-                                microservice: 'probate_frontend',
-                                oneTimePassword: like('AAAAAAAAAAAA')
+                            microservice: 'probate_frontend',
+                            oneTimePassword: like('AAAAAAAAAAAA')
                         }
                     },
                     willRespondWith: {

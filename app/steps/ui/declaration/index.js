@@ -16,6 +16,7 @@ const legalDocumentJSONObjBuilder = new LegalDocumentJSONObjectBuilder();
 const InviteData = require('app/services/InviteData');
 const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
+const UploadLegalDeclaration = require('app/services/UploadLegalDeclaration');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -27,6 +28,14 @@ class Declaration extends ValidationStep {
             delete ctx.declarationCheckbox;
         }
         return ctx;
+    }
+
+    * handlePost(ctx, errors, formdata, session) {
+        const uploadLegalDec = new UploadLegalDeclaration();
+        formdata.statementOfTruthDocument =
+            yield uploadLegalDec.generateAndUpload(ctx.sessionID, session.req.userId, formdata, ctx.caseType);
+        session.form.statementOfTruthDocument = formdata.statementOfTruthDocument;
+        return [ctx, errors];
     }
 
     getFormDataForTemplate(content, formdata) {

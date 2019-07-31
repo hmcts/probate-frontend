@@ -54,7 +54,8 @@ const dataMap = {
     allDeceasedChildrenOverEighteen: 'deceased.allChildrenOver18',
     anyDeceasedChildrenDieBeforeDeceased: 'deceased.anyDeceasedChildren',
     anyDeceasedGrandChildrenUnderEighteen: 'deceased.anyGrandchildrenUnder18',
-    deceasedAnyChildren: 'deceased.anyChildren'
+    deceasedAnyChildren: 'deceased.anyChildren',
+    statementOfTruthDocument: 'statementOfTruthDocument'
 };
 
 const submitData = (ctx, data) => {

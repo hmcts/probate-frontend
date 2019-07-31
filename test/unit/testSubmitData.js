@@ -140,6 +140,11 @@ describe('submit-data', () => {
             'postTown': 'London'
         };
 
+        const statementOfTruthDocument = {
+            'url': 'http://dm-store-aat.service.core-compute-aat.internal/statementoftruth/123456789',
+            'filename': 'Sample-Statement-of-Truth.pdf'
+        };
+
         assert.nestedPropertyVal(mappedData, 'applicantFirstName', 'Bob Richard');
         assert.nestedPropertyVal(mappedData, 'applicantLastName', 'Smith');
         assert.nestedPropertyVal(mappedData, 'applicantSameWillName', 'No');
@@ -179,5 +184,6 @@ describe('submit-data', () => {
         assert.deepNestedPropertyVal(mappedData, 'payment', payment);
         assert.deepNestedPropertyVal(mappedData, 'registry', registry);
         assert.deepNestedPropertyVal(mappedData, 'caseId', 1535395401245028);
+        assert.deepNestedPropertyVal(mappedData, 'statementOfTruthDocument', statementOfTruthDocument);
     });
 });

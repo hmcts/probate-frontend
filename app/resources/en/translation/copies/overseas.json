@@ -7,10 +7,9 @@
   "bullet2": "50 pence for every copy after that",
   "copies": "Number of international copies",
 
-  "questionOld_2": "How many copies of the grant do you need for use outside the UK?",
-  "paragraph1Old_2": "International copies cost &pound;1.50 each.",
-  "copiesOld_1": "Number of copies",
-  "copiesOld_2": "Number of international copies",
+  "questionOld": "How many copies of the grant do you need for use outside the UK?",
+  "paragraph1Old": "International copies cost &pound;1.50 each.",
+  "copiesOld": "Number of international copies",
 
   "errors": {
     "overseas": {

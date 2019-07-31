@@ -23,10 +23,6 @@ router.get(`${config.featureToggles.path}/probate-fees-api`, (req, res) => {
     res.send('true');
 });
 
-router.get(`${config.featureToggles.path}/probate-copies-fees`, (req, res) => {
-    res.send('true');
-});
-
 router.get(`${config.featureToggles.path}/probate-webchat`, (req, res) => {
     res.send('true');
 });

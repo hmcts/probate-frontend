@@ -3,7 +3,6 @@
 const {get} = require('lodash');
 const FeesLookup = require('app/services/FeesLookup');
 const config = require('app/config');
-const featureToggle = require('app/utils/FeatureToggle');
 const logger = require('app/components/logger')('Init');
 
 class FeesCalculator {
@@ -27,7 +26,8 @@ class FeesCalculator {
             event: 'copies',
             jurisdiction1: 'family',
             jurisdiction2: 'probate registry',
-            service: 'probate'
+            service: 'probate',
+            keyword: 'NewFee'
         };
         this.feesLookup = new FeesLookup(this.endpoint, sessionId);
     }
@@ -67,10 +67,6 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
                     returnResult.total += res.fee_amount;
                 }
             });
-    }
-
-    if (featureToggle.isEnabled(featureToggles, 'copies_fees')) {
-        copiesData.keyword = 'NewFee';
     }
 
     copiesData.amount_or_volume = get(formdata, 'copies.uk', 0);

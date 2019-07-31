@@ -13,26 +13,4 @@ describe('CopiesStart', () => {
             done();
         });
     });
-
-    describe('handleGet()', () => {
-        it('should return true when the copies_fees toggles is set', (done) => {
-            const ctxToTest = {};
-            const formdata = {};
-            const featureToggles = {
-                copies_fees: true
-            };
-            const [ctx] = copiesStart.handleGet(ctxToTest, formdata, featureToggles);
-            expect(ctx.isCopiesFeesToggleEnabled).to.equal(true);
-            done();
-        });
-
-        it('should return false when the copies_fees toggle is not set', (done) => {
-            const ctxToTest = {};
-            const formdata = {};
-            const featureToggles = {};
-            const [ctx] = copiesStart.handleGet(ctxToTest, formdata, featureToggles);
-            expect(ctx.isCopiesFeesToggleEnabled).to.equal(false);
-            done();
-        });
-    });
 });

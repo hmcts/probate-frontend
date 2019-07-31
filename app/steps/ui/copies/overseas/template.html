@@ -4,11 +4,7 @@
 {% from "widgets/numbers.html" import numberField %}
 
 {% block question %}
-    {% if fields.isCopiesFeesToggleEnabled.value === "true" %}
-        <h1 class="form-title heading-large">{{ content.questionOld_2 }}</h1>
-    {% else %}
-        <h1 class="form-title heading-large">{{ content.question }}</h1>
-    {% endif %}
+    <h1 class="form-title heading-large">{{ content.questionOld }}</h1>
 {% endblock %}
 
 {% block form_content %}
@@ -31,19 +27,13 @@
             ) }}
         </fieldset>
     {% else %}
-        {% if fields.isCopiesFeesToggleEnabled.value === "true" %}
-            <p>{{ content.paragraph1Old_2 | safe }}</p>
-        {% endif %}
+        <p>{{ content.paragraph1Old | safe }}</p>
         <fieldset>
-            {% if fields.isCopiesFeesToggleEnabled.value === "true" %}
-                <legend class="visually-hidden">{{ content.questionOld_2 | safe }}</legend>
-            {% else %}
-                <legend class="visually-hidden">{{ content.question | safe }}</legend>
-            {% endif %}
+            <legend class="visually-hidden">{{ content.questionOld | safe }}</legend>
             {{ numberField(
                 name = 'overseas',
                 field = fields.overseas,
-                text = content.copiesOld_2 if fields.isCopiesFeesToggleEnabled.value === "true" else content.copiesOld_1,
+                text = content.copiesOld,
                 size = 5,
                 width= '1-8',
                 currency = false

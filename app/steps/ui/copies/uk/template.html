@@ -7,11 +7,7 @@
     {% if fields.isFeesApiToggleEnabled.value === "true" %}
         <h1 class="form-title heading-large">{{ content.question }}</h1>
     {% else %}
-        {% if fields.isCopiesFeesToggleEnabled.value === "true" %}
-            <h1 class="form-title heading-large">{{ content.questionOld_2 }}</h1>
-        {% else %}
-            <h1 class="form-title heading-large">{{ content.questionOld_1 }}</h1>
-        {% endif %}
+        <h1 class="form-title heading-large">{{ content.questionOld }}</h1>
     {% endif %}
 {% endblock %}
 
@@ -37,22 +33,16 @@
             ) }}
         </fieldset>
     {% else %}
-        {% if fields.isCopiesFeesToggleEnabled.value === "true" %}
-            <p>{{ content.paragraph1Old_2 | safe }}</p>
-            <p>{{ content.paragraph2Old_2 | safe }}</p>
-            <p>{{ content.paragraph3Old_2 | safe }}</p>
-        {% endif %}
+        <p>{{ content.paragraph1Old | safe }}</p>
+        <p>{{ content.paragraph2Old | safe }}</p>
+        <p>{{ content.paragraph3Old | safe }}</p>
 
         <fieldset>
-            {% if fields.isCopiesFeesToggleEnabled.value === "true" %}
-                <legend class="visually-hidden">{{ content.questionOld_2 | safe }}</legend>
-            {% else %}
-                <legend class="visually-hidden">{{ content.questionOld_1 | safe }}</legend>
-            {% endif %}
+            <legend class="visually-hidden">{{ content.questionOld | safe }}</legend>
             {{ numberField(
                 name = 'uk',
                 field = fields.uk,
-                text = content.copiesOld_2 if fields.isCopiesFeesToggleEnabled.value === "true" else content.copiesOld_1,
+                text = content.copiesOld,
                 size = 5,
                 width= '1-8',
                 currency = false

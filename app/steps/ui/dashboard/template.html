@@ -1,0 +1,40 @@
+{% extends "includes/layout.html" %}
+
+{% from "table/macro.njk" import govukTable %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">{{ content.header }}</h1>
+
+            {{ govukTable({
+                caption: content.header | safe,
+                captionClasses: "govuk-visually-hidden",
+                head: [
+                    { text: content.tableHeader1 },
+                    { text: content.tableHeader2 },
+                    { text: content.tableHeader3 },
+                    ""
+                ],
+                rows: [
+                    [
+                        { text: field.deceased1 | safe },
+                        { text: field.date1 | safe },
+                        { text: content.statusInProgress },
+                        { text: ("<a href=\"#\" class=\"govuk-link\">" + content.actionContinue + "</a>") | safe }
+                    ],
+                    [
+                        { text: field.deceased2 | safe },
+                        { text: field.date2 | safe },
+                        { text: content.statusSubmitted },
+                        { text: ("<a href=\"#\" class=\"govuk-link\">" + content.actionView + "</a>") | safe }
+                    ]
+                ]
+            }) }}
+
+            <p class="govuk-body"><a href="/start-eligibility" class="govuk-link">{{ content.actionStartNewApplication }}</a></p>
+        </div>
+    </div>
+
+    <p class="govuk-body"><a href="/task-list" class="govuk-link">{{ content.paragraph11 }}</a></p>
+{% endblock %}

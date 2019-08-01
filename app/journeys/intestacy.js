@@ -159,6 +159,7 @@ const stepList = {
     Documents: 'ThankYou',
     ThankYou: 'TaskList',
     TaskList: 'TaskList',
+    Dashboard: 'TaskList',
     StopPage: 'StopPage'
 };
 

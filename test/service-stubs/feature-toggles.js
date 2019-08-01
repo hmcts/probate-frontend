@@ -12,7 +12,8 @@ const featureToggles = {
     'probate-intestacy-questions': true,
     'probate-fees-api': true,
     'probate-webchat': true,
-    'probate-webforms': true
+    'probate-webforms': true,
+    'probate-multiple-applications': true
 };
 
 Object.entries(featureToggles).forEach(([key, value]) => {

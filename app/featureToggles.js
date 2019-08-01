@@ -31,4 +31,6 @@ router.get('/any-children', (req, res, next) => featureToggle.callCheckToggle(re
 router.get('/any-deceased-children', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'intestacy_questions', featureToggle.togglePage, 'start-eligibility'));
 router.get('/any-grandchildren-under-18', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'intestacy_questions', featureToggle.togglePage, 'start-eligibility'));
 
+router.get('/dashboard', (req, res, next) => featureToggle.callCheckToggle(req, res, next, 'multiple_applications', featureToggle.togglePage, 'task-list'));
+
 module.exports = router;

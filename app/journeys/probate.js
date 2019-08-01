@@ -182,6 +182,7 @@ const stepList = {
     PaymentStatus: 'TaskList',
     AddressLookup: 'AddressLookup',
     TaskList: 'TaskList',
+    Dashboard: 'TaskList',
     StopPage: 'StopPage',
     PinPage: 'CoApplicantStartPage',
     PinResend: 'PinSent',

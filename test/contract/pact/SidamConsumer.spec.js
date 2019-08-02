@@ -188,7 +188,6 @@ describe('Pact SidamService consumer', () => {
         });
     });
 
-
     // Write pact files
     after(() => {
         return provider.finalize();

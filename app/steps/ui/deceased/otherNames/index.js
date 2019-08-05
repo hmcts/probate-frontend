@@ -2,7 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
-const {get, set, isEmpty, forEach} = require('lodash');
+const {get, set, isEmpty} = require('lodash');
 const FormatName = require('app/utils/FormatName');
 
 class DeceasedOtherNames extends ValidationStep {
@@ -46,7 +46,7 @@ class DeceasedOtherNames extends ValidationStep {
             ]);
         }
 
-        forEach(Object.entries(ctx.otherNames), ([index, otherName]) => {
+        Object.entries(ctx.otherNames).forEach(([index, otherName]) => {
             const [isValid, errors] = super.validate(otherName, formdata);
             allValid = isValid && allValid;
             if (!isEmpty(errors)) {
@@ -65,7 +65,7 @@ class DeceasedOtherNames extends ValidationStep {
         if (get(ctx, 'otherNames')) {
             errors = new Map(errors);
             set(fields, 'otherNames.value', new Map());
-            forEach(Object.entries(ctx.otherNames), ([index, otherName]) => {
+            Object.entries(ctx.otherNames).forEach(([index, otherName]) => {
                 const otherNameErrors = isEmpty(errors) ? [] : errors.get(index);
                 fields.otherNames.value.set(index, super.generateFields(otherName, otherNameErrors));
             });

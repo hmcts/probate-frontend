@@ -4,7 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
 const resourcePath = 'executors.names';
 const i18next = require('i18next');
-const {isEmpty, size, forEach} = require('lodash');
+const {isEmpty, size} = require('lodash');
 const FormatName = require('app/utils/FormatName');
 
 class ExecutorsNames extends ValidationStep {
@@ -28,11 +28,13 @@ class ExecutorsNames extends ValidationStep {
 
     createExecutorFullNameArray(ctx) {
         ctx.executorName = [];
-        forEach(ctx.list, (executor) => {
-            if (executor && 'fullName' in executor) {
-                ctx.executorName.push(executor.fullName);
-            }
-        });
+        if (ctx.list) {
+            ctx.list.forEach((executor) => {
+                if (executor && 'fullName' in executor) {
+                    ctx.executorName.push(executor.fullName);
+                }
+            });
+        }
     }
 
     handlePost(ctx, errors) {
@@ -82,7 +84,7 @@ class ExecutorsNames extends ValidationStep {
         const self = this;
         const errorMessages = [];
         errorMessages.length = [ctx.executorsNumber - 1];
-        forEach(validationErrors, (validationError) => {
+        validationErrors.forEach((validationError) => {
             const index = self.getIndexFromErrorParameter(validationError);
             errorMessages[index] = self.composeMessage(ctx.executorName[index], parseInt(index) + 2);
             validationError.msg = errorMessages[index].msg;

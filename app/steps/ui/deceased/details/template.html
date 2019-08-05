@@ -1,9 +1,9 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "fieldset/macro.njk" import govukFieldset %}
-{% from "input/macro.njk" import govukInput %}
-{% from "date-input/macro.njk" import govukDateInput %}
-{% from "button/macro.njk" import govukButton %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block form_content %}
     {% if errors and (fields["dob-day"].error or fields["dob-month"].error or fields["dob-year"].error or fields["dob-date"].error)%}

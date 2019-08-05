@@ -1,6 +1,8 @@
-{% extends "template.njk" %}
+{% extends "govuk/template.njk" %}
 
-{% from "phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
 
 {% block pageTitle %}
     {% if title == undefined %}

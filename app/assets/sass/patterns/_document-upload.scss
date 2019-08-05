@@ -7,7 +7,7 @@ Document Upload
 }
 
 .document-upload__dropzone--javascript {
-  border: 2px dashed govuk-colour("grey-1");
+  border: 2px dashed govuk-colour("dark-grey");
   overflow: hidden;
   padding: 30px;
 }
@@ -52,8 +52,8 @@ Document Upload
 }
 
 .document-upload__empty-list-text{
-  border-top: 1px solid govuk-colour("grey-2");
-  border-bottom: 1px solid govuk-colour("grey-2");
+  border-top: 1px solid govuk-colour("mid-grey");
+  border-bottom: 1px solid govuk-colour("mid-grey");
   padding: 10px 0 10px 0;
 }
 
@@ -62,7 +62,7 @@ Document Upload
 }
 
 .dz-preview {
-  border-bottom: 1px solid govuk-colour("grey-2");
+  border-bottom: 1px solid govuk-colour("mid-grey");
   padding: 10px 0;
   position: relative;
 

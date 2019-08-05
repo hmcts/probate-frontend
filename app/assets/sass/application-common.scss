@@ -3,22 +3,6 @@
   text-decoration: none;
 }
 
-.notice {
-  clear: left;
-
-  p {
-    padding-left: 50px;
-  }
-
-  strong {
-    padding-left: 15px;
-  }
-
-  &.co-applicant {
-    margin-top: 50px;
-  }
-}
-
 #contact-us-for-help {
   margin-top: 50px;
 
@@ -34,8 +18,8 @@
 .inset-page {
   border-width: 3px;
   border-style: solid;
-  background-color: govuk-colour("grey-4");
-  border-color: govuk-colour("grey-2");
+  background-color: govuk-colour("light-grey");
+  border-color: govuk-colour("mid-grey");
   margin: 0 0 30px 0;
   padding: govuk-spacing(8);
   padding-top: govuk-spacing(7);

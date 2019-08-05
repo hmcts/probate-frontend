@@ -3,7 +3,6 @@
 const Step = require('app/core/steps/Step');
 const copiesSteps = ['CopiesUk', 'AssetsJEGG', 'CopiesJEGG', 'AssetsOverseas', 'CopiesOverseas'];
 const FormatName = require('app/utils/FormatName');
-const {forEach} = require('lodash');
 
 class CopiesSummary extends Step {
 
@@ -14,8 +13,8 @@ class CopiesSummary extends Step {
     generateContent (ctx, formdata) {
         const content = {};
 
-        forEach(Object.keys(this.steps).filter(stepName => copiesSteps.includes(stepName)),
-            (stepName) => {
+        Object.keys(this.steps).filter(stepName => copiesSteps.includes(stepName))
+            .forEach((stepName) => {
                 const step = this.steps[stepName];
                 content[stepName] = step.generateContent(formdata[step.section], formdata);
                 content[stepName].url = step.constructor.getUrl();
@@ -27,8 +26,8 @@ class CopiesSummary extends Step {
 
     generateFields (ctx, errors, formdata) {
         const fields = {};
-        forEach(Object.keys(this.steps).filter(stepName => copiesSteps.includes(stepName)),
-            (stepName) => {
+        Object.keys(this.steps).filter(stepName => copiesSteps.includes(stepName))
+            .forEach((stepName) => {
                 const step = this.steps[stepName];
                 if (!fields[step.section]) {
                     fields[step.section] = step.generateFields(formdata[step.section], errors, formdata);

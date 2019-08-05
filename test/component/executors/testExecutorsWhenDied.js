@@ -11,7 +11,6 @@ const ExecutorsApplying = require('app/steps/ui/executors/applying');
 const contentData = {executorFullName: 'many clouds'};
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
-const {forEach} = require('lodash');
 
 describe('executors-when-died', () => {
     let testWrapper, sessionData;
@@ -296,7 +295,7 @@ describe('executors-when-died', () => {
         it('Gets the reason key from the json and adds it to the context', () => {
             const ExecutorsWhenDied = steps.ExecutorsWhenDied;
 
-            forEach(Object.keys(reasons), (key) => {
+            Object.keys(reasons).forEach((key) => {
                 ctx.notApplyingReason = reasons[key];
                 ctx.diedbefore = 'No';
                 if (key === 'optionDiedBefore') {

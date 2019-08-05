@@ -1,7 +1,7 @@
 'use strict';
 
 const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames');
-const {set, isEmpty, forEach} = require('lodash');
+const {set, isEmpty} = require('lodash');
 const ActionStepRunner = require('app/core/runners/ActionStepRunner');
 
 class AddAlias extends DeceasedOtherNames {
@@ -23,11 +23,11 @@ class AddAlias extends DeceasedOtherNames {
         if (isEmpty(errors)) {
             let counter = 0;
             const otherNames = {};
-            forEach(Object.entries(ctx.otherNames)
-                .filter(([index]) => index.startsWith('name_')), ([, otherName]) => {
-                set(otherNames, `name_${counter}`, otherName);
-                counter += 1;
-            });
+            Object.entries(ctx.otherNames).filter(([index]) => index.startsWith('name_'))
+                .forEach(([, otherName]) => {
+                    set(otherNames, `name_${counter}`, otherName);
+                    counter += 1;
+                });
             set(otherNames, ['name_', counter, '.firstName'].join(''));
             set(otherNames, ['name_', counter, '.lastName'].join(''));
             set(ctx, 'otherNames', otherNames);

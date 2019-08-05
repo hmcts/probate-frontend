@@ -5,7 +5,6 @@ const i18next = require('i18next');
 const logger = require('app/components/logger')('Init');
 const path = require('path');
 const steps = {};
-const {forEach} = require('lodash');
 
 const initStep = filePath => {
     const stepObject = require(filePath);
@@ -40,7 +39,7 @@ const initSteps = (stepLocations) => {
         }
     });
 
-    forEach(stepLocations, (location) => {
+    stepLocations.forEach((location) => {
         const calculatePath = path => {
             if ((/index.js$/).test(path)) {
                 const step = initStep(path);

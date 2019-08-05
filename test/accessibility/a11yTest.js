@@ -6,7 +6,7 @@ const a11y = require('test/util/a11y');
 const expect = require('chai').expect;
 const app = require('app');
 const initSteps = require('app/core/initSteps');
-const {endsWith, forEach} = require('lodash');
+const {endsWith} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const stepsToExclude = [
     'StartEligibility', 'ApplicantExecutor', 'DeceasedDomicile', 'MentalCapacity', 'IhtCompleted', 'WillLeft', 'WillOriginal', 'StartApply',
@@ -18,12 +18,12 @@ const steps = initSteps.steps;
 const nock = require('nock');
 const config = require('app/config');
 
-forEach(Object.keys(steps).filter(stepName => stepsToExclude.includes(stepName)),
-    (stepName) => delete steps[stepName]);
+Object.keys(steps)
+    .filter(stepName => stepsToExclude.includes(stepName))
+    .forEach((stepName) => delete steps[stepName]);
 
 for (const step in steps) {
     ((step) => {
-
         let results;
 
         describe(`Verify accessibility for the page ${step.name}`, () => {

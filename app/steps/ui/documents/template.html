@@ -1,7 +1,7 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "fieldset/macro.njk" import govukFieldset %}
-{% from "button/macro.njk" import govukButton %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "widgets/lists.html" import unorderedList %}
 
 {% set checklistItems = [] %}
@@ -9,20 +9,20 @@
 
 
 {% if fields.caseType.value === globals.caseTypes.gop %}
-    {% if fields.hasCodicils.value == "true" and fields.codicilsNumber.value > "0" %}
+    {% if fields.hasCodicils.value === "true" and fields.codicilsNumber.value > "0" %}
         {% set checklistItems = (checklistItems.push(content["checklist-item1-codicils"]), checklistItems) %}
         {% set codicilsSuffix = "-codicils" %}
     {% else %}
         {% set checklistItems = (checklistItems.push(content["checklist-item1-no-codicils"]), checklistItems) %}
     {% endif %}
 
-    {% if fields.uploads.value | length == 0 %}
+    {% if fields.uploads.value | length === 0 %}
         {% set checklistItems = (checklistItems.push(content["checklist-item3-will-uploaded"]), checklistItems) %}
     {% endif %}
-    {% if (fields.is205.value == "true") %}
+    {% if (fields.is205.value === "true") %}
         {% set checklistItems = (checklistItems.push(content["checklist-item4-iht205"]), checklistItems) %}
     {% endif %}
-    {% if fields.hasRenunciated.value == "true" %}
+    {% if fields.hasRenunciated.value === "true" %}
         {% set checklistItems = (checklistItems.push(content["checklist-item5-renunciated"] | replace("{renunciationFormLink}", globals.links.renunciationForm)), checklistItems) %}
     {% endif %}
     {% if fields.executorsNameChangedByDeedPollList.value | length > 0 %}

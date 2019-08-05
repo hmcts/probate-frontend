@@ -172,10 +172,10 @@ exports.init = function() {
     app.use('/public/javascripts/govuk-frontend', express.static(`${__dirname}/node_modules/govuk-frontend`));
     app.use('/public/javascripts', express.static(`${__dirname}/app/assets/javascripts`));
     app.use('/public/pdf', express.static(`${__dirname}/app/assets/pdf`));
-    app.use('/assets', express.static(`${__dirname}/node_modules/govuk-frontend/assets`));
+    app.use('/assets', express.static(`${__dirname}/node_modules/govuk-frontend/govuk/assets`));
 
     // Elements refers to icon folder instead of images folder
-    app.use(favicon(path.join(__dirname, 'node_modules', 'govuk-frontend', 'assets', 'images', 'favicon.ico')));
+    app.use(favicon(path.join(__dirname, 'node_modules', 'govuk-frontend', 'govuk', 'assets', 'images', 'favicon.ico')));
 
     // Support for parsing data in POSTs
     app.use(bodyParser.json());

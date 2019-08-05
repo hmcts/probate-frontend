@@ -1,6 +1,6 @@
 <script src="/public/javascripts/jquery-1.11.3.js"></script>
 
-<script src="/public/javascripts/govuk-frontend/all.js"></script>
+<script src="/public/javascripts/govuk-frontend/govuk/all.js"></script>
 <script nonce="{{ globals.nonce }}">window.GOVUKFrontend.initAll()</script>
 
 {% if globals.enableTracking == "true" %}
@@ -50,7 +50,7 @@
             uuid: 'script_{{ globals.webChat.chatId }}',
             tenant: '{{ globals.webChat.tenant }}',
             channel: 'Probate',
-            stylesheetURL: 'https://' + window.location.hostname + '/public/stylesheets/hmcts-webchat.css',
+            stylesheetURL: 'https://' + window.location.hostname + '/webchat/css/hmcts-webchat-gds-v3.css',
             busHandlerURL: 'https://' + window.location.hostname + '/webchat/javascript/hmcts-webchat-busHandler.js',
             btnNoAgents: '/{{ globals.webChat.tenant }}/button_{{ globals.webChat.buttonNoAgents }}/img/logo',
             btnAgentsBusy: '/{{ globals.webChat.tenant }}/button_{{ globals.webChat.buttonAgentsBusy }}/img/logo',

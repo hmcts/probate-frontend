@@ -1,8 +1,9 @@
 {% extends "includes/two_thirds_form.html" %}
 
-{% from "fieldset/macro.njk" import govukFieldset %}
-{% from "radios/macro.njk" import govukRadios %}
-{% from "button/macro.njk" import govukButton %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "widgets/lists.html" import unorderedList %}
 
 {% set displaySignOutLink = "false" %}
@@ -61,14 +62,10 @@
             fields.declaration.value.understandItem2
         ]) }}
 
-        <div class="notice co-applicant">
-            <em class="icon icon-important"><span class="govuk-visually-hidden">Warning</span></em>
-            <p class="govuk-body">
-                <strong class="govuk-!-font-size-19 govuk-!-font-weight-bold">
-                    {{ fields.declaration.value.submitWarning | safe }}
-                </strong>
-            </p>
-        </div>
+        {{ govukWarningText({
+            text: fields.declaration.value.submitWarning | safe,
+            iconFallbackText: "Warning"
+        }) }}
     </div>
 
     <h2 class="govuk-heading-m">{{ content.agreementHeader | safe }}</h2>

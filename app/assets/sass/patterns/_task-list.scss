@@ -27,19 +27,19 @@ Task List
     }
 
     &.task-unavailable {
-      background-color: govuk-colour("grey-2");
+      background-color: govuk-colour("mid-grey");
       color: govuk-colour("black");
     }
   }
 }
 
 .task-item {
-  border-top: 1px solid govuk-colour("grey-2");
+  border-top: 1px solid govuk-colour("mid-grey");
   line-height: 1.5;
   padding: 20px 0 10px 0;
 
   &:last-child {
-    border-bottom: 1px solid govuk-colour("grey-2");
+    border-bottom: 1px solid govuk-colour("mid-grey");
   }
 }
 

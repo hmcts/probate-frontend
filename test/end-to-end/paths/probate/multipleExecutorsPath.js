@@ -2,7 +2,7 @@
 
 //const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
-const {forEach, head} = require('lodash');
+const {head} = require('lodash');
 const testConfig = require('test/config.js');
 
 let grabIds;
@@ -72,7 +72,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     let diedBefore = true;
     I.selectExecutorsWhoDied(executorsWhoDiedList);
 
-    forEach(executorsWhoDiedList, (executorNumber) => {
+    executorsWhoDiedList.forEach((executorNumber) => {
         I.selectExecutorsWhenDied(executorNumber, diedBefore, head(executorsWhoDiedList) === executorNumber);
 
         diedBefore = !diedBefore;
@@ -89,19 +89,19 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
 
     const executorsWithDifferentNameList = ['5'];
-    forEach(executorsWithDifferentNameList, (executorNumber) => {
+    executorsWithDifferentNameList.forEach((executorNumber) => {
         I.enterExecutorCurrentName(executorNumber, head(executorsWithDifferentNameList) === executorNumber);
         I.enterExecutorCurrentNameReason(executorNumber, 'aliasOther', 'executor_alias_reason');
     });
 
-    forEach(executorsApplyingList, (executorNumber) => {
+    executorsApplyingList.forEach((executorNumber) => {
         I.enterExecutorContactDetails(executorNumber, head(executorsApplyingList) === executorNumber);
         I.enterExecutorManualAddress(executorNumber);
     });
 
     const executorsAliveList = ['4', '6'];
     let powerReserved = true;
-    forEach(executorsAliveList, (executorNumber) => {
+    executorsAliveList.forEach((executorNumber) => {
         I.selectExecutorRoles(executorNumber, powerReserved, head(executorsAliveList) === executorNumber);
 
         if (powerReserved) {

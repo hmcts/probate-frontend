@@ -1,6 +1,6 @@
 {% extends "includes/layout.html" %}
 
-{% from "button/macro.njk" import govukButton %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set displaySignOutLink = "false" %}
 {% set serviceName = "" %}
@@ -18,7 +18,7 @@
         {{ govukButton({
             text: common.createAccount,
             preventDoubleClick: true,
-            classes: "govuk-button--start",
+            isStartButton: true,
             href: "/task-list"
         }) }}
     </div>

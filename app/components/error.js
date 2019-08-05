@@ -1,6 +1,6 @@
 'use strict';
 
-const {filter, isEqual, map, uniqWith, forEach} = require('lodash');
+const {filter, isEqual, map, uniqWith} = require('lodash');
 const i18next = require('i18next');
 
 const FieldError = (param, keyword, resourcePath, contentCtx) => {
@@ -32,10 +32,9 @@ const generateErrors = (errs, ctx, formdata, errorPath, lang = 'en') => {
                 return FieldError(param, 'required', errorPath);
             }
             [, param] = e.dataPath.split('.');
-            if (!param && e.dataPath.includes('[\'') && e.dataPath.includes('\']')) {
-                param = e.dataPath
-                    .replace(/\['|']/g, '');
-            }
+
+            param = stripBrackets(param, e);
+
             return FieldError(param, 'invalid', errorPath);
 
         } catch (e) {
@@ -45,12 +44,19 @@ const generateErrors = (errs, ctx, formdata, errorPath, lang = 'en') => {
     return uniqWith(errors, isEqual);
 };
 
-const mapErrorsToFields = (fields, errors = []) => {
+const stripBrackets = (param, e) => {
+    if (!param && e.dataPath.includes('[\'') && e.dataPath.includes('\']')) {
+        return e.dataPath.replace(/\['|']/g, '');
+    }
+    return param;
+};
+
+const populateErrors = (errors) => {
     let err = [];
 
     if (Array.isArray(errors[0])) {
-        forEach(errors, (error) => {
-            forEach(error[1], (e) => {
+        errors.forEach((error) => {
+            error[1].forEach((e) => {
                 err.push(e);
             });
         });
@@ -58,7 +64,13 @@ const mapErrorsToFields = (fields, errors = []) => {
         err = errors;
     }
 
-    forEach(err, (e) => {
+    return err;
+};
+
+const mapErrorsToFields = (fields, errors = []) => {
+    const err = populateErrors(errors);
+
+    err.forEach((e) => {
         if (!fields[e.field]) {
             fields[e.field] = {};
         }

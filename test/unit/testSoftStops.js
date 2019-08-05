@@ -2,7 +2,6 @@
 
 const initSteps = require('app/core/initSteps');
 const {assert, expect} = require('chai');
-const {forEach} = require('lodash');
 const stopPagesContent = require('../../app/resources/en/translation/stoppage.json');
 
 describe('Soft Stops', () => {
@@ -87,7 +86,7 @@ describe('Soft Stops', () => {
                 otherApplicants: {placeHolders: ['applicationFormPA1A']}
             };
 
-            forEach(Object.keys(stopPages), (key) => {
+            Object.keys(stopPages).forEach((key) => {
                 stopPages[key].content = stopPagesContent[key];
 
                 assert.deepEqual(stopPage.replaceLinkPlaceholders(stopPagesContent[key]), stopPages[key].placeHolders);

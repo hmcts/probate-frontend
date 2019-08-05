@@ -12,7 +12,7 @@ const getPort = require('get-port');
 const assert = chai.assert;
 chai.use(chaiAsPromised);
 
-describe('Pact IdamSessionClient', () => {
+describe.skip('Pact IdamSessionClient', () => {
 
     let MOCK_SERVER_PORT;
     let provider;

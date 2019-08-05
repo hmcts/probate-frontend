@@ -12,7 +12,7 @@ const getPort = require('get-port');
 const assert = chai.assert;
 chai.use(chaiAsPromised);
 
-describe('Pact AuthoriseClient', () => {
+describe.skip('Pact AuthoriseClient', () => {
 
     let MOCK_SERVER_PORT;
     let provider;

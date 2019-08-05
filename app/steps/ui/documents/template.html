@@ -1,6 +1,7 @@
 {% extends "includes/two_thirds_form.html" %}
 
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "widgets/lists.html" import unorderedList %}
 
@@ -64,16 +65,16 @@
             <p class="govuk-body">{{ content.text4 | safe }}</p>
         {% endif %}
 
-        <div class="panel panel-border-wide">
-            <p class="govuk-body">{{ content.warning | safe }}</p>
-        </div>
+        {{ govukInsetText({
+            text: content.warning | safe
+        }) }}
 
         <h2 class="govuk-heading-m">{{ content.heading2 | safe }}</h2>
         <p class="govuk-body">{{ content.text5 | safe }}</p>
 
-        <div class="panel panel-border-narrow">
-            <p class="govuk-body">{{ fields.registryAddress.value | safe | nl2br }}</p>
-        </div>
+        {{ govukInsetText({
+            text: fields.registryAddress.value | safe | nl2br
+        }) }}
 
         <input id="sentDocuments" type="hidden" name="sentDocuments" value="true"/>
     {% endcall %}

@@ -1,6 +1,7 @@
 {% extends "includes/two_thirds_form.html" %}
 
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
@@ -101,9 +102,13 @@
         ]
     }) }}
 
-    <div class="panel panel-border-narrow js-hidden" id="agreement-2-details">
-        <p class="govuk-body">{{ content.optionNoText | replace("{mainApplicantName}", fields.applicant.value.firstName + " " +  fields.applicant.value.lastName) | safe }}</p>
-    </div>
+    {{ govukInsetText({
+        text: content.optionNoText | replace("{mainApplicantName}", fields.applicant.value.firstName + " " +  fields.applicant.value.lastName) | safe,
+        classes: "js-hidden",
+        attributes: {
+            id: "agreement-2-details"
+        }
+    }) }}
 
     <div class="govuk-form-group">
         {{ govukButton({

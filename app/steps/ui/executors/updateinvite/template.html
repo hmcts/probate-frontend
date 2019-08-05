@@ -1,6 +1,7 @@
 {% extends "includes/two_thirds_form.html" %}
 
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block form_content %}
@@ -12,7 +13,9 @@
         }
     }) %}
         <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
-        <p class="govuk-body panel panel-border-wide">{{ content.paragraph2 | safe }}</p>
+        {{ govukInsetText({
+            text: content.paragraph2 | safe
+        }) }}
 
         <h2 class="govuk-heading-m">{{ content.header1 | safe }}</h2>
         {% for executor in fields.list.value %}

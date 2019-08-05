@@ -8,7 +8,12 @@ class CheckAnswersSummaryJSONObjectBuilder {
         const $ = cheerio.load(html);
         const summary = {};
         summary.sections = [];
-        const sections = $('#check-your-answers .govuk-heading-l, #check-your-answers .govuk-heading-m, #check-your-answers .govuk-heading-s, #check-your-answers .check-your-answers__row');
+        const sections = $(
+            '#main-content .govuk-heading-l,' +
+            '#main-content .govuk-heading-m,' +
+            '#main-content .govuk-heading-s,' +
+            '#main-content .govuk-summary-list .govuk-summary-list__row'
+        );
         const mainParagraph = $('#main-heading-content');
         summary.mainParagraph = mainParagraph.text();
         let section;
@@ -23,7 +28,7 @@ class CheckAnswersSummaryJSONObjectBuilder {
             if ($element.hasClass('govuk-heading-m')) {
                 section = buildSection(section, $element, summary, 'govuk-heading-m');
             }
-            if ($element.hasClass('check-your-answers__row') && $element.children().length > 0) {
+            if ($element.hasClass('govuk-summary-list__row') && $element.children().length > 0) {
                 buildQuestionAndAnswers($element, section);
             }
         }
@@ -32,13 +37,13 @@ class CheckAnswersSummaryJSONObjectBuilder {
 }
 
 const buildQuestionAndAnswers = ($element, section) => {
-    const question = $element.children('.check-your-answers__question');
-    const answer = $element.children('.check-your-answers__answer');
+    const question = $element.children('.govuk-summary-list__key');
+    const answer = $element.children('.govuk-summary-list__value');
     const questionAndAnswer = {};
 
     questionAndAnswer.question = question.text();
     questionAndAnswer.answers = [];
-    const answer_rows = answer.children('.check-your-answers__row');
+    const answer_rows = answer.children('.govuk-summary-list__row');
     if (answer_rows.length > 0) {
         const rows = answer_rows.parent().text()
             .split('\n');

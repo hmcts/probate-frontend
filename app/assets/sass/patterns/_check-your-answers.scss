@@ -4,6 +4,7 @@ Check Your Answers
 
 @include govuk-media-query($from: tablet) {
   .govuk-summary-list__key {
+    font-weight: 400;
     width: 50%;
   }
 

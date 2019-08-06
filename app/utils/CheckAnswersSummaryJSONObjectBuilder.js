@@ -9,10 +9,10 @@ class CheckAnswersSummaryJSONObjectBuilder {
         const summary = {};
         summary.sections = [];
         const sections = $(
-            '#main-content .govuk-heading-l,' +
-            '#main-content .govuk-heading-m,' +
-            '#main-content .govuk-heading-s,' +
-            '#main-content .govuk-summary-list .govuk-summary-list__row'
+            '#check-your-answers .govuk-heading-l,' +
+            '#check-your-answers .govuk-heading-m,' +
+            '#check-your-answers .govuk-heading-s,' +
+            '#check-your-answers .govuk-summary-list .govuk-summary-list__row'
         );
         const mainParagraph = $('#main-heading-content');
         summary.mainParagraph = mainParagraph.text();

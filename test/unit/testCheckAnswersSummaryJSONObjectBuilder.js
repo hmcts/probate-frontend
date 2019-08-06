@@ -11,109 +11,111 @@ const html = `
 <body>
     <div class="govuk-width-container">
         <main class="govuk-main-wrapper " id="main-content" role="main">
-            <h1 class="govuk-heading-l">Check your answers</h1>
-            <p class="govuk-body" id="main-heading-content">Check the information below carefully. This will form a record of your application for probate. It will also be stored as a public record, and will be able to be viewed online.</p>
-
-            <h2 class="govuk-heading-m">About the person who died</h2>
-            <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">First name and any middle names</dt>
-                    <dd class="govuk-summary-list__value">Test GDS - on Pr-889 FN</dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="/deceased-name">Change</a>
-                    </dd>
-                </div>
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">Last name</dt>
-                    <dd class="govuk-summary-list__value">Test GDS - on Pr-889 FN</dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="/deceased-name">Change</a>
-                    </dd>
-                </div>
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">Did Test GDS - on Pr-889 FN Test GDS - on Pr-889 FN have assets in another name?</dt>
-                    <dd class="govuk-summary-list__value">Yes</dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="/deceased-alias">Change</a>
-                    </dd>
-                </div>
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">Names used by the deceased</dt>
-                    <dd class="govuk-summary-list__value">
-                        <div class="govuk-summary-list__row">
-                            Other Test GDS - on Pr-889 FN Other Test GDS - on Pr-889 FN
-                        </div>
-                        <div class="govuk-summary-list__row">
-                            dsfa fdsfas
-                        </div>
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a href="/other-names">Change</a>
-                    </dd>
-                </div>
-            </dl>
-
-            <h2 class="govuk-heading-m">Uploaded documents</h2>
-            <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">Death Certificate</dt>
-                    <dd class="govuk-summary-list__value">
-                        <div class="check-your-answers__row">
-                            Screenshot 2019-08-05 at 10.42.17.png
-                        </div>
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="/document-upload">Change</a>
-                    </dd>
-                </div>
-            </dl>
-
-            <h2 class="govuk-heading-m">Inheritance tax</h2>
-            <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">How was the Inheritance Tax (IHT) form submitted?</dt>
-                    <dd class="govuk-summary-list__value">By post</dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="/iht-method">Change</a>
-                    </dd>
-                </div>
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">Which paper form was filled in?</dt>
-                    <dd class="govuk-summary-list__value">IHT 205 - there was no inheritance tax to pay</dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="/iht-paper">Change</a>
-                    </dd>
-                </div>
-            </dl>
-
-            <h2 class="govuk-heading-m">The executors</h2>
-            <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">How many past and present executors are named on the will and any updates (&lsquo;codicils&rsquo;)?</dt>
-                    <dd class="govuk-summary-list__value">7</dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="/executors-number">Change</a>
-                    </dd>
-                </div>
-            </dl>
-
-            <h3 class="govuk-heading-s">About you</h3>
-            <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">First name and any middle names</dt>
-                    <dd class="govuk-summary-list__value">Application-name FN</dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="/applicant-name">Change</a>
-                    </dd>
-                </div>
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">Last name</dt>
-                    <dd class="govuk-summary-list__value">Application-name LN</dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="/applicant-name">Change</a>
-                    </dd>
-                </div>
-            </dl>
+            <div id="check-your-answers">
+                <h1 class="govuk-heading-l">Check your answers</h1>
+                <p class="govuk-body" id="main-heading-content">Check the information below carefully. This will form a record of your application for probate. It will also be stored as a public record, and will be able to be viewed online.</p>
+    
+                <h2 class="govuk-heading-m">About the person who died</h2>
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">First name and any middle names</dt>
+                        <dd class="govuk-summary-list__value">Test GDS - on Pr-889 FN</dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="/deceased-name">Change</a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Last name</dt>
+                        <dd class="govuk-summary-list__value">Test GDS - on Pr-889 FN</dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="/deceased-name">Change</a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Did Test GDS - on Pr-889 FN Test GDS - on Pr-889 FN have assets in another name?</dt>
+                        <dd class="govuk-summary-list__value">Yes</dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="/deceased-alias">Change</a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Names used by the deceased</dt>
+                        <dd class="govuk-summary-list__value">
+                            <div class="govuk-summary-list__row">
+                                Other Test GDS - on Pr-889 FN Other Test GDS - on Pr-889 FN
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                dsfa fdsfas
+                            </div>
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a href="/other-names">Change</a>
+                        </dd>
+                    </div>
+                </dl>
+    
+                <h2 class="govuk-heading-m">Uploaded documents</h2>
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Death Certificate</dt>
+                        <dd class="govuk-summary-list__value">
+                            <div class="check-your-answers__row">
+                                Screenshot 2019-08-05 at 10.42.17.png
+                            </div>
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="/document-upload">Change</a>
+                        </dd>
+                    </div>
+                </dl>
+    
+                <h2 class="govuk-heading-m">Inheritance tax</h2>
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">How was the Inheritance Tax (IHT) form submitted?</dt>
+                        <dd class="govuk-summary-list__value">By post</dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="/iht-method">Change</a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Which paper form was filled in?</dt>
+                        <dd class="govuk-summary-list__value">IHT 205 - there was no inheritance tax to pay</dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="/iht-paper">Change</a>
+                        </dd>
+                    </div>
+                </dl>
+    
+                <h2 class="govuk-heading-m">The executors</h2>
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">How many past and present executors are named on the will and any updates (&lsquo;codicils&rsquo;)?</dt>
+                        <dd class="govuk-summary-list__value">7</dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="/executors-number">Change</a>
+                        </dd>
+                    </div>
+                </dl>
+    
+                <h3 class="govuk-heading-s">About you</h3>
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">First name and any middle names</dt>
+                        <dd class="govuk-summary-list__value">Application-name FN</dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="/applicant-name">Change</a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Last name</dt>
+                        <dd class="govuk-summary-list__value">Application-name LN</dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="/applicant-name">Change</a>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
         </main>
     </div>
 </body>

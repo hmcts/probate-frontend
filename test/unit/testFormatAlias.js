@@ -25,7 +25,7 @@ describe('FormatAlias.js', () => {
             const executor = {
                 firstName: 'James',
                 lastName: 'Miller',
-                aliasReason: 'other',
+                aliasReason: 'Other',
                 otherReason: 'because I felt like it'
             };
             expect(FormatAlias.aliasReason(executor, true)).to.equal(': because I felt like it');
@@ -59,7 +59,7 @@ describe('FormatAlias.js', () => {
         });
 
         it('should return the other reason when other is selected as aliasReason', (done) => {
-            const aliasReason = 'other';
+            const aliasReason = 'Other';
             const otherReason = 'because I felt like it';
             expect(FormatAlias.formatAliasReason(aliasReason, otherReason, true)).to.equal(': because I felt like it');
             done();
@@ -86,7 +86,7 @@ describe('FormatAlias.js', () => {
         });
 
         it('should return the other reason when other is selected as aliasReason', (done) => {
-            const aliasReason = 'other';
+            const aliasReason = 'Other';
             const otherReason = 'because I felt like it';
             expect(FormatAlias.formatAliasReason(aliasReason, otherReason, false)).to.equal(': because I felt like it');
             done();

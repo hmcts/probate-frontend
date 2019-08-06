@@ -15,7 +15,7 @@ class FormatAlias {
             return hasMultipleApplicants ? ' got divorced' : ' I got divorced';
         } else if (aliasReason === 'Change by deed poll') {
             return hasMultipleApplicants ? ' changed their name by deed poll' : ' I changed my name by deed poll';
-        } else if (aliasReason === 'other') {
+        } else if (aliasReason === 'Other') {
             return `: ${otherReason}`;
         }
     }

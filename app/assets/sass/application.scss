@@ -1,5 +1,3 @@
-// Path to assets for use with the file-url function
-// in the govuk frontend toolkit's url-helpers partial
 $path: "/public/images/";
 
 // Import GOV.UK Frontend
@@ -31,6 +29,7 @@ $path: "/public/images/";
 @import "node_modules/govuk-frontend/govuk/utilities/all";
 @import "node_modules/govuk-frontend/govuk/overrides/all";
 
+@import 'patterns/cookie-bar';
 @import 'patterns/header';
 @import 'patterns/hint';
 @import 'patterns/radios';

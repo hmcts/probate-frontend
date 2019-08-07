@@ -1,9 +1,6 @@
-// Path to assets for use with the file-url function
-// in the govuk frontend toolkit's url-helpers partial
 $path: "/public/images/";
 
-// Import GOV.UK elements from /govuk-modules/, this will import the frontend toolkit and some base styles.
-// Take a look in /govuk-modules/_govuk-elements.scss to see which files are imported.
+// Import GOV.UK Frontend
 @import "node_modules/govuk-frontend/govuk/settings/all";
 @import "node_modules/govuk-frontend/govuk/core/all";
 @import "node_modules/govuk-frontend/govuk/objects/all";
@@ -32,17 +29,22 @@ $path: "/public/images/";
 @import "node_modules/govuk-frontend/govuk/utilities/all";
 @import "node_modules/govuk-frontend/govuk/overrides/all";
 
-// Take a look at in app/assets/sass/patterns/ to see which files are imported.
-@import 'patterns/check-your-answers';
+@import 'patterns/cookie-bar';
+@import 'patterns/header';
+@import 'patterns/hint';
+@import 'patterns/radios';
+
 @import 'patterns/task-list';
+@import 'patterns/check-your-answers';
 @import 'patterns/document-upload';
+@import 'patterns/declaration';
 
 @import 'application-common.scss';
 
 .multiple-choice input {
-	filter: none;
+  filter: none;
 }
 
 li.task-item , li.task-item .govuk-heading-m {
-	float: none;
+  float: none;
 }

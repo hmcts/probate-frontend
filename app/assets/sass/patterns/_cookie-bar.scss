@@ -1,0 +1,25 @@
+#global-cookie-message {
+  background-color: #d5e8f3;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+
+  p {
+    font-size: govuk-em(16px, 16px);
+    line-height: 1.25;
+    margin: 0 15px;
+    max-width: 960px;
+
+    @include govuk-media-query($from: tablet) {
+      margin: 0 30px;
+    }
+
+    @include govuk-media-query($from: desktop) {
+      margin: 0 auto;
+    }
+  }
+}
+
+.js-enabled #global-cookie-message {
+  display: none;
+}

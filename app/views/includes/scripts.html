@@ -13,24 +13,7 @@
     </noscript>
 {% endif %}
 
-<script nonce="{{ globals.nonce }}">
-    (function () {
-        "use strict";
-
-        const root = this;
-        if (typeof root.GOVUK === 'undefined') { root.GOVUK = {}; }
-
-        GOVUK.addCookieMessage = function () {
-            const message = document.getElementById('global-cookie-message');
-            const hasCookieMessage = (message && GOVUK.cookie('seen_cookie_message') === null);
-
-            if (hasCookieMessage) {
-                message.style.display = 'block';
-                GOVUK.cookie('seen_cookie_message', 'yes', { days: 28 });
-            }
-        };
-    }).call(this);
-</script>
+<script src="/public/javascripts/cookie.js"></script>
 
 <script src="/public/javascripts/dropzone.js"></script>
 <script nonce="{{ globals.nonce }}">

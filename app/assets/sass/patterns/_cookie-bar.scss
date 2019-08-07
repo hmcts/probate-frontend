@@ -1,10 +1,11 @@
 #global-cookie-message {
-  background-color: #d5e8f3;
+  background-color: govuk-colour("yellow");
   padding-top: 10px;
   padding-bottom: 10px;
   width: 100%;
 
   p {
+    color: govuk-colour("black");
     font-size: govuk-em(16px, 16px);
     line-height: 1.25;
     margin: 0 15px;
@@ -16,6 +17,10 @@
 
     @include govuk-media-query($from: desktop) {
       margin: 0 auto;
+    }
+
+    a {
+      color: govuk-colour("black");
     }
   }
 }

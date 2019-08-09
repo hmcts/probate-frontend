@@ -13,7 +13,7 @@
   "errors": {
     "maritalStatus": {
       "required": {
-        "summary": "You haven&rsquo;t answered the question about marital status",
+        "summary": "You haven&rsquo;t answered the question about the person who died&rsquo;s marital status",
         "message": "Choose a marital status option"
       }
     }

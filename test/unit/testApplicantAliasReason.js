@@ -31,13 +31,13 @@ describe('ApplicantAliasReason', () => {
 
         it('should not remove otherReason from the ctx when the aliasReason is set to other', (done) => {
             ctx = {
-                aliasReason: content.optionOther,
+                aliasReason: content.optionOther.toLowerCase(),
                 otherReason: 'Because I wanted to'
             };
             errors = [];
             [ctx, errors] = ApplicantAliasReason.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                aliasReason: content.optionOther,
+                aliasReason: content.optionOther.toLowerCase(),
                 otherReason: 'Because I wanted to'
             });
             done();
@@ -60,13 +60,13 @@ describe('ApplicantAliasReason', () => {
 
         it('should not remove otherReason from the ctx when the aliasReason is set to other', (done) => {
             ctx = {
-                aliasReason: content.optionOther,
+                aliasReason: content.optionOther.toLowerCase(),
                 otherReason: 'Because I wanted to'
             };
             errors = [];
             [ctx, errors] = ApplicantAliasReason.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                aliasReason: content.optionOther,
+                aliasReason: content.optionOther.toLowerCase(),
                 otherReason: 'Because I wanted to'
             });
             done();

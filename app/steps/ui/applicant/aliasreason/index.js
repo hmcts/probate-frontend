@@ -11,7 +11,7 @@ class ApplicantAliasReason extends ValidationStep {
     }
 
     handlePost(ctx, errors) {
-        if (ctx.aliasReason !== content.optionOther) {
+        if (ctx.aliasReason !== content.optionOther.toLowerCase()) {
             delete ctx.otherReason;
         }
         return [ctx, errors];

@@ -555,7 +555,7 @@ describe('declaration, multiple applicants', () => {
             sessionData.executors.list[1].currentNameReason = 'Change by deed poll';
             sessionData.executors.list[2].hasOtherName = true;
             sessionData.executors.list[2].currentName = 'fname4other sname4other';
-            sessionData.executors.list[2].currentNameReason = 'Other';
+            sessionData.executors.list[2].currentNameReason = 'other';
             sessionData.executors.list[2].otherReason = 'because they wanted to';
 
             contentData.codicilsNumber = '';
@@ -721,7 +721,7 @@ describe('declaration, multiple applicants', () => {
             sessionData.executors.list[1].currentNameReason = 'Change by deed poll';
             sessionData.executors.list[2].hasOtherName = true;
             sessionData.executors.list[2].currentName = 'fname4other sname4other';
-            sessionData.executors.list[2].currentNameReason = 'Other';
+            sessionData.executors.list[2].currentNameReason = 'other';
             sessionData.executors.list[2].otherReason = 'because they wanted to';
 
             contentData.aliasReason = ' changed their name by deed poll';
@@ -820,7 +820,7 @@ describe('declaration, multiple applicants', () => {
             sessionData.executors.list[1].currentNameReason = 'Divorce';
             sessionData.executors.list[2].hasOtherName = true;
             sessionData.executors.list[2].currentName = 'dave buster';
-            sessionData.executors.list[2].currentNameReason = 'Other';
+            sessionData.executors.list[2].currentNameReason = 'other';
             sessionData.executors.list[2].otherReason = 'they felt like it';
 
             testWrapper.agent.post('/prepare-session/form')
@@ -872,7 +872,7 @@ describe('declaration, multiple applicants', () => {
             sessionData.executors.list[1].currentNameReason = 'Divorce';
             sessionData.executors.list[2].hasOtherName = true;
             sessionData.executors.list[2].currentName = 'dave buster';
-            sessionData.executors.list[2].currentNameReason = 'Other';
+            sessionData.executors.list[2].currentNameReason = 'other';
             sessionData.executors.list[2].otherReason = 'they felt like it';
 
             testWrapper.agent.post('/prepare-session/form')

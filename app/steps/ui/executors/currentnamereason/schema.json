@@ -10,7 +10,7 @@
       "continue": false
     },
     {
-      "if": { "properties": { "currentNameReason": { "enum": ["Other"] } } },
+      "if": { "properties": { "currentNameReason": { "enum": ["other"] } } },
       "then": {
         "properties": {
           "other": {

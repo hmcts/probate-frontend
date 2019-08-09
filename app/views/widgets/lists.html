@@ -20,7 +20,7 @@
         {% elif status == "complete" %}
             <!-- Check your answers -->
             {% if alreadyDeclared == "false" %}
-                <p class="govuk-body"><a href="{{ checkYourAnswersURL }}">{{ content.checkYourAnswers }} <span class="govuk-visually-hidden">{{ title }}</span></a></p>
+                <p class="govuk-body"><a href="{{ checkYourAnswersURL }}" class="govuk-link">{{ content.checkYourAnswers }} <span class="govuk-visually-hidden">{{ title }}</span></a></p>
             {% else %}
                 <p class="govuk-body">{{ content.alreadyDeclared }}</p>
             {% endif %}

@@ -14,7 +14,7 @@
       },
       "invalid": {
         "summary": "You&rsquo;ve entered an invalid email address, check the email address and enter it again",
-        "message": "Enter an email address"
+        "message": "Enter a valid email address"
       }
     },
     "mobile": {
@@ -24,7 +24,7 @@
       },
       "invalid": {
         "summary": "You haven&rsquo;t entered a valid mobile phone number",
-        "message": "Enter a mobile phone number without spaces. International numbers must start with a plus sign"
+        "message": "Enter a mobile phone number without spaces, international numbers must start with a plus sign"
       }
     }
   }

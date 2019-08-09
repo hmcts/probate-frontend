@@ -29,14 +29,14 @@ $path: "/public/images/";
 @import "node_modules/govuk-frontend/govuk/utilities/all";
 @import "node_modules/govuk-frontend/govuk/overrides/all";
 
-@import 'patterns/cookie-bar';
-@import 'patterns/header';
-@import 'patterns/hint';
-@import 'patterns/radios';
+@import "patterns/cookie-bar";
+@import "patterns/header";
+@import "patterns/hint";
+@import "patterns/radios";
 
-@import 'patterns/task-list';
-@import 'patterns/check-your-answers';
-@import 'patterns/document-upload';
-@import 'patterns/declaration';
+@import "patterns/task-list";
+@import "patterns/check-your-answers";
+@import "patterns/document-upload";
+@import "patterns/declaration";
 
-@import 'application-common.scss';
+@import "application-common.scss";

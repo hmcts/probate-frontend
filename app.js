@@ -166,13 +166,13 @@ exports.init = function() {
     app.use(helmet.xssFilter({setOnOldIE: true}));
 
     // Middleware to serve static assets
-    app.use('/webchat', express.static(`${__dirname}/node_modules/@hmcts/ctsc-web-chat/assets`));
-    app.use('/public/stylesheets', express.static(`${__dirname}/public/stylesheets`));
-    app.use('/public/images', express.static(`${__dirname}/app/assets/images`));
-    app.use('/public/javascripts/govuk-frontend', express.static(`${__dirname}/node_modules/govuk-frontend`));
-    app.use('/public/javascripts', express.static(`${__dirname}/app/assets/javascripts`));
+    app.use('/webchat', express.static(`${__dirname}/node_modules/@hmcts/ctsc-web-chat/assets`, {cacheControl: true, setHeaders: (res, path) => res.setHeader('Cache-Control', 'max-age=604800')}));
+    app.use('/public/stylesheets', express.static(`${__dirname}/public/stylesheets`, {cacheControl: true, setHeaders: (res, path) => res.setHeader('Cache-Control', 'max-age=604800')}));
+    app.use('/public/images', express.static(`${__dirname}/app/assets/images`, {cacheControl: true, setHeaders: (res, path) => res.setHeader('Cache-Control', 'max-age=604800')}));
+    app.use('/public/javascripts/govuk-frontend', express.static(`${__dirname}/node_modules/govuk-frontend`, {cacheControl: true, setHeaders: (res, path) => res.setHeader('Cache-Control', 'max-age=604800')}));
+    app.use('/public/javascripts', express.static(`${__dirname}/app/assets/javascripts`, {cacheControl: true, setHeaders: (res, path) => res.setHeader('Cache-Control', 'max-age=604800')}));
     app.use('/public/pdf', express.static(`${__dirname}/app/assets/pdf`));
-    app.use('/assets', express.static(`${__dirname}/node_modules/govuk-frontend/govuk/assets`));
+    app.use('/assets', express.static(`${__dirname}/node_modules/govuk-frontend/govuk/assets`, {cacheControl: true, setHeaders: (res, path) => res.setHeader('Cache-Control', 'max-age=604800')}));
 
     // Elements refers to icon folder instead of images folder
     app.use(favicon(path.join(__dirname, 'node_modules', 'govuk-frontend', 'govuk', 'assets', 'images', 'favicon.ico')));

@@ -31,7 +31,7 @@ describe('applicant-alias-reason', () => {
         it('test alias reason validation when other is selected but no reason is entered', (done) => {
             const errorsToTest = ['otherReason'];
             const data = {
-                aliasReason: content.optionOther,
+                aliasReason: content.optionOther.toLowerCase(),
                 otherReason: ''
             };
             testWrapper.testErrors(done, data, 'required', errorsToTest);

@@ -217,12 +217,12 @@ describe('ExecutorCurrentNameReason', () => {
         });
 
         it('returns the correct data for option: "other"', (done) => {
-            testCtx.currentNameReason = 'Other';
+            testCtx.currentNameReason = 'other';
             testCtx.otherReason = 'it was a dare';
             const [ctx, errors] = ExecutorCurrentNameReason.handlePost(testCtx, testErrors, formdata);
 
             expect(ctx.list[0]).to.deep.equal({
-                currentNameReason: 'Other',
+                currentNameReason: 'other',
                 isApplying: true,
                 otherReason: 'it was a dare'
             });
@@ -344,7 +344,7 @@ describe('ExecutorCurrentNameReason', () => {
         it('removes the correct values from the context', (done) => {
             const testCtx = {
                 index: 2,
-                currentNameReason: 'Other',
+                currentNameReason: 'other',
                 otherReason: 'it was a dare',
                 currentNameReasonUpdated: false
             };
@@ -358,7 +358,7 @@ describe('ExecutorCurrentNameReason', () => {
         it('updates the formdata when currentNameReasonUpdated is true and removes values', (done) => {
             const testCtx = {
                 index: 2,
-                currentNameReason: 'Other',
+                currentNameReason: 'other',
                 otherReason: 'it was a dare',
                 currentNameReasonUpdated: true
             };

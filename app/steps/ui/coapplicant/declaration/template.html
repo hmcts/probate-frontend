@@ -10,7 +10,7 @@
 {% set displaySignOutLink = "false" %}
 
 {% block form_content %}
-    <h1 class="form-title govuk-heading-l">{{ content.pageHeader }}</h1>
+    <h1 class="govuk-heading-l">{{ content.pageHeader }}</h1>
     <p class="govuk-body">{{ content.legalStatementIntro | replace("{mainApplicantName}", fields.applicant.value.firstName + " " +  fields.applicant.value.lastName) | safe }}</p>
     <div class="inset-page">
         <div class="govuk-heading-m declaration-header">{{ content.highCourtHeader }}</div>

@@ -5,7 +5,7 @@
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="form-title govuk-heading-l">{{ content.heading1 }}</h1>
+            <h1 class="govuk-heading-l">{{ content.heading1 }}</h1>
             <p class="govuk-body">{{ content.paragraph1 | replace("{privacyLink}", globals.links.privacy) | safe }}</p>
 
             <h2 class="govuk-heading-m">{{ content.whoWeAreHeading }}</h2>

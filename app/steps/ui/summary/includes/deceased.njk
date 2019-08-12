@@ -40,7 +40,7 @@
             {% endfor %}
         </dd>
         <dd class="govuk-summary-list__actions">
-            {% if fields.summary.alreadyDeclared.value == 'false' %}
+            {% if fields.summary.alreadyDeclared.value == "false" %}
                 <a href="{{ content.DeceasedOtherNames.url }}" class="govuk-link">{{ common.change }}</a>
             {%endif%}
         </dd>

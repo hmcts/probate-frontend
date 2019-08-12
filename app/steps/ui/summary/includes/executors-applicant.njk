@@ -19,7 +19,7 @@
 {% set applicantNameAsOnWillQuestion = content.ApplicantNameAsOnWill.questionWithoutName %}
 
 {% if fields.applicant.firstName.value and fields.applicant.lastName.value %}
-    {% set applicantNameAsOnWillQuestion = content.ApplicantNameAsOnWill.question | replace('{applicantName}', fields.applicant.firstName.value + ' ' + fields.applicant.lastName.value) %}
+    {% set applicantNameAsOnWillQuestion = content.ApplicantNameAsOnWill.question | replace("{applicantName}", fields.applicant.firstName.value + " " + fields.applicant.lastName.value) %}
 {% endif %}
 
 {{checkanswer(
@@ -35,7 +35,7 @@
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
 
-{% if fields.summary.caseType.value === "gop" and fields.applicant.nameAsOnTheWill.value === 'No' %}
+{% if fields.summary.caseType.value === "gop" and fields.applicant.nameAsOnTheWill.value === "No" %}
     {{checkanswer(
         items = [
             {
@@ -49,7 +49,7 @@
         alreadyDeclared = fields.summary.alreadyDeclared.value
     )}}
 
-    {% if fields.applicant.aliasReason.value === 'other' %}
+    {% if fields.applicant.aliasReason.value === "other" %}
         {{checkanswer(
             items = [
                 {

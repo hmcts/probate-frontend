@@ -17,17 +17,17 @@
     items = [
         {
             question: content.IhtPaper.question,
-            answer:  content.IhtPaper['option' + selectedOption],
+            answer:  content.IhtPaper["option" + selectedOption],
             visible: fields.iht.method.value == content.IhtMethod.optionPaper
         },
         {
             question: content.IhtValue.grossValue,
-            answer: fields.iht['grossValueField' + selectedOption].value,
+            answer: fields.iht["grossValueField" + selectedOption].value,
             visible: fields.iht.method.value == content.IhtMethod.optionPaper
         },
         {
             question: content.IhtValue.netValue,
-            answer: fields.iht['netValueField' + selectedOption].value,
+            answer: fields.iht["netValueField" + selectedOption].value,
             visible: fields.iht.method.value == content.IhtMethod.optionPaper
         }
     ],

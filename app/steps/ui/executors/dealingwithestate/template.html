@@ -5,6 +5,14 @@
 {% from "widgets/lists.html" import unorderedList %}
 
 {% block form_content %}
+    <p class="govuk-body">{{ content.paragraph1 }}</p>
+    {{ unorderedList([
+        content["applicant-rights1"],
+        content["applicant-rights2"],
+        content["applicant-rights3"]])
+    }}
+    <p class="govuk-body">{{ content["applicants-not-dealing"] | safe }}</p>
+
     {{ govukCheckboxes({
         idPrefix: "executorsApplying",
         name: "executorsApplying[]",
@@ -14,9 +22,6 @@
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
-        },
-        hint: {
-            text: (content.paragraph1 + "<br><br>" + unorderedList([content["applicant-rights1"], content["applicant-rights2"], content["applicant-rights3"]]) + content["applicants-not-dealing"]) | safe
         },
         errorMessage: { text: fields.executorsApplying.errorMessage.message } if fields.executorsApplying.errorMessage,
         items: fields.options.value

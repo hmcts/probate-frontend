@@ -5,6 +5,13 @@
 {% from "widgets/lists.html" import unorderedList %}
 
 {% block form_content %}
+    <p class="govuk-body">{{ content.paragraph1 }}</p>
+    {{ unorderedList([
+        content["applicant-rights1"],
+        content["applicant-rights2"],
+        content["applicant-rights3"]])
+    }}
+
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "otherExecutorsApplying",
@@ -15,9 +22,6 @@
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
-        },
-        hint: {
-            text: (content.paragraph1 + "<br><br>" + unorderedList([content["applicant-rights1"], content["applicant-rights2"], content["applicant-rights3"]])) | safe
         },
         errorMessage: { text: fields.otherExecutorsApplying.errorMessage.message | safe } if fields.otherExecutorsApplying.errorMessage,
         items: [

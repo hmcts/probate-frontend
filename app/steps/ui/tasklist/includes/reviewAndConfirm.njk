@@ -9,12 +9,6 @@
         previousTaskStatus = fields.previousTaskStatus.value.ReviewAndConfirmTask
     ) }}
     <div class="task-list-items">
-        {% if fields.ReviewAndConfirmTask.value.status == "complete" %}
-            {% if fields.hasMultipleApplicants.value == "true" and fields.alreadyDeclared.value == "false" %}
-                <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph1 | safe }}</p>
-                <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph2 | safe }}</p>
-            {% endif %}
-        {% endif %}
         {{ taskAction(
             prevTaskStatus = previousTaskStatus,
             status = fields.ReviewAndConfirmTask.value.status,
@@ -24,5 +18,42 @@
             title = content.reviewAndConfirmTask,
             alreadyDeclared = fields.alreadyDeclared.value
         ) }}
+        {% if fields.ReviewAndConfirmTask.value.status == "complete" %}
+            {% if fields.hasMultipleApplicants.value == "true" and fields.alreadyDeclared.value == "false" %}
+                <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph1 | safe }}</p>
+                <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph2 | safe }}</p>
+
+                {{ govukTable({
+                  caption: "See which executors have declared",
+                  firstCellIsHeader: false,
+                  head: [
+                    {
+                      text: "Executor name"
+                    },
+                    {
+                      text: "Declaration Status"
+                    }
+                  ],
+                  rows: [
+                    [
+                      {
+                        text: "Bob Jones"
+                      },
+                      {
+                        text: "Declared"
+                      }
+                    ],
+                    [
+                      {
+                        text: "Tom Smith"
+                      },
+                      {
+                        text: "Not yet declared"
+                      }
+                    ]
+                  ]
+                }) }}
+            {% endif %}
+        {% endif %}
     </div>
 </li>

@@ -18,7 +18,7 @@
   "answer": "Answer",
   "acceptAndContinue": "Accept and continue",
   "send": "Send",
-  "ogl": "All content is available under the <a href=\"https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/\" class=\"govuk-link\" rel=\"license\">Open Government Licence v3.0</a>, except where otherwise stated",
+  "ogl": "All content is available under the <a href=\"https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/\" class=\"govuk-link\" rel=\"external noopener license\" target=\"_blank\">Open Government Licence v3.0</a>, except where otherwise stated",
   "cookieText": "GOV.UK uses cookies to make the site simpler. <a href=\"{cookiesLink}\" class=\"govuk-link\" title=\"Find out more about cookies\">Find out more about cookies</a>.",
   "errorSummaryHeading": "There was a problem",
   "numberBelow21" : "first,second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth,eleventh,twelfth,thirteenth,fourteenth,fifteenth,sixteenth,seventeenth,eighteenth,nineteenth,twentieth",

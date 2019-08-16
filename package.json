@@ -62,8 +62,6 @@
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
     "co": "^4.6.0",
-    "codacy-coverage": "^3.4.0",
-    "codecov": "^4.0.0-0",
     "connect-redis": "^3.4.2",
     "connect-timeout": "^1.9.0",
     "cookie-parser": "^1.4.4",
@@ -107,6 +105,8 @@
   "devDependencies": {
     "@pact-foundation/pact": "^7.2.0",
     "@pact-foundation/pact-node": "^6.20.0",
+    "codacy-coverage": "3.2.0",
+    "codecov": "^4.0.0-0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.3.0",

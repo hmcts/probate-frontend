@@ -1,11 +1,10 @@
 'use strict';
 
-/* eslint no-console: 0 */
-
 const express = require('express');
 const app = express();
 const router = require('express').Router();
 const fs = require('fs');
+const logger = require('app/components/logger');
 
 router.get('invites/allAgreed/:id', (req, res) => {
     res.status(200);
@@ -50,7 +49,7 @@ router.delete('/document/delete/:index', (req, res) => {
 router.post('/businessDocument/generateCheckAnswersSummaryPDF', (req, res) => {
     fs.readFile('test/data/generic.pdf', (err, data) => {
         if (err) {
-            console.log(err);
+            logger().info(err);
         } else {
             res.contentType('application/pdf');
             res.status(200);
@@ -62,7 +61,7 @@ router.post('/businessDocument/generateCheckAnswersSummaryPDF', (req, res) => {
 router.post('/businessDocument/generateLegalDeclarationPDF', (req, res) => {
     fs.readFile('test/data/generic.pdf', (err, data) => {
         if (err) {
-            console.log(err);
+            logger().info(err);
         } else {
             res.contentType('application/pdf');
             res.status(200);
@@ -72,7 +71,7 @@ router.post('/businessDocument/generateLegalDeclarationPDF', (req, res) => {
 });
 app.use(router);
 
-console.log('Listening on: 8080');
+logger().info('Listening on: 8080');
 
 const server = app.listen(8080);
 

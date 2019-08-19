@@ -1,7 +1,5 @@
 'use strict';
 
-/* eslint no-console: 0 */
-
 const config = require('app/config');
 const express = require('express');
 const logger = require('app/components/logger');
@@ -71,7 +69,7 @@ router.get('/info', (req, res) => {
 
 app.use(router);
 
-console.log(`Listening on: ${FEES_API_PORT}`);
+logger().info(`Listening on: ${FEES_API_PORT}`);
 
 const server = app.listen(FEES_API_PORT);
 

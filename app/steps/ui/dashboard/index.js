@@ -1,8 +1,8 @@
 'use strict';
 
 const Step = require('app/core/steps/Step');
-const config = require('app/config');
-const MultipleApplications = require('app/services/MultipleApplications');
+// const config = require('app/config');
+// const MultipleApplications = require('app/services/MultipleApplications');
 const content = require('app/resources/en/translation/dashboard');
 
 class Dashboard extends Step {

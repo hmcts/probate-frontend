@@ -92,7 +92,8 @@ const config = {
             ihtMinAmt: 5000
         },
         multipleApplicatons: {
-            url: process.env.MULTIPLE_APPLICATION || 'http://something'
+            url: process.env.MULTIPLE_APPLICATION || 'http://localhost:8383/multiple-applications',
+            port: 8383
         }
     },
     redis: {

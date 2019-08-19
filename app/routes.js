@@ -11,6 +11,7 @@ const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const documentUpload = require('app/documentUpload');
 const documentDownload = require('app/documentDownload');
+const multipleApplications = require('app/multipleApplications');
 const paymentFees = require('app/paymentFees');
 const setJourney = require('app/middleware/setJourney');
 const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
@@ -63,6 +64,7 @@ router.get('/', (req, res) => {
 });
 
 router.use(documentDownload);
+router.use(multipleApplications);
 router.use(paymentFees);
 router.post('/payment-breakdown', lockPaymentAttempt);
 

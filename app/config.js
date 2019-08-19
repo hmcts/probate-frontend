@@ -90,6 +90,9 @@ const config = {
                 feesLookup: '/fees/lookup'
             },
             ihtMinAmt: 5000
+        },
+        multipleApplicatons: {
+            url: process.env.MULTIPLE_APPLICATION || 'http://something'
         }
     },
     redis: {

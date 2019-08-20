@@ -21,27 +21,27 @@
         <p class="govuk-body">{{ cookieText | replace('{cookiesLink}', globals.links.cookies) | safe }}</p>
     </div>
 
-    {% if displaySignOutLink !== "false" %}
-        {{ govukHeader({
-            homepageUrl: "#",
-            containerClasses: "govuk-width-container",
-            serviceName: serviceName,
-            serviceUrl: "/",
-            navigation: [
-                {
-                    href: "/sign-out",
-                    text: "Sign out"
-                }
-            ]
-        }) }}
-    {% else %}
-        {{ govukHeader({
-            homepageUrl: "#",
-            containerClasses: "govuk-width-container",
-            serviceName: serviceName,
-            serviceUrl: "/"
-        }) }}
+    {% set navigationItems = [] %}
+    {% if displayMyAccountLink !== "false" %}
+        {% set navigationItems = (navigationItems.push({
+            href: "/dashboard",
+            text: "My account"
+        }), navigationItems) %}
     {% endif %}
+    {% if displaySignOutLink !== "false" %}
+        {% set navigationItems = (navigationItems.push({
+            href: "/sign-out",
+            text: "Sign out"
+        }), navigationItems) %}
+    {% endif %}
+
+    {{ govukHeader({
+        homepageUrl: "/",
+        containerClasses: "govuk-width-container",
+        serviceName: serviceName,
+        serviceUrl: "/",
+        navigation: navigationItems
+    }) }}
 {% endblock %}
 
 {% block beforeContent %}

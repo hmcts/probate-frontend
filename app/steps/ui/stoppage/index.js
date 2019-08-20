@@ -1,7 +1,6 @@
 'use strict';
 
 const Step = require('app/core/steps/Step');
-const config = require('app/config');
 
 class StopPage extends Step {
 

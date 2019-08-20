@@ -5,10 +5,10 @@ const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 
 class TestCommonContent {
-    static runTest(page, callback, cookies = []) {
-        describe('Test the help content', () => {
-            const testWrapper = new TestWrapper(page);
+    static runTest(page, callback, cookies = [], pageOutsideIdam = false) {
+        const testWrapper = new TestWrapper(page);
 
+        describe('Test the help content', () => {
             it('test help block content is loaded on page', (done) => {
                 if (typeof callback === 'function') {
                     callback();
@@ -30,28 +30,26 @@ class TestCommonContent {
                         done(err);
                     });
             });
-
-            testWrapper.destroy();
         });
 
         describe('Test the navigation links', () => {
-            const testWrapper = new TestWrapper(page);
+            if (pageOutsideIdam) {
+                it('test "my account" and "sign out" links are not displayed on the page when the user is not logged in', (done) => {
+                    testWrapper.agent
+                        .get(testWrapper.pageUrl)
+                        .then(() => {
+                            const playbackData = {
+                                myAccount: commonContent.myAccount,
+                                signOut: commonContent.signOut
+                            };
 
-            it('test "my account" and "sign out" links are not displayed on the page when the user is not logged in', (done) => {
-                testWrapper.agent
-                    .get(testWrapper.pageUrl)
-                    .then(() => {
-                        const playbackData = {
-                            myAccount: commonContent.myAccount,
-                            signOut: commonContent.signOut
-                        };
-
-                        testWrapper.testContentNotPresent(done, playbackData);
-                    })
-                    .catch(err => {
-                        done(err);
-                    });
-            });
+                            testWrapper.testContentNotPresent(done, playbackData);
+                        })
+                        .catch(err => {
+                            done(err);
+                        });
+                });
+            }
 
             it('test "my account" and "sign out" links are displayed on the page when the user is logged in', (done) => {
                 const sessionData = {

@@ -21,7 +21,7 @@ describe('death-certificate', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('DeathCertificate');
+        testCommonContent.runTest('DeathCertificate', true);
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {deathReportedToCoroner: config.links.deathReportedToCoroner});

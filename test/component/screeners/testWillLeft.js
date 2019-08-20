@@ -32,7 +32,7 @@ describe('will-left', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('WillLeft', null, cookies);
+        testCommonContent.runTest('WillLeft', null, cookies, true);
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {}, cookies);

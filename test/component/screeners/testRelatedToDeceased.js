@@ -34,7 +34,7 @@ describe('related-to-deceased', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('RelatedToDeceased', null, cookies);
+        testCommonContent.runTest('RelatedToDeceased', null, cookies, true);
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {}, cookies);

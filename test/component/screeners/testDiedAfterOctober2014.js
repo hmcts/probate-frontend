@@ -34,7 +34,7 @@ describe('died-after-october-2014', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('DiedAfterOctober2014', null, cookies);
+        testCommonContent.runTest('DiedAfterOctober2014', null, cookies, true);
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {}, cookies);

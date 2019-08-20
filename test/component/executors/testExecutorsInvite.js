@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const {assert} = require('chai');
 const ExecutorsInvitesSent = require('app/steps/ui/executors/invitesent');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const nock = require('nock');
 const config = require('app/config');
 const businessServiceUrl = config.services.validation.url.replace('/validate', '');
@@ -25,7 +25,7 @@ describe('executors-invite', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ExecutorsInvite');
+        testCommonContent.runTest('ExecutorsInvite');
 
         it('test correct content loaded on the page when more than 1 other executor', (done) => {
             testWrapper.agent.post('/prepare-session/form')

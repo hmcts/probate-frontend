@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedAddress = require('app/steps/ui/deceased/address');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
 const nock = require('nock');
@@ -29,7 +29,7 @@ describe('deceased-details', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeceasedDetails', featureTogglesNock);
+        testCommonContent.runTest('DeceasedDetails', featureTogglesNock);
 
         it('test right content loaded on the page', (done) => {
             testWrapper.testContent(done, []);

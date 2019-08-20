@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const IhtValue = require('app/steps/ui/iht/value');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('iht-identifier', () => {
     let testWrapper;
@@ -17,7 +17,7 @@ describe('iht-identifier', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('IhtIdentifier');
+        testCommonContent.runTest('IhtIdentifier');
 
         it('test correct iht identifier page content is loaded', (done) => {
             const contentToExclude = [];

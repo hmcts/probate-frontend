@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
 const ExecutorsNames = require('app/steps/ui/executors/names');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('executors-number', () => {
     let testWrapper;
@@ -19,7 +19,7 @@ describe('executors-number', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ExecutorsNumber');
+        testCommonContent.runTest('ExecutorsNumber');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);

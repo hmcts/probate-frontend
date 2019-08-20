@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const CopiesSummary = require('app/steps/ui/copies/summary');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const config = require('app/config');
 const featureToggleUrl = config.featureToggles.url;
 const feesApiFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.fees_api}`;
@@ -22,7 +22,7 @@ describe('copies-overseas', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('CopiesOverseas');
+        testCommonContent.runTest('CopiesOverseas');
 
         it('test right content loaded on the page with the fees_api toggle ON', (done) => {
             const feesApiFeatureTogglesNock = (status = 'true') => {

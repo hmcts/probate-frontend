@@ -5,7 +5,7 @@ const content = require('app/resources/en/translation/coapplicant/declaration.js
 const CoApplicantAgreePage = require('app/steps/ui/coapplicant/agreepage');
 const CoApplicantDisagreePage = require('app/steps/ui/coapplicant/disagreepage');
 const commonContent = require('app/resources/en/translation/common');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const nock = require('nock');
 const config = require('app/config');
 const businessServiceUrl = config.services.validation.url.replace('/validate', '');
@@ -33,7 +33,7 @@ describe('co-applicant-declaration', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('CoApplicantDeclaration', invitesNock);
+        testCommonContent.runTest('CoApplicantDeclaration', invitesNock);
 
         it('test right content loaded on the page', (done) => {
             const contentToExclude = [

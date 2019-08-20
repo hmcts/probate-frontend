@@ -4,7 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsNumber = require('app/steps/ui/executors/number');
 const testAddressData = require('test/data/find-address');
 const formatAddress = address => address.replace(/,/g, ', ');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('applicant-address', () => {
     let testWrapper;
@@ -19,7 +19,7 @@ describe('applicant-address', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ApplicantAddress');
+        testCommonContent.runTest('ApplicantAddress');
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = ['selectAddress'];

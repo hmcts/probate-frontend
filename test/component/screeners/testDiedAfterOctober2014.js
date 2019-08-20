@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const RelatedToDeceased = require('app/steps/ui/screeners/relatedtodeceased');
 const StopPage = require('app/steps/ui/stoppage');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
@@ -45,7 +45,7 @@ describe('died-after-october-2014', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DiedAfterOctober2014', featureTogglesNock, cookies);
+        testCommonContent.runTest('DiedAfterOctober2014', featureTogglesNock, cookies);
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {}, cookies);

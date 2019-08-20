@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ValueAssetsOutside = require('app/steps/ui/iht/valueassetsoutside');
 const DeceasedAlias = require('app/steps/ui/deceased/alias');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/iht/assetsoutside');
 const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
@@ -32,7 +32,7 @@ describe('assets-outside-england-wales', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('AssetsOutside', featureTogglesNock);
+        testCommonContent.runTest('AssetsOutside', featureTogglesNock);
 
         it('test content loaded on the page', (done) => {
             const sessionData = {

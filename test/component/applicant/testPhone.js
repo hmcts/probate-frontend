@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ApplicantAddress = require('app/steps/ui/applicant/address');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('applicant-phone', () => {
     let testWrapper;
@@ -17,7 +17,7 @@ describe('applicant-phone', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ApplicantPhone');
+        testCommonContent.runTest('ApplicantPhone');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);

@@ -7,7 +7,7 @@ const AnyOtherChildren = require('app/steps/ui/deceased/anyotherchildren');
 const AdoptionPlace = require('app/steps/ui/applicant/adoptionplace');
 const ApplicantName = require('app/steps/ui/applicant/name');
 const StopPage = require('app/steps/ui/stoppage');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/applicant/relationshiptodeceased');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 const config = require('app/config');
@@ -41,7 +41,7 @@ describe('relationship-to-deceased', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('RelationshipToDeceased', featureTogglesNock);
+        testCommonContent.runTest('RelationshipToDeceased', featureTogglesNock);
 
         it('test content loaded on the page', (done) => {
             const sessionData = {

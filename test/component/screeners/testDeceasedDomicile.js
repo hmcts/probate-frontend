@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const IhtCompleted = require('app/steps/ui/screeners/ihtcompleted');
 const StopPage = require('app/steps/ui/stoppage');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 const cookies = [{
@@ -30,7 +30,7 @@ describe('deceased-domicile', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeceasedDomicile', null, cookies);
+        testCommonContent.runTest('DeceasedDomicile', null, cookies);
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {}, cookies);

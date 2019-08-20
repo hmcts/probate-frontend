@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsApplying = require('app/steps/ui/executors/applying');
 const ExecutorsWhoDied = require('app/steps/ui/executors/whodied');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('executors-all-alive', () => {
     let testWrapper;
@@ -19,7 +19,7 @@ describe('executors-all-alive', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ExecutorsAllAlive');
+        testCommonContent.runTest('ExecutorsAllAlive');
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = [];

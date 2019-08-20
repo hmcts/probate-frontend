@@ -5,7 +5,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const Taskist = require('app/steps/ui/tasklist');
 const content = require('app/resources/en/translation/declaration');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const nock = require('nock');
 const config = require('app/config');
 
@@ -60,7 +60,7 @@ describe('declaration, single applicant', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('Declaration');
+        testCommonContent.runTest('Declaration');
 
         it('test right content loaded on the page when deceased has one other name, no codicils', (done) => {
             const contentToExclude = [

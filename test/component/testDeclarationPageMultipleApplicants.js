@@ -8,7 +8,7 @@ const ExecutorsUpdateInvite = require('app/steps/ui/executors/updateinvite');
 const ExecutorsAdditionalInvite = require('app/steps/ui/executors/additionalinvite');
 const ExecutorsChangeMade = require('app/steps/ui/executors/changemade');
 const Tasklist = require('app/steps/ui/tasklist');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const {assert} = require('chai');
 const nock = require('nock');
 const config = require('app/config');
@@ -71,7 +71,7 @@ describe('declaration, multiple applicants', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('Declaration');
+        testCommonContent.runTest('Declaration');
 
         it('test right content loaded on the page with multiple applicants, deceased has three other names, no codicils', (done) => {
             const contentToExclude = [

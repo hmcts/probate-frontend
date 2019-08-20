@@ -4,7 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const ihtMethodContent = require('app/resources/en/translation/iht/method');
 const IhtIdentifier = require('app/steps/ui/iht/identifier');
 const IhtPaper = require('app/steps/ui/iht/paper');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('iht-method', () => {
     let testWrapper;
@@ -20,7 +20,7 @@ describe('iht-method', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('IhtMethod');
+        testCommonContent.runTest('IhtMethod');
 
         it('test correct iht method page content is loaded', (done) => {
             const contentToExclude = [];

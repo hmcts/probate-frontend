@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedDomicile = require('app/steps/ui/screeners/deceaseddomicile');
 const StopPage = require('app/steps/ui/stoppage');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 
@@ -21,7 +21,7 @@ describe('death-certificate', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeathCertificate');
+        testCommonContent.runTest('DeathCertificate');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {deathReportedToCoroner: config.links.deathReportedToCoroner});

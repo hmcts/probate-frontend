@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const StartApply = require('app/steps/ui/screeners/startapply');
 const StopPage = require('app/steps/ui/stoppage');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
@@ -47,7 +47,7 @@ describe('other-applicants', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('OtherApplicants', featureTogglesNock, cookies);
+        testCommonContent.runTest('OtherApplicants', featureTogglesNock, cookies);
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {}, cookies);

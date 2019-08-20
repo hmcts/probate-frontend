@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const WillCodicils = require('app/steps/ui/will/codicils');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('deceased-married', () => {
     let testWrapper;
@@ -17,7 +17,7 @@ describe('deceased-married', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeceasedMarried');
+        testCommonContent.runTest('DeceasedMarried');
 
         it('test correct content is loaded on the page', (done) => {
             const sessionData = {

@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorCurrentName = require('app/steps/ui/executors/currentname');
 const ExecutorCurrentNameReason = require('app/steps/ui/executors/currentnamereason');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('executor-current-name', () => {
     let testWrapper, sessionData;
@@ -33,7 +33,7 @@ describe('executor-current-name', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ExecutorCurrentName');
+        testCommonContent.runTest('ExecutorCurrentName');
 
         it('test content loaded on the page', (done) => {
             testWrapper.agent.post('/prepare-session/form')

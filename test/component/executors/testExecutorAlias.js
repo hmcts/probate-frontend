@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsWithOtherNames = require('app/steps/ui/executors/othername');
 const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('executors-alias', () => {
     let testWrapper;
@@ -19,7 +19,7 @@ describe('executors-alias', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ExecutorsAlias');
+        testCommonContent.runTest('ExecutorsAlias');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);

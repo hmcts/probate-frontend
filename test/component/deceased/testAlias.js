@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames');
 const DeceasedMarried = require('app/steps/ui/deceased/married');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('deceased-alias', () => {
     let testWrapper;
@@ -19,7 +19,7 @@ describe('deceased-alias', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeceasedAlias');
+        testCommonContent.runTest('DeceasedAlias');
 
         it('test right content loaded on the page', (done) => {
             const sessionData = {

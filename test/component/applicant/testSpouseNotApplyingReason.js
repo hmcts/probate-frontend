@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const AnyOtherChildren = require('app/steps/ui/deceased/anyotherchildren/index');
 const StopPage = require('app/steps/ui/stoppage/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/applicant/spousenotapplyingreason');
 const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
@@ -32,7 +32,7 @@ describe('spouse-not-applying-reason', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('SpouseNotApplyingReason', featureTogglesNock);
+        testCommonContent.runTest('SpouseNotApplyingReason', featureTogglesNock);
 
         it('test content loaded on the page', (done) => {
             const sessionData = {

@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const DocumentUpload = require('app/steps/ui/documentupload');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('deceased-address', () => {
     let testWrapper;
@@ -17,7 +17,7 @@ describe('deceased-address', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeceasedAddress');
+        testCommonContent.runTest('DeceasedAddress');
 
         it('test right content loaded on the page', (done) => {
             const excludeKeys = ['selectAddress'];

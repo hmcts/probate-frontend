@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsDealingWithEstate = require('app/steps/ui/executors/dealingwithestate');
 const ExecutorRoles = require('app/steps/ui/executors/roles');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('executors-applying', () => {
     let testWrapper;
@@ -19,7 +19,7 @@ describe('executors-applying', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ExecutorsApplying');
+        testCommonContent.runTest('ExecutorsApplying');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);

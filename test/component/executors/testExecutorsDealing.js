@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsAlias = require('app/steps/ui/executors/alias');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('executors-dealing-with-estate', () => {
     let testWrapper, sessionData;
@@ -27,7 +27,7 @@ describe('executors-dealing-with-estate', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ExecutorsDealingWithEstate');
+        testCommonContent.runTest('ExecutorsDealingWithEstate');
 
         it('test correct content loaded on the page when lead applicant does not have an alias', (done) => {
             testWrapper.agent.post('/prepare-session/form')

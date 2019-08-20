@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const CopiesOverseas = require('app/steps/ui/copies/overseas');
 const CopiesSummary = require('app/steps/ui/copies/summary');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('assets-overseas', () => {
     let testWrapper;
@@ -19,7 +19,7 @@ describe('assets-overseas', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('AssetsOverseas');
+        testCommonContent.runTest('AssetsOverseas');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {

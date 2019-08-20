@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedAlias = require('app/steps/ui/deceased/alias');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('iht-value', () => {
     let testWrapper;
@@ -17,7 +17,7 @@ describe('iht-value', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('IhtValue');
+        testCommonContent.runTest('IhtValue');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, []);

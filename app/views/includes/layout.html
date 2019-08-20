@@ -25,11 +25,11 @@
     {% if fields.userLoggedIn.value === "true" %}
         {% set navigationItems = (navigationItems.push({
             href: "/dashboard",
-            text: "My account"
+            text: common.myAccount
         }), navigationItems) %}
         {% set navigationItems = (navigationItems.push({
             href: "/sign-out",
-            text: "Sign out"
+            text: common.signOut
         }), navigationItems) %}
     {% endif %}
 

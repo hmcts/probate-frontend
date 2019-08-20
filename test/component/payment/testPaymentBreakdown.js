@@ -3,7 +3,7 @@
 const nock = require('nock');
 const config = require('app/config');
 const TestWrapper = require('test/util/TestWrapper');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const IDAM_S2S_URL = config.services.idam.s2s_url;
 const sinon = require('sinon');
 const FeesCalculator = require('app/utils/FeesCalculator');
@@ -47,7 +47,7 @@ describe('payment-breakdown', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('PaymentBreakdown');
+        testCommonContent.runTest('PaymentBreakdown');
 
         it('test content loaded on the page with no extra copies', (done) => {
             const contentToExclude = ['extraCopiesFeeUk', 'extraCopiesFeeJersey', 'extraCopiesFeeOverseas'];

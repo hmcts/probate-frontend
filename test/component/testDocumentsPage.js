@@ -10,7 +10,7 @@ const deceasedMaritalStatusContent = require('app/resources/en/translation/decea
 const ihtContent = require('app/resources/en/translation/iht/method');
 const relationshipToDeceasedContent = require('app/resources/en/translation/applicant/relationshiptodeceased');
 
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('documents', () => {
     let testWrapper;
@@ -37,7 +37,7 @@ describe('documents', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('Documents');
+        testCommonContent.runTest('Documents');
 
         describe('Probate Journey', () => {
             it('test correct content loaded on the page, no codicils, no alias, single executor', (done) => {

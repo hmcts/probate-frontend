@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ApplicantName = require('app/steps/ui/applicant/name/index');
 const StopPage = require('app/steps/ui/stoppage/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
 const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
@@ -32,7 +32,7 @@ describe('any-grandchildren-under-18', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('AnyGrandchildrenUnder18', featureTogglesNock);
+        testCommonContent.runTest('AnyGrandchildrenUnder18', featureTogglesNock);
 
         it('test content loaded on the page', (done) => {
             const sessionData = {

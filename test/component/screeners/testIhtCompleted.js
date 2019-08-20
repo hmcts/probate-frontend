@@ -57,10 +57,10 @@ describe('iht-completed', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
         });
 
-        it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
-            const playbackData = {};
-            playbackData.saveAndClose = commonContent.saveAndClose;
-            playbackData.signOut = commonContent.signOut;
+        it('test "save and close" links is not displayed on the page', (done) => {
+            const playbackData = {
+                saveAndClose: commonContent.saveAndClose
+            };
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

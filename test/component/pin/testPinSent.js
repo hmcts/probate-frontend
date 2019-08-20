@@ -30,10 +30,10 @@ describe('pin-sent', () => {
             testWrapper.testRedirect(done, {}, expectedNextUrlForPinPage);
         });
 
-        it('test save and close link is not displayed on the page', (done) => {
-            const playbackData = {};
-            playbackData.saveAndClose = commonContent.saveAndClose;
-            playbackData.signOut = commonContent.signOut;
+        it('test "save and close" links is not displayed on the page', (done) => {
+            const playbackData = {
+                saveAndClose: commonContent.saveAndClose
+            };
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

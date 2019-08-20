@@ -36,11 +36,11 @@ describe('co-applicant-disagree-page', () => {
                 });
         });
 
-        it('test save and close link is not displayed on the page', (done) => {
+        it('test "save and close" links is not displayed on the page', (done) => {
             const playbackData = {
-                saveAndClose: commonContent.saveAndClose,
-                signOut: commonContent.signOut
+                saveAndClose: commonContent.saveAndClose
             };
+
             testWrapper.testContentNotPresent(done, playbackData);
         });
     });

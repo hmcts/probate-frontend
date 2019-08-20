@@ -62,7 +62,8 @@ describe('EligibilityValidationStep', () => {
                 caseType: 'gop',
                 featureToggles: {
                     webchat: 'false'
-                }
+                },
+                userLoggedIn: false
             });
 
             revert();
@@ -80,7 +81,8 @@ describe('EligibilityValidationStep', () => {
                 deathCertificate: 'Yes',
                 featureToggles: {
                     webchat: 'false'
-                }
+                },
+                userLoggedIn: false
             });
 
             revert();
@@ -104,7 +106,7 @@ describe('EligibilityValidationStep', () => {
             const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey, featureToggles);
 
             expect(nextStepUrlStub.calledOnce).to.equal(true);
-            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', caseType: 'gop', deathCertificate: 'Yes', isIntestacyQuestionsToggleEnabled: true, featureToggles: {webchat: 'false'}})).to.equal(true);
+            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', caseType: 'gop', deathCertificate: 'Yes', isIntestacyQuestionsToggleEnabled: true, featureToggles: {webchat: 'false'}, userLoggedIn: false})).to.equal(true);
             expect(setEligibilityCookieStub.calledOnce).to.equal(true);
             expect(setEligibilityCookieStub.calledWith(req, res, nextStepUrl, fieldKey, fieldValue)).to.equal(true);
             expect(ctx).to.deep.equal({
@@ -114,7 +116,8 @@ describe('EligibilityValidationStep', () => {
                 isIntestacyQuestionsToggleEnabled: true,
                 featureToggles: {
                     webchat: 'false'
-                }
+                },
+                userLoggedIn: false
             });
 
             nextStepUrlStub.restore();

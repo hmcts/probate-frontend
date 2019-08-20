@@ -5,7 +5,7 @@ const {assert, expect} = require('chai');
 const stopPagesContent = require('../../app/resources/en/translation/stoppage.json');
 
 describe('Soft Stops', () => {
-    const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui/']);
+    const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui/`]);
     const stopPage = steps.StopPage;
 
     let ctx;

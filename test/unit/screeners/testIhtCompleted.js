@@ -38,7 +38,8 @@ describe('IhtCompleted', () => {
                 caseType: 'gop',
                 featureToggles: {
                     webchat: 'false'
-                }
+                },
+                userLoggedIn: false
             });
             done();
         });

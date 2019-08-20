@@ -38,7 +38,8 @@ describe('ApplicantExecutor', () => {
                 caseType: 'gop',
                 featureToggles: {
                     webchat: 'false'
-                }
+                },
+                userLoggedIn: false
             });
             done();
         });

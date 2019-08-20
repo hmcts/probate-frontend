@@ -38,7 +38,8 @@ describe('WillLeft', () => {
                 caseType: 'gop',
                 featureToggles: {
                     webchat: 'false'
-                }
+                },
+                userLoggedIn: false
             });
             done();
         });

@@ -8,7 +8,7 @@ const Summary = rewire('app/steps/ui/summary');
 const probateJourney = require('app/journeys/probate');
 
 describe('Summary', () => {
-    const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
+    const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui/`]);
     let section;
     let templatePath;
     let i18next;
@@ -143,7 +143,8 @@ describe('Summary', () => {
                     }
                 },
                 sessionID: 'dummy_sessionId',
-                softStop: false
+                softStop: false,
+                userLoggedIn: false
             });
             done();
         });
@@ -205,7 +206,8 @@ describe('Summary', () => {
                     }
                 },
                 sessionID: 'dummy_sessionId',
-                softStop: false
+                softStop: false,
+                userLoggedIn: false
             });
             done();
         });

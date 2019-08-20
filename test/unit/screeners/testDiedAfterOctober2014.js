@@ -38,7 +38,8 @@ describe('DiedAfterOctober2014', () => {
                 caseType: 'gop',
                 featureToggles: {
                     webchat: 'false'
-                }
+                },
+                userLoggedIn: false
             });
             done();
         });

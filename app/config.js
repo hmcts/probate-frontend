@@ -92,7 +92,8 @@ const config = {
             ihtMinAmt: 5000
         },
         multipleApplicatons: {
-            url: process.env.MULTIPLE_APPLICATION || 'http://localhost:8383/multiple-applications',
+            urlApplications: process.env.MA_GET_APPLICATIONS || 'http://localhost:8383/ma-get-applications',
+            urlCase: process.env.MA_GET_CASE || 'http://localhost:8383/ma-get-case',
             port: 8383
         }
     },
@@ -228,7 +229,6 @@ const config = {
         },
         path: '/businessDocument'
     },
-    signOutOnStopPages: ['divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales'],
     assetsValueThreshold: 250000
 };
 

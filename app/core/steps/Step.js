@@ -55,6 +55,7 @@ class Step {
         Object.assign(ctx, session.form[this.section] || {});
         ctx.sessionID = req.sessionID;
         ctx.caseType = caseTypes.getCaseType(session);
+        ctx.userLoggedIn = session.form.userLoggedIn;
         ctx = Object.assign(ctx, req.body);
         ctx = FeatureToggle.appwideToggles(req, ctx, config.featureToggles.appwideToggles);
 

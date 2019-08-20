@@ -13,6 +13,12 @@ class Dashboard extends Step {
         ctx.applications = req.session.form.applications;
         return ctx;
     }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.applications;
+        return [ctx, formdata];
+    }
 }
 
 module.exports = Dashboard;

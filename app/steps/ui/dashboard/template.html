@@ -5,15 +5,11 @@
 {% block content %}
     {% set applicationRows = [] %}
     {% for application in fields.applications.value %}
-        {% if application.status == content.statusInProgress %}
-            {% set actionUrl = "/task-list" %}
-            {% set actionText = content.actionContinue %}
-        {% else %}
-            {% set actionUrl = "/thank-you" %}
-            {% set actionText = content.actionView %}
-        {% endif %}
+        {% set actionUrl = "/get-case/" + application.ccdCaseId %}
+        {% set actionText = content.actionContinue if application.status == content.statusInProgress else content.actionView %}
 
         {% set applicationRows = (applicationRows.push([
+            { text: application.ccdCaseId },
             { text: application.deceasedFullName },
             { text: application.dateCreated},
             { text: application.status },
@@ -22,16 +18,17 @@
     {% endfor %}
 
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-grid-column-full">
             <h1 class="govuk-heading-l">{{ content.header }}</h1>
 
             {{ govukTable({
                 caption: content.header | safe,
                 captionClasses: "govuk-visually-hidden",
                 head: [
-                    { text: content.tableHeader1 },
-                    { text: content.tableHeader2 },
-                    { text: content.tableHeader3 },
+                    { text: content.tableHeaderCcdCaseId },
+                    { text: content.tableHeaderDeceasedName },
+                    { text: content.tableHeaderCreateDate },
+                    { text: content.tableHeaderCaseStatus },
                     ""
                 ],
                 rows: applicationRows

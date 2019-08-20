@@ -22,24 +22,24 @@
     </div>
 
     {% set navigationItems = [] %}
-    {% if displayMyAccountLink !== "false" %}
+    {% if fields.userLoggedIn.value === "true" %}
         {% set navigationItems = (navigationItems.push({
             href: "/dashboard",
             text: "My account"
         }), navigationItems) %}
-    {% endif %}
-    {% if displaySignOutLink !== "false" %}
         {% set navigationItems = (navigationItems.push({
             href: "/sign-out",
             text: "Sign out"
         }), navigationItems) %}
     {% endif %}
 
+    <p>User Logged In: {{ fields.userLoggedIn.value }}</p>
+
     {{ govukHeader({
-        homepageUrl: "/",
+        homepageUrl: "#",
         containerClasses: "govuk-width-container",
         serviceName: serviceName,
-        serviceUrl: "/",
+        serviceUrl: "#",
         navigation: navigationItems
     }) }}
 {% endblock %}

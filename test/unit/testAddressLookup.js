@@ -96,8 +96,8 @@ describe('AddressLookup', () => {
                     field: 'postcode',
                     href: '#postcode',
                     msg: {
-                        summary: 'addressLookup.errors.postcode.noAddresses.summary',
-                        message: 'addressLookup.errors.postcode.noAddresses.message'
+                        summary: 'No addresses found, enter a postcode to search again',
+                        message: 'Please enter a valid postcode'
                     }
                 });
                 revert();

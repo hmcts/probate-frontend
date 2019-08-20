@@ -36,9 +36,6 @@ describe('DiedAfterOctober2014', () => {
                 sessionID: 'dummy_sessionId',
                 diedAfter: content.optionYes,
                 caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                },
                 userLoggedIn: false
             });
             done();

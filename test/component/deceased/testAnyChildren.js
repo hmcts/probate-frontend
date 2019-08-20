@@ -5,16 +5,7 @@ const AllChildrenOver18 = require('app/steps/ui/deceased/allchildrenover18/index
 const ApplicantName = require('app/steps/ui/applicant/name/index');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/deceased/anychildren');
-const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(intestacyQuestionsFeatureTogglePath)
-        .reply(200, status);
-};
 
 describe('any-children', () => {
     let testWrapper;
@@ -23,16 +14,14 @@ describe('any-children', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('AnyChildren');
-        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('AnyChildren', featureTogglesNock);
+        testCommonContent.runTest('AnyChildren');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {

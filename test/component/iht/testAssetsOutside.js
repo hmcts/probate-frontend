@@ -5,16 +5,7 @@ const ValueAssetsOutside = require('app/steps/ui/iht/valueassetsoutside');
 const DeceasedAlias = require('app/steps/ui/deceased/alias');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/iht/assetsoutside');
-const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const featureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(featureTogglePath)
-        .reply(200, status);
-};
 
 describe('assets-outside-england-wales', () => {
     let testWrapper;
@@ -23,16 +14,14 @@ describe('assets-outside-england-wales', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('AssetsOutside');
-        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('AssetsOutside', featureTogglesNock);
+        testCommonContent.runTest('AssetsOutside');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {

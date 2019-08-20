@@ -16,35 +16,6 @@ describe('WillLeft', () => {
         });
     });
 
-    describe('getContextData()', () => {
-        it('should return the correct context on GET', (done) => {
-            const req = {
-                method: 'GET',
-                sessionID: 'dummy_sessionId',
-                session: {
-                    form: {},
-                    caseType: 'gop'
-                },
-                body: {
-                    left: content.optionYes
-                }
-            };
-            const res = {};
-
-            const ctx = WillLeft.getContextData(req, res);
-            expect(ctx).to.deep.equal({
-                sessionID: 'dummy_sessionId',
-                left: content.optionYes,
-                caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                },
-                userLoggedIn: false
-            });
-            done();
-        });
-    });
-
     describe('handlePost()', () => {
         it('should set session.form.caseType', (done) => {
             const ctxToTest = {
@@ -125,32 +96,14 @@ describe('WillLeft', () => {
                 left: content.optionNo
             };
             const nextStepUrl = WillLeft.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/stop-page/noWill');
+            expect(nextStepUrl).to.equal('/died-after-october-2014');
             done();
         });
     });
 
     describe('nextStepOptions()', () => {
-        it('should return the correct options when the FT is off', (done) => {
-            const ctx = {
-                isIntestacyQuestionsToggleEnabled: false
-            };
-            const nextStepOptions = WillLeft.nextStepOptions(ctx);
-            expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'left',
-                    value: content.optionYes,
-                    choice: 'withWill'
-                }]
-            });
-            done();
-        });
-
-        it('should return the correct options when the FT is on', (done) => {
-            const ctx = {
-                isIntestacyQuestionsToggleEnabled: true
-            };
-            const nextStepOptions = WillLeft.nextStepOptions(ctx);
+        it('should return the correct options', (done) => {
+            const nextStepOptions = WillLeft.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [
                     {
@@ -170,12 +123,12 @@ describe('WillLeft', () => {
     });
 
     describe('action()', () => {
-        it('test isIntestacyQuestionsToggleEnabled is removed from the context', () => {
+        it('test \'left\' is removed from the context', () => {
             const ctx = {
-                isIntestacyQuestionsToggleEnabled: false
+                left: 'Yes'
             };
             WillLeft.action(ctx);
-            assert.isUndefined(ctx.isIntestacyQuestionsToggleEnabled);
+            assert.isUndefined(ctx.left);
         });
     });
 });

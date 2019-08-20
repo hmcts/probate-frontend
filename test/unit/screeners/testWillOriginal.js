@@ -36,9 +36,6 @@ describe('WillOriginal', () => {
                 sessionID: 'dummy_sessionId',
                 original: content.optionYes,
                 caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                },
                 userLoggedIn: false
             });
             done();

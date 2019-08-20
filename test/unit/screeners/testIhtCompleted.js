@@ -36,9 +36,6 @@ describe('IhtCompleted', () => {
                 sessionID: 'dummy_sessionId',
                 completed: content.optionYes,
                 caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                },
                 userLoggedIn: false
             });
             done();

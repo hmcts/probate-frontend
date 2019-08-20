@@ -10,16 +10,7 @@ const StopPage = require('app/steps/ui/stoppage');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/applicant/relationshiptodeceased');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
-const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(intestacyQuestionsFeatureTogglePath)
-        .reply(200, status);
-};
 
 describe('relationship-to-deceased', () => {
     let testWrapper;
@@ -32,16 +23,14 @@ describe('relationship-to-deceased', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('RelationshipToDeceased');
-        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('RelationshipToDeceased', featureTogglesNock);
+        testCommonContent.runTest('RelationshipToDeceased');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {

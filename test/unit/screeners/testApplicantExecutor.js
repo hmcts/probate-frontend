@@ -36,9 +36,6 @@ describe('ApplicantExecutor', () => {
                 sessionID: 'dummy_sessionId',
                 executor: content.optionYes,
                 caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                },
                 userLoggedIn: false
             });
             done();

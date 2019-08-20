@@ -77,7 +77,6 @@ describe('Soft Stops', () => {
                 deathCertificate: {placeHolders: ['deathReportedToCoroner']},
                 notInEnglandOrWales: {placeHolders: ['applicationFormPA1P', 'applicationFormPA1A']},
                 ihtNotCompleted: {placeHolders: ['ihtNotCompleted']},
-                noWill: {placeHolders: ['applicationFormPA1A', 'whoInherits']},
                 notOriginal: {placeHolders: ['applicationFormPA1P', 'applicationFormPA1A']},
                 notExecutor: {placeHolders: ['applicationFormPA1P']},
                 mentalCapacity: {placeHolders: ['applicationFormPA1P', 'ifYoureAnExecutor']},

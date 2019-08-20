@@ -33,9 +33,6 @@ describe('CodicilsNumber', () => {
                 codicilsNumber: 3,
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                },
                 userLoggedIn: false
             });
             done();
@@ -59,9 +56,6 @@ describe('CodicilsNumber', () => {
                 codicilsNumber: null,
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                },
                 userLoggedIn: false
             });
             done();

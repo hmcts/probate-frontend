@@ -36,9 +36,6 @@ describe('DeceasedDomicile', () => {
                 sessionID: 'dummy_sessionId',
                 domicile: content.optionYes,
                 caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                },
                 userLoggedIn: false
             });
             done();

@@ -41,9 +41,6 @@ describe('DeceasedAddress', () => {
                 postcode: 'L23 6WW',
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                },
                 userLoggedIn: false
             });
             done();

@@ -36,9 +36,6 @@ describe('OtherApplicants', () => {
                 sessionID: 'dummy_sessionId',
                 otherApplicants: content.optionYes,
                 caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                },
                 userLoggedIn: false
             });
             done();

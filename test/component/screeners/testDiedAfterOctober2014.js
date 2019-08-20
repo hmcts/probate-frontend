@@ -20,15 +20,6 @@ const cookies = [{
     }
 }];
 
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(intestacyQuestionsFeatureTogglePath)
-        .reply(200, status);
-};
-
 describe('died-after-october-2014', () => {
     let testWrapper;
     const expectedNextUrlForRelatedToDeceased = RelatedToDeceased.getUrl();
@@ -36,16 +27,14 @@ describe('died-after-october-2014', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DiedAfterOctober2014');
-        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('DiedAfterOctober2014', featureTogglesNock, cookies);
+        testCommonContent.runTest('DiedAfterOctober2014', null, cookies);
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {}, cookies);

@@ -41,7 +41,7 @@ describe('task-list', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testDataPlayback(done, {}, [], excludeKeys);
                 });
         });
 
@@ -65,7 +65,7 @@ describe('task-list', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testDataPlayback(done, {}, [], excludeKeys);
                 });
         });
 
@@ -93,7 +93,7 @@ describe('task-list', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(multipleApplicantSessionData)
                 .end(() => {
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testDataPlayback(done, {}, [], excludeKeys);
                 });
         });
 
@@ -123,7 +123,7 @@ describe('task-list', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(singleApplicantSessionData)
                 .end(() => {
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testDataPlayback(done, {}, [], excludeKeys);
                 });
         });
 
@@ -155,7 +155,7 @@ describe('task-list', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(singleApplicantSessionData)
                 .end(() => {
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testDataPlayback(done, {}, [], excludeKeys);
                 });
         });
     });

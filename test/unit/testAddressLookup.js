@@ -5,6 +5,7 @@ const co = require('co');
 const rewire = require('rewire');
 const AddressLookup = rewire('app/steps/action/addressLookup');
 const logger = require('app/components/logger')('Init');
+const content = require('app/resources/en/translation/addressLookup');
 
 const expectedResponse = [{
     formattedAddress: 'Ministry Of Justice,Seventh Floor,103 Petty France,London,SW1H 9AJ',
@@ -96,8 +97,8 @@ describe('AddressLookup', () => {
                     field: 'postcode',
                     href: '#postcode',
                     msg: {
-                        summary: 'No addresses found, enter a postcode to search again',
-                        message: 'Please enter a valid postcode'
+                        summary: content.errors.postcode.noAddresses.summary,
+                        message: content.errors.postcode.noAddresses.message
                     }
                 });
                 revert();

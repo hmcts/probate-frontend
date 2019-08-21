@@ -8,7 +8,7 @@
 
     {% if errors == undefined %}
         {% if fields.paymentDue.value == "true" %}
-            <p class="govuk-body">{{ content.paragraph | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
         {% else %}
             <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
             <p class="govuk-body">{{ content.paragraph3 | safe }}</p>

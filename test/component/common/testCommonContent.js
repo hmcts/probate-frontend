@@ -39,19 +39,12 @@ class TestCommonContent {
                         callback();
                     }
 
-                    testWrapper.agent
-                        .get(testWrapper.pageUrl)
-                        .then(() => {
-                            const playbackData = {
-                                myAccount: commonContent.myAccount,
-                                signOut: commonContent.signOut
-                            };
+                    const playbackData = {
+                        myAccount: commonContent.myAccount,
+                        signOut: commonContent.signOut
+                    };
 
-                            testWrapper.testContentNotPresent(done, playbackData);
-                        })
-                        .catch(err => {
-                            done(err);
-                        });
+                    testWrapper.testContentNotPresent(done, playbackData);
                 });
             }
 
@@ -67,19 +60,12 @@ class TestCommonContent {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        testWrapper.agent
-                            .get(testWrapper.pageUrl)
-                            .then(() => {
-                                const playbackData = {
-                                    myAccount: commonContent.myAccount,
-                                    signOut: commonContent.signOut
-                                };
+                        const playbackData = {
+                            myAccount: commonContent.myAccount,
+                            signOut: commonContent.signOut
+                        };
 
-                                testWrapper.testDataPlayback(done, playbackData);
-                            })
-                            .catch(err => {
-                                done(err);
-                            });
+                        testWrapper.testDataPlayback(done, playbackData);
                     });
             });
 

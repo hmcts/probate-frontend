@@ -36,7 +36,7 @@ describe('other-applicants', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('OtherApplicants', null, cookies, true);
+        testCommonContent.runTest('OtherApplicants', null, null, cookies, true);
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {}, cookies);

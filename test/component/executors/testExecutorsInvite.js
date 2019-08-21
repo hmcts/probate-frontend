@@ -19,9 +19,9 @@ describe('executors-invite', () => {
     });
 
     afterEach(() => {
-        nock.cleanAll();
-        testWrapper.destroy();
         delete require.cache[require.resolve('test/data/executors-invites')];
+        testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

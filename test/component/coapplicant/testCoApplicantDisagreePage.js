@@ -16,6 +16,7 @@ describe('co-applicant-disagree-page', () => {
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

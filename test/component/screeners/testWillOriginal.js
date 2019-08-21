@@ -33,7 +33,7 @@ describe('will-original', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('WillOriginal', null, cookies, true);
+        testCommonContent.runTest('WillOriginal', null, null, cookies, true);
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {}, cookies);

@@ -7,6 +7,11 @@ const config = require('app/config');
 const featureToggleUrl = config.featureToggles.url;
 const feesApiFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.fees_api}`;
 const nock = require('nock');
+const feesApiFeatureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(feesApiFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('start-eligibility', () => {
     let testWrapper;
@@ -23,26 +28,16 @@ describe('start-eligibility', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test right content loaded on the page with the fees_api toggle ON', (done) => {
-            const feesApiFeatureTogglesNock = (status = 'true') => {
-                nock(featureToggleUrl)
-                    .get(feesApiFeatureTogglePath)
-                    .reply(200, status);
-            };
             const excludeKeys = [
                 'paragraph2',
                 'paragraph7old',
                 'paragraph8old'
             ];
-            feesApiFeatureTogglesNock();
+            feesApiFeatureTogglesNock('true');
             testWrapper.testContent(done, excludeKeys);
         });
 
         it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
-            const feesApiFeatureTogglesNock = (status = 'false') => {
-                nock(featureToggleUrl)
-                    .get(feesApiFeatureTogglePath)
-                    .reply(200, status);
-            };
             const excludeKeys = [
                 'paragraph2',
                 'paragraph7',
@@ -64,7 +59,7 @@ describe('start-eligibility', () => {
                 'tableBodyFeeRange7',
                 'tableBodyFeeRange7Value'
             ];
-            feesApiFeatureTogglesNock();
+            feesApiFeatureTogglesNock('false');
             testWrapper.testContent(done, excludeKeys);
         });
 

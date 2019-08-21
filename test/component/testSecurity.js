@@ -16,6 +16,10 @@ describe('security', () => {
     const expectedUrlForTimeoutPage = TimeoutPage.getUrl();
     const SECURITY_COOKIE = '__auth-token-' + config.payloadVersion;
 
+    afterEach(() => {
+        nock.cleanAll();
+    });
+
     it(`Redirects to login when idam returns 401 from Oauth2Token.post() request: ${LOGIN_URL}`, (done) => {
         nock(config.services.idam.apiUrl)
             .post(oAuth2TokenUrl)
@@ -30,7 +34,6 @@ describe('security', () => {
             .expect(302)
             .end((err, res) => {
                 server.http.close();
-                nock.cleanAll();
                 if (err) {
                     done(err);
                 } else {

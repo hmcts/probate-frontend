@@ -15,6 +15,7 @@ describe('co-applicant-start-page', () => {
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

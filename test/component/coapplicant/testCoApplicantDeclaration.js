@@ -9,12 +9,15 @@ const nock = require('nock');
 const config = require('app/config');
 const businessServiceUrl = config.services.validation.url.replace('/validate', '');
 const persistenceServiceUrl = config.services.persistence.url.replace('/formdata', '');
-const invitesNock = () => {
+let sessionData = require('test/data/complete-form-undeclared');
+const beforeEachCallback = () => {
     nock(businessServiceUrl)
         .get('/invites/allAgreed/undefined')
         .reply(200, 'false');
 };
-let sessionData = require('test/data/complete-form-undeclared');
+const afterEachCallback = () => {
+    nock.cleanAll();
+};
 
 describe('co-applicant-declaration', () => {
     let testWrapper;
@@ -22,17 +25,17 @@ describe('co-applicant-declaration', () => {
     const expectedNextUrlForCoAppDisagree = CoApplicantDisagreePage.getUrl();
 
     beforeEach(() => {
-        invitesNock();
+        beforeEachCallback();
         testWrapper = new TestWrapper('CoApplicantDeclaration');
     });
 
     afterEach(() => {
-        nock.cleanAll();
         testWrapper.destroy();
+        afterEachCallback();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('CoApplicantDeclaration', invitesNock, [], true);
+        testCommonContent.runTest('CoApplicantDeclaration', beforeEachCallback, afterEachCallback, [], true);
 
         it('test right content loaded on the page', (done) => {
             const contentToExclude = [

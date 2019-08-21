@@ -7,6 +7,11 @@ const config = require('app/config');
 const featureToggleUrl = config.featureToggles.url;
 const feesApiFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.fees_api}`;
 const nock = require('nock');
+const feesApiFeatureTogglesNock = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(feesApiFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('copies-overseas', () => {
     let testWrapper;
@@ -25,32 +30,22 @@ describe('copies-overseas', () => {
         testCommonContent.runTest('CopiesOverseas');
 
         it('test right content loaded on the page with the fees_api toggle ON', (done) => {
-            const feesApiFeatureTogglesNock = (status = 'true') => {
-                nock(featureToggleUrl)
-                    .get(feesApiFeatureTogglePath)
-                    .reply(200, status);
-            };
             const excludeKeys = [
                 'questionOld',
                 'paragraph1Old'
             ];
-            feesApiFeatureTogglesNock();
+            feesApiFeatureTogglesNock('true');
             testWrapper.testContent(done, excludeKeys);
         });
 
         it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
-            const feesApiFeatureTogglesNock = (status = 'false') => {
-                nock(featureToggleUrl)
-                    .get(feesApiFeatureTogglePath)
-                    .reply(200, status);
-            };
             const excludeKeys = [
                 'paragraph1',
                 'bullet1',
                 'bullet2',
                 'copies'
             ];
-            feesApiFeatureTogglesNock();
+            feesApiFeatureTogglesNock('false');
             testWrapper.testContent(done, excludeKeys);
         });
 

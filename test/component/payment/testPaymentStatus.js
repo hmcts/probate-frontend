@@ -11,7 +11,7 @@ const PERSISTENCE_URL = config.services.persistence.url;
 const testCommonContent = require('test/component/common/testCommonContent.js');
 let sessionData = require('test/data/complete-form-undeclared').formdata;
 
-const paymentNock = () => {
+const beforeEachCallback = () => {
     nock(SUBMIT_SERVICE_URL).post('/updatePaymentStatus')
         .reply(200, {caseState: 'CreatedCase'});
     nock(CREATE_PAYMENT_SERVICE_URL)
@@ -35,6 +35,9 @@ const paymentNock = () => {
             'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG8v_3ktCpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA'
         );
 };
+const afterEachCallback = () => {
+    nock.cleanAll();
+};
 
 describe('payment-status', () => {
     let testWrapper;
@@ -42,16 +45,16 @@ describe('payment-status', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('PaymentStatus');
-        paymentNock();
+        beforeEachCallback();
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
+        afterEachCallback();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('PaymentStatus', paymentNock);
+        testCommonContent.runTest('PaymentStatus', beforeEachCallback, afterEachCallback);
 
         it('test right content loaded on the page when net value is greater than 5000£', (done) => {
             testWrapper.agent.post('/prepare-session/form')

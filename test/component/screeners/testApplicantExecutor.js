@@ -34,7 +34,7 @@ describe('applicant-executor', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ApplicantExecutor', null, cookies, true);
+        testCommonContent.runTest('ApplicantExecutor', null, null, cookies, true);
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {}, cookies);

@@ -4,7 +4,6 @@ const TestWrapper = require('test/util/TestWrapper');
 const documentuploadData = require('test/data/documentupload');
 const documentuploadContent = require('app/resources/en/translation/documentupload');
 const summaryContent = require('app/resources/en/translation/summary');
-const nock = require('nock');
 
 describe('summary-documentupload-section', () => {
     let testWrapper, sessionData;
@@ -17,7 +16,6 @@ describe('summary-documentupload-section', () => {
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

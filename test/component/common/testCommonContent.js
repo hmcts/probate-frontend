@@ -5,13 +5,13 @@ const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 
 class TestCommonContent {
-    static runTest(page, callback, cookies = [], pageOutsideIdam = false) {
+    static runTest(page, beforeEach, afterEach, cookies = [], pageOutsideIdam = false) {
         const testWrapper = new TestWrapper(page);
 
         describe('Test the help content', () => {
             it('test help block content is loaded on page', (done) => {
-                if (typeof callback === 'function') {
-                    callback();
+                if (typeof beforeEach === 'function') {
+                    beforeEach();
                 }
 
                 const playbackData = {
@@ -23,13 +23,18 @@ class TestCommonContent {
 
                 testWrapper.testDataPlayback(done, playbackData, cookies);
             });
+
+            testWrapper.destroy();
+            if (typeof afterEach === 'function') {
+                afterEach();
+            }
         });
 
         describe('Test the navigation links', () => {
             if (pageOutsideIdam) {
                 it('test "my account" and "sign out" links are not displayed on the page when the user is not logged in', (done) => {
-                    if (typeof callback === 'function') {
-                        callback();
+                    if (typeof beforeEach === 'function') {
+                        beforeEach();
                     }
 
                     const playbackData = {
@@ -42,8 +47,8 @@ class TestCommonContent {
             }
 
             it('test "my account" and "sign out" links are displayed on the page when the user is logged in', (done) => {
-                if (typeof callback === 'function') {
-                    callback();
+                if (typeof beforeEach === 'function') {
+                    beforeEach();
                 }
 
                 const sessionData = {
@@ -63,6 +68,9 @@ class TestCommonContent {
             });
 
             testWrapper.destroy();
+            if (typeof afterEach === 'function') {
+                afterEach();
+            }
         });
     }
 }

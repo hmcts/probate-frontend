@@ -31,7 +31,7 @@ describe('iht-completed', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('IhtCompleted', null, cookies, true);
+        testCommonContent.runTest('IhtCompleted', null, null, cookies, true);
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {}, cookies);

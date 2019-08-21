@@ -56,7 +56,7 @@ describe('deceased-domicile', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
         });
 
-        it('test "save and close" links is not displayed on the page', (done) => {
+        it('test "save and close" link is not displayed on the page', (done) => {
             const playbackData = {
                 saveAndClose: commonContent.saveAndClose
             };

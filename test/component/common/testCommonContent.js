@@ -35,6 +35,10 @@ class TestCommonContent {
         describe('Test the navigation links', () => {
             if (pageOutsideIdam) {
                 it('test "my account" and "sign out" links are not displayed on the page when the user is not logged in', (done) => {
+                    if (typeof callback === 'function') {
+                        callback();
+                    }
+
                     testWrapper.agent
                         .get(testWrapper.pageUrl)
                         .then(() => {
@@ -52,6 +56,10 @@ class TestCommonContent {
             }
 
             it('test "my account" and "sign out" links are displayed on the page when the user is logged in', (done) => {
+                if (typeof callback === 'function') {
+                    callback();
+                }
+
                 const sessionData = {
                     applicantEmail: 'test@email.com'
                 };

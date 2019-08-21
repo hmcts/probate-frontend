@@ -33,7 +33,7 @@ describe('co-applicant-declaration', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('CoApplicantDeclaration', invitesNock);
+        testCommonContent.runTest('CoApplicantDeclaration', invitesNock, [], true);
 
         it('test right content loaded on the page', (done) => {
             const contentToExclude = [
@@ -97,19 +97,6 @@ describe('co-applicant-declaration', () => {
                             };
                             testWrapper.testRedirect(done, data, expectedNextUrlForCoAppDisagree);
                         });
-                });
-        });
-
-        it('test "save and close" links is not displayed on the page', (done) => {
-            const playbackData = {
-                saveAndClose: commonContent.saveAndClose,
-            };
-
-            testWrapper.agent
-                .post('/prepare-session/form')
-                .send({will: {}})
-                .end(() => {
-                    testWrapper.testContentNotPresent(done, playbackData);
                 });
         });
     });

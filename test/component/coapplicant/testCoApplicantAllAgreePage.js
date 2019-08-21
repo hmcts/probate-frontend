@@ -57,9 +57,11 @@ describe('co-applicant-all-agreed-page', () => {
                 });
         });
 
-        it('test "save and close" links is not displayed on the page', (done) => {
+        it('test "save and close", "my account" and "sign out" links are not displayed on the page', (done) => {
             const playbackData = {
-                saveAndClose: commonContent.saveAndClose
+                saveAndClose: commonContent.saveAndClose,
+                myAccount: commonContent.myAccount,
+                signOut: commonContent.signOut
             };
 
             testWrapper.testContentNotPresent(done, playbackData);

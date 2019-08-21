@@ -9,7 +9,6 @@ const nock = require('nock');
 const config = require('app/config');
 const businessServiceUrl = config.services.validation.url.replace('/validate', '');
 const persistenceServiceUrl = config.services.persistence.url.replace('/formdata', '');
-let sessionData = require('test/data/complete-form-undeclared');
 const beforeEachCallback = () => {
     nock(businessServiceUrl)
         .get('/invites/allAgreed/undefined')
@@ -21,15 +20,18 @@ const afterEachCallback = () => {
 
 describe('co-applicant-declaration', () => {
     let testWrapper;
+    let sessionData;
     const expectedNextUrlForCoAppAgree = CoApplicantAgreePage.getUrl();
     const expectedNextUrlForCoAppDisagree = CoApplicantDisagreePage.getUrl();
 
     beforeEach(() => {
+        sessionData = require('test/data/complete-form-undeclared').formdata;
         beforeEachCallback();
         testWrapper = new TestWrapper('CoApplicantDeclaration');
     });
 
     afterEach(() => {
+        delete require.cache[require.resolve('test/data/complete-form-undeclared')];
         testWrapper.destroy();
         afterEachCallback();
     });
@@ -43,7 +45,7 @@ describe('co-applicant-declaration', () => {
             ];
 
             testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData.formdata)
+                .send(sessionData)
                 .end(() => {
                     const contentData = {
                         mainApplicantName: 'Bob Smith'
@@ -55,7 +57,7 @@ describe('co-applicant-declaration', () => {
 
         it('test errors message displayed for missing data', (done) => {
             testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData.formdata)
+                .send(sessionData)
                 .end(() => {
                     const data = {};
                     testWrapper.testErrors(done, data, 'required', []);

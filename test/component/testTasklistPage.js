@@ -1,19 +1,22 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const singleApplicantData = require('test/data/singleApplicant');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('task-list', () => {
-    let testWrapper, sessionData;
+    let testWrapper;
+    let singleApplicantData;
+    let sessionData;
 
     beforeEach(() => {
         testWrapper = new TestWrapper('TaskList');
 
+        singleApplicantData = require('test/data/singleApplicant');
         sessionData = require('test/data/complete-form').formdata;
     });
 
     afterEach(() => {
+        delete require.cache[require.resolve('test/data/singleApplicant')];
         delete require.cache[require.resolve('test/data/complete-form')];
         testWrapper.destroy();
     });

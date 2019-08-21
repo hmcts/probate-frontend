@@ -9,7 +9,6 @@ const CREATE_PAYMENT_SERVICE_URL = config.services.payment.url + config.services
 const IDAM_S2S_URL = config.services.idam.s2s_url;
 const PERSISTENCE_URL = config.services.persistence.url;
 const testCommonContent = require('test/component/common/testCommonContent.js');
-let sessionData = require('test/data/complete-form-undeclared').formdata;
 
 const beforeEachCallback = () => {
     nock(SUBMIT_SERVICE_URL).post('/updatePaymentStatus')
@@ -41,14 +40,17 @@ const afterEachCallback = () => {
 
 describe('payment-status', () => {
     let testWrapper;
+    let sessionData;
     const expectedNextUrlForTaskList = TaskList.getUrl();
 
     beforeEach(() => {
+        sessionData = require('test/data/complete-form-undeclared').formdata;
         testWrapper = new TestWrapper('PaymentStatus');
         beforeEachCallback();
     });
 
     afterEach(() => {
+        delete require.cache[require.resolve('test/data/complete-form-undeclared')];
         testWrapper.destroy();
         afterEachCallback();
     });

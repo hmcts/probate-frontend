@@ -11,7 +11,6 @@ const businessServiceUrl = config.services.validation.url.replace('/validate', '
 describe('pin-resend', () => {
     let testWrapper;
     const expectedNextUrlForPinSent = PinSent.getUrl();
-    const sessionData = require('test/data/multipleApplicant');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('PinResend');
@@ -96,9 +95,11 @@ describe('pin-resend', () => {
                 .get('/pin?phoneNumber=undefined')
                 .reply(500, new Error('ReferenceError'));
 
+            const sessionData = require('test/data/multipleApplicant');
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
+                    delete require.cache[require.resolve('test/data/multipleApplicant')];
                     testWrapper.agent.post(testWrapper.pageUrl)
                         .then(response => {
                             assert(response.status === 500);

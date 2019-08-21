@@ -1,7 +1,6 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const sessionData = require('test/data/complete-form-undeclared');
 const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');
 const config = require('app/config');
@@ -9,13 +8,16 @@ const businessServiceUrl = config.services.validation.url.replace('/validate', '
 
 describe('co-applicant-all-agreed-page', () => {
     let testWrapper;
+    let sessionData;
     let contentData;
 
     beforeEach(() => {
+        sessionData = require('test/data/complete-form-undeclared').formdata;
         testWrapper = new TestWrapper('CoApplicantAllAgreedPage');
     });
 
     afterEach(() => {
+        delete require.cache[require.resolve('test/data/complete-form-undeclared')];
         nock.cleanAll();
         testWrapper.destroy();
     });
@@ -26,14 +28,14 @@ describe('co-applicant-all-agreed-page', () => {
                 .get('/invites/allAgreed/undefined')
                 .reply(200, true);
 
-            sessionData.formdata.will.codicils = commonContent.no;
+            sessionData.will.codicils = commonContent.no;
 
             const contentToExclude = [
                 'paragraph4-codicils'
             ];
 
             testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData.formdata)
+                .send(sessionData)
                 .end(() => {
                     testWrapper.testContent(done, contentToExclude, contentData);
                 });
@@ -44,14 +46,14 @@ describe('co-applicant-all-agreed-page', () => {
                 .get('/invites/allAgreed/undefined')
                 .reply(200, true);
 
-            sessionData.formdata.will.codicils = commonContent.yes;
+            sessionData.will.codicils = commonContent.yes;
 
             const contentToExclude = [
                 'paragraph4'
             ];
 
             testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData.formdata)
+                .send(sessionData)
                 .end(() => {
                     testWrapper.testContent(done, contentToExclude, contentData);
                 });

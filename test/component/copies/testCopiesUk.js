@@ -92,6 +92,7 @@ describe('copies-uk', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
+                    delete require.cache[require.resolve('test/data/copiesUk')];
                     testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
                 });
         });
@@ -103,6 +104,7 @@ describe('copies-uk', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
+                    delete require.cache[require.resolve('test/data/copiesUk')];
                     testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
                 });
         });

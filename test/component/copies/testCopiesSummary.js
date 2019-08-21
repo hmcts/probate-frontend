@@ -30,10 +30,9 @@ describe('copies-summary', () => {
         });
 
         it('test correct content loaded on the copies summary page, when section is completed', (done) => {
-
-            const sessionData = require('test/data/complete-form-undeclared');
+            const sessionData = require('test/data/complete-form-undeclared').formdata;
             testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData.formdata)
+                .send(sessionData)
                 .end((err) => {
                     if (err) {
                         throw err;
@@ -44,6 +43,7 @@ describe('copies-summary', () => {
                     contentData.overseasAssetsQuestion = assetsContent.overseas.question;
                     contentData.overseasCopiesQuestion = copiesContent.overseas.question;
 
+                    delete require.cache[require.resolve('test/data/complete-form-undeclared')];
                     testWrapper.testContent(done, contentToExclude, contentData);
                 });
         });

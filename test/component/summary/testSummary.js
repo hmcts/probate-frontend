@@ -2,7 +2,6 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
-const sessionData = require('test/data/documentupload');
 
 describe('summary', () => {
     let testWrapper;
@@ -21,6 +20,7 @@ describe('summary', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page and documents uploaded', (done) => {
+            const sessionData = require('test/data/documentupload');
             const contentToExclude = [
                 'executorsWhenDiedQuestion',
                 'otherNamesLabel',
@@ -41,6 +41,7 @@ describe('summary', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
+                    delete require.cache[require.resolve('test/data/documentupload')];
                     testWrapper.testContent(done, contentToExclude);
                 });
         });

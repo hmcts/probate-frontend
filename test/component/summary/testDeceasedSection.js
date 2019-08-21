@@ -2,7 +2,6 @@
 
 const requireDir = require('require-directory');
 const TestWrapper = require('test/util/TestWrapper');
-const deceasedData = require('test/data/deceased');
 const deceasedContent = requireDir(module, '../../../app/resources/en/translation/deceased');
 const willContent = requireDir(module, '../../../app/resources/en/translation/will');
 const FormatName = require('app/utils/FormatName');
@@ -34,12 +33,14 @@ describe('summary-deceased-section', () => {
         });
 
         it('test correct content loaded on the deceased section of the summary page, when section is complete', (done) => {
+            const deceasedData = require('test/data/deceased');
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
                     if (err) {
                         throw err;
                     }
+                    delete require.cache[require.resolve('test/data/deceased')];
                     const deceasedName = FormatName.format(deceasedData.deceased);
                     const playbackData = {
                         firstName: deceasedContent.name.firstName,

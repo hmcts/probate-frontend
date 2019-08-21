@@ -2,19 +2,21 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsNumber = require('app/steps/ui/executors/number');
-const testAddressData = require('test/data/find-address');
 const formatAddress = address => address.replace(/,/g, ', ');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('applicant-address', () => {
     let testWrapper;
+    let testAddressData;
     const expectedNextUrlForExecsNumber = ExecutorsNumber.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ApplicantAddress');
+        testAddressData = require('test/data/find-address');
     });
 
     afterEach(() => {
+        delete require.cache[require.resolve('test/data/find-address')];
         testWrapper.destroy();
     });
 

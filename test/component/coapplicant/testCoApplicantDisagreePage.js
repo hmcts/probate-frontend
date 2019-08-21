@@ -1,7 +1,6 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const sessionData = require('test/data/complete-form-undeclared');
 const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');
 const config = require('app/config');
@@ -26,13 +25,15 @@ describe('co-applicant-disagree-page', () => {
                 .reply(200, 'false');
 
             const excludeKeys = [];
+            const sessionData = require('test/data/complete-form-undeclared').formdata;
 
             testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData.formdata)
+                .send(sessionData)
                 .end(() => {
                     const contentData = {
                         leadExecFullName: 'Bob Smith'
                     };
+                    delete require.cache[require.resolve('test/data/complete-form-undeclared')];
                     testWrapper.testContent(done, excludeKeys, contentData);
                 });
         });

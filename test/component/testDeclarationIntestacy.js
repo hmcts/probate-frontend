@@ -14,7 +14,7 @@ const config = require('app/config');
 const nock = require('nock');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe('declaration, intestacy', () => {
+describe.x('declaration, intestacy', () => {
     let testWrapper, contentData, sessionData;
     const expectedNextUrlForExecInvite = Taskist.getUrl();
 

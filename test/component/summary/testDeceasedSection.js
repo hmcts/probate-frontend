@@ -57,12 +57,14 @@ describe('summary-deceased-section', () => {
         });
 
         it('test data is played back correctly on the deceased section of the summary page', (done) => {
+            const deceasedData = require('test/data/deceased');
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
                     if (err) {
                         throw err;
                     }
+                    delete require.cache[require.resolve('test/data/deceased')];
                     const deceasedName = FormatName.format(deceasedData.deceased);
                     const playbackData = {
                         firstName: deceasedContent.name.firstName,

@@ -136,50 +136,55 @@ class TestWrapper {
     }
 
     substituteContent(data, contentToSubstitute) {
-        forEach(Object.entries(contentToSubstitute), ([key, contentValue]) => {
-            contentValue = contentValue.replace(/\n/g, '<br />\n');
-            if (contentValue.match(/\{(.*?)\}/g)) {
-                forEach(contentValue.match(/\{(.*?)\}/g), (placeholder) => {
-                    const placeholderRegex = new RegExp(placeholder, 'g');
-                    placeholder = placeholder.replace(/[{}]/g, '');
-                    if (Array.isArray(data[placeholder])) {
-                        forEach(data[placeholder], (contentData) => {
-                            const contentValueReplace = contentValue.replace(placeholderRegex, contentData);
-                            contentToSubstitute.push(contentValueReplace);
-                        });
-                        contentToSubstitute[key] = 'undefined';
-                    } else {
-                        contentValue = contentValue.replace(placeholderRegex, data[placeholder]);
-                        contentToSubstitute[key] = contentValue;
-                    }
-                });
-            } else {
-                contentToSubstitute[key] = contentValue;
-            }
-        });
+        Object.entries(contentToSubstitute)
+            .forEach(([key, contentValue]) => {
+                contentValue = contentValue.replace(/\n/g, '<br />\n');
+                const contentValueMatch = contentValue.match(/\{(.*?)\}/g);
+                if (contentValueMatch) {
+                    contentValueMatch.forEach(placeholder => {
+                        const placeholderRegex = new RegExp(placeholder, 'g');
+                        placeholder = placeholder.replace(/[{}]/g, '');
+                        if (Array.isArray(data[placeholder])) {
+                            data[placeholder].forEach(contentData => {
+                                const contentValueReplace = contentValue.replace(placeholderRegex, contentData);
+                                contentToSubstitute.push(contentValueReplace);
+                            });
+                            contentToSubstitute[key] = 'undefined';
+                        } else {
+                            contentValue = contentValue.replace(placeholderRegex, data[placeholder]);
+                            contentToSubstitute[key] = contentValue;
+                        }
+                    });
+                } else {
+                    contentToSubstitute[key] = contentValue;
+                }
+            });
         return contentToSubstitute.filter(content => content !== 'undefined');
     }
 
     substituteErrorsContent(data, contentToSubstitute, type) {
-        forEach(Object.entries(contentToSubstitute), ([contentKey, contentValue]) => {
-            forEach(Object.entries(contentValue[type]), ([errorMessageKey, errorMessageValue]) => {
-                forEach(errorMessageValue.match(/\{(.*?)\}/g), (placeholder) => {
-                    const placeholderRegex = new RegExp(placeholder, 'g');
-                    contentToSubstitute[contentKey][type][errorMessageKey] = contentToSubstitute[contentKey][type][errorMessageKey].replace(placeholderRegex, data[placeholder]);
-                });
+        Object.entries(contentToSubstitute).forEach(([contentKey, contentValue]) => {
+            Object.entries(contentValue[type]).forEach(([errorMessageKey, errorMessageValue]) => {
+                const errorMessageValueMatch = errorMessageValue.match(/\{(.*?)\}/g);
+                if (errorMessageValueMatch) {
+                    (errorMessageValue.match(/\{(.*?)\}/g)).forEach(placeholder => {
+                        const placeholderRegex = new RegExp(placeholder, 'g');
+                        contentToSubstitute[contentKey][type][errorMessageKey] = contentToSubstitute[contentKey][type][errorMessageKey].replace(placeholderRegex, data[placeholder]);
+                    });
+                }
             });
         });
     }
 
     assertContentIsPresent(actualContent, expectedContent) {
-        forEach(expectedContent, (value) => {
+        expectedContent.forEach(value => {
             expect(actualContent.toLowerCase()).to.contain(value.toString().toLowerCase());
         });
     }
 
     assertContentIsNotPresent(actualContent, expectedContent) {
-        forEach(expectedContent, (value) => {
-            expect(actualContent.toLowerCase()).to.not.contain(value.toString().toLowerCase());
+        Object.entries(expectedContent).forEach(contentValue => {
+            expect(actualContent.toLowerCase()).to.not.contain(contentValue.toString().toLowerCase());
         });
     }
 

@@ -45,10 +45,8 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const excludeKeys = [
-                            'text6',
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
@@ -74,7 +72,6 @@ describe('documents', () => {
                         const excludeKeys = [
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
@@ -99,7 +96,6 @@ describe('documents', () => {
                         const excludeKeys = [
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
@@ -126,7 +122,6 @@ describe('documents', () => {
                             'text6',
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item6-deed-poll',
                             'checkboxLabel-codicils',
@@ -151,7 +146,6 @@ describe('documents', () => {
                             'text6',
                             'checklist-item1-no-codicils',
                             'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
@@ -182,7 +176,6 @@ describe('documents', () => {
                         const excludeKeys = [
                             'checklist-item1-no-codicils',
                             'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
@@ -207,7 +200,6 @@ describe('documents', () => {
                             'text6',
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
@@ -232,7 +224,6 @@ describe('documents', () => {
                             'text6',
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
@@ -257,7 +248,6 @@ describe('documents', () => {
                             'text6',
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
@@ -282,7 +272,6 @@ describe('documents', () => {
                             'text6',
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
                             'checkboxLabel-codicils',
@@ -308,7 +297,6 @@ describe('documents', () => {
                         const excludeKeys = [
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checkboxLabel-codicils',
@@ -335,7 +323,6 @@ describe('documents', () => {
                         const excludeKeys = [
                             'checklist-item1-codicils',
                             'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
                             'checklist-item5-renunciated',
                             'checkboxLabel-codicils',
@@ -378,7 +365,6 @@ describe('documents', () => {
                                     'text6',
                                     'checklist-item1-codicils',
                                     'checklist-item1-no-codicils',
-                                    'checklist-item3-will-uploaded',
                                     'checklist-item5-renunciated',
                                     'checklist-item6-deed-poll',
                                     'checkboxLabel-codicils',

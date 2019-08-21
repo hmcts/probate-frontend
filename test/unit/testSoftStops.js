@@ -97,9 +97,11 @@ describe('Soft Stops', () => {
     describe('action()', () => {
         it('removes the correct values from the context', (done) => {
             const ctx = {
+                stopReason: 'someReason',
                 linkPlaceholders: ['applicationFormPA1A']
             };
             const testFormdata = {
+                stopReason: 'someReason',
                 linkPlaceholders: ['applicationFormPA1A']
             };
             const action = stopPage.action(ctx, testFormdata);

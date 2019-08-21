@@ -18,7 +18,7 @@ const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const lockPaymentAttempt = require('app/middleware/lockPaymentAttempt');
 const caseTypes = require('app/utils/CaseTypes');
-// const emailValidator = require('email-validator');
+const emailValidator = require('email-validator');
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
@@ -39,8 +39,7 @@ router.use((req, res, next) => {
         req.session.form.applicantEmail = req.session.regId;
     }
 
-    // req.session.form.userLoggedIn = emailValidator.validate(req.session.form.applicantEmail);
-    req.session.form.userLoggedIn = req.session.form.applicantEmail.includes('@');
+    req.session.form.userLoggedIn = emailValidator.validate(req.session.form.applicantEmail);
     req.log.info(`User logged in: ${req.session.form.userLoggedIn}`);
 
     next();

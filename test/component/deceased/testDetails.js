@@ -21,14 +21,13 @@ describe('deceased-details', () => {
         testCommonContent.runTest('DeceasedDetails');
 
         it('test right content loaded on the page', (done) => {
-            testWrapper.testContent(done, []);
+            testWrapper.testContent(done);
         });
 
         it('test errors message displayed for missing data', (done) => {
             const errorsToTest = ['firstName', 'lastName', 'dob-day', 'dob-month', 'dob-year', 'dod-day', 'dod-month', 'dod-year'];
-            const data = {};
 
-            testWrapper.testErrors(done, data, 'required', errorsToTest);
+            testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });
 
         it('test errors message displayed for invalid firstName', (done) => {

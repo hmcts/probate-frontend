@@ -20,17 +20,18 @@ describe('deceased-address', () => {
         testCommonContent.runTest('DeceasedAddress');
 
         it('test right content loaded on the page', (done) => {
-            const excludeKeys = ['selectAddress'];
+            const contentToExclude = ['selectAddress'];
 
-            testWrapper.testContent(done, excludeKeys);
+            testWrapper.testContent(done, contentToExclude);
         });
 
         it('test address schema validation when address search is unsuccessful', (done) => {
             const data = {
                 addressFound: 'false'
             };
+            const errorsToTest = ['addressLine1'];
 
-            testWrapper.testErrors(done, data, 'required', ['addressLine1']);
+            testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
         it(`test it redirects to document upload page: ${expectedNextUrlForDocumentUpload}`, (done) => {
@@ -39,6 +40,7 @@ describe('deceased-address', () => {
                 postTown: 'value',
                 newPostCode: 'value'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForDocumentUpload);
         });
     });

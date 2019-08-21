@@ -38,7 +38,7 @@ describe('thank-you', () => {
                     state: 'CaseCreated'
                 }
             };
-            const excludeKeys = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf', 'coverSheetPdf'];
+            const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf', 'coverSheetPdf'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -47,7 +47,7 @@ describe('thank-you', () => {
                         findOutNext: config.links.findOutNext
                     };
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, contentToExclude, contentData);
                 });
         });
 
@@ -59,7 +59,7 @@ describe('thank-you', () => {
                 },
                 checkAnswersSummary: '{test: "data"}'
             };
-            const excludeKeys = ['declarationPdf', 'coverSheetPdf'];
+            const contentToExclude = ['declarationPdf', 'coverSheetPdf'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -70,7 +70,7 @@ describe('thank-you', () => {
                         checkSummaryLink: content.checkAnswersPdf
                     };
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, contentToExclude, contentData);
 
                 });
         });
@@ -101,7 +101,7 @@ describe('thank-you', () => {
                 },
                 legalDeclaration: '{test: "data"}'
             };
-            const excludeKeys = ['checkAnswersPdf'];
+            const contentToExclude = ['checkAnswersPdf'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -112,7 +112,7 @@ describe('thank-you', () => {
                         declarationLink: content.declarationPdf
                     };
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, contentToExclude, contentData);
                 });
         });
 
@@ -144,7 +144,6 @@ describe('thank-you', () => {
                 checkAnswersSummary: '{test: "data"}',
                 legalDeclaration: '{test: "data"}'
             };
-            const excludeKeys = [];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -156,7 +155,7 @@ describe('thank-you', () => {
                         declarationLink: content.declarationPdf
                     };
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, [], contentData);
                 });
         });
 
@@ -167,7 +166,7 @@ describe('thank-you', () => {
                     state: 'CaseCreated'
                 }
             };
-            const excludeKeys = ['checkAnswersPdf', 'declarationPdf'];
+            const contentToExclude = ['checkAnswersPdf', 'declarationPdf'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -178,7 +177,7 @@ describe('thank-you', () => {
                         coverSheetLink: content.coverSheetPdf
                     };
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, contentToExclude, contentData);
                 });
         });
     });

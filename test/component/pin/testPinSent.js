@@ -19,10 +19,9 @@ describe('pin-sent', () => {
     describe('Verify Content, Errors and Redirection', () => {
 
         it('test right content loaded on the page', (done) => {
-            const excludeKeys = [];
             testWrapper.agent.post('/prepare-session-field/validLink/true')
                 .end(() => {
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testContent(done);
                 });
         });
 

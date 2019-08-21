@@ -59,7 +59,6 @@ describe('ExecutorRoles', () => {
     });
 
     describe('pruneExecutorData', () => {
-
         const ctx = {
             'list': [
                 {

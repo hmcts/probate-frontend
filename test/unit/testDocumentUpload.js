@@ -190,7 +190,6 @@ describe('DocumentUpload.js', () => {
     });
 
     describe('isComplete()', () => {
-
         let testCtx;
 
         beforeEach(() => {

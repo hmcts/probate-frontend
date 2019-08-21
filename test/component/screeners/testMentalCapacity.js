@@ -38,7 +38,11 @@ describe('mental-capacity', () => {
         testCommonContent.runTest('MentalCapacity', null, null, cookies, true);
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {assessingMentalCapacity: config.links.assessingMentalCapacity}, cookies);
+            const contentData = {
+                assessingMentalCapacity: config.links.assessingMentalCapacity
+            };
+
+            testWrapper.testContent(done, [], contentData, cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {

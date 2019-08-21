@@ -40,7 +40,7 @@ describe('any-grandchildren-under-18', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to Applicant Name page if no grandchildren are under 18: ${expectedNextUrlForApplicantName}`, (done) => {

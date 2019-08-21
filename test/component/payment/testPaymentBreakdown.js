@@ -51,6 +51,7 @@ describe('payment-breakdown', () => {
 
         it('test content loaded on the page with no extra copies', (done) => {
             const contentToExclude = ['extraCopiesFeeUk', 'extraCopiesFeeJersey', 'extraCopiesFeeOverseas'];
+
             testWrapper.testContent(done, contentToExclude);
         });
 
@@ -62,6 +63,7 @@ describe('payment-breakdown', () => {
                         throw err;
                     }
                     const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeOverseas'];
+
                     testWrapper.testContent(done, contentToExclude);
                 });
         });
@@ -74,6 +76,7 @@ describe('payment-breakdown', () => {
                         throw err;
                     }
                     const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeUk'];
+
                     testWrapper.testContent(done, contentToExclude);
                 });
         });
@@ -94,8 +97,9 @@ describe('payment-breakdown', () => {
                     if (err) {
                         throw err;
                     }
-                    const data = {};
-                    testWrapper.testErrors(done, data, 'failure', ['authorisation']);
+                    const errorsToTest = ['authorisation'];
+
+                    testWrapper.testErrors(done, {}, 'failure', errorsToTest);
                 });
         });
     });

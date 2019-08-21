@@ -59,8 +59,7 @@ describe('co-applicant-declaration', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const data = {};
-                    testWrapper.testErrors(done, data, 'required', []);
+                    testWrapper.testErrors(done, {}, 'required');
                 });
         });
 

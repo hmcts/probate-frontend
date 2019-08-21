@@ -26,15 +26,14 @@ describe('executors-alias', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required');
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to Executor Other Names when Yes: ${expectedNextUrlForExecOtherNames}`, (done) => {
             const data = {
                 alias: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForExecOtherNames);
         });
 
@@ -42,6 +41,7 @@ describe('executors-alias', () => {
             const data = {
                 alias: 'No'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForExecContactDetails);
         });
     });

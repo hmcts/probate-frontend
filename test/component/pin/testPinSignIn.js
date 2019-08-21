@@ -35,10 +35,9 @@ describe('pin-page', () => {
         });
 
         it('test right content loaded on the page', (done) => {
-            const excludeKeys = [];
             testWrapper.agent.post('/prepare-session-field/validLink/true')
                 .end(() => {
-                    testWrapper.testContent(done, excludeKeys);
+                    testWrapper.testContent(done);
                 });
         });
 
@@ -69,12 +68,16 @@ describe('pin-page', () => {
 
         it('test error messages displayed for missing data', (done) => {
             const data = {pin: ''};
-            testWrapper.testErrors(done, data, 'required', ['pin']);
+            const errorsToTest = ['pin'];
+
+            testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
         it('test error messages displayed for invalid data', (done) => {
             const data = {pin: 'NOT_A_PIN'};
-            testWrapper.testErrors(done, data, 'invalid', ['pin']);
+            const errorsToTest = ['pin'];
+
+            testWrapper.testErrors(done, data, 'invalid', errorsToTest);
         });
 
         it('test error messages displayed for incorrect pin data', (done) => {
@@ -82,7 +85,9 @@ describe('pin-page', () => {
             testWrapper.agent
                 .post('/prepare-session-field/pin/54321')
                 .end(() => {
-                    testWrapper.testErrors(done, data, 'incorrect', ['pin']);
+                    const errorsToTest = ['pin'];
+
+                    testWrapper.testErrors(done, data, 'incorrect', errorsToTest);
                 });
         });
 

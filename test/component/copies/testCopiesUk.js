@@ -30,7 +30,7 @@ describe('copies-uk', () => {
                     .get(feesApiFeatureTogglePath)
                     .reply(200, status);
             };
-            const excludeKeys = [
+            const contentToExclude = [
                 'questionOld',
                 'paragraph1Old',
                 'paragraph2Old',
@@ -38,7 +38,7 @@ describe('copies-uk', () => {
                 'copiesOld'
             ];
             feesApiFeatureTogglesNock();
-            testWrapper.testContent(done, excludeKeys);
+            testWrapper.testContent(done, contentToExclude);
         });
 
         it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
@@ -47,7 +47,7 @@ describe('copies-uk', () => {
                     .get(feesApiFeatureTogglePath)
                     .reply(200, status);
             };
-            const excludeKeys = [
+            const contentToExclude = [
                 'question',
                 'paragraph1',
                 'paragraph2',
@@ -59,31 +59,31 @@ describe('copies-uk', () => {
                 'copiesOld_1'
             ];
             feesApiFeatureTogglesNock();
-            testWrapper.testContent(done, excludeKeys);
+            testWrapper.testContent(done, contentToExclude);
         });
 
         it('test errors message displayed for invalid data, text values', (done) => {
             const data = {uk: 'abcd'};
 
-            testWrapper.testErrors(done, data, 'invalid', []);
+            testWrapper.testErrors(done, data, 'invalid');
         });
 
         it('test errors message displayed for invalid data, special characters', (done) => {
             const data = {uk: '//1234//'};
 
-            testWrapper.testErrors(done, data, 'invalid', []);
+            testWrapper.testErrors(done, data, 'invalid');
         });
 
         it('test errors message displayed for missing data, nothing entered', (done) => {
             const data = {uk: ''};
 
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, data, 'required');
         });
 
         it('test errors message displayed for invalid data, negative numbers', (done) => {
             const data = {uk: '-1'};
 
-            testWrapper.testErrors(done, data, 'invalid', []);
+            testWrapper.testErrors(done, data, 'invalid');
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForAssetsOverseas}`, (done) => {

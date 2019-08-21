@@ -40,21 +40,21 @@ describe('deceased-alias', () => {
         });
 
         it('test alias schema validation when no data is entered', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to deceased other names page: ${expectedNextUrlForDeceasedOtherNames}`, (done) => {
             const data = {
                 alias: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedOtherNames);
         });
         it(`test it redirects to deceased married page: ${expectedNextUrlForDeceasedMarried}`, (done) => {
             const data = {
                 alias: 'No'
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .end(() => {
                     testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedMarried);

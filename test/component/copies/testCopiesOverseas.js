@@ -30,47 +30,47 @@ describe('copies-overseas', () => {
         testCommonContent.runTest('CopiesOverseas');
 
         it('test right content loaded on the page with the fees_api toggle ON', (done) => {
-            const excludeKeys = [
+            const contentToExclude = [
                 'questionOld',
                 'paragraph1Old'
             ];
             feesApiFeatureTogglesNock('true');
-            testWrapper.testContent(done, excludeKeys);
+            testWrapper.testContent(done, contentToExclude);
         });
 
         it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
-            const excludeKeys = [
+            const contentToExclude = [
                 'paragraph1',
                 'bullet1',
                 'bullet2',
                 'copies'
             ];
             feesApiFeatureTogglesNock('false');
-            testWrapper.testContent(done, excludeKeys);
+            testWrapper.testContent(done, contentToExclude);
         });
 
         it('test errors message displayed for invalid data, text values', (done) => {
             const data = {overseas: 'abcd'};
 
-            testWrapper.testErrors(done, data, 'invalid', []);
+            testWrapper.testErrors(done, data, 'invalid');
         });
 
         it('test errors message displayed for invalid data, special characters', (done) => {
             const data = {overseas: '//1234//'};
 
-            testWrapper.testErrors(done, data, 'invalid', []);
+            testWrapper.testErrors(done, data, 'invalid');
         });
 
         it('test errors message displayed for missing data, nothing entered', (done) => {
             const data = {overseas: ''};
 
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, data, 'required');
         });
 
         it('test errors message displayed for invalid data, negative numbers', (done) => {
             const data = {overseas: '-1'};
 
-            testWrapper.testErrors(done, data, 'invalid', []);
+            testWrapper.testErrors(done, data, 'invalid');
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForCopiesSummary}`, (done) => {

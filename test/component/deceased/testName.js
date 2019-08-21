@@ -20,16 +20,11 @@ describe('deceased-name', () => {
         testCommonContent.runTest('DeceasedName');
 
         it('test right content loaded on the page', (done) => {
-
-            testWrapper.testContent(done, []);
+            testWrapper.testContent(done);
         });
 
         it('test errors message displayed for missing data', (done) => {
-
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', []);
-
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it('test errors message displayed for invalid firstName', (done) => {
@@ -57,6 +52,5 @@ describe('deceased-name', () => {
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDob);
         });
-
     });
 });

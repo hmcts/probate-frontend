@@ -24,8 +24,7 @@ describe('executors-invites-sent', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {
-            const data = {};
-            testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
+            testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList);
         });
     });
 });

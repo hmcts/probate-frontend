@@ -16,7 +16,6 @@ describe('privacy-policy', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test right content loaded on the page', (done) => {
-            const excludeKeys = [];
             const contentData = {
                 mojPersonalInformationCharterLink: config.links.mojPersonalInformationCharter,
                 termsLink: config.links.terms,
@@ -27,7 +26,7 @@ describe('privacy-policy', () => {
                 informationCommissionersOfficeLink: config.links.informationCommissionersOffice
             };
 
-            testWrapper.testContent(done, excludeKeys, contentData);
+            testWrapper.testContent(done, [], contentData);
         });
     });
 });

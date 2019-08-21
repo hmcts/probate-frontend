@@ -1488,13 +1488,12 @@ describe.skip('declaration, intestacy', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testErrors(done, data, 'required', [
-                        'declarationCheckbox'
-                    ]);
+                    const errorsToTest = ['declarationCheckbox'];
+
+                    testWrapper.testErrors(done, {}, 'required', errorsToTest);
                 });
         });
 
@@ -1510,12 +1509,14 @@ describe.skip('declaration, intestacy', () => {
                     hasDataChanged: false
                 }
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const data = {
                         declarationCheckbox: true
                     };
+
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
                 });
         });

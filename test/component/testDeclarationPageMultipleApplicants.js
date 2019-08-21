@@ -893,13 +893,12 @@ describe.skip('declaration, multiple applicants', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testErrors(done, data, 'required', [
-                        'declarationCheckbox'
-                    ]);
+                    const errorsToTest = ['declarationCheckbox'];
+
+                    testWrapper.testErrors(done, {}, 'required', errorsToTest);
                 });
         });
 
@@ -913,12 +912,14 @@ describe.skip('declaration, multiple applicants', () => {
                     ]
                 }
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const data = {
                         declarationCheckbox: true
                     };
+
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
                 });
         });
@@ -955,6 +956,7 @@ describe.skip('declaration, multiple applicants', () => {
                     const data = {
                         declarationCheckbox: true
                     };
+
                     testWrapper.testRedirect(done, data, expectedNextUrlForAdditionalExecInvite);
                 });
         });
@@ -970,12 +972,14 @@ describe.skip('declaration, multiple applicants', () => {
                     invitesSent: 'true'
                 }
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const data = {
                         declarationCheckbox: true
                     };
+
                     testWrapper.testRedirect(done, data, expectedNextUrlForUpdateExecInvite);
                 });
         });
@@ -991,12 +995,14 @@ describe.skip('declaration, multiple applicants', () => {
                     hasDataChanged: true
                 }
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const data = {
                         declarationCheckbox: true
                     };
+
                     testWrapper.testRedirect(done, data, expectedNextUrlForChangeToSingleApplicant);
                 });
         });

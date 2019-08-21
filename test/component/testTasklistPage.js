@@ -23,7 +23,7 @@ describe('task-list', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('[PROBATE] test right content loaded on the page', (done) => {
-            const excludeKeys = [
+            const contentToExclude = [
                 'applicantsTask',
                 'copiesTaskIntestacy',
                 'introduction',
@@ -41,12 +41,12 @@ describe('task-list', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testDataPlayback(done, {}, [], excludeKeys);
+                    testWrapper.testDataPlayback(done, {}, [], contentToExclude);
                 });
         });
 
         it('[INTESTACY] test right content loaded on the page', (done) => {
-            const excludeKeys = [
+            const contentToExclude = [
                 'executorsTask',
                 'copiesTaskProbate',
                 'documentTask',
@@ -65,7 +65,7 @@ describe('task-list', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testDataPlayback(done, {}, [], excludeKeys);
+                    testWrapper.testDataPlayback(done, {}, [], contentToExclude);
                 });
         });
 
@@ -79,7 +79,7 @@ describe('task-list', () => {
                 executors: sessionData.executors,
                 declaration: sessionData.declaration
             };
-            const excludeKeys = [
+            const contentToExclude = [
                 'applicantsTask',
                 'copiesTaskIntestacy',
                 'taskNotStarted',
@@ -93,7 +93,7 @@ describe('task-list', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(multipleApplicantSessionData)
                 .end(() => {
-                    testWrapper.testDataPlayback(done, {}, [], excludeKeys);
+                    testWrapper.testDataPlayback(done, {}, [], contentToExclude);
                 });
         });
 
@@ -107,7 +107,7 @@ describe('task-list', () => {
                 executors: singleApplicantData.executors,
                 declaration: sessionData.declaration
             };
-            const excludeKeys = [
+            const contentToExclude = [
                 'applicantsTask',
                 'copiesTaskIntestacy',
                 'reviewAndConfirmTaskMultiplesParagraph1',
@@ -123,7 +123,7 @@ describe('task-list', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(singleApplicantSessionData)
                 .end(() => {
-                    testWrapper.testDataPlayback(done, {}, [], excludeKeys);
+                    testWrapper.testDataPlayback(done, {}, [], contentToExclude);
                 });
         });
 
@@ -137,7 +137,7 @@ describe('task-list', () => {
                 executors: singleApplicantData.executors,
                 declaration: sessionData.declaration
             };
-            const excludeKeys = [
+            const contentToExclude = [
                 'executorsTask',
                 'copiesTaskProbate',
                 'documentTask',
@@ -155,7 +155,7 @@ describe('task-list', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(singleApplicantSessionData)
                 .end(() => {
-                    testWrapper.testDataPlayback(done, {}, [], excludeKeys);
+                    testWrapper.testDataPlayback(done, {}, [], contentToExclude);
                 });
         });
     });

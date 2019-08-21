@@ -62,15 +62,16 @@ describe('payment-status', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const excludeKeys = ['paragraph2', 'paragraph3'];
-                    testWrapper.testContent(done, excludeKeys);
+                    const contentToExclude = ['paragraph2', 'paragraph3'];
+
+                    testWrapper.testContent(done, contentToExclude);
                 });
         });
 
         it('test right content loaded on the page when net value is less than 5000£', (done) => {
-            const excludeKeys = ['paragraph1'];
+            const contentToExclude = ['paragraph1'];
 
-            testWrapper.testContent(done, excludeKeys);
+            testWrapper.testContent(done, contentToExclude);
         });
 
         it(`test it redirects to next page with no input: ${expectedNextUrlForTaskList}`, (done) => {

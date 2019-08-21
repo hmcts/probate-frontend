@@ -22,16 +22,11 @@ describe('executors-all-alive', () => {
         testCommonContent.runTest('ExecutorsAllAlive');
 
         it('test right content loaded on the page', (done) => {
-            const excludeKeys = [];
-
-            testWrapper.testContent(done, excludeKeys);
+            testWrapper.testContent(done, []);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {
-            };
-
-            testWrapper.testErrors(done, data, 'required');
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to executors applying: ${expectedNextUrlForExecsApplying}`, (done) => {

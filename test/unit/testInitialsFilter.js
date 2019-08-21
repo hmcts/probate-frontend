@@ -2,7 +2,6 @@ const initialsFilter = require('app/components/initialsFilter');
 const assert = require('chai').assert;
 
 describe('initialsFilter', () => {
-
     it('creates initials from a one word string', () => {
         const input = 'First';
         const output = initialsFilter(input);

@@ -40,7 +40,7 @@ describe('any-children', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to All Children Over 18 page if deceased had children: ${expectedNextUrlForAllChildrenOver18}`, (done) => {

@@ -512,7 +512,6 @@ describe('Executors.js', () => {
         });
 
         describe('should return an empty list', () => {
-
             it('when there is no executor data', (done) => {
                 const data = {};
                 const executorsWrapper = new ExecutorsWrapper(data);

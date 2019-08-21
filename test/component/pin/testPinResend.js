@@ -23,9 +23,11 @@ describe('pin-resend', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test uk local phone number loads on the page', (done) => {
+            const contentToExclude = ['subHeader2ExecName'];
             const contentData = {
                 phoneNumber: '07701111111',
             };
+
             testWrapper.agent
                 .post('/prepare-session-field')
                 .send({
@@ -33,14 +35,16 @@ describe('pin-resend', () => {
                     validLink: true
                 })
                 .then(() => {
-                    testWrapper.testContent(done, ['subHeader2ExecName'], contentData);
+                    testWrapper.testContent(done, contentToExclude, contentData);
                 });
         });
 
         it('test uk phone number with int prefix loads on the page', (done) => {
+            const contentToExclude = ['subHeader2ExecName'];
             const contentData = {
                 phoneNumber: '+447701111111',
             };
+
             testWrapper.agent
                 .post('/prepare-session-field')
                 .send({
@@ -48,14 +52,16 @@ describe('pin-resend', () => {
                     validLink: true
                 })
                 .then(() => {
-                    testWrapper.testContent(done, ['subHeader2ExecName'], contentData);
+                    testWrapper.testContent(done, contentToExclude, contentData);
                 });
         });
 
         it('test international long phone number loads on the page', (done) => {
+            const contentToExclude = ['subHeader2ExecName'];
             const contentData = {
                 phoneNumber: '+10900111000111000111',
             };
+
             testWrapper.agent
                 .post('/prepare-session-field')
                 .send({
@@ -63,14 +69,16 @@ describe('pin-resend', () => {
                     validLink: true
                 })
                 .then(() => {
-                    testWrapper.testContent(done, ['subHeader2ExecName'], contentData);
+                    testWrapper.testContent(done, contentToExclude, contentData);
                 });
         });
 
         it('test lead executor name loads on the page', (done) => {
+            const contentToExclude = ['header1', 'header2'];
             const contentData = {
                 executorName: 'Works',
             };
+
             testWrapper.agent
                 .post('/prepare-session-field')
                 .send({
@@ -78,7 +86,7 @@ describe('pin-resend', () => {
                     validLink: true
                 })
                 .then(() => {
-                    testWrapper.testContent(done, ['header1', 'header2'], contentData);
+                    testWrapper.testContent(done, contentToExclude, contentData);
                 });
         });
 

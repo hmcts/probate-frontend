@@ -22,15 +22,11 @@ describe('will-codicils', () => {
         testCommonContent.runTest('WillCodicils');
 
         it('test correct content loaded on the page', (done) => {
-            const excludeKeys = [];
-
-            testWrapper.testContent(done, excludeKeys);
+            testWrapper.testContent(done);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to TaskList page: ${expectedNextUrlForTaskList}`, (done) => {

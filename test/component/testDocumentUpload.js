@@ -135,8 +135,7 @@ describe('document-upload', () => {
         });
 
         it('test it redirects to the iht method page after clicking the continue button', (done) => {
-            const data = {};
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+            testWrapper.testRedirect(done, {}, expectedNextUrlForIhtMethod);
         });
     });
 });

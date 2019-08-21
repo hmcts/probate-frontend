@@ -37,9 +37,7 @@ describe('executors-other-names', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required');
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to Executors Current Name page: ${expectedNextUrlForExecCurrentName}`, (done) => {
@@ -49,6 +47,7 @@ describe('executors-other-names', () => {
                     const data = {
                         executorsWithOtherNames: 'Wibble Wobble-Woo'
                     };
+
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecCurrentName);
                 });
         });

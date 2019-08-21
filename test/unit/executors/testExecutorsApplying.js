@@ -7,7 +7,6 @@ describe('Executors-Applying', () => {
     const ExecsApplying = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]).ExecutorsApplying;
 
     describe('handlePost', () => {
-
         beforeEach(() => {
             ctx = {
                 list: [

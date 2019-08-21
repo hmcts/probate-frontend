@@ -7,7 +7,6 @@ const sinonChai = require('sinon-chai');
 chai.use(sinonChai);
 
 describe('ActionStepRunner', () => {
-
     it('Test GET', () => {
         const stepName = 'test';
         const step = {name: stepName};

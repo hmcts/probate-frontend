@@ -20,14 +20,13 @@ describe('deceased-dod', () => {
         testCommonContent.runTest('DeceasedDod');
 
         it('test right content loaded on the page', (done) => {
-            testWrapper.testContent(done, []);
+            testWrapper.testContent(done);
         });
 
         it('test error message displayed for missing data', (done) => {
             const errorsToTest = ['dod-day', 'dod-month', 'dod-year'];
-            const data = {};
 
-            testWrapper.testErrors(done, data, 'required', errorsToTest);
+            testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });
 
         it('test error message displayed for invalid day', (done) => {

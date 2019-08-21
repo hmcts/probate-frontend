@@ -40,20 +40,20 @@ describe('assets-overseas', () => {
 
         it(`test it redirects to Copies Overseas page: ${expectedNextUrlForCopiesOverseas}`, (done) => {
             const data = {assetsoverseas: 'Yes'};
+
             testWrapper.nextPageUrl = testWrapper.nextStep(data).constructor.getUrl();
             testWrapper.testRedirect(done, data, expectedNextUrlForCopiesOverseas);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForCopiesSummary}`, (done) => {
             const data = {assetsoverseas: 'No'};
+
             testWrapper.nextPageUrl = testWrapper.nextStep(data).constructor.getUrl();
             testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
     });
 });

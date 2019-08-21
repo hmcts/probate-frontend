@@ -55,7 +55,9 @@ describe('executors-names', () => {
                     const data = {
                         executorName: ['x']
                     };
-                    testWrapper.testErrors(done, data, 'invalid', ['executorName']);
+                    const errorsToTest = ['executorName'];
+
+                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
                 });
         });
 
@@ -66,7 +68,9 @@ describe('executors-names', () => {
                     const data = {
                         executorName: ['']
                     };
-                    testWrapper.testErrors(done, data, 'required', ['executorName']);
+                    const errorsToTest = ['executorName'];
+
+                    testWrapper.testErrors(done, data, 'required', errorsToTest);
                 });
         });
 
@@ -77,7 +81,9 @@ describe('executors-names', () => {
                     const data = {
                         executorName: ['>bob bassett']
                     };
-                    testWrapper.testErrors(done, data, 'invalid', ['executorName']);
+                    const errorsToTest = ['executorName'];
+
+                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
                 });
         });
 
@@ -88,6 +94,7 @@ describe('executors-names', () => {
                     const data = {
                         executorName: ['Brian']
                     };
+
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecsAlive);
                 });
         });

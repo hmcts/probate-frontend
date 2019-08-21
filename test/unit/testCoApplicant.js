@@ -1,9 +1,8 @@
-const initSteps = require('app/core/initSteps'),
-    assert = require('chai').assert,
+const initSteps = require('app/core/initSteps');
+const assert = require('chai').assert,
     {isNil} = require('lodash');
 
 describe('Co-Applicant', () => {
-
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui/`]);
 
     it('test pin has been removed from the session', () => {

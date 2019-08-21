@@ -28,7 +28,7 @@ describe('applicant-name-as-on-will', () => {
                 }
             };
 
-            const excludeKeys = ['questionWithoutName', 'questionWithCodicil', 'legendWithCodicil'];
+            const contentToExclude = ['questionWithoutName', 'questionWithCodicil', 'legendWithCodicil'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -37,7 +37,7 @@ describe('applicant-name-as-on-will', () => {
                     const contentData = {
                         applicantName: 'John TheApplicant',
                     };
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, contentToExclude, contentData);
                 });
         });
 
@@ -52,7 +52,7 @@ describe('applicant-name-as-on-will', () => {
                 }
             };
 
-            const excludeKeys = ['question', 'questionWithoutName', 'legend'];
+            const contentToExclude = ['question', 'questionWithoutName', 'legend'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -61,7 +61,7 @@ describe('applicant-name-as-on-will', () => {
                     const contentData = {
                         applicantName: 'John TheApplicant',
                     };
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, contentToExclude, contentData);
                 });
         });
 
@@ -73,12 +73,10 @@ describe('applicant-name-as-on-will', () => {
                 }
             };
 
-            const data = {};
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testErrors(done, data, 'required', []);
+                    testWrapper.testErrors(done, {}, 'required');
                 });
 
         });

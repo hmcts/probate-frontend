@@ -24,6 +24,7 @@ describe('any-deceased-children', () => {
         testCommonContent.runTest('AnyDeceasedChildren');
 
         it('test content loaded on the page', (done) => {
+            const contentToExclude = ['theDeceased'];
             const sessionData = {
                 deceased: {
                     'firstName': 'John',
@@ -36,12 +37,12 @@ describe('any-deceased-children', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe', deceasedDoD: '13 October 2018'};
-                    testWrapper.testContent(done, ['theDeceased'], contentData);
+                    testWrapper.testContent(done, contentToExclude, contentData);
                 });
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to Any Grandchildren Under 18 page if deceased had children who died before them: ${expectedNextUrlForAnyGrandchildrenUnder18}`, (done) => {

@@ -28,34 +28,34 @@ describe('executors-number', () => {
         it('test errors message displayed for invalid data', (done) => {
             const data = {executorsNumber: 'abd'};
 
-            testWrapper.testErrors(done, data, 'invalid', []);
+            testWrapper.testErrors(done, data, 'invalid');
         });
 
         it('test errors message displayed for invalid data - negative numbers', (done) => {
             const data = {executorsNumber: '-1'};
 
-            testWrapper.testErrors(done, data, 'invalid', []);
+            testWrapper.testErrors(done, data, 'invalid');
         });
 
         it('test errors message displayed for no number entered', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it('test it displays the errors when there are more than 20 executors', (done) => {
             const data = {executorsNumber: 21};
 
-            testWrapper.testErrors(done, data, 'invalid', []);
+            testWrapper.testErrors(done, data, 'invalid');
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecNames}`, (done) => {
             const data = {executorsNumber: 2};
+
             testWrapper.testRedirect(done, data, expectedNextUrlForExecNames);
         });
 
         it(`test it redirects to next page when there is only one executor: ${expectedNextUrlForTaskList}`, (done) => {
             const data = {executorsNumber: 1};
+
             testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
         });
     });

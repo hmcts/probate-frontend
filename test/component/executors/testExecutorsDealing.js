@@ -51,8 +51,7 @@ describe('executors-dealing-with-estate', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const data = {};
-                    testWrapper.testErrors(done, data, 'required', errorsToTest);
+                    testWrapper.testErrors(done, {}, 'required', errorsToTest);
                 });
         });
 

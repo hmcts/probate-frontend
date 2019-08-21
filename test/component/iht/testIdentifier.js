@@ -20,14 +20,11 @@ describe('iht-identifier', () => {
         testCommonContent.runTest('IhtIdentifier');
 
         it('test correct iht identifier page content is loaded', (done) => {
-            const contentToExclude = [];
-            testWrapper.testContent(done, contentToExclude);
+            testWrapper.testContent(done);
         });
 
         it('test iht identifier schema validation when no input is entered', (done) => {
-            const errorsToTest = [];
-            const data = {};
-            testWrapper.testErrors(done, data, 'required', errorsToTest);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it accepts hyphen separated values, and redirects to next page: ${expectedNextUrlForIhtValue}`, (done) => {

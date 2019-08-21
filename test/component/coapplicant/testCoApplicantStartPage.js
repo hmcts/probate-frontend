@@ -36,8 +36,6 @@ describe('co-applicant-start-page', () => {
                 pin: '12345'
             };
 
-            const excludeKeys = [];
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -46,7 +44,7 @@ describe('co-applicant-start-page', () => {
                         deceasedName: 'Dave Bassett',
                         pin: ''
                     };
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, [], contentData);
                 });
         });
 

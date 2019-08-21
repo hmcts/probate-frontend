@@ -21,11 +21,11 @@ describe('value-assets-outside-england-wales', () => {
         testCommonContent.runTest('ValueAssetsOutside');
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {});
+            testWrapper.testContent(done);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDeceasedAlias}`, (done) => {

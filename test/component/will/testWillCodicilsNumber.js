@@ -25,21 +25,23 @@ describe('codicils-number', () => {
 
         it('test errors message displayed for invalid data', (done) => {
             const data = {codicilsNumber: 'abd'};
-            testWrapper.testErrors(done, data, 'invalid', []);
+
+            testWrapper.testErrors(done, data, 'invalid');
         });
 
         it('test errors message displayed for invalid data - negative numbers', (done) => {
             const data = {codicilsNumber: '-1'};
-            testWrapper.testErrors(done, data, 'invalid', []);
+
+            testWrapper.testErrors(done, data, 'invalid');
         });
 
         it('test errors message displayed for no number entered', (done) => {
-            const data = {};
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to TaskList page: ${expectedNextUrlForTaskList}`, (done) => {
             const data = {codicilsNumber: '1'};
+
             testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
         });
     });

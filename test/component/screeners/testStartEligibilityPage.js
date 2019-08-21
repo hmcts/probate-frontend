@@ -28,17 +28,17 @@ describe('start-eligibility', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test right content loaded on the page with the fees_api toggle ON', (done) => {
-            const excludeKeys = [
+            const contentToExclude = [
                 'paragraph2',
                 'paragraph7old',
                 'paragraph8old'
             ];
             feesApiFeatureTogglesNock('true');
-            testWrapper.testContent(done, excludeKeys);
+            testWrapper.testContent(done, contentToExclude);
         });
 
         it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
-            const excludeKeys = [
+            const contentToExclude = [
                 'paragraph2',
                 'paragraph7',
                 'paragraph8',
@@ -60,7 +60,7 @@ describe('start-eligibility', () => {
                 'tableBodyFeeRange7Value'
             ];
             feesApiFeatureTogglesNock('false');
-            testWrapper.testContent(done, excludeKeys);
+            testWrapper.testContent(done, contentToExclude);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDeathCertificate}`, (done) => {

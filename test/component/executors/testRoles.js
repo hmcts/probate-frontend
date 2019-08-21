@@ -64,6 +64,7 @@ describe('executor-roles', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {executorFullName: 'Mana Manah'};
+
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testContent(done, [], contentData);
                 });
@@ -77,6 +78,7 @@ describe('executor-roles', () => {
                     const data = {
                         notApplyingReason: null
                     };
+
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testErrors(done, data, 'required', errorsToTest);
                 });

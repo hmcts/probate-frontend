@@ -24,7 +24,6 @@ describe('co-applicant-disagree-page', () => {
                 .get('/invites/allAgreed/undefined')
                 .reply(200, 'false');
 
-            const excludeKeys = [];
             const sessionData = require('test/data/complete-form-undeclared').formdata;
 
             testWrapper.agent.post('/prepare-session/form')
@@ -34,7 +33,7 @@ describe('co-applicant-disagree-page', () => {
                         leadExecFullName: 'Bob Smith'
                     };
                     delete require.cache[require.resolve('test/data/complete-form-undeclared')];
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, [], contentData);
                 });
         });
 

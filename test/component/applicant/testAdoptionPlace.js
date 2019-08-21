@@ -27,11 +27,11 @@ describe('adoption-place', () => {
         testCommonContent.runTest('AdoptionPlace');
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {});
+            testWrapper.testContent(done);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to Spouse Not Applying Reason page if adoption took place in England or Wales and deceased was married: ${expectedNextUrlForSpouseNotApplyingReason}`, (done) => {

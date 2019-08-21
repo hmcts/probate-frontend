@@ -18,10 +18,10 @@ describe('copies-start', () => {
     describe('Verify Content, Errors and Redirection', () => {
 
         it('test right content loaded on the page', (done) => {
-            const excludeKeys = [
+            const contentToExclude = [
                 'paragraph2_1'
             ];
-            testWrapper.testContent(done, excludeKeys);
+            testWrapper.testContent(done, contentToExclude);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForCopiesUk}`, (done) => {

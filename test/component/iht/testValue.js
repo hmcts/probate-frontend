@@ -20,11 +20,11 @@ describe('iht-value', () => {
         testCommonContent.runTest('IhtValue');
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, []);
+            testWrapper.testContent(done);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it('test iht value schema validation when net value is greater than gross value', (done) => {
@@ -32,8 +32,9 @@ describe('iht-value', () => {
                 grossValueField: 12345,
                 netValueField: 123456
             };
+            const errorsToTest = ['netValueField'];
 
-            testWrapper.testErrors(done, data, 'netValueGreaterThanGross', ['netValueField']);
+            testWrapper.testErrors(done, data, 'netValueGreaterThanGross', errorsToTest);
         });
 
         it(`test it redirects to Deceased Alias page: ${expectedNextUrlForDeceasedAlias}`, (done) => {

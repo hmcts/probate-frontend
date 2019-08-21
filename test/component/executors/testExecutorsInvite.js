@@ -28,19 +28,22 @@ describe('executors-invite', () => {
         testCommonContent.runTest('ExecutorsInvite');
 
         it('test correct content loaded on the page when more than 1 other executor', (done) => {
+            const contentToExclude = ['heading3'];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, ['heading3']);
+                    testWrapper.testContent(done, contentToExclude);
                 });
         });
 
         it('test correct content loaded on the page when only 1 other executor', (done) => {
+            const contentToExclude = ['heading3-multiple'];
             sessionData.executors.executorsNumber = 2;
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, ['heading3-multiple']);
+                    testWrapper.testContent(done, contentToExclude);
                 });
         });
 

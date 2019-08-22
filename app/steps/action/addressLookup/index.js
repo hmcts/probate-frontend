@@ -52,6 +52,7 @@ class AddressLookup extends ValidationStep {
                 referrerData.errors = [FieldError('postcode', 'invalid', this.resourcePath, ctx)];
             }
         } else {
+            referrerData.addressFound = 'false';
             referrerData.errors = errors;
         }
 

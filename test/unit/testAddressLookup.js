@@ -89,19 +89,20 @@ describe('AddressLookup', () => {
                 referrer: 'ApplicantAddress',
                 postcode: 'N55'
             };
+            errorsToTest = {
+                field: 'postcode',
+                href: '#postcode',
+                msg: {
+                    summary: content.errors.postcode.noAddresses.summary,
+                    message: content.errors.postcode.noAddresses.message
+                }
+            };
 
             co(function* () {
-                yield addressLookup.handlePost(ctxToTest, errorsToTest, formdata, req);
+                yield addressLookup.handlePost(ctxToTest, [errorsToTest], formdata, req);
 
                 expect(formdata.applicant.addressFound).to.equal('false');
-                expect(formdata.applicant.errors[0]).to.deep.equal({
-                    field: 'postcode',
-                    href: '#postcode',
-                    msg: {
-                        summary: content.errors.postcode.noAddresses.summary,
-                        message: content.errors.postcode.noAddresses.message
-                    }
-                });
+                expect(formdata.applicant.errors[0]).to.deep.equal(errorsToTest);
                 revert();
                 done();
             }).catch((err) => {

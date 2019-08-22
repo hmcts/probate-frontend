@@ -4,7 +4,6 @@ const {expect} = require('chai');
 const co = require('co');
 const rewire = require('rewire');
 const AddressLookup = rewire('app/steps/action/addressLookup');
-const logger = require('app/components/logger')('Init');
 const content = require('app/resources/en/translation/addressLookup');
 
 const expectedResponse = [{

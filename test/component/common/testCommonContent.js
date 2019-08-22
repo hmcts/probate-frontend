@@ -59,7 +59,7 @@ class TestCommonContent {
                     .send(sessionData)
                     .end(() => {
                         const playbackData = {
-                            myAccount: commonContent.myAccount,
+                            myApplications: commonContent.myApplications,
                             signOut: commonContent.signOut
                         };
 

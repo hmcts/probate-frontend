@@ -83,7 +83,7 @@ describe('DocumentUpload.js', () => {
             const errorsToTest = [];
             const formdata = {
                 documents: {
-                    error: 'type'
+                    error: 'invalidFileType'
                 }
             };
             const DocumentUpload = steps.DocumentUpload;
@@ -93,8 +93,8 @@ describe('DocumentUpload.js', () => {
                 field: 'file',
                 href: '#file',
                 msg: {
-                    summary: 'documentupload.errors.file.type.summary',
-                    message: 'documentupload.errors.file.type.message'
+                    summary: content.errors.file.invalidFileType.summary,
+                    message: content.errors.file.invalidFileType.message
                 }
             }]);
             done();

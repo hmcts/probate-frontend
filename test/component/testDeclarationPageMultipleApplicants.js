@@ -13,7 +13,7 @@ const {assert} = require('chai');
 const nock = require('nock');
 const config = require('app/config');
 
-describe('declaration, multiple applicants', () => {
+describe.skip('declaration, multiple applicants', () => {
     let testWrapper, contentData, sessionData;
     const expectedNextUrlForExecInvite = ExecutorsInvite.getUrl();
     const expectedNextUrlForExecChangeMade = ExecutorsChangeMade.getUrl();

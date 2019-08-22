@@ -9,7 +9,7 @@ const testCommonContent = require('test/component/common/testCommonContent.js');
 const nock = require('nock');
 const config = require('app/config');
 
-describe('declaration, single applicant', () => {
+describe.skip('declaration, single applicant', () => {
     let testWrapper, contentData, sessionData;
     const expectedNextUrlForExecInvite = Taskist.getUrl();
 

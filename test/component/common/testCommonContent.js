@@ -38,7 +38,7 @@ class TestCommonContent {
                     }
 
                     const playbackData = {
-                        myAccount: commonContent.myAccount,
+                        myApplications: commonContent.myApplications,
                         signOut: commonContent.signOut
                     };
 

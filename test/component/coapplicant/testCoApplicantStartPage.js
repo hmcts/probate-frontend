@@ -51,7 +51,7 @@ describe('co-applicant-start-page', () => {
         it('test "save and close", "my account" and "sign out" links are not displayed on the page', (done) => {
             const playbackData = {
                 saveAndClose: commonContent.saveAndClose,
-                myAccount: commonContent.myAccount,
+                myApplications: commonContent.myApplications,
                 signOut: commonContent.signOut
             };
 

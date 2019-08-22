@@ -25,7 +25,7 @@
     {% if fields.userLoggedIn.value === "true" %}
         {% set navigationItems = (navigationItems.push({
             href: "/dashboard",
-            text: common.myAccount
+            text: common.myApplications
         }), navigationItems) %}
         {% set navigationItems = (navigationItems.push({
             href: "/sign-out",

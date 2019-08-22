@@ -10,8 +10,7 @@ const content = require('app/resources/en/translation/addressLookup');
 const expectedResponse = [{
     formattedAddress: 'Ministry Of Justice,Seventh Floor,103 Petty France,London,SW1H 9AJ',
     postcode: 'SW1H 9AJ'
-},
-{
+}, {
     formattedAddress: 'Ministry Of Justice,Seventh Floor,102 Petty France,London,SW1H 9AJ',
     postcode: 'SW1H 9AJ'
 }];
@@ -44,7 +43,7 @@ describe('AddressLookup', () => {
             referrer: 'ApplicantAddress',
             postcode: 'SW1H 9AJ'
         };
-        errorsToTest = {};
+        errorsToTest = [];
         formdata = {
             applicant: {
                 someThingToLookFor: 'someThingToLookFor'
@@ -72,9 +71,6 @@ describe('AddressLookup', () => {
             co(function* () {
                 yield addressLookup.handlePost(ctxToTest, errorsToTest, formdata, req);
 
-                logger.error(`ACTUAL: ${JSON.stringify(formdata.applicant.addresses)}`);
-                logger.error(`EXPECTED: ${JSON.stringify(expectedResponse)}`);
-
                 expect(formdata.applicant.addresses).to.deep.equal(expectedResponse);
                 expect(formdata.applicant.addressFound).to.equal('true');
                 revert();
@@ -90,8 +86,14 @@ describe('AddressLookup', () => {
             });
             const addressLookup = new AddressLookup(steps, section, templatePath, i18next, schema);
 
+            ctxToTest = {
+                referrer: 'ApplicantAddress',
+                postcode: 'N55'
+            };
+
             co(function* () {
                 yield addressLookup.handlePost(ctxToTest, errorsToTest, formdata, req);
+
                 expect(formdata.applicant.addressFound).to.equal('false');
                 expect(formdata.applicant.errors[0]).to.deep.equal({
                     field: 'postcode',

@@ -138,7 +138,7 @@ class TestWrapper {
     substituteContent(data, contentToSubstitute) {
         Object.entries(contentToSubstitute)
             .forEach(([key, contentValue]) => {
-                contentValue = contentValue.replace(/\n/g, '<br>\n');
+                contentValue = contentValue.replace(/\n/g, '<br />\n');
                 const contentValueMatch = contentValue.match(/\{(.*?)\}/g);
                 if (contentValueMatch) {
                     contentValueMatch.forEach(placeholder => {

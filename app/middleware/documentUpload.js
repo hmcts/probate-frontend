@@ -35,6 +35,7 @@ const returnError = (req, res, next, error) => {
 
 const uploadDocument = (req, res, next) => {
     const isUploadingDocument = req.body && req.body.isUploadingDocument;
+    const maxFileSize = (req.body && req.body.maxFileSize) || config.documentUpload.maxSizeBytes;
 
     if (!isUploadingDocument) {
         return next();
@@ -44,7 +45,7 @@ const uploadDocument = (req, res, next) => {
     let formdata = req.session.form;
     formdata = documentUpload.initDocuments(formdata);
     const uploads = formdata.documents.uploads;
-    const error = documentUpload.validate(uploadedDocument, uploads);
+    const error = documentUpload.validate(uploadedDocument, uploads, maxFileSize);
 
     if (error === null) {
         req.log.info('Uploaded document passed frontend validation');

@@ -26,7 +26,7 @@ describe('copies-summary', () => {
                 overseasAssetsQuestion: assetsContent.overseas.question
             };
 
-            testWrapper.testContent(done, [], contentData);
+            testWrapper.testContent(done, contentData);
         });
 
         it('test correct content loaded on the copies summary page, when section is completed', (done) => {
@@ -44,7 +44,7 @@ describe('copies-summary', () => {
                     };
 
                     delete require.cache[require.resolve('test/data/complete-form-undeclared')];
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 

@@ -28,14 +28,14 @@ describe('payment-status', () => {
                 .end(() => {
                     const contentToExclude = ['paragraph2', 'paragraph3'];
 
-                    testWrapper.testContent(done, contentToExclude);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
         it('test right content loaded on the page when net value is less than 5000£', (done) => {
             const contentToExclude = ['paragraph1'];
 
-            testWrapper.testContent(done, contentToExclude);
+            testWrapper.testContent(done, {}, contentToExclude);
         });
 
         it(`test it redirects to next page with no input: ${expectedNextUrlForTaskList}`, (done) => {

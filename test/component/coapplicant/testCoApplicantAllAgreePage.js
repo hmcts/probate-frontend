@@ -42,7 +42,7 @@ describe('co-applicant-all-agreed-page', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent((afterEachNocks(done)), contentToExclude, contentData);
+                    testWrapper.testContent((afterEachNocks(done)), contentData, contentToExclude);
                 });
         });
 
@@ -60,7 +60,7 @@ describe('co-applicant-all-agreed-page', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent((afterEachNocks(done)), contentToExclude, contentData);
+                    testWrapper.testContent((afterEachNocks(done)), contentData, contentToExclude);
                 });
         });
 

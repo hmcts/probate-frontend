@@ -40,7 +40,7 @@ describe('start-eligibility', () => {
                 'paragraph8old'
             ];
 
-            testWrapper.testContent(afterEachNocks(done), contentToExclude);
+            testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
         });
 
         it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
@@ -67,7 +67,7 @@ describe('start-eligibility', () => {
                 'tableBodyFeeRange7Value'
             ];
 
-            testWrapper.testContent(afterEachNocks(done), contentToExclude);
+            testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDeathCertificate}`, (done) => {

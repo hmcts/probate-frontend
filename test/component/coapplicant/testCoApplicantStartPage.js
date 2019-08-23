@@ -36,7 +36,7 @@ describe('co-applicant-start-page', () => {
                         deceasedName: 'Dave Bassett',
                         pin: ''
                     };
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 

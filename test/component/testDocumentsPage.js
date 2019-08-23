@@ -53,7 +53,7 @@ describe('documents', () => {
                             'checkboxLabel'
                         ];
 
-                        testWrapper.testContent(done, contentToExclude, contentData);
+                        testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
 
@@ -78,7 +78,7 @@ describe('documents', () => {
                             'checkboxLabel'
                         ];
 
-                        testWrapper.testContent(done, contentToExclude, contentData);
+                        testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
 
@@ -103,7 +103,7 @@ describe('documents', () => {
                             'checkboxLabel'
                         ];
 
-                        testWrapper.testContent(done, contentToExclude, contentData);
+                        testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
 
@@ -129,7 +129,7 @@ describe('documents', () => {
                         ];
                         contentData.renunciationFormLink = config.links.renunciationForm;
 
-                        testWrapper.testContent(done, contentToExclude, contentData);
+                        testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
 
@@ -153,7 +153,7 @@ describe('documents', () => {
                         ];
                         contentData.codicilsNumber = 1;
 
-                        testWrapper.testContent(done, contentToExclude, contentData);
+                        testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
 
@@ -183,7 +183,7 @@ describe('documents', () => {
                         ];
                         contentData.codicilsNumber = 1;
 
-                        testWrapper.testContent(done, contentToExclude, contentData);
+                        testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
 
@@ -206,7 +206,7 @@ describe('documents', () => {
                             'address'
                         ];
 
-                        testWrapper.testContent(done, contentToExclude, contentData);
+                        testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
 
@@ -228,7 +228,7 @@ describe('documents', () => {
                             'checkboxLabel'
                         ];
 
-                        testWrapper.testContent(done, contentToExclude, contentData);
+                        testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
 
@@ -251,7 +251,7 @@ describe('documents', () => {
                             'checkboxLabel'
                         ];
 
-                        testWrapper.testContent(done, contentToExclude, contentData);
+                        testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
 
@@ -273,7 +273,7 @@ describe('documents', () => {
                             'checkboxLabel'
                         ];
 
-                        testWrapper.testContent(done, contentToExclude, contentData);
+                        testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
 
@@ -299,7 +299,7 @@ describe('documents', () => {
                         ];
                         contentData.executorCurrentName = 'eddie jones';
 
-                        testWrapper.testContent(done, contentToExclude, contentData);
+                        testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
 
@@ -328,7 +328,7 @@ describe('documents', () => {
                             'eddie jones'
                         ];
 
-                        testWrapper.testContent(done, contentToExclude, contentData);
+                        testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
         });
@@ -363,7 +363,7 @@ describe('documents', () => {
                             'checkboxLabel'
                         ];
 
-                        testWrapper.testContent(done, contentToExclude, contentData);
+                        testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
         });
@@ -392,7 +392,7 @@ describe('documents', () => {
                             'checkboxLabel-codicils',
                             'checkboxLabel'
                         ];
-                        testWrapper.testContent(done, contentToExclude, contentData);
+                        testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
 
@@ -414,7 +414,7 @@ describe('documents', () => {
                             'checkboxLabel-codicils',
                             'checkboxLabel'
                         ];
-                        testWrapper.testContent(done, contentToExclude, contentData);
+                        testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
 
@@ -441,7 +441,7 @@ describe('documents', () => {
                             'checkboxLabel'
                         ];
 
-                        testWrapper.testContent(done, contentToExclude, contentData);
+                        testWrapper.testContent(done, contentData, contentToExclude);
                     });
             });
 

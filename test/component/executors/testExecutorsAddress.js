@@ -48,7 +48,7 @@ describe('executors-address', () => {
                     };
 
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
 
         });

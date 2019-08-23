@@ -37,7 +37,7 @@ describe('deceased-marital-status', () => {
                     const contentData = {deceasedName: 'John Doe'};
                     const contentToExclude = ['divorce', 'separation'];
 
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 

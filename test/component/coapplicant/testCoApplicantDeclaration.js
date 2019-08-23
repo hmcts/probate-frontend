@@ -37,7 +37,7 @@ describe('co-applicant-declaration', () => {
                         mainApplicantName: 'Bob Smith'
                     };
 
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 

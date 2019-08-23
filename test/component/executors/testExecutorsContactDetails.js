@@ -54,7 +54,7 @@ describe('executors-contact-details', () => {
                         executorName: 'Other Applicant'
                     };
 
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 

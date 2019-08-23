@@ -35,7 +35,7 @@ describe('will-left', () => {
         testCommonContent.runTest('WillLeft', null, null, cookies, true);
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {}, cookies);
+            testWrapper.testContent(done, {}, [], cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {

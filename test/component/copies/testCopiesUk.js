@@ -43,7 +43,7 @@ describe('copies-uk', () => {
                 'paragraph3Old',
                 'copiesOld'
             ];
-            testWrapper.testContent(afterEachNocks(done), contentToExclude);
+            testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
         });
 
         it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
@@ -59,7 +59,7 @@ describe('copies-uk', () => {
                 'questionOld_1',
                 'copiesOld_1'
             ];
-            testWrapper.testContent(afterEachNocks(done), contentToExclude);
+            testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
         });
 
         it('test errors message displayed for invalid data, text values', (done) => {

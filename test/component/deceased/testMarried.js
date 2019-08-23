@@ -33,7 +33,7 @@ describe('deceased-married', () => {
                 .end(() => {
                     const contentData = {deceasedName: 'Mana Manah'};
 
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -54,7 +54,7 @@ describe('deceased-married', () => {
                 .end(() => {
                     const contentData = {deceasedName: 'Mana Manah'};
 
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
 
         });

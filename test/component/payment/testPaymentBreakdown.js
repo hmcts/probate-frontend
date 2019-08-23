@@ -45,7 +45,7 @@ describe('payment-breakdown', () => {
         it('test content loaded on the page with no extra copies', (done) => {
             const contentToExclude = ['extraCopiesFeeUk', 'extraCopiesFeeJersey', 'extraCopiesFeeOverseas'];
 
-            testWrapper.testContent(done, contentToExclude);
+            testWrapper.testContent(done, {}, contentToExclude);
         });
 
         it('test it displays the UK copies fees', (done) => {
@@ -57,7 +57,7 @@ describe('payment-breakdown', () => {
                     }
                     const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeOverseas'];
 
-                    testWrapper.testContent(done, contentToExclude);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
@@ -70,7 +70,7 @@ describe('payment-breakdown', () => {
                     }
                     const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeUk'];
 
-                    testWrapper.testContent(done, contentToExclude);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 

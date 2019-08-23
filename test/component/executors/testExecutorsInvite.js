@@ -38,7 +38,7 @@ describe('executors-invite', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
@@ -48,7 +48,7 @@ describe('executors-invite', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 

@@ -32,7 +32,7 @@ describe('deceased-otherNames', () => {
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe'};
 
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -51,7 +51,7 @@ describe('deceased-otherNames', () => {
                         deceasedName: 'John Doe'
                     };
 
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 

@@ -42,7 +42,7 @@ describe('summary', () => {
                 .send(sessionData)
                 .end(() => {
                     delete require.cache[require.resolve('test/data/documentupload')];
-                    testWrapper.testContent(done, contentToExclude);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
@@ -66,7 +66,7 @@ describe('summary', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionDataIntestacy)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 

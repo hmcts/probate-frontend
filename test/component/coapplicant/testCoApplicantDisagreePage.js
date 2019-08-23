@@ -25,7 +25,7 @@ describe('co-applicant-disagree-page', () => {
                         leadExecFullName: 'Bob Smith'
                     };
                     delete require.cache[require.resolve('test/data/complete-form-undeclared')];
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 

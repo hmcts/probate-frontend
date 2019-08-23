@@ -31,7 +31,7 @@ describe('pin-resend', () => {
                     validLink: true
                 })
                 .then(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -48,7 +48,7 @@ describe('pin-resend', () => {
                     validLink: true
                 })
                 .then(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -65,7 +65,7 @@ describe('pin-resend', () => {
                     validLink: true
                 })
                 .then(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -82,7 +82,7 @@ describe('pin-resend', () => {
                     validLink: true
                 })
                 .then(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 

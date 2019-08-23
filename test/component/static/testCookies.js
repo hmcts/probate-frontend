@@ -22,7 +22,7 @@ describe('cookies', () => {
                 googleAnalyticsOptOutLink: config.links.googleAnalyticsOptOut
             };
 
-            testWrapper.testContent(done, [], contentData);
+            testWrapper.testContent(done, contentData);
         });
     });
 });

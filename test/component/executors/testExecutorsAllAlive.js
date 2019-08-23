@@ -22,7 +22,7 @@ describe('executors-all-alive', () => {
         testCommonContent.runTest('ExecutorsAllAlive');
 
         it('test right content loaded on the page', (done) => {
-            testWrapper.testContent(done, []);
+            testWrapper.testContent(done);
         });
 
         it('test errors message displayed for missing data', (done) => {

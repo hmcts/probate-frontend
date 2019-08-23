@@ -47,7 +47,7 @@ describe('thank-you', () => {
                         findOutNext: config.links.findOutNext
                     };
 
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -70,7 +70,7 @@ describe('thank-you', () => {
                         checkSummaryLink: content.checkAnswersPdf
                     };
 
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
 
                 });
         });
@@ -112,7 +112,7 @@ describe('thank-you', () => {
                         declarationLink: content.declarationPdf
                     };
 
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -155,7 +155,7 @@ describe('thank-you', () => {
                         declarationLink: content.declarationPdf
                     };
 
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
@@ -177,7 +177,7 @@ describe('thank-you', () => {
                         coverSheetLink: content.coverSheetPdf
                     };
 
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
     });

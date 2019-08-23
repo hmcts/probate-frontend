@@ -40,7 +40,7 @@ describe('copies-overseas', () => {
                 'questionOld',
                 'paragraph1Old'
             ];
-            testWrapper.testContent(afterEachNocks(done), contentToExclude);
+            testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
         });
 
         it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
@@ -51,7 +51,7 @@ describe('copies-overseas', () => {
                 'bullet2',
                 'copies'
             ];
-            testWrapper.testContent(afterEachNocks(done), contentToExclude);
+            testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
         });
 
         it('test errors message displayed for invalid data, text values', (done) => {

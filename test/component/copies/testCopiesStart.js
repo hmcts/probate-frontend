@@ -21,7 +21,7 @@ describe('copies-start', () => {
             const contentToExclude = [
                 'paragraph2_1'
             ];
-            testWrapper.testContent(done, contentToExclude);
+            testWrapper.testContent(done, {}, contentToExclude);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForCopiesUk}`, (done) => {

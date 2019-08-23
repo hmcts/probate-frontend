@@ -19,7 +19,7 @@ const expectedResponse = [{
     status: content.statusSubmitted
 }];
 
-describe('GetApplicationsMiddleware', () => {
+describe.skip('GetApplicationsMiddleware', () => {
     it('should return an array of applications', (done) => {
         const revert = getApplications.__set__('MultipleApplications', class {
             getApplications() {

@@ -9,7 +9,6 @@ const ThankYou = require('app/steps/ui/thankyou');
 const deceasedMaritalStatusContent = require('app/resources/en/translation/deceased/maritalstatus');
 const ihtContent = require('app/resources/en/translation/iht/method');
 const relationshipToDeceasedContent = require('app/resources/en/translation/applicant/relationshiptodeceased');
-
 const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('documents', () => {

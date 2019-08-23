@@ -29,6 +29,12 @@ const beforeEachNocks = () => {
             'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
         ]);
 };
+const afterEachNocks = (done) => {
+    return () => {
+        done();
+        nock.cleanAll();
+    };
+};
 
 describe('declaration, multiple applicants', () => {
     let testWrapper, contentData, sessionData;
@@ -69,7 +75,6 @@ describe('declaration, multiple applicants', () => {
     afterEach(() => {
         delete require.cache[require.resolve('test/data/complete-form-undeclared')];
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -923,7 +928,7 @@ describe('declaration, multiple applicants', () => {
                         declarationCheckbox: true
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
+                    testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForExecInvite);
                 });
         });
 
@@ -939,7 +944,7 @@ describe('declaration, multiple applicants', () => {
                     const data = {
                         declarationCheckbox: true
                     };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecChangeMade);
+                    testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForExecChangeMade);
                 });
         });
 
@@ -962,7 +967,7 @@ describe('declaration, multiple applicants', () => {
                         declarationCheckbox: true
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAdditionalExecInvite);
+                    testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForAdditionalExecInvite);
                 });
         });
 
@@ -986,7 +991,7 @@ describe('declaration, multiple applicants', () => {
                         declarationCheckbox: true
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForUpdateExecInvite);
+                    testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForUpdateExecInvite);
                 });
         });
 
@@ -1010,7 +1015,7 @@ describe('declaration, multiple applicants', () => {
                         declarationCheckbox: true
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForChangeToSingleApplicant);
+                    testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForChangeToSingleApplicant);
                 });
         });
     });

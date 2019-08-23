@@ -27,6 +27,12 @@ const beforeEachNocks = () => {
             'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
         ]);
 };
+const afterEachNocks = (done) => {
+    return () => {
+        done();
+        nock.cleanAll();
+    };
+};
 
 describe('declaration, single applicant', () => {
     let testWrapper, contentData, sessionData;
@@ -57,7 +63,6 @@ describe('declaration, single applicant', () => {
     afterEach(() => {
         delete require.cache[require.resolve('test/data/complete-form-undeclared')];
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -1260,7 +1265,7 @@ describe('declaration, single applicant', () => {
                         declarationCheckbox: true
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
+                    testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForExecInvite);
                 });
         });
     });

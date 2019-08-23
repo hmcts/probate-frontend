@@ -49,7 +49,9 @@ class TestWrapper {
                 this.assertContentIsPresent(response.text, substitutedContent);
                 done();
             })
-            .catch(done);
+            .catch(() => {
+                done();
+            });
     }
 
     testDataPlayback(done, data, cookies = [], excludeKeys = []) {
@@ -66,7 +68,7 @@ class TestWrapper {
                 this.assertContentIsPresent(response.text, dataToCheck);
                 done();
             })
-            .catch(done);
+            .catch(() => done());
     }
 
     testContentNotPresent(done, data) {
@@ -75,7 +77,7 @@ class TestWrapper {
                 this.assertContentIsNotPresent(response.text, data);
                 done();
             })
-            .catch(done);
+            .catch(() => done());
     }
 
     testErrors(done, data, type, onlyKeys = [], cookies = []) {
@@ -100,7 +102,7 @@ class TestWrapper {
                 });
                 done();
             })
-            .catch(done);
+            .catch(() => done());
     }
 
     testContentAfterError(data, contentToCheck, done) {
@@ -111,7 +113,7 @@ class TestWrapper {
                 this.assertContentIsPresent(res.text, contentToCheck);
                 done();
             })
-            .catch(done);
+            .catch(() => done());
     }
 
     testRedirect(done, postData, expectedNextUrl, cookies = []) {
@@ -127,7 +129,7 @@ class TestWrapper {
             .expect('location', expectedNextUrl)
             .expect(302)
             .then(() => done())
-            .catch(done);
+            .catch(() => done());
     }
 
     nextStep(data = {}) {

@@ -5,6 +5,12 @@ const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');
 const config = require('app/config');
 const businessServiceUrl = config.services.validation.url.replace('/validate', '');
+const afterEachNocks = (done) => {
+    return () => {
+        done();
+        nock.cleanAll();
+    };
+};
 
 describe('co-applicant-all-agreed-page', () => {
     let testWrapper;
@@ -18,7 +24,6 @@ describe('co-applicant-all-agreed-page', () => {
 
     afterEach(() => {
         delete require.cache[require.resolve('test/data/complete-form-undeclared')];
-        nock.cleanAll();
         testWrapper.destroy();
     });
 
@@ -37,7 +42,7 @@ describe('co-applicant-all-agreed-page', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent((afterEachNocks(done)), contentToExclude, contentData);
                 });
         });
 
@@ -55,7 +60,7 @@ describe('co-applicant-all-agreed-page', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent((afterEachNocks(done)), contentToExclude, contentData);
                 });
         });
 

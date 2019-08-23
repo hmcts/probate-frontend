@@ -4,9 +4,6 @@ const TestWrapper = require('test/util/TestWrapper');
 const {assert} = require('chai');
 const PinSent = require('app/steps/ui/pin/sent');
 const commonContent = require('app/resources/en/translation/common');
-const nock = require('nock');
-const config = require('app/config');
-const businessServiceUrl = config.services.validation.url.replace('/validate', '');
 
 describe('pin-resend', () => {
     let testWrapper;
@@ -17,7 +14,6 @@ describe('pin-resend', () => {
     });
 
     afterEach(() => {
-        nock.cleanAll();
         testWrapper.destroy();
     });
 
@@ -91,18 +87,10 @@ describe('pin-resend', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForPinSent}`, (done) => {
-            nock(businessServiceUrl)
-                .get('/pin?phoneNumber=undefined')
-                .reply(200, '12345');
-
             testWrapper.testRedirect(done, {}, expectedNextUrlForPinSent);
         });
 
         it('test error page when pin resend fails', (done) => {
-            nock(businessServiceUrl)
-                .get('/pin?phoneNumber=undefined')
-                .reply(500, new Error('ReferenceError'));
-
             const sessionData = require('test/data/multipleApplicant');
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

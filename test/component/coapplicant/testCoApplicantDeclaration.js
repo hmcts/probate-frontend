@@ -5,18 +5,6 @@ const content = require('app/resources/en/translation/coapplicant/declaration.js
 const CoApplicantAgreePage = require('app/steps/ui/coapplicant/agreepage');
 const CoApplicantDisagreePage = require('app/steps/ui/coapplicant/disagreepage');
 const testCommonContent = require('test/component/common/testCommonContent.js');
-const nock = require('nock');
-const config = require('app/config');
-const businessServiceUrl = config.services.validation.url.replace('/validate', '');
-const persistenceServiceUrl = config.services.persistence.url.replace('/formdata', '');
-const beforeEachCallback = () => {
-    nock(businessServiceUrl)
-        .get('/invites/allAgreed/undefined')
-        .reply(200, 'false');
-};
-const afterEachCallback = () => {
-    nock.cleanAll();
-};
 
 describe('co-applicant-declaration', () => {
     let testWrapper;
@@ -26,18 +14,16 @@ describe('co-applicant-declaration', () => {
 
     beforeEach(() => {
         sessionData = require('test/data/complete-form-undeclared').formdata;
-        beforeEachCallback();
         testWrapper = new TestWrapper('CoApplicantDeclaration');
     });
 
     afterEach(() => {
         delete require.cache[require.resolve('test/data/complete-form-undeclared')];
         testWrapper.destroy();
-        afterEachCallback();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('CoApplicantDeclaration', beforeEachCallback, afterEachCallback, [], true);
+        testCommonContent.runTest('CoApplicantDeclaration', null, null, [], true);
 
         it('test right content loaded on the page', (done) => {
             const contentToExclude = [
@@ -64,10 +50,6 @@ describe('co-applicant-declaration', () => {
         });
 
         it(`test it redirects to agree page: ${expectedNextUrlForCoAppAgree}`, (done) => {
-            nock(persistenceServiceUrl)
-                .patch('/invitedata/34')
-                .reply(200, 'false');
-
             sessionData = {};
 
             testWrapper.agent.post('/prepare-session-field/inviteId/34')
@@ -84,10 +66,6 @@ describe('co-applicant-declaration', () => {
         });
 
         it(`test it redirects to disagree page: ${expectedNextUrlForCoAppDisagree}`, (done) => {
-            nock(persistenceServiceUrl)
-                .patch('/invitedata/34')
-                .reply(200, 'false');
-
             sessionData = {};
 
             testWrapper.agent.post('/prepare-session-field/inviteId/34')

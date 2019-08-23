@@ -7,6 +7,17 @@ const config = require('app/config');
 const featureToggleUrl = config.featureToggles.url;
 const feesApiFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.fees_api}`;
 const nock = require('nock');
+const beforeEachNocks = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(feesApiFeatureTogglePath)
+        .reply(200, status);
+};
+const afterEachNocks = (done) => {
+    return () => {
+        done();
+        nock.cleanAll();
+    };
+};
 
 describe('copies-uk', () => {
     let testWrapper;
@@ -18,18 +29,13 @@ describe('copies-uk', () => {
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('CopiesUk');
 
         it('test right content loaded on the page with the fees_api toggle ON', (done) => {
-            const feesApiFeatureTogglesNock = (status = 'true') => {
-                nock(featureToggleUrl)
-                    .get(feesApiFeatureTogglePath)
-                    .reply(200, status);
-            };
+            beforeEachNocks('true');
             const contentToExclude = [
                 'questionOld',
                 'paragraph1Old',
@@ -37,16 +43,11 @@ describe('copies-uk', () => {
                 'paragraph3Old',
                 'copiesOld'
             ];
-            feesApiFeatureTogglesNock();
-            testWrapper.testContent(done, contentToExclude);
+            testWrapper.testContent(afterEachNocks(done), contentToExclude);
         });
 
         it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
-            const feesApiFeatureTogglesNock = (status = 'false') => {
-                nock(featureToggleUrl)
-                    .get(feesApiFeatureTogglePath)
-                    .reply(200, status);
-            };
+            beforeEachNocks('false');
             const contentToExclude = [
                 'question',
                 'paragraph1',
@@ -58,8 +59,7 @@ describe('copies-uk', () => {
                 'questionOld_1',
                 'copiesOld_1'
             ];
-            feesApiFeatureTogglesNock();
-            testWrapper.testContent(done, contentToExclude);
+            testWrapper.testContent(afterEachNocks(done), contentToExclude);
         });
 
         it('test errors message displayed for invalid data, text values', (done) => {

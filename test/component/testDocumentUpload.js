@@ -18,7 +18,6 @@ describe('document-upload', () => {
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -53,6 +52,7 @@ describe('document-upload', () => {
                 .expect(302)
                 .then(() => {
                     done();
+                    nock.cleanAll();
                 })
                 .catch(done);
         });

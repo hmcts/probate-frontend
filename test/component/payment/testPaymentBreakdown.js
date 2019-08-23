@@ -1,10 +1,7 @@
 'use strict';
 
-const nock = require('nock');
-const config = require('app/config');
 const TestWrapper = require('test/util/TestWrapper');
 const testCommonContent = require('test/component/common/testCommonContent.js');
-const IDAM_S2S_URL = config.services.idam.s2s_url;
 const sinon = require('sinon');
 const FeesCalculator = require('app/utils/FeesCalculator');
 let feesCalculator;
@@ -24,9 +21,6 @@ describe('payment-breakdown', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('PaymentBreakdown');
 
-        nock(IDAM_S2S_URL).post('/lease')
-            .reply(200, 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG' +
-                '8v_3ktCpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA');
         feesCalculator = sinon.stub(FeesCalculator.prototype, 'calc');
         feesCalculator.returns(Promise.resolve({
             status: 'success',
@@ -42,7 +36,6 @@ describe('payment-breakdown', () => {
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
         feesCalculator.restore();
     });
 

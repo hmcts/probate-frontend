@@ -16,10 +16,6 @@ describe('security', () => {
     const expectedUrlForTimeoutPage = TimeoutPage.getUrl();
     const SECURITY_COOKIE = '__auth-token-' + config.payloadVersion;
 
-    afterEach(() => {
-        nock.cleanAll();
-    });
-
     it(`Redirects to login when idam returns 401 from Oauth2Token.post() request: ${LOGIN_URL}`, (done) => {
         nock(config.services.idam.apiUrl)
             .post(oAuth2TokenUrl)
@@ -36,9 +32,11 @@ describe('security', () => {
                 server.http.close();
                 if (err) {
                     done(err);
+                    nock.cleanAll();
                 } else {
                     expect(res.headers.location).to.contain(LOGIN_URL);
                     done();
+                    nock.cleanAll();
                 }
             });
     }).timeout(5000);
@@ -99,9 +97,11 @@ describe('security', () => {
                 config.app.useIDAM = 'false';
                 if (err) {
                     done(err);
+                    nock.cleanAll();
                 } else {
                     expect(res.headers.location).to.contain(expectedUrlForTimeoutPage);
                     done();
+                    nock.cleanAll();
                 }
             });
     }).timeout(5000);

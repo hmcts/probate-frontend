@@ -7,6 +7,12 @@ const testCommonContent = require('test/component/common/testCommonContent.js');
 const nock = require('nock');
 const config = require('app/config');
 const businessServiceUrl = config.services.validation.url.replace('/validate', '');
+const afterEachNocks = (done) => {
+    return () => {
+        done();
+        nock.cleanAll();
+    };
+};
 
 describe('executors-invite', () => {
     let testWrapper;
@@ -21,7 +27,6 @@ describe('executors-invite', () => {
     afterEach(() => {
         delete require.cache[require.resolve('test/data/executors-invites')];
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -76,7 +81,7 @@ describe('executors-invite', () => {
                 ]
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForExecInvites);
+            testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForExecInvites);
         });
 
         it('test an error page is rendered if there is an error calling invite service', (done) => {
@@ -91,9 +96,11 @@ describe('executors-invite', () => {
                         .then(response => {
                             assert(response.status === 500);
                             assert(response.text.includes('Sorry, we&rsquo;re having technical problems'));
+                            nock.cleanAll();
                             done();
                         })
                         .catch(err => {
+                            nock.cleanAll();
                             done(err);
                         });
                 });

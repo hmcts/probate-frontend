@@ -1,6 +1,8 @@
 # ---- Base image ----
-FROM node:8.15.1-stretch-slim as base
-RUN yarn config set proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
+
+FROM hmctspublic.azurecr.io/base/node/stretch-slim-lts-10:10-stretch-slim as base
+USER root
+RUN apt-get update && apt-get install -y bzip2 git python2.7 python-pip
 
 ENV WORKDIR /opt/app
 WORKDIR ${WORKDIR}
@@ -12,9 +14,6 @@ RUN yarn install --production  \
 
 # ---- Build image ----
 FROM base as build
-RUN apt-get update \
-    && apt-get install --assume-yes git bzip2
-
 COPY . ./
 
 RUN yarn install \

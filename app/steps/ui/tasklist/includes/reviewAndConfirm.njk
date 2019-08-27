@@ -5,7 +5,11 @@
         number = "3.",
         content = content,
         title = content.reviewAndConfirmTask,
-        status = fields.ReviewAndConfirmTask.value.status,
+        status = "pending" if (
+                fields.ReviewAndConfirmTask.value.status == "complete" and
+                fields.hasMultipleApplicants.value == "true" and
+                fields.alreadyDeclared.value == "false"
+            ) else fields.ReviewAndConfirmTask.value.status,
         previousTaskStatus = fields.previousTaskStatus.value.ReviewAndConfirmTask
     ) }}
     <div class="task-list-items">

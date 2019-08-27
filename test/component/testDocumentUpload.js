@@ -18,7 +18,6 @@ describe('document-upload', () => {
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -53,6 +52,7 @@ describe('document-upload', () => {
                 .expect(302)
                 .then(() => {
                     done();
+                    nock.cleanAll();
                 })
                 .catch(done);
         });
@@ -64,7 +64,7 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/invalid-type.txt')
                 .then((res) => {
-                    expect(res.text).to.contain(content.errors.file.invalidFileType.message);
+                    expect(res.text).to.contain(content.errors.file.invalidFileType.summary);
                     done();
                 })
                 .catch(done);
@@ -75,9 +75,10 @@ describe('document-upload', () => {
                 .post(testWrapper.pageUrl)
                 .set('enctype', 'multipart/form-data')
                 .field('isUploadingDocument', 'true')
+                .field('maxFileSize', config.documentUpload.maxSizeBytesTest)
                 .attach('file', 'test/data/document-upload/image-too-large.jpg')
                 .then((res) => {
-                    expect(res.text).to.contain(content.errors.file.maxSize.message);
+                    expect(res.text).to.contain(content.errors.file.maxSize.summary);
                     done();
                 })
                 .catch(done);
@@ -90,7 +91,7 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/valid-image.png')
                 .then((res) => {
-                    expect(res.text).to.contain(content.errors.file.uploadFailed.message);
+                    expect(res.text).to.contain(content.errors.file.uploadFailed.summary);
                     done();
                 })
                 .catch(done);
@@ -102,7 +103,7 @@ describe('document-upload', () => {
                 .set('enctype', 'multipart/form-data')
                 .field('isUploadingDocument', 'true')
                 .then((res) => {
-                    expect(res.text).to.contain(content.errors.file.nothingUploaded.message);
+                    expect(res.text).to.contain(content.errors.file.nothingUploaded.summary);
                     done();
                 })
                 .catch(done);
@@ -115,7 +116,7 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/invalid-type.jpg')
                 .then((res) => {
-                    expect(res.text).to.contain(content.errors.file.invalidFileType.message);
+                    expect(res.text).to.contain(content.errors.file.invalidFileType.summary);
                     done();
                 })
                 .catch(done);
@@ -128,7 +129,7 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/invalid-type.jpg')
                 .then((res) => {
-                    expect(res.text).to.contain(content.errors.file.invalidFileType.message);
+                    expect(res.text).to.contain(content.errors.file.invalidFileType.summary);
                     done();
                 })
                 .catch(done);

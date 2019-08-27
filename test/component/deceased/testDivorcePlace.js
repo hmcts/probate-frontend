@@ -49,7 +49,7 @@ describe('divorce-place', () => {
                 .end(() => {
                     const contentData = {legalProcess: contentMaritalStatus.divorce};
 
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 

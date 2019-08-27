@@ -53,15 +53,15 @@ class DocumentUpload {
         return validMimeTypes.includes(uploadedDocumentType.mime);
     }
 
-    isValidSize(document) {
-        return document.size <= config.maxSizeBytes;
+    isValidSize(document, maxFileSize = config.maxSizeBytes) {
+        return document.size <= maxFileSize;
     }
 
     isValidNumber(uploads = []) {
         return uploads.length < config.maxFiles;
     }
 
-    validate(document, uploads) {
+    validate(document, uploads, maxFileSize) {
         let error = null;
 
         if (!this.isDocument(document)) {
@@ -72,7 +72,7 @@ class DocumentUpload {
             error = this.mapError('invalidFileType');
         }
 
-        if (error === null && !this.isValidSize(document)) {
+        if (error === null && !this.isValidSize(document, maxFileSize)) {
             error = this.mapError('maxSize');
         }
 

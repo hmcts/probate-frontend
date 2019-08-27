@@ -7,12 +7,12 @@ const config = require('app/config');
 const featureToggleUrl = config.featureToggles.url;
 const multipleApplicationsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.multiple_applications}`;
 const nock = require('nock');
-const multipleApplicationsFeatureTogglesNock = (status = 'true') => {
+const beforeEachNocks = (status = 'true') => {
     nock(featureToggleUrl)
         .get(multipleApplicationsFeatureTogglePath)
         .reply(200, status);
 };
-const cleanAllNocks = () => {
+const afterEachNocks = () => {
     nock.cleanAll();
 };
 
@@ -22,16 +22,16 @@ describe('death-certificate', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('Dashboard');
-        multipleApplicationsFeatureTogglesNock();
+        beforeEachNocks();
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        cleanAllNocks();
+        afterEachNocks();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('Dashboard', multipleApplicationsFeatureTogglesNock, cleanAllNocks);
+        testCommonContent.runTest('Dashboard', beforeEachNocks, afterEachNocks);
 
         it('test content loaded on the page', (done) => {
             testWrapper.testDataPlayback(done);

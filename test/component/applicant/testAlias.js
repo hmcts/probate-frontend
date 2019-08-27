@@ -19,7 +19,7 @@ describe('applicant-alias', () => {
         it('test content loaded on the page', (done) => {
             const contentToExclude = ['nameOnWill'];
 
-            testWrapper.testContent(done, contentToExclude);
+            testWrapper.testContent(done, {}, contentToExclude);
         });
 
         it('test error message displayed for missing data', (done) => {

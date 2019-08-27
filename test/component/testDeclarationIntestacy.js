@@ -13,6 +13,31 @@ const testCommonContent = require('test/component/common/testCommonContent.js');
 const config = require('app/config');
 const nock = require('nock');
 const caseTypes = require('app/utils/CaseTypes');
+const beforeEachNocks = () => {
+    nock(config.services.idam.s2s_url)
+        .post('/lease')
+        .reply(
+            200,
+            'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG8v_3kt' +
+            'CpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA'
+        );
+
+    nock(config.services.validation.url.replace('/validate', ''))
+        .post(config.pdf.path + '/'+ config.pdf.template.declaration)
+        .reply(200, {});
+
+    nock(config.services.validation.url.replace('/validate', ''))
+        .post(config.documentUpload.paths.upload)
+        .reply(200, [
+            'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
+        ]);
+};
+const afterEachNocks = (done) => {
+    return () => {
+        done();
+        nock.cleanAll();
+    };
+};
 
 describe('declaration, intestacy', () => {
     let testWrapper, contentData, sessionData;
@@ -41,7 +66,6 @@ describe('declaration, intestacy', () => {
     afterEach(() => {
         delete require.cache[require.resolve('test/data/complete-form-undeclared')];
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -129,7 +153,7 @@ describe('declaration, intestacy', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -206,7 +230,7 @@ describe('declaration, intestacy', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -283,7 +307,7 @@ describe('declaration, intestacy', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -360,7 +384,7 @@ describe('declaration, intestacy', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -437,7 +461,7 @@ describe('declaration, intestacy', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -514,7 +538,7 @@ describe('declaration, intestacy', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -591,7 +615,7 @@ describe('declaration, intestacy', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -668,7 +692,7 @@ describe('declaration, intestacy', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -745,7 +769,7 @@ describe('declaration, intestacy', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -828,7 +852,7 @@ describe('declaration, intestacy', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -911,7 +935,7 @@ describe('declaration, intestacy', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -994,7 +1018,7 @@ describe('declaration, intestacy', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -1077,7 +1101,7 @@ describe('declaration, intestacy', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -1154,7 +1178,7 @@ describe('declaration, intestacy', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -1231,7 +1255,7 @@ describe('declaration, intestacy', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -1314,7 +1338,7 @@ describe('declaration, intestacy', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -1397,7 +1421,7 @@ describe('declaration, intestacy', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -1412,24 +1436,7 @@ describe('declaration, intestacy', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecInvite}`, (done) => {
-            nock(config.services.idam.s2s_url)
-                .post('/lease')
-                .reply(
-                    200,
-                    'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG8v_3kt' +
-                    'CpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA'
-                );
-
-            nock(config.services.validation.url.replace('/validate', ''))
-                .post(config.pdf.path + '/'+ config.pdf.template.declaration)
-                .reply(200, {});
-
-            nock(config.services.validation.url.replace('/validate', ''))
-                .post(config.documentUpload.paths.upload)
-                .reply(200, [
-                    'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
-                ]);
-
+            beforeEachNocks();
             sessionData = {
                 executors: {
                     list: [
@@ -1449,7 +1456,7 @@ describe('declaration, intestacy', () => {
                         declarationCheckbox: true
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
+                    testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForExecInvite);
                 });
         });
     });

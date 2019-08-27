@@ -42,7 +42,7 @@ describe('executor-current-name', () => {
                     const contentData = {
                         executorFullName: 'Executor Name 2',
                     };
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 

@@ -34,7 +34,7 @@ describe('start-apply', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {}, cookies);
+            testWrapper.testContent(done, {}, [], cookies);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {

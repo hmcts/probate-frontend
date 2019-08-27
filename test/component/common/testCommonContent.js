@@ -21,7 +21,7 @@ class TestCommonContent {
                     helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
                 };
 
-                testWrapper.testDataPlayback(done, playbackData, cookies);
+                testWrapper.testDataPlayback(done, playbackData, [], cookies);
             });
 
             testWrapper.destroy();

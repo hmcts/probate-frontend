@@ -6,6 +6,12 @@ const ExecutorsAdditionalInviteSent = require('app/steps/ui/executors/additional
 const nock = require('nock');
 const config = require('app/config');
 const businessServiceUrl = config.services.validation.url.replace('/validate', '');
+const afterEachNocks = (done) => {
+    return () => {
+        done();
+        nock.cleanAll();
+    };
+};
 
 describe('executors-additional-invite', () => {
     let testWrapper;
@@ -20,7 +26,6 @@ describe('executors-additional-invite', () => {
     afterEach(() => {
         delete require.cache[require.resolve('test/data/executors-invites')];
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -34,7 +39,7 @@ describe('executors-additional-invite', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
@@ -49,7 +54,7 @@ describe('executors-additional-invite', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
@@ -102,9 +107,11 @@ describe('executors-additional-invite', () => {
                         .then(response => {
                             assert(response.status === 500);
                             assert(response.text.includes('Sorry, we&rsquo;re having technical problems'));
+                            nock.cleanAll();
                             done();
                         })
                         .catch(err => {
+                            nock.cleanAll();
                             done(err);
                         });
                 });
@@ -123,7 +130,7 @@ describe('executors-additional-invite', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testRedirect(done, {}, expectedNextUrlForExecutorsAdditionalInviteSent);
+                    testWrapper.testRedirect(afterEachNocks(done), {}, expectedNextUrlForExecutorsAdditionalInviteSent);
                 });
         });
     });

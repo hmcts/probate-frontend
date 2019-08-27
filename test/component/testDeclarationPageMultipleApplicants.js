@@ -12,8 +12,31 @@ const testCommonContent = require('test/component/common/testCommonContent.js');
 const {assert} = require('chai');
 const nock = require('nock');
 const config = require('app/config');
+const beforeEachNocks = () => {
+    nock(config.services.idam.s2s_url)
+        .post('/lease')
+        .reply(
+            200,
+            'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG8v_3kt' +
+            'CpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA'
+        );
+    nock(config.services.validation.url.replace('/validate', ''))
+        .post(config.pdf.path + '/'+ config.pdf.template.declaration)
+        .reply(200, {});
+    nock(config.services.validation.url.replace('/validate', ''))
+        .post(config.documentUpload.paths.upload)
+        .reply(200, [
+            'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
+        ]);
+};
+const afterEachNocks = (done) => {
+    return () => {
+        done();
+        nock.cleanAll();
+    };
+};
 
-describe.skip('declaration, multiple applicants', () => {
+describe('declaration, multiple applicants', () => {
     let testWrapper, contentData, sessionData;
     const expectedNextUrlForExecInvite = ExecutorsInvite.getUrl();
     const expectedNextUrlForExecChangeMade = ExecutorsChangeMade.getUrl();
@@ -47,27 +70,11 @@ describe.skip('declaration, multiple applicants', () => {
             {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true},
             {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: {formattedAddress: '1 qwe\r\n1 asd\r\n1 zxc'}, addressFlag: true},
             {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: {formattedAddress: '4 qwe\r\n4 asd\r\n4 zxc'}, addressFlag: true}];
-        nock(config.services.idam.s2s_url)
-            .post('/lease')
-            .reply(
-                200,
-                'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG8v_3kt' +
-                'CpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA'
-            );
-        nock(config.services.validation.url.replace('/validate', ''))
-            .post(config.pdf.path + '/'+ config.pdf.template.declaration)
-            .reply(200, {});
-        nock(config.services.validation.url.replace('/validate', ''))
-            .post(config.documentUpload.paths.upload)
-            .reply(200, [
-                'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
-            ]);
     });
 
     afterEach(() => {
         delete require.cache[require.resolve('test/data/complete-form-undeclared')];
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -152,7 +159,7 @@ describe.skip('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -233,7 +240,7 @@ describe.skip('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -319,7 +326,7 @@ describe.skip('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -402,7 +409,7 @@ describe.skip('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -481,7 +488,7 @@ describe.skip('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -568,7 +575,7 @@ describe.skip('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -648,7 +655,7 @@ describe.skip('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -731,7 +738,7 @@ describe.skip('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -903,6 +910,7 @@ describe.skip('declaration, multiple applicants', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecInvite}`, (done) => {
+            beforeEachNocks();
             sessionData = {
                 executors: {
                     list: [
@@ -920,11 +928,12 @@ describe.skip('declaration, multiple applicants', () => {
                         declarationCheckbox: true
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
+                    testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForExecInvite);
                 });
         });
 
         it(`test it redirects to next page when the applicant has made a change: ${expectedNextUrlForExecChangeMade}`, (done) => {
+            beforeEachNocks();
             sessionData = {
                 declaration: {hasDataChanged: true},
                 executors: {invitesSent: 'true'}
@@ -935,11 +944,12 @@ describe.skip('declaration, multiple applicants', () => {
                     const data = {
                         declarationCheckbox: true
                     };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecChangeMade);
+                    testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForExecChangeMade);
                 });
         });
 
         it(`test it redirects to next page when executor has been added: ${expectedNextUrlForAdditionalExecInvite}`, (done) => {
+            beforeEachNocks();
             sessionData = {
                 executors: {
                     list: [
@@ -957,11 +967,12 @@ describe.skip('declaration, multiple applicants', () => {
                         declarationCheckbox: true
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAdditionalExecInvite);
+                    testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForAdditionalExecInvite);
                 });
         });
 
         it(`test it redirects to next page when executor email has been changed: ${expectedNextUrlForUpdateExecInvite}`, (done) => {
+            beforeEachNocks();
             sessionData = {
                 executors: {
                     list: [
@@ -980,11 +991,12 @@ describe.skip('declaration, multiple applicants', () => {
                         declarationCheckbox: true
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForUpdateExecInvite);
+                    testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForUpdateExecInvite);
                 });
         });
 
         it(`test it redirects to next page when the applicant has changed to a single applicant: ${expectedNextUrlForChangeToSingleApplicant}`, (done) => {
+            beforeEachNocks();
             sessionData = {
                 executors: {
                     list: [
@@ -1003,7 +1015,7 @@ describe.skip('declaration, multiple applicants', () => {
                         declarationCheckbox: true
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForChangeToSingleApplicant);
+                    testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForChangeToSingleApplicant);
                 });
         });
     });

@@ -24,7 +24,9 @@ describe('death-certificate', () => {
         testCommonContent.runTest('DeathCertificate', null, null, [], true);
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {deathReportedToCoroner: config.links.deathReportedToCoroner});
+            const contentData = {deathReportedToCoroner: config.links.deathReportedToCoroner};
+
+            testWrapper.testContent(done, contentData);
         });
 
         it('test errors message displayed for missing data', (done) => {

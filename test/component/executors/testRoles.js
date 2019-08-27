@@ -66,7 +66,7 @@ describe('executor-roles', () => {
                     const contentData = {executorFullName: 'Mana Manah'};
 
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 

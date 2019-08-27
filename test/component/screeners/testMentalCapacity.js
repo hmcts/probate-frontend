@@ -42,7 +42,7 @@ describe('mental-capacity', () => {
                 assessingMentalCapacity: config.links.assessingMentalCapacity
             };
 
-            testWrapper.testContent(done, [], contentData, cookies);
+            testWrapper.testContent(done, contentData, [], cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {

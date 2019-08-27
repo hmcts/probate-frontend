@@ -5,7 +5,6 @@ const {assert} = require('chai');
 const CoApplicantStartPage = require('app/steps/ui/coapplicant/startpage');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
-const nock = require('nock');
 
 describe('pin-page', () => {
     let testWrapper;
@@ -17,7 +16,6 @@ describe('pin-page', () => {
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -42,21 +40,10 @@ describe('pin-page', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForCoAppStartPage}`, (done) => {
-            const formDataReturnData = {
-                formdata: {
-                    declaration: {
-                        declarationCheckbox: 'Yes'
-                    }
-                }
-            };
             const data = {
                 pin: '12345',
                 formdataId: '12'
             };
-
-            nock(config.services.persistence.url)
-                .get('/12')
-                .reply(200, formDataReturnData);
 
             testWrapper.agent
                 .post('/prepare-session-field')
@@ -96,10 +83,6 @@ describe('pin-page', () => {
                 pin: '12345',
                 formdataId: '12'
             };
-
-            nock(config.services.persistence.url)
-                .get('/12')
-                .reply(200, new Error('ReferenceError'));
 
             testWrapper.agent
                 .post('/prepare-session-field')

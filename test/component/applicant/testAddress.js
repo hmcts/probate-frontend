@@ -26,7 +26,7 @@ describe('applicant-address', () => {
         it('test right content loaded on the page', (done) => {
             const contentToExclude = ['selectAddress'];
 
-            testWrapper.testContent(done, contentToExclude);
+            testWrapper.testContent(done, {}, contentToExclude);
         });
 
         it('test error messages displayed for missing data', (done) => {

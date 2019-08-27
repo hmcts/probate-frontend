@@ -7,10 +7,16 @@ const config = require('app/config');
 const featureToggleUrl = config.featureToggles.url;
 const feesApiFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.fees_api}`;
 const nock = require('nock');
-const feesApiFeatureTogglesNock = (status = 'true') => {
+const beforeEachNocks = (status = 'true') => {
     nock(featureToggleUrl)
         .get(feesApiFeatureTogglePath)
         .reply(200, status);
+};
+const afterEachNocks = (done) => {
+    return () => {
+        done();
+        nock.cleanAll();
+    };
 };
 
 describe('copies-overseas', () => {
@@ -23,30 +29,29 @@ describe('copies-overseas', () => {
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('CopiesOverseas');
 
         it('test right content loaded on the page with the fees_api toggle ON', (done) => {
+            beforeEachNocks('true');
             const contentToExclude = [
                 'questionOld',
                 'paragraph1Old'
             ];
-            feesApiFeatureTogglesNock('true');
-            testWrapper.testContent(done, contentToExclude);
+            testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
         });
 
         it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
+            beforeEachNocks('false');
             const contentToExclude = [
                 'paragraph1',
                 'bullet1',
                 'bullet2',
                 'copies'
             ];
-            feesApiFeatureTogglesNock('false');
-            testWrapper.testContent(done, contentToExclude);
+            testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
         });
 
         it('test errors message displayed for invalid data, text values', (done) => {
@@ -75,11 +80,13 @@ describe('copies-overseas', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForCopiesSummary}`, (done) => {
             const data = {overseas: '0'};
+
             testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForCopiesSummary}`, (done) => {
             const data = {overseas: '1'};
+
             testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);
         });
     });

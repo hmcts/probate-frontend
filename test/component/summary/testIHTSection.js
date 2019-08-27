@@ -60,7 +60,7 @@ describe('summary-iht-section', () => {
                         netValue: ihtContent.value.netValue
                     };
 
-                    testWrapper.testDataPlayback(done, playbackData, [], ['form']);
+                    testWrapper.testDataPlayback(done, playbackData, ['form']);
                 });
         });
 
@@ -105,7 +105,7 @@ describe('summary-iht-section', () => {
 
                     Object.assign(playbackData, sessionData.iht);
 
-                    testWrapper.testDataPlayback(done, playbackData, [], ['form']);
+                    testWrapper.testDataPlayback(done, playbackData, ['form']);
                 });
         });
 
@@ -128,7 +128,7 @@ describe('summary-iht-section', () => {
 
                     Object.assign(playbackData, sessionData.iht);
 
-                    testWrapper.testDataPlayback(done, playbackData, [], ['form']);
+                    testWrapper.testDataPlayback(done, playbackData, ['form']);
                 });
         });
 
@@ -151,7 +151,7 @@ describe('summary-iht-section', () => {
 
                     Object.assign(playbackData, sessionData.iht);
 
-                    testWrapper.testDataPlayback(done, playbackData, [], ['form']);
+                    testWrapper.testDataPlayback(done, playbackData, ['form']);
                 });
         });
     });

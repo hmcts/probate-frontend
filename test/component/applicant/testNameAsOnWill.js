@@ -37,7 +37,7 @@ describe('applicant-name-as-on-will', () => {
                     const contentData = {
                         applicantName: 'John TheApplicant',
                     };
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -61,7 +61,7 @@ describe('applicant-name-as-on-will', () => {
                     const contentData = {
                         applicantName: 'John TheApplicant',
                     };
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 

@@ -15,9 +15,9 @@ const getCase = (req, res) => {
             session.form = result.formdata;
             if (result.status === content.statusInProgress) {
                 res.redirect('/task-list');
+            } else {
+                res.redirect('/thank-you');
             }
-
-            res.redirect('/thank-you');
         })
         .catch(err => {
             logger.error(`Error while getting the case: ${err}`);

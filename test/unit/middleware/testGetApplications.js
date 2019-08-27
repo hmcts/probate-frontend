@@ -2,7 +2,6 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const co = require('co');
 const rewire = require('rewire');
 const getApplications = rewire('app/middleware/getApplications');
 const content = require('app/resources/en/translation/dashboard');
@@ -19,13 +18,14 @@ const expectedResponse = [{
     status: content.statusSubmitted
 }];
 
-describe.skip('GetApplicationsMiddleware', () => {
+describe('GetApplicationsMiddleware', () => {
     it('should return an array of applications', (done) => {
         const revert = getApplications.__set__('MultipleApplications', class {
             getApplications() {
-                return expectedResponse;
+                return Promise.resolve({applications: expectedResponse});
             }
         });
+
         const req = {
             session: {
                 form: {
@@ -33,18 +33,19 @@ describe.skip('GetApplicationsMiddleware', () => {
                 }
             }
         };
-        const res = {
-            redirect: sinon.spy()
-        };
 
-        co(function* () {
-            yield getApplications(req, res);
+        const res = {};
 
+        const next = sinon.spy();
+
+        getApplications(req, res, next);
+
+        setTimeout(() => {
+            expect(next.calledOnce).to.equal(true);
             expect(req.session).to.deep.equal({
                 form: {
                     applicantEmail: 'test@email.com',
-                    applications: expectedResponse,
-                    executors: {}
+                    applications: expectedResponse
                 }
             });
 

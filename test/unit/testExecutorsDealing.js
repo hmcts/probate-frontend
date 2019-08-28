@@ -107,25 +107,29 @@ describe('Executors-Applying', () => {
         });
 
         const ctx = {
-            'list': [
+            list: [
                 {
-                    'lastName': 'Applicant',
-                    'firstName': 'Main',
-                    'isApplying': true,
-                    'isApplicant': true
+                    lastName: 'Applicant',
+                    firstName: 'Main',
+                    isApplying: true,
+                    isApplicant: true
                 },
                 {
-                    'email': 'probate0@mailinator.com',
-                    'mobile': '07900123456',
-                    'address': 'Princes house address',
-                    'postcode': 'NW1 8SS',
-                    'fullName': 'Prince Rogers Nelson',
-                    'hasOtherName': true,
-                    'currentName': 'Prince',
-                    'isApplying': false,
-                    'notApplyingKey': 'optionRenunciated',
-                    'notApplyingReason': 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)',
-                    'currentNameReason': 'Divorce',
+                    email: 'probate0@mailinator.com',
+                    mobile: '07900123456',
+                    address: 'Princes house address',
+                    addresses: [
+                        'address1',
+                        'address2'
+                    ],
+                    postcode: 'NW1 8SS',
+                    fullName: 'Prince Rogers Nelson',
+                    hasOtherName: true,
+                    currentName: 'Prince',
+                    isApplying: false,
+                    notApplyingKey: 'optionRenunciated',
+                    notApplyingReason: 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)',
+                    currentNameReason: 'Divorce',
                 }
             ]
         };
@@ -143,6 +147,11 @@ describe('Executors-Applying', () => {
         it('removes address from data if isApplying is false', () => {
             const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
             assert.isUndefined(data.address);
+        });
+
+        it('removes postcode lookup addresses from data if isApplying is false', () => {
+            const data = ExecsDealing.pruneExecutorData(ctx.list[1]);
+            assert.isUndefined(data.addresses);
         });
 
         it('removes postcode from data if isApplying is false', () => {

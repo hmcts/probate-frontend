@@ -40,10 +40,7 @@ describe('DeceasedAddress', () => {
                 newPostCode: 'L23 6WW',
                 postcode: 'L23 6WW',
                 sessionID: 'dummy_sessionId',
-                caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                }
+                caseType: 'gop'
             });
             done();
         });

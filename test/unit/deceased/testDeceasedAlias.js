@@ -51,10 +51,7 @@ describe('DeceasedAlias', () => {
                 lastName: 'Ceased',
                 deceasedName: 'Dee Ceased',
                 sessionID: 'dummy_sessionId',
-                caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                }
+                caseType: 'gop'
             });
             done();
         });

@@ -59,10 +59,7 @@ describe('EligibilityValidationStep', () => {
             expect(EligibilityValidationStep.__get__('eligibilityCookie.getAnswer').calledWith(req, pageUrl, fieldKey)).to.equal(true);
             expect(ctx).to.deep.equal({
                 sessionID: 'abc123',
-                caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                }
+                caseType: 'gop'
             });
 
             revert();
@@ -77,10 +74,7 @@ describe('EligibilityValidationStep', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'abc123',
                 caseType: 'gop',
-                deathCertificate: 'Yes',
-                featureToggles: {
-                    webchat: 'false'
-                }
+                deathCertificate: 'Yes'
             });
 
             revert();
@@ -104,17 +98,14 @@ describe('EligibilityValidationStep', () => {
             const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey, featureToggles);
 
             expect(nextStepUrlStub.calledOnce).to.equal(true);
-            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', caseType: 'gop', deathCertificate: 'Yes', isTestToggleEnabled: true, featureToggles: {webchat: 'false'}})).to.equal(true);
+            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', caseType: 'gop', deathCertificate: 'Yes', isTestToggleEnabled: true})).to.equal(true);
             expect(setEligibilityCookieStub.calledOnce).to.equal(true);
             expect(setEligibilityCookieStub.calledWith(req, res, nextStepUrl, fieldKey, fieldValue)).to.equal(true);
             expect(ctx).to.deep.equal({
                 sessionID: 'abc123',
                 caseType: 'gop',
                 deathCertificate: 'Yes',
-                isTestToggleEnabled: true,
-                featureToggles: {
-                    webchat: 'false'
-                }
+                isTestToggleEnabled: true
             });
 
             nextStepUrlStub.restore();

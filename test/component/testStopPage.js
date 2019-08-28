@@ -40,14 +40,6 @@ describe('stop-page', () => {
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
-        it('test right content loaded on the page - no will', (done) => {
-            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('noWill');
-            const contentData = {applicationFormPA1A: config.links.applicationFormPA1A, whoInherits: config.links.whoInherits};
-            const contentToExclude = ['deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
-
-            testWrapper.testContent(done, contentData, contentToExclude);
-        });
-
         it('test right content loaded on the page - not original', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('notOriginal');
             const contentData = {applicationFormPA1P: config.links.applicationFormPA1P, applicationFormPA1A: config.links.applicationFormPA1A};

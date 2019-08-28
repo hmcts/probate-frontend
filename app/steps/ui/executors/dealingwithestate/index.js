@@ -35,6 +35,7 @@ class ExecutorsDealingWithEstate extends ValidationStep {
         } else {
             delete data.isApplying;
             delete data.address;
+            delete data.addresses;
             delete data.currentName;
             delete data.currentNameReason;
             delete data.email;

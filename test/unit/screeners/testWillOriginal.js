@@ -87,14 +87,4 @@ describe('WillOriginal', () => {
             done();
         });
     });
-
-    describe('action()', () => {
-        it('test it cleans up context', () => {
-            const ctx = {
-                original: 'Yes'
-            };
-            WillOriginal.action(ctx);
-            assert.isUndefined(ctx.original);
-        });
-    });
 });

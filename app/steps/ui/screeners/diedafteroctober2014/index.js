@@ -26,12 +26,6 @@ class DiedAfterOctober2014 extends EligibilityValidationStep {
             ]
         };
     }
-
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-        delete ctx.diedAfter;
-        return [ctx, formdata];
-    }
 }
 
 module.exports = DiedAfterOctober2014;

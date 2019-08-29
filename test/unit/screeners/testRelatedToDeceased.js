@@ -87,14 +87,4 @@ describe('RelatedToDeceased', () => {
             done();
         });
     });
-
-    describe('action()', () => {
-        it('test it cleans up context', () => {
-            const ctx = {
-                related: 'Yes'
-            };
-            RelatedToDeceased.action(ctx);
-            assert.isUndefined(ctx.related);
-        });
-    });
 });

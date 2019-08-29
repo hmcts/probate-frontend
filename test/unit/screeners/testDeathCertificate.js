@@ -87,14 +87,4 @@ describe('DeathCertificate', () => {
             done();
         });
     });
-
-    describe('action()', () => {
-        it('test it cleans up context', () => {
-            const ctx = {
-                deathCertificate: 'Yes'
-            };
-            DeathCertificate.action(ctx);
-            assert.isUndefined(ctx.deathCertificate);
-        });
-    });
 });

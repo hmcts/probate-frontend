@@ -87,14 +87,4 @@ describe('DeceasedDomicile', () => {
             done();
         });
     });
-
-    describe('action()', () => {
-        it('test it cleans up context', () => {
-            const ctx = {
-                domicile: 'Yes'
-            };
-            DeceasedDomicile.action(ctx);
-            assert.isUndefined(ctx.domicile);
-        });
-    });
 });

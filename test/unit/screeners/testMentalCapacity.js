@@ -87,14 +87,4 @@ describe('MentalCapacity', () => {
             done();
         });
     });
-
-    describe('action()', () => {
-        it('test it cleans up context', () => {
-            const ctx = {
-                mentalCapacity: 'Yes'
-            };
-            MentalCapacity.action(ctx);
-            assert.isUndefined(ctx.mentalCapacity);
-        });
-    });
 });

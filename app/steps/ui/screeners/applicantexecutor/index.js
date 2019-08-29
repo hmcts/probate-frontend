@@ -26,12 +26,6 @@ class ApplicantExecutor extends EligibilityValidationStep {
             ]
         };
     }
-
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-        delete ctx.executor;
-        return [ctx, formdata];
-    }
 }
 
 module.exports = ApplicantExecutor;

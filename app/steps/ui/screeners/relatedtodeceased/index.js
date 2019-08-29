@@ -26,12 +26,6 @@ class RelatedToDeceased extends EligibilityValidationStep {
             ]
         };
     }
-
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-        delete ctx.related;
-        return [ctx, formdata];
-    }
 }
 
 module.exports = RelatedToDeceased;

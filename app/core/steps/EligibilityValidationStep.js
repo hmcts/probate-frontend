@@ -39,6 +39,12 @@ class EligibilityValidationStep extends ValidationStep {
         return {};
     }
 
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete formdata.screeners;
+        return [ctx, formdata];
+    }
+
     setEligibilityCookie(req, res, nextStepUrl, fieldKey, fieldValue) {
         eligibilityCookie.setCookie(req, res, nextStepUrl, fieldKey, fieldValue);
     }

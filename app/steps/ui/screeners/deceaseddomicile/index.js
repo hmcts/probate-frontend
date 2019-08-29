@@ -26,12 +26,6 @@ class DeceasedDomicile extends EligibilityValidationStep {
             ]
         };
     }
-
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-        delete ctx.domicile;
-        return [ctx, formdata];
-    }
 }
 
 module.exports = DeceasedDomicile;

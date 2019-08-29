@@ -26,12 +26,6 @@ class OtherApplicants extends EligibilityValidationStep {
             ]
         };
     }
-
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-        delete ctx.otherApplicants;
-        return [ctx, formdata];
-    }
 }
 
 module.exports = OtherApplicants;

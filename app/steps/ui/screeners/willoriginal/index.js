@@ -26,12 +26,6 @@ class WillOriginal extends EligibilityValidationStep {
             ]
         };
     }
-
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-        delete ctx.original;
-        return [ctx, formdata];
-    }
 }
 
 module.exports = WillOriginal;

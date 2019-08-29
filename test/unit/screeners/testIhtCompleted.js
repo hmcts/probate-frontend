@@ -87,14 +87,4 @@ describe('IhtCompleted', () => {
             done();
         });
     });
-
-    describe('action()', () => {
-        it('test it cleans up context', () => {
-            const ctx = {
-                completed: 'Yes'
-            };
-            IhtCompleted.action(ctx);
-            assert.isUndefined(ctx.completed);
-        });
-    });
 });

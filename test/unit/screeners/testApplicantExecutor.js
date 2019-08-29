@@ -87,14 +87,4 @@ describe('ApplicantExecutor', () => {
             done();
         });
     });
-
-    describe('action()', () => {
-        it('test it cleans up context', () => {
-            const ctx = {
-                executor: 'Yes'
-            };
-            ApplicantExecutor.action(ctx);
-            assert.isUndefined(ctx.executor);
-        });
-    });
 });

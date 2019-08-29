@@ -147,4 +147,25 @@ describe('EligibilityValidationStep', () => {
             done();
         });
     });
-});
+
+    describe('action()', () => {
+        it('test it removes the screeners questions from formdata', () => {
+            let ctx = {
+                deathCertificate: 'Yes',
+                left: 'Yes'
+            };
+            let formdata = {
+                screeners: {
+                    deathCertificate: 'Yes',
+                    left: 'Yes'
+                }
+            }
+            const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
+            [ctx, formdata] = eligibilityValidationStep.action(ctx, formdata);
+            expect(ctx).to.deep.equal({
+                deathCertificate: 'Yes',
+                left: 'Yes'
+            });
+            expect(formdata).to.deep.equal({});
+        });
+    });});

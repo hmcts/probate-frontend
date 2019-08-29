@@ -87,14 +87,4 @@ describe('DiedAfterOctober2014', () => {
             done();
         });
     });
-
-    describe('action()', () => {
-        it('test it cleans up context', () => {
-            const ctx = {
-                diedAfter: 'Yes'
-            };
-            DiedAfterOctober2014.action(ctx);
-            assert.isUndefined(ctx.diedAfter);
-        });
-    });
 });

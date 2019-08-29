@@ -87,14 +87,4 @@ describe('OtherApplicants', () => {
             done();
         });
     });
-
-    describe('action()', () => {
-        it('test it cleans up context', () => {
-            const ctx = {
-                otherApplicants: 'Yes'
-            };
-            OtherApplicants.action(ctx);
-            assert.isUndefined(ctx.otherApplicants);
-        });
-    });
 });

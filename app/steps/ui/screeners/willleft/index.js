@@ -58,7 +58,6 @@ class WillLeft extends EligibilityValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        delete ctx.left;
         delete ctx.isIntestacyQuestionsToggleEnabled;
         return [ctx, formdata];
     }

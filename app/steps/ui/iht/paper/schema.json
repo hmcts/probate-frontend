@@ -5,7 +5,7 @@
   "properties": {},
   "switch": [
     {
-      "if": {"properties": { "form": { "enum": [""] } }},
+      "if": { "properties": { "form": { "enum": [""] } } },
       "then": {"required": ["form"]},
       "continue": false
     },

@@ -47,7 +47,7 @@ class AddressLookup extends ValidationStep {
                     referrerData.errors = [FieldError('postcode', 'noAddresses', this.resourcePath, ctx)];
                 }
             } catch (e) {
-                logger.error(`An error occured likely to be an invalid postcode for : ${ctx.postcode}`);
+                logger.error(`An error occurred likely to be an invalid postcode for : ${ctx.postcode}`);
                 referrerData.addressFound = 'false';
                 referrerData.errors = [FieldError('postcode', 'invalid', this.resourcePath, ctx)];
             }

@@ -159,7 +159,7 @@ describe('EligibilityValidationStep', () => {
                     deathCertificate: 'Yes',
                     left: 'Yes'
                 }
-            }
+            };
             const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
             [ctx, formdata] = eligibilityValidationStep.action(ctx, formdata);
             expect(ctx).to.deep.equal({
@@ -168,4 +168,5 @@ describe('EligibilityValidationStep', () => {
             });
             expect(formdata).to.deep.equal({});
         });
-    });});
+    });
+});

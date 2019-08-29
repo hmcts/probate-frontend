@@ -2,7 +2,7 @@
 
 const journey = require('app/journeys/intestacy');
 const initSteps = require('../../../app/core/initSteps');
-const {expect, assert} = require('chai');
+const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DiedAfterOctober2014 = steps.DiedAfterOctober2014;
 const content = require('app/resources/en/translation/screeners/diedafteroctober2014');

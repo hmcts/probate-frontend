@@ -26,6 +26,12 @@ class IhtCompleted extends EligibilityValidationStep {
             ]
         };
     }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.completed;
+        return [ctx, formdata];
+    }
 }
 
 module.exports = IhtCompleted;

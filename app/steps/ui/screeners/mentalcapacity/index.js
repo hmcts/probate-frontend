@@ -26,6 +26,12 @@ class MentalCapacity extends EligibilityValidationStep {
             ]
         };
     }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.mentalCapacity;
+        return [ctx, formdata];
+    }
 }
 
 module.exports = MentalCapacity;

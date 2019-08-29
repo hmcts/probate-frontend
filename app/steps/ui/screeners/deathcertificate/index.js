@@ -26,6 +26,12 @@ class DeathCertificate extends EligibilityValidationStep {
             ]
         };
     }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.deathCertificate;
+        return [ctx, formdata];
+    }
 }
 
 module.exports = DeathCertificate;

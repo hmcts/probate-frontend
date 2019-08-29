@@ -19,7 +19,14 @@
             content,
             "ExecutorAddress"
         ) }}
+    {% endcall %}
 
+    {% call govukFieldset({
+        legend: {
+            text: content.enterManually,
+            classes: "govuk-visually-hidden"
+        }
+    }) %}
         <details class="govuk-details" id="details-panel" {{ "open" if fields.addressLine1 }}>
             <summary class="govuk-details__summary">
                 <span class="govuk-details__summary-text">{{ content.enterManually }}</span>
@@ -104,12 +111,12 @@
                 }) }}
             </div>
         </details>
-    {% endcall %}
 
-    <div class="govuk-form-group">
-        {{ govukButton({
-            text: common.saveAndContinue,
-            preventDoubleClick: true
-        }) }}
-    </div>
+        <div class="govuk-form-group">
+            {{ govukButton({
+                text: common.saveAndContinue,
+                preventDoubleClick: true
+            }) }}
+        </div>
+    {% endcall %}
 {% endblock %}

@@ -169,11 +169,13 @@ describe('WillLeft', () => {
     });
 
     describe('action()', () => {
-        it('test isIntestacyQuestionsToggleEnabled is removed from the context', () => {
+        it('test it cleans up context', () => {
             const ctx = {
+                left: 'Yes',
                 isIntestacyQuestionsToggleEnabled: false
             };
             WillLeft.action(ctx);
+            assert.isUndefined(ctx.left);
             assert.isUndefined(ctx.isIntestacyQuestionsToggleEnabled);
         });
     });

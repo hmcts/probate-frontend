@@ -2,7 +2,7 @@
 
 const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
-const expect = require('chai').expect;
+const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const WillOriginal = steps.WillOriginal;
 const content = require('app/resources/en/translation/screeners/willoriginal');
@@ -85,6 +85,16 @@ describe('WillOriginal', () => {
                 }]
             });
             done();
+        });
+    });
+
+    describe('action()', () => {
+        it('test it cleans up context', () => {
+            const ctx = {
+                original: 'Yes'
+            };
+            WillOriginal.action(ctx);
+            assert.isUndefined(ctx.original);
         });
     });
 });

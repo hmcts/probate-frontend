@@ -2,7 +2,7 @@
 
 const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
-const expect = require('chai').expect;
+const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DeathCertificate = steps.DeathCertificate;
 const content = require('app/resources/en/translation/screeners/deathcertificate');
@@ -85,6 +85,16 @@ describe('DeathCertificate', () => {
                 }]
             });
             done();
+        });
+    });
+
+    describe('action()', () => {
+        it('test it cleans up context', () => {
+            const ctx = {
+                deathCertificate: 'Yes'
+            };
+            DeathCertificate.action(ctx);
+            assert.isUndefined(ctx.deathCertificate);
         });
     });
 });

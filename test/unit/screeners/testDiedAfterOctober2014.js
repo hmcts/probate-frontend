@@ -2,7 +2,7 @@
 
 const journey = require('app/journeys/intestacy');
 const initSteps = require('../../../app/core/initSteps');
-const expect = require('chai').expect;
+const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DiedAfterOctober2014 = steps.DiedAfterOctober2014;
 const content = require('app/resources/en/translation/screeners/diedafteroctober2014');
@@ -85,6 +85,16 @@ describe('DiedAfterOctober2014', () => {
                 }]
             });
             done();
+        });
+    });
+
+    describe('action()', () => {
+        it('test it cleans up context', () => {
+            const ctx = {
+                diedAfter: 'Yes'
+            };
+            DiedAfterOctober2014.action(ctx);
+            assert.isUndefined(ctx.diedAfter);
         });
     });
 });

@@ -2,7 +2,7 @@
 
 const journey = require('app/journeys/intestacy');
 const initSteps = require('../../../app/core/initSteps');
-const expect = require('chai').expect;
+const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const RelatedToDeceased = steps.RelatedToDeceased;
 const content = require('app/resources/en/translation/screeners/relatedtodeceased');
@@ -85,6 +85,16 @@ describe('RelatedToDeceased', () => {
                 }]
             });
             done();
+        });
+    });
+
+    describe('action()', () => {
+        it('test it cleans up context', () => {
+            const ctx = {
+                related: 'Yes'
+            };
+            RelatedToDeceased.action(ctx);
+            assert.isUndefined(ctx.related);
         });
     });
 });

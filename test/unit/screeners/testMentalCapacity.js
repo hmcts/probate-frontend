@@ -2,7 +2,7 @@
 
 const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
-const expect = require('chai').expect;
+const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const MentalCapacity = steps.MentalCapacity;
 const content = require('app/resources/en/translation/screeners/mentalcapacity');
@@ -85,6 +85,16 @@ describe('MentalCapacity', () => {
                 }]
             });
             done();
+        });
+    });
+
+    describe('action()', () => {
+        it('test it cleans up context', () => {
+            const ctx = {
+                mentalCapacity: 'Yes'
+            };
+            MentalCapacity.action(ctx);
+            assert.isUndefined(ctx.mentalCapacity);
         });
     });
 });

@@ -41,7 +41,9 @@ class EligibilityValidationStep extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        delete formdata.screeners;
+        if (formdata) {
+            delete formdata.screeners;
+        }
         return [ctx, formdata];
     }
 

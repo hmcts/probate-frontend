@@ -148,24 +148,16 @@ describe('EligibilityValidationStep', () => {
         });
     });
 
-    describe('updateFormdata()', () => {
-        let formdata = {
-            deceased: {
-                firstName: 'Dee',
-                lastName: 'Ceased'
-            },
-            screeners: {
+    describe('action()', () => {
+        it('test it removes the screeners questions from formdata', () => {
+            let ctx = {
                 deathCertificate: 'Yes',
-                domicile: 'Yes'
-            }
-        };
-        const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
-        formdata = eligibilityValidationStep.updateFormdata(formdata);
-        expect(formdata).to.deep.equal({
-            deceased: {
-                firstName: 'Dee',
-                lastName: 'Ceased'
-            }
+                left: 'Yes'
+            };
+            let formdata = {};
+            const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
+            [ctx, formdata] = eligibilityValidationStep.action(ctx, formdata);
+            expect(ctx).to.deep.equal({});
         });
     });
 });

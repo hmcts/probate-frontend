@@ -154,6 +154,9 @@ class Step {
     }
 
     updateFormdata(formdata) {
+        if (formdata) {
+            delete formdata.screeners;
+        }
         return formdata;
     }
 }

@@ -21,7 +21,7 @@ class AddressLookup extends ValidationStep {
         return this.steps[this.referrer];
     }
 
-    * handlePost (ctx, errors, formdata) {
+    * handlePost(ctx, errors, formdata) {
         this.referrer = ctx.referrer;
         let referrerData = this.getReferrerData(ctx, formdata);
         referrerData = this.pruneReferrerData(referrerData);
@@ -32,6 +32,7 @@ class AddressLookup extends ValidationStep {
                 const postcodeAddress = new PostcodeAddress();
                 const addresses = yield postcodeAddress.get(ctx.postcode);
                 if (!isEmpty(addresses)) {
+                    logger.error(`Addresses found for postcode: ${ctx.postcode}`);
                     referrerData.addresses = addresses;
                     referrerData.addressFound = 'true';
                     for (const key in referrerData.addresses) {

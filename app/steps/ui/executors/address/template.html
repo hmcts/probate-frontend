@@ -27,7 +27,17 @@
             classes: "govuk-visually-hidden"
         }
     }) %}
-        <details class="govuk-details" id="details-panel" {{ "open" if fields.addressLine1 }}>
+        <details class="govuk-details" id="details-panel" {{ "open" if (
+            fields.addressLine1.value or
+            fields.addressLine2.value or
+            fields.addressLine3.value or
+            fields.postTown.value or
+            fields.newPostCode.value or
+            fields.country.value or
+            fields.addressLine1.errorMessage or
+            fields.postTown.errorMessage or
+            fields.newPostCode.errorMessage
+        ) }}>
             <summary class="govuk-details__summary">
                 <span class="govuk-details__summary-text">{{ content.enterManually }}</span>
             </summary>
@@ -115,8 +125,13 @@
         <div class="govuk-form-group">
             {{ govukButton({
                 text: common.saveAndContinue,
-                preventDoubleClick: true
+                preventDoubleClick: true,
+                attributes: {
+                    id: "submitAddress"
+                }
             }) }}
         </div>
     {% endcall %}
+
+    <script src="/public/javascripts/addressFieldset.js"></script>
 {% endblock %}

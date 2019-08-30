@@ -2,7 +2,6 @@
 
 const co = require('co');
 const {curry, set, isEmpty, forEach} = require('lodash');
-const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
 const DetectDataChange = require('app/wrappers/DetectDataChange');
 const FormatUrl = require('app/utils/FormatUrl');
 const commonContent = require('app/resources/en/translation/common');

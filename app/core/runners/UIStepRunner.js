@@ -49,6 +49,7 @@ class UIStepRunner {
 
     handlePost(step, req, res) {
         return co(function * () {
+            req.session.form = step.updateFormdata(req.session.form);
             const session = req.session;
             let formdata = session.form;
             let ctx = step.getContextData(req, res);

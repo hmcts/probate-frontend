@@ -39,12 +39,11 @@ class EligibilityValidationStep extends ValidationStep {
         return {};
     }
 
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
+    updateFormdata(formdata) {
         if (formdata) {
             delete formdata.screeners;
         }
-        return [ctx, formdata];
+        return formdata;
     }
 
     setEligibilityCookie(req, res, nextStepUrl, fieldKey, fieldValue) {

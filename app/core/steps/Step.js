@@ -152,6 +152,10 @@ class Step {
     renderPage(res, html) {
         res.send(html);
     }
+
+    updateFormdata(formdata) {
+        return formdata;
+    }
 }
 
 module.exports = Step;

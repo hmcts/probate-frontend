@@ -6,7 +6,6 @@ const ActionStepRunner = require('app/core/runners/ActionStepRunner');
 const FieldError = require('app/components/error');
 const PostcodeAddress = require('app/services/PostcodeAddress');
 const stringUtils = require('app/components/string-utils');
-const logger = require('app/components/logger')('Init');
 
 class AddressLookup extends ValidationStep {
     static getUrl() {

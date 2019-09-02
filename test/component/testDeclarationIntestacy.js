@@ -12,13 +12,6 @@ const contentRelationshipToDeceased = require('app/resources/en/translation/appl
 const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
 const config = require('app/config');
 const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(intestacyQuestionsFeatureTogglePath)
-        .reply(200, status);
-};
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('declaration, intestacy', () => {
@@ -27,7 +20,6 @@ describe('declaration, intestacy', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('Declaration');
-        featureTogglesNock();
 
         nock(config.services.idam.s2s_url)
             .post('/lease')
@@ -71,7 +63,7 @@ describe('declaration, intestacy', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('Declaration', featureTogglesNock);
+        testHelpBlockContent.runTest('Declaration');
 
         it('test right content loaded on the page when deceased has assets overseas and the total net value is more than £250k', (done) => {
             const contentToExclude = [

@@ -8,10 +8,8 @@ const app = express();
 const featureTogglesPort = config.featureToggles.port;
 
 const featureToggles = {
-    'probate-fe-shutter': true,
-    'probate-intestacy-questions': true,
+    'probate-fe-shutter': false,
     'probate-fees-api': true,
-    'probate-webchat': true,
     'probate-webforms': true
 };
 

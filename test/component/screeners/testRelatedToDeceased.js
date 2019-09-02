@@ -20,15 +20,6 @@ const cookies = [{
     }
 }];
 
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(intestacyQuestionsFeatureTogglePath)
-        .reply(200, status);
-};
-
 describe('related-to-deceased', () => {
     let testWrapper;
     const expectedNextUrlForOtherApplicants = OtherApplicants.getUrl();
@@ -36,16 +27,14 @@ describe('related-to-deceased', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('RelatedToDeceased');
-        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('RelatedToDeceased', featureTogglesNock, cookies);
+        testHelpBlockContent.runTest('RelatedToDeceased', null, cookies);
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done, [], {}, cookies);

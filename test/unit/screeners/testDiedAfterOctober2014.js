@@ -35,10 +35,7 @@ describe('DiedAfterOctober2014', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 diedAfter: content.optionYes,
-                caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                }
+                caseType: 'gop'
             });
             done();
         });

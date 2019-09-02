@@ -35,10 +35,7 @@ describe('IhtCompleted', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 completed: content.optionYes,
-                caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                }
+                caseType: 'gop'
             });
             done();
         });

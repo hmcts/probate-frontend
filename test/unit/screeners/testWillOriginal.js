@@ -35,10 +35,7 @@ describe('WillOriginal', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 original: content.optionYes,
-                caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                }
+                caseType: 'gop'
             });
             done();
         });

@@ -34,10 +34,7 @@ describe('WillCodicils', () => {
             expect(ctx).to.deep.equal({
                 codicils: 'Yes',
                 sessionID: 'dummy_sessionId',
-                caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                }
+                caseType: 'gop'
             });
             done();
         });

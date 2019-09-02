@@ -40,10 +40,7 @@ describe('Executor-Additional-Invite-Sent', () => {
                 header: 'header',
                 inviteSuffix: '',
                 sessionID: 'dummy_sessionId',
-                caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                }
+                caseType: 'gop'
             });
         });
 
@@ -69,10 +66,7 @@ describe('Executor-Additional-Invite-Sent', () => {
                 header: 'header-multiple',
                 inviteSuffix: '-multiple',
                 sessionID: 'dummy_sessionId',
-                caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                }
+                caseType: 'gop'
             });
         });
     });

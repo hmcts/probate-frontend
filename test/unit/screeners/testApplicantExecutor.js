@@ -35,10 +35,7 @@ describe('ApplicantExecutor', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 executor: content.optionYes,
-                caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                }
+                caseType: 'gop'
             });
             done();
         });

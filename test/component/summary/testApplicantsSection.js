@@ -7,28 +7,16 @@ const deceasedContent = requireDir(module, '../../../app/resources/en/translatio
 const applicantContent = requireDir(module, '../../../app/resources/en/translation/applicant');
 const FormatName = require('app/utils/FormatName');
 
-const config = require('app/config');
-const nock = require('nock');
-const featureToggleUrl = config.featureToggles.url;
-const intestacyQuestionsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.intestacy_questions}`;
-const featureTogglesNock = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(intestacyQuestionsFeatureTogglePath)
-        .reply(200, status);
-};
-
 describe('summary-applicants-section', () => {
     let testWrapper, sessionData;
 
     beforeEach(() => {
         testWrapper = new TestWrapper('Summary');
         sessionData = require('test/data/applicants');
-        featureTogglesNock();
     });
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

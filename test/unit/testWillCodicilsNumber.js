@@ -32,10 +32,7 @@ describe('CodicilsNumber', () => {
             expect(ctx).to.deep.equal({
                 codicilsNumber: 3,
                 sessionID: 'dummy_sessionId',
-                caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                }
+                caseType: 'gop'
             });
             done();
         });
@@ -57,10 +54,7 @@ describe('CodicilsNumber', () => {
             expect(ctx).to.deep.equal({
                 codicilsNumber: null,
                 sessionID: 'dummy_sessionId',
-                caseType: 'gop',
-                featureToggles: {
-                    webchat: 'false'
-                }
+                caseType: 'gop'
             });
             done();
         });

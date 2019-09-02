@@ -10,10 +10,8 @@ const config = {
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
         port: 8292,
         fe_shutter_toggle: 'probate-fe-shutter',
-        intestacy_questions: 'probate-intestacy-questions',
         fees_api: 'probate-fees-api',
-        webchat: 'probate-webchat',
-        appwideToggles: ['webchat']
+        appwideToggles: []
     },
     app: {
         username: process.env.USERNAME,

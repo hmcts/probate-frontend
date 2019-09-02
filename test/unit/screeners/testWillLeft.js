@@ -91,9 +91,6 @@ describe('WillLeft', () => {
                 applicantEmail: 'test@email.com',
                 caseType: 'gop',
                 payloadVersion: '1.0.1',
-                screeners: {
-                    screen1: 'yes'
-                }
             });
             done();
         });

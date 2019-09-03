@@ -19,8 +19,8 @@
         "message": "Your verification pin can only contain numbers"
       },
       "incorrect": {
-        "summary": "We don&rsquo;t recognise the security code you’ve entered. Please enter the code again.",
-        "message": "We don&rsquo;t recognise the security code you’ve entered. Please enter the code again."
+        "summary": "We don&rsquo;t recognise the security code you&rsquo;ve entered. Please enter the code again.",
+        "message": "We don&rsquo;t recognise the security code you&rsquo;ve entered. Please enter the code again."
       }
     }
   }

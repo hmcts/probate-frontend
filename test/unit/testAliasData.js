@@ -3,7 +3,6 @@ const AliasData = require('app/utils/AliasData.js');
 const expect = require('chai').expect;
 
 describe('AliasData.js', () => {
-
     describe('aliasDataRequiredAfterDeclaration()', () => {
         let formdata;
         let ctx;

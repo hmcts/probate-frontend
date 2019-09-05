@@ -7,9 +7,10 @@ const rewire = require('rewire');
 const PaymentStatus = rewire('app/steps/ui/payment/status');
 const nock = require('nock');
 const config = require('app/config');
+const content = require('app/resources/en/translation/payment/status');
 
 describe('PaymentStatus', () => {
-    const steps = initSteps([`${__dirname}/../../app/steps/ui/`]);
+    const steps = initSteps([`${__dirname}/../../app/steps/ui`]);
     let section;
     let templatePath;
     let i18next;
@@ -236,8 +237,8 @@ describe('PaymentStatus', () => {
                     field: 'update',
                     href: '#update',
                     msg: {
-                        summary: 'We could not submit your application. Your data has been saved, please try again later.',
-                        message: 'payment.status.errors.update.failure.message'
+                        summary: content.errors.update.failure.summary,
+                        message: content.errors.update.failure.message
                     }
                 }]);
                 revert();

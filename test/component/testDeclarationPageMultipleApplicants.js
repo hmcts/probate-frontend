@@ -8,7 +8,7 @@ const ExecutorsUpdateInvite = require('app/steps/ui/executors/updateinvite');
 const ExecutorsAdditionalInvite = require('app/steps/ui/executors/additionalinvite');
 const ExecutorsChangeMade = require('app/steps/ui/executors/changemade');
 const Tasklist = require('app/steps/ui/tasklist');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const {assert} = require('chai');
 const nock = require('nock');
 const config = require('app/config');
@@ -46,7 +46,9 @@ describe('declaration, multiple applicants', () => {
         sessionData.executors.list = [
             {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true},
             {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: {formattedAddress: '1 qwe\r\n1 asd\r\n1 zxc'}, addressFlag: true},
-            {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: {formattedAddress: '4 qwe\r\n4 asd\r\n4 zxc'}, addressFlag: true}];
+            {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: {formattedAddress: '4 qwe\r\n4 asd\r\n4 zxc'}, addressFlag: true}
+        ];
+
         nock(config.services.idam.s2s_url)
             .post('/lease')
             .reply(
@@ -66,12 +68,12 @@ describe('declaration, multiple applicants', () => {
 
     afterEach(() => {
         delete require.cache[require.resolve('test/data/complete-form-undeclared')];
-        testWrapper.destroy();
         nock.cleanAll();
+        testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('Declaration');
+        testCommonContent.runTest('Declaration');
 
         it('test right content loaded on the page with multiple applicants, deceased has three other names, no codicils', (done) => {
             const contentToExclude = [
@@ -152,7 +154,7 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -233,7 +235,7 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -319,7 +321,7 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -402,7 +404,7 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -481,7 +483,7 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -568,7 +570,7 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -648,7 +650,7 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -731,7 +733,7 @@ describe('declaration, multiple applicants', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -893,13 +895,12 @@ describe('declaration, multiple applicants', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testErrors(done, data, 'required', [
-                        'declarationCheckbox'
-                    ]);
+                    const errorsToTest = ['declarationCheckbox'];
+
+                    testWrapper.testErrors(done, {}, 'required', errorsToTest);
                 });
         });
 
@@ -913,12 +914,14 @@ describe('declaration, multiple applicants', () => {
                     ]
                 }
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const data = {
                         declarationCheckbox: true
                     };
+
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
                 });
         });
@@ -955,6 +958,7 @@ describe('declaration, multiple applicants', () => {
                     const data = {
                         declarationCheckbox: true
                     };
+
                     testWrapper.testRedirect(done, data, expectedNextUrlForAdditionalExecInvite);
                 });
         });
@@ -970,12 +974,14 @@ describe('declaration, multiple applicants', () => {
                     invitesSent: 'true'
                 }
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const data = {
                         declarationCheckbox: true
                     };
+
                     testWrapper.testRedirect(done, data, expectedNextUrlForUpdateExecInvite);
                 });
         });
@@ -991,12 +997,14 @@ describe('declaration, multiple applicants', () => {
                     hasDataChanged: true
                 }
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const data = {
                         declarationCheckbox: true
                     };
+
                     testWrapper.testRedirect(done, data, expectedNextUrlForChangeToSingleApplicant);
                 });
         });

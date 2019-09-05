@@ -3,10 +3,16 @@
 const TestWrapper = require('test/util/TestWrapper');
 const {assert} = require('chai');
 const ExecutorsInvitesSent = require('app/steps/ui/executors/invitesent');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const nock = require('nock');
 const config = require('app/config');
 const businessServiceUrl = config.services.validation.url.replace('/validate', '');
+const afterEachNocks = (done) => {
+    return () => {
+        nock.cleanAll();
+        done();
+    };
+};
 
 describe('executors-invite', () => {
     let testWrapper;
@@ -19,28 +25,30 @@ describe('executors-invite', () => {
     });
 
     afterEach(() => {
-        nock.cleanAll();
-        testWrapper.destroy();
         delete require.cache[require.resolve('test/data/executors-invites')];
+        testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ExecutorsInvite');
+        testCommonContent.runTest('ExecutorsInvite');
 
         it('test correct content loaded on the page when more than 1 other executor', (done) => {
+            const contentToExclude = ['heading3'];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, ['heading3']);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
         it('test correct content loaded on the page when only 1 other executor', (done) => {
+            const contentToExclude = ['heading3-multiple'];
             sessionData.executors.executorsNumber = 2;
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, ['heading3-multiple']);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
@@ -73,7 +81,7 @@ describe('executors-invite', () => {
                 ]
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForExecInvites);
+            testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForExecInvites);
         });
 
         it('test an error page is rendered if there is an error calling invite service', (done) => {
@@ -88,9 +96,11 @@ describe('executors-invite', () => {
                         .then(response => {
                             assert(response.status === 500);
                             assert(response.text.includes('Sorry, we&rsquo;re having technical problems'));
+                            nock.cleanAll();
                             done();
                         })
                         .catch(err => {
+                            nock.cleanAll();
                             done(err);
                         });
                 });

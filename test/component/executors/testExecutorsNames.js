@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsAllAlive = require('app/steps/ui/executors/allalive');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('executors-names', () => {
     let testWrapper, sessionData;
@@ -29,7 +29,7 @@ describe('executors-names', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ExecutorsNames');
+        testCommonContent.runTest('ExecutorsNames');
 
         it('test correct content loaded on the page when lead applicant does not have an alias', (done) => {
             testWrapper.agent.post('/prepare-session/form')
@@ -55,7 +55,9 @@ describe('executors-names', () => {
                     const data = {
                         executorName: ['x']
                     };
-                    testWrapper.testErrors(done, data, 'invalid', ['executorName']);
+                    const errorsToTest = ['executorName'];
+
+                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
                 });
         });
 
@@ -66,7 +68,9 @@ describe('executors-names', () => {
                     const data = {
                         executorName: ['']
                     };
-                    testWrapper.testErrors(done, data, 'required', ['executorName']);
+                    const errorsToTest = ['executorName'];
+
+                    testWrapper.testErrors(done, data, 'required', errorsToTest);
                 });
         });
 
@@ -77,7 +81,9 @@ describe('executors-names', () => {
                     const data = {
                         executorName: ['>bob bassett']
                     };
-                    testWrapper.testErrors(done, data, 'invalid', ['executorName']);
+                    const errorsToTest = ['executorName'];
+
+                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
                 });
         });
 
@@ -88,6 +94,7 @@ describe('executors-names', () => {
                     const data = {
                         executorName: ['Brian']
                     };
+
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecsAlive);
                 });
         });

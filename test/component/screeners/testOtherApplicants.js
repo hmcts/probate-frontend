@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const StartApply = require('app/steps/ui/screeners/startapply');
 const StopPage = require('app/steps/ui/stoppage');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
@@ -36,10 +36,10 @@ describe('other-applicants', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('OtherApplicants', null, cookies);
+        testCommonContent.runTest('OtherApplicants', null, null, cookies);
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {}, cookies);
+            testWrapper.testContent(done, {}, [], cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
@@ -74,9 +74,10 @@ describe('other-applicants', () => {
                 });
         });
 
-        it('test save and close link is not displayed on the page', (done) => {
-            const playbackData = {};
-            playbackData.saveAndClose = commonContent.saveAndClose;
+        it('test "save and close" link is not displayed on the page', (done) => {
+            const playbackData = {
+                saveAndClose: commonContent.saveAndClose
+            };
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

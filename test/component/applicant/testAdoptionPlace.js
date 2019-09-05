@@ -4,7 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const SpouseNotApplyingReason = require('app/steps/ui/applicant/spousenotapplyingreason');
 const AnyOtherChildren = require('app/steps/ui/deceased/anyotherchildren');
 const StopPage = require('app/steps/ui/stoppage');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/applicant/adoptionplace');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 const caseTypes= require('app/utils/CaseTypes');
@@ -24,14 +24,14 @@ describe('adoption-place', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('AdoptionPlace');
+        testCommonContent.runTest('AdoptionPlace');
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {});
+            testWrapper.testContent(done);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to Spouse Not Applying Reason page if adoption took place in England or Wales and deceased was married: ${expectedNextUrlForSpouseNotApplyingReason}`, (done) => {

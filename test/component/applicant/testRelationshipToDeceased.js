@@ -7,7 +7,7 @@ const AnyOtherChildren = require('app/steps/ui/deceased/anyotherchildren');
 const AdoptionPlace = require('app/steps/ui/applicant/adoptionplace');
 const ApplicantName = require('app/steps/ui/applicant/name');
 const StopPage = require('app/steps/ui/stoppage');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/applicant/relationshiptodeceased');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 const caseTypes = require('app/utils/CaseTypes');
@@ -30,7 +30,7 @@ describe('relationship-to-deceased', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('RelationshipToDeceased');
+        testCommonContent.runTest('RelationshipToDeceased');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
@@ -42,12 +42,12 @@ describe('relationship-to-deceased', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, [], {});
+                    testWrapper.testContent(done);
                 });
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to Spouse Not Applying Reason page if relationship is Child and deceased was married: ${expectedNextUrlForSpouseNotApplyingReason}`, (done) => {

@@ -1,9 +1,13 @@
 'use strict';
 
-const requireDir = require('require-directory');
 const TestWrapper = require('test/util/TestWrapper');
-const executorsData = require('test/data/summary-executors');
-const applicantContent = requireDir(module, '../../../app/resources/en/translation/applicant');
+const applicantNameContent = require('app/resources/en/translation/applicant/name');
+const applicantPhoneContent = require('app/resources/en/translation/applicant/phone');
+const applicantAddressContent = require('app/resources/en/translation/applicant/address');
+const applicantAliasContent = require('app/resources/en/translation/applicant/alias');
+const applicantAliasReasonContent = require('app/resources/en/translation/applicant/aliasreason');
+const applicantNameAsOnWillContent = require('app/resources/en/translation/applicant/nameasonwill');
+const executorsAllAliveContent = require('app/resources/en/translation/executors/allalive');
 const FormatName = require('app/utils/FormatName');
 
 describe('summary-executor-section', () => {
@@ -18,14 +22,23 @@ describe('summary-executor-section', () => {
         testWrapper.destroy();
     });
 
+    after(() => {
+        delete require.cache[require.resolve('app/resources/en/translation/applicant/name')];
+        delete require.cache[require.resolve('app/resources/en/translation/applicant/phone')];
+        delete require.cache[require.resolve('app/resources/en/translation/applicant/address')];
+        delete require.cache[require.resolve('app/resources/en/translation/applicant/alias')];
+        delete require.cache[require.resolve('app/resources/en/translation/applicant/aliasreason')];
+        delete require.cache[require.resolve('app/resources/en/translation/executors/allalive')];
+    });
+
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content loaded on the summary page executors section, when no data is entered', (done) => {
             const playbackData = {
-                firstName: applicantContent.name.firstName,
-                lastName: applicantContent.name.lastName,
-                phoneNumber: applicantContent.phone.phoneNumber,
-                applicantAddress: applicantContent.address.question,
-                applicantNameAsOnWill: applicantContent.nameasonwill.questionWithoutName
+                firstName: applicantNameContent.firstName,
+                lastName: applicantNameContent.lastName,
+                phoneNumber: applicantPhoneContent.phoneNumber,
+                applicantAddress: applicantAddressContent.question,
+                applicantNameAsOnWill: applicantNameAsOnWillContent.questionWithoutName
             };
             testWrapper.testDataPlayback(done, playbackData);
         });
@@ -39,11 +52,11 @@ describe('summary-executor-section', () => {
                     }
 
                     const playbackData = {
-                        firstName: applicantContent.name.firstName,
-                        lastName: applicantContent.name.lastName,
-                        phoneNumber: applicantContent.phone.phoneNumber,
-                        applicantAddress: applicantContent.address.question,
-                        applicantNameAsOnWill: applicantContent.nameasonwill.question.replace('{applicantName}', FormatName.format(sessionData.applicant))
+                        firstName: applicantNameContent.firstName,
+                        lastName: applicantNameContent.lastName,
+                        phoneNumber: applicantPhoneContent.phoneNumber,
+                        applicantAddress: applicantAddressContent.question,
+                        applicantNameAsOnWill: applicantNameAsOnWillContent.question.replace('{applicantName}', FormatName.format(sessionData.applicant))
                     };
                     testWrapper.testDataPlayback(done, playbackData);
                 });
@@ -61,13 +74,13 @@ describe('summary-executor-section', () => {
                     }
 
                     const playbackData = {
-                        firstName: applicantContent.name.firstName,
-                        lastName: applicantContent.name.lastName,
-                        alias: applicantContent.alias.nameOnWill,
-                        aliasReason: applicantContent.aliasreason.optionOtherHint,
-                        phoneNumber: applicantContent.phone.phoneNumber,
-                        applicantAddress: applicantContent.address.question,
-                        applicantNameAsOnWill: applicantContent.nameasonwill.question.replace('{applicantName}', FormatName.format(sessionData.applicant))
+                        firstName: applicantNameContent.firstName,
+                        lastName: applicantNameContent.lastName,
+                        alias: applicantAliasContent.nameOnWill,
+                        aliasReason: applicantAliasReasonContent.optionOtherHint,
+                        phoneNumber: applicantPhoneContent.phoneNumber,
+                        applicantAddress: applicantAddressContent.question,
+                        applicantNameAsOnWill: applicantNameAsOnWillContent.question.replace('{applicantName}', FormatName.format(sessionData.applicant))
                     };
                     testWrapper.testDataPlayback(done, playbackData);
                 });
@@ -86,19 +99,20 @@ describe('summary-executor-section', () => {
                     }
 
                     const playbackData = {
-                        firstName: applicantContent.name.firstName,
-                        lastName: applicantContent.name.lastName,
-                        alias: applicantContent.alias.nameOnWill,
-                        aliasReason: applicantContent.aliasreason.optionOtherHint,
-                        phoneNumber: applicantContent.phone.phoneNumber,
-                        applicantAddress: applicantContent.address.question,
-                        applicantNameAsOnWill: applicantContent.nameasonwill.question.replace('{applicantName}', FormatName.format(sessionData.applicant))
+                        firstName: applicantNameContent.firstName,
+                        lastName: applicantNameContent.lastName,
+                        alias: applicantAliasContent.nameOnWill,
+                        aliasReason: applicantAliasReasonContent.optionOtherHint,
+                        phoneNumber: applicantPhoneContent.phoneNumber,
+                        applicantAddress: applicantAddressContent.question,
+                        applicantNameAsOnWill: applicantNameAsOnWillContent.question.replace('{applicantName}', FormatName.format(sessionData.applicant))
                     };
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
 
         it('test data is played back correctly on the summary page executors section', (done) => {
+            const executorsData = require('test/data/summary-executors');
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -106,23 +120,33 @@ describe('summary-executor-section', () => {
                         throw err;
                     }
 
+                    delete require.cache[require.resolve('test/data/summary-executors')];
                     const playbackData = {
-                        firstName: applicantContent.name.firstName,
-                        lastName: applicantContent.name.lastName,
-                        phoneNumber: applicantContent.phone.phoneNumber,
-                        applicantAddress: applicantContent.address.question
-                    };
+                        questionFirstName: applicantNameContent.firstName,
+                        questionLastName: applicantNameContent.lastName,
+                        questionPhoneNumber: applicantPhoneContent.phoneNumber,
+                        questionApplicantAddress: applicantAddressContent.question,
+                        questionExecutorsAllAlive: executorsAllAliveContent.question,
 
+                        allAlive: executorsData.executors.allAlive,
+
+                        exec2fullName: executorsData.executors.list[1].fullName,
+                        exec2IsApplying: executorsData.executors.list[1].isApplying ? 'Yes' : 'No',
+                        exec2HasAlias: executorsData.executors.list[1].hasOtherName ? 'Yes': 'No',
+                        exec2Alias: executorsData.executors.list[1].currentName,
+                        exec2AliasReason: executorsData.executors.list[1].currentNameReason,
+
+                        exec3fullName: executorsData.executors.list[2].fullName,
+                        exec3IsApplying: executorsData.executors.list[2].isApplying ? 'Yes' : 'No',
+                        exec3NotApplyingReason: executorsData.executors.list[2].notApplyingReason,
+
+                        exec4fullName: executorsData.executors.list[3].fullName,
+                        exec4IsApplying: executorsData.executors.list[3].isApplying ? 'Yes' : 'No',
+                        exec4IsDead: executorsData.executors.list[3].isDead ? 'Yes' : 'No',
+                        exec4DiedBefore: executorsData.executors.list[3].diedbefore
+                    };
                     Object.assign(playbackData, executorsData.applicant);
                     playbackData.address = executorsData.applicant.address.formattedAddress;
-                    playbackData.exec2fullName = executorsData.executors.list[1].fullName;
-                    playbackData.exec2IsApplying = executorsData.executors.list[1].isApplying ? 'Yes' : 'No';
-                    playbackData.exec2HasAlias = executorsData.executors.list[1].hasOtherName ? 'Yes': 'No';
-                    playbackData.exec2Alias = executorsData.executors.list[1].currentName;
-                    playbackData.exec2AliasReason = executorsData.executors.list[1].currentNameReason;
-                    playbackData.exec3fullName = executorsData.executors.list[2].fullName;
-                    playbackData.exec3IsApplying = executorsData.executors.list[2].isApplying ? 'Yes' : 'No';
-                    playbackData.exec3NotApplyingReason = executorsData.executors.list[2].notApplyingReason;
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });

@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorCurrentName = require('app/steps/ui/executors/currentname');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('executors-other-names', () => {
     let testWrapper, sessionData;
@@ -30,16 +30,14 @@ describe('executors-other-names', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ExecutorsWithOtherNames');
+        testCommonContent.runTest('ExecutorsWithOtherNames');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required');
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to Executors Current Name page: ${expectedNextUrlForExecCurrentName}`, (done) => {
@@ -49,6 +47,7 @@ describe('executors-other-names', () => {
                     const data = {
                         executorsWithOtherNames: 'Wibble Wobble-Woo'
                     };
+
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecCurrentName);
                 });
         });

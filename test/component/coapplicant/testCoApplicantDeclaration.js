@@ -4,36 +4,42 @@ const TestWrapper = require('test/util/TestWrapper');
 const content = require('app/resources/en/translation/coapplicant/declaration.json');
 const CoApplicantAgreePage = require('app/steps/ui/coapplicant/agreepage');
 const CoApplicantDisagreePage = require('app/steps/ui/coapplicant/disagreepage');
-const commonContent = require('app/resources/en/translation/common');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const nock = require('nock');
 const config = require('app/config');
 const businessServiceUrl = config.services.validation.url.replace('/validate', '');
 const persistenceServiceUrl = config.services.persistence.url.replace('/formdata', '');
-const invitesNock = () => {
+const invitesUndefinedNock = () => {
     nock(businessServiceUrl)
         .get('/invites/allAgreed/undefined')
         .reply(200, 'false');
 };
-let sessionData = require('test/data/complete-form-undeclared');
+const invitesDefinedNock = () => {
+    nock(persistenceServiceUrl)
+        .patch('/invitedata/34')
+        .reply(200, 'false');
+};
 
 describe('co-applicant-declaration', () => {
     let testWrapper;
+    let sessionData;
     const expectedNextUrlForCoAppAgree = CoApplicantAgreePage.getUrl();
     const expectedNextUrlForCoAppDisagree = CoApplicantDisagreePage.getUrl();
 
     beforeEach(() => {
-        invitesNock();
+        invitesUndefinedNock();
+        sessionData = require('test/data/complete-form-undeclared').formdata;
         testWrapper = new TestWrapper('CoApplicantDeclaration');
     });
 
     afterEach(() => {
+        delete require.cache[require.resolve('test/data/complete-form-undeclared')];
         nock.cleanAll();
         testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('CoApplicantDeclaration', invitesNock);
+        testCommonContent.runTest('CoApplicantDeclaration');
 
         it('test right content loaded on the page', (done) => {
             const contentToExclude = [
@@ -41,29 +47,26 @@ describe('co-applicant-declaration', () => {
             ];
 
             testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData.formdata)
+                .send(sessionData)
                 .end(() => {
                     const contentData = {
                         mainApplicantName: 'Bob Smith'
                     };
 
-                    testWrapper.testContent(done, contentToExclude, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
         it('test errors message displayed for missing data', (done) => {
             testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData.formdata)
+                .send(sessionData)
                 .end(() => {
-                    const data = {};
-                    testWrapper.testErrors(done, data, 'required', []);
+                    testWrapper.testErrors(done, {}, 'required');
                 });
         });
 
         it(`test it redirects to agree page: ${expectedNextUrlForCoAppAgree}`, (done) => {
-            nock(persistenceServiceUrl)
-                .patch('/invitedata/34')
-                .reply(200, 'false');
+            invitesDefinedNock();
 
             sessionData = {};
 
@@ -81,9 +84,7 @@ describe('co-applicant-declaration', () => {
         });
 
         it(`test it redirects to disagree page: ${expectedNextUrlForCoAppDisagree}`, (done) => {
-            nock(persistenceServiceUrl)
-                .patch('/invitedata/34')
-                .reply(200, 'false');
+            invitesDefinedNock();
 
             sessionData = {};
 
@@ -97,20 +98,6 @@ describe('co-applicant-declaration', () => {
                             };
                             testWrapper.testRedirect(done, data, expectedNextUrlForCoAppDisagree);
                         });
-                });
-        });
-
-        it('test save and close link is not displayed on the page', (done) => {
-            const playbackData = {
-                saveAndClose: commonContent.saveAndClose,
-                signOut: commonContent.signOut
-            };
-
-            testWrapper.agent
-                .post('/prepare-session/form')
-                .send({will: {}})
-                .end(() => {
-                    testWrapper.testContentNotPresent(done, playbackData);
                 });
         });
     });

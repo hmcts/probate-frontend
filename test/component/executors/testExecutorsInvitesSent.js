@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('executors-invites-sent', () => {
     let testWrapper;
@@ -17,15 +17,14 @@ describe('executors-invites-sent', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ExecutorsInvitesSent');
+        testCommonContent.runTest('ExecutorsInvitesSent');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {
-            const data = {};
-            testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
+            testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList);
         });
     });
 });

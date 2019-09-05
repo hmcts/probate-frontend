@@ -8,12 +8,7 @@
     "will": {
       "left": "Yes",
       "codicils": "No",
-      "original": "Yes",
-      "isWillDate": "Yes",
-      "willDate_day": 1,
-      "willDate_date": "2000-02-01T00:00:00.000Z",
-      "willDate_year": 2000,
-      "willDate_month": 2
+      "original": "Yes"
     },
     "applicant": {
       "address": {

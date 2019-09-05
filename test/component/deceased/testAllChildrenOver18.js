@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const AnyDeceasedChildren = require('app/steps/ui/deceased/anydeceasedchildren/index');
 const StopPage = require('app/steps/ui/stoppage/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/deceased/allchildrenover18');
 const caseTypes = require('app/utils/CaseTypes');
 
@@ -21,7 +21,7 @@ describe('all-children-over-18', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('AllChildrenOver18');
+        testCommonContent.runTest('AllChildrenOver18');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
@@ -30,17 +30,18 @@ describe('all-children-over-18', () => {
                     lastName: 'Doe'
                 }
             };
+            const contentToExclude = ['theDeceased'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe'};
-                    testWrapper.testContent(done, ['theDeceased'], contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to Any Deceased Children page if deceased children were all over 18: ${expectedNextUrlForAnyDeceasedChildren}`, (done) => {

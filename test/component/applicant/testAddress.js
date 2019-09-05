@@ -2,34 +2,38 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsNumber = require('app/steps/ui/executors/number');
-const testAddressData = require('test/data/find-address');
 const formatAddress = address => address.replace(/,/g, ', ');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('applicant-address', () => {
     let testWrapper;
+    let testAddressData;
     const expectedNextUrlForExecsNumber = ExecutorsNumber.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ApplicantAddress');
+        testAddressData = require('test/data/find-address');
     });
 
     afterEach(() => {
+        delete require.cache[require.resolve('test/data/find-address')];
         testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ApplicantAddress');
+        testCommonContent.runTest('ApplicantAddress');
 
         it('test right content loaded on the page', (done) => {
-            const excludeKeys = ['selectAddress'];
-            testWrapper.testContent(done, excludeKeys);
+            const contentToExclude = ['selectAddress'];
+
+            testWrapper.testContent(done, {}, contentToExclude);
         });
 
         it('test error messages displayed for missing data', (done) => {
             const data = {addressFound: 'none'};
+            const errorsToTest = ['addressLine1'];
 
-            testWrapper.testErrors(done, data, 'required', ['addressLine1']);
+            testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
         it(`test it redirects to number of executors page: ${expectedNextUrlForExecsNumber}`, (done) => {
@@ -38,6 +42,7 @@ describe('applicant-address', () => {
                 postTown: 'value',
                 newPostCode: 'value'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForExecsNumber);
         });
 
@@ -50,6 +55,7 @@ describe('applicant-address', () => {
                 postTown: 'value',
                 newPostCode: 'value'
             };
+
             testWrapper.agent
                 .post(testWrapper.pageUrl)
                 .send(sessionData)
@@ -58,6 +64,7 @@ describe('applicant-address', () => {
                         const formattedAddress = formatAddress(address.formattedAddress);
                         return `<option value="${index}" ${formattedAddress === sessionData.postcodeAddress ? 'selected' : ''}>${formattedAddress}</option>`;
                     });
+
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });

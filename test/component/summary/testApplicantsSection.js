@@ -2,13 +2,13 @@
 
 const requireDir = require('require-directory');
 const TestWrapper = require('test/util/TestWrapper');
-const deceasedData = require('test/data/deceased');
 const deceasedContent = requireDir(module, '../../../app/resources/en/translation/deceased');
 const applicantContent = requireDir(module, '../../../app/resources/en/translation/applicant');
 const FormatName = require('app/utils/FormatName');
 
 describe('summary-applicants-section', () => {
-    let testWrapper, sessionData;
+    let testWrapper;
+    let sessionData;
 
     beforeEach(() => {
         testWrapper = new TestWrapper('Summary');
@@ -16,6 +16,7 @@ describe('summary-applicants-section', () => {
     });
 
     afterEach(() => {
+        delete require.cache[require.resolve('test/data/applicants')];
         testWrapper.destroy();
     });
 
@@ -24,6 +25,7 @@ describe('summary-applicants-section', () => {
             sessionData = {
                 caseType: 'intestacy',
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -33,17 +35,20 @@ describe('summary-applicants-section', () => {
                     const playbackData = {
                         relationshipToDeceased: applicantContent.relationshiptodeceased.question
                     };
+
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
 
         it('test correct content loaded on the applicants section of the summary page, when section is complete', (done) => {
+            const deceasedData = require('test/data/deceased');
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
                     if (err) {
                         throw err;
                     }
+                    delete require.cache[require.resolve('test/data/deceased')];
                     const deceasedName = FormatName.format(deceasedData.deceased);
                     const playbackData = {
                         relationshipToDeceased: applicantContent.relationshiptodeceased.question,
@@ -54,6 +59,7 @@ describe('summary-applicants-section', () => {
                         anyDeceasedChildren: deceasedContent.anydeceasedchildren.question.replace('{deceasedName}', deceasedName).replace('{deceasedDoD}', deceasedData.deceased['dod-formattedDate']),
                         anyGrandchildrenUnder18: deceasedContent.anygrandchildrenunder18.question
                     };
+
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });

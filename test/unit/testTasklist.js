@@ -8,7 +8,7 @@ const {expect, assert} = require('chai');
 const completedForm = require('test/data/complete-form').formdata;
 const journeyProbate = require('app/journeys/probate');
 const journeyIntestacy = require('app/journeys/intestacy');
-const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui/`]);
+const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const taskList = steps.TaskList;
 const caseTypes = require('app/utils/CaseTypes');
 

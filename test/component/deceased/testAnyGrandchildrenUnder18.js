@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ApplicantName = require('app/steps/ui/applicant/name/index');
 const StopPage = require('app/steps/ui/stoppage/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
 const caseTypes = require('app/utils/CaseTypes');
 
@@ -21,7 +21,7 @@ describe('any-grandchildren-under-18', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('AnyGrandchildrenUnder18');
+        testCommonContent.runTest('AnyGrandchildrenUnder18');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
@@ -35,12 +35,12 @@ describe('any-grandchildren-under-18', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe'};
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to Applicant Name page if no grandchildren are under 18: ${expectedNextUrlForApplicantName}`, (done) => {

@@ -53,7 +53,7 @@ describe('executor-notified', () => {
                     const contentData = {executorName: 'Manah Mana'};
 
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
@@ -61,9 +61,8 @@ describe('executor-notified', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const data = {};
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testErrors(done, data, 'required', []);
+                    testWrapper.testErrors(done, {}, 'required');
                 });
 
         });

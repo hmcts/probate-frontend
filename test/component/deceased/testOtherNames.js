@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const {set} = require('lodash');
 const DeceasedMarried = require('app/steps/ui/deceased/married');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('deceased-otherNames', () => {
     let testWrapper, sessionData;
@@ -19,20 +19,20 @@ describe('deceased-otherNames', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeceasedOtherNames');
+        testCommonContent.runTest('DeceasedOtherNames');
 
         it('test right content loaded on the page', (done) => {
             set(sessionData, 'deceased.firstName', 'John');
             set(sessionData, 'deceased.lastName', 'Doe');
 
-            const excludeKeys = ['otherName', 'removeName'];
+            const contentToExclude = ['otherName', 'removeName'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe'};
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -51,30 +51,30 @@ describe('deceased-otherNames', () => {
                         deceasedName: 'John Doe'
                     };
 
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
         it('test otherNames schema validation when no data is entered', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it('test otherNames schema validation when invalid firstName is entered', (done) => {
+            const errorsToTest = ['firstName'];
             const data = {};
             set(data, 'otherNames.name_0.firstName', '>John');
             set(data, 'otherNames.name_0.lastName', 'Doe');
 
-            testWrapper.testErrors(done, data, 'invalid', ['firstName']);
+            testWrapper.testErrors(done, data, 'invalid', errorsToTest);
         });
 
         it('test otherNames schema validation when invalid lastName is entered', (done) => {
+            const errorsToTest = ['lastName'];
             const data = {};
             set(data, 'otherNames.name_0.firstName', 'John');
             set(data, 'otherNames.name_0.lastName', '>Doe');
 
-            testWrapper.testErrors(done, data, 'invalid', ['lastName']);
+            testWrapper.testErrors(done, data, 'invalid', errorsToTest);
         });
 
         it(`test it redirects to deceased married page: ${expectedNextUrlForDeceasedMarried}`, (done) => {

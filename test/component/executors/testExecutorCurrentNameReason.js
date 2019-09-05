@@ -40,15 +40,14 @@ describe('/executor-current-name-reason/', () => {
                         executorName: 'Name2 Executor'
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
         it('test alias reason validation when no data is entered', (done) => {
             const errorsToTest = ['currentNameReason'];
-            const data = {};
 
-            testWrapper.testErrors(done, data, 'required', errorsToTest);
+            testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });
 
         it('test alias reason validation when other is selected but no reason is entered', (done) => {

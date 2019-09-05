@@ -34,17 +34,17 @@ describe('start-apply', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {}, cookies);
+            testWrapper.testContent(done, {}, [], cookies);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {
             testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList, cookies);
         });
 
-        it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
-            const playbackData = {};
-            playbackData.saveAndClose = commonContent.saveAndClose;
-            playbackData.signOut = commonContent.signOut;
+        it('test "save and close" link is not displayed on the page', (done) => {
+            const playbackData = {
+                saveAndClose: commonContent.saveAndClose
+            };
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

@@ -5,6 +5,12 @@ const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');
 const config = require('app/config');
 const businessServiceUrl = config.services.validation.url.replace('/validate', '');
+const afterEachNocks = (done) => {
+    return () => {
+        nock.cleanAll();
+        done();
+    };
+};
 
 describe('co-applicant-start-page', () => {
     let testWrapper;
@@ -35,8 +41,6 @@ describe('co-applicant-start-page', () => {
                 pin: '12345'
             };
 
-            const excludeKeys = [];
-
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -45,15 +49,16 @@ describe('co-applicant-start-page', () => {
                         deceasedName: 'Dave Bassett',
                         pin: ''
                     };
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(afterEachNocks(done), contentData);
                 });
         });
 
-        it('test save and close link is not displayed on the page', (done) => {
+        it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
             const playbackData = {
                 saveAndClose: commonContent.saveAndClose,
                 signOut: commonContent.signOut
             };
+
             testWrapper.testContentNotPresent(done, playbackData);
         });
     });

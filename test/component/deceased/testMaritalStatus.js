@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const DivorcePlace = require('app/steps/ui/deceased/divorceplace');
 const TaskList = require('app/steps/ui/tasklist');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/deceased/maritalstatus');
 const caseTypes = require('app/utils/CaseTypes');
 
@@ -21,7 +21,7 @@ describe('deceased-marital-status', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeceasedMaritalStatus');
+        testCommonContent.runTest('DeceasedMaritalStatus');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
@@ -35,14 +35,14 @@ describe('deceased-marital-status', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe'};
-                    const excludeKeys = ['divorce', 'separation'];
+                    const contentToExclude = ['divorce', 'separation'];
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to divorce place page if divorced: ${expectedNextUrlForDivorcePlace}`, (done) => {

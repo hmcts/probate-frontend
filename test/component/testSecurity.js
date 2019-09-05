@@ -30,11 +30,12 @@ describe('security', () => {
             .expect(302)
             .end((err, res) => {
                 server.http.close();
-                nock.cleanAll();
                 if (err) {
+                    nock.cleanAll();
                     done(err);
                 } else {
                     expect(res.headers.location).to.contain(LOGIN_URL);
+                    nock.cleanAll();
                     done();
                 }
             });
@@ -65,6 +66,7 @@ describe('security', () => {
         config.app.useIDAM = 'true';
         const server = app.init();
         const agent = request.agent(server.app);
+
         agent.get(expectedNextUrlForTaskList)
             .set('Cookie', ['__auth-token-v2.5.0=dummyToken'])
             .expect(302)
@@ -88,6 +90,7 @@ describe('security', () => {
         config.app.useIDAM = 'true';
         const server = app.init();
         const agent = request.agent(server.app);
+
         agent.get(expectedNextUrlForTaskList)
             .set('Cookie', SECURITY_COOKIE + '=dummyToken')
             .expect(302)
@@ -95,9 +98,11 @@ describe('security', () => {
                 server.http.close();
                 config.app.useIDAM = 'false';
                 if (err) {
+                    nock.cleanAll();
                     done(err);
                 } else {
                     expect(res.headers.location).to.contain(expectedUrlForTimeoutPage);
+                    nock.cleanAll();
                     done();
                 }
             });

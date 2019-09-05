@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const CopiesOverseas = require('app/steps/ui/copies/overseas');
 const CopiesSummary = require('app/steps/ui/copies/summary');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('assets-overseas', () => {
     let testWrapper;
@@ -19,7 +19,7 @@ describe('assets-overseas', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('AssetsOverseas');
+        testCommonContent.runTest('AssetsOverseas');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
@@ -34,26 +34,26 @@ describe('assets-overseas', () => {
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe'};
 
-                    testWrapper.testContent(done, [], contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
         it(`test it redirects to Copies Overseas page: ${expectedNextUrlForCopiesOverseas}`, (done) => {
             const data = {assetsoverseas: 'Yes'};
+
             testWrapper.nextPageUrl = testWrapper.nextStep(data).constructor.getUrl();
             testWrapper.testRedirect(done, data, expectedNextUrlForCopiesOverseas);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForCopiesSummary}`, (done) => {
             const data = {assetsoverseas: 'No'};
+
             testWrapper.nextPageUrl = testWrapper.nextStep(data).constructor.getUrl();
             testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
     });
 });

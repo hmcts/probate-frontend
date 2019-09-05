@@ -27,12 +27,13 @@ class StopPage extends Step {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        delete ctx.stopReason;
         delete ctx.linkPlaceholders;
         return [ctx, formdata];
     }
 
     replaceLinkPlaceholders(templateContent) {
-        const linkPlaceholders = templateContent.match(/{[^}]+}/g);
+        const linkPlaceholders = templateContent.match(/{(.*?)}/g);
 
         if (linkPlaceholders) {
             return linkPlaceholders.map(placeholder => placeholder.substr(1, placeholder.length - 2));

@@ -7,6 +7,17 @@ const config = require('app/config');
 const featureToggleUrl = config.featureToggles.url;
 const feesApiFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.fees_api}`;
 const nock = require('nock');
+const beforeEachNocks = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(feesApiFeatureTogglePath)
+        .reply(200, status);
+};
+const afterEachNocks = (done) => {
+    return () => {
+        nock.cleanAll();
+        done();
+    };
+};
 
 describe('start-eligibility', () => {
     let testWrapper;
@@ -18,32 +29,25 @@ describe('start-eligibility', () => {
 
     afterEach(() => {
         testWrapper.destroy();
-        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test right content loaded on the page with the fees_api toggle ON', (done) => {
-            const feesApiFeatureTogglesNock = (status = 'true') => {
-                nock(featureToggleUrl)
-                    .get(feesApiFeatureTogglePath)
-                    .reply(200, status);
-            };
-            const excludeKeys = [
+            beforeEachNocks('true');
+
+            const contentToExclude = [
                 'paragraph2',
                 'paragraph7old',
                 'paragraph8old'
             ];
-            feesApiFeatureTogglesNock();
-            testWrapper.testContent(done, excludeKeys);
+
+            testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
         });
 
         it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
-            const feesApiFeatureTogglesNock = (status = 'false') => {
-                nock(featureToggleUrl)
-                    .get(feesApiFeatureTogglePath)
-                    .reply(200, status);
-            };
-            const excludeKeys = [
+            beforeEachNocks('false');
+
+            const contentToExclude = [
                 'paragraph2',
                 'paragraph7',
                 'paragraph8',
@@ -64,18 +68,18 @@ describe('start-eligibility', () => {
                 'tableBodyFeeRange7',
                 'tableBodyFeeRange7Value'
             ];
-            feesApiFeatureTogglesNock();
-            testWrapper.testContent(done, excludeKeys);
+
+            testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDeathCertificate}`, (done) => {
             testWrapper.testRedirect(done, {}, expectedNextUrlForDeathCertificate);
         });
 
-        it('test "save and close" and "sign out" links are not displayed on the page', (done) => {
-            const playbackData = {};
-            playbackData.saveAndClose = commonContent.saveAndClose;
-            playbackData.signOut = commonContent.signOut;
+        it('test "save and close" link is not displayed on the page', (done) => {
+            const playbackData = {
+                saveAndClose: commonContent.saveAndClose
+            };
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

@@ -7,6 +7,7 @@ describe('error-pages', () => {
         const request = require('supertest');
         const server = new (require ('app').init)();
         const agent = request.agent(server.app);
+
         agent.get('/wibble')
             .expect('Content-type', /html/)
             .expect(404)
@@ -29,8 +30,8 @@ describe('error-pages', () => {
             throw new Error('Test error');
         });
         const server = new (require ('app').init)();
-
         const agent = request.agent(server.app);
+
         agent.get('/throwError')
             .expect('Content-type', /html/)
             .expect(500)

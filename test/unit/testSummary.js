@@ -8,7 +8,7 @@ const Summary = rewire('app/steps/ui/summary');
 const probateJourney = require('app/journeys/probate');
 
 describe('Summary', () => {
-    const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui']);
+    const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
     let section;
     let templatePath;
     let i18next;

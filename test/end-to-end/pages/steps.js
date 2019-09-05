@@ -114,9 +114,5 @@ module.exports = () => {
         selectDeceasedDivorcePlace: steps.deceased.divorceplace,
         selectRelationshipToDeceased: steps.applicant.relationshiptodeceased,
         selectSpouseNotApplyingReason: steps.applicant.spousenotapplyingreason,
-
-        // Tasks
-        completeEligibilityTask: steps.tasks.tasks.completeEligibilityTask,
-        completeExecutorsTask: steps.tasks.tasks.completeExecutorsTask
     });
 };

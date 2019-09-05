@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const AnyOtherChildren = require('app/steps/ui/deceased/anyotherchildren/index');
 const StopPage = require('app/steps/ui/stoppage/index');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const content = require('app/resources/en/translation/applicant/spousenotapplyingreason');
 const caseTypes = require('app/utils/CaseTypes');
 
@@ -21,7 +21,7 @@ describe('spouse-not-applying-reason', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('SpouseNotApplyingReason');
+        testCommonContent.runTest('SpouseNotApplyingReason');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
@@ -30,17 +30,18 @@ describe('spouse-not-applying-reason', () => {
                     lastName: 'Doe'
                 }
             };
+            const contentToExclude = ['theDeceased'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe'};
-                    testWrapper.testContent(done, ['theDeceased'], contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to Any Other Children page if spouse renouncing: ${expectedNextUrlForAnyOtherChildren}`, (done) => {

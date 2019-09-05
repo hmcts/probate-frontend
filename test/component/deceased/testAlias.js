@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames');
 const DeceasedMarried = require('app/steps/ui/deceased/married');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('deceased-alias', () => {
     let testWrapper;
@@ -19,7 +19,7 @@ describe('deceased-alias', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('DeceasedAlias');
+        testCommonContent.runTest('DeceasedAlias');
 
         it('test right content loaded on the page', (done) => {
             const sessionData = {
@@ -28,33 +28,33 @@ describe('deceased-alias', () => {
                     lastName: 'Doe'
                 }
             };
-            const excludeContent = ['theDeceased'];
+            const contentToExclude = ['theDeceased'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe'};
 
-                    testWrapper.testContent(done, excludeContent, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
         it('test alias schema validation when no data is entered', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to deceased other names page: ${expectedNextUrlForDeceasedOtherNames}`, (done) => {
             const data = {
                 alias: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedOtherNames);
         });
         it(`test it redirects to deceased married page: ${expectedNextUrlForDeceasedMarried}`, (done) => {
             const data = {
                 alias: 'No'
             };
+
             testWrapper.agent.post('/prepare-session/form')
                 .end(() => {
                     testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedMarried);

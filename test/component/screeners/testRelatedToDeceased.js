@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const OtherApplicants = require('app/steps/ui/screeners/otherapplicants');
 const StopPage = require('app/steps/ui/stoppage');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
 const cookies = [{
@@ -34,10 +34,10 @@ describe('related-to-deceased', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('RelatedToDeceased', null, cookies);
+        testCommonContent.runTest('RelatedToDeceased', null, null, cookies);
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {}, cookies);
+            testWrapper.testContent(done, {}, [], cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
@@ -72,9 +72,10 @@ describe('related-to-deceased', () => {
                 });
         });
 
-        it('test save and close link is not displayed on the page', (done) => {
-            const playbackData = {};
-            playbackData.saveAndClose = commonContent.saveAndClose;
+        it('test "save and close" link is not displayed on the page', (done) => {
+            const playbackData = {
+                saveAndClose: commonContent.saveAndClose
+            };
 
             testWrapper.testContentNotPresent(done, playbackData);
         });

@@ -12,7 +12,7 @@ describe('submit-data', () => {
         query: {}
     };
 
-    const steps = initSteps([__dirname + '/../../app/steps/action/', __dirname + '/../../app/steps/ui/']);
+    const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 
     it('maps forms data', () => {
         const data = formData;

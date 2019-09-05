@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsWithOtherNames = require('app/steps/ui/executors/othername');
 const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('executors-alias', () => {
     let testWrapper;
@@ -19,22 +19,21 @@ describe('executors-alias', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ExecutorsAlias');
+        testCommonContent.runTest('ExecutorsAlias');
 
         it('test content loaded on the page', (done) => {
             testWrapper.testContent(done);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const data = {};
-
-            testWrapper.testErrors(done, data, 'required');
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to Executor Other Names when Yes: ${expectedNextUrlForExecOtherNames}`, (done) => {
             const data = {
                 alias: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForExecOtherNames);
         });
 
@@ -42,6 +41,7 @@ describe('executors-alias', () => {
             const data = {
                 alias: 'No'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForExecContactDetails);
         });
     });

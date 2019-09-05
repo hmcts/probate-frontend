@@ -51,6 +51,7 @@ describe('document-upload', () => {
                 .expect('location', testWrapper.pageUrl)
                 .expect(302)
                 .then(() => {
+                    nock.cleanAll();
                     done();
                 })
                 .catch(done);
@@ -63,7 +64,7 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/invalid-type.txt')
                 .then((res) => {
-                    expect(res.text).to.contain(content.errors.file.invalidFileType.message);
+                    expect(res.text).to.contain(content.errors.file.invalidFileType.summary);
                     done();
                 })
                 .catch(done);
@@ -74,9 +75,10 @@ describe('document-upload', () => {
                 .post(testWrapper.pageUrl)
                 .set('enctype', 'multipart/form-data')
                 .field('isUploadingDocument', 'true')
+                .field('maxFileSize', config.documentUpload.maxSizeBytesTest)
                 .attach('file', 'test/data/document-upload/image-too-large.jpg')
                 .then((res) => {
-                    expect(res.text).to.contain(content.errors.file.maxSize.message);
+                    expect(res.text).to.contain(content.errors.file.maxSize.summary);
                     done();
                 })
                 .catch(done);
@@ -89,7 +91,7 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/valid-image.png')
                 .then((res) => {
-                    expect(res.text).to.contain(content.errors.file.uploadFailed.message);
+                    expect(res.text).to.contain(content.errors.file.uploadFailed.summary);
                     done();
                 })
                 .catch(done);
@@ -101,7 +103,7 @@ describe('document-upload', () => {
                 .set('enctype', 'multipart/form-data')
                 .field('isUploadingDocument', 'true')
                 .then((res) => {
-                    expect(res.text).to.contain(content.errors.file.nothingUploaded.message);
+                    expect(res.text).to.contain(content.errors.file.nothingUploaded.summary);
                     done();
                 })
                 .catch(done);
@@ -114,7 +116,7 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/invalid-type.jpg')
                 .then((res) => {
-                    expect(res.text).to.contain(content.errors.file.invalidFileType.message);
+                    expect(res.text).to.contain(content.errors.file.invalidFileType.summary);
                     done();
                 })
                 .catch(done);
@@ -127,15 +129,14 @@ describe('document-upload', () => {
                 .field('isUploadingDocument', 'true')
                 .attach('file', 'test/data/document-upload/invalid-type.jpg')
                 .then((res) => {
-                    expect(res.text).to.contain(content.errors.file.invalidFileType.message);
+                    expect(res.text).to.contain(content.errors.file.invalidFileType.summary);
                     done();
                 })
                 .catch(done);
         });
 
         it('test it redirects to the iht method page after clicking the continue button', (done) => {
-            const data = {};
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+            testWrapper.testRedirect(done, {}, expectedNextUrlForIhtMethod);
         });
     });
 });

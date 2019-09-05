@@ -22,24 +22,26 @@ describe('executors-update-invite', () => {
     describe('Verify Content, Errors and Redirection', () => {
 
         it('test correct content loaded on the page when only 1 other executor has had their email changed', (done) => {
+            const contentToExclude = ['header-multiple'];
             sessionData.executors.list[1].emailChanged = true;
             sessionData.executors.list[2].isApplying = true;
             sessionData.executors.list[2].emailChanged = false;
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, ['header-multiple']);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
         it('test correct content loaded on the page when more than 1 other executor has had their email changed', (done) => {
+            const contentToExclude = ['header'];
             sessionData.executors.list[1].emailChanged = true;
             sessionData.executors.list[2].isApplying = true;
             sessionData.executors.list[2].emailChanged = true;
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, ['header']);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
@@ -78,11 +80,10 @@ describe('executors-update-invite', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecutorsUpdateInviteSent}`, (done) => {
-            const data = {};
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecutorsUpdateInviteSent);
+                    testWrapper.testRedirect(done, {}, expectedNextUrlForExecutorsUpdateInviteSent);
                 });
         });
 

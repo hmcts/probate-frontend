@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedAlias = require('app/steps/ui/deceased/alias');
-const testHelpBlockContent = require('test/component/common/testHelpBlockContent.js');
+const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('value-assets-outside-england-wales', () => {
@@ -18,14 +18,14 @@ describe('value-assets-outside-england-wales', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testHelpBlockContent.runTest('ValueAssetsOutside');
+        testCommonContent.runTest('ValueAssetsOutside');
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, [], {});
+            testWrapper.testContent(done);
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required', []);
+            testWrapper.testErrors(done, {}, 'required');
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDeceasedAlias}`, (done) => {

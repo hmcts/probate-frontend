@@ -27,7 +27,7 @@ nodejs:
     REDIS_USE_TLS : false
     USE_IDAM : true
   image: hmctspublic.azurecr.io/probate/probate-frontend:latest
-
+#
 redis:
   cluster:
     enabled: false

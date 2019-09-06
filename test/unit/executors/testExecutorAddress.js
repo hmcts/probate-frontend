@@ -152,6 +152,25 @@ describe('ExecutorAddress', () => {
             done();
         });
 
+        it('sets the list of addresses to the executor\'s list of addresses when present and no main list of addresses present', (done) => {
+            const testCtx = {
+                list: [{
+                    addresses: [
+                        'address1',
+                        'address2',
+                        'address3'
+                    ]
+                }],
+                index: 0,
+                errors: []
+            };
+            const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
+
+            expect(ctx.addresses).to.equal(testCtx.list[0].addresses);
+            expect(errors).to.deep.equal(testCtx.errors);
+            done();
+        });
+
         it('does not set an address when address does not exist', (done) => {
             const testCtx = {
                 list: [{}],

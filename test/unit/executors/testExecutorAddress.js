@@ -107,6 +107,23 @@ describe('ExecutorAddress', () => {
     });
 
     describe('handleGet()', () => {
+        it('return errors and context', (done) => {
+            const testErrors = ['error'];
+            const testCtx = {
+                list: [{
+                    address: 'the address',
+                    postcode: 'the postcode'
+                }],
+                index: 0,
+                errors: testErrors
+            };
+            const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
+
+            expect(ctx).to.equal(testCtx);
+            expect(errors).to.deep.equal(testErrors);
+            done();
+        });
+
         it('sets the address to address of list', (done) => {
             const testCtx = {
                 list: [{

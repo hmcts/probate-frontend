@@ -31,10 +31,9 @@ class ExecutorAddress extends AddressStep {
         let errors = [];
         [ctx, errors] = super.handleGet(ctx);
 
-        if (errors && errors.length > 0) {
+        if (errors.length > 0) {
             return [ctx, errors];
         }
-
         if (ctx.list[ctx.index].address) {
             ctx.address = ctx.list[ctx.index].address;
             ctx.addressLine1 = get(ctx.address, 'addressLine1', '');

@@ -25,7 +25,7 @@ class AddressStep extends ValidationStep {
             ctx.country = get(ctx.address, 'country', 'United Kingdom');
         }
 
-        return [ctx];
+        return [ctx, []];
     }
 
     handlePost(ctx, errors) {

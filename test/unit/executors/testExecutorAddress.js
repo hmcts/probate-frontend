@@ -1,4 +1,4 @@
-/* eslint max-lines: ["error", 500] */
+// eslint-disable-line max-lines
 /* eslint-disable no-unused-expressions */
 
 const initSteps = require('app/core/initSteps');

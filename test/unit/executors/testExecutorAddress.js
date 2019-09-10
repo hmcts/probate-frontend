@@ -108,24 +108,7 @@ describe('ExecutorAddress', () => {
     });
 
     describe('handleGet()', () => {
-       /* describe('error conditions', () => {
-            it('return errors and context when errors exist', (done) => {
-                const testErrors = ['error'];
-                const testCtx = {
-                    list: [{
-                        address: 'the address',
-                        postcode: 'the postcode'
-                    }],
-                    index: 0,
-                    errors: testErrors
-                };
-                const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
-
-                expect(ctx).to.equal(testCtx);
-                expect(errors).to.deep.equal(testErrors);
-                done();
-            });*/
-
+        describe('error conditions', () => {
             it('return errors and context when error array exists but is empty', (done) => {
                 const testCtx = {
                     list: [{

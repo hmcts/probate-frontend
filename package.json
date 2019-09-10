@@ -37,7 +37,7 @@
     "security": "NODE_PATH=. nsp check",
     "test:functional": "npm run test-contract && ./bin/run-functional-tests.sh",
     "test:codecov-upload": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/**/test*.js' -- -R spec && codecov",
-    "test:coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/unit/test*.js' -- --timeout 15000",
+    "test:coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/unit/test*.js' './test/component/**/test*.js' -- --timeout 15000",
     "test-coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/**/test*.js'",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner",
     "sonar-scan": "node_modules/sonar-scanner/bin/sonar-scanner -Dsonar.projectName='Probate :: frontend' -Dsonar.sources=app -Dsonar.language=js -Dsonar.cpd.exclusions=app/**/*.njk,app/**/template.html -Dsonar.exclusions=app/assets/**,app/steps/ui/executors/address/index.js -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info",

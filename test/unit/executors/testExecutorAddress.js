@@ -108,7 +108,7 @@ describe('ExecutorAddress', () => {
     });
 
     describe('handleGet()', () => {
-        describe('error conditions', () => {
+       /* describe('error conditions', () => {
             it('return errors and context when errors exist', (done) => {
                 const testErrors = ['error'];
                 const testCtx = {
@@ -124,7 +124,7 @@ describe('ExecutorAddress', () => {
                 expect(ctx).to.equal(testCtx);
                 expect(errors).to.deep.equal(testErrors);
                 done();
-            });
+            });*/
 
             it('return errors and context when error array exists but is empty', (done) => {
                 const testCtx = {

@@ -141,6 +141,21 @@ describe('ExecutorAddress', () => {
                 expect(errors).to.be.undefined;
                 done();
             });
+
+            it('return errors and context when error array does NOT exists', (done) => {
+                const testCtx = {
+                    list: [{
+                        address: 'the address',
+                        postcode: 'the postcode'
+                    }],
+                    index: 0
+                };
+                const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
+
+                expect(ctx).to.equal(testCtx);
+                expect(errors).to.be.undefined;
+                done();
+            });
         });
 
         describe('address conditions', () => {

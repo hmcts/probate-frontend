@@ -142,7 +142,7 @@ describe('ExecutorAddress', () => {
                 done();
             });
 
-            it('return errors and context when error array exists but is empty', (done) => {
+            it('DOUG TEST WITH NO ERROR ARRAY', (done) => {
                 const testCtx = {
                     list: [{
                         address: 'the address',

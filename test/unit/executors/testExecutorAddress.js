@@ -148,6 +148,7 @@ describe('ExecutorAddress', () => {
                         address: 'the address',
                         postcode: 'the postcode'
                     }],
+                    index: 0
                 };
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 

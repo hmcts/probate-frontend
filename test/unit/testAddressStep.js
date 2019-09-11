@@ -120,9 +120,9 @@ describe('AddressStep', () => {
                 addressLine1: 'line1',
                 addressLine2: 'line2',
                 addressLine3: 'line3',
-                formattedAddress: 'line1 line2 line3 town postcode county country ',
+                formattedAddress: 'line1 line2 line3 town POSTCODE county country ',
                 postTown: 'town',
-                postCode: 'postcode',
+                postCode: 'POSTCODE',
                 county: 'county',
                 country: 'country'
             });

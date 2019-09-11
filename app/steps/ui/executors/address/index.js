@@ -57,7 +57,7 @@ class ExecutorAddress extends AddressStep {
     handlePost(ctx, errors) {
         super.handlePost(ctx, errors);
         ctx.list[ctx.index].address = ctx.address;
-        ctx.list[ctx.index].postcode = ctx.postcode ? ctx.postcode.toUpperCase() : ctx.postcode;
+        ctx.list[ctx.index].postcode = ctx.postcode;
         ctx.list[ctx.index].addresses = ctx.addresses;
 
         ctx.index = this.recalcIndex(ctx, ctx.index);

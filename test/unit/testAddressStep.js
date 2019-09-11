@@ -11,8 +11,11 @@ describe('AddressStep', () => {
     let schema;
     let ctxToTest;
     let error;
+    // eslint-disable-next-line no-unused-vars
+    let test;
 
     beforeEach(() => {
+        test = 'beforeEach';
         steps = {};
         section = 'deceased';
         templatePath = 'addressLookup';

@@ -22,7 +22,7 @@ describe('recap', () => {
                     state: 'CaseCreated',
                 }
             };
-            const excludeKeys = [
+            const contentToExclude = [
                 'progressStep2-2',
                 'progressStep3-2',
                 'block1Checklist-item1-will-codicils',
@@ -46,7 +46,7 @@ describe('recap', () => {
                         ccdReferenceNumber: '1234-5678-9012-3456'
                     };
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -60,7 +60,7 @@ describe('recap', () => {
                     sentDocuments: true
                 }
             };
-            const excludeKeys = [
+            const contentToExclude = [
                 'progressStep2-2',
                 'progressStep3-2',
                 'block1Checklist-item1-will-no-codicils',
@@ -93,7 +93,7 @@ describe('recap', () => {
                         ccdReferenceNumber: '1234-5678-9012-3456'
                     };
 
-                    testWrapper.testContent(done, excludeKeys, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
     });

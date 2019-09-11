@@ -73,7 +73,7 @@
     "express-session": "^1.16.2",
     "file-type": "^12.1.0",
     "git-rev-sync": "^1.12.0",
-    "govuk-frontend": "^3.0.0",
+    "govuk-frontend": "^3.2.0",
     "helmet": "^3.20.0",
     "https-proxy-agent": "^2.2.2",
     "i18next": "^17.0.11",
@@ -138,7 +138,7 @@
     "unirest": "^0.6.0",
     "uuid": "^3.3.2",
     "watch": "^1.0.2",
-    "webdriverio": "^5.11.13",
+    "webdriverio": "^4.14.4",
     "when": "^3.7.8"
   }
 }

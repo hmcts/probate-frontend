@@ -8,7 +8,6 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const nunjucks = require('nunjucks');
-const filters = require('app/components/filters.js');
 const routes = require(`${__dirname}/app/routes`);
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
@@ -75,9 +74,8 @@ exports.init = function() {
         'node_modules/govuk-frontend/',
         'node_modules/@hmcts/frontend/components/'
     ], {
-        autoescape: true,
-        watch: true,
-        noCache: true
+        noCache: false,
+        express: app
     });
 
     const globals = {
@@ -105,9 +103,6 @@ exports.init = function() {
         }
     };
     njkEnv.addGlobal('globals', globals);
-
-    filters(njkEnv);
-    njkEnv.express(app);
 
     app.enable('trust proxy');
 
@@ -168,7 +163,7 @@ exports.init = function() {
     const caching = {cacheControl: true, setHeaders: (res) => res.setHeader('Cache-Control', 'max-age=604800')};
 
     // Middleware to serve static assets
-    app.use('/webchat', express.static(`${__dirname}/node_modules/@hmcts/ctsc-web-chat/assets`, caching));
+    app.use('/public/webchat', express.static(`${__dirname}/node_modules/@hmcts/ctsc-web-chat/assets`, caching));
     app.use('/public/stylesheets', express.static(`${__dirname}/public/stylesheets`, caching));
     app.use('/public/images', express.static(`${__dirname}/app/assets/images`, caching));
     app.use('/public/javascripts/govuk-frontend', express.static(`${__dirname}/node_modules/govuk-frontend`, caching));

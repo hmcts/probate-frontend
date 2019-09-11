@@ -51,10 +51,7 @@ describe('Recap', () => {
                 executorsNameChangedByDeedPollList: [],
                 is205: true,
                 checkAnswersSummary: true,
-                legalDeclaration: true,
-                featureToggles: {
-                    webchat: 'false'
-                }
+                legalDeclaration: true
             });
             done();
         });
@@ -89,10 +86,7 @@ describe('Recap', () => {
                 is205: true,
                 spouseRenouncing: true,
                 checkAnswersSummary: true,
-                legalDeclaration: true,
-                featureToggles: {
-                    webchat: 'false'
-                }
+                legalDeclaration: true
             });
             done();
         });

@@ -2,6 +2,7 @@
 
 const AddressStep = require('app/core/steps/AddressStep');
 const expect = require('chai').expect;
+const assert = require('chai').assert;
 
 describe('AddressStep', () => {
     let steps;
@@ -103,7 +104,7 @@ describe('AddressStep', () => {
 
     });
 
-    describe('handlePost()', () => {
+    describe.only('handlePost()', () => {
         it('should return formatted address when an address exists', (done) => {
             ctxToTest = {
                 addressLine1: 'line1',
@@ -126,6 +127,40 @@ describe('AddressStep', () => {
                 county: 'county',
                 country: 'country'
             });
+            done();
+        });
+
+        it('should return uppercase postcode', (done) => {
+            ctxToTest = {
+                addressLine1: 'line1',
+                addressLine2: 'line2',
+                addressLine3: 'line3',
+                postTown: 'town',
+                county: 'county',
+                newPostCode: 'postcode',
+                country: 'country',
+                postcode: 'uppercase'
+            };
+            const addressStep = new AddressStep(steps, section, templatePath, i18next, schema);
+            const ctx = addressStep.handlePost(ctxToTest, null);
+            expect(ctx[0].postcode).to.equal('UPPERCASE');
+            done();
+        });
+
+        it('should return empty postcode when origianlly empty', (done) => {
+            ctxToTest = {
+                addressLine1: 'line1',
+                addressLine2: 'line2',
+                addressLine3: 'line3',
+                postTown: 'town',
+                county: 'county',
+                newPostCode: 'postcode',
+                country: 'country',
+                postcode: ''
+            };
+            const addressStep = new AddressStep(steps, section, templatePath, i18next, schema);
+            const ctx = addressStep.handlePost(ctxToTest, null);
+            assert.isEmpty(ctx[0].postcode);
             done();
         });
     });

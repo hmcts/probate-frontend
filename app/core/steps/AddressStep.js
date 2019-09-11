@@ -38,7 +38,7 @@ class AddressStep extends ValidationStep {
             county: ctx.county,
             country: ctx.country
         };
-        ctx.postcode = ctx.postcode ? ctx.postcode.toUpperCase() : ctx.postcode;
+        ctx.postcode = ctx.postcode ? ctx.postcode.toUpperCase() : '';
         ctx.address.formattedAddress = this.getFormattedAddress(ctx.address);
 
         return [ctx, errors];

@@ -372,7 +372,7 @@ describe('ExecutorAddress', () => {
                     formattedAddress: 'line1 line2 line3 town postcode county country ',
                     postTown: 'town',
                     county: 'county',
-                    postCode: 'postcode',
+                    postCode: 'POSTCODE',
                     country: 'country'
                 },
                 addresses: ['displayAddress1', 'displayAddress2']

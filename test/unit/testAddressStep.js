@@ -104,7 +104,7 @@ describe('AddressStep', () => {
 
     });
 
-    describe.only('handlePost()', () => {
+    describe('handlePost()', () => {
         it('should return formatted address when an address exists', (done) => {
             ctxToTest = {
                 addressLine1: 'line1',

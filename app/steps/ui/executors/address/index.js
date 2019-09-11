@@ -28,7 +28,7 @@ class ExecutorAddress extends AddressStep {
     }
 
     handleGet(ctx) {
-        let errors = [];
+        let errors;
         [ctx, errors] = super.handleGet(ctx);
 
         if (errors.length > 0) {
@@ -51,7 +51,7 @@ class ExecutorAddress extends AddressStep {
             ctx.addresses = ctx.list[ctx.index].addresses;
         }
 
-        return [ctx, ctx.errors];
+        return [ctx, errors];
     }
 
     handlePost(ctx, errors) {

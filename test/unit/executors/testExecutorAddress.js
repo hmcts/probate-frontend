@@ -10,7 +10,6 @@ const executorAddressPath = '/executor-address/';
 const journey = require('app/journeys/probate');
 
 describe('ExecutorAddress', () => {
-
     describe('getUrl()', () => {
         it('returns the url with a * param when no index is given', (done) => {
             const url = ExecutorAddress.constructor.getUrl();
@@ -126,7 +125,7 @@ describe('ExecutorAddress', () => {
                 done();
             });
 
-            it('return errors and context when error array exists but is empty', (done) => {
+            it('return errors and context when the error array is empty', (done) => {
                 const testCtx = {
                     list: [{
                         address: 'the address',
@@ -138,22 +137,7 @@ describe('ExecutorAddress', () => {
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
                 expect(ctx).to.equal(testCtx);
-                expect(errors).to.be.undefined;
-                done();
-            });
-
-            it('return errors and context when error array does NOT exists', (done) => {
-                const testCtx = {
-                    list: [{
-                        address: 'the address',
-                        postcode: 'the postcode'
-                    }],
-                    index: 0
-                };
-                const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
-
-                expect(ctx).to.equal(testCtx);
-                expect(errors).to.be.undefined;
+                expect(errors).to.deep.equal([]);
                 done();
             });
         });
@@ -185,7 +169,7 @@ describe('ExecutorAddress', () => {
                 expect(ctx.county).to.equal(ctx.address.county);
                 expect(ctx.newPostCode).to.equal(ctx.address.postCode);
                 expect(ctx.country).to.equal(ctx.address.country);
-                expect(errors).to.deep.equal(testCtx.errors);
+                expect(errors).to.deep.equal([]);
                 done();
             });
 
@@ -205,7 +189,7 @@ describe('ExecutorAddress', () => {
                 expect(ctx.county).to.be.undefined;
                 expect(ctx.newPostCode).to.be.undefined;
                 expect(ctx.country).to.be.undefined;
-                expect(errors).to.be.undefined;
+                expect(errors).to.deep.equal([]);
                 done();
             });
         });
@@ -223,7 +207,7 @@ describe('ExecutorAddress', () => {
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
                 expect(ctx.postcode).to.equal(testCtx.list[0].postcode);
-                expect(errors).to.deep.equal(testCtx.errors);
+                expect(errors).to.deep.equal([]);
                 done();
             });
 
@@ -238,7 +222,7 @@ describe('ExecutorAddress', () => {
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
                 expect(ctx.postcode).to.be.undefined;
-                expect(errors).to.deep.equal(testCtx.errors);
+                expect(errors).to.deep.equal([]);
                 done();
             });
         });
@@ -259,7 +243,7 @@ describe('ExecutorAddress', () => {
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
                 expect(ctx.addresses).to.equal(testCtx.list[0].addresses);
-                expect(errors).to.deep.equal(testCtx.errors);
+                expect(errors).to.deep.equal([]);
                 done();
             });
 
@@ -283,7 +267,7 @@ describe('ExecutorAddress', () => {
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
                 expect(ctx.addresses).to.equal(testCtx.addresses);
-                expect(errors).to.deep.equal(testCtx.errors);
+                expect(errors).to.deep.equal([]);
                 done();
             });
 
@@ -296,7 +280,7 @@ describe('ExecutorAddress', () => {
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
                 expect(ctx.addresses).to.be.undefined;
-                expect(errors).to.deep.equal(testCtx.errors);
+                expect(errors).to.deep.equal([]);
                 done();
             });
 
@@ -314,7 +298,7 @@ describe('ExecutorAddress', () => {
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
                 expect(ctx.addresses).to.equal(testCtx.addresses);
-                expect(errors).to.deep.equal(testCtx.errors);
+                expect(errors).to.deep.equal([]);
                 done();
             });
         });
@@ -328,7 +312,7 @@ describe('ExecutorAddress', () => {
             const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
             expect(ctx).to.deep.equal(testCtx);
-            expect(errors).to.deep.equal(testCtx.errors);
+            expect(errors).to.deep.equal([]);
             done();
         });
     });

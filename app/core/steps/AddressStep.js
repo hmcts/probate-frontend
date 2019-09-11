@@ -34,7 +34,7 @@ class AddressStep extends ValidationStep {
             addressLine2: ctx.addressLine2,
             addressLine3: ctx.addressLine3,
             postTown: ctx.postTown,
-            postCode: ctx.newPostCode,
+            postCode: ctx.newPostCode.toUpperCase(),
             county: ctx.county,
             country: ctx.country
         };

@@ -180,6 +180,24 @@ describe('ExecutorAddress', () => {
             expect(errors).to.deep.equal(testCtx.errors);
             done();
         });
+
+        it('sets the list of addresses when executor\'s list of addresses exists and main list of addresses does not exist', (done) => {
+            const testCtx = {
+                list: [{
+                    addresses: [
+                        'address1',
+                        'address2',
+                        'address3'
+                    ]
+                }],
+                index: 0
+            };
+            const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
+
+            expect(ctx.addresses).to.equal(testCtx.list[0].addresses);
+            expect(errors).to.deep.equal([]);
+            done();
+        });
     });
 
     describe('handlePost()', () => {

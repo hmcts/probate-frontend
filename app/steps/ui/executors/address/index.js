@@ -49,7 +49,7 @@ class ExecutorAddress extends AddressStep {
             ctx.postcode = ctx.list[ctx.index].postcode;
         }
 
-        if (ctx.list[ctx.index].addresses) {
+        if (ctx.list[ctx.index].addresses && Boolean(!ctx.addresses)) {
             ctx.addresses = ctx.list[ctx.index].addresses;
         }
 

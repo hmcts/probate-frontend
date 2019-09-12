@@ -27,7 +27,7 @@
             removeFileText: '{{ common.documentUploadRemoveFile }}',
             errorSummaryHeading: '{{ common.errorSummaryHeading }}',
             invalidFileType: '{{ common["documentUpload-invalidFileType"] }}',
-            invalidFileTypeSummary: '{{ common["documentUpload-invalidFileTypeSummary"] }}',
+            invalidFileTypeSummary: '{{ common["documentUpload-invalidFileTypeSummary"] | safe }}',
             maxFiles: '{{ common["documentUpload-maxFiles"] }}',
             maxFilesSummary: '{{ common["documentUpload-maxFilesSummary"] }}',
             maxSize: '{{ common["documentUpload-maxSize"] }}',

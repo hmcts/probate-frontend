@@ -1,5 +1,5 @@
 'use strict';
-
+// TEST
 //const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {head} = require('lodash');

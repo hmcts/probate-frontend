@@ -107,6 +107,38 @@ describe('ExecutorAddress', () => {
     });
 
     describe('handleGet()', () => {
+        it('sets the postcode when postcode exists', (done) => {
+            const testCtx = {
+                list: [{
+                    address: 'the address',
+                    postcode: 'the postcode'
+                }],
+                index: 0,
+                errors: []
+            };
+            const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
+
+            expect(ctx.postcode).to.equal(testCtx.list[0].postcode);
+            expect(errors).to.deep.equal(testCtx.errors);
+            done();
+        });
+
+        it('does not set the postcode when postcode does not exist', (done) => {
+            const testCtx = {
+                list: [{
+                    address: 'the address'
+                }],
+                index: 0,
+                errors: []
+            };
+            const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
+
+            // eslint-disable-next-line no-unused-expressions
+            expect(ctx.postcode).to.be.undefined;
+            expect(errors).to.deep.equal(testCtx.errors);
+            done();
+        });
+
         it('sets the address to address of list', (done) => {
             const testCtx = {
                 list: [{
@@ -132,22 +164,6 @@ describe('ExecutorAddress', () => {
             expect(ctx.county).to.equal(ctx.address.county);
             expect(ctx.newPostCode).to.equal(ctx.address.postCode);
             expect(ctx.country).to.equal(ctx.address.country);
-            expect(errors).to.deep.equal(testCtx.errors);
-            done();
-        });
-
-        it('sets the postcode when postcode exists', (done) => {
-            const testCtx = {
-                list: [{
-                    address: 'the address',
-                    postcode: 'the postcode'
-                }],
-                index: 0,
-                errors: []
-            };
-            const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
-
-            expect(ctx.postcode).to.equal(testCtx.list[0].postcode);
             expect(errors).to.deep.equal(testCtx.errors);
             done();
         });

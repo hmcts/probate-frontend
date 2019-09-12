@@ -31,7 +31,7 @@ class ExecutorAddress extends AddressStep {
         let errors = [];
         [ctx, errors] = super.handleGet(ctx);
 
-        if (errors && errors.length > 0) {
+        if (errors && errors.length>0) {
             return [ctx, errors];
         }
 

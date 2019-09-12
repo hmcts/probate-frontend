@@ -190,12 +190,14 @@ describe('ExecutorAddress', () => {
                         'address3'
                     ]
                 }],
-                index: 0
+                index: 0,
+                errors: []
             };
             const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
             expect(ctx.addresses).to.equal(testCtx.list[0].addresses);
-            expect(errors).to.deep.equal([]);
+            // eslint-disable-next-line no-unused-expressions
+            expect(errors).to.be.undefined;
             done();
         });
     });

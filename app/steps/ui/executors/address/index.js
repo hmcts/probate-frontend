@@ -48,6 +48,7 @@ class ExecutorAddress extends AddressStep {
         if (ctx.list[ctx.index].postcode) {
             ctx.postcode = ctx.list[ctx.index].postcode;
         }
+
         if (ctx.list[ctx.index].addresses) {
             ctx.addresses = ctx.list[ctx.index].addresses;
         }

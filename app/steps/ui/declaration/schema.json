@@ -3,5 +3,7 @@
   "id": "declaration",
   "type": "object",
   "properties": {},
-  "required": ["declarationCheckbox"]
+  "required": [
+    "declarationCheckbox"
+  ]
 }

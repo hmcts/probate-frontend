@@ -3,5 +3,7 @@
   "id": "documents",
   "type": "object",
   "properties": {},
-  "required": ["sentDocuments"]
+  "required": [
+    "sentDocuments"
+  ]
 }

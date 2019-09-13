@@ -4,9 +4,9 @@
   "type": "object",
   "properties": {
     "currentName": {
-        "type": "string",
-        "minLength": 2,
-        "pattern": "^[^<>]+$"
+      "type": "string",
+      "minLength": 2,
+      "pattern": "^[^<>]+$"
     }
   },
   "required": [

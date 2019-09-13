@@ -2,8 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "executors-when-died'",
   "type": "object",
-  "properties": {
-  },
+  "properties": {},
   "required": [
     "diedbefore"
   ]

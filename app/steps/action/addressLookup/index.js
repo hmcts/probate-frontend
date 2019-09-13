@@ -6,7 +6,6 @@ const ActionStepRunner = require('app/core/runners/ActionStepRunner');
 const FieldError = require('app/components/error');
 const PostcodeAddress = require('app/services/PostcodeAddress');
 const stringUtils = require('app/components/string-utils');
-const logger = require('app/components/logger')('Init');
 
 class AddressLookup extends ValidationStep {
     static getUrl() {
@@ -21,7 +20,7 @@ class AddressLookup extends ValidationStep {
         return this.steps[this.referrer];
     }
 
-    * handlePost (ctx, errors, formdata) {
+    * handlePost(ctx, errors, formdata) {
         this.referrer = ctx.referrer;
         let referrerData = this.getReferrerData(ctx, formdata);
         referrerData = this.pruneReferrerData(referrerData);
@@ -42,12 +41,10 @@ class AddressLookup extends ValidationStep {
                             );
                     }
                 } else {
-                    logger.error(`No addresses found for postcode: ${ctx.postcode}`);
                     referrerData.addressFound = 'false';
                     referrerData.errors = [FieldError('postcode', 'noAddresses', this.resourcePath, ctx)];
                 }
             } catch (e) {
-                logger.error(`An error occured likely to be an invalid postcode for : ${ctx.postcode}`);
                 referrerData.addressFound = 'false';
                 referrerData.errors = [FieldError('postcode', 'invalid', this.resourcePath, ctx)];
             }

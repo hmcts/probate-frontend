@@ -5,8 +5,8 @@
   "properties": {},
   "switch": [
     {
-      "if": {"properties": { "currentNameReason": { "enum": [""] } }},
-      "then": {"required": ["currentNameReason"]},
+      "if": { "properties": { "currentNameReason": { "enum": [""] } } },
+      "then": { "required": ["currentNameReason"] },
       "continue": false
     },
     {

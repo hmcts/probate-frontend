@@ -1,4 +1,5 @@
-/* eslint max-lines: ["error", 500] */
+// eslint-disable-line max-lines
+/* eslint-disable no-unused-expressions */
 
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
@@ -9,7 +10,6 @@ const executorAddressPath = '/executor-address/';
 const journey = require('app/journeys/probate');
 
 describe('ExecutorAddress', () => {
-
     describe('getUrl()', () => {
         it('returns the url with a * param when no index is given', (done) => {
             const url = ExecutorAddress.constructor.getUrl();
@@ -107,62 +107,170 @@ describe('ExecutorAddress', () => {
     });
 
     describe('handleGet()', () => {
-        it('sets the address to address of list', (done) => {
-            const testCtx = {
-                list: [{
-                    address: {
-                        addressLine1: 'line1',
-                        addressLine2: 'line2',
-                        addressLine3: 'line3',
-                        postTown: 'town',
-                        county: 'county',
-                        postCode: 'postcode',
-                        country: 'country'
-                    },
-                }],
-                index: 0,
-                errors: []
-            };
-            const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
+        describe('error conditions', () => {
+            it('return errors and context when errors exist', (done) => {
+                const testErrors = ['error'];
+                const testCtx = {
+                    list: [{
+                        address: 'the address',
+                        postcode: 'the postcode'
+                    }],
+                    index: 0,
+                    errors: testErrors
+                };
+                const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
-            expect(ctx.address).to.equal(testCtx.list[0].address);
-            expect(ctx.addressLine1).to.equal(ctx.address.addressLine1);
-            expect(ctx.addressLine2).to.equal(ctx.address.addressLine2);
-            expect(ctx.postTown).to.equal(ctx.address.postTown);
-            expect(ctx.county).to.equal(ctx.address.county);
-            expect(ctx.newPostCode).to.equal(ctx.address.postCode);
-            expect(ctx.country).to.equal(ctx.address.country);
-            expect(errors).to.deep.equal(testCtx.errors);
-            done();
+                expect(ctx).to.equal(testCtx);
+                expect(errors).to.deep.equal(testErrors);
+                done();
+            });
+
+            it('return errors and context when the error array is empty', (done) => {
+                const testCtx = {
+                    list: [{
+                        address: 'the address',
+                        postcode: 'the postcode'
+                    }],
+                    index: 0
+                };
+                const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
+
+                expect(ctx).to.equal(testCtx);
+                expect(errors).to.deep.equal([]);
+                done();
+            });
         });
 
-        it('sets the postcode when postcode exists', (done) => {
-            const testCtx = {
-                list: [{
-                    address: 'the address',
-                    postcode: 'the postcode'
-                }],
-                index: 0,
-                errors: []
-            };
-            const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
+        describe('address conditions', () => {
+            it('sets the address to executor\'s address when it exist', (done) => {
+                const testCtx = {
+                    list: [{
+                        address: {
+                            addressLine1: 'line1',
+                            addressLine2: 'line2',
+                            addressLine3: 'line3',
+                            postTown: 'town',
+                            county: 'county',
+                            postCode: 'postcode',
+                            country: 'country'
+                        },
+                    }],
+                    index: 0
+                };
+                const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
-            expect(ctx.postcode).to.equal(testCtx.list[0].postcode);
-            expect(errors).to.deep.equal(testCtx.errors);
-            done();
+                expect(ctx.address).to.equal(testCtx.list[0].address);
+                expect(ctx.addressLine1).to.equal(ctx.address.addressLine1);
+                expect(ctx.addressLine2).to.equal(ctx.address.addressLine2);
+                expect(ctx.addressLine3).to.equal(ctx.address.addressLine3);
+                expect(ctx.postTown).to.equal(ctx.address.postTown);
+                expect(ctx.county).to.equal(ctx.address.county);
+                expect(ctx.newPostCode).to.equal(ctx.address.postCode);
+                expect(ctx.country).to.equal(ctx.address.country);
+                expect(errors).to.deep.equal([]);
+                done();
+            });
+
+            it('does not set an address when address does not exist', (done) => {
+                const testCtx = {
+                    list: [{}],
+                    index: 0
+                };
+                const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
+
+                expect(ctx).to.deep.equal(testCtx);
+                expect(errors).to.deep.equal([]);
+                done();
+            });
         });
 
-        it('does not set an address when address does not exist', (done) => {
-            const testCtx = {
-                list: [{}],
-                index: 0,
-                errors: []
-            };
-            const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
+        describe('postcode conditions', () => {
+            it('sets the postcode when postcode exists', (done) => {
+                const testCtx = {
+                    list: [{
+                        address: 'the address',
+                        postcode: 'the postcode'
+                    }],
+                    index: 0
+                };
+                const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
-            expect(ctx).to.deep.equal(testCtx);
-            expect(errors).to.deep.equal(testCtx.errors);
-            done();
+                expect(ctx.postcode).to.equal(testCtx.list[0].postcode);
+                expect(errors).to.deep.equal([]);
+                done();
+            });
+        });
+
+        describe('main addresses conditions', () => {
+            it('sets the list of addresses when executor\'s list of addresses exists and main list of addresses does not exist', (done) => {
+                const testCtx = {
+                    list: [{
+                        addresses: [
+                            'address1',
+                            'address2',
+                            'address3'
+                        ]
+                    }],
+                    index: 0
+                };
+                const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
+
+                expect(ctx.addresses).to.equal(testCtx.list[0].addresses);
+                expect(errors).to.deep.equal([]);
+                done();
+            });
+
+            it('does not set the list of addresses when executor\'s list of addresses exists and main list of addresses also exists', (done) => {
+                const testCtx = {
+                    list: [{
+                        addresses: [
+                            'address1',
+                            'address2',
+                            'address3'
+                        ]
+                    }],
+                    index: 0,
+                    addresses: [
+                        'address4',
+                        'address5',
+                        'address6'
+                    ]
+                };
+                const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
+
+                expect(ctx.addresses).to.equal(testCtx.addresses);
+                expect(errors).to.deep.equal([]);
+                done();
+            });
+
+            it('does not set the list of addresses when executor\'s list of addresses doesn\'t exist and main list of addresses also doesn\'t exist', (done) => {
+                const testCtx = {
+                    list: [{}],
+                    index: 0
+                };
+                const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
+
+                expect(ctx.addresses).to.be.undefined;
+                expect(errors).to.deep.equal([]);
+                done();
+            });
+
+            it('does not set the list of addresses when executor\'s list of addresses doesn\'t exist but main list of addresses exists', (done) => {
+                const testCtx = {
+                    list: [{}],
+                    index: 0,
+                    addresses: [
+                        'address4',
+                        'address5',
+                        'address6'
+                    ]
+                };
+                const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
+
+                expect(ctx.addresses).to.equal(testCtx.addresses);
+                expect(errors).to.deep.equal([]);
+                done();
+            });
         });
     });
 

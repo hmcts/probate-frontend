@@ -28,13 +28,12 @@ class ExecutorAddress extends AddressStep {
     }
 
     handleGet(ctx) {
-        let errors = [];
+        let errors;
         [ctx, errors] = super.handleGet(ctx);
 
-        if (errors && errors.length > 0) {
+        if (errors.length > 0) {
             return [ctx, errors];
         }
-
         if (ctx.list[ctx.index].address) {
             ctx.address = ctx.list[ctx.index].address;
             ctx.addressLine1 = get(ctx.address, 'addressLine1', '');
@@ -48,17 +47,17 @@ class ExecutorAddress extends AddressStep {
         if (ctx.list[ctx.index].postcode) {
             ctx.postcode = ctx.list[ctx.index].postcode;
         }
-        if (ctx.list[ctx.index].addresses) {
+        if (ctx.list[ctx.index].addresses && !ctx.addresses) {
             ctx.addresses = ctx.list[ctx.index].addresses;
         }
 
-        return [ctx, ctx.errors];
+        return [ctx, errors];
     }
 
     handlePost(ctx, errors) {
         super.handlePost(ctx, errors);
         ctx.list[ctx.index].address = ctx.address;
-        ctx.list[ctx.index].postcode = ctx.postcode ? ctx.postcode.toUpperCase() : ctx.postcode;
+        ctx.list[ctx.index].postcode = ctx.postcode;
         ctx.list[ctx.index].addresses = ctx.addresses;
 
         ctx.index = this.recalcIndex(ctx, ctx.index);

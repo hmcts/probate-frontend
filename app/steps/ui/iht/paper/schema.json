@@ -5,8 +5,8 @@
   "properties": {},
   "switch": [
     {
-      "if": {"properties": { "form": { "enum": [""] } }},
-      "then": {"required": ["form"]},
+      "if": { "properties": { "form": { "enum": [""] } } },
+      "then": { "required": ["form"] },
       "continue": false
     },
     {
@@ -23,7 +23,7 @@
             "minLength": 1,
             "maxLength": 13
           }
-      },
+        },
         "required": ["grossValueFieldIHT205", "netValueFieldIHT205"]
       },
       "continue": false
@@ -42,7 +42,7 @@
             "minLength": 1,
             "maxLength": 13
           }
-      },
+        },
         "required": ["grossValueFieldIHT207", "netValueFieldIHT207"]
       },
       "continue": false
@@ -61,7 +61,7 @@
             "minLength": 1,
             "maxLength": 13
           }
-      },
+        },
         "required": ["grossValueFieldIHT400421", "netValueFieldIHT400421"]
       },
       "continue": false

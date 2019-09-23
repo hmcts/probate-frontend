@@ -73,4 +73,15 @@ describe('InviteLinkService', () => {
             done();
         });
     });
+
+    describe('encodeURLNameParams()', () => {
+        it('should encode each name parameter in the url', (done) => {
+            const endpoint = 'http://localhost';
+            const inviteLink = new InviteLink(endpoint, 'abc123');
+            const invitation = {Name: 'Test Name'};
+            const encodedInvitation = inviteLink.encodeURLNameParams(invitation);
+            expect(encodedInvitation).to.deep.equal({Name: 'Test%20Name'});
+            done();
+        });
+    });
 });

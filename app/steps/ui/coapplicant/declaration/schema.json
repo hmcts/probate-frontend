@@ -3,5 +3,7 @@
   "id": "co-applicant-declaration",
   "type": "object",
   "properties": {},
-  "required": ["agreement"]
+  "required": [
+    "agreement"
+  ]
 }

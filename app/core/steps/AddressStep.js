@@ -6,7 +6,6 @@ const {get} = require('lodash');
 class AddressStep extends ValidationStep {
 
     handleGet(ctx, formdata) {
-
         if (ctx.errors) {
             const errors = ctx.errors;
             delete ctx.errors;
@@ -25,7 +24,7 @@ class AddressStep extends ValidationStep {
             ctx.newPostCode = get(ctx.address, 'postCode', '');
             ctx.country = get(ctx.address, 'country', 'United Kingdom');
         }
-        return [ctx];
+        return [ctx, []];
     }
 
     handlePost(ctx, errors) {
@@ -38,6 +37,7 @@ class AddressStep extends ValidationStep {
             county: ctx.county,
             country: ctx.country
         };
+        ctx.postcode = ctx.postcode ? ctx.postcode.toUpperCase() : ctx.postcode;
         ctx.address.formattedAddress = this.getFormattedAddress(ctx.address);
 
         return [ctx, errors];
@@ -64,13 +64,13 @@ class AddressStep extends ValidationStep {
                 formattedAddress = `${formattedAddress}${value} `;
             }
         });
+
         return formattedAddress;
     }
 
     isComplete(ctx) {
         return [Boolean(ctx.address), 'inProgress'];
     }
-
 }
 
 module.exports = AddressStep;

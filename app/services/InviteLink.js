@@ -12,6 +12,7 @@ class InviteLink extends Service {
 
     post(data, exec) {
         this.log('Post invite link');
+        data.invitation = this.encodeURLNameParams(data.invitation);
         const urlParam = exec.inviteId ? `/${exec.inviteId}` : '';
         const url = this.formatUrl.format(this.endpoint, `/invite${urlParam}`);
         const headers = {
@@ -20,6 +21,15 @@ class InviteLink extends Service {
         };
         const fetchOptions = this.fetchOptions(data, 'POST', headers);
         return this.fetchText(url, fetchOptions);
+    }
+
+    encodeURLNameParams(invitation) {
+        for (const key in invitation) {
+            if (key.includes('Name')) {
+                invitation[key] = encodeURIComponent(invitation[key]);
+            }
+        }
+        return invitation;
     }
 }
 

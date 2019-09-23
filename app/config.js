@@ -120,6 +120,7 @@ const config = {
         buttonServiceClosed: process.env.WEBCHAT_BUTTON_SERVICE_CLOSED || '4639879315d19f67c3c1055.15174024',
     },
     links: {
+        accessibility: '/accessibility-statement',
         cookies: '/cookies',
         privacy: '/privacy-policy',
         terms: '/terms-conditions',
@@ -146,7 +147,12 @@ const config = {
         whoInherits: 'https://www.gov.uk/inherits-someone-dies-without-will',
         ifYoureAnExecutor: 'https://www.gov.uk/wills-probate-inheritance/if-youre-an-executor',
         renunciationForm: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will',
-        assessingMentalCapacity: 'https://www.gov.uk/make-decisions-for-someone/assessing-mental-capacity'
+        assessingMentalCapacity: 'https://www.gov.uk/make-decisions-for-someone/assessing-mental-capacity',
+        myAbilityLink: 'https://mcmw.abilitynet.org.uk/',
+        equalityAdvisorLink: 'https://www.equalityadvisoryservice.com/',
+        wcag21Link: 'https://www.w3.org/TR/WCAG21/',
+        probateStartApplyLink: 'https://www.apply-for-probate.service.gov.uk/start-apply',
+        caveatsStartApplyLink: 'https://www.apply-for-probate.service.gov.uk/caveats/start-apply'
     },
     helpline: {
         number: '0300 303 0648',
@@ -187,7 +193,7 @@ const config = {
         gop: [],
         intestacy: []
     },
-    nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'terms-conditions', 'privacy-policy', 'cookies'],
+    nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies'],
     endpoints: {
         health: '/health',
         info: '/info'

@@ -150,9 +150,7 @@ const config = {
         assessingMentalCapacity: 'https://www.gov.uk/make-decisions-for-someone/assessing-mental-capacity',
         myAbilityLink: 'https://mcmw.abilitynet.org.uk/',
         equalityAdvisorLink: 'https://www.equalityadvisoryservice.com/',
-        wcag21Link: 'https://www.w3.org/TR/WCAG21/',
-        probateStartApplyLink: 'https://www.apply-for-probate.service.gov.uk/start-apply',
-        caveatsStartApplyLink: 'https://www.apply-for-probate.service.gov.uk/caveats/start-apply'
+        wcag21Link: 'https://www.w3.org/TR/WCAG21/'
     },
     helpline: {
         number: '0300 303 0648',

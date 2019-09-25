@@ -17,7 +17,7 @@
         <p class="govuk-body">{{ content.paragraph1 }}</p>
 
         {{ govukInsetText({
-            text: (content.help1 + "<br><br>" + content.help2) | safe
+            text: ("<p class=\"govuk-body\">" + content.help1 + "</p><p>" + content.help2 + "</p>") | safe
         }) }}
 
         {{ govukDetails({

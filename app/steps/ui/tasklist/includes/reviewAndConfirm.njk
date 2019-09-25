@@ -24,11 +24,14 @@
         ) }}
         {% if fields.ReviewAndConfirmTask.value.status == "complete" %}
             {% if fields.hasMultipleApplicants.value == "true" and fields.alreadyDeclared.value == "false" %}
-                <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph1 | safe }}</p>
-                <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph2 | safe }}</p>
+                <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph1 }}</p>
+                <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph2 }}</p>
+                <h3 class="govuk-heading-s">{{ content.reviewAndConfirmTaskMultiplesParagraph3Heading }}</h3>
+                <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph3 }}</p>
 
                 {{ govukTable({
-                  caption: "See which executors have declared",
+                  caption: content.reviewAndConfirmTaskMultiplesParagraph3Heading,
+                  captionClasses: "govuk-visually-hidden",
                   firstCellIsHeader: false,
                   head: [
                     {

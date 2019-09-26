@@ -694,7 +694,7 @@
             "answers": [
               "No"
             ],
-            "question": "Were any updates (‘codicils’) made to the will?"
+            "question": "Were any updates (&lsquo;codicils&rsquo;) made to the will?"
           }
         ]
       },
@@ -748,7 +748,7 @@
             "answers": [
               "3"
             ],
-            "question": "How many past and present executors are named on the will and any updates (‘codicils’)?"
+            "question": "How many past and present executors are named on the will and any updates (&lsquo;codicils&rsquo;)?"
           },
           {
             "answers": [
@@ -778,7 +778,7 @@
             "answers": [
               "Yes"
             ],
-            "question": "Is your name ‘app_test app_test’ exactly what appears on the will?"
+            "question": "Is your name &lsquo;app_test app_test&rsquo; exactly what appears on the will?"
           },
           {
             "answers": [

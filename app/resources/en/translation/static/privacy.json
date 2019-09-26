@@ -28,7 +28,7 @@
   "usingYourDataHeading": "Using your data",
   "usingYourDataParagraph1": "As part of your application you&rsquo;ll be asked to use your email address to set up an account. You will be able to use this email address and password to sign into other HMCTS services.",
   "usingYourDataParagraph2": "We may ask for your permission to use your email address to send you emails using GOV.UK Notify. This system processes emails only within the European Economic Area until the point where emails are handed over to the email provider you use.",
-  "usingYourDataParagraph3": "We use <a href=\"{cookiesLink}\" class=\"govuk-link\">cookies</a> to collect data that tells us about how you’re using this service, including:",
+  "usingYourDataParagraph3": "We use <a href=\"{cookiesLink}\" class=\"govuk-link\">cookies</a> to collect data that tells us about how you&rsquo;re using this service, including:",
   "usingYourData-item1": "if you open an email from us or click on a link in an email",
   "usingYourData-item2": "your computer, phone or tablet&rsquo;s IP address",
   "usingYourData-item3": "the region or town where you are using your computer, phone or tablet",

@@ -12,15 +12,15 @@
     "pin": {
       "required": {
         "summary": "You need to enter the security code that was sent to your phone",
-        "message": "You need to enter the security code that was sent to your phone"
+        "message": "Enter the security code that was sent to your phone"
       },
       "invalid": {
         "summary": "Your verification pin can only contain numbers",
-        "message": "Your verification pin can only contain numbers"
+        "message": "Enter the security code that was sent to your phone"
       },
       "incorrect": {
-        "summary": "We don&rsquo;t recognise the security code you&rsquo;ve entered. Please enter the code again.",
-        "message": "We don&rsquo;t recognise the security code you&rsquo;ve entered. Please enter the code again."
+        "summary": "We don&rsquo;t recognise the security code you&rsquo;ve entered",
+        "message": "Enter the security code that was sent to your phone"
       }
     }
   }

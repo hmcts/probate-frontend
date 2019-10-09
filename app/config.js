@@ -19,6 +19,7 @@ const config = {
         useAuth: process.env.USE_AUTH || 'false',
         useHttps: process.env.USE_HTTPS || 'false',
         useIDAM: process.env.USE_IDAM || 'false',
+        requreCcdCaseId: process.env.REQUIRE_CCD_CASE_ID || 'false',
         port: process.env.PORT || '3000',
         useCSRFProtection: 'true',
         session: {
@@ -33,14 +34,18 @@ const config = {
         orchestrator: {
             url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8888',
             paths: {
-                forms: '/forms/{id}',
-                submissions: '/forms/{id}/submissions',
-                payments: '/forms/{id}/payments',
+                forms: '/forms/case/{ccdCaseId}',
+                create: '/forms/newcase/',
+                submissions: '/forms/{ccdCaseId}/submissions',
+                payments: '/forms/{ccdCaseId}/payments',
                 payment_updates: '/payment-updates',
-                payment_submissions: '/forms/{id}/payment-submissions',
-                fees: '/forms/{id}/fees',
-                validations: '/forms/{id}/validations'
-            }
+                payment_submissions: '/forms/{ccdCaseId}/payment-submissions',
+                fees: '/forms/{ccdCaseId}/fees',
+                validations: '/forms/{ccdCaseId}/validations',
+                applications: '/forms/cases',
+                declarationStatuses: '/invites/{ccdCaseId}'
+            },
+            port: 8888
         },
         validation: {
             url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
@@ -190,6 +195,7 @@ const config = {
         version: process.env.version || '1',
         currency: process.env.currency || 'GBP'
     },
+    noHeaderLinksPages: ['/sign-out', '/co-applicant-start-page', '/co-applicant-declaration', '/co-applicant-agree-page', '/co-applicant-disagree-page', '/co-applicant-all-agreed-page', '/pin-resend', '/pin-sent', '/sign-in'],
     whitelistedPagesAfterSubmission: ['/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     whitelistedPagesAfterPayment: ['/task-list', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
@@ -197,7 +203,7 @@ const config = {
         gop: [],
         intestacy: []
     },
-    nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies'],
+    nonIdamPages: ['health/*', 'stop-page/*', 'time-out', 'error', 'sign-in', 'sign-out', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies'],
     endpoints: {
         health: '/health',
         info: '/info'
@@ -232,7 +238,6 @@ const config = {
         },
         path: '/documents/generate'
     },
-    signOutOnStopPages: ['divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales'],
     assetsValueThreshold: 250000
 };
 

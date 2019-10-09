@@ -595,13 +595,24 @@ describe('Tasklist', () => {
             const ctx = {
                 hasMultipleApplicants: true,
                 alreadyDeclared: true,
-                previousTaskStatus: 'complete'
+                previousTaskStatus: 'complete',
+                declarationStatuses: [
+                    {
+                        executorName: 'exec 1',
+                        agreed: true
+                    },
+                    {
+                        executorName: 'exec 2',
+                        agreed: false
+                    }
+                ]
             };
 
             taskList.action(ctx);
             assert.isUndefined(ctx.hasMultipleApplicants);
             assert.isUndefined(ctx.alreadyDeclared);
             assert.isUndefined(ctx.previousTaskStatus);
+            assert.isUndefined(ctx.declarationStatuses);
         });
     });
 });

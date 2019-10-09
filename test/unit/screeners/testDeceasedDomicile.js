@@ -22,7 +22,12 @@ describe('DeceasedDomicile', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
-                    form: {},
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        }
+                    },
                     caseType: 'gop'
                 },
                 body: {
@@ -35,7 +40,12 @@ describe('DeceasedDomicile', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
                 domicile: content.optionYes,
-                caseType: 'gop'
+                caseType: 'gop',
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             });
             done();
         });

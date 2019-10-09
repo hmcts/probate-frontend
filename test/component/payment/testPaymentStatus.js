@@ -41,6 +41,7 @@ describe('payment-status', () => {
 
     beforeEach(() => {
         sessionData = require('test/data/complete-form-undeclared').formdata;
+
         testWrapper = new TestWrapper('PaymentStatus');
 
         paymentNock();
@@ -62,6 +63,7 @@ describe('payment-status', () => {
                     ccdCase: sessionData.ccdCase,
                     payment: sessionData.payment
                 });
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -79,13 +81,23 @@ describe('payment-status', () => {
                 });
             const contentToExclude = ['paragraph1'];
 
-            testWrapper.testContent(done, {}, contentToExclude);
+            sessionData = {
+                ccdCase: {
+                    state: 'Draft',
+                    id: 1234567890123456
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, {}, contentToExclude);
+                });
         });
 
         it(`test it redirects to next page with no input: ${expectedNextUrlForTaskList}`, (done) => {
-            sessionData = {};
             testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
+                .send({})
                 .end(() => {
                     testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList);
                 });

@@ -914,6 +914,10 @@ describe('declaration, multiple applicants', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForExecInvite}`, (done) => {
             sessionData = {
+                ccdCase: {
+                    state: 'Draft',
+                    id: 1234567890123456
+                },
                 executors: {
                     list: [
                         {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true},
@@ -941,6 +945,10 @@ describe('declaration, multiple applicants', () => {
 
         it(`test it redirects to next page when the applicant has made a change: ${expectedNextUrlForExecChangeMade}`, (done) => {
             sessionData = {
+                ccdCase: {
+                    state: 'Draft',
+                    id: 1234567890123456
+                },
                 declaration: {hasDataChanged: true},
                 executors: {invitesSent: 'true'},
                 session: {
@@ -964,6 +972,10 @@ describe('declaration, multiple applicants', () => {
 
         it(`test it redirects to next page when executor has been added: ${expectedNextUrlForAdditionalExecInvite}`, (done) => {
             sessionData = {
+                ccdCase: {
+                    state: 'Draft',
+                    id: 1234567890123456
+                },
                 executors: {
                     list: [
                         {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true},
@@ -992,6 +1004,10 @@ describe('declaration, multiple applicants', () => {
 
         it(`test it redirects to next page when executor email has been changed: ${expectedNextUrlForUpdateExecInvite}`, (done) => {
             sessionData = {
+                ccdCase: {
+                    state: 'Draft',
+                    id: 1234567890123456
+                },
                 executors: {
                     list: [
                         {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true},
@@ -1020,6 +1036,10 @@ describe('declaration, multiple applicants', () => {
 
         it(`test it redirects to next page when the applicant has changed to a single applicant: ${expectedNextUrlForChangeToSingleApplicant}`, (done) => {
             sessionData = {
+                ccdCase: {
+                    state: 'Draft',
+                    id: 1234567890123456
+                },
                 executors: {
                     list: [
                         {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true}

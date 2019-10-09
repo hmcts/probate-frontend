@@ -2,7 +2,7 @@
 
 const journey = require('app/journeys/probate');
 const initSteps = require('../../../app/core/initSteps');
-const {expect, assert} = require('chai');
+const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const WillLeft = steps.WillLeft;
 const content = require('app/resources/en/translation/screeners/willleft');
@@ -12,6 +12,41 @@ describe('WillLeft', () => {
         it('should return the correct url', (done) => {
             const url = WillLeft.constructor.getUrl();
             expect(url).to.equal('/will-left');
+            done();
+        });
+    });
+
+    describe('getContextData()', () => {
+        it('should return the correct context on GET', (done) => {
+            const req = {
+                method: 'GET',
+                sessionID: 'dummy_sessionId',
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        }
+                    },
+                    caseType: 'gop'
+                },
+                body: {
+                    left: content.optionYes
+                }
+            };
+            const res = {};
+
+            const ctx = WillLeft.getContextData(req, res);
+            expect(ctx).to.deep.equal({
+                sessionID: 'dummy_sessionId',
+                left: content.optionYes,
+                caseType: 'gop',
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
+            });
             done();
         });
     });
@@ -63,9 +98,6 @@ describe('WillLeft', () => {
                 applicantEmail: 'test@email.com',
                 caseType: 'gop',
                 payloadVersion: '1.0.1',
-                screeners: {
-                    screen1: 'yes'
-                },
                 applicant: {},
                 deceased: {}
             });
@@ -116,16 +148,6 @@ describe('WillLeft', () => {
                 ]
             });
             done();
-        });
-    });
-
-    describe('action()', () => {
-        it('test \'left\' is removed from the context', () => {
-            const ctx = {
-                left: 'Yes'
-            };
-            WillLeft.action(ctx);
-            assert.isUndefined(ctx.left);
         });
     });
 });

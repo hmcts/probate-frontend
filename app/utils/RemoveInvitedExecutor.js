@@ -8,7 +8,7 @@ const config = require('app/config');
 class RemoveInvitedExecutor {
     static remove(req) {
         const formdata = req.session.form;
-        const formdataId = req.session.formdataId;
+        const ccdCaseId = formdata.ccdCase ? formdata.ccdCase.id : '';
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         const executorsRemoved = executorsWrapper.executorsRemoved();
         const executorsToRemoveFromInviteData = executorsRemoved.concat(executorsWrapper.executorsToRemove());
@@ -18,7 +18,7 @@ class RemoveInvitedExecutor {
         }
 
         const inviteData = new InviteData(config.services.orchestrator.url, req.sessionID);
-        const promises = executorsToRemoveFromInviteData.map(exec => inviteData.delete(formdataId, {
+        const promises = executorsToRemoveFromInviteData.map(exec => inviteData.delete(ccdCaseId, {
             inviteId: exec.inviteId
         }));
         return Promise.all(promises).then(result => {

@@ -20,5 +20,7 @@
   "checkYourAnswers": "Check and change your answers",
   "taskUnavailable": "Can&rsquo;t start yet",
   "taskComplete": "Completed",
-  "alreadyDeclared": "Already declared"
+  "alreadyDeclared": "Already declared",
+  "declared": "Declared",
+  "notDeclared": "Not declared"
 }

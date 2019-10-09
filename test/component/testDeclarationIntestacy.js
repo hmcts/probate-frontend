@@ -1433,6 +1433,10 @@ describe('declaration, intestacy', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForExecInvite}`, (done) => {
             sessionData = {
+                ccdCase: {
+                    state: 'Draft',
+                    id: 1234567890123456
+                },
                 form: {
                     executors: {
                         list: [
@@ -1457,6 +1461,7 @@ describe('declaration, intestacy', () => {
                             const data = {
                                 declarationCheckbox: true
                             };
+
                             testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
                         });
                 });

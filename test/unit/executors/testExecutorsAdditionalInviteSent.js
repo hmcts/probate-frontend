@@ -16,7 +16,11 @@ describe('Executor-Additional-Invite-Sent', () => {
                 session: {
                     form: {
                         executors: {},
-                        caseType: 'gop'
+                        caseType: 'gop',
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        }
                     },
                     serviceAuthorization: 'serviceAuthorization',
                     caseType: 'probate'
@@ -44,8 +48,13 @@ describe('Executor-Additional-Invite-Sent', () => {
                 inviteSuffix: '',
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
+                userLoggedIn: false,
                 authToken: 'authToken',
-                serviceAuthorization: 'serviceAuthorization'
+                serviceAuthorization: 'serviceAuthorization',
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             });
         });
 
@@ -72,8 +81,13 @@ describe('Executor-Additional-Invite-Sent', () => {
                 inviteSuffix: '-multiple',
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
+                userLoggedIn: false,
                 authToken: 'authToken',
                 serviceAuthorization: 'serviceAuthorization',
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             });
         });
     });

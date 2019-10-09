@@ -24,7 +24,7 @@ class ExecutorsInvite extends ValidationStep {
         return this.next(req, ctx).constructor.getUrl();
     }
 
-    * handlePost(ctx, errors, formdata, session) {
+    * handlePost(ctx, errors, formdata) {
         const inviteLink = new InviteLink(config.services.orchestrator.url, ctx.sessionID);
         const executorsToNotifyList = ctx.list
             .filter(exec => exec.isApplying && !exec.isApplicant)
@@ -35,7 +35,7 @@ class ExecutorsInvite extends ValidationStep {
                     lastName: formdata.deceased.lastName,
                     email: exec.email,
                     phoneNumber: exec.mobile,
-                    formdataId: session.regId,
+                    formdataId: formdata.ccdCase.id,
                     leadExecutorName: FormatName.format(formdata.applicant)
                 };
             });

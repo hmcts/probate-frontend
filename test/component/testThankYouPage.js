@@ -29,7 +29,7 @@ describe('thank-you', () => {
         it('test content loaded on the page when CCD Case ID present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456',
+                    id: 1234567890123456,
                     state: 'CaseCreated'
                 }
             };
@@ -50,7 +50,7 @@ describe('thank-you', () => {
         it('test content loaded on the page when CheckAnswers present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456',
+                    id: 1234567890123456,
                     state: 'CaseCreated'
                 },
                 checkAnswersSummary: '{test: "data"}'
@@ -74,7 +74,7 @@ describe('thank-you', () => {
         it('test content not loaded on the page when exclusively CheckAnswers present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456',
+                    id: 1234567890123456,
                     state: 'CaseCreated'
                 },
                 checkAnswersSummary: '{test: "data"}'
@@ -94,7 +94,7 @@ describe('thank-you', () => {
         it('test content loaded on the page when LegalDeclaration present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456',
+                    id: 1234567890123456,
                     state: 'CaseCreated'
                 },
                 legalDeclaration: '{test: "data"}'
@@ -118,7 +118,7 @@ describe('thank-you', () => {
         it('test content loaded on the page when exclusively LegalDeclaration present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456',
+                    id: 1234567890123456,
                     state: 'CaseCreated'
                 },
                 legalDeclaration: '{test: "data"}'
@@ -138,7 +138,7 @@ describe('thank-you', () => {
         it('test content loaded on the page when CheckAnswers and LegalDeclaration present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456',
+                    id: 1234567890123456,
                     state: 'CaseCreated'
                 },
                 checkAnswersSummary: '{test: "data"}',
@@ -163,7 +163,7 @@ describe('thank-you', () => {
         it('test content loaded on the page so Cover Sheet download is present', (done) => {
             const sessionData = {
                 ccdCase: {
-                    id: '1234-5678-9012-3456',
+                    id: 1234567890123456,
                     state: 'CaseCreated'
                 }
             };

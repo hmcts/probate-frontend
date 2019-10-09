@@ -9,6 +9,7 @@ const config = require('app/config');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const FeatureToggle = require('app/utils/FeatureToggle');
 const caseTypes = require('app/utils/CaseTypes');
+const logger = require('app/components/logger')('Init');
 
 class Step {
 
@@ -55,6 +56,11 @@ class Step {
         Object.assign(ctx, session.form[this.section] || {});
         ctx.sessionID = req.sessionID;
         ctx.caseType = caseTypes.getCaseType(session);
+        ctx.userLoggedIn = false;
+        ctx.ccdCase = req.session.form.ccdCase;
+        if (typeof session.form.userLoggedIn === 'boolean') {
+            ctx.userLoggedIn = session.form.userLoggedIn;
+        }
         ctx = Object.assign(ctx, req.body);
         ctx = FeatureToggle.appwideToggles(req, ctx, config.featureToggles.appwideToggles);
 
@@ -101,18 +107,18 @@ class Step {
         return fields;
     }
 
-    persistFormData(id, formdata, sessionID, req, caseType) {
-        formdata.type = req.caseType;
+    persistFormData(ccdCaseId, formdata, sessionID, req) {
         const formData = ServiceMapper.map(
             'FormData',
             [config.services.orchestrator.url, sessionID]
         );
-        return formData.post(id, formdata, req.authToken, req.session.serviceAuthorization, caseType);
+        return formData.post(req.authToken, req.session.serviceAuthorization, ccdCaseId, formdata);
     }
 
     action(ctx, formdata) {
         delete ctx.sessionID;
         delete ctx.caseType;
+        delete ctx.userLoggedIn;
         delete ctx.featureToggles;
         delete ctx._csrf;
         return [ctx, formdata];
@@ -139,9 +145,16 @@ class Step {
 
     alreadyDeclared(session) {
         const hasMultipleApplicants = (new ExecutorsWrapper(get(session, 'form.executors'))).hasMultipleApplicants();
+
+        logger.error('LUCA hasMultipleApplicants: ', hasMultipleApplicants);
+        logger.error('LUCA session.haveAllExecutorsDeclared: ', session.haveAllExecutorsDeclared);
+        logger.error('LUCA form.executors.invitesSent: ', get(session, 'form.executors.invitesSent'));
+        logger.error('LUCA form.declaration.declarationCheckbox: ', get(session, 'form.declaration.declarationCheckbox'));
+
         if (hasMultipleApplicants === false) {
             return get(session, 'form.declaration.declarationCheckbox') === 'true';
         }
+
         return [
             session.haveAllExecutorsDeclared,
             get(session, 'form.executors.invitesSent'),

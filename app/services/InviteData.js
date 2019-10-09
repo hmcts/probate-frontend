@@ -4,9 +4,9 @@ const Service = require('./Service');
 
 class InviteData extends Service {
 
-    setAgreedFlag(formdataId, data) {
+    setAgreedFlag(ccdCaseId, data) {
         this.log('Set agreed flag invite data');
-        const url = this.formatUrl.format(this.endpoint, `/invite/agreed/${formdataId}`);
+        const url = this.formatUrl.format(this.endpoint, `/invite/agreed/${ccdCaseId}`);
         const headers = {
             'Content-Type': 'application/json'
         };
@@ -14,25 +14,25 @@ class InviteData extends Service {
         return this.fetchText(url, fetchOptions);
     }
 
-    resetAgreedFlag(formdataId, ctx) {
+    resetAgreedFlag(ccdCaseId, ctx) {
         this.log('Reset agreed flag invite data');
-        const url = this.formatUrl.format(this.endpoint, `/invite/resetAgreed/${formdataId}`);
+        const url = this.formatUrl.format(this.endpoint, `/invite/resetAgreed/${ccdCaseId}`);
         const headers = this.constructHeaders(ctx);
         const fetchOptions = this.fetchOptions({}, 'POST', headers);
         return this.fetchJson(url, fetchOptions);
     }
 
-    updateContactDetails(formdataId, data, ctx) {
+    updateContactDetails(ccdCaseId, data, ctx) {
         this.log('Update contact details invite data');
-        const url = this.formatUrl.format(this.endpoint, `/invite/contactdetails/${formdataId}`);
+        const url = this.formatUrl.format(this.endpoint, `/invite/contactdetails/${ccdCaseId}`);
         const headers = this.constructHeaders(ctx);
         const fetchOptions = this.fetchOptions(data, 'POST', headers);
         return this.fetchText(url, fetchOptions);
     }
 
-    delete(formdataId, data, req) {
+    delete(ccdCaseId, data, req) {
         this.log('delete invite data');
-        const url = this.formatUrl.format(this.endpoint, `/invite/delete/${formdataId}`);
+        const url = this.formatUrl.format(this.endpoint, `/invite/delete/${ccdCaseId}`);
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': req.authToken,

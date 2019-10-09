@@ -216,7 +216,7 @@ class Declaration extends ValidationStep {
 
     resetAgreedFlags(ctx) {
         const inviteData = new InviteData(config.services.orchestrator.url, ctx.sessionID);
-        const promise = inviteData.resetAgreedFlag(ctx.formdataId, ctx);
+        const promise = inviteData.resetAgreedFlag(ctx.ccdCase.id, ctx);
         return promise;
     }
 

@@ -22,18 +22,40 @@ describe('document-upload', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test help block content loaded on the page', (done) => {
-            const playbackData = {
-                helpTitle: commonContent.helpTitle,
-                helpHeading1: commonContent.helpHeading1,
-                helpHeading2: commonContent.helpHeading2,
-                helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
+            const sessionData = {
+                ccdCase: {
+                    state: 'Draft',
+                    id: 1234567890123456
+                }
             };
 
-            testWrapper.testDataPlayback(done, playbackData);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const playbackData = {
+                        helpTitle: commonContent.helpTitle,
+                        helpHeading1: commonContent.helpHeading1,
+                        helpHeading2: commonContent.helpHeading2,
+                        helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
+                    };
+
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
         });
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done);
+            const sessionData = {
+                ccdCase: {
+                    state: 'Draft',
+                    id: 1234567890123456
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done);
+                });
         });
 
         it('test it remains on the document upload page after uploading a document', (done) => {

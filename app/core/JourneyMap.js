@@ -8,7 +8,7 @@ class JourneyMap {
         this.journey = journey;
     }
 
-    nextOptionStep (currentStep, ctx) {
+    nextOptionStep(currentStep, ctx) {
         const match = currentStep
             .nextStepOptions(ctx).options
             .find((option) => get(ctx, option.key) === option.value);

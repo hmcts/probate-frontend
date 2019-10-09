@@ -21,6 +21,10 @@ describe('executors-additional-invite', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsAdditionalInvite');
         sessionData = require('test/data/executors-invites');
+        sessionData.ccdCase = {
+            state: 'Draft',
+            id: 1234567890123456
+        };
     });
 
     afterEach(() => {
@@ -30,11 +34,11 @@ describe('executors-additional-invite', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content loaded on the page when only 1 other executor has been added and needs to be emailed', (done) => {
-            const contentToExclude = ['header-multiple'];
             sessionData.executors.list = [
                 {fullName: 'Applicant', isApplying: true, isApplicant: true},
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false}
             ];
+            const contentToExclude = ['header-multiple'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -44,12 +48,12 @@ describe('executors-additional-invite', () => {
         });
 
         it('test correct content loaded on the page when more than 1 other executor has been added and needs to be emailed', (done) => {
-            const contentToExclude = ['header'];
             sessionData.executors.list = [
                 {fullName: 'Applicant', isApplying: true, isApplicant: true},
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false},
                 {fullName: 'Leonhard Euler', isApplying: true, emailSent: false}
             ];
+            const contentToExclude = ['header'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -117,7 +121,7 @@ describe('executors-additional-invite', () => {
                 });
         });
 
-        it.skip(`test it redirects to next page: ${expectedNextUrlForExecutorsAdditionalInviteSent}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForExecutorsAdditionalInviteSent}`, (done) => {
             nock(orchestratorServiceUrl)
                 .post('/invite')
                 .reply(200, {

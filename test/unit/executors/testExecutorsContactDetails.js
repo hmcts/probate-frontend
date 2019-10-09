@@ -58,7 +58,11 @@ describe('Contact-Details', () => {
                 mobile: '07321321321',
                 index: 1,
                 otherExecName: 'Bob Cratchett',
-                executorsEmailChanged: false
+                executorsEmailChanged: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                }
             };
             errors = [];
         });
@@ -100,7 +104,11 @@ describe('Contact-Details', () => {
                     mobile: '07321321321',
                     index: 1,
                     otherExecName: 'Bob Cratchett',
-                    executorsEmailChanged: true
+                    executorsEmailChanged: true,
+                    ccdCase: {
+                        id: 1234567890123456,
+                        state: 'Draft'
+                    }
                 });
                 done();
             })
@@ -147,7 +155,11 @@ describe('Contact-Details', () => {
                     mobile: '07321321321',
                     index: 1,
                     otherExecName: 'Bob Cratchett',
-                    executorsEmailChanged: false
+                    executorsEmailChanged: false,
+                    ccdCase: {
+                        id: 1234567890123456,
+                        state: 'Draft'
+                    }
                 });
                 done();
             })
@@ -202,7 +214,11 @@ describe('Contact-Details', () => {
                     mobile: '07888888888',
                     index: 1,
                     otherExecName: 'Bob Cratchett',
-                    executorsEmailChanged: true
+                    executorsEmailChanged: true,
+                    ccdCase: {
+                        id: 1234567890123456,
+                        state: 'Draft'
+                    }
                 });
                 revert();
                 done();

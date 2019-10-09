@@ -13,6 +13,10 @@ describe('Executors invite endpoints', () => {
     beforeEach(() => {
         req = {
             session: {
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                },
                 form: {
                     caseType: 'gop'
                 }

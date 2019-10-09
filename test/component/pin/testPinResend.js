@@ -18,10 +18,18 @@ const afterEachNocks = (done) => {
 
 describe('pin-resend', () => {
     let testWrapper;
+    let sessionData;
     const expectedNextUrlForPinSent = PinSent.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('PinResend');
+
+        sessionData = {
+            ccdCase: {
+                state: 'Draft',
+                id: 1234567890123456
+            }
+        };
 
         nock(S2S_URL).post('/lease')
             .reply(200, 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG' +
@@ -45,14 +53,17 @@ describe('pin-resend', () => {
                 phoneNumber: '07701111111',
             };
 
-            testWrapper.agent
-                .post('/prepare-session-field')
-                .send({
-                    phoneNumber: '07701111111',
-                    validLink: true
-                })
-                .then(() => {
-                    testWrapper.testContent(done, contentData, contentToExclude);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session-field')
+                        .send({
+                            phoneNumber: '07701111111',
+                            validLink: true
+                        })
+                        .then(() => {
+                            testWrapper.testContent(done, contentData, contentToExclude);
+                        });
                 });
         });
 
@@ -62,14 +73,17 @@ describe('pin-resend', () => {
                 phoneNumber: '+447701111111',
             };
 
-            testWrapper.agent
-                .post('/prepare-session-field')
-                .send({
-                    phoneNumber: '+447701111111',
-                    validLink: true
-                })
-                .then(() => {
-                    testWrapper.testContent(done, contentData, contentToExclude);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session-field')
+                        .send({
+                            phoneNumber: '+447701111111',
+                            validLink: true
+                        })
+                        .then(() => {
+                            testWrapper.testContent(done, contentData, contentToExclude);
+                        });
                 });
         });
 
@@ -79,14 +93,17 @@ describe('pin-resend', () => {
                 phoneNumber: '+10900111000111000111',
             };
 
-            testWrapper.agent
-                .post('/prepare-session-field')
-                .send({
-                    phoneNumber: '+10900111000111000111',
-                    validLink: true
-                })
-                .then(() => {
-                    testWrapper.testContent(done, contentData, contentToExclude);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session-field')
+                        .send({
+                            phoneNumber: '+10900111000111000111',
+                            validLink: true
+                        })
+                        .then(() => {
+                            testWrapper.testContent(done, contentData, contentToExclude);
+                        });
                 });
         });
 
@@ -96,14 +113,17 @@ describe('pin-resend', () => {
                 executorName: 'Works',
             };
 
-            testWrapper.agent
-                .post('/prepare-session-field')
-                .send({
-                    leadExecutorName: 'Works',
-                    validLink: true
-                })
-                .then(() => {
-                    testWrapper.testContent(done, contentData, contentToExclude);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session-field')
+                        .send({
+                            leadExecutorName: 'Works',
+                            validLink: true
+                        })
+                        .then(() => {
+                            testWrapper.testContent(done, contentData, contentToExclude);
+                        });
                 });
         });
 
@@ -140,9 +160,11 @@ describe('pin-resend', () => {
                 });
         });
 
-        it('test "save and close" link is not displayed on the page', (done) => {
+        it('test "save and close", "my applications" and "sign out" links are not displayed on the page', (done) => {
             const playbackData = {
-                saveAndClose: commonContent.saveAndClose
+                saveAndClose: commonContent.saveAndClose,
+                myApplications: commonContent.myApplications,
+                signOut: commonContent.signOut
             };
 
             testWrapper.testContentNotPresent(done, playbackData);

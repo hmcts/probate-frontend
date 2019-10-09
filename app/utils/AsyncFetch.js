@@ -21,7 +21,7 @@ class AsyncFetch {
         return url.endsWith('health');
     }
 
-    fetch (url, fetchOptions, parseBody) {
+    fetch(url, fetchOptions, parseBody) {
         if (!this.isHealthEndpoint(url)) {
             log.info('Calling external service');
         }

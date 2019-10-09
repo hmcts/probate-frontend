@@ -1,3 +1,4 @@
+
 {% extends "govuk/template.njk" %}
 
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
@@ -21,27 +22,33 @@
         <p class="govuk-body">{{ cookieText | replace('{cookiesLink}', globals.links.cookies) | safe }}</p>
     </div>
 
-    {% if displaySignOutLink !== "false" %}
-        {{ govukHeader({
-            homepageUrl: "#",
-            containerClasses: "govuk-width-container",
-            serviceName: serviceName,
-            serviceUrl: "/",
-            navigation: [
-                {
-                    href: "/sign-out",
-                    text: "Sign out"
-                }
-            ]
-        }) }}
+    {% set navigationItems = [] %}
+    {% if fields.userLoggedIn.value === "true" %}
+        {% if fields.isDashboard.value !== "true" %}
+            {% set navigationItems = (navigationItems.push({
+                href: "/dashboard",
+                text: common.myApplications
+            }), navigationItems) %}
+        {% endif %}
+
+        {% set navigationItems = (navigationItems.push({
+            href: "/sign-out",
+            text: common.signOut
+        }), navigationItems) %}
     {% else %}
-        {{ govukHeader({
-            homepageUrl: "#",
-            containerClasses: "govuk-width-container",
-            serviceName: serviceName,
-            serviceUrl: "/"
-        }) }}
+        {% set navigationItems = (navigationItems.push({
+            href: "/dashboard",
+            text: common.signIn
+        }), navigationItems) %}
     {% endif %}
+
+    {{ govukHeader({
+        homepageUrl: "#",
+        containerClasses: "govuk-width-container",
+        serviceName: serviceName,
+        serviceUrl: "#",
+        navigation: navigationItems
+    }) }}
 {% endblock %}
 
 {% block beforeContent %}
@@ -60,4 +67,3 @@
 {% block bodyEnd %}
     {% include "includes/scripts.html" %}
 {% endblock %}
-

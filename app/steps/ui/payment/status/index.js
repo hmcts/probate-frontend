@@ -106,13 +106,13 @@ class PaymentStatus extends Step {
         return options;
     }
 
-    * updateForm(data, ctx, paymentDto, serviceAuthResult) {
+    * updateForm(formdata, ctx, paymentDto, serviceAuthResult) {
         const submitData = ServiceMapper.map(
             'SubmitData',
             [config.services.orchestrator.url, ctx.sessionID]
         );
         let errors;
-        const result = yield submitData.submit(data, paymentDto, ctx.authToken, serviceAuthResult, ctx.caseType);
+        const result = yield submitData.submit(formdata, paymentDto, ctx.authToken, serviceAuthResult, ctx.caseType);
         if (result.type === 'VALIDATION') {
             errors = [];
             errors.push(FieldError('update', 'failure', this.resourcePath, ctx));

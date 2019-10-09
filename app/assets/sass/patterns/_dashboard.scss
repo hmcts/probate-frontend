@@ -1,0 +1,21 @@
+/*
+Dashboard
+*/
+
+.case {
+  &.draft {
+    color: govuk-colour("dark-grey");
+  }
+}
+
+.case-status {
+  font-weight: bold;
+
+  &.in-progress {
+    color: govuk-colour("red");
+  }
+
+  &.submitted {
+    color: govuk-colour("green");
+  }
+}

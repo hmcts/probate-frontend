@@ -8,6 +8,7 @@ const ServiceMapper = require('app/utils/ServiceMapper');
 const Security = require('app/services/Security');
 const Authorise = require('app/services/Authorise');
 const logger = require('app/components/logger')('Init');
+const caseTypes = require('app/utils/CaseTypes');
 
 class PinPage extends ValidationStep {
 
@@ -43,7 +44,8 @@ class PinPage extends ValidationStep {
                 'FormData',
                 [config.services.orchestrator.url, ctx.sessionID]
             );
-            yield formData.get(session.formdataId, authToken, serviceAuthResult, ctx.caseType)
+            const probateType = caseTypes.getProbateType(ctx.caseType);
+            yield formData.get(authToken, serviceAuthResult, session.formdataId, probateType)
                 .then(result => {
                     if (result.name === 'Error') {
                         throw new ReferenceError('Error getting data for the co-applicant');

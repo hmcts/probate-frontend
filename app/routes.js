@@ -11,13 +11,15 @@ const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const documentUpload = require('app/documentUpload');
 const documentDownload = require('app/documentDownload');
+const multipleApplications = require('app/multipleApplications');
 const serviceAuthorisationToken = require('app/serviceAuthorisation');
 const paymentFees = require('app/paymentFees');
 const setJourney = require('app/middleware/setJourney');
 const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
-const ServiceMapper = require('app/utils/ServiceMapper');
 const lockPaymentAttempt = require('app/middleware/lockPaymentAttempt');
 const caseTypes = require('app/utils/CaseTypes');
+const emailValidator = require('email-validator');
+const steps = initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`]);
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
@@ -40,37 +42,30 @@ router.use((req, res, next) => {
         req.session.form.applicantEmail = req.session.regId;
     }
 
+    req.session.form.userLoggedIn = config.noHeaderLinksPages.includes(req.originalUrl) ? false : emailValidator.validate(req.session.form.applicantEmail);
+    req.log.info(`User logged in: ${req.session.form.userLoggedIn}`);
+
     next();
 });
 
 router.use(serviceAuthorisationToken);
 router.use(setJourney);
-
-router.get('/', (req, res) => {
-    const formData = ServiceMapper.map(
-        'FormData',
-        [config.services.orchestrator.url, req.sessionID]
-    );
-    formData.get(req.session.regId, req.authToken, req.session.serviceAuthorization, caseTypes.getCaseType(req.session))
-        .then(result => {
-            if (result.name === 'Error') {
-                req.log.debug('Failed to load user data');
-                req.log.info({tags: 'Analytics'}, 'Application Started');
-                if (!result.message.startsWith('FetchError: invalid json response body')) {
-                    res.status(500).render('errors/500', {common: commonContent});
-                    return;
-                }
-            } else {
-                req.log.debug('Successfully loaded user data');
-                req.session.form = result;
-            }
-            res.redirect('task-list');
-        });
-});
-
+router.use(multipleApplications);
 router.use(documentDownload);
 router.use(paymentFees);
 router.post('/payment-breakdown', lockPaymentAttempt);
+
+router.get('/health/liveness', (req, res) => {
+    res.json({status: 'UP'});
+});
+
+router.get('/start-apply', (req, res, next) => {
+    if (req.session.form.userLoggedIn) {
+        res.redirect(301, '/dashboard');
+    } else {
+        next();
+    }
+});
 
 router.use((req, res, next) => {
     const formdata = req.session.form;
@@ -78,7 +73,17 @@ router.use((req, res, next) => {
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
 
-    if (get(formdata, 'ccdCase.state') === 'CaseCreated' && (get(formdata, 'documents.sentDocuments', 'false') === 'false') && (get(formdata, 'payment.status') === 'Success' || get(formdata, 'payment.status') === 'not_required') &&
+    const allPageUrls = [];
+    Object.entries(steps).forEach(([, step]) => {
+        allPageUrls.push(step.constructor.getUrl());
+    });
+
+    const noCcdCaseIdPages = config.nonIdamPages.map(item => '/' + item);
+    noCcdCaseIdPages.push('/dashboard');
+
+    if (config.app.requreCcdCaseId === 'true' && includes(allPageUrls, req.originalUrl) && req.method === 'GET' && !includes(noCcdCaseIdPages, req.originalUrl) && !get(formdata, 'ccdCase.id')) {
+        res.redirect('dashboard');
+    } else if (get(formdata, 'ccdCase.state') === 'CaseCreated' && (get(formdata, 'documents.sentDocuments', 'false') === 'false') && (get(formdata, 'payment.status') === 'Success' || get(formdata, 'payment.status') === 'not_required') &&
         !includes(config.whitelistedPagesAfterSubmission, req.originalUrl)
     ) {
         res.redirect('documents');
@@ -122,6 +127,7 @@ router.use((req, res, next) => {
 
 router.use((req, res, next) => {
     const formdata = req.session.form;
+    const ccdCaseId = formdata.ccdCase ? formdata.ccdCase.id : 'undefined';
     const hasMultipleApplicants = (new ExecutorsWrapper(formdata.executors)).hasMultipleApplicants();
 
     if (hasMultipleApplicants &&
@@ -129,7 +135,7 @@ router.use((req, res, next) => {
         get(formdata, 'declaration.declarationCheckbox')
     ) {
         const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
-        allExecutorsAgreed.get(req.session.regId)
+        allExecutorsAgreed.get(ccdCaseId)
             .then(data => {
                 req.session.haveAllExecutorsDeclared = data;
                 next();
@@ -142,15 +148,9 @@ router.use((req, res, next) => {
     }
 });
 
-const steps = initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`]);
-
 Object.entries(steps).forEach(([, step]) => {
     router.get(step.constructor.getUrl(), step.runner().GET(step));
     router.post(step.constructor.getUrl(), step.runner().POST(step));
-});
-
-router.get('/health/liveness', (req, res) => {
-    res.json({status: 'UP'});
 });
 
 router.get('/payment', (req, res) => {

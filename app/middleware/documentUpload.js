@@ -6,7 +6,6 @@ const connectTimeout = require('connect-timeout');
 const multer = require('multer');
 const Document = require('app/services/Document');
 const ServiceMapper = require('app/utils/ServiceMapper');
-const caseTypes = require('app/utils/CaseTypes');
 
 const storage = multer.memoryStorage();
 const upload = multer({storage: storage});
@@ -85,7 +84,7 @@ const removeDocument = (req, res, next) => {
     document.delete(documentId, req.session.regId, req.authToken, req.session.serviceAuthorization)
         .then(() => {
             req.session.form.documents.uploads = documentUpload.removeDocument(index, uploads);
-            persistFormData(req.session.regId, req.session.form, req.sessionID, req.authToken, req.session.serviceAuthorization, caseTypes.getCaseType(req.session));
+            persistFormData(req.session.form.ccdCaseId, req.session.form, req.session.regId, req);
             res.redirect('/document-upload');
         })
         .catch((err) => {
@@ -93,12 +92,12 @@ const removeDocument = (req, res, next) => {
         });
 };
 
-const persistFormData = (id, formdata, sessionID, authToken, serviceAuthorization, caseType) => {
+const persistFormData = (ccdCaseId, formdata, sessionID, req) => {
     const formData = ServiceMapper.map(
         'FormData',
         [config.services.orchestrator.url, sessionID]
     );
-    return formData.post(id, formdata, authToken, serviceAuthorization, caseType);
+    return formData.post(req.authToken, req.session.serviceAuthorization, ccdCaseId, formdata);
 };
 
 module.exports = {

@@ -87,6 +87,10 @@ describe('Summary', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        },
                         caseType: 'gop',
                         deceased: {
                             firstName: 'Dee',
@@ -102,15 +106,24 @@ describe('Summary', () => {
             const Summary = steps.Summary;
             const ctx = Summary.getContextData(req);
             expect(ctx).to.deep.equal({
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                },
                 authToken: '1234',
                 alreadyDeclared: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
                 deceasedMarriedQuestion: 'Did Dee Ceased get married or enter into a civil partnership after the will was signed?',
                 ihtTotalNetValue: 300000,
                 caseType: 'gop',
+                userLoggedIn: false,
                 readyToDeclare: false,
                 session: {
                     form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        },
                         caseType: 'gop',
                         deceased: {
                             firstName: 'Dee',
@@ -135,6 +148,10 @@ describe('Summary', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        },
                         caseType: 'intestacy',
                         deceased: {
                             'firstName': 'Dee',
@@ -153,6 +170,10 @@ describe('Summary', () => {
             const Summary = steps.Summary;
             const ctx = Summary.getContextData(req);
             expect(ctx).to.deep.equal({
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Draft'
+                },
                 authToken: '12345',
                 alreadyDeclared: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
@@ -166,9 +187,14 @@ describe('Summary', () => {
                 ihtTotalNetValue: 550000,
                 ihtTotalNetValueGreaterThan250k: true,
                 caseType: 'intestacy',
+                userLoggedIn: false,
                 readyToDeclare: false,
                 session: {
                     form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Draft'
+                        },
                         caseType: 'intestacy',
                         deceased: {
                             'dod-formattedDate': '2 February 2015',

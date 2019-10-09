@@ -7,7 +7,7 @@ class Fees extends Service {
 
     updateFees(data, authorisation, serviceAuthorization, caseType) {
         const probateType = caseTypes.getProbateType(caseType);
-        const path = this.replaceIdInPath(this.config.services.orchestrator.paths.fees, data.applicantEmail);
+        const path = this.replacePlaceholderInPath(this.config.services.orchestrator.paths.fees, 'ccdCaseId', data.ccdCaseId);
         const logMessage = 'Update fees';
         const url = this.endpoint + path + '?probateType=' + probateType;
         return this.post(logMessage, url, authorisation, serviceAuthorization);

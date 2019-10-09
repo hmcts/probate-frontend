@@ -22,10 +22,12 @@ Header
       @include govuk-media-query($from: desktop) {
         padding: 5px 0;
       }
-    }
 
-    a {
-      @include govuk-font(19, $weight: bold);
+      &:last-child {
+        a {
+          @include govuk-font(19, $weight: bold);
+        }
+      }
     }
   }
 }

@@ -22,6 +22,10 @@ describe('executors-invite', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsInvite');
         sessionData = require('test/data/executors-invites');
+        sessionData.ccdCase = {
+            state: 'Draft',
+            id: 1234567890123456
+        };
     });
 
     afterEach(() => {

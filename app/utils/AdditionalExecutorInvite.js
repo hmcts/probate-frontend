@@ -24,7 +24,7 @@ class AdditionalExecutorInvite {
                     lastName: formdata.deceased.lastName,
                     email: exec.email,
                     phoneNumber: exec.mobile,
-                    formdataId: session.regId,
+                    formdataId: formdata.ccdCase.id,
                     leadExecutorName: FormatName.format(formdata.applicant)
                 };
             });

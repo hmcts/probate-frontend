@@ -64,7 +64,7 @@ class ExecutorContactDetails extends ValidationStep {
                 formdataId: ctx.formdataId
             };
             const inviteData = new InviteData(config.services.orchestrator.url, ctx.sessionID);
-            yield inviteData.updateContactDetails(ctx.formdataId, data, ctx)
+            yield inviteData.updateContactDetails(ctx.ccdCase.id, data, ctx)
                 .then(result => {
                     if (result.name === 'Error') {
                         throw new ReferenceError('Error updating executor\'s contact details');

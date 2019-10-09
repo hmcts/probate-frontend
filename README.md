@@ -67,6 +67,10 @@ To run the Docker container:
 $ docker run -p 3000:3000 frontend-app
 ```
 
+### Running the application with other services
+
+To run probate-frontend with the other services locally you will need to clone the probate-back-office repo: `https://github.com/hmcts/probate-back-office`. Follow the instructions in `probate-back-office/compose/README.md`. 
+
 ## Developing
 ### Code style
 

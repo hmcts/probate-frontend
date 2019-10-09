@@ -222,7 +222,7 @@ module "probate-frontend" {
 
     FEATURE_TOGGLES_API_URL = "${var.feature_toggles_api_url}"
 
-    TESTING = "TESTING"
+    //TESTING = "TESTING"
        // Cache
     WEBSITE_LOCAL_CACHE_OPTION = "${var.website_local_cache_option}"
     WEBSITE_LOCAL_CACHE_SIZEINMB = "${var.website_local_cache_sizeinmb}"
@@ -230,7 +230,7 @@ module "probate-frontend" {
     PROBATE_USER_EMAIL = "${data.azurerm_key_vault_secret.payCaseWorkerUser.value}"
     PROBATE_USER_PASSWORD = "${data.azurerm_key_vault_secret.payCaseWorkerPass.value}"
     PROBATE_REDIRECT_BASE_URL = "${local.probate_internal_base_url}"
+
     REQUIRE_CCD_CASE_ID = true
   }
 }
-

@@ -177,6 +177,20 @@ router.post('/forms/newcase', (req, res) => {
     });
 });
 
+router.get('/invites/*', (req, res) => {
+    res.status(200);
+    res.send([
+        {
+            executorName: 'Bob Jones',
+            agreed: true
+        },
+        {
+            executorName: 'Tom Smith',
+            agreed: false
+        }
+    ]);
+});
+
 app.use(router);
 
 logger().info(`Listening on: ${ORCHESTRATOR_PORT}`);

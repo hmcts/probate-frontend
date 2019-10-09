@@ -31,7 +31,7 @@ class FormData extends Service {
         return this.fetchJson(url, fetchOptions);
     }
 
-    post(authToken, serviceAuthorization, ccdCaseId, data = {}) {
+    post(authToken, serviceAuthorisation, ccdCaseId, data = {}) {
         data.type = data.caseType;
         const path = this.replacePlaceholderInPath(this.config.services.orchestrator.paths.forms, 'ccdCaseId', ccdCaseId);
         const url = this.endpoint + path;
@@ -39,14 +39,14 @@ class FormData extends Service {
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': authToken,
-            'ServiceAuthorization': serviceAuthorization
+            'ServiceAuthorization': serviceAuthorisation
         };
 
         const fetchOptions = this.fetchOptions(data, 'POST', headers);
         return this.fetchJson(url, fetchOptions);
     }
 
-    postNew(authToken, serviceAuthorization, caseType) {
+    postNew(authToken, serviceAuthorisation, caseType) {
         const probateType = caseTypes.getProbateType(caseType);
         const path = this.config.services.orchestrator.paths.create;
         const url = this.endpoint + path + '?probateType=' + probateType;
@@ -54,10 +54,23 @@ class FormData extends Service {
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': authToken,
-            'ServiceAuthorization': serviceAuthorization
+            'ServiceAuthorization': serviceAuthorisation
         };
 
         const fetchOptions = this.fetchOptions({}, 'POST', headers);
+        return this.fetchJson(url, fetchOptions);
+    }
+
+    getDeclarationStatuses(authToken, serviceAuthorisation, ccdCaseId) {
+        const path = this.replacePlaceholderInPath(this.config.services.orchestrator.paths.declarationStatuses, 'ccdCaseId', ccdCaseId);
+        const url = this.endpoint + path + '?probateType=PA';
+        this.log('Get declaration statuses');
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': authToken,
+            'ServiceAuthorization': serviceAuthorisation
+        };
+        const fetchOptions = this.fetchOptions({}, 'GET', headers);
         return this.fetchJson(url, fetchOptions);
     }
 }

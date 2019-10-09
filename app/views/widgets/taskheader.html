@@ -5,7 +5,7 @@
     {% if status == "complete" %}
         <span class="govuk-tag task-completed">{{ content.taskComplete }}</span>
     {% else %}
-        {% if (status !== "started" ) and (previousTaskStatus !== "complete") %}
+        {% if (status !== "started" and status !== "pending" and previousTaskStatus !== "complete") %}
             <span class="govuk-tag task-unavailable">{{ content.taskUnavailable | safe }}</span>
         {% endif %}
     {% endif %}

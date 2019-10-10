@@ -71,8 +71,8 @@ router.post('/businessDocument/generateLegalDeclarationPDF', (req, res) => {
 });
 app.use(router);
 
-logger().info('Listening on: 8081');
+logger().info('Listening on: 8080');
 
-const server = app.listen(8081);
+const server = app.listen(8080);
 
 module.exports = server;

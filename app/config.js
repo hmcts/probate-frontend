@@ -40,7 +40,7 @@ const config = {
             }
         },
         validation: {
-            url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8081/validate'
+            url: process.env.VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
         },
         submit: {
             url: process.env.SUBMIT_SERVICE_URL || 'http://localhost:8181',
@@ -52,14 +52,14 @@ const config = {
             path: '/formdata'
         },
         idam: {
-            loginUrl: process.env.IDAM_LOGIN_URL || 'http://localhost:3501/login',
-            apiUrl: process.env.IDAM_API_URL || 'http://localhost:5000',
+            loginUrl: process.env.IDAM_LOGIN_URL || 'https://localhost:8000/login',
+            apiUrl: process.env.IDAM_API_URL || 'http://localhost:4501',
             roles: ['probate-private-beta', 'citizen'],
             s2s_url: process.env.IDAM_S2S_URL || 'http://localhost:4502',
             service_name: 'probate_frontend',
             service_key: process.env.IDAM_SERVICE_KEY || 'AAAAAAAAAAAAAAAA',
-            probate_oauth2_client: 'ccd_gateway',
-            probate_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE || 'ccd_gateway_secret',
+            probate_oauth2_client: 'probate',
+            probate_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE || '123456',
             probate_oauth_callback_path: '/oauth2/callback',
             probate_oauth_token_path: '/oauth2/token',
         },

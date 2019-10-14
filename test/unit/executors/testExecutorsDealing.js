@@ -58,7 +58,7 @@ describe('Executors-Applying', () => {
         });
 
         it('should set the lead applicant alias as the option when the Applicant Alias is set', (done) => {
-            req.session.form.executors.list[0].alias = 'Bobby Alias';
+            req.session.form.applicant.alias = 'Bobby Alias';
             ctx = ExecsDealing.getContextData(req);
             expect(ctx.options).to.deep.equal([
                 {text: 'Bobby Alias', value: 'Bobby Alias', checked: true, disabled: true},

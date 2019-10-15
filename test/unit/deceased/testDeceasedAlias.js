@@ -70,7 +70,7 @@ describe('DeceasedAlias', () => {
         let ctx;
         let errors;
 
-        it('should delete otherNames if the deceased had no aliases', (done) => {
+        it('should othernames to empty object if the deceased removed aliases', (done) => {
             ctx = {
                 alias: content.optionNo,
                 otherNames: [
@@ -83,7 +83,8 @@ describe('DeceasedAlias', () => {
             errors = [];
             [ctx, errors] = DeceasedAlias.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                alias: content.optionNo
+                alias: content.optionNo,
+                otherNames: {}
             });
             done();
         });

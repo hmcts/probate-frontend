@@ -22,7 +22,8 @@ describe('executors-dealing-with-estate', () => {
                     {fullName: 'Many Clouds', isApplying: true},
                     {fullName: 'Harvey Smith', isApplying: false}
                 ]
-            }
+            },
+            applicant: {}
         };
     });
 
@@ -42,7 +43,7 @@ describe('executors-dealing-with-estate', () => {
         });
 
         it('test correct content loaded on the page when lead applicant does have an alias', (done) => {
-            sessionData.executors.list[0].alias = 'Bobby Alias';
+            sessionData.applicant.alias = 'Bobby Alias';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

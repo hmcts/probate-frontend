@@ -24,7 +24,7 @@ class DeceasedOtherNames extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        if (!ctx.otherNames) {
+        if (!ctx.otherNames || ctx.otherNames === {}) {
             set(ctx, 'otherNames.name_0.firstName', '');
             set(ctx, 'otherNames.name_0.lastName', '');
         }

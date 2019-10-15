@@ -28,8 +28,8 @@ class DeceasedAlias extends ValidationStep {
 
     handlePost(ctx, errors) {
         const hasAlias = (new DeceasedWrapper(ctx)).hasAlias();
-        if (!hasAlias) {
-            delete ctx.otherNames;
+        if (!hasAlias && ctx.otherNames) {
+            ctx.otherNames = {};
         }
         return [ctx, errors];
     }

@@ -26,21 +26,15 @@ class PaymentStatus extends Step {
         ctx.reference = get(formdata, 'payment.reference');
         ctx.userId = req.userId;
         ctx.authToken = req.authToken;
-        logger.error('LUCA ============================================================');
-        if (!get(formdata, 'payment.amount')) {
-            set(formdata, 'payment.amount', 0);
-            logger.error('LUCA payment.amount initialised to 0');
-        }
+
         if (formdata.payment && formdata.payment.total) {
             set(formdata, 'payment.amount', formdata.payment.total);
             logger.error('LUCA payment.total: ', formdata.payment.total);
             logger.error('LUCA copy payment.total into payment.amount: ', formdata.payment.total);
         }
+
         ctx.paymentDue = get(formdata, 'payment.amount') > 0;
-
-        logger.error('LUCA payment.amount: ', formdata.payment.amount);
-        logger.error('LUCA paymentDue: ', ctx.paymentDue);
-
+        ctx.paymentChecked = typeof get(formdata, 'payment') !== 'undefined';
         ctx.regId = req.session.regId;
         ctx.sessionId = req.session.id;
         ctx.errors = req.errors;
@@ -118,7 +112,10 @@ class PaymentStatus extends Step {
                 options.redirect = false;
             }
         } else {
-            const paymentDto = {status: 'not_required'};
+            let paymentDto = {};
+            if (ctx.paymentChecked) {
+                paymentDto = {status: 'not_required'};
+            }
             logger.error('LUCA Payment not required');
             const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, paymentDto, serviceAuthResult);
             set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);

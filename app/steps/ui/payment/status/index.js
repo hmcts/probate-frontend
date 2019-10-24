@@ -33,7 +33,7 @@ class PaymentStatus extends Step {
             set(formdata, 'payment.amount', formdata.payment.total);
         }
         ctx.paymentDue = get(formdata, 'payment.amount') > 0;
-
+        ctx.paymentPending = !ctx.paymentDue && ctx.applicationFee !== 0;
         ctx.regId = req.session.regId;
         ctx.sessionId = req.session.id;
         ctx.errors = req.errors;
@@ -103,6 +103,7 @@ class PaymentStatus extends Step {
             }
         } else {
             const paymentDto = {status: 'not_required'};
+            logger.error('LUCA Payment not required');
             const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, paymentDto, serviceAuthResult);
             set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
             set(formdata, 'payment', updateCcdCaseResponse.payment);

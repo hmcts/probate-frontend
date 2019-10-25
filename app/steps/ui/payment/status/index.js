@@ -47,6 +47,7 @@ class PaymentStatus extends Step {
         delete ctx.regId;
         delete ctx.sessionId;
         delete ctx.errors;
+        delete ctx.paymentPending;
         return [ctx, formdata];
     }
 
@@ -107,8 +108,10 @@ class PaymentStatus extends Step {
 
             logger.error('LUCA Payment not required');
             const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, paymentDto, serviceAuthResult);
-            set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
-            set(formdata, 'payment', updateCcdCaseResponse.payment);
+            if (!ctx.paymentPending) {
+                set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
+                set(formdata, 'payment', updateCcdCaseResponse.payment);
+            }
             this.setErrors(options, errors);
             options.redirect = false;
         }

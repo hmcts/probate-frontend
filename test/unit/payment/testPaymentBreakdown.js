@@ -15,6 +15,7 @@ const sinon = require('sinon');
 const FeesCalculator = require('app/utils/FeesCalculator');
 const Payment = require('app/services/Payment');
 const caseTypes = require('app/utils/CaseTypes');
+const content = require('app/resources/en/translation/payment/breakdown');
 
 describe('PaymentBreakdown', () => {
     const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
@@ -399,8 +400,8 @@ describe('PaymentBreakdown', () => {
                     field: 'authorisation',
                     href: '#authorisation',
                     msg: {
-                        summary: 'We could not take your payment, please try again later.',
-                        message: ''
+                        summary: content.errors.authorisation.failure.summary,
+                        message: content.errors.authorisation.failure.message
                     }
                 }]);
                 expect(ctx).to.deep.equal(ctxTestData);
@@ -599,8 +600,8 @@ describe('PaymentBreakdown', () => {
                     field: 'payment',
                     href: '#payment',
                     msg: {
-                        summary: 'Your payment may have failed. Do not try to pay again for 2 hours.',
-                        message: ''
+                        summary: content.errors.payment.initiated.summary,
+                        message: content.errors.payment.initiated.message
                     }
                 }]);
                 getCasePaymentsStub.restore();

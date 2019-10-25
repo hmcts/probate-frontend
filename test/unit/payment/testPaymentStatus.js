@@ -219,7 +219,7 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it.only('should return validation error if paymentPending is true', (done) => {
+        it('should return validation error if paymentPending is true', (done) => {
             revertSubmitData({type: 'VALIDATION'});
             ctx = {
                 authToken: 'XXXXX',
@@ -316,6 +316,5 @@ describe('PaymentStatus', () => {
                 done(err);
             });
         });
-
     });
 });

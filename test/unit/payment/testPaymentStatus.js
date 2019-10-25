@@ -219,6 +219,41 @@ describe('PaymentStatus', () => {
             });
         });
 
+        it.only('should return validation error if paymentPending is true', (done) => {
+            revertSubmitData({type: 'VALIDATION'});
+            ctx = {
+                authToken: 'XXXXX',
+                userId: 12345,
+                reference: 4567,
+                paymentDue: false,
+                paymentPending: true
+            };
+
+            expectedFormData = {
+                payment: undefined,
+                ccdCase: undefined
+            };
+
+            const formData = {};
+            const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
+            co(function* () {
+                const options = yield paymentStatus.runnerOptions(ctx, formData);
+                expect(formData).to.deep.equal(expectedFormData);
+                expect(options.redirect).to.equal(false);
+                expect(options.errors).to.deep.equal([{
+                    field: 'update',
+                    href: '#update',
+                    msg: {
+                        summary: content.errors.update.failure.summary,
+                        message: content.errors.update.failure.message
+                    }
+                }]);
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+
         it('should return field error on options if submit returns error', (done) => {
             revertSubmitData({name: 'Error'});
 
@@ -281,5 +316,6 @@ describe('PaymentStatus', () => {
                 done(err);
             });
         });
+
     });
 });

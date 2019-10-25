@@ -231,9 +231,11 @@ describe('PaymentStatus', () => {
             };
 
             const formData = {};
+            const expectedFormData = {};
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
             co(function* () {
                 const options = yield paymentStatus.runnerOptions(ctx, formData);
+                expect(formData).to.deep.equal(expectedFormData);
                 expect(options.redirect).to.equal(false);
                 expect(options.errors).to.deep.equal([{
                     field: 'update',

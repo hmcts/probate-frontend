@@ -54,7 +54,7 @@ module.exports = {
     },
 
     validation: {
-        url: process.env.TEST_VALIDATION_SERVICE_URL || 'http://localhost:8080/validate'
+        url: process.env.TEST_VALIDATION_SERVICE_URL || 'http://localhost:8081/validate'
     },
 
     TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk',

@@ -25,6 +25,7 @@ nodejs:
     PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
     REDIS_HOST: ${SERVICE_NAME}-redis-master
     REDIS_PORT: 6379
+    IDAM_CLIENT_NAME: probate
     IDAM_SERVICE_KEY: ${IDAM_S2S_SECRET}
     IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE: ${IDAM_SECRET_PROBATE}
     POSTCODE_SERVICE_URL: ${PRO_POSTCODE_SERVICE_URL}

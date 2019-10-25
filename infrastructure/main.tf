@@ -215,6 +215,7 @@ module "probate-frontend" {
        // Cache
     WEBSITE_LOCAL_CACHE_OPTION = "${var.website_local_cache_option}"
     WEBSITE_LOCAL_CACHE_SIZEINMB = "${var.website_local_cache_sizeinmb}"
+    IDAM_CLIENT_NAME = "probate"
   }
 }
 

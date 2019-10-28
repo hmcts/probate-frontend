@@ -105,13 +105,13 @@ class PaymentStatus extends Step {
         } else {
             const paymentStatus = ctx.paymentPending ? 'Pending' : 'not_required';
             const paymentDto = {status: paymentStatus};
-
-            logger.error('LUCA Payment not required');
             const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, paymentDto, serviceAuthResult);
+
             if (!ctx.paymentPending) {
                 set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
                 set(formdata, 'payment', updateCcdCaseResponse.payment);
             }
+
             this.setErrors(options, errors);
             options.redirect = false;
         }

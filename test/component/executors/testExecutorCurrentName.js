@@ -14,6 +14,10 @@ describe('executor-current-name', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorCurrentName');
         sessionData = {
+            ccdCase: {
+                state: 'Pending',
+                id: 1234567890123456
+            },
             executors: {
                 list: [
                     {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
@@ -42,6 +46,7 @@ describe('executor-current-name', () => {
                     const contentData = {
                         executorFullName: 'Executor Name 2',
                     };
+
                     testWrapper.testContent(done, contentData);
                 });
         });
@@ -58,6 +63,7 @@ describe('executor-current-name', () => {
                     const data = {
                         currentName: '< Brian'
                     };
+
                     testWrapper.testErrors(done, data, 'invalid', errorsToTest);
                 });
         });
@@ -69,6 +75,7 @@ describe('executor-current-name', () => {
                     const data = {
                         currentName: 'Another Name 2'
                     };
+
                     testWrapper.testRedirect(done, data, executorCurrentNameReasonFirstUrl);
                 });
         });
@@ -81,6 +88,7 @@ describe('executor-current-name', () => {
                     const data = {
                         currentName: 'Another Name'
                     };
+
                     testWrapper.testRedirect(done, data, executorCurrentNameReasonSubsequentUrl);
                 });
         });

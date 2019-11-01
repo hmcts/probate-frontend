@@ -20,9 +20,19 @@ describe('deceased-address', () => {
         testCommonContent.runTest('DeceasedAddress');
 
         it('test right content loaded on the page', (done) => {
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
             const contentToExclude = ['selectAddress'];
 
-            testWrapper.testContent(done, {}, contentToExclude);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, {}, contentToExclude);
+                });
         });
 
         it('test address schema validation when address search is unsuccessful', (done) => {

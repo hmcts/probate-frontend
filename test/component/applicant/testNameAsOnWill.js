@@ -22,27 +22,34 @@ describe('applicant-name-as-on-will', () => {
 
         it('test correct content is loaded on the page', (done) => {
             const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 applicant: {
                     firstName: 'John',
                     lastName: 'TheApplicant'
                 }
             };
-
             const contentToExclude = ['questionWithoutName', 'questionWithCodicil', 'legendWithCodicil'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-
                     const contentData = {
                         applicantName: 'John TheApplicant',
                     };
+
                     testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
         it('test correct content is loaded on the page when there is a codicil', (done) => {
             const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 applicant: {
                     firstName: 'John',
                     lastName: 'TheApplicant'
@@ -51,7 +58,6 @@ describe('applicant-name-as-on-will', () => {
                     codicils: 'Yes'
                 }
             };
-
             const contentToExclude = ['question', 'questionWithoutName', 'legend'];
 
             testWrapper.agent.post('/prepare-session/form')
@@ -78,7 +84,6 @@ describe('applicant-name-as-on-will', () => {
                 .end(() => {
                     testWrapper.testErrors(done, {}, 'required');
                 });
-
         });
 
         it(`test it redirects to next page when Yes selected: ${expectedNextUrlForApplicantPhone}`, (done) => {

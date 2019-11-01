@@ -12,6 +12,10 @@ class PinSent extends Step {
         return new WithLinkStepRunner();
     }
 
+    shouldPersistFormData() {
+        return false;
+    }
+
     getContextData(req) {
         const ctx = super.getContextData(req);
         ctx.phoneNumber = req.session.phoneNumber;

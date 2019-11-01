@@ -21,7 +21,7 @@ class AsyncFetch {
         return url.endsWith('health');
     }
 
-    fetch (url, fetchOptions, parseBody) {
+    fetch(url, fetchOptions, parseBody) {
         if (!this.isHealthEndpoint(url)) {
             log.info('Calling external service');
         }
@@ -36,10 +36,18 @@ class AsyncFetch {
                     if (res.ok) {
                         return parseBody(res);
                     }
+                    if (res.status === 400) {
+                        log.error(res.statusText);
+                        return parseBody(res)
+                            .then(body => {
+                                this.logBody(body);
+                                return body;
+                            });
+                    }
                     log.error(res.statusText);
                     return parseBody(res)
                         .then(body => {
-                            log.error(body);
+                            this.logBody(body);
                             reject(new Error(res.statusText));
                         });
 
@@ -52,6 +60,15 @@ class AsyncFetch {
                     reject(Error(err));
                 });
         });
+    }
+
+    logBody(body) {
+        try {
+            const json = JSON.stringify(body);
+            log.error(json);
+        } catch (e) {
+            log.error(body);
+        }
     }
 }
 

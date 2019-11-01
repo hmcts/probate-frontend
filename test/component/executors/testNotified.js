@@ -15,6 +15,10 @@ describe('executor-notified', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorNotified');
         sessionData = {
+            ccdCase: {
+                state: 'Pending',
+                id: 1234567890123456
+            },
             executors: {
                 list: [
                     {firstName: 'John', lastName: 'TheApplicant', isApplying: 'Yes', isApplicant: true},
@@ -35,11 +39,12 @@ describe('executor-notified', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const playbackData = {};
-                    playbackData.helpTitle = commonContent.helpTitle;
-                    playbackData.helpHeading1 = commonContent.helpHeading1;
-                    playbackData.helpHeading2 = commonContent.helpHeading2;
-                    playbackData.helpEmailLabel = commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress);
+                    const playbackData = {
+                        helpTitle: commonContent.helpTitle,
+                        helpHeading1: commonContent.helpHeading1,
+                        helpHeading2: commonContent.helpHeading2,
+                        helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
+                    };
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });

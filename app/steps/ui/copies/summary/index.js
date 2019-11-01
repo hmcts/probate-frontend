@@ -36,6 +36,8 @@ class CopiesSummary extends Step {
         fields[this.section] = super.generateFields(ctx, errors, formdata);
 
         if (ctx) {
+            fields.userLoggedIn = {};
+            fields.userLoggedIn.value = ctx.userLoggedIn ? ctx.userLoggedIn.toString() : 'true';
             fields.featureToggles = {};
             fields.featureToggles.value = ctx.featureToggles;
         }

@@ -30,7 +30,7 @@ class ExecutorsNames extends ValidationStep {
         ctx.executorName = [];
         if (ctx.list) {
             ctx.list.forEach((executor) => {
-                if (executor && 'fullName' in executor) {
+                if (executor && 'fullName' in executor && !executor.isApplicant) {
                     ctx.executorName.push(executor.fullName);
                 }
             });

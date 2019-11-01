@@ -11,6 +11,10 @@
                 "summary": "We could not submit your application. Your data has been saved, please try again later.",
                 "message": ""
             }
+        },
+        "validation": {
+            "summary": "There has been a problem saving your application.",
+            "message": ""
         }
     }
 }

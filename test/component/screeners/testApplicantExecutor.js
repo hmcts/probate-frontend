@@ -45,19 +45,47 @@ describe('applicant-executor', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForMentalCapacity}`, (done) => {
-            const data = {
-                executor: 'Yes'
+            const sessionData = {
+                screeners: {
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes',
+                    left: 'Yes',
+                    original: 'Yes'
+                }
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForMentalCapacity, cookies);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        executor: 'Yes'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForMentalCapacity, cookies);
+                });
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            const data = {
-                executor: 'No'
+            const sessionData = {
+                screeners: {
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes',
+                    left: 'Yes',
+                    original: 'Yes'
+                }
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        executor: 'No'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+                });
         });
 
         it('test "save and close" link is not displayed on the page', (done) => {

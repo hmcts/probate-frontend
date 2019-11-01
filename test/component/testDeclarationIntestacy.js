@@ -29,15 +29,17 @@ describe('declaration, intestacy', () => {
                 'CpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA'
             );
 
-        nock(config.services.validation.url.replace('/validate', ''))
-            .post(config.pdf.path + '/'+ config.pdf.template.declaration)
+        nock(config.services.orchestrator.url)
+            .put(uri => uri.includes('validations'))
             .reply(200, {});
 
-        nock(config.services.validation.url.replace('/validate', ''))
+        nock(config.services.orchestrator.url)
+            .post(config.pdf.path + '/' + config.pdf.template.declaration)
+            .reply(200, {buffer: {}, originalname: {}});
+
+        nock(config.services.orchestrator.url)
             .post(config.documentUpload.paths.upload)
-            .reply(200, [
-                'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
-            ]);
+            .reply(200, {});
 
         sessionData = require('test/data/complete-form-undeclared').formdata;
         sessionData.caseType = caseTypes.INTESTACY;
@@ -1431,25 +1433,37 @@ describe('declaration, intestacy', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForExecInvite}`, (done) => {
             sessionData = {
-                executors: {
-                    list: [
-                        {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true}
-                    ],
-                    invitesSent: 'true'
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
                 },
-                declaration: {
-                    hasDataChanged: false
+                form: {
+                    executors: {
+                        list: [
+                            {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true}
+                        ],
+                        invitesSent: 'true'
+                    },
+                    declaration: {
+                        hasDataChanged: false
+                    },
+                    session: {
+                        legalDeclaration: {}
+                    }
                 }
             };
 
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
+            testWrapper.agent.post('/prepare-session-field/serviceAuthorization/SERVICE_AUTH_123')
                 .end(() => {
-                    const data = {
-                        declarationCheckbox: true
-                    };
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end(() => {
+                            const data = {
+                                declarationCheckbox: true
+                            };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
+                            testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
+                        });
                 });
         });
     });

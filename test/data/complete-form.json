@@ -4,7 +4,9 @@
       "state": "CaseCreated",
       "id": 1535395401245028
     },
-    "documentupload": "",
+    "documents": {
+      "uploads": ""
+    },
     "payloadVersion": "1.0",
     "will": {
       "left": "Yes",

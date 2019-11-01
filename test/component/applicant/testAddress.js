@@ -24,9 +24,19 @@ describe('applicant-address', () => {
         testCommonContent.runTest('ApplicantAddress');
 
         it('test right content loaded on the page', (done) => {
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
             const contentToExclude = ['selectAddress'];
 
-            testWrapper.testContent(done, {}, contentToExclude);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, {}, contentToExclude);
+                });
         });
 
         it('test error messages displayed for missing data', (done) => {
@@ -48,24 +58,35 @@ describe('applicant-address', () => {
 
         it('test the address dropdown box displays all addresses when the user returns to the page', (done) => {
             const sessionData = {
-                postcode: testAddressData[1].postcode,
-                postcodeAddress: formatAddress(testAddressData[1].formattedAddress),
-                addresses: testAddressData,
-                addressLine1: 'value',
-                postTown: 'value',
-                newPostCode: 'value'
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
             };
 
-            testWrapper.agent
-                .post(testWrapper.pageUrl)
+            testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const playbackData = testAddressData.map((address, index) => {
-                        const formattedAddress = formatAddress(address.formattedAddress);
-                        return `<option value="${index}" ${formattedAddress === sessionData.postcodeAddress ? 'selected' : ''}>${formattedAddress}</option>`;
-                    });
+                    const sessionData = {
+                        postcode: testAddressData[1].postcode,
+                        postcodeAddress: formatAddress(testAddressData[1].formattedAddress),
+                        addresses: testAddressData,
+                        addressLine1: 'value',
+                        postTown: 'value',
+                        newPostCode: 'value'
+                    };
 
-                    testWrapper.testDataPlayback(done, playbackData);
+                    testWrapper.agent
+                        .post(testWrapper.pageUrl)
+                        .send(sessionData)
+                        .end(() => {
+                            const playbackData = testAddressData.map((address, index) => {
+                                const formattedAddress = formatAddress(address.formattedAddress);
+                                return `<option value="${index}" ${formattedAddress === sessionData.postcodeAddress ? 'selected' : ''}>${formattedAddress}</option>`;
+                            });
+
+                            testWrapper.testDataPlayback(done, playbackData);
+                        });
                 });
         });
     });

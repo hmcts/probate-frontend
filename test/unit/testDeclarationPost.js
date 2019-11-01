@@ -1,6 +1,6 @@
 'use strict';
 
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const initSteps = require('app/core/initSteps');
 const sinon = require('sinon');
 const rewire = require('rewire');
@@ -26,11 +26,30 @@ describe('Declaration', () => {
 
         beforeEach(() => {
             ctx = {};
-            formdata = {};
-            session = {form: {}, req: {userId: '1234'}};
+            formdata = {applicantEmail: 'test@test.com'};
+            session = {
+                form: {},
+                req: {
+                    userId: '1234',
+                    session: {
+                        serviceAuthorization: 'serviceToken1234'
+                    },
+                    authToken: 'authToken123456'
+                }
+            };
             errors = [];
         });
         it('should call UploadLegalDeclaration on post', (done) => {
+            const revert = Declaration.__set__('ServiceMapper', class {
+                static map() {
+                    return class {
+                        static put() {
+                            return Promise.resolve({});
+                        }
+                    };
+                }
+            });
+
             const statementOfTruthDocument = {
                 filename: 'filename.pdf',
                 url: 'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
@@ -46,6 +65,7 @@ describe('Declaration', () => {
 
                 expect(formdata.statementOfTruthDocument).to.deep.equal(statementOfTruthDocument);
                 stub.restore();
+                revert();
                 done();
             }).catch(err => {
                 done(err);

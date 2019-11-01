@@ -12,6 +12,10 @@ describe('/executor-current-name-reason/', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorCurrentNameReason');
         sessionData = {
+            ccdCase: {
+                state: 'Pending',
+                id: 1234567890123456
+            },
             executors: {
                 list: [
                     {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
@@ -39,6 +43,7 @@ describe('/executor-current-name-reason/', () => {
                         executorFullName: 'Executor Name2',
                         executorName: 'Name2 Executor'
                     };
+
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
                     testWrapper.testContent(done, contentData);
                 });
@@ -73,6 +78,7 @@ describe('/executor-current-name-reason/', () => {
                         index: 1,
                         currentNameReason: 'Marriage'
                     };
+
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testRedirect(done, data, firstNameReasonUrl);
                 });
@@ -91,6 +97,7 @@ describe('/executor-current-name-reason/', () => {
                         index: 4,
                         currentNameReason: 'Marriage',
                     };
+
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(4);
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecContactDetails);
                 });

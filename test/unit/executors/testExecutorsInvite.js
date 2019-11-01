@@ -3,10 +3,11 @@
 const initSteps = require('app/core/initSteps');
 const {assert, expect} = require('chai');
 const journey = require('app/journeys/probate');
+const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
+const ExecsInvite = steps.ExecutorsInvite;
 
 describe('Executors-Invite', () => {
     let ctx;
-    const ExecsInvite = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]).ExecutorsInvite;
 
     describe('getContextData()', () => {
         const req = {
@@ -53,6 +54,13 @@ describe('Executors-Invite', () => {
             };
             ExecsInvite.action(ctx);
             assert.isUndefined(ctx.inviteSuffix);
+        });
+    });
+
+    describe('shouldPersistFormData()', () => {
+        it('should return false', () => {
+            const persist = ExecsInvite.shouldPersistFormData();
+            expect(persist).to.equal(false);
         });
     });
 });

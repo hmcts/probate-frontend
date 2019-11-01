@@ -9,9 +9,7 @@ const initSteps = require('app/core/initSteps');
 const {endsWith} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const stepsToExclude = [
-    'StartEligibility', 'ApplicantExecutor', 'DeceasedDomicile', 'MentalCapacity', 'IhtCompleted', 'WillLeft', 'WillOriginal', 'StartApply',
-    'DiedAfterOctober2014', 'RelatedToDeceased', 'OtherApplicants',
-    'Summary', 'TaskList', 'PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName',
+    'Dashboard', 'Summary', 'TaskList', 'PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName',
     'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied'
 ];
 const steps = initSteps.steps;
@@ -29,15 +27,22 @@ for (const step in steps) {
         describe(`Verify accessibility for the page ${step.name}`, () => {
             let server = null;
             let agent = null;
-            const title = `${step.content.title} - ${commonContent.serviceName}`
-                .replace(/&lsquo;/g, '‘')
-                .replace(/&rsquo;/g, '’')
-                .replace(/\(/g, '\\(')
-                .replace(/\)/g, '\\)');
+            let title;
+            if (step.name === 'StartEligibility') {
+                title = `${commonContent.serviceName} - Eligibility`;
+            } else if (step.name === 'StartApply') {
+                title = `${commonContent.serviceName} - Create account`;
+            } else {
+                title = `${step.content.title} - ${commonContent.serviceName}`
+                    .replace(/&lsquo;/g, '‘')
+                    .replace(/&rsquo;/g, '’')
+                    .replace(/\(/g, '\\(')
+                    .replace(/\)/g, '\\)');
+            }
 
             before((done) => {
-                nock(config.services.validation.url.replace('/validate', ''))
-                    .get('/invites/allAgreed/undefined')
+                nock(config.services.orchestrator.url)
+                    .get('/invite/allAgreed/undefined')
                     .reply(200, 'false');
 
                 nock(config.featureToggles.url)

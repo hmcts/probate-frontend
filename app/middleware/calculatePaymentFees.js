@@ -10,8 +10,7 @@ const calculatePaymentFees = (req, res, next) => {
 
     feesCalculator.calc(formdata, req.authToken, req.session.featureToggles)
         .then((fees) => {
-            formdata.fees = fees;
-            session.form = formdata;
+            session.form.fees = fees;
             next();
         });
 };

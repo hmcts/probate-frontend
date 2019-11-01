@@ -18,15 +18,26 @@ describe('copies-start', () => {
     describe('Verify Content, Errors and Redirection', () => {
 
         it('test right content loaded on the page', (done) => {
-            const contentToExclude = [
-                'paragraph2_1'
-            ];
-            testWrapper.testContent(done, {}, contentToExclude);
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentToExclude = [
+                        'paragraph2_1'
+                    ];
+
+                    testWrapper.testContent(done, {}, contentToExclude);
+                });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForCopiesUk}`, (done) => {
             testWrapper.testRedirect(done, {}, expectedNextUrlForCopiesUk);
         });
-
     });
 });

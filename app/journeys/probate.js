@@ -63,7 +63,7 @@ const stepList = {
         isCapable: 'StartApply',
         otherwise: 'StopPage'
     },
-    StartApply: 'TaskList',
+    StartApply: 'Dashboard',
     DeceasedName: 'DeceasedDob',
     DeceasedDob: 'DeceasedDod',
     DeceasedDod: 'DeceasedAddress',
@@ -181,6 +181,7 @@ const stepList = {
     PaymentStatus: 'TaskList',
     AddressLookup: 'AddressLookup',
     TaskList: 'TaskList',
+    Dashboard: 'TaskList',
     StopPage: 'StopPage',
     PinPage: 'CoApplicantStartPage',
     PinResend: 'PinSent',

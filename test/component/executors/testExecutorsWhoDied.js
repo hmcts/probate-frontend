@@ -11,6 +11,10 @@ describe('executors-who-died', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsWhoDied');
         sessionData = {
+            ccdCase: {
+                state: 'Pending',
+                id: 1234567890123456
+            },
             applicant: {
                 firstName: 'John',
                 lastName: 'TheApplicant'

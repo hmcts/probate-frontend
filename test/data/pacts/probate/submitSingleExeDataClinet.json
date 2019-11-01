@@ -1,0 +1,306 @@
+{
+    "iht" : {
+      "form" : "IHT205",
+      "method" : "By post",
+      "netValue" : 343434,
+      "ihtFormId" : "IHT205",
+      "netIHT205" : "343434",
+      "grossValue" : 3443434,
+      "grossIHT205" : "3443434"
+    },
+    "will" : {
+      "left" : "Yes",
+      "codicils" : "Yes",
+      "codicilsNumber" : 4
+    },
+    "assets" : {
+      "assetsoverseas" : "Yes"
+    },
+    "copies" : {
+      "uk" : 1,
+      "overseas" : 2
+    },
+    "ccdCase" : {
+      "id" : 1552300678017835,
+      "state" : "CaseCreated"
+    },
+    "payment" : {
+      "date" : "2019-03-11T10:37:59.068+0000",
+      "total" : 216.5,
+      "amount" : 216.5,
+      "copies" : {
+        "uk" : {
+          "cost" : 0.5,
+          "number" : 1
+        },
+        "overseas" : {
+          "cost" : 1,
+          "number" : 2
+        }
+      },
+      "siteId" : "P223",
+      "status" : "Success",
+      "userId" : 831838,
+      "channel" : "online",
+      "paymentId" : "RC-1552-3006-7875-5921",
+      "reference" : "RC-1552-3006-7875-5921",
+      "transactionId" : "0cu782m4gei8k98uitap9dcv17",
+      "applicationFee" : 215,
+      "paymentCreatedDate" : "2019-03-11T10:37:59.068+0000"
+    },
+    "summary" : {
+      "readyToDeclare" : true
+    },
+    "deceased" : {
+      "alias" : "Yes",
+      "address" : "4 Neville Road London E7 9QX",
+      "dob-day" : 1,
+      "dod-day" : 2,
+      "married" : "Yes",
+      "dob-date" : "1900-01-01T00:00:00.000Z",
+      "dob-year" : 1900,
+      "dod-date" : "2000-02-02T00:00:00.000Z",
+      "dod-year" : 2000,
+      "lastName" : "SingleExeCaseDataLN",
+      "postcode" : "E7 9QX",
+      "dob-month" : 1,
+      "dod-month" : 2,
+      "firstName" : "SingleExeCaseDataFN",
+      "otherNames" : {
+        "name_0" : {
+          "lastName" : "ssfsdfa",
+          "firstName" : "dafdsad"
+        },
+        "name_1" : {
+          "lastName" : "dafsfa",
+          "firstName" : "dsafsda"
+        }
+      },
+      "addressFound" : "true",
+      "deceasedName" : "SingleExeCaseDataFN SingleExeCaseDataLN",
+      "postcodeAddress" : "4 Neville Road London E7 9QX",
+      "dob-formattedDate" : "1 January 1900",
+      "dod-formattedDate" : "2 February 2000"
+    },
+    "registry" : {
+      "name" : "Manchester",
+      "email" : "test.probate.inbox@gmail.com",
+      "address" : "Digital Application\nManchester Civil Justice Centre\nGround Floor\n1 Bridge Street West\nP.O. BOX 4240\nManchester\nM60 9DJ",
+      "sequenceNumber" : 31026
+    },
+    "applicant" : {
+      "email" : "ccdcasedata1@gmail.com",
+      "alias" : "diff TestFN TestLN",
+      "address" : "120 Caulfield Road London E6 2DG",
+      "lastName" : "TestLN",
+      "postcode" : "E6 2DG",
+      "firstName" : "TestFN",
+      "aliasReason" : "other",
+      "otherReason" : "Other Reason ",
+      "phoneNumber" : "3244234324",
+      "addressFound" : "true",
+      "nameAsOnTheWill" : "No",
+      "postcodeAddress" : "120 Caulfield Road London E6 2DG"
+    },
+    "documents" : {
+      "uploads" : [ {
+        "url" : "http://dm-store-aat.service.core-compute-aat.internal/documents/24d1f59c-ff45-4bd5-994b-99b602ace1e9",
+        "filename" : "Screenshot 2019-03-05 at 15.11.46.png"
+      } ],
+      "sentDocuments" : "true"
+    },
+    "executors" : {
+      "list" : [ {
+        "alias" : "diff TestFN TestLN",
+        "lastName" : "TestLN",
+        "firstName" : "TestFN",
+        "isApplying" : true,
+        "aliasReason" : "other",
+        "isApplicant" : true,
+        "otherReason" : "Other Reason "
+      } ],
+      "executorsNumber" : 1
+    },
+    "declaration" : {
+      "softStop" : true,
+      "declaration" : {
+        "accept" : "I confirm that I will administer the estate of the person who died according to law, and that my application is truthful.",
+        "confirm" : "I confirm that I will administer the estate of SingleExeCaseDataFN SingleExeCaseDataLN, according to law. I will:",
+        "requests" : "If the probate registry (court) asks me to do so, I will:",
+        "understand" : "I understand that:",
+        "confirmItem1" : "collect the whole estate",
+        "confirmItem2" : "keep full details (an inventory) of the estate",
+        "confirmItem3" : "keep a full account of how the estate has been administered",
+        "requestsItem1" : "provide the full details of the estate and how it has been administered",
+        "requestsItem2" : "return the grant of probate to the court",
+        "submitWarning" : "Once you click &lsquo;Save and continue&rsquo;, you cannot change your answers.",
+        "understandItem1" : "my application will be rejected if I do not answer any questions about the information I have given",
+        "understandItem2" : "criminal proceedings for fraud may be brought against me if I am found to have been deliberately untruthful or dishonest"
+      },
+      "legalStatement" : {
+        "intro" : "This statement is based on the information you&rsquo;ve given in your application. It will be stored as a public record.",
+        "deceased" : "SingleExeCaseDataFN SingleExeCaseDataLN was born on 1 January 1900 and died on 2 February 2000, domiciled in England and Wales.",
+        "applicant" : "I, TestFN TestLN of 120 Caulfield Road London E6 2DG, make the following statement:",
+        "executorsApplying" : [ {
+          "name" : "I, TestFN TestLN, an executor named in the will or codicils as diff TestFN TestLN, am applying for probate. My name is different because: Other Reason .",
+          "sign" : "I will send to the probate registry what I believe to be the true and original last will and testament and any codicils of SingleExeCaseDataFN SingleExeCaseDataLN."
+        } ],
+        "deceasedEstateLand" : "To the best of my knowledge, information and belief, there was no land vested in SingleExeCaseDataFN SingleExeCaseDataLN which was settled previously to the death (and not by the will) of SingleExeCaseDataFN SingleExeCaseDataLN and which remained settled land notwithstanding such death.",
+        "deceasedOtherNames" : "They were also known as dafdsad ssfsdfa and dsafsda dafsfa.",
+        "deceasedEstateValue" : "The gross value for the estate amounts to £3443434 and the net value for the estate amounts to £343434.",
+        "executorsNotApplying" : [ ]
+      },
+      "hasEmailChanged" : false,
+      "declarationCheckbox" : "true"
+    },
+    "applicantEmail" : "ccdcasedata1@gmail.com",
+    "documentupload" : { },
+    "payloadVersion" : "4.1.1",
+    "paymentPending" : "false",
+    "creatingPayment" : "false",
+    "legalDeclaration" : {
+      "headers" : [ "In the High Court of Justice", "Family Division", "(Probate)" ],
+      "deceased" : "SingleExeCaseDataFN SingleExeCaseDataLN",
+      "sections" : [ {
+        "title" : "Legal statement",
+        "headingType" : "large",
+
+
+
+        "declarationItems" : [ {
+          "title" : "I, TestFN TestLN of 120 Caulfield Road London E6 2DG, make the following statement:"
+        } ]
+      }, {
+        "title" : "The person who died",
+        "headingType" : "small",
+        "declarationItems" : [ {
+          "title" : "SingleExeCaseDataFN SingleExeCaseDataLN was born on 1 January 1900 and died on 2 February 2000, domiciled in England and Wales. They were also known as dafdsad ssfsdfa and dsafsda dafsfa."
+        } ]
+      }, {
+        "title" : "The estate of the person who died",
+        "headingType" : "small",
+        "declarationItems" : [ {
+          "title" : "The gross value for the estate amounts to £3443434 and the net value for the estate amounts to £343434."
+        }, {
+          "title" : "To the best of my knowledge, information and belief, there was no land vested in SingleExeCaseDataFN SingleExeCaseDataLN which was settled previously to the death (and not by the will) of SingleExeCaseDataFN SingleExeCaseDataLN and which remained settled land notwithstanding such death."
+        } ]
+      }, {
+        "title" : "Executors applying for probate",
+        "headingType" : "small",
+        "declarationItems" : [ {
+          "title" : "I, TestFN TestLN, an executor named in the will or codicils as diff TestFN TestLN, am applying for probate. My name is different because: Other Reason ."
+        }, {
+          "title" : "I will send to the probate registry what I believe to be the true and original last will and testament and any codicils of SingleExeCaseDataFN SingleExeCaseDataLN."
+        } ]
+      }, {
+        "title" : "Declaration",
+        "headingType" : "large",
+        "declarationItems" : [ {
+          "title" : "I confirm that I will administer the estate of SingleExeCaseDataFN SingleExeCaseDataLN, according to law. I will:",
+          "values" : [ "collect the whole estate", "keep full details (an inventory) of the estate", "keep a full account of how the estate has been administered" ]
+        }, {
+          "title" : "If the probate registry (court) asks me to do so, I will:",
+          "values" : [ "provide the full details of the estate and how it has been administered", "return the grant of probate to the court" ]
+        }, {
+          "title" : "I understand that:",
+          "values" : [ "my application will be rejected if I do not answer any questions about the information I have given", "criminal proceedings for fraud may be brought against me if I am found to have been deliberately untruthful or dishonest" ]
+        } ]
+      } ],
+      "dateCreated" : "3/11/2019, 10:33:36 AM"
+    },
+    "checkAnswersSummary" : {
+      "sections" : [ {
+        "type" : "heading-medium",
+        "title" : "About the person who died",
+        "questionAndAnswers" : [ {
+          "answers" : [ "SingleExeCaseDataFN" ],
+          "question" : "First name and any middle names"
+        }, {
+          "answers" : [ "SingleExeCaseDataLN" ],
+          "question" : "Last name"
+        }, {
+          "answers" : [ "Yes" ],
+          "question" : "Did SingleExeCaseDataFN SingleExeCaseDataLN have assets in another name?"
+        }, {
+          "answers" : [ "\n                dafdsad ssfsdfa\n            ", "\n                dsafsda dafsfa\n            " ],
+          "question" : "Names used by the deceased"
+        }, {
+          "answers" : [ "Yes" ],
+          "question" : "Did SingleExeCaseDataFN SingleExeCaseDataLN get married or enter into a civil partnership after the latest codicil was signed?"
+        }, {
+          "answers" : [ "1 January 1900" ],
+          "question" : "What was their date of birth?"
+        }, {
+          "answers" : [ "2 February 2000" ],
+          "question" : "What was the date that they died?"
+        }, {
+          "answers" : [ "4 Neville Road London E7 9QX" ],
+          "question" : "What was the permanent address at the time of their death?"
+        }, {
+          "answers" : [ "Yes" ],
+          "question" : "Were any updates (‘codicils’) made to the will?"
+        }, {
+          "answers" : [ "4" ],
+          "question" : "How many updates (‘codicils’) were made to the will?"
+        } ]
+      }, {
+        "type" : "heading-medium",
+        "title" : "Uploaded documents",
+        "questionAndAnswers" : [ {
+          "answers" : [ "\n                                    Screenshot 2019-03-05 at 15.11.46.png\n                                " ],
+          "question" : "Death Certificate"
+        } ]
+      }, {
+        "type" : "heading-medium",
+        "title" : "Inheritance tax",
+        "questionAndAnswers" : [ {
+          "answers" : [ "By post" ],
+          "question" : "How was the Inheritance Tax (IHT) form submitted?"
+        }, {
+          "answers" : [ "IHT 205 - there was no inheritance tax to pay" ],
+          "question" : "Which paper form was filled in?"
+        }, {
+          "answers" : [ "3443434" ],
+          "question" : "Gross value of the estate in £"
+        }, {
+          "answers" : [ "343434" ],
+          "question" : "Net value of the estate in £"
+        } ]
+      }, {
+        "type" : "heading-medium",
+        "title" : "The executors",
+        "questionAndAnswers" : [ {
+          "answers" : [ "1" ],
+          "question" : "How many past and present executors are named on the will and any updates (‘codicils’)?"
+        } ]
+      }, {
+        "type" : "heading-small",
+        "title" : "About you",
+        "questionAndAnswers" : [ {
+          "answers" : [ "TestFN" ],
+          "question" : "First name and any middle names"
+        }, {
+          "answers" : [ "TestLN" ],
+          "question" : "Last name"
+        }, {
+          "answers" : [ "No" ],
+          "question" : "Is your name ‘TestFN TestLN’ exactly what appears on the will?"
+        }, {
+          "answers" : [ "diff TestFN TestLN" ],
+          "question" : "Name on will"
+        }, {
+          "answers" : [ "Other Reason " ],
+          "question" : "Reason for name change"
+        }, {
+          "answers" : [ "3244234324" ],
+          "question" : "Phone number"
+        }, {
+          "answers" : [ "120 Caulfield Road London E6 2DG" ],
+          "question" : "What is your address?"
+        } ]
+      } ],
+      "pageTitle" : "\n            Check your answers\n        ",
+      "mainParagraph" : "Check the information below carefully. This will form a record of your application for probate. It will also be stored as a public record, and will be able to be viewed online."
+    },
+    "submissionReference" : 5861
+}

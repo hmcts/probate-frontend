@@ -38,6 +38,10 @@ describe('executors-address', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content is loaded on the page', (done) => {
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
             const contentToExclude = ['selectAddress'];
 
             testWrapper.agent.post('/prepare-session/form')

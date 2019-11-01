@@ -1,6 +1,6 @@
 'use strict';
 
-const {expect} = require('chai');
+const expect = require('chai').expect;
 const co = require('co');
 const rewire = require('rewire');
 const AddressLookup = rewire('app/steps/action/addressLookup');

@@ -20,7 +20,18 @@ describe('applicant-name', () => {
         testCommonContent.runTest('ApplicantName');
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done);
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done);
+                });
         });
 
         it('test error message displayed for missing data', (done) => {
@@ -29,6 +40,7 @@ describe('applicant-name', () => {
                 firstName: '',
                 lastName: ''
             };
+
             testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
@@ -38,6 +50,7 @@ describe('applicant-name', () => {
                 firstName: '<dave>',
                 lastName: 'bassett'
             };
+
             testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
@@ -47,6 +60,7 @@ describe('applicant-name', () => {
                 firstName: 'dave>',
                 lastName: 'bassett'
             };
+
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
         });
 
@@ -56,6 +70,7 @@ describe('applicant-name', () => {
                 firstName: 'dave',
                 lastName: '>bassett'
             };
+
             testWrapper.testErrors(done, data, 'invalid', errorsToTest);
         });
 
@@ -64,6 +79,7 @@ describe('applicant-name', () => {
                 firstName: 'bob',
                 lastName: 'smith'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForApplicantNameAsOnWill);
         });
     });

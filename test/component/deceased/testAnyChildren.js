@@ -25,6 +25,10 @@ describe('any-children', () => {
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 deceased: {
                     firstName: 'John',
                     lastName: 'Doe'
@@ -35,6 +39,7 @@ describe('any-children', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe'};
+
                     testWrapper.testContent(done, contentData);
                 });
         });

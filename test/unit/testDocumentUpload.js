@@ -198,7 +198,8 @@ describe('DocumentUpload.js', () => {
 
         it('returns true if formdata has documentupload field', (done) => {
             const testFormdata = {
-                documentupload: ''
+                documentupload: {},
+
             };
             const isComplete = DocumentUpload.isComplete(testCtx, testFormdata);
             expect(isComplete).to.deep.equal([true, 'inProgress']);

@@ -2,6 +2,14 @@
 Header
 */
 
+.govuk-header__link--homepage {
+  &:hover,
+  &:active {
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+}
+
 .govuk-header__content {
   .govuk-header__menu-button {
     display: none;
@@ -22,10 +30,12 @@ Header
       @include govuk-media-query($from: desktop) {
         padding: 5px 0;
       }
-    }
 
-    a {
-      @include govuk-font(19, $weight: bold);
+      &:last-child {
+        a {
+          @include govuk-font(19, $weight: bold);
+        }
+      }
     }
   }
 }

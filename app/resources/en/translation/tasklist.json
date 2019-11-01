@@ -7,8 +7,10 @@
   "executorsTask": "Give details about the executors",
   "applicantsTask": "Give details about the people applying",
   "reviewAndConfirmTask": "Check your answers and make your legal declaration",
-  "reviewAndConfirmTaskMultiplesParagraph1" : "You can&rsquo;t continue with this application until all the executors have made their legal declaration. They have received an email with a link to do this.",
-  "reviewAndConfirmTaskMultiplesParagraph2" : "If you need to change your answers, the other executors will be able to see the updated declaration using the same link that was emailed to them.",
+  "reviewAndConfirmTaskMultiplesParagraph1" : "You can continue with your application when all the executors have made their legal declaration. They have received an email which tells them what they need to do.",
+  "reviewAndConfirmTaskMultiplesParagraph2" : "If you change your answers, the executors will see the updated declaration using the same link in the email they received.",
+  "reviewAndConfirmTaskMultiplesParagraph3Heading": "Executors to declare",
+  "reviewAndConfirmTaskMultiplesParagraph3" : "All executors must have made their legal declaration before you can continue with your application.",
   "copiesTaskProbate": "Order extra copies of the grant of probate",
   "copiesTaskIntestacy": "Order copies of the letters of administration",
   "paymentTask": "Pay and submit your application",
@@ -18,5 +20,9 @@
   "checkYourAnswers": "Check and change your answers",
   "taskUnavailable": "Can&rsquo;t start yet",
   "taskComplete": "Completed",
-  "alreadyDeclared": "Already declared"
+  "alreadyDeclared": "Already declared",
+  "declared": "Declared",
+  "notDeclared": "Not declared",
+  "executorName": "Executor name",
+  "declarationStatus": "Declaration Status"
 }

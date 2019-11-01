@@ -10,6 +10,10 @@ describe('summary-documentupload-section', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('Summary');
         sessionData = require('test/data/documentupload');
+        sessionData.ccdCase = {
+            state: 'Pending',
+            id: 1234567890123456
+        };
     });
 
     afterEach(() => {
@@ -38,8 +42,15 @@ describe('summary-documentupload-section', () => {
         });
 
         it('test content loaded on the page when there is no data', (done) => {
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({})
+                .send(sessionData)
                 .end((err) => {
                     if (err) {
                         throw err;
@@ -86,7 +97,18 @@ describe('summary-documentupload-section', () => {
         });
 
         it('test correct content loaded on document upload section of the summary page, when no data is entered', (done) => {
-            testWrapper.testDataPlayback(done);
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testDataPlayback(done);
+                });
         });
     });
 });

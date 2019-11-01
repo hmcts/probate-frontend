@@ -11,6 +11,10 @@ describe('executors-names', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsNames');
         sessionData = {
+            ccdCase: {
+                state: 'Pending',
+                id: 1234567890123456
+            },
             applicant: {
                 firstName: 'John',
                 lastName: 'TheApplicant'

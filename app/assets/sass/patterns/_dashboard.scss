@@ -1,0 +1,38 @@
+/*
+Dashboard
+*/
+
+.dashboard {
+  @include govuk-media-query($from: desktop) {
+    td {
+      white-space: nowrap;
+
+      &:nth-child(2) {
+        white-space: normal;
+        word-break: break-word;
+      }
+    }
+  }
+
+  .case {
+    &.draft {
+      color: govuk-colour("dark-grey");
+    }
+  }
+
+  .case-id {
+    text-align: left;
+  }
+
+  .case-date {
+    text-align: right;
+  }
+
+  .case-status {
+    font-weight: bold;
+
+    &.submitted {
+      color: govuk-colour("green");
+    }
+  }
+}

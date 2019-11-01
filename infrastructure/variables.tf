@@ -174,6 +174,10 @@ variable "probate_frontend_use_idam" {
   default = "false"
 }
 
+variable "require_ccd_case_id" {
+  default = "true"
+}
+
 variable "idam_user_host" {
   type = "string"
 }

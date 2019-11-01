@@ -29,7 +29,7 @@ describe('redirect to documents', () => {
             .send(sessionData)
             .end(() => {
                 testWrapper.agent.get(testWrapper.pageUrl)
-                    .expect('location', 'documents')
+                    .expect('location', '/documents')
                     .expect(302)
                     .end((err) => {
                         testWrapper.server.http.close();

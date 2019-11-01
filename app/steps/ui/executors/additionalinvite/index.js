@@ -16,6 +16,8 @@ class ExecutorsAdditionalInvite extends ValidationStep {
         ctx.executorsToNotifyList = new ExecutorsWrapper(ctx).executorsToNotify();
         ctx.inviteSuffix = size(ctx.executorsToNotifyList) > 1 ? '-multiple' : '';
         ctx.executorsToNotifyNames = FormatName.formatExecutorNames(ctx.executorsToNotifyList);
+        ctx.authToken = req.authToken;
+        ctx.serviceAuthorization = req.session.serviceAuthorization;
         return ctx;
     }
 
@@ -28,6 +30,8 @@ class ExecutorsAdditionalInvite extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.inviteSuffix;
         delete ctx.executorsToNotifyNames;
+        delete ctx.serviceAuthorization;
+        delete ctx.authToken;
         return [ctx, formdata];
     }
 }

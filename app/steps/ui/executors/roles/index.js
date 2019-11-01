@@ -2,7 +2,8 @@
 
 const CollectionStep = require('app/core/steps/CollectionStep');
 const content = require('app/resources/en/translation/executors/roles');
-const {get, isEmpty, every, findKey, findIndex} = require('lodash');
+const json = require('app/resources/en/translation/executors/roles');
+const {get, isEmpty, every, findKey, findIndex, forEach} = require('lodash');
 const path = '/executor-roles/';
 
 class ExecutorRoles extends CollectionStep {
@@ -16,10 +17,21 @@ class ExecutorRoles extends CollectionStep {
         return path + index;
     }
 
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        forEach(ctx.list, exec => {
+            if (exec.notApplyingKey) {
+                exec.notApplyingReason = json[exec.notApplyingKey];
+            }
+        });
+
+        return ctx;
+    }
+
     handleGet(ctx) {
         if (ctx.list[ctx.index]) {
             ctx.isApplying = false;
-            ctx.notApplyingReason = ctx.list[ctx.index].notApplyingReason;
+            ctx.notApplyingReason = json[ctx.list[ctx.index].notApplyingKey];
         }
         return [ctx];
     }
@@ -52,10 +64,10 @@ class ExecutorRoles extends CollectionStep {
         return [every(ctx.list, exec => {
             return exec.isApplying ||
                 (
-                    !isEmpty(exec.notApplyingReason) &&
+                    !isEmpty(exec.notApplyingKey) &&
                     (
-                        (exec.notApplyingReason === content.optionPowerReserved && !isEmpty(exec.executorNotified)) ||
-                        (exec.notApplyingReason !== content.optionPowerReserved)
+                        (exec.notApplyingKey === 'optionPowerReserved' && !isEmpty(exec.executorNotified)) ||
+                        (exec.notApplyingKey !== 'optionPowerReserved')
                     )
                 );
         }), 'inProgress'];

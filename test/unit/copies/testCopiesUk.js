@@ -20,7 +20,11 @@ describe('CopiesUk', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        caseType: 'gop'
+                        caseType: 'gop',
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Pending'
+                        }
                     },
                     caseType: 'gop'
                 },
@@ -32,7 +36,12 @@ describe('CopiesUk', () => {
             expect(ctx).to.deep.equal({
                 uk: 3,
                 sessionID: 'dummy_sessionId',
-                caseType: 'gop'
+                caseType: 'gop',
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Pending'
+                }
             });
             done();
         });

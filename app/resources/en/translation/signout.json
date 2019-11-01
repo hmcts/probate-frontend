@@ -2,5 +2,5 @@
   "title": "You&rsquo;ve signed out",
   "header": "You&rsquo;ve signed out",
   "paragraph1": "The information you&rsquo;ve given has been saved. You have 6 months to complete your application from the date you started.",
-  "paragraph2": "To continue with your application, <a href=\"/\" class=\"govuk-link\">sign back in</a>."
+  "paragraph2": "To continue with your application, <a href=\"/dashboard\" class=\"govuk-link\">sign back in</a>."
 }

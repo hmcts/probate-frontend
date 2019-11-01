@@ -12,12 +12,14 @@ class ExecutorsDealingWithEstate extends ValidationStep {
     }
 
     getContextData(req) {
+        const formdata = req.session.form;
+        const applicant = formdata.applicant;
         const ctx = super.getContextData(req);
         if (ctx.list) {
             ctx.options = (new ExecutorsWrapper(ctx)).aliveExecutors()
                 .map(executor => {
                     if (executor.isApplicant) {
-                        const optionValue = executor.alias ? executor.alias : FormatName.format(executor);
+                        const optionValue = applicant.alias ? applicant.alias : FormatName.format(executor);
                         return {value: optionValue, text: optionValue, checked: true, disabled: true};
                     }
                     return {value: executor.fullName, text: executor.fullName, checked: executor.isApplying === true};

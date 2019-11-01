@@ -1,9 +1,13 @@
 'use strict';
 
-const expect = require('chai').expect;
+const chai = require('chai');
+const sinonChai = require('sinon-chai');
+const expect = chai.expect;
 const sinon = require('sinon');
 const rewire = require('rewire');
 const InviteLink = rewire('app/invite');
+
+chai.use(sinonChai);
 
 describe('Executors invite endpoints', () => {
     let req;
@@ -13,6 +17,10 @@ describe('Executors invite endpoints', () => {
     beforeEach(() => {
         req = {
             session: {
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Pending'
+                },
                 form: {
                     caseType: 'gop'
                 }
@@ -31,6 +39,21 @@ describe('Executors invite endpoints', () => {
 
     it('when there is a valid link', (done) => {
         const restore = InviteLink.__set__({
+            FormatUrl: {
+                createHostname() {
+                    return 'hostname';
+                }
+            },
+            Authorise: class {
+                post() {
+                    return Promise.resolve('serviceAuthorisation');
+                }
+            },
+            Security: class {
+                getUserToken() {
+                    return Promise.resolve('authToken');
+                }
+            },
             InviteLinkService: class {
                 get() {
                     return Promise.resolve({valid: true});
@@ -55,9 +78,21 @@ describe('Executors invite endpoints', () => {
     });
 
     it('when there is an invalid link', (done) => {
-        const restore = InviteLink.__set__('InviteLinkService', class {
-            get() {
-                return Promise.reject(new Error('Invalid link'));
+        const restore = InviteLink.__set__({
+            Authorise: class {
+                post() {
+                    return Promise.resolve('serviceAuthorisation');
+                }
+            },
+            Security: class {
+                getUserToken() {
+                    return Promise.resolve('authToken');
+                }
+            },
+            InviteLinkService: class {
+                get() {
+                    return Promise.reject(new Error('Invalid link'));
+                }
             }
         });
         const inviteLink = new InviteLink();
@@ -86,9 +121,21 @@ describe('Executors invite endpoints', () => {
     it('when the co-applicant accesses the link through the invite link it should be redirected the sign in page', (done) => {
         req.session.inviteId = 'validId';
 
-        const restore = InviteLink.__set__('AllExecutorsAgreed', class {
-            get() {
-                return Promise.resolve('false');
+        const restore = InviteLink.__set__({
+            Authorise: class {
+                post() {
+                    return Promise.resolve('serviceAuthorisation');
+                }
+            },
+            Security: class {
+                getUserToken() {
+                    return Promise.resolve('authToken');
+                }
+            },
+            AllExecutorsAgreed: class {
+                get() {
+                    return Promise.resolve('false');
+                }
             }
         });
         const inviteLink = new InviteLink();

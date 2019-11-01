@@ -1,5 +1,4 @@
 'use strict';
-/* eslint max-lines: ["error", 500] */
 
 const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');

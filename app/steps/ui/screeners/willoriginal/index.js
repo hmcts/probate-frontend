@@ -4,6 +4,7 @@ const EligibilityValidationStep = require('app/core/steps/EligibilityValidationS
 const content = require('app/resources/en/translation/screeners/willoriginal');
 const pageUrl = '/will-original';
 const fieldKey = 'original';
+const Dashboard = require('app/steps/ui/dashboard');
 
 class WillOriginal extends EligibilityValidationStep {
 
@@ -16,6 +17,10 @@ class WillOriginal extends EligibilityValidationStep {
     }
 
     nextStepUrl(req, ctx) {
+        if (!this.previousQuestionsAnswered(req, ctx, fieldKey)) {
+            return Dashboard.getUrl();
+        }
+
         return this.next(req, ctx).constructor.getUrl('notOriginal');
     }
 

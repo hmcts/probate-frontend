@@ -25,6 +25,9 @@ class ExecutorContactDetails extends ValidationStep {
         const executor = ctx.list[ctx.index];
         ctx.inviteId = executor.inviteId;
         ctx.otherExecName = executor.fullName;
+        ctx.formdataId = req.session.form.applicantEmail;
+        ctx.authToken = req.authToken;
+        ctx.serviceAuthorization = req.session.serviceAuthorization;
         return ctx;
     }
 
@@ -55,11 +58,13 @@ class ExecutorContactDetails extends ValidationStep {
         executor.mobile = ctx.mobile;
         if (executor.emailSent) {
             const data = {
+                inviteId: ctx.inviteId,
                 email: executor.email,
-                phoneNumber: executor.mobile
+                phoneNumber: executor.mobile,
+                formdataId: ctx.formdataId
             };
-            const inviteData = new InviteData(config.services.persistence.url, ctx.sessionID);
-            yield inviteData.patch(ctx.inviteId, data)
+            const inviteData = new InviteData(config.services.orchestrator.url, ctx.sessionID);
+            yield inviteData.updateContactDetails(ctx.ccdCase.id, data, ctx)
                 .then(result => {
                     if (result.name === 'Error') {
                         throw new ReferenceError('Error updating executor\'s contact details');
@@ -107,6 +112,9 @@ class ExecutorContactDetails extends ValidationStep {
         delete ctx.email;
         delete ctx.mobile;
         delete ctx.index;
+        delete ctx.formdataId;
+        delete ctx.serviceAuthorization;
+        delete ctx.authToken;
         return [ctx, formdata];
     }
 

@@ -4,6 +4,7 @@ const EligibilityValidationStep = require('app/core/steps/EligibilityValidationS
 const content = require('app/resources/en/translation/screeners/mentalcapacity');
 const pageUrl = '/mental-capacity';
 const fieldKey = 'mentalCapacity';
+const Dashboard = require('app/steps/ui/dashboard');
 
 class MentalCapacity extends EligibilityValidationStep {
 
@@ -16,6 +17,10 @@ class MentalCapacity extends EligibilityValidationStep {
     }
 
     nextStepUrl(req, ctx) {
+        if (!this.previousQuestionsAnswered(req, ctx, fieldKey)) {
+            return Dashboard.getUrl();
+        }
+
         return this.next(req, ctx).constructor.getUrl('mentalCapacity');
     }
 

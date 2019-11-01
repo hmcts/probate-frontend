@@ -1,0 +1,89 @@
+{
+  "deceased": {
+    "firstName": "Bob",
+    "lastName": "Smith",
+    "alias": "Yes",
+    "otherNames": {
+      "name_0": {
+        "firstName": "Bobby",
+        "lastName": "Smith"
+      }
+    },
+    "married": "Yes",
+    "address": "12 Nowhere Road\r\nNotown",
+    "dob-date": "1939-02-12T00:00:00.000Z",
+    "dod-date": "2018-02-12T00:00:00.000Z",
+    "dod-day": 12,
+    "dod-month": 2,
+    "dod-year": 2018,
+    "dob-day": 12,
+    "dob-month": 2,
+    "dob-year": 1939,
+    "dob-formattedDate": "12 February 1939",
+    "dod-formattedDate": "12 February 2018",
+    "addressFound": "none"
+  },
+  "applicant": {
+    "firstName": "Jackie",
+    "lastName": "Smith",
+    "address": {
+      "addressLine1": "12 Nowhere Avenue",
+      "postTown": "London",
+      "postCode": "EC1 2AF",
+      "formattedAddress": "12 Nowhere Avenue London EC1 2AF"
+    },
+    "phoneNumber": "07951058088",
+    "nameAsOnTheWill": "Yes"
+  },
+  "applicantEmail": "someemailaddress@host.com",
+  "executors": {
+    "alias": "Yes",
+    "allalive": "Yes",
+    "otherExecutorsApplying": "No",
+    "executorsNumber": 2,
+    "list": [
+      {
+        "fullName": "Graham Smith",
+        "isApplying": true,
+        "currentName": "Graham Poll",
+        "currentNameReason": "Divorce",
+        "email": "anotheremail@address.com",
+        "hasOtherName": true,
+        "mobile": "079898989898",
+        "address": "12 West End Avenue"
+      },
+      {
+        "fullName": "Jackie Smith",
+        "isApplying": true,
+        "hasOtherName": false
+      }
+    ]
+  },
+  "copies": {
+    "uk": 0,
+    "overseas": 0
+  },
+  "assets": {
+    "assetsoverseas": "No"
+  },
+  "iht": {
+    "method": "By post",
+    "ihtFormId": "IHT205",
+    "grossValue": 10000.01,
+    "netValue": 9000.01,
+    "netValueOnline": "9000.01",
+    "grossValueOnline": "10000.01",
+    "form": "IHT205",
+    "grossIHT205": "10000.01",
+    "netIHT205": "9000.01"
+  },
+  "will": {
+    "codicils": "No",
+    "codicilsNumber": 1
+  },
+  "registry": {
+  },
+  "declaration": {
+    "declarationCheckbox": "true"
+  }
+}

@@ -1,10 +1,11 @@
 {
   "executors": {
-    "list": [{
-      "fullName": "pierre de fermat",
-      "isApplying": true,
-      "isApplicant": true
-    },
+    "list": [
+      {
+        "fullName": "pierre de fermat",
+        "isApplying": true,
+        "isApplicant": true
+      },
       {
         "fullName": "Andrew Wiles",
         "mobile": "07112234567",

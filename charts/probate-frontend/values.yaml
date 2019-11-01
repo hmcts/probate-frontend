@@ -27,6 +27,7 @@ nodejs:
     REDIS_USE_TLS : false
     USE_IDAM : true
     REQUIRE_CCD_CASE_ID : true
+    IDAM_CLIENT_NAME : "probate"
   image: hmctspublic.azurecr.io/probate/probate-frontend:latest
 
 redis:

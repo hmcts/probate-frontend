@@ -37,6 +37,8 @@ def secrets = [
     secret('probate-uk-application-fee-code', 'PRO_UK_COPIES_FEE_CODE'),
     secret('probate-overseas-application-fee-code', 'PRO_OVERSEAS_COPIES_FEE_CODE'),
     secret('probate-service-id', 'PRO_SERVICE_ID'),
+    secret('payCaseWorkerUser', 'PROBATE_USER_EMAIL'),
+    secret('payCaseWorkerPass', 'PROBATE_USER_PASSWORD'),
     secret('probate-site-id', 'PRO_SITE_ID')
   ]
 ]

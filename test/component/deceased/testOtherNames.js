@@ -6,12 +6,11 @@ const DeceasedMarried = require('app/steps/ui/deceased/married');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('deceased-otherNames', () => {
-    let testWrapper, sessionData;
+    let testWrapper;
     const expectedNextUrlForDeceasedMarried = DeceasedMarried.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedOtherNames');
-        sessionData = {};
     });
 
     afterEach(() => {
@@ -22,9 +21,16 @@ describe('deceased-otherNames', () => {
         testCommonContent.runTest('DeceasedOtherNames');
 
         it('test right content loaded on the page', (done) => {
-            set(sessionData, 'deceased.firstName', 'John');
-            set(sessionData, 'deceased.lastName', 'Doe');
-
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe'
+                }
+            };
             const contentToExclude = ['otherName', 'removeName'];
 
             testWrapper.agent.post('/prepare-session/form')
@@ -37,12 +43,26 @@ describe('deceased-otherNames', () => {
         });
 
         it('test right content loaded on the page when deceased has other names', (done) => {
-            set(sessionData, 'deceased.firstName', 'John');
-            set(sessionData, 'deceased.lastName', 'Doe');
-            set(sessionData, 'deceased.otherNames.name_0.firstName', 'James');
-            set(sessionData, 'deceased.otherNames.name_0.lastName', 'Miller');
-            set(sessionData, 'deceased.otherNames.name_1.firstName', 'Henry');
-            set(sessionData, 'deceased.otherNames.name_1.lastName', 'Hat');
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    otherNames: {
+                        name_0: {
+                            firstName: 'James',
+                            lastName: 'Miller'
+                        },
+                        name_1: {
+                            firstName: 'Henry',
+                            lastName: 'Hat'
+                        }
+                    }
+                }
+            };
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -78,9 +98,20 @@ describe('deceased-otherNames', () => {
         });
 
         it(`test it redirects to deceased married page: ${expectedNextUrlForDeceasedMarried}`, (done) => {
-            const data = {};
-            set(data, 'otherNames.name_0.firstName', 'John');
-            set(data, 'otherNames.name_0.lastName', 'Doe');
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
+            const data = {
+                otherNames: {
+                    name_0: {
+                        firstName: 'John',
+                        lastName: 'Doe'
+                    }
+                }
+            };
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

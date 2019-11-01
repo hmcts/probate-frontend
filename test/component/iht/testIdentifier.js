@@ -20,7 +20,18 @@ describe('iht-identifier', () => {
         testCommonContent.runTest('IhtIdentifier');
 
         it('test correct iht identifier page content is loaded', (done) => {
-            testWrapper.testContent(done);
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done);
+                });
         });
 
         it('test iht identifier schema validation when no input is entered', (done) => {

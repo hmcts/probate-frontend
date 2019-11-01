@@ -19,18 +19,29 @@ describe('copies-summary', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-
         it('test correct content loaded on the copies summary page, when no data is entered', (done) => {
-            const contentData = {
-                ukQuestion: copiesContent.uk.question,
-                overseasAssetsQuestion: assetsContent.overseas.question
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
             };
 
-            testWrapper.testContent(done, contentData);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        ukQuestion: copiesContent.uk.question,
+                        overseasAssetsQuestion: assetsContent.overseas.question
+                    };
+
+                    testWrapper.testContent(done, contentData);
+                });
         });
 
         it('test correct content loaded on the copies summary page, when section is completed', (done) => {
             const sessionData = require('test/data/complete-form-undeclared').formdata;
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -51,6 +62,5 @@ describe('copies-summary', () => {
         it(`test it redirects to Tasklist: ${expectedNextUrlForTaskList}`, (done) => {
             testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList);
         });
-
     });
 });

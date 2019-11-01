@@ -6,6 +6,7 @@ const StopPage = require('app/steps/ui/stoppage');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
+const caseTypes = require('app/utils/CaseTypes');
 const cookies = [{
     name: config.redis.eligibilityCookie.name,
     content: {
@@ -42,15 +43,26 @@ describe('related-to-deceased', () => {
 
         it('test errors message displayed for missing data', (done) => {
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: 'intestacy'})
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     testWrapper.testErrors(done, {}, 'required', [], cookies);
                 });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForOtherApplicants}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                screeners: {
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes',
+                    left: 'No',
+                    diedAfter: 'Yes'
+                }
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: 'intestacy'})
+                .send(sessionData)
                 .end(() => {
                     const data = {
                         related: 'Yes'
@@ -61,8 +73,19 @@ describe('related-to-deceased', () => {
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                screeners: {
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes',
+                    left: 'No',
+                    diedAfter: 'Yes'
+                }
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: 'intestacy'})
+                .send(sessionData)
                 .end(() => {
                     const data = {
                         related: 'No'

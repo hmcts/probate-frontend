@@ -34,6 +34,10 @@ describe('relationship-to-deceased', () => {
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 deceased: {
                     maritalStatus: contentMaritalStatus.optionMarried
                 }

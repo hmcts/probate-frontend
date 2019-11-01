@@ -51,8 +51,20 @@ describe('other-applicants', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                screeners: {
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes',
+                    left: 'No',
+                    diedAfter: 'Yes',
+                    related: 'Yes'
+                }
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
                     const data = {
                         otherApplicants: 'No'
@@ -63,8 +75,20 @@ describe('other-applicants', () => {
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                screeners: {
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes',
+                    left: 'No',
+                    diedAfter: 'Yes',
+                    related: 'Yes'
+                }
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
                     const data = {
                         otherApplicants: 'Yes'

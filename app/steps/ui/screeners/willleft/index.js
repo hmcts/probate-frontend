@@ -4,6 +4,7 @@ const EligibilityValidationStep = require('app/core/steps/EligibilityValidationS
 const content = require('app/resources/en/translation/screeners/willleft');
 const pageUrl = '/will-left';
 const fieldKey = 'left';
+const Dashboard = require('app/steps/ui/dashboard');
 const caseTypes = require('app/utils/CaseTypes');
 
 class WillLeft extends EligibilityValidationStep {
@@ -19,16 +20,26 @@ class WillLeft extends EligibilityValidationStep {
     handlePost(ctx, errors, formdata, session) {
         const pageCaseType = (ctx.left === content.optionYes) ? caseTypes.GOP : caseTypes.INTESTACY;
         if (ctx.caseType && ctx.caseType !== pageCaseType) {
-            const retainedList = ['applicantEmail', 'payloadVersion', 'screeners'];
+            const retainedList = ['screeners', 'applicantEmail', 'payloadVersion', 'userLoggedIn'];
             Object.keys(formdata).forEach((key) => {
                 if (!retainedList.includes(key)) {
                     delete formdata[key];
                 }
             });
+            formdata.deceased = {};
+            formdata.applicant = {};
         }
         formdata.caseType = pageCaseType;
 
         return super.handlePost(ctx, errors, formdata, session);
+    }
+
+    nextStepUrl(req, ctx) {
+        if (!this.previousQuestionsAnswered(req, ctx, fieldKey)) {
+            return Dashboard.getUrl();
+        }
+
+        return super.nextStepUrl(req, ctx);
     }
 
     nextStepOptions() {
@@ -37,12 +48,6 @@ class WillLeft extends EligibilityValidationStep {
                 {key: fieldKey, value: content.optionYes, choice: 'withWill'}
             ]
         };
-    }
-
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-        delete ctx.left;
-        return [ctx, formdata];
     }
 }
 

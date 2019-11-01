@@ -13,6 +13,8 @@ class ExecutorsAdditionalInviteSent extends Step {
         const ctx = super.getContextData(req);
         ctx.inviteSuffix = size(ctx.executorsToNotifyList) > 1 ? '-multiple' : '';
         ctx.header = `header${ctx.inviteSuffix}`;
+        ctx.authToken = req.authToken;
+        ctx.serviceAuthorization = req.session.serviceAuthorization;
         return ctx;
     }
 
@@ -22,6 +24,8 @@ class ExecutorsAdditionalInviteSent extends Step {
         delete ctx.executorsToNotifyList;
         delete ctx.inviteSuffix;
         delete ctx.header;
+        delete ctx.serviceAuthorization;
+        delete ctx.authToken;
         return [ctx, formdata];
     }
 }

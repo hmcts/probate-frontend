@@ -1,0 +1,16 @@
+{
+  "title": "Dashboard",
+  "header": "Probate applications",
+  "tableHeaderCcdCaseId": "Case ID",
+  "tableHeaderDeceasedName": "Person who died",
+  "tableHeaderCreateDate": "Date created",
+  "tableHeaderCaseStatus": "Status",
+  "tableHeaderActions": "Actions",
+  "statusDraftProbate": "Draft (probate)",
+  "statusDraftIntestacy": "Draft (intestacy)",
+  "statusInProgress": "In progress",
+  "statusSubmitted": "Submitted",
+  "actionContinue": "Continue application",
+  "actionView": "View application",
+  "actionStartNewApplication": "Start new application"
+}

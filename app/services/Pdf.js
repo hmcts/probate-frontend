@@ -4,7 +4,15 @@ const Service = require('./Service');
 const Authorise = require('./Authorise');
 
 class Pdf extends Service {
-    post(body, logMessage, headers, url) {
+
+    post(pdfTemplate, body, logMessage, req) {
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': req.authToken,
+            'ServiceAuthorization': req.session.serviceAuthorization
+        };
+        const businessDocumentUrl = this.formatUrl.format(this.endpoint, this.config.pdf.path);
+        const url = `${businessDocumentUrl}/${pdfTemplate}`;
         this.log(logMessage);
         const authorise = new Authorise(this.config.services.idam.s2s_url, this.sessionId);
         return authorise

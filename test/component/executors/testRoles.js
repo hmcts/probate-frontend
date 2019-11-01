@@ -14,8 +14,8 @@ describe('executor-roles', () => {
     const expectedNextUrlForExecNotified = ExecutorNotified.getUrl(1);
     const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
     const reasons = {
-        optionPowerReserved: 'This executor doesn&rsquo;t want to apply now, but may do in the future (this is also known as power reserved)',
-        optionRenunciated: 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)'
+        optionPowerReserved: executorRolesContent.optionPowerReserved,
+        optionRenunciated: executorRolesContent.optionRenunciated
     };
     let testWrapper;
     let sessionData;
@@ -23,6 +23,10 @@ describe('executor-roles', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorRoles');
         sessionData = {
+            ccdCase: {
+                state: 'Pending',
+                id: 1234567890123456
+            },
             applicant: {
                 firstName: 'John',
                 lastName: 'TheApplicant'
@@ -49,11 +53,12 @@ describe('executor-roles', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const playbackData = {};
-                    playbackData.helpTitle = commonContent.helpTitle;
-                    playbackData.helpHeading1 = commonContent.helpHeading1;
-                    playbackData.helpHeading2 = commonContent.helpHeading2;
-                    playbackData.helpEmailLabel = commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress);
+                    const playbackData = {
+                        helpTitle: commonContent.helpTitle,
+                        helpHeading1: commonContent.helpHeading1,
+                        helpHeading2: commonContent.helpHeading2,
+                        helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
+                    };
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });
@@ -91,6 +96,7 @@ describe('executor-roles', () => {
                     const data = {
                         notApplyingReason: executorRolesContent.optionPowerReserved
                     };
+
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecNotified);
                 });
@@ -103,6 +109,7 @@ describe('executor-roles', () => {
                     const data = {
                         notApplyingReason: executorRolesContent.optionRenunciated
                     };
+
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
                     testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
                 });

@@ -18,11 +18,23 @@ describe('applicant-alias-reason', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done);
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done);
+                });
         });
 
         it('test alias reason validation when no data is entered', (done) => {
             const errorsToTest = ['aliasReason'];
+
             testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });
 
@@ -32,6 +44,7 @@ describe('applicant-alias-reason', () => {
                 aliasReason: content.optionOther.toLowerCase(),
                 otherReason: ''
             };
+
             testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
@@ -39,6 +52,7 @@ describe('applicant-alias-reason', () => {
             const data = {
                 aliasReason: content.optionDivorce
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForApplicantPhone);
         });
 
@@ -47,6 +61,7 @@ describe('applicant-alias-reason', () => {
                 aliasReason: content.optionOther,
                 otherReason: 'Because I wanted to'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForApplicantPhone);
         });
     });

@@ -30,6 +30,10 @@
       "duplicate": {
         "summary": "Your application has been submitted, please return to the tasklist to continue.",
         "message": ""
+      },
+      "validation": {
+        "summary": "There was a problem saving your application.",
+        "message": ""
       }
     }
   }

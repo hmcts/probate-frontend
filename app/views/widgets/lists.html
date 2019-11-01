@@ -19,10 +19,10 @@
             </p>
         {% elif status == "complete" %}
             <!-- Check your answers -->
-            {% if alreadyDeclared == "false" %}
-                <p class="govuk-body"><a href="{{ checkYourAnswersURL }}" class="govuk-link">{{ content.checkYourAnswers }} <span class="govuk-visually-hidden">{{ title }}</span></a></p>
-            {% else %}
+            {% if alreadyDeclared == "true" %}
                 <p class="govuk-body">{{ content.alreadyDeclared }}</p>
+            {% else %}
+                <p class="govuk-body"><a href="{{ checkYourAnswersURL }}" class="govuk-link">{{ content.checkYourAnswers }} <span class="govuk-visually-hidden">{{ title }}</span></a></p>
             {% endif %}
         {% endif %}
     {% endif %}

@@ -17,9 +17,19 @@ describe('applicant-alias', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page', (done) => {
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
             const contentToExclude = ['nameOnWill'];
 
-            testWrapper.testContent(done, {}, contentToExclude);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, {}, contentToExclude);
+                });
         });
 
         it('test error message displayed for missing data', (done) => {
@@ -27,6 +37,7 @@ describe('applicant-alias', () => {
             const data = {
                 alias: ''
             };
+
             testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
@@ -34,6 +45,7 @@ describe('applicant-alias', () => {
             const data = {
                 alias: 'bob richards'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForApplicantAliasReason);
         });
     });

@@ -16,6 +16,10 @@ describe('summary-executor-section', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('Summary');
         sessionData = require('test/data/summary-executors');
+        sessionData.ccdCase = {
+            state: 'Pending',
+            id: 1234567890123456
+        };
     });
 
     afterEach(() => {
@@ -33,14 +37,26 @@ describe('summary-executor-section', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content loaded on the summary page executors section, when no data is entered', (done) => {
-            const playbackData = {
-                firstName: applicantNameContent.firstName,
-                lastName: applicantNameContent.lastName,
-                phoneNumber: applicantPhoneContent.phoneNumber,
-                applicantAddress: applicantAddressContent.question,
-                applicantNameAsOnWill: applicantNameAsOnWillContent.questionWithoutName
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
             };
-            testWrapper.testDataPlayback(done, playbackData);
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const playbackData = {
+                        firstName: applicantNameContent.firstName,
+                        lastName: applicantNameContent.lastName,
+                        phoneNumber: applicantPhoneContent.phoneNumber,
+                        applicantAddress: applicantAddressContent.question,
+                        applicantNameAsOnWill: applicantNameAsOnWillContent.questionWithoutName
+                    };
+
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
         });
 
         it('test correct content loaded on the summary page executors section, when section is complete', (done) => {
@@ -50,7 +66,6 @@ describe('summary-executor-section', () => {
                     if (err) {
                         throw err;
                     }
-
                     const playbackData = {
                         firstName: applicantNameContent.firstName,
                         lastName: applicantNameContent.lastName,
@@ -58,6 +73,7 @@ describe('summary-executor-section', () => {
                         applicantAddress: applicantAddressContent.question,
                         applicantNameAsOnWill: applicantNameAsOnWillContent.question.replace('{applicantName}', FormatName.format(sessionData.applicant))
                     };
+
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
@@ -72,7 +88,6 @@ describe('summary-executor-section', () => {
                     if (err) {
                         throw err;
                     }
-
                     const playbackData = {
                         firstName: applicantNameContent.firstName,
                         lastName: applicantNameContent.lastName,
@@ -82,6 +97,7 @@ describe('summary-executor-section', () => {
                         applicantAddress: applicantAddressContent.question,
                         applicantNameAsOnWill: applicantNameAsOnWillContent.question.replace('{applicantName}', FormatName.format(sessionData.applicant))
                     };
+
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
@@ -97,7 +113,6 @@ describe('summary-executor-section', () => {
                     if (err) {
                         throw err;
                     }
-
                     const playbackData = {
                         firstName: applicantNameContent.firstName,
                         lastName: applicantNameContent.lastName,
@@ -107,6 +122,7 @@ describe('summary-executor-section', () => {
                         applicantAddress: applicantAddressContent.question,
                         applicantNameAsOnWill: applicantNameAsOnWillContent.question.replace('{applicantName}', FormatName.format(sessionData.applicant))
                     };
+
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
@@ -119,7 +135,6 @@ describe('summary-executor-section', () => {
                     if (err) {
                         throw err;
                     }
-
                     delete require.cache[require.resolve('test/data/summary-executors')];
                     const playbackData = {
                         questionFirstName: applicantNameContent.firstName,

@@ -42,7 +42,6 @@ const asyncFetch = (url, fetchOptions, parseBody) => {
                         }
                         reject(new Error(res.statusText));
                     });
-
             })
             .then(body => {
                 resolve(body);

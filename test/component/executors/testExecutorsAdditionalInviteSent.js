@@ -11,6 +11,10 @@ describe('executors-additional-invite-sent', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsAdditionalInviteSent');
         sessionData = require('test/data/executors-invites');
+        sessionData.ccdCase = {
+            state: 'Pending',
+            id: 1234567890123456
+        };
     });
 
     afterEach(() => {
@@ -20,10 +24,10 @@ describe('executors-additional-invite-sent', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content loaded on the page when only 1 other executor added', (done) => {
-            const contentToExclude = ['title-multiple', 'header-multiple'];
             sessionData.executors.executorsToNotifyList = [
                 {fullName: 'Other Applicant', isApplying: true, emailSent: false},
             ];
+            const contentToExclude = ['title-multiple', 'header-multiple'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -33,11 +37,11 @@ describe('executors-additional-invite-sent', () => {
         });
 
         it('test correct content loaded on the page when more than 1 other executor added', (done) => {
-            const contentToExclude = ['title', 'header'];
             sessionData.executors.executorsToNotifyList = [
                 {fullName: 'Other Applicant', isApplying: true, emailSent: false},
                 {fullName: 'Harvey', isApplying: true, emailSent: false}
             ];
+            const contentToExclude = ['title', 'header'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

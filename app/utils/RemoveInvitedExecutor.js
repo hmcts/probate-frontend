@@ -8,6 +8,7 @@ const config = require('app/config');
 class RemoveInvitedExecutor {
     static remove(req) {
         const formdata = req.session.form;
+        const ccdCaseId = formdata.ccdCase ? formdata.ccdCase.id : '';
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         const executorsRemoved = executorsWrapper.executorsRemoved();
         const executorsToRemoveFromInviteData = executorsRemoved.concat(executorsWrapper.executorsToRemove());
@@ -16,8 +17,10 @@ class RemoveInvitedExecutor {
             return Promise.resolve(formdata.executors);
         }
 
-        const inviteData = new InviteData(config.services.persistence.url, req.sessionID);
-        const promises = executorsToRemoveFromInviteData.map(exec => inviteData.delete(exec.inviteId));
+        const inviteData = new InviteData(config.services.orchestrator.url, req.sessionID);
+        const promises = executorsToRemoveFromInviteData.map(exec => inviteData.delete(ccdCaseId, {
+            inviteId: exec.inviteId
+        }));
         return Promise.all(promises).then(result => {
             const isError = result.some(r => r !== '');
             if (isError) {

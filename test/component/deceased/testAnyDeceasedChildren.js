@@ -24,19 +24,24 @@ describe('any-deceased-children', () => {
         testCommonContent.runTest('AnyDeceasedChildren');
 
         it('test content loaded on the page', (done) => {
-            const contentToExclude = ['theDeceased'];
             const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 deceased: {
                     'firstName': 'John',
                     'lastName': 'Doe',
                     'dod-formattedDate': '13 October 2018'
                 }
             };
+            const contentToExclude = ['theDeceased'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe', deceasedDoD: '13 October 2018'};
+
                     testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });

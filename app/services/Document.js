@@ -4,26 +4,27 @@ const Service = require('./Service');
 const superagent = require('superagent');
 
 class Document extends Service {
-    post(userId, uploadedDocument) {
+    post(userId, uploadedDocument, authToken, serviceAuthorization) {
         this.log('Post document');
         const path = this.config.documentUpload.paths.upload;
         const url = this.formatUrl.format(this.endpoint, path);
-        const clientName = this.config.services.idam.probate_oauth2_client;
-        const secret = this.config.services.idam.service_key;
         return superagent
             .post(url)
-            .set('Authorization', `Basic ${new Buffer(`${clientName}:${secret}`).toString('base64')}`)
+            .set('Authorization', authToken)
+            .set('ServiceAuthorization', serviceAuthorization)
             .set('enctype', 'multipart/form-data')
             .set('user-id', userId)
             .attach('file', uploadedDocument.buffer, uploadedDocument.originalname);
     }
 
-    delete(documentId, userId) {
+    delete(documentId, userId, authToken, serviceAuthorization) {
         this.log('Delete document');
         const path = this.config.documentUpload.paths.remove;
         const removeDocumentUrl = this.formatUrl.format(this.endpoint, `${path}/${documentId}`);
         const headers = {
-            'user-id': userId
+            'user-id': userId,
+            'Authorization': authToken,
+            'ServiceAuthorization': serviceAuthorization,
         };
         const fetchOptions = this.fetchOptions({}, 'DELETE', headers);
         return this.fetchText(removeDocumentUrl, fetchOptions);

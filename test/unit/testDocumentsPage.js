@@ -103,7 +103,7 @@ describe('Documents', () => {
             it('should return the ccd case id when a ccd case id is given', (done) => {
                 const formdata = {
                     ccdCase: {
-                        id: '1234-5678-9012-3456',
+                        id: 1234567890123456,
                         state: 'CaseCreated'
                     }
                 };

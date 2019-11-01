@@ -4,11 +4,35 @@ const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
 const nock = require('nock');
 const config = require('app/config');
-const SUBMIT_SERVICE_URL = config.services.submit.url;
 const CREATE_PAYMENT_SERVICE_URL = config.services.payment.url + config.services.payment.paths.createPayment;
 const IDAM_S2S_URL = config.services.idam.s2s_url;
 const PERSISTENCE_URL = config.services.persistence.url;
 const testCommonContent = require('test/component/common/testCommonContent.js');
+
+const paymentNock = () => {
+    nock(CREATE_PAYMENT_SERVICE_URL)
+        .get('/1')
+        .reply(200, {
+            channel: 'Online',
+            id: 12345,
+            reference: 'PaymentReference12345',
+            amount: 5000,
+            status: 'Success',
+            date_updated: '2018-08-29T15:25:11.920+0000',
+            site_id: 'siteId0001',
+        });
+
+    nock(PERSISTENCE_URL)
+        .post('/')
+        .reply(201, {});
+
+    nock(IDAM_S2S_URL)
+        .post('/lease')
+        .reply(
+            200,
+            'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG8v_3ktCpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA'
+        );
+};
 
 describe('payment-status', () => {
     let testWrapper;
@@ -17,30 +41,10 @@ describe('payment-status', () => {
 
     beforeEach(() => {
         sessionData = require('test/data/complete-form-undeclared').formdata;
+
         testWrapper = new TestWrapper('PaymentStatus');
 
-        nock(SUBMIT_SERVICE_URL).post('/updatePaymentStatus')
-            .reply(200, {caseState: 'CreatedCase'});
-        nock(CREATE_PAYMENT_SERVICE_URL)
-            .get('/1')
-            .reply(200, {
-                channel: 'Online',
-                id: 12345,
-                reference: 'PaymentReference12345',
-                amount: 5000,
-                status: 'Success',
-                date_updated: '2018-08-29T15:25:11.920+0000',
-                site_id: 'siteId0001',
-            });
-        nock(PERSISTENCE_URL)
-            .post('/')
-            .reply(201, {});
-        nock(IDAM_S2S_URL)
-            .post('/lease')
-            .reply(
-                200,
-                'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG8v_3ktCpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA'
-            );
+        paymentNock();
     });
 
     afterEach(() => {
@@ -53,6 +57,13 @@ describe('payment-status', () => {
         testCommonContent.runTest('PaymentStatus');
 
         it('test right content loaded on the page when net value is greater than 5000£', (done) => {
+            nock(config.services.orchestrator.url)
+                .put(uri => uri.includes('submissions'))
+                .reply(200, {
+                    ccdCase: sessionData.ccdCase,
+                    payment: sessionData.payment
+                });
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -63,15 +74,30 @@ describe('payment-status', () => {
         });
 
         it('test right content loaded on the page when net value is less than 5000£', (done) => {
+            nock(config.services.orchestrator.url)
+                .put(uri => uri.includes('submissions'))
+                .reply(200, {
+                    ccdCase: sessionData.ccdCase
+                });
             const contentToExclude = ['paragraph1'];
 
-            testWrapper.testContent(done, {}, contentToExclude);
+            sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, {}, contentToExclude);
+                });
         });
 
         it(`test it redirects to next page with no input: ${expectedNextUrlForTaskList}`, (done) => {
-            sessionData = {};
             testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
+                .send({})
                 .end(() => {
                     testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList);
                 });

@@ -5,7 +5,7 @@ const {assert} = require('chai');
 const ExecutorsAdditionalInviteSent = require('app/steps/ui/executors/additionalinvitesent');
 const nock = require('nock');
 const config = require('app/config');
-const businessServiceUrl = config.services.validation.url.replace('/validate', '');
+const orchestratorServiceUrl = config.services.orchestrator.url;
 const afterEachNocks = (done) => {
     return () => {
         nock.cleanAll();
@@ -21,6 +21,10 @@ describe('executors-additional-invite', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsAdditionalInvite');
         sessionData = require('test/data/executors-invites');
+        sessionData.ccdCase = {
+            state: 'Pending',
+            id: 1234567890123456
+        };
     });
 
     afterEach(() => {
@@ -30,11 +34,11 @@ describe('executors-additional-invite', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content loaded on the page when only 1 other executor has been added and needs to be emailed', (done) => {
-            const contentToExclude = ['header-multiple'];
             sessionData.executors.list = [
                 {fullName: 'Applicant', isApplying: true, isApplicant: true},
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false}
             ];
+            const contentToExclude = ['header-multiple'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -44,12 +48,12 @@ describe('executors-additional-invite', () => {
         });
 
         it('test correct content loaded on the page when more than 1 other executor has been added and needs to be emailed', (done) => {
-            const contentToExclude = ['header'];
             sessionData.executors.list = [
                 {fullName: 'Applicant', isApplying: true, isApplicant: true},
                 {fullName: 'Andrew Wiles', isApplying: true, emailSent: false},
                 {fullName: 'Leonhard Euler', isApplying: true, emailSent: false}
             ];
+            const contentToExclude = ['header'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -96,7 +100,7 @@ describe('executors-additional-invite', () => {
         });
 
         it('test an error page is rendered if there is an error calling invite service', (done) => {
-            nock(businessServiceUrl)
+            nock(orchestratorServiceUrl)
                 .post('/invite')
                 .reply(500, new Error('ReferenceError'));
 
@@ -118,9 +122,15 @@ describe('executors-additional-invite', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecutorsAdditionalInviteSent}`, (done) => {
-            nock(businessServiceUrl)
+            nock(orchestratorServiceUrl)
                 .post('/invite')
-                .reply(200, {response: 'Make it pass!'});
+                .reply(200, {
+                    invitations: [
+                        {
+                            inviteId: '1234'
+                        }
+                    ]
+                });
 
             sessionData.executors.list = [
                 {fullName: 'Applicant', isApplying: true, isApplicant: true},

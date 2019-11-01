@@ -23,6 +23,10 @@ describe('summary-applicants-section', () => {
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content loaded on the applicants section of the summary page, when no data is entered', (done) => {
             sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 caseType: 'intestacy',
             };
 
@@ -41,7 +45,12 @@ describe('summary-applicants-section', () => {
         });
 
         it('test correct content loaded on the applicants section of the summary page, when section is complete', (done) => {
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
             const deceasedData = require('test/data/deceased');
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {

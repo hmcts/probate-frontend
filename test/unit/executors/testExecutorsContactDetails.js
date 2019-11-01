@@ -58,7 +58,11 @@ describe('Contact-Details', () => {
                 mobile: '07321321321',
                 index: 1,
                 otherExecName: 'Bob Cratchett',
-                executorsEmailChanged: false
+                executorsEmailChanged: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Pending'
+                }
             };
             errors = [];
         });
@@ -100,7 +104,11 @@ describe('Contact-Details', () => {
                     mobile: '07321321321',
                     index: 1,
                     otherExecName: 'Bob Cratchett',
-                    executorsEmailChanged: true
+                    executorsEmailChanged: true,
+                    ccdCase: {
+                        id: 1234567890123456,
+                        state: 'Pending'
+                    }
                 });
                 done();
             })
@@ -147,7 +155,11 @@ describe('Contact-Details', () => {
                     mobile: '07321321321',
                     index: 1,
                     otherExecName: 'Bob Cratchett',
-                    executorsEmailChanged: false
+                    executorsEmailChanged: false,
+                    ccdCase: {
+                        id: 1234567890123456,
+                        state: 'Pending'
+                    }
                 });
                 done();
             })
@@ -158,7 +170,7 @@ describe('Contact-Details', () => {
 
         it('test emailChanged flag is correctly set, executorToBeNotifiedList is empty, contact details updated and the InviteData.patch() service is called', (done) => {
             const revert = ContactDetails.__set__('InviteData', class {
-                patch() {
+                updateContactDetails() {
                     return Promise.resolve({response: 'Make it pass!'});
                 }
             });
@@ -202,7 +214,11 @@ describe('Contact-Details', () => {
                     mobile: '07888888888',
                     index: 1,
                     otherExecName: 'Bob Cratchett',
-                    executorsEmailChanged: true
+                    executorsEmailChanged: true,
+                    ccdCase: {
+                        id: 1234567890123456,
+                        state: 'Pending'
+                    }
                 });
                 revert();
                 done();

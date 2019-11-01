@@ -10,6 +10,7 @@ const TaskList = require('app/steps/ui/tasklist');
 const ExecutorsApplying = require('app/steps/ui/executors/applying');
 const contentData = {executorFullName: 'many clouds'};
 const commonContent = require('app/resources/en/translation/common');
+const executorRolesContent = require('app/resources/en/translation/executors/executorcontent');
 const config = require('app/config');
 
 describe('executors-when-died', () => {
@@ -19,8 +20,8 @@ describe('executors-when-died', () => {
     const expectedNextUrlForExecsApplying = ExecutorsApplying.getUrl(2);
     const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
     const reasons = {
-        optionDiedBefore: 'This executor died (before the person who has died)',
-        optionDiedAfter: 'This executor died (after the person who has died)'
+        optionDiedBefore: executorRolesContent.optionDiedBefore,
+        optionDiedAfter: executorRolesContent.optionDiedAfter
     };
     let ctx = {
         list: [
@@ -44,6 +45,10 @@ describe('executors-when-died', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsWhenDied');
         sessionData = {
+            ccdCase: {
+                state: 'Pending',
+                id: 1234567890123456
+            },
             index: 1,
             applicant: {
                 firstName: 'John',

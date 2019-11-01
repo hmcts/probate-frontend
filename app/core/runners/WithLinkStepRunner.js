@@ -8,7 +8,7 @@ class WithLinkStepRunner extends UIStepRunner {
         if (req.session.validLink) {
             super.handleGet(step, req, res);
         } else {
-            res.redirect('errors/404');
+            res.redirect('/errors/404');
         }
     }
 }

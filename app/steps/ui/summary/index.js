@@ -3,15 +3,13 @@
 const caseTypes = require('app/utils/CaseTypes');
 const Step = require('app/core/steps/Step');
 const OptionGetRunner = require('app/core/runners/OptionGetRunner');
-const FieldError = require('app/components/error');
-const {isEmpty, map, includes, get, unescape} = require('lodash');
+const {isEmpty, includes, get, unescape} = require('lodash');
 const utils = require('app/components/step-utils');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const CheckAnswersSummaryJSONObjectBuilder = require('app/utils/CheckAnswersSummaryJSONObjectBuilder');
 const checkAnswersSummaryJSONObjBuilder = new CheckAnswersSummaryJSONObjectBuilder();
-const ValidateData = require('app/services/ValidateData');
 const config = require('app/config');
 
 class Summary extends Step {
@@ -24,11 +22,7 @@ class Summary extends Step {
         return `/summary/${redirect}`;
     }
 
-    * handleGet(ctx, formdata) {
-        const result = yield this.validateFormData(ctx, formdata);
-        const errors = map(result.errors, err => {
-            return FieldError(err.param, err.code, this.resourcePath, ctx);
-        });
+    handleGet(ctx, formdata) {
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         const executorsApplying = executorsWrapper.executorsApplying(true);
 
@@ -39,12 +33,7 @@ class Summary extends Step {
         ctx.executorsWithOtherNames = executorsWrapper.executorsWithAnotherName().map(exec => exec.fullName);
 
         utils.updateTaskStatus(ctx, ctx, this.steps);
-        return [ctx, !isEmpty(errors) ? errors : null];
-    }
-
-    validateFormData(ctx, formdata) {
-        const validateData = new ValidateData(config.services.validation.url, ctx.sessionID);
-        return validateData.post(formdata, ctx.sessionID);
+        return [ctx, null];
     }
 
     generateContent(ctx, formdata) {
@@ -73,6 +62,8 @@ class Summary extends Step {
         fields[this.section] = super.generateFields(ctx, errors, formdata);
 
         if (ctx) {
+            fields.userLoggedIn = {};
+            fields.userLoggedIn.value = ctx.userLoggedIn ? ctx.userLoggedIn.toString() : 'true';
             fields.featureToggles = {};
             fields.featureToggles.value = ctx.featureToggles;
 
@@ -139,12 +130,12 @@ class Summary extends Step {
         ctx.softStop = this.anySoftStops(formdata, ctx);
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
         ctx.session = req.session;
+        ctx.authToken = req.authToken;
         return ctx;
     }
 
     renderPage(res, html) {
-        const formdata = res.req.session.form;
-        formdata.checkAnswersSummary = checkAnswersSummaryJSONObjBuilder.build(html);
+        res.req.session.form.checkAnswersSummary = checkAnswersSummaryJSONObjBuilder.build(html);
         res.send(html);
     }
 }

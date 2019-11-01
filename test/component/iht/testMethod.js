@@ -23,7 +23,18 @@ describe('iht-method', () => {
         testCommonContent.runTest('IhtMethod');
 
         it('test correct iht method page content is loaded', (done) => {
-            testWrapper.testContent(done);
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done);
+                });
         });
 
         it('test iht method schema validation when no data is entered', (done) => {

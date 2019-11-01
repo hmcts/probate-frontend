@@ -5,7 +5,7 @@ const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ExecutorRoles = steps.ExecutorRoles;
 const executorRolesPath = '/executor-roles/';
-const json = require('app/resources/en/translation/executors/roles');
+const executorRolesContent = require('app/resources/en/translation/executors/roles');
 
 describe('ExecutorRoles', () => {
     describe('getUrl()', () => {
@@ -35,11 +35,11 @@ describe('ExecutorRoles', () => {
                 list: [
                     {
                         isApplying: false,
-                        notApplyingReason: json.optionPowerReserved,
+                        notApplyingReason: executorRolesContent.optionPowerReserved,
                         notApplyingKey: 'optionPowerReserved'
                     }
                 ],
-                notApplyingReason: json.optionPowerReserved
+                notApplyingReason: executorRolesContent.optionPowerReserved
             };
             errors = [];
             [ctx, errors] = ExecutorRoles.handlePost(ctx, errors);
@@ -48,11 +48,11 @@ describe('ExecutorRoles', () => {
                 list: [
                     {
                         isApplying: false,
-                        notApplyingReason: json.optionPowerReserved,
+                        notApplyingReason: executorRolesContent.optionPowerReserved,
                         notApplyingKey: 'optionPowerReserved'
                     }
                 ],
-                notApplyingReason: json.optionPowerReserved
+                notApplyingReason: executorRolesContent.optionPowerReserved
             });
             done();
         });
@@ -77,7 +77,7 @@ describe('ExecutorRoles', () => {
                     'currentName': 'Prince',
                     'isApplying': false,
                     'notApplyingKey': 'optionRenunciated',
-                    'notApplyingReason': 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)',
+                    'notApplyingReason': executorRolesContent.optionRenunciated,
                     'currentNameReason': 'Divorce',
 
                 }
@@ -180,7 +180,8 @@ describe('ExecutorRoles', () => {
                         'isApplicant': true
                     }, {
                         isApplying: false,
-                        notApplyingReason: json.optionPowerReserved,
+                        notApplyingReason: executorRolesContent.optionPowerReserved,
+                        notApplyingKey: 'optionPowerReserved',
                         executorNotified: 'Yes',
                         fullName: 'Ed Brown',
                         address: '20 Green Street, London, L12 9LN'
@@ -206,7 +207,8 @@ describe('ExecutorRoles', () => {
                         'isApplicant': true
                     }, {
                         isApplying: false,
-                        notApplyingReason: json.optionPowerReserved,
+                        notApplyingReason: executorRolesContent.optionPowerReserved,
+                        notApplyingKey: 'optionPowerReserved',
                         fullName: 'Ed Brown',
                         address: '20 Green Street, London, L12 9LN'
                     }, {
@@ -231,7 +233,8 @@ describe('ExecutorRoles', () => {
                         'isApplicant': true
                     }, {
                         isApplying: false,
-                        notApplyingReason: json.optionRenunciated,
+                        notApplyingReason: executorRolesContent.optionRenunciated,
+                        notApplyingKey: 'optionRenunciated',
                         fullName: 'Ed Brown',
                         address: '20 Green Street, London, L12 9LN'
                     }, {
@@ -253,7 +256,7 @@ describe('ExecutorRoles', () => {
             const nextStepOptions = ExecutorRoles.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'notApplyingReason', value: json.optionPowerReserved, choice: 'powerReserved'},
+                    {key: 'notApplyingReason', value: executorRolesContent.optionPowerReserved, choice: 'powerReserved'},
                     {key: 'continue', value: true, choice: 'continue'}
                 ]
             });

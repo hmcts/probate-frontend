@@ -6,7 +6,7 @@ const ExecutorsInvitesSent = require('app/steps/ui/executors/invitesent');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const nock = require('nock');
 const config = require('app/config');
-const businessServiceUrl = config.services.validation.url.replace('/validate', '');
+const orchestratorServiceUrl = config.services.orchestrator.url;
 const afterEachNocks = (done) => {
     return () => {
         nock.cleanAll();
@@ -22,6 +22,10 @@ describe('executors-invite', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsInvite');
         sessionData = require('test/data/executors-invites');
+        sessionData.ccdCase = {
+            state: 'Pending',
+            id: 1234567890123456
+        };
     });
 
     afterEach(() => {
@@ -67,9 +71,15 @@ describe('executors-invite', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForExecInvites}`, (done) => {
-            nock(businessServiceUrl)
+            nock(orchestratorServiceUrl)
                 .post('/invite')
-                .reply(200, {response: 'Make it pass!'});
+                .reply(200, {
+                    invitations: [
+                        {
+                            inviteId: '1234'
+                        }
+                    ]
+                });
 
             const data = {
                 list: [
@@ -85,7 +95,7 @@ describe('executors-invite', () => {
         });
 
         it('test an error page is rendered if there is an error calling invite service', (done) => {
-            nock(businessServiceUrl)
+            nock(orchestratorServiceUrl)
                 .post('/invite')
                 .reply(500, new Error('ReferenceError'));
 

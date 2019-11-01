@@ -55,6 +55,11 @@ class Step {
         Object.assign(ctx, session.form[this.section] || {});
         ctx.sessionID = req.sessionID;
         ctx.caseType = caseTypes.getCaseType(session);
+        ctx.userLoggedIn = false;
+        ctx.ccdCase = req.session.form.ccdCase;
+        if (typeof session.form.userLoggedIn === 'boolean') {
+            ctx.userLoggedIn = session.form.userLoggedIn;
+        }
         ctx = Object.assign(ctx, req.body);
         ctx = FeatureToggle.appwideToggles(req, ctx, config.featureToggles.appwideToggles);
 
@@ -75,6 +80,10 @@ class Step {
 
     isComplete() {
         return [this.validate()[0], 'noProgress'];
+    }
+
+    shouldPersistFormData() {
+        return true;
     }
 
     generateContent(ctx, formdata, lang = 'en') {
@@ -101,18 +110,18 @@ class Step {
         return fields;
     }
 
-    persistFormData(id, formdata, sessionID) {
+    persistFormData(ccdCaseId, formdata, sessionID, req) {
         const formData = ServiceMapper.map(
             'FormData',
-            [config.services.persistence.url, sessionID],
-            formdata.caseType
+            [config.services.orchestrator.url, sessionID]
         );
-        return formData.post(id, formdata, sessionID);
+        return formData.post(req.authToken, req.session.serviceAuthorization, ccdCaseId, formdata);
     }
 
     action(ctx, formdata) {
         delete ctx.sessionID;
         delete ctx.caseType;
+        delete ctx.userLoggedIn;
         delete ctx.featureToggles;
         delete ctx._csrf;
         return [ctx, formdata];
@@ -139,13 +148,15 @@ class Step {
 
     alreadyDeclared(session) {
         const hasMultipleApplicants = (new ExecutorsWrapper(get(session, 'form.executors'))).hasMultipleApplicants();
+
         if (hasMultipleApplicants === false) {
             return get(session, 'form.declaration.declarationCheckbox') === 'true';
         }
+
         return [
-            session.haveAllExecutorsDeclared,
-            get(session, 'form.executors.invitesSent'),
-            get(session, 'form.declaration.declarationCheckbox')
+            get(session, 'haveAllExecutorsDeclared', false).toString(),
+            get(session, 'form.executors.invitesSent', false).toString(),
+            get(session, 'form.declaration.declarationCheckbox', false).toString()
         ].every(param => param === 'true');
     }
 

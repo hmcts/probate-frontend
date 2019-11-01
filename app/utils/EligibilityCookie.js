@@ -72,6 +72,14 @@ class EligibilityCookie {
 
         res.cookie(eligibilityCookieName, cookieValue, options);
     }
+
+    clearCookie(req, res) {
+        const json = {};
+        json.nextStepUrl = '';
+        json.pages = {};
+
+        this.writeCookie(req, res, json);
+    }
 }
 
 module.exports = EligibilityCookie;

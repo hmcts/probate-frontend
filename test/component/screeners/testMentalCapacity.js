@@ -50,19 +50,49 @@ describe('mental-capacity', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
-            const data = {
-                mentalCapacity: 'Yes'
+            const sessionData = {
+                screeners: {
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes',
+                    left: 'Yes',
+                    original: 'Yes',
+                    executor: 'Yes'
+                }
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        mentalCapacity: 'Yes'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
+                });
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
-            const data = {
-                mentalCapacity: 'No'
+            const sessionData = {
+                screeners: {
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes',
+                    left: 'Yes',
+                    original: 'Yes',
+                    executor: 'Yes'
+                }
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        mentalCapacity: 'No'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+                });
         });
 
         it('test "save and close" link is not displayed on the page', (done) => {

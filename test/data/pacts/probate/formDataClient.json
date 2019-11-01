@@ -1,0 +1,36 @@
+{
+  "applicant": {
+    "email": "someemailaddress@host.com",
+    "firstName": "Jon",
+    "lastName": "Snow",
+    "address": {
+      "addressLine1": "Winterfell",
+      "postTown": "Kings Landing",
+      "postCode": "Win1",
+      "country": "Westeros"
+    },
+    "postCode": "SW17 0QT",
+    "phoneNumber": "123455678",
+    "addressFound": "Yes",
+    "adoptionInEnglandOrWales": "Yes"
+  },
+  "deceased": {
+    "firstName": "Ned",
+    "lastName": "Stark",
+    "dob-date": "1930-01-01",
+    "dod-date": "2018-01-01",
+    "address": {
+      "addressLine1": "Winterfell",
+      "postTown": "Kings Landing",
+      "postCode": "Win1",
+      "country": "Westeros"
+    },
+    "addressFound": "Yes",
+    "postCode": "SW17 0QT",
+    "alias": "Yes",
+    "allDeceasedChildrenOverEighteen": "Yes",
+    "anyDeceasedChildrenDieBeforeDeceased": "No",
+    "anyDeceasedGrandchildrenUnderEighteen": "No",
+    "anyChildren": "No"
+  }
+}

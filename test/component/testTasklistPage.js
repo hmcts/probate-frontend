@@ -38,6 +38,7 @@ describe('task-list', () => {
                 'alreadyDeclared'
             ];
             sessionData.caseType = caseTypes.GOP;
+            sessionData.applicantEmail = 'test@email.com';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -63,6 +64,7 @@ describe('task-list', () => {
                 'alreadyDeclared'
             ];
             sessionData.caseType = caseTypes.INTESTACY;
+            sessionData.applicantEmail = 'test@email.com';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -73,13 +75,18 @@ describe('task-list', () => {
 
         it('[PROBATE] test right content loaded in Review and Confirm section (Multiple Applicants)', (done) => {
             const multipleApplicantSessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 caseType: caseTypes.GOP,
                 will: sessionData.will,
                 iht: sessionData.iht,
                 applicant: sessionData.applicant,
                 deceased: sessionData.deceased,
                 executors: sessionData.executors,
-                declaration: sessionData.declaration
+                declaration: sessionData.declaration,
+                applicantEmail: 'test@email.com'
             };
             const contentToExclude = [
                 'applicantsTask',
@@ -101,13 +108,18 @@ describe('task-list', () => {
 
         it('[PROBATE] test right content loaded in Review and Confirm section (Single Applicant)', (done) => {
             const singleApplicantSessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 caseType: caseTypes.GOP,
                 will: sessionData.will,
                 iht: sessionData.iht,
                 applicant: sessionData.applicant,
                 deceased: sessionData.deceased,
                 executors: singleApplicantData.executors,
-                declaration: sessionData.declaration
+                declaration: sessionData.declaration,
+                applicantEmail: 'test@email.com'
             };
             const contentToExclude = [
                 'applicantsTask',
@@ -131,6 +143,10 @@ describe('task-list', () => {
 
         it('[INTESTACY] test right content loaded in Review and Confirm section', (done) => {
             const singleApplicantSessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
                 caseType: caseTypes.INTESTACY,
                 will: sessionData.will,
                 iht: sessionData.iht,

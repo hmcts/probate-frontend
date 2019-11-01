@@ -49,8 +49,18 @@ describe('died-after-october-2014', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForRelatedToDeceased}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                screeners: {
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes',
+                    left: 'No'
+                }
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
                     const data = {
                         diedAfter: 'Yes'
@@ -61,8 +71,18 @@ describe('died-after-october-2014', () => {
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                screeners: {
+                    deathCertificate: 'Yes',
+                    domicile: 'Yes',
+                    completed: 'Yes',
+                    left: 'No'
+                }
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
                     const data = {
                         diedAfter: 'No'

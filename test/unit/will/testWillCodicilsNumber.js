@@ -20,7 +20,11 @@ describe('CodicilsNumber', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        caseType: 'gop'
+                        caseType: 'gop',
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Pending'
+                        }
                     },
                     caseType: 'gop'
                 },
@@ -32,7 +36,12 @@ describe('CodicilsNumber', () => {
             expect(ctx).to.deep.equal({
                 codicilsNumber: 3,
                 sessionID: 'dummy_sessionId',
-                caseType: 'gop'
+                caseType: 'gop',
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Pending'
+                }
             });
             done();
         });
@@ -42,7 +51,11 @@ describe('CodicilsNumber', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        caseType: 'gop'
+                        caseType: 'gop',
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Pending'
+                        }
                     },
                     caseType: 'gop'
                 },
@@ -54,7 +67,12 @@ describe('CodicilsNumber', () => {
             expect(ctx).to.deep.equal({
                 codicilsNumber: null,
                 sessionID: 'dummy_sessionId',
-                caseType: 'gop'
+                caseType: 'gop',
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Pending'
+                }
             });
             done();
         });

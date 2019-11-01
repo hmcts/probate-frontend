@@ -22,7 +22,11 @@ describe('WillCodicils', () => {
                 sessionID: 'dummy_sessionId',
                 session: {
                     form: {
-                        caseType: 'gop'
+                        caseType: 'gop',
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Pending'
+                        }
                     },
                     caseType: 'gop'
                 },
@@ -34,7 +38,12 @@ describe('WillCodicils', () => {
             expect(ctx).to.deep.equal({
                 codicils: 'Yes',
                 sessionID: 'dummy_sessionId',
-                caseType: 'gop'
+                caseType: 'gop',
+                userLoggedIn: false,
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Pending'
+                }
             });
             done();
         });

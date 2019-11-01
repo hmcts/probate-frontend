@@ -4,7 +4,6 @@ class Executors {
     constructor(executorsData) {
         this.executorsData = executorsData || {};
         this.executorsList = this.executorsData.list || [];
-
     }
 
     executors(excludeApplicant) {
@@ -120,6 +119,20 @@ class Executors {
         return this.executorsList
             .filter(executor => executor.aliasReason === 'Change by deed poll' || executor.currentNameReason === 'Change by deed poll')
             .map(executor => executor.alias || executor.currentName);
+    }
+
+    addExecutorIds() {
+        return this.executorsList.map((executor, id) => {
+            executor.id = id;
+            return executor;
+        });
+    }
+
+    removeExecutorIds() {
+        return this.executorsList.map(executor => {
+            delete executor.id;
+            return executor;
+        });
     }
 }
 

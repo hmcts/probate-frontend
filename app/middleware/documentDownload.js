@@ -7,11 +7,10 @@ const commonContent = require('app/resources/en/translation/common');
 const documentDownload = (req, res, service, filename) => {
     const downloadService = ServiceMapper.map(
         service,
-        [config.services.validation.url, req.sessionID],
-        req.session.form.caseType
+        [config.services.orchestrator.url, req.sessionID]
     );
     downloadService
-        .post(req.session.form)
+        .post(req)
         .then(result => {
             res.setHeader('Content-Type', 'application/pdf');
             res.setHeader('Content-disposition', `attachment; filename=${filename}`);

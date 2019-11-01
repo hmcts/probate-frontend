@@ -2,6 +2,7 @@
 
 const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
+const executorRolesContent = require('app/resources/en/translation/executors/executorcontent');
 
 describe('Executors-Applying', () => {
     let ctx;
@@ -57,7 +58,7 @@ describe('Executors-Applying', () => {
         });
 
         it('should set the lead applicant alias as the option when the Applicant Alias is set', (done) => {
-            req.session.form.executors.list[0].alias = 'Bobby Alias';
+            req.session.form.applicant.alias = 'Bobby Alias';
             ctx = ExecsDealing.getContextData(req);
             expect(ctx.options).to.deep.equal([
                 {text: 'Bobby Alias', value: 'Bobby Alias', checked: true, disabled: true},
@@ -124,7 +125,7 @@ describe('Executors-Applying', () => {
                     'currentName': 'Prince',
                     'isApplying': false,
                     'notApplyingKey': 'optionRenunciated',
-                    'notApplyingReason': 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)',
+                    'notApplyingReason': executorRolesContent.optionRenunciated,
                     'currentNameReason': 'Divorce',
                 }
             ]
@@ -191,7 +192,7 @@ describe('Executors-Applying', () => {
                         fullName: 'Cher',
                         isApplying: false,
                         notApplyingKey: 'optionRenunciated',
-                        notApplyingReason: 'This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)'
+                        notApplyingReason: executorRolesContent.optionRenunciated
                     }
                 ],
                 executorsApplying: ['Dave Miller'],

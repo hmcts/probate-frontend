@@ -16,10 +16,17 @@ describe('Executor-Additional-Invite-Sent', () => {
                 session: {
                     form: {
                         executors: {},
-                        caseType: 'gop'
+                        caseType: 'gop',
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Pending'
+                        }
                     },
-                    caseType: 'gop'
-                }
+                    serviceAuthorization: 'serviceAuthorization',
+                    caseType: 'probate'
+                },
+                authToken: 'authToken',
+                caseType: 'gop'
             };
         });
 
@@ -40,7 +47,14 @@ describe('Executor-Additional-Invite-Sent', () => {
                 header: 'header',
                 inviteSuffix: '',
                 sessionID: 'dummy_sessionId',
-                caseType: 'gop'
+                caseType: 'gop',
+                userLoggedIn: false,
+                authToken: 'authToken',
+                serviceAuthorization: 'serviceAuthorization',
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Pending'
+                }
             });
         });
 
@@ -66,7 +80,14 @@ describe('Executor-Additional-Invite-Sent', () => {
                 header: 'header-multiple',
                 inviteSuffix: '-multiple',
                 sessionID: 'dummy_sessionId',
-                caseType: 'gop'
+                caseType: 'gop',
+                userLoggedIn: false,
+                authToken: 'authToken',
+                serviceAuthorization: 'serviceAuthorization',
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Pending'
+                }
             });
         });
     });

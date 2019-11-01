@@ -9,6 +9,7 @@ let feesCalculator;
 describe('payment-breakdown', () => {
     let testWrapper;
     let submitStub;
+    let sessionData;
 
     before(() => {
         submitStub = require('test/service-stubs/submit');
@@ -19,6 +20,13 @@ describe('payment-breakdown', () => {
     });
 
     beforeEach(() => {
+        sessionData = {
+            ccdCase: {
+                state: 'Pending',
+                id: 1234567890123456
+            }
+        };
+
         testWrapper = new TestWrapper('PaymentBreakdown');
 
         feesCalculator = sinon.stub(FeesCalculator.prototype, 'calc');
@@ -45,12 +53,20 @@ describe('payment-breakdown', () => {
         it('test content loaded on the page with no extra copies', (done) => {
             const contentToExclude = ['extraCopiesFeeUk', 'extraCopiesFeeJersey', 'extraCopiesFeeOverseas'];
 
-            testWrapper.testContent(done, {}, contentToExclude);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, {}, contentToExclude);
+                });
         });
 
         it('test it displays the UK copies fees', (done) => {
+            sessionData.copies = {
+                uk: 1
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({copies: {uk: 1}})
+                .send(sessionData)
                 .end((err) => {
                     if (err) {
                         throw err;
@@ -62,8 +78,15 @@ describe('payment-breakdown', () => {
         });
 
         it('test it displays the overseas copies fees', (done) => {
+            sessionData.copies = {
+                overseas: 1
+            };
+            sessionData.assets = {
+                assetsoverseas: 'Yes'
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({copies: {overseas: 1}, assets: {assetsoverseas: 'Yes'}})
+                .send(sessionData)
                 .end((err) => {
                     if (err) {
                         throw err;

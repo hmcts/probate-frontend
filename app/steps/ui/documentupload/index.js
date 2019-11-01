@@ -31,7 +31,7 @@ class DocumentUpload extends ValidationStep {
     }
 
     isComplete(ctx, formdata) {
-        return [typeof get(formdata, 'documentupload') !== 'undefined', 'inProgress'];
+        return [(typeof get(formdata, 'documentupload') !== 'undefined' || typeof get(formdata, 'documents.uploads') !== 'undefined'), 'inProgress'];
     }
 
     nextStepOptions() {

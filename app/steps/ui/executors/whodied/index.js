@@ -13,7 +13,7 @@ class ExecutorsWhoDied extends ValidationStep {
         const ctx = super.getContextData(req);
         if (ctx.list) {
             ctx.options = ctx.list
-                .filter(o => o.fullName)
+                .filter(o => !o.isApplicant)
                 .map(o => ({value: o.fullName, text: o.fullName, checked: o.isDead === true}));
         }
         return ctx;

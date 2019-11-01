@@ -22,7 +22,18 @@ describe('executors-all-alive', () => {
         testCommonContent.runTest('ExecutorsAllAlive');
 
         it('test right content loaded on the page', (done) => {
-            testWrapper.testContent(done);
+            const sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done);
+                });
         });
 
         it('test errors message displayed for missing data', (done) => {
@@ -33,6 +44,7 @@ describe('executors-all-alive', () => {
             const data = {
                 allalive: 'Yes'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForExecsApplying);
         });
 
@@ -40,6 +52,7 @@ describe('executors-all-alive', () => {
             const data = {
                 allalive: 'No'
             };
+
             testWrapper.testRedirect(done, data, expectedNextUrlForExecsWhoDied);
         });
     });

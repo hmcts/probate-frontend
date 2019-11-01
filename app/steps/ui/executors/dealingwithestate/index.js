@@ -22,7 +22,8 @@ class ExecutorsDealingWithEstate extends ValidationStep {
                         const optionValue = applicant.alias ? applicant.alias : FormatName.format(executor);
                         return {value: optionValue, text: optionValue, checked: true, disabled: true};
                     }
-                    return {value: executor.fullName, text: executor.fullName, checked: executor.isApplying === true};
+                    const optionValue = executor.hasOtherName ? executor.currentName : executor.fullName;
+                    return {value: optionValue, text: optionValue, checked: executor.isApplying === true};
                 });
         }
         return ctx;

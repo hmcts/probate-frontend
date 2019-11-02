@@ -71,7 +71,7 @@ class UIStepRunner {
                     formdata.declaration.hasDataChanged = true;
                 }
 
-                if (get(formdata, 'ccdCase.state') === 'Pending' && session.regId && step.shouldPersistFormData()) {
+                if ((get(formdata, 'ccdCase.state') === 'Pending' || get(formdata, 'ccdCase.state') === 'CasePaymentFailed') && session.regId && step.shouldPersistFormData()) {
                     const ccdCaseId = formdata.ccdCase.id;
                     const result = yield step.persistFormData(ccdCaseId, formdata, session.id, req);
 

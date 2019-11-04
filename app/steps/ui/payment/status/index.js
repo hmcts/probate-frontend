@@ -110,6 +110,7 @@ class PaymentStatus extends Step {
             if (!ctx.paymentPending) {
                 set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
                 set(formdata, 'payment', updateCcdCaseResponse.payment);
+                set(formdata, 'registry', updateCcdCaseResponse.registry);
             }
 
             this.setErrors(options, errors);

@@ -195,6 +195,12 @@ describe('PaymentStatus', () => {
                 },
                 payment: {
                     status: 'not_required'
+                },
+                registry: {
+                    name: 'ctsc',
+                    email: 'ctsc@email.com',
+                    address: 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
+                    sequenceNumber: 3
                 }
             };
 
@@ -207,7 +213,16 @@ describe('PaymentStatus', () => {
                 paymentDue: false
             };
 
-            const formData = {caseType: caseTypes.GOP};
+            const formData = {
+                caseType: caseTypes.GOP,
+                registry: {
+                    name: 'ctsc',
+                    email: 'ctsc@email.com',
+                    address: 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
+                    sequenceNumber: 3
+                }
+
+            };
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
 
             co(function* () {

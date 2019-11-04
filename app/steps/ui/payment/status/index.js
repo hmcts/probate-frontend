@@ -128,13 +128,13 @@ class PaymentStatus extends Step {
         const result = yield submitData.submit(formdata, paymentDto, ctx.authToken, serviceAuthResult, ctx.caseType);
         if (result.type === 'VALIDATION') {
             errors = [];
-            errors.push(FieldError('update', 'failure', this.resourcePath, ctx));
+            errors.push(FieldError('update', 'failure', this.resourcePath, this.generateContent(ctx, formdata, 'en'), 'en'));
         }
         logger.info(`submitData.submit result = ${JSON.stringify(result)}`);
 
         if (result.name === 'Error') {
             errors = [];
-            errors.push(FieldError('update', 'failure', this.resourcePath, ctx));
+            errors.push(FieldError('update', 'failure', this.resourcePath, this.generateContent(ctx, formdata, 'en'), 'en'));
         }
 
         logger.info({tags: 'Analytics'}, 'Application Case Created');

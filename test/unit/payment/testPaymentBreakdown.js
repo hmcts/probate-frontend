@@ -16,12 +16,12 @@ const FeesCalculator = require('app/utils/FeesCalculator');
 const Payment = require('app/services/Payment');
 const caseTypes = require('app/utils/CaseTypes');
 const content = require('app/resources/en/translation/payment/breakdown');
+const i18next = require('i18next');
 
 describe('PaymentBreakdown', () => {
     const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
     const section = 'paymentBreakdown';
     const templatePath = 'payment/breakdown';
-    const i18next = {};
     const schema = {
         $schema: 'http://json-schema.org/draft-04/schema#',
         properties: {}

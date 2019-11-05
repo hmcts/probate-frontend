@@ -89,7 +89,14 @@ describe('PaymentStatus', () => {
                 'siteId': 'siteId0001',
                 'status': 'Success',
                 'transactionId': 12345
+            },
+            'registry': {
+                'name': 'ctsc',
+                'email': 'ctsc@email.com',
+                'address': 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
+                'sequenceNumber': 3
             }
+
         };
         ctx = {
             authToken: 'XXXXX',
@@ -172,7 +179,13 @@ describe('PaymentStatus', () => {
                     }
                 }
             });
-            const formData = {'payment': {}};
+            const formData = {'payment': {},
+                'registry': {
+                    'name': 'ctsc',
+                    'email': 'ctsc@email.com',
+                    'address': 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
+                    'sequenceNumber': 3
+                }};
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
 
             co(function* () {
@@ -242,11 +255,18 @@ describe('PaymentStatus', () => {
                 userId: 12345,
                 reference: 4567,
                 paymentDue: false,
-                paymentPending: true
+                paymentPending: true,
+                registry: {
+                    name: 'ctsc',
+                    email: 'ctsc@email.com',
+                    address: 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
+                    sequenceNumber: 3
+                }
             };
 
             const formData = {};
-            const expectedFormData = {};
+            const expectedFormData = {
+            };
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
             co(function* () {
                 const options = yield paymentStatus.runnerOptions(ctx, formData);

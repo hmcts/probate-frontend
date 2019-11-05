@@ -89,6 +89,7 @@ class PaymentStatus extends Step {
             const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, getPaymentResponse, serviceAuthResult);
             set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
             set(formdata, 'payment', updateCcdCaseResponse.payment);
+            set(formdata, 'registry', updateCcdCaseResponse.registry);
 
             this.setErrors(options, errors);
 
@@ -112,7 +113,6 @@ class PaymentStatus extends Step {
                 set(formdata, 'payment', updateCcdCaseResponse.payment);
                 set(formdata, 'registry', updateCcdCaseResponse.registry);
             }
-
             this.setErrors(options, errors);
             options.redirect = false;
         }

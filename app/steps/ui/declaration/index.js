@@ -100,17 +100,16 @@ class Declaration extends ValidationStep {
         } else {
             ctx.executorsWrapper = new ExecutorsWrapper(formdata.executors);
             ctx.invitesSent = get(formdata, 'executors.invitesSent');
-            ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants(get(formdata, 'executors.list'));
+            ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants();
             ctx.executorsEmailChanged = ctx.executorsWrapper.hasExecutorsEmailChanged();
             ctx.hasExecutorsToNotify = ctx.executorsWrapper.hasExecutorsToNotify() && ctx.invitesSent === 'true';
 
             const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
             const codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
-            const hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants();
-            const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
+            const multipleApplicantSuffix = this.multipleApplicantSuffix(ctx.hasMultipleApplicants);
 
             const executorsApplying = ctx.executorsWrapper.executorsApplying();
-            const executorsApplyingText = this.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata.deceasedName, formdata.applicantName);
+            const executorsApplyingText = this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata.deceasedName, formdata.applicantName);
 
             const executorsNotApplying = ctx.executorsWrapper.executorsNotApplying();
             const executorsNotApplyingText = this.executorsNotApplying(executorsNotApplying, content, formdata.deceasedName, hasCodicils);

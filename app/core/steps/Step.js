@@ -150,7 +150,7 @@ class Step {
         const hasMultipleApplicants = (new ExecutorsWrapper(get(session, 'form.executors'))).hasMultipleApplicants();
 
         if (hasMultipleApplicants === false) {
-            return get(session, 'form.declaration.declarationCheckbox') === 'true';
+            return (get(session, 'form.declaration.declarationCheckbox', false)).toString() === 'true';
         }
 
         return [

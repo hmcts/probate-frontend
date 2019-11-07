@@ -67,7 +67,7 @@ describe('/executor-current-name-reason/', () => {
 
         it(`test redirects from ExecutorCurrentNameReason to next ExecutorCurrentName, ${firstNameReasonUrl}`, (done) => {
             sessionData.declaration = {
-                declarationCheckbox: 'Yes',
+                declarationCheckbox: 'true',
                 hasDataChanged: false
             };
 
@@ -86,7 +86,7 @@ describe('/executor-current-name-reason/', () => {
 
         it(`test it redirects last executor to Executor Contact Details step: ${expectedNextUrlForExecContactDetails}`, (done) => {
             sessionData.declaration = {
-                declarationCheckbox: 'Yes',
+                declarationCheckbox: 'true',
                 hasDataChanged: false
             };
 

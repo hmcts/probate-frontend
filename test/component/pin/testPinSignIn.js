@@ -74,7 +74,7 @@ describe('pin-page', () => {
         it(`test it redirects to next page: ${expectedNextUrlForCoAppStartPage}`, (done) => {
             const formDataReturnData = {
                 declaration: {
-                    declarationCheckbox: 'Yes'
+                    declarationCheckbox: 'true'
                 }
             };
             const data = {

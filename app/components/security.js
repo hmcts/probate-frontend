@@ -34,7 +34,7 @@ class Security {
 
             if (securityCookie) {
                 const lostSession = !req.session.expires;
-                const sessionExpired = req.session.expires?req.session.expires <= Date.now():false;
+                const sessionExpired = req.session.expires ? req.session.expires <= Date.now() : false;
                 const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
                 idamSession
                     .get(securityCookie)

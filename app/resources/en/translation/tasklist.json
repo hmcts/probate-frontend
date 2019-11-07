@@ -21,7 +21,8 @@
   "taskUnavailable": "Can&rsquo;t start yet",
   "taskComplete": "Completed",
   "alreadyDeclared": "Already declared",
-  "declared": "Declared",
+  "agreed": "Agreed",
+  "disagreed": "Disagreed",
   "notDeclared": "Not declared",
   "executorName": "Executor name",
   "declarationStatus": "Declaration Status"

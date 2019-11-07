@@ -4,9 +4,9 @@ const {get} = require('lodash');
 
 class AliasData {
     static aliasDataRequiredAfterDeclaration(ctx, formdata) {
-        if (get(formdata, 'declaration.declarationCheckbox') &&
-               (this.applicantAliasUpdated(ctx, formdata) ||
-                this.applicantAliasReasonUpdated(ctx, formdata))
+        if ((get(formdata, 'declaration.declarationCheckbox', false)).toString() === 'true' &&
+           (this.applicantAliasUpdated(ctx, formdata) ||
+            this.applicantAliasReasonUpdated(ctx, formdata))
         ) {
             formdata = this.resetDeclaration(formdata);
         }

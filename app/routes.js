@@ -45,7 +45,11 @@ router.use((req, res, next) => {
         req.session.form.applicantEmail = req.session.regId;
     }
 
-    req.session.form.userLoggedIn = config.noHeaderLinksPages.includes(req.originalUrl) ? false : emailValidator.validate(req.session.form.applicantEmail);
+    if (config.app.useIDAM === 'true') {
+        req.session.form.userLoggedIn = config.noHeaderLinksPages.includes(req.originalUrl) ? false : emailValidator.validate(req.session.form.applicantEmail);
+    } else if (!config.noHeaderLinksPages.includes(req.originalUrl)) {
+        req.session.form.userLoggedIn = true;
+    }
     req.log.info(`User logged in: ${req.session.form.userLoggedIn}`);
 
     next();
@@ -63,7 +67,7 @@ router.get('/health/liveness', (req, res) => {
 });
 
 router.get('/start-apply', (req, res, next) => {
-    if (req.session.form.userLoggedIn) {
+    if (config.app.useIDAM === 'true' && req.session.form.userLoggedIn) {
         res.redirect(301, '/dashboard');
     } else {
         next();
@@ -100,17 +104,17 @@ router.use((req, res, next) => {
         !includes(config.whitelistedPagesAfterPayment, req.originalUrl)
     ) {
         res.redirect('/task-list');
-    } else if (get(formdata, 'declaration.declarationCheckbox') &&
+    } else if ((get(formdata, 'declaration.declarationCheckbox', false)).toString() === 'true' &&
         !includes(config.whitelistedPagesAfterDeclaration, req.originalUrl) &&
-            (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent') && req.session.haveAllExecutorsDeclared === 'true'))
+        (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent') && req.session.haveAllExecutorsDeclared === 'true'))
     ) {
         res.redirect('/task-list');
-    } else if (get(formdata, 'declaration.declarationCheckbox') &&
+    } else if ((get(formdata, 'declaration.declarationCheckbox', false)).toString() === 'true' &&
         (!hasMultipleApplicants || (get(formdata, 'executors.invitesSent'))) &&
             isEqual('/executors-invite', req.originalUrl)
     ) {
         res.redirect('/task-list');
-    } else if (get(formdata, 'declaration.declarationCheckbox') &&
+    } else if ((get(formdata, 'declaration.declarationCheckbox', false)).toString() === 'true' &&
         (!hasMultipleApplicants || !(get(formdata, 'executors.executorsEmailChanged'))) &&
             isEqual('/executors-update-invite', req.originalUrl)
     ) {

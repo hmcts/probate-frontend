@@ -1,6 +1,6 @@
 'use strict';
 
-const {get, forEach, sortBy} = require('lodash');
+const {get, sortBy} = require('lodash');
 const config = require('app/config');
 const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
@@ -142,7 +142,7 @@ const getDeclarationStatuses = (req, res, next) => {
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
 
-    if (get(formdata, 'declaration.declarationCheckbox') && hasMultipleApplicants) {
+    if ((get(formdata, 'declaration.declarationCheckbox', false)).toString() === 'true' && hasMultipleApplicants) {
         const ccdCaseId = formdata.ccdCase.id;
 
         const formData = ServiceMapper.map(
@@ -150,16 +150,28 @@ const getDeclarationStatuses = (req, res, next) => {
             [config.services.orchestrator.url, req.sessionID]
         );
 
-        session.form.executorsDeclarations = [];
-
         formData.getDeclarationStatuses(req.authToken, req.session.serviceAuthorization, ccdCaseId)
             .then(result => {
-                forEach(result.invitations, executor => (
-                    session.form.executorsDeclarations.push({
-                        executorName: executor.executorName,
-                        agreed: executor.agreed
-                    })
-                ));
+                session.form.executorsDeclarations = [];
+
+                if (result.invitations && result.invitations.length) {
+                    session.form.executorsDeclarations = result.invitations.map(executor => {
+                        let agreed;
+
+                        if (executor.agreed === null) {
+                            agreed = 'notDeclared';
+                        } else if (executor.agreed) {
+                            agreed = 'agreed';
+                        } else {
+                            agreed = 'disagreed';
+                        }
+
+                        return {
+                            executorName: executor.executorName,
+                            agreed: agreed
+                        };
+                    });
+                }
 
                 next();
             })

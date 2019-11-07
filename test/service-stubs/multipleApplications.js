@@ -197,16 +197,22 @@ router.post('/forms/newcase', (req, res) => {
 
 router.get('/invites/*', (req, res) => {
     res.status(200);
-    res.send([
-        {
-            executorName: 'Bob Jones',
-            agreed: true
-        },
-        {
-            executorName: 'Tom Smith',
-            agreed: false
-        }
-    ]);
+    res.send({
+        invitations: [
+            {
+                executorName: 'Bob Jones',
+                agreed: true
+            },
+            {
+                executorName: 'Tom Smith',
+                agreed: false
+            },
+            {
+                executorName: 'James Taylor',
+                agreed: null
+            }
+        ]
+    });
 });
 
 app.use(router);

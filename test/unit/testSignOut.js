@@ -4,6 +4,7 @@ const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
 const rewire = require('rewire');
 const SignOut = rewire('app/steps/ui/signout');
+const sinon = require('sinon');
 
 describe('Sign-Out', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
@@ -45,11 +46,14 @@ describe('Sign-Out', () => {
             },
             sessionStore: {
                 applicantID: 'test@email.com'
-            },
+            }
+        };
+        const res = {
+            clearCookie: sinon.spy()
         };
         const signOut = new SignOut(steps, section, templatePath, i18next, schema);
 
-        signOut.getContextData(req).then(() => {
+        signOut.getContextData(req, res).then(() => {
             assert.isUndefined(req.cookies);
             assert.isUndefined(req.sessionID);
             assert.isUndefined(req.session);

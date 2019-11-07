@@ -41,7 +41,7 @@ class ExecutorCurrentNameReason extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
-        if (get(formdata, 'declaration.declarationCheckbox') &&
+        if ((get(formdata, 'declaration.declarationCheckbox', false)).toString() === 'true' &&
             formdata.executors.list[ctx.index].currentNameReason !== ctx.currentNameReason
         ) {
             ctx.currentNameReasonUpdated = true;

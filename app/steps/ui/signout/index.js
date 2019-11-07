@@ -12,7 +12,7 @@ class SignOut extends Step {
         return '/sign-out';
     }
 
-    getContextData(req) {
+    getContextData(req, res) {
         const ctx = super.getContextData(req);
         ctx.authToken = req.authToken;
         const access_token = req.cookies[SECURITY_COOKIE];
@@ -26,6 +26,7 @@ class SignOut extends Step {
                 }
 
                 req.session.destroy();
+                res.clearCookie(SECURITY_COOKIE);
                 delete req.cookies;
                 delete req.sessionID;
                 delete req.session;

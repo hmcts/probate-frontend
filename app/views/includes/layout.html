@@ -22,24 +22,26 @@
         <p class="govuk-body">{{ cookieText | replace('{cookiesLink}', globals.links.cookies) | safe }}</p>
     </div>
 
-    {% set navigationItems = [] %}
-    {% if fields.userLoggedIn.value === "true" %}
-        {% if fields.isDashboard.value !== "true" %}
+    {% if not hideNavigation %}
+        {% set navigationItems = [] %}
+        {% if fields.userLoggedIn.value === "true" %}
+            {% if fields.isDashboard.value !== "true" %}
+                {% set navigationItems = (navigationItems.push({
+                    href: "/dashboard",
+                    text: common.myApplications
+                }), navigationItems) %}
+            {% endif %}
+
+            {% set navigationItems = (navigationItems.push({
+                href: "/sign-out",
+                text: common.signOut
+            }), navigationItems) %}
+        {% else %}
             {% set navigationItems = (navigationItems.push({
                 href: "/dashboard",
-                text: common.myApplications
+                text: common.signIn
             }), navigationItems) %}
         {% endif %}
-
-        {% set navigationItems = (navigationItems.push({
-            href: "/sign-out",
-            text: common.signOut
-        }), navigationItems) %}
-    {% else %}
-        {% set navigationItems = (navigationItems.push({
-            href: "/dashboard",
-            text: common.signIn
-        }), navigationItems) %}
     {% endif %}
 
     <header class="govuk-header " role="banner" data-module="govuk-header">

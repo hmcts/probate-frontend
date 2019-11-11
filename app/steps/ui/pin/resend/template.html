@@ -3,6 +3,8 @@
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% set hideNavigation = true %}
+
 {% block form_content %}
     {% call govukFieldset({
         legend: {

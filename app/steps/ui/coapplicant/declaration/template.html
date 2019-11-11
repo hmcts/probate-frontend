@@ -7,6 +7,8 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "widgets/lists.html" import unorderedList %}
 
+{% set hideNavigation = true %}
+
 {% block form_content %}
     <h1 class="govuk-heading-l">{{ content.pageHeader }}</h1>
     <p class="govuk-body">{{ content.legalStatementIntro | replace("{mainApplicantName}", fields.applicant.value.firstName + " " +  fields.applicant.value.lastName) | safe }}</p>

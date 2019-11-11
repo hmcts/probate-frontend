@@ -23,7 +23,7 @@ describe('UIStepRunner', () => {
         const step = {
             name: stepName,
             validate: () => [false, []],
-            getContextData: () => {},
+            getContextData: () => '',
             nextStepUrl: () => '',
             action: () => [{}, req.session.form],
             constructor: {
@@ -35,7 +35,7 @@ describe('UIStepRunner', () => {
         const expectedForm = {
             declarationCheckbox: 'false',
             hasDataChanged: true
-        }
+        };
         const res = {
             redirect: (url) => url
         };

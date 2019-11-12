@@ -13,7 +13,7 @@ The Frontend Application delegates a number of backend logic to the underlying s
 
 ### Installation
 
-Install dependencies by executing the following command:
+Install dependencies by executing the following:
 
 ```
 $ yarn install

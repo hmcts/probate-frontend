@@ -93,7 +93,7 @@
       "mentalCapacity": "Yes"
     },
     "declaration": {
-      "declarationCheckbox": true
+      "declarationCheckbox": "true"
     },
     "assets": {
       "assetsoverseas": "Yes"

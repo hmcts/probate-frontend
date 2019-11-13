@@ -22,7 +22,7 @@ class DetectDataChanges {
     hasChanged(params, sectionData) {
         return Object.keys(params).some(paramsKey => {
             const sectionDataKey = this.accessDataKey(paramsKey);
-            return sectionData && get(sectionData, sectionDataKey) && this.isNotEqual(get(params, sectionDataKey), get(sectionData, sectionDataKey));
+            return paramsKey !== 'declarationCheckbox' && sectionData && get(sectionData, sectionDataKey) && this.isNotEqual(get(params, sectionDataKey), get(sectionData, sectionDataKey));
         });
     }
 

@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 'use strict';
 
 const {assert, expect} = require('chai');
@@ -279,6 +280,21 @@ describe('Declaration', () => {
                     ]
                 }
             });
+            done();
+        });
+    });
+
+    describe('isComplete()', () => {
+        it('should return the completion status correctly', (done) => {
+            const ctx = {};
+            const formdata = {
+                declaration: {
+                    declarationCheckbox: 'false'
+                }
+            };
+            const declaration = new Declaration(steps, section, templatePath, i18next, schema);
+            const complete = declaration.isComplete(ctx, formdata);
+            expect(complete).to.deep.equal([false, 'inProgress']);
             done();
         });
     });

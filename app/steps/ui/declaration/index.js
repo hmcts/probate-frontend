@@ -249,6 +249,10 @@ class Declaration extends ValidationStep {
         res.req.session.form.legalDeclaration = legalDocumentJSONObjBuilder.build(formdata, html);
         res.send(html);
     }
+
+    isComplete(ctx, formdata) {
+        return [get(formdata, 'declaration.declarationCheckbox') === 'true', 'inProgress'];
+    }
 }
 
 module.exports = Declaration;

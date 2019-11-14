@@ -49,7 +49,7 @@ class ExecutorContactDetails extends ValidationStep {
             errors.push(FieldError('mobile', 'invalid', this.resourcePath, this.generateContent()));
         }
 
-        if (ctx.email !== executor.email && executor.emailSent) {
+        if (ctx.email !== executor.email && ctx.invitesSent) {
             executor.emailChanged = true;
         }
 

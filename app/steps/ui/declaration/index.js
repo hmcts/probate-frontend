@@ -204,8 +204,8 @@ class Declaration extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.hasDataChangedAfterEmailSent = ctx.hasDataChanged && ctx.invitesSent === 'true';
-        ctx.hasEmailChanged = ctx.executorsEmailChanged && ctx.invitesSent === 'true';
+        ctx.hasDataChangedAfterEmailSent = ctx.hasDataChanged && ctx.invitesSent;
+        ctx.hasEmailChanged = ctx.executorsEmailChanged && ctx.invitesSent;
         const nextStepOptions = {
             options: [
                 {key: 'hasExecutorsToNotify', value: true, choice: 'sendAdditionalInvites'},

@@ -1,6 +1,6 @@
 tags:
-  - rpe-feature-toggle-api-pod
-  - idam-pr
+  - rpe-feature-toggle-pa-frontend
+  - idam-pr-pa-frontend
 
 nodejs:
   environment:

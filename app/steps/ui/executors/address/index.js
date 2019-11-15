@@ -44,7 +44,7 @@ class ExecutorAddress extends AddressStep {
             ctx.newPostCode = get(ctx.address, 'postCode', '');
             ctx.country = get(ctx.address, 'country', 'United Kingdom');
         }
-        if (ctx.list[ctx.index].postcode) {
+        if (ctx.list[ctx.index].postcode && !ctx.postcode) {
             ctx.postcode = ctx.list[ctx.index].postcode;
         }
         if (ctx.list[ctx.index].addresses && !ctx.addresses) {

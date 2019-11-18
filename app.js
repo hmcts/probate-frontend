@@ -22,7 +22,6 @@ const healthcheck = require(`${__dirname}/app/healthcheck`);
 const declaration = require(`${__dirname}/app/declaration`);
 const InviteSecurity = require(`${__dirname}/app/invite`);
 const additionalInvite = require(`${__dirname}/app/routes/additionalInvite`);
-const updateInvite = require(`${__dirname}/app/routes/updateinvite`);
 const fs = require('fs');
 const https = require('https');
 const appInsights = require('applicationinsights');
@@ -249,7 +248,6 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}) {
     app.use('/co-applicant-*', inviteSecurity.checkCoApplicant(useIDAM));
     app.use('/health', healthcheck);
     app.use('/executors-additional-invite', additionalInvite);
-    app.use('/executors-update-invite', updateInvite);
     app.use('/declaration', declaration);
 
     app.use(featureToggles);

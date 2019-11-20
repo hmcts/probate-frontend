@@ -7,7 +7,6 @@ const logger = require('app/components/logger')('Init');
 const InviteLink = require('app/services/InviteLink');
 const config = require('app/config');
 
-
 class ExecutorsUpdateInvite extends ValidationStep {
 
     static getUrl() {
@@ -58,16 +57,10 @@ class ExecutorsUpdateInvite extends ValidationStep {
                             };
                             Object.assign(formdata.executors.list.find(execList => execList.email === execResult.email && execList.fullName === execResult.executorName), result);
                         });
-                        formdata.executors.list = executorsWrapper.removeExecutorIds();
                         formdata.executors.list = executorsWrapper.removeExecutorsEmailChangedFlag();
                     }
                 });
         }
-
-        yield new Promise((resolve) => resolve())
-            .then(() => {
-                formdata.executors.list = executorsWrapper.removeExecutorIds();
-            });
 
         return [ctx, errors];
     }

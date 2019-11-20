@@ -18,7 +18,7 @@ class ExecutorsUpdateInvite extends ValidationStep {
         const formdata = req.session.form;
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         ctx.executorsEmailChangedList = executorsWrapper.executorsEmailChangedList();
-        ctx.inviteSuffix = ctx.executorsNumber > 2 ? '-multiple' : '';
+        ctx.inviteSuffix = ctx.executorsEmailChangedList.length > 1 ? '-multiple' : '';
         ctx.authToken = req.authToken;
         ctx.serviceAuthorization = req.session.serviceAuthorization;
         return ctx;

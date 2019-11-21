@@ -94,6 +94,8 @@ describe('multipleApplicationsMiddleware', () => {
 
         it('should not create a new application if screeners are found but not WillLeft - should just render the existing applications instead', (done) => {
             const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
+                delete req.session.form.caseType;
+                delete req.session.form.screeners;
                 req.session.form.applications = allApplicationsExpectedResponse.applications;
                 return Promise.resolve();
             });
@@ -139,6 +141,8 @@ describe('multipleApplicationsMiddleware', () => {
 
         it('should not create a new application if screeners are found including WillLeft and a Draft application of the same caseType is already present - should just render the existing applications instead', (done) => {
             const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
+                delete req.session.form.caseType;
+                delete req.session.form.screeners;
                 req.session.form.applications = allApplicationsExpectedResponse.applications;
                 return Promise.resolve();
             });
@@ -190,6 +194,8 @@ describe('multipleApplicationsMiddleware', () => {
 
         it('should not create a new application if screeners are found including WillLeft and a Draft application of the same caseType is already present but not all screeners are present - should just render the existing applications instead', (done) => {
             const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
+                delete req.session.form.caseType;
+                delete req.session.form.screeners;
                 req.session.form.applications = allApplicationsExpectedResponse.applications;
                 return Promise.resolve();
             });
@@ -238,6 +244,8 @@ describe('multipleApplicationsMiddleware', () => {
 
         it('should create a new draft application if all screeners are present and no applications found', (done) => {
             const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
+                delete req.session.form.caseType;
+                delete req.session.form.screeners;
                 req.session.form.applications = [
                     {
                         dateCreated: '9 November 2019',
@@ -308,6 +316,8 @@ describe('multipleApplicationsMiddleware', () => {
         it('should create a new draft application if all screeners are present and no Draft applications of same case type found', (done) => {
             delete allApplicationsExpectedResponse.applications[4];
             const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
+                delete req.session.form.caseType;
+                delete req.session.form.screeners;
                 req.session.form.applications = allApplicationsExpectedResponse.applications;
                 return Promise.resolve();
             });
@@ -359,6 +369,8 @@ describe('multipleApplicationsMiddleware', () => {
 
         it('should create a new draft application if all screeners are present and a Draft applications found but of different caseType', (done) => {
             const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
+                delete req.session.form.caseType;
+                delete req.session.form.screeners;
                 req.session.form.applications = allApplicationsExpectedResponse.applications;
                 return Promise.resolve();
             });
@@ -410,6 +422,8 @@ describe('multipleApplicationsMiddleware', () => {
 
         it('should return an array of applications', (done) => {
             const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
+                delete req.session.form.caseType;
+                delete req.session.form.screeners;
                 req.session.form.applications = allApplicationsExpectedResponse.applications;
                 return Promise.resolve();
             });

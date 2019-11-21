@@ -18,10 +18,10 @@ const initDashboard = (req, res, next) => {
 
     formData.getAll(req.authToken, req.session.serviceAuthorization)
         .then(result => {
-            logger.error(`Applications request complete`);
+            logger.error('Applications request complete');
 
             if (result.applications && result.applications.length) {
-                logger.error(`Applications found: `, result.applications.length);
+                logger.error('Applications found: ', result.applications.length);
 
                 if (allEligibilityQuestionsPresent(formdata)) {
                     logger.error('All eligibility questions present');

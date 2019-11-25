@@ -134,7 +134,7 @@ describe('Update-Invite', () => {
                 done(err);
             });
         });
-    })
+    });
 
     describe('action()', () => {
         it('test that context variables are removed and empty object returned', () => {

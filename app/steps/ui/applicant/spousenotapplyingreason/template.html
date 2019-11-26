@@ -21,14 +21,14 @@
         errorMessage: { text: fields.spouseNotApplyingReason.errorMessage.message | safe } if fields.spouseNotApplyingReason.errorMessage,
         items: [
             {
-                value: content["optionRenouncing"],
+                value: "optionRenouncing",
                 text: content["optionRenouncing"] | safe,
-                checked: true if fields.spouseNotApplyingReason.value == content["optionRenouncing"] | escape
+                checked: true if fields.spouseNotApplyingReason.value == "optionRenouncing" | escape
             },
             {
-                value: content["optionOther"],
+                value: "optionOther",
                 text: content["optionOther"],
-                checked: true if fields.spouseNotApplyingReason.value == content["optionOther"] | escape
+                checked: true if fields.spouseNotApplyingReason.value == "optionOther" | escape
             }
         ]
     }) }}

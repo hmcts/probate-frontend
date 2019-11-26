@@ -18,14 +18,14 @@
         errorMessage: { text: fields.allalive.errorMessage.message | safe } if fields.allalive.errorMessage,
         items: [
             {
-                value: content["optionYes"],
+                value: "optionYes",
                 text: content["optionYes"],
-                checked: true if fields.allalive.value == content["optionYes"] | escape
+                checked: true if fields.allalive.value == "optionYes" | escape
             },
             {
-                value: content["optionNo"],
+                value: "optionNo",
                 text: content["optionNo"],
-                checked: true if fields.allalive.value == content["optionNo"] | escape
+                checked: true if fields.allalive.value == "optionNo" | escape
             }
         ]
     }) }}

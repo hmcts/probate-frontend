@@ -1,6 +1,6 @@
 {
   "iht": {
-    "method": "Through the HMRC online service",
+    "method": "optionOnline",
     "identifier": "12345678F12345",
     "grossValueField": "100000.10",
     "netValueField": "10000.34",

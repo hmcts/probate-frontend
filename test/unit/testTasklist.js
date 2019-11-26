@@ -449,7 +449,7 @@ describe('Tasklist', () => {
                     deceased: completedForm.deceased,
                     executors: completedForm.executors
                 };
-                formdata.deceased.anyChildren = 'No';
+                formdata.deceased.anyChildren = 'optionNo';
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
 

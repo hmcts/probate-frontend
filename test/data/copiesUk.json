@@ -1,24 +1,24 @@
 {
   "iht": {
-    "form": "IHT205",
-    "method": "By post",
+    "form": "optionIHT205",
+    "method": "optionPaper",
     "netValue": 1,
-    "ihtFormId": "IHT205",
+    "ihtFormId": "optionIHT205",
     "netIHT205": "1",
     "grossValue": 1,
     "grossIHT205": "1"
   },
   "will": {
-    "codicils": "No"
+    "codicils": "optionNo"
   },
   "summary": {
     "readyToDeclare": true
   },
   "deceased": {
-    "alias": "No",
+    "alias": "optionNo",
     "dob-day": 1,
     "dod-day": 12,
-    "married": "No",
+    "married": "optionNo",
     "dob-date": "1950-01-01T00:00:00.000Z",
     "dob-year": 1950,
     "dod-date": "2017-12-12T00:00:00.000Z",
@@ -439,7 +439,7 @@
     "firstName": "app_test",
     "phoneNumber": "1234567890",
     "addressFound": "true",
-    "nameAsOnTheWill": "Yes"
+    "nameAsOnTheWill": "optionYes"
   },
   "executors": {
     "list": [
@@ -480,8 +480,8 @@
         "isApplying": true
       }
     ],
-    "alias": "No",
-    "allalive": "Yes",
+    "alias": "optionNo",
+    "allalive": "optionYes",
     "referrer": "ExecutorAddress",
     "invitesSent": "true",
     "addressFound": "true",
@@ -508,7 +508,7 @@
         "isApplying": true
       }
     ],
-    "otherExecutorsApplying": "Yes"
+    "otherExecutorsApplying": "optionYes"
   },
   "declaration": {
     "softStop": false,

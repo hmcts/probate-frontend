@@ -1,11 +1,10 @@
 const WillWrapper = require('app/wrappers/Will');
-const commonContent = require('app/resources/en/translation/common');
 const expect = require('chai').expect;
 
 describe('Will', () => {
     describe('hasCodicils()', () => {
         it('should return true when there are codicils', (done) => {
-            const data = {codicils: commonContent.yes};
+            const data = {codicils: 'optionYes'};
             const willWrapper = new WillWrapper(data);
             expect(willWrapper.hasCodicils()).to.equal(true);
             done();
@@ -13,7 +12,7 @@ describe('Will', () => {
 
         describe('should return false', () => {
             it('when there are no codicils', (done) => {
-                const data = {codicils: commonContent.no};
+                const data = {codicils: 'optionNo'};
                 const willWrapper = new WillWrapper(data);
                 expect(willWrapper.hasCodicils()).to.equal(false);
                 done();

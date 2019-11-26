@@ -5,7 +5,6 @@ const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ExecutorRoles = steps.ExecutorRoles;
 const executorRolesPath = '/executor-roles/';
-const executorRolesContent = require('app/resources/en/translation/executors/roles');
 
 describe('ExecutorRoles', () => {
     describe('getUrl()', () => {
@@ -35,11 +34,11 @@ describe('ExecutorRoles', () => {
                 list: [
                     {
                         isApplying: false,
-                        notApplyingReason: executorRolesContent.optionPowerReserved,
+                        notApplyingReason: 'optionPowerReserved',
                         notApplyingKey: 'optionPowerReserved'
                     }
                 ],
-                notApplyingReason: executorRolesContent.optionPowerReserved
+                notApplyingReason: 'optionPowerReserved'
             };
             errors = [];
             [ctx, errors] = ExecutorRoles.handlePost(ctx, errors);
@@ -48,11 +47,11 @@ describe('ExecutorRoles', () => {
                 list: [
                     {
                         isApplying: false,
-                        notApplyingReason: executorRolesContent.optionPowerReserved,
+                        notApplyingReason: 'optionPowerReserved',
                         notApplyingKey: 'optionPowerReserved'
                     }
                 ],
-                notApplyingReason: executorRolesContent.optionPowerReserved
+                notApplyingReason: 'optionPowerReserved'
             });
             done();
         });
@@ -77,7 +76,7 @@ describe('ExecutorRoles', () => {
                     'currentName': 'Prince',
                     'isApplying': false,
                     'notApplyingKey': 'optionRenunciated',
-                    'notApplyingReason': executorRolesContent.optionRenunciated,
+                    'notApplyingReason': 'optionRenunciated',
                     'currentNameReason': 'Divorce',
 
                 }
@@ -128,7 +127,7 @@ describe('ExecutorRoles', () => {
                     {
                         'lastName': 'the',
                         'firstName': 'applicant',
-                        'isApplying': 'Yes',
+                        'isApplying': 'optionYes',
                         'isApplicant': true
                     }, {
                         isApplying: true,
@@ -152,7 +151,7 @@ describe('ExecutorRoles', () => {
                     {
                         'lastName': 'the',
                         'firstName': 'applicant',
-                        'isApplying': 'Yes',
+                        'isApplying': 'optionYes',
                         'isApplicant': true
                     }, {
                         isApplying: false,
@@ -176,13 +175,13 @@ describe('ExecutorRoles', () => {
                     {
                         'lastName': 'the',
                         'firstName': 'applicant',
-                        'isApplying': 'Yes',
+                        'isApplying': 'optionYes',
                         'isApplicant': true
                     }, {
                         isApplying: false,
-                        notApplyingReason: executorRolesContent.optionPowerReserved,
+                        notApplyingReason: 'optionPowerReserved',
                         notApplyingKey: 'optionPowerReserved',
-                        executorNotified: 'Yes',
+                        executorNotified: 'optionYes',
                         fullName: 'Ed Brown',
                         address: '20 Green Street, London, L12 9LN'
                     }, {
@@ -203,11 +202,11 @@ describe('ExecutorRoles', () => {
                     {
                         'lastName': 'the',
                         'firstName': 'applicant',
-                        'isApplying': 'Yes',
+                        'isApplying': 'optionYes',
                         'isApplicant': true
                     }, {
                         isApplying: false,
-                        notApplyingReason: executorRolesContent.optionPowerReserved,
+                        notApplyingReason: 'optionPowerReserved',
                         notApplyingKey: 'optionPowerReserved',
                         fullName: 'Ed Brown',
                         address: '20 Green Street, London, L12 9LN'
@@ -229,11 +228,11 @@ describe('ExecutorRoles', () => {
                     {
                         'lastName': 'the',
                         'firstName': 'applicant',
-                        'isApplying': 'Yes',
+                        'isApplying': 'optionYes',
                         'isApplicant': true
                     }, {
                         isApplying: false,
-                        notApplyingReason: executorRolesContent.optionRenunciated,
+                        notApplyingReason: 'optionRenunciated',
                         notApplyingKey: 'optionRenunciated',
                         fullName: 'Ed Brown',
                         address: '20 Green Street, London, L12 9LN'
@@ -256,7 +255,7 @@ describe('ExecutorRoles', () => {
             const nextStepOptions = ExecutorRoles.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'notApplyingReason', value: executorRolesContent.optionPowerReserved, choice: 'powerReserved'},
+                    {key: 'notApplyingReason', value: 'optionPowerReserved', choice: 'powerReserved'},
                     {key: 'continue', value: true, choice: 'continue'}
                 ]
             });

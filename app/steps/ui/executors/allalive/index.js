@@ -1,7 +1,6 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const content = require('app/resources/en/translation/executors/allalive');
 
 class ExecutorsAllAlive extends ValidationStep {
 
@@ -31,8 +30,8 @@ class ExecutorsAllAlive extends ValidationStep {
     nextStepOptions() {
         const nextStepOptions = {
             options: [
-                {key: 'allalive', value: content.optionYes, choice: 'isAlive'},
-                {key: 'allalive', value: content.optionNo, choice: 'whoDied'}
+                {key: 'allalive', value: 'optionYes', choice: 'isAlive'},
+                {key: 'allalive', value: 'optionNo', choice: 'whoDied'}
             ]
         };
         return nextStepOptions;

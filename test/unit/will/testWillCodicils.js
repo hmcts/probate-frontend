@@ -3,7 +3,6 @@
 const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
-const content = require('app/resources/en/translation/will/codicils');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const WillCodicils = steps.WillCodicils;
 
@@ -31,12 +30,12 @@ describe('WillCodicils', () => {
                     caseType: 'gop'
                 },
                 body: {
-                    codicils: content.optionYes
+                    codicils: 'optionYes'
                 }
             };
             const ctx = WillCodicils.getContextData(req);
             expect(ctx).to.deep.equal({
-                codicils: 'Yes',
+                codicils: 'optionYes',
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
                 userLoggedIn: false,
@@ -63,11 +62,11 @@ describe('WillCodicils', () => {
                     caseType: 'gop'
                 },
                 body: {
-                    codicils: 'Yes'
+                    codicils: 'optionYes'
                 }
             };
             const ctx = {
-                codicils: content.optionYes
+                codicils: 'optionYes'
             };
             const WillCodicils = steps.WillCodicils;
             const nextStepUrl = WillCodicils.nextStepUrl(req, ctx);
@@ -82,7 +81,7 @@ describe('WillCodicils', () => {
                 }
             };
             const ctx = {
-                codicils: content.optionNo
+                codicils: 'optionNo'
             };
             const WillCodicils = steps.WillCodicils;
             const nextStepUrl = WillCodicils.nextStepUrl(req, ctx);
@@ -97,7 +96,7 @@ describe('WillCodicils', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'codicils',
-                    value: content.optionNo,
+                    value: 'optionNo',
                     choice: 'noCodicils'
                 }]
             });
@@ -108,7 +107,7 @@ describe('WillCodicils', () => {
     describe('action()', () => {
         it('test it cleans up context', () => {
             const ctx = {
-                codicils: content.optionNo,
+                codicils: 'optionNo',
                 codicilsNumber: 3
             };
             WillCodicils.action(ctx);

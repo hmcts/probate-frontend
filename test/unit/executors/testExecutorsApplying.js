@@ -13,7 +13,7 @@ describe('Executors-Applying', () => {
                     {
                         lastName: 'the',
                         firstName: 'applicant',
-                        isApplying: 'Yes',
+                        isApplying: true,
                         isApplicant: true
                     }, {
                         isApplying: true,
@@ -29,14 +29,14 @@ describe('Executors-Applying', () => {
         });
 
         it('test executor isApplying flag is deleted when No option is selected', () => {
-            ctx.otherExecutorsApplying = 'No';
+            ctx.otherExecutorsApplying = 'optionNo';
             ExecsApplying.handlePost(ctx);
             assert.isUndefined(ctx.list[1].isApplying);
             assert.isUndefined(ctx.list[2].isApplying);
         });
 
         it('test executor isApplying flag is true when Yes option selected', () => {
-            ctx.otherExecutorsApplying = 'Yes';
+            ctx.otherExecutorsApplying = 'optionYes';
             ExecsApplying.handlePost(ctx);
             assert.isTrue(ctx.list[1].isApplying);
             assert.isTrue(ctx.list[2].isApplying);

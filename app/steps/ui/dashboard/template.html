@@ -5,7 +5,7 @@
 {% block content %}
     {% set applicationRows = [] %}
     {% for application in fields.applications.value %}
-        {% set actionUrl = "/get-case/" + application.ccdCase.id + '?probateType=' + application.caseType %}
+        {% set actionUrl = "/get-case/" + application.ccdCase.id + "?probateType=" + application.caseType %}
         {% set actionText = content.actionContinue if (application.ccdCase.state == "Pending" or application.ccdCase.state == "PAAppCreated" or application.ccdCase.state == "CasePaymentFailed") else content.actionView %}
 
         {% set caseClasses = "case draft" if not application.deceasedFullName and application.ccdCase.state == "Pending" else "" %}
@@ -14,7 +14,7 @@
         {% set caseStatusClasses = caseClasses + (" case-status submitted" if application.ccdCase.state == "CaseCreated" else "") %}
 
         {% set applicationRows = (applicationRows.push([
-            { text: application.ccdCase.idFormatted, classes: caseIdClasses, attributes: {'aria-label': application.ccdCase.idFormattedAccessible } },
+            { text: application.ccdCase.idFormatted, classes: caseIdClasses, attributes: {"aria-label": application.ccdCase.idFormattedAccessible } },
             { text: application.deceasedFullName if application.deceasedFullName else(content.statusDraftProbate if application.caseType == "PA" else content.statusDraftIntestacy), classes: caseClasses },
             { text: application.dateCreated, classes: caseDateClasses},
             { text: content.statusInProgress if (application.ccdCase.state == "Pending" or application.ccdCase.state == "PAAppCreated" or application.ccdCase.state == "CasePaymentFailed") else content.statusSubmitted, classes: caseStatusClasses },

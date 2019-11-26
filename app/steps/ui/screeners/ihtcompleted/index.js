@@ -1,7 +1,6 @@
 'use strict';
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
-const content = require('app/resources/en/translation/screeners/ihtcompleted');
 const pageUrl = '/iht-completed';
 const fieldKey = 'completed';
 const Dashboard = require('app/steps/ui/dashboard');
@@ -27,7 +26,7 @@ class IhtCompleted extends EligibilityValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: fieldKey, value: content.optionYes, choice: 'completed'}
+                {key: fieldKey, value: 'optionYes', choice: 'completed'}
             ]
         };
     }

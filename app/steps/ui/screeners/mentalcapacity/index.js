@@ -1,7 +1,6 @@
 'use strict';
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
-const content = require('app/resources/en/translation/screeners/mentalcapacity');
 const pageUrl = '/mental-capacity';
 const fieldKey = 'mentalCapacity';
 const Dashboard = require('app/steps/ui/dashboard');
@@ -27,7 +26,7 @@ class MentalCapacity extends EligibilityValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: fieldKey, value: content.optionYes, choice: 'isCapable'}
+                {key: fieldKey, value: 'optionYes', choice: 'isCapable'}
             ]
         };
     }

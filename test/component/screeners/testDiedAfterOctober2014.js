@@ -52,10 +52,10 @@ describe('died-after-october-2014', () => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes',
-                    left: 'No'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionNo'
                 }
             };
 
@@ -63,7 +63,7 @@ describe('died-after-october-2014', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        diedAfter: 'Yes'
+                        diedAfter: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForRelatedToDeceased, cookies);
@@ -74,10 +74,10 @@ describe('died-after-october-2014', () => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes',
-                    left: 'No'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionNo'
                 }
             };
 
@@ -85,7 +85,7 @@ describe('died-after-october-2014', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        diedAfter: 'No'
+                        diedAfter: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);

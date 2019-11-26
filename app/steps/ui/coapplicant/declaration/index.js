@@ -29,7 +29,7 @@ class CoApplicantDeclaration extends ValidationStep {
     nextStepOptions() {
         const nextStepOptions = {
             options: [
-                {key: 'agreement', value: this.content.optionYes, choice: 'agreed'}
+                {key: 'agreement', value: 'optionYes', choice: 'agreed'}
             ]
         };
         return nextStepOptions;
@@ -59,7 +59,7 @@ class CoApplicantDeclaration extends ValidationStep {
 
         const data = {
             inviteId: ctx.inviteId,
-            agreed: this.content.optionYes === ctx.agreement
+            agreed: ctx.agreement === 'optionYes'
         };
         const inviteData = new InviteData(config.services.orchestrator.url, ctx.sessionID);
 

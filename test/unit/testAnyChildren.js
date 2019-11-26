@@ -4,11 +4,6 @@ const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const AnyChildren = steps.AnyChildren;
-const content = require('app/resources/en/translation/deceased/anychildren');
-const contentAnyChildren = require('app/resources/en/translation/deceased/anychildren');
-const contentAllChildrenOver18 = require('app/resources/en/translation/deceased/allchildrenover18');
-const contentAnyDeceasedChildren = require('app/resources/en/translation/deceased/anydeceasedchildren');
-const contentAnyGrandChildrenUnder18 = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
 
 describe('AnyChildren', () => {
     describe('getUrl()', () => {
@@ -43,7 +38,7 @@ describe('AnyChildren', () => {
             const nextStepOptions = AnyChildren.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'anyChildren', value: content.optionYes, choice: 'hadChildren'},
+                    {key: 'anyChildren', value: 'optionYes', choice: 'hadChildren'},
                 ]
             });
             done();
@@ -54,17 +49,17 @@ describe('AnyChildren', () => {
         it('test it cleans up context', () => {
             const ctx = {
                 deceasedName: 'Dee Ceased',
-                anyChildren: contentAnyChildren.optionNo,
-                allChildrenOver18: contentAllChildrenOver18.optionYes,
-                anyDeceasedChildren: contentAnyDeceasedChildren.optionYes,
-                anyGrandchildrenUnder18: contentAnyGrandChildrenUnder18.optionNo
+                anyChildren: 'optionNo',
+                allChildrenOver18: 'optionYes',
+                anyDeceasedChildren: 'optionYes',
+                anyGrandchildrenUnder18: 'optionNo'
             };
             const formdata = {
                 applicant: {
-                    relationshipToDeceased: content.optionAdoptedChild,
+                    relationshipToDeceased: 'optionAdoptedChild',
                 },
                 deceased: {
-                    anyChildren: contentAnyChildren.optionYes
+                    anyChildren: 'optionYes'
                 }
             };
 

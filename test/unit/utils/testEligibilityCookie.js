@@ -30,10 +30,10 @@ describe('EligibilityCookie.js', () => {
                     __eligibility: JSON.stringify({
                         nextStepUrl: '/will-original',
                         pages: {
-                            '/death-certificate': {deathCertificate: 'Yes'},
-                            '/deceased-domicile': {domicile: 'Yes'},
-                            '/iht-completed': {completed: 'Yes'},
-                            '/will-left': {left: 'Yes'}
+                            '/death-certificate': {deathCertificate: 'optionYes'},
+                            '/deceased-domicile': {domicile: 'optionYes'},
+                            '/iht-completed': {completed: 'optionYes'},
+                            '/will-left': {left: 'optionYes'}
                         }
                     })
                 },
@@ -57,10 +57,10 @@ describe('EligibilityCookie.js', () => {
                     __eligibility: JSON.stringify({
                         nextStepUrl: '/will-original',
                         pages: {
-                            '/death-certificate': {deathCertificate: 'Yes'},
-                            '/deceased-domicile': {domicile: 'Yes'},
-                            '/iht-completed': {completed: 'Yes'},
-                            '/will-left': {left: 'Yes'}
+                            '/death-certificate': {deathCertificate: 'optionYes'},
+                            '/deceased-domicile': {domicile: 'optionYes'},
+                            '/iht-completed': {completed: 'optionYes'},
+                            '/will-left': {left: 'optionYes'}
                         }
                     })
                 },
@@ -83,10 +83,10 @@ describe('EligibilityCookie.js', () => {
                     __eligibility: JSON.stringify({
                         nextStepUrl: '/will-original',
                         pages: {
-                            '/death-certificate': {deathCertificate: 'Yes'},
-                            '/deceased-domicile': {domicile: 'Yes'},
-                            '/iht-completed': {completed: 'Yes'},
-                            '/will-left': {left: 'Yes'}
+                            '/death-certificate': {deathCertificate: 'optionYes'},
+                            '/deceased-domicile': {domicile: 'optionYes'},
+                            '/iht-completed': {completed: 'optionYes'},
+                            '/will-left': {left: 'optionYes'}
                         }
                     })
                 },
@@ -110,15 +110,15 @@ describe('EligibilityCookie.js', () => {
             const res = {};
             const nextStepUrl = '/will-original';
             const fieldKey = 'completed';
-            const fieldValue = 'Yes';
+            const fieldValue = 'optionYes';
             const eligibilityCookie = new EligibilityCookie();
             const readCookieStub = sinon.stub(eligibilityCookie, 'readCookie').returns({
                 nextStepUrl: '/will-original',
                 pages: {
-                    '/death-certificate': {deathCertificate: 'Yes'},
-                    '/deceased-domicile': {domicile: 'Yes'},
-                    '/iht-completed': {completed: 'Yes'},
-                    '/will-left': {left: 'Yes'}
+                    '/death-certificate': {deathCertificate: 'optionYes'},
+                    '/deceased-domicile': {domicile: 'optionYes'},
+                    '/iht-completed': {completed: 'optionYes'},
+                    '/will-left': {left: 'optionYes'}
                 }
             });
             const writeCookieStub = sinon.stub(eligibilityCookie, 'writeCookie');
@@ -132,10 +132,10 @@ describe('EligibilityCookie.js', () => {
                 {
                     nextStepUrl: '/will-original',
                     pages: {
-                        '/death-certificate': {'deathCertificate': 'Yes'},
-                        '/deceased-domicile': {'domicile': 'Yes'},
-                        '/iht-completed': {'completed': 'Yes'},
-                        '/will-left': {'left': 'Yes'}
+                        '/death-certificate': {'deathCertificate': 'optionYes'},
+                        '/deceased-domicile': {'domicile': 'optionYes'},
+                        '/iht-completed': {'completed': 'optionYes'},
+                        '/will-left': {'left': 'optionYes'}
                     }
                 }
             )).to.equal(true);
@@ -166,10 +166,10 @@ describe('EligibilityCookie.js', () => {
                     __eligibility: JSON.stringify({
                         nextStepUrl: '/will-original',
                         pages: {
-                            '/death-certificate': {deathCertificate: 'Yes'},
-                            '/deceased-domicile': {domicile: 'Yes'},
-                            '/iht-completed': {completed: 'Yes'},
-                            '/will-left': {left: 'Yes'}
+                            '/death-certificate': {deathCertificate: 'optionYes'},
+                            '/deceased-domicile': {domicile: 'optionYes'},
+                            '/iht-completed': {completed: 'optionYes'},
+                            '/will-left': {left: 'optionYes'}
                         }
                     })
                 }
@@ -180,10 +180,10 @@ describe('EligibilityCookie.js', () => {
             expect(json).to.deep.equal({
                 nextStepUrl: '/will-original',
                 pages: {
-                    '/death-certificate': {deathCertificate: 'Yes'},
-                    '/deceased-domicile': {domicile: 'Yes'},
-                    '/iht-completed': {completed: 'Yes'},
-                    '/will-left': {left: 'Yes'}
+                    '/death-certificate': {deathCertificate: 'optionYes'},
+                    '/deceased-domicile': {domicile: 'optionYes'},
+                    '/iht-completed': {completed: 'optionYes'},
+                    '/will-left': {left: 'optionYes'}
                 }
             });
 
@@ -198,7 +198,7 @@ describe('EligibilityCookie.js', () => {
                     __eligibility: JSON.stringify({
                         nextStepUrl: '/will-original',
                         pages: {
-                            '/death-certificate': {deathCertificate: 'Yes'}
+                            '/death-certificate': {deathCertificate: 'optionYes'}
                         }
                     })
                 },
@@ -210,7 +210,7 @@ describe('EligibilityCookie.js', () => {
             const eligibilityCookie = new EligibilityCookie();
             const answer = eligibilityCookie.getAnswer(req, pageUrl, fieldKey);
 
-            expect(answer).to.equal('Yes');
+            expect(answer).to.equal('optionYes');
 
             done();
         });
@@ -252,10 +252,10 @@ describe('EligibilityCookie.js', () => {
             const json = {
                 nextStepUrl: '/will-original',
                 pages: {
-                    '/death-certificate': {deathCertificate: 'Yes'},
-                    '/deceased-domicile': {domicile: 'Yes'},
-                    '/iht-completed': {completed: 'Yes'},
-                    '/will-left': {left: 'Yes'}
+                    '/death-certificate': {deathCertificate: 'optionYes'},
+                    '/deceased-domicile': {domicile: 'optionYes'},
+                    '/iht-completed': {completed: 'optionYes'},
+                    '/will-left': {left: 'optionYes'}
                 }
             };
             const eligibilityCookie = new EligibilityCookie();
@@ -268,10 +268,10 @@ describe('EligibilityCookie.js', () => {
                 JSON.stringify({
                     nextStepUrl: '/will-original',
                     pages: {
-                        '/death-certificate': {deathCertificate: 'Yes'},
-                        '/deceased-domicile': {domicile: 'Yes'},
-                        '/iht-completed': {completed: 'Yes'},
-                        '/will-left': {left: 'Yes'}
+                        '/death-certificate': {deathCertificate: 'optionYes'},
+                        '/deceased-domicile': {domicile: 'optionYes'},
+                        '/iht-completed': {completed: 'optionYes'},
+                        '/will-left': {left: 'optionYes'}
                     }
                 }),
                 {httpOnly: true, secure: true, expires: cookieExpires, maxAge: config.redis.eligibilityCookie.expires}
@@ -286,10 +286,10 @@ describe('EligibilityCookie.js', () => {
             const json = {
                 nextStepUrl: '/will-original',
                 pages: {
-                    '/death-certificate': {deathCertificate: 'Yes'},
-                    '/deceased-domicile': {domicile: 'Yes'},
-                    '/iht-completed': {completed: 'Yes'},
-                    '/will-left': {left: 'Yes'}
+                    '/death-certificate': {deathCertificate: 'optionYes'},
+                    '/deceased-domicile': {domicile: 'optionYes'},
+                    '/iht-completed': {completed: 'optionYes'},
+                    '/will-left': {left: 'optionYes'}
                 }
             };
             const eligibilityCookie = new EligibilityCookie();
@@ -302,10 +302,10 @@ describe('EligibilityCookie.js', () => {
                 JSON.stringify({
                     nextStepUrl: '/will-original',
                     pages: {
-                        '/death-certificate': {deathCertificate: 'Yes'},
-                        '/deceased-domicile': {domicile: 'Yes'},
-                        '/iht-completed': {completed: 'Yes'},
-                        '/will-left': {left: 'Yes'}
+                        '/death-certificate': {deathCertificate: 'optionYes'},
+                        '/deceased-domicile': {domicile: 'optionYes'},
+                        '/iht-completed': {completed: 'optionYes'},
+                        '/will-left': {left: 'optionYes'}
                     }
                 }),
                 {httpOnly: true, expires: cookieExpires, maxAge: config.redis.eligibilityCookie.expires}

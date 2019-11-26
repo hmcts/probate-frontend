@@ -5,10 +5,6 @@ const RedirectRunner = require('app/core/runners/RedirectRunner');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const RegistryWrapper = require('app/wrappers/Registry');
-const ihtContent = require('app/resources/en/translation/iht/method');
-const contentDeceasedMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
-const contentRelationshipToDeceased = require('app/resources/en/translation/applicant/relationshiptodeceased');
-const contentIhtMethod = require('app/resources/en/translation/iht/method');
 const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
 const caseTypes = require('app/utils/CaseTypes');
 
@@ -26,10 +22,10 @@ class Documents extends ValidationStep {
         const options = {};
 
         if (ctx.caseType === caseTypes.INTESTACY) {
-            const deceasedMarried = Boolean(formdata.deceased && formdata.deceased.maritalStatus === contentDeceasedMaritalStatus.optionMarried);
-            const applicantIsChild = Boolean(formdata.applicant && (formdata.applicant.relationshipToDeceased === contentRelationshipToDeceased.optionChild || formdata.applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild));
+            const deceasedMarried = Boolean(formdata.deceased && formdata.deceased.maritalStatus === 'optionMarried');
+            const applicantIsChild = Boolean(formdata.applicant && (formdata.applicant.relationshipToDeceased === 'optionChild' || formdata.applicant.relationshipToDeceased === 'optionAdoptedChild'));
             const noDocumentsUploaded = !(formdata.documents && formdata.documents.uploads && formdata.documents.uploads.length);
-            const iht205Used = Boolean(formdata.iht && formdata.iht.method === contentIhtMethod.optionPaper && formdata.iht.form === 'IHT205');
+            const iht205Used = Boolean(formdata.iht && formdata.iht.method === 'optionPaper' && formdata.iht.form === 'optionIHT205');
 
             if (!((deceasedMarried && applicantIsChild) || noDocumentsUploaded || iht205Used)) {
                 options.redirect = true;
@@ -55,10 +51,10 @@ class Documents extends ValidationStep {
             ctx.hasRenunciated = executorsWrapper.hasRenunciated();
             ctx.executorsNameChangedByDeedPollList = executorsWrapper.executorsNameChangedByDeedPoll();
         } else {
-            ctx.spouseRenouncing = formdata.deceased.maritalStatus === contentDeceasedMaritalStatus.optionMarried && (formdata.applicant.relationshipToDeceased === contentRelationshipToDeceased.optionChild || formdata.applicant.relationshipToDeceased === contentRelationshipToDeceased.optionAdoptedChild);
+            ctx.spouseRenouncing = formdata.deceased.maritalStatus === 'optionMarried' && (formdata.applicant.relationshipToDeceased === 'optionChild' || formdata.applicant.relationshipToDeceased === 'optionAdoptedChild');
         }
 
-        ctx.is205 = formdata.iht && formdata.iht.method === ihtContent.optionPaper && formdata.iht.form === 'IHT205';
+        ctx.is205 = formdata.iht && formdata.iht.method === 'optionPaper' && formdata.iht.form === 'optionIHT205';
         ctx.ccdReferenceNumber = FormatCcdCaseId.format(formdata.ccdCase);
 
         return [ctx];

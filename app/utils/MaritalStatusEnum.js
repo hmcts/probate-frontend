@@ -1,7 +1,5 @@
 'use strict';
 
-const content = require('app/resources/en/translation/deceased/maritalstatus');
-
 class MaritalStatusEnum {
 
     static getWidowed() {
@@ -22,15 +20,15 @@ class MaritalStatusEnum {
 
     static getCCDCode(value) {
         switch (value) {
-        case content.optionWidowed:
+        case 'optionWidowed':
             return this.getWidowed();
-        case content.optionMarried:
+        case 'optionMarried':
             return this.getMarriedCivilPartnerhip();
-        case content.optionDivorced:
+        case 'optionDivorced':
             return this.getDivorcedCivilPartnerShip();
-        case content.optionSeparated:
+        case 'optionSeparated':
             return this.getJudicially();
-        case content.optionNotMarried:
+        case 'optionNotMarried':
             return this.getNeverMarried();
         default:
             throw new Error(`Enumerator MaritalStatusEnum value: ${value} not found`);

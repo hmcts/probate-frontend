@@ -43,14 +43,14 @@ describe('assets-overseas', () => {
         });
 
         it(`test it redirects to Copies Overseas page: ${expectedNextUrlForCopiesOverseas}`, (done) => {
-            const data = {assetsoverseas: 'Yes'};
+            const data = {assetsoverseas: 'optionYes'};
 
             testWrapper.nextPageUrl = testWrapper.nextStep(data).constructor.getUrl();
             testWrapper.testRedirect(done, data, expectedNextUrlForCopiesOverseas);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForCopiesSummary}`, (done) => {
-            const data = {assetsoverseas: 'No'};
+            const data = {assetsoverseas: 'optionNo'};
 
             testWrapper.nextPageUrl = testWrapper.nextStep(data).constructor.getUrl();
             testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);

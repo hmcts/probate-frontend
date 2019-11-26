@@ -22,14 +22,14 @@
         errorMessage: { text: fields.divorcePlace.errorMessage.message | safe } if fields.divorcePlace.errorMessage,
         items: [
             {
-                value: content["optionYes"],
+                value: "optionYes",
                 text: content["optionYes"],
-                checked: true if fields.divorcePlace.value == content["optionYes"] | escape
+                checked: true if fields.divorcePlace.value == "optionYes" | escape
             },
             {
-                value: content["optionNo"],
+                value: "optionNo",
                 text: content["optionNo"],
-                checked: true if fields.divorcePlace.value == content["optionNo"] | escape
+                checked: true if fields.divorcePlace.value == "optionNo" | escape
             }
         ]
     }) }}

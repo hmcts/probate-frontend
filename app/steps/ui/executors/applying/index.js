@@ -2,7 +2,6 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const content = require('app/resources/en/translation/executors/applying');
 
 class ExecutorsApplying extends ValidationStep {
 
@@ -11,7 +10,7 @@ class ExecutorsApplying extends ValidationStep {
     }
 
     handlePost(ctx) {
-        if (ctx.otherExecutorsApplying === 'No') {
+        if (ctx.otherExecutorsApplying === 'optionNo') {
             const executorsWrapper = new ExecutorsWrapper(ctx);
             executorsWrapper.executors(true)
                 .map(executor => {
@@ -25,7 +24,7 @@ class ExecutorsApplying extends ValidationStep {
     nextStepOptions() {
         const nextStepOptions = {
             options: [
-                {key: 'otherExecutorsApplying', value: content.optionYes, choice: 'otherExecutorsApplying'}
+                {key: 'otherExecutorsApplying', value: 'optionYes', choice: 'otherExecutorsApplying'}
             ]
         };
         return nextStepOptions;

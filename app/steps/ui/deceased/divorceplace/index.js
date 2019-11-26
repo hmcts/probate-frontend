@@ -16,7 +16,7 @@ class DivorcePlace extends ValidationStep {
         const formdata = req.session.form;
 
         if (formdata.deceased && formdata.deceased.maritalStatus) {
-            ctx.legalProcess = formdata.deceased.maritalStatus === contentMaritalStatus.optionDivorced ? contentMaritalStatus.divorce : contentMaritalStatus.separation;
+            ctx.legalProcess = formdata.deceased.maritalStatus === 'optionDivorced' ? contentMaritalStatus.divorce : contentMaritalStatus.separation;
         }
 
         return ctx;
@@ -50,7 +50,7 @@ class DivorcePlace extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'divorcePlace', value: content.optionYes, choice: 'inEnglandOrWales'},
+                {key: 'divorcePlace', value: 'optionYes', choice: 'inEnglandOrWales'},
             ]
         };
     }

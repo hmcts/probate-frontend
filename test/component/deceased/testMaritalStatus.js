@@ -4,7 +4,6 @@ const TestWrapper = require('test/util/TestWrapper');
 const DivorcePlace = require('app/steps/ui/deceased/divorceplace');
 const TaskList = require('app/steps/ui/tasklist');
 const testCommonContent = require('test/component/common/testCommonContent.js');
-const content = require('app/resources/en/translation/deceased/maritalstatus');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('deceased-marital-status', () => {
@@ -54,7 +53,7 @@ describe('deceased-marital-status', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        maritalStatus: content.optionDivorced
+                        maritalStatus: 'optionDivorced'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForDivorcePlace);
@@ -66,7 +65,7 @@ describe('deceased-marital-status', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        maritalStatus: content.optionSeparated
+                        maritalStatus: 'optionSeparated'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForDivorcePlace);
@@ -78,7 +77,7 @@ describe('deceased-marital-status', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        maritalStatus: content.optionMarried
+                        maritalStatus: 'optionMarried'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
@@ -90,7 +89,7 @@ describe('deceased-marital-status', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        maritalStatus: content.optionNotMarried
+                        maritalStatus: 'optionNotMarried'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
@@ -102,7 +101,7 @@ describe('deceased-marital-status', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        maritalStatus: content.optionWidowed
+                        maritalStatus: 'optionWidowed'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);

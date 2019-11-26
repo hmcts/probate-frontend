@@ -82,7 +82,7 @@ describe('payment-breakdown', () => {
                 overseas: 1
             };
             sessionData.assets = {
-                assetsoverseas: 'Yes'
+                assetsoverseas: 'optionYes'
             };
 
             testWrapper.agent.post('/prepare-session/form')

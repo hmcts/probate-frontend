@@ -42,7 +42,7 @@ describe('executors-all-alive', () => {
 
         it(`test it redirects to executors applying: ${expectedNextUrlForExecsApplying}`, (done) => {
             const data = {
-                allalive: 'Yes'
+                allalive: 'optionYes'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForExecsApplying);
@@ -50,7 +50,7 @@ describe('executors-all-alive', () => {
 
         it(`test it redirects to which executors died: ${expectedNextUrlForExecsWhoDied}`, (done) => {
             const data = {
-                allalive: 'No'
+                allalive: 'optionNo'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForExecsWhoDied);

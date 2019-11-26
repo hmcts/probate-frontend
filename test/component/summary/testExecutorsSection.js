@@ -7,7 +7,11 @@ const applicantAddressContent = require('app/resources/en/translation/applicant/
 const applicantAliasContent = require('app/resources/en/translation/applicant/alias');
 const applicantAliasReasonContent = require('app/resources/en/translation/applicant/aliasreason');
 const applicantNameAsOnWillContent = require('app/resources/en/translation/applicant/nameasonwill');
+const executorsApplyingContent = require('app/resources/en/translation/executors/applying');
 const executorsAllAliveContent = require('app/resources/en/translation/executors/allalive');
+const executorsRoles = require('app/resources/en/translation/executors/roles');
+const executorsAliasReason = require('app/resources/en/translation/executors/currentnamereason');
+const executorsDiedBefore = require('app/resources/en/translation/executors/whendied');
 const FormatName = require('app/utils/FormatName');
 
 describe('summary-executor-section', () => {
@@ -79,9 +83,10 @@ describe('summary-executor-section', () => {
         });
 
         it('test correct content loaded on the summary page executors section including applicant alias (Option Divorce selected), when section is complete', (done) => {
-            sessionData.applicant.nameAsOnTheWill = 'No';
+            sessionData.applicant.nameAsOnTheWill = 'optionNo';
             sessionData.applicant.alias = 'Dave Buster';
-            sessionData.applicant.aliasReason = 'Divorce';
+            sessionData.applicant.aliasReason = 'optionDivorce';
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -103,10 +108,11 @@ describe('summary-executor-section', () => {
         });
 
         it('test correct content loaded on the summary page executors section including applicant alias (Option Other selected), when section is complete', (done) => {
-            sessionData.applicant.nameAsOnTheWill = 'No';
+            sessionData.applicant.nameAsOnTheWill = 'optionNo';
             sessionData.applicant.alias = 'Dave Buster';
-            sessionData.applicant.aliasReason = 'other';
+            sessionData.applicant.aliasReason = 'optionOther';
             sessionData.applicant.otherReason = 'Because';
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -129,6 +135,7 @@ describe('summary-executor-section', () => {
 
         it('test data is played back correctly on the summary page executors section', (done) => {
             const executorsData = require('test/data/summary-executors');
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end((err) => {
@@ -143,25 +150,27 @@ describe('summary-executor-section', () => {
                         questionApplicantAddress: applicantAddressContent.question,
                         questionExecutorsAllAlive: executorsAllAliveContent.question,
 
-                        allAlive: executorsData.executors.allAlive,
+                        allAlive: executorsAllAliveContent[executorsData.executors.allAlive],
 
                         exec2fullName: executorsData.executors.list[1].fullName,
-                        exec2IsApplying: executorsData.executors.list[1].isApplying ? 'Yes' : 'No',
-                        exec2HasAlias: executorsData.executors.list[1].hasOtherName ? 'Yes': 'No',
+                        exec2IsApplying: executorsData.executors.list[1].isApplying ? executorsApplyingContent.optionYes : executorsApplyingContent.optionNo,
+                        exec2HasAlias: executorsData.executors.list[1].hasOtherName ? executorsApplyingContent.optionYes : executorsApplyingContent.optionNo,
                         exec2Alias: executorsData.executors.list[1].currentName,
-                        exec2AliasReason: executorsData.executors.list[1].currentNameReason,
+                        exec2AliasReason: executorsAliasReason[executorsData.executors.list[1].currentNameReason],
 
                         exec3fullName: executorsData.executors.list[2].fullName,
-                        exec3IsApplying: executorsData.executors.list[2].isApplying ? 'Yes' : 'No',
-                        exec3NotApplyingReason: executorsData.executors.list[2].notApplyingReason,
+                        exec3IsApplying: executorsData.executors.list[2].isApplying ? executorsApplyingContent.optionYes : executorsApplyingContent.optionNo,
+                        exec3NotApplyingReason: executorsRoles[executorsData.executors.list[2].notApplyingReason],
 
                         exec4fullName: executorsData.executors.list[3].fullName,
-                        exec4IsApplying: executorsData.executors.list[3].isApplying ? 'Yes' : 'No',
-                        exec4IsDead: executorsData.executors.list[3].isDead ? 'Yes' : 'No',
-                        exec4DiedBefore: executorsData.executors.list[3].diedbefore
+                        exec4IsApplying: executorsData.executors.list[3].isApplying ? executorsApplyingContent.optionYes : executorsApplyingContent.optionNo,
+                        exec4IsDead: executorsData.executors.list[3].isDead ? executorsApplyingContent.optionYes : executorsApplyingContent.optionNo,
+                        exec4DiedBefore: executorsDiedBefore[executorsData.executors.list[3].diedbefore]
                     };
                     Object.assign(playbackData, executorsData.applicant);
                     playbackData.address = executorsData.applicant.address.formattedAddress;
+                    playbackData.nameAsOnTheWill = applicantNameAsOnWillContent[playbackData.nameAsOnTheWill];
+                    playbackData.aliasReason = applicantAliasReasonContent[playbackData.aliasReason];
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });

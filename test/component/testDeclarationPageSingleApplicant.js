@@ -519,7 +519,7 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
                 'intestacyLettersOfAdministration'
             ];
-            sessionData.will.codicils = 'Yes';
+            sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 3;
             delete contentData.deceasedOtherNames;
             contentData.codicilsNumber = 3;
@@ -601,7 +601,7 @@ describe('declaration, single applicant', () => {
                 isDead: false,
                 isApplying: false,
                 notApplyingKey: 'optionPowerReserved',
-                executorNotified: 'Yes'
+                executorNotified: 'optionYes'
             };
             contentData.otherExecutorName = executor.fullName;
             contentData.otherExecutorApplying = content.optionPowerReserved;
@@ -680,10 +680,10 @@ describe('declaration, single applicant', () => {
             const executor = {
                 fullName: 'Joe Smith',
                 isDead: true,
-                diedBefore: 'Yes',
+                diedBefore: 'optionYes',
                 notApplyingKey: 'optionDiedBefore'
             };
-            sessionData.will.codicils = 'Yes';
+            sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 1;
             contentData.codicilsNumber = '';
             contentData.codicils = 'codicil';
@@ -765,10 +765,10 @@ describe('declaration, single applicant', () => {
             const executor = {
                 fullName: 'Ed Brown',
                 isDead: true,
-                diedBefore: 'No',
+                diedBefore: 'optionNo',
                 notApplyingKey: 'optionDiedAfter'
             };
-            sessionData.will.codicils = 'Yes';
+            sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 2;
             contentData.codicilsNumber = 2;
             contentData.codicils = 'codicils';
@@ -852,7 +852,7 @@ describe('declaration, single applicant', () => {
                 isApplying: false,
                 notApplyingKey: 'optionRenunciated'
             };
-            sessionData.will.codicils = 'Yes';
+            sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 1;
             contentData.codicilsNumber = '';
             contentData.codicils = 'codicil';
@@ -932,14 +932,14 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
                 'intestacyLettersOfAdministration'
             ];
-            sessionData.will.codicils = 'Yes';
+            sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 4;
-            sessionData.applicant.nameAsOnTheWill = 'No';
+            sessionData.applicant.nameAsOnTheWill = 'optionNo';
             sessionData.applicant.alias = 'Robert Bruce';
-            sessionData.applicant.aliasReason = 'other';
+            sessionData.applicant.aliasReason = 'optionOther';
             sessionData.applicant.otherReason = 'Legal Name Change';
             sessionData.executors.list[0].alias = 'Robert Bruce';
-            sessionData.executors.list[0].aliasReason = 'other';
+            sessionData.executors.list[0].aliasReason = 'optionOther';
             sessionData.executors.list[0].otherReason = 'Legal Name Change';
 
             contentData.codicilsNumber = 4;
@@ -1021,13 +1021,13 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
                 'intestacyLettersOfAdministration'
             ];
-            sessionData.will.codicils = 'No';
-            sessionData.applicant.nameAsOnTheWill = 'No';
+            sessionData.will.codicils = 'optionNo';
+            sessionData.applicant.nameAsOnTheWill = 'optionNo';
             sessionData.applicant.alias = 'Robert Bruce';
-            sessionData.applicant.aliasReason = 'other';
+            sessionData.applicant.aliasReason = 'optionOther';
             sessionData.applicant.otherReason = 'Legal Name Change';
             sessionData.executors.list[0].alias = 'Robert Bruce';
-            sessionData.executors.list[0].aliasReason = 'other';
+            sessionData.executors.list[0].aliasReason = 'optionOther';
             sessionData.executors.list[0].otherReason = 'Legal Name Change';
 
             contentData.applicantWillName = 'Robert Bruce';
@@ -1107,14 +1107,14 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
                 'intestacyLettersOfAdministration'
             ];
-            sessionData.will.codicils = 'Yes';
+            sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 1;
-            sessionData.applicant.nameAsOnTheWill = 'No';
+            sessionData.applicant.nameAsOnTheWill = 'optionNo';
             sessionData.applicant.alias = 'Robert Bruce';
-            sessionData.applicant.aliasReason = 'other';
+            sessionData.applicant.aliasReason = 'optionOther';
             sessionData.applicant.otherReason = 'Legal Name Change';
             sessionData.executors.list[0].alias = 'Robert Bruce';
-            sessionData.executors.list[0].aliasReason = 'other';
+            sessionData.executors.list[0].aliasReason = 'optionOther';
             sessionData.executors.list[0].otherReason = 'Legal Name Change';
             sessionData.deceased.otherNames = {
                 name_0: {
@@ -1202,13 +1202,13 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
                 'intestacyLettersOfAdministration'
             ];
-            sessionData.will.codicils = 'No';
-            sessionData.applicant.nameAsOnTheWill = 'No';
+            sessionData.will.codicils = 'optionNo';
+            sessionData.applicant.nameAsOnTheWill = 'optionNo';
             sessionData.applicant.alias = 'Robert Bruce';
-            sessionData.applicant.aliasReason = 'other';
+            sessionData.applicant.aliasReason = 'optionOther';
             sessionData.applicant.otherReason = 'Legal Name Change';
             sessionData.executors.list[0].alias = 'Robert Bruce';
-            sessionData.executors.list[0].aliasReason = 'other';
+            sessionData.executors.list[0].aliasReason = 'optionOther';
             sessionData.executors.list[0].otherReason = 'Legal Name Change';
             sessionData.deceased.otherNames = {
                 name_0: {
@@ -1265,7 +1265,7 @@ describe('declaration, single applicant', () => {
                         .send(sessionData)
                         .end(() => {
                             const data = {
-                                declarationCheckbox: true
+                                declarationCheckbox: 'true'
                             };
                             testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
                         });

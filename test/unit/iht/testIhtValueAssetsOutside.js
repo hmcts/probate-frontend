@@ -5,10 +5,6 @@ const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ValueAssetsOutside = steps.ValueAssetsOutside;
 const content = require('app/resources/en/translation/iht/valueassetsoutside');
-const contentAnyChildren = require('app/resources/en/translation/deceased/anychildren');
-const contentAllChildrenOver18 = require('app/resources/en/translation/deceased/allchildrenover18');
-const contentAnyDeceasedChildren = require('app/resources/en/translation/deceased/anydeceasedchildren');
-const contentAnyGrandChildrenUnder18 = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
 
 describe('ValueAssetsOutside', () => {
     describe('getUrl()', () => {
@@ -94,10 +90,10 @@ describe('ValueAssetsOutside', () => {
             };
             const formdata = {
                 deceased: {
-                    anyChildren: contentAnyChildren.optionYes,
-                    allChildrenOver18: contentAllChildrenOver18.optionYes,
-                    anyDeceasedChildren: contentAnyDeceasedChildren.optionYes,
-                    anyGrandchildrenUnder18: contentAnyGrandChildrenUnder18.optionNo
+                    anyChildren: 'optionYes',
+                    allChildrenOver18: 'optionYes',
+                    anyDeceasedChildren: 'optionYes',
+                    anyGrandchildrenUnder18: 'optionNo'
                 }
             };
 

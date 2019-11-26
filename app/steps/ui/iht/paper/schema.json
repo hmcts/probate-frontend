@@ -10,7 +10,7 @@
       "continue": false
     },
     {
-      "if": { "properties": { "form": { "enum": ["IHT205"] } } },
+      "if": { "properties": { "form": { "enum": ["optionIHT205"] } } },
       "then": {
         "properties": {
           "grossValueFieldIHT205": {
@@ -29,7 +29,7 @@
       "continue": false
     },
     {
-      "if": { "properties": { "form": { "enum": ["IHT207"] } } },
+      "if": { "properties": { "form": { "enum": ["optionIHT207"] } } },
       "then": {
         "properties": {
           "grossValueFieldIHT207": {
@@ -48,7 +48,7 @@
       "continue": false
     },
     {
-      "if": { "properties": { "form": { "enum": ["IHT400421"] } } },
+      "if": { "properties": { "form": { "enum": ["optionIHT400421"] } } },
       "then": {
         "properties": {
           "grossValueFieldIHT400421": {

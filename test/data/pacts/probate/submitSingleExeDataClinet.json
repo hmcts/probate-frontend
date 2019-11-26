@@ -1,20 +1,20 @@
 {
     "iht" : {
-      "form" : "IHT205",
+      "form" : "optionIHT205",
       "method" : "By post",
       "netValue" : 343434,
-      "ihtFormId" : "IHT205",
+      "ihtFormId" : "optionIHT205",
       "netIHT205" : "343434",
       "grossValue" : 3443434,
       "grossIHT205" : "3443434"
     },
     "will" : {
-      "left" : "Yes",
-      "codicils" : "Yes",
+      "left" : "optionYes",
+      "codicils" : "optionYes",
       "codicilsNumber" : 4
     },
     "assets" : {
-      "assetsoverseas" : "Yes"
+      "assetsoverseas" : "optionYes"
     },
     "copies" : {
       "uk" : 1,
@@ -52,11 +52,11 @@
       "readyToDeclare" : true
     },
     "deceased" : {
-      "alias" : "Yes",
+      "alias" : "optionYes",
       "address" : "4 Neville Road London E7 9QX",
       "dob-day" : 1,
       "dod-day" : 2,
-      "married" : "Yes",
+      "married" : "optionYes",
       "dob-date" : "1900-01-01T00:00:00.000Z",
       "dob-year" : 1900,
       "dod-date" : "2000-02-02T00:00:00.000Z",
@@ -95,11 +95,11 @@
       "lastName" : "TestLN",
       "postcode" : "E6 2DG",
       "firstName" : "TestFN",
-      "aliasReason" : "other",
-      "otherReason" : "Other Reason ",
+      "aliasReason" : "optionOther",
+      "otherReason" : "Other Reason",
       "phoneNumber" : "3244234324",
       "addressFound" : "true",
-      "nameAsOnTheWill" : "No",
+      "nameAsOnTheWill" : "optionNo",
       "postcodeAddress" : "120 Caulfield Road London E6 2DG"
     },
     "documents" : {
@@ -115,9 +115,9 @@
         "lastName" : "TestLN",
         "firstName" : "TestFN",
         "isApplying" : true,
-        "aliasReason" : "other",
+        "aliasReason" : "optionOther",
         "isApplicant" : true,
-        "otherReason" : "Other Reason "
+        "otherReason" : "Other Reason"
       } ],
       "executorsNumber" : 1
     },
@@ -142,7 +142,7 @@
         "deceased" : "SingleExeCaseDataFN SingleExeCaseDataLN was born on 1 January 1900 and died on 2 February 2000, domiciled in England and Wales.",
         "applicant" : "I, TestFN TestLN of 120 Caulfield Road London E6 2DG, make the following statement:",
         "executorsApplying" : [ {
-          "name" : "I, TestFN TestLN, an executor named in the will or codicils as diff TestFN TestLN, am applying for probate. My name is different because: Other Reason .",
+          "name" : "I, TestFN TestLN, an executor named in the will or codicils as diff TestFN TestLN, am applying for probate. My name is different because: Other Reason.",
           "sign" : "I will send to the probate registry what I believe to be the true and original last will and testament and any codicils of SingleExeCaseDataFN SingleExeCaseDataLN."
         } ],
         "deceasedEstateLand" : "To the best of my knowledge, information and belief, there was no land vested in SingleExeCaseDataFN SingleExeCaseDataLN which was settled previously to the death (and not by the will) of SingleExeCaseDataFN SingleExeCaseDataLN and which remained settled land notwithstanding such death.",
@@ -188,7 +188,7 @@
         "title" : "Executors applying for probate",
         "headingType" : "small",
         "declarationItems" : [ {
-          "title" : "I, TestFN TestLN, an executor named in the will or codicils as diff TestFN TestLN, am applying for probate. My name is different because: Other Reason ."
+          "title" : "I, TestFN TestLN, an executor named in the will or codicils as diff TestFN TestLN, am applying for probate. My name is different because: Other Reason."
         }, {
           "title" : "I will send to the probate registry what I believe to be the true and original last will and testament and any codicils of SingleExeCaseDataFN SingleExeCaseDataLN."
         } ]
@@ -289,7 +289,7 @@
           "answers" : [ "diff TestFN TestLN" ],
           "question" : "Name on will"
         }, {
-          "answers" : [ "Other Reason " ],
+          "answers" : [ "Other Reason" ],
           "question" : "Reason for name change"
         }, {
           "answers" : [ "3244234324" ],

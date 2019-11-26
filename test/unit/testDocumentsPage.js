@@ -7,9 +7,6 @@ const {assert, expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const co = require('co');
 const caseTypes = require('app/utils/CaseTypes');
-const contentDeceasedMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
-const contentRelationshipToDeceased = require('app/resources/en/translation/applicant/relationshiptodeceased');
-const contentIhtMethod = require('app/resources/en/translation/iht/method');
 
 describe('Documents', () => {
     const Documents = steps.Documents;
@@ -57,8 +54,8 @@ describe('Documents', () => {
             it('should return true when iht method is paper and iht form is IHT205', (done) => {
                 const formdata = {
                     iht: {
-                        method: 'By post',
-                        form: 'IHT205'
+                        method: 'optionPaper',
+                        form: 'optionIHT205'
                     }
                 };
                 const featureToggles = {};
@@ -70,8 +67,8 @@ describe('Documents', () => {
             it('should return false when iht method is paper and iht form is not IHT205', (done) => {
                 const formdata = {
                     iht: {
-                        method: 'By post',
-                        form: 'IHT207'
+                        method: 'optionPaper',
+                        form: 'optionIHT207'
                     }
                 };
                 const featureToggles = {};
@@ -83,7 +80,7 @@ describe('Documents', () => {
             it('should return false when iht method is not paper', (done) => {
                 const formdata = {
                     iht: {
-                        method: 'Through the HMRC online service'
+                        method: 'optionOnline'
                     }
                 };
                 const featureToggles = {};
@@ -136,7 +133,7 @@ describe('Documents', () => {
             it('should return true when there are codicils', (done) => {
                 const formdata = {
                     will: {
-                        codicils: 'Yes'
+                        codicils: 'optionYes'
                     }
                 };
                 const featureToggles = {};
@@ -148,7 +145,7 @@ describe('Documents', () => {
             it('should return false when there are no codicils', (done) => {
                 const formdata = {
                     will: {
-                        codicils: 'No'
+                        codicils: 'optionNo'
                     }
                 };
                 const featureToggles = {};
@@ -242,7 +239,7 @@ describe('Documents', () => {
                 const formdata = {
                     executors: {
                         list: [
-                            {alias: 'Sam Williams', aliasReason: 'Change by deed poll'}
+                            {alias: 'Sam Williams', aliasReason: 'optionDeedPoll'}
                         ]
                     }
                 };
@@ -256,7 +253,7 @@ describe('Documents', () => {
                 const formdata = {
                     executors: {
                         list: [
-                            {alias: 'Sam Williams', aliasReason: 'Divorce'}
+                            {alias: 'Sam Williams', aliasReason: 'optionDivorce'}
                         ]
                     }
                 };
@@ -309,8 +306,8 @@ describe('Documents', () => {
             };
             const formData = {
                 iht: {
-                    method: contentIhtMethod.optionPaper,
-                    form: 'IHT205'
+                    method: 'optionPaper',
+                    form: 'optionIHT205'
                 }
             };
             co(function* () {
@@ -329,10 +326,10 @@ describe('Documents', () => {
             };
             const formData = {
                 deceased: {
-                    maritalStatus: contentDeceasedMaritalStatus.optionMarried
+                    maritalStatus: 'optionMarried'
                 },
                 applicant: {
-                    relationshipToDeceased: contentRelationshipToDeceased.optionChild
+                    relationshipToDeceased: 'optionChild'
                 }
             };
             co(function* () {
@@ -351,10 +348,10 @@ describe('Documents', () => {
             };
             const formData = {
                 deceased: {
-                    maritalStatus: contentDeceasedMaritalStatus.optionMarried
+                    maritalStatus: 'optionMarried'
                 },
                 applicant: {
-                    relationshipToDeceased: contentRelationshipToDeceased.optionAdoptedChild
+                    relationshipToDeceased: 'optionAdoptedChild'
                 }
             };
             co(function* () {
@@ -373,7 +370,7 @@ describe('Documents', () => {
             };
             const formData = {
                 deceased: {
-                    maritalStatus: contentDeceasedMaritalStatus.optionSeparated
+                    maritalStatus: 'optionSeparated'
                 },
                 documents: {
                     uploads: [
@@ -381,8 +378,8 @@ describe('Documents', () => {
                     ]
                 },
                 iht: {
-                    method: contentIhtMethod.optionPaper,
-                    form: 'IHT207'
+                    method: 'optionPaper',
+                    form: 'optionIHT207'
                 }
             };
             co(function* () {

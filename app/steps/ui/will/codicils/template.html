@@ -18,14 +18,14 @@
         errorMessage: { text: fields.codicils.errorMessage.message | safe } if fields.codicils.errorMessage,
         items: [
             {
-                value: content["optionYes"],
+                value: "optionYes",
                 text: content["optionYes"],
-                checked: true if fields.codicils.value == content["optionYes"] | escape
+                checked: true if fields.codicils.value == "optionYes" | escape
             },
             {
-                value: content["optionNo"],
+                value: "optionNo",
                 text: content["optionNo"],
-                checked: true if fields.codicils.value == content["optionNo"] | escape
+                checked: true if fields.codicils.value == "optionNo" | escape
             }
         ]
     }) }}

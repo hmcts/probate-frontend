@@ -16,19 +16,19 @@
             }
         },
         hint: {
-            text: (content.hintText1 + "<br><br>" + content.hintText2 | replace('{assessingMentalCapacity}', globals.links.assessingMentalCapacity)) | safe
+            text: (content.hintText1 + "<br><br>" + content.hintText2 | replace("{assessingMentalCapacity}", globals.links.assessingMentalCapacity)) | safe
         },
         errorMessage: { text: fields.mentalCapacity.errorMessage.message | safe } if fields.mentalCapacity.errorMessage,
         items: [
             {
-                value: content["optionYes"],
+                value: "optionYes",
                 text: content["optionYes"],
-                checked: true if fields.mentalCapacity.value == content["optionYes"] | escape
+                checked: true if fields.mentalCapacity.value == "optionYes" | escape
             },
             {
-                value: content["optionNo"],
+                value: "optionNo",
                 text: content["optionNo"],
-                checked: true if fields.mentalCapacity.value == content["optionNo"] | escape
+                checked: true if fields.mentalCapacity.value == "optionNo" | escape
             }
         ]
     }) }}

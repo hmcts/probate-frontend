@@ -35,7 +35,7 @@ describe('death-certificate', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForDeceasedDomicile}`, (done) => {
             const data = {
-                deathCertificate: 'Yes'
+                deathCertificate: 'optionYes'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDomicile);
@@ -43,7 +43,7 @@ describe('death-certificate', () => {
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                deathCertificate: 'No'
+                deathCertificate: 'optionNo'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);

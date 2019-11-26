@@ -53,11 +53,11 @@ describe('related-to-deceased', () => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes',
-                    left: 'No',
-                    diedAfter: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionNo',
+                    diedAfter: 'optionYes'
                 }
             };
 
@@ -65,7 +65,7 @@ describe('related-to-deceased', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        related: 'Yes'
+                        related: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForOtherApplicants, cookies);
@@ -76,11 +76,11 @@ describe('related-to-deceased', () => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes',
-                    left: 'No',
-                    diedAfter: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionNo',
+                    diedAfter: 'optionYes'
                 }
             };
 
@@ -88,7 +88,7 @@ describe('related-to-deceased', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        related: 'No'
+                        related: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);

@@ -21,14 +21,14 @@
         errorMessage: { text: fields.deathCertificate.errorMessage.message | safe } if fields.deathCertificate.errorMessage,
         items: [
             {
-                value: content["optionYes"],
+                value: "optionYes",
                 text: content["optionYes"],
-                checked: true if fields.deathCertificate.value == content["optionYes"] | escape
+                checked: true if fields.deathCertificate.value == "optionYes" | escape
             },
             {
-                value: content["optionNo"],
+                value: "optionNo",
                 text: content["optionNo"],
-                checked: true if fields.deathCertificate.value == content["optionNo"] | escape
+                checked: true if fields.deathCertificate.value == "optionNo" | escape
             }
         ]
     }) }}

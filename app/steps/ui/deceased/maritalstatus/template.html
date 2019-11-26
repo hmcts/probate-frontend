@@ -18,29 +18,29 @@
         errorMessage: { text: fields.maritalStatus.errorMessage.message } if fields.maritalStatus.errorMessage,
         items: [
             {
-                value: content["optionMarried"],
+                value: "optionMarried",
                 text: content["optionMarried"],
-                checked: true if fields.maritalStatus.value == content["optionMarried"] | escape
+                checked: true if fields.maritalStatus.value == "optionMarried" | escape
             },
             {
-                value: content["optionDivorced"],
+                value: "optionDivorced",
                 text: content["optionDivorced"],
-                checked: true if fields.maritalStatus.value == content["optionDivorced"] | escape
+                checked: true if fields.maritalStatus.value == "optionDivorced" | escape
             },
             {
-                value: content["optionWidowed"],
+                value: "optionWidowed",
                 text: content["optionWidowed"],
-                checked: true if fields.maritalStatus.value == content["optionWidowed"] | escape
+                checked: true if fields.maritalStatus.value == "optionWidowed" | escape
             },
             {
-                value: content["optionNotMarried"],
+                value: "optionNotMarried",
                 text: content["optionNotMarried"],
-                checked: true if fields.maritalStatus.value == content["optionNotMarried"] | escape
+                checked: true if fields.maritalStatus.value == "optionNotMarried" | escape
             },
             {
-                value: content["optionSeparated"],
+                value: "optionSeparated",
                 text: content["optionSeparated"],
-                checked: true if fields.maritalStatus.value == content["optionSeparated"] | escape
+                checked: true if fields.maritalStatus.value == "optionSeparated" | escape
             }
         ]
     }) }}

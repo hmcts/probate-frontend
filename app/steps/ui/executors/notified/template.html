@@ -22,14 +22,14 @@
         errorMessage: { text: fields.executorNotified.errorMessage.message | safe } if fields.executorNotified.errorMessage,
         items: [
             {
-                value: content["optionYes"],
+                value: "optionYes",
                 text: content["optionYes"],
-                checked: true if fields.executorNotified.value == content["optionYes"] | escape
+                checked: true if fields.executorNotified.value == "optionYes" | escape
             },
             {
-                value: content["optionNo"],
+                value: "optionNo",
                 text: content["optionNo"],
-                checked: true if fields.executorNotified.value == content["optionNo"] | escape,
+                checked: true if fields.executorNotified.value == "optionNo" | escape,
                 conditional: {
                     html: notNotifiedtml
                 }

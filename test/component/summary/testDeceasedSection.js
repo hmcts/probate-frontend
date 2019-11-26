@@ -101,6 +101,9 @@ describe('summary-deceased-section', () => {
                         questionWillCodicils: willContent.codicils.question
                     };
                     Object.assign(playbackData, sessionData.deceased);
+                    playbackData.alias = deceasedContent.alias[playbackData.alias];
+                    playbackData.married = deceasedContent.married[playbackData.married];
+                    playbackData.domicile = deceasedContent.married[playbackData.domicile];
 
                     playbackData.address = sessionData.deceased.address.formattedAddress;
 

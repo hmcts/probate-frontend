@@ -1,7 +1,6 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const content = require('app/resources/en/translation/iht/method');
 
 class IhtMethod extends ValidationStep {
 
@@ -12,7 +11,7 @@ class IhtMethod extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'method', value: content.optionOnline, choice: 'online'}
+                {key: 'method', value: 'optionOnline', choice: 'online'}
             ]
         };
     }
@@ -21,7 +20,7 @@ class IhtMethod extends ValidationStep {
         super.action(ctx, formdata);
 
         if (formdata.iht && formdata.iht.method && ctx.method !== formdata.iht.method) {
-            if (ctx.method === content.optionPaper) {
+            if (ctx.method === 'optionPaper') {
                 delete ctx.identifier;
 
                 delete ctx.grossValue;

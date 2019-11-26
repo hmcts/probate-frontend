@@ -21,14 +21,14 @@
         errorMessage: { text: fields.assetsoverseas.errorMessage.message | safe } if fields.assetsoverseas.errorMessage,
         items: [
             {
-                value: content["optionYes"],
+                value: "optionYes",
                 text: content["optionYes"],
-                checked: true if fields.assetsoverseas.value == content["optionYes"] | escape
+                checked: true if fields.assetsoverseas.value == "optionYes" | escape
             },
             {
-                value: content["optionNo"],
+                value: "optionNo",
                 text: content["optionNo"],
-                checked: true if fields.assetsoverseas.value == content["optionNo"] | escape
+                checked: true if fields.assetsoverseas.value == "optionNo" | escape
             }
         ]
     }) }}

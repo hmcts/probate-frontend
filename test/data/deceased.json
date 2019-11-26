@@ -2,8 +2,8 @@
   "deceased": {
     "firstName": "Joe",
     "lastName": "Bloggs",
-    "alias": "No",
-    "married": "Yes",
+    "alias": "optionNo",
+    "married": "optionYes",
     "dod-day": "12",
     "dod-month": "12",
     "dod-year": "2016",
@@ -12,7 +12,7 @@
     "dob-month": "12",
     "dob-year": "1990",
     "dob-formattedDate": "12 December 1990",
-    "domicile": "Yes",
+    "domicile": "optionYes",
     "address": {
       "formattedAddress": "102 Petty France London SW1 1HA"
     }

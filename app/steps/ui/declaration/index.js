@@ -3,9 +3,7 @@
 const probateDeclarationFactory = require('app/utils/ProbateDeclarationFactory');
 const intestacyDeclarationFactory = require('app/utils/IntestacyDeclarationFactory');
 const ValidationStep = require('app/core/steps/ValidationStep');
-const executorNotifiedContent = require('app/resources/en/translation/executors/notified');
 const executorContent = require('app/resources/en/translation/executors/executorcontent');
-const assetsOutsideContent = require('app/resources/en/translation/iht/assetsoutside');
 const {get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
@@ -92,7 +90,7 @@ class Declaration extends ValidationStep {
         const formDataForTemplate = this.getFormDataForTemplate(content, formdata);
 
         if (ctx.caseType === caseTypes.INTESTACY && formdata.iht) {
-            ctx.showNetValueAssetsOutside = (formdata.iht.assetsOutside === assetsOutsideContent.optionYes && (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > config.assetsValueThreshold);
+            ctx.showNetValueAssetsOutside = (formdata.iht.assetsOutside === 'optionYes' && (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > config.assetsValueThreshold);
             if (ctx.showNetValueAssetsOutside) {
                 ctx.ihtNetValueAssetsOutside = formDataForTemplate.ihtNetValueAssetsOutside;
             }
@@ -195,7 +193,7 @@ class Declaration extends ValidationStep {
         if (Object.keys(executorContent).includes(executor.notApplyingKey)) {
             let executorApplyingText = content[executor.notApplyingKey];
 
-            if (executor.executorNotified === executorNotifiedContent.optionYes) {
+            if (executor.executorNotified === 'optionYes') {
                 executorApplyingText += ` ${content.additionalExecutorNotified}`;
             }
 

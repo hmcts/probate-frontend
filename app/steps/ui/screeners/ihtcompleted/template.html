@@ -21,14 +21,14 @@
         errorMessage: { text: fields.completed.errorMessage.message | safe } if fields.completed.errorMessage,
         items: [
             {
-                value: content["optionYes"],
+                value: "optionYes",
                 text: content["optionYes"],
-                checked: true if fields.completed.value == content["optionYes"] | escape
+                checked: true if fields.completed.value == "optionYes" | escape
             },
             {
-                value: content["optionNo"],
+                value: "optionNo",
                 text: content["optionNo"],
-                checked: true if fields.completed.value == content["optionNo"] | escape
+                checked: true if fields.completed.value == "optionNo" | escape
             }
         ]
     }) }}

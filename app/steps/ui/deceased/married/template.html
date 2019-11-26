@@ -18,14 +18,14 @@
         errorMessage: { text: fields.married.errorMessage.message | safe } if fields.married.errorMessage,
         items: [
             {
-                value: content["optionYes"],
+                value: "optionYes",
                 text: content["optionYes"],
-                checked: true if fields.married.value == content["optionYes"] | escape
+                checked: true if fields.married.value == "optionYes" | escape
             },
             {
-                value: content["optionNo"],
+                value: "optionNo",
                 text: content["optionNo"],
-                checked: true if fields.married.value == content["optionNo"] | escape
+                checked: true if fields.married.value == "optionNo" | escape
             }
         ]
     }) }}

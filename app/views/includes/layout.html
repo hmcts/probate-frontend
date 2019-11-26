@@ -19,7 +19,7 @@
 
 {% block header %}
     <div id="global-cookie-message">
-        <p class="govuk-body">{{ cookieText | replace('{cookiesLink}', globals.links.cookies) | safe }}</p>
+        <p class="govuk-body">{{ cookieText | replace("{cookiesLink}", globals.links.cookies) | safe }}</p>
     </div>
 
     {% if not hideNavigation %}
@@ -64,7 +64,7 @@
                     <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
                         {% for item in navigationItems %}
                             {% if item.href and item.text %}
-                                <li class="govuk-header__navigation-item{{ ' govuk-header__navigation-item--active' if item.active }}">
+                                <li class="govuk-header__navigation-item{{ " govuk-header__navigation-item--active" if item.active }}">
                                     <a class="govuk-header__link" href="{{ item.href }}"{% for attribute, value in item.attributes %} {{attribute}}="{{value}}"{% endfor %}>
                                         {{ item.text }}
                                     </a>

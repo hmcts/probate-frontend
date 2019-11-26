@@ -4,27 +4,27 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set answers = [] %}
-{% if fields.deceasedMaritalStatus.value == "Married or in a civil partnership" %}
+{% if fields.deceasedMaritalStatus.value == "optionMarried" %}
     {% set answers = (answers.push({
-        value: content["optionSpousePartner"],
+        value: "optionSpousePartner",
         text: content["optionSpousePartner"],
-        checked: true if fields.relationshipToDeceased.value == content["optionSpousePartner"] | escape
+        checked: true if fields.relationshipToDeceased.value == "optionSpousePartner" | escape
     }), answers) %}
 {% endif %}
 {% set answers = (answers.push({
-    value: content["optionChild"],
+    value: "optionChild",
     text: content["optionChild"],
-    checked: true if fields.relationshipToDeceased.value == content["optionChild"] | escape
+    checked: true if fields.relationshipToDeceased.value == "optionChild" | escape
 }), answers) %}
 {% set answers = (answers.push({
-    value: content["optionAdoptedChild"],
+    value: "optionAdoptedChild",
     text: content["optionAdoptedChild"],
-    checked: true if fields.relationshipToDeceased.value == content["optionAdoptedChild"] | escape
+    checked: true if fields.relationshipToDeceased.value == "optionAdoptedChild" | escape
 }), answers) %}
 {% set answers = (answers.push({
-    value: content["optionOther"],
+    value: "optionOther",
     text: content["optionOther"],
-    checked: true if fields.relationshipToDeceased.value == content["optionOther"] | escape
+    checked: true if fields.relationshipToDeceased.value == "optionOther" | escape
 }), answers) %}
 
 {% block form_content %}

@@ -23,7 +23,7 @@ const config = {
         port: process.env.PORT || '3000',
         useCSRFProtection: 'true',
         session: {
-            expires: 3600000, // ms (60 mins)
+            expires: 3600000, // ms (60 minutes)
             ttl: 28800 // ms (8 hours)
         }
     },
@@ -200,22 +200,22 @@ const config = {
     whitelistedPagesAfterPayment: ['/task-list', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-breakdown?status=failure', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/sign-out'],
     eligibilityQuestionsProbate: {
-        deathCertificate: 'Yes',
-        domicile: 'Yes',
-        completed: 'Yes',
-        left: 'Yes',
-        original: 'Yes',
-        executor: 'Yes',
-        mentalCapacity: 'Yes'
+        deathCertificate: 'optionYes',
+        domicile: 'optionYes',
+        completed: 'optionYes',
+        left: 'optionYes',
+        original: 'optionYes',
+        executor: 'optionYes',
+        mentalCapacity: 'optionYes'
     },
     eligibilityQuestionsIntestacy: {
-        deathCertificate: 'Yes',
-        domicile: 'Yes',
-        completed: 'Yes',
-        left: 'No',
-        diedAfter: 'Yes',
-        related: 'Yes',
-        otherApplicants: 'No'
+        deathCertificate: 'optionYes',
+        domicile: 'optionYes',
+        completed: 'optionYes',
+        left: 'optionNo',
+        diedAfter: 'optionYes',
+        related: 'optionYes',
+        otherApplicants: 'optionNo'
     },
     hardStopParams: {
         gop: [],

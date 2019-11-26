@@ -1,8 +1,7 @@
 'use strict';
 
 const CollectionStep = require('app/core/steps/CollectionStep');
-const execContent = require('app/resources/en/translation/executors/executorcontent');
-const {findKey, findIndex, every, tail, has, get} = require('lodash');
+const {findIndex, every, tail, has, get} = require('lodash');
 const path = '/executor-when-died/';
 
 class ExecutorsWhenDied extends CollectionStep {
@@ -35,14 +34,12 @@ class ExecutorsWhenDied extends CollectionStep {
 
     setNotApplyingReason(ctx) {
         ctx.list[ctx.index].diedBefore = ctx.diedbefore;
-        if (ctx.diedbefore === 'Yes') {
-            ctx.list[ctx.index].notApplyingReason = execContent.optionDiedBefore;
+        if (ctx.diedbefore === 'optionYes') {
+            ctx.list[ctx.index].notApplyingReason = 'optionDiedBefore';
         } else {
-            ctx.list[ctx.index].notApplyingReason = execContent.optionDiedAfter;
+            ctx.list[ctx.index].notApplyingReason = 'optionDiedAfter';
         }
-        ctx.list[ctx.index].notApplyingKey = findKey(execContent, o => {
-            return o === ctx.list[ctx.index].notApplyingReason;
-        });
+        ctx.list[ctx.index].notApplyingKey = ctx.list[ctx.index].notApplyingReason;
     }
 
     nextStepOptions(ctx) {

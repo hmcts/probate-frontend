@@ -2,7 +2,6 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
-const content = require('app/resources/en/translation/applicant/spousenotapplyingreason');
 
 class SpouseNotApplyingReason extends ValidationStep {
 
@@ -24,7 +23,7 @@ class SpouseNotApplyingReason extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'spouseNotApplyingReason', value: content.optionRenouncing, choice: 'renouncing'},
+                {key: 'spouseNotApplyingReason', value: 'optionRenouncing', choice: 'renouncing'},
             ]
         };
     }

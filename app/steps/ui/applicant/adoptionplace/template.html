@@ -18,14 +18,14 @@
         errorMessage: { text: fields.adoptionPlace.errorMessage.message | safe } if fields.adoptionPlace.errorMessage,
         items: [
             {
-                value: content["optionYes"],
+                value: "optionYes",
                 text: content["optionYes"],
-                checked: true if fields.adoptionPlace.value == content["optionYes"] | escape
+                checked: true if fields.adoptionPlace.value == "optionYes" | escape
             },
             {
-                value: content["optionNo"],
+                value: "optionNo",
                 text: content["optionNo"],
-                checked: true if fields.adoptionPlace.value == content["optionNo"] | escape
+                checked: true if fields.adoptionPlace.value == "optionNo" | escape
             }
         ]
     }) }}

@@ -16,7 +16,7 @@
         {
             question: content.AdoptionPlace.question,
             answer: fields.applicant.adoptionPlace.value,
-            visible: fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionAdoptedChild
+            visible: fields.applicant.relationshipToDeceased.value == "optionAdoptedChild"
         }
     ],
     url = content.AdoptionPlace.url,
@@ -31,16 +31,16 @@
             answer: fields.applicant.spouseNotApplyingReason.value,
             visible:
             (
-                fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionChild
+                fields.applicant.relationshipToDeceased.value == "optionChild"
                 or
                 (
-                    fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionAdoptedChild
+                    fields.applicant.relationshipToDeceased.value == "optionAdoptedChild"
                     and
-                    fields.applicant.adoptionPlace.value == content.AdoptionPlace.optionYes
+                    fields.applicant.adoptionPlace.value == "optionYes"
                 )
             )
             and
-            fields.deceased.maritalStatus.value === content.DeceasedMaritalStatus.optionMarried
+            fields.deceased.maritalStatus.value == "optionMarried"
         }
     ],
     url = content.SpouseNotApplyingReason.url,
@@ -56,20 +56,20 @@
             visible:
             (
                 (
-                    fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionChild
+                    fields.applicant.relationshipToDeceased.value == "optionChild"
                     or
                     (
-                        fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionAdoptedChild
+                        fields.applicant.relationshipToDeceased.value == "optionAdoptedChild"
                         and
-                        fields.applicant.adoptionPlace.value == content.AdoptionPlace.optionYes
+                        fields.applicant.adoptionPlace.value == "optionYes"
                     )
                 )
                 and
                 (
                     (
-                        fields.deceased.maritalStatus.value == content.DeceasedMaritalStatus.optionMarried
+                        fields.deceased.maritalStatus.value == "optionMarried"
                         and
-                        fields.applicant.spouseNotApplyingReason.value == content.SpouseNotApplyingReason.optionRenouncing
+                        fields.applicant.spouseNotApplyingReason.value == "optionRenouncing"
                     )
                     or
                     fields.deceased.maritalStatus.value != content.DeceasedMaritalStatus.optionMarried
@@ -89,7 +89,7 @@
             answer: fields.deceased.anyChildren.value,
             visible:
             (
-                fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionSpousePartner
+                fields.applicant.relationshipToDeceased.value == "optionSpousePartner"
                 and
                 fields.summary.ihtTotalNetValueGreaterThan250k.value == "true"
             )
@@ -108,20 +108,20 @@
             visible:
             (
                 (
-                    fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionAdoptedChild
+                    fields.applicant.relationshipToDeceased.value == "optionAdoptedChild"
                     or
-                    fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionChild
+                    fields.applicant.relationshipToDeceased.value == "optionChild"
                 )
                 and
-                fields.deceased.anyOtherChildren.value == content.AnyOtherChildren.optionYes
+                fields.deceased.anyOtherChildren.value == "optionYes"
             )
             or
             (
-                fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionSpousePartner
+                fields.applicant.relationshipToDeceased.value == "optionSpousePartner"
                 and
                 fields.summary.ihtTotalNetValueGreaterThan250k.value == "true"
                 and
-                fields.deceased.anyChildren.value == content.AnyChildren.optionYes
+                fields.deceased.anyChildren.value == "optionYes"
             )
         }
     ],
@@ -139,24 +139,24 @@
             (
                 (
                     (
-                        fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionAdoptedChild
+                        fields.applicant.relationshipToDeceased.value == "optionAdoptedChild"
                         or
-                        fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionChild
+                        fields.applicant.relationshipToDeceased.value == "optionChild"
                     )
                     and
-                    fields.deceased.anyOtherChildren.value == content.AnyOtherChildren.optionYes
+                    fields.deceased.anyOtherChildren.value == "optionYes"
                 )
                 or
                 (
-                    fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionSpousePartner
+                    fields.applicant.relationshipToDeceased.value == "optionSpousePartner"
                     and
                     fields.summary.ihtTotalNetValueGreaterThan250k.value == "true"
                     and
-                    fields.deceased.anyChildren.value == content.AnyChildren.optionYes
+                    fields.deceased.anyChildren.value == "optionYes"
                 )
             )
             and
-            fields.deceased.allChildrenOver18.value === content.AllChildrenOver18.optionYes
+            fields.deceased.allChildrenOver18.value == "optionYes"
         }
     ],
     url = content.AnyDeceasedChildren.url,
@@ -173,26 +173,26 @@
             (
                 (
                     (
-                        fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionAdoptedChild
+                        fields.applicant.relationshipToDeceased.value == "optionAdoptedChild"
                         or
-                        fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionChild
+                        fields.applicant.relationshipToDeceased.value == "optionChild"
                     )
                     and
-                    fields.deceased.anyOtherChildren.value == content.AnyOtherChildren.optionYes
+                    fields.deceased.anyOtherChildren.value == "optionYes"
                 )
                 or
                 (
-                    fields.applicant.relationshipToDeceased.value == content.RelationshipToDeceased.optionSpousePartner
+                    fields.applicant.relationshipToDeceased.value == "optionSpousePartner"
                     and
                     fields.summary.ihtTotalNetValueGreaterThan250k.value == "true"
                     and
-                    fields.deceased.anyChildren.value == content.AnyChildren.optionYes
+                    fields.deceased.anyChildren.value == "optionYes"
                 )
             )
             and
-            fields.deceased.allChildrenOver18.value === content.AllChildrenOver18.optionYes
+            fields.deceased.allChildrenOver18.value == "optionYes"
             and
-            fields.deceased.anyDeceasedChildren.value === content.AnyDeceasedChildren.optionYes
+            fields.deceased.anyDeceasedChildren.value == "optionYes"
         }
     ],
     url = content.AnyGrandchildrenUnder18.url,

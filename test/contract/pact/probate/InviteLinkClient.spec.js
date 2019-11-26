@@ -73,7 +73,7 @@ describe('Pact InviteLinkClient', () => {
                         inviteId: '54321',
                         executorName: 'Jon Snow',
                         phoneNumber: '07981898999',
-                        agreed: 'Yes',
+                        agreed: 'optionYes',
                         leadExecutorName: 'Graham Garderner'
                     })
                 }

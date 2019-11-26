@@ -1,7 +1,5 @@
 'use strict';
 
-const content = require('app/resources/en/translation/applicant/spousenotapplyingreason');
-
 class SpouseNotApplyingEnum {
 
     static getRenouncing() {
@@ -9,14 +7,14 @@ class SpouseNotApplyingEnum {
     }
 
     static getOther() {
-        return 'other';
+        return 'optionOther';
     }
 
     static getCCDCode(value) {
         switch (value) {
-        case content.optionRenouncing:
+        case 'optionRenouncing':
             return this.getRenouncing();
-        case content.optionOther:
+        case 'optionOther':
             return this.getOther();
         default:
             throw new Error(`Enumerator SpouseNotApplyingEnum value: ${value} not found`);

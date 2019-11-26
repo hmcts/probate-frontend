@@ -117,7 +117,7 @@ class Summary extends Step {
             ctx.deceasedSpouseNotApplyingReasonQuestion = content.SpouseNotApplyingReason.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.SpouseNotApplyingReason.theDeceased);
 
-            if (ctx.caseType === caseTypes.INTESTACY && formdata.iht && formdata.iht.assetsOutside === content.AssetsOutside.optionYes) {
+            if (ctx.caseType === caseTypes.INTESTACY && formdata.iht && formdata.iht.assetsOutside === 'optionYes') {
                 ctx.ihtTotalNetValue += formdata.iht.netValueAssetsOutside;
             }
             ctx.ihtTotalNetValueGreaterThan250k = (ctx.ihtTotalNetValue > config.assetsValueThreshold);

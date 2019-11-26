@@ -6,9 +6,9 @@
     },
     "payloadVersion": "1.0",
     "will": {
-      "left": "Yes",
-      "codicils": "No",
-      "original": "Yes"
+      "left": "optionYes",
+      "codicils": "optionNo",
+      "original": "optionYes"
     },
     "applicant": {
       "address": {
@@ -20,19 +20,19 @@
         "postCode": "",
         "Country": ""
       },
-      "executor": "Yes",
+      "executor": "optionYes",
       "lastName": "Smith",
       "postcode": "NW1 8SS",
       "referrer": "ApplicantAddress",
       "firstName": "Bob",
       "phoneNumber": "123456780",
       "addressFound": "none",
-      "nameAsOnTheWill": "Yes",
+      "nameAsOnTheWill": "optionYes",
       "aliasReason": "Change by deed poll",
       "alias": "Bobby Smithy"
     },
     "deceased": {
-      "alias": "No",
+      "alias": "optionNo",
       "address": {
         "addressLine1": "21 Treelined Avenue,",
         "addressLine2": "Sussex",
@@ -59,13 +59,13 @@
       "firstName": "Dee",
       "addressFound": "none",
       "deceasedName": "Dee Ceased",
-      "relationship": "grandparent",
-      "married": "Yes"
+      "relationship": "optionGrandparent",
+      "married": "optionYes"
     },
     "iht": {
-      "completed": "Yes",
+      "completed": "optionYes",
       "identifier": "12341234A12345",
-      "method": "Through the HMRC online service",
+      "method": "optionOnline",
       "netValueField": "100000.10",
       "grossValueField": "150000.34",
       "netValue": 100000.1,
@@ -77,14 +77,14 @@
         "lastName":"Smith",
         "isApplicant":true,
         "isApplying":true,
-        "aliasReason": "Change by deed poll",
+        "aliasReason": "optionDeedPoll",
         "alias": "Bobby Smithy",
         "inviteId": "abc123"
       }],
       "executorsNumber" : 1
     },
     "assets": {
-      "assetsoverseas": "Yes"
+      "assetsoverseas": "optionYes"
     },
     "copies": {
       "uk": 1,

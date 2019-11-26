@@ -11,7 +11,7 @@
             visible: true
         }
     ],
-    url = content.DeceasedName.url if fields.summary.caseType.value === "gop" else content.DeceasedDetails.url,
+    url = content.DeceasedName.url if fields.summary.caseType.value == "gop" else content.DeceasedDetails.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
@@ -20,7 +20,7 @@
     items = [
         {
             question: fields.summary.deceasedAliasQuestion.value,
-            answer: fields.deceased.alias.value,
+            answer: content.DeceasedAlias[fields.deceased.alias.value],
             visible: true
         }
     ],
@@ -51,8 +51,8 @@
     items = [
         {
             question: fields.summary.deceasedMarriedQuestion.value,
-            answer: fields.deceased.married.value,
-            visible: fields.summary.caseType.value === "gop"
+            answer: content.DeceasedMarried[fields.deceased.married.value],
+            visible: fields.summary.caseType.value == "gop"
         }
     ],
     url = content.DeceasedMarried.url,
@@ -68,7 +68,7 @@
             visible: true
         }
     ],
-    url = content.DeceasedDob.url if fields.summary.caseType.value === "gop" else content.DeceasedDetails.url,
+    url = content.DeceasedDob.url if fields.summary.caseType.value == "gop" else content.DeceasedDetails.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
@@ -81,7 +81,7 @@
             visible: true
         }
     ],
-    url = content.DeceasedDod.url if fields.summary.caseType.value === "gop" else content.DeceasedDetails.url,
+    url = content.DeceasedDod.url if fields.summary.caseType.value == "gop" else content.DeceasedDetails.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
@@ -91,7 +91,7 @@
         {
             question: fields.summary.deceasedMaritalStatusQuestion.value,
             answer: fields.deceased.maritalStatus.value,
-            visible: fields.summary.caseType.value === "intestacy"
+            visible: fields.summary.caseType.value == "intestacy"
         }
     ],
     url = content.DeceasedMaritalStatus.url,
@@ -105,12 +105,12 @@
             question: fields.summary.deceasedDivorcePlaceQuestion.value,
             answer: fields.deceased.divorcePlace.value,
             visible:
-                fields.summary.caseType.value === "intestacy"
+                fields.summary.caseType.value == "intestacy"
                 and
                 (
-                    fields.deceased.maritalStatus.value == content.DeceasedMaritalStatus.optionDivorced
+                    fields.deceased.maritalStatus.value == "optionDivorced"
                     or
-                    fields.deceased.maritalStatus.value == content.DeceasedMaritalStatus.optionSeparated
+                    fields.deceased.maritalStatus.value == "optionSeparated"
                 )
         }
     ],
@@ -136,13 +136,13 @@
     items = [
         {
             question: content.WillCodicils.question,
-            answer: fields.will.codicils.value,
-            visible: fields.summary.caseType.value === "gop"
+            answer: content.WillCodicils[fields.will.codicils.value],
+            visible: fields.summary.caseType.value == "gop"
         },
         {
             question: content.CodicilsNumber.question,
             answer: fields.will.codicilsNumber.value,
-            visible: fields.summary.caseType.value === "gop" and fields.will.codicils.value == content.WillCodicils.optionYes
+            visible: fields.summary.caseType.value == "gop" and fields.will.codicils.value == "optionYes"
         }
     ],
     url = content.WillCodicils.url,

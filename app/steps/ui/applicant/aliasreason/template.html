@@ -35,24 +35,24 @@
         errorMessage: { text: fields.aliasReason.errorMessage.message } if fields.aliasReason.errorMessage,
         items: [
             {
-                value: content["optionMarriage"],
+                value: "optionMarriage",
                 text: content["optionMarriage"],
-                checked: true if fields.aliasReason.value == content["optionMarriage"] | escape
+                checked: true if fields.aliasReason.value == "optionMarriage" | escape
             },
             {
-                value: content["optionDivorce"],
+                value: "optionDivorce",
                 text: content["optionDivorce"],
-                checked: true if fields.aliasReason.value == content["optionDivorce"] | escape
+                checked: true if fields.aliasReason.value == "optionDivorce" | escape
             },
             {
-                value: content["optionDeedPoll"],
+                value: "optionDeedPoll",
                 text: content["optionDeedPoll"],
-                checked: true if fields.aliasReason.value == content["optionDeedPoll"] | escape
+                checked: true if fields.aliasReason.value == "optionDeedPoll" | escape
             },
             {
-                value: content["optionOther"] | lower,
+                value: "optionOther",
                 text: content["optionOther"],
-                checked: true if fields.aliasReason.value == content["optionOther"] | lower | escape,
+                checked: true if fields.aliasReason.value == "optionOther" | escape,
                 conditional: {
                     html: otherHtml
                 }

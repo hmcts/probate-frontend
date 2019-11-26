@@ -107,6 +107,8 @@ describe('summary-iht-section', () => {
                         netValue: ihtContent.value.netValue
                     };
                     Object.assign(playbackData, sessionData.iht);
+                    console.log(playbackData);
+                    playbackData.method = playbackData.method.replace('optionOnline', ihtContent.method.optionOnline);
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });
@@ -134,6 +136,7 @@ describe('summary-iht-section', () => {
                         netValue: ihtContent.value.netValue
                     };
                     Object.assign(playbackData, sessionData.iht);
+                    playbackData.method = playbackData.method.replace('optionPaper', ihtContent.method.optionPaper);
 
                     testWrapper.testDataPlayback(done, playbackData, ['form']);
                 });
@@ -161,6 +164,7 @@ describe('summary-iht-section', () => {
                         netValue: ihtContent.value.netValue
                     };
                     Object.assign(playbackData, sessionData.iht);
+                    playbackData.method = playbackData.method.replace('optionPaper', ihtContent.method.optionPaper);
 
                     testWrapper.testDataPlayback(done, playbackData, ['form']);
                 });
@@ -188,6 +192,7 @@ describe('summary-iht-section', () => {
                         ihtNetValue: ihtContent.value.netValue
                     };
                     Object.assign(playbackData, sessionData.iht);
+                    playbackData.method = playbackData.method.replace('optionPaper', ihtContent.method.optionPaper);
 
                     testWrapper.testDataPlayback(done, playbackData, ['form']);
                 });

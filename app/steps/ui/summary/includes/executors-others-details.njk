@@ -28,7 +28,7 @@
     items = [
         {
             question: content.Summary.currentNameReason,
-            answer: executor.otherReason | default(executor.currentNameReason),
+            answer: content.ExecutorCurrentNameReason[executor.otherReason | default(executor.currentNameReason)],
             visible: executor.hasOtherName
         }
     ],

@@ -63,6 +63,7 @@ rpe-feature-toggle-api:
       oneoff:
         enabled: false
 
+
   postgresql:
     enabled: true # for rpe-feature-toggle-api
 

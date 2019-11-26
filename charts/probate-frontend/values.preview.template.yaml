@@ -69,5 +69,5 @@ idam-pr:
       - https://${SERVICE_FQDN}/oauth2/callback
 
 
-  postgresql:
-    enabled: true # for rpe-feature-toggle-api
+postgresql:
+  enabled: true # for rpe-feature-toggle-api

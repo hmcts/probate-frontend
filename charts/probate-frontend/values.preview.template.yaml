@@ -63,10 +63,11 @@ rpe-feature-toggle-api:
       oneoff:
         enabled: false
 
-  postgresql:
-    enabled: true # for rpe-feature-toggle-api
-
 idam-pr:
   redirect_uris:
     Probate:
       - https://${SERVICE_FQDN}/oauth2/callback
+
+
+  postgresql:
+    enabled: true # for rpe-feature-toggle-api

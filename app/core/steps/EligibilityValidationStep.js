@@ -40,6 +40,23 @@ class EligibilityValidationStep extends ValidationStep {
         return {};
     }
 
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+
+        delete ctx.deathCertificate;
+        delete ctx.domicile;
+        delete ctx.completed;
+        delete ctx.left;
+        delete ctx.original;
+        delete ctx.executor;
+        delete ctx.mentalCapacity;
+        delete ctx.diedAfter;
+        delete ctx.related;
+        delete ctx.otherApplicants;
+
+        return [ctx, formdata];
+    }
+
     setEligibilityCookie(req, res, nextStepUrl, fieldKey, fieldValue) {
         eligibilityCookie.setCookie(req, res, nextStepUrl, fieldKey, fieldValue);
     }

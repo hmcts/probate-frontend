@@ -163,6 +163,13 @@ class Step {
     renderPage(res, html) {
         res.send(html);
     }
+
+    updateFormdata(formdata) {
+        if (formdata) {
+            delete formdata.screeners;
+        }
+        return formdata;
+    }
 }
 
 module.exports = Step;

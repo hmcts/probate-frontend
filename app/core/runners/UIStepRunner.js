@@ -16,6 +16,7 @@ class UIStepRunner {
 
     handleGet(step, req, res) {
         return co(function * () {
+            req.session.form = step.updateFormdata(req.session.form);
             let errors = null;
             const session = req.session;
             const formdata = session.form;

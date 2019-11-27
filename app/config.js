@@ -11,7 +11,8 @@ const config = {
         port: 8292,
         fe_shutter_toggle: 'probate-fe-shutter',
         fees_api: 'probate-fees-api',
-        appwideToggles: []
+        webforms: 'probate-webforms',
+        appwideToggles: ['webforms']
     },
     app: {
         username: process.env.USERNAME,
@@ -53,11 +54,6 @@ const config = {
         submit: {
             url: process.env.SUBMIT_SERVICE_URL || 'http://localhost:8181',
             port: 8181
-        },
-        persistence: {
-            url: process.env.PERSISTENCE_SERVICE_URL || 'http://localhost:8282/formdata',
-            port: 8282,
-            path: '/formdata'
         },
         idam: {
             loginUrl: process.env.IDAM_LOGIN_URL || 'http://localhost:3501/login',
@@ -136,6 +132,7 @@ const config = {
         privacy: '/privacy-policy',
         terms: '/terms-conditions',
         contact: '/contact-us',
+        webForms: process.env.WEBFORMS || 'http://ctsc-web-forms-ui-aat.service.core-compute-aat.internal?serviceId=probate',
         contactEmailAddress: 'contactprobate@justice.gov.uk',
         callCharges: 'https://www.gov.uk/call-charges',
         howToManageCookies: 'https://www.aboutcookies.org',

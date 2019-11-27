@@ -41,6 +41,9 @@ describe('WillLeft', () => {
                 sessionID: 'dummy_sessionId',
                 left: content.optionYes,
                 caseType: 'gop',
+                featureToggles: {
+                    webforms: 'false'
+                },
                 userLoggedIn: false,
                 ccdCase: {
                     id: 1234567890123456,

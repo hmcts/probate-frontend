@@ -9,6 +9,7 @@ locals {
   nonPreviewVaultName = "${var.raw_product}-${var.env}"
   vaultName = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultName : local.nonPreviewVaultName}"
   localenv = "${(var.env == "preview" || var.env == "spreview") ? "aat": "${var.env}"}"
+  ctsc_web_form_url = "http://ctsc-web-forms-ui-${local.localenv}.service.core-compute-${local.localenv}.internal?serviceId=probate"
   //once Backend is up in CNP need to get the
   //localBusinessServiceUrl = "http://probate-business-service-${var.env}.service.${local.aseName}.internal"
   //businessServiceUrl = "${var.env == "preview" ? "http://probate-business-service-aat.service.core-compute-aat.internal" : local.localClaimStoreUrl}"
@@ -207,6 +208,7 @@ module "probate-frontend" {
     //POSTCODE_SERVICE_TOKEN = "${data.vault_generic_secret.probate_postcode_service_token.data["value"]}"
     POSTCODE_SERVICE_TOKEN = "${data.azurerm_key_vault_secret.probate_postcode_service_token.value}"
 
+    WEBFORMS = "${local.ctsc_web_form_url}"
 
     SURVEY = "${data.azurerm_key_vault_secret.probate_survey.value}"
     SURVEY_END_OF_APPLICATION = "${data.azurerm_key_vault_secret.probate_survey_end.value}"

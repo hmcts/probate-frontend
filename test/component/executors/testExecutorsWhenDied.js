@@ -13,6 +13,15 @@ const commonContent = require('app/resources/en/translation/common');
 const content = require('app/resources/en/translation/executors/whendied');
 const executorRolesContent = require('app/resources/en/translation/executors/executorcontent');
 const config = require('app/config');
+const webformsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.webforms}`;
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+
+const featureTogglesNockWebforms = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(webformsFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('executors-when-died', () => {
     let testWrapper, sessionData;
@@ -68,6 +77,8 @@ describe('executors-when-died', () => {
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
+
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -75,11 +86,41 @@ describe('executors-when-died', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const playbackData = {};
-                    playbackData.helpTitle = commonContent.helpTitle;
-                    playbackData.helpHeading1 = commonContent.helpHeading1;
-                    playbackData.helpHeading2 = commonContent.helpHeading2;
-                    playbackData.helpEmailLabel = commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress);
+                    const playbackData = {
+                        helpTitle: commonContent.helpTitle,
+                        helpHeadingTelephone: commonContent.helpHeadingTelephone,
+                        helpHeadingEmail: commonContent.helpHeadingEmail,
+                        helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
+                    };
+
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
+
+        it('test webchat help block content is loaded on page', (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const playbackData = {
+                        helpHeadingWebchat: commonContent.helpHeadingWebchat,
+                    };
+
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
+
+        it('test webforms help block content is loaded on page', (done) => {
+            featureTogglesNockWebforms();
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const playbackData = {
+                        helpHeadingOnlineForm: commonContent.helpHeadingOnlineForm,
+                        sendUsAMessage: commonContent.sendUsAMessage.replace('{webForms}', config.links.webForms),
+                        opensInNewWindow: commonContent.opensInNewWindow,
+                        responseTime: commonContent.responseTime
+                    };
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });

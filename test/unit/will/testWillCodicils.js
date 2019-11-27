@@ -39,6 +39,9 @@ describe('WillCodicils', () => {
                 codicils: 'Yes',
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
+                featureToggles: {
+                    webforms: 'false'
+                },
                 userLoggedIn: false,
                 ccdCase: {
                     id: 1234567890123456,

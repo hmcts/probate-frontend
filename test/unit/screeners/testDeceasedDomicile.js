@@ -41,6 +41,9 @@ describe('DeceasedDomicile', () => {
                 sessionID: 'dummy_sessionId',
                 domicile: content.optionYes,
                 caseType: 'gop',
+                featureToggles: {
+                    webforms: 'false'
+                },
                 userLoggedIn: false,
                 ccdCase: {
                     id: 1234567890123456,

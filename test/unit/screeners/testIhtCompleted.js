@@ -41,6 +41,9 @@ describe('IhtCompleted', () => {
                 sessionID: 'dummy_sessionId',
                 completed: content.optionYes,
                 caseType: 'gop',
+                featureToggles: {
+                    webforms: 'false'
+                },
                 userLoggedIn: false,
                 ccdCase: {
                     id: 1234567890123456,

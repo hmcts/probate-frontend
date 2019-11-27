@@ -8,6 +8,14 @@ const contentMaritalStatus = require('app/resources/en/translation/deceased/mari
 const content = require('app/resources/en/translation/deceased/divorceplace');
 const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+const webformsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.webforms}`;
+const featureTogglesNockWebforms = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(webformsFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('divorce-place', () => {
     let testWrapper;
@@ -37,11 +45,29 @@ describe('divorce-place', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const playbackData = {};
-                    playbackData.helpTitle = commonContent.helpTitle;
-                    playbackData.helpHeading1 = commonContent.helpHeading1;
-                    playbackData.helpHeading2 = commonContent.helpHeading2;
-                    playbackData.helpEmailLabel = commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress);
+                    const playbackData = {
+                        helpTitle: commonContent.helpTitle,
+                        helpHeadingTelephone: commonContent.helpHeadingTelephone,
+                        helpHeadingEmail: commonContent.helpHeadingEmail,
+                        helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
+                    };
+
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
+
+        it('test webforms help block content is loaded on page', (done) => {
+            featureTogglesNockWebforms();
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const playbackData = {
+                        helpHeadingOnlineForm: commonContent.helpHeadingOnlineForm,
+                        sendUsAMessage: commonContent.sendUsAMessage.replace('{webForms}', config.links.webForms),
+                        opensInNewWindow: commonContent.opensInNewWindow,
+                        responseTime: commonContent.responseTime
+                    };
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });

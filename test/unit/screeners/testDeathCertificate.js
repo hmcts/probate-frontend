@@ -41,6 +41,9 @@ describe('DeathCertificate', () => {
                 sessionID: 'dummy_sessionId',
                 deathCertificate: content.optionYes,
                 caseType: 'gop',
+                featureToggles: {
+                    webforms: 'false'
+                },
                 userLoggedIn: false,
                 ccdCase: {
                     id: 1234567890123456,

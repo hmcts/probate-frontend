@@ -41,6 +41,9 @@ describe('MentalCapacity', () => {
                 sessionID: 'dummy_sessionId',
                 mentalCapacity: content.optionYes,
                 caseType: 'gop',
+                featureToggles: {
+                    webforms: 'false'
+                },
                 userLoggedIn: false,
                 ccdCase: {
                     id: 1234567890123456,

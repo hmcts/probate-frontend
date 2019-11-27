@@ -64,6 +64,9 @@ describe('EligibilityValidationStep', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'abc123',
                 caseType: 'gop',
+                featureToggles: {
+                    webforms: 'false'
+                },
                 userLoggedIn: false,
                 ccdCase: {
                     id: 1234567890123456,
@@ -83,8 +86,11 @@ describe('EligibilityValidationStep', () => {
             expect(ctx).to.deep.equal({
                 sessionID: 'abc123',
                 caseType: 'gop',
-                userLoggedIn: false,
                 deathCertificate: 'Yes',
+                featureToggles: {
+                    webforms: 'false'
+                },
+                userLoggedIn: false,
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'Pending'
@@ -116,7 +122,7 @@ describe('EligibilityValidationStep', () => {
             const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey, featureToggles);
 
             expect(nextStepUrlStub.calledOnce).to.equal(true);
-            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', caseType: 'gop', deathCertificate: 'Yes', isTestToggleEnabled: true, userLoggedIn: false, ccdCase: {id: 1234567890123456, state: 'Pending'}})).to.equal(true);
+            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', caseType: 'gop', deathCertificate: 'Yes', isTestToggleEnabled: true, featureToggles: {webforms: 'false'}, userLoggedIn: false, ccdCase: {id: 1234567890123456, state: 'Pending'}})).to.equal(true);
             expect(setEligibilityCookieStub.calledOnce).to.equal(true);
             expect(setEligibilityCookieStub.calledWith(req, res, nextStepUrl, fieldKey, fieldValue)).to.equal(true);
             expect(ctx).to.deep.equal({
@@ -125,6 +131,9 @@ describe('EligibilityValidationStep', () => {
                 userLoggedIn: false,
                 deathCertificate: 'Yes',
                 isTestToggleEnabled: true,
+                featureToggles: {
+                    webforms: 'false'
+                },
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'Pending'

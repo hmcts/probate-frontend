@@ -158,6 +158,7 @@ exports.init = function() {
         policy: 'origin'
     }));
 
+    app.use(helmet.referrerPolicy({policy: 'unsafe-url'}));
     app.use(helmet.noCache());
     app.use(helmet.xssFilter({setOnOldIE: true}));
 

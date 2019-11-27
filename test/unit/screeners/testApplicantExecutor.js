@@ -41,6 +41,9 @@ describe('ApplicantExecutor', () => {
                 sessionID: 'dummy_sessionId',
                 executor: content.optionYes,
                 caseType: 'gop',
+                featureToggles: {
+                    webforms: 'false'
+                },
                 userLoggedIn: false,
                 ccdCase: {
                     id: 1234567890123456,

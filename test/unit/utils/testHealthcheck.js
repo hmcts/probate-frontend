@@ -5,19 +5,15 @@ const config = require('app/config');
 const expect = require('chai').expect;
 let businessStub;
 let submitStub;
-let persistenceStub;
 const startStubs = () => {
     businessStub = require('test/service-stubs/business');
     submitStub = require('test/service-stubs/submit');
-    persistenceStub = require('test/service-stubs/persistence');
 };
 const stopStubs = () => {
     businessStub.close();
     submitStub.close();
-    persistenceStub.close();
     delete require.cache[require.resolve('test/service-stubs/business')];
     delete require.cache[require.resolve('test/service-stubs/submit')];
-    delete require.cache[require.resolve('test/service-stubs/persistence')];
 };
 
 describe('Healthcheck.js', () => {
@@ -44,8 +40,7 @@ describe('Healthcheck.js', () => {
             const services = healthcheck.createServicesList(url, config.services);
             expect(services).to.deep.equal([
                 {name: 'Business Service', url: 'http://localhost:8081/health'},
-                {name: 'Submit Service', url: 'http://localhost:8181/health'},
-                {name: 'Persistence Service', url: 'http://localhost:8282/health'}
+                {name: 'Submit Service', url: 'http://localhost:8181/health'}
             ]);
             done();
         });
@@ -64,8 +59,7 @@ describe('Healthcheck.js', () => {
                     Promise.all(promises).then((data) => {
                         expect(data).to.deep.equal([
                             {name: 'Business Service', status: 'UP'},
-                            {name: 'Submit Service', status: 'UP'},
-                            {name: 'Persistence Service', status: 'UP'}
+                            {name: 'Submit Service', status: 'UP'}
                         ]);
                         done();
                     });
@@ -79,8 +73,7 @@ describe('Healthcheck.js', () => {
                     Promise.all(promises).then((data) => {
                         expect(data).to.deep.equal([
                             {gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e1'},
-                            {gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e2'},
-                            {gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e3'}
+                            {gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e2'}
                         ]);
                         done();
                     });
@@ -103,10 +96,6 @@ describe('Healthcheck.js', () => {
                         name: 'Submit Service',
                         status: 'DOWN',
                         error: 'Error: FetchError: request to http://localhost:8181/health failed, reason: connect ECONNREFUSED 127.0.0.1:8181'
-                    }, {
-                        name: 'Persistence Service',
-                        status: 'DOWN',
-                        error: 'Error: FetchError: request to http://localhost:8282/health failed, reason: connect ECONNREFUSED 127.0.0.1:8282'
                     }]);
                     done();
                 });
@@ -160,8 +149,7 @@ describe('Healthcheck.js', () => {
             healthcheck.getDownstream(healthcheck.health, downstream => {
                 expect(downstream).to.deep.equal([
                     {name: 'Business Service', status: 'UP'},
-                    {name: 'Submit Service', status: 'UP'},
-                    {name: 'Persistence Service', status: 'UP'}
+                    {name: 'Submit Service', status: 'UP'}
                 ]);
                 done();
             });
@@ -191,8 +179,7 @@ describe('Healthcheck.js', () => {
             const healthcheck = new Healthcheck();
             const healthDownstream = [
                 {name: 'Business Service', status: 'UP'},
-                {name: 'Submit Service', status: 'UP'},
-                {name: 'Persistence Service', status: 'UP'}
+                {name: 'Submit Service', status: 'UP'}
             ];
             const infoDownstream = [
                 {gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e1'},
@@ -208,10 +195,6 @@ describe('Healthcheck.js', () => {
                 name: 'Submit Service',
                 status: 'UP',
                 gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e2'
-            }, {
-                name: 'Persistence Service',
-                status: 'UP',
-                gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e3'
             }]);
             done();
         });

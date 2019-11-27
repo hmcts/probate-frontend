@@ -45,7 +45,6 @@
     "stub:s2s": "NODE_PATH=. node test/service-stubs/idam.js",
     "stub:fees-api": "NODE_PATH=. node test/service-stubs/feesApi.js",
     "stub:submit": "NODE_PATH=. node test/service-stubs/submit.js",
-    "stub:persistence": "NODE_PATH=. node test/service-stubs/persistence.js",
     "stub:business": "NODE_PATH=. node test/service-stubs/business.js",
     "stub:payment": "NODE_PATH=. node test/service-stubs/payment.js",
     "stub:multiple-applications": "NODE_PATH=. node test/service-stubs/multipleApplications.js",

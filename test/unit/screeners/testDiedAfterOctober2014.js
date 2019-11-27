@@ -41,6 +41,9 @@ describe('DiedAfterOctober2014', () => {
                 sessionID: 'dummy_sessionId',
                 diedAfter: content.optionYes,
                 caseType: 'gop',
+                featureToggles: {
+                    webforms: 'false'
+                },
                 userLoggedIn: false,
                 ccdCase: {
                     id: 1234567890123456,

@@ -41,6 +41,9 @@ describe('OtherApplicants', () => {
                 sessionID: 'dummy_sessionId',
                 otherApplicants: content.optionYes,
                 caseType: 'gop',
+                featureToggles: {
+                    webforms: 'false'
+                },
                 userLoggedIn: false,
                 ccdCase: {
                     id: 1234567890123456,

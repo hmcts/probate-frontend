@@ -48,6 +48,9 @@ describe('Executor-Additional-Invite-Sent', () => {
                 inviteSuffix: '',
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
+                featureToggles: {
+                    webforms: 'false'
+                },
                 userLoggedIn: false,
                 authToken: 'authToken',
                 serviceAuthorization: 'serviceAuthorization',
@@ -81,6 +84,9 @@ describe('Executor-Additional-Invite-Sent', () => {
                 inviteSuffix: '-multiple',
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
+                featureToggles: {
+                    webforms: 'false'
+                },
                 userLoggedIn: false,
                 authToken: 'authToken',
                 serviceAuthorization: 'serviceAuthorization',

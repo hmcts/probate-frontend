@@ -5,9 +5,17 @@ const {assert} = require('chai');
 const CoApplicantStartPage = require('app/steps/ui/coapplicant/startpage');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
-const nock = require('nock');
 const S2S_URL = config.services.idam.s2s_url;
 const IDAM_URL = config.services.idam.apiUrl;
+const featureToggleUrl = config.featureToggles.url;
+const webformsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.webforms}`;
+const nock = require('nock');
+
+const featureTogglesNockWebforms = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(webformsFeatureTogglePath)
+        .reply(200, status);
+};
 const afterEachNocks = (done) => {
     return () => {
         nock.cleanAll();
@@ -44,12 +52,29 @@ describe('pin-page', () => {
                         .end(() => {
                             const playbackData = {
                                 helpTitle: commonContent.helpTitle,
-                                helpHeading1: commonContent.helpHeading1,
-                                helpHeading2: commonContent.helpHeading2,
+                                helpHeadingTelephone: commonContent.helpHeadingTelephone,
+                                helpHeadingEmail: commonContent.helpHeadingEmail,
+                                helpHeadingWebchat: commonContent.helpHeadingWebchat,
                                 helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
                             };
                             testWrapper.testDataPlayback(done, playbackData);
                         });
+                });
+        });
+
+        it('test webforms help block content is loaded on page', (done) => {
+            featureTogglesNockWebforms();
+
+            testWrapper.agent.post('/prepare-session-field/validLink/true')
+                .end(() => {
+                    const playbackData = {
+                        helpHeadingOnlineForm: commonContent.helpHeadingOnlineForm,
+                        sendUsAMessage: commonContent.sendUsAMessage.replace('{webForms}', config.links.webForms),
+                        opensInNewWindow: commonContent.opensInNewWindow,
+                        responseTime: commonContent.responseTime
+                    };
+
+                    testWrapper.testDataPlayback(afterEachNocks(done), playbackData);
                 });
         });
 

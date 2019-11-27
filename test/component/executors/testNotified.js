@@ -5,6 +5,15 @@ const TaskList = require('app/steps/ui/tasklist');
 const ExecutorRoles = require('app/steps/ui/executors/roles');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('app/config');
+const webformsFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.webforms}`;
+const nock = require('nock');
+const featureToggleUrl = config.featureToggles.url;
+
+const featureTogglesNockWebforms = (status = 'true') => {
+    nock(featureToggleUrl)
+        .get(webformsFeatureTogglePath)
+        .reply(200, status);
+};
 
 describe('executor-notified', () => {
     let testWrapper, sessionData;
@@ -32,6 +41,7 @@ describe('executor-notified', () => {
 
     afterEach(() => {
         testWrapper.destroy();
+        nock.cleanAll();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -41,8 +51,9 @@ describe('executor-notified', () => {
                 .end(() => {
                     const playbackData = {
                         helpTitle: commonContent.helpTitle,
-                        helpHeading1: commonContent.helpHeading1,
-                        helpHeading2: commonContent.helpHeading2,
+                        helpHeadingTelephone: commonContent.helpHeadingTelephone,
+                        helpHeadingEmail: commonContent.helpHeadingEmail,
+                        helpHeadingWebchat: commonContent.helpHeadingWebchat,
                         helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
                     };
 
@@ -50,8 +61,24 @@ describe('executor-notified', () => {
                 });
         });
 
-        it('test right content loaded on the page', (done) => {
+        it('test webforms help block content is loaded on page', (done) => {
+            featureTogglesNockWebforms();
 
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const playbackData = {
+                        helpHeadingOnlineForm: commonContent.helpHeadingOnlineForm,
+                        sendUsAMessage: commonContent.sendUsAMessage.replace('{webForms}', config.links.webForms),
+                        opensInNewWindow: commonContent.opensInNewWindow,
+                        responseTime: commonContent.responseTime
+                    };
+
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
+
+        it('test right content loaded on the page', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

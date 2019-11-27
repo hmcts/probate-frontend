@@ -1,0 +1,19 @@
+{% extends "includes/layout.html" %}
+
+{% set displaySignOutLink = 'false' %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">{{ content.header }}</h1>
+            <p class="govuk-body">{{ content.paragraph1 }}</p>
+            <p class="govuk-body">{{ content.paragraph2 }}</p>
+            <p class="govuk-body">{{ content.paragraph3 | replace('{applyForProbate}', links.applyForProbate) | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph4 }}</p>
+            <p class="govuk-body">
+                {{ common.helpHeading1 | safe }}: {{ globals.helpline.number | safe }} ({{ globals.helpline.hours | safe }})<br>
+                {{ common.helpEmailLabel | replace('{contactEmailAddress}', globals.links.contactEmailAddress) | safe }}
+            </p>
+        </div>
+    </div>
+{% endblock %}

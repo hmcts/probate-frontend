@@ -159,6 +159,7 @@ const config = {
         ifYoureAnExecutor: 'https://www.gov.uk/wills-probate-inheritance/if-youre-an-executor',
         renunciationForm: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will',
         assessingMentalCapacity: 'https://www.gov.uk/make-decisions-for-someone/assessing-mental-capacity',
+        applyForProbate: 'https://www.gov.uk/wills-probate-inheritance/applying-for-a-grant-of-representation',
         myAbilityLink: 'https://mcmw.abilitynet.org.uk/',
         equalityAdvisorLink: 'https://www.equalityadvisoryservice.com/',
         wcag21Link: 'https://www.w3.org/TR/WCAG21/'
@@ -221,7 +222,7 @@ const config = {
         gop: [],
         intestacy: []
     },
-    nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies'],
+    nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'offline'],
     noCcdCaseIdPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'dashboard', 'sign-out', 'time-out'],
     endpoints: {
         health: '/health',

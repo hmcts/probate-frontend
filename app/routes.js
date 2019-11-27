@@ -9,6 +9,7 @@ const logger = require('app/components/logger');
 const {get, includes, isEqual} = require('lodash');
 const commonContent = require('app/resources/en/translation/common');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const shutter = require('app/shutter');
 const documentUpload = require('app/documentUpload');
 const documentDownload = require('app/documentDownload');
 const multipleApplications = require('app/multipleApplications');
@@ -23,6 +24,8 @@ const steps = initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`])
 const Security = require('app/services/Security');
 const Authorise = require('app/services/Authorise');
 const FormatUrl = require('app/utils/FormatUrl');
+
+router.use(shutter);
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);

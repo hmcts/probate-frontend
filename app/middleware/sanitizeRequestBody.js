@@ -1,3 +1,5 @@
+'use strict';
+
 const sanitizer = require('sanitizer');
 const traverse = require('traverse');
 const emoji = require('node-emoji');

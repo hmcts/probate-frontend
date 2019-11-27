@@ -10,6 +10,7 @@ const TaskList = require('app/steps/ui/tasklist');
 const ExecutorsApplying = require('app/steps/ui/executors/applying');
 const contentData = {executorFullName: 'many clouds'};
 const commonContent = require('app/resources/en/translation/common');
+const content = require('app/resources/en/translation/executors/whendied');
 const executorRolesContent = require('app/resources/en/translation/executors/executorcontent');
 const config = require('app/config');
 
@@ -39,7 +40,7 @@ describe('executors-when-died', () => {
         index: 1,
         isApplying: 'No',
         notApplyingReason: reasons.optionDiedBefore,
-        diedbefore: 'Yes'
+        diedbefore: content.optionYes
     };
 
     beforeEach(() => {
@@ -124,7 +125,7 @@ describe('executors-when-died', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        diedbefore: 'Yes'
+                        diedbefore: content.optionYes
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecsWhenDied);
@@ -163,7 +164,7 @@ describe('executors-when-died', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        diedbefore: 'Yes'
+                        diedbefore: content.optionYes
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testRedirect(done, data, expectedNextUrlForExecsApplying);
@@ -201,7 +202,7 @@ describe('executors-when-died', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        diedbefore: 'Yes'
+                        diedbefore: content.optionYes
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
@@ -254,7 +255,7 @@ describe('executors-when-died', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        diedbefore: 'Yes'
+                        diedbefore: content.optionYes
                     };
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
                     testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
@@ -304,7 +305,7 @@ describe('executors-when-died', () => {
                 ctx.notApplyingReason = reasons[key];
                 ctx.diedbefore = 'No';
                 if (key === 'optionDiedBefore') {
-                    ctx.diedbefore = 'Yes';
+                    ctx.diedbefore = content.optionYes;
                 }
                 ctx.index = 1;
                 [ctx] = ExecutorsWhenDied.handlePost(ctx);

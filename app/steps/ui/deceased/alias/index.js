@@ -3,6 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const DeceasedWrapper = require('app/wrappers/Deceased');
 const FormatName = require('app/utils/FormatName');
+const content = require('app/resources/en/translation/deceased/alias');
 
 class DeceasedAlias extends ValidationStep {
 
@@ -26,14 +27,6 @@ class DeceasedAlias extends ValidationStep {
         return ctx;
     }
 
-    handlePost(ctx, errors) {
-        const hasAlias = (new DeceasedWrapper(ctx)).hasAlias();
-        if (!hasAlias && ctx.otherNames) {
-            ctx.otherNames = {};
-        }
-        return [ctx, errors];
-    }
-
     isSoftStop(formdata) {
         const softStopForAssetsInAnotherName = (new DeceasedWrapper(formdata.deceased)).hasAlias();
         return {
@@ -45,6 +38,11 @@ class DeceasedAlias extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.deceasedName;
+
+        if (ctx.alias === content.optionNo) {
+            delete ctx.otherNames;
+        }
+
         return [ctx, formdata];
     }
 }

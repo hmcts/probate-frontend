@@ -11,17 +11,17 @@ const contentWillLeft = require('app/resources/en/translation/screeners/willleft
 const initDashboard = (req, res, next) => {
     const session = req.session;
     const formdata = session.form;
-    const formData = ServiceMapper.map(
+    const formDataService = ServiceMapper.map(
         'FormData',
         [config.services.orchestrator.url, req.sessionID]
     );
 
-    formData.getAll(req.authToken, req.session.serviceAuthorization)
+    formDataService.getAll(req.authToken, req.session.serviceAuthorization, formdata.applicantEmail)
         .then(result => {
             if (result.applications && result.applications.length) {
                 if (allEligibilityQuestionsPresent(formdata)) {
                     if (!result.applications.some(application => application.ccdCase.state === 'Pending' && !application.deceasedFullName && application.caseType === caseTypes.getProbateType(formdata.caseType))) {
-                        createNewApplication(req, res, formdata, formData, result, next);
+                        createNewApplication(req, res, formdata, formDataService, result, next);
                     } else {
                         delete formdata.caseType;
                         delete formdata.screeners;
@@ -33,7 +33,7 @@ const initDashboard = (req, res, next) => {
                     renderDashboard(req, result, next);
                 }
             } else if (allEligibilityQuestionsPresent(formdata)) {
-                createNewApplication(req, res, formdata, formData, result, next);
+                createNewApplication(req, res, formdata, formDataService, result, next);
             } else {
                 res.redirect('/start-eligibility');
             }
@@ -43,10 +43,10 @@ const initDashboard = (req, res, next) => {
         });
 };
 
-const createNewApplication = (req, res, formdata, formData, result, next) => {
+const createNewApplication = (req, res, formdata, formDataService, result, next) => {
     cleanupSession(req.session, true);
 
-    formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
+    formDataService.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType, formdata.applicantEmail)
         .then(result => {
             delete formdata.caseType;
             delete formdata.screeners;
@@ -112,12 +112,12 @@ const getCase = (req, res) => {
     }
 
     if (ccdCaseId && probateType) {
-        const formData = ServiceMapper.map(
+        const formDataService = ServiceMapper.map(
             'FormData',
             [config.services.orchestrator.url, req.sessionID]
         );
 
-        formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId, probateType)
+        formDataService.get(req.authToken, req.session.serviceAuthorization, ccdCaseId, probateType)
             .then(result => {
                 session.form = result;
 
@@ -145,12 +145,12 @@ const getDeclarationStatuses = (req, res, next) => {
     if ((get(formdata, 'declaration.declarationCheckbox', false)).toString() === 'true' && hasMultipleApplicants) {
         const ccdCaseId = formdata.ccdCase.id;
 
-        const formData = ServiceMapper.map(
+        const formDataService = ServiceMapper.map(
             'FormData',
             [config.services.orchestrator.url, req.sessionID]
         );
 
-        formData.getDeclarationStatuses(req.authToken, req.session.serviceAuthorization, ccdCaseId)
+        formDataService.getDeclarationStatuses(req.authToken, req.session.serviceAuthorization, ccdCaseId)
             .then(result => {
                 session.form.executorsDeclarations = [];
 

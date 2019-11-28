@@ -4,8 +4,8 @@ const Service = require('./Service');
 const caseTypes = require('app/utils/CaseTypes');
 
 class FormData extends Service {
-    getAll(authToken, serviceAuthorisation) {
-        const path = this.config.services.orchestrator.paths.applications;
+    getAll(authToken, serviceAuthorisation, applicantEmail) {
+        const path = this.replacePlaceholderInPath(this.config.services.orchestrator.paths.applications, 'applicantEmail', applicantEmail);
         const logMessage = 'Get all applications';
         const url = this.endpoint + path;
         this.log(logMessage);
@@ -46,8 +46,8 @@ class FormData extends Service {
         return this.fetchJson(url, fetchOptions);
     }
 
-    postNew(authToken, serviceAuthorisation, caseType) {
-        const probateType = caseTypes.getProbateType(caseType);
+    postNew(authToken, serviceAuthorisation, caseType, applicantEmail) {
+        const probateType = this.replacePlaceholderInPath(caseTypes.getProbateType(caseType), 'applicantEmail', applicantEmail);
         const path = this.config.services.orchestrator.paths.create;
         const url = this.endpoint + path + '?probateType=' + probateType;
         this.log('Post new form data');

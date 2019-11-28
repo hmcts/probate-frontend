@@ -68,7 +68,7 @@ class InviteLink {
         return (req, res, next) => {
             if (useIDAM === 'true' && isEmpty(req.session.inviteId)) {
                 res.status(404);
-                return res.render('errors/404');
+                return res.render('errors/404', {userLoggedIn: req.userLoggedIn});
             }
 
             this.getAuth(req, res)
@@ -81,7 +81,7 @@ class InviteLink {
                             if (result.name === 'Error') {
                                 logger.error(`Error checking everyone has agreed: ${result.message}`);
                                 res.status(500);
-                                return res.render('errors/500');
+                                return res.render('errors/500', {userLoggedIn: req.userLoggedIn});
                             }
 
                             logger.info('Checking if all applicants have already agreed');
@@ -91,7 +91,7 @@ class InviteLink {
                                 const step = steps.CoApplicantAllAgreedPage;
                                 const content = step.generateContent();
                                 const common = step.commonContent();
-                                res.render(steps.CoApplicantAllAgreedPage.template, {content, common});
+                                res.render(steps.CoApplicantAllAgreedPage.template, {content, common, userLoggedIn: req.userLoggedIn});
                             } else {
                                 next();
                             }

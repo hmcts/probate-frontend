@@ -2,6 +2,7 @@
 
 const Service = require('./Service');
 const Authorise = require('./Authorise');
+const config = require('app/config');
 
 class Pdf extends Service {
 
@@ -20,6 +21,7 @@ class Pdf extends Service {
             .then(serviceToken => {
                 headers.ServiceAuthorization = serviceToken;
                 const fetchOptions = this.fetchOptions(body, 'POST', headers);
+                fetchOptions.timeout = config.pdf.timeoutMs;
                 return this.fetchBuffer(url, fetchOptions);
             })
             .catch(err => {

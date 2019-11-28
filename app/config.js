@@ -36,14 +36,14 @@ const config = {
             url: process.env.ORCHESTRATOR_SERVICE_URL || 'http://localhost:8888',
             paths: {
                 forms: '/forms/case/{ccdCaseId}',
-                create: '/forms/newcase/',
+                create: '/forms/newcase/{applicantEmail}',
                 submissions: '/forms/{ccdCaseId}/submissions',
                 payments: '/forms/{ccdCaseId}/payments',
                 payment_updates: '/payment-updates',
                 payment_submissions: '/forms/{ccdCaseId}/payment-submissions',
                 fees: '/forms/{ccdCaseId}/fees',
                 validations: '/forms/{ccdCaseId}/validations',
-                applications: '/forms/cases',
+                applications: '/forms/cases/{applicantEmail}',
                 declarationStatuses: '/invites/{ccdCaseId}'
             },
             port: 8888

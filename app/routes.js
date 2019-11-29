@@ -46,11 +46,11 @@ router.use((req, res, next) => {
     }
 
     if (config.app.useIDAM === 'true') {
-        req.session.form.userLoggedIn = config.noHeaderLinksPages.includes(req.originalUrl) ? false : emailValidator.validate(req.session.form.applicantEmail);
+        req.userLoggedIn = config.noHeaderLinksPages.includes(req.originalUrl) ? false : emailValidator.validate(req.session.form.applicantEmail);
     } else if (!config.noHeaderLinksPages.includes(req.originalUrl)) {
-        req.session.form.userLoggedIn = true;
+        req.userLoggedIn = true;
     }
-    req.log.info(`User logged in: ${req.session.form.userLoggedIn}`);
+    req.log.info(`User logged in: ${req.userLoggedIn}`);
 
     next();
 });
@@ -67,7 +67,7 @@ router.get('/health/liveness', (req, res) => {
 });
 
 router.get('/start-apply', (req, res, next) => {
-    if (config.app.useIDAM === 'true' && req.session.form.userLoggedIn) {
+    if (config.app.useIDAM === 'true' && req.userLoggedIn) {
         res.redirect(301, '/dashboard');
     } else {
         next();
@@ -145,7 +145,7 @@ router.use((req, res, next) => {
     ) {
         const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
 
-        if (req.session.form.userLoggedIn) {
+        if (req.userLoggedIn) {
             allExecutorsAgreed.get(req.authToken, req.session.serviceAuthorization, ccdCaseId)
                 .then(data => {
                     req.session.haveAllExecutorsDeclared = data;
@@ -161,7 +161,7 @@ router.use((req, res, next) => {
                     if (serviceAuthorisation.name === 'Error') {
                         logger.info(`serviceAuthResult Error = ${serviceAuthorisation}`);
                         res.status(500);
-                        res.render('errors/500');
+                        res.render('errors/500', {userLoggedIn: false});
                     } else {
                         const security = new Security();
                         const hostname = FormatUrl.createHostname(req);
@@ -170,7 +170,7 @@ router.use((req, res, next) => {
                                 if (authToken.name === 'Error') {
                                     logger.info(`failed to obtain authToken = ${serviceAuthorisation}`);
                                     res.status(500);
-                                    res.render('errors/500');
+                                    res.render('errors/500', {userLoggedIn: false});
                                 } else {
                                     allExecutorsAgreed.get(authToken, serviceAuthorisation, ccdCaseId)
                                         .then(data => {

@@ -107,7 +107,7 @@ class Security {
     _denyAccess(res) {
         res.clearCookie(SECURITY_COOKIE);
         res.status(403);
-        res.render('errors/403', {common: commonContent});
+        res.render('errors/403', {common: commonContent, userLoggedIn: false});
     }
 
     _generateState() {

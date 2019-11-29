@@ -29,7 +29,7 @@ var DocumentUpload = {
             })
                 .on('addedfile', function() {
                     DocumentUpload.hideEmptyListMessage();
-                    DocumentUpload.disableSubmitButton();
+                    DocumentUpload.disableButtonAndLinks();
                     DocumentUpload.updateLinkAttributes();
                 })
                 .on('removedfile', function(file) {
@@ -44,7 +44,7 @@ var DocumentUpload = {
                     DocumentUpload.showErrorSummaryLine(error);
                 })
                 .on('queuecomplete', function(file) {
-                    DocumentUpload.enableSubmitButton();
+                    DocumentUpload.enableButtonAndLinks();
                 });
         }
     },
@@ -94,11 +94,13 @@ var DocumentUpload = {
             $('[data-fielderror="' + errorMessage + '"]').remove();
         }
     },
-    enableSubmitButton: function() {
-        $('.button').removeAttr('disabled');
+    enableButtonAndLinks: function() {
+        $('.govuk-button').removeAttr('disabled');
+        $('.dz-remove').removeClass('govuk-visually-hidden');
     },
-    disableSubmitButton: function() {
-        $('.button').attr('disabled', 'disabled');
+    disableButtonAndLinks: function() {
+        $('.govuk-button').attr('disabled', 'disabled');
+        $('.dz-remove').addClass('govuk-visually-hidden');
     },
     updateLinkAttributes: function() {
         $('.dz-preview').each(function(key) {

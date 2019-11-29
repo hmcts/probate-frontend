@@ -25,7 +25,7 @@ class RedirectRunner extends UIStepRunner {
             }
         }).catch((error) => {
             req.log.error(error);
-            res.status(500).render('errors/500');
+            res.status(500).render('errors/500', {userLoggedIn: req.userLoggedIn});
         });
     }
 }

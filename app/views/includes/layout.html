@@ -24,7 +24,7 @@
 
     {% if not hideNavigation %}
         {% set navigationItems = [] %}
-        {% if fields.userLoggedIn.value === "true" %}
+        {% if userLoggedIn %}
             {% if fields.isDashboard.value !== "true" %}
                 {% set navigationItems = (navigationItems.push({
                     href: "/dashboard",

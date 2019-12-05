@@ -13,7 +13,7 @@ class ActionStepRunner {
     handleGet(step, req, res) {
         req.log.error(`GET operation not defined for ${step.name} step`);
         res.status(404);
-        res.render('errors/404');
+        res.render('errors/404', {userLoggedIn: req.userLoggedIn});
     }
 
     handlePost(step, req, res) {
@@ -31,7 +31,7 @@ class ActionStepRunner {
             res.redirect(next.constructor.getUrl());
         }).catch((error) => {
             req.log.error(error);
-            res.status(500).render('errors/500');
+            res.status(500).render('errors/500', {userLoggedIn: req.userLoggedIn});
         });
     }
 }

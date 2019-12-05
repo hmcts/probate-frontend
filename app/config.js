@@ -166,7 +166,7 @@ const config = {
     helpline: {
         number: '0300 303 0648',
         email: 'contactprobate@justice.gov.uk',
-        hours: 'Monday to Friday, 9:30am to 5pm'
+        hours: 'Monday to Friday, 8:00am to 8:00pm. Saturday, 8:00am to 2:00pm.'
     },
     utils: {
         api: {

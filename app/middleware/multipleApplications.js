@@ -18,52 +18,52 @@ const initDashboard = (req, res, next) => {
 
     formData.getAll(req.authToken, req.session.serviceAuthorization)
         .then(result => {
-            logger.error('Applications request complete');
+            logger.info('>>>>>>>>>>>>>>>>>>>>>> Applications request complete');
 
             if (result.applications && result.applications.length) {
-                logger.error('Applications found: ', result.applications.length);
+                logger.info('>>>>>>>>>>>>>>>>>>>>>> Applications found: ', result.applications.length);
 
                 if (allEligibilityQuestionsPresent(formdata)) {
-                    logger.error('All eligibility questions present');
+                    logger.info('>>>>>>>>>>>>>>>>>>>>>> All eligibility questions present');
 
                     if (!result.applications.some(application => application.ccdCase.state === 'Pending' && !application.deceasedFullName && application.caseType === caseTypes.getProbateType(formdata.caseType))) {
-                        logger.error('No applications of same case type present');
+                        logger.info('>>>>>>>>>>>>>>>>>>>>>> No applications of same case type present');
 
                         createNewApplication(req, res, formdata, formData, result, next);
                     } else {
-                        logger.error('One or more applications of the same case type present');
+                        logger.info('>>>>>>>>>>>>>>>>>>>>>> One or more applications of the same case type present');
 
                         renderDashboard(req, result, next);
                     }
                 } else {
-                    logger.error('Not all eligibility questions present or no eligibility questions present at all');
+                    logger.info('>>>>>>>>>>>>>>>>>>>>>> Not all eligibility questions present or no eligibility questions present at all');
 
                     renderDashboard(req, result, next);
                 }
             } else if (allEligibilityQuestionsPresent(formdata)) {
-                logger.error('No applications found');
-                logger.error('All eligibility questions present');
+                logger.info('>>>>>>>>>>>>>>>>>>>>>> No applications found');
+                logger.info('>>>>>>>>>>>>>>>>>>>>>> All eligibility questions present');
 
                 createNewApplication(req, res, formdata, formData, result, next);
             } else {
-                logger.error('Not all eligibility questions present and no applications found, redirecting to Start Eligibility');
+                logger.info('>>>>>>>>>>>>>>>>>>>>>> Not all eligibility questions present and no applications found, redirecting to Start Eligibility');
 
                 res.redirect('/start-eligibility');
             }
         })
         .catch(err => {
-            logger.error(`Error while getting applications: ${err}`);
+            logger.info(`Error while getting applications: ${err}`);
         });
 };
 
 const createNewApplication = (req, res, formdata, formData, result, next) => {
-    logger.error('Creating a new application');
+    logger.info('>>>>>>>>>>>>>>>>>>>>>> Creating a new application');
 
     cleanupSession(req.session, true);
 
     formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
         .then(result => {
-            logger.error('New application created');
+            logger.info('>>>>>>>>>>>>>>>>>>>>>> New application created');
 
             renderDashboard(req, result, next);
         })
@@ -94,7 +94,7 @@ const allEligibilityQuestionsPresent = (formdata) => {
 };
 
 const renderDashboard = (req, result, next) => {
-    logger.error('Deleting eligibility questions from session (if any present) and rendering the dashboard');
+    logger.info('>>>>>>>>>>>>>>>>>>>>>> Deleting eligibility questions from session (if any present) and rendering the dashboard');
 
     delete req.session.form.caseType;
     delete req.session.form.screeners;

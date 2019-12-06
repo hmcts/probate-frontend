@@ -27,11 +27,11 @@ const initDashboard = (req, res, next) => {
                     logger.info('>>>>>>>>>>>>>>>>>>>>>> All eligibility questions present');
 
                     if (!result.applications.some(application => application.ccdCase.state === 'Pending' && !application.deceasedFullName && application.caseType === caseTypes.getProbateType(formdata.caseType))) {
-                        logger.info('>>>>>>>>>>>>>>>>>>>>>> No applications of same case type present');
+                        logger.info(`>>>>>>>>>>>>>>>>>>>>>> No applications of same case type (${caseTypes.getProbateType(formdata.caseType).toUpperCase()}) present`);
 
                         createNewApplication(req, res, formdata, formData, result, next);
                     } else {
-                        logger.info('>>>>>>>>>>>>>>>>>>>>>> One or more applications of the same case type present');
+                        logger.info(`>>>>>>>>>>>>>>>>>>>>>> One or more applications of the same case type (${caseTypes.getProbateType(formdata.caseType).toUpperCase()}) present`);
 
                         renderDashboard(req, result, next);
                     }
@@ -57,13 +57,13 @@ const initDashboard = (req, res, next) => {
 };
 
 const createNewApplication = (req, res, formdata, formData, result, next) => {
-    logger.info('>>>>>>>>>>>>>>>>>>>>>> Creating a new application');
+    logger.info(`>>>>>>>>>>>>>>>>>>>>>> Creating a new ${caseTypes.getProbateType(formdata.caseType).toUpperCase()} application`);
 
     cleanupSession(req.session, true);
 
     formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
         .then(result => {
-            logger.info('>>>>>>>>>>>>>>>>>>>>>> New application created');
+            logger.info(`>>>>>>>>>>>>>>>>>>>>>> New ${caseTypes.getProbateType(formdata.caseType).toUpperCase()} application created`);
 
             renderDashboard(req, result, next);
         })

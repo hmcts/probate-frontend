@@ -37,6 +37,7 @@ class ExecutorsUpdateInvite extends ValidationStep {
                     firstName: formdata.deceased.firstName,
                     lastName: formdata.deceased.lastName,
                     email: exec.email,
+                    inviteId: exec.inviteId,
                     phoneNumber: exec.mobile,
                     formdataId: formdata.ccdCase.id,
                     leadExecutorName: FormatName.format(formdata.applicant)

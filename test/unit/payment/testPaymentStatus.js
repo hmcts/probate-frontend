@@ -199,7 +199,7 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it('should set payment status to not_required and redirect to false when paymentDue is false', (done) => {
+        it('should set payment status to not_required and redirect to false when paymentDue is false and paymentNotRequired is true', (done) => {
             const expectedFormData = {
                 caseType: 'gop',
                 ccdCase: {
@@ -222,7 +222,8 @@ describe('PaymentStatus', () => {
                 authToken: 'XXXXX',
                 userId: 12345,
                 reference: 4567,
-                paymentDue: false
+                paymentDue: false,
+                paymentNotRequired: true
             };
 
             const formData = {
@@ -233,7 +234,6 @@ describe('PaymentStatus', () => {
                     address: 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
                     sequenceNumber: 3
                 }
-
             };
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
 
@@ -247,14 +247,14 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it('should return validation error if paymentPending is true', (done) => {
+        it('should return validation error if paymentDue is false and paymentNotRequired is false', (done) => {
             revertSubmitData({type: 'VALIDATION'});
             ctx = {
                 authToken: 'XXXXX',
                 userId: 12345,
                 reference: 4567,
                 paymentDue: false,
-                paymentPending: true,
+                paymentNotRequired: false,
                 registry: {
                     name: 'ctsc',
                     email: 'ctsc@email.com',

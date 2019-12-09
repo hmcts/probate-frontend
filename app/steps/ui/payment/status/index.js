@@ -23,17 +23,15 @@ class PaymentStatus extends Step {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
+
+        ctx.payment = get(formdata, 'payment');
+        ctx.paymentNotRequired = get(ctx.payment, 'total') === 0;
         ctx.reference = get(formdata, 'payment.reference');
+        ctx.paymentBreakdownSkipped = typeof ctx.reference === 'undefined';
+        ctx.paymentDue = !ctx.paymentBreakdownSkipped && !ctx.paymentNotRequired;
+
         ctx.userId = req.userId;
         ctx.authToken = req.authToken;
-        if (!get(formdata, 'payment.amount')) {
-            set(formdata, 'payment.amount', 0);
-        }
-        if (formdata.payment && formdata.payment.total) {
-            set(formdata, 'payment.amount', formdata.payment.total);
-        }
-        ctx.paymentDue = get(formdata, 'payment.amount') > 0;
-        ctx.paymentPending = !ctx.paymentDue && ctx.applicationFee !== 0;
         ctx.regId = req.session.regId;
         ctx.sessionId = req.session.id;
         ctx.errors = req.errors;
@@ -47,7 +45,10 @@ class PaymentStatus extends Step {
         delete ctx.regId;
         delete ctx.sessionId;
         delete ctx.errors;
-        delete ctx.paymentPending;
+        delete ctx.paymentNotRequired;
+        delete ctx.paymentDue;
+        delete ctx.payment;
+        delete ctx.paymentBreakdownSkipped;
         return [ctx, formdata];
     }
 
@@ -104,11 +105,12 @@ class PaymentStatus extends Step {
                 options.redirect = false;
             }
         } else {
-            const paymentStatus = ctx.paymentPending ? 'Pending' : 'not_required';
-            const paymentDto = {status: paymentStatus};
-            const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, paymentDto, serviceAuthResult);
+            if (ctx.paymentNotRequired) {
+                set(ctx.payment, 'status', 'not_required');
+            }
+            const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, ctx.payment, serviceAuthResult);
 
-            if (!ctx.paymentPending) {
+            if (ctx.paymentNotRequired) {
                 set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
                 set(formdata, 'payment', updateCcdCaseResponse.payment);
                 set(formdata, 'registry', updateCcdCaseResponse.registry);

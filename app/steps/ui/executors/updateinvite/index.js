@@ -33,7 +33,7 @@ class ExecutorsUpdateInvite extends ValidationStep {
         executorsToNotifyList = executorsToNotifyList
             .map(exec => {
                 return {
-                    id: exec.id,
+                    inviteId: exec.inviteId,
                     executorName: exec.fullName,
                     firstName: formdata.deceased.firstName,
                     lastName: formdata.deceased.lastName,

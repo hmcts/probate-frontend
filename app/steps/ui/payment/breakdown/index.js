@@ -21,7 +21,7 @@ class PaymentBreakdown extends Step {
 
         ctx.copies = this.createCopiesLayout(formdata);
         ctx.applicationFee = fees.applicationfee;
-        ctx.total = Number.isInteger(fees.total) ? fees.total : parseFloat(fees.total).toFixed(2);
+        ctx.total = Number.isInteger(fees.total) ? fees.total.toFixed(2) : parseFloat(fees.total).toFixed(2);
         return [ctx, ctx.errors];
     }
 

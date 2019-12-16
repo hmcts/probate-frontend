@@ -22,7 +22,7 @@
 {% endif %}
 {% set tableRows = (tableRows.push([
     { text: content.total | safe },
-    { text: ("&pound;" + fields.total.value) | safe }
+    { text: ("&pound;" + fields.total.value.toFixed(2)) | safe }
 ]), tableRows) %}
 
 {% block form_content %}

@@ -33,6 +33,7 @@ describe('Will', () => {
             });
         });
     });
+
     describe('codicilsNumber()', () => {
         it('should return the number of codicils when there is a codicils number', (done) => {
             const data = {codicilsNumber: 2};

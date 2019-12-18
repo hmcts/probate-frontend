@@ -34,8 +34,9 @@ const eligibilityCookie = new EligibilityCookie();
 const caseTypes = require('app/utils/CaseTypes');
 const featureToggles = require('app/featureToggles');
 const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody');
+const isEmpty = require('lodash').isEmpty;
 
-exports.init = function() {
+exports.init = function(isA11yTest = false, a11yTestSession = {}) {
     const app = express();
     const port = config.app.port;
     const releaseVersion = packageJson.version;
@@ -207,6 +208,11 @@ exports.init = function() {
         if (!req.session) {
             return next(new Error('Unable to reach redis'));
         }
+
+        if (isA11yTest && !isEmpty(a11yTestSession)) {
+            req.session = Object.assign(req.session, a11yTestSession);
+        }
+
         next(); // otherwise continue
     });
 

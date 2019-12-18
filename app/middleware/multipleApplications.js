@@ -121,11 +121,7 @@ const getCase = (req, res) => {
             .then(result => {
                 session.form = result;
 
-                if (session.form.ccdCase.state === 'Pending' || session.form.ccdCase.state === 'PAAppCreated' || session.form.ccdCase.state === 'CasePaymentFailed') {
-                    res.redirect('/task-list');
-                } else {
-                    res.redirect('/thank-you');
-                }
+                res.redirect('/task-list');
             })
             .catch(err => {
                 logger.error(`Error while getting the case: ${err}`);

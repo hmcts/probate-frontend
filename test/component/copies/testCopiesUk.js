@@ -5,8 +5,14 @@ const AssetsOverseas = require('app/steps/ui/assets/overseas');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const config = require('app/config');
 const featureToggleUrl = config.featureToggles.url;
+const orchestratorServiceUrl = config.services.orchestrator.url;
 const feesApiFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.fees_api}`;
 const nock = require('nock');
+const invitesAllAgreedNock = () => {
+    nock(orchestratorServiceUrl)
+        .get('/invite/allAgreed/undefined')
+        .reply(200, 'true');
+};
 const beforeEachNocks = (status = 'true') => {
     nock(featureToggleUrl)
         .get(feesApiFeatureTogglePath)
@@ -17,6 +23,11 @@ const afterEachNocks = (done) => {
         nock.cleanAll();
         done();
     };
+};
+const sessionData = {
+    declaration: {
+        declarationCheckbox: 'true'
+    }
 };
 
 describe('copies-uk', () => {
@@ -32,7 +43,7 @@ describe('copies-uk', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('CopiesUk');
+        testCommonContent.runTest('CopiesUk', null, null, [], false, {ccdCase: {state: 'CaseCreated'}, declaration: {declarationCheckbox: 'true'}});
 
         it('test right content loaded on the page with the fees_api toggle ON', (done) => {
             beforeEachNocks('true');
@@ -66,30 +77,48 @@ describe('copies-uk', () => {
         });
 
         it('test errors message displayed for invalid data, text values', (done) => {
-            const data = {uk: 'abcd'};
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {uk: 'abcd'};
 
-            testWrapper.testErrors(done, data, 'invalid');
+                    testWrapper.testErrors(done, data, 'invalid');
+                });
         });
 
         it('test errors message displayed for invalid data, special characters', (done) => {
-            const data = {uk: '//1234//'};
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {uk: '//1234//'};
 
-            testWrapper.testErrors(done, data, 'invalid');
+                    testWrapper.testErrors(done, data, 'invalid');
+                });
         });
 
         it('test errors message displayed for missing data, nothing entered', (done) => {
-            const data = {uk: ''};
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {uk: ''};
 
-            testWrapper.testErrors(done, data, 'required');
+                    testWrapper.testErrors(done, data, 'required');
+                });
         });
 
         it('test errors message displayed for invalid data, negative numbers', (done) => {
-            const data = {uk: '-1'};
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {uk: '-1'};
 
-            testWrapper.testErrors(done, data, 'invalid');
+                    testWrapper.testErrors(done, data, 'invalid');
+                });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForAssetsOverseas}`, (done) => {
+            invitesAllAgreedNock();
+
             const data = {uk: '0'};
             const sessionData = require('test/data/copiesUk');
 
@@ -103,6 +132,8 @@ describe('copies-uk', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForAssetsOverseas}`, (done) => {
+            invitesAllAgreedNock();
+
             const data = {uk: '1'};
             const sessionData = require('test/data/copiesUk');
 

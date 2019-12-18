@@ -111,6 +111,15 @@ describe('PaymentStatus', () => {
         nock.cleanAll();
     });
 
+    describe('getUrl()', () => {
+        it('should return the correct url', (done) => {
+            const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
+            const url = paymentStatus.constructor.getUrl();
+            expect(url).to.equal('/payment-status');
+            done();
+        });
+    });
+
     describe('runnerOptions', () => {
         it('redirect if there is an authorise failure', (done) => {
             revertSubmitData(expectedFormData);
@@ -346,6 +355,26 @@ describe('PaymentStatus', () => {
             }).catch(err => {
                 done(err);
             });
+        });
+    });
+
+    describe('action()', () => {
+        it('test that context variables are removed and empty object returned', () => {
+            const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
+            let formdata = {};
+            let ctx = {
+                authToken: '',
+                userId: '',
+                regId: '',
+                sessionId: '',
+                errors: '',
+                paymentNotRequired: '',
+                paymentDue: '',
+                payment: '',
+                paymentBreakdownSkipped: ''
+            };
+            [ctx, formdata] = paymentStatus.action(ctx, formdata);
+            expect(ctx).to.deep.equal({});
         });
     });
 });

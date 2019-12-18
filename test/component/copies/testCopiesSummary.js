@@ -24,6 +24,9 @@ describe('copies-summary', () => {
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456
+                },
+                declaration: {
+                    declarationCheckbox: 'true'
                 }
             };
 
@@ -41,6 +44,9 @@ describe('copies-summary', () => {
 
         it('test correct content loaded on the copies summary page, when section is completed', (done) => {
             const sessionData = require('test/data/complete-form-undeclared').formdata;
+            sessionData.declaration = {
+                declarationCheckbox: 'true'
+            };
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

@@ -14,6 +14,9 @@ describe('redirect to documents', () => {
                 state: 'CaseCreated',
                 id: 1535395401245028
             },
+            declaration: {
+                declarationCheckbox: 'true'
+            },
             payment: {
                 status: 'Success'
             }

@@ -17,13 +17,16 @@ describe('executors-invites-sent', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ExecutorsInvitesSent');
+        testCommonContent.runTest('ExecutorsInvitesSent', null, null, [], false, {declaration: {declarationCheckbox: 'true'}});
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456
+                },
+                declaration: {
+                    declarationCheckbox: 'true'
                 }
             };
 

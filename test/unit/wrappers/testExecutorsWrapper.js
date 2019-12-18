@@ -800,4 +800,36 @@ describe('Executors.js', () => {
             });
         });
     });
+
+    describe('invitesSent()', () => {
+        it('should return true if the coapplicant invites have been sent', (done) => {
+            const data = {invitesSent: 'true'};
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.invitesSent()).to.equal(true);
+            done();
+        });
+
+        it('should return false if the coapplicant invites have not been sent', (done) => {
+            const data = {};
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.invitesSent()).to.equal(false);
+            done();
+        });
+    });
+
+    describe('haveAllExecutorsDeclared()', () => {
+        it('should return true if the all executors have declared', (done) => {
+            const data = 'true';
+            const executorsWrapper = new ExecutorsWrapper({}, data);
+            expect(executorsWrapper.haveAllExecutorsDeclared()).to.equal(true);
+            done();
+        });
+
+        it('should return false if not all executors have declared', (done) => {
+            const data = 'false';
+            const executorsWrapper = new ExecutorsWrapper({}, data);
+            expect(executorsWrapper.haveAllExecutorsDeclared()).to.equal(false);
+            done();
+        });
+    });
 });

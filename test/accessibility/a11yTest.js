@@ -15,6 +15,15 @@ const stepsToExclude = [
 const steps = initSteps.steps;
 const nock = require('nock');
 const config = require('app/config');
+const commonSessionData = {
+    form: {
+        payloadVersion: config.payloadVersion,
+        applicantEmail: 'test@email.com',
+        applicant: {},
+        deceased: {}
+    },
+    back: []
+};
 
 Object.keys(steps)
     .filter(stepName => stepsToExclude.includes(stepName))
@@ -22,7 +31,33 @@ Object.keys(steps)
 
 for (const step in steps) {
     ((step) => {
+        const stepUrl = step.constructor.getUrl();
         let results;
+        let sessionData = {};
+
+        if (config.whitelistedPagesAfterSubmission.includes(stepUrl)) {
+            sessionData = Object.assign(commonSessionData, {
+                form: {
+                    declaration: {
+                        declarationCheckbox: 'true'
+                    },
+                    payment: {
+                        total: 0
+                    },
+                    ccdCase: {
+                        state: 'CaseCreated'
+                    }
+                }
+            });
+        } else if (config.whitelistedPagesAfterDeclaration.includes(stepUrl)) {
+            sessionData = Object.assign(commonSessionData, {
+                form: {
+                    declaration: {
+                        declarationCheckbox: 'true'
+                    }
+                }
+            });
+        }
 
         describe(`Verify accessibility for the page ${step.name}`, () => {
             let server = null;
@@ -49,14 +84,14 @@ for (const step in steps) {
                     .get(`${config.featureToggles.path}/probate-fees-api`)
                     .reply(200, 'true');
 
-                server = app.init();
+                server = app.init(true, sessionData);
                 agent = request.agent(server.app);
                 co(function* () {
                     let urlSuffix = '';
                     if (endsWith(agent.get(step.constructor.getUrl()), '*')) {
                         urlSuffix = '/0';
                     }
-                    results = yield a11y(agent.get(step.constructor.getUrl()).url + urlSuffix, title);
+                    results = yield a11y(agent.get(stepUrl).url + urlSuffix, title);
                 })
                     .then(done, done)
                     .catch((error) => {

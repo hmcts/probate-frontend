@@ -9,6 +9,11 @@ describe('assets-overseas', () => {
     let testWrapper;
     const expectedNextUrlForCopiesOverseas = CopiesOverseas.getUrl();
     const expectedNextUrlForCopiesSummary = CopiesSummary.getUrl();
+    const declarationCheckboxSessionData = {
+        declaration: {
+            declarationCheckbox: 'true'
+        }
+    };
 
     beforeEach(() => {
         testWrapper = new TestWrapper('AssetsOverseas');
@@ -19,7 +24,7 @@ describe('assets-overseas', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('AssetsOverseas');
+        testCommonContent.runTest('AssetsOverseas', null, null, [], false, {ccdCase: {state: 'CaseCreated'}, declaration: {declarationCheckbox: 'true'}});
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
@@ -30,6 +35,9 @@ describe('assets-overseas', () => {
                 deceased: {
                     firstName: 'John',
                     lastName: 'Doe'
+                },
+                declaration: {
+                    declarationCheckbox: 'true'
                 }
             };
 
@@ -43,21 +51,33 @@ describe('assets-overseas', () => {
         });
 
         it(`test it redirects to Copies Overseas page: ${expectedNextUrlForCopiesOverseas}`, (done) => {
-            const data = {assetsoverseas: 'Yes'};
+            testWrapper.agent.post('/prepare-session/form')
+                .send(declarationCheckboxSessionData)
+                .end(() => {
+                    const data = {assetsoverseas: 'Yes'};
 
-            testWrapper.nextPageUrl = testWrapper.nextStep(data).constructor.getUrl();
-            testWrapper.testRedirect(done, data, expectedNextUrlForCopiesOverseas);
+                    testWrapper.nextPageUrl = testWrapper.nextStep(data).constructor.getUrl();
+                    testWrapper.testRedirect(done, data, expectedNextUrlForCopiesOverseas);
+                });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForCopiesSummary}`, (done) => {
-            const data = {assetsoverseas: 'No'};
+            testWrapper.agent.post('/prepare-session/form')
+                .send(declarationCheckboxSessionData)
+                .end(() => {
+                    const data = {assetsoverseas: 'No'};
 
-            testWrapper.nextPageUrl = testWrapper.nextStep(data).constructor.getUrl();
-            testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);
+                    testWrapper.nextPageUrl = testWrapper.nextStep(data).constructor.getUrl();
+                    testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);
+                });
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
+            testWrapper.agent.post('/prepare-session/form')
+                .send(declarationCheckboxSessionData)
+                .end(() => {
+                    testWrapper.testErrors(done, {}, 'required');
+                });
         });
     });
 });

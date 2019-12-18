@@ -24,6 +24,9 @@ describe('payment-breakdown', () => {
             ccdCase: {
                 state: 'Pending',
                 id: 1234567890123456
+            },
+            declaration: {
+                declarationCheckbox: 'true'
             }
         };
 
@@ -48,7 +51,7 @@ describe('payment-breakdown', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('PaymentBreakdown');
+        testCommonContent.runTest('PaymentBreakdown', null, null, [], false, {declaration: {declarationCheckbox: 'true'}});
 
         it('test content loaded on the page with no extra copies', (done) => {
             const contentToExclude = ['extraCopiesFeeUk', 'extraCopiesFeeJersey', 'extraCopiesFeeOverseas'];
@@ -108,6 +111,9 @@ describe('payment-breakdown', () => {
                     overseascopies: 2,
                     overseascopiesfee: 3,
                     total: 219.50
+                },
+                declaration: {
+                    declarationCheckbox: 'true'
                 }})
                 .end((err) => {
                     if (err) {

@@ -589,7 +589,7 @@ describe('multipleApplicationsMiddleware', () => {
             });
         });
 
-        it('should return a submitted case and redirect to thank-you', (done) => {
+        it('should return a submitted case and redirect to task-list (which in turn would then redirect to documents or thank-you)', (done) => {
             const req = {
                 originalUrl: '/get-case/9012345678901234?probateType=PA',
                 session: {
@@ -620,7 +620,7 @@ describe('multipleApplicationsMiddleware', () => {
             setTimeout(() => {
                 expect(serviceStub.calledOnce).to.equal(true);
                 expect(redirectSpy.calledOnce).to.equal(true);
-                expect(redirectSpy.calledWith('/thank-you')).to.equal(true);
+                expect(redirectSpy.calledWith('/task-list')).to.equal(true);
 
                 serviceStub.restore();
                 redirectSpy.restore();

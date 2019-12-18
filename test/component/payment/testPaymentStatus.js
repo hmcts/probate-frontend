@@ -34,6 +34,20 @@ const paymentNock = () => {
         );
 };
 
+const commonContentNock = () => {
+    nock(config.services.orchestrator.url)
+        .put(uri => uri.includes('submissions'))
+        .reply(200, {
+            ccdCase: {
+                state: 'CaseCreated',
+                id: 1234567890123456
+            },
+            payment: {
+                total: 0
+            }
+        });
+};
+
 describe('payment-status', () => {
     let testWrapper;
     let sessionData;
@@ -41,6 +55,9 @@ describe('payment-status', () => {
 
     beforeEach(() => {
         sessionData = require('test/data/complete-form-undeclared').formdata;
+        sessionData.declaration = {
+            declarationCheckbox: 'true'
+        };
 
         testWrapper = new TestWrapper('PaymentStatus');
 
@@ -54,7 +71,7 @@ describe('payment-status', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('PaymentStatus');
+        testCommonContent.runTest('PaymentStatus', commonContentNock, null, [], false, {declaration: {declarationCheckbox: 'true'}, payment: {total: 0}});
 
         it('test right content loaded on the page when net value is greater than 5000£', (done) => {
             nock(config.services.orchestrator.url)
@@ -85,6 +102,12 @@ describe('payment-status', () => {
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456
+                },
+                declaration: {
+                    declarationCheckbox: 'true'
+                },
+                payment: {
+                    total: 0
                 }
             };
 

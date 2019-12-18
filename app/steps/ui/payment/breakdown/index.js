@@ -20,8 +20,10 @@ class PaymentBreakdown extends Step {
         this.checkFeesStatus(fees);
 
         ctx.copies = this.createCopiesLayout(formdata);
+        ctx.copies.uk.cost = ctx.copies.uk.cost.toFixed(2);
+        ctx.copies.overseas.cost = ctx.copies.overseas.cost.toFixed(2);
         ctx.applicationFee = fees.applicationfee;
-        ctx.total = Number.isInteger(fees.total) ? fees.total.toFixed(2) : parseFloat(fees.total).toFixed(2);
+        ctx.total =parseFloat(fees.total).toFixed(2);
         return [ctx, ctx.errors];
     }
 

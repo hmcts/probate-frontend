@@ -23,7 +23,7 @@ class PaymentBreakdown extends Step {
         ctx.copies.uk.cost = ctx.copies.uk.cost.toFixed(2);
         ctx.copies.overseas.cost = ctx.copies.overseas.cost.toFixed(2);
         ctx.applicationFee = fees.applicationfee;
-        ctx.total =parseFloat(fees.total).toFixed(2);
+        ctx.total = parseFloat(fees.total).toFixed(2);
         return [ctx, ctx.errors];
     }
 

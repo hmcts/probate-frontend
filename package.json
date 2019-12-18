@@ -73,7 +73,7 @@
     "file-type": "^12.4.0",
     "get-port": "^4.2.0",
     "git-rev-sync": "^1.12.0",
-    "govuk-frontend": "^3.3.0",
+    "govuk-frontend": "^3.4.0",
     "helmet": "^3.21.2",
     "https-proxy-agent": "^2.2.2",
     "i18next": "^17.0.18",

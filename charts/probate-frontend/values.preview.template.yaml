@@ -20,8 +20,8 @@ nodejs:
     PAYMENT_API_URL: http://payment-api-aat.service.core-compute-aat.internal
     VALIDATION_SERVICE_URL: http://probate-business-service-aat.service.core-compute-aat.internal/validate
     BUSINESS_DOCUMENT_URL: http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument
-    SUBMIT_SERVICE_URL: http://probate-submit-service-pr-256.service.core-compute-preview.internal
-    ORCHESTRATOR_SERVICE_URL : http://probate-orchestrator-service-pr-201.service.core-compute-preview.internal
+    SUBMIT_SERVICE_URL: http://probate-submit-service-pr-276.service.core-compute-preview.internal
+    ORCHESTRATOR_SERVICE_URL : http://probate-orchestrator-service-pr-219.service.core-compute-preview.internal
     PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
     REDIS_HOST: ${SERVICE_NAME}-redis-master
     REDIS_PORT: 6379

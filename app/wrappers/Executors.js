@@ -137,11 +137,11 @@ class Executors {
     }
 
     invitesSent() {
-        return this.executorsData.invitesSent === 'true';
+        return (this.executorsData.invitesSent || false).toString() === 'true';
     }
 
     haveAllExecutorsDeclared() {
-        return this.allExecutorsHaveDeclared === 'true';
+        return (this.allExecutorsHaveDeclared || false).toString() === 'true';
     }
 }
 

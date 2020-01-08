@@ -135,7 +135,7 @@
         "requestsItem2" : "return the grant of probate to the court",
         "submitWarning" : "Once you click &lsquo;Save and continue&rsquo;, you cannot change your answers.",
         "understandItem1" : "my application will be rejected if I do not answer any questions about the information I have given",
-        "understandItem2" : "criminal proceedings for fraud may be brought against me if I am found to have been deliberately untruthful or dishonest"
+        "understandItem2" : "proceedings for contempt of court may be brought against the undersigned if it is found that the evidence provided is deliberately untruthful or dishonest, as well as revocation of the grant"
       },
       "legalStatement" : {
         "intro" : "This statement is based on the information you&rsquo;ve given in your application. It will be stored as a public record.",
@@ -203,7 +203,7 @@
           "values" : [ "provide the full details of the estate and how it has been administered", "return the grant of probate to the court" ]
         }, {
           "title" : "I understand that:",
-          "values" : [ "my application will be rejected if I do not answer any questions about the information I have given", "criminal proceedings for fraud may be brought against me if I am found to have been deliberately untruthful or dishonest" ]
+          "values" : [ "my application will be rejected if I do not answer any questions about the information I have given", "proceedings for contempt of court may be brought against the undersigned if it is found that the evidence provided is deliberately untruthful or dishonest, as well as revocation of the grant" ]
         } ]
       } ],
       "dateCreated" : "3/11/2019, 10:33:36 AM"

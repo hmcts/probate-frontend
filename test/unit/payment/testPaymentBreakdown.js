@@ -203,7 +203,7 @@ describe('PaymentBreakdown', () => {
             });
         });
 
-        it('sets nextStepUrl to payment-status if ctx.total = 0', (done) => {
+        it.only('sets nextStepUrl to payment-status if ctx.total = 0', (done) => {
             const req = {
                 session: {
                     journey: journey
@@ -213,7 +213,10 @@ describe('PaymentBreakdown', () => {
             let errors = [];
             const formdata = {
                 fees: {
-                    total: 0.0
+                    total: 0.0,
+                    ukcopiesfee: 0,
+                    overseascopiesfee: 0,
+                    applicationfee: 0
                 }
             };
 
@@ -337,18 +340,18 @@ describe('PaymentBreakdown', () => {
                 expect(errors).to.deep.equal(errorsTestData);
                 expect(ctx).to.deep.equal({
                     caseType: 'gop',
-                    applicationFee: 215,
+                    applicationFee: '215.00',
                     copies: {
                         uk: {
-                            cost: 1.5,
+                            cost: '1.50',
                             number: 1
                         },
                         overseas: {
-                            cost: 3,
+                            cost: '3.00',
                             number: 2
                         }
                     },
-                    total: 219.50
+                    total: '219.50'
                 });
                 postStub.restore();
                 done();

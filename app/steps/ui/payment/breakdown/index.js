@@ -20,8 +20,6 @@ class PaymentBreakdown extends Step {
         this.checkFeesStatus(fees);
 
         ctx.copies = this.createCopiesLayout(formdata);
-        ctx.copies.uk.cost = ctx.copies.uk.cost.toFixed(2);
-        ctx.copies.overseas.cost = ctx.copies.overseas.cost.toFixed(2);
         ctx.applicationFee = fees.applicationfee.toFixed(2);
         ctx.total = parseFloat(fees.total).toFixed(2);
         return [ctx, ctx.errors];
@@ -37,8 +35,8 @@ class PaymentBreakdown extends Step {
         const ukCopies = typeof formdata.copies === 'undefined' ? 0 : formdata.copies.uk;
         const overseasCopies = typeof formdata.copies === 'undefined' ? 0 : formdata.copies.overseas;
         return {
-            uk: {number: ukCopies, cost: formdata.fees.ukcopiesfee},
-            overseas: {number: overseasCopies, cost: formdata.fees.overseascopiesfee},
+            uk: {number: ukCopies, cost: formdata.fees.ukcopiesfee.toFixed(2)},
+            overseas: {number: overseasCopies, cost: formdata.fees.overseascopiesfee.toFixed(2)},
         };
     }
 
@@ -62,9 +60,9 @@ class PaymentBreakdown extends Step {
             if (confirmFees.total !== originalFees.total) {
                 throw new Error(`Error calculated fees totals have changed from ${originalFees.total} to ${confirmFees.total}`);
             }
-            ctx.total = originalFees.total;
-            ctx.applicationFee = originalFees.applicationfee;
             ctx.copies = this.createCopiesLayout(formdata);
+            ctx.total = originalFees.total.toFixed(2);
+            ctx.applicationFee = originalFees.applicationfee.toFixed(2);
 
             const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
             const serviceAuthResult = yield authorise.post();

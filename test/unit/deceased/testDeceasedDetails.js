@@ -1,5 +1,6 @@
 'use strict';
 
+const journey = require('app/journeys/intestacy');
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
@@ -129,6 +130,70 @@ describe('DeceasedDetails', () => {
                 }
             ]);
             done();
+        });
+    });
+
+    describe('nextStepUrl()', () => {
+        it('should return the correct url when a valid date on or after 1 Oct 2014 is given', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                'dod-day': '13',
+                'dod-month': '04',
+                'dod-year': '2015'
+            };
+            const nextStepUrl = DeceasedDetails.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/deceased-address');
+            done();
+        });
+
+        it('should return the correct url when a valid date before 1 Oct 2014 is given', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                'dod-day': '13',
+                'dod-month': '04',
+                'dod-year': '2010'
+            };
+            const nextStepUrl = DeceasedDetails.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/stop-page/notDiedAfterOctober2014');
+            done();
+        });
+    });
+
+    describe('nextStepOptions()', () => {
+        it('should return the correct options', (done) => {
+            const ctx = {
+                'dod-day': '13',
+                'dod-month': '04',
+                'dod-year': '2015'
+            };
+            const nextStepOptions = DeceasedDetails.nextStepOptions(ctx);
+            expect(nextStepOptions).to.deep.equal({
+                options: [{
+                    key: 'diedAfterOctober2014',
+                    value: true,
+                    choice: 'diedAfter'
+                }]
+            });
+            done();
+        });
+    });
+
+    describe('action()', () => {
+        it('test that context variables are removed and empty object returned', () => {
+            let formdata = {};
+            let ctx = {
+                diedAfterOctober2014: true
+            };
+            [ctx, formdata] = DeceasedDetails.action(ctx, formdata);
+            expect(ctx).to.deep.equal({});
         });
     });
 });

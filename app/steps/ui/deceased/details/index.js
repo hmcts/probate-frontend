@@ -34,6 +34,30 @@ class DeceasedDetails extends DateStep {
 
         return [ctx, errors];
     }
+
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('notDiedAfterOctober2014');
+    }
+
+    nextStepOptions(ctx) {
+        const dod = new Date(`${ctx['dod-year']}-${ctx['dod-month']}-${ctx['dod-day']}`);
+        const dod1Oct2014 = new Date('2014-10-01');
+        dod1Oct2014.setHours(0, 0, 0, 0);
+
+        ctx.diedAfterOctober2014 = dod >= dod1Oct2014;
+
+        return {
+            options: [
+                {key: 'diedAfterOctober2014', value: true, choice: 'diedAfter'}
+            ]
+        };
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.diedAfterOctober2014;
+        return [ctx, formdata];
+    }
 }
 
 module.exports = DeceasedDetails;

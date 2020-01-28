@@ -64,7 +64,10 @@ const stepList = {
         otherwise: 'StopPage'
     },
     StartApply: 'Dashboard',
-    DeceasedDetails: 'DeceasedAddress',
+    DeceasedDetails: {
+        diedAfter: 'DeceasedAddress',
+        otherwise: 'StopPage'
+    },
     DeceasedAddress: 'DocumentUpload',
     DocumentUpload: {
         isUploadingDocument: 'DocumentUpload',

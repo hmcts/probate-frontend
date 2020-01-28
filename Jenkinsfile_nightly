@@ -64,9 +64,9 @@ withNightlyPipeline("nodejs", product, component) {
     env.TEST_E2E_URL = params.URL_TO_TEST
     env.PATH_TO_TEST_FILES =  params.test_path
     loadVaultSecrets(secrets)
-    //enableFullFunctionalTest()
-    enableCrossBrowserTest()
-//    enableSecurityScan()  //we do this in otrher builds
+    enableFullFunctionalTest()
+    //enableCrossBrowserTest()
+    enableSecurityScan()  //we do this in otrher builds
     after('build') {
         sh 'mkdir -p functional-output'
         sh 'yarn setup'

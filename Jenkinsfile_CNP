@@ -93,7 +93,7 @@ withPipeline("nodejs", product, component) {
   
   enableDockerBuild()
   installCharts()
-
+  enableSecurityScan()
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
 

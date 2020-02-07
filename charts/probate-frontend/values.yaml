@@ -21,10 +21,10 @@ nodejs:
     # SUBMIT_SERVICE_URL: http://probate-submit-service-aat.service.core-compute-aat.internal
     # ORCHESTRATOR_SERVICE_URL : http://probate-orchestrator-service-aat.service.core-compute-aat.internal
     # PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
-    VALIDATION_SERVICE_URL: http://probate-business-service-pr-207.service.core-compute-preview.internal/validate
-    BUSINESS_DOCUMENT_URL: http://probate-business-service-pr-207.service.core-compute-preview.internal/businessDocument
-    SUBMIT_SERVICE_URL: http://probate-submit-service-pr-268.service.core-compute-preview.internal
-    ORCHESTRATOR_SERVICE_URL : http://probate-orchestrator-service-pr-209.service.core-compute-preview.internal
+    VALIDATION_SERVICE_URL: http://probate-business-service-pr-275.service.core-compute-preview.internal/validate
+    BUSINESS_DOCUMENT_URL: http://probate-business-service-pr-275.service.core-compute-preview.internal/businessDocument
+    SUBMIT_SERVICE_URL: http://probate-submit-service-pr-301.service.core-compute-preview.internal
+    ORCHESTRATOR_SERVICE_URL : http://probate-orchestrator-service-pr-250.service.core-compute-preview.internal
     # PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
     FEES_REGISTRY_URL: http://fees-register-api-aat.service.core-compute-aat.internal/fees-register
     REFORM_ENVIRONMENT : aat

@@ -2,8 +2,6 @@
 
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
-const content = require('app/resources/en/translation/applicant/nameasonwill');
-const contentAliasReason = require('app/resources/en/translation/applicant/aliasreason');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ApplicantNameAsOnWill = steps.ApplicantNameAsOnWill;
 
@@ -22,33 +20,33 @@ describe('ApplicantNameAsOnWill', () => {
 
         it('should return the ctx with the alias and alias reason included', (done) => {
             ctx = {
-                nameAsOnTheWill: 'No',
+                nameAsOnTheWill: 'optionNo',
                 alias: 'Bobby Alias',
-                aliasReason: 'Divorce'
+                aliasReason: 'optionDivorce'
             };
             errors = [];
             [ctx, errors] = ApplicantNameAsOnWill.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                nameAsOnTheWill: 'No',
+                nameAsOnTheWill: 'optionNo',
                 alias: 'Bobby Alias',
-                aliasReason: 'Divorce'
+                aliasReason: 'optionDivorce'
             });
             done();
         });
 
         it('should return the ctx with the alias, alias reason and other reason included when reason is other', (done) => {
             ctx = {
-                nameAsOnTheWill: 'No',
+                nameAsOnTheWill: 'optionNo',
                 alias: 'Bobby Alias',
-                aliasReason: 'other',
+                aliasReason: 'optionOther',
                 otherReason: 'Legally changed name'
             };
             errors = [];
             [ctx, errors] = ApplicantNameAsOnWill.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                nameAsOnTheWill: 'No',
+                nameAsOnTheWill: 'optionNo',
                 alias: 'Bobby Alias',
-                aliasReason: 'other',
+                aliasReason: 'optionOther',
                 otherReason: 'Legally changed name'
             });
             done();
@@ -56,26 +54,26 @@ describe('ApplicantNameAsOnWill', () => {
 
         it('should return the ctx with the alias and alias reason removed', (done) => {
             ctx = {
-                nameAsOnTheWill: 'Yes',
+                nameAsOnTheWill: 'optionYes',
                 alias: 'Bobby Alias',
                 aliasReason: 'Divorce'
             };
             errors = [];
             [ctx, errors] = ApplicantNameAsOnWill.handlePost(ctx, errors);
-            expect(ctx).to.deep.equal({nameAsOnTheWill: 'Yes'});
+            expect(ctx).to.deep.equal({nameAsOnTheWill: 'optionYes'});
             done();
         });
 
         it('should return the ctx with the alias, alias reason and other reason removed when reason is other', (done) => {
             ctx = {
-                nameAsOnTheWill: 'Yes',
+                nameAsOnTheWill: 'optionYes',
                 alias: 'Bobby Alias',
-                aliasReason: 'other',
+                aliasReason: 'optionOther',
                 otherReason: 'Legally changed name'
             };
             errors = [];
             [ctx, errors] = ApplicantNameAsOnWill.handlePost(ctx, errors);
-            expect(ctx).to.deep.equal({nameAsOnTheWill: 'Yes'});
+            expect(ctx).to.deep.equal({nameAsOnTheWill: 'optionYes'});
             done();
         });
     });
@@ -86,7 +84,7 @@ describe('ApplicantNameAsOnWill', () => {
             expect(result).to.deep.equal({
                 options: [{
                     key: 'nameAsOnTheWill',
-                    value: content.optionNo,
+                    value: 'optionNo',
                     choice: 'hasAlias'
                 }]
             });
@@ -98,13 +96,13 @@ describe('ApplicantNameAsOnWill', () => {
         it('test that the Value of Assets Outside England and Wales context variables are removed if No Assets Outside chosen', () => {
             let formdata = {};
             let ctx = {
-                nameAsOnTheWill: content.optionYes,
+                nameAsOnTheWill: 'optionYes',
                 alias: 'Applicant Alias',
-                aliasReason: contentAliasReason.optionMarriage
+                aliasReason: 'optionMarriage'
             };
             [ctx, formdata] = ApplicantNameAsOnWill.action(ctx, formdata);
             expect(ctx).to.deep.equal({
-                nameAsOnTheWill: content.optionYes
+                nameAsOnTheWill: 'optionYes'
             });
         });
     });

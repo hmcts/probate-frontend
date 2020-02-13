@@ -12,11 +12,11 @@
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-hint">{{ content.explanation1 }}</p>
+        <p class="govuk-hint">{{ content.explanation1 | safe }}</p>
 
         {{ govukInput({
             label: {
-                text: content.firstName
+                text: content.firstName | safe
             },
             id: "firstName",
             name: "firstName",
@@ -29,7 +29,7 @@
         }) }}
         {{ govukInput({
             label: {
-                text: content.lastName
+                text: content.lastName | safe
             },
             id: "lastName",
             name: "lastName",
@@ -44,7 +44,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

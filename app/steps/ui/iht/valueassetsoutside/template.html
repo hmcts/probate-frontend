@@ -21,7 +21,7 @@
             id: "netValueAssetsOutsideField",
             name: "netValueAssetsOutsideField",
             value: fields.netValueAssetsOutsideField.value | safe,
-            errorMessage: { text: fields.netValueAssetsOutsideField.errorMessage.message } if fields.netValueAssetsOutsideField.errorMessage,
+            errorMessage: { text: fields.netValueAssetsOutsideField.errorMessage.message | safe } if fields.netValueAssetsOutsideField.errorMessage,
             attributes: {
                 maxlength: 13
             },
@@ -31,7 +31,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

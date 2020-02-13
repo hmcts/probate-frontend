@@ -54,7 +54,7 @@ describe('assets-overseas', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(declarationCheckboxSessionData)
                 .end(() => {
-                    const data = {assetsoverseas: 'Yes'};
+                    const data = {assetsoverseas: 'optionYes'};
 
                     testWrapper.nextPageUrl = testWrapper.nextStep(data).constructor.getUrl();
                     testWrapper.testRedirect(done, data, expectedNextUrlForCopiesOverseas);
@@ -65,7 +65,7 @@ describe('assets-overseas', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(declarationCheckboxSessionData)
                 .end(() => {
-                    const data = {assetsoverseas: 'No'};
+                    const data = {assetsoverseas: 'optionNo'};
 
                     testWrapper.nextPageUrl = testWrapper.nextStep(data).constructor.getUrl();
                     testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);

@@ -4,6 +4,7 @@ const featureToggles = require('app/config').featureToggles;
 const logger = require('app/components/logger');
 const FeatureToggleService = require('app/services/FeatureToggle');
 const config = require('app/config');
+const caseTypes = require('app/utils/CaseTypes');
 
 class FeatureToggle {
     callCheckToggle(req, res, next, featureToggleKey, callback, redirectPage) {
@@ -41,14 +42,22 @@ class FeatureToggle {
     togglePage(params) {
         if (params.isEnabled) {
             params.next();
-        } else {
+        } else if (typeof params.redirectPage === 'string') {
             params.res.redirect(params.redirectPage);
+        } else if (typeof params.redirectPage === 'object' && params.req.session.form.type === caseTypes.GOP) {
+            params.res.redirect(params.redirectPage.gop);
+        } else if (typeof params.redirectPage === 'object' && params.req.session.form.type === caseTypes.INTESTACY) {
+            params.res.redirect(params.redirectPage.intestacy);
         }
     }
 
     toggleExistingPage(params) {
-        if (params.isEnabled) {
+        if (params.isEnabled && typeof params.redirectPage === 'string') {
             params.res.redirect(params.redirectPage);
+        } else if (params.isEnabled && typeof params.redirectPage === 'object' && params.req.session.form.type === caseTypes.GOP) {
+            params.res.redirect(params.redirectPage.gop);
+        } else if (params.isEnabled && typeof params.redirectPage === 'object' && params.req.session.form.type === caseTypes.INTESTACY) {
+            params.res.redirect(params.redirectPage.intestacy);
         } else {
             params.next();
         }

@@ -13,7 +13,7 @@ class DeceasedAlias extends ValidationStep {
     nextStepOptions() {
         const nextStepOptions = {
             options: [
-                {key: 'alias', value: this.content.optionYes, choice: 'assetsInOtherNames'},
+                {key: 'alias', value: 'optionYes', choice: 'assetsInOtherNames'},
             ]
         };
         return nextStepOptions;

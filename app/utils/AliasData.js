@@ -14,12 +14,12 @@ class AliasData {
     }
 
     static applicantAliasUpdated(ctx, formdata) {
-        return Boolean(get(formdata, 'applicant.nameAsOnTheWill') === 'No' &&
+        return Boolean(get(formdata, 'applicant.nameAsOnTheWill') === 'optionNo' &&
             formdata.applicant.alias !== ctx.alias);
     }
 
     static applicantAliasReasonUpdated(ctx, formdata) {
-        return Boolean(get(formdata, 'applicant.nameAsOnTheWill') === 'No' &&
+        return Boolean(get(formdata, 'applicant.nameAsOnTheWill') === 'optionNo' &&
             formdata.applicant.aliasReason !== ctx.aliasReason);
     }
 

@@ -18,21 +18,21 @@
         errorMessage: { text: fields.diedbefore.errorMessage.message | safe } if fields.diedbefore.errorMessage,
         items: [
             {
-                value: content["optionYes"],
-                text: content["optionYes"],
-                checked: true if fields.diedbefore.value == content["optionYes"] | escape
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.diedbefore.value == "optionYes"
             },
             {
-                value: content["optionNo"],
-                text: content["optionNo"],
-                checked: true if fields.diedbefore.value == content["optionNo"] | escape
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.diedbefore.value == "optionNo"
             }
         ]
     }) }}
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

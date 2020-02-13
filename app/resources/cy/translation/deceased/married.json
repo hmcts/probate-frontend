@@ -1,0 +1,16 @@
+{
+  "title": "Wedi priodi neu wedi ymrwymo i bartneriaeth sifil ar &ocirc;l y dyddiad a nodwyd ar yr ewyllys",
+  "question": "A wnaeth {deceasedName} briodi neu ymrwymo i bartneriaeth sifil ar &ocirc;l i&rsquo;r ewyllys gael ei harwyddo?",
+  "questionWithCodicil": "A wnaeth {deceasedName} briodi neu ymrwymo i bartneriaeth sifil ar &ocirc;l i&rsquo;r codisil diweddaraf gael ei arwyddo?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+
+  "errors": {
+    "married": {
+      "required": {
+        "summary": "Nid ydych wedi ateb y cwestiwn ynghylch statws priodasol yr unigolyn sydd wedi marw",
+        "message": "Atebwch &lsquo;do&rsquo; os ymrwymodd yr unigolyn sydd wedi marw i bartneriaeth sifil ar &ocirc;l i&rsquo;r ewyllys gael ei harwyddo"
+      }
+    }
+  }
+}

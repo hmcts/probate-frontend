@@ -1,0 +1,32 @@
+{
+  "title": "Enw&rsquo;r unigolyn sydd wedi marw",
+  "question": "Pa enwau eraill wnaeth {deceasedName} eu defnyddio?",
+  "firstName": "Enw cyntaf ac unrhyw enwau canol",
+  "lastName": "Cyfenw",
+  "addAnotherName": "Ychwanegu enw arall",
+  "otherName": "Enw arall",
+  "removeName": "Dileu",
+
+  "errors": {
+    "firstName": {
+      "required": {
+        "summary": "Nid ydych wedi nodi enw cyntaf yr unigolyn sydd wedi marw",
+        "message": "Nodwch enw cyntaf yr unigolyn sydd wedi marw"
+      },
+      "invalid": {
+        "summary": "Gall yr enw cyntaf ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau",
+        "message": "Gall yr enw cyntaf ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau"
+      }
+    },
+    "lastName": {
+      "required": {
+        "summary": "Nid ydych wedi nodi cyfenw&rsquo;r unigolyn sydd wedi marw",
+        "message": "Nodwch gyfenw&rsquo;r unigolyn sydd wedi marw"
+      },
+      "invalid": {
+        "summary": "Gall y cyfenw ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau",
+        "message": "Gall y cyfenw ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau"
+      }
+    }
+  }
+}

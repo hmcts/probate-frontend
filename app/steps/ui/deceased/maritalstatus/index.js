@@ -2,7 +2,6 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
-const content = require('app/resources/en/translation/deceased/maritalstatus');
 
 class DeceasedMaritalStatus extends ValidationStep {
 
@@ -18,7 +17,7 @@ class DeceasedMaritalStatus extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.divorcedOrSeparated = (ctx.maritalStatus === content.optionDivorced || ctx.maritalStatus === content.optionSeparated);
+        ctx.divorcedOrSeparated = (ctx.maritalStatus === 'optionDivorced' || ctx.maritalStatus === 'optionSeparated');
         return {
             options: [
                 {key: 'divorcedOrSeparated', value: true, choice: 'divorcedOrSeparated'}

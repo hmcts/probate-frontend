@@ -4,10 +4,10 @@ const {filter, isEqual, map, uniqWith} = require('lodash');
 const i18next = require('i18next');
 const init18next = require('app/core/initSteps').initI18Next;
 
-const FieldError = (param, keyword, resourcePath, contentCtx = {}, lang='en') => {
+const FieldError = (param, keyword, resourcePath, contentCtx = {}, language = 'en') => {
     if (!i18next.isInitialized) {
         init18next();
-        i18next.changeLanguage(lang);
+        i18next.changeLanguage(language);
     }
 
     const key = `errors.${param}.${keyword}`;
@@ -23,11 +23,11 @@ const FieldError = (param, keyword, resourcePath, contentCtx = {}, lang='en') =>
     };
 };
 
-const generateErrors = (errs, ctx, formdata, errorPath, lang='en') => {
-    i18next.changeLanguage(lang);
+const generateErrors = (errs, ctx, formdata, errorPath, language = 'en') => {
+    i18next.changeLanguage(language);
     const contentCtx = Object.assign({}, formdata, ctx, {});
     if (errs.find((e) => e.keyword === 'oneOf')) {
-        return [FieldError('crossField', 'oneOf', errorPath, contentCtx)];
+        return [FieldError('crossField', 'oneOf', errorPath, contentCtx, language)];
     }
     errs = filter(errs, ((e) => e.keyword !== 'oneOf'));
     const errors = map(errs, (e) => {
@@ -35,13 +35,13 @@ const generateErrors = (errs, ctx, formdata, errorPath, lang='en') => {
         try {
             if (e.keyword === 'required' || e.keyword === 'switch') {
                 param = e.params.missingProperty;
-                return FieldError(param, 'required', errorPath, ctx);
+                return FieldError(param, 'required', errorPath, ctx, language);
             }
             [, param] = e.dataPath.split('.');
 
             param = stripBrackets(param, e);
 
-            return FieldError(param, 'invalid', errorPath, ctx);
+            return FieldError(param, 'invalid', errorPath, ctx, language);
 
         } catch (e) {
             throw new ReferenceError(`Error messages have not been defined for Step in content.json for errors.${param}`);

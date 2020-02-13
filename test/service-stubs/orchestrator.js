@@ -5,8 +5,8 @@ const express = require('express');
 const router = require('express').Router();
 const logger = require('app/components/logger')('Init');
 const app = express();
-const persistenceServicePort = config.services.persistence.port;
-const persistenceServicePath = config.services.persistence.path;
+const orchestratorServicePort = config.services.orchestrator.port;
+const orchestratorServicePath = config.services.orchestrator.path;
 
 router.get('invitedata/:id', (req, res) => {
     if (req.params.id === 'true') {
@@ -21,7 +21,7 @@ router.patch('/invitedata/:id', (req, res) => {
     res.send('SuperTrooper');
 });
 
-router.get(`${persistenceServicePath}/:data`, (req, res) => {
+router.get(`${orchestratorServicePath}/:data`, (req, res) => {
     const data = require(`test/data/${req.params.data}`);
     res.send(data);
 });
@@ -43,8 +43,8 @@ router.get('/info', (req, res) => {
 
 app.use(router);
 
-logger.info(`Listening on: ${persistenceServicePort}`);
+logger.info(`Listening on: ${orchestratorServicePort}`);
 
-const server = app.listen(persistenceServicePort);
+const server = app.listen(orchestratorServicePort);
 
 module.exports = server;

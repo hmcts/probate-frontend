@@ -1,6 +1,6 @@
 {
   "iht": {
-    "method": "By post",
+    "method": "optionPaper",
     "grossValueFieldIHT205": "123.10",
     "netValueFieldIHT205": "111.34",
     "grossValueFieldIHT207": "123.10",

@@ -1,6 +1,0 @@
-<h3 class="govuk-heading-s declaration-subheader">{{ content.deceasedEstateHeader }}</h3>
-<p class="govuk-body declaration-item">{{ fields.legalStatement.value.deceasedEstateValue | safe }}</p>
-{% if fields.showNetValueAssetsOutside.value === "true" %}
-    <p class="govuk-body declaration-item">{{ fields.legalStatement.value.deceasedEstateAssetsOverseas | safe }}</p>
-{% endif %}
-<p class="govuk-body declaration-item">{{ fields.legalStatement.value.deceasedEstateLand | safe }}</p>

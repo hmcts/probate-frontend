@@ -5,7 +5,6 @@ const initSteps = require('../../../app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const RelatedToDeceased = steps.RelatedToDeceased;
-const content = require('app/resources/en/translation/screeners/relatedtodeceased');
 
 describe('RelatedToDeceased', () => {
     describe('getUrl()', () => {
@@ -22,6 +21,7 @@ describe('RelatedToDeceased', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         ccdCase: {
                             id: 1234567890123456,
@@ -31,7 +31,7 @@ describe('RelatedToDeceased', () => {
                     caseType: 'gop'
                 },
                 body: {
-                    related: content.optionYes
+                    related: 'optionYes'
                 }
             };
             const res = {};
@@ -39,7 +39,7 @@ describe('RelatedToDeceased', () => {
             const ctx = RelatedToDeceased.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                related: content.optionYes,
+                related: 'optionYes',
                 caseType: 'gop',
                 userLoggedIn: false,
                 ccdCase: {
@@ -58,17 +58,17 @@ describe('RelatedToDeceased', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'No',
-                            diedAfter: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionNo',
+                            diedAfter: 'optionYes'
                         }
                     }
                 }
             };
             const ctx = {
-                related: content.optionYes
+                related: 'optionYes'
             };
             const nextStepUrl = RelatedToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/other-applicants');
@@ -81,17 +81,17 @@ describe('RelatedToDeceased', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'No',
-                            diedAfter: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionNo',
+                            diedAfter: 'optionYes'
                         }
                     }
                 }
             };
             const ctx = {
-                related: content.optionNo
+                related: 'optionNo'
             };
             const nextStepUrl = RelatedToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/notRelated');
@@ -105,7 +105,7 @@ describe('RelatedToDeceased', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'related',
-                    value: content.optionYes,
+                    value: 'optionYes',
                     choice: 'related'
                 }]
             });

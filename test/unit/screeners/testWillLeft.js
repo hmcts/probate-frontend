@@ -5,7 +5,6 @@ const initSteps = require('../../../app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const WillLeft = steps.WillLeft;
-const content = require('app/resources/en/translation/screeners/willleft');
 
 describe('WillLeft', () => {
     describe('getUrl()', () => {
@@ -22,6 +21,7 @@ describe('WillLeft', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         ccdCase: {
                             id: 1234567890123456,
@@ -31,7 +31,7 @@ describe('WillLeft', () => {
                     caseType: 'gop'
                 },
                 body: {
-                    left: content.optionYes
+                    left: 'optionYes'
                 }
             };
             const res = {};
@@ -39,7 +39,7 @@ describe('WillLeft', () => {
             const ctx = WillLeft.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                left: content.optionYes,
+                left: 'optionYes',
                 caseType: 'gop',
                 userLoggedIn: false,
                 ccdCase: {
@@ -54,7 +54,7 @@ describe('WillLeft', () => {
     describe('handlePost()', () => {
         it('should set session.form.caseType', (done) => {
             const ctxToTest = {
-                left: content.optionYes
+                left: 'optionYes'
             };
             const errorsToTest = {};
             const formdata = {
@@ -64,7 +64,7 @@ describe('WillLeft', () => {
             };
             const [ctx, errors] = WillLeft.handlePost(ctxToTest, errorsToTest, formdata, session);
             expect(ctx).to.deep.equal({
-                left: content.optionYes
+                left: 'optionYes'
             });
             expect(errors).to.deep.equal({});
             done();
@@ -72,7 +72,7 @@ describe('WillLeft', () => {
 
         it('should clear session.form except for retainedList on change of caseType', (done) => {
             const ctxToTest = {
-                left: content.optionYes,
+                left: 'optionYes',
                 caseType: 'Intestacy'
             };
             const errorsToTest = {};
@@ -83,9 +83,9 @@ describe('WillLeft', () => {
                 payloadVersion: '1.0.1',
                 userLoggedIn: true,
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes'
                 }
             };
             const session = {};
@@ -95,7 +95,7 @@ describe('WillLeft', () => {
             expect(errors).to.deep.equal({});
             expect(ctx).to.deep.equal({
                 caseType: 'Intestacy',
-                left: 'Yes'
+                left: 'optionYes'
             });
             expect(formdata).to.deep.equal({
                 applicantEmail: 'test@email.com',
@@ -105,9 +105,9 @@ describe('WillLeft', () => {
                 deceased: {},
                 userLoggedIn: true,
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes'
                 }
             });
             done();
@@ -121,15 +121,15 @@ describe('WillLeft', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes'
                         }
                     }
                 }
             };
             const ctx = {
-                left: content.optionYes
+                left: 'optionYes'
             };
             const nextStepUrl = WillLeft.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/will-original');
@@ -142,15 +142,15 @@ describe('WillLeft', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes'
                         }
                     }
                 }
             };
             const ctx = {
-                left: content.optionNo
+                left: 'optionNo'
             };
             const nextStepUrl = WillLeft.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/died-after-october-2014');
@@ -165,7 +165,7 @@ describe('WillLeft', () => {
                 options: [
                     {
                         key: 'left',
-                        value: content.optionYes,
+                        value: 'optionYes',
                         choice: 'withWill'
                     }
                 ]

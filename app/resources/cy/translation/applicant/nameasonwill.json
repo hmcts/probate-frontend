@@ -1,0 +1,17 @@
+{
+  "title": "Enw&rsquo;r ceisydd ar yr ewyllys",
+  "question": "A yw eich enw &lsquo;{applicantName}&rsquo; union beth sy&rsquo;n ymddangos ar yr ewyllys?",
+  "questionWithoutName": "A yw eich enw union beth sy&rsquo;n ymddangos ar yr ewyllys?",
+  "questionWithCodicil": "A yw eich enw &lsquo;{applicantName}&rsquo; union beth sy&rsquo;n ymddangos ar yr ewyllys neu&rsquo;r codisil?",
+  "optionYes": "Ydi",
+  "optionNo": "Nac ydi",
+
+  "errors": {
+    "nameAsOnTheWill": {
+      "required": {
+        "summary": "Atebwch y cwestiwn am eich enw union beth sy&rsquo;n ymddangos ar yr ewyllys neu&rsquo;r codisil",
+        "message": "Atebwch &lsquo;ydi&rsquo; os yw eich enw union beth sy&rsquo;n ymddangos ar yr ewyllys neu&rsquo;r codisil"
+      }
+    }
+  }
+}

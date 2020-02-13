@@ -49,7 +49,7 @@ describe('co-applicant-agree-page', () => {
         it('test correct content is loaded on the page when there are codicils', (done) => {
             beforeEachNocks();
 
-            sessionData.will.codicils = commonContent.yes;
+            sessionData.will.codicils = 'optionYes';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

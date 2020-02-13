@@ -1,8 +1,6 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const content = require('app/resources/en/translation/applicant/adoptionplace');
-const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 const {get} = require('lodash');
 
 class AdoptionPlace extends ValidationStep {
@@ -23,8 +21,8 @@ class AdoptionPlace extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.inEnglandOrWalesDeceasedMarried = ctx.adoptionPlace === content.optionYes && ctx.deceasedMaritalStatus === contentMaritalStatus.optionMarried;
-        ctx.inEnglandOrWalesDeceasedNotMarried = ctx.adoptionPlace === content.optionYes && ctx.deceasedMaritalStatus !== contentMaritalStatus.optionMarried;
+        ctx.inEnglandOrWalesDeceasedMarried = ctx.adoptionPlace === 'optionYes' && ctx.deceasedMaritalStatus === 'optionMarried';
+        ctx.inEnglandOrWalesDeceasedNotMarried = ctx.adoptionPlace === 'optionYes' && ctx.deceasedMaritalStatus !== 'optionMarried';
 
         return {
             options: [

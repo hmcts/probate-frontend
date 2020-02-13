@@ -17,6 +17,7 @@ describe('Executors invite endpoints', () => {
     beforeEach(() => {
         req = {
             session: {
+                language: 'en',
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'Pending'

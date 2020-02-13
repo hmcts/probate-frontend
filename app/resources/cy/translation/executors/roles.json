@@ -1,0 +1,15 @@
+{
+  "title": "Rheswm dros beidio &acirc; gwneud cais am brofiant",
+  "question": "Pam nad yw {executorFullName} yn gwneud cais am brofiant?",
+  "optionPowerReserved": "Nid yw&rsquo;r ysgutor hwn eisiau gwneud cais nawr, ond efallai y bydd yn dymuno gwneud hynny yn y dyfodol (gelwir hyn hefyd yn cadw&rsquo;r hawl)",
+  "optionRenunciated": "Nid yw&rsquo;r ysgutor hwn eisiau gwneud cais nawr, ac mae&rsquo;n rhoi fyny yr hawl i wneud hynny yn y dyfodol (gelwir hyn hefyd yn ymwrthod, a bydd angen i&rsquo;r ysgutor lenwi ffurflen)",
+
+  "errors": {
+    "notApplyingReason": {
+      "required": {
+        "summary": "Nid ydych wedi datgan pam nad yw&rsquo;r ysgutor hwn yn gwneud cais",
+        "message": "Dewiswch y rheswm pam nad yw&rsquo;r ysgutor yn gwneud cais "
+      }
+    }
+  }
+}

@@ -36,20 +36,20 @@ describe('Declaration', () => {
                 isApplicant: true,
                 isApplying: true,
                 alias: 'Applicant Will Name',
-                aliasReason: 'Change by deed poll'
+                aliasReason: 'optionDeedPoll'
             }, {
                 fullName: 'Exec 1 Will Name',
                 address: 'Exec 1 address',
                 isApplying: true,
                 currentName: 'Exec 1 Current Name',
-                currentNameReason: 'Marriage',
+                currentNameReason: 'optionMarriage',
                 hasOtherName: true
             }, {
                 fullName: 'Exec 2 Will Name',
                 address: 'Exec 2 address',
                 isApplying: true,
                 currentName: 'Exec 2 Current Name',
-                currentNameReason: 'Divorce',
+                currentNameReason: 'optionDivorce',
                 hasOtherName: true
             }];
             hasCodicils = false;
@@ -127,7 +127,7 @@ describe('Declaration', () => {
                     address: 'Exec 1 address',
                     isApplying: true,
                     currentName: 'Exec 1 Current Name',
-                    currentNameReason: 'Marriage',
+                    currentNameReason: 'optionMarriage',
                     hasOtherName: true
                 },
                 deceasedName: 'Mrs Deceased',
@@ -228,6 +228,8 @@ describe('Declaration', () => {
                 hasDataChangedAfterEmailSent: true,
                 showNetValueAssetsOutside: true,
                 ihtNetValueAssetsOutside: 300000,
+                bilingual: 'true',
+                language: 'cy',
                 invitesSent: 'true',
             };
             formdata = {};

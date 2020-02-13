@@ -1,0 +1,16 @@
+{
+  "title": "Dangosfwrdd",
+  "header": "Ceisiadau profiant",
+  "tableHeaderCcdCaseId": "Rhif adnabod yr achos",
+  "tableHeaderDeceasedName": "Yr unigolyn sydd wedi marw",
+  "tableHeaderCreateDate": "Dyddiad creu",
+  "tableHeaderCaseStatus": "Statws",
+  "tableHeaderActions": "Camau gweithredu",
+  "statusDraftProbate": "Drafft (profiant)",
+  "statusDraftIntestacy": "Drafft (pan nad oes ewyllys)",
+  "statusInProgress": "Ar y gweill",
+  "statusSubmitted": "Wedi&rsquo;i gyflwyno",
+  "actionContinue": "Parhau &acirc; chais",
+  "actionView": "Gweld cais",
+  "actionStartNewApplication": "Dechrau cais newydd"
+}

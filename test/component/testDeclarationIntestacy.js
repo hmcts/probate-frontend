@@ -4,11 +4,6 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const Taskist = require('app/steps/ui/tasklist');
-const contentDeceasedMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
-const contentAssetsOutside = require('app/resources/en/translation/iht/assetsoutside');
-const contentAnyChildren = require('app/resources/en/translation/deceased/anychildren');
-const contentAnyOtherChildren = require('app/resources/en/translation/deceased/anyotherchildren');
-const contentRelationshipToDeceased = require('app/resources/en/translation/applicant/relationshiptodeceased');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const config = require('app/config');
 const nock = require('nock');
@@ -130,21 +125,21 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
-            sessionData.iht.assetsOutside = contentAssetsOutside.optionYes;
+            sessionData.iht.assetsOutside = 'optionYes';
             sessionData.iht.grossValueField = '300000.10';
             sessionData.iht.netValueField = '270000.34';
             sessionData.iht.netValueAssetsOutsideField = '300000.10';
             sessionData.iht.grossValue = 300000.1;
             sessionData.iht.netValue = 270000.34;
             sessionData.iht.netValueAssetsOutside = 300000.1;
-            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionDivorced;
-            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionYes;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
+            sessionData.deceased.maritalStatus = 'optionDivorced';
+            sessionData.deceased.anyOtherChildren = 'optionYes';
+            sessionData.applicant.relationshipToDeceased = 'optionAdoptedChild';
 
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
             contentData.ihtNetValueAssetsOutside = sessionData.iht.netValueAssetsOutsideField;
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
+            contentData.deceasedMaritalStatus = 'optionDivorced';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -217,11 +212,11 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
-            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionDivorced;
-            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionYes;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
+            sessionData.deceased.maritalStatus = 'optionDivorced';
+            sessionData.deceased.anyOtherChildren = 'optionYes';
+            sessionData.applicant.relationshipToDeceased = 'optionAdoptedChild';
 
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
+            contentData.deceasedMaritalStatus = 'optionDivorced';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -294,11 +289,11 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
-            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionDivorced;
-            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionYes;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionChild;
+            sessionData.deceased.maritalStatus = 'optionDivorced';
+            sessionData.deceased.anyOtherChildren = 'optionYes';
+            sessionData.applicant.relationshipToDeceased = 'optionChild';
 
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
+            contentData.deceasedMaritalStatus = 'optionDivorced';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -371,11 +366,11 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
-            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionDivorced;
-            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionNo;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
+            sessionData.deceased.maritalStatus = 'optionDivorced';
+            sessionData.deceased.anyOtherChildren = 'optionNo';
+            sessionData.applicant.relationshipToDeceased = 'optionAdoptedChild';
 
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
+            contentData.deceasedMaritalStatus = 'optionDivorced';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -448,11 +443,11 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
-            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionDivorced;
-            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionNo;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionChild;
+            sessionData.deceased.maritalStatus = 'optionDivorced';
+            sessionData.deceased.anyOtherChildren = 'optionNo';
+            sessionData.applicant.relationshipToDeceased = 'optionChild';
 
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionDivorced;
+            contentData.deceasedMaritalStatus = 'optionDivorced';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -525,11 +520,11 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
-            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
-            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionYes;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
+            sessionData.deceased.maritalStatus = 'optionMarried';
+            sessionData.deceased.anyOtherChildren = 'optionYes';
+            sessionData.applicant.relationshipToDeceased = 'optionAdoptedChild';
 
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.deceasedMaritalStatus = 'optionMarried';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -602,11 +597,11 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
-            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
-            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionYes;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionChild;
+            sessionData.deceased.maritalStatus = 'optionMarried';
+            sessionData.deceased.anyOtherChildren = 'optionYes';
+            sessionData.applicant.relationshipToDeceased = 'optionChild';
 
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.deceasedMaritalStatus = 'optionMarried';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -679,11 +674,11 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
-            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
-            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionNo;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
+            sessionData.deceased.maritalStatus = 'optionMarried';
+            sessionData.deceased.anyOtherChildren = 'optionNo';
+            sessionData.applicant.relationshipToDeceased = 'optionAdoptedChild';
 
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.deceasedMaritalStatus = 'optionMarried';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -756,11 +751,11 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
-            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
-            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionNo;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionChild;
+            sessionData.deceased.maritalStatus = 'optionMarried';
+            sessionData.deceased.anyOtherChildren = 'optionNo';
+            sessionData.applicant.relationshipToDeceased = 'optionChild';
 
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.deceasedMaritalStatus = 'optionMarried';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -833,15 +828,15 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
-            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
-            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionYes;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
+            sessionData.deceased.maritalStatus = 'optionMarried';
+            sessionData.deceased.anyOtherChildren = 'optionYes';
+            sessionData.applicant.relationshipToDeceased = 'optionAdoptedChild';
             sessionData.iht.grossValueField = '300000.10';
             sessionData.iht.netValueField = '270000.34';
             sessionData.iht.grossValue = 300000.1;
             sessionData.iht.netValue = 270000.34;
 
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.deceasedMaritalStatus = 'optionMarried';
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
@@ -916,15 +911,15 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
-            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
-            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionYes;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionChild;
+            sessionData.deceased.maritalStatus = 'optionMarried';
+            sessionData.deceased.anyOtherChildren = 'optionYes';
+            sessionData.applicant.relationshipToDeceased = 'optionChild';
             sessionData.iht.grossValueField = '300000.10';
             sessionData.iht.netValueField = '270000.34';
             sessionData.iht.grossValue = 300000.1;
             sessionData.iht.netValue = 270000.34;
 
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.deceasedMaritalStatus = 'optionMarried';
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
@@ -999,15 +994,15 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
-            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
-            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionNo;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionAdoptedChild;
+            sessionData.deceased.maritalStatus = 'optionMarried';
+            sessionData.deceased.anyOtherChildren = 'optionNo';
+            sessionData.applicant.relationshipToDeceased = 'optionAdoptedChild';
             sessionData.iht.grossValueField = '300000.10';
             sessionData.iht.netValueField = '270000.34';
             sessionData.iht.grossValue = 300000.1;
             sessionData.iht.netValue = 270000.34;
 
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.deceasedMaritalStatus = 'optionMarried';
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
@@ -1082,15 +1077,15 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
-            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
-            sessionData.deceased.anyOtherChildren = contentAnyOtherChildren.optionNo;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionChild;
+            sessionData.deceased.maritalStatus = 'optionMarried';
+            sessionData.deceased.anyOtherChildren = 'optionNo';
+            sessionData.applicant.relationshipToDeceased = 'optionChild';
             sessionData.iht.grossValueField = '300000.10';
             sessionData.iht.netValueField = '270000.34';
             sessionData.iht.grossValue = 300000.1;
             sessionData.iht.netValue = 270000.34;
 
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.deceasedMaritalStatus = 'optionMarried';
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
@@ -1165,11 +1160,11 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
-            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
-            sessionData.applicant.anyChildren = contentAnyChildren.optionNo;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionSpousePartner;
+            sessionData.deceased.maritalStatus = 'optionMarried';
+            sessionData.applicant.anyChildren = 'optionNo';
+            sessionData.applicant.relationshipToDeceased = 'optionSpousePartner';
 
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.deceasedMaritalStatus = 'optionMarried';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -1242,11 +1237,11 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
-            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
-            sessionData.applicant.anyChildren = contentAnyChildren.optionYes;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionSpousePartner;
+            sessionData.deceased.maritalStatus = 'optionMarried';
+            sessionData.applicant.anyChildren = 'optionYes';
+            sessionData.applicant.relationshipToDeceased = 'optionSpousePartner';
 
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.deceasedMaritalStatus = 'optionMarried';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -1319,15 +1314,15 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
-            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
-            sessionData.applicant.anyChildren = contentAnyChildren.optionNo;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionSpousePartner;
+            sessionData.deceased.maritalStatus = 'optionMarried';
+            sessionData.applicant.anyChildren = 'optionNo';
+            sessionData.applicant.relationshipToDeceased = 'optionSpousePartner';
             sessionData.iht.grossValueField = '300000.10';
             sessionData.iht.netValueField = '270000.34';
             sessionData.iht.grossValue = 300000.1;
             sessionData.iht.netValue = 270000.34;
 
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.deceasedMaritalStatus = 'optionMarried';
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
@@ -1402,15 +1397,15 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
-            sessionData.deceased.maritalStatus = contentDeceasedMaritalStatus.optionMarried;
-            sessionData.applicant.anyChildren = contentAnyChildren.optionYes;
-            sessionData.applicant.relationshipToDeceased = contentRelationshipToDeceased.optionSpousePartner;
+            sessionData.deceased.maritalStatus = 'optionMarried';
+            sessionData.applicant.anyChildren = 'optionYes';
+            sessionData.applicant.relationshipToDeceased = 'optionSpousePartner';
             sessionData.iht.grossValueField = '300000.10';
             sessionData.iht.netValueField = '270000.34';
             sessionData.iht.grossValue = 300000.1;
             sessionData.iht.netValue = 270000.34;
 
-            contentData.deceasedMaritalStatus = contentDeceasedMaritalStatus.optionMarried;
+            contentData.deceasedMaritalStatus = 'optionMarried';
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 

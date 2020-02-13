@@ -1,0 +1,22 @@
+{
+  "title": "Pa ysgutorion fydd yn delio &acirc;&rsquo;r ystad",
+  "question": "Pa ysgutorion fydd yn delio &acirc;&rsquo;r ystad?",
+  "paragraph1": "Gellir enwi hyd at 4 ysgutor ar y grant profiant.",
+  "applicant-rights1": "gasglu asedau&rsquo;r ystad (eiddo ac arian)",
+  "applicant-rights2": "talu unrhyw drethi a dyledion",
+  "applicant-rights3": "dosrannu beth sydd ar &ocirc;l i&rsquo;r bobl sydd &acirc; hawl iddo (y &lsquo;buddiolwyr&rsquo;)",
+  "applicants-not-dealing": "Fe ofynnir ichi am yr ysgutorion na fydd yn delio &acirc;&rsquo;r ystad hwyrach ymlaen yn y cais. ",
+
+  "errors": {
+    "executorsApplying": {
+      "required": {
+        "summary": "Dewiswch o leiaf un ysgutor",
+        "message": "Dewiswch o leiaf un ysgutor"
+      },
+      "invalid":{
+        "summary": "Gellir enwi hyd at 4 ysgutor ar y grant profiant",
+        "message": "Ni allwch ddewis mwy na 4 ysgutor "
+      }
+    }
+  }
+}

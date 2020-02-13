@@ -32,7 +32,7 @@ describe('ExecutorNotified', () => {
         it('should return the ctx with the executor notified', (done) => {
             ctx = {
                 index: 0,
-                executorNotified: 'Yes'
+                executorNotified: 'optionYes'
             };
             formdata = {
                 executors: {
@@ -40,10 +40,10 @@ describe('ExecutorNotified', () => {
                 }
             };
             errors = [];
-            [ctx, errors] = ExecutorNotified.handlePost(ctx, errors, formdata);
+            [ctx, errors] = ExecutorNotified.handlePost(ctx, errors, formdata, {language: 'en'});
             expect(ctx).to.deep.equal({
                 index: -1,
-                executorNotified: 'Yes'
+                executorNotified: 'optionYes'
             });
             done();
         });
@@ -66,7 +66,7 @@ describe('ExecutorNotified', () => {
         it('test it cleans up context', () => {
             const ctx = {
                 otherwise: 'something',
-                executorNotified: 'Yes',
+                executorNotified: 'optionYes',
                 executorName: 'Some name',
                 nextExecutor: 'whatever'
             };

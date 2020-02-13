@@ -9,6 +9,8 @@ const config = require('app/config');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const FeatureToggle = require('app/utils/FeatureToggle');
 const caseTypes = require('app/utils/CaseTypes');
+const utils = require('app/components/step-utils');
+const moment = require('moment');
 
 class Step {
 
@@ -31,12 +33,12 @@ class Step {
         return `${this.templatePath}/template`;
     }
 
-    constructor(steps, section = null, resourcePath, i18next) {
+    constructor(steps, section = null, resourcePath, i18next, schema, language = 'en') {
         this.steps = steps;
         this.section = section;
         this.resourcePath = resourcePath;
         this.templatePath = `ui/${resourcePath}`;
-        this.content = require(`app/resources/en/translation/${resourcePath}`);
+        this.content = require(`app/resources/${language}/translation/${resourcePath}`);
         this.i18next = i18next;
     }
 
@@ -86,24 +88,39 @@ class Step {
         return true;
     }
 
-    generateContent(ctx, formdata, lang = 'en') {
+    generateContent(ctx, formdata, language = 'en') {
         if (!this.content) {
             throw new ReferenceError(`Step ${this.name} has no content.json in its resource folder`);
         }
         const contentCtx = Object.assign({}, formdata, ctx, this.commonProps);
-        this.i18next.changeLanguage(lang);
+        this.i18next.changeLanguage(language);
 
         return mapValues(this.content, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
     }
 
-    commonContent(lang = 'en') {
-        this.i18next.changeLanguage(lang);
-        const common = require('app/resources/en/translation/common');
+    commonContent(language = 'en') {
+        this.i18next.changeLanguage(language);
+        const common = require(`app/resources/${language}/translation/common`);
         return mapValues(common, (value, key) => this.i18next.t(`common.${key}`));
     }
 
-    generateFields(ctx, errors) {
-        let fields = mapValues(ctx, (value) => ({value: isObject(value) ? value : escape(value), error: false}));
+    generateFields(language, ctx, errors) {
+        let fields = mapValues(ctx, (value, key) => {
+            let returnValue;
+
+            if (key.includes('formattedDate')) {
+                const dateName = key.split('-')[0];
+                const date = moment(ctx[`${dateName}-day`] + '/' + ctx[`${dateName}-month`] + '/' + ctx[`${dateName}-year`], config.dateFormat).parseZone();
+                returnValue = utils.formattedDate(date, language);
+            } else {
+                returnValue = isObject(value) ? value : escape(value);
+            }
+
+            return {
+                value: returnValue,
+                error: false
+            };
+        });
         if (!isEmpty(errors)) {
             fields = mapErrorsToFields(fields, errors);
         }

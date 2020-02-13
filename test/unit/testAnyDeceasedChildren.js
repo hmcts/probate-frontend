@@ -4,9 +4,6 @@ const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const AnyDeceasedChildren = steps.AnyDeceasedChildren;
-const content = require('app/resources/en/translation/deceased/anydeceasedchildren');
-const contentAnyDeceasedChildren = require('app/resources/en/translation/deceased/anydeceasedchildren');
-const contentAnyGrandChildrenUnder18 = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
 
 describe('AnyDeceasedChildren', () => {
     describe('getUrl()', () => {
@@ -42,7 +39,7 @@ describe('AnyDeceasedChildren', () => {
             const nextStepOptions = AnyDeceasedChildren.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'anyDeceasedChildren', value: content.optionYes, choice: 'hadDeceasedChildren'},
+                    {key: 'anyDeceasedChildren', value: 'optionYes', choice: 'hadDeceasedChildren'},
                 ]
             });
             done();
@@ -53,12 +50,12 @@ describe('AnyDeceasedChildren', () => {
         it('test it cleans up context', () => {
             const ctx = {
                 deceasedName: 'Dee Ceased',
-                anyDeceasedChildren: contentAnyDeceasedChildren.optionNo,
-                anyGrandchildrenUnder18: contentAnyGrandChildrenUnder18.optionNo
+                anyDeceasedChildren: 'optionNo',
+                anyGrandchildrenUnder18: 'optionNo'
             };
             const formdata = {
                 deceased: {
-                    anyDeceasedChildren: contentAnyDeceasedChildren.optionYes
+                    anyDeceasedChildren: 'optionYes'
                 }
             };
 

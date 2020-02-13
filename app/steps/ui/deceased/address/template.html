@@ -17,7 +17,7 @@
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}">
                 {% call govukFieldset({
                     legend: {
-                        text: content.question,
+                        text: content.question | safe,
                         classes: "govuk-fieldset__legend--l",
                         isPageHeading: true
                     }
@@ -34,7 +34,7 @@
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}">
                 {% call govukFieldset({
                     legend: {
-                        text: content.enterManually,
+                        text: content.enterManually | safe,
                         classes: "govuk-visually-hidden"
                     }
                 }) %}
@@ -55,12 +55,12 @@
                         <div class="govuk-form-group govuk-details__text">
                             {{ govukInput({
                                 label: {
-                                    text: content.addressLabel
+                                    text: content.addressLabel | safe
                                 },
                                 id: "addressLine1",
                                 name: "addressLine1",
                                 value: fields.addressLine1.value | safe,
-                                errorMessage: { text: fields.addressLine1.errorMessage.message } if fields.addressLine1.errorMessage,
+                                errorMessage: { text: fields.addressLine1.errorMessage.message | safe } if fields.addressLine1.errorMessage,
                                 attributes: {
                                     maxlength: 150
                                 },
@@ -69,7 +69,7 @@
                             }) }}
                             {{ govukInput({
                                 label: {
-                                    text: content.addressLabel2,
+                                    text: content.addressLabel2 | safe,
                                     classes: "govuk-visually-hidden"
                                 },
                                 id: "addressLine2",
@@ -83,7 +83,7 @@
                             }) }}
                             {{ govukInput({
                                 label: {
-                                    text: content.addressLabel3,
+                                    text: content.addressLabel3 | safe,
                                     classes: "govuk-visually-hidden"
                                 },
                                 id: "addressLine3",
@@ -97,12 +97,12 @@
                             }) }}
                             {{ govukInput({
                                 label: {
-                                    text: content.postTown
+                                    text: content.postTown | safe
                                 },
                                 id: "postTown",
                                 name: "postTown",
                                 value: fields.postTown.value | safe,
-                                errorMessage: { text: fields.postTown.errorMessage.message } if fields.postTown.errorMessage,
+                                errorMessage: { text: fields.postTown.errorMessage.message | safe } if fields.postTown.errorMessage,
                                 attributes: {
                                     maxlength: 50
                                 },
@@ -111,12 +111,12 @@
                             }) }}
                             {{ govukInput({
                                 label: {
-                                    text: content.postcode
+                                    text: content.postcode | safe
                                 },
                                 id: "newPostCode",
                                 name: "newPostCode",
                                 value: fields.newPostCode.value | safe,
-                                errorMessage: { text: fields.newPostCode.errorMessage.message } if fields.newPostCode.errorMessage,
+                                errorMessage: { text: fields.newPostCode.errorMessage.message | safe } if fields.newPostCode.errorMessage,
                                 attributes: {
                                     maxlength: 14
                                 },
@@ -125,7 +125,7 @@
                             }) }}
                             {{ govukInput({
                                 label: {
-                                    text: content.country
+                                    text: content.country | safe
                                 },
                                 id: "country",
                                 name: "country",
@@ -141,7 +141,7 @@
 
                     <div class="govuk-form-group">
                         {{ govukButton({
-                            text: common.saveAndContinue,
+                            text: common.saveAndContinue | safe,
                             preventDoubleClick: true,
                             attributes: {
                                 id: "submitAddress"

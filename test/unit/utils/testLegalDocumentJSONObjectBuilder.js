@@ -24,41 +24,41 @@ describe('legalDeclarationPDF', () => {
             assert.exists(legalDeclaration);
             //assertPropertyExistsAndIsEqualTo(legalDeclaration.date_created, '');
             assertPropertyExistsAndIsEqualTo(legalDeclaration.deceased, FormatName.format(sessionData.deceased));
-            assert.isArray(legalDeclaration.headers, 'Headers exists');
-            assert.lengthOf(legalDeclaration.headers, 3, 'Headers array has length of 3');
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.headers[0], translations.declaration.highCourtHeader);
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.headers[1], translations.declaration.familyDivisionHeader);
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.headers[2], translations.declaration.probateHeader);
+            assert.isArray(legalDeclaration.declarations[0].headers, 'Headers exists');
+            assert.lengthOf(legalDeclaration.declarations[0].headers, 3, 'Headers array has length of 3');
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].headers[0], translations.declaration.highCourtHeader);
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].headers[1], translations.declaration.familyDivisionHeader);
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].headers[2], translations.declaration.probateHeader);
 
-            assert.isArray(legalDeclaration.sections, 'Sections exists');
-            assert.lengthOf(legalDeclaration.sections, 5, 'Headers array has length of 5');
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[0].title, translations.declaration.legalStatementHeader);
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[0].declarationItems[0].title, replaceTokens(translations.declaration.legalStatementApplicant, ['Jason Smith', 'An address somewhere in england postcode']));
+            assert.isArray(legalDeclaration.declarations[0].sections, 'Sections exists');
+            assert.lengthOf(legalDeclaration.declarations[0].sections, 5, 'Headers array has length of 5');
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[0].title, translations.declaration.legalStatementHeader);
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[0].declarationItems[0].title, replaceTokens(translations.declaration.legalStatementApplicant, ['Jason Smith', 'An address somewhere in england postcode']));
 
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[1].title, translations.declaration.deceasedHeader);
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[1].declarationItems[0].title, replaceTokens(translations.declaration.legalStatementDeceased, ['Mike Samuels', '1 January 1964', '20 October 2018']));
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[1].title, translations.declaration.deceasedHeader);
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[1].declarationItems[0].title, replaceTokens(translations.declaration.legalStatementDeceased, ['Mike Samuels', '1 January 1964', '20 October 2018']));
 
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[2].title, translations.declaration.deceasedEstateHeader);
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[2].declarationItems[0].title, replaceTokens(he.decode(translations.declaration.deceasedEstateValue), ['10000', '10000']));
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[2].declarationItems[1].title, replaceTokens(translations.declaration.deceasedEstateLand, ['Mike Samuels', 'Mike Samuels']));
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[2].title, translations.declaration.deceasedEstateHeader);
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[2].declarationItems[0].title, replaceTokens(he.decode(translations.declaration.deceasedEstateValue), ['10000', '10000']));
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[2].declarationItems[1].title, replaceTokens(translations.declaration.deceasedEstateLand, ['Mike Samuels', 'Mike Samuels']));
 
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[3].title, translations.declaration.executorApplyingHeader);
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[3].declarationItems[0].title, replaceTokens(translations.declaration.applicantName, ['Jason Smith']));
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[3].declarationItems[1].title, replaceTokens(translations.declaration.applicantSend, ['Mike Samuels']));
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[3].title, translations.declaration.executorApplyingHeader);
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[3].declarationItems[0].title, replaceTokens(translations.declaration.applicantName, ['Jason Smith']));
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[3].declarationItems[1].title, replaceTokens(translations.declaration.applicantSend, ['Mike Samuels']));
 
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[4].title, translations.declaration.declarationHeader);
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[4].declarationItems[0].title, replaceTokens(translations.declaration.declarationConfirm, ['Mike Samuels']));
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[4].declarationItems[0].values[0], translations.declaration.declarationConfirmItem1);
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[4].declarationItems[0].values[1], translations.declaration.declarationConfirmItem2);
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[4].declarationItems[0].values[2], translations.declaration.declarationConfirmItem3);
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[4].title, translations.declaration.declarationHeader);
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[4].declarationItems[0].title, replaceTokens(translations.declaration.declarationConfirm, ['Mike Samuels']));
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[4].declarationItems[0].values[0], translations.declaration.declarationConfirmItem1);
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[4].declarationItems[0].values[1], translations.declaration.declarationConfirmItem2);
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[4].declarationItems[0].values[2], translations.declaration.declarationConfirmItem3);
 
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[4].declarationItems[1].title, translations.declaration.declarationRequests);
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[4].declarationItems[1].values[0], translations.declaration.declarationRequestsItem1);
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[4].declarationItems[1].values[1], translations.declaration.declarationRequestsItem2);
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[4].declarationItems[1].title, translations.declaration.declarationRequests);
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[4].declarationItems[1].values[0], translations.declaration.declarationRequestsItem1);
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[4].declarationItems[1].values[1], translations.declaration.declarationRequestsItem2);
 
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[4].declarationItems[2].title, replaceTokens(translations.declaration.declarationUnderstand, ['Jason Smith']));
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[4].declarationItems[2].values[0], translations.declaration.declarationUnderstandItem1);
-            assertPropertyExistsAndIsEqualTo(legalDeclaration.sections[4].declarationItems[2].values[1], translations.declaration.declarationUnderstandItem2);
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[4].declarationItems[2].title, replaceTokens(translations.declaration.declarationUnderstand, ['Jason Smith']));
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[4].declarationItems[2].values[0], translations.declaration.declarationUnderstandItem1);
+            assertPropertyExistsAndIsEqualTo(legalDeclaration.declarations[0].sections[4].declarationItems[2].values[1], translations.declaration.declarationUnderstandItem2);
 
             done();
         });

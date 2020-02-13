@@ -91,7 +91,7 @@
             }
         }) }}
         <div class="govuk-form-group">
-            <p class="govuk-body">{{ content.421Info }}</p>
+            <p class="govuk-body">{{ content.421Info | safe }}</p>
         </div>
     {% endset -%}
 
@@ -101,33 +101,33 @@
         name: "form",
         fieldset: {
             legend: {
-                text: content.question,
+                text: content.question | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.form.errorMessage.message } if fields.form.errorMessage,
+        errorMessage: { text: fields.form.errorMessage.message | safe } if fields.form.errorMessage,
         items: [
             {
-                value: "IHT205",
-                text: content["optionIHT205"],
-                checked: true if fields.form.value == "IHT205" | escape,
+                value: "optionIHT205",
+                text: content["optionIHT205"] | safe,
+                checked: true if fields.form.value == "optionIHT205",
                 conditional: {
                     html: iht205html
                 }
             },
             {
-                value: "IHT207",
-                text: content["optionIHT207"],
-                checked: true if fields.form.value == "IHT207" | escape,
+                value: "optionIHT207",
+                text: content["optionIHT207"] | safe,
+                checked: true if fields.form.value == "optionIHT207",
                 conditional: {
                     html: iht207html
                 }
             },
             {
-                value: "IHT400421",
-                text: content["optionIHT400421"],
-                checked: true if fields.form.value == "IHT400421" | escape,
+                value: "optionIHT400421",
+                text: content["optionIHT400421"] | safe,
+                checked: true if fields.form.value == "optionIHT400421",
                 conditional: {
                     html: iht400421html
                 }
@@ -137,7 +137,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

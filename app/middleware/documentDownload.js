@@ -2,9 +2,9 @@
 
 const ServiceMapper = require('app/utils/ServiceMapper');
 const config = require('app/config');
-const commonContent = require('app/resources/en/translation/common');
 
 const documentDownload = (req, res, service, filename) => {
+    const commonContent = require(`app/resources/${req.session.language}/translation/common`);
     const downloadService = ServiceMapper.map(
         service,
         [config.services.orchestrator.url, req.sessionID]

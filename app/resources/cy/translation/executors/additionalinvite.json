@@ -1,0 +1,20 @@
+{
+  "title": "Hysbysu&rsquo;r ysgutorion rydych wedi&rsquo;u hychwanegu",
+  "header": "Hysbysu&rsquo;r ysgutor rydych wedi&rsquo;i ychwanegu",
+  "header-multiple": "Hysbyswch yr ysgutorion rydych wedi&rsquo;u hychwanegu",
+  "and": "ac fe anfonir neges e-bost at",
+  "paragraph1": "i ddweud bod y datganiad cyfreithiol yn barod i&rsquo;w gytuno.",
+  "paragraph2": "Ni ellir rhoi grant profiant tan fydd yr holl ysgutorion sy&rsquo;n gwneud cais yn cytuno bod y datganiad cyfreithiol yn gywir.",
+  "heading1": "Yr ysgutorion rydych wedi&rsquo;u hychwanegu",
+  "changeLink": "Newid",
+  "sendInvites": "Hysbysu&rsquo;r ysgutorion hyn",
+
+  "errors": {
+    "getUrl(index": {
+      "invalid": {
+        "summary": "Roedd problem wrth geisio anfon y negeseuon e-bost, rhowch gynnig arall arni hwyrach ymlaen",
+        "message": "Roedd problem wrth geisio anfon y negeseuon e-bost, rhowch gynnig arall arni hwyrach ymlaen"
+      }
+    }
+  }
+}

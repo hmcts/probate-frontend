@@ -15,8 +15,8 @@ class ValidationStep extends Step {
         return this.schemaFile;
     }
 
-    constructor(steps, section, templatePath, i18next, schema) {
-        super(steps, section, templatePath, i18next);
+    constructor(steps, section, templatePath, i18next, schema, language = 'en') {
+        super(steps, section, templatePath, i18next, schema, language);
 
         this.schemaFile = schema;
         this.validateSchema = validator.compile(this.schema);
@@ -41,7 +41,7 @@ class ValidationStep extends Step {
         throw new Error(`Step ${this.name} has an invalid schema: schema has no properties or oneOf keywords`);
     }
 
-    validate(ctx, formdata) {
+    validate(ctx, formdata, language) {
         let [isValid, errors] = [true, {}];
 
         const removeEmptyFields = field => (typeof ctx[field] === 'string' && ctx[field].trim() === '') || ctx[field] === '';
@@ -54,7 +54,7 @@ class ValidationStep extends Step {
 
         if (ctx) {
             isValid = this.validateSchema(ctx);
-            errors = isValid ? [] : generateErrors(this.validateSchema.errors, ctx, formdata, `${this.resourcePath}`);
+            errors = isValid ? [] : generateErrors(this.validateSchema.errors, ctx, formdata, `${this.resourcePath}`, language);
         }
         return [isValid, errors];
     }

@@ -4,7 +4,6 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const AssetsOutside = steps.AssetsOutside;
-const content = require('app/resources/en/translation/iht/assetsoutside');
 
 describe('AssetsOutside', () => {
     describe('getUrl()', () => {
@@ -43,7 +42,7 @@ describe('AssetsOutside', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'assetsOutside',
-                    value: content.optionYes,
+                    value: 'optionYes',
                     choice: 'hasAssetsOutside'
                 }]
             });
@@ -56,13 +55,13 @@ describe('AssetsOutside', () => {
             let formdata = {};
             let ctx = {
                 deceasedName: 'Dee Ceased',
-                assetsOutside: content.optionNo,
+                assetsOutside: 'optionNo',
                 netValueAssetsOutsideField: '600000',
                 netValueAssetsOutside: 600000
             };
             [ctx, formdata] = AssetsOutside.action(ctx, formdata);
             expect(ctx).to.deep.equal({
-                assetsOutside: content.optionNo
+                assetsOutside: 'optionNo'
             });
         });
     });

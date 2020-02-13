@@ -8,6 +8,7 @@ const FieldError = require('app/components/error');
 const Authorise = require('app/services/Authorise');
 const Security = require('app/services/Security');
 const logger = require('app/components/logger')('Init');
+const get = require('lodash').get;
 
 class PinResend extends Step {
 
@@ -37,7 +38,7 @@ class PinResend extends Step {
         if (serviceAuthorisation.name === 'Error') {
             logger.info(`serviceAuthResult Error = ${serviceAuthorisation}`);
             const keyword = 'failure';
-            errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx));
+            errors.push(FieldError('authorisation', keyword, this.resourcePath, ctx, session.language));
             return [ctx, errors];
         }
 
@@ -45,12 +46,14 @@ class PinResend extends Step {
         const authToken = yield security.getUserToken(hostname);
         if (authToken.name === 'Error') {
             logger.info(`failed to obtain authToken = ${authToken}`);
-            errors.push(FieldError('authorisation', 'failure', this.resourcePath, ctx));
+            errors.push(FieldError('authorisation', 'failure', this.resourcePath, ctx, session.language));
             return;
         }
 
         const pinNumber = new PinNumber(config.services.orchestrator.url, ctx.sessionID);
-        yield pinNumber.get(phoneNumber)
+        const bilingual = get(formdata, 'language.bilingual', 'optionNo') === 'optionYes';
+
+        yield pinNumber.get(phoneNumber, bilingual)
             .then(generatedPin => {
                 if (generatedPin.name === 'Error') {
                     throw new ReferenceError('Error when trying to resend pin');

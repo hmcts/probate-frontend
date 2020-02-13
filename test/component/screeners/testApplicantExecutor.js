@@ -47,11 +47,11 @@ describe('applicant-executor', () => {
         it(`test it redirects to next page: ${expectedNextUrlForMentalCapacity}`, (done) => {
             const sessionData = {
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes',
-                    left: 'Yes',
-                    original: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionYes',
+                    original: 'optionYes'
                 }
             };
 
@@ -59,7 +59,7 @@ describe('applicant-executor', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        executor: 'Yes'
+                        executor: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForMentalCapacity, cookies);
@@ -69,11 +69,11 @@ describe('applicant-executor', () => {
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const sessionData = {
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes',
-                    left: 'Yes',
-                    original: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionYes',
+                    original: 'optionYes'
                 }
             };
 
@@ -81,7 +81,7 @@ describe('applicant-executor', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        executor: 'No'
+                        executor: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);

@@ -1,0 +1,18 @@
+{
+  "title": "Faint o ddiweddariadau (&lsquo;codisiliau&rsquo;) a wnaed i&rsquo;r ewyllys",
+  "question": "Faint o ddiweddariadau (&lsquo;codisiliau&rsquo;) a wnaed i&rsquo;r ewyllys?",
+  "numberOfUpdates": "Nifer y diweddariadau",
+
+  "errors": {
+    "codicilsNumber": {
+      "required": {
+        "summary": "Nid ydych wedi ateb y cwestiwn am faint o ddiweddariadau (&lsquo;codisiliau&rsquo;) a wnaed i&rsquo;r ewyllys",
+        "message": "Nodwch nifer y diweddariadau (&rsquo;codisiliau&rsquo;)"
+      },
+      "invalid": {
+        "summary": "Nid ydych wedi nodi rhif dilys",
+        "message": "Nodwch rif"
+      }
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "title": "Pa ffurflen bapur y gwnaethoch ei llenwi",
+  "question": "Pa ffurflen bapur y gwnaethoch ei llenwi?",
+  "optionIHT205": "IHT 205 - nid oedd treth etifeddiant i&rsquo;w thalu",
+  "optionIHT207": "IHT 207 - nid oedd treth etifeddiant i&rsquo;w thalu ac roedd yr unigolyn a fu farw yn byw dramor",
+  "optionIHT400421": "IHT 400 a 421",
+  "gross205": "Teipiwch y rhif a nodwyd ym mlwch D (gwerth gros mewn &pound;)",
+  "net205": "Teipiwch y rhif a nodwyd ym mlwch F (gwerth net mewn &pound;)",
+  "gross207": "Teipiwch y rhif a nodwyd ym mlwch C (gwerth gros mewn &pound;)",
+  "net207": "Teipiwch y rhif a nodwyd ym mlwch G (gwerth net mewn &pound;)",
+  "gross400": "Teipiwch y rhif a nodwyd ym mlwch 3 (gwerth gros mewn &pound;)",
+  "net400": "Teipiwch y rhif a nodwyd ym mlwch 5 (gwerth net mewn &pound;)",
+  "421Info": "Bydd HMRC yn prosesu&rsquo;r ffurflenni hyn ac yn eu hanfon i&rsquo;r Swyddfa Brofiant ar eich rhan.",
+
+  "errors": {
+    "form": {
+      "required": {
+        "summary": "Nid ydych wedi dewis ffurflen",
+        "message": "Dewiswch ffurflen"
+      }
+    },
+    "grossValueFieldIHT205": {
+      "required": {
+        "summary": "Nid ydych wedi nodi&rsquo;r swm gros",
+        "message": "Nodwch y swm gros"
+      },
+      "invalid": {
+        "summary": "Swm annilys",
+        "message": "Swm annilys"
+      },
+      "invalidCurrencyFormat": {
+        "summary": "Gall y gwerth gros ond cynnwys rhifau",
+        "message": "Rhaid i&rsquo;r gwerth gros fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
+      }
+    },
+    "netValueFieldIHT205": {
+      "required": {
+        "summary": "Nid ydych wedi nodi&rsquo;r swm net",
+        "message": "Nodwch y swm net"
+      },
+      "invalid": {
+        "summary": "Swm annilys",
+        "message": "Swm annilys"
+      },
+      "invalidCurrencyFormat": {
+        "summary": "Gall y gwerth net ond cynnwys rhifau",
+        "message": "Rhaid i&rsquo;r gwerth net fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
+      },
+      "netValueGreaterThanGross": {
+        "summary": "Ni all y swm net fod yn fwy na&rsquo;r swm gros",
+        "message": "Ni all y swm net fod yn fwy na&rsquo;r swm gros"
+      }
+    },
+    "grossValueFieldIHT207": {
+      "required": {
+        "summary": "Nid ydych wedi nodi&rsquo;r swm gros",
+        "message": "Nodwch y swm gros"
+      },
+      "invalid": {
+        "summary": "Swm annilys",
+        "message": "Swm annilys"
+      },
+      "invalidCurrencyFormat": {
+        "summary": "Gall y gwerth gros ond cynnwys rhifau",
+        "message": "Rhaid i&rsquo;r gwerth gros fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
+      }
+    },
+    "netValueFieldIHT207": {
+      "required": {
+        "summary": "Nid ydych wedi nodi&rsquo;r swm net",
+        "message": "Nodwch y swm net"
+      },
+      "invalid": {
+        "summary": "Swm annilys",
+        "message": "Swm annilys"
+      },
+      "invalidCurrencyFormat": {
+        "summary": "Gall y gwerth net ond cynnwys rhifau",
+        "message": "Rhaid i&rsquo;r gwerth net fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
+      },
+      "netValueGreaterThanGross": {
+        "summary": "Ni all y swm net fod yn fwy na&rsquo;r swm gros",
+        "message": "Ni all y swm net fod yn fwy na&rsquo;r swm gros"
+      }
+    },
+    "grossValueFieldIHT400421": {
+      "required": {
+        "summary": "Nid ydych wedi nodi&rsquo;r swm gros",
+        "message": "Nodwch y swm gros"
+      },
+      "invalid": {
+        "summary": "Swm annilys",
+        "message": "Swm annilys"
+      },
+      "invalidCurrencyFormat": {
+        "summary": "Gall y gwerth gros ond cynnwys rhifau",
+        "message": "Rhaid i&rsquo;r gwerth gros fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
+      }
+    },
+    "netValueFieldIHT400421": {
+      "required": {
+        "summary": "Nid ydych wedi nodi&rsquo;r swm net",
+        "message": "Nodwch y swm net"
+      },
+      "invalid": {
+        "summary": "Swm annilys",
+        "message": "Swm annilys"
+      },
+      "invalidCurrencyFormat": {
+        "summary": "Gall y gwerth net ond cynnwys rhifau",
+        "message": "Rhaid i&rsquo;r gwerth net fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
+      },
+      "netValueGreaterThanGross": {
+        "summary": "Ni all y swm net fod yn fwy na&rsquo;r swm gros",
+        "message": "Ni all y swm net fod yn fwy na&rsquo;r swm gros"
+      }
+    }
+  }
+}

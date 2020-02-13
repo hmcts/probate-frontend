@@ -50,7 +50,7 @@ describe('AdditionalExecutorInvite', () => {
                                 address: 'exec_3_address\r\n',
                             }
                         ],
-                        otherExecutorsApplying: 'Yes',
+                        otherExecutorsApplying: 'optionYes',
                         invitesSent: 'true'
                     }
                 }

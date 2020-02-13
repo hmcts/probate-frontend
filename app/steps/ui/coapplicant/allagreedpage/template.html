@@ -11,7 +11,7 @@
             <h2 class="govuk-heading-m">{{ content.subHeader | safe }}</h2>
             <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
             <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph4a }}<a href="{{ globals.links.surveyEndOfApplication | safe }}" class="govuk-link">{{ content.paragraph4b }}</a></p>
+            <p class="govuk-body">{{ content.paragraph4a }}<a href="{{ globals.links.surveyEndOfApplication }}" class="govuk-link">{{ content.paragraph4b | safe }}</a>.</p>
 
             {% include "includes/help_details.html" %}
         </div>

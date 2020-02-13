@@ -12,17 +12,17 @@
             <p class="govuk-body">{{ content.paragraph1 | replace("{leadExecutorName}", fields.leadExecFullName.value) | replace("{deceasedName}", fields.deceasedFullName.value) | safe }}</p>
             <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
 
-            <h2 class="govuk-heading-m">{{ content.subHeader1 }}</h2>
+            <h2 class="govuk-heading-m">{{ content.subHeader1 | safe }}</h2>
             <p class="govuk-body">{{ content.paragraph3 | replace("{leadExecutorName}", fields.leadExecFullName.value) | safe }}</p>
             <p class="govuk-body">{{ content.list1Header | replace("{leadExecutorName}", fields.leadExecFullName.value) | safe }}</p>
             {{ unorderedList([
-                content["list1Item1"] | safe,
-                content["list1Item2"] | safe
+                content["list1Item1"],
+                content["list1Item2"]
             ]) }}
 
             <div class="govuk-form-group">
                 {{ govukButton({
-                    text: content.button,
+                    text: content.button | safe,
                     href: "/co-applicant-declaration"
                 }) }}
             </div>
@@ -30,8 +30,8 @@
             <h3 class="govuk-heading-s">{{ content.subHeader2 | safe }}</h3>
             <p class="govuk-body">{{ content.list2Header | safe }}</p>
             {{ unorderedList([
-                content["list2Item1"] | safe,
-                content["list2Item2"] | safe
+                content["list2Item1"],
+                content["list2Item2"]
             ]) }}
             <p class="govuk-body">{{ content.paragraph4 | replace("{leadExecutorName}", fields.leadExecFullName.value) | safe }}</p>
 

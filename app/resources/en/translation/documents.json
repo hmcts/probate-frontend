@@ -21,6 +21,7 @@
   "checkboxLabel-codicils": "I understand that I need to sign the will and any &lsquo;codicils&rsquo; before sending my documents",
   "coverSheetDownloadMessage": "Download and print this",
   "coverSheetPdf": "application coversheet",
+
   "errors": {
     "sentDocuments": {
       "required": {

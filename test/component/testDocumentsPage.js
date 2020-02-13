@@ -6,9 +6,6 @@ const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
 const ThankYou = require('app/steps/ui/thankyou');
-const deceasedMaritalStatusContent = require('app/resources/en/translation/deceased/maritalstatus');
-const ihtContent = require('app/resources/en/translation/iht/method');
-const relationshipToDeceasedContent = require('app/resources/en/translation/applicant/relationshiptodeceased');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('documents', () => {
@@ -141,7 +138,7 @@ describe('documents', () => {
 
             it('test correct content loaded on the page, has codicils, no alias, single executor', (done) => {
                 sessionData.will = {
-                    codicils: 'Yes',
+                    codicils: 'optionYes',
                     codicilsNumber: '1'
                 };
 
@@ -165,7 +162,7 @@ describe('documents', () => {
 
             it('test correct content loaded on the page, has codicils, no alias, multiple executors', (done) => {
                 sessionData.will = {
-                    codicils: 'Yes',
+                    codicils: 'optionYes',
                     codicilsNumber: '1'
                 };
                 sessionData.executors = {
@@ -218,7 +215,7 @@ describe('documents', () => {
 
             it('test correct content loaded on the page, no codicils, single executor, no alias, online IHT', (done) => {
                 sessionData.iht = {
-                    method: ihtContent.optionOnline
+                    method: 'optionOnline'
                 };
 
                 testWrapper.agent.post('/prepare-session/form')
@@ -240,8 +237,8 @@ describe('documents', () => {
 
             it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 207 or 400', (done) => {
                 sessionData.iht = {
-                    method: ihtContent.optionPaper,
-                    form: 'IHT207'
+                    method: 'optionPaper',
+                    form: 'optionIHT207'
                 };
 
                 testWrapper.agent.post('/prepare-session/form')
@@ -263,8 +260,8 @@ describe('documents', () => {
 
             it('test correct content loaded on the page, no codicils, single executor, no alias, paper IHT, 205', (done) => {
                 sessionData.iht = {
-                    method: ihtContent.optionPaper,
-                    form: 'IHT205'
+                    method: 'optionPaper',
+                    form: 'optionIHT205'
                 };
 
                 testWrapper.agent.post('/prepare-session/form')
@@ -286,9 +283,9 @@ describe('documents', () => {
             it('test correct content loaded on the page, one executor name changed by deed poll', (done) => {
                 sessionData.executors = {
                     list: [
-                        {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Marriage'},
-                        {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'Change by deed poll'},
-                        {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'Divorce'}
+                        {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'optionMarriage'},
+                        {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'optionDeedPoll'},
+                        {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'optionDivorce'}
                     ]
                 };
 
@@ -312,9 +309,9 @@ describe('documents', () => {
             it('test correct content loaded on the page, multiple executor name changed by deed poll', (done) => {
                 sessionData.executors = {
                     list: [
-                        {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'Change by deed poll'},
-                        {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'Change by deed poll'},
-                        {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'other', otherReason: 'Did not like my name'}
+                        {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'optionDeedPoll'},
+                        {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'optionDeedPoll'},
+                        {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'optionOther', otherReason: 'Did not like my name'}
                     ]
                 };
 
@@ -342,14 +339,14 @@ describe('documents', () => {
         describe('Intestacy Journey', () => {
             it('test correct content loaded on the page', (done) => {
                 sessionData.deceased = {
-                    maritalStatus: deceasedMaritalStatusContent.optionMarried
+                    maritalStatus: 'optionMarried'
                 };
                 sessionData.applicant = {
-                    relationshipToDeceased: relationshipToDeceasedContent.optionChild
+                    relationshipToDeceased: 'optionChild'
                 };
                 sessionData.iht = {
-                    method: ihtContent.optionPaper,
-                    form: 'IHT205'
+                    method: 'optionPaper',
+                    form: 'optionIHT205'
                 };
                 sessionData.caseType = caseTypes.INTESTACY;
 

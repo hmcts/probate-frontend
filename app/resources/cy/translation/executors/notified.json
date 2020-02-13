@@ -1,0 +1,16 @@
+{
+  "title": "Ysgutor wedi&rsquo;i hysbysu",
+  "question": "Ydych chi wedi hysbysu {executorName} yn ysgrifenedig eich bod yn gwneud cais?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+  "informInWriting": "Mae&rsquo;n rhaid ichi hysbysu&rsquo;r ysgutor yn ysgrifenedig eich bod yn gwneud cais am brofiant",
+
+  "errors": {
+    "executorNotified": {
+      "required": {
+        "summary": "Nid ydych wedi datgan os ydych wedi hysbysu&rsquo;r ysgutor yn ysgrifenedig ai peidio",
+        "message": "Atebwch &lsquo;do&rsquo; os ydych wedi hysbysu&rsquo;r ysgutor yn ysgrifenedig "
+      }
+    }
+  }
+}

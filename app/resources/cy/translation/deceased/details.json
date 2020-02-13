@@ -1,0 +1,122 @@
+{
+  "title": "Manylion yr unigolyn sydd wedi marw",
+  "question": "Beth yw manylion yr unigolyn sydd wedi marw?",
+  "questionName": "Enw&rsquo;r unigolyn sydd wedi marw",
+  "firstName": "Enw(au) cyntaf",
+  "firstNameHint": "Gan gynnwys enwau canol",
+  "lastName": "Cyfenw(au)",
+  "questionDob": "Dyddiad geni",
+  "questionHintDob": "Er enghraifft, 31 03 1945",
+  "questionDod": "Dyddiad y farwolaeth",
+  "questionHintDod": "Defnyddiwch y dyddiad sydd ar y dystysgrif marwolaeth. Er enghraifft, 30 06 2016",
+  "errors": {
+    "firstName": {
+      "required": {
+        "summary": "Nid ydych wedi nodi enw cyntaf yr unigolyn sydd wedi marw",
+        "message": "Nodwch enw cyntaf yr unigolyn sydd wedi marw"
+      },
+      "invalid": {
+        "summary": "Gall yr enw cyntaf ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau",
+        "message": "Gall yr enw cyntaf ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau"
+      }
+    },
+    "lastName": {
+      "required": {
+        "summary": "Nid ydych wedi nodi cyfenw&rsquo;r unigolyn sydd wedi marw",
+        "message": "Nodwch gyfenw&rsquo;r unigolyn sydd wedi marw"
+      },
+      "invalid": {
+        "summary": "Gall y cyfenw ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau",
+        "message": "Gall y cyfenw ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau"
+      }
+    },
+    "dob-day": {
+      "required": {
+        "summary": "Nid ydych wedi nodi&rsquo;r diwrnod y cawsant eu geni",
+        "message": "Nodwch y diwrnod y cawsant eu geni"
+      },
+      "invalid": {
+        "summary": "Nid ydych wedi nodi diwrnod dilys ar gyfer pryd cawsant eu geni",
+        "message": "Nodwch ddiwrnod geni dilys"
+      }
+    },
+    "dob-month": {
+      "required": {
+        "summary": "Nid ydych wedi nodi&rsquo;r mis y cawsant eu geni",
+        "message": "Nodwch y mis y cawsant eu geni"
+      },
+      "invalid": {
+        "summary": "Nid ydych wedi nodi mis dilys ar gyfer pryd cawsant eu geni",
+        "message": "Nodwch fis geni dilys"
+      }
+    },
+    "dob-year": {
+      "required": {
+        "summary": "Nid ydych wedi nodi&rsquo;r flwyddyn y cawsant eu geni",
+        "message": "Nodwch y flwyddyn y cawsant eu geni"
+      },
+      "invalid": {
+        "summary": "Nid ydych wedi nodi blwyddyn ddilys ar gyfer pryd cawsant eu geni",
+        "message": "Nodwch flwyddyn geni dilys"
+      }
+    },
+    "dob-date": {
+      "invalid": {
+        "summary": "Mae angen ichi nodi dyddiad geni dilys",
+        "message": "Nodwch ddyddiad geni dilys"
+      },
+      "dateInFuture": {
+        "summary": "Mae&rsquo;n rhaid ichi nodi dyddiad geni sydd yn y gorffennol",
+        "message": "Nodwch ddyddiad yn y gorffennol"
+},
+      "dodBeforeDob": {
+        "summary": "Mae&rsquo;r dyddiad geni rydych wedi&rsquo;i nodi ar &ocirc;l dyddiad y farwolaeth",
+        "message": "Nodwch ddyddiad geni sydd cyn dyddiad y farwolaeth"
+      }
+    },
+    "dod-day": {
+      "required": {
+        "summary": "Nid ydych wedi nodi&rsquo;r diwrnod y bu iddynt farw",
+        "message": "Nodwch y diwrnod y bu iddynt farw"
+      },
+      "invalid": {
+        "summary": "Nid ydych wedi nodi diwrnod dilys ar gyfer pryd bu iddynt farw",
+        "message": "Nodwch ddiwrnod dilys ar gyfer pryd bu iddynt farw"
+      }
+    },
+    "dod-month": {
+      "required": {
+        "summary": "Nid ydych wedi nodi&rsquo;r mis y bu iddynt farw",
+        "message": "Nodwch y mis y bu iddynt farw"
+      },
+      "invalid": {
+        "summary": "Nid ydych wedi nodi mis dilys ar gyfer pryd bu iddynt farw",
+        "message": "Nodwch fis dilys ar gyfer pryd bu iddynt farw"
+      }
+    },
+    "dod-year": {
+      "required": {
+        "summary": "Nid ydych wedi nodi&rsquo;r flwyddyn y bu iddynt farw",
+        "message": "Nodwch y flwyddyn y bu iddynt farw"
+      },
+      "invalid": {
+        "summary": "Nid ydych wedi nodi blwyddyn ddilys ar gyfer pryd bu iddynt farw",
+        "message": "Nodwch flwyddyn ddilys ar gyfer pryd bu iddynt farw"
+      }
+    },
+    "dod-date": {
+      "invalid": {
+        "summary": "Mae angen ichi nodi dyddiad dilys ar gyfer pryd bu iddynt farw",
+        "message": "Nodwch ddyddiad dilys ar gyfer pryd bu iddynt farw"
+      },
+      "dateInFuture": {
+        "summary": "Mae&rsquo;n rhaid ichi nodi dyddiad marwolaeth sydd yn y gorffennol",
+        "message": "Nodwch ddyddiad yn y gorffennol"
+      },
+      "dodBeforeDob": {
+        "summary": "Mae&rsquo;r dyddiad marwolaeth rydych wedi&rsquo;i nodi cyn y dyddiad geni",
+        "message": "Nodwch ddyddiad marwolaeth sydd ar &ocirc;l y dyddiad geni"
+      }
+    }
+  }
+}

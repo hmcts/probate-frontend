@@ -1,0 +1,15 @@
+{
+  "title": "Lle ddigwyddodd {legalProcess}",
+  "question": "A ddigwyddodd {legalProcess} yng Nghymru neu Lloegr?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+
+  "errors": {
+    "divorcePlace": {
+      "required": {
+        "summary": "Nid ydych wedi ateb y cwestiwn ynghylch ymhle ddigwyddodd {legalProcess}",
+        "message": "Atebwch &lsquo;do&rsquo; os digwyddodd {legalProcess} yng Nghymru neu Lloegr"
+      }
+    }
+  }
+}

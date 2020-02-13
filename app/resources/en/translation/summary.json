@@ -8,7 +8,7 @@
   "deceasedHeading": "About the person who died",
   "ihtHeading": "Inheritance tax",
   "otherExecutors": "Other executors applying for probate",
-  "executorsWhenDiedQuestion" : "Did {executorFullName} die before the person who died?",
+  "executorsWhenDiedQuestion": "Did {executorFullName} die before the person who died?",
   "otherNamesLabel": "Names used by the deceased",
   "aboutPeopleApplyingHeading": "About the people applying",
   "aboutYouHeading": "About you",

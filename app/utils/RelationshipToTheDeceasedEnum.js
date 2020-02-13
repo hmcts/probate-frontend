@@ -1,7 +1,5 @@
 'use strict';
 
-const content = require('app/resources/en/translation/applicant/relationshiptodeceased');
-
 class RelationshipToTheDeceasedEnum {
     static getPartner() {
         return 'partner';
@@ -13,18 +11,18 @@ class RelationshipToTheDeceasedEnum {
         return 'adoptedChild';
     }
     static getOther() {
-        return 'other';
+        return 'optionOther';
     }
 
     static getCCDCode(value) {
         switch (value) {
-        case content.optionSpousePartner:
+        case 'optionSpousePartner':
             return this.getPartner();
-        case content.optionChild:
+        case 'optionChild':
             return this.getChild();
-        case content.optionAdoptedChild:
+        case 'optionAdoptedChild':
             return this.getAdoptedChild();
-        case content.optionOther:
+        case 'optionOther':
             return this.getOther();
         default:
             throw new Error(`Enumerator RelationshipToDeceasedEnum value: ${value} not found`);

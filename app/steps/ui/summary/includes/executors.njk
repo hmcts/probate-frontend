@@ -15,7 +15,7 @@
     items = [
         {
             question: content.ExecutorsAllAlive.question,
-            answer: fields.executors.allalive.value,
+            answer: content.ExecutorsAllAlive[fields.executors.allalive.value],
             visible: fields.executors.executorsNumber.value > 1
         }
     ],
@@ -29,7 +29,7 @@
         {
             question: content.ExecutorsWhoDied.question,
             answer: fields.summary.executorsWhoDied.value,
-            visible: fields.executors.allalive.value === content.ExecutorsAllAlive.optionNo
+            visible: fields.executors.allalive.value == "optionNo"
         }
     ],
     url = content.ExecutorsWhoDied.url,
@@ -44,7 +44,7 @@
             items = [
                 {
                     question: content.Summary.executorsWhenDiedQuestion | replace("{executorFullName}", executor.fullName),
-                    answer: executor.diedBefore,
+                    answer: content.ExecutorsWhenDied[executor.diedBefore],
                     visible: true
                 }
             ],

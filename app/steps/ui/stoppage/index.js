@@ -13,7 +13,7 @@ class StopPage extends Step {
         ctx.stopReason = req.params[0];
 
         const formdata = req.session.form;
-        const templateContent = this.generateContent(ctx, formdata)[ctx.stopReason];
+        const templateContent = this.generateContent(ctx, formdata, req.session.language)[ctx.stopReason];
 
         if (templateContent) {
             ctx.linkPlaceholders = this.replaceLinkPlaceholders(templateContent);

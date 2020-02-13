@@ -9,19 +9,19 @@
 {% block page_content %}
     {% call govukFieldset({
         legend: {
-            text: content.header,
+            text: content.header | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-body">{{ content.paragraph1 }}</p>
+        <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
 
         {{ govukInsetText({
             text: ("<p class=\"govuk-body\">" + content.help1 + "</p><p class=\"govuk-body\">" + content.help2 + "</p>") | safe
         }) }}
 
         {{ govukDetails({
-            summaryText: content.stepsTitle,
+            summaryText: content.stepsTitle | safe,
             text: orderedList([
                 content["steps-item1"],
                 content["steps-item2"],
@@ -30,7 +30,7 @@
             ])
         }) }}
 
-        <p class="govuk-body">{{ content.paragraph2 }}</p>
+        <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
 
         {% include "includes/document-upload.html" %}
 
@@ -44,7 +44,7 @@
 {% block form_content %}
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.continue,
+            text: common.continue | safe,
             preventDoubleClick: true
         }) }}
     </div>

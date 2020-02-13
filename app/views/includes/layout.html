@@ -1,16 +1,17 @@
-
 {% extends "govuk/template.njk" %}
 
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/header/macro.njk" import govukHeader %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 
+{% set htmlLang = fields.language.value %}
+
 {% block pageTitle %}
     {% if title == undefined %}
         {% set title = content.title %}
     {% endif %}
 
-    {{ title | safe }}{% if serviceName %}{{ " - " + serviceName }}{% endif %}
+    {{ title | safe }}{% if serviceName %}{{ " - " + serviceName | safe }}{% endif %}
 {% endblock %}
 
 {% block head %}
@@ -19,7 +20,7 @@
 
 {% block header %}
     <div id="global-cookie-message">
-        <p class="govuk-body">{{ cookieText | replace('{cookiesLink}', globals.links.cookies) | safe }}</p>
+        <p class="govuk-body">{{ cookieText | replace("{cookiesLink}", globals.links.cookies) | safe }}</p>
     </div>
 
     {% if not hideNavigation %}
@@ -28,18 +29,18 @@
             {% if fields.isDashboard.value !== "true" %}
                 {% set navigationItems = (navigationItems.push({
                     href: "/dashboard",
-                    text: common.myApplications
+                    text: common.myApplications | safe
                 }), navigationItems) %}
             {% endif %}
 
             {% set navigationItems = (navigationItems.push({
                 href: "/sign-out",
-                text: common.signOut
+                text: common.signOut | safe
             }), navigationItems) %}
         {% else %}
             {% set navigationItems = (navigationItems.push({
                 href: "/dashboard",
-                text: common.signIn
+                text: common.signIn | safe
             }), navigationItems) %}
         {% endif %}
     {% endif %}
@@ -64,9 +65,9 @@
                     <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
                         {% for item in navigationItems %}
                             {% if item.href and item.text %}
-                                <li class="govuk-header__navigation-item{{ ' govuk-header__navigation-item--active' if item.active }}">
+                                <li class="govuk-header__navigation-item{{ " govuk-header__navigation-item--active" if item.active }}">
                                     <a class="govuk-header__link" href="{{ item.href }}"{% for attribute, value in item.attributes %} {{attribute}}="{{value}}"{% endfor %}>
-                                        {{ item.text }}
+                                        {{ item.text | safe }}
                                     </a>
                                 </li>
                             {% endif %}
@@ -81,9 +82,9 @@
 {% block beforeContent %}
     {{ govukPhaseBanner({
         tag: {
-            text: common.phase
+            text: common.phase | safe
         },
-        html: common.feedback | replace("{smartSurveyFeedbackUrl}", globals.links.survey) | replace("{currentPageUrl}", pageUrl) | safe
+        html: (common.feedback + common.languageToggle) | replace("{smartSurveyFeedbackUrl}", globals.links.survey) | replace("{currentPageUrl}", pageUrl) | safe
     }) }}
 {% endblock %}
 

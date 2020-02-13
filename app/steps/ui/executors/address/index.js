@@ -54,8 +54,8 @@ class ExecutorAddress extends AddressStep {
         return [ctx, errors];
     }
 
-    handlePost(ctx, errors) {
-        super.handlePost(ctx, errors);
+    handlePost(ctx, errors, formdata, session) {
+        super.handlePost(ctx, errors, formdata, session);
         ctx.list[ctx.index].address = ctx.address;
         ctx.list[ctx.index].postcode = ctx.postcode;
         ctx.list[ctx.index].addresses = ctx.addresses;

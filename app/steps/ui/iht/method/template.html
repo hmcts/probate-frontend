@@ -9,7 +9,7 @@
         name: "method",
         fieldset: {
             legend: {
-                text: content.question,
+                text: content.question | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
@@ -17,24 +17,24 @@
         hint: {
             text: content.paragraph1 | safe
         },
-        errorMessage: { text: fields.method.errorMessage.message } if fields.method.errorMessage,
+        errorMessage: { text: fields.method.errorMessage.message | safe } if fields.method.errorMessage,
         items: [
             {
-                value: content["optionPaper"],
-                text: content["optionPaper"],
-                checked: true if fields.method.value == content["optionPaper"] | escape
+                value: "optionPaper",
+                text: content["optionPaper"] | safe,
+                checked: true if fields.method.value == "optionPaper"
             },
             {
-                value: content["optionOnline"],
-                text: content["optionOnline"],
-                checked: true if fields.method.value == content["optionOnline"] | escape
+                value: "optionOnline",
+                text: content["optionOnline"] | safe,
+                checked: true if fields.method.value == "optionOnline"
             }
         ]
     }) }}
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

@@ -2,7 +2,7 @@
 
 const taskList = {
     DeceasedTask: {
-        firstStep: 'DeceasedName',
+        firstStep: 'BilingualGOP',
         lastStep: 'TaskList',
         summary: 'Summary'
     },
@@ -64,6 +64,7 @@ const stepList = {
         otherwise: 'StopPage'
     },
     StartApply: 'Dashboard',
+    BilingualGOP: 'DeceasedName',
     DeceasedName: 'DeceasedDob',
     DeceasedDob: 'DeceasedDod',
     DeceasedDod: 'DeceasedAddress',

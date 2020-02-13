@@ -12,10 +12,10 @@
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-hint">{{ content.currentNameHint }}</p>
+        <p class="govuk-hint">{{ content.currentNameHint | safe }}</p>
         {{ govukInput({
             label: {
-                text: content.currentName
+                text: content.currentName | safe
             },
             id: "currentName",
             name: "currentName",
@@ -30,7 +30,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

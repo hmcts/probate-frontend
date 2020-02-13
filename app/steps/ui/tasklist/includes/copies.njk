@@ -4,7 +4,7 @@
     {{ taskHeader(
         number = "4.",
         content = content,
-        title = content.copiesTaskProbate if fields.caseType.value === "gop" else content.copiesTaskIntestacy,
+        title = (content.copiesTaskProbate if fields.caseType.value == "gop" else content.copiesTaskIntestacy) | safe,
         status = fields.CopiesTask.value.status,
         previousTaskStatus = previousTaskStatus
     ) }}
@@ -15,7 +15,7 @@
             nextURL = fields.CopiesTask.value.nextURL,
             checkYourAnswersURL = fields.CopiesTask.value.checkYourAnswersLink,
             content = content,
-            title = content.copiesTask
+            title = content.copiesTask | safe
         ) }}
     </div>
 </li>

@@ -1,0 +1,18 @@
+{
+  "title": "Dynodwr Treth Etifeddiant (IHT)",
+  "question": "Dynodwr Treth Etifeddiant (IHT)",
+  "ihtIdentifierHint": "Dyma&rsquo;r cyfeirnod sydd ar adroddiad ystad Treth Etifeddiant.",
+
+  "errors": {
+    "identifier": {
+      "required": {
+        "summary": "Mae angen ichi nodi&rsquo;r dynodwr Treth Etifeddiant",
+        "message": "Nodwch y dynodwr Treth Etifeddiant"
+      },
+      "invalid": {
+        "summary": "Mae angen ichi nodi&rsquo;r dynodwr Treth Etifeddiant",
+        "message": "Nodwch y dynodwr Treth Etifeddiant"
+      }
+    }
+  }
+}

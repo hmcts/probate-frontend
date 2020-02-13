@@ -1,0 +1,16 @@
+{
+  "title": "A oedd gan yr unigolyn sydd wedi marw asedau y tu allan i&rsquo;r DU",
+  "question": "A oedd gan {deceasedName} asedau y tu allan i&rsquo;r DU?",
+  "hint": "Gallai hyn fod yn gyfranddaliadau neu&rsquo;n eiddo y tu allan i&rsquo;r DU. Os felly, efallai y byddwch angen copi o&rsquo;r grant profiant i&rsquo;w ddefnyddio y tu allan i&rsquo;r DU.",
+  "optionYes": "Oedd",
+  "optionNo": "Nag oedd",
+
+  "errors": {
+    "assetsoverseas": {
+      "required": {
+        "summary": "Nid ydych wedi ateb y cwestiwn am asedau y tu allan i&rsquo;r DU",
+        "message": "Atebwch &lsquo;oedd&rsquo; os oedd gan yr unigolyn sydd wedi marw asedau y tu allan i&rsquo;r DU"
+      }
+    }
+  }
+}

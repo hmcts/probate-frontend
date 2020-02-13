@@ -1,0 +1,41 @@
+{
+  "title": "Taliad -  dadansoddiad o&rsquo;r costau",
+  "heading": "Taliad",
+  "applicationFee": "Ffi gwneud cais",
+  "extraCopiesFeeUk": "Cop&iuml;au i&rsquo;w defnyddio yn y DU",
+  "extraCopiesFeeOverseas": "Cop&iuml;au i&rsquo;w defnyddio y tu allan i&rsquo;r DU",
+  "total": "Cyfanswm sy&rsquo;n ddyledus",
+
+  "errors": {
+    "authorisation": {
+      "failure": {
+        "summary": "Nid oedd modd inni gymryd eich taliad, rhowch gynnig arall arni yn nes ymlaen.",
+        "message": ""
+      }
+    },
+    "payment": {
+      "failure": {
+        "summary": "Nid oedd modd inni gymryd eich taliad, rhowch gynnig arall arni yn nes ymlaen.",
+        "message": ""
+      },
+      "initiated": {
+        "summary": "Mae eich taliad wedi methu. Arhoswch am 2 awr cyn rhoi cynnig arall arni.",
+        "message": ""
+      }
+    },
+    "submit": {
+      "failure": {
+        "summary": "Ni anfonwyd eich cais. Rhowch gynnig arall arni.",
+        "message": ""
+      },
+      "duplicate": {
+        "summary": "Mae eich cais wedi cael ei gyflwyno, ewch yn &ocirc;l i&rsquo;r rhestr dasgau i barhau.",
+        "message": ""
+      },
+      "validation": {
+        "summary": "Roedd problem wrth geisio arbed eich cais.",
+        "message": ""
+      }
+    }
+  }
+}

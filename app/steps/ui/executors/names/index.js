@@ -55,15 +55,15 @@ class ExecutorsNames extends ValidationStep {
         return [ctx, formdata];
     }
 
-    validate(ctx, formdata) {
+    validate(ctx, formdata, language) {
         let validationResult = [];
         if (isEmpty(ctx.executorName)) {
             validationResult[0] = size(ctx.list) === ctx.executorsNumber;
         } else {
             this.trimArrayTextFields(ctx);
-            validationResult = super.validate(ctx, formdata);
+            validationResult = super.validate(ctx, formdata, language);
             if (!validationResult[0]) { // has errors
-                ctx.errors = this.createErrorMessages(validationResult[1], ctx);
+                ctx.errors = this.createErrorMessages(validationResult[1], ctx, language);
             }
         }
         return validationResult;
@@ -80,13 +80,13 @@ class ExecutorsNames extends ValidationStep {
         }
     }
 
-    createErrorMessages (validationErrors, ctx) {
+    createErrorMessages(validationErrors, ctx, language) {
         const self = this;
         const errorMessages = [];
         errorMessages.length = [ctx.executorsNumber - 1];
         validationErrors.forEach((validationError) => {
             const index = self.getIndexFromErrorParameter(validationError);
-            errorMessages[index] = self.composeMessage(ctx.executorName[index], parseInt(index) + 2);
+            errorMessages[index] = self.composeMessage(language, ctx.executorName[index], parseInt(index) + 2);
             validationError.msg = errorMessages[index].msg;
             validationError.field = `executorName_${index}`;
         });
@@ -97,9 +97,9 @@ class ExecutorsNames extends ValidationStep {
         return validationError.field.split('[')[1].split(']')[0];
     }
 
-    composeMessage (inputTextFieldValue, screenExecutorNumber) {
+    composeMessage(language, inputTextFieldValue, screenExecutorNumber) {
         const messageType = inputTextFieldValue === '' ? 'required' : 'invalid';
-        const errorMessage = FieldError('executorName', messageType, resourcePath);
+        const errorMessage = FieldError('executorName', messageType, resourcePath, language);
         const displayExecutor = i18next.t(`${resourcePath}.executor`);
         errorMessage.msg.summary = `${displayExecutor} ${screenExecutorNumber}: ${errorMessage.msg.summary}`;
         return errorMessage;

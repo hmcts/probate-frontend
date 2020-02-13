@@ -4,7 +4,6 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const AssetsOverseas = steps.AssetsOverseas;
-const content = require('app/resources/en/translation/assets/overseas');
 
 describe('AssetsOutside', () => {
     describe('getUrl()', () => {
@@ -43,7 +42,7 @@ describe('AssetsOutside', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'assetsoverseas',
-                    value: content.optionYes,
+                    value: 'optionYes',
                     choice: 'assetsoverseas'
                 }]
             });

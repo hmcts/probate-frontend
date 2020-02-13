@@ -4,7 +4,6 @@ const TestWrapper = require('test/util/TestWrapper');
 const ApplicantName = require('app/steps/ui/applicant/name/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testCommonContent = require('test/component/common/testCommonContent.js');
-const content = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('any-grandchildren-under-18', () => {
@@ -53,7 +52,7 @@ describe('any-grandchildren-under-18', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        anyGrandchildrenUnder18: content.optionNo
+                        anyGrandchildrenUnder18: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
@@ -65,7 +64,7 @@ describe('any-grandchildren-under-18', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        anyGrandchildrenUnder18: content.optionYes
+                        anyGrandchildrenUnder18: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);

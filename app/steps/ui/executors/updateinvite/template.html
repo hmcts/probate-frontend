@@ -22,20 +22,20 @@
             {% if executor.isApplicant !== true and executor.emailChanged %}
                 <div class="govuk-grid-row word-wrap">
                     <div class="govuk-grid-column-one-quarter">
-                        <p class="govuk-body">{{ executor.fullName }}</p>
+                        <p class="govuk-body">{{ executor.fullName | safe }}</p>
                     </div>
 
                     <div class="govuk-grid-column-one-quarter">
-                        <p class="govuk-body">{{ executor.email }}</p>
+                        <p class="govuk-body">{{ executor.email | safe }}</p>
                     </div>
 
                     <div class="govuk-grid-column-one-quarter">
-                        <p class="govuk-body">{{ executor.mobile }}</p>
+                        <p class="govuk-body">{{ executor.mobile | safe }}</p>
                     </div>
 
                     <div class="govuk-grid-column-one-quarter">
                         <p class="govuk-body">
-                            <a href="/executor-contact-details/{{ loop.index - 1 }}" class="govuk-link">{{ content.changeLink }}</a>
+                            <a href="/executor-contact-details/{{ loop.index - 1 }}" class="govuk-link">{{ content.changeLink | safe }}</a>
                         </p>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: content.sendInvites,
+            text: content.sendInvites | safe,
             preventDoubleClick: true
         }) }}
     </div>

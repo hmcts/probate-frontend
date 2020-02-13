@@ -1,0 +1,23 @@
+{
+  "title": "Gwerth yr asedau y tu allan i Gymru a Lloegr",
+  "question": "Beth yw gwerth yr asedau y tu allan i Gymru a Lloegr?",
+  "hint": "Nodwch y cyfanswm ar &ocirc;l i unrhyw ddyledion a threuliau gael eu talu.",
+  "netValue": "Gwerth net mewn &pound;",
+
+  "errors": {
+    "netValueAssetsOutsideField": {
+      "required": {
+        "summary": "Nid ydych wedi nodi swm yr asedau y tu allan i Gymru a Lloegr",
+        "message": "Nodwch swm yr asedau y tu allan i Gymru a Lloegr"
+      },
+      "invalid": {
+        "summary": "Swm annilys",
+        "message": "Swm annilys"
+      },
+      "invalidCurrencyFormat": {
+        "summary": "Gall y gwerth net ond cynnwys rhifau",
+        "message": "Rhaid i&rsquo;r gwerth net fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
+      }
+    }
+  }
+}

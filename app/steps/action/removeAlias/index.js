@@ -10,8 +10,8 @@ class RemoveAlias extends DeceasedOtherNames {
         return `/other-names/remove/${index}`;
     }
 
-    constructor(steps, section, templatePath, i18next, schema) {
-        super(steps, section, templatePath, i18next, schema);
+    constructor(steps, section, templatePath, i18next, schema, language) {
+        super(steps, section, templatePath, i18next, schema, language);
         this.section = 'deceased';
     }
 

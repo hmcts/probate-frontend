@@ -4,12 +4,10 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% set serviceName = "" %}
-
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l">{{ content.header }}</h1>
+            <h1 class="govuk-heading-l">{{ content.header | safe }}</h1>
             <p class="govuk-body">{{ content.introduction | safe }}</p>
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
 
@@ -17,17 +15,13 @@
                 text: content.paragraph2 | replace("{applicationFormPA1P}", globals.links.applicationFormPA1P) | replace("{applicationFormPA1A}", globals.links.applicationFormPA1A) | safe
             }) }}
 
-            <h2 class="govuk-heading-m">
-                {{ content.multipleHeader | safe }}
-            </h2>
+            <h2 class="govuk-heading-m">{{ content.multipleHeader | safe }}</h2>
             <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
             <p class="govuk-body">{{ content.paragraph4 | safe }}</p>
             <p class="govuk-body">{{ content.paragraph5 | safe }}</p>
             <p class="govuk-body">{{ content.paragraph6 | safe }}</p>
-            <h2 class="govuk-heading-m">
-                {{ content.feesHeader | safe }}
-            </h2>
 
+            <h2 class="govuk-heading-m">{{ content.feesHeader | safe }}</h2>
             {% if fields.isFeesApiToggleEnabled.value == "true" %}
                 <p class="govuk-body">{{ content.paragraph7 | safe }}</p>
                 {{ govukTable({
@@ -74,19 +68,18 @@
                 <p class="govuk-body">{{ content.paragraph8old | safe }}</p>
             {% endif %}
             <p class="govuk-body">{{ content.paragraph9 | safe }}</p>
-            <h2 class="govuk-heading-m">
-                {{ content.feedbackHeader | safe }}
-            </h2>
+
+            <h2 class="govuk-heading-m">{{ content.feedbackHeader | safe }}</h2>
             <p class="govuk-body">{{ content.paragraph10 | safe }}</p>
         </div>
     </div>
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.checkApply,
+            text: common.checkApply | safe,
             href: "/death-certificate",
             isStartButton: true
         }) }}
     </div>
 
-    <p class="govuk-body"><a href="/task-list" class="govuk-link">{{ content.paragraph11 }}</a></p>
+    <p class="govuk-body"><a href="/dashboard" class="govuk-link">{{ content.paragraph11 | safe }}</a></p>
 {% endblock %}

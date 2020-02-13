@@ -1,7 +1,6 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const content = require('app/resources/en/translation/will/codicils');
 
 class WillCodicils extends ValidationStep {
 
@@ -16,13 +15,13 @@ class WillCodicils extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'codicils', value: content.optionNo, choice: 'noCodicils'}
+                {key: 'codicils', value: 'optionNo', choice: 'noCodicils'}
             ]
         };
     }
 
     action(ctx, formdata) {
-        if (ctx.codicils === content.optionNo) {
+        if (ctx.codicils === 'optionNo') {
             delete ctx.codicilsNumber;
         }
         super.action(ctx, formdata);

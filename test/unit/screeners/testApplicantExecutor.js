@@ -5,7 +5,6 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ApplicantExecutor = steps.ApplicantExecutor;
-const content = require('app/resources/en/translation/screeners/applicantexecutor');
 
 describe('ApplicantExecutor', () => {
     describe('getUrl()', () => {
@@ -22,6 +21,7 @@ describe('ApplicantExecutor', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         ccdCase: {
                             id: 1234567890123456,
@@ -31,7 +31,7 @@ describe('ApplicantExecutor', () => {
                     caseType: 'gop'
                 },
                 body: {
-                    executor: content.optionYes
+                    executor: 'optionYes'
                 }
             };
             const res = {};
@@ -39,7 +39,7 @@ describe('ApplicantExecutor', () => {
             const ctx = ApplicantExecutor.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                executor: content.optionYes,
+                executor: 'optionYes',
                 caseType: 'gop',
                 userLoggedIn: false,
                 ccdCase: {
@@ -58,17 +58,17 @@ describe('ApplicantExecutor', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'Yes',
-                            original: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionYes',
+                            original: 'optionYes'
                         }
                     }
                 }
             };
             const ctx = {
-                executor: content.optionYes
+                executor: 'optionYes'
             };
             const nextStepUrl = ApplicantExecutor.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/mental-capacity');
@@ -81,17 +81,17 @@ describe('ApplicantExecutor', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'Yes',
-                            original: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionYes',
+                            original: 'optionYes'
                         }
                     }
                 }
             };
             const ctx = {
-                executor: content.optionNo
+                executor: 'optionNo'
             };
             const nextStepUrl = ApplicantExecutor.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/notExecutor');
@@ -105,7 +105,7 @@ describe('ApplicantExecutor', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'executor',
-                    value: content.optionYes,
+                    value: 'optionYes',
                     choice: 'isExecutor'
                 }]
             });

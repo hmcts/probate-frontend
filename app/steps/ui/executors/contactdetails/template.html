@@ -16,28 +16,28 @@
 
         {{ govukInput({
             label: {
-                text: content.email
+                text: content.email | safe
             },
             id: "email",
             name: "email",
             value: fields.email.value | safe,
-            errorMessage: { text: fields.email.errorMessage.message } if fields.email.errorMessage,
+            errorMessage: { text: fields.email.errorMessage.message | safe } if fields.email.errorMessage,
             attributes: {
                 maxlength: 320
             },
             classes: "govuk-!-width-three-quarters"
         }) }}
 
-        <p class="govuk-hint">{{ content.mobileHint }}</p>
+        <p class="govuk-hint">{{ content.mobileHint | safe }}</p>
 
         {{ govukInput({
             label: {
-                text: content.mobile
+                text: content.mobile | safe
             },
             id: "mobile",
             name: "mobile",
             value: fields.mobile.value | safe,
-            errorMessage: { text: fields.mobile.errorMessage.message } if fields.mobile.errorMessage,
+            errorMessage: { text: fields.mobile.errorMessage.message | safe } if fields.mobile.errorMessage,
             attributes: {
                 maxlength: 25
             },
@@ -47,7 +47,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

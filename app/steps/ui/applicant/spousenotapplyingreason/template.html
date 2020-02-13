@@ -16,26 +16,26 @@
             }
         },
         hint: {
-            text: content.hint
+            text: content.hint | safe
         },
         errorMessage: { text: fields.spouseNotApplyingReason.errorMessage.message | safe } if fields.spouseNotApplyingReason.errorMessage,
         items: [
             {
-                value: content["optionRenouncing"],
+                value: "optionRenouncing",
                 text: content["optionRenouncing"] | safe,
-                checked: true if fields.spouseNotApplyingReason.value == content["optionRenouncing"] | escape
+                checked: true if fields.spouseNotApplyingReason.value == "optionRenouncing"
             },
             {
-                value: content["optionOther"],
-                text: content["optionOther"],
-                checked: true if fields.spouseNotApplyingReason.value == content["optionOther"] | escape
+                value: "optionOther",
+                text: content["optionOther"] | safe,
+                checked: true if fields.spouseNotApplyingReason.value == "optionOther"
             }
         ]
     }) }}
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

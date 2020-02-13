@@ -1,0 +1,24 @@
+{
+  "title": "Rheswm dros yr Enw Arall",
+  "question": "Pam bod gan {executorName} enw arall?",
+  "optionMarriage": "Wedi priodi",
+  "optionDivorce": "Wedi ysgaru",
+  "optionDeedPoll": "Gweithred newid enw",
+  "optionOther": "Arall",
+  "optionOtherHint": "Rheswm dros y newid enw",
+
+  "errors": {
+    "currentNameReason": {
+      "required": {
+        "summary": "Nid ydych wedi dewis rheswm dros y newid enw",
+        "message": "Dewiswch reswm dros y newid enw"
+      }
+    },
+    "otherReason": {
+      "required": {
+        "summary": "Nid ydych wedi nodi&rsquo;r rheswm dros y newid enw",
+        "message": "Nodwch y rheswm dros y newid enw"
+      }
+    }
+  }
+}

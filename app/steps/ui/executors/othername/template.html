@@ -9,18 +9,18 @@
         name: "executorsWithOtherNames",
         fieldset: {
             legend: {
-                text: content.question,
+                text: content.question | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.executorsWithOtherNames.errorMessage.message } if fields.executorsWithOtherNames.errorMessage,
+        errorMessage: { text: fields.executorsWithOtherNames.errorMessage.message | safe } if fields.executorsWithOtherNames.errorMessage,
         items: fields.options.value
     }) }}
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

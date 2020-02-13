@@ -6,6 +6,7 @@
   "checklist1-item2": "was meant to be an executor but can&rsquo;t be one (for example, if they&rsquo;ve died and have been replaced by another executor)",
   "notExecutorYet": "Do not include anyone who has not yet become an executor.",
   "executorsNumber": "Total number of past and present executors",
+
   "errors": {
     "executorsNumber": {
       "required": {

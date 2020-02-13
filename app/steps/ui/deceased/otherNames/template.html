@@ -36,7 +36,7 @@
             {% if index !== "name_0" %}
                 {% set hasOtherNames = true %}
                 {{ govukButton({
-                    text: content.removeName,
+                    text: content.removeName | safe,
                     preventDoubleClick: true,
                     classes: "govuk-button--secondary",
                     attributes: {
@@ -47,7 +47,7 @@
 
             {{ govukInput({
                 label: {
-                    text: content.firstName
+                    text: content.firstName | safe
                 },
                 id: "otherNames_" + index + "_firstName",
                 name: "otherNames[" + index + "][firstName]",
@@ -60,7 +60,7 @@
             }) }}
             {{ govukInput({
                 label: {
-                    text: content.lastName
+                    text: content.lastName | safe
                 },
                 id: "otherNames_" + index + "_lastName",
                 name: "otherNames[" + index + "][lastName]",
@@ -76,7 +76,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: content.addAnotherName,
+            text: content.addAnotherName | safe,
             preventDoubleClick: true,
             classes: "govuk-button--secondary",
             attributes: {
@@ -87,7 +87,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

@@ -5,14 +5,14 @@
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l">{{ content.question }}</h1>
+            <h1 class="govuk-heading-l">{{ content.question | safe }}</h1>
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
             <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
             <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
 
             <div class="govuk-form-group">
                 {{ govukButton({
-                    text: common.start,
+                    text: common.start | safe,
                     href: "/copies-uk",
                     isStartButton: true
                 }) }}

@@ -5,16 +5,6 @@ const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const RelationshipToDeceased = steps.RelationshipToDeceased;
-const content = require('app/resources/en/translation/applicant/relationshiptodeceased');
-const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
-const contentAnyChildren = require('app/resources/en/translation/deceased/anychildren');
-const contentAnyOtherChildren = require('app/resources/en/translation/deceased/anyotherchildren');
-const contentAllChildrenOver18 = require('app/resources/en/translation/deceased/allchildrenover18');
-const contentAnyDeceasedChildren = require('app/resources/en/translation/deceased/anydeceasedchildren');
-const contentAnyGrandChildrenUnder18 = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
-
-const contentAdoptionPlace = require('app/resources/en/translation/applicant/adoptionplace');
-const contentSpouseNotApplyingReason = require('app/resources/en/translation/applicant/spousenotapplyingreason');
 
 describe('RelationshipToDeceased', () => {
     describe('getUrl()', () => {
@@ -34,7 +24,7 @@ describe('RelationshipToDeceased', () => {
                 session: {
                     form: {
                         deceased: {
-                            maritalStatus: contentMaritalStatus.optionMarried
+                            maritalStatus: 'optionMarried'
                         },
                         iht: {
                             netValue: 350000
@@ -44,7 +34,7 @@ describe('RelationshipToDeceased', () => {
             };
 
             ctx = RelationshipToDeceased.getContextData(req);
-            expect(ctx.deceasedMaritalStatus).to.equal(contentMaritalStatus.optionMarried);
+            expect(ctx.deceasedMaritalStatus).to.equal('optionMarried');
             expect(ctx.assetsValue).to.equal(350000);
             done();
         });
@@ -58,8 +48,8 @@ describe('RelationshipToDeceased', () => {
                 }
             };
             const ctx = {
-                relationshipToDeceased: content.optionChild,
-                deceasedMaritalStatus: contentMaritalStatus.optionMarried
+                relationshipToDeceased: 'optionChild',
+                deceasedMaritalStatus: 'optionMarried'
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/spouse-not-applying-reason');
@@ -73,8 +63,8 @@ describe('RelationshipToDeceased', () => {
                 }
             };
             const ctx = {
-                relationshipToDeceased: content.optionChild,
-                deceasedMaritalStatus: contentMaritalStatus.optionNotMarried
+                relationshipToDeceased: 'optionChild',
+                deceasedMaritalStatus: 'optionNotMarried'
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/any-other-children');
@@ -88,7 +78,7 @@ describe('RelationshipToDeceased', () => {
                 }
             };
             const ctx = {
-                relationshipToDeceased: content.optionAdoptedChild
+                relationshipToDeceased: 'optionAdoptedChild'
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/adoption-place');
@@ -102,7 +92,7 @@ describe('RelationshipToDeceased', () => {
                 }
             };
             const ctx = {
-                relationshipToDeceased: content.optionSpousePartner,
+                relationshipToDeceased: 'optionSpousePartner',
                 assetsValue: 200000
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
@@ -117,7 +107,7 @@ describe('RelationshipToDeceased', () => {
                 }
             };
             const ctx = {
-                relationshipToDeceased: content.optionSpousePartner,
+                relationshipToDeceased: 'optionSpousePartner',
                 assetsValue: 450000
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
@@ -132,7 +122,7 @@ describe('RelationshipToDeceased', () => {
                 }
             };
             const ctx = {
-                relationshipToDeceased: content.optionOther
+                relationshipToDeceased: 'optionOther'
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/otherRelationship');
@@ -150,7 +140,7 @@ describe('RelationshipToDeceased', () => {
                     {key: 'spousePartnerMoreThan250k', value: true, choice: 'spousePartnerMoreThan250k'},
                     {key: 'childDeceasedMarried', value: true, choice: 'childDeceasedMarried'},
                     {key: 'childDeceasedNotMarried', value: true, choice: 'childDeceasedNotMarried'},
-                    {key: 'relationshipToDeceased', value: content.optionAdoptedChild, choice: 'adoptedChild'},
+                    {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'},
                 ]
             });
             done();
@@ -166,20 +156,20 @@ describe('RelationshipToDeceased', () => {
                 childDeceasedMarried: true,
                 childDeceasedNotMarried: true,
 
-                relationshipToDeceased: content.optionChild,
-                adoptionPlace: contentAdoptionPlace.optionYes,
-                spouseNotApplyingReason: contentSpouseNotApplyingReason.optionRenouncing
+                relationshipToDeceased: 'optionChild',
+                adoptionPlace: 'optionYes',
+                spouseNotApplyingReason: 'optionRenouncing'
             };
             const formdata = {
                 applicant: {
-                    relationshipToDeceased: content.optionAdoptedChild,
+                    relationshipToDeceased: 'optionAdoptedChild',
                 },
                 deceased: {
-                    anyChildren: contentAnyChildren.optionYes,
-                    anyOtherChildren: contentAnyOtherChildren.optionYes,
-                    allChildrenOver18: contentAllChildrenOver18.optionYes,
-                    anyDeceasedChildren: contentAnyDeceasedChildren.optionYes,
-                    anyGrandchildrenUnder18: contentAnyGrandChildrenUnder18.optionNo
+                    anyChildren: 'optionYes',
+                    anyOtherChildren: 'optionYes',
+                    allChildrenOver18: 'optionYes',
+                    anyDeceasedChildren: 'optionYes',
+                    anyGrandchildrenUnder18: 'optionNo'
                 }
             };
 

@@ -4,7 +4,7 @@
     {{ taskHeader(
         number = "3.",
         content = content,
-        title = content.reviewAndConfirmTask,
+        title = content.reviewAndConfirmTask | safe,
         status = "pending" if (
                 fields.ReviewAndConfirmTask.value.status == "complete" and
                 fields.hasMultipleApplicants.value == "true" and
@@ -19,13 +19,23 @@
             nextURL = "summary/declaration",
             checkYourAnswersURL = fields.ReviewAndConfirmTask.value.checkYourAnswersLink,
             content = content,
-            title = content.reviewAndConfirmTask,
+            title = content.reviewAndConfirmTask | safe,
             alreadyDeclared = fields.alreadyDeclared.value
         ) }}
         {% if fields.ReviewAndConfirmTask.value.status == "complete" %}
             {% if fields.hasMultipleApplicants.value == "true" and fields.alreadyDeclared.value == "false" %}
-                <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph1 }}</p>
-                <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph2 }}</p>
+                {% set declarationStatusRows = [] %}
+                {% for executor in fields.declarationStatuses.value %}
+                    {% set declarationStatusRows = (declarationStatusRows.push([
+                        { text: executor.executorName | safe },
+                        { text: (content.declared if executor.agreed else content.notDeclared) | safe }
+                    ]), declarationStatusRows) %}
+                {% endfor %}
+
+                <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph1 | safe }}</p>
+                <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph2 | safe }}</p>
+                <h3 class="govuk-heading-s">{{ content.reviewAndConfirmTaskMultiplesParagraph3Heading | safe }}</h3>
+                <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph3 | safe }}</p>
 
                 {% if fields.declarationStatuses.value | length > 0 %}
                     {% set declarationStatusRows = [] %}
@@ -35,19 +45,19 @@
                             { text: content.agreed if executor.agreed == "agreed" else (content.disagreed if executor.agreed == "disagreed" else content.notDeclared) }
                         ]), declarationStatusRows) %}
                     {% endfor %}
-                    <h3 class="govuk-heading-s">{{ content.reviewAndConfirmTaskMultiplesParagraph3Heading }}</h3>
-                    <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph3 }}</p>
+                    <h3 class="govuk-heading-s">{{ content.reviewAndConfirmTaskMultiplesParagraph3Heading | safe }}</h3>
+                    <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph3 | safe }}</p>
 
                     {{ govukTable({
-                      caption: content.reviewAndConfirmTaskMultiplesParagraph3Heading,
+                      caption: content.reviewAndConfirmTaskMultiplesParagraph3Heading | safe,
                       captionClasses: "govuk-visually-hidden",
                       firstCellIsHeader: false,
                       head: [
                         {
-                          text: content.executorName
+                          text: content.executorName | safe
                         },
                         {
-                          text: content.declarationStatus
+                          text: content.declarationStatus | safe
                         }
                       ],
                       rows: declarationStatusRows

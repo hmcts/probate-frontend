@@ -1,18 +1,21 @@
 {
   "caseType": "intestacy",
   "applicant": {
-    "relationshipToDeceased": "Child who was lawfully adopted",
-    "adoptionPlace": "Yes",
-    "spouseNotApplyingReason": "They don&rsquo;t want to apply and they give up the right to apply in the future (this is known as &lsquo;renunciation&rsquo;)"
+    "relationshipToDeceased": "optionAdoptedChild",
+    "adoptionPlace": "optionYes",
+    "spouseNotApplyingReason": "optionRenouncing"
   },
   "deceased": {
     "firstName": "Joe",
     "lastName": "Bloggs",
+    "dod-day": "12",
+    "dod-month": "12",
+    "dod-year": "2016",
     "dod-formattedDate": "12 December 2016",
-    "anyOtherChildren": "Yes",
-    "allChildrenOver18": "Yes",
-    "anyDeceasedChildren": "Yes",
-    "anyGrandchildrenUnder18": "No",
-    "maritalStatus": "Married or in a civil partnership"
+    "anyOtherChildren": "optionYes",
+    "allChildrenOver18": "optionYes",
+    "anyDeceasedChildren": "optionYes",
+    "anyGrandchildrenUnder18": "optionNo",
+    "maritalStatus": "optionMarried"
   }
 }

@@ -54,12 +54,12 @@ describe('other-applicants', () => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes',
-                    left: 'No',
-                    diedAfter: 'Yes',
-                    related: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionNo',
+                    diedAfter: 'optionYes',
+                    related: 'optionYes'
                 }
             };
 
@@ -67,7 +67,7 @@ describe('other-applicants', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        otherApplicants: 'No'
+                        otherApplicants: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
@@ -78,12 +78,12 @@ describe('other-applicants', () => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes',
-                    left: 'No',
-                    diedAfter: 'Yes',
-                    related: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionNo',
+                    diedAfter: 'optionYes',
+                    related: 'optionYes'
                 }
             };
 
@@ -91,7 +91,7 @@ describe('other-applicants', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        otherApplicants: 'Yes'
+                        otherApplicants: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);

@@ -7,7 +7,6 @@ const router = require('express').Router();
 const initSteps = require('app/core/initSteps');
 const logger = require('app/components/logger');
 const get = require('lodash').get;
-const commonContent = require('app/resources/en/translation/common');
 const ApplicantWrapper = require('app/wrappers/Applicant');
 const CcdCaseWrapper = require('app/wrappers/CcdCase');
 const DocumentsWrapper = require('app/wrappers/Documents');
@@ -23,7 +22,6 @@ const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
 const lockPaymentAttempt = require('app/middleware/lockPaymentAttempt');
 const caseTypes = require('app/utils/CaseTypes');
 const emailValidator = require('email-validator');
-const steps = initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`]);
 const Security = require('app/services/Security');
 const Authorise = require('app/services/Authorise');
 const FormatUrl = require('app/utils/FormatUrl');
@@ -106,18 +104,20 @@ router.use((req, res, next) => {
             authorise.post()
                 .then((serviceAuthorisation) => {
                     if (serviceAuthorisation.name === 'Error') {
+                        const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+
                         logger.info(`serviceAuthResult Error = ${serviceAuthorisation}`);
-                        res.status(500);
-                        res.render('errors/500', {userLoggedIn: false});
+                        res.status(500).render('errors/500', {common: commonContent, userLoggedIn: false});
                     } else {
                         const security = new Security();
                         const hostname = FormatUrl.createHostname(req);
                         security.getUserToken(hostname)
                             .then((authToken) => {
                                 if (authToken.name === 'Error') {
+                                    const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+
                                     logger.info(`failed to obtain authToken = ${serviceAuthorisation}`);
-                                    res.status(500);
-                                    res.render('errors/500', {userLoggedIn: false});
+                                    res.status(500).render('errors/500', {common: commonContent, userLoggedIn: false});
                                 } else {
                                     allExecutorsAgreed.get(authToken, serviceAuthorisation, ccdCaseId)
                                         .then(data => {
@@ -145,9 +145,10 @@ router.use((req, res, next) => {
 });
 
 router.use((req, res, next) => {
+    const steps = initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`], req.session.language);
     const currentPageCleanUrl = FormatUrl.getCleanPageUrl(req.originalUrl, 1);
     const formdata = req.session.form;
-    const isHardStop = (formdata, journey) => config.hardStopParams[journey].some(param => get(formdata, param) === commonContent.no);
+    const isHardStop = (formdata, journey) => config.hardStopParams[journey].some(param => get(formdata, param) === 'optionNo');
 
     const applicantWrapper = new ApplicantWrapper(formdata);
     const applicantHasDeclared = applicantWrapper.applicantHasDeclared();
@@ -175,6 +176,9 @@ router.use((req, res, next) => {
         if (!allPageUrls.includes(stepUrl)) {
             allPageUrls.push(stepUrl);
         }
+
+        router.get(step.constructor.getUrl(), step.runner().GET(step));
+        router.post(step.constructor.getUrl(), step.runner().POST(step));
     });
 
     const noCcdCaseIdPages = config.noCcdCaseIdPages.map(item => FormatUrl.getCleanPageUrl(item, 0));
@@ -218,11 +222,6 @@ router.use((req, res, next) => {
     res.locals.session = req.session;
     res.locals.pageUrl = req.url;
     next();
-});
-
-Object.entries(steps).forEach(([, step]) => {
-    router.get(step.constructor.getUrl(), step.runner().GET(step));
-    router.post(step.constructor.getUrl(), step.runner().POST(step));
 });
 
 router.get('/payment', (req, res) => {

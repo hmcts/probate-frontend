@@ -17,21 +17,21 @@
         errorMessage: { text: fields.notApplyingReason.errorMessage.message | safe } if fields.notApplyingReason.errorMessage,
         items: [
             {
-                value: content["optionPowerReserved"],
+                value: "optionPowerReserved",
                 text: content["optionPowerReserved"] | safe,
-                checked: true if fields.notApplyingReason.value == content["optionPowerReserved"] | escape
+                checked: true if fields.notApplyingReason.value == "optionPowerReserved"
             },
             {
-                value: content["optionRenunciated"],
+                value: "optionRenunciated",
                 text: content["optionRenunciated"] | safe,
-                checked: true if fields.notApplyingReason.value == content["optionRenunciated"] | escape
+                checked: true if fields.notApplyingReason.value == "optionRenunciated"
             }
         ]
     }) }}
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

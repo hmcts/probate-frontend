@@ -8,73 +8,135 @@
 {% from "widgets/lists.html" import unorderedList %}
 
 {% set hideNavigation = true %}
+{% set title = content[fields.language.value].title | safe %}
 
 {% block form_content %}
-    <h1 class="govuk-heading-l">{{ content.pageHeader }}</h1>
-    <p class="govuk-body">{{ content.legalStatementIntro | replace("{mainApplicantName}", fields.applicant.value.firstName + " " +  fields.applicant.value.lastName) | safe }}</p>
+    {% if fields.bilingual.value === "true" %}
+        <h1 class="govuk-heading-l">{{ content.cy.pageHeader | safe }}</h1>
+        <p class="govuk-body">{{ content.cy.legalStatementIntro | replace("{mainApplicantName}", fields.applicant.value.firstName + " " +  fields.applicant.value.lastName) | safe }}</p>
+        <div class="inset-page margin-bottom100">
+            <div class="govuk-heading-m declaration-header">{{ content.cy.highCourtHeader | safe }}</div>
+            <div class="govuk-heading-s declaration-header">{{ content.cy.familyDivisionHeader | safe }}</div>
+            <div class="govuk-heading-s declaration-header">{{ content.cy.probateHeader | safe }}</div>
+
+            <h2 class="govuk-heading-m">{{ content.cy.legalStatementHeader | safe }}</h2>
+            <p class="govuk-body">{{ fields.legalStatement.value.cy.applicant | safe }}</p>
+
+            <h3 class="govuk-heading-s">{{ content.cy.deceasedHeader | safe }}</h3>
+            <p class="govuk-body">{{ fields.legalStatement.value.cy.deceased | safe }} {{ fields.legalStatement.value.cy.deceasedOtherNames | safe }}</p>
+
+            <h3 class="govuk-heading-s">{{ content.cy.deceasedEstateHeader | safe }}</h3>
+            <p class="govuk-body">{{ fields.legalStatement.value.cy.deceasedEstateValue | safe }}</p>
+            <p class="govuk-body">{{ fields.legalStatement.value.cy.deceasedEstateLand | safe }}</p>
+
+            <h3 class="govuk-heading-s">{{ content.cy.executorApplyingHeader | safe }}</h3>
+            {% for executor in fields.legalStatement.value.cy.executorsApplying %}
+                <p class="govuk-body">{{ executor.name | safe }}</p>
+                <p class="govuk-body">{{ executor.sign | safe }}</p>
+            {% endfor %}
+
+            {% if fields.legalStatement.value.cy.executorsNotApplying.length > 0 %}
+                <h3 class="govuk-heading-s">{{ content.cy.executorNotApplyingHeader | safe }}</h3>
+                {% for executor in fields.legalStatement.value.cy.executorsNotApplying %}
+                    <p class="govuk-body">{{ executor | safe }}</p>
+                {% endfor %}
+            {% endif %}
+
+            <h2 class="govuk-heading-l">{{ content.cy.declarationHeader | safe }}</h2>
+            <p class="govuk-body">{{ fields.declaration.value.cy.confirm | safe }}</p>
+
+            {{ unorderedList([
+                fields.declaration.value.cy.confirmItem1,
+                fields.declaration.value.cy.confirmItem2,
+                fields.declaration.value.cy.confirmItem3
+            ]) }}
+
+            <p class="govuk-body">{{ fields.declaration.value.cy.requests | safe }}</p>
+
+            {{ unorderedList([
+                fields.declaration.value.cy.requestsItem1,
+                fields.declaration.value.cy.requestsItem2
+            ]) }}
+
+            <p class="govuk-body">{{ fields.declaration.value.cy.understand | safe }}</p>
+
+            {{ unorderedList([
+                fields.declaration.value.cy.understandItem1,
+                fields.declaration.value.cy.understandItem2
+            ]) }}
+
+            {{ govukWarningText({
+                text: fields.declaration.value.cy.submitWarning | safe,
+                iconFallbackText: content.cy.warning | safe
+            }) }}
+        </div>
+    {% endif %}
+
+    <h1 class="govuk-heading-l">{{ content.en.pageHeader | safe }}</h1>
+    <p class="govuk-body">{{ content.en.legalStatementIntro | replace("{mainApplicantName}", fields.applicant.value.firstName + " " +  fields.applicant.value.lastName) | safe }}</p>
     <div class="inset-page">
-        <div class="govuk-heading-m declaration-header">{{ content.highCourtHeader }}</div>
-        <div class="govuk-heading-s declaration-header">{{ content.familyDivisionHeader }}</div>
-        <div class="govuk-heading-s declaration-header">{{ content.probateHeader }}</div>
+        <div class="govuk-heading-m declaration-header">{{ content.en.highCourtHeader | safe }}</div>
+        <div class="govuk-heading-s declaration-header">{{ content.en.familyDivisionHeader | safe }}</div>
+        <div class="govuk-heading-s declaration-header">{{ content.en.probateHeader | safe }}</div>
 
-        <h2 class="govuk-heading-m">{{ content.legalStatementHeader | safe }}</h2>
-        <p class="govuk-body">{{ fields.legalStatement.value.applicant | safe }}</p>
+        <h2 class="govuk-heading-m">{{ content.en.legalStatementHeader | safe }}</h2>
+        <p class="govuk-body">{{ fields.legalStatement.value.en.applicant | safe }}</p>
 
-        <h3 class="govuk-heading-s">{{ content.deceasedHeader }}</h3>
-        <p class="govuk-body">{{ fields.legalStatement.value.deceased | safe }} {{ fields.legalStatement.value.deceasedOtherNames }}</p>
+        <h3 class="govuk-heading-s">{{ content.en.deceasedHeader | safe }}</h3>
+        <p class="govuk-body">{{ fields.legalStatement.value.en.deceased | safe }} {{ fields.legalStatement.value.en.deceasedOtherNames | safe }}</p>
 
-        <h3 class="govuk-heading-s">{{ content.deceasedEstateHeader }}</h3>
-        <p class="govuk-body">{{ fields.legalStatement.value.deceasedEstateValue | safe }}</p>
-        <p class="govuk-body">{{ fields.legalStatement.value.deceasedEstateLand | safe }}</p>
+        <h3 class="govuk-heading-s">{{ content.en.deceasedEstateHeader | safe }}</h3>
+        <p class="govuk-body">{{ fields.legalStatement.value.en.deceasedEstateValue | safe }}</p>
+        <p class="govuk-body">{{ fields.legalStatement.value.en.deceasedEstateLand | safe }}</p>
 
-        <h3 class="govuk-heading-s">{{ content.executorApplyingHeader }}</h3>
-        {% for executor in fields.legalStatement.value.executorsApplying %}
+        <h3 class="govuk-heading-s">{{ content.en.executorApplyingHeader | safe }}</h3>
+        {% for executor in fields.legalStatement.value.en.executorsApplying %}
             <p class="govuk-body">{{ executor.name | safe }}</p>
             <p class="govuk-body">{{ executor.sign | safe }}</p>
         {% endfor %}
 
-        {% if fields.legalStatement.value.executorsNotApplying.length > 0 %}
-            <h3 class="govuk-heading-s">{{ content.executorNotApplyingHeader }}</h3>
-            {% for executor in fields.legalStatement.value.executorsNotApplying %}
+        {% if fields.legalStatement.value.en.executorsNotApplying.length > 0 %}
+            <h3 class="govuk-heading-s">{{ content.en.executorNotApplyingHeader | safe }}</h3>
+            {% for executor in fields.legalStatement.value.en.executorsNotApplying %}
                 <p class="govuk-body">{{ executor | safe }}</p>
             {% endfor %}
         {% endif %}
 
-        <h2 class="govuk-heading-l">{{ content.declarationHeader }}</h2>
-        <p class="govuk-body">{{ fields.declaration.value.confirm | safe }}</p>
+        <h2 class="govuk-heading-l">{{ content.en.declarationHeader | safe }}</h2>
+        <p class="govuk-body">{{ fields.declaration.value.en.confirm | safe }}</p>
 
         {{ unorderedList([
-            fields.declaration.value.confirmItem1,
-            fields.declaration.value.confirmItem2,
-            fields.declaration.value.confirmItem3
+            fields.declaration.value.en.confirmItem1,
+            fields.declaration.value.en.confirmItem2,
+            fields.declaration.value.en.confirmItem3
         ]) }}
 
-        <p class="govuk-body">{{ fields.declaration.value.requests | safe }}</p>
+        <p class="govuk-body">{{ fields.declaration.value.en.requests | safe }}</p>
 
         {{ unorderedList([
-            fields.declaration.value.requestsItem1,
-            fields.declaration.value.requestsItem2
+            fields.declaration.value.en.requestsItem1,
+            fields.declaration.value.en.requestsItem2
         ]) }}
 
-        <p class="govuk-body">{{ fields.declaration.value.understand | safe }}</p>
+        <p class="govuk-body">{{ fields.declaration.value.en.understand | safe }}</p>
 
         {{ unorderedList([
-            fields.declaration.value.understandItem1,
-            fields.declaration.value.understandItem2
+            fields.declaration.value.en.understandItem1,
+            fields.declaration.value.en.understandItem2
         ]) }}
 
         {{ govukWarningText({
-            text: fields.declaration.value.submitWarning | safe,
-            iconFallbackText: "Warning"
+            text: fields.declaration.value.en.submitWarning | safe,
+            iconFallbackText: content.en.warning | safe
         }) }}
     </div>
 
-    <h2 class="govuk-heading-m">{{ content.agreementHeader | safe }}</h2>
-    <p class="govuk-body">{{ content.agreementParagraph | safe }}</p>
+    <h2 class="govuk-heading-m">{{ content[fields.language.value].agreementHeader | safe }}</h2>
+    <p class="govuk-body">{{ content[fields.language.value].agreementParagraph | safe }}</p>
     {{ unorderedList([
-        content.agreementItem1,
-        content.agreementItem2,
-        content.agreementItem3
+        content[fields.language.value].agreementItem1,
+        content[fields.language.value].agreementItem2,
+        content[fields.language.value].agreementItem3
     ]) }}
 
     {{ govukRadios({
@@ -83,27 +145,27 @@
         name: "agreement",
         fieldset: {
             legend: {
-                text: content.agreementHeader,
+                text: content[fields.language.value].agreementHeader | safe,
                 classes: "govuk-fieldset__legend--m"
             }
         },
         errorMessage: { text: fields.agreement.errorMessage.message | safe } if fields.agreement.errorMessage,
         items: [
             {
-                value: content["optionYes"],
-                text: content["optionYes"],
-                checked: true if fields.agreement.value == content["optionYes"] | escape
+                value: "optionYes",
+                text: content[fields.language.value]["optionYes"] | safe,
+                checked: true if fields.agreement.value == "optionYes"
             },
             {
-                value: content["optionNo"],
-                text: content["optionNo"],
-                checked: true if fields.agreement.value == content["optionNo"] | escape
+                value: "optionNo",
+                text: content[fields.language.value]["optionNo"] | safe,
+                checked: true if fields.agreement.value == "optionNo"
             }
         ]
     }) }}
 
     {{ govukInsetText({
-        text: content.optionNoText | replace("{mainApplicantName}", fields.applicant.value.firstName + " " +  fields.applicant.value.lastName) | safe,
+        text: content[fields.language.value].optionNoText | replace("{mainApplicantName}", fields.applicant.value.firstName + " " +  fields.applicant.value.lastName) | safe,
         classes: "js-hidden",
         attributes: {
             id: "agreement-2-details"
@@ -112,7 +174,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: content.submit,
+            text: content[fields.language.value].submit | safe,
             preventDoubleClick: true,
             attributes: {
                 id: "acceptAndSend"

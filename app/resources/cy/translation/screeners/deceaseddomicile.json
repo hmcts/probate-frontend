@@ -1,0 +1,17 @@
+{
+  "title": "Preswylfa&rsquo;r unigolyn sydd wedi marw",
+  "question": "A oedd yr unigolyn sydd wedi marw yn byw&rsquo;n barhaol yng Nghymru neu Lloegr, neu&rsquo;n bwriadu dychwelyd yma?",
+  "hintText1": "Gallwch ond wneud cais am brofiant ar-lein os oedd yr unigolyn sydd wedi marw yn preswylio yng Nghymru neu Lloegr adeg eu marwolaeth.",
+  "hintText2": "Gallwch ddarllen mwy am <a href=\"https://www.gov.uk/inheritance-tax/when-someone-living-outside-the-uk-dies\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\">preswylio</a>.",
+  "optionYes": "Oedd",
+  "optionNo": "Nag oedd",
+
+  "errors": {
+    "domicile": {
+      "required": {
+        "summary": "Nid ydych wedi ateb y cwestiwn am p&rsquo;un a oedd yr unigolyn sydd wedi marw yn byw&rsquo;n barhaol yng Nghymru a Lloegr",
+        "message": "Atebwch &lsquo;oedd&rsquo; os oedd yr unigolyn sydd wedi marw yn byw yng Nghymru neu Lloegr neu&rsquo;n bwriadu dychwelyd yma"
+      }
+    }
+  }
+}

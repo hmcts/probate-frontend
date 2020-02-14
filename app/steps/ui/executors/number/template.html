@@ -14,12 +14,12 @@
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-body">{{ content.checklist1Header }}</p>
+        <p class="govuk-body">{{ content.checklist1Header | safe }}</p>
         {{ unorderedList([
             content["checklist1-item1"],
             content["checklist1-item2"]]) }}
         {{ govukInsetText({
-            text: content.notExecutorYet
+            text: content.notExecutorYet | safe
         }) }}
 
         {{ govukInput({
@@ -30,7 +30,7 @@
             name: "executorsNumber",
             type: "number",
             value: fields.executorsNumber.value | safe,
-            errorMessage: { text: fields.executorsNumber.errorMessage.message } if fields.executorsNumber.errorMessage,
+            errorMessage: { text: fields.executorsNumber.errorMessage.message | safe } if fields.executorsNumber.errorMessage,
             attributes: {
                 maxlength: 5
             },
@@ -40,7 +40,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

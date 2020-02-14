@@ -372,7 +372,7 @@ describe('DocumentUploadUtil', () => {
         it('should return an error when nothingUploaded is given', (done) => {
             const errorKey = 'nothingUploaded';
             const documentUpload = new DocumentUpload();
-            const error = documentUpload.mapError(errorKey);
+            const error = documentUpload.mapError('en', errorKey);
             expect(error).to.deep.equal({
                 js: 'Click &lsquo;browse&rsquo; to find a file to upload',
                 nonJs: 'nothingUploaded'
@@ -383,7 +383,7 @@ describe('DocumentUploadUtil', () => {
         it('should return an error when maxFiles is given', (done) => {
             const errorKey = 'maxFiles';
             const documentUpload = new DocumentUpload();
-            const error = documentUpload.mapError(errorKey);
+            const error = documentUpload.mapError('en', errorKey);
             expect(error).to.deep.equal({
                 js: 'You can upload a maximum of 10 files',
                 nonJs: 'maxFiles'
@@ -394,7 +394,7 @@ describe('DocumentUploadUtil', () => {
         it('should return an error when invalidFileType is given', (done) => {
             const errorKey = 'invalidFileType';
             const documentUpload = new DocumentUpload();
-            const error = documentUpload.mapError(errorKey);
+            const error = documentUpload.mapError('en', errorKey);
             expect(error).to.deep.equal({
                 js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
                 nonJs: 'invalidFileType'
@@ -405,7 +405,7 @@ describe('DocumentUploadUtil', () => {
         it('should return an error when maxSize is given', (done) => {
             const errorKey = 'maxSize';
             const documentUpload = new DocumentUpload();
-            const error = documentUpload.mapError(errorKey);
+            const error = documentUpload.mapError('en', errorKey);
             expect(error).to.deep.equal({
                 js: 'Use a file that is under 10MB and try again',
                 nonJs: 'maxSize'

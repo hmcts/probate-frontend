@@ -10,7 +10,7 @@
       "continue": false
     },
     {
-      "if": { "properties": { "aliasReason": { "enum": ["other"] } } },
+      "if": { "properties": { "aliasReason": { "enum": ["optionOther"] } } },
       "then": {
         "properties": {
           "otherReason": {

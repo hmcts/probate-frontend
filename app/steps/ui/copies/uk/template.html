@@ -8,14 +8,14 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: (content.question if fields.isFeesApiToggleEnabled.value == "true" else content.questionOld),
+            text: (content.question if fields.isFeesApiToggleEnabled.value == "true" else content.questionOld) | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
     }) %}
         {% if fields.isFeesApiToggleEnabled.value == "true" %}
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph2 }}</p>
+            <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
             <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
             {{ unorderedList([
                 content.bullet1,
@@ -23,13 +23,13 @@
             ]) }}
         {% else %}
             <p class="govuk-body">{{ content.paragraph1Old | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph2Old }}</p>
+            <p class="govuk-body">{{ content.paragraph2Old | safe }}</p>
             <p class="govuk-body">{{ content.paragraph3Old | safe }}</p>
         {% endif %}
 
         {{ govukInput({
             label: {
-                text: (content.copies if fields.isFeesApiToggleEnabled.value == "true" else content.copiesOld)
+                text: (content.copies if fields.isFeesApiToggleEnabled.value == "true" else content.copiesOld) | safe
             },
             id: "uk",
             name: "uk",
@@ -45,7 +45,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

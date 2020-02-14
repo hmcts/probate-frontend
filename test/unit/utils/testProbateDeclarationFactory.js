@@ -3,10 +3,16 @@
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const FormatName = require('app/utils/FormatName');
 const {get} = require('lodash');
-const content = require('app/resources/en/translation/declaration');
 const expect = require('chai').expect;
+const config = require('app/config');
+const utils = require('app/components/step-utils');
+const moment = require('moment');
 const probateDeclarationFactory = require('app/utils/ProbateDeclarationFactory');
-const formdata = require('test/data/complete-form');
+const formdata = require('test/data/complete-form').formdata;
+const content = {
+    en: require('app/resources/en/translation/declaration'),
+    cy: require('app/resources/cy/translation/declaration')
+};
 
 describe('ProbateDeclarationFactory', () => {
     let ctx;
@@ -26,9 +32,12 @@ describe('ProbateDeclarationFactory', () => {
         const formdataDeceased = formdata.deceased || {};
         formdata.deceasedName = FormatName.format(formdataDeceased);
         formdata.deceasedAddress = get(formdataDeceased, 'address', {});
-        formdata.deceasedOtherNames = FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content);
-        formdata.dobFormattedDate = formdataDeceased['dob-formattedDate'];
-        formdata.dodFormattedDate = formdataDeceased['dod-formattedDate'];
+        formdata.deceasedOtherNames = {
+            en: FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content.en),
+            cy: FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content.cy)
+        };
+        formdata.dobFormattedDate = utils.formattedDate(moment(formdataDeceased['dob-day'] + '/' + formdataDeceased['dob-month'] + '/' + formdataDeceased['dob-year'], config.dateFormat).parseZone(), 'en');
+        formdata.dodFormattedDate = utils.formattedDate(moment(formdataDeceased['dod-day'] + '/' + formdataDeceased['dod-month'] + '/' + formdataDeceased['dod-year'], config.dateFormat).parseZone(), 'en');
         formdata.maritalStatus = formdataDeceased.maritalStatus;
         formdata.relationshipToDeceased = formdataDeceased.relationshipToDeceased;
         formdata.hadChildren = formdataDeceased.hadChildren;
@@ -40,8 +49,14 @@ describe('ProbateDeclarationFactory', () => {
 
         multipleApplicantSuffix = '';
         executorsApplying = ctx.executorsWrapper.executorsApplying();
-        executorsApplyingText = {};
-        executorsNotApplyingText = {};
+        executorsApplyingText = {
+            en: '',
+            cy: ''
+        };
+        executorsNotApplyingText = {
+            en: '',
+            cy: ''
+        };
     });
 
     describe('build()', () => {
@@ -50,40 +65,80 @@ describe('ProbateDeclarationFactory', () => {
 
             expect(templateData).to.deep.equal({
                 legalStatement: {
-                    applicant: content[`legalStatementApplicant${multipleApplicantSuffix}`]
-                        .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content, formdata.applicantAddress))
-                        .replace('{applicantName}', formdata.applicantName)
-                        .replace('{applicantAddress}', formdata.applicantAddress.formattedAddress),
-                    deceased: content.legalStatementDeceased
-                        .replace('{deceasedName}', formdata.deceasedName)
-                        .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
-                        .replace('{deceasedDob}', formdata.dobFormattedDate)
-                        .replace('{deceasedDod}', formdata.dodFormattedDate),
-                    deceasedEstateLand: content[`deceasedEstateLand${multipleApplicantSuffix}`]
-                        .replace(/{deceasedName}/g, formdata.deceasedName),
-                    deceasedEstateValue: content.deceasedEstateValue
-                        .replace('{ihtGrossValue}', formdata.ihtGrossValue)
-                        .replace('{ihtNetValue}', formdata.ihtNetValue),
-                    deceasedOtherNames: '',
-                    executorsApplying: {},
-                    executorsNotApplying: {},
-                    intro: content[`intro${multipleApplicantSuffix}`]
-                        .replace('{applicantName}', formdata.applicantName)
+                    en: {
+                        applicant: content.en[`legalStatementApplicant${multipleApplicantSuffix}`]
+                            .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content.en, formdata.applicantAddress))
+                            .replace('{applicantName}', formdata.applicantName)
+                            .replace('{applicantAddress}', formdata.applicantAddress.formattedAddress),
+                        deceased: content.en.legalStatementDeceased
+                            .replace('{deceasedName}', formdata.deceasedName)
+                            .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
+                            .replace('{deceasedDob}', formdata.dobFormattedDate.en)
+                            .replace('{deceasedDod}', formdata.dodFormattedDate.en),
+                        deceasedEstateLand: content.en[`deceasedEstateLand${multipleApplicantSuffix}`]
+                            .replace(/{deceasedName}/g, formdata.deceasedName),
+                        deceasedEstateValue: content.en.deceasedEstateValue
+                            .replace('{ihtGrossValue}', formdata.ihtGrossValue)
+                            .replace('{ihtNetValue}', formdata.ihtNetValue),
+                        deceasedOtherNames: '',
+                        executorsApplying: '',
+                        executorsNotApplying: '',
+                        intro: content.en[`intro${multipleApplicantSuffix}`]
+                            .replace('{applicantName}', formdata.applicantName)
+                    },
+                    cy: {
+                        applicant: content.cy[`legalStatementApplicant${multipleApplicantSuffix}`]
+                            .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content.en, formdata.applicantAddress))
+                            .replace('{applicantName}', formdata.applicantName)
+                            .replace('{applicantAddress}', formdata.applicantAddress.formattedAddress),
+                        deceased: content.cy.legalStatementDeceased
+                            .replace('{deceasedName}', formdata.deceasedName)
+                            .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
+                            .replace('{deceasedDob}', formdata.dobFormattedDate.cy)
+                            .replace('{deceasedDod}', formdata.dodFormattedDate.cy),
+                        deceasedEstateLand: content.cy[`deceasedEstateLand${multipleApplicantSuffix}`]
+                            .replace(/{deceasedName}/g, formdata.deceasedName),
+                        deceasedEstateValue: content.cy.deceasedEstateValue
+                            .replace('{ihtGrossValue}', formdata.ihtGrossValue)
+                            .replace('{ihtNetValue}', formdata.ihtNetValue),
+                        deceasedOtherNames: '',
+                        executorsApplying: '',
+                        executorsNotApplying: '',
+                        intro: content.cy[`intro${multipleApplicantSuffix}`]
+                            .replace('{applicantName}', formdata.applicantName)
+                    }
                 },
                 declaration: {
-                    accept: content.declarationCheckbox,
-                    confirm: content[`declarationConfirm${multipleApplicantSuffix}`]
-                        .replace('{deceasedName}', formdata.deceasedName),
-                    confirmItem1: content.declarationConfirmItem1,
-                    confirmItem2: content.declarationConfirmItem2,
-                    confirmItem3: content.declarationConfirmItem3,
-                    requests: content[`declarationRequests${multipleApplicantSuffix}`],
-                    requestsItem1: content.declarationRequestsItem1,
-                    requestsItem2: content.declarationRequestsItem2,
-                    submitWarning: content[`submitWarning${multipleApplicantSuffix}`],
-                    understand: content[`declarationUnderstand${multipleApplicantSuffix}`],
-                    understandItem1: content[`declarationUnderstandItem1${multipleApplicantSuffix}`],
-                    understandItem2: content[`declarationUnderstandItem2${multipleApplicantSuffix}`]
+                    en: {
+                        accept: content.en.declarationCheckbox,
+                        confirm: content.en[`declarationConfirm${multipleApplicantSuffix}`]
+                            .replace('{deceasedName}', formdata.deceasedName),
+                        confirmItem1: content.en.declarationConfirmItem1,
+                        confirmItem2: content.en.declarationConfirmItem2,
+                        confirmItem3: content.en.declarationConfirmItem3,
+                        requests: content.en[`declarationRequests${multipleApplicantSuffix}`],
+                        requestsItem1: content.en.declarationRequestsItem1,
+                        requestsItem2: content.en.declarationRequestsItem2,
+                        submitWarning: content.en[`submitWarning${multipleApplicantSuffix}`],
+                        understand: content.en[`declarationUnderstand${multipleApplicantSuffix}`],
+                        understandItem1: content.en[`declarationUnderstandItem1${multipleApplicantSuffix}`],
+                        understandItem2: content.en[`declarationUnderstandItem2${multipleApplicantSuffix}`]
+                    },
+                    cy: {
+                        accept: content.cy.declarationCheckbox,
+                        confirm: content.cy[`declarationConfirm${multipleApplicantSuffix}`]
+                            .replace('{deceasedName}', formdata.deceasedName),
+                        confirmItem1: content.cy.declarationConfirmItem1,
+                        confirmItem2: content.cy.declarationConfirmItem2,
+                        confirmItem3: content.cy.declarationConfirmItem3,
+                        requests: content.cy[`declarationRequests${multipleApplicantSuffix}`],
+                        requestsItem1: content.cy.declarationRequestsItem1,
+                        requestsItem2: content.cy.declarationRequestsItem2,
+                        submitWarning: content.cy[`submitWarning${multipleApplicantSuffix}`],
+                        understand: content.cy[`declarationUnderstand${multipleApplicantSuffix}`],
+                        understandItem1: content.cy[`declarationUnderstandItem1${multipleApplicantSuffix}`],
+                        understandItem2: content.cy[`declarationUnderstandItem2${multipleApplicantSuffix}`]
+                    }
                 }
             });
             done();

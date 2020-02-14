@@ -42,7 +42,7 @@ describe('will-codicils', () => {
 
         it(`test it redirects to TaskList page: ${expectedNextUrlForTaskList}`, (done) => {
             const data = {
-                codicils: 'No'
+                codicils: 'optionNo'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
@@ -50,7 +50,7 @@ describe('will-codicils', () => {
 
         it(`test it redirects to Codicils Number page: ${expectedNextUrlForCodicilsNumber}`, (done) => {
             const data = {
-                codicils: 'Yes'
+                codicils: 'optionYes'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForCodicilsNumber);

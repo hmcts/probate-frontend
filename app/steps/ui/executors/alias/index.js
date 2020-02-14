@@ -1,7 +1,6 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const content = require('app/resources/en/translation/executors/alias');
 
 class ExecutorsAlias extends ValidationStep {
 
@@ -10,7 +9,7 @@ class ExecutorsAlias extends ValidationStep {
     }
 
     pruneFormData(ctx) {
-        if (ctx.list && ctx.alias === content.optionNo) {
+        if (ctx.list && ctx.alias === 'optionNo') {
             const list = ctx.list.map(executor => {
                 if (executor.hasOtherName) {
                     executor.hasOtherName = false;
@@ -33,7 +32,7 @@ class ExecutorsAlias extends ValidationStep {
     nextStepOptions() {
         const nextStepOptions = {
             options: [
-                {key: 'alias', value: content.optionYes, choice: 'withAlias'}
+                {key: 'alias', value: 'optionYes', choice: 'withAlias'}
             ]
         };
         return nextStepOptions;

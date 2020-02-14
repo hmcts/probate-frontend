@@ -4,16 +4,6 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DeceasedMaritalStatus = steps.DeceasedMaritalStatus;
-const content = require('app/resources/en/translation/deceased/maritalstatus');
-const contentDivorcePlace = require('app/resources/en/translation/deceased/divorceplace');
-const contentAnyChildren = require('app/resources/en/translation/deceased/anychildren');
-const contentAnyOtherChildren = require('app/resources/en/translation/deceased/anyotherchildren');
-const contentAllChildrenOver18 = require('app/resources/en/translation/deceased/allchildrenover18');
-// const contentAnyDeceasedChildren = require('app/resources/en/translation/deceased/anydeceasedchildren');
-// const contentAnyGrandchildrenUnder18 = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
-const contentRelationshipToDeceased = require('app/resources/en/translation/applicant/relationshiptodeceased');
-const contentSpouseNotApplyingReason = require('app/resources/en/translation/applicant/spousenotapplyingreason');
-const contentAdoptionPlace = require('app/resources/en/translation/applicant/adoptionplace');
 
 describe('DeceasedMaritalStatus', () => {
     describe('getUrl()', () => {
@@ -49,7 +39,7 @@ describe('DeceasedMaritalStatus', () => {
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
             const ctx = {
-                maritalStatus: content.optionMarried
+                maritalStatus: 'optionMarried'
             };
             const nextStepOptions = DeceasedMaritalStatus.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
@@ -67,35 +57,33 @@ describe('DeceasedMaritalStatus', () => {
         it('test that context and session form variables are removed', () => {
             let formdata = {
                 deceased: {
-                    maritalStatus: content.optionDivorced
+                    maritalStatus: 'optionDivorced'
                 },
                 applicant: {
-                    relationshipToDeceased: contentRelationshipToDeceased.optionSpousePartner,
-                    spouseNotApplyingReason: contentSpouseNotApplyingReason.optionRenouncing,
-                    adoptionPlace: contentAdoptionPlace.optionYes
+                    relationshipToDeceased: 'optionSpousePartner',
+                    spouseNotApplyingReason: 'optionRenouncing',
+                    adoptionPlace: 'optionYes'
                 }
             };
             let ctx = {
-                maritalStatus: content.optionMarried,
+                maritalStatus: 'optionMarried',
                 deceasedName: 'Dee Ceased',
                 divorcedOrSeparated: true,
-                divorcePlace: contentDivorcePlace.optionYes,
-                anyChildren: contentAnyChildren.optionYes,
-                anyOtherChildren: contentAnyOtherChildren.optionYes,
-                allChildrenOver18: contentAllChildrenOver18.optionYes,
-                // anyDeceasedChildren: contentAnyDeceasedChildren.optionYes,
-                anyDeceasedChildren: 'Yes',
-                // anyGrandchildrenUnder18: contentAnyGrandchildrenUnder18.optionYes
-                anyGrandchildrenUnder18: 'Yes'
+                divorcePlace: 'optionYes',
+                anyChildren: 'optionYes',
+                anyOtherChildren: 'optionYes',
+                allChildrenOver18: 'optionYes',
+                anyDeceasedChildren: 'optionYes',
+                anyGrandchildrenUnder18: 'optionYes'
             };
             [ctx, formdata] = DeceasedMaritalStatus.action(ctx, formdata);
             expect([ctx, formdata]).to.deep.equal([
                 {
-                    maritalStatus: content.optionMarried
+                    maritalStatus: 'optionMarried'
                 },
                 {
                     deceased: {
-                        maritalStatus: content.optionDivorced
+                        maritalStatus: 'optionDivorced'
                     },
                     applicant: {}
                 }

@@ -5,14 +5,13 @@
     "phoneNumber": "651432156201",
     "address": {
       "formattedAddress": "Ministry of Justice Seventh Floor 102 Petty France London SW1H 9AJ"
-    },
-    "executor": "Yes"
+    }
   },
 
   "executors": {
-   "executorsNumber" : 3,
-    "otherExecutorsApplying":"Yes",
-    "allAlive": "No",
+   "executorsNumber": 3,
+    "otherExecutorsApplying": "optionYes",
+    "allAlive": "optionNo",
     "list": [
       {
         "fullName": "dean plummer",
@@ -27,22 +26,22 @@
         "isApplying": true,
         "hasOtherName": true,
         "currentName": "sam new simms",
-        "currentNameReason": "Divorce"
+        "currentNameReason": "optionDivorce"
       },
       {
         "fullName": "sam2 simms2",
         "isApplying": false,
         "notApplyingKey": "optionRenunciated",
-        "notApplyingReason" : "This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)",
-        "executorNotified" : "Yes"
+        "notApplyingReason": "optionRenunciated",
+        "executorNotified": "optionYes"
       },
       {
         "fullName": "dean2 plummer2",
         "isApplying": false,
         "isDead": true,
-        "diedbefore": "Yes"
+        "diedbefore": "optionYes"
       }
     ],
-    "otherExecutors" : "No"
+    "otherExecutors": "optionNo"
   }
 }

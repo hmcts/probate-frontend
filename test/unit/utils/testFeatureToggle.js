@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 'use strict';
 
 const expect = require('chai').expect;
@@ -77,7 +78,7 @@ describe('FeatureToggle', () => {
             done();
         });
 
-        it('should redirect to the specified page when isEnabled is set to false', (done) => {
+        it('should redirect to the specified page when isEnabled is set to false and the redirectPage arg is a string', (done) => {
             const params = {
                 isEnabled: false,
                 res: {redirect: sinon.spy()},
@@ -90,6 +91,52 @@ describe('FeatureToggle', () => {
 
             expect(params.res.redirect.calledOnce).to.equal(true);
             expect(params.res.redirect.calledWith('/applicant-phone')).to.equal(true);
+            done();
+        });
+
+        it('should redirect to the specified page when isEnabled is set to false, the redirectPage arg is an object and the case type is GOP', (done) => {
+            const params = {
+                req: {
+                    session: {
+                        form: {
+                            type: 'gop'
+                        }
+                    }
+                },
+                isEnabled: false,
+                res: {redirect: sinon.spy()},
+                next: {},
+                redirectPage: {gop: '/deceased-name', intestacy: '/deceased-details'}
+            };
+            const featureToggle = new FeatureToggle();
+
+            featureToggle.togglePage(params);
+
+            expect(params.res.redirect.calledOnce).to.equal(true);
+            expect(params.res.redirect.calledWith('/deceased-name')).to.equal(true);
+            done();
+        });
+
+        it('should redirect to the specified page when isEnabled is set to false, the redirectPage arg is an object and the case type is INTESTACY', (done) => {
+            const params = {
+                req: {
+                    session: {
+                        form: {
+                            type: 'intestacy'
+                        }
+                    }
+                },
+                isEnabled: false,
+                res: {redirect: sinon.spy()},
+                next: {},
+                redirectPage: {gop: '/deceased-name', intestacy: '/deceased-details'}
+            };
+            const featureToggle = new FeatureToggle();
+
+            featureToggle.togglePage(params);
+
+            expect(params.res.redirect.calledOnce).to.equal(true);
+            expect(params.res.redirect.calledWith('/deceased-details')).to.equal(true);
             done();
         });
     });
@@ -110,19 +157,49 @@ describe('FeatureToggle', () => {
             done();
         });
 
-        it('should redirect to the specified page when isEnabled is set to true', (done) => {
+        it('should redirect to the specified page when isEnabled is set to true, the redirectPage arg is an object and the case type is GOP', (done) => {
             const params = {
+                req: {
+                    session: {
+                        form: {
+                            type: 'gop'
+                        }
+                    }
+                },
                 isEnabled: true,
                 res: {redirect: sinon.spy()},
                 next: {},
-                redirectPage: '/applicant-phone'
+                redirectPage: {gop: '/deceased-name', intestacy: '/deceased-details'}
             };
             const featureToggle = new FeatureToggle();
 
             featureToggle.toggleExistingPage(params);
 
             expect(params.res.redirect.calledOnce).to.equal(true);
-            expect(params.res.redirect.calledWith('/applicant-phone')).to.equal(true);
+            expect(params.res.redirect.calledWith('/deceased-name')).to.equal(true);
+            done();
+        });
+
+        it('should redirect to the specified page when isEnabled is set to true, the redirectPage arg is an object and the case type is INTESTACY', (done) => {
+            const params = {
+                req: {
+                    session: {
+                        form: {
+                            type: 'intestacy'
+                        }
+                    }
+                },
+                isEnabled: true,
+                res: {redirect: sinon.spy()},
+                next: {},
+                redirectPage: {gop: '/deceased-name', intestacy: '/deceased-details'}
+            };
+            const featureToggle = new FeatureToggle();
+
+            featureToggle.toggleExistingPage(params);
+
+            expect(params.res.redirect.calledOnce).to.equal(true);
+            expect(params.res.redirect.calledWith('/deceased-details')).to.equal(true);
             done();
         });
     });

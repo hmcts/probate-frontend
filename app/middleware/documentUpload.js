@@ -18,7 +18,7 @@ const initTimeout = () => connectTimeout(config.documentUpload.timeoutMs, {respo
 const errorOnTimeout = (req, res, next) => {
     if (req.timedout) {
         req.log.error('Document upload timed out');
-        const error = documentUpload.mapError('uploadTimeout');
+        const error = documentUpload.mapError(req.session.language, 'uploadTimeout');
         return returnError(req, res, next, error);
     }
     next();
@@ -45,7 +45,7 @@ const uploadDocument = (req, res, next) => {
     let formdata = req.session.form;
     formdata = documentUpload.initDocuments(formdata);
     const uploads = formdata.documents.uploads;
-    const error = documentUpload.validate(uploadedDocument, uploads, maxFileSize);
+    const error = documentUpload.validate(uploadedDocument, uploads, maxFileSize, req.session.language);
 
     if (error === null) {
         req.log.info('Uploaded document passed frontend validation');
@@ -60,13 +60,13 @@ const uploadDocument = (req, res, next) => {
                 } else {
                     req.log.error('Uploaded document failed backend validation');
                     const errorType = Object.entries(config.documentUpload.error).filter(value => value[1] === resultBody)[0][0];
-                    const error = documentUpload.mapError(errorType);
+                    const error = documentUpload.mapError(req.session.language, errorType);
                     returnError(req, res, next, error);
                 }
             })
             .catch((err) => {
                 req.log.error(`Document upload failed: ${err}`);
-                const error = documentUpload.mapError('uploadFailed');
+                const error = documentUpload.mapError(req.session.language, 'uploadFailed');
                 returnError(req, res, next, error);
             });
     } else {

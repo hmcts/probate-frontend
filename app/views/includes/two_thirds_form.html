@@ -17,7 +17,7 @@
             </form>
 
             {% block save_and_close %}
-                <p class="govuk-body"><a href="/sign-out" class="govuk-link">{{ common.saveAndClose }}</a></p>
+                <p class="govuk-body"><a href="/sign-out" class="govuk-link">{{ common.saveAndClose | safe }}</a></p>
             {% endblock %}
 
             {% block executor_summary %}{% endblock %}

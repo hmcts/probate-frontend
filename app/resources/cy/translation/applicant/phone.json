@@ -1,0 +1,18 @@
+{
+  "title": "Rhif ff&ocirc;n y ceisydd",
+  "question": "Beth yw eich rhif ff&ocirc;n?",
+  "phoneNumber": "Rhif ff&ocirc;n",
+
+  "errors": {
+    "phoneNumber": {
+      "required": {
+        "summary": "Nid ydych wedi nodi rhif ff&ocirc;n",
+        "message": "Nodwch rif ff&ocirc;n"
+      },
+      "invalid": {
+        "summary": "Nid yw&rsquo;r rhif ff&ocirc;n rydych wedi&rsquo;i nodi yn ddilys",
+        "message": "Nodwch rif ff&ocirc;n dilys"
+      }
+    }
+  }
+}

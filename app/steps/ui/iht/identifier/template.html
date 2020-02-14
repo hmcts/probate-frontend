@@ -7,29 +7,29 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: content.question,
+            text: content.question | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-hint">{{ content.ihtIdentifierHint }}</p>
+        <p class="govuk-hint">{{ content.ihtIdentifierHint | safe }}</p>
 
         {{ govukInput({
             label: {
-                text: content.question,
+                text: content.question | safe,
                 classes: "govuk-visually-hidden"
             },
             id: "identifier",
             name: "identifier",
             value: fields.identifier.value | safe,
-            errorMessage: { text: fields.identifier.errorMessage.message } if fields.identifier.errorMessage,
+            errorMessage: { text: fields.identifier.errorMessage.message | safe } if fields.identifier.errorMessage,
             classes: "govuk-!-width-three-quarters"
         }) }}
     {% endcall %}
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

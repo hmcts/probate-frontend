@@ -56,7 +56,7 @@ class PaymentStatus extends Step {
         return [typeof formdata.payment !== 'undefined' && formdata.ccdCase.state === 'CaseCreated' && (formdata.payment.status === 'Success' || formdata.payment.status === 'not_required'), 'inProgress'];
     }
 
-    * runnerOptions(ctx, formdata) {
+    * runnerOptions(ctx, formdata, language) {
         const options = {};
         const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
         const serviceAuthResult = yield authorise.post();
@@ -87,7 +87,7 @@ class PaymentStatus extends Step {
                 return options;
             }
 
-            const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, getPaymentResponse, serviceAuthResult);
+            const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, getPaymentResponse, serviceAuthResult, language);
             set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
             set(formdata, 'payment', updateCcdCaseResponse.payment);
             set(formdata, 'registry', updateCcdCaseResponse.registry);
@@ -108,7 +108,7 @@ class PaymentStatus extends Step {
             if (ctx.paymentNotRequired) {
                 set(ctx.payment, 'status', 'not_required');
             }
-            const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, ctx.payment, serviceAuthResult);
+            const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, ctx.payment, serviceAuthResult, language);
 
             if (ctx.paymentNotRequired) {
                 set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
@@ -122,7 +122,7 @@ class PaymentStatus extends Step {
         return options;
     }
 
-    * updateForm(formdata, ctx, paymentDto, serviceAuthResult) {
+    * updateForm(formdata, ctx, paymentDto, serviceAuthResult, language) {
         const submitData = ServiceMapper.map(
             'SubmitData',
             [config.services.orchestrator.url, ctx.sessionID]
@@ -131,13 +131,13 @@ class PaymentStatus extends Step {
         const result = yield submitData.submit(formdata, paymentDto, ctx.authToken, serviceAuthResult, ctx.caseType);
         if (result.type === 'VALIDATION') {
             errors = [];
-            errors.push(FieldError('update', 'failure', this.resourcePath, ctx));
+            errors.push(FieldError('update', 'failure', this.resourcePath, this.generateContent(ctx, formdata, language), language));
         }
         logger.info(`submitData.submit result = ${JSON.stringify(result)}`);
 
         if (result.name === 'Error') {
             errors = [];
-            errors.push(FieldError('update', 'failure', this.resourcePath, ctx));
+            errors.push(FieldError('update', 'failure', this.resourcePath, this.generateContent(ctx, formdata, language), language));
         }
 
         logger.info({tags: 'Analytics'}, 'Application Case Created');

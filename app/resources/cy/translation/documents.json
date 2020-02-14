@@ -1,0 +1,33 @@
+{
+  "title": "Anfon eich dogfennau",
+  "header": "Anfon eich dogfennau",
+  "heading1": "1. Paratoi i anfon eich dogfennau",
+  "heading2": "2. Anfon eich dogfennau i&rsquo;r gofrestrfa brofiant",
+  "text1": "Os nad oes gennych argraffydd, ysgrifennwch eich cyfeirnod {ccdReferenceNumber} ar ddarn o bapur a&rsquo;i gynnwys gyda&rsquo;ch cais.",
+  "text2": "Bydd angen ichi anfon i&rsquo;r gofrestrfa brofiant:",
+  "text3": "Bydd angen ichi gynnwys llythyr eglurhaol os yw&rsquo;r ewyllys neu&rsquo;r codisiliau wedi newid mewn unrhyw ffordd ers i chi eu cael.",
+  "text4": "Dylai&rsquo;r llythyr egluro beth sydd wedi&rsquo;i newid a pham.",
+  "text5": "Defnyddiwch wasanaeth post lle y bydd rhaid i&rsquo;r derbynnydd lofnodi am y dogfennau a&rsquo;u hanfon i:",
+  "warning": "Ni roddir y Grant Cynrychiolaeth ichi os nad oes gennych yr holl ddogfennau angenrheidiol.",
+  "address": "Digital Application\nOxford District Probate Registry\nCombined Court Building\nSt Aldates\nOxford\nOX1 1LY",
+  "checklist-item1-no-codicils": "yr ewyllys wreiddiol (ni fydd yn cael ei dychwelyd i chi)",
+  "checklist-item1-codicils": "yr ewyllys wreiddiol ac unrhyw ddiweddariadau (codisiliau) (ni fyddant yn cael eu dychwelyd i chi)",
+  "checklist-item2-spouse-renouncing": "a <a href=\"{renunciationFormLink}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\"> ffurflen ymwrthod</a> wedi&rsquo;i llenwi gan &wcirc;r/gwraig neu bartner sifil yr unigolyn sydd wedi marw sy&rsquo;n rhoi fyny yr hawl yn barhaol i wneud y cais hwn am brofiant",
+  "checklist-item3-will-uploaded": "y dystysgrif marwolaeth wreiddiol (bydd yn cael ei dychwelyd i chi)",
+  "checklist-item4-iht205": "y ffurflen treth etifeddiant IHT 205 wedi ei llenwi",
+  "checklist-item5-renunciated": "a <a href=\"{renunciationFormLink}\" target=\"_blank\" class=\"govuk-link\" rel=\"external noopener\">ffurflen ymwrthod</a> wedi&rsquo;i llenwi gan unrhyw ysgutorion sy&rsquo;n rhoi fyny yr hawl yn barhaol i wneud y cais hwn am brofiant",
+  "checklist-item6-deed-poll": "copi o&rsquo;r ddogfen gweithred newid enw ar gyfer {executorCurrentName}",
+  "checkboxLabel": "Rwy&rsquo;n deall bod angen i mi lofnodi&rsquo;r ewyllys cyn anfon fy nogfennau",
+  "checkboxLabel-codicils": "Rwy&rsquo;n deall bod angen i mi lofnodi&rsquo;r ewyllys ac unrhyw godisiliau cyn anfon fy nogfennau",
+  "coverSheetDownloadMessage": "Lawrlwythwch ac argraffwch y",
+  "coverSheetPdf": "ddalen flaen hon",
+
+  "errors": {
+    "sentDocuments": {
+      "required": {
+        "summary": "Nid ydych wedi cadarnhau eich bod wedi llofnodi&rsquo;r ewyllys (ac unrhyw godisiliau)",
+        "message": "Ticiwch y blwch i gadarnhau eich bod wedi llofnodi&rsquo;r ewyllys (ac unrhyw godisiliau)"
+      }
+    }
+  }
+}

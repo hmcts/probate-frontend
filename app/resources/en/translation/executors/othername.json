@@ -5,9 +5,9 @@
   "errors": {
     "executorsWithOtherNames": {
       "required": {
-          "summary": "Select the executors who have different names",
-          "message": "Select the executors who have different names"
-        }
+        "summary": "Select the executors who have different names",
+        "message": "Select the executors who have different names"
+      }
     }
   }
 }

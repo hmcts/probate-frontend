@@ -4,7 +4,7 @@
             items = [
                 {
                     question: content.ExecutorRoles.question | replace("{executorFullName}", executor.fullName ),
-                    answer: executor.notApplyingReason,
+                    answer: content.ExecutorRoles[executor.notApplyingReason],
                     visible: true
                 }
             ],
@@ -17,8 +17,8 @@
             items = [
                 {
                     question: content.ExecutorNotified.question |  replace("{executorName}", executor.fullName ),
-                    answer: executor.executorNotified,
-                    visible: executor.notApplyingReason == content.ExecutorRoles.optionPowerReserved
+                    answer: content.ExecutorNotified[executor.executorNotified],
+                    visible: executor.notApplyingReason == "optionPowerReserved"
                 }
             ],
             url = content.ExecutorNotified.url | replace("*", loop.index0 ),

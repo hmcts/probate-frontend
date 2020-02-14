@@ -26,7 +26,6 @@ const updateInvite = require(`${__dirname}/app/routes/updateinvite`);
 const fs = require('fs');
 const https = require('https');
 const appInsights = require('applicationinsights');
-const commonContent = require('app/resources/en/translation/common');
 const uuidv4 = require('uuid/v4');
 const uuid = uuidv4();
 const EligibilityCookie = require('app/utils/EligibilityCookie');
@@ -85,7 +84,6 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}) {
         gaTrackingId: config.gaTrackingId,
         enableTracking: config.enableTracking,
         links: config.links,
-        helpline: config.helpline,
         nonce: uuid,
         documentUpload: {
             validMimeTypes: config.documentUpload.validMimeTypes,
@@ -213,7 +211,22 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}) {
             req.session = Object.assign(req.session, a11yTestSession);
         }
 
-        next(); // otherwise continue
+        next();
+    });
+
+    app.use((req, res, next) => {
+        if (!req.session.language) {
+            req.session.language = 'en';
+        }
+        if (req.query && req.query.locale && config.languages.includes(req.query.locale)) {
+            req.session.language = req.query.locale;
+        }
+
+        if (isA11yTest && !isEmpty(a11yTestSession)) {
+            req.session = Object.assign(req.session, a11yTestSession);
+        }
+
+        next();
     });
 
     app.use((req, res, next) => {
@@ -232,6 +245,8 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}) {
 
     // Add variables that are available in all views
     app.use((req, res, next) => {
+        const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+
         res.locals.serviceName = commonContent.serviceName;
         res.locals.cookieText = commonContent.cookieText;
         res.locals.releaseVersion = `v${releaseVersion}`;
@@ -302,13 +317,19 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}) {
     }
 
     app.all('*', (req, res) => {
+        const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+        const content = require(`app/resources/${req.session.language}/translation/errors/404`);
+
         logger(req.sessionID).error(`Unhandled request ${req.url}`);
-        res.status(404).render('errors/404', {common: commonContent, userLoggedIn: req.userLoggedIn});
+        res.status(404).render('errors/error', {common: commonContent, content: content, error: '404', userLoggedIn: req.userLoggedIn});
     });
 
     app.use((err, req, res, next) => {
+        const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+        const content = require(`app/resources/${req.session.language}/translation/errors/500`);
+
         logger(req.sessionID).error(err);
-        res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
+        res.status(500).render('errors/error', {common: commonContent, content: content, error: '500', userLoggedIn: req.userLoggedIn});
     });
 
     return {app, http};

@@ -10,32 +10,32 @@
         name: "otherApplicants",
         fieldset: {
             legend: {
-                text: content.question,
+                text: content.question | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
         },
         hint: {
-            text: content.hintText
+            text: content.hintText | safe
         },
         errorMessage: { text: fields.otherApplicants.errorMessage.message | safe } if fields.otherApplicants.errorMessage,
         items: [
             {
-                value: content["optionYes"],
-                text: content["optionYes"],
-                checked: true if fields.otherApplicants.value == content["optionYes"] | escape
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.otherApplicants.value == "optionYes"
             },
             {
-                value: content["optionNo"],
-                text: content["optionNo"],
-                checked: true if fields.otherApplicants.value == content["optionNo"] | escape
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.otherApplicants.value == "optionNo"
             }
         ]
     }) }}
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.continue,
+            text: common.continue | safe,
             preventDoubleClick: true
         }) }}
     </div>

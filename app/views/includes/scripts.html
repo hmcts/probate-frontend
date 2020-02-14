@@ -24,18 +24,18 @@
         maxSizeBytes: '{{ globals.documentUpload.maxSizeBytes }}',
         timeout: '{{ globals.documentUpload.timeout }}',
         content: {
-            removeFileText: '{{ common.documentUploadRemoveFile }}',
-            errorSummaryHeading: '{{ common.errorSummaryHeading }}',
-            invalidFileType: '{{ common["documentUpload-invalidFileType"] }}',
+            removeFileText: '{{ common.documentUploadRemoveFile | safe }}',
+            errorSummaryHeading: '{{ common.errorSummaryHeading | safe }}',
+            invalidFileType: '{{ common["documentUpload-invalidFileType"] | safe }}',
             invalidFileTypeSummary: '{{ common["documentUpload-invalidFileTypeSummary"] | safe }}',
-            maxFiles: '{{ common["documentUpload-maxFiles"] }}',
-            maxFilesSummary: '{{ common["documentUpload-maxFilesSummary"] }}',
-            maxSize: '{{ common["documentUpload-maxSize"] }}',
-            maxSizeSummary: '{{ common["documentUpload-maxSizeSummary"] }}',
-            uploadFailed: '{{ common["documentUpload-uploadFailed"] }}',
-            uploadFailedSummary: '{{ common["documentUpload-uploadFailedSummary"] }}',
-            uploadTimeout: '{{ common["documentUpload-uploadTimeout"] }}',
-            uploadTimeoutSummary: '{{ common["documentUpload-uploadTimeoutSummary"] }}'
+            maxFiles: '{{ common["documentUpload-maxFiles"] | safe }}',
+            maxFilesSummary: '{{ common["documentUpload-maxFilesSummary"] | safe }}',
+            maxSize: '{{ common["documentUpload-maxSize"] | safe }}',
+            maxSizeSummary: '{{ common["documentUpload-maxSizeSummary"] | safe }}',
+            uploadFailed: '{{ common["documentUpload-uploadFailed"] | safe }}',
+            uploadFailedSummary: '{{ common["documentUpload-uploadFailedSummary"] | safe }}',
+            uploadTimeout: '{{ common["documentUpload-uploadTimeout"] | safe }}',
+            uploadTimeoutSummary: '{{ common["documentUpload-uploadTimeoutSummary"] | safe }}'
         }
     };
 </script>
@@ -58,13 +58,13 @@
         btnServiceClosed: '/{{ globals.webChat.tenant }}/button_{{ globals.webChat.buttonServiceClosed }}/img/logo',
         chatDownAction: 'showMessage',
         chatLinkFocusable: false,
-        textChatDown: '{{ common.chatDown | replace("\n", "\\n") }}',
-        textChatClosed: '{{ common.chatClosed | replace("\n", "\\n") | replace("{chatOpeningHours}", common.chatOpeningHours) }}',
-        textChatWithAnAgent: '{{ common.chatWithAnAgent | replace("\n", "\\n") }}',
-        textNoAgentsAvailable: '{{ common.noAgentsAvailable | replace("\n", "\\n") }}',
-        textAllAgentsBusy: '{{ common.allAgentsBusy | replace("\n", "\\n") }}',
-        textChatAlreadyOpen: '{{ common.chatAlreadyOpen | replace("\\n", "\\\\n") }}',
-        textAdditional: '{{ common.chatOpeningHours | replace("\n", "\\n") }}',
+        textChatDown: '{{ common.helpChatDown | replace("\n", "\\n") | safe }}',
+        textChatClosed: '{{ common.helpChatClosed | replace("\n", "\\n") | replace("{chatOpeningHours}", common.helpChatOpeningHours) | safe }}',
+        textChatWithAnAgent: '{{ common.helpChatWithAnAgent | replace("\n", "\\n") | safe }}',
+        textNoAgentsAvailable: '{{ common.helpNoAgentsAvailable | replace("\n", "\\n") | safe }}',
+        textAllAgentsBusy: '{{ common.helpAllAgentsBusy | replace("\n", "\\n") | safe }}',
+        textChatAlreadyOpen: '{{ common.helpChatAlreadyOpen | replace("\n", "\\n") | safe }}',
+        textAdditional: '{{ common.helpChatOpeningHours | replace("\n", "\\n") | safe }}',
         gdsMajorVersion: 3
     });
 </script>

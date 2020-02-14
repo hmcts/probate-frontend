@@ -21,21 +21,21 @@
         errorMessage: { text: fields.assetsOutside.errorMessage.message | safe } if fields.assetsOutside.errorMessage,
         items: [
             {
-                value: content["optionYes"],
-                text: content["optionYes"],
-                checked: true if fields.assetsOutside.value == content["optionYes"] | escape
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.assetsOutside.value == "optionYes"
             },
             {
-                value: content["optionNo"],
-                text: content["optionNo"],
-                checked: true if fields.assetsOutside.value == content["optionNo"] | escape
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.assetsOutside.value == "optionNo"
             }
         ]
     }) }}
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

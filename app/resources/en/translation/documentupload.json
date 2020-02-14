@@ -6,13 +6,14 @@
   "help2": "Continue with your application and when you&rsquo;re finished you&rsquo;ll be given details of where to send the original document by post.",
   "stepsTitle": "How to take the picture",
   "steps-item1": "Place the certificate on a flat surface in a well lit room. Use a flash if you need to.",
-  "steps-item2": "Take a good quality, colour picture of the entire document. You should be able to see its edges.",
+  "steps-item2": "Take a good quality, colour picture of the entire document this will include both the front and back if you have a Death Certificate in Welsh.",
   "steps-item3": "Check that the image is in focus. You must be able to see the watermark and read all the writing, including any handwriting. Zoom in if you need to check this.",
   "steps-item4": "Send the picture to this device (eg by email) and save it.",
   "paragraph2": "Your scan or photo must be in colour and show the entire certificate including the watermark. You can upload most types of image.",
   "cantUploadDocumentsTitle": "If you are not able to upload your file or photo",
   "cantUploadDocumentsText": "Continue with your application. When you&rsquo;re finished you&rsquo;ll be given a reference number and details of where to send the original document by post.",
   "deathCertificate": "Death Certificate",
+
   "errors": {
     "file": {
       "invalidFileType": {

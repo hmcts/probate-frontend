@@ -2,7 +2,6 @@
 
 const fileType = require('file-type');
 const config = require('app/config').documentUpload;
-const content = require('app/resources/en/translation/common');
 
 class DocumentUpload {
     initDocuments(formdata) {
@@ -61,29 +60,31 @@ class DocumentUpload {
         return uploads.length < config.maxFiles;
     }
 
-    validate(document, uploads, maxFileSize) {
+    validate(document, uploads, maxFileSize, language = 'en') {
         let error = null;
 
         if (!this.isDocument(document)) {
-            error = this.mapError('nothingUploaded');
+            error = this.mapError(language, 'nothingUploaded');
         }
 
         if (error === null && !this.isValidType(document)) {
-            error = this.mapError('invalidFileType');
+            error = this.mapError(language, 'invalidFileType');
         }
 
         if (error === null && !this.isValidSize(document, maxFileSize)) {
-            error = this.mapError('maxSize');
+            error = this.mapError(language, 'maxSize');
         }
 
         if (error === null && !this.isValidNumber(uploads)) {
-            error = this.mapError('maxFiles');
+            error = this.mapError(language, 'maxFiles');
         }
 
         return error;
     }
 
-    mapError(errorKey) {
+    mapError(language, errorKey) {
+        const content = require(`app/resources/${language}/translation/common`);
+
         return {
             js: content[`documentUpload-${errorKey}`],
             nonJs: errorKey

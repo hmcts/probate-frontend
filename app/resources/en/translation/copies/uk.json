@@ -1,6 +1,5 @@
 {
   "title": "Copies - UK",
-
   "question": "How many copies of the grant do you need for use in the UK?",
   "paragraph1": "You&rsquo;ll receive a grant of probate when your application has been processed.",
   "paragraph2": "You may need extra copies of the grant to send to different asset holders, for example, a copy for shares and a copy for a property.",
@@ -8,7 +7,6 @@
   "bullet1": "&pound;10 for the first copy",
   "bullet2": "50 pence for every copy after that",
   "copies": "Number of UK copies",
-
   "questionOld": "How many extra copies of the grant do you need for use in the UK?",
   "paragraph1Old": "You&rsquo;ll receive a grant of probate when your application has been processed.",
   "paragraph2Old": "You may need extra copies of the grant to send to different asset holders, for example, a copy for shares and a copy for a property.",
@@ -18,8 +16,8 @@
   "errors": {
     "uk": {
       "invalid": {
-          "summary": "You haven&rsquo;t entered a valid number",
-          "message": "Enter a valid number"
+        "summary": "You haven&rsquo;t entered a valid number",
+        "message": "Enter a valid number"
       },
       "required": {
         "summary": "Enter the number of UK copies you need",

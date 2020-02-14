@@ -8,8 +8,8 @@
   "errors": {
     "method": {
       "required": {
-          "summary": "You need to say how the Inheritance Tax form was submitted",
-          "message": "Choose post or HMRC online service"
+        "summary": "You need to say how the Inheritance Tax form was submitted",
+        "message": "Choose post or HMRC online service"
       }
     }
   }

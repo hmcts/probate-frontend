@@ -5,8 +5,6 @@ const StopPage = require('app/steps/ui/stoppage');
 const TaskList = require('app/steps/ui/tasklist');
 const commonContent = require('app/resources/en/translation/common');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
-const content = require('app/resources/en/translation/deceased/divorceplace');
-const config = require('app/config');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('divorce-place', () => {
@@ -20,7 +18,7 @@ describe('divorce-place', () => {
         },
         caseType: caseTypes.INTESTACY,
         deceased: {
-            maritalStatus: contentMaritalStatus.optionDivorced
+            maritalStatus: 'optionDivorced'
         }
     };
 
@@ -37,11 +35,15 @@ describe('divorce-place', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const playbackData = {};
-                    playbackData.helpTitle = commonContent.helpTitle;
-                    playbackData.helpHeading1 = commonContent.helpHeading1;
-                    playbackData.helpHeading2 = commonContent.helpHeading2;
-                    playbackData.helpEmailLabel = commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress);
+                    const playbackData = {
+                        helpTitle: commonContent.helpTitle,
+                        helpHeading1: commonContent.helpHeading1,
+                        helpHeading2: commonContent.helpHeading2,
+                        helpHeading3: commonContent.helpHeading3,
+                        helpTelephoneNumber: commonContent.helpTelephoneNumber,
+                        helpTelephoneOpeningHours: commonContent.helpTelephoneOpeningHours,
+                        helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, commonContent.helpEmail)
+                    };
 
                     testWrapper.testDataPlayback(done, playbackData);
                 });
@@ -71,7 +73,7 @@ describe('divorce-place', () => {
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const data = {
-                divorcePlace: content.optionNo
+                divorcePlace: 'optionNo'
             };
 
             testWrapper.agent.post('/prepare-session/form')
@@ -83,7 +85,7 @@ describe('divorce-place', () => {
 
         it(`test it redirects to tasklist: ${expectedNextUrlForTaskList}`, (done) => {
             const data = {
-                divorcePlace: content.optionYes
+                divorcePlace: 'optionYes'
             };
 
             testWrapper.agent.post('/prepare-session/form')

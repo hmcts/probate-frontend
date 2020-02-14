@@ -1,12 +1,10 @@
 {
   "title": "Copies - Outside the UK",
-
   "question": "How many copies of the grant do you need for use outside the UK?",
   "paragraph1": "For extra copies you&rsquo;ll pay:",
   "bullet1": "&pound;10 for the first copy",
   "bullet2": "50 pence for every copy after that",
   "copies": "Number of international copies",
-
   "questionOld": "How many copies of the grant do you need for use outside the UK?",
   "paragraph1Old": "International copies cost &pound;1.50 each.",
   "copiesOld": "Number of international copies",
@@ -14,8 +12,8 @@
   "errors": {
     "overseas": {
       "invalid": {
-          "summary": "You haven&rsquo;t entered a valid number",
-          "message": "Enter a valid number"
+        "summary": "You haven&rsquo;t entered a valid number",
+        "message": "Enter a valid number"
       },
       "required": {
         "summary": "Enter the number of copies you need for outside the UK",

@@ -4,7 +4,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <h1 class="govuk-heading-l">{{ content.question }}</h1>
+    <h1 class="govuk-heading-l">{{ content.question | safe }}</h1>
 
     {% if errors == undefined %}
         {% if fields.paymentDue.value == "true" %}
@@ -21,7 +21,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

@@ -46,15 +46,15 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: content.header,
+            text: content.header | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
     }) %}
         <h2 class="govuk-heading-m">{{ content.heading1 | safe }}</h2>
-        <p class="govuk-body">{{ content.coverSheetDownloadMessage }} <a class="govuk-link" id="coverSheetPdfHref" href="/cover-sheet-pdf">{{ content.coverSheetPdf }}</a>.</p>
+        <p class="govuk-body">{{ content.coverSheetDownloadMessage | safe }} <a class="govuk-link" id="coverSheetPdfHref" href="/cover-sheet-pdf">{{ content.coverSheetPdf | safe }}</a>.</p>
         {% if fields.ccdReferenceNumber.value !== "" %}
-            <p class="govuk-body">{{ content.text1 | safe | replace("{ccdReferenceNumber}", fields.ccdReferenceNumber.value) }}</p>
+            <p class="govuk-body">{{ content.text1 | replace("{ccdReferenceNumber}", fields.ccdReferenceNumber.value) | safe }}</p>
         {% endif %}
         <p class="govuk-body">{{ content.text2 | safe }}</p>
 
@@ -81,7 +81,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.continue,
+            text: common.continue | safe,
             preventDoubleClick: true
         }) }}
     </div>

@@ -23,6 +23,7 @@ describe('Dashboard', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         applications: [
                             {ccdCase: {id: 1234567890123456}},

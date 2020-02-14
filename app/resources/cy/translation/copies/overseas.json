@@ -1,0 +1,24 @@
+{
+  "title": "Cop&iuml;au - Tu allan i&rsquo;r DU",
+  "question": "Faint o gop&iuml;au o&rsquo;r grant ydych chi eu hangen i&rsquo;w defnyddio y tu allan i&rsquo;r DU?",
+  "paragraph1": "Ar gyfer cop&iuml;au ychwanegol bydd rhaid ichi dalu:",
+  "bullet1": "&pound;10 am y copi cyntaf",
+  "bullet2": "50 ceiniog am bob copi ar &ocirc;l hynny",
+  "copies": "Nifer o gop&iuml;au rhyngwladol",
+  "questionOld": "Faint o gop&iuml;au o&rsquo;r grant ydych chi eu hangen i&rsquo;w defnyddio y tu allan i&rsquo;r DU?",
+  "paragraph1Old": "Mae cop&iuml;au rhyngwladol yn costio &pound;1.50 yr un.",
+  "copiesOld": "Nifer o gop&iuml;au rhyngwladol",
+
+  "errors": {
+    "overseas": {
+      "invalid": {
+        "summary": "Nid ydych wedi nodi rhif dilys",
+        "message": "Nodwch rif dilys"
+      },
+      "required": {
+        "summary": "Nodwch y nifer o gop&iuml;au rydych eu hangen ar gyfer tu allan i&rsquo;r DU",
+        "message": "Nodwch y nifer o gop&iuml;au rydych eu hangen ar gyfer tu allan i&rsquo;r DU. Rhowch &lsquo;0&rsquo; os nad ydych angen unrhyw gop&iuml;au rhyngwladol."
+      }
+    }
+  }
+}

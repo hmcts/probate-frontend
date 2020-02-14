@@ -9,12 +9,12 @@ const PaymentStatus = rewire('app/steps/ui/payment/status');
 const nock = require('nock');
 const caseTypes = require('app/utils/CaseTypes');
 const content = require('app/resources/en/translation/payment/status');
+const i18next = require('i18next');
 
 describe('PaymentStatus', () => {
     const steps = initSteps([`${__dirname}/../../../app/steps/ui`]);
     let section;
     let templatePath;
-    let i18next;
     let schema;
     let revertPaymentBreakdown;
     let expectedFormData;
@@ -65,7 +65,6 @@ describe('PaymentStatus', () => {
     beforeEach(() => {
         section = 'paymentStatus';
         templatePath = 'payment/status';
-        i18next = {};
         schema = {
             $schema: 'http://json-schema.org/draft-04/schema#',
             properties: {}

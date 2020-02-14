@@ -47,7 +47,7 @@ describe('ExecutorsNumber', () => {
                         {
                             'firstName': 'Dave',
                             'lastName': 'Bassett',
-                            'isApplying': 'Yes',
+                            'isApplying': 'optionYes',
                             'isApplicant': true
                         }, {
                             fullName: 'Ed Brown'

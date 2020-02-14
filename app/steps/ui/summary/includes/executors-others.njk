@@ -2,7 +2,7 @@
     items = [
         {
             question: content.ExecutorsApplying.question,
-            answer: fields.executors.otherExecutorsApplying.value,
+            answer: content.ExecutorsApplying[fields.executors.otherExecutorsApplying.value],
             visible: true
         }
     ],
@@ -16,7 +16,7 @@
         {
             question: content.ExecutorsDealingWithEstate.question,
             answer: fields.summary.executorsDealingWithEstate.value,
-            visible: fields.executors.otherExecutorsApplying.value === content.ExecutorsApplying.optionYes
+            visible: fields.executors.otherExecutorsApplying.value == "optionYes"
         }
     ],
     url = content.ExecutorsDealingWithEstate.url,
@@ -25,7 +25,7 @@
     answerIsCollection = true
 )}}
 
-{% if fields.executors.alias.value === "Yes" %}
+{% if fields.executors.alias.value == "optionYes" %}
     {{checkanswer(
         items = [
             {

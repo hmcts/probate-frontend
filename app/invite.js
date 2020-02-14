@@ -40,7 +40,9 @@ class InviteLink {
                             } else {
                                 logger.info('Link is valid');
                                 const pinNumber = new PinNumber(config.services.orchestrator.url, req.sessionID);
-                                pinNumber.get(result.phoneNumber, authToken, serviceAuthorisation)
+                                const bilingual = result.bilingual === 'optionYes';
+
+                                pinNumber.get(result.phoneNumber, bilingual, authToken, serviceAuthorisation)
                                     .then(generatedPin => {
                                         req.session.pin = generatedPin;
                                         req.session.phoneNumber = result.phoneNumber;
@@ -67,8 +69,10 @@ class InviteLink {
     checkCoApplicant(useIDAM) {
         return (req, res, next) => {
             if (useIDAM === 'true' && isEmpty(req.session.inviteId)) {
+                const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+
                 res.status(404);
-                return res.render('errors/404', {userLoggedIn: req.userLoggedIn});
+                return res.render('errors/404', {common: commonContent, userLoggedIn: req.userLoggedIn});
             }
 
             this.getAuth(req, res)
@@ -79,9 +83,10 @@ class InviteLink {
                     allExecutorsAgreed.get(authToken, serviceAuthorisation, ccdCaseId)
                         .then(result => {
                             if (result.name === 'Error') {
+                                const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+
                                 logger.error(`Error checking everyone has agreed: ${result.message}`);
-                                res.status(500);
-                                return res.render('errors/500', {userLoggedIn: req.userLoggedIn});
+                                return res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
                             }
 
                             logger.info('Checking if all applicants have already agreed');
@@ -89,8 +94,8 @@ class InviteLink {
                             if (result === 'true') {
                                 logger.info('All applicants have agreed');
                                 const step = steps.CoApplicantAllAgreedPage;
-                                const content = step.generateContent();
-                                const common = step.commonContent();
+                                const content = step.generateContent({}, {}, req.session.language);
+                                const common = step.commonContent(req.session.language);
                                 res.render(steps.CoApplicantAllAgreedPage.template, {content, common, userLoggedIn: req.userLoggedIn});
                             } else {
                                 next();

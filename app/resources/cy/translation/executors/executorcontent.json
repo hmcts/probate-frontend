@@ -1,0 +1,8 @@
+{
+  "optionYes": "Bydd",
+  "optionNo": "Na fydd",
+  "optionDiedBefore": "Bu i&rsquo;r ysgutor hwn farw (cyn yr unigolyn sydd wedi marw)",
+  "optionDiedAfter": "Bu i&rsquo;r ysgutor hwn farw (ar &ocirc;l yr unigolyn sydd wedi marw)",
+  "optionPowerReserved": "Nid yw&rsquo;r ysgutor hwn eisiau gwneud cais nawr, ond efallai y bydd yn dymuno gwneud hynny yn y dyfodol (gelwir hyn hefyd yn cadw&rsquo;r hawl)",
+  "optionRenunciated": "Nid yw&rsquo;r ysgutor hwn eisiau gwneud cais nawr, ac mae&rsquo;n rhoi fyny yr hawl i wneud hynny yn y dyfodol (gelwir hyn hefyd yn ymwrthod, a bydd angen i&rsquo;r ysgutor lenwi ffurflen)"
+}

@@ -15,10 +15,10 @@
       {
         "fullName": "Leonhard Euler",
         "isApplying": false,
-        "notApplyingReason" : "This executor doesnt want to apply now but may do in the future",
-        "executorNotified" : "Yes"
+        "notApplyingReason": "This executor doesnt want to apply now but may do in the future",
+        "executorNotified": "Yes"
       }],
-    "otherExecutors" : "No",
+    "otherExecutors": "No",
     "executorsNumber": 3
   },
   "applicant": {

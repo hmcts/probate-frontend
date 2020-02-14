@@ -46,10 +46,10 @@ describe('will-original', () => {
         it(`test it redirects to next page: ${expectedNextUrlForApplicantExecutor}`, (done) => {
             const sessionData = {
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes',
-                    left: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionYes'
                 }
             };
 
@@ -57,7 +57,7 @@ describe('will-original', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        original: 'Yes'
+                        original: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForApplicantExecutor, cookies);
@@ -67,10 +67,10 @@ describe('will-original', () => {
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const sessionData = {
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes',
-                    left: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionYes'
                 }
             };
 
@@ -78,7 +78,7 @@ describe('will-original', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        original: 'No'
+                        original: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);

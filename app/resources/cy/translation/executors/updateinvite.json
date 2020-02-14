@@ -1,0 +1,19 @@
+{
+  "title": "Hysbysu&rsquo;r ysgutor y bu ichi ddiweddaru eu manylion cyswllt",
+  "header": "Hysbysu&rsquo;r ysgutor y bu ichi ddiweddaru eu manylion cyswllt",
+  "header-multiple": "Hysbyswch yr ysgutorion y bu ichi ddiweddaru eu manylion cyswllt",
+  "paragraph1": "Fe anfonir neges e-bost at yr ysgutorion y bu ichi ddiweddaru eu manylion cyswllt i ddweud wrthynt bod y datganiad cyfreithiol yn barod i&rsquo;w gytuno. ",
+  "paragraph2": "Ni ellir rhoi grant profiant tan fydd yr holl ysgutorion sy&rsquo;n gwneud cais yn cytuno bod y datganiad cyfreithiol yn gywir.",
+  "header1": "Manylion cyswllt wedi&rsquo;u diweddaru",
+  "changeLink": "Newid",
+  "sendInvites": "Hysbysu&rsquo;r ysgutorion hyn sy&rsquo;n gwneud cais am brofiant",
+
+  "errors": {
+    "getUrl(index": {
+      "invalid": {
+        "summary": "Roedd problem wrth geisio anfon y negeseuon e-bost, rhowch gynnig arall arni hwyrach ymlaen",
+        "message": "Roedd problem wrth geisio anfon y negeseuon e-bost, rhowch gynnig arall arni hwyrach ymlaen"
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "title": "A fydd unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad",
+  "question": "A fydd unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad?",
+  "paragraph1": "Bydd yr ysgutorion hyn yn cael hawl gyfreithiol i:",
+  "applicant-rights1": "gasglu asedau&rsquo;r ystad (eiddo ac arian)",
+  "applicant-rights2": "talu unrhyw drethi a dyledion",
+  "applicant-rights3": "dosrannu beth sydd ar &ocirc;l i&rsquo;r bobl sydd &acirc; hawl iddo (y &lsquo;buddiolwyr&rsquo;)",
+  "optionYes": "Bydd",
+  "optionNo": "Na fydd",
+
+  "errors": {
+    "otherExecutorsApplying": {
+      "required": {
+        "summary": "Atebwch &lsquo;bydd&rsquo; os yw unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad",
+        "message": "Atebwch &lsquo;bydd&rsquo; os yw unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad"
+      }
+    }
+  }
+}

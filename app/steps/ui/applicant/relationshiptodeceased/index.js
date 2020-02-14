@@ -1,8 +1,6 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const content = require('app/resources/en/translation/applicant/relationshiptodeceased');
-const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 const {get} = require('lodash');
 const config = require('app/config');
 
@@ -25,10 +23,10 @@ class RelationshipToDeceased extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.spousePartnerLessThan250k = ctx.relationshipToDeceased === content.optionSpousePartner && ctx.assetsValue <= config.assetsValueThreshold;
-        ctx.spousePartnerMoreThan250k = ctx.relationshipToDeceased === content.optionSpousePartner && ctx.assetsValue > config.assetsValueThreshold;
-        ctx.childDeceasedMarried = ctx.relationshipToDeceased === content.optionChild && ctx.deceasedMaritalStatus === contentMaritalStatus.optionMarried;
-        ctx.childDeceasedNotMarried = ctx.relationshipToDeceased === content.optionChild && ctx.deceasedMaritalStatus !== contentMaritalStatus.optionMarried;
+        ctx.spousePartnerLessThan250k = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.assetsValue <= config.assetsValueThreshold;
+        ctx.spousePartnerMoreThan250k = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.assetsValue > config.assetsValueThreshold;
+        ctx.childDeceasedMarried = ctx.relationshipToDeceased === 'optionChild' && ctx.deceasedMaritalStatus === 'optionMarried';
+        ctx.childDeceasedNotMarried = ctx.relationshipToDeceased === 'optionChild' && ctx.deceasedMaritalStatus !== 'optionMarried';
 
         return {
             options: [
@@ -36,7 +34,7 @@ class RelationshipToDeceased extends ValidationStep {
                 {key: 'spousePartnerMoreThan250k', value: true, choice: 'spousePartnerMoreThan250k'},
                 {key: 'childDeceasedMarried', value: true, choice: 'childDeceasedMarried'},
                 {key: 'childDeceasedNotMarried', value: true, choice: 'childDeceasedNotMarried'},
-                {key: 'relationshipToDeceased', value: content.optionAdoptedChild, choice: 'adoptedChild'},
+                {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'},
             ]
         };
     }

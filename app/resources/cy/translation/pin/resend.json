@@ -1,0 +1,8 @@
+{
+  "title": "Mae Cod Dilysu SMS wedi&rsquo;i anfon",
+  "header1": "Anfon cod newydd i {phoneNumber}",
+  "subHeader1": "Os nad ydych wedi cael cod diogelwch, gallwch ofyn am un newydd.",
+  "header2": "Os nad {phoneNumber} yw eich rhif ff&ocirc;n",
+  "subHeader2ExecName": "Os yw&rsquo;r rhif ff&ocirc;n symudol hwn yn anghywir, dylech gysylltu &acirc; {executorName} a gofyn iddynt am ychwanegu&rsquo;r rhif cywir.",
+  "button": "Anfonwch god newydd ataf"
+}

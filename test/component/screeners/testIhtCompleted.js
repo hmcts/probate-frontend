@@ -44,8 +44,8 @@ describe('iht-completed', () => {
         it(`test it redirects to next page: ${expectedNextUrlForWillLeft}`, (done) => {
             const sessionData = {
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes'
                 }
             };
 
@@ -53,7 +53,7 @@ describe('iht-completed', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        completed: 'Yes'
+                        completed: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForWillLeft, cookies);
@@ -63,8 +63,8 @@ describe('iht-completed', () => {
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const sessionData = {
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes'
                 }
             };
 
@@ -72,7 +72,7 @@ describe('iht-completed', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        completed: 'No'
+                        completed: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);

@@ -1,16 +1,17 @@
+'use strict';
+
 const SpouseNotApplyingEnum = require('app/utils/SpouseNotApplyingEnum');
-const content = require('app/resources/en/translation/applicant/spousenotapplyingreason');
 const expect = require('chai').expect;
 
 describe('SpouseNotApplyingEnum.js', () => {
 
     describe('getCCDCode()', () => {
         it('should return renunciated value', (done) => {
-            expect(SpouseNotApplyingEnum.getCCDCode(content.optionRenouncing)).to.equal(SpouseNotApplyingEnum.getRenouncing());
+            expect(SpouseNotApplyingEnum.getCCDCode('optionRenouncing')).to.equal(SpouseNotApplyingEnum.getRenouncing());
             done();
         });
         it('should return other value', (done) => {
-            expect(SpouseNotApplyingEnum.getCCDCode(content.optionOther)).to.equal(SpouseNotApplyingEnum.getOther());
+            expect(SpouseNotApplyingEnum.getCCDCode('optionOther')).to.equal(SpouseNotApplyingEnum.getOther());
             done();
         });
         it('should return unknown value', (done) => {

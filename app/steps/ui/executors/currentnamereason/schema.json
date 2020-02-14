@@ -10,10 +10,10 @@
       "continue": false
     },
     {
-      "if": { "properties": { "currentNameReason": { "enum": ["other"] } } },
+      "if": { "properties": { "currentNameReason": { "enum": ["optionOther"] } } },
       "then": {
         "properties": {
-          "other": {
+          "otherReason": {
             "type": "string",
             "minLength": 1,
             "maxLength": 50

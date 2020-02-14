@@ -12,7 +12,7 @@
 
             <div class="govuk-form-group">
                 {{ govukButton({
-                    text: content.continue,
+                    text: content.continue | safe,
                     href: "/task-list"
                 }) }}
             </div>

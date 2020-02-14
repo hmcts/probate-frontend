@@ -4,7 +4,7 @@
     {{ taskHeader(
         number = "5.",
         content = content,
-        title = content.paymentTask,
+        title = content.paymentTask | safe,
         status = fields.PaymentTask.value.status,
         previousTaskStatus = previousTaskStatus
     ) }}
@@ -15,7 +15,7 @@
             nextURL = fields.PaymentTask.value.nextURL,
             checkYourAnswersURL = fields.PaymentTask.value.checkYourAnswersLink,
             content = content,
-            title = content.paymentTask
+            title = content.paymentTask | safe
         ) }}
     </div>
 </li>

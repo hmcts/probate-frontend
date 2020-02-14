@@ -19,6 +19,7 @@ describe('CodicilsNumber', () => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         caseType: 'gop',
                         ccdCase: {
@@ -50,6 +51,7 @@ describe('CodicilsNumber', () => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         caseType: 'gop',
                         ccdCase: {

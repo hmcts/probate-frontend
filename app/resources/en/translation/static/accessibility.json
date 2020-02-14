@@ -45,7 +45,7 @@
   "list3-item2": "Text spacing - We cannot confirm that the service works for those requiring larger text spacing. This may not meet WCAG 2.1 success criterion 1.4.12.",
   "list3-item3": "Content on hover or focus - We have not been able to verify with users that have motor skill issues. This may not meet WCAG 2.1 success criterion 1.4.13.",
   "list3-item4": "Focus visible - Some users may struggle to notice the focus indicator. This may not meet WCAG 2.1 success criterion 2.4.7.",
-  "paragraph18": "DAC testing will take place in October 2019 and we commit to fixing any issues raised by October 2020.",
+  "paragraph18": "Digital Accessibility Centre (DAC) testing will take place in October 2019 and we commit to fixing any issues raised by October 2020.",
 
   "heading9": "Content that&rsquo;s not within the scope of the accessibility regulations",
   "heading9-1": "PDFs and other documents",

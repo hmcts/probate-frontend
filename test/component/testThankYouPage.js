@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const config = require('app/config');
 const content = require('app/resources/en/translation/thankyou');
+const commonContent = require('app/resources/en/translation/common');
 
 describe('thank-you', () => {
     let testWrapper;
@@ -45,7 +46,7 @@ describe('thank-you', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        helpLineNumber: config.helpline.number,
+                        helpLineNumber: commonContent.helpTelephoneNumber,
                         findOutNext: config.links.findOutNext
                     };
 
@@ -73,7 +74,7 @@ describe('thank-you', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        helpLineNumber: config.helpline.number,
+                        helpLineNumber: commonContent.helpTelephoneNumber,
                         findOutNext: config.links.findOutNext,
                         saveYourApplication: content.saveYourApplication,
                         checkSummaryLink: content.checkAnswersPdf
@@ -123,7 +124,7 @@ describe('thank-you', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        helpLineNumber: config.helpline.number,
+                        helpLineNumber: commonContent.helpTelephoneNumber,
                         findOutNext: config.links.findOutNext,
                         saveYourApplication: content.saveYourApplication,
                         declarationLink: content.declarationPdf
@@ -173,7 +174,7 @@ describe('thank-you', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        helpLineNumber: config.helpline.number,
+                        helpLineNumber: commonContent.helpTelephoneNumber,
                         findOutNext: config.links.findOutNext,
                         saveYourApplication: content.saveYourApplication,
                         checkSummaryLink: content.checkAnswersPdf,
@@ -203,7 +204,7 @@ describe('thank-you', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        helpLineNumber: config.helpline.number,
+                        helpLineNumber: commonContent.helpTelephoneNumber,
                         findOutNext: config.links.findOutNext,
                         saveYourApplication: content.saveYourApplication,
                         coverSheetLink: content.coverSheetPdf

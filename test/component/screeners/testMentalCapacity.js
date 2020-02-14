@@ -52,12 +52,12 @@ describe('mental-capacity', () => {
         it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
             const sessionData = {
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes',
-                    left: 'Yes',
-                    original: 'Yes',
-                    executor: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionYes',
+                    original: 'optionYes',
+                    executor: 'optionYes'
                 }
             };
 
@@ -65,7 +65,7 @@ describe('mental-capacity', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        mentalCapacity: 'Yes'
+                        mentalCapacity: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
@@ -75,12 +75,12 @@ describe('mental-capacity', () => {
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const sessionData = {
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes',
-                    left: 'Yes',
-                    original: 'Yes',
-                    executor: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes',
+                    left: 'optionYes',
+                    original: 'optionYes',
+                    executor: 'optionYes'
                 }
             };
 
@@ -88,7 +88,7 @@ describe('mental-capacity', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        mentalCapacity: 'No'
+                        mentalCapacity: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);

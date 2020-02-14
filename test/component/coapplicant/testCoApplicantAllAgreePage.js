@@ -36,7 +36,7 @@ describe('co-applicant-all-agreed-page', () => {
         it('test correct content is loaded on the page when there are no codicils', (done) => {
             beforeEachNocks();
 
-            sessionData.will.codicils = commonContent.no;
+            sessionData.will.codicils = 'optionNo';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -48,7 +48,7 @@ describe('co-applicant-all-agreed-page', () => {
         it('test correct content is loaded on the page when there are codicils', (done) => {
             beforeEachNocks();
 
-            sessionData.will.codicils = commonContent.yes;
+            sessionData.will.codicils = 'optionYes';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

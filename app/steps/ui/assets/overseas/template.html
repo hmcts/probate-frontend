@@ -16,26 +16,26 @@
             }
         },
         hint: {
-            text: content.hint
+            text: content.hint | safe
         },
         errorMessage: { text: fields.assetsoverseas.errorMessage.message | safe } if fields.assetsoverseas.errorMessage,
         items: [
             {
-                value: content["optionYes"],
-                text: content["optionYes"],
-                checked: true if fields.assetsoverseas.value == content["optionYes"] | escape
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.assetsoverseas.value == "optionYes"
             },
             {
-                value: content["optionNo"],
-                text: content["optionNo"],
-                checked: true if fields.assetsoverseas.value == content["optionNo"] | escape
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.assetsoverseas.value == "optionNo"
             }
         ]
     }) }}
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

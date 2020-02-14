@@ -5,6 +5,7 @@ const FormatName = require('app/utils/FormatName');
 const logger = require('app/components/logger')('Init');
 const InviteLink = require('app/services/InviteLink');
 const config = require('app/config');
+const get = require('lodash').get;
 
 class ExecutorsInvite extends ValidationStep {
 
@@ -45,7 +46,9 @@ class ExecutorsInvite extends ValidationStep {
             });
 
         if (executorsToNotifyList.length) {
-            yield inviteLink.post(executorsToNotifyList, ctx.authToken, ctx.serviceAuthorization)
+            const bilingual = get(formdata, 'language.bilingual', 'optionNo') === 'optionYes';
+
+            yield inviteLink.post(executorsToNotifyList, ctx.authToken, ctx.serviceAuthorization, bilingual)
                 .then(result => {
                     if (result.name === 'Error') {
                         logger.error(`Error while sending executor email invites: ${result}`);

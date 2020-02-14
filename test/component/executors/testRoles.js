@@ -5,17 +5,15 @@ const assert = require('chai').assert;
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorNotified = require('app/steps/ui/executors/notified');
 const TaskList = require('app/steps/ui/tasklist');
-const executorRolesContent = require('app/resources/en/translation/executors/executorcontent');
 const commonContent = require('app/resources/en/translation/common');
-const config = require('app/config');
 
 describe('executor-roles', () => {
     const expectedNextUrlForTaskList = TaskList.getUrl();
     const expectedNextUrlForExecNotified = ExecutorNotified.getUrl(1);
     const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
     const reasons = {
-        optionPowerReserved: executorRolesContent.optionPowerReserved,
-        optionRenunciated: executorRolesContent.optionRenunciated
+        optionPowerReserved: 'optionPowerReserved',
+        optionRenunciated: 'optionRenunciated'
     };
     let testWrapper;
     let sessionData;
@@ -34,10 +32,10 @@ describe('executor-roles', () => {
             executors: {
                 executorsNumber: 2,
                 list: [
-                    {firstName: 'John', lastName: 'TheApplicant', isApplying: 'Yes', isApplicant: true},
-                    {fullName: 'Mana Manah', isApplying: 'No', isDead: false},
-                    {fullName: 'Mee Mee', isApplying: 'No', isDead: true},
-                    {fullName: 'Boo Boo', isApplying: 'No'}
+                    {firstName: 'John', lastName: 'TheApplicant', isApplying: 'optionYes', isApplicant: true},
+                    {fullName: 'Mana Manah', isApplying: 'optionNo', isDead: false},
+                    {fullName: 'Mee Mee', isApplying: 'optionNo', isDead: true},
+                    {fullName: 'Boo Boo', isApplying: 'optionNo'}
 
                 ]
             }
@@ -57,7 +55,10 @@ describe('executor-roles', () => {
                         helpTitle: commonContent.helpTitle,
                         helpHeading1: commonContent.helpHeading1,
                         helpHeading2: commonContent.helpHeading2,
-                        helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, config.links.contactEmailAddress)
+                        helpHeading3: commonContent.helpHeading3,
+                        helpTelephoneNumber: commonContent.helpTelephoneNumber,
+                        helpTelephoneOpeningHours: commonContent.helpTelephoneOpeningHours,
+                        helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, commonContent.helpEmail)
                     };
 
                     testWrapper.testDataPlayback(done, playbackData);
@@ -94,7 +95,7 @@ describe('executor-roles', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        notApplyingReason: executorRolesContent.optionPowerReserved
+                        notApplyingReason: 'optionPowerReserved'
                     };
 
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
@@ -107,7 +108,7 @@ describe('executor-roles', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        notApplyingReason: executorRolesContent.optionRenunciated
+                        notApplyingReason: 'optionRenunciated'
                     };
 
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
@@ -124,7 +125,7 @@ describe('executor-roles', () => {
                     {
                         lastName: 'The',
                         firstName: 'Applicant',
-                        isApplying: 'Yes',
+                        isApplying: 'optionYes',
                         isApplicant: true
                     },
                     {
@@ -133,7 +134,7 @@ describe('executor-roles', () => {
                     }
                 ],
                 index: 1,
-                isApplying: 'No',
+                isApplying: 'optionNo',
                 notApplyingReason: reasons.optionRenunciated
             };
 
@@ -148,7 +149,7 @@ describe('executor-roles', () => {
                     {
                         lastName: 'The',
                         firstName: 'Applicant',
-                        isApplying: 'Yes',
+                        isApplying: 'optionYes',
                         isApplicant: true
                     },
                     {
@@ -157,7 +158,7 @@ describe('executor-roles', () => {
                     }
                 ],
                 index: 1,
-                isApplying: 'No',
+                isApplying: 'optionNo',
                 notApplyingReason: reasons.optionRenunciated
             };
 

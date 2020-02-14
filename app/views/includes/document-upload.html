@@ -2,11 +2,11 @@
 
 <div class="document-upload">
     <div class="document-upload__dropzone">
-        <img src="/public/images/document-upload-arrow.png" class="document-upload__image" alt="{{ content.title }}">
+        <img src="/public/images/document-upload-arrow.png" class="document-upload__image" alt="{{ content.title | safe }}">
         <div class="document-upload__text">
-            <p class="govuk-body document-upload__dropzone-text document-upload__dropzone-text--choose-file">{{ common.documentUploadChooseFile }}</p>
-            <p class="govuk-body document-upload__dropzone-text bold">{{ common.or }}</p>
-            <p class="govuk-body document-upload__dropzone-text">{{ common.documentUploadDragAndDrop }}</p>
+            <p class="govuk-body document-upload__dropzone-text document-upload__dropzone-text--choose-file">{{ common.documentUploadChooseFile | safe }}</p>
+            <p class="govuk-body document-upload__dropzone-text bold">{{ common.or | safe }}</p>
+            <p class="govuk-body document-upload__dropzone-text">{{ common.documentUploadDragAndDrop | safe }}</p>
         </div>
         <div class="document-upload__fallback fallback">
             <form class="form" method="post" autocomplete="off" action="/document-upload?_csrf={{ csrfToken }}" enctype="multipart/form-data" novalidate>
@@ -15,7 +15,7 @@
                         id: "file",
                         name: "file",
                         label: {
-                            text: content.title
+                            text: content.title | safe
                         }
                     }) }}
 
@@ -23,7 +23,7 @@
                 </div>
                 <div class="govuk-form-group">
                     {{ govukButton({
-                        text: common.documentUploadUploadDocument,
+                        text: common.documentUploadUploadDocument | safe,
                         preventDoubleClick: true,
                         classes: "govuk-button--secondary",
                         attributes: {
@@ -35,10 +35,10 @@
         </div>
     </div>
     <div class="document-upload__preview" id="uploaded-files">
-        <h2 class="govuk-heading-m">{{ common.documentUploadPreviewTitle }}</h2>
+        <h2 class="govuk-heading-m">{{ common.documentUploadPreviewTitle | safe }}</h2>
 
         {% if (fields.uploadedDocuments.value == undefined or fields.uploadedDocuments.value.length == 0) %}
-            <p class="govuk-body document-upload__empty-list-text">{{ common.documentUploadEmptyList }}</p>
+            <p class="govuk-body document-upload__empty-list-text">{{ common.documentUploadEmptyList | safe }}</p>
         {% endif %}
 
         {% for document in fields.uploadedDocuments.value %}
@@ -48,13 +48,13 @@
                 </div>
                 <div class="dz-details">
                     <div class="dz-filename">
-                        <span data-dz-name class="govuk-body">{{ document }}</span>
+                        <span data-dz-name class="govuk-body">{{ document | safe }}</span>
                     </div>
                 </div>
                 <div class="dz-progress">
                     <span class="dz-upload" data-dz-uploadprogress></span>
                 </div>
-                <a class="govuk-link dz-remove" href="/document-upload/remove/{{ loop.index0 }}">{{ common.documentUploadRemoveFile }}</a>
+                <a class="govuk-link dz-remove" href="/document-upload/remove/{{ loop.index0 }}">{{ common.documentUploadRemoveFile | safe }}</a>
             </div>
         {% endfor %}
     </div>

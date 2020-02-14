@@ -1,0 +1,15 @@
+{
+  "title": "A wnaed unrhyw ddiweddariadau (&lsquo;codisiliau&rsquo;) i&rsquo;r ewyllys",
+  "question": "A wnaed unrhyw ddiweddariadau (&lsquo;codisiliau&rsquo;) i&rsquo;r ewyllys?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+
+  "errors": {
+    "codicils": {
+      "required": {
+        "summary": "Atebwch y cwestiwn am ddiweddariadau (&lsquo;codisiliau&rsquo;)",
+        "message": "Atebwch &lsquo;do&rsquo; os oes unrhyw ddiweddariadau wedi&rsquo;u gwneud i&rsquo;r ewyllys"
+      }
+    }
+  }
+}

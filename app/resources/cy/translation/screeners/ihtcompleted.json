@@ -1,0 +1,16 @@
+{
+  "title": "A oes ffurflen Treth Etifeddiant (IHT) wedi cael ei llenwi",
+  "hintText": "Gallai hyn fod yn adroddiad ystad Treth Etifeddiant neu ffurflen bapur Treth Etifeddiant.",
+  "question": "A oes ffurflen Treth Etifeddiant (IHT) wedi cael ei llenwi?",
+  "optionYes": "Oes",
+  "optionNo": "Nag oes",
+
+  "errors": {
+    "completed": {
+      "required": {
+        "summary": "Nid ydych wedi ateb y cwestiwn am lenwi&rsquo;r ffurflen Treth Etifeddiant",
+        "message": "Atebwch &lsquo;oes&rsquo; os oes ffurflen treth etifeddiant wedi cael ei llenwi"
+      }
+    }
+  }
+}

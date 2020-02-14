@@ -140,7 +140,7 @@ describe('ExecutorCurrentNameReason', () => {
                     isApplying: true
                 }, {
                     isApplying: true,
-                    currentNameReason: 'Marriage'
+                    currentNameReason: 'optionMarriage'
                 }],
                 index: 1
             };
@@ -151,14 +151,14 @@ describe('ExecutorCurrentNameReason', () => {
             const [ctx] = ExecutorCurrentNameReason.handleGet(testCtx);
 
             expect(ctx).to.deep.equal({
-                currentNameReason: 'Marriage',
+                currentNameReason: 'optionMarriage',
                 index: 1,
                 list: [
                     {
                         isApplying: true
                     },
                     {
-                        currentNameReason: 'Marriage',
+                        currentNameReason: 'optionMarriage',
                         isApplying: true,
                         otherReason: 'Yolo'
                     }
@@ -193,7 +193,7 @@ describe('ExecutorCurrentNameReason', () => {
                 }],
                 index: 0,
                 executorsWrapper: new ExecutorsWrapper(),
-                currentNameReason: 'Marriage'
+                currentNameReason: 'optionMarriage'
             };
             testErrors = [];
             formdata = {
@@ -209,7 +209,7 @@ describe('ExecutorCurrentNameReason', () => {
             const [ctx, errors] = ExecutorCurrentNameReason.handlePost(testCtx, testErrors, formdata);
 
             expect(ctx.list[0]).to.deep.equal({
-                currentNameReason: 'Marriage',
+                currentNameReason: 'optionMarriage',
                 isApplying: true,
             });
             expect(errors).to.deep.equal(testErrors);
@@ -217,12 +217,12 @@ describe('ExecutorCurrentNameReason', () => {
         });
 
         it('returns the correct data for option: "other"', (done) => {
-            testCtx.currentNameReason = 'other';
+            testCtx.currentNameReason = 'optionOther';
             testCtx.otherReason = 'it was a dare';
             const [ctx, errors] = ExecutorCurrentNameReason.handlePost(testCtx, testErrors, formdata);
 
             expect(ctx.list[0]).to.deep.equal({
-                currentNameReason: 'other',
+                currentNameReason: 'optionOther',
                 isApplying: true,
                 otherReason: 'it was a dare'
             });
@@ -231,12 +231,12 @@ describe('ExecutorCurrentNameReason', () => {
         });
 
         it('removed otherReason when option is not "other"', (done) => {
-            testCtx.currentNameReason = 'Marriage';
+            testCtx.currentNameReason = 'optionMarriage';
             testCtx.otherReason = 'it was a dare';
             const [ctx, errors] = ExecutorCurrentNameReason.handlePost(testCtx, testErrors, formdata);
 
             expect(ctx.list[0]).to.deep.equal({
-                currentNameReason: 'Marriage',
+                currentNameReason: 'optionMarriage',
                 isApplying: true
             });
             expect(errors).to.deep.equal(testErrors);
@@ -245,19 +245,19 @@ describe('ExecutorCurrentNameReason', () => {
 
         it('sets the currentNameReasonUpdated after declaration and changes to the currentNameReason', (done) => {
             formdata.declaration = {declarationCheckbox: 'true'};
-            testCtx.currentNameReason = 'Marriage';
+            testCtx.currentNameReason = 'optionMarriage';
             const [ctx, errors] = ExecutorCurrentNameReason.handlePost(testCtx, testErrors, formdata);
             expect(ctx).to.deep.equal({
                 currentNameReasonUpdated: true,
                 list: [{
-                    currentNameReason: 'Marriage',
+                    currentNameReason: 'optionMarriage',
                     isApplying: true,
                 }, {
                     isApplying: true
                 }],
                 index: -1,
                 executorsWrapper: new ExecutorsWrapper(),
-                currentNameReason: 'Marriage'
+                currentNameReason: 'optionMarriage'
             });
             expect(errors).to.deep.equal(testErrors);
             done();
@@ -344,7 +344,7 @@ describe('ExecutorCurrentNameReason', () => {
         it('removes the correct values from the context', (done) => {
             const testCtx = {
                 index: 2,
-                currentNameReason: 'other',
+                currentNameReason: 'optionOther',
                 otherReason: 'it was a dare',
                 currentNameReasonUpdated: false
             };
@@ -358,7 +358,7 @@ describe('ExecutorCurrentNameReason', () => {
         it('updates the formdata when currentNameReasonUpdated is true and removes values', (done) => {
             const testCtx = {
                 index: 2,
-                currentNameReason: 'other',
+                currentNameReason: 'optionOther',
                 otherReason: 'it was a dare',
                 currentNameReasonUpdated: true
             };

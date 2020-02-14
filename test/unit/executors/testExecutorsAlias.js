@@ -19,15 +19,15 @@ describe('Executors-Alias', () => {
 
         it('should return the pruned executor list if option No is chosen', (done) => {
             ctx = {
-                alias: 'No',
+                alias: 'optionNo',
                 list: [
-                    {fullName: 'Ronnie D', hasOtherName: true, currentName: 'Steve', currentNameReason: 'Marriage'},
-                    {fullName: 'Aggie D', hasOtherName: true, currentName: 'Danny', currentNameReason: 'other', otherReason: 'Yolo'}
+                    {fullName: 'Ronnie D', hasOtherName: true, currentName: 'Steve', currentNameReason: 'optionMarriage'},
+                    {fullName: 'Aggie D', hasOtherName: true, currentName: 'Danny', currentNameReason: 'optionOther', otherReason: 'Yolo'}
                 ]
             };
             ctx = ExecutorsAlias.pruneFormData(ctx);
             expect(ctx).to.deep.equal({
-                alias: 'No',
+                alias: 'optionNo',
                 list: [
                     {fullName: 'Ronnie D', hasOtherName: false},
                     {fullName: 'Aggie D', hasOtherName: false}
@@ -38,18 +38,18 @@ describe('Executors-Alias', () => {
 
         it('should return the executor list untouched if option Yes is chosen', (done) => {
             ctx = {
-                alias: 'Yes',
+                alias: 'optionYes',
                 list: [
-                    {currentName: 'Steve', hasOtherName: true, currentNameReason: 'Marriage'},
-                    {currentName: 'Danny', hasOtherName: true, currentNameReason: 'other', otherReason: 'Yolo'}
+                    {currentName: 'Steve', hasOtherName: true, currentNameReason: 'optionMarriage'},
+                    {currentName: 'Danny', hasOtherName: true, currentNameReason: 'optionOther', otherReason: 'Yolo'}
                 ]
             };
             ctx = ExecutorsAlias.pruneFormData(ctx);
             expect(ctx).to.deep.equal({
-                alias: 'Yes',
+                alias: 'optionYes',
                 list: [
-                    {currentName: 'Steve', hasOtherName: true, currentNameReason: 'Marriage'},
-                    {currentName: 'Danny', hasOtherName: true, currentNameReason: 'other', otherReason: 'Yolo'}
+                    {currentName: 'Steve', hasOtherName: true, currentNameReason: 'optionMarriage'},
+                    {currentName: 'Danny', hasOtherName: true, currentNameReason: 'optionOther', otherReason: 'Yolo'}
                 ]
             });
             done();

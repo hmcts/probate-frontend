@@ -49,14 +49,14 @@ describe('deceased-alias', () => {
 
         it(`test it redirects to deceased other names page: ${expectedNextUrlForDeceasedOtherNames}`, (done) => {
             const data = {
-                alias: 'Yes'
+                alias: 'optionYes'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedOtherNames);
         });
         it(`test it redirects to deceased married page: ${expectedNextUrlForDeceasedMarried}`, (done) => {
             const data = {
-                alias: 'No'
+                alias: 'optionNo'
             };
 
             testWrapper.agent.post('/prepare-session/form')

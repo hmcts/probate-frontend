@@ -11,9 +11,11 @@ class ActionStepRunner {
     }
 
     handleGet(step, req, res) {
+        const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+
         req.log.error(`GET operation not defined for ${step.name} step`);
         res.status(404);
-        res.render('errors/404', {userLoggedIn: req.userLoggedIn});
+        res.render('errors/404', {common: commonContent, userLoggedIn: req.userLoggedIn});
     }
 
     handlePost(step, req, res) {
@@ -22,16 +24,18 @@ class ActionStepRunner {
             const formdata = session.form;
 
             let ctx = yield step.getContextData(req);
-            let [, errors] = step.validate(ctx, formdata);
+            let [, errors] = step.validate(ctx, formdata, session.language);
 
-            [ctx, errors] = yield step.handlePost(ctx, errors, formdata, req);
+            [ctx, errors] = yield step.handlePost(ctx, errors, formdata, session);
 
             const next = step.next(req, ctx);
             step.action(ctx, formdata);
             res.redirect(next.constructor.getUrl());
         }).catch((error) => {
+            const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+
             req.log.error(error);
-            res.status(500).render('errors/500', {userLoggedIn: req.userLoggedIn});
+            res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
         });
     }
 }

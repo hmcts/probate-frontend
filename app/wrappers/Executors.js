@@ -118,7 +118,7 @@ class Executors {
 
     executorsNameChangedByDeedPoll() {
         return this.executorsList
-            .filter(executor => executor.aliasReason === 'Change by deed poll' || executor.currentNameReason === 'Change by deed poll')
+            .filter(executor => executor.aliasReason === 'optionDeedPoll' || executor.currentNameReason === 'optionDeedPoll')
             .map(executor => executor.alias || executor.currentName);
     }
 

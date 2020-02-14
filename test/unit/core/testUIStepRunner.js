@@ -10,6 +10,7 @@ const co = require('co');
 describe('UIStepRunner', () => {
     const req = {
         session: {
+            language: 'en',
             form: {
                 declaration: {
                     declarationCheckbox: 'true'

@@ -5,7 +5,6 @@ const config = require('../config');
 const logger = require('app/components/logger');
 const URL = require('url');
 const UUID = require('uuid/v4');
-const commonContent = require('app/resources/en/translation/common');
 const IdamSession = require('app/services/IdamSession');
 const Oauth2Token = require('app/services/Oauth2Token');
 const SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
@@ -24,7 +23,6 @@ class Security {
         const self = this;
 
         return (req, res, next) => {
-
             let securityCookie;
             req.log = logger(req.sessionID);
 
@@ -62,14 +60,14 @@ class Security {
                             req.session.regId = response.email;
                             req.userId = response.id;
                             req.authToken = securityCookie;
-                            self._authorize(res, next, response.roles, authorisedRoles);
+                            self._authorize(req, res, next, response.roles, authorisedRoles);
                         } else {
                             req.log.error('Error authorising user');
                             req.log.error(`Error ${JSON.stringify(response)} \n`);
                             if (response.message === 'Unauthorized') {
                                 self._login(req, res);
                             } else {
-                                self._denyAccess(res);
+                                self._denyAccess(req, res);
                             }
                         }
                     });
@@ -95,19 +93,22 @@ class Security {
         res.redirect(redirectUrl.format());
     }
 
-    _authorize(res, next, userRoles, authorisedRoles) {
+    _authorize(req, res, next, userRoles, authorisedRoles) {
         if (userRoles.some(role => authorisedRoles.includes(role))) {
             next();
         } else {
             logger().error('[ERROR] :: Error authorising user, Role Not Authorised');
-            this._denyAccess(res);
+            this._denyAccess(req, res);
         }
     }
 
-    _denyAccess(res) {
+    _denyAccess(req, res) {
+        const commonContent = require(`app/resources/${req.session.language}/translation/common`);
+        const content = require(`app/resources/${req.session.language}/translation/errors/403`);
+
         res.clearCookie(SECURITY_COOKIE);
         res.status(403);
-        res.render('errors/403', {common: commonContent, userLoggedIn: false});
+        res.render('errors/error', {common: commonContent, content: content, error: '403', userLoggedIn: false});
     }
 
     _generateState() {
@@ -116,8 +117,8 @@ class Security {
 
     oAuth2CallbackEndpoint() {
         const self = this;
-        return (req, res) => {
 
+        return (req, res) => {
             const redirectInfo = self._getRedirectCookie(req);
             req.log = logger(req.sessionID);
 
@@ -129,7 +130,7 @@ class Security {
                 res.redirect(redirectInfo.continue_url);
             } else if (redirectInfo.state !== req.query.state) {
                 req.log.error(`States do not match: ${redirectInfo.state} is not ${req.query.state}`);
-                self._denyAccess(res);
+                self._denyAccess(req, res);
             } else {
                 self._getTokenFromCode(req)
                     .then(result => {
@@ -138,7 +139,7 @@ class Security {
                             if (result.message === 'Unauthorized') {
                                 self._login(req, res);
                             } else {
-                                self._denyAccess(res);
+                                self._denyAccess(req, res);
                             }
                         } else {
                             self._storeCookie(req, res, result[ACCESS_TOKEN_OAUTH2], SECURITY_COOKIE);

@@ -2,6 +2,7 @@
 
 const requireDir = require('require-directory');
 const TestWrapper = require('test/util/TestWrapper');
+const languageContent = require('../../../app/resources/en/translation/language');
 const deceasedContent = requireDir(module, '../../../app/resources/en/translation/deceased');
 const willContent = requireDir(module, '../../../app/resources/en/translation/will');
 const FormatName = require('app/utils/FormatName');
@@ -20,7 +21,7 @@ describe('summary-deceased-section', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content loaded on the deceased section of the summary page, when no data is entered', (done) => {
-            const sessionData = {
+            sessionData = {
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456
@@ -34,6 +35,7 @@ describe('summary-deceased-section', () => {
                         throw err;
                     }
                     const playbackData = {
+                        bilingual: languageContent.question,
                         firstName: deceasedContent.name.firstName,
                         lastName: deceasedContent.name.lastName,
                         alias: deceasedContent.alias.question.replace('{deceasedName}', deceasedContent.alias.theDeceased),
@@ -62,6 +64,7 @@ describe('summary-deceased-section', () => {
                     delete require.cache[require.resolve('test/data/deceased')];
                     const deceasedName = FormatName.format(sessionData.deceased);
                     const playbackData = {
+                        bilingual: languageContent.question,
                         firstName: deceasedContent.name.firstName,
                         lastName: deceasedContent.name.lastName,
                         alias: deceasedContent.alias.question.replace('{deceasedName}', deceasedName),
@@ -91,6 +94,7 @@ describe('summary-deceased-section', () => {
                     delete require.cache[require.resolve('test/data/deceased')];
                     const deceasedName = FormatName.format(sessionData.deceased);
                     const playbackData = {
+                        questionBilingual: languageContent.question,
                         questionFirstName: deceasedContent.name.firstName,
                         questionLastName: deceasedContent.name.lastName,
                         questionAlias: deceasedContent.alias.question.replace('{deceasedName}', deceasedName),
@@ -101,6 +105,9 @@ describe('summary-deceased-section', () => {
                         questionWillCodicils: willContent.codicils.question
                     };
                     Object.assign(playbackData, sessionData.deceased);
+                    playbackData.alias = deceasedContent.alias[playbackData.alias];
+                    playbackData.married = deceasedContent.married[playbackData.married];
+                    playbackData.domicile = deceasedContent.married[playbackData.domicile];
 
                     playbackData.address = sessionData.deceased.address.formattedAddress;
 

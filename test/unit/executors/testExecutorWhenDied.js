@@ -5,7 +5,6 @@ const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ExecutorWhenDied = steps.ExecutorsWhenDied;
 const ExecutorWhenDiedPath = '/executor-when-died/';
-const json = require('app/resources/en/translation/executors/executorcontent');
 
 describe('ExecutorWhenDied', () => {
     describe('getUrl()', () => {
@@ -33,7 +32,7 @@ describe('ExecutorWhenDied', () => {
             ctx = {
                 index: 0,
                 list: [{}],
-                diedbefore: 'No'
+                diedbefore: 'optionNo'
             };
             errors = [];
             [ctx, errors] = ExecutorWhenDied.handlePost(ctx, errors);
@@ -41,12 +40,12 @@ describe('ExecutorWhenDied', () => {
                 index: -1,
                 list: [
                     {
-                        diedBefore: 'No',
+                        diedBefore: 'optionNo',
                         notApplyingKey: 'optionDiedAfter',
-                        notApplyingReason: json.optionDiedAfter
+                        notApplyingReason: 'optionDiedAfter'
                     }
                 ],
-                diedbefore: 'No'
+                diedbefore: 'optionNo'
             });
             done();
         });
@@ -69,9 +68,9 @@ describe('ExecutorWhenDied', () => {
     describe('action()', () => {
         it('test it cleans up context', () => {
             const ctx = {
-                diedbefore: 'No',
+                diedbefore: 'optionNo',
                 continue: true,
-                allDead: 'No',
+                allDead: 'optionNo',
             };
             ExecutorWhenDied.action(ctx);
             assert.isUndefined(ctx.diedbefore);

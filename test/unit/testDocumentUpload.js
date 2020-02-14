@@ -87,7 +87,7 @@ describe('DocumentUpload.js', () => {
                 }
             };
             const DocumentUpload = steps.DocumentUpload;
-            const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
+            const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata, {language: 'en'});
             expect(ctx).to.deep.equal({});
             expect(errors).to.deep.equal([{
                 field: 'file',
@@ -109,7 +109,7 @@ describe('DocumentUpload.js', () => {
                 }
             };
             const DocumentUpload = steps.DocumentUpload;
-            const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
+            const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata, {language: 'en'});
             expect(ctx).to.deep.equal({});
             expect(errors).to.deep.equal([{
                 field: 'file',
@@ -131,7 +131,7 @@ describe('DocumentUpload.js', () => {
                 }
             };
             const DocumentUpload = steps.DocumentUpload;
-            const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
+            const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata, {language: 'en'});
             expect(ctx).to.deep.equal({});
             expect(errors).to.deep.equal([{
                 field: 'file',
@@ -153,7 +153,7 @@ describe('DocumentUpload.js', () => {
                 }
             };
             const DocumentUpload = steps.DocumentUpload;
-            const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
+            const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata, {language: 'en'});
             expect(ctx).to.deep.equal({});
             expect(errors).to.deep.equal([{
                 field: 'file',
@@ -175,7 +175,7 @@ describe('DocumentUpload.js', () => {
                 }
             };
             const DocumentUpload = steps.DocumentUpload;
-            const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata);
+            const [ctx, errors] = DocumentUpload.handlePost(ctxToTest, errorsToTest, formdata, {language: 'en'});
             expect(ctx).to.deep.equal({});
             expect(errors).to.deep.equal([{
                 field: 'file',

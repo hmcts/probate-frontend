@@ -30,7 +30,7 @@ class Payment extends Service {
         return this.fetchJson(url, fetchOptions);
     }
 
-    post(data, hostname) {
+    post(data, hostname, language) {
         this.log('Post payment');
         const url = this.endpoint;
         const paymentUpdatesCallback = config.services.orchestrator.url + config.services.orchestrator.paths.payment_updates;
@@ -41,7 +41,7 @@ class Payment extends Service {
             'return-url': this.formatUrl.format(hostname, config.services.payment.paths.returnUrlPath),
             'service-callback-url': paymentUpdatesCallback
         };
-        const body = paymentData.createPaymentData(data);
+        const body = paymentData.createPaymentData(data, language);
         const fetchOptions = this.fetchOptions(body, 'POST', headers);
         return this.fetchJson(url, fetchOptions);
     }

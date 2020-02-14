@@ -39,6 +39,9 @@ describe('DocumentUploadMiddleware', () => {
 
         it('should return an error if the upload has timed out', (done) => {
             const req = {
+                session: {
+                    language: 'en'
+                },
                 timedout: true,
                 log: {
                     error: sinon.spy()
@@ -116,6 +119,7 @@ describe('DocumentUploadMiddleware', () => {
                     return req[key];
                 },
                 session: {
+                    language: 'en',
                     form: {
                         documents: {}
                     }

@@ -13,7 +13,7 @@
         }
     }) %}
         <p class="govuk-body">
-            {{ fields.executorsToNotifyNames.value }}
+            {{ fields.executorsToNotifyNames.value | safe }}
             {{ content.paragraph1 | safe }}
         </p>
         {{ govukInsetText({
@@ -26,17 +26,17 @@
             {% if executor.isApplicant !== true and executor.isApplying and executor.emailSent !== true %}
                 <div class="govuk-grid-row word-wrap">
                     <div class="govuk-grid-column-one-quarter">
-                        <p class="govuk-body">{{ executor.fullName }}</p>
+                        <p class="govuk-body">{{ executor.fullName | safe }}</p>
                     </div>
                     <div class="govuk-grid-column-one-quarter">
-                        <p class="govuk-body">{{ executor.email }}</p>
+                        <p class="govuk-body">{{ executor.email | safe }}</p>
                     </div>
                     <div class="govuk-grid-column-one-quarter">
-                        <p class="govuk-body">{{ executor.mobile }}</p>
+                        <p class="govuk-body">{{ executor.mobile | safe }}</p>
                     </div>
                     <div class="govuk-grid-column-one-quarter">
                         <p class="govuk-body">
-                            <a class="govuk-link" href="/executor-contact-details/{{ loop.index - 1 }}">{{ content.changeLink }}</a>
+                            <a class="govuk-link" href="/executor-contact-details/{{ loop.index - 1 }}">{{ content.changeLink | safe }}</a>
                         </p>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: content.sendInvites,
+            text: content.sendInvites | safe,
             preventDoubleClick: true
         }) }}
     </div>

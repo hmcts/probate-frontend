@@ -1,0 +1,16 @@
+{
+  "title": "A ydych chi&rsquo;n bwriadu gwneud cais ar y cyd",
+  "question": "A ydych chi&rsquo;n bwriadu gwneud cais ar y cyd?",
+  "hintText": "Efallai yr hoffech wneud cais gydag aelod o&rsquo;ch teulu, er enghraifft eich chwaer neu frawd.",
+  "optionYes": "Ydw",
+  "optionNo": "Nac ydw",
+
+  "errors": {
+    "otherApplicants": {
+      "required": {
+        "summary": "Nid ydych wedi ateb y cwestiwn am wneud cais gyda rhywun arall",
+        "message": "Atebwch &lsquo;ydw&rsquo; os ydych eisiau gwneud cais gyda rhywun arall"
+      }
+    }
+  }
+}

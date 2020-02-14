@@ -2,7 +2,7 @@
     items = [
         {
             question: content.IhtMethod.question,
-            answer: fields.iht.method.value,
+            answer: content.IhtMethod[fields.iht.method.value],
             visible: true
         }
     ],
@@ -11,24 +11,24 @@
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
 
-{% set selectedOption=fields.iht.form.value %}
+{% set selectedOption = fields.iht.form.value | replace("option", "") %}
 
 {{checkanswer(
     items = [
         {
             question: content.IhtPaper.question,
             answer:  content.IhtPaper["option" + selectedOption],
-            visible: fields.iht.method.value == content.IhtMethod.optionPaper
+            visible: fields.iht.method.value == "optionPaper"
         },
         {
             question: content.IhtValue.grossValue,
             answer: fields.iht["grossValueField" + selectedOption].value,
-            visible: fields.iht.method.value == content.IhtMethod.optionPaper
+            visible: fields.iht.method.value == "optionPaper"
         },
         {
             question: content.IhtValue.netValue,
             answer: fields.iht["netValueField" + selectedOption].value,
-            visible: fields.iht.method.value == content.IhtMethod.optionPaper
+            visible: fields.iht.method.value == "optionPaper"
         }
     ],
     url = content.IhtPaper.url,
@@ -41,7 +41,7 @@
         {
             question: content.IhtIdentifier.question,
             answer: fields.iht.identifier.value,
-            visible: fields.iht.method.value == content.IhtMethod.optionOnline
+            visible: fields.iht.method.value == "optionOnline"
         }
     ],
     url = content.IhtIdentifier.url,
@@ -54,12 +54,12 @@
         {
             question: content.IhtValue.grossValue,
             answer: fields.iht.grossValueField.value,
-            visible: fields.iht.method.value == content.IhtMethod.optionOnline
+            visible: fields.iht.method.value == "optionOnline"
         },
         {
             question: content.IhtValue.netValue,
             answer: fields.iht.netValueField.value,
-            visible: fields.iht.method.value == content.IhtMethod.optionOnline
+            visible: fields.iht.method.value == "optionOnline"
         }
     ],
     url = content.IhtValue.url,
@@ -72,7 +72,7 @@
         {
             question: content.ValueAssetsOutside.question,
             answer: fields.iht.netValueAssetsOutsideField.value,
-            visible: fields.summary.caseType.value === "intestacy" and fields.iht.assetsOutside.value == content.AssetsOutside.optionYes
+            visible: fields.summary.caseType.value == "intestacy" and fields.iht.assetsOutside.value == "optionYes"
         }
     ],
     url = content.ValueAssetsOutside.url,

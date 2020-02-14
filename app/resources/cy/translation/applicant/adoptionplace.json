@@ -1,0 +1,15 @@
+{
+  "title": "Ymhle cawsoch eich mabwysiadu",
+  "question": "A gawsoch eich mabwysiadu yng Nghymru neu Lloegr?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+
+  "errors": {
+    "adoptionPlace": {
+      "required": {
+        "summary": "Nid ydych wedi ateb y cwestiwn ynghylch ymhle cawsoch eich mabwysiadu",
+        "message": "Atebwch &lsquo;do&rsquo; os cawsoch eich mabwysiadu yng Nghymru neu Lloegr"
+      }
+    }
+  }
+}

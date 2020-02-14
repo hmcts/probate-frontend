@@ -1,0 +1,18 @@
+{
+  "title": "A ydych chi&rsquo;n &wcirc;r/gwraig, yn bartner sifil neu&rsquo;n blentyn yr unigolyn sydd wedi marw",
+  "question": "A ydych chi&rsquo;n &wcirc;r/gwraig, yn bartner sifil neu&rsquo;n blentyn yr unigolyn sydd wedi marw?",
+  "hintText1": "Mae&rsquo;n rhaid ichi fod yn &wcirc;r/gwraig, yn bartner sifil neu&rsquo;n blentyn dros 18 oed yr unigolyn sydd wedi marw i barhau gyda&rsquo;ch cais ar-lein.",
+  "hintText2": "Nid yw hyn yn cynnwys partneriaid hirdymor a oedd yn cyd-fyw ond nad oedd yn briod neu mewn partneriaeth sifil.",
+  "hintText3": "Efallai y bydd angen ichi ddarparu eich tystysgrif priodas neu bartneriaeth sifil.",
+  "optionYes": "Ydw",
+  "optionNo": "Nac ydw",
+
+  "errors": {
+    "related": {
+      "required": {
+        "summary": "Nid ydych wedi ateb y cwestiwn am p&rsquo;un a ydych chi&rsquo;n &wcirc;r/gwraig, yn bartner sifil neu&rsquo;n blentyn yr unigolyn sydd wedi marw",
+        "message": "Atebwch &lsquo;ydw&rsquo; os ydych chi&rsquo;n &wcirc;r/gwraig, yn bartner sifil neu&rsquo;n blentyn yr unigolyn sydd wedi marw"
+      }
+    }
+  }
+}

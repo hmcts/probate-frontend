@@ -2,7 +2,6 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ApplicantPhone = require('app/steps/ui/applicant/phone');
-const content = require('app/resources/en/translation/applicant/aliasreason');
 
 describe('applicant-alias-reason', () => {
     let testWrapper;
@@ -41,7 +40,7 @@ describe('applicant-alias-reason', () => {
         it('test alias reason validation when other is selected but no reason is entered', (done) => {
             const errorsToTest = ['otherReason'];
             const data = {
-                aliasReason: content.optionOther.toLowerCase(),
+                aliasReason: 'optionOther',
                 otherReason: ''
             };
 
@@ -50,7 +49,7 @@ describe('applicant-alias-reason', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForApplicantPhone}`, (done) => {
             const data = {
-                aliasReason: content.optionDivorce
+                aliasReason: 'optionDivorce'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForApplicantPhone);
@@ -58,7 +57,7 @@ describe('applicant-alias-reason', () => {
 
         it(`test it redirects to next page when Other is chosen: ${expectedNextUrlForApplicantPhone}`, (done) => {
             const data = {
-                aliasReason: content.optionOther,
+                aliasReason: 'optionOther',
                 otherReason: 'Because I wanted to'
             };
 

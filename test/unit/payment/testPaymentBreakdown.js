@@ -16,12 +16,12 @@ const FeesCalculator = require('app/utils/FeesCalculator');
 const Payment = require('app/services/Payment');
 const caseTypes = require('app/utils/CaseTypes');
 const content = require('app/resources/en/translation/payment/breakdown');
+const i18next = require('i18next');
 
 describe('PaymentBreakdown', () => {
     const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
     const section = 'paymentBreakdown';
     const templatePath = 'payment/breakdown';
-    const i18next = {};
     const schema = {
         $schema: 'http://json-schema.org/draft-04/schema#',
         properties: {}
@@ -132,6 +132,7 @@ describe('PaymentBreakdown', () => {
             };
             errorsTestData = [];
             session = {
+                language: 'en',
                 save: () => true
             };
             revertAuthorise = PaymentBreakdown.__set__({
@@ -195,10 +196,12 @@ describe('PaymentBreakdown', () => {
                 const [ctx, errors] = yield paymentBreakdown.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
                 expect(ctx).to.deep.equal(ctxTestData);
                 expect(errors).to.deep.equal(errorsTestData);
-                postStub.restore();
                 getCasePaymentsStub.restore();
+                postStub.restore();
                 done();
             }).catch((err) => {
+                getCasePaymentsStub.restore();
+                postStub.restore();
                 done(err);
             });
         });
@@ -291,6 +294,7 @@ describe('PaymentBreakdown', () => {
                 getCasePaymentsStub.restore();
                 done();
             }).catch((err) => {
+                getCasePaymentsStub.restore();
                 done(err);
             });
         });
@@ -353,6 +357,7 @@ describe('PaymentBreakdown', () => {
                 postStub.restore();
                 done();
             }).catch((err) => {
+                postStub.restore();
                 done(err);
             });
         });
@@ -465,6 +470,7 @@ describe('PaymentBreakdown', () => {
                 getCasePaymentsStub.restore();
                 done();
             }).catch((err) => {
+                getCasePaymentsStub.restore();
                 done(err);
             });
         });
@@ -608,6 +614,8 @@ describe('PaymentBreakdown', () => {
                 getStub.restore();
                 done();
             }).catch((err) => {
+                getCasePaymentsStub.restore();
+                getStub.restore();
                 done(err);
             });
         });
@@ -660,6 +668,8 @@ describe('PaymentBreakdown', () => {
                 getStub.restore();
                 done();
             }).catch((err) => {
+                getCasePaymentsStub.restore();
+                getStub.restore();
                 done(err);
             });
         });
@@ -673,6 +683,7 @@ describe('PaymentBreakdown', () => {
         afterEach(() => {
             feesCalculator.restore();
         });
+
         it('test it cleans up context', () => {
             let ctx = {
                 _csrf: 'dummyCSRF',

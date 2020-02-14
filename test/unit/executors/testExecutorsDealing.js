@@ -2,7 +2,6 @@
 
 const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
-const executorRolesContent = require('app/resources/en/translation/executors/executorcontent');
 
 describe('Executors-Applying', () => {
     let ctx;
@@ -20,7 +19,7 @@ describe('Executors-Applying', () => {
                         applicant: {
                             firstName: 'Robert',
                             lastName: 'Bruce',
-                            nameAsOnTheWill: 'Yes',
+                            nameAsOnTheWill: 'optionYes',
                             phone: '075345435345',
                             address: '102 Petty France'
                         },
@@ -29,7 +28,7 @@ describe('Executors-Applying', () => {
                                 {
                                     'lastName': 'Bruce',
                                     'firstName': 'Robert',
-                                    'isApplying': 'Yes',
+                                    'isApplying': 'optionYes',
                                     'isApplicant': true
                                 }, {
                                     isApplying: true,
@@ -125,7 +124,7 @@ describe('Executors-Applying', () => {
                     'currentName': 'Prince',
                     'isApplying': false,
                     'notApplyingKey': 'optionRenunciated',
-                    'notApplyingReason': executorRolesContent.optionRenunciated,
+                    'notApplyingReason': 'optionRenunciated',
                     'currentNameReason': 'Divorce',
                 }
             ]
@@ -174,7 +173,7 @@ describe('Executors-Applying', () => {
                     {
                         'lastName': 'the',
                         'firstName': 'applicant',
-                        'isApplying': 'Yes',
+                        'isApplying': 'optionYes',
                         'isApplicant': true
                     },
                     {
@@ -192,7 +191,7 @@ describe('Executors-Applying', () => {
                         fullName: 'Cher',
                         isApplying: false,
                         notApplyingKey: 'optionRenunciated',
-                        notApplyingReason: executorRolesContent.optionRenunciated
+                        notApplyingReason: 'optionRenunciated'
                     }
                 ],
                 executorsApplying: ['Dave Miller'],

@@ -1,0 +1,28 @@
+{
+  "title": "Cop&iuml;au - DU",
+  "question": "Faint o gop&iuml;au o&rsquo;r grant ydych chi eu hangen i&rsquo;w defnyddio yn y DU?",
+  "paragraph1": "Byddwch yn cael grant profiant pan fydd eich cais wedi&rsquo;i brosesu.",
+  "paragraph2": "Efallai y byddwch angen cop&iuml;au ychwanegol o&rsquo;r grant i&rsquo;w hanfon at ddalwyr asedau gwahanol, er enghraifft, copi ar gyfer cyfranddaliadau a chopi ar gyfer eiddo.",
+  "paragraph3": "Ar gyfer cop&iuml;au ychwanegol bydd rhaid ichi dalu:",
+  "bullet1": "&pound;10 am y copi cyntaf",
+  "bullet2": "50 ceiniog am bob copi ar &ocirc;l hynny",
+  "copies": "Nifer o gop&iuml;au DU",
+  "questionOld": "Faint o gop&iuml;au ychwanegol o&rsquo;r grant ydych chi eu hangen i&rsquo;w defnyddio yn y DU?",
+  "paragraph1Old": "Byddwch yn cael grant profiant pan fydd eich cais wedi&rsquo;i brosesu.",
+  "paragraph2Old": "Efallai y byddwch angen cop&iuml;au ychwanegol o&rsquo;r grant i&rsquo;w hanfon at ddalwyr asedau gwahanol, er enghraifft, copi ar gyfer cyfranddaliadau a chopi ar gyfer eiddo.",
+  "paragraph3Old": "Mae cop&iuml;au ychwanegol yn costio &pound;1.50 yr un.",
+  "copiesOld": "Nifer o gop&iuml;au DU ychwanegol",
+
+  "errors": {
+    "uk": {
+      "invalid": {
+        "summary": "Nid ydych wedi nodi rhif dilys",
+        "message": "Nodwch rif dilys"
+      },
+      "required": {
+        "summary": "Nodwch y nifer o gop&iuml;au DU rydych eu hangen",
+        "message": "Nodwch y nifer o gop&iuml;au DU rydych eu hangen. Rhowch &lsquo;0&rsquo; os nad ydych angen unrhyw gop&iuml;au."
+      }
+    }
+  }
+}

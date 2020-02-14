@@ -14,7 +14,7 @@
     }) %}
         {{ govukInput({
             label: {
-                text: content.numberOfUpdates
+                text: content.numberOfUpdates | safe
             },
             id: "codicilsNumber",
             name: "codicilsNumber",
@@ -30,7 +30,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

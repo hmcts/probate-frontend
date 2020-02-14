@@ -14,13 +14,13 @@
     }) %}
         <p class="govuk-hint">{{ content.paragraph | safe }}</p>
         <h2 class="govuk-heading-s executor-header">{{ content.executor | safe }} 1</h2>
-        <p class="govuk-body">{{ fields.applicantCurrentName.value }}</p>
+        <p class="govuk-body">{{ fields.applicantCurrentName.value | safe }}</p>
 
         {% for i in range(0, fields.executorsNumber.value -1) %}
             <h2 class="govuk-heading-s executor-header">{{ content.executor | safe }} {{ loop.index + 1 }}</h2>
             {{ govukInput({
                 label: {
-                    text: content.fullName
+                    text: content.fullName | safe
                 },
                 id: "executorName_" + i,
                 name: "executorName[" + i + "]",
@@ -36,7 +36,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

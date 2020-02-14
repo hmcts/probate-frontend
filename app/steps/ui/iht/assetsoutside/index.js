@@ -2,7 +2,6 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
-const content = require('app/resources/en/translation/iht/assetsoutside');
 
 class AssetsOutside extends ValidationStep {
 
@@ -20,7 +19,7 @@ class AssetsOutside extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'assetsOutside', value: content.optionYes, choice: 'hasAssetsOutside'}
+                {key: 'assetsOutside', value: 'optionYes', choice: 'hasAssetsOutside'}
             ]
         };
     }
@@ -29,7 +28,7 @@ class AssetsOutside extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.deceasedName;
 
-        if (ctx.assetsOutside === content.optionNo) {
+        if (ctx.assetsOutside === 'optionNo') {
             delete ctx.netValueAssetsOutsideField;
             delete ctx.netValueAssetsOutside;
         }

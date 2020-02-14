@@ -5,11 +5,6 @@ const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const IhtPaper = steps.IhtPaper;
 const content = require('app/resources/en/translation/iht/paper');
-const contentAssetsOutside = require('app/resources/en/translation/iht/assetsoutside');
-const contentAnyChildren = require('app/resources/en/translation/deceased/anychildren');
-const contentAllChildrenOver18 = require('app/resources/en/translation/deceased/allchildrenover18');
-const contentAnyDeceasedChildren = require('app/resources/en/translation/deceased/anydeceasedchildren');
-const contentAnyGrandChildrenUnder18 = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
 
 describe('IhtPaper', () => {
     describe('getUrl()', () => {
@@ -26,15 +21,15 @@ describe('IhtPaper', () => {
 
         it('should return the ctx with the estate values', (done) => {
             ctx = {
-                form: 'IHT205',
+                form: 'optionIHT205',
                 grossValueFieldIHT205: '500000',
                 netValueFieldIHT205: '400000'
             };
             errors = [];
             [ctx, errors] = IhtPaper.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                form: 'IHT205',
-                ihtFormId: 'IHT205',
+                form: 'optionIHT205',
+                ihtFormId: 'optionIHT205',
                 grossValueFieldIHT205: '500000',
                 grossValuePaper: '500000',
                 grossValue: 500000,
@@ -47,15 +42,15 @@ describe('IhtPaper', () => {
 
         it('should return the ctx with the estate values (values containing decimals)', (done) => {
             ctx = {
-                form: 'IHT205',
+                form: 'optionIHT205',
                 grossValueFieldIHT205: '500000.12',
                 netValueFieldIHT205: '400000.34'
             };
             errors = [];
             [ctx, errors] = IhtPaper.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                form: 'IHT205',
-                ihtFormId: 'IHT205',
+                form: 'optionIHT205',
+                ihtFormId: 'optionIHT205',
                 grossValueFieldIHT205: '500000.12',
                 grossValuePaper: '500000.12',
                 grossValue: 500000.12,
@@ -68,15 +63,15 @@ describe('IhtPaper', () => {
 
         it('should return the ctx with the estate values (values containing 3 decimals and thousands separators)', (done) => {
             ctx = {
-                form: 'IHT205',
+                form: 'optionIHT205',
                 grossValueFieldIHT205: '500,000.123',
                 netValueFieldIHT205: '400,000.345'
             };
             errors = [];
-            [ctx, errors] = IhtPaper.handlePost(ctx, errors);
+            [ctx, errors] = IhtPaper.handlePost(ctx, errors, {}, {language: 'en'});
             expect(ctx).to.deep.equal({
-                form: 'IHT205',
-                ihtFormId: 'IHT205',
+                form: 'optionIHT205',
+                ihtFormId: 'optionIHT205',
                 grossValueFieldIHT205: '500,000.123',
                 grossValuePaper: '500,000.123',
                 grossValue: 500000.12,
@@ -89,15 +84,15 @@ describe('IhtPaper', () => {
 
         it('should return the errors correctly', (done) => {
             ctx = {
-                form: 'IHT205',
+                form: 'optionIHT205',
                 grossValueFieldIHT205: '40a0000',
                 netValueFieldIHT205: '50a0000'
             };
             errors = [];
-            [ctx, errors] = IhtPaper.handlePost(ctx, errors);
+            [ctx, errors] = IhtPaper.handlePost(ctx, errors, {}, {language: 'en'});
             expect(ctx).to.deep.equal({
-                form: 'IHT205',
-                ihtFormId: 'IHT205',
+                form: 'optionIHT205',
+                ihtFormId: 'optionIHT205',
                 grossValueFieldIHT205: '40a0000',
                 grossValuePaper: '40a0000',
                 grossValue: 400000,
@@ -159,7 +154,7 @@ describe('IhtPaper', () => {
                 lessThanOrEqualTo250k: false,
                 grossValuePaper: 500000,
                 netValuePaper: 400000,
-                assetsOutside: contentAssetsOutside.optionYes,
+                assetsOutside: 'optionYes',
                 netValueAssetsOutsideField: '600000',
                 netValueAssetsOutside: 600000
             };
@@ -181,10 +176,10 @@ describe('IhtPaper', () => {
             };
             const formdata = {
                 deceased: {
-                    anyChildren: contentAnyChildren.optionYes,
-                    allChildrenOver18: contentAllChildrenOver18.optionYes,
-                    anyDeceasedChildren: contentAnyDeceasedChildren.optionYes,
-                    anyGrandchildrenUnder18: contentAnyGrandChildrenUnder18.optionNo
+                    anyChildren: 'optionYes',
+                    allChildrenOver18: 'optionYes',
+                    anyDeceasedChildren: 'optionYes',
+                    anyGrandchildrenUnder18: 'optionNo'
                 }
             };
 

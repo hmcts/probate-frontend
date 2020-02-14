@@ -13,6 +13,9 @@ describe('OptionGetRunner', () => {
         const step = {name: 'test'};
 
         const req = {};
+        req.session = {
+            language: 'en'
+        };
         req.log = sinon.spy();
         req.log.error = sinon.spy();
         const res = {};

@@ -14,8 +14,8 @@
     "postCode": "SW17 0QT",
     "phoneNumber": "123455678",
     "addressFound": "Yes",
-    "relationshipToDeceased": "adoptedChild",
-    "adoptionInEnglandOrWales": "Yes"
+    "relationshipToDeceased": "optionAdoptedChild",
+    "adoptionInEnglandOrWales": "optionYes"
   },
   "deceased": {
     "firstName": "Ned",
@@ -30,33 +30,33 @@
     },
     "addressFound": "Yes",
     "postCode": "SW17 0QT",
-    "alias": "Yes",
+    "alias": "optionYes",
     "otherNames": {
       "name_0": {
         "lastName": "North",
         "firstName": "King"
       }
     },
-    "maritalStatus": "marriedCivilPartnership",
-    "divorcedInEnglandOrWales": "No",
-    "domiciledInEnglandOrWales": "Yes",
-    "spouseNotApplyingReason": "mentallyIncapable",
-    "otherChildren": "Yes",
-    "allDeceasedChildrenOverEighteen": "Yes",
-    "anyDeceasedChildrenDieBeforeDeceased": "No",
-    "anyDeceasedGrandchildrenUnderEighteen": "No",
-    "anyChildren": "No"
+    "maritalStatus": "optionMarried",
+    "divorcedInEnglandOrWales": "optionNo",
+    "domiciledInEnglandOrWales": "optionYes",
+    "spouseNotApplyingReason": "optionRenouncing",
+    "otherChildren": "optionYes",
+    "allDeceasedChildrenOverEighteen": "optionYes",
+    "anyDeceasedChildrenDieBeforeDeceased": "optionNo",
+    "anyDeceasedGrandchildrenUnderEighteen": "optionNo",
+    "anyChildren": "optionNo"
   },
   "iht": {
-    "form": "IHT205",
-    "method": "Through the HMRC online service",
+    "form": "optionIHT205",
+    "method": "optionOnline",
     "netValue": 10000.99,
     "grossValue": 10000.99,
     "identifier": "GOT123456"
   },
   "assets": {
     "assetsOverseasNetValue": 100.99,
-    "assetsOverseas": "Yes"
+    "assetsOverseas": "optionYes"
   },
   "copies": {
     "uk": 5,
@@ -68,7 +68,7 @@
     "address": "Line 1 Bham\nLine 2 Bham\nLine 3 Bham\nPostCode Bham",
     "sequenceNumber": 20075
   },
-  "declarationCheckbox": "Yes",
+  "declarationCheckbox": "true",
   "uploadDocumentUrl": "http://document-management/document/12345",
   "applicantEmail": "someemailaddress@host.com"
 }

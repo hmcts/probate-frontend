@@ -4,7 +4,6 @@ const TestWrapper = require('test/util/TestWrapper');
 const AnyOtherChildren = require('app/steps/ui/deceased/anyotherchildren/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testCommonContent = require('test/component/common/testCommonContent.js');
-const content = require('app/resources/en/translation/applicant/spousenotapplyingreason');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('spouse-not-applying-reason', () => {
@@ -53,7 +52,7 @@ describe('spouse-not-applying-reason', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        spouseNotApplyingReason: content.optionRenouncing
+                        spouseNotApplyingReason: 'optionRenouncing'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherChildren);
@@ -65,7 +64,7 @@ describe('spouse-not-applying-reason', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        spouseNotApplyingReason: content.optionOther
+                        spouseNotApplyingReason: 'optionOther'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);

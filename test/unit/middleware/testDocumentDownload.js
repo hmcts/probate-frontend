@@ -17,6 +17,7 @@ describe('DocumentDownloadMiddleware', () => {
         beforeEach(() => {
             req = {
                 session: {
+                    language: 'en',
                     journey: probateJourney,
                     form: {
                         caseType: caseTypes.GOP

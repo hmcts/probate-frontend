@@ -14,6 +14,7 @@ describe('Executor-Additional-Invite-Sent', () => {
             req = {
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         executors: {},
                         caseType: 'gop',

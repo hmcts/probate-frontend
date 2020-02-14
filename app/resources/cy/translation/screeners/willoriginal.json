@@ -1,0 +1,16 @@
+{
+  "title": "A oes gennych chi&rsquo;r ewyllys wreiddiol",
+  "question": "A oes gennych chi&rsquo;r ewyllys wreiddiol?",
+  "optionYes": "Oes",
+  "optionNo": "Nag oes",
+  "paragraph1": "Rydych angen y gwreiddiol, nid llungopi.",
+
+  "errors": {
+    "original": {
+      "required": {
+        "summary": "Nid ydych wedi ateb y cwestiwn am a oes gennych chi&rsquo;r ewyllys wreiddiol",
+        "message": "Atebwch &lsquo;oes&rsquo; os oes gennych chi&rsquo;r ewyllys wreiddiol"
+      }
+    }
+  }
+}

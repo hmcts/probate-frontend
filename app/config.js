@@ -5,6 +5,7 @@ const config = {
     nodeEnvironment: process.env.NODE_ENV,
     gitRevision: process.env.GIT_REVISION,
     frontendPublicHttpProtocol: process.env.PUBLIC_PROTOCOL || 'http',
+    languages: ['en', 'cy'],
     featureToggles: {
         url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8292',
         path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
@@ -23,7 +24,7 @@ const config = {
         port: process.env.PORT || '3000',
         useCSRFProtection: 'true',
         session: {
-            expires: 3600000, // ms (60 mins)
+            expires: 3600000, // ms (60 minutes)
             ttl: 28800 // ms (8 hours)
         }
     },
@@ -54,11 +55,6 @@ const config = {
             url: process.env.SUBMIT_SERVICE_URL || 'http://localhost:8181',
             port: 8181
         },
-        persistence: {
-            url: process.env.PERSISTENCE_SERVICE_URL || 'http://localhost:8282/formdata',
-            port: 8282,
-            path: '/formdata'
-        },
         idam: {
             loginUrl: process.env.IDAM_LOGIN_URL || 'http://localhost:3501/login',
             apiUrl: process.env.IDAM_API_URL || 'http://localhost:5000',
@@ -70,8 +66,8 @@ const config = {
             probate_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE || 'ccd_gateway_secret',
             probate_oauth_callback_path: '/oauth2/callback',
             probate_oauth_token_path: '/oauth2/token',
-            probate_user_email: process.env.PROBATE_USER_EMAIL || 'pacaseworker@probate.com',
-            probate_user_password: process.env.PROBATE_USER_PASSWORD || 'password',
+            probate_user_email: process.env.PROBATE_USER_EMAIL || 'ProbateSuperuser@gmail.com',
+            probate_user_password: process.env.PROBATE_USER_PASSWORD || 'Pa55word11',
             probate_redirect_base_url: process.env.PROBATE_REDIRECT_BASE_URL || 'http://localhost:3000',
         },
         payment: {
@@ -136,7 +132,6 @@ const config = {
         privacy: '/privacy-policy',
         terms: '/terms-conditions',
         contact: '/contact-us',
-        contactEmailAddress: 'contactprobate@justice.gov.uk',
         callCharges: 'https://www.gov.uk/call-charges',
         howToManageCookies: 'https://www.aboutcookies.org',
         googlePrivacyPolicy: 'https://www.google.com/policies/privacy/partners/',
@@ -162,11 +157,6 @@ const config = {
         myAbilityLink: 'https://mcmw.abilitynet.org.uk/',
         equalityAdvisorLink: 'https://www.equalityadvisoryservice.com/',
         wcag21Link: 'https://www.w3.org/TR/WCAG21/'
-    },
-    helpline: {
-        number: '0300 303 0648',
-        email: 'contactprobate@justice.gov.uk',
-        hours: 'Monday to Friday, 8:00am to 8:00pm. Saturday, 8:00am to 2:00pm.'
     },
     utils: {
         api: {
@@ -202,22 +192,22 @@ const config = {
     whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf'],
     blacklistedPagesBeforeDeclaration: ['/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf'],
     eligibilityQuestionsProbate: {
-        deathCertificate: 'Yes',
-        domicile: 'Yes',
-        completed: 'Yes',
-        left: 'Yes',
-        original: 'Yes',
-        executor: 'Yes',
-        mentalCapacity: 'Yes'
+        deathCertificate: 'optionYes',
+        domicile: 'optionYes',
+        completed: 'optionYes',
+        left: 'optionYes',
+        original: 'optionYes',
+        executor: 'optionYes',
+        mentalCapacity: 'optionYes'
     },
     eligibilityQuestionsIntestacy: {
-        deathCertificate: 'Yes',
-        domicile: 'Yes',
-        completed: 'Yes',
-        left: 'No',
-        diedAfter: 'Yes',
-        related: 'Yes',
-        otherApplicants: 'No'
+        deathCertificate: 'optionYes',
+        domicile: 'optionYes',
+        completed: 'optionYes',
+        left: 'optionNo',
+        diedAfter: 'optionYes',
+        related: 'optionYes',
+        otherApplicants: 'optionNo'
     },
     hardStopParams: {
         gop: [],

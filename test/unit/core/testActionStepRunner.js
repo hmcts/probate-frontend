@@ -12,6 +12,9 @@ describe('ActionStepRunner', () => {
         const step = {name: stepName};
 
         const req = {};
+        req.session = {
+            language: 'en'
+        };
         req.log = sinon.spy();
         req.log.error = sinon.spy();
         const res = {};

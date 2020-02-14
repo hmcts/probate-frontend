@@ -17,7 +17,7 @@ class CollectionStep extends ValidationStep {
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else if (startsWith(req.path, this.path)) {
-            ctx.index = this.recalcIndex(ctx, 0);
+            ctx.index = this.recalcIndex(ctx, 0, req.session.language);
         } else {
             delete ctx.index;
         }

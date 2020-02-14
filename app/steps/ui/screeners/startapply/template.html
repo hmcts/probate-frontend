@@ -2,12 +2,10 @@
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% set serviceName = "" %}
-
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l">{{ content.header }}</h1>
+            <h1 class="govuk-heading-l">{{ content.header | safe }}</h1>
             <p class="govuk-body-l">{{ content.introduction | safe }}</p>
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
             <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
@@ -15,7 +13,7 @@
     </div>
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.createAccount,
+            text: common.createAccount | safe,
             isStartButton: true,
             href: "/dashboard"
         }) }}

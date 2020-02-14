@@ -5,11 +5,6 @@ const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const IhtValue = steps.IhtValue;
 const content = require('app/resources/en/translation/iht/value');
-const contentAssetsOutside = require('app/resources/en/translation/iht/assetsoutside');
-const contentAnyChildren = require('app/resources/en/translation/deceased/anychildren');
-const contentAllChildrenOver18 = require('app/resources/en/translation/deceased/allchildrenover18');
-const contentAnyDeceasedChildren = require('app/resources/en/translation/deceased/anydeceasedchildren');
-const contentAnyGrandChildrenUnder18 = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
 
 describe('IhtValue', () => {
     describe('getUrl()', () => {
@@ -62,7 +57,7 @@ describe('IhtValue', () => {
                 netValueField: '400,000.345'
             };
             errors = [];
-            [ctx, errors] = IhtValue.handlePost(ctx, errors);
+            [ctx, errors] = IhtValue.handlePost(ctx, errors, {}, {language: 'en'});
             expect(ctx).to.deep.equal({
                 grossValueField: '500,000.123',
                 grossValue: 500000.12,
@@ -78,7 +73,7 @@ describe('IhtValue', () => {
                 netValueField: '50a0000'
             };
             errors = [];
-            [ctx, errors] = IhtValue.handlePost(ctx, errors);
+            [ctx, errors] = IhtValue.handlePost(ctx, errors, {}, {language: 'en'});
             expect(ctx).to.deep.equal({
                 grossValueField: '40a0000',
                 grossValue: 400000,
@@ -137,7 +132,7 @@ describe('IhtValue', () => {
             const ctx = {
                 netValue: 400000,
                 lessThanOrEqualTo250k: false,
-                assetsOutside: contentAssetsOutside.optionYes,
+                assetsOutside: 'optionYes',
                 netValueAssetsOutsideField: '600000',
                 netValueAssetsOutside: 600000
             };
@@ -157,10 +152,10 @@ describe('IhtValue', () => {
             };
             const formdata = {
                 deceased: {
-                    anyChildren: contentAnyChildren.optionYes,
-                    allChildrenOver18: contentAllChildrenOver18.optionYes,
-                    anyDeceasedChildren: contentAnyDeceasedChildren.optionYes,
-                    anyGrandchildrenUnder18: contentAnyGrandChildrenUnder18.optionNo
+                    anyChildren: 'optionYes',
+                    allChildrenOver18: 'optionYes',
+                    anyDeceasedChildren: 'optionYes',
+                    anyGrandchildrenUnder18: 'optionNo'
                 }
             };
 

@@ -22,7 +22,7 @@ describe('executors-who-died', () => {
             executors: {
                 executorsNumber: 3,
                 list: [
-                    {firstName: 'John', lastName: 'TheApplicant', isApplying: 'Yes', isApplicant: true},
+                    {firstName: 'John', lastName: 'TheApplicant', isApplying: 'optionYes', isApplicant: true},
                     {fullName: 'Another Name'},
                     {fullName: 'Harvey Smith'}
                 ]

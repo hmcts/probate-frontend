@@ -1,0 +1,46 @@
+{
+  "title": "Crynodeb o&rsquo;ch atebion",
+  "heading": "Gwiriwch eich atebion",
+  "checkCarefully": "Gwiriwch yr wybodaeth isod yn ofalus. Hwn fydd y cofnod eich bod wedi gwneud cais am brofiant. Bydd hefyd yn cael ei storio fel cofnod cyhoeddus a bydd modd ei weld ar-lein.",
+  "uploadedDocumentsHeading": "Dogfennau sydd wedi&rsquo;u huwchlwytho",
+  "uploadedDocumentsEmpty": "Nid oes dogfennau wedi&rsquo;u huwchlwytho",
+  "applicantHeading": "Yr ysgutorion",
+  "deceasedHeading": "Ynghylch yr unigolyn sydd wedi marw",
+  "ihtHeading": "Treth Etifeddiant",
+  "otherExecutors": "Ysgutorion eraill sy&rsquo;n gwneud cais am brofiant",
+  "executorsWhenDiedQuestion": "A wnaeth {executorFullName} farw cyn yr unigolyn sydd wedi marw?",
+  "otherNamesLabel": "Enwau a ddefnyddiwyd gan yr unigolyn sydd wedi marw",
+  "aboutPeopleApplyingHeading": "Ynghylch y bobl sy&rsquo;n gwneud cais",
+  "aboutYouHeading": "Amdanoch chi",
+  "executorApplyingForProbate": "{executorOrderNumber} ysgutor sy&rsquo;n gwneud cais am brofiant",
+  "executorsNotApplyingForProbate": "Ysgutorion sydd ddim yn gwneud cais am brofiant",
+  "executorsWithOtherNames": "Pa ysgutorion sydd ag enwau gwahanol?",
+  "nameOnWill": "Enw ar yr ewyllys",
+  "currentName": "Enw cyfredol",
+  "currentNameReason": "Rheswm dros newid enw",
+  "address": "Cyfeiriad",
+  "mobileNumber": "Rhif ff&ocirc;n symudol",
+  "emailAddress": "Cyfeiriad e-bost",
+  "checkAnswersPdf": "Arbed y dudalen hon (10kb PDF)",
+
+  "errors": {
+    "businessError": {
+      "dodBeforeDob": {
+        "summary": "Ni all dyddiad marwolaeth yr unigolyn fod cyn ei ddyddiad geni",
+        "message": ""
+      },
+      "ihtNetGreaterThanGross": {
+        "summary": "Ni all gwerth net IHT fod yn fwy na&rsquo;r gwerth gros",
+        "message": ""
+      },
+      "fieldMinSize": {
+        "summary": "Mae&rsquo;n rhaid ichi ddefnyddio o leiaf {min} nod",
+        "message": ""
+      },
+      "validationError": {
+        "summary": "Roedd problem wrth geisio arbed eich cais",
+        "message": ""
+      }
+    }
+  }
+}

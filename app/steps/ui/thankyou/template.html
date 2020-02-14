@@ -23,26 +23,26 @@
             <h2 class="govuk-heading-m">{{ content.successHeading1 | safe }}</h2>
             <p class="govuk-body">{{ content.successParagraph1 | safe }}</p>
             <p class="govuk-body">{{ content.successParagraph2 | safe }}</p>
-            <p class="govuk-body">{{ content.successParagraph3 | replace("{helpLineNumber}", globals.helpline.number) | safe }}</p>
+            <p class="govuk-body">{{ content.successParagraph3 | replace("{helpLineNumber}", common.helpTelephoneNumber) | safe }}</p>
 
             <div class="margin-bottom50">
-                <h2 class="govuk-heading-m">{{ content.saveYourApplication }}</h2>
-                <p class="govuk-body">{{ content.saveParagraph1 }}</p>
+                <h2 class="govuk-heading-m">{{ content.saveYourApplication | safe }}</h2>
+                <p class="govuk-body">{{ content.saveParagraph1 | safe }}</p>
                 {% if fields.checkAnswersSummary.value == "true" %}
                     <p class="govuk-body save-this-page-link">
                         <em class="icon icon-file-download"></em>
-                        <a class="govuk-link anchor-margin-left" id="checkAnswerHref" href="/check-answers-pdf">{{ content.checkAnswersPdf }}</a>
+                        <a class="govuk-link anchor-margin-left" id="checkAnswerHref" href="/check-answers-pdf">{{ content.checkAnswersPdf | safe }}</a>
                     </p>
                 {% endif %}
                 {% if fields.legalDeclaration.value == "true" %}
                     <p class="govuk-body">
                         <em class="icon icon-file-download"></em>
-                        <a class="govuk-link anchor-margin-left" id="declarationPdfHref" href="/declaration-pdf">{{ content.declarationPdf }}</a>
+                        <a class="govuk-link anchor-margin-left" id="declarationPdfHref" href="/declaration-pdf">{{ content.declarationPdf | safe }}</a>
                     </p>
                 {% endif %}
                 <p class="govuk-body">
                     <em class="icon icon-file-download"></em>
-                    <a class="govuk-link anchor-margin-left" id="coverSheetPdfHref" href="/cover-sheet-pdf">{{ content.coverSheetPdf }}</a>
+                    <a class="govuk-link anchor-margin-left" id="coverSheetPdfHref" href="/cover-sheet-pdf">{{ content.coverSheetPdf | safe }}</a>
                 </p>
             </div>
 
@@ -50,7 +50,7 @@
                 text: content.successParagraph4 | replace("{findOutNext}", globals.links.findOutNext) | safe
             }) }}
 
-            <a href="{{ globals.links.surveyEndOfApplication | safe }}" class="govuk-link" target="_blank" rel="external noopener noreferrer">{{ content.survey | safe }}</a>
+            <a href="{{ globals.links.surveyEndOfApplication }}" class="govuk-link" target="_blank" rel="external noopener noreferrer">{{ content.survey | safe }}</a>
         </div>
     </div>
 {% endblock %}

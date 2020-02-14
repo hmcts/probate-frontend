@@ -6,7 +6,7 @@
   "addAnotherName": "Add another name",
   "otherName": "Other name",
   "removeName": "Remove",
-  
+
   "errors": {
     "firstName": {
       "required": {

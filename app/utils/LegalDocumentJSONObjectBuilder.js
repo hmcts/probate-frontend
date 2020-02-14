@@ -1,5 +1,6 @@
 'use strict';
 
+const forEach = require('lodash').forEach;
 const cheerio = require('cheerio');
 const FormatName = require('app/utils/FormatName');
 
@@ -7,24 +8,38 @@ class LegalDocumentJSONObjectBuilder {
 
     build(formdata, html) {
         const $ = cheerio.load(html);
-        const legalDeclaration = {};
-        legalDeclaration.headers = [];
-        legalDeclaration.sections = [];
-        const pageSections = $('.declaration-header-item, .declaration-subheader, .declaration-item, .govuk-list--bullet');
+        const legalDeclaration = {
+            declarations: []
+        };
+        const languages = $('.declaration-language');
 
-        for (const sectElement of Object.entries(pageSections)) {
-            const $element = $(sectElement);
-            if ($element.hasClass('declaration-header-item')) {
-                legalDeclaration.headers.push($element.text());
-            } else if ($element.hasClass('declaration-subheader')) {
-                const section = buildSection($element);
-                legalDeclaration.sections.push(section);
-            } else if ($element.hasClass('declaration-item')) {
-                buildDeclarationItem($element, legalDeclaration);
-            } else if ($element.hasClass('govuk-list--bullet')) {
-                buildDeclarationItemValues($element, legalDeclaration);
+        forEach(languages, langElement => {
+            const $langElement = $(langElement);
+            const language = $langElement.hasClass('language-cy') ? 'cy' : 'en';
+            const pageSections = $(`.language-${language} .declaration-header-item, .language-${language} .declaration-subheader, .language-${language} .declaration-item, .language-${language} .govuk-list--bullet`);
+
+            const declaration = {
+                headers: [],
+                sections: []
+            };
+
+            for (const sectElement of Object.entries(pageSections)) {
+                const $sectElement = $(sectElement);
+                if ($sectElement.hasClass('declaration-header-item')) {
+                    declaration.headers.push($sectElement.text());
+                } else if ($sectElement.hasClass('declaration-subheader')) {
+                    const section = buildSection($sectElement);
+                    declaration.sections.push(section);
+                } else if ($sectElement.hasClass('declaration-item')) {
+                    buildDeclarationItem($sectElement, declaration);
+                } else if ($sectElement.hasClass('govuk-list--bullet')) {
+                    buildDeclarationItemValues($sectElement, declaration);
+                }
             }
-        }
+
+            legalDeclaration.declarations.push(declaration);
+        });
+
         legalDeclaration.dateCreated = new Date().toLocaleString();
         legalDeclaration.deceased = FormatName.format(formdata.deceased);
 

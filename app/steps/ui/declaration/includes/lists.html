@@ -1,0 +1,26 @@
+{% from "widgets/lists.html" import unorderedList %}
+
+{% macro lists(content, declaration) %}
+    <h2 class="govuk-heading-l declaration-subheader">{{ content.declarationHeader | safe }}</h2>
+    <p class="govuk-body declaration-item">{{ declaration.confirm | safe }}</p>
+
+    {{ unorderedList([
+        declaration.confirmItem1,
+        declaration.confirmItem2,
+        declaration.confirmItem3
+    ]) }}
+
+    <p class="govuk-body declaration-item">{{ declaration.requests | safe }}</p>
+
+    {{ unorderedList([
+        declaration.requestsItem1,
+        declaration.requestsItem2
+    ]) }}
+
+    <p class="govuk-body declaration-item">{{ declaration.understand | safe }}</p>
+
+    {{ unorderedList([
+        declaration.understandItem1,
+        declaration.understandItem2
+    ]) }}
+{% endmacro %}

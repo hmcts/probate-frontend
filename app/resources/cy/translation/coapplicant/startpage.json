@@ -1,0 +1,17 @@
+{
+  "title": "Tudalen Gychwyn Cyd-geisydd",
+  "header": "Rydych wedi cael eich enw fel ysgutor",
+  "paragraph1": "Mae {leadExecutorName} wedi dweud wrthym yr hoffech wneud cais am grant profiant i ddelio ag ystad {deceasedName}.",
+  "paragraph2": "Mae profiant yn rhoi hawl gyfreithiol ichi ddelio ag eiddo ac arian (ystad) unigolyn ar &ocirc;l iddynt farw.",
+  "subHeader1": "Beth sydd angen i chi ei wneud",
+  "paragraph3": "Defnyddiwch y gwasanaeth hwn i wirio bod datganiad cyfreithiol sy&rsquo;n seiliedig ar yr wybodaeth mae {leadExecutorName} wedi&rsquo;i rhoi yn gywir.",
+  "list1Header": "Bydd angen ichi gysylltu &acirc; {leadExecutorName}:",
+  "list1Item1": "os ydych yn anghytuno &acirc;&rsquo;r wybodaeth maent wedi&rsquo;i rhoi",
+  "list1Item2": "os oes gennych gwestiynau am yr wybodaeth",
+  "subHeader2": "Os nad ydych eisiau gwneud cais am grant profiant",
+  "list2Header": "Os nad ydych eisiau gwneud y cais hwn, gallwch ddewis:",
+  "list2Item1": "i beidio &acirc; gwneud cais am brofiant nawr, ond efallai yr hoffech wneud cais hwyrach ymlaen (a elwir yn &lsquo;cadw&rsquo;r hawl&rsquo;)",
+  "list2Item2": "i roi fyny eich hawl i wneud cais am brofiant yn llwyr (a elwir yn &lsquo;ymwrthod&rsquo;)",
+  "paragraph4": "Bydd angen ichi gysylltu &acirc; {leadExecutorName} a gofyn iddynt ddiweddaru&rsquo;r wybodaeth hon.",
+  "button": "Dechrau nawr"
+}

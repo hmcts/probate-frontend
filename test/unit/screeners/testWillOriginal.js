@@ -5,7 +5,6 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const WillOriginal = steps.WillOriginal;
-const content = require('app/resources/en/translation/screeners/willoriginal');
 
 describe('WillOriginal', () => {
     describe('getUrl()', () => {
@@ -22,6 +21,7 @@ describe('WillOriginal', () => {
                 method: 'GET',
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         ccdCase: {
                             id: 1234567890123456,
@@ -31,7 +31,7 @@ describe('WillOriginal', () => {
                     caseType: 'gop'
                 },
                 body: {
-                    original: content.optionYes
+                    original: 'optionYes'
                 }
             };
             const res = {};
@@ -39,7 +39,7 @@ describe('WillOriginal', () => {
             const ctx = WillOriginal.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                original: content.optionYes,
+                original: 'optionYes',
                 caseType: 'gop',
                 userLoggedIn: false,
                 ccdCase: {
@@ -58,16 +58,16 @@ describe('WillOriginal', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionYes'
                         }
                     }
                 }
             };
             const ctx = {
-                original: content.optionYes
+                original: 'optionYes'
             };
             const nextStepUrl = WillOriginal.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/applicant-executor');
@@ -80,16 +80,16 @@ describe('WillOriginal', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionYes'
                         }
                     }
                 }
             };
             const ctx = {
-                original: content.optionNo
+                original: 'optionNo'
             };
             const nextStepUrl = WillOriginal.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/notOriginal');
@@ -103,7 +103,7 @@ describe('WillOriginal', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'original',
-                    value: content.optionYes,
+                    value: 'optionYes',
                     choice: 'isOriginal'
                 }]
             });

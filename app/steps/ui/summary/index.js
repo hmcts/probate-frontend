@@ -3,7 +3,7 @@
 const caseTypes = require('app/utils/CaseTypes');
 const Step = require('app/core/steps/Step');
 const OptionGetRunner = require('app/core/runners/OptionGetRunner');
-const {isEmpty, includes, get, unescape} = require('lodash');
+const {isEmpty, includes, get, unescape, forEach} = require('lodash');
 const utils = require('app/components/step-utils');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
@@ -36,50 +36,48 @@ class Summary extends Step {
         return [ctx, null];
     }
 
-    generateContent(ctx, formdata) {
+    generateContent(ctx, formdata, language) {
         const content = {};
 
         Object.keys(this.steps).filter((stepName) => stepName !== this.name)
             .forEach((stepName) => {
                 const step = this.steps[stepName];
-                content[stepName] = step.generateContent(formdata[step.section], formdata);
+                content[stepName] = step.generateContent(formdata[step.section], formdata, language);
                 content[stepName].url = step.constructor.getUrl();
             });
-        content[this.name] = super.generateContent(ctx, formdata);
+        content[this.name] = super.generateContent(ctx, formdata, language);
         content[this.name].url = Summary.getUrl();
         return content;
     }
 
-    generateFields(ctx, errors, formdata) {
+    generateFields(language, ctx, errors, formdata) {
         const fields = {};
         Object.keys(this.steps).filter((stepName) => stepName !== this.name)
             .forEach((stepName) => {
                 const step = this.steps[stepName];
                 if (isEmpty(fields[step.section])) {
-                    fields[step.section] = step.generateFields(formdata[step.section], errors, formdata);
+                    fields[step.section] = step.generateFields(language, formdata[step.section], errors, formdata);
                 }
             });
-        fields[this.section] = super.generateFields(ctx, errors, formdata);
+        fields[this.section] = super.generateFields(language, ctx, errors, formdata);
 
         if (ctx) {
-            fields.userLoggedIn = {};
-            fields.userLoggedIn.value = ctx.userLoggedIn ? ctx.userLoggedIn.toString() : 'true';
-            fields.featureToggles = {};
-            fields.featureToggles.value = ctx.featureToggles;
+            fields.userLoggedIn = {
+                value: ctx.userLoggedIn ? ctx.userLoggedIn.toString() : 'true'
+            };
+            fields.featureToggles = {
+                value: ctx.featureToggles
+            };
 
-            if (ctx.caseType === caseTypes.INTESTACY) {
-                fields[this.section].deceasedMaritalStatusQuestion.value = unescape(fields[this.section].deceasedMaritalStatusQuestion.value);
-                fields[this.section].deceasedDivorcePlaceQuestion.value = unescape(fields[this.section].deceasedDivorcePlaceQuestion.value);
-                fields[this.section].deceasedAnyChildrenQuestion.value = unescape(fields[this.section].deceasedAnyChildrenQuestion.value);
-                fields[this.section].deceasedAnyOtherChildrenQuestion.value = unescape(fields[this.section].deceasedAnyOtherChildrenQuestion.value);
-                fields[this.section].deceasedAnyDeceasedChildrenQuestion.value = unescape(fields[this.section].deceasedAnyDeceasedChildrenQuestion.value);
-                fields[this.section].deceasedAllChildrenOver18Question.value = unescape(fields[this.section].deceasedAllChildrenOver18Question.value);
-                fields[this.section].deceasedSpouseNotApplyingReasonQuestion.value = unescape(fields[this.section].deceasedSpouseNotApplyingReasonQuestion.value);
+            const skipItems = ['sessionID', 'authToken', 'caseType', 'userLoggedIn', 'uploadedDocuments'];
 
-                if (fields.applicant && fields.applicant.spouseNotApplyingReason) {
-                    fields.applicant.spouseNotApplyingReason.value = unescape(fields.applicant.spouseNotApplyingReason.value);
+            forEach(fields[this.section], (item, itemKey) => {
+                if (!skipItems.includes(itemKey) && typeof item.value === 'string' && item.value !== 'true' && item.value !== 'false') {
+                    item.value = unescape(item.value);
                 }
-            }
+
+                return item;
+            });
         }
 
         return fields;
@@ -91,7 +89,7 @@ class Summary extends Step {
         const ctx = super.getContextData(req);
         const willWrapper = new WillWrapper(formdata.will);
         const deceasedName = FormatName.format(formdata.deceased);
-        const content = this.generateContent(ctx, formdata);
+        const content = this.generateContent(ctx, formdata, req.session.language);
         const hasCodicils = willWrapper.hasCodicils();
         ctx.ihtTotalNetValue = get(formdata, 'iht.netValue', 0);
 
@@ -117,7 +115,7 @@ class Summary extends Step {
             ctx.deceasedSpouseNotApplyingReasonQuestion = content.SpouseNotApplyingReason.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.SpouseNotApplyingReason.theDeceased);
 
-            if (ctx.caseType === caseTypes.INTESTACY && formdata.iht && formdata.iht.assetsOutside === content.AssetsOutside.optionYes) {
+            if (ctx.caseType === caseTypes.INTESTACY && formdata.iht && formdata.iht.assetsOutside === 'optionYes') {
                 ctx.ihtTotalNetValue += formdata.iht.netValueAssetsOutside;
             }
             ctx.ihtTotalNetValueGreaterThan250k = (ctx.ihtTotalNetValue > config.assetsValueThreshold);

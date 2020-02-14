@@ -1,11 +1,12 @@
+'use strict';
+
 const DeceasedWrapper = require('app/wrappers/Deceased');
-const commonContent = require('app/resources/en/translation/common');
 const expect = require('chai').expect;
 
 describe('Deceased.js', () => {
     describe('hasAlias()', () => {
         it('should return true when the deceased has an alias', (done) => {
-            const data = {alias: commonContent.yes};
+            const data = {alias: 'optionYes'};
             const deceasedWrapper = new DeceasedWrapper(data);
             expect(deceasedWrapper.hasAlias()).to.equal(true);
             done();
@@ -13,7 +14,7 @@ describe('Deceased.js', () => {
 
         describe('should return false', () => {
             it('when the deceased does not have an alias', (done) => {
-                const data = {alias: commonContent.no};
+                const data = {alias: 'optionNo'};
                 const deceasedWrapper = new DeceasedWrapper(data);
                 expect(deceasedWrapper.hasAlias()).to.equal(false);
                 done();
@@ -29,7 +30,7 @@ describe('Deceased.js', () => {
 
     describe('isMarried()', () => {
         it('should return true when the deceased is married', (done) => {
-            const data = {married: commonContent.yes};
+            const data = {married: 'optionYes'};
             const deceasedWrapper = new DeceasedWrapper(data);
             expect(deceasedWrapper.isMarried()).to.equal(true);
             done();
@@ -37,7 +38,7 @@ describe('Deceased.js', () => {
 
         describe('should return false', () => {
             it('when the deceased is not married', (done) => {
-                const data = {married: commonContent.no};
+                const data = {married: 'optionNo'};
                 const deceasedWrapper = new DeceasedWrapper(data);
                 expect(deceasedWrapper.isMarried()).to.equal(false);
                 done();

@@ -42,7 +42,7 @@ describe('executors-alias', () => {
 
         it(`test it redirects to Executor Other Names when Yes: ${expectedNextUrlForExecOtherNames}`, (done) => {
             const data = {
-                alias: 'Yes'
+                alias: 'optionYes'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForExecOtherNames);
@@ -50,7 +50,7 @@ describe('executors-alias', () => {
 
         it(`test it redirects to Executor Contact Details when No: ${expectedNextUrlForExecContactDetails}`, (done) => {
             const data = {
-                alias: 'No'
+                alias: 'optionNo'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForExecContactDetails);

@@ -1,0 +1,21 @@
+{
+  "title": "Enwau&rsquo;r ysgutorion",
+  "question": "Beth yw enwau&rsquo;r ysgutorion?",
+  "paragraph": "Nodwch enwau&rsquo;r holl ysgutorion, yn union fel y maent yn ymddangos yn yr ewyllys.",
+  "executor": "Ysgutor",
+  "fullName": "Enw Llawn",
+  "numberOfExecutorsPage": "Newid y nifer o ysgutorion",
+
+  "errors": {
+    "executorName": {
+      "required": {
+        "summary": "Nid ydych wedi nodi enw&rsquo;r ysgutor",
+        "message": "Nodwch enw&rsquo;r ysgutor"
+      },
+      "invalid": {
+        "summary": "Gall yr enwau rydych yn ei nodi ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau",
+        "message": "Gall yr enwau rydych yn ei nodi ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau"
+      }
+    }
+  }
+}

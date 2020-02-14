@@ -1,7 +1,6 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ihtMethodContent = require('app/resources/en/translation/iht/method');
 const IhtIdentifier = require('app/steps/ui/iht/identifier');
 const IhtPaper = require('app/steps/ui/iht/paper');
 const testCommonContent = require('test/component/common/testCommonContent.js');
@@ -43,7 +42,7 @@ describe('iht-method', () => {
 
         it(`test it redirects to iht paper: ${expectedNextUrlForIhtPaper}`, (done) => {
             const data = {
-                method: ihtMethodContent.optionPaper
+                method: 'optionPaper'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtPaper);
@@ -51,7 +50,7 @@ describe('iht-method', () => {
 
         it(`test it redirects to iht identifier: ${expectedNextUrlForIhtIdentifier}`, (done) => {
             const data = {
-                method: ihtMethodContent.optionOnline
+                method: 'optionOnline'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtIdentifier);

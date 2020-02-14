@@ -7,19 +7,19 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: content.question,
+            text: content.question | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
     }) %}
         {{ govukInput({
             label: {
-                text: content.phoneNumber
+                text: content.phoneNumber | safe
             },
             id: "phoneNumber",
             name: "phoneNumber",
             value: fields.phoneNumber.value | safe,
-            errorMessage: { text: fields.phoneNumber.errorMessage.message } if fields.phoneNumber.errorMessage,
+            errorMessage: { text: fields.phoneNumber.errorMessage.message | safe } if fields.phoneNumber.errorMessage,
             attributes: {
                 maxlength: 25
             },
@@ -29,7 +29,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

@@ -53,7 +53,7 @@ describe('Contact-Details', () => {
                     }
                 ],
                 invitesSent: 'true',
-                otherExecutorsApplying: 'Yes',
+                otherExecutorsApplying: 'optionYes',
                 email: 'newtestemail@gmail.com',
                 mobile: '07321321321',
                 index: 1,
@@ -99,7 +99,7 @@ describe('Contact-Details', () => {
                         }
                     ],
                     invitesSent: 'true',
-                    otherExecutorsApplying: 'Yes',
+                    otherExecutorsApplying: 'optionYes',
                     email: 'newtestemail@gmail.com',
                     mobile: '07321321321',
                     index: 1,
@@ -150,7 +150,7 @@ describe('Contact-Details', () => {
                         }
                     ],
                     invitesSent: 'true',
-                    otherExecutorsApplying: 'Yes',
+                    otherExecutorsApplying: 'optionYes',
                     email: 'newtestemail@gmail.com',
                     mobile: '07321321321',
                     index: 1,
@@ -209,7 +209,7 @@ describe('Contact-Details', () => {
                         }
                     ],
                     invitesSent: 'true',
-                    otherExecutorsApplying: 'Yes',
+                    otherExecutorsApplying: 'optionYes',
                     email: 'cratchet@email.com',
                     mobile: '07888888888',
                     index: 1,

@@ -105,7 +105,7 @@ describe('multipleApplicationsMiddleware', () => {
                         payloadVersion: 'dummy',
                         userLoggedIn: true,
                         screeners: {
-                            deathCertificate: 'Yes'
+                            deathCertificate: 'optionYes'
                         }
                     }
                 }
@@ -150,13 +150,13 @@ describe('multipleApplicationsMiddleware', () => {
                         payloadVersion: 'dummy',
                         userLoggedIn: true,
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'Yes',
-                            original: 'Yes',
-                            executor: 'Yes',
-                            mentalCapacity: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionYes',
+                            original: 'optionYes',
+                            executor: 'optionYes',
+                            mentalCapacity: 'optionYes'
                         }
                     }
                 }
@@ -201,10 +201,10 @@ describe('multipleApplicationsMiddleware', () => {
                         payloadVersion: 'dummy',
                         userLoggedIn: true,
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionYes'
                         }
                     }
                 }
@@ -258,13 +258,13 @@ describe('multipleApplicationsMiddleware', () => {
                         payloadVersion: 'dummy',
                         userLoggedIn: true,
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'Yes',
-                            original: 'Yes',
-                            executor: 'Yes',
-                            mentalCapacity: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionYes',
+                            original: 'optionYes',
+                            executor: 'optionYes',
+                            mentalCapacity: 'optionYes'
                         }
                     }
                 }
@@ -319,13 +319,13 @@ describe('multipleApplicationsMiddleware', () => {
                         payloadVersion: 'dummy',
                         userLoggedIn: true,
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'Yes',
-                            original: 'Yes',
-                            executor: 'Yes',
-                            mentalCapacity: 'Yes'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionYes',
+                            original: 'optionYes',
+                            executor: 'optionYes',
+                            mentalCapacity: 'optionYes'
                         }
                     }
                 }
@@ -370,13 +370,13 @@ describe('multipleApplicationsMiddleware', () => {
                         payloadVersion: 'dummy',
                         userLoggedIn: true,
                         screeners: {
-                            deathCertificate: 'Yes',
-                            domicile: 'Yes',
-                            completed: 'Yes',
-                            left: 'No',
-                            diedAfter: 'Yes',
-                            related: 'Yes',
-                            otherApplicants: 'No'
+                            deathCertificate: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionNo',
+                            diedAfter: 'optionYes',
+                            related: 'optionYes',
+                            otherApplicants: 'optionNo'
                         }
                     }
                 }

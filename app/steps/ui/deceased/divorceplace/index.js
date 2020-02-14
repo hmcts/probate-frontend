@@ -1,9 +1,6 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
-const content = require('app/resources/en/translation/deceased/divorceplace');
-const commonContent = require('app/resources/en/translation/common');
 
 class DivorcePlace extends ValidationStep {
 
@@ -12,18 +9,21 @@ class DivorcePlace extends ValidationStep {
     }
 
     getContextData(req) {
+        const contentMaritalStatus = require(`app/resources/${req.session.language}/translation/deceased/maritalstatus`);
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
 
         if (formdata.deceased && formdata.deceased.maritalStatus) {
-            ctx.legalProcess = formdata.deceased.maritalStatus === contentMaritalStatus.optionDivorced ? contentMaritalStatus.divorce : contentMaritalStatus.separation;
+            ctx.legalProcess = formdata.deceased.maritalStatus === 'optionDivorced' ? contentMaritalStatus.divorce : contentMaritalStatus.separation;
         }
 
         return ctx;
     }
 
-    generateFields(ctx, errors) {
-        const fields = super.generateFields(ctx, errors);
+    generateFields(language, ctx, errors) {
+        const commonContent = require(`app/resources/${language}/translation/common`);
+        const content = require(`app/resources/${language}/translation/deceased/divorceplace`);
+        const fields = super.generateFields(language, ctx, errors);
 
         fields.title = `${content.title} - ${commonContent.serviceName}`;
 
@@ -50,7 +50,7 @@ class DivorcePlace extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'divorcePlace', value: content.optionYes, choice: 'inEnglandOrWales'},
+                {key: 'divorcePlace', value: 'optionYes', choice: 'inEnglandOrWales'},
             ]
         };
     }

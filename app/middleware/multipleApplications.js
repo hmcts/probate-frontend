@@ -6,7 +6,6 @@ const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const caseTypes = require('app/utils/CaseTypes');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const contentWillLeft = require('app/resources/en/translation/screeners/willleft');
 
 const initDashboard = (req, res, next) => {
     const session = req.session;
@@ -62,7 +61,7 @@ const allEligibilityQuestionsPresent = (formdata) => {
 
     if (formdata.screeners && formdata.screeners.left) {
         let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
-        if (formdata.screeners.left === contentWillLeft.optionNo) {
+        if (formdata.screeners.left === 'optionNo') {
             eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
         }
 

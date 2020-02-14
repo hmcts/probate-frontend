@@ -87,7 +87,7 @@ describe('summary', () => {
                     id: 1234567890123456
                 },
                 applicant: {
-                    nameAsOnTheWill: 'No'
+                    nameAsOnTheWill: 'optionNo'
                 }
             };
 

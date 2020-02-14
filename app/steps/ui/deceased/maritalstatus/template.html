@@ -15,39 +15,39 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.maritalStatus.errorMessage.message } if fields.maritalStatus.errorMessage,
+        errorMessage: { text: fields.maritalStatus.errorMessage.message | safe } if fields.maritalStatus.errorMessage,
         items: [
             {
-                value: content["optionMarried"],
-                text: content["optionMarried"],
-                checked: true if fields.maritalStatus.value == content["optionMarried"] | escape
+                value: "optionMarried",
+                text: content["optionMarried"] | safe,
+                checked: true if fields.maritalStatus.value == "optionMarried"
             },
             {
-                value: content["optionDivorced"],
-                text: content["optionDivorced"],
-                checked: true if fields.maritalStatus.value == content["optionDivorced"] | escape
+                value: "optionDivorced",
+                text: content["optionDivorced"] | safe,
+                checked: true if fields.maritalStatus.value == "optionDivorced"
             },
             {
-                value: content["optionWidowed"],
-                text: content["optionWidowed"],
-                checked: true if fields.maritalStatus.value == content["optionWidowed"] | escape
+                value: "optionWidowed",
+                text: content["optionWidowed"] | safe,
+                checked: true if fields.maritalStatus.value == "optionWidowed"
             },
             {
-                value: content["optionNotMarried"],
-                text: content["optionNotMarried"],
-                checked: true if fields.maritalStatus.value == content["optionNotMarried"] | escape
+                value: "optionNotMarried",
+                text: content["optionNotMarried"] | safe,
+                checked: true if fields.maritalStatus.value == "optionNotMarried"
             },
             {
-                value: content["optionSeparated"],
-                text: content["optionSeparated"],
-                checked: true if fields.maritalStatus.value == content["optionSeparated"] | escape
+                value: "optionSeparated",
+                text: content["optionSeparated"] | safe,
+                checked: true if fields.maritalStatus.value == "optionSeparated"
             }
         ]
     }) }}
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

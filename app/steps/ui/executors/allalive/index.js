@@ -1,7 +1,6 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const content = require('app/resources/en/translation/executors/allalive');
 
 class ExecutorsAllAlive extends ValidationStep {
 
@@ -13,8 +12,8 @@ class ExecutorsAllAlive extends ValidationStep {
         return this.next(req, ctx).constructor.getUrl(1);
     }
 
-    handlePost(ctx, errors) {
-        if (ctx.allalive === this.commonContent().yes) {
+    handlePost(ctx, errors, formdata, session) {
+        if (ctx.allalive === this.commonContent(session.language).yes) {
             for (let i = 1; i < ctx.executorsNumber; i++) {
                 if (ctx.list[i].isDead) {
                     ctx.list[i].isDead = false;
@@ -31,8 +30,8 @@ class ExecutorsAllAlive extends ValidationStep {
     nextStepOptions() {
         const nextStepOptions = {
             options: [
-                {key: 'allalive', value: content.optionYes, choice: 'isAlive'},
-                {key: 'allalive', value: content.optionNo, choice: 'whoDied'}
+                {key: 'allalive', value: 'optionYes', choice: 'isAlive'},
+                {key: 'allalive', value: 'optionNo', choice: 'whoDied'}
             ]
         };
         return nextStepOptions;

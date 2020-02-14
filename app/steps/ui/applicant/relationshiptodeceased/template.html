@@ -4,27 +4,27 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set answers = [] %}
-{% if fields.deceasedMaritalStatus.value == "Married or in a civil partnership" %}
+{% if fields.deceasedMaritalStatus.value == "optionMarried" %}
     {% set answers = (answers.push({
-        value: content["optionSpousePartner"],
-        text: content["optionSpousePartner"],
-        checked: true if fields.relationshipToDeceased.value == content["optionSpousePartner"] | escape
+        value: "optionSpousePartner",
+        text: content["optionSpousePartner"] | safe,
+        checked: true if fields.relationshipToDeceased.value == "optionSpousePartner"
     }), answers) %}
 {% endif %}
 {% set answers = (answers.push({
-    value: content["optionChild"],
-    text: content["optionChild"],
-    checked: true if fields.relationshipToDeceased.value == content["optionChild"] | escape
+    value: "optionChild",
+    text: content["optionChild"] | safe,
+    checked: true if fields.relationshipToDeceased.value == "optionChild"
 }), answers) %}
 {% set answers = (answers.push({
-    value: content["optionAdoptedChild"],
-    text: content["optionAdoptedChild"],
-    checked: true if fields.relationshipToDeceased.value == content["optionAdoptedChild"] | escape
+    value: "optionAdoptedChild",
+    text: content["optionAdoptedChild"] | safe,
+    checked: true if fields.relationshipToDeceased.value == "optionAdoptedChild"
 }), answers) %}
 {% set answers = (answers.push({
-    value: content["optionOther"],
-    text: content["optionOther"],
-    checked: true if fields.relationshipToDeceased.value == content["optionOther"] | escape
+    value: "optionOther",
+    text: content["optionOther"] | safe,
+    checked: true if fields.relationshipToDeceased.value == "optionOther"
 }), answers) %}
 
 {% block form_content %}
@@ -39,13 +39,13 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.relationshipToDeceased.errorMessage.message } if fields.relationshipToDeceased.errorMessage,
+        errorMessage: { text: fields.relationshipToDeceased.errorMessage.message | safe } if fields.relationshipToDeceased.errorMessage,
         items: answers
     }) }}
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

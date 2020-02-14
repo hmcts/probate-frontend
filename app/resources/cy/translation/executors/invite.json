@@ -1,0 +1,25 @@
+{
+  "title": "Hysbysu&rsquo;r ysgutorion eraill sy&rsquo;n gwneud cais am brofiant",
+  "question": "Hysbysu&rsquo;r ysgutorion eraill sy&rsquo;n gwneud cais am brofiant",
+  "heading1": "Os nad yw&rsquo;r ysgutorion eraill sy&rsquo;n gwneud cais am brofiant yn cytuno",
+  "heading2": "Os byddwch yn newid yr wybodaeth yn eich cais",
+  "heading3": "Manylion cyswllt yr ysgutor sy&rsquo;n gwneud y cais",
+  "heading3-multiple": "Manylion cyswllt yr ysgutorion sy&rsquo;n gwneud y cais",
+  "paragraph1": "Unwaith y byddwch wedi hysbysu&rsquo;r ysgutorion eraill sy&rsquo;n gwneud cais, fe anfonir neges e-bost atynt i ddweud bod y datganiad cyfreithiol yn barod i&rsquo;w gytuno. ",
+  "paragraph2": "Ni ellir rhoi grant profiant tan fydd yr holl ysgutorion sy&rsquo;n gwneud cais yn cytuno bod y datganiad cyfreithiol yn gywir.",
+  "paragraph3": "Fe ofynnir i unrhyw un sydd ddim yn cytuno &acirc;&rsquo;r datganiad cyfreithiol i gysylltu &acirc; chi i drafod beth sydd angen ei newid.",
+  "paragraph4": "Gallwch barhau i wneud newidiadau i&rsquo;ch cais nes bydd pawb wedi cytuno &acirc;&rsquo;r datganiad cyfreithiol.",
+  "paragraph5": "Os byddwch yn gwneud unrhyw newidiadau, bydd angen ichi gysylltu &acirc;&rsquo;r ysgutorion eraill sy&rsquo;n gwneud cais i&rsquo;w hysbysu bod y datganiad cyfreithiol wedi&rsquo;i ddiweddaru a&rsquo;i fod yn barod iddynt gytuno ag ef.",
+  "paragraph6": "Gallant wastad weld y datganiad cyfreithiol diweddaraf gan ddefnyddio&rsquo;r ddolen y bu inni anfon atynt drwy e-bost.",
+  "changeLink": "Newid",
+  "sendInvites": "Hysbysu&rsquo;r ysgutorion eraill sy&rsquo;n gwneud cais",
+
+  "errors": {
+    "getUrl(index": {
+      "invalid": {
+        "summary": "Roedd problem wrth geisio anfon y negeseuon e-bost, rhowch gynnig arall arni hwyrach ymlaen",
+        "message": "Roedd problem wrth geisio anfon y negeseuon e-bost, rhowch gynnig arall arni hwyrach ymlaen"
+      }
+    }
+  }
+}

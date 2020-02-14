@@ -7,12 +7,14 @@ const expect = require('chai').expect;
 const app = require('app');
 const initSteps = require('app/core/initSteps');
 const {endsWith} = require('lodash');
-const commonContent = require('app/resources/en/translation/common');
+const commonContent = {
+    en: require('app/resources/en/translation/common')
+};
 const stepsToExclude = [
     'Dashboard', 'Summary', 'TaskList', 'PinPage', 'PinSent', 'PinResend', 'AddressLookup', 'ExecutorAddress', 'ExecutorContactDetails', 'ExecutorName',
     'ExecutorNotified', 'ExecutorNameAsOnWill', 'ExecutorApplying', 'DeleteExecutor', 'PaymentStatus', 'AddAlias', 'RemoveAlias', 'ExecutorRoles', 'ExecutorsWhenDied'
 ];
-const steps = initSteps.steps;
+const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`], 'en');
 const nock = require('nock');
 const config = require('app/config');
 const commonSessionData = {
@@ -63,16 +65,15 @@ for (const step in steps) {
             let server = null;
             let agent = null;
             let title;
-            if (step.name === 'StartEligibility') {
-                title = `${commonContent.serviceName} - Eligibility`;
-            } else if (step.name === 'StartApply') {
-                title = `${commonContent.serviceName} - Create account`;
-            } else {
-                title = `${step.content.title} - ${commonContent.serviceName}`
+
+            if (step.name === 'Declaration' || step.name === 'CoApplicantDeclaration') {
+                title = `${step.content.en.title} - ${commonContent.en.serviceName}`
                     .replace(/&lsquo;/g, '‘')
-                    .replace(/&rsquo;/g, '’')
-                    .replace(/\(/g, '\\(')
-                    .replace(/\)/g, '\\)');
+                    .replace(/&rsquo;/g, '’');
+            } else {
+                title = `${step.content.title} - ${commonContent.en.serviceName}`
+                    .replace(/&lsquo;/g, '‘')
+                    .replace(/&rsquo;/g, '’');
             }
 
             before((done) => {
@@ -81,7 +82,7 @@ for (const step in steps) {
                     .reply(200, 'false');
 
                 nock(config.featureToggles.url)
-                    .get(`${config.featureToggles.path}/probate-fees-api`)
+                    .get(`${config.featureToggles.path}/${config.featureToggles.fees_api}`)
                     .reply(200, 'true');
 
                 server = app.init(true, sessionData);
@@ -106,12 +107,15 @@ for (const step in steps) {
             });
 
             it('should not generate any errors', () => {
-                const errors = results.filter((res) => res.type === 'error');
+                const errors = results.issues.filter((res) => res.type === 'error');
+
+                expect(results.documentTitle).to.equal(title);
                 expect(errors.length).to.equal(0, JSON.stringify(errors, null, 2));
             });
 
             it('should not generate any warnings', () => {
-                const warnings = results.filter((res) => res.type === 'warning');
+                const warnings = results.issues.filter((res) => res.type === 'warning');
+
                 expect(warnings.length).to.equal(0, JSON.stringify(warnings, null, 2));
             });
         });

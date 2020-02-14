@@ -1,0 +1,22 @@
+{
+  "title": "Faint o ysgutorion blaenorol a chyfredol sydd wedi&rsquo;u henwi yn yr ewyllys",
+  "question": "Faint o ysgutorion blaenorol a chyfredol sydd wedi&rsquo;u henwi yn yr ewyllys ac unrhyw ddiweddariadau (&lsquo;codisiliau&rsquo;)?",
+  "checklist1Header": "Rhaid ichi gynnwys unrhyw un:",
+  "checklist1-item1": "sy&rsquo;n ysgutor ar hyn o bryd, hyd yn oed os nad ydynt yn gwneud cais am brofiant",
+  "checklist1-item2": "oedd i fod yn ysgutor ond ni allant fod yn un (er enghraifft, os ydynt wedi marw neu fod ysgutor arall wedi cymryd eu lle)",
+  "notExecutorYet": "Peidiwch &acirc; chynnwys unrhyw un nad ydynt eto yn ysgutor.",
+  "executorsNumber": "Cyfanswm y nifer o ysgutorion blaenorol a chyfredol",
+
+  "errors": {
+    "executorsNumber": {
+      "required": {
+        "summary": "Nid ydych wedi ateb y cwestiwn am faint o ysgutorion sydd wedi&rsquo;u henwi yn yr ewyllys",
+        "message": "Nodwch rif dilys rhwng 1 ac 20"
+      },
+      "invalid": {
+        "summary": "Nid ydych wedi nodi rhif dilys neu mae&rsquo;r rhif yn uwch nag 20",
+        "message": "Nodwch rif dilys rhwng 1 ac 20"
+      }
+    }
+  }
+}

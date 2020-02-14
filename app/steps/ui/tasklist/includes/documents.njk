@@ -4,7 +4,7 @@
     {{ taskHeader(
         number = "6.",
         content = content,
-        title = content.documentTask,
+        title = content.documentTask | safe,
         status = fields.DocumentsTask.value.status,
         previousTaskStatus = previousTaskStatus
     ) }}
@@ -15,7 +15,7 @@
             nextURL = fields.DocumentsTask.value.nextURL,
             checkYourAnswersURL = fields.DocumentsTask.value.checkYourAnswersLink,
             content = content,
-            title = content.documentTask
+            title = content.documentTask | safe
         ) }}
     </div>
 </li>

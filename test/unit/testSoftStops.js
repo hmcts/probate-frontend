@@ -18,7 +18,7 @@ describe('Soft Stops', () => {
         it('Check soft stop for applicant name as on the will', () => {
             const step = steps.ApplicantNameAsOnWill;
             const formdata = {
-                applicant: {nameAsOnTheWill: 'No'}
+                applicant: {nameAsOnTheWill: 'optionNo'}
             };
 
             const result = step.isSoftStop(formdata, ctx);
@@ -29,7 +29,7 @@ describe('Soft Stops', () => {
         it('Check soft stop for deceased alias', () => {
             const step = steps.DeceasedAlias;
             const formdata = {
-                deceased: {alias: 'Yes'}
+                deceased: {alias: 'optionYes'}
             };
 
             const result = step.isSoftStop(formdata, ctx);
@@ -40,7 +40,7 @@ describe('Soft Stops', () => {
         it('Check soft stop for deceased married', () => {
             const step = steps.DeceasedMarried;
             const formdata = {
-                deceased: {married: 'Yes'}
+                deceased: {married: 'optionYes'}
             };
 
             const result = step.isSoftStop(formdata, ctx);
@@ -51,7 +51,7 @@ describe('Soft Stops', () => {
         it('Check soft stop for iht paper 400', () => {
             const step = steps.IhtPaper;
             const formdata = {
-                iht: {form: 'IHT400421'}
+                iht: {form: 'optionIHT400421'}
             };
 
             const result = step.isSoftStop(formdata, ctx);
@@ -62,7 +62,7 @@ describe('Soft Stops', () => {
         it('Check soft stop for iht paper 207', () => {
             const step = steps.IhtPaper;
             const formdata = {
-                iht: {form: 'IHT207'}
+                iht: {form: 'optionIHT207'}
             };
 
             const result = step.isSoftStop(formdata, ctx);

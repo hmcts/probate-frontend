@@ -9,24 +9,24 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: content.header,
+            text: content.header | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
     }) %}
-        <h2 class="govuk-heading-m pin-sub-header">{{ content.subHeader }}</h2>
+        <h2 class="govuk-heading-m pin-sub-header">{{ content.subHeader | safe }}</h2>
         <p class="govuk-body">{{ content.securityCode | safe }}</p>
-        <p class="govuk-body">{{ content.phoneCode }}</p>
+        <p class="govuk-body">{{ content.phoneCode | safe }}</p>
 
         {{ govukInput({
             label: {
-                text: content.pinText
+                text: content.pinText | safe
             },
             type: "password",
             id: "pin",
             name: "pin",
             value: fields.pin.value | safe,
-            errorMessage: { text: fields.pin.errorMessage.message } if fields.pin.errorMessage,
+            errorMessage: { text: fields.pin.errorMessage.message | safe } if fields.pin.errorMessage,
             attributes: {
                 maxlength: 6
             },
@@ -36,7 +36,7 @@
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: content.button,
+            text: content.button | safe,
             preventDoubleClick: true
         }) }}
     </div>

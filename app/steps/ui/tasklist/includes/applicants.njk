@@ -4,7 +4,7 @@
     {{ taskHeader(
         number = "2.",
         content = content,
-        title = content.applicantsTask,
+        title = content.applicantsTask | safe,
         status = fields.ApplicantsTask.value.status,
         previousTaskStatus = previousTaskStatus
     ) }}
@@ -15,7 +15,7 @@
             nextURL = fields.ApplicantsTask.value.nextURL,
             checkYourAnswersURL = fields.ApplicantsTask.value.checkYourAnswersLink,
             content = content,
-            title = content.applicantsTask,
+            title = content.applicantsTask | safe,
             alreadyDeclared = fields.alreadyDeclared.value
         ) }}
     </div>

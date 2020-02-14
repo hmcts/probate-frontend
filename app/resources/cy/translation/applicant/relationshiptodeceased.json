@@ -1,0 +1,17 @@
+{
+  "title": "Perthynas &acirc;&rsquo;r unigolyn sydd wedi marw",
+  "question": "Beth oedd eich perthynas &acirc;&rsquo;r unigolyn sydd wedi marw?",
+  "optionSpousePartner": "G&wcirc;r, gwraig neu bartner sifil (nid yw&rsquo;n cynnwys partneriaid cyfraith gwlad hyn yn oed os oeddech yn cyd-fyw)",
+  "optionChild": "Plentyn (nid yw&rsquo;n cynnwys llysblant)",
+  "optionAdoptedChild": "Plentyn a gafodd ei fabwysiadu&rsquo;n gyfreithlon",
+  "optionOther": "Arall",
+
+  "errors": {
+    "relationshipToDeceased": {
+      "required": {
+        "summary": "Nid ydych wedi ateb y cwestiwn am eich perthynas &acirc;&rsquo;r unigolyn sydd wedi marw",
+        "message": "Dewiswch opsiwn ar gyfer eich perthynas &acirc;&rsquo;r unigolyn sydd wedi marw"
+      }
+    }
+  }
+}

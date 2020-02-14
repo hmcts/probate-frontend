@@ -12,11 +12,11 @@ class ValueAssetsOutside extends ValidationStep {
         return '/value-assets-outside-england-wales';
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata, session) {
         ctx.netValueAssetsOutside = parseFloat(numeral(ctx.netValueAssetsOutsideField).format('0.00'));
 
         if (!validator.isCurrency(ctx.netValueAssetsOutsideField, {symbol: '£', allow_negatives: false})) {
-            errors.push(FieldError('netValueAssetsOutsideField', 'invalidCurrencyFormat', this.resourcePath, this.generateContent()));
+            errors.push(FieldError('netValueAssetsOutsideField', 'invalidCurrencyFormat', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
         return [ctx, errors];

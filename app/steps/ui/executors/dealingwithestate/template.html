@@ -8,12 +8,12 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: content.question,
+            text: content.question | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-body">{{ content.paragraph1 }}</p>
+        <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
         {{ unorderedList([
             content["applicant-rights1"],
             content["applicant-rights2"],
@@ -24,14 +24,14 @@
         {{ govukCheckboxes({
             idPrefix: "executorsApplying",
             name: "executorsApplying[]",
-            errorMessage: { text: fields.executorsApplying.errorMessage.message } if fields.executorsApplying.errorMessage,
+            errorMessage: { text: fields.executorsApplying.errorMessage.message | safe } if fields.executorsApplying.errorMessage,
             items: fields.options.value
         }) }}
     {% endcall %}
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue,
+            text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
     </div>

@@ -2,7 +2,6 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
-const content = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
 
 class AnyGrandchildrenUnder18 extends ValidationStep {
 
@@ -24,7 +23,7 @@ class AnyGrandchildrenUnder18 extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'anyGrandchildrenUnder18', value: content.optionNo, choice: 'allGrandchildrenOver18'}
+                {key: 'anyGrandchildrenUnder18', value: 'optionNo', choice: 'allGrandchildrenOver18'}
             ]
         };
     }

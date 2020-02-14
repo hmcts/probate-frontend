@@ -1,0 +1,13 @@
+{
+  "title": "Pa ysgutorion sydd wedi marw",
+  "question": "Pa ysgutorion sydd wedi marw?",
+
+  "errors": {
+    "executorsWhoDied": {
+      "required": {
+        "summary": "Dewiswch o leiaf un ysgutor",
+        "message": "Dewiswch o leiaf un ysgutor"
+      }
+    }
+  }
+}

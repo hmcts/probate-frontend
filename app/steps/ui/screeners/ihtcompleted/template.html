@@ -10,32 +10,32 @@
         name: "completed",
         fieldset: {
             legend: {
-                text: content.question,
+                text: content.question | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
         },
         hint: {
-            text: content.hintText
+            text: content.hintText | safe
         },
         errorMessage: { text: fields.completed.errorMessage.message | safe } if fields.completed.errorMessage,
         items: [
             {
-                value: content["optionYes"],
-                text: content["optionYes"],
-                checked: true if fields.completed.value == content["optionYes"] | escape
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.completed.value == "optionYes"
             },
             {
-                value: content["optionNo"],
-                text: content["optionNo"],
-                checked: true if fields.completed.value == content["optionNo"] | escape
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.completed.value == "optionNo"
             }
         ]
     }) }}
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.continue,
+            text: common.continue | safe,
             preventDoubleClick: true
         }) }}
     </div>

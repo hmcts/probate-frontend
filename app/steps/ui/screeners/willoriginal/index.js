@@ -1,7 +1,6 @@
 'use strict';
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
-const content = require('app/resources/en/translation/screeners/willoriginal');
 const pageUrl = '/will-original';
 const fieldKey = 'original';
 const Dashboard = require('app/steps/ui/dashboard');
@@ -27,7 +26,7 @@ class WillOriginal extends EligibilityValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: fieldKey, value: content.optionYes, choice: 'isOriginal'}
+                {key: fieldKey, value: 'optionYes', choice: 'isOriginal'}
             ]
         };
     }

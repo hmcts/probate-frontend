@@ -1,7 +1,6 @@
 'use strict';
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
-const content = require('app/resources/en/translation/screeners/applicantexecutor');
 const pageUrl = '/applicant-executor';
 const fieldKey = 'executor';
 const Dashboard = require('app/steps/ui/dashboard');
@@ -27,7 +26,7 @@ class ApplicantExecutor extends EligibilityValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: fieldKey, value: content.optionYes, choice: 'isExecutor'}
+                {key: fieldKey, value: 'optionYes', choice: 'isExecutor'}
             ]
         };
     }

@@ -3,10 +3,10 @@
 const Service = require('./Service');
 
 class PinNumber extends Service {
-    get(phoneNumber, authToken, serviceAuthorisation) {
+    get(phoneNumber, bilingual = false, authToken, serviceAuthorisation) {
         this.log('Get pin number');
         phoneNumber = encodeURIComponent(phoneNumber);
-        const url = this.formatUrl.format(this.endpoint, `/invite/pin?phoneNumber=${phoneNumber}`);
+        const url = this.formatUrl.format(this.endpoint, `/invite/pin${bilingual ? '/bilingual': ''}?phoneNumber=${phoneNumber}`);
         const headers = {
             'Content-Type': 'application/json',
             'Session-Id': this.sessionId,

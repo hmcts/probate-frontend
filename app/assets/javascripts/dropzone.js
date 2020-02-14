@@ -1208,6 +1208,7 @@ var Dropzone = function (_Emitter) {
             _this3.hiddenFileInput.setAttribute("multiple", "multiple");
           }
           _this3.hiddenFileInput.className = "dz-hidden-input";
+          _this3.hiddenFileInput.setAttribute('aria-label', 'hidden-file-input');
 
           if (_this3.options.acceptedFiles !== null) {
             _this3.hiddenFileInput.setAttribute("accept", _this3.options.acceptedFiles);

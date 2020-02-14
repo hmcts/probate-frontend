@@ -16,15 +16,15 @@
         <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
         <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
 
-        <h2 class="govuk-heading-m">{{ content.heading1 }}</h2>
-        <p class="govuk-body">{{ content.paragraph3 }}</p>
-        <p class="govuk-body">{{ content.paragraph4 }}</p>
-        <p class="govuk-body">{{ content.paragraph5 }}</p>
+        <h2 class="govuk-heading-m">{{ content.heading1 | safe }}</h2>
+        <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
+        <p class="govuk-body">{{ content.paragraph4 | safe }}</p>
+        <p class="govuk-body">{{ content.paragraph5 | safe }}</p>
     {% endcall %}
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: content.continue,
+            text: content.continue | safe,
             preventDoubleClick: true
         }) }}
     </div>

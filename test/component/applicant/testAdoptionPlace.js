@@ -5,8 +5,6 @@ const SpouseNotApplyingReason = require('app/steps/ui/applicant/spousenotapplyin
 const AnyOtherChildren = require('app/steps/ui/deceased/anyotherchildren');
 const StopPage = require('app/steps/ui/stoppage');
 const testCommonContent = require('test/component/common/testCommonContent.js');
-const content = require('app/resources/en/translation/applicant/adoptionplace');
-const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 const caseTypes= require('app/utils/CaseTypes');
 
 describe('adoption-place', () => {
@@ -49,7 +47,7 @@ describe('adoption-place', () => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
-                    maritalStatus: contentMaritalStatus.optionMarried
+                    maritalStatus: 'optionMarried'
                 }
             };
 
@@ -57,7 +55,7 @@ describe('adoption-place', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        adoptionPlace: content.optionYes
+                        adoptionPlace: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForSpouseNotApplyingReason);
@@ -68,7 +66,7 @@ describe('adoption-place', () => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
-                    maritalStatus: contentMaritalStatus.optionDivorced
+                    maritalStatus: 'optionDivorced'
                 }
             };
 
@@ -76,7 +74,7 @@ describe('adoption-place', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        adoptionPlace: content.optionYes
+                        adoptionPlace: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherChildren);
@@ -88,7 +86,7 @@ describe('adoption-place', () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        adoptionPlace: content.optionNo
+                        adoptionPlace: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);

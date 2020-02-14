@@ -45,9 +45,9 @@ describe('will-left', () => {
         it(`test it redirects to next page: ${expectedNextUrlForWillOriginal}`, (done) => {
             const sessionData = {
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes'
                 }
             };
 
@@ -55,7 +55,7 @@ describe('will-left', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        left: 'Yes'
+                        left: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForWillOriginal, cookies);
@@ -65,9 +65,9 @@ describe('will-left', () => {
         it(`test it redirects to next page: ${expectedNextUrlForDiedAfterOctober2014}`, (done) => {
             const sessionData = {
                 screeners: {
-                    deathCertificate: 'Yes',
-                    domicile: 'Yes',
-                    completed: 'Yes'
+                    deathCertificate: 'optionYes',
+                    domicile: 'optionYes',
+                    completed: 'optionYes'
                 }
             };
 
@@ -75,7 +75,7 @@ describe('will-left', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        left: 'No'
+                        left: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForDiedAfterOctober2014, cookies);

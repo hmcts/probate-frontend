@@ -5,8 +5,6 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const AdoptionPlace = steps.AdoptionPlace;
-const content = require('app/resources/en/translation/applicant/adoptionplace');
-const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
 
 describe('AdoptionPlace', () => {
     describe('getUrl()', () => {
@@ -26,14 +24,14 @@ describe('AdoptionPlace', () => {
                 session: {
                     form: {
                         deceased: {
-                            maritalStatus: contentMaritalStatus.optionMarried
+                            maritalStatus: 'optionMarried'
                         }
                     }
                 }
             };
 
             ctx = AdoptionPlace.getContextData(req);
-            expect(ctx.deceasedMaritalStatus).to.equal(contentMaritalStatus.optionMarried);
+            expect(ctx.deceasedMaritalStatus).to.equal('optionMarried');
             done();
         });
     });
@@ -46,8 +44,8 @@ describe('AdoptionPlace', () => {
                 }
             };
             const ctx = {
-                adoptionPlace: content.optionYes,
-                deceasedMaritalStatus: contentMaritalStatus.optionMarried
+                adoptionPlace: 'optionYes',
+                deceasedMaritalStatus: 'optionMarried'
             };
             const nextStepUrl = AdoptionPlace.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/spouse-not-applying-reason');
@@ -61,8 +59,8 @@ describe('AdoptionPlace', () => {
                 }
             };
             const ctx = {
-                adoptionPlace: content.optionYes,
-                deceasedMaritalStatus: contentMaritalStatus.optionDivorced
+                adoptionPlace: 'optionYes',
+                deceasedMaritalStatus: 'optionDivorced'
             };
             const nextStepUrl = AdoptionPlace.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/any-other-children');
@@ -76,7 +74,7 @@ describe('AdoptionPlace', () => {
                 }
             };
             const ctx = {
-                adoptionPlace: content.optionNo
+                adoptionPlace: 'optionNo'
             };
             const nextStepUrl = AdoptionPlace.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/adoptionNotEnglandOrWales');

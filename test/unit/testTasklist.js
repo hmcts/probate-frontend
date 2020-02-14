@@ -49,7 +49,7 @@ describe('Tasklist', () => {
             });
 
             it('Updates the context: DeceasedTask started', () => {
-                const formdata = {deceased: {firstName: 'Test first name', lastName: 'Test last name'}};
+                const formdata = {language: {bilingual: 'optionNo'}, deceased: {firstName: 'Test first name', lastName: 'Test last name'}};
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
                 ctx = Object.assign(ctx, formdata.deceased);
@@ -63,6 +63,7 @@ describe('Tasklist', () => {
 
             it('Updates the context: DeceasedTask complete, ExecutorsTask not started', () => {
                 const formdata = {
+                    language: {bilingual: 'optionNo'},
                     deceased: completedForm.deceased,
                     will: completedForm.will,
                     iht: completedForm.iht,
@@ -82,6 +83,7 @@ describe('Tasklist', () => {
 
             it('Updates the context: DeceasedTask complete, ExecutorsTask started', () => {
                 const formdata = {
+                    language: {bilingual: 'optionNo'},
                     deceased: completedForm.deceased,
                     will: completedForm.will,
                     iht: completedForm.iht,
@@ -105,6 +107,7 @@ describe('Tasklist', () => {
 
             it('Updates the context: DeceasedTask & ExecutorsTask started (ExecutorsTask blocked)', () => {
                 const formdata = {
+                    language: {bilingual: 'optionNo'},
                     deceased: {firstName: 'Test first name', lastName: 'Test last name'},
                     applicant: {
                         firstName: completedForm.applicant.firstName,
@@ -123,6 +126,7 @@ describe('Tasklist', () => {
 
             it('Updates the context: Review and confirm not started', () => {
                 const formdata = {
+                    language: {bilingual: 'optionNo'},
                     will: completedForm.will,
                     iht: completedForm.iht,
                     documentupload: {},
@@ -291,6 +295,7 @@ describe('Tasklist', () => {
 
             it('Updates the context: DeceasedTask, Executors, Review and confirm, Copies and Document tasks complete', () => {
                 req.session.form = completedForm;
+                req.session.form.language = {bilingual: 'optionNo'};
                 req.session.form.documentupload = {};
                 req.session.form.documents.sentDocuments = 'true';
                 req.body = {};
@@ -337,6 +342,9 @@ describe('Tasklist', () => {
 
             it('Updates the context: DeceasedTask started', () => {
                 const formdata = {
+                    language: {
+                        bilingual: 'optionNo'
+                    },
                     deceased: {
                         'firstName': 'Test first name',
                         'lastName': 'Test last name',
@@ -366,6 +374,9 @@ describe('Tasklist', () => {
             it('Updates the context: DeceasedTask complete, ApplicantsTask not started', () => {
                 const formdata = {
                     caseType: caseTypes.INTESTACY,
+                    language: {
+                        bilingual: 'optionNo'
+                    },
                     deceased: completedForm.deceased,
                     will: completedForm.will,
                     iht: completedForm.iht,
@@ -386,6 +397,9 @@ describe('Tasklist', () => {
             it('Updates the context: DeceasedTask complete, ApplicantsTask started', () => {
                 const formdata = {
                     caseType: caseTypes.INTESTACY,
+                    language: {
+                        bilingual: 'optionNo'
+                    },
                     deceased: completedForm.deceased,
                     iht: completedForm.iht,
                     documentupload: {},
@@ -408,6 +422,9 @@ describe('Tasklist', () => {
 
             it('Updates the context: DeceasedTask & ApplicantsTask started (ApplicantsTask blocked)', () => {
                 const formdata = {
+                    language: {
+                        bilingual: 'optionNo'
+                    },
                     deceased: {
                         firstName: 'Test first name',
                         lastName: 'Test last name',
@@ -439,6 +456,9 @@ describe('Tasklist', () => {
             it('Updates the context: Review and confirm not started', () => {
                 const formdata = {
                     caseType: caseTypes.INTESTACY,
+                    language: {
+                        bilingual: 'optionNo'
+                    },
                     will: completedForm.will,
                     iht: completedForm.iht,
                     documentupload: {},
@@ -449,7 +469,7 @@ describe('Tasklist', () => {
                     deceased: completedForm.deceased,
                     executors: completedForm.executors
                 };
-                formdata.deceased.anyChildren = 'No';
+                formdata.deceased.anyChildren = 'optionNo';
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
 

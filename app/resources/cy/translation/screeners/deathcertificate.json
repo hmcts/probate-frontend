@@ -1,0 +1,16 @@
+{
+  "title": "A oes gennych chi dystysgrif marwolaeth",
+  "question": "A oes gennych chi dystysgrif marwolaeth?",
+  "hintText": "Rydych angen y dystysgrif marwolaeth wreiddiol neu <a target=\"_blank\" rel=\"external noopener\" href=\"{deathReportedToCoroner}\" class=\"govuk-link\">dystysgrif marwolaeth interim</a> gan y crwner.",
+  "optionYes": "Oes",
+  "optionNo": "Nag oes",
+
+  "errors": {
+    "deathCertificate": {
+      "required": {
+        "summary": "Nid ydych wedi ateb y cwestiwn am y dystysgrif marwolaeth",
+        "message": "Atebwch &lsquo;oes&rsquo; os oes tystysgrif marwolaeth"
+      }
+    }
+  }
+}

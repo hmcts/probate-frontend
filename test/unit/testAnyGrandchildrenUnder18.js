@@ -5,7 +5,6 @@ const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const AnyGrandchildrenUnder18 = steps.AnyGrandchildrenUnder18;
-const content = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
 
 describe('AnyGrandchildrenUnder18', () => {
     describe('getUrl()', () => {
@@ -43,7 +42,7 @@ describe('AnyGrandchildrenUnder18', () => {
                 }
             };
             const ctx = {
-                anyGrandchildrenUnder18: content.optionNo
+                anyGrandchildrenUnder18: 'optionNo'
             };
             const nextStepUrl = AnyGrandchildrenUnder18.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/applicant-name');
@@ -57,7 +56,7 @@ describe('AnyGrandchildrenUnder18', () => {
                 }
             };
             const ctx = {
-                anyGrandchildrenUnder18: content.optionYes
+                anyGrandchildrenUnder18: 'optionYes'
             };
             const nextStepUrl = AnyGrandchildrenUnder18.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/grandchildrenUnder18');
@@ -71,7 +70,7 @@ describe('AnyGrandchildrenUnder18', () => {
             const nextStepOptions = AnyGrandchildrenUnder18.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'anyGrandchildrenUnder18', value: content.optionNo, choice: 'allGrandchildrenOver18'},
+                    {key: 'anyGrandchildrenUnder18', value: 'optionNo', choice: 'allGrandchildrenOver18'},
                 ]
             });
             done();

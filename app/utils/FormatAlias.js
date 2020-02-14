@@ -9,13 +9,13 @@ class FormatAlias {
     }
 
     static formatAliasReason(aliasReason, otherReason, hasMultipleApplicants) {
-        if (aliasReason === 'Marriage') {
+        if (aliasReason === 'optionMarriage') {
             return hasMultipleApplicants ? ' got married' : ' I got married';
-        } else if (aliasReason === 'Divorce') {
+        } else if (aliasReason === 'optionDivorce') {
             return hasMultipleApplicants ? ' got divorced' : ' I got divorced';
-        } else if (aliasReason === 'Change by deed poll') {
+        } else if (aliasReason === 'optionDeedPoll') {
             return hasMultipleApplicants ? ' changed their name by deed poll' : ' I changed my name by deed poll';
-        } else if (aliasReason === 'other') {
+        } else if (aliasReason === 'optionOther') {
             return `: ${otherReason}`;
         }
     }

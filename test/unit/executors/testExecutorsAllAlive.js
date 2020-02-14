@@ -14,7 +14,7 @@ describe('ExecutorsAllAlive', () => {
                 }
             };
             const ctx = {
-                allalive: 'Yes'
+                allalive: 'optionYes'
             };
             const ExecutorsAllAlive = steps.ExecutorsAllAlive;
             const nextStepUrl = ExecutorsAllAlive.nextStepUrl(req, ctx);
@@ -29,7 +29,7 @@ describe('ExecutorsAllAlive', () => {
                 }
             };
             const ctx = {
-                allalive: 'No'
+                allalive: 'optionNo'
             };
             const ExecutorsAllAlive = steps.ExecutorsAllAlive;
             const nextStepUrl = ExecutorsAllAlive.nextStepUrl(req, ctx);

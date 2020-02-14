@@ -3,9 +3,9 @@
   "header": "Sign in",
   "subHeader": "Before making an application for probate, we need to confirm who you are.",
   "securityCode": "We&rsquo;ve sent you a text message with a security code.",
-  "phoneCode" : "Check your phone for the 6-digit code and enter it in the box below.",
-  "pinText" : "Text message code",
-  "button" : "Sign in",
+  "phoneCode": "Check your phone for the 6-digit code and enter it in the box below.",
+  "pinText": "Text message code",
+  "button": "Sign in",
   "forgottenCode": "I haven&rsquo;t received a security code",
 
   "errors": {

@@ -1,0 +1,27 @@
+{
+  "title": "Dilysu SMS",
+  "header": "Mewngofnodi",
+  "subHeader": "Cyn gwneud cais am brofiant, mae angen inni gadarnhau pwy ydych chi.",
+  "securityCode": "Rydym wedi anfon neges testun gyda chod diogelwch atoch chi.",
+  "phoneCode": "Cadwch lygad ar eich ff&ocirc;n am y cod 6 digid ac yna teipiwch y cod yn y blwch isod.",
+  "pinText": "Cod neges testun",
+  "button": "Mewngofnodi",
+  "forgottenCode": "Nid wyf wedi cael cod diogelwch",
+
+  "errors": {
+    "pin": {
+      "required": {
+        "summary": "Mae angen ichi deipio&rsquo;r cod diogelwch a anfonwyd i&rsquo;ch ff&ocirc;n",
+        "message": "Teipiwch y cod diogelwch a anfonwyd i&rsquo;ch ff&ocirc;n"
+      },
+      "invalid": {
+        "summary": "Mae eich cod dilysu yn cynnwys rhifau yn unig",
+        "message": "Teipiwch y cod diogelwch a anfonwyd i&rsquo;ch ff&ocirc;n"
+      },
+      "incorrect": {
+        "summary": "Nid ydym yn adnabod y cod diogelwch yr ydych chi wedi&rsquo;i deipio",
+        "message": "Teipiwch y cod diogelwch a anfonwyd i&rsquo;ch ff&ocirc;n"
+      }
+    }
+  }
+}

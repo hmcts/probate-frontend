@@ -102,7 +102,7 @@ describe('Pact InviteDataClient', () => {
                         },
                         body: {
                             inviteId: '54321',
-                            agreed: 'Yes'
+                            agreed: 'optionYes'
                         }
                     },
                     willRespondWith: {
@@ -117,7 +117,7 @@ describe('Pact InviteDataClient', () => {
                 const inviteDataClient = new InviteData('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
                 const data = {
                     inviteId: '54321',
-                    agreed: 'Yes'
+                    agreed: 'optionYes'
                 };
                 const verificationPromise = inviteDataClient.setAgreedFlag('123456', data);
                 assert.eventually.ok(verificationPromise).notify(done);
@@ -184,7 +184,7 @@ describe('Pact InviteDataClient', () => {
                         },
                         body: {
                             inviteId: '54321',
-                            agreed: 'Yes',
+                            agreed: 'optionYes',
                             email: 'newaddress@email.com',
                             phoneNumber: '07868787786'
                         }
@@ -201,7 +201,7 @@ describe('Pact InviteDataClient', () => {
                 const inviteDataClient = new InviteData('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
                 const data = {
                     inviteId: '54321',
-                    agreed: 'Yes',
+                    agreed: 'optionYes',
                     email: 'newaddress@email.com',
                     phoneNumber: '07868787786'
                 };

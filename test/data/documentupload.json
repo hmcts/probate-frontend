@@ -1,5 +1,15 @@
 {
   "documents": {
-    "uploads": [{"filename": "screenshot1.png"}, {"filename": "screenshot2.png"}, {"filename":"screenshot3.png"}]
+    "uploads": [
+      {
+        "filename": "screenshot1.png"
+      },
+      {
+        "filename": "screenshot2.png"
+      },
+      {
+        "filename": "screenshot3.png"
+      }
+    ]
   }
 }

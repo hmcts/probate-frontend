@@ -6,9 +6,9 @@
     },
     "payloadVersion": "1.0",
     "will": {
-      "left": "Yes",
-      "codicils": "No",
-      "original": "Yes"
+      "left": "optionYes",
+      "codicils": "optionNo",
+      "original": "optionYes"
     },
     "applicant": {
       "address": {
@@ -20,19 +20,19 @@
         "postCode": "",
         "Country": ""
       },
-      "executor": "Yes",
+      "executor": "optionYes",
       "lastName": "Smith",
       "postcode": "NW1 8SS",
       "referrer": "ApplicantAddress",
       "firstName": "Bob",
       "phoneNumber": "123456780",
       "addressFound": "none",
-      "nameAsOnTheWill": "Yes",
+      "nameAsOnTheWill": "optionYes",
       "aliasReason": "Change by deed poll",
       "alias": "Bobby Smithy"
     },
     "deceased": {
-      "alias": "No",
+      "alias": "optionNo",
       "address": {
         "addressLine1": "21 Treelined Avenue,",
         "addressLine2": "Sussex",
@@ -42,30 +42,30 @@
         "postCode": "",
         "Country": ""
       },
-      "dob-day": 1,
-      "dod-day": 2,
+      "dob-day": "1",
+      "dob-month": "2",
+      "dob-year": "1900",
       "dob-date": "1900-02-01T00:00:00.000Z",
       "dob-formattedDate": "1 February 1900",
-      "dob-year": 1900,
+      "dod-day": "2",
+      "dod-month": "3",
+      "dod-year": "2010",
       "dod-date": "2010-03-02T00:00:00.000Z",
-      "dod-formattedDate": "1 February 2000",
-      "dod-year": 2010,
+      "dod-formattedDate": "2 March 2010",
       "domicile": "live permanently in England or Wales",
       "lastName": "Ceased",
       "postcode": "NW1 8SS",
       "referrer": "DeceasedAddress",
-      "dob-month": 2,
-      "dod-month": 3,
       "firstName": "Dee",
       "addressFound": "none",
       "deceasedName": "Dee Ceased",
-      "relationship": "grandparent",
-      "married": "Yes"
+      "relationship": "optionGrandparent",
+      "married": "optionYes"
     },
     "iht": {
-      "completed": "Yes",
+      "completed": "optionYes",
       "identifier": "12341234A12345",
-      "method": "Through the HMRC online service",
+      "method": "optionOnline",
       "netValueField": "100000.10",
       "grossValueField": "150000.34",
       "netValue": 100000.1,
@@ -73,18 +73,18 @@
     },
     "executors": {
       "list": [{
-        "firstName":"Bob",
-        "lastName":"Smith",
-        "isApplicant":true,
-        "isApplying":true,
-        "aliasReason": "Change by deed poll",
+        "firstName": "Bob",
+        "lastName": "Smith",
+        "isApplicant": true,
+        "isApplying": true,
+        "aliasReason": "optionDeedPoll",
         "alias": "Bobby Smithy",
         "inviteId": "abc123"
       }],
-      "executorsNumber" : 1
+      "executorsNumber": 1
     },
     "assets": {
-      "assetsoverseas": "Yes"
+      "assetsoverseas": "optionYes"
     },
     "copies": {
       "uk": 1,

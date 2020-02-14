@@ -1,9 +1,7 @@
-
 'use strict';
 
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
-const content = require('app/resources/en/translation/deceased/alias');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DeceasedAlias = steps.DeceasedAlias;
 
@@ -22,7 +20,7 @@ describe('DeceasedAlias', () => {
             expect(result).to.deep.equal({
                 options: [{
                     key: 'alias',
-                    value: content.optionYes,
+                    value: 'optionYes',
                     choice: 'assetsInOtherNames'
                 }]
             });
@@ -35,6 +33,7 @@ describe('DeceasedAlias', () => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {
+                    language: 'en',
                     form: {
                         caseType: 'gop',
                         ccdCase: {
@@ -72,7 +71,7 @@ describe('DeceasedAlias', () => {
 
         it('should othernames to empty object if the deceased removed aliases', (done) => {
             ctx = {
-                alias: content.optionNo,
+                alias: 'optionNo',
                 otherNames: [
                     {
                         name_0: {firstName: 'FN1', lastName: 'LN1'},
@@ -83,7 +82,7 @@ describe('DeceasedAlias', () => {
             errors = [];
             [ctx, errors] = DeceasedAlias.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                alias: content.optionNo,
+                alias: 'optionNo',
                 otherNames: {}
             });
             done();

@@ -144,7 +144,7 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
                 'intestacyLettersOfAdministration'
             ];
-            sessionData.will.codicils = 'No';
+            sessionData.will.codicils = 'optionNo';
             sessionData.executors.list[1].hasOtherName = false;
             delete sessionData.executors.list[1].currentName;
             sessionData.deceased.otherNames = {
@@ -228,7 +228,7 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
                 'intestacyLettersOfAdministration'
             ];
-            sessionData.will.codicils = 'Yes';
+            sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 3;
             sessionData.executors.list[1].hasOtherName = false;
             delete sessionData.executors.list[1].currentName;
@@ -310,11 +310,11 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
                 'intestacyLettersOfAdministration'
             ];
-            sessionData.will.codicils = 'Yes';
+            sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 1;
             sessionData.executors.list[0].alias = 'larry bird';
-            sessionData.executors.list[0].aliasReason = 'Divorce';
-            sessionData.executors.list[0].nameAsOnTheWill = 'No';
+            sessionData.executors.list[0].aliasReason = 'optionDivorce';
+            sessionData.executors.list[0].nameAsOnTheWill = 'optionNo';
             sessionData.executors.list[1].hasOtherName = false;
             delete sessionData.executors.list[1].currentName;
 
@@ -396,10 +396,10 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
                 'intestacyLettersOfAdministration'
             ];
-            sessionData.will.codicils = 'No';
+            sessionData.will.codicils = 'optiono';
             sessionData.executors.list[0].alias = 'larry bird';
-            sessionData.executors.list[0].aliasReason = 'Divorce';
-            sessionData.executors.list[0].nameAsOnTheWill = 'No';
+            sessionData.executors.list[0].aliasReason = 'optionDivorce';
+            sessionData.executors.list[0].nameAsOnTheWill = 'optionNo';
             sessionData.executors.list[1].hasOtherName = false;
             delete sessionData.executors.list[1].currentName;
 
@@ -477,12 +477,12 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
                 'intestacyLettersOfAdministration'
             ];
-            sessionData.will.codicils = 'Yes';
+            sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 2;
             sessionData.executors.list[0].alias = 'larry bird';
-            sessionData.executors.list[0].aliasReason = 'Divorce';
-            sessionData.executors.list[0].nameAsOnTheWill = 'No';
-            sessionData.executors.list[1].currentNameReason = 'Divorce';
+            sessionData.executors.list[0].aliasReason = 'optionDivorce';
+            sessionData.executors.list[0].nameAsOnTheWill = 'optionNo';
+            sessionData.executors.list[1].currentNameReason = 'optionDivorce';
             contentData.codicilsNumber = 2;
             contentData.codicils = 'codicils';
             contentData.aliasReason = ' got divorced';
@@ -557,15 +557,15 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
                 'intestacyLettersOfAdministration'
             ];
-            sessionData.will.codicils = 'Yes';
+            sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 1;
             sessionData.executors.list[0].alias = 'larry bird';
-            sessionData.executors.list[0].aliasReason = 'Divorce';
-            sessionData.executors.list[0].nameAsOnTheWill = 'No';
-            sessionData.executors.list[1].currentNameReason = 'Change by deed poll';
+            sessionData.executors.list[0].aliasReason = 'optionDivorce';
+            sessionData.executors.list[0].nameAsOnTheWill = 'optionNo';
+            sessionData.executors.list[1].currentNameReason = 'optionDeedPoll';
             sessionData.executors.list[2].hasOtherName = true;
             sessionData.executors.list[2].currentName = 'fname4other sname4other';
-            sessionData.executors.list[2].currentNameReason = 'other';
+            sessionData.executors.list[2].currentNameReason = 'optionOther';
             sessionData.executors.list[2].otherReason = 'because they wanted to';
 
             contentData.codicilsNumber = '';
@@ -644,11 +644,11 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
                 'intestacyLettersOfAdministration'
             ];
-            sessionData.will.codicils = 'No';
+            sessionData.will.codicils = 'optionNo';
             sessionData.executors.list[0].alias = 'larry bird';
-            sessionData.executors.list[0].aliasReason = 'Divorce';
-            sessionData.executors.list[0].nameAsOnTheWill = 'No';
-            sessionData.executors.list[1].currentNameReason = 'Marriage';
+            sessionData.executors.list[0].aliasReason = 'optionDivorce';
+            sessionData.executors.list[0].nameAsOnTheWill = 'optionNo';
+            sessionData.executors.list[1].currentNameReason = 'optionMarriage';
 
             contentData.applicantWillName = 'fname1 sname1';
             contentData.applicantNameOnWill = ' as fname1 sname1';
@@ -724,14 +724,14 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
                 'intestacyLettersOfAdministration'
             ];
-            sessionData.will.codicils = 'No';
+            sessionData.will.codicils = 'optionNo';
             sessionData.executors.list[0].alias = 'larry bird';
-            sessionData.executors.list[0].aliasReason = 'Divorce';
-            sessionData.executors.list[0].nameAsOnTheWill = 'No';
-            sessionData.executors.list[1].currentNameReason = 'Change by deed poll';
+            sessionData.executors.list[0].aliasReason = 'optionDivorce';
+            sessionData.executors.list[0].nameAsOnTheWill = 'optionNo';
+            sessionData.executors.list[1].currentNameReason = 'optionDeedPoll';
             sessionData.executors.list[2].hasOtherName = true;
             sessionData.executors.list[2].currentName = 'fname4other sname4other';
-            sessionData.executors.list[2].currentNameReason = 'other';
+            sessionData.executors.list[2].currentNameReason = 'optionOther';
             sessionData.executors.list[2].otherReason = 'because they wanted to';
 
             contentData.aliasReason = ' changed their name by deed poll';
@@ -746,11 +746,11 @@ describe('declaration, multiple applicants', () => {
         });
 
         it('test correct executor content loaded on the page, applicant has an alias, no executors have a different name, deceased has no other names and there are codicils', (done) => {
-            sessionData.will.codicils = 'Yes';
+            sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 3;
-            sessionData.executors.list[0].nameAsOnTheWill = 'No';
+            sessionData.executors.list[0].nameAsOnTheWill = 'optionNo';
             sessionData.executors.list[0].alias = 'Bob Alias';
-            sessionData.executors.list[0].aliasReason = 'Divorce';
+            sessionData.executors.list[0].aliasReason = 'optionDivorce';
             sessionData.executors.list[1].hasOtherName = false;
             delete sessionData.executors.list[1].currentName;
 
@@ -772,10 +772,10 @@ describe('declaration, multiple applicants', () => {
         });
 
         it('test correct executor content loaded on the page, applicant has an alias, no executors have a different name, deceased has no other names and there are no codicils', (done) => {
-            sessionData.will.codicils = 'No';
-            sessionData.executors.list[0].nameAsOnTheWill = 'No';
+            sessionData.will.codicils = 'optionNo';
+            sessionData.executors.list[0].nameAsOnTheWill = 'optionNo';
             sessionData.executors.list[0].alias = 'Bob Alias';
-            sessionData.executors.list[0].aliasReason = 'Divorce';
+            sessionData.executors.list[0].aliasReason = 'optionDivorce';
             sessionData.executors.list[1].hasOtherName = false;
             delete sessionData.executors.list[1].currentName;
 
@@ -797,12 +797,12 @@ describe('declaration, multiple applicants', () => {
         });
 
         it('test correct executor content loaded on the page, applicant has an alias, one other executor has a different name (reason given as: Divorce), deceased has no other names and there are codicils', (done) => {
-            sessionData.will.codicils = 'Yes';
+            sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 2;
-            sessionData.executors.list[0].nameAsOnTheWill = 'No';
+            sessionData.executors.list[0].nameAsOnTheWill = 'optionNo';
             sessionData.executors.list[0].alias = 'Bob Alias';
-            sessionData.executors.list[0].aliasReason = 'Divorce';
-            sessionData.executors.list[1].currentNameReason = 'Divorce';
+            sessionData.executors.list[0].aliasReason = 'optionDivorce';
+            sessionData.executors.list[1].currentNameReason = 'optionDivorce';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -822,15 +822,15 @@ describe('declaration, multiple applicants', () => {
         });
 
         it('test correct executor content loaded on the page, applicant has an alias, two other executors have a different name (reason given as: Deed Poll and other), deceased has no other names and there are codicils', (done) => {
-            sessionData.will.codicils = 'Yes';
+            sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 1;
-            sessionData.executors.list[0].nameAsOnTheWill = 'No';
+            sessionData.executors.list[0].nameAsOnTheWill = 'optionNo';
             sessionData.executors.list[0].alias = 'Bob Alias';
-            sessionData.executors.list[0].aliasReason = 'Divorce';
-            sessionData.executors.list[1].currentNameReason = 'Divorce';
+            sessionData.executors.list[0].aliasReason = 'optionDivorce';
+            sessionData.executors.list[1].currentNameReason = 'optionDivorce';
             sessionData.executors.list[2].hasOtherName = true;
             sessionData.executors.list[2].currentName = 'dave buster';
-            sessionData.executors.list[2].currentNameReason = 'other';
+            sessionData.executors.list[2].currentNameReason = 'optionOther';
             sessionData.executors.list[2].otherReason = 'they felt like it';
 
             testWrapper.agent.post('/prepare-session/form')
@@ -851,11 +851,11 @@ describe('declaration, multiple applicants', () => {
         });
 
         it('test correct executor content loaded on the page, applicant has an alias, one other executor has a different name (reason given as: Marriage), deceased has no other names and there are no codicils', (done) => {
-            sessionData.will.codicils = 'No';
-            sessionData.executors.list[0].nameAsOnTheWill = 'No';
+            sessionData.will.codicils = 'optionNo';
+            sessionData.executors.list[0].nameAsOnTheWill = 'optionNo';
             sessionData.executors.list[0].alias = 'Bob Alias';
-            sessionData.executors.list[0].aliasReason = 'Divorce';
-            sessionData.executors.list[1].currentNameReason = 'Marriage';
+            sessionData.executors.list[0].aliasReason = 'optionDivorce';
+            sessionData.executors.list[1].currentNameReason = 'optionMarriage';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -875,14 +875,14 @@ describe('declaration, multiple applicants', () => {
         });
 
         it('test correct executor content loaded on the page, applicant has an alias, two other executors have a different name (reason given as: Deed Poll and other), deceased has no other names and there are no codicils', (done) => {
-            sessionData.will.codicils = 'No';
-            sessionData.executors.list[0].nameAsOnTheWill = 'No';
+            sessionData.will.codicils = 'optionNo';
+            sessionData.executors.list[0].nameAsOnTheWill = 'optionNo';
             sessionData.executors.list[0].alias = 'Bob Alias';
-            sessionData.executors.list[0].aliasReason = 'Divorce';
-            sessionData.executors.list[1].currentNameReason = 'Divorce';
+            sessionData.executors.list[0].aliasReason = 'optionDivorce';
+            sessionData.executors.list[1].currentNameReason = 'optionDivorce';
             sessionData.executors.list[2].hasOtherName = true;
             sessionData.executors.list[2].currentName = 'dave buster';
-            sessionData.executors.list[2].currentNameReason = 'other';
+            sessionData.executors.list[2].currentNameReason = 'optionOther';
             sessionData.executors.list[2].otherReason = 'they felt like it';
 
             testWrapper.agent.post('/prepare-session/form')
@@ -936,7 +936,7 @@ describe('declaration, multiple applicants', () => {
                         .send(sessionData)
                         .end(() => {
                             const data = {
-                                declarationCheckbox: true
+                                declarationCheckbox: 'true'
                             };
                             testWrapper.testRedirect(done, data, expectedNextUrlForExecInvite);
                         });
@@ -962,7 +962,7 @@ describe('declaration, multiple applicants', () => {
                         .send(sessionData)
                         .end(() => {
                             const data = {
-                                declarationCheckbox: true
+                                declarationCheckbox: 'true'
                             };
                             testWrapper.testRedirect(done, data, expectedNextUrlForExecChangeMade);
                         });
@@ -995,7 +995,7 @@ describe('declaration, multiple applicants', () => {
                         .send(sessionData)
                         .end(() => {
                             const data = {
-                                declarationCheckbox: true
+                                declarationCheckbox: 'true'
                             };
                             testWrapper.testRedirect(done, data, expectedNextUrlForAdditionalExecInvite);
                         });
@@ -1027,7 +1027,7 @@ describe('declaration, multiple applicants', () => {
                         .send(sessionData)
                         .end(() => {
                             const data = {
-                                declarationCheckbox: true
+                                declarationCheckbox: 'true'
                             };
                             testWrapper.testRedirect(done, data, expectedNextUrlForUpdateExecInvite);
                         });
@@ -1059,7 +1059,7 @@ describe('declaration, multiple applicants', () => {
                         .send(sessionData)
                         .end(() => {
                             const data = {
-                                declarationCheckbox: true
+                                declarationCheckbox: 'true'
                             };
                             testWrapper.testRedirect(done, data, expectedNextUrlForChangeToSingleApplicant);
                         });

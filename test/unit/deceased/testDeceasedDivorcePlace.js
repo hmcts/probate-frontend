@@ -25,9 +25,10 @@ describe('DivorcePlace', () => {
         it('should return the context with the legal process string in case of divorce', (done) => {
             req = {
                 session: {
+                    language: 'en',
                     form: {
                         deceased: {
-                            maritalStatus: contentMaritalStatus.optionDivorced
+                            maritalStatus: 'optionDivorced'
                         }
                     }
                 }
@@ -41,9 +42,10 @@ describe('DivorcePlace', () => {
         it('should return the context with the legal process string in case of separation', (done) => {
             req = {
                 session: {
+                    language: 'en',
                     form: {
                         deceased: {
-                            maritalStatus: contentMaritalStatus.optionSeparated
+                            maritalStatus: 'optionSeparated'
                         }
                     }
                 }
@@ -58,6 +60,7 @@ describe('DivorcePlace', () => {
     describe('generateFields()', () => {
         it('should return the correct content fields', (done) => {
             const ctx = {
+                language: 'en',
                 legalProcess: 'divorce'
             };
             const errors = [
@@ -71,8 +74,12 @@ describe('DivorcePlace', () => {
                 }
             ];
 
-            const fields = DivorcePlace.generateFields(ctx, errors);
+            const fields = DivorcePlace.generateFields('en', ctx, errors);
             expect(fields).to.deep.equal({
+                language: {
+                    error: false,
+                    value: 'en'
+                },
                 divorcePlace: {
                     error: true,
                     href: '#divorcePlace',
@@ -99,7 +106,7 @@ describe('DivorcePlace', () => {
                 }
             };
             const ctx = {
-                divorcePlace: content.optionYes
+                divorcePlace: 'optionYes'
             };
             const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/task-list');
@@ -114,7 +121,7 @@ describe('DivorcePlace', () => {
             };
             const ctx = {
                 legalProcess: 'divorce',
-                divorcePlace: content.optionNo
+                divorcePlace: 'optionNo'
             };
             const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/divorcePlace');
@@ -129,7 +136,7 @@ describe('DivorcePlace', () => {
             };
             const ctx = {
                 legalProcess: 'separation',
-                divorcePlace: content.optionNo
+                divorcePlace: 'optionNo'
             };
             const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/separationPlace');
@@ -143,7 +150,7 @@ describe('DivorcePlace', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [{
                     key: 'divorcePlace',
-                    value: content.optionYes,
+                    value: 'optionYes',
                     choice: 'inEnglandOrWales'
                 }]
             });

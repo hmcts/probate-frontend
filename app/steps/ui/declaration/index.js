@@ -3,10 +3,7 @@
 const probateDeclarationFactory = require('app/utils/ProbateDeclarationFactory');
 const intestacyDeclarationFactory = require('app/utils/IntestacyDeclarationFactory');
 const ValidationStep = require('app/core/steps/ValidationStep');
-const executorNotifiedContent = require('app/resources/en/translation/executors/notified');
-const executorContent = require('app/resources/en/translation/executors/executorcontent');
-const assetsOutsideContent = require('app/resources/en/translation/iht/assetsoutside');
-const {get} = require('lodash');
+const {mapValues, get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
@@ -19,10 +16,20 @@ const caseTypes = require('app/utils/CaseTypes');
 const UploadLegalDeclaration = require('app/services/UploadLegalDeclaration');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const FieldError = require('app/components/error');
+const utils = require('app/components/step-utils');
+const moment = require('moment');
 
 class Declaration extends ValidationStep {
     static getUrl() {
         return '/declaration';
+    }
+
+    constructor(steps, section = null, resourcePath, i18next, schema, language = 'en') {
+        super(steps, section, resourcePath, i18next, schema, language);
+        this.content = {
+            en: require(`app/resources/en/translation/${resourcePath}`),
+            cy: require(`app/resources/cy/translation/${resourcePath}`)
+        };
     }
 
     pruneFormData(body, ctx) {
@@ -37,7 +44,7 @@ class Declaration extends ValidationStep {
         let returnErrors;
 
         if (result.type === 'VALIDATION') {
-            returnErrors = [FieldError('businessError', 'validationError', this.resourcePath, ctx)];
+            returnErrors = [FieldError('businessError', 'validationError', this.resourcePath, ctx, session.language)];
         } else {
             returnErrors = errors;
         }
@@ -65,9 +72,21 @@ class Declaration extends ValidationStep {
         const formdataDeceased = formdata.deceased || {};
         formdata.deceasedName = FormatName.format(formdataDeceased);
         formdata.deceasedAddress = get(formdataDeceased, 'address', {});
-        formdata.deceasedOtherNames = FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content);
-        formdata.dobFormattedDate = formdataDeceased['dob-formattedDate'];
-        formdata.dodFormattedDate = formdataDeceased['dod-formattedDate'];
+        formdata.deceasedOtherNames = {
+            en: FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content.en),
+            cy: FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content.cy)
+        };
+
+        formdata.dobFormattedDate = {};
+        formdata.dodFormattedDate = {};
+        formdata.dobFormattedDate.en = formdataDeceased['dob-day'] ? utils.formattedDate(moment(formdataDeceased['dob-day'] + '/' + formdataDeceased['dob-month'] + '/' + formdataDeceased['dob-year'], config.dateFormat).parseZone(), 'en') : '';
+        formdata.dodFormattedDate.en = formdataDeceased['dod-day'] ? utils.formattedDate(moment(formdataDeceased['dod-day'] + '/' + formdataDeceased['dod-month'] + '/' + formdataDeceased['dod-year'], config.dateFormat).parseZone(), 'en') : '';
+
+        if (get(formdata, 'language.bilingual', 'optionNo') === 'optionYes') {
+            formdata.dobFormattedDate.cy = formdataDeceased['dob-day'] ? utils.formattedDate(moment(formdataDeceased['dob-day'] + '/' + formdataDeceased['dob-month'] + '/' + formdataDeceased['dob-year'], config.dateFormat).parseZone(), 'cy') : '';
+            formdata.dodFormattedDate.cy = formdataDeceased['dod-day'] ? utils.formattedDate(moment(formdataDeceased['dod-day'] + '/' + formdataDeceased['dod-month'] + '/' + formdataDeceased['dod-year'], config.dateFormat).parseZone(), 'cy') : '';
+        }
+
         formdata.maritalStatus = formdataDeceased.maritalStatus;
         formdata.relationshipToDeceased = formdataApplicant.relationshipToDeceased;
         formdata.anyChildren = formdataDeceased.anyChildren;
@@ -83,16 +102,27 @@ class Declaration extends ValidationStep {
         return formdata;
     }
 
+    generateContent(ctx, formdata) {
+        const contentCtx = Object.assign({}, formdata, ctx, this.commonProps);
+
+        mapValues(this.content.en, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
+        mapValues(this.content.cy, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
+
+        return this.content;
+    }
+
     getContextData(req) {
         let templateData;
         let ctx = super.getContextData(req);
         ctx = this.pruneFormData(req.body, ctx);
         const formdata = req.session.form;
-        const content = this.generateContent(ctx, formdata);
+        ctx.bilingual = (get(formdata, 'language.bilingual', 'optionNo') === 'optionYes').toString();
+        ctx.language = req.session.language;
+        const content = this.generateContent(ctx, formdata, req.session.language);
         const formDataForTemplate = this.getFormDataForTemplate(content, formdata);
 
         if (ctx.caseType === caseTypes.INTESTACY && formdata.iht) {
-            ctx.showNetValueAssetsOutside = (formdata.iht.assetsOutside === assetsOutsideContent.optionYes && (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > config.assetsValueThreshold);
+            ctx.showNetValueAssetsOutside = ((formdata.iht.assetsOutside === 'optionYes' && (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > config.assetsValueThreshold)).toString();
             if (ctx.showNetValueAssetsOutside) {
                 ctx.ihtNetValueAssetsOutside = formDataForTemplate.ihtNetValueAssetsOutside;
             }
@@ -109,10 +139,16 @@ class Declaration extends ValidationStep {
             const multipleApplicantSuffix = this.multipleApplicantSuffix(ctx.hasMultipleApplicants);
 
             const executorsApplying = ctx.executorsWrapper.executorsApplying();
-            const executorsApplyingText = this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata.deceasedName, formdata.applicantName);
+            const executorsApplyingText = {
+                en: this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.en, hasCodicils, codicilsNumber, formdata.deceasedName, formdata.applicantName),
+                cy: this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.cy, hasCodicils, codicilsNumber, formdata.deceasedName, formdata.applicantName)
+            };
 
             const executorsNotApplying = ctx.executorsWrapper.executorsNotApplying();
-            const executorsNotApplyingText = this.executorsNotApplying(executorsNotApplying, content, formdata.deceasedName, hasCodicils);
+            const executorsNotApplyingText = {
+                en: this.executorsNotApplying(executorsNotApplying, content.en, formdata.deceasedName, hasCodicils, req.session.language),
+                cy: this.executorsNotApplying(executorsNotApplying, content.cy, formdata.deceasedName, hasCodicils, req.session.language)
+            };
 
             templateData = probateDeclarationFactory.build(ctx, content, formDataForTemplate, multipleApplicantSuffix, executorsApplying, executorsApplyingText, executorsNotApplyingText);
         }
@@ -182,20 +218,22 @@ class Declaration extends ValidationStep {
         return content;
     }
 
-    executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils) {
+    executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils, language) {
         return executorsNotApplying.map(executor => {
             return content[`executorNotApplyingReason${this.codicilsSuffix(hasCodicils)}`]
                 .replace('{otherExecutorName}', FormatName.formatName(executor))
-                .replace('{otherExecutorApplying}', this.executorsNotApplyingText(executor, content))
+                .replace('{otherExecutorApplying}', this.executorsNotApplyingText(executor, content, language))
                 .replace('{deceasedName}', deceasedName);
         });
     }
 
-    executorsNotApplyingText(executor, content) {
+    executorsNotApplyingText(executor, content, language) {
+        const executorContent = require(`app/resources/${language}/translation/executors/executorcontent`);
+
         if (Object.keys(executorContent).includes(executor.notApplyingKey)) {
             let executorApplyingText = content[executor.notApplyingKey];
 
-            if (executor.executorNotified === executorNotifiedContent.optionYes) {
+            if (executor.executorNotified === 'optionYes') {
                 executorApplyingText += ` ${content.additionalExecutorNotified}`;
             }
 
@@ -241,6 +279,8 @@ class Declaration extends ValidationStep {
         delete ctx.invitesSent;
         delete ctx.serviceAuthorization;
         delete ctx.authToken;
+        delete ctx.bilingual;
+        delete ctx.language;
         return [ctx, formdata];
     }
 

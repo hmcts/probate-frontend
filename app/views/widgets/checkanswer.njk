@@ -20,7 +20,7 @@
                     <dd class="govuk-summary-list__actions">
                         {% if alreadyDeclared == "false" %}
                             {% set actionLink = common.change if complete else common.answer %}
-                            <a class="govuk-link" href="{{ url }}">{{ actionLink }}</a>
+                            <a class="govuk-link" href="{{ url }}">{{ actionLink | safe }}</a>
                         {% endif %}
                     </dd>
                 </div>

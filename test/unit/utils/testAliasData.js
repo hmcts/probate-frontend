@@ -9,20 +9,20 @@ describe('AliasData.js', () => {
         it('should return formdata with declarationCheckbox removed and hasDataChanged flag updated when declared and alias section updated after declaration', (done) => {
             formdata = {
                 declaration: {
-                    declarationCheckbox: true
+                    declarationCheckbox: 'true'
                 },
                 applicant: {
-                    nameAsOnTheWill: 'No',
+                    nameAsOnTheWill: 'optionNo',
                     alias: 'Bob Builder',
                 },
                 executors: {
-                    alias: 'Yes',
+                    alias: 'optionYes',
                     hasOtherName: true,
-                    currentNameReason: 'Marriage'
+                    currentNameReason: 'optionMarriage'
                 }
             };
             ctx = {
-                aliasReason: 'Divorce'
+                aliasReason: 'optionDivorce'
             };
             const result = AliasData.aliasDataRequiredAfterDeclaration(ctx, formdata);
             expect(result).to.deep.equal({
@@ -30,13 +30,13 @@ describe('AliasData.js', () => {
                     hasDataChanged: true
                 },
                 applicant: {
-                    nameAsOnTheWill: 'No',
+                    nameAsOnTheWill: 'optionNo',
                     alias: 'Bob Builder',
                 },
                 executors: {
-                    alias: 'Yes',
+                    alias: 'optionYes',
                     hasOtherName: true,
-                    currentNameReason: 'Marriage'
+                    currentNameReason: 'optionMarriage'
                 }
             });
             done();
@@ -48,32 +48,32 @@ describe('AliasData.js', () => {
                     declarationCheckbox: true
                 },
                 applicant: {
-                    nameAsOnTheWill: 'No',
+                    nameAsOnTheWill: 'optionNo',
                     alias: 'Bob Builder',
                 },
                 executors: {
                     list: [
                         {currentName: 'dave'}
                     ],
-                    alias: 'Yes',
+                    alias: 'optionYes',
                     hasOtherName: true,
                 }
             };
             ctx = {
                 index: 1,
-                currentNameReason: 'Divorce'
+                currentNameReason: 'optionDivorce'
             };
             const result = AliasData.aliasDataRequiredAfterDeclaration(ctx, formdata);
             expect(result).to.deep.equal({
                 applicant: {
                     alias: 'Bob Builder',
-                    nameAsOnTheWill: 'No'
+                    nameAsOnTheWill: 'optionNo'
                 },
                 declaration: {
                     hasDataChanged: true
                 },
                 executors: {
-                    alias: 'Yes',
+                    alias: 'optionYes',
                     hasOtherName: true,
                     list: [
                         {
@@ -91,7 +91,7 @@ describe('AliasData.js', () => {
                     declarationCheckbox: true
                 },
                 applicant: {
-                    nameAsOnTheWill: 'No',
+                    nameAsOnTheWill: 'optionNo',
                 }
             };
             ctx = {};
@@ -101,7 +101,7 @@ describe('AliasData.js', () => {
                     declarationCheckbox: true
                 },
                 applicant: {
-                    nameAsOnTheWill: 'No',
+                    nameAsOnTheWill: 'optionNo',
                 }
             });
             done();
@@ -114,7 +114,7 @@ describe('AliasData.js', () => {
         it('should return true', (done) => {
             formdata = {
                 applicant: {
-                    nameAsOnTheWill: 'No',
+                    nameAsOnTheWill: 'optionNo',
                 }
             };
             ctx = {
@@ -128,7 +128,7 @@ describe('AliasData.js', () => {
         it('should return false', (done) => {
             formdata = {
                 applicant: {
-                    nameAsOnTheWill: 'No',
+                    nameAsOnTheWill: 'optionNo',
                     alias: 'Bob Builder'
                 }
             };
@@ -147,12 +147,12 @@ describe('AliasData.js', () => {
         it('should return true', (done) => {
             formdata = {
                 applicant: {
-                    nameAsOnTheWill: 'No',
+                    nameAsOnTheWill: 'optionNo',
                     alias: 'Bob Builder'
                 }
             };
             ctx = {
-                aliasReason: 'Divorce'
+                aliasReason: 'optionDivorce'
             };
             const result = AliasData.applicantAliasReasonUpdated(ctx, formdata);
             expect(result).to.equal(true);
@@ -162,13 +162,13 @@ describe('AliasData.js', () => {
         it('should return false', (done) => {
             formdata = {
                 applicant: {
-                    nameAsOnTheWill: 'No',
+                    nameAsOnTheWill: 'optionNo',
                     alias: 'Bob Builder',
-                    aliasReason: 'Marriage'
+                    aliasReason: 'optionMarriage'
                 }
             };
             ctx = {
-                aliasReason: 'Marriage'
+                aliasReason: 'optionMarriage'
             };
             const result = AliasData.applicantAliasReasonUpdated(ctx, formdata);
             expect(result).to.equal(false);

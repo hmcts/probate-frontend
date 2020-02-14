@@ -91,6 +91,7 @@
   "intestacyDeceasedMarriedSpouseApplyingHadChildren": "I am the lawful spouse or civil partner of {deceasedName} and one of the people now entitled to share in the estate.",
   "intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k": "I am the lawful spouse or civil partner of {deceasedName} and the only person now entitled to the estate.",
   "intestacyLettersOfAdministration": "I am applying for letters of administration. I have provided what I believe to be true and accurate information about {deceasedName}.",
+  "warning": "Warning",
   "saveThisPage": "Save this page",
 
   "errors": {

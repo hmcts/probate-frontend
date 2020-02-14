@@ -4,12 +4,6 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const IhtMethod = steps.IhtMethod;
-const content = require('app/resources/en/translation/iht/method');
-const contentAssetsOutside = require('app/resources/en/translation/iht/assetsoutside');
-const contentAnyChildren = require('app/resources/en/translation/deceased/anychildren');
-const contentAllChildrenOver18 = require('app/resources/en/translation/deceased/allchildrenover18');
-const contentAnyDeceasedChildren = require('app/resources/en/translation/deceased/anydeceasedchildren');
-const contentAnyGrandChildrenUnder18 = require('app/resources/en/translation/deceased/anygrandchildrenunder18');
 
 describe('IhtMethod', () => {
     describe('getUrl()', () => {
@@ -26,7 +20,7 @@ describe('IhtMethod', () => {
             expect(result).to.deep.equal({
                 options: [{
                     key: 'method',
-                    value: content.optionOnline,
+                    value: 'optionOnline',
                     choice: 'online'
                 }]
             });
@@ -38,32 +32,32 @@ describe('IhtMethod', () => {
         it('test it cleans up context and formdata if Paper Option chosen', () => {
             let formdata = {
                 iht: {
-                    method: content.optionOnline
+                    method: 'optionOnline'
                 },
                 deceased: {
-                    anyChildren: contentAnyChildren.optionYes,
-                    allChildrenOver18: contentAllChildrenOver18.optionYes,
-                    anyDeceasedChildren: contentAnyDeceasedChildren.optionYes,
-                    anyGrandchildrenUnder18: contentAnyGrandChildrenUnder18.optionNo
+                    anyChildren: 'optionYes',
+                    allChildrenOver18: 'optionYes',
+                    anyDeceasedChildren: 'optionYes',
+                    anyGrandchildrenUnder18: 'optionNo'
                 }
             };
             let ctx = {
-                method: content.optionPaper,
+                method: 'optionPaper',
                 identifier: '1234567890',
                 grossValueField: '500000',
                 netValueField: '400000',
 
-                assetsOutside: contentAssetsOutside.optionYes,
+                assetsOutside: 'optionYes',
                 netValueAssetsOutsideField: '150000',
                 netValueAssetsOutside: 150000
             };
             [ctx, formdata] = IhtMethod.action(ctx, formdata);
             expect(ctx).to.deep.equal({
-                method: content.optionPaper
+                method: 'optionPaper'
             });
             expect(formdata).to.deep.equal({
                 iht: {
-                    method: content.optionOnline
+                    method: 'optionOnline'
                 },
                 deceased: {}
             });
@@ -72,33 +66,33 @@ describe('IhtMethod', () => {
         it('test it cleans up context and formdata if Online Option chosen', () => {
             let formdata = {
                 iht: {
-                    method: content.optionPaper
+                    method: 'optionPaper'
                 },
                 deceased: {
-                    anyChildren: contentAnyChildren.optionYes,
-                    allChildrenOver18: contentAllChildrenOver18.optionYes,
-                    anyDeceasedChildren: contentAnyDeceasedChildren.optionYes,
-                    anyGrandchildrenUnder18: contentAnyGrandChildrenUnder18.optionNo
+                    anyChildren: 'optionYes',
+                    allChildrenOver18: 'optionYes',
+                    anyDeceasedChildren: 'optionYes',
+                    anyGrandchildrenUnder18: 'optionNo'
                 }
             };
             let ctx = {
-                method: content.optionOnline,
-                form: 'IHT205',
-                ihtFormId: 'IHT205',
+                method: 'optionOnline',
+                form: 'optionIHT205',
+                ihtFormId: 'optionIHT205',
                 grossValueIHT205: '500000',
                 netValueIHT205: '400000',
 
-                assetsOutside: contentAssetsOutside.optionYes,
+                assetsOutside: 'optionYes',
                 netValueAssetsOutsideField: '150000',
                 netValueAssetsOutside: 150000
             };
             [ctx, formdata] = IhtMethod.action(ctx, formdata);
             expect(ctx).to.deep.equal({
-                method: content.optionOnline
+                method: 'optionOnline'
             });
             expect(formdata).to.deep.equal({
                 iht: {
-                    method: content.optionPaper
+                    method: 'optionPaper'
                 },
                 deceased: {}
             });

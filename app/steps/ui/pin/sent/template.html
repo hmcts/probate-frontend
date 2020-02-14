@@ -10,15 +10,15 @@
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             {{ govukPanel({
-                titleText: content.banner,
-                html: fields.phoneNumber.value
+                titleText: content.banner | safe,
+                html: fields.phoneNumber.value | safe
             }) }}
 
             <p class="govuk-body">{{ content.accessNotification | safe }}</p>
 
             <div class="govuk-form-group">
                 {{ govukButton({
-                    text: content.button,
+                    text: content.button | safe,
                     href: "/sign-in"
                 }) }}
             </div>

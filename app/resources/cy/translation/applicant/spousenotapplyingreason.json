@@ -1,0 +1,16 @@
+{
+  "title": "Pam nad yw&rsquo;r g&wcirc;r/gwraig yn gwneud cais",
+  "question": "Pam nad yw g&wcirc;r/gwraig {deceasedName} yn gwneud cais?",
+  "optionRenouncing": "Nid ydynt eisiau gwneud cais ac maent yn rhoi fyny yr hawl i wneud cais yn y dyfodol (gelwir hyn yn &lsquo;ymwrthod&rsquo;)",
+  "optionOther": "Arall",
+  "theDeceased": "yr unigolyn sydd wedi marw",
+
+  "errors": {
+    "spouseNotApplyingReason": {
+      "required": {
+        "summary": "Nid ydych wedi ateb y cwestiwn pam nad yw&rsquo;r g&wcirc;r/gwraig neu bartner sifil yn gwneud cais",
+        "message": "Atebwch y cwestiwn pam nad yw&rsquo;r g&wcirc;r/gwraig neu bartner sifil yn gwneud cais"
+      }
+    }
+  }
+}

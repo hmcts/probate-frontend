@@ -1,0 +1,15 @@
+{
+  "title": "A wnaeth yr unigolyn sydd wedi marw adael ewyllys",
+  "question": "A wnaeth yr unigolyn sydd wedi marw adael ewyllys?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+
+  "errors": {
+    "left": {
+      "required": {
+        "summary": "Nid ydych wedi ateb y cwestiwn am a wnaeth yr unigolyn sydd wedi marw adael ewyllys",
+        "message": "Atebwch &lsquo;do&rsquo; os oes ewyllys"
+      }
+    }
+  }
+}

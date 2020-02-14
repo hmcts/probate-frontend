@@ -47,7 +47,7 @@ describe('UpdateExecutorInvite', () => {
                                 inviteId: 'dummy_inviteId_2',
                             }
                         ],
-                        otherExecutorsApplying: 'Yes',
+                        otherExecutorsApplying: 'optionYes',
                         invitesSent: 'true'
                     }
                 }

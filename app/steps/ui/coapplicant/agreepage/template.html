@@ -11,7 +11,7 @@
             <h2 class="govuk-heading-m">{{ content.subHeader | safe }}</h2>
             <p class="govuk-body">{{ content.paragraph2 | replace("{leadExecFullName}", fields.leadExecFullName.value) | safe }}</p>
             <p class="govuk-body">{{ content.paragraph3 | replace("{leadExecFullName}", fields.leadExecFullName.value) | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph4a }}<a href="{{ globals.links.surveyEndOfApplication | safe }}" class="govuk-link" target=\"_blank\" rel=\"external noopener\">{{ content.paragraph4b }}</a></p>
+            <p class="govuk-body">{{ content.paragraph4a }}<a href="{{ globals.links.surveyEndOfApplication }}" class="govuk-link" target=\"_blank\" rel=\"external noopener\">{{ content.paragraph4b | safe }}</a>.</p>
             {% include "includes/help_details.html" %}
         </div>
     </div>

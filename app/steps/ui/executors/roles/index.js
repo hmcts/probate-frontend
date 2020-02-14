@@ -1,15 +1,13 @@
 'use strict';
 
 const CollectionStep = require('app/core/steps/CollectionStep');
-const content = require('app/resources/en/translation/executors/roles');
-const json = require('app/resources/en/translation/executors/roles');
-const {get, isEmpty, every, findKey, findIndex, forEach} = require('lodash');
+const {get, isEmpty, every, findIndex, forEach} = require('lodash');
 const path = '/executor-roles/';
 
 class ExecutorRoles extends CollectionStep {
 
-    constructor(steps, section, templatePath, i18next, schema) {
-        super(steps, section, templatePath, i18next, schema);
+    constructor(steps, section, templatePath, i18next, schema, language) {
+        super(steps, section, templatePath, i18next, schema, language);
         this.path = path;
     }
 
@@ -21,7 +19,7 @@ class ExecutorRoles extends CollectionStep {
         const ctx = super.getContextData(req);
         forEach(ctx.list, exec => {
             if (exec.notApplyingKey) {
-                exec.notApplyingReason = json[exec.notApplyingKey];
+                exec.notApplyingReason = exec.notApplyingKey;
             }
         });
 
@@ -31,7 +29,7 @@ class ExecutorRoles extends CollectionStep {
     handleGet(ctx) {
         if (ctx.list[ctx.index]) {
             ctx.isApplying = false;
-            ctx.notApplyingReason = json[ctx.list[ctx.index].notApplyingKey];
+            ctx.notApplyingReason = ctx.list[ctx.index].notApplyingKey;
         }
         return [ctx];
     }
@@ -41,9 +39,9 @@ class ExecutorRoles extends CollectionStep {
             ctx.list[ctx.index] = this.pruneExecutorData(ctx.list[ctx.index]);
             ctx.list[ctx.index].isApplying = false;
             ctx.list[ctx.index].notApplyingReason = ctx.notApplyingReason;
-            ctx.list[ctx.index].notApplyingKey = findKey(content, o => o === ctx.notApplyingReason);
+            ctx.list[ctx.index].notApplyingKey = ctx.notApplyingReason;
         }
-        if (ctx.notApplyingReason !== content.optionPowerReserved) {
+        if (ctx.notApplyingReason !== 'optionPowerReserved') {
             ctx.index = this.recalcIndex(ctx, ctx.index);
         }
         return [ctx, errors];
@@ -78,7 +76,7 @@ class ExecutorRoles extends CollectionStep {
 
         return {
             options: [
-                {key: 'notApplyingReason', value: content.optionPowerReserved, choice: 'powerReserved'},
+                {key: 'notApplyingReason', value: 'optionPowerReserved', choice: 'powerReserved'},
                 {key: 'continue', value: true, choice: 'continue'}
             ]
         };
@@ -95,7 +93,7 @@ class ExecutorRoles extends CollectionStep {
     }
 
     recalcIndex(ctx, index) {
-        return findIndex(ctx.list, exec => !exec.isDead && (ctx.otherExecutorsApplying === this.commonContent().no || !exec.isApplying), index + 1);
+        return findIndex(ctx.list, exec => !exec.isDead && (ctx.otherExecutorsApplying === 'optionNo' || !exec.isApplying), index + 1);
     }
 }
 

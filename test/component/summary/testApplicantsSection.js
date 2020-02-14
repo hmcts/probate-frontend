@@ -30,17 +30,20 @@ describe('summary-applicants-section', () => {
                 caseType: 'intestacy',
             };
 
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end((err) => {
-                    if (err) {
-                        throw err;
-                    }
-                    const playbackData = {
-                        relationshipToDeceased: applicantContent.relationshiptodeceased.question
-                    };
+            testWrapper.agent.post('/prepare-session-field/language/en')
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session/form')
+                        .send(sessionData)
+                        .end((err) => {
+                            if (err) {
+                                throw err;
+                            }
+                            const playbackData = {
+                                relationshipToDeceased: applicantContent.relationshiptodeceased.question
+                            };
 
-                    testWrapper.testDataPlayback(done, playbackData);
+                            testWrapper.testDataPlayback(done, playbackData);
+                        });
                 });
         });
 

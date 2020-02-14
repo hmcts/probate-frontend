@@ -1,27 +1,27 @@
 {
   "payloadVersion": "2.8.2",
   "will": {
-    "left": "Yes",
-    "original": "Yes",
-    "codicils": "Yes",
+    "left": "optionYes",
+    "original": "optionYes",
+    "codicils": "optionYes",
     "codicilsNumber": 1
   },
   "iht": {
-    "completed": "Yes",
-    "method": "By post",
-    "form": "IHT205",
+    "completed": "optionYes",
+    "method": "optionPaper",
+    "form": "optionIHT205",
     "grossValueFieldIHT205": "123456.10",
     "netValueFieldIHT205": "12345.34",
     "grossValue": 123456.1,
     "netValue": 12345.34
   },
   "applicant": {
-    "executor": "Yes",
+    "executor": "optionYes",
     "firstName": "Bob Richard",
     "lastName": "Smith",
-    "nameAsOnTheWill": "No",
+    "nameAsOnTheWill": "optionNo",
     "alias": "Bobby Richard Smith",
-    "aliasReason": "other",
+    "aliasReason": "optionOther",
     "otherReason": "nickname",
     "phoneNumber": "07934235245",
     "postcode": "SW1H 9EX",
@@ -51,8 +51,8 @@
       {
         "fullName": "executor_2_name",
         "isDead": true,
-        "diedBefore": "Yes",
-        "notApplyingReason": "This executor died (before the person who has died)",
+        "diedBefore": "optionYes",
+        "notApplyingReason": "optionDiedBefore",
         "notApplyingKey": "optionDiedBefore",
         "isApplying": false,
         "hasOtherName": false
@@ -61,7 +61,7 @@
         "fullName": "executor_3_name",
         "isApplying": true,
         "hasOtherName": true,
-        "currentName": "exec_3_new_name ",
+        "currentName": "exec_3_new_name",
         "currentNameReason": "Divorce",
         "email": "haji58@hotmail.co.uk",
         "mobile": "07963723856",
@@ -82,9 +82,9 @@
         "notApplyingKey": "optionRenunciated"
       }
     ],
-    "allalive": "No",
-    "otherExecutorsApplying": "Yes",
-    "alias": "Yes",
+    "allalive": "optionNo",
+    "otherExecutorsApplying": "optionYes",
+    "alias": "optionYes",
     "referrer": "ExecutorAddress",
     "addressFound": "none",
     "invitesSent": "true"
@@ -92,14 +92,14 @@
   "deceased": {
     "firstName": "died_firstname",
     "lastName": "died_lastname",
-    "alias": "Yes",
+    "alias": "optionYes",
     "otherNames": {
       "name_0": {
         "firstName": "new_died_firstname",
         "lastName": "new_died_lastname"
       }
     },
-    "married": "No",
+    "married": "optionNo",
     "dod-day": 1,
     "dod-month": 1,
     "dod-year": 2018,
@@ -133,7 +133,7 @@
     "uk": "3"
   },
   "assets": {
-    "assetsoverseas": "No"
+    "assetsoverseas": "optionNo"
   },
   "payment": {
     "copies": {

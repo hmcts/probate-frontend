@@ -1,0 +1,31 @@
+{
+  "title": "Manylion cyswllt ysgutor",
+  "question": "Beth yw cyfeiriad e-bost a rhif ff&ocirc;n symudol {executorName}?",
+  "questionHint": "Byddwn yn cysylltu &acirc;&rsquo;r ysgutor hwn ac fe ofynnir iddynt gadarnhau manylion yr ystad.",
+  "email": "Cyfeiriad e-bost",
+  "mobile": "Rhif ff&ocirc;n symudol",
+  "mobileHint": "Er enghraifft, 07900123456 neu +33123456789",
+
+  "errors": {
+    "email": {
+      "required": {
+        "summary": "Nid ydych wedi nodi cyfeiriad e-bost",
+        "message": "Nodwch gyfeiriad e-bost"
+      },
+      "invalid": {
+        "summary": "Rydych wedi nodi cyfeiriad e-bost annilys, gwiriwch y cyfeiriad e-bost a theipiwch ef eto",
+        "message": "Nodwch gyfeiriad e-bost dilys"
+      }
+    },
+    "mobile": {
+      "required": {
+        "summary": "Nid ydych wedi nodi rhif ff&ocirc;n symudol",
+        "message": "Nodwch rif ff&ocirc;n symudol"
+      },
+      "invalid": {
+        "summary": "Nid ydych wedi nodi rhif ff&ocirc;n symudol dilys",
+        "message": "Nodwch rif ff&ocirc;n symudol heb fylchau, a rhaid i rifau ff&ocirc;n rhyngwladol ddechrau gyda&rsquo;r arwydd +"
+      }
+    }
+  }
+}

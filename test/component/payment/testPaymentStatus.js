@@ -6,7 +6,6 @@ const nock = require('nock');
 const config = require('app/config');
 const CREATE_PAYMENT_SERVICE_URL = config.services.payment.url + config.services.payment.paths.createPayment;
 const IDAM_S2S_URL = config.services.idam.s2s_url;
-const PERSISTENCE_URL = config.services.persistence.url;
 const testCommonContent = require('test/component/common/testCommonContent.js');
 
 const paymentNock = () => {
@@ -21,10 +20,6 @@ const paymentNock = () => {
             date_updated: '2018-08-29T15:25:11.920+0000',
             site_id: 'siteId0001',
         });
-
-    nock(PERSISTENCE_URL)
-        .post('/')
-        .reply(201, {});
 
     nock(IDAM_S2S_URL)
         .post('/lease')

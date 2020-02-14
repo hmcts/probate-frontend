@@ -8,87 +8,87 @@
 
 {% block content %}
     <div id="check-your-answers">
-        <h1 class="govuk-heading-l">{{ content.Summary.heading }}</h1>
-        <p class="govuk-body" id="main-heading-content">{{ content.Summary.checkCarefully }}</p>
+        <h1 class="govuk-heading-l">{{ content.Summary.heading | safe }}</h1>
+        <p class="govuk-body" id="main-heading-content">{{ content.Summary.checkCarefully | safe }}</p>
 
-        <h2 class="govuk-heading-m">{{ content.Summary.deceasedHeading }}</h2>
+        <h2 class="govuk-heading-m">{{ content.Summary.deceasedHeading | safe }}</h2>
         <dl class="govuk-summary-list">
             {% include "ui/summary/includes/deceased.njk" %}
         </dl>
 
-        <h2 class="govuk-heading-m">{{ content.Summary.uploadedDocumentsHeading }}</h2>
+        <h2 class="govuk-heading-m">{{ content.Summary.uploadedDocumentsHeading | safe }}</h2>
         <dl class="govuk-summary-list">
             {% include "ui/summary/includes/documentupload.njk" %}
         </dl>
 
-        <h2 class="govuk-heading-m">{{ content.Summary.ihtHeading }}</h2>
+        <h2 class="govuk-heading-m">{{ content.Summary.ihtHeading | safe }}</h2>
         <dl class="govuk-summary-list">
             {% include "ui/summary/includes/iht.njk" %}
         </dl>
 
         {% ifAsync fields.summary.caseType.value === globals.caseTypes.gop %}
-        <h2 class="govuk-heading-m">{{ content.Summary.applicantHeading }}</h2>
-        <dl class="govuk-summary-list">
-            {% include "ui/summary/includes/executors.njk" %}
-        </dl>
+            <h2 class="govuk-heading-m">{{ content.Summary.applicantHeading | safe }}</h2>
+            <dl class="govuk-summary-list">
+                {% include "ui/summary/includes/executors.njk" %}
+            </dl>
 
-        <h3 class="govuk-heading-s">{{ content.Summary.aboutYouHeading }}</h3>
-        <dl class="govuk-summary-list">
-            {% include "ui/summary/includes/executors-applicant.njk" %}
-        </dl>
+            <h3 class="govuk-heading-s">{{ content.Summary.aboutYouHeading | safe }}</h3>
+            <dl class="govuk-summary-list">
+                {% include "ui/summary/includes/executors-applicant.njk" %}
+            </dl>
 
-        {% ifAsync fields.executors.executorsNumber.value > 1 and fields.summary.executorsAlive.value == "true" %}
-        <h3 class="govuk-heading-s">{{ content.Summary.otherExecutors | safe }}</h3>
-        <dl class="govuk-summary-list">
-            {% include "ui/summary/includes/executors-others.njk" %}
-        </dl>
+            {% ifAsync fields.executors.executorsNumber.value > 1 and fields.summary.executorsAlive.value == "true" %}
+                <h3 class="govuk-heading-s">{{ content.Summary.otherExecutors | safe }}</h3>
+                <dl class="govuk-summary-list">
+                    {% include "ui/summary/includes/executors-others.njk" %}
+                </dl>
 
-        {% set cls = cycler(common.second,common.third,common.fourth,common.fifth) %}
-        {% for executor in fields.executors.list.value %}
-        {% ifAsync executor.isApplicant != true and executor.isApplying == true %}
-        <h3 class="govuk-heading-s">{{ content.Summary.executorApplyingForProbate | replace("{executorOrderNumber}", cls.next()) }}</h3>
-        <dl class="govuk-summary-list">
-            {% include "ui/summary/includes/executors-others-details.njk" %}
-        </dl>
-        {% endif %}
-        {% endfor %}
+                {% set cls = cycler(common.second,common.third,common.fourth,common.fifth) %}
+                {% for executor in fields.executors.list.value %}
+                    {% ifAsync executor.isApplicant != true and executor.isApplying == true %}
+                        <h3 class="govuk-heading-s">{{ content.Summary.executorApplyingForProbate | replace("{executorOrderNumber}", cls.next()) | safe }}</h3>
+                        <dl class="govuk-summary-list">
+                            {% include "ui/summary/includes/executors-others-details.njk" %}
+                        </dl>
+                        {% endif %}
+                {% endfor %}
 
-        {% ifAsync fields.summary.executorsPowerReservedOrRenounced.value == "true" %}
-        <h3 class="govuk-heading-s">{{ content.Summary.executorsNotApplyingForProbate | safe }}</h3>
-        <dl class="govuk-summary-list">
-            {% include "ui/summary/includes/executors-others-not-applying.njk" %}
-        </dl>
-        {% endif %}
-        {% endif %}
+                {% ifAsync fields.summary.executorsPowerReservedOrRenounced.value == "true" %}
+                    <h3 class="govuk-heading-s">{{ content.Summary.executorsNotApplyingForProbate | safe }}</h3>
+                    <dl class="govuk-summary-list">
+                        {% include "ui/summary/includes/executors-others-not-applying.njk" %}
+                    </dl>
+                {% endif %}
+            {% endif %}
         {% endif %}
 
         {% ifAsync fields.summary.caseType.value === globals.caseTypes.intestacy %}
-        <h2 class="govuk-heading-m">{{ content.Summary.aboutPeopleApplyingHeading | safe }}</h2>
-        <dl class="govuk-summary-list">
-            {% include "ui/summary/includes/applicants.njk" %}
-        </dl>
+            <h2 class="govuk-heading-m">{{ content.Summary.aboutPeopleApplyingHeading | safe }}</h2>
+            <dl class="govuk-summary-list">
+                {% include "ui/summary/includes/applicants.njk" %}
+            </dl>
 
-        <h3 class="govuk-heading-s">{{ content.Summary.aboutYouHeading | safe }}</h3>
-        <dl class="govuk-summary-list">
-            {% include "ui/summary/includes/executors-applicant.njk" %}
-        </dl>
+            <h3 class="govuk-heading-s">{{ content.Summary.aboutYouHeading | safe }}</h3>
+            <dl class="govuk-summary-list">
+                {% include "ui/summary/includes/executors-applicant.njk" %}
+            </dl>
         {% endif %}
 
         <p class="govuk-body save-this-page-link">
             <em class="icon icon-file-download"></em>
-            <a class="govuk-link anchor-margin-left" id="checkAnswerHref" href="/check-answers-pdf">{{ content.Summary.checkAnswersPdf }}</a>
+            <a class="govuk-link anchor-margin-left" id="checkAnswerHref" href="/check-answers-pdf">{{ content.Summary.checkAnswersPdf | safe }}</a>
         </p>
 
         <div class="govuk-form-group">
             {% if fields.summary.readyToDeclare.value == "true" %}
                 {{ govukButton({
-                    text: common.saveAndContinue,
+                    text: common.saveAndContinue | safe,
                     href: "/declaration",
                     isStartButton: true
                 }) }}
             {% else %}
                 {{ govukButton({
-                    text: common.saveAndContinue,
+                    text: common.saveAndContinue | safe,
                     href: "/summary/redirect",
                     isStartButton: true
                 }) }}

@@ -7,9 +7,9 @@
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l">{{ content.header }}</h1>
-            <p class="govuk-body">{{ content.introduction }}</p>
-            <p class="govuk-body">{{ content.saveAndReturn }}</p>
+            <h1 class="govuk-heading-l">{{ content.header | safe }}</h1>
+            <p class="govuk-body">{{ content.introduction | safe }}</p>
+            <p class="govuk-body">{{ content.saveAndReturn | safe }}</p>
             <ol class="task-list">
                 {% ifAsync fields.caseType.value === globals.caseTypes.gop %}
                     {% include "ui/tasklist/includes/deceased.njk" %}

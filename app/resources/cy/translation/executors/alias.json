@@ -1,0 +1,16 @@
+{
+  "title": "A oes gan unrhyw un o&rsquo;r ysgutorion hyn enw gwahanol nawr i beth sydd yn yr ewyllys",
+  "question": "A oes gan unrhyw un o&rsquo;r ysgutorion hyn enw gwahanol nawr i beth sydd yn yr ewyllys?",
+  "optionYes": "Oes",
+  "optionNo": "Nag oes",
+  "paragraph1": "Bydd yr enwau hyn yn cael eu cynnwys ar y grant profiant.",
+
+  "errors": {
+    "alias": {
+      "required": {
+        "summary": "Nid ydych wedi ateb y cwestiwn",
+        "message": "Atebwch &lsquo;oes&rsquo; os oes gan unrhyw un o&rsquo;r ysgutorion rydych wedi&rsquo;u hychwanegu enw gwahanol nawr i beth sydd yn yr ewyllys"
+      }
+    }
+  }
+}

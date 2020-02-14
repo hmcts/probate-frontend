@@ -2,7 +2,6 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
-const content = require('app/resources/en/translation/deceased/anychildren');
 
 class AnyChildren extends ValidationStep {
 
@@ -20,7 +19,7 @@ class AnyChildren extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'anyChildren', value: content.optionYes, choice: 'hadChildren'}
+                {key: 'anyChildren', value: 'optionYes', choice: 'hadChildren'}
             ]
         };
     }

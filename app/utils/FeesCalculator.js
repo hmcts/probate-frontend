@@ -10,25 +10,8 @@ class FeesCalculator {
     constructor(endpoint, sessionId) {
         this.endpoint = endpoint;
         this.sessionId = sessionId;
-        this.issuesData = {
-            amount_or_volume: 0,
-            applicant_type: 'personal',
-            channel: 'default',
-            event: 'issue',
-            jurisdiction1: 'family',
-            jurisdiction2: 'probate registry',
-            service: 'probate'
-        };
-        this.copiesData = {
-            amount_or_volume: 0,
-            applicant_type: 'all',
-            channel: 'default',
-            event: 'copies',
-            jurisdiction1: 'family',
-            jurisdiction2: 'probate registry',
-            service: 'probate',
-            keyword: 'NewFee'
-        };
+        this.issuesData = config.services.feesRegister.issuesData;
+        this.copiesData = config.services.feesRegister.copiesData;
         this.feesLookup = new FeesLookup(this.endpoint, sessionId);
     }
 

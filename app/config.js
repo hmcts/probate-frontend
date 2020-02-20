@@ -93,7 +93,27 @@ const config = {
                 fees: '/fees',
                 feesLookup: '/fees/lookup'
             },
-            ihtMinAmt: 5000
+            ihtMinAmt: 5000,
+            issuesData: {
+                amount_or_volume: 0,
+                applicant_type: 'personal',
+                channel: 'default',
+                event: 'issue',
+                jurisdiction1: 'family',
+                jurisdiction2: 'probate registry',
+                service: 'probate',
+                keyword: 'PA'
+            },
+            copiesData: {
+                amount_or_volume: 0,
+                applicant_type: 'all',
+                channel: 'default',
+                event: 'copies',
+                jurisdiction1: 'family',
+                jurisdiction2: 'probate registry',
+                service: 'probate',
+                keyword: 'GrantWill'
+            }
         }
     },
     redis: {

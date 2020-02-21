@@ -19,8 +19,6 @@ Install dependencies by executing the following command:
 $ yarn install
 ```
 
-Sass:
-
 ```
 $ yarn setup
 ```

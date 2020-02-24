@@ -12,7 +12,7 @@ router.get('/task-list', (req, res, next) => {
     ];
 
     healthcheck.getDownstream(services, healthcheck.health, healthDownstream => {
-        healthDownstream.status = 'UP';
+        healthDownstream[0].status = 'UP';
         req.session.equalityHealth = healthDownstream[0].status;
         logger.info(config.services.equalityAndDiversity.name, 'is', req.session.equalityHealth);
 

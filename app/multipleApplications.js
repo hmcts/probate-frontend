@@ -2,6 +2,7 @@
 
 const router = require('express').Router();
 const multipleApplications = require('app/middleware/multipleApplications');
+
 router.get('/', (req, res) => {
     res.redirect('/dashboard');
 });

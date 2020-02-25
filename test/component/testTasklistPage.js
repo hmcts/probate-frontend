@@ -2,6 +2,8 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const caseTypes = require('app/utils/CaseTypes');
+const config = require('app/config');
+const nock = require('nock');
 
 describe('task-list', () => {
     let testWrapper;
@@ -22,7 +24,37 @@ describe('task-list', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        it('[PROBATE] test right content loaded on the page', (done) => {
+        it('[PROBATE] test right content loaded on the page when either declaration checkbox is false or single applicant', (done) => {
+            const contentToExclude = [
+                'applicantsTask',
+                'copiesTaskIntestacy',
+                'introduction',
+                'saveAndReturn',
+                'reviewAndConfirmTaskMultiplesParagraph1',
+                'reviewAndConfirmTaskMultiplesParagraph2',
+                'taskNotStarted',
+                'taskStarted',
+                'taskComplete',
+                'taskUnavailable',
+                'checkYourAnswers',
+                'alreadyDeclared'
+            ];
+            sessionData.caseType = caseTypes.GOP;
+            sessionData.applicantEmail = 'test@email.com';
+            delete sessionData.declaration.declarationCheckbox;
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testDataPlayback(done, {}, contentToExclude);
+                });
+        });
+
+        it('[PROBATE] test right content loaded on the page when declaration checkbox is true and has multiple applicants', (done) => {
+            nock(config.services.orchestrator.url)
+                .get(config.services.orchestrator.paths.forms.replace('{ccdCaseId}', sessionData.ccdCase.id) + '?probateType=PA')
+                .reply(200, sessionData);
+
             const contentToExclude = [
                 'applicantsTask',
                 'copiesTaskIntestacy',
@@ -47,7 +79,11 @@ describe('task-list', () => {
                 });
         });
 
-        it('[INTESTACY] test right content loaded on the page', (done) => {
+        it('[INTESTACY] test right content loaded on the page when no declaration statuses check needed', (done) => {
+            nock(config.services.orchestrator.url)
+                .get(config.services.orchestrator.paths.forms.replace('{ccdCaseId}', sessionData.ccdCase.id) + '?probateType=INTESTACY')
+                .reply(200, sessionData);
+
             const contentToExclude = [
                 'executorsTask',
                 'copiesTaskProbate',
@@ -85,7 +121,6 @@ describe('task-list', () => {
                 applicant: sessionData.applicant,
                 deceased: sessionData.deceased,
                 executors: sessionData.executors,
-                declaration: sessionData.declaration,
                 applicantEmail: 'test@email.com'
             };
             const contentToExclude = [

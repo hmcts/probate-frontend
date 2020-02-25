@@ -89,21 +89,28 @@ const renderDashboard = (req, result, next) => {
     next();
 };
 
-const getCase = (req, res) => {
+const getCase = (req, res, next, checkDeclarationStatuses) => {
     const session = req.session;
+    const redirectingFromDashboard = req.originalUrl !== '/task-list';
+    let ccdCaseId;
+    let probateType;
 
-    let ccdCaseId = req.originalUrl.split('/')[2];
-    if (ccdCaseId) {
-        ccdCaseId = ccdCaseId.split('?')[0];
-    }
-
-    let probateType = req.originalUrl.split('/')[2];
-    if (probateType) {
-        probateType = probateType.split('?')[1];
-
-        if (probateType) {
-            probateType = probateType.split('=')[1];
+    if (redirectingFromDashboard) {
+        ccdCaseId = req.originalUrl.split('/')[2];
+        if (ccdCaseId) {
+            ccdCaseId = ccdCaseId.split('?')[0];
         }
+
+        probateType = req.originalUrl.split('/')[2];
+        if (probateType) {
+            probateType = probateType.split('?')[1];
+
+            if (probateType) {
+                probateType = probateType.split('=')[1];
+            }
+        }
+    } else {
+        ccdCaseId = req.session.form.ccdCase.id;
     }
 
     if (!probateType && req.session.form.caseType) {
@@ -118,9 +125,15 @@ const getCase = (req, res) => {
 
         formData.get(req.authToken, req.session.serviceAuthorization, ccdCaseId, probateType)
             .then(result => {
-                session.form = result;
-
-                res.redirect('/task-list');
+                if (redirectingFromDashboard) {
+                    session.form = result;
+                    res.redirect('/task-list');
+                } else {
+                    if (checkDeclarationStatuses) {
+                        session.form = populateDeclarationFlags(result, session.form);
+                    }
+                    next();
+                }
             })
             .catch(err => {
                 logger.error(`Error while getting the case: ${err}`);
@@ -132,50 +145,39 @@ const getCase = (req, res) => {
 };
 
 const getDeclarationStatuses = (req, res, next) => {
-    const session = req.session;
-    const formdata = session.form;
+    const formdata = req.session.form;
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
 
     if ((get(formdata, 'declaration.declarationCheckbox', false)).toString() === 'true' && hasMultipleApplicants) {
-        const ccdCaseId = formdata.ccdCase.id;
-
-        const formData = ServiceMapper.map(
-            'FormData',
-            [config.services.orchestrator.url, req.sessionID]
-        );
-
-        formData.getDeclarationStatuses(req.authToken, req.session.serviceAuthorization, ccdCaseId)
-            .then(result => {
-                session.form.executorsDeclarations = [];
-
-                if (result.invitations && result.invitations.length) {
-                    session.form.executorsDeclarations = result.invitations.map(executor => {
-                        let agreed;
-
-                        if (executor.agreed === null) {
-                            agreed = 'notDeclared';
-                        } else if (executor.agreed) {
-                            agreed = 'agreed';
-                        } else {
-                            agreed = 'disagreed';
-                        }
-
-                        return {
-                            executorName: executor.executorName,
-                            agreed: agreed
-                        };
-                    });
-                }
-
-                next();
-            })
-            .catch(err => {
-                logger.error(`Error while getting the declaration statuses: ${err}`);
-            });
+        getCase(req, res, next, true);
     } else {
         next();
     }
+};
+
+const populateDeclarationFlags = (result, formdata) => {
+    formdata.executorsDeclarations = [];
+
+    result.executors.list
+        .forEach((executor, index) => {
+            if (!executor.isApplicant && executor.isApplying) {
+                const executorAgreed = get(executor, 'executorAgreed', null);
+                let agreed;
+                if (executorAgreed === null) {
+                    agreed = 'notDeclared';
+                } else {
+                    formdata.executors.list[index].executorAgreed = executorAgreed;
+                    agreed = executorAgreed === 'optionYes' ? 'agreed' : 'disagreed';
+                }
+                formdata.executorsDeclarations.push({
+                    executorName: executor.fullName,
+                    agreed: agreed
+                });
+            }
+        });
+
+    return formdata;
 };
 
 const cleanupSession = (session, retainCaseType = false) => {

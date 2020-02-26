@@ -21,7 +21,9 @@ class PaymentBreakdown extends Step {
 
         ctx.copies = this.createCopiesLayout(formdata);
         ctx.applicationFee = fees.applicationfee;
-        ctx.total = Number.isInteger(fees.total) ? fees.total : parseFloat(fees.total).toFixed(2);
+        ctx.total = fees.total;
+        ctx = this.formatAmounts(ctx);
+
         return [ctx, ctx.errors];
     }
 
@@ -38,6 +40,14 @@ class PaymentBreakdown extends Step {
             uk: {number: ukCopies, cost: formdata.fees.ukcopiesfee},
             overseas: {number: overseasCopies, cost: formdata.fees.overseascopiesfee},
         };
+    }
+
+    formatAmounts(ctx) {
+        ctx.applicationFee = ctx.applicationFee.toFixed(2);
+        ctx.total = ctx.total.toFixed(2);
+        ctx.copies.uk.cost = ctx.copies.uk.cost.toFixed(2);
+        ctx.copies.overseas.cost = ctx.copies.overseas.cost.toFixed(2);
+        return ctx;
     }
 
     getContextData(req) {
@@ -63,6 +73,7 @@ class PaymentBreakdown extends Step {
             ctx.total = originalFees.total;
             ctx.applicationFee = originalFees.applicationfee;
             ctx.copies = this.createCopiesLayout(formdata);
+            ctx = this.formatAmounts(ctx);
 
             const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
             const serviceAuthResult = yield authorise.post();
@@ -132,7 +143,6 @@ class PaymentBreakdown extends Step {
                 }
                 ctx.reference = paymentResponse.reference;
                 ctx.paymentCreatedDate = paymentResponse.date_created;
-
                 this.nextStepUrl = () => paymentResponse._links.next_url.href;
             } else {
                 delete this.nextStepUrl;

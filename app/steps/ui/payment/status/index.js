@@ -25,7 +25,7 @@ class PaymentStatus extends Step {
         const formdata = req.session.form;
 
         ctx.payment = get(formdata, 'payment');
-        ctx.paymentNotRequired = get(ctx.payment, 'total') === 0;
+        ctx.paymentNotRequired = get(ctx.payment, 'total') === '0.00';
         ctx.reference = get(formdata, 'payment.reference');
         ctx.paymentBreakdownSkipped = typeof ctx.reference === 'undefined';
         ctx.paymentDue = !ctx.paymentBreakdownSkipped && !ctx.paymentNotRequired;

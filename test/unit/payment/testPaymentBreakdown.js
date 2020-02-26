@@ -216,7 +216,10 @@ describe('PaymentBreakdown', () => {
             let errors = [];
             const formdata = {
                 fees: {
-                    total: 0.0
+                    total: 0,
+                    ukcopiesfee: 0,
+                    overseascopiesfee: 0,
+                    applicationfee: 0
                 }
             };
 
@@ -341,18 +344,18 @@ describe('PaymentBreakdown', () => {
                 expect(errors).to.deep.equal(errorsTestData);
                 expect(ctx).to.deep.equal({
                     caseType: 'gop',
-                    applicationFee: 215,
+                    applicationFee: '215.00',
                     copies: {
                         uk: {
-                            cost: 1.5,
+                            cost: '1.50',
                             number: 1
                         },
                         overseas: {
-                            cost: 3,
+                            cost: '3.00',
                             number: 2
                         }
                     },
-                    total: 219.50
+                    total: '219.50'
                 });
                 postStub.restore();
                 done();
@@ -672,6 +675,59 @@ describe('PaymentBreakdown', () => {
                 getStub.restore();
                 done(err);
             });
+        });
+    });
+
+    describe('Tests formatting of fee and copies amounts', () => {
+        it('test that fees and copies that are whole numbers have trailing .00', () => {
+            let ctx = {
+                applicationFee: 200,
+                total: 209,
+                copies: {
+                    uk: {cost: 3},
+                    overseas: {cost: 6}
+                }
+            };
+            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
+            ctx = paymentBreakdown.formatAmounts(ctx);
+            expect(ctx.applicationFee).to.equal('200.00');
+            expect(ctx.total).to.equal('209.00');
+            expect(ctx.copies.uk.cost).to.equal('3.00');
+            expect(ctx.copies.overseas.cost).to.equal('6.00');
+        });
+
+        it('test that if fees and copies have a single decimal point they are convert to 2 decimal places', () => {
+            let ctx = {
+                applicationFee: 200.0,
+                total: 207.5,
+                copies: {
+                    uk: {cost: 3},
+                    overseas: {cost: 4.5}
+                }
+            };
+            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
+            ctx = paymentBreakdown.formatAmounts(ctx);
+            expect(ctx.applicationFee).to.equal('200.00');
+            expect(ctx.total).to.equal('207.50');
+            expect(ctx.copies.uk.cost).to.equal('3.00');
+            expect(ctx.copies.overseas.cost).to.equal('4.50');
+        });
+
+        it('test that if fees and copies have two decimal places they are retured with two decimal places', () => {
+            let ctx = {
+                applicationFee: 200.00,
+                total: 207.50,
+                copies: {
+                    uk: {cost: 3.00},
+                    overseas: {cost: 4.50}
+                }
+            };
+            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
+            ctx = paymentBreakdown.formatAmounts(ctx);
+            expect(ctx.applicationFee).to.equal('200.00');
+            expect(ctx.total).to.equal('207.50');
+            expect(ctx.copies.uk.cost).to.equal('3.00');
+            expect(ctx.copies.overseas.cost).to.equal('4.50');
         });
     });
 

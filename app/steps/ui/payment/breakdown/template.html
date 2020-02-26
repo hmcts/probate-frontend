@@ -6,23 +6,23 @@
 {% set tableRows = [] %}
 {% set tableRows = (tableRows.push([
     { text: content.applicationFee | safe },
-    { text: ("&pound;" + fields.applicationFee.value) | safe }
+    { text: ("&pound;" + fields.applicationFee.value) | safe, format: "numeric" }
 ]), tableRows) %}
 {% if fields.copies.value.uk.cost > 0 %}
     {% set tableRows = (tableRows.push([
         { text: (fields.copies.value.uk.number + " " + content.extraCopiesFeeUk) | safe },
-        { text: ("&pound;" + fields.copies.value.uk.cost.toFixed(2)) | safe }
+        { text: ("&pound;" + fields.copies.value.uk.cost) | safe, format: "numeric" }
     ]), tableRows) %}
 {% endif %}
 {% if fields.copies.value.overseas.cost > 0 %}
     {% set tableRows = (tableRows.push([
         { text: (fields.copies.value.overseas.number + " " + content.extraCopiesFeeOverseas) | safe },
-        { text: ("&pound;" + fields.copies.value.overseas.cost.toFixed(2)) | safe }
+        { text: ("&pound;" + fields.copies.value.overseas.cost) | safe, format: "numeric" }
     ]), tableRows) %}
 {% endif %}
 {% set tableRows = (tableRows.push([
     { text: content.total | safe },
-    { text: ("&pound;" + fields.total.value) | safe }
+    { text: ("&pound;" + fields.total.value) | safe, format: "numeric" }
 ]), tableRows) %}
 
 {% block form_content %}

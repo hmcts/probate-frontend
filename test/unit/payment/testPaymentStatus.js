@@ -137,11 +137,13 @@ describe('PaymentStatus', () => {
                 redirect: true,
                 url: '/payment-breakdown?status=failure'
             };
-            const formData = {};
+            const session = {
+                form: {}
+            };
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
 
             co(function* () {
-                const options = yield paymentStatus.runnerOptions(ctx, formData);
+                const options = yield paymentStatus.runnerOptions(ctx, session);
                 expect(options).to.deep.equal(expectedOptions);
                 revert();
                 done();
@@ -160,13 +162,17 @@ describe('PaymentStatus', () => {
                     }
                 }
             });
-            const formData = {'payment': {}};
+            const session = {
+                form: {
+                    payment: {}
+                }
+            };
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
 
             co(function* () {
-                const options = yield paymentStatus.runnerOptions(ctx, formData);
+                const options = yield paymentStatus.runnerOptions(ctx, session);
                 expect(options.redirect).to.equal(false);
-                expect(formData).to.deep.equal(expectedFormData);
+                expect(session.form).to.deep.equal(expectedFormData);
                 revert();
                 done();
             }).catch(err => {
@@ -187,20 +193,24 @@ describe('PaymentStatus', () => {
                     }
                 }
             });
-            const formData = {'payment': {},
-                'registry': {
-                    'name': 'ctsc',
-                    'email': 'ctsc@email.com',
-                    'address': 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
-                    'sequenceNumber': 3
-                }};
+            const session = {
+                form: {
+                    payment: {},
+                    registry: {
+                        name: 'ctsc',
+                        email: 'ctsc@email.com',
+                        address: 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
+                        sequenceNumber: 3
+                    }
+                }
+            };
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
 
             co(function* () {
-                const options = yield paymentStatus.runnerOptions(ctx, formData);
+                const options = yield paymentStatus.runnerOptions(ctx, session);
                 expect(options.redirect).to.equal(true);
                 expect(options.url).to.equal('/payment-breakdown?status=failure');
-                expect(formData).to.deep.equal(expectedFormData);
+                expect(session.form).to.deep.equal(expectedFormData);
                 revert();
                 done();
             }).catch(err => {
@@ -235,21 +245,23 @@ describe('PaymentStatus', () => {
                 paymentNotRequired: true
             };
 
-            const formData = {
-                caseType: caseTypes.GOP,
-                registry: {
-                    name: 'ctsc',
-                    email: 'ctsc@email.com',
-                    address: 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
-                    sequenceNumber: 3
+            const session = {
+                form: {
+                    caseType: caseTypes.GOP,
+                    registry: {
+                        name: 'ctsc',
+                        email: 'ctsc@email.com',
+                        address: 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
+                        sequenceNumber: 3
+                    }
                 }
             };
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
 
             co(function* () {
-                const options = yield paymentStatus.runnerOptions(ctx, formData);
+                const options = yield paymentStatus.runnerOptions(ctx, session);
                 expect(options.redirect).to.equal(false);
-                expect(formData).to.deep.equal(expectedFormData);
+                expect(session.form).to.deep.equal(expectedFormData);
                 done();
             }).catch(err => {
                 done(err);
@@ -272,13 +284,14 @@ describe('PaymentStatus', () => {
                 }
             };
 
-            const formData = {};
-            const expectedFormData = {
+            const session = {
+                form: {}
             };
+            const expectedFormData = {};
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
             co(function* () {
-                const options = yield paymentStatus.runnerOptions(ctx, formData);
-                expect(formData).to.deep.equal(expectedFormData);
+                const options = yield paymentStatus.runnerOptions(ctx, session);
+                expect(session.form).to.deep.equal(expectedFormData);
                 expect(options.redirect).to.equal(false);
                 expect(options.errors).to.deep.equal([{
                     field: 'update',
@@ -312,11 +325,13 @@ describe('PaymentStatus', () => {
                 paymentDue: false
             };
 
-            const formData = {};
+            const session = {
+                form: {}
+            };
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
 
             co(function* () {
-                const options = yield paymentStatus.runnerOptions(ctx, formData);
+                const options = yield paymentStatus.runnerOptions(ctx, session);
                 expect(options.errors).to.deep.equal([{
                     field: 'update',
                     href: '#update',
@@ -344,11 +359,15 @@ describe('PaymentStatus', () => {
                     }
                 }
             });
-            const formData = {'payment': {}};
+            const session = {
+                form: {
+                    payment: {}
+                }
+            };
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
 
             co(function* () {
-                const options = yield paymentStatus.runnerOptions(ctx, formData);
+                const options = yield paymentStatus.runnerOptions(ctx, session);
                 expect(options.redirect).to.equal(true);
                 revert();
                 done();

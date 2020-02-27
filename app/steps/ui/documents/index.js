@@ -18,7 +18,8 @@ class Documents extends ValidationStep {
         return '/documents';
     }
 
-    runnerOptions(ctx, formdata) {
+    runnerOptions(ctx, session) {
+        const formdata = session.form;
         const options = {};
 
         if (ctx.caseType === caseTypes.INTESTACY) {

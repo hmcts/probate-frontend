@@ -270,9 +270,11 @@ describe('Documents', () => {
             const ctx = {
                 caseType: caseTypes.GOP
             };
-            const formData = {};
+            const session = {
+                form: {}
+            };
             co(function* () {
-                const options = yield Documents.runnerOptions(ctx, formData);
+                const options = yield Documents.runnerOptions(ctx, session);
 
                 expect(options).to.deep.equal({});
                 done();
@@ -285,13 +287,15 @@ describe('Documents', () => {
             const ctx = {
                 caseType: caseTypes.INTESTACY
             };
-            const formData = {
-                documents: {
-                    uploads: []
+            const session = {
+                form: {
+                    documents: {
+                        uploads: []
+                    }
                 }
             };
             co(function* () {
-                const options = yield Documents.runnerOptions(ctx, formData);
+                const options = yield Documents.runnerOptions(ctx, session);
 
                 expect(options).to.deep.equal({});
                 done();
@@ -304,14 +308,16 @@ describe('Documents', () => {
             const ctx = {
                 caseType: caseTypes.INTESTACY
             };
-            const formData = {
-                iht: {
-                    method: 'optionPaper',
-                    form: 'optionIHT205'
+            const session = {
+                form: {
+                    iht: {
+                        method: 'optionPaper',
+                        form: 'optionIHT205'
+                    }
                 }
             };
             co(function* () {
-                const options = yield Documents.runnerOptions(ctx, formData);
+                const options = yield Documents.runnerOptions(ctx, session);
 
                 expect(options).to.deep.equal({});
                 done();
@@ -324,16 +330,18 @@ describe('Documents', () => {
             const ctx = {
                 caseType: caseTypes.INTESTACY
             };
-            const formData = {
-                deceased: {
-                    maritalStatus: 'optionMarried'
-                },
-                applicant: {
-                    relationshipToDeceased: 'optionChild'
+            const session = {
+                form: {
+                    deceased: {
+                        maritalStatus: 'optionMarried'
+                    },
+                    applicant: {
+                        relationshipToDeceased: 'optionChild'
+                    }
                 }
             };
             co(function* () {
-                const options = yield Documents.runnerOptions(ctx, formData);
+                const options = yield Documents.runnerOptions(ctx, session);
 
                 expect(options).to.deep.equal({});
                 done();
@@ -346,16 +354,18 @@ describe('Documents', () => {
             const ctx = {
                 caseType: caseTypes.INTESTACY
             };
-            const formData = {
-                deceased: {
-                    maritalStatus: 'optionMarried'
-                },
-                applicant: {
-                    relationshipToDeceased: 'optionAdoptedChild'
+            const session = {
+                form: {
+                    deceased: {
+                        maritalStatus: 'optionMarried'
+                    },
+                    applicant: {
+                        relationshipToDeceased: 'optionAdoptedChild'
+                    }
                 }
             };
             co(function* () {
-                const options = yield Documents.runnerOptions(ctx, formData);
+                const options = yield Documents.runnerOptions(ctx, session);
 
                 expect(options).to.deep.equal({});
                 done();
@@ -368,22 +378,24 @@ describe('Documents', () => {
             const ctx = {
                 caseType: caseTypes.INTESTACY
             };
-            const formData = {
-                deceased: {
-                    maritalStatus: 'optionSeparated'
-                },
-                documents: {
-                    uploads: [
-                        'testfile.pdf'
-                    ]
-                },
-                iht: {
-                    method: 'optionPaper',
-                    form: 'optionIHT207'
+            const session = {
+                form: {
+                    deceased: {
+                        maritalStatus: 'optionSeparated'
+                    },
+                    documents: {
+                        uploads: [
+                            'testfile.pdf'
+                        ]
+                    },
+                    iht: {
+                        method: 'optionPaper',
+                        form: 'optionIHT207'
+                    }
                 }
             };
             co(function* () {
-                const options = yield Documents.runnerOptions(ctx, formData);
+                const options = yield Documents.runnerOptions(ctx, session);
 
                 expect(options).to.deep.equal({
                     redirect: true,

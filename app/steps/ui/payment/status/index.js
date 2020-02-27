@@ -56,7 +56,9 @@ class PaymentStatus extends Step {
         return [typeof formdata.payment !== 'undefined' && formdata.ccdCase.state === 'CaseCreated' && (formdata.payment.status === 'Success' || formdata.payment.status === 'not_required'), 'inProgress'];
     }
 
-    * runnerOptions(ctx, formdata, language) {
+    * runnerOptions(ctx, session) {
+        const formdata = session.form;
+
         const options = {};
         const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
         const serviceAuthResult = yield authorise.post();
@@ -87,7 +89,7 @@ class PaymentStatus extends Step {
                 return options;
             }
 
-            const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, getPaymentResponse, serviceAuthResult, language);
+            const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, getPaymentResponse, serviceAuthResult, session.language);
             set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
             set(formdata, 'payment', updateCcdCaseResponse.payment);
             set(formdata, 'registry', updateCcdCaseResponse.registry);
@@ -108,7 +110,7 @@ class PaymentStatus extends Step {
             if (ctx.paymentNotRequired) {
                 set(ctx.payment, 'status', 'not_required');
             }
-            const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, ctx.payment, serviceAuthResult, language);
+            const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, ctx.payment, serviceAuthResult, session.language);
 
             if (ctx.paymentNotRequired) {
                 set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);

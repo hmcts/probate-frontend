@@ -226,6 +226,8 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}) {
             req.session = Object.assign(req.session, a11yTestSession);
         }
 
+        req.session.uuid = uuidv4();
+
         next();
     });
 

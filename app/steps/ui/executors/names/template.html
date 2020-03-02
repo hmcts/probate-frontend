@@ -24,6 +24,9 @@
                 },
                 id: "executorName_" + i,
                 name: "executorName[" + i + "]",
+                hint: {
+                    text: content.fullNameHint | safe
+                },
                 value: fields.executorName.value[i] | safe,
                 errorMessage: { text: fields["executorName_" + i].errorMessage.message | safe } if fields["executorName_" + i].errorMessage,
                 attributes: {

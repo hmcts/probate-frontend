@@ -4,6 +4,7 @@
   "paragraph": "Nodwch enwau&rsquo;r holl ysgutorion, yn union fel y maent yn ymddangos yn yr ewyllys.",
   "executor": "Ysgutor",
   "fullName": "Enw Llawn",
+  "fullNameHint": "Gan gynnwys enwau canol",
   "numberOfExecutorsPage": "Newid y nifer o ysgutorion",
 
   "errors": {

@@ -4,6 +4,7 @@
   "paragraph": "Write the names of all the executors, exactly as they appear on the will.",
   "executor": "Executor",
   "fullName": "Full name",
+  "fullNameHint": "Including middle names",
   "numberOfExecutorsPage": "Change number of executors",
 
   "errors": {

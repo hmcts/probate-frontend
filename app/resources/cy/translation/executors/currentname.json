@@ -1,7 +1,8 @@
 {
   "title": "Enw cyfredol",
   "question": "Beth yw enw cyfredol {executorFullName}?",
-  "currentNameHint": "Bydd eu henwau cyfredol yn cael eu cynnwys ar y grant profiant",
+  "currentNameHint1": "Bydd eu henwau cyfredol yn cael eu cynnwys ar y grant profiant",
+  "currentNameHint2": "Gan gynnwys enwau canol",
   "currentName": "Enw cyfredol",
 
   "errors": {

@@ -80,7 +80,11 @@
         {% endif %}
     {% endif %}
 
-    <h1 class="govuk-heading-l">{{ content.en.title | safe }}</h1>
+    {% if fields.bilingual.value === "true" %}
+        <h2 class="govuk-heading-l">{{ content.en.title | safe }}</h2>
+    {% else %}
+        <h1 class="govuk-heading-l">{{ content.en.title | safe }}</h1>
+    {% endif %}
     <p class="govuk-body word-break">{{ fields.legalStatement.value.en.intro | safe }}</p>
     {% ifAsync fields.caseType.value === globals.caseTypes.gop %}
         <div class="declaration-wrapper word-break declaration-language language-en">

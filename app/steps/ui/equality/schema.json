@@ -1,14 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "equality",
+  "id": "pcqId",
   "type": "object",
   "properties": {
-    "equality": {
-      "type": "boolean",
+    "pcqId": {
+      "type": "string",
       "minLength": 1
     }
   },
   "required": [
-    "equality"
+    "pcqId"
   ]
 }

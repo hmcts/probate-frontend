@@ -24,6 +24,9 @@ describe('Equality', () => {
                     applicantEmail: 'applicant@email.com',
                     ccdCase: {
                         id: 1234567890123456
+                    },
+                    equality: {
+                        pcqId: '78e69022-2468-4370-a88e-bea2a80fa51f'
                     }
                 },
                 language: 'en'
@@ -35,7 +38,7 @@ describe('Equality', () => {
 
                 expect(options).to.deep.equal({
                     redirect: true,
-                    url: 'http://localhost:4000/service-endpoint?serviceId=PROBATE&actor=CITIZEN&pcqId=6543210987654321&ccdCaseId=1234567890123456&partyId=applicant@email.com&returnUrl=http://localhost:3000/task-list&language=en'
+                    url: 'http://localhost:4000/service-endpoint?serviceId=PROBATE&actor=CITIZEN&pcqId=78e69022-2468-4370-a88e-bea2a80fa51f&ccdCaseId=1234567890123456&partyId=applicant@email.com&returnUrl=http://localhost:3000/task-list&language=en'
                 });
                 done();
             }).catch(err => {
@@ -49,7 +52,7 @@ describe('Equality', () => {
             const ctx = {};
             const formdata = {
                 equality: {
-                    equality: true
+                    pcqId: '78e69022-2468-4370-a88e-bea2a80fa51f'
                 }
             };
             const complete = Equality.isComplete(ctx, formdata);

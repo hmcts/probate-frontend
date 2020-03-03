@@ -27,7 +27,7 @@ const fs = require('fs');
 const https = require('https');
 const appInsights = require('applicationinsights');
 const uuidv4 = require('uuid/v4');
-const uuid = uuidv4();
+const nonce = uuidv4();
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
 const caseTypes = require('app/utils/CaseTypes');
@@ -84,7 +84,7 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}) {
         gaTrackingId: config.gaTrackingId,
         enableTracking: config.enableTracking,
         links: config.links,
-        nonce: uuid,
+        nonce: nonce,
         documentUpload: {
             validMimeTypes: config.documentUpload.validMimeTypes,
             maxFiles: config.documentUpload.maxFiles,
@@ -122,7 +122,7 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}) {
                 'www.google-analytics.com',
                 'vcc-eu4.8x8.com',
                 'vcc-eu4b.8x8.com',
-                `'nonce-${uuid}'`
+                `'nonce-${nonce}'`
             ],
             connectSrc: ['\'self\''],
             mediaSrc: ['\'self\''],

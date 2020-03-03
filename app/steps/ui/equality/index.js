@@ -19,7 +19,7 @@ class Equality extends ValidationStep {
         const params = {
             serviceId: 'PROBATE',
             actor: 'CITIZEN',
-            pcqId: session.uuid,
+            pcqId: session.form.equality.pcqId,
             ccdCaseId: session.form.ccdCase.id,
             partyId: session.form.applicantEmail,
             returnUrl: `${host}/task-list`,
@@ -36,15 +36,11 @@ class Equality extends ValidationStep {
             url: serviceUrl
         };
 
-        session.form.equality = {
-            equality: true
-        };
-
         return options;
     }
 
     isComplete(ctx, formdata) {
-        const complete = get(formdata, 'equality.equality', false) || get(formdata, 'payment.status', false) === 'Success';
+        const complete = get(formdata, 'equality.pcqId', false) !== false || get(formdata, 'payment.status', false) === 'Success';
         return [complete, 'inProgress'];
     }
 }

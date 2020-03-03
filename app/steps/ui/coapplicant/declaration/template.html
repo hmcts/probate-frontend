@@ -72,7 +72,11 @@
         </div>
     {% endif %}
 
-    <h1 class="govuk-heading-l">{{ content.en.pageHeader | safe }}</h1>
+    {% if fields.bilingual.value === "true" %}
+        <h2 class="govuk-heading-l">{{ content.en.pageHeader | safe }}</h2>
+    {% else %}
+        <h1 class="govuk-heading-l">{{ content.en.pageHeader | safe }}</h1>
+    {% endif %}
     <p class="govuk-body">{{ content.en.legalStatementIntro | replace("{mainApplicantName}", fields.applicant.value.firstName + " " +  fields.applicant.value.lastName) | safe }}</p>
     <div class="inset-page">
         <div class="govuk-heading-m declaration-header">{{ content.en.highCourtHeader | safe }}</div>

@@ -3,7 +3,7 @@
 const requireDirectory = require('require-directory');
 const steps = requireDirectory(module);
 
-module.exports = () => {
+module.exports = function() {
     return actor({
         // Stop page
         seeStopPage: steps.stoppage.stoppage,

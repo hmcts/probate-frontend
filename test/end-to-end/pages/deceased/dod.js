@@ -3,7 +3,7 @@
 const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/deceased/dod');
 
-module.exports = (day, month, year) => {
+module.exports = function(day, month, year) {
     const I = this;
     I.amOnLoadedPage(pageUnderTest.getUrl());
 

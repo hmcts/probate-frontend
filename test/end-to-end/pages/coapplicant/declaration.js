@@ -2,7 +2,7 @@
 
 const pageUnderTest = require('app/steps/ui/coapplicant/declaration');
 
-module.exports = (agreeDisagree) => {
+module.exports = function(agreeDisagree) {
     const I = this;
 
     I.amOnLoadedPage(pageUnderTest.getUrl());

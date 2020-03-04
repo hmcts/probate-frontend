@@ -3,7 +3,7 @@
 const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/executors/notified');
 
-module.exports = (executorNotified, executorNumber) => {
+module.exports = function(executorNotified, executorNumber) {
     const I = this;
 
     I.amOnLoadedPage(pageUnderTest.getUrl(parseInt(executorNumber) - 1));

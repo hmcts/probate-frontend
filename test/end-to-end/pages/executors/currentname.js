@@ -3,7 +3,7 @@
 const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/executors/currentname');
 
-module.exports = (executorNumber, firstRecord) => {
+module.exports = function(executorNumber, firstRecord) {
     const I = this;
 
     if (firstRecord) {

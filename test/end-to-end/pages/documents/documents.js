@@ -4,7 +4,7 @@ const commonContent = require('app/resources/en/translation/common');
 const documentsContent = require('app/resources/en/translation/documents');
 const pageUnderTest = require('app/steps/ui/documents');
 
-module.exports = (paperForm, deathCertUploaded, renouncing) => {
+module.exports = function(paperForm, deathCertUploaded, renouncing) {
     const I = this;
 
     I.amOnLoadedPage(pageUnderTest.getUrl());

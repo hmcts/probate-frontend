@@ -2,7 +2,7 @@
 
 const testConfig = require('test/config');
 
-module.exports = () => {
+module.exports = function() {
     const I = this;
 
     I.waitForText('Payment summary', testConfig.TestWaitForTextToAppear);

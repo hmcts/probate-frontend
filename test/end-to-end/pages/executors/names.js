@@ -3,7 +3,7 @@
 const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/executors/names');
 
-module.exports = (totalExecutors) => {
+module.exports = function(totalExecutors) {
     const I = this;
 
     I.amOnLoadedPage(pageUnderTest.getUrl());

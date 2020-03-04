@@ -2,7 +2,7 @@
 
 const testConfig = require('test/config');
 
-module.exports = () => {
+module.exports = function() {
     const I = this;
 
     I.retry(testConfig.TestRetrySteps).waitForText('Enter card details', testConfig.TestWaitForTextToAppear);

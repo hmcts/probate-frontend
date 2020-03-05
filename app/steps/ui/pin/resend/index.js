@@ -53,7 +53,7 @@ class PinResend extends Step {
         const pinNumber = new PinNumber(config.services.orchestrator.url, ctx.sessionID);
         const bilingual = get(formdata, 'language.bilingual', 'optionNo') === 'optionYes';
 
-        yield pinNumber.get(phoneNumber, bilingual)
+        yield pinNumber.get(phoneNumber, bilingual, authToken, serviceAuthorisation)
             .then(generatedPin => {
                 if (generatedPin.name === 'Error') {
                     throw new ReferenceError('Error when trying to resend pin');

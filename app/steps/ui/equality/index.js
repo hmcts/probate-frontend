@@ -30,13 +30,10 @@ class Equality extends ValidationStep {
             .map(key => key + '=' + params[key])
             .join('&');
 
-        const serviceUrl = config.services.equalityAndDiversity.url + config.services.equalityAndDiversity.path + '?' + qs;
-        const options = {
+        return {
             redirect: true,
-            url: serviceUrl
+            url: config.services.equalityAndDiversity.url + config.services.equalityAndDiversity.path + '?' + qs
         };
-
-        return options;
     }
 
     isComplete(ctx, formdata) {

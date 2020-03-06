@@ -22,31 +22,31 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), (I) => {
     // Eligibility Task (pre IdAM)
     I.startApplication();
 
-    I.selectDeathCertificate('No');
+    I.selectDeathCertificate('-2');
     I.seeStopPage('deathCertificate');
-    I.selectDeathCertificate('Yes');
+    I.selectDeathCertificate('');
 
-    I.selectDeceasedDomicile('No');
+    I.selectDeceasedDomicile('-2');
     I.seeStopPage('notInEnglandOrWales');
-    I.selectDeceasedDomicile('Yes');
+    I.selectDeceasedDomicile('');
 
-    I.selectIhtCompleted('No');
+    I.selectIhtCompleted('-2');
     I.seeStopPage('ihtNotCompleted');
-    I.selectIhtCompleted('Yes');
+    I.selectIhtCompleted('');
 
-    I.selectPersonWhoDiedLeftAWill('Yes');
+    I.selectPersonWhoDiedLeftAWill('');
 
-    I.selectOriginalWill('No');
+    I.selectOriginalWill('-2');
     I.seeStopPage('notOriginal');
-    I.selectOriginalWill('Yes');
+    I.selectOriginalWill('');
 
-    I.selectApplicantIsExecutor('No');
+    I.selectApplicantIsExecutor('-2');
     I.seeStopPage('notExecutor');
-    I.selectApplicantIsExecutor('Yes');
+    I.selectApplicantIsExecutor('');
 
-    I.selectMentallyCapable('No');
+    I.selectMentallyCapable('-2');
     I.seeStopPage('mentalCapacity');
-    I.selectMentallyCapable('Yes');
+    I.selectMentallyCapable('');
 
     I.startApply();
 
@@ -69,16 +69,16 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), (I) => {
         I.enterGrossAndNet('205', '500', '400');
     }
 
-    I.selectDeceasedAlias('Yes');
+    I.selectDeceasedAlias('');
     I.selectOtherNames('2');
-    I.selectDeceasedMarriedAfterDateOnWill('No');
-    I.selectWillCodicils('Yes');
+    I.selectDeceasedMarriedAfterDateOnWill('-2');
+    I.selectWillCodicils('');
     I.selectWillNoOfCodicils('3');
 
     // ExecutorsTask
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
-    I.selectNameAsOnTheWill('No');
+    I.selectNameAsOnTheWill('-2');
     I.enterApplicantAlias('Applicant Alias');
     I.enterApplicantAliasReason('aliasOther', 'Applicant_alias_reason');
     I.enterApplicantPhone();

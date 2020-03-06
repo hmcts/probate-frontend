@@ -8,5 +8,4 @@ module.exports = function() {
     I.amOnLoadedPage(pageUnderTest.getUrl());
 
     I.navByClick('.govuk-button');
-
 };

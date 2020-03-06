@@ -158,6 +158,10 @@ variable "probate_fees_registry_service_url" {
   type = "string"
 }
 
+variable "probate_equality_service_url" {
+  type = "string"
+}
+
 variable "probate_frontend_use_redis" {
   default = "false"
 }

@@ -43,6 +43,8 @@ probate_persistence_service_url = " http://probate-persistence-service-sandbox.s
 
 probate_fees_registry_service_url = "http://fees-register-api-sandbox.service.core-compute-sandbox.internal/fees-register"
 
+probate_equality_service_url = "https://pcq-frontend-staging.service.core-compute-aat.internal"
+
 feature_toggles_api_url = "http://rpe-feature-toggle-api-aat.service.core-compute-aat.internal"
 asp_name = "probate-sandbox"
 asp_rg = "probate-sandbox"

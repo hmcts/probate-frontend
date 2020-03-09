@@ -6,9 +6,9 @@ const pageUnderTest = require('app/steps/ui/applicant/address');
 module.exports = function() {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.waitForInvisible('#addressLine1');
-    I.click('.summary');
+    I.click('.govuk-details__summary-text');
     I.waitForVisible('#addressLine1');
 
     I.fillField('#addressLine1', 'test address for applicant line 1');

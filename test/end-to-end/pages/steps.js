@@ -25,10 +25,14 @@ module.exports = function() {
         // Sign In to IDAM
         authenticateWithIdamIfAvailable: steps.IDAM.signIn,
 
+        // Choose Application on Dashboard
+        chooseApplication: steps.dashboard.dashboard,
+
         // Start application
         selectATask: steps.tasklist.tasklist,
 
         // Deceased
+        chooseBiLingualGrant: steps.language.bilingualgrant,
         enterDeceasedName: steps.deceased.name,
         enterDeceasedDateOfBirth: steps.deceased.dob,
         enterDeceasedDateOfDeath: steps.deceased.dod,
@@ -113,6 +117,6 @@ module.exports = function() {
         selectDeceasedMaritalStatus: steps.deceased.maritalstatus,
         selectDeceasedDivorcePlace: steps.deceased.divorceplace,
         selectRelationshipToDeceased: steps.applicant.relationshiptodeceased,
-        selectSpouseNotApplyingReason: steps.applicant.spousenotapplyingreason,
+        selectSpouseNotApplyingReason: steps.applicant.spousenotapplyingreason
     });
 };

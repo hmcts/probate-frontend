@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/documentupload');
 module.exports = function(uploadDocument) {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
     I.waitForVisible('.document-upload__dropzone-text--choose-file');
 

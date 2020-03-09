@@ -7,7 +7,7 @@ const pageUnderTest = require('app/steps/ui/documents');
 module.exports = function(paperForm, deathCertUploaded, renouncing) {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
     if (paperForm) {
         I.see(documentsContent['checklist-item4-iht205']);

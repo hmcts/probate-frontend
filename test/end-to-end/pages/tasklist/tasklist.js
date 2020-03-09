@@ -7,7 +7,7 @@ const testConfig = require('test/config.js');
 module.exports = function() {
     const I = this;
     I.waitForText(content.introduction, testConfig.TestWaitForTextToAppear);
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
     I.click('.govuk-button');
 };

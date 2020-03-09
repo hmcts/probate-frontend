@@ -5,7 +5,7 @@ const pageUnderTest = require('app/steps/ui/deceased/dod');
 
 module.exports = function(day, month, year) {
     const I = this;
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
     I.fillField('#dod-day', day);
     I.fillField('#dod-month', month);

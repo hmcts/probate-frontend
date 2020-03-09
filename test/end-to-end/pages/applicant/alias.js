@@ -5,7 +5,7 @@ const pageUnderTest = require('app/steps/ui/applicant/alias');
 
 module.exports = function(alias) {
     const I = this;
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.fillField('#alias', alias);
 
     I.navByClick(commonContent.saveAndContinue);

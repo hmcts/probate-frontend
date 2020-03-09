@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/copies/uk');
 module.exports = function(copies) {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.fillField('#uk', copies);
 
     I.navByClick(commonContent.saveAndContinue);

@@ -2,6 +2,11 @@
 
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
+const optionYes = '';
+const ihtPost = '';
+const optionNo = '-2';
+const applicantAliasOtherReason = '-4';
+const bilingualGOP = false;
 
 Feature('Single Executor flow').retry(TestConfigurator.getRetryFeatures());
 
@@ -22,46 +27,50 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), (I) => {
     // Eligibility Task (pre IdAM)
     I.startApplication();
 
-    I.selectDeathCertificate('-2');
-    I.seeStopPage('deathCertificate');
-    I.selectDeathCertificate('');
+    I.selectDeathCertificate(optionYes);
+    // I.seeStopPage('deathCertificate');
+    // I.selectDeathCertificate(optionNo);
 
-    I.selectDeceasedDomicile('-2');
-    I.seeStopPage('notInEnglandOrWales');
-    I.selectDeceasedDomicile('');
+    I.selectDeceasedDomicile(optionYes);
+    // I.seeStopPage('notInEnglandOrWales');
+    // I.selectDeceasedDomicile(optionNo);
 
-    I.selectIhtCompleted('-2');
-    I.seeStopPage('ihtNotCompleted');
-    I.selectIhtCompleted('');
+    I.selectIhtCompleted(optionYes);
+    // I.seeStopPage('ihtNotCompleted');
+    // I.selectIhtCompleted(optionNo);
 
-    I.selectPersonWhoDiedLeftAWill('');
+    I.selectPersonWhoDiedLeftAWill(optionYes);
 
-    I.selectOriginalWill('-2');
-    I.seeStopPage('notOriginal');
-    I.selectOriginalWill('');
+    I.selectOriginalWill(optionYes);
+    // I.seeStopPage('notOriginal');
+    // I.selectOriginalWill(optionNo);
 
-    I.selectApplicantIsExecutor('-2');
-    I.seeStopPage('notExecutor');
-    I.selectApplicantIsExecutor('');
+    I.selectApplicantIsExecutor(optionYes);
+    // I.seeStopPage('notExecutor');
+    // I.selectApplicantIsExecutor(optionNo);
 
-    I.selectMentallyCapable('-2');
-    I.seeStopPage('mentalCapacity');
-    I.selectMentallyCapable('');
+    I.selectMentallyCapable(optionYes);
+    // I.seeStopPage('mentalCapacity');
+    // I.selectMentallyCapable(optionNo);
 
     I.startApply();
 
     // IdAM
     I.authenticateWithIdamIfAvailable();
 
+    // Dashboard
+    I.chooseApplication();
+
     // Deceased Details
     I.selectATask(taskListContent.taskNotStarted);
+    I.chooseBiLingualGrant();
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.enterDeceasedDateOfBirth('01', '01', '1950');
     I.enterDeceasedDateOfDeath('01', '01', '2017');
     I.enterDeceasedAddress();
     const uploadingDocuments = false;
     I.selectDocumentsToUpload(uploadingDocuments);
-    I.selectInheritanceMethod('Paper');
+    I.selectInheritanceMethod(ihtPost);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterGrossAndNet('205', '600000', '300000');
@@ -69,10 +78,10 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), (I) => {
         I.enterGrossAndNet('205', '500', '400');
     }
 
-    I.selectDeceasedAlias('');
+    I.selectDeceasedAlias(optionYes);
     I.selectOtherNames('2');
-    I.selectDeceasedMarriedAfterDateOnWill('-2');
-    I.selectWillCodicils('');
+    I.selectDeceasedMarriedAfterDateOnWill(optionNo);
+    I.selectWillCodicils(optionYes);
     I.selectWillNoOfCodicils('3');
 
     // ExecutorsTask
@@ -80,7 +89,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), (I) => {
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
     I.selectNameAsOnTheWill('-2');
     I.enterApplicantAlias('Applicant Alias');
-    I.enterApplicantAliasReason('aliasOther', 'Applicant_alias_reason');
+    I.enterApplicantAliasReason(applicantAliasOtherReason, 'Applicant alias reason');
     I.enterApplicantPhone();
     I.enterAddressManually();
 
@@ -90,18 +99,18 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), (I) => {
     // Review and Confirm Task
     I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
-    I.acceptDeclaration();
+    I.acceptDeclaration(bilingualGOP);
 
     // Extra Copies Task
     I.selectATask(taskListContent.taskNotStarted);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterUkCopies('5');
-        I.selectOverseasAssets();
+        I.selectOverseasAssets(optionYes);
         I.enterOverseasCopies('7');
     } else {
         I.enterUkCopies('0');
-        I.selectOverseasAssets();
+        I.selectOverseasAssets(optionYes);
         I.enterOverseasCopies('0');
     }
 

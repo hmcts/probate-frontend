@@ -5,7 +5,8 @@ const pageUnderTest = require('app/steps/ui/iht/value');
 
 module.exports = function(grossValue, netValue) {
     const I = this;
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+
     I.fillField('#grossValueField', grossValue);
     I.fillField('#netValueField', netValue);
 

@@ -5,10 +5,10 @@ const pageUnderTest = require('app/steps/ui/applicant/aliasreason');
 
 module.exports = function(aliasReason, aliasOther) {
     const I = this;
-    I.amOnLoadedPage(pageUnderTest.getUrl());
-    I.click(`#${aliasReason}`);
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.click(`#aliasReason${aliasReason}`);
 
-    if (aliasOther) {
+    if (aliasReason === '-4') {
         I.fillField('#otherReason', aliasOther);
     }
 

@@ -5,10 +5,22 @@ const commonContent = require('app/resources/en/translation/common');
 
 module.exports = function(formName, grossAmount, netAmount) {
     const I = this;
+    let option;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    switch (formName) {
+    case '207':
+        option = '-2';
+        break;
+    case '421':
+        option = '-3';
+        break;
+    default:
+        option = '';
+    }
 
-    I.click(`#paperIHT${formName}`);
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+
+    I.click(`#form${option}`);
 
     I.fillField(`#grossValueFieldIHT${formName}`, grossAmount);
     I.fillField(`#netValueFieldIHT${formName}`, netAmount);

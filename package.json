@@ -4,10 +4,10 @@
   "version": "4.1.2",
   "private": true,
   "engines": {
-    "node": ">=8.9.4"
+    "node": ">=12.5.0"
   },
   "scripts": {
-    "setup": "NODE_PATH=. npm run git-info && npm run sass && npm run sass-ie8",
+    "setup": "NODE_PATH=. yarn git-info && yarn sass && yarn sass-ie8",
     "start": "NODE_PATH=. node server.js",
     "debug": "NODE_PATH=. node inspect server.js",
     "prestart:dev": "npm run sass:watch",

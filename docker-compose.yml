@@ -4,8 +4,7 @@ services:
   probate-frontend:
     build:
       context: .
-    image: probate/probabte-frontend
-    # image: docker.artifactory.reform.hmcts.net/probate/probate-frontend
+    image: hmctspublic/azurecr.io/probate/frontend
     container_name: probate-frontend
     environment:
       - USE_HTTPS=false

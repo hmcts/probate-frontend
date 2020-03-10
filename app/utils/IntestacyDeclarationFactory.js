@@ -19,9 +19,9 @@ class IntestacyDeclarationFactory {
                 .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
                 .replace('{deceasedDob}', formdata.dobFormattedDate.en)
                 .replace('{deceasedDod}', formdata.dodFormattedDate.en),
-            deceasedOtherNames: formdata.deceasedOtherNames ? content.en.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames) : '',
+            deceasedOtherNames: formdata.deceasedOtherNames.en ? content.en.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames.en) : '',
             deceasedMaritalStatus: content.en.intestacyDeceasedMaritalStatus
-                .replace('{deceasedMaritalStatus}', get(formdata.deceased, 'maritalStatus', '').toLowerCase()),
+                .replace('{deceasedMaritalStatus}', content.en[get(formdata.deceased, 'maritalStatus', '')].toLowerCase()),
             deceasedChildren: content.en.intestacyDeceasedChildren,
             deceasedEstateValue: content.en.deceasedEstateValue
                 .replace('{ihtGrossValue}', formdata.ihtGrossValue)
@@ -60,9 +60,9 @@ class IntestacyDeclarationFactory {
                 .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
                 .replace('{deceasedDob}', formdata.dobFormattedDate.cy)
                 .replace('{deceasedDod}', formdata.dodFormattedDate.cy),
-            deceasedOtherNames: formdata.deceasedOtherNames ? content.cy.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames) : '',
+            deceasedOtherNames: formdata.deceasedOtherNames.cy ? content.cy.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames.cy) : '',
             deceasedMaritalStatus: content.cy.intestacyDeceasedMaritalStatus
-                .replace('{deceasedMaritalStatus}', get(formdata.deceased, 'maritalStatus', '').toLowerCase()),
+                .replace('{deceasedMaritalStatus}', content.cy[get(formdata.deceased, 'maritalStatus', '')].toLowerCase()),
             deceasedChildren: content.cy.intestacyDeceasedChildren,
             deceasedEstateValue: content.cy.deceasedEstateValue
                 .replace('{ihtGrossValue}', formdata.ihtGrossValue)

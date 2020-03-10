@@ -44,7 +44,7 @@ probate_persistence_service_url = "http://probate-persistence-service-aat.servic
 
 probate_fees_registry_service_url = "http://fees-register-api-aat.service.core-compute-aat.internal/fees-register"
 
-probate_equality_service_url = "https://pcq-frontend-staging.service.core-compute-aat.internal"
+probate_equality_service_url = "http://pcq-frontend-staging.service.core-compute-aat.internal"
 
 feature_toggles_api_url = "http://rpe-feature-toggle-api-aat.service.core-compute-aat.internal"
 asp_name = "probate-preview"

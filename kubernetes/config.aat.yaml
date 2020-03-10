@@ -18,6 +18,6 @@ data:
   PERSISTENCE_SERVICE_URL: 'http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata'
   REFORM_ENVIRONMENT : 'aat'
   FEES_REGISTRY_URL: 'http://fees-register-api-aat.service.core-compute-aat.internal/fees-register'
-  EQUALITY_URL: https://pcq-frontend-staging.service.core-compute-aat.internal
+  EQUALITY_URL: http://pcq-frontend-staging.service.core-compute-aat.internal
 #  CLAIM_STORE_URL: 'http://cmc-claim-store-aat.service.core-compute-aat.internal'
 #  DRAFT_STORE_URL: 'http://draft-store-service-aat.service.core-compute-aat.internal'

@@ -5,6 +5,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const Taskist = require('app/steps/ui/tasklist');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const declarationContent = require('app/resources/en/translation/declaration');
 const config = require('app/config');
 const nock = require('nock');
 const caseTypes = require('app/utils/CaseTypes');
@@ -101,6 +102,10 @@ describe('declaration, intestacy', () => {
                 'optionDiedAfter',
                 'optionPowerReserved',
                 'optionRenunciated',
+                'optionMarried',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
                 'additionalExecutorNotified',
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
@@ -139,7 +144,7 @@ describe('declaration, intestacy', () => {
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
             contentData.ihtNetValueAssetsOutside = sessionData.iht.netValueAssetsOutsideField;
-            contentData.deceasedMaritalStatus = 'optionDivorced';
+            contentData.deceasedMaritalStatus = declarationContent.optionDivorced;
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -188,6 +193,10 @@ describe('declaration, intestacy', () => {
                 'optionDiedAfter',
                 'optionPowerReserved',
                 'optionRenunciated',
+                'optionMarried',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
                 'additionalExecutorNotified',
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
@@ -216,7 +225,7 @@ describe('declaration, intestacy', () => {
             sessionData.deceased.anyOtherChildren = 'optionYes';
             sessionData.applicant.relationshipToDeceased = 'optionAdoptedChild';
 
-            contentData.deceasedMaritalStatus = 'optionDivorced';
+            contentData.deceasedMaritalStatus = declarationContent.optionDivorced;
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -265,6 +274,10 @@ describe('declaration, intestacy', () => {
                 'optionDiedAfter',
                 'optionPowerReserved',
                 'optionRenunciated',
+                'optionMarried',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
                 'additionalExecutorNotified',
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
@@ -293,7 +306,7 @@ describe('declaration, intestacy', () => {
             sessionData.deceased.anyOtherChildren = 'optionYes';
             sessionData.applicant.relationshipToDeceased = 'optionChild';
 
-            contentData.deceasedMaritalStatus = 'optionDivorced';
+            contentData.deceasedMaritalStatus = declarationContent.optionDivorced;
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -342,6 +355,10 @@ describe('declaration, intestacy', () => {
                 'optionDiedAfter',
                 'optionPowerReserved',
                 'optionRenunciated',
+                'optionMarried',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
                 'additionalExecutorNotified',
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
@@ -370,7 +387,7 @@ describe('declaration, intestacy', () => {
             sessionData.deceased.anyOtherChildren = 'optionNo';
             sessionData.applicant.relationshipToDeceased = 'optionAdoptedChild';
 
-            contentData.deceasedMaritalStatus = 'optionDivorced';
+            contentData.deceasedMaritalStatus = declarationContent.optionDivorced;
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -419,6 +436,10 @@ describe('declaration, intestacy', () => {
                 'optionDiedAfter',
                 'optionPowerReserved',
                 'optionRenunciated',
+                'optionMarried',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
                 'additionalExecutorNotified',
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
@@ -447,7 +468,7 @@ describe('declaration, intestacy', () => {
             sessionData.deceased.anyOtherChildren = 'optionNo';
             sessionData.applicant.relationshipToDeceased = 'optionChild';
 
-            contentData.deceasedMaritalStatus = 'optionDivorced';
+            contentData.deceasedMaritalStatus = declarationContent.optionDivorced;
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -496,6 +517,10 @@ describe('declaration, intestacy', () => {
                 'optionDiedAfter',
                 'optionPowerReserved',
                 'optionRenunciated',
+                'optionDivorced',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
                 'additionalExecutorNotified',
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
@@ -524,7 +549,7 @@ describe('declaration, intestacy', () => {
             sessionData.deceased.anyOtherChildren = 'optionYes';
             sessionData.applicant.relationshipToDeceased = 'optionAdoptedChild';
 
-            contentData.deceasedMaritalStatus = 'optionMarried';
+            contentData.deceasedMaritalStatus = declarationContent.optionMarried;
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -573,6 +598,10 @@ describe('declaration, intestacy', () => {
                 'optionDiedAfter',
                 'optionPowerReserved',
                 'optionRenunciated',
+                'optionDivorced',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
                 'additionalExecutorNotified',
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
@@ -601,7 +630,7 @@ describe('declaration, intestacy', () => {
             sessionData.deceased.anyOtherChildren = 'optionYes';
             sessionData.applicant.relationshipToDeceased = 'optionChild';
 
-            contentData.deceasedMaritalStatus = 'optionMarried';
+            contentData.deceasedMaritalStatus = declarationContent.optionMarried;
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -650,6 +679,10 @@ describe('declaration, intestacy', () => {
                 'optionDiedAfter',
                 'optionPowerReserved',
                 'optionRenunciated',
+                'optionDivorced',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
                 'additionalExecutorNotified',
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
@@ -678,7 +711,7 @@ describe('declaration, intestacy', () => {
             sessionData.deceased.anyOtherChildren = 'optionNo';
             sessionData.applicant.relationshipToDeceased = 'optionAdoptedChild';
 
-            contentData.deceasedMaritalStatus = 'optionMarried';
+            contentData.deceasedMaritalStatus = declarationContent.optionMarried;
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -727,6 +760,10 @@ describe('declaration, intestacy', () => {
                 'optionDiedAfter',
                 'optionPowerReserved',
                 'optionRenunciated',
+                'optionDivorced',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
                 'additionalExecutorNotified',
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
@@ -755,7 +792,7 @@ describe('declaration, intestacy', () => {
             sessionData.deceased.anyOtherChildren = 'optionNo';
             sessionData.applicant.relationshipToDeceased = 'optionChild';
 
-            contentData.deceasedMaritalStatus = 'optionMarried';
+            contentData.deceasedMaritalStatus = declarationContent.optionMarried;
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -804,6 +841,10 @@ describe('declaration, intestacy', () => {
                 'optionDiedAfter',
                 'optionPowerReserved',
                 'optionRenunciated',
+                'optionDivorced',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
                 'additionalExecutorNotified',
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
@@ -836,7 +877,7 @@ describe('declaration, intestacy', () => {
             sessionData.iht.grossValue = 300000.1;
             sessionData.iht.netValue = 270000.34;
 
-            contentData.deceasedMaritalStatus = 'optionMarried';
+            contentData.deceasedMaritalStatus = declarationContent.optionMarried;
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
@@ -887,6 +928,10 @@ describe('declaration, intestacy', () => {
                 'optionDiedAfter',
                 'optionPowerReserved',
                 'optionRenunciated',
+                'optionDivorced',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
                 'additionalExecutorNotified',
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
@@ -919,7 +964,7 @@ describe('declaration, intestacy', () => {
             sessionData.iht.grossValue = 300000.1;
             sessionData.iht.netValue = 270000.34;
 
-            contentData.deceasedMaritalStatus = 'optionMarried';
+            contentData.deceasedMaritalStatus = declarationContent.optionMarried;
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
@@ -970,6 +1015,10 @@ describe('declaration, intestacy', () => {
                 'optionDiedAfter',
                 'optionPowerReserved',
                 'optionRenunciated',
+                'optionDivorced',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
                 'additionalExecutorNotified',
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
@@ -1002,7 +1051,7 @@ describe('declaration, intestacy', () => {
             sessionData.iht.grossValue = 300000.1;
             sessionData.iht.netValue = 270000.34;
 
-            contentData.deceasedMaritalStatus = 'optionMarried';
+            contentData.deceasedMaritalStatus = declarationContent.optionMarried;
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
@@ -1053,6 +1102,10 @@ describe('declaration, intestacy', () => {
                 'optionDiedAfter',
                 'optionPowerReserved',
                 'optionRenunciated',
+                'optionDivorced',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
                 'additionalExecutorNotified',
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
@@ -1085,7 +1138,7 @@ describe('declaration, intestacy', () => {
             sessionData.iht.grossValue = 300000.1;
             sessionData.iht.netValue = 270000.34;
 
-            contentData.deceasedMaritalStatus = 'optionMarried';
+            contentData.deceasedMaritalStatus = declarationContent.optionMarried;
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
@@ -1136,6 +1189,10 @@ describe('declaration, intestacy', () => {
                 'optionDiedAfter',
                 'optionPowerReserved',
                 'optionRenunciated',
+                'optionDivorced',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
                 'additionalExecutorNotified',
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
@@ -1164,7 +1221,7 @@ describe('declaration, intestacy', () => {
             sessionData.applicant.anyChildren = 'optionNo';
             sessionData.applicant.relationshipToDeceased = 'optionSpousePartner';
 
-            contentData.deceasedMaritalStatus = 'optionMarried';
+            contentData.deceasedMaritalStatus = declarationContent.optionMarried;
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -1213,6 +1270,10 @@ describe('declaration, intestacy', () => {
                 'optionDiedAfter',
                 'optionPowerReserved',
                 'optionRenunciated',
+                'optionDivorced',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
                 'additionalExecutorNotified',
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
@@ -1241,7 +1302,7 @@ describe('declaration, intestacy', () => {
             sessionData.applicant.anyChildren = 'optionYes';
             sessionData.applicant.relationshipToDeceased = 'optionSpousePartner';
 
-            contentData.deceasedMaritalStatus = 'optionMarried';
+            contentData.deceasedMaritalStatus = declarationContent.optionMarried;
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -1290,6 +1351,10 @@ describe('declaration, intestacy', () => {
                 'optionDiedAfter',
                 'optionPowerReserved',
                 'optionRenunciated',
+                'optionDivorced',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
                 'additionalExecutorNotified',
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
@@ -1322,7 +1387,7 @@ describe('declaration, intestacy', () => {
             sessionData.iht.grossValue = 300000.1;
             sessionData.iht.netValue = 270000.34;
 
-            contentData.deceasedMaritalStatus = 'optionMarried';
+            contentData.deceasedMaritalStatus = declarationContent.optionMarried;
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 
@@ -1373,6 +1438,10 @@ describe('declaration, intestacy', () => {
                 'optionDiedAfter',
                 'optionPowerReserved',
                 'optionRenunciated',
+                'optionDivorced',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
                 'additionalExecutorNotified',
                 'intro-multipleApplicants',
                 'legalStatementApplicant-multipleApplicants',
@@ -1405,7 +1474,7 @@ describe('declaration, intestacy', () => {
             sessionData.iht.grossValue = 300000.1;
             sessionData.iht.netValue = 270000.34;
 
-            contentData.deceasedMaritalStatus = 'optionMarried';
+            contentData.deceasedMaritalStatus = declarationContent.optionMarried;
             contentData.ihtGrossValue = sessionData.iht.grossValueField;
             contentData.ihtNetValue = sessionData.iht.netValueField;
 

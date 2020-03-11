@@ -1,7 +1,7 @@
 'use strict';
 
 const ServiceAuthoriser = require('app/utils/ServiceAuthoriser');
-const config = require('app/config');
+const config = require('config');
 
 const setServiceAuthorisationToken = (req, res, next) => {
     const session = req.session;

@@ -1,26 +1,13 @@
 'use strict';
 
 const config = {
-    environment: process.env.REFORM_ENVIRONMENT || 'prod',
-    nodeEnvironment: process.env.NODE_ENV,
-    gitRevision: process.env.GIT_REVISION,
-    frontendPublicHttpProtocol: process.env.PUBLIC_PROTOCOL || 'http',
-    languages: ['en', 'cy'],
-    featureToggles: {
-        url: process.env.FEATURE_TOGGLES_API_URL || 'http://localhost:8292',
-        path: process.env.FEATURE_TOGGLES_PATH || '/api/ff4j/check',
-        port: 8292,
-        fe_shutter_toggle: 'probate-fe-shutter',
-        fees_api: 'probate-fees-api',
-        appwideToggles: []
-    },
     app: {
         username: process.env.USERNAME,
         password: process.env.PASSWORD,
         useAuth: process.env.USE_AUTH || 'false',
         useHttps: process.env.USE_HTTPS || 'false',
         useIDAM: process.env.USE_IDAM || 'false',
-        requreCcdCaseId: process.env.REQUIRE_CCD_CASE_ID || 'false',
+        requireCcdCaseId: process.env.REQUIRE_CCD_CASE_ID || 'false',
         port: process.env.PORT || '3000',
         useCSRFProtection: 'true',
         session: {

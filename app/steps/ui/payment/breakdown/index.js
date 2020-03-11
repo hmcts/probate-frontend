@@ -2,7 +2,7 @@
 
 const Step = require('app/core/steps/Step');
 const FieldError = require('app/components/error');
-const config = require('app/config');
+const config = require('config');
 const {get, set} = require('lodash');
 const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');

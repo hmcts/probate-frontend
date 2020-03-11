@@ -2,7 +2,7 @@
 
 const Service = require('./Service');
 const Authorise = require('./Authorise');
-const config = require('app/config');
+const config = require('config');
 
 class Pdf extends Service {
 

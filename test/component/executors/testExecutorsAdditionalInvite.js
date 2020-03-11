@@ -4,7 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const {assert} = require('chai');
 const ExecutorsAdditionalInviteSent = require('app/steps/ui/executors/additionalinvitesent');
 const nock = require('nock');
-const config = require('app/config');
+const config = require('config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
 const afterEachNocks = (done) => {
     return () => {

@@ -4,7 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
-const config = require('app/config');
+const config = require('config');
 
 class IhtValue extends ValidationStep {
 

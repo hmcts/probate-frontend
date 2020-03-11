@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const caseTypes = require('app/utils/CaseTypes');
-const config = require('app/config');
+const config = require('config');
 const nock = require('nock');
 
 describe('task-list', () => {

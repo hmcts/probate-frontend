@@ -1,7 +1,7 @@
 'use strict';
 
 const ServiceMapper = require('app/utils/ServiceMapper');
-const config = require('app/config');
+const config = require('config');
 
 const documentDownload = (req, res, service, filename) => {
     const commonContent = require(`app/resources/${req.session.language}/translation/common`);

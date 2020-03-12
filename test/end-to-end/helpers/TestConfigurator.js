@@ -51,47 +51,43 @@ class TestConfigurator {
     }
 
     async getBefore() {
-        console.log('here');
-        //const authToken = yield this.getAuthorisationToken();
-        const url = 'https://idam-api.aat.platform.hmcts.net/oauth2/authorize?response_type=code&client_id=probate&redirect_uri=https://probate-frontend-aat.service.core-compute-aat.internal/oauth2/callback';
-        //this.log(logMessage);
-        const headers = {
+        let params;
+        let url;
+        let headers;
+        let fetchOptions;
+
+        params = new URLSearchParams();
+        params.append('response_type', 'code');
+        params.append('client_id', 'probate');
+        params.append('redirect_uri', 'https://probate-frontend-aat.service.core-compute-aat.internal/oauth2/callback');
+
+        url = `https://idam-api.aat.platform.hmcts.net/oauth2/authorize?${params.toString()}`;
+
+        headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': 'Basic ZW1iZXJsaS5yaWRsZXlAdXVsdXUub3JnOlByb2JhdGUxMjM='
         };
-        const fetchOptions = service.fetchOptions({}, 'POST', headers, 'socks5:proxyout.reform.hmcts.net:8080');
+        fetchOptions = service.fetchOptions({}, 'POST', headers, 'socks5:proxyout.reform.hmcts.net:8080');
         const data = await service.fetchJson(url, fetchOptions);
         const authCode = data.code;
 
-        const client_id = 'probate';
-     //   const client_secret = config.services.idam.probate_oauth2_secret;
-     //   const idam_api_url = config.services.idam.apiUrl;
-     //   const redirect_uri = redirect_url;
-
-        const headers2 = {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        };
-
-        const params = new URLSearchParams();
+        params = new URLSearchParams();
         params.append('grant_type', 'authorization_code');
         params.append('code', authCode);
         params.append('redirect_uri', 'https://probate-frontend-aat.service.core-compute-aat.internal/oauth2/callback');
         params.append('client_id', 'probate');
         params.append('client_secret', 'staSwA5Hu6as6upra8ew3upeq2drUbup');
-        const test = (params.toString());
-        const data2 = await service.fetchJson('https://idam-api.aat.platform.hmcts.net/oauth2/token', {
-            method: 'POST',
-            timeout: 10000,
-            body: params.toString(),
-            headers: headers2,
-            proxy: 'socks5:proxyout.reform.hmcts.net:8080'
-        });
+
+        url = `https://idam-api.aat.platform.hmcts.net/oauth2/token?${params.toString()}`;
+
+        headers = {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        };
+
+        fetchOptions = service.fetchOptions({}, 'POST', headers, 'socks5:proxyout.reform.hmcts.net:8080');
+        const data2 = await service.fetchJson(url, fetchOptions);
+
         console.log('data2>>>>', data2);
-
-        //.then(data => {
-        // console.log('data>>>>', data);
-        // });
-
     }
 
     // getBefore() {

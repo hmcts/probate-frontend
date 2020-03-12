@@ -3,7 +3,8 @@
 const randomstring = require('randomstring');
 const request = require('request');
 const testConfig = require('test/config');
-
+const Service = require('app/services/Service');
+const service = new Service();
 /* eslint no-console: 0 no-unused-vars: 0 */
 /* eslint-disable no-undef */
 class TestConfigurator {
@@ -48,10 +49,21 @@ class TestConfigurator {
         });
     }
 
-    * getBefore() {
+    async getBefore() {
         console.log('here');
-        const authToken = yield this.getAuthorisationToken();
-        console.log('authToken>>>>', authToken);
+        //const authToken = yield this.getAuthorisationToken();
+        const url = 'https://idam-api.aat.platform.hmcts.net/oauth2/authorize?response_type=code&client_id=probate&redirect_uri=https://probate-frontend-aat.service.core-compute-aat.internal/oauth2/callback';
+        //this.log(logMessage);
+        const headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ZW1iZXJsaS5yaWRsZXlAdXVsdXUub3JnOlByb2JhdGUxMjM='
+        };
+        const fetchOptions = service.fetchOptions({}, 'POST', headers, 'socks5:proxyout.reform.hmcts.net:8080');
+        const data = await service.fetchJson(url, fetchOptions);
+        //.then(data => {
+        // console.log('data>>>>', data);
+        // });
+        console.log('data>>>>', data);
     }
 
     // getBefore() {

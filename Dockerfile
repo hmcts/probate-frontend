@@ -1,22 +1,24 @@
 # ---- Base image ----
 
-FROM hmctspublic.azurecr.io/base/node/stretch-slim-lts-10:10-stretch-slim as base
-USER root
-RUN apt-get update && apt-get install -y bzip2 git python2.7 python-pip
+FROM hmctspublic.azurecr.io/base/node:12-alpine as base
 
 ENV WORKDIR /opt/app
 WORKDIR ${WORKDIR}
 
-COPY package.json yarn.lock ./
-
+COPY --chown=hmcts:hmcts package.json yarn.lock ./
+RUN yarn config set proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
 RUN yarn install --production  \
     && yarn cache clean
 
 # ---- Build image ----
 FROM base as build
-COPY . ./
+COPY --chown=hmcts:hmcts . ./
 
-RUN yarn install \
+USER root
+RUN apk add git
+USER hmcts
+
+RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install \
     && yarn setup \
     && rm -rf /opt/app/.git
 

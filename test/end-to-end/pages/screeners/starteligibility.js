@@ -2,7 +2,7 @@
 /* eslint no-console: 0 no-unused-vars: 0 */
 /* eslint-disable no-undef */
 const pageUnderTest = require('app/steps/ui/screeners/starteligibility');
-const testConfig = require('test/config');
+const testConfig = require('config');
 
 module.exports = (checkCookieBannerExists) => {
     const I = this;

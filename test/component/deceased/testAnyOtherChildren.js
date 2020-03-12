@@ -20,10 +20,11 @@ describe('any-other-children', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('AnyOtherChildren');
+        testCommonContent.runTest('AnyOtherChildren', null, null, [], false, {type: caseTypes.INTESTACY});
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.INTESTACY,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456

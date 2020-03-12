@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
 const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails');
 const ExecutorRoles = require('app/steps/ui/executors/roles');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-address', () => {
     let testWrapper, sessionData;
@@ -38,6 +39,7 @@ describe('executors-address', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content is loaded on the page', (done) => {
+            sessionData.type = caseTypes.GOP;
             sessionData.ccdCase = {
                 state: 'Pending',
                 id: 1234567890123456

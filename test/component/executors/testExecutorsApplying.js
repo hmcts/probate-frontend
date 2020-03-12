@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsDealingWithEstate = require('app/steps/ui/executors/dealingwithestate');
 const ExecutorRoles = require('app/steps/ui/executors/roles');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-applying', () => {
     let testWrapper;
@@ -19,10 +20,11 @@ describe('executors-applying', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ExecutorsApplying');
+        testCommonContent.runTest('ExecutorsApplying', null, null, [], false, {type: caseTypes.GOP});
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.GOP,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456

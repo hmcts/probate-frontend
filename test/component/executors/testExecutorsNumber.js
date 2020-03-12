@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
 const ExecutorsNames = require('app/steps/ui/executors/names');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-number', () => {
     let testWrapper;
@@ -19,10 +20,11 @@ describe('executors-number', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ExecutorsNumber');
+        testCommonContent.runTest('ExecutorsNumber', null, null, [], false, {type: caseTypes.GOP});
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.GOP,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456

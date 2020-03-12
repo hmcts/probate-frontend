@@ -12,6 +12,7 @@ describe('divorce-place', () => {
     const expectedNextUrlForStopPage = StopPage.getUrl('divorcePlace');
     const expectedNextUrlForTaskList = TaskList.getUrl();
     const sessionData = {
+        type: caseTypes.INTESTACY,
         ccdCase: {
             state: 'Pending',
             id: 1234567890123456

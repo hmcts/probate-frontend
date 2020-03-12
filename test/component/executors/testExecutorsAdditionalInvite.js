@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const {assert} = require('chai');
 const ExecutorsAdditionalInviteSent = require('app/steps/ui/executors/additionalinvitesent');
+const caseTypes = require('app/utils/CaseTypes');
 const nock = require('nock');
 const config = require('app/config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
@@ -21,6 +22,7 @@ describe('executors-additional-invite', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsAdditionalInvite');
         sessionData = require('test/data/executors-invites');
+        sessionData.type = caseTypes.GOP;
         sessionData.ccdCase = {
             state: 'Pending',
             id: 1234567890123456

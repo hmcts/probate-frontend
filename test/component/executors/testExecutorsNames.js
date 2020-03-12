@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsAllAlive = require('app/steps/ui/executors/allalive');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-names', () => {
     let testWrapper, sessionData;
@@ -11,6 +12,7 @@ describe('executors-names', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsNames');
         sessionData = {
+            type: caseTypes.GOP,
             ccdCase: {
                 state: 'Pending',
                 id: 1234567890123456
@@ -33,7 +35,7 @@ describe('executors-names', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ExecutorsNames');
+        testCommonContent.runTest('ExecutorsNames', null, null, [], false, {type: caseTypes.GOP});
 
         it('test correct content loaded on the page when lead applicant does not have an alias', (done) => {
             testWrapper.agent.post('/prepare-session/form')

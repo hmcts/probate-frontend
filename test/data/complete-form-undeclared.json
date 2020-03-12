@@ -1,5 +1,6 @@
 {
   "formdata": {
+    "type": "gop",
     "ccdCase": {
       "state": "CaseCreated",
       "id": 1234567890123456

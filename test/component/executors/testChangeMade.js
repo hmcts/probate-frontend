@@ -2,6 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const Tasklist = require('app/steps/ui/tasklist');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-change-made', () => {
     let testWrapper;
@@ -18,6 +19,7 @@ describe('executors-change-made', () => {
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.GOP,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456

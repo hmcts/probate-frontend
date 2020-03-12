@@ -1,6 +1,7 @@
 'use strict';
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-update-invite-sent', () => {
     let testWrapper;
@@ -17,6 +18,7 @@ describe('executors-update-invite-sent', () => {
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.GOP,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456

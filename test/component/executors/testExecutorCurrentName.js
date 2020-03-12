@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const ExecutorCurrentName = require('app/steps/ui/executors/currentname');
 const ExecutorCurrentNameReason = require('app/steps/ui/executors/currentnamereason');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('executor-current-name', () => {
     let testWrapper, sessionData;
@@ -14,6 +15,7 @@ describe('executor-current-name', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorCurrentName');
         sessionData = {
+            type: caseTypes.GOP,
             ccdCase: {
                 state: 'Pending',
                 id: 1234567890123456
@@ -37,7 +39,7 @@ describe('executor-current-name', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ExecutorCurrentName');
+        testCommonContent.runTest('ExecutorCurrentName', null, null, [], false, {type: caseTypes.GOP});
 
         it('test content loaded on the page', (done) => {
             testWrapper.agent.post('/prepare-session/form')

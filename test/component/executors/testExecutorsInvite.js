@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const {assert} = require('chai');
 const ExecutorsInvitesSent = require('app/steps/ui/executors/invitesent');
+const caseTypes = require('app/utils/CaseTypes');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const nock = require('nock');
 const config = require('app/config');
@@ -22,6 +23,7 @@ describe('executors-invite', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsInvite');
         sessionData = require('test/data/executors-invites');
+        sessionData.type = caseTypes.GOP;
         sessionData.ccdCase = {
             state: 'Pending',
             id: 1234567890123456
@@ -34,7 +36,7 @@ describe('executors-invite', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ExecutorsInvite');
+        testCommonContent.runTest('ExecutorsInvite', null, null, [], false, {type: caseTypes.GOP});
 
         it('test correct content loaded on the page when more than 1 other executor', (done) => {
             const contentToExclude = ['heading3'];

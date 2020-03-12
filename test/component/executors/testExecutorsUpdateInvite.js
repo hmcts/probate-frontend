@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const {assert} = require('chai');
 const ExecutorsUpdateInviteSent = require('app/steps/ui/executors/updateinvitesent');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-update-invite', () => {
     let testWrapper;
@@ -12,6 +13,7 @@ describe('executors-update-invite', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsUpdateInvite');
         sessionData = require('test/data/executors-invites');
+        sessionData.type = caseTypes.GOP;
         sessionData.ccdCase = {
             state: 'Pending',
             id: 1234567890123456

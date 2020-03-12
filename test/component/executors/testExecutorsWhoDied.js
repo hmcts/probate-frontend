@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsWhenDied = require('app/steps/ui/executors/whendied');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-who-died', () => {
     let testWrapper, sessionData;
@@ -11,6 +12,7 @@ describe('executors-who-died', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsWhoDied');
         sessionData = {
+            type: caseTypes.GOP,
             ccdCase: {
                 state: 'Pending',
                 id: 1234567890123456
@@ -36,7 +38,7 @@ describe('executors-who-died', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ExecutorsWhoDied');
+        testCommonContent.runTest('ExecutorsWhoDied', null, null, [], false, {type: caseTypes.GOP});
 
         it('test content loaded on the page', (done) => {
             testWrapper.agent.post('/prepare-session/form')

@@ -20,10 +20,11 @@ describe('deceased-details', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('DeceasedDetails');
+        testCommonContent.runTest('DeceasedDetails', null, null, [], false, {type: caseTypes.INTESTACY});
 
         it('test right content loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.INTESTACY,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456

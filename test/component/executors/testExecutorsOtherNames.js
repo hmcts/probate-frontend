@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorCurrentName = require('app/steps/ui/executors/currentname');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-other-names', () => {
     let testWrapper, sessionData;
@@ -30,10 +31,11 @@ describe('executors-other-names', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ExecutorsWithOtherNames');
+        testCommonContent.runTest('ExecutorsWithOtherNames', null, null, [], false, {type: caseTypes.GOP});
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.GOP,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456

@@ -20,10 +20,11 @@ describe('any-grandchildren-under-18', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('AnyGrandchildrenUnder18');
+        testCommonContent.runTest('AnyGrandchildrenUnder18', null, null, [], false, {type: caseTypes.INTESTACY});
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.INTESTACY,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456

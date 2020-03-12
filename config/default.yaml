@@ -95,7 +95,7 @@ redis:
   eligibilityCookie:
     name: '__eligibility'
     redirectUrl: '/start-eligibility'
-    expires: 1000 * 60 * 60 * 24 * 2 # TODO: will this work?
+    expires: 172800000 # 48 hours
 dateFormat: 'DD/MM/YYYY'
 payloadVersion: '4.1.1'
 gaTrackingId: 'UA-93598808-3'

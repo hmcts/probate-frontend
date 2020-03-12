@@ -19,7 +19,7 @@ const config = {
         password: process.env.PASSWORD,
         useAuth: process.env.USE_AUTH || 'false',
         useHttps: process.env.USE_HTTPS || 'false',
-        useIDAM: process.env.USE_IDAM || 'false',
+        useIDAM: process.env.USE_IDAM || 'true',
         requreCcdCaseId: process.env.REQUIRE_CCD_CASE_ID || 'false',
         port: process.env.PORT || '3000',
         useCSRFProtection: 'true',

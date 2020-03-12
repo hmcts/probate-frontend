@@ -24,54 +24,84 @@ class TestConfigurator {
         this.retryScenarios = testConfig.TestRetryScenarios;
         this.testUseProxy = testConfig.TestUseProxy;
         this.testProxy = testConfig.TestProxy;
+        //this.testOAuth2TokenUrl = this.testBaseUrl + TestOAuth2TokenUrl;
     }
 
-    getBefore() {
-        if (process.env.testCitizenEmail === this.getTestCitizenEmail()) {
-            this.setTestCitizenName();
-            this.setTestCitizenPassword();
-        }
-
-        this.setEnvVars();
-
-        if (this.useIdam === 'true') {
-            this.userDetails =
-                {
-                    'email': this.getTestCitizenEmail(),
-                    'forename': this.getTestCitizenName(),
-                    'surname': this.getTestCitizenName(),
-                    'password': this.getTestCitizenPassword(),
-                    'roles': [{'code': this.getTestRole()}],
-                    'userGroup': {'code': this.getTestIdamUserGroup()}
-                };
-
-            if (this.getUseProxy() === 'true') {
-                request({
-                    url: this.getTestAddUserURL(),
-                    proxy: this.getProxy(),
-                    method: 'POST',
-                    json: true, // <--Very important!!!
-                    body: this.userDetails
-                }, function (error, response, body) {
-                    if (response && response.statusCode !== 201) {
-                        throw new Error('TestConfigurator.getBefore: Using proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
-                    }
-                });
-            } else {
-                request({
-                    url: this.getTestAddUserURL(),
-                    method: 'POST',
-                    json: true, // <--Very important!!!
-                    body: this.userDetails
-                }, function (error, response, body) {
-                    if (response.statusCode !== 201) {
-                        throw new Error('TestConfigurator.getBefore: Without proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
-                    }
-                });
+    getAuthorisationToken() {
+        return request({
+            url: 'https://idam-api.aat.platform.hmcts.net/oauth2/authorize?response_type=code&client_id=probate&redirect_uri=https://probate-frontend-aat.service.core-compute-aat.internal/oauth2/callback',
+            proxy: this.getProxy(),
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Basic ZW1iZXJsaS5yaWRsZXlAdXVsdXUub3JnOlByb2JhdGUxMjM='
             }
-        }
-
+            //,
+            //json: true, // <--Very important!!!
+            //body: 'response_type=code&client_id=probate&redirect_uri=https://probate-frontend-aat.service.core-compute-aat.internal/oauth2/callback'
+        }, function (error, response, body) {
+            if (response && response.statusCode !== 200) {
+                throw new Error('TestConfigurator.getBefore: Using proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
+            }
+            console.log(body.code);
+            return body.code;
+        });
     }
+
+    * getBefore() {
+        console.log('here');
+        const authToken = yield this.getAuthorisationToken();
+        console.log('authToken>>>>', authToken);
+    }
+
+    // getBefore() {
+    //     if (process.env.testCitizenEmail === this.getTestCitizenEmail()) {
+    //         this.setTestCitizenName();
+    //         this.setTestCitizenPassword();
+    //     }
+    //
+    //     this.setEnvVars();
+    //
+    //     if (this.useIdam === 'true') {
+    //         this.userDetails =
+    //             {
+    //                 'email': this.getTestCitizenEmail(),
+    //                 'forename': this.getTestCitizenName(),
+    //                 'surname': this.getTestCitizenName(),
+    //                 'password': this.getTestCitizenPassword(),
+    //                 'roles': [{'code': this.getTestRole()}],
+    //                 'userGroup': {'code': this.getTestIdamUserGroup()}
+    //             };
+    //
+    //         if (this.getUseProxy() === 'true') {
+    //             console.log('use proxy');
+    //             request({
+    //                 url: this.getTestAddUserURL(),
+    //                 proxy: this.getProxy(),
+    //                 method: 'POST',
+    //                 json: true, // <--Very important!!!
+    //                 body: this.userDetails
+    //             }, function (error, response, body) {
+    //                 if (response && response.statusCode !== 201) {
+    //                     throw new Error('TestConfigurator.getBefore: Using proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
+    //                 }
+    //             });
+    //         } else {
+    //             console.log('no proxy');
+    //             request({
+    //                 url: this.getTestAddUserURL(),
+    //                 method: 'POST',
+    //                 json: true, // <--Very important!!!
+    //                 body: this.userDetails
+    //             }, function (error, response, body) {
+    //                 if (response.statusCode !== 201) {
+    //                     throw new Error('TestConfigurator.getBefore: Without proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
+    //                 }
+    //             });
+    //         }
+    //     }
+    //
+    // }
 
     getAfter() {
         // if (this.useIdam === 'true') {

@@ -10,6 +10,7 @@ const TaskList = require('app/steps/ui/tasklist');
 const ExecutorsApplying = require('app/steps/ui/executors/applying');
 const contentData = {executorFullName: 'many clouds'};
 const commonContent = require('app/resources/en/translation/common');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-when-died', () => {
     let testWrapper, sessionData;
@@ -43,6 +44,7 @@ describe('executors-when-died', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsWhenDied');
         sessionData = {
+            type: caseTypes.GOP,
             ccdCase: {
                 state: 'Pending',
                 id: 1234567890123456

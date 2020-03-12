@@ -28,10 +28,11 @@ describe('relationship-to-deceased', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('RelationshipToDeceased');
+        testCommonContent.runTest('RelationshipToDeceased', null, null, [], false, {type: caseTypes.INTESTACY});
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.INTESTACY,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456

@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
 const CodicilsNumber = require('app/steps/ui/will/codicilsnumber');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('will-codicils', () => {
     let testWrapper;
@@ -19,10 +20,11 @@ describe('will-codicils', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('WillCodicils');
+        testCommonContent.runTest('WillCodicils', null, null, [], false, {type: caseTypes.GOP});
 
         it('test correct content loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.GOP,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456

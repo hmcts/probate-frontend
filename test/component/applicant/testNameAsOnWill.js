@@ -3,6 +3,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const ApplicantPhone = require('app/steps/ui/applicant/phone');
 const ApplicantAlias = require('app/steps/ui/applicant/alias');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('applicant-name-as-on-will', () => {
     let testWrapper;
@@ -18,10 +19,11 @@ describe('applicant-name-as-on-will', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ApplicantNameAsOnWill');
+        testCommonContent.runTest('ApplicantNameAsOnWill', null, null, [], false, {type: caseTypes.GOP});
 
         it('test correct content is loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.GOP,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456
@@ -46,6 +48,7 @@ describe('applicant-name-as-on-will', () => {
 
         it('test correct content is loaded on the page when there is a codicil', (done) => {
             const sessionData = {
+                type: caseTypes.GOP,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456

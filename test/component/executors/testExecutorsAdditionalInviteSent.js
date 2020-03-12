@@ -2,6 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-additional-invite-sent', () => {
     let testWrapper;
@@ -11,6 +12,7 @@ describe('executors-additional-invite-sent', () => {
     beforeEach(() => {
         testWrapper = new TestWrapper('ExecutorsAdditionalInviteSent');
         sessionData = require('test/data/executors-invites');
+        sessionData.type = caseTypes.GOP;
         sessionData.ccdCase = {
             state: 'Pending',
             id: 1234567890123456

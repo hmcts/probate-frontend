@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('executors-invites-sent', () => {
     let testWrapper;
@@ -17,10 +18,11 @@ describe('executors-invites-sent', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ExecutorsInvitesSent', null, null, [], false, {declaration: {declarationCheckbox: 'true'}});
+        testCommonContent.runTest('ExecutorsInvitesSent', null, null, [], false, {type: caseTypes.GOP, declaration: {declarationCheckbox: 'true'}});
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.GOP,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456

@@ -26,7 +26,7 @@ def secrets = [
     secret('testPostcodeServiceUrl', 'POSTCODE_SERVICE_URL'),
     secret('testPostCodeAddressToken2', 'ADDRESS_TOKEN'),
     secret('testRunE2ETest', 'RUN_E2E_TEST'),
-    secret('testValidationServiceUrl', 'TEST_VALIDATION_SERVICE_URL'),
+    secret('testValidationServiceUrl', 'VALIDATION_SERVICE_URL'),
     secret('idam-secret-probate', 'IDAM_SECRET_PROBATE'),
     secret('idam-s2s-secret', 'IDAM_S2S_SECRET'),
     secret('postcode-service-url', 'PRO_POSTCODE_SERVICE_URL'),

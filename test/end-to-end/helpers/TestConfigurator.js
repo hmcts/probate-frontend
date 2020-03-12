@@ -5,6 +5,7 @@ const request = require('request');
 const testConfig = require('test/config');
 const Service = require('app/services/Service');
 const service = new Service();
+const {URLSearchParams} = require('url');
 /* eslint no-console: 0 no-unused-vars: 0 */
 /* eslint-disable no-undef */
 class TestConfigurator {
@@ -60,10 +61,37 @@ class TestConfigurator {
         };
         const fetchOptions = service.fetchOptions({}, 'POST', headers, 'socks5:proxyout.reform.hmcts.net:8080');
         const data = await service.fetchJson(url, fetchOptions);
+        const authCode = data.code;
+
+        const client_id = 'probate';
+     //   const client_secret = config.services.idam.probate_oauth2_secret;
+     //   const idam_api_url = config.services.idam.apiUrl;
+     //   const redirect_uri = redirect_url;
+
+        const headers2 = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        };
+
+        const params = new URLSearchParams();
+        params.append('grant_type', 'authorization_code');
+        params.append('code', authCode);
+        params.append('redirect_uri', 'https://probate-frontend-aat.service.core-compute-aat.internal/oauth2/callback');
+        params.append('client_id', 'probate');
+        params.append('client_secret', 'staSwA5Hu6as6upra8ew3upeq2drUbup');
+        const test = (params.toString());
+        const data2 = await service.fetchJson('https://idam-api.aat.platform.hmcts.net/oauth2/token', {
+            method: 'POST',
+            timeout: 10000,
+            body: params.toString(),
+            headers: headers2,
+            proxy: 'socks5:proxyout.reform.hmcts.net:8080'
+        });
+        console.log('data2>>>>', data2);
+
         //.then(data => {
         // console.log('data>>>>', data);
         // });
-        console.log('data>>>>', data);
+
     }
 
     // getBefore() {

@@ -3,12 +3,17 @@
 const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/executors/address');
 
-module.exports = function(executorNumber) {
+module.exports = function(executorNumber, firstRecord) {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl(parseInt(executorNumber)-1));
+    if (firstRecord) {
+        I.seeCurrentUrlEquals(pageUnderTest.getUrl(1));
+    } else {
+        I.seeCurrentUrlEquals(pageUnderTest.getUrl(2));
+    }
+
     I.waitForInvisible('#addressLine1');
-    I.click('.summary');
+    I.click('.govuk-details__summary-text');
     I.waitForVisible('#addressLine1');
 
     I.fillField('#addressLine1', 'additional executor test address line 1');

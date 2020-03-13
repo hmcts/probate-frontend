@@ -6,8 +6,8 @@ const pageUnderTest = require('app/steps/ui/executors/allalive');
 module.exports = function(answer) {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
-    I.click(`#allalive-option${answer}`);
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.click(`#allalive${answer}`);
 
     I.navByClick(commonContent.saveAndContinue);
 };

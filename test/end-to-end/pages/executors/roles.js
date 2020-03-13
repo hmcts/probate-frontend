@@ -7,15 +7,15 @@ module.exports = function(executorNumber, powerReserved, firstRecord) {
     const I = this;
 
     if (firstRecord) {
-        I.amOnLoadedPage(pageUnderTest.getUrl());
+        I.seeCurrentUrlEquals(pageUnderTest.getUrl('*'));
     } else {
-        I.amOnLoadedPage(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
+        I.seeCurrentUrlEquals(pageUnderTest.getUrl(parseInt(executorNumber)-1));
     }
 
     if (powerReserved) {
-        I.click('#notApplyingReason-optionPowerReserved');
+        I.click('#notApplyingReason');
     } else {
-        I.click('#notApplyingReason-optionRenunciated');
+        I.click('#notApplyingReason-2');
     }
 
     I.navByClick(commonContent.saveAndContinue);

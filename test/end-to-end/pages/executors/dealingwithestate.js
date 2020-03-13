@@ -6,10 +6,17 @@ const pageUnderTest = require('app/steps/ui/executors/dealingwithestate');
 module.exports = function(executorsApplyingList) {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
     executorsApplyingList.forEach((executorNumber) => {
-        I.checkOption('#executorsApplying-' + (parseInt(executorNumber) - 1));
+        let realExecutorNumber = parseInt(executorNumber) - 1;
+
+        if (realExecutorNumber === 1) {
+            realExecutorNumber = '';
+        } else {
+            realExecutorNumber *= -1;
+        }
+        I.checkOption(`#executorsApplying${realExecutorNumber}`);
     });
 
     I.navByClick(commonContent.saveAndContinue);

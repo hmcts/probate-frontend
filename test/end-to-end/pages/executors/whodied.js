@@ -6,10 +6,18 @@ const pageUnderTest = require('app/steps/ui/executors/whodied');
 module.exports = function(executorsWhoDiedList) {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
     executorsWhoDiedList.forEach((executorNumber) => {
-        I.checkOption('#executorsWhoDied-'+(parseInt(executorNumber) - 1));
+        let realExecutorNumber = parseInt(executorNumber) - 1;
+
+        if (realExecutorNumber === 1) {
+            realExecutorNumber = '';
+        } else {
+            realExecutorNumber *= -1;
+        }
+
+        I.checkOption(`#executorsWhoDied${realExecutorNumber}`);
     });
 
     I.navByClick(commonContent.saveAndContinue);

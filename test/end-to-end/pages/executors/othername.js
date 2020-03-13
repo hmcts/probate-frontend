@@ -6,10 +6,12 @@ const pageUnderTest = require('app/steps/ui/executors/othername');
 module.exports = function(executorsWithDifferentNameIdList) {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
     executorsWithDifferentNameIdList.forEach((executorListId) => {
-        I.checkOption('#executorsWithOtherNames-' + executorListId);
+        const realExecutorNumber = parseInt(executorListId) * -1;
+
+        I.checkOption(`#executorsWithOtherNames${realExecutorNumber}`);
     });
 
     I.navByClick(commonContent.saveAndContinue);

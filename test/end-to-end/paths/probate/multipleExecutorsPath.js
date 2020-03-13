@@ -4,7 +4,10 @@
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {head} = require('lodash');
 const testConfig = require('test/config.js');
-
+const optionYes = '';
+const ihtPost = '';
+const optionNo = '-2';
+const applicantAliasOtherReason = '-4';
 let grabIds;
 let stage1retries = -1;
 
@@ -30,17 +33,87 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     }
 
     // IdAM
-    I.authenticateWithIdamIfAvailable(true);
+    // I.authenticateWithIdamIfAvailable(true);
+    //
+    // // Eligibility Task (pre IdAM)
+    // I.startApplication();
+    //
+    // I.selectDeathCertificate(optionYes);
+    // // I.seeStopPage('deathCertificate');
+    // // I.selectDeathCertificate(optionNo);
+    //
+    // I.selectDeceasedDomicile(optionYes);
+    // // I.seeStopPage('notInEnglandOrWales');
+    // // I.selectDeceasedDomicile(optionNo);
+    //
+    // I.selectIhtCompleted(optionYes);
+    // // I.seeStopPage('ihtNotCompleted');
+    // // I.selectIhtCompleted(optionNo);
+    //
+    // I.selectPersonWhoDiedLeftAWill(optionYes);
+    //
+    // I.selectOriginalWill(optionYes);
+    // // I.seeStopPage('notOriginal');
+    // // I.selectOriginalWill(optionNo);
+    //
+    // I.selectApplicantIsExecutor(optionYes);
+    // // I.seeStopPage('notExecutor');
+    // // I.selectApplicantIsExecutor(optionNo);
+    //
+    // I.selectMentallyCapable(optionYes);
+    // // I.seeStopPage('mentalCapacity');
+    // // I.selectMentallyCapable(optionNo);
+    //
+    // // Dashboard
+    // I.chooseApplication();
+
+    // Eligibility Task (pre IdAM)
+    I.startApplication();
+
+    I.selectDeathCertificate(optionYes);
+    // I.seeStopPage('deathCertificate');
+    // I.selectDeathCertificate(optionNo);
+
+    I.selectDeceasedDomicile(optionYes);
+    // I.seeStopPage('notInEnglandOrWales');
+    // I.selectDeceasedDomicile(optionNo);
+
+    I.selectIhtCompleted(optionYes);
+    // I.seeStopPage('ihtNotCompleted');
+    // I.selectIhtCompleted(optionNo);
+
+    I.selectPersonWhoDiedLeftAWill(optionYes);
+
+    I.selectOriginalWill(optionYes);
+    // I.seeStopPage('notOriginal');
+    // I.selectOriginalWill(optionNo);
+
+    I.selectApplicantIsExecutor(optionYes);
+    // I.seeStopPage('notExecutor');
+    // I.selectApplicantIsExecutor(optionNo);
+
+    I.selectMentallyCapable(optionYes);
+    // I.seeStopPage('mentalCapacity');
+    // I.selectMentallyCapable(optionNo);
+
+    I.startApply();
+
+    // IdAM
+    I.authenticateWithIdamIfAvailable();
+
+    // Dashboard
+    I.chooseApplication();
 
     // Deceased Task
     I.selectATask();
+    I.chooseBiLingualGrant();
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.enterDeceasedDateOfBirth('01', '01', '1950');
     I.enterDeceasedDateOfDeath('01', '01', '2017');
     I.enterDeceasedAddress();
     const uploadingDocuments = false;
     I.selectDocumentsToUpload(uploadingDocuments);
-    I.selectInheritanceMethod('Paper');
+    I.selectInheritanceMethod(ihtPost);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterGrossAndNet('205', '600000', '300000');
@@ -48,42 +121,42 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         I.enterGrossAndNet('205', '500', '400');
     }
 
-    I.selectDeceasedAlias('Yes');
+    I.selectDeceasedAlias(optionYes);
     I.selectOtherNames('2');
-    I.selectDeceasedMarriedAfterDateOnWill('No');
-    I.selectWillCodicils('Yes');
+    I.selectDeceasedMarriedAfterDateOnWill(optionNo);
+    I.selectWillCodicils(optionYes);
     I.selectWillNoOfCodicils('3');
 
     // ExecutorsTask
     I.selectATask();
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
-    I.selectNameAsOnTheWill('No');
+    I.selectNameAsOnTheWill(optionNo);
     I.enterApplicantAlias('applicant_alias');
-    I.enterApplicantAliasReason('aliasOther', 'alias_other_reason');
+    I.enterApplicantAliasReason(applicantAliasOtherReason, 'Applicant alias reason');
     I.enterApplicantPhone();
     I.enterAddressManually();
 
     const totalExecutors = '7';
     I.enterTotalExecutors(totalExecutors);
     I.enterExecutorNames(totalExecutors);
-    I.selectExecutorsAllAlive('No');
+    I.selectExecutorsAllAlive(optionNo);
 
     const executorsWhoDiedList = ['2', '7'];
     let diedBefore = true;
     I.selectExecutorsWhoDied(executorsWhoDiedList);
 
     executorsWhoDiedList.forEach((executorNumber) => {
-        I.selectExecutorsWhenDied(executorNumber, diedBefore, head(executorsWhoDiedList) === executorNumber);
+        I.selectExecutorsWhenDied(executorNumber, diedBefore, head(executorsWhoDiedList) === executorNumber, optionYes, optionNo);
 
         diedBefore = !diedBefore;
     });
 
-    I.selectExecutorsApplying();
+    I.selectExecutorsApplying(optionYes);
 
     const executorsApplyingList = ['3', '5'];
     I.selectExecutorsDealingWithEstate(executorsApplyingList);
 
-    I.selectExecutorsWithDifferentNameOnWill();
+    I.selectExecutorsWithDifferentNameOnWill(optionYes);
 
     const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
     I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
@@ -91,12 +164,12 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     const executorsWithDifferentNameList = ['5'];
     executorsWithDifferentNameList.forEach((executorNumber) => {
         I.enterExecutorCurrentName(executorNumber, head(executorsWithDifferentNameList) === executorNumber);
-        I.enterExecutorCurrentNameReason(executorNumber, 'aliasOther', 'executor_alias_reason');
+        I.enterExecutorCurrentNameReason(executorNumber, 'currentNameReason-4', 'executor_other_alias_reason');
     });
 
     executorsApplyingList.forEach((executorNumber) => {
         I.enterExecutorContactDetails(executorNumber, head(executorsApplyingList) === executorNumber);
-        I.enterExecutorManualAddress(executorNumber);
+        I.enterExecutorManualAddress(executorNumber, head(executorsApplyingList) === executorNumber);
     });
 
     const executorsAliveList = ['4', '6'];
@@ -105,7 +178,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         I.selectExecutorRoles(executorNumber, powerReserved, head(executorsAliveList) === executorNumber);
 
         if (powerReserved) {
-            I.selectHasExecutorBeenNotified('Yes', executorNumber);
+            I.selectHasExecutorBeenNotified(optionYes, executorNumber);
             powerReserved = false;
         } else {
             powerReserved = true;
@@ -144,7 +217,7 @@ Scenario(TestConfigurator.idamInUseText('Stage 2: Additional Executor(s) Agree t
 
         I.agreeDisagreeDeclaration('Agree');
 
-        I.seeAgreePage(i);
+        I.seeAgreePage();
 
     }
 }).retry(TestConfigurator.getRetryScenarios());
@@ -154,16 +227,19 @@ Scenario(TestConfigurator.idamInUseText('Stage 3: Continuation of Main applicant
     // IDAM
     I.authenticateWithIdamIfAvailable(true);
 
+    // Dashboard
+    I.chooseApplication();
+
     // Extra Copies Task
     I.selectATask();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterUkCopies('5');
-        I.selectOverseasAssets();
+        I.selectOverseasAssets(optionYes);
         I.enterOverseasCopies('7');
     } else {
         I.enterUkCopies('0');
-        I.selectOverseasAssets();
+        I.selectOverseasAssets(optionYes);
         I.enterOverseasCopies('0');
     }
 
@@ -171,7 +247,6 @@ Scenario(TestConfigurator.idamInUseText('Stage 3: Continuation of Main applicant
 
     // Payment Task
     I.selectATask();
-
     I.seePaymentBreakdownPage();
 
     if (TestConfigurator.getUseGovPay() === 'true') {

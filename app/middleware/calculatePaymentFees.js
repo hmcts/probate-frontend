@@ -1,6 +1,6 @@
 'use strict';
 
-const config = require('app/config');
+const config = require('config');
 const FeesCalculator = require('app/utils/FeesCalculator');
 
 const calculatePaymentFees = (req, res, next) => {

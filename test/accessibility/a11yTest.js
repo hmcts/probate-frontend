@@ -17,7 +17,7 @@ const stepsToExclude = [
 ];
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`], 'en');
 const nock = require('nock');
-const config = require('app/config');
+const config = require('config');
 const commonSessionData = {
     form: {
         payloadVersion: config.payloadVersion,

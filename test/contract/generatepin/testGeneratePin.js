@@ -1,12 +1,12 @@
 'use strict';
 
 const expect = require('chai').expect;
-const testConfig = require('test/config');
+const testConfig = require('config');
 const FormatUrl = require('app/utils/FormatUrl');
 const logger = require('app/components/logger')('Init');
 const request = require('supertest');
 
-const TEST_VALIDATION_SERVICE_URL = testConfig.validation.url;
+const TEST_VALIDATION_SERVICE_URL = testConfig.services.validation.url;
 const VALID_SESSION_ID = '012233456789';
 const INVALID_TEST_NUMBER = '+$447701111111';
 const VALID_INTERNATIONAL_TEST_NUMBER = '+61437112945';

@@ -1,7 +1,7 @@
 'use strict';
 
 const Step = require('app/core/steps/Step');
-const config = require('app/config');
+const config = require('config');
 const logger = require('app/components/logger')('Init');
 const SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
 const IdamSession = require('app/services/IdamSession');

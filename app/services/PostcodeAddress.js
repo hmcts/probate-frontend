@@ -1,6 +1,6 @@
 'use strict';
 
-const config = require('app/config');
+const config = require('config');
 const POSTCODE_SERVICE_TOKEN = config.services.postcode.token;
 const OSPlacesClient = require('@hmcts/os-places-client').OSPlacesClient;
 const osPlacesClient = new OSPlacesClient(POSTCODE_SERVICE_TOKEN);

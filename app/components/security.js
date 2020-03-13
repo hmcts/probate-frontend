@@ -1,7 +1,7 @@
 'use strict';
 
 const FormatUrl = require('app/utils/FormatUrl');
-const config = require('../config');
+const config = require('config');
 const logger = require('app/components/logger');
 const URL = require('url');
 const UUID = require('uuid/v4');

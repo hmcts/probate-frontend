@@ -1,6 +1,6 @@
 'use strict';
 
-const config = require('app/config');
+const config = require('config');
 const eligibilityCookieName = config.redis.eligibilityCookie.name;
 const eligibilityCookieRedirectUrl = config.redis.eligibilityCookie.redirectUrl;
 const cookieExpires = new Date(Date.now() + config.redis.eligibilityCookie.expires);

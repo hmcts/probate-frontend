@@ -7,7 +7,7 @@ const Taskist = require('app/steps/ui/tasklist');
 const content = require('app/resources/en/translation/declaration');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const nock = require('nock');
-const config = require('app/config');
+const config = require('config');
 
 describe('declaration, single applicant', () => {
     let testWrapper, contentData, sessionData;

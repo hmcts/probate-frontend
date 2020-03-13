@@ -6,7 +6,7 @@ const rewire = require('rewire');
 const EligibilityCookie = rewire('app/utils/EligibilityCookie');
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const config = require('app/config');
+const config = require('config');
 
 describe('EligibilityCookie.js', () => {
     describe('checkCookie()', () => {

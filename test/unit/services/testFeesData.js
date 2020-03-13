@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const Fees = require('app/services/FeesData');
 const co = require('co');
 const caseTypes = require('app/utils/CaseTypes');
-const config = require('app/config');
+const config = require('config');
 const nock = require('nock');
 
 describe('FeesData', () => {

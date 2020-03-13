@@ -2,7 +2,7 @@
 
 const {get} = require('lodash');
 const FeesLookup = require('app/services/FeesLookup');
-const config = require('app/config');
+const config = require('config');
 const logger = require('app/components/logger')('Init');
 
 class FeesCalculator {

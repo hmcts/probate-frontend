@@ -4,7 +4,7 @@
 
 const path = require('path');
 const pact = require('@pact-foundation/pact-node');
-const config = require('app/config');
+const config = require('config');
 const git = require('git-rev-sync');
 
 const opts = {

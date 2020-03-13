@@ -2,7 +2,7 @@
 
 const assert = require('chai').assert;
 const sinon = require('sinon');
-const testConfig = require('test/config');
+const testConfig = require('config');
 const PostcodeAddress = require('app/services/PostcodeAddress');
 const postcodeAddress = new PostcodeAddress();
 

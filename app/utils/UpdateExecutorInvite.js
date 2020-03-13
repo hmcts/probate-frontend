@@ -4,7 +4,7 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const FormatName = require('app/utils/FormatName');
 const logger = require('app/components/logger')('Init');
 const InviteLink = require('app/services/InviteLink');
-const config = require('app/config');
+const config = require('config');
 
 class UpdateExecutorInvite {
     static update(req) {

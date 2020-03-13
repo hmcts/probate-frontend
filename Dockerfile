@@ -25,6 +25,7 @@ RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install \
 # ---- Runtime image ----
 FROM base as runtime
 COPY --from=build ${WORKDIR}/app app/
+COPY --from=build ${WORKDIR}/config config/
 COPY --from=build ${WORKDIR}/public public/
 COPY --from=build ${WORKDIR}/server.js ${WORKDIR}/app.js ${WORKDIR}/git.properties.json ./
 EXPOSE 3000

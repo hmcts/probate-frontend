@@ -1,6 +1,6 @@
 'use strict';
 
-const config = require('app/config');
+const config = require('config');
 const DocumentUpload = require('app/utils/DocumentUpload');
 const connectTimeout = require('connect-timeout');
 const multer = require('multer');

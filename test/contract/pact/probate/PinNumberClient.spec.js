@@ -7,7 +7,7 @@ const {Pact, Matchers} = require('@pact-foundation/pact');
 const {somethingLike: term} = Matchers;
 const chaiAsPromised = require('chai-as-promised');
 const PinNumberClient = require('app/services/PinNumber');
-const config = require('app/config');
+const config = require('config');
 const getPort = require('get-port');
 const assert = chai.assert;
 chai.use(chaiAsPromised);

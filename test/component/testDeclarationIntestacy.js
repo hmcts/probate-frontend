@@ -6,7 +6,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const Taskist = require('app/steps/ui/tasklist');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const declarationContent = require('app/resources/en/translation/declaration');
-const config = require('app/config');
+const config = require('config');
 const nock = require('nock');
 const caseTypes = require('app/utils/CaseTypes');
 

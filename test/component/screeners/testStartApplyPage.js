@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const Dashboard = require('app/steps/ui/dashboard');
 const commonContent = require('app/resources/en/translation/common');
-const config = require('app/config');
+const config = require('config');
 const cookies = [{
     name: config.redis.eligibilityCookie.name,
     content: {

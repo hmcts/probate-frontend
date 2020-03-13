@@ -11,7 +11,7 @@ const Tasklist = require('app/steps/ui/tasklist');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const {assert} = require('chai');
 const nock = require('nock');
-const config = require('app/config');
+const config = require('config');
 
 describe('declaration, multiple applicants', () => {
     let testWrapper, contentData, sessionData;

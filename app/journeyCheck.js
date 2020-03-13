@@ -1,7 +1,7 @@
 'use strict';
 
 const router = require('express').Router();
-const config = require('app/config');
+const config = require('config');
 const caseTypes = require('app/utils/CaseTypes');
 const journeyCheck = require('app/middleware/journeyCheck');
 

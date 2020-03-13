@@ -1,6 +1,6 @@
 'use strict';
 
-const config = require('app/config');
+const config = require('config');
 const FeesRegister = require('app/services/FeesRegister');
 const {URLSearchParams} = require('url');
 

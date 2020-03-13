@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const commonContent = require('app/resources/en/translation/common');
-const config = require('app/config');
+const config = require('config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
 const nock = require('nock');
 const applicationInProgressNock = () => {

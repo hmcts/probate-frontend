@@ -3,7 +3,7 @@
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const logger = require('app/components/logger')('Init');
 const InviteData = require('app/services/InviteData');
-const config = require('app/config');
+const config = require('config');
 
 class RemoveInvitedExecutor {
     static remove(req) {

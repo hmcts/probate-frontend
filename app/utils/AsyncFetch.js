@@ -1,6 +1,6 @@
 'use strict';
 
-const config = require('app/config');
+const config = require('config');
 const logger = require('app/components/logger');
 const fetch = require('node-fetch');
 const log = logger('Init');

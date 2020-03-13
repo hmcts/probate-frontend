@@ -2,7 +2,7 @@
 
 const Service = require('./Service');
 const paymentData = require('app/components/payment-data');
-const config = require('app/config');
+const config = require('config');
 const {forEach} = require('lodash');
 
 class Payment extends Service {

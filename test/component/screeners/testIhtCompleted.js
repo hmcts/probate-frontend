@@ -5,7 +5,7 @@ const WillLeft = require('app/steps/ui/screeners/willleft');
 const StopPage = require('app/steps/ui/stoppage');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const commonContent = require('app/resources/en/translation/common');
-const config = require('app/config');
+const config = require('config');
 const cookies = [{
     name: config.redis.eligibilityCookie.name,
     content: {

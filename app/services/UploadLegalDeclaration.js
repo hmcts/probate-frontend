@@ -1,6 +1,6 @@
 'use strict';
 
-const config = require('app/config');
+const config = require('config');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const Document = require('app/services/Document');
 

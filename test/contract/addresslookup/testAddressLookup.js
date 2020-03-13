@@ -2,7 +2,7 @@
 
 const expect = require('chai').expect;
 const logger = require('app/components/logger')('Init');
-const testConfig = require('test/config');
+const testConfig = require('config');
 const POSTCODE_SERVICE_TOKEN = testConfig.postcodeLookup.token;
 const OSPlacesClient = require('@hmcts/os-places-client').OSPlacesClient;
 const osPlacesClient = new OSPlacesClient(POSTCODE_SERVICE_TOKEN);

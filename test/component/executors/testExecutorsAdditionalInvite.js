@@ -5,7 +5,7 @@ const {assert} = require('chai');
 const ExecutorsAdditionalInviteSent = require('app/steps/ui/executors/additionalinvitesent');
 const caseTypes = require('app/utils/CaseTypes');
 const nock = require('nock');
-const config = require('app/config');
+const config = require('config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
 const afterEachNocks = (done) => {
     return () => {

@@ -2,7 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {get} = require('lodash');
-const config = require('app/config');
+const config = require('config');
 
 class RelationshipToDeceased extends ValidationStep {
 

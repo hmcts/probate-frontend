@@ -9,6 +9,7 @@ def secrets = [
   'probate-${env}': [
     secret('testIdamBaseUrl', 'IDAM_API_URL'),
     secret('testIdamLoginUrl', 'IDAM_LOGIN_URL'),
+    secret('testUseIdam', 'USE_IDAM'),
     secret('testInviteIdListUrl', 'INVITE_ID_LIST_URL'),
     secret('testPinUrl', 'PIN_URL'),
     secret('testInvitationUrl', 'INVITATION_URL'),
@@ -63,7 +64,6 @@ withPipeline("nodejs", product, component) {
             }
         }
     } */
-    env.USE_IDAM = "true"
 
     after('build') {
         sh 'yarn setup'

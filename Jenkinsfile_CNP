@@ -7,6 +7,8 @@ String component = "frontend"
 
 def secrets = [
   'probate-${env}': [
+    secret('testIdamBaseUrl', 'IDAM_API_URL'),
+    secret('testIdamLoginUrl', 'IDAM_LOGIN_URL'),
     secret('testInviteIdListUrl', 'INVITE_ID_LIST_URL'),
     secret('testPinUrl', 'PIN_URL'),
     secret('testInvitationUrl', 'INVITATION_URL'),
@@ -61,8 +63,6 @@ withPipeline("nodejs", product, component) {
             }
         }
     } */
-    env.IDAM_API_URL = "https://idam-api.aat.platform.hmcts.net"
-    env.IDAM_LOGIN_URL = "https://idam-web-public.aat.platform.hmcts.net"
     env.USE_IDAM = "true"
 
     after('build') {

@@ -95,7 +95,6 @@ TestProxy: TEST_PROXY
 TestRetryFeatures: RETRY_FEATURES
 TestRetryScenarios: RETRY_SCENARIOS
 TestRetrySteps: RETRY_STEPS
-TestUseGovPay: USE_GOV_PAY
 TestUseIdam: USE_IDAM
 TestUseProxy: TEST_USE_PROXY
 

@@ -1,6 +1,5 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/documentupload');
 
 module.exports = function(uploadDocument) {
@@ -14,5 +13,5 @@ module.exports = function(uploadDocument) {
         I.uploadDocumentIfNotMicrosoftEdge();
     }
 
-    I.navByClick(commonContent.continue);
+    I.navByClick('.govuk-button');
 };

@@ -1,13 +1,10 @@
 // Infrastructural variables
 
 variable "product" {}
+variable "component" {}
 
 variable "raw_product" {
   default = "probate" // jenkins-library overrides product for PRs and adds e.g. pr-118-probate
-}
-
-variable "microservice" {
-  default = "frontend"
 }
 
 variable "location" {

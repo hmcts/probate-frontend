@@ -1,51 +1,38 @@
-tags:
-  - rpe-feature-toggle-pa-frontend
-  - idam-pr-pa-frontend
-
 nodejs:
-  environment:
-    FEATURE_TOGGLES_API_URL: http://${SERVICE_NAME}-ftr-tgl-api
-    SERVICES_PERSISTENCE_BASEURL : http://probate-persistence-service-aat.service.core-compute-aat.internal
-    SERVICES_NOTIFY_INVITEDATA_INVITELINK : http://probate-frontend-aat.service.core-compute-aat.internal/executors/invitation/
-    SERVICES_PDF_SERVICE_URL : http://cmc-pdf-service-aat.service.core-compute-aat.internal
-    SERVICES_AUTH_PROVIDER_BASEURL : http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
-    DOCUMENT_MANAGEMENT_URL : http://dm-store-aat.service.core-compute-aat.internal
-    FEES_REGISTRY_URL: http://fees-register-api-aat.service.core-compute-aat.internal/fees-register
-    IDAM_API_URL: https://idam-api.aat.platform.hmcts.net
-    IDAM_URL: https://idam-api.aat.platform.hmcts.net
-    IDAM_LOGIN_URL: https://idam-web-public.aat.platform.hmcts.net/login
-    IDAM_S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
-    S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
-    IDAM_S2S_AUTH_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
-    PAYMENT_API_URL: http://payment-api-aat.service.core-compute-aat.internal
-    VALIDATION_SERVICE_URL: http://probate-business-service-aat.service.core-compute-aat.internal/validate
-    BUSINESS_DOCUMENT_URL: http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument
-    SUBMIT_SERVICE_URL: http://probate-submit-service-aat.service.core-compute-aat.internal
-    # PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
-    ORCHESTRATOR_SERVICE_URL : http://probate-orchestrator-service-aat.service.core-compute-aat.internal
-    REDIS_HOST: ${SERVICE_NAME}-redis-master
-    REDIS_PORT: 6379
-    IDAM_CLIENT_NAME: probate
-    IDAM_SERVICE_KEY: ${IDAM_S2S_SECRET}
-    IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE: ${IDAM_SECRET_PROBATE}
-    POSTCODE_SERVICE_URL: ${PRO_POSTCODE_SERVICE_URL}
-    POSTCODE_SERVICE_TOKEN: ${PRO_POSTCODE_SERVICE_TOKEN}
-    SURVEY: ${PRO_SURVEY}
-    SURVEY_END_OF_APPLICATION: ${PRO_SURVEY_END_OF_APPLICATIONN}
-    APPLICATION_FEE_CODE: ${PRO_APPLICATION_FEE_CODEL}
-    UK_COPIES_FEE_CODE: ${PRO_UK_COPIES_FEE_CODE}
-    OVERSEAS_COPIES_FEE_CODE: ${PRO_OVERSEAS_COPIES_FEE_CODE}
-    SERVICE_ID: ${PRO_SERVICE_ID}
-    SITE_ID: ${PRO_SITE_ID}
-
-    PROBATE_USER_EMAIL : ${CASE_WORKER_EMAIL}
-    PROBATE_USER_PASSWORD : ${CASE_WORKER_PASSWORD}
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
-
+  environment:
+    FEATURE_TOGGLES_API_URL: http://${SERVICE_NAME}-ftr-tgl-api
+    REDIS_HOST: ${SERVICE_NAME}-redis-master
+    REDIS_PORT: 6379
+    REDIS_USE_TLS: false
+  keyVaults:
+    probate:
+      secrets:
+        - idam-s2s-secret
+        - ccidam-idam-api-secrets-probate
+        - postcode-service-url
+        - postcode-service-token2
+        - probate-survey
+        - probate-survey-end
+        - probate-application-fee-code
+        - probate-uk-application-fee-code
+        - probate-overseas-application-fee-code
+        - probate-service-id
+        - probate-site-id
+        - caveat-user-name
+        - caveat-user-password
+        - probate-webchat-id
+        - probate-webchat-tenant
+        - probate-webchat-button-no-agents
+        - probate-webchat-button-busy
+        - probate-webchat-button-service-closed
+        - payCaseWorkerUser
+        - payCaseWorkerPass
 
 
 rpe-feature-toggle-api:
+  enabled: true
   releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
   java:
     releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
@@ -68,8 +55,11 @@ rpe-feature-toggle-api:
       oneoff:
         enabled: false
 
+redis:
+  enabled: true
 
 idam-pr:
+  enabled: true
   redirect_uris:
     Probate:
       - https://${SERVICE_FQDN}/oauth2/callback

@@ -2,7 +2,7 @@
 
 'use strict';
 
-const config = require('app/config');
+const config = require('config');
 const router = require('express').Router();
 const initSteps = require('app/core/initSteps');
 const logger = require('app/components/logger');
@@ -15,6 +15,7 @@ const PaymentWrapper = require('app/wrappers/Payment');
 const documentUpload = require('app/documentUpload');
 const documentDownload = require('app/documentDownload');
 const multipleApplications = require('app/multipleApplications');
+const journeyCheck = require('app/journeyCheck');
 const serviceAuthorisationToken = require('app/serviceAuthorisation');
 const paymentFees = require('app/paymentFees');
 const setJourney = require('app/middleware/setJourney');
@@ -60,6 +61,7 @@ router.use((req, res, next) => {
 router.use(serviceAuthorisationToken);
 router.use(setJourney);
 router.use(multipleApplications);
+router.use(journeyCheck);
 router.use(documentDownload);
 router.use(paymentFees);
 router.post('/payment-breakdown', lockPaymentAttempt);
@@ -186,7 +188,7 @@ router.use((req, res, next) => {
     if (allPageUrls.includes(currentPageCleanUrl)) {
         if (req.method === 'GET' && config.alwaysWhitelistedPages.includes(currentPageCleanUrl)) {
             next();
-        } else if (config.app.requreCcdCaseId === 'true' && req.method === 'GET' && !noCcdCaseIdPages.includes(currentPageCleanUrl) && !get(formdata, 'ccdCase.id')) {
+        } else if (config.app.requireCcdCaseId === 'true' && req.method === 'GET' && !noCcdCaseIdPages.includes(currentPageCleanUrl) && !get(formdata, 'ccdCase.id')) {
             res.redirect('/dashboard');
         } else if (!applicationSubmitted && config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl)) {
             res.redirect('/task-list');

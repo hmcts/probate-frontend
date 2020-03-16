@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 const CheckAnswersPdf = require('app/services/CheckAnswersPdf');
 const Pdf = require('app/services/Pdf');
-const config = require('app/config').pdf;
+const config = require('config').pdf;
 
 describe('CheckAnswersPdfService', () => {
     describe('post()', () => {

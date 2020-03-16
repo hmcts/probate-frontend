@@ -3,7 +3,7 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const Document = require('app/services/Document');
-const config = require('app/config');
+const config = require('config');
 
 describe('DocumentService', () => {
     describe('post()', () => {

@@ -5,7 +5,7 @@ const {assert} = require('chai');
 const PinSent = require('app/steps/ui/pin/sent');
 const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');
-const config = require('app/config');
+const config = require('config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
 const S2S_URL = config.services.idam.s2s_url;
 const IDAM_URL = config.services.idam.apiUrl;
@@ -20,6 +20,14 @@ describe('pin-resend', () => {
     let testWrapper;
     let sessionData;
     const expectedNextUrlForPinSent = PinSent.getUrl();
+    const nockHeaders = {
+        reqheaders: {
+            'Content-Type': 'application/json',
+            'Session-Id': 'dummy_Session-Id',
+            'Authorization': 'dummy_Authorization',
+            'ServiceAuthorization': 'dummy_ServiceAuthorization'
+        }
+    };
 
     beforeEach(() => {
         testWrapper = new TestWrapper('PinResend');
@@ -128,16 +136,41 @@ describe('pin-resend', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForPinSent}`, (done) => {
-            nock(orchestratorServiceUrl)
-                .get('/invite/pin?phoneNumber=undefined')
+            nock(orchestratorServiceUrl, nockHeaders)
+                .get('/invite/pin?phoneNumber=07912345678')
                 .reply(200, '12345');
 
             testWrapper.testRedirect(afterEachNocks(done), {}, expectedNextUrlForPinSent);
         });
 
-        it('test error page when pin resend fails', (done) => {
-            nock(orchestratorServiceUrl)
+        it('test error page when pin resend fails - no phone number provided', (done) => {
+            nock(orchestratorServiceUrl, nockHeaders)
                 .get('/invite/pin?phoneNumber=undefined')
+                .reply(500, new Error('ReferenceError'));
+
+            const sessionData = require('test/data/multipleApplicant');
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    delete require.cache[require.resolve('test/data/multipleApplicant')];
+                    testWrapper.agent.post(testWrapper.pageUrl)
+                        .then(response => {
+                            assert(response.status === 500);
+                            assert(response.text.includes('having technical problems'));
+                            nock.cleanAll();
+                            done();
+                        })
+                        .catch(err => {
+                            nock.cleanAll();
+                            done(err);
+                        });
+                });
+        });
+
+        it('test error page when pin resend fails - no headers provided', (done) => {
+            nock(orchestratorServiceUrl)
+                .get('/invite/pin?phoneNumber=07912345678')
                 .reply(500, new Error('ReferenceError'));
 
             const sessionData = require('test/data/multipleApplicant');

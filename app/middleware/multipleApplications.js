@@ -1,7 +1,7 @@
 'use strict';
 
 const {get, sortBy} = require('lodash');
-const config = require('app/config');
+const config = require('config');
 const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const caseTypes = require('app/utils/CaseTypes');

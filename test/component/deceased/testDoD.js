@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedAddress = require('app/steps/ui/deceased/address');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('deceased-dod', () => {
     let testWrapper;
@@ -17,10 +18,11 @@ describe('deceased-dod', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('DeceasedDod');
+        testCommonContent.runTest('DeceasedDod', null, null, [], false, {type: caseTypes.GOP});
 
         it('test right content loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.GOP,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456

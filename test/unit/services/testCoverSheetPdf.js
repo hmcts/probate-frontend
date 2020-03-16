@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 const CoverSheetPdf = require('app/services/CoverSheetPdf');
 const Pdf = require('app/services/Pdf');
-const config = require('app/config');
+const config = require('config');
 
 describe('CoverSheetPdfService', () => {
     describe('post()', () => {

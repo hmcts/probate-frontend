@@ -1,7 +1,7 @@
 'use strict';
 
 const fileType = require('file-type');
-const config = require('app/config').documentUpload;
+const config = require('config').documentUpload;
 
 class DocumentUpload {
     initDocuments(formdata) {

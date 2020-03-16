@@ -2,10 +2,8 @@
 
 const randomstring = require('randomstring');
 const request = require('request');
-const testConfig = require('test/config');
-const Service = require('app/services/Service');
-const service = new Service();
-const {URLSearchParams} = require('url');
+const testConfig = require('config');
+
 /* eslint no-console: 0 no-unused-vars: 0 */
 /* eslint-disable no-undef */
 class TestConfigurator {
@@ -26,118 +24,54 @@ class TestConfigurator {
         this.retryScenarios = testConfig.TestRetryScenarios;
         this.testUseProxy = testConfig.TestUseProxy;
         this.testProxy = testConfig.TestProxy;
-        //this.testOAuth2TokenUrl = this.testBaseUrl + TestOAuth2TokenUrl;
     }
 
-    getAuthorisationToken() {
-        return request({
-            url: 'https://idam-api.aat.platform.hmcts.net/oauth2/authorize?response_type=code&client_id=probate&redirect_uri=https://probate-frontend-aat.service.core-compute-aat.internal/oauth2/callback',
-            proxy: this.getProxy(),
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Basic ZW1iZXJsaS5yaWRsZXlAdXVsdXUub3JnOlByb2JhdGUxMjM='
+    getBefore() {
+        if (process.env.testCitizenEmail === this.getTestCitizenEmail()) {
+            this.setTestCitizenName();
+            this.setTestCitizenPassword();
+        }
+
+        this.setEnvVars();
+
+        if (this.useIdam === 'true') {
+            this.userDetails =
+                {
+                    'email': this.getTestCitizenEmail(),
+                    'forename': this.getTestCitizenName(),
+                    'surname': this.getTestCitizenName(),
+                    'password': this.getTestCitizenPassword(),
+                    'roles': [{'code': this.getTestRole()}],
+                    'userGroup': {'code': this.getTestIdamUserGroup()}
+                };
+
+            if (this.getUseProxy() === 'true') {
+                request({
+                    url: this.getTestAddUserURL(),
+                    proxy: this.getProxy(),
+                    method: 'POST',
+                    json: true, // <--Very important!!!
+                    body: this.userDetails
+                }, (error, response, body) => {
+                    if (response && response.statusCode !== 201) {
+                        throw new Error('TestConfigurator.getBefore: Using proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
+                    }
+                });
+            } else {
+                request({
+                    url: this.getTestAddUserURL(),
+                    method: 'POST',
+                    json: true, // <--Very important!!!
+                    body: this.userDetails
+                }, (error, response, body) => {
+                    if (response.statusCode !== 201) {
+                        throw new Error('TestConfigurator.getBefore: Without proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
+                    }
+                });
             }
-            //,
-            //json: true, // <--Very important!!!
-            //body: 'response_type=code&client_id=probate&redirect_uri=https://probate-frontend-aat.service.core-compute-aat.internal/oauth2/callback'
-        }, function (error, response, body) {
-            if (response && response.statusCode !== 200) {
-                throw new Error('TestConfigurator.getBefore: Using proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
-            }
-            console.log(body.code);
-            return body.code;
-        });
+        }
+
     }
-
-    async getBefore() {
-        let params;
-        let url;
-        let headers;
-        let fetchOptions;
-
-        params = new URLSearchParams();
-        params.append('response_type', 'code');
-        params.append('client_id', 'probate');
-        params.append('redirect_uri', 'https://probate-frontend-aat.service.core-compute-aat.internal/oauth2/callback');
-
-        url = `https://idam-api.aat.platform.hmcts.net/oauth2/authorize?${params.toString()}`;
-
-        headers = {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Basic ZW1iZXJsaS5yaWRsZXlAdXVsdXUub3JnOlByb2JhdGUxMjM='
-        };
-        fetchOptions = service.fetchOptions({}, 'POST', headers, 'socks5:proxyout.reform.hmcts.net:8080');
-        const data = await service.fetchJson(url, fetchOptions);
-        const authCode = data.code;
-
-        params = new URLSearchParams();
-        params.append('grant_type', 'authorization_code');
-        params.append('code', authCode);
-        params.append('redirect_uri', 'https://probate-frontend-aat.service.core-compute-aat.internal/oauth2/callback');
-        params.append('client_id', 'probate');
-        params.append('client_secret', 'staSwA5Hu6as6upra8ew3upeq2drUbup');
-
-        url = `https://idam-api.aat.platform.hmcts.net/oauth2/token?${params.toString()}`;
-
-        headers = {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        };
-
-        fetchOptions = service.fetchOptions({}, 'POST', headers, 'socks5:proxyout.reform.hmcts.net:8080');
-        const data2 = await service.fetchJson(url, fetchOptions);
-
-        console.log('data2>>>>', data2);
-    }
-
-    // getBefore() {
-    //     if (process.env.testCitizenEmail === this.getTestCitizenEmail()) {
-    //         this.setTestCitizenName();
-    //         this.setTestCitizenPassword();
-    //     }
-    //
-    //     this.setEnvVars();
-    //
-    //     if (this.useIdam === 'true') {
-    //         this.userDetails =
-    //             {
-    //                 'email': this.getTestCitizenEmail(),
-    //                 'forename': this.getTestCitizenName(),
-    //                 'surname': this.getTestCitizenName(),
-    //                 'password': this.getTestCitizenPassword(),
-    //                 'roles': [{'code': this.getTestRole()}],
-    //                 'userGroup': {'code': this.getTestIdamUserGroup()}
-    //             };
-    //
-    //         if (this.getUseProxy() === 'true') {
-    //             console.log('use proxy');
-    //             request({
-    //                 url: this.getTestAddUserURL(),
-    //                 proxy: this.getProxy(),
-    //                 method: 'POST',
-    //                 json: true, // <--Very important!!!
-    //                 body: this.userDetails
-    //             }, function (error, response, body) {
-    //                 if (response && response.statusCode !== 201) {
-    //                     throw new Error('TestConfigurator.getBefore: Using proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
-    //                 }
-    //             });
-    //         } else {
-    //             console.log('no proxy');
-    //             request({
-    //                 url: this.getTestAddUserURL(),
-    //                 method: 'POST',
-    //                 json: true, // <--Very important!!!
-    //                 body: this.userDetails
-    //             }, function (error, response, body) {
-    //                 if (response.statusCode !== 201) {
-    //                     throw new Error('TestConfigurator.getBefore: Without proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
-    //                 }
-    //             });
-    //         }
-    //     }
-    //
-    // }
 
     getAfter() {
         // if (this.useIdam === 'true') {

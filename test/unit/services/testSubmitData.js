@@ -3,7 +3,7 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const SubmitData = require('app/services/SubmitData');
-const config = require('app/config');
+const config = require('config');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('SubmitDataService', () => {

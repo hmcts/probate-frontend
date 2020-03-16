@@ -6,7 +6,7 @@ const nock = require('nock');
 const co = require('co');
 const rewire = require('rewire');
 const Pdf = rewire('app/services/Pdf');
-const config = require('app/config');
+const config = require('config');
 
 describe('PdfService', () => {
     describe('post()', () => {

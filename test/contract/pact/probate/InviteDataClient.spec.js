@@ -6,7 +6,7 @@ const chai = require('chai');
 const {Pact} = require('@pact-foundation/pact');
 const chaiAsPromised = require('chai-as-promised');
 const InviteData = require('app/services/InviteData');
-const config = require('app/config');
+const config = require('config');
 const getPort = require('get-port');
 const assert = chai.assert;
 chai.use(chaiAsPromised);

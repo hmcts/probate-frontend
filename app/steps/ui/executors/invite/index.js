@@ -4,7 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
 const logger = require('app/components/logger')('Init');
 const InviteLink = require('app/services/InviteLink');
-const config = require('app/config');
+const config = require('config');
 const get = require('lodash').get;
 
 class ExecutorsInvite extends ValidationStep {

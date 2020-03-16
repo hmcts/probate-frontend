@@ -1,0 +1,108 @@
+environment: REFORM_ENVIRONMENT
+nodeEnvironment: NODE_ENV
+gitRevision: GIT_REVISION
+frontendPublicHttpProtocol: PUBLIC_PROTOCOL
+featureToggles:
+  url: FEATURE_TOGGLES_API_URL
+app:
+  username: USERNAME
+  password: PASSWORD
+  useAuth: USE_AUTH
+  useHttps: USE_HTTPS
+  useIDAM: USE_IDAM
+  requireCcdCaseId: REQUIRE_CCD_CASE_ID
+  port: PORT
+services:
+  postcode:
+    token: POSTCODE_SERVICE_TOKEN
+  orchestrator:
+    url: ORCHESTRATOR_SERVICE_URL
+  validation:
+    url: VALIDATION_SERVICE_URL
+  submit:
+    url: SUBMIT_SERVICE_URL
+  idam:
+    loginUrl: IDAM_LOGIN_URL
+    apiUrl: IDAM_API_URL
+    s2s_url: IDAM_S2S_URL
+    service_key: IDAM_SERVICE_KEY
+    probate_oauth2_client: IDAM_CLIENT_NAME
+    probate_oauth2_secret: IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE
+    probate_user_email: PROBATE_USER_EMAIL
+    probate_user_password: PROBATE_USER_PASSWORD
+    probate_redirect_base_url: PROBATE_REDIRECT_BASE_URL
+  payment:
+    url: PAYMENT_API_URL
+    authorization: PAYMENT_AUTHORIZATION
+    serviceAuthorization: PAYMENT_SERVICE_AUTHORIZATION
+    userId: PAYMENT_USER_ID
+  pact:
+    brokerUrl: PACT_BROKER_URL
+    tag: PACT_BRANCH_NAME
+  feesRegister:
+    url: FEES_REGISTRY_URL
+redis:
+  host: REDIS_HOST
+  port: REDIS_PORT
+  password: REDIS_PASSWORD
+  useTLS: REDIS_USE_TLS
+  enabled: USE_REDIS
+  secret: REDIS_SECRET
+gaTrackingId: GA_TRACKING_ID
+enableTracking: ENABLE_TRACKING
+webChat:
+  chatId: WEBCHAT_CHAT_ID
+  tenant: WEBCHAT_TENANT
+  buttonNoAgents: WEBCHAT_BUTTON_NO_AGENTS
+  buttonAgentsBusy: WEBCHAT_BUTTON_AGENTS_BUSY
+  buttonServiceClosed: WEBCHAT_BUTTON_SERVICE_CLOSED
+links:
+  survey: SURVEY
+  surveyEndOfApplication: SURVEY_END_OF_APPLICATION
+  terms: TERMS_AND_CONDITIONS
+utils:
+  api:
+    retries: RETRIES_NUMBER
+    retryDelay: RETRY_DELAY
+payment:
+  applicationFeeCode: APPLICATION_FEE_CODE
+  copies:
+    uk:
+      code: UK_COPIES_FEE_CODE
+    overseas:
+      code: OVERSEAS_COPIES_FEE_CODE
+  serviceId: SERVICE_ID
+  siteId: SITE_ID
+  version: version
+  currency: currency
+
+appInsights:
+  instrumentationKey: APPINSIGHTS_INSTRUMENTATIONKEY
+
+TestCitizenDomain: CITIZEN_EMAIL_DOMAIN
+TestE2EFrontendUrl: TEST_E2E_URL
+TestFrontendUrl: TEST_URL
+TestIdamAddUserUrl: IDAM_ADD_USER_URL
+TestIdamBaseUrl: IDAM_API_URL
+TestIdamLoginUrl: IDAM_LOGIN_URL
+TestIdamRole: IDAM_CITIZEN_ROLE
+TestIdamUserGroup: IDAM_USER_GROUP
+TestInvitationUrl: INVITATION_URL
+TestInviteIdListUrl: INVITE_ID_LIST_URL
+TestOutputDir: E2E_OUTPUT_DIR
+TestPinUrl: PIN_URL
+TestProxy: TEST_PROXY
+TestRetryFeatures: RETRY_FEATURES
+TestRetryScenarios: RETRY_SCENARIOS
+TestRetrySteps: RETRY_STEPS
+TestUseIdam: USE_IDAM
+TestUseProxy: TEST_USE_PROXY
+
+postcodeLookup:
+  token: ADDRESS_TOKEN
+
+TestEnvEmailAddress: TEST_EMAIL_ADDRESS
+TestEnvMobileNumber: TEST_MOBILE_NUMBER
+
+pact:
+  pactBrokerUrl: PACT_BROKER_URL

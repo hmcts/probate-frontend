@@ -7,7 +7,7 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const FieldError = require('app/components/error');
 const {findIndex, every, tail} = require('lodash');
 const InviteData = require('app/services/InviteData');
-const config = require('app/config');
+const config = require('config');
 
 class ExecutorContactDetails extends ValidationStep {
 

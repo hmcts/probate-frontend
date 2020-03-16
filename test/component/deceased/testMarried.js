@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const WillCodicils = require('app/steps/ui/will/codicils');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('deceased-married', () => {
     let testWrapper;
@@ -17,10 +18,11 @@ describe('deceased-married', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('DeceasedMarried');
+        testCommonContent.runTest('DeceasedMarried', null, null, [], false, {type: caseTypes.GOP});
 
         it('test correct content is loaded on the page', (done) => {
             const sessionData = {
+                type: caseTypes.GOP,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456
@@ -43,6 +45,7 @@ describe('deceased-married', () => {
 
         it('test correct content is loaded on the page when there are codicils', (done) => {
             const sessionData = {
+                type: caseTypes.GOP,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456

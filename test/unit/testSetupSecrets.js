@@ -27,7 +27,7 @@ describe(modulePath, () => {
             setupSecrets();
 
             expect(mockConfig.redis.secret)
-                .to.equal(mockConfig.secrets.probate['frontend-redis-redis-access-key']);
+                .to.equal(mockConfig.secrets.probate['frontend-redis-access-key']);
             expect(mockConfig.idam.service_key)
                 .to.equal(mockConfig.secrets.probate['idam-s2s-secret']);
         });

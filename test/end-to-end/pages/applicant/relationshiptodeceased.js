@@ -8,6 +8,5 @@ module.exports = (answer) => {
 
     I.amOnLoadedPage(pageUnderTest.getUrl());
     I.click(`#relationshipToDeceased-option${answer}`);
-
     I.navByClick(commonContent.saveAndContinue);
 };

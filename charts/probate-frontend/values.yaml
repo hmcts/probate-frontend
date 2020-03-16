@@ -1,5 +1,7 @@
 nodejs:
   image: hmctspublic.azurecr.io/probate/frontend:latest
+  additionalPathBasedRoutes:
+    "/caveats": "probate-caveats-fe-nodejs"
   memoryRequests: "512Mi"
   cpuRequests: "100m"
   memoryLimits: "1024Mi"

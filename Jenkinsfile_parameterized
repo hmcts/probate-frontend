@@ -9,7 +9,8 @@ properties([
 		])
 ])
 
-List<LinkedHashMap<String, Object>> secrets = [
+def secrets = [
+  'probate-${env}': [
     secret('testIdamBaseUrl', 'IDAM_API_URL'),
     secret('testIdamLoginUrl', 'IDAM_LOGIN_URL'),
     secret('testUseIdam', 'USE_IDAM'),
@@ -25,22 +26,11 @@ List<LinkedHashMap<String, Object>> secrets = [
     secret('testTerms', 'TERMS_AND_CONDITIONS'),
     secret('testSurvey', 'SURVEY'),
     secret('testsurveyEndOfApplication', 'SURVEY_END_OF_APPLICATION'),
-    secret('testUseGovPay', 'USE_GOV_PAY'),
     secret('testPostcodeServiceUrl', 'POSTCODE_SERVICE_URL'),
-    secret('testPostCodeAddressToken', 'ADDRESS_TOKEN'),
+    secret('testPostCodeAddressToken2', 'ADDRESS_TOKEN'),
     secret('testRunE2ETest', 'RUN_E2E_TEST'),
-    secret('testValidationServiceUrl', 'TEST_VALIDATION_SERVICE_URL'),
-    secret('idam-secret-probate', 'IDAM_SECRET_PROBATE'),
-    secret('idam-s2s-secret', 'IDAM_S2S_SECRET'),
-    secret('postcode-service-url', 'PRO_POSTCODE_SERVICE_URL'),
-    secret('postcode-service-token', 'PRO_POSTCODE_SERVICE_TOKEN'),
-    secret('probate-survey', 'PRO_SURVEY'),
-    secret('probate-survey-end', 'PRO_SURVEY_END_OF_APPLICATION'),
-    secret('probate-application-fee-code', 'PRO_APPLICATION_FEE_CODE'),
-    secret('probate-uk-application-fee-code', 'PRO_UK_COPIES_FEE_CODE'),
-    secret('probate-overseas-application-fee-code', 'PRO_OVERSEAS_COPIES_FEE_CODE'),
-    secret('probate-service-id', 'PRO_SERVICE_ID'),
-    secret('probate-site-id', 'PRO_SITE_ID')
+    secret('testValidationServiceUrl', 'VALIDATION_SERVICE_URL'),
+  ]
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {

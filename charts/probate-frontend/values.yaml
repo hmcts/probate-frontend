@@ -1,35 +1,62 @@
-
 nodejs:
+  image: hmctspublic.azurecr.io/probate/frontend:latest
+  additionalPathBasedRoutes:
+    "/caveats": "probate-caveats-fe-nodejs"
   memoryRequests: "512Mi"
   cpuRequests: "100m"
   memoryLimits: "1024Mi"
   cpuLimits: "500m"
   applicationPort: 3000
-  memoryRequests: "512Mi"
-  cpuRequests: "100m"
-  memoryLimits: "1024Mi"
-  cpuLimits: "500m"
   environment:
     PUBLIC_PROTOCOL: https
     REFORM_TEAM: probate
     REFORM_SERVICE_NAME: probate-frontend
-    S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
-    IDAM_S2S_AUTH_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
-    PAYMENT_API_URL: http://payment-api-aat.service.core-compute-aat.internal
-    VALIDATION_SERVICE_URL: http://probate-business-service-aat.service.core-compute-aat.internal/validate
-    BUSINESS_DOCUMENT_URL: http://probate-business-service-aat.service.core-compute-aat.internal/businessDocument
-    SUBMIT_SERVICE_URL: http://probate-submit-service-aat.service.core-compute-aat.internal
-    ORCHESTRATOR_SERVICE_URL : http://probate-orchestrator-service-aat.service.core-compute-aat.internal
-    # PERSISTENCE_SERVICE_URL: http://probate-persistence-service-aat.service.core-compute-aat.internal/formdata
-    FEES_REGISTRY_URL: http://fees-register-api-aat.service.core-compute-aat.internal/fees-register
-    REFORM_ENVIRONMENT : aat
-    USE_REDIS : true
-    REDIS_USE_TLS : false
-    USE_IDAM : true
+    IDAM_CLIENT_NAME: probate
+    FEATURE_TOGGLES_API_URL: http://rpe-feature-toggle-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal # is this actually used
+    IDAM_LOGIN_URL: https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net/login
+    IDAM_API_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
+    IDAM_S2S_URL: http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+    PAYMENT_API_URL: http://payment-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+    VALIDATION_SERVICE_URL: http://probate-business-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal/validate
+    SUBMIT_SERVICE_URL: http://probate-submit-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+    ORCHESTRATOR_SERVICE_URL : http://probate-orchestrator-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+    FEES_REGISTRY_URL: http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal/fees-register
+    REFORM_ENVIRONMENT : '{{ .Values.global.environment }}'
+    REDIS_HOST: probate-frontend-redis-cache-{{ .Values.global.environment }}.redis.cache.windows.net
+    REDIS_PORT: 6380
+    USE_REDIS: true
+    REDIS_USE_TLS: true
+    USE_IDAM: true
     REQUIRE_CCD_CASE_ID : true
-  image: hmctspublic.azurecr.io/probate/probate-frontend:latest
+  keyVaults:
+    probate:
+      secrets:
+        - frontend-redis-access-key
+        - idam-s2s-secret
+        - ccidam-idam-api-secrets-probate
+        - postcode-service-url
+        - postcode-service-token2
+        - probate-survey
+        - probate-survey-end
+        - probate-application-fee-code
+        - probate-uk-application-fee-code
+        - probate-overseas-application-fee-code
+        - probate-service-id
+        - probate-site-id
+        - payCaseWorkerUser
+        - payCaseWorkerPass
+        - probate-webchat-id
+        - probate-webchat-tenant
+        - probate-webchat-button-no-agents
+        - probate-webchat-button-busy
+        - probate-webchat-button-service-closed
+        - AppInsightsInstrumentationKey
+
+rpe-feature-toggle-api:
+  enabled: false
 
 redis:
+  enabled: false
   cluster:
     enabled: false
     slaveCount: 0
@@ -37,3 +64,6 @@ redis:
   master:
     persistence:
       enabled: false
+
+idam-pr:
+  enabled: false

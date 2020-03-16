@@ -7,6 +7,7 @@ const ihtOnline = '-2';
 const optionNo = '-2';
 const maritalStatusNeverMarried = '-4';
 const bilingualGOP = false;
+const uploadingDocuments = true;
 
 Feature('Intestacy child flow');
 
@@ -25,7 +26,7 @@ After(() => {
 // eslint-disable-next-line no-undef
 Scenario(TestConfigurator.idamInUseText('Intestacy Child Journey - Digital iht, death certificate uploaded and spouse not renouncing'), function (I) {
     // set variables
-    const uploadingDocuments = true;
+
 
     // Eligibility Task (pre IdAM)
     I.startApplication();

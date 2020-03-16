@@ -2,8 +2,11 @@
 
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
-const willLeft = require('app/steps/ui/screeners/willleft');
-const startApply = require('app/steps/ui/screeners/startapply');
+const optionYes = '';
+const ihtOnline = '-2';
+const optionNo = '-2';
+const bilingualGOP = false;
+const uploadingDocuments = false;
 
 Feature('Intestacy spouse flow');
 
@@ -22,56 +25,91 @@ After(() => {
 // eslint-disable-next-line no-undef
 Scenario(TestConfigurator.idamInUseText('Intestacy Spouse Journey - Digital iht and death certificate uploaded'), (I) => {
     // set variables
-    const uploadingDocuments = true;
 
-    // To keep the e2e short we only answer will left question
-    I.amOnPage(willLeft.getUrl());
-    I.selectPersonWhoDiedLeftAWill('No');
-    I.amOnPage(startApply.getUrl());
+    // Eligibility Task (pre IdAM)
+    I.startApplication();
 
+    // Probate Sceeners
+    //I.selectDeathCertificate('No');
+    // I.seeStopPage('deathCertificate');
+    I.selectDeathCertificate(optionYes);
+
+    //I.selectDeceasedDomicile('No');
+    // I.seeStopPage('notInEnglandOrWales');
+    I.selectDeceasedDomicile(optionYes);
+
+    //I.selectIhtCompleted('No');
+    // I.seeStopPage('ihtNotCompleted');
+    I.selectIhtCompleted(optionYes);
+
+    I.selectPersonWhoDiedLeftAWill(optionNo);
+
+    // Intestacy Sceeners
+    //I.selectDiedAfterOctober2014('No');
+    //I.seeStopPage('notDiedAfterOctober2014');
+    I.selectDiedAfterOctober2014(optionYes);
+
+    //I.selectRelatedToDeceased('No');
+    //I.seeStopPage('notRelated');
+    I.selectRelatedToDeceased(optionYes);
+
+    //I.selectOtherApplicants('Yes');
+    //I.seeStopPage('otherApplicants');
+    I.selectOtherApplicants(optionNo);
+    //
     I.startApply();
 
     // IdAM
     I.authenticateWithIdamIfAvailable();
 
+    // Dashboard
+    I.chooseApplication();
+
     // Deceased Task
     I.selectATask(taskListContent.taskNotStarted);
+    I.chooseBiLingualGrant();
     I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
     I.enterDeceasedAddress();
     I.selectDocumentsToUpload(uploadingDocuments);
-    I.selectInheritanceMethod('Online');
+    I.selectInheritanceMethod(ihtOnline);
     I.enterIHTIdentifier();
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterEstateValue('300000', '200000');
     } else {
         I.enterEstateValue('500', '400');
     }
-    I.selectAssetsOutsideEnglandWales('Yes');
+
+    I.selectAssetsOutsideEnglandWales(optionYes);
     I.enterValueAssetsOutsideEnglandWales('400000');
-    I.selectDeceasedAlias('No');
-    I.selectDeceasedMaritalStatus('Married');
+    I.selectDeceasedAlias(optionNo);
+
+    I.selectDeceasedMaritalStatus();
 
     // Executors Task
     I.selectATask(taskListContent.taskNotStarted);
-    I.selectRelationshipToDeceased('SpousePartner');
-    I.enterAnyChildren('No');
+    I.selectRelationshipToDeceased();
+    I.enterAnyChildren(optionNo);
     I.enterApplicantName('ApplicantFirstName', 'ApplicantLastName');
     I.enterApplicantPhone();
     I.enterAddressManually();
 
     // Check your answers and declaration
+    I.seeSummaryPage();
+
+    // Review and Confirm Task
+    I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
-    I.acceptDeclaration();
+    I.acceptDeclaration(bilingualGOP);
 
     // Copies Task
     I.selectATask(taskListContent.taskNotStarted);
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterUkCopies('5');
-        I.selectOverseasAssets();
+        I.selectOverseasAssets(optionYes);
         I.enterOverseasCopies('7');
     } else {
         I.enterUkCopies('0');
-        I.selectOverseasAssets();
+        I.selectOverseasAssets(optionYes);
         I.enterOverseasCopies('0');
     }
     I.seeCopiesSummary();

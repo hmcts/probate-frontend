@@ -1,5 +1,6 @@
 nodejs:
   image: hmctspublic.azurecr.io/probate/frontend:latest
+  aadIdentityName: probate
   additionalPathBasedRoutes:
     "/caveats": "probate-caveats-fe-nodejs"
   memoryRequests: "512Mi"

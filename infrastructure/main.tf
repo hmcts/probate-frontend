@@ -2,17 +2,12 @@ provider "azurerm" {
   version = "1.22.1"
 }
 
-
 locals {
   aseName = "core-compute-${var.env}"
   previewVaultName = "${var.raw_product}-aat"
   nonPreviewVaultName = "${var.raw_product}-${var.env}"
   vaultName = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultName : local.nonPreviewVaultName}"
   localenv = "${(var.env == "preview" || var.env == "spreview") ? "aat": "${var.env}"}"
-  //once Backend is up in CNP need to get the
-  //localBusinessServiceUrl = "http://probate-business-service-${var.env}.service.${local.aseName}.internal"
-  //businessServiceUrl = "${var.env == "preview" ? "http://probate-business-service-aat.service.core-compute-aat.internal" : local.localClaimStoreUrl}"
-  // add other services
   probate_internal_base_url = "http://probate-frontend-${local.localenv}.service.core-compute-${local.localenv}.internal"
 }
 
@@ -24,11 +19,17 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
 
 module "probate-frontend-redis-cache" {
   source   = "git@github.com:hmcts/cnp-module-redis?ref=master"
-  product     = "${(var.env == "preview" || var.env == "spreview") ? "${var.product}-${var.microservice}-pr-redis" : "${var.product}-${var.microservice}-redis-cache"}"
+  product  = "${var.product}-${var.component}-redis-cache"
   location = "${var.location}"
   env      = "${var.env}"
   subnetid = "${data.azurerm_subnet.core_infra_redis_subnet.id}"
   common_tags  = "${var.common_tags}"
+}
+
+resource "azurerm_key_vault_secret" "redis_access_key" {
+  name         = "${var.component}-redis-access-key"
+  value        = "${module.probate-frontend-redis-cache.access_key}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 
 data "azurerm_key_vault" "probate_key_vault" {
@@ -36,98 +37,97 @@ data "azurerm_key_vault" "probate_key_vault" {
   resource_group_name = "${local.vaultName}"
 }
 
-
 data "azurerm_key_vault_secret" "probate_postcode_service_token" {
   name = "postcode-service-token2"
-  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "probate_postcode_service_url" {
   name = "postcode-service-url"
-  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "probate_survey" {
   name = "probate-survey"
-  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "probate_survey_end" {
   name = "probate-survey-end"
-  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "probate_application_fee_code" {
   name = "probate-application-fee-code"
-  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "probate_uk_application_fee_code" {
   name = "probate-uk-application-fee-code"
-  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "probate_overseas_application_fee_code" {
   name = "probate-overseas-application-fee-code"
-  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "probate_service_id" {
   name = "probate-service-id"
-  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "probate_site_id" {
   name = "probate-site-id"
-  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "probate_webchat_id" {
   name = "probate-webchat-id"
-  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "probate_webchat_tenant" {
   name = "probate-webchat-tenant"
-  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "probate_webchat_button_no_agents" {
   name = "probate-webchat-button-no-agents"
-  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 data "azurerm_key_vault_secret" "probate_webchat_button_busy" {
   name = "probate-webchat-button-busy"
-  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "probate_webchat_button_service_closed" {
   name = "probate-webchat-button-service-closed"
-  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "payCaseWorkerUser" {
   name = "payCaseWorkerUser"
-  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "payCaseWorkerPass" {
   name = "payCaseWorkerPass"
-  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "idam_secret_probate" {
   name = "ccidam-idam-api-secrets-probate"
-  vault_uri = "${data.azurerm_key_vault.probate_key_vault.vault_uri}"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 
 data "azurerm_key_vault_secret" "s2s_key" {
-  name      = "microservicekey-probate-frontend"
-  vault_uri = "https://s2s-${local.localenv}.vault.azure.net/"
+  name      = "idam-s2s-secret"
+  key_vault_id = "${data.azurerm_key_vault.probate_key_vault.id}"
 }
 module "probate-frontend" {
   source = "git@github.com:hmcts/cnp-module-webapp?ref=master"
-  product = "${var.product}-${var.microservice}"
+  product = "${var.product}-${var.component}"
   location = "${var.location}"
   env = "${var.env}"
   ilbIp = "${var.ilbIp}"
@@ -143,14 +143,9 @@ module "probate-frontend" {
   app_settings = {
     WEBSITE_NODE_DEFAULT_VERSION = "12.15.0"
 
-    // Node specific vars
-    //NODE_ENV = "${var.node_env}"
-    //UV_THREADPOOL_SIZE = "64"
-    //NODE_CONFIG_DIR = "${var.node_config_dir}"
-
 	  // Logging vars
     REFORM_TEAM = "${var.product}"
-    REFORM_SERVICE_NAME = "${var.product}-${var.microservice}"
+    REFORM_SERVICE_NAME = "${var.product}-${var.component}"
     REFORM_ENVIRONMENT = "${var.env}"
 
 	  // Packages
@@ -168,7 +163,6 @@ module "probate-frontend" {
     SERVICE_NAME = "${var.frontend_service_name}"
 
     VALIDATION_SERVICE_URL = "${var.probate_business_service_url}"
-    BUSINESS_DOCUMENT_URL = "${var.probate_business_service_document_url}"
     SUBMIT_SERVICE_URL = "${var.probate_submit_service_url}"
     ORCHESTRATOR_SERVICE_URL = "${var.probate_orchestrator_service_url}"
     PERSISTENCE_SERVICE_URL = "${var.probate_persistence_service_url}"
@@ -194,18 +188,13 @@ module "probate-frontend" {
     IDAM_API_URL = "${var.idam_user_host}"
     IDAM_LOGIN_URL = "${var.probate_private_beta_auth_url}"
     IDAM_S2S_URL = "${var.idam_service_api}"
-    //IDAM_SERVICE_KEY = "${data.vault_generic_secret.idam_frontend_service_key.data["value"]}"
     IDAM_SERVICE_KEY = "${data.azurerm_key_vault_secret.s2s_key.value}"
-    //IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE = "${data.vault_generic_secret.idam_frontend_idam_key.data["value"]}"
     IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_PROBATE = "${data.azurerm_key_vault_secret.idam_secret_probate.value}"
 
-    // PAYMENT
     PAYMENT_API_URL = "${var.payment_create_url}"
 
     // POSTCODE
-    //POSTCODE_SERVICE_URL = "${data.vault_generic_secret.probate_postcode_service_url.data["value"]}"
     POSTCODE_SERVICE_URL = "${data.azurerm_key_vault_secret.probate_postcode_service_url.value}"
-    //POSTCODE_SERVICE_TOKEN = "${data.vault_generic_secret.probate_postcode_service_token.data["value"]}"
     POSTCODE_SERVICE_TOKEN = "${data.azurerm_key_vault_secret.probate_postcode_service_token.value}"
 
 
@@ -227,7 +216,5 @@ module "probate-frontend" {
 
     PROBATE_USER_EMAIL = "${data.azurerm_key_vault_secret.payCaseWorkerUser.value}"
     PROBATE_USER_PASSWORD = "${data.azurerm_key_vault_secret.payCaseWorkerPass.value}"
-    // testing
-    TESTING = "TESTING"
   }
 }

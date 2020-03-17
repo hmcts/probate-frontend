@@ -3,10 +3,10 @@
 const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/executors/number');
 
-module.exports = (totalExecutors) => {
+module.exports = function (totalExecutors) {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
     I.fillField('#executorsNumber', totalExecutors);
 

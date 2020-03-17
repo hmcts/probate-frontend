@@ -2,7 +2,7 @@
 
 const randomstring = require('randomstring');
 const request = require('request');
-const testConfig = require('config');
+const testConfig = require('test/config');
 
 /* eslint no-console: 0 no-unused-vars: 0 */
 /* eslint-disable no-undef */

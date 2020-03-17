@@ -1,5 +1,7 @@
 nodejs:
   image: hmctspublic.azurecr.io/probate/frontend:latest
+  ingressHost: probate.{{ .Values.global.environment }}.platform.hmcts.net
+  aadIdentityName: probate
   additionalPathBasedRoutes:
     "/caveats": "probate-caveats-fe-nodejs"
   memoryRequests: "512Mi"

@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/executors/dealingwithestate');
 module.exports = (executorsApplyingList) => {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
     executorsApplyingList.forEach((executorNumber) => {
         I.checkOption('#executorsApplying-' + (parseInt(executorNumber) - 1));

@@ -7,9 +7,9 @@ module.exports = (executorNumber, diedBefore, firstRecord) => {
     const I = this;
 
     if (firstRecord) {
-        I.amOnLoadedPage(pageUnderTest.getUrl());
+        I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     } else {
-        I.amOnLoadedPage(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
+        I.seeCurrentUrlEquals(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
     }
 
     if (diedBefore) {

@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/executors/alias');
 module.exports = () => {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
     I.click('#alias-optionYes');
 

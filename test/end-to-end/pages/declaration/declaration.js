@@ -3,13 +3,16 @@
 const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/declaration');
 
-module.exports = () => {
+module.exports = function(bilingualGOP) {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.downloadPdfIfNotIE11('#declarationPdfHref');
+    if (bilingualGOP) {
+        I.downloadPdfIfNotIE11('#declarationPdfHref-cy');
+    }
 
+    I.downloadPdfIfNotIE11('#declarationPdfHref-en');
     I.click('#declarationCheckbox');
 
     I.navByClick(commonContent.saveAndContinue);

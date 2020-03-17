@@ -6,8 +6,8 @@ const pageUnderTest = require('app/steps/ui/deceased/anychildren');
 module.exports = function (answer) {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
-    I.click(`#anyChildren-option${answer}`);
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    I.click(`#anyChildren ${answer}`);
 
     I.navByClick(commonContent.saveAndContinue);
 };

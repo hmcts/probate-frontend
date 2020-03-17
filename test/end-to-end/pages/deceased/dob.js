@@ -3,9 +3,9 @@
 const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/deceased/dob');
 
-module.exports = (day, month, year, saveAndClose = false) => {
+module.exports = function(day, month, year, saveAndClose = false) {
     const I = this;
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
     I.fillField('#dob-day', day);
     I.fillField('#dob-month', month);

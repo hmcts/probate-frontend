@@ -4,10 +4,10 @@ const content = require('app/resources/en/translation/tasklist');
 const pageUnderTest = require('app/steps/ui/tasklist');
 const testConfig = require('test/config.js');
 
-module.exports = () => {
+module.exports = function () {
     const I = this;
     I.waitForText(content.introduction, testConfig.TestWaitForTextToAppear);
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.click('.button');
+    I.click('.govuk-button');
 };

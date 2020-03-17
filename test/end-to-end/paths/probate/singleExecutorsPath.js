@@ -2,6 +2,12 @@
 
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
+const optionYes = '';
+const ihtPost = '';
+const optionNo = '-2';
+const applicantAliasOtherReason = '-4';
+const bilingualGOP = false;
+const uploadingDocuments = false;
 
 Feature('Single Executor flow').retry(TestConfigurator.getRetryFeatures());
 
@@ -22,46 +28,38 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), (I) => {
     // Eligibility Task (pre IdAM)
     I.startApplication();
 
-    I.selectDeathCertificate('No');
-    I.seeStopPage('deathCertificate');
-    I.selectDeathCertificate('Yes');
+    I.selectDeathCertificate(optionYes);
 
-    I.selectDeceasedDomicile('No');
-    I.seeStopPage('notInEnglandOrWales');
-    I.selectDeceasedDomicile('Yes');
+    I.selectDeceasedDomicile(optionYes);
 
-    I.selectIhtCompleted('No');
-    I.seeStopPage('ihtNotCompleted');
-    I.selectIhtCompleted('Yes');
+    I.selectIhtCompleted(optionYes);
 
-    I.selectPersonWhoDiedLeftAWill('Yes');
+    I.selectPersonWhoDiedLeftAWill(optionYes);
 
-    I.selectOriginalWill('No');
-    I.seeStopPage('notOriginal');
-    I.selectOriginalWill('Yes');
+    I.selectOriginalWill(optionYes);
 
-    I.selectApplicantIsExecutor('No');
-    I.seeStopPage('notExecutor');
-    I.selectApplicantIsExecutor('Yes');
+    I.selectApplicantIsExecutor(optionYes);
 
-    I.selectMentallyCapable('No');
-    I.seeStopPage('mentalCapacity');
-    I.selectMentallyCapable('Yes');
+    I.selectMentallyCapable(optionYes);
 
     I.startApply();
 
     // IdAM
     I.authenticateWithIdamIfAvailable();
 
+    // Dashboard
+    I.chooseApplication();
+
     // Deceased Details
     I.selectATask(taskListContent.taskNotStarted);
+    I.chooseBiLingualGrant(optionNo);
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.enterDeceasedDateOfBirth('01', '01', '1950');
     I.enterDeceasedDateOfDeath('01', '01', '2017');
-    I.enterDeceasedAddress();
-    const uploadingDocuments = false;
+    I.enterDeceasedAddress(optionNo);
+
     I.selectDocumentsToUpload(uploadingDocuments);
-    I.selectInheritanceMethod('Paper');
+    I.selectInheritanceMethod(ihtPost);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterGrossAndNet('205', '600000', '300000');
@@ -69,18 +67,18 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), (I) => {
         I.enterGrossAndNet('205', '500', '400');
     }
 
-    I.selectDeceasedAlias('Yes');
+    I.selectDeceasedAlias(optionYes);
     I.selectOtherNames('2');
-    I.selectDeceasedMarriedAfterDateOnWill('No');
-    I.selectWillCodicils('Yes');
+    I.selectDeceasedMarriedAfterDateOnWill(optionNo);
+    I.selectWillCodicils(optionYes);
     I.selectWillNoOfCodicils('3');
 
     // ExecutorsTask
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
-    I.selectNameAsOnTheWill('No');
+    I.selectNameAsOnTheWill('-2');
     I.enterApplicantAlias('Applicant Alias');
-    I.enterApplicantAliasReason('aliasOther', 'Applicant_alias_reason');
+    I.enterApplicantAliasReason(applicantAliasOtherReason, 'Applicant alias reason');
     I.enterApplicantPhone();
     I.enterAddressManually();
 
@@ -90,18 +88,18 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), (I) => {
     // Review and Confirm Task
     I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
-    I.acceptDeclaration();
+    I.acceptDeclaration(bilingualGOP);
 
     // Extra Copies Task
     I.selectATask(taskListContent.taskNotStarted);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterUkCopies('5');
-        I.selectOverseasAssets();
+        I.selectOverseasAssets(optionYes);
         I.enterOverseasCopies('7');
     } else {
         I.enterUkCopies('0');
-        I.selectOverseasAssets();
+        I.selectOverseasAssets(optionYes);
         I.enterOverseasCopies('0');
     }
 

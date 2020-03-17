@@ -1,13 +1,13 @@
 'use strict';
 
-const testConfig = require('config');
+const testConfig = require('test/config');
 
-module.exports = () => {
+module.exports = function() {
     const I = this;
-
+    I.wait(3);
     I.retry(testConfig.TestRetrySteps).waitForText('Enter card details', testConfig.TestWaitForTextToAppear);
 
-    I.seeInCurrentUrl(testConfig.TestGovUkCardPaymentsUrl);
+    //I.seeInCurrentUrl(testConfig.TestGovUkCardPaymentsUrl);
 
     I.fillField('#card-no', testConfig.govPayTestCardNos.validCardNo);
     I.fillField('#expiry-month', testConfig.govPayTestCardDetails.expiryMonth);

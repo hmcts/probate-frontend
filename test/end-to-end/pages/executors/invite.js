@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/executors/invite');
 module.exports = () => {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
     I.navByClick(content.sendInvites);
 };

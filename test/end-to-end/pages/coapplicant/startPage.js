@@ -5,7 +5,7 @@ const pageUnderTest = require('app/steps/ui/coapplicant/startpage');
 module.exports = () => {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.navByClick('.button');
+    I.navByClick('.govuk-button');
 };

@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/executors/names');
 module.exports = (totalExecutors) => {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
     let i = 0;
 

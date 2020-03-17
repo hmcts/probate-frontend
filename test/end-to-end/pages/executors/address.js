@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/executors/address');
 module.exports = (executorNumber) => {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl(parseInt(executorNumber)-1));
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl(parseInt(executorNumber)-1));
     I.waitForInvisible('#addressLine1');
     I.click('.summary');
     I.waitForVisible('#addressLine1');

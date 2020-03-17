@@ -7,7 +7,7 @@ module.exports = (url) => {
     const I = this;
 
     if (testConfig.useIdam !== 'false') {
-        I.amOnLoadedPage(pageUnderTest.getUrl(url));
+        I.seeCurrentUrlEquals(pageUnderTest.getUrl(url));
     }
 
     I.clickBrowserBackButton();

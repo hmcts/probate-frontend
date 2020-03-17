@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/executors/whodied');
 module.exports = (executorsWhoDiedList) => {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
     executorsWhoDiedList.forEach((executorNumber) => {
         I.checkOption('#executorsWhoDied-'+(parseInt(executorNumber) - 1));

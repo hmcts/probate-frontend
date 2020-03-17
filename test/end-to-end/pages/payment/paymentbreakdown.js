@@ -2,10 +2,10 @@
 
 const pageUnderTest = require('app/steps/ui/payment/breakdown');
 
-module.exports = () => {
+module.exports = function() {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.navByClick('.button');
+    I.navByClick('.govuk-button');
 };

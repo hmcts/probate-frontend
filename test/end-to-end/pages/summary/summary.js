@@ -2,12 +2,12 @@
 
 const pageUnderTest = require('app/steps/ui/summary');
 
-module.exports = (redirect) => {
+module.exports = function(redirect) {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl(redirect));
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl(redirect));
 
     I.downloadPdfIfNotIE11('#checkAnswerHref');
 
-    I.navByClick('.button');
+    I.navByClick('.govuk-button');
 };

@@ -6,7 +6,7 @@ const pageUnderTest = require('app/steps/ui/executors/currentnamereason');
 module.exports = (executorNumber, aliasReason, aliasOther) => {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl(parseInt(executorNumber)-1));
+    I.seeCurrentUrlEquals(pageUnderTest.getUrl(parseInt(executorNumber)-1));
     I.click(`#${aliasReason}`);
 
     if (aliasOther) {

@@ -4,7 +4,7 @@
 const pageUnderTest = require('app/steps/ui/screeners/starteligibility');
 const testConfig = require('config');
 
-module.exports = function(checkCookieBannerExists) {
+module.exports = function(checkCookieBannerExists = false) {
     const I = this;
 
     I.amOnLoadedPage(pageUnderTest.getUrl());
@@ -13,5 +13,5 @@ module.exports = function(checkCookieBannerExists) {
         I.waitForElement('div#global-cookie-message', testConfig.TestWaitForElementToAppear);
     }
 
-    I.navByClick('.govuk-button');
+    I.navByClick('#main-content > div.govuk-form-group > a');
 };

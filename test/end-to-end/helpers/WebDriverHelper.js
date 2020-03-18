@@ -30,6 +30,5 @@ class WebDriverHelper extends Helper {
             await helper.waitForEnabled('#button', testConfig.TestWaitForElementToAppear);
         }
     }
-
 }
 module.exports = WebDriverHelper;

@@ -6,7 +6,7 @@ module.exports = function() {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.wait(3);
+    I.wait(5);
     I.navByClick('Continue application');
 
 };

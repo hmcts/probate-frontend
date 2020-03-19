@@ -13,7 +13,6 @@ services:
       - USE_IDAM=false
       - VALIDATION_SERVICE_URL=http://business-service:8081/validate
       - SUBMIT_SERVICE_URL=http://submit-service:8181/submit
-      - PERSISTENCE_SERVICE_URL=http://persistence-service:8282/formdata
       - http_proxy=
       - https_proxy=
       - no_proxy=
@@ -22,11 +21,9 @@ services:
     links:
      - business-service
      - submit-service
-     - persistence-service
     depends_on:
      - business-service
      - submit-service
-     - persistence-service
     networks:
       default:
         aliases:
@@ -54,7 +51,6 @@ services:
       - PROBATE_MAIL_PASSWORD=Pr0bate!23
       - PROBATE_MAIL_SENDER=probate-application@hmcts.net
       - PROBATE_MAIL_RECIPIENT=test.probate.inbox@gmail.com
-      - PROBATE_PERSISTENCE_HOSTNAME=persistence-service:8282
       - http_proxy=
       - https_proxy=
       - no_proxy=
@@ -62,36 +58,6 @@ services:
      - 8181:8181
     depends_on:
       - probate-postfix
-
-  persistence-service:
-    image: docker.artifactory.reform.hmcts.net/probate/persistence-service
-    command: --wait-for-database 30
-    container_name: persistence-service
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://persistence-service-database:5432/probate
-      - PROBATE_POSTGRESQL_HOSTNAME=persistence-service-database
-      - PROBATE_POSTGRESQL_PORT=5432
-      - PROBATE_POSTGRESQL_DATABASE=probate
-      - PROBATE_POSTGRESQL_USER=probate
-      - PROBATE_POSTGRESQL_PASSWORD=probate
-      - PROBATE_PERSISTENCE_PORT=8282
-      - http_proxy=
-      - https_proxy=
-      - no_proxy=
-    ports:
-     - 8282:8282
-    links:
-      - persistence-service-database
-    depends_on:
-      - persistence-service-database
-
-  persistence-service-database:
-    image: docker.artifactory.reform.hmcts.net/probate/persistence-service-database
-    container_name: persistence-service-database
-    ports:
-      - 5432:5432
-    volumes:
-      - persistence-service-database-data:/var/lib/postgresql/data
 
   probate-postfix:
     image: catatnight/postfix
@@ -102,6 +68,4 @@ services:
     ports:
       - 25:25
 
-volumes:
-  persistence-service-database-data:
 

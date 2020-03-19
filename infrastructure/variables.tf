@@ -147,10 +147,6 @@ variable "probate_orchestrator_service_url" {
   type = "string"
 }
 
-variable "probate_persistence_service_url" {
-  type = "string"
-}
-
 variable "probate_fees_registry_service_url" {
   type = "string"
 }

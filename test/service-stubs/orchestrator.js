@@ -6,7 +6,7 @@ const router = require('express').Router();
 const logger = require('app/components/logger')('Init');
 const app = express();
 const orchestratorServicePort = config.services.orchestrator.port;
-const orchestratorServicePath = config.services.orchestrator.path;
+const orchestratorServicePath = config.services.orchestrator.paths.submissions;
 
 router.get('invitedata/:id', (req, res) => {
     if (req.params.id === 'true') {

@@ -30,7 +30,6 @@ nodejs:
         - payCaseWorkerUser
         - payCaseWorkerPass
 
-
 rpe-feature-toggle-api:
   enabled: true
   releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api

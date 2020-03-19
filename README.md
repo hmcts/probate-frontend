@@ -2,7 +2,7 @@
 
 This is the frontend application for the Probate Personal Applicants online service. The service provides a clear interface for citizens, presented as sequence of HTML 5 web pages designed to GDS Service Design guidelines, so that they can apply for Probate online. The service provides functionality for both single and multiple applicant journeys.
 
-The Frontend Application delegates a number of backend logic to the underlying services, including Persistence, Business and Submit services.
+The Frontend Application uses Orchestrator to route specific requests to the underlying services such as Business Service and Submit Service.
 
 
 ## Getting Started
@@ -46,30 +46,11 @@ Run the application local server:
 $ yarn start
 ```
 
-By navigating to [https://localhost:3000](https://localhost:3000) you can partially complete an application locally.
+The application can be completed locally at [https://localhost:3000](https://localhost:3000), provided all services are running in the background as described in the next section.
 
-To complete an end to end journey on the application locally without building the other services, you can run the following command which utilises stubs to mimic certain actions carried out during an end to end journey:
+### Running the other services in Docker
 
-`$ yarn start & yarn submit-stub & yarn persistence-stub & yarn business-stub & yarn payment-stub & yarn find-address-stub`
-
-As before, the application can be completed locally at [https://localhost:3000](https://localhost:3000).
-
-### Running the application in Docker
-
-Once you `cd ..` out of the repository you can run the following command:
-```
-$ docker build -t frontend-app .
-```
-This command will build the Frontend Docker image using the *Dockerfile*.
-
-To run the Docker container:
-```
-$ docker run -p 3000:3000 frontend-app
-```
-
-### Running the application with other services
-
-To run probate-frontend with the other services locally you will need to clone the probate-back-office repo: `https://github.com/hmcts/probate-back-office`. Follow the instructions in `probate-back-office/compose/README.md`. 
+To run probate-frontend with the other services locally you will need to clone the probate-back-office repo: `https://github.com/hmcts/probate-back-office`. Follow the instructions in `probate-back-office/compose/README.md`.
 
 ## Developing
 ### Code style

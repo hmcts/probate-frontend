@@ -66,6 +66,7 @@ exports.init = function(isA11yTest = false, a11yTestSession = {}) {
 
     // Application settings
     app.set('view engine', 'html');
+
     app.set('views', ['app/steps', 'app/views']);
 
     const isDev = app.get('env') === 'development';

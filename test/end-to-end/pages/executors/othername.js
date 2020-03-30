@@ -3,7 +3,7 @@
 const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/executors/othername');
 
-module.exports = (executorsWithDifferentNameIdList) => {
+module.exports = function(executorsWithDifferentNameIdList) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());

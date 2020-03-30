@@ -1,20 +1,20 @@
 const testConfig = require('test/config.js');
 
 exports.config = {
-    'tests': testConfig.TestPathToRun,
-    'output': testConfig.TestOutputDir,
-    'helpers': {
-        'Puppeteer': {
-            'url': testConfig.TestE2EFrontendUrl,
-            'waitForTimeout': 60000,
-            'getPageTimeout': 20000,
-            'show': testConfig.TestShowBrowser,
-            'chrome': {
-                'ignoreHTTPSErrors': true,
+    tests: testConfig.TestPathToRun,
+    output: testConfig.TestOutputDir,
+    helpers: {
+        Puppeteer: {
+            url: testConfig.TestE2EFrontendUrl,
+            waitForTimeout: 60000,
+            getPageTimeout: 20000,
+            show: testConfig.TestShowBrowser,
+            chrome: {
+                ignoreHTTPSErrors: true,
                 'ignore-certificate-errors': true,
-                'defaultViewport': {
-                    'width': 1280,
-                    'height': 960
+                defaultViewport: {
+                    width: 1280,
+                    height: 960
                 },
                 args: [
                     '--no-sandbox',
@@ -24,36 +24,36 @@ exports.config = {
                 ]
             },
         },
-        'PuppeteerHelper': {
-            'require': './helpers/PuppeteerHelper.js'
+        PuppeteerHelper: {
+            require: './helpers/PuppeteerHelper.js'
         },
-        'JSWait': {
-            'require': './helpers/JSWait.js'
+        JSWait: {
+            require: './helpers/JSWait.js'
         },
     },
-    'include': {
-        'I': './pages/steps.js'
+    include: {
+        I: './pages/steps.js'
     },
-    'plugins': {
-        'autoDelay': {
-            'enabled': true
+    plugins: {
+        autoDelay: {
+            enabled: true
         },
-        'retryFailedStep': {
-            'enabled': true
+        retryFailedStep: {
+            enabled: true
         }
     },
-    'multiple': {
-        'parallel': {
+    multiple: {
+        parallel: {
             // Splits tests into 2 chunks
-            'chunks': 2
+            chunks: 2
         }
     },
-    'mocha': {
-        'reporterOptions': {
-            'reportDir': testConfig.TestOutputDir,
-            'reportName': 'index',
-            'inlineAssets': true
+    mocha: {
+        reporterOptions: {
+            reportDir: testConfig.TestOutputDir,
+            reportName: 'index',
+            inlineAssets: true
         }
     },
-    'name': 'Codecept Tests'
+    name: 'Probate FE Tests'
 };

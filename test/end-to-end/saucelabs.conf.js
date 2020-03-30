@@ -24,10 +24,10 @@ const getBrowserConfig = (browserGroup) => {
 };
 
 const setupConfig = {
-    'tests': process.env.PATH_TO_TEST_FILES || './paths/**/singleExecutorsPath.js',
-    'output': './output',
-    'timeout': 20000,
-    'helpers': {
+    tests: process.env.PATH_TO_TEST_FILES || './paths/**/*.js',
+    output: './output',
+    timeout: 20000,
+    helpers: {
         WebDriverIO: {
             url: process.env.TEST_E2E_URL || 'https://localhost:3000',
             browser,
@@ -40,11 +40,11 @@ const setupConfig = {
                 'page load': 60000,
                 implicit: 20000
             },
-            'host': 'ondemand.eu-central-1.saucelabs.com',
-            'port': 80,
-            'region': 'eu',
-            'user': process.env.SAUCE_USERNAME,
-            'key': process.env.SAUCE_ACCESS_KEY,
+            host: 'ondemand.eu-central-1.saucelabs.com',
+            port: 80,
+            region: 'eu',
+            user: process.env.SAUCE_USERNAME,
+            key: process.env.SAUCE_ACCESS_KEY,
             desiredCapabilities: {}
         },
         SauceLabsReportingHelper: {
@@ -76,18 +76,18 @@ const setupConfig = {
                 options:
                     {steps: true}
             },
-            'mochawesome': {
+            mochawesome: {
                 stdout: process.env.E2E_CROSSBROWSER_OUTPUT_DIR + 'console.log',
-                'options': {
-                    'reportDir': process.env.E2E_CROSSBROWSER_OUTPUT_DIR || './output',
-                    'reportName': 'index',
-                    'reportTitle': 'Crossbrowser results',
-                    'inlineAssets': true
+                options: {
+                    reportDir: process.env.E2E_CROSSBROWSER_OUTPUT_DIR || './output',
+                    reportName: 'index',
+                    reportTitle: 'Crossbrowser results',
+                    inlineAssets: true
                 }
             }
         }
     },
-    'multiple': {
+    multiple: {
         microsoftIE11: {
             browsers: getBrowserConfig('microsoftIE11')
         },
@@ -101,7 +101,7 @@ const setupConfig = {
             browsers: getBrowserConfig('firefox')
         }
     },
-    'name': 'Probate FrontEnd Tests'
+    name: 'Probate FrontEnd Tests'
 };
 
 exports.config = setupConfig;

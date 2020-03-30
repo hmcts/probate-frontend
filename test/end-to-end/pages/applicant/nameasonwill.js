@@ -7,7 +7,7 @@ module.exports = function(answer) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(`#nameAsOnTheWill${answer}`);
+    I.retry({retries: 5, maxTimeout: 5000}).click(`#nameAsOnTheWill${answer}`);
 
-    I.navByClick(commonContent.saveAndContinue);
+    I.retry({retries: 5, maxTimeout: 5000}).navByClick(commonContent.saveAndContinue);
 };

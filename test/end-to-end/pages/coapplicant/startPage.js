@@ -2,7 +2,7 @@
 
 const pageUnderTest = require('app/steps/ui/coapplicant/startpage');
 
-module.exports = () => {
+module.exports = function() {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());

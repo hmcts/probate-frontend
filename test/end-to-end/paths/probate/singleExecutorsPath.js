@@ -5,7 +5,6 @@ const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'
 const optionYes = '';
 const ihtPost = '';
 const optionNo = '-2';
-const applicantAliasOtherReason = '-4';
 const bilingualGOP = false;
 const uploadingDocuments = false;
 
@@ -23,7 +22,7 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), (I) => {
+Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/in and survey link'), (I) => {
 
     // Eligibility Task (pre IdAM)
     I.startApplication();
@@ -52,11 +51,23 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), (I) => {
 
     // Deceased Details
     I.selectATask(taskListContent.taskNotStarted);
-    I.chooseBiLingualGrant(optionNo);
+    I.chooseBiLingualGrant(optionNo, true);
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
+    I.enterDeceasedDateOfBirth('01', '01', '1950', true);
+
+    I.seeSignOut();
+
+    I.authenticateWithIdamIfAvailable();
+
+    // Dashboard
+    I.chooseApplication();
+
+    // Deceased Details
+    I.selectATask(taskListContent.taskNotStarted);
+
     I.enterDeceasedDateOfBirth('01', '01', '1950');
     I.enterDeceasedDateOfDeath('01', '01', '2017');
-    I.enterDeceasedAddress(optionNo);
+    I.enterDeceasedAddress();
 
     I.selectDocumentsToUpload(uploadingDocuments);
     I.selectInheritanceMethod(ihtPost);
@@ -67,18 +78,14 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey'), (I) => {
         I.enterGrossAndNet('205', '500', '400');
     }
 
-    I.selectDeceasedAlias(optionYes);
-    I.selectOtherNames('2');
+    I.selectDeceasedAlias(optionNo);
     I.selectDeceasedMarriedAfterDateOnWill(optionNo);
-    I.selectWillCodicils(optionYes);
-    I.selectWillNoOfCodicils('3');
+    I.selectWillCodicils(optionNo);
 
     // ExecutorsTask
     I.selectATask(taskListContent.taskNotStarted);
     I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
-    I.selectNameAsOnTheWill('-2');
-    I.enterApplicantAlias('Applicant Alias');
-    I.enterApplicantAliasReason(applicantAliasOtherReason, 'Applicant alias reason');
+    I.selectNameAsOnTheWill(optionYes);
     I.enterApplicantPhone();
     I.enterAddressManually();
 

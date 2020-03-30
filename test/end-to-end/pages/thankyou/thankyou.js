@@ -11,8 +11,10 @@ module.exports = function() {
     I.waitForText(thankYouContent.header, testConfig.TestWaitForTextToAppear);
 
     I.downloadPdfIfNotIE11('#checkAnswerHref');
+    I.wait(3);
     I.downloadPdfIfNotIE11('#declarationPdfHref');
+    I.wait(3);
     I.downloadPdfIfNotIE11('#coverSheetPdfHref');
-
+    I.wait(3);
     I.click('#navigation > li:nth-child(2) > a');
 };

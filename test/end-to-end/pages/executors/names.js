@@ -3,14 +3,14 @@
 const commonContent = require('app/resources/en/translation/common');
 const pageUnderTest = require('app/steps/ui/executors/names');
 
-module.exports = (totalExecutors) => {
+module.exports = function(totalExecutors) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
     let i = 0;
 
-    while (i < (totalExecutors - 1)) {
+    while (i < (parseInt(totalExecutors) - 1)) {
         I.fillField('#executorName_' + i, 'exec' + (i + 2));
         i += 1;
     }

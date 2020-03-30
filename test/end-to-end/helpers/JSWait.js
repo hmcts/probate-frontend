@@ -5,7 +5,7 @@ class JSWait extends codecept_helper {
 
         // Wait for content to load before checking URL
         if (step.name === 'seeCurrentUrlEquals' || step.name === 'seeInCurrentUrl') {
-            return helper.wait(2);
+            return helper.wait(3);
         }
     }
 
@@ -21,7 +21,7 @@ class JSWait extends codecept_helper {
         }
         return Promise.all([
             helper.click(text, locator),
-            helper.wait(2)
+            helper.wait(3)
         ]);
     }
 
@@ -61,7 +61,7 @@ class JSWait extends codecept_helper {
         } else {
             const browserName = this.helpers.WebDriverIO.config.browser;
 
-            if (browserName !== 'internet explorer') {
+            if (browserName !== 'internet explorer' && browserName !== 'MicrosoftEdge') {
                 await helper.browser.waitForVisible('#addressLine1', 5000, true); // true - means wait for element to be Invisible!
                 await helper.browser.click('.govuk-details__summary-text');
                 await helper.browser.waitForVisible('#addressLine1', 5000, false);

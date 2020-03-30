@@ -9,5 +9,5 @@ module.exports = function(answer) {
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click(`#related${answer}`);
 
-    I.navByClick(`input[value="${commonContent.continue}"]`);
+    I.navByClick(commonContent.continue);
 };

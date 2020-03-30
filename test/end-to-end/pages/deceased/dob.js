@@ -12,7 +12,7 @@ module.exports = function(day, month, year, saveAndClose = false) {
     I.fillField('#dob-year', year);
 
     if (saveAndClose) {
-        I.navByClick('.column-two-thirds > p a');
+        I.navByClick('Sign out');
     } else {
         I.navByClick(commonContent.saveAndContinue);
     }

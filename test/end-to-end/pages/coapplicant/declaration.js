@@ -2,16 +2,12 @@
 
 const pageUnderTest = require('app/steps/ui/coapplicant/declaration');
 
-module.exports = (agreeDisagree) => {
+module.exports = function(answer) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    if (agreeDisagree === 'Agree') {
-        I.click('#agreement-optionYes');
-    } else {
-        I.click('#agreement-optionNo');
-    }
+    I.click(`#agreement${answer}`);
 
     I.navByClick('#acceptAndSend');
 };

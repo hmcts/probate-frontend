@@ -7,7 +7,7 @@ module.exports = function (answer) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(`#anyOtherChildren ${answer}`);
+    I.click(`#anyOtherChildren${answer}`);
 
     I.navByClick(commonContent.saveAndContinue);
 };

@@ -51,7 +51,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/i
 
     // Deceased Details
     I.selectATask(taskListContent.taskNotStarted);
-    I.chooseBiLingualGrant(optionNo, true);
+    I.chooseBiLingualGrant(optionNo);
     I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
     I.enterDeceasedDateOfBirth('01', '01', '1950', true);
 

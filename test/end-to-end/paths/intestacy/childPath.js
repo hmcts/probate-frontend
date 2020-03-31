@@ -7,9 +7,8 @@ const optionYes = '';
 const ihtPost = '';
 const optionNo = '-2';
 const ihtOnline = '-2';
-const maritalStatusNotMarried = '-4';
 const maritalStatusMarried = '';
-const childOfDeceased = '';
+const spouseOfDeceased = '';
 const relationshipChildOfDeceased = '-2';
 const optionRenouncing = '';
 const bilingualGOP = false;
@@ -72,11 +71,11 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Child Journey - Digital iht, 
     I.selectAssetsOutsideEnglandWales(optionYes);
     I.enterValueAssetsOutsideEnglandWales('400000');
     I.selectDeceasedAlias(optionNo);
-    I.selectDeceasedMaritalStatus(maritalStatusNotMarried);
+    I.selectDeceasedMaritalStatus(maritalStatusMarried);
 
     // Executors Task
     I.selectATask(taskListContent.taskNotStarted);
-    I.selectRelationshipToDeceased(childOfDeceased);
+    I.selectRelationshipToDeceased(spouseOfDeceased);
     I.enterAnyOtherChildren(optionNo);
     I.enterApplicantName('ApplicantFirstName', 'ApplicantLastName');
     I.enterApplicantPhone();

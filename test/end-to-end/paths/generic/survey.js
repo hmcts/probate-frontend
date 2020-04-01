@@ -11,5 +11,5 @@ Scenario(TestConfigurator.idamInUseText('Check survey link works'), (I) => {
     // Eligibility Task (pre IdAM)
     I.startApplication();
 
-    I.selectDeathCertificate(optionYes);
+    I.selectDeathCertificate(optionYes, true);
 }).retry(TestConfigurator.getRetryScenarios());

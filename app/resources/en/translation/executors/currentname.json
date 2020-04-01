@@ -1,8 +1,7 @@
 {
   "title": "Current name",
   "question": "What is {executorFullName}&rsquo;s current name?",
-  "currentNameHint1": "Their current names will be included on the grant of probate",
-  "currentNameHint2": "Including middle names",
+  "currentNameHint": "Including middle names",
   "currentName": "Current name",
 
   "errors": {

@@ -15,6 +15,27 @@ describe('IhtValue', () => {
         });
     });
 
+    describe('getContextData()', () => {
+        let ctx;
+        let req;
+
+        it('should return the context with the IHT threshold', (done) => {
+            req = {
+                session: {
+                    form: {
+                        deceased: {
+                            'dod-date': '2016-10-12'
+                        }
+                    }
+                }
+            };
+
+            ctx = IhtValue.getContextData(req);
+            expect(ctx.ihtThreshold).to.equal(250000);
+            done();
+        });
+    });
+
     describe('handlePost()', () => {
         let ctx;
         let errors;
@@ -118,9 +139,9 @@ describe('IhtValue', () => {
             const result = IhtValue.nextStepOptions(ctx);
             expect(result).to.deep.equal({
                 options: [{
-                    key: 'lessThanOrEqualTo250k',
+                    key: 'lessThanOrEqualToIhtThreshold',
                     value: true,
-                    choice: 'lessThanOrEqualTo250k'
+                    choice: 'lessThanOrEqualToIhtThreshold'
                 }]
             });
             done();
@@ -128,10 +149,11 @@ describe('IhtValue', () => {
     });
 
     describe('action()', () => {
-        it('test it cleans up context when netValue > £250k', () => {
+        it('test it cleans up context when netValue is more than the IHT threshold', () => {
             const ctx = {
+                ihtThreshold: 250000,
                 netValue: 400000,
-                lessThanOrEqualTo250k: false,
+                lessThanOrEqualToIhtThreshold: false,
                 assetsOutside: 'optionYes',
                 netValueAssetsOutsideField: '600000',
                 netValueAssetsOutside: 600000
@@ -145,10 +167,11 @@ describe('IhtValue', () => {
             });
         });
 
-        it('test it cleans up context and formdata when netValue <= £250k', () => {
+        it('test it cleans up context and formdata when netValue is less than or equal to the IHT threshold', () => {
             const ctx = {
+                ihtThreshold: 250000,
                 netValue: 200000,
-                lessThanOrEqualTo250k: true
+                lessThanOrEqualToIhtThreshold: true
             };
             const formdata = {
                 deceased: {

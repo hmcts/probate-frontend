@@ -63,7 +63,7 @@ describe('declaration, intestacy', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('Declaration');
 
-        it('test right content loaded on the page when deceased has assets overseas and the total net value is more than £250k', (done) => {
+        it('test right content loaded on the page when deceased has assets overseas and the total net value is more than the IHT threshold', (done) => {
             const contentToExclude = [
                 'probateHeader',
                 'legalStatementDeceased',
@@ -76,16 +76,16 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
-                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
                 'deceasedOtherNames',
                 'applicantName',
                 'applicantName-alias',
@@ -167,16 +167,16 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
-                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
                 'deceasedOtherNames',
                 'applicantName',
                 'applicantName-alias',
@@ -248,16 +248,16 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
-                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
                 'deceasedOtherNames',
                 'applicantName',
                 'applicantName-alias',
@@ -329,16 +329,16 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
-                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
                 'deceasedOtherNames',
                 'applicantName',
                 'applicantName-alias',
@@ -410,16 +410,16 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
-                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
                 'deceasedOtherNames',
                 'applicantName',
                 'applicantName-alias',
@@ -477,7 +477,7 @@ describe('declaration, intestacy', () => {
                 });
         });
 
-        it('test right content loaded on the page when deceased was married, the applicant is the child, has siblings and is adopted, the estate is less than or equal to £250k', (done) => {
+        it('test right content loaded on the page when deceased was married, the applicant is the child, has siblings and is adopted, the estate is less than or equal to the IHT threshold', (done) => {
             const contentToExclude = [
                 'probateHeader',
                 'legalStatementDeceased',
@@ -492,15 +492,15 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
-                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
                 'deceasedOtherNames',
                 'applicantName',
                 'applicantName-alias',
@@ -545,6 +545,7 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
+            sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.deceased.anyOtherChildren = 'optionYes';
             sessionData.applicant.relationshipToDeceased = 'optionAdoptedChild';
@@ -558,7 +559,7 @@ describe('declaration, intestacy', () => {
                 });
         });
 
-        it('test right content loaded on the page when deceased was married, the applicant is the child, has siblings and is not adopted, the estate is less than or equal to £250k', (done) => {
+        it('test right content loaded on the page when deceased was married, the applicant is the child, has siblings and is not adopted, the estate is less than or equal to the IHT threshold', (done) => {
             const contentToExclude = [
                 'probateHeader',
                 'legalStatementDeceased',
@@ -573,15 +574,15 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
-                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
                 'deceasedOtherNames',
                 'applicantName',
                 'applicantName-alias',
@@ -626,6 +627,7 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
+            sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.deceased.anyOtherChildren = 'optionYes';
             sessionData.applicant.relationshipToDeceased = 'optionChild';
@@ -639,7 +641,7 @@ describe('declaration, intestacy', () => {
                 });
         });
 
-        it('test right content loaded on the page when deceased was married, the applicant is the child, has no siblings and is adopted, the estate is less than or equal to £250k', (done) => {
+        it('test right content loaded on the page when deceased was married, the applicant is the child, has no siblings and is adopted, the estate is less than or equal to the IHT threshold', (done) => {
             const contentToExclude = [
                 'probateHeader',
                 'legalStatementDeceased',
@@ -654,15 +656,15 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
-                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
                 'deceasedOtherNames',
                 'applicantName',
                 'applicantName-alias',
@@ -707,6 +709,7 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
+            sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.deceased.anyOtherChildren = 'optionNo';
             sessionData.applicant.relationshipToDeceased = 'optionAdoptedChild';
@@ -720,7 +723,7 @@ describe('declaration, intestacy', () => {
                 });
         });
 
-        it('test right content loaded on the page when deceased was married, the applicant is the child, has no siblings and is not adopted, the estate is less than or equal to £250k', (done) => {
+        it('test right content loaded on the page when deceased was married, the applicant is the child, has no siblings and is not adopted, the estate is less than or equal to the IHT threshold', (done) => {
             const contentToExclude = [
                 'probateHeader',
                 'legalStatementDeceased',
@@ -735,15 +738,15 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
-                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
                 'deceasedOtherNames',
                 'applicantName',
                 'applicantName-alias',
@@ -788,6 +791,7 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
+            sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.deceased.anyOtherChildren = 'optionNo';
             sessionData.applicant.relationshipToDeceased = 'optionChild';
@@ -801,7 +805,7 @@ describe('declaration, intestacy', () => {
                 });
         });
 
-        it('test right content loaded on the page when deceased was married, the applicant is the child, has siblings and is adopted, the estate is more than £250k', (done) => {
+        it('test right content loaded on the page when deceased was married, the applicant is the child, has siblings and is adopted, the estate is more than the IHT threshold', (done) => {
             const contentToExclude = [
                 'probateHeader',
                 'legalStatementDeceased',
@@ -816,15 +820,15 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
-                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
                 'deceasedOtherNames',
                 'applicantName',
                 'applicantName-alias',
@@ -888,7 +892,7 @@ describe('declaration, intestacy', () => {
                 });
         });
 
-        it('test right content loaded on the page when deceased was married, the applicant is the child, has siblings and is not adopted, the estate is more than £250k', (done) => {
+        it('test right content loaded on the page when deceased was married, the applicant is the child, has siblings and is not adopted, the estate is more than the IHT threshold', (done) => {
             const contentToExclude = [
                 'probateHeader',
                 'legalStatementDeceased',
@@ -903,15 +907,15 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
-                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
                 'deceasedOtherNames',
                 'applicantName',
                 'applicantName-alias',
@@ -975,7 +979,7 @@ describe('declaration, intestacy', () => {
                 });
         });
 
-        it('test right content loaded on the page when deceased was married, the applicant is the child, has no siblings and is adopted, the estate is more than £250k', (done) => {
+        it('test right content loaded on the page when deceased was married, the applicant is the child, has no siblings and is adopted, the estate is more than the IHT threshold', (done) => {
             const contentToExclude = [
                 'probateHeader',
                 'legalStatementDeceased',
@@ -990,15 +994,15 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
-                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
                 'deceasedOtherNames',
                 'applicantName',
                 'applicantName-alias',
@@ -1062,7 +1066,7 @@ describe('declaration, intestacy', () => {
                 });
         });
 
-        it('test right content loaded on the page when deceased was married, the applicant is the child, has no siblings and is not adopted, the estate is more than £250k', (done) => {
+        it('test right content loaded on the page when deceased was married, the applicant is the child, has no siblings and is not adopted, the estate is more than the IHT threshold', (done) => {
             const contentToExclude = [
                 'probateHeader',
                 'legalStatementDeceased',
@@ -1077,15 +1081,15 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
-                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
                 'deceasedOtherNames',
                 'applicantName',
                 'applicantName-alias',
@@ -1164,14 +1168,14 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'deceasedOtherNames',
                 'applicantName',
@@ -1217,6 +1221,7 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
+            sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.applicant.anyChildren = 'optionNo';
             sessionData.applicant.relationshipToDeceased = 'optionSpousePartner';
@@ -1230,7 +1235,7 @@ describe('declaration, intestacy', () => {
                 });
         });
 
-        it('test right content loaded on the page when deceased was married, had children, the applicant is the spouse, the estate is less than or equal to £250k', (done) => {
+        it('test right content loaded on the page when deceased was married, had children, the applicant is the spouse, the estate is less than or equal to the IHT threshold', (done) => {
             const contentToExclude = [
                 'probateHeader',
                 'legalStatementDeceased',
@@ -1245,14 +1250,14 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'deceasedOtherNames',
                 'applicantName',
@@ -1298,6 +1303,7 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
+            sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.applicant.anyChildren = 'optionYes';
             sessionData.applicant.relationshipToDeceased = 'optionSpousePartner';
@@ -1311,7 +1317,7 @@ describe('declaration, intestacy', () => {
                 });
         });
 
-        it('test right content loaded on the page when deceased was married, had no children, the applicant is the spouse, the estate is more £250k', (done) => {
+        it('test right content loaded on the page when deceased was married, had no children, the applicant is the spouse, the estate is more the IHT threshold', (done) => {
             const contentToExclude = [
                 'probateHeader',
                 'legalStatementDeceased',
@@ -1326,15 +1332,15 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
                 'deceasedOtherNames',
                 'applicantName',
                 'applicantName-alias',
@@ -1379,6 +1385,7 @@ describe('declaration, intestacy', () => {
                 'codicil',
                 'codicils'
             ];
+            sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.applicant.anyChildren = 'optionNo';
             sessionData.applicant.relationshipToDeceased = 'optionSpousePartner';
@@ -1398,7 +1405,7 @@ describe('declaration, intestacy', () => {
                 });
         });
 
-        it('test right content loaded on the page when deceased was married, had children, the applicant is the spouse, the estate is more £250k', (done) => {
+        it('test right content loaded on the page when deceased was married, had children, the applicant is the spouse, the estate is more the IHT threshold', (done) => {
             const contentToExclude = [
                 'probateHeader',
                 'legalStatementDeceased',
@@ -1413,15 +1420,15 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsAdopted',
-                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThan250kHasNoSiblingsIsNotAdopted',
-                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThan250k',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
                 'deceasedOtherNames',
                 'applicantName',
                 'applicantName-alias',

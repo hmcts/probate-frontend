@@ -159,6 +159,7 @@ describe('Summary', () => {
                         deceased: {
                             'firstName': 'Dee',
                             'lastName': 'Ceased',
+                            'dod-date': '2015-02-02',
                             'dod-formattedDate': '2 February 2015'
                         },
                         iht: {
@@ -187,8 +188,9 @@ describe('Summary', () => {
                 deceasedDivorcePlaceQuestion: 'Did the separation take place in England or Wales?',
                 deceasedMaritalStatusQuestion: 'What was Dee Ceased&rsquo;s marital status?',
                 deceasedSpouseNotApplyingReasonQuestion: 'Why isn&rsquo;t Dee Ceased&rsquo;s spouse applying?',
+                ihtThreshold: 250000,
                 ihtTotalNetValue: 550000,
-                ihtTotalNetValueGreaterThan250k: true,
+                ihtTotalNetValueGreaterThanIhtThreshold: true,
                 caseType: 'intestacy',
                 userLoggedIn: false,
                 readyToDeclare: false,
@@ -201,6 +203,7 @@ describe('Summary', () => {
                         },
                         caseType: 'intestacy',
                         deceased: {
+                            'dod-date': '2015-02-02',
                             'dod-formattedDate': '2 February 2015',
                             'firstName': 'Dee',
                             'lastName': 'Ceased'

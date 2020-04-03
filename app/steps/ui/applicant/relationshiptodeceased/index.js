@@ -2,7 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {get} = require('lodash');
-const config = require('config');
+const IhtThreshold = require('app/utils/IhtThreshold');
 
 class RelationshipToDeceased extends ValidationStep {
 
@@ -13,6 +13,7 @@ class RelationshipToDeceased extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
+        ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
         ctx.deceasedMaritalStatus = get(formdata, 'deceased.maritalStatus');
         ctx.assetsValue = get(formdata, 'iht.netValue', 0) + get(formdata, 'iht.netValueAssetsOutside', 0);
         return ctx;
@@ -23,15 +24,15 @@ class RelationshipToDeceased extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.spousePartnerLessThan250k = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.assetsValue <= config.assetsValueThreshold;
-        ctx.spousePartnerMoreThan250k = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.assetsValue > config.assetsValueThreshold;
+        ctx.spousePartnerLessThanIhtThreshold = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.assetsValue <= ctx.ihtThreshold;
+        ctx.spousePartnerMoreThanIhtThreshold = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.assetsValue > ctx.ihtThreshold;
         ctx.childDeceasedMarried = ctx.relationshipToDeceased === 'optionChild' && ctx.deceasedMaritalStatus === 'optionMarried';
         ctx.childDeceasedNotMarried = ctx.relationshipToDeceased === 'optionChild' && ctx.deceasedMaritalStatus !== 'optionMarried';
 
         return {
             options: [
-                {key: 'spousePartnerLessThan250k', value: true, choice: 'spousePartnerLessThan250k'},
-                {key: 'spousePartnerMoreThan250k', value: true, choice: 'spousePartnerMoreThan250k'},
+                {key: 'spousePartnerLessThanIhtThreshold', value: true, choice: 'spousePartnerLessThanIhtThreshold'},
+                {key: 'spousePartnerMoreThanIhtThreshold', value: true, choice: 'spousePartnerMoreThanIhtThreshold'},
                 {key: 'childDeceasedMarried', value: true, choice: 'childDeceasedMarried'},
                 {key: 'childDeceasedNotMarried', value: true, choice: 'childDeceasedNotMarried'},
                 {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'},
@@ -42,10 +43,12 @@ class RelationshipToDeceased extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.assetsValue;
-        delete ctx.spousePartnerLessThan250k;
-        delete ctx.spousePartnerMoreThan250k;
+        delete ctx.spousePartnerLessThanIhtThreshold;
+        delete ctx.spousePartnerMoreThanIhtThreshold;
         delete ctx.childDeceasedMarried;
         delete ctx.childDeceasedNotMarried;
+        delete ctx.deceasedMaritalStatus;
+        delete ctx.ihtThreshold;
 
         if (formdata.applicant && formdata.applicant.relationshipToDeceased && ctx.relationshipToDeceased !== formdata.applicant.relationshipToDeceased) {
             delete ctx.adoptionPlace;

@@ -103,14 +103,15 @@ describe('relationship-to-deceased', () => {
                 });
         });
 
-        it(`test it redirects to Any Children page if relationship is Spouse/Partner and the estate value is > £250k: ${expectedNextUrlForAnyChildren}`, (done) => {
+        it(`test it redirects to Any Children page if relationship is Spouse/Partner and the estate value is more than the IHT threshold for DoD between 1 Oct 2014 and 5 Feb 2020: ${expectedNextUrlForAnyChildren}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
-                    maritalStatus: 'optionMarried'
+                    'dod-date': '2016-05-12',
+                    'maritalStatus': 'optionMarried'
                 },
                 iht: {
-                    netValue: 450000
+                    netValue: 260000
                 }
             };
 
@@ -125,14 +126,61 @@ describe('relationship-to-deceased', () => {
                 });
         });
 
-        it(`test it redirects to Applicant Name page if relationship is Spouse/Partner and the estate value is <= £250k: ${expectedNextUrlForApplicantName}`, (done) => {
+        it(`test it redirects to Any Children page if relationship is Spouse/Partner and the estate value is more than the IHT threshold for DoD after 5 Feb 2020: ${expectedNextUrlForAnyChildren}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
-                    maritalStatus: 'optionMarried'
+                    'dod-date': '2020-03-12',
+                    'maritalStatus': 'optionMarried'
                 },
                 iht: {
-                    netValue: 200000
+                    netValue: 280000
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        relationshipToDeceased: 'optionSpousePartner'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyChildren);
+                });
+        });
+
+        it(`test it redirects to Applicant Name page if relationship is Spouse/Partner and the estate value is less than or equal to the IHT threshold for DoD between 1 Oct 2014 and 5 Feb 2020: ${expectedNextUrlForApplicantName}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    'dod-date': '2016-05-12',
+                    'maritalStatus': 'optionMarried'
+                },
+                iht: {
+                    netValue: 240000
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        relationshipToDeceased: 'optionSpousePartner'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                });
+        });
+
+        it(`test it redirects to Applicant Name page if relationship is Spouse/Partner and the estate value is less than or equal to the IHT threshold for DoD after 5 Feb 2020: ${expectedNextUrlForApplicantName}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    'dod-date': '2020-03-12',
+                    'maritalStatus': 'optionMarried'
+                },
+                iht: {
+                    netValue: 260000
                 }
             };
 

@@ -10,7 +10,7 @@ const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const CheckAnswersSummaryJSONObjectBuilder = require('app/utils/CheckAnswersSummaryJSONObjectBuilder');
 const checkAnswersSummaryJSONObjBuilder = new CheckAnswersSummaryJSONObjectBuilder();
-const config = require('config');
+const IhtThreshold = require('app/utils/IhtThreshold');
 
 class Summary extends Step {
 
@@ -99,6 +99,7 @@ class Summary extends Step {
             ctx.deceasedMarriedQuestion = (hasCodicils ? content.DeceasedMarried.questionWithCodicil : content.DeceasedMarried.question)
                 .replace('{deceasedName}', deceasedName);
         } else {
+            ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
             ctx.deceasedMaritalStatusQuestion = content.DeceasedMaritalStatus.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedMaritalStatus.theDeceased);
             ctx.deceasedDivorcePlaceQuestion = content.DivorcePlace.question
@@ -118,7 +119,7 @@ class Summary extends Step {
             if (ctx.caseType === caseTypes.INTESTACY && formdata.iht && formdata.iht.assetsOutside === 'optionYes') {
                 ctx.ihtTotalNetValue += formdata.iht.netValueAssetsOutside;
             }
-            ctx.ihtTotalNetValueGreaterThan250k = (ctx.ihtTotalNetValue > config.assetsValueThreshold);
+            ctx.ihtTotalNetValueGreaterThanIhtThreshold = (ctx.ihtTotalNetValue > ctx.ihtThreshold);
         }
 
         if (formdata.documents && formdata.documents.uploads) {

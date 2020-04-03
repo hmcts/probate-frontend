@@ -414,10 +414,13 @@ describe('Tasklist', () => {
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
 
+                const nextUrlCtx = formdata.applicant;
+                nextUrlCtx.ihtThreshold = 250000;
+
                 assert.equal(ctx.ApplicantsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
                 assert.equal(ctx.DeceasedTask.status, 'complete');
                 assert.equal(ctx.ApplicantsTask.status, 'started');
-                assert.equal(ctx.ApplicantsTask.nextURL, journeyMap.nextStep(steps.RelationshipToDeceased, formdata.applicant).constructor.getUrl());
+                assert.equal(ctx.ApplicantsTask.nextURL, journeyMap.nextStep(steps.RelationshipToDeceased, nextUrlCtx).constructor.getUrl());
             });
 
             it('Updates the context: DeceasedTask & ApplicantsTask started (ApplicantsTask blocked)', () => {

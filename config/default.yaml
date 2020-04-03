@@ -2,15 +2,13 @@ environment: 'prod'
 nodeEnvironment: 'production'
 gitRevision: ''
 frontendPublicHttpProtocol: http
-languages:
-  - en
-  - cy
+languages: ['en', 'cy']
 featureToggles:
   url: http://localhost:8292
   path: /api/ff4j/check
   port: 8292
-  fees_api: probate-fees-api # TODO: This appears to only be used in tests
-  appwideToggles: [] # TODO: This appears to only be used in tests
+  fees_api: probate-fees-api
+  appwideToggles: []
 app:
   username:
   password:
@@ -91,7 +89,6 @@ redis:
   cookie:
     httpOnly: true
     secure: true
-
   eligibilityCookie:
     name: '__eligibility'
     redirectUrl: '/start-eligibility'
@@ -164,7 +161,6 @@ whitelistedPagesAfterSubmission: ['/documents', '/thank-you', '/check-answers-pd
 whitelistedPagesAfterPayment: ['/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
 whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
 blacklistedPagesBeforeDeclaration: ['/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
-
 eligibilityQuestionsProbate:
   deathCertificate: 'optionYes'
   domicile: 'optionYes'
@@ -173,7 +169,6 @@ eligibilityQuestionsProbate:
   original: 'optionYes'
   executor: 'optionYes'
   mentalCapacity: 'optionYes'
-
 eligibilityQuestionsIntestacy:
   deathCertificate: 'optionYes'
   domicile: 'optionYes'
@@ -182,49 +177,50 @@ eligibilityQuestionsIntestacy:
   diedAfter: 'optionYes'
   related: 'optionYes'
   otherApplicants: 'optionNo'
-
 hardStopParams:
- gop: []
- intestacy: []
-
+  gop: []
+  intestacy: []
 nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies']
 noCcdCaseIdPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'dashboard', 'sign-out', 'time-out']
 endpoints:
- health: '/health'
- info: '/info'
-
+  health: '/health'
+  info: '/info'
 appInsights:
- instrumentationKey:
-
+  instrumentationKey:
 documentUpload:
- validMimeTypes: ['image/jpeg', 'image/bmp', 'image/tiff', 'image/png', 'application/pdf']
- maxFiles: 10
- maxSizeBytes: 10485760 # 10 MB
- maxSizeBytesTest: 10240 # 10 KB
- paths:
-   upload: '/documents/upload'
-   remove: '/documents/delete'
- 
- error:
-   invalidFileType: 'Error: invalid file type'
-   maxSize: 'Error: invalid file size'
-   maxFiles: 'Error: too many files'
-   nothingUploaded: 'Error: no files passed'
-   uploadFailed: 'Error: upload failed'
-   uploadTimeout: 'Error: upload timed out'
- 
- timeoutMs: 300000
-
+  validMimeTypes: ['image/jpeg', 'image/bmp', 'image/tiff', 'image/png', 'application/pdf']
+  maxFiles: 10
+  maxSizeBytes: 10485760 # 10 MB
+  maxSizeBytesTest: 10240 # 10 KB
+  paths:
+    upload: '/documents/upload'
+    remove: '/documents/delete'
+  error:
+    invalidFileType: 'Error: invalid file type'
+    maxSize: 'Error: invalid file size'
+    maxFiles: 'Error: too many files'
+    nothingUploaded: 'Error: no files passed'
+    uploadFailed: 'Error: upload failed'
+    uploadTimeout: 'Error: upload timed out'
+  timeoutMs: 300000
 pdf:
- template:
-   checkAnswers: 'checkAnswersSummary'
-   declaration: 'legalDeclaration'
-   coverSheet: 'bulkScanCoversheet'
- 
- path: '/documents/generate'
- timeoutMs: 30000
-
-assetsValueThreshold: 250000
+  template:
+    checkAnswers: 'checkAnswersSummary'
+    declaration: 'legalDeclaration'
+    coverSheet: 'bulkScanCoversheet'
+  path: '/documents/generate'
+  timeoutMs: 30000
+assetsValueThreshold: [
+  {
+    minDate: '2014-10-01',
+    maxDate: '2020-02-05',
+    value: 250000
+  },
+  {
+    minDate: '2020-02-06',
+    value: 270000
+  }
+]
 gopOnlyPages: [
   '/deceased-name',
   '/deceased-dob',

@@ -80,11 +80,11 @@ const stepList = {
     },
     IhtIdentifier: 'IhtValue',
     IhtValue: {
-        lessThanOrEqualTo250k: 'AssetsOutside',
+        lessThanOrEqualToIhtThreshold: 'AssetsOutside',
         otherwise: 'DeceasedAlias'
     },
     IhtPaper: {
-        lessThanOrEqualTo250k: 'AssetsOutside',
+        lessThanOrEqualToIhtThreshold: 'AssetsOutside',
         otherwise: 'DeceasedAlias'
     },
     AssetsOutside: {
@@ -111,8 +111,8 @@ const stepList = {
         childDeceasedMarried: 'SpouseNotApplyingReason',
         childDeceasedNotMarried: 'AnyOtherChildren',
         adoptedChild: 'AdoptionPlace',
-        spousePartnerLessThan250k: 'ApplicantName',
-        spousePartnerMoreThan250k: 'AnyChildren',
+        spousePartnerLessThanIhtThreshold: 'ApplicantName',
+        spousePartnerMoreThanIhtThreshold: 'AnyChildren',
         otherwise: 'StopPage'
     },
     SpouseNotApplyingReason: {

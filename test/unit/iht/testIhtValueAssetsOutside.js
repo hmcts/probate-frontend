@@ -15,6 +15,27 @@ describe('ValueAssetsOutside', () => {
         });
     });
 
+    describe('getContextData()', () => {
+        let ctx;
+        let req;
+
+        it('should return the context with the IHT threshold', (done) => {
+            req = {
+                session: {
+                    form: {
+                        deceased: {
+                            'dod-date': '2016-10-12'
+                        }
+                    }
+                }
+            };
+
+            ctx = ValueAssetsOutside.getContextData(req);
+            expect(ctx.ihtThreshold).to.equal(250000);
+            done();
+        });
+    });
+
     describe('handlePost()', () => {
         let ctx;
         let errors;
@@ -83,8 +104,9 @@ describe('ValueAssetsOutside', () => {
     });
 
     describe('action()', () => {
-        it('test it cleans up formdata if netValue + netValueAssetsOutside <= £250k', () => {
+        it('test it cleans up formdata if netValue + netValueAssetsOutside is less than or equal to the IHT threshold', () => {
             const ctx = {
+                ihtThreshold: 250000,
                 netValue: 150000,
                 netValueAssetsOutside: 80000
             };

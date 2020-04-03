@@ -18,6 +18,7 @@ const ServiceMapper = require('app/utils/ServiceMapper');
 const FieldError = require('app/components/error');
 const utils = require('app/components/step-utils');
 const moment = require('moment');
+const IhtThreshold = require('app/utils/IhtThreshold');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -104,10 +105,8 @@ class Declaration extends ValidationStep {
 
     generateContent(ctx, formdata) {
         const contentCtx = Object.assign({}, formdata, ctx, this.commonProps);
-
         mapValues(this.content.en, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
         mapValues(this.content.cy, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
-
         return this.content;
     }
 
@@ -122,7 +121,8 @@ class Declaration extends ValidationStep {
         const formDataForTemplate = this.getFormDataForTemplate(content, formdata);
 
         if (ctx.caseType === caseTypes.INTESTACY && formdata.iht) {
-            ctx.showNetValueAssetsOutside = ((formdata.iht.assetsOutside === 'optionYes' && (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > config.assetsValueThreshold)).toString();
+            ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
+            ctx.showNetValueAssetsOutside = ((formdata.iht.assetsOutside === 'optionYes' && (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > ctx.ihtThreshold)).toString();
             if (ctx.showNetValueAssetsOutside) {
                 ctx.ihtNetValueAssetsOutside = formDataForTemplate.ihtNetValueAssetsOutside;
             }
@@ -236,7 +236,6 @@ class Declaration extends ValidationStep {
             if (executor.executorNotified === 'optionYes') {
                 executorApplyingText += ` ${content.additionalExecutorNotified}`;
             }
-
             return executorApplyingText;
         }
     }

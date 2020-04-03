@@ -2,11 +2,14 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedAlias = require('app/steps/ui/deceased/alias');
+const AssetsOutside = require('app/steps/ui/iht/assetsoutside');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('iht-value', () => {
     let testWrapper;
     const expectedNextUrlForDeceasedAlias = DeceasedAlias.getUrl();
+    const expectedNextUrlForAssetsOutside = AssetsOutside.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('IhtValue');
@@ -50,11 +53,87 @@ describe('iht-value', () => {
 
         it(`test it redirects to Deceased Alias page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
             const data = {
-                grossValueField: 123456,
-                netValueField: 12345
+                grossValueField: '123456',
+                netValueField: '12345'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
+        });
+
+        it(`[INTESTACY] test it redirects to Deceased Alias page for DoD between 1 Oct 2014 and 5 Feb 2020: ${expectedNextUrlForDeceasedAlias}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    'dod-date': '2016-05-12'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        grossValueField: '300000',
+                        netValueField: '260000'
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
+                });
+        });
+
+        it(`[INTESTACY] test it redirects to Deceased Alias page for DoD after 5 Feb 2020: ${expectedNextUrlForDeceasedAlias}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    'dod-date': '2020-03-12'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        grossValueField: '300000',
+                        netValueField: '280000'
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
+                });
+        });
+
+        it(`[INTESTACY] test it redirects to Assets Outside UK page for DoD between 1 Oct 2014 and 5 Feb 2020: ${expectedNextUrlForAssetsOutside}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    'dod-date': '2016-05-12'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        grossValueField: '300000',
+                        netValueField: '240000'
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOutside);
+                });
+        });
+
+        it(`[INTESTACY] test it redirects to Assets Outside UK page for DoD after 5 Feb 2020: ${expectedNextUrlForAssetsOutside}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    'dod-date': '2020-03-12'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        grossValueField: '300000',
+                        netValueField: '260000'
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOutside);
+                });
         });
     });
 });

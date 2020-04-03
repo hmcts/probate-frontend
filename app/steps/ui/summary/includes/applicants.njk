@@ -91,7 +91,7 @@
             (
                 fields.applicant.relationshipToDeceased.value == "optionSpousePartner"
                 and
-                fields.summary.ihtTotalNetValueGreaterThan250k.value == "true"
+                fields.summary.ihtTotalNetValueGreaterThanIhtThreshold.value == "true"
             )
         }
     ],
@@ -119,7 +119,7 @@
             (
                 fields.applicant.relationshipToDeceased.value == "optionSpousePartner"
                 and
-                fields.summary.ihtTotalNetValueGreaterThan250k.value == "true"
+                fields.summary.ihtTotalNetValueGreaterThanIhtThreshold.value == "true"
                 and
                 fields.deceased.anyChildren.value == "optionYes"
             )
@@ -150,7 +150,7 @@
                 (
                     fields.applicant.relationshipToDeceased.value == "optionSpousePartner"
                     and
-                    fields.summary.ihtTotalNetValueGreaterThan250k.value == "true"
+                    fields.summary.ihtTotalNetValueGreaterThanIhtThreshold.value == "true"
                     and
                     fields.deceased.anyChildren.value == "optionYes"
                 )
@@ -184,7 +184,7 @@
                 (
                     fields.applicant.relationshipToDeceased.value == "optionSpousePartner"
                     and
-                    fields.summary.ihtTotalNetValueGreaterThan250k.value == "true"
+                    fields.summary.ihtTotalNetValueGreaterThanIhtThreshold.value == "true"
                     and
                     fields.deceased.anyChildren.value == "optionYes"
                 )

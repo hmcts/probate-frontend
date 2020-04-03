@@ -2,11 +2,14 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedAlias = require('app/steps/ui/deceased/alias');
+const AssetsOutside = require('app/steps/ui/iht/assetsoutside');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('iht-paper', () => {
     let testWrapper;
     const expectedNextUrlForDeceasedAlias = DeceasedAlias.getUrl();
+    const expectedNextUrlForAssetsOutside = AssetsOutside.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('IhtPaper');
@@ -108,6 +111,86 @@ describe('iht-paper', () => {
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
+        });
+
+        it(`[INTESTACY] test it redirects to Deceased Alias page for DoD between 1 Oct 2014 and 5 Feb 2020: ${expectedNextUrlForDeceasedAlias}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    'dod-date': '2016-05-12'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        form: 'optionIHT205',
+                        grossValueFieldIHT205: '300000',
+                        netValueFieldIHT205: '260000'
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
+                });
+        });
+
+        it(`[INTESTACY] test it redirects to Deceased Alias page for DoD after 5 Feb 2020: ${expectedNextUrlForDeceasedAlias}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    'dod-date': '2020-03-12'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        form: 'optionIHT205',
+                        grossValueFieldIHT205: '300000',
+                        netValueFieldIHT205: '280000'
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
+                });
+        });
+
+        it(`[INTESTACY] test it redirects to Assets Outside UK page for DoD between 1 Oct 2014 and 5 Feb 2020: ${expectedNextUrlForAssetsOutside}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    'dod-date': '2016-05-12'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        form: 'optionIHT205',
+                        grossValueFieldIHT205: '300000',
+                        netValueFieldIHT205: '240000'
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOutside);
+                });
+        });
+
+        it(`[INTESTACY] test it redirects to Assets Outside UK page for DoD after 5 Feb 2020: ${expectedNextUrlForAssetsOutside}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    'dod-date': '2020-03-12'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        form: 'optionIHT205',
+                        grossValueFieldIHT205: '300000',
+                        netValueFieldIHT205: '260000'
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOutside);
+                });
         });
     });
 });

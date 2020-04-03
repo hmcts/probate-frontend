@@ -1,3 +1,5 @@
+'use strict';
+
 const FormatName = require('app/utils/FormatName');
 const expect = require('chai').expect;
 

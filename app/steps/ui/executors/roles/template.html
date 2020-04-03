@@ -4,6 +4,14 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block form_content %}
+    {% set optionRenunciatedHint %}
+        <p class="govuk-body">{{ content.optionRenunciatedHint | replace("{applicationFormPA15}", globals.links.applicationFormPA15) | safe }}</p>
+        <ul class="govuk-body">
+            <li>{{ content.optionRenunciatedHintBullet1 | safe }}</li>
+            <li>{{ content.optionRenunciatedHintBullet2 | safe }}</li>
+        </ul>
+    {% endset %}
+
     {{ govukRadios({
         idPrefix: "notApplyingReason",
         name: "notApplyingReason",
@@ -24,7 +32,10 @@
             {
                 value: "optionRenunciated",
                 text: content["optionRenunciated"] | safe,
-                checked: true if fields.notApplyingReason.value == "optionRenunciated"
+                checked: true if fields.notApplyingReason.value == "optionRenunciated",
+                conditional: {
+                    html: optionRenunciatedHint
+                }
             }
         ]
     }) }}

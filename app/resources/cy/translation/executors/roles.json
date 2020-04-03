@@ -3,6 +3,9 @@
   "question": "Pam nad yw {executorFullName} yn gwneud cais am brofiant?",
   "optionPowerReserved": "Nid yw&rsquo;r ysgutor hwn eisiau gwneud cais nawr, ond efallai y bydd yn dymuno gwneud hynny yn y dyfodol (gelwir hyn hefyd yn cadw&rsquo;r hawl)",
   "optionRenunciated": "Nid yw&rsquo;r ysgutor hwn eisiau gwneud cais nawr, ac mae&rsquo;n rhoi fyny yr hawl i wneud hynny yn y dyfodol (gelwir hyn hefyd yn ymwrthod, a bydd angen i&rsquo;r ysgutor lenwi ffurflen)",
+  "optionRenunciatedHint": "Llenwch naill ai <a href=\"{applicationFormPA15}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"ffurflen PA15 neu PA16\">ffurflen PA15 neu PA16</a> os ydych eisiau ildio eich cyfrifoldeb cyfreithiol a&rsquo;ch swyddogaeth yn barhaol (a elwir hefyd yn &lsquo;ymwrthod&rsquo;) i wneud cais am brofiant i reoli ystad rhywun a fu farw fel un ai:",
+  "optionRenunciatedHintBullet1": "ysgutor a enwir yn ei ewyllys, neu",
+  "optionRenunciatedHintBullet2": "priod neu bartner sifil sy’n gweithredu fel gweinyddwr.",
 
   "errors": {
     "notApplyingReason": {

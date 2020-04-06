@@ -5,12 +5,9 @@
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const co = require('co');
-const submitResponse = require('test/data/send-to-submit-service');
 const journey = require('app/journeys/probate');
 const rewire = require('rewire');
 const PaymentBreakdown = rewire('app/steps/ui/payment/breakdown');
-const config = require('config');
-const nock = require('nock');
 const sinon = require('sinon');
 const FeesCalculator = require('app/utils/FeesCalculator');
 const Payment = require('app/services/Payment');
@@ -143,16 +140,11 @@ describe('PaymentBreakdown', () => {
                 }
             });
 
-            nock(config.services.submit.url)
-                .post('/submit')
-                .reply(200, submitResponse);
-
             feesCalculator = sinon.stub(FeesCalculator.prototype, 'calc');
         });
 
         afterEach(() => {
             revertAuthorise();
-            nock.cleanAll();
             feesCalculator.restore();
         });
 

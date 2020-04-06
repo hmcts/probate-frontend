@@ -8,16 +8,7 @@ let feesCalculator;
 
 describe('payment-breakdown', () => {
     let testWrapper;
-    let submitStub;
     let sessionData;
-
-    before(() => {
-        submitStub = require('test/service-stubs/submit');
-    });
-
-    after(() => {
-        submitStub.close();
-    });
 
     beforeEach(() => {
         sessionData = {

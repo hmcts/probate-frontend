@@ -153,6 +153,6 @@ describe('Executors invite endpoints', () => {
     const checkAsync = (callback) => {
         setTimeout(() => {
             callback();
-        }, 50);
+        }, 3000);
     };
 });

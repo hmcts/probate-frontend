@@ -22,6 +22,12 @@ class InviteLink {
         };
     }
 
+    sleep(ms) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms);
+        });
+    }
+
     checkLinkIsValid(req, res, success, failure) {
         this.getAuth(req)
             .then(([authToken, serviceAuthorisation]) => {
@@ -76,9 +82,11 @@ class InviteLink {
             }
 
             this.getAuth(req, res)
-                .then(([authToken, serviceAuthorisation]) => {
+                .then(async([authToken, serviceAuthorisation]) => {
                     const ccdCaseId = req.session.form && req.session.form.ccdCase ? req.session.form.ccdCase.id : 'undefined';
                     const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
+
+                    await this.sleep(1000);
 
                     allExecutorsAgreed.get(authToken, serviceAuthorisation, ccdCaseId)
                         .then(result => {

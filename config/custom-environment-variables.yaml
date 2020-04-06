@@ -19,8 +19,6 @@ services:
     url: ORCHESTRATOR_SERVICE_URL
   validation:
     url: VALIDATION_SERVICE_URL
-  submit:
-    url: SUBMIT_SERVICE_URL
   idam:
     loginUrl: IDAM_LOGIN_URL
     apiUrl: IDAM_API_URL

@@ -12,7 +12,6 @@ services:
       - USE_AUTH=false
       - USE_IDAM=false
       - VALIDATION_SERVICE_URL=http://business-service:8081/validate
-      - SUBMIT_SERVICE_URL=http://submit-service:8181/submit
       - http_proxy=
       - https_proxy=
       - no_proxy=
@@ -20,10 +19,8 @@ services:
      - 3000:3000
     links:
      - business-service
-     - submit-service
     depends_on:
      - business-service
-     - submit-service
     networks:
       default:
         aliases:
@@ -40,25 +37,6 @@ services:
     ports:
      - 8881:8881
 
-  submit-service:
-    image: docker.artifactory.reform.hmcts.net/probate/submit-service
-    container_name: submit-service
-    environment:
-      - SERVER_PORT=8181
-      - PROBATE_MAIL_HOST=probate-postfix
-      - PROBATE_MAIL_PORT=25
-      - PROBATE_MAIL_USERNAME=localhost
-      - PROBATE_MAIL_PASSWORD=Pr0bate!23
-      - PROBATE_MAIL_SENDER=probate-application@hmcts.net
-      - PROBATE_MAIL_RECIPIENT=test.probate.inbox@gmail.com
-      - http_proxy=
-      - https_proxy=
-      - no_proxy=
-    ports:
-     - 8181:8181
-    depends_on:
-      - probate-postfix
-
   probate-postfix:
     image: catatnight/postfix
     container_name: probate-postfix
@@ -67,5 +45,3 @@ services:
         - smtp_user=localhost:Pr0bate!23
     ports:
       - 25:25
-
-

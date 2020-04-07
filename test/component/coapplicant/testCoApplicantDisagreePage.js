@@ -5,12 +5,6 @@ const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');
 const config = require('config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
-const afterEachNocks = (done) => {
-    return () => {
-        nock.cleanAll();
-        done();
-    };
-};
 
 describe('co-applicant-disagree-page', () => {
     let testWrapper;
@@ -20,14 +14,14 @@ describe('co-applicant-disagree-page', () => {
     });
 
     afterEach(() => {
-        testWrapper.destroy();
         nock.cleanAll();
+        testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test correct content is loaded on the page', (done) => {
             nock(orchestratorServiceUrl)
-                .get('/invite/allAgreed/undefined')
+                .get('/invite/allAgreed/1234567890123456')
                 .reply(200, 'false');
 
             const sessionData = require('test/data/complete-form-undeclared').formdata;
@@ -39,7 +33,7 @@ describe('co-applicant-disagree-page', () => {
                         leadExecFullName: 'Bob Smith'
                     };
                     delete require.cache[require.resolve('test/data/complete-form-undeclared')];
-                    testWrapper.testContent(afterEachNocks(done), contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 

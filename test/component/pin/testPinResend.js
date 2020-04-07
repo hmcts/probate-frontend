@@ -9,25 +9,11 @@ const config = require('config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
 const S2S_URL = config.services.idam.s2s_url;
 const IDAM_URL = config.services.idam.apiUrl;
-const afterEachNocks = (done) => {
-    return () => {
-        nock.cleanAll();
-        done();
-    };
-};
 
 describe('pin-resend', () => {
     let testWrapper;
     let sessionData;
     const expectedNextUrlForPinSent = PinSent.getUrl();
-    const nockHeaders = {
-        reqheaders: {
-            'Content-Type': 'application/json',
-            'Session-Id': 'dummy_Session-Id',
-            'Authorization': 'dummy_Authorization',
-            'ServiceAuthorization': 'dummy_ServiceAuthorization'
-        }
-    };
 
     beforeEach(() => {
         testWrapper = new TestWrapper('PinResend');
@@ -51,6 +37,7 @@ describe('pin-resend', () => {
     });
 
     afterEach(() => {
+        nock.cleanAll();
         testWrapper.destroy();
     });
 
@@ -136,15 +123,18 @@ describe('pin-resend', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForPinSent}`, (done) => {
-            nock(orchestratorServiceUrl, nockHeaders)
+            nock(orchestratorServiceUrl)
                 .get('/invite/pin?phoneNumber=07912345678')
                 .reply(200, '12345');
 
-            testWrapper.testRedirect(afterEachNocks(done), {}, expectedNextUrlForPinSent);
+            testWrapper.agent.post('/prepare-session-field/phoneNumber/07912345678')
+                .end(() => {
+                    testWrapper.testRedirect(done, {}, expectedNextUrlForPinSent);
+                });
         });
 
         it('test error page when pin resend fails - no phone number provided', (done) => {
-            nock(orchestratorServiceUrl, nockHeaders)
+            nock(orchestratorServiceUrl)
                 .get('/invite/pin?phoneNumber=undefined')
                 .reply(500, new Error('ReferenceError'));
 

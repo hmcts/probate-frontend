@@ -5,12 +5,6 @@ const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');
 const config = require('config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
-const afterEachNocks = (done) => {
-    return () => {
-        nock.cleanAll();
-        done();
-    };
-};
 
 describe('co-applicant-start-page', () => {
     let testWrapper;
@@ -20,8 +14,8 @@ describe('co-applicant-start-page', () => {
     });
 
     afterEach(() => {
-        testWrapper.destroy();
         nock.cleanAll();
+        testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -50,7 +44,7 @@ describe('co-applicant-start-page', () => {
                         deceasedName: 'Dave Bassett',
                         pin: ''
                     };
-                    testWrapper.testContent(afterEachNocks(done), contentData);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 

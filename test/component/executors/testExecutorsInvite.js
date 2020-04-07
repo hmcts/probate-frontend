@@ -8,12 +8,6 @@ const testCommonContent = require('test/component/common/testCommonContent.js');
 const nock = require('nock');
 const config = require('config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
-const afterEachNocks = (done) => {
-    return () => {
-        nock.cleanAll();
-        done();
-    };
-};
 
 describe('executors-invite', () => {
     let testWrapper;
@@ -32,6 +26,7 @@ describe('executors-invite', () => {
 
     afterEach(() => {
         delete require.cache[require.resolve('test/data/executors-invites')];
+        nock.cleanAll();
         testWrapper.destroy();
     });
 
@@ -93,7 +88,7 @@ describe('executors-invite', () => {
                 ]
             };
 
-            testWrapper.testRedirect(afterEachNocks(done), data, expectedNextUrlForExecInvites);
+            testWrapper.testRedirect(done, data, expectedNextUrlForExecInvites);
         });
 
         it('test an error page is rendered if there is an error calling invite service', (done) => {

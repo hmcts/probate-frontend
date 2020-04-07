@@ -12,12 +12,6 @@ const beforeEachNocks = (status = 'true') => {
         .get(feesApiFeatureTogglePath)
         .reply(200, status);
 };
-const afterEachNocks = (done) => {
-    return () => {
-        nock.cleanAll();
-        done();
-    };
-};
 
 describe('start-eligibility', () => {
     let testWrapper;
@@ -28,6 +22,7 @@ describe('start-eligibility', () => {
     });
 
     afterEach(() => {
+        nock.cleanAll();
         testWrapper.destroy();
     });
 
@@ -41,7 +36,7 @@ describe('start-eligibility', () => {
                 'paragraph8old'
             ];
 
-            testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
+            testWrapper.testContent(done, {}, contentToExclude);
         });
 
         it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
@@ -69,7 +64,7 @@ describe('start-eligibility', () => {
                 'tableBodyFeeRange7Value'
             ];
 
-            testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
+            testWrapper.testContent(done, {}, contentToExclude);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDeathCertificate}`, (done) => {

@@ -4,19 +4,20 @@ const TestWrapper = require('test/util/TestWrapper');
 const CopiesSummary = require('app/steps/ui/copies/summary');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const config = require('config');
+const orchestratorServiceUrl = config.services.orchestrator.url;
 const featureToggleUrl = config.featureToggles.url;
 const feesApiFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.fees_api}`;
 const nock = require('nock');
+
+const invitesAllAgreedNock = () => {
+    nock(orchestratorServiceUrl)
+        .get('/invite/allAgreed/1234567890123456')
+        .reply(200, 'true');
+};
 const beforeEachNocks = (status = 'true') => {
     nock(featureToggleUrl)
         .get(feesApiFeatureTogglePath)
         .reply(200, status);
-};
-const afterEachNocks = (done) => {
-    return () => {
-        nock.cleanAll();
-        done();
-    };
 };
 const sessionData = {
     declaration: {
@@ -33,6 +34,7 @@ describe('copies-overseas', () => {
     });
 
     afterEach(() => {
+        nock.cleanAll();
         testWrapper.destroy();
     });
 
@@ -40,27 +42,51 @@ describe('copies-overseas', () => {
         testCommonContent.runTest('CopiesOverseas', null, null, [], false, {ccdCase: {state: 'CaseCreated'}, declaration: {declarationCheckbox: 'true'}});
 
         it('test right content loaded on the page with the fees_api toggle ON', (done) => {
+            invitesAllAgreedNock();
             beforeEachNocks('true');
 
-            const contentToExclude = [
-                'questionOld',
-                'paragraph1Old'
-            ];
+            const sessionData = require('test/data/copiesUk');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
 
-            testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    delete require.cache[require.resolve('test/data/copiesUk')];
+                    const contentToExclude = [
+                        'questionOld',
+                        'paragraph1Old'
+                    ];
+
+                    testWrapper.testContent(done, {}, contentToExclude);
+                });
         });
 
         it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
+            invitesAllAgreedNock();
             beforeEachNocks('false');
 
-            const contentToExclude = [
-                'paragraph1',
-                'bullet1',
-                'bullet2',
-                'copies'
-            ];
+            const sessionData = require('test/data/copiesUk');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
 
-            testWrapper.testContent(afterEachNocks(done), {}, contentToExclude);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    delete require.cache[require.resolve('test/data/copiesUk')];
+                    const contentToExclude = [
+                        'paragraph1',
+                        'bullet1',
+                        'bullet2',
+                        'copies'
+                    ];
+
+                    testWrapper.testContent(done, {}, contentToExclude);
+                });
         });
 
         it('test errors message displayed for invalid data, text values', (done) => {

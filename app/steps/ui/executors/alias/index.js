@@ -30,12 +30,11 @@ class ExecutorsAlias extends ValidationStep {
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
                 {key: 'alias', value: 'optionYes', choice: 'withAlias'}
             ]
         };
-        return nextStepOptions;
     }
 }
 

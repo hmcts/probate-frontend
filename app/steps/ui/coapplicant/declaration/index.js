@@ -47,12 +47,11 @@ class CoApplicantDeclaration extends ValidationStep {
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
                 {key: 'agreement', value: 'optionYes', choice: 'agreed'}
             ]
         };
-        return nextStepOptions;
     }
 
     shouldPersistFormData() {

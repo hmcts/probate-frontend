@@ -12,14 +12,11 @@ class DeceasedOtherNames extends ValidationStep {
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
-            options: [{
-                key: 'deceasedMarriedAfterDateOnCodicilOrWill',
-                value: true,
-                choice: 'deceasedMarriedAfterDateOnCodicilOrWill'
-            }]
+        return {
+            options: [
+                {key: 'deceasedMarriedAfterDateOnCodicilOrWill', value: true, choice: 'deceasedMarriedAfterDateOnCodicilOrWill'}
+            ]
         };
-        return nextStepOptions;
     }
 
     getContextData(req) {

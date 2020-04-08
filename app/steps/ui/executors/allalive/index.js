@@ -12,8 +12,18 @@ class ExecutorsAllAlive extends ValidationStep {
         return this.next(req, ctx).constructor.getUrl(1);
     }
 
-    handlePost(ctx, errors, formdata, session) {
-        if (ctx.allalive === this.commonContent(session.language).yes) {
+    nextStepOptions() {
+        return {
+            options: [
+                {key: 'allalive', value: 'optionYes', choice: 'isAlive'},
+                {key: 'allalive', value: 'optionNo', choice: 'whoDied'}
+            ]
+        };
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        if (ctx.allalive === 'optionYes') {
             for (let i = 1; i < ctx.executorsNumber; i++) {
                 if (ctx.list[i].isDead) {
                     ctx.list[i].isDead = false;
@@ -24,17 +34,8 @@ class ExecutorsAllAlive extends ValidationStep {
 
             }
         }
-        return [ctx, errors];
-    }
 
-    nextStepOptions() {
-        const nextStepOptions = {
-            options: [
-                {key: 'allalive', value: 'optionYes', choice: 'isAlive'},
-                {key: 'allalive', value: 'optionNo', choice: 'whoDied'}
-            ]
-        };
-        return nextStepOptions;
+        return [ctx, formdata];
     }
 }
 

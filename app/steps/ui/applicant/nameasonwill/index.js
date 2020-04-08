@@ -32,12 +32,11 @@ class ApplicantNameAsOnWill extends ValidationStep {
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
                 {key: 'nameAsOnTheWill', value: 'optionNo', choice: 'hasAlias'}
             ]
         };
-        return nextStepOptions;
     }
 
     action(ctx, formdata) {

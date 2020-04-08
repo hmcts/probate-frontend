@@ -243,7 +243,8 @@ class Declaration extends ValidationStep {
     nextStepOptions(ctx) {
         ctx.hasDataChangedAfterEmailSent = ctx.hasDataChanged && ctx.invitesSent === 'true';
         ctx.hasEmailChanged = ctx.executorsEmailChanged && ctx.invitesSent === 'true';
-        const nextStepOptions = {
+
+        return {
             options: [
                 {key: 'hasExecutorsToNotify', value: true, choice: 'sendAdditionalInvites'},
                 {key: 'hasEmailChanged', value: true, choice: 'executorEmailChanged'},
@@ -251,7 +252,6 @@ class Declaration extends ValidationStep {
                 {key: 'hasMultipleApplicants', value: true, choice: 'otherExecutorsApplying'}
             ]
         };
-        return nextStepOptions;
     }
 
     resetAgreedFlags(ctx) {

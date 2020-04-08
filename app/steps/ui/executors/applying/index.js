@@ -22,12 +22,11 @@ class ExecutorsApplying extends ValidationStep {
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
                 {key: 'otherExecutorsApplying', value: 'optionYes', choice: 'otherExecutorsApplying'}
             ]
         };
-        return nextStepOptions;
     }
 }
 

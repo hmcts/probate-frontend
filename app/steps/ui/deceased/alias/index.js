@@ -11,12 +11,11 @@ class DeceasedAlias extends ValidationStep {
     }
 
     nextStepOptions() {
-        const nextStepOptions = {
+        return {
             options: [
                 {key: 'alias', value: 'optionYes', choice: 'assetsInOtherNames'},
             ]
         };
-        return nextStepOptions;
     }
 
     getContextData(req) {
@@ -24,14 +23,6 @@ class DeceasedAlias extends ValidationStep {
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
-    }
-
-    handlePost(ctx, errors) {
-        const hasAlias = (new DeceasedWrapper(ctx)).hasAlias();
-        if (!hasAlias && ctx.otherNames) {
-            ctx.otherNames = {};
-        }
-        return [ctx, errors];
     }
 
     isSoftStop(formdata) {
@@ -45,6 +36,11 @@ class DeceasedAlias extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.deceasedName;
+
+        if (ctx.alias === 'optionNo') {
+            ctx.otherNames = {};
+        }
+
         return [ctx, formdata];
     }
 }

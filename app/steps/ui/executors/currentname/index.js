@@ -3,11 +3,12 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex, get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const pageUrl = '/executor-current-name';
 
 class ExecutorCurrentName extends ValidationStep {
 
     static getUrl(index = '*') {
-        return `/executor-current-name/${index}`;
+        return `${pageUrl}/${index}`;
     }
 
     getContextData(req) {
@@ -16,6 +17,7 @@ class ExecutorCurrentName extends ValidationStep {
             ctx.index = parseInt(req.params[0]);
         } else {
             ctx.index = this.recalcIndex(ctx, 0);
+            ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         return ctx;
     }

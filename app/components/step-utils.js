@@ -10,7 +10,7 @@ const commonContent = (language = 'en') => {
     return mapValues(common, (value, key) => i18next.t(`common.${key}`));
 };
 
-const updateTaskStatus = (ctx, req, steps) => {
+const updateTaskStatus = (ctx, req, res, steps) => {
     const formdata = req.session.form;
     const journeyMap = new JourneyMap(req.session.journey);
     const taskList = journeyMap.taskList();
@@ -21,7 +21,7 @@ const updateTaskStatus = (ctx, req, steps) => {
         let step = steps[task.firstStep];
 
         while (step.name !== task.lastStep) {
-            const localctx = step.getContextData(req);
+            const localctx = step.getContextData(req, res);
             const featureToggles = req.session.featureToggles;
             const [stepCompleted, progressFlag] = step.isComplete(localctx, formdata, featureToggles);
             const nextStep = step.next(req, localctx);

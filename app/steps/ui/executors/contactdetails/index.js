@@ -8,11 +8,12 @@ const FieldError = require('app/components/error');
 const {findIndex, every, tail} = require('lodash');
 const InviteData = require('app/services/InviteData');
 const config = require('config');
+const pageUrl = '/executor-contact-details';
 
 class ExecutorContactDetails extends ValidationStep {
 
     static getUrl(index = '*') {
-        return `/executor-contact-details/${index}`;
+        return `${pageUrl}/${index}`;
     }
 
     getContextData(req) {
@@ -21,6 +22,7 @@ class ExecutorContactDetails extends ValidationStep {
             ctx.index = parseInt(req.params[0]);
         } else {
             ctx.index = this.recalcIndex(ctx, 0);
+            ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         const executor = ctx.list[ctx.index];
         ctx.inviteId = executor.inviteId;

@@ -1,6 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
+const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails');
 const ExecutorAddress = require('app/steps/ui/executors/address');
 const commonContent = require('app/resources/en/translation/common');
 const caseTypes = require('app/utils/CaseTypes');
@@ -38,6 +39,7 @@ describe('executors-contact-details', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test help block content is loaded on page', (done) => {
+            testWrapper.pageUrl = ExecutorContactDetails.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -56,6 +58,7 @@ describe('executors-contact-details', () => {
         });
 
         it('test correct content is loaded on the page', (done) => {
+            testWrapper.pageUrl = ExecutorContactDetails.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

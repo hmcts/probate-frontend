@@ -32,7 +32,7 @@ class Summary extends Step {
         ctx.executorsPowerReservedOrRenounced = executorsWrapper.hasRenunciatedOrPowerReserved();
         ctx.executorsWithOtherNames = executorsWrapper.executorsWithAnotherName().map(exec => exec.fullName);
 
-        utils.updateTaskStatus(ctx, ctx, this.steps);
+        utils.updateTaskStatus(ctx, ctx, null, this.steps);
         return [ctx, null];
     }
 

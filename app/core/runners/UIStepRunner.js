@@ -21,26 +21,30 @@ class UIStepRunner {
 
         return co(function * () {
             let ctx = step.getContextData(req, res);
-            const featureToggles = session.featureToggles;
-            [ctx, errors] = yield step.handleGet(ctx, formdata, featureToggles, session.language);
-            forEach(errors, (error) =>
-                req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
-            );
-            const content = step.generateContent(ctx, formdata, session.language);
-            const fields = step.generateFields(session.language, ctx, errors, formdata);
-            if (req.query.source === 'back') {
-                session.back.pop();
-            } else if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
-                session.back.push(step.constructor.getUrl());
-            }
-            const common = step.commonContent(session.language);
-            res.render(step.template, {content, fields, errors, common, userLoggedIn: req.userLoggedIn}, (err, html) => {
-                if (err) {
-                    req.log.error(err);
-                    return res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
+            if (ctx.redirect) {
+                res.redirect(ctx.redirect);
+            } else {
+                const featureToggles = session.featureToggles;
+                [ctx, errors] = yield step.handleGet(ctx, formdata, featureToggles, session.language);
+                forEach(errors, (error) =>
+                    req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
+                );
+                const content = step.generateContent(ctx, formdata, session.language);
+                const fields = step.generateFields(session.language, ctx, errors, formdata);
+                if (req.query.source === 'back') {
+                    session.back.pop();
+                } else if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
+                    session.back.push(step.constructor.getUrl());
                 }
-                step.renderPage(res, html);
-            });
+                const common = step.commonContent(session.language);
+                res.render(step.template, {content, fields, errors, common, userLoggedIn: req.userLoggedIn}, (err, html) => {
+                    if (err) {
+                        req.log.error(err);
+                        return res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
+                    }
+                    step.renderPage(res, html);
+                });
+            }
         }).catch((error) => {
             req.log.error(error);
             res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});

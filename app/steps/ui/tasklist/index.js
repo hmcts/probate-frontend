@@ -30,10 +30,10 @@ class TaskList extends Step {
         return this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask]);
     }
 
-    getContextData(req) {
+    getContextData(req, res) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        utils.updateTaskStatus(ctx, req, this.steps);
+        utils.updateTaskStatus(ctx, req, res, this.steps);
 
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
         ctx.alreadyDeclaredType = typeof ctx.alreadyDeclared;

@@ -3,12 +3,12 @@
 const AddressStep = require('app/core/steps/AddressStep');
 const {findIndex, get, startsWith} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const path = '/executor-address/';
+const pageUrl = '/executor-address';
 
 class ExecutorAddress extends AddressStep {
 
     static getUrl(index = '*') {
-        return path + index;
+        return `${pageUrl}/${index}`;
     }
 
     getContextData(req) {
@@ -18,8 +18,10 @@ class ExecutorAddress extends AddressStep {
             req.session.indexPosition = ctx.index;
         } else if (req.params && req.params[0] === '*') {
             ctx.index = req.session.indexPosition;
-        } else if (startsWith(req.path, path)) {
+            ctx.redirect = `${pageUrl}/${ctx.index}`;
+        } else if (startsWith(req.path, pageUrl)) {
             ctx.index = this.recalcIndex(ctx, 0);
+            ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         ctx.otherExecName = ctx.list[ctx.index] && ctx.list[ctx.index].fullName;
         ctx.executorsWrapper = new ExecutorsWrapper(ctx);

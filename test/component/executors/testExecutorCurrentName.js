@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorCurrentName = require('app/steps/ui/executors/currentname');
 const ExecutorCurrentNameReason = require('app/steps/ui/executors/currentnamereason');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const commonContent = require('app/resources/en/translation/common');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('executor-current-name', () => {
@@ -39,9 +39,28 @@ describe('executor-current-name', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ExecutorCurrentName', null, null, [], false, {type: caseTypes.GOP});
+        it('test help block content is loaded on page', (done) => {
+            testWrapper.pageUrl = FirstExecURL;
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const playbackData = {
+                        helpTitle: commonContent.helpTitle,
+                        helpHeading1: commonContent.helpHeading1,
+                        helpHeading2: commonContent.helpHeading2,
+                        helpHeading3: commonContent.helpHeading3,
+                        helpTelephoneNumber: commonContent.helpTelephoneNumber,
+                        helpTelephoneOpeningHours: commonContent.helpTelephoneOpeningHours,
+                        helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, commonContent.helpEmail)
+                    };
+
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
 
         it('test content loaded on the page', (done) => {
+            testWrapper.pageUrl = ExecutorCurrentName.getUrl(2);
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

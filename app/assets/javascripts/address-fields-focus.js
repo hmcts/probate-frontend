@@ -5,5 +5,4 @@
     if (addressesDropdown) {
         addressesDropdown.focus();
     }
-
 }).call(this);

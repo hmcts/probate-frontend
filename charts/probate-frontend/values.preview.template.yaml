@@ -29,7 +29,7 @@ nodejs:
         - probate-webchat-button-service-closed
         - payCaseWorkerUser
         - payCaseWorkerPass
-
+        - google-analytics-tracking-id
 rpe-feature-toggle-api:
   enabled: true
   releaseNameOverride: ${SERVICE_NAME}-ftr-tgl-api
@@ -53,10 +53,8 @@ rpe-feature-toggle-api:
         enabled: false
       oneoff:
         enabled: false
-
 redis:
   enabled: true
-
 idam-pr:
   enabled: true
   redirect_uris:

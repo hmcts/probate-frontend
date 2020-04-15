@@ -76,7 +76,7 @@ Scenario(TestConfigurator.idamInUseText('Intestacy Child Journey - Digital iht, 
     // Executors Task
     I.selectATask(taskListContent.taskNotStarted);
     I.selectRelationshipToDeceased(spouseOfDeceased);
-    I.enterAnyOtherChildren(optionNo);
+    I.enterAnyChildren(optionNo);
     I.enterApplicantName('ApplicantFirstName', 'ApplicantLastName');
     I.enterApplicantPhone();
     I.enterAddressManually();

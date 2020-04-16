@@ -5,20 +5,13 @@ const CopiesSummary = require('app/steps/ui/copies/summary');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const config = require('config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
-const featureToggleUrl = config.featureToggles.url;
-const feesApiFeatureTogglePath = `${config.featureToggles.path}/${config.featureToggles.fees_api}`;
 const nock = require('nock');
-
 const invitesAllAgreedNock = () => {
     nock(orchestratorServiceUrl)
         .get('/invite/allAgreed/1234567890123456')
         .reply(200, 'true');
 };
-const beforeEachNocks = (status = 'true') => {
-    nock(featureToggleUrl)
-        .get(feesApiFeatureTogglePath)
-        .reply(200, status);
-};
+
 const sessionData = {
     declaration: {
         declarationCheckbox: 'true'
@@ -29,21 +22,16 @@ describe('copies-overseas', () => {
     let testWrapper;
     const expectedNextUrlForCopiesSummary = CopiesSummary.getUrl();
 
-    beforeEach(() => {
-        testWrapper = new TestWrapper('CopiesOverseas');
-    });
-
     afterEach(() => {
         nock.cleanAll();
         testWrapper.destroy();
     });
 
-    describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('CopiesOverseas', null, null, [], false, {ccdCase: {state: 'CaseCreated'}, declaration: {declarationCheckbox: 'true'}});
+    describe('Verify Content, Errors and Redirection - Feature toggles', () => {
+        it('test right content loaded on the page with the ft_fees_api toggle ON', (done) => {
+            testWrapper = new TestWrapper('CopiesOverseas', {ft_fees_api: true});
 
-        it('test right content loaded on the page with the fees_api toggle ON', (done) => {
             invitesAllAgreedNock();
-            beforeEachNocks('true');
 
             const sessionData = require('test/data/copiesUk');
             sessionData.ccdCase = {
@@ -64,9 +52,10 @@ describe('copies-overseas', () => {
                 });
         });
 
-        it('test right content loaded on the page with the fees_api toggle OFF', (done) => {
+        it('test right content loaded on the page with the ft_fees_api toggle OFF', (done) => {
+            testWrapper = new TestWrapper('CopiesOverseas', {ft_fees_api: false});
+
             invitesAllAgreedNock();
-            beforeEachNocks('false');
 
             const sessionData = require('test/data/copiesUk');
             sessionData.ccdCase = {
@@ -88,6 +77,14 @@ describe('copies-overseas', () => {
                     testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
+    });
+
+    describe('Verify Content, Errors and Redirection', () => {
+        beforeEach(() => {
+            testWrapper = new TestWrapper('CopiesOverseas');
+        });
+
+        testCommonContent.runTest('CopiesOverseas', null, null, [], false, {ccdCase: {state: 'CaseCreated'}, declaration: {declarationCheckbox: 'true'}});
 
         it('test errors message displayed for invalid data, text values', (done) => {
             testWrapper.agent.post('/prepare-session/form')

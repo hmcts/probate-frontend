@@ -3,7 +3,7 @@ nodeEnvironment: NODE_ENV
 gitRevision: GIT_REVISION
 frontendPublicHttpProtocol: PUBLIC_PROTOCOL
 featureToggles:
-  url: FEATURE_TOGGLES_API_URL
+  launchDarklyKey: LAUNCHDARKLY_KEY
 app:
   username: USERNAME
   password: PASSWORD

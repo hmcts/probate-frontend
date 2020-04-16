@@ -51,7 +51,6 @@
     "stub:business": "NODE_PATH=. node test/service-stubs/business.js",
     "stub:payment": "NODE_PATH=. node test/service-stubs/payment.js",
     "stub:multiple-applications": "NODE_PATH=. node test/service-stubs/multipleApplications.js",
-    "stub:feature-toggles": "NODE_PATH=. node test/service-stubs/featureToggles.js",
     "test:fullfunctional": "NODE_ENV=test NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --reporter mochawesome"
   },
   "pre-commit": [

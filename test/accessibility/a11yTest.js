@@ -99,10 +99,6 @@ for (const step in steps) {
                     .get('/invite/allAgreed/undefined')
                     .reply(200, 'false');
 
-                nock(config.featureToggles.url)
-                    .get(`${config.featureToggles.path}/${config.featureToggles.fees_api_toggle}`)
-                    .reply(200, 'true');
-
                 server = app.init(true, sessionData);
                 agent = request.agent(server.app);
                 co(function* () {

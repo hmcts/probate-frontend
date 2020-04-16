@@ -10,7 +10,7 @@ class StartEligibility extends Step {
     }
 
     handleGet(ctx, formdata, featureToggles) {
-        ctx.isFeesApiToggleEnabled = featureToggle.isEnabled(featureToggles, 'fees_api_toggle');
+        ctx.isFeesApiToggleEnabled = featureToggle.isEnabled(featureToggles, 'ft_fees_api');
 
         return [ctx];
     }

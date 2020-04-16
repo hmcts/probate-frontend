@@ -49,18 +49,18 @@ describe('CopiesOverseas', () => {
     });
 
     describe('handleGet()', () => {
-        it('should return true when the fees_api toggle is set', (done) => {
+        it('should return true when the ft_fees_api toggle is set', (done) => {
             const ctxToTest = {};
             const formdata = {};
             const featureToggles = {
-                fees_api_toggle: true
+                ft_fees_api: true
             };
             const [ctx] = CopiesOverseas.handleGet(ctxToTest, formdata, featureToggles);
             expect(ctx.isFeesApiToggleEnabled).to.equal(true);
             done();
         });
 
-        it('should return false when the fees_api toggle is not set', (done) => {
+        it('should return false when the ft_fees_api toggle is not set', (done) => {
             const ctxToTest = {};
             const formdata = {};
             const featureToggles = {};

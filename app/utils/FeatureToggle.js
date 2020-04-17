@@ -29,7 +29,7 @@ class FeatureToggle {
         }
 
         try {
-            params.launchDarkly.client.once('ready', () => {
+            this.onceReady(params.launchDarkly, () => {
                 params.launchDarkly.client.variation(featureToggleKey, ldUser, ldDefaultValue, (err, showFeature) => {
                     if (!err) {
                         logger(sessionId).info(`Checking feature toggle: ${params.featureToggleKey}, isEnabled: ${showFeature}`);
@@ -48,6 +48,17 @@ class FeatureToggle {
             });
         } catch (err) {
             params.next(err);
+        }
+    }
+
+    onceReady(ld, callback) {
+        if (!ld.ready) {
+            ld.client.once('ready', () => {
+                ld.ready = true;
+                callback();
+            });
+        } else {
+            callback();
         }
     }
 

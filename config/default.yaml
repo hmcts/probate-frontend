@@ -42,9 +42,6 @@ services:
     port: 8888
   validation:
     url: 'http://localhost:8081/validate'
-  submit:
-    url: 'http://localhost:8181'
-    port: 8181
   idam:
     loginUrl: 'http://localhost:3501/login'
     apiUrl: 'http://localhost:5000'

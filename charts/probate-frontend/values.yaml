@@ -51,7 +51,6 @@ nodejs:
         - payCaseWorkerPass
         - frontend-redis-access-key
         - AppInsightsInstrumentationKey
-        - google-analytics-tracking-id
         - launchdarkly-key
 redis:
   enabled: false

@@ -42,7 +42,7 @@ class ValidationStep extends Step {
     }
 
     validate(ctx, formdata, language) {
-        let [isValid, errors] = [true, {}];
+        let [isValid, errors] = [true, []];
 
         const removeEmptyFields = field => (typeof ctx[field] === 'string' && ctx[field].trim() === '') || ctx[field] === '';
 

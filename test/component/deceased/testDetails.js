@@ -39,7 +39,7 @@ describe('deceased-details', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            const errorsToTest = ['firstName', 'lastName', 'dob-day', 'dob-month', 'dob-year', 'dod-day', 'dod-month', 'dod-year'];
+            const errorsToTest = ['firstName', 'lastName', 'dob-date', 'dod-date'];
 
             testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });

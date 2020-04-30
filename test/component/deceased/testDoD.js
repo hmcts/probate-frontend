@@ -37,7 +37,7 @@ describe('deceased-dod', () => {
         });
 
         it('test error message displayed for missing data', (done) => {
-            const errorsToTest = ['dod-day', 'dod-month', 'dod-year'];
+            const errorsToTest = ['dod-date'];
 
             testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });

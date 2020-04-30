@@ -14,7 +14,7 @@ describe('Security component', () => {
     const role = 'probate-private-beta';
     const loginUrl = 'http://localhost:8000/login';
     const timeoutUrl = '/time-out';
-    const loginUrlWithContinue = `${loginUrl}?response_type=code&state=57473&client_id=ccd_gateway&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth2%2Fcallback`;
+    const loginUrlWithContinue = `${loginUrl}?ui_locales=cy&response_type=code&state=57473&client_id=ccd_gateway&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth2%2Fcallback`;
     const token = 'dummyToken';
     const appConfig = require('config');
     const securityCookie = `__auth-token-${appConfig.payloadVersion}`;
@@ -52,6 +52,7 @@ describe('Security component', () => {
                     code: '123'
                 },
                 session: {
+                    language: 'cy',
                     form: {
                         caseType: 'gop'
                     }
@@ -100,7 +101,7 @@ describe('Security component', () => {
                 }
             });
 
-            req.session = {expires: expiresTime};
+            req.session = {language: 'cy', expires: expiresTime};
             req.cookies[securityCookie] = token;
             req.protocol = 'http';
             const promise = when({name: 'Error', message: 'Unauthorized'});

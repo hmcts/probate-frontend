@@ -3,7 +3,7 @@
   "header": "Gwneud cais am brofiant",
   "introduction": "Mae profiant yn rhoi hawl gyfreithiol ichi ddelio ag eiddo ac arian (ystad) unigolyn ar &ocirc;l iddynt farw.",
   "paragraph1": "Mae angen ichi gwblhau&rsquo;ch cais ar-lein ac yna anfon eich dogfennau i&rsquo;r gofrestrfa brofiant. Byddwn yn dweud wrthych beth sydd angen ichi ei anfon pan fyddwch wedi cwblhau eich cais.",
-  "paragraph2": "Gallwch wneud cais yn Gymraeg drwy&rsquo;r post. Defnyddiwch <a href=\"{applicationFormPA1P}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\">ffurflen PA1P</a> os gadawodd yr unigolyn sydd wedi marw ewyllys, a <a href=\"{applicationFormPA1A}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\">ffurflen PA1A</a> os nad oes ewyllys.",
+  "paragraph2": "Gallwch wneud cais yn Gymraeg drwy&rsquo;r post. Defnyddiwch <a href=\"{applicationFormPA1P}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"ffurflen PA1P (agor mewn ffenestr newydd)\">ffurflen PA1P (agor mewn ffenestr newydd)</a> os gadawodd yr unigolyn sydd wedi marw ewyllys, a <a href=\"{applicationFormPA1A}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"ffurflen PA1A (agor mewn ffenestr newydd)\">ffurflen PA1A (agor mewn ffenestr newydd)</a> os nad oes ewyllys.",
   "multipleHeader": "Os oes mwy nag un person yn gwneud cais",
   "paragraph3": "Gall hyd at 4 person wneud cais am brofiant.",
   "paragraph4": "Bydd angen i bawb sy&rsquo;n gwneud cais gytuno &acirc;&rsquo;r datganiad cyfreithiol a bydd eu henwau yn ymddangos ar y grant profiant.",

@@ -61,6 +61,10 @@
       }
     },
     "dob-date": {
+      "required": {
+        "summary": "[CY] You haven&rsquo;t entered the date that they were born",
+        "message": "[CY] Enter the date they were born"
+      },
       "invalid": {
         "summary": "Mae angen ichi nodi dyddiad geni dilys",
         "message": "Nodwch ddyddiad geni dilys"
@@ -105,6 +109,10 @@
       }
     },
     "dod-date": {
+      "required": {
+        "summary": "[CY] You haven&rsquo;t entered the date that they died",
+        "message": "[CY] Enter the date they died"
+      },
       "invalid": {
         "summary": "Mae angen ichi nodi dyddiad dilys ar gyfer pryd bu iddynt farw",
         "message": "Nodwch ddyddiad dilys ar gyfer pryd bu iddynt farw"

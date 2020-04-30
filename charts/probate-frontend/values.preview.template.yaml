@@ -26,7 +26,6 @@ nodejs:
         - probate-webchat-button-service-closed
         - payCaseWorkerUser
         - payCaseWorkerPass
-        - google-analytics-tracking-id
         - launchdarkly-key
 redis:
   enabled: true

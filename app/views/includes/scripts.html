@@ -3,16 +3,6 @@
 <script src="/public/javascripts/govuk-frontend/govuk/all.js"></script>
 <script nonce="{{ globals.nonce }}">window.GOVUKFrontend.initAll()</script>
 
-{% if globals.enableTracking == "true" %}
-    <script nonce="{{ globals.nonce }}">
-        const gatrackingid = "{{ globals.gaTrackingId }}";
-    </script>
-    <script src="/public/javascripts/ga-tracking.js"></script>
-    <noscript>
-        <img src="/public/images/noJS.png" width="1" height="1" alt="No JS">
-    </noscript>
-{% endif %}
-
 <script src="/public/javascripts/cookie.js"></script>
 
 <script src="/public/javascripts/dropzone.js"></script>

@@ -50,7 +50,7 @@
                 text: content.successParagraph4 | replace("{findOutNext}", globals.links.findOutNext) | safe
             }) }}
 
-            <a href="{{ globals.links.surveyEndOfApplication }}" class="govuk-link" target="_blank" rel="external noopener noreferrer">{{ content.survey | safe }}</a>
+            <a href="{{ globals.links.surveyEndOfApplication }}" class="govuk-link" target="_blank" rel="external noopener noreferrer" aria-label="{{ content.survey | safe }}">{{ content.survey | safe }}</a>
         </div>
     </div>
 {% endblock %}

@@ -6,10 +6,7 @@
 
   "errors": {
     "allalive": {
-      "required": {
-        "summary": "Atebwch y cwestiwn am ysgutorion byw",
-        "message": "Atebwch &lsquo;ydyn&rsquo; os yw&rsquo;r holl ysgutorion dal yn fyw"
-      }
+      "required": "Atebwch &lsquo;ydyn&rsquo; os yw&rsquo;r holl ysgutorion dal yn fyw"
     }
   }
 }

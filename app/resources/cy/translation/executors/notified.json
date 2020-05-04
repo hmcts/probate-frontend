@@ -7,10 +7,7 @@
 
   "errors": {
     "executorNotified": {
-      "required": {
-        "summary": "Nid ydych wedi datgan os ydych wedi hysbysu&rsquo;r ysgutor yn ysgrifenedig ai peidio",
-        "message": "Atebwch &lsquo;do&rsquo; os ydych wedi hysbysu&rsquo;r ysgutor yn ysgrifenedig "
-      }
+      "required": "Atebwch &lsquo;do&rsquo; os ydych wedi hysbysu&rsquo;r ysgutor yn ysgrifenedig "
     }
   }
 }

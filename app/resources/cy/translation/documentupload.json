@@ -16,30 +16,12 @@
 
   "errors": {
     "file": {
-      "invalidFileType": {
-        "summary": "Rydych wedi defnyddio math o ffeil na ellir ei derbyn. Dylech arbed eich ffeil fel jpg, bmp, tiff, png neu PDF a rhoi cynnig arall arni",
-        "message": ""
-      },
-      "maxSize": {
-        "summary": "Mae eich ffeil yn rhy fawr i&rsquo;w huwchlwytho. Defnyddiwch ffeil sy&rsquo;n llai na 10MB a rhowch gynnig arall arni",
-        "message": ""
-      },
-      "maxFilesExceeded": {
-        "summary": "Rydych wedi uwchlwytho gormod o ffeiliau. Gallwch uwchlwytho hyd at 10 ffeil",
-        "message": ""
-      },
-      "uploadFailed": {
-        "summary": "Ni lwyddwyd i uwchlwytho eich dogfen. Dewiswch eich dogfen a rhowch gynnig arall arni",
-        "message": ""
-      },
-      "nothingUploaded": {
-        "summary": "Mae angen ichi ddewis ffeil cyn y gallwch ei huwchlwytho. Cliciwch &lsquo;browse&rsquo; i ddod o hyd i ffeil i&rsquo;w huwchlwytho",
-        "message": ""
-      },
-      "uploadTimeout": {
-        "summary": "Mae eich ffeil wedi cymryd gormod o amser i&rsquo;w huwchlwytho. Efallai bod y ffeil rhy fawr, gwnewch y ffeil yn llai a rhowch gynnig arall arni neu postiwch y dystysgrif marwolaeth",
-        "message": ""
-      }
+      "invalidFileType": "Rydych wedi defnyddio math o ffeil na ellir ei derbyn. Dylech arbed eich ffeil fel jpg, bmp, tiff, png neu PDF a rhoi cynnig arall arni",
+      "maxSize": "Mae eich ffeil yn rhy fawr i&rsquo;w huwchlwytho. Defnyddiwch ffeil sy&rsquo;n llai na 10MB a rhowch gynnig arall arni",
+      "maxFilesExceeded": "Rydych wedi uwchlwytho gormod o ffeiliau. Gallwch uwchlwytho hyd at 10 ffeil",
+      "uploadFailed": "Ni lwyddwyd i uwchlwytho eich dogfen. Dewiswch eich dogfen a rhowch gynnig arall arni",
+      "nothingUploaded": "Mae angen ichi ddewis ffeil cyn y gallwch ei huwchlwytho. Cliciwch &lsquo;browse&rsquo; i ddod o hyd i ffeil i&rsquo;w huwchlwytho",
+      "uploadTimeout": "Mae eich ffeil wedi cymryd gormod o amser i&rsquo;w huwchlwytho. Efallai bod y ffeil rhy fawr, gwnewch y ffeil yn llai a rhowch gynnig arall arni neu postiwch y dystysgrif marwolaeth"
     }
   }
 }

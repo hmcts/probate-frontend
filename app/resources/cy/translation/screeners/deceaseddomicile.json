@@ -8,10 +8,7 @@
 
   "errors": {
     "domicile": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn am p&rsquo;un a oedd yr unigolyn sydd wedi marw yn byw&rsquo;n barhaol yng Nghymru a Lloegr",
-        "message": "Atebwch &lsquo;oedd&rsquo; os oedd yr unigolyn sydd wedi marw yn byw yng Nghymru neu Lloegr neu&rsquo;n bwriadu dychwelyd yma"
-      }
+      "required": "Atebwch &lsquo;oedd&rsquo; os oedd yr unigolyn sydd wedi marw yn byw yng Nghymru neu Lloegr neu&rsquo;n bwriadu dychwelyd yma"
     }
   }
 }

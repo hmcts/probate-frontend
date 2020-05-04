@@ -7,10 +7,7 @@
 
   "errors": {
     "anyDeceasedChildren": {
-      "required": {
-        "summary": "Mae&rsquo;n rhaid ichi ddweud p&rsquo;un a oedd gan yr unigolyn sydd wedi marw blant a wnaeth farw o&rsquo;u blaen",
-        "message": "Atebwch &lsquo;do&rsquo; os oedd gan yr unigolyn sydd wedi marw blant a wnaeth farw o&rsquo;u blaen"
-      }
+      "required": "Atebwch &lsquo;do&rsquo; os oedd gan yr unigolyn sydd wedi marw blant a wnaeth farw o&rsquo;u blaen"
     }
   }
 }

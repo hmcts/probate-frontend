@@ -85,10 +85,7 @@ describe('AddressLookup', () => {
             const errorsToTest = {
                 field: 'postcode',
                 href: '#postcode',
-                msg: {
-                    summary: content.errors.postcode.noAddresses.summary,
-                    message: content.errors.postcode.noAddresses.message
-                }
+                msg: content.errors.postcode.noAddresses
             };
 
             ctxToTest = {

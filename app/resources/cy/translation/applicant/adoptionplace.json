@@ -6,10 +6,7 @@
 
   "errors": {
     "adoptionPlace": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn ynghylch ymhle cawsoch eich mabwysiadu",
-        "message": "Atebwch &lsquo;do&rsquo; os cawsoch eich mabwysiadu yng Nghymru neu Lloegr"
-      }
+      "required": "Atebwch &lsquo;do&rsquo; os cawsoch eich mabwysiadu yng Nghymru neu Lloegr"
     }
   }
 }

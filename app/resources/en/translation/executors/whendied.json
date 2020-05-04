@@ -7,10 +7,7 @@
 
   "errors": {
     "diedbefore": {
-      "required": {
-        "summary": "Answer the question about the executor&rsquo;s time of death",
-        "message": "Answer &lsquo;yes&rsquo; if the executor died before the person who died"
-      }
+      "required": "Answer &lsquo;yes&rsquo; if the executor died before the person who died"
     }
   }
 }

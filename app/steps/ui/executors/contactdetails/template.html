@@ -21,7 +21,7 @@
             id: "email",
             name: "email",
             value: fields.email.value | safe,
-            errorMessage: { text: fields.email.errorMessage.message | safe } if fields.email.errorMessage,
+            errorMessage: { text: fields.email.errorMessage | safe } if fields.email.errorMessage,
             attributes: {
                 maxlength: 320
             },
@@ -37,7 +37,7 @@
             id: "mobile",
             name: "mobile",
             value: fields.mobile.value | safe,
-            errorMessage: { text: fields.mobile.errorMessage.message | safe } if fields.mobile.errorMessage,
+            errorMessage: { text: fields.mobile.errorMessage | safe } if fields.mobile.errorMessage,
             attributes: {
                 maxlength: 25
             },

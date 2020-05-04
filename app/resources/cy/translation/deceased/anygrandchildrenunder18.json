@@ -7,10 +7,7 @@
 
   "errors": {
     "anyGrandchildrenUnder18": {
-      "required": {
-        "summary": "Mae&rsquo;n rhaid ichi ddweud p&rsquo;un a oedd gan y plentyn sydd wedi marw blant sydd dan 18 oed",
-        "message": "Atebwch &lsquo;oedd&rsquo; os oedd gan y plentyn sydd wedi marw blant sydd dan 18 oed"
-      }
+      "required": "Atebwch &lsquo;oedd&rsquo; os oedd gan y plentyn sydd wedi marw blant sydd dan 18 oed"
     }
   }
 }

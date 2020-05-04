@@ -8,14 +8,8 @@
 
   "errors": {
     "update": {
-      "failure": {
-        "summary": "Nid oedd modd inni gyflwyno eich cais. Mae eich data wedi cael ei arbed, rhowch gynnig arall arni yn nes ymlaen.",
-        "message": ""
-      }
+      "failure": "Nid oedd modd inni gyflwyno eich cais. Mae eich data wedi cael ei arbed, rhowch gynnig arall arni yn nes ymlaen."
     },
-    "validation": {
-      "summary": "Roedd problem wrth geisio arbed eich cais.",
-      "message": ""
-    }
+    "validation": "Roedd problem wrth geisio arbed eich cais."
   }
 }

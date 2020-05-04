@@ -7,10 +7,7 @@
 
   "errors": {
     "anyDeceasedChildren": {
-      "required": {
-        "summary": "You must say whether the person who died had children who died before them",
-        "message": "Answer &lsquo;yes&rsquo; if the person who died had children who died before them"
-      }
+      "required": "Answer &lsquo;yes&rsquo; if the person who died had children who died before them"
     }
   }
 }

@@ -9,10 +9,7 @@
 
   "errors": {
     "related": {
-      "required": {
-        "summary": "You haven&rsquo;t answered the question about whether you are the spouse, civil partner or child of the person who died",
-        "message": "Answer &lsquo;yes&rsquo; if you are the spouse, civil partner or child of the person who died"
-      }
+      "required": "Answer &lsquo;yes&rsquo; if you are the spouse, civil partner or child of the person who died"
     }
   }
 }

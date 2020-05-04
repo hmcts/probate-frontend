@@ -67,10 +67,7 @@ describe('DivorcePlace', () => {
                 {
                     field: 'divorcePlace',
                     href: '#divorcePlace',
-                    msg: {
-                        summary: content.errors.divorcePlace.required.summary,
-                        message: content.errors.divorcePlace.required.message
-                    }
+                    msg: content.errors.divorcePlace.required
                 }
             ];
 
@@ -83,10 +80,7 @@ describe('DivorcePlace', () => {
                 divorcePlace: {
                     error: true,
                     href: '#divorcePlace',
-                    errorMessage: {
-                        summary: content.errors.divorcePlace.required.summary.replace('{legalProcess}', 'divorce'),
-                        message: content.errors.divorcePlace.required.message.replace('{legalProcess}', 'divorce')
-                    }
+                    errorMessage: content.errors.divorcePlace.required.replace('{legalProcess}', 'divorce')
                 },
                 legalProcess: {
                     error: false,

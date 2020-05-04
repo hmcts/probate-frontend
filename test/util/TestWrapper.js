@@ -105,8 +105,7 @@ class TestWrapper {
             .expect('Content-type', 'text/html; charset=utf-8')
             .then(res => {
                 forEach(expectedErrors, (value) => {
-                    expect(res.text).to.contain(value[type].summary);
-                    expect(res.text).to.contain(value[type].message);
+                    expect(res.text).to.contain(value[type]);
                 });
                 done();
             })
@@ -174,15 +173,13 @@ class TestWrapper {
 
     substituteErrorsContent(data, contentToSubstitute, type) {
         Object.entries(contentToSubstitute).forEach(([contentKey, contentValue]) => {
-            Object.entries(contentValue[type]).forEach(([errorMessageKey, errorMessageValue]) => {
-                const errorMessageValueMatch = errorMessageValue.match(/{(.*?)}/g);
-                if (errorMessageValueMatch) {
-                    errorMessageValueMatch.forEach(placeholder => {
-                        const placeholderRegex = new RegExp(placeholder, 'g');
-                        contentToSubstitute[contentKey][type][errorMessageKey] = contentToSubstitute[contentKey][type][errorMessageKey].replace(placeholderRegex, data[placeholder]);
-                    });
-                }
-            });
+            const errorMessageValueMatch = contentValue[type].match(/{(.*?)}/g);
+            if (errorMessageValueMatch) {
+                errorMessageValueMatch.forEach(placeholder => {
+                    const placeholderRegex = new RegExp(placeholder, 'g');
+                    contentToSubstitute[contentKey][type] = contentToSubstitute[contentKey][type].replace(placeholderRegex, data[placeholder]);
+                });
+            }
         });
     }
 

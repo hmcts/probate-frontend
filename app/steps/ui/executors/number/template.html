@@ -30,7 +30,7 @@
             name: "executorsNumber",
             type: "number",
             value: fields.executorsNumber.value | safe,
-            errorMessage: { text: fields.executorsNumber.errorMessage.message | safe } if fields.executorsNumber.errorMessage,
+            errorMessage: { text: fields.executorsNumber.errorMessage | safe } if fields.executorsNumber.errorMessage,
             attributes: {
                 maxlength: 5
             },

@@ -6,10 +6,7 @@
 
   "errors": {
     "allalive": {
-      "required": {
-        "summary": "Answer the question about living executors",
-        "message": "Answer &lsquo;yes&rsquo; if all executors are still alive"
-      }
+      "required": "Answer &lsquo;yes&rsquo; if all executors are still alive"
     }
   }
 }

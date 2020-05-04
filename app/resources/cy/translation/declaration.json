@@ -101,10 +101,7 @@
 
   "errors": {
     "declarationCheckbox": {
-      "required": {
-        "summary": "Nid ydych wedi cytuno i&rsquo;r datganiad",
-        "message": "Ticiwch y blwch i gytuno i&rsquo;r datganiad"
-      }
+      "required": "Ticiwch y blwch i gytuno i&rsquo;r datganiad"
     }
   }
 }

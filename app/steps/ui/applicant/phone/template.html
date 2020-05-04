@@ -19,7 +19,7 @@
             id: "phoneNumber",
             name: "phoneNumber",
             value: fields.phoneNumber.value | safe,
-            errorMessage: { text: fields.phoneNumber.errorMessage.message | safe } if fields.phoneNumber.errorMessage,
+            errorMessage: { text: fields.phoneNumber.errorMessage | safe } if fields.phoneNumber.errorMessage,
             attributes: {
                 maxlength: 25
             },

@@ -8,10 +8,7 @@
 
   "errors": {
     "nameAsOnTheWill": {
-      "required": {
-        "summary": "Atebwch y cwestiwn am eich enw union beth sy&rsquo;n ymddangos ar yr ewyllys neu&rsquo;r codisil",
-        "message": "Atebwch &lsquo;ydi&rsquo; os yw eich enw union beth sy&rsquo;n ymddangos ar yr ewyllys neu&rsquo;r codisil"
-      }
+      "required": "Atebwch &lsquo;ydi&rsquo; os yw eich enw union beth sy&rsquo;n ymddangos ar yr ewyllys neu&rsquo;r codisil"
     }
   }
 }

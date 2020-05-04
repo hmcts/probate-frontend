@@ -7,10 +7,7 @@
 
   "errors": {
     "otherApplicants": {
-      "required": {
-        "summary": "You haven&rsquo;t answered the question about applying with someone else",
-        "message": "Answer &lsquo;yes&rsquo; if you want to apply with someone else"
-      }
+      "required": "Answer &lsquo;yes&rsquo; if you want to apply with someone else"
     }
   }
 }

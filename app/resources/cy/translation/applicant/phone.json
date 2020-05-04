@@ -5,14 +5,8 @@
 
   "errors": {
     "phoneNumber": {
-      "required": {
-        "summary": "Nid ydych wedi nodi rhif ff&ocirc;n",
-        "message": "Nodwch rif ff&ocirc;n"
-      },
-      "invalid": {
-        "summary": "Nid yw&rsquo;r rhif ff&ocirc;n rydych wedi&rsquo;i nodi yn ddilys",
-        "message": "Nodwch rif ff&ocirc;n dilys"
-      }
+      "required": "Nodwch rif ff&ocirc;n",
+      "invalid": "Nodwch rif ff&ocirc;n dilys"
     }
   }
 }

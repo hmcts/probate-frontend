@@ -24,10 +24,7 @@
 
   "errors": {
     "agreement": {
-      "required": {
-        "summary": "Atebwch &lsquo;ydw&rsquo; os ydych yn cytuno &acirc;&rsquo;r datganiad cyfreithiol",
-        "message": "Atebwch &lsquo;ydw&rsquo; os ydych yn cytuno &acirc;&rsquo;r datganiad cyfreithiol"
-      }
+      "required": "Atebwch &lsquo;ydw&rsquo; os ydych yn cytuno &acirc;&rsquo;r datganiad cyfreithiol"
     }
   }
 }

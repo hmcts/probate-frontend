@@ -24,10 +24,7 @@
 
   "errors": {
     "sentDocuments": {
-      "required": {
-        "summary": "Nid ydych wedi cadarnhau eich bod wedi llofnodi&rsquo;r ewyllys (ac unrhyw godisiliau)",
-        "message": "Ticiwch y blwch i gadarnhau eich bod wedi llofnodi&rsquo;r ewyllys (ac unrhyw godisiliau)"
-      }
+      "required": "Ticiwch y blwch i gadarnhau eich bod wedi llofnodi&rsquo;r ewyllys (ac unrhyw godisiliau)"
     }
   }
 }

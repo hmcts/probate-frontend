@@ -399,10 +399,7 @@ describe('PaymentBreakdown', () => {
                 expect(errors).to.deep.equal([{
                     field: 'authorisation',
                     href: '#authorisation',
-                    msg: {
-                        summary: content.errors.authorisation.failure.summary,
-                        message: content.errors.authorisation.failure.message
-                    }
+                    msg: content.errors.authorisation.failure
                 }]);
                 expect(ctx).to.deep.equal(ctxTestData);
                 revertAuthorise();
@@ -600,10 +597,7 @@ describe('PaymentBreakdown', () => {
                 expect(errors).to.deep.equal([{
                     field: 'payment',
                     href: '#payment',
-                    msg: {
-                        summary: content.errors.payment.initiated.summary,
-                        message: content.errors.payment.initiated.message
-                    }
+                    msg: content.errors.payment.initiated
                 }]);
                 getCasePaymentsStub.restore();
                 getStub.restore();

@@ -18,7 +18,7 @@
         hint: {
             text: content.hintText | replace("{deathReportedToCoroner}", globals.links.deathReportedToCoroner) | safe
         },
-        errorMessage: { text: fields.deathCertificate.errorMessage.message | safe } if fields.deathCertificate.errorMessage,
+        errorMessage: { text: fields.deathCertificate.errorMessage | safe } if fields.deathCertificate.errorMessage,
         items: [
             {
                 value: "optionYes",

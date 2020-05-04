@@ -10,10 +10,7 @@
 
   "errors": {
     "otherExecutorsApplying": {
-      "required": {
-        "summary": "Atebwch &lsquo;bydd&rsquo; os yw unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad",
-        "message": "Atebwch &lsquo;bydd&rsquo; os yw unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad"
-      }
+      "required": "Atebwch &lsquo;bydd&rsquo; os yw unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad"
     }
   }
 }

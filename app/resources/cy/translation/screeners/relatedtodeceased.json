@@ -9,10 +9,7 @@
 
   "errors": {
     "related": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn am p&rsquo;un a ydych chi&rsquo;n &wcirc;r/gwraig, yn bartner sifil neu&rsquo;n blentyn yr unigolyn sydd wedi marw",
-        "message": "Atebwch &lsquo;ydw&rsquo; os ydych chi&rsquo;n &wcirc;r/gwraig, yn bartner sifil neu&rsquo;n blentyn yr unigolyn sydd wedi marw"
-      }
+      "required": "Atebwch &lsquo;ydw&rsquo; os ydych chi&rsquo;n &wcirc;r/gwraig, yn bartner sifil neu&rsquo;n blentyn yr unigolyn sydd wedi marw"
     }
   }
 }

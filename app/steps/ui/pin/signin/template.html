@@ -26,7 +26,7 @@
             id: "pin",
             name: "pin",
             value: fields.pin.value | safe,
-            errorMessage: { text: fields.pin.errorMessage.message | safe } if fields.pin.errorMessage,
+            errorMessage: { text: fields.pin.errorMessage | safe } if fields.pin.errorMessage,
             attributes: {
                 maxlength: 6
             },

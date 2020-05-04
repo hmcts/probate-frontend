@@ -11,10 +11,7 @@
 
   "errors": {
     "getUrl(index": {
-      "invalid": {
-        "summary": "There was a problem with sending the emails, please try again later",
-        "message": "There was a problem with sending the emails, please try again later"
-      }
+      "invalid": "There was a problem with sending the emails, please try again later"
     }
   }
 }

@@ -4,10 +4,7 @@
 
   "errors": {
     "executorsWhoDied": {
-      "required": {
-        "summary": "Select at least one executor",
-        "message": "Select at least one executor"
-      }
+      "required": "Select at least one executor"
     }
   }
 }

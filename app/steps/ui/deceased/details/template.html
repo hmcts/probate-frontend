@@ -10,10 +10,10 @@
         {% set inlineErrorsDob = {
             text:
             (
-                (fields["dob-date"].errorMessage.message + "<br>" if fields["dob-date"].errorMessage) +
-                (fields["dob-day"].errorMessage.message + "<br>" if fields["dob-day"].errorMessage) +
-                (fields["dob-month"].errorMessage.message + "<br>" if fields["dob-month"].errorMessage) +
-                (fields["dob-year"].errorMessage.message + "<br>" if fields["dob-year"].errorMessage)
+                (fields["dob-date"].errorMessage + "<br>" if fields["dob-date"].errorMessage) +
+                (fields["dob-day"].errorMessage + "<br>" if fields["dob-day"].errorMessage) +
+                (fields["dob-month"].errorMessage + "<br>" if fields["dob-month"].errorMessage) +
+                (fields["dob-year"].errorMessage + "<br>" if fields["dob-year"].errorMessage)
             ) | safe
         } %}
     {% endif %}
@@ -21,10 +21,10 @@
         {% set inlineErrorsDod = {
             text:
             (
-                (fields["dod-date"].errorMessage.message + "<br>" if fields["dod-date"].errorMessage) +
-                (fields["dod-day"].errorMessage.message + "<br>" if fields["dod-day"].errorMessage) +
-                (fields["dod-month"].errorMessage.message + "<br>" if fields["dod-month"].errorMessage) +
-                (fields["dod-year"].errorMessage.message + "<br>" if fields["dod-year"].errorMessage)
+                (fields["dod-date"].errorMessage + "<br>" if fields["dod-date"].errorMessage) +
+                (fields["dod-day"].errorMessage + "<br>" if fields["dod-day"].errorMessage) +
+                (fields["dod-month"].errorMessage + "<br>" if fields["dod-month"].errorMessage) +
+                (fields["dod-year"].errorMessage + "<br>" if fields["dod-year"].errorMessage)
             ) | safe
         } %}
     {% endif %}
@@ -47,7 +47,7 @@
             id: "firstName",
             name: "firstName",
             value: fields.firstName.value | safe,
-            errorMessage: { text: fields.firstName.errorMessage.message | safe } if fields.firstName.errorMessage,
+            errorMessage: { text: fields.firstName.errorMessage | safe } if fields.firstName.errorMessage,
             attributes: {
                 maxlength: 100
             },
@@ -60,7 +60,7 @@
             id: "lastName",
             name: "lastName",
             value: fields.lastName.value | safe,
-            errorMessage: { text: fields.lastName.errorMessage.message | safe } if fields.lastName.errorMessage,
+            errorMessage: { text: fields.lastName.errorMessage | safe } if fields.lastName.errorMessage,
             attributes: {
                 maxlength: 100
             },

@@ -15,14 +15,8 @@
 
   "errors": {
     "uk": {
-      "invalid": {
-        "summary": "Nid ydych wedi nodi rhif dilys",
-        "message": "Nodwch rif dilys"
-      },
-      "required": {
-        "summary": "Nodwch y nifer o gop&iuml;au DU rydych eu hangen",
-        "message": "Nodwch y nifer o gop&iuml;au DU rydych eu hangen. Rhowch &lsquo;0&rsquo; os nad ydych angen unrhyw gop&iuml;au."
-      }
+      "invalid": "Nodwch rif dilys",
+      "required": "Nodwch y nifer o gop&iuml;au DU rydych eu hangen. Rhowch &lsquo;0&rsquo; os nad ydych angen unrhyw gop&iuml;au."
     }
   }
 }

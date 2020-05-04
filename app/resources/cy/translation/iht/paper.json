@@ -14,106 +14,40 @@
 
   "errors": {
     "form": {
-      "required": {
-        "summary": "Nid ydych wedi dewis ffurflen",
-        "message": "Dewiswch ffurflen"
-      }
+      "required": "Dewiswch ffurflen"
     },
     "grossValueFieldIHT205": {
-      "required": {
-        "summary": "Nid ydych wedi nodi&rsquo;r swm gros",
-        "message": "Nodwch y swm gros"
-      },
-      "invalid": {
-        "summary": "Swm annilys",
-        "message": "Swm annilys"
-      },
-      "invalidCurrencyFormat": {
-        "summary": "Gall y gwerth gros ond cynnwys rhifau",
-        "message": "Rhaid i&rsquo;r gwerth gros fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
-      }
+      "required": "Nodwch y swm gros",
+      "invalid": "[CY] Enter a valid gross amount",
+      "invalidCurrencyFormat": "Rhaid i&rsquo;r gwerth gros fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
     },
     "netValueFieldIHT205": {
-      "required": {
-        "summary": "Nid ydych wedi nodi&rsquo;r swm net",
-        "message": "Nodwch y swm net"
-      },
-      "invalid": {
-        "summary": "Swm annilys",
-        "message": "Swm annilys"
-      },
-      "invalidCurrencyFormat": {
-        "summary": "Gall y gwerth net ond cynnwys rhifau",
-        "message": "Rhaid i&rsquo;r gwerth net fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
-      },
-      "netValueGreaterThanGross": {
-        "summary": "Ni all y swm net fod yn fwy na&rsquo;r swm gros",
-        "message": "Ni all y swm net fod yn fwy na&rsquo;r swm gros"
-      }
+      "required": "Nodwch y swm net",
+      "invalid": "[CY] Enter a valid net amount",
+      "invalidCurrencyFormat": "Rhaid i&rsquo;r gwerth net fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol",
+      "netValueGreaterThanGross": "Ni all y swm net fod yn fwy na&rsquo;r swm gros"
     },
     "grossValueFieldIHT207": {
-      "required": {
-        "summary": "Nid ydych wedi nodi&rsquo;r swm gros",
-        "message": "Nodwch y swm gros"
-      },
-      "invalid": {
-        "summary": "Swm annilys",
-        "message": "Swm annilys"
-      },
-      "invalidCurrencyFormat": {
-        "summary": "Gall y gwerth gros ond cynnwys rhifau",
-        "message": "Rhaid i&rsquo;r gwerth gros fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
-      }
+      "required": "Nodwch y swm gros",
+      "invalid": "[CY] Enter a valid gross amount",
+      "invalidCurrencyFormat": "Rhaid i&rsquo;r gwerth gros fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
     },
     "netValueFieldIHT207": {
-      "required": {
-        "summary": "Nid ydych wedi nodi&rsquo;r swm net",
-        "message": "Nodwch y swm net"
-      },
-      "invalid": {
-        "summary": "Swm annilys",
-        "message": "Swm annilys"
-      },
-      "invalidCurrencyFormat": {
-        "summary": "Gall y gwerth net ond cynnwys rhifau",
-        "message": "Rhaid i&rsquo;r gwerth net fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
-      },
-      "netValueGreaterThanGross": {
-        "summary": "Ni all y swm net fod yn fwy na&rsquo;r swm gros",
-        "message": "Ni all y swm net fod yn fwy na&rsquo;r swm gros"
-      }
+      "required": "Nodwch y swm net",
+      "invalid": "[CY] Enter a valid net amount",
+      "invalidCurrencyFormat": "Rhaid i&rsquo;r gwerth net fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol",
+      "netValueGreaterThanGross": "Ni all y swm net fod yn fwy na&rsquo;r swm gros"
     },
     "grossValueFieldIHT400421": {
-      "required": {
-        "summary": "Nid ydych wedi nodi&rsquo;r swm gros",
-        "message": "Nodwch y swm gros"
-      },
-      "invalid": {
-        "summary": "Swm annilys",
-        "message": "Swm annilys"
-      },
-      "invalidCurrencyFormat": {
-        "summary": "Gall y gwerth gros ond cynnwys rhifau",
-        "message": "Rhaid i&rsquo;r gwerth gros fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
-      }
+      "required": "Nodwch y swm gros",
+      "invalid": "[CY] Enter a valid gross amount",
+      "invalidCurrencyFormat": "Rhaid i&rsquo;r gwerth gros fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
     },
     "netValueFieldIHT400421": {
-      "required": {
-        "summary": "Nid ydych wedi nodi&rsquo;r swm net",
-        "message": "Nodwch y swm net"
-      },
-      "invalid": {
-        "summary": "Swm annilys",
-        "message": "Swm annilys"
-      },
-      "invalidCurrencyFormat": {
-        "summary": "Gall y gwerth net ond cynnwys rhifau",
-        "message": "Rhaid i&rsquo;r gwerth net fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
-      },
-      "netValueGreaterThanGross": {
-        "summary": "Ni all y swm net fod yn fwy na&rsquo;r swm gros",
-        "message": "Ni all y swm net fod yn fwy na&rsquo;r swm gros"
-      }
+      "required": "Nodwch y swm net",
+      "invalid": "[CY] Enter a valid net amount",
+      "invalidCurrencyFormat": "Rhaid i&rsquo;r gwerth net fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol",
+      "netValueGreaterThanGross": "Ni all y swm net fod yn fwy na&rsquo;r swm gros"
     }
   }
 }

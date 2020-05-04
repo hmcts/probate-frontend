@@ -7,10 +7,7 @@
 
   "errors": {
     "spouseNotApplyingReason": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn pam nad yw&rsquo;r g&wcirc;r/gwraig neu bartner sifil yn gwneud cais",
-        "message": "Atebwch y cwestiwn pam nad yw&rsquo;r g&wcirc;r/gwraig neu bartner sifil yn gwneud cais"
-      }
+      "required": "Atebwch y cwestiwn pam nad yw&rsquo;r g&wcirc;r/gwraig neu bartner sifil yn gwneud cais"
     }
   }
 }

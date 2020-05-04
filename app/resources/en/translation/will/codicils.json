@@ -6,10 +6,7 @@
 
   "errors": {
     "codicils": {
-      "required": {
-        "summary": "Answer the question about updates (&lsquo;codicils&rsquo;)",
-        "message": "Answer &lsquo;yes&rsquo; if there are updates to the will"
-      }
+      "required": "Answer &lsquo;yes&rsquo; if there are updates to the will"
     }
   }
 }

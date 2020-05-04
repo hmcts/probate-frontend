@@ -6,10 +6,7 @@
 
   "errors": {
     "alias": {
-      "required": {
-        "summary": "Nid ydych wedi nodi&rsquo;r enw fel y mae&rsquo;n ymddangos ar yr ewyllys",
-        "message": "Nodwch yr enw fel y mae&rsquo;n ymddangos ar yr ewyllys"
-      }
+      "required": "Nodwch yr enw fel y mae&rsquo;n ymddangos ar yr ewyllys"
     }
   }
 }

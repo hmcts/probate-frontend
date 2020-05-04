@@ -19,7 +19,7 @@
             id: "codicilsNumber",
             name: "codicilsNumber",
             value: fields.codicilsNumber.value | safe,
-            errorMessage: { text: fields.codicilsNumber.errorMessage.message | safe } if fields.codicilsNumber.errorMessage,
+            errorMessage: { text: fields.codicilsNumber.errorMessage | safe } if fields.codicilsNumber.errorMessage,
             attributes: {
                 maxlength: 5
             },

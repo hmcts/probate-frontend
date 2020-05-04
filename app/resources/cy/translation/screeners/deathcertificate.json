@@ -7,10 +7,7 @@
 
   "errors": {
     "deathCertificate": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn am y dystysgrif marwolaeth",
-        "message": "Atebwch &lsquo;oes&rsquo; os oes tystysgrif marwolaeth"
-      }
+      "required": "Atebwch &lsquo;oes&rsquo; os oes tystysgrif marwolaeth"
     }
   }
 }

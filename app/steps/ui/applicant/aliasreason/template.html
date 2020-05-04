@@ -14,7 +14,7 @@
             name: "otherReason",
             classes: "govuk-!-width-one-half",
             value: fields.otherReason.value | safe,
-            errorMessage: { text: fields.otherReason.errorMessage.message | safe } if fields.otherReason.errorMessage,
+            errorMessage: { text: fields.otherReason.errorMessage | safe } if fields.otherReason.errorMessage,
             attributes: {
                 maxlength: 50
             }
@@ -32,7 +32,7 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.aliasReason.errorMessage.message | safe } if fields.aliasReason.errorMessage,
+        errorMessage: { text: fields.aliasReason.errorMessage | safe } if fields.aliasReason.errorMessage,
         items: [
             {
                 value: "optionMarriage",

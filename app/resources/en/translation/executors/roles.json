@@ -9,10 +9,7 @@
 
   "errors": {
     "notApplyingReason": {
-      "required": {
-        "summary": "You haven&rsquo;t selected why this executor isn&rsquo;t applying",
-        "message": "Select the reason why the executor isn&rsquo;t applying"
-      }
+      "required": "Select the reason why the executor isn&rsquo;t applying"
     }
   }
 }

@@ -6,10 +6,7 @@
 
   "errors": {
     "divorcePlace": {
-      "required": {
-        "summary": "You haven&rsquo;t answered the question about where the {legalProcess} took place",
-        "message": "Answer &lsquo;yes&rsquo; if the {legalProcess} took place in England or Wales"
-      }
+      "required": "Answer &lsquo;yes&rsquo; if the {legalProcess} took place in England or Wales"
     }
   }
 }

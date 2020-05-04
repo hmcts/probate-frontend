@@ -7,10 +7,7 @@
 
   "errors": {
     "married": {
-      "required": {
-        "summary": "You haven&rsquo;t answered the question about the person who died&rsquo;s marital status",
-        "message": "Answer &lsquo;yes&rsquo; if the person who died entered into a civil partnership after the will was signed"
-      }
+      "required": "Answer &lsquo;yes&rsquo; if the person who died entered into a civil partnership after the will was signed"
     }
   }
 }

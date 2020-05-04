@@ -19,7 +19,7 @@
             id: "alias",
             name: "alias",
             value: fields.alias.value | safe,
-            errorMessage: { text: fields.alias.errorMessage.message | safe } if fields.alias.errorMessage,
+            errorMessage: { text: fields.alias.errorMessage | safe } if fields.alias.errorMessage,
             attributes: {
                 maxlength: 200
             },

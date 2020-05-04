@@ -12,10 +12,7 @@
 
   "errors": {
     "maritalStatus": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn ynghylch statws priodasol yr unigolyn sydd wedi marw",
-        "message": "Dewiswch opsiwn ar gyfer eu statws priodasol"
-      }
+      "required": "Dewiswch opsiwn ar gyfer eu statws priodasol"
     }
   }
 }

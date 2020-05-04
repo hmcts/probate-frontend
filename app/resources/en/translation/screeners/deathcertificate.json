@@ -7,10 +7,7 @@
 
   "errors": {
     "deathCertificate": {
-      "required": {
-        "summary": "You haven&rsquo;t answered the question about the death certificate",
-        "message": "Answer &lsquo;yes&rsquo; if there is a death certificate"
-      }
+      "required": "Answer &lsquo;yes&rsquo; if there is a death certificate"
     }
   }
 }

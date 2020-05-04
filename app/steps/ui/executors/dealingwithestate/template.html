@@ -24,7 +24,7 @@
         {{ govukCheckboxes({
             idPrefix: "executorsApplying",
             name: "executorsApplying[]",
-            errorMessage: { text: fields.executorsApplying.errorMessage.message | safe } if fields.executorsApplying.errorMessage,
+            errorMessage: { text: fields.executorsApplying.errorMessage | safe } if fields.executorsApplying.errorMessage,
             items: fields.options.value
         }) }}
     {% endcall %}

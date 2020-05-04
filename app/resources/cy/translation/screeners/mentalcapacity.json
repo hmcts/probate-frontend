@@ -8,10 +8,7 @@
 
   "errors": {
     "mentalCapacity": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn am ysgutorion yn gallu gwneud eu penderfyniadau eu hunain",
-        "message": "Atebwch &lsquo;ydyn&rsquo; os yw&rsquo;r holl ysgutorion yn gallu gwneud eu penderfyniadau eu hunain"
-      }
+      "required": "Atebwch &lsquo;ydyn&rsquo; os yw&rsquo;r holl ysgutorion yn gallu gwneud eu penderfyniadau eu hunain"
     }
   }
 }

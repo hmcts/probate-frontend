@@ -8,10 +8,7 @@
 
   "errors": {
     "anyChildren": {
-      "required": {
-        "summary": "You haven&rsquo;t answered the question about whether the person who died had any children",
-        "message": "Answer &lsquo;yes&rsquo; if the person who died had any children"
-      }
+      "required": "Answer &lsquo;yes&rsquo; if the person who died had any children"
     }
   }
 }

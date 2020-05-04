@@ -8,10 +8,7 @@
 
   "errors": {
     "allChildrenOver18": {
-      "required": {
-        "summary": "You haven&rsquo;t answered the question about whether all the children are over 18",
-        "message": "Answer &lsquo;yes&rsquo; if all the children are over 18"
-      }
+      "required": "Answer &lsquo;yes&rsquo; if all the children are over 18"
     }
   }
 }

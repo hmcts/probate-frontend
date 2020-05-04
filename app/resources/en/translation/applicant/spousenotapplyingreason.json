@@ -7,10 +7,7 @@
 
   "errors": {
     "spouseNotApplyingReason": {
-      "required": {
-        "summary": "You haven&rsquo;t answered the question about why the spouse or civil partner isn&rsquo;t applying",
-        "message": "Answer the question about why the spouse or civil partner isn&rsquo;t applying"
-      }
+      "required": "Answer the question about why the spouse or civil partner isn&rsquo;t applying"
     }
   }
 }

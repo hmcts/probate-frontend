@@ -8,10 +8,7 @@
 
   "errors": {
     "executor": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn am yr ysgutorion",
-        "message": "Atebwch &lsquo;do&rsquo; os ydych yn ysgutor yn yr ewyllys"
-      }
+      "required": "Atebwch &lsquo;do&rsquo; os ydych yn ysgutor yn yr ewyllys"
     }
   }
 }

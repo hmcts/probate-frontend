@@ -25,22 +25,10 @@
 
   "errors": {
     "businessError": {
-      "dodBeforeDob": {
-        "summary": "Ni all dyddiad marwolaeth yr unigolyn fod cyn ei ddyddiad geni",
-        "message": ""
-      },
-      "ihtNetGreaterThanGross": {
-        "summary": "Ni all gwerth net IHT fod yn fwy na&rsquo;r gwerth gros",
-        "message": ""
-      },
-      "fieldMinSize": {
-        "summary": "Mae&rsquo;n rhaid ichi ddefnyddio o leiaf {min} nod",
-        "message": ""
-      },
-      "validationError": {
-        "summary": "Roedd problem wrth geisio arbed eich cais",
-        "message": ""
-      }
+      "dodBeforeDob": "Ni all dyddiad marwolaeth yr unigolyn fod cyn ei ddyddiad geni",
+      "ihtNetGreaterThanGross": "Ni all gwerth net IHT fod yn fwy na&rsquo;r gwerth gros",
+      "fieldMinSize": "Mae&rsquo;n rhaid ichi ddefnyddio o leiaf {min} nod",
+      "validationError": "Roedd problem wrth geisio arbed eich cais"
     }
   }
 }

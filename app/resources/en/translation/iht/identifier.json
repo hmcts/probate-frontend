@@ -5,14 +5,8 @@
 
   "errors": {
     "identifier": {
-      "required": {
-        "summary": "You need to enter the Inheritance Tax identifier",
-        "message": "Enter the Inheritance Tax identifier"
-      },
-      "invalid": {
-        "summary": "You need to enter the Inheritance Tax identifier",
-        "message": "Enter the Inheritance Tax identifier"
-      }
+      "required": "Enter the Inheritance Tax identifier",
+      "invalid": "Enter the Inheritance Tax identifier"
     }
   }
 }

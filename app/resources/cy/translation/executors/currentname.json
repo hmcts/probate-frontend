@@ -6,14 +6,8 @@
 
   "errors": {
     "currentName": {
-      "required": {
-        "summary": "Nodwch enw cyfredol yr ysgutor",
-        "message": "Nodwch enw cyfredol yr ysgutor"
-      },
-      "invalid": {
-        "summary": "Gall yr enw ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau",
-        "message": "Gall yr enw ond gynnwys llythrennau a i z, bylchau, cysylltnodau a chollnodau"
-      }
+      "required": "Nodwch enw cyfredol yr ysgutor",
+      "invalid": "[CY] Enter a valid executor&rsquo;s name - can only contain letters a to z, spaces, hyphens and apostrophes"
     }
   }
 }

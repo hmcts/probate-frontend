@@ -93,10 +93,7 @@ describe('ValueAssetsOutside', () => {
                 {
                     field: 'netValueAssetsOutsideField',
                     href: '#netValueAssetsOutsideField',
-                    msg: {
-                        summary: content.errors.netValueAssetsOutsideField.invalidCurrencyFormat.summary,
-                        message: content.errors.netValueAssetsOutsideField.invalidCurrencyFormat.message
-                    }
+                    msg: content.errors.netValueAssetsOutsideField.invalidCurrencyFormat
                 }
             ]);
             done();

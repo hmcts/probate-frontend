@@ -25,22 +25,10 @@
 
   "errors": {
     "businessError": {
-      "dodBeforeDob": {
-        "summary": "Date of death cannot be before date of birth",
-        "message": ""
-      },
-      "ihtNetGreaterThanGross": {
-        "summary": "Net IHT value cannot be greater than the Gross value",
-        "message": ""
-      },
-      "fieldMinSize": {
-        "summary": "Must be at least {min} characters",
-        "message": ""
-      },
-      "validationError": {
-        "summary": "There was a problem saving your application",
-        "message": ""
-      }
+      "dodBeforeDob": "Date of death cannot be before date of birth",
+      "ihtNetGreaterThanGross": "Net IHT value cannot be greater than the Gross value",
+      "fieldMinSize": "Must be at least {min} characters",
+      "validationError": "There was a problem saving your application"
     }
   }
 }

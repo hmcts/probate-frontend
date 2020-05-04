@@ -6,10 +6,7 @@
 
   "errors": {
     "diedAfter": {
-      "required": {
-        "summary": "You haven&rsquo;t answered the question about when the person died",
-        "message": "Answer &lsquo;yes&rsquo; if they died after 1 October 2014"
-      }
+      "required": "Answer &lsquo;yes&rsquo; if they died after 1 October 2014"
     }
   }
 }

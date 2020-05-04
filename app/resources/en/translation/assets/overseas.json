@@ -7,10 +7,7 @@
 
   "errors": {
     "assetsoverseas": {
-      "required": {
-        "summary": "You haven&rsquo;t answered the question about assets being held outside the UK",
-        "message": "Answer &lsquo;yes&rsquo; if the person who died had assets outside the UK"
-      }
+      "required": "Answer &lsquo;yes&rsquo; if the person who died had assets outside the UK"
     }
   }
 }

@@ -6,18 +6,9 @@
 
   "errors": {
     "netValueAssetsOutsideField": {
-      "required": {
-        "summary": "Nid ydych wedi nodi swm yr asedau y tu allan i Gymru a Lloegr",
-        "message": "Nodwch swm yr asedau y tu allan i Gymru a Lloegr"
-      },
-      "invalid": {
-        "summary": "Swm annilys",
-        "message": "Swm annilys"
-      },
-      "invalidCurrencyFormat": {
-        "summary": "Gall y gwerth net ond cynnwys rhifau",
-        "message": "Rhaid i&rsquo;r gwerth net fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
-      }
+      "required": "Nodwch swm yr asedau y tu allan i Gymru a Lloegr",
+      "invalid": "[CY] Enter a valid net amount",
+      "invalidCurrencyFormat": "Rhaid i&rsquo;r gwerth net fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
     }
   }
 }

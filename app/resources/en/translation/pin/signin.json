@@ -10,18 +10,9 @@
 
   "errors": {
     "pin": {
-      "required": {
-        "summary": "You need to enter the security code that was sent to your phone",
-        "message": "Enter the security code that was sent to your phone"
-      },
-      "invalid": {
-        "summary": "Your verification pin can only contain numbers",
-        "message": "Enter the security code that was sent to your phone"
-      },
-      "incorrect": {
-        "summary": "We don&rsquo;t recognise the security code you&rsquo;ve entered",
-        "message": "Enter the security code that was sent to your phone"
-      }
+      "required": "Enter the security code that was sent to your phone",
+      "invalid": "Enter the security code that was sent to your phone",
+      "incorrect": "Enter the security code that was sent to your phone"
     }
   }
 }

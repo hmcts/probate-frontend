@@ -7,10 +7,7 @@
 
   "errors": {
     "assetsOutside": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn am asedau y tu allan i Gymru a Lloegr",
-        "message": "Atebwch &lsquo;oedd&rsquo; os oedd gan yr unigolyn a fu farw asedau y tu allan i Gymru a Lloegr"
-      }
+      "required": "Atebwch &lsquo;oedd&rsquo; os oedd gan yr unigolyn a fu farw asedau y tu allan i Gymru a Lloegr"
     }
   }
 }

@@ -18,7 +18,7 @@
         hint: {
             text: content.hint | replace("{deceasedName}", fields.deceasedName.value) | safe
         },
-        errorMessage: { text: fields.anyGrandchildrenUnder18.errorMessage.message | safe } if fields.anyGrandchildrenUnder18.errorMessage,
+        errorMessage: { text: fields.anyGrandchildrenUnder18.errorMessage | safe } if fields.anyGrandchildrenUnder18.errorMessage,
         items: [
             {
                 value: "optionYes",

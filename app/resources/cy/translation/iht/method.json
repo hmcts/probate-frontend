@@ -7,10 +7,7 @@
 
   "errors": {
     "method": {
-      "required": {
-        "summary": "Mae angen ichi ddweud sut y bu ichi gyflwyno&rsquo;r ffurflen Treth Etifeddiant",
-        "message": "Dewiswch drwy&rsquo;r post neu wasanaeth ar-lein HMRC"
-      }
+      "required": "Dewiswch drwy&rsquo;r post neu wasanaeth ar-lein HMRC"
     }
   }
 }

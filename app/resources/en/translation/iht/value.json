@@ -7,36 +7,15 @@
 
   "errors": {
     "grossValueField": {
-      "required": {
-        "summary": "You haven&rsquo;t entered the gross amount",
-        "message": "Please enter the gross amount"
-      },
-      "invalid": {
-        "summary": "Invalid amount",
-        "message": "Invalid amount"
-      },
-      "invalidCurrencyFormat": {
-        "summary": "Gross value can only contain numbers",
-        "message": "Gross value must be a whole number or a number with 2 decimal places"
-      }
+      "required": "Enter the gross amount",
+      "invalid": "Enter a valid gross amount",
+      "invalidCurrencyFormat": "Gross value must be a whole number or a number with 2 decimal places"
     },
     "netValueField": {
-      "required": {
-        "summary": "You haven&rsquo;t entered the net amount",
-        "message": "Please enter the net amount"
-      },
-      "invalid": {
-        "summary": "Invalid amount",
-        "message": "Invalid amount"
-      },
-      "invalidCurrencyFormat": {
-        "summary": "Net value can only contain numbers",
-        "message": "Net value must be a whole number or a number with 2 decimal places"
-      },
-      "netValueGreaterThanGross": {
-        "summary": "The net amount can&rsquo;t be greater than the gross amount",
-        "message": "The net amount can&rsquo;t be greater than the gross amount"
-      }
+      "required": "Enter the net amount",
+      "invalid": "Enter a valid net amount",
+      "invalidCurrencyFormat": "Net value must be a whole number or a number with 2 decimal places",
+      "netValueGreaterThanGross": "The net amount can&rsquo;t be greater than the gross amount"
     }
   }
 }

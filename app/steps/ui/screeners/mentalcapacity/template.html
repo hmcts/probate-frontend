@@ -18,7 +18,7 @@
         hint: {
             text: (content.hintText1 + "<br><br>" + content.hintText2 | replace("{assessingMentalCapacity}", globals.links.assessingMentalCapacity)) | safe
         },
-        errorMessage: { text: fields.mentalCapacity.errorMessage.message | safe } if fields.mentalCapacity.errorMessage,
+        errorMessage: { text: fields.mentalCapacity.errorMessage | safe } if fields.mentalCapacity.errorMessage,
         items: [
             {
                 value: "optionYes",

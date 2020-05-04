@@ -10,10 +10,7 @@
 
   "errors": {
     "otherExecutorsApplying": {
-      "required": {
-        "summary": "Answer &lsquo;yes&rsquo; if any of the other executors are dealing with the estate",
-        "message": "Answer &lsquo;yes&rsquo; if any of the other executors are dealing with the estate"
-      }
+      "required": "Answer &lsquo;yes&rsquo; if any of the other executors are dealing with the estate"
     }
   }
 }

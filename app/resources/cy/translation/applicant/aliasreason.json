@@ -9,16 +9,10 @@
 
   "errors": {
     "aliasReason": {
-      "required": {
-        "summary": "Nid ydych wedi dewis rheswm dros y newid enw",
-        "message": "Dewiswch reswm dros y newid enw"
-      }
+      "required": "Dewiswch reswm dros y newid enw"
     },
     "otherReason": {
-      "required": {
-        "summary": "Nid ydych wedi nodi&rsquo;r rheswm dros y newid enw",
-        "message": "Nodwch y rheswm dros y newid enw"
-      }
+      "required": "Nodwch y rheswm dros y newid enw"
     }
   }
 }

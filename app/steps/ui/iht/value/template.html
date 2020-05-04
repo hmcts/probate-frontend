@@ -21,7 +21,7 @@
             id: "grossValueField",
             name: "grossValueField",
             value: fields.grossValueField.value | safe,
-            errorMessage: { text: fields.grossValueField.errorMessage.message | safe } if fields.grossValueField.errorMessage,
+            errorMessage: { text: fields.grossValueField.errorMessage | safe } if fields.grossValueField.errorMessage,
             attributes: {
                 maxlength: 13
             },
@@ -34,7 +34,7 @@
             id: "netValueField",
             name: "netValueField",
             value: fields.netValueField.value | safe,
-            errorMessage: { text: fields.netValueField.errorMessage.message | safe } if fields.netValueField.errorMessage,
+            errorMessage: { text: fields.netValueField.errorMessage | safe } if fields.netValueField.errorMessage,
             attributes: {
                 maxlength: 13
             },

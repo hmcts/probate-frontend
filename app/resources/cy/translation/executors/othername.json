@@ -4,10 +4,7 @@
 
   "errors": {
     "executorsWithOtherNames": {
-      "required": {
-        "summary": "Dewiswch yr ysgutorion sydd ag enwau gwahanol",
-        "message": "Dewiswch yr ysgutorion sydd ag enwau gwahanol"
-      }
+      "required": "Dewiswch yr ysgutorion sydd ag enwau gwahanol"
     }
   }
 }

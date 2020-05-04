@@ -16,10 +16,7 @@
 
   "errors": {
     "getUrl(index": {
-      "invalid": {
-        "summary": "Roedd problem wrth geisio anfon y negeseuon e-bost, rhowch gynnig arall arni hwyrach ymlaen",
-        "message": "Roedd problem wrth geisio anfon y negeseuon e-bost, rhowch gynnig arall arni hwyrach ymlaen"
-      }
+      "invalid": "Roedd problem wrth geisio anfon y negeseuon e-bost, rhowch gynnig arall arni hwyrach ymlaen"
     }
   }
 }

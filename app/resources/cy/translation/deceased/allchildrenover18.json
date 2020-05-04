@@ -8,10 +8,7 @@
 
   "errors": {
     "allChildrenOver18": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn ynghylch p&rsquo;un a yw pob plentyn dros 18 oed",
-        "message": "Atebwch &lsquo;ydi&rsquo; os yw pob plentyn dros 18 oed"
-      }
+      "required": "Atebwch &lsquo;ydi&rsquo; os yw pob plentyn dros 18 oed"
     }
   }
 }

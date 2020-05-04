@@ -5,14 +5,8 @@
 
   "errors": {
     "codicilsNumber": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn am faint o ddiweddariadau (&lsquo;codisiliau&rsquo;) a wnaed i&rsquo;r ewyllys",
-        "message": "Nodwch nifer y diweddariadau (&rsquo;codisiliau&rsquo;)"
-      },
-      "invalid": {
-        "summary": "Nid ydych wedi nodi rhif dilys",
-        "message": "Nodwch rif"
-      }
+      "required": "Nodwch nifer y diweddariadau (&rsquo;codisiliau&rsquo;)",
+      "invalid": "[CY] Enter a valid number"
     }
   }
 }

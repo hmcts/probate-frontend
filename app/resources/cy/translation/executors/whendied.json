@@ -7,10 +7,7 @@
 
   "errors": {
     "diedbefore": {
-      "required": {
-        "summary": "Atebwch y cwestiwn am pryd farwodd yr ysgutor",
-        "message": "Atebwch &lsquo;do&rsquo; os farwodd yr ysgutor cyn yr unigolyn sydd wedi marw"
-      }
+      "required": "Atebwch &lsquo;do&rsquo; os farwodd yr ysgutor cyn yr unigolyn sydd wedi marw"
     }
   }
 }

@@ -7,10 +7,7 @@
 
   "errors": {
     "original": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn am a oes gennych chi&rsquo;r ewyllys wreiddiol",
-        "message": "Atebwch &lsquo;oes&rsquo; os oes gennych chi&rsquo;r ewyllys wreiddiol"
-      }
+      "required": "Atebwch &lsquo;oes&rsquo; os oes gennych chi&rsquo;r ewyllys wreiddiol"
     }
   }
 }

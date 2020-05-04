@@ -11,14 +11,8 @@
 
   "errors": {
     "overseas": {
-      "invalid": {
-        "summary": "Nid ydych wedi nodi rhif dilys",
-        "message": "Nodwch rif dilys"
-      },
-      "required": {
-        "summary": "Nodwch y nifer o gop&iuml;au rydych eu hangen ar gyfer tu allan i&rsquo;r DU",
-        "message": "Nodwch y nifer o gop&iuml;au rydych eu hangen ar gyfer tu allan i&rsquo;r DU. Rhowch &lsquo;0&rsquo; os nad ydych angen unrhyw gop&iuml;au rhyngwladol."
-      }
+      "invalid": "Nodwch rif dilys",
+      "required": "Nodwch y nifer o gop&iuml;au rydych eu hangen ar gyfer tu allan i&rsquo;r DU. Rhowch &lsquo;0&rsquo; os nad ydych angen unrhyw gop&iuml;au rhyngwladol."
     }
   }
 }

@@ -9,14 +9,8 @@
 
   "errors": {
     "executorName": {
-      "required": {
-        "summary": "You haven&rsquo;t entered an executor&rsquo;s name",
-        "message": "Please enter the executor&rsquo;s name"
-      },
-      "invalid": {
-        "summary": "The names you enter can only contain letters a to z, spaces, hyphens and apostrophes",
-        "message": "The names you enter can only contain letters a to z, spaces, hyphens and apostrophes"
-      }
+      "required": "Enter the executor&rsquo;s name",
+      "invalid": "Enter a valid executor&rsquo;s name - can only contain letters a to z, spaces, hyphens and apostrophes"
     }
   }
 }

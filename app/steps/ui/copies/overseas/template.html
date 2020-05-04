@@ -30,7 +30,7 @@
             id: "overseas",
             name: "overseas",
             value: fields.overseas.value | safe,
-            errorMessage: { text: fields.overseas.errorMessage.message | safe } if fields.overseas.errorMessage,
+            errorMessage: { text: fields.overseas.errorMessage | safe } if fields.overseas.errorMessage,
             attributes: {
                 maxlength: 5
             },

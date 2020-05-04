@@ -7,10 +7,7 @@
 
   "errors": {
     "assetsOutside": {
-      "required": {
-        "summary": "You haven&rsquo;t answered the question about assets outside of England and Wales",
-        "message": "Answer &lsquo;yes&rsquo; if the person who died had assets outside of England and Wales"
-      }
+      "required": "Answer &lsquo;yes&rsquo; if the person who died had assets outside of England and Wales"
     }
   }
 }

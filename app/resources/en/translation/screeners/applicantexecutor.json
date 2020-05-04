@@ -8,10 +8,7 @@
 
   "errors": {
     "executor": {
-      "required": {
-        "summary": "You haven&rsquo;t answered the question about the executors",
-        "message": "Answer &lsquo;yes&rsquo; if you are an executor on the will"
-      }
+      "required": "Answer &lsquo;yes&rsquo; if you are an executor on the will"
     }
   }
 }

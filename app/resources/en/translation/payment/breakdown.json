@@ -8,34 +8,16 @@
 
   "errors": {
     "authorisation": {
-      "failure": {
-        "summary": "We could not take your payment, please try again later.",
-        "message": ""
-      }
+      "failure": "We could not take your payment, please try again later."
     },
     "payment": {
-      "failure": {
-        "summary": "We could not take your payment, please try again later.",
-        "message": ""
-      },
-      "initiated": {
-        "summary": "Your payment may have failed. Do not try to pay again for 2 hours.",
-        "message": ""
-      }
+      "failure": "We could not take your payment, please try again later.",
+      "initiated": "Your payment may have failed. Do not try to pay again for 2 hours."
     },
     "submit": {
-      "failure": {
-        "summary": "Your application has not been sent. Try again.",
-        "message": ""
-      },
-      "duplicate": {
-        "summary": "Your application has been submitted, please return to the tasklist to continue.",
-        "message": ""
-      },
-      "validation": {
-        "summary": "There was a problem saving your application.",
-        "message": ""
-      }
+      "failure": "Your application has not been sent. Try again.",
+      "duplicate": "Your application has been submitted, please return to the tasklist to continue.",
+      "validation": "There was a problem saving your application."
     }
   }
 }

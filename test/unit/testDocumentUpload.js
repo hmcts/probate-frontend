@@ -92,10 +92,7 @@ describe('DocumentUpload.js', () => {
             expect(errors).to.deep.equal([{
                 field: 'file',
                 href: '#file',
-                msg: {
-                    summary: content.errors.file.invalidFileType.summary,
-                    message: content.errors.file.invalidFileType.message
-                }
+                msg: content.errors.file.invalidFileType
             }]);
             done();
         });
@@ -114,10 +111,7 @@ describe('DocumentUpload.js', () => {
             expect(errors).to.deep.equal([{
                 field: 'file',
                 href: '#file',
-                msg: {
-                    summary: content.errors.file.maxSize.summary,
-                    message: content.errors.file.maxSize.message
-                }
+                msg: content.errors.file.maxSize
             }]);
             done();
         });
@@ -136,10 +130,7 @@ describe('DocumentUpload.js', () => {
             expect(errors).to.deep.equal([{
                 field: 'file',
                 href: '#file',
-                msg: {
-                    summary: content.errors.file.maxSize.summary,
-                    message: content.errors.file.maxSize.message
-                }
+                msg: content.errors.file.maxSize
             }]);
             done();
         });
@@ -158,10 +149,7 @@ describe('DocumentUpload.js', () => {
             expect(errors).to.deep.equal([{
                 field: 'file',
                 href: '#file',
-                msg: {
-                    summary: content.errors.file.maxSize.summary,
-                    message: content.errors.file.maxSize.message
-                }
+                msg: content.errors.file.maxSize
             }]);
             done();
         });
@@ -180,10 +168,7 @@ describe('DocumentUpload.js', () => {
             expect(errors).to.deep.equal([{
                 field: 'file',
                 href: '#file',
-                msg: {
-                    summary: content.errors.file.maxSize.summary,
-                    message: content.errors.file.maxSize.message
-                }
+                msg: content.errors.file.maxSize
             }]);
             done();
         });

@@ -22,7 +22,7 @@
             id: "identifier",
             name: "identifier",
             value: fields.identifier.value | safe,
-            errorMessage: { text: fields.identifier.errorMessage.message | safe } if fields.identifier.errorMessage,
+            errorMessage: { text: fields.identifier.errorMessage | safe } if fields.identifier.errorMessage,
             classes: "govuk-!-width-three-quarters"
         }) }}
     {% endcall %}

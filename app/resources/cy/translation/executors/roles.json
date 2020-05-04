@@ -9,10 +9,7 @@
 
   "errors": {
     "notApplyingReason": {
-      "required": {
-        "summary": "Nid ydych wedi datgan pam nad yw&rsquo;r ysgutor hwn yn gwneud cais",
-        "message": "Dewiswch y rheswm pam nad yw&rsquo;r ysgutor yn gwneud cais "
-      }
+      "required": "Dewiswch y rheswm pam nad yw&rsquo;r ysgutor yn gwneud cais "
     }
   }
 }

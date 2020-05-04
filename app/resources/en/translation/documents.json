@@ -24,10 +24,7 @@
 
   "errors": {
     "sentDocuments": {
-      "required": {
-        "summary": "You haven&rsquo;t agreed to the signing of the will (and any codicils)",
-        "message": "Please tick the check box to agree to the signing of the will (and any codicils)"
-      }
+      "required": "Tick the check box to agree to the signing of the will (and any codicils)"
     }
   }
 }

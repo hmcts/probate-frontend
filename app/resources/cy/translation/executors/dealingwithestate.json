@@ -9,14 +9,8 @@
 
   "errors": {
     "executorsApplying": {
-      "required": {
-        "summary": "Dewiswch o leiaf un ysgutor",
-        "message": "Dewiswch o leiaf un ysgutor"
-      },
-      "invalid":{
-        "summary": "Gellir enwi hyd at 4 ysgutor ar y grant profiant",
-        "message": "Ni allwch ddewis mwy na 4 ysgutor "
-      }
+      "required": "Dewiswch o leiaf un ysgutor",
+      "invalid": "Ni allwch ddewis mwy na 4 ysgutor"
     }
   }
 }

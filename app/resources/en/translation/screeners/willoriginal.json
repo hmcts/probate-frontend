@@ -7,10 +7,7 @@
 
   "errors": {
     "original": {
-      "required": {
-        "summary": "You haven&rsquo;t answered the question about whether you have the original will",
-        "message": "Answer &lsquo;yes&rsquo; if you have the original will"
-      }
+      "required": "Answer &lsquo;yes&rsquo; if you have the original will"
     }
   }
 }

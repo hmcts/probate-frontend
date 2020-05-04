@@ -6,10 +6,7 @@
 
   "errors": {
     "divorcePlace": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn ynghylch ymhle ddigwyddodd {legalProcess}",
-        "message": "Atebwch &lsquo;do&rsquo; os digwyddodd {legalProcess} yng Nghymru neu Lloegr"
-      }
+      "required": "Atebwch &lsquo;do&rsquo; os digwyddodd {legalProcess} yng Nghymru neu Lloegr"
     }
   }
 }

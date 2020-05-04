@@ -6,10 +6,7 @@
 
   "errors": {
     "alias": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn",
-        "message": "Atebwch &lsquo;oes&rsquo; os oes gan unrhyw un o&rsquo;r ysgutorion rydych wedi&rsquo;u hychwanegu enw gwahanol nawr i beth sydd yn yr ewyllys"
-      }
+      "required": "Atebwch &lsquo;oes&rsquo; os oes gan unrhyw un o&rsquo;r ysgutorion rydych wedi&rsquo;u hychwanegu enw gwahanol nawr i beth sydd yn yr ewyllys"
     }
   }
 }

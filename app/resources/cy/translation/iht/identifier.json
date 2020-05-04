@@ -5,14 +5,8 @@
 
   "errors": {
     "identifier": {
-      "required": {
-        "summary": "Mae angen ichi nodi&rsquo;r dynodwr Treth Etifeddiant",
-        "message": "Nodwch y dynodwr Treth Etifeddiant"
-      },
-      "invalid": {
-        "summary": "Mae angen ichi nodi&rsquo;r dynodwr Treth Etifeddiant",
-        "message": "Nodwch y dynodwr Treth Etifeddiant"
-      }
+      "required": "Nodwch y dynodwr Treth Etifeddiant",
+      "invalid": "Nodwch y dynodwr Treth Etifeddiant"
     }
   }
 }

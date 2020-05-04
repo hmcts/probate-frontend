@@ -9,14 +9,8 @@
 
   "errors": {
     "executorsNumber": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn am faint o ysgutorion sydd wedi&rsquo;u henwi yn yr ewyllys",
-        "message": "Nodwch rif dilys rhwng 1 ac 20"
-      },
-      "invalid": {
-        "summary": "Nid ydych wedi nodi rhif dilys neu mae&rsquo;r rhif yn uwch nag 20",
-        "message": "Nodwch rif dilys rhwng 1 ac 20"
-      }
+      "required": "Nodwch rif dilys rhwng 1 ac 20",
+      "invalid": "Nodwch rif dilys rhwng 1 ac 20"
     }
   }
 }

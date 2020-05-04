@@ -8,34 +8,16 @@
 
   "errors": {
     "authorisation": {
-      "failure": {
-        "summary": "Nid oedd modd inni gymryd eich taliad, rhowch gynnig arall arni yn nes ymlaen.",
-        "message": ""
-      }
+      "failure": "Nid oedd modd inni gymryd eich taliad, rhowch gynnig arall arni yn nes ymlaen."
     },
     "payment": {
-      "failure": {
-        "summary": "Nid oedd modd inni gymryd eich taliad, rhowch gynnig arall arni yn nes ymlaen.",
-        "message": ""
-      },
-      "initiated": {
-        "summary": "Mae eich taliad wedi methu. Arhoswch am 2 awr cyn rhoi cynnig arall arni.",
-        "message": ""
-      }
+      "failure": "Nid oedd modd inni gymryd eich taliad, rhowch gynnig arall arni yn nes ymlaen.",
+      "initiated": "Mae eich taliad wedi methu. Arhoswch am 2 awr cyn rhoi cynnig arall arni."
     },
     "submit": {
-      "failure": {
-        "summary": "Ni anfonwyd eich cais. Rhowch gynnig arall arni.",
-        "message": ""
-      },
-      "duplicate": {
-        "summary": "Mae eich cais wedi cael ei gyflwyno, ewch yn &ocirc;l i&rsquo;r rhestr dasgau i barhau.",
-        "message": ""
-      },
-      "validation": {
-        "summary": "Roedd problem wrth geisio arbed eich cais.",
-        "message": ""
-      }
+      "failure": "Ni anfonwyd eich cais. Rhowch gynnig arall arni.",
+      "duplicate": "Mae eich cais wedi cael ei gyflwyno, ewch yn &ocirc;l i&rsquo;r rhestr dasgau i barhau.",
+      "validation": "Roedd problem wrth geisio arbed eich cais."
     }
   }
 }

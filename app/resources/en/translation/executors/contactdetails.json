@@ -8,24 +8,12 @@
 
   "errors": {
     "email": {
-      "required": {
-        "summary": "You haven&rsquo;t entered an email address",
-        "message": "Enter an email address"
-      },
-      "invalid": {
-        "summary": "You&rsquo;ve entered an invalid email address, check the email address and enter it again",
-        "message": "Enter a valid email address"
-      }
+      "required": "Enter an email address",
+      "invalid": "Enter a valid email address"
     },
     "mobile": {
-      "required": {
-        "summary": "You haven&rsquo;t entered a mobile phone number",
-        "message": "Enter a mobile phone number"
-      },
-      "invalid": {
-        "summary": "You haven&rsquo;t entered a valid mobile phone number",
-        "message": "Enter a mobile phone number without spaces, international numbers must start with a plus sign"
-      }
+      "required": "Enter a mobile phone number",
+      "invalid": "Enter a mobile phone number without spaces, international numbers must start with a plus sign"
     }
   }
 }

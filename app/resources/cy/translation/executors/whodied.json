@@ -4,10 +4,7 @@
 
   "errors": {
     "executorsWhoDied": {
-      "required": {
-        "summary": "Dewiswch o leiaf un ysgutor",
-        "message": "Dewiswch o leiaf un ysgutor"
-      }
+      "required": "Dewiswch o leiaf un ysgutor"
     }
   }
 }

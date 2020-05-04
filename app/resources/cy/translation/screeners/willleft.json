@@ -6,10 +6,7 @@
 
   "errors": {
     "left": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn am a wnaeth yr unigolyn sydd wedi marw adael ewyllys",
-        "message": "Atebwch &lsquo;do&rsquo; os oes ewyllys"
-      }
+      "required": "Atebwch &lsquo;do&rsquo; os oes ewyllys"
     }
   }
 }

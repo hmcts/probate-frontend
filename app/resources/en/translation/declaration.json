@@ -101,10 +101,7 @@
 
   "errors": {
     "declarationCheckbox": {
-      "required": {
-        "summary": "You haven&rsquo;t agreed to the declaration",
-        "message": "Please tick the check box to agree to the declaration"
-      }
+      "required": "Tick the check box to agree to the declaration"
     }
   }
 }

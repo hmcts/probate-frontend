@@ -8,10 +8,7 @@
 
   "errors": {
     "anyChildren": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn ynghylch p&rsquo;un a oedd gan yr unigolyn sydd wedi marw blant",
-        "message": "Atebwch &lsquo;oedd&rsquo; os oedd gan yr unigolyn sydd wedi marw blant"
-      }
+      "required": "Atebwch &lsquo;oedd&rsquo; os oedd gan yr unigolyn sydd wedi marw blant"
     }
   }
 }

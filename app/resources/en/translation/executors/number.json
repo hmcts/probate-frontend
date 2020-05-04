@@ -9,14 +9,8 @@
 
   "errors": {
     "executorsNumber": {
-      "required": {
-        "summary": "You haven&rsquo;t answered the question about how many executors are named in the will",
-        "message": "Enter a valid number between 1 and 20"
-      },
-      "invalid": {
-        "summary": "You haven&rsquo;t entered a valid number or the number is greater than 20",
-        "message": "Enter a valid number between 1 and 20"
-      }
+      "required": "Enter a valid number between 1 and 20",
+      "invalid": "Enter a valid number between 1 and 20"
     }
   }
 }

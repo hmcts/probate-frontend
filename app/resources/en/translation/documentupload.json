@@ -16,30 +16,12 @@
 
   "errors": {
     "file": {
-      "invalidFileType": {
-        "summary": "You have used a file type that can&rsquo;t be accepted. Save your file as a jpg, bmp, tiff, png or PDF file and try again",
-        "message": ""
-      },
-      "maxSize": {
-        "summary": "Your file is too large to upload. Use a file that is under 10MB and try again",
-        "message": ""
-      },
-      "maxFilesExceeded": {
-        "summary": "You have uploaded too many files. You can upload a maximum of 10 files",
-        "message": ""
-      },
-      "uploadFailed": {
-        "summary": "Your document failed to upload. Select your document and try again",
-        "message": ""
-      },
-      "nothingUploaded": {
-        "summary": "You need to select a file before you can upload it. Click &lsquo;browse&rsquo; to find a file to upload",
-        "message": ""
-      },
-      "uploadTimeout": {
-        "summary": "The file has taken too long to upload. The file may be too big, reduce the file size and try again or post the death certificate",
-        "message": ""
-      }
+      "invalidFileType": "You have used a file type that can&rsquo;t be accepted. Save your file as a jpg, bmp, tiff, png or PDF file and try again",
+      "maxSize": "Your file is too large to upload. Use a file that is under 10MB and try again",
+      "maxFilesExceeded": "You have uploaded too many files. You can upload a maximum of 10 files",
+      "uploadFailed": "Your document failed to upload. Select your document and try again",
+      "nothingUploaded": "You need to select a file before you can upload it. Click &lsquo;browse&rsquo; to find a file to upload",
+      "uploadTimeout": "The file has taken too long to upload. The file may be too big, reduce the file size and try again or post the death certificate"
     }
   }
 }

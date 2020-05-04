@@ -7,10 +7,7 @@
 
   "errors": {
     "completed": {
-      "required": {
-        "summary": "Nid ydych wedi ateb y cwestiwn am lenwi&rsquo;r ffurflen Treth Etifeddiant",
-        "message": "Atebwch &lsquo;oes&rsquo; os oes ffurflen treth etifeddiant wedi cael ei llenwi"
-      }
+      "required": "Atebwch &lsquo;oes&rsquo; os oes ffurflen treth etifeddiant wedi cael ei llenwi"
     }
   }
 }

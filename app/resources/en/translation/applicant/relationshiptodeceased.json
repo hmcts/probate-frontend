@@ -8,10 +8,7 @@
 
   "errors": {
     "relationshipToDeceased": {
-      "required": {
-        "summary": "You haven&rsquo;t answered the question about your relationship to the person who died",
-        "message": "Choose an option for your relationship to the person who died"
-      }
+      "required": "Choose an option for your relationship to the person who died"
     }
   }
 }

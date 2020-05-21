@@ -21,8 +21,6 @@ nodejs:
     VALIDATION_SERVICE_URL: http://probate-business-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal/validate
     ORCHESTRATOR_SERVICE_URL : http://probate-orchestrator-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
     FEES_REGISTRY_URL: http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal/fees-register
-#   EQUALITY_URL: https://equality-and-diversity.platform.hmcts.net
-    EQUALITY_URL: https://pcq.aat.platform.hmcts.net
     REFORM_ENVIRONMENT : '{{ .Values.global.environment }}'
     REDIS_HOST: probate-frontend-redis-cache-{{ .Values.global.environment }}.redis.cache.windows.net
     REDIS_PORT: 6380

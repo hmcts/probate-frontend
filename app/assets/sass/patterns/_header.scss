@@ -3,10 +3,12 @@ Header
 */
 
 .govuk-header__link--homepage {
-  &:hover,
-  &:active {
-    margin-bottom: 0;
-    border-bottom: none;
+  a {
+    color: #fff;
+    display: block;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 

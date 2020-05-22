@@ -18,8 +18,8 @@ app:
   password:
   useAuth: 'false'
   useHttps: 'false'
-  useIDAM: 'false'
-  requireCcdCaseId: 'false'
+  useIDAM: 'true'
+  requireCcdCaseId: 'true'
   port: '3000'
   useCSRFProtection: 'true' # TODO: tech debt, tests should be csrf aware, it shouldn't be possible to accidentally disable this
   session:

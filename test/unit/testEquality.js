@@ -39,7 +39,7 @@ describe('Equality', () => {
                 expect(options).to.deep.equal({
                     redirect: true,
                     // url: 'http://localhost:4000/service-endpoint?serviceId=PROBATE&actor=APPLICANT&pcqId=78e69022-2468-4370-a88e-bea2a80fa51f&ccdCaseId=1234567890123456&partyId=applicant@email.com&returnUrl=http://localhost:3000/task-list&language=en'
-                    url: 'http://localhost:4000/service-endpoint?serviceId=PROBATE&actor=APPLICANT&ccdCaseId=1234567890123456&partyId=applicant@email.com&returnUrl=http://localhost:3000/task-list&language=en'
+                    url: 'http://localhost:4000/service-endpoint?serviceId=PROBATE&actor=APPLICANT&pcqId=78e69022-2468-4370-a88e-bea2a80fa51f&ccdCaseId=1234567890123456&partyId=applicant@email.com&language=en'
                 });
                 done();
             }).catch(err => {

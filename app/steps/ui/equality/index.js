@@ -17,23 +17,23 @@ class Equality extends ValidationStep {
 
     // eslint-disable-next-line no-unused-vars
     runnerOptions(ctx, session, host) {
-        // const params = {
-        //     serviceId: 'PROBATE',
-        //     actor: 'APPLICANT',
-        //     pcqId: session.form.equality.pcqId,
-        //     ccdCaseId: session.form.ccdCase.id,
-        //     partyId: session.form.applicantEmail,
-        //     returnUrl: `${host}/task-list`,
-        //     language: session.language
-        // };
-        //
-        // const qs = Object.keys(params)
-        //     .map(key => key + '=' + params[key])
-        //     .join('&');
+        const params = {
+            serviceId: 'PROBATE',
+            actor: 'APPLICANT',
+            pcqId: session.form.equality.pcqId,
+            ccdCaseId: session.form.ccdCase.id,
+            partyId: session.form.applicantEmail,
+            returnUrl: `${host}/task-list`,
+            language: session.language
+        };
+
+        const qs = Object.keys(params)
+            .map(key => key + '=' + params[key])
+            .join('&');
 
         return {
             redirect: true,
-            url: config.services.equalityAndDiversity.url + config.services.equalityAndDiversity.path
+            url: config.services.equalityAndDiversity.url + config.services.equalityAndDiversity.path + '?' + qs
         };
     }
 

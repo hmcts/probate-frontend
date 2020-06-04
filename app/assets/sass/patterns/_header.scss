@@ -2,10 +2,18 @@
 Header
 */
 
-.govuk-header__link--homepage {
+.govuk-header__link--homepage,
+.govuk-header__content {
   a {
     color: #fff;
-    display: block;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.govuk-header__link--service-name {
+  &:hover {
     &:hover {
       text-decoration: underline;
     }

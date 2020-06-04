@@ -13,10 +13,9 @@ Header
 a.govuk-header__link--service-name {
   text-decoration: none;
   &:hover {
-    &:hover {
-      text-decoration: underline;
-    }
+    text-decoration: underline;
   }
+
 }
 
 .govuk-header__content {

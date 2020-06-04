@@ -5,14 +5,13 @@ Header
 .govuk-header__link--homepage,
 .govuk-header__content {
   a {
+    text-decoration: none;
     color: #fff;
-    &:hover {
-      text-decoration: underline;
-    }
   }
 }
 
-.govuk-header__link--service-name {
+a.govuk-header__link--service-name {
+  text-decoration: none;
   &:hover {
     &:hover {
       text-decoration: underline;

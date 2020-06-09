@@ -55,7 +55,8 @@ describe('Executor-Additional-Invite-Sent', () => {
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'Pending'
-                }
+                },
+                language: 'en'
             });
         });
 
@@ -88,7 +89,8 @@ describe('Executor-Additional-Invite-Sent', () => {
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'Pending'
-                }
+                },
+                language: 'en'
             });
         });
     });

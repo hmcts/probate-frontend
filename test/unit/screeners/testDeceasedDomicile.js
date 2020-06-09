@@ -45,7 +45,8 @@ describe('DeceasedDomicile', () => {
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'Pending'
-                }
+                },
+                language: 'en'
             });
             done();
         });

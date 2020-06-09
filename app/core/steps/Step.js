@@ -59,6 +59,7 @@ class Step {
         ctx.caseType = caseTypes.getCaseType(session);
         ctx.userLoggedIn = false;
         ctx.ccdCase = req.session.form.ccdCase;
+        ctx.language = req.session.language ? req.session.language : 'en';
         if (typeof session.form.userLoggedIn === 'boolean') {
             ctx.userLoggedIn = session.form.userLoggedIn;
         }

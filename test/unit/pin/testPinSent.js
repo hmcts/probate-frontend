@@ -58,7 +58,8 @@ describe('Pin-Sent', () => {
                     id: 1234567890123456,
                     state: 'Pending'
                 },
-                phoneNumber: '0123456789'
+                phoneNumber: '0123456789',
+                language: 'en'
             });
 
             done();

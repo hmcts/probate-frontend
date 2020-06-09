@@ -69,7 +69,8 @@ describe('EligibilityValidationStep', () => {
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'Pending'
-                }
+                },
+                language: 'en'
             });
 
             revert();
@@ -89,7 +90,8 @@ describe('EligibilityValidationStep', () => {
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'Pending'
-                }
+                },
+                language: 'en'
             });
 
             revert();
@@ -117,7 +119,7 @@ describe('EligibilityValidationStep', () => {
             const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey, featureToggles);
 
             expect(nextStepUrlStub.calledOnce).to.equal(true);
-            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', caseType: 'gop', deathCertificate: 'optionYes', isTestToggleEnabled: true, userLoggedIn: false, ccdCase: {id: 1234567890123456, state: 'Pending'}})).to.equal(true);
+            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', caseType: 'gop', deathCertificate: 'optionYes', isTestToggleEnabled: true, userLoggedIn: false, ccdCase: {id: 1234567890123456, state: 'Pending'}, language: 'en'})).to.equal(true);
             expect(setEligibilityCookieStub.calledOnce).to.equal(true);
             expect(setEligibilityCookieStub.calledWith(req, res, nextStepUrl, fieldKey, fieldValue)).to.equal(true);
             expect(ctx).to.deep.equal({
@@ -129,7 +131,8 @@ describe('EligibilityValidationStep', () => {
                 ccdCase: {
                     id: 1234567890123456,
                     state: 'Pending'
-                }
+                },
+                language: 'en'
             });
 
             nextStepUrlStub.restore();

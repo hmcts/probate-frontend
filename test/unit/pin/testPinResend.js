@@ -65,7 +65,8 @@ describe('Pin-Resend', () => {
                     state: 'Pending'
                 },
                 leadExecutorName: 'leadExecName',
-                phoneNumber: '0123456789'
+                phoneNumber: '0123456789',
+                language: 'en'
             });
 
             done();

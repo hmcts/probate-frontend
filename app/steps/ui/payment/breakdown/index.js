@@ -86,6 +86,7 @@ class PaymentBreakdown extends Step {
 
             const [canCreatePayment, paymentStatus] = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
             logger.info(`canCreatePayment result = ${canCreatePayment} with status ${paymentStatus}`);
+            console.log(canCreatePayment, paymentStatus);
             if (paymentStatus === 'Initiated') {
                 const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
                 const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
@@ -97,6 +98,7 @@ class PaymentBreakdown extends Step {
                 };
                 const paymentResponse = yield payment.get(data);
                 logger.info('Checking status of reference = ' + ctx.reference + ' with response = ' + paymentResponse.status);
+                console.log(paymentResponse);
                 if (paymentResponse.status === 'Initiated') {
                     logger.error('As payment is still Initiated, user will need to wait for this state to expire.');
                     errors.push(FieldError('payment', 'initiated', this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
@@ -130,6 +132,7 @@ class PaymentBreakdown extends Step {
                 const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
                 const paymentResponse = yield payment.post(data, hostname, session.language);
                 logger.info(`Payment creation in breakdown for ccdCaseId = ${formdata.ccdCase.id} with response = ${JSON.stringify(paymentResponse)}`);
+                console.log(paymentResponse);
                 if (paymentResponse.name === 'Error') {
                     errors.push(FieldError('payment', 'failure', this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
                     return [ctx, errors];

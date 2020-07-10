@@ -102,6 +102,12 @@
   "errors": {
     "declarationCheckbox": {
       "required": "Tick the check box to agree to the declaration"
+    },
+    "businessError": {
+      "dodBeforeDob": "Date of death cannot be before date of birth",
+      "ihtNetGreaterThanGross": "Net IHT value cannot be greater than the Gross value",
+      "fieldMinSize": "Must be at least {min} characters",
+      "validationError": "There was a problem saving your application"
     }
   }
 }

@@ -62,6 +62,7 @@ class PaymentStatus extends Step {
         const options = {};
         const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
         const serviceAuthResult = yield authorise.post();
+        console.log('Testing Log 1');
 
         if (serviceAuthResult.name === 'Error') {
             options.redirect = true;
@@ -81,6 +82,7 @@ class PaymentStatus extends Step {
             const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
             const getPaymentResponse = yield payment.get(data);
             logger.info('Payment retrieval in status for reference = ' + ctx.reference + ' with response = ' + JSON.stringify(getPaymentResponse));
+            console.log('Testing Log 2');
             console.log(getPaymentResponse);
             if (getPaymentResponse.name === 'Error' || getPaymentResponse.status === 'Initiated') {
                 logger.error('Payment retrieval failed for reference = ' + ctx.reference + ' with status = ' + getPaymentResponse.status);

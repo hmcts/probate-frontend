@@ -62,6 +62,7 @@ class PaymentBreakdown extends Step {
     }
 
     * handlePost(ctx, errors, formdata, session, hostname) {
+        console.log('Testing Log 1');
         try {
             const feesCalculator = new FeesCalculator(config.services.feesRegister.url, ctx.sessionID);
             const confirmFees = yield feesCalculator.calc(formdata, ctx.authToken, session.featureToggles);

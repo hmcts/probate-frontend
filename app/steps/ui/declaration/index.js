@@ -20,6 +20,7 @@ const ServiceMapper = require('app/utils/ServiceMapper');
 const utils = require('app/components/step-utils');
 const moment = require('moment');
 const IhtThreshold = require('app/utils/IhtThreshold');
+const logger = require('app/components/logger')('Init');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -46,6 +47,7 @@ class Declaration extends ValidationStep {
         let returnErrors;
 
         if (result.type === 'VALIDATION') {
+            logger.error(`validation Error = ${result}`);
             returnErrors = result.errors.map(error => {
                 return {
                     field: error.field,
@@ -58,6 +60,7 @@ class Declaration extends ValidationStep {
         }
 
         const uploadLegalDec = new UploadLegalDeclaration();
+        logger.info(`Case Id = ${formdata.ccdCase.id}`);
         formdata.statementOfTruthDocument =
             yield uploadLegalDec.generateAndUpload(ctx.sessionID, session.req.userId, session.req);
         session.form.statementOfTruthDocument = formdata.statementOfTruthDocument;

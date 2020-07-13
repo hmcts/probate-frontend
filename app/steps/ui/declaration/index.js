@@ -1,3 +1,5 @@
+// eslint-disable-line max-lines
+
 'use strict';
 
 const probateDeclarationFactory = require('app/utils/ProbateDeclarationFactory');
@@ -15,7 +17,6 @@ const config = require('config');
 const caseTypes = require('app/utils/CaseTypes');
 const UploadLegalDeclaration = require('app/services/UploadLegalDeclaration');
 const ServiceMapper = require('app/utils/ServiceMapper');
-const FieldError = require('app/components/error');
 const utils = require('app/components/step-utils');
 const moment = require('moment');
 const IhtThreshold = require('app/utils/IhtThreshold');

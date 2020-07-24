@@ -1,3 +1,5 @@
+// eslint-disable-line max-lines
+
 'use strict';
 
 const probateDeclarationFactory = require('app/utils/ProbateDeclarationFactory');
@@ -19,6 +21,7 @@ const FieldError = require('app/components/error');
 const utils = require('app/components/step-utils');
 const moment = require('moment');
 const IhtThreshold = require('app/utils/IhtThreshold');
+const logger = require('app/components/logger')('Init');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -41,7 +44,9 @@ class Declaration extends ValidationStep {
     }
 
     * handlePost(ctx, errors, formdata, session) {
+        logger.info(`Sending validation request for form data with case id ${formdata.ccdCase.id}`);
         const result = yield this.validateFormData(formdata, ctx, session.req);
+        logger.info('Form data validation results = ' + JSON.stringify(result));
         let returnErrors;
 
         if (result.type === 'VALIDATION') {

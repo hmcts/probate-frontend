@@ -18,5 +18,26 @@ describe('CcdCase.js', () => {
             expect(ccdCaseWrapper.applicationSubmitted()).to.equal(false);
             done();
         });
+
+        it('should return false if the application has not been submitted with state PAAppCreated', (done) => {
+            const data = {state: 'PAAppCreated'};
+            const ccdCaseWrapper = new CcdCaseWrapper(data);
+            expect(ccdCaseWrapper.applicationSubmitted()).to.equal(false);
+            done();
+        });
+
+        it('should return false if the application has not been submitted with state PAAppCreated', (done) => {
+            const data = {state: 'CasePaymentFailed'};
+            const ccdCaseWrapper = new CcdCaseWrapper(data);
+            expect(ccdCaseWrapper.applicationSubmitted()).to.equal(false);
+            done();
+        });
+
+        it('should return true if the application has been submitted with case worker printing the case', (done) => {
+            const data = {state: 'CasePrinted'};
+            const ccdCaseWrapper = new CcdCaseWrapper(data);
+            expect(ccdCaseWrapper.applicationSubmitted()).to.equal(true);
+            done();
+        });
     });
 });

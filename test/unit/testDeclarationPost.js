@@ -26,7 +26,12 @@ describe('Declaration', () => {
 
         beforeEach(() => {
             ctx = {};
-            formdata = {applicantEmail: 'test@test.com'};
+            formdata = {
+                applicantEmail: 'test@test.com',
+                ccdCase: {
+                    id: '1234'
+                }
+            };
             session = {
                 form: {},
                 req: {

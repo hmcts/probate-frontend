@@ -1,9 +1,12 @@
 const config = require('@hmcts/properties-volume').addTo(require('config'));
 const {get, set} = require('lodash');
+const logger = require('app/components/logger')('Init');
 
 const setSecret = (secretPath, configPath) => {
     if (config.has(secretPath)) {
         set(config, configPath, get(config, secretPath));
+    } else {
+        logger.warn('Cannot find secret with path: ' + secretPath);
     }
 };
 
@@ -30,6 +33,7 @@ const setupSecrets = () => {
         setSecret('secrets.probate.probate-webchat-button-service-closed', 'webChat.buttonServiceClosed');
         setSecret('secrets.probate.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
         setSecret('secrets.probate.launchdarkly-key', 'featureToggles.launchDarklyKey');
+        setSecret('secrets.probate.pcq-token-key', 'services.equalityAndDiversity.tokenKey');
     }
 };
 

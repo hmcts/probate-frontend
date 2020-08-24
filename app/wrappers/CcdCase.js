@@ -6,7 +6,7 @@ class CcdCase {
     }
 
     applicationSubmitted() {
-        return this.ccdCaseData.state === 'CaseCreated';
+        return !(this.ccdCaseData.state === 'Pending' || this.ccdCaseData.state === 'PAAppCreated' || this.ccdCaseData.state === 'CasePaymentFailed');
     }
 }
 

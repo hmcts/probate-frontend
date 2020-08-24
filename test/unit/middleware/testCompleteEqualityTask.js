@@ -1,7 +1,10 @@
 'use strict';
 
-const expect = require('chai').expect;
+const chai = require('chai');
+const expect = chai.expect;
 const sinon = require('sinon');
+const sinonChai = require('sinon-chai');
+chai.use(sinonChai);
 const rewire = require('rewire');
 const completeEqualityTask = rewire('app/middleware/completeEqualityTask');
 
@@ -31,9 +34,12 @@ describe('completeEqualityTask', () => {
                         }
                     }
                 },
-                res: {redirect: () => {
-                    // Do nothing
-                }},
+                res: {
+                    locals: {launchDarkly: {}},
+                    redirect: () => {
+                        // Do nothing
+                    }
+                },
                 next: sinon.spy()
             };
 

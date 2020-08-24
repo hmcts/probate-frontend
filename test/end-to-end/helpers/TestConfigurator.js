@@ -55,6 +55,8 @@ class TestConfigurator {
                 }, (error, response, body) => {
                     if (response && response.statusCode !== 201) {
                         throw new Error('TestConfigurator.getBefore: Using proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
+                    } else {
+                        console.log('User created (via proxy)', this.userDetails);
                     }
                 });
             } else {
@@ -66,6 +68,8 @@ class TestConfigurator {
                 }, (error, response, body) => {
                     if (response.statusCode !== 201) {
                         throw new Error('TestConfigurator.getBefore: Without proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
+                    } else {
+                        console.log('User created', this.userDetails);
                     }
                 });
             }

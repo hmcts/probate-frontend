@@ -41,6 +41,7 @@ services:
     url: FEES_REGISTRY_URL
   equalityAndDiversity:
     url: EQUALITY_URL
+    tokenKey: PROBATE_TOKEN_KEY
 redis:
   host: REDIS_HOST
   port: REDIS_PORT
@@ -79,7 +80,7 @@ appInsights:
   instrumentationKey: APPINSIGHTS_INSTRUMENTATIONKEY
 
 TestCitizenDomain: CITIZEN_EMAIL_DOMAIN
-TestE2EFrontendUrl: TEST_E2E_URL
+TestE2EFrontendUrl: TEST_URL
 TestFrontendUrl: TEST_URL
 TestIdamAddUserUrl: IDAM_ADD_USER_URL
 TestIdamBaseUrl: IDAM_API_URL

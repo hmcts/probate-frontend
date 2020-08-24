@@ -6,6 +6,7 @@ const ServiceMapper = require('app/utils/ServiceMapper');
 const uuidv4 = require('uuid/v4');
 const Healthcheck = require('app/utils/Healthcheck');
 const logger = require('app/components/logger')('Init');
+const featureToggle = new (require('app/utils/FeatureToggle'))();
 
 const completeEqualityTask = (params) => {
     const formData = ServiceMapper.map(
@@ -33,7 +34,9 @@ const completeEqualityTask = (params) => {
 
                     formData.post(params.req.session.authToken, params.req.session.serviceAuthorization, params.req.session.form.ccdCase.id, params.req.session.form);
 
-                    params.next();
+                    featureToggle.callCheckToggle(params.req, params.res, params.next, params.res.locals.launchDarkly,
+                        'ft_pcq_token', featureToggle.toggleFeature);
+
                 } else {
                     pcqDown(params, formData);
                 }

@@ -4,7 +4,7 @@ gitRevision: ''
 frontendPublicHttpProtocol: http
 languages: ['en', 'cy']
 featureToggles:
-  enabled: true
+  enabled: false
   launchDarklyKey: 'SDK_KEY'
   launchDarklyUser:
     firstName: 'Probate'
@@ -12,6 +12,7 @@ featureToggles:
     key: '35222af3-7867-44ea-a2a0-f8e533ad12de'
   ft_fees_api: 'probate-fees-api'
   ft_pcq: 'probate-pcq'
+  ft_pcq_token: 'probate-pcq-token'
   appwideToggles: []
 app:
   username:
@@ -93,6 +94,7 @@ services:
     path: '/service-endpoint'
     gitCommitIdPath: 'buildInfo.extra.gitCommitId'
     port: 4000
+    tokenKey: 'PROBATE_TOKEN_KEY'
 redis:
   host: 'localhost'
   port: 6379

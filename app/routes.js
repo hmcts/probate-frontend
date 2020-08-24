@@ -194,7 +194,7 @@ router.use((req, res, next) => {
             res.redirect('/task-list');
         } else if (!applicantHasPassedPayment && config.whitelistedPagesAfterPayment.includes(currentPageCleanUrl)) {
             res.redirect('/task-list');
-        } else if (!applicantHasDeclared && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) {
+        } else if (!applicantHasDeclared && !applicationSubmitted && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) {
             res.redirect('/task-list');
         } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl) && !documentsSent) {
             res.redirect('/documents');

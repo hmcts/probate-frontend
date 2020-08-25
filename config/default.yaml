@@ -19,7 +19,7 @@ app:
   password:
   useAuth: 'false'
   useHttps: 'false'
-  useIDAM: 'true'
+  useIDAM: 'false'
   requireCcdCaseId: 'false'
   port: '3000'
   useCSRFProtection: 'true' # TODO: tech debt, tests should be csrf aware, it shouldn't be possible to accidentally disable this

@@ -65,6 +65,12 @@ class PaymentBreakdown extends Step {
         try {
             const feesCalculator = new FeesCalculator(config.services.feesRegister.url, ctx.sessionID);
             const confirmFees = yield feesCalculator.calc(formdata, ctx.authToken, session.featureToggles);
+            ctx.applicationversion = confirmFees.applicationversion;
+            ctx.applicationcode = confirmFees.applicationcode;
+            ctx.ukcopiesversion = confirmFees.ukcopiesversion;
+            ctx.ukcopiescode = confirmFees.ukcopiescode;
+            ctx.overseascopiesversion = confirmFees.overseascopiesversion;
+            ctx.overseascopiescode = confirmFees.overseascopiescode;
             this.checkFeesStatus(confirmFees);
             const originalFees = formdata.fees;
             if (confirmFees.total !== originalFees.total) {
@@ -123,7 +129,13 @@ class PaymentBreakdown extends Step {
                     applicationFee: ctx.applicationFee,
                     copies: ctx.copies,
                     deceasedLastName: ctx.deceasedLastName,
-                    ccdCaseId: formdata.ccdCase.id
+                    ccdCaseId: formdata.ccdCase.id,
+                    applicationversion: ctx.applicationversion,
+                    applicationcode: ctx.applicationcode,
+                    ukcopiesversion: ctx.ukcopiesversion,
+                    ukcopiescode: ctx.ukcopiescode,
+                    overseascopiesversion: ctx.overseascopiesversion,
+                    overseascopiescode: ctx.overseascopiescode
                 };
 
                 const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;

@@ -29,7 +29,7 @@ const setupConfig = {
     timeout: 20000,
     helpers: {
         WebDriverIO: {
-            url: process.env.TEST_E2E_URL || 'https://localhost:3000',
+            url: process.env.TEST_URL || 'https://localhost:3000',
             browser,
             smartWait: 10000,
             waitforTimeout: 60000,

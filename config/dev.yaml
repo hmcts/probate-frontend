@@ -1,0 +1,6 @@
+
+featureToggles:
+  enabled: false
+app:
+  useIDAM: 'true'
+  requireCcdCaseId: 'true'

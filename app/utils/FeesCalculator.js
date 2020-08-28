@@ -45,11 +45,17 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
         status: 'success',
         applicationfee: 0,
         applicationvalue: 0,
+        applicationversion: 0,
+        applicationcode: '',
         ukcopies: 0,
         ukcopiesfee: 0,
+        ukcopiesversion: 0,
+        ukcopiescode: '',
         overseascopies: 0,
         overseascopiesfee: 0,
-        total: 0
+        overseascopiesversion: 0,
+        overseascopiescode: '',
+        total: 0,
     };
 
     issuesData.amount_or_volume = get(formdata, 'iht.netValue', 0);
@@ -65,6 +71,8 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
                 } else {
                     returnResult.applicationfee = res.fee_amount;
                     returnResult.total += res.fee_amount;
+                    returnResult.applicationcode = res.code;
+                    returnResult.applicationversion = res.version;
                 }
             });
     }
@@ -82,6 +90,8 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
                 } else {
                     returnResult.ukcopiesfee = res.fee_amount;
                     returnResult.total += res.fee_amount;
+                    returnResult.ukcopiescode = res.code;
+                    returnResult.ukcopiesversion = res.version;
                 }
             });
     }
@@ -96,6 +106,8 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
                 } else {
                     returnResult.overseascopiesfee = res.fee_amount;
                     returnResult.total += res.fee_amount;
+                    returnResult.overseascopiescode = res.code;
+                    returnResult.overseascopiesversion = res.version;
                 }
             });
     }

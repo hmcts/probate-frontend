@@ -37,9 +37,6 @@ nodejs:
         - postcode-service-token2
         - probate-survey
         - probate-survey-end
-        - probate-application-fee-code
-        - probate-uk-application-fee-code
-        - probate-overseas-application-fee-code
         - probate-service-id
         - probate-site-id
         - probate-webchat-id

@@ -62,7 +62,13 @@ describe('FeesCalculator', () => {
                 ukcopiesfee: 1.50,
                 overseascopies: 2,
                 overseascopiesfee: 3,
-                total: 219.50
+                total: 219.50,
+                applicationcode: 'FEE0219',
+                applicationversion: 3,
+                ukcopiescode: 'FEE0003',
+                ukcopiesversion: 3,
+                overseascopiescode: 'FEE0003',
+                overseascopiesversion: 3
             };
 
             fetchJsonStub.returns(Promise.resolve(''));
@@ -107,7 +113,13 @@ describe('FeesCalculator', () => {
                 ukcopiesfee: 1.50,
                 overseascopies: 2,
                 overseascopiesfee: 3,
-                total: 4.50
+                applicationcode: '',
+                applicationversion: 0,
+                total: 4.50,
+                ukcopiescode: 'FEE0003',
+                ukcopiesversion: 3,
+                overseascopiescode: 'FEE0003',
+                overseascopiesversion: 3
             };
 
             fetchJsonStub.returns(Promise.resolve(''));
@@ -149,7 +161,13 @@ describe('FeesCalculator', () => {
                 ukcopiesfee: 0,
                 overseascopies: 2,
                 overseascopiesfee: 0,
-                total: 0
+                total: 0,
+                applicationcode: '',
+                applicationversion: 0,
+                ukcopiescode: '',
+                ukcopiesversion: 0,
+                overseascopiescode: '',
+                overseascopiesversion: 0
             };
 
             fetchJsonStub.returns(Promise.resolve(''));
@@ -173,10 +191,10 @@ describe('FeesCalculator', () => {
             };
 
             feesLookupStub.onCall(0).returns(Promise.resolve({
-                'code': 'string',
-                'description': 'string',
-                'fee_amount': 0,
-                'version': 0
+                'code': 'FEE0219',
+                'description': 'Application for a grant of probate (Estate over £5000)',
+                'version': 3,
+                'fee_amount': 215
             }));
             feesLookupStub.onCall(1).returns(Promise.resolve(
                 'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=1&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'
@@ -190,13 +208,19 @@ describe('FeesCalculator', () => {
 
             const expectedResponse = {
                 status: 'failed',
-                applicationfee: 0,
+                applicationfee: 215,
                 applicationvalue: 6000,
                 ukcopies: 1,
                 ukcopiesfee: 0,
                 overseascopies: 2,
                 overseascopiesfee: 3,
-                total: 3
+                total: 218,
+                applicationcode: 'FEE0219',
+                applicationversion: 3,
+                ukcopiescode: '',
+                ukcopiesversion: 0,
+                overseascopiescode: 'FEE0003',
+                overseascopiesversion: 3
             };
 
             fetchJsonStub.returns(Promise.resolve(''));
@@ -243,7 +267,13 @@ describe('FeesCalculator', () => {
                 ukcopiesfee: 1.50,
                 overseascopies: 2,
                 overseascopiesfee: 3,
-                total: 4.50
+                total: 4.50,
+                applicationcode: '',
+                applicationversion: 0,
+                ukcopiescode: 'FEE0003',
+                ukcopiesversion: 3,
+                overseascopiescode: 'FEE0003',
+                overseascopiesversion: 3
             };
 
             fetchJsonStub.returns(Promise.resolve(''));

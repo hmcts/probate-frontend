@@ -90,7 +90,7 @@ withPipeline("nodejs", product, component) {
   after('functionalTest') {
     publishHTML (target: [
               reportDir            : "output",
-              reportFiles          : "e2e.html",
+              reportFiles          : "e2e-results.html",
               reportName           : "Functional Tests Results",
               alwaysLinkToLastBuild: true
     ])

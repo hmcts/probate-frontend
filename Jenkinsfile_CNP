@@ -87,7 +87,7 @@ withPipeline("nodejs", product, component) {
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
 
-  after('functionalTest') {
+  after('test:functional') {
     publishHTML (target: [
               reportDir            : "output",
               reportFiles          : "e2e-results.html",

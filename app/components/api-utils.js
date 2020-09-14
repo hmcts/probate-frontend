@@ -77,16 +77,19 @@ const fetchBuffer = (url, fetchOptions) => {
 };
 
 const fetchOptions = (data, method, headers, proxy) => {
-    return {
+    const options = {
         method: method,
         mode: 'cors',
         redirect: 'follow',
         follow: 10,
         timeout: 10000,
-        body: JSON.stringify(data),
         headers: new fetch.Headers(headers),
         agent: proxy ? new HttpsProxyAgent(proxy) : null
     };
+    if (method !== 'GET') {
+        options.body = JSON.stringify(data);
+    }
+    return options;
 };
 
 module.exports = {

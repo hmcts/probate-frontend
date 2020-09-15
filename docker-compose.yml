@@ -348,6 +348,7 @@ services:
     dns:
       - 172.16.0.10
       - 172.16.0.14
+      - 8.8.8.8
     environment:
       JAVA_TOOL_OPTIONS: -Xms128m -Xmx400m
       AUTH_IDAM_CLIENT_BASEURL: http://sidam-api:5000

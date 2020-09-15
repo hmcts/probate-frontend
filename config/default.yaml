@@ -4,7 +4,7 @@ gitRevision: ''
 frontendPublicHttpProtocol: http
 languages: ['en', 'cy']
 featureToggles:
-  enabled: false
+  enabled: true
   launchDarklyKey: 'SDK_KEY'
   launchDarklyUser:
     firstName: 'Probate'
@@ -156,18 +156,6 @@ utils:
     retries: 10
     retryDelay: 1000
 payment:
-  applicationFee: 215
-  applicationFeeThreshold: 5000
-  applicationFeeCode: 'FEE0226'
-  copies:
-    uk:
-      fee: 0.5
-      code: 'FEE0003'
-      version: '3'
-    overseas:
-      fee: 0.5
-      code: 'FEE003'
-      version: '3'
   serviceId: 'PROBATE'
   siteId: 'P223'
   version: '1'

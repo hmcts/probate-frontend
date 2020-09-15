@@ -6,6 +6,7 @@ nodejs:
     REDIS_PORT: 6379
     REDIS_USE_TLS: false
     EQUALITY_URL: https://pcq.aat.platform.hmcts.net
+    LAUNCHDARKLY_ENABLED: false
   keyVaults:
     probate:
       secrets:
@@ -15,9 +16,6 @@ nodejs:
         - postcode-service-token2
         - probate-survey
         - probate-survey-end
-        - probate-application-fee-code
-        - probate-uk-application-fee-code
-        - probate-overseas-application-fee-code
         - probate-service-id
         - probate-site-id
         - probate-webchat-id

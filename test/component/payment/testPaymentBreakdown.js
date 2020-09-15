@@ -32,6 +32,12 @@ describe('payment-breakdown', () => {
             ukcopiesfee: 1.50,
             overseascopies: 2,
             overseascopiesfee: 3,
+            applicationversion: 0,
+            applicationcode: 'FEE0226',
+            ukcopiesversion: 2,
+            ukcopiescode: 'FEE0003',
+            overseascopiesversion: 3,
+            overseascopiescode: 'FEE0003',
             total: 219.50
         }));
     });

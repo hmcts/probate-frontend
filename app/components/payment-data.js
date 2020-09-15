@@ -3,15 +3,9 @@
 const config = require('config');
 const SERVICE_ID = config.payment.serviceId;
 const SITE_ID = config.payment.siteId;
-const APPLICATION_FEE_CODE = config.payment.applicationFeeCode;
-const ADDITIONAL_COPY_FEE_CODE_UK = config.payment.copies.uk.code;
-const ADDITIONAL_COPY_FEE_CODE_OVERSEAS = config.payment.copies.overseas.code;
 
 const createPaymentData = (data, language) => {
     const commonContent = require(`app/resources/${language}/translation/common`);
-    const version = config.payment.version;
-    const versionCopiesOverseas = config.payment.copies.overseas.version;
-    const versionCopiesUk = config.payment.copies.uk.version;
     const currency = config.payment.currency;
     const paymentData = {
         amount: data.amount,
@@ -28,10 +22,10 @@ const createPaymentData = (data, language) => {
         paymentData.fees.push(createPaymentFees({
             amount: data.applicationFee,
             ccdCaseId: data.ccdCaseId,
-            code: APPLICATION_FEE_CODE,
+            code: data.applicationcode,
             memoLine: 'Probate Fees',
             reference: data.userId,
-            version: version,
+            version: data.applicationversion,
             volume: 1
         }));
     }
@@ -40,10 +34,10 @@ const createPaymentData = (data, language) => {
         paymentData.fees.push(createPaymentFees({
             amount: data.copies.uk.cost,
             ccdCaseId: data.ccdCaseId,
-            code: ADDITIONAL_COPY_FEE_CODE_UK,
+            code: data.ukcopiescode,
             memoLine: 'Additional UK copies',
             reference: data.userId,
-            version: versionCopiesUk,
+            version: data.ukcopiesversion,
             volume: data.copies.uk.number
         }));
     }
@@ -52,10 +46,10 @@ const createPaymentData = (data, language) => {
         paymentData.fees.push(createPaymentFees({
             amount: data.copies.overseas.cost,
             ccdCaseId: data.ccdCaseId,
-            code: ADDITIONAL_COPY_FEE_CODE_OVERSEAS,
+            code: data.overseascopiescode,
             memoLine: 'Additional overseas copies',
             reference: data.userId,
-            version: versionCopiesOverseas,
+            version: data.overseascopiesversion,
             volume: data.copies.overseas.number
         }));
     }

@@ -92,6 +92,20 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/i
     const totalExecutors = '1';
     I.enterTotalExecutors(totalExecutors);
 
+    // Complete PCQ
+    I.startPcq();
+    I.enterDOB();
+    I.enterLanguage();
+    I.enterSex();
+    I.enterGender();
+    I.enterSexualOrientation();
+    I.enterMaritalStatus();
+    I.enterEthnicGroup();
+    I.enterReligion();
+    I.enterDisability();
+    I.enterPregnant();
+    I.finishPcq();
+
     // Review and Confirm Task
     I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');

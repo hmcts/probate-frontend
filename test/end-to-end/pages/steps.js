@@ -75,6 +75,20 @@ module.exports = () => {
         selectExecutorRoles: steps.executors.roles,
         selectHasExecutorBeenNotified: steps.executors.notified,
 
+        // PCQ pages
+        startPcq: steps.pcq.startpage,
+        enterDOB: steps.pcq.dob,
+        enterLanguage: steps.pcq.language,
+        enterSex: steps.pcq.sex,
+        enterGender: steps.pcq.gender,
+        enterSexualOrientation: steps.pcq.sexualorientation,
+        enterMaritalStatus: steps.pcq.maritalstatus,
+        enterEthnicGroup: steps.pcq.ethnicgroup,
+        enterReligion: steps.pcq.religion,
+        enterDisability: steps.pcq.disability,
+        enterPregnant: steps.pcq.pregnant,
+        finishPcq: steps.pcq.endpage,
+
         // Summary page
         seeSummaryPage: steps.summary.summary,
         acceptDeclaration: steps.declaration.declaration,

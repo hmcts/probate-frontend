@@ -94,6 +94,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/i
 
     // Complete PCQ
     I.startPcq();
+    I.enterTotalExecutors(totalExecutors);
     // I.enterDOB();
     // I.enterLanguage();
     // I.enterSex();

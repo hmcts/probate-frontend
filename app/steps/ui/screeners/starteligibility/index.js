@@ -14,8 +14,6 @@ class StartEligibility extends Step {
 
         ctx.newDeathCertToggled = featureToggle.isEnabled(featureToggles, 'ft_no_deathcert');
 
-        console.log('*****MEGAN LOG******: ' + ctx.newDeathCertToggled);
-
         return [ctx];
     }
 }

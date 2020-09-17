@@ -8,7 +8,5 @@ module.exports = function() {
 
     I.waitForText('Equality and diversity questions', testConfig.TestWaitForTextToAppear);
 
-    I.seeInCurrentUrl('start-page');
-
-    I.navByClick('Continue to the questions');
+    I.navByClick('#back-button');
 };

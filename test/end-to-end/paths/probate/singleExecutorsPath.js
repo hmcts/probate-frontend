@@ -94,17 +94,17 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/i
 
     // Complete PCQ
     I.startPcq();
-    I.enterDOB();
-    I.enterLanguage();
-    I.enterSex();
-    I.enterGender();
-    I.enterSexualOrientation();
-    I.enterMaritalStatus();
-    I.enterEthnicGroup();
-    I.enterReligion();
-    I.enterDisability();
-    I.enterPregnant();
-    I.finishPcq();
+    // I.enterDOB();
+    // I.enterLanguage();
+    // I.enterSex();
+    // I.enterGender();
+    // I.enterSexualOrientation();
+    // I.enterMaritalStatus();
+    // I.enterEthnicGroup();
+    // I.enterReligion();
+    // I.enterDisability();
+    // I.enterPregnant();
+    // I.finishPcq();
 
     // Review and Confirm Task
     I.selectATask(taskListContent.taskNotStarted);

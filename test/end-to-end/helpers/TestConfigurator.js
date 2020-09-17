@@ -164,31 +164,6 @@ class TestConfigurator {
     getProxy() {
         return this.testProxy;
     }
-
-    injectFormData(data, emailId) {
-        const formData =
-            {
-                id: emailId,
-                formdata: {
-                    payloadVersion: '4.1.0',
-                    applicantEmail: emailId,
-                }
-            };
-        Object.assign(formData.formdata, data);
-        request({
-            url: this.testInjectFormDataURL,
-            method: 'POST',
-            headers: {'content-type': 'application/json', 'Session-Id': emailId},
-            proxy: this.testReformProxy,
-            socksProxyHost: 'localhost',
-            socksProxyPort: '9090',
-            json: true,
-            body: formData
-        },
-        (error, response, body) => {
-            console.log('This is email id ' + emailId);
-        });
-    }
 }
 
 module.exports = TestConfigurator;

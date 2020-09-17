@@ -9,6 +9,7 @@ const testConfig = require('test/config');
 class TestConfigurator {
 
     constructor() {
+        this.testEnvironment = testConfig.TestEnvironment;
         this.testBaseUrl = testConfig.TestIdamBaseUrl;
         this.useIdam = testConfig.TestUseIdam;
         this.setTestCitizenName();
@@ -163,6 +164,10 @@ class TestConfigurator {
 
     getProxy() {
         return this.testProxy;
+    }
+
+    equalityAndDiversityEnabled() {
+        return this.testEnvironment !== 'local';
     }
 }
 

@@ -93,8 +93,10 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/i
     I.enterTotalExecutors(totalExecutors);
 
     // Skip Equality and Diversity questions
-    I.exitEqualityAndDiversity();
-    I.enterTotalExecutors(totalExecutors);
+    if (TestConfigurator.equalityAndDiversityEnabled()) {
+        I.exitEqualityAndDiversity();
+        I.enterTotalExecutors(totalExecutors);
+    }
 
     // Review and Confirm Task
     I.selectATask(taskListContent.taskNotStarted);

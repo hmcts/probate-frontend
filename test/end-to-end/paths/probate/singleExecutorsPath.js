@@ -92,6 +92,10 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/i
     const totalExecutors = '1';
     I.enterTotalExecutors(totalExecutors);
 
+    // Skip Equality and Diversity questions
+    I.exitEqualityAndDiversity();
+    I.enterTotalExecutors(totalExecutors);
+
     // Review and Confirm Task
     I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');

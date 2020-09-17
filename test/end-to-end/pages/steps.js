@@ -75,6 +75,9 @@ module.exports = () => {
         selectExecutorRoles: steps.executors.roles,
         selectHasExecutorBeenNotified: steps.executors.notified,
 
+        //Equality and diversity page
+        exitEqualityAndDiversity: steps.equalityanddiversity.startpage,
+
         // Summary page
         seeSummaryPage: steps.summary.summary,
         acceptDeclaration: steps.declaration.declaration,

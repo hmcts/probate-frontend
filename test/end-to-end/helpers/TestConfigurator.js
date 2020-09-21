@@ -167,7 +167,6 @@ class TestConfigurator {
     }
 
     equalityAndDiversityEnabled() {
-        console.log(this.environment);
         return this.environment !== 'local';
     }
 }

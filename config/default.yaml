@@ -13,7 +13,7 @@ featureToggles:
   ft_fees_api: 'probate-fees-api'
   ft_pcq: 'probate-pcq'
   ft_pcq_token: 'probate-pcq-token'
-  ft_no_deathcert: 'probate-new-deathcert-flow'
+  ft_new_deathcert_flow: 'probate-new-deathcert-flow'
   appwideToggles: []
 app:
   username:

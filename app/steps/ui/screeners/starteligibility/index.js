@@ -12,7 +12,7 @@ class StartEligibility extends Step {
     handleGet(ctx, formdata, featureToggles) {
         ctx.isFeesApiToggleEnabled = featureToggle.isEnabled(featureToggles, 'ft_fees_api');
 
-        ctx.newDeathCertToggled = featureToggle.isEnabled(featureToggles, 'ft_no_deathcert');
+        ctx.newDeathCertToggled = featureToggle.isEnabled(featureToggles, 'ft_new_deathcert_flow');
 
         return [ctx];
     }

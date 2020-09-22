@@ -58,7 +58,7 @@ Alternatively, to run probate-frontend with the other services locally you will 
 
 Git hooks:
 
-We have git hooks that enforce rules for commit messages.
+We have git hook
 
 These can be activated by running the following commands:
 ```

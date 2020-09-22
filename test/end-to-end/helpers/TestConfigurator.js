@@ -9,7 +9,7 @@ const testConfig = require('test/config');
 class TestConfigurator {
 
     constructor() {
-        this.environment = testConfig.environment;
+        this.environment = testConfig.TestFrontendUrl.includes('local') ? 'local' : 'aat';
         this.testBaseUrl = testConfig.TestIdamBaseUrl;
         this.useIdam = testConfig.TestUseIdam;
         this.setTestCitizenName();

@@ -1,6 +1,5 @@
 module.exports = {
 
-    environment: process.env.REFORM_ENVIRONMENT || 'local',
     TestCitizenDomain: process.env.CITIZEN_EMAIL_DOMAIN || '/@probateTest.com',
     TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png',
     TestE2EFrontendUrl: process.env.TEST_URL || 'http://localhost:3000',

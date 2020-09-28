@@ -1,0 +1,12 @@
+{
+  "title": "Is the original Death Certificate in English?",
+  "question": "Is the original Death Certificate in English?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "englishDeathCertificate": {
+      "required": "Answer &lsquo;yes&rsquo; if the original death certificate is in english"
+    }
+  }
+}

@@ -5,7 +5,7 @@
   "optionNo": "Nag oes",
 
   "errors": {
-    "englishDeathCertificate": {
+    "deathCertificateInEnglish": {
       "required": "Atebwch &lsquo;oes&rsquo; os oes tystysgrif marwolaeth"
     }
   }

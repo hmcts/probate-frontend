@@ -1,11 +1,11 @@
 'use strict';
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
-const pageUrl = '/english-death-certificate';
-const fieldKey = 'englishDeathCertificate';
+const pageUrl = '/death-certificate-english';
+const fieldKey = 'deathCertificateInEnglish';
 const Dashboard = require('app/steps/ui/dashboard');
 
-class EnglishDeathCertificate extends EligibilityValidationStep {
+class DeathCertificateInEnglish extends EligibilityValidationStep {
 
     static getUrl() {
         return pageUrl;
@@ -20,16 +20,16 @@ class EnglishDeathCertificate extends EligibilityValidationStep {
             return Dashboard.getUrl();
         }
 
-        return this.next(req, ctx).constructor.getUrl('englishDeathCertificate');
+        return this.next(req, ctx).constructor.getUrl('deathCertificateInEnglish');
     }
 
     nextStepOptions() {
         return {
             options: [
-                {key: fieldKey, value: 'optionYes', choice: 'hasEnglishDeathCertificate'}
+                {key: fieldKey, value: 'optionYes', choice: 'deathCertificateInEnglish'}
             ]
         };
     }
 }
 
-module.exports = EnglishDeathCertificate;
+module.exports = DeathCertificateInEnglish;

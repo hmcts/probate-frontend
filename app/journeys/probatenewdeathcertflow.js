@@ -36,11 +36,11 @@ const taskList = {
 const stepList = {
     StartEligibility: 'DeathCertificate',
     DeathCertificate: {
-        hasCertificate: 'EnglishDeathCertificate',
+        hasCertificate: 'DeathCertificateInEnglish',
         otherwise: 'StopPage'
     },
-    EnglishDeathCertificate: {
-        hasEnglishDeathCertificate: 'DeceasedDomicile',
+    DeathCertificateInEnglish: {
+        deathCertificateInEnglish: 'DeceasedDomicile',
         otherwise: 'StopPage'
     },
     DeceasedDomicile: {

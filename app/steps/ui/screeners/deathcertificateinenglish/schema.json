@@ -1,14 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "english-death-certificate",
+  "id": "death-certificate-english",
   "type": "object",
   "properties": {
-    "deathCertificate": {
+    "deathCertificateInEnglish": {
       "type": "string",
       "minLength": 1
     }
   },
   "required": [
-    "englishDeathCertificate"
+    "deathCertificateInEnglish"
   ]
 }

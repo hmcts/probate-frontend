@@ -6,8 +6,8 @@
 {% block form_content %}
     {{ govukRadios({
         classes: "govuk-radios--inline",
-        idPrefix: "englishDeathCertificate",
-        name: "englishDeathCertificate",
+        idPrefix: "deathCertificateInEnglish",
+        name: "deathCertificateInEnglish",
         fieldset: {
             legend: {
                 text: content.question | safe,
@@ -15,17 +15,17 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.englishDeathCertificate.errorMessage | safe } if fields.englishDeathCertificate.errorMessage,
+        errorMessage: { text: fields.deathCertificateInEnglish.errorMessage | safe } if fields.deathCertificateInEnglish.errorMessage,
         items: [
             {
                 value: "optionYes",
                 text: content["optionYes"] | safe,
-                checked: true if fields.englishDeathCertificate.value == "optionYes"
+                checked: true if fields.deathCertificateInEnglish.value == "optionYes"
             },
             {
                 value: "optionNo",
                 text: content["optionNo"] | safe,
-                checked: true if fields.englishDeathCertificate.value == "optionNo"
+                checked: true if fields.deathCertificateInEnglish.value == "optionNo"
             }
         ]
     }) }}

@@ -5,7 +5,7 @@
   "optionNo": "No",
 
   "errors": {
-    "englishDeathCertificate": {
+    "deathCertificateInEnglish": {
       "required": "Answer &lsquo;yes&rsquo; if the original death certificate is in english"
     }
   }

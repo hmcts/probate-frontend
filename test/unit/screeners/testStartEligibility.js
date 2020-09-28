@@ -34,25 +34,5 @@ describe('StartEligibility', () => {
             expect(ctx.isFeesApiToggleEnabled).to.equal(false);
             done();
         });
-
-        it('should return true when the ft_new_deathcert_flow toggle is set', (done) => {
-            const ctxToTest = {};
-            const formdata = {};
-            const featureToggles = {
-                ft_new_deathcert_flow: true
-            };
-            const [ctx] = startEligibility.handleGet(ctxToTest, formdata, featureToggles);
-            expect(ctx.newDeathCertToggled).to.equal(true);
-            done();
-        });
-
-        it('should return false when the ft_new_deathcert_flow toggle is not set', (done) => {
-            const ctxToTest = {};
-            const formdata = {};
-            const featureToggles = {};
-            const [ctx] = startEligibility.handleGet(ctxToTest, formdata, featureToggles);
-            expect(ctx.newDeathCertToggled).to.equal(false);
-            done();
-        });
     });
 });

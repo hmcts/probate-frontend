@@ -41,6 +41,10 @@ const stepList = {
     },
     DeathCertificateInEnglish: {
         deathCertificateInEnglish: 'DeceasedDomicile',
+        otherwise: 'DeathCertificateTranslation'
+    },
+    DeathCertificateTranslation: {
+        hasDeathCertificateTranslation: 'DeceasedDomicile',
         otherwise: 'StopPage'
     },
     DeceasedDomicile: {

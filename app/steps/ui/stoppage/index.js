@@ -13,6 +13,10 @@ class StopPage extends Step {
         ctx.stopReason = req.params[0];
 
         const formdata = req.session.form;
+
+        const stoppageHeader = ctx.stopReason === 'deathCertificateTranslation' ? 'deathCertificateTranslationHeader' : 'defaultHeader';
+        ctx.stoppageHeader = this.generateContent(ctx, formdata, req.session.language)[stoppageHeader];
+
         const templateContent = this.generateContent(ctx, formdata, req.session.language)[ctx.stopReason];
 
         if (templateContent) {

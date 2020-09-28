@@ -61,7 +61,7 @@ class EligibilityValidationStep extends ValidationStep {
                     break;
                 }
 
-                if (!req.session.form.screeners || !req.session.form.screeners[itemKey] || req.session.form.screeners[itemKey] !== eligibilityQuestionsList[itemKey]) {
+                if (!req.session.form.screeners || !req.session.form.screeners[itemKey] || !eligibilityQuestionsList[itemKey].includes(req.session.form.screeners[itemKey])) {
                     allPreviousEligibilityQuestionsAnswered = false;
                     break;
                 }

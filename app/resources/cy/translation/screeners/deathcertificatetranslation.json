@@ -1,0 +1,12 @@
+{
+  "title": "A oes gennych chi dystysgrif marwolaeth",
+  "question": "A oes gennych chi dystysgrif marwolaeth?",
+  "optionYes": "Oes",
+  "optionNo": "Nag oes",
+
+  "errors": {
+    "deathCertificateTranslation": {
+      "required": "Atebwch &lsquo;oes&rsquo; os oes tystysgrif marwolaeth"
+    }
+  }
+}

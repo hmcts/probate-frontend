@@ -169,8 +169,6 @@ whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/co
 blacklistedPagesBeforeDeclaration: ['/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
 eligibilityQuestionsProbate:
   deathCertificate: 'optionYes'
-  deathCertificateInEnglish: ['optionYes', 'optionNo']
-  deathCertificateTranslation: 'optionYes'
   domicile: 'optionYes'
   completed: 'optionYes'
   left: 'optionYes'
@@ -185,6 +183,25 @@ eligibilityQuestionsIntestacy:
   diedAfter: 'optionYes'
   related: 'optionYes'
   otherApplicants: 'optionNo'
+eligibilityQuestionsProbateEnglishDeathCert:
+  deathCertificate: 'optionYes'
+  deathCertificateInEnglish: 'optionYes'
+  domicile: 'optionYes'
+  completed: 'optionYes'
+  left: 'optionYes'
+  original: 'optionYes'
+  executor: 'optionYes'
+  mentalCapacity: 'optionYes'
+eligibilityQuestionsProbateTranslatedDeathCert:
+  deathCertificate: 'optionYes'
+  deathCertificateInEnglish: 'optionNo'
+  deathCertificateTranslation: 'optionYes'
+  domicile: 'optionYes'
+  completed: 'optionYes'
+  left: 'optionYes'
+  original: 'optionYes'
+  executor: 'optionYes'
+  mentalCapacity: 'optionYes'
 hardStopParams:
   gop: []
   intestacy: []

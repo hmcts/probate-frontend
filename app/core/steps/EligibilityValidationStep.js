@@ -51,6 +51,10 @@ class EligibilityValidationStep extends ValidationStep {
             eligibilityQuestionsList = config.eligibilityQuestionsProbate;
         } else if (Object.keys(config.eligibilityQuestionsIntestacy).includes(fieldKey)) {
             eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
+        } else if (Object.keys(config.eligibilityQuestionsProbateEnglishDeathCert).includes(fieldKey)) {
+            eligibilityQuestionsList = config.eligibilityQuestionsProbateEnglishDeathCert;
+        } else if (Object.keys(config.eligibilityQuestionsProbateTranslatedDeathCert).includes(fieldKey)) {
+            eligibilityQuestionsList = config.eligibilityQuestionsProbateTranslatedDeathCert;
         }
 
         if (eligibilityQuestionsList) {
@@ -61,7 +65,7 @@ class EligibilityValidationStep extends ValidationStep {
                     break;
                 }
 
-                if (!req.session.form.screeners || !req.session.form.screeners[itemKey] || !eligibilityQuestionsList[itemKey].includes(req.session.form.screeners[itemKey])) {
+                if (!req.session.form.screeners || !req.session.form.screeners[itemKey] || req.session.form.screeners[itemKey] !== eligibilityQuestionsList[itemKey]) {
                     allPreviousEligibilityQuestionsAnswered = false;
                     break;
                 }

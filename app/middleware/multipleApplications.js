@@ -65,6 +65,10 @@ const allEligibilityQuestionsPresent = (formdata) => {
         let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
         if (formdata.screeners.left === 'optionNo') {
             eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
+        } else if (formdata.screeners.deathCertificateInEnglish === 'optionYes') {
+            eligibilityQuestionsList = config.eligibilityQuestionsProbateEnglishDeathCert;
+        } else if (formdata.screeners.deathCertificateInEnglish === 'optionNo') {
+            eligibilityQuestionsList = config.eligibilityQuestionsProbateTranslatedDeathCert;
         }
 
         Object.entries(eligibilityQuestionsList).forEach(([key, value]) => {

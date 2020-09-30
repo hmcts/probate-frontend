@@ -5,7 +5,7 @@
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l">{{ fields.stoppageHeader.value | safe }}</h1>
+            <h1 class="govuk-heading-l">{{ content[fields.stoppageHeader.value] | safe }}</h1>
 
             {% for placeholder in fields.linkPlaceholders.value %}
                 {% set tempContent = tempContent | replace("{" + placeholder + "}", globals.links[placeholder]) %}

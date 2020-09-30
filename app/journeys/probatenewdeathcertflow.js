@@ -79,14 +79,10 @@ const stepList = {
     DeceasedAddress: 'DomicileEnglandOrWales',
     DomicileEnglandOrWales: {
         isDomicile: 'DeathCertificateInterim',
-        otherwise: 'DocumentUpload'
-    },
-    DeathCertificateInterim: {
-        hasCertificate: 'DocumentUpload',
         otherwise: 'IhtMethod'
     },
-    DocumentUpload: {
-        isUploadingDocument: 'DocumentUpload',
+    DeathCertificateInterim: {
+        hasCertificate: 'IhtMethod',
         otherwise: 'IhtMethod'
     },
     IhtMethod: {

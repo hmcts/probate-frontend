@@ -1,0 +1,13 @@
+{
+  "title": "Did the deceased die in England or Wales?",
+  "question": "Did {deceasedName} die in England or Wales?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "theDeceased": "the deceased",
+
+  "errors": {
+    "domicile": {
+      "required": "Answer &lsquo;yes&rsquo; if the person who died lived in England or Wales or intended to return here"
+    }
+  }
+}

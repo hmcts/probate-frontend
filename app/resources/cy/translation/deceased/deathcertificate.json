@@ -1,0 +1,14 @@
+{
+  "title": "Do you have a death certificate or an interim death certificate?",
+  "question": "Do you have a death certificate or an interim death certificate?",
+  "optionDeathCertificate": "Death certificate",
+  "optionInterimCertificate": "Interim death certificate",
+  "paragraph1": "A death certificate is printed double-sided on green paper and is given to you by a registrar from the births, deaths and marriages registry.",
+  "paragraph2": "An interim death certificate is only issued by the coroner if there is an inquest to find out the cause of death.",
+
+  "errors": {
+    "deathCertificate": {
+      "required": "Answer &lsquo;Interim death certificate&rsquo; if there is an inquest to find out the cause of death of the deceased."
+    }
+  }
+}

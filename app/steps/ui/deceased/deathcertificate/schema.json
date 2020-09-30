@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "certificate-interim",
+  "type": "object",
+  "properties": {
+    "deathCertificate": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "deathCertificate"
+  ]
+}

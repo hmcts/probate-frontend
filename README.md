@@ -103,7 +103,7 @@ For e2e tests:
 
 To use feature toggles for e2e tests amend `test/config.js`. SDK_KEY value can be found in launch darkly portal:
 ```
-enabled: false,
+enabled: true,
 launchDarklyKey: process.env.TEST_LAUNCH_DARKLY_KEY || 'SDK_KEY',
 ```
 

@@ -1,17 +1,16 @@
 'use strict';
 
-const probateJourney = require('app/journeys/probate');
-const probateNewDeathCertJourney = require('app/journeys/probatenewdeathcertflow');
+const journey = require('app/journeys/probatenewdeathcertflow');
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-const DeathCertificate = steps.DeathCertificate;
+const DeathCertificateInEnglish = steps.DeathCertificateInEnglish;
 
-describe('DeathCertificate', () => {
+describe('DeathCertificateInEnglish', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = DeathCertificate.constructor.getUrl();
-            expect(url).to.equal('/death-certificate');
+            const url = DeathCertificateInEnglish.constructor.getUrl();
+            expect(url).to.equal('/death-certificate-english');
             done();
         });
     });
@@ -32,15 +31,15 @@ describe('DeathCertificate', () => {
                     caseType: 'gop'
                 },
                 body: {
-                    deathCertificate: 'optionYes'
+                    deathCertificateInEnglish: 'optionYes'
                 }
             };
             const res = {};
 
-            const ctx = DeathCertificate.getContextData(req, res);
+            const ctx = DeathCertificateInEnglish.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 sessionID: 'dummy_sessionId',
-                deathCertificate: 'optionYes',
+                deathCertificateInEnglish: 'optionYes',
                 caseType: 'gop',
                 userLoggedIn: false,
                 ccdCase: {
@@ -57,55 +56,50 @@ describe('DeathCertificate', () => {
         it('should return the correct url when Yes is given', (done) => {
             const req = {
                 session: {
-                    journey: probateJourney
+                    journey: journey,
+                    form: {
+                        screeners: {
+                            deathCertificate: 'optionYes'
+                        }
+                    }
                 }
             };
             const ctx = {
-                deathCertificate: 'optionYes'
+                deathCertificateInEnglish: 'optionYes'
             };
-            const nextStepUrl = DeathCertificate.nextStepUrl(req, ctx);
+            const nextStepUrl = DeathCertificateInEnglish.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/deceased-domicile');
-            done();
-        });
-
-        //Test duplicated for new probate journey.
-        it('should return the correct url when Yes is given', (done) => {
-            const req = {
-                session: {
-                    journey: probateNewDeathCertJourney
-                }
-            };
-            const ctx = {
-                deathCertificate: 'optionYes'
-            };
-            const nextStepUrl = DeathCertificate.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/death-certificate-english');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
             const req = {
                 session: {
-                    journey: probateJourney
+                    journey: journey,
+                    form: {
+                        screeners: {
+                            deathCertificate: 'optionYes'
+                        }
+                    }
                 }
             };
             const ctx = {
-                deathCertificate: 'optionNo'
+                deathCertificateInEnglish: 'optionNo'
             };
-            const nextStepUrl = DeathCertificate.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/stop-page/deathCertificate');
+            const nextStepUrl = DeathCertificateInEnglish.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/death-certificate-translation');
             done();
         });
     });
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const nextStepOptions = DeathCertificate.nextStepOptions();
+            const nextStepOptions = DeathCertificateInEnglish.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [{
-                    key: 'deathCertificate',
+                    key: 'deathCertificateInEnglish',
                     value: 'optionYes',
-                    choice: 'hasCertificate'
+                    choice: 'deathCertificateInEnglish'
                 }]
             });
             done();

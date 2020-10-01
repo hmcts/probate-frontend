@@ -26,7 +26,7 @@ class TestConfigurator {
         this.retryScenarios = testConfig.TestRetryScenarios;
         this.testUseProxy = testConfig.TestUseProxy;
         this.testProxy = testConfig.TestProxy;
-        this.launchDarkly = new LaunchDarkly().getInstance();
+        this.launchDarkly = new LaunchDarkly();
     }
 
     getBefore() {
@@ -173,12 +173,7 @@ class TestConfigurator {
     }
 
     checkFeatureToggle(featureToggleKey) {
-        this.launchDarkly.variation(featureToggleKey, testConfig.featureToggles.launchDarklyUser, false, (err, showFeature) => {
-            if (err) {
-                return false;
-            }
-            return showFeature;
-        });
+        return this.launchDarkly.variation(featureToggleKey, testConfig.featureToggles.launchDarklyUser, false);
     }
 }
 

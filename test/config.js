@@ -92,7 +92,7 @@ module.exports = {
     },
 
     featureToggles: {
-        enabled: true,
+        enabled: false,
         launchDarklyKey: process.env.TEST_LAUNCH_DARKLY_KEY || 'SDK_KEY',
         launchDarklyUser: {
             firstName: 'Probate',

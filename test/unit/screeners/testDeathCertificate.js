@@ -68,11 +68,14 @@ describe('DeathCertificate', () => {
             done();
         });
 
-        //Test duplicated for new probate journey.
+        //DTSPB-529 Test duplicated for new probate death cert flow.
         it('should return the correct url when Yes is given', (done) => {
             const req = {
                 session: {
                     journey: probateNewDeathCertJourney
+                },
+                featureToggles: {
+                    'ft_new_deathcert_flow': true
                 }
             };
             const ctx = {

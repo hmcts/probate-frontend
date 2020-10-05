@@ -61,6 +61,9 @@ describe('DeathCertificateInEnglish', () => {
                         screeners: {
                             deathCertificate: 'optionYes'
                         }
+                    },
+                    featureToggles: {
+                        'ft_new_deathcert_flow': true
                     }
                 }
             };
@@ -80,6 +83,9 @@ describe('DeathCertificateInEnglish', () => {
                         screeners: {
                             deathCertificate: 'optionYes'
                         }
+                    },
+                    featureToggles: {
+                        'ft_new_deathcert_flow': true
                     }
                 }
             };

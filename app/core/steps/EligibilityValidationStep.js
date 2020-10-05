@@ -4,6 +4,7 @@ const config = require('config');
 const ValidationStep = require('app/core/steps/ValidationStep');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
+const featureToggle = require('app/utils/FeatureToggle');
 
 class EligibilityValidationStep extends ValidationStep {
 
@@ -44,37 +45,40 @@ class EligibilityValidationStep extends ValidationStep {
         eligibilityCookie.setCookie(req, res, nextStepUrl, fieldKey, fieldValue);
     }
 
-    previousQuestionsAnswered(req, ctx, fieldKey) {
-        let eligibilityQuestionsList;
+    previousQuestionsAnswered(req, ctx, currentScreener) {
 
-        if (Object.keys(config.eligibilityQuestionsProbate).includes(fieldKey)) {
-            eligibilityQuestionsList = config.eligibilityQuestionsProbate;
-        } else if (Object.keys(config.eligibilityQuestionsIntestacy).includes(fieldKey)) {
-            eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
-        } else if (Object.keys(config.eligibilityQuestionsProbateEnglishDeathCert).includes(fieldKey)) {
-            eligibilityQuestionsList = config.eligibilityQuestionsProbateEnglishDeathCert;
-        } else if (Object.keys(config.eligibilityQuestionsProbateTranslatedDeathCert).includes(fieldKey)) {
-            eligibilityQuestionsList = config.eligibilityQuestionsProbateTranslatedDeathCert;
+        const isIntestacyScreener = Object.keys(config.intestacyScreeners).includes(currentScreener);
+        let screenersList = isIntestacyScreener ? config.intestacyScreeners : config.probateScreeners;
+
+        //DTSPB-529 Change screeners list if new death cert FT enabled.
+        if (featureToggle.isEnabled(req.session.featureToggles, 'ft_new_deathcert_flow')) {
+            let deathCertificateNotInEnglish = false;
+
+            if (req.session.form.screeners) {
+                deathCertificateNotInEnglish = req.session.form.screeners.deathCertificateInEnglish ? req.session.form.screeners.deathCertificateInEnglish === 'optionNo' || currentScreener === 'deathCertificateTranslation' : false;
+            }
+
+            if (isIntestacyScreener) {
+                screenersList = deathCertificateNotInEnglish ? config.intestacyScreenersDeathCertificateNotInEnglish : config.intestacyScreenersDeathCertificateInEnglish;
+            } else {
+                screenersList = deathCertificateNotInEnglish ? config.probateScreenersDeathCertificateNotInEnglish : config.probateScreenersDeathCertificateInEnglish;
+            }
         }
 
-        if (eligibilityQuestionsList) {
-            let allPreviousEligibilityQuestionsAnswered = true;
+        let allPreviousEligibilityQuestionsAnswered = true;
 
-            for (const itemKey of Object.keys(eligibilityQuestionsList)) {
-                if (itemKey === fieldKey) {
-                    break;
-                }
-
-                if (!req.session.form.screeners || !req.session.form.screeners[itemKey] || req.session.form.screeners[itemKey] !== eligibilityQuestionsList[itemKey]) {
-                    allPreviousEligibilityQuestionsAnswered = false;
-                    break;
-                }
+        for (const itemKey of Object.keys(screenersList)) {
+            if (itemKey === currentScreener) {
+                break;
             }
 
-            if (!allPreviousEligibilityQuestionsAnswered) {
-                return false;
+            if (!req.session.form.screeners || !req.session.form.screeners[itemKey] || req.session.form.screeners[itemKey] !== screenersList[itemKey]) {
+                allPreviousEligibilityQuestionsAnswered = false;
+                break;
             }
-        } else {
+        }
+
+        if (!allPreviousEligibilityQuestionsAnswered) {
             return false;
         }
 

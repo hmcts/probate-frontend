@@ -62,6 +62,9 @@ describe('DeathCertificateTranslation', () => {
                             deathCertificate: 'optionYes',
                             deathCertificateInEnglish: 'optionNo'
                         }
+                    },
+                    featureToggles: {
+                        'ft_new_deathcert_flow': true
                     }
                 }
             };
@@ -82,6 +85,9 @@ describe('DeathCertificateTranslation', () => {
                             deathCertificate: 'optionYes',
                             deathCertificateInEnglish: 'optionNo'
                         }
+                    },
+                    featureToggles: {
+                        'ft_new_deathcert_flow': true
                     }
                 }
             };

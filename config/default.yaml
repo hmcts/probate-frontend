@@ -167,7 +167,7 @@ whitelistedPagesAfterSubmission: ['/documents', '/thank-you', '/check-answers-pd
 whitelistedPagesAfterPayment: ['/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
 whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/equality-and-diversity']
 blacklistedPagesBeforeDeclaration: ['/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
-eligibilityQuestionsProbate:
+probateScreeners:
   deathCertificate: 'optionYes'
   domicile: 'optionYes'
   completed: 'optionYes'
@@ -175,7 +175,7 @@ eligibilityQuestionsProbate:
   original: 'optionYes'
   executor: 'optionYes'
   mentalCapacity: 'optionYes'
-eligibilityQuestionsIntestacy:
+intestacyScreeners:
   deathCertificate: 'optionYes'
   domicile: 'optionYes'
   completed: 'optionYes'
@@ -183,7 +183,7 @@ eligibilityQuestionsIntestacy:
   diedAfter: 'optionYes'
   related: 'optionYes'
   otherApplicants: 'optionNo'
-eligibilityQuestionsProbateEnglishDeathCert:
+probateScreenersDeathCertificateInEnglish:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionYes'
   domicile: 'optionYes'
@@ -192,7 +192,7 @@ eligibilityQuestionsProbateEnglishDeathCert:
   original: 'optionYes'
   executor: 'optionYes'
   mentalCapacity: 'optionYes'
-eligibilityQuestionsProbateTranslatedDeathCert:
+probateScreenersDeathCertificateNotInEnglish:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionNo'
   deathCertificateTranslation: 'optionYes'
@@ -202,6 +202,25 @@ eligibilityQuestionsProbateTranslatedDeathCert:
   original: 'optionYes'
   executor: 'optionYes'
   mentalCapacity: 'optionYes'
+intestacyScreenersDeathCertificateInEnglish:
+  deathCertificate: 'optionYes'
+  deathCertificateInEnglish: 'optionYes'
+  domicile: 'optionYes'
+  completed: 'optionYes'
+  left: 'optionNo'
+  diedAfter: 'optionYes'
+  related: 'optionYes'
+  otherApplicants: 'optionNo'
+intestacyScreenersDeathCertificateNotInEnglish:
+  deathCertificate: 'optionYes'
+  deathCertificateInEnglish: 'optionNo'
+  deathCertificateTranslation: 'optionYes'
+  domicile: 'optionYes'
+  completed: 'optionYes'
+  left: 'optionNo'
+  diedAfter: 'optionYes'
+  related: 'optionYes'
+  otherApplicants: 'optionNo'
 hardStopParams:
   gop: []
   intestacy: []

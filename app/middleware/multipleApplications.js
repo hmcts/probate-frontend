@@ -6,6 +6,7 @@ const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const caseTypes = require('app/utils/CaseTypes');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const featureToggle = require('app/utils/FeatureToggle');
 
 const initDashboard = (req, res, next) => {
     const session = req.session;
@@ -19,7 +20,7 @@ const initDashboard = (req, res, next) => {
         .then(result => {
             if (result.applications && result.applications.length) {
                 logger.info('Retrieved Cases = ' + JSON.stringify(result.applications));
-                if (allEligibilityQuestionsPresent(formdata)) {
+                if (allEligibilityQuestionsPresent(formdata, req.session.featureToggles)) {
                     if (!result.applications.some(application => application.ccdCase.state === 'Pending' && !application.deceasedFullName && application.caseType === caseTypes.getProbateType(formdata.caseType))) {
                         createNewApplication(req, res, formdata, formData, result, next);
                     } else {
@@ -32,7 +33,7 @@ const initDashboard = (req, res, next) => {
                     delete formdata.screeners;
                     renderDashboard(req, result, next);
                 }
-            } else if (allEligibilityQuestionsPresent(formdata)) {
+            } else if (allEligibilityQuestionsPresent(formdata, req.session.featureToggles)) {
                 createNewApplication(req, res, formdata, formData, result, next);
             } else {
                 res.redirect('/start-eligibility');
@@ -58,17 +59,19 @@ const createNewApplication = (req, res, formdata, formData, result, next) => {
         });
 };
 
-const allEligibilityQuestionsPresent = (formdata) => {
+const allEligibilityQuestionsPresent = (formdata, featureToggles) => {
     let allQuestionsPresent = true;
 
     if (formdata.screeners && formdata.screeners.left) {
-        let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
-        if (formdata.screeners.left === 'optionNo') {
-            eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
-        } else if (formdata.screeners.deathCertificateInEnglish === 'optionYes') {
-            eligibilityQuestionsList = config.eligibilityQuestionsProbateEnglishDeathCert;
-        } else if (formdata.screeners.deathCertificateInEnglish === 'optionNo') {
-            eligibilityQuestionsList = config.eligibilityQuestionsProbateTranslatedDeathCert;
+        let eligibilityQuestionsList = formdata.screeners.left === 'optionNo' ? config.intestacyScreeners :config.probateScreeners;
+
+        //DTSPB-529 Change screeners list if new death cert FT enabled.
+        if (featureToggle.isEnabled(featureToggles, 'ft_new_deathcert_flow')) {
+            if (formdata.screeners.left === 'optionNo') {
+                eligibilityQuestionsList = formdata.screeners.deathCertificateInEnglish === 'optionYes' ? config.intestacyScreenersDeathCertificateInEnglish : config.intestacyScreenersDeathCertificateNotInEnglish;
+            } else {
+                eligibilityQuestionsList = formdata.screeners.deathCertificateInEnglish === 'optionYes' ? config.probateScreenersDeathCertificateInEnglish : config.probateScreenersDeathCertificateNotInEnglish;
+            }
         }
 
         Object.entries(eligibilityQuestionsList).forEach(([key, value]) => {

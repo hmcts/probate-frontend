@@ -25,13 +25,17 @@ After(() => {
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/in and survey link'), async (I) => {
 
-    // eslint-disable-next-line no-unused-vars
     const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
 
     // Eligibility Task (pre IdAM)
     I.startApplication();
 
     I.selectDeathCertificate(optionYes);
+
+    if (useNewDeathCertFlow) {
+        I.selectDeathCertificateInEnglish(optionNo);
+        I.selectDeathCertificateTranslation(optionYes);
+    }
 
     I.selectDeceasedDomicile(optionYes);
 

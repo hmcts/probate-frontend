@@ -1,11 +1,13 @@
 'use strict';
 
 const probateJourney = require('app/journeys/probate');
+const probateNewDeathCertJourney = require('app/journeys/probatenewdeathcertflow');
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DeathCertificate = steps.DeathCertificate;
 
+//DTSPB-529 Test file duplicated for new probate death cert flow.
 describe('DeathCertificate', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
@@ -64,6 +66,24 @@ describe('DeathCertificate', () => {
             };
             const nextStepUrl = DeathCertificate.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/deceased-domicile');
+            done();
+        });
+
+        //DTSPB-529 Test duplicated for new probate death cert flow.
+        it('should return the correct url when Yes is given', (done) => {
+            const req = {
+                session: {
+                    journey: probateNewDeathCertJourney
+                },
+                featureToggles: {
+                    'ft_new_deathcert_flow': true
+                }
+            };
+            const ctx = {
+                deathCertificate: 'optionYes'
+            };
+            const nextStepUrl = DeathCertificate.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/death-certificate-english');
             done();
         });
 

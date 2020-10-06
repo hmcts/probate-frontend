@@ -7,10 +7,10 @@ const probateNewJourney = require('app/journeys/probatenewdeathcertflow');
 
 describe('deceased-address-new', () => {
     let testWrapper;
-    const ftValue = {ft_new_deathcert_flow: true};
     const expectedNextUrlForDomicileEnglandOrWales = DomicileEnglandOrWales.getUrl();
 
     beforeEach(() => {
+        let ftValue;
         testWrapper = new TestWrapper('DeceasedAddress', ftValue, probateNewJourney);
     });
 

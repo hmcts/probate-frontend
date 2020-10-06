@@ -53,7 +53,11 @@ describe('deceased-address-new', () => {
                 newPostCode: 'value'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForDomicileEnglandOrWales);
+            testWrapper.agent.post('/prepare-session/featureToggles')
+                .send(ftValue)
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDomicileEnglandOrWales);
+                });
         });
     });
 });

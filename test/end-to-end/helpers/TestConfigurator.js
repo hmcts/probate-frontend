@@ -81,15 +81,7 @@ class TestConfigurator {
     }
 
     getAfter() {
-        // if (this.useIdam === 'true') {
-        //     request({
-        //             url: this.getTestDeleteUserURL() + process.env.testCitizenEmail,
-        //             method: 'DELETE'
-        //         }
-        //     );
-
-        //     this.resetEnvVars();
-        // }
+        this.launchDarkly.close();
     }
 
     setTestCitizenName() {

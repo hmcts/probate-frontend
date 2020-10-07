@@ -4,7 +4,8 @@ const config = require('config');
 const ValidationStep = require('app/core/steps/ValidationStep');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
-const featureToggle = require('app/utils/FeatureToggle');
+const ScreenerValidation = require('app/utils/ScreenerValidation');
+const screenerValidation = new ScreenerValidation();
 
 class EligibilityValidationStep extends ValidationStep {
 
@@ -47,23 +48,8 @@ class EligibilityValidationStep extends ValidationStep {
 
     previousQuestionsAnswered(req, ctx, currentScreener) {
 
-        const isIntestacyScreener = Object.keys(config.intestacyScreeners).includes(currentScreener);
-        let screenersList = isIntestacyScreener ? config.intestacyScreeners : config.probateScreeners;
-
-        //DTSPB-529 Change screeners list if new death cert FT enabled.
-        if (featureToggle.isEnabled(req.session.featureToggles, 'ft_new_deathcert_flow')) {
-            let deathCertificateNotInEnglish = false;
-
-            if (req.session.form.screeners) {
-                deathCertificateNotInEnglish = req.session.form.screeners.deathCertificateInEnglish ? req.session.form.screeners.deathCertificateInEnglish === 'optionNo' || currentScreener === 'deathCertificateTranslation' : false;
-            }
-
-            if (isIntestacyScreener) {
-                screenersList = deathCertificateNotInEnglish ? config.intestacyScreenersDeathCertificateNotInEnglish : config.intestacyScreenersDeathCertificateInEnglish;
-            } else {
-                screenersList = deathCertificateNotInEnglish ? config.probateScreenersDeathCertificateNotInEnglish : config.probateScreenersDeathCertificateInEnglish;
-            }
-        }
+        const journeyType = Object.keys(config.intestacyScreeners).includes(currentScreener) ? 'intestacy' : 'probate';
+        const screenersList = screenerValidation.getScreeners(journeyType, req.session.form, req.session.featureToggles);
 
         let allPreviousEligibilityQuestionsAnswered = true;
 

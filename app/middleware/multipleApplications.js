@@ -6,7 +6,8 @@ const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const caseTypes = require('app/utils/CaseTypes');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const featureToggle = require('app/utils/FeatureToggle');
+const ScreenerValidation = require('app/utils/ScreenerValidation');
+const screenerValidation = new ScreenerValidation();
 
 const initDashboard = (req, res, next) => {
     const session = req.session;
@@ -63,16 +64,8 @@ const allEligibilityQuestionsPresent = (formdata, featureToggles) => {
     let allQuestionsPresent = true;
 
     if (formdata.screeners && formdata.screeners.left) {
-        let eligibilityQuestionsList = formdata.screeners.left === 'optionNo' ? config.intestacyScreeners :config.probateScreeners;
-
-        //DTSPB-529 Change screeners list if new death cert FT enabled.
-        if (featureToggle.isEnabled(featureToggles, 'ft_new_deathcert_flow')) {
-            if (formdata.screeners.left === 'optionNo') {
-                eligibilityQuestionsList = formdata.screeners.deathCertificateInEnglish === 'optionYes' ? config.intestacyScreenersDeathCertificateInEnglish : config.intestacyScreenersDeathCertificateNotInEnglish;
-            } else {
-                eligibilityQuestionsList = formdata.screeners.deathCertificateInEnglish === 'optionYes' ? config.probateScreenersDeathCertificateInEnglish : config.probateScreenersDeathCertificateNotInEnglish;
-            }
-        }
+        const journeyType = formdata.screeners.left === 'optionNo' ? 'intestacy' : 'probate';
+        const eligibilityQuestionsList = screenerValidation.getScreeners(journeyType, formdata, featureToggles);
 
         Object.entries(eligibilityQuestionsList).forEach(([key, value]) => {
             if (!Object.keys(formdata.screeners).includes(key) || formdata.screeners[key] !== value) {

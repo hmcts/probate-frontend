@@ -7,12 +7,12 @@ const IhtMethod = require('app/steps/ui/iht/method');
 const probateNewJourney = require('app/journeys/probatenewdeathcertflow');
 
 describe('deceased-domicile', () => {
+    const ftValue = {ft_new_deathcert_flow: true};
     let testWrapper;
     const expectedNextUrlForDeathCertificateInterim = DeathCertificateInterim.getUrl();
     const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
 
     beforeEach(() => {
-        let ftValue;
         testWrapper = new TestWrapper('DomicileEnglandOrWales', ftValue, probateNewJourney);
     });
 
@@ -54,7 +54,11 @@ describe('deceased-domicile', () => {
                 domicile: 'optionYes'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeathCertificateInterim);
+            testWrapper.agent.post('/prepare-session/featureToggles')
+                .send(ftValue)
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeathCertificateInterim);
+                });
         });
 
         it(`test it redirects to iht method page: ${expectedNextUrlForIhtMethod}`, (done) => {
@@ -62,7 +66,8 @@ describe('deceased-domicile', () => {
                 domicile: 'optionNo'
             };
 
-            testWrapper.agent.post('/prepare-session/form')
+            testWrapper.agent.post('/prepare-session/featureToggles')
+                .send(ftValue)
                 .end(() => {
                     testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
                 });

@@ -4,13 +4,14 @@ const TestWrapper = require('test/util/TestWrapper');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const IhtMethod = require('app/steps/ui/iht/method');
 const probateNewJourney = require('app/journeys/probatenewdeathcertflow');
+const config = require('config');
 
 describe('death-certificate-interim', () => {
+    const ftValue = {ft_new_deathcert_flow: true};
     let testWrapper;
     const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
 
     beforeEach(() => {
-        let ftValue;
         testWrapper = new TestWrapper('DeathCertificateInterim', ftValue, probateNewJourney);
     });
 
@@ -26,20 +27,15 @@ describe('death-certificate-interim', () => {
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456
-                },
-                deceased: {
-                    firstName: 'John',
-                    lastName: 'Doe'
                 }
             };
-            const contentToExclude = ['theDeceased'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const contentData = {deceasedName: 'John Doe'};
+                    const contentData = {deathReportedToCoroner: config.links.deathReportedToCoroner};
 
-                    testWrapper.testContent(done, contentData, contentToExclude);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
@@ -52,7 +48,11 @@ describe('death-certificate-interim', () => {
                 deathCertificate: 'optionDeathCertificate'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+            testWrapper.agent.post('/prepare-session/featureToggles')
+                .send(ftValue)
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+                });
         });
 
         it(`test it redirects to iht method page for option interim certificate: ${expectedNextUrlForIhtMethod}`, (done) => {
@@ -60,7 +60,8 @@ describe('death-certificate-interim', () => {
                 deathCertificate: 'optionInterimCertificate'
             };
 
-            testWrapper.agent.post('/prepare-session/form')
+            testWrapper.agent.post('/prepare-session/featureToggles')
+                .send(ftValue)
                 .end(() => {
                     testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
                 });

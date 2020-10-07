@@ -10,7 +10,6 @@ class ScreenerValidation {
     }
 
     getScreeners(journeyType, formdata, ftValues) {
-
         //DTSPB-529 Change screeners list if new death cert FT enabled.
         if (this.getNewDeathCertFeatureEnabled(ftValues) && formdata.screeners) {
             const deathCertificateNotInEnglish = formdata.screeners.deathCertificateInEnglish ? formdata.screeners.deathCertificateInEnglish === 'optionNo' : false;

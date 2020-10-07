@@ -60,6 +60,18 @@ const allApplicationsExpectedResponse = {
     ]
 };
 
+const probateScreeners = {
+    deathCertificate: 'optionYes',
+    deathCertificateInEnglish: 'optionNo',
+    deathCertificateTranslation: 'optionYes',
+    domicile: 'optionYes',
+    completed: 'optionYes',
+    left: 'optionYes',
+    original: 'optionYes',
+    executor: 'optionYes',
+    mentalCapacity: 'optionYes'
+};
+
 describe('multipleApplicationsMiddleware', () => {
     describe('InitDashboardMiddleware', () => {
         it('should redirect to Start Eligibility if no applications found', (done) => {
@@ -147,9 +159,9 @@ describe('multipleApplicationsMiddleware', () => {
                     req.session.form.applications = allApplicationsExpectedResponse.applications;
                     return Promise.resolve();
                 },
-                featureToggle: class {
-                    static isEnabled() {
-                        return true;
+                ScreenerValidation: class {
+                    getScreeners() {
+                        return probateScreeners;
                     }
                 }
             });
@@ -208,9 +220,9 @@ describe('multipleApplicationsMiddleware', () => {
                     req.session.form.applications = allApplicationsExpectedResponse.applications;
                     return Promise.resolve();
                 },
-                featureToggle: class {
-                    static isEnabled() {
-                        return true;
+                ScreenerValidation: class {
+                    getScreeners() {
+                        return probateScreeners;
                     }
                 }
             });
@@ -274,9 +286,9 @@ describe('multipleApplicationsMiddleware', () => {
                     ];
                     return Promise.resolve();
                 },
-                featureToggle: class {
-                    static isEnabled() {
-                        return true;
+                ScreenerValidation: class {
+                    getScreeners() {
+                        return probateScreeners;
                     }
                 }
             });
@@ -346,9 +358,9 @@ describe('multipleApplicationsMiddleware', () => {
                     req.session.form.applications = allApplicationsExpectedResponse.applications;
                     return Promise.resolve();
                 },
-                featureToggle: class {
-                    static isEnabled() {
-                        return true;
+                ScreenerValidation: class {
+                    getScreeners() {
+                        return probateScreeners;
                     }
                 }
             });
@@ -407,9 +419,9 @@ describe('multipleApplicationsMiddleware', () => {
                     req.session.form.applications = allApplicationsExpectedResponse.applications;
                     return Promise.resolve();
                 },
-                featureToggle: class {
-                    static isEnabled() {
-                        return true;
+                ScreenerValidation: class {
+                    getScreeners() {
+                        return probateScreeners;
                     }
                 }
             });

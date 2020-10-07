@@ -13,7 +13,7 @@
         }
     }) %}
         <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
-        <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+        <p class="govuk-body">{{ content.paragraph2 | replace("{deathReportedToCoroner}", globals.links.deathReportedToCoroner) | safe }}</p>
 
         {{ govukRadios({
             classes: "govuk-radios--inline",

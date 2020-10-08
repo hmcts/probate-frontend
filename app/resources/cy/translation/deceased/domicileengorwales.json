@@ -6,7 +6,7 @@
   "theDeceased": "the deceased",
 
   "errors": {
-    "deceasedDomicile": {
+    "domicile": {
       "required": "Answer &lsquo;yes&rsquo; if the person who died lived in England or Wales or intended to return here"
     }
   }

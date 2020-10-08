@@ -7,7 +7,7 @@ module.exports = function(answer) {
     const I = this;
 
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(`#deceasedDomicile${answer}`);
+    I.click(`#domicile${answer}`);
 
     I.navByClick(commonContent.saveAndContinue);
 

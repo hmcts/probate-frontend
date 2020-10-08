@@ -19,7 +19,7 @@ describe('DeathCertificateInterim', () => {
             const result = DeathCertificateInterim.nextStepOptions();
             expect(result).to.deep.equal({
                 options: [{
-                    key: 'deceasedDeathCertificate',
+                    key: 'deathCertificate',
                     value: 'optionDeathCertificate',
                     choice: 'hasCertificate'
                 }]

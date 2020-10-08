@@ -1,6 +1,6 @@
 'use strict';
 
-const probateJourney = require('app/journeys/probate');
+const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
@@ -56,7 +56,7 @@ describe('DeathCertificate', () => {
         it('should return the correct url when Yes is given', (done) => {
             const req = {
                 session: {
-                    journey: probateJourney
+                    journey: journey
                 }
             };
             const ctx = {
@@ -70,7 +70,7 @@ describe('DeathCertificate', () => {
         it('should return the correct url when No is given', (done) => {
             const req = {
                 session: {
-                    journey: probateJourney
+                    journey: journey
                 }
             };
             const ctx = {

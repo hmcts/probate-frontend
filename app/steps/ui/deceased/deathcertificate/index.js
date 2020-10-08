@@ -12,7 +12,7 @@ class DeathCertificateInterim extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'deathCertificate', value: 'optionDeathCertificate', choice: 'hasCertificate'}
+                {key: 'deceasedDeathCertificate', value: 'optionDeathCertificate', choice: 'hasCertificate'}
             ]
         };
     }

@@ -7,7 +7,7 @@
   "paragraph2": "An <a target=\"_blank\" rel=\"external noopener\" href=\"{deathReportedToCoroner}\" class=\"govuk-link\" aria-label=\"interim death certificate (opens in a new window)\">interim death certificate (opens in a new window)</a> is only issued by the coroner if there is an inquest to find out the cause of death.",
 
   "errors": {
-    "deathCertificate": {
+    "deceasedDeathCertificate": {
       "required": "Answer &lsquo;Interim death certificate&rsquo; if there is an inquest to find out the cause of death of the deceased."
     }
   }

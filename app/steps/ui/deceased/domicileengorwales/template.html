@@ -6,8 +6,8 @@
 {% block form_content %}
     {{ govukRadios({
         classes: "govuk-radios--inline",
-        idPrefix: "domicile",
-        name: "domicile",
+        idPrefix: "deceasedDomicile",
+        name: "deceasedDomicile",
         fieldset: {
             legend: {
                 text: content.question | replace("{deceasedName}", fields.deceasedName.value ) | safe,
@@ -15,17 +15,17 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.domicile.errorMessage | safe } if fields.domicile.errorMessage,
+        errorMessage: { text: fields.deceasedDomicile.errorMessage | safe } if fields.deceasedDomicile.errorMessage,
         items: [
             {
                 value: "optionYes",
                 text: content["optionYes"] | safe,
-                checked: true if fields.domicile.value == "optionYes"
+                checked: true if fields.deceasedDomicile.value == "optionYes"
             },
             {
                 value: "optionNo",
                 text: content["optionNo"] | safe,
-                checked: true if fields.domicile.value == "optionNo"
+                checked: true if fields.deceasedDomicile.value == "optionNo"
             }
         ]
     }) }}

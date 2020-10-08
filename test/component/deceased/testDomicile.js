@@ -51,7 +51,7 @@ describe('deceased-domicile', () => {
 
         it(`test it redirects to death certificate interim page: ${expectedNextUrlForDeathCertificateInterim}`, (done) => {
             const data = {
-                domicile: 'optionYes'
+                deceasedDomicile: 'optionYes'
             };
 
             testWrapper.agent.post('/prepare-session/featureToggles')
@@ -63,7 +63,7 @@ describe('deceased-domicile', () => {
 
         it(`test it redirects to iht method page: ${expectedNextUrlForIhtMethod}`, (done) => {
             const data = {
-                domicile: 'optionNo'
+                deceasedDomicile: 'optionNo'
             };
 
             testWrapper.agent.post('/prepare-session/featureToggles')

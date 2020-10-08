@@ -19,7 +19,7 @@ describe('DomicileEnglandOrWales', () => {
             const result = DomicileEnglandOrWales.nextStepOptions();
             expect(result).to.deep.equal({
                 options: [{
-                    key: 'domicile',
+                    key: 'deceasedDomicile',
                     value: 'optionYes',
                     choice: 'isDomicile'
                 }]

@@ -45,7 +45,7 @@ describe('death-certificate-interim', () => {
 
         it(`test it redirects to iht method page for option death certificate: ${expectedNextUrlForIhtMethod}`, (done) => {
             const data = {
-                deathCertificate: 'optionDeathCertificate'
+                deceasedDeathCertificate: 'optionDeathCertificate'
             };
 
             testWrapper.agent.post('/prepare-session/featureToggles')
@@ -57,7 +57,7 @@ describe('death-certificate-interim', () => {
 
         it(`test it redirects to iht method page for option interim certificate: ${expectedNextUrlForIhtMethod}`, (done) => {
             const data = {
-                deathCertificate: 'optionInterimCertificate'
+                deceasedDeathCertificate: 'optionInterimCertificate'
             };
 
             testWrapper.agent.post('/prepare-session/featureToggles')

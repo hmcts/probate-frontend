@@ -20,7 +20,7 @@ class DomicileEnglandOrWales extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'domicile', value: 'optionYes', choice: 'isDomicile'}
+                {key: 'deceasedDomicile', value: 'optionYes', choice: 'isDomicile'}
             ]
         };
     }

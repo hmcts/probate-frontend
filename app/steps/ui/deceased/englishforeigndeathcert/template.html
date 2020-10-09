@@ -1,0 +1,39 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block form_content %}
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "englishForeignDeathCert",
+        name: "englishForeignDeathCert",
+        fieldset: {
+            legend: {
+            text: content.question | safe,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: { text: fields.englishForeignDeathCert.errorMessage | safe } if fields.deceasedDomicile.errorMessage,
+        items: [
+            {
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.englishForeignDeathCert.value == "optionYes"
+            },
+            {
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.englishForeignDeathCert.value == "optionNo"
+            }
+        ]
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

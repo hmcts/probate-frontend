@@ -12,7 +12,7 @@ class EnglishForeignDeathCertificate extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'englishForeignDeathCert', value: 'optionYes', choice: 'isForeignDeathCertInEnglish'}
+                {key: 'englishForeignDeathCert', value: 'optionYes', choice: 'foreignDeathCertIsInEnglish'}
             ]
         };
     }

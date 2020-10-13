@@ -2,9 +2,9 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
-const pageUrl = '/domicile-eng-or-wales';
+const pageUrl = '/died-eng-or-wales';
 
-class DomicileEnglandOrWales extends ValidationStep {
+class DiedEnglandOrWales extends ValidationStep {
 
     static getUrl() {
         return pageUrl;
@@ -20,7 +20,7 @@ class DomicileEnglandOrWales extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'domicile', value: 'optionYes', choice: 'isDomicile'}
+                {key: 'diedEngOrWales', value: 'optionYes', choice: 'hasDiedEngOrWales'}
             ]
         };
     }
@@ -33,4 +33,4 @@ class DomicileEnglandOrWales extends ValidationStep {
     }
 }
 
-module.exports = DomicileEnglandOrWales;
+module.exports = DiedEnglandOrWales;

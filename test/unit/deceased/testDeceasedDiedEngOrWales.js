@@ -3,25 +3,25 @@
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-const DomicileEnglandOrWales = steps.DomicileEnglandOrWales;
+const DiedEnglandOrWales = steps.DiedEnglandOrWales;
 
-describe('DomicileEnglandOrWales', () => {
+describe('DiedEnglandOrWales', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = DomicileEnglandOrWales.constructor.getUrl();
-            expect(url).to.equal('/domicile-eng-or-wales');
+            const url = DiedEnglandOrWales.constructor.getUrl();
+            expect(url).to.equal('/died-eng-or-wales');
             done();
         });
     });
 
     describe('nextStepOptions()', () => {
         it('should return the correct next step options', (done) => {
-            const result = DomicileEnglandOrWales.nextStepOptions();
+            const result = DiedEnglandOrWales.nextStepOptions();
             expect(result).to.deep.equal({
                 options: [{
-                    key: 'domicile',
+                    key: 'diedEngOrWales',
                     value: 'optionYes',
-                    choice: 'isDomicile'
+                    choice: 'hasDiedEngOrWales'
                 }]
             });
             done();
@@ -44,7 +44,7 @@ describe('DomicileEnglandOrWales', () => {
                 }
             };
 
-            ctx = DomicileEnglandOrWales.getContextData(req);
+            ctx = DiedEnglandOrWales.getContextData(req);
             expect(ctx.deceasedName).to.equal('John Doe');
             done();
         });
@@ -61,7 +61,7 @@ describe('DomicileEnglandOrWales', () => {
             let ctx = {
                 deceasedName: 'Dee Ceased',
             };
-            [ctx] = DomicileEnglandOrWales.action(ctx, formdata);
+            [ctx] = DiedEnglandOrWales.action(ctx, formdata);
             expect(ctx).to.deep.equal({});
         });
     });

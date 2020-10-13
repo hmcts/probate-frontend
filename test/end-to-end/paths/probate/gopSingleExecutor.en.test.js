@@ -79,7 +79,7 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/i
     I.enterDeceasedAddress();
 
     if (useNewDeathCertFlow) {
-        I.selectDomicileEngOrWales(optionYes);
+        I.selectDiedEngOrWales(optionYes);
         I.selectDeathCertificateInterim(optionDeathCertificate);
     }
 

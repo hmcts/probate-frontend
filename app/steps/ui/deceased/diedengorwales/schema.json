@@ -1,14 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "domicile-eng-or-wales",
+  "id": "died-eng-or-wales",
   "type": "object",
   "properties": {
-    "domicile": {
+    "diedEngOrWales": {
       "type": "string",
       "minLength": 1
     }
   },
   "required": [
-    "domicile"
+    "diedEngOrWales"
   ]
 }

@@ -39,7 +39,7 @@ module.exports = () => {
         enterDeceasedDateOfBirth: steps.deceased.dob,
         enterDeceasedDateOfDeath: steps.deceased.dod,
         enterDeceasedAddress: steps.deceased.address,
-        selectDomicileEngOrWales: steps.deceased.domicile,
+        selectDiedEngOrWales: steps.deceased.diedEngOrWales,
         selectDeathCertificateInterim: steps.deceased.deathcertificate,
         selectDocumentsToUpload: steps.documentupload.documentupload,
         selectInheritanceMethod: steps.iht.method,

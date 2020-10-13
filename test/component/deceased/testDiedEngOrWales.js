@@ -13,7 +13,7 @@ describe('deceased-domicile', () => {
     const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('DomicileEnglandOrWales', ftValue, probateNewJourney);
+        testWrapper = new TestWrapper('DiedEnglandOrWales', ftValue, probateNewJourney);
     });
 
     afterEach(() => {
@@ -21,7 +21,7 @@ describe('deceased-domicile', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('DomicileEnglandOrWales');
+        testCommonContent.runTest('DiedEnglandOrWales');
 
         it('test right content loaded on the page', (done) => {
             const sessionData = {
@@ -51,7 +51,7 @@ describe('deceased-domicile', () => {
 
         it(`test it redirects to death certificate interim page: ${expectedNextUrlForDeathCertificateInterim}`, (done) => {
             const data = {
-                domicile: 'optionYes'
+                diedEngOrWales: 'optionYes'
             };
 
             testWrapper.agent.post('/prepare-session/featureToggles')
@@ -63,7 +63,7 @@ describe('deceased-domicile', () => {
 
         it(`test it redirects to iht method page: ${expectedNextUrlForIhtMethod}`, (done) => {
             const data = {
-                domicile: 'optionNo'
+                diedEngOrWales: 'optionNo'
             };
 
             testWrapper.agent.post('/prepare-session/featureToggles')

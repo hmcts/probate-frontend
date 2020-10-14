@@ -41,6 +41,8 @@ module.exports = () => {
         enterDeceasedAddress: steps.deceased.address,
         selectDiedEngOrWales: steps.deceased.diedEngOrWales,
         selectDeathCertificateInterim: steps.deceased.deathcertificate,
+        selectEnglishForeignDeathCert: steps.deceased.englishforeigndeathcert,
+        selectForeignDeathCertTranslation: steps.deceased.foreigndeathcerttranslation,
         selectDocumentsToUpload: steps.documentupload.documentupload,
         selectInheritanceMethod: steps.iht.method,
         enterGrossAndNet: steps.iht.paper,

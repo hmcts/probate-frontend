@@ -3,11 +3,11 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const pageUrl = '/foreign-death-cert-translation';
 
-class foreignDeathCertTranslation extends ValidationStep {
+class ForeignDeathCertTranslation extends ValidationStep {
 
     static getUrl() {
         return pageUrl;
     }
 }
 
-module.exports = foreignDeathCertTranslation;
+module.exports = ForeignDeathCertTranslation;

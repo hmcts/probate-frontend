@@ -16,6 +16,16 @@ class EnglishForeignDeathCertificate extends ValidationStep {
             ]
         };
     }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+
+        if (ctx.englishForeignDeathCert === 'optionYes') {
+            ctx.foreignDeathCertTranslation = {};
+        }
+
+        return [ctx, formdata];
+    }
 }
 
 module.exports = EnglishForeignDeathCertificate;

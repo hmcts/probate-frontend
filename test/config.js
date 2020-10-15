@@ -95,9 +95,9 @@ module.exports = {
         enabled: true,
         launchDarklyKey: process.env.TEST_LAUNCH_DARKLY_KEY || 'SDK_KEY',
         launchDarklyUser: {
-            firstName: 'Megan',
-            lastName: 'Slattery',
-            key: 'megan.slattery@hmcts.net'
+            firstName: 'Probate',
+            lastName: 'Frontend',
+            key: '35222af3-7867-44ea-a2a0-f8e533ad12de'
         },
         ft_new_deathcert_flow: 'probate-new-deathcert-flow'
     }

@@ -2,7 +2,7 @@
   "title": "Is the English translation included in the foreign death certificate?",
   "question": "Is the English translation included in the foreign death certificate?",
   "optionYes": "Yes",
-  "optionNo": "No",
+  "optionNo": "No, it has been translated separately",
 
   "errors": {
     "foreignDeathCertTranslation": {

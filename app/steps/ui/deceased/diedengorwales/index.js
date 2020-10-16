@@ -29,6 +29,10 @@ class DiedEnglandOrWales extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.deceasedName;
 
+        if (ctx.diedEngOrWales === 'optionNo') {
+            ctx.deathCertificate = {};
+        }
+
         return [ctx, formdata];
     }
 }

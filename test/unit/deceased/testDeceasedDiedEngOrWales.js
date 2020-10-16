@@ -64,5 +64,16 @@ describe('DiedEnglandOrWales', () => {
             [ctx] = DiedEnglandOrWales.action(ctx, formdata);
             expect(ctx).to.deep.equal({});
         });
+
+        it('test that death certificate is removed from context', () => {
+            const formdata = {};
+            let ctx = {
+                diedEngOrWales: 'optionNo',
+                deathCertificate: 'optionDeathCertificate'
+            };
+            [ctx] = DiedEnglandOrWales.action(ctx, formdata);
+            expect(ctx).to.deep.equal({diedEngOrWales: 'optionNo', deathCertificate: {}});
+        });
     });
+
 });

@@ -72,12 +72,17 @@ const stepList = {
     DeceasedAddress: 'DiedEnglandOrWales',
     DiedEnglandOrWales: {
         hasDiedEngOrWales: 'DeathCertificateInterim',
-        otherwise: 'IhtMethod'
+        otherwise: 'EnglishForeignDeathCert'
     },
     DeathCertificateInterim: {
         hasCertificate: 'IhtMethod',
         otherwise: 'IhtMethod'
     },
+    EnglishForeignDeathCert: {
+        ForeignDeathCertIsInEnglish: 'IhtMethod',
+        otherwise: 'foreignDeathCertTranslation'
+    },
+    ForeignDeathCertTranslation: 'IhtMethod',
     IhtMethod: {
         online: 'IhtIdentifier',
         otherwise: 'IhtPaper'

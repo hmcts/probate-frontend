@@ -1,13 +1,13 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DocumentUpload = require('app/steps/ui/documentupload');
+const IhtMethod = require('app/steps/ui/iht/method');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('foreign-death-cert-translation', () => {
     let testWrapper;
     const ftValue = {ft_new_deathcert_flow: true};
-    const expectedNextUrlForDocumentUpload = DocumentUpload.getUrl();
+    const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ForeignDeathCertTranslation');
@@ -39,7 +39,7 @@ describe('foreign-death-cert-translation', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to document uploads page: ${expectedNextUrlForDocumentUpload}`, (done) => {
+        it(`test it redirects to document uploads page: ${expectedNextUrlForIhtMethod}`, (done) => {
             const data = {
                 foreignDeathCertTranslation: 'optionYes'
             };
@@ -47,7 +47,7 @@ describe('foreign-death-cert-translation', () => {
             testWrapper.agent.post('/prepare-session/featureToggles')
                 .send(ftValue)
                 .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDocumentUpload);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
                 });
         });
     });

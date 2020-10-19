@@ -5,7 +5,6 @@ const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'
 const optionYes = '';
 const ihtPost = '';
 const optionNo = '-2';
-const optionDeathCertificate = '';
 const bilingualGOP = false;
 const uploadingDocuments = false;
 const config = require('test/config');
@@ -79,20 +78,13 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/i
     I.enterDeceasedAddress();
 
     if (useNewDeathCertFlow) {
-        I.selectDiedEngOrWales(optionYes);
-        I.selectDeathCertificateInterim(optionDeathCertificate);
-    }
-
-    if (!useNewDeathCertFlow) {
+        I.selectDiedEngOrWales(optionNo);
+        I.selectEnglishForeignDeathCert(optionNo);
+        I.selectForeignDeathCertTranslation(optionYes);
+    } else {
         I.selectDocumentsToUpload(uploadingDocuments);
     }
 
-    if (useNewDeathCertFlow) {
-        I.selectEnglishForeignDeathCert(optionNo);
-        I.selectForeignDeathCertTranslation(optionYes);
-    }
-
-    I.selectDocumentsToUpload(uploadingDocuments);
     I.selectInheritanceMethod(ihtPost);
 
     if (TestConfigurator.getUseGovPay() === 'true') {

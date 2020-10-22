@@ -27,20 +27,4 @@ describe('EnglishForeignDeathCert', () => {
             done();
         });
     });
-
-    describe('action()', () => {
-        it('removes the foreignDeathCertTranslation value from the context when there is an english foreign death cert', (done) => {
-            let formdata = {};
-            let ctx = {
-                englishForeignDeathCert: 'optionYes',
-                foreignDeathCertTranslation: 'optionNo'
-            };
-            [ctx, formdata] = EnglishForeignDeathCert.action(ctx, formdata);
-            expect(ctx).to.deep.equal({
-                englishForeignDeathCert: 'optionYes',
-                foreignDeathCertTranslation: {}
-            });
-            done();
-        });
-    });
 });

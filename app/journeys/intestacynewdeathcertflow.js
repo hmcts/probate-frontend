@@ -80,7 +80,7 @@ const stepList = {
     },
     EnglishForeignDeathCert: {
         ForeignDeathCertIsInEnglish: 'IhtMethod',
-        otherwise: 'foreignDeathCertTranslation'
+        otherwise: 'ForeignDeathCertTranslation'
     },
     ForeignDeathCertTranslation: 'IhtMethod',
     IhtMethod: {

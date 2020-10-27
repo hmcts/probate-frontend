@@ -39,7 +39,7 @@ module.exports = () => {
         enterDeceasedDateOfBirth: steps.deceased.dob,
         enterDeceasedDateOfDeath: steps.deceased.dod,
         enterDeceasedAddress: steps.deceased.address,
-        selectDiedEngOrWales: steps.deceased.diedEngOrWales,
+        selectDiedEngOrWales: steps.deceased.diedengorwales,
         selectDeathCertificateInterim: steps.deceased.deathcertificate,
         selectEnglishForeignDeathCert: steps.deceased.englishforeigndeathcert,
         selectForeignDeathCertTranslation: steps.deceased.foreigndeathcerttranslation,

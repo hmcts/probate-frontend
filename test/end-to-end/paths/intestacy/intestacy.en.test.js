@@ -13,6 +13,7 @@ const relationshipChildOfDeceased = '-2';
 const optionRenouncing = '';
 const bilingualGOP = false;
 const uploadingDocuments = false;
+const config = require('test/config');
 
 Feature('Grant Of Probate Intestacy E2E Tests...');
 
@@ -29,13 +30,20 @@ After(() => {
 });
 
 // eslint-disable-next-line no-undef
-Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital iht'), function (I) {
+Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital iht'), async(I) => {
+    const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
 
     // Eligibility Task (pre IdAM)
     I.startApplication();
 
     // Probate Sceeners
     I.selectDeathCertificate(optionYes);
+
+    if (useNewDeathCertFlow) {
+        I.selectDeathCertificateInEnglish(optionNo);
+        I.selectDeathCertificateTranslation(optionYes);
+    }
+
     I.selectDeceasedDomicile(optionYes);
     I.selectIhtCompleted(optionYes);
     I.selectPersonWhoDiedLeftAWill(optionNo);
@@ -58,7 +66,15 @@ Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital
     I.chooseBiLingualGrant(optionNo);
     I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
     I.enterDeceasedAddress();
-    I.selectDocumentsToUpload(uploadingDocuments);
+
+    if (useNewDeathCertFlow) {
+        I.selectDiedEngOrWales(optionNo);
+        I.selectEnglishForeignDeathCert(optionNo);
+        I.selectForeignDeathCertTranslation(optionYes);
+    } else {
+        I.selectDocumentsToUpload(uploadingDocuments);
+    }
+
     I.selectInheritanceMethod(ihtOnline);
     I.enterIHTIdentifier();
 
@@ -119,12 +135,21 @@ Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital
 }).retry(TestConfigurator.getRetryScenarios());
 
 // eslint-disable-next-line no-undef
-Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Child Journey - Paper iht, no death certificate uploaded and spouse renouncing'), function (I) {
+Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Child Journey - Paper iht, no death certificate uploaded and spouse renouncing'), async (I) => {
+
+    const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
+
     // Eligibility Task (pre IdAM)
     I.startApplication();
 
     // Probate Sceeners
     I.selectDeathCertificate(optionYes);
+
+    if (useNewDeathCertFlow) {
+        I.selectDeathCertificateInEnglish(optionNo);
+        I.selectDeathCertificateTranslation(optionYes);
+    }
+
     I.selectDeceasedDomicile(optionYes);
     I.selectIhtCompleted(optionYes);
     I.selectPersonWhoDiedLeftAWill(optionNo);
@@ -147,7 +172,15 @@ Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Child Journey - Paper ih
     I.chooseBiLingualGrant(optionNo);
     I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
     I.enterDeceasedAddress();
-    I.selectDocumentsToUpload(uploadingDocuments);
+
+    if (useNewDeathCertFlow) {
+        I.selectDiedEngOrWales(optionNo);
+        I.selectEnglishForeignDeathCert(optionNo);
+        I.selectForeignDeathCertTranslation(optionYes);
+    } else {
+        I.selectDocumentsToUpload(uploadingDocuments);
+    }
+
     I.selectInheritanceMethod(ihtPost);
     if (TestConfigurator.getUseGovPay() === 'true') {
         I.enterGrossAndNet('205', '600000', '300000');

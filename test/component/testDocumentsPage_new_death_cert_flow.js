@@ -8,7 +8,8 @@ const caseTypes = require('app/utils/CaseTypes');
 const ThankYou = require('app/steps/ui/thankyou');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 
-describe('documents', () => {
+//DTSPB-529 Test file duplicated for new probate death cert flow.
+describe('documents-new', () => {
     let testWrapper;
     const expectedNextUrlForThankYouPage = ThankYou.getUrl();
     let sessionData;

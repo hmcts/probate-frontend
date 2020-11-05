@@ -148,6 +148,58 @@
 {{checkanswer(
     items = [
         {
+            question: fields.summary.diedEnglandOrWalesQuestion.value,
+            answer: content.DiedEnglandOrWales[fields.deceased.diedEngOrWales.value],
+            visible: fields.deceased.diedEngOrWales.value
+        }
+    ],
+    url = content.DiedEnglandOrWales.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.DeathCertificateInterim.question,
+            answer: content.DeathCertificateInterim[fields.deceased.deathCertificate.value],
+            visible: fields.deceased.deathCertificate.value
+        }
+    ],
+    url = content.DeathCertificateInterim.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.EnglishForeignDeathCert.question,
+            answer: content.EnglishForeignDeathCert[fields.deceased.englishForeignDeathCert.value],
+            visible: fields.deceased.englishForeignDeathCert.value
+        }
+    ],
+    url = content.EnglishForeignDeathCert.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.ForeignDeathCertTranslation.question,
+            answer: content.ForeignDeathCertTranslation[fields.deceased.foreignDeathCertTranslation.value],
+            visible: fields.deceased.foreignDeathCertTranslation.value
+        }
+    ],
+    url = content.ForeignDeathCertTranslation.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
             question: content.WillCodicils.question,
             answer: content.WillCodicils[fields.will.codicils.value],
             visible: fields.summary.caseType.value == "gop"

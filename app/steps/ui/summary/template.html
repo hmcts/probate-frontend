@@ -16,10 +16,12 @@
             {% include "ui/summary/includes/deceased.njk" %}
         </dl>
 
-        <h2 class="govuk-heading-m">{{ content.Summary.uploadedDocumentsHeading | safe }}</h2>
-        <dl class="govuk-summary-list">
-            {% include "ui/summary/includes/documentupload.njk" %}
-        </dl>
+        {% ifAsync fields.deceased.diedEngOrWales == null %}
+          <h2 class="govuk-heading-m">{{ content.Summary.uploadedDocumentsHeading | safe }}</h2>
+          <dl class="govuk-summary-list">
+              {% include "ui/summary/includes/documentupload.njk" %}
+         </dl>
+        {% endif %}
 
         <h2 class="govuk-heading-m">{{ content.Summary.ihtHeading | safe }}</h2>
         <dl class="govuk-summary-list">

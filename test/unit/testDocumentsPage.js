@@ -119,6 +119,86 @@ describe('Documents', () => {
                 expect(ctx.ccdReferenceNumber).to.equal('');
                 done();
             });
+
+            it('should return true when death certificate is interim', (done) => {
+                const formdata = {
+                    deceased: {
+                        deathCertificate: 'optionInterimDeathCertificate'
+                    }
+                };
+                const featureToggles = {};
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                expect(ctx.interimDeathCertificate).to.equal(true);
+                done();
+            });
+
+            it('should return false when death certificate is not interim', (done) => {
+                const formdata = {
+                    deceased: {
+                        deathCertificate: 'optionDeathCertificate'
+                    }
+                };
+                const featureToggles = {};
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                expect(ctx.interimDeathCertificate).to.equal(false);
+                done();
+            });
+
+            it('should return true when death certificate is foreign', (done) => {
+                const formdata = {
+                    deceased: {
+                        diedEngOrWales: 'optionNo'
+                    }
+                };
+                const featureToggles = {};
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                expect(ctx.foreignDeathCertificate).to.equal(true);
+                done();
+            });
+
+            it('should return false when death certificate is not foreign', (done) => {
+                const formdata = {
+                    deceased: {
+                        diedEngOrWales: 'optionYes'
+                    }
+                };
+                const featureToggles = {};
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                expect(ctx.foreignDeathCertificate).to.equal(false);
+                done();
+            });
+
+            it('should return true when foreign death certificate is translated separately', (done) => {
+                const formdata = {
+                    deceased: {
+                        foreignDeathCertTranslation: 'optionNo'
+                    }
+                };
+                const featureToggles = {};
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                expect(ctx.foreignDeathCertTranslatedSeparately).to.equal(true);
+                done();
+            });
+
+            it('should return false when foreign death certificate is translated separately', (done) => {
+                const formdata = {
+                    deceased: {
+                        foreignDeathCertTranslation: 'optionYes'
+                    }
+                };
+                const featureToggles = {};
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                expect(ctx.foreignDeathCertTranslatedSeparately).to.equal(false);
+                done();
+            });
+
+            it('should return true when new death certificate FT is ON ', (done) => {
+                const formdata = {};
+                const featureToggles = {ft_new_deathcert_flow: true};
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles, 'en');
+                expect(ctx.newDeathCertFTEnabled).to.equal(true);
+                done();
+            });
         });
 
         describe('Probate Journey', () => {

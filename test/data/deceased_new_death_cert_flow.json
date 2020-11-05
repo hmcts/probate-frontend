@@ -1,0 +1,25 @@
+{
+  "language": {
+    "bilingual": "optionNo"
+  },
+  "deceased": {
+    "firstName": "Joe",
+    "lastName": "Bloggs",
+    "alias": "optionNo",
+    "married": "optionYes",
+    "dod-day": "12",
+    "dod-month": "12",
+    "dod-year": "2016",
+    "dod-formattedDate": "12 December 2016",
+    "dob-day": "12",
+    "dob-month": "12",
+    "dob-year": "1990",
+    "dob-formattedDate": "12 December 1990",
+    "domicile": "optionYes",
+    "address": {
+      "formattedAddress": "102 Petty France London SW1 1HA"
+    },
+    "diedEngOrWales": "optionYes",
+    "deathCertificate": "optionDeathCertificate"
+  }
+}

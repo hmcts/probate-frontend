@@ -2,7 +2,7 @@ apiVersion: v1
 description: A Helm chart for the HMCTS probate product
 name: probate-frontend
 home: https://github.com/hmcts/probate-frontend
-version: 2.0.14
+version: 2.0.15
 maintainers:
   - name: HMCTS Probate Team
     email: probate-action-group@HMCTS.NET

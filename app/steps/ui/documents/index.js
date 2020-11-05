@@ -5,8 +5,10 @@ const RedirectRunner = require('app/core/runners/RedirectRunner');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const RegistryWrapper = require('app/wrappers/Registry');
+const DeathCertificateWrapper = require('app/wrappers/DeathCertificate');
 const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
 const caseTypes = require('app/utils/CaseTypes');
+const featureToggle = require('app/utils/FeatureToggle');
 
 class Documents extends ValidationStep {
 
@@ -40,10 +42,21 @@ class Documents extends ValidationStep {
     handleGet(ctx, formdata, featureToggles, language) {
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         const willWrapper = new WillWrapper(formdata.will);
+        const deathCertWrapper = new DeathCertificateWrapper(formdata.deceased);
         const registryAddress = (new RegistryWrapper(formdata.registry)).address();
+
+        ctx.newDeathCertFTEnabled = featureToggle.isEnabled(featureToggles, 'ft_new_deathcert_flow');
+        if (ctx.newDeathCertFTEnabled && !this.resourcePath.includes('new_death_cert_flow')) {
+            this.resourcePath += '_new_death_cert_flow';
+            this.content = require(`app/resources/${language}/translation/${this.resourcePath}`);
+        }
+
         const content = this.generateContent(ctx, formdata, language);
 
         ctx.registryAddress = registryAddress ? registryAddress : content.address;
+        ctx.interimDeathCertificate = deathCertWrapper.hasInterimDeathCertificate();
+        ctx.foreignDeathCertificate = deathCertWrapper.hasForeignDeathCertificate();
+        ctx.foreignDeathCertTranslatedSeparately = deathCertWrapper.isForeignDeathCertTranslatedSeparately();
 
         if (ctx.caseType === caseTypes.GOP) {
             ctx.hasCodicils = willWrapper.hasCodicils();

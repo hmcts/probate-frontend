@@ -8,13 +8,14 @@ const config = require('config');
 const request = require('supertest');
 const JourneyMap = require('app/core/JourneyMap');
 const initSteps = require('app/core/initSteps');
-const journey = require('app/journeys/probate');
+const probateJourney = require('app/journeys/probate');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`], 'en');
 
 class TestWrapper {
-    constructor(stepName, ftValue) {
+    constructor(stepName, ftValue, journey = probateJourney) {
         this.pageToTest = steps[stepName];
         this.pageUrl = this.pageToTest.constructor.getUrl();
+        this.journey = journey;
 
         this.content = require(`app/resources/en/translation/${this.pageToTest.resourcePath}`);
         routes.post('/prepare-session/:path', (req, res) => {
@@ -140,7 +141,7 @@ class TestWrapper {
     }
 
     nextStep(data = {}) {
-        const journeyMap = new JourneyMap(journey);
+        const journeyMap = new JourneyMap(this.journey);
         return journeyMap.nextStep(this.pageToTest, data);
     }
 

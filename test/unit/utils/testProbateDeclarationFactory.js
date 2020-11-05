@@ -122,7 +122,7 @@ describe('ProbateDeclarationFactory', () => {
                         submitWarning: content.en[`submitWarning${multipleApplicantSuffix}`],
                         understand: content.en[`declarationUnderstand${multipleApplicantSuffix}`],
                         understandItem1: content.en[`declarationUnderstandItem1${multipleApplicantSuffix}`],
-                        understandItem2: content.en[`declarationUnderstandItem2${multipleApplicantSuffix}`]
+                        understandItem2: content.en.declarationUnderstandItem2
                     },
                     cy: {
                         accept: content.cy.declarationCheckbox,
@@ -137,7 +137,7 @@ describe('ProbateDeclarationFactory', () => {
                         submitWarning: content.cy[`submitWarning${multipleApplicantSuffix}`],
                         understand: content.cy[`declarationUnderstand${multipleApplicantSuffix}`],
                         understandItem1: content.cy[`declarationUnderstandItem1${multipleApplicantSuffix}`],
-                        understandItem2: content.cy[`declarationUnderstandItem2${multipleApplicantSuffix}`]
+                        understandItem2: content.cy.declarationUnderstandItem2
                     }
                 }
             });

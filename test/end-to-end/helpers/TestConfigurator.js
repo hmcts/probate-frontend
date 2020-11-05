@@ -3,12 +3,14 @@
 const randomstring = require('randomstring');
 const request = require('request');
 const testConfig = require('test/config');
+const LaunchDarkly = require('test/end-to-end/helpers/LaunchDarkly');
 
 /* eslint no-console: 0 no-unused-vars: 0 */
 /* eslint-disable no-undef */
 class TestConfigurator {
 
     constructor() {
+        this.environment = testConfig.TestFrontendUrl.includes('local') ? 'local' : 'aat';
         this.testBaseUrl = testConfig.TestIdamBaseUrl;
         this.useIdam = testConfig.TestUseIdam;
         this.setTestCitizenName();
@@ -24,6 +26,7 @@ class TestConfigurator {
         this.retryScenarios = testConfig.TestRetryScenarios;
         this.testUseProxy = testConfig.TestUseProxy;
         this.testProxy = testConfig.TestProxy;
+        this.launchDarkly = new LaunchDarkly();
     }
 
     getBefore() {
@@ -78,15 +81,7 @@ class TestConfigurator {
     }
 
     getAfter() {
-        // if (this.useIdam === 'true') {
-        //     request({
-        //             url: this.getTestDeleteUserURL() + process.env.testCitizenEmail,
-        //             method: 'DELETE'
-        //         }
-        //     );
-
-        //     this.resetEnvVars();
-        // }
+        this.launchDarkly.close();
     }
 
     setTestCitizenName() {
@@ -165,29 +160,12 @@ class TestConfigurator {
         return this.testProxy;
     }
 
-    injectFormData(data, emailId) {
-        const formData =
-            {
-                id: emailId,
-                formdata: {
-                    payloadVersion: '4.1.0',
-                    applicantEmail: emailId,
-                }
-            };
-        Object.assign(formData.formdata, data);
-        request({
-            url: this.testInjectFormDataURL,
-            method: 'POST',
-            headers: {'content-type': 'application/json', 'Session-Id': emailId},
-            proxy: this.testReformProxy,
-            socksProxyHost: 'localhost',
-            socksProxyPort: '9090',
-            json: true,
-            body: formData
-        },
-        (error, response, body) => {
-            console.log('This is email id ' + emailId);
-        });
+    equalityAndDiversityEnabled() {
+        return this.environment !== 'local';
+    }
+
+    checkFeatureToggle(featureToggleKey) {
+        return this.launchDarkly.variation(featureToggleKey, testConfig.featureToggles.launchDarklyUser, false);
     }
 }
 

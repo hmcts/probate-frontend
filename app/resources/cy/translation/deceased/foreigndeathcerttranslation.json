@@ -1,0 +1,12 @@
+{
+  "title": "placeholder",
+  "question": "placeholder",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+
+  "errors": {
+    "foreignDeathCertTranslation": {
+      "required": "placeholder"
+    }
+  }
+}

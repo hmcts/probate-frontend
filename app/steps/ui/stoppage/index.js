@@ -13,6 +13,9 @@ class StopPage extends Step {
         ctx.stopReason = req.params[0];
 
         const formdata = req.session.form;
+
+        ctx.stoppageHeader = ctx.stopReason === 'deathCertificateTranslation' ? 'deathCertificateTranslationHeader' : 'defaultHeader';
+
         const templateContent = this.generateContent(ctx, formdata, req.session.language)[ctx.stopReason];
 
         if (templateContent) {
@@ -26,6 +29,7 @@ class StopPage extends Step {
         super.action(ctx, formdata);
         delete ctx.stopReason;
         delete ctx.linkPlaceholders;
+        delete ctx.stoppageHeader;
         return [ctx, formdata];
     }
 

@@ -14,8 +14,7 @@ router.get('/health', (req, res) => {
     const healthcheck = new Healthcheck();
     const services = [
         {name: config.services.validation.name, url: config.services.validation.url, gitCommitIdPath: config.services.validation.gitCommitIdPath},
-        {name: config.services.orchestrator.name, url: config.services.orchestrator.url, gitCommitIdPath: config.services.orchestrator.gitCommitIdPath},
-        {name: config.services.equalityAndDiversity.name, url: config.services.equalityAndDiversity.url, gitCommitIdPath: config.services.equalityAndDiversity.gitCommitIdPath}
+        {name: config.services.orchestrator.name, url: config.services.orchestrator.url, gitCommitIdPath: config.services.orchestrator.gitCommitIdPath}
     ];
 
     healthcheck.getDownstream(services, healthcheck.health, healthDownstream => {

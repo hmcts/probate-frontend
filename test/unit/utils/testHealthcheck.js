@@ -5,24 +5,19 @@ const config = require('config');
 const expect = require('chai').expect;
 let businessStub;
 let orchestratorStub;
-let equalityStub;
 const startStubs = () => {
     businessStub = require('test/service-stubs/business');
     orchestratorStub = require('test/service-stubs/orchestrator');
-    equalityStub = require('test/service-stubs/equalityAndDiversityHealth');
 };
 const stopStubs = () => {
     businessStub.close();
     orchestratorStub.close();
-    equalityStub.close();
     delete require.cache[require.resolve('test/service-stubs/business')];
     delete require.cache[require.resolve('test/service-stubs/orchestrator')];
-    delete require.cache[require.resolve('test/service-stubs/equalityAndDiversityHealth')];
 };
 const services = [
     {name: config.services.validation.name, url: config.services.validation.url, gitCommitIdPath: config.services.validation.gitCommitIdPath},
-    {name: config.services.orchestrator.name, url: config.services.orchestrator.url, gitCommitIdPath: config.services.orchestrator.gitCommitIdPath},
-    {name: config.services.equalityAndDiversity.name, url: config.services.equalityAndDiversity.url, gitCommitIdPath: config.services.equalityAndDiversity.gitCommitIdPath}
+    {name: config.services.orchestrator.name, url: config.services.orchestrator.url, gitCommitIdPath: config.services.orchestrator.gitCommitIdPath}
 ];
 
 describe('Healthcheck.js', () => {
@@ -49,8 +44,7 @@ describe('Healthcheck.js', () => {
             const serviceList = healthcheck.createServicesList(url, services);
             expect(serviceList).to.deep.equal([
                 {name: 'Business Service', url: 'http://localhost:8081/health', gitCommitIdPath: 'git.commit.id'},
-                {name: 'Orchestrator Service', url: 'http://localhost:8888/health', gitCommitIdPath: 'git.commit.id'},
-                {name: 'Equality and Diversity Service', url: 'http://localhost:4000/health', gitCommitIdPath: 'buildInfo.extra.gitCommitId'}
+                {name: 'Orchestrator Service', url: 'http://localhost:8888/health', gitCommitIdPath: 'git.commit.id'}
             ]);
             done();
         });
@@ -69,8 +63,7 @@ describe('Healthcheck.js', () => {
                     Promise.all(promises).then((data) => {
                         expect(data).to.deep.equal([
                             {name: 'Business Service', status: 'UP'},
-                            {name: 'Orchestrator Service', status: 'UP'},
-                            {name: 'Equality and Diversity Service', status: 'UP'}
+                            {name: 'Orchestrator Service', status: 'UP'}
                         ]);
                         done();
                     });
@@ -84,8 +77,7 @@ describe('Healthcheck.js', () => {
                     Promise.all(promises).then((data) => {
                         expect(data).to.deep.equal([
                             {gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e1'},
-                            {gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e3'},
-                            {gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e4'}
+                            {gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e3'}
                         ]);
                         done();
                     });
@@ -108,10 +100,6 @@ describe('Healthcheck.js', () => {
                         name: 'Orchestrator Service',
                         status: 'DOWN',
                         error: 'Error: FetchError: request to http://localhost:8888/health failed, reason: connect ECONNREFUSED 127.0.0.1:8888'
-                    }, {
-                        name: 'Equality and Diversity Service',
-                        status: 'DOWN',
-                        error: 'Error: FetchError: request to http://localhost:4000/health failed, reason: connect ECONNREFUSED 127.0.0.1:4000'
                     }]);
                     done();
                 });
@@ -165,8 +153,7 @@ describe('Healthcheck.js', () => {
             healthcheck.getDownstream(services, healthcheck.health, downstream => {
                 expect(downstream).to.deep.equal([
                     {name: 'Business Service', status: 'UP'},
-                    {name: 'Orchestrator Service', status: 'UP'},
-                    {name: 'Equality and Diversity Service', status: 'UP'}
+                    {name: 'Orchestrator Service', status: 'UP'}
                 ]);
                 done();
             });
@@ -196,13 +183,11 @@ describe('Healthcheck.js', () => {
             const healthcheck = new Healthcheck();
             const healthDownstream = [
                 {name: 'Business Service', status: 'UP'},
-                {name: 'Orchestrator Service', status: 'UP'},
-                {name: 'Equality and Diversity Service', status: 'UP'}
+                {name: 'Orchestrator Service', status: 'UP'}
             ];
             const infoDownstream = [
                 {gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e1'},
-                {gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e3'},
-                {gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e4'}
+                {gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e3'}
             ];
             const mergedData = healthcheck.mergeInfoAndHealthData(healthDownstream, infoDownstream);
             expect(mergedData).to.deep.equal([{
@@ -213,10 +198,6 @@ describe('Healthcheck.js', () => {
                 name: 'Orchestrator Service',
                 status: 'UP',
                 gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e3'
-            }, {
-                name: 'Equality and Diversity Service',
-                status: 'UP',
-                gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e4'
             }]);
             done();
         });

@@ -6,6 +6,8 @@ const logger = require('app/components/logger')('Init');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const caseTypes = require('app/utils/CaseTypes');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const ScreenerValidation = require('app/utils/ScreenerValidation');
+const screenerValidation = new ScreenerValidation();
 
 const initDashboard = (req, res, next) => {
     const session = req.session;
@@ -19,7 +21,7 @@ const initDashboard = (req, res, next) => {
         .then(result => {
             if (result.applications && result.applications.length) {
                 logger.info('Retrieved Cases = ' + JSON.stringify(result.applications));
-                if (allEligibilityQuestionsPresent(formdata)) {
+                if (allEligibilityQuestionsPresent(formdata, req.session.featureToggles)) {
                     if (!result.applications.some(application => application.ccdCase.state === 'Pending' && !application.deceasedFullName && application.caseType === caseTypes.getProbateType(formdata.caseType))) {
                         createNewApplication(req, res, formdata, formData, result, next);
                     } else {
@@ -32,7 +34,7 @@ const initDashboard = (req, res, next) => {
                     delete formdata.screeners;
                     renderDashboard(req, result, next);
                 }
-            } else if (allEligibilityQuestionsPresent(formdata)) {
+            } else if (allEligibilityQuestionsPresent(formdata, req.session.featureToggles)) {
                 createNewApplication(req, res, formdata, formData, result, next);
             } else {
                 res.redirect('/start-eligibility');
@@ -58,14 +60,12 @@ const createNewApplication = (req, res, formdata, formData, result, next) => {
         });
 };
 
-const allEligibilityQuestionsPresent = (formdata) => {
+const allEligibilityQuestionsPresent = (formdata, featureToggles) => {
     let allQuestionsPresent = true;
 
     if (formdata.screeners && formdata.screeners.left) {
-        let eligibilityQuestionsList = config.eligibilityQuestionsProbate;
-        if (formdata.screeners.left === 'optionNo') {
-            eligibilityQuestionsList = config.eligibilityQuestionsIntestacy;
-        }
+        const journeyType = formdata.screeners.left === 'optionNo' ? 'intestacy' : 'probate';
+        const eligibilityQuestionsList = screenerValidation.getScreeners(journeyType, formdata, featureToggles);
 
         Object.entries(eligibilityQuestionsList).forEach(([key, value]) => {
             if (!Object.keys(formdata.screeners).includes(key) || formdata.screeners[key] !== value) {

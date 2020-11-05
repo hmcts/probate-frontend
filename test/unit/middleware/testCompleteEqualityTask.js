@@ -85,7 +85,7 @@ describe('completeEqualityTask', () => {
                 expect(params.res.redirect).to.have.been.calledWith('/task-list');
 
                 done();
-            }, 500);
+            }, 2500);
         });
 
         it('[INTESTACY] should redirect to Summary', (done) => {
@@ -116,7 +116,7 @@ describe('completeEqualityTask', () => {
                 expect(params.res.redirect).to.have.been.calledWith('/summary');
 
                 done();
-            }, 500);
+            }, 2500);
         });
     });
 

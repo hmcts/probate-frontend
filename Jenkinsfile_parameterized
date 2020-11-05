@@ -60,7 +60,7 @@ withParameterizedPipeline('nodejs', product, component, params.ENVIRONMENT, slot
 	/*
   after('functionalTest:saat') {
 	sh "mkdir functional-output"
-	sh "cp -r output/mochawesome.* functional-output/."
+ 	sh "cp -r output/mochawesome.* functional-output/."
         publishHTML target: [
                 reportDir            : "output/",
                 reportFiles          : "mochawesome.html",

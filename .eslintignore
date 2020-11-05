@@ -3,3 +3,5 @@ govuk/*
 public/*
 app/assets/javascripts/*.js
 coverage
+output
+mochawesome-report

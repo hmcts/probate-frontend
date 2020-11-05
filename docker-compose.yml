@@ -32,7 +32,7 @@ services:
       DEFINITION_STORE_DB_USERNAME: "${DB_USERNAME}"
       DEFINITION_STORE_DB_PASSWORD: "${DB_PASSWORD}"
       DEFINITION_STORE_DB_USE_SSL: "false"
-      DEFINITION_STORE_IDAM_KEY: "${IDAM_KEY_CCD_DEFINITION_STORE}"
+      DEFINITION_STORE_IDAM_KEY: "AAAAAAAAAAAAAAAA"
       DEFINITION_STORE_S2S_AUTHORISED_SERVICES: ccd_data,ccd_gw,ccd_admin,probate_backend
       USER_PROFILE_HOST: http://ccd-user-profile-api:4453
       IDAM_USER_URL: http://sidam-api:5000
@@ -61,7 +61,7 @@ services:
       DATA_STORE_DB_USERNAME: "${DB_USERNAME}"
       DATA_STORE_DB_PASSWORD: "${DB_PASSWORD}"
       DATA_STORE_DB_USE_SSL: "false"
-      DATA_STORE_IDAM_KEY: "${IDAM_KEY_CCD_DATA_STORE}"
+      DATA_STORE_IDAM_KEY: "AAAAAAAAAAAAAAAA"
       DATA_STORE_TOKEN_SECRET: iuasbcuasdcbasdgcasdgcuysachjsacyasdgjcgasdj
       DATA_STORE_S2S_AUTHORISED_SERVICES: ccd_gw,fpl_case_service,ccd_data,ccd_ps,probate_backend,payment-api
       CCD_DM_DOMAIN: http://dm-store:8080
@@ -108,7 +108,7 @@ services:
       IDAM_BASE_URL: http://sidam-api:5000
       IDAM_USER_URL: http://sidam-api:5000
       IDAM_S2S_URL: http://service-auth-provider-api:8080
-      IDAM_SERVICE_KEY: "${IDAM_KEY_CCD_GATEWAY}"
+      IDAM_SERVICE_KEY: "AAAAAAAAAAAAAAAA"
       IDAM_OAUTH2_LOGOUT_ENDPOINT: http://sidam-api:5000/session/:token
       IDAM_OAUTH2_CLIENT_ID: ccd_gateway
       IDAM_OAUTH2_CLIENT_SECRET: ccd_gateway_secret
@@ -131,7 +131,7 @@ services:
       - dm-store
 
   service-auth-provider-api:
-    image: "hmctspublic.azurecr.io/rpe/service-auth-provider:latest"
+    image: hmctspublic.azurecr.io/rpe/service-auth-provider
     healthcheck:
       interval: 10s
       timeout: 10s
@@ -140,11 +140,11 @@ services:
       JAVA_TOOL_OPTIONS: -Xms128m -Xmx256m
       SERVER_PORT: 8080
       JWT_KEY: wThK0f0/lh3FlxFcL4xUWDMI5C1J9KyQBgXV4wseh1e5J1uYJIjvTvArHxQDrYoHJ23xFxjHkOnvNbR5dXRoxA==
-      MICROSERVICEKEYS_CCD_DATA: "${IDAM_KEY_CCD_DATA_STORE}"
-      MICROSERVICEKEYS_CCD_GW: "${IDAM_KEY_CCD_GATEWAY}"
-      MICROSERVICEKEYS_CCD_DEFINITION: "${IDAM_KEY_CCD_DEFINITION_STORE}"
-      MICROSERVICEKEYS_CCD_ADMIN: "${IDAM_KEY_CCD_ADMIN}"
-      MICROSERVICEKEYS_FPL_CASE_SERVICE: "${IDAM_KEY_FPL_CASE_SERVICE}"
+      MICROSERVICEKEYS_CCD_DATA: "AAAAAAAAAAAAAAAA"
+      MICROSERVICEKEYS_CCD_GW: "AAAAAAAAAAAAAAAA"
+      MICROSERVICEKEYS_CCD_DEFINITION: "AAAAAAAAAAAAAAAA"
+      MICROSERVICEKEYS_CCD_ADMIN: "AAAAAAAAAAAAAAAA"
+      MICROSERVICEKEYS_FPL_CASE_SERVICE: "AAAAAAAAAAAAAAAA"
       MICROSERVICEKEYS_EM_GW: "AAAAAAAAAAAAAAAA"
       MICROSERVICEKEYS_BULK_SCAN_PROCESSOR: "AAAAAAAAAAAAAAAA"
       MICROSERVICEKEYS_BULK_SCAN_PROCESSOR_TESTS: "AAAAAAAAAAAAAAAA"
@@ -154,6 +154,7 @@ services:
       MICROSERVICEKEYS_DG_DOCASSEMBLY_API: "AAAAAAAAAAAAAAAA"
       MICROSERVICE_KEYS_RPA_DG_DOCASSEMBLY: "AAAAAAAAAAAAAAAA"
       TESTING_SUPPORT_ENABLED: "true"
+      MICROSERVICEKEYS_PAYMENT_APP: "AAAAAAAAAAAAAAAB"
     ports:
       - 4502:8080
 
@@ -400,7 +401,7 @@ services:
           "document_management.url":"http://dm-store:8080"
           }
     ports:
-    - 8081:8081
+      - 8081:8081
 
   send-letter-service:
     image: hmctspublic.azurecr.io/rpe/send-letter-service
@@ -489,8 +490,11 @@ services:
     image: hmctspublic.azurecr.io/payment/api:latest
     environment:
       - JAVA_TOOL_OPTIONS=-Xms128m -Xmx400m
-      - auth.provider.service.client.baseUrl=http://service-auth-provider-api:8080/
+      - auth.provider.service.client.baseUrl=http://service-auth-provider-api:8080
       - auth.idam.client.baseUrl=http://sidam-api:5000
+      - idam.s2s-auth.totp_secret=AAAAAAAAAAAAAAAB
+      - idam.s2s-auth.microservice=payment_app
+      - idam.s2s-auth.url=http://service-auth-provider-api:8080
       - CARD_PAYMENTS_REPORT_SCHEDULER_ENABLED=true
       - CARD_PAYMENTS_EMAIL_FROM=no-reply@reform.hmcts.net
       - CARD_PAYMENTS_EMAIL_TO=pepito@grillo.com
@@ -545,7 +549,7 @@ services:
       - SPRING_MAIL_PROPERTIES_MAIL_SMTP_SSL_TRUST=*
       - SPRING_MAIL_PORT=25
       - SPRING_MAIL_HOST=smtp-server
-      - TRUSTED_S2S_SERVICE_NAMES=cmc,probate_frontend,divorce_frontend,ccd_gw,bar_api,api_gw,finrem_payment_service,ccpay_bubble,jui_webapp,xui_webapp,fpl_case_service,iac
+      - TRUSTED_S2S_SERVICE_NAMES=cmc,probate_frontend,divorce_frontend,divorce,payment_app,ccd_gw,bar_api,api_gw,finrem_payment_service,ccpay_bubble,jui_webapp,xui_webapp,fpl_case_service,iac
       - PAYBUBBLE_HOME_URL=https://ccpay-bubble-frontend-aat.service.core-compute-aat.internal
       - PCI_PAL_CALLBACK_URL=https://core-api-mgmt-aat.azure-api.net/telephony-api/telephony/callback
       - ASB_CONNECTION_STRING=some-azure-service-bus-connection-string

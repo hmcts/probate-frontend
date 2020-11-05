@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "died-eng-or-wales",
+  "type": "object",
+  "properties": {
+    "diedEngOrWales": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "diedEngOrWales"
+  ]
+}

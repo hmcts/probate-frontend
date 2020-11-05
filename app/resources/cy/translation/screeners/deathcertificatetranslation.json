@@ -1,0 +1,12 @@
+{
+  "title": "placeholder",
+  "question": "placeholder",
+  "optionYes": "Oes",
+  "optionNo": "Nag oes",
+
+  "errors": {
+    "deathCertificateTranslation": {
+      "required": "placeholder"
+    }
+  }
+}

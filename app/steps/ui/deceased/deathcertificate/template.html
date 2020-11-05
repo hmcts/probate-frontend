@@ -1,0 +1,44 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block form_content %}
+    {% call govukFieldset({
+        legend: {
+            text: content.question | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+        <p class="govuk-body">{{ content.paragraph2 | replace("{deathReportedToCoroner}", globals.links.deathReportedToCoroner) | safe }}</p>
+
+        {{ govukRadios({
+            classes: "govuk-radios--inline",
+            idPrefix: "deathCertificate",
+            name: "deathCertificate",
+            errorMessage: { text: fields.deathCertificate.errorMessage | safe } if fields.deathCertificate.errorMessage,
+            items: [
+                {
+                    value: "optionDeathCertificate",
+                    text: content["optionDeathCertificate"] | safe,
+                    checked: true if fields.deathCertificate.value == "optionDeathCertificate"
+                },
+                {
+                    value: "optionInterimCertificate",
+                    text: content["optionInterimCertificate"] | safe,
+                    checked: true if fields.deathCertificate.value == "optionInterimCertificate"
+                }
+            ]
+        }) }}
+    {% endcall %}
+
+<div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

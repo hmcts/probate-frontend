@@ -13,6 +13,7 @@ featureToggles:
   ft_fees_api: 'probate-fees-api'
   ft_pcq: 'probate-pcq'
   ft_pcq_token: 'probate-pcq-token'
+  ft_new_deathcert_flow: 'probate-new-deathcert-flow'
   appwideToggles: []
 app:
   username:
@@ -166,7 +167,7 @@ whitelistedPagesAfterSubmission: ['/documents', '/thank-you', '/check-answers-pd
 whitelistedPagesAfterPayment: ['/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
 whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/equality-and-diversity']
 blacklistedPagesBeforeDeclaration: ['/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
-eligibilityQuestionsProbate:
+probateScreeners:
   deathCertificate: 'optionYes'
   domicile: 'optionYes'
   completed: 'optionYes'
@@ -174,8 +175,46 @@ eligibilityQuestionsProbate:
   original: 'optionYes'
   executor: 'optionYes'
   mentalCapacity: 'optionYes'
-eligibilityQuestionsIntestacy:
+intestacyScreeners:
   deathCertificate: 'optionYes'
+  domicile: 'optionYes'
+  completed: 'optionYes'
+  left: 'optionNo'
+  diedAfter: 'optionYes'
+  related: 'optionYes'
+  otherApplicants: 'optionNo'
+probateScreenersDeathCertificateInEnglish:
+  deathCertificate: 'optionYes'
+  deathCertificateInEnglish: 'optionYes'
+  domicile: 'optionYes'
+  completed: 'optionYes'
+  left: 'optionYes'
+  original: 'optionYes'
+  executor: 'optionYes'
+  mentalCapacity: 'optionYes'
+probateScreenersDeathCertificateNotInEnglish:
+  deathCertificate: 'optionYes'
+  deathCertificateInEnglish: 'optionNo'
+  deathCertificateTranslation: 'optionYes'
+  domicile: 'optionYes'
+  completed: 'optionYes'
+  left: 'optionYes'
+  original: 'optionYes'
+  executor: 'optionYes'
+  mentalCapacity: 'optionYes'
+intestacyScreenersDeathCertificateInEnglish:
+  deathCertificate: 'optionYes'
+  deathCertificateInEnglish: 'optionYes'
+  domicile: 'optionYes'
+  completed: 'optionYes'
+  left: 'optionNo'
+  diedAfter: 'optionYes'
+  related: 'optionYes'
+  otherApplicants: 'optionNo'
+intestacyScreenersDeathCertificateNotInEnglish:
+  deathCertificate: 'optionYes'
+  deathCertificateInEnglish: 'optionNo'
+  deathCertificateTranslation: 'optionYes'
   domicile: 'optionYes'
   completed: 'optionYes'
   left: 'optionNo'
@@ -185,8 +224,8 @@ eligibilityQuestionsIntestacy:
 hardStopParams:
   gop: []
   intestacy: []
-nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies']
-noCcdCaseIdPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'dashboard', 'sign-out', 'time-out']
+nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies']
+noCcdCaseIdPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate','death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'dashboard', 'sign-out', 'time-out']
 endpoints:
   health: '/health'
   info: '/info'

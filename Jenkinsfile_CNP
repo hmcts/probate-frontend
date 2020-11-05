@@ -26,6 +26,7 @@ def secrets = [
     secret('testPostCodeAddressToken2', 'ADDRESS_TOKEN'),
     secret('testRunE2ETest', 'RUN_E2E_TEST'),
     secret('testValidationServiceUrl', 'VALIDATION_SERVICE_URL'),
+    secret('launchdarkly-key', 'TEST_LAUNCH_DARKLY_KEY')
   ]
 ]
 
@@ -87,12 +88,30 @@ withPipeline("nodejs", product, component) {
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
 
+  after('test') {
+    publishHTML (target: [
+       alwaysLinkToLastBuild: true,
+       reportDir: 'output',
+       reportFiles: 'results.html',
+       reportName: 'Unit Test Results'
+    ])
+  }
+
+   after('functionalTest:preview') {
+    publishHTML target: [
+      reportDir            : "output/",
+      reportFiles          : "mochawesome.html",
+      reportName           : "Preview Functional Tests",
+      alwaysLinkToLastBuild: true
+    ]
+  }
+
   after('functionalTest:aat') {
     publishHTML target: [
-              reportDir            : "output/",
-              reportFiles          : "mochawesome.html",
-              reportName           : "AAT Functional Tests",
-              alwaysLinkToLastBuild: true
+      reportDir            : "output/",
+      reportFiles          : "mochawesome.html",
+      reportName           : "AAT Functional Tests",
+      alwaysLinkToLastBuild: true
     ]
   }
 }

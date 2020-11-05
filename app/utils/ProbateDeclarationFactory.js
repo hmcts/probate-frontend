@@ -40,7 +40,7 @@ class ProbateDeclarationFactory {
             requestsItem2: content.en.declarationRequestsItem2,
             understand: content.en[`declarationUnderstand${multipleApplicantSuffix}`],
             understandItem1: content.en[`declarationUnderstandItem1${multipleApplicantSuffix}`],
-            understandItem2: content.en[`declarationUnderstandItem2${multipleApplicantSuffix}`],
+            understandItem2: content.en.declarationUnderstandItem2,
             accept: content.en.declarationCheckbox,
             submitWarning: content.en[`submitWarning${multipleApplicantSuffix}`]
         };
@@ -77,7 +77,7 @@ class ProbateDeclarationFactory {
             requestsItem2: content.cy.declarationRequestsItem2,
             understand: content.cy[`declarationUnderstand${multipleApplicantSuffix}`],
             understandItem1: content.cy[`declarationUnderstandItem1${multipleApplicantSuffix}`],
-            understandItem2: content.cy[`declarationUnderstandItem2${multipleApplicantSuffix}`],
+            understandItem2: content.cy.declarationUnderstandItem2,
             accept: content.cy.declarationCheckbox,
             submitWarning: content.cy[`submitWarning${multipleApplicantSuffix}`]
         };

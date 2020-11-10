@@ -459,7 +459,72 @@ describe('documents-new', () => {
         describe('Intestacy Journey', () => {
             it('test correct content loaded on the page', (done) => {
                 sessionData.deceased = {
+                    maritalStatus: 'optionDivorced'
+                };
+                sessionData.applicant = {
+                    relationshipToDeceased: 'optionChild'
+                };
+                sessionData.caseType = caseTypes.INTESTACY;
+
+                contentData.renunciationFormLink = config.links.renunciationForm;
+
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+                        const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item2-no-codicils',
+                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-will-damage-no-codicils',
+                            'checklist-item4-interim-death-cert',
+                            'checklist-item4-foreign-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll'
+                        ];
+
+                        testWrapper.testContent(done, contentData, contentToExclude);
+                    });
+            });
+
+            it('test correct content loaded on the page with spouse renouncing', (done) => {
+                sessionData.deceased = {
                     maritalStatus: 'optionMarried'
+                };
+                sessionData.applicant = {
+                    relationshipToDeceased: 'optionChild'
+                };
+                sessionData.caseType = caseTypes.INTESTACY;
+
+                contentData.renunciationFormLink = config.links.renunciationForm;
+
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+                        const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item2-no-codicils',
+                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-will-damage-no-codicils',
+                            'checklist-item4-interim-death-cert',
+                            'checklist-item4-foreign-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll'
+                        ];
+
+                        testWrapper.testContent(done, contentData, contentToExclude);
+                    });
+            });
+
+            it('test correct content loaded on the page with iht 205', (done) => {
+                sessionData.deceased = {
+                    maritalStatus: 'optionDivorced'
                 };
                 sessionData.applicant = {
                     relationshipToDeceased: 'optionChild'
@@ -484,6 +549,145 @@ describe('documents-new', () => {
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll'
+                        ];
+
+                        testWrapper.testContent(done, contentData, contentToExclude);
+                    });
+            });
+
+            it('test correct content loaded on the page with no foreign death cert, interim death cert', (done) => {
+                sessionData.deceased = {
+                    maritalStatus: 'optionDivorced',
+                    diedEngOrWales: 'optionYes',
+                    deathCertificate: 'optionInterimDeathCertificate'
+                };
+
+                sessionData.applicant = {
+                    relationshipToDeceased: 'optionChild'
+                };
+                sessionData.caseType = caseTypes.INTESTACY;
+
+                contentData.renunciationFormLink = config.links.renunciationForm;
+
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+                        const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item2-no-codicils',
+                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-will-damage-no-codicils',
+                            'checklist-item4-foreign-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll'
+                        ];
+
+                        testWrapper.testContent(done, contentData, contentToExclude);
+                    });
+            });
+
+            it('test correct content loaded on the page with english foreign death cert', (done) => {
+                sessionData.deceased = {
+                    maritalStatus: 'optionDivorced',
+                    diedEngOrWales: 'optionNo',
+                };
+
+                sessionData.applicant = {
+                    relationshipToDeceased: 'optionChild'
+                };
+                sessionData.caseType = caseTypes.INTESTACY;
+
+                contentData.renunciationFormLink = config.links.renunciationForm;
+
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+                        const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item2-no-codicils',
+                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-will-damage-no-codicils',
+                            'checklist-item4-interim-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll'
+                        ];
+
+                        testWrapper.testContent(done, contentData, contentToExclude);
+                    });
+            });
+
+            it('test correct content loaded on the page with foreign death cert with separate translation', (done) => {
+                sessionData.deceased = {
+                    maritalStatus: 'optionDivorced',
+                    diedEngOrWales: 'optionNo',
+                    foreignDeathCertTranslation: 'optionNo'
+                };
+
+                sessionData.applicant = {
+                    relationshipToDeceased: 'optionChild'
+                };
+                sessionData.caseType = caseTypes.INTESTACY;
+
+                contentData.renunciationFormLink = config.links.renunciationForm;
+
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+                        const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item2-no-codicils',
+                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-will-damage-no-codicils',
+                            'checklist-item4-interim-death-cert',
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll'
+                        ];
+
+                        testWrapper.testContent(done, contentData, contentToExclude);
+                    });
+            });
+
+            it('test correct content loaded on the page with foreign death cert without separate translation', (done) => {
+                sessionData.deceased = {
+                    maritalStatus: 'optionDivorced',
+                    diedEngOrWales: 'optionNo',
+                    foreignDeathCertTranslation: 'optionYes'
+                };
+
+                sessionData.applicant = {
+                    relationshipToDeceased: 'optionChild'
+                };
+                sessionData.caseType = caseTypes.INTESTACY;
+
+                contentData.renunciationFormLink = config.links.renunciationForm;
+
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+                        const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item2-no-codicils',
+                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-will-damage-no-codicils',
+                            'checklist-item4-interim-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll'
                         ];

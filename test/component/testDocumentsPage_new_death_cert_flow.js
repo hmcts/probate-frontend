@@ -65,13 +65,10 @@ describe('documents-new', () => {
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
-                            'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
-                            'checklist-item4-iht205',
-                            'checklist-item5-renunciated',
-                            'checklist-item6-deed-poll',
-                            'checkboxLabel-codicils',
-                            'checkboxLabel'
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -94,13 +91,10 @@ describe('documents-new', () => {
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
-                            'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
-                            'checklist-item4-iht205',
-                            'checklist-item5-renunciated',
-                            'checklist-item6-deed-poll',
-                            'checkboxLabel-codicils',
-                            'checkboxLabel'
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -124,12 +118,9 @@ describe('documents-new', () => {
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
-                            'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
-                            'checklist-item4-iht205',
-                            'checklist-item6-deed-poll',
-                            'checkboxLabel-codicils',
-                            'checkboxLabel'
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item9-deed-poll'
                         ];
                         contentData.renunciationFormLink = config.links.renunciationForm;
 
@@ -150,13 +141,10 @@ describe('documents-new', () => {
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
-                            'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
-                            'checklist-item4-iht205',
-                            'checklist-item5-renunciated',
-                            'checklist-item6-deed-poll',
-                            'checkboxLabel-codicils',
-                            'checkboxLabel',
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll',
                             'address'
                         ];
 
@@ -177,13 +165,10 @@ describe('documents-new', () => {
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
-                            'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
-                            'checklist-item4-iht205',
-                            'checklist-item5-renunciated',
-                            'checklist-item6-deed-poll',
-                            'checkboxLabel-codicils',
-                            'checkboxLabel'
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -204,13 +189,10 @@ describe('documents-new', () => {
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
-                            'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
-                            'checklist-item4-iht205',
-                            'checklist-item5-renunciated',
-                            'checklist-item6-deed-poll',
-                            'checkboxLabel-codicils',
-                            'checkboxLabel'
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -231,12 +213,9 @@ describe('documents-new', () => {
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
-                            'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
-                            'checklist-item5-renunciated',
-                            'checklist-item6-deed-poll',
-                            'checkboxLabel-codicils',
-                            'checkboxLabel'
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -277,12 +256,9 @@ describe('documents-new', () => {
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
-                            'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
-                            'checklist-item4-iht205',
-                            'checklist-item5-renunciated',
-                            'checkboxLabel-codicils',
-                            'checkboxLabel'
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated'
                         ];
                         contentData.executorCurrentName = 'eddie jones';
 
@@ -325,12 +301,9 @@ describe('documents-new', () => {
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
-                            'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
-                            'checklist-item4-iht205',
-                            'checklist-item5-renunciated',
-                            'checkboxLabel-codicils',
-                            'checkboxLabel'
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated'
                         ];
                         contentData.executorCurrentName = [
                             'jimbo fisher',
@@ -354,13 +327,10 @@ describe('documents-new', () => {
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
-                            'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
-                            'checklist-item4-iht205',
-                            'checklist-item5-renunciated',
-                            'checklist-item6-deed-poll',
-                            'checkboxLabel-codicils',
-                            'checkboxLabel'
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -379,13 +349,10 @@ describe('documents-new', () => {
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
-                            'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
-                            'checklist-item4-iht205',
-                            'checklist-item5-renunciated',
-                            'checklist-item6-deed-poll',
-                            'checkboxLabel-codicils',
-                            'checkboxLabel'
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -403,13 +370,10 @@ describe('documents-new', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item4-interim-death-cert',
-                            'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
-                            'checklist-item4-iht205',
-                            'checklist-item5-renunciated',
-                            'checklist-item6-deed-poll',
-                            'checkboxLabel-codicils',
-                            'checkboxLabel'
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -430,13 +394,10 @@ describe('documents-new', () => {
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
-                            'checklist-item2-spouse-renouncing',
-                            'checklist-item3-will-uploaded',
-                            'checklist-item4-iht205',
-                            'checklist-item5-renunciated',
-                            'checklist-item6-deed-poll',
-                            'checkboxLabel-codicils',
-                            'checkboxLabel'
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -464,17 +425,15 @@ describe('documents-new', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
-                            'checklist-item1-application-coversheet',
+                            'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
                             'checklist-item3-will-damage',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
-                            'checklist-item5-renunciated',
-                            'checklist-item6-deed-poll',
-                            'checkboxLabel-codicils',
-                            'checkboxLabel'
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);

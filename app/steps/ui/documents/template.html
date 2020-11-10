@@ -47,38 +47,52 @@
         {% if fields.ccdReferenceNumber.value !== "" %}
             {% set checklistItems = (checklistItems.push(content["checklist-item1-application-coversheet"] | replace("{ccdReferenceNumber}", fields.ccdReferenceNumber.value) | safe), checklistItems) %}
         {% endif %}
-        {% set checklistItems = (checklistItems.push(content["checklist-item2-original-will"]), checklistItems) %}
+        {% if fields.hasCodicils.value === "true" and fields.codicilsNumber.value > "0" %}
+            {% set checklistItems = (checklistItems.push(content["checklist-item2-codicils"]), checklistItems) %}
+        {% else %}
+           {% set checklistItems = (checklistItems.push(content["checklist-item2-no-codicils"]), checklistItems) %}
+        {% endif %}
         {% set checklistItems = (checklistItems.push(content["checklist-item3-will-damage"]), checklistItems) %}
         {% if (fields.interimDeathCertificate.value === "true") %}
             {% set checklistItems = (checklistItems.push(content["checklist-item4-interim-death-cert"]), checklistItems) %}
         {% endif %}
         {% if (fields.foreignDeathCertificate.value === "true") %}
-            {% set checklistItems = (checklistItems.push(content["checklist-item5-foreign-death-cert"]), checklistItems) %}
+            {% set checklistItems = (checklistItems.push(content["checklist-item4-foreign-death-cert"]), checklistItems) %}
         {% endif %}
         {% if (fields.foreignDeathCertTranslatedSeparately.value === "true") %}
-           {% set checklistItems = (checklistItems.push(content["checklist-item6-foreign-death-cert-translation"]), checklistItems) %}
-           {% set checklistItems = (checklistItems.push(content["checklist-item7-foreign-death-cert-PA19"]), checklistItems) %}
+           {% set checklistItems = (checklistItems.push(content["checklist-item4-foreign-death-cert-translation"]), checklistItems) %}
+           {% set checklistItems = (checklistItems.push(content["checklist-item5-foreign-death-cert-PA19"]), checklistItems) %}
         {% endif %}
         {% if (fields.is205.value === "true") %}
-           {% set checklistItems = (checklistItems.push(content["checklist-item4-iht205"]), checklistItems) %}
+           {% set checklistItems = (checklistItems.push(content["checklist-item7-iht205"]), checklistItems) %}
         {% endif %}
         {% if fields.hasRenunciated.value === "true" %}
-            {% set checklistItems = (checklistItems.push(content["checklist-item5-renunciated"] | replace("{renunciationFormLink}", globals.links.renunciationForm)), checklistItems) %}
+            {% set checklistItems = (checklistItems.push(content["checklist-item8-renunciated"] | replace("{renunciationFormLink}", globals.links.renunciationForm)), checklistItems) %}
         {% endif %}
         {% if fields.executorsNameChangedByDeedPollList.value | length > 0 %}
             {% for executor in fields.executorsNameChangedByDeedPollList.value %}
-                {% set checklistItems = (checklistItems.push(content["checklist-item6-deed-poll"] | replace("{executorCurrentName}", executor)), checklistItems) %}
+                {% set checklistItems = (checklistItems.push(content["checklist-item9-deed-poll"] | replace("{executorCurrentName}", executor)), checklistItems) %}
             {% endfor %}
         {% endif %}
     {% else %}
-        {% if fields.spouseRenouncing.value === "true" %}
-            {% set checklistItems = (checklistItems.push(content["checklist-item2-spouse-renouncing"] | replace("{renunciationFormLink}", globals.links.renunciationForm)), checklistItems) %}
+        {% if fields.ccdReferenceNumber.value !== "" %}
+           {% set checklistItems = (checklistItems.push(content["checklist-item1-application-coversheet"] | replace("{ccdReferenceNumber}", fields.ccdReferenceNumber.value) | safe), checklistItems) %}
         {% endif %}
-        {% if fields.uploads.value | length === 0 %}
-           {% set checklistItems = (checklistItems.push(content["checklist-item3-will-uploaded"]), checklistItems) %}
+        {% if (fields.interimDeathCertificate.value === "true") %}
+            {% set checklistItems = (checklistItems.push(content["checklist-item4-interim-death-cert"]), checklistItems) %}
+        {% endif %}
+        {% if (fields.foreignDeathCertificate.value === "true") %}
+            {% set checklistItems = (checklistItems.push(content["checklist-item4-foreign-death-cert"]), checklistItems) %}
+        {% endif %}
+        {% if (fields.foreignDeathCertTranslatedSeparately.value === "true") %}
+            {% set checklistItems = (checklistItems.push(content["checklist-item4-foreign-death-cert-translation"]), checklistItems) %}
+            {% set checklistItems = (checklistItems.push(content["checklist-item5-foreign-death-cert-PA19"]), checklistItems) %}
+        {% endif %}
+        {% if fields.spouseRenouncing.value === "true" %}
+            {% set checklistItems = (checklistItems.push(content["checklist-item6-spouse-renouncing"] | replace("{renunciationFormLink}", globals.links.renunciationForm)), checklistItems) %}
         {% endif %}
         {% if (fields.is205.value === "true") %}
-            {% set checklistItems = (checklistItems.push(content["checklist-item4-iht205"]), checklistItems) %}
+            {% set checklistItems = (checklistItems.push(content["checklist-item7-iht205"]), checklistItems) %}
         {% endif %}
     {% endif %}
 {% endif %}

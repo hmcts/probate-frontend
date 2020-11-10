@@ -62,9 +62,9 @@ describe('documents-new', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item4-interim-death-cert',
-                            'checklist-item5-foreign-death-cert',
-                            'checklist-item6-foreign-death-cert-translation',
-                            'checklist-item7-foreign-death-cert-PA19',
+                            'checklist-item4-foreign-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
                             'checklist-item2-spouse-renouncing',
                             'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
@@ -91,9 +91,9 @@ describe('documents-new', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item4-interim-death-cert',
-                            'checklist-item5-foreign-death-cert',
-                            'checklist-item6-foreign-death-cert-translation',
-                            'checklist-item7-foreign-death-cert-PA19',
+                            'checklist-item4-foreign-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
                             'checklist-item2-spouse-renouncing',
                             'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
@@ -121,9 +121,9 @@ describe('documents-new', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item4-interim-death-cert',
-                            'checklist-item5-foreign-death-cert',
-                            'checklist-item6-foreign-death-cert-translation',
-                            'checklist-item7-foreign-death-cert-PA19',
+                            'checklist-item4-foreign-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
                             'checklist-item2-spouse-renouncing',
                             'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
@@ -147,9 +147,9 @@ describe('documents-new', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item4-interim-death-cert',
-                            'checklist-item5-foreign-death-cert',
-                            'checklist-item6-foreign-death-cert-translation',
-                            'checklist-item7-foreign-death-cert-PA19',
+                            'checklist-item4-foreign-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
                             'checklist-item2-spouse-renouncing',
                             'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
@@ -174,9 +174,9 @@ describe('documents-new', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item4-interim-death-cert',
-                            'checklist-item5-foreign-death-cert',
-                            'checklist-item6-foreign-death-cert-translation',
-                            'checklist-item7-foreign-death-cert-PA19',
+                            'checklist-item4-foreign-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
                             'checklist-item2-spouse-renouncing',
                             'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
@@ -201,9 +201,9 @@ describe('documents-new', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item4-interim-death-cert',
-                            'checklist-item5-foreign-death-cert',
-                            'checklist-item6-foreign-death-cert-translation',
-                            'checklist-item7-foreign-death-cert-PA19',
+                            'checklist-item4-foreign-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
                             'checklist-item2-spouse-renouncing',
                             'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
@@ -228,9 +228,9 @@ describe('documents-new', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item4-interim-death-cert',
-                            'checklist-item5-foreign-death-cert',
-                            'checklist-item6-foreign-death-cert-translation',
-                            'checklist-item7-foreign-death-cert-PA19',
+                            'checklist-item4-foreign-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
                             'checklist-item2-spouse-renouncing',
                             'checklist-item3-will-uploaded',
                             'checklist-item5-renunciated',
@@ -274,9 +274,9 @@ describe('documents-new', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item4-interim-death-cert',
-                            'checklist-item5-foreign-death-cert',
-                            'checklist-item6-foreign-death-cert-translation',
-                            'checklist-item7-foreign-death-cert-PA19',
+                            'checklist-item4-foreign-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
                             'checklist-item2-spouse-renouncing',
                             'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
@@ -322,9 +322,9 @@ describe('documents-new', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item4-interim-death-cert',
-                            'checklist-item5-foreign-death-cert',
-                            'checklist-item6-foreign-death-cert-translation',
-                            'checklist-item7-foreign-death-cert-PA19',
+                            'checklist-item4-foreign-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
                             'checklist-item2-spouse-renouncing',
                             'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
@@ -351,9 +351,9 @@ describe('documents-new', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
-                            'checklist-item5-foreign-death-cert',
-                            'checklist-item6-foreign-death-cert-translation',
-                            'checklist-item7-foreign-death-cert-PA19',
+                            'checklist-item4-foreign-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
                             'checklist-item2-spouse-renouncing',
                             'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
@@ -377,8 +377,8 @@ describe('documents-new', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item4-interim-death-cert',
-                            'checklist-item6-foreign-death-cert-translation',
-                            'checklist-item7-foreign-death-cert-PA19',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
                             'checklist-item2-spouse-renouncing',
                             'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
@@ -428,8 +428,8 @@ describe('documents-new', () => {
                         const contentToExclude = [
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-interim-death-cert',
-                            'checklist-item6-foreign-death-cert-translation',
-                            'checklist-item7-foreign-death-cert-PA19',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
                             'checklist-item2-spouse-renouncing',
                             'checklist-item3-will-uploaded',
                             'checklist-item4-iht205',
@@ -465,12 +465,12 @@ describe('documents-new', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item1-application-coversheet',
-                            'checklist-item2-original-will',
+                            'checklist-item2-no-codicils',
                             'checklist-item3-will-damage',
                             'checklist-item4-interim-death-cert',
-                            'checklist-item5-foreign-death-cert',
-                            'checklist-item6-foreign-death-cert-translation',
-                            'checklist-item7-foreign-death-cert-PA19',
+                            'checklist-item4-foreign-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
                             'checklist-item5-renunciated',
                             'checklist-item6-deed-poll',
                             'checkboxLabel-codicils',

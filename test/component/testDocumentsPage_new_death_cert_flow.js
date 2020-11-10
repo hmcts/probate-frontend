@@ -61,6 +61,33 @@ describe('documents-new', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item3-will-damage-codicils',
+                            'checklist-item4-interim-death-cert',
+                            'checklist-item4-foreign-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
+                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll'
+                        ];
+
+                        testWrapper.testContent(done, contentData, contentToExclude);
+                    });
+            });
+
+            it('test correct content loaded on the page codicils, no foreign death cert, single executor', (done) => {
+                sessionData.will = {
+                    codicils: 'optionYes',
+                    codicilsNumber: '1'
+                };
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+                        const contentToExclude = [
+                            'checklist-item2-no-codicils',
+                            'checklist-item3-will-damage-no-codicils',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -87,6 +114,8 @@ describe('documents-new', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item3-will-damage-codicils',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -114,6 +143,8 @@ describe('documents-new', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item3-will-damage-codicils',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -137,6 +168,8 @@ describe('documents-new', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item3-will-damage-codicils',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -161,6 +194,8 @@ describe('documents-new', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item3-will-damage-codicils',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -185,6 +220,8 @@ describe('documents-new', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item3-will-damage-codicils',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -209,6 +246,8 @@ describe('documents-new', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item3-will-damage-codicils',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -252,6 +291,8 @@ describe('documents-new', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item3-will-damage-codicils',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -297,6 +338,8 @@ describe('documents-new', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item3-will-damage-codicils',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -324,6 +367,8 @@ describe('documents-new', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item3-will-damage-codicils',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
@@ -346,6 +391,8 @@ describe('documents-new', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item3-will-damage-codicils',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
@@ -369,6 +416,8 @@ describe('documents-new', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item3-will-damage-codicils',
                             'checklist-item4-interim-death-cert',
                             'checklist-item6-spouse-renouncing',
                             'checklist-item7-iht205',
@@ -390,6 +439,8 @@ describe('documents-new', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'checklist-item2-codicils',
+                            'checklist-item3-will-damage-codicils',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -427,7 +478,8 @@ describe('documents-new', () => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
-                            'checklist-item3-will-damage',
+                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-will-damage-no-codicils',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',

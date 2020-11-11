@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 describe('DeathCertificate', () => {
     describe('hasInterimDeathCertificate()', () => {
         it('should return true when death certificate is interim', (done) => {
-            const data = {deathCertificate: 'optionInterimDeathCertificate'};
+            const data = {deathCertificate: 'optionInterimCertificate'};
             const deathCertificateWrapper = new DeathCertificateWrapper(data);
             expect(deathCertificateWrapper.hasInterimDeathCertificate()).to.equal(true);
             done();

@@ -6,7 +6,7 @@ class DeathCertificate {
     }
 
     hasInterimDeathCertificate() {
-        return this.deceased.deathCertificate === 'optionInterimDeathCertificate';
+        return this.deceased.deathCertificate === 'optionInterimCertificate';
     }
 
     hasForeignDeathCertificate() {

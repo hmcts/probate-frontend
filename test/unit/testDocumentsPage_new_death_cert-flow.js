@@ -8,8 +8,11 @@ const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/.
 const co = require('co');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe('Documents', () => {
+//DTSPB-529 Test file duplicated for new probate death cert flow.
+describe('Documents_new_death_cert_flow', () => {
     const Documents = steps.Documents;
+    const featureToggles = {ft_new_deathcert_flow: true};
+    const language = 'en';
 
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
@@ -35,8 +38,7 @@ describe('Documents', () => {
                         address: '1 Red Road, London, L1 1LL'
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles, language);
                 expect(ctx.registryAddress).to.equal('1 Red Road, London, L1 1LL');
                 done();
             });
@@ -45,8 +47,7 @@ describe('Documents', () => {
                 const formdata = {
                     registry: {}
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles, language);
                 expect(ctx.registryAddress).to.equal('Digital Application\nOxford District Probate Registry\nCombined Court Building\nSt Aldates\nOxford\nOX1 1LY');
                 done();
             });
@@ -58,8 +59,7 @@ describe('Documents', () => {
                         form: 'optionIHT205'
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles, language);
                 expect(ctx.is205).to.equal(true);
                 done();
             });
@@ -71,8 +71,7 @@ describe('Documents', () => {
                         form: 'optionIHT207'
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles, language);
                 expect(ctx.is205).to.equal(false);
                 done();
             });
@@ -83,16 +82,14 @@ describe('Documents', () => {
                         method: 'optionOnline'
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles, language);
                 expect(ctx.is205).to.equal(false);
                 done();
             });
 
             it('should return undefined when iht data is not given', (done) => {
                 const formdata = {};
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles, language);
                 assert.isUndefined(ctx.is205);
                 done();
             });
@@ -104,7 +101,6 @@ describe('Documents', () => {
                         state: 'CaseCreated'
                     }
                 };
-                const featureToggles = {};
                 const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
                 expect(ctx.ccdReferenceNumber).to.equal('1234-5678-9012-3456');
                 done();
@@ -114,9 +110,81 @@ describe('Documents', () => {
                 const formdata = {
                     ccdCase: {}
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles, language);
                 expect(ctx.ccdReferenceNumber).to.equal('');
+                done();
+            });
+
+            it('should return true when death certificate is interim', (done) => {
+                const formdata = {
+                    deceased: {
+                        deathCertificate: 'optionInterimCertificate'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles, language);
+                expect(ctx.interimDeathCertificate).to.equal(true);
+                done();
+            });
+
+            it('should return false when death certificate is not interim', (done) => {
+                const formdata = {
+                    deceased: {
+                        deathCertificate: 'optionDeathCertificate'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles, language);
+                expect(ctx.interimDeathCertificate).to.equal(false);
+                done();
+            });
+
+            it('should return true when death certificate is foreign', (done) => {
+                const formdata = {
+                    deceased: {
+                        diedEngOrWales: 'optionNo'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles, language);
+                expect(ctx.foreignDeathCertificate).to.equal(true);
+                done();
+            });
+
+            it('should return false when death certificate is not foreign', (done) => {
+                const formdata = {
+                    deceased: {
+                        diedEngOrWales: 'optionYes'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles, language);
+                expect(ctx.foreignDeathCertificate).to.equal(false);
+                done();
+            });
+
+            it('should return true when foreign death certificate is translated separately', (done) => {
+                const formdata = {
+                    deceased: {
+                        foreignDeathCertTranslation: 'optionNo'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles, language);
+                expect(ctx.foreignDeathCertTranslatedSeparately).to.equal(true);
+                done();
+            });
+
+            it('should return false when foreign death certificate is translated separately', (done) => {
+                const formdata = {
+                    deceased: {
+                        foreignDeathCertTranslation: 'optionYes'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles, language);
+                expect(ctx.foreignDeathCertTranslatedSeparately).to.equal(false);
+                done();
+            });
+
+            it('should return true when new death certificate FT is ON ', (done) => {
+                const formdata = {};
+                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles, language);
+                expect(ctx.newDeathCertFTEnabled).to.equal(true);
                 done();
             });
         });
@@ -136,7 +204,6 @@ describe('Documents', () => {
                         codicils: 'optionYes'
                     }
                 };
-                const featureToggles = {};
                 const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
                 expect(ctx.hasCodicils).to.equal(true);
                 done();
@@ -148,7 +215,6 @@ describe('Documents', () => {
                         codicils: 'optionNo'
                     }
                 };
-                const featureToggles = {};
                 const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
                 expect(ctx.hasCodicils).to.equal(false);
                 done();
@@ -160,7 +226,6 @@ describe('Documents', () => {
                         codicilsNumber: 2
                     }
                 };
-                const featureToggles = {};
                 const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
                 expect(ctx.codicilsNumber).to.equal(2);
                 done();
@@ -175,7 +240,6 @@ describe('Documents', () => {
                         ]
                     }
                 };
-                const featureToggles = {};
                 const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
                 expect(ctx.hasMultipleApplicants).to.equal(true);
                 done();
@@ -189,7 +253,6 @@ describe('Documents', () => {
                         ]
                     }
                 };
-                const featureToggles = {};
                 const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
                 expect(ctx.hasMultipleApplicants).to.equal(false);
                 done();
@@ -203,7 +266,6 @@ describe('Documents', () => {
                         ]
                     }
                 };
-                const featureToggles = {};
                 const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
                 expect(ctx.hasMultipleApplicants).to.equal(false);
                 done();
@@ -217,7 +279,6 @@ describe('Documents', () => {
                         ]
                     }
                 };
-                const featureToggles = {};
                 const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
                 expect(ctx.hasRenunciated).to.equal(true);
                 done();
@@ -229,7 +290,6 @@ describe('Documents', () => {
                         list: []
                     }
                 };
-                const featureToggles = {};
                 const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
                 expect(ctx.hasRenunciated).to.equal(false);
                 done();
@@ -243,7 +303,6 @@ describe('Documents', () => {
                         ]
                     }
                 };
-                const featureToggles = {};
                 const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
                 expect(ctx.executorsNameChangedByDeedPollList).to.deep.equal(['Sam Williams']);
                 done();
@@ -257,7 +316,6 @@ describe('Documents', () => {
                         ]
                     }
                 };
-                const featureToggles = {};
                 const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
                 expect(ctx.executorsNameChangedByDeedPollList).to.deep.equal([]);
                 done();
@@ -266,33 +324,18 @@ describe('Documents', () => {
     });
 
     describe('runnerOptions', () => {
+        let session;
+
+        beforeEach(() => {
+            session = {
+                form: {},
+                featureToggles: featureToggles
+            };
+        });
+
         it('do not redirect if journey is gop', (done) => {
             const ctx = {
                 caseType: caseTypes.GOP
-            };
-            const session = {
-                form: {}
-            };
-            co(function* () {
-                const options = yield Documents.runnerOptions(ctx, session);
-
-                expect(options).to.deep.equal({});
-                done();
-            }).catch(err => {
-                done(err);
-            });
-        });
-
-        it('do not redirect if journey is intestacy and a document was not uploaded', (done) => {
-            const ctx = {
-                caseType: caseTypes.INTESTACY
-            };
-            const session = {
-                form: {
-                    documents: {
-                        uploads: []
-                    }
-                }
             };
             co(function* () {
                 const options = yield Documents.runnerOptions(ctx, session);
@@ -308,14 +351,8 @@ describe('Documents', () => {
             const ctx = {
                 caseType: caseTypes.INTESTACY
             };
-            const session = {
-                form: {
-                    iht: {
-                        method: 'optionPaper',
-                        form: 'optionIHT205'
-                    }
-                }
-            };
+            session.form.iht = {method: 'optionPaper', form: 'optionIHT205'};
+
             co(function* () {
                 const options = yield Documents.runnerOptions(ctx, session);
 
@@ -330,15 +367,9 @@ describe('Documents', () => {
             const ctx = {
                 caseType: caseTypes.INTESTACY
             };
-            const session = {
-                form: {
-                    deceased: {
-                        maritalStatus: 'optionMarried'
-                    },
-                    applicant: {
-                        relationshipToDeceased: 'optionChild'
-                    }
-                }
+            session.form = {
+                deceased: {maritalStatus: 'optionMarried'},
+                applicant: {relationshipToDeceased: 'optionChild'}
             };
             co(function* () {
                 const options = yield Documents.runnerOptions(ctx, session);
@@ -354,15 +385,43 @@ describe('Documents', () => {
             const ctx = {
                 caseType: caseTypes.INTESTACY
             };
-            const session = {
-                form: {
-                    deceased: {
-                        maritalStatus: 'optionMarried'
-                    },
-                    applicant: {
-                        relationshipToDeceased: 'optionAdoptedChild'
-                    }
-                }
+            session.form = {
+                deceased: {maritalStatus: 'optionMarried'},
+                applicant: {relationshipToDeceased: 'optionAdoptedChild'}
+            };
+            co(function* () {
+                const options = yield Documents.runnerOptions(ctx, session);
+
+                expect(options).to.deep.equal({});
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+
+        it('do not redirect if journey is intestacy and death certificate is interim', (done) => {
+            const ctx = {
+                caseType: caseTypes.INTESTACY
+            };
+            session.form = {
+                deceased: {deathCertificate: 'optionInterimCertificate'},
+            };
+            co(function* () {
+                const options = yield Documents.runnerOptions(ctx, session);
+
+                expect(options).to.deep.equal({});
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+
+        it('do not redirect if journey is intestacy and death certificate is foreign', (done) => {
+            const ctx = {
+                caseType: caseTypes.INTESTACY
+            };
+            session.form = {
+                deceased: {diedEngOrWales: 'optionNo'},
             };
             co(function* () {
                 const options = yield Documents.runnerOptions(ctx, session);
@@ -378,21 +437,9 @@ describe('Documents', () => {
             const ctx = {
                 caseType: caseTypes.INTESTACY
             };
-            const session = {
-                form: {
-                    deceased: {
-                        maritalStatus: 'optionSeparated'
-                    },
-                    documents: {
-                        uploads: [
-                            'testfile.pdf'
-                        ]
-                    },
-                    iht: {
-                        method: 'optionPaper',
-                        form: 'optionIHT207'
-                    }
-                }
+            session.form = {
+                deceased: {maritalStatus: 'optionSeparated'},
+                iht: {method: 'optionPaper', form: 'optionIHT207'}
             };
             co(function* () {
                 const options = yield Documents.runnerOptions(ctx, session);

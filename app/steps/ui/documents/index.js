@@ -29,8 +29,13 @@ class Documents extends ValidationStep {
             const applicantIsChild = Boolean(formdata.applicant && (formdata.applicant.relationshipToDeceased === 'optionChild' || formdata.applicant.relationshipToDeceased === 'optionAdoptedChild'));
             const noDocumentsUploaded = !(formdata.documents && formdata.documents.uploads && formdata.documents.uploads.length);
             const iht205Used = Boolean(formdata.iht && formdata.iht.method === 'optionPaper' && formdata.iht.form === 'optionIHT205');
+            const interimDeathCert = Boolean(formdata.deceased && formdata.deceased.deathCertificate === 'optionInterimCertificate');
+            const foreignDeathCert = Boolean(formdata.deceased && formdata.deceased.diedEngOrWales === 'optionNo');
 
-            if (!((deceasedMarried && applicantIsChild) || noDocumentsUploaded || iht205Used)) {
+            // eslint-disable-next-line multiline-ternary
+            const redirectConditions = featureToggle.isEnabled(session.featureToggles, 'ft_new_deathcert_flow')
+                ? !((deceasedMarried && applicantIsChild) || iht205Used || interimDeathCert || foreignDeathCert): !((deceasedMarried && applicantIsChild) || noDocumentsUploaded || iht205Used);
+            if (redirectConditions) {
                 options.redirect = true;
                 options.url = '/thank-you';
             }

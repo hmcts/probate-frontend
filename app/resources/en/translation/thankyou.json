@@ -4,6 +4,7 @@
   "referenceNumber": "Your reference number is",
   "successHeading1": "What happens next",
   "successParagraph1": "We will contact you when we have received your documents. We will then review your application and issue your grant of probate within 8 weeks.",
+  "successParagraph1NoDocumentsRequired": "We will review your application and issue your grant of probate within 8 weeks.",
   "successParagraph2": "You do not need to do anything until then.",
   "successParagraph3": "We&rsquo;ll email you if we need any more information. You can also call the Probate Registry on {helpLineNumber} if you have any questions.",
   "successParagraph4": "Find out what to do <a href=\"{findOutNext}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"when you receive your grant of probate (opens in a new window)\">when you receive your grant of probate (opens in a new window)</a>.",

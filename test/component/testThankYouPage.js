@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const config = require('config');
 const content = require('app/resources/en/translation/thankyou');
 const commonContent = require('app/resources/en/translation/common');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('thank-you', () => {
     let testWrapper;
@@ -40,7 +41,7 @@ describe('thank-you', () => {
                     total: 0
                 }
             };
-            const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf', 'coverSheetPdf'];
+            const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf', 'coverSheetPdf', 'successParagraph1NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -68,7 +69,7 @@ describe('thank-you', () => {
                 },
                 checkAnswersSummary: '{test: "data"}'
             };
-            const contentToExclude = ['declarationPdf', 'coverSheetPdf'];
+            const contentToExclude = ['declarationPdf', 'coverSheetPdf', 'successParagraph1NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -118,7 +119,7 @@ describe('thank-you', () => {
                 },
                 legalDeclaration: '{test: "data"}'
             };
-            const contentToExclude = ['checkAnswersPdf'];
+            const contentToExclude = ['checkAnswersPdf', 'successParagraph1NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -169,6 +170,7 @@ describe('thank-you', () => {
                 checkAnswersSummary: '{test: "data"}',
                 legalDeclaration: '{test: "data"}'
             };
+            const contentToExclude = ['successParagraph1NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -181,7 +183,7 @@ describe('thank-you', () => {
                         declarationLink: content.declarationPdf
                     };
 
-                    testWrapper.testContent(done, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 
@@ -198,7 +200,7 @@ describe('thank-you', () => {
                     total: 0
                 }
             };
-            const contentToExclude = ['checkAnswersPdf', 'declarationPdf'];
+            const contentToExclude = ['checkAnswersPdf', 'declarationPdf', 'successParagraph1NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -208,6 +210,57 @@ describe('thank-you', () => {
                         findOutNext: config.links.findOutNext,
                         saveYourApplication: content.saveYourApplication,
                         coverSheetLink: content.coverSheetPdf
+                    };
+
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+
+        it('test content loaded on the page when documents are required', (done) => {
+            const sessionData = {
+                declaration: {
+                    declarationCheckbox: 'true'
+                },
+                payment: {
+                    total: 0
+                },
+                caseType: caseTypes.GOP
+            };
+            const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf', 'coverSheetPdf', 'successParagraph1NoDocumentsRequired', 'referenceNumber'];
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        helpLineNumber: commonContent.helpTelephoneNumber,
+                        findOutNext: config.links.findOutNext
+                    };
+
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+
+        it('test content loaded on the page when documents not required', (done) => {
+            const sessionData = {
+                declaration: {
+                    declarationCheckbox: 'true'
+                },
+                payment: {
+                    total: 0
+                },
+                caseType: caseTypes.INTESTACY,
+                documents: {
+                    uploads: ['content']
+                }
+            };
+            const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf', 'coverSheetPdf', 'successParagraph1', 'referenceNumber'];
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        helpLineNumber: commonContent.helpTelephoneNumber,
+                        findOutNext: config.links.findOutNext
                     };
 
                     testWrapper.testContent(done, contentData, contentToExclude);

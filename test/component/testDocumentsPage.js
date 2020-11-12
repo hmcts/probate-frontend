@@ -505,7 +505,7 @@ describe('documents', () => {
         });
     });
 
-    describe('documents-new', () => {
+    describe('documents_new_death_cert_flow', () => {
         let testWrapper;
         const expectedNextUrlForThankYouPage = ThankYou.getUrl();
         let sessionData;

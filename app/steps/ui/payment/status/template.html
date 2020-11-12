@@ -15,9 +15,11 @@
         {% endif %}
     {% endif %}
 
-    {{ govukInsetText({
-        text: content.callout | safe
-    }) }}
+    {% if fields.documentsRequired.value == "true" %}
+        {{ govukInsetText({
+            text: content.callout | safe
+        }) }}
+    {% endif %}
 
     <div class="govuk-form-group">
         {{ govukButton({

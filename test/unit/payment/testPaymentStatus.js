@@ -120,6 +120,49 @@ describe('PaymentStatus', () => {
         });
     });
 
+    describe('handleGet()', () => {
+        let revertDocumentsWrapper;
+        afterEach(() => {
+            revertDocumentsWrapper();
+        });
+
+        it('should set documentsRequired to true when documents are required', (done) => {
+            revertDocumentsWrapper = PaymentStatus.__set__({
+                DocumentsWrapper: class {
+                    documentsRequired() {
+                        return true;
+                    }
+                }
+            });
+            const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
+            co(function* () {
+                const [context] = yield paymentStatus.handleGet({}, {}, {});
+                expect(context).to.deep.equal({documentsRequired: true});
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+
+        it('should set documentsRequired to false when documents not required', (done) => {
+            revertDocumentsWrapper = PaymentStatus.__set__({
+                DocumentsWrapper: class {
+                    documentsRequired() {
+                        return false;
+                    }
+                }
+            });
+            const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
+            co(function* () {
+                const [context] = yield paymentStatus.handleGet({}, {}, {});
+                expect(context).to.deep.equal({documentsRequired: false});
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+    });
+
     describe('runnerOptions', () => {
         it('redirect if there is an authorise failure', (done) => {
             revertSubmitData(expectedFormData);

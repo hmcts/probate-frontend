@@ -6,6 +6,7 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const RegistryWrapper = require('app/wrappers/Registry');
 const DeathCertificateWrapper = require('app/wrappers/DeathCertificate');
+const DocumentsWrapper = require('app/wrappers/Documents');
 const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
 const caseTypes = require('app/utils/CaseTypes');
 const featureToggle = require('app/utils/FeatureToggle');
@@ -23,24 +24,13 @@ class Documents extends ValidationStep {
     runnerOptions(ctx, session) {
         const formdata = session.form;
         const options = {};
+        const documentsWrapper = new DocumentsWrapper(formdata);
+        const documentsRequired = documentsWrapper.documentsRequired(featureToggle.isEnabled(session.featureToggles, 'ft_new_deathcert_flow'));
 
-        if (ctx.caseType === caseTypes.INTESTACY) {
-            const deceasedMarried = Boolean(formdata.deceased && formdata.deceased.maritalStatus === 'optionMarried');
-            const applicantIsChild = Boolean(formdata.applicant && (formdata.applicant.relationshipToDeceased === 'optionChild' || formdata.applicant.relationshipToDeceased === 'optionAdoptedChild'));
-            const noDocumentsUploaded = !(formdata.documents && formdata.documents.uploads && formdata.documents.uploads.length);
-            const iht205Used = Boolean(formdata.iht && formdata.iht.method === 'optionPaper' && formdata.iht.form === 'optionIHT205');
-            const interimDeathCert = Boolean(formdata.deceased && formdata.deceased.deathCertificate === 'optionInterimCertificate');
-            const foreignDeathCert = Boolean(formdata.deceased && formdata.deceased.diedEngOrWales === 'optionNo');
-
-            // eslint-disable-next-line multiline-ternary
-            const redirectConditions = featureToggle.isEnabled(session.featureToggles, 'ft_new_deathcert_flow')
-                ? !((deceasedMarried && applicantIsChild) || iht205Used || interimDeathCert || foreignDeathCert): !((deceasedMarried && applicantIsChild) || noDocumentsUploaded || iht205Used);
-            if (redirectConditions) {
-                options.redirect = true;
-                options.url = '/thank-you';
-            }
+        if (!documentsRequired) {
+            options.redirect = true;
+            options.url = '/thank-you';
         }
-
         return options;
     }
 

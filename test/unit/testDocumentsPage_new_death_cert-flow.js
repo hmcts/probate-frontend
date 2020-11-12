@@ -325,21 +325,21 @@ describe('Documents_new_death_cert_flow', () => {
 
     describe('runnerOptions', () => {
         let session;
+        let ctx;
 
         beforeEach(() => {
             session = {
                 form: {},
                 featureToggles: featureToggles
             };
+            ctx = {};
         });
 
         it('do not redirect if journey is gop', (done) => {
-            const ctx = {
-                caseType: caseTypes.GOP
-            };
+            session.form = {caseType: caseTypes.GOP};
+            const ctx = {};
             co(function* () {
                 const options = yield Documents.runnerOptions(ctx, session);
-
                 expect(options).to.deep.equal({});
                 done();
             }).catch(err => {
@@ -348,9 +348,7 @@ describe('Documents_new_death_cert_flow', () => {
         });
 
         it('do not redirect if journey is intestacy and a form IHT205 was used', (done) => {
-            const ctx = {
-                caseType: caseTypes.INTESTACY
-            };
+            session.form = {caseType: caseTypes.INTESTACY};
             session.form.iht = {method: 'optionPaper', form: 'optionIHT205'};
 
             co(function* () {
@@ -364,12 +362,10 @@ describe('Documents_new_death_cert_flow', () => {
         });
 
         it('do not redirect if journey is intestacy and deceased was married and applicant is child', (done) => {
-            const ctx = {
-                caseType: caseTypes.INTESTACY
-            };
             session.form = {
                 deceased: {maritalStatus: 'optionMarried'},
-                applicant: {relationshipToDeceased: 'optionChild'}
+                applicant: {relationshipToDeceased: 'optionChild'},
+                caseType: caseTypes.INTESTACY
             };
             co(function* () {
                 const options = yield Documents.runnerOptions(ctx, session);
@@ -382,12 +378,10 @@ describe('Documents_new_death_cert_flow', () => {
         });
 
         it('do not redirect if journey is intestacy and deceased was married and applicant is adopted child', (done) => {
-            const ctx = {
-                caseType: caseTypes.INTESTACY
-            };
             session.form = {
                 deceased: {maritalStatus: 'optionMarried'},
-                applicant: {relationshipToDeceased: 'optionAdoptedChild'}
+                applicant: {relationshipToDeceased: 'optionAdoptedChild'},
+                caseType: caseTypes.INTESTACY
             };
             co(function* () {
                 const options = yield Documents.runnerOptions(ctx, session);
@@ -400,11 +394,9 @@ describe('Documents_new_death_cert_flow', () => {
         });
 
         it('do not redirect if journey is intestacy and death certificate is interim', (done) => {
-            const ctx = {
-                caseType: caseTypes.INTESTACY
-            };
             session.form = {
                 deceased: {deathCertificate: 'optionInterimCertificate'},
+                caseType: caseTypes.INTESTACY
             };
             co(function* () {
                 const options = yield Documents.runnerOptions(ctx, session);
@@ -417,11 +409,9 @@ describe('Documents_new_death_cert_flow', () => {
         });
 
         it('do not redirect if journey is intestacy and death certificate is foreign', (done) => {
-            const ctx = {
-                caseType: caseTypes.INTESTACY
-            };
             session.form = {
                 deceased: {diedEngOrWales: 'optionNo'},
+                caseType: caseTypes.INTESTACY
             };
             co(function* () {
                 const options = yield Documents.runnerOptions(ctx, session);
@@ -434,12 +424,10 @@ describe('Documents_new_death_cert_flow', () => {
         });
 
         it('redirect if journey is intestacy and a none of the other conditions apply', (done) => {
-            const ctx = {
-                caseType: caseTypes.INTESTACY
-            };
             session.form = {
                 deceased: {maritalStatus: 'optionSeparated'},
-                iht: {method: 'optionPaper', form: 'optionIHT207'}
+                iht: {method: 'optionPaper', form: 'optionIHT207'},
+                caseType: caseTypes.INTESTACY
             };
             co(function* () {
                 const options = yield Documents.runnerOptions(ctx, session);

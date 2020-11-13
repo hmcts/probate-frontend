@@ -113,6 +113,8 @@ module.exports = () => {
         seeGovUkPaymentPage: steps.payment.govukpayment,
         seeGovUkConfirmPage: steps.payment.govukconfirmpayment,
         seePaymentStatusPage: steps.payment.paymentstatus,
+        cancelPayment: steps.payment.govukcancelpayment,
+        seeCancellationStatusPage: steps.payment.continueCancel,
 
         // Documents
         seeDocumentsPage: steps.documents.documents,

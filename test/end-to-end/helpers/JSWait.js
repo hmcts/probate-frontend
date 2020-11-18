@@ -14,12 +14,12 @@ class JSWait extends codecept_helper {
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
         if (helperIsPuppeteer) {
-            return await Promise.all([
+            await Promise.all([
                 helper.page.waitForNavigation({waitUntil: 'networkidle0'}),
                 helper.click(text, locator)
             ]);
         }
-        return await Promise.all([
+        await Promise.all([
             helper.click(text, locator),
             helper.wait(3)
         ]);

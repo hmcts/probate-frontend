@@ -6,8 +6,6 @@ const optionYes = '';
 const ihtPost = '';
 const optionNo = '-2';
 const bilingualGOP = false;
-const uploadingDocuments = false;
-const config = require('test/config');
 
 Feature('GOP-Single Executor flow...').retry(TestConfigurator.getRetryFeatures());
 
@@ -19,23 +17,23 @@ Before(() => {
 });
 
 // eslint-disable-next-line no-undef
+/*
 After(() => {
     TestConfigurator.getAfter();
 });
+*/
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/in and survey link - launch darkly OFF'), async (I) => {
 
-    const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
+    //const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
 
     // Eligibility Task (pre IdAM)
-    I.startApplication();
+    await I.startApplication();
 
     I.selectDeathCertificate(optionYes);
 
-    if (useNewDeathCertFlow) {
-        I.selectDeathCertificateInEnglish(optionNo);
-        I.selectDeathCertificateTranslation(optionYes);
-    }
+    I.selectDeathCertificateInEnglish(optionNo);
+    I.selectDeathCertificateTranslation(optionYes);
 
     I.selectDeceasedDomicile(optionYes);
 
@@ -77,13 +75,9 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/i
     I.enterDeceasedDateOfDeath('01', '01', '2017');
     I.enterDeceasedAddress();
 
-    if (useNewDeathCertFlow) {
-        I.selectDiedEngOrWales(optionNo);
-        I.selectEnglishForeignDeathCert(optionNo);
-        I.selectForeignDeathCertTranslation(optionYes);
-    } else {
-        I.selectDocumentsToUpload(uploadingDocuments);
-    }
+    I.selectDiedEngOrWales(optionNo);
+    I.selectEnglishForeignDeathCert(optionNo);
+    I.selectForeignDeathCertTranslation(optionYes);
 
     I.selectInheritanceMethod(ihtPost);
 

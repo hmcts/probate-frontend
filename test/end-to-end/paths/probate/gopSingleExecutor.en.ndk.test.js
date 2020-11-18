@@ -25,7 +25,7 @@ After(() => {
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/in and survey link - launch darkly OFF'), async (I) => {
 
     // Eligibility Task (pre IdAM)
-    I.startApplication();
+    await I.startApplication();
 
     I.selectDeathCertificate(optionYes);
 

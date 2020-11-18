@@ -78,9 +78,6 @@ class TestConfigurator {
 
     }
 
-    getAfter() {
-    }
-
     setTestCitizenName() {
         this.testCitizenName = randomstring.generate({
             length: 36,

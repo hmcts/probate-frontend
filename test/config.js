@@ -12,13 +12,13 @@ module.exports = {
     TestInvitationUrl: process.env.INVITATION_URL,
     TestInviteIdListUrl: process.env.INVITE_ID_LIST_URL,
     TestOutputDir: process.env.E2E_OUTPUT_DIR || './output',
-    TestPathToRun: './paths/**/*.test.js',
+    TestPathToRun: process.env.FE_E2E_TEST_PATH_TO_RUN || './paths/**/*.test.js',
     TestPinUrl: process.env.PIN_URL,
     TestProxy: process.env.TEST_PROXY || 'socks5:proxyout.reform.hmcts.net:8080',
     TestRetryFeatures: process.env.RETRY_FEATURES || 4,
     TestRetryScenarios: process.env.RETRY_SCENARIOS || 4,
     TestRetrySteps: process.env.RETRY_STEPS || 4,
-    TestShowBrowser: false,
+    TestShowBrowser: true,
     TestUseGovPay: process.env.USE_GOV_PAY || 'true',
     TestUseIdam: process.env.USE_IDAM || 'true',
     TestUseProxy: process.env.TEST_USE_PROXY || 'false',
@@ -89,16 +89,5 @@ module.exports = {
 
     pact: {
         pactBrokerUrl: process.env.PACT_BROKER_URL || 'http://localhost:80'
-    },
-
-    featureToggles: {
-        enabled: true,
-        launchDarklyKey: process.env.TEST_LAUNCH_DARKLY_KEY || 'SDK_KEY',
-        launchDarklyUser: {
-            firstName: 'Probate',
-            lastName: 'Frontend',
-            key: '35222af3-7867-44ea-a2a0-f8e533ad12de'
-        },
-        ft_new_deathcert_flow: 'probate-new-deathcert-flow'
     }
 };

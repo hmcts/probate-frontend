@@ -23,7 +23,7 @@ After(() => {
     TestConfigurator.getAfter();
 });
 
-Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/in and survey link'), async (I) => {
+Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/in and survey link - launch darkly OFF'), async (I) => {
 
     const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
 

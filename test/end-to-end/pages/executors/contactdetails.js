@@ -1,7 +1,7 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const testConfig = require('test/config');
+const testConfig = require('config');
 
 module.exports = function() {
     const I = this;

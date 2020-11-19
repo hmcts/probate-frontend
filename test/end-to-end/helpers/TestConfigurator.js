@@ -2,7 +2,8 @@
 
 const randomstring = require('randomstring');
 const request = require('request');
-const testConfig = require('test/config');
+const testConfig = require('config');
+const LaunchDarkly = require('test/end-to-end/helpers/LaunchDarkly');
 
 /* eslint no-console: 0 no-unused-vars: 0 */
 /* eslint-disable no-undef */
@@ -25,6 +26,7 @@ class TestConfigurator {
         this.retryScenarios = testConfig.TestRetryScenarios;
         this.testUseProxy = testConfig.TestUseProxy;
         this.testProxy = testConfig.TestProxy;
+        this.launchDarkly = new LaunchDarkly();
     }
 
     getBefore() {
@@ -76,6 +78,10 @@ class TestConfigurator {
             }
         }
 
+    }
+
+    getAfter() {
+        this.launchDarkly.close();
     }
 
     setTestCitizenName() {
@@ -156,6 +162,10 @@ class TestConfigurator {
 
     equalityAndDiversityEnabled() {
         return this.environment !== 'local';
+    }
+
+    checkFeatureToggle(featureToggleKey) {
+        return this.launchDarkly.variation(featureToggleKey, testConfig.featureToggles.launchDarklyUser, false);
     }
 }
 

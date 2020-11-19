@@ -1,0 +1,159 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [        
+        {
+            "command": "npm test",
+            "name": "Run npm test",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
+            "command": "npm run test-unit",
+            "name": "Run npm unit test",
+            "request": "launch",
+            "type": "node-terminal"
+        },    
+        {
+            "command": "npm run test-unit-grep",
+            "name": "Run npm unit test with grep",
+            "request": "launch",
+            "type": "node-terminal"
+        },    
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "env": {
+                "NODE_ENV": "dev",
+                "NODE_PATH": "."
+            },
+            "program": "${workspaceFolder}\\server.js"
+        },
+        {
+            "name": "Launch http ws in Test Context - darkly OFF",
+            "request": "launch",
+            "runtimeArgs": [
+                "start:test-context-http",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },  
+        {
+            "name": "Launch https ws in Test Context - darkly OFF",
+            "request": "launch",
+            "runtimeArgs": [
+                "start:test-context",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },  
+        {
+            "name": "Launch http ws in Test Context - darkly ON",
+            "request": "launch",
+            "runtimeArgs": [
+                "start:test-context-http:dk",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },           
+        {
+            "name": "Launch https ws in Test Context - darkly ON",
+            "request": "launch",
+            "runtimeArgs": [
+                "start:test-context:dk",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },        
+        {
+            "name": "Mocha test end-end http - launch darkly OFF",
+            "request": "launch",
+            "runtimeArgs": [
+                "test-e2e-http",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },                 
+        {
+            "name": "Mocha test end-end https - launch darkly OFF",
+            "request": "launch",
+            "runtimeArgs": [
+                "test-e2e",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+        {
+            "name": "Mocha test end-end http - launch darkly ON",
+            "request": "launch",
+            "runtimeArgs": [
+                "test-e2e-http-launch-darkly",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },        
+        {
+            "name": "Mocha test end-end https - launch darkly ON",
+            "request": "launch",
+            "runtimeArgs": [
+                "test-e2e-launch-darkly",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+        {
+            "name": "Mocha test end-end gopSingleExecutor - launch darkly OFF",
+            "request": "launch",
+            "runtimeArgs": [
+                "test-e2e-gop-single-exec-http",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },          
+        {
+            "name": "Mocha test end-end gopSingleExecutor - launch darkly ON",
+            "request": "launch",
+            "runtimeArgs": [
+                "test-e2e-gop-single-exec-http-dk",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        }          
+    ]
+}

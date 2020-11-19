@@ -5,6 +5,10 @@ frontendPublicHttpProtocol: PUBLIC_PROTOCOL
 featureToggles:
   enabled: LAUNCHDARKLY_ENABLED
   launchDarklyKey: LAUNCHDARKLY_KEY
+  launchDarklyUser:
+    firstName: LAUNCHDARKLY_USER_FIRSTNAME
+    lastName: LAUNCHDARKLY_USER_LASTNAME
+    key: LAUNCHDARKLY_USER_KEY  
 app:
   username: USERNAME
   password: PASSWORD
@@ -85,6 +89,7 @@ TestIdamUserGroup: IDAM_USER_GROUP
 TestInvitationUrl: INVITATION_URL
 TestInviteIdListUrl: INVITE_ID_LIST_URL
 TestOutputDir: E2E_OUTPUT_DIR
+TestPathToRun: FE_E2E_TEST_PATH_TO_RUN
 TestPinUrl: PIN_URL
 TestProxy: TEST_PROXY
 TestRetryFeatures: RETRY_FEATURES

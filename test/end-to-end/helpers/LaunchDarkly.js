@@ -1,6 +1,6 @@
 'use strict';
 
-const testConfig = require('test/config');
+const testConfig = require('config');
 const launchDarkly = require('launchdarkly-node-server-sdk');
 
 class LaunchDarkly {

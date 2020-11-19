@@ -28,7 +28,7 @@ After(() => {
 // eslint-disable-next-line no-undef
 Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Cancel Payment and Continue again'), function (I) {
 
-    // Eligibility Task (pre IdAM)
+    // Eligibility Task (pre IDAM)
     I.startApplication();
 
     // Probate Sceeners
@@ -44,7 +44,7 @@ Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Cancel 
 
     I.startApply();
 
-    // IdAM
+    // IDAM
     I.authenticateWithIdamIfAvailable();
 
     // Dashboard

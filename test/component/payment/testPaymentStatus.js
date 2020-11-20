@@ -7,6 +7,7 @@ const config = require('config');
 const CREATE_PAYMENT_SERVICE_URL = config.services.payment.url + config.services.payment.paths.createPayment;
 const IDAM_S2S_URL = config.services.idam.s2s_url;
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes = require('app/utils/CaseTypes');
 
 const paymentNock = () => {
     nock(CREATE_PAYMENT_SERVICE_URL)
@@ -103,6 +104,65 @@ describe('payment-status', () => {
                 },
                 payment: {
                     total: 0
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, {}, contentToExclude);
+                });
+        });
+
+        it('test right content loaded on the page when documents are not required', (done) => {
+            nock(config.services.orchestrator.url)
+                .put(uri => uri.includes('submissions'))
+                .reply(200, {
+                    ccdCase: sessionData.ccdCase
+                });
+            const contentToExclude = ['paragraph1'];
+            sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                declaration: {
+                    declarationCheckbox: 'true'
+                },
+                payment: {
+                    total: 0
+                },
+                caseType: caseTypes.GOP
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, {}, contentToExclude);
+                });
+        });
+
+        it('test right content loaded on the page when documents are required', (done) => {
+            nock(config.services.orchestrator.url)
+                .put(uri => uri.includes('submissions'))
+                .reply(200, {
+                    ccdCase: sessionData.ccdCase
+                });
+            const contentToExclude = ['paragraph1', 'callout'];
+            sessionData = {
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                declaration: {
+                    declarationCheckbox: 'true'
+                },
+                payment: {
+                    total: 0
+                },
+                caseType: caseTypes.INTESTACY,
+                documents: {
+                    uploads: ['content']
                 }
             };
 

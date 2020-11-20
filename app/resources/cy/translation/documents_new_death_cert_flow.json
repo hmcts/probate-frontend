@@ -1,0 +1,29 @@
+{
+  "title": "Send your documents",
+  "header": "Send your documents",
+  "heading1": "1. Prepare to send your documents",
+  "heading2": "2. Send your documents to the probate registry",
+  "text1": "You must send the probate registry:",
+  "text2": "Send your documents using a signed postal service to:",
+  "warning": "We cannot give you a grant of probate without the required documents.",
+  "address": "Digital Application\nOxford District Probate Registry\nCombined Court Building\nSt Aldates\nOxford\nOX1 1LY",
+  "checklist-item1-application-coversheet": "either your completed <a class=\"govuk-link\" id=\"coverSheetPdfHref\" href=\"/cover-sheet-pdf\">application coversheet</a> or write your reference number {ccdReferenceNumber} on a sheet of paper",
+  "checklist-item2-no-codicils": "the original will (by law, we must keep your original will as it becomes a public document)",
+  "checklist-item2-codicils": "the original will and any codicils (by law, we must keep your original will as it becomes a public document)",
+  "checklist-item3-will-damage-no-codicils": "if the will or codicil appears to have had something added, removed, or is damaged you will need to write a letter to explain. Damage could include staple or punch holes, rusty paper clip marks, torn edges, water damage etc.",
+  "checklist-item3-will-damage-codicils": "if the will or codicil appears to have had something added, removed, or is damaged you will need to write a letter to explain. Damage could include staple or punch holes, rusty paper clip marks, torn edges, water damage etc.",
+  "checklist-item4-interim-death-cert": "the interim death certificate",
+  "checklist-item4-foreign-death-cert": "the original foreign death certificate",
+  "checklist-item4-foreign-death-cert-translation": "the English translation of the foreign death certificate",
+  "checklist-item5-foreign-death-cert-PA19": "either a completed PA19 - Foreign death certificate form (opens in a new window) or a certificate from the transltor confirming the translator's validity",
+  "checklist-item6-spouse-renouncing": "a <a href=\"{renunciationFormLink}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"renunciation form (opens in a new window)\">renunciation form (opens in a new window)</a> filled in by the spouse or civil partner of the deceased who is permanently giving up the right to make this application for probate",
+  "checklist-item7-iht205": "the completed inheritance tax form IHT 205",
+  "checklist-item8-renunciated": "a <a href=\"{renunciationFormLink}\" target=\"_blank\" class=\"govuk-link\" rel=\"external noopener\" aria-label=\"renunciation form (opens in a new window)\">renunciation form (opens in a new window)</a> filled in by any executors who are permanently giving up their right to make this application for probate",
+  "checklist-item9-deed-poll": "copy of the deed poll document for {executorCurrentName}",
+
+  "errors": {
+    "sentDocuments": {
+      "required": "Tick the check box to agree to the signing of the will (and any codicils)"
+    }
+  }
+}

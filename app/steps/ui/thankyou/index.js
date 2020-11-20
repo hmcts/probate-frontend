@@ -2,6 +2,8 @@
 
 const Step = require('app/core/steps/Step');
 const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
+const DocumentsWrapper = require('app/wrappers/Documents');
+const featureToggle = require('app/utils/FeatureToggle');
 
 class ThankYou extends Step {
 
@@ -9,7 +11,9 @@ class ThankYou extends Step {
         return '/thank-you';
     }
 
-    handleGet(ctx, formdata) {
+    handleGet(ctx, formdata, featureToggles) {
+        const documentsWrapper = new DocumentsWrapper(formdata);
+        ctx.documentsRequired = documentsWrapper.documentsRequired(featureToggle.isEnabled(featureToggles, 'ft_new_deathcert_flow'));
         ctx.checkAnswersSummary = false;
         ctx.legalDeclaration = false;
         if (formdata.checkAnswersSummary) {

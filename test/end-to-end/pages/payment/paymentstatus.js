@@ -1,14 +1,13 @@
 'use strict';
 
 const content = require('app/resources/en/translation/payment/status');
-const pageUnderTest = require('app/steps/ui/payment/status');
-const testConfig = require('test/config.js');
+const testConfig = require('config');
 
-module.exports = function() {
+module.exports = async function() {
     const I = this;
 
-    I.waitForText(content.question, testConfig.TestWaitForTextToAppear);
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-
-    I.navByClick('.govuk-button');
+    await I.waitForText(content.question, testConfig.TestWaitForTextToAppear);
+    const locator = {css: '.govuk-button'};
+    await I.waitForElement(locator);
+    await I.navByClick(locator);
 };

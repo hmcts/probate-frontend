@@ -1,19 +1,20 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/declaration');
 
-module.exports = function(bilingualGOP) {
+module.exports = async function(bilingualGOP) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    const enLocator = {css: '#declarationPdfHref-en'};
+
+    await I.waitForElement(enLocator);
 
     if (bilingualGOP) {
-        I.downloadPdfIfNotIE11('#declarationPdfHref-cy');
+        await I.downloadPdfIfNotIE11({css: '#declarationPdfHref-cy'});
     }
 
-    I.downloadPdfIfNotIE11('#declarationPdfHref-en');
-    I.click('#declarationCheckbox');
+    await I.downloadPdfIfNotIE11(enLocator);
+    await I.click({css: '#declarationCheckbox'});
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

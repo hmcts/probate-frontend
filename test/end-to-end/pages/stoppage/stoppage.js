@@ -1,14 +1,14 @@
 'use strict';
 
 const pageUnderTest = require('app/steps/ui/stoppage');
-const testConfig = require('test/config.js');
+const testConfig = require('config');
 
-module.exports = (url) => {
+module.exports = async (url) => {
     const I = this;
 
     if (testConfig.useIdam !== 'false') {
-        I.seeCurrentUrlEquals(pageUnderTest.getUrl(url));
+        await I.seeCurrentUrlEquals(pageUnderTest.getUrl(url));
     }
 
-    I.clickBrowserBackButton();
+    await I.clickBrowserBackButton();
 };

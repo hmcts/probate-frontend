@@ -51,64 +51,64 @@ Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital
     I.chooseApplication();
 
     // Deceased Task
-    I.selectATask(taskListContent.taskNotStarted);
-    I.chooseBiLingualGrant(optionNo);
+    await I.selectATask(taskListContent.taskNotStarted);
+    await I.chooseBiLingualGrant(optionNo);
     I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
-    I.enterDeceasedAddress();
-    I.selectDocumentsToUpload(uploadingDocuments);
-    I.selectInheritanceMethod(ihtOnline);
-    I.enterIHTIdentifier();
+    await I.enterDeceasedAddress();
+    await I.selectDocumentsToUpload(uploadingDocuments);
+    await I.selectInheritanceMethod(ihtOnline);
+    await I.enterIHTIdentifier();
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterEstateValue('300000', '200000');
+        await I.enterEstateValue('300000', '200000');
     } else {
-        I.enterEstateValue('500', '400');
+        await I.enterEstateValue('500', '400');
     }
-    I.selectAssetsOutsideEnglandWales(optionYes);
-    I.enterValueAssetsOutsideEnglandWales('400000');
-    I.selectDeceasedAlias(optionNo);
-    I.selectDeceasedMaritalStatus(maritalStatusMarried);
+    await I.selectAssetsOutsideEnglandWales(optionYes);
+    await I.enterValueAssetsOutsideEnglandWales('400000');
+    await I.selectDeceasedAlias(optionNo);
+    await I.selectDeceasedMaritalStatus(maritalStatusMarried);
 
     // Executors Task
-    I.selectATask(taskListContent.taskNotStarted);
-    I.selectRelationshipToDeceased(spousePartner);
-    I.enterAnyChildren(optionNo);
-    I.enterApplicantName('ApplicantFirstName', 'ApplicantLastName');
-    I.enterApplicantPhone();
+    await I.selectATask(taskListContent.taskNotStarted);
+    await I.selectRelationshipToDeceased(spousePartner);
+    await I.enterAnyChildren(optionNo);
+    await I.enterApplicantName('ApplicantFirstName', 'ApplicantLastName');
+    await I.enterApplicantPhone();
     I.enterAddressManually();
     if (TestConfigurator.equalityAndDiversityEnabled()) {
-        I.exitEqualityAndDiversity();
-        I.completeEqualityAndDiversity();
+        await I.exitEqualityAndDiversity();
+        await I.completeEqualityAndDiversity();
     }
 
     // Check your answers and declaration
-    I.selectATask(taskListContent.taskNotStarted);
+    await I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
-    I.acceptDeclaration(bilingualGOP);
+    await I.acceptDeclaration(bilingualGOP);
 
     // Copies Task
-    I.selectATask(taskListContent.taskNotStarted);
+    await I.selectATask(taskListContent.taskNotStarted);
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterUkCopies('5');
-        I.selectOverseasAssets(optionNo);
+        await I.enterUkCopies('5');
+        await I.selectOverseasAssets(optionNo);
     } else {
-        I.enterUkCopies('0');
-        I.selectOverseasAssets();
-        I.enterOverseasCopies('0');
+        await I.enterUkCopies('0');
+        await I.selectOverseasAssets();
+        await I.enterOverseasCopies('0');
     }
-    I.seeCopiesSummary();
+    await I.seeCopiesSummary();
 
     // Payment Task
-    I.selectATask(taskListContent.taskNotStarted);
+    await I.selectATask(taskListContent.taskNotStarted);
     I.seePaymentBreakdownPage();
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.seeGovUkPaymentPage();
-        I.seeGovUkConfirmPage();
+        await I.seeGovUkPaymentPage();
+        await I.seeGovUkConfirmPage();
     }
     I.seePaymentStatusPage();
 
     // Send Documents Task
-    I.seeDocumentsPage();
+    await I.seeDocumentsPage();
 
     // Thank You
-    I.seeThankYouPage();
+    await I.seeThankYouPage();
 }).retry(TestConfigurator.getRetryScenarios());

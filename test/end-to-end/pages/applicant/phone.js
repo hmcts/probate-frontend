@@ -2,12 +2,11 @@
 
 const commonContent = require('app/resources/en/translation/common');
 const content = require('app/resources/en/translation/applicant/phone');
-const pageUnderTest = require('app/steps/ui/applicant/phone');
 
-module.exports = function() {
+module.exports = async function() {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.fillField(content.phoneNumber, '123456789');
+    await I.waitForText(content.phoneNumber);
+    await I.fillField(content.phoneNumber, '123456789');
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

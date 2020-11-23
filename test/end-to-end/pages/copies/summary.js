@@ -1,11 +1,10 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/copies/summary');
 
-module.exports = function() {
+module.exports = async function() {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-
-    I.navByClick('.govuk-button');
+    const locator = {css: '.govuk-button'};
+    await I.waitForElement(locator);
+    await I.navByClick(locator);
 };

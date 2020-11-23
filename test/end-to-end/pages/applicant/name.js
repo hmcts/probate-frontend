@@ -1,13 +1,12 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/applicant/name');
 
-module.exports = function(firstname, lastname) {
+module.exports = async function(firstname, lastname) {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.fillField('#firstName', firstname);
-    I.fillField('#lastName', lastname);
+    const locatorFn = {css: '#firstName'};
+    await I.fillField(locatorFn, firstname);
+    await I.fillField({css: '#lastName'}, lastname);
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

@@ -1,14 +1,13 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/executors/number');
 
-module.exports = function (totalExecutors) {
+module.exports = async function (totalExecutors) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    const locator = {css: '#executorsNumber'};
+    await I.waitForElement(locator);
+    await I.fillField(locator, totalExecutors);
 
-    I.fillField('#executorsNumber', totalExecutors);
-
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

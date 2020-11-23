@@ -3,7 +3,7 @@
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const {head} = require('lodash');
-const testConfig = require('test/config.js');
+const testConfig = require('config');
 
 const optionYes = '';
 const ihtPost = '';
@@ -61,36 +61,36 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     I.chooseApplication();
 
     // Deceased Task
-    I.selectATask(taskListContent.taskNotStarted);
-    I.chooseBiLingualGrant(optionNo);
-    I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
-    I.enterDeceasedDateOfBirth('01', '01', '1950');
-    I.enterDeceasedDateOfDeath('01', '01', '2017');
-    I.enterDeceasedAddress();
+    await I.selectATask(taskListContent.taskNotStarted);
+    await I.chooseBiLingualGrant(optionNo);
+    await I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
+    await I.enterDeceasedDateOfBirth('01', '01', '1950');
+    await I.enterDeceasedDateOfDeath('01', '01', '2017');
+    await I.enterDeceasedAddress();
 
-    I.selectDocumentsToUpload(uploadingDocuments);
-    I.selectInheritanceMethod(ihtPost);
+    await I.selectDocumentsToUpload(uploadingDocuments);
+    await I.selectInheritanceMethod(ihtPost);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterGrossAndNet('205', '600000', '300000');
+        await I.enterGrossAndNet('205', '600000', '300000');
     } else {
-        I.enterGrossAndNet('205', '500', '400');
+        await I.enterGrossAndNet('205', '500', '400');
     }
 
-    I.selectDeceasedAlias(optionNo);
-    I.selectDeceasedMarriedAfterDateOnWill(optionNo);
+    await I.selectDeceasedAlias(optionNo);
+    await I.selectDeceasedMarriedAfterDateOnWill(optionNo);
     I.selectWillCodicils(optionNo);
 
     // ExecutorsTask
-    I.selectATask(taskListContent.taskNotStarted);
-    I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
-    I.selectNameAsOnTheWill(optionYes);
-    I.enterApplicantPhone();
+    await I.selectATask(taskListContent.taskNotStarted);
+    await I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
+    await I.selectNameAsOnTheWill(optionYes);
+    await I.enterApplicantPhone();
     I.enterAddressManually();
 
     //const totalExecutors = '7';
     const totalExecutors = '4';
-    I.enterTotalExecutors(totalExecutors);
+    await I.enterTotalExecutors(totalExecutors);
     I.enterExecutorNames(totalExecutors);
     I.selectExecutorsAllAlive(optionNo);
 
@@ -143,9 +143,9 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     });
 
     // Review and Confirm Task
-    I.selectATask(taskListContent.taskNotStarted);
+    await I.selectATask(taskListContent.taskNotStarted);
     I.seeSummaryPage('declaration');
-    I.acceptDeclaration(bilingualGOP);
+    await I.acceptDeclaration(bilingualGOP);
 
     // Notify additional executors Dealing with estate
     I.notifyAdditionalExecutors();
@@ -189,36 +189,36 @@ Scenario(TestConfigurator.idamInUseText('Stage 3: Continuation of Main applicant
     I.chooseApplication();
 
     // Extra Copies Task
-    I.selectATask(taskListContent.taskNotStarted);
+    await I.selectATask(taskListContent.taskNotStarted);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterUkCopies('5');
-        I.selectOverseasAssets(optionYes);
-        I.enterOverseasCopies('7');
+        await I.enterUkCopies('5');
+        await I.selectOverseasAssets(optionYes);
+        await I.enterOverseasCopies('7');
     } else {
-        I.enterUkCopies('0');
-        I.selectOverseasAssets(optionYes);
-        I.enterOverseasCopies('0');
+        await I.enterUkCopies('0');
+        await I.selectOverseasAssets(optionYes);
+        await I.enterOverseasCopies('0');
     }
 
-    I.seeCopiesSummary();
+    await I.seeCopiesSummary();
 
     // Payment Task
-    I.selectATask(taskListContent.taskNotStarted);
+    await I.selectATask(taskListContent.taskNotStarted);
 
     I.seePaymentBreakdownPage();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.seeGovUkPaymentPage();
-        I.seeGovUkConfirmPage();
+        await I.seeGovUkPaymentPage();
+        await I.seeGovUkConfirmPage();
     }
 
     I.seePaymentStatusPage();
 
     // Send Documents Task
-    I.seeDocumentsPage();
+    await I.seeDocumentsPage();
 
     // Thank You
-    I.seeThankYouPage();
+    await I.seeThankYouPage();
 
 }).retry(TestConfigurator.getRetryScenarios());

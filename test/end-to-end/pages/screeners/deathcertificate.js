@@ -1,24 +1,24 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/screeners/deathcertificate');
 
-module.exports = function(answer, testSurvey = false) {
+module.exports = async function(answer, testSurvey = false) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    const locator = {css: `#deathCertificate${answer}`};
+    await I.seeElement(locator);
 
     if (testSurvey) {
-        I.click('body > div.govuk-width-container > div > p > span > a:nth-child(1)');
+        await I.click({ css:'body > div.govuk-width-container > div > p > span > a:nth-child(1)' });
 
-        I.switchToNextTab(1);
+        await I.switchToNextTab(1);
 
-        I.waitForVisible('#cmdGo');
+        await I.waitForVisible({css:'#cmdGo'});
 
-        I.closeCurrentTab();
+        await I.closeCurrentTab();
     }
 
-    I.click(`#deathCertificate${answer}`);
+    await I.click(locator);
 
-    I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue);
 };

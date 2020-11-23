@@ -56,7 +56,11 @@ class TestConfigurator {
                     json: true, // <--Very important!!!
                     body: this.userDetails
                 }, (error, response, body) => {
-                    if (response && response.statusCode !== 201) {
+                    if (error) {
+                        throw new Error(`TestConfigurator.getBefore: Using proxy - ERROR: ${error.message}\nError stack:\n${error.stack}`);
+                    } else if (!response) {
+                        throw new Error(`TestConfigurator.getBefore: Using proxy - ERROR. No error raised, but no response obtained.`);
+                    } else if (response.statusCode !== 201) {
                         throw new Error('TestConfigurator.getBefore: Using proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
                     } else {
                         console.log('User created (via proxy)', this.userDetails);
@@ -69,10 +73,14 @@ class TestConfigurator {
                     json: true, // <--Very important!!!
                     body: this.userDetails
                 }, (error, response, body) => {
-                    if (response && response.statusCode !== 201) {
-                        throw new Error('TestConfigurator.getBefore: Without proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
+                    if (error) {
+                        throw new Error(`TestConfigurator.getBefore: Using proxy - ERROR: ${error.message}\nError stack:\n${error.stack}`);
+                    } else if (!response) {
+                        throw new Error(`TestConfigurator.getBefore: Using proxy - ERROR. No error raised, but no response obtained.`);
+                    } else if (response.statusCode !== 201) {
+                        throw new Error('TestConfigurator.getBefore: Using proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
                     } else {
-                        console.log('User created', this.userDetails);
+                        console.log('User created (via proxy)', this.userDetails);
                     }
                 });
             }

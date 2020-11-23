@@ -10,7 +10,7 @@ const optionNo = '-2';
 const bilingualGOP = false;
 const uploadingDocuments = false;
 
-let grabIds;
+// let grabIds;
 let stage1retries = -1;
 
 Feature('Multiple Executors flow').retry(TestConfigurator.getRetryFeatures());
@@ -18,8 +18,8 @@ Feature('Multiple Executors flow').retry(TestConfigurator.getRetryFeatures());
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
 // eslint-disable-next-line no-undef
-BeforeSuite(() => {
-    TestConfigurator.getBefore();
+BeforeSuite(async () => {
+    await TestConfigurator.getBefore();
 });
 
 // eslint-disable-next-line no-undef
@@ -31,7 +31,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     stage1retries += 1;
 
     if (stage1retries >= 1) {
-        TestConfigurator.getBefore();
+        await TestConfigurator.getBefore();
     }
 
     // Eligibility Task (pre IdAM)
@@ -161,12 +161,14 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     //Retrieve the email urls for additional executors
     await I.amOnPage(testConfig.TestInviteIdListUrl);
     // I.wait(10);
-    grabIds = await I.grabTextFrom('pre');
+    const grabIds = await I.grabTextFrom('pre');
 
-}).retry(TestConfigurator.getRetryScenarios());
-
-Scenario(TestConfigurator.idamInUseText('Stage 2: Additional Executor(s) Agree to Statement of Truth'), async (I) => {
-    const idList = JSON.parse(grabIds);
+    let idList = null;
+    try {
+        idList = JSON.parse(grabIds);
+    } catch (err) {
+        console.error(err.message);
+    }
 
     for (let i=0; i < idList.ids.length; i++) {
 
@@ -192,9 +194,6 @@ Scenario(TestConfigurator.idamInUseText('Stage 2: Additional Executor(s) Agree t
         // eslint-disable-next-line no-await-in-loop
         await I.seeAgreePage();
     }
-}).retry(TestConfigurator.getRetryScenarios());
-
-Scenario(TestConfigurator.idamInUseText('Stage 3: Continuation of Main applicant journey: final stage of application'), async (I) => {
 
     // IDAM
     await I.authenticateWithIdamIfAvailable(true);
@@ -234,5 +233,4 @@ Scenario(TestConfigurator.idamInUseText('Stage 3: Continuation of Main applicant
 
     // Thank You
     await I.seeThankYouPage();
-
 }).retry(TestConfigurator.getRetryScenarios());

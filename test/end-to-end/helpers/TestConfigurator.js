@@ -4,6 +4,7 @@ const randomstring = require('randomstring');
 const request = require('request');
 const testConfig = require('config');
 const LaunchDarkly = require('test/end-to-end/helpers/LaunchDarkly');
+const util = require('util');
 
 /* eslint no-console: 0 no-unused-vars: 0 */
 /* eslint-disable no-undef */
@@ -29,13 +30,15 @@ class TestConfigurator {
         this.launchDarkly = new LaunchDarkly();
     }
 
-    getBefore() {
+    async getBefore() {
         if (process.env.testCitizenEmail === this.getTestCitizenEmail()) {
             this.setTestCitizenName();
             this.setTestCitizenPassword();
         }
 
         this.setEnvVars();
+
+        const httpReq = util.promisify(request);
 
         if (this.useIdam === 'true') {
             this.userDetails =
@@ -48,44 +51,36 @@ class TestConfigurator {
                     'userGroup': {'code': this.getTestIdamUserGroup()}
                 };
 
-            if (this.getUseProxy() === 'true') {
-                request({
-                    url: this.getTestAddUserURL(),
-                    proxy: this.getProxy(),
-                    method: 'POST',
-                    json: true, // <--Very important!!!
-                    body: this.userDetails
-                }, (error, response, body) => {
-                    if (error) {
-                        throw new Error(`TestConfigurator.getBefore: Using proxy - ERROR: ${error.message}\nError stack:\n${error.stack}`);
-                    } else if (!response) {
-                        throw new Error('TestConfigurator.getBefore: Using proxy - ERROR. No error raised, but no response obtained.');
-                    } else if (response.statusCode !== 201) {
-                        throw new Error('TestConfigurator.getBefore: Using proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
-                    } else {
-                        console.log('User created (via proxy)', this.userDetails);
-                    }
-                });
-            } else {
-                request({
-                    url: this.getTestAddUserURL(),
-                    method: 'POST',
-                    json: true, // <--Very important!!!
-                    body: this.userDetails
-                }, (error, response, body) => {
-                    if (error) {
-                        throw new Error(`TestConfigurator.getBefore: Using proxy - ERROR: ${error.message}\nError stack:\n${error.stack}`);
-                    } else if (!response) {
-                        throw new Error('TestConfigurator.getBefore: Using proxy - ERROR. No error raised, but no response obtained.');
-                    } else if (response.statusCode !== 201) {
-                        throw new Error('TestConfigurator.getBefore: Using proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
-                    } else {
-                        console.log('User created (via proxy)', this.userDetails);
-                    }
-                });
+            try {
+
+                let response = null;
+                if (this.getUseProxy() === 'true') {
+                    response = await httpReq({
+                        url: this.getTestAddUserURL(),
+                        proxy: this.getProxy(),
+                        method: 'POST',
+                        json: true, // <--Very important!!!
+                        body: this.userDetails
+                    });
+                } else {
+                    response = await httpReq({
+                        url: this.getTestAddUserURL(),
+                        method: 'POST',
+                        json: true, // <--Very important!!!
+                        body: this.userDetails
+                    });
+                }
+                if (!response) {
+                    throw new Error('TestConfigurator.getBefore: Using proxy - ERROR. No error raised, but no response obtained.');
+                } else if (response.statusCode !== 201) {
+                    throw new Error('TestConfigurator.getBefore: Using proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
+                } else {
+                    console.log('User created (via proxy)', this.userDetails);
+                }
+            } catch (err) {
+                throw new Error(`TestConfigurator.getBefore: Using proxy - ERROR: ${err.message}\nError stack:\n${err.stack}`);
             }
         }
-
     }
 
     getAfter() {

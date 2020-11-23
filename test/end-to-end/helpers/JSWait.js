@@ -34,8 +34,11 @@ class JSWait extends codecept_helper {
             if (url.indexOf('http') !== 0) {
                 url = helper.options.url + url;
             }
-            helper.page.goto(url);
-            await helper.page.waitForNavigation({waitUntil: 'networkidle0'});
+
+            await Promise.all([
+                helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']}), // The promise resolves after navigation has finished
+                helper.page.goto(url)
+            ]);
         } else {
             await helper.amOnPage(url);
             await helper.waitInUrl(url);

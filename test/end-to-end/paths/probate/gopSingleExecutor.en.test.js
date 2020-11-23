@@ -14,8 +14,8 @@ Feature('GOP-Single Executor flow...').retry(TestConfigurator.getRetryFeatures()
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
 // eslint-disable-next-line no-undef
-Before(() => {
-    TestConfigurator.getBefore();
+Before(async () => {
+    await TestConfigurator.getBefore();
 });
 
 // eslint-disable-next-line no-undef
@@ -48,10 +48,6 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/i
     await I.selectApplicantIsExecutor(optionYes);
 
     await I.selectMentallyCapable(optionYes);
-
-    // we do need a wait here as it takes time to populate ccd, and storing data in the ccd database gives a success before is actually populated,
-    // so is async. To be more scientific, and to allow to continue as soon as available, we could potentially poll, we have the caseid at this point.
-    await I.wait(3);
 
     await I.startApply();
 

@@ -28,7 +28,7 @@ module.exports = () => {
         authenticateWithIdamIfAvailable: steps.IDAM.signIn,
 
         // Choose Application on Dashboard
-        chooseApplication: steps.dashboard.dashboard,
+        chooseApplication: steps.dashboard.chooseApplication,
 
         // Start application
         selectATask: steps.tasklist.tasklist,

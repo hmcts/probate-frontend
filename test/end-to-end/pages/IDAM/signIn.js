@@ -8,7 +8,14 @@ module.exports = async function (noScreenerQuestions = false) {
         const I = this;
 
         if (noScreenerQuestions) {
-            await I.amOnPage('/');
+            await I.amOnLoadedPage('/');
+        }
+
+        const locator = {css: 'a[href="/sign-out"]'};
+        const numEls = await I.grabNumberOfVisibleElements(locator);
+        if (numEls > 0) {
+            await I.navByClick(locator);
+            await I.navByClick({css: 'a[href="/dashboard"]'});
         }
 
         await I.waitForText('Sign in', testConfig.TestWaitForTextToAppear);

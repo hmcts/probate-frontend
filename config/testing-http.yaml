@@ -1,4 +1,6 @@
 # Use for testing http - e.g. local env
+environment: 'sandbox'
+
 TestCitizenDomain: '/@probateTest.com'
 TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png'
 TestE2EFrontendUrl: 'http://localhost:3000'
@@ -22,6 +24,10 @@ TestWaitForDocumentUpload: 0
 TestWaitForTextToAppear: 0
 TestWaitForElementToAppear: 0
 TestOneMilliSecond: 1000
+TestEnvEmailAddress: 'test.probate.inbox@gmail.com'
+TestEnvMobileNumber: '07765453421'
+TestInviteIdListUrl: '/inviteIdList'
+TestInvitationUrl: '/executors/invitation'
 
 app:
  useIDAM: 'true'

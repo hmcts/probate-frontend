@@ -2,7 +2,7 @@
 
 const commonContent = require('app/resources/en/translation/common');
 
-module.exports = await function() {
+module.exports = async function() {
     const I = this;
     const locator = {css: '#identifier'};
 

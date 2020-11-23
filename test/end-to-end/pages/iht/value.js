@@ -2,7 +2,7 @@
 
 const commonContent = require('app/resources/en/translation/common');
 
-module.exports = await function(grossValue, netValue) {
+module.exports = async function(grossValue, netValue) {
     const I = this;
     const locatorGv = {css: '#grossValueField'};
 

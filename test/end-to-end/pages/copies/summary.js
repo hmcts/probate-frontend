@@ -1,6 +1,5 @@
 'use strict';
 
-
 module.exports = async function() {
     const I = this;
 

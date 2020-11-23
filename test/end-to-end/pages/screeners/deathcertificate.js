@@ -9,12 +9,9 @@ module.exports = async function(answer, testSurvey = false) {
     await I.seeElement(locator);
 
     if (testSurvey) {
-        await I.click({ css:'body > div.govuk-width-container > div > p > span > a:nth-child(1)' });
-
+        await I.click({css: 'body > div.govuk-width-container > div > p > span > a:nth-child(1)'});
         await I.switchToNextTab(1);
-
-        await I.waitForVisible({css:'#cmdGo'});
-
+        await I.waitForVisible({css: '#cmdGo'});
         await I.closeCurrentTab();
     }
 

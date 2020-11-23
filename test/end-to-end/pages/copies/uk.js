@@ -6,7 +6,7 @@ module.exports = async function(copies) {
     const I = this;
 
     const locator = {css: '#uk'};
-    await I.waitForElement(locator)
+    await I.waitForElement(locator);
     await I.fillField(locator, copies);
 
     await I.navByClick(commonContent.saveAndContinue);

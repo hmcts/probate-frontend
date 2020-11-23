@@ -26,34 +26,33 @@ After(() => {
 });
 
 // eslint-disable-next-line no-undef
-Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital iht and death certificate uploaded'), (I) => {
-
+Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital iht and death certificate uploaded'), async (I) => {
     // Eligibility Task (pre IdAM)
-    I.startApplication();
+    await I.startApplication();
 
     // Probate Sceeners
-    I.selectDeathCertificate(optionYes);
-    I.selectDeceasedDomicile(optionYes);
-    I.selectIhtCompleted(optionYes);
-    I.selectPersonWhoDiedLeftAWill(optionNo);
+    await I.selectDeathCertificate(optionYes);
+    await I.selectDeceasedDomicile(optionYes);
+    await I.selectIhtCompleted(optionYes);
+    await I.selectPersonWhoDiedLeftAWill(optionNo);
 
     // Intestacy Sceeners
-    I.selectDiedAfterOctober2014(optionYes);
-    I.selectRelatedToDeceased(optionYes);
-    I.selectOtherApplicants(optionNo);
+    await I.selectDiedAfterOctober2014(optionYes);
+    await I.selectRelatedToDeceased(optionYes);
+    await I.selectOtherApplicants(optionNo);
 
-    I.startApply();
+    await I.startApply();
 
     // IdAM
-    I.authenticateWithIdamIfAvailable();
+    await I.authenticateWithIdamIfAvailable();
 
     // Dashboard
-    I.chooseApplication();
+    await I.chooseApplication();
 
     // Deceased Task
     await I.selectATask(taskListContent.taskNotStarted);
     await I.chooseBiLingualGrant(optionNo);
-    I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
+    await I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
     await I.enterDeceasedAddress();
     await I.selectDocumentsToUpload(uploadingDocuments);
     await I.selectInheritanceMethod(ihtOnline);
@@ -74,7 +73,7 @@ Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital
     await I.enterAnyChildren(optionNo);
     await I.enterApplicantName('ApplicantFirstName', 'ApplicantLastName');
     await I.enterApplicantPhone();
-    I.enterAddressManually();
+    await I.enterAddressManually();
     if (TestConfigurator.equalityAndDiversityEnabled()) {
         await I.exitEqualityAndDiversity();
         await I.completeEqualityAndDiversity();
@@ -82,7 +81,7 @@ Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital
 
     // Check your answers and declaration
     await I.selectATask(taskListContent.taskNotStarted);
-    I.seeSummaryPage('declaration');
+    await I.seeSummaryPage('declaration');
     await I.acceptDeclaration(bilingualGOP);
 
     // Copies Task
@@ -99,12 +98,12 @@ Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital
 
     // Payment Task
     await I.selectATask(taskListContent.taskNotStarted);
-    I.seePaymentBreakdownPage();
+    await I.seePaymentBreakdownPage();
     if (TestConfigurator.getUseGovPay() === 'true') {
         await I.seeGovUkPaymentPage();
         await I.seeGovUkConfirmPage();
     }
-    I.seePaymentStatusPage();
+    await I.seePaymentStatusPage();
 
     // Send Documents Task
     await I.seeDocumentsPage();

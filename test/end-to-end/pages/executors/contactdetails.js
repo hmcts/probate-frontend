@@ -3,11 +3,13 @@
 const commonContent = require('app/resources/en/translation/common');
 const testConfig = require('config');
 
-module.exports = function() {
+module.exports = async function() {
     const I = this;
 
-    I.fillField('#email', testConfig.TestEnvEmailAddress);
-    I.fillField('#mobile', testConfig.TestEnvMobileNumber);
+    const emailLocator = {css: '#email'};
+    await I.waitForElement(emailLocator);
+    await I.fillField(emailLocator, testConfig.TestEnvEmailAddress);
+    await I.fillField({css: '#mobile'}, testConfig.TestEnvMobileNumber);
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

@@ -2,7 +2,6 @@
 
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
-const {head} = require('lodash');
 const testConfig = require('config');
 
 const optionYes = '';
@@ -36,29 +35,29 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     }
 
     // Eligibility Task (pre IdAM)
-    I.startApplication();
+    await I.startApplication();
 
-    I.selectDeathCertificate(optionYes);
+    await I.selectDeathCertificate(optionYes);
 
-    I.selectDeceasedDomicile(optionYes);
+    await I.selectDeceasedDomicile(optionYes);
 
-    I.selectIhtCompleted(optionYes);
+    await I.selectIhtCompleted(optionYes);
 
-    I.selectPersonWhoDiedLeftAWill(optionYes);
+    await I.selectPersonWhoDiedLeftAWill(optionYes);
 
-    I.selectOriginalWill(optionYes);
+    await I.selectOriginalWill(optionYes);
 
-    I.selectApplicantIsExecutor(optionYes);
+    await I.selectApplicantIsExecutor(optionYes);
 
-    I.selectMentallyCapable(optionYes);
+    await I.selectMentallyCapable(optionYes);
 
-    I.startApply();
+    await I.startApply();
 
     // IdAM
-    I.authenticateWithIdamIfAvailable(true);
+    await I.authenticateWithIdamIfAvailable(true);
 
     // Dashboard
-    I.chooseApplication();
+    await I.chooseApplication();
 
     // Deceased Task
     await I.selectATask(taskListContent.taskNotStarted);
@@ -79,40 +78,42 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     await I.selectDeceasedAlias(optionNo);
     await I.selectDeceasedMarriedAfterDateOnWill(optionNo);
-    I.selectWillCodicils(optionNo);
+    await I.selectWillCodicils(optionNo);
 
     // ExecutorsTask
     await I.selectATask(taskListContent.taskNotStarted);
     await I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
     await I.selectNameAsOnTheWill(optionYes);
     await I.enterApplicantPhone();
-    I.enterAddressManually();
+    await I.enterAddressManually();
 
     //const totalExecutors = '7';
     const totalExecutors = '4';
     await I.enterTotalExecutors(totalExecutors);
-    I.enterExecutorNames(totalExecutors);
-    I.selectExecutorsAllAlive(optionNo);
+    await I.enterExecutorNames(totalExecutors);
+    await I.selectExecutorsAllAlive(optionNo);
 
     //const executorsWhoDiedList = ['2', '7']; // exec2 and exec7
     const executorsWhoDiedList = ['2']; // exec2
     let diedBefore = optionYes;
-    I.selectExecutorsWhoDied(executorsWhoDiedList);
+    await I.selectExecutorsWhoDied(executorsWhoDiedList);
 
-    executorsWhoDiedList.forEach((executorNumber) => {
-        I.selectExecutorsWhenDied(executorNumber, diedBefore, head(executorsWhoDiedList) === executorNumber);
+    if (executorsWhoDiedList) {
+        for (let i = 0; i < executorsWhoDiedList.length; i++) {
+            // eslint-disable-next-line no-await-in-loop
+            await I.selectExecutorsWhenDied(diedBefore);
+            diedBefore = optionNo;
+        }
+    }
 
-        diedBefore = optionNo;
-    });
-
-    I.selectExecutorsApplying(optionYes);
+    await I.selectExecutorsApplying(optionYes);
 
     //const executorsApplyingList = ['3', '5']; // exec3 and exec5
     const executorsApplyingList = ['3']; // exec3
-    I.selectExecutorsDealingWithEstate(executorsApplyingList);
+    await I.selectExecutorsDealingWithEstate(executorsApplyingList);
 
     //I.selectExecutorsWithDifferentNameOnWill(optionYes);
-    I.selectExecutorsWithDifferentNameOnWill(optionNo);
+    await I.selectExecutorsWithDifferentNameOnWill(optionNo);
     //const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
     //I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
 
@@ -121,8 +122,10 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     // I.enterExecutorCurrentNameReason(executorNumber, 'executor_alias_reason');
 
     for (let i= 1; i <= executorsApplyingList.length; i++) {
-        I.enterExecutorContactDetails();
-        I.enterExecutorManualAddress(i);
+        // eslint-disable-next-line no-await-in-loop
+        await I.enterExecutorContactDetails();
+        // eslint-disable-next-line no-await-in-loop
+        await I.enterExecutorManualAddress(i);
     }
 
     //const executorsAliveList = ['4', '6'];
@@ -131,28 +134,33 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     // let answer = optionYes;
     let powerReserved = false;
     let answer = optionNo;
-    executorsAliveList.forEach((executorNumber) => {
-        I.selectExecutorRoles(executorNumber, answer, head(executorsAliveList) === executorNumber);
 
-        if (powerReserved) {
-            I.selectHasExecutorBeenNotified(optionYes, executorNumber);
+    if (executorsAliveList) {
+        for (let i = 0; i < executorsAliveList.length; i++) {
+            // eslint-disable-next-line no-await-in-loop
+            await I.selectExecutorRoles(answer);
+
+            if (powerReserved) {
+                // eslint-disable-next-line no-await-in-loop
+                await I.selectHasExecutorBeenNotified(optionYes);
+            }
+
+            powerReserved = false;
+            answer = optionNo;
         }
-
-        powerReserved = false;
-        answer = optionNo;
-    });
+    }
 
     // Review and Confirm Task
     await I.selectATask(taskListContent.taskNotStarted);
-    I.seeSummaryPage('declaration');
+    await I.seeSummaryPage('declaration');
     await I.acceptDeclaration(bilingualGOP);
 
     // Notify additional executors Dealing with estate
-    I.notifyAdditionalExecutors();
+    await I.notifyAdditionalExecutors();
 
     //Retrieve the email urls for additional executors
-    I.amOnPage(testConfig.TestInviteIdListUrl);
-    I.wait(10);
+    await I.amOnPage(testConfig.TestInviteIdListUrl);
+    // I.wait(10);
     grabIds = await I.grabTextFrom('pre');
 
 }).retry(TestConfigurator.getRetryScenarios());
@@ -162,31 +170,37 @@ Scenario(TestConfigurator.idamInUseText('Stage 2: Additional Executor(s) Agree t
 
     for (let i=0; i < idList.ids.length; i++) {
 
-        I.amOnLoadedPage(testConfig.TestInvitationUrl + '/' + idList.ids[i]);
-        I.amOnLoadedPage(testConfig.TestE2EFrontendUrl + '/pin');
+        // eslint-disable-next-line no-await-in-loop
+        await I.amOnLoadedPage(testConfig.TestInvitationUrl + '/' + idList.ids[i]);
+        // eslint-disable-next-line no-await-in-loop
+        await I.amOnLoadedPage(testConfig.TestE2EFrontendUrl + '/pin');
 
         const grabPins = await I.grabTextFrom('pre'); // eslint-disable-line no-await-in-loop
         const pinList = JSON.parse(grabPins);
 
+        // eslint-disable-next-line no-await-in-loop
         await I.clickBrowserBackButton(); // eslint-disable-line no-await-in-loop
 
-        I.enterPinCode(pinList.pin.toString());
-        I.seeCoApplicantStartPage();
+        // eslint-disable-next-line no-await-in-loop
+        await I.enterPinCode(pinList.pin.toString());
+        // eslint-disable-next-line no-await-in-loop
+        await I.seeCoApplicantStartPage();
 
-        I.agreeDeclaration(optionYes);
+        // eslint-disable-next-line no-await-in-loop
+        await I.agreeDeclaration(optionYes);
 
-        I.seeAgreePage();
-
+        // eslint-disable-next-line no-await-in-loop
+        await I.seeAgreePage();
     }
 }).retry(TestConfigurator.getRetryScenarios());
 
-Scenario(TestConfigurator.idamInUseText('Stage 3: Continuation of Main applicant journey: final stage of application'), (I) => {
+Scenario(TestConfigurator.idamInUseText('Stage 3: Continuation of Main applicant journey: final stage of application'), async (I) => {
 
     // IDAM
-    I.authenticateWithIdamIfAvailable(true);
+    await I.authenticateWithIdamIfAvailable(true);
 
     // Dashboard
-    I.chooseApplication();
+    await I.chooseApplication();
 
     // Extra Copies Task
     await I.selectATask(taskListContent.taskNotStarted);
@@ -206,14 +220,14 @@ Scenario(TestConfigurator.idamInUseText('Stage 3: Continuation of Main applicant
     // Payment Task
     await I.selectATask(taskListContent.taskNotStarted);
 
-    I.seePaymentBreakdownPage();
+    await I.seePaymentBreakdownPage();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
         await I.seeGovUkPaymentPage();
         await I.seeGovUkConfirmPage();
     }
 
-    I.seePaymentStatusPage();
+    await I.seePaymentStatusPage();
 
     // Send Documents Task
     await I.seeDocumentsPage();

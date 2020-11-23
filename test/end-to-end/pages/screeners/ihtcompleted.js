@@ -5,7 +5,7 @@ const commonContent = require('app/resources/en/translation/common');
 module.exports = async function(answer) {
     const I = this;
 
-    const locator = { css: `#completed${answer}` };
+    const locator = {css: `#completed${answer}`};
     await I.seeElement(locator);
     await I.click(locator);
 

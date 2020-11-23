@@ -6,7 +6,7 @@ module.exports = async function (answer) {
     const I = this;
 
     const locator = {css: `#anyOtherChildren${answer}`};
-    await I.waitForElement(locator); 
+    await I.waitForElement(locator);
     await I.click(locator);
 
     await I.navByClick(commonContent.saveAndContinue);

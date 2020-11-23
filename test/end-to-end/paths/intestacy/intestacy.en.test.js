@@ -54,8 +54,8 @@ Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital
     await I.selectOtherApplicants(optionNo);
 
     // we do need a wait here as it takes time to populate ccd, and storing data in the ccd database gives a success before is actually populated,
-    // so is async. To be more scientific, and to allow to continue as soon as available, we could potentially poll, we have the caseid at this point. 
-    await I.wait(3); 
+    // so is async. To be more scientific, and to allow to continue as soon as available, we could potentially poll, we have the caseid at this point.
+    await I.wait(3);
 
     await I.startApply();
 

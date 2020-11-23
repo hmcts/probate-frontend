@@ -59,7 +59,7 @@ class TestConfigurator {
                     if (error) {
                         throw new Error(`TestConfigurator.getBefore: Using proxy - ERROR: ${error.message}\nError stack:\n${error.stack}`);
                     } else if (!response) {
-                        throw new Error(`TestConfigurator.getBefore: Using proxy - ERROR. No error raised, but no response obtained.`);
+                        throw new Error('TestConfigurator.getBefore: Using proxy - ERROR. No error raised, but no response obtained.');
                     } else if (response.statusCode !== 201) {
                         throw new Error('TestConfigurator.getBefore: Using proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
                     } else {
@@ -76,7 +76,7 @@ class TestConfigurator {
                     if (error) {
                         throw new Error(`TestConfigurator.getBefore: Using proxy - ERROR: ${error.message}\nError stack:\n${error.stack}`);
                     } else if (!response) {
-                        throw new Error(`TestConfigurator.getBefore: Using proxy - ERROR. No error raised, but no response obtained.`);
+                        throw new Error('TestConfigurator.getBefore: Using proxy - ERROR. No error raised, but no response obtained.');
                     } else if (response.statusCode !== 201) {
                         throw new Error('TestConfigurator.getBefore: Using proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
                     } else {

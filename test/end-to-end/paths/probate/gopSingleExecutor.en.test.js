@@ -50,8 +50,8 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/i
     await I.selectMentallyCapable(optionYes);
 
     // we do need a wait here as it takes time to populate ccd, and storing data in the ccd database gives a success before is actually populated,
-    // so is async. To be more scientific, and to allow to continue as soon as available, we could potentially poll, we have the caseid at this point. 
-    await I.wait(3); 
+    // so is async. To be more scientific, and to allow to continue as soon as available, we could potentially poll, we have the caseid at this point.
+    await I.wait(3);
 
     await I.startApply();
 

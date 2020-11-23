@@ -154,6 +154,54 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        }          
+        },
+        {
+            "name": "Mocha test end-end intestacy - launch darkly OFF",
+            "request": "launch",
+            "runtimeArgs": [
+                "test-e2e-intestacy-http",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },          
+        {
+            "name": "Mocha test end-end intestacy - launch darkly ON",
+            "request": "launch",
+            "runtimeArgs": [
+                "test-e2e-intestacy-http-dk",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+        {
+            "name": "Mocha test end-end intestacy spouse - launch darkly OFF",
+            "request": "launch",
+            "runtimeArgs": [
+                "test-e2e-intestacy-spouse-http",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },          
+        {
+            "name": "Mocha test end-end intestacy spouce - launch darkly ON",
+            "request": "launch",
+            "runtimeArgs": [
+                "test-e2e-intestacy-spouse-http-dk",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        }                       
     ]
 }

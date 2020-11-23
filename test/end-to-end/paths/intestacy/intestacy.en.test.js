@@ -13,7 +13,7 @@ const relationshipChildOfDeceased = '-2';
 const optionRenouncing = '';
 const bilingualGOP = false;
 const uploadingDocuments = false;
-const config = require('test/config');
+const config = require('config');
 
 Feature('Grant Of Probate Intestacy E2E Tests...');
 
@@ -30,7 +30,7 @@ After(() => {
 });
 
 // eslint-disable-next-line no-undef
-Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital iht'), async(I) => {
+Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Journey - Digital iht'), async(I) => {
     const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
 
     // Eligibility Task (pre IdAM)

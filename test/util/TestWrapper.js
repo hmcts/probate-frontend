@@ -46,7 +46,7 @@ class TestWrapper {
             res.set('Cookie', cookiesString);
         }
 
-        res.expect('Content-type', /html/)
+        res.expect('Content-type', /text\/html/) // /html/
             .then(response => {
                 this.assertContentIsPresent(response.text, substitutedContent);
                 done();

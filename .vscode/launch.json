@@ -17,6 +17,12 @@
             "type": "node-terminal"
         },    
         {
+            "command": "npm run test-unit-healthcheck",
+            "name": "Run npm Healthcheck unit test",
+            "request": "launch",
+            "type": "node-terminal"
+        },            
+        {
             "command": "npm run test-unit-grep",
             "name": "Run npm unit test with grep",
             "request": "launch",
@@ -226,6 +232,31 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        }                         
+        },          
+        {
+            "name": "Mocha test end-end http - cookie banner",
+            "request": "launch",
+            "runtimeArgs": [
+                "test-e2e-cookie-banner-http",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },          
+        {
+            "name": "Mocha test end-end http - survey",
+            "request": "launch",
+            "runtimeArgs": [
+                "test-e2e-survey-http",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        }  
+        
     ]
 }

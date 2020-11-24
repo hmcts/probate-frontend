@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const config = require('test/config');
+const config = require('config');
 const app = express();
 const router = require('express').Router();
 const bodyParser = require('body-parser');

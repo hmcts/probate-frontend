@@ -55,54 +55,88 @@ describe('Healthcheck.js', () => {
             describe('with a status of UP', () => {
                 before(() => startStubs());
 
-                it('when the backend services /health endpoint is up', (done) => {
+                it('when the backend services /health endpoint is up', async () => {
                     const healthcheck = new Healthcheck();
                     const url = healthcheck.formatUrl(config.endpoints.health);
                     const serviceList = healthcheck.createServicesList(url, services);
                     const promises = healthcheck.createPromisesList(serviceList, healthcheck.health);
-                    Promise.all(promises).then((data) => {
-                        expect(data).to.deep.equal([
-                            {name: 'Business Service', status: 'UP'},
-                            {name: 'Orchestrator Service', status: 'UP'}
-                        ]);
-                        done();
-                    });
+
+                    let err = null;
+                    let data = null;
+                    try {
+                        data = await Promise.all(promises);
+                    } catch (e) {
+                        err = e;
+                    }
+
+                    expect(data).to.not.equal(null);
+                    expect(err).to.equal(null);
+                    expect(data).to.deep.equal([
+                        {name: 'Business Service', status: 'UP'},
+                        {name: 'Orchestrator Service', status: 'UP'}
+                    ]);
+                    if (err) {
+                        console.error(`healthcheck createPromises error ${err.message}\nStack:\n${err.stack}`);
+                    }
                 });
 
-                it('when the backend services /info endpoint is up', (done) => {
+                it('when the backend services /info endpoint is up', async () => {
                     const healthcheck = new Healthcheck();
                     const url = healthcheck.formatUrl(config.endpoints.info);
                     const serviceList = healthcheck.createServicesList(url, services);
                     const promises = healthcheck.createPromisesList(serviceList, healthcheck.info);
-                    Promise.all(promises).then((data) => {
-                        expect(data).to.deep.equal([
-                            {gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e1'},
-                            {gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e3'}
-                        ]);
-                        done();
-                    });
+
+                    let err = null;
+                    let data = null;
+                    try {
+                        data = await Promise.all(promises);
+                    } catch (e) {
+                        err = e;
+                    }
+                    expect(data).to.not.equal(null);
+                    expect(err).to.equal(null);
+
+                    expect(data).to.deep.equal([
+                        {gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e1'},
+                        {gitCommitId: 'e210e75b38c6b8da03551b9f83fd909fe80832e3'}
+                    ]);
+                    if (err) {
+                        console.error(`healthcheck createPromises error ${err.message}\nStack:\n${err.stack}`);
+                    }
                 });
 
                 after(() => stopStubs());
             });
 
-            it('with a status of DOWN when the backend services are down', (done) => {
+            it('with a status of DOWN when the backend services are down', async () => {
                 const healthcheck = new Healthcheck();
                 const url = healthcheck.formatUrl(config.endpoints.health);
                 const serviceList = healthcheck.createServicesList(url, services);
                 const promises = healthcheck.createPromisesList(serviceList, healthcheck.health);
-                Promise.all(promises).then((data) => {
-                    expect(data).to.deep.equal([{
-                        name: 'Business Service',
-                        status: 'DOWN',
-                        error: 'Error: FetchError: request to http://localhost:8081/health failed, reason: connect ECONNREFUSED 127.0.0.1:8081'
-                    }, {
-                        name: 'Orchestrator Service',
-                        status: 'DOWN',
-                        error: 'Error: FetchError: request to http://localhost:8888/health failed, reason: connect ECONNREFUSED 127.0.0.1:8888'
-                    }]);
-                    done();
-                });
+
+                let err = null;
+                let data = null;
+                try {
+                    data = await Promise.all(promises);
+                } catch (e) {
+                    err = e;
+                }
+
+                expect(data).to.not.equal(null);
+                expect(err).to.equal(null);
+
+                expect(data).to.deep.equal([{
+                    name: 'Business Service',
+                    status: 'DOWN',
+                    error: 'Error: FetchError: request to http://localhost:8081/health failed, reason: connect ECONNREFUSED 127.0.0.1:8081'
+                }, {
+                    name: 'Orchestrator Service',
+                    status: 'DOWN',
+                    error: 'Error: FetchError: request to http://localhost:8888/health failed, reason: connect ECONNREFUSED 127.0.0.1:8888'
+                }]);
+                if (err) {
+                    console.error(`healthcheck createPromises error ${err.message}\nStack:\n${err.stack}`);
+                }
             });
         });
     });

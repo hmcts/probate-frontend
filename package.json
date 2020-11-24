@@ -27,7 +27,8 @@
     "test-unit": "NODE_ENV=testing NODE_PATH=. LOG_LEVEL=error mocha test/unit --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
     "test-unit-healthcheck": "NODE_ENV=testing NODE_PATH=. LOG_LEVEL=error mocha test/unit/utils/testHealthcheck.js --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
     "test-unit-grep": "NODE_ENV=testing NODE_PATH=. LOG_LEVEL=error mocha test/unit --grep 'PCQ feature toggle is ON and health is DOWN' --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
-    "test-component": "NODE_ENV=testing NODE_PATH=. LOG_LEVEL=error mocha test/component --reporter spec --recursive --timeout 15000",
+    "test-component": "NODE_ENV=testing-http NODE_PATH=. LOG_LEVEL=error mocha test/component --reporter spec --recursive --timeout 15000",
+    "test-component-declaration-intestacy": "NODE_ENV=testing-http NODE_PATH=. LOG_LEVEL=error mocha test/component/testDeclarationIntestacy.js --reporter spec --recursive --timeout 15000",
     "test:a11y": "NODE_ENV=testing NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 30000",
     "test-accessibility": "NODE_ENV=testing NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 30000",
     

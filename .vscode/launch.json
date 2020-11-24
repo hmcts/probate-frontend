@@ -15,7 +15,19 @@
             "name": "Run npm unit test",
             "request": "launch",
             "type": "node-terminal"
-        },    
+        },        
+        {
+            "command": "npm run test-component",
+            "name": "Run npm component test",
+            "request": "launch",
+            "type": "node-terminal"
+        },            
+        {
+            "command": "npm run test-component-declaration-intestacy",
+            "name": "Run npm declaration intestacy component test",
+            "request": "launch",
+            "type": "node-terminal"
+        },                    
         {
             "command": "npm run test-unit-healthcheck",
             "name": "Run npm Healthcheck unit test",

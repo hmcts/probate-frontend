@@ -23,13 +23,15 @@ class AsyncFetch {
 
     fetch(url, fetchOptions, parseBody) {
         if (!this.isHealthEndpoint(url)) {
-            log.info('Calling external service');
+            log.info('Calling external service', url);
         }
+        log.info(fetchOptions);
 
         return new Promise((resolve, reject) => {
             const asyncReq = this.buildRequest(url, fetchOptions);
             fetch(asyncReq, this.retryOptions())
                 .then(res => {
+                    log.info('RRESPONSE => ', res);
                     if (!this.isHealthEndpoint(url)) {
                         log.info(`Status: ${res.status}`);
                     }

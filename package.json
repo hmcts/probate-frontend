@@ -31,6 +31,7 @@
     "test-component": "NODE_ENV=testing-component NODE_PATH=. LOG_LEVEL=error mocha test/component --reporter spec --recursive --timeout 15000",
     "test-component-declaration-intestacy": "NODE_ENV=testing-component NODE_PATH=. LOG_LEVEL=error mocha test/component/testDeclarationIntestacy.js --reporter spec --recursive --timeout 15000",
     "test-component-address": "NODE_ENV=testing-component NODE_PATH=. LOG_LEVEL=error mocha test/component/applicant/testAddress.js --reporter spec --recursive --timeout 15000",
+    "test-component-overseas": "NODE_ENV=testing-component NODE_PATH=. LOG_LEVEL=error mocha test/component/copies/testCopiesOverseas.js --reporter spec --recursive --timeout 15000",
 
     "test:a11y": "NODE_ENV=testing NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 30000",
     "test-accessibility": "NODE_ENV=testing NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 30000",

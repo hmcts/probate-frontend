@@ -33,7 +33,13 @@
             "name": "Run npm address component test",
             "request": "launch",
             "type": "node-terminal"
-        },                      
+        },    
+        {
+            "command": "yarn run test-component-overseas",
+            "name": "Run yarn overseas component test",
+            "request": "launch",
+            "type": "node-terminal"
+        },                              
         {
             "command": "npm run test-unit-healthcheck",
             "name": "Run npm Healthcheck unit test",

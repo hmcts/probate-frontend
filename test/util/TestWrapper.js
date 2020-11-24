@@ -51,7 +51,10 @@ class TestWrapper {
                 this.assertContentIsPresent(response.text, substitutedContent);
                 done();
             })
-            .catch((err) => done(err));
+            .catch((err) => {
+                console.error(`Chai response error: ${err.message}\nStack:\n${err.stack}`);
+                done(err);
+            });
     }
 
     testDataPlayback(done, data = {}, excludeKeys = [], cookies = []) {

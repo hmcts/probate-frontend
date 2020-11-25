@@ -335,7 +335,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     // Start the app
     let http;
 
-    if (['development', 'testing', 'testing-component'].includes(config.nodeEnvironment)) {
+    if (['development', 'testing', 'testing-unit'].includes(config.nodeEnvironment)) {
         const sslDirectory = path.join(__dirname, 'app', 'resources', 'localhost-ssl');
         const sslOptions = {
             key: fs.readFileSync(path.join(sslDirectory, 'localhost.key')),

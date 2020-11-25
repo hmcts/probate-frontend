@@ -5,6 +5,18 @@
     "version": "0.2.0",
     "configurations": [        
         {
+            "name": "TEST via yarn",
+            "request": "launch",
+            "runtimeArgs": [
+                "test"
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+        {
             "command": "npm test",
             "name": "Run npm test",
             "request": "launch",
@@ -27,7 +39,7 @@
                 "--recursive"
             ],
             "env": {
-                "NODE_ENV": "testing-component",
+                "NODE_ENV": "testing-unit",
                 "NODE_PATH": ".",
                 "LOG_LEVEL": "error"
             },
@@ -52,7 +64,7 @@
                 "--exit"
             ],
             "env": {
-                "NODE_ENV": "testing-component",
+                "NODE_ENV": "testing",
                 "NODE_PATH": ".",
                 "LOG_LEVEL": "error"
             },
@@ -76,7 +88,7 @@
                 "--recursive"
             ],
             "env": {
-                "NODE_ENV": "testing-component",
+                "NODE_ENV": "testing",
                 "NODE_PATH": ".",
                 "LOG_LEVEL": "error"
             },
@@ -101,7 +113,7 @@
                 "--exit"
             ],
             "env": {
-                "NODE_ENV": "testing-component",
+                "NODE_ENV": "testing",
                 "NODE_PATH": ".",
                 "LOG_LEVEL": "error"
             },

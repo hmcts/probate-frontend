@@ -24,12 +24,12 @@
 
     "sass": "NODE_PATH=. node-sass app/assets/sass/application.scss --output public/stylesheets --quiet --output-style expanded --source-map true --include-path node_modules/govuk_frontend",
     "sass-ie8": "NODE_PATH=. node-sass app/assets/sass/application-ie8.scss --output public/stylesheets --quiet --output-style expanded --source-map true --include-path node_modules/govuk_frontend",
-    "test": "NODE_ENV=testing yarn test-unit $@ && yarn test-component $@",
-    "test-unit": "NODE_ENV=testing NODE_PATH=. LOG_LEVEL=error mocha test/unit --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
-    "test-unit-healthcheck": "NODE_ENV=testing NODE_PATH=. LOG_LEVEL=error mocha test/unit/utils/testHealthcheck.js --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
-    "test-unit-grep": "NODE_ENV=testing NODE_PATH=. LOG_LEVEL=error mocha test/unit --grep 'PCQ feature toggle is ON and health is DOWN' --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
+    "test": "NODE_ENV=testing-unit yarn test-unit $@ && NODE_ENV=testing yarn test-component $@",
+    "test-unit": "NODE_ENV=testing-unit NODE_PATH=. LOG_LEVEL=error mocha test/unit --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
+    "test-unit-healthcheck": "NODE_ENV=testing-unit NODE_PATH=. LOG_LEVEL=error mocha test/unit/utils/testHealthcheck.js --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
+    "test-unit-grep": "NODE_ENV=testing-unit NODE_PATH=. LOG_LEVEL=error mocha test/unit --grep 'PCQ feature toggle is ON and health is DOWN' --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
 
-    "test-component": "NODE_ENV=testing-component NODE_PATH=. LOG_LEVEL=error mocha test/component --reporter spec --recursive --timeout 15000",
+    "test-component": "NODE_ENV=testing NODE_PATH=. LOG_LEVEL=error mocha test/component --reporter spec --recursive --timeout 15000",
 
     "test:a11y": "NODE_ENV=testing NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 30000",
     "test-accessibility": "NODE_ENV=testing NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 30000",

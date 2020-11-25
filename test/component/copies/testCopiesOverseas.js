@@ -36,7 +36,8 @@ describe('copies-overseas', () => {
         it('test right content loaded on the page with the ft_fees_api toggle ON', (done) => {
 
             console.info (`launch darkly key part: ${config.featureToggles.launchDarklyKey.substr(0, 5)}`);
-            console.info (`launch darkly key part (process env): ${process.env.LAUNCHDARKLY_KEY ? process.env.LAUNCHDARKLY_KEYLAUNCHDARKLY_KEY.substr(0, 5) : 'Unknown'}`);
+            console.info (`launch darkly key part (process env): ${process.env.LAUNCHDARKLY_KEY ? process.env.LAUNCHDARKLY_KEY.substr(0, 5) : 'Unknown'}`);
+            console.info (`TEST_LAUNCH_DARKLY_KEY process env: ${process.env.TEST_LAUNCH_DARKLY_KEY ? process.env.TEST_LAUNCH_DARKLY_KEY.substr(0, 5) : 'Unknown'}`);
 
             testWrapper = new TestWrapper('CopiesOverseas', {ft_fees_api: true});
             invitesAllAgreedNock();

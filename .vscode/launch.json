@@ -11,44 +11,118 @@
             "type": "node-terminal"
         },
         {
-            "command": "npm run test-unit",
+            "command": "yarn run test-unit",
             "name": "Run npm unit test",
             "request": "launch",
             "type": "node-terminal"
         },        
         {
-            "command": "npm run test-component",
-            "name": "Run npm component test",
+            "args": [
+                "--timeout",
+                "15000",
+                "--colors",
+                "${workspaceFolder}/test/component",
+                "--reporter",
+                "spec",
+                "--recursive"
+            ],
+            "env": {
+                "NODE_ENV": "testing-component",
+                "NODE_PATH": ".",
+                "LOG_LEVEL": "error"
+            },
+            "internalConsoleOptions": "openOnSessionStart",
+            "name": "Run component test",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "request": "launch",
-            "type": "node-terminal"
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"            
         },            
         {
-            "command": "npm run test-component-declaration-intestacy",
-            "name": "Run npm declaration intestacy component test",
+            "args": [
+                "--timeout",
+                "15000",
+                "--colors",
+                "${workspaceFolder}/test/component/testDeclarationIntestacy.js",
+                "--reporter",
+                "spec",
+                "--recursive",
+                "--exit"
+            ],
+            "env": {
+                "NODE_ENV": "testing-component",
+                "NODE_PATH": ".",
+                "LOG_LEVEL": "error"
+            },
+            "internalConsoleOptions": "openOnSessionStart",
+            "name": "Run declaration-intestacy component test",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "request": "launch",
-            "type": "node-terminal"
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
         },       
         {
-            "command": "yarn run test-component-address",
-            "name": "Run npm address component test",
+            "args": [
+                "--timeout",
+                "15000",
+                "--colors",
+                "${workspaceFolder}/test/component/applicant/testAddress.js",
+                "--reporter",
+                "spec",
+                "--recursive"
+            ],
+            "env": {
+                "NODE_ENV": "testing-component",
+                "NODE_PATH": ".",
+                "LOG_LEVEL": "error"
+            },
+            "internalConsoleOptions": "openOnSessionStart",
+            "name": "Run address component test",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "request": "launch",
-            "type": "node-terminal"
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
         },    
         {
-            "command": "yarn run test-component-overseas",
-            "name": "Run yarn overseas component test",
+            "args": [
+                "--timeout",
+                "15000",
+                "--colors",
+                "${workspaceFolder}/test/component/copies/testCopiesOverseas.js",
+                "--reporter",
+                "spec",
+                "--recursive",
+                "--exit"
+            ],
+            "env": {
+                "NODE_ENV": "testing-component",
+                "NODE_PATH": ".",
+                "LOG_LEVEL": "error"
+            },
+            "internalConsoleOptions": "openOnSessionStart",
+            "name": "Run overseas component test",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "request": "launch",
-            "type": "node-terminal"
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
         },                              
         {
-            "command": "npm run test-unit-healthcheck",
-            "name": "Run npm Healthcheck unit test",
+            "command": "yarn run test-unit-healthcheck",
+            "name": "Run yarn Healthcheck unit test",
             "request": "launch",
             "type": "node-terminal"
         },            
         {
-            "command": "npm run test-unit-grep",
-            "name": "Run npm unit test with grep",
+            "command": "yarn run test-unit-grep",
+            "name": "Run yarn unit test with grep",
             "request": "launch",
             "type": "node-terminal"
         },    

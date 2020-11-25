@@ -9,9 +9,9 @@ describe('start-eligibility', () => {
     let testWrapper;
     const expectedNextUrlForDeathCertificate = DeathCertificate.getUrl();
 
-    afterEach(() => {
+    afterEach(async () => {
         nock.cleanAll();
-        testWrapper.destroy();
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection - Feature toggles', () => {
@@ -23,8 +23,12 @@ describe('start-eligibility', () => {
                 'paragraph7old',
                 'paragraph8old'
             ];
-
-            testWrapper.testContent(done, {}, contentToExclude);
+            try {
+                testWrapper.testContent(done, {}, contentToExclude);
+            } catch (e) {
+                console.error(e.message);
+                done(e);
+            }
         });
 
         it('test right content loaded on the page with the ft_fees_api toggle OFF', (done) => {
@@ -52,7 +56,12 @@ describe('start-eligibility', () => {
                 'tableBodyFeeRange7Value'
             ];
 
-            testWrapper.testContent(done, {}, contentToExclude);
+            try {
+                testWrapper.testContent(done, {}, contentToExclude);
+            } catch (e) {
+                console.error(e.message);
+                done(e);
+            }
         });
     });
 
@@ -62,15 +71,24 @@ describe('start-eligibility', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDeathCertificate}`, (done) => {
-            testWrapper.testRedirect(done, {}, expectedNextUrlForDeathCertificate);
+            try {
+                testWrapper.testRedirect(done, {}, expectedNextUrlForDeathCertificate);
+            } catch (e) {
+                console.error(e.message);
+                done(e);
+            }
         });
 
         it('test "save and close" link is not displayed on the page', (done) => {
             const playbackData = {
                 saveAndClose: commonContent.saveAndClose
             };
-
-            testWrapper.testContentNotPresent(done, playbackData);
+            try {
+                testWrapper.testContentNotPresent(done, playbackData);
+            } catch (e) {
+                console.error(e.message);
+                done(e);
+            }
         });
     });
 });

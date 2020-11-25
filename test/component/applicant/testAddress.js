@@ -15,9 +15,9 @@ describe('applicant-address', () => {
         testAddressData = require('test/data/find-address');
     });
 
-    afterEach(() => {
+    afterEach(async () => {
         delete require.cache[require.resolve('test/data/find-address')];
-        testWrapper.destroy();
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

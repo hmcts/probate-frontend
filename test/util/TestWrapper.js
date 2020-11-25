@@ -2,14 +2,16 @@
 
 const {forEach, filter, isEmpty, set, get, cloneDeep} = require('lodash');
 const {expect, assert} = require('chai');
-const app = require('app');
+
 const routes = require('app/routes');
 const config = require('config');
+
 const request = require('supertest');
 const JourneyMap = require('app/core/JourneyMap');
 const initSteps = require('app/core/initSteps');
 const probateJourney = require('app/journeys/probate');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`], 'en');
+const {createHttpTerminator} = require ('http-terminator');
 
 class TestWrapper {
     constructor(stepName, ftValue, journey = probateJourney) {
@@ -32,7 +34,9 @@ class TestWrapper {
         });
 
         config.app.useCSRFProtection = 'false';
+        const app = require('app');
         this.server = app.init(false, {}, ftValue);
+        this.httpTerminator = createHttpTerminator({server: this.server.http});
         this.agent = request.agent(this.server.app);
     }
 
@@ -217,8 +221,8 @@ class TestWrapper {
         return '';
     }
 
-    destroy() {
-        this.server.http.close();
+    async destroy() {
+        await this.httpTerminator.terminate();
     }
 }
 

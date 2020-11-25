@@ -55,10 +55,10 @@ describe('declaration, single applicant', () => {
             .reply(200, {});
     });
 
-    afterEach(() => {
+    afterEach(async () => {
         delete require.cache[require.resolve('test/data/complete-form-undeclared')];
         nock.cleanAll();
-        testWrapper.destroy();
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

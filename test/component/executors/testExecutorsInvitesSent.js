@@ -13,8 +13,8 @@ describe('executors-invites-sent', () => {
         testWrapper = new TestWrapper('ExecutorsInvitesSent');
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -35,12 +35,22 @@ describe('executors-invites-sent', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done);
+                    try {
+                        testWrapper.testContent(done);
+                    } catch (e) {
+                        console.error(e.message);
+                        done(e);
+                    }
                 });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {
-            testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList);
+            try {
+                testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList);
+            } catch (e) {
+                console.error(e.message);
+                done(e);
+            }
         });
     });
 });

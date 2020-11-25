@@ -15,8 +15,8 @@ describe('bilingual-gop', () => {
         testWrapper = new TestWrapper('BilingualGOP');
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

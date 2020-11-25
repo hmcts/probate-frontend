@@ -64,9 +64,9 @@ describe('dashboard', () => {
         testWrapper = new TestWrapper('Dashboard');
     });
 
-    afterEach(() => {
+    afterEach(async () => {
         nock.cleanAll();
-        testWrapper.destroy();
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -82,26 +82,42 @@ describe('dashboard', () => {
                 helpTelephoneOpeningHours: commonContent.helpTelephoneOpeningHours,
                 helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, commonContent.helpEmail)
             };
-
-            testWrapper.testDataPlayback(done, playbackData);
+            try {
+                testWrapper.testDataPlayback(done, playbackData);
+            } catch (e) {
+                console.error(e.message);
+                done(e);
+            }
         });
 
         it('test content loaded on the page - application in progress', (done) => {
             applicationInProgressNock();
-
-            testWrapper.testContentNotPresent(done, ['case-status submitted']);
+            try {
+                testWrapper.testContentNotPresent(done, ['case-status submitted']);
+            } catch (e) {
+                console.error(e.message);
+                done(e);
+            }
         });
 
         it('test content loaded on the page - application submitted', (done) => {
             applicationSubmittedNock();
-
-            testWrapper.testContentPresent(done, ['case-status submitted']);
+            try {
+                testWrapper.testContentPresent(done, ['case-status submitted']);
+            } catch (e) {
+                console.error(e.message);
+                done(e);
+            }
         });
 
         it('test content loaded on the page - application progressed by caseworker', (done) => {
             applicationProgressedNock();
-
-            testWrapper.testContentPresent(done, ['case-status submitted']);
+            try {
+                testWrapper.testContentPresent(done, ['case-status submitted']);
+            } catch (e) {
+                console.error(e.message);
+                done(e);
+            }
         });
     });
 });

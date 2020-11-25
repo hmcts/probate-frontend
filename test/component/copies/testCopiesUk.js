@@ -21,9 +21,9 @@ describe('copies-uk', () => {
     let testWrapper;
     const expectedNextUrlForAssetsOverseas = AssetsOverseas.getUrl();
 
-    afterEach(() => {
+    afterEach(async () => {
         nock.cleanAll();
-        testWrapper.destroy();
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection - Feature toggles', () => {
@@ -49,8 +49,12 @@ describe('copies-uk', () => {
                         'paragraph3Old',
                         'copiesOld'
                     ];
-
-                    testWrapper.testContent(done, {}, contentToExclude);
+                    try {
+                        testWrapper.testContent(done, {}, contentToExclude);
+                    } catch (err) {
+                        console.error(err.message);
+                        done(err);
+                    }
                 });
         });
 
@@ -78,8 +82,12 @@ describe('copies-uk', () => {
                         'bullet2',
                         'copies',
                     ];
-
-                    testWrapper.testContent(done, {}, contentToExclude);
+                    try {
+                        testWrapper.testContent(done, {}, contentToExclude);
+                    } catch (err) {
+                        console.error(err.message);
+                        done(err);
+                    }
                 });
         });
     });
@@ -97,7 +105,12 @@ describe('copies-uk', () => {
                 .end(() => {
                     const data = {uk: 'abcd'};
 
-                    testWrapper.testErrors(done, data, 'invalid');
+                    try {
+                        testWrapper.testErrors(done, data, 'invalid');
+                    } catch (err) {
+                        console.error(err.message);
+                        done(err);
+                    }
                 });
         });
 
@@ -106,8 +119,12 @@ describe('copies-uk', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {uk: '//1234//'};
-
-                    testWrapper.testErrors(done, data, 'invalid');
+                    try {
+                        testWrapper.testErrors(done, data, 'invalid');
+                    } catch (err) {
+                        console.error(err.message);
+                        done(err);
+                    }
                 });
         });
 
@@ -116,8 +133,12 @@ describe('copies-uk', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {uk: ''};
-
-                    testWrapper.testErrors(done, data, 'required');
+                    try {
+                        testWrapper.testErrors(done, data, 'required');
+                    } catch (err) {
+                        console.error(err.message);
+                        done(err);
+                    }
                 });
         });
 
@@ -126,8 +147,12 @@ describe('copies-uk', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {uk: '-1'};
-
-                    testWrapper.testErrors(done, data, 'invalid');
+                    try {
+                        testWrapper.testErrors(done, data, 'invalid');
+                    } catch (err) {
+                        console.error(err.message);
+                        done(err);
+                    }
                 });
         });
 
@@ -146,7 +171,12 @@ describe('copies-uk', () => {
                 .end(() => {
                     delete require.cache[require.resolve('test/data/copiesUk')];
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
+                    try {
+                        testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
+                    } catch (err) {
+                        console.error(err.message);
+                        done(err);
+                    }
                 });
         });
 
@@ -165,7 +195,12 @@ describe('copies-uk', () => {
                 .end(() => {
                     delete require.cache[require.resolve('test/data/copiesUk')];
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
+                    try {
+                        testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
+                    } catch (err) {
+                        console.error(err.message);
+                        done(err);
+                    }
                 });
         });
     });

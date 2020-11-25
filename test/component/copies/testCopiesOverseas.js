@@ -27,18 +27,25 @@ describe('copies-overseas', () => {
     const expectedNextUrlForCopiesSummary = CopiesSummary.getUrl();
 
     afterEach(async () => {
+        console.log('into afterEach.');
         nock.cleanAll();
+        console.log('nock cleaned');
         await testWrapper.destroy();
+        console.log('testwrapper destroyed');
     });
 
     describe('Verify Content, Errors and Redirection - Feature toggles', () => {
 
         it('test right content loaded on the page with the ft_fees_api toggle ON', (done) => {
 
+            console.log('ft_fees_api toggle ON - 0) start');
             testWrapper = new TestWrapper('CopiesOverseas', {ft_fees_api: true});
+            console.log('ft_fees_api toggle ON - 1) TestWrapper instantiated');
             invitesAllAgreedNock();
+            console.log('ft_fees_api toggle ON - 2) invitesAllAgreedNock invoked');
 
             const sessionData = require('test/data/copiesUk');
+            console.log('ft_fees_api toggle ON - 3) session data created');
             sessionData.ccdCase = {
                 state: 'Pending',
                 id: 1234567890123456
@@ -48,13 +55,16 @@ describe('copies-overseas', () => {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
+                        console.log('ft_fees_api toggle ON - 4) into /prepare-session/form post end');
                         delete require.cache[require.resolve('test/data/copiesUk')];
                         const contentToExclude = [
                             'questionOld',
                             'paragraph1Old'
                         ];
 
+                        console.log('ft_fees_api toggle ON - 5) about to call testContent');
                         testWrapper.testContent(done, {}, contentToExclude);
+                        console.log('ft_fees_api toggle ON - 6) testContent completed');
                     });
             } catch (err) {
                 console.error(err.message);

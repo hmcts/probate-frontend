@@ -41,24 +41,51 @@ class TestWrapper {
     }
 
     testContent(done, data = {}, excludeKeys = [], cookies = []) {
-        const contentToCheck = cloneDeep(filter(this.content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
-        const substitutedContent = this.substituteContent(data, contentToCheck);
-        const res = this.agent.get(this.pageUrl);
+        let res = null;
+        let substitutedContent = null;
+        try {
+            const contentToCheck = cloneDeep(filter(this.content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
+            substitutedContent = this.substituteContent(data, contentToCheck);
+            res = this.agent.get(this.pageUrl);
 
-        if (cookies.length) {
-            const cookiesString = this.setCookiesString(res, cookies);
-            res.set('Cookie', cookiesString);
+            if (cookies.length) {
+                const cookiesString = this.setCookiesString(res, cookies);
+                res.set('Cookie', cookiesString);
+            }
+        } catch (err) {
+            console.error(`Error in testContent: ${err.message}`);
+            done(err);
+            return;
         }
 
-        res.expect('Content-type', /text\/html/) // /html/
-            .then(response => {
-                this.assertContentIsPresent(response.text, substitutedContent);
-                done();
-            })
-            .catch((err) => {
-                console.error(`Chai response error: ${err.message}\nStack:\n${err.stack}`);
-                done(err);
-            });
+        try {
+            if (!res) {
+                done(new Error('agent.get failed'));
+                return;
+            }
+            if (!substitutedContent) {
+                done(new Error('substitutedContent null'));
+                return;
+            }
+            // this will actually hang if launch darkly key not substituted correctly, and timeout
+            res.expect('Content-type', /html/)
+                .then(response => {
+                    try {
+                        this.assertContentIsPresent(response.text, substitutedContent);
+                        done();
+                    } catch (err) {
+                        console.error(`Assert content present error: ${err.message}\nStack:\n${err.stack}`);
+                        done(err);
+                    }
+                })
+                .catch((err) => {
+                    console.error(`Chai response error: ${err.message}\nStack:\n${err.stack}`);
+                    done(err);
+                });
+        } catch (err) {
+            console.error(`Error in testContent (res.expect): ${err.message}`);
+            done(err);
+        }
     }
 
     testDataPlayback(done, data = {}, excludeKeys = [], cookies = []) {

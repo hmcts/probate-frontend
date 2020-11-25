@@ -29,6 +29,8 @@ class AsyncFetch {
 
         return new Promise((resolve, reject) => {
             const asyncReq = this.buildRequest(url, fetchOptions);
+            console.log('Async Req => ', asyncReq);
+            console.log('header=> ', asyncReq.headers);
             fetch(asyncReq, this.retryOptions())
                 .then(res => {
                     log.info('RRESPONSE => ', res);

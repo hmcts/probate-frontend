@@ -6,6 +6,7 @@ module.exports = async function(answer, testSurvey = false) {
     const I = this;
 
     const locator = {css: `#deathCertificate${answer}`};
+    await I.waitForElement(locator);
     await I.seeElement(locator);
 
     if (testSurvey) {

@@ -14,8 +14,8 @@ describe('applicant-name-as-on-will', () => {
         testWrapper = new TestWrapper('ApplicantNameAsOnWill');
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

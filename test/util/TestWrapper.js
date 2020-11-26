@@ -2,14 +2,16 @@
 
 const {forEach, filter, isEmpty, set, get, cloneDeep} = require('lodash');
 const {expect, assert} = require('chai');
-const app = require('app');
+
 const routes = require('app/routes');
 const config = require('config');
+
 const request = require('supertest');
 const JourneyMap = require('app/core/JourneyMap');
 const initSteps = require('app/core/initSteps');
 const probateJourney = require('app/journeys/probate');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`], 'en');
+const {createHttpTerminator} = require ('http-terminator');
 
 class TestWrapper {
     constructor(stepName, ftValue, journey = probateJourney) {
@@ -32,26 +34,58 @@ class TestWrapper {
         });
 
         config.app.useCSRFProtection = 'false';
+        const app = require('app');
         this.server = app.init(false, {}, ftValue);
+        this.httpTerminator = createHttpTerminator({server: this.server.http});
         this.agent = request.agent(this.server.app);
     }
 
     testContent(done, data = {}, excludeKeys = [], cookies = []) {
-        const contentToCheck = cloneDeep(filter(this.content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
-        const substitutedContent = this.substituteContent(data, contentToCheck);
-        const res = this.agent.get(this.pageUrl);
+        let res = null;
+        let substitutedContent = null;
+        try {
+            const contentToCheck = cloneDeep(filter(this.content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
+            substitutedContent = this.substituteContent(data, contentToCheck);
+            res = this.agent.get(this.pageUrl);
 
-        if (cookies.length) {
-            const cookiesString = this.setCookiesString(res, cookies);
-            res.set('Cookie', cookiesString);
+            if (cookies.length) {
+                const cookiesString = this.setCookiesString(res, cookies);
+                res.set('Cookie', cookiesString);
+            }
+        } catch (err) {
+            console.error(`Error in testContent: ${err.message}`);
+            done(err);
+            return;
         }
 
-        res.expect('Content-type', /html/)
-            .then(response => {
-                this.assertContentIsPresent(response.text, substitutedContent);
-                done();
-            })
-            .catch((err) => done(err));
+        try {
+            if (!res) {
+                done(new Error('agent.get failed'));
+                return;
+            }
+            if (!substitutedContent) {
+                done(new Error('substitutedContent null'));
+                return;
+            }
+            // this will actually hang if launch darkly key not substituted correctly, and timeout
+            res.expect('Content-type', /html/)
+                .then(response => {
+                    try {
+                        this.assertContentIsPresent(response.text, substitutedContent);
+                        done();
+                    } catch (err) {
+                        console.error(`Assert content present error: ${err.message}\nStack:\n${err.stack}`);
+                        done(err);
+                    }
+                })
+                .catch((err) => {
+                    console.error(`Chai response error: ${err.message}\nStack:\n${err.stack}`);
+                    done(err);
+                });
+        } catch (err) {
+            console.error(`Error in testContent (res.expect): ${err.message}`);
+            done(err);
+        }
     }
 
     testDataPlayback(done, data = {}, excludeKeys = [], cookies = []) {
@@ -214,8 +248,8 @@ class TestWrapper {
         return '';
     }
 
-    destroy() {
-        this.server.http.close();
+    async destroy() {
+        await this.httpTerminator.terminate();
     }
 }
 

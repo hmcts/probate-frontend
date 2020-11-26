@@ -23,8 +23,8 @@ describe('relationship-to-deceased', () => {
         testWrapper = new TestWrapper('RelationshipToDeceased');
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

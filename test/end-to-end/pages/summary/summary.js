@@ -1,13 +1,10 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/summary');
-
-module.exports = function(redirect) {
+module.exports = async function() {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl(redirect));
-
-    I.downloadPdfIfNotIE11('#checkAnswerHref');
-
-    I.navByClick('.govuk-button');
+    const locator = {css: '#checkAnswerHref'};
+    await I.waitForElement(locator);
+    await I.downloadPdfIfNotIE11(locator);
+    await I.navByClick('.govuk-button');
 };

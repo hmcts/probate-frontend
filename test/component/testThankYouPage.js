@@ -13,8 +13,8 @@ describe('thank-you', () => {
         testWrapper = new TestWrapper('ThankYou');
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

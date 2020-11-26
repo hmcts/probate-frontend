@@ -1,14 +1,12 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/executors/notified');
 
-module.exports = function(executorNotified, executorNumber) {
+module.exports = async function(executorNotified) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl(executorNumber));
-
-    I.click(`#executorNotified${executorNotified}`);
-
-    I.navByClick(commonContent.saveAndContinue);
+    const locator = {css: `#executorNotified${executorNotified}`};
+    await I.waitForElement(locator);
+    await I.click(locator);
+    await I.navByClick(commonContent.saveAndContinue);
 };

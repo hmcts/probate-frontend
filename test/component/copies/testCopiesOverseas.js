@@ -1,11 +1,15 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
+
 const CopiesSummary = require('app/steps/ui/copies/summary');
+
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const config = require('config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
+
 const nock = require('nock');
+
 const invitesAllAgreedNock = () => {
     nock(orchestratorServiceUrl)
         .get('/invite/allAgreed/1234567890123456')
@@ -22,15 +26,16 @@ describe('copies-overseas', () => {
     let testWrapper;
     const expectedNextUrlForCopiesSummary = CopiesSummary.getUrl();
 
-    afterEach(() => {
+    afterEach(async () => {
         nock.cleanAll();
-        testWrapper.destroy();
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection - Feature toggles', () => {
-        it('test right content loaded on the page with the ft_fees_api toggle ON', (done) => {
-            testWrapper = new TestWrapper('CopiesOverseas', {ft_fees_api: true});
 
+        it('test right content loaded on the page with the ft_fees_api toggle ON', (done) => {
+
+            testWrapper = new TestWrapper('CopiesOverseas', {ft_fees_api: true});
             invitesAllAgreedNock();
 
             const sessionData = require('test/data/copiesUk');
@@ -39,17 +44,23 @@ describe('copies-overseas', () => {
                 id: 1234567890123456
             };
 
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    delete require.cache[require.resolve('test/data/copiesUk')];
-                    const contentToExclude = [
-                        'questionOld',
-                        'paragraph1Old'
-                    ];
+            try {
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+                        console.log('ft_fees_api toggle ON - 4) into /prepare-session/form post end');
+                        delete require.cache[require.resolve('test/data/copiesUk')];
+                        const contentToExclude = [
+                            'questionOld',
+                            'paragraph1Old'
+                        ];
 
-                    testWrapper.testContent(done, {}, contentToExclude);
-                });
+                        testWrapper.testContent(done, {}, contentToExclude);
+                    });
+            } catch (err) {
+                console.error(err.message);
+                done(err);
+            }
         });
 
         it('test right content loaded on the page with the ft_fees_api toggle OFF', (done) => {
@@ -63,19 +74,24 @@ describe('copies-overseas', () => {
                 id: 1234567890123456
             };
 
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    delete require.cache[require.resolve('test/data/copiesUk')];
-                    const contentToExclude = [
-                        'paragraph1',
-                        'bullet1',
-                        'bullet2',
-                        'copies'
-                    ];
+            try {
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+                        delete require.cache[require.resolve('test/data/copiesUk')];
+                        const contentToExclude = [
+                            'paragraph1',
+                            'bullet1',
+                            'bullet2',
+                            'copies'
+                        ];
 
-                    testWrapper.testContent(done, {}, contentToExclude);
-                });
+                        testWrapper.testContent(done, {}, contentToExclude);
+                    });
+            } catch (err) {
+                console.error(err.message);
+                done(err);
+            }
         });
     });
 
@@ -91,8 +107,12 @@ describe('copies-overseas', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {overseas: 'abcd'};
-
-                    testWrapper.testErrors(done, data, 'invalid');
+                    try {
+                        testWrapper.testErrors(done, data, 'invalid');
+                    } catch (err) {
+                        console.error(err.message);
+                        done(err);
+                    }
                 });
         });
 
@@ -102,7 +122,12 @@ describe('copies-overseas', () => {
                 .end(() => {
                     const data = {overseas: '//1234//'};
 
-                    testWrapper.testErrors(done, data, 'invalid');
+                    try {
+                        testWrapper.testErrors(done, data, 'invalid');
+                    } catch (err) {
+                        console.error(err.message);
+                        done(err);
+                    }
                 });
         });
 
@@ -112,7 +137,12 @@ describe('copies-overseas', () => {
                 .end(() => {
                     const data = {overseas: ''};
 
-                    testWrapper.testErrors(done, data, 'required');
+                    try {
+                        testWrapper.testErrors(done, data, 'required');
+                    } catch (err) {
+                        console.error(err.message);
+                        done(err);
+                    }
                 });
         });
 
@@ -122,7 +152,12 @@ describe('copies-overseas', () => {
                 .end(() => {
                     const data = {overseas: '-1'};
 
-                    testWrapper.testErrors(done, data, 'invalid');
+                    try {
+                        testWrapper.testErrors(done, data, 'invalid');
+                    } catch (err) {
+                        console.error(err.message);
+                        done(err);
+                    }
                 });
         });
 
@@ -132,7 +167,12 @@ describe('copies-overseas', () => {
                 .end(() => {
                     const data = {overseas: '0'};
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);
+                    try {
+                        testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);
+                    } catch (err) {
+                        console.error(err.message);
+                        done(err);
+                    }
                 });
         });
 
@@ -142,7 +182,12 @@ describe('copies-overseas', () => {
                 .end(() => {
                     const data = {overseas: '1'};
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);
+                    try {
+                        testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);
+                    } catch (err) {
+                        console.error(err.message);
+                        done(err);
+                    }
                 });
         });
     });

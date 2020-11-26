@@ -10,8 +10,8 @@ describe('stop-page', () => {
         testWrapper = new TestWrapper('StopPage');
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

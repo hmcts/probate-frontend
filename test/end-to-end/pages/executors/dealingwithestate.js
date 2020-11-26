@@ -1,16 +1,17 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/executors/dealingwithestate');
 
-module.exports = function(executorsApplyingList) {
+module.exports = async function(executorsApplyingList) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    for (let i = 0; i < executorsApplyingList.length; i++) {
+        const locator = {css: `#executorsApplying-${parseInt(executorsApplyingList[i]) - 1}`};
+        // eslint-disable-next-line no-await-in-loop
+        await I.waitForElement(locator);
+        // eslint-disable-next-line no-await-in-loop
+        await I.checkOption(locator);
+    }
 
-    executorsApplyingList.forEach((executorNumber) => {
-        I.checkOption('#executorsApplying-' + (parseInt(executorNumber) - 1));
-    });
-
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

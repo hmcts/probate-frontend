@@ -1,13 +1,12 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/screeners/willoriginal');
 
-module.exports = function(answer) {
+module.exports = async function(answer) {
     const I = this;
+    const locator = {css: `#original${answer}`};
+    await I.seeElement(locator);
+    await I.click(locator);
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(`#original${answer}`);
-
-    I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue);
 };

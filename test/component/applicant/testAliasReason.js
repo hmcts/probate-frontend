@@ -12,8 +12,8 @@ describe('applicant-alias-reason', () => {
         testWrapper = new TestWrapper('ApplicantAliasReason');
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

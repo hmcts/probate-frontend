@@ -13,9 +13,9 @@ describe('co-applicant-disagree-page', () => {
         testWrapper = new TestWrapper('CoApplicantDisagreePage');
     });
 
-    afterEach(() => {
+    afterEach(async () => {
         nock.cleanAll();
-        testWrapper.destroy();
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

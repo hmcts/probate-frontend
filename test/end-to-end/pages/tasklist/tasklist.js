@@ -1,13 +1,12 @@
 'use strict';
 
 const content = require('app/resources/en/translation/tasklist');
-const pageUnderTest = require('app/steps/ui/tasklist');
-const testConfig = require('test/config.js');
+const testConfig = require('config');
 
-module.exports = function () {
+module.exports = async function () {
     const I = this;
-    I.waitForText(content.introduction, testConfig.TestWaitForTextToAppear);
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-
-    I.click('.govuk-button');
+    await I.waitForText(content.introduction, testConfig.TestWaitForTextToAppear);
+    const locator = {css: '.govuk-button'};
+    await I.waitForElement(locator);
+    await I.click(locator);
 };

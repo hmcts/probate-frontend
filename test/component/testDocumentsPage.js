@@ -36,8 +36,8 @@ describe('documents', () => {
             testWrapper = new TestWrapper('Documents');
         });
 
-        afterEach(() => {
-            testWrapper.destroy();
+        afterEach(async () => {
+            await testWrapper.destroy();
         });
 
         describe('Verify Content, Errors and Redirection', () => {

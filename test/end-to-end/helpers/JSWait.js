@@ -9,17 +9,18 @@ class JSWait extends codecept_helper {
         }
     }
 
-    navByClick (text, locator) {
+    async navByClick (text, locator) {
         const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
         if (helperIsPuppeteer) {
-            return Promise.all([
-                helper.page.waitForNavigation({waitUntil: 'networkidle0'}),
-                helper.click(text, locator)
+            await Promise.all([
+                helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']}),
+                locator ? helper.click(text, locator) : helper.click(text)
             ]);
+            return;
         }
-        return Promise.all([
+        await Promise.all([
             helper.click(text, locator),
             helper.wait(3)
         ]);
@@ -33,8 +34,11 @@ class JSWait extends codecept_helper {
             if (url.indexOf('http') !== 0) {
                 url = helper.options.url + url;
             }
-            helper.page.goto(url);
-            await helper.page.waitForNavigation({waitUntil: 'networkidle0'});
+
+            await Promise.all([
+                helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']}), // The promise resolves after navigation has finished
+                helper.page.goto(url)
+            ]);
         } else {
             await helper.amOnPage(url);
             await helper.waitInUrl(url);

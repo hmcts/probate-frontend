@@ -14,8 +14,8 @@ describe('copies-summary', () => {
         testWrapper = new TestWrapper('CopiesSummary');
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

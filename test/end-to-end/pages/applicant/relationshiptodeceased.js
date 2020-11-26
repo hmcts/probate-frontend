@@ -1,13 +1,12 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/applicant/relationshiptodeceased');
 
-module.exports = function(answer) {
+module.exports = async function(answer) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(`#relationshipToDeceased${answer}`);
+    const locator = {css: `#relationshipToDeceased${answer}`};
+    await I.click(locator);
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

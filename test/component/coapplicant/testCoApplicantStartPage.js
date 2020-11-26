@@ -13,9 +13,9 @@ describe('co-applicant-start-page', () => {
         testWrapper = new TestWrapper('CoApplicantStartPage');
     });
 
-    afterEach(() => {
+    afterEach(async () => {
         nock.cleanAll();
-        testWrapper.destroy();
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

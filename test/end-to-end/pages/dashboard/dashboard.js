@@ -1,12 +1,9 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/dashboard');
-
-module.exports = function() {
+module.exports = async function() {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.wait(5);
-    I.navByClick('Continue application');
-
+    await I.waitForElement({css: 'a[href="/start-eligibility"]'});
+    await I.waitForText('Continue application');
+    await I.navByClick('Continue application');
 };

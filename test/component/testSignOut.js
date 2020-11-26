@@ -10,8 +10,8 @@ describe('sign-out', () => {
         testWrapper = new TestWrapper('SignOut');
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

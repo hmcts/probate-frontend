@@ -21,10 +21,10 @@ describe('co-applicant-all-agreed-page', () => {
         testWrapper = new TestWrapper('CoApplicantAllAgreedPage');
     });
 
-    afterEach(() => {
+    afterEach(async () => {
         delete require.cache[require.resolve('test/data/complete-form-undeclared')];
         nock.cleanAll();
-        testWrapper.destroy();
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

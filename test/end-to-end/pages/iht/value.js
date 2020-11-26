@@ -1,14 +1,14 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/iht/value');
 
-module.exports = function(grossValue, netValue) {
+module.exports = async function(grossValue, netValue) {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    const locatorGv = {css: '#grossValueField'};
 
-    I.fillField('#grossValueField', grossValue);
-    I.fillField('#netValueField', netValue);
+    await I.waitForElement (locatorGv);
+    await I.fillField(locatorGv, grossValue);
+    await I.fillField({css: '#netValueField'}, netValue);
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

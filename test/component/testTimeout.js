@@ -10,8 +10,8 @@ describe('time-out', () => {
         testWrapper = new TestWrapper('Timeout');
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

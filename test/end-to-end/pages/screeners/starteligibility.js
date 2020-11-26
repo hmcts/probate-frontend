@@ -4,14 +4,14 @@
 const pageUnderTest = require('app/steps/ui/screeners/starteligibility');
 const testConfig = require('config');
 
-module.exports = function(checkCookieBannerExists = false) {
+module.exports = async function(checkCookieBannerExists = false) {
     const I = this;
 
-    I.amOnLoadedPage(pageUnderTest.getUrl());
+    await I.amOnLoadedPage(pageUnderTest.getUrl());
 
     if (checkCookieBannerExists) {
-        I.waitForElement('div#global-cookie-message', testConfig.TestWaitForElementToAppear);
+        await I.waitForElement('div#global-cookie-message', testConfig.TestWaitForElementToAppear);
     }
 
-    I.navByClick('#main-content > div.govuk-form-group > a');
+    await I.navByClick('#main-content > div.govuk-form-group > a');
 };

@@ -1,12 +1,12 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/applicant/spousenotapplyingreason');
 
-module.exports = function (answer) {
+module.exports = async function (answer) {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(`#spouseNotApplyingReason${answer}`);
 
-    I.navByClick(commonContent.saveAndContinue);
+    const locator = {css: `#spouseNotApplyingReason${answer}`};
+    await I.waitForElement(locator);
+    await I.click(locator);
+    await I.navByClick(commonContent.saveAndContinue);
 };

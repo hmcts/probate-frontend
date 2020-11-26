@@ -7,15 +7,15 @@ const ihtPost = '';
 const optionNo = '-2';
 const bilingualGOP = false;
 const uploadingDocuments = false;
-const config = require('test/config');
+const config = require('config');
 
 Feature('GOP-Single Executor flow...').retry(TestConfigurator.getRetryFeatures());
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
 // eslint-disable-next-line no-undef
-Before(() => {
-    TestConfigurator.getBefore();
+Before(async () => {
+    await TestConfigurator.getBefore();
 });
 
 // eslint-disable-next-line no-undef
@@ -28,125 +28,125 @@ Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/i
     const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
 
     // Eligibility Task (pre IdAM)
-    I.startApplication();
+    await I.startApplication();
 
-    I.selectDeathCertificate(optionYes);
+    await I.selectDeathCertificate(optionYes);
 
     if (useNewDeathCertFlow) {
-        I.selectDeathCertificateInEnglish(optionNo);
-        I.selectDeathCertificateTranslation(optionYes);
+        await I.selectDeathCertificateInEnglish(optionNo);
+        await I.selectDeathCertificateTranslation(optionYes);
     }
 
-    I.selectDeceasedDomicile(optionYes);
+    await I.selectDeceasedDomicile(optionYes);
 
-    I.selectIhtCompleted(optionYes);
+    await I.selectIhtCompleted(optionYes);
 
-    I.selectPersonWhoDiedLeftAWill(optionYes);
+    await I.selectPersonWhoDiedLeftAWill(optionYes);
 
-    I.selectOriginalWill(optionYes);
+    await I.selectOriginalWill(optionYes);
 
-    I.selectApplicantIsExecutor(optionYes);
+    await I.selectApplicantIsExecutor(optionYes);
 
-    I.selectMentallyCapable(optionYes);
+    await I.selectMentallyCapable(optionYes);
 
-    I.startApply();
+    await I.startApply();
 
     // IdAM
-    I.authenticateWithIdamIfAvailable();
+    await I.authenticateWithIdamIfAvailable();
 
     // Dashboard
-    I.chooseApplication();
+    await I.chooseApplication();
 
     // Deceased Details
-    I.selectATask(taskListContent.taskNotStarted);
-    I.chooseBiLingualGrant(optionNo);
-    I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
-    I.enterDeceasedDateOfBirth('01', '01', '1950', true);
+    await I.selectATask(taskListContent.taskNotStarted);
+    await I.chooseBiLingualGrant(optionNo);
+    await I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
+    await I.enterDeceasedDateOfBirth('01', '01', '1950', true);
 
-    I.seeSignOut();
+    await I.seeSignOut();
 
-    I.authenticateWithIdamIfAvailable();
+    await I.authenticateWithIdamIfAvailable();
 
     // Dashboard
-    I.chooseApplication();
+    await I.chooseApplication();
 
     // Deceased Details
-    I.selectATask(taskListContent.taskNotStarted);
+    await I.selectATask(taskListContent.taskNotStarted);
 
-    I.enterDeceasedDateOfBirth('01', '01', '1950');
-    I.enterDeceasedDateOfDeath('01', '01', '2017');
-    I.enterDeceasedAddress();
+    await I.enterDeceasedDateOfBirth('01', '01', '1950');
+    await I.enterDeceasedDateOfDeath('01', '01', '2017');
+    await I.enterDeceasedAddress();
 
     if (useNewDeathCertFlow) {
-        I.selectDiedEngOrWales(optionNo);
-        I.selectEnglishForeignDeathCert(optionNo);
-        I.selectForeignDeathCertTranslation(optionYes);
+        await I.selectDiedEngOrWales(optionNo);
+        await I.selectEnglishForeignDeathCert(optionNo);
+        await I.selectForeignDeathCertTranslation(optionYes);
     } else {
-        I.selectDocumentsToUpload(uploadingDocuments);
+        await I.selectDocumentsToUpload(uploadingDocuments);
     }
 
-    I.selectInheritanceMethod(ihtPost);
+    await I.selectInheritanceMethod(ihtPost);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterGrossAndNet('205', '600000', '300000');
+        await I.enterGrossAndNet('205', '600000', '300000');
     } else {
-        I.enterGrossAndNet('205', '500', '400');
+        await I.enterGrossAndNet('205', '500', '400');
     }
 
-    I.selectDeceasedAlias(optionNo);
-    I.selectDeceasedMarriedAfterDateOnWill(optionNo);
-    I.selectWillCodicils(optionNo);
+    await I.selectDeceasedAlias(optionNo);
+    await I.selectDeceasedMarriedAfterDateOnWill(optionNo);
+    await I.selectWillCodicils(optionNo);
 
     // ExecutorsTask
-    I.selectATask(taskListContent.taskNotStarted);
-    I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
-    I.selectNameAsOnTheWill(optionYes);
-    I.enterApplicantPhone();
-    I.enterAddressManually();
+    await I.selectATask(taskListContent.taskNotStarted);
+    await I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
+    await I.selectNameAsOnTheWill(optionYes);
+    await I.enterApplicantPhone();
+    await I.enterAddressManually();
 
     const totalExecutors = '1';
-    I.enterTotalExecutors(totalExecutors);
+    await I.enterTotalExecutors(totalExecutors);
 
     // Skip Equality and Diversity questions
     if (TestConfigurator.equalityAndDiversityEnabled()) {
-        I.exitEqualityAndDiversity();
-        I.completeEqualityAndDiversity();
+        await I.exitEqualityAndDiversity();
+        await I.completeEqualityAndDiversity();
     }
 
     // Review and Confirm Task
-    I.selectATask(taskListContent.taskNotStarted);
-    I.seeSummaryPage('declaration');
-    I.acceptDeclaration(bilingualGOP);
+    await I.selectATask(taskListContent.taskNotStarted);
+    await I.seeSummaryPage('declaration');
+    await I.acceptDeclaration(bilingualGOP);
 
     // Extra Copies Task
-    I.selectATask(taskListContent.taskNotStarted);
+    await I.selectATask(taskListContent.taskNotStarted);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterUkCopies('5');
-        I.selectOverseasAssets(optionYes);
-        I.enterOverseasCopies('7');
+        await I.enterUkCopies('5');
+        await I.selectOverseasAssets(optionYes);
+        await I.enterOverseasCopies('7');
     } else {
-        I.enterUkCopies('0');
-        I.selectOverseasAssets(optionYes);
-        I.enterOverseasCopies('0');
+        await I.enterUkCopies('0');
+        await I.selectOverseasAssets(optionYes);
+        await I.enterOverseasCopies('0');
     }
 
-    I.seeCopiesSummary();
+    await I.seeCopiesSummary();
 
     // Payment Task
-    I.selectATask(taskListContent.taskNotStarted);
-    I.seePaymentBreakdownPage();
+    await I.selectATask(taskListContent.taskNotStarted);
+    await I.seePaymentBreakdownPage();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.seeGovUkPaymentPage();
-        I.seeGovUkConfirmPage();
+        await I.seeGovUkPaymentPage();
+        await I.seeGovUkConfirmPage();
     }
 
-    I.seePaymentStatusPage();
+    await I.seePaymentStatusPage();
 
     // Send Documents Task
-    I.seeDocumentsPage();
+    await I.seeDocumentsPage();
 
     // Thank You
-    I.seeThankYouPage();
+    await I.seeThankYouPage();
 }).retry(TestConfigurator.getRetryScenarios());

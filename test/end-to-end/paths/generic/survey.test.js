@@ -6,10 +6,9 @@ const optionYes = '';
 Feature('Survey');
 
 // eslint-disable-next-line no-undef
-Scenario(TestConfigurator.idamInUseText('Check survey link works'), (I) => {
+Scenario(TestConfigurator.idamInUseText('Check survey link works'), async (I) => {
 
     // Eligibility Task (pre IdAM)
-    I.startApplication();
-
-    I.selectDeathCertificate(optionYes, true);
+    await I.startApplication();
+    await I.selectDeathCertificate(optionYes, true);
 }).retry(TestConfigurator.getRetryScenarios());

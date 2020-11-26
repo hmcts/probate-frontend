@@ -1,14 +1,10 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/executors/address');
 
-module.exports = function(executor) {
+module.exports = async function() {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl(executor));
-
-    I.enterAddress();
-
-    I.navByClick(commonContent.saveAndContinue);
+    await I.enterAddress();
+    await I.navByClick(commonContent.saveAndContinue);
 };

@@ -1,13 +1,11 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/pin/signin');
-
-module.exports = function(pinCode) {
+module.exports = async function(pinCode) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    const locator = {css: '#pin'};
+    await I.waitForElement(locator);
+    await I.fillField(locator, pinCode);
 
-    I.fillField('#pin', pinCode);
-
-    I.navByClick('.govuk-button');
+    await I.navByClick('.govuk-button');
 };

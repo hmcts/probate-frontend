@@ -1,4 +1,4 @@
-const testConfig = require('test/config.js');
+const testConfig = require('config');
 
 exports.config = {
     tests: testConfig.TestPathToRun,
@@ -36,7 +36,7 @@ exports.config = {
     },
     plugins: {
         autoDelay: {
-            enabled: true
+            enabled: false
         },
         retryFailedStep: {
             enabled: true

@@ -42,8 +42,8 @@ describe('payment-breakdown', () => {
         }));
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
         feesCalculator.restore();
     });
 
@@ -56,7 +56,12 @@ describe('payment-breakdown', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, {}, contentToExclude);
+                    try {
+                        testWrapper.testContent(done, {}, contentToExclude);
+                    } catch (err) {
+                        console.error(err.message);
+                        done(err);
+                    }
                 });
         });
 
@@ -69,11 +74,17 @@ describe('payment-breakdown', () => {
                 .send(sessionData)
                 .end((err) => {
                     if (err) {
+                        done(err);
                         throw err;
                     }
                     const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeOverseas'];
 
-                    testWrapper.testContent(done, {}, contentToExclude);
+                    try {
+                        testWrapper.testContent(done, {}, contentToExclude);
+                    } catch (e) {
+                        console.error(e.message);
+                        done(e);
+                    }
                 });
         });
 
@@ -89,11 +100,16 @@ describe('payment-breakdown', () => {
                 .send(sessionData)
                 .end((err) => {
                     if (err) {
+                        done(err);
                         throw err;
                     }
                     const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeUk'];
-
-                    testWrapper.testContent(done, {}, contentToExclude);
+                    try {
+                        testWrapper.testContent(done, {}, contentToExclude);
+                    } catch (e) {
+                        console.error(e.message);
+                        done(e);
+                    }
                 });
         });
 
@@ -114,11 +130,16 @@ describe('payment-breakdown', () => {
                 }})
                 .end((err) => {
                     if (err) {
+                        done(err);
                         throw err;
                     }
                     const errorsToTest = ['authorisation'];
-
-                    testWrapper.testErrors(done, {}, 'failure', errorsToTest);
+                    try {
+                        testWrapper.testErrors(done, {}, 'failure', errorsToTest);
+                    } catch (e) {
+                        console.error(e.message);
+                        done(e);
+                    }
                 });
         });
     });

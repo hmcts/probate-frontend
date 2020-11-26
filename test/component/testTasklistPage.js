@@ -17,10 +17,10 @@ describe('task-list', () => {
         sessionData = require('test/data/complete-form').formdata;
     });
 
-    afterEach(() => {
+    afterEach(async () => {
         delete require.cache[require.resolve('test/data/singleApplicant')];
         delete require.cache[require.resolve('test/data/complete-form')];
-        testWrapper.destroy();
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

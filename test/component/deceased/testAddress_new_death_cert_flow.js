@@ -14,8 +14,8 @@ describe('deceased-address-new', () => {
         testWrapper = new TestWrapper('DeceasedAddress', ftValue, probateNewJourney);
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

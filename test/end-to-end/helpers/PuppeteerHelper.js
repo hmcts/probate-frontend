@@ -2,7 +2,7 @@
 
 const Helper = codecept_helper;
 const helperName = 'Puppeteer';
-const testConfig = require('test/config');
+const testConfig = require('config');
 
 const countObjects = async (page) => {
     const prototypeHandle = await page.evaluateHandle(() => Object.prototype);

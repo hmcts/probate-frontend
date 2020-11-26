@@ -387,6 +387,18 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
+        },
+        {
+            "name": "Mocha test end-end ie11 - launch darkly OFF",
+            "request": "launch",
+            "runtimeArgs": [
+                "test:crossbrowser_IE11",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
         }  
         
     ]

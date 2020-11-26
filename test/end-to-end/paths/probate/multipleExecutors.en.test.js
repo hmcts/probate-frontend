@@ -30,12 +30,6 @@ AfterSuite(() => {
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details'), async (I) => {
     stage1retries += 1;
 
-    console.info('****************** DEBUG INFO ****************');
-    console.info (`launch darkly key part: ${testConfig.featureToggles.launchDarklyKey.substr(0, 5)}`);
-    console.info (`launch darkly key part (process env): ${process.env.LAUNCHDARKLY_KEY ? process.env.LAUNCHDARKLY_KEY.substr(0, 5) : 'Unknown'}`);
-    console.info (`TEST_LAUNCH_DARKLY_KEY process env: ${process.env.TEST_LAUNCH_DARKLY_KEY ? process.env.TEST_LAUNCH_DARKLY_KEY.substr(0, 5) : 'Unknown'}`);
-    console.info('**********************************************');
-
     if (stage1retries >= 1) {
         await TestConfigurator.getBefore();
     }

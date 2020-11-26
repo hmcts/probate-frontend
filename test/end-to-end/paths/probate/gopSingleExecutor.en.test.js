@@ -25,12 +25,6 @@ After(() => {
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/in and survey link'), async (I) => {
 
-    console.info('****************** DEBUG INFO ****************');
-    console.info (`launch darkly key part: ${config.featureToggles.launchDarklyKey.substr(0, 5)}`);
-    console.info (`launch darkly key part (process env): ${process.env.LAUNCHDARKLY_KEY ? process.env.LAUNCHDARKLY_KEY.substr(0, 5) : 'Unknown'}`);
-    console.info (`TEST_LAUNCH_DARKLY_KEY process env: ${process.env.TEST_LAUNCH_DARKLY_KEY ? process.env.TEST_LAUNCH_DARKLY_KEY.substr(0, 5) : 'Unknown'}`);
-    console.info('**********************************************');
-
     const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
 
     // Eligibility Task (pre IdAM)

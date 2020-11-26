@@ -25,7 +25,8 @@
                 "--reporter",
                 "spec",
                 "--recursive",
-                "--exit"
+                "--expose-internals",
+                "--harmony-generators"
             ],
             "env": {
                 "NODE_ENV": "testing",

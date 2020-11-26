@@ -1,5 +1,6 @@
 'use strict';
 
+// const log = require('why-is-node-running'); // install this with yarn add to see whats causing the hang
 const co = require('co');
 const request = require('supertest');
 const a11y = require('test/util/a11y');
@@ -29,9 +30,13 @@ const commonSessionData = {
     back: []
 };
 
+let stepNum = 0;
+
 Object.keys(steps)
     .filter(stepName => stepsToExclude.includes(stepName))
     .forEach((stepName) => delete steps[stepName]);
+
+const numSteps = Object.keys(steps).length;
 
 for (const step in steps) {
     ((step) => {
@@ -122,6 +127,7 @@ for (const step in steps) {
             after(async () => {
                 nock.cleanAll();
                 await httpTerminator.terminate();
+                stepNum += 1;
             });
 
             it('should not generate any errors', () => {
@@ -139,3 +145,17 @@ for (const step in steps) {
         });
     })(steps[step]);
 }
+
+/*
+setTimeout(function () {
+    log(); // logs out active handles that are keeping node running
+  }, 240000);
+*/
+
+// npm co component is hanging onto something that is stopping process from completing
+setInterval(() => {
+    if (stepNum >= numSteps) {
+        // eslint-disable-next-line no-process-exit
+        process.exit();
+    }
+}, 10000);

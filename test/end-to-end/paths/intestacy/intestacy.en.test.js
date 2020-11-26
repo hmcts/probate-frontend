@@ -33,6 +33,12 @@ After(() => {
 Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Journey - Digital iht'), async(I) => {
     const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
 
+    console.info('****************** DEBUG INFO ****************');
+    console.info (`launch darkly key part: ${config.featureToggles.launchDarklyKey.substr(0, 5)}`);
+    console.info (`launch darkly key part (process env): ${process.env.LAUNCHDARKLY_KEY ? process.env.LAUNCHDARKLY_KEY.substr(0, 5) : 'Unknown'}`);
+    console.info (`TEST_LAUNCH_DARKLY_KEY process env: ${process.env.TEST_LAUNCH_DARKLY_KEY ? process.env.TEST_LAUNCH_DARKLY_KEY.substr(0, 5) : 'Unknown'}`);
+    console.info('**********************************************');
+
     // Eligibility Task (pre IdAM)
     await I.startApplication();
 

@@ -11,7 +11,7 @@ module.exports = async function(answer) {
     await I.see('You can read about');
 
     const locator = {css: `#mentalCapacity${answer}`};
-    await I.seeElement(locator);
+    await I.waitForElement(locator);
     await I.click(locator);
 
     await I.navByClick(commonContent.continue);

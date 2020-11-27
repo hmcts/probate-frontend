@@ -7,7 +7,7 @@ module.exports = async function(answer) {
     await I.waitForText('Do you have the original will?');
 
     const locator = {css: `#original${answer}`};
-    await I.seeElement(locator);
+    await I.waitForElement(locator);
     await I.click(locator);
 
     await I.navByClick(commonContent.continue);

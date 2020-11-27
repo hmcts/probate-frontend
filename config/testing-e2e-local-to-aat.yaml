@@ -1,16 +1,13 @@
-# Use for testing http - e.g. local env
+# Use for testing https - e.g. AAT
 environment: 'sandbox'
-
-featureToggles:
-  enabled: false
 
 TestCitizenDomain: '/@probateTest.com'
 TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png'
-TestE2EFrontendUrl: 'http://localhost:3000'
-TestFrontendUrl: 'http://localhost:3000'
+TestE2EFrontendUrl: 'https://probate.aat.platform.hmcts.net'
+TestFrontendUrl: 'https://probate.aat.platform.hmcts.net'
 TestIdamAddUserUrl: '/testing-support/accounts'
 TestIdamBaseUrl: 'http://localhost:5000'
-TestIdamLoginUrl: 'http://localhost:3501/login'
+TestIdamLoginUrl: 'https://localhost:3501/login'
 TestIdamRole: 'citizen'
 TestIdamUserGroup: 'caseworker'
 TestOutputDir: './output'
@@ -19,7 +16,7 @@ TestProxy: 'socks5:proxyout.reform.hmcts.net:8080'
 TestRetryFeatures: 0
 TestRetryScenarios: 0
 TestRetrySteps: 0
-TestShowBrowser: false
+TestShowBrowser: true
 TestUseGovPay: 'true'
 TestUseIdam: 'true'
 TestUseProxy: 'false'
@@ -44,6 +41,9 @@ postcodeLookup:
   partialAddressPostcode: 'N14'
   invalidAddressPostcode: 'Z99 9ZZ'
   emptyAddressPostcode: ''
+
+featureToggles:
+  enabled: false
 
 govPayTestCardNos:
   validCardNo: '4242424242424242'

@@ -5,9 +5,9 @@ const commonContent = require('app/resources/en/translation/common');
 module.exports = async function(answer, testSurvey = false) {
     const I = this;
 
+    await I.checkPageUrl('app/steps/ui/screeners/deathcertificate');
     const locator = {css: `#deathCertificate${answer}`};
     await I.waitForElement(locator);
-    await I.seeElement(locator);
 
     if (testSurvey) {
         await I.click({css: 'body > div.govuk-width-container > div > p > span > a:nth-child(1)'});

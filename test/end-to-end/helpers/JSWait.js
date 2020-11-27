@@ -9,7 +9,7 @@ class JSWait extends codecept_helper {
         }
     }
 
-    async navByClick (text, locator) {
+    async navByClick (text, locator, webDriverWait) {
         const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
@@ -20,9 +20,19 @@ class JSWait extends codecept_helper {
             ]);
             return;
         }
-        await Promise.all([
-            helper.click(text, locator),
-            helper.wait(3)
+        // non Puppeteer
+        /*
+        if (locator) {
+            await helper.click(text, locator);
+        } else {
+            await helper.click(text);
+        }
+        await helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']});
+        await helper.wait(webDriverWait ? webDriverWait : 5);
+        */
+        return Promise.all([
+            locator ? helper.click(text, locator) : helper.click(text),
+            helper.wait(webDriverWait ? webDriverWait : 5)
         ]);
     }
 
@@ -65,7 +75,8 @@ class JSWait extends codecept_helper {
         } else {
             const browserName = this.helpers.WebDriverIO.config.browser;
 
-            if (browserName !== 'internet explorer' && browserName !== 'MicrosoftEdge') {
+            // browserName !== 'internet explorer' &&  removed
+            if (browserName !== 'MicrosoftEdge') {
                 await helper.browser.waitForVisible('#addressLine1', 5000, true); // true - means wait for element to be Invisible!
                 await helper.browser.click('.govuk-details__summary-text');
                 await helper.browser.waitForVisible('#addressLine1', 5000, false);
@@ -76,6 +87,16 @@ class JSWait extends codecept_helper {
             await helper.browser.setValue('#addressLine3', 'test address for deceased line 3');
             await helper.browser.setValue('#postTown', 'test address for deceased town');
             await helper.browser.setValue('#newPostCode', 'postcode');
+        }
+    }
+
+    async checkPageUrl(pageUnderTestClass) {
+        // optimisation - don't need to do this for puppeteer
+        const helper = this.helpers.WebDriverIO;
+        if (helper) {
+            const pageUnderTest = require(pageUnderTestClass);
+            const url = pageUnderTest.getUrl();
+            await helper.seeCurrentUrlEquals(url);
         }
     }
 }

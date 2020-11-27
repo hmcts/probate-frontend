@@ -9,7 +9,7 @@ module.exports = async function(answer) {
     await I.waitForText(content.question);
 
     const locator = {css: `#deathCertificateTranslation${answer}`};
-    await I.seeElement(locator);
+    await I.waitForElement(locator);
     await I.click(locator);
 
     await I.navByClick(commonContent.continue);

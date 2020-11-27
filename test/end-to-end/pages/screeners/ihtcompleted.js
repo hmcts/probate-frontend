@@ -10,5 +10,5 @@ module.exports = async function(answer) {
     await I.waitForElement(locator);
     await I.click(locator);
 
-    await I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue, null, 10);
 };

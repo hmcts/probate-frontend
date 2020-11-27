@@ -9,7 +9,7 @@ class JSWait extends codecept_helper {
         }
     }
 
-    async navByClick (text, locator) {
+    async navByClick (text, locator, webDriverWait) {
         const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
@@ -27,7 +27,7 @@ class JSWait extends codecept_helper {
             await helper.click(text);
         }
         await helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']});
-        await helper.wait(3);
+        await helper.wait(webDriverWait ? webDriverWait : 5);
 
         /*
         await Promise.all([
@@ -97,14 +97,7 @@ class JSWait extends codecept_helper {
         if (helper) {
             const pageUnderTest = require(pageUnderTestClass);
             const url = pageUnderTest.getUrl();
-            try {
-                await helper.seeCurrentUrlEquals(url);
-            } catch (e) {
-                const currUrl = await helper.grabCurrentUrl();
-                console.error(`Expected url ${url}, but found url ${currUrl}`);
-                console.error(e.message);
-                throw e;
-            }
+            await helper.seeCurrentUrlEquals(url);
         }
     }
 }

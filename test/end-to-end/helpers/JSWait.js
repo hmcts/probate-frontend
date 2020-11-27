@@ -31,16 +31,9 @@ class JSWait extends codecept_helper {
         await helper.wait(webDriverWait ? webDriverWait : 5);
         */
         return Promise.all([
-            helper.click(text, locator),
+            locator ? helper.click(text, locator) : helper.click(text),
             helper.wait(webDriverWait ? webDriverWait : 5)
         ]);
-
-        /*
-        await Promise.all([
-            locator ? helper.click(text, locator) : helper.click(text),
-            helper.wait(3)
-        ]);
-        */
     }
 
     async amOnLoadedPage (url) {

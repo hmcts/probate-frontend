@@ -65,7 +65,8 @@ class JSWait extends codecept_helper {
         } else {
             const browserName = this.helpers.WebDriverIO.config.browser;
 
-            if (browserName !== 'internet explorer' && browserName !== 'MicrosoftEdge') {
+            // browserName !== 'internet explorer' &&  removed
+            if (browserName !== 'MicrosoftEdge') {
                 await helper.browser.waitForVisible('#addressLine1', 5000, true); // true - means wait for element to be Invisible!
                 await helper.browser.click('.govuk-details__summary-text');
                 await helper.browser.waitForVisible('#addressLine1', 5000, false);

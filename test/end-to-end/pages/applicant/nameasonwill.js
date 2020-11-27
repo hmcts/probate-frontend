@@ -1,10 +1,12 @@
 'use strict';
 
+const config = require('config');
 const commonContent = require('app/resources/en/translation/common');
 
 module.exports = async function(answer) {
     const I = this;
 
+    await I.waitForText('exactly what appears on the will', config.TestWaitForTextToAppear);
     const locator = {css: `#nameAsOnTheWill${answer}`};
     await I.waitForElement(locator);
     await I.click(locator);

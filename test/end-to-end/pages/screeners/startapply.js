@@ -5,7 +5,7 @@ module.exports = async function() {
     const I = this;
 
     await I.checkPageUrl('app/steps/ui/screeners/startapply');
-    await I.waitForText('Create an account');
+    await I.waitForText(content.header);
     // can't use html encoded text to compare.  await I.see(content.introduction);
     await I.see('Based on the information you’ve given, you have everything you need to make your application for probate online.');
     await I.see(content.paragraph1);

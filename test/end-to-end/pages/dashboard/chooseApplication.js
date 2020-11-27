@@ -13,8 +13,6 @@ module.exports = async function() {
     await I.see(content.tableHeaderDeceasedName);
     await I.see(content.tableHeaderCreateDate);
     await I.see(content.tableHeaderCaseStatus);
-    await I.see(content.statusDraftProbate);
-    await I.see(content.statusInProgress);
 
     await I.waitForElement({css: 'a[href="/start-eligibility"]'});
     await I.waitForText('Continue application');

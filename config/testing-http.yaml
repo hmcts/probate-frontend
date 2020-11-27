@@ -23,9 +23,9 @@ TestShowBrowser: false
 TestUseGovPay: 'true'
 TestUseIdam: 'true'
 TestUseProxy: 'false'
-TestWaitForDocumentUpload: 0
-TestWaitForTextToAppear: 0
-TestWaitForElementToAppear: 0
+TestWaitForDocumentUpload: 60
+TestWaitForTextToAppear: 20
+TestWaitForElementToAppear: 60
 TestOneMilliSecond: 1000
 TestEnvEmailAddress: 'test.probate.inbox@gmail.com'
 TestEnvMobileNumber: '07765453421'

@@ -120,6 +120,49 @@ describe('PaymentStatus', () => {
         });
     });
 
+    describe('handleGet()', () => {
+        let revertDocumentsWrapper;
+        afterEach(() => {
+            revertDocumentsWrapper();
+        });
+
+        it('should set documentsRequired to true when documents are required', (done) => {
+            revertDocumentsWrapper = PaymentStatus.__set__({
+                DocumentsWrapper: class {
+                    documentsRequired() {
+                        return true;
+                    }
+                }
+            });
+            const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
+            co(function* () {
+                const [context] = yield paymentStatus.handleGet({}, {}, {});
+                expect(context).to.deep.equal({documentsRequired: true});
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+
+        it('should set documentsRequired to false when documents not required', (done) => {
+            revertDocumentsWrapper = PaymentStatus.__set__({
+                DocumentsWrapper: class {
+                    documentsRequired() {
+                        return false;
+                    }
+                }
+            });
+            const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
+            co(function* () {
+                const [context] = yield paymentStatus.handleGet({}, {}, {});
+                expect(context).to.deep.equal({documentsRequired: false});
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+    });
+
     describe('runnerOptions', () => {
         it('redirect if there is an authorise failure', (done) => {
             revertSubmitData(expectedFormData);
@@ -135,7 +178,7 @@ describe('PaymentStatus', () => {
             });
             const expectedOptions = {
                 redirect: true,
-                url: '/payment-breakdown?status=failure'
+                url: '/payment-breakdown'
             };
             const session = {
                 form: {}
@@ -209,7 +252,7 @@ describe('PaymentStatus', () => {
             co(function* () {
                 const options = yield paymentStatus.runnerOptions(ctx, session);
                 expect(options.redirect).to.equal(true);
-                expect(options.url).to.equal('/payment-breakdown?status=failure');
+                expect(options.url).to.equal('/payment-breakdown');
                 expect(session.form).to.deep.equal(expectedFormData);
                 revert();
                 done();

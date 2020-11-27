@@ -4,6 +4,7 @@
   "referenceNumber": "Eich cyfeirnod yw",
   "successHeading1": "Beth fydd yn digwydd nesaf",
   "successParagraph1": "Byddwn yn cysylltu &acirc; chi pan fyddwn wedi cael eich dogfennau. Byddwn wedyn yn adolygu eich cais ac yn anfon eich grant profiant atoch ymhen 8 wythnos.",
+  "successParagraph1NoDocumentsRequired": "We will review your application and issue your grant of probate within 8 weeks.",
   "successParagraph2": "Nid oes angen ichi wneud unrhyw beth tan hynny.",
   "successParagraph3": "Byddwn yn anfon neges e-bost atoch os byddwn angen mwy o wybodaeth. Gallwch hefyd ffonio&rsquo;r Gofrestrfa Brofiant ar {helpLineNumber} os oes gennych unrhyw gwestiynau.",
   "successParagraph4": "Mwy o wybodaeth am beth i&rsquo;w wneud <a href=\"{findOutNext}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"pan fyddwch wedi cael eich grant profiant (agor mewn ffenestr newydd)\">pan fyddwch wedi cael eich grant profiant (agor mewn ffenestr newydd)</a>.",

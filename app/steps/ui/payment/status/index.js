@@ -9,6 +9,8 @@ const config = require('config');
 const Payment = require('app/services/Payment');
 const Authorise = require('app/services/Authorise');
 const ServiceMapper = require('app/utils/ServiceMapper');
+const DocumentsWrapper = require('app/wrappers/Documents');
+const featureToggle = require('app/utils/FeatureToggle');
 
 class PaymentStatus extends Step {
 
@@ -65,7 +67,7 @@ class PaymentStatus extends Step {
 
         if (serviceAuthResult.name === 'Error') {
             options.redirect = true;
-            options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
+            options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
             return options;
         }
 
@@ -85,7 +87,7 @@ class PaymentStatus extends Step {
                 logger.error('Payment retrieval failed for reference = ' + ctx.reference + ' with status = ' + getPaymentResponse.status);
                 const options = {};
                 options.redirect = true;
-                options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
+                options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
                 return options;
             }
 
@@ -98,8 +100,8 @@ class PaymentStatus extends Step {
 
             if (getPaymentResponse.status !== 'Success') {
                 options.redirect = true;
-                options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}?status=failure`;
-                logger.error('Unable to retrieve a payment response.');
+                options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
+                logger.error(`Unable to retrieve a payment response with status ${getPaymentResponse.status}`);
             } else if (!updateCcdCaseResponse || !updateCcdCaseResponse.ccdCase || updateCcdCaseResponse.ccdCase.state !== 'CaseCreated') {
                 options.redirect = false;
                 logger.warn('Did not get a successful case created state.');
@@ -147,7 +149,9 @@ class PaymentStatus extends Step {
         return [result, errors];
     }
 
-    handleGet(ctx) {
+    handleGet(ctx, formdata, featureToggles) {
+        const documentsWrapper = new DocumentsWrapper(formdata);
+        ctx.documentsRequired = documentsWrapper.documentsRequired(featureToggle.isEnabled(featureToggles, 'ft_new_deathcert_flow'));
         return [ctx, ctx.errors];
     }
 

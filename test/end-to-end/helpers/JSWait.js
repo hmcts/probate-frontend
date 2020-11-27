@@ -20,10 +20,21 @@ class JSWait extends codecept_helper {
             ]);
             return;
         }
+        // non Puppeteer
+        if (locator) {
+            await helper.click(text, locator);
+        } else {
+            await helper.click(text);
+        }
+        await helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']});
+        await helper.wait(3);
+
+        /*
         await Promise.all([
-            helper.click(text, locator),
+            locator ? helper.click(text, locator) : helper.click(text),
             helper.wait(3)
         ]);
+        */
     }
 
     async amOnLoadedPage (url) {
@@ -82,9 +93,18 @@ class JSWait extends codecept_helper {
 
     async checkPageUrl(pageUnderTestClass) {
         // optimisation - don't need to do this for puppeteer
-        if (this.helpers.WebDriverIO) {
+        const helper = this.helpers.WebDriverIO;
+        if (helper) {
             const pageUnderTest = require(pageUnderTestClass);
-            await this.helpers.WebDriverIO.seeCurrentUrlEquals(pageUnderTest.getUrl());
+            const url = pageUnderTest.getUrl();
+            try {
+                await helper.seeCurrentUrlEquals(url);
+            } catch (e) {
+                const currUrl = await helper.grabCurrentUrl();
+                console.error(`Expected url ${url}, but found url ${currUrl}`);
+                console.error(e.message);
+                throw e;
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ const commonContent = require('app/resources/en/translation/common');
 module.exports = async function(answer) {
     const I = this;
 
-    const locator = `#notApplyingReason${answer}`;
+    const locator = {css: `#notApplyingReason${answer}`};
     await I.waitForElement(locator);
     await I.click(locator);
 

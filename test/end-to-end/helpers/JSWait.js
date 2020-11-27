@@ -21,6 +21,7 @@ class JSWait extends codecept_helper {
             return;
         }
         // non Puppeteer
+        /*
         if (locator) {
             await helper.click(text, locator);
         } else {
@@ -28,6 +29,11 @@ class JSWait extends codecept_helper {
         }
         await helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']});
         await helper.wait(webDriverWait ? webDriverWait : 5);
+        */
+        return Promise.all([
+            helper.click(text, locator),
+            helper.wait(webDriverWait ? webDriverWait : 5)
+        ]);
 
         /*
         await Promise.all([

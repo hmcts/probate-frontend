@@ -3,7 +3,7 @@ environment: 'sandbox'
 
 featureToggles:
   enabled: false
-  
+
 TestCitizenDomain: '/@probateTest.com'
 TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png'
 TestE2EFrontendUrl: 'http://localhost:3000'
@@ -19,7 +19,7 @@ TestProxy: 'socks5:proxyout.reform.hmcts.net:8080'
 TestRetryFeatures: 0
 TestRetryScenarios: 0
 TestRetrySteps: 0
-TestShowBrowser: true
+TestShowBrowser: false
 TestUseGovPay: 'true'
 TestUseIdam: 'true'
 TestUseProxy: 'false'

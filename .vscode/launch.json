@@ -17,6 +17,18 @@
             "type": "pwa-node"
         },
         {
+            "command": "yarn run test:functional",
+            "name": "FUNCTIONAL test via yarn",
+            "request": "launch",
+            "type": "node-terminal"
+        },  
+        {
+            "command": "yarn run test-e2e",
+            "name": "e2e test via yarn",
+            "request": "launch",
+            "type": "node-terminal"
+        },                 
+        {
             "args": [
                 "--timeout",
                 "30000",

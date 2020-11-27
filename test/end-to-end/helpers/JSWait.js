@@ -78,6 +78,14 @@ class JSWait extends codecept_helper {
             await helper.browser.setValue('#newPostCode', 'postcode');
         }
     }
+
+    async checkPageUrl(pageUnderTestClass) {
+        // optimisation - don't need to do this for puppeteer
+        if (this.helpers.WebDriverIO) {
+            const pageUnderTest = require(pageUnderTestClass);
+            await this.helpers.WebDriverIO.seeCurrentUrlEquals(pageUnderTest.getUrl());
+        }
+    }
 }
 
 module.exports = JSWait;

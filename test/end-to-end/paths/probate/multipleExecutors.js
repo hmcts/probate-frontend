@@ -150,6 +150,12 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         }
     }
 
+    // ************************************************
+    // Something is going wrong here
+    // in functional tests on CI after git push for pr.
+    // Works locally though using Puppeteer
+    // ************************************************
+
     // Review and Confirm Task
     await I.selectATask(taskListContent.taskNotStarted);
     await I.seeSummaryPage('declaration');

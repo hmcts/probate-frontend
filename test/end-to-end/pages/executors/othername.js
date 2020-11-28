@@ -7,9 +7,9 @@ module.exports = async function(executorsWithDifferentNameIdList) {
 
     await I.checkPageUrl('app/steps/ui/executors/othername');
 
-    executorsWithDifferentNameIdList.forEach((executorListId) => {
-        await I.checkOption('#executorsWithOtherNames-' + executorListId);
-    });
-
+    for (let i = 0; i < executorsWithDifferentNameIdList.length; i++) {
+        // eslint-disable-next-line no-await-in-loop
+        await I.checkOption('#executorsWithOtherNames-' + executorsWithDifferentNameIdList[i]);
+    }
     await I.navByClick(commonContent.saveAndContinue);
 };

@@ -5,6 +5,7 @@ const thankYouContent = require('app/resources/en/translation/thankyou');
 module.exports = async function() {
     const I = this;
 
+    await I.checkPageUrl('app/steps/ui/thankyou');
     await I.waitForText(thankYouContent.header);
 
     await I.downloadPdfIfNotIE11('#checkAnswerHref');

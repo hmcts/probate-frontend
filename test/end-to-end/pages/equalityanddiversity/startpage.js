@@ -5,8 +5,10 @@ const config = require('config');
 module.exports = async function() {
     const I = this;
 
-    const url = await I.grabCurrentUrl();
-    console.info(`equality url: ${url}`);
+    await I.wait(3);
+
+    // const url = await I.grabCurrentUrl();
+    // console.info(`equality url: ${url}`);
 
     // await I.checkPageUrl('app/steps/ui/equality');
     const backButtonLocator = {css: '#back-button'};

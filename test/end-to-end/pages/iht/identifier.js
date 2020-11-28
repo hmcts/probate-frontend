@@ -4,6 +4,8 @@ const commonContent = require('app/resources/en/translation/common');
 
 module.exports = async function() {
     const I = this;
+
+    await I.checkPageUrl('app/steps/ui/iht/identifier');
     const locator = {css: '#identifier'};
 
     await I.waitForElement(locator);

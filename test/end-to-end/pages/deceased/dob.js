@@ -7,6 +7,7 @@ const content = require('app/resources/en/translation/deceased/dob');
 module.exports = async function(day, month, year, saveAndClose = false) {
     const I = this;
 
+    await I.checkPageUrl('app/steps/ui/deceased/dob');
     await I.waitForText(content.question, config.TestWaitForTextToAppear);
     const dobLocator = {css: '#dob-day'};
     await I.waitForElement(dobLocator);

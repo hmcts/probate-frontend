@@ -3,6 +3,7 @@
 module.exports = async function(uploadDocument) {
     const I = this;
 
+    await I.checkPageUrl('app/steps/ui/documentupload');
     I.waitForVisible({css: '.document-upload__dropzone-text--choose-file'});
 
     if (uploadDocument) {

@@ -6,6 +6,7 @@ const testConfig = require('config');
 module.exports = async function() {
     const I = this;
 
+    await I.checkPageUrl('app/steps/ui/payment/status');
     await I.waitForText(content.question, testConfig.TestWaitForTextToAppear);
     const locator = {css: '.govuk-button'};
     await I.waitForElement(locator);

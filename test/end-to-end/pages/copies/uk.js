@@ -7,6 +7,7 @@ const content = require('app/resources/en/translation/copies/uk');
 module.exports = async function(copies) {
     const I = this;
 
+    await I.checkPageUrl('app/steps/ui/copies/uk');
     await I.waitForText(content.question, config.TestWaitForTextToAppear);
     const locator = {css: '#uk'};
     await I.waitForElement(locator);

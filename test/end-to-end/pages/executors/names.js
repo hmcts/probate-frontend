@@ -5,6 +5,7 @@ const commonContent = require('app/resources/en/translation/common');
 module.exports = async function(totalExecutors) {
     const I = this;
 
+    await I.checkPageUrl('app/steps/ui/executors/names');
     let i = 0;
 
     while (i < (parseInt(totalExecutors) - 1)) {

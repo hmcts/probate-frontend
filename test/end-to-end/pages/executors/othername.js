@@ -1,16 +1,15 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/executors/othername');
 
-module.exports = function(executorsWithDifferentNameIdList) {
+module.exports = async function(executorsWithDifferentNameIdList) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    await I.checkPageUrl('app/steps/ui/executors/othername');
 
     executorsWithDifferentNameIdList.forEach((executorListId) => {
-        I.checkOption('#executorsWithOtherNames-' + executorListId);
+        await I.checkOption('#executorsWithOtherNames-' + executorListId);
     });
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

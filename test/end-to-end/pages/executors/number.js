@@ -7,6 +7,7 @@ const content = require('app/resources/en/translation/executors/number');
 module.exports = async function (totalExecutors) {
     const I = this;
 
+    await I.checkPageUrl('app/steps/ui/executors/number');
     await I.waitForText(content.checklist1Header, config.TestWaitForTextToAppear);
     const locator = {css: '#executorsNumber'};
     await I.waitForElement(locator);

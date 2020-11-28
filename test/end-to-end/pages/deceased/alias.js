@@ -7,6 +7,7 @@ const content = require('app/resources/en/translation/deceased/alias');
 module.exports = async function(answer) {
     const I = this;
 
+    await I.checkPageUrl('app/steps/ui/deceased/alias');
     await I.waitForText(content.paragraph1, config.TestWaitForTextToAppear);
 
     const locator = {css: `#alias${answer}`};

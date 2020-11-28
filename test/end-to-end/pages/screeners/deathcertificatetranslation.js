@@ -6,6 +6,7 @@ const content = require('app/resources/en/translation/screeners/deathcertificate
 module.exports = async function(answer) {
     const I = this;
 
+    await I.checkPageUrl('app/steps/ui/screeners/deathcertificatetranslation');
     await I.waitForText(content.question);
 
     const locator = {css: `#deathCertificateTranslation${answer}`};

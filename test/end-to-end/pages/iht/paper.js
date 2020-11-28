@@ -17,6 +17,7 @@ module.exports = async function(formName, grossAmount, netAmount) {
         option = '';
     }
 
+    await I.checkPageUrl('app/steps/ui/iht/paper');
     const locator = {css: `#form${option}`};
     await I.waitForElement(locator);
     await I.click(locator);

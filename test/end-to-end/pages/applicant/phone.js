@@ -5,6 +5,7 @@ const content = require('app/resources/en/translation/applicant/phone');
 
 module.exports = async function() {
     const I = this;
+    await I.checkPageUrl('app/steps/ui/applicant/phone');
     await I.waitForText(content.phoneNumber);
     await I.fillField(content.phoneNumber, '123456789');
 

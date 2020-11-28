@@ -6,6 +6,7 @@ const commonContent = require('app/resources/en/translation/common');
 module.exports = async function(option) {
     const I = this;
 
+    await I.checkPageUrl('app/steps/ui/will/codicils');
     await I.waitForText(' made to the will?', config.TestWaitForTextToAppear);
     const locator = {css: `#codicils${option}`};
     await I.waitForElement(locator);

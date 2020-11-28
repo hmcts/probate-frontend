@@ -5,6 +5,8 @@ const content = require('app/resources/en/translation/screeners/willoriginal');
 
 module.exports = async function(answer) {
     const I = this;
+
+    await I.checkPageUrl('app/steps/ui/screeners/willoriginal');
     await I.waitForText(content.question);
 
     const locator = {css: `#original${answer}`};

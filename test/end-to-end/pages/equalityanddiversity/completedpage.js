@@ -4,5 +4,6 @@ const commonContent = require('app/resources/en/translation/common');
 
 module.exports = async function() {
     const I = this;
+    await I.wait(3);
     await I.navByClick(commonContent.saveAndContinue);
 };

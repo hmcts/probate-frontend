@@ -5,6 +5,7 @@ const pageUnderTest = require('app/steps/ui/applicant/aliasreason');
 
 module.exports = function(aliasReason, aliasOther) {
     const I = this;
+
     I.seeCurrentUrlEquals(pageUnderTest.getUrl());
     I.click(`#aliasReason${aliasReason}`);
 

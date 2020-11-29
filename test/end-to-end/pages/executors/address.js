@@ -2,10 +2,10 @@
 
 const commonContent = require('app/resources/en/translation/common');
 
-module.exports = async function() {
+module.exports = async function(executor) {
     const I = this;
 
-    await I.checkPageUrl('app/steps/ui/executors/address');
+    await I.checkPageUrl('app/steps/ui/executors/address', executor);
     await I.enterAddress();
     await I.navByClick(commonContent.saveAndContinue);
 };

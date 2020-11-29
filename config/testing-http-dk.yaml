@@ -13,9 +13,9 @@ TestIdamUserGroup: 'caseworker'
 TestOutputDir: './output'
 TestPathToRun: './paths/**/*.test.js'
 TestProxy: 'socks5:proxyout.reform.hmcts.net:8080'
-TestRetryFeatures: 0
-TestRetryScenarios: 0
-TestRetrySteps: 0
+TestRetryFeatures: 4
+TestRetryScenarios: 4
+TestRetrySteps: 4
 TestShowBrowser: false
 TestUseGovPay: 'true'
 TestUseIdam: 'true'

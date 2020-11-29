@@ -90,12 +90,12 @@ class JSWait extends codecept_helper {
         }
     }
 
-    async checkPageUrl(pageUnderTestClass) {
+    async checkPageUrl(pageUnderTestClass, redirect) {
         // optimisation - don't need to do this for puppeteer
         const helper = this.helpers.WebDriverIO;
         if (helper) {
             const pageUnderTest = require(pageUnderTestClass);
-            const url = pageUnderTest.getUrl();
+            const url = redirect ? pageUnderTest.getUrl(redirect) : pageUnderTest.getUrl();
             await helper.seeCurrentUrlEquals(url);
         }
     }

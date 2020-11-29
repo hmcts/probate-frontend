@@ -10,7 +10,7 @@ module.exports = async function(answer) {
     await I.checkPageUrl('app/steps/ui/screeners/willleft');
     await I.waitForText(content.question);
     const locator = {css: `#left${answer}`};
-    await I.waitForVisible(locator, config.TestWaitForElementToAppear);
+    await I.waitForElement(locator, config.TestWaitForElementToAppear);
     await I.click(locator);
     await I.navByClick(commonContent.continue);
 };

@@ -137,8 +137,9 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     if (executorsAliveList) {
         for (let i = 0; i < executorsAliveList.length; i++) {
+            const executorNumber = executorsAliveList[i];
             // eslint-disable-next-line no-await-in-loop
-            await I.selectExecutorRoles(answer);
+            await I.selectExecutorRoles(executorNumber, answer, executorsAliveList[0] === executorNumber);
 
             if (powerReserved) {
                 // eslint-disable-next-line no-await-in-loop

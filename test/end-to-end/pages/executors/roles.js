@@ -11,7 +11,6 @@ module.exports = async function(executorNumber, answer, firstRecord) {
         await I.checkPageUrl('app/steps/ui/executors/roles', parseInt(executorNumber) - 1);
     }
 
-    await I.checkPageUrl('app/steps/ui/executors/roles');
     const locator = {css: `#notApplyingReason${answer}`};
     await I.waitForElement(locator);
     await I.click(locator);

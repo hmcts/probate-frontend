@@ -35,22 +35,12 @@ describe('executors-invites-sent', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    try {
-                        testWrapper.testContent(done);
-                    } catch (e) {
-                        console.error(e.message);
-                        done(e);
-                    }
+                    testWrapper.testContent(done);
                 });
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {
-            try {
-                testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList);
-            } catch (e) {
-                console.error(e.message);
-                done(e);
-            }
+            testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList);
         });
     });
 });

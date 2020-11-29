@@ -23,12 +23,7 @@ describe('start-eligibility', () => {
                 'paragraph7old',
                 'paragraph8old'
             ];
-            try {
-                testWrapper.testContent(done, {}, contentToExclude);
-            } catch (e) {
-                console.error(e.message);
-                done(e);
-            }
+            testWrapper.testContent(done, {}, contentToExclude);
         });
 
         it('test right content loaded on the page with the ft_fees_api toggle OFF', (done) => {
@@ -56,12 +51,7 @@ describe('start-eligibility', () => {
                 'tableBodyFeeRange7Value'
             ];
 
-            try {
-                testWrapper.testContent(done, {}, contentToExclude);
-            } catch (e) {
-                console.error(e.message);
-                done(e);
-            }
+            testWrapper.testContent(done, {}, contentToExclude);
         });
     });
 
@@ -71,24 +61,14 @@ describe('start-eligibility', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDeathCertificate}`, (done) => {
-            try {
-                testWrapper.testRedirect(done, {}, expectedNextUrlForDeathCertificate);
-            } catch (e) {
-                console.error(e.message);
-                done(e);
-            }
+            testWrapper.testRedirect(done, {}, expectedNextUrlForDeathCertificate);
         });
 
         it('test "save and close" link is not displayed on the page', (done) => {
             const playbackData = {
                 saveAndClose: commonContent.saveAndClose
             };
-            try {
-                testWrapper.testContentNotPresent(done, playbackData);
-            } catch (e) {
-                console.error(e.message);
-                done(e);
-            }
+            testWrapper.testContentNotPresent(done, playbackData);
         });
     });
 });

@@ -107,12 +107,7 @@ describe('copies-overseas', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {overseas: 'abcd'};
-                    try {
-                        testWrapper.testErrors(done, data, 'invalid');
-                    } catch (err) {
-                        console.error(err.message);
-                        done(err);
-                    }
+                    testWrapper.testErrors(done, data, 'invalid');
                 });
         });
 
@@ -121,13 +116,7 @@ describe('copies-overseas', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {overseas: '//1234//'};
-
-                    try {
-                        testWrapper.testErrors(done, data, 'invalid');
-                    } catch (err) {
-                        console.error(err.message);
-                        done(err);
-                    }
+                    testWrapper.testErrors(done, data, 'invalid');
                 });
         });
 
@@ -136,13 +125,7 @@ describe('copies-overseas', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {overseas: ''};
-
-                    try {
-                        testWrapper.testErrors(done, data, 'required');
-                    } catch (err) {
-                        console.error(err.message);
-                        done(err);
-                    }
+                    testWrapper.testErrors(done, data, 'required');
                 });
         });
 
@@ -151,13 +134,7 @@ describe('copies-overseas', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {overseas: '-1'};
-
-                    try {
-                        testWrapper.testErrors(done, data, 'invalid');
-                    } catch (err) {
-                        console.error(err.message);
-                        done(err);
-                    }
+                    testWrapper.testErrors(done, data, 'invalid');
                 });
         });
 
@@ -166,13 +143,7 @@ describe('copies-overseas', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {overseas: '0'};
-
-                    try {
-                        testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);
-                    } catch (err) {
-                        console.error(err.message);
-                        done(err);
-                    }
+                    testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);
                 });
         });
 
@@ -181,13 +152,7 @@ describe('copies-overseas', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {overseas: '1'};
-
-                    try {
-                        testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);
-                    } catch (err) {
-                        console.error(err.message);
-                        done(err);
-                    }
+                    testWrapper.testRedirect(done, data, expectedNextUrlForCopiesSummary);
                 });
         });
     });

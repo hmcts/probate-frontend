@@ -49,12 +49,7 @@ describe('copies-uk', () => {
                         'paragraph3Old',
                         'copiesOld'
                     ];
-                    try {
-                        testWrapper.testContent(done, {}, contentToExclude);
-                    } catch (err) {
-                        console.error(err.message);
-                        done(err);
-                    }
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
@@ -82,12 +77,7 @@ describe('copies-uk', () => {
                         'bullet2',
                         'copies',
                     ];
-                    try {
-                        testWrapper.testContent(done, {}, contentToExclude);
-                    } catch (err) {
-                        console.error(err.message);
-                        done(err);
-                    }
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
     });
@@ -104,13 +94,7 @@ describe('copies-uk', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {uk: 'abcd'};
-
-                    try {
-                        testWrapper.testErrors(done, data, 'invalid');
-                    } catch (err) {
-                        console.error(err.message);
-                        done(err);
-                    }
+                    testWrapper.testErrors(done, data, 'invalid');
                 });
         });
 
@@ -119,12 +103,7 @@ describe('copies-uk', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {uk: '//1234//'};
-                    try {
-                        testWrapper.testErrors(done, data, 'invalid');
-                    } catch (err) {
-                        console.error(err.message);
-                        done(err);
-                    }
+                    testWrapper.testErrors(done, data, 'invalid');
                 });
         });
 
@@ -133,12 +112,7 @@ describe('copies-uk', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {uk: ''};
-                    try {
-                        testWrapper.testErrors(done, data, 'required');
-                    } catch (err) {
-                        console.error(err.message);
-                        done(err);
-                    }
+                    testWrapper.testErrors(done, data, 'required');
                 });
         });
 
@@ -147,12 +121,7 @@ describe('copies-uk', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {uk: '-1'};
-                    try {
-                        testWrapper.testErrors(done, data, 'invalid');
-                    } catch (err) {
-                        console.error(err.message);
-                        done(err);
-                    }
+                    testWrapper.testErrors(done, data, 'invalid');
                 });
         });
 
@@ -171,12 +140,7 @@ describe('copies-uk', () => {
                 .end(() => {
                     delete require.cache[require.resolve('test/data/copiesUk')];
 
-                    try {
-                        testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
-                    } catch (err) {
-                        console.error(err.message);
-                        done(err);
-                    }
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
                 });
         });
 
@@ -195,12 +159,7 @@ describe('copies-uk', () => {
                 .end(() => {
                     delete require.cache[require.resolve('test/data/copiesUk')];
 
-                    try {
-                        testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
-                    } catch (err) {
-                        console.error(err.message);
-                        done(err);
-                    }
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOverseas);
                 });
         });
     });

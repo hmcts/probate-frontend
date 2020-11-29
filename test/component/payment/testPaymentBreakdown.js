@@ -56,12 +56,7 @@ describe('payment-breakdown', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    try {
-                        testWrapper.testContent(done, {}, contentToExclude);
-                    } catch (err) {
-                        console.error(err.message);
-                        done(err);
-                    }
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
@@ -79,12 +74,7 @@ describe('payment-breakdown', () => {
                     }
                     const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeOverseas'];
 
-                    try {
-                        testWrapper.testContent(done, {}, contentToExclude);
-                    } catch (e) {
-                        console.error(e.message);
-                        done(e);
-                    }
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
@@ -104,12 +94,7 @@ describe('payment-breakdown', () => {
                         throw err;
                     }
                     const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeUk'];
-                    try {
-                        testWrapper.testContent(done, {}, contentToExclude);
-                    } catch (e) {
-                        console.error(e.message);
-                        done(e);
-                    }
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 
@@ -134,12 +119,7 @@ describe('payment-breakdown', () => {
                         throw err;
                     }
                     const errorsToTest = ['authorisation'];
-                    try {
-                        testWrapper.testErrors(done, {}, 'failure', errorsToTest);
-                    } catch (e) {
-                        console.error(e.message);
-                        done(e);
-                    }
+                    testWrapper.testErrors(done, {}, 'failure', errorsToTest);
                 });
         });
     });

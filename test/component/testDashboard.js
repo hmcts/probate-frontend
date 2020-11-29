@@ -82,42 +82,22 @@ describe('dashboard', () => {
                 helpTelephoneOpeningHours: commonContent.helpTelephoneOpeningHours,
                 helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, commonContent.helpEmail)
             };
-            try {
-                testWrapper.testDataPlayback(done, playbackData);
-            } catch (e) {
-                console.error(e.message);
-                done(e);
-            }
+            testWrapper.testDataPlayback(done, playbackData);
         });
 
         it('test content loaded on the page - application in progress', (done) => {
             applicationInProgressNock();
-            try {
-                testWrapper.testContentNotPresent(done, ['case-status submitted']);
-            } catch (e) {
-                console.error(e.message);
-                done(e);
-            }
+            testWrapper.testContentNotPresent(done, ['case-status submitted']);
         });
 
         it('test content loaded on the page - application submitted', (done) => {
             applicationSubmittedNock();
-            try {
-                testWrapper.testContentPresent(done, ['case-status submitted']);
-            } catch (e) {
-                console.error(e.message);
-                done(e);
-            }
+            testWrapper.testContentPresent(done, ['case-status submitted']);
         });
 
         it('test content loaded on the page - application progressed by caseworker', (done) => {
             applicationProgressedNock();
-            try {
-                testWrapper.testContentPresent(done, ['case-status submitted']);
-            } catch (e) {
-                console.error(e.message);
-                done(e);
-            }
+            testWrapper.testContentPresent(done, ['case-status submitted']);
         });
     });
 });

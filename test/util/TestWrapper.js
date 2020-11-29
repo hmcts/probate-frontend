@@ -82,96 +82,126 @@ class TestWrapper {
                     console.error(`Chai response error: ${err.message}\nStack:\n${err.stack}`);
                     done(err);
                 });
-        } catch (err) {
-            console.error(`Error in testContent (res.expect): ${err.message}`);
-            done(err);
+        } catch (e) {
+            console.error(`Error in testContent (res.expect): ${e.message}`);
+            done(e);
         }
     }
 
     testDataPlayback(done, data = {}, excludeKeys = [], cookies = []) {
-        const dataToCheck = cloneDeep(filter(data, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
-        const res = this.agent.get(this.pageUrl);
+        try {
+            const dataToCheck = cloneDeep(filter(data, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
+            const res = this.agent.get(this.pageUrl);
 
-        if (cookies.length) {
-            const cookiesString = this.setCookiesString(res, cookies);
-            res.set('Cookie', cookiesString);
+            if (cookies.length) {
+                const cookiesString = this.setCookiesString(res, cookies);
+                res.set('Cookie', cookiesString);
+            }
+
+            res.expect('Content-type', /html/)
+                .then(response => {
+                    this.assertContentIsPresent(response.text, dataToCheck);
+                    done();
+                })
+                .catch((err) => done(err));
+        } catch (e) {
+            console.error(e.message);
+            done(e);
         }
-
-        res.expect('Content-type', /html/)
-            .then(response => {
-                this.assertContentIsPresent(response.text, dataToCheck);
-                done();
-            })
-            .catch((err) => done(err));
     }
 
     testContentPresent(done, data) {
-        this.agent.get(this.pageUrl)
-            .then(response => {
-                this.assertContentIsPresent(response.text, data);
-                done();
-            })
-            .catch((err) => done(err));
+        try {
+            this.agent.get(this.pageUrl)
+                .then(response => {
+                    this.assertContentIsPresent(response.text, data);
+                    done();
+                })
+                .catch((err) => done(err));
+        } catch (e) {
+            console.error(e.message);
+            done(e);
+        }
     }
 
     testContentNotPresent(done, data) {
-        this.agent.get(this.pageUrl)
-            .then(response => {
-                this.assertContentIsNotPresent(response.text, data);
-                done();
-            })
-            .catch((err) => done(err));
+        try {
+            this.agent.get(this.pageUrl)
+                .then(response => {
+                    this.assertContentIsNotPresent(response.text, data);
+                    done();
+                })
+                .catch((err) => done(err));
+        } catch (e) {
+            console.error(e.message);
+            done(e);
+        }
     }
 
     testErrors(done, data, type, onlyKeys = [], cookies = []) {
-        const contentErrors = get(this.content, 'errors', {});
-        const expectedErrors = cloneDeep(isEmpty(onlyKeys) ? contentErrors : filter(contentErrors, (value, key) => onlyKeys.includes(key)));
-        assert.isNotEmpty(expectedErrors);
-        this.substituteErrorsContent(data, expectedErrors, type);
-        const res = this.agent.post(`${this.pageUrl}`);
+        try {
+            const contentErrors = get(this.content, 'errors', {});
+            const expectedErrors = cloneDeep(isEmpty(onlyKeys) ? contentErrors : filter(contentErrors, (value, key) => onlyKeys.includes(key)));
+            assert.isNotEmpty(expectedErrors);
+            this.substituteErrorsContent(data, expectedErrors, type);
+            const res = this.agent.post(`${this.pageUrl}`);
 
-        if (cookies.length) {
-            const cookiesString = this.setCookiesString(res, cookies);
-            res.set('Cookie', cookiesString);
+            if (cookies.length) {
+                const cookiesString = this.setCookiesString(res, cookies);
+                res.set('Cookie', cookiesString);
+            }
+
+            res.type('form')
+                .send(data)
+                .expect('Content-type', 'text/html; charset=utf-8')
+                .then(res => {
+                    forEach(expectedErrors, (value) => {
+                        expect(res.text).to.contain(value[type]);
+                    });
+                    done();
+                })
+                .catch((err) => done(err));
+        } catch (e) {
+            console.error(e.message);
+            done(e);
         }
-
-        res.type('form')
-            .send(data)
-            .expect('Content-type', 'text/html; charset=utf-8')
-            .then(res => {
-                forEach(expectedErrors, (value) => {
-                    expect(res.text).to.contain(value[type]);
-                });
-                done();
-            })
-            .catch((err) => done(err));
     }
 
     testContentAfterError(data, contentToCheck, done) {
-        this.agent.post(this.pageUrl)
-            .send(data)
-            .expect('Content-type', 'text/html; charset=utf-8')
-            .then(res => {
-                this.assertContentIsPresent(res.text, contentToCheck);
-                done();
-            })
-            .catch((err) => done(err));
+        try {
+            this.agent.post(this.pageUrl)
+                .send(data)
+                .expect('Content-type', 'text/html; charset=utf-8')
+                .then(res => {
+                    this.assertContentIsPresent(res.text, contentToCheck);
+                    done();
+                })
+                .catch((err) => done(err));
+        } catch (e) {
+            console.error(e.message);
+            done(e);
+        }
     }
 
     testRedirect(done, data, expectedNextUrl, cookies = []) {
-        const res = this.agent.post(this.pageUrl);
+        try {
+            const res = this.agent.post(this.pageUrl);
 
-        if (cookies.length) {
-            const cookiesString = this.setCookiesString(res, cookies);
-            res.set('Cookie', cookiesString);
+            if (cookies.length) {
+                const cookiesString = this.setCookiesString(res, cookies);
+                res.set('Cookie', cookiesString);
+            }
+
+            res.type('form')
+                .send(data)
+                .expect('location', expectedNextUrl)
+                .expect(302)
+                .then(() => done())
+                .catch((err) => done(err));
+        } catch (e) {
+            console.error(e.message);
+            done(e);
         }
-
-        res.type('form')
-            .send(data)
-            .expect('location', expectedNextUrl)
-            .expect(302)
-            .then(() => done())
-            .catch((err) => done(err));
     }
 
     nextStep(data = {}) {

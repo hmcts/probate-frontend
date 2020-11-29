@@ -100,8 +100,9 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     if (executorsWhoDiedList) {
         for (let i = 0; i < executorsWhoDiedList.length; i++) {
+            const executorNum = executorsWhoDiedList[i];
             // eslint-disable-next-line no-await-in-loop
-            await I.selectExecutorsWhenDied(diedBefore);
+            await I.selectExecutorsWhenDied(executorNum, diedBefore, executorsWhoDiedList[0] === executorNum);
             diedBefore = optionNo;
         }
     }

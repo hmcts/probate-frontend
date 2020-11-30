@@ -23,7 +23,7 @@ class JSWait extends codecept_helper {
         // non Puppeteer
         return Promise.all([
             locator ? helper.click(text, locator) : helper.click(text),
-            helper.wait(webDriverWait ? webDriverWait : 1)
+            helper.wait(webDriverWait ? webDriverWait : 3)
         ]);
     }
 

@@ -96,7 +96,8 @@ class JSWait extends codecept_helper {
         if (helper) {
             const pageUnderTest = require(pageUnderTestClass);
             const url = redirect ? pageUnderTest.getUrl(redirect) : pageUnderTest.getUrl();
-            await helper.seeCurrentUrlEquals(url);
+            await helper.waitInUrl(url, 60);
+            // await helper.seeCurrentUrlEquals(url);
         }
     }
 }

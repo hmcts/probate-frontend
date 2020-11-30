@@ -21,18 +21,9 @@ class JSWait extends codecept_helper {
             return;
         }
         // non Puppeteer
-        /*
-        if (locator) {
-            await helper.click(text, locator);
-        } else {
-            await helper.click(text);
-        }
-        await helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']});
-        await helper.wait(webDriverWait ? webDriverWait : 5);
-        */
         return Promise.all([
             locator ? helper.click(text, locator) : helper.click(text),
-            helper.wait(webDriverWait ? webDriverWait : 5)
+            helper.wait(webDriverWait ? webDriverWait : 3)
         ]);
     }
 
@@ -96,8 +87,19 @@ class JSWait extends codecept_helper {
         if (helper) {
             const pageUnderTest = require(pageUnderTestClass);
             const url = redirect ? pageUnderTest.getUrl(redirect) : pageUnderTest.getUrl();
-            await helper.waitUrlEquals(url, 120);
-            // await helper.seeCurrentUrlEquals(url);
+            try {
+                await helper.waitUrlEquals(url, 120);
+            } catch (e) {
+                try {
+                    // ok I know its weird invoking this when we know this can't be the url,
+                    // but this may give us more information
+                    console.info('Invoking seeCurrentUrlEquals for more info on incorrect url');
+                    await helper.seeCurrentUrlEquals(url);
+                    throw e;
+                } catch (e2) {
+                    throw e;
+                }
+            }
         }
     }
 }

@@ -2,7 +2,7 @@
 /* eslint no-console: 0 no-unused-vars: 0 */
 /* eslint-disable no-undef */
 const pageUnderTest = require('app/steps/ui/screeners/starteligibility');
-const testConfig = require('config');
+const config = require('config');
 
 module.exports = async function(checkCookieBannerExists = false) {
     const I = this;
@@ -10,8 +10,9 @@ module.exports = async function(checkCookieBannerExists = false) {
     await I.amOnLoadedPage(pageUnderTest.getUrl());
 
     if (checkCookieBannerExists) {
-        await I.waitForElement('div#global-cookie-message', testConfig.TestWaitForElementToAppear);
+        await I.waitForElement('div#global-cookie-message', config.TestWaitForElementToAppear);
     }
-
-    await I.navByClick('#main-content > div.govuk-form-group > a');
+    const locator = {css: '#main-content > div.govuk-form-group > a'};
+    await I.waitForElement(locator, config.TestWaitForElementToAppear);
+    await I.navByClick(locator);
 };

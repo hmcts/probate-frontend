@@ -15,7 +15,7 @@
             classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.englishForeignDeathCert.errorMessage | safe } if fields.deceasedDomicile.errorMessage,
+        errorMessage: { text: fields.englishForeignDeathCert.errorMessage | safe } if fields.englishForeignDeathCert.errorMessage,
         items: [
             {
                 value: "optionYes",

@@ -6,7 +6,7 @@
   "text1": "You must send the probate registry:",
   "text2": "Send your documents using a signed postal service to:",
   "warning": "We cannot give you a grant of probate without the required documents.",
-  "address": "Digital Application\nOxford District Probate Registry\nCombined Court Building\nSt Aldates\nOxford\nOX1 1LY",
+  "address": "Principal Registry of the Family Division (PRFD)\nHMCTS Probate\nPO BOX 12625\nHarlow\nCM20 9QE",
   "checklist-item1-application-coversheet": "either your completed <a class=\"govuk-link\" id=\"coverSheetPdfHref\" href=\"/cover-sheet-pdf\">application coversheet</a> or write your reference number {ccdReferenceNumber} on a sheet of paper",
   "checklist-item2-no-codicils": "the original will (by law, we must keep your original will as it becomes a public document)",
   "checklist-item2-codicils": "the original will and any codicils (by law, we must keep your original will as it becomes a public document)",

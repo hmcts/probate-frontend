@@ -1,13 +1,13 @@
 {
-  "title": "Did the deceased die in England or Wales?",
-  "question": "Did {deceasedName} die in England or Wales?",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "title": "A fu&rsquo;r ymadawedig farw yng Nghymru neu Loegr?",
+  "question": "A fu&rsquo;r ymadawedig farw yng Nghymru neu Loegr?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
   "theDeceased": "the deceased",
 
   "errors": {
     "diedEngOrWales": {
-      "required": "Answer &lsquo;yes&rsquo; if the person who died lived in England or Wales or intended to return here"
+      "required": "Atebwch &lsquo;oes&rsquo; os oedd yr ymadawedig yn byw yng Nghymru neu Loegr neu’n bwriadu dychwelyd yma"
     }
   }
 }

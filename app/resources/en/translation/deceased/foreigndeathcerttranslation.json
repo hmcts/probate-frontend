@@ -6,7 +6,7 @@
 
   "errors": {
     "foreignDeathCertTranslation": {
-      "required": "Answer &lsquo;yes&rsquo; if the english translation is included in the foreign death certificate"
+      "required": "Answer &lsquo;yes&rsquo; if the English translation is included in the foreign death certificate"
     }
   }
 }

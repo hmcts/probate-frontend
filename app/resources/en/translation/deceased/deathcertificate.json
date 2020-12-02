@@ -8,7 +8,7 @@
 
   "errors": {
     "deathCertificate": {
-      "required": "Answer &lsquo;Interim death certificate&rsquo; if there is an inquest to find out the cause of death of the deceased."
+      "required": "Answer &lsquo;interim death certificate&rsquo; if you have an interim death certificate"
     }
   }
 }

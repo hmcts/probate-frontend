@@ -1,7 +1,7 @@
 {
-  "title": "A oes gennych chi dystysgrif marwolaeth",
+  "title": "A oes gennych chi dystysgrif marwolaeth?",
   "question": "A oes gennych chi dystysgrif marwolaeth?",
-  "hintText": "Rydych angen y dystysgrif marwolaeth wreiddiol neu <a target=\"_blank\" rel=\"external noopener\" href=\"{deathReportedToCoroner}\" class=\"govuk-link\" aria-label=\"dystysgrif marwolaeth interim (agor mewn ffenestr newydd)\">dystysgrif marwolaeth interim (agor mewn ffenestr newydd)</a> gan y crwner.",
+  "hintText": "Rydych angen y dystysgrif marwolaeth wreiddiol neu <a target=\"_blank\" rel=\"external noopener\" href=\"{deathReportedToCoroner}\" class=\"govuk-link\" aria-label=\"dystysgrif marwolaeth interim (agor mewn ffenestr newydd)\">dystysgrif marwolaeth interim (agor mewn ffenestr newydd)</a> gan y crwne.",
   "optionYes": "Oes",
   "optionNo": "Nag oes",
 

@@ -1,12 +1,12 @@
 {
-  "title": "placeholder",
-  "question": "placeholder",
-  "optionYes": "Do",
-  "optionNo": "Naddo",
+  "title": "A oes cyfieithiad Saesneg yn y dystysgrif marwolaeth dramor?",
+  "question": "A oes cyfieithiad Saesneg yn y dystysgrif marwolaeth dramor?",
+  "optionYes": "Oes",
+  "optionNo": "Nac oes, mae wedi ei chyfieithu ar wahân",
 
   "errors": {
     "foreignDeathCertTranslation": {
-      "required": "placeholder"
+      "required": "Atebwch &lsquo;oes&rsquo; os cynhwysir y cyfieithiad Saesneg yn y dystysgrif farwolaeth dramor"
     }
   }
 }

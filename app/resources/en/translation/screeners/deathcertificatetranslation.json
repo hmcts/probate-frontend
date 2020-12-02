@@ -1,12 +1,12 @@
 {
-  "title": "Have you got an English translation of the Death Certificate?",
-  "question": "Have you got an English translation of the Death Certificate?",
+  "title": "Have you got an English translation of the death certificate?",
+  "question": "Have you got an English translation of the death certificate?",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
     "deathCertificateTranslation": {
-      "required": "Answer &lsquo;yes&rsquo; if you have an english translation of the death certificate"
+      "required": "Answer &lsquo;yes&rsquo; if you have an English translation of the death certificate"
     }
   }
 }

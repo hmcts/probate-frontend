@@ -22,7 +22,7 @@ describe('english-foreign-death-cert', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('EnglishForeignDeathCert');
 
-        it('test correct content loaded on the page', (done) => {
+        it('test correct content loaded on the page: ENGLISH', (done) => {
             const sessionData = {
                 ccdCase: {
                     state: 'Pending',
@@ -34,6 +34,24 @@ describe('english-foreign-death-cert', () => {
                 .send(sessionData)
                 .end(() => {
                     testWrapper.testContent(done);
+                });
+        });
+
+        it('test correct content loaded on the page: WELSH', (done) => {
+            const sessionData = {
+                form: {
+                    ccdCase: {
+                        state: 'Pending',
+                        id: 1234567890123456
+                    }
+                },
+                language: 'cy'
+            };
+
+            testWrapper.agent.post('/prepare-session-field')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, {}, [], [], 'cy');
                 });
         });
 

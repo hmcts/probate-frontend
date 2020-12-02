@@ -1,12 +1,12 @@
 {
-  "title": "placeholder",
-  "question": "placeholder",
-  "optionYes": "Do",
-  "optionNo": "Naddo",
+  "title": "A ydy&rsquo;r dystysgrif marwolaeth wreiddiol yn Saesneg?",
+  "question": "A ydy&rsquo;r dystysgrif marwolaeth wreiddiol yn Saesneg?",
+  "optionYes": "Ydy",
+  "optionNo": "Nac ydy",
 
   "errors": {
     "englishForeignDeathCert": {
-      "required": "placeholder"
+      "required": "Atebwch &lsquo;oes&rsquo; os yw’r dystysgrif farwolaeth dramor wreiddiol yn Saesneg"
     }
   }
 }

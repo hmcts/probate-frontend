@@ -1,7 +1,7 @@
 {
   "title": "Ni allwch barhau",
   "defaultHeader": "Yn anffodus, ni allwch ddefnyddio&rsquo;r gwasanaeth ar-lein",
-  "deathCertificateTranslationHeader": "placeholder",
+  "deathCertificateTranslationHeader": "Cyn ichi wneud cais am brofiant",
   "defaultReason": "Ni allwch barhau",
   "deathCertificate": "Rydych angen y dystysgrif marwolaeth wreiddiol neu <a target=\"_blank\" rel=\"external noopener\" href=\"{deathReportedToCoroner}\" class=\"govuk-link\" aria-label=\"dystysgrif marwolaeth interim (agor mewn ffenestr newydd)\">dystysgrif marwolaeth interim (agor mewn ffenestr newydd)</a> gan y crwner i wneud cais am brofiant.",
   "notInEnglandOrWales": "Ni allwch ddefnyddio&rsquo;r gwasanaeth ar-lein oherwydd nid oedd yr unigolyn sydd wedi marw yn byw yng Nghymru neu Loegr neu&rsquo;n bwriadu dychwelyd yma. </p><p class=\"govuk-body\">Yn hytrach, bydd angen ichi wneud cais drwy&rsquo;r post. Mae&rsquo;r ffurflen y mae angen ichi ei llenwi yn dibynnu ar p&rsquo;un a adawodd yr unigolyn ewyllys ai peidio.</p><p class=\"govuk-body\">Os gadawodd yr unigolyn ewyllys, llenwch <a target=\"_blank\" rel=\"external noopener\" href=\"{applicationFormPA1P}\" class=\"govuk-link\" aria-label=\"ffurflen PA1P (agor mewn ffenestr newydd)\">ffurflen PA1P (agor mewn ffenestr newydd)</a>.</p><p class=\"govuk-body\">Os na adawodd yr unigolyn ewyllys, llenwch <a target=\"_blank\" rel=\"external noopener\" href=\"{applicationFormPA1A}\" class=\"govuk-link\" aria-label=\"ffurflen PA1A (agor mewn ffenestr newydd)\">ffurflen PA1A (agor mewn ffenestr newydd)</a>.",
@@ -19,5 +19,5 @@
   "spouseNotApplying": "Yn hytrach, gallwch wneud cais drwy ddefnyddio&rsquo;r ffurflen bapur. Lawrlwythwch, <a target=\"_blank\" rel=\"external noopener\" href=\"{applicationFormPA1A}\" class=\"govuk-link\" aria-label=\"argraffwch a (agor mewn ffenestr newydd)\">argraffwch a (agor mewn ffenestr newydd)</a>, llenwch ffurflen PA1A.",
   "childrenUnder18": "Ni allwch ddefnyddio&rsquo;r gwasanaeth ar-lein os bydd plant dan 18oed yn cael rhan o&rsquo;r ystad. Mae angen i blant dan 18oed gael eu cynrychioli gan rywun fydd yn gwneud y cais ar eu rhan.</p><p class=\"govuk-body\">Yn hytrach, bydd angen ichi wneud cais drwy&rsquo;r post. Llenwch <a target=\"_blank\" rel=\"external noopener\" href=\"{applicationFormPA1A}\" class=\"govuk-link\" aria-label=\"ffurflen PA1A (agor mewn ffenestr newydd)\">ffurflen PA1A (agor mewn ffenestr newydd)</a>.",
   "grandchildrenUnder18": "Ni allwch ddefnyddio&rsquo;r gwasanaeth ar-lein os bydd plant dan 18oed yn cael rhan o&rsquo;r ystad. Mae angen i blant dan 18oed gael eu cynrychioli gan rywun fydd yn gwneud y cais ar eu rhan.</p><p class=\"govuk-body\">Yn hytrach, bydd angen ichi wneud cais drwy&rsquo;r post. Llenwch <a target=\"_blank\" rel=\"external noopener\" href=\"{applicationFormPA1A}\" class=\"govuk-link\" aria-label=\"ffurflen PA1A (agor mewn ffenestr newydd)\">ffurflen PA1A (agor mewn ffenestr newydd)</a>.",
-  "deathCertificateTranslation": "placeholder"
+  "deathCertificateTranslation": "Bydd angen ichi gael cyfieithiad o dystysgrif marwolaeth dramor a phrofi dilysrwydd y cyfieithiad. Eglurir sut mae gwneud hynny yma."
 }

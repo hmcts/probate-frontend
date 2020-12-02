@@ -1,12 +1,12 @@
 {
-  "title": "placeholder",
-  "question": "placeholder",
+  "title": "A oes gennych gyfieithiad Saesneg o&rsquo;r dystysgrif marwolaeth?",
+  "question": "A oes gennych gyfieithiad Saesneg o&rsquo;r dystysgrif marwolaeth?",
   "optionYes": "Oes",
   "optionNo": "Nag oes",
 
   "errors": {
     "deathCertificateTranslation": {
-      "required": "placeholder"
+      "required": "Atebwch &lsquo;oes&rsquo; os oes gennych gyfieithiad Saesneg o&rsquo;r dystysgrif farwolaeth"
     }
   }
 }

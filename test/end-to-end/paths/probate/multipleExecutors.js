@@ -158,10 +158,6 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     // Works locally though using Puppeteer
     // ************************************************
 
-    // Not of a fan of implicit waits, but
-    // have put this in to see if fixes the crossbrowser issue running in Jenkins (not needed locally)
-    await I.wait(20);
-
     // Review and Confirm Task
     await I.selectATask(taskListContent.taskNotStarted);
     await I.seeSummaryPage('declaration');

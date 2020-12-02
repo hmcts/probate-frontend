@@ -66,10 +66,6 @@ router.use(documentDownload);
 router.use(paymentFees);
 router.post('/payment-breakdown', lockPaymentAttempt);
 
-router.get('/health/liveness', (req, res) => {
-    res.json({status: 'UP'});
-});
-
 router.get('/start-apply', (req, res, next) => {
     if (config.app.useIDAM === 'true' && req.userLoggedIn) {
         res.redirect(301, '/dashboard');

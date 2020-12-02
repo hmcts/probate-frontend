@@ -8,6 +8,7 @@ nodejs:
     LAUNCHDARKLY_ENABLED: true
   keyVaults:
     probate:
+      resourceGroup: probate
       secrets:
         - idam-s2s-secret
         - ccidam-idam-api-secrets-probate

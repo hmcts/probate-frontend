@@ -1,13 +1,15 @@
 nodejs:
   image: hmctspublic.azurecr.io/probate/frontend:latest
   ingressHost: probate.{{ .Values.global.environment }}.platform.hmcts.net
+  cpuLimits: 500m
+  cpuRequests: 100m
+  autoscaling:        # Default is false
+    enabled: true
+    maxReplicas: 5    # Required setting
+    targetCPUUtilizationPercentage: 80 # Default is 80% target CPU utilization
   aadIdentityName: probate
   additionalPathBasedRoutes:
     "/caveats": "probate-caveats-fe-nodejs"
-  memoryRequests: "512Mi"
-  cpuRequests: "100m"
-  memoryLimits: "1024Mi"
-  cpuLimits: "500m"
   applicationPort: 3000
   environment:
     PUBLIC_PROTOCOL: https
@@ -31,6 +33,7 @@ nodejs:
     EQUALITY_URL: https://pcq.aat.platform.hmcts.net
   keyVaults:
     probate:
+      resourceGroup: probate
       secrets:
         - idam-s2s-secret
         - ccidam-idam-api-secrets-probate

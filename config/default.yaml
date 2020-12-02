@@ -27,6 +27,10 @@ app:
   session:
     expires: 3600000 # ms (60 minutes)
     ttl: 28800 # ms (8 hours)
+health:
+  service_name: 'Apply for Probate'
+  timeout: 5000
+  deadline: 15000
 services:
   postcode:
     name: 'Postcode Lookup Service'

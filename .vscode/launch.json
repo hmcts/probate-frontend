@@ -108,7 +108,31 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"            
-        },                    
+        },
+        {
+            "args": [
+                "--timeout",
+                "15000",
+                "--colors",
+                "${workspaceFolder}/test/component/testDocumentsPage.js",
+                "--reporter",
+                "spec",
+                "--recursive"
+            ],
+            "env": {
+                "NODE_ENV": "testing-component",
+                "NODE_PATH": ".",
+                "LOG_LEVEL": "error"
+            },
+            "internalConsoleOptions": "openOnSessionStart",
+            "name": "Run docs page component test",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"            
+        },                       
         {
             "args": [
                 "--timeout",

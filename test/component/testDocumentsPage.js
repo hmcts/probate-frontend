@@ -536,7 +536,8 @@ describe('documents', () => {
                 .end(done);
 
             if (!testWrapper.pageToTest.resourcePath.includes('new_death_cert_flow')) {
-                testWrapper.content = require(`app/resources/en/translation/${testWrapper.pageToTest.resourcePath}_new_death_cert_flow`);
+                testWrapper.content_en = require(`app/resources/en/translation/${testWrapper.pageToTest.resourcePath}_new_death_cert_flow`);
+                testWrapper.content_cy = require(`app/resources/cy/translation/${testWrapper.pageToTest.resourcePath}_new_death_cert_flow`);
             }
         });
 

@@ -19,7 +19,9 @@ class TestWrapper {
         this.pageUrl = this.pageToTest.constructor.getUrl();
         this.journey = journey;
 
-        this.content = require(`app/resources/en/translation/${this.pageToTest.resourcePath}`);
+        this.content_en = require(`app/resources/en/translation/${this.pageToTest.resourcePath}`);
+        this.content_cy = require(`app/resources/cy/translation/${this.pageToTest.resourcePath}`);
+
         routes.post('/prepare-session/:path', (req, res) => {
             set(req.session, req.params.path, req.body);
             res.send('OK');
@@ -40,11 +42,12 @@ class TestWrapper {
         this.agent = request.agent(this.server.app);
     }
 
-    testContent(done, data = {}, excludeKeys = [], cookies = []) {
+    testContent(done, data = {}, excludeKeys = [], cookies = [], language='en') {
         let res = null;
         let substitutedContent = null;
         try {
-            const contentToCheck = cloneDeep(filter(this.content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
+            const content = this[`content_${language}`];
+            const contentToCheck = cloneDeep(filter(content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
             substitutedContent = this.substituteContent(data, contentToCheck);
             res = this.agent.get(this.pageUrl);
 
@@ -138,9 +141,10 @@ class TestWrapper {
         }
     }
 
-    testErrors(done, data, type, onlyKeys = [], cookies = []) {
+    testErrors(done, data, type, onlyKeys = [], cookies = [], language='en') {
         try {
-            const contentErrors = get(this.content, 'errors', {});
+            const content = this[`content_${language}`];
+            const contentErrors = get(content, 'errors', {});
             const expectedErrors = cloneDeep(isEmpty(onlyKeys) ? contentErrors : filter(contentErrors, (value, key) => onlyKeys.includes(key)));
             assert.isNotEmpty(expectedErrors);
             this.substituteErrorsContent(data, expectedErrors, type);

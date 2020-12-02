@@ -48,7 +48,7 @@ describe('Documents_new_death_cert_flow', () => {
                     registry: {}
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles, language);
-                expect(ctx.registryAddress).to.equal('Digital Application\nOxford District Probate Registry\nCombined Court Building\nSt Aldates\nOxford\nOX1 1LY');
+                expect(ctx.registryAddress).to.equal('Principal Registry of the Family Division (PRFD)\nHMCTS Probate\nPO BOX 12625\nHarlow\nCM20 9QE');
                 done();
             });
 

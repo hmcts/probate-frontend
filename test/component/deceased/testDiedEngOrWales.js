@@ -23,7 +23,7 @@ describe('died-eng-or-wales', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('DiedEnglandOrWales');
 
-        it('test right content loaded on the page', (done) => {
+        it('test right content loaded on the page: ENGLISH', (done) => {
             const sessionData = {
                 ccdCase: {
                     state: 'Pending',
@@ -42,6 +42,31 @@ describe('died-eng-or-wales', () => {
                     const contentData = {deceasedName: 'John Doe'};
 
                     testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+
+        it('test right content loaded on the page: WELSH', (done) => {
+            const sessionData = {
+                form: {
+                    ccdCase: {
+                        state: 'Pending',
+                        id: 1234567890123456
+                    },
+                    deceased: {
+                        firstName: 'John',
+                        lastName: 'Doe'
+                    }
+                },
+                language: 'cy'
+            };
+            const contentToExclude = ['theDeceased'];
+
+            testWrapper.agent.post('/prepare-session-field')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {deceasedName: 'John Doe'};
+
+                    testWrapper.testContent(done, contentData, contentToExclude, [], 'cy');
                 });
         });
 

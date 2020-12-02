@@ -36,7 +36,10 @@ class TestWrapper {
         this.agent = request.agent(this.server.app);
     }
 
-    testContent(done, data = {}, excludeKeys = [], cookies = []) {
+    testContent(done, data = {}, excludeKeys = [], cookies = [], language = 'en') {
+        if (language === 'cy') {
+            this.content = require(`app/resources/cy/translation/${this.pageToTest.resourcePath}`);
+        }
         const contentToCheck = cloneDeep(filter(this.content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
         const substitutedContent = this.substituteContent(data, contentToCheck);
         const res = this.agent.get(this.pageUrl);

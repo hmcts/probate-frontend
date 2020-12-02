@@ -22,7 +22,7 @@ describe('death-certificate-interim', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('DeathCertificateInterim');
 
-        it('test right content loaded on the page', (done) => {
+        it('test right content loaded on the page: ENGLISH', (done) => {
             const sessionData = {
                 ccdCase: {
                     state: 'Pending',
@@ -36,6 +36,26 @@ describe('death-certificate-interim', () => {
                     const contentData = {deathReportedToCoroner: config.links.deathReportedToCoroner};
 
                     testWrapper.testContent(done, contentData);
+                });
+        });
+
+        it('test right content loaded on the page: WELSH', (done) => {
+            const sessionData = {
+                form: {
+                    ccdCase: {
+                        state: 'Pending',
+                        id: 1234567890123456
+                    }
+                },
+                language: 'cy'
+            };
+
+            testWrapper.agent.post('/prepare-session-field')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {deathReportedToCoroner: config.links.deathReportedToCoroner};
+
+                    testWrapper.testContent(done, contentData, [], [], 'cy');
                 });
         });
 

@@ -63,9 +63,12 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
 
         await feesLookup.get(updatedIssuesData, headers)
             .then((res) => {
+                console.log('issue fee res => ', res);
                 if (identifyAnyErrors(res)) {
                     returnResult.status = 'failed';
+                    console.log('======== FAILED =============');
                 } else {
+                    console.log('success');
                     returnResult.applicationfee = res.fee_amount;
                     returnResult.total += res.fee_amount;
                     returnResult.applicationcode = res.code;
@@ -120,6 +123,7 @@ const identifyAnyErrors = (res) => {
     if (res.fee_amount) {
         return false;
     }
+    console.log('ITS ERRORR => ', res);
     return true;
 };
 

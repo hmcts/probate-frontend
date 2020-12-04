@@ -120,10 +120,9 @@ async function createCallsRequired(formdata, headers, featureToggles, feesLookup
  * this caters for 404 type messages etc.
  */
 const identifyAnyErrors = (res) => {
-    if (res.fee_amount) {
+    if (res.fee_amount || res.fee_amount >= 0) {
         return false;
     }
-    console.log('ITS ERRORR => ', res);
     return true;
 };
 

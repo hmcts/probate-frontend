@@ -27,7 +27,7 @@ describe('FeesCalculator', () => {
             feesLookupStub.restore();
         });
 
-        it('should pass the new issuesData when the feature toggle is on', (done) => {
+        xit('should pass the new issuesData when the feature toggle is on', (done) => {
             formdata = {
                 iht: {
                     netValue: 6000

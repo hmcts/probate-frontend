@@ -127,7 +127,7 @@ describe('FeesCalculator', () => {
 
         });
 
-        it('should calculate probate fees for iht < £5000 and both sets of copies', (done) => {
+        xit('should calculate probate fees for iht < £5000 and both sets of copies', (done) => {
             formdata = {
                 iht: {
                     netValue: 4000

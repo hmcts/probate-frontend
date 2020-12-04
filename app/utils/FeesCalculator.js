@@ -13,7 +13,7 @@ class FeesCalculator {
         this.sessionId = sessionId;
         this.issuesData = config.services.feesRegister.issuesData;
         this.copiesData = config.services.feesRegister.copiesData;
-        this.issuesDataIhtMinAmount = null;
+        this.issuesDataIhtMinAmount = config.services.feesRegister.issuesData;
         this.feesLookup = new FeesLookup(this.endpoint, sessionId);
     }
 

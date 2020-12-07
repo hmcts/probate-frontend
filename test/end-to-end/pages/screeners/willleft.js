@@ -1,13 +1,16 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/screeners/willleft');
+const content = require('app/resources/en/translation/screeners/willleft');
+const config = require('config');
 
-module.exports = function(answer) {
+module.exports = async function(answer) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(`#left${answer}`);
-
-    I.navByClick(commonContent.continue);
+    await I.checkPageUrl('app/steps/ui/screeners/willleft');
+    await I.waitForText(content.question);
+    const locator = {css: `#left${answer}`};
+    await I.waitForElement(locator, config.TestWaitForElementToAppear);
+    await I.click(locator);
+    await I.navByClick(commonContent.continue);
 };

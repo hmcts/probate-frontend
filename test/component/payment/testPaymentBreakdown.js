@@ -42,8 +42,8 @@ describe('payment-breakdown', () => {
         }));
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
         feesCalculator.restore();
     });
 
@@ -69,6 +69,7 @@ describe('payment-breakdown', () => {
                 .send(sessionData)
                 .end((err) => {
                     if (err) {
+                        done(err);
                         throw err;
                     }
                     const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeOverseas'];
@@ -89,10 +90,10 @@ describe('payment-breakdown', () => {
                 .send(sessionData)
                 .end((err) => {
                     if (err) {
+                        done(err);
                         throw err;
                     }
                     const contentToExclude = ['extraCopiesFeeJersey', 'extraCopiesFeeUk'];
-
                     testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
@@ -114,10 +115,10 @@ describe('payment-breakdown', () => {
                 }})
                 .end((err) => {
                     if (err) {
+                        done(err);
                         throw err;
                     }
                     const errorsToTest = ['authorisation'];
-
                     testWrapper.testErrors(done, {}, 'failure', errorsToTest);
                 });
         });

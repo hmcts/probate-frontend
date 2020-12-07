@@ -1,18 +1,17 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/executors/whendied');
 
-module.exports = function(executorNumber, diedBefore, firstRecord) {
+module.exports = async function(executorNumber, diedBefore, firstRecord) {
     const I = this;
 
     if (firstRecord) {
-        I.seeCurrentUrlEquals(pageUnderTest.getUrl('*'));
+        await I.checkPageUrl('app/steps/ui/executors/whendied', '*');
     } else {
-        I.seeCurrentUrlEquals(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
+        await I.checkPageUrl('app/steps/ui/executors/whendied', parseInt(executorNumber) - 1);
     }
-
-    I.click(`#diedbefore${diedBefore}`);
-
-    I.navByClick(commonContent.saveAndContinue);
+    const locator = {css: `#diedbefore${diedBefore}`};
+    await I.waitForElement(locator);
+    await I.click(locator);
+    await I.navByClick(commonContent.saveAndContinue);
 };

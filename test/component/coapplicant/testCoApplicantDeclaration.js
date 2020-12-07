@@ -48,10 +48,10 @@ describe('co-applicant-declaration', () => {
         testWrapper = new TestWrapper('CoApplicantDeclaration');
     });
 
-    afterEach(() => {
+    afterEach(async () => {
         delete require.cache[require.resolve('test/data/complete-form-undeclared')];
         nock.cleanAll();
-        testWrapper.destroy();
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

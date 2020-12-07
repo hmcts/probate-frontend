@@ -1,13 +1,17 @@
 'use strict';
 
+const config = require('config');
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/copies/uk');
+const content = require('app/resources/en/translation/copies/uk');
 
-module.exports = function(copies) {
+module.exports = async function(copies) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.fillField('#uk', copies);
+    await I.checkPageUrl('app/steps/ui/copies/uk');
+    await I.waitForText(content.question, config.TestWaitForTextToAppear);
+    const locator = {css: '#uk'};
+    await I.waitForElement(locator);
+    await I.fillField(locator, copies);
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

@@ -1,16 +1,16 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/applicant/aliasreason');
 
-module.exports = function(aliasReason, aliasOther) {
+module.exports = async function(aliasReason, aliasOther) {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(`#aliasReason${aliasReason}`);
+
+    await I.checkPageUrl('app/steps/ui/applicant/aliasreason');
+    await I.click(`#aliasReason${aliasReason}`);
 
     if (aliasReason === '-4') {
-        I.fillField('#otherReason', aliasOther);
+        await I.fillField('#otherReason', aliasOther);
     }
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

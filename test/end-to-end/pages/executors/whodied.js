@@ -1,20 +1,25 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/executors/whodied');
 
-module.exports = function(executorsWhoDiedList) {
+module.exports = async function(executorsWhoDiedList) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-
-    executorsWhoDiedList.forEach((executorNumber) => {
+    await I.checkPageUrl('app/steps/ui/executors/whodied');
+    for (let i = 0; i < executorsWhoDiedList.length; i++) {
+        const executorNumber = executorsWhoDiedList[i];
+        let locator = null;
         if (executorNumber === '2') {
-            I.checkOption('#executorsWhoDied');
+            locator = {css: '#executorsWhoDied'};
         } else {
-            I.checkOption('#executorsWhoDied-' + (parseInt(executorNumber) - 1));
+            locator = {css: `#executorsWhoDied-${parseInt(executorNumber) - 1}`};
         }
-    });
+        // eslint-disable-next-line no-await-in-loop
+        await I.waitForElement(locator);
+        // eslint-disable-next-line no-await-in-loop
+        await I.checkOption(locator);
 
-    I.navByClick(commonContent.saveAndContinue);
+    }
+
+    await I.navByClick(commonContent.saveAndContinue);
 };

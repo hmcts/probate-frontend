@@ -21,9 +21,9 @@ describe('copies-uk', () => {
     let testWrapper;
     const expectedNextUrlForAssetsOverseas = AssetsOverseas.getUrl();
 
-    afterEach(() => {
+    afterEach(async () => {
         nock.cleanAll();
-        testWrapper.destroy();
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection - Feature toggles', () => {
@@ -49,7 +49,6 @@ describe('copies-uk', () => {
                         'paragraph3Old',
                         'copiesOld'
                     ];
-
                     testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
@@ -78,7 +77,6 @@ describe('copies-uk', () => {
                         'bullet2',
                         'copies',
                     ];
-
                     testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
@@ -96,7 +94,6 @@ describe('copies-uk', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {uk: 'abcd'};
-
                     testWrapper.testErrors(done, data, 'invalid');
                 });
         });
@@ -106,7 +103,6 @@ describe('copies-uk', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {uk: '//1234//'};
-
                     testWrapper.testErrors(done, data, 'invalid');
                 });
         });
@@ -116,7 +112,6 @@ describe('copies-uk', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {uk: ''};
-
                     testWrapper.testErrors(done, data, 'required');
                 });
         });
@@ -126,7 +121,6 @@ describe('copies-uk', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {uk: '-1'};
-
                     testWrapper.testErrors(done, data, 'invalid');
                 });
         });

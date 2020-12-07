@@ -2,8 +2,7 @@
 
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
-const {head} = require('lodash');
-const testConfig = require('test/config.js');
+const testConfig = require('config');
 
 const optionYes = '';
 const ihtPost = '';
@@ -11,7 +10,7 @@ const optionNo = '-2';
 const bilingualGOP = false;
 const uploadingDocuments = false;
 
-let grabIds;
+// let grabIds;
 let stage1retries = -1;
 
 Feature('Multiple Executors flow').retry(TestConfigurator.getRetryFeatures());
@@ -19,8 +18,8 @@ Feature('Multiple Executors flow').retry(TestConfigurator.getRetryFeatures());
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
 // eslint-disable-next-line no-undef
-BeforeSuite(() => {
-    TestConfigurator.getBefore();
+BeforeSuite(async () => {
+    await TestConfigurator.getBefore();
 });
 
 // eslint-disable-next-line no-undef
@@ -32,87 +31,90 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     stage1retries += 1;
 
     if (stage1retries >= 1) {
-        TestConfigurator.getBefore();
+        await TestConfigurator.getBefore();
     }
 
     // Eligibility Task (pre IdAM)
-    I.startApplication();
+    await I.startApplication();
 
-    I.selectDeathCertificate(optionYes);
+    await I.selectDeathCertificate(optionYes);
 
-    I.selectDeceasedDomicile(optionYes);
+    await I.selectDeceasedDomicile(optionYes);
 
-    I.selectIhtCompleted(optionYes);
+    await I.selectIhtCompleted(optionYes);
 
-    I.selectPersonWhoDiedLeftAWill(optionYes);
+    await I.selectPersonWhoDiedLeftAWill(optionYes);
 
-    I.selectOriginalWill(optionYes);
+    await I.selectOriginalWill(optionYes);
 
-    I.selectApplicantIsExecutor(optionYes);
+    await I.selectApplicantIsExecutor(optionYes);
 
-    I.selectMentallyCapable(optionYes);
+    await I.selectMentallyCapable(optionYes);
 
-    I.startApply();
+    await I.startApply();
 
     // IdAM
-    I.authenticateWithIdamIfAvailable(true);
+    await I.authenticateWithIdamIfAvailable(true);
 
     // Dashboard
-    I.chooseApplication();
+    await I.chooseApplication();
 
     // Deceased Task
-    I.selectATask(taskListContent.taskNotStarted);
-    I.chooseBiLingualGrant(optionNo);
-    I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
-    I.enterDeceasedDateOfBirth('01', '01', '1950');
-    I.enterDeceasedDateOfDeath('01', '01', '2017');
-    I.enterDeceasedAddress();
+    await I.selectATask(taskListContent.taskNotStarted);
+    await I.chooseBiLingualGrant(optionNo);
+    await I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
+    await I.enterDeceasedDateOfBirth('01', '01', '1950');
+    await I.enterDeceasedDateOfDeath('01', '01', '2017');
+    await I.enterDeceasedAddress();
 
-    I.selectDocumentsToUpload(uploadingDocuments);
-    I.selectInheritanceMethod(ihtPost);
+    await I.selectDocumentsToUpload(uploadingDocuments);
+    await I.selectInheritanceMethod(ihtPost);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterGrossAndNet('205', '600000', '300000');
+        await I.enterGrossAndNet('205', '600000', '300000');
     } else {
-        I.enterGrossAndNet('205', '500', '400');
+        await I.enterGrossAndNet('205', '500', '400');
     }
 
-    I.selectDeceasedAlias(optionNo);
-    I.selectDeceasedMarriedAfterDateOnWill(optionNo);
-    I.selectWillCodicils(optionNo);
+    await I.selectDeceasedAlias(optionNo);
+    await I.selectDeceasedMarriedAfterDateOnWill(optionNo);
+    await I.selectWillCodicils(optionNo);
 
     // ExecutorsTask
-    I.selectATask(taskListContent.taskNotStarted);
-    I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
-    I.selectNameAsOnTheWill(optionYes);
-    I.enterApplicantPhone();
-    I.enterAddressManually();
+    await I.selectATask(taskListContent.taskNotStarted);
+    await I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
+    await I.selectNameAsOnTheWill(optionYes);
+    await I.enterApplicantPhone();
+    await I.enterAddressManually();
 
     //const totalExecutors = '7';
     const totalExecutors = '4';
-    I.enterTotalExecutors(totalExecutors);
-    I.enterExecutorNames(totalExecutors);
-    I.selectExecutorsAllAlive(optionNo);
+    await I.enterTotalExecutors(totalExecutors);
+    await I.enterExecutorNames(totalExecutors);
+    await I.selectExecutorsAllAlive(optionNo);
 
     //const executorsWhoDiedList = ['2', '7']; // exec2 and exec7
     const executorsWhoDiedList = ['2']; // exec2
     let diedBefore = optionYes;
-    I.selectExecutorsWhoDied(executorsWhoDiedList);
+    await I.selectExecutorsWhoDied(executorsWhoDiedList);
 
-    executorsWhoDiedList.forEach((executorNumber) => {
-        I.selectExecutorsWhenDied(executorNumber, diedBefore, head(executorsWhoDiedList) === executorNumber);
+    if (executorsWhoDiedList) {
+        for (let i = 0; i < executorsWhoDiedList.length; i++) {
+            const executorNum = executorsWhoDiedList[i];
+            // eslint-disable-next-line no-await-in-loop
+            await I.selectExecutorsWhenDied(executorNum, diedBefore, executorsWhoDiedList[0] === executorNum);
+            diedBefore = optionNo;
+        }
+    }
 
-        diedBefore = optionNo;
-    });
-
-    I.selectExecutorsApplying(optionYes);
+    await I.selectExecutorsApplying(optionYes);
 
     //const executorsApplyingList = ['3', '5']; // exec3 and exec5
     const executorsApplyingList = ['3']; // exec3
-    I.selectExecutorsDealingWithEstate(executorsApplyingList);
+    await I.selectExecutorsDealingWithEstate(executorsApplyingList);
 
     //I.selectExecutorsWithDifferentNameOnWill(optionYes);
-    I.selectExecutorsWithDifferentNameOnWill(optionNo);
+    await I.selectExecutorsWithDifferentNameOnWill(optionNo);
     //const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
     //I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
 
@@ -121,8 +123,10 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     // I.enterExecutorCurrentNameReason(executorNumber, 'executor_alias_reason');
 
     for (let i= 1; i <= executorsApplyingList.length; i++) {
-        I.enterExecutorContactDetails();
-        I.enterExecutorManualAddress(i);
+        // eslint-disable-next-line no-await-in-loop
+        await I.enterExecutorContactDetails();
+        // eslint-disable-next-line no-await-in-loop
+        await I.enterExecutorManualAddress(i);
     }
 
     //const executorsAliveList = ['4', '6'];
@@ -131,94 +135,110 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     // let answer = optionYes;
     let powerReserved = false;
     let answer = optionNo;
-    executorsAliveList.forEach((executorNumber) => {
-        I.selectExecutorRoles(executorNumber, answer, head(executorsAliveList) === executorNumber);
 
-        if (powerReserved) {
-            I.selectHasExecutorBeenNotified(optionYes, executorNumber);
+    if (executorsAliveList) {
+        for (let i = 0; i < executorsAliveList.length; i++) {
+            const executorNumber = executorsAliveList[i];
+            // eslint-disable-next-line no-await-in-loop
+            await I.selectExecutorRoles(executorNumber, answer, executorsAliveList[0] === executorNumber);
+
+            if (powerReserved) {
+                // eslint-disable-next-line no-await-in-loop
+                await I.selectHasExecutorBeenNotified(optionYes);
+            }
+
+            powerReserved = false;
+            answer = optionNo;
         }
+    }
 
-        powerReserved = false;
-        answer = optionNo;
-    });
+    // ************************************************
+    // Something is going wrong here
+    // in functional tests on CI after git push for pr.
+    // Works locally though using Puppeteer
+    // ************************************************
 
     // Review and Confirm Task
-    I.selectATask(taskListContent.taskNotStarted);
-    I.seeSummaryPage('declaration');
-    I.acceptDeclaration(bilingualGOP);
+    await I.selectATask(taskListContent.taskNotStarted);
+    await I.seeSummaryPage('declaration');
+    await I.acceptDeclaration(bilingualGOP);
 
     // Notify additional executors Dealing with estate
-    I.notifyAdditionalExecutors();
+    await I.notifyAdditionalExecutors();
 
     //Retrieve the email urls for additional executors
-    I.amOnPage(testConfig.TestInviteIdListUrl);
-    I.wait(10);
-    grabIds = await I.grabTextFrom('pre');
+    await I.amOnPage(testConfig.TestInviteIdListUrl);
 
-}).retry(TestConfigurator.getRetryScenarios());
+    const grabIds = await I.grabTextFrom('pre');
 
-Scenario(TestConfigurator.idamInUseText('Stage 2: Additional Executor(s) Agree to Statement of Truth'), async (I) => {
-    const idList = JSON.parse(grabIds);
+    let idList = null;
+    try {
+        idList = JSON.parse(grabIds);
+    } catch (err) {
+        console.error(err.message);
+    }
 
     for (let i=0; i < idList.ids.length; i++) {
 
-        I.amOnLoadedPage(testConfig.TestInvitationUrl + '/' + idList.ids[i]);
-        I.amOnLoadedPage(testConfig.TestE2EFrontendUrl + '/pin');
+        // eslint-disable-next-line no-await-in-loop
+        await I.amOnLoadedPage(testConfig.TestInvitationUrl + '/' + idList.ids[i]);
+        // eslint-disable-next-line no-await-in-loop
+        await I.amOnLoadedPage(testConfig.TestE2EFrontendUrl + '/pin');
 
         const grabPins = await I.grabTextFrom('pre'); // eslint-disable-line no-await-in-loop
         const pinList = JSON.parse(grabPins);
 
+        // eslint-disable-next-line no-await-in-loop
         await I.clickBrowserBackButton(); // eslint-disable-line no-await-in-loop
 
-        I.enterPinCode(pinList.pin.toString());
-        I.seeCoApplicantStartPage();
+        // eslint-disable-next-line no-await-in-loop
+        await I.enterPinCode(pinList.pin.toString());
+        // eslint-disable-next-line no-await-in-loop
+        await I.seeCoApplicantStartPage();
 
-        I.agreeDeclaration(optionYes);
+        // eslint-disable-next-line no-await-in-loop
+        await I.agreeDeclaration(optionYes);
 
-        I.seeAgreePage();
-
+        // eslint-disable-next-line no-await-in-loop
+        await I.seeAgreePage();
     }
-}).retry(TestConfigurator.getRetryScenarios());
-
-Scenario(TestConfigurator.idamInUseText('Stage 3: Continuation of Main applicant journey: final stage of application'), (I) => {
 
     // IDAM
-    I.authenticateWithIdamIfAvailable(true);
+    await I.authenticateWithIdamIfAvailable(true);
 
     // Dashboard
-    I.chooseApplication();
+    await I.chooseApplication();
 
     // Extra Copies Task
-    I.selectATask(taskListContent.taskNotStarted);
+    await I.selectATask(taskListContent.taskNotStarted);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.enterUkCopies('5');
-        I.selectOverseasAssets(optionYes);
-        I.enterOverseasCopies('7');
+        await I.enterUkCopies('5');
+        await I.selectOverseasAssets(optionYes);
+        await I.enterOverseasCopies('7');
     } else {
-        I.enterUkCopies('0');
-        I.selectOverseasAssets(optionYes);
-        I.enterOverseasCopies('0');
+        await I.enterUkCopies('0');
+        await I.selectOverseasAssets(optionYes);
+        await I.enterOverseasCopies('0');
     }
 
-    I.seeCopiesSummary();
+    await I.seeCopiesSummary();
 
     // Payment Task
-    I.selectATask(taskListContent.taskNotStarted);
+    await I.selectATask(taskListContent.taskNotStarted);
 
-    I.seePaymentBreakdownPage();
+    await I.seePaymentBreakdownPage();
 
     if (TestConfigurator.getUseGovPay() === 'true') {
-        I.seeGovUkPaymentPage();
-        I.seeGovUkConfirmPage();
+        await I.seeGovUkPaymentPage();
+        await I.seeGovUkConfirmPage();
     }
 
-    I.seePaymentStatusPage();
+    await I.seePaymentStatusPage();
 
     // Send Documents Task
-    I.seeDocumentsPage();
+    await I.seeDocumentsPage();
 
     // Thank You
-    I.seeThankYouPage();
-
+    await I.seeThankYouPage();
 }).retry(TestConfigurator.getRetryScenarios());

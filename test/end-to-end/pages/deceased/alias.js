@@ -1,13 +1,18 @@
 'use strict';
 
+const config = require('config');
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/deceased/alias');
+const content = require('app/resources/en/translation/deceased/alias');
 
-module.exports = function(answer) {
+module.exports = async function(answer) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(`#alias${answer}`);
+    await I.checkPageUrl('app/steps/ui/deceased/alias');
+    await I.waitForText(content.paragraph1, config.TestWaitForTextToAppear);
 
-    I.navByClick(commonContent.saveAndContinue);
+    const locator = {css: `#alias${answer}`};
+    await I.waitForElement(locator);
+    await I.click(locator);
+
+    await I.navByClick(commonContent.saveAndContinue);
 };

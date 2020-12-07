@@ -99,14 +99,12 @@ For accessibility tests:
 For test coverage:
 `$ yarn test:coverage`
 
-For e2e tests:
+For e2e tests (non launch darkly):
 `$ yarn test-e2e`
 
-To use feature toggles for e2e tests amend `test/config.js`. SDK_KEY value can be found in launch darkly portal:
-```
-enabled: true,
-launchDarklyKey: process.env.TEST_LAUNCH_DARKLY_KEY || 'SDK_KEY',
-```
+For e2e tests (launch darkly):
+`$ yarn test-e2e`
+
 
 For contact tests:
 `$ ADDRESS_TOKEN=xyz yarn test-contract`

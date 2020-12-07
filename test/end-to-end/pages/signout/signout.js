@@ -1,14 +1,14 @@
 'use strict';
 
 const pageUnderTest = require('app/steps/ui/signout');
-const testConfig = require('test/config.js');
+const testConfig = require('config');
 
-module.exports = function() {
+module.exports = async function() {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    await I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.waitForText('sign back in', testConfig.TestWaitForTextToAppear);
+    await I.waitForText('sign back in', testConfig.TestWaitForTextToAppear);
 
-    I.navByClick('#main-content > div > div > p:nth-child(3) > a');
+    await I.navByClick('#main-content > div > div > p:nth-child(3) > a');
 };

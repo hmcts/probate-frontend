@@ -1,19 +1,23 @@
 'use strict';
 
+const config = require('config');
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/deceased/dob');
+const content = require('app/resources/en/translation/deceased/dob');
 
-module.exports = function(day, month, year, saveAndClose = false) {
+module.exports = async function(day, month, year, saveAndClose = false) {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
 
-    I.fillField('#dob-day', day);
-    I.fillField('#dob-month', month);
-    I.fillField('#dob-year', year);
+    await I.checkPageUrl('app/steps/ui/deceased/dob');
+    await I.waitForText(content.question, config.TestWaitForTextToAppear);
+    const dobLocator = {css: '#dob-day'};
+    await I.waitForElement(dobLocator);
+    await I.fillField(dobLocator, day);
+    await I.fillField('#dob-month', month);
+    await I.fillField('#dob-year', year);
 
     if (saveAndClose) {
-        I.navByClick('Sign out');
+        await I.navByClick('Sign out');
     } else {
-        I.navByClick(commonContent.saveAndContinue);
+        await I.navByClick(commonContent.saveAndContinue);
     }
 };

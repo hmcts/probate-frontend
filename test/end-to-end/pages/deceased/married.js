@@ -1,12 +1,15 @@
 'use strict';
 
+const config = require('config');
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/deceased/married');
 
-module.exports = function(answer) {
+module.exports = async function(answer) {
     const I = this;
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(`#married${answer}`);
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.checkPageUrl('app/steps/ui/deceased/married');
+    await I.waitForText('get married or enter into a civil partnership', config.TestWaitForTextToAppear);
+    const locator = {css: `#married${answer}`};
+    await I.waitForElement(locator);
+    await I.click(locator);
+    await I.navByClick(commonContent.saveAndContinue);
 };

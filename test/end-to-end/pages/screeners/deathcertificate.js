@@ -1,24 +1,23 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/screeners/deathcertificate');
 
-module.exports = function(answer, testSurvey = false) {
+module.exports = async function(answer, testSurvey = false) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    await I.checkPageUrl('app/steps/ui/screeners/deathcertificate');
+    const locator = {css: `#deathCertificate${answer}`};
+    await I.waitForElement(locator);
 
     if (testSurvey) {
-        I.click('body > div.govuk-width-container > div > p > span > a:nth-child(1)');
-
-        I.switchToNextTab(1);
-
-        I.waitForVisible('#cmdGo');
-
-        I.closeCurrentTab();
+        await I.click({css: 'body > div.govuk-width-container > div > p > span > a:nth-child(1)'});
+        await I.switchToNextTab(1);
+        // running locally I get no internet here so have commented ths, but at least we've proved we've opened a new tab.
+        // await I.waitForVisible({css: '#cmdGo'});
+        await I.closeCurrentTab();
     }
 
-    I.click(`#deathCertificate${answer}`);
+    await I.click(locator);
 
-    I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue);
 };

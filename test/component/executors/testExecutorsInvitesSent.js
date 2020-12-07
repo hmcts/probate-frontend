@@ -13,8 +13,8 @@ describe('executors-invites-sent', () => {
         testWrapper = new TestWrapper('ExecutorsInvitesSent');
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

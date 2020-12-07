@@ -12,8 +12,8 @@ describe('applicant-phone', () => {
         testWrapper = new TestWrapper('ApplicantPhone');
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

@@ -1,13 +1,12 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/coapplicant/declaration');
-
-module.exports = function(answer) {
+module.exports = async function(answer) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    await I.checkPageUrl('app/steps/ui/coapplicant/declaration');
+    const locator = {css: `#agreement${answer}`};
+    await I.waitForElement(locator);
+    await I.click(locator);
 
-    I.click(`#agreement${answer}`);
-
-    I.navByClick('#acceptAndSend');
+    await I.navByClick('#acceptAndSend');
 };

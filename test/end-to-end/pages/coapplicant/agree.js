@@ -1,11 +1,9 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/coapplicant/agreepage');
-
-module.exports = function() {
+module.exports = async function() {
     const I = this;
 
-    I.retry(5).seeCurrentUrlEquals(pageUnderTest.getUrl());
+    await I.checkPageUrl('app/steps/ui/coapplicant/agreepage');
 
     // if (elementId === 0) {
     //     I.see('When everyone');

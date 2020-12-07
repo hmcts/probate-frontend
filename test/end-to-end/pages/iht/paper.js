@@ -1,9 +1,8 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/iht/paper');
 const commonContent = require('app/resources/en/translation/common');
 
-module.exports = function(formName, grossAmount, netAmount) {
+module.exports = async function(formName, grossAmount, netAmount) {
     const I = this;
     let option;
 
@@ -18,12 +17,13 @@ module.exports = function(formName, grossAmount, netAmount) {
         option = '';
     }
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    await I.checkPageUrl('app/steps/ui/iht/paper');
+    const locator = {css: `#form${option}`};
+    await I.waitForElement(locator);
+    await I.click(locator);
 
-    I.click(`#form${option}`);
+    await I.fillField({css: `#grossValueFieldIHT${formName}`}, grossAmount);
+    await I.fillField({css: `#netValueFieldIHT${formName}`}, netAmount);
 
-    I.fillField(`#grossValueFieldIHT${formName}`, grossAmount);
-    I.fillField(`#netValueFieldIHT${formName}`, netAmount);
-
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

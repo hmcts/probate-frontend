@@ -1,24 +1,25 @@
 'use strict';
 
-const testConfig = require('test/config');
+const testConfig = require('config');
 
-module.exports = function() {
+module.exports = async function() {
     const I = this;
-    I.wait(3);
-    I.retry(testConfig.TestRetrySteps).waitForText('Enter card details', testConfig.TestWaitForTextToAppear);
 
-    //I.seeInCurrentUrl(testConfig.TestGovUkCardPaymentsUrl);
+    await I.waitForText('Enter card details');
 
-    I.fillField('#card-no', testConfig.govPayTestCardNos.validCardNo);
-    I.fillField('#expiry-month', testConfig.govPayTestCardDetails.expiryMonth);
-    I.fillField('#expiry-year', testConfig.govPayTestCardDetails.expiryYear);
-    I.fillField('#cardholder-name', testConfig.govPayTestCardDetails.cardholderName);
-    I.fillField('#cvc', testConfig.govPayTestCardDetails.cvc);
-    I.fillField('#address-line-1', testConfig.govPayTestCardDetails.addressLine1);
-    I.fillField('#address-city', testConfig.govPayTestCardDetails.addressCity);
-    I.fillField('#address-postcode', testConfig.govPayTestCardDetails.addressPostcode);
-    I.wait(3);
-    I.fillField('#email', testConfig.TestEnvEmailAddress);
+    await I.waitForElement({css: '#card-no'});
+    await I.fillField({css: '#card-no'}, testConfig.govPayTestCardNos.validCardNo);
+    await I.fillField({css: '#expiry-month'}, testConfig.govPayTestCardDetails.expiryMonth);
+    await I.fillField({css: '#expiry-year'}, testConfig.govPayTestCardDetails.expiryYear);
+    await I.fillField({css: '#cardholder-name'}, testConfig.govPayTestCardDetails.cardholderName);
+    await I.fillField({css: '#cvc'}, testConfig.govPayTestCardDetails.cvc);
+    await I.fillField({css: '#address-line-1'}, testConfig.govPayTestCardDetails.addressLine1);
+    await I.fillField({css: '#address-city'}, testConfig.govPayTestCardDetails.addressCity);
+    await I.fillField({css: '#address-postcode'}, testConfig.govPayTestCardDetails.addressPostcode);
 
-    I.click('#submit-card-details');
+    await I.waitForElement({css: '#email'});
+    await I.fillField({css: '#email'}, testConfig.TestEnvEmailAddress);
+
+    await I.waitForElement({css: '#submit-card-details'});
+    await I.click('#submit-card-details');
 };

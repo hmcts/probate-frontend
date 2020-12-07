@@ -1,13 +1,12 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/will/codicilsnumber');
 
-module.exports = function(totalCodicils) {
+module.exports = async function(totalCodicils) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.fillField('#codicilsNumber', totalCodicils);
+    await I.checkPageUrl('app/steps/ui/will/codicilsnumber');
+    await I.fillField('#codicilsNumber', totalCodicils);
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

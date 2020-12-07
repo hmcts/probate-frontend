@@ -1,20 +1,27 @@
 'use strict';
 
-const testConfig = require('test/config.js');
+const testConfig = require('config');
 const useIdam = testConfig.TestUseIdam;
 
-module.exports = function (noScreenerQuestions = false) {
+module.exports = async function (noScreenerQuestions = false) {
     if (useIdam === 'true') {
         const I = this;
 
         if (noScreenerQuestions) {
-            I.amOnPage('/');
+            await I.amOnLoadedPage('/');
         }
 
-        I.waitForText('Sign in', testConfig.TestWaitForTextToAppear);
-        I.fillField('username', process.env.testCitizenEmail);
-        I.fillField('password', process.env.testCitizenPassword);
+        const locator = {css: 'a[href="/sign-out"]'};
+        const numEls = await I.grabNumberOfVisibleElements(locator);
+        if (numEls > 0) {
+            await I.navByClick(locator);
+            await I.navByClick({css: 'a[href="/dashboard"]'});
+        }
 
-        I.click('Sign in');
+        await I.waitForText('Sign in', testConfig.TestWaitForTextToAppear);
+        await I.fillField('username', process.env.testCitizenEmail);
+        await I.fillField('password', process.env.testCitizenPassword);
+
+        await I.navByClick('Sign in');
     }
 };

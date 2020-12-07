@@ -1,17 +1,16 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/documentupload');
+const config = require('config');
 
-module.exports = function(uploadDocument) {
+module.exports = async function(uploadDocument) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-
-    I.waitForVisible('.document-upload__dropzone-text--choose-file');
+    await I.checkPageUrl('app/steps/ui/documentupload');
+    await I.waitForVisible({css: '.document-upload__dropzone-text--choose-file'}, config.TestWaitForDocumentUpload);
 
     if (uploadDocument) {
-        I.uploadDocumentIfNotMicrosoftEdge();
+        await I.uploadDocumentIfNotMicrosoftEdge();
     }
 
-    I.navByClick('.govuk-button');
+    await I.navByClick('.govuk-button');
 };

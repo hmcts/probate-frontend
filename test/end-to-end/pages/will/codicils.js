@@ -1,13 +1,16 @@
 'use strict';
 
+const config = require('config');
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/will/codicils');
 
-module.exports = function(option) {
+module.exports = async function(option) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(`#codicils${option}`);
+    await I.checkPageUrl('app/steps/ui/will/codicils');
+    await I.waitForText(' made to the will?', config.TestWaitForTextToAppear);
+    const locator = {css: `#codicils${option}`};
+    await I.waitForElement(locator);
+    await I.click(locator);
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

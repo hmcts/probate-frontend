@@ -1,14 +1,17 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/screeners/deathcertificatetranslation');
+const content = require('app/resources/en/translation/screeners/deathcertificatetranslation');
 
-module.exports = function(answer) {
+module.exports = async function(answer) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    await I.checkPageUrl('app/steps/ui/screeners/deathcertificatetranslation');
+    await I.waitForText(content.question);
 
-    I.click(`#deathCertificateTranslation${answer}`);
+    const locator = {css: `#deathCertificateTranslation${answer}`};
+    await I.waitForElement(locator);
+    await I.click(locator);
 
-    I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue);
 };

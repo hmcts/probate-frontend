@@ -9,9 +9,9 @@ describe('start-eligibility', () => {
     let testWrapper;
     const expectedNextUrlForDeathCertificate = DeathCertificate.getUrl();
 
-    afterEach(() => {
+    afterEach(async () => {
         nock.cleanAll();
-        testWrapper.destroy();
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection - Feature toggles', () => {
@@ -23,7 +23,6 @@ describe('start-eligibility', () => {
                 'paragraph7old',
                 'paragraph8old'
             ];
-
             testWrapper.testContent(done, {}, contentToExclude);
         });
 
@@ -69,7 +68,6 @@ describe('start-eligibility', () => {
             const playbackData = {
                 saveAndClose: commonContent.saveAndClose
             };
-
             testWrapper.testContentNotPresent(done, playbackData);
         });
     });

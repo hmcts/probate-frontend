@@ -1,13 +1,16 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/screeners/ihtcompleted');
+const content = require('app/resources/en/translation/screeners/ihtcompleted');
 
-module.exports = function(answer) {
+module.exports = async function(answer) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(`#completed${answer}`);
+    await I.checkPageUrl('app/steps/ui/screeners/ihtcompleted');
+    await I.waitForText(content.question);
+    const locator = {css: `#completed${answer}`};
+    await I.waitForElement(locator);
+    await I.click(locator);
 
-    I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue);
 };

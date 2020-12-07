@@ -1,11 +1,12 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/payment/breakdown');
-
-module.exports = function() {
+module.exports = async function() {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
+    await I.checkPageUrl('app/steps/ui/payment/breakdown');
+    await I.waitForElement({css: 'form[action="/payment-breakdown"]'});
+    const locator = {css: '.govuk-button'};
+    await I.waitForElement(locator);
 
-    I.navByClick('.govuk-button');
+    await I.navByClick(locator);
 };

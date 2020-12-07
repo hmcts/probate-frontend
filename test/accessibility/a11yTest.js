@@ -1,10 +1,10 @@
 'use strict';
 
+// const log = require('why-is-node-running'); // install this with yarn add to see whats causing the hang
 const co = require('co');
 const request = require('supertest');
 const a11y = require('test/util/a11y');
 const expect = require('chai').expect;
-const app = require('app');
 const initSteps = require('app/core/initSteps');
 const {endsWith, merge} = require('lodash');
 const commonContent = {
@@ -18,6 +18,8 @@ const stepsToExclude = [
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`], 'en');
 const nock = require('nock');
 const config = require('config');
+const {createHttpTerminator} = require ('http-terminator');
+
 const commonSessionData = {
     form: {
         payloadVersion: config.payloadVersion,
@@ -28,9 +30,13 @@ const commonSessionData = {
     back: []
 };
 
+let stepNum = 0;
+
 Object.keys(steps)
     .filter(stepName => stepsToExclude.includes(stepName))
     .forEach((stepName) => delete steps[stepName]);
+
+const numSteps = Object.keys(steps).length;
 
 for (const step in steps) {
     ((step) => {
@@ -82,6 +88,7 @@ for (const step in steps) {
         describe(`Verify accessibility for the page ${step.name}`, () => {
             let server = null;
             let agent = null;
+            let httpTerminator = null;
             let title;
 
             if (step.name === 'Declaration' || step.name === 'CoApplicantDeclaration') {
@@ -99,7 +106,10 @@ for (const step in steps) {
                     .get('/invite/allAgreed/undefined')
                     .reply(200, 'false');
 
+                const app = require('app');
                 server = app.init(true, sessionData);
+                httpTerminator = createHttpTerminator({server: server.http});
+
                 agent = request.agent(server.app);
                 co(function* () {
                     let urlSuffix = '';
@@ -114,10 +124,10 @@ for (const step in steps) {
                     });
             });
 
-            after((done) => {
+            after(async () => {
                 nock.cleanAll();
-                server.http.close();
-                done();
+                await httpTerminator.terminate();
+                stepNum += 1;
             });
 
             it('should not generate any errors', () => {
@@ -135,3 +145,17 @@ for (const step in steps) {
         });
     })(steps[step]);
 }
+
+/*
+setTimeout(function () {
+    log(); // logs out active handles that are keeping node running
+  }, 240000);
+*/
+
+// npm co component is hanging onto something that is stopping process from completing
+setInterval(() => {
+    if (stepNum >= numSteps) {
+        // eslint-disable-next-line no-process-exit
+        process.exit();
+    }
+}, 10000);

@@ -1,18 +1,19 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/executors/roles');
 
-module.exports = function(executorNumber, answer, firstRecord) {
+module.exports = async function(executorNumber, answer, firstRecord) {
     const I = this;
 
     if (firstRecord) {
-        I.seeCurrentUrlEquals(pageUnderTest.getUrl('*'));
+        await I.checkPageUrl('app/steps/ui/executors/roles', '*');
     } else {
-        I.seeCurrentUrlEquals(pageUnderTest.getUrl(parseInt(executorNumber) - 1));
+        await I.checkPageUrl('app/steps/ui/executors/roles', parseInt(executorNumber) - 1);
     }
 
-    I.click(`#notApplyingReason${answer}`);
+    const locator = {css: `#notApplyingReason${answer}`};
+    await I.waitForElement(locator);
+    await I.click(locator);
 
-    I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue);
 };

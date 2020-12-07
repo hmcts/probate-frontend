@@ -9,19 +9,21 @@ class JSWait extends codecept_helper {
         }
     }
 
-    navByClick (text, locator) {
+    async navByClick (text, locator, webDriverWait) {
         const helper = this.helpers.WebDriverIO || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
         if (helperIsPuppeteer) {
-            return Promise.all([
-                helper.page.waitForNavigation({waitUntil: 'networkidle0'}),
-                helper.click(text, locator)
+            await Promise.all([
+                helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']}),
+                locator ? helper.click(text, locator) : helper.click(text)
             ]);
+            return;
         }
+        // non Puppeteer
         return Promise.all([
-            helper.click(text, locator),
-            helper.wait(3)
+            locator ? helper.click(text, locator) : helper.click(text),
+            helper.wait(webDriverWait ? webDriverWait : 3)
         ]);
     }
 
@@ -33,8 +35,11 @@ class JSWait extends codecept_helper {
             if (url.indexOf('http') !== 0) {
                 url = helper.options.url + url;
             }
-            helper.page.goto(url);
-            await helper.page.waitForNavigation({waitUntil: 'networkidle0'});
+
+            await Promise.all([
+                helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']}), // The promise resolves after navigation has finished
+                helper.page.goto(url)
+            ]);
         } else {
             await helper.amOnPage(url);
             await helper.waitInUrl(url);
@@ -61,7 +66,8 @@ class JSWait extends codecept_helper {
         } else {
             const browserName = this.helpers.WebDriverIO.config.browser;
 
-            if (browserName !== 'internet explorer' && browserName !== 'MicrosoftEdge') {
+            // browserName !== 'internet explorer' &&  removed
+            if (browserName !== 'MicrosoftEdge') {
                 await helper.browser.waitForVisible('#addressLine1', 5000, true); // true - means wait for element to be Invisible!
                 await helper.browser.click('.govuk-details__summary-text');
                 await helper.browser.waitForVisible('#addressLine1', 5000, false);
@@ -72,6 +78,28 @@ class JSWait extends codecept_helper {
             await helper.browser.setValue('#addressLine3', 'test address for deceased line 3');
             await helper.browser.setValue('#postTown', 'test address for deceased town');
             await helper.browser.setValue('#newPostCode', 'postcode');
+        }
+    }
+
+    async checkPageUrl(pageUnderTestClass, redirect) {
+        // optimisation - don't need to do this for puppeteer
+        const helper = this.helpers.WebDriverIO;
+        if (helper) {
+            const pageUnderTest = require(pageUnderTestClass);
+            const url = redirect ? pageUnderTest.getUrl(redirect) : pageUnderTest.getUrl();
+            try {
+                await helper.waitUrlEquals(url, 120);
+            } catch (e) {
+                try {
+                    // ok I know its weird invoking this when we know this can't be the url,
+                    // but this may give us more information
+                    console.info('Invoking seeCurrentUrlEquals for more info on incorrect url');
+                    await helper.seeCurrentUrlEquals(url);
+                    throw e;
+                } catch (e2) {
+                    throw e;
+                }
+            }
         }
     }
 }

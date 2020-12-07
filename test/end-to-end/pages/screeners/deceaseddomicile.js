@@ -1,13 +1,20 @@
 'use strict';
 
 const commonContent = require('app/resources/en/translation/common');
-const pageUnderTest = require('app/steps/ui/screeners/deceaseddomicile');
+const content = require('app/resources/en/translation/screeners/deceaseddomicile');
 
-module.exports = function(answer) {
+module.exports = async function(answer) {
     const I = this;
 
-    I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-    I.click(`#domicile${answer}`);
+    await I.checkPageUrl('app/steps/ui/screeners/deceaseddomicile');
+    await I.waitForText(content.question);
+    await I.see(content.hintText1);
+    await I.seeElement({css: '#domicile-hint'});
+    await I.see('You can read more about ');
 
-    I.navByClick(commonContent.continue);
+    const locator = {css: `#domicile${answer}`};
+    await I.waitForElement(locator);
+    await I.click(locator);
+
+    await I.navByClick(commonContent.continue);
 };

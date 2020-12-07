@@ -16,8 +16,8 @@ describe('document-upload', () => {
         testWrapper = new TestWrapper('DocumentUpload');
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {

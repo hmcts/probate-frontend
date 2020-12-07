@@ -1,12 +1,18 @@
 'use strict';
 
-const testConfig = require('test/config');
+const config = require('config');
 
-module.exports = function() {
+module.exports = async function() {
     const I = this;
-    I.wait(3);
 
-    I.waitForText('Equality and diversity questions', testConfig.TestWaitForTextToAppear);
+    await I.wait(3);
 
-    I.navByClick('#back-button');
+    // const url = await I.grabCurrentUrl();
+    // console.info(`equality url: ${url}`);
+
+    // await I.checkPageUrl('app/steps/ui/equality');
+    const backButtonLocator = {css: '#back-button'};
+    await I.waitForElement(backButtonLocator, config.TestWaitForElementToAppear);
+    await I.waitForText('Equality and diversity questions', config.TestWaitForTextToAppear);
+    await I.navByClick(backButtonLocator);
 };

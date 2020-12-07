@@ -352,7 +352,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     // Start the app
     let http;
 
-    if (['development', 'testing'].includes(config.nodeEnvironment)) {
+    if (['development', 'testing', 'testing-unit', 'testing-component'].includes(config.nodeEnvironment)) {
         const sslDirectory = path.join(__dirname, 'app', 'resources', 'localhost-ssl');
         const sslOptions = {
             key: fs.readFileSync(path.join(sslDirectory, 'localhost.key')),
@@ -361,7 +361,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         const server = https.createServer(sslOptions, app);
 
         http = server.listen(port, () => {
-            console.log(`Application started: http://localhost:${port}`);
+            console.log(`Application started: https://localhost:${port}`);
         });
     } else {
         http = app.listen(port, () => {

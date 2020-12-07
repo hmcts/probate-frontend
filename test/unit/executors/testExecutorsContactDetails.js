@@ -198,7 +198,7 @@ describe('Contact-Details', () => {
                             mobile: '07888888888',
                             emailChanged: true,
                             inviteId: 'dummy_inviteId',
-                            emailSent: true
+                            emailSent: false
                         },
                         {
                             fullName: 'Billy Jean',

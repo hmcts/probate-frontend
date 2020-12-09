@@ -28,8 +28,13 @@ class AsyncFetch {
 
         return new Promise((resolve, reject) => {
             const asyncReq = this.buildRequest(url, fetchOptions);
+            console.log('URL => ' + url);
+            console.log('Fetch Options-------');
+            console.log(fetchOptions);
             fetch(asyncReq, this.retryOptions())
                 .then(res => {
+                    console.log('res==========');
+                    console.log(res);
                     if (!this.isHealthEndpoint(url)) {
                         log.info(`Status: ${res.status}`);
                     }

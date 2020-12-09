@@ -132,7 +132,7 @@ class Declaration extends ValidationStep {
             ctx.invitesSent = get(formdata, 'executors.invitesSent');
             ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants();
             ctx.executorsEmailChanged = ctx.executorsWrapper.hasExecutorsEmailChanged();
-            ctx.hasExecutorsToNotify = ctx.executorsWrapper.hasExecutorsToNotify() && ctx.invitesSent === 'true';
+            ctx.hasExecutorsToNotify = ctx.executorsWrapper.hasExecutorsToNotify() && ctx.invitesSent;
 
             const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
             const codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();

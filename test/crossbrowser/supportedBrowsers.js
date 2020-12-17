@@ -23,6 +23,18 @@ const supportedBrowsers = {
             }
         }
     },
+    safari: {
+        safari_mac_latest: {
+            browserName: 'safari',
+            platformName: 'macOS 10.14',
+            browserVersion: 'latest',
+            'sauce:options': {
+                name: 'Probate: MAC_SAFARI_LATEST',
+                seleniumVersion: '3.141.59',
+                screenResolution: '1400x1050'
+            }
+        }
+    },
     chrome: {
         chrome_win_latest: {
             browserName: 'chrome',

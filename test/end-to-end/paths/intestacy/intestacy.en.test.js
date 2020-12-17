@@ -31,7 +31,7 @@ After(() => {
 });
 
 // eslint-disable-next-line no-undef
-Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Journey - Digital iht'), async(I) => {
+Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Journey - Digital iht - @crossbrowser'), async(I) => {
     await I.retry(2).createAUser(TestConfigurator);
 
     const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);

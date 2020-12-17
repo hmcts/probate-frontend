@@ -9,7 +9,7 @@ class JSWait extends codecept_helper {
         }
     }
 
-    async navByClick (text, locator, webDriverWait) {
+    async navByClick(text, locator = null, webDriverWait = 2) {
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
@@ -21,13 +21,11 @@ class JSWait extends codecept_helper {
             return;
         }
         // non Puppeteer
-        return Promise.all([
-            locator ? helper.click(text, locator) : helper.click(text),
-            helper.wait(webDriverWait ? webDriverWait : 3)
-        ]);
+        await helper.click(text, locator);
+        await helper.wait(webDriverWait);
     }
 
-    async amOnLoadedPage (url) {
+    async amOnLoadedPage(url) {
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
@@ -83,19 +81,30 @@ class JSWait extends codecept_helper {
             const pageUnderTest = require(pageUnderTestClass);
             const url = redirect ? pageUnderTest.getUrl(redirect) : pageUnderTest.getUrl();
             try {
-                await helper.waitUrlEquals(url, 120);
+                await helper.waitInUrl(url, 60);
             } catch (e) {
                 try {
                     // ok I know its weird invoking this when we know this can't be the url,
                     // but this may give us more information
-                    console.info('Invoking seeCurrentUrlEquals for more info on incorrect url');
-                    await helper.seeCurrentUrlEquals(url);
+                    console.info('Invoking seeInCurrentUrl for more info on incorrect url');
+                    await helper.seeInCurrentUrl(url);
                     throw e;
                 } catch (e2) {
                     throw e;
                 }
             }
         }
+    }
+
+    async checkForText(text, timeout = null) {
+        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
+        try {
+            await helper.waitForText(text, timeout);
+        } catch (e) {
+            console.log(`Text "${text}" not found on page.`);
+            return false;
+        }
+        return true;
     }
 }
 

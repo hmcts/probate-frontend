@@ -10,7 +10,7 @@ const optionNo = '-2';
 const bilingualGOP = false;
 const uploadingDocuments = false;
 
-Feature('Multiple Executors flow').retry(TestConfigurator.getRetryFeatures());
+Feature('Multiple Executors flow - @crossbrowser').retry(TestConfigurator.getRetryFeatures());
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these

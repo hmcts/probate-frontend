@@ -29,7 +29,7 @@
     "test-component-death-cert": "NODE_ENV=testing-component NODE_PATH=. LOG_LEVEL=error mocha test/component/deceased/testDeathCertificate.js --reporter spec --recursive --timeout 15000",
     "test:a11y": "NODE_ENV=testing NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 30000",
     "test-accessibility": "NODE_ENV=testing NODE_PATH=. LOG_LEVEL=error ENABLE_TRACKING=false mocha test/accessibility --timeout 30000",
-    "test-e2e": "NODE_ENV=testing-http NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
+    "test-e2e": "NODE_ENV=testing-http-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-e2e-launch-darkly": "NODE_ENV=testing-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-e2e-http": "NODE_ENV=testing-http NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-e2e-http-launch-darkly": "NODE_ENV=testing-http-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",

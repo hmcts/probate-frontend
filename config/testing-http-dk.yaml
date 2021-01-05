@@ -13,15 +13,15 @@ TestIdamUserGroup: 'caseworker'
 TestOutputDir: './output'
 TestPathToRun: './paths/**/*.test.js'
 TestProxy: 'socks5:proxyout.reform.hmcts.net:8080'
-TestRetryFeatures: 4
-TestRetryScenarios: 4
-TestRetrySteps: 4
+TestRetryFeatures: 2
+TestRetryScenarios: 2
+TestRetrySteps: 2
 TestShowBrowser: false
 TestUseGovPay: 'true'
 TestUseIdam: 'true'
 TestUseProxy: 'false'
 TestWaitForDocumentUpload: 60
-TestWaitForTextToAppear: 20
+TestWaitForTextToAppear: 30
 TestWaitForElementToAppear: 60
 TestOneMilliSecond: 1000
 TestEnvEmailAddress: 'test.probate.inbox@gmail.com'
@@ -54,7 +54,7 @@ govPayTestCardDetails:
   addressCity: 'London'
   addressPostcode: 'SW1A1AA'
 
-validation: 
+validation:
   url: 'http://localhost:8081/validate'
 
 TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk'

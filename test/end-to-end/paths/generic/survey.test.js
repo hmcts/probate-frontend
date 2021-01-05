@@ -5,8 +5,7 @@ const optionYes = '';
 
 Feature('Survey');
 
-// eslint-disable-next-line no-undef
-Scenario(TestConfigurator.idamInUseText('Check survey link works'), async (I) => {
+Scenario('Check survey link works', async (I) => {
 
     // Eligibility Task (pre IdAM)
     await I.startApplication();

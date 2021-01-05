@@ -6,14 +6,14 @@ const testConfig = require('config');
 class WebDriverHelper extends Helper {
 
     clickBrowserBackButton() {
-        const browser = this.helpers.WebDriverIO.browser;
+        const browser = this.helpers.WebDriver.browser;
 
         return browser.back();
     }
 
     async downloadPdfIfNotIE11(pdfLink) {
-        const browserName = this.helpers.WebDriverIO.config.browser;
-        const helper = this.helpers.WebDriverIO;
+        const browserName = this.helpers.WebDriver.config.browser;
+        const helper = this.helpers.WebDriver;
 
         if (browserName !== 'internet explorer') {
             await helper.click(pdfLink);
@@ -21,8 +21,8 @@ class WebDriverHelper extends Helper {
     }
 
     async uploadDocumentIfNotMicrosoftEdge() {
-        const browserName = this.helpers.WebDriverIO.config.browser;
-        const helper = this.helpers.WebDriverIO;
+        const browserName = this.helpers.WebDriver.config.browser;
+        const helper = this.helpers.WebDriver;
 
         if (browserName !== 'MicrosoftEdge') {
             await helper.waitForElement('.dz-hidden-input', testConfig.TestWaitForElementToAppear * testConfig.TestOneMilliSecond);

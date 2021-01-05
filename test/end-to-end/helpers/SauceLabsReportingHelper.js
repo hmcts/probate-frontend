@@ -13,7 +13,7 @@ module.exports = function() {
     // Setting test success on SauceLabs
     event.dispatcher.on(event.test.passed, () => {
 
-        const sessionId = container.helpers('WebDriverIO').browser.requestHandler.sessionID;
+        const sessionId = container.helpers('WebDriver').browser.sessionId;
         exec(updateSauceLabsResult('true', sessionId));
 
     });
@@ -21,7 +21,7 @@ module.exports = function() {
     // Setting test failure on SauceLabs
     event.dispatcher.on(event.test.failed, () => {
 
-        const sessionId = container.helpers('WebDriverIO').browser.requestHandler.sessionID;
+        const sessionId = container.helpers('WebDriver').browser.sessionId;
         exec(updateSauceLabsResult('false', sessionId));
 
     });

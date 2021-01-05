@@ -1,7 +1,7 @@
 {
   "title": "You&rsquo;ve made your legal declaration",
   "pageHeader": "You&rsquo;ve made your legal declaration",
-  "paragraph1": "When everyone has made their legal declaration, {leadExecFullName} will be asked to send all the relevant documents to the probate registry.",
+  "paragraph1": "When all executors have made their legal declaration, {leadExecFullName} will complete the application and send all the relevant documents to the probate registry.",
   "subHeader": "What happens next",
   "paragraph2": "{leadExecFullName} will receive the grant of probate within 20 working days of the probate registry receiving all the necessary paperwork.",
   "paragraph3": "Contact {leadExecFullName} if you need more information.",

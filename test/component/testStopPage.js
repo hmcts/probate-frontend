@@ -145,7 +145,7 @@ describe('stop-page', () => {
 
         it('test right content loaded on the page - death certificate not translated', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('deathCertificateTranslation');
-            const contentData = {stopReason: 'deathCertificateTranslation'};
+            const contentData = {stopReason: 'deathCertificateTranslation', applicationFormPA19: config.links.applicationFormPA19};
             const contentToExclude = ['defaultHeader', 'deathCertificate', 'notInEnglandOrWales', 'ihtNotCompleted', 'notOriginal', 'notExecutor', 'mentalCapacity', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
 
             testWrapper.testContent(done, contentData, contentToExclude);

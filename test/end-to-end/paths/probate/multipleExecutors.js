@@ -10,29 +10,22 @@ const optionNo = '-2';
 const bilingualGOP = false;
 const uploadingDocuments = false;
 
-// let grabIds;
-let stage1retries = -1;
-
-Feature('Multiple Executors flow').retry(TestConfigurator.getRetryFeatures());
+Feature('Multiple Executors flow - @crossbrowser').retry(TestConfigurator.getRetryFeatures());
 
 // eslint complains that the Before/After are not used but they are by codeceptjs
 // so we have to tell eslint to not validate these
 // eslint-disable-next-line no-undef
-BeforeSuite(async () => {
+Before(async () => {
     await TestConfigurator.getBefore();
 });
 
 // eslint-disable-next-line no-undef
-AfterSuite(() => {
+After(() => {
     TestConfigurator.getAfter();
 });
 
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details'), async (I) => {
-    stage1retries += 1;
-
-    if (stage1retries >= 1) {
-        await TestConfigurator.getBefore();
-    }
+    await I.retry(2).createAUser(TestConfigurator);
 
     // Eligibility Task (pre IdAM)
     await I.startApplication();
@@ -152,11 +145,11 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
         }
     }
 
-    // ************************************************
-    // Something is going wrong here
-    // in functional tests on CI after git push for pr.
-    // Works locally though using Puppeteer
-    // ************************************************
+    // Complete Equality & Diversity Questionnaire
+    if (TestConfigurator.equalityAndDiversityEnabled()) {
+        await I.exitEqualityAndDiversity();
+        await I.completeEqualityAndDiversity();
+    }
 
     // Review and Confirm Task
     await I.selectATask(taskListContent.taskNotStarted);
@@ -181,9 +174,11 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     for (let i=0; i < idList.ids.length; i++) {
 
         // eslint-disable-next-line no-await-in-loop
-        await I.amOnLoadedPage(testConfig.TestInvitationUrl + '/' + idList.ids[i]);
+        await I.amOnPage(testConfig.TestInvitationUrl + '/' + idList.ids[i]);
         // eslint-disable-next-line no-await-in-loop
-        await I.amOnLoadedPage(testConfig.TestE2EFrontendUrl + '/pin');
+        await I.amOnPage(testConfig.TestE2EFrontendUrl + '/pin');
+        // eslint-disable-next-line no-await-in-loop
+        await I.waitForElement('pre');
 
         const grabPins = await I.grabTextFrom('pre'); // eslint-disable-line no-await-in-loop
         const pinList = JSON.parse(grabPins);

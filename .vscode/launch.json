@@ -464,7 +464,7 @@
             "name": "Mocha test end-end ie11 - launch darkly OFF",
             "request": "launch",
             "runtimeArgs": [
-                "test:crossbrowser_IE11",
+                "test:crossbrowser-IE11",
             ],
             "runtimeExecutable": "yarn",
             "skipFiles": [

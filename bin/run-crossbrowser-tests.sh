@@ -1,12 +1,10 @@
 #!/bin/bash
 set -ex
 
-yarn test:crossbrowser_IE11
-sleep 2s
-yarn test:crossbrowser_Edge
-sleep 2s
-yarn test:crossbrowser_chrome
-sleep 2s
-yarn test:crossbrowser_firefox
-
-
+EXIT_STATUS=0
+yarn test:crossbrowser-chrome || EXIT_STATUS=$?
+yarn test:crossbrowser-firefox || EXIT_STATUS=$?
+yarn test:crossbrowser-IE11 || EXIT_STATUS=$?
+yarn test:crossbrowser-Edge || EXIT_STATUS=$?
+echo EXIT_STATUS: $EXIT_STATUS
+exit $EXIT_STATUS

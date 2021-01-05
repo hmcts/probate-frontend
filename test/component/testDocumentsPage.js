@@ -909,6 +909,8 @@ describe('documents', () => {
                         foreignDeathCertTranslation: 'optionNo'
                     };
 
+                    contentData.applicationFormPA19 = config.links.applicationFormPA19;
+
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)
                         .end(() => {
@@ -1105,6 +1107,7 @@ describe('documents', () => {
                     sessionData.caseType = caseTypes.INTESTACY;
 
                     contentData.renunciationFormLink = config.links.renunciationForm;
+                    contentData.applicationFormPA19 = config.links.applicationFormPA19;
 
                     testWrapper.agent.post('/prepare-session/form')
                         .send(sessionData)

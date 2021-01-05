@@ -1,4 +1,5 @@
 // eslint-disable-line max-lines
+/* eslint-disable no-unused-expressions */
 'use strict';
 
 const expect = require('chai').expect;
@@ -6,6 +7,8 @@ const FeesCalculator = require('app/utils/FeesCalculator');
 const FeesLookup = require('app/services/FeesLookup');
 const sinon = require('sinon');
 const Service = require('app/services/Service');
+const config = require('config');
+
 let feesCalculator;
 let formdata;
 let feesLookupStub;
@@ -22,6 +25,49 @@ describe('FeesCalculator', () => {
         afterEach(() => {
             fetchJsonStub.restore();
             feesLookupStub.restore();
+        });
+
+        it('should pass the new issuesData when the feature toggle is on', (done) => {
+            formdata = {
+                iht: {
+                    netValue: 6000
+                },
+                copies: {
+                    uk: 0,
+                    overseas: 0
+                }
+            };
+
+            feesCalculator.calc(formdata, 'dummyToken', {ft_newfee_register_code: true});
+
+            const issuesData = config.services.feesRegister.newfee_issuesData;
+            issuesData.amount_or_volume = 6000;
+            expect(feesLookupStub.getCall(0).calledWith(sinon.match(issuesData, 'dummyToken'))).to.be.true;
+
+            done();
+
+        });
+
+        it('should pass the old issuesData when the feature toggle is off', (done) => {
+            formdata = {
+                iht: {
+                    netValue: 6000
+                },
+                copies: {
+                    uk: 0,
+                    overseas: 0
+                }
+            };
+
+            feesCalculator.calc(formdata, 'dummyToken', {ft_newfee_register_code: false});
+
+            const issuesData = config.services.feesRegister.issuesData;
+            issuesData.amount_or_volume = 6000;
+            const spyCall0 = feesLookupStub.getCall(0);
+            expect(spyCall0.calledWith(sinon.match(issuesData, 'dummyToken'))).to.be.true;
+
+            done();
+
         });
 
         it('should calculate probate fees for iht and both sets of copies', (done) => {

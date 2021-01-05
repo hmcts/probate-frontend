@@ -30,6 +30,9 @@ exports.config = {
         JSWait: {
             require: './helpers/JSWait.js'
         },
+        IDAMHelper: {
+            require: './helpers/IDAMHelper.js'
+        }
     },
     include: {
         I: './pages/steps.js'

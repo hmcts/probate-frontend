@@ -15,6 +15,7 @@ Feature('GOP-Single Executor flow...').retry(TestConfigurator.getRetryFeatures()
 // so we have to tell eslint to not validate these
 // eslint-disable-next-line no-undef
 Before(async () => {
+    await TestConfigurator.initLaunchDarkly();
     await TestConfigurator.getBefore();
 });
 
@@ -24,6 +25,7 @@ After(() => {
 });
 
 Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/in and survey link'), async (I) => {
+    await I.retry(2).createAUser(TestConfigurator);
 
     const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
 

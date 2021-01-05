@@ -14,6 +14,7 @@ featureToggles:
   ft_pcq: 'probate-pcq'
   ft_pcq_token: 'probate-pcq-token'
   ft_new_deathcert_flow: 'probate-new-deathcert-flow'
+  ft_newfee_register_code: 'probate-newfee-register-code'
   appwideToggles: []
 app:
   username:
@@ -93,6 +94,50 @@ services:
       fees: '/fees'
       feesLookup: '/fees/lookup'
     ihtMinAmt: 5000
+    issuesData:
+      amount_or_volume: 0
+      applicant_type: 'personal'
+      channel: 'default'
+      event: 'issue'
+      jurisdiction1: 'family'
+      jurisdiction2: 'probate registry'
+      service: 'probate'
+    copiesData:
+      amount_or_volume: 0
+      applicant_type: 'all'
+      channel: 'default'
+      event: 'copies'
+      jurisdiction1: 'family'
+      jurisdiction2: 'probate registry'
+      service: 'probate'
+      keyword: 'NewFee'
+    newfee_issuesData:
+      amount_or_volume: 0
+      applicant_type: 'personal'
+      channel: 'default'
+      event: 'issue'
+      jurisdiction1: 'family'
+      jurisdiction2: 'probate registry'
+      service: 'probate'
+      keyword: 'PA'
+    newfee_issuesDataIhtMinAmount:
+      amount_or_volume: 0
+      applicant_type: 'personal'
+      channel: 'default'
+      event: 'issue'
+      jurisdiction1: 'family'
+      jurisdiction2: 'probate registry'
+      service: 'probate'
+      keyword: 'PAL5K'
+    newfee_copiesData:
+      amount_or_volume: 0
+      applicant_type: 'all'
+      channel: 'default'
+      event: 'copies'
+      jurisdiction1: 'family'
+      jurisdiction2: 'probate registry'
+      service: 'probate'
+      keyword: 'GrantWill'
   equalityAndDiversity:
     name: 'Equality and Diversity Service'
     url: 'http://localhost:4000'
@@ -146,6 +191,7 @@ links:
   applicationFormPA15: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will'
   applicationFormPA1A: 'https://www.gov.uk/government/publications/form-pa1a-apply-for-probate-deceased-did-not-leave-a-will'
   applicationFormPA1P: 'https://www.gov.uk/government/publications/form-pa1p-apply-for-probate-the-deceased-had-a-will'
+  applicationFormPA19: 'https://www.gov.uk/government/publications/form-pa19-apply-for-a-grant-of-representation-with-a-foreign-death-certificate-not-translated-by-a-licensed-company'
   deathCertificate: 'https://www.gov.uk/order-copy-birth-death-marriage-certificate'
   deathReportedToCoroner: 'https://www.gov.uk/after-a-death/when-a-death-is-reported-to-a-coroner'
   findOutNext: 'https://www.gov.uk/wills-probate-inheritance/once-the-grants-been-issued'

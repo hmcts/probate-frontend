@@ -21,6 +21,7 @@ Feature('Grant Of Probate Intestacy E2E Tests...');
 // so we have to tell eslint to not validate these
 // eslint-disable-next-line no-undef
 Before(async () => {
+    await TestConfigurator.initLaunchDarkly();
     await TestConfigurator.getBefore();
 });
 
@@ -30,7 +31,9 @@ After(() => {
 });
 
 // eslint-disable-next-line no-undef
-Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Journey - Digital iht'), async(I) => {
+Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Journey - Digital iht - @crossbrowser'), async(I) => {
+    await I.retry(2).createAUser(TestConfigurator);
+
     const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
 
     // Eligibility Task (pre IdAM)
@@ -136,6 +139,7 @@ Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Journey - Digital iht'),
 
 // eslint-disable-next-line no-undef
 Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Child Journey - Paper iht, no death certificate uploaded and spouse renouncing'), async (I) => {
+    await I.retry(2).createAUser(TestConfigurator);
 
     const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
 

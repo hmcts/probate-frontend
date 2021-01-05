@@ -13,6 +13,6 @@ router.get('/dashboard', (req, res, next) => featureToggle.callCheckToggle(req, 
 router.get('/start-eligibility', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_fees_api', featureToggle.toggleFeature));
 router.get('/copies-uk', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_fees_api', featureToggle.toggleFeature));
 router.get('/copies-overseas', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_fees_api', featureToggle.toggleFeature));
-router.all('/payment-breakdown', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_fees_api', featureToggle.toggleFeature));
+router.all('/payment-breakdown', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_newfee_register_code', featureToggle.toggleFeature));
 
 module.exports = router;

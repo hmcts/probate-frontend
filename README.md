@@ -71,7 +71,7 @@ $ ln -s ../../commit-msg.sh .git/hooks/commit-msg
 
 Before submitting a Pull Request you will be required to run `$ yarn eslint` (which is also run automatically when trying to commit anyway).
 
-We have a number of rules relating to code style that can be found in [.eslintrc.js](https://github.com/hmcts/probate-frontend/blob/develop/.eslintrc.js).
+We havg to code style that can be found in [.eslintrc.js](https://github.com/hmcts/probate-frontend/blob/develop/.eslintrc.js).
 
 ### Config
 

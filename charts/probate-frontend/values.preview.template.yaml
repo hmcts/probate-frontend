@@ -6,8 +6,6 @@ nodejs:
     REDIS_PORT: 6379
     REDIS_USE_TLS: false
     LAUNCHDARKLY_ENABLED: true
-    VALIDATION_SERVICE_URL: http://probate-business-service-pr-444.service.core-compute-preview.internal/validate
-    ORCHESTRATOR_SERVICE_URL: http://probate-orchestrator-service-pr-408.service.core-compute-preview.internal
   keyVaults:
     probate:
       resourceGroup: probate

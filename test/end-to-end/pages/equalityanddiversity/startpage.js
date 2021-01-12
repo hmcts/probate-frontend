@@ -11,8 +11,8 @@ module.exports = async function() {
     // console.info(`equality url: ${url}`);
 
     // await I.checkPageUrl('app/steps/ui/equality');
+    await I.waitForText('Equality and diversity questions', config.TestWaitForTextToAppear);
     const backButtonLocator = {css: '#back-button'};
     await I.waitForElement(backButtonLocator, config.TestWaitForElementToAppear);
-    await I.waitForText('Equality and diversity questions', config.TestWaitForTextToAppear);
     await I.navByClick(backButtonLocator);
 };

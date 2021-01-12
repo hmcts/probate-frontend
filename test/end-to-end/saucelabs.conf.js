@@ -83,8 +83,11 @@ const setupConfig = {
         reporterOptions: {
             'codeceptjs-cli-reporter': {
                 stdout: '-',
-                options:
-                    {steps: true}
+                options: {steps: true}
+            },
+            'mocha-junit-reporter': {
+                stdout: '-',
+                options: {mochaFile: `${testConfig.TestOutputDir}/result.xml`}
             },
             mochawesome: {
                 stdout: testConfig.TestOutputDir + '/console.log',
@@ -98,11 +101,8 @@ const setupConfig = {
         }
     },
     multiple: {
-        microsoftIE11: {
-            browsers: getBrowserConfig('microsoftIE11')
-        },
-        microsoftEdge: {
-            browsers: getBrowserConfig('microsoftEdge')
+        microsoft: {
+            browsers: getBrowserConfig('microsoft')
         },
         chrome: {
             browsers: getBrowserConfig('chrome')

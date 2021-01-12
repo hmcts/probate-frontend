@@ -1,8 +1,10 @@
+/* eslint-disable no-await-in-loop */
 'use strict';
 
 const taskListContent = require('app/resources/en/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('config');
+const config = require('config');
 
 const optionYes = '';
 const ihtPost = '';
@@ -16,6 +18,7 @@ Feature('Multiple Executors flow - @crossbrowser').retry(TestConfigurator.getRet
 // so we have to tell eslint to not validate these
 // eslint-disable-next-line no-undef
 Before(async () => {
+    await TestConfigurator.initLaunchDarkly();
     await TestConfigurator.getBefore();
 });
 
@@ -27,10 +30,17 @@ After(() => {
 Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details'), async (I) => {
     await I.retry(2).createAUser(TestConfigurator);
 
+    const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
+
     // Eligibility Task (pre IdAM)
     await I.startApplication();
 
     await I.selectDeathCertificate(optionYes);
+
+    if (useNewDeathCertFlow) {
+        await I.selectDeathCertificateInEnglish(optionNo);
+        await I.selectDeathCertificateTranslation(optionYes);
+    }
 
     await I.selectDeceasedDomicile(optionYes);
 
@@ -60,7 +70,14 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     await I.enterDeceasedDateOfDeath('01', '01', '2017');
     await I.enterDeceasedAddress();
 
-    await I.selectDocumentsToUpload(uploadingDocuments);
+    if (useNewDeathCertFlow) {
+        await I.selectDiedEngOrWales(optionNo);
+        await I.selectEnglishForeignDeathCert(optionNo);
+        await I.selectForeignDeathCertTranslation(optionYes);
+    } else {
+        await I.selectDocumentsToUpload(uploadingDocuments);
+    }
+
     await I.selectInheritanceMethod(ihtPost);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
@@ -94,7 +111,6 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     if (executorsWhoDiedList) {
         for (let i = 0; i < executorsWhoDiedList.length; i++) {
             const executorNum = executorsWhoDiedList[i];
-            // eslint-disable-next-line no-await-in-loop
             await I.selectExecutorsWhenDied(executorNum, diedBefore, executorsWhoDiedList[0] === executorNum);
             diedBefore = optionNo;
         }
@@ -116,9 +132,7 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     // I.enterExecutorCurrentNameReason(executorNumber, 'executor_alias_reason');
 
     for (let i= 1; i <= executorsApplyingList.length; i++) {
-        // eslint-disable-next-line no-await-in-loop
         await I.enterExecutorContactDetails();
-        // eslint-disable-next-line no-await-in-loop
         await I.enterExecutorManualAddress(i);
     }
 
@@ -132,11 +146,9 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     if (executorsAliveList) {
         for (let i = 0; i < executorsAliveList.length; i++) {
             const executorNumber = executorsAliveList[i];
-            // eslint-disable-next-line no-await-in-loop
             await I.selectExecutorRoles(executorNumber, answer, executorsAliveList[0] === executorNumber);
 
             if (powerReserved) {
-                // eslint-disable-next-line no-await-in-loop
                 await I.selectHasExecutorBeenNotified(optionYes);
             }
 
@@ -158,9 +170,11 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
 
     // Notify additional executors Dealing with estate
     await I.notifyAdditionalExecutors();
+    await I.waitForText(taskListContent.introduction, testConfig.TestWaitForTextToAppear);
 
     //Retrieve the email urls for additional executors
     await I.amOnPage(testConfig.TestInviteIdListUrl);
+    await I.waitForElement('pre');
 
     const grabIds = await I.grabTextFrom('pre');
 
@@ -170,31 +184,23 @@ Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main appli
     } catch (err) {
         console.error(err.message);
     }
+    console.log('idList:', idList);
 
     for (let i=0; i < idList.ids.length; i++) {
-
-        // eslint-disable-next-line no-await-in-loop
         await I.amOnPage(testConfig.TestInvitationUrl + '/' + idList.ids[i]);
-        // eslint-disable-next-line no-await-in-loop
+        await I.waitForText('Sign in', testConfig.TestWaitForTextToAppear, 'h1');
         await I.amOnPage(testConfig.TestE2EFrontendUrl + '/pin');
-        // eslint-disable-next-line no-await-in-loop
         await I.waitForElement('pre');
 
         const grabPins = await I.grabTextFrom('pre'); // eslint-disable-line no-await-in-loop
         const pinList = JSON.parse(grabPins);
 
-        // eslint-disable-next-line no-await-in-loop
         await I.clickBrowserBackButton(); // eslint-disable-line no-await-in-loop
 
-        // eslint-disable-next-line no-await-in-loop
         await I.enterPinCode(pinList.pin.toString());
-        // eslint-disable-next-line no-await-in-loop
         await I.seeCoApplicantStartPage();
 
-        // eslint-disable-next-line no-await-in-loop
         await I.agreeDeclaration(optionYes);
-
-        // eslint-disable-next-line no-await-in-loop
         await I.seeAgreePage();
     }
 

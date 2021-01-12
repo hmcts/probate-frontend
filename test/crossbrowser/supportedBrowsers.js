@@ -2,8 +2,8 @@ const LATEST_MAC = 'macOS 10.15';
 const LATEST_WINDOWS = 'Windows 10';
 
 const supportedBrowsers = {
-    microsoftIE11: {
-        ie11: {
+    microsoft: {
+        ie11_win_latest: {
             browserName: 'internet explorer',
             platformName: LATEST_WINDOWS,
             browserVersion: 'latest',
@@ -11,10 +11,8 @@ const supportedBrowsers = {
                 name: 'Probate: IE11',
                 screenResolution: '1400x1050'
             }
-        }
-    },
-    microsoftEdge: {
-        edge: {
+        },
+        edge_win_latest: {
             browserName: 'MicrosoftEdge',
             platformName: LATEST_WINDOWS,
             browserVersion: 'latest',

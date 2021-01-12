@@ -10,6 +10,7 @@ const maritalStatusMarried = '';
 const spousePartner = '';
 const uploadingDocuments = false;
 const bilingualGOP = false;
+const config = require('config');
 
 Feature('GOP Intestacy spouse journey...');
 
@@ -17,6 +18,7 @@ Feature('GOP Intestacy spouse journey...');
 // so we have to tell eslint to not validate these
 // eslint-disable-next-line no-undef
 Before(async () => {
+    await TestConfigurator.initLaunchDarkly();
     await TestConfigurator.getBefore();
 });
 
@@ -29,11 +31,19 @@ After(() => {
 Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital iht and death certificate uploaded'), async (I) => {
     await I.retry(2).createAUser(TestConfigurator);
 
+    const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
+
     // Eligibility Task (pre IdAM)
     await I.startApplication();
 
     // Probate Sceeners
     await I.selectDeathCertificate(optionYes);
+
+    if (useNewDeathCertFlow) {
+        await I.selectDeathCertificateInEnglish(optionNo);
+        await I.selectDeathCertificateTranslation(optionYes);
+    }
+
     await I.selectDeceasedDomicile(optionYes);
     await I.selectIhtCompleted(optionYes);
     await I.selectPersonWhoDiedLeftAWill(optionNo);
@@ -56,7 +66,15 @@ Scenario(TestConfigurator.idamInUseText('GOP -Intestacy Spouse Journey - Digital
     await I.chooseBiLingualGrant(optionNo);
     await I.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
     await I.enterDeceasedAddress();
-    await I.selectDocumentsToUpload(uploadingDocuments);
+
+    if (useNewDeathCertFlow) {
+        await I.selectDiedEngOrWales(optionNo);
+        await I.selectEnglishForeignDeathCert(optionNo);
+        await I.selectForeignDeathCertTranslation(optionYes);
+    } else {
+        await I.selectDocumentsToUpload(uploadingDocuments);
+    }
+
     await I.selectInheritanceMethod(ihtOnline);
     await I.enterIHTIdentifier();
     if (TestConfigurator.getUseGovPay() === 'true') {

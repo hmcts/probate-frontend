@@ -126,7 +126,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 '\'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU=\'',
                 '\'sha256-AaA9Rn5LTFZ5vKyp3xOfFcP4YbyOjvWn2up8IKHVAKk=\'',
                 '\'sha256-G29/qSW/JHHANtFhlrZVDZW1HOkCDRc78ggbqwwIJ2g=\'',
-                '\'sha256-FRkASBYFU3Muickiz/9KGQ9ZqXl50Hiz1XcXm/xKT7I=\'',
+                '\'sha256-dU8PkyVqQ6U+VFLKsHAFF9SyhMI6O8vCSnpWw6JHWwo=\'',
                 'www.google-analytics.com',
                 'www.googletagmanager.com',
                 'vcc-eu4.8x8.com',

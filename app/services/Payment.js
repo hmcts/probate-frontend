@@ -20,7 +20,7 @@ class Payment extends Service {
 
     getCasePayments(data) {
         this.log('Getting all payments from case');
-        const url = `${this.endpoint}?ccd_case_type=${data.caseType}=Probate&ccd_case_number=${data.caseId}`;
+        const url = `${this.endpoint}?ccd_case_type=${data.caseType}&ccd_case_number=${data.caseId}`;
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': data.authToken,

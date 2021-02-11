@@ -208,7 +208,8 @@ class PaymentBreakdown extends Step {
                 authToken: ctx.authToken,
                 serviceAuthToken: serviceAuthResult,
                 userId: ctx.userId,
-                caseId: caseId
+                caseId: caseId,
+                caseType: ctx.caseType
             };
             const paymentServiceUrl = config.services.payment.url + config.services.payment.paths.payments;
             const payment = new Payment(paymentServiceUrl, ctx.sessionID);

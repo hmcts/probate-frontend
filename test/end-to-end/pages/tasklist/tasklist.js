@@ -13,6 +13,14 @@ module.exports = async function(language ='en') {
     }
     await I.checkPageUrl('app/steps/ui/tasklist');
     const locator = {css: '.govuk-button'};
-    await I.waitForElement(locator);
-    await I.click(locator);
+
+    try {
+        await I.waitForElement(locator);
+        await I.click(locator);
+    } catch (e) {
+        console.log('COMING TO EXCEPTION ');
+        await I.reloadPage();
+        await I.waitForElement(locator);
+        await I.click(locator);
+    }
 };

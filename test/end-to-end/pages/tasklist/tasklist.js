@@ -16,7 +16,7 @@ module.exports = async function(language ='en') {
 
     for (let i = 0; i <= 5; i++) {
         await I.waitForElement(locator);
-        const result = await I.waitForElement(locator);
+        const result = await I.seeElement(locator);
         if (result === true) {
             break;
         }

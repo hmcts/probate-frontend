@@ -13,15 +13,14 @@ module.exports = async function(language ='en') {
     }
     await I.checkPageUrl('app/steps/ui/tasklist');
     const locator = {css: '.govuk-button'};
-
-    for (let i = 0; i <= 5; i++) {
-        await I.waitForElement(locator);
-        const result = await I.seeElement(locator);
-        if (result === true) {
-            break;
+    let elementExisted = false;
+    do {
+        try {
+            await I.waitForElement(locator);
+            elementExisted = true;
+        } catch (e) {
+            await I.refreshPage();
         }
-        await I.refreshPage();
-    }
-
+    } while (elementExisted === false);
     await I.click(locator);
 };

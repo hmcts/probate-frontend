@@ -14,13 +14,14 @@ module.exports = async function(language ='en') {
     await I.checkPageUrl('app/steps/ui/tasklist');
     const locator = {css: '.govuk-button'};
 
-    try {
+    for (let i = 0; i <= 5; i++) {
         await I.waitForElement(locator);
-        await I.click(locator);
-    } catch (e) {
-        console.log('COMING TO EXCEPTION ');
-        await I.reloadPage();
-        await I.waitForElement(locator);
-        await I.click(locator);
+        const result = await I.waitForElement(locator);
+        if (result === true) {
+            break;
+        }
+        await I.refreshPage();
     }
+
+    await I.click(locator);
 };

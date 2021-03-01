@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 'use strict';
 
 const contentEn = require('app/resources/en/translation/common');
@@ -9,7 +10,14 @@ module.exports = async function(language = 'en', answer) {
 
     await I.checkPageUrl('app/steps/ui/language');
     const locator = {css: `#bilingual${answer}`};
-    await I.waitForEnabled(locator);
-    await I.seeCheckboxIsChecked(locator);
+    for (let i = 0; i <= 5; i++) {
+        await I.waitForEnabled(locator);
+        await I.seeCheckboxIsChecked(locator);
+        const result = await I.seeElement(locator);
+        if (result === true) {
+            break;
+        }
+        await I.refreshPage();
+    }
     await I.navByClick(commonContent.saveAndContinue);
 };

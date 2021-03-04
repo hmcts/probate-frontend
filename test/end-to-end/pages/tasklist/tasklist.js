@@ -22,5 +22,5 @@ module.exports = async function(language ='en') {
             await I.refreshPage();
         }
     } while (elementExisted === false);
-    await I.click(locator);
+    await I.retry(3).click(locator);
 };

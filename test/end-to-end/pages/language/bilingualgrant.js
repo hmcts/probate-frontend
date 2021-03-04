@@ -10,17 +10,17 @@ module.exports = async function(language = 'en', answer) {
     const commonContent = language === 'en' ? contentEn : contentCy;
 
     await I.checkPageUrl('app/steps/ui/language');
-    // const locator = {css: `#bilingual${answer}`};
-    // let elementExisted = false;
-    // do {
-    //     try {
-    //         await I.waitForEnabled(locator);
-    //         await I.seeCheckboxIsChecked(locator);
-    //         elementExisted = true;
-    //     } catch (e) {
-    //         await I.refreshPage();
-    //     }
-    // } while (elementExisted === false);
+    const locator = {css: `#bilingual${answer}`};
+    let elementExisted = false;
+    do {
+        try {
+            await I.waitForEnabled(locator);
+            await I.seeCheckboxIsChecked(locator);
+            elementExisted = true;
+        } catch (e) {
+            await I.refreshPage();
+        }
+    } while (elementExisted === false);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.retry(3).navByClick(commonContent.saveAndContinue);
 };

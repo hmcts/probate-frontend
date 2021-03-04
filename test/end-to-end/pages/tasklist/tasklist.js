@@ -12,8 +12,17 @@ module.exports = async function(language ='en') {
         await I.waitForText(taskListContent.introduction, testConfig.TestWaitForTextToAppear);
     }
     await I.checkPageUrl('app/steps/ui/tasklist');
+
+    for (let i = 0; i <= 5; i++) {
+        await I.waitForText(taskListContent.header, testConfig.TestWaitForTextToAppear);
+        const result = await I.checkForText(taskListContent.taskStarted, 10);
+        if (result === true) {
+            break;
+        }
+        await I.refreshPage();
+    }
+
     const locator = {css: '.govuk-button'};
-    await I.refreshPage();
-    await I.retry(2).waitForElement(locator);
+    await I.waitForElement(locator);
     await I.click(locator);
 };

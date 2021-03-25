@@ -326,7 +326,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     });
 
     app.use(featureToggles);
-
+    // DUMMY COMMENT
     if (useIDAM === 'true') {
         const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);
         app.use(idamPages, security.protect(config.services.idam.roles));

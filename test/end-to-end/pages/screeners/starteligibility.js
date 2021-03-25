@@ -13,7 +13,7 @@ module.exports = async function(language='en', checkCookieBannerExists = false) 
     if (checkCookieBannerExists) {
         await I.waitForElement('div#global-cookie-message', config.TestWaitForElementToAppear);
     }
-    const locator = {css: '#main-content > div.govuk-form-group > a'};
+    const locator = {css: '#start-apply-button'};
     await I.waitForElement(locator, config.TestWaitForElementToAppear);
     await I.navByClick(commonContent.checkApply);
 };

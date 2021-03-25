@@ -146,11 +146,13 @@ class TestConfigurator {
     }
 
     getUseProxy() {
-        return this.testUseProxy;
+        return 'false';
+        // return this.testUseProxy;
     }
 
     getProxy() {
-        return this.testProxy;
+        return null;
+        // return this.testProxy;
     }
 
     equalityAndDiversityEnabled() {

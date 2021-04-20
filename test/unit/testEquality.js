@@ -37,11 +37,12 @@ describe('Equality', () => {
 
                 co(function* () {
                     const options = yield Equality.runnerOptions(ctx, session, host);
-                    const token = '79d3c3968c1b94baa8753a66c72a3382aacb1152f20fac4ba2ad7c754adf464a538a77496a281db63b2ca' +
-                        'aa49380fcb5f4210a0fc3933a0c4d5f2f790c026df47946c7b8640dc476f47a12822df5c38590dc16c9c9b4143ccca4' +
-                        'a76f32aa1bb1bf49c2400409efbe23f35fac953b98842b8a678e00b3e72d59d814eac0b01f77696b4c702cfed0fefe5' +
-                        'da93237fc115740bc51737225e8853e9d7dec21a0c35c0c4b33d64ff5ba81052fef8d3cc84be1cee28be7df21c4178e' +
-                        'fce955017951d7110a08feb4a55390a3d6a7fa9105bfc5d4439cec166a9e53bb64cc0aa4c3a15f';
+
+                    const token = '83da26708b74d70ccf0439e8246e10f63f7c5eb9f200e0e7eea688175c14d1b7db4c20ca24f0e24f77ae9' +
+                        '64430793d780416ceddd75ff7415c0eb6267c5f7dd133882e57031852b20046d35354a7aaf6c2057ec36d53fdeded82' +
+                        '86a1cfec0fd79694168adfd2bdc278f22a4416281d3116976fa8d5db83ee1d7ccdbe1774144f04c16ba24bff21da23d' +
+                        '56efbb065acba3f8186e9f91ab3db193f35aea36ff03a96ec3f3925faf1134f9402f7703e90303b3d8a52c9135ac23a' +
+                        '20e15badbc4dd48fad798ada8d7ad588e28d727ed7868d0f3c8d1167d522';
 
                     expect(options).to.deep.equal({
                         redirect: true,

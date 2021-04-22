@@ -15,7 +15,7 @@
   "checklist-item4-interim-death-cert": "the interim death certificate",
   "checklist-item4-foreign-death-cert": "the original foreign death certificate",
   "checklist-item4-foreign-death-cert-translation": "the English translation of the foreign death certificate",
-  "checklist-item5-foreign-death-cert-PA19": "either a completed PA19 - Foreign death certificate form (opens in a new window) or a certificate from the transltor confirming the translator's validity",
+  "checklist-item5-foreign-death-cert-PA19": "either a completed PA19 - <a target=\"_blank\" rel=\"external noopener\" href=\"{applicationFormPA19}\" class=\"govuk-link\">Foreign death certificate form (opens in a new window)</a> or a certificate from the translator confirming the translation's validity",
   "checklist-item6-spouse-renouncing": "a <a href=\"{renunciationFormLink}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"renunciation form (opens in a new window)\">renunciation form (opens in a new window)</a> filled in by the spouse or civil partner of the deceased who is permanently giving up the right to make this application for probate",
   "checklist-item7-iht205": "the completed inheritance tax form IHT 205",
   "checklist-item8-renunciated": "a <a href=\"{renunciationFormLink}\" target=\"_blank\" class=\"govuk-link\" rel=\"external noopener\" aria-label=\"renunciation form (opens in a new window)\">renunciation form (opens in a new window)</a> filled in by any executors who are permanently giving up their right to make this application for probate",

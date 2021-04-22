@@ -13,6 +13,7 @@ const pageUrl = '/death-certificate';
 const nextStepUrl = '/deceased-domicile';
 const fieldKey = 'deathCertificate';
 const fieldValue = 'optionYes';
+const coreContextMockData = require('../../data/core-context-mock-data.json');
 
 describe('EligibilityValidationStep', () => {
     describe('setFeatureTogglesOnCtx()', () => {
@@ -63,14 +64,8 @@ describe('EligibilityValidationStep', () => {
             expect(EligibilityValidationStep.__get__('eligibilityCookie.getAnswer').calledOnce).to.equal(true);
             expect(EligibilityValidationStep.__get__('eligibilityCookie.getAnswer').calledWith(req, pageUrl, fieldKey)).to.equal(true);
             expect(ctx).to.deep.equal({
-                sessionID: 'abc123',
-                caseType: 'gop',
-                userLoggedIn: false,
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                language: 'en'
+                ...coreContextMockData,
+                sessionID: 'abc123'
             });
 
             revert();
@@ -83,15 +78,9 @@ describe('EligibilityValidationStep', () => {
             const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey);
 
             expect(ctx).to.deep.equal({
+                ...coreContextMockData,
                 sessionID: 'abc123',
-                caseType: 'gop',
-                userLoggedIn: false,
-                deathCertificate: 'optionYes',
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                language: 'en'
+                deathCertificate: 'optionYes'
             });
 
             revert();
@@ -119,20 +108,14 @@ describe('EligibilityValidationStep', () => {
             const ctx = eligibilityValidationStep.getContextData(req, res, pageUrl, fieldKey, featureToggles);
 
             expect(nextStepUrlStub.calledOnce).to.equal(true);
-            expect(nextStepUrlStub.calledWith(req, {sessionID: 'abc123', caseType: 'gop', deathCertificate: 'optionYes', isTestToggleEnabled: true, userLoggedIn: false, ccdCase: {id: 1234567890123456, state: 'Pending'}, language: 'en'})).to.equal(true);
+            expect(nextStepUrlStub.calledWith(req, {...coreContextMockData, sessionID: 'abc123', deathCertificate: 'optionYes', isTestToggleEnabled: true})).to.equal(true);
             expect(setEligibilityCookieStub.calledOnce).to.equal(true);
             expect(setEligibilityCookieStub.calledWith(req, res, nextStepUrl, fieldKey, fieldValue)).to.equal(true);
             expect(ctx).to.deep.equal({
+                ...coreContextMockData,
                 sessionID: 'abc123',
-                caseType: 'gop',
-                userLoggedIn: false,
                 deathCertificate: 'optionYes',
-                isTestToggleEnabled: true,
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                language: 'en'
+                isTestToggleEnabled: true
             });
 
             nextStepUrlStub.restore();

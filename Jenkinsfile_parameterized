@@ -30,7 +30,8 @@ def secrets = [
     secret('testPostCodeAddressToken2', 'ADDRESS_TOKEN'),
     secret('testRunE2ETest', 'RUN_E2E_TEST'),
     secret('testValidationServiceUrl', 'VALIDATION_SERVICE_URL'),
-    secret('launchdarkly-key', 'LAUNCHDARKLY_KEY')
+    secret('launchdarkly-key', 'LAUNCHDARKLY_KEY'),
+    secret('launchdarklyUserkeyFrontend', 'LAUNCHDARKLY_USER_KEY')
   ]
 ]
 

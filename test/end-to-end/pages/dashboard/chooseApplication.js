@@ -1,21 +1,49 @@
+/* eslint-disable no-await-in-loop */
 'use strict';
 
-const content = require('app/resources/en/translation/dashboard');
+const dashboardEn = require('app/resources/en/translation/dashboard');
+const dashboardCy = require('app/resources/cy/translation/dashboard');
+const testConfig = require('config');
 
-module.exports = async function() {
+module.exports = async function(language ='en') {
     const I = this;
-
+    const dashboardContent = language === 'en' ? dashboardEn : dashboardCy;
     await I.checkPageUrl('app/steps/ui/dashboard');
-    // we do need a wait here as it takes time to populate ccd, and storing data in the ccd database gives a success before is actually populated,
-    // so is async. To be more scientific, and to allow to continue as soon as available, we could potentially poll, we have the caseid at this point.
-    await I.wait(5);
-    await I.waitForText(content.header);
-    await I.see(content.tableHeaderCcdCaseId);
-    await I.see(content.tableHeaderDeceasedName);
-    await I.see(content.tableHeaderCreateDate);
-    await I.see(content.tableHeaderCaseStatus);
+    await I.waitForElement('#main-content', testConfig.TestWaitForTextToAppear);
+    const welshLinkText = await I.grabTextFrom('//a[@class =\'govuk-link language\']');
+    console.log('Dash Board Link Name::-->' + welshLinkText);
 
-    await I.waitForElement({css: 'a[href="/start-eligibility"]'});
-    await I.waitForText('Continue application');
-    await I.navByClick('Continue application');
+    // we do need to allow refreshing the page here as it takes time to populate ccd, and storing data in the ccd
+    // database gives a success before is actually populated, so is async.
+    if (language === 'en') {
+        for (let i = 0; i <= 5; i++) {
+            await I.waitForText(dashboardContent.header, testConfig.TestWaitForTextToAppear);
+            const result = await I.checkForText(dashboardContent.actionContinue, 10);
+            if (result === true) {
+                break;
+            }
+            await I.refreshPage();
+        }
+
+        await I.see(dashboardContent.tableHeaderCcdCaseId);
+        await I.see(dashboardContent.tableHeaderDeceasedName);
+        await I.see(dashboardContent.tableHeaderCreateDate);
+        await I.see(dashboardContent.tableHeaderCaseStatus);
+        await I.navByClick(dashboardContent.actionContinue);
+    } else {
+        await I.amOnLoadedPage('/dashboard', language);
+        await I.saveScreenshot('dashboard-before.png');
+
+        for (let i = 0; i <= 5; i++) {
+            await I.waitForElement('#main-content', testConfig.TestWaitForTextToAppear);
+            const result = await I.checkForText(dashboardContent.actionContinue, 10);
+            if (result === true) {
+                break;
+            }
+            await I.amOnPage('/dashboard?lng=cy');
+            await I.refreshPage();
+        }
+        await I.navByClick(dashboardContent.actionContinue);
+        await I.wait(2);
+    }
 };

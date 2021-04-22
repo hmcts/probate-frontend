@@ -5,6 +5,7 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DeathCertificate = steps.DeathCertificate;
+const coreContextMockData = require('../../data/core-context-mock-data.json');
 
 describe('DeathCertificate', () => {
     describe('getUrl()', () => {
@@ -38,15 +39,9 @@ describe('DeathCertificate', () => {
 
             const ctx = DeathCertificate.getContextData(req, res);
             expect(ctx).to.deep.equal({
+                ...coreContextMockData,
                 sessionID: 'dummy_sessionId',
-                deathCertificate: 'optionYes',
-                caseType: 'gop',
-                userLoggedIn: false,
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                language: 'en'
+                deathCertificate: 'optionYes'
             });
             done();
         });

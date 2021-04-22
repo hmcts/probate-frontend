@@ -1,13 +1,14 @@
 {
   "title": "Cop&iuml;au - Tu allan i&rsquo;r DU",
-  "question": "Sawl copi wedi&rsquo;i ardystio ychwanegol o&rsquo;r grant ydych chi eu hangen i&rsquo;w defnyddio y tu allan i&rsquo;r Deyrnas Unedig?",
-  "paragraph1": "Archebwch gop&iuml;au wedi&rsquo;u hardystio ychwanegol o&rsquo;r grant os ydych angen hawlio&rsquo;r ystad y tu allan i&rsquo;r Deyrnas Unedig.",
-  "paragraph2": "Bydd gan gopi wedi&rsquo;i ardystio yr un nodweddion &acirc;&rsquo;r copi swyddogol a gwybodaeth ychwanegol yn cadarnhau manylion yr ardystio ar y dudalen gefn.",
-  "copies": "Nifer y cop&iuml;au wedi&rsquo;i hardystio ychwanegol",
-  "questionOld": "Sawl copi wedi&rsquo;i ardystio ychwanegol o&rsquo;r grant ydych chi eu hangen i&rsquo;w defnyddio y tu allan i&rsquo;r Deyrnas Unedig?",
-  "paragraph1Old": "Archebwch gop&iuml;au wedi&rsquo;u hardystio ychwanegol o&rsquo;r grant os ydych angen hawlio&rsquo;r ystad y tu allan i&rsquo;r Deyrnas Unedig.",
-  "paragraph2Old": "Bydd gan gopi wedi&rsquo;i ardystio yr un nodweddion &acirc;&rsquo;r copi swyddogol a gwybodaeth ychwanegol yn cadarnhau manylion yr ardystio ar y dudalen gefn.",
-  "copiesOld": "Nifer y cop&iuml;au wedi&rsquo;i hardystio ychwanegol",
+  "question": "Faint o gop&iuml;au ardystiedig ychwanegol o&rsquo;r grant sydd eu hangen arnoch i&rsquo;w defnyddio y tu allan i&rsquo;r DU? ",
+  "paragraph1": "Archebwch gop&iuml;au ardystiedig ychwanegol o&rsquo;r grant os oes angen i chi hawlio&rsquo;r ystad y tu allan i&rsquo;r DU.",
+  "paragraph2": "Bydd gan gopi ardystiedig yr un nodweddion &acirc;&rsquo;r copi swyddogol a gwybodaeth ychwanegol sy&rsquo;n cadarnhau manylion yr ardystiad ar y cefn.",
+  "copies": "Nifer y cop&iuml;au ardystiedig ychwanegol ",
+  
+  "questionOld": "Faint o gop&iuml;au ardystiedig ychwanegol o&rsquo;r grant sydd eu hangen arnoch i&rsquo;w defnyddio y tu allan i&rsquo;r DU? ",
+  "paragraph1Old": "Archebwch gop&iuml;au ardystiedig ychwanegol o&rsquo;r grant os oes angen i chi hawlio&rsquo;r ystad y tu allan i&rsquo;r DU.",
+  "paragraph2Old": "Bydd gan gopi ardystiedig yr un nodweddion &acirc;&rsquo;r copi swyddogol a gwybodaeth ychwanegol sy&rsquo;n cadarnhau manylion yr ardystiad ar y cefn.",
+  "copiesOld": "Nifer y cop&iuml;au ardystiedig ychwanegol ",
 
   "errors": {
     "overseas": {

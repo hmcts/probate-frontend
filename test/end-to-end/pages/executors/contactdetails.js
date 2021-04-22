@@ -1,10 +1,12 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
 const testConfig = require('config');
 
-module.exports = async function() {
+module.exports = async function(language = 'en') {
     const I = this;
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
 
     const emailLocator = {css: '#email'};
     await I.waitForElement(emailLocator);

@@ -1,9 +1,11 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
+const contentEn = require('app/resources/en/translation/common');
+const contentCy = require('app/resources/cy/translation/common');
 
-module.exports = async function(answer) {
+module.exports = async function(language ='en', answer) {
     const I = this;
+    const commonContent = language === 'en' ? contentEn : contentCy;
 
     await I.checkPageUrl('app/steps/ui/screeners/relatedtodeceased');
     const locator = {css: `#related${answer}`};

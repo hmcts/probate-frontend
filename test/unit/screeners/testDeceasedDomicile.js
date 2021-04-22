@@ -4,6 +4,7 @@ const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
+const coreContextMockData = require('../../data/core-context-mock-data.json');
 const DeceasedDomicile = steps.DeceasedDomicile;
 
 describe('DeceasedDomicile', () => {
@@ -38,15 +39,9 @@ describe('DeceasedDomicile', () => {
 
             const ctx = DeceasedDomicile.getContextData(req, res);
             expect(ctx).to.deep.equal({
+                ...coreContextMockData,
                 sessionID: 'dummy_sessionId',
-                domicile: 'optionYes',
-                caseType: 'gop',
-                userLoggedIn: false,
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                language: 'en'
+                domicile: 'optionYes'
             });
             done();
         });

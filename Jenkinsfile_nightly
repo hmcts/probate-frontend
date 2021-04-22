@@ -4,7 +4,7 @@ properties([
         pipelineTriggers([cron('00 02 * * *')]),
         parameters([
                 string(name: 'ENVIRONMENT', defaultValue: 'aat', description: 'Environment to test'),
-                string(name: 'test_path', defaultValue: './paths/probate/*.js', description: 'any three like ./paths/probate/*.js or ./paths/generic/*.js or ./paths/intestacy/*.js'),
+                string(name: 'test_path', defaultValue: './paths/**/*.js', description: 'any three like ./paths/probate/*.js or ./paths/generic/*.js or ./paths/intestacy/*.js'),
                 string(name: 'URL_TO_TEST', defaultValue: 'https://probate.aat.platform.hmcts.net', description: 'The URL you want to run these tests against'),
         ])
 ])
@@ -35,7 +35,8 @@ def secrets = [
     secret('testPostCodeAddressToken2', 'ADDRESS_TOKEN'),
     secret('testRunE2ETest', 'RUN_E2E_TEST'),
     secret('testValidationServiceUrl', 'VALIDATION_SERVICE_URL'),
-    secret('launchdarkly-key', 'LAUNCHDARKLY_KEY')
+    secret('launchdarkly-key', 'LAUNCHDARKLY_KEY'),
+    secret('launchdarklyUserkeyFrontend', 'LAUNCHDARKLY_USER_KEY')
   ]
 ]
 
@@ -49,20 +50,23 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 withNightlyPipeline("nodejs", product, component) {
-    env.TEST_URL = params.URL_TO_TEST
-    env.TEST_E2E_URL = params.URL_TO_TEST
-    env.PATH_TO_TEST_FILES =  params.test_path
     loadVaultSecrets(secrets)
+    env.TEST_URL = params.URL_TO_TEST
+    env.FE_E2E_TEST_PATH_TO_RUN = params.test_path
     //enableFullFunctionalTest()
-    enableCrossBrowserTest()
+    enableCrossBrowserTest(['chrome', 'firefox', 'safari', 'microsoft'])
 //    enableSecurityScan()  //we do this in otrher builds
     after('build') {
         sh 'mkdir -p functional-output'
         sh 'yarn setup'
         //sh 'yarn test-accessibility'
-    }  
+    }
     after('fullFunctionalTest') {
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+    }
+
+    after('crossBrowserTest') {
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
     }
 
     //    enableSlackNotifications('#div-dev')  // can be turned back on once the overnight functionality is working fully

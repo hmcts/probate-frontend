@@ -65,7 +65,7 @@ class Step {
         }
         ctx = Object.assign(ctx, req.body);
         ctx = FeatureToggle.appwideToggles(req, ctx, config.featureToggles.appwideToggles);
-
+        ctx.isAvayaWebChatEnabled = ctx.featureToggles && ctx.featureToggles.ft_avaya_webchat && ctx.featureToggles.ft_avaya_webchat === 'true';
         return ctx;
     }
 
@@ -125,6 +125,7 @@ class Step {
         if (!isEmpty(errors)) {
             fields = mapErrorsToFields(fields, errors);
         }
+
         return fields;
     }
 

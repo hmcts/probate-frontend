@@ -27,7 +27,21 @@ class TestConfigurator {
         this.retryScenarios = testConfig.TestRetryScenarios;
         this.testUseProxy = testConfig.TestUseProxy;
         this.testProxy = testConfig.TestProxy;
-        this.launchDarkly = new LaunchDarkly();
+        this.launchDarkly = null;
+    }
+
+    async initLaunchDarkly() {
+        console.log('Opening LaunchDarkly connection...');
+        this.launchDarkly = await new LaunchDarkly();
+        console.log('LaunchDarkly connection opened.');
+    }
+
+    async closeLaunchDarkly() {
+        if (this.launchDarkly) {
+            console.log('Closing LaunchDarkly connection...');
+            await this.launchDarkly.close();
+            console.log('LaunchDarkly connection closed.');
+        }
     }
 
     async getBefore() {
@@ -35,56 +49,12 @@ class TestConfigurator {
             this.setTestCitizenName();
             this.setTestCitizenPassword();
         }
-
-        this.setEnvVars();
-
-        const httpReq = util.promisify(request);
-
-        if (this.useIdam === 'true') {
-            this.userDetails =
-                {
-                    'email': this.getTestCitizenEmail(),
-                    'forename': this.getTestCitizenName(),
-                    'surname': this.getTestCitizenName(),
-                    'password': this.getTestCitizenPassword(),
-                    'roles': [{'code': this.getTestRole()}],
-                    'userGroup': {'code': this.getTestIdamUserGroup()}
-                };
-
-            try {
-
-                let response = null;
-                if (this.getUseProxy() === 'true') {
-                    response = await httpReq({
-                        url: this.getTestAddUserURL(),
-                        proxy: this.getProxy(),
-                        method: 'POST',
-                        json: true, // <--Very important!!!
-                        body: this.userDetails
-                    });
-                } else {
-                    response = await httpReq({
-                        url: this.getTestAddUserURL(),
-                        method: 'POST',
-                        json: true, // <--Very important!!!
-                        body: this.userDetails
-                    });
-                }
-                if (!response) {
-                    throw new Error('TestConfigurator.getBefore: Using proxy - ERROR. No error raised, but no response obtained.');
-                } else if (response.statusCode !== 201) {
-                    throw new Error('TestConfigurator.getBefore: Using proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
-                } else {
-                    console.log('User created (via proxy)', this.userDetails);
-                }
-            } catch (err) {
-                throw new Error(`TestConfigurator.getBefore: Using proxy - ERROR: ${err.message}\nError stack:\n${err.stack}`);
-            }
-        }
+        await this.setEnvVars();
     }
 
-    getAfter() {
-        this.launchDarkly.close();
+    async getAfter() {
+        await this.deleteIdamUser();
+        await this.closeLaunchDarkly();
     }
 
     setTestCitizenName() {
@@ -131,6 +101,26 @@ class TestConfigurator {
 
     idamInUseText(scenarioText) {
         return (this.useIdam === 'true') ? scenarioText + ' - With Idam' : scenarioText + ' - Without Idam';
+    }
+
+    async deleteIdamUser() {
+        if (this.useIdam === 'true') {
+            const email = this.getTestCitizenEmail();
+            console.log(`Deleting user: ${email}`);
+            try {
+                const httpReq = util.promisify(request);
+                const response = await httpReq({
+                    url: this.getTestDeleteUserURL() + email,
+                    proxy: this.getUseProxy() === 'true' ? this.getProxy() : null,
+                    method: 'DELETE'
+                });
+                if (response.statusCode > 204) {
+                    console.log(`Delete IDAM test user '${email}' result: ${response.statusCode}, ${response.statusMessage}`);
+                }
+            } catch (err) {
+                console.error(`IDAM test user deletion unsuccessful: ${err.message}`);
+            }
+        }
     }
 
     setEnvVars() {

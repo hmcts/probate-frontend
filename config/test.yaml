@@ -4,7 +4,7 @@ TestE2EFrontendUrl: 'http://localhost:3000'
 TestFrontendUrl: 'http://localhost:3000'
 TestIdamBaseUrl: 'http://localhost:8484'
 TestIdamLoginUrl: 'https://localhost:8000/login'
-TestOutputDir: './output'
+TestOutputDir: './functional-output'
 TestPathToRun: './paths/**/*.js'
 TestProxy: 'socks5:proxyout.reform.hmcts.net:8080'
 TestRetryFeatures: 4
@@ -63,7 +63,7 @@ links:
 
 helpline:
   number: '0300 303 0648'
-  hours: 'Monday to Friday, 8:00am to 8:00pm. Saturday, 8:00am to 2:00pm.'
+  hours: 'Monday to Friday, 8:00am to 6:00pm. Saturday, 8:00am to 2:00pm.'
 
 pact:
   pactBrokerUrl: 'http://localhost:80'

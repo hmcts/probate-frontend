@@ -1,51 +1,57 @@
 /* eslint-disable no-console */
 
 const supportedBrowsers = require('../crossbrowser/supportedBrowsers.js');
+const testConfig = require('config');
 
-const browser = process.env.SAUCELABS_BROWSER || 'chrome';
-const tunnelName = process.env.TUNNEL_IDENTIFIER || 'reformtunnel';
+const waitForTimeout = parseInt(process.env.WAIT_FOR_TIMEOUT) || 45000;
+const smartWait = parseInt(process.env.SMART_WAIT) || 30000;
+const browser = process.env.BROWSER_GROUP || 'chrome';
+const defaultSauceOptions = {
+    username: process.env.SAUCE_USERNAME,
+    accessKey: process.env.SAUCE_ACCESS_KEY,
+    tunnelIdentifier: process.env.TUNNEL_IDENTIFIER || 'reformtunnel',
+    acceptSslCerts: true,
+    windowSize: '1600x900',
+    tags: ['probate']
+};
 
-const getBrowserConfig = (browserGroup) => {
+function merge (intoObject, fromObject) {
+    return Object.assign({}, intoObject, fromObject);
+}
+
+function getBrowserConfig(browserGroup) {
     const browserConfig = [];
     for (const candidateBrowser in supportedBrowsers[browserGroup]) {
         if (candidateBrowser) {
-            const desiredCapability = supportedBrowsers[browserGroup][candidateBrowser];
-            desiredCapability.tunnelIdentifier = tunnelName;
-            desiredCapability.tags = ['probate'];
+            const candidateCapabilities = supportedBrowsers[browserGroup][candidateBrowser];
+            candidateCapabilities['sauce:options'] = merge(
+                defaultSauceOptions, candidateCapabilities['sauce:options']
+            );
             browserConfig.push({
-                browser: desiredCapability.browserName,
-                desiredCapabilities: desiredCapability
+                browser: candidateCapabilities.browserName,
+                capabilities: candidateCapabilities
             });
         } else {
             console.error('ERROR: supportedBrowsers.js is empty or incorrectly defined');
         }
     }
     return browserConfig;
-};
+}
 
 const setupConfig = {
-    tests: process.env.PATH_TO_TEST_FILES || './paths/**/*.js',
-    output: './output',
-    timeout: 20000,
+    tests: testConfig.TestPathToRun,
+    output: `${process.cwd()}/${testConfig.TestOutputDir}`,
     helpers: {
-        WebDriverIO: {
-            url: process.env.TEST_URL || 'https://localhost:3000',
+        WebDriver: {
+            url: testConfig.TestE2EFrontendUrl,
             browser,
-            smartWait: 10000,
-            waitforTimeout: 60000,
+            smartWait,
+            waitForTimeout,
             cssSelectorsEnabled: 'true',
-            windowSize: '1600x900',
-            timeouts: {
-                script: 60000,
-                'page load': 60000,
-                implicit: 20000
-            },
             host: 'ondemand.eu-central-1.saucelabs.com',
             port: 80,
             region: 'eu',
-            user: process.env.SAUCE_USERNAME,
-            key: process.env.SAUCE_ACCESS_KEY,
-            desiredCapabilities: {}
+            capabilities: {}
         },
         SauceLabsReportingHelper: {
             require: './helpers/SauceLabsReportingHelper.js'
@@ -55,11 +61,18 @@ const setupConfig = {
         },
         JSWait: {
             require: './helpers/JSWait.js'
+        },
+        IDAMHelper: {
+            require: './helpers/IDAMHelper.js'
+        },
+        Mochawesome: {
+            uniqueScreenshotNames: 'true'
         }
     },
     plugins: {
         retryFailedStep: {
-            enabled: true
+            enabled: true,
+            retries: testConfig.TestRetrySteps
         },
         autoDelay: {
             enabled: true,
@@ -67,41 +80,44 @@ const setupConfig = {
         }
     },
     include: {
-        'I': './pages/steps.js'
+        I: './pages/steps.js'
     },
     mocha: {
         reporterOptions: {
             'codeceptjs-cli-reporter': {
                 stdout: '-',
-                options:
-                    {steps: true}
+                options: {steps: true}
+            },
+            'mocha-junit-reporter': {
+                stdout: '-',
+                options: {mochaFile: `${testConfig.TestOutputDir}/result.xml`}
             },
             mochawesome: {
-                stdout: process.env.E2E_CROSSBROWSER_OUTPUT_DIR + 'console.log',
+                stdout: testConfig.TestOutputDir + '/console.log',
                 options: {
-                    reportDir: process.env.E2E_CROSSBROWSER_OUTPUT_DIR || './output',
+                    reportDir: testConfig.TestOutputDir,
                     reportName: 'index',
-                    reportTitle: 'Crossbrowser results',
+                    reportTitle: 'Crossbrowser results for: ' + browser.toUpperCase(),
                     inlineAssets: true
                 }
             }
         }
     },
     multiple: {
-        microsoftIE11: {
-            browsers: getBrowserConfig('microsoftIE11')
-        },
-        microsoftEdge: {
-            browsers: getBrowserConfig('microsoftEdge')
+        microsoft: {
+            browsers: getBrowserConfig('microsoft')
         },
         chrome: {
             browsers: getBrowserConfig('chrome')
         },
         firefox: {
             browsers: getBrowserConfig('firefox')
+        },
+        safari: {
+            browsers: getBrowserConfig('safari')
         }
     },
-    name: 'Probate FrontEnd Tests'
+    name: 'Probate FrontEnd Cross-Browser Tests'
 };
 
 exports.config = setupConfig;

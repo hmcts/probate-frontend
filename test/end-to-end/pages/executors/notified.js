@@ -1,9 +1,11 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
 
-module.exports = async function(executorNotified) {
+module.exports = async function(language = 'en', executorNotified) {
     const I = this;
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
 
     await I.checkPageUrl('app/steps/ui/executors/notified');
     const locator = {css: `#executorNotified${executorNotified}`};

@@ -5,6 +5,7 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ApplicantExecutor = steps.ApplicantExecutor;
+const coreContextMockData = require('../../data/core-context-mock-data.json');
 
 describe('ApplicantExecutor', () => {
     describe('getUrl()', () => {
@@ -38,15 +39,9 @@ describe('ApplicantExecutor', () => {
 
             const ctx = ApplicantExecutor.getContextData(req, res);
             expect(ctx).to.deep.equal({
+                ...coreContextMockData,
                 sessionID: 'dummy_sessionId',
                 executor: 'optionYes',
-                caseType: 'gop',
-                userLoggedIn: false,
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                language: 'en'
             });
             done();
         });

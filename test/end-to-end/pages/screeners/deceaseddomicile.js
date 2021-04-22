@@ -1,20 +1,19 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const content = require('app/resources/en/translation/screeners/deceaseddomicile');
+const contentEn = require('app/resources/en/translation/common');
+const contentCy = require('app/resources/cy/translation/common');
+const deceasedDomicileEn = require('app/resources/en/translation/screeners/deceaseddomicile');
+const deceasedDomicileCy = require('app/resources/cy/translation/screeners/deceaseddomicile');
 
-module.exports = async function(answer) {
+module.exports = async function(language ='en') {
     const I = this;
+    const commonContent = language === 'en' ? contentEn : contentCy;
+    const deceasedDomicileContent = language === 'en' ? deceasedDomicileEn : deceasedDomicileCy;
 
     await I.checkPageUrl('app/steps/ui/screeners/deceaseddomicile');
-    await I.waitForText(content.question);
-    await I.see(content.hintText1);
-    await I.seeElement({css: '#domicile-hint'});
-    await I.see('You can read more about ');
+    await I.waitForText(deceasedDomicileContent.question);
+    await I.see(deceasedDomicileContent.hintText1);
 
-    const locator = {css: `#domicile${answer}`};
-    await I.waitForElement(locator);
-    await I.click(locator);
-
+    await I.click(deceasedDomicileContent.optionYes);
     await I.navByClick(commonContent.continue);
 };

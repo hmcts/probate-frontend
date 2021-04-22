@@ -1,9 +1,11 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
+const commonContentEn = require('app/resources/en/translation/common');
+const commonContentCy = require('app/resources/cy/translation/common');
 
-module.exports = async function(executorNumber, diedBefore, firstRecord) {
+module.exports = async function(language = 'en', executorNumber, diedBefore, firstRecord) {
     const I = this;
+    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
 
     if (firstRecord) {
         await I.checkPageUrl('app/steps/ui/executors/whendied', '*');

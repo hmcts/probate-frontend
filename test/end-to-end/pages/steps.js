@@ -112,6 +112,10 @@ module.exports = () => {
         seePaymentBreakdownPage: steps.payment.paymentbreakdown,
         seeGovUkPaymentPage: steps.payment.govukpayment,
         seeGovUkConfirmPage: steps.payment.govukconfirmpayment,
+        seeGovUkCancelPage: steps.payment.govukcancelpayment,
+        seeCancellationPage: steps.payment.continuecancel,
+        seePaymentClosePage: steps.payment.paymentclose,
+
         seePaymentStatusPage: steps.payment.paymentstatus,
 
         // Documents

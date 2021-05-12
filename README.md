@@ -6,7 +6,7 @@ The Frontend Application uses Orchestrator to route specific requests to the und
 
 
 ## Getting Started
-### Prerequisites
+### Prerequisites.
 
 - [Node.js](nodejs.org) >= 12.5.0
 - [yarn](yarnpkg.com)

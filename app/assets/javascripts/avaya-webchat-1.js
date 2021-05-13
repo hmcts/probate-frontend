@@ -32,7 +32,9 @@
     if(avayaWebchat){
         avayaWebchat.hidden = true;
         avayaWebchat.addEventListener('metrics', function (metrics) {
+            
             const metricsDetail = metrics.detail;
+            console.log('metrics => ', metricsDetail);
             const ewt = metricsDetail.ewt;
             const ccState = metricsDetail.contactCenterState;
             const availableAgents = metricsDetail.availableAgents;
@@ -50,6 +52,8 @@
                avayaWebchatClose.hidden = false;
             }
         });
+    }else{
+        console.log('avaya not theer');
     }
 
     const avayaWebChatLink = document.querySelector('#avaya-webchat-link');

@@ -116,14 +116,14 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         directives: {
             defaultSrc: [
                 '\'self\'',
-                'webchat.ctsc.hmcts.net',
-                'webchat-client.ctsc.hmcts.net'
+                'webchat.training.ctsc.hmcts.net',
+                'webchat-client.training.ctsc.hmcts.net'
             ],
             fontSrc: [
                 '\'self\' data:',
                 'fonts.gstatic.com',
-                'webchat-client.ctsc.hmcts.net',
-                'webchat.ctsc.hmcts.net',
+                'webchat-client.training.ctsc.hmcts.net',
+                'webchat.training.ctsc.hmcts.net',
             ],
             scriptSrc: [
                 '\'self\'',
@@ -135,17 +135,17 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'www.googletagmanager.com',
                 'vcc-eu4.8x8.com',
                 'vcc-eu4b.8x8.com',
-                'webchat-client.ctsc.hmcts.net',
-                'webchat.ctsc.hmcts.net',
+                'webchat-client.training.ctsc.hmcts.net',
+                'webchat.training.ctsc.hmcts.net',
                 `'nonce-${nonce}'`,
                 'tagmanager.google.com'
             ],
             connectSrc: [
                 '\'self\'',
                 'www.google-analytics.com',
-                'https://webchat-client.ctsc.hmcts.net',
-                'https://webchat.ctsc.hmcts.net',
-                'wss://webchat.ctsc.hmcts.net',
+                'https://webchat-client.training.ctsc.hmcts.net',
+                'https://webchat.training.ctsc.hmcts.net',
+                'wss://webchat.training.ctsc.hmcts.net',
                 'stats.g.doubleclick.net',
                 'tagmanager.google.com'
             ],
@@ -166,15 +166,15 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'ssl.gstatic.com',
                 'www.gstatic.com',
                 'lh3.googleusercontent.com',
-                'webchat-client.ctsc.hmcts.net'
+                'webchat-client.training.ctsc.hmcts.net'
             ],
             styleSrc: [
                 '\'self\'',
                 '\'unsafe-inline\'',
                 'tagmanager.google.com',
                 'fonts.googleapis.com',
-                'webchat-client.ctsc.hmcts.net',
-                'webchat.ctsc.hmcts.net'
+                'webchat-client.training.ctsc.hmcts.net',
+                'webchat.training.ctsc.hmcts.net'
             ],
             frameAncestors: ['\'self\'']
         },

@@ -43,7 +43,9 @@ describe('deceased-domicile', () => {
         it(`test it redirects to next page: ${expectedNextUrlForIhtCompleted}`, (done) => {
             const sessionData = {
                 screeners: {
-                    deathCertificate: 'optionYes'
+                    deathCertificate: 'optionYes',
+                    deathCertificateInEnglish: 'optionNo',
+                    deathCertificateTranslation: 'optionYes'
                 }
             };
 
@@ -61,7 +63,9 @@ describe('deceased-domicile', () => {
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
             const sessionData = {
                 screeners: {
-                    deathCertificate: 'optionYes'
+                    deathCertificate: 'optionYes',
+                    deathCertificateInEnglish: 'optionNo',
+                    deathCertificateTranslation: 'optionYes'
                 }
             };
 

@@ -17,6 +17,18 @@
     const avayaWebchatOpen = document.querySelector('#avaya-webchat-open');
     const avayaWebchatClose = document.querySelector('#avaya-webchat-close');
 
+    if(avayaAgentBusy){
+        avayaAgentBusy.hidden = true;
+    }
+
+    if(avayaWebchatOpen){
+        avayaWebchatOpen.hidden = true;
+    }
+
+    if(avayaWebchatClose){
+        avayaWebchatClose.hidden = false;
+    }
+
     if(avayaWebchat){
         avayaWebchat.hidden = true;
         avayaWebchat.addEventListener('metrics', function (metrics) {
@@ -29,7 +41,7 @@
             avayaAgentBusy.hidden = true;
             avayaWebchatClose.hidden = true;
             if(ccState === 'Open'){
-                if(availableAgents > 0){
+                if(availableAgents > 0 && ewt <= 300){
                     avayaWebchatOpen.hidden = false;
                 }else{
                     avayaAgentBusy.hidden = false;

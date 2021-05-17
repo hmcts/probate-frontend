@@ -54,7 +54,9 @@ describe('DeceasedDomicile', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'optionYes'
+                            deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes'
                         }
                     }
                 }
@@ -73,7 +75,9 @@ describe('DeceasedDomicile', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'optionYes'
+                            deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes'
                         }
                     }
                 }

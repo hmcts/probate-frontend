@@ -104,7 +104,8 @@ describe('payment-status', () => {
                 },
                 payment: {
                     total: 0
-                }
+                },
+                caseType: caseTypes.GOP
             };
 
             testWrapper.agent.post('/prepare-session/form')

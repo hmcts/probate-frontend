@@ -1,6 +1,6 @@
 'use strict';
 
-const journey = require('app/journeys/probate');
+const probateJourney = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
@@ -41,7 +41,7 @@ describe('DeathCertificate', () => {
             expect(ctx).to.deep.equal({
                 ...coreContextMockData,
                 sessionID: 'dummy_sessionId',
-                deathCertificate: 'optionYes'
+                deathCertificate: 'optionYes',
             });
             done();
         });
@@ -51,21 +51,21 @@ describe('DeathCertificate', () => {
         it('should return the correct url when Yes is given', (done) => {
             const req = {
                 session: {
-                    journey: journey
+                    journey: probateJourney
                 }
             };
             const ctx = {
                 deathCertificate: 'optionYes'
             };
             const nextStepUrl = DeathCertificate.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/deceased-domicile');
+            expect(nextStepUrl).to.equal('/death-certificate-english');
             done();
         });
 
         it('should return the correct url when No is given', (done) => {
             const req = {
                 session: {
-                    journey: journey
+                    journey: probateJourney
                 }
             };
             const ctx = {

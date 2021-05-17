@@ -7,7 +7,7 @@ const language = 'en';
 
 Feature('Survey');
 
-Scenario('Check survey link works', async (I) => {
+Scenario('Check survey link works', async ({I}) => {
 
     // Eligibility Task (pre IdAM)
     await I.startApplication(language);

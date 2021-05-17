@@ -10,7 +10,6 @@ const Payment = require('app/services/Payment');
 const Authorise = require('app/services/Authorise');
 const ServiceMapper = require('app/utils/ServiceMapper');
 const DocumentsWrapper = require('app/wrappers/Documents');
-const featureToggle = require('app/utils/FeatureToggle');
 
 class PaymentStatus extends Step {
 
@@ -149,9 +148,9 @@ class PaymentStatus extends Step {
         return [result, errors];
     }
 
-    handleGet(ctx, formdata, featureToggles) {
+    handleGet(ctx, formdata) {
         const documentsWrapper = new DocumentsWrapper(formdata);
-        ctx.documentsRequired = documentsWrapper.documentsRequired(featureToggle.isEnabled(featureToggles, 'ft_new_deathcert_flow'));
+        ctx.documentsRequired = documentsWrapper.documentsRequired();
         return [ctx, ctx.errors];
     }
 

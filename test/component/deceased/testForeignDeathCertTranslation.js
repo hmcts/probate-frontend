@@ -6,7 +6,6 @@ const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('foreign-death-cert-translation', () => {
     let testWrapper;
-    const ftValue = {ft_new_deathcert_flow: true};
     const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
 
     beforeEach(() => {
@@ -61,12 +60,7 @@ describe('foreign-death-cert-translation', () => {
             const data = {
                 foreignDeathCertTranslation: 'optionYes'
             };
-
-            testWrapper.agent.post('/prepare-session/featureToggles')
-                .send(ftValue)
-                .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
-                });
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
     });
 });

@@ -53,6 +53,7 @@ describe('mental-capacity', () => {
             const sessionData = {
                 screeners: {
                     deathCertificate: 'optionYes',
+                    deathCertificateInEnglish: 'optionYes',
                     domicile: 'optionYes',
                     completed: 'optionYes',
                     left: 'optionYes',
@@ -76,6 +77,7 @@ describe('mental-capacity', () => {
             const sessionData = {
                 screeners: {
                     deathCertificate: 'optionYes',
+                    deathCertificateInEnglish: 'optionYes',
                     domicile: 'optionYes',
                     completed: 'optionYes',
                     left: 'optionYes',

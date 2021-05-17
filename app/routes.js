@@ -74,7 +74,7 @@ router.get('/start-apply', (req, res, next) => {
     }
 });
 
-router.use((req, res, next) => {
+router.use(['/task-list', '/assets-overseas', '/copies-overseas', '/copies-uk', '/copies-summary'], (req, res, next) => {
     const formdata = req.session.form;
     const ccdCaseId = formdata.ccdCase ? formdata.ccdCase.id : 'undefined';
 

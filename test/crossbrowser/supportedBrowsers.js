@@ -24,7 +24,7 @@ const supportedBrowsers = {
     safari: {
         safari_mac: {
             browserName: 'safari',
-            platformName: 'macOS 10.14',
+            platformName: 'macOS 10.15',
             browserVersion: 'latest',
             'sauce:options': {
                 name: 'Probate: MAC_SAFARI',

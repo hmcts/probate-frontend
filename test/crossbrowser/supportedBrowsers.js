@@ -24,8 +24,8 @@ const supportedBrowsers = {
     safari: {
         safari_mac: {
             browserName: 'safari',
-            platformName: 'macOS 10.15',
-            browserVersion: '13',
+            platformName: 'macOS 11.00',
+            browserVersion: '14',
             'sauce:options': {
                 name: 'Probate: MAC_SAFARI',
                 seleniumVersion: '3.141.59',

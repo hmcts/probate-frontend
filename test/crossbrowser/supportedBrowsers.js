@@ -29,7 +29,7 @@ const supportedBrowsers = {
             'sauce:options': {
                 name: 'Probate: MAC_SAFARI',
                 seleniumVersion: '3.141.59',
-                screenResolution: '1400x1050'
+                screenResolution: '1280x960'
             }
         }
     },

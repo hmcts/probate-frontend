@@ -47,6 +47,8 @@ const setupConfig = {
             browser,
             smartWait,
             waitForTimeout,
+            restart: false,
+            keepCookies: true,
             cssSelectorsEnabled: 'true',
             host: 'ondemand.eu-central-1.saucelabs.com',
             port: 80,

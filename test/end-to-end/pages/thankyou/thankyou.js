@@ -15,5 +15,5 @@ module.exports = async function(language ='en') {
     await I.downloadPdfIfNotIE11('#coverSheetPdfHref');
     const locator = {css: '#navigation > li:nth-child(2) > a'};
     await I.waitForElement(locator);
-    await I.click(locator);
+    await I.navByClick(locator);
 };

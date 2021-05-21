@@ -12,9 +12,10 @@ module.exports = async function(language = 'en', answer) {
     const relationshipContent = language === 'en' ? relationshipContentEn : relationshipContentCy;
 
     await I.checkPageUrl('app/steps/ui/applicant/relationshiptodeceased');
-    await I.waitForText(relationshipContent.question, config.TestWaitForTextToAppear);
+    await I.waitForText(relationshipContent.title, config.TestWaitForTextToAppear);
+    await I.waitForText(relationshipContent.question);
+    await I.wait(2);
     const locator = {css: `#relationshipToDeceased${answer}`};
-    await I.waitForElement(locator);
     await I.click(locator);
 
     await I.navByClick(commonContent.saveAndContinue);

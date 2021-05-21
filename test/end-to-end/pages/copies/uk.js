@@ -13,8 +13,10 @@ module.exports = async function(language = 'en', copies) {
 
     await I.checkPageUrl('app/steps/ui/copies/uk');
     await I.waitForText(ukCopiesContent.question, config.TestWaitForTextToAppear);
+    await I.wait(2);
+    await I.seeElement('#uk');
     const locator = {css: '#uk'};
-    await I.waitForElement(locator);
+    //await I.waitForElement(locator);
     await I.fillField(locator, copies);
 
     await I.navByClick(commonContent.saveAndContinue);

@@ -9,9 +9,10 @@ module.exports = async function(language = 'en', redirect) {
 
     await I.checkPageUrl('app/steps/ui/summary', redirect);
     await I.waitForText(summaryContent.heading);
+    await I.waitForText(summaryContent.checkAnswersPdf);
 
     const locator = {css: '#checkAnswerHref'};
-    await I.waitForElement(locator);
+    //await I.waitForElement(locator);
     await I.downloadPdfIfNotIE11(locator);
     await I.navByClick('.govuk-button');
 };

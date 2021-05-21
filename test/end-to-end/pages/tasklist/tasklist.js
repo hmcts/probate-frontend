@@ -12,7 +12,9 @@ module.exports = async function(language ='en') {
         await I.waitForText(taskListContent.introduction, testConfig.TestWaitForTextToAppear);
     }
     await I.checkPageUrl('app/steps/ui/tasklist');
+    await I.waitForText('Apply for probate');
+    await I.seeElement('.govuk-button');
     const locator = {css: '.govuk-button'};
-    await I.waitForElement(locator);
+    //await I.waitForElement(locator);
     await I.click(locator);
 };

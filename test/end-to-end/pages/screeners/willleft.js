@@ -13,9 +13,9 @@ module.exports = async function(language ='en', answer) {
 
     await I.checkPageUrl('app/steps/ui/screeners/willleft');
     await I.waitForText(willLeftContent.question);
-    await I.seeElement(`#left${answer}`);
+    await I.waitForText('No');
     const locator = {css: `#left${answer}`};
     //await I.waitForElement(locator, config.TestWaitForElementToAppear);
-    await I.click(locator);
+    await I.retry(2).click(locator);
     await I.navByClick(commonContent.continue);
 };

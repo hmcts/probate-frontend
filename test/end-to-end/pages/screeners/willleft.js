@@ -13,7 +13,12 @@ module.exports = async function(language ='en', answer) {
 
     await I.checkPageUrl('app/steps/ui/screeners/willleft');
     await I.waitForText(willLeftContent.question);
-    await I.waitForText('No');
+    if (language ==='en') {
+        await I.waitForText('No');
+    } else {
+        await I.waitForText('Naddo');
+    }
+
     const locator = {css: `#left${answer}`};
     //await I.waitForElement(locator, config.TestWaitForElementToAppear);
     await I.retry(2).click(locator);

@@ -12,7 +12,11 @@ module.exports = async function(language ='en') {
         await I.waitForText(taskListContent.introduction, testConfig.TestWaitForTextToAppear);
     }
     await I.checkPageUrl('app/steps/ui/tasklist');
-    await I.waitForText('Apply for probate');
+    if (language ==='en') {
+        await I.waitForText('Apply for probate');
+    } else {
+        await I.waitForText('Gwneud cais am brofiant');
+    }
     await I.seeElement('.govuk-button');
     const locator = {css: '.govuk-button'};
     //await I.waitForElement(locator);

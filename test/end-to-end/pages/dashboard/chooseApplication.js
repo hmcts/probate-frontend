@@ -9,7 +9,11 @@ module.exports = async function(language ='en') {
     const I = this;
     const dashboardContent = language === 'en' ? dashboardEn : dashboardCy;
     await I.checkPageUrl('app/steps/ui/dashboard');
-    await I.checkForText('Probate applications');
+    if (language ==='en') {
+        await I.waitForText('Probate applications');
+    } else {
+        await I.waitForText('Ceisiadau profiant');
+    }
     //await I.waitForElement('#main-content', testConfig.TestWaitForTextToAppear);
     const welshLinkText = await I.grabTextFrom('//a[@class =\'govuk-link language\']');
     console.log('Dash Board Link Name::-->' + welshLinkText);

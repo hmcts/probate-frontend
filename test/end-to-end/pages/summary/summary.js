@@ -13,6 +13,7 @@ module.exports = async function(language = 'en', redirect) {
 
     const locator = {css: '#checkAnswerHref'};
     //await I.waitForElement(locator);
+    await I.wait(2);
     await I.downloadPdfIfNotIE11(locator);
     await I.navByClick('.govuk-button');
 };

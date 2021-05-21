@@ -1,26 +1,26 @@
 //const LATEST_MAC = 'macOS 11.00';
-const LATEST_WINDOWS = 'Windows 10';
+//const LATEST_WINDOWS = 'Windows 10';
 
 const supportedBrowsers = {
-    microsoft: {
-        ie11_win_latest: {
-            browserName: 'internet explorer',
-            platformName: LATEST_WINDOWS,
-            browserVersion: 'latest',
-            'sauce:options': {
-                name: 'Probate: IE11',
-                screenResolution: '1400x1050'
-            }
-        },
-        edge_win_latest: {
-            browserName: 'MicrosoftEdge',
-            platformName: LATEST_WINDOWS,
-            browserVersion: 'latest',
-            'sauce:options': {
-                name: 'Probate: Edge_Win10'
-            }
-        }
-    },
+//    microsoft: {
+//        ie11_win_latest: {
+//            browserName: 'internet explorer',
+//            platformName: LATEST_WINDOWS,
+//            browserVersion: 'latest',
+//            'sauce:options': {
+//                name: 'Probate: IE11',
+//                screenResolution: '1400x1050'
+//            }
+//        },
+//        edge_win_latest: {
+//            browserName: 'MicrosoftEdge',
+//            platformName: LATEST_WINDOWS,
+//            browserVersion: 'latest',
+//            'sauce:options': {
+//                name: 'Probate: Edge_Win10'
+//            }
+//        }
+//    },
     safari: {
         safari_mac: {
             browserName: 'safari',

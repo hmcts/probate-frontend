@@ -1,6 +1,10 @@
 # Use for testing http - e.g. local env
 environment: 'sandbox'
 
+configFeatureToggles:
+  webchatEnabled: false
+  gaEnabled: false
+
 TestCitizenDomain: '/@probateTest.com'
 TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png'
 TestE2EFrontendUrl: 'http://localhost:3000'

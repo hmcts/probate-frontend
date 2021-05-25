@@ -339,7 +339,19 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },          
+        },        
+        {
+            "name": "e2e gopSingleExecutor Webdriver - launch darkly OFF",
+            "request": "launch",
+            "runtimeArgs": [
+                "test-e2e-gop-single-exec-http-webriver",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },    
         {
             "name": "Mocha test end-end gopSingleExecutor - launch darkly ON",
             "request": "launch",

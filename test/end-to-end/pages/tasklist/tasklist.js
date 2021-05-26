@@ -11,6 +11,8 @@ module.exports = async function(language ='en') {
     await I.waitForText(taskListContent.introduction, testConfig.TestWaitForTextToAppear);
     await I.checkPageUrl('app/steps/ui/tasklist');
     const locator = {css: '.govuk-button'};
+    await I.waitForElement(locator);
+    await I.scrollTo(locator);
     await I.waitForClickable(locator);
     await I.click(locator);
 };

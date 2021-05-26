@@ -6,8 +6,8 @@ properties([
                 string(name: 'ENVIRONMENT', defaultValue: 'aat', description: 'Environment to test'),
                 string(name: 'test_path', defaultValue: './paths/**/*.js', description: 'any three like ./paths/probate/*.js or ./paths/generic/*.js or ./paths/intestacy/*.js'),
                 string(name: 'URL_TO_TEST', defaultValue: 'https://probate.aat.platform.hmcts.net', description: 'The URL you want to run these tests against'),
-                string(name: 'WEBCHAT_ENABLED', defaultValue: 'false', 'Run with webchat enabled or disabled'),
-                string(name: 'GA_ENABLED', defaultValue: 'false', 'Run with Google analytics enabled or disabled')
+                string(name: 'WEBCHAT_ENABLED', defaultValue: 'false', description: 'Run with webchat enabled or disabled'),
+                string(name: 'GA_ENABLED', defaultValue: 'false', description: 'Run with Google analytics enabled or disabled')
         ])
 ])
 

@@ -33,36 +33,37 @@
 <!--[if lte IE 9]>
 <script src="/public/javascripts/form-polyfill.js"></script>
 <![endif]-->
+{% if fields.isWebChatEnabled.value !== 'true' %}
+    {% if fields.language.value == "en" and fields.isAvayaWebChatEnabled.value !== 'true' %}
+        <script src="/public/webchat/javascript/hmcts-webchat.js"></script>
+        <script nonce="{{ globals.nonce }}">
+            webchat_init({
+                uuid: 'script_{{ globals.webChat.chatId }}',
+                tenant: '{{ globals.webChat.tenant }}',
+                channel: 'Probate',
+                stylesheetURL: 'https://' + window.location.hostname + '/public/webchat/css/hmcts-webchat-gds-v3.css',
+                busHandlerURL: 'https://' + window.location.hostname + '/public/webchat/javascript/hmcts-webchat-busHandler.js',
+                btnNoAgents: '/{{ globals.webChat.tenant }}/button_{{ globals.webChat.buttonNoAgents }}/img/logo',
+                btnAgentsBusy: '/{{ globals.webChat.tenant }}/button_{{ globals.webChat.buttonAgentsBusy }}/img/logo',
+                btnServiceClosed: '/{{ globals.webChat.tenant }}/button_{{ globals.webChat.buttonServiceClosed }}/img/logo',
+                chatDownAction: 'showMessage',
+                chatLinkFocusable: false,
+                textChatDown: '{{ common.helpChatDown | replace("\n", "\\n") | safe }}',
+                textChatClosed: '{{ common.helpChatClosed | replace("\n", "\\n") | replace("{chatOpeningHours}", common.helpChatOpeningHours) | safe }}',
+                textChatWithAnAgent: '{{ common.helpChatWithAnAgent | replace("\n", "\\n") | safe }}',
+                textNoAgentsAvailable: '{{ common.helpNoAgentsAvailable | replace("\n", "\\n") | safe }}',
+                textAllAgentsBusy: '{{ common.helpAllAgentsBusy | replace("\n", "\\n") | safe }}',
+                textChatAlreadyOpen: '{{ common.helpChatAlreadyOpen | replace("\n", "\\n") | safe }}',
+                textAdditional: '{{ common.helpChatOpeningHours | replace("\n", "\\n") | safe }}',
+                gdsMajorVersion: 3
+            });
+        </script>
+    {% endif %}
 
-{% if fields.language.value == "en" and fields.isAvayaWebChatEnabled.value !== 'true' %}
-    <script src="/public/webchat/javascript/hmcts-webchat.js"></script>
-    <script nonce="{{ globals.nonce }}">
-        webchat_init({
-            uuid: 'script_{{ globals.webChat.chatId }}',
-            tenant: '{{ globals.webChat.tenant }}',
-            channel: 'Probate',
-            stylesheetURL: 'https://' + window.location.hostname + '/public/webchat/css/hmcts-webchat-gds-v3.css',
-            busHandlerURL: 'https://' + window.location.hostname + '/public/webchat/javascript/hmcts-webchat-busHandler.js',
-            btnNoAgents: '/{{ globals.webChat.tenant }}/button_{{ globals.webChat.buttonNoAgents }}/img/logo',
-            btnAgentsBusy: '/{{ globals.webChat.tenant }}/button_{{ globals.webChat.buttonAgentsBusy }}/img/logo',
-            btnServiceClosed: '/{{ globals.webChat.tenant }}/button_{{ globals.webChat.buttonServiceClosed }}/img/logo',
-            chatDownAction: 'showMessage',
-            chatLinkFocusable: false,
-            textChatDown: '{{ common.helpChatDown | replace("\n", "\\n") | safe }}',
-            textChatClosed: '{{ common.helpChatClosed | replace("\n", "\\n") | replace("{chatOpeningHours}", common.helpChatOpeningHours) | safe }}',
-            textChatWithAnAgent: '{{ common.helpChatWithAnAgent | replace("\n", "\\n") | safe }}',
-            textNoAgentsAvailable: '{{ common.helpNoAgentsAvailable | replace("\n", "\\n") | safe }}',
-            textAllAgentsBusy: '{{ common.helpAllAgentsBusy | replace("\n", "\\n") | safe }}',
-            textChatAlreadyOpen: '{{ common.helpChatAlreadyOpen | replace("\n", "\\n") | safe }}',
-            textAdditional: '{{ common.helpChatOpeningHours | replace("\n", "\\n") | safe }}',
-            gdsMajorVersion: 3
-        });
-    </script>
-{% endif %}
-
-{% if fields.language.value == "en" and fields.isAvayaWebChatEnabled.value === 'true'%}
-    <!-- https://www.srihash.org/ creating the integrity from this url wheneverthe file changes -->
-    <script src="https://webchat.ctsc.hmcts.net/chat-client/1/app-es2015.js" type="module" integrity="sha256-+6QRLEIuxJZ2epRQr67MCQuRIbCVEQohSWOs/5Jx0NU=" crossorigin="anonymous"></script>
-    <script src="https://webchat.ctsc.hmcts.net/chat-client/1/app-es5.js" nomodule defer integrity="sha256-fYWsU5E2Y4p6/IXU2SKfzbnMCPRFOMOfvCUxZAC+/GM=" crossorigin="anonymous"></script>
-   <script src="/public/javascripts/avaya-webchat-1.js"></script>
+    {% if fields.language.value == "en" and fields.isAvayaWebChatEnabled.value === 'true'%}
+        <!-- https://www.srihash.org/ creating the integrity from this url wheneverthe file changes -->
+        <script src="https://webchat.ctsc.hmcts.net/chat-client/1/app-es2015.js" type="module" integrity="sha256-+6QRLEIuxJZ2epRQr67MCQuRIbCVEQohSWOs/5Jx0NU=" crossorigin="anonymous"></script>
+        <script src="https://webchat.ctsc.hmcts.net/chat-client/1/app-es5.js" nomodule defer integrity="sha256-fYWsU5E2Y4p6/IXU2SKfzbnMCPRFOMOfvCUxZAC+/GM=" crossorigin="anonymous"></script>
+    <script src="/public/javascripts/avaya-webchat-1.js"></script>
+    {% endif %}
 {% endif %}

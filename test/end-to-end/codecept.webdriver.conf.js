@@ -7,7 +7,7 @@ exports.config = {
         WebDriver: {
             url: testConfig.TestE2EFrontendUrl,
             host: '127.0.0.1',
-            port: 4444,
+            port: 9515,
             path: '/',
             smartWait: 5000,
             browser: 'chrome',

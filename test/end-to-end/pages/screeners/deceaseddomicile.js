@@ -10,8 +10,8 @@ module.exports = async function(language ='en') {
     const commonContent = language === 'en' ? contentEn : contentCy;
     const deceasedDomicileContent = language === 'en' ? deceasedDomicileEn : deceasedDomicileCy;
 
-    await I.checkPageUrl('app/steps/ui/screeners/deceaseddomicile');
     await I.waitForText(deceasedDomicileContent.question);
+    await I.checkPageUrl('app/steps/ui/screeners/deceaseddomicile');
     await I.see(deceasedDomicileContent.hintText1);
 
     await I.click(deceasedDomicileContent.optionYes);

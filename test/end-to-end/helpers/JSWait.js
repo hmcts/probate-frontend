@@ -28,6 +28,12 @@ class JSWait extends codecept_helper {
             return;
         }
         // non Puppeteer
+        // because we are using a fuzzy search not a css / xpath locator,
+        // we cannot use waitForEnabled or waitForClickable.
+        // Also webdriver has issues with waitForClickable.
+        // Therefore introduce this short delay to wait for button to be enabled after
+        // clicking other options to e.g. enable a continue button
+        await helper.wait(0.2);
         await helper.click(text, locator);
         await helper.wait(webDriverWait);
     }

@@ -26,13 +26,20 @@ class JSWait extends codecept_helper {
         }
 
         if (helperIsPuppeteer) {
-            helper.click(text, locator).catch(err => {
-                console.error(err.message);
-                // try without the locator
-                helper.click(text).catch(err2 => {
-                    console.error(err2.message);
+            // need a better mechanism for this
+            if (!locator || text === 'Save and continue' || text === 'Arbed a pharhau') {
+                helper.click(text).catch(err1 => {
+                    console.error(err1.message);
                 });
-            });
+            } else {
+                helper.click(text, locator).catch(err2 => {
+                    console.error(err2.message);
+                    // try without the locator
+                    helper.click(text).catch(err3 => {
+                        console.error(err3.message);
+                    });
+                });
+            }
             await helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']});
             return;
         }

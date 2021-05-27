@@ -84,6 +84,8 @@ class JSWait extends codecept_helper {
         }
     }
 
+    // this really slows things down as the require needs
+    // to load the object just to get the url
     async checkPageUrl(pageUnderTestClass, redirect) {
         // optimisation - don't need to do this for puppeteer
         const helper = this.helpers.WebDriver;

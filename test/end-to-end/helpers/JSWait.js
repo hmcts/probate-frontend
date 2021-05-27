@@ -45,7 +45,11 @@ class JSWait extends codecept_helper {
         }
 
         // non Puppeteer
-        await helper.click(text, locator);
+        if (!locator || text === 'Save and continue' || text === 'Arbed a pharhau') {
+            await helper.click(text);
+        } else {
+            await helper.click(text, locator);
+        }
         await helper.wait(webDriverWait);
     }
 

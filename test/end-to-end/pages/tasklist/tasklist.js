@@ -11,6 +11,5 @@ module.exports = async function(language ='en') {
     const locator = {css: '.govuk-button'};
     await I.waitForElement(locator);
     await I.scrollTo(locator);
-    await I.waitForClickable(locator);
     await I.click(locator);
 };

@@ -8,6 +8,6 @@ module.exports = async function(language ='en') {
 
     await I.waitForText(commonContent);
     const locator = {css: '#confirm'};
-    await I.waitForClickable(locator);
+    await I.waitForElement(locator);
     await I.navByClick(locator);
 };

@@ -11,7 +11,7 @@ module.exports = async function(language ='en', answer = null) {
     await I.waitForText(applicantExecutorContent.hintText2);
 
     const locator = {css: `#executor${answer}`};
-    await I.waitForClickable(locator);
+    await I.waitForElement(locator);
     await I.click(locator);
     await I.navByClick(commonContent.continue);
 };

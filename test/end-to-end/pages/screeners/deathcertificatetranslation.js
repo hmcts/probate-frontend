@@ -8,7 +8,7 @@ module.exports = async function(language ='en', answer = null) {
     await I.checkInUrl('/death-certificate-translation');
     await I.waitForText(deathCertTranslationContent.question);
     const locator = {css: `#deathCertificateTranslation${answer}`};
-    await I.waitForClickable(locator);
+    await I.waitForElement(locator);
     await I.click(locator);
     await I.navByClick(commonContent.continue);
 };

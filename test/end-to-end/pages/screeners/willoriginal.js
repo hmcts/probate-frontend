@@ -9,7 +9,7 @@ module.exports = async function(language ='en', answer = null) {
     await I.waitForText(willOriginalContent.question);
 
     const locator = {css: `#original${answer}`};
-    await I.waitForClickable(locator);
+    await I.waitForElement(locator);
     await I.click(locator);
     await I.navByClick(commonContent.continue);
 };

@@ -3,7 +3,7 @@
 module.exports = async function(pinCode) {
     const I = this;
 
-    await I.checkPageUrl('app/steps/ui/pin/signin');
+    await I.checkInUrl('/sign-in');
     const locator = {css: '#pin'};
     await I.waitForElement(locator);
     await I.fillField(locator, pinCode);

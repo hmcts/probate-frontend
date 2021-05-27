@@ -1,17 +1,13 @@
 'use strict';
 
 const config = require('config');
-const commonContentEn = require('app/resources/en/translation/common');
-const commonContentCy = require('app/resources/cy/translation/common');
-const contentEn = require('app/resources/en/translation/copies/uk');
-const contentCy = require('app/resources/cy/translation/copies/uk');
 
-module.exports = async function(language = 'en', copies) {
+module.exports = async function(language = 'en', copies = null) {
     const I = this;
-    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
-    const ukCopiesContent = language === 'en' ? contentEn : contentCy;
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    const ukCopiesContent = require(`app/resources/${language}/translation/copies/uk`);
 
-    await I.checkPageUrl('app/steps/ui/copies/uk');
+    await I.checkInUrl('/copies-uk');
     await I.waitForText(ukCopiesContent.question, config.TestWaitForTextToAppear);
     const locator = {css: '#uk'};
     await I.waitForElement(locator);

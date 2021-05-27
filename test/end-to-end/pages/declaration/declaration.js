@@ -1,17 +1,13 @@
 'use strict';
 
 const config = require('config');
-const commonContentEn = require('app/resources/en/translation/common');
-const commonContentCy = require('app/resources/cy/translation/common');
-const contentEn = require('app/resources/en/translation/declaration');
-const contentCy = require('app/resources/cy/translation/declaration');
 
-module.exports = async function(language = 'en', bilingualGOP) {
+module.exports = async function(language = 'en', bilingualGOP = null) {
     const I = this;
-    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
-    const declarationContent = language === 'en' ? contentEn : contentCy;
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    const declarationContent = require(`app/resources/${language}/translation/declaration`);
 
-    await I.checkPageUrl('app/steps/ui/declaration');
+    await I.checkInUrl('/declaration');
     if (language === 'en') {
         // The below check should be enabled for both English and Welsh once
         // this AAT Welsh content bug is fixed: https://tools.hmcts.net/jira/browse/DTSPB-1250
@@ -27,6 +23,9 @@ module.exports = async function(language = 'en', bilingualGOP) {
     }
 
     await I.downloadPdfIfNotIE11(enLocator);
+    await I.waitForElement({css: '#declarationCheckbox'});
+    await I.scrollTo({css: '#declarationCheckbox'});
+    await I.waitForClickable({css: '#declarationCheckbox'});
     await I.click({css: '#declarationCheckbox'});
     await I.navByClick(commonContent.saveAndContinue);
 };

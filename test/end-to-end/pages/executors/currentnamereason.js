@@ -5,6 +5,7 @@ const commonContent = require('app/resources/en/translation/common');
 module.exports = async function(executorNumber, aliasOther) {
     const I = this;
 
+    // this should be refactored to not need to load the application object
     await I.checkPageUrl('app/steps/ui/executors/currentnamereason', parseInt(executorNumber)-3);
     await I.click('#currentNameReason-4');
 

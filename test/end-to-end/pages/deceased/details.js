@@ -1,13 +1,13 @@
 'use strict';
 
-const commonContentEn = require('app/resources/en/translation/common');
-const commonContentCy = require('app/resources/cy/translation/common');
-
-module.exports = async function(language ='en', firstName, lastName, dob_day, dob_month, dob_year, dod_day, dod_month, dod_year) {
+// fix sonarlint issue - pass params as object - max params 7
+// defaulted params should be last!
+module.exports = async function(language ='en', firstName = null, lastName = null,
+    dob_day = null, dob_month = null, dob_year = null, dod_day = null, dod_month = null, dod_year = null) {
     const I = this;
-    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
+    const commonContent = require(`app/resources/${language}/translation/common`);
 
-    await I.checkPageUrl('app/steps/ui/deceased/details');
+    await I.checkInUrl('/deceased-details');
     const locatorFn = {css: '#firstName'};
     await I.waitForElement(locatorFn);
 

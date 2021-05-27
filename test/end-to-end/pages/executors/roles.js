@@ -1,15 +1,14 @@
 'use strict';
 
-const commonContentEn = require('app/resources/en/translation/common');
-const commonContentCy = require('app/resources/cy/translation/common');
-
-module.exports = async function(language = 'en', executorNumber, answer, firstRecord) {
+module.exports = async function(language = 'en', executorNumber = null, answer = null, firstRecord = null) {
     const I = this;
-    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
+    const commonContent = require(`app/resources/${language}/translation/common`);
 
     if (firstRecord) {
+        // this should be refactored to not need to load the application object
         await I.checkPageUrl('app/steps/ui/executors/roles', '*');
     } else {
+        // this should be refactored to not need to load the application object
         await I.checkPageUrl('app/steps/ui/executors/roles', parseInt(executorNumber) - 1);
     }
 

@@ -1,17 +1,12 @@
 'use strict';
 
 const config = require('config');
-const commonContentEn = require('app/resources/en/translation/common');
-const commonContentCy = require('app/resources/cy/translation/common');
-const spouseContentEn = require('app/resources/en/translation/applicant/spousenotapplyingreason');
-const spouseContentCy = require('app/resources/cy/translation/applicant/spousenotapplyingreason');
 
-module.exports = async function (language = 'en', answer) {
+module.exports = async function (language = 'en', answer = null) {
     const I = this;
-    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
-    const spouseContent = language === 'en' ? spouseContentEn : spouseContentCy;
-
-    await I.checkPageUrl('app/steps/ui/applicant/spousenotapplyingreason');
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    const spouseContent = require(`app/resources/${language}/translation/applicant/spousenotapplyingreason`);
+    await I.checkInUrl('/spouse-not-applying-reason');
     await I.waitForText(spouseContent.optionRenouncing, config.TestWaitForTextToAppear);
     const locator = {css: `#spouseNotApplyingReason${answer}`};
     await I.waitForElement(locator);

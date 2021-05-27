@@ -3,7 +3,7 @@
 module.exports = async function(answer) {
     const I = this;
 
-    await I.checkPageUrl('app/steps/ui/coapplicant/declaration');
+    await I.checkInUrl('/declaration');
     const locator = {css: `#agreement${answer}`};
     await I.waitForElement(locator);
     await I.click(locator);

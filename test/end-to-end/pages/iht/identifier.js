@@ -1,13 +1,10 @@
 'use strict';
 
-const commonContentEn = require('app/resources/en/translation/common');
-const commonContentCy = require('app/resources/cy/translation/common');
-
 module.exports = async function(language = 'en') {
     const I = this;
-    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
+    const commonContent = require(`app/resources/${language}/translation/common`);
 
-    await I.checkPageUrl('app/steps/ui/iht/identifier');
+    await I.checkInUrl('/iht-identifier');
     const locator = {css: '#identifier'};
 
     await I.waitForElement(locator);

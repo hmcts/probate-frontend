@@ -1,11 +1,9 @@
 'use strict';
 
-const commonContentEn = require('app/resources/en/translation/common');
-const commonContentCy = require('app/resources/cy/translation/common');
-
 module.exports = async function(language ='en') {
     const I = this;
-    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    // we should do something about this - wait for a url or some explicit content and remove this arbitrary wait
     await I.wait(3);
     await I.waitForText(commonContent.saveAndContinue);
     await I.navByClick(commonContent.saveAndContinue);

@@ -7,6 +7,7 @@ const equalityCy = 'Dydw i ddim eisiau ateb y cwestiynau hyn';
 module.exports = async function(language ='en') {
     const I = this;
     const equalityContent = language === 'en' ? equalityEn : equalityCy;
+    // we should do something about this - wait for a url or some explicit content and remove this arbitrary wait
     await I.wait(3);
 
     // const url = await I.grabCurrentUrl();

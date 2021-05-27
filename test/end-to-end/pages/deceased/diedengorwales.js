@@ -1,15 +1,12 @@
 'use strict';
 
-const commonContentEn = require('app/resources/en/translation/common');
-const commonContentCy = require('app/resources/cy/translation/common');
-
-module.exports = async function(language = 'en', answer) {
+module.exports = async function(language = 'en', answer = null) {
     const I = this;
-    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
+    const commonContent = require(`app/resources/${language}/translation/common`);
 
-    await I.checkPageUrl('app/steps/ui/deceased/diedengorwales');
+    await I.checkInUrl('/died-eng-or-wales');
     const locator = {css: `#diedEngOrWales${answer}`};
-    await I.waitForElement(locator);
+    await I.waitForClickable(locator);
     await I.click(locator);
     await I.navByClick(commonContent.saveAndContinue);
 };

@@ -4,7 +4,7 @@ const commonContent = require('app/resources/en/translation/common');
 
 module.exports = async function(noOfAliases) {
     const I = this;
-    await I.checkPageUrl('app/steps/ui/deceased/otherNames');
+    await I.checkInUrl('/other-names');
     await I.waitForText('Add another name');
     let i = 1;
     /* eslint-disable no-await-in-loop */

@@ -8,6 +8,6 @@ module.exports = async function(language ='en') {
     const commonContent = language === 'en' ? contentEn : contentCy;
     await I.waitForText(commonContent);
     const locator = {css: '#return-url'};
-    await I.waitForElement(locator);
+    await I.waitForClickable(locator);
     await I.navByClick(locator);
 };

@@ -25,7 +25,6 @@ module.exports = async function(language = 'en', bilingualGOP = null) {
     await I.downloadPdfIfNotIE11(enLocator);
     await I.waitForElement({css: '#declarationCheckbox'});
     await I.scrollTo({css: '#declarationCheckbox'});
-    await I.waitForClickable({css: '#declarationCheckbox'});
     await I.click({css: '#declarationCheckbox'});
     await I.navByClick(commonContent.saveAndContinue);
 };

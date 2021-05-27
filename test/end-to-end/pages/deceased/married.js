@@ -14,7 +14,7 @@ module.exports = async function(language ='en', answer = null) {
     await I.waitForText(deceasedContent, config.TestWaitForTextToAppear);
 
     const locator = {css: `#married${answer}`};
-    await I.waitForClickable(locator);
+    await I.waitForElement(locator);
     await I.click(locator);
     await I.navByClick(commonContent.saveAndContinue);
 };

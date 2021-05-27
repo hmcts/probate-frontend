@@ -6,7 +6,7 @@ module.exports = async function(language = 'en', answer = null) {
 
     await I.checkInUrl('/died-eng-or-wales');
     const locator = {css: `#diedEngOrWales${answer}`};
-    await I.waitForClickable(locator);
+    await I.waitForElement(locator);
     await I.click(locator);
     await I.navByClick(commonContent.saveAndContinue);
 };

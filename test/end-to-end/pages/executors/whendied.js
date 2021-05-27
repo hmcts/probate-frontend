@@ -12,7 +12,7 @@ module.exports = async function(language = 'en', executorNumber = null, diedBefo
         await I.checkPageUrl('app/steps/ui/executors/whendied', parseInt(executorNumber) - 1);
     }
     const locator = {css: `#diedbefore${diedBefore}`};
-    await I.waitForClickable(locator);
+    await I.waitForElement(locator);
     await I.click(locator);
     await I.navByClick(commonContent.saveAndContinue);
 };

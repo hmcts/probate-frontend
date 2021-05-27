@@ -9,6 +9,6 @@ module.exports = async function(language ='en') {
 
     await I.waitForText(paymentStatusContent.question, testConfig.TestWaitForTextToAppear);
     const locator = {css: '.govuk-button'};
-    await I.waitForClickable(locator);
+    await I.waitForElement(locator);
     await I.navByClick(locator);
 };

@@ -10,7 +10,7 @@ module.exports = async function (language = 'en', answer = null) {
     await I.checkInUrl('/any-children');
     await I.waitForText(childrenContent.hint, config.TestWaitForTextToAppear);
     const locator = `#anyChildren${answer}`;
-    await I.waitForClickable(locator);
+    await I.waitForElement(locator);
     await I.click(locator);
 
     await I.navByClick(commonContent.saveAndContinue);

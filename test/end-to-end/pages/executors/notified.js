@@ -6,7 +6,7 @@ module.exports = async function(language = 'en', executorNotified = null) {
 
     await I.checkInUrl('/executor-notified');
     const locator = {css: `#executorNotified${executorNotified}`};
-    await I.waitForClickable(locator);
+    await I.waitForElement(locator);
     await I.click(locator);
     await I.navByClick(commonContent.saveAndContinue);
 };

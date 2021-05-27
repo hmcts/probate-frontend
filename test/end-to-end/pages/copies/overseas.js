@@ -7,5 +7,5 @@ module.exports = async function(language ='en', copies = null) {
     const locator = {css: '#overseas'};
     await I.waitForElement(locator);
     await I.fillField(locator, copies);
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

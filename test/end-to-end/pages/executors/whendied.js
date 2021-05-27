@@ -14,5 +14,5 @@ module.exports = async function(language = 'en', executorNumber = null, diedBefo
     const locator = {css: `#diedbefore${diedBefore}`};
     await I.waitForElement(locator);
     await I.click(locator);
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

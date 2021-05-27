@@ -12,5 +12,5 @@ module.exports = async function(aliasReason, aliasOther) {
         await I.fillField('#otherReason', aliasOther);
     }
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

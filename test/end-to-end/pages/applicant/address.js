@@ -5,5 +5,5 @@ module.exports = async function(language ='en') {
     const commonContent = require(`app/resources/${language}/translation/common`);
     await I.checkInUrl('/applicant-address');
     await I.enterAddress();
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

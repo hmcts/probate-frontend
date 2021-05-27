@@ -12,5 +12,5 @@ module.exports = async function(language = 'en') {
     await I.wait(3);
     await I.waitForText(paymentContent.applicationFee, testConfig.TestWaitForTextToAppear);
     await I.waitForText(commonContent.saveAndContinue, testConfig.TestWaitForTextToAppear);
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

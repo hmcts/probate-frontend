@@ -20,5 +20,5 @@ module.exports = async function(language = 'en', executorsWhoDiedList = null) {
 
     }
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

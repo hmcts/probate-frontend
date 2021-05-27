@@ -13,5 +13,5 @@ module.exports = async function(language = 'en', executorsApplyingList = null) {
         await I.checkOption(locator);
     }
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

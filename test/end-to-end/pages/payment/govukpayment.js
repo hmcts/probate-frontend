@@ -21,5 +21,5 @@ module.exports = async function(language ='en') {
     await I.waitForElement({css: '#email'});
     await I.fillField({css: '#email'}, testConfig.TestEnvEmailAddress);
     await I.waitForElement({css: '#submit-card-details'});
-    await I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue, 'button.govuk-button');
 };

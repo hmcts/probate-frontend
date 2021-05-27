@@ -6,5 +6,5 @@ module.exports = async function(language ='en') {
     // we should do something about this - wait for a url or some explicit content and remove this arbitrary wait
     await I.wait(3);
     await I.waitForText(commonContent.saveAndContinue);
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

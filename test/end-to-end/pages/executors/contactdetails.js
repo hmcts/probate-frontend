@@ -11,5 +11,5 @@ module.exports = async function(language = 'en') {
     await I.fillField(emailLocator, testConfig.TestEnvEmailAddress);
     await I.fillField({css: '#mobile'}, testConfig.TestEnvMobileNumber);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

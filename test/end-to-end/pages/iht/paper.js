@@ -24,5 +24,5 @@ module.exports = async function(language ='en', formName = null, grossAmount = n
     await I.fillField({css: `#grossValueFieldIHT${formName}`}, grossAmount);
     await I.fillField({css: `#netValueFieldIHT${formName}`}, netAmount);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

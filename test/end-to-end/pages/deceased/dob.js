@@ -18,6 +18,6 @@ module.exports = async function(language = 'en', day = null, month = null, year=
     if (saveAndClose) {
         await I.navByClick(commonContent.signOut);
     } else {
-        await I.navByClick(commonContent.saveAndContinue);
+        await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
     }
 };

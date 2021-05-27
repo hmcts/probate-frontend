@@ -9,5 +9,5 @@ module.exports = async function(language = 'en') {
 
     await I.waitForElement(locator);
     await I.fillField(locator, '123456789XXXXX');
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

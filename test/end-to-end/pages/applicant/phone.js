@@ -12,5 +12,5 @@ module.exports = async function(language = 'en') {
     const locator = {css: '#phoneNumber'};
     await I.waitForElement(locator);
     await I.fillField(locator, '123456789');
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

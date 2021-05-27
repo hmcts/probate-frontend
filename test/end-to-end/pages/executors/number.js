@@ -12,5 +12,5 @@ module.exports = async function (language = 'en', totalExecutors = null) {
     const locator = {css: '#executorsNumber'};
     await I.waitForElement(locator);
     await I.fillField(locator, totalExecutors);
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

@@ -12,5 +12,5 @@ module.exports = async function(language ='en', uploadDocument = null) {
         await I.uploadDocumentIfNotMicrosoftEdge();
     }
 
-    await I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue, 'button.govuk-button');
 };

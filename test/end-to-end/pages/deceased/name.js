@@ -10,5 +10,5 @@ module.exports = async function(language ='en', firstName = null, lastName = nul
     await I.fillField(firstNameLocator, firstName);
     await I.fillField({css: '#lastName'}, lastName);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

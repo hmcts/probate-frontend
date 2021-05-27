@@ -26,5 +26,5 @@ module.exports = async function(language = 'en', bilingualGOP = null) {
     await I.waitForElement({css: '#declarationCheckbox'});
     await I.scrollTo({css: '#declarationCheckbox'});
     await I.click({css: '#declarationCheckbox'});
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

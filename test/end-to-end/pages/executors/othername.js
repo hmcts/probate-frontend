@@ -10,5 +10,5 @@ module.exports = async function(language = 'en', executorsWithDifferentNameIdLis
         // eslint-disable-next-line no-await-in-loop
         await I.checkOption('#executorsWithOtherNames-' + executorsWithDifferentNameIdList[i]);
     }
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

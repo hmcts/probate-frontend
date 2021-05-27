@@ -15,5 +15,5 @@ module.exports = async function(language = 'en', day = null, month = null, year 
     await I.fillField({css: '#dod-month'}, month);
     await I.fillField({css: '#dod-year'}, year);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

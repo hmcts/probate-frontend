@@ -8,5 +8,5 @@ module.exports = async function(language = 'en', answer = null) {
     const locator = {css: `#bilingual${answer}`};
     await I.waitForEnabled(locator);
     await I.seeCheckboxIsChecked(locator);
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

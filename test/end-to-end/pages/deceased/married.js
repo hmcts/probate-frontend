@@ -16,5 +16,5 @@ module.exports = async function(language ='en', answer = null) {
     const locator = {css: `#married${answer}`};
     await I.waitForElement(locator);
     await I.click(locator);
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

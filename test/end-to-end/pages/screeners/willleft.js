@@ -12,5 +12,5 @@ module.exports = async function(language ='en', answer = null) {
     const locator = {css: `#left${answer}`};
     await I.waitForElement(locator, config.TestWaitForElementToAppear);
     await I.click(locator);
-    await I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue, 'button.govuk-button');
 };

@@ -14,5 +14,5 @@ module.exports = async function(language ='en', testSurvey = false) {
         await I.closeCurrentTab();
     }
     await I.click(commonContent.yes);
-    await I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue, 'button.govuk-button');
 };

@@ -10,5 +10,5 @@ module.exports = async function(language ='en') {
     await I.see(deceasedDomicileContent.hintText1);
 
     await I.click(deceasedDomicileContent.optionYes);
-    await I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue, 'button.govuk-button');
 };

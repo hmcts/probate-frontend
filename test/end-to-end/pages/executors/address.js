@@ -6,5 +6,5 @@ module.exports = async function(language = 'en', executor = null) {
 
     await I.checkInUrl('/executor-address', executor);
     await I.enterAddress();
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

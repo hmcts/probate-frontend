@@ -8,5 +8,5 @@ module.exports = async function(answer) {
     await I.waitForElement({css: `#divorcePlace ${answer}`});
     await I.click({css: `#divorcePlace ${answer}`});
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

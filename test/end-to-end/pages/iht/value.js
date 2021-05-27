@@ -10,5 +10,5 @@ module.exports = async function(language = 'en', grossValue = null, netValue = n
     await I.fillField(locatorGv, grossValue);
     await I.fillField({css: '#netValueField'}, netValue);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

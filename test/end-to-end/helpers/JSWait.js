@@ -21,12 +21,17 @@ class JSWait extends codecept_helper {
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
         if (locator === 'button.govuk-button') {
+            await helper.scrollTo(locator);
             await helper.waitForEnabled(locator);
         }
 
         if (helperIsPuppeteer) {
             helper.click(text, locator).catch(err => {
                 console.error(err.message);
+                // try without the locator
+                helper.click(text).catch(err2 => {
+                    console.error(err2.message);
+                });
             });
             await helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']});
             return;

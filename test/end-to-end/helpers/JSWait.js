@@ -26,30 +26,24 @@ class JSWait extends codecept_helper {
         }
 
         if (helperIsPuppeteer) {
-            // need a better mechanism for this
-            if (!locator || text === 'Save and continue' || text === 'Arbed a pharhau') {
-                helper.click(text).catch(err1 => {
-                    console.error(err1.message);
-                });
-            } else {
-                helper.click(text, locator).catch(err2 => {
-                    console.error(err2.message);
-                    // try without the locator
-                    helper.click(text).catch(err3 => {
-                        console.error(err3.message);
-                    });
-                });
-            }
+
+            // Note - doesn't wait for promise return
+
+            // click by fuzzy text search - locator doesn't work for click
+            // sometimes when in a scrollable div (Save and continue and Start)
+            helper.click(text).catch(err1 => {
+                console.error(err1.message);
+            });
             await helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']});
             return;
         }
 
         // non Puppeteer
-        if (!locator || text === 'Save and continue' || text === 'Arbed a pharhau') {
-            await helper.click(text);
-        } else {
-            await helper.click(text, locator);
-        }
+        // click and await promise
+
+        // click by fuzzy text search - locator doesn't work for click
+        // sometimes when in a scrollable div
+        await helper.click(text);
         await helper.wait(webDriverWait);
     }
 

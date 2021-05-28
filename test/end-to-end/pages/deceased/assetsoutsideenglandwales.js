@@ -10,7 +10,7 @@ module.exports = async function(language = 'en', answer = null) {
     await I.checkInUrl('/assets-outside-england-wales');
     await I.waitForText(assetsContent.hint, config.TestWaitForTextToAppear);
     const locator = {css: `#assetsOutside ${answer}`};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.click(locator);
     await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

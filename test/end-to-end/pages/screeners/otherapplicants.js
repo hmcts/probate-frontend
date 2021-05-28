@@ -6,7 +6,7 @@ module.exports = async function(language ='en', answer = null) {
 
     await I.checkInUrl('/other-applicants');
     const locator = {css: `#otherApplicants${answer}`};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.click(locator);
 
     await I.navByClick(commonContent.continue, 'button.govuk-button');

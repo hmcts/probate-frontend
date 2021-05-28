@@ -7,7 +7,7 @@ module.exports = async function(language = 'en') {
     await I.checkInUrl('/iht-identifier');
     const locator = {css: '#identifier'};
 
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.fillField(locator, '123456789XXXXX');
     await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

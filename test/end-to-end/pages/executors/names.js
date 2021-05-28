@@ -10,7 +10,7 @@ module.exports = async function(language = 'en', totalExecutors = null) {
     while (i < (parseInt(totalExecutors) - 1)) {
         const locator = {css: `#executorName_${i}`};
         // eslint-disable-next-line no-await-in-loop
-        await I.waitForElement(locator);
+        await I.waitForEnabled(locator);
         // eslint-disable-next-line no-await-in-loop
         await I.fillField(locator, 'exec' + (i + 2));
         i += 1;

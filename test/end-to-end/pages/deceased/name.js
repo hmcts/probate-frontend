@@ -6,7 +6,7 @@ module.exports = async function(language ='en', firstName = null, lastName = nul
 
     await I.checkInUrl('/deceased-name');
     const firstNameLocator = {css: '#firstName'};
-    await I.waitForElement(firstNameLocator);
+    await I.waitForEnabled(firstNameLocator);
     await I.fillField(firstNameLocator, firstName);
     await I.fillField({css: '#lastName'}, lastName);
 

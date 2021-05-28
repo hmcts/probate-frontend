@@ -6,6 +6,7 @@ module.exports = async function(aliasReason, aliasOther) {
     const I = this;
 
     await I.checkInUrl('/applicant-alias-reason');
+    await I.waitForEnabled(`#aliasReason${aliasReason}`);
     await I.click(`#aliasReason${aliasReason}`);
 
     if (aliasReason === '-4') {

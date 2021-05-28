@@ -7,7 +7,7 @@ module.exports = async function(language = 'en') {
     const commonContent = require(`app/resources/${language}/translation/common`);
 
     const emailLocator = {css: '#email'};
-    await I.waitForElement(emailLocator);
+    await I.waitForEnabled(emailLocator);
     await I.fillField(emailLocator, testConfig.TestEnvEmailAddress);
     await I.fillField({css: '#mobile'}, testConfig.TestEnvMobileNumber);
 

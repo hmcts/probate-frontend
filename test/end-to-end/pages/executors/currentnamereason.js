@@ -7,6 +7,7 @@ module.exports = async function(executorNumber, aliasOther) {
 
     // this should be refactored to not need to load the application object
     await I.checkPageUrl('app/steps/ui/executors/currentnamereason', parseInt(executorNumber)-3);
+    await I.waitForEnabled('#currentNameReason-4');
     await I.click('#currentNameReason-4');
 
     if (aliasOther) {

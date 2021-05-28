@@ -6,7 +6,7 @@ module.exports = async function(language = 'en', netAmount = null) {
 
     await I.checkInUrl('/value-assets-outside-england-wales');
     const locator = {css: '#netValueAssetsOutsideField'};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.fillField(locator, netAmount);
 
     await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');

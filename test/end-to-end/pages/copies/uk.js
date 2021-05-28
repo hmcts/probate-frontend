@@ -10,7 +10,7 @@ module.exports = async function(language = 'en', copies = null) {
     await I.checkInUrl('/copies-uk');
     await I.waitForText(ukCopiesContent.question, config.TestWaitForTextToAppear);
     const locator = {css: '#uk'};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.fillField(locator, copies);
 
     await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');

@@ -14,7 +14,7 @@ module.exports = async function(language ='en', answer = null) {
     await I.waitForText(deceasedContent, config.TestWaitForTextToAppear);
 
     const locator = {css: `#married${answer}`};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.click(locator);
     await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

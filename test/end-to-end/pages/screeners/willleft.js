@@ -10,7 +10,7 @@ module.exports = async function(language ='en', answer = null) {
     await I.checkInUrl('/will-left');
     await I.waitForText(willLeftContent.question);
     const locator = {css: `#left${answer}`};
-    await I.waitForElement(locator, config.TestWaitForElementToAppear);
+    await I.waitForEnabled(locator, config.TestWaitForElementToAppear);
     await I.click(locator);
     await I.navByClick(commonContent.continue, 'button.govuk-button');
 };

@@ -10,7 +10,7 @@ module.exports = async function(language = 'en', day = null, month = null, year=
     await I.checkInUrl('/deceased-dob');
     await I.waitForText(dobContent.question, config.TestWaitForTextToAppear);
     const dobLocator = {css: '#dob-day'};
-    await I.waitForElement(dobLocator);
+    await I.waitForEnabled(dobLocator);
     await I.fillField(dobLocator, day);
     await I.fillField('#dob-month', month);
     await I.fillField('#dob-year', year);

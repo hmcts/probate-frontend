@@ -6,7 +6,7 @@ module.exports = async function(language = 'en', option = null) {
 
     await I.checkInUrl('/will-codicils');
     const locator = {css: `#codicils${option}`};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.click(locator);
 
     await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');

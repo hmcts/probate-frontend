@@ -9,6 +9,6 @@ module.exports = async function(language = 'en') {
     await I.checkInUrl('/start-apply');
     await I.waitForText(applyContent.header, testConfig.TestWaitForTextToAppear);
     const locator = {css: '.govuk-button'};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.navByClick(locator);
 };

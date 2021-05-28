@@ -7,6 +7,7 @@ module.exports = async function(executorNumber) {
 
     // this should be refactored to not need to load the application object
     await I.checkPageUrl('app/steps/ui/executors/currentname', '*');
+    await I.waitForEnabled('#currentName');
     await I.fillField('#currentName', `Executor${executorNumber} Current Name`);
     await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

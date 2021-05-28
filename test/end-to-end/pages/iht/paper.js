@@ -18,7 +18,7 @@ module.exports = async function(language ='en', formName = null, grossAmount = n
 
     await I.checkInUrl('/iht-paper');
     const locator = {css: `#form${option}`};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.click(locator);
 
     await I.fillField({css: `#grossValueFieldIHT${formName}`}, grossAmount);

@@ -111,32 +111,15 @@ class JSWait extends codecept_helper {
     // If there is a need for this to be the same as the url in the application
     // object, use constants.
     async checkPageUrl(pageUnderTestClass, redirect) {
-        // optimisation - don't need to do this for puppeteer
-        const helper = this.helpers.WebDriver;
-        if (helper) {
-            const pageUnderTest = require(pageUnderTestClass);
-            const url = redirect ? pageUnderTest.getUrl(redirect) : pageUnderTest.getUrl();
-            await this.checkInUrl(url);
-        }
+        const pageUnderTest = require(pageUnderTestClass);
+        const url = redirect ? pageUnderTest.getUrl(redirect) : pageUnderTest.getUrl();
+        await this.checkInUrl(url);
     }
 
     async checkInUrl(url, timeoutWait=120) {
         // do for both Puppeteer and Webdriver - doesn't take long
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
-        try {
-            await helper.waitInUrl(url, timeoutWait);
-        } catch (e) {
-            try {
-                // ok I know its weird invoking this when we know this can't be the url,
-                // but this may give us more information
-                console.info('Invoking seeInCurrentUrl for more info on incorrect url');
-                await helper.seeInCurrentUrl(url);
-                throw e;
-            } catch (e2) {
-                console.error(e2.message);
-                throw e;
-            }
-        }
+        await helper.waitInUrl(url, timeoutWait);
     }
 
     async checkForText(text, timeout = null) {

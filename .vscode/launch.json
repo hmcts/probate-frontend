@@ -60,7 +60,7 @@
             "name": "Run npm unit test",
             "request": "launch",
             "type": "node-terminal"
-        },        
+        },
         {
             "args": [
                 "--timeout",

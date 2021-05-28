@@ -33,7 +33,7 @@
 <!--[if lte IE 9]>
 <script src="/public/javascripts/form-polyfill.js"></script>
 <![endif]-->
-{% if fields.isWebChatEnabled.value !== 'true' %}
+{% if fields.isWebChatEnabled.value === 'true' %}
     {% if fields.language.value == "en" and fields.isAvayaWebChatEnabled.value !== 'true' %}
         <script src="/public/webchat/javascript/hmcts-webchat.js"></script>
         <script nonce="{{ globals.nonce }}">

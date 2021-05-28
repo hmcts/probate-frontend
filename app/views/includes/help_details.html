@@ -13,7 +13,7 @@
       <p class="govuk-body"> {{ common.helpTelephoneOpeningHours | safe }}</p>
       <p class="govuk-heading-s"> {{ common.helpHeading2 | safe }} </p>
       <p class="govuk-body"> {{ common.helpEmailLabel | replace("{contactEmailAddress}", common.helpEmail) | safe }} </p>
-      {% if fields.isWebChatEnabled.value !== 'true' %}
+      {% if fields.isWebChatEnabled.value === 'true' %}
         {% if fields.language.value == "en" and fields.isAvayaWebChatEnabled.value !== 'true'%}
           <p class="govuk-heading-s" id="ctsc-web-chat-header"> {{ common.helpHeading3 | safe }} </p>
           <div id="ctsc-web-chat"></div>

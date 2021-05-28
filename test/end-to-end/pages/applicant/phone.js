@@ -10,7 +10,7 @@ module.exports = async function(language = 'en') {
     await I.checkInUrl('/applicant-phone');
     await I.waitForText(phoneContent.phoneNumber, config.TestWaitForTextToAppear);
     const locator = {css: '#phoneNumber'};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.fillField(locator, '123456789');
     await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

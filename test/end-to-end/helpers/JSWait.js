@@ -34,7 +34,10 @@ class JSWait extends codecept_helper {
             helper.click(text).catch(err1 => {
                 console.error(err1.message);
             });
-            await helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']});
+            await helper.page.waitForNavigation({
+                waitUntil: ['domcontentloaded', 'networkidle0'],
+                timeout: 1200000
+            });
             return;
         }
 

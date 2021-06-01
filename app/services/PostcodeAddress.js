@@ -11,8 +11,6 @@ const logInfo = (message, applicationId = 'Init') => logger(applicationId).info(
 class PostcodeAddress {
 
     get(postcode) {
-        // RREMOVE TOKEN BEFORE PUSHING TO PROD
-        console.log('token => ', POSTCODE_SERVICE_TOKEN);
         logInfo(`Get postcode address: ${postcode}`);
         return new Promise((resolve, reject) => {
             osPlacesClient.lookupByPostcode(postcode)

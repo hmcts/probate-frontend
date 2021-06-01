@@ -1,11 +1,18 @@
+const {decodeHTML} = require('test/end-to-end/helpers/GeneralHelpers');
+
 class JSWait extends codecept_helper {
 
-    _beforeStep(step) {
+    async _beforeStep(step) {
 
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
 
         if (step.name === 'seeCurrentUrlEquals' || step.name === 'seeInCurrentUrl') {
             return helper.waitForElement('body', 30);
+        }
+
+        if (step.name === 'waitForText') {
+            // this handles decoding any HTML coded characters in the text
+            step.args[0] = await decodeHTML(step.args[0].trim());
         }
     }
 

@@ -5,6 +5,7 @@ module.exports = async function(language = 'en', answer = null) {
     const commonContent = require(`app/resources/${language}/translation/common`);
     await I.checkInUrl('/executors-alias');
     const locator = {css: `#alias${answer}`};
+    await I.waitForVisible(locator);
     await I.waitForEnabled(locator);
     await I.click(locator);
 

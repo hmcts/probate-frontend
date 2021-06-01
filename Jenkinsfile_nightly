@@ -50,11 +50,12 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 withNightlyPipeline("nodejs", product, component) {
-    loadVaultSecrets(secrets)
     env.TEST_URL = params.URL_TO_TEST
     env.FE_E2E_TEST_PATH_TO_RUN = params.test_path
+
+    loadVaultSecrets(secrets)
     //enableFullFunctionalTest()
-    enableCrossBrowserTest(['chrome', 'firefox', 'safari', 'microsoft'])
+    enableCrossBrowserTest()
 //    enableSecurityScan()  //we do this in otrher builds
     after('build') {
         sh 'mkdir -p functional-output'

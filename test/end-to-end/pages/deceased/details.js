@@ -9,7 +9,7 @@ module.exports = async function(language ='en', firstName = null, lastName = nul
 
     await I.checkInUrl('/deceased-details');
     const locatorFn = {css: '#firstName'};
-    await I.waitForElement(locatorFn);
+    await I.waitForEnabled(locatorFn);
 
     await I.fillField(locatorFn, firstName);
     await I.fillField({css: '#lastName'}, lastName);

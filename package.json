@@ -58,7 +58,7 @@
     "eslint": "NODE_PATH=. eslint .",
     "test:nsp": "NODE_PATH=. nsp check",
     "security": "NODE_PATH=. nsp check",
-    "test:functional": "NODE_ENV=test yarn test-contract && NODE_ENV=test yarn test-e2e-http-launch-darkly",
+    "test:functional": "NODE_ENV=test yarn test-contract && NODE_ENV=test yarn test-e2e-http-launch-darkly && NODE_ENV=test yarn test-e2e-http-launch-darkly-multi",
     "test:codecov-upload": "NODE_PATH=. istanbul cover _mocha './test/**/test*.js' -- -R spec && codecov",
     "test:coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/unit/**/test*.js' './test/component/**/test*.js' -- --timeout 10000",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner",

@@ -75,7 +75,7 @@ exports.config = {
     },
     multiple: {
         parallel: {
-            chunks: 4,
+            chunks: 2,
             browsers: ['chrome']
         }
     },

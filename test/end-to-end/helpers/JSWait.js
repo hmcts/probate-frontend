@@ -1,22 +1,15 @@
-const {decodeHTML} = require('test/end-to-end/helpers/GeneralHelpers');
-
 class JSWait extends codecept_helper {
 
-    async _beforeStep(step) {
+    _beforeStep(step) {
 
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
 
         if (step.name === 'seeCurrentUrlEquals' || step.name === 'seeInCurrentUrl') {
             return helper.waitForElement('body', 30);
         }
-
-        if (step.name === 'waitForText') {
-            // this handles decoding any HTML coded characters in the text
-            step.args[0] = await decodeHTML(step.args[0].trim());
-        }
     }
 
-    async navByClick(text, locator = null, webDriverWait = 2) {
+    async navByClick (text, locator) {
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
@@ -24,12 +17,11 @@ class JSWait extends codecept_helper {
             helper.click(text, locator).catch(err => {
                 console.error(err.message);
             });
-            await helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']});
-            return;
+            await helper.page.waitForNavigation({waitUntil: 'networkidle0'});
+        } else {
+            await helper.click(text, locator);
+            await helper.wait(2);
         }
-        // non Puppeteer
-        await helper.click(text, locator);
-        await helper.wait(webDriverWait);
     }
 
     async amOnLoadedPage (url, language ='en') {
@@ -37,11 +29,11 @@ class JSWait extends codecept_helper {
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
-        if (helperIsPuppeteer) {
-            if (newUrl.indexOf('http') !== 0) {
-                newUrl = helper.options.url + newUrl;
-            }
+        if (newUrl.indexOf('http') !== 0) {
+            newUrl = helper.options.url + newUrl;
+        }
 
+        if (helperIsPuppeteer) {
             helper.page.goto(newUrl).catch(err => {
                 console.error(err.message);
             });

@@ -4,13 +4,8 @@ module.exports = async function(language = 'en', executorNumber = null, diedBefo
     const I = this;
     const commonContent = require(`app/resources/${language}/translation/common`);
 
-    if (firstRecord) {
-        // this should be refactored to not need to load the application object
-        await I.checkPageUrl('app/steps/ui/executors/whendied', '*');
-    } else {
-        // this should be refactored to not need to load the application object
-        await I.checkPageUrl('app/steps/ui/executors/whendied', parseInt(executorNumber) - 1);
-    }
+    await I.checkInUrl(`/executor-when-died/${firstRecord ? '*' : parseInt(executorNumber) - 1}`);
+
     const locator = {css: `#diedbefore${diedBefore}`};
     await I.waitForEnabled(locator);
     await I.click(locator);

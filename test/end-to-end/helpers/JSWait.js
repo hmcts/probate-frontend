@@ -102,23 +102,6 @@ class JSWait extends codecept_helper {
         }
     }
 
-    // This really slows things down as the require needs
-    // to load the object just to get the url.
-
-    // It is an anti-pattern as we don't know what
-    // work is going on in each constructor and that work
-    // might not be applicable to run in a test context.
-
-    // Therefore we should move away from using this method and instead call
-    // checkUrl below with the string url we are expecting to find.
-    // If there is a need for this to be the same as the url in the application
-    // object, use constants.
-    async checkPageUrl(pageUnderTestClass, redirect) {
-        const pageUnderTest = require(pageUnderTestClass);
-        const url = redirect ? pageUnderTest.getUrl(redirect) : pageUnderTest.getUrl();
-        await this.checkInUrl(url);
-    }
-
     async checkInUrl(url, timeoutWait=120) {
         // do for both Puppeteer and Webdriver - doesn't take long
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;

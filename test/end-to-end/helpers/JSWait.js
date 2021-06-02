@@ -16,19 +16,22 @@ class JSWait extends codecept_helper {
         }
     }
 
-    async navByClick(text, locator = null, webDriverWait = 2) {
+    async navByClick(textOrLocator, locator = null, webDriverWait = 2) {
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
-        if (typeof (text) === 'string' &&
+        if (typeof (textOrLocator) === 'string' &&
             (locator && (locator === 'button.govuk-button' ||
                 (typeof (locator) === 'object' && locator.css.indexOf('govuk-button')) >= 0))) {
             await helper.scrollTo(locator);
             await helper.waitForEnabled(locator);
         }
 
-        if (typeof (text) === 'string' && text.indexOf('.govuk-button') === -1 && text.indexOf('#') === -1) {
-            await helper.waitForText(text);
+        if (typeof (textOrLocator) === 'string' && textOrLocator.indexOf('.govuk-button') === -1 && textOrLocator.indexOf('#') === -1) {
+            await helper.waitForText(textOrLocator);
+        } else if (!locator && typeof (textOrLocator) === 'object' && textOrLocator.css.indexOf('govuk-button') >= 0) {
+            await helper.scrollTo(textOrLocator);
+            await helper.waitForEnabled(textOrLocator);
         }
 
         if (helperIsPuppeteer) {
@@ -38,7 +41,7 @@ class JSWait extends codecept_helper {
                     waitUntil: ['domcontentloaded', 'networkidle0'],
                     timeout: 600000
                 }),
-                helper.click(text)
+                helper.click(textOrLocator)
             ];
 
             await Promise.all(promises);
@@ -51,7 +54,7 @@ class JSWait extends codecept_helper {
 
         // click by fuzzy text search - locator doesn't work for click
         // sometimes when in a scrollable div
-        await helper.click(text);
+        await helper.click(textOrLocator);
         await helper.wait(webDriverWait);
     }
 

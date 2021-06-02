@@ -33,7 +33,7 @@
     "test-e2e": "NODE_ENV=testing-http  NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep @e2e --reporter mocha-multi",
     "test-e2e-launch-darkly": "NODE_ENV=testing-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-e2e-http": "NODE_ENV=testing-http NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
-    "test-e2e-http-launch-darkly": "NODE_ENV=testing-http-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-workers 5 -c ./test/end-to-end/ --grep @e2e --reporter mocha-multi",
+    "test-e2e-http-launch-darkly": "NODE_ENV=testing-http-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-workers 3 --suites -c ./test/end-to-end/ --grep @e2e --reporter mocha-multi",
     "test-e2e-http-launch-darkly-multi-exec": "NODE_ENV=testing-http-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --grep @multiExecE2e --reporter mocha-multi",
     "test-e2e-gop-single-exec-aat": "NODE_ENV=testing-e2e-local-to-aat NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/gopSingleExecutor.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-e2e-gop-single-exec-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/gopSingleExecutor.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",

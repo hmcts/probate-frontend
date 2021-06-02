@@ -225,6 +225,5 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
 
-    }).tag('@multiEndToEnd')
-        .retry(TestConfigurator.getRetryScenarios());
+    }).retry(TestConfigurator.getRetryScenarios());
 });

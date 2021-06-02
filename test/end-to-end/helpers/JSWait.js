@@ -20,16 +20,16 @@ class JSWait extends codecept_helper {
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
-        if (typeof(text) === 'string' && 
-            (locator && (locator === 'button.govuk-button' || 
-                (typeof(locator) === 'object' && locator.css.indexOf('govuk-button')) >= 0))) {
+        if (typeof (text) === 'string' &&
+            (locator && (locator === 'button.govuk-button' ||
+                (typeof (locator) === 'object' && locator.css.indexOf('govuk-button')) >= 0))) {
             await helper.scrollTo(locator);
             await helper.waitForEnabled(locator);
         }
 
-        if (typeof(text) === 'string' && text.indexOf('.govuk-button') === -1 && text.indexOf('#') === -1) {
+        if (typeof (text) === 'string' && text.indexOf('.govuk-button') === -1 && text.indexOf('#') === -1) {
             await helper.waitForText(text);
-        }    
+        }
 
         if (helperIsPuppeteer) {
 
@@ -37,7 +37,7 @@ class JSWait extends codecept_helper {
                 helper.page.waitForNavigation({
                     waitUntil: ['domcontentloaded', 'networkidle0'],
                     timeout: 600000
-                }),    
+                }),
                 helper.click(text)
             ];
 

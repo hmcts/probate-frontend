@@ -8,5 +8,5 @@ module.exports = async function(answer) {
     await I.waitForEnabled(locator);
     await I.click(locator);
 
-    await I.navByClick('#acceptAndSend');
+    await I.navByClick({css: '#acceptAndSend'});
 };

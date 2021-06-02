@@ -20,24 +20,29 @@ class JSWait extends codecept_helper {
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
-        if (locator === 'button.govuk-button') {
+        if (typeof(text) === 'string' && 
+            (locator && (locator === 'button.govuk-button' || 
+                (typeof(locator) === 'object' && locator.css.indexOf('govuk-button')) >= 0))) {
             await helper.scrollTo(locator);
             await helper.waitForEnabled(locator);
         }
 
+        if (typeof(text) === 'string' && text.indexOf('.govuk-button') === -1 && text.indexOf('#') === -1) {
+            await helper.waitForText(text);
+        }    
+
         if (helperIsPuppeteer) {
 
-            // Note - doesn't wait for promise return
+            const promises = [
+                helper.page.waitForNavigation({
+                    waitUntil: ['domcontentloaded', 'networkidle0'],
+                    timeout: 600000
+                }),    
+                helper.click(text)
+            ];
 
-            // click by fuzzy text search - locator doesn't work for click
-            // sometimes when in a scrollable div (Save and continue and Start)
-            helper.click(text).catch(err1 => {
-                console.error(err1.message);
-            });
-            await helper.page.waitForNavigation({
-                waitUntil: ['domcontentloaded', 'networkidle0'],
-                timeout: 120000
-            });
+            await Promise.all(promises);
+
             return;
         }
 

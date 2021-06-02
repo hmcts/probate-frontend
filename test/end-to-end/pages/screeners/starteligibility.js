@@ -13,5 +13,5 @@ module.exports = async function(language='en', checkCookieBannerExists = false) 
     }
     const locator = {css: '#main-content > div.govuk-form-group > a'};
     await I.waitForElement(locator, config.TestWaitForElementToAppear);
-    await I.navByClick(commonContent.checkApply);
+    await I.navByClick(commonContent.checkApply, {css: '.govuk-button'});
 };

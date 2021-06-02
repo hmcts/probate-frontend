@@ -13,5 +13,5 @@ module.exports = async function(language, redirect) {
     const locator = {css: '#checkAnswerHref'};
     await I.waitForElement(locator);
     await I.downloadPdfIfNotIE11(locator);
-    await I.navByClick('.govuk-button');
+    await I.navByClick({css: '.govuk-button'});
 };

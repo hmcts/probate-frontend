@@ -225,6 +225,6 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
 
-    }).tag('@multiExecE2e')
+    }).tag('@e2e')
         .retry(TestConfigurator.getRetryScenarios());
 });

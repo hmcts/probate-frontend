@@ -36,7 +36,7 @@ class JSWait extends codecept_helper {
             });
             await helper.page.waitForNavigation({
                 waitUntil: ['domcontentloaded', 'networkidle0'],
-                timeout: 1200000
+                timeout: 120000
             });
             return;
         }

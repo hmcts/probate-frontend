@@ -32,6 +32,8 @@ router.all('*', (req, res, next) => {
     req.log.info(`Processing ${req.method} for ${req.originalUrl}`);
     if (!req.originalUrl.match(/locale/g)) {
         next();
+    } else {
+        console.log('SHOULD NOT COME HERE ====> ', req.originalUrl);
     }
 });
 

@@ -3,8 +3,11 @@
 module.exports = async function(language ='en', testSurvey = false) {
     const I = this;
     const commonContent = require(`app/resources/${language}/translation/common`);
+    const deathCertContent = require(`app/resources/${language}/translation/screeners/deathcertificate`);
     await I.checkInUrl('/death-certificate');
-    await I.waitForText(commonContent.yes);
+    await I.waitForText(deathCertContent.question);
+    const locator = {css: '#deathCertificate'};
+    await I.waitForEnabled(locator);
 
     if (testSurvey) {
         await I.click({css: 'body > div.govuk-width-container > div > p > span > a:nth-child(1)'});
@@ -13,6 +16,6 @@ module.exports = async function(language ='en', testSurvey = false) {
         // await I.waitForVisible({css: '#cmdGo'});
         await I.closeCurrentTab();
     }
-    await I.click(commonContent.yes);
+    await I.click(locator);
     await I.navByClick(commonContent.continue, 'button.govuk-button');
 };

@@ -8,7 +8,9 @@ module.exports = async function(language ='en') {
     await I.waitForText(deceasedDomicileContent.question);
     await I.checkInUrl('/deceased-domicile');
     await I.see(deceasedDomicileContent.hintText1);
+    const locator = {css: '#domicile'};
+    await I.waitForEnabled(locator);
 
-    await I.click(deceasedDomicileContent.optionYes);
+    await I.click(locator);
     await I.navByClick(commonContent.continue, 'button.govuk-button');
 };

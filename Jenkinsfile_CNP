@@ -40,6 +40,9 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   ]
 }
 
+// Configure branches to sync with master branch
+def branchesToSync = ['demo', 'ithc', 'perftest']
+
 withPipeline("nodejs", product, component) {
  /*  afterCheckout {
     onMaster {
@@ -88,6 +91,7 @@ withPipeline("nodejs", product, component) {
 
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
+  syncBranchesWithMaster(branchesToSync)
 
   after('test') {
     publishHTML (target: [

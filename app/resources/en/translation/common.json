@@ -73,5 +73,6 @@
   "helpAllAgentsBusy": "All our webchat agents are busy helping other people. Please try again later.",
   "helpChatClosed": "Web chat is now closed. Come back {chatOpeningHours}",
   "helpChatAlreadyOpen": "A web chat window is already open.",
-  "helpChatOpeningHours": "Monday to Friday, 8:00am to 8:00pm. Saturday, 8:00am to 2:00pm."
+  "helpChatOpeningHours": "Monday to Friday, 8:00am to 8:00pm. Saturday, 8:00am to 2:00pm.",
+  "helpChatMaintenance": "Probate webchat is temporarily unavailable while we address a technical issue. We're sorry for any inconvenience caused."
 }

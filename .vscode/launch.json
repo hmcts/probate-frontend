@@ -387,7 +387,19 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },          
+        },     
+        {
+            "name": "e2e intestacy Webdriver - launch darkly OFF",
+            "request": "launch",
+            "runtimeArgs": [
+                "test-e2e-intestacy-http-webdriver",
+            ],
+            "runtimeExecutable": "yarn",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },    
         {
             "name": "Mocha test end-end intestacy - launch darkly ON",
             "request": "launch",

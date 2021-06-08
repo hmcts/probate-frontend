@@ -224,7 +224,10 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     // Send assetPath to all views
     app.use((req, res, next) => {
         res.locals.asset_path = '/public/';
-        next();
+        console.log('res => ', req.originalUrl);
+        if (!req.originalUrl.match(/locale/g)) {
+            next();
+        }
     });
 
     // Support session data

@@ -135,6 +135,7 @@
     "simple-random": "^1.0.3",
     "superagent": "^5.1.0",
     "traverse": "^0.6.6",
+    "trim-newlines": "^4.0.1",
     "tunnel-agent": "^0.6.0",
     "uuid": "^8.3.1",
     "validator": "^11.1.0"

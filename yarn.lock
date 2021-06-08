@@ -2128,13 +2128,6 @@ crc32-stream@^4.0.2:
     crc-32 "^1.2.0"
     readable-stream "^3.4.0"
 
-create-error-class@^3.0.0:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/create-error-class/-/create-error-class-3.0.2.tgz#06be7abef947a3f14a30fd610671d401bca8b7b6"
-  integrity sha1-Br56vvlHo/FKMP1hBnHUAbyot7Y=
-  dependencies:
-    capture-stack-trace "^1.0.0"
-
 cross-spawn@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-4.0.2.tgz#7b9247621c23adfdd3856004a823cbe397424d41"
@@ -4192,7 +4185,6 @@ graceful-fs@4.1.11:
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
   integrity sha1-Dovf5NHduIVNZOBOp8AOKgJuVlg=
 
-graceful-fs@^4.1.10, graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9, graceful-fs@^4.2.0, graceful-fs@^4.2.2, graceful-fs@^4.2.3:
 graceful-fs@^4.1.10, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9, graceful-fs@^4.2.0, graceful-fs@^4.2.2, graceful-fs@^4.2.3:
   version "4.2.6"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.6.tgz#ff040b2b0853b23c3d31027523706f1885d76bee"
@@ -4934,13 +4926,6 @@ is-generator-function@^1.0.7:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/is-generator-function/-/is-generator-function-1.0.9.tgz#e5f82c2323673e7fcad3d12858c83c4039f6399c"
   integrity sha512-ZJ34p1uvIfptHCN7sFTjGibB9/oBg17sHqzDLfuwhvmN/qLVvIQXRQ8licZQ35WJ8KuEQt/etnnzQFI9C9Ue/A==
-
-is-glob@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-3.1.0.tgz#7ba5ae24217804ac70707b96922567486cc3e84a"
-  integrity sha1-e6WuJCF4BKxwcHuWkiVnSGzD6Eo=
-  dependencies:
-    is-extglob "^2.1.0"
 
 is-glob@^4.0.0, is-glob@^4.0.1, is-glob@~4.0.1:
   version "4.0.1"

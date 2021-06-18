@@ -1,11 +1,13 @@
 #!groovy
 
 properties([
-        pipelineTriggers([cron('00 02 * * *')]),
+        pipelineTriggers([cron('00 22 * * *')]),
         parameters([
                 string(name: 'ENVIRONMENT', defaultValue: 'aat', description: 'Environment to test'),
                 string(name: 'test_path', defaultValue: './paths/**/*.js', description: 'any three like ./paths/probate/*.js or ./paths/generic/*.js or ./paths/intestacy/*.js'),
                 string(name: 'URL_TO_TEST', defaultValue: 'https://probate.aat.platform.hmcts.net', description: 'The URL you want to run these tests against'),
+                string(name: 'WEBCHAT_ENABLED', defaultValue: 'false', description: 'Run with webchat enabled or disabled'),
+                string(name: 'GA_ENABLED', defaultValue: 'false', description: 'Run with Google analytics enabled or disabled')
         ])
 ])
 
@@ -53,6 +55,9 @@ withNightlyPipeline("nodejs", product, component) {
     loadVaultSecrets(secrets)
     env.TEST_URL = params.URL_TO_TEST
     env.FE_E2E_TEST_PATH_TO_RUN = params.test_path
+    env.WEBCHAT_ENABLED = params.WEBCHAT_ENABLED
+    env.GA_ENABLED = params.GA_ENABLED
+
     //enableFullFunctionalTest()
     enableCrossBrowserTest(['chrome', 'firefox', 'safari', 'microsoft'])
 //    enableSecurityScan()  //we do this in otrher builds

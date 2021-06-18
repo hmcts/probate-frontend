@@ -33,7 +33,7 @@ languages.forEach(language => {
         await I.startApplication(language);
 
         // Probate Sceeners
-        await I.selectDeathCertificate(language, optionYes);
+        await I.selectDeathCertificate(language);
         await I.selectDeathCertificateInEnglish(language, optionNo);
         await I.selectDeathCertificateTranslation(language, optionYes);
         await I.selectDeceasedDomicile(language);

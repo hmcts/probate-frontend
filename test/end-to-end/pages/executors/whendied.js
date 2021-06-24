@@ -1,19 +1,13 @@
 'use strict';
 
-const commonContentEn = require('app/resources/en/translation/common');
-const commonContentCy = require('app/resources/cy/translation/common');
-
-module.exports = async function(language = 'en', executorNumber, diedBefore, firstRecord) {
+module.exports = async function(language = 'en', executorNumber = null, diedBefore = null, firstRecord = null) {
     const I = this;
-    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
+    const commonContent = require(`app/resources/${language}/translation/common`);
 
-    if (firstRecord) {
-        await I.checkPageUrl('app/steps/ui/executors/whendied', '*');
-    } else {
-        await I.checkPageUrl('app/steps/ui/executors/whendied', parseInt(executorNumber) - 1);
-    }
+    await I.checkInUrl(`/executor-when-died/${firstRecord ? '*' : parseInt(executorNumber) - 1}`);
+
     const locator = {css: `#diedbefore${diedBefore}`};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.click(locator);
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

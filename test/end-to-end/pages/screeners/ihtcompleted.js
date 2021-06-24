@@ -1,20 +1,15 @@
 'use strict';
 
-const contentEn = require('app/resources/en/translation/common');
-const contentCy = require('app/resources/cy/translation/common');
-const ihtCompletedEn = require('app/resources/en/translation/screeners/ihtcompleted');
-const ihtCompletedCy = require('app/resources/cy/translation/screeners/ihtcompleted');
-
-module.exports = async function(language ='en', answer) {
+module.exports = async function(language ='en', answer = null) {
     const I = this;
-    const commonContent = language === 'en' ? contentEn : contentCy;
-    const ihtCompletedContent = language === 'en' ? ihtCompletedEn : ihtCompletedCy;
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    const ihtCompletedContent = require(`app/resources/${language}/translation/screeners/ihtcompleted`);
 
-    await I.checkPageUrl('app/steps/ui/screeners/ihtcompleted');
+    await I.checkInUrl('/iht-completed');
     await I.waitForText(ihtCompletedContent.question);
     const locator = {css: `#completed${answer}`};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.click(locator);
 
-    await I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue, 'button.govuk-button');
 };

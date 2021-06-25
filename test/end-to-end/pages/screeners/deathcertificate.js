@@ -18,7 +18,7 @@ module.exports = async function(language ='en', testSurvey = false) {
             if (currentTabs > originalTabs) {
                 break;
             }
-            await I.wait(1);
+            await I.wait(0.2);
         }
         await I.switchToNextTab(1);
         // running locally I get no internet here so have commented ths, but at least we've proved we've opened a new tab.

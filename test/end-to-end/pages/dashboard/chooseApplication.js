@@ -1,14 +1,16 @@
 /* eslint-disable no-await-in-loop */
 'use strict';
 
-const dashboardEn = require('app/resources/en/translation/dashboard');
-const dashboardCy = require('app/resources/cy/translation/dashboard');
 const testConfig = require('config');
 
 module.exports = async function(language ='en') {
     const I = this;
-    const dashboardContent = language === 'en' ? dashboardEn : dashboardCy;
-    await I.checkPageUrl('app/steps/ui/dashboard');
+    const dashboardContent = require(`app/resources/${language}/translation/dashboard`);
+
+    // this implicit wait is just for ES to refresh so the application is ready and usable by UI!
+    await I.wait(3);
+
+    await I.checkInUrl('/dashboard');
     await I.waitForElement('#main-content', testConfig.TestWaitForTextToAppear);
     const welshLinkText = await I.grabTextFrom('//a[@class =\'govuk-link language\']');
     console.log('Dash Board Link Name::-->' + welshLinkText);

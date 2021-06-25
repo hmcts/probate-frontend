@@ -6,7 +6,10 @@ featureToggles:
   enabled: LAUNCHDARKLY_ENABLED
   launchDarklyKey: LAUNCHDARKLY_KEY
   launchDarklyUser:
-    key: LAUNCHDARKLY_USER_KEY  
+    key: LAUNCHDARKLY_USER_KEY
+configFeatureToggles:
+  webchatEnabled: WEBCHAT_ENABLED
+  gaEnabled: GA_ENABLED
 app:
   username: USERNAME
   password: PASSWORD

@@ -1,22 +1,17 @@
 'use strict';
 
-const contentEn = require('app/resources/en/translation/common');
-const contentCy = require('app/resources/cy/translation/common');
-const applicantExecutorEn = require('app/resources/en/translation/screeners/applicantexecutor');
-const applicantExecutorCy = require('app/resources/cy/translation/screeners/applicantexecutor');
-
-module.exports = async function(language ='en', answer) {
+module.exports = async function(language ='en', answer = null) {
     const I = this;
-    const commonContent = language === 'en' ? contentEn : contentCy;
-    const applicantExecutorContent = language === 'en' ? applicantExecutorEn : applicantExecutorCy;
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    const applicantExecutorContent = require(`app/resources/${language}/translation/screeners/applicantexecutor`);
 
-    await I.checkPageUrl('app/steps/ui/screeners/applicantexecutor');
+    await I.checkInUrl('/applicant-executor');
     await I.waitForText(applicantExecutorContent.question);
     await I.waitForText(applicantExecutorContent.hintText1);
     await I.waitForText(applicantExecutorContent.hintText2);
 
     const locator = {css: `#executor${answer}`};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.click(locator);
-    await I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue, 'button.govuk-button');
 };

@@ -19,8 +19,9 @@
 {% endblock %}
 
 {% block header %}
-    {% include "includes/scripts_ga_2.html" %}
-
+    {% if fields.isGaEnabled.value === 'true' %}
+        {% include "includes/scripts_ga_2.html" %}
+    {% endif %}
     <div id="global-cookie-message">
         <p class="govuk-body">{{ cookieText | replace("{cookiesLink}", globals.links.cookies) | safe }}</p>
     </div>

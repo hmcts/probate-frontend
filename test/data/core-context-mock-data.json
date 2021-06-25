@@ -10,5 +10,7 @@
         "ft_avaya_webchat": "false"
     },
     "isAvayaWebChatEnabled": false,
+    "isGaEnabled": true,
+    "isWebChatEnabled": true,
     "language": "en"
 }

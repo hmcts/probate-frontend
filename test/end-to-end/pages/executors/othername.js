@@ -1,17 +1,14 @@
 'use strict';
 
-const commonContentEn = require('app/resources/en/translation/common');
-const commonContentCy = require('app/resources/cy/translation/common');
-
-module.exports = async function(language = 'en', executorsWithDifferentNameIdList) {
+module.exports = async function(language = 'en', executorsWithDifferentNameIdList = null) {
     const I = this;
-    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
+    const commonContent = require(`app/resources/${language}/translation/common`);
 
-    await I.checkPageUrl('app/steps/ui/executors/othername');
+    await I.checkInUrl('/executors-other-names');
 
     for (let i = 0; i < executorsWithDifferentNameIdList.length; i++) {
         // eslint-disable-next-line no-await-in-loop
         await I.checkOption('#executorsWithOtherNames-' + executorsWithDifferentNameIdList[i]);
     }
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

@@ -1,22 +1,18 @@
 'use strict';
 
 const config = require('config');
-const commonContentEn = require('app/resources/en/translation/common');
-const commonContentCy = require('app/resources/cy/translation/common');
-const aliasContentEn = require('app/resources/en/translation/deceased/alias');
-const aliasContentCy = require('app/resources/cy/translation/deceased/alias');
 
-module.exports = async function(language = 'en', answer) {
+module.exports = async function(language = 'en', answer = null) {
     const I = this;
 
-    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
-    const aliasContent = language === 'en' ? aliasContentEn : aliasContentCy;
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    const aliasContent = require(`app/resources/${language}/translation/deceased/alias`);
 
-    await I.checkPageUrl('app/steps/ui/deceased/alias');
+    await I.checkInUrl('/deceased-alias');
     await I.waitForText(aliasContent.paragraph1, config.TestWaitForTextToAppear);
     const locator = {css: `#alias${answer}`};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.click(locator);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

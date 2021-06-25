@@ -1,20 +1,17 @@
 'use strict';
 
-const commonContentEn = require('app/resources/en/translation/common');
-const commonContentCy = require('app/resources/cy/translation/common');
-
-module.exports = async function(language = 'en', executorsApplyingList) {
+module.exports = async function(language = 'en', executorsApplyingList = null) {
     const I = this;
-    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
+    const commonContent = require(`app/resources/${language}/translation/common`);
 
-    await I.checkPageUrl('app/steps/ui/executors/dealingwithestate');
+    await I.checkInUrl('/executors-dealing-with-estate');
     for (let i = 0; i < executorsApplyingList.length; i++) {
         const locator = {css: `#executorsApplying-${parseInt(executorsApplyingList[i]) - 1}`};
         // eslint-disable-next-line no-await-in-loop
-        await I.waitForElement(locator);
+        await I.waitForEnabled(locator);
         // eslint-disable-next-line no-await-in-loop
         await I.checkOption(locator);
     }
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

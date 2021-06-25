@@ -29,7 +29,7 @@ languages.forEach(language => {
 
         // Eligibility Task (pre IdAM)
         await I.startApplication(language);
-        await I.selectDeathCertificate(language, optionYes);
+        await I.selectDeathCertificate(language);
         await I.selectDeathCertificateInEnglish(language, optionNo);
         await I.selectDeathCertificateTranslation(language, optionYes);
         await I.selectDeceasedDomicile(language);

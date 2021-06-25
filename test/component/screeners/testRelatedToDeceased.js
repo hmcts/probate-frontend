@@ -54,6 +54,7 @@ describe('related-to-deceased', () => {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
                     deathCertificate: 'optionYes',
+                    deathCertificateInEnglish: 'optionYes',
                     domicile: 'optionYes',
                     completed: 'optionYes',
                     left: 'optionNo',
@@ -77,6 +78,7 @@ describe('related-to-deceased', () => {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
                     deathCertificate: 'optionYes',
+                    deathCertificateInEnglish: 'optionYes',
                     domicile: 'optionYes',
                     completed: 'optionYes',
                     left: 'optionNo',

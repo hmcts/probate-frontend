@@ -55,6 +55,7 @@ describe('WillOriginal', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionYes'
@@ -77,6 +78,7 @@ describe('WillOriginal', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionYes'

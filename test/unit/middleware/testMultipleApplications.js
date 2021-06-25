@@ -6,7 +6,10 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 const rewire = require('rewire');
 const multipleApplicationsMiddleware = rewire('app/middleware/multipleApplications');
+
 const Service = require('app/services/Service');
+
+//DTSPB-529 Test file duplicated for new probate death cert flow.
 
 const allApplicationsExpectedResponse = {
     applications: [
@@ -57,6 +60,18 @@ const allApplicationsExpectedResponse = {
     ]
 };
 
+const probateScreeners = {
+    deathCertificate: 'optionYes',
+    deathCertificateInEnglish: 'optionNo',
+    deathCertificateTranslation: 'optionYes',
+    domicile: 'optionYes',
+    completed: 'optionYes',
+    left: 'optionYes',
+    original: 'optionYes',
+    executor: 'optionYes',
+    mentalCapacity: 'optionYes'
+};
+
 describe('multipleApplicationsMiddleware', () => {
     describe('InitDashboardMiddleware', () => {
         it('should redirect to Start Eligibility if no applications found', (done) => {
@@ -92,11 +107,12 @@ describe('multipleApplicationsMiddleware', () => {
             });
         });
 
-        it('should not create a new application if screeners are found but not WillLeft - should just render the existing applications instead', (done) => {
+        it('should not create a new application if will left screener is not found', (done) => {
             const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
                 req.session.form.applications = allApplicationsExpectedResponse.applications;
                 return Promise.resolve();
             });
+
             const req = {
                 session: {
                     form: {
@@ -137,11 +153,19 @@ describe('multipleApplicationsMiddleware', () => {
             });
         });
 
-        it('should not create a new application if screeners are found including WillLeft and a Draft application of the same caseType is already present - should just render the existing applications instead', (done) => {
-            const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
-                req.session.form.applications = allApplicationsExpectedResponse.applications;
-                return Promise.resolve();
+        it('should not create a new application if all screeners are found and a Draft application of the same caseType is already present', (done) => {
+            const revert = multipleApplicationsMiddleware.__set__({
+                renderDashboard: function () {
+                    req.session.form.applications = allApplicationsExpectedResponse.applications;
+                    return Promise.resolve();
+                },
+                ScreenerValidation: class {
+                    getScreeners() {
+                        return probateScreeners;
+                    }
+                }
             });
+
             const req = {
                 session: {
                     form: {
@@ -151,13 +175,15 @@ describe('multipleApplicationsMiddleware', () => {
                         userLoggedIn: true,
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionYes',
                             original: 'optionYes',
                             executor: 'optionYes',
                             mentalCapacity: 'optionYes'
-                        }
+                        },
                     }
                 }
             };
@@ -188,11 +214,19 @@ describe('multipleApplicationsMiddleware', () => {
             });
         });
 
-        it('should not create a new application if screeners are found including WillLeft and a Draft application of the same caseType is already present but not all screeners are present - should just render the existing applications instead', (done) => {
-            const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
-                req.session.form.applications = allApplicationsExpectedResponse.applications;
-                return Promise.resolve();
+        it('should not create a new application if not all screeners are found and a Draft application of the same caseType is already present', (done) => {
+            const revert = multipleApplicationsMiddleware.__set__({
+                renderDashboard: function () {
+                    req.session.form.applications = allApplicationsExpectedResponse.applications;
+                    return Promise.resolve();
+                },
+                ScreenerValidation: class {
+                    getScreeners() {
+                        return probateScreeners;
+                    }
+                }
             });
+
             const req = {
                 session: {
                     form: {
@@ -201,7 +235,8 @@ describe('multipleApplicationsMiddleware', () => {
                         payloadVersion: 'dummy',
                         userLoggedIn: true,
                         screeners: {
-                            deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionYes'
@@ -237,19 +272,27 @@ describe('multipleApplicationsMiddleware', () => {
         });
 
         it('should create a new draft application if all screeners are present and no applications found', (done) => {
-            const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
-                req.session.form.applications = [
-                    {
-                        dateCreated: '9 November 2019',
-                        caseType: 'PA',
-                        ccdCase: {
-                            id: '9999999999999999',
-                            state: 'Pending'
+            const revert = multipleApplicationsMiddleware.__set__({
+                renderDashboard: function () {
+                    req.session.form.applications = [
+                        {
+                            dateCreated: '9 November 2019',
+                            caseType: 'PA',
+                            ccdCase: {
+                                id: '9999999999999999',
+                                state: 'Pending'
+                            }
                         }
+                    ];
+                    return Promise.resolve();
+                },
+                ScreenerValidation: class {
+                    getScreeners() {
+                        return probateScreeners;
                     }
-                ];
-                return Promise.resolve();
+                }
             });
+
             const req = {
                 session: {
                     form: {
@@ -259,6 +302,8 @@ describe('multipleApplicationsMiddleware', () => {
                         userLoggedIn: true,
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionYes',
@@ -307,10 +352,19 @@ describe('multipleApplicationsMiddleware', () => {
 
         it('should create a new draft application if all screeners are present and no Draft applications of same case type found', (done) => {
             delete allApplicationsExpectedResponse.applications[4];
-            const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
-                req.session.form.applications = allApplicationsExpectedResponse.applications;
-                return Promise.resolve();
+
+            const revert = multipleApplicationsMiddleware.__set__({
+                renderDashboard: function () {
+                    req.session.form.applications = allApplicationsExpectedResponse.applications;
+                    return Promise.resolve();
+                },
+                ScreenerValidation: class {
+                    getScreeners() {
+                        return probateScreeners;
+                    }
+                }
             });
+
             const req = {
                 session: {
                     form: {
@@ -320,6 +374,8 @@ describe('multipleApplicationsMiddleware', () => {
                         userLoggedIn: true,
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionYes',
@@ -358,10 +414,18 @@ describe('multipleApplicationsMiddleware', () => {
         });
 
         it('should create a new draft application if all screeners are present and a Draft applications found but of different caseType', (done) => {
-            const revert = multipleApplicationsMiddleware.__set__('renderDashboard', () => {
-                req.session.form.applications = allApplicationsExpectedResponse.applications;
-                return Promise.resolve();
+            const revert = multipleApplicationsMiddleware.__set__({
+                renderDashboard: function () {
+                    req.session.form.applications = allApplicationsExpectedResponse.applications;
+                    return Promise.resolve();
+                },
+                ScreenerValidation: class {
+                    getScreeners() {
+                        return probateScreeners;
+                    }
+                }
             });
+
             const req = {
                 session: {
                     form: {
@@ -371,12 +435,14 @@ describe('multipleApplicationsMiddleware', () => {
                         userLoggedIn: true,
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
-                            left: 'optionNo',
-                            diedAfter: 'optionYes',
-                            related: 'optionYes',
-                            otherApplicants: 'optionNo'
+                            left: 'optionYes',
+                            original: 'optionYes',
+                            executor: 'optionYes',
+                            mentalCapacity: 'optionYes'
                         }
                     }
                 }

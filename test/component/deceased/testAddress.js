@@ -1,19 +1,19 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DocumentUpload = require('app/steps/ui/documentupload');
+const DiedEnglandOrWales = require('app/steps/ui/deceased/diedengorwales');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('deceased-address', () => {
     let testWrapper;
-    const expectedNextUrlForDocumentUpload = DocumentUpload.getUrl();
+    const expectedNextUrlForDiedEnglandOrWales = DiedEnglandOrWales.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedAddress');
     });
 
-    afterEach(() => {
-        testWrapper.destroy();
+    afterEach(async () => {
+        await testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -44,14 +44,13 @@ describe('deceased-address', () => {
             testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
-        it(`test it redirects to document upload page: ${expectedNextUrlForDocumentUpload}`, (done) => {
+        it(`test it redirects to died england or wales page: ${expectedNextUrlForDiedEnglandOrWales}`, (done) => {
             const data = {
                 addressLine1: 'value',
                 postTown: 'value',
                 newPostCode: 'value'
             };
-
-            testWrapper.testRedirect(done, data, expectedNextUrlForDocumentUpload);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDiedEnglandOrWales);
         });
     });
 });

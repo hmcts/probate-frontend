@@ -21,7 +21,7 @@ const initDashboard = (req, res, next) => {
         .then(result => {
             if (result.applications && result.applications.length) {
                 logger.info('Retrieved Cases = ' + JSON.stringify(result.applications));
-                if (allEligibilityQuestionsPresent(formdata, req.session.featureToggles)) {
+                if (allEligibilityQuestionsPresent(formdata)) {
                     if (!result.applications.some(application => application.ccdCase.state === 'Pending' && !application.deceasedFullName && application.caseType === caseTypes.getProbateType(formdata.caseType))) {
                         createNewApplication(req, res, formdata, formData, result, next);
                     } else {
@@ -34,7 +34,7 @@ const initDashboard = (req, res, next) => {
                     delete formdata.screeners;
                     renderDashboard(req, result, next);
                 }
-            } else if (allEligibilityQuestionsPresent(formdata, req.session.featureToggles)) {
+            } else if (allEligibilityQuestionsPresent(formdata)) {
                 createNewApplication(req, res, formdata, formData, result, next);
             } else {
                 res.redirect('/start-eligibility');
@@ -60,12 +60,12 @@ const createNewApplication = (req, res, formdata, formData, result, next) => {
         });
 };
 
-const allEligibilityQuestionsPresent = (formdata, featureToggles) => {
+const allEligibilityQuestionsPresent = (formdata) => {
     let allQuestionsPresent = true;
 
     if (formdata.screeners && formdata.screeners.left) {
         const journeyType = formdata.screeners.left === 'optionNo' ? 'intestacy' : 'probate';
-        const eligibilityQuestionsList = screenerValidation.getScreeners(journeyType, formdata, featureToggles);
+        const eligibilityQuestionsList = screenerValidation.getScreeners(journeyType, formdata);
 
         Object.entries(eligibilityQuestionsList).forEach(([key, value]) => {
             if (!Object.keys(formdata.screeners).includes(key) || formdata.screeners[key] !== value) {

@@ -7,7 +7,8 @@ module.exports = async (url) => {
     const I = this;
 
     if (testConfig.useIdam !== 'false') {
-        await I.waitInUrl(pageUnderTest.getUrl(url));
+        //refactor this, if we can, to avoid constructing the application object
+        await I.seeCurrentUrlEquals(pageUnderTest.getUrl(url));
     }
 
     await I.clickBrowserBackButton();

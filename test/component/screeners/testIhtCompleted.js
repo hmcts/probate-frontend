@@ -45,7 +45,8 @@ describe('iht-completed', () => {
             const sessionData = {
                 screeners: {
                     deathCertificate: 'optionYes',
-                    domicile: 'optionYes'
+                    deathCertificateInEnglish: 'optionYes',
+                    domicile: 'optionYes',
                 }
             };
 
@@ -64,7 +65,8 @@ describe('iht-completed', () => {
             const sessionData = {
                 screeners: {
                     deathCertificate: 'optionYes',
-                    domicile: 'optionYes'
+                    deathCertificateInEnglish: 'optionYes',
+                    domicile: 'optionYes',
                 }
             };
 

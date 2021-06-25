@@ -1,22 +1,18 @@
 'use strict';
 
 const config = require('config');
-const commonContentEn = require('app/resources/en/translation/common');
-const commonContentCy = require('app/resources/cy/translation/common');
-const contentEn = require('app/resources/en/translation/deceased/foreigndeathcerttranslation');
-const contentCy = require('app/resources/cy/translation/deceased/foreigndeathcerttranslation');
 
-module.exports = async function(language = 'en', answer) {
+module.exports = async function(language = 'en', answer = null) {
     const I = this;
-    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
-    const foreignDeathCertTranslationContent = language === 'en' ? contentEn : contentCy;
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    const foreignDeathCertTranslationContent = require(`app/resources/${language}/translation/deceased/foreigndeathcerttranslation`);
 
-    await I.checkPageUrl('app/steps/ui/deceased/foreigndeathcerttranslation');
+    await I.checkInUrl('/foreign-death-cert-translation');
     await I.waitForText(foreignDeathCertTranslationContent.question, config.TestWaitForTextToAppear);
 
     const locator = {css: `#foreignDeathCertTranslation${answer}`};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.click(locator);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

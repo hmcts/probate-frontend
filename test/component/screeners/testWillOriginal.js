@@ -47,6 +47,7 @@ describe('will-original', () => {
             const sessionData = {
                 screeners: {
                     deathCertificate: 'optionYes',
+                    deathCertificateInEnglish: 'optionYes',
                     domicile: 'optionYes',
                     completed: 'optionYes',
                     left: 'optionYes'
@@ -68,6 +69,7 @@ describe('will-original', () => {
             const sessionData = {
                 screeners: {
                     deathCertificate: 'optionYes',
+                    deathCertificateInEnglish: 'optionYes',
                     domicile: 'optionYes',
                     completed: 'optionYes',
                     left: 'optionYes'

@@ -26,7 +26,8 @@ def secrets = [
     secret('testPostCodeAddressToken2', 'ADDRESS_TOKEN'),
     secret('testRunE2ETest', 'RUN_E2E_TEST'),
     secret('testValidationServiceUrl', 'VALIDATION_SERVICE_URL'),
-    secret('launchdarkly-key', 'LAUNCHDARKLY_KEY')
+    secret('launchdarkly-key', 'LAUNCHDARKLY_KEY'),
+    secret('launchdarklyUserkeyFrontend', 'LAUNCHDARKLY_USER_KEY')
   ]
 ]
 
@@ -38,6 +39,9 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
     envVariable: envVar
   ]
 }
+
+// Configure branches to sync with master branch
+def branchesToSync = ['demo', 'ithc', 'perftest']
 
 withPipeline("nodejs", product, component) {
  /*  afterCheckout {
@@ -87,6 +91,7 @@ withPipeline("nodejs", product, component) {
 
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
+  syncBranchesWithMaster(branchesToSync)
 
   after('test') {
     publishHTML (target: [

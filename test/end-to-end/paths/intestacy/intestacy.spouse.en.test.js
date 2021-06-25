@@ -9,9 +9,7 @@ const optionNo = '-2';
 const ihtOnline = '-2';
 const maritalStatusMarried = '';
 const spousePartner = '';
-const uploadingDocuments = false;
 const bilingualGOP = false;
-const config = require('config');
 const languages = ['en', 'cy'];
 
 Feature('GOP Intestacy spouse E2E');
@@ -27,23 +25,17 @@ After(async () => {
 
 languages.forEach(language => {
 
-    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} GOP Intestacy Spouse Journey - Digital iht and death certificate uploaded `), async (I) => {
+    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} GOP Intestacy Spouse Journey - Digital iht and death certificate uploaded `), async ({I}) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
         await I.retry(2).createAUser(TestConfigurator);
-
-        const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
 
         // Eligibility Task (pre IdAM)
         await I.startApplication(language);
 
         // Probate Sceeners
-        await I.selectDeathCertificate(language, optionYes);
-
-        if (useNewDeathCertFlow) {
-            await I.selectDeathCertificateInEnglish(language, optionNo);
-            await I.selectDeathCertificateTranslation(language, optionYes);
-        }
-
+        await I.selectDeathCertificate(language);
+        await I.selectDeathCertificateInEnglish(language, optionNo);
+        await I.selectDeathCertificateTranslation(language, optionYes);
         await I.selectDeceasedDomicile(language);
         await I.selectIhtCompleted(language, optionYes);
         await I.selectPersonWhoDiedLeftAWill(language, optionNo);
@@ -66,15 +58,9 @@ languages.forEach(language => {
         await I.chooseBiLingualGrant(language, optionNo);
         await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
         await I.enterDeceasedAddress(language);
-
-        if (useNewDeathCertFlow) {
-            await I.selectDiedEngOrWales(language, optionNo);
-            await I.selectEnglishForeignDeathCert(language, optionNo);
-            await I.selectForeignDeathCertTranslation(language, optionYes);
-        } else {
-            await I.selectDocumentsToUpload(language, uploadingDocuments);
-        }
-
+        await I.selectDiedEngOrWales(language, optionNo);
+        await I.selectEnglishForeignDeathCert(language, optionNo);
+        await I.selectForeignDeathCertTranslation(language, optionYes);
         await I.selectInheritanceMethod(language, ihtOnline);
         await I.enterIHTIdentifier(language);
         if (TestConfigurator.getUseGovPay() === 'true') {

@@ -80,6 +80,7 @@ describe('WillLeft', () => {
                 userLoggedIn: true,
                 screeners: {
                     deathCertificate: 'optionYes',
+                    deathCertificateInEnglish: 'optionYes',
                     domicile: 'optionYes',
                     completed: 'optionYes'
                 }
@@ -103,6 +104,7 @@ describe('WillLeft', () => {
                 screeners: {
                     deathCertificate: 'optionYes',
                     domicile: 'optionYes',
+                    deathCertificateInEnglish: 'optionYes',
                     completed: 'optionYes'
                 }
             });
@@ -118,6 +120,7 @@ describe('WillLeft', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes'
                         }
@@ -139,6 +142,7 @@ describe('WillLeft', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes'
                         }

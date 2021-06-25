@@ -1,21 +1,17 @@
 'use strict';
 
 const config = require('config');
-const commonContentEn = require('app/resources/en/translation/common');
-const commonContentCy = require('app/resources/cy/translation/common');
-const relationshipContentEn = require('app/resources/en/translation/applicant/relationshiptodeceased');
-const relationshipContentCy = require('app/resources/cy/translation/applicant/relationshiptodeceased');
 
-module.exports = async function(language = 'en', answer) {
+module.exports = async function(language = 'en', answer = null) {
     const I = this;
-    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
-    const relationshipContent = language === 'en' ? relationshipContentEn : relationshipContentCy;
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    const relationshipContent = require(`app/resources/${language}/translation/applicant/relationshiptodeceased`);
 
-    await I.checkPageUrl('app/steps/ui/applicant/relationshiptodeceased');
+    await I.checkInUrl('/relationship-to-deceased');
     await I.waitForText(relationshipContent.question, config.TestWaitForTextToAppear);
     const locator = {css: `#relationshipToDeceased${answer}`};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.click(locator);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

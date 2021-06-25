@@ -115,11 +115,15 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.use(helmet.contentSecurityPolicy({
         directives: {
             defaultSrc: [
-                '\'self\''
+                '\'self\'',
+                'webchat.ctsc.hmcts.net',
+                'webchat-client.ctsc.hmcts.net'
             ],
             fontSrc: [
                 '\'self\' data:',
-                'fonts.gstatic.com'
+                'fonts.gstatic.com',
+                'webchat-client.ctsc.hmcts.net',
+                'webchat.ctsc.hmcts.net',
             ],
             scriptSrc: [
                 '\'self\'',
@@ -132,12 +136,14 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'vcc-eu4.8x8.com',
                 'vcc-eu4b.8x8.com',
                 'webchat-client.ctsc.hmcts.net',
+                'webchat.ctsc.hmcts.net',
                 `'nonce-${nonce}'`,
                 'tagmanager.google.com'
             ],
             connectSrc: [
                 '\'self\'',
                 'www.google-analytics.com',
+                'https://webchat-client.ctsc.hmcts.net',
                 'https://webchat.ctsc.hmcts.net',
                 'wss://webchat.ctsc.hmcts.net',
                 'stats.g.doubleclick.net',
@@ -159,14 +165,16 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'vcc-eu4b.8x8.com',
                 'ssl.gstatic.com',
                 'www.gstatic.com',
-                'lh3.googleusercontent.com'
+                'lh3.googleusercontent.com',
+                'webchat-client.ctsc.hmcts.net'
             ],
             styleSrc: [
                 '\'self\'',
                 '\'unsafe-inline\'',
                 'tagmanager.google.com',
                 'fonts.googleapis.com',
-                'webchat-client.ctsc.hmcts.net'
+                'webchat-client.ctsc.hmcts.net',
+                'webchat.ctsc.hmcts.net'
             ],
             frameAncestors: ['\'self\'']
         },
@@ -200,6 +208,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.use('/public/javascripts', express.static(`${__dirname}/app/assets/javascripts`, caching));
     app.use('/public/pdf', express.static(`${__dirname}/app/assets/pdf`));
     app.use('/assets', express.static(`${__dirname}/node_modules/govuk-frontend/govuk/assets`, caching));
+    app.use('/assets/locale', express.static(`${__dirname}/app/assets/locales/avaya-webchat`, caching));
 
     // Elements refers to icon folder instead of images folder
     app.use(favicon(path.join(__dirname, 'node_modules', 'govuk-frontend', 'govuk', 'assets', 'images', 'favicon.ico')));

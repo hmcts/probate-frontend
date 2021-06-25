@@ -22,10 +22,10 @@ describe('Documents.js', () => {
     });
 
     describe('documentsRequired()', () => {
-        it('should return true when no data', (done) => {
+        it('should return false when no data', (done) => {
             const data = {};
             const documentsWrapper = new DocumentsWrapper(data);
-            expect(documentsWrapper.documentsRequired()).to.equal(true);
+            expect(documentsWrapper.documentsRequired()).to.equal(false);
             done();
         });
 
@@ -48,15 +48,6 @@ describe('Documents.js', () => {
                 documents: {
                     uploads: ['content']
                 }
-            };
-            const documentsWrapper = new DocumentsWrapper(data);
-            expect(documentsWrapper.documentsRequired()).to.equal(true);
-            done();
-        });
-
-        it('should return true when case is INTESTACY with no documents uploaded', (done) => {
-            const data = {
-                caseType: caseTypes.INTESTACY,
             };
             const documentsWrapper = new DocumentsWrapper(data);
             expect(documentsWrapper.documentsRequired()).to.equal(true);

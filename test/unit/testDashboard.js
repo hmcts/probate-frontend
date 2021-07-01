@@ -50,7 +50,9 @@ describe('Dashboard', () => {
                 featureToggles: {
                     ft_avaya_webchat: 'false'
                 },
-                isAvayaWebChatEnabled: false
+                isAvayaWebChatEnabled: false,
+                isGaEnabled: true,
+                isWebChatEnabled: true
             });
             revert();
             done();

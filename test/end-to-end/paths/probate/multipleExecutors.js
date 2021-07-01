@@ -10,7 +10,7 @@ const optionYes = '';
 const ihtPost = '';
 const optionNo = '-2';
 const bilingualGOP = false;
-const languages = ['en'];
+const languages = ['en', 'cy'];
 
 Feature('GOP Multiple Executors E2E');
 
@@ -31,7 +31,7 @@ languages.forEach(language => {
 
         // Eligibility Task (pre IdAM)
         await I.startApplication(language);
-        await I.selectDeathCertificate(language, optionYes);
+        await I.selectDeathCertificate(language);
         await I.selectDeathCertificateInEnglish(language, optionNo);
         await I.selectDeathCertificateTranslation(language, optionYes);
         await I.selectDeceasedDomicile(language);
@@ -225,6 +225,6 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
 
-    }).tag('@e2e')
+    }).tag('@multiExecE2e')
         .retry(TestConfigurator.getRetryScenarios());
 });

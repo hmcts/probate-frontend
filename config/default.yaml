@@ -16,6 +16,10 @@ featureToggles:
   ft_avaya_webchat: 'probate-avaya-webchat'
   ft_newfee_register_code: 'probate-newfee-register-code'
   appwideToggles: ['ft_avaya_webchat']
+# overrides featureToggles to e.g. switch off in pipeline/locally
+configFeatureToggles:
+  webchatEnabled: true
+  gaEnabled: true
 app:
   username:
   password:

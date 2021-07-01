@@ -30,7 +30,9 @@ const FormatUrl = require('app/utils/FormatUrl');
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
     req.log.info(`Processing ${req.method} for ${req.originalUrl}`);
-    next();
+    if (!req.originalUrl.match(/locale/g)) {
+        next();
+    }
 });
 
 router.use((req, res, next) => {

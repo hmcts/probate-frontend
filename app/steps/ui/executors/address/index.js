@@ -4,6 +4,7 @@ const AddressStep = require('app/core/steps/AddressStep');
 const {findIndex, get, startsWith} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const pageUrl = '/executor-address';
+const logger = require('app/components/logger')('Init');
 
 class ExecutorAddress extends AddressStep {
 
@@ -52,6 +53,8 @@ class ExecutorAddress extends AddressStep {
         if (ctx.list[ctx.index].addresses && !ctx.addresses) {
             ctx.addresses = ctx.list[ctx.index].addresses;
         }
+        logger.info('handleGet method initiated for executor\'s address for executor: ' + ctx.list[ctx.index].fullName +
+        ', for case id: ' + ctx.ccdCase.id);
 
         return [ctx, errors];
     }
@@ -62,7 +65,10 @@ class ExecutorAddress extends AddressStep {
         ctx.list[ctx.index].postcode = ctx.postcode;
         ctx.list[ctx.index].addresses = ctx.addresses;
 
+        logger.info('handlePost method initiated for executor\'s address for executor: ' + ctx.list[ctx.index].fullName +
+        ', for case id: ' + ctx.ccdCase.id);
         ctx.index = this.recalcIndex(ctx, ctx.index);
+        console.log('Case id: '+ ctx.ccdCase.id);
         if (ctx.index === -1) {
             ctx.allExecsApplying = ctx.executorsWrapper.areAllAliveExecutorsApplying();
         }
@@ -75,8 +81,12 @@ class ExecutorAddress extends AddressStep {
 
     nextStepUrl(req, ctx) {
         if (ctx.index === -1) {
+            logger.info('Next step url after Executor address step: ' + this.next(req, ctx).constructor.getUrl() +
+            ', for case id: ' + ctx.ccdCase.id);
             return this.next(req, ctx).constructor.getUrl();
         }
+        logger.info('Next step url after Executor address step: ' +
+        this.next(req, ctx).constructor.getUrl(ctx.index) + ', for case id: ' + ctx.ccdCase.id);
         return this.next(req, ctx).constructor.getUrl(ctx.index);
 
     }

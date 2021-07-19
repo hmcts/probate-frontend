@@ -9,6 +9,7 @@ const InviteData = require('app/services/InviteData');
 const PhoneNumberValidator = require('app/utils/PhoneNumberValidator');
 const config = require('config');
 const pageUrl = '/executor-contact-details';
+const logger = require('app/components/logger')('Init');
 
 class ExecutorContactDetails extends ValidationStep {
 
@@ -43,6 +44,8 @@ class ExecutorContactDetails extends ValidationStep {
     * handlePost(ctx, errors, formdata, session) {
         const executorsWrapper = new ExecutorsWrapper(ctx);
         const executor = ctx.list[ctx.index];
+        logger.info('handlePost method initiated for executor\'s contact details step for executor: ' +
+        executor.fullName + ', for case id: ' + ctx.ccdCase.id);
         if (!emailValidator.validate(ctx.email)) {
             errors.push(FieldError('email', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
@@ -81,6 +84,8 @@ class ExecutorContactDetails extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
+        logger.info('Next step url after executor\'s - ' + ctx.list[ctx.index].fullName + ' contact details added: ' +
+        this.next(req, ctx).constructor.getUrl(ctx.index) + ' for case id: ' + ctx.ccdCase.id);
         return this.next(req, ctx).constructor.getUrl(ctx.index);
     }
 

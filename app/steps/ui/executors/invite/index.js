@@ -30,7 +30,7 @@ class ExecutorsInvite extends ValidationStep {
     }
 
     * handlePost(ctx, errors, formdata) {
-        logger.info('handlePost method for /executor-invites initiated for case ID ' + (typeof ctx.ccdCase.id !== 'undefined' ? ctx.ccdCase.id : ''));
+        logger.info('handlePost method for /executor-invites initiated for case ID ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
         const inviteLink = new InviteLink(config.services.orchestrator.url, ctx.sessionID);
         const executorsToNotifyList = ctx.list
             .filter(exec => exec.isApplying && !exec.isApplicant)

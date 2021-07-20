@@ -45,7 +45,7 @@ class ExecutorContactDetails extends ValidationStep {
         const executorsWrapper = new ExecutorsWrapper(ctx);
         const executor = ctx.list[ctx.index];
         logger.info('handlePost method initiated for executor\'s contact details step for executor: ' +
-        executor.fullName + ', for case id: ' + (typeof ctx.ccdCase.id !== 'undefined' ? ctx.ccdCase.id : ''));
+        executor.fullName + ', for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
         if (!emailValidator.validate(ctx.email)) {
             errors.push(FieldError('email', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
@@ -85,7 +85,7 @@ class ExecutorContactDetails extends ValidationStep {
 
     nextStepUrl(req, ctx) {
         logger.info('Next step url after executor\'s - ' + ctx.list[ctx.index].fullName + ' contact details added: ' +
-        this.next(req, ctx).constructor.getUrl(ctx.index) + ' for case id: ' + (typeof ctx.ccdCase.id !== 'undefined' ? ctx.ccdCase.id : ''));
+        this.next(req, ctx).constructor.getUrl(ctx.index) + ' for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
         return this.next(req, ctx).constructor.getUrl(ctx.index);
     }
 

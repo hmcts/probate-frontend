@@ -16,7 +16,7 @@ class PaymentBreakdown extends Step {
     }
 
     handleGet(ctx, formdata) {
-        logger.info('handleGet method initiated for /payment-breakdown for case id: ' + (ctx.ccdCase !== null ? ctx.ccdCase.id : ''));
+        logger.info('handleGet method initiated for /payment-breakdown for case id: ' + (ctx !== null ? ctx.ccdCase.id : ''));
         const fees = formdata.fees;
         this.checkFeesStatus(fees);
 
@@ -24,7 +24,7 @@ class PaymentBreakdown extends Step {
         ctx.applicationFee = fees.applicationfee;
         ctx.total = fees.total;
         logger.info('/payment-braekdown copies: ' + ctx.copies + ', application fee: ' + ctx.applicationFee + ', ' +
-        'total fee: ' + ctx.total + ', for case id: ' + (ctx.ccdCase !== null ? ctx.ccdCase.id : ''));
+        'total fee: ' + ctx.total + ', for case id: ' + (ctx !== null ? ctx.ccdCase.id : ''));
         ctx = this.formatAmounts(ctx);
 
         return [ctx, ctx.errors];
@@ -40,7 +40,7 @@ class PaymentBreakdown extends Step {
         const ukCopies = typeof formdata.copies === 'undefined' ? 0 : formdata.copies.uk;
         const overseasCopies = typeof formdata.copies === 'undefined' ? 0 : formdata.copies.overseas;
         logger.info('ukCopies and overseasCopies for /payment-breakdown: ' + ukCopies + ' and ' + overseasCopies +
-        ' respectively, for case id: ' + (formdata.ccdCase !== null ? formdata.ccdCase.id : ''));
+        ' respectively, for case id: ' + (formdata !== null ? formdata.ccdCase.id : ''));
         return {
             uk: {number: ukCopies, cost: formdata.fees.ukcopiesfee},
             overseas: {number: overseasCopies, cost: formdata.fees.overseascopiesfee},
@@ -67,7 +67,7 @@ class PaymentBreakdown extends Step {
     }
 
     * handlePost(ctx, errors, formdata, session, hostname) {
-        logger.info('handlePost method initiated for /payment-breakdown for case id: ' + (ctx.ccdCase !== null ? ctx.ccdCase.id : ''));
+        logger.info('handlePost method initiated for /payment-breakdown for case id: ' + (ctx !== null ? ctx.ccdCase.id : ''));
         try {
             const feesCalculator = new FeesCalculator(config.services.feesRegister.url, ctx.sessionID);
             const confirmFees = yield feesCalculator.calc(formdata, ctx.authToken, session.featureToggles);
@@ -163,7 +163,7 @@ class PaymentBreakdown extends Step {
                 ctx.paymentCreatedDate = paymentResponse.date_created;
                 this.nextStepUrl = () => paymentResponse._links.next_url.href;
                 logger.info('Next step url after /payment-breakdown: ' + this.nextStepUrl + ' for case id: ' +
-                (ctx.ccdCase !== null ? ctx.ccdCase.id : ''));
+                (ctx !== null ? ctx.ccdCase.id : ''));
             } else {
                 delete this.nextStepUrl;
             }

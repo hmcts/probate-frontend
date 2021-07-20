@@ -43,7 +43,7 @@ class TaskList extends Step {
             const executorsWrapper = new ExecutorsWrapper(formdata.executors);
             ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
             ctx.declarationStatuses = formdata.executorsDeclarations || [];
-            logger.info('Declaration status for case id ' + (ctx !== null ? ctx.ccdCase.id : '') + ': ' + ctx.declarationStatuses);
+            logger.info('Declaration status for case id ' + (typeof ctx.ccdCase.id !== 'undefined' ? ctx.ccdCase.id : '') + ': ' + ctx.declarationStatuses);
 
             ctx.previousTaskStatus = {
                 DeceasedTask: ctx.DeceasedTask.status,
@@ -53,7 +53,7 @@ class TaskList extends Step {
                 PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
                 DocumentsTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.PaymentTask])
             };
-            logger.info('Previous task statuses for case id ' + (ctx !== null ? ctx.ccdCase.id : '') + ': DeceasedTask - ' + ctx.DeceasedTask.status + ', ExecutorsTask - ' + ctx.DeceasedTask.status + ', ReviewAndConfirmTask - ' +
+            logger.info('Previous task statuses for case id ' + (typeof ctx.ccdCase.id !== 'undefined' ? ctx.ccdCase.id : '') + ': DeceasedTask - ' + ctx.DeceasedTask.status + ', ExecutorsTask - ' + ctx.DeceasedTask.status + ', ReviewAndConfirmTask - ' +
             ctx.previousTaskStatus.ReviewAndConfirmTask + ', CopiesTask - ' + ctx.previousTaskStatus.CopiesTask + ', PaymentTask - ' + ctx.previousTaskStatus.PaymentTask + ', DocumentsTask - ' + ctx.previousTaskStatus.DocumentsTask);
         } else {
             ctx.previousTaskStatus = {
@@ -63,7 +63,7 @@ class TaskList extends Step {
                 CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
                 PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
             };
-            logger.info('Previous task statuses for case id ' + (ctx !== null ? ctx.ccdCase.id : '') + ': DeceasedTask - ' + ctx.DeceasedTask.status + ', ApplicantsTask - ' + ctx.DeceasedTask.status + ', ReviewAndConfirmTask - ' +
+            logger.info('Previous task statuses for case id ' + (typeof ctx.ccdCase.id !== 'undefined' ? ctx.ccdCase.id : '') + ': DeceasedTask - ' + ctx.DeceasedTask.status + ', ApplicantsTask - ' + ctx.DeceasedTask.status + ', ReviewAndConfirmTask - ' +
             ctx.previousTaskStatus.ReviewAndConfirmTask + ', CopiesTask - ' + ctx.previousTaskStatus.CopiesTask + ', PaymentTask - ' + ctx.previousTaskStatus.PaymentTask);
         }
 

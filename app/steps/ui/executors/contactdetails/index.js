@@ -84,7 +84,7 @@ class ExecutorContactDetails extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        logger.info('Next step url after executor\'s - ' + ctx.list[ctx.index].fullName + ' contact details added: ' +
+        logger.info('Next step url after executor\'s - ' + (typeof ctx.list !== 'undefined' ? ctx.list[ctx.index].fullName : '') + ' contact details added: ' +
         this.next(req, ctx).constructor.getUrl(ctx.index) + ' for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
         return this.next(req, ctx).constructor.getUrl(ctx.index);
     }

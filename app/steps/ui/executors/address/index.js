@@ -53,7 +53,7 @@ class ExecutorAddress extends AddressStep {
         if (ctx.list[ctx.index].addresses && !ctx.addresses) {
             ctx.addresses = ctx.list[ctx.index].addresses;
         }
-        logger.info('handleGet method initiated for executor\'s address for executor: ' + ctx.list[ctx.index].fullName +
+        logger.info('handleGet method initiated for executor\'s address for executor: ' + Buffer.from(ctx.list[ctx.index].fullName).toString('base64') +
         ', for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
 
         return [ctx, errors];
@@ -65,7 +65,7 @@ class ExecutorAddress extends AddressStep {
         ctx.list[ctx.index].postcode = ctx.postcode;
         ctx.list[ctx.index].addresses = ctx.addresses;
 
-        logger.info('handlePost method initiated for executor\'s address for executor: ' + ctx.list[ctx.index].fullName +
+        logger.info('handlePost method initiated for executor\'s address for executor: ' + Buffer.from(ctx.list[ctx.index].fullName).toString('base64') +
         ', for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
         ctx.index = this.recalcIndex(ctx, ctx.index);
         if (ctx.index === -1) {

@@ -3,13 +3,6 @@ const {decodeHTML} = require('test/end-to-end/helpers/GeneralHelpers');
 class JSWait extends codecept_helper {
 
     async _beforeStep(step) {
-
-        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
-
-        if (step.name === 'seeCurrentUrlEquals' || step.name === 'seeInCurrentUrl') {
-            return helper.waitForElement('body', 30);
-        }
-
         if (step.name === 'waitForText') {
             // this handles decoding any HTML coded characters in the text
             step.args[0] = await decodeHTML(step.args[0].trim());
@@ -68,10 +61,12 @@ class JSWait extends codecept_helper {
                 newUrl = helper.options.url + newUrl;
             }
 
-            helper.page.goto(newUrl).catch(err => {
-                console.error(err.message);
-            });
-            await helper.page.waitForNavigation({waitUntil: 'networkidle0'});
+            await Promise.all([
+                helper.page.waitForNavigation({waitUntil: 'networkidle0'}),
+                helper.page.goto(newUrl).catch(err => {
+                    console.error(err.message);
+                })
+            ]);
 
         } else {
             await helper.amOnPage(newUrl);

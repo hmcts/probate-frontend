@@ -86,8 +86,6 @@ withPipeline("nodejs", product, component) {
        error 'Deliberately breaking pipeline to prevent prod deployment'
    }
 */
-
-  // installCharts()
   enableAksStagingDeployment()
   disableLegacyDeployment()
 

@@ -33,6 +33,7 @@ const setupSecrets = () => {
         setSecret('secrets.probate.launchdarklyUserkeyFrontend', 'featureToggles.launchDarklyUser.key');
         setSecret('secrets.probate.pcq-token-key', 'services.equalityAndDiversity.tokenKey');
         setSecret('secrets.probate.webchat-avaya-url', 'webchat.avayaUrl');
+        setSecret('secrets.probate.webchat-avaya-client-url', 'webchat.avayaClientUrl');
         setSecret('secrets.probate.webchat-avaya-service', 'webchat.avayaService');
     }
 };

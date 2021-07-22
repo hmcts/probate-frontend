@@ -58,6 +58,7 @@ redis:
 enableTracking: ENABLE_TRACKING
 webchat:
   avayaUrl: WEBCHAT_AVAYA_URL
+  avayaClientUrl: WEBCHAT_AVAYA_CLIENT_URL
   avayaService: WEBCHAT_AVAYA_SERVICE
 webChat:
   chatId: WEBCHAT_CHAT_ID

@@ -169,7 +169,8 @@ dateFormat: 'DD/MM/YYYY'
 payloadVersion: '4.1.1'
 enableTracking: 'true'
 webchat:
-  avayaUrl: 'https://webchat.training.ctsc.hmcts.net'
+  avayaUrl: 'webchat.training.ctsc.hmcts.net'
+  avayaClientUrl: 'webchat-client.training.ctsc.hmcts.net'
   avayaService: 'Testing'
 webChat:
   chatId: '3077733355d19fd430f23c7.02555395'

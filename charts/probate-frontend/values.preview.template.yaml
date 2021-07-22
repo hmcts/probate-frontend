@@ -28,6 +28,7 @@ nodejs:
         - launchdarkly-key
         - launchdarklyUserkeyFrontend
         - webchat-avaya-url
+        - webchat-avaya-client-url
         - webchat-avaya-service
 redis:
   enabled: true

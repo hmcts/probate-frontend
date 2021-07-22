@@ -56,6 +56,7 @@ nodejs:
         - pcq-token-key
         - launchdarklyUserkeyFrontend
         - webchat-avaya-url
+        - webchat-avaya-client-url
         - webchat-avaya-service
 redis:
   enabled: false

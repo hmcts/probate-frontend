@@ -29,6 +29,7 @@ def secrets = [
     secret('launchdarkly-key', 'LAUNCHDARKLY_KEY'),
     secret('launchdarklyUserkeyFrontend', 'LAUNCHDARKLY_USER_KEY'),
     secret('webchat-avaya-url', 'WEBCHAT_AVAYA_URL'),
+    secret('webchat-avaya-client-url', 'WEBCHAT_AVAYA_CLIENT_URL'),
     secret('webchat-avaya-service', 'WEBCHAT_AVAYA_SERVICE')
   ]
 ]

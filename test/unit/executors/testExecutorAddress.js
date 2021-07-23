@@ -335,9 +335,6 @@ describe('ExecutorAddress', () => {
             expect(ctx.list[0]).to.deep.equal({
                 isApplying: true,
                 postcode: testCtx.postcode.toUpperCase(),
-                ccdCase: {
-                    id: 0
-                },
                 address: {
                     addressLine1: 'line1',
                     addressLine2: 'line2',

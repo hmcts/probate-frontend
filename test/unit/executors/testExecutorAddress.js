@@ -158,7 +158,9 @@ describe('ExecutorAddress', () => {
                             country: 'country'
                         },
                     }],
-                    id: 0,
+                    ccdCase: {
+                        id: 0
+                    },
                     index: 0
                 };
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
@@ -178,7 +180,9 @@ describe('ExecutorAddress', () => {
             it('does not set an address when address does not exist', (done) => {
                 const testCtx = {
                     list: [{}],
-                    id: 0,
+                    ccdCase: {
+                        id: 0
+                    },
                     index: 0
                 };
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
@@ -196,7 +200,9 @@ describe('ExecutorAddress', () => {
                         address: 'the address',
                         postcode: 'the postcode'
                     }],
-                    id: 0,
+                    ccdCase: {
+                        id: 0
+                    },
                     index: 0
                 };
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
@@ -217,7 +223,9 @@ describe('ExecutorAddress', () => {
                             'address3'
                         ]
                     }],
-                    id: 0,
+                    ccdCase: {
+                        id: 0
+                    },
                     index: 0
                 };
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
@@ -237,7 +245,9 @@ describe('ExecutorAddress', () => {
                         ]
                     }],
                     index: 0,
-                    id: 0,
+                    ccdCase: {
+                        id: 0
+                    },
                     addresses: [
                         'address4',
                         'address5',
@@ -255,7 +265,9 @@ describe('ExecutorAddress', () => {
                 const testCtx = {
                     list: [{}],
                     index: 0,
-                    id: 0
+                    ccdCase: {
+                        id: 0
+                    }
                 };
                 const [ctx, errors] = ExecutorAddress.handleGet(testCtx);
 
@@ -268,7 +280,9 @@ describe('ExecutorAddress', () => {
                 const testCtx = {
                     list: [{}],
                     index: 0,
-                    id: 0,
+                    ccdCase: {
+                        id: 0
+                    },
                     addresses: [
                         'address4',
                         'address5',
@@ -296,7 +310,9 @@ describe('ExecutorAddress', () => {
                     isApplying: true
                 }],
                 index: 0,
-                id: 0,
+                ccdCase: {
+                    id: 0
+                },
                 executorsWrapper: new ExecutorsWrapper(),
                 addressLine1: 'line1',
                 addressLine2: 'line2',
@@ -317,7 +333,9 @@ describe('ExecutorAddress', () => {
             expect(ctx.list[0]).to.deep.equal({
                 isApplying: true,
                 postcode: testCtx.postcode.toUpperCase(),
-                id: 0,
+                ccdCase: {
+                    id: 0
+                },
                 address: {
                     addressLine1: 'line1',
                     addressLine2: 'line2',
@@ -380,7 +398,9 @@ describe('ExecutorAddress', () => {
             const testCtx = {
                 list: [{}, {}],
                 index: -1,
-                id: 0,
+                ccdCase: {
+                    id: 0
+                },
                 executorsWrapper: new ExecutorsWrapper(this.list)
             };
             const url = ExecutorAddress.nextStepUrl(req, testCtx);
@@ -398,7 +418,9 @@ describe('ExecutorAddress', () => {
             const testCtx = {
                 list: [{}, {}],
                 index: 1,
-                id: 0,
+                ccdCase: {
+                    id: 0
+                },
                 executorsWrapper: new ExecutorsWrapper(this.list)
             };
             const url = ExecutorAddress.nextStepUrl(req, testCtx);

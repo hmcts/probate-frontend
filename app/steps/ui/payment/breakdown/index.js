@@ -59,7 +59,6 @@ class PaymentBreakdown extends Step {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        logger.info('Getting context data for /payment-breakdown for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
 
         ctx.authToken = req.authToken;
         ctx.userId = req.userId;
@@ -82,7 +81,6 @@ class PaymentBreakdown extends Step {
             this.checkFeesStatus(confirmFees);
             const originalFees = formdata.fees;
             if (confirmFees.total !== originalFees.total) {
-                logger.info('confirmFees.total does not match originalFees.total for /payment-breakdown for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
                 throw new Error(`Error calculated fees totals have changed from ${originalFees.total} to ${confirmFees.total}`);
             }
             ctx.total = originalFees.total;
@@ -152,7 +150,6 @@ class PaymentBreakdown extends Step {
                 const paymentResponse = yield payment.post(data, hostname, session.language);
                 logger.info(`Payment creation in breakdown for ccdCaseId = ${formdata.ccdCase.id} with response = ${JSON.stringify(paymentResponse)}`);
                 if (paymentResponse.name === 'Error') {
-                    logger.info('paymentResponse.name is \'error\' for /payment-breakdown for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
                     errors.push(FieldError('payment', 'failure', this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
                     return [ctx, errors];
                 }

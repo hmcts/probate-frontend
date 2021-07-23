@@ -137,6 +137,9 @@ describe('PaymentBreakdown', () => {
             hostname = 'localhost';
             ctxTestData = {
                 total: 215,
+                ccdCase: {
+                    id: 0
+                },
                 caseType: caseTypes.GOP
             };
             errorsTestData = [];
@@ -222,7 +225,12 @@ describe('PaymentBreakdown', () => {
                     journey: journey
                 }
             };
-            let ctx = {total: 0};
+            let ctx = {
+                total: 0,
+                ccdCase: {
+                    id: 0
+                }
+            };
             let errors = [];
             const formdata = {
                 fees: {
@@ -308,7 +316,10 @@ describe('PaymentBreakdown', () => {
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
 
             let ctx = {
-                total: 215
+                total: 215,
+                ccdCase: {
+                    id: 0
+                }
             };
             let errors = [];
 

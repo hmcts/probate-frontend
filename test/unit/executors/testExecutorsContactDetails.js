@@ -237,7 +237,10 @@ describe('Contact-Details', () => {
                 }
             };
             const ctx = {
-                index: 1
+                index: 1,
+                ccdCase: {
+
+                }
             };
             const contactDetails = new ContactDetails(steps, section, templatePath, i18next, schema);
             const nextStepUrl = contactDetails.nextStepUrl(req, ctx);

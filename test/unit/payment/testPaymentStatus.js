@@ -19,6 +19,7 @@ describe('PaymentStatus', () => {
     let revertPaymentBreakdown;
     let expectedFormData;
     let ctx;
+    let ctxDataTest;
     const successfulPaymentResponse = {
         channel: 'Online',
         id: 12345,
@@ -121,6 +122,11 @@ describe('PaymentStatus', () => {
     });
 
     describe('handleGet()', () => {
+        ctxDataTest = {
+            ccdCase: {
+                id: 0
+            }
+        };
         let revertDocumentsWrapper;
         afterEach(() => {
             revertDocumentsWrapper();
@@ -136,7 +142,7 @@ describe('PaymentStatus', () => {
             });
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
             co(function* () {
-                const [context] = yield paymentStatus.handleGet({}, {}, {});
+                const [context] = yield paymentStatus.handleGet(ctxDataTest, {}, {});
                 expect(context).to.deep.equal({documentsRequired: true});
                 done();
             }).catch(err => {
@@ -154,7 +160,7 @@ describe('PaymentStatus', () => {
             });
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
             co(function* () {
-                const [context] = yield paymentStatus.handleGet({}, {}, {});
+                const [context] = yield paymentStatus.handleGet(ctxDataTest, {}, {});
                 expect(context).to.deep.equal({documentsRequired: false});
                 done();
             }).catch(err => {

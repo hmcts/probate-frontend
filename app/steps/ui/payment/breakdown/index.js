@@ -93,7 +93,7 @@ class PaymentBreakdown extends Step {
             const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
             const serviceAuthResult = yield authorise.post();
             if (serviceAuthResult.name === 'Error') {
-                logger.info('serviceAuthResult.name is \'error\' for /payment-breakdown for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
+                logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
                 const keyword = 'failure';
                 errors.push(FieldError('authorisation', keyword, this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
                 return [ctx, errors];
@@ -113,7 +113,7 @@ class PaymentBreakdown extends Step {
                 const paymentResponse = yield payment.get(data);
                 logger.info('Checking status of reference = ' + ctx.reference + ' with response = ' + paymentResponse.status);
                 if (paymentResponse.status === 'Initiated') {
-                    logger.error('As payment is still Initiated, user will need to wait for this state to expire. case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
+                    logger.error('As payment is still Initiated, user will need to wait for this state to expire.');
                     errors.push(FieldError('payment', 'initiated', this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
                     return [ctx, errors];
                 }
@@ -229,7 +229,7 @@ class PaymentBreakdown extends Step {
             const paymentResponse = payment.identifySuccessfulOrInitiatedPayment(casePaymentsArray);
             logger.debug(`Payment retrieval in breakdown for caseId = ${caseId} with response = ${JSON.stringify(paymentResponse)}`);
             if (!paymentResponse) {
-                logger.info('No payments of Initiated or Success found for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
+                logger.info('No payments of Initiated or Success found for case.');
             } else if (paymentResponse.status === 'Initiated' || paymentResponse.status === 'Success') {
                 logger.info('PaymentResponse.status ' + paymentResponse.status + 'for /payment-breakdown for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
                 paymentStatus = paymentResponse.status;
@@ -246,7 +246,7 @@ class PaymentBreakdown extends Step {
     }
 
     unlockPayment(session) {
-        logger.info('Unlocking payment ' + session.regId + ' for case');
+        logger.info('Unlocking payment ' + session.regId);
         session.paymentLock = 'Unlocked';
         session.save();
     }

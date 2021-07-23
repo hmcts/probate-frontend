@@ -24,7 +24,6 @@ class PaymentStatus extends Step {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        logger.info('Getting context data for /payment-status for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
 
         ctx.payment = get(formdata, 'payment');
         ctx.paymentNotRequired = get(ctx.payment, 'total') === '0.00';

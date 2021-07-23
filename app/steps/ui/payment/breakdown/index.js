@@ -16,7 +16,6 @@ class PaymentBreakdown extends Step {
     }
 
     handleGet(ctx, formdata) {
-        logger.info('handleGet method initiated for /payment-breakdown for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
         const fees = formdata.fees;
         this.checkFeesStatus(fees);
 
@@ -183,7 +182,6 @@ class PaymentBreakdown extends Step {
     }
 
     * submitForm(ctx, errors, formdata, paymentDto, serviceAuthResult, language) {
-        logger.info('submitForm method initiated for /payment-breakdown for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
         const submitData = ServiceMapper.map(
             'SubmitData',
             [config.services.orchestrator.url, ctx.sessionID]

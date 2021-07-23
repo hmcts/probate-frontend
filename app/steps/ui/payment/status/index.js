@@ -24,6 +24,7 @@ class PaymentStatus extends Step {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
+        logger.info('Getting context data for /payment-status for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
 
         ctx.payment = get(formdata, 'payment');
         ctx.paymentNotRequired = get(ctx.payment, 'total') === '0.00';
@@ -67,6 +68,7 @@ class PaymentStatus extends Step {
         if (serviceAuthResult.name === 'Error') {
             options.redirect = true;
             options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
+            logger.info('ServiceAuthResult.name is \'error\' at /payment-status for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
             return options;
         }
 
@@ -100,15 +102,16 @@ class PaymentStatus extends Step {
             if (getPaymentResponse.status !== 'Success') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
-                logger.error(`Unable to retrieve a payment response with status ${getPaymentResponse.status}`);
+                logger.error('Unable to retrieve a payment response with status ' + getPaymentResponse.status + ' for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
             } else if (!updateCcdCaseResponse || !updateCcdCaseResponse.ccdCase || updateCcdCaseResponse.ccdCase.state !== 'CaseCreated') {
                 options.redirect = false;
-                logger.warn('Did not get a successful case created state.');
+                logger.warn('Did not get a successful case created state for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
             } else {
                 options.redirect = false;
             }
         } else {
             if (ctx.paymentNotRequired) {
+                logger.info('Payment not required for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
                 set(ctx.payment, 'status', 'not_required');
             }
             const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, ctx.payment, serviceAuthResult, session.language);
@@ -126,6 +129,7 @@ class PaymentStatus extends Step {
     }
 
     * updateForm(formdata, ctx, paymentDto, serviceAuthResult, language) {
+        logger.info('updateForm method initiated for /payments-status for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
         const submitData = ServiceMapper.map(
             'SubmitData',
             [config.services.orchestrator.url, ctx.sessionID]
@@ -133,12 +137,14 @@ class PaymentStatus extends Step {
         let errors;
         const result = yield submitData.submit(formdata, paymentDto, ctx.authToken, serviceAuthResult, ctx.caseType);
         if (result.type === 'VALIDATION') {
+            logger.info('Result type is \'VALIDATION\' at payment step for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
             errors = [];
             errors.push(FieldError('update', 'failure', this.resourcePath, this.generateContent(ctx, formdata, language), language));
         }
         logger.info(`submitData.submit result = ${JSON.stringify(result)}`);
 
         if (result.name === 'Error') {
+            logger.info('Result type is \'Error\' at payment step for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
             errors = [];
             errors.push(FieldError('update', 'failure', this.resourcePath, this.generateContent(ctx, formdata, language), language));
         }
@@ -149,6 +155,7 @@ class PaymentStatus extends Step {
     }
 
     handleGet(ctx, formdata) {
+        logger.info('hangleGet method initiated for /payment-status for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
         const documentsWrapper = new DocumentsWrapper(formdata);
         ctx.documentsRequired = documentsWrapper.documentsRequired();
         return [ctx, ctx.errors];

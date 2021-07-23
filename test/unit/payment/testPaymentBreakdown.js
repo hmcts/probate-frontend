@@ -384,6 +384,9 @@ describe('PaymentBreakdown', () => {
                 expect(ctx).to.deep.equal({
                     caseType: 'gop',
                     applicationFee: '215.00',
+                    ccdCase: {
+                        id: 0
+                    },
                     copies: {
                         uk: {
                             cost: '1.50',

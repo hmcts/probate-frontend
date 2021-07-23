@@ -137,11 +137,6 @@ describe('PaymentStatus', () => {
             });
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
             co(function* () {
-                ctxDataTest = {
-                    ccdCase: {
-                        id: 0
-                    }
-                };
                 const [context] = yield paymentStatus.handleGet(ctxDataTest, {}, {});
                 expect(context).to.deep.equal({documentsRequired: true});
                 done();
@@ -160,11 +155,6 @@ describe('PaymentStatus', () => {
             });
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
             co(function* () {
-                ctxDataTest = {
-                    ccdCase: {
-                        id: 0
-                    }
-                };
                 const [context] = yield paymentStatus.handleGet(ctxDataTest, {}, {});
                 expect(context).to.deep.equal({documentsRequired: false});
                 done();

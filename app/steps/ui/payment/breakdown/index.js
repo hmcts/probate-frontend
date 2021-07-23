@@ -58,9 +58,9 @@ class PaymentBreakdown extends Step {
     }
 
     getContextData(req) {
-        logger.info('Getting context data for /payment-breakdown for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
+        logger.info('Getting context data for /payment-breakdown for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
 
         ctx.authToken = req.authToken;
         ctx.userId = req.userId;

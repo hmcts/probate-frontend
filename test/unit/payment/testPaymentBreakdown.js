@@ -238,6 +238,9 @@ describe('PaymentBreakdown', () => {
                     ukcopiesfee: 0,
                     overseascopiesfee: 0,
                     applicationfee: 0
+                },
+                ccdCase: {
+                    id: 0
                 }
             };
 

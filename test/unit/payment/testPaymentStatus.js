@@ -19,7 +19,6 @@ describe('PaymentStatus', () => {
     let revertPaymentBreakdown;
     let expectedFormData;
     let ctx;
-    let ctxDataTest;
     const successfulPaymentResponse = {
         channel: 'Online',
         id: 12345,
@@ -137,7 +136,7 @@ describe('PaymentStatus', () => {
             });
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
             co(function* () {
-                const [context] = yield paymentStatus.handleGet(ctxDataTest, {}, {});
+                const [context] = yield paymentStatus.handleGet({}, {}, {});
                 expect(context).to.deep.equal({documentsRequired: true});
                 done();
             }).catch(err => {
@@ -155,7 +154,7 @@ describe('PaymentStatus', () => {
             });
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
             co(function* () {
-                const [context] = yield paymentStatus.handleGet(ctxDataTest, {}, {});
+                const [context] = yield paymentStatus.handleGet({}, {}, {});
                 expect(context).to.deep.equal({documentsRequired: false});
                 done();
             }).catch(err => {
@@ -169,7 +168,10 @@ describe('PaymentStatus', () => {
             revertSubmitData(expectedFormData);
             ctx = {
                 total: 1,
-                paymentDue: true
+                paymentDue: true,
+                ccdCase: {
+                    id: 0
+                }
             };
 
             const revert = PaymentStatus.__set__('Authorise', class {
@@ -182,7 +184,11 @@ describe('PaymentStatus', () => {
                 url: '/payment-breakdown'
             };
             const session = {
-                form: {}
+                form: {
+                    ccdCase: {
+                        id: 0
+                    }
+                }
             };
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
 
@@ -245,6 +251,9 @@ describe('PaymentStatus', () => {
                         email: 'ctsc@email.com',
                         address: 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
                         sequenceNumber: 3
+                    },
+                    ccdCase: {
+                        id: 0
                     }
                 }
             };
@@ -286,7 +295,10 @@ describe('PaymentStatus', () => {
                 userId: 12345,
                 reference: 4567,
                 paymentDue: false,
-                paymentNotRequired: true
+                paymentNotRequired: true,
+                ccdCase: {
+                    id: 0
+                }
             };
 
             const session = {
@@ -297,6 +309,9 @@ describe('PaymentStatus', () => {
                         email: 'ctsc@email.com',
                         address: 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
                         sequenceNumber: 3
+                    },
+                    ccdCase: {
+                        id: 0
                     }
                 }
             };
@@ -325,6 +340,9 @@ describe('PaymentStatus', () => {
                     email: 'ctsc@email.com',
                     address: 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
                     sequenceNumber: 3
+                },
+                ccdCase: {
+                    id: 0
                 }
             };
 
@@ -363,7 +381,10 @@ describe('PaymentStatus', () => {
                 authToken: 'XXXXX',
                 userId: 12345,
                 reference: 4567,
-                paymentDue: false
+                paymentDue: false,
+                ccdCase: {
+                    id: 0
+                }
             };
 
             const session = {

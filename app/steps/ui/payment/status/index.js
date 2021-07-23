@@ -67,7 +67,7 @@ class PaymentStatus extends Step {
         if (serviceAuthResult.name === 'Error') {
             options.redirect = true;
             options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
-            logger.info('ServiceAuthResult.name is \'error\' at /payment-status for case id: ' + ctx.ccdCase.id);
+            logger.info('ServiceAuthResult.name is \'error\' at /payment-status for case id: ' + formdata.ccdCase.id);
             return options;
         }
 
@@ -101,16 +101,16 @@ class PaymentStatus extends Step {
             if (getPaymentResponse.status !== 'Success') {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
-                logger.error('Unable to retrieve a payment response with status ' + getPaymentResponse.status + ' for case id: ' + ctx.ccdCase.id);
+                logger.error('Unable to retrieve a payment response with status ' + getPaymentResponse.status + ' for case id: ' + formdata.ccdCase.id);
             } else if (!updateCcdCaseResponse || !updateCcdCaseResponse.ccdCase || updateCcdCaseResponse.ccdCase.state !== 'CaseCreated') {
                 options.redirect = false;
-                logger.warn('Did not get a successful case created state for case id: ' + ctx.ccdCase.id);
+                logger.warn('Did not get a successful case created state for case id: ' + formdata.ccdCase.id);
             } else {
                 options.redirect = false;
             }
         } else {
             if (ctx.paymentNotRequired) {
-                logger.info('Payment not required for case id: ' + ctx.ccdCase.id);
+                logger.info('Payment not required for case id: ' + formdata.ccdCase.id);
                 set(ctx.payment, 'status', 'not_required');
             }
             const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, ctx.payment, serviceAuthResult, session.language);
@@ -154,7 +154,7 @@ class PaymentStatus extends Step {
     }
 
     handleGet(ctx, formdata) {
-        logger.info('hangleGet method initiated for /payment-status for case id: ' + ctx.ccdCase.id);
+        logger.info('hangleGet method initiated for /payment-status for case id: ' + (typeof ctx.ccdCase !== 'undefined' ? ctx.ccdCase.id : ''));
         const documentsWrapper = new DocumentsWrapper(formdata);
         ctx.documentsRequired = documentsWrapper.documentsRequired();
         return [ctx, ctx.errors];

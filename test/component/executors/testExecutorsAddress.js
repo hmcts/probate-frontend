@@ -22,6 +22,9 @@ describe('executors-address', () => {
                     formattedAddress: ''
                 }
             },
+            ccdCase: {
+                id: 0
+            },
             executors: {
                 executorsNumber: 3,
                 list: [
@@ -172,6 +175,9 @@ describe('executors-address', () => {
                     firstName: 'Lead',
                     lastName: 'Applicant'
                 },
+                ccdCase: {
+                    id: 0
+                },
                 executors: {
                     executorsNumber: 3,
                     list: [
@@ -218,6 +224,9 @@ describe('executors-address', () => {
                 applicant: {
                     firstName: 'Lead',
                     lastName: 'Applicant'
+                },
+                ccdCase: {
+                    id: 0
                 },
                 executors: {
                     executorsNumber: 3,

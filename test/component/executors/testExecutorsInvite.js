@@ -85,7 +85,10 @@ describe('executors-invite', () => {
                         lastName: 'Smith',
                         isApplicant: true
                     }
-                ]
+                ],
+                ccdCase: {
+                    id: 0
+                }
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForExecInvites);

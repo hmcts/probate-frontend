@@ -81,6 +81,7 @@ class PaymentBreakdown extends Step {
             this.checkFeesStatus(confirmFees);
             const originalFees = formdata.fees;
             if (confirmFees.total !== originalFees.total) {
+                logger.info('confirmFees.total does not match originalFees.total for /payment-breakdown for case id: ' + ctx.ccdCase.id);
                 throw new Error(`Error calculated fees totals have changed from ${originalFees.total} to ${confirmFees.total}`);
             }
             ctx.total = originalFees.total;
@@ -91,7 +92,7 @@ class PaymentBreakdown extends Step {
             const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
             const serviceAuthResult = yield authorise.post();
             if (serviceAuthResult.name === 'Error') {
-                logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
+                logger.info('serviceAuthResult.name is \'error\' for /payment-breakdown for case id: ' + ctx.ccdCase.id);
                 const keyword = 'failure';
                 errors.push(FieldError('authorisation', keyword, this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
                 return [ctx, errors];
@@ -150,6 +151,7 @@ class PaymentBreakdown extends Step {
                 const paymentResponse = yield payment.post(data, hostname, session.language);
                 logger.info(`Payment creation in breakdown for ccdCaseId = ${formdata.ccdCase.id} with response = ${JSON.stringify(paymentResponse)}`);
                 if (paymentResponse.name === 'Error') {
+                    logger.info('paymentResponse.name is \'error\' for /payment-breakdown for case id: ' + ctx.ccdCase.id);
                     errors.push(FieldError('payment', 'failure', this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
                     return [ctx, errors];
                 }
@@ -178,6 +180,7 @@ class PaymentBreakdown extends Step {
     }
 
     * submitForm(ctx, errors, formdata, paymentDto, serviceAuthResult, language) {
+        logger.info('submitForm method initiated for /payment-breakdown for case id: ' + ctx.ccdCase.id);
         const submitData = ServiceMapper.map(
             'SubmitData',
             [config.services.orchestrator.url, ctx.sessionID]
@@ -225,7 +228,7 @@ class PaymentBreakdown extends Step {
             const paymentResponse = payment.identifySuccessfulOrInitiatedPayment(casePaymentsArray);
             logger.debug(`Payment retrieval in breakdown for caseId = ${caseId} with response = ${JSON.stringify(paymentResponse)}`);
             if (!paymentResponse) {
-                logger.info('No payments of Initiated or Success found for case.');
+                logger.info('No payments of Initiated or Success found for case id: ' + ctx.ccdCase.id);
             } else if (paymentResponse.status === 'Initiated' || paymentResponse.status === 'Success') {
                 logger.info('PaymentResponse.status ' + paymentResponse.status + 'for /payment-breakdown for case id: ' + ctx.ccdCase.id);
                 paymentStatus = paymentResponse.status;

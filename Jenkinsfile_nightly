@@ -57,7 +57,7 @@ withNightlyPipeline("nodejs", product, component) {
     env.FE_E2E_TEST_PATH_TO_RUN = params.test_path
     env.WEBCHAT_ENABLED = params.WEBCHAT_ENABLED
     env.GA_ENABLED = params.GA_ENABLED
-
+    enableFortifyScan('probate-aat')
     //enableFullFunctionalTest()
     enableCrossBrowserTest(['chrome', 'firefox', 'safari', 'microsoft'])
 //    enableSecurityScan()  //we do this in otrher builds
@@ -73,6 +73,10 @@ withNightlyPipeline("nodejs", product, component) {
     after('crossBrowserTest') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
     }
+
+  after('fortify-scan') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
+  }
 
     //    enableSlackNotifications('#div-dev')  // can be turned back on once the overnight functionality is working fully
 }

@@ -42,9 +42,13 @@ class Service {
     }
 
     fetchJson(url, fetchOptions) {
+        console.log('fetchJson', url);
         return asyncFetch
             .fetch(url, fetchOptions, res => res.json())
-            .then(json => json)
+            .then(json => {
+                console.log('response=> ', json);
+                return json;
+            })
             .catch(err => err);
     }
 

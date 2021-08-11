@@ -1,14 +1,14 @@
 'use strict';
 
-const pageUnderTest = require('app/steps/ui/signout');
 const testConfig = require('config');
 
-module.exports = async function() {
+module.exports = async function(language = 'en') {
     const I = this;
+    const signOutContent = require(`app/resources/${language}/translation/signout`);
 
-    await I.seeCurrentUrlEquals(pageUnderTest.getUrl());
-
-    await I.waitForText('sign back in', testConfig.TestWaitForTextToAppear);
-
-    await I.navByClick('#main-content > div > div > p:nth-child(3) > a');
+    await I.checkInUrl('/sign-out');
+    await I.waitForText(signOutContent.header, testConfig.TestWaitForTextToAppear);
+    const locator = {css: '#main-content > div > div > p:nth-child(3) > a'};
+    await I.waitForElement(locator);
+    await I.navByClick(locator);
 };

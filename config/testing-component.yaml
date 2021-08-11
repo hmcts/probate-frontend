@@ -1,2 +1,6 @@
 featureToggles:
   enabled: false
+
+configFeatureToggles:
+  webchatEnabled: true
+  gaEnabled: true

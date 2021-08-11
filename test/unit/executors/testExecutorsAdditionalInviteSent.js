@@ -2,6 +2,7 @@
 
 const initSteps = require('app/core/initSteps');
 const {assert, expect} = require('chai');
+const coreContextMockData = require('../../data/core-context-mock-data.json');
 
 describe('Executor-Additional-Invite-Sent', () => {
     let ctx;
@@ -39,6 +40,7 @@ describe('Executor-Additional-Invite-Sent', () => {
             };
             ctx = executorsAdditionalInviteSent.getContextData(req);
             expect(ctx).to.deep.equal({
+                ...coreContextMockData,
                 executorsToNotifyList: [
                     {
                         fullName: 'other applicant',
@@ -48,15 +50,8 @@ describe('Executor-Additional-Invite-Sent', () => {
                 header: 'header',
                 inviteSuffix: '',
                 sessionID: 'dummy_sessionId',
-                caseType: 'gop',
-                userLoggedIn: false,
                 authToken: 'authToken',
-                serviceAuthorization: 'serviceAuthorization',
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                language: 'en'
+                serviceAuthorization: 'serviceAuthorization'
             });
         });
 
@@ -69,6 +64,7 @@ describe('Executor-Additional-Invite-Sent', () => {
             };
             ctx = executorsAdditionalInviteSent.getContextData(req);
             expect(ctx).to.deep.equal({
+                ...coreContextMockData,
                 executorsToNotifyList: [
                     {
                         fullName: 'other applicant',
@@ -82,15 +78,8 @@ describe('Executor-Additional-Invite-Sent', () => {
                 header: 'header-multiple',
                 inviteSuffix: '-multiple',
                 sessionID: 'dummy_sessionId',
-                caseType: 'gop',
-                userLoggedIn: false,
                 authToken: 'authToken',
-                serviceAuthorization: 'serviceAuthorization',
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                language: 'en'
+                serviceAuthorization: 'serviceAuthorization'
             });
         });
     });

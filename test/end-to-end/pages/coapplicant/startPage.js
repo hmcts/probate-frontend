@@ -1,8 +1,11 @@
 'use strict';
 
-module.exports = async function() {
-    const I = this;
+const config = require('config');
 
-    await I.checkPageUrl('app/steps/ui/coapplicant/startpage');
-    await I.navByClick('.govuk-button');
+module.exports = async function(language = 'en') {
+    const I = this;
+    const content = require(`app/resources/${language}/translation/coapplicant/startpage`);
+    await I.checkInUrl('/co-applicant-start-page');
+    await I.waitForText(content.subHeader1, config.TestWaitForTextToAppear);
+    await I.navByClick({css: '.govuk-button'});
 };

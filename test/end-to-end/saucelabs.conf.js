@@ -5,7 +5,7 @@ const testConfig = require('config');
 
 const waitForTimeout = parseInt(process.env.WAIT_FOR_TIMEOUT) || 45000;
 const smartWait = parseInt(process.env.SMART_WAIT) || 30000;
-const browser = process.env.SAUCELABS_BROWSER || 'chrome';
+const browser = process.env.BROWSER_GROUP || 'chrome';
 const defaultSauceOptions = {
     username: process.env.SAUCE_USERNAME,
     accessKey: process.env.SAUCE_ACCESS_KEY,
@@ -64,6 +64,9 @@ const setupConfig = {
         },
         IDAMHelper: {
             require: './helpers/IDAMHelper.js'
+        },
+        Mochawesome: {
+            uniqueScreenshotNames: 'true'
         }
     },
     plugins: {
@@ -83,26 +86,26 @@ const setupConfig = {
         reporterOptions: {
             'codeceptjs-cli-reporter': {
                 stdout: '-',
-                options:
-                    {steps: true}
+                options: {steps: true}
+            },
+            'mocha-junit-reporter': {
+                stdout: '-',
+                options: {mochaFile: `${testConfig.TestOutputDir}/result.xml`}
             },
             mochawesome: {
                 stdout: testConfig.TestOutputDir + '/console.log',
                 options: {
                     reportDir: testConfig.TestOutputDir,
                     reportName: 'index',
-                    reportTitle: 'Crossbrowser results',
+                    reportTitle: 'Crossbrowser results for: ' + browser.toUpperCase(),
                     inlineAssets: true
                 }
             }
         }
     },
     multiple: {
-        microsoftIE11: {
-            browsers: getBrowserConfig('microsoftIE11')
-        },
-        microsoftEdge: {
-            browsers: getBrowserConfig('microsoftEdge')
+        microsoft: {
+            browsers: getBrowserConfig('microsoft')
         },
         chrome: {
             browsers: getBrowserConfig('chrome')

@@ -1,6 +1,7 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
+const coreContextMockData = require('../../data/core-context-mock-data.json');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DeceasedAddress = steps.DeceasedAddress;
@@ -39,6 +40,7 @@ describe('DeceasedAddress', () => {
             };
             const ctx = DeceasedAddress.getContextData(req);
             expect(ctx).to.deep.equal({
+                ...coreContextMockData,
                 addressLine1: '143 Caerfai Bay Road',
                 postTown: 'town',
                 country: 'United Kingdon',
@@ -46,12 +48,7 @@ describe('DeceasedAddress', () => {
                 postcode: 'L23 6WW',
                 sessionID: 'dummy_sessionId',
                 caseType: 'gop',
-                userLoggedIn: false,
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                language: 'en'
+                userLoggedIn: false
             });
             done();
         });

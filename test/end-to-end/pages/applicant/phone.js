@@ -1,13 +1,16 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const content = require('app/resources/en/translation/applicant/phone');
+const config = require('config');
 
-module.exports = async function() {
+module.exports = async function(language = 'en') {
     const I = this;
-    await I.checkPageUrl('app/steps/ui/applicant/phone');
-    await I.waitForText(content.phoneNumber);
-    await I.fillField(content.phoneNumber, '123456789');
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    const phoneContent = require(`app/resources/${language}/translation/applicant/phone`);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.checkInUrl('/applicant-phone');
+    await I.waitForText(phoneContent.phoneNumber, config.TestWaitForTextToAppear);
+    const locator = {css: '#phoneNumber'};
+    await I.waitForEnabled(locator);
+    await I.fillField(locator, '123456789');
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

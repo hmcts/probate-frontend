@@ -1,17 +1,17 @@
 'use strict';
 
 const config = require('config');
-const commonContent = require('app/resources/en/translation/common');
-const content = require('app/resources/en/translation/copies/uk');
 
-module.exports = async function(copies) {
+module.exports = async function(language = 'en', copies = null) {
     const I = this;
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    const ukCopiesContent = require(`app/resources/${language}/translation/copies/uk`);
 
-    await I.checkPageUrl('app/steps/ui/copies/uk');
-    await I.waitForText(content.question, config.TestWaitForTextToAppear);
+    await I.checkInUrl('/copies-uk');
+    await I.waitForText(ukCopiesContent.question, config.TestWaitForTextToAppear);
     const locator = {css: '#uk'};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.fillField(locator, copies);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

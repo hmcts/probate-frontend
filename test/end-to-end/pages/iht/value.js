@@ -1,15 +1,14 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-
-module.exports = async function(grossValue, netValue) {
+module.exports = async function(language = 'en', grossValue = null, netValue = null) {
     const I = this;
     const locatorGv = {css: '#grossValueField'};
+    const commonContent = require(`app/resources/${language}/translation/common`);
 
-    await I.checkPageUrl('app/steps/ui/iht/value');
-    await I.waitForElement (locatorGv);
+    await I.checkInUrl('/iht-value');
+    await I.waitForEnabled (locatorGv);
     await I.fillField(locatorGv, grossValue);
     await I.fillField({css: '#netValueField'}, netValue);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

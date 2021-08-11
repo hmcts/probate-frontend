@@ -1,6 +1,7 @@
 $path: "/public/images/";
 
 // Import GOV.UK Frontend
+@import "node_modules/govuk-frontend/govuk/base";
 @import "node_modules/govuk-frontend/govuk/settings/all";
 @import "node_modules/govuk-frontend/govuk/core/all";
 @import "node_modules/govuk-frontend/govuk/objects/all";
@@ -40,5 +41,6 @@ $path: "/public/images/";
 @import "patterns/check-your-answers";
 @import "patterns/document-upload";
 @import "patterns/declaration";
+@import "patterns/avaya-webchat-1";
 
 @import "application-common.scss";

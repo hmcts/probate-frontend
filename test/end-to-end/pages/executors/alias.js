@@ -1,14 +1,13 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-
-module.exports = async function(answer) {
+module.exports = async function(language = 'en', answer = null) {
     const I = this;
-
-    await I.checkPageUrl('app/steps/ui/executors/alias');
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    await I.checkInUrl('/executors-alias');
     const locator = {css: `#alias${answer}`};
-    await I.waitForElement(locator);
+    await I.waitForVisible(locator);
+    await I.waitForEnabled(locator);
     await I.click(locator);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

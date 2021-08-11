@@ -1,6 +1,10 @@
 # Use for testing http - e.g. local env
 environment: 'sandbox'
 
+configFeatureToggles:
+  webchatEnabled: false
+  gaEnabled: false
+
 TestCitizenDomain: '/@probateTest.com'
 TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png'
 TestE2EFrontendUrl: 'http://localhost:3000'
@@ -10,8 +14,8 @@ TestIdamBaseUrl: 'http://localhost:5000'
 TestIdamLoginUrl: 'http://localhost:3501/login'
 TestIdamRole: 'citizen'
 TestIdamUserGroup: 'caseworker'
-TestOutputDir: './output'
-TestPathToRun: './paths/**/*.test.js'
+TestOutputDir: './functional-output'
+TestPathToRun: './paths/**/*.js'
 TestProxy: 'socks5:proxyout.reform.hmcts.net:8080'
 TestRetryFeatures: 2
 TestRetryScenarios: 2
@@ -21,7 +25,7 @@ TestUseGovPay: 'true'
 TestUseIdam: 'true'
 TestUseProxy: 'false'
 TestWaitForDocumentUpload: 60
-TestWaitForTextToAppear: 30
+TestWaitForTextToAppear: 120
 TestWaitForElementToAppear: 60
 TestOneMilliSecond: 1000
 TestEnvEmailAddress: 'test.probate.inbox@gmail.com'
@@ -79,7 +83,7 @@ links:
 
 helpline:
   number: '0300 303 0648'
-  hours: 'Monday to Friday, 8:00am to 8:00pm. Saturday, 8:00am to 2:00pm.'
+  hours: 'Monday to Friday, 8:00am to 6:00pm. Saturday, 8:00am to 2:00pm.'
 
 pact:
   pactBrokerUrl: 'http://localhost:80'

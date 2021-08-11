@@ -48,10 +48,13 @@ describe('applicant-executor', () => {
             const sessionData = {
                 screeners: {
                     deathCertificate: 'optionYes',
+                    deathCertificateInEnglish: 'optionNo',
+                    deathCertificateTranslation: 'optionYes',
                     domicile: 'optionYes',
                     completed: 'optionYes',
                     left: 'optionYes',
-                    original: 'optionYes'
+                    original: 'optionYes',
+                    executor: 'optionYes'
                 }
             };
 
@@ -70,10 +73,13 @@ describe('applicant-executor', () => {
             const sessionData = {
                 screeners: {
                     deathCertificate: 'optionYes',
+                    deathCertificateInEnglish: 'optionNo',
+                    deathCertificateTranslation: 'optionYes',
                     domicile: 'optionYes',
                     completed: 'optionYes',
                     left: 'optionYes',
-                    original: 'optionYes'
+                    original: 'optionYes',
+                    executor: 'optionYes',
                 }
             };
 

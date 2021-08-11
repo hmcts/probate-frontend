@@ -1,11 +1,9 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-
-module.exports = async function() {
+module.exports = async function(language ='en') {
     const I = this;
-
-    await I.checkPageUrl('app/steps/ui/documents');
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    await I.checkInUrl('/documents');
     await I.downloadPdfIfNotIE11('#coverSheetPdfHref');
-    await I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue, 'button.govuk-button');
 };

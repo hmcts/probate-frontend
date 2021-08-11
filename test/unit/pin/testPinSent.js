@@ -8,6 +8,7 @@ const PinSent = rewire('app/steps/ui/pin/sent');
 const i18next = require('i18next');
 const section = 'pin';
 const templatePath = 'pin/sent';
+const coreContextMockData = require('../../data/core-context-mock-data.json');
 const schema = {
     $schema: 'http://json-schema.org/draft-04/schema#',
     properties: {}
@@ -51,15 +52,9 @@ describe('Pin-Sent', () => {
             const ctx = pinResend.getContextData(req);
 
             expect(ctx).to.deep.equal({
+                ...coreContextMockData,
                 sessionID: 'dummy_sessionId',
-                caseType: 'gop',
-                userLoggedIn: false,
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                phoneNumber: '0123456789',
-                language: 'en'
+                phoneNumber: '0123456789'
             });
 
             done();

@@ -3,16 +3,14 @@
 const TestWrapper = require('test/util/TestWrapper');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const IhtMethod = require('app/steps/ui/iht/method');
-const probateNewJourney = require('app/journeys/probatenewdeathcertflow');
 const config = require('config');
 
 describe('death-certificate-interim', () => {
-    const ftValue = {ft_new_deathcert_flow: true};
     let testWrapper;
     const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('DeathCertificateInterim', ftValue, probateNewJourney);
+        testWrapper = new TestWrapper('DeathCertificateInterim');
     });
 
     afterEach(() => {
@@ -67,24 +65,14 @@ describe('death-certificate-interim', () => {
             const data = {
                 deathCertificate: 'optionDeathCertificate'
             };
-
-            testWrapper.agent.post('/prepare-session/featureToggles')
-                .send(ftValue)
-                .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
-                });
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
 
         it(`test it redirects to iht method page for option interim certificate: ${expectedNextUrlForIhtMethod}`, (done) => {
             const data = {
                 deathCertificate: 'optionInterimCertificate'
             };
-
-            testWrapper.agent.post('/prepare-session/featureToggles')
-                .send(ftValue)
-                .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
-                });
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
     });
 });

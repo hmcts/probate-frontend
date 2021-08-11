@@ -10,8 +10,8 @@ TestIdamBaseUrl: 'http://localhost:5000'
 TestIdamLoginUrl: 'https://localhost:3501/login'
 TestIdamRole: 'citizen'
 TestIdamUserGroup: 'caseworker'
-TestOutputDir: './output'
-TestPathToRun: './paths/**/*.test.js'
+TestOutputDir: './functional-output'
+TestPathToRun: './paths/**/*.js'
 TestProxy: 'socks5:proxyout.reform.hmcts.net:8080'
 TestRetryFeatures: 0
 TestRetryScenarios: 0
@@ -20,9 +20,9 @@ TestShowBrowser: true
 TestUseGovPay: 'true'
 TestUseIdam: 'true'
 TestUseProxy: 'false'
-TestWaitForDocumentUpload: 0
-TestWaitForTextToAppear: 0
-TestWaitForElementToAppear: 0
+TestWaitForDocumentUpload: 60
+TestWaitForTextToAppear: 120
+TestWaitForElementToAppear: 60
 TestOneMilliSecond: 1000
 TestEnvEmailAddress: 'test.probate.inbox@gmail.com'
 TestEnvMobileNumber: '07765453421'
@@ -57,7 +57,7 @@ govPayTestCardDetails:
   addressCity: 'London'
   addressPostcode: 'SW1A1AA'
 
-validation: 
+validation:
   url: 'http://localhost:8081/validate'
 
 TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk'
@@ -82,7 +82,7 @@ links:
 
 helpline:
   number: '0300 303 0648'
-  hours: 'Monday to Friday, 8:00am to 8:00pm. Saturday, 8:00am to 2:00pm.'
+  hours: 'Monday to Friday, 8:00am to 6:00pm. Saturday, 8:00am to 2:00pm.'
 
 pact:
   pactBrokerUrl: 'http://localhost:80'

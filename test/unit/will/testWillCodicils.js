@@ -4,6 +4,7 @@ const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
+const coreContextMockData = require('../../data/core-context-mock-data.json');
 const WillCodicils = steps.WillCodicils;
 
 describe('WillCodicils', () => {
@@ -36,15 +37,9 @@ describe('WillCodicils', () => {
             };
             const ctx = WillCodicils.getContextData(req);
             expect(ctx).to.deep.equal({
+                ...coreContextMockData,
                 codicils: 'optionYes',
-                sessionID: 'dummy_sessionId',
-                caseType: 'gop',
-                userLoggedIn: false,
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                language: 'en'
+                sessionID: 'dummy_sessionId'
             });
             done();
         });

@@ -36,7 +36,15 @@ const taskList = {
 const stepList = {
     StartEligibility: 'DeathCertificate',
     DeathCertificate: {
-        hasCertificate: 'DeceasedDomicile',
+        hasCertificate: 'DeathCertificateInEnglish',
+        otherwise: 'StopPage'
+    },
+    DeathCertificateInEnglish: {
+        deathCertificateInEnglish: 'DeceasedDomicile',
+        otherwise: 'DeathCertificateTranslation'
+    },
+    DeathCertificateTranslation: {
+        hasDeathCertificateTranslation: 'DeceasedDomicile',
         otherwise: 'StopPage'
     },
     DeceasedDomicile: {
@@ -68,11 +76,20 @@ const stepList = {
     DeceasedName: 'DeceasedDob',
     DeceasedDob: 'DeceasedDod',
     DeceasedDod: 'DeceasedAddress',
-    DeceasedAddress: 'DocumentUpload',
-    DocumentUpload: {
-        isUploadingDocument: 'DocumentUpload',
+    DeceasedAddress: 'DiedEnglandOrWales',
+    DiedEnglandOrWales: {
+        hasDiedEngOrWales: 'DeathCertificateInterim',
+        otherwise: 'EnglishForeignDeathCert'
+    },
+    DeathCertificateInterim: {
+        hasCertificate: 'IhtMethod',
         otherwise: 'IhtMethod'
     },
+    EnglishForeignDeathCert: {
+        foreignDeathCertIsInEnglish: 'IhtMethod',
+        otherwise: 'ForeignDeathCertTranslation'
+    },
+    ForeignDeathCertTranslation: 'IhtMethod',
     IhtMethod: {
         online: 'IhtIdentifier',
         otherwise: 'IhtPaper'

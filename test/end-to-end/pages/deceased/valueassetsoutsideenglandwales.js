@@ -1,14 +1,13 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-
-module.exports = async function(netAmount) {
+module.exports = async function(language = 'en', netAmount = null) {
     const I = this;
+    const commonContent = require(`app/resources/${language}/translation/common`);
 
-    await I.checkPageUrl('app/steps/ui/iht/valueassetsoutside');
+    await I.checkInUrl('/value-assets-outside-england-wales');
     const locator = {css: '#netValueAssetsOutsideField'};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.fillField(locator, netAmount);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

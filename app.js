@@ -115,27 +115,37 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.use(helmet.contentSecurityPolicy({
         directives: {
             defaultSrc: [
-                '\'self\''
+                '\'self\'',
+                'webchat.ctsc.hmcts.net',
+                'webchat-client.ctsc.hmcts.net'
             ],
             fontSrc: [
                 '\'self\' data:',
-                'fonts.gstatic.com'
+                'fonts.gstatic.com',
+                'webchat-client.ctsc.hmcts.net',
+                'webchat.ctsc.hmcts.net',
             ],
             scriptSrc: [
                 '\'self\'',
                 '\'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU=\'',
                 '\'sha256-AaA9Rn5LTFZ5vKyp3xOfFcP4YbyOjvWn2up8IKHVAKk=\'',
                 '\'sha256-G29/qSW/JHHANtFhlrZVDZW1HOkCDRc78ggbqwwIJ2g=\'',
+                '\'sha256-BWhcmwio/4/QdqKNw5PKmTItWBjkevCaOUbLkgW5cHs=\'',
                 'www.google-analytics.com',
                 'www.googletagmanager.com',
                 'vcc-eu4.8x8.com',
                 'vcc-eu4b.8x8.com',
+                'webchat-client.ctsc.hmcts.net',
+                'webchat.ctsc.hmcts.net',
                 `'nonce-${nonce}'`,
                 'tagmanager.google.com'
             ],
             connectSrc: [
                 '\'self\'',
                 'www.google-analytics.com',
+                'https://webchat-client.ctsc.hmcts.net',
+                'https://webchat.ctsc.hmcts.net',
+                'wss://webchat.ctsc.hmcts.net',
                 'stats.g.doubleclick.net',
                 'tagmanager.google.com'
             ],
@@ -155,13 +165,16 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'vcc-eu4b.8x8.com',
                 'ssl.gstatic.com',
                 'www.gstatic.com',
-                'lh3.googleusercontent.com'
+                'lh3.googleusercontent.com',
+                'webchat-client.ctsc.hmcts.net'
             ],
             styleSrc: [
                 '\'self\'',
                 '\'unsafe-inline\'',
                 'tagmanager.google.com',
-                'fonts.googleapis.com'
+                'fonts.googleapis.com',
+                'webchat-client.ctsc.hmcts.net',
+                'webchat.ctsc.hmcts.net'
             ],
             frameAncestors: ['\'self\'']
         },
@@ -189,11 +202,13 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.use('/public/webchat', express.static(`${__dirname}/node_modules/@hmcts/ctsc-web-chat/assets`, caching));
     app.use('/public/stylesheets', express.static(`${__dirname}/public/stylesheets`, caching));
     app.use('/public/images', express.static(`${__dirname}/app/assets/images`, caching));
+    app.use('/public/locales', express.static(`${__dirname}/app/assets/locales`, caching));
     app.use('/public/javascripts/govuk-frontend', express.static(`${__dirname}/node_modules/govuk-frontend`, caching));
     app.use('/public/javascripts/jquery', express.static(`${__dirname}/node_modules/jquery/dist`, caching));
     app.use('/public/javascripts', express.static(`${__dirname}/app/assets/javascripts`, caching));
     app.use('/public/pdf', express.static(`${__dirname}/app/assets/pdf`));
     app.use('/assets', express.static(`${__dirname}/node_modules/govuk-frontend/govuk/assets`, caching));
+    app.use('/assets/locale', express.static(`${__dirname}/app/assets/locales/avaya-webchat`, caching));
 
     // Elements refers to icon folder instead of images folder
     app.use(favicon(path.join(__dirname, 'node_modules', 'govuk-frontend', 'govuk', 'assets', 'images', 'favicon.ico')));

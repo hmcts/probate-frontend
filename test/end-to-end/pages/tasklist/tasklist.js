@@ -1,14 +1,12 @@
+/* eslint-disable no-await-in-loop */
 'use strict';
 
-const content = require('app/resources/en/translation/tasklist');
 const testConfig = require('config');
 
-module.exports = async function () {
+module.exports = async function(language ='en') {
     const I = this;
-
-    await I.checkPageUrl('app/steps/ui/tasklist');
-    await I.waitForText(content.introduction, testConfig.TestWaitForTextToAppear);
-    const locator = {css: '.govuk-button'};
-    await I.waitForElement(locator);
-    await I.click(locator);
+    const taskListContent = require(`app/resources/${language}/translation/tasklist`);
+    await I.waitForText(taskListContent.introduction, testConfig.TestWaitForTextToAppear);
+    await I.checkInUrl('/task-list');
+    await I.navByClick({css: '.govuk-button'});
 };

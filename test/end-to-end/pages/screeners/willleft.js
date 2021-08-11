@@ -1,16 +1,16 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const content = require('app/resources/en/translation/screeners/willleft');
 const config = require('config');
 
-module.exports = async function(answer) {
+module.exports = async function(language ='en', answer = null) {
     const I = this;
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    const willLeftContent = require(`app/resources/${language}/translation/screeners/willleft`);
 
-    await I.checkPageUrl('app/steps/ui/screeners/willleft');
-    await I.waitForText(content.question);
+    await I.checkInUrl('/will-left');
+    await I.waitForText(willLeftContent.question);
     const locator = {css: `#left${answer}`};
-    await I.waitForElement(locator, config.TestWaitForElementToAppear);
+    await I.waitForEnabled(locator, config.TestWaitForElementToAppear);
     await I.click(locator);
-    await I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue, 'button.govuk-button');
 };

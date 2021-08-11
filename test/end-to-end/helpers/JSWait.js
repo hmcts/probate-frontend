@@ -1,46 +1,77 @@
+const {decodeHTML} = require('test/end-to-end/helpers/GeneralHelpers');
+
 class JSWait extends codecept_helper {
 
-    _beforeStep(step) {
-        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
-
-        // Wait for content to load before checking URL
-        if (step.name === 'seeCurrentUrlEquals' || step.name === 'seeInCurrentUrl') {
-            return helper.wait(3);
+    async _beforeStep(step) {
+        if (step.name === 'waitForText') {
+            // this handles decoding any HTML coded characters in the text
+            step.args[0] = await decodeHTML(step.args[0].trim());
         }
     }
 
-    async navByClick(text, locator = null, webDriverWait = 2) {
+    async navByClick(textOrLocator, locator = null, webDriverWait = 2) {
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
+        if (typeof (textOrLocator) === 'string' &&
+            (locator && (locator === 'button.govuk-button' ||
+                (typeof (locator) === 'object' && locator.css.indexOf('govuk-button')) >= 0))) {
+            await helper.scrollTo(locator);
+            await helper.waitForEnabled(locator);
+        }
+
+        if (typeof (textOrLocator) === 'string' && textOrLocator.indexOf('.govuk-button') === -1 && textOrLocator.indexOf('#') === -1) {
+            await helper.waitForText(textOrLocator);
+        } else if (!locator && typeof (textOrLocator) === 'object' && textOrLocator.css.indexOf('govuk-button') >= 0) {
+            await helper.scrollTo(textOrLocator);
+            await helper.waitForEnabled(textOrLocator);
+        }
+
         if (helperIsPuppeteer) {
-            await Promise.all([
-                helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']}),
-                locator ? helper.click(text, locator) : helper.click(text)
-            ]);
+
+            const promises = [
+                helper.page.waitForNavigation({
+                    waitUntil: ['domcontentloaded', 'networkidle0'],
+                    timeout: 600000
+                }),
+                helper.click(textOrLocator)
+            ];
+
+            await Promise.all(promises);
+
             return;
         }
+
         // non Puppeteer
-        await helper.click(text, locator);
+        // click and await promise
+
+        // click by fuzzy text search - locator doesn't work for click
+        // sometimes when in a scrollable div
+        await helper.click(textOrLocator);
         await helper.wait(webDriverWait);
     }
 
-    async amOnLoadedPage(url) {
+    async amOnLoadedPage (url, language ='en') {
+        let newUrl = `${url}?lng=${language}`;
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
         if (helperIsPuppeteer) {
-            if (url.indexOf('http') !== 0) {
-                url = helper.options.url + url;
+            if (newUrl.indexOf('http') !== 0) {
+                newUrl = helper.options.url + newUrl;
             }
 
             await Promise.all([
-                helper.page.waitForNavigation({waitUntil: ['domcontentloaded', 'networkidle0']}), // The promise resolves after navigation has finished
-                helper.page.goto(url)
+                helper.page.waitForNavigation({waitUntil: 'networkidle0'}),
+                helper.page.goto(newUrl).catch(err => {
+                    console.error(err.message);
+                })
             ]);
+
         } else {
-            await helper.amOnPage(url);
+            await helper.amOnPage(newUrl);
             await helper.waitInUrl(url);
+            await helper.waitForElement('body');
         }
     }
 
@@ -74,26 +105,10 @@ class JSWait extends codecept_helper {
         }
     }
 
-    async checkPageUrl(pageUnderTestClass, redirect) {
-        // optimisation - don't need to do this for puppeteer
-        const helper = this.helpers.WebDriver;
-        if (helper) {
-            const pageUnderTest = require(pageUnderTestClass);
-            const url = redirect ? pageUnderTest.getUrl(redirect) : pageUnderTest.getUrl();
-            try {
-                await helper.waitInUrl(url, 60);
-            } catch (e) {
-                try {
-                    // ok I know its weird invoking this when we know this can't be the url,
-                    // but this may give us more information
-                    console.info('Invoking seeInCurrentUrl for more info on incorrect url');
-                    await helper.seeInCurrentUrl(url);
-                    throw e;
-                } catch (e2) {
-                    throw e;
-                }
-            }
-        }
+    async checkInUrl(url, timeoutWait=120) {
+        // do for both Puppeteer and Webdriver - doesn't take long
+        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
+        await helper.waitInUrl(url, timeoutWait);
     }
 
     async checkForText(text, timeout = null) {

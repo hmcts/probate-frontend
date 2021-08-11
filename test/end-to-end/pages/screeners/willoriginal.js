@@ -1,17 +1,15 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const content = require('app/resources/en/translation/screeners/willoriginal');
-
-module.exports = async function(answer) {
+module.exports = async function(language ='en', answer = null) {
     const I = this;
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    const willOriginalContent = require(`app/resources/${language}/translation/screeners/willoriginal`);
 
-    await I.checkPageUrl('app/steps/ui/screeners/willoriginal');
-    await I.waitForText(content.question);
+    await I.checkInUrl('/will-original');
+    await I.waitForText(willOriginalContent.question);
 
     const locator = {css: `#original${answer}`};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.click(locator);
-
-    await I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue, 'button.govuk-button');
 };

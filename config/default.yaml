@@ -5,17 +5,21 @@ frontendPublicHttpProtocol: http
 languages: ['en', 'cy']
 featureToggles:
   enabled: true
-  launchDarklyKey: 'SDK_KEY'
+  launchDarklyKey: 'LAUNDARKLEY-KEY'
   launchDarklyUser:
     firstName: 'Probate'
     lastName: 'Frontend'
-    key: '35222af3-7867-44ea-a2a0-f8e533ad12de'
+    key: 'LAUNCHDARKLY_USER_KEY'
   ft_fees_api: 'probate-fees-api'
   ft_pcq: 'probate-pcq'
   ft_pcq_token: 'probate-pcq-token'
-  ft_new_deathcert_flow: 'probate-new-deathcert-flow'
+  ft_avaya_webchat: 'probate-avaya-webchat'
   ft_newfee_register_code: 'probate-newfee-register-code'
-  appwideToggles: []
+  appwideToggles: ['ft_avaya_webchat']
+# overrides featureToggles to e.g. switch off in pipeline/locally
+configFeatureToggles:
+  webchatEnabled: true
+  gaEnabled: true
 app:
   username:
   password:
@@ -68,14 +72,14 @@ services:
     probate_oauth2_secret: 'ccd_gateway_secret'
     probate_oauth_callback_path: '/oauth2/callback'
     probate_oauth_token_path: '/oauth2/token'
-    probate_user_email: 'ProbateSuperuser@gmail.com'
-    probate_user_password: 'Pa55word11'
+    probate_user_email: 'dummy-user-name'
+    probate_user_password: 'dummy-password'
     probate_redirect_base_url: 'http://localhost:3000'
   payment:
     name: 'Payment Service'
     url: 'http://localhost:8383'
-    authorization: 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4aDNlbWc4dmhqazVhMjFzYWE4Y2MzM3YzZyIsInN1YiI6IjQyIiwiaWF0IjoxNTU3OTk5MTIxLCJleHAiOjE1NTgwMjc5MjEsImRhdGEiOiJjYXNld29ya2VyLXByb2JhdGUsY2l0aXplbixjYXNld29ya2VyLGNhc2V3b3JrZXItcHJvYmF0ZS1sb2ExLGNpdGl6ZW4tbG9hMSxjYXNld29ya2VyLWxvYTEiLCJ0eXBlIjoiQUNDRVNTIiwiaWQiOiI0MiIsImZvcmVuYW1lIjoiVXNlciIsInN1cm5hbWUiOiJUZXN0IiwiZGVmYXVsdC1zZXJ2aWNlIjoiQ0NEIiwibG9hIjoxLCJkZWZhdWx0LXVybCI6Imh0dHBzOi8vbG9jYWxob3N0OjkwMDAvcG9jL2NjZCIsImdyb3VwIjoiY2FzZXdvcmtlciJ9.5sT0KGtWsPC-Ol6RKV6gHFJl5b-OsL7HGKqdScFdOdQ'
-    serviceAuthorization: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9iYXRlX2Zyb250ZW5kIiwiZXhwIjoxNTU4MDEzNTIyfQ.YEiOlFZleoA8u9fZ4iEqcrVKvOTaCRPfzM6W_DptlV63V-euNNGpJlMlz-9JWRoTQ0ZYIF9RWskTe_PlAZHJvg'
+    authorization: 'DUMMY_TOKEN'
+    serviceAuthorization: 'DUMMY_TOKEN'
     userId: 46
     paths:
       payments: '/payments'
@@ -176,6 +180,7 @@ links:
   privacy: '/privacy-policy'
   terms: '/terms-conditions'
   contact: '/contact-us'
+  webchat: '/avaya-webchat'
   callCharges: 'https://www.gov.uk/call-charges'
   howToManageCookies: 'https://www.aboutcookies.org'
   googlePrivacyPolicy: 'https://www.google.com/policies/privacy/partners/'
@@ -212,27 +217,11 @@ payment:
   version: '1'
   currency: 'GBP'
 noHeaderLinksPages: ['/time-out', '/sign-out', '/co-applicant-start-page', '/co-applicant-declaration', '/co-applicant-agree-page', '/co-applicant-disagree-page', '/co-applicant-all-agreed-page', '/pin-resend', '/pin-sent', '/sign-in']
-alwaysWhitelistedPages: ['/time-out', '/sign-out', '/contact-us', '/accessibility-statement', '/terms-conditions', '/privacy-policy', '/cookies', '/health', '/stop-page', '/error']
+alwaysWhitelistedPages: ['/time-out', '/sign-out', '/contact-us', '/accessibility-statement', '/terms-conditions', '/privacy-policy', '/cookies', '/health', '/stop-page', '/error', '/avaya-webchat']
 whitelistedPagesAfterSubmission: ['/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
 whitelistedPagesAfterPayment: ['/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
 whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/equality-and-diversity']
 blacklistedPagesBeforeDeclaration: ['/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
-probateScreeners:
-  deathCertificate: 'optionYes'
-  domicile: 'optionYes'
-  completed: 'optionYes'
-  left: 'optionYes'
-  original: 'optionYes'
-  executor: 'optionYes'
-  mentalCapacity: 'optionYes'
-intestacyScreeners:
-  deathCertificate: 'optionYes'
-  domicile: 'optionYes'
-  completed: 'optionYes'
-  left: 'optionNo'
-  diedAfter: 'optionYes'
-  related: 'optionYes'
-  otherApplicants: 'optionNo'
 probateScreenersDeathCertificateInEnglish:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionYes'
@@ -274,8 +263,8 @@ intestacyScreenersDeathCertificateNotInEnglish:
 hardStopParams:
   gop: []
   intestacy: []
-nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies']
-noCcdCaseIdPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate','death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'dashboard', 'sign-out', 'time-out']
+nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'avaya-webchat']
+noCcdCaseIdPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate','death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'dashboard', 'sign-out', 'time-out', 'avaya-webchat']
 endpoints:
   health: '/health'
   info: '/info'

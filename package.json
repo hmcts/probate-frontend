@@ -36,15 +36,15 @@
     "test-e2e-http-launch-darkly": "NODE_ENV=testing-http-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep @e2e --reporter mocha-multi",
     "test-e2e-http-launch-darkly-multi-exec": "NODE_ENV=testing-http-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --grep @multiExecE2e --reporter mocha-multi",
     "test-e2e-gop-single-exec-aat": "NODE_ENV=testing-e2e-local-to-aat NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/gopSingleExecutor.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
-    "test-e2e-gop-single-exec-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/gopSingleExecutor.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
+    "test-e2e-gop-single-exec-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/gopSingleExecutor.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps",
     "test-e2e-gop-single-exec-http-webriver": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/gopSingleExecutor.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/codecept.webdriver.conf.js --steps --reporter mochawesome",
     "test-e2e-gop-single-exec-http-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/gopSingleExecutor.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
-    "test-e2e-intestacy-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
-    "test-e2e-intestacy-http-webdriver": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/codecept.webdriver.conf.js --steps --reporter mochawesome",
+    "test-e2e-intestacy-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps",
+    "test-e2e-intestacy-http-webdriver": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/codecept.webdriver.conf.js --steps",
     "test-e2e-intestacy-http-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
-    "test-e2e-intestacy-spouse-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.spouse.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
+    "test-e2e-intestacy-spouse-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.spouse.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps",
     "test-e2e-intestacy-spouse-http-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.spouse.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
-    "test-e2e-multiple-executors-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/multipleExecutors.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
+    "test-e2e-multiple-executors-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/multipleExecutors.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps",
     "test-e2e-multiple-executors-http-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/multipleExecutors.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-e2e-cookie-banner-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/generic/cookiebanner.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-e2e-survey-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/generic/survey.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
@@ -64,7 +64,8 @@
     "test:codecov-upload": "NODE_PATH=. istanbul cover _mocha './test/**/test*.js' -- -R spec && codecov",
     "test:coverage": "NODE_ENV=test NODE_PATH=. istanbul cover _mocha './test/unit/**/test*.js' './test/component/**/test*.js' -- --timeout 10000",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner",
-    "sonar-scan": "node_modules/sonar-scanner/bin/sonar-scanner -Dsonar.projectName='Probate :: frontend' -Dsonar.sources=app -Dsonar.language=js -Dsonar.cpd.exclusions=app/journeys/*.js,app/**/*.njk,app/**/template.html,app/**/scripts.html,app/steps/**/index.js -Dsonar.exclusions=app/routes.js,app/components/launch-darkly.js,app/assets/**,app/**/scripts.html -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info",
+    "sonar-scan-comment": "cookies has been excluded by -Dcpd.exclusions - it is covered by both unit and component test yet reports incorrectly as not covered",
+    "sonar-scan": "node_modules/sonar-scanner/bin/sonar-scanner -Dsonar.projectName='Probate :: frontend' -Dsonar.sources=app -Dsonar.language=js -Dsonar.cpd.exclusions=app/journeys/*.js,app/**/*.njk,app/**/template.html,app/**/scripts.html,app/steps/**/index.js -Dsonar.exclusions=app/routes.js,app/components/launch-darkly.js,app/assets/**,app/**/scripts.html,app/steps/ui/static/cookies/index.js -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info",
     "git-info": "node-git-info-json",
     "//": "The below scripts are just stubs, don't use them in production",
     "stub:s2s": "NODE_PATH=. NODE_ENV=test node test/service-stubs/idam.js",
@@ -116,7 +117,7 @@
     "jquery": "^3.4.1",
     "js-yaml": "^3.13.1",
     "jsdom": "^16.6.0",
-    "launchdarkly-node-server-sdk": "^5.13.3",
+    "launchdarkly-node-server-sdk": "^6.2.0",
     "lodash": "^4.17.21",
     "mocha-lcov-reporter": "^1.3.0",
     "moment": "^2.29.1",
@@ -182,6 +183,7 @@
     "when": "^3.7.8"
   },
   "resolutions": {
-    "hosted-git-info": "3.0.8"
+    "hosted-git-info": "3.0.8",
+    "launchdarkly-node-server-sdk/launchdarkly-eventsource/original/url-parse": "^1.5.2"
   }
 }

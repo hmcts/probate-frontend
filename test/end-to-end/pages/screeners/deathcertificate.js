@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 'use strict';
 
 module.exports = async function(language ='en', testSurvey = false) {
@@ -10,7 +11,15 @@ module.exports = async function(language ='en', testSurvey = false) {
     await I.waitForEnabled(locator);
 
     if (testSurvey) {
+        const originalTabs = await I.grabNumberOfOpenTabs();
         await I.click({css: 'body > div.govuk-width-container > div > p > span > a:nth-child(1)'});
+        for (let i = 0; i <= 5; i++) {
+            const currentTabs = await I.grabNumberOfOpenTabs();
+            if (currentTabs > originalTabs) {
+                break;
+            }
+            await I.wait(0.2);
+        }
         await I.switchToNextTab(1);
         // running locally I get no internet here so have commented ths, but at least we've proved we've opened a new tab.
         // await I.waitForVisible({css: '#cmdGo'});

@@ -5,6 +5,7 @@ const {curry, set, isEmpty, forEach} = require('lodash');
 const DetectDataChange = require('app/wrappers/DetectDataChange');
 const FormatUrl = require('app/utils/FormatUrl');
 const {get} = require('lodash');
+const config = require('config');
 
 class UIStepRunner {
 
@@ -37,6 +38,7 @@ class UIStepRunner {
                     session.back.push(step.constructor.getUrl());
                 }
                 const common = step.commonContent(session.language);
+                common.SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
                 res.render(step.template, {content, fields, errors, common, userLoggedIn: req.userLoggedIn}, (err, html) => {
                     if (err) {
                         req.log.error(err);

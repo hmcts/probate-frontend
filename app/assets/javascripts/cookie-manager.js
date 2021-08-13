@@ -165,14 +165,14 @@
   const deleteCookieFromCurrentAndUpperDomain = function (cookie_name) {
     let hostname = window.location.hostname;
     let dotHostname = "." + hostname;
-    document.cookie = cookie_name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=' + hostname + ';path=/;';
-    document.cookie = cookie_name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=' + dotHostname + ';path=/;';
+    document.cookie = encodeURIComponent(cookie_name) + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=' + encodeURIComponent(hostname) + ';path=/;';
+    document.cookie = encodeURIComponent(cookie_name) + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=' + encodeURIComponent(dotHostname) + ';path=/;';
 
     let firstDot = hostname.indexOf('.');
     let upperDomain = hostname.substring(firstDot);
     let dotUpperDomain = "." + upperDomain;
-    document.cookie = cookie_name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=' + upperDomain + ';path=/;';
-    document.cookie = cookie_name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=' + dotUpperDomain + ';path=/;';
+    document.cookie = encodeURIComponent(cookie_name) + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=' + encodeURIComponent(upperDomain) + ';path=/;';
+    document.cookie = encodeURIComponent(cookie_name) + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=' + encodeURIComponent(dotUpperDomain) + ';path=/;';
   };
 
   const deleteCookieFromDomain = function (cookie_name, domain) {

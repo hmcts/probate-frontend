@@ -117,7 +117,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             defaultSrc: [
                 '\'self\'',
                 'webchat.ctsc.hmcts.net',
-                'webchat-client.ctsc.hmcts.net'
+                'webchat-client.ctsc.hmcts.net',
+                'login.microsoftonline.com'
             ],
             fontSrc: [
                 '\'self\' data:',
@@ -138,7 +139,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'webchat-client.ctsc.hmcts.net',
                 'webchat.ctsc.hmcts.net',
                 `'nonce-${nonce}'`,
-                'tagmanager.google.com'
+                'tagmanager.google.com',
+                'login.microsoftonline.com'
             ],
             connectSrc: [
                 '\'self\'',
@@ -147,7 +149,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'https://webchat.ctsc.hmcts.net',
                 'wss://webchat.ctsc.hmcts.net',
                 'stats.g.doubleclick.net',
-                'tagmanager.google.com'
+                'tagmanager.google.com',
+                'login.microsoftonline.com'
             ],
             mediaSrc: [
                 '\'self\''
@@ -166,7 +169,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'ssl.gstatic.com',
                 'www.gstatic.com',
                 'lh3.googleusercontent.com',
-                'webchat-client.ctsc.hmcts.net'
+                'webchat-client.ctsc.hmcts.net',
+                'login.microsoftonline.com'
             ],
             styleSrc: [
                 '\'self\'',
@@ -174,7 +178,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'tagmanager.google.com',
                 'fonts.googleapis.com',
                 'webchat-client.ctsc.hmcts.net',
-                'webchat.ctsc.hmcts.net'
+                'webchat.ctsc.hmcts.net',
+                'login.microsoftonline.com'
             ],
             frameAncestors: ['\'self\'']
         },

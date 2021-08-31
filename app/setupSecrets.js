@@ -13,8 +13,8 @@ const setSecret = (secretPath, configPath) => {
 const setupSecrets = () => {
     if (config.has('secrets.probate')) {
         setSecret('secrets.probate.frontend-redis-access-key', 'redis.password');
-        setSecret('secrets.probate.idam-s2s-secret', 'services.idam.service_key');
-        setSecret('secrets.probate.ccidam-idam-api-secrets-probate', 'services.idam.probate_oauth2_secret');
+        // setSecret('secrets.probate.idam-s2s-secret', 'services.idam.service_key');
+        // setSecret('secrets.probate.ccidam-idam-api-secrets-probate', 'services.idam.probate_oauth2_secret');
         setSecret('secrets.probate.postcode-service-url', 'services.postcode.serviceUrl');
         setSecret('secrets.probate.postcode-service-token2', 'services.postcode.token');
         setSecret('secrets.probate.probate-survey', 'links.survey');

@@ -8,14 +8,17 @@ const Dashboard = require('app/steps/ui/dashboard');
 class DeathCertificateInEnglish extends EligibilityValidationStep {
 
     static getUrl() {
+        console.log('get url =>', pageUrl);
         return pageUrl;
     }
 
     getContextData(req, res) {
+        console.log('DeathCertificateInEnglish get context data => ');
         return super.getContextData(req, res, pageUrl, fieldKey);
     }
 
     nextStepUrl(req, ctx) {
+        console.log('DeathCertificateInEnglish nextStepUrl');
         if (!this.previousQuestionsAnswered(req, ctx, fieldKey)) {
             return Dashboard.getUrl();
         }
@@ -24,6 +27,7 @@ class DeathCertificateInEnglish extends EligibilityValidationStep {
     }
 
     nextStepOptions() {
+        console.log('nextStepOptions nextStepUrl');
         return {
             options: [
                 {key: fieldKey, value: 'optionYes', choice: 'deathCertificateInEnglish'}

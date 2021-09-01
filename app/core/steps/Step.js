@@ -43,11 +43,14 @@ class Step {
     }
 
     next(req, ctx) {
+        console.log('STEP NEXT', req.session.journey);
         const journeyMap = new JourneyMap(req.session.journey);
         return journeyMap.nextStep(this, ctx);
     }
 
     nextStepUrl(req, ctx) {
+        console.log('Setp next url => ', this.next(req, ctx).constructor.getUrl());
+        console.log('ctx => ', ctx);
         return this.next(req, ctx).constructor.getUrl();
     }
 

@@ -150,6 +150,7 @@ const allSteps = {
 };
 
 router.use((req, res, next) => {
+    console.log('153 router use => ', req);
     const steps = allSteps[req.session.language];
     const currentPageCleanUrl = FormatUrl.getCleanPageUrl(req.originalUrl, 1);
     const formdata = req.session.form;
@@ -224,6 +225,7 @@ router.use((req, res, next) => {
 router.use('/document-upload', documentUpload);
 
 router.use((req, res, next) => {
+    console.log('228 router use => ', req);
     res.locals.session = req.session;
     res.locals.pageUrl = req.url;
     next();

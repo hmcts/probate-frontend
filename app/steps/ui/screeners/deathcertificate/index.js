@@ -8,6 +8,7 @@ const Dashboard = require('app/steps/ui/dashboard');
 class DeathCertificate extends EligibilityValidationStep {
 
     static getUrl() {
+        console.log('death certificate get url => ', pageUrl);
         return pageUrl;
     }
 
@@ -16,9 +17,13 @@ class DeathCertificate extends EligibilityValidationStep {
     }
 
     nextStepUrl(req, ctx) {
+        console.log('nextStepUrl => ');
+        console.log('req => ', req);
+        console.log('ctx => ', ctx);
         if (!this.previousQuestionsAnswered(req, ctx, fieldKey)) {
             return Dashboard.getUrl();
         }
+        console.log('next url => ', this.next(req, ctx).constructor.getUrl('deathCertificate'));
 
         return this.next(req, ctx).constructor.getUrl('deathCertificate');
     }

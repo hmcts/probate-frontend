@@ -18,7 +18,7 @@ describe('ExecutorsAllAlive', () => {
                 allalive: 'optionYes'
             };
             const nextStepUrl = ExecutorsAllAlive.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/other-executors-applying');
+            expect(nextStepUrl).to.equal('/other-executors-applying*');
             done();
         });
 
@@ -32,7 +32,7 @@ describe('ExecutorsAllAlive', () => {
                 allalive: 'optionNo'
             };
             const nextStepUrl = ExecutorsAllAlive.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/executors-who-died');
+            expect(nextStepUrl).to.equal('/executors-who-died*');
             done();
         });
     });

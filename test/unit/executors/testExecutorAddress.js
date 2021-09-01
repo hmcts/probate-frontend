@@ -8,7 +8,7 @@ const expect = require('chai').expect;
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ExecutorAddress = steps.ExecutorAddress;
-const executorAddressPath = '/executor-address/';
+const executorAddressPath = '/executor-address';
 const journey = require('app/journeys/probate');
 
 describe('ExecutorAddress', () => {

@@ -1,7 +1,7 @@
 'use strict';
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
-const pageUrl = '/other-applicants';
+const pageUrl = '/other-applicants*';
 const fieldKey = 'otherApplicants';
 const Dashboard = require('app/steps/ui/dashboard');
 

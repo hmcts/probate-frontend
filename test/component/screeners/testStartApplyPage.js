@@ -7,7 +7,7 @@ const config = require('config');
 const cookies = [{
     name: config.redis.eligibilityCookie.name,
     content: {
-        nextStepUrl: '/start-apply',
+        nextStepUrl: '/start-apply*',
         pages: [
             '/death-certificate',
             '/deceased-domicile',

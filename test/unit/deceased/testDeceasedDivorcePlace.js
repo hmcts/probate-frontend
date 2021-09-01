@@ -103,7 +103,7 @@ describe('DivorcePlace', () => {
                 divorcePlace: 'optionYes'
             };
             const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/task-list');
+            expect(nextStepUrl).to.equal('/task-list*');
             done();
         });
 

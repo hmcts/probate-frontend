@@ -8,7 +8,7 @@ describe('Update-Invite-Sent', () => {
 
     describe('getUrl()', () => {
         it('test correct url is returned from getUrl function', () => {
-            assert.equal(updateInviteSent.constructor.getUrl(), '/executors-update-invite-sent');
+            assert.equal(updateInviteSent.constructor.getUrl(), '/executors-update-invite-sent*');
         });
     });
 });

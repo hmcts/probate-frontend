@@ -42,7 +42,7 @@ describe('Executors-Invite', () => {
             };
             const ctx = {};
             const nextStepUrl = ExecsInvite.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/executors-invites-sent');
+            expect(nextStepUrl).to.equal('/executors-invites-sent*');
             done();
         });
     });

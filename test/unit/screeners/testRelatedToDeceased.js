@@ -68,7 +68,7 @@ describe('RelatedToDeceased', () => {
                 related: 'optionYes'
             };
             const nextStepUrl = RelatedToDeceased.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/other-applicants');
+            expect(nextStepUrl).to.equal('/other-applicants*');
             done();
         });
 

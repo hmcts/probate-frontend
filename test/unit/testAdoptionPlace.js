@@ -48,7 +48,7 @@ describe('AdoptionPlace', () => {
                 deceasedMaritalStatus: 'optionMarried'
             };
             const nextStepUrl = AdoptionPlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/spouse-not-applying-reason');
+            expect(nextStepUrl).to.equal('/spouse-not-applying-reason*');
             done();
         });
 
@@ -63,7 +63,7 @@ describe('AdoptionPlace', () => {
                 deceasedMaritalStatus: 'optionDivorced'
             };
             const nextStepUrl = AdoptionPlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/any-other-children');
+            expect(nextStepUrl).to.equal('/any-other-children*');
             done();
         });
 

@@ -85,7 +85,7 @@ describe('Executor-Additional-Invite', () => {
 
     describe('getUrl()', () => {
         it('test correct url is returned from getUrl function', () => {
-            assert.equal(executorsAdditionalInvite.constructor.getUrl(), '/executors-additional-invite');
+            assert.equal(executorsAdditionalInvite.constructor.getUrl(), '/executors-additional-invite*');
         });
     });
 });

@@ -1,7 +1,7 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const pageUrl = '/english-foreign-death-cert';
+const pageUrl = '/english-foreign-death-cert*';
 
 class EnglishForeignDeathCert extends ValidationStep {
 

@@ -178,7 +178,7 @@ describe('PaymentStatus', () => {
             });
             const expectedOptions = {
                 redirect: true,
-                url: '/payment-breakdown'
+                url: '/payment-breakdown*'
             };
             const session = {
                 form: {}

@@ -94,7 +94,7 @@ describe('OtherApplicants', () => {
                 otherApplicants: 'optionNo'
             };
             const nextStepUrl = OtherApplicants.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/start-apply');
+            expect(nextStepUrl).to.equal('/start-apply*');
             done();
         });
     });

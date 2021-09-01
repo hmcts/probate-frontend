@@ -45,7 +45,7 @@ describe('AllChildrenOver18', () => {
                 allChildrenOver18: 'optionYes'
             };
             const nextStepUrl = AllChildrenOver18.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/any-deceased-children');
+            expect(nextStepUrl).to.equal('/any-deceased-children*');
             done();
         });
 

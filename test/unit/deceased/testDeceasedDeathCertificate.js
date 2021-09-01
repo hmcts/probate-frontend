@@ -9,7 +9,7 @@ describe('DeathCertificateInterim', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = DeathCertificateInterim.constructor.getUrl();
-            expect(url).to.equal('/certificate-interim*');
+            expect(url).to.equal('/certificate-interim');
             done();
         });
     });

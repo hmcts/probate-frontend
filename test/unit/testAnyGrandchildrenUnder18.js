@@ -45,7 +45,7 @@ describe('AnyGrandchildrenUnder18', () => {
                 anyGrandchildrenUnder18: 'optionNo'
             };
             const nextStepUrl = AnyGrandchildrenUnder18.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/applicant-name');
+            expect(nextStepUrl).to.equal('/applicant-name*');
             done();
         });
 

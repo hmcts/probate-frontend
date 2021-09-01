@@ -78,7 +78,7 @@ describe('ExecutorCurrentName', () => {
             };
             const ExecutorCurrentName = steps.ExecutorCurrentName;
             const nextStepUrl = ExecutorCurrentName.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/executor-contact-details/*');
+            expect(nextStepUrl).to.equal('/executor-contact-details*');
             done();
         });
 

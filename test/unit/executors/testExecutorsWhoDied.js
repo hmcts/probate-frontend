@@ -8,7 +8,7 @@ describe('Executors-Who-Died', () => {
 
     describe('getUrl()', () => {
         it('test correct url is returned from getUrl function', () => {
-            assert.equal(executorsWhoDied.constructor.getUrl(), '/executors-who-died');
+            assert.equal(executorsWhoDied.constructor.getUrl(), '/executors-who-died*');
         });
     });
 

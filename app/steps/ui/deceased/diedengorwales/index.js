@@ -2,7 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
-const pageUrl = '/died-eng-or-wales';
+const pageUrl = '/died-eng-or-wales*';
 
 class DiedEnglandOrWales extends ValidationStep {
 

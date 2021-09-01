@@ -137,7 +137,7 @@ describe('DeceasedDetails', () => {
                 'dod-year': '2015'
             };
             const nextStepUrl = DeceasedDetails.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/deceased-address');
+            expect(nextStepUrl).to.equal('/deceased-address*');
             done();
         });
 

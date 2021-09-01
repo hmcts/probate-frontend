@@ -1,7 +1,7 @@
 'use strict';
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
-const pageUrl = '/mental-capacity';
+const pageUrl = '/mental-capacity*';
 const fieldKey = 'mentalCapacity';
 const Dashboard = require('app/steps/ui/dashboard');
 

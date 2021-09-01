@@ -54,7 +54,7 @@ describe('RelationshipToDeceased', () => {
                 deceasedMaritalStatus: 'optionMarried'
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/spouse-not-applying-reason');
+            expect(nextStepUrl).to.equal('/spouse-not-applying-reason*');
             done();
         });
 
@@ -83,7 +83,7 @@ describe('RelationshipToDeceased', () => {
                 relationshipToDeceased: 'optionAdoptedChild'
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/adoption-place');
+            expect(nextStepUrl).to.equal('/adoption-place*');
             done();
         });
 
@@ -99,7 +99,7 @@ describe('RelationshipToDeceased', () => {
                 assetsValue: 200000
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/applicant-name');
+            expect(nextStepUrl).to.equal('/applicant-name*');
             done();
         });
 
@@ -115,7 +115,7 @@ describe('RelationshipToDeceased', () => {
                 assetsValue: 450000
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/any-children');
+            expect(nextStepUrl).to.equal('/any-children*');
             done();
         });
 

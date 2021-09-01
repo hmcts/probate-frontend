@@ -253,7 +253,7 @@ describe('PaymentBreakdown', () => {
 
             co(function* () {
                 [ctx, errors] = yield paymentBreakdown.handlePost(ctx, errors, formdata, session, hostname);
-                expect(paymentBreakdown.nextStepUrl(req)).to.equal('/payment-status');
+                expect(paymentBreakdown.nextStepUrl(req)).to.equal('/payment-status*');
                 expect(errors).to.deep.equal(errorsTestData);
                 done();
             }).catch((err) => {
@@ -314,7 +314,7 @@ describe('PaymentBreakdown', () => {
 
             co(function* () {
                 [ctx, errors] = yield paymentBreakdown.handlePost(ctx, errors, formdata, session, hostname);
-                expect(paymentBreakdown.nextStepUrl(req)).to.equal('/payment-status');
+                expect(paymentBreakdown.nextStepUrl(req)).to.equal('/payment-status*');
                 expect(errors).to.deep.equal(errorsTestData);
                 getCasePaymentsStub.restore();
                 done();

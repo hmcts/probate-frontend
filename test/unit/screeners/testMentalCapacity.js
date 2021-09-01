@@ -70,7 +70,7 @@ describe('MentalCapacity', () => {
                 mentalCapacity: 'optionYes'
             };
             const nextStepUrl = MentalCapacity.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/start-apply');
+            expect(nextStepUrl).to.equal('/start-apply*');
             done();
         });
 

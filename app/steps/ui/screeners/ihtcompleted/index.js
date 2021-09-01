@@ -1,7 +1,7 @@
 'use strict';
 
 const EligibilityValidationStep = require('app/core/steps/EligibilityValidationStep');
-const pageUrl = '/iht-completed';
+const pageUrl = '/iht-completed*';
 const fieldKey = 'completed';
 const Dashboard = require('app/steps/ui/dashboard');
 

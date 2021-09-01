@@ -6,7 +6,7 @@ const initSteps = require('app/core/initSteps');
 const {assert, expect} = require('chai');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const journey = require('app/journeys/probate');
-const executorCurrentNameReasonPath = '/executor-current-name-reason/';
+const executorCurrentNameReasonPath = '/executor-current-name-reason';
 
 describe('ExecutorCurrentNameReason', () => {
     const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);

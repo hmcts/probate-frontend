@@ -18,7 +18,7 @@ describe('Pin-Sent', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = PinSent.getUrl();
-            expect(url).to.equal('/pin-sent');
+            expect(url).to.equal('/pin-sent*');
             done();
         });
     });

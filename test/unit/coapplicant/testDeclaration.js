@@ -9,7 +9,7 @@ describe('Coapplicant-Declaration', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = Declaration.constructor.getUrl();
-            expect(url).to.equal('/co-applicant-declaration');
+            expect(url).to.equal('/co-applicant-declaration*');
             done();
         });
     });

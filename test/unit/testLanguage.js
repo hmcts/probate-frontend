@@ -9,7 +9,7 @@ describe('BilingualGOP', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = BilingualGOP.constructor.getUrl();
-            expect(url).to.equal('/bilingual-gop');
+            expect(url).to.equal('/bilingual-gop*');
             done();
         });
     });

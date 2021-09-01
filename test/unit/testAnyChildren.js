@@ -9,7 +9,7 @@ describe('AnyChildren', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = AnyChildren.constructor.getUrl();
-            expect(url).to.equal('/any-children');
+            expect(url).to.equal('/any-children*');
             done();
         });
     });

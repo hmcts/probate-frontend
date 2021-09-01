@@ -27,7 +27,7 @@ describe('ThankYou', () => {
             const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
 
             const url = thankYou.constructor.getUrl();
-            expect(url).to.equal('/thank-you');
+            expect(url).to.equal('/thank-you*');
             done();
         });
     });

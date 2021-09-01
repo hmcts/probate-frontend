@@ -11,7 +11,7 @@ describe('IhtCompleted', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = IhtCompleted.constructor.getUrl();
-            expect(url).to.equal('/iht-completed');
+            expect(url).to.equal('/iht-completed*');
             done();
         });
     });

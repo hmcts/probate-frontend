@@ -9,7 +9,7 @@ describe('ApplicantAliasReason', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ApplicantAliasReason.constructor.getUrl();
-            expect(url).to.equal('/applicant-alias-reason');
+            expect(url).to.equal('/applicant-alias-reason*');
             done();
         });
     });

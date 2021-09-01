@@ -9,7 +9,7 @@ describe('ApplicantAlias', () => {
         it('should return the correct url', (done) => {
             const ApplicantAlias = steps.ApplicantAlias;
             const url = ApplicantAlias.constructor.getUrl();
-            expect(url).to.equal('/applicant-alias');
+            expect(url).to.equal('/applicant-alias*');
             done();
         });
     });

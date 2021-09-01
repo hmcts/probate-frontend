@@ -10,7 +10,7 @@ describe('CodicilsNumber', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = CodicilsNumber.constructor.getUrl();
-            expect(url).to.equal('/codicils-number');
+            expect(url).to.equal('/codicils-number*');
             done();
         });
     });

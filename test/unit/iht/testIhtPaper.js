@@ -10,7 +10,7 @@ describe('IhtPaper', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = IhtPaper.constructor.getUrl();
-            expect(url).to.equal('/iht-paper');
+            expect(url).to.equal('/iht-paper*');
             done();
         });
     });

@@ -9,7 +9,7 @@ describe('ApplicantAddress', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ApplicantAddress.constructor.getUrl();
-            expect(url).to.equal('/applicant-address');
+            expect(url).to.equal('/applicant-address*');
             done();
         });
     });

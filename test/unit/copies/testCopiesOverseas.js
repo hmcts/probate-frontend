@@ -10,7 +10,7 @@ describe('CopiesOverseas', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = CopiesOverseas.constructor.getUrl();
-            expect(url).to.equal('/copies-overseas');
+            expect(url).to.equal('/copies-overseas*');
             done();
         });
     });

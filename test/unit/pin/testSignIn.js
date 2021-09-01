@@ -21,7 +21,7 @@ describe('Pin-Page', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = PinPage.getUrl();
-            expect(url).to.equal('/sign-in');
+            expect(url).to.equal('/sign-in*');
             done();
         });
     });

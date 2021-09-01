@@ -9,7 +9,7 @@ describe('DiedEnglandOrWales', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = DiedEnglandOrWales.constructor.getUrl();
-            expect(url).to.equal('/died-eng-or-wales');
+            expect(url).to.equal('/died-eng-or-wales*');
             done();
         });
     });

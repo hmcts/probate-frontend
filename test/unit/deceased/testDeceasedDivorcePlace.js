@@ -13,7 +13,7 @@ describe('DivorcePlace', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = DivorcePlace.constructor.getUrl();
-            expect(url).to.equal('/deceased-divorce-or-separation-place');
+            expect(url).to.equal('/deceased-divorce-or-separation-place*');
             done();
         });
     });

@@ -9,7 +9,7 @@ describe('ForeignDeathCertTranslation', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ForeignDeathCertTranslation.constructor.getUrl();
-            expect(url).to.equal('/foreign-death-cert-translation');
+            expect(url).to.equal('/foreign-death-cert-translation*');
             done();
         });
     });

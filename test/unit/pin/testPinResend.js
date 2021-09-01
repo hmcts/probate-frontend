@@ -22,7 +22,7 @@ describe('Pin-Resend', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = PinResend.getUrl();
-            expect(url).to.equal('/pin-resend');
+            expect(url).to.equal('/pin-resend*');
             done();
         });
     });

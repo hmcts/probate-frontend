@@ -7,7 +7,7 @@ describe('StartApply', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = startApply.constructor.getUrl();
-            expect(url).to.equal('/start-apply');
+            expect(url).to.equal('/start-apply*');
             done();
         });
     });

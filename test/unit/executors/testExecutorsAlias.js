@@ -9,7 +9,7 @@ describe('Executors-Alias', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ExecutorsAlias.constructor.getUrl();
-            expect(url).to.equal('/executors-alias');
+            expect(url).to.equal('/executors-alias*');
             done();
         });
     });

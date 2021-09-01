@@ -14,7 +14,7 @@ describe('Documents', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = Documents.constructor.getUrl();
-            expect(url).to.equal('/documents');
+            expect(url).to.equal('/documents*');
             done();
         });
     });

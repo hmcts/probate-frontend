@@ -10,7 +10,7 @@ describe('Equality', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = Equality.constructor.getUrl();
-            expect(url).to.equal('/equality-and-diversity');
+            expect(url).to.equal('/equality-and-diversity*');
             done();
         });
     });

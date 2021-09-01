@@ -9,7 +9,7 @@ describe('Coapplicant-Disagree', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = CoApplicantDisagreePage.constructor.getUrl();
-            expect(url).to.equal('/co-applicant-disagree-page');
+            expect(url).to.equal('/co-applicant-disagree-page*');
             done();
         });
     });

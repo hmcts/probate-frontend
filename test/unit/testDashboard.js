@@ -12,7 +12,7 @@ describe('Dashboard', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = Dashboard.constructor.getUrl();
-            expect(url).to.equal('/dashboard');
+            expect(url).to.equal('/dashboard*');
             done();
         });
     });

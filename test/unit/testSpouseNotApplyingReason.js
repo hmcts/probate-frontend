@@ -10,7 +10,7 @@ describe('SpouseNotApplyingReason', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = SpouseNotApplyingReason.constructor.getUrl();
-            expect(url).to.equal('/spouse-not-applying-reason');
+            expect(url).to.equal('/spouse-not-applying-reason*');
             done();
         });
     });

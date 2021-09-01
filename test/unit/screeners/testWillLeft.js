@@ -11,7 +11,7 @@ describe('WillLeft', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = WillLeft.constructor.getUrl();
-            expect(url).to.equal('/will-left');
+            expect(url).to.equal('/will-left*');
             done();
         });
     });

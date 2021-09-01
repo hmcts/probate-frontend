@@ -10,7 +10,7 @@ describe('AdoptionPlace', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = AdoptionPlace.constructor.getUrl();
-            expect(url).to.equal('/adoption-place');
+            expect(url).to.equal('/adoption-place*');
             done();
         });
     });

@@ -115,7 +115,7 @@ describe('PaymentStatus', () => {
         it('should return the correct url', (done) => {
             const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
             const url = paymentStatus.constructor.getUrl();
-            expect(url).to.equal('/payment-status');
+            expect(url).to.equal('/payment-status*');
             done();
         });
     });

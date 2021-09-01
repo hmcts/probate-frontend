@@ -9,7 +9,7 @@ describe('StartEligibility', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = startEligibility.constructor.getUrl();
-            expect(url).to.equal('/start-eligibility');
+            expect(url).to.equal('/start-eligibility*');
             done();
         });
     });

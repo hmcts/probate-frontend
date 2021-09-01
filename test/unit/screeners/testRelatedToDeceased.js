@@ -11,7 +11,7 @@ describe('RelatedToDeceased', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = RelatedToDeceased.constructor.getUrl();
-            expect(url).to.equal('/related-to-deceased');
+            expect(url).to.equal('/related-to-deceased*');
             done();
         });
     });

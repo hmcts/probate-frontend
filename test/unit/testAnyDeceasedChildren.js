@@ -9,7 +9,7 @@ describe('AnyDeceasedChildren', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = AnyDeceasedChildren.constructor.getUrl();
-            expect(url).to.equal('/any-deceased-children');
+            expect(url).to.equal('/any-deceased-children*');
             done();
         });
     });

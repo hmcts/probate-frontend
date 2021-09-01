@@ -8,7 +8,7 @@ describe('ExecutorsNames', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ExecutorsNames.constructor.getUrl();
-            expect(url).to.equal('/executors-names');
+            expect(url).to.equal('/executors-names*');
             done();
         });
     });

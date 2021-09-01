@@ -9,7 +9,7 @@ describe('ApplicantNameAsOnWill', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ApplicantNameAsOnWill.constructor.getUrl();
-            expect(url).to.equal('/applicant-name-as-on-will');
+            expect(url).to.equal('/applicant-name-as-on-will*');
             done();
         });
     });

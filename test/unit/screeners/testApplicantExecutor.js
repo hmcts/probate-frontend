@@ -11,7 +11,7 @@ describe('ApplicantExecutor', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ApplicantExecutor.constructor.getUrl();
-            expect(url).to.equal('/applicant-executor');
+            expect(url).to.equal('/applicant-executor*');
             done();
         });
     });

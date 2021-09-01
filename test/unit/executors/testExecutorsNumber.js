@@ -11,7 +11,7 @@ describe('ExecutorsNumber', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ExecutorsNumber.constructor.getUrl();
-            expect(url).to.equal('/executors-number');
+            expect(url).to.equal('/executors-number*');
             done();
         });
     });

@@ -10,7 +10,7 @@ describe('ValueAssetsOutside', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ValueAssetsOutside.constructor.getUrl();
-            expect(url).to.equal('/value-assets-outside-england-wales');
+            expect(url).to.equal('/value-assets-outside-england-wales*');
             done();
         });
     });

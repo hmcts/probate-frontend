@@ -11,7 +11,7 @@ describe('DeathCertificateTranslation', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = DeathCertificateTranslation.constructor.getUrl();
-            expect(url).to.equal('/death-certificate-translation');
+            expect(url).to.equal('/death-certificate-translation*');
             done();
         });
     });

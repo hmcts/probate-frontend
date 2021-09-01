@@ -9,7 +9,7 @@ describe('IhtMethod', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = IhtMethod.constructor.getUrl();
-            expect(url).to.equal('/iht-method');
+            expect(url).to.equal('/iht-method*');
             done();
         });
     });

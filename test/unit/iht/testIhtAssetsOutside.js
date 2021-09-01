@@ -9,7 +9,7 @@ describe('AssetsOutside', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = AssetsOutside.constructor.getUrl();
-            expect(url).to.equal('/assets-outside-england-wales');
+            expect(url).to.equal('/assets-outside-england-wales*');
             done();
         });
     });

@@ -11,7 +11,7 @@ describe('OtherApplicants', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = OtherApplicants.constructor.getUrl();
-            expect(url).to.equal('/other-applicants');
+            expect(url).to.equal('/other-applicants*');
             done();
         });
     });

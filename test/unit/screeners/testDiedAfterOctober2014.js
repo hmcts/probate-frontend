@@ -11,7 +11,7 @@ describe('DiedAfterOctober2014', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = DiedAfterOctober2014.constructor.getUrl();
-            expect(url).to.equal('/died-after-october-2014');
+            expect(url).to.equal('/died-after-october-2014*');
             done();
         });
     });

@@ -11,7 +11,7 @@ describe('MentalCapacity', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = MentalCapacity.constructor.getUrl();
-            expect(url).to.equal('/mental-capacity');
+            expect(url).to.equal('/mental-capacity*');
             done();
         });
     });

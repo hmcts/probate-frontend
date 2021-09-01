@@ -10,7 +10,7 @@ describe('AllChildrenOver18', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = AllChildrenOver18.constructor.getUrl();
-            expect(url).to.equal('/all-children-over-18');
+            expect(url).to.equal('/all-children-over-18*');
             done();
         });
     });

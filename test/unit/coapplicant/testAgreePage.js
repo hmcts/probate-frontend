@@ -9,7 +9,7 @@ describe('Coapplicant-Agree', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = CoApplicantAgreePage.constructor.getUrl();
-            expect(url).to.equal('/co-applicant-agree-page');
+            expect(url).to.equal('/co-applicant-agree-page*');
             done();
         });
     });

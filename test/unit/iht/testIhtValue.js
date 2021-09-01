@@ -10,7 +10,7 @@ describe('IhtValue', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = IhtValue.constructor.getUrl();
-            expect(url).to.equal('/iht-value');
+            expect(url).to.equal('/iht-value*');
             done();
         });
     });

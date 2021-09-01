@@ -11,7 +11,7 @@ describe('WillCodicils', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = WillCodicils.constructor.getUrl();
-            expect(url).to.equal('/will-codicils');
+            expect(url).to.equal('/will-codicils*');
             done();
         });
     });

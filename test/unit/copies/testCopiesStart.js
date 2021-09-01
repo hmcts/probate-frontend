@@ -9,7 +9,7 @@ describe('CopiesStart', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = copiesStart.constructor.getUrl();
-            expect(url).to.equal('/copies-start');
+            expect(url).to.equal('/copies-start*');
             done();
         });
     });

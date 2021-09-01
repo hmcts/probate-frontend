@@ -11,7 +11,7 @@ describe('WillOriginal', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = WillOriginal.constructor.getUrl();
-            expect(url).to.equal('/will-original');
+            expect(url).to.equal('/will-original*');
             done();
         });
     });

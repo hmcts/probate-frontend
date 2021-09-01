@@ -374,7 +374,7 @@ describe('ExecutorAddress', () => {
             };
             const url = ExecutorAddress.nextStepUrl(req, testCtx);
 
-            expect(url).to.equal('/equality-and-diversity');
+            expect(url).to.equal('/equality-and-diversity*');
             done();
         });
 

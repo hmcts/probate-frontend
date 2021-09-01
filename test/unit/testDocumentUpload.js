@@ -11,7 +11,7 @@ describe('DocumentUpload.js', () => {
         it('should return the correct url', (done) => {
             const DocumentUpload = steps.DocumentUpload;
             const url = DocumentUpload.constructor.getUrl();
-            expect(url).to.equal('/document-upload');
+            expect(url).to.equal('/document-upload*');
             done();
         });
     });

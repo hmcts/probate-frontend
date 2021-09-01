@@ -6,7 +6,7 @@ const FormatName = require('app/utils/FormatName');
 class AssetsOverseas extends ValidationStep {
 
     static getUrl() {
-        return '/assets-overseas';
+        return '/assets-overseas*';
     }
 
     getContextData(req) {

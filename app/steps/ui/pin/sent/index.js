@@ -5,7 +5,7 @@ const WithLinkStepRunner = require('app/core/runners/WithLinkStepRunner');
 
 class PinSent extends Step {
     static getUrl() {
-        return '/pin-sent';
+        return '/pin-sent*';
     }
 
     runner() {

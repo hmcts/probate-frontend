@@ -6,7 +6,7 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 class ExecutorsWithOtherNames extends ValidationStep {
 
     static getUrl() {
-        return '/executors-other-names';
+        return '/executors-other-names*';
     }
 
     getContextData(req) {

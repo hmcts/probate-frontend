@@ -5,7 +5,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 class DivorcePlace extends ValidationStep {
 
     static getUrl() {
-        return '/deceased-divorce-or-separation-place';
+        return '/deceased-divorce-or-separation-place*';
     }
 
     getContextData(req) {

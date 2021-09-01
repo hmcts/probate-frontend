@@ -6,7 +6,7 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 class ExecutorsUpdateInvite extends ValidationStep {
 
     static getUrl() {
-        return '/executors-update-invite';
+        return '/executors-update-invite*';
     }
 
     getContextData(req) {

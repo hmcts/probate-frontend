@@ -8,7 +8,7 @@ const pageUrl = '/executor-address';
 class ExecutorAddress extends AddressStep {
 
     static getUrl(index = '*') {
-        return `${pageUrl}/${index}`;
+        return `${pageUrl}${index}`;
     }
 
     getContextData(req) {

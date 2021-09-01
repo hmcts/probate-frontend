@@ -6,7 +6,7 @@ const FormatName = require('app/utils/FormatName');
 class CoApplicantStartPage extends Step {
 
     static getUrl () {
-        return '/co-applicant-start-page';
+        return '/co-applicant-start-page*';
     }
 
     getContextData(req) {

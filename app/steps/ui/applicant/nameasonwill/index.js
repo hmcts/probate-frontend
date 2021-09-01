@@ -7,7 +7,7 @@ const WillWrapper = require('app/wrappers/Will');
 class ApplicantNameAsOnWill extends ValidationStep {
 
     static getUrl() {
-        return '/applicant-name-as-on-will';
+        return '/applicant-name-as-on-will*';
     }
 
     isSoftStop (formdata) {

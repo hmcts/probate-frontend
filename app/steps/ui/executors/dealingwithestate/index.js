@@ -8,7 +8,7 @@ const FormatName = require('app/utils/FormatName');
 class ExecutorsDealingWithEstate extends ValidationStep {
 
     static getUrl() {
-        return '/executors-dealing-with-estate';
+        return '/executors-dealing-with-estate*';
     }
 
     getContextData(req) {

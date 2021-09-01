@@ -10,7 +10,7 @@ const get = require('lodash').get;
 class ExecutorsInvite extends ValidationStep {
 
     static getUrl() {
-        return '/executors-invite';
+        return '/executors-invite*';
     }
 
     getContextData(req) {

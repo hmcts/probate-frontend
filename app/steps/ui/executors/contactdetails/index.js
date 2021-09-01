@@ -13,7 +13,7 @@ const pageUrl = '/executor-contact-details';
 class ExecutorContactDetails extends ValidationStep {
 
     static getUrl(index = '*') {
-        return `${pageUrl}/${index}`;
+        return `${pageUrl}${index}`;
     }
 
     getContextData(req) {

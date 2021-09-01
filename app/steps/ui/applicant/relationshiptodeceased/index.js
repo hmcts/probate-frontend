@@ -7,7 +7,7 @@ const IhtThreshold = require('app/utils/IhtThreshold');
 class RelationshipToDeceased extends ValidationStep {
 
     static getUrl() {
-        return '/relationship-to-deceased';
+        return '/relationship-to-deceased*';
     }
 
     getContextData(req) {

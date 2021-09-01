@@ -5,7 +5,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 class DeceasedName extends ValidationStep {
 
     static getUrl() {
-        return '/deceased-name';
+        return '/deceased-name*';
     }
 
     action(ctx, formdata) {

@@ -6,7 +6,7 @@ const FormatName = require('app/utils/FormatName');
 class SpouseNotApplyingReason extends ValidationStep {
 
     static getUrl() {
-        return '/spouse-not-applying-reason';
+        return '/spouse-not-applying-reason*';
     }
 
     getContextData(req) {

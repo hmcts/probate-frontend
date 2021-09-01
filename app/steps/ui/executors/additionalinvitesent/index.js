@@ -6,7 +6,7 @@ const {size} = require('lodash');
 class ExecutorsAdditionalInviteSent extends Step {
 
     static getUrl() {
-        return '/executors-additional-invite-sent';
+        return '/executors-additional-invite-sent*';
     }
 
     getContextData(req) {

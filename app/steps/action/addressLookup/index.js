@@ -9,7 +9,7 @@ const stringUtils = require('app/components/string-utils');
 
 class AddressLookup extends ValidationStep {
     static getUrl() {
-        return '/find-address';
+        return '/find-address*';
     }
 
     runner() {

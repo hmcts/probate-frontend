@@ -9,7 +9,7 @@ const eligibilityCookie = new EligibilityCookie();
 class Dashboard extends Step {
 
     static getUrl() {
-        return '/dashboard';
+        return '/dashboard*';
     }
 
     getContextData(req, res) {

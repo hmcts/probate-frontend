@@ -6,7 +6,7 @@ const featureToggle = require('app/utils/FeatureToggle');
 class CopiesOverseas extends ValidationStep {
 
     static getUrl() {
-        return '/copies-overseas';
+        return '/copies-overseas*';
     }
 
     getContextData(req) {

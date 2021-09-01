@@ -6,7 +6,7 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 class ExecutorsApplying extends ValidationStep {
 
     static getUrl() {
-        return '/other-executors-applying';
+        return '/other-executors-applying*';
     }
 
     handlePost(ctx) {

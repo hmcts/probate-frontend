@@ -6,7 +6,7 @@ const AliasData = require('app/utils/AliasData.js');
 class ApplicantAlias extends ValidationStep {
 
     static getUrl() {
-        return '/applicant-alias';
+        return '/applicant-alias*';
     }
 
     action(ctx, formdata) {

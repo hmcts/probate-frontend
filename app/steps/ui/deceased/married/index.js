@@ -7,7 +7,7 @@ const DeceasedWrapper = require('app/wrappers/Deceased');
 class DeceasedMarried extends ValidationStep {
 
     static getUrl() {
-        return '/deceased-married';
+        return '/deceased-married*';
     }
 
     isSoftStop(formdata) {

@@ -5,7 +5,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 class IhtIdentifier extends ValidationStep {
 
     static getUrl() {
-        return '/iht-identifier';
+        return '/iht-identifier*';
     }
 
     validate(ctx, formdata, language) {

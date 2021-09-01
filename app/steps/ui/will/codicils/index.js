@@ -5,7 +5,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 class WillCodicils extends ValidationStep {
 
     static getUrl() {
-        return '/will-codicils';
+        return '/will-codicils*';
     }
 
     nextStepUrl(req, ctx) {

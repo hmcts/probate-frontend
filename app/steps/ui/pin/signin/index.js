@@ -13,7 +13,7 @@ const caseTypes = require('app/utils/CaseTypes');
 class PinPage extends ValidationStep {
 
     static getUrl () {
-        return '/sign-in';
+        return '/sign-in*';
     }
 
     runner() {

@@ -6,7 +6,7 @@ const FormatName = require('app/utils/FormatName');
 class DeceasedMaritalStatus extends ValidationStep {
 
     static getUrl() {
-        return '/deceased-marital-status';
+        return '/deceased-marital-status*';
     }
 
     getContextData(req) {

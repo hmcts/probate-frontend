@@ -10,7 +10,7 @@ const IhtThreshold = require('app/utils/IhtThreshold');
 class ValueAssetsOutside extends ValidationStep {
 
     static getUrl() {
-        return '/value-assets-outside-england-wales';
+        return '/value-assets-outside-england-wales*';
     }
 
     getContextData(req) {

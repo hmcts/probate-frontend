@@ -6,7 +6,7 @@ const FieldError = require('app/components/error');
 class DeceasedDetails extends DateStep {
 
     static getUrl() {
-        return '/deceased-details';
+        return '/deceased-details*';
     }
 
     dateName() {

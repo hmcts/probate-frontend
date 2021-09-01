@@ -18,7 +18,7 @@ class PaymentStatus extends Step {
     }
 
     static getUrl() {
-        return '/payment-status';
+        return '/payment-status*';
     }
 
     getContextData(req) {

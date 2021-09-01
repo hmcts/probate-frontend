@@ -6,7 +6,7 @@ const FormatName = require('app/utils/FormatName');
 class AnyChildren extends ValidationStep {
 
     static getUrl() {
-        return '/any-children';
+        return '/any-children*';
     }
 
     getContextData(req) {

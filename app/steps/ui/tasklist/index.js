@@ -8,7 +8,7 @@ const caseTypes = require('app/utils/CaseTypes');
 class TaskList extends Step {
 
     static getUrl() {
-        return '/task-list';
+        return '/task-list*';
     }
 
     previousTaskStatus(previousTasks) {

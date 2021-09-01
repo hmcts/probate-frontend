@@ -5,7 +5,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 class ExecutorsAllAlive extends ValidationStep {
 
     static getUrl() {
-        return '/executors-all-alive';
+        return '/executors-all-alive*';
     }
 
     nextStepUrl(req, ctx) {

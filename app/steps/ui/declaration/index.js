@@ -22,7 +22,7 @@ const IhtThreshold = require('app/utils/IhtThreshold');
 
 class Declaration extends ValidationStep {
     static getUrl() {
-        return '/declaration';
+        return '/declaration*';
     }
 
     constructor(steps, section = null, resourcePath, i18next, schema, language = 'en') {

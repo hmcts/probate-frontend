@@ -10,7 +10,7 @@ const IhtThreshold = require('app/utils/IhtThreshold');
 class IhtValue extends ValidationStep {
 
     static getUrl() {
-        return '/iht-value';
+        return '/iht-value*';
     }
 
     getContextData(req) {

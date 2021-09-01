@@ -5,7 +5,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 class CodicilsNumber extends ValidationStep {
 
     static getUrl() {
-        return '/codicils-number';
+        return '/codicils-number*';
     }
 
     getContextData(req) {

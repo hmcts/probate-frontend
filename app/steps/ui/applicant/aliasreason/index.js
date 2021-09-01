@@ -6,7 +6,7 @@ const AliasData = require('app/utils/AliasData.js');
 class ApplicantAliasReason extends ValidationStep {
 
     static getUrl() {
-        return '/applicant-alias-reason';
+        return '/applicant-alias-reason*';
     }
 
     handlePost(ctx, errors) {

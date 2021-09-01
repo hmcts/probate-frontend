@@ -6,7 +6,7 @@ const featureToggle = require('app/utils/FeatureToggle');
 class StartEligibility extends Step {
 
     static getUrl() {
-        return '/start-eligibility';
+        return '/start-eligibility*';
     }
 
     handleGet(ctx, formdata, featureToggles) {

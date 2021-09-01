@@ -12,7 +12,7 @@ const {mapValues, get} = require('lodash');
 class CoApplicantDeclaration extends ValidationStep {
 
     static getUrl() {
-        return '/co-applicant-declaration';
+        return '/co-applicant-declaration*';
     }
 
     constructor(steps, section = null, resourcePath, i18next, schema, language = 'en') {

@@ -7,7 +7,7 @@ const {get} = require('lodash');
 class DocumentUpload extends ValidationStep {
 
     static getUrl() {
-        return '/document-upload';
+        return '/document-upload*';
     }
 
     getContextData(req) {

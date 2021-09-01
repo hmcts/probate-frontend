@@ -13,7 +13,7 @@ const get = require('lodash').get;
 class PinResend extends Step {
 
     static getUrl() {
-        return '/pin-resend';
+        return '/pin-resend*';
     }
 
     runner() {

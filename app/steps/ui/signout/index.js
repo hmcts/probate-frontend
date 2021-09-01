@@ -9,7 +9,7 @@ const IdamSession = require('app/services/IdamSession');
 class SignOut extends Step {
 
     static getUrl () {
-        return '/sign-out';
+        return '/sign-out*';
     }
 
     getContextData(req, res) {

@@ -8,7 +8,7 @@ const FormatName = require('app/utils/FormatName');
 class DeceasedOtherNames extends ValidationStep {
 
     static getUrl() {
-        return '/other-names';
+        return '/other-names*';
     }
 
     nextStepOptions() {

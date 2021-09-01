@@ -12,7 +12,7 @@ const FeesCalculator = require('app/utils/FeesCalculator');
 
 class PaymentBreakdown extends Step {
     static getUrl() {
-        return '/payment-breakdown';
+        return '/payment-breakdown*';
     }
 
     handleGet(ctx, formdata) {

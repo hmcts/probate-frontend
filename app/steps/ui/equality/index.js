@@ -14,7 +14,7 @@ class Equality extends ValidationStep {
     }
 
     static getUrl() {
-        return '/equality-and-diversity';
+        return '/equality-and-diversity*';
     }
 
     // eslint-disable-next-line no-unused-vars

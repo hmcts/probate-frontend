@@ -7,7 +7,7 @@ const ActionStepRunner = require('app/core/runners/ActionStepRunner');
 class AddAlias extends DeceasedOtherNames {
 
     static getUrl() {
-        return '/other-names/add';
+        return '/other-names/add*';
     }
 
     constructor(steps, section, templatePath, i18next, schema, language) {

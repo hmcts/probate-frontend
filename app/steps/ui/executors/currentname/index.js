@@ -8,7 +8,7 @@ const pageUrl = '/executor-current-name';
 class ExecutorCurrentName extends ValidationStep {
 
     static getUrl(index = '*') {
-        return `${pageUrl}/${index}`;
+        return `${pageUrl}${index}`;
     }
 
     getContextData(req) {

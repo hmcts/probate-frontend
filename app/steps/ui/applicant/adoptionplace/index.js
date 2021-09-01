@@ -6,7 +6,7 @@ const {get} = require('lodash');
 class AdoptionPlace extends ValidationStep {
 
     static getUrl() {
-        return '/adoption-place';
+        return '/adoption-place*';
     }
 
     getContextData(req) {

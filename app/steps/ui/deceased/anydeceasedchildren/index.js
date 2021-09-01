@@ -6,7 +6,7 @@ const FormatName = require('app/utils/FormatName');
 class AnyDeceasedChildren extends ValidationStep {
 
     static getUrl() {
-        return '/any-deceased-children';
+        return '/any-deceased-children*';
     }
 
     getContextData(req) {

@@ -6,7 +6,7 @@ const FormatName = require('app/utils/FormatName');
 class AllChildrenOver18 extends ValidationStep {
 
     static getUrl() {
-        return '/all-children-over-18';
+        return '/all-children-over-18*';
     }
 
     getContextData(req) {

@@ -7,7 +7,7 @@ const FormatName = require('app/utils/FormatName');
 class DeceasedAlias extends ValidationStep {
 
     static getUrl() {
-        return '/deceased-alias';
+        return '/deceased-alias*';
     }
 
     nextStepOptions() {

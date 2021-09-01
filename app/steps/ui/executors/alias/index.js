@@ -5,7 +5,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 class ExecutorsAlias extends ValidationStep {
 
     static getUrl() {
-        return '/executors-alias';
+        return '/executors-alias*';
     }
 
     pruneFormData(ctx) {

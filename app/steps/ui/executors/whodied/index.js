@@ -6,7 +6,7 @@ const {some} = require('lodash');
 class ExecutorsWhoDied extends ValidationStep {
 
     static getUrl() {
-        return '/executors-who-died';
+        return '/executors-who-died*';
     }
 
     getContextData(req) {

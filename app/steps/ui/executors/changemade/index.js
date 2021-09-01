@@ -5,7 +5,7 @@ const Step = require('app/core/steps/Step');
 class ExecutorsChangeMade extends Step {
 
     static getUrl () {
-        return '/executors-change-made';
+        return '/executors-change-made*';
     }
 }
 

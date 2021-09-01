@@ -5,7 +5,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 class IhtMethod extends ValidationStep {
 
     static getUrl() {
-        return '/iht-method';
+        return '/iht-method*';
     }
 
     nextStepOptions() {

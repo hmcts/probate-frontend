@@ -7,7 +7,7 @@ const {get} = require('lodash');
 class ExecutorsNumber extends ValidationStep {
 
     static getUrl() {
-        return '/executors-number';
+        return '/executors-number*';
     }
 
     getContextData(req) {

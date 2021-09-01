@@ -17,7 +17,7 @@ class Documents extends ValidationStep {
     }
 
     static getUrl() {
-        return '/documents';
+        return '/documents*';
     }
 
     runnerOptions(ctx, session) {

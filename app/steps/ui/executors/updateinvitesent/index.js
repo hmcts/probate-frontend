@@ -5,7 +5,7 @@ const Step = require('app/core/steps/Step');
 class ExecutorsUpdateInviteSent extends Step {
 
     static getUrl() {
-        return '/executors-update-invite-sent';
+        return '/executors-update-invite-sent*';
     }
 }
 

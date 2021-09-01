@@ -8,7 +8,7 @@ const {unescape, forEach} = require('lodash');
 class CopiesSummary extends Step {
 
     static getUrl() {
-        return '/copies-summary';
+        return '/copies-summary*';
     }
 
     generateContent(ctx, formdata, language) {

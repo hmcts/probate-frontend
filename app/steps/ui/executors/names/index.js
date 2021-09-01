@@ -10,7 +10,7 @@ const FormatName = require('app/utils/FormatName');
 class ExecutorsNames extends ValidationStep {
 
     static getUrl() {
-        return '/executors-names';
+        return '/executors-names*';
     }
 
     getContextData(req) {

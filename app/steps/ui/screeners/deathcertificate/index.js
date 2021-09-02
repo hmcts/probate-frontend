@@ -18,7 +18,7 @@ class DeathCertificate extends EligibilityValidationStep {
 
     nextStepUrl(req, ctx) {
         console.log('DeathCertificate nextStepUrl => ');
-        console.log('ctx => ', ctx);
+        // console.log('ctx => ', ctx);
         if (!this.previousQuestionsAnswered(req, ctx, fieldKey)) {
             return Dashboard.getUrl();
         }

@@ -7,6 +7,7 @@ const path = require('path');
 const steps = {};
 
 const initStep = (filePath, language) => {
+    console.log('initStep');
     const stepObject = require(filePath);
     const filePathFragments = filePath.search('ui') >= 0 ? filePath.split(`${path.sep}ui${path.sep}`) : filePath.split(`${path.sep}action${path.sep}`);
     let resourcePath = filePathFragments[1];

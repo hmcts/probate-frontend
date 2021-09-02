@@ -19,6 +19,7 @@ class Step {
     }
 
     get name() {
+        console.log('Step name', this.constructor.name);
         return this.constructor.name;
     }
 
@@ -43,18 +44,19 @@ class Step {
     }
 
     next(req, ctx) {
-        console.log('STEP NEXT', req.session.journey);
+        console.log('======STEP NEXT');
         const journeyMap = new JourneyMap(req.session.journey);
         return journeyMap.nextStep(this, ctx);
     }
 
     nextStepUrl(req, ctx) {
-        console.log('Setp next url => ', this.next(req, ctx).constructor.getUrl());
-        console.log('ctx => ', ctx);
+        console.log('======== Step next url => ', this.next(req, ctx).constructor.getUrl());
+        // console.log('ctx => ', ctx);
         return this.next(req, ctx).constructor.getUrl();
     }
 
     getContextData(req) {
+        console.log('==== Step getContextData');
         const session = req.session;
         let ctx = {};
         Object.assign(ctx, session.form[this.section] || {});
@@ -75,26 +77,32 @@ class Step {
     }
 
     handleGet(ctx) {
+        console.log('====== Step handleGet');
         return [ctx];
     }
 
     handlePost(ctx, errors) {
+        console.log('====== Step handle post');
         return [ctx, errors];
     }
 
     validate() {
+        console.log('====== Step validate');
         return [true, []];
     }
 
     isComplete() {
+        console.log('====== Step isComplete');
         return [this.validate()[0], 'noProgress'];
     }
 
     shouldPersistFormData() {
+        console.log('====== Step shouldPersistFormData');
         return true;
     }
 
     generateContent(ctx, formdata, language = 'en') {
+        console.log('====== Step generateContent');
         if (!this.content) {
             throw new ReferenceError(`Step ${this.name} has no content.json in its resource folder`);
         }
@@ -105,12 +113,14 @@ class Step {
     }
 
     commonContent(language = 'en') {
+        console.log('====== Step commonContent');
         this.i18next.changeLanguage(language);
         const common = require(`app/resources/${language}/translation/common`);
         return mapValues(common, (value, key) => this.i18next.t(`common.${key}`));
     }
 
     generateFields(language, ctx, errors) {
+        console.log('====== Step generateFields');
         let fields = mapValues(ctx, (value, key) => {
             let returnValue;
             const dateName = key.split('-')[0];
@@ -135,6 +145,7 @@ class Step {
     }
 
     persistFormData(ccdCaseId, formdata, sessionID, req) {
+        console.log('====== Step persistFormData');
         const formData = ServiceMapper.map(
             'FormData',
             [config.services.orchestrator.url, sessionID]
@@ -143,6 +154,7 @@ class Step {
     }
 
     action(ctx, formdata) {
+        console.log('====== Step action');
         delete ctx.sessionID;
         delete ctx.caseType;
         delete ctx.userLoggedIn;
@@ -152,6 +164,7 @@ class Step {
     }
 
     anySoftStops(formdata, ctx) {
+        console.log('====== Step anySoftStops');
         const softStopsList = map(this.steps, step => step.isSoftStop(formdata, ctx));
         const isSoftStop = reduce(softStopsList, (accumulator, nextElement) => {
             return accumulator || nextElement.isSoftStop;
@@ -160,6 +173,7 @@ class Step {
     }
 
     isSoftStop() {
+        console.log('====== Step isSoftStop');
         return {
             'stepName': this.constructor.name,
             'isSoftStop': false
@@ -167,10 +181,12 @@ class Step {
     }
 
     setHardStop(ctx, reason) {
+        console.log('====== Step setHardStop');
         ctx.stopReason = reason;
     }
 
     alreadyDeclared(session) {
+        console.log('====== Step alreadyDeclared');
         const hasMultipleApplicants = (new ExecutorsWrapper(get(session, 'form.executors'))).hasMultipleApplicants();
 
         if (hasMultipleApplicants === false) {
@@ -185,6 +201,7 @@ class Step {
     }
 
     renderPage(res, html) {
+        console.log('====== Step renderPage');
         res.send(html);
     }
 }

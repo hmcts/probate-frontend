@@ -15,6 +15,7 @@ class UIStepRunner {
     }
 
     handleGet(step, req, res) {
+        console.log('UIStepRunner handleGet ');
         let errors = null;
         const session = req.session;
         const formdata = session.form;
@@ -54,6 +55,7 @@ class UIStepRunner {
     }
 
     handlePost(step, req, res) {
+        console.log('UIStepRunner handlePost ');
         const session = req.session;
         let formdata = session.form;
         const commonContent = require(`app/resources/${session.language}/translation/common`);

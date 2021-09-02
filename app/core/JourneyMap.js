@@ -9,6 +9,7 @@ class JourneyMap {
     }
 
     nextOptionStep(currentStep, ctx) {
+        console.log('JourneyMap nextOptionStep');
         const match = currentStep
             .nextStepOptions(ctx).options
             .find((option) => get(ctx, option.key) === option.value);
@@ -16,6 +17,7 @@ class JourneyMap {
     }
 
     nextStep(currentStep, ctx) {
+        console.log('JourneyMap nextStep');
         let nextStepName = this.journey.stepList[currentStep.name];
         if (nextStepName !== null && typeof nextStepName === 'object') {
             nextStepName = nextStepName[this.nextOptionStep(currentStep, ctx)];
@@ -24,10 +26,12 @@ class JourneyMap {
     }
 
     stepList() {
+        console.log('JourneyMap stepList');
         return this.journey.stepList;
     }
 
     taskList() {
+        console.log('JourneyMap taskList');
         return this.journey.taskList;
     }
 }

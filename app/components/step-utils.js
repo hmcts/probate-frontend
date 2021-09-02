@@ -11,6 +11,7 @@ const commonContent = (language = 'en') => {
 };
 
 const updateTaskStatus = (ctx, req, res, steps) => {
+    console.log('step util => updateTaskStatus');
     const formdata = req.session.form;
     const journeyMap = new JourneyMap(req.session.journey);
     const taskList = journeyMap.taskList();

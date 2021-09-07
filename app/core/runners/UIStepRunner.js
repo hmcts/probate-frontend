@@ -62,9 +62,7 @@ class UIStepRunner {
             let ctx = step.getContextData(req, res);
             let [isValid, errors] = [];
 
-            console.log('===== handle post url => ', step.constructor.getUrl());
-            formdata.description = 'probate frontend ';
-            console.log('FORRM DATA ===> ', formdata);
+            formdata.description = 'probate frontend ' + step.constructor.getUrl();
             [isValid, errors] = step.validate(ctx, formdata, session.language);
             const hasDataChanged = (new DetectDataChange()).hasDataChanged(ctx, req, step);
             const featureToggles = session.featureToggles;

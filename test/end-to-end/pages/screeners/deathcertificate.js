@@ -8,7 +8,7 @@ module.exports = async function(language ='en', testSurvey = false) {
 
     await I.checkInUrl('/death-certificate');
 
-    if (I.dontSeeElement('.govuk-fieldset__heading')) {
+    if (I.dontSeeElement('button.govuk-button')) {
         await I.refreshPage();
         await I.checkInUrl('/death-certificate');
     }

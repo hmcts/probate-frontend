@@ -5,7 +5,14 @@ module.exports = async function(language ='en', testSurvey = false) {
     const I = this;
     const commonContent = require(`app/resources/${language}/translation/common`);
     const deathCertContent = require(`app/resources/${language}/translation/screeners/deathcertificate`);
+
     await I.checkInUrl('/death-certificate');
+
+    if (I.dontSeeElement('.govuk-fieldset__heading')) {
+        await I.refreshPage();
+        await I.checkInUrl('/death-certificate');
+    }
+
     await I.waitForText(deathCertContent.question);
     const locator = {css: '#deathCertificate'};
     await I.waitForEnabled(locator);

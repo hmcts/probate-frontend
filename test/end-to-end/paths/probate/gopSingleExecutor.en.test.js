@@ -136,5 +136,6 @@ languages.forEach(language => {
         await I.seeThankYouPage(language);
 
     }).tag('@e2e')
+        .tag('@crossbrowser')
         .retry(TestConfigurator.getRetryScenarios());
 });

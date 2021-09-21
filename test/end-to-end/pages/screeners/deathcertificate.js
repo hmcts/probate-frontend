@@ -8,10 +8,10 @@ module.exports = async function(language ='en', testSurvey = false) {
 
     await I.checkInUrl('/death-certificate');
 
-    if (I.dontSeeElement('button.govuk-button')) {
-        await I.refreshPage();
-        await I.checkInUrl('/death-certificate');
-    }
+    // if (I.dontSeeElement('button.govuk-button')) {
+    //      await I.refreshPage();
+    //      await I.checkInUrl('/death-certificate');
+    //  }
 
     await I.waitForText(deathCertContent.question);
     const locator = {css: '#deathCertificate'};

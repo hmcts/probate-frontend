@@ -61,9 +61,9 @@ withNightlyPipeline("nodejs", product, component) {
     env.WEBCHAT_ENABLED = params.WEBCHAT_ENABLED
     env.GA_ENABLED = params.GA_ENABLED
 
-    //enableFullFunctionalTest()
+    enableFullFunctionalTest()
     enableCrossBrowserTest(['chrome', 'firefox', 'safari', 'microsoft'])
-//    enableSecurityScan()  //we do this in otrher builds
+//    enableSecurityScan()  //we do this in other builds
     after('build') {
         sh 'mkdir -p functional-output'
         sh 'yarn setup'

@@ -77,7 +77,7 @@
     "stub:multiple-applications": "NODE_PATH=. node test/service-stubs/multipleApplications.js",
     "stub:equality-and-diversity-endpoint": "NODE_PATH=. node test/service-stubs/equalityAndDiversityEndpoint.js",
     "stub:equality-and-diversity-health": "NODE_PATH=. node test/service-stubs/equalityAndDiversityHealth.js",
-    "test:fullfunctional": "NODE_ENV=test NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/gopSingleExecutor.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --reporter mochawesome"
+    "test:fullfunctional": "NODE_ENV=test NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --reporter mochawesome"
   },
   "pre-commit": [
     "lint"

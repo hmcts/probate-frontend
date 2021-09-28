@@ -62,7 +62,7 @@ withNightlyPipeline("nodejs", product, component) {
     env.GA_ENABLED = params.GA_ENABLED
 
     enableFullFunctionalTest()
-//    enableCrossBrowserTest(['chrome', 'firefox', 'safari', 'microsoft'])
+    enableCrossBrowserTest(['chrome', 'firefox', 'safari', 'microsoft'])
 //    enableSecurityScan()  //we do this in other builds
     after('build') {
         sh 'mkdir -p functional-output'

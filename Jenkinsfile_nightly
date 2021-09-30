@@ -61,7 +61,7 @@ withNightlyPipeline("nodejs", product, component) {
     env.WEBCHAT_ENABLED = params.WEBCHAT_ENABLED
     env.GA_ENABLED = params.GA_ENABLED
 
-    //enableFullFunctionalTest()
+    enableFullFunctionalTest()
     enableCrossBrowserTest(['chrome', 'firefox', 'safari', 'microsoft'])
 //    enableSecurityScan()  //we do this in otrher builds
     after('build') {

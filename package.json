@@ -140,7 +140,7 @@
     "validator": "^11.1.0"
   },
   "devDependencies": {
-    "@pact-foundation/pact": "^9.15.5",
+    "@pact-foundation/pact": "^9.16.3",
     "@pact-foundation/pact-node": "^10.12.2",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",

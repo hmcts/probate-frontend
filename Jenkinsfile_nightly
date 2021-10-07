@@ -60,6 +60,8 @@ withNightlyPipeline("nodejs", product, component) {
     env.FE_E2E_TEST_PATH_TO_RUN = params.test_path
     env.WEBCHAT_ENABLED = params.WEBCHAT_ENABLED
     env.GA_ENABLED = params.GA_ENABLED
+
+    enableFullFunctionalTest()
     enableFortifyScan('probate-aat')
     //enableFullFunctionalTest()
     enableCrossBrowserTest(['chrome', 'firefox', 'safari', 'microsoft'])

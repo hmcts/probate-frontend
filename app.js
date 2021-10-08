@@ -117,7 +117,9 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'webchat.ctsc.hmcts.net',
                 'webchat-client.ctsc.hmcts.net',
                 'webchat.training.ctsc.hmcts.net',
-                'webchat-client.training.ctsc.hmcts.net'
+                'webchat-client.training.ctsc.hmcts.net',
+                'webchat.pp.ctsc.hmcts.net',
+                'webchat-client.pp.ctsc.hmcts.net'
             ],
             fontSrc: [
                 '\'self\' data:',
@@ -133,6 +135,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'www.googletagmanager.com',
                 'webchat.ctsc.hmcts.net',
                 'webchat.training.ctsc.hmcts.net',
+                'webchat.pp.ctsc.hmcts.net',
+                'webchat-client.pp.ctsc.hmcts.net',
                 'webchat-client.ctsc.hmcts.net',
                 'webchat-client.training.ctsc.hmcts.net',
                 `'nonce-${nonce}'`,
@@ -147,6 +151,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'https://webchat-client.ctsc.hmcts.net',
                 'wss://webchat.ctsc.hmcts.net',
                 'wss://webchat.training.ctsc.hmcts.net',
+                'wss://webchat.pp.ctsc.hmcts.net',
+                'https://webchat-client.pp.ctsc.hmcts.net',
                 'stats.g.doubleclick.net',
                 'tagmanager.google.com'
             ],

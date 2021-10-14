@@ -41,6 +41,8 @@
             const ewt = metricsDetail.ewt;
             const ccState = metricsDetail.contactCenterState;
             const availableAgents = metricsDetail.availableAgents;
+            
+            console.log('metricsDetail==> ', metricsDetail);
 
             avayaWebchatOpen.hidden = true;
             avayaAgentBusy.hidden = true;

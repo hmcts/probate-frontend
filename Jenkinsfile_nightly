@@ -1,7 +1,7 @@
 #!groovy
 
 properties([
-        pipelineTriggers([cron('00 22 * * *')]),
+        pipelineTriggers([cron('00 20 * * *')]),
         parameters([
                 string(name: 'ENVIRONMENT', defaultValue: 'aat', description: 'Environment to test'),
                 string(name: 'test_path', defaultValue: './paths/**/*.js', description: 'any three like ./paths/probate/*.js or ./paths/generic/*.js or ./paths/intestacy/*.js'),
@@ -61,7 +61,7 @@ withNightlyPipeline("nodejs", product, component) {
     env.WEBCHAT_ENABLED = params.WEBCHAT_ENABLED
     env.GA_ENABLED = params.GA_ENABLED
 
-    enableFullFunctionalTest()
+    enableFullFunctionalTest(200)
     enableCrossBrowserTest(['chrome', 'firefox', 'safari', 'microsoft'])
 //    enableSecurityScan()  //we do this in other builds
     after('build') {

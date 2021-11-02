@@ -7,7 +7,7 @@ const co = require('co');
 
 describe('UploadLegalDeclaration', () => {
     describe('generateAndUpload()', () => {
-        it('should generate and upload SOT correctly', (done) => {
+        it('should generate and upload Legal Statement correctly', (done) => {
             const docUrl = 'http://localhost:8080/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505';
             const revertUpload = UploadLegalDeclaration.__set__('ServiceMapper', class {
                 static map() {
@@ -38,7 +38,7 @@ describe('UploadLegalDeclaration', () => {
                 const uploadLegalDeclaration = new UploadLegalDeclaration();
                 const sotDocument = yield uploadLegalDeclaration.generateAndUpload('sid', 'uid', req);
 
-                expect(sotDocument).to.deep.equal({url: docUrl, filename: 'SOT.pdf'});
+                expect(sotDocument).to.deep.equal({url: docUrl, filename: 'LegalStatement.pdf'});
                 revertUpload();
                 revert();
                 done();

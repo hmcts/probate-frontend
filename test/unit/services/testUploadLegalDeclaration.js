@@ -38,7 +38,7 @@ describe('UploadLegalDeclaration', () => {
                 const uploadLegalDeclaration = new UploadLegalDeclaration();
                 const sotDocument = yield uploadLegalDeclaration.generateAndUpload('sid', 'uid', req);
 
-                expect(sotDocument).to.deep.equal({url: docUrl, filename: 'LegalStatement.pdf'});
+                expect(sotDocument).to.deep.equal({url: docUrl, filename: 'legalStatementProbate.pdf'});
                 revertUpload();
                 revert();
                 done();

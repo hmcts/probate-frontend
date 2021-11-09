@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "Iht207Estate",
+  "type": "object",
+  "properties": {
+    "grossValue": {
+      "type": "number"
+    },
+    "netValue": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "grossValueField",
+    "netValueField"
+  ]
+}

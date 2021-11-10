@@ -1,0 +1,24 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block form_content %}
+    {% call govukFieldset({
+        legend: {
+            text: "Deceased Late Spouse or Civil Partner",
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

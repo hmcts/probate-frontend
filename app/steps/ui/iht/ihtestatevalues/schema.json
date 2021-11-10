@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "iht-estate-values",
+  "type": "object",
+  "properties": {
+    "estateGrossValueField": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 13
+    },
+    "estateNetValueField": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 13
+    }
+  },
+  "required": [
+    "estateGrossValueField",
+    "estateNetValueField"
+  ]
+}

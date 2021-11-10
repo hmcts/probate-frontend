@@ -50,6 +50,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const security = new Security(config.services.idam.loginUrl);
     const inviteSecurity = new InviteSecurity();
 
+    console.log('XXX instrumentationKey: ' + config.appInsights.instrumentationKey);
     if (config.appInsights.instrumentationKey) {
         appInsights.setup(config.appInsights.instrumentationKey)
             .setAutoDependencyCorrelation(true)

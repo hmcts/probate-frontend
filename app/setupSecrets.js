@@ -11,6 +11,8 @@ const setSecret = (secretPath, configPath) => {
 };
 
 const setupSecrets = () => {
+    logger.info('XXX Secrets: ' + config.secrets);
+
     if (config.has('secrets.probate')) {
         setSecret('secrets.probate.frontend-redis-access-key', 'redis.password');
         setSecret('secrets.probate.idam-s2s-secret', 'services.idam.service_key');

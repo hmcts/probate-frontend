@@ -86,9 +86,26 @@ describe('IhtEstateValues', () => {
                 estateGrossValueField: '500000',
                 estateGrossValue: 500000,
                 estateNetValueField: '400000',
+                estateNetValue: 400000
+            });
+            done();
+        });
+
+        it('should reset net qualifying value if net qualifying field value is empty and net qualifying value exists', (done) => {
+            ctx = {
+                estateGrossValueField: '500000',
+                estateNetValueField: '400000',
+                estateNetQualifyingValue: 200000
+            };
+            errors = [];
+            [ctx, errors] = IhtEstateValues.handlePost(ctx, errors, {}, {language: 'en'});
+            expect(ctx).to.deep.equal({
+                estateGrossValueField: '500000',
+                estateGrossValue: 500000,
+                estateNetValueField: '400000',
                 estateNetValue: 400000,
-                estateNetQualifyingValueField: '0.00',
-                estateNetQualifyingValue: 0
+                estateNetQualifyingValueField: '',
+                estateNetQualifyingValue: 0.0
             });
             done();
         });
@@ -111,6 +128,11 @@ describe('IhtEstateValues', () => {
             });
             expect(errors).to.deep.equal([
                 {
+                    field: 'estateNetQualifyingValueField',
+                    href: '#estateNetQualifyingValueField',
+                    msg: content.errors.estateNetQualifyingValueField.invalidCurrencyFormat
+                },
+                {
                     field: 'estateGrossValueField',
                     href: '#estateGrossValueField',
                     msg: content.errors.estateGrossValueField.invalidCurrencyFormat
@@ -119,11 +141,6 @@ describe('IhtEstateValues', () => {
                     field: 'estateNetValueField',
                     href: '#estateNetValueField',
                     msg: content.errors.estateNetValueField.invalidCurrencyFormat
-                },
-                {
-                    field: 'estateNetQualifyingValueField',
-                    href: '#estateNetQualifyingValueField',
-                    msg: content.errors.estateNetQualifyingValueField.invalidCurrencyFormat
                 },
                 {
                     field: 'estateNetValueField',

@@ -10,7 +10,7 @@ class IhtEstateValues extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.netQualifyingValueWithinRange = IhtEstateValuesUtil.withinRange(ctx.estateNetQualifyingValue);
+        ctx.netQualifyingValueWithinRange = IhtEstateValuesUtil.withinRange(typeof ctx.estateNetQualifyingValue === 'undefined' ? 0 : ctx.estateNetQualifyingValue);
 
         return {
             options: [
@@ -22,8 +22,16 @@ class IhtEstateValues extends ValidationStep {
     handlePost(ctx, errors, session) {
         ctx.estateGrossValue = parseFloat(numeral(ctx.estateGrossValueField).format('0.00'));
         ctx.estateNetValue = parseFloat(numeral(ctx.estateNetValueField).format('0.00'));
-        ctx.estateNetQualifyingValueField = typeof ctx.estateNetQualifyingValueField === 'undefined' ? '0.00' : ctx.estateNetQualifyingValueField;
-        ctx.estateNetQualifyingValue = parseFloat(numeral(ctx.estateNetQualifyingValueField).format('0.00'));
+
+        if (typeof ctx.estateNetQualifyingValueField === 'undefined' && ctx.estateNetQualifyingValue) {
+            ctx.estateNetQualifyingValueField = '';
+            ctx.estateNetQualifyingValue = 0.0;
+        } else if (typeof ctx.estateNetQualifyingValueField !== 'undefined') {
+            ctx.estateNetQualifyingValue = parseFloat(numeral(ctx.estateNetQualifyingValueField).format('0.00'));
+            if (!validator.isCurrency(ctx.estateNetQualifyingValueField, {symbol: '£', allow_negatives: false})) {
+                errors.push(FieldError('estateNetQualifyingValueField', 'invalidCurrencyFormat', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+            }
+        }
 
         if (!validator.isCurrency(ctx.estateGrossValueField, {symbol: '£', allow_negatives: false})) {
             errors.push(FieldError('estateGrossValueField', 'invalidCurrencyFormat', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
@@ -31,10 +39,6 @@ class IhtEstateValues extends ValidationStep {
 
         if (!validator.isCurrency(ctx.estateNetValueField, {symbol: '£', allow_negatives: false})) {
             errors.push(FieldError('estateNetValueField', 'invalidCurrencyFormat', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-        }
-
-        if (!validator.isCurrency(ctx.estateNetQualifyingValueField, {symbol: '£', allow_negatives: false})) {
-            errors.push(FieldError('estateNetQualifyingValueField', 'invalidCurrencyFormat', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
         if (ctx.estateNetValue > ctx.estateGrossValue) {

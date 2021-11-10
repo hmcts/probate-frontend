@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "Iht421Estate",
+  "type": "object",
+  "properties": {
+    "grossValueField": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 13
+    },
+    "netValueField": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 13
+    }
+  },
+  "required": [
+    "grossValueField",
+    "netValueField"
+  ]
+}

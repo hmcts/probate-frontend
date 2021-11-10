@@ -1,16 +1,16 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const Iht207Estate = require('app/steps/ui/iht/iht207estate');
+const DeceasedAlias = require('app/steps/ui/deceased/alias');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('Tests for IHT Estate Valued', () => {
     let testWrapper;
-    const expectedNextUrlForIht207Estate = Iht207Estate.getUrl();
+    const expectedNextUrlForDeceasedAlias = DeceasedAlias.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('IhtEstateValued');
+        testWrapper = new TestWrapper('Iht207Estate');
     });
 
     afterEach(() => {
@@ -18,7 +18,7 @@ describe('Tests for IHT Estate Valued', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('IhtEstateValued', null, null, [], false, {type: caseTypes.INTESTACY});
+        testCommonContent.runTest('Iht207Estate', null, null, [], false, {type: caseTypes.INTESTACY});
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
@@ -40,7 +40,7 @@ describe('Tests for IHT Estate Valued', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForIht207Estate}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.GOP})
                 .end(() => {
@@ -48,7 +48,7 @@ describe('Tests for IHT Estate Valued', () => {
                         estateValueCompleted: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForIht207Estate);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
                 });
         });
     });

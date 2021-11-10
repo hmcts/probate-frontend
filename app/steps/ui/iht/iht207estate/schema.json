@@ -3,11 +3,15 @@
   "id": "Iht207Estate",
   "type": "object",
   "properties": {
-    "grossValue": {
-      "type": "number"
+    "grossValueField": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 13
     },
-    "netValue": {
-      "type": "number"
+    "netValueField": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 13
     }
   },
   "required": [

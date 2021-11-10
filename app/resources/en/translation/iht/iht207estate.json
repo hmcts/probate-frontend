@@ -1,7 +1,7 @@
 {
-  "title": "WELSH NEEDED What are the values of the estate you entered on form IHT 207?",
-  "question": "WELSH NEEDED You can find these values on the completed IHT 207 form.\nGross value of estate for probate in the UK in £",
-  "hint": "WELSH NEEDED This is the 'Gross estate in the UK passing under Will' on the form",
+  "title": "Iht-207",
+  "question": "What are the values of the estate you entered on form IHT 207?",
+  "hint": "<br>You can find these values on the completed IHT 207 form.<br><br><br>Gross value of estate for probate in the UK in £<br><br>This is the 'Gross estate in the UK passing under Will' on the form",
   "grossValue": "Gross value of estate for probate in the UK in &pound;",
   "netValue": "Net value in &pound;",
 

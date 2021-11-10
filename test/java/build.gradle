@@ -21,7 +21,7 @@ dependencies {
     testCompile 'com.github.hmcts:fortify-client:1.2.2:all'
     testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.4'
 }
-// end::dependencies[]
+//end::dependencies[]
 
 task fortifyScan(type: JavaExec)  {
     main = "uk.gov.hmcts.fortifyclient.FortifyClientMainApp"

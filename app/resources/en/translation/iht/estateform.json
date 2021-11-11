@@ -1,0 +1,13 @@
+{
+  "title": "Which IHT forms did you complete to report the estate&rsquo;s value?",
+  "question": "Which IHT forms did you complete to report the estate&rsquo;s value?",
+  "optionIHT400421": "IHT 400 and 421",
+  "optionIHT400421Hint": "Forms you completed because you have to pay inheritance tax",
+  "optionIHT207": "IHT 207",
+  "optionIHT207Hint": "Forms you completed because you do not have to pay inheritance tax because it&rsquo;s an excepted estate and the person who&rsquo;s died was domiciled abroad",
+  "errors": {
+    "estateForm": {
+      "required": "Select which IHT forms you completed to report the estate’s value"
+    }
+  }
+}

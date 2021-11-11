@@ -5,7 +5,7 @@ const DeceasedAlias = require('app/steps/ui/deceased/alias');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe('Tests for IHT Estate Valued', () => {
+describe('Tests for IHT 207 Estate ', () => {
     let testWrapper;
     const expectedNextUrlForDeceasedAlias = DeceasedAlias.getUrl();
 

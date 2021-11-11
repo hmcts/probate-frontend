@@ -1,13 +1,13 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const Iht207Estate = require('app/steps/ui/iht/iht207estate');
+const EstateForm = require('app/steps/ui/iht/estateform');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('Tests for IHT Estate Valued', () => {
     let testWrapper;
-    const expectedNextUrlForIht207Estate = Iht207Estate.getUrl();
+    const expectedNextUrlForIht207Estate = EstateForm.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('IhtEstateValued');

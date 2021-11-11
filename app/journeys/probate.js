@@ -90,7 +90,11 @@ const stepList = {
         netQualifyingValueWithinRange: 'DeceasedHadLateSpouseOrCivilPartner',
         otherwise: 'ProbateEstateValues'
     },
-    DeceasedHadLateSpouseOrCivilPartner: 'DeceasedAlias',
+    DeceasedHadLateSpouseOrCivilPartner: {
+        deceasedHadLateSpouseOrCivilPartner: 'IhtUnusedAllowanceClaimed',
+        otherwise: 'ProbateEstateValues'
+    },
+    IhtUnusedAllowanceClaimed: 'ProbateEstateValues',
     ProbateEstateValues: 'DeceasedAlias',
     EnglishForeignDeathCert: {
         foreignDeathCertIsInEnglish: 'IhtMethod',

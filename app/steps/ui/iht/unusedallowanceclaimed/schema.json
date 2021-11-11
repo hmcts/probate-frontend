@@ -1,14 +1,14 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "deceased-late-spouse-civil-partner",
+    "id": "unused-allowance-claimed",
     "type": "object",
     "properties": {
-        "deceasedHadLateSpouseOrCivilPartner": {
+        "unusedAllowanceClaimed": {
             "type": "string"
             }
         },
     "required": [
-        "deceasedHadLateSpouseOrCivilPartner"
+        "unusedAllowanceClaimed"
     ]
 }
   

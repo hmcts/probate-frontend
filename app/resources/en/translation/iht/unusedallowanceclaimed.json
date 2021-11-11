@@ -1,0 +1,13 @@
+{
+    "title": "Are you claiming the unused IHT allowance ('nil-rate band') of the deceased's late spouse or civil partner?",
+    "question": "Are you claiming the unused IHT allowance ('nil-rate band') of the deceased's late spouse or civil partner?",
+    "hint": "The spouse or civil partner must have died before the deceased to claim any unused nil-rate band allowance.",
+    "optionYes": "Yes",
+    "optionNo": "No",
+    "errors": {
+        "unusedAllowanceClaimed": {
+            "required": "Answer &lsquo;yes&rsquo; if you are claiming the unused IHT allowance ('nil-rate band') of the deceased's late spouse or civil partner"
+        }
+    }
+}
+  

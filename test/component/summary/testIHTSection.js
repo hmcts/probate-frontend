@@ -239,7 +239,9 @@ describe('summary-iht-section', () => {
                         estateValueCompleted: ihtContent.estatevalued.question,
                         estateGrossValue: ihtContent.ihtestatevalues.estateGrossValue,
                         estateNetValue: ihtContent.ihtestatevalues.estateNetValue,
-                        estateNetQualifyingValue: ihtContent.ihtestatevalues.estateNetQualifyingValue
+                        estateNetQualifyingValue: ihtContent.ihtestatevalues.estateNetQualifyingValue,
+                        deceasedHadLateSpouseOrCivilPartner: ihtContent.deceasedlatespousecivilpartner.question,
+                        unusedAllowanceClaimed: ihtContent.unusedallowanceclaimed.question
                     };
                     testWrapper.testDataPlayback(done, playbackData);
                 });

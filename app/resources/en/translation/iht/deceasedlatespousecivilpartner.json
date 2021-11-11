@@ -1,31 +1,11 @@
 {
-    "title": "WELSH - What is the value of the estate",
-    "question": "WELSH - What are the values of the estate for Inheritance Tax?",
-    "questionHint": "If you do not have these values, use <a href=\"https://www.gov.uk/valuing-estate-of-someone-who-died\" class=\"govuk-link\" rel=\"noreferrer noopener\" target=\"_blank\">the IHT checker</a> to get them. We collect these values for HMRC so they can check if you need pay inheritance tax.",
-    "estateGrossValue": "Gross value",
-    "estateGrossValueHint": "This is the total value of all assets like property, money and gifts in the last 7 years before taking off any debts",
-    "estateNetValue": "Net value",
-    "estateNetValueHint": "Take off any debts like mortgage and credit cards from the gross value",
-    "estateNetQualifyingValue": "Net qualifying value",
-    "estateNetQualifyingValueHint": "Take off from the net value any assets passed to spouse or civil partner and money left to a charity.",
-    "poundSymbol": "£",
-
+    "title": "Did the deceased have a late spouse or civil partner?",
+    "question": "Did the deceased have a late spouse or civil partner?",
+    "optionYes": "Yes",
+    "optionNo": "No",
     "errors": {
-        "estateGrossValueField": {
-            "required": "Enter the gross amount",
-            "invalid": "Enter a valid gross amount",
-            "invalidCurrencyFormat": "Gross value must be a whole number or a number with 2 decimal places"
-        },
-        "estateNetValueField": {
-            "required": "Enter the net amount",
-            "invalid": "Enter a valid net amount",
-            "invalidCurrencyFormat": "Net value must be a whole number or a number with 2 decimal places",
-            "netValueGreaterThanGross": "The net amount can&rsquo;t be greater than the gross amount"
-        },
-        "estateNetQualifyingValueField": {
-            "required": "Enter the net amount",
-            "invalid": "Enter a valid net amount",
-            "invalidCurrencyFormat": "Net qualifying value must be a whole number or a number with 2 decimal places"
+        "deceasedHadLateSpouseOrCivilPartner": {
+            "required": "Answer &lsquo;yes&rsquo; if the deceased had a late spouse or partner"
         }
     }
 }

@@ -25,7 +25,6 @@ nodejs:
         - webchat-avaya-url
         - webchat-avaya-client-url
         - webchat-avaya-service
-        - AppInsightsInstrumentationKey
 redis:
   enabled: true
 idam-pr:

@@ -6,6 +6,7 @@ const appInsights = require('applicationinsights');
 
 // Setup secrets before loading the app
 setupSecrets();
+console.log('instrumentationKey: ' +config.appInsights.instrumentationKey);
 if (config.appInsights.instrumentationKey) {
     appInsights.setup(config.appInsights.instrumentationKey)
         .setAutoDependencyCorrelation(true)

@@ -41,15 +41,12 @@ describe('Tests for IHT 207 Estate ', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.GOP})
-                .end(() => {
-                    const data = {
-                        estateValueCompleted: 'optionYes'
-                    };
+            const data = {
+                grossValueField: '300000',
+                netValueField: '260000'
+            };
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
-                });
         });
     });
 });

@@ -11,7 +11,7 @@
         name: "estateForm",
         fieldset: {
             legend: {
-                text: content.question,
+                text: content.question | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }

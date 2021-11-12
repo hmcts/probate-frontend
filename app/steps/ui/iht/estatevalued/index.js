@@ -8,6 +8,13 @@ class IhtEstateValued extends ValidationStep {
         return '/estate-valued';
     }
 
+    nextStepOptions() {
+        return {
+            options: [
+                {key: 'estateValueCompleted', value: 'optionYes', choice: 'ihtEstateFormsCompleted'}
+            ]
+        };
+    }
 }
 
 module.exports = IhtEstateValued;

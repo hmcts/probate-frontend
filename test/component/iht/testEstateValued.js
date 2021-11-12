@@ -2,12 +2,14 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const EstateForm = require('app/steps/ui/iht/estateform');
+const DeceasedAlias = require('app/steps/ui/deceased/alias');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('Tests for IHT Estate Valued', () => {
     let testWrapper;
     const expectedNextUrlForIht207Estate = EstateForm.getUrl();
+    const expectedNextUrlDeceasedAlias = DeceasedAlias.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('IhtEstateValued');
@@ -49,6 +51,18 @@ describe('Tests for IHT Estate Valued', () => {
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForIht207Estate);
+                });
+        });
+
+        it(`test it redirects to next page: ${expectedNextUrlDeceasedAlias}`, (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.GOP})
+                .end(() => {
+                    const data = {
+                        estateValueCompleted: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlDeceasedAlias);
                 });
         });
     });

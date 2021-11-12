@@ -42,7 +42,8 @@ const completeEqualityTask = (params) => {
 };
 
 const pcqDown = (params, formData) => {
-    formData.post(params.req.authToken, params.req.session.serviceAuthorization, params.req.session.form.ccdCase.id, params.req.session.form);
+    logger.info('About to post formdata for pcqDown');
+    formData.post(params.req.session.authToken, params.req.session.serviceAuthorization, params.req.session.form.ccdCase.id, params.req.session.form);
 
     if (params.req.session.caseType === 'intestacy') {
         params.res.redirect('/summary');

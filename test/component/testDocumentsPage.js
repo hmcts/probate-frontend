@@ -54,7 +54,7 @@ describe('documents', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
-                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -79,7 +79,7 @@ describe('documents', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item2-no-codicils',
-                            'checklist-item3-will-damage-no-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -107,7 +107,7 @@ describe('documents', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
-                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -136,7 +136,7 @@ describe('documents', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
-                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -161,7 +161,7 @@ describe('documents', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
-                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -187,7 +187,7 @@ describe('documents', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
-                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -213,7 +213,7 @@ describe('documents', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
-                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -239,7 +239,7 @@ describe('documents', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
-                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -284,7 +284,7 @@ describe('documents', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
-                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -331,7 +331,7 @@ describe('documents', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
-                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -360,7 +360,7 @@ describe('documents', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
-                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
@@ -384,7 +384,7 @@ describe('documents', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
-                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
@@ -411,7 +411,7 @@ describe('documents', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
-                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item6-spouse-renouncing',
                             'checklist-item7-iht205',
@@ -434,7 +434,7 @@ describe('documents', () => {
                     .end(() => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
-                            'checklist-item3-will-damage-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -468,8 +468,7 @@ describe('documents', () => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
-                            'checklist-item3-will-damage-codicils',
-                            'checklist-item3-will-damage-no-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -504,8 +503,7 @@ describe('documents', () => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
-                            'checklist-item3-will-damage-codicils',
-                            'checklist-item3-will-damage-no-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
@@ -540,8 +538,7 @@ describe('documents', () => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
-                            'checklist-item3-will-damage-codicils',
-                            'checklist-item3-will-damage-no-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
@@ -574,8 +571,7 @@ describe('documents', () => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
-                            'checklist-item3-will-damage-codicils',
-                            'checklist-item3-will-damage-no-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
@@ -610,8 +606,7 @@ describe('documents', () => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
-                            'checklist-item3-will-damage-codicils',
-                            'checklist-item3-will-damage-no-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item6-spouse-renouncing',
                             'checklist-item7-iht205',
@@ -643,8 +638,7 @@ describe('documents', () => {
                         const contentToExclude = [
                             'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
-                            'checklist-item3-will-damage-codicils',
-                            'checklist-item3-will-damage-no-codicils',
+                            'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',

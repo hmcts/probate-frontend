@@ -11,6 +11,7 @@ const FormatName = require('app/utils/FormatName');
 const CheckAnswersSummaryJSONObjectBuilder = require('app/utils/CheckAnswersSummaryJSONObjectBuilder');
 const checkAnswersSummaryJSONObjBuilder = new CheckAnswersSummaryJSONObjectBuilder();
 const IhtThreshold = require('app/utils/IhtThreshold');
+const featureToggle = require('app/utils/FeatureToggle');
 
 class Summary extends Step {
 
@@ -132,7 +133,15 @@ class Summary extends Step {
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
         ctx.session = req.session;
         ctx.authToken = req.authToken;
+
+        this.setToggleOnContext(ctx, req);
+
         return ctx;
+    }
+    setToggleOnContext(ctx, req) {
+        if (featureToggle.isEnabled(req.session.featureToggles, 'ft_will_condition')) {
+            ctx.featureToggles = req.session.featureToggles;
+        }
     }
 
     renderPage(res, html) {

@@ -78,7 +78,7 @@
     "stub:equality-and-diversity-endpoint": "NODE_PATH=. node test/service-stubs/equalityAndDiversityEndpoint.js",
     "stub:equality-and-diversity-health": "NODE_PATH=. node test/service-stubs/equalityAndDiversityHealth.js",
     "fortifyScan": "./test/java/gradlew -p test/java fortifyScan",
-    "test:fullfunctional": "NODE_ENV=test NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --reporter mochawesome"
+    "test:fullfunctional": "NODE_ENV=test-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --reporter mochawesome"
   },
   "pre-commit": [
     "lint"
@@ -90,7 +90,8 @@
     "@hmcts/properties-volume": "^0.0.9",
     "@wdio/selenium-standalone-service": "^7.6.0",
     "ajv": "^4.11.8",
-    "applicationinsights": "^1.8.8",
+    "applicationinsights": "1.7.2",
+    "applicationinsights-js": "^1.0.20",
     "basic-auth": "^2.0.1",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
@@ -138,11 +139,12 @@
     "traverse": "^0.6.6",
     "tunnel-agent": "^0.6.0",
     "uuid": "^8.3.1",
-    "validator": "^11.1.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@pact-foundation/pact": "^9.16.3",
     "@pact-foundation/pact-node": "^10.13.8",
+    "@types/applicationinsights-js": "^1.0.9",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.3.0",

@@ -4,7 +4,6 @@ const requireDir = require('require-directory');
 const TestWrapper = require('test/util/TestWrapper');
 const languageContent = require('../../../app/resources/en/translation/language');
 const deceasedContent = requireDir(module, '../../../app/resources/en/translation/deceased');
-const willContent = requireDir(module, '../../../app/resources/en/translation/will');
 const FormatName = require('app/utils/FormatName');
 
 describe('summary-deceased-section', () => {
@@ -41,8 +40,7 @@ describe('summary-deceased-section', () => {
                         alias: deceasedContent.alias.question.replace('{deceasedName}', deceasedContent.alias.theDeceased),
                         dob: deceasedContent.dob.question,
                         dod: deceasedContent.dod.question,
-                        address: deceasedContent.address.question,
-                        willCodicils: willContent.codicils.question
+                        address: deceasedContent.address.question
                     };
 
                     testWrapper.testDataPlayback(done, playbackData);
@@ -71,8 +69,7 @@ describe('summary-deceased-section', () => {
                         married: deceasedContent.married.question.replace('{deceasedName}', deceasedName),
                         dob: deceasedContent.dob.question,
                         dod: deceasedContent.dod.question,
-                        address: deceasedContent.address.question,
-                        willCodicils: willContent.codicils.question
+                        address: deceasedContent.address.question
                     };
 
                     testWrapper.testDataPlayback(done, playbackData);
@@ -101,8 +98,7 @@ describe('summary-deceased-section', () => {
                         questionMarried: deceasedContent.married.question.replace('{deceasedName}', deceasedName),
                         questionDob: deceasedContent.dob.question,
                         questionDod: deceasedContent.dod.question,
-                        questionAddress: deceasedContent.address.question,
-                        questionWillCodicils: willContent.codicils.question
+                        questionAddress: deceasedContent.address.question
                     };
                     Object.assign(playbackData, sessionData.deceased);
                     playbackData.alias = deceasedContent.alias[playbackData.alias];

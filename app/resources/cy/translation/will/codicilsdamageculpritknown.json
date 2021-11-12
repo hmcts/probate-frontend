@@ -1,0 +1,20 @@
+{
+    "title": "Ydych chi’n gwybod pwy all fod wedi gwneud difrod neu farciau gweladwy i’r codisiliau?",
+    "question": "Ydych chi’n gwybod pwy all fod wedi gwneud difrod neu farciau gweladwy i’r codisiliau?",
+    "optionYes": "Ydw",
+    "optionNo": "Nac ydw",
+    "nameLabel": "Enw’r sawl allai fod wedi gwneud difrod neu farciau i’r codisiliau",
+    "firstName": "Enw cyntaf",
+    "lastName": "Cyfenw",
+    "errors": {
+        "codicilsDamageCulpritKnown": {
+            "required": "Dewiswch &lsquo;Ydw&rsquo; os gwyddoch pwy wnaeth y difrod neu farciau gweladwy i’r codisiliau"
+        },
+        "firstName": {
+            "required": "Nodwch enw a chyfenw'r sawl a allai fod wedi gwneud difrod neu farciau gweladwy ar y codisiliau"
+        },
+        "lastName": {
+            "required": "Nodwch enw a chyfenw'r sawl a allai fod wedi gwneud difrod neu farciau gweladwy ar y codisiliau"
+        } 
+    }
+}

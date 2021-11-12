@@ -178,6 +178,17 @@ describe('Documents', () => {
                 expect(ctx.foreignDeathCertTranslatedSeparately).to.equal(false);
                 done();
             });
+
+            it('should return deceasedWrittenWishes on ctx', (done) => {
+                const formdata = {
+                    will: {
+                        deceasedWrittenWishes: 'optionYes'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.deceasedWrittenWishes).to.equal('optionYes');
+                done();
+            });
         });
 
         describe('Probate Journey', () => {

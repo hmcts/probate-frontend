@@ -1,0 +1,77 @@
+TestCitizenDomain: '/@probateTest.com'
+TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png'
+TestE2EFrontendUrl: 'http://localhost:3000'
+TestFrontendUrl: 'http://localhost:3000'
+TestIdamBaseUrl: 'http://localhost:8484'
+TestIdamLoginUrl: 'https://localhost:8000/login'
+TestOutputDir: './functional-output'
+TestPathToRun: './paths/**/*.js'
+TestProxy: 'socks5:proxyout.reform.hmcts.net:8080'
+TestRetryFeatures: 4
+TestRetryScenarios: 4
+TestRetrySteps: 4
+TestShowBrowser: false
+TestUseGovPay: 'true'
+TestUseIdam: 'true'
+TestUseProxy: 'false'
+TestWaitForDocumentUpload: 60
+TestWaitForTextToAppear: 120
+TestWaitForElementToAppear: 60
+TestOneMilliSecond: 1000
+
+postcodeLookup:
+  contentType: 'application/json'
+  singleAddressPostcode: 'SW1A 1AA'
+  singleOrganisationName: 'BUCKINGHAM PALACE'
+  singleFormattedAddress: 'BUCKINGHAM PALACE, LONDON, SW1A 1AA'
+  multipleAddressPostcode: 'N145JY'
+  partialAddressPostcode: 'N14'
+  invalidAddressPostcode: 'Z99 9ZZ'
+  emptyAddressPostcode: ''
+
+govPayTestCardNos:
+  validCardNo: '4242424242424242'
+
+govPayTestCardDetails:
+  expiryMonth: '06'
+  expiryYear: '99'
+  cardholderName: 'Test Payment'
+  cvc: '123'
+  addressLine1: '1'
+  addressCity: 'London'
+  addressPostcode: 'SW1A1AA'
+
+TestGovUkConfirmPaymentUrl: 'www.payments.service.gov.uk'
+TestGovUkCardPaymentsUrl: '/card_details'
+
+s2sStubErrorSequence: '000'
+links:
+  cookies: '/cookies'
+  privacy: '/privacy-policy'
+  contact: '/contact-us'
+  callCharges: 'https://www.gov.uk/call-charges'
+  howToManageCookies: 'https://www.aboutcookies.org'
+  googlePrivacyPolicy: 'https://www.google.com/policies/privacy/partners/'
+  googleAnalyticsOptOut: 'https://tools.google.com/dlpage/gaoptout/'
+  mojPersonalInformationCharter: 'https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter'
+  goodThingsFoundation: 'https://www.goodthingsfoundation.org'
+  subjectAccessRequest: 'https://www.gov.uk/government/publications/request-your-personal-data-from-moj'
+  complaintsProcedure: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure'
+  informationCommissionersOffice: 'https://ico.org.uk/global/contact-us'
+  ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value'
+  applicationFormPA15: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will'
+
+helpline:
+  number: '0300 303 0648'
+  hours: 'Monday to Friday, 8:00am to 6:00pm. Saturday, 8:00am to 2:00pm.'
+
+pact:
+  pactBrokerUrl: 'http://localhost:80'
+
+featureToggles:
+  enabled: true
+  launchDarklyKey: 'LAUNDARKLEY-KEY'
+  launchDarklyUser:
+    firstName: 'Probate'
+    lastName: 'Frontend'
+    key: 'LAUNCHDARKLY_USER_KEY'

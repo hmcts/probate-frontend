@@ -1,0 +1,82 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block form_content %}
+
+    {% if errors %}
+        {% set inlineErrors = {
+            text:
+            (
+                (fields["willdamagedate-date"].errorMessage + "<br>" if fields["willdamagedate-date"].errorMessage) +
+                (fields["willdamagedate-year"].errorMessage + "<br>" if fields["willdamagedate-year"].errorMessage)
+            ) | safe
+        } %}
+    {% endif %}
+
+    {% set dateHtml %}
+      {{ govukDateInput({
+          id: "willdamagedate",
+          namePrefix: "willdamagedate",
+          hint: {
+              text: content.dateHint | safe
+          },
+          errorMessage: inlineErrors,
+          items: [
+              {
+                  classes: "govuk-input--width-2" + (" govuk-input--error" if fields["willdamagedate-date"].error),
+                  name: "day",
+                  value: fields["willdamagedate-day"].value
+              },
+              {
+                  classes: "govuk-input--width-2" + (" govuk-input--error" if fields["willdamagedate-date"].error),
+                  name: "month",
+                  value: fields["willdamagedate-month"].value
+              },
+              {
+                  classes: "govuk-input--width-4" + (" govuk-input--error" if fields["willdamagedate-year"].error or fields["willdamagedate-date"].error),
+                  name: "year",
+                  value: fields["willdamagedate-year"].value
+              }
+          ]
+      }) }}
+    {% endset -%}
+
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "willDamageDateKnown",
+        name: "willDamageDateKnown",
+        fieldset: {
+            legend: {
+                text: content.question,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: { text: fields.willDamageDateKnown.errorMessage | safe } if fields.willDamageDateKnown.errorMessage,
+        items: [
+            {
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.willDamageDateKnown.value == "optionYes",
+                conditional: {
+                    html: dateHtml
+                }
+            },
+            {
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.willDamageDateKnown.value == "optionNo"
+            }
+        ]
+    }) }}
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+          text: common.saveAndContinue | safe,
+          preventDoubleClick: true
+      }) }}
+    </div>
+{% endblock %}

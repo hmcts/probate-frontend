@@ -2,6 +2,7 @@
   "title": "Summary page",
   "heading": "Check your answers",
   "checkCarefully": "Check the information below carefully. This will form a record of your application for probate. It will also be stored as a public record, and will be able to be viewed online.",
+  "willConditionHeading": "Condition of the will",
   "uploadedDocumentsHeading": "Uploaded documents",
   "uploadedDocumentsEmpty": "No documents have been uploaded",
   "applicantHeading": "The executors",
@@ -22,6 +23,7 @@
   "mobileNumber": "Mobile number",
   "emailAddress": "Email address",
   "checkAnswersPdf": "Save this page (10kb PDF)",
+  "codicilsConditionHeading": "Condition of the codicils",
 
   "errors": {
     "businessError": {

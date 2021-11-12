@@ -113,12 +113,27 @@ const stepList = {
     DeceasedOtherNames: 'DeceasedMarried',
     AddAlias: 'DeceasedOtherNames',
     RemoveAlias: 'DeceasedOtherNames',
-    DeceasedMarried: 'WillCodicils',
+    DeceasedMarried: 'WillHasVisibleDamage',
+    WillHasVisibleDamage: {
+        willDoesHaveVisibleDamage: 'WillDamageReasonKnown',
+        otherwise: 'WillCodicils'
+    },
+    WillDamageReasonKnown: 'WillDamageCulpritKnown',
+    WillDamageCulpritKnown: 'WillDamageDate',
+    WillDamageDate: 'WillCodicils',
     WillCodicils: {
-        noCodicils: 'TaskList',
+        noCodicils: 'DeceasedWrittenWishes',
         otherwise: 'CodicilsNumber'
     },
-    CodicilsNumber: 'TaskList',
+    CodicilsNumber: 'CodicilsHasVisibleDamage',
+    CodicilsHasVisibleDamage: {
+        codicilsDoesHaveVisibleDamage: 'CodicilsDamageReasonKnown',
+        otherwise: 'DeceasedWrittenWishes'
+    },
+    CodicilsDamageReasonKnown: 'CodicilsDamageCulpritKnown',
+    CodicilsDamageCulpritKnown: 'CodicilsDamageDate',
+    CodicilsDamageDate: 'DeceasedWrittenWishes',
+    DeceasedWrittenWishes: 'TaskList',
     ApplicantName: 'ApplicantNameAsOnWill',
     ApplicantNameAsOnWill: {
         hasAlias: 'ApplicantAlias',

@@ -304,6 +304,7 @@ assetsValueThreshold: [
     value: 270000
   }
 ]
+exceptedEstateDateOfDeath: '2022-01-01'
 gopOnlyPages: [
   '/deceased-name',
   '/deceased-dob',

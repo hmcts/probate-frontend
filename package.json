@@ -90,7 +90,8 @@
     "@hmcts/properties-volume": "^0.0.9",
     "@wdio/selenium-standalone-service": "^7.6.0",
     "ajv": "^4.11.8",
-    "applicationinsights": "^1.8.8",
+    "applicationinsights": "1.7.2",
+    "applicationinsights-js": "^1.0.20",
     "basic-auth": "^2.0.1",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
@@ -143,6 +144,7 @@
   "devDependencies": {
     "@pact-foundation/pact": "^9.16.3",
     "@pact-foundation/pact-node": "^10.13.8",
+    "@types/applicationinsights-js": "^1.0.9",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.3.0",

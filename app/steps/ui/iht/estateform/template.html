@@ -7,8 +7,8 @@
 
 {{ govukRadios({
         classes: "govuk-radios",
-        idPrefix: "estateForm",
-        name: "estateForm",
+        idPrefix: "ihtFormEstateId",
+        name: "ihtFormEstateId",
         fieldset: {
             legend: {
                 text: content.question | safe,
@@ -16,7 +16,7 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.estateForm.errorMessage | safe } if fields.estateForm.errorMessage,
+        errorMessage: { text: fields.ihtFormEstateId.errorMessage | safe } if fields.ihtFormEstateId.errorMessage,
         items: [
             {
                 value: "optionIHT400421",
@@ -24,7 +24,7 @@
                 hint: {
                   text: content["optionIHT400421Hint"] | safe
                 },
-                checked: true if fields.estateForm.value == "optionIHT400421"
+                checked: true if fields.ihtFormEstateId.value == "optionIHT400421"
             },
             {
                 value: "optionIHT207",
@@ -32,7 +32,7 @@
                 hint: {
                   text: content["optionIHT207Hint"] | safe
                 },
-                checked: true if fields.estateForm.value == "optionIHT207"
+                checked: true if fields.ihtFormEstateId.value == "optionIHT207"
             }
         ]
     }) }}

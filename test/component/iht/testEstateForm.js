@@ -44,7 +44,7 @@ describe('Tests for IHT Estate Valued', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForIht207Estate}`, (done) => {
             const data = {
-                estateForm: 'optionIHT207'
+                ihtFormEstateId: 'optionIHT207'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForIht207Estate);
@@ -52,7 +52,7 @@ describe('Tests for IHT Estate Valued', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForIht421Estate}`, (done) => {
             const data = {
-                estateForm: 'optionIHT400421'
+                ihtFormEstateId: 'optionIHT400421'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForIht421Estate);

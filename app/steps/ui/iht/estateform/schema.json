@@ -3,11 +3,11 @@
   "id": "estate-form",
   "type": "object",
   "properties": {
-    "estateForm": {
+    "ihtFormEstateId": {
       "type": "string"
     }
   },
   "required": [
-    "estateForm"
+    "ihtFormEstateId"
   ]
 }

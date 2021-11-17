@@ -6,7 +6,7 @@
   "optionIHT207": "IHT 207",
   "optionIHT207Hint": "Forms you completed because you do not have to pay inheritance tax because it&rsquo;s an excepted estate and the person who&rsquo;s died was domiciled abroad",
   "errors": {
-    "estateForm": {
+    "ihtFormEstateId": {
       "required": "Select which IHT forms you completed to report the estate’s value"
     }
   }

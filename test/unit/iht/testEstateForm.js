@@ -18,7 +18,7 @@ describe('EstateForm', () => {
         it('should return the correct options', (done) => {
             const nextStepOptions = IhtEstateForm.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
-                options: [{key: 'estateForm', value: 'optionIHT207', choice: '207'}]
+                options: [{key: 'ihtFormEstateId', value: 'optionIHT207', choice: '207'}]
             });
             done();
         });

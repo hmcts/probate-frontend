@@ -78,10 +78,20 @@ describe('death-certificate-interim', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
 
+        it(`test it DOES NOT redirects to estate valued for EE FT on: ${expectedNextUrlForIhtMethod}`, (done) => {
+            testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
+
+            const data = {
+                'dod-date': '2021-12-31',
+                deathCertificate: 'optionInterimCertificate'
+            };
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+        });
         it(`test it redirects to estate valued for EE FT on: ${expectedNextUrlForEstateValued}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
 
             const data = {
+                'dod-date': '2022-01-01',
                 deathCertificate: 'optionInterimCertificate'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);

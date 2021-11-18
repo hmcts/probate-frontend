@@ -5,10 +5,10 @@ const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
 
-class Iht421Estate extends ValidationStep {
+class IhtEstateValues extends ValidationStep {
 
     static getUrl() {
-        return '/iht-421';
+        return '/iht-estate-values';
     }
 
     handlePost(ctx, errors, formdata, session) {
@@ -31,4 +31,4 @@ class Iht421Estate extends ValidationStep {
     }
 }
 
-module.exports = Iht421Estate;
+module.exports = IhtEstateValues;

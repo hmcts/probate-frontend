@@ -4,20 +4,39 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% if fields.ihtFormEstateId %}
+  {% if fields.ihtFormEstateId.value == "optionIHT207" %}
+    {% set displayQuestion = content.question207 %}
+    {% set displayQuestionHint = content.hint207 %}
+    {% set displayGrossHint = content.grossHint207 %}
+    {% set displayNetHint = content.netHint207 %}
+  {% else %}
+    {% set displayQuestion = content.question421 %}
+    {% set displayQuestionHint = content.hint421 %}
+    {% set displayGrossHint = content.grossHint421 %}
+    {% set displayNetHint = content.netHint421 %}
+  {% endif %}
+{% else %}
+  {% set displayQuestion = content.questionNoIHT %}
+  {% set displayGrossHint = content.grossHintNoIHT %}
+  {% set displayNetHint = content.netHintNoIHT %}
+{% endif %}
+
 {% block form_content %}
-{{ fields | dump }}
     {% call govukFieldset({
         legend: {
-            text: content.question | safe,
+            text: displayQuestion| safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-hint">{{ content.hint | safe }}</p>
+
+        <p class="govuk-hint">{{ displayQuestionHint | safe }}
+        </p>
 
         {{ govukInput({
             label: {
-                text: content.grossValue | safe
+                text: displayGrossHint | safe
             },
             id: "grossValueField",
             name: "grossValueField",
@@ -30,7 +49,7 @@
         }) }}
         {{ govukInput({
             label: {
-                text: content.netValue | safe
+                text: displayNetHint | safe
             },
             id: "netValueField",
             name: "netValueField",

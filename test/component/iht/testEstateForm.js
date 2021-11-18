@@ -1,15 +1,13 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const Iht207Estate = require('app/steps/ui/iht/iht207estate');
-const Iht421Estate = require('app/steps/ui/iht/iht421estate');
+const IhtEstateValues = require('app/steps/ui/iht/ihtestatevalues');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('Tests for IHT Estate Valued', () => {
     let testWrapper;
-    const expectedNextUrlForIht207Estate = Iht207Estate.getUrl();
-    const expectedNextUrlForIht421Estate = Iht421Estate.getUrl();
+    const expectedNextUrlForIhtEstateValues = IhtEstateValues.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('IhtEstateForm');
@@ -42,20 +40,13 @@ describe('Tests for IHT Estate Valued', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForIht207Estate}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForIhtEstateValues}`, (done) => {
             const data = {
                 ihtFormEstateId: 'optionIHT207'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForIht207Estate);
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtEstateValues);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForIht421Estate}`, (done) => {
-            const data = {
-                ihtFormEstateId: 'optionIHT400421'
-            };
-
-            testWrapper.testRedirect(done, data, expectedNextUrlForIht421Estate);
-        });
     });
 });

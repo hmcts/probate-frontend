@@ -8,13 +8,6 @@ class IhtEstateForm extends ValidationStep {
         return '/estate-form';
     }
 
-    nextStepOptions() {
-        return {
-            options: [
-                {key: 'ihtFormEstateId', value: 'optionIHT207', choice: '207'}
-            ]
-        };
-    }
 }
 
 module.exports = IhtEstateForm;

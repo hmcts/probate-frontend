@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "Iht207Estate",
+  "id": "IhtEstateValues",
   "type": "object",
   "properties": {
     "grossValueField": {

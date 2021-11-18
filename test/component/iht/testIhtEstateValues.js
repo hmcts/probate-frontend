@@ -5,12 +5,12 @@ const DeceasedAlias = require('app/steps/ui/deceased/alias');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe('Tests for IHT 207 Estate ', () => {
+describe('Tests for IHT Estate Values ', () => {
     let testWrapper;
     const expectedNextUrlForDeceasedAlias = DeceasedAlias.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('Iht207Estate');
+        testWrapper = new TestWrapper('IhtEstateValues');
     });
 
     afterEach(() => {
@@ -18,15 +18,16 @@ describe('Tests for IHT 207 Estate ', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('Iht207Estate', null, null, [], false, {type: caseTypes.INTESTACY});
+        testCommonContent.runTest('IhtEstateValues', null, null, [], false, {type: caseTypes.INTESTACY});
 
-        it('test content loaded on the page', (done) => {
+        it('test content loaded on the page 207', (done) => {
             const sessionData = {
                 type: caseTypes.GOP,
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456
-                }
+                },
+                ihtFormEstateId: 'optionIHT207'
             };
 
             testWrapper.agent.post('/prepare-session/form')

@@ -14,13 +14,4 @@ describe('EstateForm', () => {
         });
     });
 
-    describe('nextStepOptions()', () => {
-        it('should return the correct options', (done) => {
-            const nextStepOptions = IhtEstateForm.nextStepOptions();
-            expect(nextStepOptions).to.deep.equal({
-                options: [{key: 'ihtFormEstateId', value: 'optionIHT207', choice: '207'}]
-            });
-            done();
-        });
-    });
 });

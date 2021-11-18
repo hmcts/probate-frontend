@@ -19,7 +19,7 @@ class IhtEstateValues extends ValidationStep {
         };
     }
 
-    handlePost(ctx, errors, session) {
+    handlePost(ctx, errors, formdata, session) {
         ctx.estateGrossValue = parseFloat(numeral(ctx.estateGrossValueField).format('0.00'));
         ctx.estateNetValue = parseFloat(numeral(ctx.estateNetValueField).format('0.00'));
 

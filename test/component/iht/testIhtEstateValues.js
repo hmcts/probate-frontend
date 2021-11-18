@@ -27,7 +27,9 @@ describe('Tests for IHT Estate Values ', () => {
                     state: 'Pending',
                     id: 1234567890123456
                 },
-                ihtFormEstateId: 'optionIHT207'
+                iht: {
+                    ihtFormEstateId: 'optionIHT207'
+                }
             };
 
             testWrapper.agent.post('/prepare-session/form')

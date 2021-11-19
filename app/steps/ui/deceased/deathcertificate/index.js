@@ -4,6 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const JourneyMap = require('app/core/JourneyMap');
 const featureToggle = require('app/utils/FeatureToggle');
 const pageUrl = '/certificate-interim';
+const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
 
 class DeathCertificateInterim extends ValidationStep {
 
@@ -13,7 +14,7 @@ class DeathCertificateInterim extends ValidationStep {
 
     next(req, ctx) {
         const journeyMap = new JourneyMap(req.session.journey);
-        if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates')) {
+        if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.beforeEeDodThreshold(ctx['dod-date'])) {
             return journeyMap.getNextStepByName('IhtEstateValued');
         }
 

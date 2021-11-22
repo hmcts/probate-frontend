@@ -89,8 +89,8 @@ const stepList = {
         ihtEstateFormsCompleted: 'IhtEstateForm',
         otherwise: 'DeceasedAlias'
     },
-    IhtEstateForm: 'IhtEstateValues',
-    IhtEstateValues: 'DeceasedAlias',
+    IhtEstateForm: 'ProbateEstateValues',
+    ProbateEstateValues: 'DeceasedAlias',
     EnglishForeignDeathCert: {
         foreignDeathCertIsInEnglish: 'IhtMethod',
         otherwise: 'ForeignDeathCertTranslation'

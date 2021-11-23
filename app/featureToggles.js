@@ -17,5 +17,7 @@ router.all('/payment-breakdown', (req, res, next) => featureToggle.callCheckTogg
 router.get('/task-list', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_will_condition', featureToggle.toggleFeature));
 router.get('/summary/*', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_will_condition', featureToggle.toggleFeature));
 router.all('/certificate-interim', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_excepted_estates', featureToggle.toggleFeature));
+router.post('/foreign-death-cert-translation', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_excepted_estates', featureToggle.toggleFeature));
+router.post('/english-foreign-death-cert', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_excepted_estates', featureToggle.toggleFeature));
 
 module.exports = router;

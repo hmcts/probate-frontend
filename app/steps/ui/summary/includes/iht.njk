@@ -85,7 +85,7 @@
         {
             question: content.IhtEstateValued.question,
             answer: content.IhtEstateValued[fields.iht.estateValueCompleted.value],
-            visible: fields.deceased.deathCertificate.value == "Death certificate" or fields.deceased.foreignDeathCertTranslation.value == "optionYes"
+            visible: fields.iht.estateValueCompleted.value
         }
     ],
     url = content.IhtEstateValued.url,

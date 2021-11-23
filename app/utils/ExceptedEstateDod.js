@@ -3,7 +3,7 @@
 const config = require('config');
 
 class ExceptedEstateDod {
-    static beforeEeDodThreshold(date) {
+    static afterEeDodThreshold(date) {
         if (!date) {
             throw new TypeError('no deceased date date of death found');
         }

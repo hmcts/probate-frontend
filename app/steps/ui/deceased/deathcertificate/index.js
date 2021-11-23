@@ -14,20 +14,13 @@ class DeathCertificateInterim extends ValidationStep {
 
     next(req, ctx) {
         const journeyMap = new JourneyMap(req.session.journey);
-        if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.beforeEeDodThreshold(ctx['dod-date'])) {
+        if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.afterEeDodThreshold(ctx['dod-date'])) {
             return journeyMap.getNextStepByName('IhtEstateValued');
         }
 
         return journeyMap.nextStep(this, ctx);
     }
 
-    nextStepOptions() {
-        return {
-            options: [
-                {key: 'deathCertificate', value: 'optionDeathCertificate', choice: 'hasCertificate'}
-            ]
-        };
-    }
 }
 
 module.exports = DeathCertificateInterim;

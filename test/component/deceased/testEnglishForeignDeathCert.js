@@ -6,7 +6,7 @@ const ForeignDeathCertTranslation = require('app/steps/ui/deceased/foreigndeathc
 const IhtEstateValued = require('app/steps/ui/iht/estatevalued');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 
-describe.only('english-foreign-death-cert', () => {
+describe('english-foreign-death-cert', () => {
     let testWrapper;
     const ftValue = {ft_new_deathcert_flow: true};
     const expectedNextUrlForIhtMethod = IhtMethod.getUrl();

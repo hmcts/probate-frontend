@@ -81,10 +81,7 @@ const stepList = {
         hasDiedEngOrWales: 'DeathCertificateInterim',
         otherwise: 'EnglishForeignDeathCert'
     },
-    DeathCertificateInterim: {
-        hasCertificate: 'IhtMethod',
-        otherwise: 'IhtMethod'
-    },
+    DeathCertificateInterim: 'IhtMethod',
     IhtEstateValued: {
         ihtEstateFormsCompleted: 'IhtEstateForm',
         otherwise: 'IhtEstateValues',

@@ -83,7 +83,7 @@ describe('death-certificate-interim', () => {
 
             const data = {
                 'dod-date': '2021-12-31',
-                deathCertificate: 'optionInterimCertificate'
+                deathCertificate: 'optionDeathCertificate'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
@@ -92,9 +92,19 @@ describe('death-certificate-interim', () => {
 
             const data = {
                 'dod-date': '2022-01-01',
-                deathCertificate: 'optionInterimCertificate'
+                deathCertificate: 'optionDeathCertificate'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
+        });
+
+        it(`test it redirects to iht method FT on but dod before EE dod threshold: ${expectedNextUrlForIhtMethod}`, (done) => {
+            testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
+
+            const data = {
+                'dod-date': '2021-12-31',
+                deathCertificate: 'optionDeathCertificate'
+            };
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
         });
     });
 });

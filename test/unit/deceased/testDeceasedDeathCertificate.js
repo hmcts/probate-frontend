@@ -14,18 +14,4 @@ describe('DeathCertificateInterim', () => {
         });
     });
 
-    describe('nextStepOptions()', () => {
-        it('should return the correct next step options', (done) => {
-            const result = DeathCertificateInterim.nextStepOptions();
-            expect(result).to.deep.equal({
-                options: [{
-                    key: 'deathCertificate',
-                    value: 'optionDeathCertificate',
-                    choice: 'hasCertificate'
-                }]
-            });
-            done();
-        });
-    });
-
 });

@@ -196,5 +196,55 @@ describe('summary-iht-section', () => {
                     testWrapper.testDataPlayback(done, playbackData, ['form']);
                 });
         });
+
+        it('test data is played back correctly on the summary page iht section if death certificate and estate not valued', (done) => {
+            const sessionData = require('test/data/iht/estate-valued-no');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
+            sessionData.deceased.deathCertificate = 'Death certificate';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end((err) => {
+                    if (err) {
+                        throw err;
+                    }
+                    delete require.cache[require.resolve('test/data/iht/estate-valued-no')];
+                    const playbackData = {
+                        estateValueCompleted: ihtContent.estatevalued.question,
+                        estateGrossValue: ihtContent.ihtestatevalues.estateGrossValue,
+                        estateNetValue: ihtContent.ihtestatevalues.estateNetValue,
+                        estateNetQualifyingValue: ihtContent.ihtestatevalues.estateNetQualifyingValue
+                    };
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
+
+        it('test data is played back correctly on the summary page iht section if eng translation in foreign death certificate and estate not valued', (done) => {
+            const sessionData = require('test/data/iht/estate-valued-no');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
+            sessionData.deceased.foreignDeathCertTranslation = 'optionYes';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end((err) => {
+                    if (err) {
+                        throw err;
+                    }
+                    delete require.cache[require.resolve('test/data/iht/estate-valued-no')];
+                    const playbackData = {
+                        estateValueCompleted: ihtContent.estatevalued.question,
+                        estateGrossValue: ihtContent.ihtestatevalues.estateGrossValue,
+                        estateNetValue: ihtContent.ihtestatevalues.estateNetValue,
+                        estateNetQualifyingValue: ihtContent.ihtestatevalues.estateNetQualifyingValue,
+                        deceasedHadLateSpouseOrCivilPartner: ihtContent.deceasedlatespousecivilpartner.question,
+                        unusedAllowanceClaimed: ihtContent.unusedallowanceclaimed.question
+                    };
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
     });
 });

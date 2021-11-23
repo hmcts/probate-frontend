@@ -5,12 +5,12 @@ const ProbateEstateValues = require('app/steps/ui/iht/probateestatevalues');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe('Tests for Probate Estate Valued', () => {
+describe('Tests for Unused allowance claimed', () => {
     let testWrapper;
     const expectedNextUrlForProbateEstateValues = ProbateEstateValues.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('IhtEstateForm');
+        testWrapper = new TestWrapper('IhtUnusedAllowanceClaimed');
     });
 
     afterEach(() => {
@@ -18,7 +18,7 @@ describe('Tests for Probate Estate Valued', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ProbateEstateValues', null, null, [], false, {type: caseTypes.INTESTACY});
+        testCommonContent.runTest('IhtUnusedAllowanceClaimed');
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
@@ -42,11 +42,10 @@ describe('Tests for Probate Estate Valued', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForProbateEstateValues}`, (done) => {
             const data = {
-                ihtFormEstateId: 'optionIHT207'
+                unusedAllowanceClaimed: 'optionYes'
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForProbateEstateValues);
         });
-
     });
 });

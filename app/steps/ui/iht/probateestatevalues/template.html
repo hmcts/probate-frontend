@@ -4,7 +4,7 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% if fields.ihtFormEstateId %}
+{% if fields.estateValueCompleted.value == "optionYes" %}
   {% if fields.ihtFormEstateId.value == "optionIHT207" %}
     {% set displayQuestion = content.question207 %}
     {% set displayQuestionHint = content.hint207 %}

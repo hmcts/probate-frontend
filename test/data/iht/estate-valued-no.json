@@ -1,0 +1,14 @@
+{
+    "deceased": {
+      "deathCertificate": "Death certificate"
+    },
+    "iht": {
+      "estateValueCompleted": "optionNo",
+      "estateGrossValueField": "100000",
+      "estateNetValueField": "100000",
+      "estateNetQualifyingValueField": "100000",
+      "deceasedHadLateSpouseOrCivilPartner": "optionYes",
+      "unusedAllowanceClaimed": "optionYes"
+    }
+  }
+  

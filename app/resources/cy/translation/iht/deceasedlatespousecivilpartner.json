@@ -1,0 +1,12 @@
+{
+    "title": "Did the deceased have a late spouse or civil partner?",
+    "question": "WELSH - Did the deceased have a late spouse or civil partner?",
+    "optionYes": "Yes",
+    "optionNo": "No",
+    "errors": {
+        "deceasedHadLateSpouseOrCivilPartner": {
+            "required": "Answer &lsquo;yes&rsquo; if the deceased had a late spouse or partner"
+        }
+    }
+}
+  

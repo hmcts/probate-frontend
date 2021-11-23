@@ -13,6 +13,41 @@ describe('IhtEstateValues', () => {
         });
     });
 
+    describe('nextStepOptions()', () => {
+        it('should return the correct options qualifying value within range', (done) => {
+            const ctx = {estateNetQualifyingValue: 500000};
+            const nextStepOptions = IhtEstateValues.nextStepOptions(ctx);
+            expect(nextStepOptions).to.deep.equal({
+                options: [
+                    {key: 'netQualifyingValueWithinRange', value: true, choice: 'netQualifyingValueWithinRange'},
+                ]
+            });
+            done();
+        });
+
+        it('should return the correct options qualifying value out of range', (done) => {
+            const ctx = {estateNetQualifyingValue: 100000};
+            const nextStepOptions = IhtEstateValues.nextStepOptions(ctx);
+            expect(nextStepOptions).to.deep.equal({
+                options: [
+                    {key: 'netQualifyingValueWithinRange', value: true, choice: 'netQualifyingValueWithinRange'},
+                ]
+            });
+            done();
+        });
+
+        it('should return the correct options qualifying value undefined', (done) => {
+            const ctx = {};
+            const nextStepOptions = IhtEstateValues.nextStepOptions(ctx);
+            expect(nextStepOptions).to.deep.equal({
+                options: [
+                    {key: 'netQualifyingValueWithinRange', value: true, choice: 'netQualifyingValueWithinRange'},
+                ]
+            });
+            done();
+        });
+    });
+
     describe('handlePost()', () => {
         let ctx;
         let errors;

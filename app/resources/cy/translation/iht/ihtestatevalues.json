@@ -9,6 +9,8 @@
     "estateNetQualifyingValue": "Net qualifying value",
     "estateNetQualifyingValueHint": "Take off from the net value any assets passed to spouse or civil partner and money left to a charity.",
     "poundSymbol": "£",
+    "forEstateIht": " for the estate of inheritance tax",
+    "forEstateProbate": " for the estate of probate",
 
     "errors": {
         "estateGrossValueField": {

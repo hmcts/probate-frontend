@@ -96,12 +96,12 @@
 {{checkanswer(
     items = [
         {
-            question: content.IhtEstateValues.estateGrossValue,
+            question: content.IhtEstateValues.estateGrossValue + content.IhtEstateValues.forEstateIht,
             answer: content.IhtEstateValues.poundSymbol + fields.iht.estateGrossValueField.value,
             visible: fields.iht.estateValueCompleted.value == "optionNo"
         },
         {
-            question: content.IhtEstateValues.estateNetValue,
+            question: content.IhtEstateValues.estateNetValue + content.IhtEstateValues.forEstateIht,
             answer: content.IhtEstateValues.poundSymbol + fields.iht.estateNetValueField.value,
             visible: fields.iht.estateValueCompleted.value == "optionNo"
         },

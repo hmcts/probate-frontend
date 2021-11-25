@@ -17,6 +17,7 @@
   "as": "as",
   "deceasedEstateHeader": "The estate of the person who died",
   "deceasedEstateValue": "The gross value for the estate amounts to &pound;{ihtGrossValue} and the net value for the estate amounts to &pound;{ihtNetValue}.",
+  "deceasedEstateValueExceptedEstateConfirmation": "I confirm that the estate is an excepted estate.",
   "deceasedEstateLand": "To the best of my knowledge, information and belief, there was no land vested in {deceasedName} which was settled previously to the death (and not by the will) of {deceasedName} and which remained settled land notwithstanding such death.",
   "deceasedEstateLand-multipleApplicants": "To the best of our knowledge, information and belief, there was no land vested in {deceasedName} which was settled previously to the death (and not by the will) of {deceasedName} and which remained settled land notwithstanding such death.",
   "executorApplyingHeader": "Executors applying for probate",

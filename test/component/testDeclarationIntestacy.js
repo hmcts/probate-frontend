@@ -128,7 +128,8 @@ describe('declaration, intestacy', () => {
                 'submitWarning-multipleApplicants',
                 'applicantName-codicils',
                 'codicil',
-                'codicils'
+                'codicils',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.iht.assetsOutside = 'optionYes';
             sessionData.iht.grossValueField = '300000.10';
@@ -219,7 +220,8 @@ describe('declaration, intestacy', () => {
                 'submitWarning-multipleApplicants',
                 'applicantName-codicils',
                 'codicil',
-                'codicils'
+                'codicils',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased.maritalStatus = 'optionDivorced';
             sessionData.deceased.anyOtherChildren = 'optionYes';
@@ -300,7 +302,8 @@ describe('declaration, intestacy', () => {
                 'submitWarning-multipleApplicants',
                 'applicantName-codicils',
                 'codicil',
-                'codicils'
+                'codicils',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased.maritalStatus = 'optionDivorced';
             sessionData.deceased.anyOtherChildren = 'optionYes';
@@ -381,7 +384,8 @@ describe('declaration, intestacy', () => {
                 'submitWarning-multipleApplicants',
                 'applicantName-codicils',
                 'codicil',
-                'codicils'
+                'codicils',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased.maritalStatus = 'optionDivorced';
             sessionData.deceased.anyOtherChildren = 'optionNo';
@@ -462,7 +466,8 @@ describe('declaration, intestacy', () => {
                 'submitWarning-multipleApplicants',
                 'applicantName-codicils',
                 'codicil',
-                'codicils'
+                'codicils',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased.maritalStatus = 'optionDivorced';
             sessionData.deceased.anyOtherChildren = 'optionNo';
@@ -543,7 +548,8 @@ describe('declaration, intestacy', () => {
                 'submitWarning-multipleApplicants',
                 'applicantName-codicils',
                 'codicil',
-                'codicils'
+                'codicils',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
@@ -625,7 +631,8 @@ describe('declaration, intestacy', () => {
                 'submitWarning-multipleApplicants',
                 'applicantName-codicils',
                 'codicil',
-                'codicils'
+                'codicils',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
@@ -707,7 +714,8 @@ describe('declaration, intestacy', () => {
                 'submitWarning-multipleApplicants',
                 'applicantName-codicils',
                 'codicil',
-                'codicils'
+                'codicils',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
@@ -789,7 +797,8 @@ describe('declaration, intestacy', () => {
                 'submitWarning-multipleApplicants',
                 'applicantName-codicils',
                 'codicil',
-                'codicils'
+                'codicils',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
@@ -871,7 +880,8 @@ describe('declaration, intestacy', () => {
                 'submitWarning-multipleApplicants',
                 'applicantName-codicils',
                 'codicil',
-                'codicils'
+                'codicils',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.deceased.anyOtherChildren = 'optionYes';
@@ -958,7 +968,8 @@ describe('declaration, intestacy', () => {
                 'submitWarning-multipleApplicants',
                 'applicantName-codicils',
                 'codicil',
-                'codicils'
+                'codicils',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.deceased.anyOtherChildren = 'optionYes';
@@ -1045,7 +1056,8 @@ describe('declaration, intestacy', () => {
                 'submitWarning-multipleApplicants',
                 'applicantName-codicils',
                 'codicil',
-                'codicils'
+                'codicils',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.deceased.anyOtherChildren = 'optionNo';
@@ -1132,7 +1144,8 @@ describe('declaration, intestacy', () => {
                 'submitWarning-multipleApplicants',
                 'applicantName-codicils',
                 'codicil',
-                'codicils'
+                'codicils',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.deceased.anyOtherChildren = 'optionNo';
@@ -1219,7 +1232,8 @@ describe('declaration, intestacy', () => {
                 'submitWarning-multipleApplicants',
                 'applicantName-codicils',
                 'codicil',
-                'codicils'
+                'codicils',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
@@ -1301,7 +1315,8 @@ describe('declaration, intestacy', () => {
                 'submitWarning-multipleApplicants',
                 'applicantName-codicils',
                 'codicil',
-                'codicils'
+                'codicils',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
@@ -1383,7 +1398,8 @@ describe('declaration, intestacy', () => {
                 'submitWarning-multipleApplicants',
                 'applicantName-codicils',
                 'codicil',
-                'codicils'
+                'codicils',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
@@ -1471,7 +1487,8 @@ describe('declaration, intestacy', () => {
                 'submitWarning-multipleApplicants',
                 'applicantName-codicils',
                 'codicil',
-                'codicils'
+                'codicils',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.applicant.anyChildren = 'optionYes';

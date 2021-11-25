@@ -129,7 +129,8 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased.otherNames = {
                 name_0: {
@@ -213,7 +214,8 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             delete sessionData.applicant.alias;
             delete sessionData.applicant.aliasReason;
@@ -301,7 +303,8 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased.otherNames = {
                 name_0: {firstName: 'James', lastName: 'Miller'},
@@ -383,7 +386,8 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.deceased.otherNames = {
                 name_0: {firstName: 'James', lastName: 'Miller'},
@@ -467,7 +471,8 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             delete contentData.deceasedOtherNames;
 
@@ -478,6 +483,84 @@ describe('declaration, single applicant', () => {
                 });
         });
 
+        it('test right content loaded on the page, excepted estate', (done) => {
+            const contentToExclude = [
+                'applicantName',
+                'applicantName-alias-codicils',
+                'applicantName-multipleApplicants-alias',
+                'applicantName-multipleApplicants-alias-codicils',
+                'applicantName-multipleApplicants-mainApplicant-alias',
+                'applicantName-multipleApplicants-mainApplicant-alias-codicils',
+                'deceasedOtherNames',
+                'executorApplyingName-codicils',
+                'executorNotApplyingHeader',
+                'executorNotApplyingReason',
+                'executorNotApplyingReason-codicils',
+                'optionDiedBefore',
+                'optionDiedAfter',
+                'optionPowerReserved',
+                'optionRenunciated',
+                'optionMarried',
+                'optionDivorced',
+                'optionWidowed',
+                'optionNotMarried',
+                'optionSeparated',
+                'additionalExecutorNotified',
+                'intro-multipleApplicants',
+                'legalStatementApplicant-multipleApplicants',
+                'deceasedEstateLand-multipleApplicants',
+                'applicantName-multipleApplicants',
+                'applicantName-multipleApplicants-codicils',
+                'applicantName-multipleApplicants-mainApplicant',
+                'applicantName-multipleApplicants-mainApplicant-codicils',
+                'applicantSend-codicils',
+                'applicantSend-multipleApplicants',
+                'applicantSend-multipleApplicants-mainApplicant',
+                'applicantSend-multipleApplicants-codicils',
+                'applicantSend-multipleApplicants-mainApplicant-codicils',
+                'declarationConfirm-multipleApplicants',
+                'declarationRequests-multipleApplicants',
+                'declarationUnderstand-multipleApplicants',
+                'declarationUnderstandItem1-multipleApplicants',
+                'declarationUnderstandItem2-multipleApplicants',
+                'submitWarning-multipleApplicants',
+                'applicantName-codicils',
+                'codicil',
+                'codicils',
+                'intestacyHeader',
+                'declarationConfirmItem3-intestacy',
+                'declarationRequestsItem1-intestacy',
+                'declarationRequestsItem2-intestacy',
+                'declarationUnderstandItem1-intestacy',
+                'intestacyLegalStatementDeceased',
+                'intestacyDeceasedMaritalStatus',
+                'intestacyDeceasedChildren',
+                'intestacyDeceasedEstateOutside',
+                'intestacyDeceasedEstateLand',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsAdopted',
+                'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
+                'intestacyDeceasedMarriedSpouseApplyingHadChildren',
+                'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
+                'intestacyLettersOfAdministration'
+            ];
+            delete contentData.deceasedOtherNames;
+            sessionData.iht.estateValueCompleted = 'optionNo';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
         it('test right content loaded on the page when deceased has no other names and there are codicils', (done) => {
             const contentToExclude = [
                 'applicantName-alias',
@@ -547,7 +630,8 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 3;
@@ -629,7 +713,8 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             const executor = {
                 fullName: 'James Miller',
@@ -715,7 +800,8 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             const executor = {
                 fullName: 'Joe Smith',
@@ -805,7 +891,8 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             const executor = {
                 fullName: 'Ed Brown',
@@ -894,7 +981,8 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             const executor = {
                 fullName: 'Fred Jones',
@@ -985,7 +1073,8 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 4;
@@ -1079,7 +1168,8 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionNo';
             sessionData.applicant.nameAsOnTheWill = 'optionNo';
@@ -1170,7 +1260,8 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 1;
@@ -1270,7 +1361,8 @@ describe('declaration, single applicant', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionNo';
             sessionData.applicant.nameAsOnTheWill = 'optionNo';

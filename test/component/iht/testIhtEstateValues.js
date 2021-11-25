@@ -23,6 +23,8 @@ describe('Tests for IHT Estate Values', () => {
         testCommonContent.runTest('IhtEstateValues');
 
         it('test content loaded on the page', (done) => {
+            const idsToExclude = ['forEstateIht', 'forEstateProbate'];
+
             const sessionData = {
                 type: caseTypes.GOP,
                 ccdCase: {
@@ -34,7 +36,7 @@ describe('Tests for IHT Estate Values', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done);
+                    testWrapper.testContent(done, {}, idsToExclude);
                 });
         });
 

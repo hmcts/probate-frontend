@@ -2,14 +2,14 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const EstateForm = require('app/steps/ui/iht/estateform');
-const DeceasedAlias = require('app/steps/ui/deceased/alias');
+const IhtEstateValues = require('app/steps/ui/iht/ihtestatevalues');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('Tests for IHT Estate Valued', () => {
     let testWrapper;
     const expectedNextUrlForIht207Estate = EstateForm.getUrl();
-    const expectedNextUrlDeceasedAlias = DeceasedAlias.getUrl();
+    const expectedNextUrlDeceasedAlias = IhtEstateValues.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('IhtEstateValued');

@@ -38,8 +38,10 @@ describe('Tests for Probate Estate Values ', () => {
                     id: 1234567890123456
                 },
                 iht: {
-                    ihtFormEstateId: 'optionIHT207'
+                    ihtFormEstateId: 'optionIHT207',
+                    estateValueCompleted: 'optionYes'
                 }
+
             };
 
             testWrapper.agent.post('/prepare-session/form')
@@ -67,7 +69,9 @@ describe('Tests for Probate Estate Values ', () => {
                     id: 1234567890123456
                 },
                 iht: {
-                    ihtFormEstateId: 'optionIHT400421'
+                    ihtFormEstateId: 'optionIHT400421',
+                    estateValueCompleted: 'optionYes'
+
                 }
             };
 

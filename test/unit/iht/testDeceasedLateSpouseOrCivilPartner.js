@@ -13,4 +13,18 @@ describe('DeceasedHadLateSpouseOrCivilPartner', () => {
             done();
         });
     });
+
+    describe('nextStepOptions()', () => {
+        it('should return the correct options', (done) => {
+            const ctx = {};
+            const nextStepOptions = DeceasedHadLateSpouseOrCivilPartner.nextStepOptions(ctx);
+            expect(nextStepOptions).to.deep.equal({
+                options: [
+                    {key: 'deceasedHadLateSpouseOrCivilPartner', value: 'optionYes', choice: 'deceasedHadLateSpouseOrCivilPartner'},
+                ]
+            });
+            done();
+        });
+    });
+
 });

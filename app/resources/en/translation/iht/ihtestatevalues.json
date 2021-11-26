@@ -8,7 +8,7 @@
     "estateNetValueHint": "Take off any debts like mortgage and credit cards from the gross value",
     "estateNetQualifyingValue": "Net qualifying value",
     "estateNetQualifyingValueHint": "Take off from the net value any assets passed to spouse or civil partner and money left to a charity.",
-    "poundSymbol": "£",
+    "poundSymbol": "&pound;",
     "forEstateIht": " for the estate of inheritance tax",
     "forEstateProbate": " for the estate of probate",
 

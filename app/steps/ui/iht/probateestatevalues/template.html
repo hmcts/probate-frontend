@@ -45,6 +45,9 @@
             attributes: {
                 maxlength: 13
             },
+            prefix: {
+                text: content.poundSymbol | safe
+            },
             classes: "govuk-!-width-one-third"
         }) }}
         {{ govukInput({
@@ -57,6 +60,9 @@
             errorMessage: { text: fields.netValueField.errorMessage | safe } if fields.netValueField.errorMessage,
             attributes: {
                 maxlength: 13
+            },
+            prefix: {
+                text: content.poundSymbol | safe
             },
             classes: "govuk-!-width-one-third"
         }) }}

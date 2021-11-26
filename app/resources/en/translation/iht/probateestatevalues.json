@@ -5,12 +5,13 @@
   "questionNoIHT": "What are the values of the estate for probate?",
   "hint207": "<br>You can find these values on the completed IHT 207 form.<br><br><br>",
   "hint421": "<br>You can find these values on the completed IHT 421 form.<br><br><br>",
-  "grossHint207": "Gross value of estate for probate in the UK in £<br><br>This is the 'Gross estate in the UK passing under Will' on the form",
+  "grossHint207": "Gross value of estate for probate in the UK in &pound;<br><br>This is the 'Gross estate in the UK passing under Will' on the form",
   "grossHint421": "Gross value of assets for probate",
   "grossHintNoIHT": "Gross value in &pound;<br><br>This is the total value of the deceased's assets in their sole name",
   "netHint207": "Net value of the estate for Probate in &pound;",
   "netHint421": "Net value of the estate for Probate",
   "netHintNoIHT": "Net value in &pound;<br><br>Take away any debts in the deceased's sole name from the gross value",
+  "poundSymbol": "&pound;",
 
   "errors": {
     "grossValueField": {

@@ -119,6 +119,24 @@
 {{checkanswer(
     items = [
         {
+            question: content.ProbateEstateValues.grossHint421,
+            answer: content.ProbateEstateValues.poundSymbol + fields.iht.grossValueField.value,
+            visible: fields.iht.estateValueCompleted.value == "optionYes"
+        },
+        {
+            question: content.ProbateEstateValues.netHint207,
+            answer: content.ProbateEstateValues.poundSymbol + fields.iht.netValueField.value,
+            visible: fields.iht.estateValueCompleted.value == "optionYes"
+        }
+    ],
+    url = content.ProbateEstateValues.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
             question: content.DeceasedHadLateSpouseOrCivilPartner.question,
             answer: content.DeceasedHadLateSpouseOrCivilPartner[fields.iht.deceasedHadLateSpouseOrCivilPartner.value],
             visible: fields.iht.estateValueCompleted.value == "optionNo"

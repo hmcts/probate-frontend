@@ -1,14 +1,14 @@
 # Use for testing http - e.g. local env
 environment: 'sandbox'
 
-#this feature toggle shouldnt be here remove this later when not longer working end to end on local: todo remove this 
+#this feature toggle shouldnt be here remove this later when not longer working end to end on local: todo remove this
 featureToggles:
   enabled: true
-  launchDarklyKey: 'sdk-4d50eb6e-8400-4aa7-b4c5-8bdfc8b1d844'
+  launchDarklyKey: 'Dummy_LD_Key'
   launchDarklyUser:
     firstName: 'Probate'
     lastName: 'Frontend'
-    key: '35222af3-7867-44ea-a2a0-f8e533ad12de'
+    key: 'Dummy_User_Key'
 
 configFeatureToggles:
   webchatEnabled: false

@@ -105,16 +105,6 @@ describe('english-foreign-death-cert', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
         });
 
-        it(`test it redirects to iht method FT on but dod before EE dod threshold: ${expectedNextUrlForIhtMethod}`, (done) => {
-            testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_excepted_estates: true});
-
-            const data = {
-                'dod-date': '2021-12-31',
-                englishForeignDeathCert: 'optionYes'
-            };
-            testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
-        });
-
         it(`test it redirects to foreign death cert translation where no translation FT dod date after ee threshold: ${expectedNextUrlForForeignDeathCertTranslation}`, (done) => {
             testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_excepted_estates: true});
 

@@ -3,7 +3,7 @@
         {
             question: content.IhtMethod.question,
             answer: content.IhtMethod[fields.iht.method.value],
-            visible: true
+            visible: fields.iht.method.value
         }
     ],
     url = content.IhtMethod.url,
@@ -121,7 +121,7 @@
         {
             question: content.DeceasedHadLateSpouseOrCivilPartner.question,
             answer: content.DeceasedHadLateSpouseOrCivilPartner[fields.iht.deceasedHadLateSpouseOrCivilPartner.value],
-            visible: fields.iht.estateValueCompleted.value == "optionNo" 
+            visible: fields.iht.deceasedHadLateSpouseOrCivilPartner.value 
         }
     ],
     url = content.DeceasedHadLateSpouseOrCivilPartner.url,
@@ -134,7 +134,7 @@
         {
             question: content.IhtUnusedAllowanceClaimed.question,
             answer: content.IhtUnusedAllowanceClaimed[fields.iht.unusedAllowanceClaimed.value],
-            visible: fields.iht.estateValueCompleted.value == "optionNo" and fields.iht.deceasedHadLateSpouseOrCivilPartner.value == "optionYes"
+            visible: fields.iht.unusedAllowanceClaimed.value
         }
     ],
     url = content.IhtUnusedAllowanceClaimed.url,

@@ -27,11 +27,7 @@ describe('summary-iht-section', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const playbackData = {
-                        method: ihtContent.method.question
-                    };
-
-                    testWrapper.testDataPlayback(done, playbackData);
+                    testWrapper.testDataPlayback(done);
                 });
         });
 

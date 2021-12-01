@@ -141,82 +141,21 @@
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
-{{checkanswer(
-    items = [
-        {
-            question: content.IhtEstateValued.question,
-            answer: content.IhtEstateValued[fields.iht.estateValueCompleted.value],
-            visible: fields.iht.estateValueCompleted.value
-        }
-    ],
-    url = content.IhtEstateValued.url,
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value
-)}}
 
 {{checkanswer(
     items = [
         {
-            question: content.IhtEstateValues.estateGrossValue + content.IhtEstateValues.forEstateIht,
-            answer: content.IhtEstateValues.poundSymbol + fields.iht.estateGrossValueField.value,
-            visible: fields.iht.estateValueCompleted.value == "optionNo"
-        },
-        {
-            question: content.IhtEstateValues.estateNetValue + content.IhtEstateValues.forEstateIht,
-            answer: content.IhtEstateValues.poundSymbol + fields.iht.estateNetValueField.value,
-            visible: fields.iht.estateValueCompleted.value == "optionNo"
-        },
-        {
-            question: content.IhtEstateValues.estateNetQualifyingValue,
-            answer: content.IhtEstateValues.poundSymbol + fields.iht.estateNetQualifyingValueField.value,
-            visible: fields.iht.estateValueCompleted.value == "optionNo"
-        }
-    ],
-    url = content.IhtEstateValues.url,
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value
-)}}
-
-{{checkanswer(
-    items = [
-        {
-            question: content.ProbateEstateValues.grossHint421,
+            question: content.ProbateEstateValues.grossValueSummary,
             answer: content.ProbateEstateValues.poundSymbol + fields.iht.grossValueField.value,
             visible: fields.iht.estateValueCompleted.value == "optionYes"
         },
         {
-            question: content.ProbateEstateValues.netHint207,
+            question: content.ProbateEstateValues.netValueSummary,
             answer: content.ProbateEstateValues.poundSymbol + fields.iht.netValueField.value,
             visible: fields.iht.estateValueCompleted.value == "optionYes"
         }
     ],
     url = content.ProbateEstateValues.url,
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value
-)}}
-
-{{checkanswer(
-    items = [
-        {
-            question: content.DeceasedHadLateSpouseOrCivilPartner.question,
-            answer: content.DeceasedHadLateSpouseOrCivilPartner[fields.iht.deceasedHadLateSpouseOrCivilPartner.value],
-            visible: fields.iht.deceasedHadLateSpouseOrCivilPartner.value
-        }
-    ],
-    url = content.DeceasedHadLateSpouseOrCivilPartner.url,
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value
-)}}
-
-{{checkanswer(
-    items = [
-        {
-            question: content.IhtUnusedAllowanceClaimed.question,
-            answer: content.IhtUnusedAllowanceClaimed[fields.iht.unusedAllowanceClaimed.value],
-            visible: fields.iht.unusedAllowanceClaimed.value
-        }
-    ],
-    url = content.IhtUnusedAllowanceClaimed.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}

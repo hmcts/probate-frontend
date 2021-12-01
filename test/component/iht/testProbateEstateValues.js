@@ -28,7 +28,9 @@ describe('Tests for Probate Estate Values ', () => {
                 'grossHint421',
                 'grossHintNoIHT',
                 'netHint421',
-                'netHintNoIHT'
+                'netHintNoIHT',
+                'netValueSummary',
+                'grossValueSummary'
             ];
 
             const sessionData = {
@@ -59,7 +61,9 @@ describe('Tests for Probate Estate Values ', () => {
                 'grossHint207',
                 'grossHintNoIHT',
                 'netHint207',
-                'netHintNoIHT'
+                'netHintNoIHT',
+                'netValueSummary',
+                'grossValueSummary'
             ];
 
             const sessionData = {
@@ -91,7 +95,9 @@ describe('Tests for Probate Estate Values ', () => {
                 'grossHint207',
                 'grossHint421',
                 'netHint207',
-                'netHint421'
+                'netHint421',
+                'netValueSummary',
+                'grossValueSummary'
             ];
 
             const sessionData = {

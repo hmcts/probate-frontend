@@ -242,5 +242,28 @@ describe('summary-iht-section', () => {
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
+
+        it('test data is played back correctly on the summary page iht section for excepted estate completed forms', (done) => {
+            const sessionData = require('test/data/iht/probate-estate-values');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end((err) => {
+                    if (err) {
+                        throw err;
+                    }
+                    delete require.cache[require.resolve('test/data/iht/probate-estate-values')];
+                    const playbackData = {
+                        estateValueCompleted: ihtContent.estatevalued.question,
+                        grossValueField: ihtContent.probateestatevalues.grossValueSummary,
+                        netValueField: ihtContent.probateestatevalues.netValueSummary
+                    };
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+
+        });
     });
 });

@@ -15,6 +15,27 @@ class IhtEstateValued extends ValidationStep {
             ]
         };
     }
+
+    handlePost(ctx) {
+        ctx = this.resetValues(ctx);
+        return [ctx];
+    }
+
+    resetValues(ctx) {
+        if (ctx.estateValueCompleted === 'optionYes') {
+            ctx.estateGrossValue = null;
+            ctx.estateNetValue = null;
+            ctx.estateGrossValueField = null;
+            ctx.estateNetValueField = null;
+            ctx.estateNetQualifyingValue = null;
+            ctx.unusedAllowanceClaimed = null;
+            ctx.deceasedHadLateSpouseOrCivilPartner = null;
+            ctx.unusedAllowanceClaimed = null;
+
+        }
+
+        return ctx;
+    }
 }
 
 module.exports = IhtEstateValued;

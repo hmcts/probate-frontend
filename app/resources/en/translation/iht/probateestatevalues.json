@@ -12,8 +12,8 @@
   "netHint421": "Net value of the estate for probate",
   "netHintNoIHT": "Net value in &pound;<br><br>Take away any debts in the deceased&rsquo;s sole name from the gross value",
   "poundSymbol": "&pound;",
-  "grossValueSummary": "Gross value for the estate of inheritance tax",
-  "netValueSummary": "Net value for the estate of inheritance tax",
+  "grossValueSummary": "Gross value for the estate of probate tax",
+  "netValueSummary": "Net value for the estate of probate tax",
 
   "errors": {
     "grossValueField": {

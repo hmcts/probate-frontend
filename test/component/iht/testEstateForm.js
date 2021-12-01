@@ -18,7 +18,7 @@ describe('Tests for Probate Estate Valued', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ProbateEstateValues', null, null, [], false, {type: caseTypes.INTESTACY});
+        testCommonContent.runTest('IhtEstateForm', null, null, [], false, {type: caseTypes.INTESTACY});
 
         it('test content loaded on the page', (done) => {
             const sessionData = {

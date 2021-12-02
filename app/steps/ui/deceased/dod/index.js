@@ -31,11 +31,19 @@ class DeceasedDod extends DateStep {
             errors.push(FieldError('dod-date', 'dodBeforeDob', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
-        ctx.estateValueCompleted = '';
-        ctx.ihtFormEstateId = '';
-        ctx.method = '';
-
         return [ctx, errors];
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+
+        if (formdata.iht) {
+            formdata.iht.estateValueCompleted = '';
+            formdata.iht.ihtFormEstateId = '';
+            formdata.iht.method = '';
+
+        }
+        return [ctx, formdata];
     }
 }
 

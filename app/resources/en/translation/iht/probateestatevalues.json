@@ -12,8 +12,8 @@
   "netHint421": "Net value of the estate for probate in &pound;",
   "netHintNoIHT": "Net value in &pound;<br><br>Take away any debts in the deceased&rsquo;s sole name from the gross value<br><br>To work this out, take the gross value for probate and deduct the total value of the deceased's debts including funeral expenses and any other debts they owe at the time of their death in their sole name.",
   "poundSymbol": "&pound;",
-  "grossValueSummary": "Gross value for the estate of probate tax",
-  "netValueSummary": "Net value for the estate of probate tax",
+  "grossValueSummary": "Gross value for probate in &pound;",
+  "netValueSummary": "Net value for probate in &pound;",
 
   "errors": {
     "grossValueField": {

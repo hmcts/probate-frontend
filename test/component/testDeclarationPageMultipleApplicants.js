@@ -147,7 +147,8 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionNo';
             sessionData.executors.list[1].hasOtherName = false;
@@ -236,7 +237,8 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 3;
@@ -323,7 +325,8 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 1;
@@ -414,7 +417,8 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optiono';
             sessionData.executors.list[0].alias = 'larry bird';
@@ -500,7 +504,8 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 2;
@@ -585,7 +590,8 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 1;
@@ -677,7 +683,8 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionNo';
             sessionData.executors.list[0].alias = 'larry bird';
@@ -762,7 +769,8 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionNo';
             sessionData.executors.list[0].alias = 'larry bird';

@@ -51,6 +51,14 @@ const stepList = {
         inEnglandOrWales: 'IhtCompleted',
         otherwise: 'StopPage'
     },
+    ExceptedEstateDeceasedDod: {
+        dodAfterEeThreshold: 'ExceptedEstateValued',
+        otherwise: 'IhtCompleted'
+    },
+    ExceptedEstateValued: {
+        eeEstateValued: 'WillLeft',
+        otherwise: 'StopPage'
+    },
     IhtCompleted: {
         completed: 'WillLeft',
         otherwise: 'StopPage'

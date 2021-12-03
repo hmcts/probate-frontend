@@ -5,13 +5,13 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const coreContextMockData = require('../../data/core-context-mock-data.json');
-const DeceasedDomicile = steps.DeceasedDomicile;
+const ExceptedEstateValued = steps.ExceptedEstateValued;
 
-describe('DeceasedDomicile', () => {
+describe('ExceptedEstateValued', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = DeceasedDomicile.constructor.getUrl();
-            expect(url).to.equal('/deceased-domicile');
+            const url = ExceptedEstateValued.constructor.getUrl();
+            expect(url).to.equal('/ee-estate-valued');
             done();
         });
     });
@@ -32,16 +32,16 @@ describe('DeceasedDomicile', () => {
                     caseType: 'gop'
                 },
                 body: {
-                    domicile: 'optionYes'
+                    eeEstateValued: 'optionYes'
                 }
             };
             const res = {};
 
-            const ctx = DeceasedDomicile.getContextData(req, res);
+            const ctx = ExceptedEstateValued.getContextData(req, res);
             expect(ctx).to.deep.equal({
                 ...coreContextMockData,
                 sessionID: 'dummy_sessionId',
-                domicile: 'optionYes'
+                eeEstateValued: 'optionYes'
             });
             done();
         });
@@ -56,16 +56,20 @@ describe('DeceasedDomicile', () => {
                         screeners: {
                             deathCertificate: 'optionYes',
                             deathCertificateInEnglish: 'optionNo',
-                            deathCertificateTranslation: 'optionYes'
+                            deathCertificateTranslation: 'optionYes',
+                            domicile: 'optionYes',
+                            eeDeceasedDod: 'optionYes'
+
                         }
-                    }
+                    },
+                    featureToggles: {ft_excepted_estates: true}
                 }
             };
             const ctx = {
-                domicile: 'optionYes'
+                eeEstateValued: 'optionYes'
             };
-            const nextStepUrl = DeceasedDomicile.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/iht-completed');
+            const nextStepUrl = ExceptedEstateValued.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/will-left');
             done();
         });
 
@@ -77,72 +81,31 @@ describe('DeceasedDomicile', () => {
                         screeners: {
                             deathCertificate: 'optionYes',
                             deathCertificateInEnglish: 'optionNo',
-                            deathCertificateTranslation: 'optionYes'
-                        }
-                    }
-                }
-            };
-            const ctx = {
-                domicile: 'optionNo'
-            };
-            const nextStepUrl = DeceasedDomicile.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/stop-page/notInEnglandOrWales');
-            done();
-        });
-
-        it('should return the correct url when Yes is given and EE FT is ON', (done) => {
-            const req = {
-                session: {
-                    journey: journey,
-                    form: {
-                        screeners: {
-                            deathCertificate: 'optionYes',
-                            deathCertificateInEnglish: 'optionNo',
-                            deathCertificateTranslation: 'optionYes'
+                            deathCertificateTranslation: 'optionYes',
+                            domicile: 'optionYes',
+                            eeDeceasedDod: 'optionYes'
                         }
                     },
                     featureToggles: {ft_excepted_estates: true}
                 }
             };
             const ctx = {
-                domicile: 'optionYes'
+                eeEstateValued: 'optionNo'
             };
-            const nextStepUrl = DeceasedDomicile.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/ee-deceased-dod');
-            done();
-        });
-
-        it('should return the correct url when No is given and EE FT is ON', (done) => {
-            const req = {
-                session: {
-                    journey: journey,
-                    form: {
-                        screeners: {
-                            deathCertificate: 'optionYes',
-                            deathCertificateInEnglish: 'optionNo',
-                            deathCertificateTranslation: 'optionYes'
-                        }
-                    },
-                    featureToggles: {ft_excepted_estates: true}
-                }
-            };
-            const ctx = {
-                domicile: 'optionNo'
-            };
-            const nextStepUrl = DeceasedDomicile.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/stop-page/notInEnglandOrWales');
+            const nextStepUrl = ExceptedEstateValued.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/stop-page/eeEstateNotValued');
             done();
         });
     });
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const nextStepOptions = DeceasedDomicile.nextStepOptions();
+            const nextStepOptions = ExceptedEstateValued.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [{
-                    key: 'domicile',
+                    key: 'eeEstateValued',
                     value: 'optionYes',
-                    choice: 'inEnglandOrWales'
+                    choice: 'eeEstateValued'
                 }]
             });
             done();

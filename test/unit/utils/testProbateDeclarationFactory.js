@@ -80,6 +80,7 @@ describe('ProbateDeclarationFactory', () => {
                         deceasedEstateValue: content.en.deceasedEstateValue
                             .replace('{ihtGrossValue}', formdata.ihtGrossValue)
                             .replace('{ihtNetValue}', formdata.ihtNetValue),
+                        deceasedEstateValueExceptedEstateConfirmation: 'I confirm that the estate is an excepted estate.',
                         deceasedOtherNames: '',
                         executorsApplying: '',
                         executorsNotApplying: '',
@@ -101,6 +102,7 @@ describe('ProbateDeclarationFactory', () => {
                         deceasedEstateValue: content.cy.deceasedEstateValue
                             .replace('{ihtGrossValue}', formdata.ihtGrossValue)
                             .replace('{ihtNetValue}', formdata.ihtNetValue),
+                        deceasedEstateValueExceptedEstateConfirmation: 'I confirm that the estate is an excepted estate.',
                         deceasedOtherNames: '',
                         executorsApplying: '',
                         executorsNotApplying: '',

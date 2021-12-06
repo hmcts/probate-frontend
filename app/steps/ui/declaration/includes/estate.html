@@ -1,6 +1,9 @@
-{% macro estate(content, legalStatement, showNetValueAssetsOutside) %}
+{% macro estate(content, legalStatement, showNetValueAssetsOutside, exceptedEstate) %}
     <h3 class="govuk-heading-s declaration-subheader">{{ content.deceasedEstateHeader | safe }}</h3>
     <p class="govuk-body declaration-item">{{ legalStatement.deceasedEstateValue | safe }}</p>
+    {% if exceptedEstate == "true" %}
+        <p class="govuk-body declaration-item">{{ legalStatement.deceasedEstateValueExceptedEstateConfirmation | safe }}</p>
+    {% endif %}
     {% if showNetValueAssetsOutside == "true" %}
         <p class="govuk-body declaration-item">{{ legalStatement.deceasedEstateAssetsOverseas | safe }}</p>
     {% endif %}

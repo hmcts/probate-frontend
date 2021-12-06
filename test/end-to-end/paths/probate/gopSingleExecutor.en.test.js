@@ -33,6 +33,11 @@ languages.forEach(language => {
         await I.selectDeathCertificateInEnglish(language, optionNo);
         await I.selectDeathCertificateTranslation(language, optionYes);
         await I.selectDeceasedDomicile(language);
+        const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
+        if (isEEEnabled) {
+            await I.selectEEDeceasedDod(language, optionYes);
+            await I.selectEEvalue(language, optionYes);
+        }
         await I.selectIhtCompleted(language, optionYes);
         await I.selectPersonWhoDiedLeftAWill(language, optionYes);
         await I.selectOriginalWill(language, optionYes);

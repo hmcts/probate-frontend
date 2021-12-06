@@ -33,17 +33,6 @@ class DeceasedDod extends DateStep {
 
         return [ctx, errors];
     }
-
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-
-        if (formdata.iht) {
-            formdata.iht.estateValueCompleted = '';
-            formdata.iht.ihtFormEstateId = '';
-
-        }
-        return [ctx, formdata];
-    }
 }
 
 module.exports = DeceasedDod;

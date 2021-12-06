@@ -13,6 +13,7 @@ const checkAnswersSummaryJSONObjBuilder = new CheckAnswersSummaryJSONObjectBuild
 const IhtThreshold = require('app/utils/IhtThreshold');
 const featureToggle = require('app/utils/FeatureToggle');
 const exceptedEstateDod = require('app/utils/ExceptedEstateDod');
+const IhtEstateValuesUtil = require('app/utils/IhtEstateValuesUtil');
 
 class Summary extends Step {
 
@@ -137,8 +138,8 @@ class Summary extends Step {
 
         this.setToggleOnContext(ctx, req);
 
-        ctx.exceptedEstateDod = exceptedEstateDod.afterEeDodThreshold(formdata.deceased['dod-formattedDate']);
-
+        ctx.exceptedEstateDodAfterThreshold = exceptedEstateDod.afterEeDodThreshold(formdata.deceased['dod-formattedDate']);
+        ctx.withinNetQualifyingRange = IhtEstateValuesUtil.withinRange(formdata.iht.estateNetQualifyingValue);
         return ctx;
     }
     setToggleOnContext(ctx, req) {

@@ -96,18 +96,18 @@
 {{checkanswer(
     items = [
         {
-            question: content.IhtEstateValues.estateGrossValue + content.IhtEstateValues.forEstateIht,
-            answer: content.IhtEstateValues.poundSymbol + fields.iht.estateGrossValueField.value,
+            question: content.IhtEstateValues.estateGrossValue + content.IhtEstateValues.forEstateIht + " in " +content.IhtEstateValues.poundSymbol,
+            answer: fields.iht.estateGrossValueField.value,
             visible: fields.iht.estateValueCompleted.value == "optionNo" and fields.summary.exceptedEstateDod.value == "true"
         },
         {
-            question: content.IhtEstateValues.estateNetValue + content.IhtEstateValues.forEstateIht,
-            answer: content.IhtEstateValues.poundSymbol + fields.iht.estateNetValueField.value,
+            question: content.IhtEstateValues.estateNetValue + content.IhtEstateValues.forEstateIht + " in " +content.IhtEstateValues.poundSymbol,
+            answer: fields.iht.estateNetValueField.value,
             visible: fields.iht.estateValueCompleted.value == "optionNo" and fields.summary.exceptedEstateDod.value  == "true"
         },
         {
-            question: content.IhtEstateValues.estateNetQualifyingValue,
-            answer: content.IhtEstateValues.poundSymbol + fields.iht.estateNetQualifyingValueField.value,
+            question: content.IhtEstateValues.estateNetQualifyingValue + " in " +content.IhtEstateValues.poundSymbol,
+            answer: fields.iht.estateNetQualifyingValueField.value,
             visible: fields.iht.estateValueCompleted.value == "optionNo" and fields.summary.exceptedEstateDod.value == "true"
         }
     ],
@@ -159,5 +159,3 @@
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
-
-{{fields.summary.exceptedEstateDod.value}}

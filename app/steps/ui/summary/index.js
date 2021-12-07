@@ -138,10 +138,22 @@ class Summary extends Step {
 
         this.setToggleOnContext(ctx, req);
 
-        ctx.exceptedEstateDodAfterThreshold = exceptedEstateDod.afterEeDodThreshold(formdata.deceased['dod-formattedDate']);
-        ctx.withinNetQualifyingRange = IhtEstateValuesUtil.withinRange(formdata.iht.estateNetQualifyingValue);
+        this.ctx = this.getExceptedEstatesContext(ctx, formdata);
+
         return ctx;
     }
+
+    getExceptedEstatesContext(ctx, formdata) {
+        if (formdata.deceased && formdata.deceased['dod-date']) {
+            ctx.exceptedEstateDodAfterThreshold = exceptedEstateDod.afterEeDodThreshold(formdata.deceased['dod-date']);
+        }
+
+        if (formdata.iht && formdata.iht.estateNetQualifyingValue) {
+            ctx.withinNetQualifyingRange = IhtEstateValuesUtil.withinRange(formdata.iht.estateNetQualifyingValue);
+        }
+        return ctx;
+    }
+
     setToggleOnContext(ctx, req) {
         if (featureToggle.isEnabled(req.session.featureToggles, 'ft_will_condition')) {
             ctx.featureToggles = req.session.featureToggles;

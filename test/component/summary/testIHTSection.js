@@ -259,7 +259,8 @@ describe('summary-iht-section', () => {
                     const playbackData = {
                         estateValueCompleted: ihtContent.estatevalued.question,
                         grossValueField: ihtContent.probateestatevalues.grossValueSummary,
-                        netValueField: ihtContent.probateestatevalues.netValueSummary
+                        netValueField: ihtContent.probateestatevalues.netValueSummary,
+                        ihtFormEstateId: ihtContent.estateform.question
                     };
                     testWrapper.testDataPlayback(done, playbackData);
                 });

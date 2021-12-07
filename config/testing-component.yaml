@@ -4,4 +4,3 @@ featureToggles:
 configFeatureToggles:
   webchatEnabled: true
   gaEnabled: true
-exceptedEstateDateOfDeath: EXCEPTED-ESTATE-DATE-OF-DEATH

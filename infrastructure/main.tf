@@ -26,6 +26,11 @@ data "azurerm_key_vault" "probate_key_vault" {
   resource_group_name = local.vaultName
 }
 
+data "azurerm_key_vault_secret" "exceptedEstateDateOfDeath" {
+  name      = "excepted-estate-dod"
+  key_vault_id = data.azurerm_key_vault.probate_key_vault.id
+}
+
 resource "azurerm_key_vault_secret" "redis_access_key" {
   name         = "${var.component}-redis-access-key"
   value        = module.probate-frontend-redis-cache.access_key

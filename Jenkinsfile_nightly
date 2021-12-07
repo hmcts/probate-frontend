@@ -82,5 +82,5 @@ withNightlyPipeline("nodejs", product, component) {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
   }
 
-    //    enableSlackNotifications('#div-dev')  // can be turned back on once the overnight functionality is working fully
+    //  enableSlackNotifications('#div-dev')  // can be turned back on once the overnight functionality is working fully
 }

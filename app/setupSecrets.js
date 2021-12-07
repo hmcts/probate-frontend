@@ -30,6 +30,7 @@ const setupSecrets = () => {
         setSecret('secrets.probate.webchat-avaya-url', 'webchat.avayaUrl');
         setSecret('secrets.probate.webchat-avaya-client-url', 'webchat.avayaClientUrl');
         setSecret('secrets.probate.webchat-avaya-service', 'webchat.avayaService');
+        setSecret('secrets.probate.excepted-estate-dod', 'exceptedEstateDateOfDeath');
     }
 };
 

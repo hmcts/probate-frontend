@@ -347,7 +347,9 @@ assetsValueThreshold: [
     value: 270000
   }
 ]
-exceptedEstateDateOfDeath: #Defined by EXCEPTED-ESTATE-DATE-OF-DEATH in env
+
+exceptedEstates:
+    exceptedEstateDateOfDeath: 'EXCEPTED-ESTATE-DATE-OF-DEATH'
 estateQualifyingValueRange:
   min: 325000
   max: 650000

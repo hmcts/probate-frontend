@@ -347,7 +347,6 @@ assetsValueThreshold: [
     value: 270000
   }
 ]
-
 exceptedEstateDateOfDeath: '2022-01-01'
 estateQualifyingValueRange:
   min: 325000

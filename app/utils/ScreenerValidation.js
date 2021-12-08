@@ -16,10 +16,13 @@ class ScreenerValidation {
         let eligibilityListString = deathCertificateNotInEnglish ? journeyType + 'ScreenersDeathCertificateNotInEnglish' : journeyType + 'ScreenersDeathCertificateInEnglish';
 
         if (featureToggle.isEnabled(featureToggles, 'ft_excepted_estates')) {
-            const exceptedEstates = 'ExceptedEstates';
             const dodBeforeEeThreshold = get(formdata, 'screeners.eeDeceasedDod') ? formdata.screeners.eeDeceasedDod === 'optionNo' : false;
 
-            eligibilityListString = dodBeforeEeThreshold ? eligibilityListString += `DodBeforeThreshold${exceptedEstates}` : eligibilityListString += exceptedEstates;
+            if (dodBeforeEeThreshold) {
+                eligibilityListString += 'DodBeforeThreshold';
+            }
+
+            eligibilityListString += 'ExceptedEstates';
         }
 
         return eligibilityListString;

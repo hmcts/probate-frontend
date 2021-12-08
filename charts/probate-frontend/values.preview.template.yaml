@@ -25,6 +25,7 @@ nodejs:
         - webchat-avaya-url
         - webchat-avaya-client-url
         - webchat-avaya-service
+        - excepted-estate-dod
 redis:
   enabled: true
 idam-pr:

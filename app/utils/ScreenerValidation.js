@@ -7,13 +7,23 @@ const featureToggle = require('app/utils/FeatureToggle');
 class ScreenerValidation {
 
     getScreeners(journeyType, formdata, featureToggles) {
-        let exceptedEstates = '';
-        if (featureToggle.isEnabled(featureToggles, 'ft_excepted_estates')) {
-            exceptedEstates = 'ExceptedEstates';
-        }
+        return config[this.eligibilityListBuilder(journeyType, formdata, featureToggles)];
+    }
+
+    eligibilityListBuilder(journeyType, formdata, featureToggles) {
+        let eligibilityListString = journeyType + 'Screeners';
         const deathCertificateNotInEnglish = get(formdata, 'screeners.deathCertificateInEnglish') ? formdata.screeners.deathCertificateInEnglish === 'optionNo' : false;
 
-        return deathCertificateNotInEnglish ? config[`${journeyType}ScreenersDeathCertificateNotInEnglish${exceptedEstates}`] : config[`${journeyType}ScreenersDeathCertificateInEnglish${exceptedEstates}`];
+        eligibilityListString = deathCertificateNotInEnglish ? eligibilityListString += 'DeathCertificateNotInEnglish' : eligibilityListString += 'DeathCertificateInEnglish';
+
+        if (featureToggle.isEnabled(featureToggles, 'ft_excepted_estates')) {
+            const exceptedEstates = 'ExceptedEstates';
+            const dodBeforeEeThreshold = get(formdata, 'screeners.eeDeceasedDod') ? formdata.screeners.eeDeceasedDod === 'optionNo' : false;
+
+            eligibilityListString = dodBeforeEeThreshold ? eligibilityListString += `DodBeforeThreshold${exceptedEstates}` : eligibilityListString += exceptedEstates;
+        }
+
+        return eligibilityListString;
     }
 }
 

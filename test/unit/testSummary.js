@@ -96,7 +96,9 @@ describe('Summary', () => {
                         caseType: 'gop',
                         deceased: {
                             firstName: 'Dee',
-                            lastName: 'Ceased'
+                            lastName: 'Ceased',
+                            'dod-date': '2022-02-02',
+                            'dod-formattedDate': '2 February 2022'
                         },
                         iht: {
                             netValue: 300000
@@ -115,6 +117,7 @@ describe('Summary', () => {
                 diedEnglandOrWalesQuestion: 'Did Dee Ceased die in England or Wales?',
                 deceasedMarriedQuestion: 'Did Dee Ceased get married or enter into a civil partnership after the will was signed?',
                 ihtTotalNetValue: 300000,
+                exceptedEstateDodAfterThreshold: true,
                 readyToDeclare: false,
                 session: {
                     language: 'en',
@@ -126,7 +129,9 @@ describe('Summary', () => {
                         caseType: 'gop',
                         deceased: {
                             firstName: 'Dee',
-                            lastName: 'Ceased'
+                            lastName: 'Ceased',
+                            'dod-date': '2022-02-02',
+                            'dod-formattedDate': '2 February 2022'
                         },
                         iht: {
                             netValue: 300000
@@ -188,6 +193,7 @@ describe('Summary', () => {
                 ihtTotalNetValueGreaterThanIhtThreshold: true,
                 caseType: 'intestacy',
                 readyToDeclare: false,
+                exceptedEstateDodAfterThreshold: false,
                 session: {
                     language: 'en',
                     form: {
@@ -224,6 +230,12 @@ describe('Summary', () => {
                     form: {
                         documents: {
                             uploads: [{filename: 'screenshot1.png'}, {filename: 'screenshot2.png'}]
+                        },
+                        deceased: {
+                        },
+                        iht: {
+                            estateNetQualifyingValue: {
+                            }
                         }
                     }
                 },
@@ -240,6 +252,12 @@ describe('Summary', () => {
                     form: {
                         documents: {
                             uploads: []
+                        },
+                        deceased: {
+                        },
+                        iht: {
+                            estateNetQualifyingValue: {
+                            }
                         }
                     }
                 },

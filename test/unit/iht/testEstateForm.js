@@ -3,13 +3,13 @@
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-const IhtEstateValued = steps.IhtEstateValued;
+const IhtEstateForm = steps.IhtEstateForm;
 
-describe('EstateValued', () => {
+describe('EstateForm', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = IhtEstateValued.constructor.getUrl();
-            expect(url).to.equal('/estate-valued');
+            const url = IhtEstateForm.constructor.getUrl();
+            expect(url).to.equal('/estate-form');
             done();
         });
     });

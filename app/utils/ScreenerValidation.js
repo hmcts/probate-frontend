@@ -11,10 +11,9 @@ class ScreenerValidation {
     }
 
     eligibilityListBuilder(journeyType, formdata, featureToggles) {
-        let eligibilityListString = journeyType + 'Screeners';
         const deathCertificateNotInEnglish = get(formdata, 'screeners.deathCertificateInEnglish') ? formdata.screeners.deathCertificateInEnglish === 'optionNo' : false;
 
-        eligibilityListString = deathCertificateNotInEnglish ? eligibilityListString += 'DeathCertificateNotInEnglish' : eligibilityListString += 'DeathCertificateInEnglish';
+        let eligibilityListString = deathCertificateNotInEnglish ? journeyType + 'ScreenersDeathCertificateNotInEnglish' : journeyType + 'ScreenersDeathCertificateInEnglish';
 
         if (featureToggle.isEnabled(featureToggles, 'ft_excepted_estates')) {
             const exceptedEstates = 'ExceptedEstates';

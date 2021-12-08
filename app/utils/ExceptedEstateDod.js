@@ -7,7 +7,7 @@ class ExceptedEstateDod {
         if (!date) {
             throw new TypeError('no deceased date date of death found');
         }
-        return new Date(date).getTime() >= new Date(config.exceptedEstates.exceptedEstateDateOfDeath).getTime();
+        return new Date(date).getTime() >= new Date(config.exceptedEstateDateOfDeath).getTime();
     }
 }
 

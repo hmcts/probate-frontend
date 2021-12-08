@@ -28,7 +28,6 @@ def secrets = [
     secret('testValidationServiceUrl', 'VALIDATION_SERVICE_URL'),
     secret('launchdarkly-key', 'LAUNCHDARKLY_KEY'),
     secret('launchdarklyUserkeyFrontend', 'LAUNCHDARKLY_USER_KEY'),
-    secret('excepted-estate-dod', 'EXCEPTED_ESTATE_DATE_OF_DEATH'),
     secret('webchat-avaya-url', 'WEBCHAT_AVAYA_URL'),
     secret('webchat-avaya-client-url', 'WEBCHAT_AVAYA_CLIENT_URL'),
     secret('webchat-avaya-service', 'WEBCHAT_AVAYA_SERVICE'),

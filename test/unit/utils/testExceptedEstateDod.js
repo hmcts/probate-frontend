@@ -27,12 +27,12 @@ describe('ExceptedEstateDod.js', () => {
         });
 
         it('should override threshold from env var ', (done) => {
-            process.env['EXCEPTED-ESTATE-DATE-OF-DEATH'] = '2021-01-01';
+            process.env.EXCEPTED_ESTATE_DATE_OF_DEATH = '2021-01-01';
             const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
             const date = new Date('2021-06-06').getTime();
             const result = ExceptedEstateDod.afterEeDodThreshold(date);
             expect(result).to.equal(true);
-            delete process.env['EXCEPTED-ESTATE-DATE-OF-DEATH'];
+            delete process.env.EXCEPTED_ESTATE_DATE_OF_DEATH;
             done();
         });
 

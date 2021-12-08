@@ -107,4 +107,4 @@ pact:
   pactBrokerUrl: PACT_BROKER_URL
 
 exceptedEstates:
-  exceptedEstateDateOfDeath: EXCEPTED-ESTATE-DATE-OF-DEATH
+  exceptedEstateDateOfDeath: EXCEPTED_ESTATE_DATE_OF_DEATH

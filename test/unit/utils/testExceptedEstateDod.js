@@ -1,6 +1,5 @@
 'use strict';
 
-// const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
 const expect = require('chai').expect;
 
 describe('ExceptedEstateDod.js', () => {

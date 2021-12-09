@@ -7,8 +7,8 @@ featureToggles:
   enabled: true
   launchDarklyKey: 'LAUNDARKLEY-KEY'
   launchDarklyUser:
-    firstName: 'Probate'
-    lastName: 'Frontend'
+    firstName: 'Feature'
+    lastName: 'TestingDEMO'
     key: 'LAUNCHDARKLY_USER_KEY'
   ft_fees_api: 'probate-fees-api'
   ft_pcq: 'probate-pcq'

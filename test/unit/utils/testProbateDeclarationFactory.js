@@ -102,7 +102,7 @@ describe('ProbateDeclarationFactory', () => {
                         deceasedEstateValue: content.cy.deceasedEstateValue
                             .replace('{ihtGrossValue}', formdata.ihtGrossValue)
                             .replace('{ihtNetValue}', formdata.ihtNetValue),
-                        deceasedEstateValueExceptedEstateConfirmation: 'Rwy’n cadarnhau bod yr ystad yn ystad eithriedig.',
+                        deceasedEstateValueExceptedEstateConfirmation: 'Rwy\'n cadarnhau bod yr ystad yn ystad eithriedig.',
                         deceasedOtherNames: '',
                         executorsApplying: '',
                         executorsNotApplying: '',

@@ -14,6 +14,8 @@ module.exports = () => {
         selectDeathCertificateInEnglish: steps.screeners.deathcertificateinenglish,
         selectDeathCertificateTranslation: steps.screeners.deathcertificatetranslation,
         selectDeceasedDomicile: steps.screeners.deceaseddomicile,
+        selectEEDeceasedDod: steps.screeners.eedeceaseddod,
+        selectEEvalue: steps.screeners.eevalue,
         selectIhtCompleted: steps.screeners.ihtcompleted,
         selectPersonWhoDiedLeftAWill: steps.screeners.willleft,
         selectOriginalWill: steps.screeners.willoriginal,

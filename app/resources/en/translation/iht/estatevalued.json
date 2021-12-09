@@ -1,13 +1,13 @@
 {
-  "title": "Did you complete IHT forms to report the estate's values?",
-  "question": "Did you complete IHT forms to report the estate's values?",
-  "hint": "You will not have completed IHT forms 421 and 400 if there's no Inheritance Tax to pay because the estate is low value or exempt. You may have completed IHT207, or no form was required because the estate is an 'excepted estate'.",
+  "title": "Did you complete IHT forms to report the estate&rsquo;s values?",
+  "question": "Did you complete IHT forms to report the estate&rsquo;s values?",
+  "hint": "You will not have completed IHT forms 421 and 400 if there&rsquo;s no Inheritance Tax to pay because the estate is low value or exempt. You may have completed IHT207, or no form was required because the estate is an &lsquo;excepted estate&rsquo;.",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
     "estateValueCompleted": {
-      "required": "Answer &lsquo;yes&rsquo; if you completed IHT forms to report the estate's values",
+      "required": "Answer &lsquo;yes&rsquo; if you completed IHT forms to report the estate&rsquo;s values",
       "unimplemented": "This page should not be accessed"
     }
   }

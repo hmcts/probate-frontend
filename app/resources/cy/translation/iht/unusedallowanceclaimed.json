@@ -1,13 +1,12 @@
 {
-    "title": "Are you claiming the unused IHT allowance ('nil-rate band') of the deceased's late spouse or civil partner?",
-    "question": "Are you claiming the unused IHT allowance ('nil-rate band') of the deceased's late spouse or civil partner?",
-    "hint": "The spouse or civil partner must have died before the deceased to claim any unused nil-rate band allowance.",
-    "optionYes": "Yes",
-    "optionNo": "No",
+    "title": "Ydych chi&rsquo;n hawlio&rsquo;r lwfans IHT nas defnyddir (&lsquo;band dim cyfradd&rsquo;) priod neu bartner sifil diweddar yr ymadawedig?",
+    "question": "Ydych chi&rsquo;n hawlio&rsquo;r lwfans IHT nas defnyddir (&lsquo;band dim cyfradd&rsquo;) priod neu bartner sifil diweddar yr ymadawedig?",
+    "hint": " Rhaid i&rsquo;r priod neu&rsquo;r partner sifil fod wedi marw cyn yr ymadawedig i hawlio unrhyw lwfans band dim cyfradd nas defnyddir.",
+    "optionYes": "Ydw",
+    "optionNo": "Nac ydw",
     "errors": {
         "unusedAllowanceClaimed": {
-            "required": "Answer &lsquo;yes&rsquo; if you are claiming the unused IHT allowance ('nil-rate band') of the deceased's late spouse or civil partner"
+            "required": "WELSH NEEDED Answer &lsquo;yes&rsquo; if you are claiming the unused IHT allowance (&lsquo;nil-rate band&rsquo;) of the deceased&rsquo;s late spouse or civil partner"
         }
     }
 }
-  

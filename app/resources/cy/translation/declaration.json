@@ -17,7 +17,7 @@
   "as": "fel",
   "deceasedEstateHeader": "Ystad yr unigolyn sydd wedi marw",
   "deceasedEstateValue": "Mae gwerth gros yr ystad yn &pound;{ihtGrossValue} ac mae gwerth net yr ystad yn &pound;{ihtNetValue}.",
-  "deceasedEstateValueExceptedEstateConfirmation": "I confirm that the estate is an excepted estate.",
+  "deceasedEstateValueExceptedEstateConfirmation": "Rwy’n cadarnhau bod yr ystad yn ystad eithriedig.",
   "deceasedEstateLand": "Hyd eithaf fy ngwybodaeth a&rsquo;m cred, nid oedd unrhyw dir wedi&rsquo;i freinio yn {deceasedName} a setlwyd cyn marwolaeth (ac nid drwy ewyllys) {deceasedName} ac a oedd dal yn dir a setlwyd er gwaethaf y farwolaeth honno.",
   "deceasedEstateLand-multipleApplicants": "Hyd eithaf ein gwybodaeth a&rsquo;n cred, nid oedd unrhyw dir wedi&rsquo;i freinio yn {deceasedName} a setlwyd cyn marwolaeth (ac nid drwy ewyllys) {deceasedName} ac a oedd dal yn dir a setlwyd er gwaethaf y farwolaeth honno.",
   "executorApplyingHeader": "Ysgutorion sy&rsquo;n gwneud cais am brofiant",

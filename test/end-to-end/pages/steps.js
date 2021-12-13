@@ -55,6 +55,7 @@ module.exports = () => {
         selectLateSpouseCivilPartner: steps.ee.latespousecivilpartner,
         selectUnusedAllowance: steps.ee.unusedallowance,
         enterProbateEstateValues: steps.ee.probateestatevalues,
+        selectForm: steps.ee.form,
         selectDeceasedAlias: steps.deceased.alias,
         selectOtherNames: steps.deceased.otherNames,
         selectDeceasedMarriedAfterDateOnWill: steps.deceased.married,

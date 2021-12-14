@@ -5,7 +5,7 @@
     "optionNo": "Nac oedd",
     "errors": {
         "deceasedHadLateSpouseOrCivilPartner": {
-            "required": "Atebwch &lsquo;oeddrsquo; os oedd gan yr ymadawedig briod neu bartner diweddar"
+            "required": "Atebwch &lsquo;oedd&rsquo; os oedd gan yr ymadawedig briod neu bartner diweddar"
         }
     }
 }

@@ -5,7 +5,7 @@
     "optionNo": "Nac oedd",
     "errors": {
         "deceasedHadLateSpouseOrCivilPartner": {
-            "required": "WELSH NEEDED Answer &lsquo;yes&rsquo; if the deceased had a late spouse or partner"
+            "required": "Atebwch &lsquo;oeddrsquo; os oedd gan yr ymadawedig briod neu bartner diweddar"
         }
     }
 }

@@ -1,30 +1,30 @@
 {
-  "title": "WELSH NEEDED What are the values of the estate you entered on IHT form?",
+  "title": "Beth yw gwerthoedd yr ystad wnaethoch chi eu nodi ar ffurflen IHT?",
   "question207": "Beth yw gwerth yr ystâd a gofnodwyd gennych ar ffurflen IHT 207?",
   "question421": "Beth yw gwerth yr ystad a gofnodwyd gennych ar ffurflen IHT 421?",
-  "questionNoIHT": "WELSH NEEDED What are the values of the estate for probate?",
+  "questionNoIHT": "Beth yw gwerthoedd yr ystad ar gyfer profiant?",
   "hint207": "<br>Gallwch ddod o hyd i&rsquo;r gwerthoedd hyn ar y ffurflen IHT 207 wedi&rsquo;i llenwi.<br><br><br>",
-  "hint421": "<br>Gallwch ddod o hyd i&rsquo;r gwerthoedd hyn ar y ffurflen IHT 421 wedi’i llenwi.<br><br><br>",
+  "hint421": "<br>Gallwch ddod o hyd i&rsquo;r gwerthoedd hyn ar y ffurflen IHT 421 wedi&rsquo;i llenwi.<br><br><br>",
   "grossHint207": "Gwerth gros yr ystâd ar gyfer profiant yn y DU mewn &pound;<br><br>Dyma &lsquo;gros yr ystad yn y DU a gynhwysir o dan Ewyllys&rsquo; ar y ffurflen",
-  "grossHint421": "WELSH NEEDED Gross value of assets for probate in &pound;",
-  "grossHintNoIHT": "WELSH NEEDED Gross value in &pound;<br><br>This is the total value of the deceased&rsquo;s assets in their sole name<br>To work this out, subtract the values of any joint assets passing to the other joint owner, foreign assets, all <a href = https://www.gov.uk/inheritance-tax/gifts>gifts</a> and assets held in trust from the gross value of IHT. (link to HMRC&rsquo;s definition of gifts)",
-  "netHint207": "WELSH NEEDED Net value of the estate for probate in the UK in &pound;",
-  "netHint421": "WELSH NEEDED Net value of the estate for probate in &pound;",
-  "netHintNoIHT": "WELSH NEEDED Net value in &pound;<br><br>Take away any debts in the deceased&rsquo;s sole name from the gross value<br><br>To work this out, take the gross value for probate and deduct the total value of the deceased&rsquo;s debts including funeral expenses and any other debts they owe at the time of their death in their sole name.",
+  "grossHint421": "Gwerth gros yr asedau ar gyfer profiant mewn &pound;",
+  "grossHintNoIHT": "Gwerth gros mewn £<br><br>Dyma gyfanswm gwerth asedau yr ymadawedig sydd yn eu henw nhw yn unig<br>I gyfrifo hwn, tynnwch i ffwrdd gwerthoedd unrhyw asedau ar y cyd sy&rsquo;n cael eu trosglwyddo i&rsquo;r perchennog ar y cyd arall, asedau tramor, pob <a href = https://www.gov.uk/inheritance-tax/gifts>rhodd</a> ac asedau a ddelir mewn ymddiriedolaeth o werth gros yr IHT. (dolen i ddiffiniad HMRC o roddion)",
+  "netHint207": "Gwerth net yr ystad ar gyfer profiant yn y DU mewn &pound;",
+  "netHint421": "Gwerth net yr ystad ar gyfer profiant mewn &pound;",
+  "netHintNoIHT": "Gwerth net mewn £<br><br>Tynnwch i ffwrdd unrhyw ddyledion sydd yn enw&rsquo;r ymadawedig yn unig o&rsquo;r gwerth gros<br><br>I gyfrifo hwn, cymerwch y gwerth gros ar gyfer profiant a didynnu cyfanswm gwerth dyledion yr ymadawedig, gan gynnwys treuliau angladdol ac unrhyw ddyledion eraill sy&rsquo;n ddyledus ganddynt ar adeg eu marwolaeth sydd yn eu henw nhw yn unig.",
   "poundSymbol": "&pound;",
-  "grossValueSummary": "WELSH NEEDED Gross value for probate in &pound;",
-  "netValueSummary": "WELSH NEEDED Net value for probate in &pound;",
+  "grossValueSummary": "Gwerth gros ar gyfer profiant mewn &pound;",
+  "netValueSummary": "Gwerth net ar gyfer profiant mewn &pound;",
   "errors": {
     "grossValueField": {
-      "required": "WELSH NEEDED Enter the gross amount",
-      "invalid": "WELSH NEEDED Enter a valid gross amount",
-      "invalidCurrencyFormat": "WELSH NEEDED Gross value must be a whole number or a number with 2 decimal places"
+      "required": "Nodwch y swm gros",
+      "invalid": "Nodwch swm gros dilys",
+      "invalidCurrencyFormat": "Rhaid i&rsquo;r swm gros fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
     },
     "netValueField": {
-      "required": "WELSH NEEDED Enter the net amount",
-      "invalid": "WELSH NEEDED Enter a valid net amount",
-      "invalidCurrencyFormat": "WELSH NEEDED Net value must be a whole number or a number with 2 decimal places",
-      "netValueGreaterThanGross": "WELSH NEEDED The net amount can&rsquo;t be greater than the gross amount"
+      "required": "Nodwch y swm net",
+      "invalid": "Nodwch swm net dilys",
+      "invalidCurrencyFormat": "Rhaid i&rsquo;r swm net fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol”",
+      "netValueGreaterThanGross": "Ni all y swm net fod yn fwy na&rsquo;r swm gros"
     }
   }
 }

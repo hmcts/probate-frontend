@@ -7,7 +7,7 @@
   "optionIHT207Hint": "Ffurflen a lenwyd gennych gan nad oes rhaid i chi dalu treth etifeddiant am ei bod yn ystâd eithriedig ac roedd yr ymadawedig yn byw dramor",
   "errors": {
     "ihtFormEstateId": {
-      "required": "WELSH NEEDED Select which IHT forms you completed to report the estate’s value"
+      "required": "Dewiswch pa ffurflenni IHT wnaethoch chi eu llenwi i adrodd am werth yr ystad"
     }
   }
 }

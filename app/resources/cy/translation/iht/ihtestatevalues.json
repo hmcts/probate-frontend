@@ -9,24 +9,24 @@
     "estateNetQualifyingValue": "Gwerth cymwys net",
     "estateNetQualifyingValueHint": "Tynnwch unrhyw asedau a drosglwyddir i briod neu bartner sifil ac arian a adawyd i elusen oddi wrth y gwerth net.",
     "poundSymbol": "&pound;",
-    "forEstateIht": "WELSH NEEDED for the estate of inheritance tax",
-    "forEstateProbate": "WELSH NEEDED  for the estate of probate",
+    "forEstateIht": "Beth yw gwerthoedd  yr ystad at ddiben treth etifeddiant",
+    "forEstateProbate": "Beth yw gwerthoedd  yr ystad at ddiben profian",
     "errors": {
         "estateGrossValueField": {
-            "required": "WELSH NEEDED Enter the gross amount",
-            "invalid": "WELSH NEEDED Enter a valid gross amount",
-            "invalidCurrencyFormat": "WELSH NEEDED Gross value must be a whole number or a number with 2 decimal places"
+            "required": "Nodwch y swm gros",
+            "invalid": "Nodwch swm gros dilys",
+            "invalidCurrencyFormat": "Rhaid i&rsquo;r swm gros fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
         },
         "estateNetValueField": {
-            "required": "WELSH NEEDED Enter the net amount",
-            "invalid": "WELSH NEEDED Enter a valid net amount",
-            "invalidCurrencyFormat": "WELSH NEEDED Net value must be a whole number or a number with 2 decimal places",
-            "netValueGreaterThanGross": "WELSH NEEDED The net amount can&rsquo;t be greater than the gross amount"
+            "required": "Nodwch y swm net",
+            "invalid": "Nodwch swm net dilys",
+            "invalidCurrencyFormat": "Rhaid i&rsquo;r swm net fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol",
+            "netValueGreaterThanGross": "Ni all y swm net fod yn fwy na&rsquo;r swm gros"
         },
         "estateNetQualifyingValueField": {
-            "required": "WELSH NEEDED Enter the net amount",
-            "invalid": "WELSH NEEDED Enter a valid net amount",
-            "invalidCurrencyFormat": "WELSH NEEDED Net qualifying value must be a whole number or a number with 2 decimal places"
+            "required": "Nodwch y swm net",
+            "invalid": "Nodwch swm net dilys",
+            "invalidCurrencyFormat": "Rhaid i&rsquo;r swm net cymwys fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
         }
     }
 }

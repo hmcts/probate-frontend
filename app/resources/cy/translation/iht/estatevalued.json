@@ -7,7 +7,7 @@
 
   "errors": {
     "estateValueCompleted": {
-      "required": "WELSH NEEDED Answer &lsquo;yes&rsquo; if you completed IHT forms to report the estate&rsquo;s values"
+      "required": "Atebwch &lsquo;do&rsquo; os wnaethoch chi lenwi ffurflenni IHT i adrodd am werthoedd yr ystad”\n"
     }
   }
 }

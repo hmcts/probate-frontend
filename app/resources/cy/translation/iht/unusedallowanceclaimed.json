@@ -6,7 +6,7 @@
     "optionNo": "Nac ydw",
     "errors": {
         "unusedAllowanceClaimed": {
-            "required": "WELSH NEEDED Answer &lsquo;yes&rsquo; if you are claiming the unused IHT allowance (&lsquo;nil-rate band&rsquo;) of the deceased&rsquo;s late spouse or civil partner"
+            "required": "Atebwch &lsquo;ydw&rsquo; os ydych yn hawlio lwfans IHT nas ddefnyddiwyd (&lsquo;band cyfradd sero&rsquo;) diweddar briod neu bartner yr ymadawedigr"
         }
     }
 }

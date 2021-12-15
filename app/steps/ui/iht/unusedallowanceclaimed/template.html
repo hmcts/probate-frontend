@@ -9,7 +9,7 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-        text: content.question,
+        text: content.question | safe,
         isPageHeading: true,
         classes: "govuk-fieldset__legend--l"
         }

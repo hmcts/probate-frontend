@@ -5,6 +5,7 @@ const EstateForm = require('app/steps/ui/iht/estateform');
 const IhtEstateValues = require('app/steps/ui/iht/ihtestatevalues');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
+const config = require('config');
 
 describe('Tests for IHT Estate Valued', () => {
     let testWrapper;
@@ -30,11 +31,15 @@ describe('Tests for IHT Estate Valued', () => {
                     id: 1234567890123456
                 }
             };
-
+            const contentData = {
+                ihtThreshold: config.links.ihtThreshold,
+                ihtTransferOfThreshold: config.links.ihtTransferOfThreshold,
+                ihtNoInheritanceTax: config.links.ihtNoInheritanceTax
+            };
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 

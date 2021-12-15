@@ -11,7 +11,7 @@ const optionNo = '-2';
 const bilingualGOP = false;
 const languages = ['en', 'cy'];
 
-Feature('GOP Multiple Executors E2E');
+Feature('GOP Multiple Executors E2E - EE No Journey');
 
 Before(async () => {
     await TestConfigurator.initLaunchDarkly();

@@ -11,7 +11,7 @@ const spousePartner = '';
 const bilingualGOP = false;
 const languages = ['en', 'cy'];
 
-Feature('GOP Intestacy spouse E2E');
+Feature('GOP Intestacy spouse E2E - EE No Journey');
 
 Before(async () => {
     await TestConfigurator.initLaunchDarkly();

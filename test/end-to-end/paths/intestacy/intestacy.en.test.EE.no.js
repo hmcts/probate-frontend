@@ -13,7 +13,7 @@ const optionRenouncing = '';
 const bilingualGOP = false;
 const languages = ['en', 'cy'];
 
-Feature('GOP Intestacy E2E');
+Feature('GOP Intestacy E2E - EE No Journey');
 
 Before(async () => {
     await TestConfigurator.initLaunchDarkly();

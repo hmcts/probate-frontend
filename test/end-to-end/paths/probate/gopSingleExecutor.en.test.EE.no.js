@@ -8,7 +8,7 @@ const optionNo = '-2';
 const bilingualGOP = false;
 const languages = ['en', 'cy'];
 
-Feature('GOP-Single Executor');
+Feature('GOP-Single Executor - EE No Journey');
 
 Before(async () => {
     await TestConfigurator.initLaunchDarkly();

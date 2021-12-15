@@ -26,7 +26,7 @@ After(async () => {
 
 languages.forEach(language => {
 
-    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - GOP -Intestacy Journey - Digital iht`), async ({I}) => {
+    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - GOP -Intestacy Journey - EE No journey`), async ({I}) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
         await I.retry(2).createAUser(TestConfigurator);
 

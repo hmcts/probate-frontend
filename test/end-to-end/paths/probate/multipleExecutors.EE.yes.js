@@ -24,7 +24,7 @@ After(async () => {
 
 languages.forEach(language => {
 
-    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details`), async ({I}) => {
+    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - Multiple Executors Journey - Main applicant EE yes journey`), async ({I}) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
         await I.retry(2).createAUser(TestConfigurator);
 

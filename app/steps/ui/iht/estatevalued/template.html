@@ -17,7 +17,7 @@
         idPrefix: "estateValueCompleted",
         name: "estateValueCompleted",
         hint: {
-            text: content.hint | safe
+            text: content.hint | replace("{ihtThreshold}", globals.links.ihtThreshold) | replace("{ihtTransferOfThreshold}", globals.links.ihtTransferOfThreshold) | replace("{ihtNoInheritanceTax}", globals.links.ihtNoInheritanceTax) | safe
         },
         errorMessage: { text: fields.estateValueCompleted.errorMessage | safe } if fields.estateValueCompleted.errorMessage,
         items: [

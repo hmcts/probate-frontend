@@ -1,14 +1,13 @@
 {
-  "title": "WELSH NEEDED Did you complete IHT forms to report the estate's values?",
-  "question": "WELSH NEEDED Did you complete IHT forms to report the estate's values?",
-  "hint": "WELSH NEEDED You will not have completed IHT forms 421 and 400 if there's no Inheritance Tax to pay because the estate is low value or exempt. You may have completed IHT207, or no form was required because the estate is an 'excepted estate'.",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "title": "A wnaethoch chi lenwi ffurflenni IHT i nodi gwerth yr ystâd?",
+  "question": "A wnaethoch chi lenwi ffurflenni IHT i nodi gwerth yr ystâd?",
+  "hint": "Ni fyddwch wedi llenwi ffurflenni IHT 421 a 400 os nad oes Treth Etifeddiant i&rsquo;w thalu oherwydd bod yr ystâd o werth isel neu wedi&rsquo;i heithrio. Efallai eich bod wedi llenwi IHT207, neu efallai nad oedd angen i chi lenwi ffurflen oherwydd bod yr ystâd yn &lsquo;ystâd eithriedig&rsquo;.",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
 
   "errors": {
     "estateValueCompleted": {
-      "required": "WELSH NEEDED Answer &lsquo;yes&rsquo; if you completed IHT forms to report the estate's values",
-      "unimplemented": "This page should not be accessed"
+      "required": "Atebwch &lsquo;do&rsquo; os wnaethoch chi lenwi ffurflenni IHT i adrodd am werthoedd yr ystad”\n"
     }
   }
 }

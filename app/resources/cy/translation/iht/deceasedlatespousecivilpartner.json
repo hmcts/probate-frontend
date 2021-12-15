@@ -1,12 +1,11 @@
 {
-    "title": "Did the deceased have a late spouse or civil partner?",
-    "question": "WELSH - Did the deceased have a late spouse or civil partner?",
-    "optionYes": "Yes",
-    "optionNo": "No",
+    "title": "A oedd gan yr ymadawedig briod neu bartner sifil diweddar?",
+    "question": "A oedd gan yr ymadawedig briod neu bartner sifil diweddar?",
+    "optionYes": "Oedd",
+    "optionNo": "Nac oedd",
     "errors": {
         "deceasedHadLateSpouseOrCivilPartner": {
-            "required": "Answer &lsquo;yes&rsquo; if the deceased had a late spouse or partner"
+            "required": "Atebwch &lsquo;oedd&rsquo; os oedd gan yr ymadawedig briod neu bartner diweddar"
         }
     }
 }
-  

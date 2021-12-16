@@ -1,0 +1,45 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block form_content %}
+
+{{ govukRadios({
+        classes: "govuk-radios",
+        idPrefix: "ihtFormEstateId",
+        name: "ihtFormEstateId",
+        fieldset: {
+            legend: {
+                text: content.question | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: { text: fields.ihtFormEstateId.errorMessage | safe } if fields.ihtFormEstateId.errorMessage,
+        items: [
+            {
+                value: "optionIHT400421",
+                text: content["optionIHT400421"] | safe,
+                hint: {
+                  text: content["optionIHT400421Hint"] | safe
+                },
+                checked: true if fields.ihtFormEstateId.value == "optionIHT400421"
+            },
+            {
+                value: "optionIHT207",
+                text: content["optionIHT207"] | safe,
+                hint: {
+                  text: content["optionIHT207Hint"] | safe
+                },
+                checked: true if fields.ihtFormEstateId.value == "optionIHT207"
+            }
+        ]
+    }) }}
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

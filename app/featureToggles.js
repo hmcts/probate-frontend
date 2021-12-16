@@ -21,6 +21,7 @@ router.all('/deceased-domicile', (req, res, next) => featureToggle.callCheckTogg
 router.all('/certificate-interim', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_excepted_estates', featureToggle.toggleFeature));
 router.all('/ee-deceased-dod', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_excepted_estates', featureToggle.toggleFeature));
 router.all('/ee-estate-valued', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_excepted_estates', featureToggle.toggleFeature));
+router.all('/iht-completed', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_excepted_estates', featureToggle.toggleFeature));
 router.post('/foreign-death-cert-translation', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_excepted_estates', featureToggle.toggleFeature));
 router.post('/english-foreign-death-cert', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_excepted_estates', featureToggle.toggleFeature));
 

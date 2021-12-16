@@ -69,6 +69,29 @@ describe('IhtCompleted', () => {
             done();
         });
 
+        it('should return the correct url when Yes is given and EE FT ON', (done) => {
+            const req = {
+                session: {
+                    journey: journey,
+                    form: {
+                        screeners: {
+                            deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionYes',
+                            domicile: 'optionYes',
+                            eeDeceasedDod: 'optionNo'
+                        }
+                    },
+                    featureToggles: {ft_excepted_estates: true}
+                }
+            };
+            const ctx = {
+                completed: 'optionYes'
+            };
+            const nextStepUrl = IhtCompleted.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/will-left');
+            done();
+        });
+
         it('should return the correct url when No is given', (done) => {
             const req = {
                 session: {

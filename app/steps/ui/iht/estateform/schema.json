@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "estate-form",
+  "type": "object",
+  "properties": {
+    "ihtFormEstateId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "ihtFormEstateId"
+  ]
+}

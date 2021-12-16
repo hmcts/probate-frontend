@@ -6,5 +6,8 @@
     "netValueField": "10000.34",
     "grossValue": 100000.1,
     "netValue": 10000.34
+  },
+  "deceased": {
+    "dod-date": "2020-02-20"
   }
 }

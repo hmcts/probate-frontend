@@ -9,5 +9,8 @@
     "netValueFieldIHT400421": "111.34",
     "grossValue": 123.1,
     "netValue": 111.34
-  }
+  },
+  "deceased": {
+  "dod-date": "2020-02-20"
+}
 }

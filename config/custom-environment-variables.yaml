@@ -105,3 +105,5 @@ TestEnvMobileNumber: TEST_MOBILE_NUMBER
 
 pact:
   pactBrokerUrl: PACT_BROKER_URL
+
+exceptedEstateDateOfDeath: EXCEPTED_ESTATE_DATE_OF_DEATH

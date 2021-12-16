@@ -1,7 +1,7 @@
 {
   "title": "Did the person who died leave any other written wishes?",
   "question": "Did the person who died leave any other written wishes?",
-  "interestedDetailsHint": "We're only interested in written wishes that have details of:",
+  "interestedDetailsHint": "We&rsquo;re only interested in written wishes that have details of:",
   "interestedDetail1": "an appointed executor",
   "interestedDetail2": "instructions to sort out the estate",
   "interestedDetail3": "names and signatures of witnesses",

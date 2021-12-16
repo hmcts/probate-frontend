@@ -41,7 +41,6 @@ describe('summary-applicants-section', () => {
                             const playbackData = {
                                 relationshipToDeceased: applicantContent.relationshiptodeceased.question
                             };
-
                             testWrapper.testDataPlayback(done, playbackData);
                         });
                 });

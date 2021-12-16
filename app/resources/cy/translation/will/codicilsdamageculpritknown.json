@@ -11,10 +11,10 @@
             "required": "Dewiswch &lsquo;Ydw&rsquo; os gwyddoch pwy wnaeth y difrod neu farciau gweladwy i’r codisiliau"
         },
         "firstName": {
-            "required": "Nodwch enw a chyfenw'r sawl a allai fod wedi gwneud difrod neu farciau gweladwy ar y codisiliau"
+            "required": "Nodwch enw a chyfenw&rsquo;r sawl a allai fod wedi gwneud difrod neu farciau gweladwy ar y codisiliau"
         },
         "lastName": {
-            "required": "Nodwch enw a chyfenw'r sawl a allai fod wedi gwneud difrod neu farciau gweladwy ar y codisiliau"
-        } 
+            "required": "Nodwch enw a chyfenw&rsquo;r sawl a allai fod wedi gwneud difrod neu farciau gweladwy ar y codisiliau"
+        }
     }
 }

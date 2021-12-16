@@ -34,7 +34,7 @@ const initDashboard = (req, res, next) => {
                     delete formdata.screeners;
                     renderDashboard(req, result, next);
                 }
-            } else if (allEligibilityQuestionsPresent(formdata)) {
+            } else if (allEligibilityQuestionsPresent(formdata, req.session.featureToggles)) {
                 createNewApplication(req, res, formdata, formData, result, next);
             } else {
                 res.redirect('/start-eligibility');

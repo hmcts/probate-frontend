@@ -1,33 +1,32 @@
 {
-    "title": "WELSH - What is the value of the estate",
-    "question": "WELSH - What are the values of the estate for Inheritance Tax?",
-    "questionHint": "If you do not have these values, use <a href=\"https://www.gov.uk/valuing-estate-of-someone-who-died\" class=\"govuk-link\" rel=\"noreferrer noopener\" target=\"_blank\">the IHT checker</a> to get them. We collect these values for HMRC so they can check if you need pay inheritance tax.",
-    "estateGrossValue": "Gross value",
-    "estateGrossValueHint": "This is the total value of all assets like property, money and gifts in the last 7 years before taking off any debts",
-    "estateNetValue": "Net value",
-    "estateNetValueHint": "Take off any debts like mortgage and credit cards from the gross value",
-    "estateNetQualifyingValue": "Net qualifying value",
-    "estateNetQualifyingValueHint": "Take off from the net value any assets passed to spouse or civil partner and money left to a charity.",
+    "title": "Beth yw gwerth yr ystad ar gyfer Treth Etifeddiant?",
+    "question": "Beth yw gwerth yr ystad ar gyfer Treth Etifeddiant?",
+    "questionHint": "Os nad oes gennych y gwerthoedd hyn, defnyddiwch <a href=\"https://www.gov.uk/valuing-estate-of-someone-who-died\" class=\"govuk-link\" rel=\"noreferrer noopener\" target=\"_blank\">y gwiriwr IHT</a> i ddod o hyd iddynt. Rydym yn casglu&rsquo;r gwerthoedd hyn ar gyfer HMRC fel y gallant wirio a oes angen i chi dalu Treth Etifeddiant ai peidio.",
+    "estateGrossValue": "Gwerth gros",
+    "estateGrossValueHint": "Dyma gyfanswm gwerth yr holl asedau fel eiddo, arian a rhoddion yn ystod y 7 mlynedd diwethaf cyn tynnu unrhyw ddyledion",
+    "estateNetValue": "Gwerth net",
+    "estateNetValueHint": "Tynnwch unrhyw ddyledion fel morgais a chardiau credyd o&rsquo;r gwerth gros",
+    "estateNetQualifyingValue": "Gwerth cymwys net",
+    "estateNetQualifyingValueHint": "Tynnwch unrhyw asedau a drosglwyddir i briod neu bartner sifil ac arian a adawyd i elusen oddi wrth y gwerth net.",
     "poundSymbol": "&pound;",
-    "forEstateIht": " for the estate of inheritance tax",
-    "forEstateProbate": " for the estate of probate",
-
+    "forEstateIht": "Beth yw gwerthoedd  yr ystad at ddiben treth etifeddiant",
+    "forEstateProbate": "Beth yw gwerthoedd  yr ystad at ddiben profian",
     "errors": {
         "estateGrossValueField": {
-            "required": "Enter the gross amount",
-            "invalid": "Enter a valid gross amount",
-            "invalidCurrencyFormat": "Gross value must be a whole number or a number with 2 decimal places"
+            "required": "Nodwch y swm gros",
+            "invalid": "Nodwch swm gros dilys",
+            "invalidCurrencyFormat": "Rhaid i&rsquo;r swm gros fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
         },
         "estateNetValueField": {
-            "required": "Enter the net amount",
-            "invalid": "Enter a valid net amount",
-            "invalidCurrencyFormat": "Net value must be a whole number or a number with 2 decimal places",
-            "netValueGreaterThanGross": "The net amount can&rsquo;t be greater than the gross amount"
+            "required": "Nodwch y swm net",
+            "invalid": "Nodwch swm net dilys",
+            "invalidCurrencyFormat": "Rhaid i&rsquo;r swm net fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol",
+            "netValueGreaterThanGross": "Ni all y swm net fod yn fwy na&rsquo;r swm gros"
         },
         "estateNetQualifyingValueField": {
-            "required": "Enter the net amount",
-            "invalid": "Enter a valid net amount",
-            "invalidCurrencyFormat": "Net qualifying value must be a whole number or a number with 2 decimal places"
+            "required": "Nodwch y swm net",
+            "invalid": "Nodwch swm net dilys",
+            "invalidCurrencyFormat": "Rhaid i&rsquo;r swm net cymwys fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
         }
     }
 }

@@ -1,13 +1,13 @@
 {
-  "title": "Which IHT forms did you complete to report the estate&rsquo;s value?",
-  "question": "Which IHT forms did you complete to report the estate&rsquo;s value?",
-  "optionIHT400421": "IHT 400 and 421",
-  "optionIHT400421Hint": "Forms you completed because you have to pay inheritance tax",
+  "title": "Pa ffurflenni IHT a wnaethoch chi eu llenwi i nodi gwerth yr ystâd?",
+  "question": "Pa ffurflenni IHT a wnaethoch chi eu llenwi i nodi gwerth yr ystâd?",
+  "optionIHT400421": "IHT 400 a 421",
+  "optionIHT400421Hint": "Ffurflenni a lenwyd gennych oherwydd bod yn rhaid i chi dalu treth etifeddiant ",
   "optionIHT207": "IHT 207",
-  "optionIHT207Hint": "Forms you completed because you do not have to pay inheritance tax because it&rsquo;s an excepted estate and the person who&rsquo;s died was domiciled abroad",
+  "optionIHT207Hint": "Ffurflen a lenwyd gennych gan nad oes rhaid i chi dalu treth etifeddiant am ei bod yn ystâd eithriedig ac roedd yr ymadawedig yn byw dramor",
   "errors": {
     "ihtFormEstateId": {
-      "required": "Select which IHT forms you completed to report the estate’s value"
+      "required": "Dewiswch pa ffurflenni IHT wnaethoch chi eu llenwi i adrodd am werth yr ystad"
     }
   }
 }

@@ -73,11 +73,6 @@ languages.forEach(language => {
         await I.selectUnusedAllowance(language, optionYes);
         await I.enterProbateEstateValues(language, 400000, 400000);
 
-        if (TestConfigurator.getUseGovPay() === 'true') {
-            await I.enterEstateValue(language, '300000', '200000');
-        } else {
-            await I.enterEstateValue(language, '500', '400');
-        }
         await I.selectAssetsOutsideEnglandWales(language, optionYes);
         await I.enterValueAssetsOutsideEnglandWales(language, '400000');
         await I.selectDeceasedAlias(language, optionNo);

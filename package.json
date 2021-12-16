@@ -46,11 +46,11 @@
     "test-e2e-intestacy-http-webdriver": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/codecept.webdriver.conf.js --steps",
     "test-e2e-intestacy-http-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-e2e-intestacy-spouse-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.spouse.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps",
-    "test-e2e-intestacy-spouse-http-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.spouse.en.test.EE.no.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps",
+    "test-e2e-intestacy-spouse-http-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.spouse.en.test.EE.yes.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps ~@unused",
     "test-e2e-multiple-executors-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/multipleExecutors.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps",
     "test-e2e-multiple-executors-http-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/multipleExecutors.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
-    "test-e2e-multiple-executors-http-EE-No-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/multipleExecutors.EE.no.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
-    "test-e2e-multiple-executors-http-EE-Yes-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/multipleExecutors.EE.yes.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
+    "test-e2e-multiple-executors-http-EE-No-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/multipleExecutors.EE.no.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps",
+    "test-e2e-multiple-executors-http-EE-Yes-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/multipleExecutors.EE.yes.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps",
     "test-e2e-cookie-banner-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/generic/cookiebanner.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-e2e-survey-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/generic/survey.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-crossbrowser-e2e": "NODE_ENV=testing-http-dk NODE_PATH=. codeceptjs run-multiple ${BROWSER_GROUP:-'--all'} -c test/end-to-end/saucelabs.conf.js --plugins retryFailedStep --steps --grep '@crossbrowser' --reporter mocha-multi",
@@ -83,7 +83,7 @@
     "stub:equality-and-diversity-endpoint": "NODE_PATH=. node test/service-stubs/equalityAndDiversityEndpoint.js",
     "stub:equality-and-diversity-health": "NODE_PATH=. node test/service-stubs/equalityAndDiversityHealth.js",
     "fortifyScan": "./test/java/gradlew -p test/java fortifyScan",
-    "test:fullfunctional": "NODE_ENV=test-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps"
+    "test:fullfunctional": "NODE_ENV=test-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps ~@unused"
   },
   "pre-commit": [
     "lint"

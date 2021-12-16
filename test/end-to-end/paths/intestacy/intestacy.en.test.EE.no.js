@@ -66,7 +66,7 @@ languages.forEach(language => {
         // Deceased Task
         await I.selectATask(language, taskListContent.taskNotStarted);
         await I.chooseBiLingualGrant(language, optionNo);
-        await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
+        await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '02', '01', '2021');
         await I.enterDeceasedAddress(language);
 
         await I.selectDiedEngOrWales(language, optionNo);
@@ -169,12 +169,18 @@ languages.forEach(language => {
         // Deceased Task
         await I.selectATask(language, taskListContent.taskNotStarted);
         await I.chooseBiLingualGrant(language, optionNo);
-        await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '01', '01', '2017');
+        await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '02', '01', '2021');
         await I.enterDeceasedAddress(language);
 
         await I.selectDiedEngOrWales(language, optionNo);
         await I.selectEnglishForeignDeathCert(language, optionNo);
         await I.selectForeignDeathCertTranslation(language, optionYes);
+
+        await I.selectEEComplete(language, optionNo);
+        await I.enterEEValue(language, 500000, 400000, 400000);
+        await I.selectLateSpouseCivilPartner(language, optionYes);
+        await I.selectUnusedAllowance(language, optionYes);
+        await I.enterProbateEstateValues(language, 400000, 400000);
 
         await I.selectDeceasedAlias(language, optionNo);
         await I.selectDeceasedMaritalStatus(language, maritalStatusMarried);

@@ -5,6 +5,7 @@ const testCommonContent = require('test/component/common/testCommonContent.js');
 const IhtMethod = require('app/steps/ui/iht/method');
 const IhtEstateValued = require('app/steps/ui/iht/estatevalued');
 const config = require('config');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('death-certificate-interim', () => {
     let testWrapper;
@@ -105,6 +106,34 @@ describe('death-certificate-interim', () => {
                 deathCertificate: 'optionDeathCertificate'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+        });
+
+        it(`test it redirects to estate valued for EE FT on INTESTACY: ${expectedNextUrlForEstateValued}`, (done) => {
+            testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
+                .end(() => {
+                    const data = {
+                        'dod-date': '2022-01-01',
+                        deathCertificate: 'optionDeathCertificate'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
+                });
+        });
+
+        it(`test it redirects to state valued with interim certificate for EE FT on INTESTACY: ${expectedNextUrlForEstateValued}`, (done) => {
+            testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
+                .end(() => {
+                    const data = {
+                        'dod-date': '2022-01-01',
+                        deathCertificate: 'optionInterimCertificate'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
+                });
         });
     });
 });

@@ -89,7 +89,7 @@ const stepList = {
         otherwise: 'ProbateEstateValues'
     },
     IhtUnusedAllowanceClaimed: 'ProbateEstateValues',
-    ProbateEstateValues: 'DeceasedAlias',
+    ProbateEstateValues: 'AssetsOutside',
     EnglishForeignDeathCert: {
         foreignDeathCertIsInEnglish: 'IhtMethod',
         otherwise: 'ForeignDeathCertTranslation'

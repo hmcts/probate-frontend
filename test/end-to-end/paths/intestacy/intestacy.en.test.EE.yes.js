@@ -125,7 +125,7 @@ languages.forEach(language => {
 
         // Thank You
         await I.seeThankYouPage(language);
-    }).tag('@unused')
+    }).tag('@e2e')
         .retry(TestConfigurator.getRetryScenarios());
 
     Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - GOP -Intestacy Child Journey - Paper iht, no death certificate uploaded and spouse renouncing`), async ({I}) => {
@@ -225,6 +225,6 @@ languages.forEach(language => {
 
         // Thank You
         await I.seeThankYouPage(language);
-    }).tag('@unused')
+    }).tag('@e2e')
         .retry(TestConfigurator.getRetryScenarios());
 });

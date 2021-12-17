@@ -77,8 +77,6 @@ languages.forEach(language => {
         await I.selectForm(language, optionYes);
         await I.enterProbateEstateValues(language, 400000, 400000);
 
-        await I.selectAssetsOutsideEnglandWales(language, optionYes);
-        await I.enterValueAssetsOutsideEnglandWales(language, '400000');
         await I.selectDeceasedAlias(language, optionNo);
         await I.selectDeceasedMaritalStatus(language, maritalStatusMarried);
 

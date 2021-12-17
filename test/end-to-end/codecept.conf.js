@@ -8,7 +8,7 @@ exports.config = {
             url: testConfig.TestE2EFrontendUrl,
             waitForTimeout: 120000,
             getPageTimeout: 120000,
-            show: testConfig.TestShowBrowser,
+            show: true,
             chrome: {
                 ignoreHTTPSErrors: true,
                 'ignore-certificate-errors': true,
@@ -17,7 +17,7 @@ exports.config = {
                     height: 960
                 },
                 args: [
-                    '--headless', '--disable-gpu', '--no-sandbox', '--allow-running-insecure-content', '--ignore-certificate-errors', '--disable-dev-shm-usage',
+                    '--disable-gpu', '--no-sandbox', '--allow-running-insecure-content', '--ignore-certificate-errors', '--disable-dev-shm-usage',
                     //'--proxy-server=proxyout.reform.hmcts.net:8080',
                     //'--proxy-bypass-list=*beta*LB.reform.hmcts.net',
                     '--window-size=1440,1400'

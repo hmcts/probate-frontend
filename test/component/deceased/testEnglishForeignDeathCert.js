@@ -5,6 +5,7 @@ const IhtMethod = require('app/steps/ui/iht/method');
 const ForeignDeathCertTranslation = require('app/steps/ui/deceased/foreigndeathcerttranslation');
 const IhtEstateValued = require('app/steps/ui/iht/estatevalued');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes = require('app/utils/CaseTypes');
 
 describe('english-foreign-death-cert', () => {
     let testWrapper;
@@ -113,6 +114,20 @@ describe('english-foreign-death-cert', () => {
                 englishForeignDeathCert: 'optionNo'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForForeignDeathCertTranslation);
+        });
+
+        it(`test it redirects to estate valued for EE FT on and foreign death certificate in eng INTESTACY: ${expectedNextUrlForEstateValued}`, (done) => {
+            testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_excepted_estates: true});
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
+                .end(() => {
+                    const data = {
+                        'dod-date': '2022-01-01',
+                        englishForeignDeathCert: 'optionYes'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
+                });
         });
     });
 });

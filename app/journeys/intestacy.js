@@ -75,6 +75,21 @@ const stepList = {
         otherwise: 'EnglishForeignDeathCert'
     },
     DeathCertificateInterim: 'IhtMethod',
+    IhtEstateValued: {
+        ihtEstateFormsCompleted: 'IhtEstateForm',
+        otherwise: 'IhtEstateValues',
+    },
+    IhtEstateForm: 'ProbateEstateValues',
+    IhtEstateValues: {
+        netQualifyingValueWithinRange: 'DeceasedHadLateSpouseOrCivilPartner',
+        otherwise: 'ProbateEstateValues'
+    },
+    DeceasedHadLateSpouseOrCivilPartner: {
+        deceasedHadLateSpouseOrCivilPartner: 'IhtUnusedAllowanceClaimed',
+        otherwise: 'ProbateEstateValues'
+    },
+    IhtUnusedAllowanceClaimed: 'ProbateEstateValues',
+    ProbateEstateValues: 'AssetsOutside',
     EnglishForeignDeathCert: {
         foreignDeathCertIsInEnglish: 'IhtMethod',
         otherwise: 'ForeignDeathCertTranslation'

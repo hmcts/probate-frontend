@@ -60,6 +60,7 @@ class Documents extends ValidationStep {
         }
 
         ctx.is205 = formdata.iht && formdata.iht.method === 'optionPaper' && formdata.iht.form === 'optionIHT205';
+        ctx.is207 = formdata.iht && ((formdata.iht.method === 'optionPaper' && formdata.iht.form === 'optionIHT207') || (formdata.iht.ihtFormEstateId === 'optionIHT207'));
         ctx.ccdReferenceNumber = FormatCcdCaseId.format(formdata.ccdCase);
 
         return [ctx];

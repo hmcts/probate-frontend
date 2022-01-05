@@ -33,6 +33,9 @@
   {% if (fields.is205.value === "true") %}
     {% set checklistItems = (checklistItems.push(content["checklist-item7-iht205"]), checklistItems) %}
     {% endif %}
+  {% if (fields.is207.value === "true") %}
+    {% set checklistItems = (checklistItems.push(content["checklist-item10-iht207"]), checklistItems) %}
+  {% endif %}
   {% if fields.hasRenunciated.value === "true" %}
     {% set checklistItems = (checklistItems.push(content["checklist-item8-renunciated"] | replace("{renunciationFormLink}", globals.links.renunciationForm)), checklistItems) %}
   {% endif %}
@@ -60,6 +63,9 @@
   {% endif %}
   {% if (fields.is205.value === "true") %}
     {% set checklistItems = (checklistItems.push(content["checklist-item7-iht205"]), checklistItems) %}
+  {% endif %}
+  {% if (fields.is207.value === "true") %}
+    {% set checklistItems = (checklistItems.push(content["checklist-item10-iht207"]), checklistItems) %}
   {% endif %}
 {% endif %}
 

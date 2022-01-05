@@ -92,6 +92,70 @@ describe('Documents', () => {
                 done();
             });
 
+            it('should return true when iht method is paper and iht form is IHT207', (done) => {
+                const formdata = {
+                    iht: {
+                        method: 'optionPaper',
+                        form: 'optionIHT207'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.is207).to.equal(true);
+                done();
+            });
+
+            it('should return false when iht method is paper and iht form is not IHT207', (done) => {
+                const formdata = {
+                    iht: {
+                        method: 'optionPaper',
+                        form: 'optionIHT205'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.is207).to.equal(false);
+                done();
+            });
+
+            it('should return false when iht method is not paper', (done) => {
+                const formdata = {
+                    iht: {
+                        method: 'optionOnline'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.is207).to.equal(false);
+                done();
+            });
+
+            it('should return true when iht estate form is IHT207', (done) => {
+                const formdata = {
+                    iht: {
+                        ihtFormEstateId: 'optionIHT207'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.is207).to.equal(true);
+                done();
+            });
+
+            it('should return false when iht estate form is not IHT207', (done) => {
+                const formdata = {
+                    iht: {
+                        ihtFormEstateId: 'optionIHT400421'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.is207).to.equal(false);
+                done();
+            });
+
+            it('should return undefined when iht data is not given', (done) => {
+                const formdata = {};
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                assert.isUndefined(ctx.is207);
+                done();
+            });
+
             it('should return the ccd case id when a ccd case id is given', (done) => {
                 const formdata = {
                     ccdCase: {

@@ -58,7 +58,7 @@ languages.forEach(language => {
         await I.chooseBiLingualGrant(language, optionNo);
         await I.enterDeceasedName(language, 'Deceased First Name', 'Deceased Last Name');
         await I.enterDeceasedDateOfBirth(language, '01', '01', '1950');
-        await I.enterDeceasedDateOfDeath(language, '02', '01', '2021');
+        await I.enterDeceasedDateOfDeath(language, '02', '01', '2022');
         await I.enterDeceasedAddress(language);
 
         await I.selectDiedEngOrWales(language, optionNo);

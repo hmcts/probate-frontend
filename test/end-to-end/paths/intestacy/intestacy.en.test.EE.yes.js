@@ -66,7 +66,7 @@ languages.forEach(language => {
         // Deceased Task
         await I.selectATask(language, taskListContent.taskNotStarted);
         await I.chooseBiLingualGrant(language, optionNo);
-        await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '02', '01', '2021');
+        await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '02', '01', '2022');
         await I.enterDeceasedAddress(language);
 
         await I.selectDiedEngOrWales(language, optionNo);
@@ -167,7 +167,7 @@ languages.forEach(language => {
         // Deceased Task
         await I.selectATask(language, taskListContent.taskNotStarted);
         await I.chooseBiLingualGrant(language, optionNo);
-        await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '02', '01', '2021');
+        await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '02', '01', '2022');
         await I.enterDeceasedAddress(language);
 
         await I.selectDiedEngOrWales(language, optionNo);

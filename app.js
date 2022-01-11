@@ -59,6 +59,11 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             .setAutoCollectConsole(true, true)
             .start();
         appInsights.defaultClient.trackTrace({message: 'App insights activated'});
+        console.log('App insights activated');
+    }
+    else
+    {
+        console.log('App insights not activated');
     }
 
     // Authenticate against the environment-provided credentials, if running

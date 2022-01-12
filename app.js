@@ -61,8 +61,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         appInsights.defaultClient.trackTrace({message: 'App insights activated'});
         console.log('App insights activated');
     }
-    else
-    {
+    else {
         console.log('App insights not activated');
     }
 

@@ -102,6 +102,9 @@
   "errors": {
     "declarationCheckbox": {
       "required": "Tick the check box to agree to the declaration"
+    },
+    "businessError": {
+      "validationError": "There was a problem saving your application"
     }
   }
 }

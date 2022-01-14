@@ -102,6 +102,9 @@
   "errors": {
     "declarationCheckbox": {
       "required": "Ticiwch y blwch i gytuno i&rsquo;r datganiad"
+    },
+    "businessError": {
+      "validationError": "Roedd problem wrth geisio arbed eich cais"
     }
   }
 }

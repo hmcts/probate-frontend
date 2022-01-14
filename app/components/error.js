@@ -7,9 +7,9 @@ const init18next = require('app/core/initSteps').initI18Next;
 const FieldError = (param, keyword, resourcePath, contentCtx = {}, language = 'en') => {
     if (!i18next.isInitialized) {
         init18next();
-        i18next.changeLanguage(language);
     }
 
+    i18next.changeLanguage(language);
     const key = `errors.${param}.${keyword}`;
     const errorPath = `${resourcePath.replace('/', '.')}.${key}`;
 

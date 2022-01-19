@@ -16,6 +16,38 @@ describe('Executors.js', () => {
         };
     });
 
+    describe('executorsEmails', () => {
+        describe('should return true if email already used for another executor', () => {
+            const data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {fullname: 'ed brown', email: 'ed.brown@test.com'},
+                    {fullname: 'jake smith', email: 'jake.smith@test.com'},
+                    {fullname: 'bob smith'}
+                ]
+            };
+
+            it('should return true if email is already used for another executor', (done) => {
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorEmailAlreadyUsed('jake.smith@test.com')).to.deep.equal(true);
+                done();
+            });
+
+            it('should be case insensitive', (done) => {
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorEmailAlreadyUsed('JAKE.SMITH@TEST.COM')).to.deep.equal(true);
+                done();
+            });
+
+            it('should return false if email is not already used for another executor', (done) => {
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorEmailAlreadyUsed('ed.smith@test.com')).to.deep.equal(false);
+                done();
+            });
+        });
+
+    });
+
     describe('executors()', () => {
         describe('should return a list of executors', () => {
             it('including the applicant when the excludeApplicant flag is not set', (done) => {

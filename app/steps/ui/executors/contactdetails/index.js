@@ -51,6 +51,10 @@ class ExecutorContactDetails extends ValidationStep {
             errors.push(FieldError('mobile', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
+        if (executorsWrapper.executorPhoneNumberAlreadyUsed(ctx.mobile, executor.fullName)) {
+            errors.push(FieldError('mobile', 'duplicate', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        }
+
         if (ctx.email !== executor.email && executor.emailSent) {
             executor.emailChanged = true;
         }

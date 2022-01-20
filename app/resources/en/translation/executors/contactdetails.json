@@ -4,7 +4,7 @@
   "questionHint": "This executor will be contacted and asked to confirm details of the estate.",
   "email": "Email address",
   "mobile": "Mobile phone number",
-  "mobileHint": "For example, 07900123456 or +33123456789",
+  "mobileHint": "This must be the executor&rsquo;s own mobile phone number. For example, 07900123456 or +33123456789",
 
   "errors": {
     "email": {
@@ -13,7 +13,8 @@
     },
     "mobile": {
       "required": "Enter a mobile phone number",
-      "invalid": "Enter a mobile phone number without spaces, international numbers must start with a plus sign"
+      "invalid": "Enter a mobile phone number without spaces, international numbers must start with a plus sign",
+      "duplicate": "You have used this mobile phone number for another executor"
     }
   }
 }

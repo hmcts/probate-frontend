@@ -21,11 +21,12 @@ class Executors {
         return this.executorsList.filter(executor => !executor.isApplying);
     }
 
-    executorPhoneNumberAlreadyUsed(mobile, fullName) {
-        return this.executorsList
-            .filter(executor => executor.mobile)
-            .filter(executor => executor.fullName !== fullName)
-            .some(executor => executor.mobile.slice(-10) === mobile.slice(-10));
+    executorPhoneNumberAlreadyUsed(mobile, fullName, applicantPhoneNumber = '') {
+        return applicantPhoneNumber.slice(-10) === mobile.slice(-10) ||
+            this.executorsList
+                .filter(executor => executor.mobile)
+                .filter(executor => executor.fullName !== fullName)
+                .some(executor => executor.mobile.slice(-10) === mobile.slice(-10));
     }
 
     hasMultipleApplicants() {

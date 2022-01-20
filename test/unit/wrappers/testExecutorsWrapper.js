@@ -29,31 +29,43 @@ describe('Executors.js', () => {
 
             it('should return true if phone number is already used for another executor', (done) => {
                 const executorsWrapper = new ExecutorsWrapper(data);
-                expect(executorsWrapper.executorPhoneNumberAlreadyUsed('07800123456', 'bob smith')).to.deep.equal(true);
+                expect(executorsWrapper.executorPhoneNumberAlreadyUsed('07800123456', 'bob smith', '07123456789')).to.deep.equal(true);
+                done();
+            });
+
+            it('should compare international and national formats', (done) => {
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorPhoneNumberAlreadyUsed('+447800123456', 'bob smith', '07123456789')).to.deep.equal(true);
+                done();
+            });
+
+            it('should return true if phone number is already used for primary applicant', (done) => {
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorPhoneNumberAlreadyUsed('07123456789', 'bob smith', '07123456789')).to.deep.equal(true);
+                done();
+            });
+
+            it('should return true if phone number is already used for primary applicant international format', (done) => {
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorPhoneNumberAlreadyUsed('447123456789', 'bob smith', '07123456789')).to.deep.equal(true);
                 done();
             });
 
             it('should compare national and international formats', (done) => {
                 const executorsWrapper = new ExecutorsWrapper(data);
-                expect(executorsWrapper.executorPhoneNumberAlreadyUsed('+447800123456', 'bob smith')).to.deep.equal(true);
-                done();
-            });
-
-            it('should compare national and international formats', (done) => {
-                const executorsWrapper = new ExecutorsWrapper(data);
-                expect(executorsWrapper.executorPhoneNumberAlreadyUsed('07900123456', 'bob smith')).to.deep.equal(true);
+                expect(executorsWrapper.executorPhoneNumberAlreadyUsed('07900123456', 'bob smith', '07123456789')).to.deep.equal(true);
                 done();
             });
 
             it('should return false if phone number is not already used for another executor', (done) => {
                 const executorsWrapper = new ExecutorsWrapper(data);
-                expect(executorsWrapper.executorPhoneNumberAlreadyUsed('07777123456', 'bob smith')).to.deep.equal(false);
+                expect(executorsWrapper.executorPhoneNumberAlreadyUsed('07777123456', 'bob smith', '07123456789')).to.deep.equal(false);
                 done();
             });
 
             it('should exclude current executor', (done) => {
                 const executorsWrapper = new ExecutorsWrapper(data);
-                expect(executorsWrapper.executorPhoneNumberAlreadyUsed('07800123456', 'ed brown')).to.deep.equal(false);
+                expect(executorsWrapper.executorPhoneNumberAlreadyUsed('07800123456', 'ed brown', '07123456789')).to.deep.equal(false);
                 done();
             });
         });

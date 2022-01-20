@@ -27,7 +27,10 @@ describe('Contact-Details', () => {
                 properties: {}
             };
             formdata = {
-                caseType: 'gop'
+                caseType: 'gop',
+                applicant: {
+                    phoneNumber: '07900123456'
+                }
             };
             ctx = {
                 executorsNumber: 3,

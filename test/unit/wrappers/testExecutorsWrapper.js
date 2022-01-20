@@ -11,7 +11,7 @@ describe('Executors.js', () => {
         data = {
             list: [
                 {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                {fullname: 'ed brown', isApplying: true}
+                {fullName: 'ed brown', isApplying: true}
             ]
         };
     });
@@ -21,27 +21,33 @@ describe('Executors.js', () => {
             const data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullname: 'ed brown', email: 'ed.brown@test.com'},
-                    {fullname: 'jake smith', email: 'jake.smith@test.com'},
-                    {fullname: 'bob smith'}
+                    {fullName: 'ed brown', email: 'ed.brown@test.com'},
+                    {fullName: 'jake smith', email: 'jake.smith@test.com'},
+                    {fullName: 'bob smith'}
                 ]
             };
 
             it('should return true if email is already used for another executor', (done) => {
                 const executorsWrapper = new ExecutorsWrapper(data);
-                expect(executorsWrapper.executorEmailAlreadyUsed('jake.smith@test.com')).to.deep.equal(true);
+                expect(executorsWrapper.executorEmailAlreadyUsed('jake.smith@test.com', 'ed brown')).to.deep.equal(true);
                 done();
             });
 
             it('should be case insensitive', (done) => {
                 const executorsWrapper = new ExecutorsWrapper(data);
-                expect(executorsWrapper.executorEmailAlreadyUsed('JAKE.SMITH@TEST.COM')).to.deep.equal(true);
+                expect(executorsWrapper.executorEmailAlreadyUsed('JAKE.SMITH@TEST.COM', 'ed brown')).to.deep.equal(true);
                 done();
             });
 
             it('should return false if email is not already used for another executor', (done) => {
                 const executorsWrapper = new ExecutorsWrapper(data);
-                expect(executorsWrapper.executorEmailAlreadyUsed('ed.smith@test.com')).to.deep.equal(false);
+                expect(executorsWrapper.executorEmailAlreadyUsed('bob.smith@test.com', 'bob smith')).to.deep.equal(false);
+                done();
+            });
+
+            it('should exclude current executor', (done) => {
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorEmailAlreadyUsed('ed.brown@test.com', 'ed brown')).to.deep.equal(false);
                 done();
             });
         });
@@ -99,7 +105,7 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullname: 'ed brown', isApplying: false, notApplyingKey: 'optionPowerReserved'}
+                    {fullName: 'ed brown', isApplying: false, notApplyingKey: 'optionPowerReserved'}
                 ]
             };
         });
@@ -145,7 +151,7 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullname: 'ed brown', isApplying: false, notApplyingKey: 'optionRenunciated'}
+                    {fullName: 'ed brown', isApplying: false, notApplyingKey: 'optionRenunciated'}
                 ]
             };
         });
@@ -171,8 +177,8 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullname: 'ed brown', isApplying: false, notApplyingKey: 'optionPowerReserved'},
-                    {fullname: 'jake smith', isApplying: false, notApplyingKey: 'optionRenunciated'}
+                    {fullName: 'ed brown', isApplying: false, notApplyingKey: 'optionPowerReserved'},
+                    {fullName: 'jake smith', isApplying: false, notApplyingKey: 'optionRenunciated'}
                 ]
             };
         });
@@ -286,7 +292,7 @@ describe('Executors.js', () => {
         beforeEach(() => {
             data = {
                 list: [
-                    {fullname: 'ed brown', isDead: true}
+                    {fullName: 'ed brown', isDead: true}
                 ]
             };
         });
@@ -309,7 +315,7 @@ describe('Executors.js', () => {
         beforeEach(() => {
             data = {
                 list: [
-                    {fullname: 'James Miller', hasOtherName: true}
+                    {fullName: 'James Miller', hasOtherName: true}
                 ]
             };
         });
@@ -342,8 +348,8 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullname: 'ed brown', isApplying: true},
-                    {fullname: 'jake smith', isDead: true}
+                    {fullName: 'ed brown', isApplying: true},
+                    {fullName: 'jake smith', isDead: true}
                 ]
             };
         });
@@ -376,8 +382,8 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullname: 'ed brown', hasOtherName: true},
-                    {fullname: 'jake smith', has: true}
+                    {fullName: 'ed brown', hasOtherName: true},
+                    {fullName: 'jake smith', has: true}
                 ]
             };
         });
@@ -385,7 +391,7 @@ describe('Executors.js', () => {
         it('should return a list of executors with another name', (done) => {
             const executorsWrapper = new ExecutorsWrapper(data);
             expect(executorsWrapper.executorsWithAnotherName()).to.deep.equal([
-                {fullname: 'ed brown', hasOtherName: true}
+                {fullName: 'ed brown', hasOtherName: true}
             ]);
             done();
         });
@@ -412,9 +418,9 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullname: 'ed brown', hasOtherName: true},
-                    {fullname: 'jake smith', emailChanged: true},
-                    {fullname: 'bob smith'}
+                    {fullName: 'ed brown', hasOtherName: true},
+                    {fullName: 'jake smith', emailChanged: true},
+                    {fullName: 'bob smith'}
                 ]
             };
         });
@@ -454,9 +460,9 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullname: 'ed brown', hasOtherName: true},
-                    {fullname: 'jake smith', emailChanged: true},
-                    {fullname: 'bob smith'}
+                    {fullName: 'ed brown', hasOtherName: true},
+                    {fullName: 'jake smith', emailChanged: true},
+                    {fullName: 'bob smith'}
                 ]
             };
         });
@@ -464,7 +470,7 @@ describe('Executors.js', () => {
         it('should return a list with a single executor when only one executor email has changed', (done) => {
             const executorsWrapper = new ExecutorsWrapper(data);
             expect(executorsWrapper.executorsEmailChangedList()).to.deep.equal([
-                {fullname: 'jake smith', emailChanged: true}
+                {fullName: 'jake smith', emailChanged: true}
             ]);
             done();
         });
@@ -473,8 +479,8 @@ describe('Executors.js', () => {
             data.list[3].emailChanged = true;
             const executorsWrapper = new ExecutorsWrapper(data);
             expect(executorsWrapper.executorsEmailChangedList()).to.deep.equal([
-                {fullname: 'jake smith', emailChanged: true},
-                {fullname: 'bob smith', emailChanged: true}
+                {fullName: 'jake smith', emailChanged: true},
+                {fullName: 'bob smith', emailChanged: true}
             ]);
             done();
         });
@@ -501,9 +507,9 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullname: 'ed brown', hasOtherName: true},
-                    {fullname: 'jake smith', emailChanged: true},
-                    {fullname: 'bob smith'}
+                    {fullName: 'ed brown', hasOtherName: true},
+                    {fullName: 'jake smith', emailChanged: true},
+                    {fullName: 'bob smith'}
                 ]
             };
         });
@@ -512,9 +518,9 @@ describe('Executors.js', () => {
             const executorsWrapper = new ExecutorsWrapper(data);
             expect(executorsWrapper.removeExecutorsEmailChangedFlag()).to.deep.equal([
                 {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                {fullname: 'ed brown', hasOtherName: true},
-                {fullname: 'jake smith'},
-                {fullname: 'bob smith'}
+                {fullName: 'ed brown', hasOtherName: true},
+                {fullName: 'jake smith'},
+                {fullName: 'bob smith'}
             ]);
             done();
         });
@@ -524,9 +530,9 @@ describe('Executors.js', () => {
             const executorsWrapper = new ExecutorsWrapper(data);
             expect(executorsWrapper.removeExecutorsEmailChangedFlag()).to.deep.equal([
                 {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                {fullname: 'ed brown', hasOtherName: true},
-                {fullname: 'jake smith'},
-                {fullname: 'bob smith'}
+                {fullName: 'ed brown', hasOtherName: true},
+                {fullName: 'jake smith'},
+                {fullName: 'bob smith'}
             ]);
             done();
         });
@@ -536,9 +542,9 @@ describe('Executors.js', () => {
             const executorsWrapper = new ExecutorsWrapper(data);
             expect(executorsWrapper.removeExecutorsEmailChangedFlag()).to.deep.equal([
                 {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                {fullname: 'ed brown', hasOtherName: true},
-                {fullname: 'jake smith'},
-                {fullname: 'bob smith'}
+                {fullName: 'ed brown', hasOtherName: true},
+                {fullName: 'jake smith'},
+                {fullName: 'bob smith'}
             ]);
             done();
         });
@@ -558,9 +564,9 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullname: 'ed brown', isApplying: true, emailSent: true},
-                    {fullname: 'jake smith', isApplying: true, emailSent: false},
-                    {fullname: 'bob smith', isApplying: true, emailSent: true}
+                    {fullName: 'ed brown', isApplying: true, emailSent: true},
+                    {fullName: 'jake smith', isApplying: true, emailSent: false},
+                    {fullName: 'bob smith', isApplying: true, emailSent: true}
                 ]
             };
         });
@@ -602,9 +608,9 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullname: 'ed brown', isApplying: true, emailSent: true},
-                    {fullname: 'jake smith', isApplying: true, emailSent: false},
-                    {fullname: 'bob smith', isApplying: true, emailSent: true}
+                    {fullName: 'ed brown', isApplying: true, emailSent: true},
+                    {fullName: 'jake smith', isApplying: true, emailSent: false},
+                    {fullName: 'bob smith', isApplying: true, emailSent: true}
                 ]
             };
         });
@@ -612,7 +618,7 @@ describe('Executors.js', () => {
         it('should return a list with only a single executor', (done) => {
             const executorsWrapper = new ExecutorsWrapper(data);
             expect(executorsWrapper.executorsToNotify()).to.deep.equal([
-                {fullname: 'jake smith', isApplying: true, emailSent: false}
+                {fullName: 'jake smith', isApplying: true, emailSent: false}
             ]);
             done();
         });
@@ -621,8 +627,8 @@ describe('Executors.js', () => {
             data.list[3].emailSent = false;
             const executorsWrapper = new ExecutorsWrapper(data);
             expect(executorsWrapper.executorsToNotify()).to.deep.equal([
-                {fullname: 'jake smith', isApplying: true, emailSent: false},
-                {fullname: 'bob smith', isApplying: true, emailSent: false}
+                {fullName: 'jake smith', isApplying: true, emailSent: false},
+                {fullName: 'bob smith', isApplying: true, emailSent: false}
             ]);
             done();
         });

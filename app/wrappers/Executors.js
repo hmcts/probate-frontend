@@ -21,9 +21,10 @@ class Executors {
         return this.executorsList.filter(executor => !executor.isApplying);
     }
 
-    executorEmailAlreadyUsed(email) {
+    executorEmailAlreadyUsed(email, fullName) {
         return this.executorsList
             .filter(executor => executor.email)
+            .filter(executor => executor.fullName !== fullName)
             .some(executor => executor.email.toLowerCase() === email.toLowerCase());
     }
 

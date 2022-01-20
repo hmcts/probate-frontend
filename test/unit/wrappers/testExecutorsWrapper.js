@@ -29,25 +29,37 @@ describe('Executors.js', () => {
 
             it('should return true if email is already used for another executor', (done) => {
                 const executorsWrapper = new ExecutorsWrapper(data);
-                expect(executorsWrapper.executorEmailAlreadyUsed('jake.smith@test.com', 'ed brown')).to.deep.equal(true);
+                expect(executorsWrapper.executorEmailAlreadyUsed('jake.smith@test.com', 'bob smith', 'applicant.email@test.com')).to.deep.equal(true);
                 done();
             });
 
             it('should be case insensitive', (done) => {
                 const executorsWrapper = new ExecutorsWrapper(data);
-                expect(executorsWrapper.executorEmailAlreadyUsed('JAKE.SMITH@TEST.COM', 'ed brown')).to.deep.equal(true);
+                expect(executorsWrapper.executorEmailAlreadyUsed('JAKE.SMITH@TEST.COM', 'bob smith', 'applicant.email@test.com')).to.deep.equal(true);
+                done();
+            });
+
+            it('should return true if email is already used for primary applicant', (done) => {
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorEmailAlreadyUsed('applicant.email@test.com', 'bob smith', 'applicant.email@test.com')).to.deep.equal(true);
+                done();
+            });
+
+            it('should return true if email is already used for primary applicant', (done) => {
+                const executorsWrapper = new ExecutorsWrapper(data);
+                expect(executorsWrapper.executorEmailAlreadyUsed('APPLICANT.EMAIL@TEST.COM', 'bob smith', 'applicant.email@test.com')).to.deep.equal(true);
                 done();
             });
 
             it('should return false if email is not already used for another executor', (done) => {
                 const executorsWrapper = new ExecutorsWrapper(data);
-                expect(executorsWrapper.executorEmailAlreadyUsed('bob.smith@test.com', 'bob smith')).to.deep.equal(false);
+                expect(executorsWrapper.executorEmailAlreadyUsed('bob.smith@test.com', 'bob smith', 'applicant.email@test.com')).to.deep.equal(false);
                 done();
             });
 
             it('should exclude current executor', (done) => {
                 const executorsWrapper = new ExecutorsWrapper(data);
-                expect(executorsWrapper.executorEmailAlreadyUsed('ed.brown@test.com', 'ed brown')).to.deep.equal(false);
+                expect(executorsWrapper.executorEmailAlreadyUsed('ed.brown@test.com', 'ed brown', 'applicant.email@test.com')).to.deep.equal(false);
                 done();
             });
         });

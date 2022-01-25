@@ -16,18 +16,21 @@
         "estateGrossValueField": {
             "required": "Enter the gross amount",
             "invalid": "Enter a valid gross amount",
-            "invalidCurrencyFormat": "Gross value must be a whole number or a number with 2 decimal places"
+            "invalidCurrencyFormat": "Gross value must be a whole number or a number with 2 decimal places",
+            "invalidInteger": "The gross value must be a whole number and must not include decimals, full stops or commas. For example, 6000"
         },
         "estateNetValueField": {
             "required": "Enter the net amount",
             "invalid": "Enter a valid net amount",
             "invalidCurrencyFormat": "Net value must be a whole number or a number with 2 decimal places",
-            "netValueGreaterThanGross": "The net amount can&rsquo;t be greater than the gross amount"
+            "netValueGreaterThanGross": "The net amount can&rsquo;t be greater than the gross amount",
+            "invalidInteger": "The net value must be a whole number and must not include decimals, full stops or commas. For example, 6000"
         },
         "estateNetQualifyingValueField": {
             "required": "Enter the net amount",
             "invalid": "Enter a valid net amount",
-            "invalidCurrencyFormat": "Net qualifying value must be a whole number or a number with 2 decimal places"
+            "invalidCurrencyFormat": "Net qualifying value must be a whole number or a number with 2 decimal places",
+            "invalidInteger": "The net qualifying value must be a whole number and must not include decimals, full stops or commas. For example, 6000"
         }
     }
 }

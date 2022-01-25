@@ -15,18 +15,21 @@
         "estateGrossValueField": {
             "required": "Nodwch y swm gros",
             "invalid": "Nodwch swm gros dilys",
-            "invalidCurrencyFormat": "Rhaid i&rsquo;r swm gros fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
+            "invalidCurrencyFormat": "Rhaid i&rsquo;r swm gros fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol",
+            "invalidInteger": "The gross value must be a whole number and must not include decimals, full stops or commas. For example, 6000"
         },
         "estateNetValueField": {
             "required": "Nodwch y swm net",
             "invalid": "Nodwch swm net dilys",
             "invalidCurrencyFormat": "Rhaid i&rsquo;r swm net fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol",
-            "netValueGreaterThanGross": "Ni all y swm net fod yn fwy na&rsquo;r swm gros"
+            "netValueGreaterThanGross": "Ni all y swm net fod yn fwy na&rsquo;r swm gros",
+            "invalidInteger": "The net value must be a whole number and must not include decimals, full stops or commas. For example, 6000"
         },
         "estateNetQualifyingValueField": {
             "required": "Nodwch y swm net",
             "invalid": "Nodwch swm net dilys",
-            "invalidCurrencyFormat": "Rhaid i&rsquo;r swm net cymwys fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol"
+            "invalidCurrencyFormat": "Rhaid i&rsquo;r swm net cymwys fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol",
+            "invalidInteger": "The net qualifying value must be a whole number and must not include decimals, full stops or commas. For example, 6000"
         }
     }
 }

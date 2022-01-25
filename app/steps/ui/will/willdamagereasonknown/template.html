@@ -1,0 +1,60 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+{% block form_content %}
+
+    {% set descriptionHtml %}
+        {{ govukTextarea({
+            name: "willDamageReasonDescription",
+            id: "willDamageReasonDescription",
+            label: {
+                text: content["willDamageReasonDescriptionTitle"] | safe,
+                classes: "govuk-label--s",
+                isPageHeading: false
+            },
+            hint: {
+                text: content["willDamageReasonDescriptionHint"] | safe
+            },
+            value: fields.willDamageReasonDescription.value
+        }) }}
+    {% endset -%}
+
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "willDamageReasonKnown",
+        name: "willDamageReasonKnown",
+        fieldset: {
+            legend: {
+                text: content.question,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: { text: fields.willDamageReasonKnown.errorMessage | safe } if fields.willDamageReasonKnown.errorMessage,
+        items: [
+            {
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.willDamageReasonKnown.value == "optionYes",
+                conditional: {
+                    html: descriptionHtml
+                }
+            },
+            {
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.willDamageReasonKnown.value == "optionNo"
+            }
+        ]
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

@@ -1,11 +1,22 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
+const JourneyMap = require('app/core/JourneyMap');
+const featureToggle = require('app/utils/FeatureToggle');
 
 class CodicilsNumber extends ValidationStep {
 
     static getUrl() {
         return '/codicils-number';
+    }
+
+    next(req, ctx) {
+        const journeyMap = new JourneyMap(req.session.journey);
+        if (featureToggle.isEnabled(req.session.featureToggles, 'ft_will_condition')) {
+            return journeyMap.nextStep(this, ctx);
+        }
+
+        return journeyMap.getNextStepByName('TaskList');
     }
 
     getContextData(req) {

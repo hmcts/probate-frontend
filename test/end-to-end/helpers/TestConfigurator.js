@@ -59,7 +59,7 @@ class TestConfigurator {
 
     setTestCitizenName() {
         this.testCitizenName = randomstring.generate({
-            length: 36,
+            length: 24,
             charset: 'alphabetic'
         });
     }

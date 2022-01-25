@@ -55,7 +55,12 @@ class Documents extends ValidationStep {
             ctx.spouseRenouncing = formdata.deceased.maritalStatus === 'optionMarried' && (formdata.applicant.relationshipToDeceased === 'optionChild' || formdata.applicant.relationshipToDeceased === 'optionAdoptedChild');
         }
 
+        if (formdata.will && formdata.will.deceasedWrittenWishes) {
+            ctx.deceasedWrittenWishes = formdata.will.deceasedWrittenWishes;
+        }
+
         ctx.is205 = formdata.iht && formdata.iht.method === 'optionPaper' && formdata.iht.form === 'optionIHT205';
+        ctx.is207 = formdata.iht && ((formdata.iht.method === 'optionPaper' && formdata.iht.form === 'optionIHT207') || (formdata.iht.ihtFormEstateId === 'optionIHT207'));
         ctx.ccdReferenceNumber = FormatCcdCaseId.format(formdata.ccdCase);
 
         return [ctx];

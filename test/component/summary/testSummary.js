@@ -7,16 +7,13 @@ describe('summary', () => {
     let testWrapper;
     const expectedNextUrlForTaskList = TaskList.getUrl();
 
-    beforeEach(() => {
-        testWrapper = new TestWrapper('Summary');
-    });
-
     afterEach(() => {
         testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page and documents uploaded', (done) => {
+            testWrapper = new TestWrapper('Summary', {ft_will_condition: true});
             const sessionData = require('test/data/documentupload');
             sessionData.ccdCase = {
                 state: 'Pending',
@@ -49,6 +46,7 @@ describe('summary', () => {
         });
 
         it('[INTESTACY] test content loaded on the page', (done) => {
+            testWrapper = new TestWrapper('Summary');
             const sessionData = {
                 ccdCase: {
                     state: 'Pending',
@@ -70,7 +68,9 @@ describe('summary', () => {
                 'emailAddress',
                 'uploadedDocumentsHeading',
                 'uploadedDocumentsEmpty',
-                'applicantHeading'
+                'applicantHeading',
+                'willConditionHeading',
+                'codicilsConditionHeading'
             ];
 
             testWrapper.agent.post('/prepare-session/form')

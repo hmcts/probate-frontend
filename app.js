@@ -329,6 +329,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         if (ftValue) {
             res.locals.launchDarkly.ftValue = ftValue;
         }
+
         next();
     });
 

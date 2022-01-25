@@ -34,7 +34,13 @@ languages.forEach(language => {
             await I.selectDeathCertificateInEnglish(language, optionNo);
             await I.selectDeathCertificateTranslation(language, optionYes);
             await I.selectDeceasedDomicile(language);
-            await I.selectIhtCompleted(language, optionYes);
+            const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
+            if (isEEEnabled) {
+                await I.selectEEDeceasedDod(language);
+                await I.selectEEvalue(language);
+            } else {
+                await I.selectIhtCompleted(language, optionYes);
+            }
             await I.selectPersonWhoDiedLeftAWill(language, optionYes);
             await I.selectOriginalWill(language, optionYes);
             await I.selectApplicantIsExecutor(language, optionYes);
@@ -81,7 +87,24 @@ languages.forEach(language => {
 
             await I.selectDeceasedAlias(language, optionNo);
             await I.selectDeceasedMarriedAfterDateOnWill(language, optionNo);
-            await I.selectWillCodicils(language, optionNo);
+            const isWillConditionEnabled = await TestConfigurator.checkFeatureToggle('probate-will-condition');
+            if (isWillConditionEnabled) {
+                await I.selectWillDamage(language, optionYes, 'test');
+                await I.selectWillDamageReason(language, optionYes, 'test');
+                await I.selectWillDamageWho(language, optionYes, 'test', 'test');
+                await I.selectWillDamageDate(language, optionYes, 2017);
+            }
+
+            await I.selectWillCodicils(language, optionYes);
+            await I.selectWillNoOfCodicils(language, 1);
+
+            if (isWillConditionEnabled) {
+                await I.selectCodicilsDamage(language, optionYes, 'test');
+                await I.selectCodicilsReason(language, optionYes, 'test');
+                await I.selectCodicilsWho(language, optionYes, 'test', 'test');
+                await I.selectCodicilsDate(language, optionYes, 2000);
+                await I.selectWrittenWishes(language, optionYes, 'test');
+            }
 
             // ExecutorsTask
             await I.selectATask(language, taskListContent.taskNotStarted);

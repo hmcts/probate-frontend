@@ -1,0 +1,31 @@
+{
+  "title": "What are the values of the estate you entered on IHT form?",
+  "question207": "What are the values of the estate you entered on form IHT 207?",
+  "question421": "What are the values of the estate you entered on form IHT 421?",
+  "questionNoIHT": "What are the values of the estate for probate?",
+  "hint207": "<br>You can find these values on the completed IHT 207 form.<br><br><br>",
+  "hint421": "<br>You can find these values on the completed IHT 421 form.<br><br><br>",
+  "grossHint207": "Gross value of estate for probate in the UK in &pound;<br><br>This is the &rsquo;Gross estate in the UK passing under Will&rsquo; on the form",
+  "grossHint421": "Gross value of assets for probate in &pound;",
+  "grossHintNoIHT": "Gross value in &pound;<br><br>This is the total value of the deceased&rsquo;s assets in their sole name.<br>To work this out, subtract the values of any joint assets passing to the other joint owner, foreign assets, all <a target=\"_blank\" rel=\"external noopener\" href=\"https://www.gov.uk/inheritance-tax/gifts\" class=\"govuk-link\" aria-label=\"gifts\">gifts</a> and assets held in trust from the gross value of IHT.",
+  "netHint207": "Net value of the estate for probate in the UK in &pound;",
+  "netHint421": "Net value of the estate for probate in &pound;",
+  "netHintNoIHT": "Net value in &pound;<br><br>To work this out, take the gross value for probate and deduct the total value of the deceased&rsquo;s debts including funeral expenses and any other debts they owe at the time of their death in their sole name.",
+  "poundSymbol": "&pound;",
+  "grossValueSummary": "Gross value for probate in &pound;",
+  "netValueSummary": "Net value for probate in &pound;",
+
+  "errors": {
+    "grossValueField": {
+      "required": "Enter the gross amount",
+      "invalid": "Enter a valid gross amount",
+      "invalidCurrencyFormat": "Gross value must be a whole number or a number with 2 decimal places"
+    },
+    "netValueField": {
+      "required": "Enter the net amount",
+      "invalid": "Enter a valid net amount",
+      "invalidCurrencyFormat": "Net value must be a whole number or a number with 2 decimal places",
+      "netValueGreaterThanGross": "The net amount can&rsquo;t be greater than the gross amount"
+    }
+  }
+}

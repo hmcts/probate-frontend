@@ -1,0 +1,16 @@
+{
+    "title": "Ydych chi’n gwybod pam fod difrod neu farciau gweledol i’r codisiliau?",
+    "question": "Ydych chi’n gwybod pam fod difrod neu farciau gweledol i’r codisiliau?",
+    "optionYes": "Ydw",
+    "optionNo": "Nac ydw",
+    "codicilsDamageReasonDescriptionTitle": "Rheswm dros y difrod neu farciau i’r codisiliau",
+    "codicilsDamageReasonDescriptionHint": "Rhowch cymaint o fanylion ag y gallwch. Gall hyn helpu i leihau unrhyw oedi wrth brosesu eich cais",
+    "errors": {
+        "codicilsDamageReasonKnown": {
+            "required": "Dewiswch &lsquo;Ydw&rsquo; os gwyddoch pam fod unrhyw ddifrod neu farciau gweladwy ar y codisiliau"
+        },
+        "codicilsDamageReasonDescription": {
+            "required": "Nodwch pam fod difrod neu farciau gweladwy i’r codisiliau"
+        }
+    }
+}

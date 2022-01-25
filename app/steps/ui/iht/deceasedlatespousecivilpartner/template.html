@@ -1,0 +1,40 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block form_content %}
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "deceasedHadLateSpouseOrCivilPartner",
+        name: "deceasedHadLateSpouseOrCivilPartner",
+        fieldset: {
+            legend: {
+                text: content.question,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: { text: fields.deceasedHadLateSpouseOrCivilPartner.errorMessage | safe } if fields.deceasedHadLateSpouseOrCivilPartner.errorMessage,
+        items: [
+            {
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.deceasedHadLateSpouseOrCivilPartner.value == "optionYes"
+            },
+            {
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.deceasedHadLateSpouseOrCivilPartner.value == "optionNo"
+            }
+        ]
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

@@ -2,7 +2,8 @@
   "will": {
     "left": "Yes",
     "original": "Yes",
-    "codicils": "No"
+    "codicils": "No",
+    "willHasVisibleDamage": "optionNo"
   },
   "applicant": {
     "executor": "Yes"

@@ -36,23 +36,28 @@
     "test-e2e-http-launch-darkly": "NODE_ENV=testing-http-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep @e2e --reporter mocha-multi",
     "test-e2e-http-launch-darkly-multi-exec": "NODE_ENV=testing-http-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --grep @multiExecE2e --reporter mocha-multi",
     "test-e2e-gop-single-exec-aat": "NODE_ENV=testing-e2e-local-to-aat NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/gopSingleExecutor.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
+    "test-e2e-gop-creditCardPaymentCancellation-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/other/creditCardPaymentCancellation.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps",
     "test-e2e-gop-single-exec-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/gopSingleExecutor.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps",
     "test-e2e-gop-single-exec-http-webriver": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/gopSingleExecutor.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/codecept.webdriver.conf.js --steps --reporter mochawesome",
     "test-e2e-gop-single-exec-http-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/gopSingleExecutor.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
+    "test-e2e-gop-single-exec-EE-No-http-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/gopSingleExecutor.en.test.EE.no.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
+    "test-e2e-gop-single-exec-EE-Yes-http-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/gopSingleExecutor.en.test.EE.yes.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-e2e-intestacy-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps",
     "test-e2e-intestacy-http-webdriver": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/codecept.webdriver.conf.js --steps",
     "test-e2e-intestacy-http-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-e2e-intestacy-spouse-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.spouse.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps",
-    "test-e2e-intestacy-spouse-http-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.spouse.en.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
+    "test-e2e-intestacy-spouse-http-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/intestacy/intestacy.en.test.EE.yes.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps",
     "test-e2e-multiple-executors-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/multipleExecutors.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps",
     "test-e2e-multiple-executors-http-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/multipleExecutors.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
+    "test-e2e-multiple-executors-http-EE-No-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/multipleExecutors.EE.no.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps",
+    "test-e2e-multiple-executors-http-EE-Yes-dk": "NODE_ENV=testing-http-dk NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/probate/multipleExecutors.EE.yes.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps",
     "test-e2e-cookie-banner-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/generic/cookiebanner.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-e2e-survey-http": "NODE_ENV=testing-http NODE_PATH=. FE_E2E_TEST_PATH_TO_RUN=./paths/generic/survey.test.js node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --reporter mochawesome",
     "test-crossbrowser-e2e": "NODE_ENV=testing-http-dk NODE_PATH=. codeceptjs run-multiple ${BROWSER_GROUP:-'--all'} -c test/end-to-end/saucelabs.conf.js --plugins retryFailedStep --steps --grep '@crossbrowser' --reporter mocha-multi",
     "test:crossbrowser": "./bin/run-crossbrowser-tests.sh",
     "test:smoke": "NODE_ENV=test mocha test/smoke/healthcheck.js --timeout 25000 --reporter spec",
     "test-contract": "NODE_ENV=test NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/addresslookup/*.js' 'test/contract/generatepin/*.js' --timeout 10000 --reporter spec",
-    "test-api": "NODE_PATH=. LOG_LEVEL=error mocha 'test/api/*.js' --timeout 10000 --reporter spec",
+    "test-api": "NODE_ENV=dev NODE_PATH=. LOG_LEVEL=error mocha 'test/api/*.js' --timeout 10000 --reporter spec --exit",
     "test-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/pact/*.js' --timeout 10000 --reporter spec",
     "publish-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/publish/*.js' --timeout 10000 --reporter spec",
     "lint": "NODE_PATH=. eslint .",
@@ -78,7 +83,7 @@
     "stub:equality-and-diversity-endpoint": "NODE_PATH=. node test/service-stubs/equalityAndDiversityEndpoint.js",
     "stub:equality-and-diversity-health": "NODE_PATH=. node test/service-stubs/equalityAndDiversityHealth.js",
     "fortifyScan": "./test/java/gradlew -p test/java fortifyScan",
-    "test:fullfunctional": "NODE_ENV=test NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --reporter mochawesome"
+    "test:fullfunctional": "NODE_ENV=test-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '(?=.*)^(?!.*@unused)'"
   },
   "pre-commit": [
     "lint"
@@ -87,10 +92,11 @@
     "@hmcts/nodejs-healthcheck": "^1.7.0",
     "@hmcts/nodejs-logging": "^3.0.0",
     "@hmcts/os-places-client": "^1.1.2",
-    "@hmcts/properties-volume": "^0.0.9",
+    "@hmcts/properties-volume": "^0.0.13",
     "@wdio/selenium-standalone-service": "^7.6.0",
     "ajv": "^4.11.8",
-    "applicationinsights": "^1.8.8",
+    "applicationinsights": "1.7.2",
+    "applicationinsights-js": "^1.0.20",
     "basic-auth": "^2.0.1",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
@@ -122,7 +128,7 @@
     "moment": "^2.29.1",
     "multer": "^1.4.2",
     "node-emoji": "^1.10.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "node-git-info-json": "^0.1.1",
     "numeral": "^2.0.6",
     "nunjucks": "^3.2.0",
@@ -138,11 +144,12 @@
     "traverse": "^0.6.6",
     "tunnel-agent": "^0.6.0",
     "uuid": "^8.3.1",
-    "validator": "^11.1.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@pact-foundation/pact": "^9.16.3",
     "@pact-foundation/pact-node": "^10.13.8",
+    "@types/applicationinsights-js": "^1.0.9",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.3.0",
@@ -183,6 +190,7 @@
   },
   "resolutions": {
     "hosted-git-info": "3.0.8",
-    "launchdarkly-node-server-sdk/launchdarkly-eventsource/original/url-parse": "^1.5.2"
+    "launchdarkly-node-server-sdk/launchdarkly-eventsource/original/url-parse": "^1.5.2",
+    "shelljs": ">=0.8.5"
   }
 }

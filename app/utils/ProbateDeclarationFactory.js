@@ -25,6 +25,7 @@ class ProbateDeclarationFactory {
             deceasedEstateValue: content.en.deceasedEstateValue
                 .replace('{ihtGrossValue}', formdata.ihtGrossValue)
                 .replace('{ihtNetValue}', formdata.ihtNetValue),
+            deceasedEstateValueExceptedEstateConfirmation: content.en.deceasedEstateValueExceptedEstateConfirmation,
             deceasedEstateLand: content.en[`deceasedEstateLand${multipleApplicantSuffix}`]
                 .replace(/{deceasedName}/g, formdata.deceasedName),
             executorsNotApplying: executorsNotApplyingText.en
@@ -62,6 +63,7 @@ class ProbateDeclarationFactory {
             deceasedEstateValue: content.cy.deceasedEstateValue
                 .replace('{ihtGrossValue}', formdata.ihtGrossValue)
                 .replace('{ihtNetValue}', formdata.ihtNetValue),
+            deceasedEstateValueExceptedEstateConfirmation: content.cy.deceasedEstateValueExceptedEstateConfirmation,
             deceasedEstateLand: content.cy[`deceasedEstateLand${multipleApplicantSuffix}`]
                 .replace(/{deceasedName}/g, formdata.deceasedName),
             executorsNotApplying: executorsNotApplyingText.cy

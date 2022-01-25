@@ -1,0 +1,23 @@
+{
+  "title": "Ydych chi’n gwybod yn fras pryd yr ymddangosodd y difrod neu farciau gweladwy ar yr ewyllys?",
+  "question": "Ydych chi’n gwybod yn fras pryd yr ymddangosodd y difrod neu farciau gweladwy ar yr ewyllys?",
+  "optionYes": "Ydw",
+  "optionNo": "Nac ydw",
+  "date": "Dyddiad pryd yr ymddangosodd y difrod neu farciau gweladwy ar yr ewyllys yn fras",
+  "dateHint": "Dyddiad pryd yr ymddangosodd y difrod neu farciau gweladwy ar yr ewyllys yn fras<br>Os na fedrwch gofio’r dyddiad yn llawn, nodwch y flwyddyn yn unig.",
+  "errors": {
+    "willDamageDateKnown": {
+      "required": "Dewiswch &lsquo;Ydw&rsquo; os gwyddoch yn fras pryd ymddangosodd y difrod neu farciau gweladwy ar yr ewyllys"
+    },
+    "willdamagedate-year": {
+      "required": "Nodwch pa flwyddyn yr ymddangosodd y difrod neu farciau ar yr ewyllys"
+    },
+    "willdamagedate-month": {
+      "required": "Nodwch pa mis yr ymddangosodd y difrod neu farciau ar yr ewyllys"
+    },
+    "willdamagedate": {
+      "future": "Rhaid i’r dyddiad pryd yr ymddangosodd y difrod neu farciau ar yr ewyllys fod yn y gorffennol neu heddiw",
+      "invalid": "‘Rhowch ddyddiad dilys os gwelwch yn dda’ "
+    }
+  }
+}

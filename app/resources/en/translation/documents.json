@@ -10,8 +10,7 @@
   "checklist-item1-application-coversheet": "either your completed <a class=\"govuk-link\" id=\"coverSheetPdfHref\" href=\"/cover-sheet-pdf\">application coversheet</a> or write your reference number {ccdReferenceNumber} on a sheet of paper",
   "checklist-item2-no-codicils": "the original will (by law, we must keep your original will as it becomes a public document)",
   "checklist-item2-codicils": "the original will and any codicils (by law, we must keep your original will as it becomes a public document)",
-  "checklist-item3-will-damage-no-codicils": "if the will appears to have had something added, removed, or is damaged you will need to write a letter to explain. Damage could include staple or punch holes, rusty paper clip marks, torn edges, water damage etc.",
-  "checklist-item3-will-damage-codicils": "if the will or codicil appears to have had something added, removed, or is damaged you will need to write a letter to explain. Damage could include staple or punch holes, rusty paper clip marks, torn edges, water damage etc.",
+  "checklist-item3-codicils-written-wishes": "the letters of written wishes (we will keep this as part of the application)",
   "checklist-item4-interim-death-cert": "the interim death certificate",
   "checklist-item4-foreign-death-cert": "the original foreign death certificate",
   "checklist-item4-foreign-death-cert-translation": "the English translation of the foreign death certificate",
@@ -20,6 +19,7 @@
   "checklist-item7-iht205": "the completed inheritance tax form IHT 205",
   "checklist-item8-renunciated": "a <a href=\"{renunciationFormLink}\" target=\"_blank\" class=\"govuk-link\" rel=\"external noopener\" aria-label=\"renunciation form (opens in a new window)\">renunciation form (opens in a new window)</a> filled in by any executors who are permanently giving up their right to make this application for probate",
   "checklist-item9-deed-poll": "copy of the deed poll document for {executorCurrentName}",
+  "checklist-item10-iht207": "send us the IHT 207 form",
 
   "errors": {
     "sentDocuments": {

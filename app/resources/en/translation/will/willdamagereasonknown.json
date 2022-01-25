@@ -1,0 +1,16 @@
+{
+    "title": "Do you know why the will has damages or marks?",
+    "question": "Do you know why the will has damages or marks?",
+    "optionYes": "Yes",
+    "optionNo": "No",
+    "willDamageReasonDescriptionTitle": "Reason for the damages or marks to the will",
+    "willDamageReasonDescriptionHint": "Give as much detail as you can. This may help reduce any delays in processing your application",
+    "errors": {
+        "willDamageReasonKnown": {
+            "required": "Select &lsquo;yes&rsquo; if you know why the will has visible damages or marks"
+        },
+        "willDamageReasonDescription": {
+            "required": "Enter a reason why there are visible damages or marks to the will"
+        }
+    }
+}

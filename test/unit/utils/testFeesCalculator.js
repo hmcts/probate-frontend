@@ -190,7 +190,7 @@ describe('FeesCalculator', () => {
             };
 
             feesLookupStub.onCall(0).returns(Promise.resolve(
-                'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=6000&applicant_type=personal&channel=default&event=issue&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'
+                'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=6000&applicant_type=all&channel=default&event=issue&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'
             ));
             feesLookupStub.onCall(1).returns(Promise.resolve(
                 'Error:FetchError: request to http://localhost/fees/lookup?amount_or_volume=1&applicant_type=all&channel=default&event=copies&jurisdiction1=family&jurisdiction2=probate+registry&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80'

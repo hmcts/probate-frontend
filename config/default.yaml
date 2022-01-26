@@ -102,7 +102,7 @@ services:
     ihtMinAmt: 5000
     issuesData:
       amount_or_volume: 0
-      applicant_type: 'personal'
+      applicant_type: 'all'
       channel: 'default'
       event: 'issue'
       jurisdiction1: 'family'
@@ -119,22 +119,22 @@ services:
       keyword: 'NewFee'
     newfee_issuesData:
       amount_or_volume: 0
-      applicant_type: 'personal'
+      applicant_type: 'all'
       channel: 'default'
       event: 'issue'
       jurisdiction1: 'family'
       jurisdiction2: 'probate registry'
       service: 'probate'
-      keyword: 'PA'
+      keyword: 'SA'
     newfee_issuesDataIhtMinAmount:
       amount_or_volume: 0
-      applicant_type: 'personal'
+      applicant_type: 'all'
       channel: 'default'
       event: 'issue'
       jurisdiction1: 'family'
       jurisdiction2: 'probate registry'
       service: 'probate'
-      keyword: 'PAL5K'
+      keyword: 'SAL5K'
     newfee_copiesData:
       amount_or_volume: 0
       applicant_type: 'all'

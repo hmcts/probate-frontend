@@ -1,7 +1,9 @@
 {
     "title": "Beth yw gwerth yr ystad ar gyfer Treth Etifeddiant?",
     "question": "Beth yw gwerth yr ystad ar gyfer Treth Etifeddiant?",
-    "questionHint": "Os nad oes gennych y gwerthoedd hyn, defnyddiwch <a href=\"https://www.gov.uk/valuing-estate-of-someone-who-died\" class=\"govuk-link\" rel=\"noreferrer noopener\" target=\"_blank\">y gwiriwr IHT</a> i ddod o hyd iddynt. Rydym yn casglu&rsquo;r gwerthoedd hyn ar gyfer HMRC fel y gallant wirio a oes angen i chi dalu Treth Etifeddiant ai peidio.",
+    "questionHintPrefix": "Os nad oes gennych y gwerthoedd hyn, defnyddiwch ",
+    "linkText": "y gwiriwr IHT",
+    "questionHintSuffix": " i ddod o hyd iddynt. Rydym yn casglu&rsquo;r gwerthoedd hyn ar gyfer HMRC fel y gallant wirio a oes angen i chi dalu Treth Etifeddiant ai peidio.",
     "estateGrossValue": "Gwerth gros",
     "estateGrossValueHint": "Dyma gyfanswm gwerth yr holl asedau fel eiddo, arian a rhoddion yn ystod y 7 mlynedd diwethaf cyn tynnu unrhyw ddyledion",
     "estateNetValue": "Gwerth net",

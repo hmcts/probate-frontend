@@ -3,13 +3,15 @@
   "question": "What are {executorName}&rsquo;s email address and mobile number?",
   "questionHint": "This executor will be contacted and asked to confirm details of the estate.",
   "email": "Email address",
+  "email2": "This must be the executor&rsquo;s own email address",
   "mobile": "Mobile phone number",
   "mobileHint": "For example, 07900123456 or +33123456789",
 
   "errors": {
     "email": {
       "required": "Enter an email address",
-      "invalid": "Enter a valid email address"
+      "invalid": "Enter a valid email address",
+      "duplicate": "You have used this email address for another executor"
     },
     "mobile": {
       "required": "Enter a mobile phone number",

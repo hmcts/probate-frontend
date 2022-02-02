@@ -53,7 +53,6 @@ describe('executor-current-name', () => {
                         helpTelephoneOpeningHoursTitle: commonContent.helpTelephoneOpeningHoursTitle,
                         helpTelephoneOpeningHours1: commonContent.helpTelephoneOpeningHours1,
                         helpTelephoneOpeningHours2: commonContent.helpTelephoneOpeningHours2,
-                        helpTelephoneOpeningHours3: commonContent.helpTelephoneOpeningHours3,
                         helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, commonContent.helpEmail)
                     };
 

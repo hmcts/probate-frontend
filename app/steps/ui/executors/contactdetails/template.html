@@ -14,9 +14,11 @@
     }) %}
         <p class="govuk-hint">{{ content.questionHint | safe }}</p>
 
+        {% set label = content.email + "<br/>" + content.email2 %}
+
         {{ govukInput({
             label: {
-                text: content.email | safe
+                text: label | safe
             },
             id: "email",
             name: "email",

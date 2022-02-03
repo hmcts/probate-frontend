@@ -121,7 +121,7 @@ languages.forEach(language => {
 
         // Thank You
         await I.seeThankYouPage(language);
-    }).tag('@nightly')
+    }).tag('@e2enightly')
         .retry(TestConfigurator.getRetryScenarios());
 
 });

@@ -153,7 +153,7 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
 
-    }).tag('@master')
-        .tag('@nightly')
+    }).tag('@e2emaster')
+        .tag('@e2enightly')
         .retry(TestConfigurator.getRetryScenarios());
 });

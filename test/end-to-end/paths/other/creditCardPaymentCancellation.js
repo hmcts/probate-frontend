@@ -152,6 +152,6 @@ languages.forEach(language => {
             await I.seeSignOut(language);
 
         }
-    }).tag('@e2e')
+    }).tag('@nightly')
         .retry(TestConfigurator.getRetryScenarios());
 });

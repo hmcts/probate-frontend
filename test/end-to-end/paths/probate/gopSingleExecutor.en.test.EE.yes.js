@@ -154,5 +154,6 @@ languages.forEach(language => {
         await I.seeThankYouPage(language);
 
     }).tag('@master')
+        .tag('@nightly')
         .retry(TestConfigurator.getRetryScenarios());
 });

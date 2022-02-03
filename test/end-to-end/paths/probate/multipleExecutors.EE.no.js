@@ -245,7 +245,6 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
 
-    }).tag('@multiExecE2e')
-        .tag('@e2enightly')
+    }).tag('@e2enightly')
         .retry(TestConfigurator.getRetryScenarios());
 });

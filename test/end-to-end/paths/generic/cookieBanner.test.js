@@ -11,4 +11,5 @@ Scenario('Check that the pages display a cookie banner and that we can switch of
     await I.clearCookie();
     await I.startApplication(language, true);
 }).tag('@e2enightly')
+    .tag('@e2emaster')
     .retry(TestConfigurator.getRetryScenarios());

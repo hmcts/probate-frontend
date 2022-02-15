@@ -121,7 +121,7 @@ languages.forEach(language => {
 
         // Thank You
         await I.seeThankYouPage(language);
-    }).tag('@local')
+    }).tag('@noJenkine2e')
         .retry(TestConfigurator.getRetryScenarios());
 
 });

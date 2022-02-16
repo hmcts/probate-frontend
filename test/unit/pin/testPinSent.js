@@ -10,7 +10,7 @@ const section = 'pin';
 const templatePath = 'pin/sent';
 const coreContextMockData = require('../../data/core-context-mock-data.json');
 const schema = {
-    $schema: 'http://json-schema.org/draft-04/schema#',
+    $schema: 'http://json-schema.org/draft-07/schema',
     properties: {}
 };
 

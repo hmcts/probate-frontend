@@ -1,6 +1,6 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "willDamageCulpritKnown",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "willDamageCulpritKnown",
     "type": "object",
     "properties": {},
     "required": [

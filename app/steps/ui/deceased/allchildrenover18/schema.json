@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "all-children-over-18",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "all-children-over-18",
   "type": "object",
   "properties": {
     "allChildrenOver18": {

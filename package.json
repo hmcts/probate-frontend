@@ -191,7 +191,7 @@
   },
   "resolutions": {
     "hosted-git-info": "3.0.8",
-    "launchdarkly-node-server-sdk/launchdarkly-eventsource/original/url-parse": "^1.5.2",
+    "launchdarkly-node-server-sdk/launchdarkly-eventsource/original/url-parse": "^1.5.6",
     "shelljs": ">=0.8.5"
   }
 }

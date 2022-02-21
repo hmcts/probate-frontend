@@ -32,6 +32,7 @@ class InviteLink {
             .then(([authToken, serviceAuthorisation]) => {
                 if (authToken === null || serviceAuthorisation === null) {
                     logger.error('Error while getting the authToken and serviceAuthorisation');
+                    logger.info('TEMP CODE CHANGE');
                     failure(res);
                 } else {
                     const inviteId = req.params.inviteId;

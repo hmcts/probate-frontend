@@ -1,6 +1,6 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "codicilsHasVisibleDamage",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "codicilsHasVisibleDamage",
     "type": "object",
     "properties": {
     },

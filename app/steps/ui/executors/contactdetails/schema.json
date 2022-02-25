@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "co-applicant-contact-details",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "co-applicant-contact-details",
   "type": "object",
   "properties": {
     "email": {

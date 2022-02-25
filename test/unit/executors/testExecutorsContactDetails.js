@@ -23,7 +23,7 @@ describe('Contact-Details', () => {
             templatePath = 'addressLookup';
             i18next = {};
             schema = {
-                $schema: 'http://json-schema.org/draft-04/schema#',
+                $schema: 'http://json-schema.org/draft-07/schema',
                 properties: {}
             };
             formdata = {

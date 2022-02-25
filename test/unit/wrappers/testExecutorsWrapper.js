@@ -70,6 +70,59 @@ describe('Executors.js', () => {
             });
         });
 
+        describe('executorsEmails', () => {
+            describe('should return true if email already used for another executor', () => {
+                const data = {
+                    list: [
+                        {
+                            firstName: 'james',
+                            lastName: 'miller',
+                            isApplying: true,
+                            isApplicant: true
+                        },
+                        {fullName: 'ed brown', email: 'ed.brown@test.com'},
+                        {fullName: 'jake smith', email: 'jake.smith@test.com'},
+                        {fullName: 'bob smith'}
+                    ]
+                };
+
+                it('should return true if email is already used for another executor', (done) => {
+                    const executorsWrapper = new ExecutorsWrapper(data);
+                    expect(executorsWrapper.executorEmailAlreadyUsed('jake.smith@test.com', 'bob smith', 'applicant.email@test.com')).to.deep.equal(true);
+                    done();
+                });
+
+                it('should be case insensitive', (done) => {
+                    const executorsWrapper = new ExecutorsWrapper(data);
+                    expect(executorsWrapper.executorEmailAlreadyUsed('JAKE.SMITH@TEST.COM', 'bob smith', 'applicant.email@test.com')).to.deep.equal(true);
+                    done();
+                });
+
+                it('should return true if email is already used for primary applicant', (done) => {
+                    const executorsWrapper = new ExecutorsWrapper(data);
+                    expect(executorsWrapper.executorEmailAlreadyUsed('applicant.email@test.com', 'bob smith', 'applicant.email@test.com')).to.deep.equal(true);
+                    done();
+                });
+
+                it('should return true if email is already used for primary applicant', (done) => {
+                    const executorsWrapper = new ExecutorsWrapper(data);
+                    expect(executorsWrapper.executorEmailAlreadyUsed('APPLICANT.EMAIL@TEST.COM', 'bob smith', 'applicant.email@test.com')).to.deep.equal(true);
+                    done();
+                });
+
+                it('should return false if email is not already used for another executor', (done) => {
+                    const executorsWrapper = new ExecutorsWrapper(data);
+                    expect(executorsWrapper.executorEmailAlreadyUsed('bob.smith@test.com', 'bob smith', 'applicant.email@test.com')).to.deep.equal(false);
+                    done();
+                });
+
+                it('should exclude current executor', (done) => {
+                    const executorsWrapper = new ExecutorsWrapper(data);
+                    expect(executorsWrapper.executorEmailAlreadyUsed('ed.brown@test.com', 'ed brown', 'applicant.email@test.com')).to.deep.equal(false);
+                    done();
+                });
+            });
+        });
     });
 
     describe('executors()', () => {
@@ -195,7 +248,11 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullName: 'ed brown', isApplying: false, notApplyingKey: 'optionPowerReserved'},
+                    {
+                        fullName: 'ed brown',
+                        isApplying: false,
+                        notApplyingKey: 'optionPowerReserved'
+                    },
                     {fullName: 'jake smith', isApplying: false, notApplyingKey: 'optionRenunciated'}
                 ]
             };
@@ -752,9 +809,24 @@ describe('Executors.js', () => {
             const data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullName: 'ed brown', isApplying: true, inviteId: 'invite_123', emailSent: true},
-                    {fullName: 'bob brown', isApplying: false, inviteId: 'invite_456', emailSent: true},
-                    {fullName: 'steve brown', isApplying: false, inviteId: 'invite_789', emailSent: true}
+                    {
+                        fullName: 'ed brown',
+                        isApplying: true,
+                        inviteId: 'invite_123',
+                        emailSent: true
+                    },
+                    {
+                        fullName: 'bob brown',
+                        isApplying: false,
+                        inviteId: 'invite_456',
+                        emailSent: true
+                    },
+                    {
+                        fullName: 'steve brown',
+                        isApplying: false,
+                        inviteId: 'invite_789',
+                        emailSent: true
+                    }
                 ]
             };
             const executorsWrapper = new ExecutorsWrapper(data);
@@ -793,9 +865,26 @@ describe('Executors.js', () => {
         it('should return only the lead applicant', (done) => {
             const data = {
                 list: [
-                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'optionDeedPoll'},
-                    {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'optionMarriage'},
-                    {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'optionDivorce'}
+                    {
+                        firstName: 'james',
+                        lastName: 'miller',
+                        isApplying: true,
+                        isApplicant: true,
+                        alias: 'jimbo fisher',
+                        aliasReason: 'optionDeedPoll'
+                    },
+                    {
+                        fullName: 'ed brown',
+                        isApplying: true,
+                        currentName: 'eddie jones',
+                        currentNameReason: 'optionMarriage'
+                    },
+                    {
+                        fullName: 'bob brown',
+                        isApplying: true,
+                        currentName: 'bobbie houston',
+                        currentNameReason: 'optionDivorce'
+                    }
                 ]
             };
             const executorsWrapper = new ExecutorsWrapper(data);
@@ -806,9 +895,26 @@ describe('Executors.js', () => {
         it('should return only one other executor who has name changed by deed poll', (done) => {
             const data = {
                 list: [
-                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'optionDivorce'},
-                    {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'optionDeedPoll'},
-                    {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'optionMarriage'}
+                    {
+                        firstName: 'james',
+                        lastName: 'miller',
+                        isApplying: true,
+                        isApplicant: true,
+                        alias: 'jimbo fisher',
+                        aliasReason: 'optionDivorce'
+                    },
+                    {
+                        fullName: 'ed brown',
+                        isApplying: true,
+                        currentName: 'eddie jones',
+                        currentNameReason: 'optionDeedPoll'
+                    },
+                    {
+                        fullName: 'bob brown',
+                        isApplying: true,
+                        currentName: 'bobbie houston',
+                        currentNameReason: 'optionMarriage'
+                    }
                 ]
             };
             const executorsWrapper = new ExecutorsWrapper(data);
@@ -819,9 +925,26 @@ describe('Executors.js', () => {
         it('should return a list of multiple executor aliases for those who gave reason for name change as deed poll', (done) => {
             const data = {
                 list: [
-                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'optionDivorce'},
-                    {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'optionDeedPoll'},
-                    {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'optionDeedPoll'}
+                    {
+                        firstName: 'james',
+                        lastName: 'miller',
+                        isApplying: true,
+                        isApplicant: true,
+                        alias: 'jimbo fisher',
+                        aliasReason: 'optionDivorce'
+                    },
+                    {
+                        fullName: 'ed brown',
+                        isApplying: true,
+                        currentName: 'eddie jones',
+                        currentNameReason: 'optionDeedPoll'
+                    },
+                    {
+                        fullName: 'bob brown',
+                        isApplying: true,
+                        currentName: 'bobbie houston',
+                        currentNameReason: 'optionDeedPoll'
+                    }
                 ]
             };
             const executorsWrapper = new ExecutorsWrapper(data);
@@ -836,9 +959,27 @@ describe('Executors.js', () => {
             it('when no executors have given deed poll as their reason for name change', (done) => {
                 const data = {
                     list: [
-                        {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true, alias: 'jimbo fisher', aliasReason: 'optionDivorce'},
-                        {fullName: 'ed brown', isApplying: true, currentName: 'eddie jones', currentNameReason: 'optionMarriage'},
-                        {fullName: 'bob brown', isApplying: true, currentName: 'bobbie houston', currentNameReason: 'optionOther', otherReason: 'Did not like my name'}
+                        {
+                            firstName: 'james',
+                            lastName: 'miller',
+                            isApplying: true,
+                            isApplicant: true,
+                            alias: 'jimbo fisher',
+                            aliasReason: 'optionDivorce'
+                        },
+                        {
+                            fullName: 'ed brown',
+                            isApplying: true,
+                            currentName: 'eddie jones',
+                            currentNameReason: 'optionMarriage'
+                        },
+                        {
+                            fullName: 'bob brown',
+                            isApplying: true,
+                            currentName: 'bobbie houston',
+                            currentNameReason: 'optionOther',
+                            otherReason: 'Did not like my name'
+                        }
                     ]
                 };
                 const executorsWrapper = new ExecutorsWrapper(data);

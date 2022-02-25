@@ -25,18 +25,17 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: displayQuestion| safe,
+            text: displayQuestion | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
     }) %}
 
-        <p class="govuk-hint">{{ displayQuestionHint | safe }}
-        </p>
+        <p class="govuk-hint">{{ displayQuestionHint | safe }}</p>
 
         {{ govukInput({
             label: {
-                text: displayGrossHint | safe
+                text: displayGrossHint | replace("{ihtGifts}", globals.links.ihtGifts) | safe
             },
             id: "grossValueField",
             name: "grossValueField",

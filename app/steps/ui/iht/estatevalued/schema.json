@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "estate-valued",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "estate-valued",
   "type": "object",
   "properties": {
     "estateValueCompleted": {

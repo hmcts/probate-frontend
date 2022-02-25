@@ -2,22 +2,22 @@
     let popupWin;
     function windowOpener(url, name, args) {
 
-        if(typeof(popupWin) != "object" || popupWin.closed)  { 
-            popupWin =  window.open(url, name, args); 
-        } 
-        else{ 
-            popupWin.location.href = url; 
+        if(typeof(popupWin) != "object" || popupWin.closed)  {
+            popupWin =  window.open(url, name, args);
         }
-    
-        popupWin.focus(); 
+        else{
+            popupWin.location.href = url;
+        }
+
+        popupWin.focus();
      }
-   
+
     const avayaWebchat = document.querySelector('#avayaWebchatMetric');
     const avayaAgentBusy = document.querySelector('#webchat-agent-busy');
     const avayaWebchatOpen = document.querySelector('#avaya-webchat-open');
     const avayaWebchatClose = document.querySelector('#avaya-webchat-close');
     const avayaWebchatMaintenance = document.querySelector('#webchat-maintenance');
-    
+
     if(avayaAgentBusy){
         avayaAgentBusy.hidden = true;
     }

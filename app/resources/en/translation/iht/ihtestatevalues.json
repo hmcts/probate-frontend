@@ -1,7 +1,9 @@
 {
     "title": "What is the value of the estate",
     "question": "What are the values of the estate for Inheritance Tax?",
-    "questionHint": "If you do not have these values, use <a href=\"https://www.gov.uk/valuing-estate-of-someone-who-died\" class=\"govuk-link\" rel=\"noreferrer noopener\" target=\"_blank\">the IHT checker</a> to get them. We collect these values for HMRC so they can check if you need pay inheritance tax.<br/><br/>The gross, net and net qualifying values must be a whole number and must not include decimals, full stops or commas. For example, 6000",
+    "questionHintPrefix": "If you do not have these values, use ",
+    "linkText": "the IHT checker",
+    "questionHintSuffix": " to get them. We collect these values for HMRC so they can check if you need pay inheritance tax.<br/><br/>The gross, net and net qualifying values must be a whole number and must not include decimals, full stops or commas. For example, 6000",
     "estateGrossValue": "Gross value",
     "estateGrossValueHint": "This is the total value of all assets like property, money and gifts in the last 7 years before taking off any debts",
     "estateNetValue": "Net value",

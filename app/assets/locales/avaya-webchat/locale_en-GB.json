@@ -49,7 +49,7 @@
     "conversationEnded": "The chat session has ended but you can start a new one if you need more help",
     "startNewSession": "Start new session",
     "endChat": "End chat",
-    "offerSurvey": "Take a feedback survey",
+    "offerSurvey": "Send me a feedback survey",
     "prompt": {
       "message": "If you leave the chat you will lose your place in the queue. Are you sure?",
       "yes": "Yes",

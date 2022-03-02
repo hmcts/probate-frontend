@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "executors-other-names",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "executors-other-names",
   "type": "object",
   "properties": {},
   "required": [

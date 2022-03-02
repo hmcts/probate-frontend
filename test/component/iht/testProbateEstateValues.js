@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const DeceasedAlias = require('app/steps/ui/deceased/alias');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
+const config = require('config');
 
 describe('Tests for Probate Estate Values ', () => {
     let testWrapper;
@@ -108,10 +109,14 @@ describe('Tests for Probate Estate Values ', () => {
                 },
             };
 
+            const contentData = {
+                ihtGifts: config.links.ihtGifts
+            };
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, {}, contentToExclude);
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 

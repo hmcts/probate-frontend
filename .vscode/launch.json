@@ -3,7 +3,7 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [        
+    "configurations": [
         {
             "name": "TEST via yarn",
             "request": "launch",
@@ -21,13 +21,13 @@
             "name": "FUNCTIONAL test via yarn",
             "request": "launch",
             "type": "node-terminal"
-        },  
+        },
         {
             "command": "yarn run test-e2e",
             "name": "e2e test via yarn",
             "request": "launch",
             "type": "node-terminal"
-        },                 
+        },
         {
             "args": [
                 "--timeout",
@@ -54,7 +54,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },   
+        },
         {
             "command": "yarn run test-unit",
             "name": "Run npm unit test",
@@ -83,7 +83,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "type": "pwa-node"            
+            "type": "pwa-node"
         },
         {
             "args": [
@@ -107,7 +107,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "type": "pwa-node"            
+            "type": "pwa-node"
         },
         {
             "args": [
@@ -131,8 +131,8 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "type": "pwa-node"            
-        },   
+            "type": "pwa-node"
+        },
         {
             "args": [
                 "--timeout",
@@ -155,8 +155,8 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "type": "pwa-node"            
-        },             
+            "type": "pwa-node"
+        },
         {
             "args": [
                 "--timeout",
@@ -179,8 +179,8 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "type": "pwa-node"            
-        },                       
+            "type": "pwa-node"
+        },
         {
             "args": [
                 "--timeout",
@@ -205,7 +205,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },       
+        },
         {
             "args": [
                 "--timeout",
@@ -229,7 +229,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },    
+        },
         {
             "args": [
                 "--timeout",
@@ -254,13 +254,13 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },                              
+        },
         {
             "command": "yarn run test-unit-healthcheck",
             "name": "Run yarn Healthcheck unit test",
             "request": "launch",
             "type": "node-terminal"
-        },            
+        },
         {
             "command": "yarn run test-unit-grep",
             "name": "Run yarn unit test with grep",
@@ -289,7 +289,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "type": "pwa-node"            
+            "type": "pwa-node"
         },
         {
             "args": [
@@ -312,7 +312,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "type": "pwa-node"            
+            "type": "pwa-node"
         },
         {
             "type": "node",
@@ -338,7 +338,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },  
+        },
         {
             "name": "Launch https ws in Test Context - darkly OFF",
             "request": "launch",
@@ -350,7 +350,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },  
+        },
         {
             "name": "Launch http ws in Test Context - darkly ON",
             "request": "launch",
@@ -362,7 +362,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },           
+        },
         {
             "name": "Launch https ws in Test Context - darkly ON",
             "request": "launch",
@@ -374,7 +374,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },        
+        },
         {
             "name": "Mocha test end-end http - launch darkly OFF",
             "request": "launch",
@@ -386,7 +386,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },                 
+        },
         {
             "name": "Mocha test end-end https - launch darkly OFF",
             "request": "launch",
@@ -410,7 +410,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },        
+        },
         {
             "name": "Mocha test end-end https - launch darkly ON",
             "request": "launch",
@@ -434,7 +434,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },        
+        },
         {
             "name": "e2e gopSingleExecutor Webdriver - launch darkly OFF",
             "request": "launch",
@@ -446,7 +446,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },    
+        },
         {
             "name": "Mocha test end-end gopSingleExecutor - launch darkly ON",
             "request": "launch",
@@ -470,7 +470,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },        
+        },
         {
             "name": "Mocha test end-end intestacy - launch darkly OFF",
             "request": "launch",
@@ -482,7 +482,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },     
+        },
         {
             "name": "e2e intestacy Webdriver - launch darkly OFF",
             "request": "launch",
@@ -494,7 +494,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },    
+        },
         {
             "name": "Mocha test end-end intestacy - launch darkly ON",
             "request": "launch",
@@ -518,7 +518,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },          
+        },
         {
             "name": "Mocha test end-end intestacy spouse - launch darkly ON",
             "request": "launch",
@@ -542,7 +542,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },          
+        },
         {
             "name": "Mocha test end-end multiple executors - launch darkly ON",
             "request": "launch",
@@ -554,7 +554,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },          
+        },
         {
             "name": "Mocha test end-end http - cookie banner",
             "request": "launch",
@@ -566,7 +566,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },          
+        },
         {
             "name": "Mocha test end-end http - survey",
             "request": "launch",
@@ -590,7 +590,7 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        }  
-        
+        }
+
     ]
 }

@@ -16,12 +16,12 @@ describe('Fees', () => {
         beforeEach(() => {
             expectedResponse = require('test/data/paymentfees/paymentfees-response');
             fees = new Fees('http://localhost', 'dummyId');
-            url = 'http://localhost/fees?applicant_type=personal&jurisdiction1=family&service=probate';
+            url = 'http://localhost/fees?applicant_type=all&jurisdiction1=family&service=probate';
             headers = {
                 authToken: 'dummyToken'
             };
             data = {
-                applicant_type: 'personal',
+                applicant_type: 'all',
                 jurisdiction1: 'family',
                 service: 'probate'
             };
@@ -44,7 +44,7 @@ describe('Fees', () => {
         });
 
         it('should return the correct response when fees service unavailable', (done) => {
-            const errMsg = 'FetchError: request to http://localhost/fees?applicant_type=personal&' +
+            const errMsg = 'FetchError: request to http://localhost/fees?applicant_type=all&' +
                 'jurisdiction1=family&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80';
 
             fetchJsonStub = sinon.stub(Service.prototype, 'fetchJson').returns(Promise.resolve(expectedResponse));

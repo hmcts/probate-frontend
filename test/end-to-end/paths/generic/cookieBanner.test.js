@@ -10,5 +10,6 @@ Scenario('Check that the pages display a cookie banner and that we can switch of
     //Screeners & Pre-IDAM
     await I.clearCookie();
     await I.startApplication(language, true);
-}).tag('@e2e')
+}).tag('@e2enightly')
+    .tag('@e2emaster')
     .retry(TestConfigurator.getRetryScenarios());

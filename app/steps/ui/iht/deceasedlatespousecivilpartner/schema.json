@@ -1,6 +1,6 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "deceased-late-spouse-civil-partner",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "deceased-late-spouse-civil-partner",
     "type": "object",
     "properties": {
         "deceasedHadLateSpouseOrCivilPartner": {
@@ -11,4 +11,3 @@
         "deceasedHadLateSpouseOrCivilPartner"
     ]
 }
-  

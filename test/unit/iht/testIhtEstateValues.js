@@ -59,7 +59,7 @@ describe('IhtEstateValues', () => {
                 estateNetQualifyingValueField: '200000'
             };
             errors = [];
-            [ctx, errors] = IhtEstateValues.handlePost(ctx, errors);
+            [ctx, errors] = IhtEstateValues.handlePost(ctx, errors, {}, {language: 'en'});
             expect(ctx).to.deep.equal({
                 estateGrossValueField: '500000',
                 estateGrossValue: 500000,
@@ -68,17 +68,18 @@ describe('IhtEstateValues', () => {
                 estateNetQualifyingValueField: '200000',
                 estateNetQualifyingValue: 200000
             });
+            expect(errors.length).equal(0);
             done();
         });
 
-        it('should return the ctx with the estate values (values containing decimals)', (done) => {
+        it('should error the ctx with the estate values (values containing decimals)', (done) => {
             ctx = {
                 estateGrossValueField: '500000.12',
                 estateNetValueField: '400000.34',
                 estateNetQualifyingValueField: '200000.58'
             };
             errors = [];
-            [ctx, errors] = IhtEstateValues.handlePost(ctx, errors);
+            [ctx, errors] = IhtEstateValues.handlePost(ctx, errors, {}, {language: 'en'});
             expect(ctx).to.deep.equal({
                 estateGrossValueField: '500000.12',
                 estateGrossValue: 500000.12,
@@ -87,10 +88,63 @@ describe('IhtEstateValues', () => {
                 estateNetQualifyingValueField: '200000.58',
                 estateNetQualifyingValue: 200000.58
             });
+            expect(errors).to.deep.equal([
+                {
+                    field: 'estateGrossValueField',
+                    href: '#estateGrossValueField',
+                    msg: content.errors.estateGrossValueField.invalidInteger
+                },
+                {
+                    field: 'estateNetValueField',
+                    href: '#estateNetValueField',
+                    msg: content.errors.estateNetValueField.invalidInteger
+                },
+                {
+                    field: 'estateNetQualifyingValueField',
+                    href: '#estateNetQualifyingValueField',
+                    msg: content.errors.estateNetQualifyingValueField.invalidInteger
+                }
+            ]);
             done();
         });
 
-        it('should return the ctx with the estate values (values containing 3 decimals and thousands separators)', (done) => {
+        it('should error the ctx with the estate values (thousands separators)', (done) => {
+            ctx = {
+                estateGrossValueField: '500,000',
+                estateNetValueField: '400,000',
+                estateNetQualifyingValueField: '200,000'
+            };
+            errors = [];
+            [ctx, errors] = IhtEstateValues.handlePost(ctx, errors, {}, {language: 'en'});
+            expect(ctx).to.deep.equal({
+                estateGrossValueField: '500,000',
+                estateGrossValue: 500000,
+                estateNetValueField: '400,000',
+                estateNetValue: 400000,
+                estateNetQualifyingValueField: '200,000',
+                estateNetQualifyingValue: 200000
+            });
+            expect(errors).to.deep.equal([
+                {
+                    field: 'estateGrossValueField',
+                    href: '#estateGrossValueField',
+                    msg: content.errors.estateGrossValueField.invalidInteger
+                },
+                {
+                    field: 'estateNetValueField',
+                    href: '#estateNetValueField',
+                    msg: content.errors.estateNetValueField.invalidInteger
+                },
+                {
+                    field: 'estateNetQualifyingValueField',
+                    href: '#estateNetQualifyingValueField',
+                    msg: content.errors.estateNetQualifyingValueField.invalidInteger
+                }
+            ]);
+            done();
+        });
+
+        it('should error the ctx with the estate values (values containing 3 decimals and thousands separators)', (done) => {
             ctx = {
                 estateGrossValueField: '500,000.123',
                 estateNetValueField: '400,000.345',
@@ -163,19 +217,19 @@ describe('IhtEstateValues', () => {
             });
             expect(errors).to.deep.equal([
                 {
-                    field: 'estateNetQualifyingValueField',
-                    href: '#estateNetQualifyingValueField',
-                    msg: content.errors.estateNetQualifyingValueField.invalidCurrencyFormat
-                },
-                {
                     field: 'estateGrossValueField',
                     href: '#estateGrossValueField',
-                    msg: content.errors.estateGrossValueField.invalidCurrencyFormat
+                    msg: content.errors.estateGrossValueField.invalidInteger
                 },
                 {
                     field: 'estateNetValueField',
                     href: '#estateNetValueField',
-                    msg: content.errors.estateNetValueField.invalidCurrencyFormat
+                    msg: content.errors.estateNetValueField.invalidInteger
+                },
+                {
+                    field: 'estateNetQualifyingValueField',
+                    href: '#estateNetQualifyingValueField',
+                    msg: content.errors.estateNetQualifyingValueField.invalidInteger
                 },
                 {
                     field: 'estateNetValueField',

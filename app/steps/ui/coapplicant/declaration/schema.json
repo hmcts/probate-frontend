@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "co-applicant-declaration",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "co-applicant-declaration",
   "type": "object",
   "properties": {},
   "required": [

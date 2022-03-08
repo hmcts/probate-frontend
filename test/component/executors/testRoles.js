@@ -63,6 +63,8 @@ describe('executor-roles', () => {
                         helpTelephoneOpeningHoursTitle: commonContent.helpTelephoneOpeningHoursTitle,
                         helpTelephoneOpeningHours1: commonContent.helpTelephoneOpeningHours1,
                         helpTelephoneOpeningHours2: commonContent.helpTelephoneOpeningHours2,
+                        helpTelephoneOpeningHours3: commonContent.helpTelephoneOpeningHours3,
+                        helpTelephoneOpeningHours4: commonContent.helpTelephoneOpeningHours4,
                         helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, commonContent.helpEmail)
                     };
 

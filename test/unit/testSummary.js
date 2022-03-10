@@ -268,4 +268,20 @@ describe('Summary', () => {
             done();
         });
     });
+
+    describe('generateFields()', () => {
+        it('it should set Google analytics enabled to true', (done) => {
+            const ctx = {
+                session: {
+                    form: {},
+                    journey: probateJourney
+                },
+                isGaEnabled: true
+            };
+            const summary = new Summary(steps, section, templatePath, i18next, schema);
+            const fields = summary.generateFields('en', ctx, [], {});
+            expect(fields.isGaEnabled.value).to.deep.equal('true');
+            done();
+        });
+    });
 });

@@ -64,7 +64,7 @@ withNightlyPipeline("nodejs", product, component) {
     enableFullFunctionalTest(200)
     enableFortifyScan('probate-aat')
     enableCrossBrowserTest(['chrome', 'firefox', 'safari', 'microsoft'])
-//    enableSecurityScan()  //we do this in other builds
+    enableSecurityScan()
     after('build') {
         sh 'mkdir -p functional-output'
         sh 'yarn setup'

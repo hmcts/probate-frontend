@@ -1,0 +1,13 @@
+{
+    "title": "Excepted estates deceased date of death",
+    "question": "A wnaeth yr unigolyn farw ar neu ar o&#770;l 1 Ionawr 2022?",
+    "optionYes": "Do",
+    "optionNo": "Naddo",
+  
+    "errors": {
+      "eeDeceasedDod": {
+        "required": "Atebwch &lsquo;oedd&rsquo; if the person died on or after 1 January 2022"
+      }
+    }
+  }
+  

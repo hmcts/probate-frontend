@@ -1,0 +1,30 @@
+{
+  "will": {
+    "left": "Yes",
+    "original": "Yes",
+    "codicils": "optionYes",
+    "codicilsHasVisibleDamage": "optionYes",
+    "codicilsDamage": {
+      "damageTypesList": [
+        "stapleOrPunchHoles",
+        "otherVisibleDamage"
+      ]
+    },
+    "otherDamageDescription": "some damage description",
+    "codicilsDamageReasonKnown": "optionYes",
+    "codicilsDamageReasonDescription": "some damage reason",
+    "codicilsDamageDateKnown": "optionYes",
+    "codicilsDamageDate": "1/1/1000"
+  },
+  "codicilsDamageCulpritKnown": "optionYes",
+  "codicilsDamageCulpritName": {
+    "firstName": "Harry",
+    "lastName": "Potter"
+  },
+  "applicant": {
+    "executor": "Yes"
+  },
+  "executors": {
+    "mentalCapacity": "Yes"
+  }
+}

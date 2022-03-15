@@ -1,12 +1,12 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-
-module.exports = async function(totalCodicils) {
+module.exports = async function(language = 'en', totalCodicils) {
     const I = this;
+    const commonContent = require(`app/resources/${language}/translation/common`);
 
-    await I.checkPageUrl('app/steps/ui/will/codicilsnumber');
-    await I.fillField('#codicilsNumber', totalCodicils);
+    await I.checkInUrl('/codicils-number');
+    await I.waitForVisible({css: '#codicilsNumber'});
+    await I.fillField({css: '#codicilsNumber'}, totalCodicils);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

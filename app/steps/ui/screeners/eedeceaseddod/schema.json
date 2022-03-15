@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "ee-deceased-dod",
+  "type": "object",
+  "properties": {
+    "domicile": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "eeDeceasedDod"
+  ]
+}

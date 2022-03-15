@@ -15,7 +15,7 @@ describe('Declaration', () => {
     const templatePath = 'declaration';
     const i18next = {};
     const schema = {
-        $schema: 'http://json-schema.org/draft-04/schema#',
+        $schema: 'http://json-schema.org/draft-07/schema',
         properties: {}
     };
 

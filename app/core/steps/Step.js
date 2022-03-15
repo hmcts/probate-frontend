@@ -33,7 +33,7 @@ class Step {
         return `${this.templatePath}/template`;
     }
 
-    constructor(steps, section = null, resourcePath, i18next, schema, language = 'en') {
+    constructor(steps, section, resourcePath, i18next, schema, language = 'en') {
         this.steps = steps;
         this.section = section;
         this.resourcePath = resourcePath;
@@ -66,6 +66,8 @@ class Step {
         ctx = Object.assign(ctx, req.body);
         ctx = FeatureToggle.appwideToggles(req, ctx, config.featureToggles.appwideToggles);
         ctx.isAvayaWebChatEnabled = ctx.featureToggles && ctx.featureToggles.ft_avaya_webchat && ctx.featureToggles.ft_avaya_webchat === 'true';
+        ctx.isWebChatEnabled = config.configFeatureToggles.webchatEnabled;
+        ctx.isGaEnabled = config.configFeatureToggles.gaEnabled; // this is a boolean type
         return ctx;
     }
 

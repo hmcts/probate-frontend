@@ -54,7 +54,9 @@ describe('DeceasedDomicile', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'optionYes'
+                            deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes'
                         }
                     }
                 }
@@ -73,9 +75,55 @@ describe('DeceasedDomicile', () => {
                     journey: journey,
                     form: {
                         screeners: {
-                            deathCertificate: 'optionYes'
+                            deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes'
                         }
                     }
+                }
+            };
+            const ctx = {
+                domicile: 'optionNo'
+            };
+            const nextStepUrl = DeceasedDomicile.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/stop-page/notInEnglandOrWales');
+            done();
+        });
+
+        it('should return the correct url when Yes is given and EE FT is ON', (done) => {
+            const req = {
+                session: {
+                    journey: journey,
+                    form: {
+                        screeners: {
+                            deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes'
+                        }
+                    },
+                    featureToggles: {ft_excepted_estates: true}
+                }
+            };
+            const ctx = {
+                domicile: 'optionYes'
+            };
+            const nextStepUrl = DeceasedDomicile.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/ee-deceased-dod');
+            done();
+        });
+
+        it('should return the correct url when No is given and EE FT is ON', (done) => {
+            const req = {
+                session: {
+                    journey: journey,
+                    form: {
+                        screeners: {
+                            deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes'
+                        }
+                    },
+                    featureToggles: {ft_excepted_estates: true}
                 }
             };
             const ctx = {

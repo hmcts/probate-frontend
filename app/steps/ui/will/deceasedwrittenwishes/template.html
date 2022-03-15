@@ -1,0 +1,49 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+
+{% block form_content %}
+    {% call govukFieldset({
+        legend: {
+            text: content.question,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+        }
+    }) %}
+
+        <p class="govuk-body">{{ content["interestedDetailsHint"] | safe }}</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>{{ content["interestedDetail1"] | safe  }}</li>
+            <li>{{ content["interestedDetail2"] | safe  }}</li>
+            <li>{{ content["interestedDetail3"] | safe  }}</li>
+        </ul>
+
+        {{ govukRadios({
+            classes: "govuk-radios--inline",
+            idPrefix: "deceasedWrittenWishes",
+            name: "deceasedWrittenWishes",
+            errorMessage: { text: fields.deceasedWrittenWishes.errorMessage | safe } if fields.deceasedWrittenWishes.errorMessage,
+            items: [
+                {
+                    value: "optionYes",
+                    text: content["optionYes"] | safe,
+                    checked: true if fields.deceasedWrittenWishes.value == "optionYes"
+                },
+                {
+                    value: "optionNo",
+                    text: content["optionNo"] | safe,
+                    checked: true if fields.deceasedWrittenWishes.value == "optionNo"
+                }
+            ]
+        }) }}
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

@@ -55,6 +55,7 @@ describe('RelatedToDeceased', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionNo',
@@ -78,6 +79,7 @@ describe('RelatedToDeceased', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionNo',

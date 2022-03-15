@@ -119,7 +119,7 @@ class Declaration extends ValidationStep {
         ctx.language = req.session.language;
         const content = this.generateContent(ctx, formdata, req.session.language);
         const formDataForTemplate = this.getFormDataForTemplate(content, formdata);
-
+        ctx.exceptedEstate = formdata.iht && formdata.iht.estateValueCompleted === 'optionNo';
         if (ctx.caseType === caseTypes.INTESTACY && formdata.iht) {
             ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
             ctx.showNetValueAssetsOutside = ((formdata.iht.assetsOutside === 'optionYes' && (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > ctx.ihtThreshold)).toString();
@@ -282,6 +282,7 @@ class Declaration extends ValidationStep {
         delete ctx.authToken;
         delete ctx.bilingual;
         delete ctx.language;
+        delete ctx.exceptedEstate;
         return [ctx, formdata];
     }
 

@@ -20,6 +20,6 @@ module.exports = async function (language ='en', noScreenerQuestions = false) {
         }
         await I.fillField({css: '#username'}, process.env.testCitizenEmail);
         await I.fillField({css: '#password'}, process.env.testCitizenPassword);
-        await I.navByClick('//input[@class=\'button\' and @type=\'submit\']');
+        await I.navByClick({css: 'input.button[type="submit"]'});
     }
 };

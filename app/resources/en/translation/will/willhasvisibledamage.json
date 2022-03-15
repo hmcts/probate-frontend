@@ -1,0 +1,26 @@
+{
+  "title": "Does the will have any visible damages or marks?",
+  "question": "Does the will have any visible damages or marks?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "otherDamageDescriptionHint": "Describe the damage",
+  "otherDamage": "Other damage",
+  "willDamageHint": "Select all that apply.",
+  "optionstapleOrPunchHoles": "Staple or punch holes",
+  "optionrustMarks": "Rust marks",
+  "optionpaperClipMarks": "Paper clip marks",
+  "optiontornEdges": "Torn edges",
+  "optionwaterDamage": "Water damage",
+  "optionotherVisibleDamage": "Other",
+  "errors": {
+    "willHasVisibleDamage": {
+      "required": "Select &lsquo;yes&rsquo; if you know if the will has any visible damages or marks"
+    },
+    "willDamageTypes": {
+      "required": "Select which visible damages or marks applies"
+    },
+    "otherDamageDescription": {
+      "required": "Enter a description of the visible damages or marks to the will"
+    }
+  }
+}

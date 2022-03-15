@@ -1,17 +1,14 @@
 'use strict';
 
-const commonContentEn = require('app/resources/en/translation/common');
-const commonContentCy = require('app/resources/cy/translation/common');
-
-module.exports = async function(language ='en', firstName, lastName) {
+module.exports = async function(language ='en', firstName = null, lastName = null) {
     const I = this;
-    const commonContent = language === 'en' ? commonContentEn : commonContentCy;
+    const commonContent = require(`app/resources/${language}/translation/common`);
 
-    await I.checkPageUrl('app/steps/ui/deceased/name');
+    await I.checkInUrl('/deceased-name');
     const firstNameLocator = {css: '#firstName'};
-    await I.waitForElement(firstNameLocator);
+    await I.waitForEnabled(firstNameLocator);
     await I.fillField(firstNameLocator, firstName);
     await I.fillField({css: '#lastName'}, lastName);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

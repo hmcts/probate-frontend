@@ -55,6 +55,7 @@ describe('DiedAfterOctober2014', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionNo'
@@ -77,6 +78,7 @@ describe('DiedAfterOctober2014', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionNo'

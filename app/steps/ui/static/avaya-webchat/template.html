@@ -6,22 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="/public/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://webchat-client.ctsc.hmcts.net/chat-client/1/styles.css">       
 </head>
 <body>
     {% include "includes/scripts.html" %}
     <web-chat
         id="avayaWebchat"
-        chat-title="Ask Probate" 
+        class="govuk-body"
+        chat-title="Ask Probate"
         chat-icon-url="public/images/icon.png"
         locale-url="public/locales/avaya-webchat"
-        url="webchat.ctsc.hmcts.net"
+        url="{{ globals.webchat.avayaUrl }}"
         secure-connections="true"
         api-version="1.0"
         metrics-polling-interval="30"
         Language="English"
-        Service="Probate"
-        page-name="Apply for Probate"> 
+        Service="{{ globals.webchat.avayaService }}"
+        page-name="Apply for Probate"
+        User="Chat"
+        >
     </web-chat>
 </body>
 </html>

@@ -38,7 +38,8 @@ describe('DiedEnglandOrWales', () => {
                     form: {
                         deceased: {
                             firstName: 'John',
-                            lastName: 'Doe'
+                            lastName: 'Doe',
+                            'dod-date': '2022-01-01'
                         }
                     }
                 }

@@ -39,7 +39,8 @@ describe('thank-you', () => {
                 },
                 payment: {
                     total: 0
-                }
+                },
+                caseType: caseTypes.GOP
             };
             const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf', 'coverSheetPdf', 'successParagraph1NoDocumentsRequired'];
 
@@ -67,6 +68,7 @@ describe('thank-you', () => {
                 payment: {
                     total: 0
                 },
+                caseType: caseTypes.GOP,
                 checkAnswersSummary: '{test: "data"}'
             };
             const contentToExclude = ['declarationPdf', 'coverSheetPdf', 'successParagraph1NoDocumentsRequired'];
@@ -117,6 +119,7 @@ describe('thank-you', () => {
                 payment: {
                     total: 0
                 },
+                caseType: caseTypes.GOP,
                 legalDeclaration: '{test: "data"}'
             };
             const contentToExclude = ['checkAnswersPdf', 'successParagraph1NoDocumentsRequired'];
@@ -167,6 +170,7 @@ describe('thank-you', () => {
                 payment: {
                     total: 0
                 },
+                caseType: caseTypes.GOP,
                 checkAnswersSummary: '{test: "data"}',
                 legalDeclaration: '{test: "data"}'
             };
@@ -198,7 +202,8 @@ describe('thank-you', () => {
                 },
                 payment: {
                     total: 0
-                }
+                },
+                caseType: caseTypes.GOP
             };
             const contentToExclude = ['checkAnswersPdf', 'declarationPdf', 'successParagraph1NoDocumentsRequired'];
 

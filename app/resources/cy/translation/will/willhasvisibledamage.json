@@ -1,0 +1,26 @@
+{
+  "title": "A oes unrhyw ddifrod neu farciau gweladwy ar yr ewyllys?",
+  "question": "A oes unrhyw ddifrod neu farciau gweladwy ar yr ewyllys?",
+  "optionYes": "Oes",
+  "optionNo": "Nac Oes",
+  "otherDamageDescriptionHint": "Disgrifiwch y difrod neu’r marciau",
+  "otherDamage": "Difrod arall",
+  "willDamageHint": "Ticiwch y rhai perthnasol",
+  "optionstapleOrPunchHoles": "Staplenni neu dyllau pwnsh",
+  "optionrustMarks": "Marciau rhwd",
+  "optionpaperClipMarks": "Marciau clipiau papur",
+  "optiontornEdges": "Ymylon wedi’u rhwygo",
+  "optionwaterDamage": "Niwed gan ddŵr",
+  "optionotherVisibleDamage": "Arall",
+  "errors": {
+    "willHasVisibleDamage": {
+      "required": "Dewiswch &lsquo;Ydw&rsquo; os gwyddoch pam fod difrod neu farciau gweladwy ar yr ewyllys"
+    },
+    "willDamageTypes": {
+      "required": "Dewiswch pa ddifrod gweladwy neu farciau sy’n berthnasol"
+    },
+    "otherDamageDescription": {
+      "required": "Disgrifiwch y difrod neu farciau gweladwy i’r codisiliau"
+    }
+  }
+}

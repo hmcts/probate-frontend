@@ -61,9 +61,9 @@ withNightlyPipeline("nodejs", product, component) {
     env.WEBCHAT_ENABLED = params.WEBCHAT_ENABLED
     env.GA_ENABLED = params.GA_ENABLED
 
-    enableFullFunctionalTest(200)
-    enableFortifyScan('probate-aat')
-    enableCrossBrowserTest(['chrome', 'firefox', 'safari', 'microsoft'])
+    //enableFullFunctionalTest(200)
+    //enableFortifyScan('probate-aat')
+    //enableCrossBrowserTest(['chrome', 'firefox', 'safari', 'microsoft'])
     enableSecurityScan()
     after('build') {
         sh 'mkdir -p functional-output'

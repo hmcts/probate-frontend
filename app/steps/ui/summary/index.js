@@ -71,6 +71,9 @@ class Summary extends Step {
             fields.featureToggles = {
                 value: ctx.featureToggles
             };
+            fields.isGaEnabled = {
+                value: ctx.isGaEnabled.toString()
+            };
 
             const skipItems = ['sessionID', 'authToken', 'caseType', 'userLoggedIn', 'uploadedDocuments'];
 

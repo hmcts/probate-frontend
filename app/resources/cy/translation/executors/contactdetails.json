@@ -5,7 +5,7 @@
   "email": "Cyfeiriad e-bost",
   "email2": "Rhaid i hwn fod yn gyfeiriad e-bost personol yr ysgutor",
   "mobile": "Rhif ff&ocirc;n symudol",
-  "mobileHint": "Er enghraifft, 07900123456 neu +33123456789",
+  "mobileHint": "Rhaid i hwn fod yn rhif ffôn symudol personol yr ysgutor. Er enghraifft, 07900123456 neu +33123456789",
 
   "errors": {
     "email": {
@@ -15,7 +15,8 @@
     },
     "mobile": {
       "required": "Nodwch rif ff&ocirc;n symudol",
-      "invalid": "Nodwch rif ff&ocirc;n symudol heb fylchau, a rhaid i rifau ff&ocirc;n rhyngwladol ddechrau gyda&rsquo;r arwydd +"
+      "invalid": "Nodwch rif ff&ocirc;n symudol heb fylchau, a rhaid i rifau ff&ocirc;n rhyngwladol ddechrau gyda&rsquo;r arwydd +",
+      "duplicate": "Rydych wedi defnyddio’r rhif ffôn symudol hwn ar gyfer ysgutor arall"
     }
   }
 }

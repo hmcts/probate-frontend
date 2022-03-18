@@ -53,7 +53,7 @@ describe('Pin-Page', () => {
         };
         const hostname = 'localhost';
 
-        it('retireves the application data correctly', (done) => {
+        it('retrieves the application data correctly', (done) => {
             const revertAuthorise = PinPage.__set__({
                 Authorise: class {
                     post() {
@@ -95,7 +95,9 @@ describe('Pin-Page', () => {
                             firstName: 'Dee',
                             lastName: 'Ceased'
                         },
-                        declaration: {}
+                        declaration: {
+                            declarationCheckbox: true
+                        }
                     }
                 });
 

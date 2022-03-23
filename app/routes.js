@@ -89,6 +89,7 @@ router.use(['/task-list', '/assets-overseas', '/copies-overseas', '/copies-uk', 
 
     if (hasMultipleApplicants && invitesSent && applicantHasDeclared) {
         const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
+
         if (req.userLoggedIn) {
             allExecutorsAgreed.get(req.authToken, req.session.serviceAuthorization, ccdCaseId)
                 .then(data => {

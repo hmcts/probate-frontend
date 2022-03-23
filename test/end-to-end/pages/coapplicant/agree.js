@@ -1,17 +1,10 @@
 'use strict';
 
 const config = require('config');
-const content = require('app/resources/en/translation/coapplicant/agreepage');
 
-module.exports = async function() {
+module.exports = async function(language = 'en') {
     const I = this;
-
-    await I.checkPageUrl('app/steps/ui/coapplicant/agreepage');
+    const content = require(`app/resources/${language}/translation/coapplicant/agreepage`);
+    await I.checkInUrl('/co-applicant-agree-page');
     await I.waitForText(content.subHeader, config.TestWaitForTextToAppear);
-
-    // if (elementId === 0) {
-    //     I.see('When everyone');
-    // } else {
-    //     I.see('All executors applying');
-    // }
 };

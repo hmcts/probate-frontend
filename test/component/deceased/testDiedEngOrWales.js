@@ -4,16 +4,14 @@ const TestWrapper = require('test/util/TestWrapper');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const DeathCertificateInterim = require('app/steps/ui/deceased/deathcertificate');
 const EnglishForeignDeathCert = require('app/steps/ui/deceased/englishforeigndeathcert');
-const probateNewJourney = require('app/journeys/probatenewdeathcertflow');
 
 describe('died-eng-or-wales', () => {
-    const ftValue = {ft_new_deathcert_flow: true};
     let testWrapper;
     const expectedNextUrlForDeathCertificateInterim = DeathCertificateInterim.getUrl();
     const expectedNextUrlForEnglishForeignDeathCert = EnglishForeignDeathCert.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('DiedEnglandOrWales', ftValue, probateNewJourney);
+        testWrapper = new TestWrapper('DiedEnglandOrWales');
     });
 
     afterEach(() => {
@@ -78,24 +76,14 @@ describe('died-eng-or-wales', () => {
             const data = {
                 diedEngOrWales: 'optionYes'
             };
-
-            testWrapper.agent.post('/prepare-session/featureToggles')
-                .send(ftValue)
-                .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeathCertificateInterim);
-                });
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeathCertificateInterim);
         });
 
         it(`test it redirects to iht method page: ${expectedNextUrlForEnglishForeignDeathCert}`, (done) => {
             const data = {
                 diedEngOrWales: 'optionNo'
             };
-
-            testWrapper.agent.post('/prepare-session/featureToggles')
-                .send(ftValue)
-                .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForEnglishForeignDeathCert);
-                });
+            testWrapper.testRedirect(done, data, expectedNextUrlForEnglishForeignDeathCert);
         });
     });
 });

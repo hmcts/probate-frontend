@@ -1,0 +1,11 @@
+{
+    "title": "A oedd gan yr ymadawedig briod neu bartner sifil diweddar?",
+    "question": "A oedd gan yr ymadawedig briod neu bartner sifil diweddar?",
+    "optionYes": "Oedd",
+    "optionNo": "Nac oedd",
+    "errors": {
+        "deceasedHadLateSpouseOrCivilPartner": {
+            "required": "Atebwch &lsquo;oedd&rsquo; os oedd gan yr ymadawedig briod neu bartner diweddar"
+        }
+    }
+}

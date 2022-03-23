@@ -47,7 +47,7 @@ class EligibilityValidationStep extends ValidationStep {
     }
 
     previousQuestionsAnswered(req, ctx, currentScreener) {
-        const journeyType = Object.keys(config.intestacyScreeners).includes(currentScreener) ? 'intestacy' : 'probate';
+        const journeyType = Object.keys(config.intestacyScreenersDeathCertificateInEnglish).includes(currentScreener) ? 'intestacy' : 'probate';
         const screenersList = screenerValidation.getScreeners(journeyType, req.session.form, req.session.featureToggles);
 
         let allPreviousEligibilityQuestionsAnswered = true;

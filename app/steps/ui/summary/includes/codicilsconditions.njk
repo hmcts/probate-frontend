@@ -1,0 +1,118 @@
+{% macro damageLabel(items) %}
+        {% for item in items %}
+            {{ content.CodicilsHasVisibleDamage["option" + item] }}{% if loop.index < items.length %},{% endif %}
+        {% endfor %}
+{% endmacro %}
+{{checkanswer(
+    items = [
+        {
+            question: content.WillCodicils.question,
+            answer: content.WillCodicils[fields.will.codicils.value],
+            visible: true
+        },
+        {
+            question: content.CodicilsNumber.question,
+            answer: fields.will.codicilsNumber.value,
+            visible: fields.will.codicils.value == "optionYes"
+        }
+    ],
+    url = content.WillCodicils.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value,
+    answerIsGroup = true
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.CodicilsHasVisibleDamage.question,
+            answer: content.CodicilsHasVisibleDamage[fields.will.codicilsHasVisibleDamage.value],
+            visible: fields.featureToggles.value.ft_will_condition and fields.will.codicils.value == 'optionYes'
+        },
+        {
+            question: content.CodicilsHasVisibleDamage.otherDamageDescriptionHint,
+            answer: damageLabel(fields.will.codicilsDamage.value.damageTypesList),
+            visible: fields.will.codicilsHasVisibleDamage.value == 'optionYes'
+        },
+        {
+            question: content.CodicilsHasVisibleDamage.otherDamage,
+            answer: fields.will.codicilsDamage.value.otherDamageDescription,
+            visible: fields.will.codicilsDamage.value.damageTypesList[fields.will.codicilsDamage.value.damageTypesList.length - 1] == 'otherVisibleDamage'
+        }
+    ],
+    url = content.CodicilsHasVisibleDamage.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+  items = [
+    {
+      question: content.CodicilsDamageReasonKnown.question,
+      answer: content.CodicilsDamageReasonKnown[fields.will.codicilsDamageReasonKnown.value],
+      visible: fields.featureToggles.value.ft_will_condition and fields.will.codicilsHasVisibleDamage.value == 'optionYes'
+    },
+    {
+      question: content.CodicilsDamageReasonKnown.codicilsDamageReasonDescriptionTitle,
+      answer: fields.will.codicilsDamageReasonDescription.value,
+      visible: fields.will.codicilsDamageReasonKnown.value == 'optionYes'
+    }
+  ],
+  url = content.CodicilsDamageReasonKnown.url,
+  common = common,
+  alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.CodicilsDamageCulpritKnown.question,
+            answer: content.CodicilsDamageCulpritKnown[fields.will.codicilsDamageCulpritKnown.value],
+            visible: fields.featureToggles.value.ft_will_condition and fields.will.codicilsHasVisibleDamage.value == 'optionYes'
+        },
+        {
+            question: content.CodicilsDamageCulpritKnown.firstName,
+            answer: fields.will.codicilsDamageCulpritName.value.firstName,
+            visible: fields.will.codicilsDamageCulpritKnown.value == 'optionYes'
+        },
+        {
+            question: content.CodicilsDamageCulpritKnown.lastName,
+            answer: fields.will.codicilsDamageCulpritName.value.lastName,
+            visible: fields.will.codicilsDamageCulpritKnown.value == 'optionYes'
+        }
+    ],
+    url = content.CodicilsDamageCulpritKnown.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+  items = [
+    {
+      question: content.CodicilsDamageDate.question,
+      answer: content.CodicilsDamageDate[fields.will.codicilsDamageDateKnown.value],
+      visible: fields.featureToggles.value.ft_will_condition and fields.will.codicilsHasVisibleDamage.value == 'optionYes'
+    },
+    {
+      question: content.CodicilsDamageDate.date,
+      answer: fields.will.codicilsDamageDate.value,
+      visible: fields.will.codicilsDamageDateKnown.value == 'optionYes'
+    }
+  ],
+  url = content.CodicilsDamageDate.url,
+  common = common,
+  alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+  items = [
+    {
+      question: content.DeceasedWrittenWishes.question,
+      answer: content.DeceasedWrittenWishes[fields.will.deceasedWrittenWishes.value],
+      visible: fields.featureToggles.value.ft_will_condition
+    }
+  ],
+  url = content.DeceasedWrittenWishes.url,
+  common = common,
+  alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}

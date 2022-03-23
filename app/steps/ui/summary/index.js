@@ -11,6 +11,9 @@ const FormatName = require('app/utils/FormatName');
 const CheckAnswersSummaryJSONObjectBuilder = require('app/utils/CheckAnswersSummaryJSONObjectBuilder');
 const checkAnswersSummaryJSONObjBuilder = new CheckAnswersSummaryJSONObjectBuilder();
 const IhtThreshold = require('app/utils/IhtThreshold');
+const featureToggle = require('app/utils/FeatureToggle');
+const exceptedEstateDod = require('app/utils/ExceptedEstateDod');
+const IhtEstateValuesUtil = require('app/utils/IhtEstateValuesUtil');
 
 class Summary extends Step {
 
@@ -67,6 +70,9 @@ class Summary extends Step {
             };
             fields.featureToggles = {
                 value: ctx.featureToggles
+            };
+            fields.isGaEnabled = {
+                value: ctx.isGaEnabled.toString()
             };
 
             const skipItems = ['sessionID', 'authToken', 'caseType', 'userLoggedIn', 'uploadedDocuments'];
@@ -132,7 +138,29 @@ class Summary extends Step {
         ctx.alreadyDeclared = this.alreadyDeclared(req.session);
         ctx.session = req.session;
         ctx.authToken = req.authToken;
+
+        this.setToggleOnContext(ctx, req);
+
+        this.ctx = this.getExceptedEstatesContext(ctx, formdata);
+
         return ctx;
+    }
+
+    getExceptedEstatesContext(ctx, formdata) {
+        if (formdata.deceased && formdata.deceased['dod-date']) {
+            ctx.exceptedEstateDodAfterThreshold = exceptedEstateDod.afterEeDodThreshold(formdata.deceased['dod-date']);
+        }
+
+        if (formdata.iht && formdata.iht.estateNetQualifyingValue) {
+            ctx.withinNetQualifyingRange = IhtEstateValuesUtil.withinRange(formdata.iht.estateNetQualifyingValue);
+        }
+        return ctx;
+    }
+
+    setToggleOnContext(ctx, req) {
+        if (featureToggle.isEnabled(req.session.featureToggles, 'ft_will_condition')) {
+            ctx.featureToggles = req.session.featureToggles;
+        }
     }
 
     renderPage(res, html) {

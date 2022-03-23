@@ -69,11 +69,32 @@ const stepList = {
         diedAfter: 'DeceasedAddress',
         otherwise: 'StopPage'
     },
-    DeceasedAddress: 'DocumentUpload',
-    DocumentUpload: {
-        isUploadingDocument: 'DocumentUpload',
-        otherwise: 'IhtMethod'
+    DeceasedAddress: 'DiedEnglandOrWales',
+    DiedEnglandOrWales: {
+        hasDiedEngOrWales: 'DeathCertificateInterim',
+        otherwise: 'EnglishForeignDeathCert'
     },
+    DeathCertificateInterim: 'IhtMethod',
+    IhtEstateValued: {
+        ihtEstateFormsCompleted: 'IhtEstateForm',
+        otherwise: 'IhtEstateValues',
+    },
+    IhtEstateForm: 'ProbateEstateValues',
+    IhtEstateValues: {
+        netQualifyingValueWithinRange: 'DeceasedHadLateSpouseOrCivilPartner',
+        otherwise: 'ProbateEstateValues'
+    },
+    DeceasedHadLateSpouseOrCivilPartner: {
+        deceasedHadLateSpouseOrCivilPartner: 'IhtUnusedAllowanceClaimed',
+        otherwise: 'ProbateEstateValues'
+    },
+    IhtUnusedAllowanceClaimed: 'ProbateEstateValues',
+    ProbateEstateValues: 'AssetsOutside',
+    EnglishForeignDeathCert: {
+        foreignDeathCertIsInEnglish: 'IhtMethod',
+        otherwise: 'ForeignDeathCertTranslation'
+    },
+    ForeignDeathCertTranslation: 'IhtMethod',
     IhtMethod: {
         online: 'IhtIdentifier',
         otherwise: 'IhtPaper'

@@ -4,6 +4,7 @@ const journey = require('app/journeys/intestacy');
 const initSteps = require('../../../app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
+const coreContextMockData = require('../../data/core-context-mock-data.json');
 const OtherApplicants = steps.OtherApplicants;
 
 describe('OtherApplicants', () => {
@@ -38,15 +39,9 @@ describe('OtherApplicants', () => {
 
             const ctx = OtherApplicants.getContextData(req, res);
             expect(ctx).to.deep.equal({
+                ...coreContextMockData,
                 sessionID: 'dummy_sessionId',
-                otherApplicants: 'optionYes',
-                caseType: 'gop',
-                userLoggedIn: false,
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                language: 'en'
+                otherApplicants: 'optionYes'
             });
             done();
         });
@@ -60,6 +55,7 @@ describe('OtherApplicants', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionNo',
@@ -84,6 +80,7 @@ describe('OtherApplicants', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionNo',

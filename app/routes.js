@@ -30,7 +30,9 @@ const FormatUrl = require('app/utils/FormatUrl');
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
     req.log.info(`Processing ${req.method} for ${req.originalUrl}`);
-    next();
+    if (!req.originalUrl.match(/locale/g)) {
+        next();
+    }
 });
 
 router.use((req, res, next) => {
@@ -74,7 +76,7 @@ router.get('/start-apply', (req, res, next) => {
     }
 });
 
-router.use((req, res, next) => {
+router.use(['/task-list', '/assets-overseas', '/copies-overseas', '/copies-uk', '/copies-summary'], (req, res, next) => {
     const formdata = req.session.form;
     const ccdCaseId = formdata.ccdCase ? formdata.ccdCase.id : 'undefined';
 

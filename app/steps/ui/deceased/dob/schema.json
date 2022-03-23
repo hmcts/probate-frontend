@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "deceased-dob",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "deceased-dob",
   "type": "object",
   "properties": {
     "dob-day": {

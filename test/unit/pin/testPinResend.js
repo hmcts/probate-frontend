@@ -13,9 +13,10 @@ const i18next = require('i18next');
 const section = 'pin';
 const templatePath = 'pin/resend';
 const schema = {
-    $schema: 'http://json-schema.org/draft-04/schema#',
+    $schema: 'http://json-schema.org/draft-07/schema',
     properties: {}
 };
+const coreContextMockData = require('../../data/core-context-mock-data.json');
 
 describe('Pin-Resend', () => {
     describe('getUrl()', () => {
@@ -57,16 +58,10 @@ describe('Pin-Resend', () => {
             const ctx = pinResend.getContextData(req);
 
             expect(ctx).to.deep.equal({
+                ...coreContextMockData,
                 sessionID: 'dummy_sessionId',
-                caseType: 'gop',
-                userLoggedIn: false,
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
                 leadExecutorName: 'leadExecName',
-                phoneNumber: '0123456789',
-                language: 'en'
+                phoneNumber: '0123456789'
             });
 
             done();

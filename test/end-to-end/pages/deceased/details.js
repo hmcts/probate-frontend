@@ -1,13 +1,15 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-
-module.exports = async function(firstName, lastName, dob_day, dob_month, dob_year, dod_day, dod_month, dod_year) {
+// fix sonarlint issue - pass params as object - max params 7
+// defaulted params should be last!
+module.exports = async function(language ='en', firstName = null, lastName = null,
+    dob_day = null, dob_month = null, dob_year = null, dod_day = null, dod_month = null, dod_year = null) {
     const I = this;
+    const commonContent = require(`app/resources/${language}/translation/common`);
 
-    await I.checkPageUrl('app/steps/ui/deceased/details');
+    await I.checkInUrl('/deceased-details');
     const locatorFn = {css: '#firstName'};
-    await I.waitForElement(locatorFn);
+    await I.waitForEnabled(locatorFn);
 
     await I.fillField(locatorFn, firstName);
     await I.fillField({css: '#lastName'}, lastName);
@@ -20,5 +22,5 @@ module.exports = async function(firstName, lastName, dob_day, dob_month, dob_yea
     await I.fillField({css: '#dod-month'}, dod_month);
     await I.fillField({css: '#dod-year'}, dod_year);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

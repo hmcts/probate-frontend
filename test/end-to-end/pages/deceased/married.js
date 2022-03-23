@@ -1,15 +1,20 @@
 'use strict';
 
 const config = require('config');
-const commonContent = require('app/resources/en/translation/common');
 
-module.exports = async function(answer) {
+const deceasedContentEn = 'get married or enter into a civil partnership';
+const deceasedContentCy = 'briodi neu ymrwymo i bartneriaeth sifil ar';
+
+module.exports = async function(language ='en', answer = null) {
     const I = this;
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    const deceasedContent = language === 'en' ? deceasedContentEn : deceasedContentCy;
 
-    await I.checkPageUrl('app/steps/ui/deceased/married');
-    await I.waitForText('get married or enter into a civil partnership', config.TestWaitForTextToAppear);
+    await I.checkInUrl('/deceased-married');
+    await I.waitForText(deceasedContent, config.TestWaitForTextToAppear);
+
     const locator = {css: `#married${answer}`};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.click(locator);
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

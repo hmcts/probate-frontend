@@ -1,0 +1,74 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+
+{% block form_content %}
+
+    {% set nameHtml %}
+        {{ govukInput({
+            name: "firstName",
+            id: "firstName",
+            label: {
+                text: content["nameLabel"] | safe,
+                classes: "govuk-label--s",
+                isPageHeading: false
+            },
+            hint: {
+                text: content["firstName"] | safe
+            },
+            value: fields.willDamageCulpritName.value.firstName
+        }) }}
+        {{ govukInput({
+            name: "lastName",
+            id: "lastName",
+            label: {
+                text: content["lastName"] | safe,
+                classes: "govuk-visually-hidden"
+
+            },
+            hint: {
+                text: content["lastName"] | safe
+            },
+            value: fields.willDamageCulpritName.value.lastName
+        }) }}
+    {% endset -%}
+
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "willDamageCulpritKnown",
+        name: "willDamageCulpritKnown",
+        fieldset: {
+            legend: {
+                text: content.question,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: { text: fields.willDamageCulpritKnown.errorMessage | safe } if fields.willDamageCulpritKnown.errorMessage,
+        items: [
+            {
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.willDamageCulpritKnown.value == "optionYes",
+                conditional: {
+                    html: nameHtml
+                }
+            },
+            {
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.willDamageCulpritKnown.value == "optionNo"
+            }
+        ]
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

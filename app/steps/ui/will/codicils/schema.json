@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "will-codicils",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "will-codicils",
   "type": "object",
   "properties": {},
   "required": [

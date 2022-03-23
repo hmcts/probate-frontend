@@ -1,5 +1,6 @@
 {% extends "govuk/template.njk" %}
 
+{% from "govuk/components/cookie-banner/macro.njk" import govukCookieBanner %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/header/macro.njk" import govukHeader %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
@@ -19,11 +20,13 @@
 {% endblock %}
 
 {% block header %}
-    {% include "includes/scripts_ga_2.html" %}
-
-    <div id="global-cookie-message">
-        <p class="govuk-body">{{ cookieText | replace("{cookiesLink}", globals.links.cookies) | safe }}</p>
-    </div>
+    {% if fields.isGaEnabled.value === 'true' %}
+        {% include "includes/scripts_ga_2.html" %}
+    {% endif %}
+    
+    {% block cookiebanner %}
+        {% include "includes/cookie-banner.html" %}
+    {% endblock %}
 
     {% if not hideNavigation %}
         {% set navigationItems = [] %}
@@ -84,18 +87,22 @@
 {% endblock %}
 
 {% block beforeContent %}
+
+
     {{ govukPhaseBanner({
         tag: {
             text: common.phase | safe
         },
         html: (common.feedback + common.languageToggle) | replace("{smartSurveyFeedbackUrl}", globals.links.survey) | replace("{currentPageUrl}", pageUrl) | safe
     }) }}
+
+    
 {% endblock %}
 
 {% block footer %}
     {% include "includes/footer_links.html" %}
+    
 {% endblock %}
-
 {% block bodyEnd %}
     {% include "includes/scripts.html" %}
 {% endblock %}

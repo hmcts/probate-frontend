@@ -1,0 +1,86 @@
+{% macro damageLabel(items) %}
+        {% for item in items %}
+            {{ content.WillHasVisibleDamage["option" + item] }}{% if loop.index < items.length %},{% endif %}
+        {% endfor %}
+{% endmacro %}
+{{checkanswer(
+    items = [
+        {
+            question: content.WillHasVisibleDamage.question,
+            answer: content.WillHasVisibleDamage[fields.will.willHasVisibleDamage.value], 
+            visible: fields.featureToggles.value.ft_will_condition
+        },
+        {
+            question: content.WillHasVisibleDamage.otherDamageDescriptionHint,
+            answer: damageLabel(fields.will.willDamage.value.damageTypesList),
+            visible: fields.will.willHasVisibleDamage.value == 'optionYes'
+        },
+        {
+            question: content.WillHasVisibleDamage.otherDamage,
+            answer: fields.will.willDamage.value.otherDamageDescription,
+            visible: fields.will.willDamage.value.damageTypesList[fields.will.willDamage.value.damageTypesList.length - 1] == 'otherVisibleDamage'   
+        }
+    ],
+    url = content.WillHasVisibleDamage.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.WillDamageReasonKnown.question,
+            answer: content.WillDamageReasonKnown[fields.will.willDamageReasonKnown.value],
+            visible: fields.will.willHasVisibleDamage.value == 'optionYes'
+        },
+        {
+            question: content.WillDamageReasonKnown.willDamageReasonDescriptionTitle,
+            answer: fields.will.willDamageReasonDescription.value,
+            visible: fields.will.willDamageReasonKnown.value == 'optionYes'
+        }
+    ],
+    url = content.WillDamageReasonKnown.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.WillDamageCulpritKnown.question,
+            answer: content.WillDamageCulpritKnown[fields.will.willDamageCulpritKnown.value],
+            visible: fields.will.willHasVisibleDamage.value == 'optionYes'
+        },
+        {
+            question: content.WillDamageCulpritKnown.firstName,
+            answer: fields.will.willDamageCulpritName.value.firstName,
+            visible: fields.will.willDamageCulpritKnown.value == 'optionYes'
+        },
+        {
+            question: content.WillDamageCulpritKnown.lastName,
+            answer: fields.will.willDamageCulpritName.value.lastName,
+            visible: fields.will.willDamageCulpritKnown.value == 'optionYes'
+        }
+    ],
+    url = content.WillDamageCulpritKnown.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.WillDamageDate.question,
+            answer: content.WillDamageDate[fields.will.willDamageDateKnown.value],
+            visible: fields.will.willHasVisibleDamage.value == 'optionYes'
+        },
+        {
+            question: content.WillDamageDate.date,
+            answer: fields.will.willDamageDate.value,
+            visible: fields.will.willDamageDateKnown.value == 'optionYes'
+        }
+    ],
+    url = content.WillDamageDate.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}

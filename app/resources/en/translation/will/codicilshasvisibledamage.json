@@ -1,0 +1,27 @@
+{
+    "title": "Do the codicils have any visible damages or marks?",
+    "question": "Do the codicils have any visible damages or marks?",
+    "optionYes": "Yes",
+    "optionNo": "No",
+    "otherDamageDescriptionHint": "Describe the damage",
+    "otherDamage": "Other damage",
+    "codicilsDamageHint": "Select all that apply.",
+    "optionstapleOrPunchHoles": "Staple or punch holes",
+    "optionrustMarks": "Rust marks",
+    "optionpaperClipMarks": "Paper clip marks",
+    "optiontornEdges": "Torn edges",
+    "optionwaterDamage": "Water damage",
+    "optionotherVisibleDamage": "Other",
+    "errors": {
+      "codicilsHasVisibleDamage": {
+        "required": "Select &lsquo;yes&rsquo; if you know if the codicils have any visible damages or marks"
+      },
+      "codicilsDamageTypes": {
+        "required": "Select which visible damages or marks applies"
+      },
+      "otherDamageDescription": {
+        "required": "Enter a description of the visible damages or marks to the codicils"
+      }
+    }
+  }
+  

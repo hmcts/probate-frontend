@@ -1,16 +1,13 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const IhtMethod = require('app/steps/ui/iht/method');
 const commonContent = require('app/resources/en/translation/common');
 const content = require('app/resources/en/translation/documentupload');
 const config = require('config');
-const nock = require('nock');
 const expect = require('chai').expect;
 
 describe('document-upload', () => {
     let testWrapper;
-    const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DocumentUpload');
@@ -38,7 +35,11 @@ describe('document-upload', () => {
                         helpHeading2: commonContent.helpHeading2,
                         helpHeading3: commonContent.helpHeading3,
                         helpTelephoneNumber: commonContent.helpTelephoneNumber,
-                        helpTelephoneOpeningHours: commonContent.helpTelephoneOpeningHours,
+                        helpTelephoneOpeningHoursTitle: commonContent.helpTelephoneOpeningHoursTitle,
+                        helpTelephoneOpeningHours1: commonContent.helpTelephoneOpeningHours1,
+                        helpTelephoneOpeningHours2: commonContent.helpTelephoneOpeningHours2,
+                        helpTelephoneOpeningHours3: commonContent.helpTelephoneOpeningHours3,
+                        helpTelephoneOpeningHours4: commonContent.helpTelephoneOpeningHours4,
                         helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, commonContent.helpEmail)
                     };
 
@@ -58,30 +59,6 @@ describe('document-upload', () => {
                 .send(sessionData)
                 .end(() => {
                     testWrapper.testContent(done);
-                });
-        });
-
-        it('test it remains on the document upload page after uploading a document', (done) => {
-            nock(config.services.orchestrator.url)
-                .post(config.documentUpload.paths.upload)
-                .reply(200, [
-                    'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
-                ]);
-
-            testWrapper.agent.post('/prepare-session-field/serviceAuthorization/SERVICE_AUTH_123')
-                .end(() => {
-                    testWrapper.agent
-                        .post(testWrapper.pageUrl)
-                        .set('enctype', 'multipart/form-data')
-                        .field('isUploadingDocument', 'true')
-                        .attach('file', 'test/data/document-upload/valid-image.png')
-                        .expect('location', testWrapper.pageUrl)
-                        .expect(302)
-                        .then(() => {
-                            nock.cleanAll();
-                            done();
-                        })
-                        .catch(done);
                 });
         });
 
@@ -161,10 +138,6 @@ describe('document-upload', () => {
                     done();
                 })
                 .catch(done);
-        });
-
-        it('test it redirects to the iht method page after clicking the continue button', (done) => {
-            testWrapper.testRedirect(done, {}, expectedNextUrlForIhtMethod);
         });
     });
 });

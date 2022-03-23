@@ -7,7 +7,7 @@ module.exports = {
     },
     "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": 2017,
+        "ecmaVersion": 2018,
         "sourceType": "module"
     },
     "rules": {
@@ -316,6 +316,11 @@ module.exports = {
         "actor": true,
         "Feature": true,
         "Scenario": true,
+        "xScenario": true,
+        "Before": true,
+        "After": true,
+        "BeforeSuite": true,
+        "AfterSuite": true,
         "codecept_helper": true
     }
 };

@@ -1,11 +1,13 @@
 $path: "/public/images/";
 
 // Import GOV.UK Frontend
+@import "node_modules/govuk-frontend/govuk/base";
 @import "node_modules/govuk-frontend/govuk/settings/all";
 @import "node_modules/govuk-frontend/govuk/core/all";
 @import "node_modules/govuk-frontend/govuk/objects/all";
 @import "node_modules/govuk-frontend/govuk/components/button/button";
 @import "node_modules/govuk-frontend/govuk/components/checkboxes/checkboxes";
+@import "node_modules/govuk-frontend/govuk/components/cookie-banner/cookie-banner";
 @import "node_modules/govuk-frontend/govuk/components/date-input/date-input";
 @import "node_modules/govuk-frontend/govuk/components/details/details";
 @import "node_modules/govuk-frontend/govuk/components/error-message/error-message";
@@ -29,7 +31,6 @@ $path: "/public/images/";
 @import "node_modules/govuk-frontend/govuk/utilities/all";
 @import "node_modules/govuk-frontend/govuk/overrides/all";
 
-@import "patterns/cookie-bar";
 @import "patterns/phase-banner";
 @import "patterns/header";
 @import "patterns/hint";
@@ -40,5 +41,6 @@ $path: "/public/images/";
 @import "patterns/check-your-answers";
 @import "patterns/document-upload";
 @import "patterns/declaration";
+@import "patterns/avaya-webchat-1";
 
 @import "application-common.scss";

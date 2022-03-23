@@ -53,6 +53,7 @@ describe('died-after-october-2014', () => {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
                     deathCertificate: 'optionYes',
+                    deathCertificateInEnglish: 'optionYes',
                     domicile: 'optionYes',
                     completed: 'optionYes',
                     left: 'optionNo'
@@ -75,6 +76,7 @@ describe('died-after-october-2014', () => {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
                     deathCertificate: 'optionYes',
+                    deathCertificateInEnglish: 'optionYes',
                     domicile: 'optionYes',
                     completed: 'optionYes',
                     left: 'optionNo'

@@ -4,10 +4,12 @@ const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
+const CodicilsHasVisibleDamage = require('app/steps/ui/will/codicilshasvisibledamage');
 
 describe('codicils-number', () => {
     let testWrapper;
     const expectedNextUrlForTaskList = TaskList.getUrl();
+    const expectedNextUrlForCodicilsDamage = CodicilsHasVisibleDamage.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CodicilsNumber');
@@ -26,13 +28,15 @@ describe('codicils-number', () => {
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456
-                }
+                },
+                codicilsNumber: '99'
             };
 
+            const contentData = {codicilsNumber: '99'};
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done);
+                    testWrapper.testContent(done, contentData);
                 });
         });
 
@@ -54,8 +58,20 @@ describe('codicils-number', () => {
 
         it(`test it redirects to TaskList page: ${expectedNextUrlForTaskList}`, (done) => {
             const data = {codicilsNumber: '1'};
+            testWrapper.agent.post('/prepare-session/featureToggles')
+                .send({ft_will_condition: false})
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
+                });
+        });
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
+        it(`test it redirects to CodicilsHasVisibleDamage page: ${expectedNextUrlForCodicilsDamage}`, (done) => {
+            const data = {codicilsNumber: '1'};
+            testWrapper.agent.post('/prepare-session/featureToggles')
+                .send({ft_will_condition: true})
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForCodicilsDamage);
+                });
         });
     });
 });

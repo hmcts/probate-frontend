@@ -1,0 +1,12 @@
+{
+    "iht": {
+      "estateValueCompleted": "optionYes",
+      "ihtFormEstateId": "optionIHT400421",
+      "grossValueField": "100000",
+      "netValueField": "100000"
+    },
+    "deceased": {
+    "deathCertificate": "Death certificate",
+    "dod-date": "2022-02-20"
+  }
+}

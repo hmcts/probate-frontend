@@ -1,23 +1,31 @@
 'use strict';
 
 const config = require('config');
+const {get} = require('lodash');
 const featureToggle = require('app/utils/FeatureToggle');
 
 class ScreenerValidation {
 
-    getNewDeathCertFeatureEnabled(ftValues) {
-        return featureToggle.isEnabled(ftValues, 'ft_new_deathcert_flow');
+    getScreeners(journeyType, formdata, featureToggles) {
+        return config[this.eligibilityListBuilder(journeyType, formdata, featureToggles)];
     }
 
-    getScreeners(journeyType, formdata, ftValues) {
-        //DTSPB-529 Change screeners list if new death cert FT enabled.
-        if (this.getNewDeathCertFeatureEnabled(ftValues) && formdata.screeners) {
-            const deathCertificateNotInEnglish = formdata.screeners.deathCertificateInEnglish ? formdata.screeners.deathCertificateInEnglish === 'optionNo' : false;
+    eligibilityListBuilder(journeyType, formdata, featureToggles) {
+        const deathCertificateNotInEnglish = get(formdata, 'screeners.deathCertificateInEnglish') ? formdata.screeners.deathCertificateInEnglish === 'optionNo' : false;
 
-            return deathCertificateNotInEnglish ? config[`${journeyType}ScreenersDeathCertificateNotInEnglish`] : config[`${journeyType}ScreenersDeathCertificateInEnglish`];
+        let eligibilityListString = deathCertificateNotInEnglish ? journeyType + 'ScreenersDeathCertificateNotInEnglish' : journeyType + 'ScreenersDeathCertificateInEnglish';
+
+        if (featureToggle.isEnabled(featureToggles, 'ft_excepted_estates')) {
+            const dodBeforeEeThreshold = get(formdata, 'screeners.eeDeceasedDod') ? formdata.screeners.eeDeceasedDod === 'optionNo' : false;
+
+            if (dodBeforeEeThreshold) {
+                eligibilityListString += 'DodBeforeThreshold';
+            }
+
+            eligibilityListString += 'ExceptedEstates';
         }
 
-        return config[`${journeyType}Screeners`];
+        return eligibilityListString;
     }
 }
 

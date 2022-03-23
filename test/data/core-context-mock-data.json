@@ -1,0 +1,16 @@
+{
+    "sessionID": "abc123",
+    "caseType": "gop",
+    "userLoggedIn": false,
+    "ccdCase": {
+        "id": 1234567890123456,
+        "state": "Pending"
+    },
+    "featureToggles": {
+        "ft_avaya_webchat": "false"
+    },
+    "isAvayaWebChatEnabled": false,
+    "isGaEnabled": true,
+    "isWebChatEnabled": true,
+    "language": "en"
+}

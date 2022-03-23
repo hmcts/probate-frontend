@@ -4,6 +4,7 @@ const journey = require('app/journeys/probate');
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
+const coreContextMockData = require('../../data/core-context-mock-data.json');
 const MentalCapacity = steps.MentalCapacity;
 
 describe('MentalCapacity', () => {
@@ -38,15 +39,9 @@ describe('MentalCapacity', () => {
 
             const ctx = MentalCapacity.getContextData(req, res);
             expect(ctx).to.deep.equal({
+                ...coreContextMockData,
                 sessionID: 'dummy_sessionId',
-                mentalCapacity: 'optionYes',
-                caseType: 'gop',
-                userLoggedIn: false,
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                language: 'en'
+                mentalCapacity: 'optionYes'
             });
             done();
         });
@@ -60,6 +55,8 @@ describe('MentalCapacity', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionYes',
@@ -84,6 +81,8 @@ describe('MentalCapacity', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionYes',

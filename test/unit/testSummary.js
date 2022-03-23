@@ -6,6 +6,7 @@ const co = require('co');
 const rewire = require('rewire');
 const Summary = rewire('app/steps/ui/summary');
 const probateJourney = require('app/journeys/probate');
+const coreContextMockData = require('../data/core-context-mock-data.json');
 
 describe('Summary', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
@@ -19,7 +20,7 @@ describe('Summary', () => {
         templatePath = 'summary';
         i18next = {};
         schema = {
-            $schema: 'http://json-schema.org/draft-04/schema#',
+            $schema: 'http://json-schema.org/draft-07/schema',
             properties: {}
         };
     });
@@ -95,7 +96,9 @@ describe('Summary', () => {
                         caseType: 'gop',
                         deceased: {
                             firstName: 'Dee',
-                            lastName: 'Ceased'
+                            lastName: 'Ceased',
+                            'dod-date': '2022-02-02',
+                            'dod-formattedDate': '2 February 2022'
                         },
                         iht: {
                             netValue: 300000
@@ -107,18 +110,14 @@ describe('Summary', () => {
             const Summary = steps.Summary;
             const ctx = Summary.getContextData(req);
             expect(ctx).to.deep.equal({
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
+                ...coreContextMockData,
                 authToken: '1234',
                 alreadyDeclared: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
                 diedEnglandOrWalesQuestion: 'Did Dee Ceased die in England or Wales?',
                 deceasedMarriedQuestion: 'Did Dee Ceased get married or enter into a civil partnership after the will was signed?',
                 ihtTotalNetValue: 300000,
-                caseType: 'gop',
-                userLoggedIn: false,
+                exceptedEstateDodAfterThreshold: true,
                 readyToDeclare: false,
                 session: {
                     language: 'en',
@@ -130,7 +129,9 @@ describe('Summary', () => {
                         caseType: 'gop',
                         deceased: {
                             firstName: 'Dee',
-                            lastName: 'Ceased'
+                            lastName: 'Ceased',
+                            'dod-date': '2022-02-02',
+                            'dod-formattedDate': '2 February 2022'
                         },
                         iht: {
                             netValue: 300000
@@ -141,8 +142,7 @@ describe('Summary', () => {
                     }
                 },
                 sessionID: 'dummy_sessionId',
-                softStop: false,
-                language: 'en'
+                softStop: false
             });
             done();
         });
@@ -176,10 +176,7 @@ describe('Summary', () => {
             const Summary = steps.Summary;
             const ctx = Summary.getContextData(req);
             expect(ctx).to.deep.equal({
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
+                ...coreContextMockData,
                 authToken: '12345',
                 alreadyDeclared: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
@@ -195,8 +192,8 @@ describe('Summary', () => {
                 ihtTotalNetValue: 550000,
                 ihtTotalNetValueGreaterThanIhtThreshold: true,
                 caseType: 'intestacy',
-                userLoggedIn: false,
                 readyToDeclare: false,
+                exceptedEstateDodAfterThreshold: false,
                 session: {
                     language: 'en',
                     form: {
@@ -222,8 +219,7 @@ describe('Summary', () => {
                     }
                 },
                 sessionID: 'dummy_sessionId',
-                softStop: false,
-                language: 'en'
+                softStop: false
             });
             done();
         });
@@ -234,6 +230,12 @@ describe('Summary', () => {
                     form: {
                         documents: {
                             uploads: [{filename: 'screenshot1.png'}, {filename: 'screenshot2.png'}]
+                        },
+                        deceased: {
+                        },
+                        iht: {
+                            estateNetQualifyingValue: {
+                            }
                         }
                     }
                 },
@@ -250,6 +252,12 @@ describe('Summary', () => {
                     form: {
                         documents: {
                             uploads: []
+                        },
+                        deceased: {
+                        },
+                        iht: {
+                            estateNetQualifyingValue: {
+                            }
                         }
                     }
                 },
@@ -257,6 +265,22 @@ describe('Summary', () => {
             const Summary = steps.Summary;
             const ctx = Summary.getContextData(req);
             expect(ctx.uploadedDocuments).to.deep.equal([]);
+            done();
+        });
+    });
+
+    describe('generateFields()', () => {
+        it('it should set Google analytics enabled to true', (done) => {
+            const ctx = {
+                session: {
+                    form: {},
+                    journey: probateJourney
+                },
+                isGaEnabled: true
+            };
+            const summary = new Summary(steps, section, templatePath, i18next, schema);
+            const fields = summary.generateFields('en', ctx, [], {});
+            expect(fields.isGaEnabled.value).to.deep.equal('true');
             done();
         });
     });

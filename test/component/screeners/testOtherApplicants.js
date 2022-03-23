@@ -55,6 +55,7 @@ describe('other-applicants', () => {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
                     deathCertificate: 'optionYes',
+                    deathCertificateInEnglish: 'optionYes',
                     domicile: 'optionYes',
                     completed: 'optionYes',
                     left: 'optionNo',
@@ -79,6 +80,7 @@ describe('other-applicants', () => {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
                     deathCertificate: 'optionYes',
+                    deathCertificateInEnglish: 'optionYes',
                     domicile: 'optionYes',
                     completed: 'optionYes',
                     left: 'optionNo',

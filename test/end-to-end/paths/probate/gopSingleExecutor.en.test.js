@@ -1,154 +1,163 @@
 'use strict';
 
-const taskListContent = require('app/resources/en/translation/tasklist');
+const taskListContentEn = require('app/resources/en/translation/tasklist');
+const taskListContentCy = require('app/resources/cy/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const optionYes = '';
 const ihtPost = '';
 const optionNo = '-2';
 const bilingualGOP = false;
-const uploadingDocuments = false;
-const config = require('config');
+const languages = ['en', 'cy'];
 
-Feature('GOP-Single Executor flow...').retry(TestConfigurator.getRetryFeatures());
+Feature('GOP-Single Executor');
 
-// eslint complains that the Before/After are not used but they are by codeceptjs
-// so we have to tell eslint to not validate these
-// eslint-disable-next-line no-undef
 Before(async () => {
     await TestConfigurator.initLaunchDarkly();
     await TestConfigurator.getBefore();
 });
 
-// eslint-disable-next-line no-undef
-After(() => {
-    TestConfigurator.getAfter();
+After(async () => {
+    await TestConfigurator.getAfter();
 });
 
-Scenario(TestConfigurator.idamInUseText('Single Executor Journey with sign out/in and survey link'), async (I) => {
-    await I.retry(2).createAUser(TestConfigurator);
+languages.forEach(language => {
 
-    const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
+    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} -GOP Single Executor E2E `), async ({I}) => {
 
-    // Eligibility Task (pre IdAM)
-    await I.startApplication();
+        const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
+        await I.retry(2).createAUser(TestConfigurator);
 
-    await I.selectDeathCertificate(optionYes);
+        // Eligibility Task (pre IdAM)
+        await I.startApplication(language);
+        await I.selectDeathCertificate(language);
+        await I.selectDeathCertificateInEnglish(language, optionNo);
+        await I.selectDeathCertificateTranslation(language, optionYes);
+        await I.selectDeceasedDomicile(language);
+        const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
+        if (isEEEnabled) {
+            await I.selectEEDeceasedDod(language);
+            await I.selectEEvalue(language);
+        } else {
+            await I.selectIhtCompleted(language, optionYes);
+        }
+        await I.selectPersonWhoDiedLeftAWill(language, optionYes);
+        await I.selectOriginalWill(language, optionYes);
+        await I.selectApplicantIsExecutor(language, optionYes);
+        await I.selectMentallyCapable(language, optionYes);
+        await I.startApply(language);
 
-    if (useNewDeathCertFlow) {
-        await I.selectDeathCertificateInEnglish(optionNo);
-        await I.selectDeathCertificateTranslation(optionYes);
-    }
+        // IdAM
+        await I.authenticateWithIdamIfAvailable(language);
 
-    await I.selectDeceasedDomicile(optionYes);
+        // Dashboard
+        await I.chooseApplication(language);
 
-    await I.selectIhtCompleted(optionYes);
+        // Deceased Details
+        await I.selectATask(language, taskListContent.taskNotStarted);
+        await I.chooseBiLingualGrant(language, optionNo);
+        await I.enterDeceasedName(language, 'Deceased First Name', 'Deceased Last Name');
+        await I.enterDeceasedDateOfBirth(language, '01', '01', '1950', true);
 
-    await I.selectPersonWhoDiedLeftAWill(optionYes);
+        await I.seeSignOut(language);
 
-    await I.selectOriginalWill(optionYes);
+        await I.authenticateWithIdamIfAvailable(language);
 
-    await I.selectApplicantIsExecutor(optionYes);
+        // Dashboard
+        await I.chooseApplication(language);
 
-    await I.selectMentallyCapable(optionYes);
+        // Deceased Details
+        await I.selectATask(language, taskListContent.taskNotStarted);
 
-    await I.startApply();
+        await I.enterDeceasedDateOfBirth(language, '01', '01', '1950');
+        await I.enterDeceasedDateOfDeath(language, '01', '01', '2017');
+        await I.enterDeceasedAddress(language);
 
-    // IdAM
-    await I.authenticateWithIdamIfAvailable();
+        await I.selectDiedEngOrWales(language, optionNo);
+        await I.selectEnglishForeignDeathCert(language, optionNo);
+        await I.selectForeignDeathCertTranslation(language, optionYes);
 
-    // Dashboard
-    await I.chooseApplication();
+        await I.selectInheritanceMethod(language, ihtPost);
 
-    // Deceased Details
-    await I.selectATask(taskListContent.taskNotStarted);
-    await I.chooseBiLingualGrant(optionNo);
-    await I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
-    await I.enterDeceasedDateOfBirth('01', '01', '1950', true);
+        if (TestConfigurator.getUseGovPay() === 'true') {
+            await I.enterGrossAndNet(language, '205', '600000', '300000');
+        } else {
+            await I.enterGrossAndNet(language, '205', '500', '400');
+        }
 
-    await I.seeSignOut();
+        await I.selectDeceasedAlias(language, optionNo);
+        await I.selectDeceasedMarriedAfterDateOnWill(language, optionNo);
 
-    await I.authenticateWithIdamIfAvailable();
+        const isWillConditionEnabled = await TestConfigurator.checkFeatureToggle('probate-will-condition');
+        if (isWillConditionEnabled) {
+            await I.selectWillDamage(language, optionYes, 'test');
+            await I.selectWillDamageReason(language, optionYes, 'test');
+            await I.selectWillDamageWho(language, optionYes, 'test', 'test');
+            await I.selectWillDamageDate(language, optionYes, 2017);
+        }
 
-    // Dashboard
-    await I.chooseApplication();
+        await I.selectWillCodicils(language, optionYes);
+        await I.selectWillNoOfCodicils(language, 1);
 
-    // Deceased Details
-    await I.selectATask(taskListContent.taskNotStarted);
+        if (isWillConditionEnabled) {
+            await I.selectCodicilsDamage(language, optionYes, 'test');
+            await I.selectCodicilsReason(language, optionYes, 'test');
+            await I.selectCodicilsWho(language, optionYes, 'test', 'test');
+            await I.selectCodicilsDate(language, optionYes, 2000);
+            await I.selectWrittenWishes(language, optionYes, 'test');
+        }
+        // ExecutorsTask
+        await I.selectATask(language, taskListContent.taskNotStarted);
+        await I.enterApplicantName(language, 'Applicant First Name', 'Applicant Last Name');
+        await I.selectNameAsOnTheWill(language, optionYes);
+        await I.enterApplicantPhone(language);
+        await I.enterAddressManually(language);
 
-    await I.enterDeceasedDateOfBirth('01', '01', '1950');
-    await I.enterDeceasedDateOfDeath('01', '01', '2017');
-    await I.enterDeceasedAddress();
+        const totalExecutors = '1';
+        await I.enterTotalExecutors(language, totalExecutors);
 
-    if (useNewDeathCertFlow) {
-        await I.selectDiedEngOrWales(optionNo);
-        await I.selectEnglishForeignDeathCert(optionNo);
-        await I.selectForeignDeathCertTranslation(optionYes);
-    } else {
-        await I.selectDocumentsToUpload(uploadingDocuments);
-    }
+        // Skip Equality and Diversity questions
+        if (TestConfigurator.equalityAndDiversityEnabled()) {
+            await I.exitEqualityAndDiversity(language);
+            await I.completeEqualityAndDiversity(language);
+        }
 
-    await I.selectInheritanceMethod(ihtPost);
+        // Review and Confirm Task
+        await I.selectATask(language, taskListContent.taskNotStarted);
+        await I.seeSummaryPage(language, 'declaration');
+        await I.acceptDeclaration(language, bilingualGOP);
 
-    if (TestConfigurator.getUseGovPay() === 'true') {
-        await I.enterGrossAndNet('205', '600000', '300000');
-    } else {
-        await I.enterGrossAndNet('205', '500', '400');
-    }
+        // Extra Copies Task
+        await I.selectATask(language, taskListContent.taskNotStarted);
 
-    await I.selectDeceasedAlias(optionNo);
-    await I.selectDeceasedMarriedAfterDateOnWill(optionNo);
-    await I.selectWillCodicils(optionNo);
+        if (TestConfigurator.getUseGovPay() === 'true') {
+            await I.enterUkCopies(language, '5');
+            await I.selectOverseasAssets(language, optionYes);
+            await I.enterOverseasCopies(language, '7');
+        } else {
+            await I.enterUkCopies(language, '0');
+            await I.selectOverseasAssets(language, optionYes);
+            await I.enterOverseasCopies(language, '0');
+        }
 
-    // ExecutorsTask
-    await I.selectATask(taskListContent.taskNotStarted);
-    await I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
-    await I.selectNameAsOnTheWill(optionYes);
-    await I.enterApplicantPhone();
-    await I.enterAddressManually();
+        await I.seeCopiesSummary(language);
 
-    const totalExecutors = '1';
-    await I.enterTotalExecutors(totalExecutors);
+        // Payment Task
+        await I.selectATask(language, taskListContent.taskNotStarted);
+        await I.seePaymentBreakdownPage(language);
 
-    // Skip Equality and Diversity questions
-    if (TestConfigurator.equalityAndDiversityEnabled()) {
-        await I.exitEqualityAndDiversity();
-        await I.completeEqualityAndDiversity();
-    }
+        if (TestConfigurator.getUseGovPay() === 'true') {
+            await I.seeGovUkPaymentPage(language);
+            await I.seeGovUkConfirmPage(language);
+        }
 
-    // Review and Confirm Task
-    await I.selectATask(taskListContent.taskNotStarted);
-    await I.seeSummaryPage('declaration');
-    await I.acceptDeclaration(bilingualGOP);
+        await I.seePaymentStatusPage(language);
 
-    // Extra Copies Task
-    await I.selectATask(taskListContent.taskNotStarted);
+        // Send Documents Task
+        await I.seeDocumentsPage(language);
 
-    if (TestConfigurator.getUseGovPay() === 'true') {
-        await I.enterUkCopies('5');
-        await I.selectOverseasAssets(optionYes);
-        await I.enterOverseasCopies('7');
-    } else {
-        await I.enterUkCopies('0');
-        await I.selectOverseasAssets(optionYes);
-        await I.enterOverseasCopies('0');
-    }
+        // Thank You
+        await I.seeThankYouPage(language);
 
-    await I.seeCopiesSummary();
-
-    // Payment Task
-    await I.selectATask(taskListContent.taskNotStarted);
-    await I.seePaymentBreakdownPage();
-
-    if (TestConfigurator.getUseGovPay() === 'true') {
-        await I.seeGovUkPaymentPage();
-        await I.seeGovUkConfirmPage();
-    }
-
-    await I.seePaymentStatusPage();
-
-    // Send Documents Task
-    await I.seeDocumentsPage();
-
-    // Thank You
-    await I.seeThankYouPage();
-}).retry(TestConfigurator.getRetryScenarios());
+    }).tag('@e2enightly')
+        .retry(TestConfigurator.getRetryScenarios());
+});

@@ -63,7 +63,8 @@
       "deceasedName": "Someone Else",
       "relationship": "optionGrandparent",
       "married": "optionYes",
-      "deathCertificate": "optionYes",
+      "diedEngOrWales": "optionYes",
+      "deathCertificate": "optionDeathCertificate",
       "maritalStatus": "optionMarried"
     },
     "iht": {

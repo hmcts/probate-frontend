@@ -1,20 +1,16 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-const content = require('app/resources/en/translation/screeners/deceaseddomicile');
-
-module.exports = async function(answer) {
+module.exports = async function(language ='en') {
     const I = this;
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    const deceasedDomicileContent = require(`app/resources/${language}/translation/screeners/deceaseddomicile`);
 
-    await I.checkPageUrl('app/steps/ui/screeners/deceaseddomicile');
-    await I.waitForText(content.question);
-    await I.see(content.hintText1);
-    await I.seeElement({css: '#domicile-hint'});
-    await I.see('You can read more about ');
+    await I.waitForText(deceasedDomicileContent.question);
+    await I.checkInUrl('/deceased-domicile');
+    await I.see(deceasedDomicileContent.hintText1);
+    const locator = {css: '#domicile'};
+    await I.waitForEnabled(locator);
 
-    const locator = {css: `#domicile${answer}`};
-    await I.waitForElement(locator);
     await I.click(locator);
-
-    await I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue, 'button.govuk-button');
 };

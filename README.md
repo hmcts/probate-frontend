@@ -31,7 +31,7 @@ $ yarn git-info
 
 ### Running the application
 
-Run the application local server:
+Run the application local server as dev:
 ```
 $ yarn start:ld
 ```
@@ -80,6 +80,27 @@ This file is not version controlled so any config here will not be pushed to git
 
 As an example, if you want to use LanuchDarkly locally, place the SDK Key in this file. You can keep the key there as this file is not version controlled.
 
+If you want to allowed login you will need all the services running through manually/using docker-compose
+
+set following in default.yml
+```
+  useIDAM: 'true'
+  requireCcdCaseId: 'true'
+```
+you shoud then be able to use a citizen user of
+```
+testusername@test.com/Pa55word11
+```
+add a dev.yaml file to the /config folder with contents if you want to run LauchDarkly locally
+```
+featureToggles:
+  launchDarklyKey: 'sdk-4d50eb6e-8400-4aa7-b4c5-8bdfc8b1d844'
+```
+emails can be monitored at:
+```
+http://localhost:8025
+```
+
 ### Running the tests
 
 Mocha is used for writing tests.
@@ -114,3 +135,4 @@ You'll need to get the ADDRESS_TOKEN from the AAT vault `postcode-service-token2
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/hmcts/probate-frontend/blob/develop/LICENSE.md) file for details
+

@@ -31,7 +31,17 @@ class TestConfigurator {
     }
 
     async initLaunchDarkly() {
+        console.log('Opening LaunchDarkly connection...');
         this.launchDarkly = await new LaunchDarkly();
+        console.log('LaunchDarkly connection opened.');
+    }
+
+    async closeLaunchDarkly() {
+        if (this.launchDarkly) {
+            console.log('Closing LaunchDarkly connection...');
+            await this.launchDarkly.close();
+            console.log('LaunchDarkly connection closed.');
+        }
     }
 
     async getBefore() {
@@ -42,16 +52,14 @@ class TestConfigurator {
         await this.setEnvVars();
     }
 
-    getAfter() {
-        this.deleteIdamUser();
-        if (this.launchDarkly) {
-            this.launchDarkly.close();
-        }
+    async getAfter() {
+        await this.deleteIdamUser();
+        await this.closeLaunchDarkly();
     }
 
     setTestCitizenName() {
         this.testCitizenName = randomstring.generate({
-            length: 36,
+            length: 24,
             charset: 'alphabetic'
         });
     }

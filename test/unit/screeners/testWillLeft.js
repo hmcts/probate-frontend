@@ -4,6 +4,7 @@ const journey = require('app/journeys/probate');
 const initSteps = require('../../../app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
+const coreContextMockData = require('../../data/core-context-mock-data.json');
 const WillLeft = steps.WillLeft;
 
 describe('WillLeft', () => {
@@ -38,15 +39,9 @@ describe('WillLeft', () => {
 
             const ctx = WillLeft.getContextData(req, res);
             expect(ctx).to.deep.equal({
+                ...coreContextMockData,
                 sessionID: 'dummy_sessionId',
-                left: 'optionYes',
-                caseType: 'gop',
-                userLoggedIn: false,
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                language: 'en'
+                left: 'optionYes'
             });
             done();
         });
@@ -85,6 +80,7 @@ describe('WillLeft', () => {
                 userLoggedIn: true,
                 screeners: {
                     deathCertificate: 'optionYes',
+                    deathCertificateInEnglish: 'optionYes',
                     domicile: 'optionYes',
                     completed: 'optionYes'
                 }
@@ -108,6 +104,7 @@ describe('WillLeft', () => {
                 screeners: {
                     deathCertificate: 'optionYes',
                     domicile: 'optionYes',
+                    deathCertificateInEnglish: 'optionYes',
                     completed: 'optionYes'
                 }
             });
@@ -123,6 +120,7 @@ describe('WillLeft', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes'
                         }
@@ -144,6 +142,7 @@ describe('WillLeft', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes'
                         }

@@ -1,13 +1,15 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
+const config = require('config');
 
-module.exports = async function (answer) {
+module.exports = async function (language = 'en', answer = null) {
     const I = this;
-
-    await I.checkPageUrl('app/steps/ui/applicant/spousenotapplyingreason');
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    const spouseContent = require(`app/resources/${language}/translation/applicant/spousenotapplyingreason`);
+    await I.checkInUrl('/spouse-not-applying-reason');
+    await I.waitForText(spouseContent.optionRenouncing, config.TestWaitForTextToAppear);
     const locator = {css: `#spouseNotApplyingReason${answer}`};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.click(locator);
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

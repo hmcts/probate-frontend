@@ -21,6 +21,21 @@ class Executors {
         return this.executorsList.filter(executor => !executor.isApplying);
     }
 
+    executorPhoneNumberAlreadyUsed(mobile, fullName, applicantPhoneNumber = '') {
+        return applicantPhoneNumber.slice(-10) === mobile.slice(-10) ||
+            this.executorsList
+                .filter(executor => executor.mobile)
+                .filter(executor => executor.fullName !== fullName)
+                .some(executor => executor.mobile.slice(-10) === mobile.slice(-10));
+    }
+
+    executorEmailAlreadyUsed(email, fullName, applicantEmail = '') {
+        return applicantEmail.toLowerCase() === email.toLowerCase() || this.executorsList
+            .filter(executor => executor.email)
+            .filter(executor => executor.fullName !== fullName)
+            .some(executor => executor.email.toLowerCase() === email.toLowerCase());
+    }
+
     hasMultipleApplicants() {
         return this.executorsList.some(executor => !executor.isApplicant && executor.isApplying);
     }

@@ -1,245 +1,253 @@
 /* eslint-disable no-await-in-loop */
 'use strict';
 
-const taskListContent = require('app/resources/en/translation/tasklist');
+const taskListContentEn = require('app/resources/en/translation/tasklist');
+const taskListContentCy = require('app/resources/cy/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('config');
-const config = require('config');
 
 const optionYes = '';
 const ihtPost = '';
 const optionNo = '-2';
 const bilingualGOP = false;
-const uploadingDocuments = false;
+const languages = ['en', 'cy'];
 
-Feature('Multiple Executors flow - @crossbrowser').retry(TestConfigurator.getRetryFeatures());
+Feature('GOP Multiple Executors E2E');
 
-// eslint complains that the Before/After are not used but they are by codeceptjs
-// so we have to tell eslint to not validate these
-// eslint-disable-next-line no-undef
 Before(async () => {
     await TestConfigurator.initLaunchDarkly();
     await TestConfigurator.getBefore();
 });
 
-// eslint-disable-next-line no-undef
-After(() => {
-    TestConfigurator.getAfter();
+After(async () => {
+    await TestConfigurator.getAfter();
 });
 
-Scenario(TestConfigurator.idamInUseText('Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details'), async (I) => {
-    await I.retry(2).createAUser(TestConfigurator);
+languages.forEach(language => {
 
-    const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
+    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details`), async ({I}) => {
+        const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
+        await I.retry(2).createAUser(TestConfigurator);
 
-    // Eligibility Task (pre IdAM)
-    await I.startApplication();
-
-    await I.selectDeathCertificate(optionYes);
-
-    if (useNewDeathCertFlow) {
-        await I.selectDeathCertificateInEnglish(optionNo);
-        await I.selectDeathCertificateTranslation(optionYes);
-    }
-
-    await I.selectDeceasedDomicile(optionYes);
-
-    await I.selectIhtCompleted(optionYes);
-
-    await I.selectPersonWhoDiedLeftAWill(optionYes);
-
-    await I.selectOriginalWill(optionYes);
-
-    await I.selectApplicantIsExecutor(optionYes);
-
-    await I.selectMentallyCapable(optionYes);
-
-    await I.startApply();
-
-    // IdAM
-    await I.authenticateWithIdamIfAvailable(true);
-
-    // Dashboard
-    await I.chooseApplication();
-
-    // Deceased Task
-    await I.selectATask(taskListContent.taskNotStarted);
-    await I.chooseBiLingualGrant(optionNo);
-    await I.enterDeceasedName('Deceased First Name', 'Deceased Last Name');
-    await I.enterDeceasedDateOfBirth('01', '01', '1950');
-    await I.enterDeceasedDateOfDeath('01', '01', '2017');
-    await I.enterDeceasedAddress();
-
-    if (useNewDeathCertFlow) {
-        await I.selectDiedEngOrWales(optionNo);
-        await I.selectEnglishForeignDeathCert(optionNo);
-        await I.selectForeignDeathCertTranslation(optionYes);
-    } else {
-        await I.selectDocumentsToUpload(uploadingDocuments);
-    }
-
-    await I.selectInheritanceMethod(ihtPost);
-
-    if (TestConfigurator.getUseGovPay() === 'true') {
-        await I.enterGrossAndNet('205', '600000', '300000');
-    } else {
-        await I.enterGrossAndNet('205', '500', '400');
-    }
-
-    await I.selectDeceasedAlias(optionNo);
-    await I.selectDeceasedMarriedAfterDateOnWill(optionNo);
-    await I.selectWillCodicils(optionNo);
-
-    // ExecutorsTask
-    await I.selectATask(taskListContent.taskNotStarted);
-    await I.enterApplicantName('Applicant First Name', 'Applicant Last Name');
-    await I.selectNameAsOnTheWill(optionYes);
-    await I.enterApplicantPhone();
-    await I.enterAddressManually();
-
-    //const totalExecutors = '7';
-    const totalExecutors = '4';
-    await I.enterTotalExecutors(totalExecutors);
-    await I.enterExecutorNames(totalExecutors);
-    await I.selectExecutorsAllAlive(optionNo);
-
-    //const executorsWhoDiedList = ['2', '7']; // exec2 and exec7
-    const executorsWhoDiedList = ['2']; // exec2
-    let diedBefore = optionYes;
-    await I.selectExecutorsWhoDied(executorsWhoDiedList);
-
-    if (executorsWhoDiedList) {
-        for (let i = 0; i < executorsWhoDiedList.length; i++) {
-            const executorNum = executorsWhoDiedList[i];
-            await I.selectExecutorsWhenDied(executorNum, diedBefore, executorsWhoDiedList[0] === executorNum);
-            diedBefore = optionNo;
+        // Eligibility Task (pre IdAM)
+        await I.startApplication(language);
+        await I.selectDeathCertificate(language);
+        await I.selectDeathCertificateInEnglish(language, optionNo);
+        await I.selectDeathCertificateTranslation(language, optionYes);
+        await I.selectDeceasedDomicile(language);
+        const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
+        if (isEEEnabled) {
+            await I.selectEEDeceasedDod(language);
+            await I.selectEEvalue(language);
+        } else {
+            await I.selectIhtCompleted(language, optionYes);
         }
-    }
+        await I.selectPersonWhoDiedLeftAWill(language, optionYes);
+        await I.selectOriginalWill(language, optionYes);
+        await I.selectApplicantIsExecutor(language, optionYes);
+        await I.selectMentallyCapable(language, optionYes);
+        await I.startApply(language);
 
-    await I.selectExecutorsApplying(optionYes);
+        // IdAM
+        await I.authenticateWithIdamIfAvailable(language);
 
-    //const executorsApplyingList = ['3', '5']; // exec3 and exec5
-    const executorsApplyingList = ['3']; // exec3
-    await I.selectExecutorsDealingWithEstate(executorsApplyingList);
+        // Dashboard
+        await I.chooseApplication(language);
 
-    //I.selectExecutorsWithDifferentNameOnWill(optionYes);
-    await I.selectExecutorsWithDifferentNameOnWill(optionNo);
-    //const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
-    //I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
+        // Deceased Task
+        await I.selectATask(language, taskListContent.taskNotStarted);
+        await I.chooseBiLingualGrant(language, optionNo);
+        await I.enterDeceasedName(language, 'Deceased First Name', 'Deceased Last Name');
+        await I.enterDeceasedDateOfBirth(language, '01', '01', '1950');
+        await I.enterDeceasedDateOfDeath(language, '01', '01', '2017');
+        await I.enterDeceasedAddress(language);
 
-    // const executorNumber = '5'; // 5 is the number in the name of the executor ie exec5
-    // I.enterExecutorCurrentName(executorNumber);
-    // I.enterExecutorCurrentNameReason(executorNumber, 'executor_alias_reason');
+        await I.selectDiedEngOrWales(language, optionNo);
+        await I.selectEnglishForeignDeathCert(language, optionNo);
+        await I.selectForeignDeathCertTranslation(language, optionYes);
 
-    for (let i= 1; i <= executorsApplyingList.length; i++) {
-        await I.enterExecutorContactDetails();
-        await I.enterExecutorManualAddress(i);
-    }
+        await I.selectInheritanceMethod(language, ihtPost);
 
-    //const executorsAliveList = ['4', '6'];
-    const executorsAliveList = ['4'];
-    // let powerReserved = true;
-    // let answer = optionYes;
-    let powerReserved = false;
-    let answer = optionNo;
+        if (TestConfigurator.getUseGovPay() === 'true') {
+            await I.enterGrossAndNet(language, '205', '600000', '300000');
+        } else {
+            await I.enterGrossAndNet(language, '205', '500', '400');
+        }
 
-    if (executorsAliveList) {
-        for (let i = 0; i < executorsAliveList.length; i++) {
-            const executorNumber = executorsAliveList[i];
-            await I.selectExecutorRoles(executorNumber, answer, executorsAliveList[0] === executorNumber);
+        await I.selectDeceasedAlias(language, optionNo);
+        await I.selectDeceasedMarriedAfterDateOnWill(language, optionNo);
+        const isWillConditionEnabled = await TestConfigurator.checkFeatureToggle('probate-will-condition');
+        if (isWillConditionEnabled) {
+            await I.selectWillDamage(language, optionYes, 'test');
+            await I.selectWillDamageReason(language, optionYes, 'test');
+            await I.selectWillDamageWho(language, optionYes, 'test', 'test');
+            await I.selectWillDamageDate(language, optionYes, 2017);
+        }
 
-            if (powerReserved) {
-                await I.selectHasExecutorBeenNotified(optionYes);
+        await I.selectWillCodicils(language, optionYes);
+        await I.selectWillNoOfCodicils(language, 1);
+
+        if (isWillConditionEnabled) {
+            await I.selectCodicilsDamage(language, optionYes, 'test');
+            await I.selectCodicilsReason(language, optionYes, 'test');
+            await I.selectCodicilsWho(language, optionYes, 'test', 'test');
+            await I.selectCodicilsDate(language, optionYes, 2000);
+            await I.selectWrittenWishes(language, optionYes, 'test');
+        }
+
+        // ExecutorsTask
+        await I.selectATask(language, taskListContent.taskNotStarted);
+        await I.enterApplicantName(language, 'Applicant First Name', 'Applicant Last Name');
+        await I.selectNameAsOnTheWill(language, optionYes);
+        await I.enterApplicantPhone(language);
+        await I.enterAddressManually(language);
+
+        //const totalExecutors = '7';
+        const totalExecutors = '4';
+        await I.enterTotalExecutors(language, totalExecutors);
+        await I.enterExecutorNames(language, totalExecutors);
+        await I.selectExecutorsAllAlive(language, optionNo);
+
+        //const executorsWhoDiedList = ['2', '7']; // exec2 and exec7
+        const executorsWhoDiedList = ['2']; // exec2
+        let diedBefore = optionYes;
+        await I.selectExecutorsWhoDied(language, executorsWhoDiedList);
+
+        if (executorsWhoDiedList) {
+            for (let i = 0; i < executorsWhoDiedList.length; i++) {
+                const executorNum = executorsWhoDiedList[i];
+                await I.selectExecutorsWhenDied(language, executorNum, diedBefore, executorsWhoDiedList[0] === executorNum);
+                diedBefore = optionNo;
             }
-
-            powerReserved = false;
-            answer = optionNo;
         }
-    }
 
-    // Complete Equality & Diversity Questionnaire
-    if (TestConfigurator.equalityAndDiversityEnabled()) {
-        await I.exitEqualityAndDiversity();
-        await I.completeEqualityAndDiversity();
-    }
+        await I.selectExecutorsApplying(language, optionYes);
 
-    // Review and Confirm Task
-    await I.selectATask(taskListContent.taskNotStarted);
-    await I.seeSummaryPage('declaration');
-    await I.acceptDeclaration(bilingualGOP);
+        //const executorsApplyingList = ['3', '5']; // exec3 and exec5
+        const executorsApplyingList = ['3']; // exec3
+        await I.selectExecutorsDealingWithEstate(language, executorsApplyingList);
 
-    // Notify additional executors Dealing with estate
-    await I.notifyAdditionalExecutors();
-    await I.waitForText(taskListContent.introduction, testConfig.TestWaitForTextToAppear);
+        //I.selectExecutorsWithDifferentNameOnWill(optionYes);
+        await I.selectExecutorsWithDifferentNameOnWill(language, optionNo);
+        //const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
+        //I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
 
-    //Retrieve the email urls for additional executors
-    await I.amOnPage(testConfig.TestInviteIdListUrl);
-    await I.waitForElement('pre');
+        // const executorNumber = '5'; // 5 is the number in the name of the executor ie exec5
+        // I.enterExecutorCurrentName(executorNumber);
+        // I.enterExecutorCurrentNameReason(executorNumber, 'executor_alias_reason');
 
-    const grabIds = await I.grabTextFrom('pre');
+        for (let i = 1; i <= executorsApplyingList.length; i++) {
+            await I.enterExecutorContactDetails(language);
+            await I.enterExecutorManualAddress(language, i);
+        }
 
-    let idList = null;
-    try {
-        idList = JSON.parse(grabIds);
-    } catch (err) {
-        console.error(err.message);
-    }
-    console.log('idList:', idList);
+        //const executorsAliveList = ['4', '6'];
+        const executorsAliveList = ['4'];
+        // let powerReserved = true;
+        // let answer = optionYes;
+        let powerReserved = false;
+        let answer = optionNo;
 
-    for (let i=0; i < idList.ids.length; i++) {
-        await I.amOnPage(testConfig.TestInvitationUrl + '/' + idList.ids[i]);
-        await I.waitForText('Sign in', testConfig.TestWaitForTextToAppear, 'h1');
-        await I.amOnPage(testConfig.TestE2EFrontendUrl + '/pin');
+        if (executorsAliveList) {
+            for (let i = 0; i < executorsAliveList.length; i++) {
+                const executorNumber = executorsAliveList[i];
+                await I.selectExecutorRoles(language, executorNumber, answer, executorsAliveList[0] === executorNumber);
+
+                if (powerReserved) {
+                    await I.selectHasExecutorBeenNotified(language, optionYes);
+                }
+
+                powerReserved = false;
+                answer = optionNo;
+            }
+        }
+
+        // Complete Equality & Diversity Questionnaire
+        if (TestConfigurator.equalityAndDiversityEnabled()) {
+            await I.exitEqualityAndDiversity(language);
+            await I.completeEqualityAndDiversity(language);
+        }
+
+        // Review and Confirm Task
+        await I.selectATask(language, taskListContent.taskNotStarted);
+        await I.seeSummaryPage(language, 'declaration');
+        await I.acceptDeclaration(language, bilingualGOP);
+
+        // Notify additional executors Dealing with estate
+        await I.notifyAdditionalExecutors(language);
+        await I.waitForText(taskListContent.introduction, testConfig.TestWaitForTextToAppear);
+
+        //Retrieve the email urls for additional executors
+        await I.amOnPage(testConfig.TestInviteIdListUrl);
         await I.waitForElement('pre');
 
-        const grabPins = await I.grabTextFrom('pre'); // eslint-disable-line no-await-in-loop
-        const pinList = JSON.parse(grabPins);
+        const grabIds = await I.grabTextFrom('pre');
 
-        await I.clickBrowserBackButton(); // eslint-disable-line no-await-in-loop
+        let idList = null;
+        try {
+            idList = JSON.parse(grabIds);
+        } catch (err) {
+            console.error(err.message);
+        }
+        console.log('idList:', idList);
 
-        await I.enterPinCode(pinList.pin.toString());
-        await I.seeCoApplicantStartPage();
+        for (let i = 0; i < idList.ids.length; i++) {
+            await I.amOnPage(testConfig.TestInvitationUrl + '/' + idList.ids[i], language);
+            const signInOrProbatePageLocator = {xpath: '//*[@name="loginForm" or @id="main-content"]'};
+            await I.waitForElement(signInOrProbatePageLocator, testConfig.TestWaitForTextToAppear);
+            await I.amOnPage(testConfig.TestE2EFrontendUrl + '/pin');
+            await I.waitForElement('pre');
 
-        await I.agreeDeclaration(optionYes);
-        await I.seeAgreePage();
-    }
+            const grabPins = await I.grabTextFrom('pre'); // eslint-disable-line no-await-in-loop
+            const pinList = JSON.parse(grabPins);
 
-    // IDAM
-    await I.authenticateWithIdamIfAvailable(true);
+            await I.clickBrowserBackButton(); // eslint-disable-line no-await-in-loop
 
-    // Dashboard
-    await I.chooseApplication();
+            await I.enterPinCode(pinList.pin.toString());
+            await I.seeCoApplicantStartPage(language);
 
-    // Extra Copies Task
-    await I.selectATask(taskListContent.taskNotStarted);
+            await I.agreeDeclaration(optionYes);
+            await I.seeAgreePage(language);
+        }
 
-    if (TestConfigurator.getUseGovPay() === 'true') {
-        await I.enterUkCopies('5');
-        await I.selectOverseasAssets(optionYes);
-        await I.enterOverseasCopies('7');
-    } else {
-        await I.enterUkCopies('0');
-        await I.selectOverseasAssets(optionYes);
-        await I.enterOverseasCopies('0');
-    }
+        // IDAM
+        await I.authenticateWithIdamIfAvailable(language, true);
 
-    await I.seeCopiesSummary();
+        // Dashboard
+        await I.chooseApplication(language);
 
-    // Payment Task
-    await I.selectATask(taskListContent.taskNotStarted);
+        // Extra Copies Task
+        await I.selectATask(language, taskListContent.taskNotStarted);
 
-    await I.seePaymentBreakdownPage();
+        if (TestConfigurator.getUseGovPay() === 'true') {
+            await I.enterUkCopies(language, '5');
+            await I.selectOverseasAssets(language, optionYes);
+            await I.enterOverseasCopies(language, '7');
+        } else {
+            await I.enterUkCopies(language, '0');
+            await I.selectOverseasAssets(language, optionYes);
+            await I.enterOverseasCopies(language, '0');
+        }
 
-    if (TestConfigurator.getUseGovPay() === 'true') {
-        await I.seeGovUkPaymentPage();
-        await I.seeGovUkConfirmPage();
-    }
+        await I.seeCopiesSummary(language);
 
-    await I.seePaymentStatusPage();
+        // Payment Task
+        await I.selectATask(language, taskListContent.taskNotStarted);
+        await I.seePaymentBreakdownPage(language);
 
-    // Send Documents Task
-    await I.seeDocumentsPage();
+        if (TestConfigurator.getUseGovPay() === 'true') {
+            await I.seeGovUkPaymentPage(language);
+            await I.seeGovUkConfirmPage(language);
+        }
 
-    // Thank You
-    await I.seeThankYouPage();
-}).retry(TestConfigurator.getRetryScenarios());
+        await I.seePaymentStatusPage(language);
+
+        // Send Documents Task
+        await I.seeDocumentsPage(language);
+
+        // Thank You
+        await I.seeThankYouPage(language);
+
+    }).tag('@e2enightly')
+        .retry(TestConfigurator.getRetryScenarios());
+});

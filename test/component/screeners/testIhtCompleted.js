@@ -22,10 +22,6 @@ describe('iht-completed', () => {
     const expectedNextUrlForWillLeft = WillLeft.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('ihtNotCompleted');
 
-    beforeEach(() => {
-        testWrapper = new TestWrapper('IhtCompleted');
-    });
-
     afterEach(() => {
         testWrapper.destroy();
     });
@@ -34,18 +30,44 @@ describe('iht-completed', () => {
         testCommonContent.runTest('IhtCompleted', null, null, cookies);
 
         it('test content loaded on the page', (done) => {
+            testWrapper = new TestWrapper('IhtCompleted');
             testWrapper.testContent(done, {}, [], cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {
+            testWrapper = new TestWrapper('IhtCompleted');
             testWrapper.testErrors(done, {}, 'required', [], cookies);
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForWillLeft}`, (done) => {
+            testWrapper = new TestWrapper('IhtCompleted');
             const sessionData = {
                 screeners: {
                     deathCertificate: 'optionYes',
-                    domicile: 'optionYes'
+                    deathCertificateInEnglish: 'optionYes',
+                    domicile: 'optionYes',
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        completed: 'optionYes'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForWillLeft, cookies);
+                });
+        });
+
+        it(`test it redirects to next page EE FT ON: ${expectedNextUrlForWillLeft}`, (done) => {
+            testWrapper = new TestWrapper('IhtCompleted', {ft_excepted_estates: true});
+            const sessionData = {
+                screeners: {
+                    deathCertificate: 'optionYes',
+                    deathCertificateInEnglish: 'optionYes',
+                    domicile: 'optionYes',
+                    eeDeceasedDod: 'optionNo'
                 }
             };
 
@@ -61,10 +83,12 @@ describe('iht-completed', () => {
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
+            testWrapper = new TestWrapper('IhtCompleted');
             const sessionData = {
                 screeners: {
                     deathCertificate: 'optionYes',
-                    domicile: 'optionYes'
+                    deathCertificateInEnglish: 'optionYes',
+                    domicile: 'optionYes',
                 }
             };
 
@@ -80,6 +104,7 @@ describe('iht-completed', () => {
         });
 
         it('test "save and close" link is not displayed on the page', (done) => {
+            testWrapper = new TestWrapper('IhtCompleted');
             const playbackData = {
                 saveAndClose: commonContent.saveAndClose
             };

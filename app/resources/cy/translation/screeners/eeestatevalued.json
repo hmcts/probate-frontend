@@ -1,0 +1,13 @@
+{
+  "title": "Excepted estates, estate valued",
+  "question": "Ydych chi wedi cyfrifo gwerth yr ysta&#770;d?",
+  "hint": "Cyn gwneud cais am brofiant, rhaid i chi <a href=\"{ihtChecker}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"gyfrifo gwerth yr ysta&#770;d\">gyfrifo gwerth yr ysta&#770;d</a> i weld a oes angen i chi dalu Treth Etifeddiant (IHT). Gallwch <a href=\"{ihtChecker}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"ddefnyddio&lsquo;r gwiriwr IHT\">ddefnyddio&lsquo;r gwiriwr IHT</a> i ddod o hyd i&lsquo;r gwerthoedd hyn.",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+
+  "errors": {
+    "eeEstateValued": {
+      "required": "Answer &lsquo;yes&rsquo; if you have worked out the estate&rsquo;s value"
+    }
+  }
+}

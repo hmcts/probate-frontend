@@ -9,7 +9,6 @@ const DeathCertificateWrapper = require('app/wrappers/DeathCertificate');
 const DocumentsWrapper = require('app/wrappers/Documents');
 const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
 const caseTypes = require('app/utils/CaseTypes');
-const featureToggle = require('app/utils/FeatureToggle');
 
 class Documents extends ValidationStep {
 
@@ -25,7 +24,7 @@ class Documents extends ValidationStep {
         const formdata = session.form;
         const options = {};
         const documentsWrapper = new DocumentsWrapper(formdata);
-        const documentsRequired = documentsWrapper.documentsRequired(featureToggle.isEnabled(session.featureToggles, 'ft_new_deathcert_flow'));
+        const documentsRequired = documentsWrapper.documentsRequired();
 
         if (!documentsRequired) {
             options.redirect = true;
@@ -39,13 +38,6 @@ class Documents extends ValidationStep {
         const willWrapper = new WillWrapper(formdata.will);
         const deathCertWrapper = new DeathCertificateWrapper(formdata.deceased);
         const registryAddress = (new RegistryWrapper(formdata.registry)).address();
-
-        ctx.newDeathCertFTEnabled = featureToggle.isEnabled(featureToggles, 'ft_new_deathcert_flow');
-        if (ctx.newDeathCertFTEnabled && !this.resourcePath.includes('new_death_cert_flow')) {
-            this.resourcePath += '_new_death_cert_flow';
-            this.content = require(`app/resources/${language}/translation/${this.resourcePath}`);
-        }
-
         const content = this.generateContent(ctx, formdata, language);
 
         ctx.registryAddress = registryAddress ? registryAddress : content.address;
@@ -63,7 +55,12 @@ class Documents extends ValidationStep {
             ctx.spouseRenouncing = formdata.deceased.maritalStatus === 'optionMarried' && (formdata.applicant.relationshipToDeceased === 'optionChild' || formdata.applicant.relationshipToDeceased === 'optionAdoptedChild');
         }
 
+        if (formdata.will && formdata.will.deceasedWrittenWishes) {
+            ctx.deceasedWrittenWishes = formdata.will.deceasedWrittenWishes;
+        }
+
         ctx.is205 = formdata.iht && formdata.iht.method === 'optionPaper' && formdata.iht.form === 'optionIHT205';
+        ctx.is207 = formdata.iht && ((formdata.iht.method === 'optionPaper' && formdata.iht.form === 'optionIHT207') || (formdata.iht.ihtFormEstateId === 'optionIHT207'));
         ctx.ccdReferenceNumber = FormatCcdCaseId.format(formdata.ccdCase);
 
         return [ctx];

@@ -1,8 +1,7 @@
 'use strict';
 
-const commonContent = require('app/resources/en/translation/common');
-
-module.exports = async function(formName, grossAmount, netAmount) {
+module.exports = async function(language ='en', formName = null, grossAmount = null, netAmount = null) {
+    const commonContent = require(`app/resources/${language}/translation/common`);
     const I = this;
     let option;
 
@@ -17,13 +16,13 @@ module.exports = async function(formName, grossAmount, netAmount) {
         option = '';
     }
 
-    await I.checkPageUrl('app/steps/ui/iht/paper');
+    await I.checkInUrl('/iht-paper');
     const locator = {css: `#form${option}`};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.click(locator);
 
     await I.fillField({css: `#grossValueFieldIHT${formName}`}, grossAmount);
     await I.fillField({css: `#netValueFieldIHT${formName}`}, netAmount);
 
-    await I.navByClick(commonContent.saveAndContinue);
+    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

@@ -4,6 +4,7 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const CopiesUk = steps.CopiesUk;
+const coreContextMockData = require('../../data/core-context-mock-data.json');
 
 describe('CopiesUk', () => {
     describe('getUrl()', () => {
@@ -35,15 +36,9 @@ describe('CopiesUk', () => {
             };
             const ctx = CopiesUk.getContextData(req);
             expect(ctx).to.deep.equal({
+                ...coreContextMockData,
                 uk: 3,
-                sessionID: 'dummy_sessionId',
-                caseType: 'gop',
-                userLoggedIn: false,
-                ccdCase: {
-                    id: 1234567890123456,
-                    state: 'Pending'
-                },
-                language: 'en'
+                sessionID: 'dummy_sessionId'
             });
             done();
         });

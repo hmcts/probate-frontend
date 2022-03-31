@@ -3,6 +3,7 @@
 const Pdf = require('./Pdf');
 const FormatName = require('app/utils/FormatName');
 const RegistryWrapper = require('app/wrappers/Registry');
+const DocumentPageUtil = require('app/utils/DocumentPageUtil');
 
 class CoverSheetPdf extends Pdf {
 
@@ -14,7 +15,8 @@ class CoverSheetPdf extends Pdf {
             applicantAddress: formdata.applicant.address.formattedAddress,
             applicantName: FormatName.format(formdata.applicant),
             caseReference: formdata.ccdCase.id,
-            submitAddress: registryAddress
+            submitAddress: registryAddress,
+            checkListItems: DocumentPageUtil.getCheckListItemsCoversheet(formdata, req.session.language)
         };
         const logMessage = 'Post cover sheet pdf';
         return super.post(pdfTemplate, body, logMessage, req);

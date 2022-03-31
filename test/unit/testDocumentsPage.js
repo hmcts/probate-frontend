@@ -387,6 +387,76 @@ describe('Documents', () => {
                 done();
             });
         });
+        describe('Intestacy Journey', () => {
+            let ctxToTest;
+
+            beforeEach(() => {
+                ctxToTest = {
+                    caseType: caseTypes.INTESTACY
+                };
+            });
+
+            it('should return true when spouse is giving up rights as administrator and applicant is child', (done) => {
+                const formdata = {
+                    deceased: {
+                        maritalStatus: 'optionMarried',
+                        anyOtherChildren: 'optionNo'
+                    },
+                    applicant: {
+                        relationshipToDeceased: 'optionChild',
+                        spouseNotApplyingReason: 'optionRenouncing'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.isSpouseGivingUpAdminRights).to.equal(true);
+                done();
+            });
+            it('should return true when spouse is giving up rights as administrator and applicant is adopted child', (done) => {
+                const formdata = {
+                    deceased: {
+                        maritalStatus: 'optionMarried',
+                        anyOtherChildren: 'optionNo'
+                    },
+                    applicant: {
+                        relationshipToDeceased: 'optionAdoptedChild',
+                        spouseNotApplyingReason: 'optionRenouncing'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.isSpouseGivingUpAdminRights).to.equal(true);
+                done();
+            });
+            it('should return false when deceased is not married but is child of the deceased', (done) => {
+                const formdata = {
+                    deceased: {
+                        maritalStatus: 'optionNotMarried',
+                        anyOtherChildren: 'optionNo'
+                    },
+                    applicant: {
+                        relationshipToDeceased: 'optionAdoptedChild',
+                        spouseNotApplyingReason: 'optionRenouncing'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.isSpouseGivingUpAdminRights).to.equal(false);
+                done();
+            });
+            it('should return false when deceased is married but applicant is not a child of the deceased', (done) => {
+                const formdata = {
+                    deceased: {
+                        maritalStatus: 'optionMarried',
+                        anyOtherChildren: 'optionNo'
+                    },
+                    applicant: {
+                        relationshipToDeceased: 'optionSpousePartner',
+                        spouseNotApplyingReason: 'optionRenouncing'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.isSpouseGivingUpAdminRights).to.equal(false);
+                done();
+            });
+        });
     });
 
     describe('runnerOptions', () => {

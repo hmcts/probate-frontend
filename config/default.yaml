@@ -212,6 +212,7 @@ links:
   ihtTransferOfThreshold: 'https://www.gov.uk/guidance/inheritance-tax-transfer-of-threshold'
   ihtNoInheritanceTax: 'https://www.gov.uk/valuing-estate-of-someone-who-died/check-type-of-estate'
   ihtGifts: 'https://www.gov.uk/inheritance-tax/gifts'
+  spouseGivingUpAdminRightsPA16Link: 'https://www.gov.uk/government/publications/form-pa16-give-up-probate-administrator-rights'
 utils:
   api:
     retries: 10

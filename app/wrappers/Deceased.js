@@ -12,6 +12,14 @@ class Deceased {
     isMarried() {
         return this.deceased.married === 'optionYes';
     }
+
+    hasMarriedStatus() {
+        return this.deceased.maritalStatus === 'optionMarried';
+    }
+
+    hasAnyOtherChildren() {
+        return this.deceased.anyOtherChildren === 'optionYes';
+    }
 }
 
 module.exports = Deceased;

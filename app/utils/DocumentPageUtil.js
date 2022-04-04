@@ -8,6 +8,7 @@ const DeceasedWrapper = require('app/wrappers/Deceased');
 const WillWrapper = require('app/wrappers/Will');
 const DeathCertificateWrapper = require('app/wrappers/DeathCertificate');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const caseTypes = require('app/utils/CaseTypes');
 
 class DocumentPageUtil {
 
@@ -16,10 +17,12 @@ class DocumentPageUtil {
         if (ctx.ccdReferenceNumber) {
             checkListItems.push(content['checklist-item1-application-coversheet'].replace('{ccdReferenceNumber}', ctx.ccdReferenceNumber));
         }
-        if (ctx.hasCodicils && ctx.codicilsNumber > 0) {
-            checkListItems.push(content['checklist-item2-codicils']);
-        } else {
-            checkListItems.push(content['checklist-item2-no-codicils']);
+        if (ctx.caseType === caseTypes.GOP) {
+            if (ctx.hasCodicils && ctx.codicilsNumber > 0) {
+                checkListItems.push(content['checklist-item2-codicils']);
+            } else {
+                checkListItems.push(content['checklist-item2-no-codicils']);
+            }
         }
         if (ctx.deceasedWrittenWishes) {
             checkListItems.push(content['checklist-item3-codicils-written-wishes']);
@@ -66,10 +69,12 @@ class DocumentPageUtil {
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         const checkListItems = [];
 
-        if (willWrapper.hasCodicils() && willWrapper.codicilsNumber() > 0) {
-            checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item2-codicils']));
-        } else {
-            checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item2-no-codicils']));
+        if (formdata.caseType === caseTypes.GOP) {
+            if (willWrapper.hasCodicils() && willWrapper.codicilsNumber() > 0) {
+                checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item2-codicils']));
+            } else {
+                checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item2-no-codicils']));
+            }
         }
         if (formdata.will && formdata.will.deceasedWrittenWishes) {
             checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item3-codicils-written-wishes']));

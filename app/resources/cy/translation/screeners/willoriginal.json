@@ -3,8 +3,7 @@
   "question": "A oes gennych chi&rsquo;r ewyllys wreiddiol?",
   "optionYes": "Oes",
   "optionNo": "Nag oes",
-  "paragraph1": "Rydych angen y gwreiddiol, nid llungopi.",
-
+  "paragraph1": "Gwnewch yn siŵr bod eich <a href=\"{willIsLegal}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"ewyllys yn gyfreithiol\">ewyllys yn gyfreithiol</a>. Bydd arnoch angen anfon y copi gwreiddiol atom fel rhan o&rsquo;ch cais.",
   "errors": {
     "original": {
       "required": "Atebwch &lsquo;oes&rsquo; os oes gennych chi&rsquo;r ewyllys wreiddiol"

@@ -3,8 +3,7 @@
   "question": "Do you have the original will?",
   "optionYes": "Yes",
   "optionNo": "No",
-  "paragraph1": "You need the original, not a photocopy.",
-
+  "paragraph1": "Make sure your <a href=\"{willIsLegal}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"will is legal\">will is legal</a>. You&rsquo;ll need to send the original will to us as part of your application.",
   "errors": {
     "original": {
       "required": "Answer &lsquo;yes&rsquo; if you have the original will"

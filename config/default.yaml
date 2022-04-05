@@ -213,6 +213,7 @@ links:
   ihtNoInheritanceTax: 'https://www.gov.uk/valuing-estate-of-someone-who-died/check-type-of-estate'
   ihtGifts: 'https://www.gov.uk/inheritance-tax/gifts'
   spouseGivingUpAdminRightsPA16Link: 'https://www.gov.uk/government/publications/form-pa16-give-up-probate-administrator-rights'
+  willIsLegal: 'https://www.gov.uk/make-will/make-sure-your-will-is-legal'
 utils:
   api:
     retries: 10

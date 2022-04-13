@@ -28,6 +28,7 @@ class IntestacyDeclarationFactory {
             deceasedEstateValue: content.en.deceasedEstateValue
                 .replace('{ihtGrossValue}', formdata.ihtGrossValue)
                 .replace('{ihtNetValue}', formdata.ihtNetValue),
+            deceasedEstateValueExceptedEstateConfirmation: content.en.deceasedEstateValueExceptedEstateConfirmation,
             deceasedEstateAssetsOverseas: content.en.intestacyDeceasedEstateOutside
                 .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
             deceasedEstateLand: content.en.intestacyDeceasedEstateLand
@@ -69,6 +70,7 @@ class IntestacyDeclarationFactory {
             deceasedEstateValue: content.cy.deceasedEstateValue
                 .replace('{ihtGrossValue}', formdata.ihtGrossValue)
                 .replace('{ihtNetValue}', formdata.ihtNetValue),
+            deceasedEstateValueExceptedEstateConfirmation: content.cy.deceasedEstateValueExceptedEstateConfirmation,
             deceasedEstateAssetsOverseas: content.cy.intestacyDeceasedEstateOutside
                 .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
             deceasedEstateLand: content.cy.intestacyDeceasedEstateLand

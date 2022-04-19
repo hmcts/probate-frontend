@@ -1,14 +1,8 @@
-/*eslint complexity: ["off"]*/
-
 'use strict';
 
 const config = require('config');
 const ApplicantWrapper = require('app/wrappers/Applicant');
 const DeceasedWrapper = require('app/wrappers/Deceased');
-const WillWrapper = require('app/wrappers/Will');
-const DeathCertificateWrapper = require('app/wrappers/DeathCertificate');
-const ExecutorsWrapper = require('app/wrappers/Executors');
-const caseTypes = require('app/utils/CaseTypes');
 
 class DocumentPageUtil {
 
@@ -17,12 +11,10 @@ class DocumentPageUtil {
         if (ctx.ccdReferenceNumber) {
             checkListItems.push(content['checklist-item1-application-coversheet'].replace('{ccdReferenceNumber}', ctx.ccdReferenceNumber));
         }
-        if (ctx.caseType === caseTypes.GOP) {
-            if (ctx.hasCodicils && ctx.codicilsNumber > 0) {
-                checkListItems.push(content['checklist-item2-codicils']);
-            } else {
-                checkListItems.push(content['checklist-item2-no-codicils']);
-            }
+        if (ctx.hasCodicils && ctx.codicilsNumber > 0) {
+            checkListItems.push(content['checklist-item2-codicils']);
+        } else {
+            checkListItems.push(content['checklist-item2-no-codicils']);
         }
         if (ctx.deceasedWrittenWishes) {
             checkListItems.push(content['checklist-item3-codicils-written-wishes']);
@@ -64,48 +56,8 @@ class DocumentPageUtil {
         const content = require(`app/resources/${language}/translation/documents`);
         const applicantWrapper = new ApplicantWrapper(formdata);
         const deceasedWrapper = new DeceasedWrapper(formdata.deceased);
-        const willWrapper = new WillWrapper(formdata.will);
-        const deathCertWrapper = new DeathCertificateWrapper(formdata.deceased);
-        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         const checkListItems = [];
 
-        if (formdata.caseType === caseTypes.GOP) {
-            if (willWrapper.hasCodicils() && willWrapper.codicilsNumber() > 0) {
-                checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item2-codicils']));
-            } else {
-                checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item2-no-codicils']));
-            }
-        }
-        if (formdata.will && formdata.will.deceasedWrittenWishes) {
-            checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item3-codicils-written-wishes']));
-        }
-        if (deathCertWrapper.hasInterimDeathCertificate()) {
-            checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item4-interim-death-cert']));
-        }
-        if (deathCertWrapper.hasForeignDeathCertificate()) {
-            checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item4-foreign-death-cert']));
-        }
-        if (deathCertWrapper.isForeignDeathCertTranslatedSeparately()) {
-            checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item4-foreign-death-cert-translation']));
-            checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item5-foreign-death-cert-PA19'], config.links.applicationFormPA19));
-        }
-        if (formdata.iht && formdata.iht.method === 'optionPaper' && formdata.iht.form === 'optionIHT205') {
-            checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item7-iht205']));
-        }
-        if (formdata.iht && ((formdata.iht.method === 'optionPaper' && formdata.iht.form === 'optionIHT207') || (formdata.iht.ihtFormEstateId === 'optionIHT207'))) {
-            checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item10-iht207']));
-        }
-        if (executorsWrapper.hasRenunciated()) {
-            checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item8-renunciated'], config.links.renunciationForm));
-        }
-        if (executorsWrapper.executorsNameChangedByDeedPoll() && executorsWrapper.executorsNameChangedByDeedPoll().length > 0) {
-            executorsWrapper.executorsNameChangedByDeedPoll().forEach(executor => {
-                checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item9-deed-poll'].replace('{executorCurrentName}', executor)));
-            });
-        }
-        if (deceasedWrapper.hasMarriedStatus() && applicantWrapper.isApplicantChild()) {
-            checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item6-spouse-renouncing'], config.links.renunciationForm));
-        }
         if (deceasedWrapper.hasMarriedStatus() && applicantWrapper.isApplicantChild() && applicantWrapper.isSpouseRenouncing() && !deceasedWrapper.hasAnyOtherChildren()) {
             checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item11-spouse-giving-up-admin-rights-PA16'], config.links.spouseGivingUpAdminRightsPA16Link));
         }

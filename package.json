@@ -96,6 +96,7 @@
     "ajv-keywords": "^3.5.2",
     "applicationinsights": "1.7.2",
     "applicationinsights-js": "^1.0.20",
+    "async": "^3.2.3",
     "basic-auth": "^2.0.1",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",

@@ -24,7 +24,7 @@ class DocumentPageUtil {
                 checkListItems.push(content['checklist-item2-no-codicils']);
             }
         }
-        if (ctx.deceasedWrittenWishes) {
+        if (ctx.deceasedWrittenWishes==='optionYes') {
             checkListItems.push(content['checklist-item3-codicils-written-wishes']);
         }
         if (ctx.interimDeathCertificate) {
@@ -76,7 +76,7 @@ class DocumentPageUtil {
                 checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item2-no-codicils']));
             }
         }
-        if (formdata.will && formdata.will.deceasedWrittenWishes) {
+        if (formdata.will && formdata.will.deceasedWrittenWishes==='optionYes') {
             checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item3-codicils-written-wishes']));
         }
         if (deathCertWrapper.hasInterimDeathCertificate()) {

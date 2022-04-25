@@ -14,9 +14,14 @@ featureToggles:
   ft_pcq: 'probate-pcq'
   ft_pcq_token: 'probate-pcq-token'
   ft_avaya_webchat: 'probate-avaya-webchat'
-  ft_new_deathcert_flow: 'probate-new-deathcert-flow'
   ft_newfee_register_code: 'probate-newfee-register-code'
+  ft_excepted_estates: 'probate-excepted-estates'
+  ft_will_condition : 'probate-will-condition'
   appwideToggles: ['ft_avaya_webchat']
+# overrides featureToggles to e.g. switch off in pipeline/locally
+configFeatureToggles:
+  webchatEnabled: true
+  gaEnabled: true
 app:
   username:
   password:
@@ -97,7 +102,7 @@ services:
     ihtMinAmt: 5000
     issuesData:
       amount_or_volume: 0
-      applicant_type: 'personal'
+      applicant_type: 'all'
       channel: 'default'
       event: 'issue'
       jurisdiction1: 'family'
@@ -114,22 +119,22 @@ services:
       keyword: 'NewFee'
     newfee_issuesData:
       amount_or_volume: 0
-      applicant_type: 'personal'
+      applicant_type: 'all'
       channel: 'default'
       event: 'issue'
       jurisdiction1: 'family'
       jurisdiction2: 'probate registry'
       service: 'probate'
-      keyword: 'PA'
+      keyword: 'SA'
     newfee_issuesDataIhtMinAmount:
       amount_or_volume: 0
-      applicant_type: 'personal'
+      applicant_type: 'all'
       channel: 'default'
       event: 'issue'
       jurisdiction1: 'family'
       jurisdiction2: 'probate registry'
       service: 'probate'
-      keyword: 'PAL5K'
+      keyword: 'SAL5K'
     newfee_copiesData:
       amount_or_volume: 0
       applicant_type: 'all'
@@ -165,12 +170,10 @@ redis:
 dateFormat: 'DD/MM/YYYY'
 payloadVersion: '4.1.1'
 enableTracking: 'true'
-webChat:
-  chatId: '3077733355d19fd430f23c7.02555395'
-  tenant: 'c2FuZGJveGhtY3RzMDE'
-  buttonNoAgents: '20599210435d19f59cdc3e95.94551214'
-  buttonAgentsBusy: '8752254635d19f5bb21ff07.71234899'
-  buttonServiceClosed: '4639879315d19f67c3c1055.15174024'
+webchat:
+  avayaUrl: 'webchat.training.ctsc.hmcts.net'
+  avayaClientUrl: 'webchat-client.training.ctsc.hmcts.net'
+  avayaService: 'Testing'
 links:
   accessibility: '/accessibility-statement'
   cookies: '/cookies'
@@ -204,6 +207,13 @@ links:
   myAbilityLink: 'https://mcmw.abilitynet.org.uk/'
   equalityAdvisorLink: 'https://www.equalityadvisoryservice.com/'
   wcag21Link: 'https://www.w3.org/TR/WCAG21/'
+  ihtChecker: 'https://www.gov.uk/valuing-estate-of-someone-who-died/estimate-estate-value'
+  ihtThreshold: 'https://www.gov.uk/inheritance-tax'
+  ihtTransferOfThreshold: 'https://www.gov.uk/guidance/inheritance-tax-transfer-of-threshold'
+  ihtNoInheritanceTax: 'https://www.gov.uk/valuing-estate-of-someone-who-died/check-type-of-estate'
+  ihtGifts: 'https://www.gov.uk/inheritance-tax/gifts'
+  spouseGivingUpAdminRightsPA16Link: 'https://www.gov.uk/government/publications/form-pa16-give-up-probate-administrator-rights'
+  willIsLegal: 'https://www.gov.uk/make-will/make-sure-your-will-is-legal'
 utils:
   api:
     retries: 10
@@ -219,22 +229,6 @@ whitelistedPagesAfterSubmission: ['/documents', '/thank-you', '/check-answers-pd
 whitelistedPagesAfterPayment: ['/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
 whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/equality-and-diversity']
 blacklistedPagesBeforeDeclaration: ['/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
-probateScreeners:
-  deathCertificate: 'optionYes'
-  domicile: 'optionYes'
-  completed: 'optionYes'
-  left: 'optionYes'
-  original: 'optionYes'
-  executor: 'optionYes'
-  mentalCapacity: 'optionYes'
-intestacyScreeners:
-  deathCertificate: 'optionYes'
-  domicile: 'optionYes'
-  completed: 'optionYes'
-  left: 'optionNo'
-  diedAfter: 'optionYes'
-  related: 'optionYes'
-  otherApplicants: 'optionNo'
 probateScreenersDeathCertificateInEnglish:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionYes'
@@ -249,6 +243,48 @@ probateScreenersDeathCertificateNotInEnglish:
   deathCertificateInEnglish: 'optionNo'
   deathCertificateTranslation: 'optionYes'
   domicile: 'optionYes'
+  completed: 'optionYes'
+  left: 'optionYes'
+  original: 'optionYes'
+  executor: 'optionYes'
+  mentalCapacity: 'optionYes'
+probateScreenersDeathCertificateInEnglishExceptedEstates:
+  deathCertificate: 'optionYes'
+  deathCertificateInEnglish: 'optionYes'
+  domicile: 'optionYes'
+  eeDeceasedDod: 'optionYes'
+  eeEstateValued: 'optionYes'
+  left: 'optionYes'
+  original: 'optionYes'
+  executor: 'optionYes'
+  mentalCapacity: 'optionYes'
+probateScreenersDeathCertificateNotInEnglishExceptedEstates:
+  deathCertificate: 'optionYes'
+  deathCertificateInEnglish: 'optionNo'
+  deathCertificateTranslation: 'optionYes'
+  domicile: 'optionYes'
+  eeDeceasedDod: 'optionYes'
+  eeEstateValued: 'optionYes'
+  left: 'optionYes'
+  original: 'optionYes'
+  executor: 'optionYes'
+  mentalCapacity: 'optionYes'
+probateScreenersDeathCertificateInEnglishDodBeforeThresholdExceptedEstates:
+  deathCertificate: 'optionYes'
+  deathCertificateInEnglish: 'optionYes'
+  domicile: 'optionYes'
+  eeDeceasedDod: 'optionNo'
+  completed: 'optionYes'
+  left: 'optionYes'
+  original: 'optionYes'
+  executor: 'optionYes'
+  mentalCapacity: 'optionYes'
+probateScreenersDeathCertificateNotInEnglishDodBeforeThresholdExceptedEstates:
+  deathCertificate: 'optionYes'
+  deathCertificateInEnglish: 'optionNo'
+  deathCertificateTranslation: 'optionYes'
+  domicile: 'optionYes'
+  eeDeceasedDod: 'optionNo'
   completed: 'optionYes'
   left: 'optionYes'
   original: 'optionYes'
@@ -273,11 +309,53 @@ intestacyScreenersDeathCertificateNotInEnglish:
   diedAfter: 'optionYes'
   related: 'optionYes'
   otherApplicants: 'optionNo'
+intestacyScreenersDeathCertificateInEnglishExceptedEstates:
+  deathCertificate: 'optionYes'
+  deathCertificateInEnglish: 'optionYes'
+  domicile: 'optionYes'
+  eeDeceasedDod: 'optionYes'
+  eeEstateValued: 'optionYes'
+  left: 'optionNo'
+  diedAfter: 'optionYes'
+  related: 'optionYes'
+  otherApplicants: 'optionNo'
+intestacyScreenersDeathCertificateNotInEnglishExceptedEstates:
+  deathCertificate: 'optionYes'
+  deathCertificateInEnglish: 'optionNo'
+  deathCertificateTranslation: 'optionYes'
+  domicile: 'optionYes'
+  eeDeceasedDod: 'optionYes'
+  eeEstateValued: 'optionYes'
+  left: 'optionNo'
+  diedAfter: 'optionYes'
+  related: 'optionYes'
+  otherApplicants: 'optionNo'
+intestacyScreenersDeathCertificateInEnglishDodBeforeThresholdExceptedEstates:
+  deathCertificate: 'optionYes'
+  deathCertificateInEnglish: 'optionYes'
+  domicile: 'optionYes'
+  eeDeceasedDod: 'optionNo'
+  completed: 'optionYes'
+  left: 'optionNo'
+  diedAfter: 'optionYes'
+  related: 'optionYes'
+  otherApplicants: 'optionNo'
+intestacyScreenersDeathCertificateNotInEnglishDodBeforeThresholdExceptedEstates:
+  deathCertificate: 'optionYes'
+  deathCertificateInEnglish: 'optionNo'
+  deathCertificateTranslation: 'optionYes'
+  domicile: 'optionYes'
+  eeDeceasedDod: 'optionNo'
+  completed: 'optionYes'
+  left: 'optionNo'
+  diedAfter: 'optionYes'
+  related: 'optionYes'
+  otherApplicants: 'optionNo'
 hardStopParams:
   gop: []
   intestacy: []
-nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'avaya-webchat']
-noCcdCaseIdPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate','death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'dashboard', 'sign-out', 'time-out', 'avaya-webchat']
+nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'avaya-webchat', 'ee-deceased-dod', 'ee-estate-valued']
+noCcdCaseIdPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate','death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'dashboard', 'sign-out', 'time-out', 'avaya-webchat', 'ee-deceased-dod', 'ee-estate-valued']
 endpoints:
   health: '/health'
   info: '/info'
@@ -317,6 +395,10 @@ assetsValueThreshold: [
     value: 270000
   }
 ]
+exceptedEstateDateOfDeath: '2022-01-01'
+estateQualifyingValueRange:
+  min: 325000
+  max: 650000
 gopOnlyPages: [
   '/deceased-name',
   '/deceased-dob',
@@ -372,3 +454,4 @@ intestacyOnlyPages: [
   '/any-deceased-children',
   '/any-grandchildren-under-18'
 ]
+eventDescriptionPrefix: 'Page completed: '

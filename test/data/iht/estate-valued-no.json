@@ -1,0 +1,15 @@
+{
+    "deceased": {
+      "deathCertificate": "Death certificate",
+      "dod-date": "2022-02-20"
+    },
+    "iht": {
+      "estateValueCompleted": "optionNo",
+      "estateGrossValueField": "100000",
+      "estateNetValueField": "100000",
+      "estateNetQualifyingValueField": "500000",
+      "estateNetQualifyingValue": 500000,
+      "deceasedHadLateSpouseOrCivilPartner": "optionYes",
+      "unusedAllowanceClaimed": "optionYes"
+    }
+}

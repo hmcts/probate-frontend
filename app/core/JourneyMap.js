@@ -30,6 +30,10 @@ class JourneyMap {
     taskList() {
         return this.journey.taskList;
     }
+
+    getNextStepByName(stepName) {
+        return steps[stepName];
+    }
 }
 
 module.exports = JourneyMap;

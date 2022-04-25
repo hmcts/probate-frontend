@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DeceasedDomicile = require('app/steps/ui/screeners/deceaseddomicile');
+const DeathCertificateInEnglish = require('app/steps/ui/screeners/deathcertificateinenglish');
 const StopPage = require('app/steps/ui/stoppage');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const commonContent = require('app/resources/en/translation/common');
@@ -9,7 +9,7 @@ const config = require('config');
 
 describe('death-certificate', () => {
     let testWrapper;
-    const expectedNextUrlForDeceasedDomicile = DeceasedDomicile.getUrl();
+    const expectedNextUrlForDeathCertInEnglish = DeathCertificateInEnglish.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('deathCertificate');
 
     beforeEach(() => {
@@ -33,12 +33,12 @@ describe('death-certificate', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForDeceasedDomicile}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForDeathCertInEnglish}`, (done) => {
             const data = {
                 deathCertificate: 'optionYes'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDomicile);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeathCertInEnglish);
         });
 
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {

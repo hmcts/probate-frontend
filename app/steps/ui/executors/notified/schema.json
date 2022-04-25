@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "executor-notified",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "executor-notified",
   "type": "object",
   "properties": {
     "executorNotified": {

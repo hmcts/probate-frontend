@@ -3,7 +3,7 @@
   "question": "Did the person who died leave a will?",
   "optionYes": "Yes",
   "optionNo": "No",
-
+  "hint": "Wills made according to the laws of England or Wales must be signed in wet ink by:<br><br><ul class=\"govuk-list govuk-list--bullet\"><li>the person who&rsquo;s making the will (&lsquo;testator&rsquo;)</li><li>2 witnesses</li></ul><br>",
   "errors": {
     "left": {
       "required": "Answer &lsquo;yes&rsquo; if there is a will"

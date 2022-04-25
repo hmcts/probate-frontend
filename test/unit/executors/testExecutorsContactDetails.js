@@ -23,11 +23,14 @@ describe('Contact-Details', () => {
             templatePath = 'addressLookup';
             i18next = {};
             schema = {
-                $schema: 'http://json-schema.org/draft-04/schema#',
+                $schema: 'http://json-schema.org/draft-07/schema',
                 properties: {}
             };
             formdata = {
-                caseType: 'gop'
+                caseType: 'gop',
+                applicant: {
+                    phoneNumber: '07900123456'
+                }
             };
             ctx = {
                 executorsNumber: 3,

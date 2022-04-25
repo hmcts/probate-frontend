@@ -5,14 +5,12 @@ const taskListContentEn = require('app/resources/en/translation/tasklist');
 const taskListContentCy = require('app/resources/cy/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('config');
-const config = require('config');
 
 const optionYes = '';
 const ihtPost = '';
 const optionNo = '-2';
 const bilingualGOP = false;
-const uploadingDocuments = false;
-const languages = ['en'];
+const languages = ['en', 'cy'];
 
 Feature('GOP Multiple Executors E2E');
 
@@ -27,34 +25,27 @@ After(async () => {
 
 languages.forEach(language => {
 
-    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details`), async (I) => {
+    Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details`), async ({I}) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
         await I.retry(2).createAUser(TestConfigurator);
 
-        const useNewDeathCertFlow = await TestConfigurator.checkFeatureToggle(config.featureToggles.ft_new_deathcert_flow);
-
         // Eligibility Task (pre IdAM)
         await I.startApplication(language);
-
-        await I.selectDeathCertificate(language, optionYes);
-
-        if (useNewDeathCertFlow) {
-            await I.selectDeathCertificateInEnglish(language, optionNo);
-            await I.selectDeathCertificateTranslation(language, optionYes);
-        }
-
+        await I.selectDeathCertificate(language);
+        await I.selectDeathCertificateInEnglish(language, optionNo);
+        await I.selectDeathCertificateTranslation(language, optionYes);
         await I.selectDeceasedDomicile(language);
-
-        await I.selectIhtCompleted(language, optionYes);
-
+        const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
+        if (isEEEnabled) {
+            await I.selectEEDeceasedDod(language);
+            await I.selectEEvalue(language);
+        } else {
+            await I.selectIhtCompleted(language, optionYes);
+        }
         await I.selectPersonWhoDiedLeftAWill(language, optionYes);
-
         await I.selectOriginalWill(language, optionYes);
-
         await I.selectApplicantIsExecutor(language, optionYes);
-
         await I.selectMentallyCapable(language, optionYes);
-
         await I.startApply(language);
 
         // IdAM
@@ -71,13 +62,9 @@ languages.forEach(language => {
         await I.enterDeceasedDateOfDeath(language, '01', '01', '2017');
         await I.enterDeceasedAddress(language);
 
-        if (useNewDeathCertFlow) {
-            await I.selectDiedEngOrWales(language, optionNo);
-            await I.selectEnglishForeignDeathCert(language, optionNo);
-            await I.selectForeignDeathCertTranslation(language, optionYes);
-        } else {
-            await I.selectDocumentsToUpload(language, uploadingDocuments);
-        }
+        await I.selectDiedEngOrWales(language, optionNo);
+        await I.selectEnglishForeignDeathCert(language, optionNo);
+        await I.selectForeignDeathCertTranslation(language, optionYes);
 
         await I.selectInheritanceMethod(language, ihtPost);
 
@@ -89,7 +76,24 @@ languages.forEach(language => {
 
         await I.selectDeceasedAlias(language, optionNo);
         await I.selectDeceasedMarriedAfterDateOnWill(language, optionNo);
-        await I.selectWillCodicils(language, optionNo);
+        const isWillConditionEnabled = await TestConfigurator.checkFeatureToggle('probate-will-condition');
+        if (isWillConditionEnabled) {
+            await I.selectWillDamage(language, optionYes, 'test');
+            await I.selectWillDamageReason(language, optionYes, 'test');
+            await I.selectWillDamageWho(language, optionYes, 'test', 'test');
+            await I.selectWillDamageDate(language, optionYes, 2017);
+        }
+
+        await I.selectWillCodicils(language, optionYes);
+        await I.selectWillNoOfCodicils(language, 1);
+
+        if (isWillConditionEnabled) {
+            await I.selectCodicilsDamage(language, optionYes, 'test');
+            await I.selectCodicilsReason(language, optionYes, 'test');
+            await I.selectCodicilsWho(language, optionYes, 'test', 'test');
+            await I.selectCodicilsDate(language, optionYes, 2000);
+            await I.selectWrittenWishes(language, optionYes, 'test');
+        }
 
         // ExecutorsTask
         await I.selectATask(language, taskListContent.taskNotStarted);
@@ -244,5 +248,6 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
 
-    }).retry(TestConfigurator.getRetryScenarios());
+    }).tag('@e2enightly')
+        .retry(TestConfigurator.getRetryScenarios());
 });

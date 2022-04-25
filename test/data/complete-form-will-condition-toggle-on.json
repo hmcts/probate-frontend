@@ -1,0 +1,130 @@
+{
+  "formdata": {
+    "ccdCase": {
+      "state": "CaseCreated",
+      "id": 1535395401245028
+    },
+    "documents": {
+      "uploads": ""
+    },
+    "payloadVersion": "1.0",
+    "will": {
+      "left": "optionYes",
+      "codicils": "optionNo",
+      "original": "optionYes",
+      "deceasedWrittenWishes": "optionYes"
+    },
+    "applicant": {
+      "address": {
+        "addressLine1": "Flat 1",
+        "addressLine2": "Somewhere Rd",
+        "addressLine3": "",
+        "postTown": "Nowhere",
+        "postCode": "NW1 8SS",
+        "county": "Sussex",
+        "country": ""
+      },
+      "executor": "optionYes",
+      "lastName": "Smith",
+      "postcode": "NW1 8SS",
+      "referrer": "ApplicantAddress",
+      "firstName": "Bob",
+      "phoneNumber": "123456780",
+      "addressFound": "none",
+      "nameAsOnTheWill": "optionYes",
+      "relationshipToDeceased": "optionSpousePartner"
+    },
+    "deceased": {
+      "alias": "optionNo",
+      "address": {
+        "addressLine1": "21 Treelined Avenue",
+        "addressLine2": "",
+        "addressLine3": "",
+        "postTown": "London",
+        "postCode": "NW1 8SS",
+        "county": "Sussex",
+        "country": ""
+      },
+      "dob-day": 1,
+      "dob-month": 2,
+      "dob-year": 1900,
+      "dob-date": "1900-02-01T00:00:00.000Z",
+      "dob-formattedDate": "1 February 1900",
+      "dod-day": 2,
+      "dod-month": 3,
+      "dod-year": 2015,
+      "dod-date": "2015-03-02T00:00:00.000Z",
+      "dod-formattedDate": "1 February 2000",
+      "domicile": "optionYes",
+      "lastName": "Else",
+      "postcode": "NW1 8SS",
+      "referrer": "DeceasedAddress",
+      "firstName": "Someone",
+      "addressFound": "none",
+      "deceasedName": "Someone Else",
+      "relationship": "optionGrandparent",
+      "married": "optionYes",
+      "diedEngOrWales": "optionYes",
+      "deathCertificate": "optionDeathCertificate",
+      "maritalStatus": "optionMarried"
+    },
+    "iht": {
+      "completed": "optionYes",
+      "identifier": "12341234A12345",
+      "method": "optionOnline",
+      "netValueField": "100000.10",
+      "grossValueField": "150000.34",
+      "netValue": 100000.1,
+      "grossValue": 150000.34,
+      "assetsOutside": "optionYes",
+      "netValueAssetsOutsideField": "200000.50",
+      "netValueAssetsOutside": 200000.5
+    },
+    "executors": {
+      "list": [
+        {
+          "firstName": "asd",
+          "lastName": "dsa",
+          "isApplying": true,
+          "isApplicant": true
+        },
+        {
+          "fullName": "Number 2",
+          "isApplying": true,
+          "email": "test@email.com",
+          "mobile": "07234156431",
+          "address": {
+            "addressLine1": "21 Treelined Avenue",
+            "addressLine2": "",
+            "addressLine3": "",
+            "postTown": "London",
+            "postCode": "NW1 8SS",
+            "county": "Sussex",
+            "country": ""
+          },
+          "inviteId": "dee-ceased-6da20103-4c99-4346-8a30-0df173e543b7",
+          "emailSent": true
+        }
+      ],
+      "executorsNumber": 2,
+      "invitesSent": "true",
+      "allalive": "optionYes",
+      "otherExecutorsApplying": "optionYes",
+      "alias": "optionNo",
+      "mentalCapacity": "optionYes"
+    },
+    "declaration": {
+      "declarationCheckbox": "true"
+    },
+    "assets": {
+      "assetsoverseas": "optionYes"
+    },
+    "copies": {
+      "uk": 1,
+      "overseas": 2
+    },
+    "payment": {
+      "total": 5001
+    }
+  }
+}

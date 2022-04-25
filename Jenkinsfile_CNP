@@ -27,7 +27,11 @@ def secrets = [
     secret('testRunE2ETest', 'RUN_E2E_TEST'),
     secret('testValidationServiceUrl', 'VALIDATION_SERVICE_URL'),
     secret('launchdarkly-key', 'LAUNCHDARKLY_KEY'),
-    secret('launchdarklyUserkeyFrontend', 'LAUNCHDARKLY_USER_KEY')
+    secret('launchdarklyUserkeyFrontend', 'LAUNCHDARKLY_USER_KEY'),
+    secret('webchat-avaya-url', 'WEBCHAT_AVAYA_URL'),
+    secret('webchat-avaya-client-url', 'WEBCHAT_AVAYA_CLIENT_URL'),
+    secret('webchat-avaya-service', 'WEBCHAT_AVAYA_SERVICE'),
+    secret('AppInsightsInstrumentationKey', 'APPINSIGHTS_INSTRUMENTATIONKEY')
   ]
 ]
 
@@ -39,6 +43,9 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
     envVariable: envVar
   ]
 }
+
+// Configure branches to sync with master branch
+def branchesToSync = ['demo', 'ithc', 'perftest']
 
 withPipeline("nodejs", product, component) {
  /*  afterCheckout {
@@ -81,13 +88,12 @@ withPipeline("nodejs", product, component) {
        error 'Deliberately breaking pipeline to prevent prod deployment'
    }
 */
-
-  // installCharts()
   enableAksStagingDeployment()
   disableLegacyDeployment()
 
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
+  syncBranchesWithMaster(branchesToSync)
 
   after('test') {
     publishHTML (target: [

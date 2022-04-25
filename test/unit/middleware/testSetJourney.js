@@ -89,14 +89,11 @@ describe('setJourney', () => {
         });
 
         it('should set req.journey with the new probate death certificate journey when feature toggle is on and caseType is probate', (done) => {
-            const revert = setJourney.__set__('probateNewDeathCertFlow', {journey: 'a new probate journey'});
+            const revert = setJourney.__set__('probateJourney', {journey: 'a new probate journey'});
             const req = {
                 session: {
                     form: {
                         caseType: caseTypes.GOP
-                    },
-                    featureToggles: {
-                        'ft_new_deathcert_flow': true
                     }
                 }
             };
@@ -109,9 +106,6 @@ describe('setJourney', () => {
                 form: {
                     caseType: caseTypes.GOP,
                 },
-                featureToggles: {
-                    'ft_new_deathcert_flow': true
-                },
                 journey: {
                     journey: 'a new probate journey'
                 }
@@ -123,14 +117,11 @@ describe('setJourney', () => {
         });
 
         it('should set req.journey with the new intestacy death certificate journey if feature toggle is on and caseType is intestacy', (done) => {
-            const revert = setJourney.__set__('intestacyNewDeathCertFlow', {journey: 'a new intestacy journey'});
+            const revert = setJourney.__set__('intestacyJourney', {journey: 'a new intestacy journey'});
             const req = {
                 session: {
                     form: {
                         caseType: caseTypes.INTESTACY
-                    },
-                    featureToggles: {
-                        'ft_new_deathcert_flow': true
                     }
                 }
             };
@@ -142,9 +133,6 @@ describe('setJourney', () => {
             expect(req.session).to.deep.equal({
                 form: {
                     caseType: caseTypes.INTESTACY,
-                },
-                featureToggles: {
-                    'ft_new_deathcert_flow': true
                 },
                 journey: {
                     journey: 'a new intestacy journey'

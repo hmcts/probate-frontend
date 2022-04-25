@@ -55,6 +55,8 @@ describe('ApplicantExecutor', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionYes',
@@ -78,6 +80,8 @@ describe('ApplicantExecutor', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionYes',

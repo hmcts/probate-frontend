@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "certificate-interim",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "certificate-interim",
   "type": "object",
   "properties": {
     "deathCertificate": {

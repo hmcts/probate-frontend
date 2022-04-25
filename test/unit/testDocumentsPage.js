@@ -35,8 +35,7 @@ describe('Documents', () => {
                         address: '1 Red Road, London, L1 1LL'
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.registryAddress).to.equal('1 Red Road, London, L1 1LL');
                 done();
             });
@@ -45,9 +44,9 @@ describe('Documents', () => {
                 const formdata = {
                     registry: {}
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
-                expect(ctx.registryAddress).to.equal('Digital Application\nOxford District Probate Registry\nCombined Court Building\nSt Aldates\nOxford\nOX1 1LY');
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.registryAddress).to.equal('Principal Registry of the Family Division (PRFD)' +
+                    '\nHMCTS Probate\nPO BOX 12625\nHarlow\nCM20 9QE');
                 done();
             });
 
@@ -58,8 +57,7 @@ describe('Documents', () => {
                         form: 'optionIHT205'
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.is205).to.equal(true);
                 done();
             });
@@ -71,8 +69,7 @@ describe('Documents', () => {
                         form: 'optionIHT207'
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.is205).to.equal(false);
                 done();
             });
@@ -83,17 +80,79 @@ describe('Documents', () => {
                         method: 'optionOnline'
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.is205).to.equal(false);
                 done();
             });
 
             it('should return undefined when iht data is not given', (done) => {
                 const formdata = {};
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 assert.isUndefined(ctx.is205);
+                done();
+            });
+
+            it('should return true when iht method is paper and iht form is IHT207', (done) => {
+                const formdata = {
+                    iht: {
+                        method: 'optionPaper',
+                        form: 'optionIHT207'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.is207).to.equal(true);
+                done();
+            });
+
+            it('should return false when iht method is paper and iht form is not IHT207', (done) => {
+                const formdata = {
+                    iht: {
+                        method: 'optionPaper',
+                        form: 'optionIHT205'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.is207).to.equal(false);
+                done();
+            });
+
+            it('should return false when iht method is not paper', (done) => {
+                const formdata = {
+                    iht: {
+                        method: 'optionOnline'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.is207).to.equal(false);
+                done();
+            });
+
+            it('should return true when iht estate form is IHT207', (done) => {
+                const formdata = {
+                    iht: {
+                        ihtFormEstateId: 'optionIHT207'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.is207).to.equal(true);
+                done();
+            });
+
+            it('should return false when iht estate form is not IHT207', (done) => {
+                const formdata = {
+                    iht: {
+                        ihtFormEstateId: 'optionIHT400421'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.is207).to.equal(false);
+                done();
+            });
+
+            it('should return undefined when iht data is not given', (done) => {
+                const formdata = {};
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                assert.isUndefined(ctx.is207);
                 done();
             });
 
@@ -104,8 +163,7 @@ describe('Documents', () => {
                         state: 'CaseCreated'
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.ccdReferenceNumber).to.equal('1234-5678-9012-3456');
                 done();
             });
@@ -114,9 +172,85 @@ describe('Documents', () => {
                 const formdata = {
                     ccdCase: {}
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.ccdReferenceNumber).to.equal('');
+                done();
+            });
+
+            it('should return true when death certificate is interim', (done) => {
+                const formdata = {
+                    deceased: {
+                        deathCertificate: 'optionInterimCertificate'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.interimDeathCertificate).to.equal(true);
+                done();
+            });
+
+            it('should return false when death certificate is not interim', (done) => {
+                const formdata = {
+                    deceased: {
+                        deathCertificate: 'optionDeathCertificate'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.interimDeathCertificate).to.equal(false);
+                done();
+            });
+
+            it('should return true when death certificate is foreign', (done) => {
+                const formdata = {
+                    deceased: {
+                        diedEngOrWales: 'optionNo'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.foreignDeathCertificate).to.equal(true);
+                done();
+            });
+
+            it('should return false when death certificate is not foreign', (done) => {
+                const formdata = {
+                    deceased: {
+                        diedEngOrWales: 'optionYes'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.foreignDeathCertificate).to.equal(false);
+                done();
+            });
+
+            it('should return true when foreign death certificate is translated separately', (done) => {
+                const formdata = {
+                    deceased: {
+                        foreignDeathCertTranslation: 'optionNo'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.foreignDeathCertTranslatedSeparately).to.equal(true);
+                done();
+            });
+
+            it('should return false when foreign death certificate is translated separately', (done) => {
+                const formdata = {
+                    deceased: {
+                        foreignDeathCertTranslation: 'optionYes'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.foreignDeathCertTranslatedSeparately).to.equal(false);
+                done();
+            });
+
+            it('should return deceasedWrittenWishes on ctx', (done) => {
+                const formdata = {
+                    will: {
+                        deceasedWrittenWishes: 'optionYes'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.deceasedWrittenWishes).to.equal('optionYes');
                 done();
             });
         });
@@ -136,8 +270,7 @@ describe('Documents', () => {
                         codicils: 'optionYes'
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.hasCodicils).to.equal(true);
                 done();
             });
@@ -148,8 +281,7 @@ describe('Documents', () => {
                         codicils: 'optionNo'
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.hasCodicils).to.equal(false);
                 done();
             });
@@ -160,8 +292,7 @@ describe('Documents', () => {
                         codicilsNumber: 2
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.codicilsNumber).to.equal(2);
                 done();
             });
@@ -175,8 +306,7 @@ describe('Documents', () => {
                         ]
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.hasMultipleApplicants).to.equal(true);
                 done();
             });
@@ -189,8 +319,7 @@ describe('Documents', () => {
                         ]
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.hasMultipleApplicants).to.equal(false);
                 done();
             });
@@ -203,8 +332,7 @@ describe('Documents', () => {
                         ]
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.hasMultipleApplicants).to.equal(false);
                 done();
             });
@@ -217,8 +345,7 @@ describe('Documents', () => {
                         ]
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.hasRenunciated).to.equal(true);
                 done();
             });
@@ -229,8 +356,7 @@ describe('Documents', () => {
                         list: []
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.hasRenunciated).to.equal(false);
                 done();
             });
@@ -243,8 +369,7 @@ describe('Documents', () => {
                         ]
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.executorsNameChangedByDeedPollList).to.deep.equal(['Sam Williams']);
                 done();
             });
@@ -257,46 +382,99 @@ describe('Documents', () => {
                         ]
                     }
                 };
-                const featureToggles = {};
-                const [ctx] = Documents.handleGet(ctxToTest, formdata, featureToggles);
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.executorsNameChangedByDeedPollList).to.deep.equal([]);
+                done();
+            });
+        });
+        describe('Intestacy Journey', () => {
+            let ctxToTest;
+
+            beforeEach(() => {
+                ctxToTest = {
+                    caseType: caseTypes.INTESTACY
+                };
+            });
+
+            it('should return true when spouse is giving up rights as administrator and applicant is child', (done) => {
+                const formdata = {
+                    deceased: {
+                        maritalStatus: 'optionMarried',
+                        anyOtherChildren: 'optionNo'
+                    },
+                    applicant: {
+                        relationshipToDeceased: 'optionChild',
+                        spouseNotApplyingReason: 'optionRenouncing'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.isSpouseGivingUpAdminRights).to.equal(true);
+                done();
+            });
+            it('should return true when spouse is giving up rights as administrator and applicant is adopted child', (done) => {
+                const formdata = {
+                    deceased: {
+                        maritalStatus: 'optionMarried',
+                        anyOtherChildren: 'optionNo'
+                    },
+                    applicant: {
+                        relationshipToDeceased: 'optionAdoptedChild',
+                        spouseNotApplyingReason: 'optionRenouncing'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.isSpouseGivingUpAdminRights).to.equal(true);
+                done();
+            });
+            it('should return false when deceased is not married but is child of the deceased', (done) => {
+                const formdata = {
+                    deceased: {
+                        maritalStatus: 'optionNotMarried',
+                        anyOtherChildren: 'optionNo'
+                    },
+                    applicant: {
+                        relationshipToDeceased: 'optionAdoptedChild',
+                        spouseNotApplyingReason: 'optionRenouncing'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.isSpouseGivingUpAdminRights).to.equal(false);
+                done();
+            });
+            it('should return false when deceased is married but applicant is not a child of the deceased', (done) => {
+                const formdata = {
+                    deceased: {
+                        maritalStatus: 'optionMarried',
+                        anyOtherChildren: 'optionNo'
+                    },
+                    applicant: {
+                        relationshipToDeceased: 'optionSpousePartner',
+                        spouseNotApplyingReason: 'optionRenouncing'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.isSpouseGivingUpAdminRights).to.equal(false);
                 done();
             });
         });
     });
 
     describe('runnerOptions', () => {
-        it('do not redirect if journey is gop', (done) => {
-            const ctx = {
-                caseType: caseTypes.GOP
-            };
-            const session = {
-                form: {}
-            };
-            co(function* () {
-                const options = yield Documents.runnerOptions(ctx, session);
+        let session;
+        let ctx;
 
-                expect(options).to.deep.equal({});
-                done();
-            }).catch(err => {
-                done(err);
-            });
+        beforeEach(() => {
+            session = {
+                form: {},
+            };
+            ctx = {};
         });
 
-        it('do not redirect if journey is intestacy and a document was not uploaded', (done) => {
-            const ctx = {
-                caseType: caseTypes.INTESTACY
-            };
-            const session = {
-                form: {
-                    documents: {
-                        uploads: []
-                    }
-                }
-            };
+        it('do not redirect if journey is gop', (done) => {
+            session.form = {caseType: caseTypes.GOP};
+            const ctx = {};
             co(function* () {
                 const options = yield Documents.runnerOptions(ctx, session);
-
                 expect(options).to.deep.equal({});
                 done();
             }).catch(err => {
@@ -305,17 +483,9 @@ describe('Documents', () => {
         });
 
         it('do not redirect if journey is intestacy and a form IHT205 was used', (done) => {
-            const ctx = {
-                caseType: caseTypes.INTESTACY
-            };
-            const session = {
-                form: {
-                    iht: {
-                        method: 'optionPaper',
-                        form: 'optionIHT205'
-                    }
-                }
-            };
+            session.form = {caseType: caseTypes.INTESTACY};
+            session.form.iht = {method: 'optionPaper', form: 'optionIHT205'};
+
             co(function* () {
                 const options = yield Documents.runnerOptions(ctx, session);
 
@@ -327,18 +497,10 @@ describe('Documents', () => {
         });
 
         it('do not redirect if journey is intestacy and deceased was married and applicant is child', (done) => {
-            const ctx = {
+            session.form = {
+                deceased: {maritalStatus: 'optionMarried'},
+                applicant: {relationshipToDeceased: 'optionChild'},
                 caseType: caseTypes.INTESTACY
-            };
-            const session = {
-                form: {
-                    deceased: {
-                        maritalStatus: 'optionMarried'
-                    },
-                    applicant: {
-                        relationshipToDeceased: 'optionChild'
-                    }
-                }
             };
             co(function* () {
                 const options = yield Documents.runnerOptions(ctx, session);
@@ -351,18 +513,40 @@ describe('Documents', () => {
         });
 
         it('do not redirect if journey is intestacy and deceased was married and applicant is adopted child', (done) => {
-            const ctx = {
+            session.form = {
+                deceased: {maritalStatus: 'optionMarried'},
+                applicant: {relationshipToDeceased: 'optionAdoptedChild'},
                 caseType: caseTypes.INTESTACY
             };
-            const session = {
-                form: {
-                    deceased: {
-                        maritalStatus: 'optionMarried'
-                    },
-                    applicant: {
-                        relationshipToDeceased: 'optionAdoptedChild'
-                    }
-                }
+            co(function* () {
+                const options = yield Documents.runnerOptions(ctx, session);
+
+                expect(options).to.deep.equal({});
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+
+        it('do not redirect if journey is intestacy and death certificate is interim', (done) => {
+            session.form = {
+                deceased: {deathCertificate: 'optionInterimCertificate'},
+                caseType: caseTypes.INTESTACY
+            };
+            co(function* () {
+                const options = yield Documents.runnerOptions(ctx, session);
+
+                expect(options).to.deep.equal({});
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+
+        it('do not redirect if journey is intestacy and death certificate is foreign', (done) => {
+            session.form = {
+                deceased: {diedEngOrWales: 'optionNo'},
+                caseType: caseTypes.INTESTACY
             };
             co(function* () {
                 const options = yield Documents.runnerOptions(ctx, session);
@@ -375,24 +559,10 @@ describe('Documents', () => {
         });
 
         it('redirect if journey is intestacy and a none of the other conditions apply', (done) => {
-            const ctx = {
+            session.form = {
+                deceased: {maritalStatus: 'optionSeparated'},
+                iht: {method: 'optionPaper', form: 'optionIHT207'},
                 caseType: caseTypes.INTESTACY
-            };
-            const session = {
-                form: {
-                    deceased: {
-                        maritalStatus: 'optionSeparated'
-                    },
-                    documents: {
-                        uploads: [
-                            'testfile.pdf'
-                        ]
-                    },
-                    iht: {
-                        method: 'optionPaper',
-                        form: 'optionIHT207'
-                    }
-                }
             };
             co(function* () {
                 const options = yield Documents.runnerOptions(ctx, session);

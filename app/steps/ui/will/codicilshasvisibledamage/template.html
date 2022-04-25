@@ -1,0 +1,106 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+{% block form_content %}
+
+    {% set codicilsHasVisibleDamageHtml %}
+
+        {% set codicilsDamageDescriptionHtml %}
+            {{ govukTextarea({
+                name: "otherDamageDescription",
+                id: "otherDamageDescription",
+                label: {
+                    text: content["otherDamageDescriptionHint"] | safe,
+                    classes: "govuk-visually-hidden"
+                },
+                hint: {
+                    text: content["otherDamageDescriptionHint"] | safe
+                },
+                value: fields.otherDamageDescription.value
+            }) }}
+        {% endset -%}
+
+        {{ govukCheckboxes({
+            idPrefix: "codicilsDamage",
+            name: "codicilsDamageTypes[]",
+            hint: {
+                text: content["codicilsDamageHint"] | safe
+            },
+            items: [
+                {
+                    value: "stapleOrPunchHoles",
+                    text: content["optionstapleOrPunchHoles"] | safe,
+                    checked: fields.options.value.stapleOrPunchHoles
+                },
+                {
+                    value: "rustMarks",
+                    text: content["optionrustMarks"] | safe,
+                    checked: fields.options.value.rustMarks
+                },
+                {
+                    value: "paperClipMarks",
+                    text: content["optionpaperClipMarks"] | safe,
+                    checked: fields.options.value.paperClipMarks
+                },
+                {
+                    value: "tornEdges",
+                    text: content["optiontornEdges"] | safe,
+                    checked: fields.options.value.tornEdges
+                },
+                {
+                    value: "waterDamage",
+                    text: content["optionwaterDamage"] | safe,
+                    checked: fields.options.value.waterDamage
+                },
+                {
+                    value: "otherVisibleDamage",
+                    text: content["optionotherVisibleDamage"] | safe,
+                    checked: fields.options.value.otherVisibleDamage,
+                    conditional: {
+                        html: codicilsDamageDescriptionHtml
+                    }
+                }
+            ]
+        }) }}
+    {% endset -%}
+
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "codicilsHasVisibleDamage",
+        name: "codicilsHasVisibleDamage",
+        fieldset: {
+            legend: {
+                text: content.question,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: { text: fields.codicilsHasVisibleDamage.errorMessage | safe } if fields.codicilsHasVisibleDamage.errorMessage,
+        items: [
+            {
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.codicilsHasVisibleDamage.value == "optionYes",
+                conditional: {
+                    html: codicilsHasVisibleDamageHtml
+                }
+            },
+            {
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.codicilsHasVisibleDamage.value == "optionNo"
+            }
+        ]
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

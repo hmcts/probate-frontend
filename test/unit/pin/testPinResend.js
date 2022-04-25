@@ -13,7 +13,7 @@ const i18next = require('i18next');
 const section = 'pin';
 const templatePath = 'pin/resend';
 const schema = {
-    $schema: 'http://json-schema.org/draft-04/schema#',
+    $schema: 'http://json-schema.org/draft-07/schema',
     properties: {}
 };
 const coreContextMockData = require('../../data/core-context-mock-data.json');

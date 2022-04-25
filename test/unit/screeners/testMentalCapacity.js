@@ -55,6 +55,8 @@ describe('MentalCapacity', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionYes',
@@ -79,6 +81,8 @@ describe('MentalCapacity', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionYes',

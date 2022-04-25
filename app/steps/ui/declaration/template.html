@@ -28,7 +28,7 @@
                     <h3 class="govuk-heading-s declaration-subheader">{{ content.cy.deceasedHeader | safe }}</h3>
                     <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.deceased | safe }} {{ fields.legalStatement.value.cy.deceasedOtherNames | safe }}</p>
 
-                    {{ estate(content.cy, fields.legalStatement.value.cy, fields.showNetValueAssetsOutside.value) }}
+                    {{ estate(content.cy, fields.legalStatement.value.cy, fields.showNetValueAssetsOutside.value, fields.exceptedEstate.value) }}
 
                     <h3 class="govuk-heading-s declaration-subheader">{{ content.cy.executorApplyingHeader | safe }}</h3>
                     {% for executor in fields.legalStatement.value.cy.executorsApplying %}
@@ -68,7 +68,7 @@
                     <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.deceasedMaritalStatus | safe }}</p>
                     <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.deceasedChildren | safe }}</p>
 
-                    {{ estate(content.cy, fields.legalStatement.value.cy, fields.showNetValueAssetsOutside.value) }}
+                    {{ estate(content.cy, fields.legalStatement.value.cy, fields.showNetValueAssetsOutside.value, fields.exceptedEstate.value) }}
 
                     <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.applicant2 | safe }}</p>
                     <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.applying | safe }}</p>
@@ -101,7 +101,7 @@
                 <h3 class="govuk-heading-s declaration-subheader">{{ content.en.deceasedHeader | safe }}</h3>
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.deceased | safe }} {{ fields.legalStatement.value.en.deceasedOtherNames | safe }}</p>
 
-                {{ estate(content.en, fields.legalStatement.value.en, fields.showNetValueAssetsOutside.value) }}
+                {{ estate(content.en, fields.legalStatement.value.en, fields.showNetValueAssetsOutside.value, fields.exceptedEstate.value) }}
 
                 <h3 class="govuk-heading-s declaration-subheader">{{ content.en.executorApplyingHeader | safe }}</h3>
                 {% for executor in fields.legalStatement.value.en.executorsApplying %}
@@ -141,7 +141,7 @@
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.deceasedMaritalStatus | safe }}</p>
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.deceasedChildren | safe }}</p>
 
-                {{ estate(content.en, fields.legalStatement.value.en, fields.showNetValueAssetsOutside.value) }}
+                {{ estate(content.en, fields.legalStatement.value.en, fields.showNetValueAssetsOutside.value, fields.exceptedEstate.value) }}
 
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.applicant2 | safe }}</p>
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.applying | safe }}</p>

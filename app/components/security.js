@@ -175,11 +175,7 @@ class Security {
     }
 
     _storeCookie(req, res, token, cookieName) {
-        if (req.protocol === 'https') {
-            res.cookie(cookieName, token, {secure: true, httpOnly: true});
-        } else {
-            res.cookie(cookieName, token, {httpOnly: true});
-        }
+        res.cookie(cookieName, token, {secure: true, httpOnly: true});
     }
 }
 

@@ -1,0 +1,23 @@
+{
+  "title": "Ydych chi’n gwybod yn fras pryd ymddangosodd y difrod neu farciau gweladwy ar y codisiliau?",
+  "question": "Ydych chi’n gwybod yn fras pryd ymddangosodd y difrod neu farciau gweladwy ar y codisiliau?",
+  "optionYes": "Ydw",
+  "optionNo": "Nac ydw",
+  "date": "Y dyddiad yn fras pryd yr ymddangosodd y difrod neu farciau ar y codisiliau",
+  "dateHint": "Y dyddiad yn fras pryd yr ymddangosodd y difrod neu farciau ar y codisiliau<br>Os na fedrwch gofio’r dyddiad yn llawn, nodwch y flwyddyn yn unig",
+  "errors": {
+    "codicilsDamageDateKnown": {
+      "required": "Dewiswch &lsquo;Ydw&rsquo; os gwyddoch yn fras pryd ymddangosodd y difrod neu farciau gweladwy ar y codisiliau"
+    },
+    "codicilsdamagedate-year": {
+      "required": "Rhowch y flwyddyn pryd yr ymddangosodd y difrod neu’r marciau ar y codisiliau"
+    },
+    "codicilsdamagedate-month": {
+      "required": "Rhowch y mis pryd yr ymddangosodd y difrod neu’r marciau ar y codisiliau"
+    },
+    "codicilsdamagedate": {
+      "future": "Rhaid i ddyddiad pan yr ymddangosodd y difrod neu’r marciau ar y codisiliau fod yn y gorffennol neu heddiw",
+      "invalid": "Nodwch ddyddiad dilys os gwelwch yn dda"
+    }
+  }
+}

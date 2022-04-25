@@ -1,0 +1,15 @@
+{
+  "title": "A adawodd y sawl a fu farw unrhyw ddymuniadau ysgrifenedig eraill?",
+  "question": "A adawodd y sawl a fu farw unrhyw ddymuniadau ysgrifenedig eraill?",
+  "interestedDetailsHint": "Rydym ond &acirc diddordeb mewn dymuniadau ysgrifenedig sy’n cynnwys manylion megis:",
+  "interestedDetail1": "Ysgutor a benodwyd",
+  "interestedDetail2": "Cyfarwyddyd i roi trefn ar yr yst&acircd",
+  "interestedDetail3": "Enw a llofnod tystion",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+  "errors": {
+    "deceasedWrittenWishes": {
+      "required": "Dewiswch &lsquo;Do&rsquo; os gwyddoch os bu i’r sawl a fu farw adael unrhyw ddymuniadau ysgrifenedig"
+    }
+  }
+}

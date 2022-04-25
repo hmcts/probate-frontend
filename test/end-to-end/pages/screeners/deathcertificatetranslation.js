@@ -1,18 +1,14 @@
 'use strict';
-const deathCertTranslationEn = require('app/resources/en/translation/screeners/deathcertificatetranslation');
-const deathCertTranslationCy = require('app/resources/cy/translation/screeners/deathcertificatetranslation');
-const contentEn = require('app/resources/en/translation/common');
-const contentCy = require('app/resources/cy/translation/common');
 
-module.exports = async function(language ='en', answer) {
+module.exports = async function(language ='en', answer = null) {
     const I = this;
-    const commonContent = language === 'en' ? contentEn : contentCy;
-    const deathCertTranslationContent = language === 'en' ? deathCertTranslationEn : deathCertTranslationCy;
+    const commonContent = require(`app/resources/${language}/translation/common`);
+    const deathCertTranslationContent = require(`app/resources/${language}/translation/screeners/deathcertificatetranslation`);
 
-    await I.checkPageUrl('app/steps/ui/screeners/deathcertificatetranslation');
+    await I.checkInUrl('/death-certificate-translation');
     await I.waitForText(deathCertTranslationContent.question);
     const locator = {css: `#deathCertificateTranslation${answer}`};
-    await I.waitForElement(locator);
+    await I.waitForEnabled(locator);
     await I.click(locator);
-    await I.navByClick(commonContent.continue);
+    await I.navByClick(commonContent.continue, 'button.govuk-button');
 };

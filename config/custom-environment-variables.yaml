@@ -6,7 +6,10 @@ featureToggles:
   enabled: LAUNCHDARKLY_ENABLED
   launchDarklyKey: LAUNCHDARKLY_KEY
   launchDarklyUser:
-    key: LAUNCHDARKLY_USER_KEY  
+    key: LAUNCHDARKLY_USER_KEY
+configFeatureToggles:
+  webchatEnabled: WEBCHAT_ENABLED
+  gaEnabled: GA_ENABLED
 app:
   username: USERNAME
   password: PASSWORD
@@ -53,12 +56,10 @@ redis:
   enabled: USE_REDIS
   secret: REDIS_SECRET
 enableTracking: ENABLE_TRACKING
-webChat:
-  chatId: WEBCHAT_CHAT_ID
-  tenant: WEBCHAT_TENANT
-  buttonNoAgents: WEBCHAT_BUTTON_NO_AGENTS
-  buttonAgentsBusy: WEBCHAT_BUTTON_AGENTS_BUSY
-  buttonServiceClosed: WEBCHAT_BUTTON_SERVICE_CLOSED
+webchat:
+  avayaUrl: WEBCHAT_AVAYA_URL
+  avayaClientUrl: WEBCHAT_AVAYA_CLIENT_URL
+  avayaService: WEBCHAT_AVAYA_SERVICE
 links:
   survey: SURVEY
   surveyEndOfApplication: SURVEY_END_OF_APPLICATION
@@ -104,3 +105,5 @@ TestEnvMobileNumber: TEST_MOBILE_NUMBER
 
 pact:
   pactBrokerUrl: PACT_BROKER_URL
+
+exceptedEstateDateOfDeath: EXCEPTED_ESTATE_DATE_OF_DEATH

@@ -36,11 +36,27 @@ const taskList = {
 const stepList = {
     StartEligibility: 'DeathCertificate',
     DeathCertificate: {
-        hasCertificate: 'DeceasedDomicile',
+        hasCertificate: 'DeathCertificateInEnglish',
+        otherwise: 'StopPage'
+    },
+    DeathCertificateInEnglish: {
+        deathCertificateInEnglish: 'DeceasedDomicile',
+        otherwise: 'DeathCertificateTranslation'
+    },
+    DeathCertificateTranslation: {
+        hasDeathCertificateTranslation: 'DeceasedDomicile',
         otherwise: 'StopPage'
     },
     DeceasedDomicile: {
         inEnglandOrWales: 'IhtCompleted',
+        otherwise: 'StopPage'
+    },
+    ExceptedEstateDeceasedDod: {
+        dodAfterEeThreshold: 'ExceptedEstateValued',
+        otherwise: 'IhtCompleted'
+    },
+    ExceptedEstateValued: {
+        eeEstateValued: 'WillLeft',
         otherwise: 'StopPage'
     },
     IhtCompleted: {
@@ -68,11 +84,32 @@ const stepList = {
     DeceasedName: 'DeceasedDob',
     DeceasedDob: 'DeceasedDod',
     DeceasedDod: 'DeceasedAddress',
-    DeceasedAddress: 'DocumentUpload',
-    DocumentUpload: {
-        isUploadingDocument: 'DocumentUpload',
-        otherwise: 'IhtMethod'
+    DeceasedAddress: 'DiedEnglandOrWales',
+    DiedEnglandOrWales: {
+        hasDiedEngOrWales: 'DeathCertificateInterim',
+        otherwise: 'EnglishForeignDeathCert'
     },
+    DeathCertificateInterim: 'IhtMethod',
+    IhtEstateValued: {
+        ihtEstateFormsCompleted: 'IhtEstateForm',
+        otherwise: 'IhtEstateValues',
+    },
+    IhtEstateForm: 'ProbateEstateValues',
+    IhtEstateValues: {
+        netQualifyingValueWithinRange: 'DeceasedHadLateSpouseOrCivilPartner',
+        otherwise: 'ProbateEstateValues'
+    },
+    DeceasedHadLateSpouseOrCivilPartner: {
+        deceasedHadLateSpouseOrCivilPartner: 'IhtUnusedAllowanceClaimed',
+        otherwise: 'ProbateEstateValues'
+    },
+    IhtUnusedAllowanceClaimed: 'ProbateEstateValues',
+    ProbateEstateValues: 'DeceasedAlias',
+    EnglishForeignDeathCert: {
+        foreignDeathCertIsInEnglish: 'IhtMethod',
+        otherwise: 'ForeignDeathCertTranslation'
+    },
+    ForeignDeathCertTranslation: 'IhtMethod',
     IhtMethod: {
         online: 'IhtIdentifier',
         otherwise: 'IhtPaper'
@@ -87,12 +124,27 @@ const stepList = {
     DeceasedOtherNames: 'DeceasedMarried',
     AddAlias: 'DeceasedOtherNames',
     RemoveAlias: 'DeceasedOtherNames',
-    DeceasedMarried: 'WillCodicils',
+    DeceasedMarried: 'WillHasVisibleDamage',
+    WillHasVisibleDamage: {
+        willDoesHaveVisibleDamage: 'WillDamageReasonKnown',
+        otherwise: 'WillCodicils'
+    },
+    WillDamageReasonKnown: 'WillDamageCulpritKnown',
+    WillDamageCulpritKnown: 'WillDamageDate',
+    WillDamageDate: 'WillCodicils',
     WillCodicils: {
-        noCodicils: 'TaskList',
+        noCodicils: 'DeceasedWrittenWishes',
         otherwise: 'CodicilsNumber'
     },
-    CodicilsNumber: 'TaskList',
+    CodicilsNumber: 'CodicilsHasVisibleDamage',
+    CodicilsHasVisibleDamage: {
+        codicilsDoesHaveVisibleDamage: 'CodicilsDamageReasonKnown',
+        otherwise: 'DeceasedWrittenWishes'
+    },
+    CodicilsDamageReasonKnown: 'CodicilsDamageCulpritKnown',
+    CodicilsDamageCulpritKnown: 'CodicilsDamageDate',
+    CodicilsDamageDate: 'DeceasedWrittenWishes',
+    DeceasedWrittenWishes: 'TaskList',
     ApplicantName: 'ApplicantNameAsOnWill',
     ApplicantNameAsOnWill: {
         hasAlias: 'ApplicantAlias',

@@ -27,25 +27,6 @@
 {{checkanswer(
     items = [
         {
-            question: content.WillCodicils.question,
-            answer: fields.will.codicils.value,
-            visible: true
-        },
-        {
-            question: content.CodicilsNumber.question,
-            answer: fields.will.codicilsNumber.value,
-            visible: fields.will.codicils.value == "optionYes"
-        }
-    ],
-    url = content.WillCodicils.url,
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value,
-    answerIsGroup = true
-)}}
-
-{{checkanswer(
-    items = [
-        {
             question: content.DeathCertificate.question,
             answer: fields.deceased.deathCertificate.value,
             visible: true

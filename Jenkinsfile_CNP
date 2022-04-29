@@ -5,6 +5,10 @@
 String product = "probate"
 String component = "frontend"
 
+def checkForEnableHelmLabel(branch_name) {
+  return new GithubAPI(this).getLabelsbyPattern(branch_name, "full functional tests").contains("full functional tests")
+}
+
 def secrets = [
   'probate-${env}': [
     secret('testIdamBaseUrl', 'IDAM_API_URL'),
@@ -95,6 +99,7 @@ withPipeline("nodejs", product, component) {
   enableSlackNotifications('#probate-jenkins')
   syncBranchesWithMaster(branchesToSync)
 
+
   after('test') {
     publishHTML (target: [
        alwaysLinkToLastBuild: true,
@@ -120,5 +125,11 @@ withPipeline("nodejs", product, component) {
       reportName           : "AAT Functional Tests",
       alwaysLinkToLastBuild: true
     ]
+  }
+
+  onPR {
+    if (checkForEnableHelmLabel(env.BRANCH_NAME)) {
+      enableFullFunctionalTest(200);
+    }
   }
 }

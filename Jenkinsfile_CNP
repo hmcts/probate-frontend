@@ -2,6 +2,7 @@
 
 @Library("Infrastructure")
 import uk.gov.hmcts.contino.GithubAPI
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
 String product = "probate"
 String component = "frontend"
@@ -117,9 +118,9 @@ withPipeline("nodejs", product, component) {
       reportName           : "Preview Functional Tests",
       alwaysLinkToLastBuild: true
     ]
-     if (checkForEnableHelmLabel(env.BRANCH_NAME)) {
+
        yarnBuilder.yarn('test:fullfunctional');
-     }
+
   }
 
   after('functionalTest:aat') {

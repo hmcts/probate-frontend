@@ -117,6 +117,9 @@ withPipeline("nodejs", product, component) {
       reportName           : "Preview Functional Tests",
       alwaysLinkToLastBuild: true
     ]
+     if (checkForEnableHelmLabel(env.BRANCH_NAME)) {
+       yarnBuilder.yarn('test:fullfunctional');
+     }
   }
 
   after('functionalTest:aat') {
@@ -128,9 +131,4 @@ withPipeline("nodejs", product, component) {
     ]
   }
 
-  onPR {
-    if (checkForEnableHelmLabel(env.BRANCH_NAME)) {
-      enableFullFunctionalTest(200);
-    }
-  }
 }

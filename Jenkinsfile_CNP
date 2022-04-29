@@ -1,6 +1,7 @@
 #!groovy
 
-@Library("Infrastructure") _
+@Library("Infrastructure")
+import uk.gov.hmcts.contino.GithubAPI
 
 String product = "probate"
 String component = "frontend"

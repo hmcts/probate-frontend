@@ -119,8 +119,9 @@ withPipeline("nodejs", product, component) {
       alwaysLinkToLastBuild: true
     ]
 
+     if (checkForEnableHelmLabel(env.BRANCH_NAME)) {
        yarnBuilder.yarn('test:fullfunctional');
-
+     }
   }
 
   after('functionalTest:aat') {

@@ -1,6 +1,7 @@
 #!groovy
 
-@Library("Infrastructure") _
+@Library("Infrastructure")
+import uk.gov.hmcts.contino.GithubAPI
 
 import uk.gov.hmcts.contino.GithubAPI
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)

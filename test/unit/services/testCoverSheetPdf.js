@@ -140,7 +140,7 @@ describe('CoverSheetPdfService', () => {
                 will: {
                     codicils: 'optionYes',
                     codicilsNumber: 12345,
-                    deceasedWrittenWishes: true
+                    deceasedWrittenWishes: 'optionYes'
                 },
                 deceased: {
                     deathCertificate: 'optionInterimCertificate',

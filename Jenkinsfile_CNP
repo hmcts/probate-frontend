@@ -4,11 +4,13 @@
 import uk.gov.hmcts.contino.GithubAPI
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
+import uk.gov.hmcts.contino.GithubAPI
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 String product = "probate"
 String component = "frontend"
 
 def checkForEnableHelmLabel(branch_name) {
-  return new GithubAPI(this).getLabelsbyPattern(branch_name, "full functional tests").contains("full functional tests")
+  return new GithubAPI(this).getLabelsbyPattern(branch_name, "nightly").contains("nightly")
 }
 
 def secrets = [
@@ -119,9 +121,10 @@ withPipeline("nodejs", product, component) {
       alwaysLinkToLastBuild: true
     ]
 
-     if (checkForEnableHelmLabel(env.BRANCH_NAME)) {
-       yarnBuilder.yarn('test:fullfunctional');
-     }
+    if (checkForEnableHelmLabel(env.BRANCH_NAME)) {
+      yarnBuilder.yarn('test:fullfunctional');
+    }
+
   }
 
   after('functionalTest:aat') {

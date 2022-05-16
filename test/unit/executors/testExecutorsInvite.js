@@ -56,11 +56,4 @@ describe('Executors-Invite', () => {
             assert.isUndefined(ctx.inviteSuffix);
         });
     });
-
-    describe('shouldPersistFormData()', () => {
-        it('should return false', () => {
-            const persist = ExecsInvite.shouldPersistFormData();
-            expect(persist).to.equal(false);
-        });
-    });
 });

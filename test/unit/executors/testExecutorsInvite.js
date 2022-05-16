@@ -58,9 +58,9 @@ describe('Executors-Invite', () => {
     });
 
     describe('shouldPersistFormData()', () => {
-        it('should return false', () => {
+        it('should return true', () => {
             const persist = ExecsInvite.shouldPersistFormData();
-            expect(persist).to.equal(false);
+            expect(persist).to.equal(true);
         });
     });
 });

@@ -25,6 +25,10 @@ class ExecutorsInvite extends ValidationStep {
         return this.next(req, ctx).constructor.getUrl();
     }
 
+    shouldPersistFormData() {
+        return false;
+    }
+
     * handlePost(ctx, errors, formdata) {
         const inviteLink = new InviteLink(config.services.orchestrator.url, ctx.sessionID);
         const executorsToNotifyList = ctx.list

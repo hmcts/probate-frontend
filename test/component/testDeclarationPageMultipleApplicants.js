@@ -998,7 +998,7 @@ describe('declaration, multiple applicants', () => {
                     id: 1234567890123456
                 },
                 declaration: {hasDataChanged: true},
-                executors: {invitesSent: 'true'},
+                executors: {invitesSent: true},
                 session: {
                     legalDeclaration: {}
                 }
@@ -1030,7 +1030,7 @@ describe('declaration, multiple applicants', () => {
                         {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true},
                         {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true, emailSent: false}
                     ],
-                    invitesSent: 'true'
+                    invitesSent: true
                 },
                 session: {
                     legalDeclaration: {}
@@ -1062,7 +1062,7 @@ describe('declaration, multiple applicants', () => {
                         {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true, emailSent: true},
                         {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true, emailChanged: true, emailSent: true}
                     ],
-                    invitesSent: 'true'
+                    invitesSent: true
                 },
                 session: {
                     legalDeclaration: {}

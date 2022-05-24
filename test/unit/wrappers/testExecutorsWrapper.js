@@ -639,9 +639,9 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullName: 'ed brown', isApplying: true, emailSent: true},
+                    {fullName: 'ed brown', isApplying: true, emailSent: true, inviteId: 'dummyInviteId1'},
                     {fullName: 'jake smith', isApplying: true, emailSent: false},
-                    {fullName: 'bob smith', isApplying: true, emailSent: true}
+                    {fullName: 'bob smith', isApplying: true, emailSent: true, inviteId: 'dummyInviteId3'}
                 ]
             };
         });
@@ -671,6 +671,7 @@ describe('Executors.js', () => {
 
             it('when no executors need to notified', (done) => {
                 data.list[2].emailSent = true;
+                data.list[2].inviteId = 'dummyInviteId2';
                 const executorsWrapper = new ExecutorsWrapper(data);
                 expect(executorsWrapper.hasExecutorsToNotify()).to.deep.equal(false);
                 done();
@@ -683,9 +684,9 @@ describe('Executors.js', () => {
             data = {
                 list: [
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {fullName: 'ed brown', isApplying: true, emailSent: true},
+                    {fullName: 'ed brown', isApplying: true, emailSent: true, inviteId: 'dummyInviteId1'},
                     {fullName: 'jake smith', isApplying: true, emailSent: false},
-                    {fullName: 'bob smith', isApplying: true, emailSent: true}
+                    {fullName: 'bob smith', isApplying: true, emailSent: true, inviteId: 'dummyInviteId3'}
                 ]
             };
         });
@@ -700,6 +701,7 @@ describe('Executors.js', () => {
 
         it('should return a list with two executors who have been added', (done) => {
             data.list[3].emailSent = false;
+            delete data.list[3].inviteId;
             const executorsWrapper = new ExecutorsWrapper(data);
             expect(executorsWrapper.executorsToNotify()).to.deep.equal([
                 {fullName: 'jake smith', isApplying: true, emailSent: false},
@@ -710,6 +712,7 @@ describe('Executors.js', () => {
 
         it('should return an empty list when no executors have been added and need to notified', (done) => {
             data.list[2].emailSent = true;
+            data.list[2].inviteId='dummyInviteId2';
             const executorsWrapper = new ExecutorsWrapper(data);
             expect(executorsWrapper.executorsToNotify()).to.deep.equal([]);
             done();
@@ -718,6 +721,7 @@ describe('Executors.js', () => {
         describe('should return an empty list', () => {
             it('when there are no executors to notify', (done) => {
                 data.list[2].emailSent = true;
+                data.list[2].inviteId='dummyInviteId2';
                 const executorsWrapper = new ExecutorsWrapper(data);
                 expect(executorsWrapper.executorsToNotify()).to.deep.equal([]);
                 done();

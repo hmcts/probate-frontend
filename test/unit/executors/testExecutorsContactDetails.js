@@ -70,9 +70,8 @@ describe('Contact-Details', () => {
             errors = [];
         });
 
-        it('test emailChanged flag is correctly set and contact details updated (single applicant)', (done) => {
+        it ('test emailChanged flag is correctly set and contact details updated (single applicant)', (done) => {
             co(function* () {
-                ctx.list[1].inviteId = 'dummy_inviteId';
                 ctx.list[1].emailChanged = true;
                 const contactDetails = new ContactDetails(steps, section, templatePath, i18next, schema);
                 [ctx, errors] = yield contactDetails.handlePost(ctx, errors, formdata);
@@ -90,8 +89,7 @@ describe('Contact-Details', () => {
                             isApplying: true,
                             email: 'newtestemail@gmail.com',
                             mobile: '07321321321',
-                            emailChanged: true,
-                            inviteId: 'dummy_inviteId'
+                            emailChanged: true
                         },
                         {
                             fullName: 'Billy Jean',

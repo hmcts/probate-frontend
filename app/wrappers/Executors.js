@@ -120,11 +120,11 @@ class Executors {
     }
 
     hasExecutorsToNotify() {
-        return this.executorsList.some(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent);
+        return this.executorsList.some(executor => executor.isApplying && !executor.isApplicant && !executor.inviteId);
     }
 
     executorsToNotify() {
-        return this.executorsList.filter(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent);
+        return this.executorsList.filter(executor => executor.isApplying && !executor.isApplicant && !executor.inviteId);
     }
 
     executorsRemoved() {

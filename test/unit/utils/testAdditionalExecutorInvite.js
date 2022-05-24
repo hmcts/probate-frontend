@@ -121,7 +121,9 @@ describe('AdditionalExecutorInvite', () => {
 
         describe('when there are no emailChanged flags to remove', () => {
             it('should return the original executors data', (done) => {
-                session.form.executors.list[2].emailSent = true;
+                session.form.executors.list[2].inviteId = 'dummy_invite_id';
+                executorsToCheck.form.executors.list[2].emailSent = false;
+                executorsToCheck.form.executors.list[2].inviteId = 'dummy_invite_id';
                 AdditionalExecutorInvite.invite(req)
                     .then(res => {
                         expect(res).to.deep.equal(executorsToCheck.form.executors);

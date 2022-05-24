@@ -27,7 +27,7 @@ class DeceasedDod extends DateStep {
 
         if (dod > today) {
             errors.push(FieldError('dod-date', 'dateInFuture', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-        } else if (typeof dob === 'object' && dob >= dod) {
+        } else if (typeof dob === 'object' && dob > dod) {
             errors.push(FieldError('dod-date', 'dodBeforeDob', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 

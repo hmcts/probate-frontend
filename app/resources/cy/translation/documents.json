@@ -20,6 +20,7 @@
   "checklist-item8-renunciated": "a <a href=\"{renunciationFormLink}\" target=\"_blank\" class=\"govuk-link\" rel=\"external noopener\" aria-label=\"ffurflen ymwrthod (agor mewn ffenestr newydd)\">ffurflen ymwrthod (agor mewn ffenestr newydd)</a> wedi&rsquo;i llenwi gan unrhyw ysgutorion sy&rsquo;n rhoi fyny yr hawl yn barhaol i wneud y cais hwn am brofiant",
   "checklist-item9-deed-poll": "copi o&rsquo;r ddogfen gweithred newid enw ar gyfer {executorCurrentName}",
   "checklist-item10-iht207": "Anfonwch y ffurflen IHT 207 atom",
+  "checklist-item11-spouse-giving-up-admin-rights-PA16": "<a href=\"{spouseGivingUpAdminRightsPA16Link}\" target=\"_blank\" class=\"govuk-link\" rel=\"external noopener\" aria-label=\"Ffurflen bapur rhoi'r gorau i bob hawl i weithredu fel gweinyddwr profiant\">Ffurflen bapur rhoi'r gorau i bob hawl i weithredu fel gweinyddwr profiant</a> - Ffurflen PA16",
 
   "errors": {
     "sentDocuments": {

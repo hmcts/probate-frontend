@@ -5,71 +5,6 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "widgets/lists.html" import unorderedList %}
 
-{% set checklistItems = [] %}
-{% set codicilsSuffix = "" %}
-
-{% if fields.caseType.value === globals.caseTypes.gop %}
-  {% if fields.ccdReferenceNumber.value !== "" %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item1-application-coversheet"] | replace("{ccdReferenceNumber}", fields.ccdReferenceNumber.value) | safe), checklistItems) %}
-  {% endif %}
-  {% if fields.hasCodicils.value === "true" and fields.codicilsNumber.value > "0" %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item2-codicils"]), checklistItems) %}
-  {% else %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item2-no-codicils"]), checklistItems) %}
-  {% endif %}
-  {% if fields.deceasedWrittenWishes.value === "optionYes" %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item3-codicils-written-wishes"]), checklistItems) %}
-  {% endif %}
-  {% if (fields.interimDeathCertificate.value === "true") %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item4-interim-death-cert"]), checklistItems) %}
-  {% endif %}
-  {% if (fields.foreignDeathCertificate.value === "true") %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item4-foreign-death-cert"]), checklistItems) %}
-  {% endif %}
-  {% if (fields.foreignDeathCertTranslatedSeparately.value === "true") %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item4-foreign-death-cert-translation"]), checklistItems) %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item5-foreign-death-cert-PA19"] | replace("{applicationFormPA19}", globals.links.applicationFormPA19)), checklistItems) %}
-  {% endif %}
-  {% if (fields.is205.value === "true") %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item7-iht205"]), checklistItems) %}
-    {% endif %}
-  {% if (fields.is207.value === "true") %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item10-iht207"]), checklistItems) %}
-  {% endif %}
-  {% if fields.hasRenunciated.value === "true" %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item8-renunciated"] | replace("{renunciationFormLink}", globals.links.renunciationForm)), checklistItems) %}
-  {% endif %}
-  {% if fields.executorsNameChangedByDeedPollList.value | length > 0 %}
-    {% for executor in fields.executorsNameChangedByDeedPollList.value %}
-      {% set checklistItems = (checklistItems.push(content["checklist-item9-deed-poll"] | replace("{executorCurrentName}", executor)), checklistItems) %}
-    {% endfor %}
-  {% endif %}
-{% else %}
-  {% if fields.ccdReferenceNumber.value !== "" %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item1-application-coversheet"] | replace("{ccdReferenceNumber}", fields.ccdReferenceNumber.value) | safe), checklistItems) %}
-  {% endif %}
-  {% if (fields.interimDeathCertificate.value === "true") %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item4-interim-death-cert"]), checklistItems) %}
-  {% endif %}
-  {% if (fields.foreignDeathCertificate.value === "true") %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item4-foreign-death-cert"]), checklistItems) %}
-  {% endif %}
-  {% if (fields.foreignDeathCertTranslatedSeparately.value === "true") %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item4-foreign-death-cert-translation"]), checklistItems) %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item5-foreign-death-cert-PA19"] | replace("{applicationFormPA19}", globals.links.applicationFormPA19)), checklistItems) %}
-  {% endif %}
-  {% if fields.spouseRenouncing.value === "true" %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item6-spouse-renouncing"] | replace("{renunciationFormLink}", globals.links.renunciationForm)), checklistItems) %}
-  {% endif %}
-  {% if (fields.is205.value === "true") %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item7-iht205"]), checklistItems) %}
-  {% endif %}
-  {% if (fields.is207.value === "true") %}
-    {% set checklistItems = (checklistItems.push(content["checklist-item10-iht207"]), checklistItems) %}
-  {% endif %}
-{% endif %}
-
-
 {% block form_content %}
     {% call govukFieldset({
         legend: {
@@ -81,7 +16,7 @@
       <h2 class="govuk-heading-m">{{ content.heading1 | safe }}</h2>
       <p class="govuk-body">{{ content.text1 | safe }}</p>
 
-      {{ unorderedList(checklistItems) }}
+      {{ unorderedList(fields.checkListItems.value) }}
       {{ govukInsetText({
         text: content.warning | safe
       }) }}

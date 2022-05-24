@@ -126,5 +126,26 @@ describe('deceased-dob', () => {
 
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDod);
         });
+
+        it(`test it redirects to deceased dod where dod is same as dob: ${expectedNextUrlForDeceasedDod}`, (done) => {
+            const sessionData = {
+                deceased: {
+                    'dod-day': '01',
+                    'dod-month': '01',
+                    'dod-year': '2000'
+                }
+            };
+            const data = {
+                'dob-day': '01',
+                'dob-month': '01',
+                'dob-year': '2000'
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDod);
+                });
+        });
     });
 });

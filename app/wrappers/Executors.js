@@ -21,6 +21,14 @@ class Executors {
         return this.executorsList.filter(executor => !executor.isApplying);
     }
 
+    executorPhoneNumberAlreadyUsed(mobile, fullName, applicantPhoneNumber = '') {
+        return applicantPhoneNumber.slice(-10) === mobile.slice(-10) ||
+            this.executorsList
+                .filter(executor => executor.mobile)
+                .filter(executor => executor.fullName !== fullName)
+                .some(executor => executor.mobile.slice(-10) === mobile.slice(-10));
+    }
+
     executorEmailAlreadyUsed(email, fullName, applicantEmail = '') {
         return applicantEmail.toLowerCase() === email.toLowerCase() || this.executorsList
             .filter(executor => executor.email)
@@ -112,11 +120,11 @@ class Executors {
     }
 
     hasExecutorsToNotify() {
-        return this.executorsList.some(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent);
+        return this.executorsList.some(executor => executor.isApplying && !executor.isApplicant && !executor.inviteId);
     }
 
     executorsToNotify() {
-        return this.executorsList.filter(executor => executor.isApplying && !executor.isApplicant && !executor.emailSent);
+        return this.executorsList.filter(executor => executor.isApplying && !executor.isApplicant && !executor.inviteId);
     }
 
     executorsRemoved() {

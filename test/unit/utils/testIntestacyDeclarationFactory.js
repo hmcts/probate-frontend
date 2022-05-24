@@ -64,6 +64,7 @@ describe('IntestacyDeclarationFactory', () => {
                         deceasedEstateValue: content.en.deceasedEstateValue
                             .replace('{ihtGrossValue}', formdata.ihtGrossValue)
                             .replace('{ihtNetValue}', formdata.ihtNetValue),
+                        deceasedEstateValueExceptedEstateConfirmation: 'I confirm that the estate is an excepted estate.',
                         deceasedEstateAssetsOverseas: content.en.intestacyDeceasedEstateOutside
                             .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
                         deceasedMaritalStatus: content.en.intestacyDeceasedMaritalStatus
@@ -89,6 +90,7 @@ describe('IntestacyDeclarationFactory', () => {
                         deceasedEstateValue: content.cy.deceasedEstateValue
                             .replace('{ihtGrossValue}', formdata.ihtGrossValue)
                             .replace('{ihtNetValue}', formdata.ihtNetValue),
+                        deceasedEstateValueExceptedEstateConfirmation: 'Rwy\'n cadarnhau bod yr ystad yn ystad eithriedig.',
                         deceasedEstateAssetsOverseas: content.cy.intestacyDeceasedEstateOutside
                             .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
                         deceasedMaritalStatus: content.cy.intestacyDeceasedMaritalStatus
@@ -161,6 +163,7 @@ describe('IntestacyDeclarationFactory', () => {
                         deceasedEstateValue: content.en.deceasedEstateValue
                             .replace('{ihtGrossValue}', formdata.ihtGrossValue)
                             .replace('{ihtNetValue}', formdata.ihtNetValue),
+                        deceasedEstateValueExceptedEstateConfirmation: 'I confirm that the estate is an excepted estate.',
                         deceasedEstateAssetsOverseas: content.en.intestacyDeceasedEstateOutside
                             .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
                         deceasedMaritalStatus: content.en.intestacyDeceasedMaritalStatus
@@ -186,6 +189,7 @@ describe('IntestacyDeclarationFactory', () => {
                         deceasedEstateValue: content.cy.deceasedEstateValue
                             .replace('{ihtGrossValue}', formdata.ihtGrossValue)
                             .replace('{ihtNetValue}', formdata.ihtNetValue),
+                        deceasedEstateValueExceptedEstateConfirmation: 'Rwy\'n cadarnhau bod yr ystad yn ystad eithriedig.',
                         deceasedEstateAssetsOverseas: content.cy.intestacyDeceasedEstateOutside
                             .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
                         deceasedMaritalStatus: content.cy.intestacyDeceasedMaritalStatus

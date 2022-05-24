@@ -53,14 +53,18 @@ class ExecutorContactDetails extends ValidationStep {
             errors.push(FieldError('mobile', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
-        if (ctx.email !== executor.email && executor.emailSent) {
+        if (executorsWrapper.executorPhoneNumberAlreadyUsed(ctx.mobile, executor.fullName, formdata.applicant.phoneNumber)) {
+            errors.push(FieldError('mobile', 'duplicate', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        }
+
+        if (ctx.email !== executor.email && (executor.emailSent || executor.inviteId)) {
             executor.emailChanged = true;
         }
 
         ctx.executorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
         executor.email = ctx.email;
         executor.mobile = ctx.mobile;
-        if (executor.emailSent) {
+        if (executor.emailSent || executor.inviteId) {
             const data = {
                 inviteId: ctx.inviteId,
                 email: executor.email,

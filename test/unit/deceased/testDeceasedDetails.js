@@ -54,6 +54,32 @@ describe('DeceasedDetails', () => {
             done();
         });
 
+        it('should return the ctx where deceased dob is the same as dod', (done) => {
+            ctx = {
+                'firstName': 'Dee',
+                'lastName': 'Ceased',
+                'dob-day': '02',
+                'dob-month': '03',
+                'dob-year': '1952',
+                'dod-day': '02',
+                'dod-month': '03',
+                'dod-year': '1952'
+            };
+            errors = [];
+            [ctx, errors] = DeceasedDetails.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({
+                'firstName': 'Dee',
+                'lastName': 'Ceased',
+                'dob-day': '02',
+                'dob-month': '03',
+                'dob-year': '1952',
+                'dod-day': '02',
+                'dod-month': '03',
+                'dod-year': '1952'
+            });
+            done();
+        });
+
         it('should return an error if dob is in the future', (done) => {
             ctx = {
                 'firstName': 'Dee',

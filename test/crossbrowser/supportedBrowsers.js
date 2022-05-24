@@ -57,7 +57,7 @@ const supportedBrowsers = {
         firefox_win_latest: {
             browserName: 'firefox',
             platformName: LATEST_WINDOWS,
-            browserVersion: 'latest',
+            browserVersion: '97',
             'sauce:options': {
                 name: 'Probate: WIN_FIREFOX_LATEST'
             }
@@ -65,7 +65,7 @@ const supportedBrowsers = {
         firefox_mac_latest: {
             browserName: 'firefox',
             platformName: LATEST_MAC,
-            browserVersion: 'latest',
+            browserVersion: '97',
             'sauce:options': {
                 name: 'Probate: MAC_FIREFOX_LATEST'
             }

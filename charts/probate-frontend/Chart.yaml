@@ -6,13 +6,13 @@ home: https://github.com/hmcts/probate-frontend
 version: 2.3.11
 dependencies:
   - name: nodejs
-    version: 2.4.1
+    version: 2.4.3
     repository: '@hmctspublic'
   - name: redis
     version: 10.6.18
     repository: "https://charts.bitnami.com/bitnami"
     condition: redis.enabled
   - name: idam-pr
-    version: 2.2.6
+    version: 2.2.6x
     repository: '@hmctspublic'
     condition: idam-pr.enabled

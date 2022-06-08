@@ -27,6 +27,8 @@ nodejs:
         - webchat-avaya-service
 redis:
   enabled: true
+  auth.enabled: false
+  replica.replicaCount: 1
 idam-pr:
   enabled: true
   redirect_uris:

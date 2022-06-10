@@ -19,6 +19,6 @@ describe('Liveness check', () => {
                     expect(res.body).to.have.property('status').and.equal('UP');
                     done();
                 });
-        }).retries(10);
+        });
     });
 });

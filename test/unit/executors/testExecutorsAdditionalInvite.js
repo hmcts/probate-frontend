@@ -88,4 +88,40 @@ describe('Executor-Additional-Invite', () => {
             assert.equal(executorsAdditionalInvite.constructor.getUrl(), '/executors-additional-invite');
         });
     });
+
+    describe('isComplete()', () => {
+
+        it('returns true if all the applying executors excluding the main applicant have either emailSent or inviteId', (done) => {
+            const executorsList = [
+                {fullName: 'Applicant', isApplying: true, isApplicant: true},
+                {fullName: 'other applicant', isApplying: true, emailSent: true},
+                {fullName: 'harvey', isApplying: true, inviteId: '1234567890'}
+            ];
+            const testCtx = {
+                invitesSent: 'true',
+                list: executorsList
+            };
+            const isComplete = executorsAdditionalInvite.isComplete(testCtx);
+
+            expect(isComplete).to.deep.equal([true, 'inProgress']);
+            done();
+        });
+
+        it('returns false if one the applying executors excluding the main applicant does not have either emailSent or inviteId', (done) => {
+            const executorsList = [
+                {fullName: 'Applicant', isApplying: true, isApplicant: true},
+                {fullName: 'other applicant', isApplying: true},
+                {fullName: 'harvey', isApplying: true, inviteId: '1234567890'}
+            ];
+
+            const testCtx = {
+                invitesSent: 'true',
+                list: executorsList
+            };
+            const isComplete = executorsAdditionalInvite.isComplete(testCtx);
+
+            expect(isComplete).to.deep.equal([false, 'inProgress']);
+            done();
+        });
+    });
 });

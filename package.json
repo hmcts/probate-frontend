@@ -179,7 +179,7 @@
     "sinon-chai": "^3.3.0",
     "sonar-scanner": "^3.1.0",
     "sonarqube-scanner": "^2.5.0",
-    "superagent-proxy": "^2.1.0",
+    "superagent-proxy": "^3.0.0",
     "supertest": "^4.0.2",
     "unirest": "^0.6.0",
     "uuid": "^8.3.1",

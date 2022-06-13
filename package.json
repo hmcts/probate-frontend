@@ -113,7 +113,7 @@
     "get-port": "^4.2.0",
     "git-rev-sync": "^1.12.0",
     "govuk-frontend": "^3.10.2",
-    "helmet": "^3.20.0",
+    "helmet": "^5.0.0",
     "http-terminator": "^2.0.3",
     "https-proxy-agent": "^5.0.0",
     "i18next": "^17.0.11",

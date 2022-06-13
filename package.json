@@ -94,7 +94,7 @@
     "@wdio/selenium-standalone-service": "^7.6.0",
     "ajv": "^6.12.6",
     "ajv-keywords": "^3.5.2",
-    "applicationinsights": "1.7.2",
+    "applicationinsights": "1.8.10",
     "applicationinsights-js": "^1.0.20",
     "basic-auth": "^2.0.1",
     "body-parser": "^1.19.0",

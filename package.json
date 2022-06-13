@@ -93,7 +93,7 @@
     "@hmcts/properties-volume": "^0.0.13",
     "@wdio/selenium-standalone-service": "^7.6.0",
     "ajv": "^6.12.6",
-    "ajv-keywords": "^3.5.2",
+    "ajv-keywords": "^5.0.0",
     "applicationinsights": "1.7.2",
     "applicationinsights-js": "^1.0.20",
     "basic-auth": "^2.0.1",

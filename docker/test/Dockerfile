@@ -1,4 +1,4 @@
-FROM node:8.1.4
+FROM node:18.3.0
 
 # Update & Install theses apps.
 RUN apt-get update -y && apt-get upgrade -y && apt-get install -y xvfb libgtk2.0-0 libgconf-2-4 libasound2 libxtst6 libxss1 libnss3

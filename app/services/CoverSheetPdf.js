@@ -16,7 +16,9 @@ class CoverSheetPdf extends Pdf {
             applicantName: FormatName.format(formdata.applicant),
             caseReference: formdata.ccdCase.id,
             submitAddress: registryAddress,
-            checkListItems: DocumentPageUtil.getCheckListItemsCoversheet(formdata, req.session.language)
+            checkListItems: DocumentPageUtil.getCheckListItemsCoversheet(formdata, req.session.language),
+            noDocumentsRequired: DocumentPageUtil.noDocsRequired(formdata),
+            noDocumentsRequiredText: DocumentPageUtil.getNoDocsRequiredText(formdata, req.session.language)
         };
         const logMessage = 'Post cover sheet pdf';
         return super.post(pdfTemplate, body, logMessage, req);

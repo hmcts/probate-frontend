@@ -21,6 +21,7 @@
   "checklist-item9-deed-poll": "copy of the deed poll document for {executorCurrentName}",
   "checklist-item10-iht207": "send us the IHT 207 form",
   "checklist-item11-spouse-giving-up-admin-rights-PA16": "<a href=\"{spouseGivingUpAdminRightsPA16Link}\" target=\"_blank\" class=\"govuk-link\" rel=\"external noopener\" aria-label=\"Give up probate administrator rights paper form\">Give up probate administrator rights paper form</a> - Form PA16",
+  "no-docs-required": "Based on the details in the application no documents are required. However if documents are requested  from you  in the future, please send them along with this cover sheet to the address below",
 
   "errors": {
     "sentDocuments": {

@@ -64,7 +64,8 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -91,7 +92,8 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -121,7 +123,8 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -151,7 +154,8 @@ describe('documents', () => {
                             'checklist-item7-iht205',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
                         contentData.renunciationFormLink = config.links.renunciationForm;
 
@@ -180,7 +184,8 @@ describe('documents', () => {
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
                             'address',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -207,7 +212,8 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -234,7 +240,8 @@ describe('documents', () => {
                             'checklist-item7-iht205',
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -260,7 +267,8 @@ describe('documents', () => {
                             'checklist-item7-iht205',
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -287,7 +295,8 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -314,7 +323,8 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -361,7 +371,8 @@ describe('documents', () => {
                             'checklist-item7-iht205',
                             'checklist-item8-renunciated',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
                         contentData.executorCurrentName = 'eddie jones';
 
@@ -410,7 +421,8 @@ describe('documents', () => {
                             'checklist-item7-iht205',
                             'checklist-item8-renunciated',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
                         contentData.executorCurrentName = [
                             'jimbo fisher',
@@ -441,7 +453,8 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -467,7 +480,8 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -494,7 +508,8 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -522,7 +537,8 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -557,7 +573,8 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -594,7 +611,8 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -630,7 +648,8 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -665,7 +684,8 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -700,7 +720,8 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -736,7 +757,8 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16'
+                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);
@@ -772,6 +794,7 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
+                            'no-docs-required'
                         ];
 
                         testWrapper.testContent(done, contentData, contentToExclude);

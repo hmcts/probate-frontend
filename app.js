@@ -55,9 +55,12 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             .setAutoCollectRequests(true)
             .setAutoCollectPerformance(true)
             .setAutoCollectDependencies(true)
-            .setAutoCollectConsole(true, true)
-            .start();
+            .setAutoCollectConsole(true, true);
+        appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = 'probate-frontend';
+        appInsights.start();
         appInsights.defaultClient.trackTrace({message: 'App insights activated'});
+    } else {
+        console.log('No AppInsights instrumentation key present');
     }
 
     // Authenticate against the environment-provided credentials, if running

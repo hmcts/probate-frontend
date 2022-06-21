@@ -19,6 +19,14 @@ class Applicant {
         return this.formdata.applicant && this.formdata.applicant.spouseNotApplyingReason === 'optionRenouncing';
     }
 
+    adoptionTookPlaceInEngOrWales() {
+        return this.formdata.applicant && this.formdata.applicant.adoptionPlace === 'optionYes';
+    }
+
+    isSpouse() {
+        return this.formdata.applicant && this.formdata.applicant.relationshipToDeceased === 'optionSpousePartner';
+    }
+
 }
 
 module.exports = Applicant;

@@ -26,7 +26,6 @@ const InviteSecurity = require(`${__dirname}/app/invite`);
 const additionalInvite = require(`${__dirname}/app/routes/additionalInvite`);
 const fs = require('fs');
 const https = require('https');
-const appInsights = require('applicationinsights');
 const {v4: uuidv4} = require('uuid');
 const nonce = uuidv4().replace(/-/g, '');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
@@ -48,20 +47,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const useIDAM = config.app.useIDAM.toLowerCase();
     const security = new Security(config.services.idam.loginUrl);
     const inviteSecurity = new InviteSecurity();
-
-    if (config.appInsights.instrumentationKey) {
-        appInsights.setup(config.appInsights.instrumentationKey)
-            .setAutoDependencyCorrelation(true)
-            .setAutoCollectRequests(true)
-            .setAutoCollectPerformance(true)
-            .setAutoCollectDependencies(true)
-            .setAutoCollectConsole(true, true);
-        appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = 'probate-frontend';
-        appInsights.start();
-        appInsights.defaultClient.trackTrace({message: 'App insights activated'});
-    } else {
-        console.log('No AppInsights instrumentation key present');
-    }
 
     // Authenticate against the environment-provided credentials, if running
     // the app in production (Heroku, effectively)

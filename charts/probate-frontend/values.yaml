@@ -20,7 +20,7 @@ nodejs:
     IDAM_API_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
     IDAM_S2S_URL: http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
     PAYMENT_API_URL: http://payment-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-    VALIDATION_SERVICE_URL: VALIDATION_SERVICE_URL: http://probate-business-service-pr-651.service.core-compute-preview.internal/validate
+    VALIDATION_SERVICE_URL: http://probate-business-service-pr-651.service.core-compute-preview.internal/validate
     ORCHESTRATOR_SERVICE_URL : http://probate-orchestrator-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
     FEES_REGISTRY_URL: http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal/fees-register
     REFORM_ENVIRONMENT : '{{ .Values.global.environment }}'

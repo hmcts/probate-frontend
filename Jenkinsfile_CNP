@@ -101,6 +101,7 @@ withPipeline("nodejs", product, component) {
   enableSlackNotifications('#probate-jenkins')
   syncBranchesWithMaster(branchesToSync)
 
+
   after('test') {
     publishHTML (target: [
        alwaysLinkToLastBuild: true,

@@ -586,7 +586,7 @@
   integrity sha512-ZZBQHCXKjZSQj9pf4df/QhfgQQj0vzm9hkK7YyNM+S+qnW0LExL8qQKLxTlGHDaYxk/+Jrd9pcZrJXRCoSnUaA==
   dependencies:
     "@types/node" "^14.14.31"
-    got "^11.8.1"
+    got "^11.8.5"
 
 "@wdio/utils@6.11.0":
   version "6.11.0"
@@ -2651,7 +2651,7 @@ download@^7.1.0:
     file-type "^8.1.0"
     filenamify "^2.0.0"
     get-stream "^3.0.0"
-    got "^8.3.1"
+    got "^11.8.5"
     make-dir "^1.2.0"
     p-event "^2.1.0"
     pify "^3.0.0"
@@ -7769,7 +7769,7 @@ selenium-standalone@^6.16.0, selenium-standalone@^6.22.1:
     commander "^2.20.3"
     cross-spawn "^7.0.3"
     debug "^4.3.1"
-    got "^11.8.0"
+    got "^11.8.5"
     lodash.mapvalues "^4.6.0"
     lodash.merge "^4.6.2"
     minimist "^1.2.5"
@@ -9070,7 +9070,7 @@ webdriver@6.12.1:
     "@wdio/logger" "6.10.10"
     "@wdio/protocols" "6.12.0"
     "@wdio/utils" "6.11.0"
-    got "^11.0.2"
+    got "^11.8.5"
     lodash.merge "^4.6.1"
 
 webdriverio@^6.10.5:

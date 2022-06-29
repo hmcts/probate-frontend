@@ -23,7 +23,7 @@ nodejs:
     VALIDATION_SERVICE_URL: http://probate-business-service-pr-651.service.core-compute-preview.internal/validate
     ORCHESTRATOR_SERVICE_URL : http://probate-orchestrator-service-pr-690.service.core-compute-preview.internal
     FEES_REGISTRY_URL: http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal/fees-register
-    REFORM_ENVIRONMENT : '{{ .Values.global.environm yarn git-infoent }}'
+    REFORM_ENVIRONMENT : '{{ .Values.global.environment }}'
     REDIS_HOST: probate-frontend-redis-cache-{{ .Values.global.environment }}.redis.cache.windows.net
     REDIS_PORT: 6380
     USE_REDIS: true

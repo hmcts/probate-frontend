@@ -54,7 +54,9 @@ describe('CoverSheetPdfService', () => {
                     caseReference: 'ccd123',
                     submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY',
                     checkListItems: [
-                        {text: 'the original will (by law, we must keep your original will as it becomes a public document)', type: 'textOnly'}]
+                        {text: 'the original will (by law, we must keep your original will as it becomes a public document)', type: 'textOnly'}],
+                    noDocumentsRequired: false,
+                    noDocumentsRequiredText: null
                 },
                 'Post cover sheet pdf'
             )).to.equal(true);
@@ -110,7 +112,9 @@ describe('CoverSheetPdfService', () => {
                     checkListItems: [
                         {text: 'renunciation form (opens in a new window)', type: 'textWithLink', url: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will', beforeLinkText: 'a ', afterLinkText: ' filled in by the spouse or civil partner of the deceased who is permanently giving up the right to make this application for probate'},
                         {text: 'Give up probate administrator rights paper form', type: 'textWithLink', url: config.links.spouseGivingUpAdminRightsPA16Link, beforeLinkText: '', afterLinkText: ' - Form PA16'}
-                    ]
+                    ],
+                    noDocumentsRequired: false,
+                    noDocumentsRequiredText: null
                 },
                 'Post cover sheet pdf'
             )).to.equal(true);
@@ -173,7 +177,9 @@ describe('CoverSheetPdfService', () => {
                         {text: 'the interim death certificate', type: 'textOnly'},
                         {text: 'the English translation of the foreign death certificate', type: 'textOnly'},
                         {text: 'Foreign death certificate form (opens in a new window)', type: 'textWithLink', url: 'https://www.gov.uk/government/publications/form-pa19-apply-for-a-grant-of-representation-with-a-foreign-death-certificate-not-translated-by-a-licensed-company', beforeLinkText: 'either a completed PA19 - ', afterLinkText: ' or a certificate from the translator confirming the translation\'s validity'}
-                    ]
+                    ],
+                    noDocumentsRequired: false,
+                    noDocumentsRequiredText: null
                 },
                 'Post cover sheet pdf'
             )).to.equal(true);
@@ -242,7 +248,9 @@ describe('CoverSheetPdfService', () => {
                         {text: 'the completed inheritance tax form IHT 205', type: 'textOnly'},
                         {text: 'copy of the deed poll document for Executor current Name 1', type: 'textOnly'},
                         {text: 'copy of the deed poll document for Executor current Name 3', type: 'textOnly'}
-                    ]
+                    ],
+                    noDocumentsRequired: false,
+                    noDocumentsRequiredText: null
                 },
                 'Post cover sheet pdf'
             )).to.equal(true);

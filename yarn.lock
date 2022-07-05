@@ -167,7 +167,7 @@
     on-finished "^2.3.0"
     winston "^2.4.5"
 
-"@hmcts/nodejs-logging@^4.0.0":
+"@hmcts/nodejs-logging@^4.0.2":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@hmcts/nodejs-logging/-/nodejs-logging-4.0.2.tgz#15a7a558c78471ce60360a82b5e2f30001b4ce6f"
   integrity sha512-wEQ7cjfQcZ4CL55zlPrFhJkg/hC+2US++ZiR35wfLfMBJEtLCEYbiRu1YzLVjQXMgGn8oaH2woYIIvpLdpt4Yg==
@@ -726,7 +726,7 @@
   integrity sha512-ZZBQHCXKjZSQj9pf4df/QhfgQQj0vzm9hkK7YyNM+S+qnW0LExL8qQKLxTlGHDaYxk/+Jrd9pcZrJXRCoSnUaA==
   dependencies:
     "@types/node" "^14.14.31"
-    got "^11.8.1"
+    got "^11.8.5"
 
 "@wdio/utils@7.20.0":
   version "7.20.0"
@@ -949,7 +949,7 @@ append-transform@^0.4.0:
   dependencies:
     default-require-extensions "^1.0.0"
 
-applicationinsights@^2.2.2:
+applicationinsights@^2.3.3:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-2.3.3.tgz#2c92aaccf85cc75c7212be1764cc51c55f10501c"
   integrity sha512-Q4o6gexNhzukgmzzWYzXLa2gdJ6DhM+c35tw0lRNNjc/qldWxGHVxV65DMRYrQIp4vetLdCK7Pyd/dmEsGO4qA==
@@ -2752,7 +2752,7 @@ download@^7.1.0:
     file-type "^8.1.0"
     filenamify "^2.0.0"
     get-stream "^3.0.0"
-    got "^8.3.1"
+    got "^11.8.5"
     make-dir "^1.2.0"
     p-event "^2.1.0"
     pify "^3.0.0"
@@ -7942,7 +7942,7 @@ selenium-standalone@^6.22.1:
     commander "^2.20.3"
     cross-spawn "^7.0.3"
     debug "^4.3.1"
-    got "^11.8.0"
+    got "^11.8.5"
     lodash.mapvalues "^4.6.0"
     lodash.merge "^4.6.2"
     minimist "^1.2.5"

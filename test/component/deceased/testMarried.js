@@ -2,12 +2,14 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const WillCodicils = require('app/steps/ui/will/codicils');
+const WillHasVisibleDamage = require('app/steps/ui/will/willhasvisibledamage');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('deceased-married', () => {
     let testWrapper;
     const expectedNextUrlForWillCodicils = WillCodicils.getUrl();
+    const expectedNextUrlForWillDamage = WillHasVisibleDamage.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedMarried');
@@ -74,12 +76,28 @@ describe('deceased-married', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to Will Codicils page: ${expectedNextUrlForWillCodicils}`, (done) => {
+        it(`test it redirects to Will Codicils page for FT off: ${expectedNextUrlForWillCodicils}`, (done) => {
             const data = {
                 married: 'optionNo'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForWillCodicils);
+            testWrapper.agent.post('/prepare-session/featureToggles')
+                .send({ft_will_condition: false})
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForWillCodicils);
+                });
+        });
+
+        it(`test it redirects to Will Damage page for FT on: ${expectedNextUrlForWillDamage}`, (done) => {
+            const data = {
+                married: 'optionNo'
+            };
+
+            testWrapper.agent.post('/prepare-session/featureToggles')
+                .send({ft_will_condition: true})
+                .end(() => {
+                    testWrapper.testRedirect(done, data, expectedNextUrlForWillDamage);
+                });
         });
     });
 });

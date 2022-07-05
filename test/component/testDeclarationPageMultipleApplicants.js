@@ -147,7 +147,8 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionNo';
             sessionData.executors.list[1].hasOtherName = false;
@@ -236,7 +237,8 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 3;
@@ -323,7 +325,8 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 1;
@@ -414,7 +417,8 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optiono';
             sessionData.executors.list[0].alias = 'larry bird';
@@ -500,7 +504,8 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 2;
@@ -585,7 +590,8 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 1;
@@ -677,7 +683,8 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionNo';
             sessionData.executors.list[0].alias = 'larry bird';
@@ -762,7 +769,8 @@ describe('declaration, multiple applicants', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
-                'intestacyLettersOfAdministration'
+                'intestacyLettersOfAdministration',
+                'deceasedEstateValueExceptedEstateConfirmation'
             ];
             sessionData.will.codicils = 'optionNo';
             sessionData.executors.list[0].alias = 'larry bird';
@@ -990,7 +998,7 @@ describe('declaration, multiple applicants', () => {
                     id: 1234567890123456
                 },
                 declaration: {hasDataChanged: true},
-                executors: {invitesSent: 'true'},
+                executors: {invitesSent: true},
                 session: {
                     legalDeclaration: {}
                 }
@@ -1022,7 +1030,7 @@ describe('declaration, multiple applicants', () => {
                         {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true},
                         {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true, emailSent: false}
                     ],
-                    invitesSent: 'true'
+                    invitesSent: true
                 },
                 session: {
                     legalDeclaration: {}
@@ -1051,10 +1059,10 @@ describe('declaration, multiple applicants', () => {
                 executors: {
                     list: [
                         {firstName: 'Bob', lastName: 'Smith', isApplying: true, isApplicant: true},
-                        {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true, emailSent: true},
-                        {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true, emailChanged: true, emailSent: true}
+                        {fullName: 'fname1 sname1', isDead: false, isApplying: true, hasOtherName: true, currentName: 'fname1other sname1other', email: 'fname1@example.com', mobile: '07900123456', address: '1 qwe\r\n1 asd\r\n1 zxc', addressFlag: true, emailSent: true, inviteId: 'dummyInviteId1'},
+                        {fullName: 'fname4 sname4', isDead: false, isApplying: true, hasOtherName: false, email: 'fname4@example.com', mobile: '07900123457', address: '4 qwe\r\n4 asd\r\n4 zxc', addressFlag: true, emailChanged: true, emailSent: true, inviteId: 'dummyInviteId2'}
                     ],
-                    invitesSent: 'true'
+                    invitesSent: true
                 },
                 session: {
                     legalDeclaration: {}

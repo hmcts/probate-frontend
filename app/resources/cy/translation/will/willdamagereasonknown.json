@@ -1,0 +1,16 @@
+{
+    "title": "Ydych chi’n gwybod pam fod difrod neu farciau ar yr ewyllys?",
+    "question": "Ydych chi’n gwybod pam fod difrod neu farciau ar yr ewyllys?",
+    "optionYes": "Ydw",
+    "optionNo": "Nac ydw",
+    "willDamageReasonDescriptionTitle": "Rheswm dros y difrod neu farciau i’r ewyllys",
+    "willDamageReasonDescriptionHint": "Rhowch cymaint o fanylion ag sy’n bosibl. Efallai bydd hyn yn lleihau unrhyw oedi wrth brosesu eich cais",
+    "errors": {
+        "willDamageReasonKnown": {
+            "required": "Dewiswch &lsquo;Oes&rsquo; os gwyddoch os oes unrhyw ddifrod neu farciau gweladwy ar yr ewyllys"
+        },
+        "willDamageReasonDescription": {
+            "required": "Rhowch reswm pam fod difrod neu farciau gweladwy ar yr ewyllys"
+        }
+    }
+}

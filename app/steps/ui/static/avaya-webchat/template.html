@@ -12,16 +12,18 @@
     <web-chat
         id="avayaWebchat"
         class="govuk-body"
-        chat-title="Ask Probate" 
+        chat-title="Ask Probate"
         chat-icon-url="public/images/icon.png"
         locale-url="public/locales/avaya-webchat"
-        url="webchat.ctsc.hmcts.net"
+        url="{{ globals.webchat.avayaUrl }}"
         secure-connections="true"
         api-version="1.0"
         metrics-polling-interval="30"
         Language="English"
-        Service="Probate"
-        page-name="Apply for Probate"> 
+        Service="{{ globals.webchat.avayaService }}"
+        page-name="Apply for Probate"
+        User="Chat"
+        >
     </web-chat>
 </body>
 </html>

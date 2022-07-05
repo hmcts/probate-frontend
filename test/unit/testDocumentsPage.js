@@ -92,6 +92,70 @@ describe('Documents', () => {
                 done();
             });
 
+            it('should return true when iht method is paper and iht form is IHT207', (done) => {
+                const formdata = {
+                    iht: {
+                        method: 'optionPaper',
+                        form: 'optionIHT207'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.is207).to.equal(true);
+                done();
+            });
+
+            it('should return false when iht method is paper and iht form is not IHT207', (done) => {
+                const formdata = {
+                    iht: {
+                        method: 'optionPaper',
+                        form: 'optionIHT205'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.is207).to.equal(false);
+                done();
+            });
+
+            it('should return false when iht method is not paper', (done) => {
+                const formdata = {
+                    iht: {
+                        method: 'optionOnline'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.is207).to.equal(false);
+                done();
+            });
+
+            it('should return true when iht estate form is IHT207', (done) => {
+                const formdata = {
+                    iht: {
+                        ihtFormEstateId: 'optionIHT207'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.is207).to.equal(true);
+                done();
+            });
+
+            it('should return false when iht estate form is not IHT207', (done) => {
+                const formdata = {
+                    iht: {
+                        ihtFormEstateId: 'optionIHT400421'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.is207).to.equal(false);
+                done();
+            });
+
+            it('should return undefined when iht data is not given', (done) => {
+                const formdata = {};
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                assert.isUndefined(ctx.is207);
+                done();
+            });
+
             it('should return the ccd case id when a ccd case id is given', (done) => {
                 const formdata = {
                     ccdCase: {
@@ -176,6 +240,17 @@ describe('Documents', () => {
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.foreignDeathCertTranslatedSeparately).to.equal(false);
+                done();
+            });
+
+            it('should return deceasedWrittenWishes on ctx', (done) => {
+                const formdata = {
+                    will: {
+                        deceasedWrittenWishes: 'optionYes'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.deceasedWrittenWishes).to.equal('optionYes');
                 done();
             });
         });
@@ -312,6 +387,76 @@ describe('Documents', () => {
                 done();
             });
         });
+        describe('Intestacy Journey', () => {
+            let ctxToTest;
+
+            beforeEach(() => {
+                ctxToTest = {
+                    caseType: caseTypes.INTESTACY
+                };
+            });
+
+            it('should return true when spouse is giving up rights as administrator and applicant is child', (done) => {
+                const formdata = {
+                    deceased: {
+                        maritalStatus: 'optionMarried',
+                        anyOtherChildren: 'optionNo'
+                    },
+                    applicant: {
+                        relationshipToDeceased: 'optionChild',
+                        spouseNotApplyingReason: 'optionRenouncing'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.isSpouseGivingUpAdminRights).to.equal(true);
+                done();
+            });
+            it('should return true when spouse is giving up rights as administrator and applicant is adopted child', (done) => {
+                const formdata = {
+                    deceased: {
+                        maritalStatus: 'optionMarried',
+                        anyOtherChildren: 'optionNo'
+                    },
+                    applicant: {
+                        relationshipToDeceased: 'optionAdoptedChild',
+                        spouseNotApplyingReason: 'optionRenouncing'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.isSpouseGivingUpAdminRights).to.equal(true);
+                done();
+            });
+            it('should return false when deceased is not married but is child of the deceased', (done) => {
+                const formdata = {
+                    deceased: {
+                        maritalStatus: 'optionNotMarried',
+                        anyOtherChildren: 'optionNo'
+                    },
+                    applicant: {
+                        relationshipToDeceased: 'optionAdoptedChild',
+                        spouseNotApplyingReason: 'optionRenouncing'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.isSpouseGivingUpAdminRights).to.equal(false);
+                done();
+            });
+            it('should return false when deceased is married but applicant is not a child of the deceased', (done) => {
+                const formdata = {
+                    deceased: {
+                        maritalStatus: 'optionMarried',
+                        anyOtherChildren: 'optionNo'
+                    },
+                    applicant: {
+                        relationshipToDeceased: 'optionSpousePartner',
+                        spouseNotApplyingReason: 'optionRenouncing'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.isSpouseGivingUpAdminRights).to.equal(false);
+                done();
+            });
+        });
     });
 
     describe('runnerOptions', () => {
@@ -413,10 +558,51 @@ describe('Documents', () => {
             });
         });
 
-        it('redirect if journey is intestacy and a none of the other conditions apply', (done) => {
+        it('redirect if journey is intestacy and death cert and iht 400 selected', (done) => {
             session.form = {
-                deceased: {maritalStatus: 'optionSeparated'},
-                iht: {method: 'optionPaper', form: 'optionIHT207'},
+                deceased: {maritalStatus: 'optionSeparated', deathCertificate: 'optionDeathCertificate'},
+                applicant: {relationshipToDeceased: 'optionChild'},
+                iht: {method: 'optionPaper', form: 'optionIHT400421'},
+                caseType: caseTypes.INTESTACY
+            };
+            co(function* () {
+                const options = yield Documents.runnerOptions(ctx, session);
+
+                expect(options).to.deep.equal({
+                    redirect: true,
+                    url: '/thank-you'
+                });
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+
+        it('redirect if journey is intestacy and excepted estate', (done) => {
+            session.form = {
+                deceased: {maritalStatus: 'optionSeparated', deathCertificate: 'optionDeathCertificate'},
+                applicant: {relationshipToDeceased: 'optionChild'},
+                iht: {estateValueCompleted: 'optionNo'},
+                caseType: caseTypes.INTESTACY
+            };
+            co(function* () {
+                const options = yield Documents.runnerOptions(ctx, session);
+
+                expect(options).to.deep.equal({
+                    redirect: true,
+                    url: '/thank-you'
+                });
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+
+        it('redirect if journey is intestacy and excepted estate and interim death cert', (done) => {
+            session.form = {
+                deceased: {maritalStatus: 'optionSeparated', deathCertificate: 'optionInterimCertificate'},
+                applicant: {relationshipToDeceased: 'optionChild'},
+                iht: {estateValueCompleted: 'optionNo'},
                 caseType: caseTypes.INTESTACY
             };
             co(function* () {

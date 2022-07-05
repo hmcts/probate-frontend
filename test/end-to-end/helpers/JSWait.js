@@ -13,6 +13,12 @@ class JSWait extends codecept_helper {
         const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
         const helperIsPuppeteer = this.helpers.Puppeteer;
 
+        if (locator) {
+            locator = this.appendNotCookieBannerToSelector(locator);
+        } else {
+            textOrLocator = this.appendNotCookieBannerToSelector(textOrLocator);
+        }
+
         if (typeof (textOrLocator) === 'string' &&
             (locator && (locator === 'button.govuk-button' ||
                 (typeof (locator) === 'object' && locator.css.indexOf('govuk-button')) >= 0))) {
@@ -49,6 +55,16 @@ class JSWait extends codecept_helper {
         // sometimes when in a scrollable div
         await helper.click(textOrLocator);
         await helper.wait(webDriverWait);
+    }
+
+    appendNotCookieBannerToSelector(locator) {
+        const notCookieBanner = ':not([data-cm-action])';
+        if (typeof (locator) === 'string' && locator.indexOf('govuk-button') >= 0) {
+            locator += notCookieBanner;
+        } else if (typeof (locator) === 'object' && locator.css.indexOf('govuk-button') >= 0) {
+            locator.css += notCookieBanner;
+        }
+        return locator;
     }
 
     async amOnLoadedPage (url, language ='en') {

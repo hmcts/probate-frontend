@@ -196,22 +196,3 @@
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
-
-{{checkanswer(
-    items = [
-        {
-            question: content.WillCodicils.question,
-            answer: content.WillCodicils[fields.will.codicils.value],
-            visible: fields.summary.caseType.value == "gop"
-        },
-        {
-            question: content.CodicilsNumber.question,
-            answer: fields.will.codicilsNumber.value,
-            visible: fields.summary.caseType.value == "gop" and fields.will.codicils.value == "optionYes"
-        }
-    ],
-    url = content.WillCodicils.url,
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value,
-    answerIsGroup = true)
-}}

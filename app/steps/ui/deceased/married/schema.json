@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "deceased-married",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "deceased-married",
   "type": "object",
   "properties": {},
   "required": [

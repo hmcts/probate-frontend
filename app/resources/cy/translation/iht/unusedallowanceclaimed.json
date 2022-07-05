@@ -1,0 +1,12 @@
+{
+    "title": "Ydych chi&rsquo;n hawlio&rsquo;r lwfans IHT nas defnyddir (&lsquo;band dim cyfradd&rsquo;) priod neu bartner sifil diweddar yr ymadawedig?",
+    "question": "Ydych chi&rsquo;n hawlio&rsquo;r lwfans IHT nas defnyddir (&lsquo;band dim cyfradd&rsquo;) priod neu bartner sifil diweddar yr ymadawedig?",
+    "hint": " Rhaid i&rsquo;r priod neu&rsquo;r partner sifil fod wedi marw cyn yr ymadawedig i hawlio unrhyw lwfans band dim cyfradd nas defnyddir.",
+    "optionYes": "Ydw",
+    "optionNo": "Nac ydw",
+    "errors": {
+        "unusedAllowanceClaimed": {
+            "required": "Atebwch &lsquo;ydw&rsquo; os ydych yn hawlio lwfans IHT nas ddefnyddiwyd (&lsquo;band cyfradd sero&rsquo;) diweddar briod neu bartner yr ymadawedigr"
+        }
+    }
+}

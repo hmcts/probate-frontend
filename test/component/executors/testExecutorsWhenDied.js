@@ -80,7 +80,9 @@ describe('executors-when-died', () => {
                         helpHeading2: commonContent.helpHeading2,
                         helpHeading3: commonContent.helpHeading3,
                         helpTelephoneNumber: commonContent.helpTelephoneNumber,
-                        helpTelephoneOpeningHours: commonContent.helpTelephoneOpeningHours,
+                        helpTelephoneOpeningHoursTitle: commonContent.helpTelephoneOpeningHoursTitle,
+                        helpTelephoneOpeningHours1: commonContent.helpTelephoneOpeningHours1,
+                        helpTelephoneOpeningHours2: commonContent.helpTelephoneOpeningHours2,
                         helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, commonContent.helpEmail)
                     };
 

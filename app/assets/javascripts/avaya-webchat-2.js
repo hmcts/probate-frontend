@@ -2,22 +2,22 @@
     let popupWin;
     function windowOpener(url, name, args) {
 
-        if(typeof(popupWin) != "object" || popupWin.closed)  { 
-            popupWin =  window.open(url, name, args); 
-        } 
-        else{ 
-            popupWin.location.href = url; 
+        if(typeof(popupWin) != "object" || popupWin.closed)  {
+            popupWin =  window.open(url, name, args);
         }
-    
-        popupWin.focus(); 
+        else{
+            popupWin.location.href = url;
+        }
+
+        popupWin.focus();
      }
-   
+
     const avayaWebchat = document.querySelector('#avayaWebchatMetric');
     const avayaAgentBusy = document.querySelector('#webchat-agent-busy');
     const avayaWebchatOpen = document.querySelector('#avaya-webchat-open');
     const avayaWebchatClose = document.querySelector('#avaya-webchat-close');
     const avayaWebchatMaintenance = document.querySelector('#webchat-maintenance');
-    
+
     if(avayaAgentBusy){
         avayaAgentBusy.hidden = true;
     }
@@ -61,7 +61,7 @@
     const avayaWebChatLink = document.querySelector('#avaya-webchat-link');
     if(avayaWebChatLink){
         avayaWebChatLink.addEventListener('click', function () {
-            windowOpener('/avaya-webchat', 'Web Chat', 'scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=350,height=550,left=100,top=100');
+            windowOpener('/avaya-webchat', 'Web Chat', 'scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=350,height=580,left=100,top=100');
         });
     }
 }).call(this);

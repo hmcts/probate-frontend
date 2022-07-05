@@ -24,10 +24,8 @@ const os = require('os');
 const declaration = require(`${__dirname}/app/declaration`);
 const InviteSecurity = require(`${__dirname}/app/invite`);
 const additionalInvite = require(`${__dirname}/app/routes/additionalInvite`);
-const updateInvite = require(`${__dirname}/app/routes/updateinvite`);
 const fs = require('fs');
 const https = require('https');
-const appInsights = require('applicationinsights');
 const {v4: uuidv4} = require('uuid');
 const nonce = uuidv4().replace(/-/g, '');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
@@ -49,17 +47,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const useIDAM = config.app.useIDAM.toLowerCase();
     const security = new Security(config.services.idam.loginUrl);
     const inviteSecurity = new InviteSecurity();
-
-    if (config.appInsights.instrumentationKey) {
-        appInsights.setup(config.appInsights.instrumentationKey)
-            .setAutoDependencyCorrelation(true)
-            .setAutoCollectRequests(true)
-            .setAutoCollectPerformance(true)
-            .setAutoCollectDependencies(true)
-            .setAutoCollectConsole(true, true)
-            .start();
-        appInsights.defaultClient.trackTrace({message: 'App insights activated'});
-    }
 
     // Authenticate against the environment-provided credentials, if running
     // the app in production (Heroku, effectively)
@@ -92,12 +79,10 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             maxFiles: config.documentUpload.maxFiles,
             maxSizeBytes: config.documentUpload.maxSizeBytes
         },
-        webChat: {
-            chatId: config.webChat.chatId,
-            tenant: config.webChat.tenant,
-            buttonNoAgents: config.webChat.buttonNoAgents,
-            buttonAgentsBusy: config.webChat.buttonAgentsBusy,
-            buttonServiceClosed: config.webChat.buttonServiceClosed
+        webchat: {
+            avayaUrl: config.webchat.avayaUrl,
+            avayaClientUrl: config.webchat.avayaClientUrl,
+            avayaService: config.webchat.avayaService
         },
         caseTypes: {
             gop: caseTypes.GOP,
@@ -117,13 +102,15 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             defaultSrc: [
                 '\'self\'',
                 'webchat.ctsc.hmcts.net',
-                'webchat-client.ctsc.hmcts.net'
+                'webchat-client.ctsc.hmcts.net',
+                'webchat.training.ctsc.hmcts.net',
+                'webchat-client.training.ctsc.hmcts.net',
+                'webchat.pp.ctsc.hmcts.net',
+                'webchat-client.pp.ctsc.hmcts.net'
             ],
             fontSrc: [
                 '\'self\' data:',
                 'fonts.gstatic.com',
-                'webchat-client.ctsc.hmcts.net',
-                'webchat.ctsc.hmcts.net',
             ],
             scriptSrc: [
                 '\'self\'',
@@ -133,48 +120,47 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 '\'sha256-BWhcmwio/4/QdqKNw5PKmTItWBjkevCaOUbLkgW5cHs=\'',
                 'www.google-analytics.com',
                 'www.googletagmanager.com',
-                'vcc-eu4.8x8.com',
-                'vcc-eu4b.8x8.com',
-                'webchat-client.ctsc.hmcts.net',
                 'webchat.ctsc.hmcts.net',
+                'webchat.training.ctsc.hmcts.net',
+                'webchat.pp.ctsc.hmcts.net',
+                'webchat-client.pp.ctsc.hmcts.net',
+                'webchat-client.ctsc.hmcts.net',
+                'webchat-client.training.ctsc.hmcts.net',
                 `'nonce-${nonce}'`,
                 'tagmanager.google.com'
             ],
             connectSrc: [
                 '\'self\'',
                 'www.google-analytics.com',
-                'https://webchat-client.ctsc.hmcts.net',
+                'https://webchat.training.ctsc.hmcts.net',
                 'https://webchat.ctsc.hmcts.net',
+                'https://webchat-client.training.ctsc.hmcts.net',
+                'https://webchat-client.ctsc.hmcts.net',
                 'wss://webchat.ctsc.hmcts.net',
+                'wss://webchat.training.ctsc.hmcts.net',
+                'wss://webchat.pp.ctsc.hmcts.net',
+                'https://webchat.pp.ctsc.hmcts.net',
+                'https://webchat-client.pp.ctsc.hmcts.net',
                 'stats.g.doubleclick.net',
                 'tagmanager.google.com'
             ],
             mediaSrc: [
                 '\'self\''
             ],
-            frameSrc: [
-                'vcc-eu4.8x8.com',
-                'vcc-eu4b.8x8.com'
-            ],
             imgSrc: [
                 '\'self\'',
                 '\'self\' data:',
                 'www.google-analytics.com',
                 'stats.g.doubleclick.net',
-                'vcc-eu4.8x8.com',
-                'vcc-eu4b.8x8.com',
                 'ssl.gstatic.com',
                 'www.gstatic.com',
-                'lh3.googleusercontent.com',
-                'webchat-client.ctsc.hmcts.net'
+                'lh3.googleusercontent.com'
             ],
             styleSrc: [
                 '\'self\'',
                 '\'unsafe-inline\'',
                 'tagmanager.google.com',
                 'fonts.googleapis.com',
-                'webchat-client.ctsc.hmcts.net',
-                'webchat.ctsc.hmcts.net'
             ],
             frameAncestors: ['\'self\'']
         },
@@ -199,7 +185,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const caching = {cacheControl: true, setHeaders: (res) => res.setHeader('Cache-Control', 'max-age=604800')};
 
     // Middleware to serve static assets
-    app.use('/public/webchat', express.static(`${__dirname}/node_modules/@hmcts/ctsc-web-chat/assets`, caching));
     app.use('/public/stylesheets', express.static(`${__dirname}/public/stylesheets`, caching));
     app.use('/public/images', express.static(`${__dirname}/app/assets/images`, caching));
     app.use('/public/locales', express.static(`${__dirname}/app/assets/locales`, caching));
@@ -297,8 +282,19 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.use(config.services.idam.probate_oauth_callback_path, security.oAuth2CallbackEndpoint());
 
     if (config.app.useCSRFProtection === 'true') {
-        app.use(csrf(), (req, res, next) => {
-            res.locals.csrfToken = req.csrfToken();
+        app.use((req, res, next) => {
+            // Exclude Dynatrace Beacon POST requests from CSRF check
+            if (req.method === 'POST' && req.path.startsWith('/rb_')) {
+                next();
+            } else {
+                csrf({})(req, res, next);
+            }
+        });
+
+        app.use((req, res, next) => {
+            if (req.csrfToken) {
+                res.locals.csrfToken = req.csrfToken();
+            }
             next();
         });
     }
@@ -323,7 +319,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.get('/executors/invitation/:inviteId', inviteSecurity.verify());
     app.use('/co-applicant-*', inviteSecurity.checkCoApplicant(useIDAM));
     app.use('/executors-additional-invite', additionalInvite);
-    app.use('/executors-update-invite', updateInvite);
     app.use('/declaration', declaration);
 
     app.use((req, res, next) => {
@@ -331,6 +326,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         if (ftValue) {
             res.locals.launchDarkly.ftValue = ftValue;
         }
+
         next();
     });
 
@@ -371,7 +367,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         const sslDirectory = path.join(__dirname, 'app', 'resources', 'localhost-ssl');
         const sslOptions = {
             key: fs.readFileSync(path.join(sslDirectory, 'localhost.key')),
-            cert: fs.readFileSync(path.join(sslDirectory, 'localhost.crt'))
+            cert: fs.readFileSync(path.join(sslDirectory, 'localhost.crt')),
+            secureProtocol: 'TLSv1_2_method'
         };
         const server = https.createServer(sslOptions, app);
 

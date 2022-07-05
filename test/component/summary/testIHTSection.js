@@ -27,11 +27,7 @@ describe('summary-iht-section', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const playbackData = {
-                        method: ihtContent.method.question
-                    };
-
-                    testWrapper.testDataPlayback(done, playbackData);
+                    testWrapper.testDataPlayback(done);
                 });
         });
 
@@ -195,6 +191,80 @@ describe('summary-iht-section', () => {
 
                     testWrapper.testDataPlayback(done, playbackData, ['form']);
                 });
+        });
+
+        it('test data is played back correctly on the summary page iht section if death certificate and estate not valued', (done) => {
+            const sessionData = require('test/data/iht/estate-valued-no');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
+            sessionData.deceased.deathCertificate = 'Death certificate';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end((err) => {
+                    if (err) {
+                        throw err;
+                    }
+                    delete require.cache[require.resolve('test/data/iht/estate-valued-no')];
+                    const playbackData = {
+                        estateValueCompleted: ihtContent.estatevalued.question,
+                        estateGrossValue: ihtContent.ihtestatevalues.estateGrossValue,
+                        estateNetValue: ihtContent.ihtestatevalues.estateNetValue,
+                        estateNetQualifyingValue: ihtContent.ihtestatevalues.estateNetQualifyingValue
+                    };
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
+
+        it('test data is played back correctly on the summary page iht section if eng translation in foreign death certificate and estate not valued', (done) => {
+            const sessionData = require('test/data/iht/estate-valued-no');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
+            sessionData.deceased.foreignDeathCertTranslation = 'optionYes';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end((err) => {
+                    if (err) {
+                        throw err;
+                    }
+                    delete require.cache[require.resolve('test/data/iht/estate-valued-no')];
+                    const playbackData = {
+                        estateValueCompleted: ihtContent.estatevalued.question,
+                        estateGrossValue: ihtContent.ihtestatevalues.estateGrossValue,
+                        estateNetValue: ihtContent.ihtestatevalues.estateNetValue,
+                        estateNetQualifyingValue: ihtContent.ihtestatevalues.estateNetQualifyingValue,
+                        deceasedHadLateSpouseOrCivilPartner: ihtContent.deceasedlatespousecivilpartner.question,
+                        unusedAllowanceClaimed: ihtContent.unusedallowanceclaimed.question
+                    };
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
+
+        it('test data is played back correctly on the summary page iht section for excepted estate completed forms', (done) => {
+            const sessionData = require('test/data/iht/probate-estate-values');
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end((err) => {
+                    if (err) {
+                        throw err;
+                    }
+                    delete require.cache[require.resolve('test/data/iht/probate-estate-values')];
+                    const playbackData = {
+                        estateValueCompleted: ihtContent.estatevalued.question,
+                        grossValueField: ihtContent.probateestatevalues.grossValueSummary,
+                        netValueField: ihtContent.probateestatevalues.netValueSummary,
+                        ihtFormEstateId: ihtContent.estateform.question
+                    };
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+
         });
     });
 });

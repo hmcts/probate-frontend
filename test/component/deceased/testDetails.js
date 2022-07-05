@@ -230,6 +230,24 @@ describe('deceased-details', () => {
                 });
         });
 
+        it(`test it redirects to Deceased Address page: ${expectedNextUrlForDeceasedAddress} - DoD equals DoB`, (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY})
+                .end(() => {
+                    const data = {
+                        'firstName': 'Bob',
+                        'lastName': 'Smith',
+                        'dob-day': '1',
+                        'dob-month': '10',
+                        'dob-year': '2014',
+                        'dod-day': '1',
+                        'dod-month': '10',
+                        'dod-year': '2014'
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAddress);
+                });
+        });
+
         it(`test it redirects to stop page: ${expectedNextUrlForStopPage} - DoD ON 30 Sep 2014`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})

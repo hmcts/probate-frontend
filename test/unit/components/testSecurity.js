@@ -242,13 +242,13 @@ describe('Security component', () => {
                 });
         });
 
-        it('should add the auth cookie to the response', (done) => {
+        it('should make the auth cookie secure if the protocol is http', (done) => {
             req.protocol = 'http';
             req.cookies.__redirect = JSON.stringify({state: 'testState'});
             callBackEndpoint(req, res, next);
 
             checkAsync(() => {
-                expect(res.cookie).to.have.been.calledWith(securityCookie, token, {httpOnly: true});
+                expect(res.cookie).to.have.been.calledWith(securityCookie, token, {secure: true, httpOnly: true});
                 done();
             });
         });

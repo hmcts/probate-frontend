@@ -1,0 +1,14 @@
+{
+  "will": {
+    "left": "Yes",
+    "original": "Yes",
+    "codicils": "No",
+    "willHasVisibleDamage": "optionNo"
+  },
+  "applicant": {
+    "executor": "Yes"
+  },
+  "executors": {
+    "mentalCapacity": "Yes"
+  }
+}

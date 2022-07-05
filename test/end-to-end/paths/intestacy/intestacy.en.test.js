@@ -42,7 +42,13 @@ languages.forEach(language => {
         await I.selectDeathCertificateTranslation(language, optionYes);
 
         await I.selectDeceasedDomicile(language);
-        await I.selectIhtCompleted(language, optionYes);
+        const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
+        if (isEEEnabled) {
+            await I.selectEEDeceasedDod(language);
+            await I.selectEEvalue(language);
+        } else {
+            await I.selectIhtCompleted(language, optionYes);
+        }
         await I.selectPersonWhoDiedLeftAWill(language, optionNo);
 
         // Intestacy Sceeners
@@ -126,7 +132,7 @@ languages.forEach(language => {
 
         // Thank You
         await I.seeThankYouPage(language);
-    }).tag('@e2e')
+    }).tag('@e2enightly')
         .tag('@crossbrowser')
         .retry(TestConfigurator.getRetryScenarios());
 
@@ -144,7 +150,13 @@ languages.forEach(language => {
         await I.selectDeathCertificateTranslation(language, optionYes);
 
         await I.selectDeceasedDomicile(language, optionYes);
-        await I.selectIhtCompleted(language, optionYes);
+        const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
+        if (isEEEnabled) {
+            await I.selectEEDeceasedDod(language);
+            await I.selectEEvalue(language);
+        } else {
+            await I.selectIhtCompleted(language, optionYes);
+        }
         await I.selectPersonWhoDiedLeftAWill(language, optionNo);
 
         // Intestacy Sceeners
@@ -224,6 +236,7 @@ languages.forEach(language => {
 
         // Thank You
         await I.seeThankYouPage(language);
-    }).tag('@e2e')
+    }).tag('@e2emaster')
+        .tag('@e2enightly')
         .retry(TestConfigurator.getRetryScenarios());
 });

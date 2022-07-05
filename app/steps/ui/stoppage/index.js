@@ -14,7 +14,7 @@ class StopPage extends Step {
 
         const formdata = req.session.form;
 
-        ctx.stoppageHeader = ctx.stopReason === 'deathCertificateTranslation' ? 'deathCertificateTranslationHeader' : 'defaultHeader';
+        ctx.stoppageHeader = this.returnStopPageHeader(ctx.stopReason);
 
         const templateContent = this.generateContent(ctx, formdata, req.session.language)[ctx.stopReason];
 
@@ -41,6 +41,22 @@ class StopPage extends Step {
         }
 
         return [];
+    }
+
+    returnStopPageHeader(stopReason) {
+        let pageHeader;
+        switch (stopReason) {
+        case 'deathCertificateTranslation':
+            pageHeader = 'deathCertificateTranslationHeader';
+            break;
+        case 'eeEstateNotValued':
+            pageHeader = 'eeEstateValuedHeader';
+            break;
+        default:
+            pageHeader = 'defaultHeader';
+        }
+
+        return pageHeader;
     }
 }
 

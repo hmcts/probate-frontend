@@ -2,8 +2,14 @@
 
 @Library("Infrastructure") _
 
+import uk.gov.hmcts.contino.GithubAPI
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 String product = "probate"
 String component = "frontend"
+
+def checkForEnableHelmLabel(branch_name) {
+  return new GithubAPI(this).getLabelsbyPattern(branch_name, "nightly").contains("nightly")
+}
 
 def secrets = [
   'probate-${env}': [
@@ -27,7 +33,11 @@ def secrets = [
     secret('testRunE2ETest', 'RUN_E2E_TEST'),
     secret('testValidationServiceUrl', 'VALIDATION_SERVICE_URL'),
     secret('launchdarkly-key', 'LAUNCHDARKLY_KEY'),
-    secret('launchdarklyUserkeyFrontend', 'LAUNCHDARKLY_USER_KEY')
+    secret('launchdarklyUserkeyFrontend', 'LAUNCHDARKLY_USER_KEY'),
+    secret('webchat-avaya-url', 'WEBCHAT_AVAYA_URL'),
+    secret('webchat-avaya-client-url', 'WEBCHAT_AVAYA_CLIENT_URL'),
+    secret('webchat-avaya-service', 'WEBCHAT_AVAYA_SERVICE'),
+    secret('AppInsightsInstrumentationKey', 'APPINSIGHTS_INSTRUMENTATIONKEY')
   ]
 ]
 
@@ -84,8 +94,6 @@ withPipeline("nodejs", product, component) {
        error 'Deliberately breaking pipeline to prevent prod deployment'
    }
 */
-
-  // installCharts()
   enableAksStagingDeployment()
   disableLegacyDeployment()
 
@@ -109,6 +117,9 @@ withPipeline("nodejs", product, component) {
       reportName           : "Preview Functional Tests",
       alwaysLinkToLastBuild: true
     ]
+    if (checkForEnableHelmLabel(env.BRANCH_NAME)) {
+      yarnBuilder.yarn('test:fullfunctional');
+    }
   }
 
   after('functionalTest:aat') {

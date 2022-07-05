@@ -119,7 +119,7 @@ class Declaration extends ValidationStep {
         ctx.language = req.session.language;
         const content = this.generateContent(ctx, formdata, req.session.language);
         const formDataForTemplate = this.getFormDataForTemplate(content, formdata);
-
+        ctx.exceptedEstate = formdata.iht && formdata.iht.estateValueCompleted === 'optionNo';
         if (ctx.caseType === caseTypes.INTESTACY && formdata.iht) {
             ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
             ctx.showNetValueAssetsOutside = ((formdata.iht.assetsOutside === 'optionYes' && (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > ctx.ihtThreshold)).toString();
@@ -132,7 +132,7 @@ class Declaration extends ValidationStep {
             ctx.invitesSent = get(formdata, 'executors.invitesSent');
             ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants();
             ctx.executorsEmailChanged = ctx.executorsWrapper.hasExecutorsEmailChanged();
-            ctx.hasExecutorsToNotify = ctx.executorsWrapper.hasExecutorsToNotify() && ctx.invitesSent === 'true';
+            ctx.hasExecutorsToNotify = ctx.executorsWrapper.hasExecutorsToNotify() && ctx.invitesSent;
 
             const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
             const codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
@@ -241,8 +241,8 @@ class Declaration extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.hasDataChangedAfterEmailSent = ctx.hasDataChanged && ctx.invitesSent === 'true';
-        ctx.hasEmailChanged = ctx.executorsEmailChanged && ctx.invitesSent === 'true';
+        ctx.hasDataChangedAfterEmailSent = ctx.hasDataChanged && ctx.invitesSent;
+        ctx.hasEmailChanged = ctx.executorsEmailChanged && ctx.invitesSent;
 
         return {
             options: [
@@ -280,6 +280,7 @@ class Declaration extends ValidationStep {
         delete ctx.authToken;
         delete ctx.bilingual;
         delete ctx.language;
+        delete ctx.exceptedEstate;
         return [ctx, formdata];
     }
 

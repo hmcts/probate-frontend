@@ -1,0 +1,60 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+{% block form_content %}
+
+    {% set descriptionHtml %}
+        {{ govukTextarea({
+            name: "codicilsDamageReasonDescription",
+            id: "codicilsDamageReasonDescription",
+            label: {
+                text: content["codicilsDamageReasonDescriptionTitle"] | safe,
+                classes: "govuk-label--s",
+                isPageHeading: false
+            },
+            hint: {
+                text: content["codicilsDamageReasonDescriptionHint"] | safe
+            },
+            value: fields.codicilsDamageReasonDescription.value
+        }) }}
+    {% endset -%}
+
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "codicilsDamageReasonKnown",
+        name: "codicilsDamageReasonKnown",
+        fieldset: {
+            legend: {
+                text: content.question,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: { text: fields.codicilsDamageReasonKnown.errorMessage | safe } if fields.codicilsDamageReasonKnown.errorMessage,
+        items: [
+            {
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.codicilsDamageReasonKnown.value == "optionYes",
+                conditional: {
+                    html: descriptionHtml
+                }
+            },
+            {
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.codicilsDamageReasonKnown.value == "optionNo"
+            }
+        ]
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

@@ -1,6 +1,15 @@
 # Use for testing http - e.g. local env
 environment: 'sandbox'
 
+#this feature toggle shouldnt be here remove this later when not longer working end to end on local: todo remove this
+featureToggles:
+  enabled: true
+  launchDarklyKey: 'Dummy_LD_Key'
+  launchDarklyUser:
+    firstName: 'Probate'
+    lastName: 'Frontend'
+    key: 'Dummy_User_Key'
+
 configFeatureToggles:
   webchatEnabled: false
   gaEnabled: false
@@ -20,7 +29,7 @@ TestProxy: 'socks5:proxyout.reform.hmcts.net:8080'
 TestRetryFeatures: 2
 TestRetryScenarios: 2
 TestRetrySteps: 2
-TestShowBrowser: false
+TestShowBrowser: true
 TestUseGovPay: 'true'
 TestUseIdam: 'true'
 TestUseProxy: 'false'

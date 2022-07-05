@@ -3,11 +3,22 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const WillWrapper = require('app/wrappers/Will');
 const DeceasedWrapper = require('app/wrappers/Deceased');
+const JourneyMap = require('app/core/JourneyMap');
+const featureToggle = require('app/utils/FeatureToggle');
 
 class DeceasedMarried extends ValidationStep {
 
     static getUrl() {
         return '/deceased-married';
+    }
+
+    next(req, ctx) {
+        const journeyMap = new JourneyMap(req.session.journey);
+        if (featureToggle.isEnabled(req.session.featureToggles, 'ft_will_condition')) {
+            return journeyMap.nextStep(this, ctx);
+        }
+
+        return journeyMap.getNextStepByName('WillCodicils');
     }
 
     isSoftStop(formdata) {

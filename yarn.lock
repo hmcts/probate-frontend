@@ -121,6 +121,15 @@
     on-finished "^2.3.0"
     winston "^2.4.5"
 
+"@hmcts/nodejs-logging@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@hmcts/nodejs-logging/-/nodejs-logging-4.0.2.tgz#15a7a558c78471ce60360a82b5e2f30001b4ce6f"
+  integrity sha512-wEQ7cjfQcZ4CL55zlPrFhJkg/hC+2US++ZiR35wfLfMBJEtLCEYbiRu1YzLVjQXMgGn8oaH2woYIIvpLdpt4Yg==
+  dependencies:
+    moment "^2.19.3"
+    on-finished "^2.3.0"
+    winston "^2.4.5"
+
 "@hmcts/os-places-client@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@hmcts/os-places-client/-/os-places-client-1.1.2.tgz#a075893a7c70ab8065d1ce1b94019f60e4c82e8b"
@@ -577,7 +586,7 @@
   integrity sha512-ZZBQHCXKjZSQj9pf4df/QhfgQQj0vzm9hkK7YyNM+S+qnW0LExL8qQKLxTlGHDaYxk/+Jrd9pcZrJXRCoSnUaA==
   dependencies:
     "@types/node" "^14.14.31"
-    got "^11.8.1"
+    got "^11.8.5"
 
 "@wdio/utils@6.11.0":
   version "6.11.0"
@@ -825,7 +834,7 @@ append-transform@^0.4.0:
   dependencies:
     default-require-extensions "^1.0.0"
 
-applicationinsights@^2.2.2:
+applicationinsights@^2.3.3:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-2.3.3.tgz#2c92aaccf85cc75c7212be1764cc51c55f10501c"
   integrity sha512-Q4o6gexNhzukgmzzWYzXLa2gdJ6DhM+c35tw0lRNNjc/qldWxGHVxV65DMRYrQIp4vetLdCK7Pyd/dmEsGO4qA==
@@ -998,34 +1007,10 @@ async-listener@^0.6.0:
     semver "^5.3.0"
     shimmer "^1.1.0"
 
-async@1.x:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
-  integrity sha1-7GphrlZIDAw8skHJVhjiCJL5Zyo=
-
-async@^2.1.4:
-  version "2.6.3"
-  resolved "https://registry.yarnpkg.com/async/-/async-2.6.3.tgz#d72625e2344a3656e3a3ad4fa749fa83299d82ff"
-  integrity sha512-zflvls11DCy+dQWzTW2dzuilv8Z5X/pjfmZOWba6TNIVDm+2UDaJmXSOXlasHKfNBs8oo3M0aT50fDEWfKZjXg==
-  dependencies:
-    lodash "^4.17.14"
-
-async@^2.6.3:
-  version "2.6.4"
-  resolved "https://registry.yarnpkg.com/async/-/async-2.6.4.tgz#706b7ff6084664cd7eae713f6f965433b5504221"
-  integrity sha512-mzo5dfJYwAn29PeiJ0zvwTo04zj8HDJj0Mn8TD7sno7q12prdbnasKJHhkm2c1LgrhlJ0teaea8860oxi51mGA==
-  dependencies:
-    lodash "^4.17.14"
-
-async@^3.1.0, async@^3.2.0:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/async/-/async-3.2.3.tgz#ac53dafd3f4720ee9e8a160628f18ea91df196c9"
-  integrity sha512-spZRyzKL5l5BZQrr/6m/SqFdBN0q3OCI0f9rjfBzCMBIP4p75P620rR3gTmaksNOhmzgdxcaxdNfMy6anrbM0g==
-
-async@~0.9.0:
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/async/-/async-0.9.2.tgz#aea74d5e61c1f899613bf64bda66d4c78f2fd17d"
-  integrity sha1-rqdNXmHB+JlhO/ZL2mbUx48v0X0=
+async@1.x, async@>=2.6.4, async@^2.1.4, async@^3.1.0, async@^3.2.0, async@~0.9.0, async@~1.0.0:
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/async/-/async-3.2.4.tgz#2d22e00f8cddeb5fde5dd33522b56d1cf569a81c"
+  integrity sha512-iAB+JbDEGXhyIUavoDl9WP/Jj106Kz9DEn1DPgYw5ruDn0e3Wgi3sKFm55sASdGBNOQB8F59d9qQ7deqrHA8wQ==
 
 asynckit@^0.4.0:
   version "0.4.0"
@@ -2666,7 +2651,7 @@ download@^7.1.0:
     file-type "^8.1.0"
     filenamify "^2.0.0"
     get-stream "^3.0.0"
-    got "^8.3.1"
+    got "^11.8.5"
     make-dir "^1.2.0"
     p-event "^2.1.0"
     pify "^3.0.0"
@@ -7784,7 +7769,7 @@ selenium-standalone@^6.16.0, selenium-standalone@^6.22.1:
     commander "^2.20.3"
     cross-spawn "^7.0.3"
     debug "^4.3.1"
-    got "^11.8.0"
+    got "^11.8.5"
     lodash.mapvalues "^4.6.0"
     lodash.merge "^4.6.2"
     minimist "^1.2.5"
@@ -9085,7 +9070,7 @@ webdriver@6.12.1:
     "@wdio/logger" "6.10.10"
     "@wdio/protocols" "6.12.0"
     "@wdio/utils" "6.11.0"
-    got "^11.0.2"
+    got "^11.8.5"
     lodash.merge "^4.6.1"
 
 webdriverio@^6.10.5:

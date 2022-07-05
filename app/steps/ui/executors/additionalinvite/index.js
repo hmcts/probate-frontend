@@ -23,7 +23,7 @@ class ExecutorsAdditionalInvite extends ValidationStep {
 
     isComplete(ctx) {
         const executorsWrapper = new ExecutorsWrapper(ctx);
-        return [executorsWrapper.executors(true).every(exec => exec.isApplying && exec.emailSent) && ctx.invitesSent === 'true', 'inProgress'];
+        return [executorsWrapper.executors(true).every(exec => exec.isApplying && (exec.emailSent || exec.inviteId)) && ctx.invitesSent === 'true', 'inProgress'];
     }
 
     action(ctx, formdata) {

@@ -30,7 +30,7 @@ class AdditionalExecutorInvite {
             });
 
         if (executorsToNotifyList.length) {
-            return inviteLink.post(executorsToNotifyList, req.authToken, req.session.serviceAuthorization)
+            return inviteLink.post(executorsToNotifyList, req.session.authToken, req.session.serviceAuthorization)
                 .then(result => {
                     if (result.name === 'Error') {
                         logger.error(`Error while sending executor email invites: ${result}`);
@@ -41,8 +41,11 @@ class AdditionalExecutorInvite {
                                 inviteId: execResult.inviteId,
                                 emailSent: true
                             };
+                            Object.assign(formdata.executors.list.find(execList => execList.id === parseInt(execResult.id)), result);
+                        });
 
-                            Object.assign(formdata.executors.list.find(execList => execList.id === execResult.id), result);
+                        executorsToNotifyList.forEach((executor) => {
+                            executor.emailSent = true;
                         });
 
                         formdata.executors.list = executorsWrapper.removeExecutorIds();

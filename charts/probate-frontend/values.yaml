@@ -55,9 +55,11 @@ nodejs:
         - webchat-avaya-service
 redis:
   enabled: false
-  cluster:
+  architecture: standalone
+  master:
+    persistence:
+      enabled: false
+  auth:
     enabled: false
-    slaveCount: 0
-  usePassword: false
 idam-pr:
   enabled: false

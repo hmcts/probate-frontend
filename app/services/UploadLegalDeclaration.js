@@ -7,7 +7,7 @@ const Document = require('app/services/Document');
 class UploadLegalDeclaration {
 
     generateAndUpload(sessionId, userId, req) {
-        const fileName = 'SOT.pdf';
+        const fileName = 'LegalStatement.pdf';
         const declarationPdf = ServiceMapper.map(
             'DeclarationPdf',
             [config.services.orchestrator.url, sessionId]

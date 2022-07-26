@@ -1,6 +1,8 @@
 nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
+  autoscaling:
+    enabled: false
   environment:
     REDIS_HOST: ${SERVICE_NAME}-redis-master
     REDIS_PORT: 6379
@@ -27,6 +29,7 @@ nodejs:
         - webchat-avaya-service
 redis:
   enabled: true
+
 idam-pr:
   enabled: true
   redirect_uris:

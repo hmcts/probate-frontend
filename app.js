@@ -26,7 +26,6 @@ const InviteSecurity = require(`${__dirname}/app/invite`);
 const additionalInvite = require(`${__dirname}/app/routes/additionalInvite`);
 const fs = require('fs');
 const https = require('https');
-const appInsights = require('applicationinsights');
 const {v4: uuidv4} = require('uuid');
 const nonce = uuidv4().replace(/-/g, '');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
@@ -48,17 +47,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const useIDAM = config.app.useIDAM.toLowerCase();
     const security = new Security(config.services.idam.loginUrl);
     const inviteSecurity = new InviteSecurity();
-
-    if (config.appInsights.instrumentationKey) {
-        appInsights.setup(config.appInsights.instrumentationKey)
-            .setAutoDependencyCorrelation(true)
-            .setAutoCollectRequests(true)
-            .setAutoCollectPerformance(true)
-            .setAutoCollectDependencies(true)
-            .setAutoCollectConsole(true, true)
-            .start();
-        appInsights.defaultClient.trackTrace({message: 'App insights activated'});
-    }
 
     // Authenticate against the environment-provided credentials, if running
     // the app in production (Heroku, effectively)
@@ -294,8 +282,19 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.use(config.services.idam.probate_oauth_callback_path, security.oAuth2CallbackEndpoint());
 
     if (config.app.useCSRFProtection === 'true') {
-        app.use(csrf(), (req, res, next) => {
-            res.locals.csrfToken = req.csrfToken();
+        app.use((req, res, next) => {
+            // Exclude Dynatrace Beacon POST requests from CSRF check
+            if (req.method === 'POST' && req.path.startsWith('/rb_')) {
+                next();
+            } else {
+                csrf({})(req, res, next);
+            }
+        });
+
+        app.use((req, res, next) => {
+            if (req.csrfToken) {
+                res.locals.csrfToken = req.csrfToken();
+            }
             next();
         });
     }

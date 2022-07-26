@@ -55,6 +55,24 @@ describe('DeceasedDob', () => {
             done();
         });
 
+        it('should return the ctx where the deceased dob is same as dod', (done) => {
+            ctx = {
+                'dob-day': '01',
+                'dob-month': '01',
+                'dob-year': '2000'
+            };
+            errors = [];
+            [ctx, errors] = DeceasedDob.handlePost(ctx, errors, formdata, session);
+            expect([ctx, errors]).to.deep.equal([{
+                'dob-day': '01',
+                'dob-month': '01',
+                'dob-year': '2000'
+            },
+            []
+            ]);
+            done();
+        });
+
         it('should return the error for a date in the future', (done) => {
             ctx = {
                 'dob-day': '02',

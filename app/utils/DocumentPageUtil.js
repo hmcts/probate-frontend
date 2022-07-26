@@ -8,6 +8,7 @@ const DeceasedWrapper = require('app/wrappers/Deceased');
 const WillWrapper = require('app/wrappers/Will');
 const DeathCertificateWrapper = require('app/wrappers/DeathCertificate');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const DocumentsWrapper = require('app/wrappers/Documents');
 const caseTypes = require('app/utils/CaseTypes');
 
 class DocumentPageUtil {
@@ -68,6 +69,10 @@ class DocumentPageUtil {
         const deathCertWrapper = new DeathCertificateWrapper(formdata.deceased);
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         const checkListItems = [];
+
+        if (this.noDocsRequired(formdata)) {
+            return checkListItems;
+        }
 
         if (formdata.caseType === caseTypes.GOP) {
             if (willWrapper.hasCodicils() && willWrapper.codicilsNumber() > 0) {
@@ -131,6 +136,19 @@ class DocumentPageUtil {
             }
         }
         throw new Error(`there is no link in content item: "${contentCheckListItem}"`);
+    }
+
+    static noDocsRequired(formdata) {
+        const documentsWrapper = new DocumentsWrapper(formdata);
+        return !documentsWrapper.documentsRequired();
+    }
+
+    static getNoDocsRequiredText(formdata, language = 'en') {
+        const content = require(`app/resources/${language}/translation/documents`);
+        if (this.noDocsRequired(formdata)) {
+            return content['no-docs-required'];
+        }
+        return null;
     }
 }
 

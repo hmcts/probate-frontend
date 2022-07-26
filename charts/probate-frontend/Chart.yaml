@@ -6,13 +6,13 @@ home: https://github.com/hmcts/probate-frontend
 version: 2.3.16
 dependencies:
   - name: nodejs
-    version: 2.4.4
+    version: 2.4.6
     repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
   - name: redis
     version: 16.13.0
     repository: "https://charts.bitnami.com/bitnami"
     condition: redis.enabled
   - name: idam-pr
-    version: 2.2.6
+    version: 2.2.7
     repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
     condition: idam-pr.enabled

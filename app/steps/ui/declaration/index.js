@@ -19,6 +19,7 @@ const FieldError = require('app/components/error');
 const utils = require('app/components/step-utils');
 const moment = require('moment');
 const IhtThreshold = require('app/utils/IhtThreshold');
+const DocumentsWrapper = require('app/wrappers/Documents');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -43,17 +44,19 @@ class Declaration extends ValidationStep {
     * handlePost(ctx, errors, formdata, session) {
         const result = yield this.validateFormData(formdata, ctx, session.req);
         let returnErrors;
-
         if (result.type === 'VALIDATION') {
             returnErrors = [FieldError('businessError', 'validationError', this.resourcePath, ctx, session.language)];
         } else {
             returnErrors = errors;
         }
-
         const uploadLegalDec = new UploadLegalDeclaration();
         formdata.statementOfTruthDocument =
             yield uploadLegalDec.generateAndUpload(ctx.sessionID, session.req.userId, session.req);
         session.form.statementOfTruthDocument = formdata.statementOfTruthDocument;
+        const documentsWrapper = new DocumentsWrapper(formdata);
+        if (!documentsWrapper.documentsRequired() && formdata.applicant) {
+            formdata.applicant.notRequiredToSendDocuments = true;
+        }
         return [ctx, returnErrors];
     }
 
@@ -69,7 +72,6 @@ class Declaration extends ValidationStep {
         const formdataApplicant = formdata.applicant || {};
         formdata.applicantName = FormatName.format(formdataApplicant);
         formdata.applicantAddress = get(formdataApplicant, 'address', {});
-
         const formdataDeceased = formdata.deceased || {};
         formdata.deceasedName = FormatName.format(formdataDeceased);
         formdata.deceasedAddress = get(formdataDeceased, 'address', {});
@@ -99,7 +101,6 @@ class Declaration extends ValidationStep {
         formdata.ihtNetValueAssetsOutside = formdataIht.netValueAssetsOutside ? formdataIht.netValueAssetsOutside.toFixed(2) : 0;
         formdata.ihtTotalNetValue = formdataIht.netValue;
         formdata.ihtTotalNetValue += formdataIht.netValueAssetsOutside ? formdataIht.netValueAssetsOutside : 0;
-
         return formdata;
     }
 

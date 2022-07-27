@@ -51,7 +51,7 @@
                 avayaWebchatOpen.hidden = false; 
             }else{
                avayaWebchatClose.hidden = false;
-       });
+        });
     }
 
     const avayaWebChatLink = document.querySelector('#avaya-webchat-link');

@@ -48,8 +48,7 @@
             avayaWebchatMaintenance.hidden = true;
             if(ccState === 'Open'){
                     avayaWebchatOpen.hidden = false;
-            }
-            else{
+            }else{
                avayaWebchatClose.hidden = false;
             }
         });

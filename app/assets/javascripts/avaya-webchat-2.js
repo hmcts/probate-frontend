@@ -47,14 +47,16 @@
             avayaWebchatClose.hidden = true;
             avayaWebchatMaintenance.hidden = true;
             if(ccState === 'Open'){
-                if(availableAgents > 0 && ewt <= 10800){
+            // reinstate following code once the testing for DTSPB-2942 is completed
+            }
+            //    if(availableAgents > 0 && ewt <= 10800){
                     avayaWebchatOpen.hidden = false;
-                }else{
+            /*    }else{
                     avayaAgentBusy.hidden = false;
                 }
             }else{
                avayaWebchatClose.hidden = false;
-            }
+            }8*/
         });
     }
 

@@ -51,6 +51,7 @@
                 avayaWebchatOpen.hidden = false; 
             }else{
                avayaWebchatClose.hidden = false;
+            }
         });
     }
 

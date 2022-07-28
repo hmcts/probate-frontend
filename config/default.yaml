@@ -36,7 +36,7 @@ app:
     ttl: 28800 # ms (8 hours)
 health:
   service_name: 'Apply for Probate'
-  timeout: 5000
+  timeout: 10000
   deadline: 15000
 services:
   postcode:

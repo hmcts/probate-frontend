@@ -48,7 +48,11 @@
             avayaWebchatMaintenance.hidden = true;
 
             if(ccState === 'Open'){
-                avayaWebchatOpen.hidden = false;
+                if(ewt <= 10800){
+                    avayaWebchatOpen.hidden = false;
+                }else{
+                    avayaAgentBusy.hidden = false;
+                }
             }else{
                 avayaWebchatClose.hidden = false;
             }

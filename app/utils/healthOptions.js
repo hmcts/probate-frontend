@@ -16,5 +16,4 @@ const healthOptions = function() {
         deadline: config.health.deadline
     };
 };
-
 module.exports = healthOptions;

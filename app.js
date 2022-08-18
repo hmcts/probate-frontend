@@ -18,9 +18,6 @@ const packageJson = require(`${__dirname}/package`);
 const Security = require(`${__dirname}/app/components/security`);
 const helmet = require('helmet');
 const csrf = require('csurf');
-const healthcheck = require('@hmcts/nodejs-healthcheck');
-const healthOptions = require('app/utils/healthOptions');
-const os = require('os');
 const declaration = require(`${__dirname}/app/declaration`);
 const InviteSecurity = require(`${__dirname}/app/invite`);
 const additionalInvite = require(`${__dirname}/app/routes/additionalInvite`);
@@ -34,7 +31,7 @@ const caseTypes = require('app/utils/CaseTypes');
 const featureToggles = require('app/featureToggles');
 const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody');
 const isEmpty = require('lodash').isEmpty;
-const FormatUrl = require('app/utils/FormatUrl');
+const setupHealthCheck = require('app/utils/setupHealthCheck');
 
 exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const app = express();
@@ -226,19 +223,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     }));
 
     // health
-    const healthCheckConfig = {
-        checks: {
-            [config.services.validation.name]: healthcheck.web(FormatUrl.format(config.services.validation.url, config.endpoints.health), healthOptions()),
-            [config.services.orchestrator.name]: healthcheck.web(FormatUrl.format(config.services.orchestrator.url, config.endpoints.health), healthOptions()),
-        },
-        buildInfo: {
-            name: config.health.service_name,
-            host: os.hostname(),
-            uptime: process.uptime(),
-        },
-    };
-
-    healthcheck.addTo(app, healthCheckConfig);
+    setupHealthCheck(app);
 
     app.use((req, res, next) => {
         if (!req.session) {

@@ -3,7 +3,8 @@ const healthcheck = require('@hmcts/nodejs-healthcheck');
 const setupHealthCheck = require('app/utils/setupHealthCheck');
 const config = require('config');
 const modulePath = 'app/utils';
-const {sinon, expect} = require('@hmcts/one-per-page-test-suite');
+const sinon = require('sinon');
+const expect = require('chai').expect;
 const outputs = require('@hmcts/nodejs-healthcheck/healthcheck/outputs');
 const logger = require('app/components/logger')('Init');
 const app = {};
@@ -35,21 +36,20 @@ describe(modulePath, () => {
     describe('validation-service', () => {
         it('passes health check', () => {
             setupHealthCheck(app);
-
             const callArgs = healthcheck.web.getCall(0).args;
+            expect(callArgs[0]).contains('/health');
             const cosCallback = callArgs[1].callback;
             cosCallback(null, res);
-
             sinon.assert.called(outputs.up);
         });
 
-        it('throws an error if health check fails for validation-service', () => {
+        it('log error if health check fails for validation-service', () => {
             setupHealthCheck(app);
-
             const callArgs = healthcheck.web.getCall(0).args;
+            expect(callArgs[0]).contains('/health');
             const cosCallback = callArgs[1].callback;
-            cosCallback('error');
-
+            res = {status: 500};
+            cosCallback('error', res);
             sinon.assert.calledOnce(logger.error);
         });
     });
@@ -64,7 +64,6 @@ describe(modulePath, () => {
 
             const cosCallback = callArgs[1].callback;
             cosCallback(null, res);
-
             sinon.assert.called(outputs.up);
         });
 
@@ -77,7 +76,8 @@ describe(modulePath, () => {
             expect(callArgs[0]).to.eql(`${config.services.orchestrator.url}/health`);
 
             const cosCallback = callArgs[1].callback;
-            cosCallback('error');
+            res = {status: 500};
+            cosCallback('error', res);
 
             sinon.assert.calledOnce(logger.error);
         });

@@ -37,7 +37,8 @@ describe(modulePath, () => {
     describe('validation-service', () => {
         it('passes health check', () => {
             setupHealthCheck(app);
-            const callArgs = healthcheck.web.getCall(0).args;
+            const call0 = healthcheck.web.getCall(0);
+            const callArgs = call0.args;
             expect(callArgs[0]).contains('/health');
             const cosCallback = callArgs[1].callback;
             cosCallback(null, res);
@@ -68,7 +69,7 @@ describe(modulePath, () => {
             assert.called(outputs.up);
         });
 
-        it('throws an error if health check fails for case-orchestration-service', () => {
+        it('log error if health check fails for case-orchestration-service', () => {
             setupHealthCheck(app);
 
             const callArgs = healthcheck.web.getCall(1).args;
@@ -83,4 +84,5 @@ describe(modulePath, () => {
             assert.calledOnce(logger.error);
         });
     });
+
 });

@@ -23,8 +23,7 @@ const checks = () => {
         [config.services.validation.name]: healthcheck.web(FormatUrl.format(config.services.validation.url, config.endpoints.health),
             healthOptions('Health check failed on '+ config.services.validation.name)),
         [config.services.orchestrator.name]: healthcheck.web(FormatUrl.format(config.services.orchestrator.url, config.endpoints.health),
-            healthOptions('Health check failed on '+ config.services.orchestrator.name)
-        )
+            healthOptions('Health check failed on '+ config.services.orchestrator.name))
     };
 };
 

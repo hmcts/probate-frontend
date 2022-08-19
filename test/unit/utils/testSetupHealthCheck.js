@@ -4,6 +4,7 @@ const setupHealthCheck = require('app/utils/setupHealthCheck');
 const config = require('config');
 const modulePath = 'app/utils';
 const sinon = require('sinon');
+const assert = require('sinon').assert;
 const expect = require('chai').expect;
 const outputs = require('@hmcts/nodejs-healthcheck/healthcheck/outputs');
 const logger = require('app/components/logger')('Init');
@@ -31,7 +32,7 @@ describe(modulePath, () => {
 
     it('set up health check endpoint', () => {
         setupHealthCheck(app);
-        sinon.assert.calledWith(app.get, config.endpoints.health);
+        assert.calledWith(app.get, config.endpoints.health);
     });
     describe('validation-service', () => {
         it('passes health check', () => {
@@ -40,7 +41,7 @@ describe(modulePath, () => {
             expect(callArgs[0]).contains('/health');
             const cosCallback = callArgs[1].callback;
             cosCallback(null, res);
-            sinon.assert.called(outputs.up);
+            assert.called(outputs.up);
         });
 
         it('log error if health check fails for validation-service', () => {
@@ -50,7 +51,7 @@ describe(modulePath, () => {
             const cosCallback = callArgs[1].callback;
             res = {status: 500};
             cosCallback('error', res);
-            sinon.assert.calledOnce(logger.error);
+            assert.calledOnce(logger.error);
         });
     });
     describe('case-orchestration-service', () => {
@@ -64,7 +65,7 @@ describe(modulePath, () => {
 
             const cosCallback = callArgs[1].callback;
             cosCallback(null, res);
-            sinon.assert.called(outputs.up);
+            assert.called(outputs.up);
         });
 
         it('throws an error if health check fails for case-orchestration-service', () => {
@@ -79,7 +80,7 @@ describe(modulePath, () => {
             res = {status: 500};
             cosCallback('error', res);
 
-            sinon.assert.calledOnce(logger.error);
+            assert.calledOnce(logger.error);
         });
     });
 });

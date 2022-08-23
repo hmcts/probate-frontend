@@ -79,7 +79,7 @@ describe('Pact AllExecutorsAgreedClient', () => {
 
             it('successfully returns true', (done) => {
                 const allExecutorsAgreedClient = new AllExecutorsAgreed('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
-                const verificationPromise = allExecutorsAgreedClient.get('123456');
+                const verificationPromise = allExecutorsAgreedClient.get(ctx.authToken, ctx.session.serviceAuthorization, '123456');
                 assert.eventually.ok(verificationPromise).notify(done);
             });
         });
@@ -109,7 +109,7 @@ describe('Pact AllExecutorsAgreedClient', () => {
 
             it('successfully returns false', (done) => {
                 const allExecutorsAgreedClient = new AllExecutorsAgreed('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
-                const verificationPromise = allExecutorsAgreedClient.get('123457', ctx.authToken, ctx.session.serviceAuthorization);
+                const verificationPromise = allExecutorsAgreedClient.get(ctx.authToken, ctx.session.serviceAuthorization, '123457');
                 assert.eventually.ok(verificationPromise).notify(done);
             });
         });

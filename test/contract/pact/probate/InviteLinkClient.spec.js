@@ -132,65 +132,7 @@ describe('Pact InviteLinkClient', () => {
                     leadExecutorName: 'Graham Garderner'
                 };
 
-                const exec = {};
-                const verificationPromise = inviteLink.post(data, exec, ctx.authToken, ctx.serviceAuthorization);
-                assert.eventually.ok(verificationPromise).notify(done);
-            });
-        });
-    });
-
-    describe('when a request to create and resend an invite', () => {
-        describe('is required from a POST', () => {
-            before(() =>
-                provider.addInteraction({
-                    // The 'state' field specifies a 'Provider State'
-                    state: 'probate_orchestrator_service creates and resends the invite',
-                    uponReceiving: 'a request to resend an invite',
-                    withRequest: {
-                        method: 'POST',
-                        path: '/invite/54321',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': ctx.authToken,
-                            'ServiceAuthorization': ctx.serviceAuthorization,
-                            'Session-Id': ctx.sessionID
-                        },
-                        body: {
-                            formdataId: '123456',
-                            email: 'address@email.com',
-                            inviteId: '54321',
-                            executorName: 'Jon Snow',
-                            firstName: 'Jon',
-                            lastName: 'Snow',
-                            phoneNumber: '07981898999',
-                            leadExecutorName: 'Graham Garderner'
-                        }
-                    },
-                    willRespondWith: {
-                        status: 200,
-                        headers: {'Content-Type': 'text/plain'},
-                        body: '54321'
-                    }
-                })
-            );
-
-            it('successfully resends invite', (done) => {
-                const inviteLink = new InviteLink('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
-                const data = {
-                    formdataId: '123456',
-                    email: 'address@email.com',
-                    inviteId: '54321',
-                    executorName: 'Jon Snow',
-                    firstName: 'Jon',
-                    lastName: 'Snow',
-                    phoneNumber: '07981898999',
-                    leadExecutorName: 'Graham Garderner'
-                };
-
-                const exec = {
-                    inviteId: '54321'
-                };
-                const verificationPromise = inviteLink.post(data, exec, ctx.authToken, ctx.serviceAuthorization);
+                const verificationPromise = inviteLink.post(data, ctx.authToken, ctx.serviceAuthorization);
                 assert.eventually.ok(verificationPromise).notify(done);
             });
         });

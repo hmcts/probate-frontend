@@ -57,7 +57,7 @@
     "test:smoke": "NODE_ENV=test mocha test/smoke/healthcheck.js --timeout 25000 --reporter spec",
     "test-contract": "NODE_ENV=test NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/addresslookup/*.js' 'test/contract/generatepin/*.js' --timeout 10000 --reporter spec",
     "test-api": "NODE_ENV=dev NODE_PATH=. LOG_LEVEL=error mocha 'test/api/*.js' --timeout 10000 --reporter spec --exit",
-    "test-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/pact/*.js' --timeout 10000 --reporter spec",
+    "test-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/pact/**' --timeout 10000 --reporter spec",
     "publish-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/publish/*.js' --timeout 10000 --reporter spec",
     "lint": "NODE_PATH=. eslint .",
     "eslint": "NODE_PATH=. eslint .",
@@ -145,7 +145,7 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
-    "@pact-foundation/pact": "^9.16.3",
+    "@pact-foundation/pact": "^9.18.1",
     "@pact-foundation/pact-node": "^10.13.8",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",

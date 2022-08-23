@@ -5,7 +5,7 @@ const path = require('path');
 const chai = require('chai');
 const {Pact} = require('@pact-foundation/pact');
 const chaiAsPromised = require('chai-as-promised');
-const ProbateFormData = require('app/services/ProbateFormData');
+const ProbateFormData = require('app/services/FormData');
 const config = require('config');
 const expect = chai.expect;
 const getPort = require('get-port');
@@ -43,8 +43,18 @@ describe('Pact ProbateFormData', () => {
 
     function getWrappedPayload(unwrappedPayload) {
         const fullBody = unwrappedPayload;
-        fullBody.type = 'PA';
         return fullBody;
+    }
+
+    function getExpectedResponseBody() {
+
+        const expectedJSON = JSON.parse(JSON.stringify(PA_FORMDATA_RESPONSE));
+        expectedJSON.ccdCase = {
+            'id': 1535574519543819,
+            'state': 'Pending'
+        };
+        // expectedJSON.type = 'Intestacy';
+        return expectedJSON;
     }
 
     // Setup a Mock Server before unit tests run.
@@ -73,11 +83,9 @@ describe('Pact ProbateFormData', () => {
                     uponReceiving: 'a request to GET probate formdata',
                     withRequest: {
                         method: 'GET',
-                        path: '/forms/someemailaddress@host.com',
-                        query: 'probateType=PA',
+                        path: '/forms/case/1535574519543819',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Session-Id': ctx.sessionID,
                             'Authorization': ctx.authToken,
                             'ServiceAuthorization': ctx.session.serviceAuthorization
                         }
@@ -94,7 +102,7 @@ describe('Pact ProbateFormData', () => {
             // Verify service client works as expected
             it('successfully get form data', (done) => {
                 const formDataClient = new ProbateFormData('http://localhost:' + MOCK_SERVER_PORT, 'someSessionId');
-                const verificationPromise = formDataClient.get('someemailaddress@host.com', ctx.authToken, ctx.session.serviceAuthorization);
+                const verificationPromise = formDataClient.get(ctx.authToken, ctx.session.serviceAuthorization, '1535574519543819', 'PA');
                 expect(verificationPromise).to.eventually.eql(PA_FORMDATA_RESPONSE).notify(done);
             });
 
@@ -111,10 +119,9 @@ describe('Pact ProbateFormData', () => {
                     uponReceiving: 'a request to POST probate formdata',
                     withRequest: {
                         method: 'POST',
-                        path: '/forms/someemailaddress@host.com',
+                        path: '/forms/case/1535574519543819',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Session-Id': 'someSessionId',
                             'Authorization': 'authToken',
                             'ServiceAuthorization': ctx.session.serviceAuthorization
                         },
@@ -123,7 +130,7 @@ describe('Pact ProbateFormData', () => {
                     willRespondWith: {
                         status: 200,
                         headers: {'Content-Type': 'application/json'},
-                        body: PA_FORMDATA_RESPONSE
+                        body: getExpectedResponseBody()
                     }
                 });
             });
@@ -132,8 +139,8 @@ describe('Pact ProbateFormData', () => {
             // Verify service client works as expected
             it('successfully validated form data', (done) => {
                 const formDataClient = new ProbateFormData('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
-                const verificationPromise = formDataClient.post('someemailaddress@host.com', PA_FORMDATA_PAYLOAD, ctx);
-                expect(verificationPromise).to.eventually.eql(PA_FORMDATA_RESPONSE).notify(done);
+                const verificationPromise = formDataClient.post(ctx.authToken, ctx.session.serviceAuthorization, '1535574519543819', PA_FORMDATA_PAYLOAD);
+                expect(verificationPromise).to.eventually.eql(getExpectedResponseBody()).notify(done);
             });
         });
     });

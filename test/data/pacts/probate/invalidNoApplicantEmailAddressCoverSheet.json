@@ -1,5 +1,14 @@
 {
   "applicantAddress": "",
+  "applicantName": "Appfn Surname",
   "caseReference": "123454",
-  "submitAddress": "manchester"
+  "submitAddress": "manchester",
+  "checkListItems": [
+    {
+        "text": "the original will (by law, we must keep your original will as it becomes a public document)",
+        "type": "textOnly"
+    }
+  ],
+  "noDocumentsRequired": false,
+  "noDocumentsRequiredText": null
 }

@@ -5,7 +5,7 @@ const path = require('path');
 const chai = require('chai');
 const {Pact} = require('@pact-foundation/pact');
 const chaiAsPromised = require('chai-as-promised');
-const IntestacySubmitData = require('app/services/IntestacySubmitData');
+const IntestacySubmitData = require('app/services/SubmitData');
 const config = require('config');
 const getPort = require('get-port');
 const expect = chai.expect;
@@ -19,6 +19,7 @@ describe('Pact Intestacy Submit Data', () => {
     let provider;
     getPort().then(portNumber => {
         MOCK_SERVER_PORT = portNumber;
+        console.log('PORTNUMBER => ', portNumber);
         // (1) Create the Pact object to represent your provider
         provider = new Pact({
             consumer: 'probate_frontend',
@@ -34,13 +35,37 @@ describe('Pact Intestacy Submit Data', () => {
     const ctx = {
         sessionID: 'someSessionId',
         authToken: 'authToken',
-        serviceAuthorization: 'someServiceAuthorization'
+        session: {
+            serviceAuthorization: 'someServiceAuthorization'
+        },
+        paymentDto: {
+            id: 'paymentDtoID',
+            amount: 273.0,
+            description: 'description',
+            reference: 'RC-some-reference',
+            date_created: '2022-01-01',
+            ccd_case_number: '1535574519543819'
+        }
     };
+
+    const expectedPayload = [{
+        id: 'paymentDtoID',
+        value: {
+            date: '2022-01-01',
+            amount: 273.0,
+            method: 'pba',
+            siteId: null,
+            status: 'Success',
+            reference: 'RC-some-reference',
+            transactionId: null
+        }
+    }];
 
     function getRequestPayload() {
 
         const expectedJSON = JSON.parse(JSON.stringify(FORM_DATA_BODY_REQUEST));
-        expectedJSON.type = 'Intestacy';
+        expectedJSON.type = 'intestacy';
+        expectedJSON.ccdCase = {id: 1535574519543819};
         return expectedJSON;
     }
 
@@ -49,9 +74,9 @@ describe('Pact Intestacy Submit Data', () => {
         const expectedJSON = JSON.parse(JSON.stringify(FORM_DATA_BODY_REQUEST));
         expectedJSON.ccdCase = {
             'id': 1535574519543819,
-            'state': 'PAAppCreated'
         };
-        expectedJSON.type = 'Intestacy';
+        expectedJSON.type = 'intestacy';
+        expectedJSON.payment = expectedPayload;
         return expectedJSON;
     }
 
@@ -70,8 +95,7 @@ describe('Pact Intestacy Submit Data', () => {
     // This ensures what we _expect_ from the provider, is actually
     // what we've asked for (and is what gets captured in the contract)
     afterEach(() => provider.verify());
-
-    describe('when intestacy formdata is posted', () => {
+    context('when intestacy formdata is posted', () => {
         describe('and is required to be submitted', () => {
             before(() => {
                 provider.addInteraction({
@@ -80,13 +104,13 @@ describe('Pact Intestacy Submit Data', () => {
                     uponReceiving: 'a submit request to POST intestacy formdata',
                     withRequest: {
                         method: 'PUT',
-                        path: '/forms/someemailaddress@host.com/submissions',
+                        path: '/forms/1535574519543819/submissions',
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': ctx.authToken,
-                            'ServiceAuthorization': ctx.serviceAuthorization
+                            'ServiceAuthorization': ctx.session.serviceAuthorization
                         },
-                        body: getRequestPayload()
+                        body: ctx.paymentDto
                     },
                     willRespondWith: {
                         status: 200,
@@ -99,17 +123,19 @@ describe('Pact Intestacy Submit Data', () => {
             // (4) write your test(s)
             // Verify service client works as expected
             it('successfully submitted form data', (done) => {
-                const submitDataClient = new IntestacySubmitData('http://localhost:'+MOCK_SERVER_PORT, ctx.sessionID);
-                const verificationPromise = submitDataClient.submit(FORM_DATA_BODY_REQUEST, ctx.authToken, ctx.serviceAuthorization);
-                expect(verificationPromise).to.eventually.eql(getExpectedPayload()).notify(done);
+                const submitDataClient = new IntestacySubmitData('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
+                const verificationPromise = submitDataClient.submit(getRequestPayload(), ctx.paymentDto, ctx.authToken, ctx.session.serviceAuthorization, 'intestacy');
+                expect(verificationPromise).to.eventually.eql(getExpectedPayload());
+                done();
             });
 
         });
-    });
-    // (6) write the pact file for this consumer-provider pair,
-    // and shutdown the associated mock server.
-    // You should do this only _once_ per Provider you are testing.
-    after(() => {
-        return provider.finalize();
+        // (6) write the pact file for this consumer-provider pair,
+        // and shutdown the associated mock server.
+        // You should do this only _once_ per Provider you are testing.
+        after(() => {
+            return provider.finalize();
+        });
+
     });
 });

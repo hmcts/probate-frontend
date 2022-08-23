@@ -9,9 +9,9 @@ const ProbateCoverSheetPdf = require('app/services/CoverSheetPdf');
 const nock = require('nock');
 const config = require('config');
 const assert = chai.assert;
-const expect = chai.expect;
 const getPort = require('get-port');
 const DOC_BODY_PAYLOAD = require('test/data/pacts/probate/coverSheet');
+const DOC_BODY_NO_DOCS_PAYLOAD = require('test/data/pacts/probate/coverSheetNoDocsRequired');
 const DOC_BODY_INVALID_PAYLOAD = require('test/data/pacts/probate/invalidNoApplicantEmailAddressCoverSheet');
 chai.use(chaiAsPromised);
 
@@ -36,25 +36,68 @@ describe('Pact ProbateCoverSheetPdf', () => {
     const serviceToken = 'tok123';
 
     const req = {
-        sessionID: 'someSessionId',
+        // sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
-            formdata: {
-                applicant: {address: 'addressLine1'},
+            form: {
+                applicant: {
+                    address: {
+                        formattedAddress: 'addressLine1',
+                    },
+                    firstName: 'Appfn',
+                    lastName: 'Surname'
+                },
                 ccdCase: {id: '123454'},
-                registry: {address: 'manchester'}
-            }
+                registry: {address: 'manchester'},
+                caseType: 'gop'
+            },
+            langauge: 'en',
+            serviceAuthorization: 'serviceAuthToken'
         }
     };
     const reqInvalid = {
-        sessionID: 'someSessionId',
+        // sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
-            formdata: {
-                applicant: {address: ''},
+            form: {
+                applicant: {
+                    address: {
+                        formattedAddress: '',
+                    },
+                    firstName: 'Appfn',
+                    lastName: 'Surname'
+                },
                 ccdCase: {id: '123454'},
-                registry: {address: 'manchester'}
-            }
+                registry: {address: 'manchester'},
+                caseType: 'gop'
+            },
+            langauge: 'en',
+            serviceAuthorization: 'serviceAuthToken'
+        }
+    };
+
+    const reqNoDocsRequired = {
+        // sessionID: 'someSessionId',
+        authToken: 'authToken',
+        session: {
+            form: {
+                applicant: {
+                    address: {
+                        formattedAddress: 'addressLine1',
+                    },
+                    firstName: 'Appfn',
+                    lastName: 'Surname',
+                    relationshipToDeceased: 'optionSpousePartner'
+                },
+                deceased: {
+                    married: 'optionYes'
+                },
+                ccdCase: {id: '123454'},
+                registry: {address: 'manchester'},
+                caseType: 'intestacy'
+            },
+            langauge: 'en',
+            serviceAuthorization: 'serviceAuthToken'
         }
     };
     // Setup a Mock Server before unit tests run.
@@ -145,7 +188,44 @@ describe('Pact ProbateCoverSheetPdf', () => {
             it('successfully Invalidate form data', (done) => {
                 const coverSheetPdfClient = new ProbateCoverSheetPdf('http://localhost:' + MOCK_SERVER_PORT, req.sessionID);
                 const verificationPromise = coverSheetPdfClient.post(reqInvalid);
-                expect(verificationPromise).to.eventually.be.rejectedWith('Error: Bad Request').notify(done);
+                assert.eventually.ok(verificationPromise).notify(done);
+            });
+            // (6) write the pact file for this consumer-provider pair,
+            // and shutdown the associated mock server.
+            // You should do this only _once_ per Provider you are testing.
+        });
+    });
+    describe('when valid cover sheet doc is posted intestacy and no docs required', () => {
+        describe('and is required to be downloaded', () => {
+            before(() => {
+                // (2) Start the mock server
+                provider.addInteraction({
+                    // The 'state' field specifies a 'Provider State'
+                    state: 'probate_orchestrator_service generates cover sheet byte[] with validation success',
+                    uponReceiving: 'a request to POST invalid cover sheet doc',
+                    withRequest: {
+                        method: 'POST',
+                        path: '/documents/generate/bulkScanCoversheet',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Session-Id': req.sessionID,
+                            'Authorization': req.authToken,
+                            'ServiceAuthorization': serviceToken
+                        },
+                        body: DOC_BODY_NO_DOCS_PAYLOAD
+                    },
+                    willRespondWith: {
+                        status: 200,
+                        headers: {'Content-Type': 'application/octet-stream'},
+                    }
+                });
+            });
+            // (4) write your test(s)
+            // Verify service client works as expected
+            it('successfully Invalidate form data', (done) => {
+                const coverSheetPdfClient = new ProbateCoverSheetPdf('http://localhost:' + MOCK_SERVER_PORT, req.sessionID);
+                const verificationPromise = coverSheetPdfClient.post(reqNoDocsRequired);
+                assert.eventually.ok(verificationPromise).notify(done);
             });
             // (6) write the pact file for this consumer-provider pair,
             // and shutdown the associated mock server.

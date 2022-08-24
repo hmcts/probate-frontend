@@ -130,4 +130,9 @@ withPipeline("nodejs", product, component) {
       alwaysLinkToLastBuild: true
     ]
   }
+
+  onPR() {
+    env.ENV='preview'
+    enablePactAs([AppPipelineDsl.PactRoles.CONSUMER])
+  }
 }

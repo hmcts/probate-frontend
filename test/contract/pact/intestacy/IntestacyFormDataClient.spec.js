@@ -19,7 +19,6 @@ describe('Pact IntestacyFormData', () => {
     let provider;
     getPort().then(portNumber => {
         MOCK_SERVER_PORT = portNumber;
-        console.log('PORTNUMBER => ', portNumber);
         // (1) Create the Pact object to represent your provider
         provider = new Pact({
             consumer: 'probate_frontend',
@@ -40,7 +39,6 @@ describe('Pact IntestacyFormData', () => {
     };
     function getRequestBody() {
         const fullBody = JSON.parse(JSON.stringify(FORM_DATA_BODY_PAYLOAD));
-        // fullBody.type = 'Intestacy';
         return fullBody;
     }
     function getExpectedResponseBody() {
@@ -50,7 +48,6 @@ describe('Pact IntestacyFormData', () => {
             'id': 1535574519543819,
             'state': 'Pending'
         };
-        // expectedJSON.type = 'Intestacy';
         return expectedJSON;
     }
 

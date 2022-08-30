@@ -36,7 +36,6 @@ describe('Pact ProbateDeclarationPdf', () => {
     const serviceToken = 'tok123';
 
     const req = {
-        // sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
             form: {

@@ -33,7 +33,6 @@ describe('Pact ProbateCheckAnswersPdf', () => {
     });
 
     const req = {
-        // sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
             form: {
@@ -44,7 +43,6 @@ describe('Pact ProbateCheckAnswersPdf', () => {
     };
 
     const reqInvalid = {
-        // sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
             form: {

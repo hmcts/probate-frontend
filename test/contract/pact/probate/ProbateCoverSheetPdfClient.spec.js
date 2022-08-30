@@ -36,7 +36,6 @@ describe('Pact ProbateCoverSheetPdf', () => {
     const serviceToken = 'tok123';
 
     const req = {
-        // sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
             form: {
@@ -56,7 +55,6 @@ describe('Pact ProbateCoverSheetPdf', () => {
         }
     };
     const reqInvalid = {
-        // sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
             form: {
@@ -77,7 +75,6 @@ describe('Pact ProbateCoverSheetPdf', () => {
     };
 
     const reqNoDocsRequired = {
-        // sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
             form: {

@@ -19,7 +19,6 @@ describe('Pact Intestacy Submit Data', () => {
     let provider;
     getPort().then(portNumber => {
         MOCK_SERVER_PORT = portNumber;
-        console.log('PORTNUMBER => ', portNumber);
         // (1) Create the Pact object to represent your provider
         provider = new Pact({
             consumer: 'probate_frontend',

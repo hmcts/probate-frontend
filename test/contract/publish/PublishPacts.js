@@ -13,6 +13,11 @@ const opts = {
     consumerVersion: git.short(),
     tags: config.services.pact.tag || 'Dev'
 };
+
+const certPath = path.resolve(__dirname, '../pact/cer/ca-bundle.crt');
+console.log('cert path = '+ certPath);
+process.env.SSL_CERT_FILE = certPath;
+
 pact.publishPacts(opts)
     .then(() => {
         console.log('Pact contract publishing complete!');

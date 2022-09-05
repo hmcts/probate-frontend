@@ -58,7 +58,7 @@
     "test-contract": "NODE_ENV=test NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/addresslookup/*.js' 'test/contract/generatepin/*.js' --timeout 10000 --reporter spec",
     "test-api": "NODE_ENV=dev NODE_PATH=. LOG_LEVEL=error mocha 'test/api/*.js' --timeout 10000 --reporter spec --exit",
     "test-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/pact/**' --timeout 10000 --reporter spec",
-    "test:pact:run-and-publish": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/pact/**' --timeout 10000 --reporter spec",
+    "test:pact:run-and-publish": "yarn test-pact && yarn publish-pact",
     "publish-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/publish/*.js' --timeout 10000 --reporter spec",
     "lint": "NODE_PATH=. eslint .",
     "eslint": "NODE_PATH=. eslint .",

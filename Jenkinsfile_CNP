@@ -134,7 +134,6 @@ withPipeline("nodejs", product, component) {
   }
 
   onPR() {
-    env.ENV='preview'
     enablePactAs([AppPipelineDsl.PactRoles.CONSUMER])
   }
 }

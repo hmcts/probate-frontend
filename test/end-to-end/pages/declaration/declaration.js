@@ -4,7 +4,7 @@ const config = require('config');
 
 module.exports = async function(language = 'en', bilingualGOP = null) {
     const I = this;
-    const commonContent = require(`app/resources/${language}/translation/common`);
+    //const commonContent = require(`app/resources/${language}/translation/common`);
     const declarationContent = require(`app/resources/${language}/translation/declaration`);
 
     await I.checkInUrl('/declaration');
@@ -27,5 +27,7 @@ module.exports = async function(language = 'en', bilingualGOP = null) {
     await I.scrollTo({css: '#declarationCheckbox'});
     await I.waitForEnabled({css: '#declarationCheckbox'});
     await I.click({css: '#declarationCheckbox'});
-    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
+    //commenting to check
+    await I.click({css: '.govuk-button[data-prevent-double-click="true"]'});
+    //await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

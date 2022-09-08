@@ -64,7 +64,7 @@ describe('Pact Probate Submit Data', () => {
     function getRequestPayload() {
 
         const expectedJSON = JSON.parse(JSON.stringify(MULTIPLE_EXE_FORM_DATA_BODY_REQUEST));
-        expectedJSON.type = 'intestacy';
+        expectedJSON.type = 'gop';
         expectedJSON.ccdCase = {id: 1535574519543819};
         return expectedJSON;
     }
@@ -75,7 +75,7 @@ describe('Pact Probate Submit Data', () => {
         expectedJSON.ccdCase = {
             'id': 1535574519543819,
         };
-        expectedJSON.type = 'intestacy';
+        expectedJSON.type = 'gop';
         expectedJSON.payment = expectedPayload;
         return expectedJSON;
     }

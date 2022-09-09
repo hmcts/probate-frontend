@@ -154,7 +154,7 @@ class TestConfigurator {
     }
 
     equalityAndDiversityEnabled() {
-        return this.environment !== 'local' || this.environment !== 'preview';
+        return this.environment !== 'local';
     }
 
     checkFeatureToggle(featureToggleKey) {

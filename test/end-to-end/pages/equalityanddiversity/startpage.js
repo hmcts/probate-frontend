@@ -12,7 +12,7 @@ module.exports = async function(language ='en') {
 
     // const url = await I.grabCurrentUrl();
     // console.info(`equality url: ${url}`);
-    await I.checkInUrl('/equality-and-diversity');
+    // await I.checkInUrl('/equality-and-diversity');
     const backButtonLocator = {css: '#back-button'};
     await I.waitForVisible(backButtonLocator, config.TestWaitForElementToAppear);
     const currentUrl = await I.grabCurrentUrl();

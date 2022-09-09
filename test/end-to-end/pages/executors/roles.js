@@ -5,7 +5,7 @@ module.exports = async function(language = 'en', executorNumber = null, answer =
     const commonContent = require(`app/resources/${language}/translation/common`);
 
     await I.checkInUrl(`/executor-roles/${firstRecord ? '*' : parseInt(executorNumber) - 1}`);
-
+    await I.refreshPage();
     const locator = {css: `#notApplyingReason${answer}`};
     await I.waitForEnabled(locator);
     await I.click(locator);

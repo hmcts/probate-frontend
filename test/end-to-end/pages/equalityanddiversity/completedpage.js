@@ -7,5 +7,6 @@ module.exports = async function(language ='en') {
     await I.wait(3);
     await I.waitForText(commonContent.saveAndContinue);
     await I.refreshPage();
+    await I.waitForText(commonContent.saveAndContinue);
     await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

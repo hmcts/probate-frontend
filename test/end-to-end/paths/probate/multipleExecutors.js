@@ -36,6 +36,7 @@ languages.forEach(language => {
         await I.selectDeathCertificateTranslation(language, optionYes);
         await I.selectDeceasedDomicile(language);
         const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
+        // console.log(isEEEnabled);
         if (isEEEnabled) {
             await I.selectEEDeceasedDod(language);
             await I.selectEEvalue(language);
@@ -112,7 +113,6 @@ languages.forEach(language => {
         const executorsWhoDiedList = ['2']; // exec2
         let diedBefore = optionYes;
         await I.selectExecutorsWhoDied(language, executorsWhoDiedList);
-
         if (executorsWhoDiedList) {
             for (let i = 0; i < executorsWhoDiedList.length; i++) {
                 const executorNum = executorsWhoDiedList[i];
@@ -248,6 +248,6 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
 
-    })//.tag('@e2enightly') DISABLED
+    }).tag('@e2enightly')
         .retry(TestConfigurator.getRetryScenarios());
 });

@@ -7,5 +7,4 @@ module.exports = async function(language = 'en', executor = null) {
     await I.refreshPage();
     await I.enterAddress();
     await I.click({css: '#submitAddress'});
-    //await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

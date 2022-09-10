@@ -19,5 +19,6 @@ module.exports = async function(language ='en') {
     if (!currentUrl.includes('/offline')) {
         await I.waitForText(equalityContent, config.TestWaitForTextToAppear);
     }
-    await I.navByClick(backButtonLocator);
+    await I.click(backButtonLocator);
+    // await I.navByClick(backButtonLocator);
 };

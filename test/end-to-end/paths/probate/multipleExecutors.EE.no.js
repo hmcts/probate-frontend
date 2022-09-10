@@ -245,6 +245,6 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
 
-    })//.tag('@e2enightly') DISABLED
+    })//.tag('@e2enightly') DISABLED NOW
         .retry(TestConfigurator.getRetryScenarios());
 });

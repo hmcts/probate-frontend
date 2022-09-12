@@ -15,6 +15,7 @@ module.exports = async function(language ='en') {
     const backButtonLocator = {css: '#back-button'};
     await I.waitForVisible(backButtonLocator, config.TestWaitForElementToAppear);
     await I.refreshPage();
+    await I.waitForVisible(backButtonLocator, config.TestWaitForElementToAppear);
     const currentUrl = await I.grabCurrentUrl();
     if (!currentUrl.includes('/offline')) {
         await I.waitForText(equalityContent, config.TestWaitForTextToAppear);

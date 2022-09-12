@@ -1,7 +1,6 @@
 'use strict';
 
-// eslint-disable-next-line no-unused-vars
-module.exports = async function(language = 'en', executorsWhoDiedList = null) {
+module.exports = async function(executorsWhoDiedList = null) {
     const I = this;
 
     await I.checkInUrl('/executors-who-died');

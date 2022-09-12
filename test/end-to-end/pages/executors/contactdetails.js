@@ -2,8 +2,7 @@
 
 const testConfig = require('config');
 
-// eslint-disable-next-line no-unused-vars
-module.exports = async function(language = 'en') {
+module.exports = async function() {
     const I = this;
 
     const emailLocator = {css: '#email'};

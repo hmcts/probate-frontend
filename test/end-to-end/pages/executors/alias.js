@@ -1,7 +1,6 @@
 'use strict';
 
-// eslint-disable-next-line no-unused-vars
-module.exports = async function(language = 'en', answer = null) {
+module.exports = async function(answer = null) {
     const I = this;
     await I.checkInUrl('/executors-alias');
     const locator = {css: `#alias${answer}`};

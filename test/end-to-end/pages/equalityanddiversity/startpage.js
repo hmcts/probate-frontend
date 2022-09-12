@@ -20,5 +20,4 @@ module.exports = async function(language ='en') {
         await I.waitForText(equalityContent, config.TestWaitForTextToAppear);
     }
     await I.click(backButtonLocator);
-    // await I.navByClick(backButtonLocator);
 };

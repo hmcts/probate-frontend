@@ -173,7 +173,7 @@ describe('Pact PaymentClient', () => {
             );
 
             it('successfully returns created payment', (done) => {
-                const paymentService = PaymentService(config.services.payment.url + config.services.payment.paths.createPayment, ctx.sessionID);
+                const paymentService = new PaymentService(config.services.payment.url + config.services.payment.paths.createPayment, ctx.sessionID);
                 const verificationPromise = paymentService.post(createPaymentData, 'http://localhost', 'en');
                 assert.eventually.ok(verificationPromise).notify(done);
             });

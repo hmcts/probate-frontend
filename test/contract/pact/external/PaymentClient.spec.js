@@ -138,7 +138,7 @@ describe('Pact PaymentClient', () => {
                     serviceAuthToken: ctx.session.serviceAuthorization,
                     paymentId: ctx.reference
                 };
-                const paymentService = PaymentService(config.services.payment.url + config.services.payment.paths.createPayment, ctx.sessionID);
+                const paymentService = new PaymentService(config.services.payment.url + config.services.payment.paths.createPayment, ctx.sessionID);
                 const verificationPromise = paymentService.get(data);
                 assert.eventually.ok(verificationPromise).notify(done);
             });

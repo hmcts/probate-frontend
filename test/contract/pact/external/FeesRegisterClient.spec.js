@@ -78,7 +78,7 @@ describe('Pact FeesRegisterClient', () => {
                     }
                 })
             );
-    
+
             it('successfully returns fee', (done) => {
                 const feeLookupClient = new FeesLookup(config.services.feesRegister.url, session);
                 const verificationPromise = feeLookupClient.get(config.services.feesRegister.issuesData, ctx);

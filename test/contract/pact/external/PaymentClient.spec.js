@@ -85,8 +85,26 @@ describe('Pact PaymentClient', () => {
                 memo_line: 'Probate Fees',
                 reference: 'userId',
                 volume: 1,
-                code: 'FEE0288',
+                code: 'FEE0026',
                 version: 1
+            },
+            {
+                calculated_amount: 1.5,
+                ccd_case_number: '1234567891011123',
+                memo_line: 'Additional UK copies',
+                reference: 'userId',
+                volume: 1,
+                code: 'FEE0003',
+                version: 0
+            },
+            {
+                calculated_amount: 3.5,
+                ccd_case_number: '1234567891011123',
+                memo_line: 'Additional overseas copies',
+                reference: 'userId',
+                volume: 1,
+                code: 'FEE0003',
+                version: 3
             }
         ],
         language: ''
@@ -174,7 +192,7 @@ describe('Pact PaymentClient', () => {
 
             it('successfully returns created payment', (done) => {
                 const paymentService = new PaymentService(config.services.payment.url + config.services.payment.paths.createPayment, ctx.sessionID);
-                const verificationPromise = paymentService.post(createPaymentData, 'localhost', 'en');
+                const verificationPromise = paymentService.post(createPaymentData, 'http://localhost', 'en');
                 assert.eventually.ok(verificationPromise).notify(done);
             });
         });

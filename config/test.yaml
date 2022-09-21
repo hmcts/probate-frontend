@@ -70,3 +70,5 @@ pact:
 
 featureToggles:
   enabled: false
+
+environment: local

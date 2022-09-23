@@ -259,6 +259,11 @@ describe('IhtEstateValues', () => {
                 {
                     field: 'estateNetQualifyingValueField',
                     href: '#estateNetQualifyingValueField',
+                    msg: content.errors.estateNetQualifyingValueField.netQualifyingValueGreaterThanNet
+                },
+                {
+                    field: 'estateNetQualifyingValueField',
+                    href: '#estateNetQualifyingValueField',
                     msg: content.errors.estateNetQualifyingValueField.netQualifyingValueGreaterThanGross
                 }
             ]);

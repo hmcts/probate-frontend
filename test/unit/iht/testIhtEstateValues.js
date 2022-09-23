@@ -239,6 +239,55 @@ describe('IhtEstateValues', () => {
             ]);
             done();
         });
-
+        it('should error when net qualifying value is bigger than gross', (done) => {
+            ctx = {
+                estateGrossValueField: '500000',
+                estateNetValueField: '500002',
+                estateNetQualifyingValueField: '500001'
+            };
+            errors = [];
+            [ctx, errors] = IhtEstateValues.handlePost(ctx, errors, {}, {language: 'en'});
+            expect(ctx).to.deep.equal({
+                estateGrossValueField: '500000',
+                estateGrossValue: 500000,
+                estateNetValueField: '500002',
+                estateNetValue: 500002,
+                estateNetQualifyingValueField: '500001',
+                estateNetQualifyingValue: 500001
+            });
+            expect(errors).to.deep.equal([
+                {
+                    field: 'estateNetQualifyingValueField',
+                    href: '#estateNetQualifyingValueField',
+                    msg: content.errors.estateNetQualifyingValueField.netQualifyingValueGreaterThanGross
+                }
+            ]);
+            done();
+        });
+        it('should error when net qualifying value is bigger than net', (done) => {
+            ctx = {
+                estateGrossValueField: '500000',
+                estateNetValueField: '400000',
+                estateNetQualifyingValueField: '500000'
+            };
+            errors = [];
+            [ctx, errors] = IhtEstateValues.handlePost(ctx, errors, {}, {language: 'en'});
+            expect(ctx).to.deep.equal({
+                estateGrossValueField: '500000',
+                estateGrossValue: 500000,
+                estateNetValueField: '400000',
+                estateNetValue: 400000,
+                estateNetQualifyingValueField: '500000',
+                estateNetQualifyingValue: 500000
+            });
+            expect(errors).to.deep.equal([
+                {
+                    field: 'estateNetQualifyingValueField',
+                    href: '#estateNetQualifyingValueField',
+                    msg: content.errors.estateNetQualifyingValueField.netQualifyingValueGreaterThanNet
+                }
+            ]);
+            done();
+        });
     });
 });

@@ -242,7 +242,7 @@ describe('IhtEstateValues', () => {
         it('should error when net qualifying value is bigger than gross', (done) => {
             ctx = {
                 estateGrossValueField: '500000',
-                estateNetValueField: '500000',
+                estateNetValueField: '500001',
                 estateNetQualifyingValueField: '500001'
             };
             errors = [];
@@ -250,8 +250,8 @@ describe('IhtEstateValues', () => {
             expect(ctx).to.deep.equal({
                 estateGrossValueField: '500000',
                 estateGrossValue: 500000,
-                estateNetValueField: '500000',
-                estateNetValue: 500000,
+                estateNetValueField: '500001',
+                estateNetValue: 500001,
                 estateNetQualifyingValueField: '500001',
                 estateNetQualifyingValue: 500001
             });

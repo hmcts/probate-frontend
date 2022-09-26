@@ -5,6 +5,7 @@ module.exports = async function(language = 'en', executorNotified = null) {
     const commonContent = require(`app/resources/${language}/translation/common`);
 
     await I.checkInUrl('/executor-notified');
+    await I.refreshPage();
     const locator = {css: `#executorNotified${executorNotified}`};
     await I.waitForEnabled(locator);
     await I.click(locator);

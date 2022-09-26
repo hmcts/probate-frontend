@@ -259,12 +259,12 @@ describe('IhtEstateValues', () => {
                 {
                     field: 'estateNetQualifyingValueField',
                     href: '#estateNetQualifyingValueField',
-                    msg: content.errors.estateNetQualifyingValueField.netQualifyingValueGreaterThanNet
+                    msg: content.errors.estateNetQualifyingValueField.netQualifyingValueGreaterThanGross
                 },
                 {
                     field: 'estateNetQualifyingValueField',
                     href: '#estateNetQualifyingValueField',
-                    msg: content.errors.estateNetQualifyingValueField.netQualifyingValueGreaterThanGross
+                    msg: content.errors.estateNetQualifyingValueField.netQualifyingValueGreaterThanNet
                 }
             ]);
             done();

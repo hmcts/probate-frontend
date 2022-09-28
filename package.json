@@ -126,7 +126,7 @@
     "moment": "^2.29.2",
     "multer": "^1.4.2",
     "node-emoji": "^1.10.0",
-    "node-fetch": "^3.0.0",
+    "node-fetch": "^2.6.7",
     "node-git-info-json": "^0.1.1",
     "numeral": "^2.0.6",
     "nunjucks": "^3.2.0",

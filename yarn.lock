@@ -124,21 +124,21 @@
     js-yaml "^3.8.4"
     superagent "7"
 
+"@hmcts/nodejs-logging@^3.0.0":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@hmcts/nodejs-logging/-/nodejs-logging-3.0.4.tgz#82418571e85f0a275e021f53008195accc55e3b9"
+  integrity sha512-42JgVVxxMI9JD+lnKkBcwIYAiJM/mIUlSLlqs8uVqnzHG/JdMhg1g6cYWqWc3UIhxl2KS+n8y4bh09nLC47nSA==
+  dependencies:
+    moment "^2.19.3"
+    on-finished "^2.3.0"
+    winston "^2.4.5"
+
 "@hmcts/nodejs-logging@^4.0.1", "@hmcts/nodejs-logging@^4.0.2":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@hmcts/nodejs-logging/-/nodejs-logging-4.0.2.tgz#15a7a558c78471ce60360a82b5e2f30001b4ce6f"
   integrity sha512-wEQ7cjfQcZ4CL55zlPrFhJkg/hC+2US++ZiR35wfLfMBJEtLCEYbiRu1YzLVjQXMgGn8oaH2woYIIvpLdpt4Yg==
   dependencies:
     moment "^2.19.3"
-    on-finished "^2.3.0"
-    winston "^2.4.5"
-
-"@hmcts/nodejs-logging@^4.0.4":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@hmcts/nodejs-logging/-/nodejs-logging-4.0.4.tgz#83d8757c6e2f28ac68b57c87b35d71f72024a5f2"
-  integrity sha512-VtrVD6ERZKWu/iy17GZXNuFq/MoK0Q8DrEhd5P30WMzsYDrSKBIr3szEV8M3Ht59oaTm3MUA6Az7PldnFWg3Ow==
-  dependencies:
-    moment "^2.29.4"
     on-finished "^2.3.0"
     winston "^2.4.5"
 
@@ -150,12 +150,12 @@
     request "^2.83.0"
     request-promise-native "^1.0.5"
 
-"@hmcts/properties-volume@^0.0.14":
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/@hmcts/properties-volume/-/properties-volume-0.0.14.tgz#fb3f1f90d3af8344e54c99be5e8c19ee9793ac1c"
-  integrity sha512-LEG5Nl35qW4jOe88KNCykwsMNqebz7kRU9eyggj7qyKfrecY+xDVrG9t+14Bphnq6DQg/mqG8VI0y5lk9d3u5Q==
+"@hmcts/properties-volume@^0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@hmcts/properties-volume/-/properties-volume-0.0.13.tgz#d1baeab407d519505aeb2614fb91632a1a328366"
+  integrity sha512-WTz5KTQG3IXQnNZCb63fR44muNn++GxGWZad0k12iIYsNfgws+dMOw7QwhbuKOMhQ2sSWxNK882ZxchVihZN9w==
   dependencies:
-    "@hmcts/nodejs-logging" "^4.0.4"
+    "@hmcts/nodejs-logging" "^3.0.0"
     lodash "^4.17.11"
     path "^0.12.7"
 
@@ -4235,12 +4235,12 @@ hoopy@^0.1.4:
   resolved "https://registry.yarnpkg.com/hoopy/-/hoopy-0.1.4.tgz#609207d661100033a9a9402ad3dea677381c1b1d"
   integrity sha512-HRcs+2mr52W0K+x8RzcLzuPPmVIKMSv97RGHy0Ea9y/mpcaK+xTrjICA04KAHi4GRzxliNqNJEFYWHghy3rSfQ==
 
-hosted-git-info@5.1.0, hosted-git-info@^2.1.4, hosted-git-info@^4.0.1:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-5.1.0.tgz#9786123f92ef3627f24abc3f15c20d98ec4a6594"
-  integrity sha512-Ek+QmMEqZF8XrbFdwoDjSbm7rT23pCgEMOJmz6GPk/s4yH//RQfNPArhIxbguNxROq/+5lNBwCDHMhA903Kx1Q==
+hosted-git-info@4.0.1, hosted-git-info@^2.1.4, hosted-git-info@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-4.0.1.tgz#710ef5452ea429a844abc33c981056e7371edab7"
+  integrity sha512-eT7NrxAsppPRQEBSwKSosReE+v8OzABwEScQYk5d4uxaEPlzxTIku7LINXtBGalthkLhJnq5lBI89PfK43zAKg==
   dependencies:
-    lru-cache "^7.5.1"
+    lru-cache "^6.0.0"
 
 hpkp@2.0.0:
   version "2.0.0"
@@ -5541,11 +5541,6 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-lru-cache@^7.5.1:
-  version "7.14.0"
-  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-7.14.0.tgz#21be64954a4680e303a09e9468f880b98a0b3c7f"
-  integrity sha512-EIRtP1GrSJny0dqb50QXRUNBxHJhcpxHC++M5tD7RYbvLLn5KVWKsbyswSSqDuU15UFi3bgTQIY8nhDMeF6aDQ==
-
 lru-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/lru-queue/-/lru-queue-0.1.0.tgz#2738bd9f0d3cf4f84490c5736c48699ac632cda3"
@@ -5934,7 +5929,7 @@ module-not-found-error@^1.0.1:
   resolved "https://registry.yarnpkg.com/module-not-found-error/-/module-not-found-error-1.0.1.tgz#cf8b4ff4f29640674d6cdd02b0e3bc523c2bbdc0"
   integrity sha512-pEk4ECWQXV6z2zjhRZUongnLJNUeGQJ3w6OQ5ctGwD+i5o93qjRQUk2Rt6VdNeu3sEP0AB4LcfvdebpxBRVr4g==
 
-moment@^2.19.3, moment@^2.29.2, moment@^2.29.4:
+moment@^2.19.3, moment@^2.29.2:
   version "2.29.4"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
   integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==

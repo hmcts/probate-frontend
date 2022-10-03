@@ -28,7 +28,7 @@ describe('Pact PaymentClient', () => {
         sessionID: 'someSessionId',
         authToken: 'authToken',
         userId: 'userId',
-        reference: '654321ABC',
+        reference: 'RC-1111-2222-3333-4444',
         session: {
             serviceAuthorization: 'someServiceAuthorization'
         }
@@ -36,21 +36,22 @@ describe('Pact PaymentClient', () => {
 
     const paymentBodyExpectation = {
         channel: somethingLike('online'),
-        amount: like(99.00),
+        amount: like(273),
         ccd_case_number: somethingLike('1535395401245028'),
-        reference: somethingLike('RC-1519-9028-2432-0001'),
-        status: somethingLike('Initiated'),
+        reference: somethingLike('RC-1111-2222-3333-4444'),
+        status: somethingLike('Success'),
         site_id: somethingLike('siteId0001'),
-        external_reference: somethingLike('23459BC')
+        external_reference: somethingLike('23459BC'),
+        currency: 'GBP'
     };
 
     const createPaymentData = {
-        amount: 300.00,
+        amount: 282,
         authToken: ctx.authToken,
         serviceAuthToken: ctx.session.serviceAuthorization,
         userId: ctx.userId,
-        applicationFee: 12.50,
-        code: 'FEE0288',
+        applicationFee: 273,
+        code: 'FEE0219',
         copies: {
             uk: {
                 number: 1,
@@ -63,34 +64,34 @@ describe('Pact PaymentClient', () => {
         },
         version: 1,
         deceasedLastName: 'deceasedLastName',
-        ccdCaseId: '1234567891011123',
+        ccdCaseId: '1535395401245028',
         applicationversion: 1,
-        applicationcode: 'FEE0026',
+        applicationcode: 'FEE0219',
         ukcopiesversion: 0,
         ukcopiescode: 'FEE0003',
         overseascopiesversion: 3,
         overseascopiescode: 'FEE0003',
     };
     const postPaymentData = {
-        amount: 300,
+        amount: 282,
         description: 'Probate Fees',
-        ccd_case_number: '1234567891011123',
+        ccd_case_number: '1535395401245028',
         service: 'PROBATE',
         currency: 'GBP',
         site_id: 'P223',
         fees: [
             {
-                calculated_amount: 12.5,
-                ccd_case_number: '1234567891011123',
+                calculated_amount: 273,
+                ccd_case_number: '1535395401245028',
                 memo_line: 'Probate Fees',
                 reference: 'userId',
                 volume: 1,
-                code: 'FEE0026',
+                code: 'FEE0219',
                 version: 1
             },
             {
                 calculated_amount: 1.5,
-                ccd_case_number: '1234567891011123',
+                ccd_case_number: '1535395401245028',
                 memo_line: 'Additional UK copies',
                 reference: 'userId',
                 volume: 1,
@@ -99,7 +100,7 @@ describe('Pact PaymentClient', () => {
             },
             {
                 calculated_amount: 3.5,
-                ccd_case_number: '1234567891011123',
+                ccd_case_number: '1535395401245028',
                 memo_line: 'Additional overseas copies',
                 reference: 'userId',
                 volume: 1,
@@ -177,7 +178,7 @@ describe('Pact PaymentClient', () => {
                             'Content-Type': 'application/json',
                             'Authorization': ctx.authToken,
                             'ServiceAuthorization': ctx.serviceAuthorization,
-                            'return-url': 'http://localhost/payment-status',
+                            'return-url': 'http://localhost:3000/payment-status',
                             'service-callback-url': 'http://localhost:8888/payment-updates'
                         },
                         body: postPaymentData
@@ -192,7 +193,7 @@ describe('Pact PaymentClient', () => {
 
             it('successfully returns created payment', (done) => {
                 const paymentService = new PaymentService(config.services.payment.url + config.services.payment.paths.createPayment, ctx.sessionID);
-                const verificationPromise = paymentService.post(createPaymentData, 'http://localhost', 'en');
+                const verificationPromise = paymentService.post(createPaymentData, 'http://localhost:3000', 'en');
                 assert.eventually.ok(verificationPromise).notify(done);
             });
         });

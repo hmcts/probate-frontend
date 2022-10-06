@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ExecutorsNames = steps.ExecutorsNames;
 
-describe('ExecutorsNames', () => {
+describe.only('ExecutorsNames', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ExecutorsNames.constructor.getUrl();
@@ -36,10 +36,10 @@ describe('ExecutorsNames', () => {
             done();
         });
 
-        it('should return the lead applicant alias in the context for applicantCurrentName', (done) => {
+        it('should return the lead applicant name in the context for applicantCurrentName with alias', (done) => {
             req.session.form.applicant.alias = 'Bob Alias';
             ctx = ExecutorsNames.getContextData(req);
-            expect(ctx.applicantCurrentName).to.deep.equal('Bob Alias');
+            expect(ctx.applicantCurrentName).to.deep.equal('Steve Madden');
             done();
         });
 

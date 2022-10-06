@@ -49,9 +49,9 @@ describe('FormatName.js', () => {
     });
 
     describe('applicantWillName()', () => {
-        it('should return applicant alias when the person does have an alias', (done) => {
+        it('should return applicant name when the person does have an alias', (done) => {
             const executor = {firstName: 'James', lastName: 'Miller', alias: 'Bob Alias'};
-            expect(FormatName.applicantWillName(executor)).to.equal('Bob Alias');
+            expect(FormatName.applicantWillName(executor)).to.equal('James Miller');
             done();
         });
 

@@ -46,8 +46,8 @@ describe('Tests for IHT Estate Values', () => {
 
         it(`test it redirects to Deceased had a late spouse or civil partner page: ${expectedNextUrlDeceasedHadLateSpouseOrCivilPartner}`, (done) => {
             const data = {
-                estateNetValueField: '1',
-                estateGrossValueField: '1',
+                estateNetValueField: '500000',
+                estateGrossValueField: '500000',
                 estateNetQualifyingValueField: '500000',
             };
 
@@ -56,8 +56,8 @@ describe('Tests for IHT Estate Values', () => {
 
         it(`test it redirects to probate estate values page - qualifying net value < 325,000: ${expectedNextUrlProbateEstateValues}`, (done) => {
             const data = {
-                estateNetValueField: '1',
-                estateGrossValueField: '1',
+                estateNetValueField: '100000',
+                estateGrossValueField: '100003',
                 estateNetQualifyingValueField: '100000'
             };
 
@@ -76,8 +76,8 @@ describe('Tests for IHT Estate Values', () => {
 
         it(`test it redirects to probate estate values page - qualifying net value > 650,000: ${expectedNextUrlProbateEstateValues}`, (done) => {
             const data = {
-                estateNetValueField: '1',
-                estateGrossValueField: '1',
+                estateNetValueField: '700000',
+                estateGrossValueField: '700000',
                 estateNetQualifyingValueField: '700000'
             };
 

@@ -54,7 +54,12 @@ class IhtEstateValues extends ValidationStep {
         if (ctx.estateNetValue > ctx.estateGrossValue) {
             errors.push(FieldError('estateNetValueField', 'netValueGreaterThanGross', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
-
+        if (ctx.estateNetQualifyingValue > ctx.estateGrossValue) {
+            errors.push(FieldError('estateNetQualifyingValueField', 'netQualifyingValueGreaterThanGross', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        }
+        if (ctx.estateNetQualifyingValue > ctx.estateNetValue) {
+            errors.push(FieldError('estateNetQualifyingValueField', 'netQualifyingValueGreaterThanNet', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        }
         return [ctx, errors];
     }
 }

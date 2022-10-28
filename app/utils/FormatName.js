@@ -10,7 +10,7 @@ class FormatName {
 
     static applicantWillName(person) {
         person = person || {};
-        const currentName = this.format(person);
+        const currentName = person.alias || this.format(person);
         return currentName;
     }
 

@@ -36,10 +36,10 @@ describe('ExecutorsNames', () => {
             done();
         });
 
-        it('should return the lead applicant name in the context for applicantCurrentName with alias', (done) => {
+        it('should return the lead applicant alias in the context for applicantCurrentName', (done) => {
             req.session.form.applicant.alias = 'Bob Alias';
             ctx = ExecutorsNames.getContextData(req);
-            expect(ctx.applicantCurrentName).to.deep.equal('Steve Madden');
+            expect(ctx.applicantCurrentName).to.deep.equal('Bob Alias');
             done();
         });
 

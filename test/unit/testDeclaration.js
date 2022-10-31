@@ -81,7 +81,7 @@ describe('Declaration', () => {
             const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, mainApplicantName);
 
             expect(data).to.deep.equal([{
-                name: 'Applicant Current Name, an executor named in the will or codicils as Applicant Current Name, is applying for probate. Their name is different because Applicant Current Name changed their name by deed poll.',
+                name: 'Applicant Current Name, an executor named in the will or codicils as Applicant Will Name, is applying for probate. Their name is different because Applicant Current Name changed their name by deed poll.',
                 sign: 'Applicant Current Name will send to the probate registry what we have seen and believe to be the true and original last will and testament, and  codicil of Mrs Deceased.'
             }, {
                 name: 'Exec 1 Current Name, an executor named in the will or codicils as Exec 1 Will Name, is applying for probate. Their name is different because Exec 1 Current Name got married.',
@@ -100,7 +100,7 @@ describe('Declaration', () => {
             const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, mainApplicantName);
 
             expect(data).to.deep.equal([{
-                name: 'Applicant Current Name, an executor named in the will or codicils as Applicant Current Name, is applying for probate. Their name is different because Applicant Current Name changed their name by deed poll.',
+                name: 'Applicant Current Name, an executor named in the will or codicils as Applicant Will Name, is applying for probate. Their name is different because Applicant Current Name changed their name by deed poll.',
                 sign: 'Applicant Current Name will send to the probate registry what we have seen and believe to be the true and original last will and testament, and 3 codicils of Mrs Deceased.'
             }, {
                 name: 'Exec 1 Current Name, an executor named in the will or codicils as Exec 1 Will Name, is applying for probate. Their name is different because Exec 1 Current Name got married.',

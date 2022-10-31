@@ -4,3 +4,5 @@ featureToggles:
 configFeatureToggles:
   webchatEnabled: true
   gaEnabled: true
+
+environment: local

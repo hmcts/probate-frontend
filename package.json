@@ -4,7 +4,7 @@
   "version": "4.1.2",
   "private": true,
   "engines": {
-    "node": ">=12.5.0"
+    "node": ">=14.9.3"
   },
   "scripts": {
     "setup": "NODE_PATH=. yarn git-info && yarn sass && yarn sass-ie8",
@@ -23,7 +23,7 @@
     "sass-ie8": "NODE_PATH=. node-sass app/assets/sass/application-ie8.scss --output public/stylesheets --quiet --output-style expanded --source-map true --include-path node_modules/govuk_frontend",
     "test": "yarn test-unit $@ && yarn test-component $@",
     "test-unit": "NODE_ENV=testing-unit NODE_PATH=. LOG_LEVEL=error mocha test/unit --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
-    "test-unit-healthcheck": "NODE_ENV=testing-unit NODE_PATH=. LOG_LEVEL=error mocha test/unit/utils/testHealthcheck.js --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
+    "test-unit-healthcheck": "NODE_ENV=testing-unit NODE_PATH=. LOG_LEVEL=error mocha test/unit/utils/testSetupHealthCheck.js --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
     "test-unit-grep": "NODE_ENV=testing-unit NODE_PATH=. LOG_LEVEL=error mocha test/unit --grep 'PCQ feature toggle is ON and health is DOWN' --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
     "test-component": "NODE_ENV=testing-component NODE_PATH=. LOG_LEVEL=error mocha test/component --reporter spec --recursive --timeout 15000",
     "test-component-death-cert": "NODE_ENV=testing-component NODE_PATH=. LOG_LEVEL=error mocha test/component/deceased/testDeathCertificate.js --reporter spec --recursive --timeout 15000",
@@ -90,7 +90,7 @@
     "@hmcts/nodejs-healthcheck": "^1.7.0",
     "@hmcts/nodejs-logging": "^4.0.2",
     "@hmcts/os-places-client": "^1.1.2",
-    "@hmcts/properties-volume": "^0.0.13",
+    "@hmcts/properties-volume": "^0.0.14",
     "@wdio/selenium-standalone-service": "^7.6.0",
     "ajv": "^6.12.6",
     "ajv-keywords": "^3.5.2",
@@ -177,8 +177,8 @@
     "sinon-chai": "^3.3.0",
     "sonar-scanner": "^3.1.0",
     "sonarqube-scanner": "^2.5.0",
-    "superagent-proxy": "^2.1.0",
-    "supertest": "^4.0.2",
+    "superagent-proxy": "^3.0.0",
+    "supertest": "^6.0.0",
     "unirest": "^0.6.0",
     "uuid": "^8.3.1",
     "watch": "^1.0.2",

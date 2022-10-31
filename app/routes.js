@@ -233,7 +233,7 @@ router.get('/payment', (req, res) => {
     res.redirect(301, '/documents');
 });
 
-if (['sandbox', 'saat', 'preview', 'perftest', 'demo', 'aat'].includes(config.environment)) {
+if (['sandbox', 'saat', 'preview', 'perftest', 'demo', 'aat', 'local'].includes(config.environment)) {
     router.get('/inviteIdList', (req, res) => {
         const formdata = req.session.form;
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);

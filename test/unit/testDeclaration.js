@@ -35,6 +35,7 @@ describe('Declaration', () => {
                 address: 'Applicant address',
                 isApplicant: true,
                 isApplying: true,
+                nameAsOnTheWill: false,
                 alias: 'Applicant Will Name',
                 aliasReason: 'optionDeedPoll'
             }, {

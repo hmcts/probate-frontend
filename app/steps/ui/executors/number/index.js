@@ -23,6 +23,7 @@ class ExecutorsNumber extends ValidationStep {
         ctx.list[0] = {
             firstName: get(formdata, 'applicant.firstName'),
             lastName: get(formdata, 'applicant.lastName'),
+            nameAsOnTheWill: (get(formdata, 'applicant.nameAsOnTheWill', 'optionYes') === 'optionYes'),
             alias: get(formdata, 'applicant.alias'),
             aliasReason: get(formdata, 'applicant.aliasReason'),
             otherReason: get(formdata, 'applicant.otherReason'),

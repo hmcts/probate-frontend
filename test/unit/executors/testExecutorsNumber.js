@@ -38,6 +38,7 @@ describe('ExecutorsNumber', () => {
                 applicant: {
                     'firstName': 'Dave',
                     'lastName': 'Bassett',
+                    'nameAsOnTheWill': 'optionYes',
                     'alias': 'David James',
                     'aliasReason': 'Divorce',
                     'otherReason': ''
@@ -66,6 +67,7 @@ describe('ExecutorsNumber', () => {
             expect(ctx.list).to.deep.equal([{
                 'firstName': 'Dave',
                 'lastName': 'Bassett',
+                'nameAsOnTheWill': true,
                 'alias': 'David James',
                 'aliasReason': 'Divorce',
                 'otherReason': '',
@@ -82,6 +84,7 @@ describe('ExecutorsNumber', () => {
                 {
                     'firstName': 'Dave',
                     'lastName': 'Bassett',
+                    'nameAsOnTheWill': true,
                     'alias': 'David James',
                     'aliasReason': 'Divorce',
                     'otherReason': '',
@@ -103,6 +106,7 @@ describe('ExecutorsNumber', () => {
                 {
                     'firstName': 'Dave',
                     'lastName': 'Bassett',
+                    'nameAsOnTheWill': true,
                     'alias': 'David James',
                     'aliasReason': 'Divorce',
                     'otherReason': '',

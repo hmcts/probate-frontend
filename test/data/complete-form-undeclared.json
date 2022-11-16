@@ -76,6 +76,7 @@
       "list": [{
         "firstName": "Bob",
         "lastName": "Smith",
+        "nameAsOnTheWill": "optionNo",
         "isApplicant": true,
         "isApplying": true,
         "aliasReason": "optionDeedPoll",

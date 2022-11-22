@@ -45,6 +45,10 @@ class ApplicantNameAsOnWill extends ValidationStep {
         if (ctx.nameAsOnTheWill === 'optionYes') {
             delete ctx.alias;
             delete ctx.aliasReason;
+            delete ctx.otherReason;
+            delete formdata.alias;
+            delete formdata.aliasReason;
+            delete formdata.otherReason;
         }
 
         return [ctx, formdata];

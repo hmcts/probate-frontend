@@ -358,7 +358,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         const server = https.createServer(sslOptions, app);
 
         http = server.listen(port, () => {
-            console.log(`Application started: https://localhost:${port}`);
+            console.log(`Dev Application started: https://localhost:${port}`);
         });
     } else {
         http = app.listen(port, () => {

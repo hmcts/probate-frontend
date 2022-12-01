@@ -31,6 +31,8 @@ $path: "/public/images/";
 @import "node_modules/govuk-frontend/govuk/utilities/all";
 @import "node_modules/govuk-frontend/govuk/overrides/all";
 
+@import "components/progress-bar";
+
 @import "patterns/phase-banner";
 @import "patterns/header";
 @import "patterns/hint";
@@ -44,3 +46,5 @@ $path: "/public/images/";
 @import "patterns/avaya-webchat-1";
 
 @import "application-common.scss";
+
+

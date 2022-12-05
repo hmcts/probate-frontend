@@ -1,4 +1,4 @@
-# Probate Frontend
+# Probate Frontend.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Probate&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Probate) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Probate&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Probate) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Probate&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Probate) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Probate&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Probate)
 

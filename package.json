@@ -186,7 +186,7 @@
     "when": "^3.7.8"
   },
   "resolutions": {
-    "hosted-git-info": "4.0.1",
+    "hosted-git-info": "6.1.1",
     "launchdarkly-node-server-sdk/launchdarkly-eventsource/original/url-parse": "^1.5.10",
     "shelljs": ">=0.8.5",
     "minimist": "1.2.6",

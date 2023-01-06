@@ -16,6 +16,14 @@ class IhtMethod extends ValidationStep {
         };
     }
 
+    handleGet(ctx) {
+        if (new Date() > new Date('2023-03-31')) {
+            ctx.paragraph2 = '';
+        }
+
+        return [ctx];
+    }
+
     action(ctx, formdata) {
         super.action(ctx, formdata);
 

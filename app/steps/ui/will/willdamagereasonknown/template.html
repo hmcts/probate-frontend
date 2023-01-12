@@ -11,12 +11,9 @@
             name: "willDamageReasonDescription",
             id: "willDamageReasonDescription",
             label: {
-                text: content["willDamageReasonDescriptionTitle"] | safe,
-                classes: "govuk-label--s",
-                isPageHeading: false
-            },
-            hint: {
-                text: content["willDamageReasonDescriptionHint"] | safe
+              text: content["willDamageReasonDescriptionTitle"] | safe,
+              classes: "govuk-label--s",
+              isPageHeading: false
             },
             value: fields.willDamageReasonDescription.value
         }) }}
@@ -32,6 +29,9 @@
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
+        },
+        hint: {
+            text: content.hint | safe
         },
         errorMessage: { text: fields.willDamageReasonKnown.errorMessage | safe } if fields.willDamageReasonKnown.errorMessage,
         items: [

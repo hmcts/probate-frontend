@@ -1,16 +1,16 @@
 {
-    "title": "Ydych chi’n gwybod pam fod difrod neu farciau ar yr ewyllys?",
-    "question": "Ydych chi’n gwybod pam fod difrod neu farciau ar yr ewyllys?",
+    "title": "A ydych yn gwybod pam bod marciau ar yr ewyllys neu ei bod wedi'i difrodi?",
+    "question": "A ydych yn gwybod pam bod marciau ar yr ewyllys neu ei bod wedi'i difrodi?",
+    "hint": "Os ydych yn gwybod, er enghraifft, pam gafodd styffylau eu tynnu i ffwrdd o&rsquo;r ewyllys, dylech ddweud wrthym oherwydd bydd hyn yn lleihau unrhyw oedi wrth brosesu eich cais",
     "optionYes": "Ydw",
     "optionNo": "Nac ydw",
-    "willDamageReasonDescriptionTitle": "Rheswm dros y difrod neu farciau i’r ewyllys",
-    "willDamageReasonDescriptionHint": "Rhowch cymaint o fanylion ag sy’n bosibl. Efallai bydd hyn yn lleihau unrhyw oedi wrth brosesu eich cais",
+    "willDamageReasonDescriptionTitle": "Esboniwch pam bod marciau ar yr ewyllys neu ei bod wedi&rsquo;i difrodi",
     "errors": {
         "willDamageReasonKnown": {
-            "required": "Dewiswch &lsquo;Oes&rsquo; os gwyddoch os oes unrhyw ddifrod neu farciau gweladwy ar yr ewyllys"
+            "required": "Dewiswch &lsquo;ydw&rsquo; os ydych yn gwybod pam bod marciau ar yr ewyllys neu ei bod wedi&rsquo;i difrodi"
         },
         "willDamageReasonDescription": {
-            "required": "Rhowch reswm pam fod difrod neu farciau gweladwy ar yr ewyllys"
+            "required": "Nodwch y rheswm pam bod marciau ar yr ewyllys neu ei bod wedi&rsquo;i difrodi"
         }
     }
 }

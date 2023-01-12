@@ -1,12 +1,14 @@
 {
-  "title": "A wnaed unrhyw ddiweddariadau (&lsquo;codisiliau&rsquo;) i&rsquo;r ewyllys",
-  "question": "A wnaed unrhyw ddiweddariadau (&lsquo;codisiliau&rsquo;) i&rsquo;r ewyllys?",
+  "title": "A wnaethpwyd unrhyw godisiliau i&rsquo;r ewyllys?",
+  "question": "A wnaethpwyd unrhyw godisiliau i&rsquo;r ewyllys?",
+  "paragraph1": "Codisil yw dogfen gyfreithiol sy&rsquo;n atodol i ewyllys. Mae codisiliau yn rhestru newidiadau a diweddariadau i ewyllys ac maen nhw&rsquo;n cael eu llofnodi a&rsquo;u tystio yn union fel ewyllys.",
+  "paragraph2": "Gwiriwch a oes codisil ynghlwm wrth yr ewyllys, neu efallai byddant ar ddalenni rhydd sydd ar wahân. Gall y gair &lsquo;codisil&rsquo; fod wedi&rsquo;i nodi ar frig y dudalen.",
   "optionYes": "Do",
   "optionNo": "Naddo",
 
   "errors": {
     "codicils": {
-      "required": "Atebwch &lsquo;do&rsquo; os oes unrhyw ddiweddariadau wedi&rsquo;u gwneud i&rsquo;r ewyllys"
+      "required": "Dewiswch &lsquo;oes&rsquo; os oes o leiaf 1 codisil"
     }
   }
 }

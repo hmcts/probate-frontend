@@ -1,23 +1,26 @@
 {
-  "title": "Ydych chi’n gwybod yn fras pryd ymddangosodd y difrod neu farciau gweladwy ar y codisiliau?",
-  "question": "Ydych chi’n gwybod yn fras pryd ymddangosodd y difrod neu farciau gweladwy ar y codisiliau?",
+  "title": "A ydych yn gwybod pryd gafodd y codisiliau eu difrodi neu eu marcio?",
+  "question": "A ydych yn gwybod pryd gafodd y codisiliau eu difrodi neu eu marcio?",
   "optionYes": "Ydw",
   "optionNo": "Nac ydw",
-  "date": "Y dyddiad yn fras pryd yr ymddangosodd y difrod neu farciau ar y codisiliau",
-  "dateHint": "Y dyddiad yn fras pryd yr ymddangosodd y difrod neu farciau ar y codisiliau<br>Os na fedrwch gofio’r dyddiad yn llawn, nodwch y flwyddyn yn unig",
+  "dayName": "Diwrnod (Dewisol)",
+  "monthName": "Mis (Dewisol)",
+  "yearName": "Blwyddyn",
+  "date": "Y dyddiad cafodd y codisiliau eu difrodi neu eu marcio",
+  "dateHint": "<h2 class=\"govuk-heading-m\">Y dyddiad cafodd y codisiliau eu difrodi neu eu marcio</h2>Os nad ydych yn gwybod yr union ddyddiad, nodwch y flwyddyn",
   "errors": {
     "codicilsDamageDateKnown": {
-      "required": "Dewiswch &lsquo;Ydw&rsquo; os gwyddoch yn fras pryd ymddangosodd y difrod neu farciau gweladwy ar y codisiliau"
+      "required": "Dewiswch &lsquo;Ydw&rsquo; os ydych yn gwybod pryd gafodd y codisiliau eu difrodi neu eu marcio"
     },
     "codicilsdamagedate-year": {
-      "required": "Rhowch y flwyddyn pryd yr ymddangosodd y difrod neu’r marciau ar y codisiliau"
+      "required": "Rhaid i&rsquo;r dyddiad cafodd y codisiliau eu difrodi neu eu marcio gynnwys y flwyddyn"
     },
     "codicilsdamagedate-month": {
       "required": "Rhowch y mis pryd yr ymddangosodd y difrod neu’r marciau ar y codisiliau"
     },
     "codicilsdamagedate": {
-      "future": "Rhaid i ddyddiad pan yr ymddangosodd y difrod neu’r marciau ar y codisiliau fod yn y gorffennol neu heddiw",
-      "invalid": "Nodwch ddyddiad dilys os gwelwch yn dda"
+      "future": "Rhaid i&rsquo;r dyddiad cafodd y codisiliau eu difrodi neu eu marcio fod yn ddyddiad heddiw neu yn y gorffennol",
+      "invalid": "Rhaid i&rsquo;r dyddiad cafodd y codisiliau eu difrodi neu eu marcio fod yn ddyddiad dilys"
     }
   }
 }

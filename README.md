@@ -52,6 +52,17 @@ Build a `git.properties.json` by running the following command:
 $ yarn git-info
 ```
 
+### Running the application (FE only / everything else AAT)
+
+If you are only testing the FE and don't need to point to anything else locally, use the following:
+```
+$ yarn start:dev:ld:aat
+```
+This will run FE on localhost:3001 and point everything else to AAT. This means that you can use IDAM AAT logins and
+create cases that will be visible on XUI AAT.
+
+If you need to add more config or secrets, see dev-aat.yaml and app/setupSecrets.js, respectively.
+
 ### Running the application
 
 Run the application local server as dev:

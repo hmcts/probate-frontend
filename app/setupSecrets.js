@@ -1,5 +1,6 @@
 const config = require('config');
 const {get, set} = require('lodash');
+const {execSync} = require('child_process');
 const logger = require('app/components/logger')('Init');
 
 const setSecret = (secretPath, configPath) => {
@@ -31,6 +32,21 @@ const setupSecrets = () => {
         setSecret('secrets.probate.webchat-avaya-client-url', 'webchat.avayaClientUrl');
         setSecret('secrets.probate.webchat-avaya-service', 'webchat.avayaService');
     }
+
+    if (process.env.NODE_ENV === 'dev') {
+        setLocalSecret('idam-s2s-secret', 'services.idam.service_key');
+        setLocalSecret('ccidam-idam-api-secrets-probate', 'services.idam.probate_oauth2_secret');
+        setLocalSecret('launchdarkly-key', 'featureToggles.launchDarklyKey');
+        setLocalSecret('launchdarklyUserkeyFrontend', 'featureToggles.launchDarklyUser.key');
+        setLocalSecret('payCaseWorkerUser', 'services.idam.probate_user_email');
+        setLocalSecret('payCaseWorkerPass', 'services.idam.probate_user_password');
+        setLocalSecret('postcode-service-token2', 'services.postcode.token');
+    }
+};
+
+const setLocalSecret = (secretName, configPath) => {
+    const result = execSync('az keyvault secret show --vault-name probate-aat -o tsv --query value --name ' + secretName);
+    set(config, configPath, result.toString().replace('\n', ''));
 };
 
 module.exports = setupSecrets;

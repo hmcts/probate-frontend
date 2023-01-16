@@ -33,7 +33,7 @@ const setupSecrets = () => {
         setSecret('secrets.probate.webchat-avaya-service', 'webchat.avayaService');
     }
 
-    if (process.env.NODE_ENV === 'dev') {
+    if (process.env.NODE_ENV === 'dev-aat') {
         setLocalSecret('idam-s2s-secret', 'services.idam.service_key');
         setLocalSecret('ccidam-idam-api-secrets-probate', 'services.idam.probate_oauth2_secret');
         setLocalSecret('launchdarkly-key', 'featureToggles.launchDarklyKey');

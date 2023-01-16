@@ -21,7 +21,7 @@ class Oauth2Token extends Service {
             redirect_uri: redirectUri,
         });
 
-        if (process.env.NODE_ENV === 'dev') {
+        if (process.env.NODE_ENV === 'dev-aat') {
             headers = {'Content-Type': 'application/x-www-form-urlencoded', Accept: 'application/json'};
             params = new URLSearchParams({
                 client_id: clientName,

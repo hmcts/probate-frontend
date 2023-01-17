@@ -16,12 +16,10 @@ class IhtMethod extends ValidationStep {
         };
     }
 
-    handleGet(ctx) {
-        if (new Date() > new Date('2023-03-31')) {
-            ctx.paragraph2 = '';
-        }
-
-        return [ctx];
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        ctx.hmrcHasClosedRegisterIhtService = new Date() < new Date('2023-03-31');
+        return ctx;
     }
 
     action(ctx, formdata) {

@@ -15,7 +15,7 @@
             }
         },
         hint: {
-            text: (content.paragraph1 + content.paragraph2) | safe
+            text: ((content.paragraph1 + content.paragraph2) | safe) if fields.hmrcHasClosedRegisterIhtService.value == 'true' else (content.paragraph1 | safe)
         },
         errorMessage: { text: fields.method.errorMessage | safe } if fields.method.errorMessage,
         items: [

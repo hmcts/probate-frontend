@@ -23,6 +23,6 @@ services:
   feesRegister:
     url: http://fees-register-api-aat.service.core-compute-aat.internal/fees-register
 redis:
-  enabled: true
+  enabled: 'true'
   password: ''
 

@@ -58,8 +58,14 @@ If you are only testing the FE and don't need to point to anything else locally,
 ```
 $ yarn start:dev:ld:aat
 ```
-This will run FE on localhost:3001 and point everything else to AAT. This means that you can use IDAM AAT logins and
-create cases that will be visible on XUI AAT.
+and on another terminal (you may need to install redis):
+```
+$ redis-server
+```
+
+This will run FE on localhost:3001, redis cache on localhost:6379 and point everything else to AAT. This means that you
+can use IDAM AAT logins and create cases that will be visible on XUI AAT. Redis is important for development because
+it means that each time your server restarts the security cookie is not lost / you are not logged out.
 
 If you need to add more config or secrets, see dev-aat.yaml and app/setupSecrets.js, respectively.
 

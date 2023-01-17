@@ -14,7 +14,7 @@
     "prestart:dev": "yarn sass:watch",
     "start:dev": "NODE_PATH=. nodemon -e js,json --watch 'app/' --watch 'test/' -x 'node server.js'",
     "start:dev:ld": "NODE_ENV=dev NODE_PATH=. nodemon -e js,json --watch 'app/' --watch 'test/' -x 'node server.js'",
-    "start:dev:ld:aat": "NODE_ENV=dev-aat NODE_PATH=. nodemon -e js,json --watch 'app/' --watch 'test/' -x 'node server.js'",
+    "start:dev:ld:aat": "NODE_ENV=dev-aat NODE_PATH=. nodemon -x 'node server.js'",
     "start:test-context-http": "NODE_ENV=testing-http NODE_PATH=. nodemon -e js,json --watch 'app/' --watch 'test/' -x 'node server.js'",
     "start:test-context-http:dk": "NODE_ENV=testing-http-dk NODE_PATH=. nodemon -e js,json --watch 'app/' --watch 'test/' -x 'node server.js'",
     "start:test-context": "NODE_ENV=testing NODE_PATH=. nodemon -e js,json --watch 'app/' --watch 'test/' -x 'node server.js'",

@@ -219,6 +219,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             httpOnly: config.redis.cookie.httpOnly,
             sameSite: config.redis.cookie.sameSite
         },
+        rolling: true,
         store: utils.getStore(config.redis, session, config.app.session.ttl)
     }));
 

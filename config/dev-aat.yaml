@@ -4,6 +4,7 @@ app:
   useIDAM: 'true'
   requireCcdCaseId: 'true'
   port: '3001'
+  useCSRFProtection: 'false'
 services:
   idam:
     loginUrl: http://idam-web-public.aat.platform.hmcts.net/login
@@ -22,4 +23,6 @@ services:
   feesRegister:
     url: http://fees-register-api-aat.service.core-compute-aat.internal/fees-register
 redis:
-  host: probate-frontend-redis-cache-aat.redis.cache.windows.net
+  enabled: true
+  password: ''
+

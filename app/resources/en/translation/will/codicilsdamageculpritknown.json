@@ -1,20 +1,19 @@
 {
-    "title": "Do you know who may have made visible damages or marks to the codicils?",
-    "question": "Do you know who may have made visible damages or marks to the codicils?",
+    "title": "Do you know who damaged or marked the codicils?",
+    "question": "Do you know who damaged or marked the codicils?",
     "optionYes": "Yes",
     "optionNo": "No",
-    "nameLabel": "Name of the person who may have made visible damages or marks to the codicils",
     "firstName": "First name",
     "lastName": "Last name",
     "errors": {
         "codicilsDamageCulpritKnown": {
-            "required": "Select &lsquo;yes&rsquo;  if you know who has made visible damages or marks to the codicils"
+            "required": "Select &lsquo;yes&rsquo; if you know who damaged or marked the codicils"
         },
         "firstName": {
-            "required": "Enter the first name and last name of the person who may have made visible damages or marks to the codicils"
+            "required": "Enter a first name"
         },
         "lastName": {
-            "required": "Enter the first name and last name of the person who may have made visible damages or marks to the codicils"
-        } 
+            "required": "Enter a last name"
+        }
     }
 }

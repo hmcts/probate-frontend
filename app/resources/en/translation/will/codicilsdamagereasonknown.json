@@ -1,16 +1,16 @@
 {
-    "title": "Do you know why the codicils have visible damages or marks?",
-    "question": "Do you know why the codicils have visible damages or marks?",
+    "title": "Do you know why the codicils are damaged or have marks?",
+    "question": "Do you know why the codicils are damaged or have marks?",
+    "hint": "If you know why staples were removed from a codicil, for example, you should tell us as this will reduce delays in processing your application.",
     "optionYes": "Yes",
     "optionNo": "No",
-    "codicilsDamageReasonDescriptionTitle": "Reason for the visible damages or marks to the codicils",
-    "codicilsDamageReasonDescriptionHint": "Give as much detail as you can. This may help reduce any delays in processing your application",
+    "codicilsDamageReasonDescriptionTitle": "Explain why the codicils are damaged or have marks",
     "errors": {
         "codicilsDamageReasonKnown": {
-            "required": "Select &lsquo;yes&rsquo; if you know why the codicils have any visible damages or marks"
+            "required": "Select &lsquo;yes&rsquo; if you know why the codicils are damaged or have marks"
         },
         "codicilsDamageReasonDescription": {
-            "required": "Enter a reason why there are visible damages or marks to the codicils"
+            "required": "Enter the reason why the codicils are damaged or have marks"
         }
     }
 }

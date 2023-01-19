@@ -1,23 +1,26 @@
 {
-  "title": "Ydych chi’n gwybod yn fras pryd yr ymddangosodd y difrod neu farciau gweladwy ar yr ewyllys?",
-  "question": "Ydych chi’n gwybod yn fras pryd yr ymddangosodd y difrod neu farciau gweladwy ar yr ewyllys?",
+  "title": "A ydych yn gwybod pryd gafodd yr ewyllys ei difrodi neu ei marcio?",
+  "question": "A ydych yn gwybod pryd gafodd yr ewyllys ei difrodi neu ei marcio?",
   "optionYes": "Ydw",
   "optionNo": "Nac ydw",
-  "date": "Dyddiad pryd yr ymddangosodd y difrod neu farciau gweladwy ar yr ewyllys yn fras",
-  "dateHint": "Dyddiad pryd yr ymddangosodd y difrod neu farciau gweladwy ar yr ewyllys yn fras<br>Os na fedrwch gofio’r dyddiad yn llawn, nodwch y flwyddyn yn unig.",
+  "dayName": "Diwrnod (Dewisol)",
+  "monthName": "Mis (Dewisol)",
+  "yearName": "Blwyddyn",
+  "date": "Y dyddiad cafodd yr ewyllys ei difrodi neu farcio",
+  "dateHint": "<h2 class=\"govuk-heading-m\">Y dyddiad cafodd yr ewyllys ei difrodi neu farcio</h2>Os nad ydych yn gwybod yr union ddyddiad, nodwch y flwyddyn",
   "errors": {
     "willDamageDateKnown": {
-      "required": "Dewiswch &lsquo;Ydw&rsquo; os gwyddoch yn fras pryd ymddangosodd y difrod neu farciau gweladwy ar yr ewyllys"
+      "required": "Dewiswch &lsquo;Ydw&rsquo; os ydych yn gwybod pryd gafodd yr ewyllys ei difrodi neu ei marcio"
     },
     "willdamagedate-year": {
-      "required": "Nodwch pa flwyddyn yr ymddangosodd y difrod neu farciau ar yr ewyllys"
+      "required": "Rhaid i&rsquo;r dyddiad cafodd yr ewyllys ei difrodi neu ei marcio gynnwys y flwyddyn"
     },
     "willdamagedate-month": {
       "required": "Nodwch pa mis yr ymddangosodd y difrod neu farciau ar yr ewyllys"
     },
     "willdamagedate": {
-      "future": "Rhaid i’r dyddiad pryd yr ymddangosodd y difrod neu farciau ar yr ewyllys fod yn y gorffennol neu heddiw",
-      "invalid": "‘Rhowch ddyddiad dilys os gwelwch yn dda’ "
+      "future": "Rhaid i&rsquo;r dyddiad cafodd yr ewyllys ei difrodi neu ei marcio fod yn ddyddiad heddiw neu yn y gorffennol",
+      "invalid": "Rhaid i&rsquo;r dyddiad cafodd yr ewyllys ei difrodi neu ei marcio fod yn ddyddiad dilys"
     }
   }
 }

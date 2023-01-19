@@ -67,7 +67,9 @@
             ]
         }) }}
     {% endset -%}
-
+    <h2 class="govuk-heading-m">{{ content.contentHeader | safe }}</h2>
+    <p class="govuk-body">{{ content["paragraph1"] | safe }}</p>
+    <p class="govuk-body">{{ content["paragraph2"] | safe }}</p>
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "willHasVisibleDamage",

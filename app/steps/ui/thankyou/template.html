@@ -23,11 +23,13 @@
             <h2 class="govuk-heading-m">{{ content.successHeading1 | safe }}</h2>
             {% if fields.documentsRequired.value == "true" %}
                <p class="govuk-body">{{ content.successParagraph1 | safe }}</p>
-            {% else %}
-               <p class="govuk-body">{{ content.successParagraph1NoDocumentsRequired | safe }}</p>
-            {% endif %}
-            <p class="govuk-body">{{ content.successParagraph2 | safe }}</p>
-            <p class="govuk-body">{{ content.successParagraph3 | replace("{helpLineNumber}", common.helpTelephoneNumber) | safe }}</p>
+               <p class="govuk-body">{{ content.successParagraph2 | safe }}</p>
+          {% else %}
+          <p class="govuk-body">{{ content.successParagraph1NoDocumentsRequired | safe }}</p>
+          <p class="govuk-body">{{ content.successParagraph2NoDocumentsRequired | safe }}</p>
+          {% endif %}
+          <p class="govuk-body">{{ content.successParagraph3 | safe }}</p>
+          <p class="govuk-body">{{ content.successParagraph4 | replace("{helpLineNumber}", common.helpTelephoneNumber) | safe }}</p>
 
             <div class="margin-bottom50">
                 <h2 class="govuk-heading-m">{{ content.saveYourApplication | safe }}</h2>
@@ -51,7 +53,7 @@
             </div>
 
             {{ govukInsetText({
-                text: content.successParagraph4 | replace("{findOutNext}", globals.links.findOutNext) | safe
+                text: content.successParagraph5 | replace("{findOutNext}", globals.links.findOutNext) | safe
             }) }}
 
             <a href="{{ globals.links.surveyEndOfApplication }}" class="govuk-link" target="_blank" rel="external noopener noreferrer" aria-label="{{ content.survey | safe }}">{{ content.survey | safe }}</a>

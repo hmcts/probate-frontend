@@ -3,6 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const JourneyMap = require('app/core/JourneyMap');
 const featureToggle = require('app/utils/FeatureToggle');
+const FieldError = require('../../../../components/error');
 
 class CodicilsNumber extends ValidationStep {
 
@@ -25,7 +26,14 @@ class CodicilsNumber extends ValidationStep {
         return ctx;
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata, session) {
+        if (ctx.codicilsNumber <= 0) {
+            errors.push(FieldError('codicilsNumber', 'zero', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+            return [ctx, errors];
+        } else if (ctx.codicilsNumber > 99) {
+            errors.push(FieldError('codicilsNumber', 'moreThanTwo', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+            return [ctx, errors];
+        }
         ctx.codicilsNumber = ctx.codicilsNumber || 0;
         return [ctx, errors];
     }

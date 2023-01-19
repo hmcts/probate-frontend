@@ -1,9 +1,12 @@
 {
-    "title": "Do the codicils have any visible damages or marks?",
-    "question": "Do the codicils have any visible damages or marks?",
+    "title": "Do the codicils have any damage or marks?",
+    "question": "Do the codicils have any damage or marks?",
+    "contentHeader": "Check the original legal codicils now",
+    "paragraph1": "You must check the codicils now for any damage or marks to any of their pages. We need to know if the codicils appear to have had pages added or removed.<br><br>Check for:<ul class=\"govuk-list govuk-list--bullet\"><li>small holes from where staples have been removed</li><li>punch holes that are no longer being used</li><li>water damage</li><li>torn pages</li><li>paper clip marks</li><li>rust from old staples or paper clips</li></ul>",
+    "paragraph2": "We&rsquo;ll check the codicils for damage or marks when we receive the originals as part of your application. Your application may be delayed by up to 4 weeks if you do not tell us about any damage or marks.",
     "optionYes": "Yes",
     "optionNo": "No",
-    "otherDamageDescriptionHint": "Describe the damage",
+    "otherDamageDescriptionHint": "Describe the other type of damage or marks",
     "otherDamage": "Other damage",
     "codicilsDamageHint": "Select all that apply.",
     "optionstapleOrPunchHoles": "Staple or punch holes",
@@ -14,14 +17,13 @@
     "optionotherVisibleDamage": "Other",
     "errors": {
       "codicilsHasVisibleDamage": {
-        "required": "Select &lsquo;yes&rsquo; if you know if the codicils have any visible damages or marks"
+        "required": "Select &lsquo;yes&rsquo; if the codicils have any damage or marks"
       },
       "codicilsDamageTypes": {
-        "required": "Select which visible damages or marks applies"
+        "required": "Select at least 1 option"
       },
       "otherDamageDescription": {
-        "required": "Enter a description of the visible damages or marks to the codicils"
+        "required": "Enter a description of the other damage or marks to the codicils"
       }
     }
   }
-  

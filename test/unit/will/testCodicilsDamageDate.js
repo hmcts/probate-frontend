@@ -104,7 +104,7 @@ describe('CodicilsDamageDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'codicilsdamagedate-year',
                 'href': '#codicilsdamagedate-year',
-                'msg': 'Enter the year when damages or marks appeared on the codicils'
+                'msg': 'Date the codicils were damaged or marked must include the year'
             }]);
             done();
         });
@@ -141,7 +141,7 @@ describe('CodicilsDamageDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'codicilsdamagedate',
                 'href': '#codicilsdamagedate',
-                'msg': 'The date of when damages or marks appeared on the codicils must be in the past or today'
+                'msg': 'Date the codicils were damaged or marked must be today or in the past'
             }]);
             done();
         });
@@ -160,7 +160,7 @@ describe('CodicilsDamageDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'codicilsdamagedate',
                 'href': '#codicilsdamagedate',
-                'msg': 'Please enter a valid date'
+                'msg': 'Date the codicils were damaged or marked must be a real date'
             }]);
             done();
         });
@@ -179,7 +179,7 @@ describe('CodicilsDamageDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'codicilsdamagedate',
                 'href': '#codicilsdamagedate',
-                'msg': 'Please enter a valid date'
+                'msg': 'Date the codicils were damaged or marked must be a real date'
             }]);
             done();
         });

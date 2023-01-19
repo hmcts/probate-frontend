@@ -15,9 +15,6 @@
                 classes: "govuk-label--s",
                 isPageHeading: false
             },
-            hint: {
-                text: content["codicilsDamageReasonDescriptionHint"] | safe
-            },
             value: fields.codicilsDamageReasonDescription.value
         }) }}
     {% endset -%}
@@ -32,6 +29,9 @@
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
+        },
+        hint: {
+            text: content.hint | safe
         },
         errorMessage: { text: fields.codicilsDamageReasonKnown.errorMessage | safe } if fields.codicilsDamageReasonKnown.errorMessage,
         items: [

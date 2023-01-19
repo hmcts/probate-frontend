@@ -4,8 +4,7 @@
   "type": "object",
   "properties": {
     "codicilsNumber": {
-      "type": "integer",
-      "minimum": 1
+      "type": "integer"
     }
   },
   "required": [

@@ -1,20 +1,23 @@
 {% extends "includes/two_thirds_form.html" %}
 
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block form_content %}
+    {% call govukFieldset({
+        legend: {
+            text: content.question | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+    <p class="govuk-body">{{ content["paragraph1"] | safe }}</p>
+    <p class="govuk-body">{{ content["paragraph2"] | safe }}</p>
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "codicils",
         name: "codicils",
-        fieldset: {
-            legend: {
-                text: content.question | safe,
-                isPageHeading: true,
-                classes: "govuk-fieldset__legend--l"
-            }
-        },
         errorMessage: { text: fields.codicils.errorMessage | safe } if fields.codicils.errorMessage,
         items: [
             {
@@ -29,6 +32,7 @@
             }
         ]
     }) }}
+    {% endcall %}
 
     <div class="govuk-form-group">
         {{ govukButton({

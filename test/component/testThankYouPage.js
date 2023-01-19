@@ -42,7 +42,8 @@ describe('thank-you', () => {
                 },
                 caseType: caseTypes.GOP
             };
-            const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf', 'coverSheetPdf', 'successParagraph1NoDocumentsRequired'];
+            const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf',
+                'coverSheetPdf', 'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -71,7 +72,8 @@ describe('thank-you', () => {
                 caseType: caseTypes.GOP,
                 checkAnswersSummary: '{test: "data"}'
             };
-            const contentToExclude = ['declarationPdf', 'coverSheetPdf', 'successParagraph1NoDocumentsRequired'];
+            const contentToExclude = ['declarationPdf', 'coverSheetPdf', 'successParagraph1NoDocumentsRequired',
+                'successParagraph2NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -122,7 +124,8 @@ describe('thank-you', () => {
                 caseType: caseTypes.GOP,
                 legalDeclaration: '{test: "data"}'
             };
-            const contentToExclude = ['checkAnswersPdf', 'successParagraph1NoDocumentsRequired'];
+            const contentToExclude = ['checkAnswersPdf', 'successParagraph1NoDocumentsRequired',
+                'successParagraph2NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -174,7 +177,7 @@ describe('thank-you', () => {
                 checkAnswersSummary: '{test: "data"}',
                 legalDeclaration: '{test: "data"}'
             };
-            const contentToExclude = ['successParagraph1NoDocumentsRequired'];
+            const contentToExclude = ['successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -205,7 +208,8 @@ describe('thank-you', () => {
                 },
                 caseType: caseTypes.GOP
             };
-            const contentToExclude = ['checkAnswersPdf', 'declarationPdf', 'successParagraph1NoDocumentsRequired'];
+            const contentToExclude = ['checkAnswersPdf', 'declarationPdf', 'successParagraph1NoDocumentsRequired',
+                'successParagraph2NoDocumentsRequired'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -231,7 +235,9 @@ describe('thank-you', () => {
                 },
                 caseType: caseTypes.GOP
             };
-            const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf', 'coverSheetPdf', 'successParagraph1NoDocumentsRequired', 'referenceNumber'];
+            const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf',
+                'coverSheetPdf', 'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired',
+                'referenceNumber'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -258,7 +264,8 @@ describe('thank-you', () => {
                     uploads: ['content']
                 }
             };
-            const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf', 'coverSheetPdf', 'successParagraph1', 'referenceNumber'];
+            const contentToExclude = ['saveYourApplication', 'saveParagraph1', 'declarationPdf', 'checkAnswersPdf',
+                'coverSheetPdf', 'successParagraph1', 'successParagraph2', 'referenceNumber'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

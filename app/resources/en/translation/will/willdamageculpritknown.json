@@ -1,20 +1,19 @@
 {
-    "title": "Do you know who may have made damages or marks to the will?",
-    "question": "Do you know who may have made damages or marks to the will?",
+    "title": "Do you know who damaged or marked the will?",
+    "question": "Do you know who damaged or marked the will?",
     "optionYes": "Yes",
     "optionNo": "No",
-    "nameLabel": "Name of the person who may have made damages or marks to the will",
     "firstName": "First name",
     "lastName": "Last name",
     "errors": {
         "willDamageCulpritKnown": {
-            "required": "Select &lsquo;yes&rsquo; if you know who may have made visible damages or marks to the will"
+            "required": "Select &lsquo;yes&rsquo; if you know who damaged or marked the will"
         },
         "firstName": {
-            "required": "Enter the first and last name of the person who may have made visible damages or marks to the will"
+            "required": "Enter a first name"
         },
         "lastName": {
-            "required": "Enter the first and last name of the person who may have made visible damages or marks to the will"
-        } 
+            "required": "Enter a last name"
+        }
     }
 }

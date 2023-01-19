@@ -31,8 +31,6 @@
             "required": "Nodwch y swm net",
             "invalid": "Nodwch swm net dilys",
             "invalidCurrencyFormat": "Rhaid i&rsquo;r swm net cymwys fod yn rhif cyfan neu&rsquo;n rhif gyda 2 le degol",
-            "netQualifyingValueGreaterThanGross": "Ni all y gwerth cymwys net fod yn fwy na&rsquo;r gwerth gros",
-            "netQualifyingValueGreaterThanNet" : "Ni all y gwerth cymwys net fod yn fwy na&rsquo;r gwerth net",
             "invalidInteger": "The net qualifying value must be a whole number and must not include decimals, full stops or commas. For example, 6000"
         }
     }

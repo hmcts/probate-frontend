@@ -1,20 +1,19 @@
 {
-    "title": "Ydych chi’n gwybod pwy sydd wedi difrodi neu farcio’r ewyllys o bosibl?",
-    "question": "Ydych chi’n gwybod pwy sydd wedi difrodi neu farcio’r ewyllys o bosibl?",
+    "title": "A ydych yn gwybod pwy achosodd y difrod neu'r marciau i'r ewyllys?",
+    "question": "A ydych yn gwybod pwy achosodd y difrod neu'r marciau i'r ewyllys?",
     "optionYes": "Ydw",
     "optionNo": "Nac ydw",
-    "nameLabel": "Enw’r sawl allai fod wedi gwneud difrod neu farciau i’r ewyllys",
     "firstName": "Enw cyntaf",
     "lastName": "Cyfenw",
     "errors": {
         "willDamageCulpritKnown": {
-            "required": "Dewiswch &lsquo;Ydw&rsquo; os gwyddoch pwy allai fod wedi gwneud difrod neu farciau gweladwy i’r ewyllys"
+            "required": "Dewiswch &lsquo;Ydw&rsquo; os ydych yn gwybod pwy achosodd y difrod neu&rsquo;r marciau i&rsquo;r ewyllys"
         },
         "firstName": {
-            "required": "Nodwch enw a chyfenw’r sawl a allai fod wedi gwneud difrod neu farciau gweladwy i’r ewyllys"
+            "required": "Nodwch enw cyntaf"
         },
         "lastName": {
-            "required": "Nodwch enw a chyfenw’r sawl a allai fod wedi gwneud difrod neu farciau gweladwy i’r ewyllys"
+            "required": "Nodwch gyfenw"
         }
     }
 }

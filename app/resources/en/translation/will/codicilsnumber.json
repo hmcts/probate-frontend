@@ -1,12 +1,14 @@
 {
-  "title": "How many updates (&lsquo;codicils&rsquo;) were made to the will",
-  "question": "How many updates (&lsquo;codicils&rsquo;) were made to the will?",
+  "title": "How many codicils were made to the will?",
+  "question": "How many codicils were made to the will?",
   "numberOfUpdates": "Number of updates",
 
   "errors": {
     "codicilsNumber": {
-      "required": "Enter the number of updates (&lsquo;codicils&rsquo;)",
-      "invalid": "Enter a valid number"
+      "required": "Enter the number of codicils",
+      "invalid": "Enter a valid number",
+      "zero": "Number of codicils must be 1 or more",
+      "moreThanTwo": "Number of codicils must be 2 characters or less"
     }
   }
 }

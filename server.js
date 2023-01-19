@@ -1,10 +1,10 @@
 'use strict';
 const appInsights = require('applicationinsights');
 const config = require('@hmcts/properties-volume').addTo(require('config'));
-const setupSecrets = require('app/setupSecrets');
+const SetupSecrets = require('app/setupSecrets');
 
 // Setup secrets before loading the app
-setupSecrets();
+new SetupSecrets().setupSecrets();
 
 if (config.appInsights.instrumentationKey) {
     appInsights.setup(config.appInsights.instrumentationKey)

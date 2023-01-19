@@ -25,7 +25,7 @@
     "test": "yarn test-unit $@ && yarn test-component $@",
     "test-unit": "NODE_ENV=testing-unit NODE_PATH=. LOG_LEVEL=error mocha test/unit --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
     "test-unit-healthcheck": "NODE_ENV=testing-unit NODE_PATH=. LOG_LEVEL=error mocha test/unit/utils/testSetupHealthCheck.js --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
-    "test-unit-grep": "NODE_ENV=testing-unit NODE_PATH=. LOG_LEVEL=error mocha test/unit --grep 'PCQ feature toggle is ON and health is DOWN' --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
+    "test-unit-grep": "NODE_ENV=testing-unit NODE_PATH=. LOG_LEVEL=error mocha test/unit --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000 --grep",
     "test-component": "NODE_ENV=testing-component NODE_PATH=. LOG_LEVEL=error mocha test/component --reporter spec --recursive --timeout 15000",
     "test-component-death-cert": "NODE_ENV=testing-component NODE_PATH=. LOG_LEVEL=error mocha test/component/deceased/testDeathCertificate.js --reporter spec --recursive --timeout 15000",
     "test-component-web-chat": "NODE_ENV=testing-component NODE_PATH=. LOG_LEVEL=error mocha test/component/static/testAvayaWebchat.js --reporter spec --recursive --timeout 15000",

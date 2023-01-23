@@ -60,7 +60,7 @@ services:
     gitCommitIdPath: 'git.commit.id'
   validation:
     name: 'Business Service'
-    url: 'http://probate-business-service-pr-684.service.core-compute-preview.internal/validate'
+    url: 'https://probate-business-service-pr-684.service.core-compute-preview.internal/validate'
     gitCommitIdPath: 'git.commit.id'
   idam:
     name: 'IdAM Service'

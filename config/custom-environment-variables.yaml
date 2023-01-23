@@ -24,7 +24,7 @@ services:
   orchestrator:
     url: https://probate-orchestrator-service-pr-734.service.core-compute-preview.internal
   validation:
-    url: http://probate-business-service-pr-684.service.core-compute-preview.internal/validate
+    url: https://probate-business-service-pr-684.service.core-compute-preview.internal/validate
   idam:
     loginUrl: IDAM_LOGIN_URL
     apiUrl: IDAM_API_URL

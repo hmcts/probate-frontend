@@ -44,7 +44,7 @@ services:
     token:
   orchestrator:
     name: 'Orchestrator Service'
-    url: 'https://probate-orchestrator-service-pr-734.service.core-compute-preview.internal'
+    url: 'http://probate-orchestrator-service-pr-734-java'
     paths:
       forms: '/forms/case/{ccdCaseId}'
       create: '/forms/newcase/'
@@ -60,7 +60,7 @@ services:
     gitCommitIdPath: 'git.commit.id'
   validation:
     name: 'Business Service'
-    url: 'https://probate-business-service-pr-684.service.core-compute-preview.internal/validate'
+    url: 'http://probate-business-service-pr-684-java/validate'
     gitCommitIdPath: 'git.commit.id'
   idam:
     name: 'IdAM Service'

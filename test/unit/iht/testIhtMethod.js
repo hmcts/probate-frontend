@@ -2,6 +2,7 @@
 
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
+const sinon = require('sinon');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const IhtMethod = steps.IhtMethod;
 
@@ -11,6 +12,32 @@ describe('IhtMethod', () => {
             const url = IhtMethod.constructor.getUrl();
             expect(url).to.equal('/iht-method');
             done();
+        });
+    });
+
+    describe('getContextData()', () => {
+        it('should set hmrcHasClosedRegisterIhtService false after end of March 2023', (done) => {
+            const req = {session: {form: {}}};
+
+            const date = new Date(2023, 4, 16, 0, 0);
+            const clock = sinon.useFakeTimers({now: date});
+
+            const ctx = IhtMethod.getContextData(req);
+            expect(ctx.hmrcHasClosedRegisterIhtService).to.equal(false);
+            done();
+            clock.restore();
+        });
+
+        it('should set hmrcHasClosedRegisterIhtService true before end of March 2023', (done) => {
+            const req = {session: {form: {}}};
+
+            const date = new Date(2023, 2, 16, 0, 0);
+            const clock = sinon.useFakeTimers({now: date});
+
+            const ctx = IhtMethod.getContextData(req);
+            expect(ctx.hmrcHasClosedRegisterIhtService).to.equal(true);
+            done();
+            clock.restore();
         });
     });
 

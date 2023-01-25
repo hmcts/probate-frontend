@@ -12,4 +12,5 @@ Scenario('Check survey link works', async ({I}) => {
     await I.selectDeathCertificate(language, true);
 
 }).tag('@e2enightly')
+    .tag('@e2enightly-pr')
     .retry(TestConfigurator.getRetryScenarios());

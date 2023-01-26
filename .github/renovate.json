@@ -1,5 +1,6 @@
 {
   "enabledManagers": ["helm-requirements", "nvm", "npm"],
+  "prConcurrentLimit": 6,
   "labels": ["dependencies"],
   "helm-requirements": {
     "fileMatch": ["\\Chart.yaml$"],
@@ -7,15 +8,8 @@
       "hmctspublic": "https://hmctspublic.azurecr.io/helm/v1/repo/"
     }
   },
-  "groupName": "all dependencies",
   "separateMajorMinor": false,
-  "groupSlug": "all",
   "packageRules": [
-    {
-      "matchPackagePatterns": ["*"],
-      "groupName": "all dependencies",
-      "groupSlug": "all"
-    },
     {
       "matchPackageNames": ["ansi-regex"],
       "allowedVersions": "<=5"

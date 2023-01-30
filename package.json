@@ -82,8 +82,7 @@
     "stub:multiple-applications": "NODE_PATH=. node test/service-stubs/multipleApplications.js",
     "stub:equality-and-diversity-endpoint": "NODE_PATH=. node test/service-stubs/equalityAndDiversityEndpoint.js",
     "stub:equality-and-diversity-health": "NODE_PATH=. node test/service-stubs/equalityAndDiversityHealth.js",
-    "fortifyScan": "./test/java/gradlew -p test/java fortifyScan",
-    "test:fullfunctional": "NODE_ENV=test-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly'"
+    "fortifyScan": "./test/java/gradlew -p test/java fortifyScan"
   },
   "pre-commit": [
     "lint"

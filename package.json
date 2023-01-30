@@ -92,7 +92,7 @@
     "@hmcts/nodejs-logging": "^4.0.2",
     "@hmcts/os-places-client": "^1.1.2",
     "@hmcts/properties-volume": "^0.0.14",
-    "@wdio/selenium-standalone-service": "^7.6.0",
+    "@wdio/selenium-standalone-service": "^8.0.0",
     "ajv": "^6.12.6",
     "ajv-keywords": "^3.5.2",
     "applicationinsights": "^2.3.3",

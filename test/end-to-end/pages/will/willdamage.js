@@ -9,12 +9,12 @@ module.exports = async function(language = 'en', option = null, description = nu
     await I.waitForEnabled(locator);
     await I.click(locator);
     if (option === '') {
-        await I.click('#willDamage');
-        await I.click('#willDamage-2');
-        await I.click('#willDamage-3');
-        await I.click('#willDamage-4');
-        await I.click('#willDamage-5');
-        await I.click('#willDamage-6');
+        await I.click('#willDamageTypes');
+        await I.click('#willDamageTypes-2');
+        await I.click('#willDamageTypes-3');
+        await I.click('#willDamageTypes-4');
+        await I.click('#willDamageTypes-5');
+        await I.click('#willDamageTypes-6');
 
         await I.fillField({css: '#otherDamageDescription'}, description);
     }

@@ -28,16 +28,19 @@
               {
                   classes: "govuk-input--width-2" + (" govuk-input--error" if fields["willdamagedate-date"].error),
                   name: "day",
+                  label: content["dayName"] | safe,
                   value: fields["willdamagedate-day"].value
               },
               {
                   classes: "govuk-input--width-2" + (" govuk-input--error" if fields["willdamagedate-date"].error),
                   name: "month",
+                  label: content["monthName"] | safe,
                   value: fields["willdamagedate-month"].value
               },
               {
                   classes: "govuk-input--width-4" + (" govuk-input--error" if fields["willdamagedate-year"].error or fields["willdamagedate-date"].error),
                   name: "year",
+                  label: content["yearName"] | safe,
                   value: fields["willdamagedate-year"].value
               }
           ]

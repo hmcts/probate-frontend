@@ -103,7 +103,7 @@ describe('WillDamageDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'willdamagedate-year',
                 'href': '#willdamagedate-year',
-                'msg': 'Enter the year when visible damages or marks appeared on the will'
+                'msg': 'Date the will was damaged or marked must include the year'
             }]);
             done();
         });
@@ -140,7 +140,7 @@ describe('WillDamageDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'willdamagedate',
                 'href': '#willdamagedate',
-                'msg': 'The date of when damages or marks appeared on the will must be in the past or today'
+                'msg': 'Date the will was damaged or marked must be today or in the past'
             }]);
             done();
         });
@@ -159,7 +159,7 @@ describe('WillDamageDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'willdamagedate',
                 'href': '#willdamagedate',
-                'msg': 'Please enter a valid date'
+                'msg': 'Date the will was damaged or marked must be a real date'
             }]);
             done();
         });
@@ -178,7 +178,7 @@ describe('WillDamageDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'willdamagedate',
                 'href': '#willdamagedate',
-                'msg': 'Please enter a valid date'
+                'msg': 'Date the will was damaged or marked must be a real date'
             }]);
             done();
         });

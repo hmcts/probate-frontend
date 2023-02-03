@@ -9,7 +9,7 @@ def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 String product = "probate"
 String component = "frontend"
 
-def checkForEnableHelmLabel(branch_name) {
+def checkForNightlyLabel(branch_name) {
   return new GithubAPI(this).getLabelsbyPattern(branch_name, "nightly").contains("nightly")
 }
 
@@ -69,7 +69,7 @@ withPipeline("nodejs", product, component) {
         }
     } */
 
-    after('build') {
+    afterSuccess('build') {
         sh 'yarn setup'
     }
 //    after('test') {
@@ -103,7 +103,7 @@ withPipeline("nodejs", product, component) {
   enableSlackNotifications('#probate-jenkins')
   syncBranchesWithMaster(branchesToSync)
 
-  after('test') {
+  afterSuccess('test') {
     publishHTML (target: [
        alwaysLinkToLastBuild: true,
        reportDir: 'output',
@@ -112,19 +112,19 @@ withPipeline("nodejs", product, component) {
     ])
   }
 
-   after('functionalTest:preview') {
+   afterSuccess('functionalTest:preview') {
     publishHTML target: [
       reportDir            : "functional-output/",
       reportFiles          : "mochawesome.html",
       reportName           : "Preview Functional Tests",
       alwaysLinkToLastBuild: true
     ]
-    if (checkForEnableHelmLabel(env.BRANCH_NAME)) {
-      yarnBuilder.yarn('test:fullfunctional');
+    if (checkForNightlyLabel(env.BRANCH_NAME)) {
+      yarnBuilder.yarn('test:fullfunctional-pr');
     }
   }
 
-  after('functionalTest:aat') {
+  afterSuccess('functionalTest:aat') {
     publishHTML target: [
       reportDir            : "functional-output/",
       reportFiles          : "mochawesome.html",

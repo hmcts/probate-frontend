@@ -1,23 +1,26 @@
 {
-  "title": "Do you know roughly when the damages or marks appeared on the will?",
-  "question": "Do you know roughly when the damages or marks appeared on the will?",
+  "title": "Do you know when the will was damaged or marked?",
+  "question": "Do you know when the will was damaged or marked?",
   "optionYes": "Yes",
   "optionNo": "No",
-  "date": "Date of roughly when the damages or marks happened to the will",
-  "dateHint": "Date of roughly when the damages or marks happened to the will<br>If you cannot remember the full date, enter just the year",
+  "dayName": "Day (optional)",
+  "monthName": "Month (optional)",
+  "yearName": "Year",
+  "date": "Date the will was damaged or marked",
+  "dateHint": "<h2 class=\"govuk-heading-m\">Date the will was damaged or marked</h2>If you don&rsquo;t know the exact date, enter the year",
   "errors": {
     "willDamageDateKnown": {
-      "required": "Select &lsquo;yes&rsquo; if you know roughly when the visible damages or marks appeared on the will"
+      "required": "Select &lsquo;yes&rsquo; if you know when the will was damaged or marked"
     },
     "willdamagedate-year": {
-      "required": "Enter the year when visible damages or marks appeared on the will"
+      "required": "Date the will was damaged or marked must include the year"
     },
     "willdamagedate-month": {
       "required": "Please enter the month if you know the day it was damaged"
     },
     "willdamagedate": {
-      "future": "The date of when damages or marks appeared on the will must be in the past or today",
-      "invalid": "Please enter a valid date"
+      "future": "Date the will was damaged or marked must be today or in the past",
+      "invalid": "Date the will was damaged or marked must be a real date"
     }
   }
 }

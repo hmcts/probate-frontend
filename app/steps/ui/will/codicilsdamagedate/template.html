@@ -28,16 +28,19 @@
               {
                   classes: "govuk-input--width-2" + (" govuk-input--error" if fields["codicilsdamagedate-date"].error),
                   name: "day",
+                  label: content["dayName"] | safe,
                   value: fields["codicilsdamagedate-day"].value
               },
               {
                   classes: "govuk-input--width-2" + (" govuk-input--error" if fields["codicilsdamagedate-date"].error),
                   name: "month",
+                  label: content["monthName"] | safe,
                   value: fields["codicilsdamagedate-month"].value
               },
               {
                   classes: "govuk-input--width-4" + (" govuk-input--error" if fields["codicilsdamagedate-year"].error or fields["codicilsdamagedate-date"].error),
                   name: "year",
+                  label: content["yearName"] | safe,
                   value: fields["codicilsdamagedate-year"].value
               }
           ]

@@ -25,7 +25,7 @@
         {% endset -%}
 
         {{ govukCheckboxes({
-            idPrefix: "willDamage",
+            idPrefix: "willDamageTypes",
             name: "willDamageTypes[]",
             hint: {
                 text: content["willDamageHint"] | safe
@@ -59,7 +59,7 @@
                 {
                     value: "otherVisibleDamage",
                     text: content["optionotherVisibleDamage"] | safe,
-                    checked: fields.options.value.otherVisibleDamage,
+                    checked: true if fields.willDamageTypes.value[fields.willDamageTypes.value.length-1] == "otherVisibleDamage",
                     conditional: {
                         html: willDamageDescriptionHtml
                     }
@@ -67,7 +67,9 @@
             ]
         }) }}
     {% endset -%}
-
+    <h2 class="govuk-heading-m">{{ content.contentHeader | safe }}</h2>
+    <p class="govuk-body">{{ content["paragraph1"] | safe }}</p>
+    <p class="govuk-body">{{ content["paragraph2"] | safe }}</p>
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "willHasVisibleDamage",

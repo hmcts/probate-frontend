@@ -36,6 +36,7 @@ languages.forEach(language => {
         await I.selectDeathCertificateTranslation(language, optionYes);
         await I.selectDeceasedDomicile(language);
         const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
+        // console.log(isEEEnabled);
         if (isEEEnabled) {
             await I.selectEEDeceasedDod(language);
             await I.selectEEvalue(language);
@@ -111,8 +112,7 @@ languages.forEach(language => {
         //const executorsWhoDiedList = ['2', '7']; // exec2 and exec7
         const executorsWhoDiedList = ['2']; // exec2
         let diedBefore = optionYes;
-        await I.selectExecutorsWhoDied(language, executorsWhoDiedList);
-
+        await I.selectExecutorsWhoDied(executorsWhoDiedList);
         if (executorsWhoDiedList) {
             for (let i = 0; i < executorsWhoDiedList.length; i++) {
                 const executorNum = executorsWhoDiedList[i];
@@ -128,7 +128,7 @@ languages.forEach(language => {
         await I.selectExecutorsDealingWithEstate(language, executorsApplyingList);
 
         //I.selectExecutorsWithDifferentNameOnWill(optionYes);
-        await I.selectExecutorsWithDifferentNameOnWill(language, optionNo);
+        await I.selectExecutorsWithDifferentNameOnWill(optionNo);
         //const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
         //I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
 
@@ -137,8 +137,8 @@ languages.forEach(language => {
         // I.enterExecutorCurrentNameReason(executorNumber, 'executor_alias_reason');
 
         for (let i = 1; i <= executorsApplyingList.length; i++) {
-            await I.enterExecutorContactDetails(language);
-            await I.enterExecutorManualAddress(language, i);
+            await I.enterExecutorContactDetails();
+            await I.enterExecutorManualAddress(i);
         }
 
         //const executorsAliveList = ['4', '6'];
@@ -248,6 +248,7 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
 
-    })//.tag('@e2enightly') DISABLED
+    }).tag('@e2enightly')
+        .tag('@e2enightly-pr')
         .retry(TestConfigurator.getRetryScenarios());
 });

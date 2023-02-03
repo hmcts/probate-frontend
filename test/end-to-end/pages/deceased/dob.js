@@ -9,11 +9,11 @@ module.exports = async function(language = 'en', day = null, month = null, year=
 
     await I.checkInUrl('/deceased-dob');
     await I.waitForText(dobContent.question, config.TestWaitForTextToAppear);
-    const dobLocator = {css: '#dob-day'};
+    const dobLocator = {css: '#dob-date-day'};
     await I.waitForEnabled(dobLocator);
     await I.fillField(dobLocator, day);
-    await I.fillField('#dob-month', month);
-    await I.fillField('#dob-year', year);
+    await I.fillField('#dob-date-month', month);
+    await I.fillField('#dob-date-year', year);
 
     if (saveAndClose) {
         await I.navByClick(commonContent.signOut);

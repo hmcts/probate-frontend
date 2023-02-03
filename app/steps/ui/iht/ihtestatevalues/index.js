@@ -54,7 +54,6 @@ class IhtEstateValues extends ValidationStep {
         if (ctx.estateNetValue > ctx.estateGrossValue) {
             errors.push(FieldError('estateNetValueField', 'netValueGreaterThanGross', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
-
         return [ctx, errors];
     }
 }

@@ -14,13 +14,13 @@ module.exports = async function(language ='en', firstName = null, lastName = nul
     await I.fillField(locatorFn, firstName);
     await I.fillField({css: '#lastName'}, lastName);
 
-    await I.fillField({css: '#dob-day'}, dob_day);
-    await I.fillField({css: '#dob-month'}, dob_month);
-    await I.fillField({css: '#dob-year'}, dob_year);
+    await I.fillField({css: '#dob-date-day'}, dob_day);
+    await I.fillField({css: '#dob-date-month'}, dob_month);
+    await I.fillField({css: '#dob-date-year'}, dob_year);
 
-    await I.fillField({css: '#dod-day'}, dod_day);
-    await I.fillField({css: '#dod-month'}, dod_month);
-    await I.fillField({css: '#dod-year'}, dod_year);
+    await I.fillField({css: '#dod-date-day'}, dod_day);
+    await I.fillField({css: '#dod-date-month'}, dod_month);
+    await I.fillField({css: '#dod-date-year'}, dod_year);
 
     await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

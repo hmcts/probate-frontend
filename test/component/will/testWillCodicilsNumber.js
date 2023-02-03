@@ -49,7 +49,13 @@ describe('codicils-number', () => {
         it('test errors message displayed for invalid data - negative numbers', (done) => {
             const data = {codicilsNumber: '-1'};
 
-            testWrapper.testErrors(done, data, 'invalid');
+            testWrapper.testErrors(done, data, 'zero');
+        });
+
+        it('test errors message displayed for invalid data - more than 2 numbers', (done) => {
+            const data = {codicilsNumber: '100'};
+
+            testWrapper.testErrors(done, data, 'moreThanTwo');
         });
 
         it('test errors message displayed for no number entered', (done) => {

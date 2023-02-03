@@ -1,12 +1,14 @@
 {
-  "title": "Faint o ddiweddariadau (&lsquo;codisiliau&rsquo;) a wnaed i&rsquo;r ewyllys",
-  "question": "Faint o ddiweddariadau (&lsquo;codisiliau&rsquo;) a wnaed i&rsquo;r ewyllys?",
+  "title": "Sawl godisil i'r ewyllys a wnaed?",
+  "question": "Sawl godisil i'r ewyllys a wnaed?",
   "numberOfUpdates": "Nifer y diweddariadau",
 
   "errors": {
     "codicilsNumber": {
-      "required": "Nodwch nifer y diweddariadau (&rsquo;codisiliau&rsquo;)",
-      "invalid": "Rhowch rif dilys"
+      "required": "Nodwch nifer y codisiliau",
+      "invalid": "Rhowch rif dilys",
+      "zero": "Rhaid i nifer y codisiliau fod yn 1 nod neu&rsquo;n fwy",
+      "moreThanTwo": "Rhaid i nifer y codisiliau fod yn 2 nod neu&rsquo;n llai"
     }
   }
 }

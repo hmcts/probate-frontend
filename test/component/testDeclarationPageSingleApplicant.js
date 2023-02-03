@@ -220,6 +220,7 @@ describe('declaration, single applicant', () => {
             delete sessionData.applicant.alias;
             delete sessionData.applicant.aliasReason;
             delete sessionData.executors.list[0].alias;
+            delete sessionData.executors.list[0].nameAsOnTheWill;
             contentData.applicantWillName = 'Bob Smith';
             sessionData.deceased.otherNames = {
                 name_0: {

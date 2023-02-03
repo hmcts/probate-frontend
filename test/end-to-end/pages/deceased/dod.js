@@ -9,11 +9,11 @@ module.exports = async function(language = 'en', day = null, month = null, year 
 
     await I.checkInUrl('/deceased-dod');
     await I.waitForText(dodContent.question, config.TestWaitForTextToAppear);
-    const dodDayLocator = {css: '#dod-day'};
+    const dodDayLocator = {css: '#dod-date-day'};
     await I.waitForEnabled(dodDayLocator);
     await I.fillField(dodDayLocator, day);
-    await I.fillField({css: '#dod-month'}, month);
-    await I.fillField({css: '#dod-year'}, year);
+    await I.fillField({css: '#dod-date-month'}, month);
+    await I.fillField({css: '#dod-date-year'}, year);
 
     await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

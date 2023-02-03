@@ -25,7 +25,7 @@
         {% endset -%}
 
         {{ govukCheckboxes({
-            idPrefix: "codicilsDamage",
+            idPrefix: "codicilsDamageTypes",
             name: "codicilsDamageTypes[]",
             hint: {
                 text: content["codicilsDamageHint"] | safe
@@ -59,7 +59,7 @@
                 {
                     value: "otherVisibleDamage",
                     text: content["optionotherVisibleDamage"] | safe,
-                    checked: fields.options.value.otherVisibleDamage,
+                    checked: true if fields.codicilsDamageTypes.value[fields.codicilsDamageTypes.value.length-1] == "otherVisibleDamage",
                     conditional: {
                         html: codicilsDamageDescriptionHtml
                     }
@@ -68,6 +68,9 @@
         }) }}
     {% endset -%}
 
+    <h2 class="govuk-heading-m">{{ content.contentHeader | safe }}</h2>
+    <p class="govuk-body">{{ content["paragraph1"] | safe }}</p>
+    <p class="govuk-body">{{ content["paragraph2"] | safe }}</p>
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "codicilsHasVisibleDamage",

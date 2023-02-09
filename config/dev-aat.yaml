@@ -24,3 +24,31 @@ services:
 redis:
   enabled: 'true'
   password: ''
+
+TestCitizenDomain: '/@probateTest.com'
+TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png'
+TestE2EFrontendUrl: 'http://localhost:3001'
+TestFrontendUrl: 'http://localhost:3001'
+TestIdamAddUserUrl: '/testing-support/accounts'
+TestIdamBaseUrl: 'https://idam-api.aat.platform.hmcts.net'
+TestIdamLoginUrl: 'https://idam-web-public.aat.platform.hmcts.net/login'
+TestIdamRole: 'citizen'
+TestIdamUserGroup: 'caseworker'
+TestOutputDir: './functional-output'
+TestPathToRun: './paths/**/*.js'
+TestProxy: 'socks5:proxyout.reform.hmcts.net:8080'
+TestRetryFeatures: 2
+TestRetryScenarios: 2
+TestRetrySteps: 2
+TestShowBrowser: true
+TestUseGovPay: 'true'
+TestUseIdam: 'true'
+TestUseProxy: 'false'
+TestWaitForDocumentUpload: 60
+TestWaitForTextToAppear: 120
+TestWaitForElementToAppear: 60
+TestOneMilliSecond: 1000
+TestEnvEmailAddress: 'test.probate.inbox@gmail.com'
+TestEnvMobileNumber: '07765453421'
+TestInviteIdListUrl: '/inviteIdList'
+TestInvitationUrl: '/executors/invitation'

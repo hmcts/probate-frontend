@@ -26,6 +26,7 @@ const setupSecrets = () => {
     }
 
     if (process.env.NODE_ENV === 'dev-aat') {
+        console.log('Setting local secrets...')
         setLocalSecret('idam-s2s-secret', 'services.idam.service_key');
         setLocalSecret('ccidam-idam-api-secrets-probate', 'services.idam.probate_oauth2_secret');
         setLocalSecret('launchdarkly-key', 'featureToggles.launchDarklyKey');

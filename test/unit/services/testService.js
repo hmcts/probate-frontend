@@ -137,7 +137,7 @@ describe('Service', () => {
             });
             const service = new Service();
             service
-                .fetchBuffer('http://localhost/forms', {})
+                .fetchBuffer('/forms', {})
                 .then((res) => {
                     expect(res).to.equal(buffer);
                     revert();
@@ -154,7 +154,7 @@ describe('Service', () => {
             service.log = sinon.spy();
 
             service
-                .fetchBuffer('http://localhost/forms', {})
+                .fetchBuffer('/forms', {})
                 .catch(() => {
                     expect(service.log.calledOnce).to.equal(true);
                     expect(service.fetchBuffer).to.throw(Error);

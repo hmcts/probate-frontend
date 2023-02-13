@@ -19,7 +19,7 @@ describe('FeesCalculator', () => {
         beforeEach(() => {
             feesCalculator = new FeesCalculator('http://localhost', 'dummyId');
             fetchJsonStub = sinon.stub(Service.prototype, 'fetchJson');
-            feesLookupStub = sinon.stub(FeesLookup.prototype, 'get');
+            feesLookupStub = sinon.stub(FeesLookup.prototype, 'get').returns(Promise.resolve({}));
         });
 
         afterEach(() => {

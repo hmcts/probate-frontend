@@ -24,3 +24,4 @@ git.properties.json
 /mochawesome-report
 /config/dev.yaml
 /functional-output
+dump.rdb

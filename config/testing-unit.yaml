@@ -64,3 +64,11 @@ s2sStubErrorSequence: '000'
 
 pact:
   pactBrokerUrl: 'http://localhost:80'
+
+services:
+  orchestrator:
+    url: ''
+  payment:
+    url: ''
+  equalityAndDiversity:
+    url: ''

@@ -3,6 +3,7 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const Document = require('app/services/Document');
+const FormatUrl = require('app/utils/FormatUrl');
 const config = require('config');
 
 describe('DocumentService', () => {
@@ -23,23 +24,26 @@ describe('DocumentService', () => {
 
     describe('delete()', () => {
         it('should call log() and fetchText()', (done) => {
-            const endpoint = 'http://localhost';
+            const endpoint = '';
             const fetchOptions = {method: 'DELETE'};
             const document = new Document(endpoint, 'abc123');
             const logSpy = sinon.spy(document, 'log');
-            const fetchTextSpy = sinon.spy(document, 'fetchText');
+            const fetchTextSpy = sinon.stub(document, 'fetchText');
+            const formatUrlStub = sinon.stub(FormatUrl, 'format').returns('/formattedUrl');
             const fetchOptionsStub = sinon.stub(document, 'fetchOptions').returns(fetchOptions);
 
             document.delete('doc123', 'user123');
 
             expect(document.log.calledOnce).to.equal(true);
             expect(document.log.calledWith('Delete document')).to.equal(true);
+            expect(formatUrlStub.calledWith(endpoint, `${endpoint}${config.documentUpload.paths.remove}/doc123`)).to.equal(true);
             expect(document.fetchText.calledOnce).to.equal(true);
-            expect(document.fetchText.calledWith(`${endpoint}${config.documentUpload.paths.remove}/doc123`, fetchOptions)).to.equal(true);
+            expect(document.fetchText.calledWith('/formattedUrl', fetchOptions)).to.equal(true);
 
             logSpy.restore();
             fetchTextSpy.restore();
             fetchOptionsStub.restore();
+            formatUrlStub.restore();
             done();
         });
     });

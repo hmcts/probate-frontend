@@ -124,7 +124,6 @@ describe('Update-Invite', () => {
             co(function* () {
                 [ctx, errors] = yield updateInvite.handlePost(ctx, errors, req.session.form);
                 restoreInviteLink();
-                console.log(req.session.form.executors.list);
                 expect(req.session.form.executors.list).to.deep.equal(expectedExecutorList);
                 done();
             }).catch(err => {

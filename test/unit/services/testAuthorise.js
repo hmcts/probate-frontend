@@ -7,11 +7,11 @@ const Authorise = require('app/services/Authorise');
 describe('AuthoriseService', () => {
     describe('post()', () => {
         it('should call log() and fetchText()', (done) => {
-            const endpoint = 'http://localhost';
+            const endpoint = '';
             const fetchOptions = {method: 'POST'};
             const authorise = new Authorise(endpoint, 'abc123');
             const logSpy = sinon.spy(authorise, 'log');
-            const fetchTextSpy = sinon.spy(authorise, 'fetchText');
+            const fetchTextSpy = sinon.stub(authorise, 'fetchText');
             const fetchOptionsStub = sinon.stub(authorise, 'fetchOptions').returns(fetchOptions);
 
             authorise.post();

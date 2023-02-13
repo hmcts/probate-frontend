@@ -8,12 +8,12 @@ const Payment = rewire('app/services/Payment');
 describe('PaymentService', () => {
     describe('get()', () => {
         it('should call log() and fetchJson()', (done) => {
-            const endpoint = 'http://localhost';
+            const endpoint = '';
             const fetchOptions = {method: 'GET'};
             const data = {paymentId: 'pay123'};
             const payment = new Payment(endpoint, 'abc123');
             const logSpy = sinon.spy(payment, 'log');
-            const fetchJsonSpy = sinon.spy(payment, 'fetchJson');
+            const fetchJsonSpy = sinon.stub(payment, 'fetchJson');
             const fetchOptionsStub = sinon.stub(payment, 'fetchOptions').returns(fetchOptions);
 
             payment.get(data);
@@ -32,12 +32,12 @@ describe('PaymentService', () => {
 
     describe('getCasePayments()', () => {
         it('should call log() and fetchJson()', (done) => {
-            const endpoint = 'http://localhost';
+            const endpoint = '';
             const fetchOptions = {method: 'GET'};
             const data = {caseId: 'RC-1554-1335-2518-2256'};
             const payment = new Payment(endpoint, 'abc123');
             const logSpy = sinon.spy(payment, 'log');
-            const fetchJsonSpy = sinon.spy(payment, 'fetchJson');
+            const fetchJsonSpy = sinon.stub(payment, 'fetchJson');
             const fetchOptionsStub = sinon.stub(payment, 'fetchOptions').returns(fetchOptions);
 
             payment.getCasePayments(data);
@@ -56,12 +56,12 @@ describe('PaymentService', () => {
 
     describe('post()', () => {
         it('should call log() and fetchJson()', (done) => {
-            const endpoint = 'http://localhost';
+            const endpoint = '';
             const fetchOptions = {method: 'POST'};
             const data = {paymentId: 'pay123'};
             const payment = new Payment(endpoint, 'abc123');
             const logSpy = sinon.spy(payment, 'log');
-            const fetchJsonSpy = sinon.spy(payment, 'fetchJson');
+            const fetchJsonSpy = sinon.stub(payment, 'fetchJson');
             const fetchOptionsStub = sinon.stub(payment, 'fetchOptions').returns(fetchOptions);
             const revert = Payment.__set__('paymentData', {
                 createPaymentData: () => ({

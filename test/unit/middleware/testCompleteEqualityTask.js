@@ -5,8 +5,11 @@ const expect = chai.expect;
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
 chai.use(sinonChai);
-const rewire = require('rewire');
-const completeEqualityTask = rewire('app/middleware/completeEqualityTask');
+
+const modulePath = 'app/middleware/completeEqualityTask';
+const proxyquire = require('proxyquire');
+const FormData = require('app/services/FormData');
+const completeEqualityTask = require('../../../app/middleware/completeEqualityTask');
 
 let equalityStub;
 const startStub = () => {
@@ -21,6 +24,10 @@ describe('completeEqualityTask', () => {
         before(() => startStub());
 
         it('should redirect to PCQ', (done) => {
+            const formDataStub = sinon.stub(FormData.prototype, 'post');
+            const fetchJsonStub = sinon.stub().returns(Promise.resolve({status: 'UP', 'pcq-backend': {status: 'UP'}}));
+            const completeEqualityTaskStubbed = proxyquire(modulePath, {'app/components/api-utils': {fetchJson: fetchJsonStub}});
+
             const params = {
                 isEnabled: true,
                 req: {
@@ -43,13 +50,14 @@ describe('completeEqualityTask', () => {
                 next: sinon.spy()
             };
 
-            completeEqualityTask(params);
+            completeEqualityTaskStubbed(params);
 
             setTimeout(() => {
                 expect(params.req.session.form.equality.pcqId).to.not.equal('Service down');
                 expect(params.next.calledOnce).to.equal(true);
 
                 done();
+                formDataStub.restore();
             }, 500);
         });
 
@@ -58,6 +66,10 @@ describe('completeEqualityTask', () => {
 
     describe('PCQ feature toggle is ON and health is DOWN', () => {
         it('[PROBATE] should redirect to Task List', (done) => {
+            const formDataStub = sinon.stub(FormData.prototype, 'post');
+            const fetchJsonStub = sinon.stub().returns(Promise.resolve({status: 'DOWN', 'pcq-backend': {status: 'DOWN'}}));
+            const completeEqualityTaskStubbed = proxyquire(modulePath, {'app/components/api-utils': {fetchJson: fetchJsonStub}});
+
             const params = {
                 isEnabled: true,
                 req: {
@@ -72,12 +84,12 @@ describe('completeEqualityTask', () => {
                     }
                 },
                 res: {
-                    redirect: sinon.spy()
+                    redirect: sinon.stub()
                 },
                 next: sinon.spy()
             };
 
-            completeEqualityTask(params);
+            completeEqualityTaskStubbed(params);
 
             setTimeout(() => {
                 sinon.assert.calledOnce(params.res.redirect);
@@ -85,10 +97,14 @@ describe('completeEqualityTask', () => {
                 expect(params.res.redirect).to.have.been.calledWith('/task-list');
 
                 done();
+                formDataStub.restore();
             }, 2500);
         });
 
         it('[INTESTACY] should redirect to Summary', (done) => {
+            const formDataStub = sinon.stub(FormData.prototype, 'post');
+            const fetchJsonStub = sinon.stub().returns(Promise.resolve({status: 'DOWN', 'pcq-backend': {status: 'DOWN'}}));
+            const completeEqualityTaskStubbed = proxyquire(modulePath, {'app/components/api-utils': {fetchJson: fetchJsonStub}});
             const params = {
                 isEnabled: true,
                 req: {
@@ -103,12 +119,12 @@ describe('completeEqualityTask', () => {
                     }
                 },
                 res: {
-                    redirect: sinon.spy()
+                    redirect: sinon.stub()
                 },
                 next: sinon.spy()
             };
 
-            completeEqualityTask(params);
+            completeEqualityTaskStubbed(params);
 
             setTimeout(() => {
                 sinon.assert.calledOnce(params.res.redirect);
@@ -116,12 +132,14 @@ describe('completeEqualityTask', () => {
                 expect(params.res.redirect).to.have.been.calledWith('/summary');
 
                 done();
+                formDataStub.restore();
             }, 2500);
         });
     });
 
     describe('PCQ feature toggle is OFF', () => {
         it('[PROBATE] should redirect to Task List', (done) => {
+            const formDataStub = sinon.stub(FormData.prototype, 'post');
             const params = {
                 isEnabled: false,
                 req: {
@@ -136,7 +154,7 @@ describe('completeEqualityTask', () => {
                     }
                 },
                 res: {
-                    redirect: sinon.spy()
+                    redirect: sinon.stub()
                 },
                 next: sinon.spy()
             };
@@ -149,10 +167,12 @@ describe('completeEqualityTask', () => {
                 expect(params.res.redirect).to.have.been.calledWith('/task-list');
 
                 done();
+                formDataStub.restore();
             }, 500);
         });
 
         it('[INTESTACY] should redirect to Summary', (done) => {
+            const formDataStub = sinon.stub(FormData.prototype, 'post');
             const params = {
                 isEnabled: false,
                 req: {
@@ -167,7 +187,7 @@ describe('completeEqualityTask', () => {
                     }
                 },
                 res: {
-                    redirect: sinon.spy()
+                    redirect: sinon.stub()
                 },
                 next: sinon.spy()
             };
@@ -180,6 +200,7 @@ describe('completeEqualityTask', () => {
                 expect(params.res.redirect).to.have.been.calledWith('/summary');
 
                 done();
+                formDataStub.restore();
             }, 500);
         });
     });

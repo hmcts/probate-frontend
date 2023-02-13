@@ -73,7 +73,7 @@ describe('addressLookup service tests', () => {
     });
 
     it('Should fail to retrieve the address list', (done) => {
-        lookupByPostcodeStub.returns(Promise.reject(expectedError));
+        lookupByPostcodeStub.rejects(expectedError);
 
         postcodeAddress.get('postcode')
             .then(() => {

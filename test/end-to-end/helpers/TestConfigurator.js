@@ -5,7 +5,7 @@ const request = require('request');
 const testConfig = require('config');
 const LaunchDarkly = require('test/end-to-end/helpers/LaunchDarkly');
 const util = require('util');
-const setupSecrets = require("../../../app/setupSecrets");
+const setupSecrets = require('../../../app/setupSecrets');
 
 /* eslint no-console: 0 no-unused-vars: 0 */
 /* eslint-disable no-undef */
@@ -130,11 +130,13 @@ class TestConfigurator {
     }
 
     bootStrapTestSuite() {
-        return process.env.NODE_ENV === 'dev-aat' ? async () => setupSecrets() : () => {}
+        if (process.env.NODE_ENV === 'dev-aat') {
+            return () => setupSecrets();
+        }
     }
 
     showBrowser() {
-        return process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'false' : testConfig.TestShowBrowser
+        return process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'false' : testConfig.TestShowBrowser;
     }
 
     getUseGovPay() {

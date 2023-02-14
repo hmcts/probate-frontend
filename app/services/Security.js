@@ -14,9 +14,13 @@ const SessionStatusEnum = require('app/utils/SessionStatusEnum');
 const SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
 const REDIRECT_COOKIE = '__redirect';
 const ACCESS_TOKEN_OAUTH2 = 'access_token';
+const NodeCache = require('node-cache');
 
 class Security {
     constructor(loginUrl) {
+        if (String(config.get('services.idam.caching')) === 'true') {
+            this.idamDetailsCache = new NodeCache({stdTTL: 3600, checkperiod: 1800});
+        }
         if (loginUrl) {
             this.loginUrl = loginUrl;
         }
@@ -38,32 +42,48 @@ class Security {
                     return res.redirect('/time-out');
                 }
 
-                const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
-                idamSession
-                    .get(securityCookie)
-                    .then(response => {
-                        if (response.name !== 'Error') {
-                            req.log.debug('Extending session for active user.');
-                            req.session.expires = Date.now() + config.app.session.expires;
-                            req.session.regId = response.email;
-                            req.userId = response.id;
-                            req.authToken = securityCookie;
-                            req.session.authToken = req.authToken;
-                            this._authorize(req, res, next, response.roles, authorisedRoles);
-                        } else {
-                            req.log.error('Error authorising user');
-                            req.log.error(`Error ${JSON.stringify(response)} \n`);
-                            if (response.message === 'Unauthorized') {
-                                this._login(req, res);
+                const isIdamDetailsCached = this.idamDetailsCache && req.session.regId && this.idamDetailsCache.get(req.session.regId);
+                if (isIdamDetailsCached) {
+                    console.log('Using cache...');
+                    const cachedResponse = this.idamDetailsCache.get(req.session.regId);
+                    this.handleSuccessfulIdamDetailsResponse(req, cachedResponse);
+                    this._authorize(req, res, next, cachedResponse.roles, authorisedRoles);
+                } else {
+                    const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
+                    idamSession
+                        .get(securityCookie)
+                        .then(response => {
+                            if (response.name !== 'Error') {
+                                req.log.debug('Extending session for active user.');
+                                this.handleSuccessfulIdamDetailsResponse(req, response);
+                                this._authorize(req, res, next, response.roles, authorisedRoles);
+                                if (this.idamDetailsCache) {
+                                    console.log('Setting cache...');
+                                    this.idamDetailsCache.set(req.session.regId, response);
+                                }
                             } else {
-                                this._denyAccess(req, res);
+                                req.log.error('Error authorising user');
+                                req.log.error(`Error ${JSON.stringify(response)} \n`);
+                                if (response.message === 'Unauthorized') {
+                                    this._login(req, res);
+                                } else {
+                                    this._denyAccess(req, res);
+                                }
                             }
-                        }
-                    });
+                        });
+                }
             } else {
                 this._login(req, res);
             }
         };
+    }
+
+    handleSuccessfulIdamDetailsResponse(req, res) {
+        req.session.expires = Date.now() + config.app.session.expires;
+        req.session.regId = res.email;
+        req.userId = res.id;
+        req.authToken = req.cookies[SECURITY_COOKIE];
+        req.session.authToken = req.authToken;
     }
 
     getSessionStatus(req) {

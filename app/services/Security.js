@@ -31,30 +31,15 @@ class Security {
             }
 
             if (securityCookie) {
-                const lostSession = !req.session.expires;
-                const sessionExpired = req.session.expires ? req.session.expires <= Date.now() : false;
+                if (this.shouldRedirectLostOrExpiredSession(req, res)) {
+                    return res.redirect('/time-out');
+                }
+
                 const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
                 idamSession
                     .get(securityCookie)
                     .then(response => {
                         if (response.name !== 'Error') {
-                            if (lostSession || sessionExpired) {
-                                if (lostSession) {
-                                    req.log.error('The current user session is lost.');
-                                } else {
-                                    req.log.error('The current user session has expired.');
-                                }
-                                req.log.info('Redirecting user to the time-out page.');
-                                res.clearCookie(SECURITY_COOKIE);
-                                if (typeof req.session.destroy === 'function') {
-                                    req.session.destroy();
-                                }
-                                delete req.cookies;
-                                delete req.sessionID;
-                                delete req.session;
-                                delete req.sessionStore;
-                                return res.redirect('/time-out');
-                            }
                             req.log.debug('Extending session for active user.');
                             req.session.expires = Date.now() + config.app.session.expires;
                             req.session.regId = response.email;
@@ -76,6 +61,30 @@ class Security {
                 this._login(req, res);
             }
         };
+    }
+
+    shouldRedirectLostOrExpiredSession(req, res) {
+        const lostSession = !req.session.expires;
+        const expiredSession = req.session.expires ? req.session.expires <= Date.now() : false;
+        if (lostSession || expiredSession) {
+            if (lostSession) {
+                req.log.error('The current user session is lost.');
+            } else {
+                req.log.error('The current user session has expired.');
+            }
+            req.log.info('Redirecting user to the time-out page.');
+            res.clearCookie(SECURITY_COOKIE);
+            if (typeof req.session.destroy === 'function') {
+                req.session.destroy();
+            }
+            delete req.cookies;
+            delete req.sessionID;
+            delete req.session;
+            delete req.sessionStore;
+            return true;
+        }
+
+        return false;
     }
 
     _login(req, res) {

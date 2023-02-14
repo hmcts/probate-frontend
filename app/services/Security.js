@@ -10,6 +10,7 @@ const URL = require('url');
 const {v4: UUID} = require('uuid');
 const IdamSession = require('app/services/IdamSession');
 const Oauth2Token = require('app/services/Oauth2Token');
+const SessionStatusEnum = require('app/utils/SessionStatusEnum');
 const SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
 const REDIRECT_COOKIE = '__redirect';
 const ACCESS_TOKEN_OAUTH2 = 'access_token';
@@ -31,7 +32,9 @@ class Security {
             }
 
             if (securityCookie) {
-                if (this.handleLostOrExpiredSession(req, res)) {
+                if ([SessionStatusEnum.getExpired(), SessionStatusEnum.getLost()].includes(this.getSessionStatus(req))) {
+                    req.log.error(`The current user session is ${this.getSessionStatus(req)}, redirecting user to the time-out page.`);
+                    this.handleLostOrExpiredSession(req, res);
                     return res.redirect('/time-out');
                 }
 
@@ -63,28 +66,25 @@ class Security {
         };
     }
 
-    handleLostOrExpiredSession(req, res) {
-        const lostSession = !req.session.expires;
-        const expiredSession = req.session.expires ? req.session.expires <= Date.now() : false;
-        if (lostSession || expiredSession) {
-            if (lostSession) {
-                req.log.error('The current user session is lost.');
-            } else {
-                req.log.error('The current user session has expired.');
-            }
-            req.log.info('Redirecting user to the time-out page.');
-            res.clearCookie(SECURITY_COOKIE);
-            if (typeof req.session.destroy === 'function') {
-                req.session.destroy();
-            }
-            delete req.cookies;
-            delete req.sessionID;
-            delete req.session;
-            delete req.sessionStore;
-            return true;
+    getSessionStatus(req) {
+        if (!req.session.expires) {
+            return SessionStatusEnum.getLost();
         }
+        if (req.session.expires <= Date.now()) {
+            return SessionStatusEnum.getExpired();
+        }
+        return SessionStatusEnum.getActive();
+    }
 
-        return false;
+    handleLostOrExpiredSession(req, res) {
+        res.clearCookie(SECURITY_COOKIE);
+        if (typeof req.session.destroy === 'function') {
+            req.session.destroy();
+        }
+        delete req.cookies;
+        delete req.sessionID;
+        delete req.session;
+        delete req.sessionStore;
     }
 
     _login(req, res) {

@@ -31,7 +31,7 @@ class Security {
             }
 
             if (securityCookie) {
-                if (this.shouldRedirectLostOrExpiredSession(req, res)) {
+                if (this.handleLostOrExpiredSession(req, res)) {
                     return res.redirect('/time-out');
                 }
 
@@ -63,7 +63,7 @@ class Security {
         };
     }
 
-    shouldRedirectLostOrExpiredSession(req, res) {
+    handleLostOrExpiredSession(req, res) {
         const lostSession = !req.session.expires;
         const expiredSession = req.session.expires ? req.session.expires <= Date.now() : false;
         if (lostSession || expiredSession) {

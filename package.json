@@ -110,7 +110,7 @@
     "csurf": "^1.10.0",
     "debug": "^4.3.2",
     "email-validator": "^2.0.4",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.16.2",
     "file-type": "^12.1.0",
     "get-port": "^4.2.0",

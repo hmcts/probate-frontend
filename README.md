@@ -64,7 +64,11 @@ Then in package.json, replace sass and sass-ie8 scripts with:
 ```
 Finally in ```app/assets/sass/application.scss``` and ```app/assets/sass/application-ie8.scss``` replace ```node_modules``` with ```../../../node_modules``` for all the imports.
 
-### Running the application (FE only / everything else AAT)
+### Running the application
+
+#### Option 1. Running the application utilising AAT endpoints for BE services:
+
+###### Running the server:
 
 If you are only testing the FE and don't need to point to anything else locally, use the following:
 ```
@@ -79,9 +83,20 @@ This will run FE on localhost:3001, redis cache on localhost:6379 and point ever
 can use IDAM AAT logins and create cases that will be visible on XUI AAT. Redis is important for development because
 it means that each time your server restarts the security cookie is not lost / you are not logged out.
 
-If you need to add more config or secrets, see dev-aat.yaml and app/setupSecrets.js, respectively.
+If you need to add more config or secrets, see `dev-aat.yaml` and `app/setupSecrets.js` files, respectively.
 
-### Running the application
+###### Running tests:
+
+Use the following to run all e2e tests that have the `@e2enightly` tag (ran in parallel, headlessly):
+```
+$ yarn test:fullfunctional:dev-aat:parallel
+```
+Use the following to run a single test with the browser showing. You must add a unique tag to the test you want to run e.g. `@runningNow`, before running:
+```
+$ yarn test:fullfunctional:dev-aat:single '@runningNow'
+```
+
+#### Option 2: Running the application with local Docker containers for BE services:
 
 Run the application local server as dev:
 ```
@@ -90,7 +105,7 @@ $ yarn start:ld
 
 The application can be completed locally at [https://localhost:3000](https://localhost:3000), provided all services are running in the background as described in the next section.
 
-### Running the other services using docker-compose
+#### Running the other services using docker-compose
 
 ```
 # first time only
@@ -98,7 +113,7 @@ npx @hmcts/probate-dev-env --create
 npx @hmcts/probate-dev-env
 ```
 
-### Running the other services manually
+#### Running the other services manually
 
 Alternatively, to run probate-frontend with the other services locally you will need to clone and run the following services:
 

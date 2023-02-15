@@ -18,7 +18,7 @@ const NodeCache = require('node-cache');
 
 class Security {
     constructor(loginUrl) {
-        if (String(config.get('services.idam.caching')) === 'true') {
+        if (String(config.services.idam.caching) === 'true') {
             this.idamDetailsCache = new NodeCache({stdTTL: 3600, checkperiod: 1800});
         }
         if (loginUrl) {

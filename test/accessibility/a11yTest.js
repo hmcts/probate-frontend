@@ -10,7 +10,7 @@ const {endsWith, merge} = require('lodash');
 const commonContentEn = require('app/resources/en/translation/common');
 const commonContentCy = require('app/resources/cy/translation/common');
 
-const languages = ['en'];
+const languages = ['en', 'cy'];
 const caseTypes = require('app/utils/CaseTypes');
 
 const stepsToExclude = [

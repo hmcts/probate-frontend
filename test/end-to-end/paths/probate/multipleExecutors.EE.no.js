@@ -9,7 +9,7 @@ const testConfig = require('config');
 const optionYes = '';
 const optionNo = '-2';
 const bilingualGOP = false;
-const languages = ['en'];
+const languages = ['en', 'cy'];
 
 Feature('GOP Multiple Executors E2E - EE No Journey');
 

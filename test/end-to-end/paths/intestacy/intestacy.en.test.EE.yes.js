@@ -11,7 +11,7 @@ const spouseOfDeceased = '';
 const relationshipChildOfDeceased = '-2';
 const optionRenouncing = '';
 const bilingualGOP = false;
-const languages = ['en'];
+const languages = ['en', 'cy'];
 
 Feature('GOP Intestacy E2E - EE Yes Journey');
 

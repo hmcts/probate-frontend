@@ -10,7 +10,7 @@ const ihtOnline = '-2';
 const maritalStatusMarried = '';
 const spousePartner = '';
 const bilingualGOP = false;
-const languages = ['en'];
+const languages = ['en', 'cy'];
 
 Feature('GOP Intestacy spouse E2E');
 

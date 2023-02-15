@@ -7,7 +7,7 @@ const optionYes = '';
 const ihtPost = '';
 const optionNo = '-2';
 const bilingualGOP = false;
-const languages = ['en'];
+const languages = ['en', 'cy'];
 
 Feature('GOP-Single Executor');
 

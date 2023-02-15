@@ -13,7 +13,7 @@ services:
     service_name: probate_frontend
     probate_oauth2_client: probate
     probate_redirect_base_url: http://localhost:3001
-    caching: true
+    caching: 'true'
   orchestrator:
     url: http://probate-orchestrator-service-aat.service.core-compute-aat.internal
   validation:

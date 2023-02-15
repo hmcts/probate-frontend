@@ -77,7 +77,6 @@ services:
     probate_user_email: 'dummy-user-name'
     probate_user_password: 'dummy-password'
     probate_redirect_base_url: 'http://localhost:3000'
-    caching: 'false'
   payment:
     name: 'Payment Service'
     url: 'http://localhost:8383'

@@ -64,7 +64,7 @@
     "eslint": "NODE_PATH=. eslint .",
     "test:nsp": "NODE_PATH=. nsp check",
     "security": "NODE_PATH=. nsp check",
-    "test:functional": "NODE_ENV=test yarn test-contract && NODE_ENV=test yarn test-e2e-http-launch-darkly",
+    "test:functional": "TEST_HEADLESS=true NODE_ENV=dev-aat NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly'",
     "test:fullfunctional": "NODE_ENV=test-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly'",
     "test:fullfunctional-pr": "NODE_ENV=test-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly-pr'",
     "test:fullfunctional:dev-aat:single": "TEST_HEADLESS=false NODE_ENV=dev-aat NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --verbose --grep ",

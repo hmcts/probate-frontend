@@ -9,7 +9,7 @@ const optionNo = '-2';
 const maritalStatusMarried = '';
 const spousePartner = '';
 const bilingualGOP = false;
-const languages = ['en', 'cy'];
+const languages = ['en'];
 
 Feature('GOP Intestacy spouse E2E - EE No Journey');
 

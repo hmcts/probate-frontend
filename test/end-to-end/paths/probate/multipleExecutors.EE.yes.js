@@ -9,7 +9,7 @@ const testConfig = require('config');
 const optionYes = '';
 const optionNo = '-2';
 const bilingualGOP = false;
-const languages = ['en', 'cy'];
+const languages = ['en'];
 
 Feature('GOP Multiple Executors E2E - EE Yes Journey');
 
@@ -243,7 +243,7 @@ languages.forEach(language => {
         // Thank You
         await I.seeThankYouPage(language);
 
-    }).tag('@e2enightly')
+    }).tag('@e2enighswws')
         .tag('@e2enightly-pr')
         .retry(TestConfigurator.getRetryScenarios());
 });

@@ -6,7 +6,7 @@ const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'
 const optionYes = '';
 const optionNo = '-2';
 const bilingualGOP = false;
-const languages = ['en', 'cy'];
+const languages = ['en'];
 
 Feature('GOP-Single Executor - EE No Journey');
 

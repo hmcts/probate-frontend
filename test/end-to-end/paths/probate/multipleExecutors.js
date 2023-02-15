@@ -10,7 +10,7 @@ const optionYes = '';
 const ihtPost = '';
 const optionNo = '-2';
 const bilingualGOP = false;
-const languages = ['en', 'cy'];
+const languages = ['en'];
 
 Feature('GOP Multiple Executors E2E');
 

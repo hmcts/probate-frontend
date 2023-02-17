@@ -9,7 +9,7 @@ exports.config = {
             url: testConfig.TestE2EFrontendUrl,
             waitForTimeout: 120000,
             getPageTimeout: 120000,
-            show: false,
+            show: TestConfigurator.showBrowser(),
             chrome: {
                 ignoreHTTPSErrors: true,
                 'ignore-certificate-errors': true,

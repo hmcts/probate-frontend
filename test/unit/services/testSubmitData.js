@@ -9,7 +9,7 @@ const caseTypes = require('app/utils/CaseTypes');
 describe('SubmitDataService', () => {
     describe('submit()', () => {
         it('should call super.put()', (done) => {
-            const endpoint = 'http://localhost';
+            const endpoint = '';
             const data = {ccdCase: {id: 1234567890123456, state: 'Pending'}};
             const paymentDto = {id: '123'};
             const fetchOptions = {method: 'PUT'};
@@ -19,7 +19,7 @@ describe('SubmitDataService', () => {
             const path = submitData.replacePlaceholderInPath(config.services.orchestrator.paths.submissions, 'ccdCaseId', data.ccdCase.id);
 
             const logSpy = sinon.spy(submitData, 'log');
-            const fetchJsonSpy = sinon.spy(submitData, 'fetchJson');
+            const fetchJsonSpy = sinon.stub(submitData, 'fetchJson');
             const fetchOptionsStub = sinon.stub(submitData, 'fetchOptions').returns(fetchOptions);
 
             const url = endpoint + path + '?probateType=PA';

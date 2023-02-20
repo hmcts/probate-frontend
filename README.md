@@ -52,6 +52,35 @@ Build a `git.properties.json` by running the following command:
 $ yarn git-info
 ```
 
+Note. if setting up on an M1 with ARM architecure, node-sass is not currently supported, so before yarn install and yarn setup, run
+```
+yarn remove node-sass
+yarn add sass
+```
+Then in package.json, replace sass and sass-ie8 scripts with:
+```
+"sass": "NODE_PATH=. sass app/assets/sass/application.scss:public/stylesheets/application.css --quiet --style expanded",
+"sass-ie8": "NODE_PATH=. sass app/assets/sass/application-ie8.scss:public/stylesheets/application.css --quiet --style expanded",
+```
+Finally in ```app/assets/sass/application.scss``` and ```app/assets/sass/application-ie8.scss``` replace ```node_modules``` with ```../../../node_modules``` for all the imports.
+
+### Running the application (FE only / everything else AAT)
+
+If you are only testing the FE and don't need to point to anything else locally, use the following:
+```
+$ yarn start:dev:ld:aat
+```
+and on another terminal (you may need to install redis):
+```
+$ redis-server
+```
+
+This will run FE on localhost:3001, redis cache on localhost:6379 and point everything else to AAT. This means that you
+can use IDAM AAT logins and create cases that will be visible on XUI AAT. Redis is important for development because
+it means that each time your server restarts the security cookie is not lost / you are not logged out.
+
+If you need to add more config or secrets, see dev-aat.yaml and app/setupSecrets.js, respectively.
+
 ### Running the application
 
 Run the application local server as dev:

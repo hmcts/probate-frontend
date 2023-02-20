@@ -5,7 +5,7 @@ const sinon = require('sinon');
 const when = require('when');
 const sinonChai = require('sinon-chai');
 const rewire = require('rewire');
-const Security = rewire('app/components/security');
+const Security = rewire('app/services/Security');
 const expect = chai.expect;
 
 chai.use(sinonChai);
@@ -178,7 +178,7 @@ describe('Security component', () => {
                     return Promise.resolve({name: 'Error'});
                 }
             });
-            req.session = {expires: expiresTime};
+            req.session = {expires: expiresTime, language: 'en'};
 
             req.cookies[securityCookie] = token;
 

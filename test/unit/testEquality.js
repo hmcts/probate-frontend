@@ -5,6 +5,7 @@ const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const Equality = steps.Equality;
 const co = require('co');
+const config = require('config');
 
 describe('Equality', () => {
     describe('getUrl()', () => {
@@ -45,7 +46,7 @@ describe('Equality', () => {
 
                     expect(options).to.deep.equal({
                         redirect: true,
-                        url: `http://localhost:4000/service-endpoint?serviceId=PROBATE&actor=APPLICANT&pcqId=78e69022-2468-4370-a88e-bea2a80fa51f&ccdCaseId=1234567890123456&partyId=applicant@email.com&returnUrl=http://localhost:3000/task-list&language=en&token=${token}`
+                        url: `${config.services.equalityAndDiversity.url}/service-endpoint?serviceId=PROBATE&actor=APPLICANT&pcqId=78e69022-2468-4370-a88e-bea2a80fa51f&ccdCaseId=1234567890123456&partyId=applicant@email.com&returnUrl=http://localhost:3000/task-list&language=en&token=${token}`
                     });
                     done();
                 }).catch(err => {
@@ -77,7 +78,7 @@ describe('Equality', () => {
 
                     expect(options).to.deep.equal({
                         redirect: true,
-                        url: 'http://localhost:4000/service-endpoint?serviceId=PROBATE&actor=APPLICANT&pcqId=78e69022-2468-4370-a88e-bea2a80fa51f&ccdCaseId=1234567890123456&partyId=applicant@email.com&returnUrl=http://localhost:3000/task-list&language=en'
+                        url: `${config.services.equalityAndDiversity.url}/service-endpoint?serviceId=PROBATE&actor=APPLICANT&pcqId=78e69022-2468-4370-a88e-bea2a80fa51f&ccdCaseId=1234567890123456&partyId=applicant@email.com&returnUrl=http://localhost:3000/task-list&language=en`
                     });
                     done();
                 }).catch(err => {

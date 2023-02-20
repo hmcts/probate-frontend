@@ -25,3 +25,10 @@ git.properties.json
 /config/dev.yaml
 /functional-output
 dump.rdb
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

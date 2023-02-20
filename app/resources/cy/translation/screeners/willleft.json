@@ -3,10 +3,10 @@
   "question": "A wnaeth yr unigolyn sydd wedi marw adael ewyllys?",
   "optionYes": "Do",
   "optionNo": "Naddo",
-  "hint": "Rhaid i Ewyllysiau a wneir yn unol â chyfreithiau Cymru a Lloegr gael eu harwyddo gydag inc gwlyb gan:<br><br><ul class=\"govuk-list govuk-list--bullet\"><li>yr unigolyn sy&rsquo;n gwneud yr ewyllys (&lsquo;ewyllysiwr/ewyllyswraig&rsquo;)</li><li>2 dyst</li></ul><br>",
+  "hint": "Rhaid i Ewyllysiau a wneir yn unol â chyfreithiau Cymru a Lloegr gael eu harwyddo gydag inc gwlyb gan:<br><br><ul class=\"govuk-list govuk-list--bullet\"><li>yr unigolyn sy&rsquo;n gwneud yr ewyllys (&lsquo;ewyllysiwr&rsquo;)</li><li>2 dyst</li></ul><br>",
   "errors": {
     "left": {
-      "required": "Atebwch &lsquo;do&rsquo; os oes ewyllys"
+      "required": "Dewiswch &lsquo;oes&rsquo; os oes ewyllys"
     }
   }
 }

@@ -1,12 +1,12 @@
 {
-  "title": "A oes gennych chi&rsquo;r ewyllys wreiddiol",
-  "question": "A oes gennych chi&rsquo;r ewyllys wreiddiol?",
+  "title": "Oes gennych chi&rsquo;r ewyllys wreiddiol ac unrhyw godisiliau?",
+  "question": "Oes gennych chi&rsquo;r ewyllys wreiddiol ac unrhyw godisiliau?",
   "optionYes": "Oes",
   "optionNo": "Nag oes",
   "paragraph1": "Gwnewch yn siŵr bod eich <a href=\"{willIsLegal}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"ewyllys yn gyfreithiol\">ewyllys yn gyfreithiol</a>. Bydd arnoch angen anfon y copi gwreiddiol atom fel rhan o&rsquo;ch cais.",
   "errors": {
     "original": {
-      "required": "Atebwch &lsquo;oes&rsquo; os oes gennych chi&rsquo;r ewyllys wreiddiol"
+      "required": "Dewiswch &lsquo;oes&rsquo; os oes gennych chi&rsquo;r ewyllys wreiddiol ac unrhyw godisiliau"
     }
   }
 }

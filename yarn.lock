@@ -2599,15 +2599,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"codecov@npm:^4.0.0-0":
-  version: 4.0.0-0
-  resolution: "codecov@npm:4.0.0-0"
-  bin:
-    codecov: ./bin/codecov
-  checksum: f0fbfeeecbe725db355c6716787c823944cfaa18c6ddcda70cd92e663d2bb0ec544f3c9d8723b899e8a0ca0d76b44ebf25d2396f24a761f854cba58666afe9ec
-  languageName: node
-  linkType: hard
-
 "color-convert@npm:^1.9.0":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
@@ -9602,7 +9593,6 @@ __metadata:
     co: ^4.6.0
     codacy-coverage: 3.4.0
     codeceptjs: ^3.0.7
-    codecov: ^4.0.0-0
     config: ^3.3.8
     connect-redis: ^5.2.0
     connect-timeout: ^1.9.0

@@ -25,6 +25,8 @@ git.properties.json
 /config/dev.yaml
 /functional-output
 dump.rdb
+
+# Yarn v3
 .pnp.*
 .yarn/*
 !.yarn/patches
@@ -32,3 +34,5 @@ dump.rdb
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+.nyc_output/

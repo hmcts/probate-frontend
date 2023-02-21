@@ -27,7 +27,7 @@ router.get('/forms/cases', (req, res) => {
                 caseType: 'PA',
                 ccdCase: {
                     id: '5678901234561234',
-                    state: 'CaseCreated'
+                    state: 'CasePrinted'
                 }
             },
             {
@@ -97,7 +97,7 @@ router.get('/forms/case/*', (req, res) => {
             caseType: caseTypes.GOP,
             ccdCase: {
                 id: '5678901234561234',
-                state: 'CaseCreated'
+                state: 'CasePrinted'
             },
             executors: {},
         };
@@ -162,7 +162,7 @@ router.post('/forms/newcase', (req, res) => {
                 caseType: 'PA',
                 ccdCase: {
                     id: 5678901234561234,
-                    state: 'CaseCreated'
+                    state: 'CasePrinted'
                 }
             },
             {

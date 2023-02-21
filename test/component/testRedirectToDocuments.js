@@ -11,7 +11,7 @@ describe('redirect to documents', () => {
         testWrapper = new TestWrapper('CopiesUk');
         sessionData = {
             ccdCase: {
-                state: 'CaseCreated',
+                state: 'CasePrinted',
                 id: 1535395401245028
             },
             declaration: {
@@ -53,7 +53,7 @@ describe('redirect to documents', () => {
     it(`test it redirects to Documents page when the application was submitted and declarationCheckbox data is pruned: ${expectedUrlForDocumentsPage}`, (done) => {
         sessionData = {
             ccdCase: {
-                state: 'CaseCreated',
+                state: 'CasePrinted',
                 id: 1535395401245028
             },
             payment: {

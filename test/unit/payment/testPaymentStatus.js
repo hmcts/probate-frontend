@@ -78,7 +78,7 @@ describe('PaymentStatus', () => {
         });
         expectedFormData = {
             'ccdCase': {
-                'state': 'CaseCreated'
+                'state': 'CasePrinted'
             },
             'payment': {
                 'amount': 5000,
@@ -265,7 +265,7 @@ describe('PaymentStatus', () => {
             const expectedFormData = {
                 caseType: 'gop',
                 ccdCase: {
-                    state: 'CaseCreated'
+                    state: 'CasePrinted'
                 },
                 payment: {
                     status: 'not_required'

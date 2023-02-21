@@ -159,7 +159,7 @@
     "eslint": "^6.1.0",
     "eslint-plugin-mocha": "^6.0.0",
     "istanbul": "^1.1.0-alpha.1",
-    "mocha": "^6.2.1",
+    "mocha": "^6.2.3",
     "mocha-jenkins-reporter": "^0.4.5",
     "mocha-junit-reporter": "^1.23.3",
     "mocha-multi": "^1.1.3",

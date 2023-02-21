@@ -5,11 +5,11 @@ const taskListContentEn = require('app/resources/en/translation/tasklist');
 const taskListContentCy = require('app/resources/cy/translation/tasklist');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const testConfig = require('config');
+const {getTestLanguages} = require('../../helpers/GeneralHelpers');
 
 const optionYes = '';
 const optionNo = '-2';
 const bilingualGOP = false;
-const languages = ['en', 'cy'];
 
 Feature('GOP Multiple Executors E2E - EE Yes Journey');
 
@@ -22,7 +22,7 @@ After(async () => {
     await TestConfigurator.getAfter();
 });
 
-languages.forEach(language => {
+getTestLanguages().forEach(language => {
 
     Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - Multiple Executors Journey - Main applicant EE yes journey`), async ({I}) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;

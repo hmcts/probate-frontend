@@ -54,7 +54,7 @@ class PaymentStatus extends Step {
     }
 
     isComplete(ctx, formdata) {
-        return [typeof formdata.payment !== 'undefined' && formdata.ccdCase.state === 'CaseCreated' && (formdata.payment.status === 'Success' || formdata.payment.status === 'not_required'), 'inProgress'];
+        return [typeof formdata.payment !== 'undefined' && formdata.ccdCase.state === 'CasePrinted' && (formdata.payment.status === 'Success' || formdata.payment.status === 'not_required'), 'inProgress'];
     }
 
     * runnerOptions(ctx, session) {
@@ -101,7 +101,7 @@ class PaymentStatus extends Step {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
                 logger.error(`Unable to retrieve a payment response with status ${getPaymentResponse.status}`);
-            } else if (!updateCcdCaseResponse || !updateCcdCaseResponse.ccdCase || updateCcdCaseResponse.ccdCase.state !== 'CaseCreated') {
+            } else if (!updateCcdCaseResponse || !updateCcdCaseResponse.ccdCase || updateCcdCaseResponse.ccdCase.state !== 'CasePrinted') {
                 options.redirect = false;
                 logger.warn('Did not get a successful case created state.');
             } else {

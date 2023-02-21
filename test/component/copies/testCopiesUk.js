@@ -87,7 +87,7 @@ describe('copies-uk', () => {
             testWrapper = new TestWrapper('CopiesUk');
         });
 
-        testCommonContent.runTest('CopiesUk', null, null, [], false, {ccdCase: {state: 'CaseCreated'}, declaration: {declarationCheckbox: 'true'}});
+        testCommonContent.runTest('CopiesUk', null, null, [], false, {ccdCase: {state: 'CasePrinted'}, declaration: {declarationCheckbox: 'true'}});
 
         it('test errors message displayed for invalid data, text values', (done) => {
             testWrapper.agent.post('/prepare-session/form')

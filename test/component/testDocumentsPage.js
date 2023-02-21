@@ -18,7 +18,7 @@ describe('documents', () => {
         sessionData = {
             caseType: caseTypes.GOP,
             ccdCase: {
-                state: 'CaseCreated',
+                state: 'CasePrinted',
                 id: 1234123512361237
             },
             declaration: {
@@ -41,7 +41,7 @@ describe('documents', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('Documents', null, null, [], false, {
-            ccdCase: {state: 'CaseCreated'},
+            ccdCase: {state: 'CasePrinted'},
             declaration: {declarationCheckbox: 'true'},
             payment: {total: 0},
             caseType: caseTypes.GOP

@@ -28,7 +28,7 @@ const allApplicationsExpectedResponse = {
             caseType: 'PA',
             ccdCase: {
                 id: '5678901234561234',
-                state: 'CaseCreated'
+                state: 'CasePrinted'
             }
         },
         {
@@ -673,7 +673,7 @@ describe('multipleApplicationsMiddleware', () => {
                 applicantEmail: 'test@email.com',
                 ccdCase: {
                     id: 9012345678901234,
-                    state: 'CaseCreated'
+                    state: 'CasePrinted'
                 }
             };
 

@@ -32,7 +32,7 @@ app:
   port: '3000'
   useCSRFProtection: 'true' # TODO: tech debt, tests should be csrf aware, it shouldn't be possible to accidentally disable this
   session:
-    expires: 3600000 # ms (60 minutes)
+    expires: 4000 # ms (60 minutes)
     ttl: 28800 # ms (8 hours)
 health:
   service_name: 'Apply for Probate'

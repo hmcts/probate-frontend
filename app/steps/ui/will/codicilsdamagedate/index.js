@@ -45,10 +45,7 @@ class CodicilsDamageDate extends ValidationStep {
         } else if (codicilsdamagedate.isAfter(moment())) {
             errors.push(FieldError('codicilsdamagedate', 'future', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             return [ctx, errors];
-        } else if (!codicilsdamagedate.isValid()) {
-            errors.push(FieldError('codicilsdamagedate', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-            return [ctx, errors];
-        } else if (!DateValidation.isPositive([day, month, year])) {
+        } else if (!codicilsdamagedate.isValid() || !DateValidation.isPositive([day, month, year])) {
             errors.push(FieldError('codicilsdamagedate', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             return [ctx, errors];
         }

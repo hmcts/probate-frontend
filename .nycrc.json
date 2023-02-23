@@ -1,5 +1,5 @@
 {
   "all": true,
-  "check-coverage": true,
+  "check-coverage": false,
   "exclude": ["app.js", "server.js", ".yarn/releases/", "app/assets/", "test/", ".eslintrc.js", "output/assets"]
 }

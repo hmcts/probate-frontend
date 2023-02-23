@@ -12,7 +12,7 @@ class Oauth2Token extends Service {
         const url = this.endpoint + idamConfig.probate_oauth_token_path;
         const headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': `Basic ${new Buffer(`${clientName}:${secret}`).toString('base64')}`
+            'Authorization': `Basic ${Buffer.from(`${clientName}:${secret}`).toString('base64')}`
         };
         const params = new URLSearchParams({
             grant_type: 'authorization_code',

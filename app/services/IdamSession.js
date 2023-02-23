@@ -20,7 +20,7 @@ class IdamSession extends Service {
         const clientName = this.config.services.idam.probate_oauth2_client;
         const secret = this.config.services.idam.service_key;
         const headers = {
-            'Authorization': `Basic ${new Buffer(`${clientName}:${secret}`).toString('base64')}`
+            'Authorization': `Basic ${Buffer.from(`${clientName}:${secret}`).toString('base64')}`
         };
         const fetchOptions = this.fetchOptions({}, 'DELETE', headers);
         return this.fetchJson(url, fetchOptions);

@@ -207,7 +207,7 @@ class Security {
         const userpassword = config.services.idam.probate_user_password;
         const headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': `Basic ${new Buffer(`${username}:${userpassword}`).toString('base64')}`
+            'Authorization': `Basic ${Buffer.from(`${username}:${userpassword}`).toString('base64')}`
         };
         const params = new URLSearchParams();
         params.append('client_id', client_id);

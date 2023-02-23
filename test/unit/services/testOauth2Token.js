@@ -26,7 +26,7 @@ describe('Oauth2TokenService', () => {
                 body: expectedParams.toString(),
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    'Authorization': `Basic ${new Buffer(`${clientName}:${secret}`).toString('base64')}`
+                    'Authorization': `Basic ${Buffer.from(`${clientName}:${secret}`).toString('base64')}`
                 }
             };
             const oauth2Token = new Oauth2Token(endpoint, 'abc123');

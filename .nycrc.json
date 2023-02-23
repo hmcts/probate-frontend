@@ -1,5 +1,6 @@
 {
   "all": true,
   "check-coverage": false,
-  "exclude": ["app.js", "server.js", ".yarn/releases/", "app/assets/", "test/", ".eslintrc.js", "output/assets"]
+  "include": ["app/"],
+  "exclude": ["app/assets/**", "app/**/template.html", "app/**/*.njk", "app/**/scripts.html"]
 }

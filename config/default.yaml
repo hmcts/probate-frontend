@@ -214,6 +214,9 @@ links:
   ihtGifts: 'https://www.gov.uk/inheritance-tax/gifts'
   spouseGivingUpAdminRightsPA16Link: 'https://www.gov.uk/government/publications/form-pa16-give-up-probate-administrator-rights'
   willIsLegal: 'https://www.gov.uk/make-will/make-sure-your-will-is-legal'
+  applyForProbateFrontpage: 'https://www.gov.uk/applying-for-probate/apply-for-probate'
+  applyForProbateFrontpageWelsh: 'https://www.gov.uk/gwneud-cais-am-brofiant/gwneud-cais-am-brofiant'
+  paymentsAccessibilityStatement: 'https://www.payments.service.gov.uk/accessibility-statement/'
 utils:
   api:
     retries: 10

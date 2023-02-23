@@ -201,20 +201,17 @@ class Security {
 
     getOauth2Code(redirect_uri) {
         logger.info('calling getOauth2Code to get code');
-        const client_id = config.services.idam.probate_oauth2_client;
-        const idam_api_url = config.services.idam.apiUrl;
-        const username = config.services.idam.probate_user_email;
-        const userpassword = config.services.idam.probate_user_password;
+        const usernameAndPassword = `${config.services.idam.probate_user_email}:${config.services.idam.probate_user_password}`;
         const headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': `Basic ${Buffer.from(`${username}:${userpassword}`).toString('base64')}`
+            'Authorization': `Basic ${Buffer.from(usernameAndPassword).toString('base64')}`
         };
         const params = new URLSearchParams();
-        params.append('client_id', client_id);
+        params.append('client_id', config.services.idam.probate_oauth2_client);
         params.append('redirect_uri', redirect_uri);
         params.append('response_type', 'code');
 
-        return utils.fetchJson(`${idam_api_url}/oauth2/authorize`, {
+        return utils.fetchJson(`${config.services.idam.apiUrl}${config.services.idam.probate_oauth_authorise_path}`, {
             method: 'POST',
             timeout: 10000,
             body: params.toString(),

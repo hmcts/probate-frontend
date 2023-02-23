@@ -19,8 +19,9 @@ class IdamSession extends Service {
         const url = `${this.endpoint}/session/${accessToken}`;
         const clientName = this.config.services.idam.probate_oauth2_client;
         const secret = this.config.services.idam.service_key;
+        const clientNameAndSecret = `${clientName}:${secret}`;
         const headers = {
-            'Authorization': `Basic ${Buffer.from(`${clientName}:${secret}`).toString('base64')}`
+            'Authorization': `Basic ${Buffer.from(clientNameAndSecret).toString('base64')}`
         };
         const fetchOptions = this.fetchOptions({}, 'DELETE', headers);
         return this.fetchJson(url, fetchOptions);

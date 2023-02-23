@@ -91,7 +91,7 @@ describe('pin-page', () => {
                 .reply(200, 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSRUZFUkVOQ0UifQ.Z_YYn0go02ApdSMfbehsLXXbxJxLugPG' +
                     '8v_3ktCpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA');
 
-            nock(IDAM_URL).post('/oauth2/authorize')
+            nock(IDAM_URL).post(config.services.idam.probate_oauth_authorise_path)
                 .reply(200, {code: '12345'});
 
             nock(IDAM_URL).post('/oauth2/token')
@@ -140,7 +140,7 @@ describe('pin-page', () => {
                     '8v_3ktCpQurK8tHkOy1qGyTo02bTdilX4fq4M5glFh80edDuhDJXPA');
 
             nock(IDAM_URL)
-                .post('/oauth2/authorize')
+                .post(config.services.idam.probate_oauth_authorise_path)
                 .reply(200, {code: '12345'});
 
             nock(IDAM_URL)

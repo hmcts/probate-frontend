@@ -48,7 +48,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     // Authenticate against the environment-provided credentials, if running
     // the app in production (Heroku, effectively)
     if (useAuth === 'true') {
-        app.use(utils.basicAuth(username, password));
+        app.use(utils.basicAuthUtil(username, password));
     }
 
     // Application settings

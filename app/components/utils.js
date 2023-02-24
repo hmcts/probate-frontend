@@ -1,6 +1,8 @@
 'use strict';
 
-const basicAuth = require('basic-auth');
+const {auth: basicAuth} = require('basic-auth');
+
+const NO_USERNAME_OR_PASSWORD_ERR_MESSAGE = '<h1>Error:</h1><p>Username or password not set.';
 
 /**
  * Simple basic auth middleware for use with Express 4.x.
@@ -14,10 +16,10 @@ const basicAuth = require('basic-auth');
  * @param   {string}   password Expected password
  * @returns {function} Express 4 middleware requiring the given credentials
  */
-exports.basicAuth = (username, password) => {
+const basicAuthUtil = (username, password) => {
     return (req, res, next) => {
         if (!username || !password) {
-            return res.send('<h1>Error:</h1><p>Username or password not set.');
+            return res.send(NO_USERNAME_OR_PASSWORD_ERR_MESSAGE);
         }
 
         const user = basicAuth(req);
@@ -31,7 +33,7 @@ exports.basicAuth = (username, password) => {
     };
 };
 
-exports.forceHttps = (req, res, next) => {
+const forceHttps = (req, res, next) => {
     if (req.headers['x-forwarded-proto'] !== 'https') {
     // 302 temporary - this is a feature that can be disabled
         return res.redirect(302, `https://${req.get('Host')}${req.url}`);
@@ -39,7 +41,7 @@ exports.forceHttps = (req, res, next) => {
     next();
 };
 
-exports.getStore = (redisConfig, session, ttl) => {
+const getStore = (redisConfig, session, ttl) => {
     if (redisConfig.enabled === 'true') {
         const Redis = require('ioredis');
         const RedisStore = require('connect-redis')(session);
@@ -55,7 +57,7 @@ exports.getStore = (redisConfig, session, ttl) => {
     return new MemoryStore();
 };
 
-exports.stringifyNumberBelow21 = (n, language = 'en') => {
+const stringifyNumberBelow21 = (n, language = 'en') => {
     const commonContent = require(`app/resources/${language}/translation/common`);
     const stringNumbers = commonContent.numberBelow21;
     const special = stringNumbers.split(',');
@@ -64,4 +66,11 @@ exports.stringifyNumberBelow21 = (n, language = 'en') => {
     }
     return n;
 
+};
+
+module.exports = {
+    basicAuthUtil,
+    forceHttps,
+    getStore,
+    stringifyNumberBelow21
 };

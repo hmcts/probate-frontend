@@ -1,7 +1,8 @@
 {
   "title": "Sut cyflwynwyd y ffurflen Treth Etifeddiant (IHT)",
   "question": "Sut cyflwynwyd y ffurflen Treth Etifeddiant (IHT)?",
-  "paragraph1": "Dywedwch sut y bydd yn cael ei hanfon os nad ydych wedi gwneud hynny eisoes.",
+  "paragraph1": "Dywedwch sut y bydd yn cael ei anfon os nad ydych wedi ei anfon eto.",
+  "paragraph2": "Mae HMRC wedi cau&lsquo;r gwasanaeth &lsquo;Cofrestru i gwblhau adroddiad ar ystâd i bwrpas treth etifeddu&rsquo; ar-lein. Fodd bynnag, os ydych wedi cyflwyno ffurflen IHT gan ddefnyddio gwasanaeth HMRC y llynedd, gallwch ddefnyddio&lsquo;r rhif adnabod treth etifeddu a gawsoch yma.",
   "optionOnline": "Drwy wasanaeth ar-lein HMRC",
   "optionPaper": "Drwy&rsquo;r post",
 

@@ -2,6 +2,7 @@
 
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
+const sinon = require('sinon');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const IhtMethod = steps.IhtMethod;
 
@@ -11,6 +12,42 @@ describe('IhtMethod', () => {
             const url = IhtMethod.constructor.getUrl();
             expect(url).to.equal('/iht-method');
             done();
+        });
+    });
+
+    describe('generateContent()', () => {
+        const formdata = {
+            iht: {
+                method: 'optionOnline'
+            },
+            deceased: {
+                anyChildren: 'optionYes',
+                allChildrenOver18: 'optionYes',
+                anyDeceasedChildren: 'optionYes',
+                anyGrandchildrenUnder18: 'optionNo'
+            }
+        };
+        const ctx = {};
+        it('should not show content about closed HMRC service after end of March', (done) => {
+            const expectedContent = 'Say how it will be sent if you haven&rsquo;t sent it yet.';
+            const date = new Date(2023, 4, 16, 0, 0);
+            const clock = sinon.useFakeTimers({now: date});
+
+            const content = IhtMethod.generateContent(ctx, formdata);
+            expect(content.hint).to.equal(expectedContent);
+            done();
+            clock.restore();
+        });
+
+        it('should show content about closed HMRC service before end of March', (done) => {
+            const expectedContent = 'HMRC has closed the online';
+            const date = new Date(2023, 2, 16, 0, 0);
+            const clock = sinon.useFakeTimers({now: date});
+
+            const content = IhtMethod.generateContent(ctx, formdata);
+            expect(content.hint).to.include(expectedContent);
+            done();
+            clock.restore();
         });
     });
 

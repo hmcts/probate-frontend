@@ -30,7 +30,7 @@ describe('DocumentDownloadMiddleware', () => {
             res = {
                 setHeader: sinon.spy(),
                 send: sinon.spy(),
-                status: sinon.spy()
+                status: sinon.stub().returns({render: sinon.stub()})
             };
             service = 'CheckAnswersPdf';
             filename = 'check-your-answers.pdf';

@@ -3,8 +3,8 @@
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-const config = require('config');
-const nock = require('nock');
+const PinNumber = require('app/services/PinNumber');
+const sinon = require('sinon');
 const rewire = require('rewire');
 const PinResend = rewire('app/steps/ui/pin/resend');
 const caseTypes = require('app/utils/CaseTypes');
@@ -100,11 +100,9 @@ describe('Pin-Resend', () => {
                     }
                 }
             });
-            nock(config.services.orchestrator.url)
-                .get('/invite/pin?phoneNumber=07912345678')
-                .reply(200, '123456');
 
             const pinResend = new PinResend(steps, section, templatePath, i18next, schema);
+            const pinResendGetStub = sinon.stub(PinNumber.prototype, 'get').returns(Promise.resolve(123456));
 
             co(function* () {
                 const [ctx, errors] = yield pinResend.handlePost(ctxTestData, errorsTestData, formdata, session, hostname);
@@ -118,12 +116,12 @@ describe('Pin-Resend', () => {
 
                 revertAuthorise();
                 revertSecurity();
-                nock.cleanAll();
+                pinResendGetStub.restore();
                 done();
             }).catch((err) => {
                 revertAuthorise();
                 revertSecurity();
-                nock.cleanAll();
+                pinResendGetStub.restore();
                 done(err);
             });
         });

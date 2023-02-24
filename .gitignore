@@ -24,3 +24,14 @@ git.properties.json
 /mochawesome-report
 /config/dev.yaml
 /functional-output
+dump.rdb
+.nyc_output/
+
+# Yarn v3
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

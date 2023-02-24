@@ -7,6 +7,7 @@ const sinon = require('sinon');
 const rewire = require('rewire');
 const documentUploadMiddleware = rewire('app/middleware/documentUpload');
 const DocumentUpload = require('app/utils/DocumentUpload');
+const FormData = require('app/services/FormData');
 
 describe('DocumentUploadMiddleware', () => {
     describe('getDocument()', () => {
@@ -301,6 +302,7 @@ describe('DocumentUploadMiddleware', () => {
         });
 
         it('should remove a document', (done) => {
+            const formDataStub = sinon.stub(FormData.prototype, 'post');
             const revert = documentUploadMiddleware.__set__('Document', class {
                 delete() {
                     return Promise.resolve(true);
@@ -324,6 +326,7 @@ describe('DocumentUploadMiddleware', () => {
                 expect(req.session.form.documents.uploads).to.deep.equal([]);
                 expect(res.redirect.calledWith('/document-upload')).to.equal(true);
                 done();
+                formDataStub.restore();
             });
         });
 
@@ -346,18 +349,17 @@ describe('DocumentUploadMiddleware', () => {
 
         it('should return an error if formdata cannot be persisted', (done) => {
             const error = new Error('something');
-
             const revertDelete = documentUploadMiddleware.__set__('Document', class {
                 delete() {
                     return Promise.resolve(true);
                 }
             });
 
-            const revertPersist = documentUploadMiddleware.__set__('persistFormData', () => {
-                return Promise.reject(error);
+            const revertPersist = documentUploadMiddleware.__set__({
+                persistFormData: sinon.stub().throws(error)
             });
 
-            const res = {};
+            const res = {redirect: sinon.stub()};
             const next = sinon.spy();
             documentUploadMiddleware.removeDocument(req, res, next);
             setTimeout(() => {

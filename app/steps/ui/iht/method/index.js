@@ -16,6 +16,12 @@ class IhtMethod extends ValidationStep {
         };
     }
 
+    generateContent(ctx, formdata, language = 'en') {
+        const content = super.generateContent(ctx, formdata, language);
+        content.hint = new Date() <= new Date('2023-03-31') ? content.paragraph1 + '<br><br>' + content.paragraph2 : content.paragraph1;
+        return content;
+    }
+
     action(ctx, formdata) {
         super.action(ctx, formdata);
 

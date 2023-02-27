@@ -14,7 +14,7 @@ chai.use(chaiAsPromised);
 describe('Pact FeesRegisterClient', () => {
     const MOCK_SERVER_PORT = 4411;
     const provider = new Pact({
-        consumer: 'probate_frontEnd',
+        consumer: 'probate_frontend',
         provider: 'feeRegister_lookUp',
         port: MOCK_SERVER_PORT,
         log: path.resolve(process.cwd(), 'logs', 'pactFeesRegister.log'),

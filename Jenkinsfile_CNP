@@ -11,6 +11,10 @@ def checkForNightlyLabel(branch_name) {
   return new GithubAPI(this).getLabelsbyPattern(branch_name, "nightly").contains("nightly")
 }
 
+def checkForNightlyWithoutWelshTestsLabel(branch_name) {
+  return new GithubAPI(this).getLabelsbyPattern(branch_name, "nightly-without-welsh-tests").contains("nightly-without-welsh-tests")
+}
+
 def secrets = [
   'probate-${env}': [
     secret('testIdamBaseUrl', 'IDAM_API_URL'),
@@ -70,7 +74,7 @@ withPipeline("nodejs", product, component) {
     afterSuccess('build') {
         sh 'yarn setup'
     }
-//    after('test') {
+//    afterSuccess('test') {
 //        if (env.CHANGE_BRANCH || env.BRANCH_NAME == 'master') {
 //            env.PACT_BRANCH_NAME = env.CHANGE_BRANCH
 //            env.PACT_BROKER_URL = "https://pact-broker.platform.hmcts.net"
@@ -117,7 +121,11 @@ withPipeline("nodejs", product, component) {
       reportName           : "Preview Functional Tests",
       alwaysLinkToLastBuild: true
     ]
-    if (checkForNightlyLabel(env.BRANCH_NAME)) {
+
+    if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
+      env.DONT_TEST_WELSH = true
+      yarnBuilder.yarn('test:fullfunctional-pr');
+    } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
       yarnBuilder.yarn('test:fullfunctional-pr');
     }
   }

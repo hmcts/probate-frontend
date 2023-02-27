@@ -2,6 +2,7 @@
 
 const taskListContentEn = require('app/resources/en/translation/tasklist');
 const taskListContentCy = require('app/resources/cy/translation/tasklist');
+const {getTestLanguages} = require('../../helpers/GeneralHelpers');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
 const optionYes = '';
@@ -11,7 +12,6 @@ const spouseOfDeceased = '';
 const relationshipChildOfDeceased = '-2';
 const optionRenouncing = '';
 const bilingualGOP = false;
-const languages = ['en', 'cy'];
 
 Feature('GOP Intestacy E2E - EE No Journey');
 
@@ -24,7 +24,7 @@ After(async () => {
     await TestConfigurator.getAfter();
 });
 
-languages.forEach(language => {
+getTestLanguages().forEach(language => {
 
     Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - GOP -Intestacy Journey - EE No journey`), async ({I}) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;

@@ -178,11 +178,18 @@ For e2e tests (non launch darkly):
 For e2e tests (launch darkly):
 `$ yarn test-e2e`
 
-
 For contact tests:
 `$ ADDRESS_TOKEN=xyz yarn test-contract`
 
 You'll need to get the ADDRESS_TOKEN from the AAT vault `postcode-service-token2`
+
+#### Running tests on the pipeline
+If you are concerned about the impact of your code changes, you may want to run a more comprehensive set of tests as
+part of the PR build. To do this, you can add the appropriate label to the PR (in GitHub), as detailed below:
+- `nightly`: This will run `yarn test:fullfunctional-pr` command which picks up all the e2e tests with the tag
+`@e2enightly-pr`.
+- `nightly-without-welsh-tests`: This will run `yarn test:fullfunctional-pr` command which picks up all the e2e tests
+with the tag `@e2enightly-pr`, but only in English language.
 
 ## License
 

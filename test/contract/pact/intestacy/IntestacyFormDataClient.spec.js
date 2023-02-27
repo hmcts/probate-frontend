@@ -37,8 +37,8 @@ describe('Pact IntestacyFormData', () => {
             serviceAuthorization: 'someServiceAuthorization'
         }
     };
-    function getRequestBody() {
-        const fullBody = JSON.parse(JSON.stringify(FORM_DATA_BODY_PAYLOAD));
+    function getWrappedPayload(unwrappedPayload) {
+        const fullBody = unwrappedPayload;
         return fullBody;
     }
     function getExpectedResponseBody() {
@@ -81,7 +81,7 @@ describe('Pact IntestacyFormData', () => {
                             'Content-Type': 'application/json',
                             'Authorization': ctx.authToken
                         },
-                        body: getRequestBody()
+                        body: getWrappedPayload(FORM_DATA_BODY_PAYLOAD)
                     },
                     willRespondWith: {
                         status: 200,

@@ -66,6 +66,8 @@ Finally in ```app/assets/sass/application.scss``` and ```app/assets/sass/applica
 
 ### Running the application (FE only / everything else AAT)
 
+Ensure your VPN is on.
+
 If you are only testing the FE and don't need to point to anything else locally, use the following:
 ```
 $ yarn start:dev:ld:aat

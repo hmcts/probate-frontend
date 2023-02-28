@@ -1,4 +1,4 @@
-const {basicAuthUtil, getStore, forceHttps} = require('../../../app/components/utils');
+const {authenticateUsernameAndPassword, getStore, forceHttps} = require('../../../app/components/utils');
 const {commonNext, commonReq, commonRes} = require('../../util/commonConsts');
 const sinon = require('sinon');
 const proxyquire = require('proxyquire');
@@ -25,14 +25,14 @@ describe('utils', () => {
         next.reset();
     });
 
-    describe('basicAuthUtil', () => {
+    describe('authenticateUsernameAndPassword', () => {
         const TEST_NO_USERNAME_OR_PASSWORD_ERR_MESSAGE = '<h1>Error:</h1><p>Username or password not set.';
 
         it('no username sends error', () => {
             const username = '';
             const password = 'passw0rD123';
-            const basicAuthUtilMethod = basicAuthUtil(username, password);
-            basicAuthUtilMethod(req, res, next);
+            const authenticateUsernameAndPasswordMethod = authenticateUsernameAndPassword(username, password);
+            authenticateUsernameAndPasswordMethod(req, res, next);
 
             sinon.assert.calledOnce(res.send);
             sinon.assert.calledWith(res.send, TEST_NO_USERNAME_OR_PASSWORD_ERR_MESSAGE);
@@ -41,8 +41,8 @@ describe('utils', () => {
         it('no password sends error', () => {
             const username = 'testUsername';
             const password = '';
-            const basicAuthUtilMethod = basicAuthUtil(username, password);
-            basicAuthUtilMethod(req, res, next);
+            const authenticateUsernameAndPasswordMethod = authenticateUsernameAndPassword(username, password);
+            authenticateUsernameAndPasswordMethod(req, res, next);
 
             sinon.assert.calledOnce(res.send);
             sinon.assert.calledWith(res.send, TEST_NO_USERNAME_OR_PASSWORD_ERR_MESSAGE);
@@ -53,8 +53,8 @@ describe('utils', () => {
             const password = 'password';
             authStub = sinon.stub().returns({});
             const stubbedUtil = proxyquire('../../../app/components/utils', {'basic-auth': {auth: authStub}});
-            const basicAuthUtilMethod = stubbedUtil.basicAuthUtil(username, password);
-            basicAuthUtilMethod(req, res, next);
+            const authenticateUsernameAndPasswordMethod = stubbedUtil.authenticateUsernameAndPassword(username, password);
+            authenticateUsernameAndPasswordMethod(req, res, next);
 
             sinon.assert.calledOnce(res.set);
             sinon.assert.calledWith(res.set, 'WWW-Authenticate', 'Basic realm=Authorization Required');
@@ -69,8 +69,8 @@ describe('utils', () => {
             const password = 'password';
             authStub = sinon.stub().returns({name: 'testUsername', pass: 'differentPassword'});
             const stubbedUtil = proxyquire('../../../app/components/utils', {'basic-auth': {auth: authStub}});
-            const basicAuthUtilMethod = stubbedUtil.basicAuthUtil(username, password);
-            basicAuthUtilMethod(req, res, next);
+            const authenticateUsernameAndPasswordMethod = stubbedUtil.authenticateUsernameAndPassword(username, password);
+            authenticateUsernameAndPasswordMethod(req, res, next);
 
             sinon.assert.calledOnce(res.set);
             sinon.assert.calledWith(res.set, 'WWW-Authenticate', 'Basic realm=Authorization Required');
@@ -85,8 +85,8 @@ describe('utils', () => {
             const password = 'password';
             authStub = sinon.stub().returns({name: 'differentTestUsername', pass: 'password'});
             const stubbedUtil = proxyquire('../../../app/components/utils', {'basic-auth': {auth: authStub}});
-            const basicAuthUtilMethod = stubbedUtil.basicAuthUtil(username, password);
-            basicAuthUtilMethod(req, res, next);
+            const authenticateUsernameAndPasswordMethod = stubbedUtil.authenticateUsernameAndPassword(username, password);
+            authenticateUsernameAndPasswordMethod(req, res, next);
 
             sinon.assert.calledOnce(res.set);
             sinon.assert.calledWith(res.set, 'WWW-Authenticate', 'Basic realm=Authorization Required');
@@ -101,8 +101,8 @@ describe('utils', () => {
             const password = 'password';
             authStub = sinon.stub().returns({name: 'testUsername', pass: 'password'});
             const stubbedUtil = proxyquire('../../../app/components/utils', {'basic-auth': {auth: authStub}});
-            const basicAuthUtilMethod = stubbedUtil.basicAuthUtil(username, password);
-            basicAuthUtilMethod(req, res, next);
+            const authenticateUsernameAndPasswordMethod = stubbedUtil.authenticateUsernameAndPassword(username, password);
+            authenticateUsernameAndPasswordMethod(req, res, next);
 
             sinon.assert.notCalled(res.set);
             sinon.assert.notCalled(res.sendStatus);

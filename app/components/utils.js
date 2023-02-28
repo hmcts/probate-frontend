@@ -1,6 +1,6 @@
 'use strict';
 
-const {auth: basicAuth} = require('basic-auth');
+const basicAuth = require('basic-auth');
 
 const NO_USERNAME_OR_PASSWORD_ERR_MESSAGE = '<h1>Error:</h1><p>Username or password not set.';
 
@@ -16,7 +16,7 @@ const NO_USERNAME_OR_PASSWORD_ERR_MESSAGE = '<h1>Error:</h1><p>Username or passw
  * @param   {string}   password Expected password
  * @returns {function} Express 4 middleware requiring the given credentials
  */
-const basicAuthUtil = (username, password) => {
+const authenticateUsernameAndPassword = (username, password) => {
     return (req, res, next) => {
         if (!username || !password) {
             return res.send(NO_USERNAME_OR_PASSWORD_ERR_MESSAGE);
@@ -69,7 +69,7 @@ const stringifyNumberBelow21 = (n, language = 'en') => {
 };
 
 module.exports = {
-    basicAuthUtil,
+    authenticateUsernameAndPassword,
     forceHttps,
     getStore,
     stringifyNumberBelow21

@@ -1,7 +1,7 @@
 {
   "title": "Enwau&rsquo;r ysgutorion",
   "question": "Beth yw enwau&rsquo;r ysgutorion?",
-  "paragraph": "Nodwch enwau&rsquo;r holl ysgutorion, yn union fel y maent yn ymddangos yn yr ewyllys.",
+  "paragraph": "Ysgrifennwch enwau&rsquo;r holl ysgutorion yn union fel y maent yn ymddangos ar yr ewyllys ac unrhyw godisiliau.",
   "executor": "Ysgutor",
   "fullName": "Enw Llawn",
   "fullNameHint": "Gan gynnwys enwau canol",
@@ -10,7 +10,7 @@
   "errors": {
     "executorName": {
       "required": "Nodwch enw&rsquo;r ysgutor",
-      "invalid": "Rhowch enw ysgutor dilys - dim ond llythrennau a i z, bylchau, cysylltnodau a chollnodau y gellir eu cynnwys"
+      "invalid": "Nodwch enw dilys ar gyfer yr ysgutor - dim ond llythrennau o a i z, bylchau, cysylltnodau a chollnodau y gellir eu cynnwys"
     }
   }
 }

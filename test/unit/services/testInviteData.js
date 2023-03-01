@@ -3,16 +3,18 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const InviteData = require('app/services/InviteData');
+const FormatUrl = require('app/utils/FormatUrl');
 
 describe('InviteDataService', () => {
     describe('updateContactDetails()', () => {
         it('should call log() and fetchJson()', (done) => {
-            const endpoint = 'http://localhost';
+            const endpoint = '';
             const fetchOptions = {method: 'POST'};
             const inviteId = 'inv123';
             const inviteData = new InviteData(endpoint, 'abc123');
             const logSpy = sinon.spy(inviteData, 'log');
-            const fetchJsonSpy = sinon.spy(inviteData, 'fetchText');
+            const fetchTextStub = sinon.stub(inviteData, 'fetchText');
+            const formatUrlStub = sinon.stub(FormatUrl, 'format').returns('/formattedUrl');
             const fetchOptionsStub = sinon.stub(inviteData, 'fetchOptions').returns(fetchOptions);
             const ctx = {
                 authToken: 'authToken',
@@ -24,11 +26,14 @@ describe('InviteDataService', () => {
 
             expect(inviteData.log.calledOnce).to.equal(true);
             expect(inviteData.log.calledWith('Update contact details invite data')).to.equal(true);
-            expect(inviteData.fetchText.calledOnce).to.equal(true);
-            expect(inviteData.fetchText.calledWith(`${endpoint}/invite/contactdetails/${inviteId}`, fetchOptions)).to.equal(true);
+            expect(formatUrlStub.calledOnce).to.equal(true);
+            expect(formatUrlStub.calledWith(endpoint, `/invite/contactdetails/${inviteId}`)).to.equal(true);
+            expect(fetchTextStub.calledOnce).to.equal(true);
+            expect(fetchTextStub.calledWith('/formattedUrl', fetchOptions)).to.equal(true);
 
             logSpy.restore();
-            fetchJsonSpy.restore();
+            fetchTextStub.restore();
+            formatUrlStub.restore();
             fetchOptionsStub.restore();
             done();
         });

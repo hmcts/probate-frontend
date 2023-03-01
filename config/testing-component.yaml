@@ -6,3 +6,6 @@ configFeatureToggles:
   gaEnabled: true
 
 environment: local
+
+app:
+  port: 3001

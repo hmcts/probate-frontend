@@ -47,7 +47,7 @@ describe('Fees', () => {
             const errMsg = 'FetchError: request to http://localhost/fees?applicant_type=all&' +
                 'jurisdiction1=family&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80';
 
-            fetchJsonStub = sinon.stub(Service.prototype, 'fetchJson').returns(Promise.resolve(expectedResponse));
+            fetchJsonStub = sinon.stub(Service.prototype, 'fetchJson').returns(Promise.resolve(errMsg));
 
             fees.get(data, headers)
                 .then((res) => {

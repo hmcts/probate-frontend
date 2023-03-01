@@ -9,8 +9,8 @@ const initSteps = require('app/core/initSteps');
 const {endsWith, merge} = require('lodash');
 const commonContentEn = require('app/resources/en/translation/common');
 const commonContentCy = require('app/resources/cy/translation/common');
+const {getTestLanguages} = require('../end-to-end/helpers/GeneralHelpers');
 
-const languages = ['en', 'cy'];
 const caseTypes = require('app/utils/CaseTypes');
 
 const stepsToExclude = [
@@ -21,6 +21,7 @@ const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/.
 const nock = require('nock');
 const config = require('config');
 const {createHttpTerminator} = require ('http-terminator');
+const {gopOnlyPages, intestacyOnlyPages} = require('../../app/journeyCheck');
 
 const commonSessionData = {
     form: {
@@ -74,14 +75,14 @@ const runTests = (language ='en') => {
                 });
             }
 
-            if (config.gopOnlyPages.includes(stepUrlFirstSegment)) {
+            if (gopOnlyPages.includes(stepUrlFirstSegment)) {
                 sessionData = merge(sessionData, {
                     form: {
                         type: caseTypes.GOP
                     },
                     back: []
                 });
-            } else if (config.intestacyOnlyPages.includes(stepUrlFirstSegment)) {
+            } else if (intestacyOnlyPages.includes(stepUrlFirstSegment)) {
                 sessionData = merge(sessionData, {
                     form: {
                         type: caseTypes.INTESTACY
@@ -155,6 +156,6 @@ const runTests = (language ='en') => {
 
 };
 
-languages.forEach(language => {
+getTestLanguages().forEach(language => {
     runTests(language);
 });

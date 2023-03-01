@@ -2,11 +2,11 @@
 
 const taskListContentEn = require('app/resources/en/translation/tasklist');
 const taskListContentCy = require('app/resources/cy/translation/tasklist');
+const {getTestLanguages} = require('../../helpers/GeneralHelpers');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 const optionYes = '';
 const optionNo = '-2';
 const bilingualGOP = false;
-const languages = ['en', 'cy'];
 
 Feature('GOP-Single Executor - EE Yes Journey');
 
@@ -19,7 +19,7 @@ After(async () => {
     await TestConfigurator.getAfter();
 });
 
-languages.forEach(language => {
+getTestLanguages().forEach(language => {
 
     Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} -GOP EE yes journey `), async ({I}) => {
 

@@ -1,7 +1,7 @@
 {
   "title": "Executors&rsquo; names",
   "question": "What are the executors&rsquo; names?",
-  "paragraph": "Write the names of all the executors, exactly as they appear on the will.",
+  "paragraph": "Write the names of all the executors exactly as they appear on the will and any codicils.",
   "executor": "Executor",
   "fullName": "Full name",
   "fullNameHint": "Including middle names",

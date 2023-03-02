@@ -2,6 +2,7 @@
 
 const taskListContentEn = require('app/resources/en/translation/tasklist');
 const taskListContentCy = require('app/resources/cy/translation/tasklist');
+const {getTestLanguages} = require('../../helpers/GeneralHelpers');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
 const optionYes = '';
@@ -10,7 +11,6 @@ const ihtOnline = '-2';
 const maritalStatusMarried = '';
 const spousePartner = '';
 const bilingualGOP = false;
-const languages = ['en', 'cy'];
 
 Feature('GOP Intestacy spouse E2E');
 
@@ -23,7 +23,7 @@ After(async () => {
     await TestConfigurator.getAfter();
 });
 
-languages.forEach(language => {
+getTestLanguages().forEach(language => {
 
     Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} GOP Intestacy Spouse Journey - Digital iht and death certificate uploaded `), async ({I}) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;

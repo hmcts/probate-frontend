@@ -14,13 +14,7 @@
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-body">{{ content.checklist1Header | safe }}</p>
-        {{ unorderedList([
-            content["checklist1-item1"],
-            content["checklist1-item2"]]) }}
-        {{ govukInsetText({
-            text: content.notExecutorYet | safe
-        }) }}
+        <p class="govuk-body">{{ content.hintText | safe }}</p>
 
         {{ govukInput({
             label: {

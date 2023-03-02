@@ -1,12 +1,12 @@
 {
-  "title": "Do any of these executors now have a different name to that on the will",
-  "question": "Do any of these executors now have a different name to that on the will?",
+  "title": "Do any of these executors now have a different name to that on the will or any codicil",
+  "question": "Do any of these executors now have a different name to that on the will or any codicil?",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
     "alias": {
-      "required": "Answer &lsquo;yes&rsquo; if any of the executors you&rsquo;ve added have a different name to that on the will"
+      "required": "Select &lsquo;yes&rsquo; if any of the executors have a different name to that on the will or any codicil"
     }
   }
 }

@@ -37,20 +37,9 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const app = express();
     const port = config.app.port;
     const releaseVersion = packageJson.version;
-    const username = config.app.username;
-    const password = config.app.password;
-    const useAuth = config.app.useAuth.toLowerCase();
-    const useHttps = config.app.useHttps.toLowerCase();
     const useIDAM = config.app.useIDAM.toLowerCase();
     const security = new Security(config.services.idam.loginUrl);
     const inviteSecurity = new InviteSecurity();
-
-    // Authenticate against the environment-provided credentials, if running
-    // the app in production (Heroku, effectively)
-    if (useAuth === 'true') {
-        logger.info('useAuth-testing-3-March');
-        app.use(utils.basicAuth(username, password));
-    }
 
     // Application settings
     app.set('view engine', 'html');
@@ -294,12 +283,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         res.locals.releaseVersion = `v${releaseVersion}`;
         next();
     });
-
-    // Force HTTPs on production connections
-    if (useHttps === 'true') {
-        logger.info('useHttps-testing-3-March');
-        app.use(utils.forceHttps);
-    }
 
     app.post('*', sanitizeRequestBody);
 

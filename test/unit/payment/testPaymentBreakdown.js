@@ -273,7 +273,7 @@ describe('PaymentBreakdown', () => {
             const formdata = {
                 ccdCase: {
                     id: 1535395401245028,
-                    state: 'CaseCreated'
+                    state: 'CasePrinted'
                 },
                 fees: {
                     status: 'success',

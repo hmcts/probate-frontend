@@ -100,7 +100,7 @@ describe('copies-overseas', () => {
             testWrapper = new TestWrapper('CopiesOverseas');
         });
 
-        testCommonContent.runTest('CopiesOverseas', null, null, [], false, {ccdCase: {state: 'CaseCreated'}, declaration: {declarationCheckbox: 'true'}});
+        testCommonContent.runTest('CopiesOverseas', null, null, [], false, {ccdCase: {state: 'CasePrinted'}, declaration: {declarationCheckbox: 'true'}});
 
         it('test errors message displayed for invalid data, text values', (done) => {
             testWrapper.agent.post('/prepare-session/form')

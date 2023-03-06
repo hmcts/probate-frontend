@@ -35,7 +35,7 @@ const commonContentNock = () => {
         .put(uri => uri.includes('submissions'))
         .reply(200, {
             ccdCase: {
-                state: 'CaseCreated',
+                state: 'CasePrinted',
                 id: 1234567890123456
             },
             payment: {

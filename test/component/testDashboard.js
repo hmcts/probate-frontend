@@ -33,7 +33,7 @@ const applicationSubmittedNock = () => {
                     caseType: 'PA',
                     ccdCase: {
                         id: '1234567890123456',
-                        state: 'CaseCreated'
+                        state: 'CasePrinted'
                     }
                 }
             ]

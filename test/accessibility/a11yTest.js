@@ -61,7 +61,7 @@ const runTests = (language ='en') => {
                             total: 0
                         },
                         ccdCase: {
-                            state: 'CaseCreated'
+                            state: 'CasePrinted'
                         }
                     }
                 });

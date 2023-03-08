@@ -7,7 +7,7 @@
 
   "errors": {
     "completed": {
-      "required": "Answer &lsquo;yes&rsquo; if an Inheritance Tax form has been completed"
+      "required": "Select &lsquo;yes&rsquo; if an Inheritance Tax form has been completed"
     }
   }
 }

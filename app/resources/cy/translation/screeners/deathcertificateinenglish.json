@@ -6,7 +6,7 @@
 
   "errors": {
     "deathCertificateInEnglish": {
-      "required": "Atebwch &lsquo;oes&rsquo; os yw’r dystysgrif farwolaeth wreiddiol yn Saesneg"
+      "required": "Dewiswch &lsquo;ydy&rsquo; os yw&rsquo;r dystysgrif marwolaeth wreiddiol yn Saesneg"
     }
   }
 }

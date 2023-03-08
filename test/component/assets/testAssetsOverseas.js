@@ -24,7 +24,7 @@ describe('assets-overseas', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('AssetsOverseas', null, null, [], false, {ccdCase: {state: 'CaseCreated'}, declaration: {declarationCheckbox: 'true'}});
+        testCommonContent.runTest('AssetsOverseas', null, null, [], false, {ccdCase: {state: 'CasePrinted'}, declaration: {declarationCheckbox: 'true'}});
 
         it('test content loaded on the page', (done) => {
             const sessionData = {

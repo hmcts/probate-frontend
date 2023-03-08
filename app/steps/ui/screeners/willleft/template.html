@@ -8,7 +8,7 @@
         idPrefix: "left",
         name: "left",
         hint: {
-            text: content.hint | safe
+            text: (content.hint + "<br><br>" + "<ul class='govuk-list govuk-list--bullet'><li>" + content.hintBullet1 + "</li><li>" + content.hintBullet2 + "</li></ul>") | replace("{willIsLegal}", globals.links.willIsLegal) | safe
         },
         fieldset: {
             legend: {

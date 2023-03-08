@@ -35,7 +35,8 @@ describe('will-left', () => {
         testCommonContent.runTest('WillLeft', null, null, cookies);
 
         it('test content loaded on the page', (done) => {
-            testWrapper.testContent(done, {}, [], cookies);
+            const contentData = {willIsLegal: config.links.willIsLegal};
+            testWrapper.testContent(done, contentData, [], cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {

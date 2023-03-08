@@ -6,7 +6,7 @@
 
   "errors": {
     "diedAfter": {
-      "required": "Answer &lsquo;yes&rsquo; if they died after 1 October 2014"
+      "required": "Select &lsquo;yes&rsquo; if they died after 1 October 2014"
     }
   }
 }

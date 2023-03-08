@@ -16,7 +16,7 @@
             }
         },
         hint: {
-            text: content.paragraph1 | replace("{willIsLegal}", globals.links.willIsLegal) | safe
+            text: (content.hintText1 + "<br><br>" + content.hintText2 + "<br><br>" + content.hintText3 + "<br><br>" + content.hintText4) | safe
         },
         errorMessage: { text: fields.original.errorMessage | safe } if fields.original.errorMessage,
         items: [

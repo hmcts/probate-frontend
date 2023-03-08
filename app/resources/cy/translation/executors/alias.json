@@ -1,12 +1,12 @@
 {
-  "title": "A oes gan unrhyw un o&rsquo;r ysgutorion hyn enw gwahanol nawr i beth sydd yn yr ewyllys",
-  "question": "A oes gan unrhyw un o&rsquo;r ysgutorion hyn enw gwahanol nawr i beth sydd yn yr ewyllys?",
+  "title": "A oes gan unrhyw un o&rsquo;r ysgutorion hyn enw gwahanol nawr i beth sydd yn yr ewyllys neu unrhyw godisiliau",
+  "question": "A oes gan unrhyw un o&rsquo;r ysgutorion hyn enw gwahanol nawr i beth sydd yn yr ewyllys neu unrhyw godisiliau?",
   "optionYes": "Oes",
-  "optionNo": "Nag oes",
+  "optionNo": "Nac oes",
 
   "errors": {
     "alias": {
-      "required": "Atebwch &lsquo;oes&rsquo; os oes gan unrhyw un o&rsquo;r ysgutorion rydych wedi&rsquo;u hychwanegu enw gwahanol nawr i beth sydd yn yr ewyllys"
+      "required": "Dewiswch &lsquo;oes&rsquo; os oes gan unrhyw un o&rsquo;r ysgutorion enw gwahanol i beth sydd yn yr ewyllys neu unrhyw godisiliau"
     }
   }
 }

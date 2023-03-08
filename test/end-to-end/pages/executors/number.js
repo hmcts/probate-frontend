@@ -8,7 +8,7 @@ module.exports = async function (language = 'en', totalExecutors = null) {
     const numberContent = require(`app/resources/${language}/translation/executors/number`);
 
     await I.checkInUrl('/executors-number');
-    await I.waitForText(numberContent.checklist1Header, config.TestWaitForTextToAppear);
+    await I.waitForText(numberContent.hintText, config.TestWaitForTextToAppear);
     const locator = {css: '#executorsNumber'};
     await I.waitForEnabled(locator);
     await I.fillField(locator, totalExecutors);

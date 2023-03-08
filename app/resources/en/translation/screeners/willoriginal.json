@@ -1,12 +1,15 @@
 {
-  "title": "Do you have the original will",
-  "question": "Do you have the original will?",
+  "title": "Do you have the original will and any codicils",
+  "question": "Do you have the original will and any codicils?",
   "optionYes": "Yes",
   "optionNo": "No",
-  "paragraph1": "Make sure your <a href=\"{willIsLegal}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"will is legal\">will is legal</a>. You&rsquo;ll need to send the original will to us as part of your application.",
+  "hintText1": "You must send the original will and any codicils to us, not photocopies, as part of your application.",
+  "hintText2": "By law, we need to see the original will and codicils and keep them as they become a public record.",
+  "hintText3": "A codicil is a legal document that's a supplement to a will. Codicils list changes and updates to a will and are signed and witnessed the same way as a will.",
+  "hintText4": "Check if a codicil is attached to the will, or they may be loose pages. The word &lsquo;codicil&rsquo; may be at the top of the page.",
   "errors": {
     "original": {
-      "required": "Answer &lsquo;yes&rsquo; if you have the original will"
+      "required": "Select &lsquo;yes&rsquo; if you have the original will and any codicils?"
     }
   }
 }

@@ -7,7 +7,7 @@
 
   "errors": {
     "otherApplicants": {
-      "required": "Atebwch &lsquo;ydw&rsquo; os ydych eisiau gwneud cais gyda rhywun arall"
+      "required": "Dewiswch &lsquo;oes&rsquo; os ydych am wneud cais gyda rhywun arall"
     }
   }
 }

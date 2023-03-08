@@ -12,7 +12,7 @@ module.exports = async function(language = 'en', totalExecutors = null) {
         // eslint-disable-next-line no-await-in-loop
         await I.waitForEnabled(locator);
         // eslint-disable-next-line no-await-in-loop
-        await I.fillField(locator, 'exec' + (i + 2));
+        await I.fillField(locator, 'exec' + String.fromCharCode('A'.charCodeAt(0) + i + 2));
         i += 1;
     }
 

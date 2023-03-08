@@ -283,7 +283,7 @@ describe('Tasklist', () => {
             it('Updates the context: PaymentTask complete', () => {
                 req.session.form = {
                     ccdCase: {
-                        state: 'CaseCreated',
+                        state: 'CasePrinted',
                         id: 1535395401245028
                     },
                     payment: {
@@ -582,7 +582,7 @@ describe('Tasklist', () => {
             it('Updates the context: PaymentTask complete', () => {
                 req.session.form = {
                     ccdCase: {
-                        state: 'CaseCreated',
+                        state: 'CasePrinted',
                         id: 1535395401245028
                     },
                     payment: {
@@ -889,7 +889,7 @@ describe('Tasklist', () => {
             it('Updates the context: PaymentTask complete', () => {
                 req.session.form = {
                     ccdCase: {
-                        state: 'CaseCreated',
+                        state: 'CasePrinted',
                         id: 1535395401245028
                     },
                     payment: {

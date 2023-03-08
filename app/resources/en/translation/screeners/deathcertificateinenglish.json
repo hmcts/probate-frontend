@@ -6,7 +6,7 @@
 
   "errors": {
     "deathCertificateInEnglish": {
-      "required": "Answer &lsquo;yes&rsquo; if the original death certificate is in English"
+      "required": "Select &lsquo;yes&rsquo; if the original death certificate is in English"
     }
   }
 }

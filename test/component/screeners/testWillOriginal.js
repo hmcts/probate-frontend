@@ -36,8 +36,7 @@ describe('will-original', () => {
         testCommonContent.runTest('WillOriginal', null, null, cookies);
 
         it('test content loaded on the page', (done) => {
-            const contentData = {willIsLegal: config.links.willIsLegal};
-            testWrapper.testContent(done, contentData, [], cookies);
+            testWrapper.testContent(done, {}, [], cookies);
         });
 
         it('test errors message displayed for missing data', (done) => {

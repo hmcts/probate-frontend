@@ -6,7 +6,7 @@ const expect = require('chai').expect;
 describe('CcdCase.js', () => {
     describe('applicationSubmitted()', () => {
         it('should return true if the application has been submitted', (done) => {
-            const data = {state: 'CaseCreated'};
+            const data = {state: 'CasePrinted'};
             const ccdCaseWrapper = new CcdCaseWrapper(data);
             expect(ccdCaseWrapper.applicationSubmitted()).to.equal(true);
             done();

@@ -48,6 +48,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     // Authenticate against the environment-provided credentials, if running
     // the app in production (Heroku, effectively)
     if (useAuth === 'true') {
+        logger.info('useAuth-testing-3-March');
         app.use(utils.basicAuth(username, password));
     }
 
@@ -296,6 +297,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
 
     // Force HTTPs on production connections
     if (useHttps === 'true') {
+        logger.info('useHttps-testing-3-March');
         app.use(utils.forceHttps);
     }
 

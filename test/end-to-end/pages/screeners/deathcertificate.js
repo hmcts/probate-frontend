@@ -5,8 +5,9 @@ module.exports = async function(language ='en', testSurvey = false) {
     const I = this;
     const commonContent = require(`app/resources/${language}/translation/common`);
     const deathCertContent = require(`app/resources/${language}/translation/screeners/deathcertificate`);
+    const {decodeHTML} = require('test/end-to-end/helpers/GeneralHelpers');
     await I.checkInUrl('/death-certificate');
-    await I.waitForText(deathCertContent.question);
+    await I.waitForText(await decodeHTML(deathCertContent.question));
     const locator = {css: '#deathCertificate'};
     await I.waitForEnabled(locator);
 

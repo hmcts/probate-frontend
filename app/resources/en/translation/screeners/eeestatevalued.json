@@ -4,11 +4,10 @@
     "hint": "Before applying for probate, you must <a href=\"{ihtChecker}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"work out the estate&rsquo;s value\">work out the estate&rsquo;s value</a> to check if you need to pay Inheritance Tax (IHT). You can <a href=\"{ihtChecker}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"use the IHT checker\">use the IHT checker</a> to get these values.",
     "optionYes": "Yes",
     "optionNo": "No",
-  
+
     "errors": {
       "eeEstateValued": {
-        "required": "Answer &lsquo;yes&rsquo; if you have worked out the estate&rsquo;s value"
+        "required": "Select &lsquo;yes&rsquo; if you have worked out the estate&rsquo;s value"
       }
     }
   }
-  

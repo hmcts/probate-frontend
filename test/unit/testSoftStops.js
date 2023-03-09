@@ -75,14 +75,16 @@ describe('Soft Stops', () => {
         it('Filters out link URL placeholders from content', () => {
             const stopPages = {
                 deathCertificate: {placeHolders: ['deathReportedToCoroner']},
+                deathCertificateTranslation: {placeHolders: ['applicationFormPA19']},
                 notInEnglandOrWales: {placeHolders: ['applicationFormPA1P', 'applicationFormPA1A']},
                 ihtNotCompleted: {placeHolders: ['ihtNotCompleted']},
-                notOriginal: {placeHolders: ['applicationFormPA1P', 'applicationFormPA1A']},
-                notExecutor: {placeHolders: ['applicationFormPA1P']},
-                mentalCapacity: {placeHolders: ['applicationFormPA1P', 'ifYoureAnExecutor']},
+                eeEstateNotValued: {placeHolders: ['ihtChecker', 'ihtChecker', 'ihtChecker']},
                 notDiedAfterOctober2014: {placeHolders: ['applicationFormPA1A']},
                 notRelated: {placeHolders: ['applicationFormPA1A']},
-                otherApplicants: {placeHolders: ['applicationFormPA1A']}
+                otherApplicants: {placeHolders: ['applicationFormPA1A']},
+                notOriginal: {placeHolders: ['solicitorsRegulationAuthority', 'findOriginalWill', 'applicationFormPA1P', 'applicationFormPA1A']},
+                notExecutor: {placeHolders: ['applicationFormPA1P']},
+                mentalCapacity: {placeHolders: ['applicationFormPA1P', 'applicationFormPA14']}
             };
 
             Object.keys(stopPages).forEach((key) => {

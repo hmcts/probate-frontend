@@ -46,11 +46,38 @@ class StopPage extends Step {
     returnStopPageHeader(stopReason) {
         let pageHeader;
         switch (stopReason) {
+        case 'deathCertificate':
+            pageHeader = 'deathCertificateHeader';
+            break;
         case 'deathCertificateTranslation':
             pageHeader = 'deathCertificateTranslationHeader';
             break;
+        case 'notInEnglandOrWales':
+            pageHeader = 'applyByPostHeader';
+            break;
+        case 'ihtNotCompleted':
+            pageHeader = 'inheritanceHeader';
+            break;
         case 'eeEstateNotValued':
             pageHeader = 'eeEstateValuedHeader';
+            break;
+        case 'notDiedAfterOctober2014':
+            pageHeader = 'applyByPostHeader';
+            break;
+        case 'notRelated':
+            pageHeader = 'applyByPostHeader';
+            break;
+        case 'otherApplicants':
+            pageHeader = 'applyByPostHeader';
+            break;
+        case 'notOriginal':
+            pageHeader = 'notOriginalHeader';
+            break;
+        case 'notExecutor':
+            pageHeader = 'applyByPostHeader';
+            break;
+        case 'mentalCapacity':
+            pageHeader = 'applyByPostHeader';
             break;
         default:
             pageHeader = 'defaultHeader';

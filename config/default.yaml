@@ -25,8 +25,6 @@ configFeatureToggles:
 app:
   username:
   password:
-  useAuth: 'false'
-  useHttps: 'false'
   useIDAM: 'false'
   requireCcdCaseId: 'false'
   port: '3000'
@@ -74,6 +72,7 @@ services:
     probate_oauth2_secret: 'ccd_gateway_secret'
     probate_oauth_callback_path: '/oauth2/callback'
     probate_oauth_token_path: '/oauth2/token'
+    probate_oauth_authorise_path: '/oauth2/authorize'
     probate_user_email: 'dummy-user-name'
     probate_user_password: 'dummy-password'
     probate_redirect_base_url: 'http://localhost:3000'
@@ -193,6 +192,7 @@ links:
   survey: 'https://www.smartsurvey.co.uk/s/Probate_Feedback/'
   surveyEndOfApplication: 'https://www.smartsurvey.co.uk/s/Probate_ExitSurvey/'
   ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value'
+  applicationFormPA14: 'https://www.gov.uk/government/publications/form-pa14-medical-certificate-probate'
   applicationFormPA15: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will'
   applicationFormPA1A: 'https://www.gov.uk/government/publications/form-pa1a-apply-for-probate-deceased-did-not-leave-a-will'
   applicationFormPA1P: 'https://www.gov.uk/government/publications/form-pa1p-apply-for-probate-the-deceased-had-a-will'
@@ -214,6 +214,8 @@ links:
   ihtGifts: 'https://www.gov.uk/inheritance-tax/gifts'
   spouseGivingUpAdminRightsPA16Link: 'https://www.gov.uk/government/publications/form-pa16-give-up-probate-administrator-rights'
   willIsLegal: 'https://www.gov.uk/make-will/make-sure-your-will-is-legal'
+  solicitorsRegulationAuthority: 'https://www.sra.org.uk'
+  findOriginalWill: 'https://www.gov.uk/applying-for-probate/if-theres-a-will#find-the-original-will'
   applyForProbateFrontpage: 'https://www.gov.uk/applying-for-probate/apply-for-probate'
   applyForProbateFrontpageWelsh: 'https://www.gov.uk/gwneud-cais-am-brofiant/gwneud-cais-am-brofiant'
   paymentsAccessibilityStatement: 'https://www.payments.service.gov.uk/accessibility-statement/'

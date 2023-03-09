@@ -129,7 +129,7 @@ describe('Service', () => {
 
     describe('fetchBuffer()', () => {
         it('should return a buffer response', (done) => {
-            const buffer = new Buffer('really interesting file contents');
+            const buffer = Buffer.from('really interesting file contents');
             const revert = Service.__set__('asyncFetch', class {
                 static fetch() {
                     return Promise.resolve(buffer);

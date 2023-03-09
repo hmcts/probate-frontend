@@ -109,7 +109,7 @@ $ yarn start:ld
 
 The application can be completed locally at [https://localhost:3000](https://localhost:3000), provided all services are running in the background as described in the next section.
 
-#### Running the other services using docker-compose
+### Running the other services using docker-compose
 
 ```
 # first time only
@@ -117,7 +117,7 @@ npx @hmcts/probate-dev-env --create
 npx @hmcts/probate-dev-env
 ```
 
-#### Running the other services manually
+### Running the other services manually
 
 Alternatively, to run probate-frontend with the other services locally you will need to clone and run the following services:
 

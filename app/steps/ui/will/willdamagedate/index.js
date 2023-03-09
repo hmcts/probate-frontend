@@ -45,10 +45,7 @@ class WillDamageDate extends ValidationStep {
         } else if (willdamagedate.isAfter(moment())) {
             errors.push(FieldError('willdamagedate', 'future', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             return [ctx, errors];
-        } else if (!willdamagedate.isValid()) {
-            errors.push(FieldError('willdamagedate', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-            return [ctx, errors];
-        } else if (!DateValidation.isPositive([day, month, year])) {
+        } else if (!willdamagedate.isValid() || !DateValidation.isPositive([day, month, year])) {
             errors.push(FieldError('willdamagedate', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             return [ctx, errors];
         }

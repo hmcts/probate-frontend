@@ -64,22 +64,37 @@ Then in package.json, replace sass and sass-ie8 scripts with:
 ```
 Finally in ```app/assets/sass/application.scss``` and ```app/assets/sass/application-ie8.scss``` replace ```node_modules``` with ```../../../node_modules``` for all the imports.
 
-### Running the application (FE only / everything else AAT)
+### Running the application (FE / AAT combination)
 
-If you are only testing the FE and don't need to point to anything else locally, use the following:
-```
-$ yarn start:dev:ld:aat
-```
-and on another terminal (you may need to install redis):
+Steps:
+
+- Ensure your VPN is on.
+- Install redis, if you haven't already.
+- On one terminal run:
 ```
 $ redis-server
 ```
+- On another terminal, run the server using one of the two options below:
+1. If you are only testing the FE and don't need to point to anything else locally, use the following:
+```
+$ yarn start:dev:ld:aat
+```
+2. If you are testing FE & orchestrator / just orchestrator (and therefore have local orchestrator service running on
+port 8888 - see probate-orchestrator README), use the following:
+```
+$ yarn start:dev:ld:orch
+```
 
-This will run FE on localhost:3001, redis cache on localhost:6379 and point everything else to AAT. This means that you
-can use IDAM AAT logins and create cases that will be visible on XUI AAT. Redis is important for development because
+This will run FE on localhost:3001 and redis cache on localhost:6379. If you are using command `1.`, then your FE will
+interact with AAT instance of orchestrator; if you are using command `2.`, then your FE will interact with local instance
+of orchestrator running on port 8888.
+
+You can use IDAM AAT logins and create cases that will be visible on XUI AAT.
+
+Redis is important for development because
 it means that each time your server restarts the security cookie is not lost / you are not logged out.
 
-If you need to add more config or secrets, see dev-aat.yaml and app/setupSecrets.js, respectively.
+If you need to add more config or secrets, see `dev-aat.yaml` and `app/setupSecrets.js`, respectively.
 
 ### Running the application
 

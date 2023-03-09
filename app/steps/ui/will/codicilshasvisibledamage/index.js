@@ -26,8 +26,8 @@ class CodicilsHasVisibleDamage extends ValidationStep {
         if (ctx.codicilsDamage) {
             if (ctx.codicilsDamage.damageTypesList) {
                 ctx.options = {};
-                for (let i = 0; i < ctx.codicilsDamage.damageTypesList.length; i++) {
-                    ctx.options[ctx.codicilsDamage.damageTypesList[i]] = true;
+                for (const damageType of ctx.codicilsDamage.damageTypesList) {
+                    ctx.options[damageType] = true;
                 }
             }
             if (ctx.codicilsDamage.damageTypesList && ctx.codicilsDamage.damageTypesList.includes('otherVisibleDamage')) {

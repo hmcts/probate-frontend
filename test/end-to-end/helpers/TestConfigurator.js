@@ -5,6 +5,7 @@ const request = require('request');
 const testConfig = require('config');
 const LaunchDarkly = require('test/end-to-end/helpers/LaunchDarkly');
 const util = require('util');
+const setupSecrets = require('../../../app/setupSecrets');
 
 /* eslint no-console: 0 no-unused-vars: 0 */
 /* eslint-disable no-undef */
@@ -49,7 +50,7 @@ class TestConfigurator {
             this.setTestCitizenName();
             this.setTestCitizenPassword();
         }
-        await this.setEnvVars();
+        await this.setEnvVarsForIndividualTest();
     }
 
     async getAfter() {
@@ -123,14 +124,19 @@ class TestConfigurator {
         }
     }
 
-    setEnvVars() {
+    setEnvVarsForIndividualTest() {
         process.env.testCitizenEmail = this.getTestCitizenEmail();
         process.env.testCitizenPassword = this.getTestCitizenPassword();
     }
 
-    resetEnvVars() {
-        process.env.testCitizenEmail = null;
-        process.env.testCitizenPassword = null;
+    bootStrapTestSuite() {
+        if (process.env.NODE_ENV === 'dev-aat') {
+            return () => setupSecrets();
+        }
+    }
+
+    showBrowser() {
+        return process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'false' : testConfig.TestShowBrowser;
     }
 
     getUseGovPay() {

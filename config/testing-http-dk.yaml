@@ -29,7 +29,7 @@ TestProxy: 'socks5:proxyout.reform.hmcts.net:8080'
 TestRetryFeatures: 2
 TestRetryScenarios: 2
 TestRetrySteps: 2
-TestShowBrowser: true
+TestShowBrowser: false
 TestUseGovPay: 'true'
 TestUseIdam: 'true'
 TestUseProxy: 'false'

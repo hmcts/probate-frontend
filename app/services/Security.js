@@ -10,6 +10,7 @@ const URL = require('url');
 const {v4: UUID} = require('uuid');
 const IdamSession = require('app/services/IdamSession');
 const Oauth2Token = require('app/services/Oauth2Token');
+const SessionStatusEnum = require('app/utils/SessionStatusEnum');
 const SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
 const REDIRECT_COOKIE = '__redirect';
 const ACCESS_TOKEN_OAUTH2 = 'access_token';
@@ -31,30 +32,17 @@ class Security {
             }
 
             if (securityCookie) {
-                const lostSession = !req.session.expires;
-                const sessionExpired = req.session.expires ? req.session.expires <= Date.now() : false;
+                if ([SessionStatusEnum.getExpired(), SessionStatusEnum.getLost()].includes(this.getSessionStatus(req))) {
+                    req.log.error(`The current user session is ${this.getSessionStatus(req)}, redirecting user to the time-out page.`);
+                    this.handleLostOrExpiredSession(req, res);
+                    return res.redirect('/time-out');
+                }
+
                 const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
                 idamSession
                     .get(securityCookie)
                     .then(response => {
                         if (response.name !== 'Error') {
-                            if (lostSession || sessionExpired) {
-                                if (lostSession) {
-                                    req.log.error('The current user session is lost.');
-                                } else {
-                                    req.log.error('The current user session has expired.');
-                                }
-                                req.log.info('Redirecting user to the time-out page.');
-                                res.clearCookie(SECURITY_COOKIE);
-                                if (typeof req.session.destroy === 'function') {
-                                    req.session.destroy();
-                                }
-                                delete req.cookies;
-                                delete req.sessionID;
-                                delete req.session;
-                                delete req.sessionStore;
-                                return res.redirect('/time-out');
-                            }
                             req.log.debug('Extending session for active user.');
                             req.session.expires = Date.now() + config.app.session.expires;
                             req.session.regId = response.email;
@@ -76,6 +64,27 @@ class Security {
                 this._login(req, res);
             }
         };
+    }
+
+    getSessionStatus(req) {
+        if (!req.session.expires) {
+            return SessionStatusEnum.getLost();
+        }
+        if (req.session.expires <= Date.now()) {
+            return SessionStatusEnum.getExpired();
+        }
+        return SessionStatusEnum.getActive();
+    }
+
+    handleLostOrExpiredSession(req, res) {
+        res.clearCookie(SECURITY_COOKIE);
+        if (typeof req.session.destroy === 'function') {
+            req.session.destroy();
+        }
+        delete req.cookies;
+        delete req.sessionID;
+        delete req.session;
+        delete req.sessionStore;
     }
 
     _login(req, res) {
@@ -192,20 +201,17 @@ class Security {
 
     getOauth2Code(redirect_uri) {
         logger.info('calling getOauth2Code to get code');
-        const client_id = config.services.idam.probate_oauth2_client;
-        const idam_api_url = config.services.idam.apiUrl;
-        const username = config.services.idam.probate_user_email;
-        const userpassword = config.services.idam.probate_user_password;
+        const usernameAndPassword = `${config.services.idam.probate_user_email}:${config.services.idam.probate_user_password}`;
         const headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': `Basic ${new Buffer(`${username}:${userpassword}`).toString('base64')}`
+            'Authorization': `Basic ${Buffer.from(usernameAndPassword).toString('base64')}`
         };
         const params = new URLSearchParams();
-        params.append('client_id', client_id);
+        params.append('client_id', config.services.idam.probate_oauth2_client);
         params.append('redirect_uri', redirect_uri);
         params.append('response_type', 'code');
 
-        return utils.fetchJson(`${idam_api_url}/oauth2/authorize`, {
+        return utils.fetchJson(`${config.services.idam.apiUrl}${config.services.idam.probate_oauth_authorise_path}`, {
             method: 'POST',
             timeout: 10000,
             body: params.toString(),

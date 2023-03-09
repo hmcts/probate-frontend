@@ -55,12 +55,12 @@ class Security {
                         .then(response => {
                             if (response.name !== 'Error') {
                                 req.log.debug('Extending session for active user.');
-                                req.session.expires = Date.now() + config.app.session.expires;
-                                req.session.regId = response.email;
-                                req.userId = response.id;
-                                req.authToken = securityCookie;
-                                req.session.authToken = req.authToken;
+                                this.handleSuccessfulIdamDetailsResponse(req, response);
                                 this._authorize(req, res, next, response.roles, authorisedRoles);
+                                if (this.idamDetailsCache) {
+                                    console.log('Setting cache...');
+                                    this.idamDetailsCache.set(req.session.regId, response);
+                                }
                             } else {
                                 req.log.error('Error authorising user');
                                 req.log.error(`Error ${JSON.stringify(response)} \n`);

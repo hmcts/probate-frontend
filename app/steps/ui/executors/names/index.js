@@ -99,7 +99,7 @@ class ExecutorsNames extends ValidationStep {
 
     composeMessage(language, inputTextFieldValue, screenExecutorNumber) {
         const messageType = inputTextFieldValue === '' ? 'required' : 'invalid';
-        const errorMessage = FieldError('executorName', messageType, resourcePath, language);
+        const errorMessage = FieldError('executorName', messageType, resourcePath, this.generateContent({}, {}, language), language);
         const displayExecutor = i18next.t(`${resourcePath}.executor`);
         errorMessage.msg = `${displayExecutor} ${screenExecutorNumber}: ${errorMessage.msg}`;
         return errorMessage;

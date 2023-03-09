@@ -12,7 +12,7 @@ class ExecutorsNumber extends ValidationStep {
 
     getContextData(req) {
         let ctx = super.getContextData(req);
-        ctx.executorsNumber = ctx.executorsNumber ? parseInt(ctx.executorsNumber) : ctx.executorsNumber;
+        ctx.executorsNumber = ctx.executorsNumber ? parseFloat(ctx.executorsNumber) : ctx.executorsNumber;
         ctx = this.createExecutorList(ctx, req.session.form);
         return ctx;
     }

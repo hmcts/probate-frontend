@@ -160,7 +160,7 @@ describe('Documents', () => {
                 const formdata = {
                     ccdCase: {
                         id: 1234567890123456,
-                        state: 'CaseCreated'
+                        state: 'CasePrinted'
                     }
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);

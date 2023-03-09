@@ -7,7 +7,7 @@
 
   "errors": {
     "otherApplicants": {
-      "required": "Answer &lsquo;yes&rsquo; if you want to apply with someone else"
+      "required": "Select &lsquo;yes&rsquo; if you want to apply with someone else"
     }
   }
 }

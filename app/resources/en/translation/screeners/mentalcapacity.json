@@ -2,13 +2,13 @@
   "title": "Are all the executors able to make their own decisions",
   "question": "Are all the executors able to make their own decisions?",
   "hintText1": "Some people are unable to make their own decisions, for example because of a brain injury or an illness like dementia.",
-  "hintText2": "You can read about <a target=\"_blank\" rel=\"external noopener\" href=\"{assessingMentalCapacity}\" class=\"govuk-link\" aria-label=\"mental capacity (opens in a new window)\">mental capacity (opens in a new window)</a> on GOV.UK.",
+  "hintText2": "Find out about <a target=\"_blank\" rel=\"external noopener\" href=\"{assessingMentalCapacity}\" class=\"govuk-link\" aria-label=\"checking mental capacity (opens in a new window)\">mental capacity (opens in a new window)</a>.",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
     "mentalCapacity": {
-      "required": "Answer &lsquo;yes&rsquo; if all the executors are able to make their own decisions"
+      "required": "Select &lsquo;yes&rsquo; if all the executors are able to make their own decisions"
     }
   }
 }

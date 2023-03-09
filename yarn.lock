@@ -8547,7 +8547,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-cache@npm:^5.1.0":
+"node-cache@npm:^5.1.0, node-cache@npm:^5.1.2":
   version: 5.1.2
   resolution: "node-cache@npm:5.1.2"
   dependencies:
@@ -9700,6 +9700,7 @@ __metadata:
     moment: ^2.29.2
     multer: 1.4.5-lts.1
     nock: ^10.0.6
+    node-cache: ^5.1.2
     node-emoji: ^1.10.0
     node-fetch: ^2.6.7
     node-git-info-json: ^0.1.1

@@ -79,7 +79,7 @@ $ redis-server
 ```
 $ yarn start:dev:ld:aat
 ```
-2. If you are testing FE & orchestrator / just orchestrator (and therefore have local orchestrator service running on
+2. If you are testing FE & orchestrator / just orchestrator (and therefore have local orchestrator service and local business service running on
 port 8888 - see probate-orchestrator README), use the following:
 ```
 $ yarn start:dev:ld:orch
@@ -106,6 +106,12 @@ Use the following to run a single test with the browser showing. You must add a 
 ```
 $ yarn test:fullfunctional:dev-aat:single '@runningNow'
 ```
+
+note. local e2e is liable to fail if the Orchestrator and Business services aren't being ran locally pointing to AAT, so follow these steps on both services in other terminal windows/tabs:
+1. Ensure VPN is on.
+2. Run `./gradlew generateAatEnvFile`
+3. Run `POINT_TO_AAT=true ./gradlew run`
+4. After ~10 seconds, orchestrator or business service will be running.
 
 ### Running the application
 

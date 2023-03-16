@@ -65,3 +65,5 @@ govPayTestCardDetails:
   addressLine1: '1'
   addressCity: 'London'
   addressPostcode: 'SW1A1AA'
+
+environment: local

@@ -97,9 +97,9 @@ class JSWait extends codecept_helper {
         const page = helper.page;
 
         if (helperIsPuppeteer) {
-            await helper.page.waitForSelector('#addressLine1', {hidden: true, timeout: 5000});
+            await page.waitForSelector('#addressLine1', {visible: false, timeout: 5000});
             await page.click('.govuk-details__summary-text');
-            await helper.page.waitForSelector('#addressLine1', {visible: true, timeout: 5000});
+            await page.waitForSelector('#addressLine1', {visible: true, timeout: 5000});
 
             await page.evaluate(() => {
                 document.querySelector('#addressLine1').value = 'test address for deceased line 1';

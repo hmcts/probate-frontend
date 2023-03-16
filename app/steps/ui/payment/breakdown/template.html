@@ -34,12 +34,18 @@
         firstCellIsHeader: true,
         rows: tableRows
     }) }}
-
     <div class="govuk-form-group">
+      {% if fields.total.value > 0 %}
         {{ govukButton({
-            text: common.saveAndContinue | safe,
+            text: common.payAndSubmitApplication | safe,
             preventDoubleClick: true
         }) }}
+      {% else %}
+        {{ govukButton({
+          text: common.submitApplication | safe,
+          preventDoubleClick: true
+        }) }}
+      {% endif %}
     </div>
-    <script src="/public/javascripts/disable-submit.js"></script>
+ <script src="/public/javascripts/disable-submit.js"></script>
 {% endblock %}

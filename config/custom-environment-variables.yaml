@@ -13,8 +13,6 @@ configFeatureToggles:
 app:
   username: USERNAME
   password: PASSWORD
-  useAuth: USE_AUTH
-  useHttps: USE_HTTPS
   useIDAM: USE_IDAM
   requireCcdCaseId: REQUIRE_CCD_CASE_ID
   port: PORT

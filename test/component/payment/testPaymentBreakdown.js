@@ -60,7 +60,7 @@ describe('payment-breakdown', () => {
                 });
         });
 
-        it('test total=0.00 Pay and submit application on button Label', (done) => {
+        it('test total>0.00 Pay and submit application on button Label', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({fees: {
                     status: 'success',

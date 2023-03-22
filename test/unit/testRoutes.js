@@ -27,12 +27,12 @@ describe('routes', () => {
         expect(sessionStatusSecurity.getSessionStatus(req)).to.equal('active');
     });
 
-    it('should extend session if active', () => {
+    it('should not extend session if expired', () => {
         req.session.expires = expiresTimeInThePast;
         expect(sessionStatusSecurity.getSessionStatus(req)).to.equal('expired');
     });
 
-    it('should extend session if active', () => {
+    it('should not extend session if lost', () => {
         req.session = {};
         expect(sessionStatusSecurity.getSessionStatus(req)).to.equal('lost');
     });

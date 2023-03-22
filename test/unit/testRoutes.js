@@ -6,9 +6,9 @@ const Security = rewire('app/services/Security');
 const configStub = { };
 const expiresTime = new Date() + 999999;
 const expiresTimeInThePast = Date.now() - 1;
+const router = require('express').Router();
 
 describe('routes', () => {
-    const sessionStatusSecurity = new Security();
     const req = {session: {}};
     it('should contain /inviteIdList', () => {
         configStub.environment = 'local';
@@ -23,17 +23,23 @@ describe('routes', () => {
     });
 
     it('should extend session if active', () => {
+        const sessionStatusSecurity = new Security();
         req.session.expires = expiresTime;
+        router.get('/start-apply');
         expect(sessionStatusSecurity.getSessionStatus(req)).to.equal('active');
     });
 
     it('should not extend session if expired', () => {
+        const sessionStatusSecurity = new Security();
         req.session.expires = expiresTimeInThePast;
+        router.get('/start-apply');
         expect(sessionStatusSecurity.getSessionStatus(req)).to.equal('expired');
     });
 
     it('should not extend session if lost', () => {
+        const sessionStatusSecurity = new Security();
         req.session = {};
+        router.get('/start-apply');
         expect(sessionStatusSecurity.getSessionStatus(req)).to.equal('lost');
     });
 

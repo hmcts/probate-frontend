@@ -59,7 +59,6 @@ router.use((req, res, next) => {
     }
     req.log.info(`User logged in: ${req.userLoggedIn}`);
     if (SessionStatusEnum.getActive() === sessionStatusSecurity.getSessionStatus(req)) {
-        req.log.info('Extending session for active user.');
         req.session.expires = Date.now() + config.app.session.expires;
     }
     next();

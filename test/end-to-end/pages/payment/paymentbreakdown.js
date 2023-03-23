@@ -11,6 +11,6 @@ module.exports = async function(language = 'en') {
     // replace with explicit wait for some html content
     await I.wait(3);
     await I.waitForText(paymentContent.applicationFee, testConfig.TestWaitForTextToAppear);
-    await I.waitForText(commonContent.saveAndContinue, testConfig.TestWaitForTextToAppear);
-    await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
+    await I.waitForText(commonContent.payAndSubmitApplication, testConfig.TestWaitForTextToAppear);
+    await I.navByClick(commonContent.payAndSubmitApplication, 'button.govuk-button');
 };

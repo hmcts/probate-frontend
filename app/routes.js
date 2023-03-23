@@ -26,8 +26,6 @@ const emailValidator = require('email-validator');
 const Security = require('app/services/Security');
 const Authorise = require('app/services/Authorise');
 const FormatUrl = require('app/utils/FormatUrl');
-const SessionStatusEnum = require('app/utils/SessionStatusEnum');
-const sessionStatusSecurity = new Security();
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
@@ -58,9 +56,7 @@ router.use((req, res, next) => {
         req.userLoggedIn = true;
     }
     req.log.info(`User logged in: ${req.userLoggedIn}`);
-    if (SessionStatusEnum.getActive() === sessionStatusSecurity.getSessionStatus(req)) {
-        req.session.expires = Date.now() + config.app.session.expires;
-    }
+
     next();
 });
 

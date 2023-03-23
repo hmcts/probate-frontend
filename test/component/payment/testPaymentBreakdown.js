@@ -60,6 +60,50 @@ describe('payment-breakdown', () => {
                 });
         });
 
+        it('test total>0.00 Pay and submit application on button Label', (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send({fees: {
+                    status: 'success',
+                    applicationfee: 215,
+                    applicationvalue: 6000,
+                    ukcopies: 1,
+                    ukcopiesfee: 1.50,
+                    overseascopies: 2,
+                    overseascopiesfee: 3,
+                    total: 219.50
+                },
+                declaration: {
+                    declarationCheckbox: 'true'
+                }})
+                .end((err) => {
+                    if (err) {
+                        done(err);
+                        throw err;
+                    }
+                    const contentPresent = ['Pay and submit application'];
+                    testWrapper.testContentPresent(done, contentPresent);
+                });
+        });
+
+        it('test total=0.00 Submit application on button Label', (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send({fees: {
+                    status: 'success',
+                    total: 0.00
+                },
+                declaration: {
+                    declarationCheckbox: 'true'
+                }})
+                .end((err) => {
+                    if (err) {
+                        done(err);
+                        throw err;
+                    }
+                    const contentPresent = ['Submit application'];
+                    testWrapper.testContentPresent(done, contentPresent);
+                });
+        });
+
         it('test it displays the UK copies fees', (done) => {
             sessionData.copies = {
                 uk: 1

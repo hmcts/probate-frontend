@@ -10,6 +10,9 @@ const modulePath = 'app/middleware/completeEqualityTask';
 const proxyquire = require('proxyquire');
 const FormData = require('app/services/FormData');
 const completeEqualityTask = require('../../../app/middleware/completeEqualityTask');
+const fetch = require('node-fetch');
+const HttpsProxyAgent = require('https-proxy-agent');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 let equalityStub;
 const startStub = () => {
@@ -26,7 +29,7 @@ describe('completeEqualityTask', () => {
         it('should redirect to PCQ', (done) => {
             const formDataStub = sinon.stub(FormData.prototype, 'post');
             const fetchJsonStub = sinon.stub().returns(Promise.resolve({status: 'UP', 'pcq-backend': {status: 'UP'}}));
-            const completeEqualityTaskStubbed = proxyquire(modulePath, {'app/components/api-utils': {fetchJson: fetchJsonStub}});
+            const completeEqualityTaskStubbed = proxyquire(modulePath, {'app/utils/AsyncFetch': {fetchJson: fetchJsonStub}});
 
             const params = {
                 isEnabled: true,
@@ -68,7 +71,7 @@ describe('completeEqualityTask', () => {
         it('[PROBATE] should redirect to Task List', (done) => {
             const formDataStub = sinon.stub(FormData.prototype, 'post');
             const fetchJsonStub = sinon.stub().returns(Promise.resolve({status: 'DOWN', 'pcq-backend': {status: 'DOWN'}}));
-            const completeEqualityTaskStubbed = proxyquire(modulePath, {'app/components/api-utils': {fetchJson: fetchJsonStub}});
+            const completeEqualityTaskStubbed = proxyquire(modulePath, {'app/utils/AsyncFetch': {fetchJson: fetchJsonStub}});
 
             const params = {
                 isEnabled: true,
@@ -104,7 +107,7 @@ describe('completeEqualityTask', () => {
         it('[INTESTACY] should redirect to Summary', (done) => {
             const formDataStub = sinon.stub(FormData.prototype, 'post');
             const fetchJsonStub = sinon.stub().returns(Promise.resolve({status: 'DOWN', 'pcq-backend': {status: 'DOWN'}}));
-            const completeEqualityTaskStubbed = proxyquire(modulePath, {'app/components/api-utils': {fetchJson: fetchJsonStub}});
+            const completeEqualityTaskStubbed = proxyquire(modulePath, {'app/utils/AsyncFetch': {fetchJson: fetchJsonStub}});
             const params = {
                 isEnabled: true,
                 req: {
@@ -202,6 +205,31 @@ describe('completeEqualityTask', () => {
                 done();
                 formDataStub.restore();
             }, 500);
+        });
+    });
+
+    describe('fetchOptions()', () => {
+        it('should return the fetch options', (done) => {
+            const data = {
+                fullName: 'Fred Miller'
+            };
+            const method = 'POST';
+            const headers = {
+                'Content-Type': 'application/json'
+            };
+            const proxy = 'http://localhost';
+            const options = AsyncFetch.fetchOptions(data, method, headers, proxy);
+            expect(options).to.deep.equal({
+                method: 'POST',
+                mode: 'cors',
+                redirect: 'follow',
+                follow: 10,
+                timeout: 10000,
+                body: JSON.stringify(data),
+                headers: new fetch.Headers(headers),
+                agent: new HttpsProxyAgent(proxy)
+            });
+            done();
         });
     });
 });

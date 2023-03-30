@@ -2,6 +2,7 @@
 
 const Service = require('./Service');
 const caseTypes = require('app/utils/CaseTypes');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 class FormData extends Service {
     getAll(authToken, serviceAuthorisation) {
@@ -14,8 +15,8 @@ class FormData extends Service {
             'Authorization': authToken,
             'ServiceAuthorization': serviceAuthorisation
         };
-        const fetchOptions = this.fetchOptions({}, 'GET', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions({}, 'GET', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 
     get(authToken, serviceAuthorisation, ccdCaseId, probateType) {
@@ -27,8 +28,8 @@ class FormData extends Service {
             'Authorization': authToken,
             'ServiceAuthorization': serviceAuthorisation
         };
-        const fetchOptions = this.fetchOptions({}, 'GET', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions({}, 'GET', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 
     post(authToken, serviceAuthorisation, ccdCaseId, data = {}) {
@@ -41,8 +42,8 @@ class FormData extends Service {
             'Authorization': authToken,
             'ServiceAuthorization': serviceAuthorisation
         };
-        const fetchOptions = this.fetchOptions(data, 'POST', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions(data, 'POST', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 
     postNew(authToken, serviceAuthorisation, caseType) {
@@ -56,8 +57,8 @@ class FormData extends Service {
             'ServiceAuthorization': serviceAuthorisation
         };
 
-        const fetchOptions = this.fetchOptions({}, 'POST', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions({}, 'POST', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 
     getDeclarationStatuses(authToken, serviceAuthorisation, ccdCaseId) {
@@ -69,8 +70,8 @@ class FormData extends Service {
             'Authorization': authToken,
             'ServiceAuthorization': serviceAuthorisation
         };
-        const fetchOptions = this.fetchOptions({}, 'GET', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions({}, 'GET', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 }
 

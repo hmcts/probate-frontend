@@ -4,6 +4,7 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 const InviteData = require('app/services/InviteData');
 const FormatUrl = require('app/utils/FormatUrl');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 describe('InviteDataService', () => {
     describe('updateContactDetails()', () => {
@@ -15,7 +16,7 @@ describe('InviteDataService', () => {
             const logSpy = sinon.spy(inviteData, 'log');
             const fetchTextStub = sinon.stub(inviteData, 'fetchText');
             const formatUrlStub = sinon.stub(FormatUrl, 'format').returns('/formattedUrl');
-            const fetchOptionsStub = sinon.stub(inviteData, 'fetchOptions').returns(fetchOptions);
+            const fetchOptionsStub = sinon.stub(AsyncFetch, 'fetchOptions').returns(fetchOptions);
             const ctx = {
                 authToken: 'authToken',
                 serviceAuthorization: 'serviceAuthToken',

@@ -3,7 +3,7 @@
 const {assert, expect} = require('chai');
 const FeesLookup = require('app/services/FeesLookup');
 const sinon = require('sinon');
-const Service =require('app/services/Service');
+const AsyncFetch = require('app/utils/AsyncFetch');
 let expectedResponse;
 let fees;
 let headers;
@@ -34,7 +34,7 @@ describe('FeesLookup', () => {
 
         it('should return the correct response when fees lookup service available', (done) => {
 
-            fetchJsonStub = sinon.stub(Service.prototype, 'fetchJson').returns(Promise.resolve(expectedResponse));
+            fetchJsonStub = sinon.stub(AsyncFetch, 'fetchJson').returns(Promise.resolve(expectedResponse));
 
             fees.get(data, headers)
                 .then((res) => {
@@ -49,7 +49,7 @@ describe('FeesLookup', () => {
             const errMsg = 'FetchError: request to http://localhost/feeslookup?applicant_type=all&' +
                 'jurisdiction1=family&service=probate failed, reason: connect ECONNREFUSED 127.0.0.1:80';
 
-            fetchJsonStub = sinon.stub(Service.prototype, 'fetchJson').returns(Promise.resolve(errMsg));
+            fetchJsonStub = sinon.stub(AsyncFetch, 'fetchJson').returns(Promise.resolve(errMsg));
 
             fees.get(data, headers)
                 .then((res) => {

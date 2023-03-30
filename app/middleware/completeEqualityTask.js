@@ -6,7 +6,7 @@ const ServiceMapper = require('app/utils/ServiceMapper');
 const {v4: uuidv4} = require('uuid');
 const logger = require('app/components/logger')('Init');
 const featureToggle = new (require('app/utils/FeatureToggle'))();
-const {fetchOptions, fetchJson} = require('app/components/api-utils');
+const AsyncFetch = require('app/utils/AsyncFetch');
 const FormatUrl = require('app/utils/FormatUrl');
 
 const completeEqualityTask = (params) => {
@@ -16,8 +16,8 @@ const completeEqualityTask = (params) => {
     );
 
     if (params.isEnabled && !get(params.req.session.form, 'equality.pcqId', false)) {
-        const fetchOpts = fetchOptions({}, 'GET', {});
-        fetchJson(FormatUrl.format(config.services.equalityAndDiversity.url, config.endpoints.health), fetchOpts)
+        const fetchOpts = AsyncFetch.fetchOptions({}, 'GET', {});
+        AsyncFetch.fetchJson(FormatUrl.format(config.services.equalityAndDiversity.url, config.endpoints.health), fetchOpts)
             .then(json => {
                 const equalityHealthIsUp = json.status === 'UP' && json['pcq-backend'].status === 'UP';
                 logger.info(config.services.equalityAndDiversity.name, 'is', (equalityHealthIsUp ? 'UP' : 'DOWN'));

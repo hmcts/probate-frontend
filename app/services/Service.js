@@ -1,12 +1,9 @@
 'use strict';
 
-const fetch = require('node-fetch');
-const HttpsProxyAgent = require('https-proxy-agent');
 const logger = require('app/components/logger');
 const config = require('config');
 const formatUrl = require('app/utils/FormatUrl');
 const AsyncFetch = require('app/utils/AsyncFetch');
-const asyncFetch = new AsyncFetch();
 
 class Service {
     constructor(endpoint, sessionId) {
@@ -41,22 +38,15 @@ class Service {
         return path.replace(`{${placeholder}}`, value);
     }
 
-    fetchJson(url, fetchOptions) {
-        return asyncFetch
-            .fetch(url, fetchOptions, res => res.json())
-            .then(json => json)
-            .catch(err => err);
-    }
-
     fetchText(url, fetchOptions) {
-        return asyncFetch
+        return AsyncFetch
             .fetch(url, fetchOptions, res => res.text())
             .then(text => text)
             .catch(err => err);
     }
 
     fetchBuffer(url, fetchOptions) {
-        return asyncFetch
+        return AsyncFetch
             .fetch(url, fetchOptions, res => res.buffer())
             .then(buffer => buffer)
             .catch(err => {
@@ -64,23 +54,6 @@ class Service {
                 throw new Error(err);
             });
     }
-
-    fetchOptions(data, method, headers, proxy) {
-        const options = {
-            method: method,
-            mode: 'cors',
-            redirect: 'follow',
-            follow: 10,
-            timeout: 10000,
-            headers: new fetch.Headers(headers),
-            agent: proxy ? new HttpsProxyAgent(proxy) : null
-        };
-        if (method !== 'GET') {
-            options.body = JSON.stringify(data);
-        }
-        return options;
-    }
-
     formatErrorMessage(error) {
         return error.toString();
     }

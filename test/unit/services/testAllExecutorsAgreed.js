@@ -4,6 +4,7 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
 const FormatUrl = require('app/utils/FormatUrl');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 describe('AllExecutorsAgreedService', () => {
     describe('get()', () => {
@@ -17,7 +18,7 @@ describe('AllExecutorsAgreedService', () => {
             const logSpy = sinon.spy(allExecutorsAgreed, 'log');
             const fetchTextSpy = sinon.stub(allExecutorsAgreed, 'fetchText');
             const formatUrlStub = sinon.stub(FormatUrl, 'format').returns('/formattedUrl');
-            const fetchOptionsStub = sinon.stub(allExecutorsAgreed, 'fetchOptions').returns(fetchOptions);
+            const fetchOptionsStub = sinon.stub(AsyncFetch, 'fetchOptions').returns(fetchOptions);
 
             allExecutorsAgreed.get(authToken, serviceAuthorisation, ccdCaseId);
 

@@ -1,6 +1,6 @@
 'use strict';
 
-const utils = require('app/components/api-utils');
+const AsyncFetch = require('app/utils/AsyncFetch');
 const config = require('config');
 const logger = require('app/components/logger')('Init');
 const {URLSearchParams} = require('url');
@@ -211,7 +211,7 @@ class Security {
         params.append('redirect_uri', redirect_uri);
         params.append('response_type', 'code');
 
-        return utils.fetchJson(`${config.services.idam.apiUrl}${config.services.idam.probate_oauth_authorise_path}`, {
+        return AsyncFetch.fetchJson(`${config.services.idam.apiUrl}${config.services.idam.probate_oauth_authorise_path}`, {
             method: 'POST',
             timeout: 10000,
             body: params.toString(),
@@ -237,7 +237,7 @@ class Security {
         params.append('client_id', client_id);
         params.append('client_secret', client_secret);
 
-        return utils.fetchJson(`${idam_api_url}/oauth2/token`, {
+        return AsyncFetch.fetchJson(`${idam_api_url}/oauth2/token`, {
             method: 'POST',
             timeout: 10000,
             body: params.toString(),

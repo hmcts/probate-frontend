@@ -4,6 +4,7 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 const InviteLink = require('app/services/InviteLink');
 const FormatUrl = require('app/utils/FormatUrl');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 describe('InviteLinkService', () => {
     describe('get()', () => {
@@ -13,8 +14,8 @@ describe('InviteLinkService', () => {
             const inviteId = 'inv123';
             const inviteLink = new InviteLink(endpoint, 'abc123');
             const logSpy = sinon.spy(inviteLink, 'log');
-            const fetchJsonStub = sinon.stub(inviteLink, 'fetchJson');
-            const fetchOptionsStub = sinon.stub(inviteLink, 'fetchOptions').returns(fetchOptions);
+            const fetchJsonStub = sinon.stub(AsyncFetch, 'fetchJson');
+            const fetchOptionsStub = sinon.stub(AsyncFetch, 'fetchOptions').returns(fetchOptions);
             const formatUrlStub = sinon.stub(FormatUrl, 'format').returns('/formattedUrl');
 
             inviteLink.get(inviteId);
@@ -23,8 +24,8 @@ describe('InviteLinkService', () => {
             expect(inviteLink.log.calledWith('Get invite link')).to.equal(true);
             expect(formatUrlStub.calledOnce).to.equal(true);
             expect(formatUrlStub.calledWith(endpoint, `/invite/data/${inviteId}`)).to.equal(true);
-            expect(inviteLink.fetchJson.calledOnce).to.equal(true);
-            expect(inviteLink.fetchJson.calledWith('/formattedUrl', fetchOptions)).to.equal(true);
+            expect(AsyncFetch.fetchJson.calledOnce).to.equal(true);
+            expect(AsyncFetch.fetchJson.calledWith('/formattedUrl', fetchOptions)).to.equal(true);
 
             logSpy.restore();
             fetchJsonStub.restore();
@@ -40,8 +41,8 @@ describe('InviteLinkService', () => {
             const fetchOptions = {method: 'POST'};
             const inviteLink = new InviteLink(endpoint, 'abc123');
             const logSpy = sinon.spy(inviteLink, 'log');
-            const fetchJsonSpy = sinon.stub(inviteLink, 'fetchJson');
-            const fetchOptionsStub = sinon.stub(inviteLink, 'fetchOptions').returns(fetchOptions);
+            const fetchJsonSpy = sinon.stub(AsyncFetch, 'fetchJson');
+            const fetchOptionsStub = sinon.stub(AsyncFetch, 'fetchOptions').returns(fetchOptions);
             const formatUrlStub = sinon.stub(FormatUrl, 'format').returns('/formattedUrl');
 
             inviteLink.post({dataObject: true}, {execObject: true});
@@ -50,8 +51,8 @@ describe('InviteLinkService', () => {
             expect(inviteLink.log.calledWith('Post invite link')).to.equal(true);
             expect(formatUrlStub.calledOnce).to.equal(true);
             expect(formatUrlStub.calledWith(endpoint, '/invite')).to.equal(true);
-            expect(inviteLink.fetchJson.calledOnce).to.equal(true);
-            expect(inviteLink.fetchJson.calledWith('/formattedUrl', fetchOptions)).to.equal(true);
+            expect(AsyncFetch.fetchJson.calledOnce).to.equal(true);
+            expect(AsyncFetch.fetchJson.calledWith('/formattedUrl', fetchOptions)).to.equal(true);
 
             logSpy.restore();
             fetchJsonSpy.restore();

@@ -1,6 +1,7 @@
 'use strict';
 
 const Service = require('./Service');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 class IdamSession extends Service {
     get(securityCookie) {
@@ -10,8 +11,8 @@ class IdamSession extends Service {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${securityCookie}`
         };
-        const fetchOptions = this.fetchOptions({}, 'GET', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions({}, 'GET', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 
     delete(accessToken) {
@@ -23,8 +24,8 @@ class IdamSession extends Service {
         const headers = {
             'Authorization': `Basic ${Buffer.from(clientNameAndSecret).toString('base64')}`
         };
-        const fetchOptions = this.fetchOptions({}, 'DELETE', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions({}, 'DELETE', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 }
 

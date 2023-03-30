@@ -3,6 +3,7 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const Authorise = require('app/services/Authorise');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 describe('AuthoriseService', () => {
     describe('post()', () => {
@@ -12,7 +13,7 @@ describe('AuthoriseService', () => {
             const authorise = new Authorise(endpoint, 'abc123');
             const logSpy = sinon.spy(authorise, 'log');
             const fetchTextSpy = sinon.stub(authorise, 'fetchText');
-            const fetchOptionsStub = sinon.stub(authorise, 'fetchOptions').returns(fetchOptions);
+            const fetchOptionsStub = sinon.stub(AsyncFetch, 'fetchOptions').returns(fetchOptions);
 
             authorise.post();
 

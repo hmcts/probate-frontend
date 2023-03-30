@@ -4,6 +4,7 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 const rewire = require('rewire');
 const Payment = rewire('app/services/Payment');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 describe('PaymentService', () => {
     describe('get()', () => {
@@ -13,15 +14,15 @@ describe('PaymentService', () => {
             const data = {paymentId: 'pay123'};
             const payment = new Payment(endpoint, 'abc123');
             const logSpy = sinon.spy(payment, 'log');
-            const fetchJsonSpy = sinon.stub(payment, 'fetchJson');
-            const fetchOptionsStub = sinon.stub(payment, 'fetchOptions').returns(fetchOptions);
+            const fetchJsonSpy = sinon.stub(AsyncFetch, 'fetchJson');
+            const fetchOptionsStub = sinon.stub(AsyncFetch, 'fetchOptions').returns(fetchOptions);
 
             payment.get(data);
 
             expect(payment.log.calledOnce).to.equal(true);
             expect(payment.log.calledWith('Get payment')).to.equal(true);
-            expect(payment.fetchJson.calledOnce).to.equal(true);
-            expect(payment.fetchJson.calledWith(`${endpoint}/${data.paymentId}`, fetchOptions)).to.equal(true);
+            expect(AsyncFetch.fetchJson.calledOnce).to.equal(true);
+            expect(AsyncFetch.fetchJson.calledWith(`${endpoint}/${data.paymentId}`, fetchOptions)).to.equal(true);
 
             logSpy.restore();
             fetchJsonSpy.restore();
@@ -37,15 +38,15 @@ describe('PaymentService', () => {
             const data = {caseId: 'RC-1554-1335-2518-2256'};
             const payment = new Payment(endpoint, 'abc123');
             const logSpy = sinon.spy(payment, 'log');
-            const fetchJsonSpy = sinon.stub(payment, 'fetchJson');
-            const fetchOptionsStub = sinon.stub(payment, 'fetchOptions').returns(fetchOptions);
+            const fetchJsonSpy = sinon.stub(AsyncFetch, 'fetchJson');
+            const fetchOptionsStub = sinon.stub(AsyncFetch, 'fetchOptions').returns(fetchOptions);
 
             payment.getCasePayments(data);
 
             expect(payment.log.calledOnce).to.equal(true);
             expect(payment.log.calledWith('Getting all payments from case')).to.equal(true);
-            expect(payment.fetchJson.calledOnce).to.equal(true);
-            expect(payment.fetchJson.calledWith(`${endpoint}?service_name=Probate&ccd_case_number=${data.caseId}`, fetchOptions)).to.equal(true);
+            expect(AsyncFetch.fetchJson.calledOnce).to.equal(true);
+            expect(AsyncFetch.fetchJson.calledWith(`${endpoint}?service_name=Probate&ccd_case_number=${data.caseId}`, fetchOptions)).to.equal(true);
 
             logSpy.restore();
             fetchJsonSpy.restore();
@@ -61,8 +62,8 @@ describe('PaymentService', () => {
             const data = {paymentId: 'pay123'};
             const payment = new Payment(endpoint, 'abc123');
             const logSpy = sinon.spy(payment, 'log');
-            const fetchJsonSpy = sinon.stub(payment, 'fetchJson');
-            const fetchOptionsStub = sinon.stub(payment, 'fetchOptions').returns(fetchOptions);
+            const fetchJsonSpy = sinon.stub(AsyncFetch, 'fetchJson');
+            const fetchOptionsStub = sinon.stub(AsyncFetch, 'fetchOptions').returns(fetchOptions);
             const revert = Payment.__set__('paymentData', {
                 createPaymentData: () => ({
                     reference: 'ref123'
@@ -73,8 +74,8 @@ describe('PaymentService', () => {
 
             expect(payment.log.calledOnce).to.equal(true);
             expect(payment.log.calledWith('Post payment')).to.equal(true);
-            expect(payment.fetchJson.calledOnce).to.equal(true);
-            expect(payment.fetchJson.calledWith(endpoint, fetchOptions)).to.equal(true);
+            expect(AsyncFetch.fetchJson.calledOnce).to.equal(true);
+            expect(AsyncFetch.fetchJson.calledWith(endpoint, fetchOptions)).to.equal(true);
 
             logSpy.restore();
             fetchJsonSpy.restore();

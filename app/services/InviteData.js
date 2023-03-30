@@ -1,6 +1,7 @@
 'use strict';
 
 const Service = require('./Service');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 class InviteData extends Service {
 
@@ -12,7 +13,7 @@ class InviteData extends Service {
             'Authorization': authToken,
             'ServiceAuthorization': serviceAuthorisation
         };
-        const fetchOptions = this.fetchOptions(data, 'POST', headers);
+        const fetchOptions = AsyncFetch.fetchOptions(data, 'POST', headers);
         return this.fetchText(url, fetchOptions);
     }
 
@@ -20,15 +21,15 @@ class InviteData extends Service {
         this.log('Reset agreed flag invite data');
         const url = this.formatUrl.format(this.endpoint, `/invite/resetAgreed/${ccdCaseId}`);
         const headers = this.constructHeaders(ctx);
-        const fetchOptions = this.fetchOptions({}, 'POST', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions({}, 'POST', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 
     updateContactDetails(ccdCaseId, data, ctx) {
         this.log('Update contact details invite data');
         const url = this.formatUrl.format(this.endpoint, `/invite/contactdetails/${ccdCaseId}`);
         const headers = this.constructHeaders(ctx);
-        const fetchOptions = this.fetchOptions(data, 'POST', headers);
+        const fetchOptions = AsyncFetch.fetchOptions(data, 'POST', headers);
         return this.fetchText(url, fetchOptions);
     }
 
@@ -40,8 +41,8 @@ class InviteData extends Service {
             'Authorization': req.authToken,
             'ServiceAuthorization': req.session.serviceAuthorization
         };
-        const fetchOptions = this.fetchOptions(data, 'POST', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions(data, 'POST', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 
     constructHeaders(ctx) {

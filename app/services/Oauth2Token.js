@@ -2,6 +2,7 @@
 
 const Service = require('./Service');
 const {URLSearchParams} = require('url');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 class Oauth2Token extends Service {
     post(code, redirectUri) {
@@ -26,7 +27,7 @@ class Oauth2Token extends Service {
             body: params.toString(),
             headers: headers
         };
-        return this.fetchJson(url, fetchOptions);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 }
 

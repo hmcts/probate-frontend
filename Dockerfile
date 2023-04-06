@@ -14,12 +14,6 @@ RUN yarn install --production  \
 FROM base as build
 COPY --chown=hmcts:hmcts . ./
 
-USER root
-RUN apk add git
-RUN apk update \
-  && apk add bzip2 patch python3 py3-pip make gcc g++ \
-  && rm -rf /var/lib/apt/lists/* \
-  && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 USER hmcts
 
 RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install

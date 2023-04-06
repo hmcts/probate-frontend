@@ -24,9 +24,8 @@ RUN apk update \
   && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 USER hmcts
 
-RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install \
-    && yarn setup \
-    && rm -rf /opt/app/.git
+RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install
+RUN yarn setup
 
 # ---- Runtime image ----
 FROM base as runtime

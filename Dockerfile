@@ -4,8 +4,6 @@ FROM hmctspublic.azurecr.io/base/node:18-alpine as base
 
 ENV WORKDIR /opt/app
 WORKDIR ${WORKDIR}
-ENV PUPPETEER_SKIP_DOWNLOAD=true
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 COPY --chown=hmcts:hmcts package.json yarn.lock ./
 RUN yarn config set proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
@@ -25,7 +23,7 @@ RUN apk update \
 USER hmcts
 
 RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install
-RUN yarn setup
+RUN yarn sass && yarn sass-ie8
 
 # ---- Runtime image ----
 FROM base as runtime

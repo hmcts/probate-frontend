@@ -1,9 +1,11 @@
 # ---- Base image ----
 
-FROM hmctspublic.azurecr.io/base/node:14-alpine as base
+FROM hmctspublic.azurecr.io/base/node:18-alpine as base
 
 ENV WORKDIR /opt/app
 WORKDIR ${WORKDIR}
+ENV PUPPETEER_SKIP_DOWNLOAD=true
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 COPY --chown=hmcts:hmcts package.json yarn.lock ./
 RUN yarn config set proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
@@ -16,6 +18,10 @@ COPY --chown=hmcts:hmcts . ./
 
 USER root
 RUN apk add git
+RUN apk update \
+  && apk add bzip2 patch python3 py3-pip make gcc g++ \
+  && rm -rf /var/lib/apt/lists/* \
+  && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 USER hmcts
 
 RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install \

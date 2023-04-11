@@ -1,10 +1,14 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
+const IhtIdentifier = require('app/steps/ui/iht/identifier');
+const IhtPaper = require('app/steps/ui/iht/paper');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('iht-method', () => {
     let testWrapper;
+    const expectedNextUrlForIhtPaper = IhtPaper.getUrl();
+    const expectedNextUrlForIhtIdentifier = IhtIdentifier.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('IhtMethod');
@@ -32,7 +36,7 @@ describe('iht-method', () => {
                 });
         });
 
-        /*it('test iht method schema validation when no data is entered', (done) => {
+        it('test iht method schema validation when no data is entered', (done) => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
@@ -50,6 +54,6 @@ describe('iht-method', () => {
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtIdentifier);
-        });*/
+        });
     });
 });

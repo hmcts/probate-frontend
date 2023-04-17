@@ -5,6 +5,7 @@ const sinon = require('sinon');
 const Oauth2Token = require('app/services/Oauth2Token');
 const config = require('config');
 const {URLSearchParams} = require('url');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 describe('Oauth2TokenService', () => {
     describe('post()', () => {
@@ -31,14 +32,14 @@ describe('Oauth2TokenService', () => {
             };
             const oauth2Token = new Oauth2Token(endpoint, 'abc123');
             const logSpy = sinon.spy(oauth2Token, 'log');
-            const fetchJsonSpy = sinon.stub(oauth2Token, 'fetchJson');
+            const fetchJsonSpy = sinon.stub(AsyncFetch, 'fetchJson');
 
             oauth2Token.post(code, redirectUri);
 
             expect(oauth2Token.log.calledOnce).to.equal(true);
             expect(oauth2Token.log.calledWith('Post oauth2 token')).to.equal(true);
-            expect(oauth2Token.fetchJson.calledOnce).to.equal(true);
-            expect(oauth2Token.fetchJson.calledWith(endpoint + config.services.idam.probate_oauth_token_path, expectedFetchOptions)).to.equal(true);
+            expect(AsyncFetch.fetchJson.calledOnce).to.equal(true);
+            expect(AsyncFetch.fetchJson.calledWith(endpoint + config.services.idam.probate_oauth_token_path, expectedFetchOptions)).to.equal(true);
 
             logSpy.restore();
             fetchJsonSpy.restore();

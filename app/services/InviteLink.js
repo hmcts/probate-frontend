@@ -1,6 +1,7 @@
 'use strict';
 
 const Service = require('./Service');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 class InviteLink extends Service {
     get(inviteId, authToken, serviceAuthorisation) {
@@ -10,8 +11,8 @@ class InviteLink extends Service {
             'Authorization': authToken,
             'ServiceAuthorization': serviceAuthorisation
         };
-        const fetchOptions = this.fetchOptions({}, 'GET', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions({}, 'GET', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 
     post(data, authToken, serviceAuthorisation, bilingual = false) {
@@ -23,8 +24,8 @@ class InviteLink extends Service {
             'Authorization': authToken,
             'ServiceAuthorization': serviceAuthorisation
         };
-        const fetchOptions = this.fetchOptions(data, 'POST', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions(data, 'POST', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 
     encodeURLNameParams(invitation) {

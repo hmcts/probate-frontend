@@ -4,6 +4,7 @@ const Service = require('./Service');
 const paymentData = require('app/components/payment-data');
 const config = require('config');
 const {forEach} = require('lodash');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 class Payment extends Service {
     get(data) {
@@ -14,8 +15,8 @@ class Payment extends Service {
             'Authorization': data.authToken,
             'ServiceAuthorization': data.serviceAuthToken
         };
-        const fetchOptions = this.fetchOptions(data, 'GET', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions(data, 'GET', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 
     getCasePayments(data) {
@@ -26,8 +27,8 @@ class Payment extends Service {
             'Authorization': data.authToken,
             'ServiceAuthorization': data.serviceAuthToken
         };
-        const fetchOptions = this.fetchOptions(data, 'GET', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions(data, 'GET', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 
     post(data, hostname, language) {
@@ -42,8 +43,8 @@ class Payment extends Service {
             'service-callback-url': paymentUpdatesCallback
         };
         const body = paymentData.createPaymentData(data, language);
-        const fetchOptions = this.fetchOptions(body, 'POST', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions(body, 'POST', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 
     identifySuccessfulOrInitiatedPayment(casePayments) {

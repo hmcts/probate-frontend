@@ -2,6 +2,7 @@
 
 const Service = require('./Service');
 const caseTypes = require('app/utils/CaseTypes');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 class Fees extends Service {
 
@@ -20,8 +21,8 @@ class Fees extends Service {
             'Authorization': authorization,
             'ServiceAuthorization': serviceAuthorization
         };
-        const fetchOptions = this.fetchOptions({}, 'POST', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions({}, 'POST', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 }
 

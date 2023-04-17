@@ -3,6 +3,7 @@
 const Service = require('./Service');
 const Authorise = require('./Authorise');
 const config = require('config');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 class Pdf extends Service {
 
@@ -20,7 +21,7 @@ class Pdf extends Service {
             .post()
             .then(serviceToken => {
                 headers.ServiceAuthorization = serviceToken;
-                const fetchOptions = this.fetchOptions(body, 'POST', headers);
+                const fetchOptions = AsyncFetch.fetchOptions(body, 'POST', headers);
                 fetchOptions.timeout = config.pdf.timeoutMs;
                 return this.fetchBuffer(url, fetchOptions);
             })

@@ -5,6 +5,7 @@ const sinon = require('sinon');
 const Document = require('app/services/Document');
 const FormatUrl = require('app/utils/FormatUrl');
 const config = require('config');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 describe('DocumentService', () => {
     describe('post()', () => {
@@ -30,7 +31,7 @@ describe('DocumentService', () => {
             const logSpy = sinon.spy(document, 'log');
             const fetchTextSpy = sinon.stub(document, 'fetchText');
             const formatUrlStub = sinon.stub(FormatUrl, 'format').returns('/formattedUrl');
-            const fetchOptionsStub = sinon.stub(document, 'fetchOptions').returns(fetchOptions);
+            const fetchOptionsStub = sinon.stub(AsyncFetch, 'fetchOptions').returns(fetchOptions);
 
             document.delete('doc123', 'user123');
 

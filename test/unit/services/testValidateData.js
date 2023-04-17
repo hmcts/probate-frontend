@@ -4,6 +4,7 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 const ValidateData = require('app/services/ValidateData');
 const caseTypes = require('app/utils/CaseTypes');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 describe('ValidateData', () => {
     describe('put()', () => {
@@ -15,15 +16,15 @@ describe('ValidateData', () => {
             const validateData = new ValidateData(endpoint, 'abc123');
 
             const logSpy = sinon.spy(validateData, 'log');
-            const fetchJsonStub = sinon.stub(validateData, 'fetchJson');
-            const fetchOptionsStub = sinon.stub(validateData, 'fetchOptions').returns(fetchOptions);
+            const fetchJsonStub = sinon.stub(AsyncFetch, 'fetchJson');
+            const fetchOptionsStub = sinon.stub(AsyncFetch, 'fetchOptions').returns(fetchOptions);
 
             validateData.put(data, 'auth', 'ses123', caseTypes.GOP);
 
             expect(validateData.log.calledOnce).to.equal(true);
             expect(validateData.log.calledWith('Post validate data')).to.equal(true);
-            expect(validateData.fetchJson.calledOnce).to.equal(true);
-            expect(validateData.fetchJson.calledWith(url, fetchOptions)).to.equal(true);
+            expect(AsyncFetch.fetchJson.calledOnce).to.equal(true);
+            expect(AsyncFetch.fetchJson.calledWith(url, fetchOptions)).to.equal(true);
 
             logSpy.restore();
             fetchJsonStub.restore();

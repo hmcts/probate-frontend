@@ -6,8 +6,7 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 const rewire = require('rewire');
 const multipleApplicationsMiddleware = rewire('app/middleware/multipleApplications');
-
-const Service = require('app/services/Service');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 //DTSPB-529 Test file duplicated for new probate death cert flow.
 
@@ -88,7 +87,7 @@ describe('multipleApplicationsMiddleware', () => {
             const next = sinon.spy();
 
             const redirectSpy = sinon.spy(res, 'redirect');
-            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+            const asyncFetchStub = sinon.stub(AsyncFetch, 'fetchJson')
                 .returns(Promise.resolve({
                     applications: []
                 }));
@@ -96,11 +95,11 @@ describe('multipleApplicationsMiddleware', () => {
             multipleApplicationsMiddleware.initDashboard(req, res, next);
 
             setTimeout(() => {
-                expect(serviceStub.calledOnce).to.equal(true);
+                expect(asyncFetchStub.calledOnce).to.equal(true);
                 expect(redirectSpy.calledOnce).to.equal(true);
                 expect(redirectSpy.calledWith('/start-eligibility')).to.equal(true);
 
-                serviceStub.restore();
+                asyncFetchStub.restore();
                 redirectSpy.restore();
 
                 done();
@@ -131,13 +130,13 @@ describe('multipleApplicationsMiddleware', () => {
             }};
             const next = sinon.spy();
 
-            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+            const asyncFetchStub = sinon.stub(AsyncFetch, 'fetchJson')
                 .returns(Promise.resolve(allApplicationsExpectedResponse));
 
             multipleApplicationsMiddleware.initDashboard(req, res, next);
 
             setTimeout(() => {
-                expect(serviceStub.calledOnce).to.equal(true);
+                expect(asyncFetchStub.calledOnce).to.equal(true);
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
@@ -147,7 +146,7 @@ describe('multipleApplicationsMiddleware', () => {
                     }
                 });
 
-                serviceStub.restore();
+                asyncFetchStub.restore();
                 revert();
                 done();
             });
@@ -192,13 +191,13 @@ describe('multipleApplicationsMiddleware', () => {
             }};
             const next = sinon.spy();
 
-            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+            const asyncFetchStub = sinon.stub(AsyncFetch, 'fetchJson')
                 .returns(Promise.resolve(allApplicationsExpectedResponse));
 
             multipleApplicationsMiddleware.initDashboard(req, res, next);
 
             setTimeout(() => {
-                expect(serviceStub.calledOnce).to.equal(true);
+                expect(asyncFetchStub.calledOnce).to.equal(true);
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
@@ -208,7 +207,7 @@ describe('multipleApplicationsMiddleware', () => {
                     }
                 });
 
-                serviceStub.restore();
+                asyncFetchStub.restore();
                 revert();
                 done();
             });
@@ -249,13 +248,13 @@ describe('multipleApplicationsMiddleware', () => {
             }};
             const next = sinon.spy();
 
-            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+            const asyncFetchStub = sinon.stub(AsyncFetch, 'fetchJson')
                 .returns(Promise.resolve(allApplicationsExpectedResponse));
 
             multipleApplicationsMiddleware.initDashboard(req, res, next);
 
             setTimeout(() => {
-                expect(serviceStub.calledOnce).to.equal(true);
+                expect(asyncFetchStub.calledOnce).to.equal(true);
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
@@ -265,7 +264,7 @@ describe('multipleApplicationsMiddleware', () => {
                     }
                 });
 
-                serviceStub.restore();
+                asyncFetchStub.restore();
                 revert();
                 done();
             });
@@ -319,13 +318,13 @@ describe('multipleApplicationsMiddleware', () => {
             }};
             const next = sinon.spy();
 
-            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+            const asyncFetchStub = sinon.stub(AsyncFetch, 'fetchJson')
                 .returns(Promise.resolve({applications: []}));
 
             multipleApplicationsMiddleware.initDashboard(req, res, next);
 
             setTimeout(() => {
-                expect(serviceStub.callCount).to.equal(2);
+                expect(asyncFetchStub.callCount).to.equal(2);
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
@@ -344,7 +343,7 @@ describe('multipleApplicationsMiddleware', () => {
                     }
                 });
 
-                serviceStub.restore();
+                asyncFetchStub.restore();
                 revert();
                 done();
             });
@@ -391,13 +390,13 @@ describe('multipleApplicationsMiddleware', () => {
             }};
             const next = sinon.spy();
 
-            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+            const asyncFetchStub = sinon.stub(AsyncFetch, 'fetchJson')
                 .returns(Promise.resolve(allApplicationsExpectedResponse));
 
             multipleApplicationsMiddleware.initDashboard(req, res, next);
 
             setTimeout(() => {
-                expect(serviceStub.callCount).to.equal(2);
+                expect(asyncFetchStub.callCount).to.equal(2);
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
@@ -407,7 +406,7 @@ describe('multipleApplicationsMiddleware', () => {
                     }
                 });
 
-                serviceStub.restore();
+                asyncFetchStub.restore();
                 revert();
                 done();
             });
@@ -452,13 +451,13 @@ describe('multipleApplicationsMiddleware', () => {
             }};
             const next = sinon.spy();
 
-            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+            const asyncFetchStub = sinon.stub(AsyncFetch, 'fetchJson')
                 .returns(Promise.resolve(allApplicationsExpectedResponse));
 
             multipleApplicationsMiddleware.initDashboard(req, res, next);
 
             setTimeout(() => {
-                expect(serviceStub.callCount).to.equal(2);
+                expect(asyncFetchStub.callCount).to.equal(2);
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
@@ -468,7 +467,7 @@ describe('multipleApplicationsMiddleware', () => {
                     }
                 });
 
-                serviceStub.restore();
+                asyncFetchStub.restore();
                 revert();
                 done();
             });
@@ -493,13 +492,13 @@ describe('multipleApplicationsMiddleware', () => {
             }};
             const next = sinon.spy();
 
-            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+            const asyncFetchStub = sinon.stub(AsyncFetch, 'fetchJson')
                 .returns(Promise.resolve(allApplicationsExpectedResponse));
 
             multipleApplicationsMiddleware.initDashboard(req, res, next);
 
             setTimeout(() => {
-                expect(serviceStub.calledOnce).to.equal(true);
+                expect(asyncFetchStub.calledOnce).to.equal(true);
                 expect(req.session).to.deep.equal({
                     form: {
                         applicantEmail: 'test@email.com',
@@ -509,7 +508,7 @@ describe('multipleApplicationsMiddleware', () => {
                     }
                 });
 
-                serviceStub.restore();
+                asyncFetchStub.restore();
                 revert();
                 done();
             });
@@ -597,17 +596,17 @@ describe('multipleApplicationsMiddleware', () => {
             };
 
             const redirectSpy = sinon.spy(res, 'redirect');
-            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+            const asyncFetchStub = sinon.stub(AsyncFetch, 'fetchJson')
                 .returns(Promise.resolve(multipleAppGetCaseStubResponse));
 
             multipleApplicationsMiddleware.getCase(req, res);
 
             setTimeout(() => {
-                expect(serviceStub.calledOnce).to.equal(true);
+                expect(asyncFetchStub.calledOnce).to.equal(true);
                 expect(redirectSpy.calledOnce).to.equal(true);
                 expect(redirectSpy.calledWith('/task-list')).to.equal(true);
 
-                serviceStub.restore();
+                asyncFetchStub.restore();
                 redirectSpy.restore();
 
                 done();
@@ -638,17 +637,17 @@ describe('multipleApplicationsMiddleware', () => {
             };
 
             const redirectSpy = sinon.spy(res, 'redirect');
-            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+            const asyncFetchStub = sinon.stub(AsyncFetch, 'fetchJson')
                 .returns(Promise.resolve(multipleAppGetCaseStubResponse));
 
             multipleApplicationsMiddleware.getCase(req, res);
 
             setTimeout(() => {
-                expect(serviceStub.calledOnce).to.equal(true);
+                expect(asyncFetchStub.calledOnce).to.equal(true);
                 expect(redirectSpy.calledOnce).to.equal(true);
                 expect(redirectSpy.calledWith('/task-list')).to.equal(true);
 
-                serviceStub.restore();
+                asyncFetchStub.restore();
                 redirectSpy.restore();
 
                 done();
@@ -678,17 +677,17 @@ describe('multipleApplicationsMiddleware', () => {
             };
 
             const redirectSpy = sinon.spy(res, 'redirect');
-            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+            const asyncFetchStub = sinon.stub(AsyncFetch, 'fetchJson')
                 .returns(Promise.resolve(multipleAppGetCaseStubResponse));
 
             multipleApplicationsMiddleware.getCase(req, res);
 
             setTimeout(() => {
-                expect(serviceStub.calledOnce).to.equal(true);
+                expect(asyncFetchStub.calledOnce).to.equal(true);
                 expect(redirectSpy.calledOnce).to.equal(true);
                 expect(redirectSpy.calledWith('/task-list')).to.equal(true);
 
-                serviceStub.restore();
+                asyncFetchStub.restore();
                 redirectSpy.restore();
 
                 done();
@@ -710,16 +709,16 @@ describe('multipleApplicationsMiddleware', () => {
             }};
 
             const redirectSpy = sinon.spy(res, 'redirect');
-            const serviceStub = sinon.stub(Service.prototype, 'fetchJson').rejects('Unable to retrieve case');
+            const asyncFetchStub = sinon.stub(AsyncFetch, 'fetchJson').rejects('Unable to retrieve case');
 
             multipleApplicationsMiddleware.getCase(req, res);
 
             setTimeout(() => {
-                expect(serviceStub.calledOnce).to.equal(true);
+                expect(asyncFetchStub.calledOnce).to.equal(true);
                 expect(redirectSpy.calledOnce).to.equal(true);
                 expect(redirectSpy.calledWith('/errors/404')).to.equal(true);
 
-                serviceStub.restore();
+                asyncFetchStub.restore();
                 redirectSpy.restore();
 
                 done();
@@ -822,13 +821,13 @@ describe('multipleApplicationsMiddleware', () => {
             };
 
             const next = sinon.spy();
-            const serviceStub = sinon.stub(Service.prototype, 'fetchJson')
+            const asyncFetchStub = sinon.stub(AsyncFetch, 'fetchJson')
                 .returns(Promise.resolve(multipleAppGetCaseStubResponse));
 
             multipleApplicationsMiddleware.getCase(req, res, next, true);
 
             setTimeout(() => {
-                expect(serviceStub.calledOnce).to.equal(true);
+                expect(asyncFetchStub.calledOnce).to.equal(true);
                 expect(next.calledOnce).to.equal(true);
                 expect(req.session.form).to.deep.equal({
                     caseType: 'gop',
@@ -888,7 +887,7 @@ describe('multipleApplicationsMiddleware', () => {
                         }
                     ]
                 });
-                serviceStub.restore();
+                asyncFetchStub.restore();
                 done();
             });
         });

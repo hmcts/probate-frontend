@@ -5,6 +5,7 @@ const sinon = require('sinon');
 const SubmitData = require('app/services/SubmitData');
 const config = require('config');
 const caseTypes = require('app/utils/CaseTypes');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 describe('SubmitDataService', () => {
     describe('submit()', () => {
@@ -19,8 +20,8 @@ describe('SubmitDataService', () => {
             const path = submitData.replacePlaceholderInPath(config.services.orchestrator.paths.submissions, 'ccdCaseId', data.ccdCase.id);
 
             const logSpy = sinon.spy(submitData, 'log');
-            const fetchJsonSpy = sinon.stub(submitData, 'fetchJson');
-            const fetchOptionsStub = sinon.stub(submitData, 'fetchOptions').returns(fetchOptions);
+            const fetchJsonSpy = sinon.stub(AsyncFetch, 'fetchJson');
+            const fetchOptionsStub = sinon.stub(AsyncFetch, 'fetchOptions').returns(fetchOptions);
 
             const url = endpoint + path + '?probateType=PA';
 
@@ -28,8 +29,8 @@ describe('SubmitDataService', () => {
 
             expect(submitData.log.calledOnce).to.equal(true);
             expect(submitData.log.calledWith('Put submit data')).to.equal(true);
-            expect(submitData.fetchJson.calledOnce).to.equal(true);
-            expect(submitData.fetchJson.calledWith(url, fetchOptions)).to.equal(true);
+            expect(AsyncFetch.fetchJson.calledOnce).to.equal(true);
+            expect(AsyncFetch.fetchJson.calledWith(url, fetchOptions)).to.equal(true);
 
             logSpy.restore();
             fetchJsonSpy.restore();

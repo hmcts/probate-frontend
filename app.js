@@ -169,7 +169,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.use(helmet.noCache());
     app.use(helmet.xssFilter({setOnOldIE: true}));
 
-    const caching = {cacheControl: true, setHeaders: (res) => res.setHeader('Cache-Control', 'max-age=604800')};
+    const caching = {cacheControl: true, setHeaders: (res) => res.setHeader('Cache-Control', 'max-age=60480')};
 
     // Middleware to serve static assets
     app.use('/public/stylesheets', express.static(`${__dirname}/public/stylesheets`, caching));

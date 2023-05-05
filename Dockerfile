@@ -1,17 +1,18 @@
 # ---- Base image ----
 
 FROM hmctspublic.azurecr.io/base/node:16-alpine as base
+USER root
+RUN corepack enable
 
 ENV WORKDIR /opt/app
 WORKDIR ${WORKDIR}
 
 COPY --chown=hmcts:hmcts package.json yarn.lock ./
 RUN yarn config set proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
-RUN yarn set version 3.x
-RUN yarn install --production && yarn cache clean
 
 # ---- Build image ----
 FROM base as build
+USER hmcts
 COPY --chown=hmcts:hmcts . ./
 
 USER root

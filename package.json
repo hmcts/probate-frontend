@@ -83,7 +83,9 @@
     "stub:multiple-applications": "NODE_PATH=. node test/service-stubs/multipleApplications.js",
     "stub:equality-and-diversity-endpoint": "NODE_PATH=. node test/service-stubs/equalityAndDiversityEndpoint.js",
     "stub:equality-and-diversity-health": "NODE_PATH=. node test/service-stubs/equalityAndDiversityHealth.js",
-    "fortifyScan": "./test/java/gradlew -p test/java fortifyScan"
+    "fortifyScan": "./test/java/gradlew -p test/java fortifyScan",
+    "yarn-update": "yarn set version 3.x",
+    "install-dependencies": "/usr/bin/yarn install --immutable --silent"
   },
   "pre-commit": [
     "lint"

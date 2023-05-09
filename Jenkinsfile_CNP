@@ -72,7 +72,7 @@ withPipeline("nodejs", product, component) {
     } */
 
     afterSuccess('build') {
-        sh 'yarn setup'
+      yarnBuilder.yarn('setup')
     }
 //    afterSuccess('test') {
 //        if (env.CHANGE_BRANCH || env.BRANCH_NAME == 'master') {

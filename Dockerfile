@@ -3,16 +3,20 @@
 FROM hmctspublic.azurecr.io/base/node:16-alpine as base
 USER root
 RUN corepack enable
+USER hmcts
 
 ENV WORKDIR /opt/app
 WORKDIR ${WORKDIR}
 
+# Copy over Yarn 3 configuration, release, and plugins
+COPY --chown=hmcts:hmcts .yarn ./.yarn
+COPY --chown=hmcts:hmcts .yarnrc.yml ./
+
 COPY --chown=hmcts:hmcts package.json yarn.lock ./
-RUN yarn config set proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
+# this gives error : Usage Error: Couldn't find a configuration settings named "proxy":  RUN yarn config set proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
 
 # ---- Build image ----
 FROM base as build
-USER hmcts
 COPY --chown=hmcts:hmcts . ./
 
 USER root

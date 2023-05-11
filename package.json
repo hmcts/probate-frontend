@@ -61,7 +61,7 @@
     "test-api": "NODE_ENV=dev NODE_PATH=. LOG_LEVEL=error mocha 'test/api/*.js' --timeout 10000 --reporter spec --exit",
     "test-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/pact/*.js' --timeout 10000 --reporter spec",
     "publish-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/publish/*.js' --timeout 10000 --reporter spec",
-    "lint": "NODE_PATH=. eslint .",
+    "lint": "NODE_PATH=. eslint . && yarn setup",
     "eslint": "NODE_PATH=. eslint .",
     "test:functional": "NODE_ENV=test yarn test-contract && NODE_ENV=test yarn test-e2e-http-launch-darkly",
     "test:fullfunctional": "NODE_ENV=test-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly'",

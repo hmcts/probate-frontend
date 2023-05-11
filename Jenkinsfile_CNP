@@ -71,9 +71,6 @@ withPipeline("nodejs", product, component) {
         }
     } */
 
-    afterSuccess('build') {
-        sh 'yarn setup'
-    }
 //    afterSuccess('test') {
 //        if (env.CHANGE_BRANCH || env.BRANCH_NAME == 'master') {
 //            env.PACT_BRANCH_NAME = env.CHANGE_BRANCH

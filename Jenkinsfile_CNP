@@ -73,8 +73,6 @@ withPipeline("nodejs", product, component) {
 
     afterSuccess('build') {
         sh 'yarn setup'
-        yarnBuilder.yarn('yarn-update')
-        yarnBuilder.yarn('install-dependencies')
     }
 //    afterSuccess('test') {
 //        if (env.CHANGE_BRANCH || env.BRANCH_NAME == 'master') {

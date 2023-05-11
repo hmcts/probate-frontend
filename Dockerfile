@@ -21,6 +21,7 @@ RUN apk add git
 USER hmcts
 
 RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install
+
 RUN yarn setup
 RUN rm -rf /opt/app/.git
 

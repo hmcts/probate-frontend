@@ -20,9 +20,9 @@ USER root
 RUN apk add git
 USER hmcts
 
-RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install \
-    && yarn setup \
-    && rm -rf /opt/app/.git
+RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install
+RUN yarn setup
+RUN rm -rf /opt/app/.git
 
 # ---- Runtime image ----
 FROM build as runtime

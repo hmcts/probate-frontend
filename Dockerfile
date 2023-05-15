@@ -22,6 +22,7 @@ USER hmcts
 
 RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install
 RUN yarn -v
+RUN node -v
 RUN yarn setup-sass
 RUN rm -rf /opt/app/.git
 

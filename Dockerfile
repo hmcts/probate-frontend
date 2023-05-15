@@ -3,7 +3,7 @@
 FROM hmctspublic.azurecr.io/base/node:18-alpine as base
 #USER root
 #RUN corepack enable
-USER hmcts
+#USER hmcts
 
 ENV WORKDIR /opt/app
 WORKDIR ${WORKDIR}
@@ -22,7 +22,7 @@ USER hmcts
 
 RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install
 RUN yarn -v
-RUN yarn setup
+RUN yarn setup-sass
 RUN rm -rf /opt/app/.git
 
 # ---- Runtime image ----

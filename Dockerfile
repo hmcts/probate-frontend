@@ -11,7 +11,7 @@ WORKDIR ${WORKDIR}
 
 COPY --chown=hmcts:hmcts package.json yarn.lock ./
 # this gives error : Usage Error: Couldn't find a configuration settings named "proxy":  RUN yarn config set proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
-
+RUN yarn config set http-proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
 # ---- Build image ----
 FROM base as build
 COPY --chown=hmcts:hmcts . ./

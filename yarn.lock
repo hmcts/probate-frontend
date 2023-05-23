@@ -6074,6 +6074,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hpkp@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "hpkp@npm:2.0.3"
+  checksum: 185055d2a770e2ed0d34b23280c2974327eee28fb41504a692897f2be860fba3aa096defd8862165076a13b03e51b493e70ab884ec213461aa0c12e94b4c2d58
+  languageName: node
+  linkType: hard
+
 "hsts@npm:2.2.0":
   version: 2.2.0
   resolution: "hsts@npm:2.2.0"
@@ -8590,6 +8597,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nocache@npm:^3.0.4":
+  version: 3.0.4
+  resolution: "nocache@npm:3.0.4"
+  checksum: 6be9ee67eb561ecedc56d805c024c0fda55b9836ecba659c720073b067929aa4fe04bb7121480e004c9cf52989e62d8720f29a7fe0269f1a4941221a1e4be1c2
+  languageName: node
+  linkType: hard
+
 "nock@npm:^13.3.1":
   version: 13.3.1
   resolution: "nock@npm:13.3.1"
@@ -9683,6 +9697,7 @@ __metadata:
     git-rev-sync: ^1.12.0
     govuk-frontend: ^3.14.0
     helmet: ^3.23.3
+    hpkp: ^2.0.3
     http-terminator: ^2.0.3
     https-proxy-agent: ^5.0.1
     i18next: ^17.3.1
@@ -9700,6 +9715,7 @@ __metadata:
     mochawesome: ^7.1.3
     moment: ^2.29.4
     multer: 1.4.5-lts.1
+    nocache: ^3.0.4
     nock: ^13.3.1
     node-cache: ^5.1.2
     node-emoji: ^1.11.0

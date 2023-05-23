@@ -17,6 +17,8 @@ const utils = require(`${__dirname}/app/components/utils`);
 const packageJson = require(`${__dirname}/package`);
 const Security = require(`${__dirname}/app/services/Security`);
 const helmet = require('helmet');
+const hpkp = require('hpkp');
+const nocache = require('nocache');
 const csrf = require('csurf');
 const declaration = require(`${__dirname}/app/declaration`);
 const InviteSecurity = require(`${__dirname}/app/invite`);
@@ -149,7 +151,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     }));
 
     // Http public key pinning
-    app.use(helmet.hpkp({
+    app.use(hpkp({
         maxAge: 900,
         sha256s: ['AbCdEf123=', 'XyzABC123=']
     }));
@@ -159,7 +161,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         policy: 'origin'
     }));
 
-    app.use(helmet.noCache());
+    app.use(nocache());
     app.use(helmet.xssFilter({setOnOldIE: true}));
 
     const caching = {cacheControl: true, setHeaders: (res) => res.setHeader('Cache-Control', 'max-age=604800')};

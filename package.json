@@ -140,6 +140,8 @@
     "numeral": "^2.0.6",
     "nunjucks": "^3.2.4",
     "otp": "^0.1.3",
+    "puppeteer": "19.4.0",
+    "puppeteer-core": "19.4.0",
     "randomstring": "^1.2.3",
     "readdir": "^0.1.0",
     "request": "^2.88.2",
@@ -177,7 +179,8 @@
     "phantomjs-prebuilt": "^2.1.16",
     "pre-commit": "^1.2.2",
     "proxyquire": "^2.1.3",
-    "puppeteer": "^10.4.0",
+    "puppeteer": "19.4.0",
+    "puppeteer-core": "19.4.0",
     "rewire": "^6.0.0",
     "selenium-standalone": "^6.24.0",
     "sinon": "^15.0.4",
@@ -199,7 +202,9 @@
     "minimist": "1.2.6",
     "async": ">=2.6.4",
     "cookiejar": ">=2.1.4",
-    "qs": ">=6.9.7"
+    "qs": ">=6.9.7",
+    "puppeteer": "19.4.0",
+    "puppeteer-core": "19.4.0"
   },
   "packageManager": "yarn@3.5.1"
 }

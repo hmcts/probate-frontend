@@ -17,6 +17,7 @@ featureToggles:
   ft_newfee_register_code: 'probate-newfee-register-code'
   ft_excepted_estates: 'probate-excepted-estates'
   ft_will_condition : 'probate-will-condition'
+  ft_stop_ihtonline : 'probate-stop-ihtonline'
   appwideToggles: ['ft_avaya_webchat']
 # overrides featureToggles to e.g. switch off in pipeline/locally
 configFeatureToggles:

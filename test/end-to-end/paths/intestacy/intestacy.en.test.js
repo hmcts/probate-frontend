@@ -75,13 +75,21 @@ getTestLanguages().forEach(language => {
         await I.selectEnglishForeignDeathCert(language, optionNo);
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
-        await I.selectInheritanceMethod(language, ihtOnline);
-        await I.enterIHTIdentifier(language);
-
-        if (TestConfigurator.getUseGovPay() === 'true') {
-            await I.enterEstateValue(language, '300000', '200000');
+        const isIHTEnabled = await TestConfigurator.checkFeatureToggle('probate-stop-ihtonline');
+        if (isIHTEnabled) {
+            if (TestConfigurator.getUseGovPay() === 'true') {
+                await I.enterGrossAndNet(language, '207', '300000', '200000');
+            } else {
+                await I.enterGrossAndNet(language, '207', '500', '400');
+            }
         } else {
-            await I.enterEstateValue(language, '500', '400');
+            await I.selectInheritanceMethod(language, ihtOnline);
+            await I.enterIHTIdentifier(language);
+            if (TestConfigurator.getUseGovPay() === 'true') {
+                await I.enterEstateValue(language, '300000', '200000');
+            } else {
+                await I.enterEstateValue(language, '500', '400');
+            }
         }
 
         await I.selectAssetsOutsideEnglandWales(language, optionYes);
@@ -180,11 +188,20 @@ getTestLanguages().forEach(language => {
         await I.selectEnglishForeignDeathCert(language, optionNo);
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
-        await I.selectInheritanceMethod(language, ihtPost);
-        if (TestConfigurator.getUseGovPay() === 'true') {
-            await I.enterGrossAndNet(language, '205', '600000', '300000');
+        const isIHTEnabled = await TestConfigurator.checkFeatureToggle('probate-stop-ihtonline');
+        if (isIHTEnabled) {
+            if (TestConfigurator.getUseGovPay() === 'true') {
+                await I.enterGrossAndNet(language, '207', '600000', '300000');
+            } else {
+                await I.enterGrossAndNet(language, '207', '500', '400');
+            }
         } else {
-            await I.enterGrossAndNet(language, '205', '500', '400');
+            await I.selectInheritanceMethod(language, ihtPost);
+            if (TestConfigurator.getUseGovPay() === 'true') {
+                await I.enterGrossAndNet(language, '205', '600000', '300000');
+            } else {
+                await I.enterGrossAndNet(language, '205', '500', '400');
+            }
         }
 
         await I.selectDeceasedAlias(language, optionNo);

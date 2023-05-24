@@ -147,7 +147,6 @@ const runTests = (language ='en') => {
                 it('should not generate any warnings', () => {
                     const warnings = results.issues.filter((res) => res.type === 'warning')
                         .filter(excludeWarnings);
-
                     expect(warnings.length).to.equal(0, JSON.stringify(warnings, null, 2));
                 });
             });

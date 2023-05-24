@@ -23,7 +23,7 @@
     {% if fields.isGaEnabled.value === 'true' %}
         {% include "includes/scripts_ga_2.html" %}
     {% endif %}
-    
+
     {% block cookiebanner %}
         {% include "includes/cookie-banner.html" %}
     {% endblock %}
@@ -67,9 +67,9 @@
               </div>
             <div class="govuk-header__content">
                 <a href="/dashboard" class="govuk-header__link govuk-header__link--service-name">{{ serviceName }}</a>
-                <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
-                <nav>
-                    <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
+                <nav aria-label="Menu" class="govuk-header__navigation ">
+                  <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide menu" hidden>Menu</button>
+                    <ul id="navigation" class="govuk-header__navigation-list">
                         {% for item in navigationItems %}
                             {% if item.href and item.text %}
                                 <li class="govuk-header__navigation-item{{ " govuk-header__navigation-item--active" if item.active }}">
@@ -96,12 +96,12 @@
         html: (common.feedback + common.languageToggle) | replace("{smartSurveyFeedbackUrl}", globals.links.survey) | replace("{currentPageUrl}", pageUrl) | safe
     }) }}
 
-    
+
 {% endblock %}
 
 {% block footer %}
     {% include "includes/footer_links.html" %}
-    
+
 {% endblock %}
 {% block bodyEnd %}
     {% include "includes/scripts.html" %}

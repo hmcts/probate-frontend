@@ -132,7 +132,7 @@
     "node-fetch": "^2.6.9",
     "node-git-info-json": "^0.1.1",
     "numeral": "^2.0.6",
-    "nunjucks": "^3.2.3",
+    "nunjucks": "^3.2.4",
     "otp": "^0.1.3",
     "puppeteer": "19.4.0",
     "puppeteer-core": "19.4.0",

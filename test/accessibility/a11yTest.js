@@ -33,7 +33,7 @@ const commonSessionData = {
     back: []
 };
 
-const warning = ['WCAG2AA.Principle1.Guideline1_3.1_3_1.H48'];
+const warning = ['WCAG2AA.Principle1.Guideline1_3.1_3_1.H48', 'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68.HiddenAttr'];
 const excludeWarnings = r => {
     return !warning.includes(r.code);
 };

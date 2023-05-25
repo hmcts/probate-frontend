@@ -69,24 +69,31 @@ describe('CaseProgress.js', () => {
     });
 
     describe('documentsReceived()', () => {
+        let documentsReceivedNotificationSent = '';
         it('should return false for Pending', (done) => {
             const state = 'Pending';
-            expect(CaseProgress.documentsReceived(state)).to.equal(false);
+            expect(CaseProgress.documentsReceived(state, documentsReceivedNotificationSent)).to.equal(false);
             done();
         });
-        it('should return false for CasePrinted', (done) => {
+        it('should return false for CasePrinted and notification not sent', (done) => {
             const state = 'CasePrinted';
-            expect(CaseProgress.documentsReceived(state)).to.equal(false);
+            expect(CaseProgress.documentsReceived(state, documentsReceivedNotificationSent)).to.equal(false);
+            done();
+        });
+        it('should return true for CasePrinted and notification not sent', (done) => {
+            const state = 'CasePrinted';
+            documentsReceivedNotificationSent = 'true';
+            expect(CaseProgress.documentsReceived(state, documentsReceivedNotificationSent)).to.equal(true);
             done();
         });
         it('should return true for BOReadyToIssue', (done) => {
             const state = 'BOReadyToIssue';
-            expect(CaseProgress.documentsReceived(state)).to.equal(true);
+            expect(CaseProgress.documentsReceived(state, documentsReceivedNotificationSent)).to.equal(true);
             done();
         });
         it('should return true for BOGrantIssued', (done) => {
             const state = 'BOGrantIssued';
-            expect(CaseProgress.documentsReceived(state)).to.equal(true);
+            expect(CaseProgress.documentsReceived(state, documentsReceivedNotificationSent)).to.equal(true);
             done();
         });
     });

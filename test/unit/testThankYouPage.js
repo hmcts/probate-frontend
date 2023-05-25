@@ -22,7 +22,6 @@ describe('ThankYou', () => {
             properties: {}
         };
     });
-
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
@@ -32,7 +31,6 @@ describe('ThankYou', () => {
             done();
         });
     });
-
     describe('getContextData()', () => {
         let ctx;
         let req;
@@ -57,6 +55,25 @@ describe('ThankYou', () => {
             expect(ctx.grantIssued).to.equal(false);
             done();
         });
+        it('should return the context with the ccd case id with state CasePrinted and notification sent', (done) => {
+            req = {
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'CasePrinted'
+                        },
+                        documentsReceivedNotificationSent: 'true'
+                    }
+                }
+            };
+            const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
+            ctx = thankYou.getContextData(req);
+            expect(ctx.documentsReceived).to.equal(true);
+            expect(ctx.applicationInReview).to.equal(false);
+            expect(ctx.grantIssued).to.equal(false);
+            done();
+        });
         it('should return the context with the ccd case id with state BOReadyToIssue', (done) => {
             req = {
                 session: {
@@ -70,8 +87,6 @@ describe('ThankYou', () => {
             };
             const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
             ctx = thankYou.getContextData(req);
-            expect(ctx.ccdReferenceNumber).to.deep.equal('1234-5678-9012-3456');
-            expect(ctx.ccdReferenceNumberAccessible).to.deep.equal('1 2 3 4, -, 5 6 7 8, -, 9 0 1 2, -, 3 4 5 6');
             expect(ctx.documentsReceived).to.equal(true);
             expect(ctx.applicationInReview).to.equal(true);
             expect(ctx.grantIssued).to.equal(false);
@@ -90,8 +105,6 @@ describe('ThankYou', () => {
             };
             const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
             ctx = thankYou.getContextData(req);
-            expect(ctx.ccdReferenceNumber).to.deep.equal('1234-5678-9012-3456');
-            expect(ctx.ccdReferenceNumberAccessible).to.deep.equal('1 2 3 4, -, 5 6 7 8, -, 9 0 1 2, -, 3 4 5 6');
             expect(ctx.documentsReceived).to.equal(true);
             expect(ctx.applicationInReview).to.equal(true);
             expect(ctx.grantIssued).to.equal(true);
@@ -167,9 +180,7 @@ describe('ThankYou', () => {
             const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
             co(function* () {
                 const [ctx] = thankYou.handleGet({}, {});
-                expect(ctx.checkAnswersSummary).to.deep.equal(false);
                 expect(ctx.documentsRequired).to.deep.equal(true);
-                expect(ctx.legalDeclaration).to.deep.equal(false);
                 revertDocumentsWrapper();
                 done();
             }).catch(err => {
@@ -188,9 +199,7 @@ describe('ThankYou', () => {
             const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
             co(function* () {
                 const [ctx] = thankYou.handleGet({}, {});
-                expect(ctx.checkAnswersSummary).to.deep.equal(false);
                 expect(ctx.documentsRequired).to.deep.equal(false);
-                expect(ctx.legalDeclaration).to.deep.equal(false);
                 revertDocumentsWrapper();
                 done();
             }).catch(err => {

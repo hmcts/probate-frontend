@@ -86,13 +86,32 @@ describe('CitizensHub', () => {
             expect(ctx.grantIssued).to.equal(false);
             done();
         });
-        it('should return the context with case progress for BOExamining', (done) => {
+        it('should return the context with case progress for CasePrinted and notification sent', (done) => {
             req = {
                 session: {
                     form: {
                         ccdCase: {
                             id: 1234567890123456,
-                            state: 'BOExamining'
+                            state: 'CasePrinted'
+                        },
+                        documentsReceivedNotificationSent: 'true'
+                    }
+                }
+            };
+            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
+            ctx = citizensHub.getContextData(req);
+            expect(ctx.documentsReceived).to.equal(true);
+            expect(ctx.applicationInReview).to.equal(false);
+            expect(ctx.grantIssued).to.equal(false);
+            done();
+        });
+        it('should return the context with case progress for BOReadyToIssue', (done) => {
+            req = {
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'BOReadyToIssue'
                         },
                         deceased: {
                             firstName: 'Peter',
@@ -126,25 +145,7 @@ describe('CitizensHub', () => {
             expect(ctx.grantIssued).to.equal(true);
             done();
         });
-        it('should return the context with case progress for BOCaseStopped', (done) => {
-            req = {
-                session: {
-                    form: {
-                        ccdCase: {
-                            id: 1234567890123456,
-                            state: 'BOCaseStopped'
-                        }
-                    }
-                }
-            };
-            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
-            ctx = citizensHub.getContextData(req);
-            expect(ctx.documentsReceived).to.equal(true);
-            expect(ctx.applicationInReview).to.equal(true);
-            expect(ctx.grantIssued).to.equal(false);
-            done();
-        });
-        it('should return the context with case type ', (done) => {
+        it('should return the context with case progress for BOCaseStopped with case type', (done) => {
             req = {
                 session: {
                     form: {
@@ -158,6 +159,9 @@ describe('CitizensHub', () => {
             };
             const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
             ctx = citizensHub.getContextData(req);
+            expect(ctx.documentsReceived).to.equal(true);
+            expect(ctx.applicationInReview).to.equal(true);
+            expect(ctx.grantIssued).to.equal(false);
             expect(ctx.caseType).to.equal('gop');
             done();
         });

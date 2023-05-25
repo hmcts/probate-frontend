@@ -73,7 +73,7 @@ class ThankYou extends Step {
         ctx.caseType = caseTypes.getCaseType(session);
         ctx.grantIssued = CaseProgress.grantIssued(req.session.form.ccdCase.state);
         ctx.applicationInReview = CaseProgress.applicationInReview(req.session.form.ccdCase.state);
-        ctx.documentsReceived = CaseProgress.documentsReceived(req.session.form.ccdCase.state);
+        ctx.documentsReceived = CaseProgress.documentsReceived(req.session.form.ccdCase.state, req.session.form.documentsReceivedNotificationSent);
         return ctx;
     }
 

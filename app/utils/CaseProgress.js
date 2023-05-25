@@ -12,8 +12,8 @@ class CaseProgress {
         return this.applicationSubmitted(state) && state !== 'CasePrinted';
     }
 
-    static documentsReceived(state) {
-        return this.applicationSubmitted(state) && this.applicationInReview(state);
+    static documentsReceived(state, documentsReceivedNotificationSent) {
+        return this.applicationSubmitted(state) && (this.applicationInReview(state) || documentsReceivedNotificationSent === 'true');
     }
 
     static caseStopped(state) {

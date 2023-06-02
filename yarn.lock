@@ -741,7 +741,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pact-foundation/pact-node@npm:^10.17.2, @pact-foundation/pact-node@npm:^10.17.7":
+"@pact-foundation/pact-node@npm:^10.13.8, @pact-foundation/pact-node@npm:^10.17.2":
   version: 10.17.7
   resolution: "@pact-foundation/pact-node@npm:10.17.7"
   dependencies:
@@ -777,7 +777,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pact-foundation/pact@npm:^9.18.1":
+"@pact-foundation/pact@npm:^9.16.3":
   version: 9.18.1
   resolution: "@pact-foundation/pact@npm:9.18.1"
   dependencies:
@@ -2642,7 +2642,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chai@npm:^4.3.6, chai@npm:^4.3.7":
+"chai@npm:^4.2.0, chai@npm:^4.3.6":
   version: 4.3.7
   resolution: "chai@npm:4.3.7"
   dependencies:
@@ -9784,8 +9784,8 @@ __metadata:
     "@hmcts/nodejs-logging": ^4.0.4
     "@hmcts/os-places-client": ^1.1.7
     "@hmcts/properties-volume": ^0.0.14
-    "@pact-foundation/pact": ^9.18.1
-    "@pact-foundation/pact-node": ^10.17.7
+    "@pact-foundation/pact": ^9.16.3
+    "@pact-foundation/pact-node": ^10.13.8
     "@wdio/cli": ^8.10.5
     "@wdio/selenium-standalone-service": ^8.10.4
     ajv: ^6.12.6
@@ -9793,7 +9793,7 @@ __metadata:
     applicationinsights: ^2.5.0
     basic-auth: ^2.0.1
     body-parser: ^1.20.2
-    chai: ^4.3.7
+    chai: ^4.2.0
     chai-as-promised: ^7.1.1
     chai-http: ^4.3.0
     chai-string: ^1.5.0

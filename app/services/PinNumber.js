@@ -1,6 +1,7 @@
 'use strict';
 
 const Service = require('./Service');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 class PinNumber extends Service {
     get(phoneNumber, bilingual = false, authToken, serviceAuthorisation) {
@@ -13,8 +14,8 @@ class PinNumber extends Service {
             'Authorization': authToken,
             'ServiceAuthorization': serviceAuthorisation
         };
-        const fetchOptions = this.fetchOptions({}, 'GET', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions({}, 'GET', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 }
 

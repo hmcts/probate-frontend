@@ -5,11 +5,13 @@ const IhtMethod = require('app/steps/ui/iht/method');
 const IhtEstateValued = require('app/steps/ui/iht/estatevalued');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
+const IhtPaper = require('app/steps/ui/iht/paper');
 
 describe('foreign-death-cert-translation', () => {
     let testWrapper;
     const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
     const expectedNextUrlForEstateValued = IhtEstateValued.getUrl();
+    const expectedNextUrlForIhtPaper = IhtPaper.getUrl();
 
     afterEach(() => {
         testWrapper.destroy();
@@ -73,6 +75,90 @@ describe('foreign-death-cert-translation', () => {
                 foreignDeathCertTranslation: 'optionYes'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+        });
+
+        it(`test it redirects to IHT paper for EE FT on: ${expectedNextUrlForIhtPaper}`, (done) => {
+            testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_stop_ihtonline: true});
+
+            const data = {
+                'dod-date': '2021-12-31',
+                foreignDeathCertTranslation: 'optionYes'
+            };
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtPaper);
+        });
+
+        it('test it redirects to IHT method for EE FT when IHT Identifier has value', (done) => {
+            testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_stop_ihtonline: true});
+            const sessionData = {
+                iht: {
+                    method: 'optionOnline',
+                    identifier: '12345678F12345'
+                },
+                'dod-date': '2020-02-20',
+                foreignDeathCertTranslation: 'optionYes'
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, sessionData, expectedNextUrlForIhtMethod);
+                });
+        });
+
+        it('test it redirects to IHT paper for EE FT when IHT Identifier has no value', (done) => {
+            testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_stop_ihtonline: true});
+            const sessionData = {
+                iht: {
+                    method: 'optionOnline',
+                },
+                'dod-date': '2020-02-20',
+                foreignDeathCertTranslation: 'optionYes'
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, sessionData, expectedNextUrlForIhtPaper);
+                });
+        });
+
+        it('test it redirects to IHT paper for EE FT when IHT paper method', (done) => {
+            testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_stop_ihtonline: true});
+            const sessionData = {
+                iht: {
+                    method: 'optionPaper',
+                },
+                'dod-date': '2020-02-20',
+                foreignDeathCertTranslation: 'optionYes'
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, sessionData, expectedNextUrlForIhtPaper);
+                });
+        });
+
+        it('test it redirects to IHT paper for EE FT when IHT is null', (done) => {
+            testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_stop_ihtonline: true});
+
+            const sessionData = {
+                iht: {},
+                'dod-date': '2020-02-20',
+                foreignDeathCertTranslation: 'optionYes'
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, sessionData, expectedNextUrlForIhtPaper);
+                });
+        });
+
+        it('test it DOES NOT redirects to estate valued for EE FT ', (done) => {
+            testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_stop_ihtonline: true});
+
+            const data = {
+                'dod-date': '2021-12-31',
+                foreignDeathCertTranslation: 'optionYes'
+            };
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtPaper);
         });
 
         it(`test it redirects to estate valued for EE FT on: ${expectedNextUrlForEstateValued}`, (done) => {

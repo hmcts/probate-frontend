@@ -1,0 +1,135 @@
+{% extends "includes/layout.html" %}
+
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-xl govuk-!-margin-bottom-4" style="margin-bottom: 10px!important;">{{ content.header | safe }} - {{ fields.deceasedName.value }}</h1>
+            <h1 class="govuk-body"><strong>{{ content.referenceNumber | safe }}: {{ fields.ccdReferenceNumber.value }} </strong></h1>
+            <div class="govuk-grid-column-two-thirds" style="padding-left: 0px;">
+                <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible probate-section-break">
+                <br>
+                <div class="hmcts-progress-bar-vertical" role="progressbar">
+                    <ol class="hmcts-progress-bar__list">
+                      <li class="hmcts-progress-bar__list-item">
+                        <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
+                        <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 1: </span>{{ content.progressBarStep1 | safe }}</span>
+                      </li>
+                      {% if fields.documentsRequired.value == "true" %}
+                      <li class="hmcts-progress-bar__list-item">
+                        {% if fields.documentsReceived.value == "true" %}
+                        <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
+                        {% else %}
+                        <span class="hmcts-progress-bar__icon"></span>
+                        {% endif %}
+                        <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Current Step 2: </span>{{ content.progressBarStep2 | safe }}</span>
+                      </li>
+                      {% endif %}
+                      <li class="hmcts-progress-bar__list-item" style="width:120px">
+                        {% if fields.applicationInReview.value == "true" %}
+                        <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
+                        {% else %}
+                        <span class="hmcts-progress-bar__icon"></span>
+                        {% endif %}
+                        <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 3: </span>{{ content.progressBarStep3 | safe }}</span>
+                      </li>
+                      <li class="hmcts-progress-bar__list-item">
+                        {% if fields.grantIssued.value == "true" %}
+                        <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
+                        {% else %}
+                        <span class="hmcts-progress-bar__icon"></span>
+                        {% endif %}
+                        <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 4: </span>{{ content.progressBarStep4 | safe }}</span>
+                      </li>
+                    </ol>
+                </div>
+              <br><br>
+              <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" style="margin-bottom:30px;">
+                  <div class="govuk-notification-banner__header">
+                      <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">{{ content.latestInfo | safe }}</h2>
+                  </div>
+                  <div class="govuk-notification-banner__content">
+                      {% if fields.grantIssued.value == "true" %}
+                          <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.grantIssuedHeading | safe }}</p>
+                          <p class="govuk-body" style="max-width: 600px">{{ content.grantIssuedParagraph1 | safe }}</p>
+                          <p class="govuk-body" style="max-width: 600px">{{ content.grantIssuedParagraph2 | safe }}</p>
+                      {% elseif fields.applicationInReview.value == "true" %}
+                          {% if fields.caseStopped.value == "true" %}
+                              <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.caseStoppedHeading | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph | safe }}</p>
+                          {% elseif fields.caseClosed.value == "true" %}
+                              <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.caseClosedHeading | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.caseClosedParagraph | safe }}</p>
+                          {% else %}
+                              <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.applicationReviewHeading | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.applicationReviewParagraph | safe }}</p>
+                          {% endif %}
+                      {% elseif fields.documentsReceived.value == "true" %}
+                      <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.documentsReceivedHeading | safe }}</p>
+                      <p class="govuk-body" style="max-width: 600px">{{ content.documentsReceivedParagraph | safe }}</p>
+                      {% elseif fields.applicationSubmitted.value == "true" %}
+                          {% if fields.documentsRequired.value == "true" %}
+                              <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.applicationReceivedHeading | safe }}</p>
+                              {% if fields.caseType.value == "intestacy" %}
+                                  <p class="govuk-body" style="max-width: 600px">{{ content.intestacyApplicationReceivedParagraph | safe }}</p>
+                              {% else %}
+                                  <p class="govuk-body" style="max-width: 600px">{{ content.applicationReceivedParagraph | safe }}</p>
+                              {% endif %}
+                          {% else %}
+                              <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.applicationReceivedHeading | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.noDocsRequiredAppReceivedParagraph | safe }}</p>
+                          {% endif %}
+                      {% endif %}
+                  </div>
+              </div>
+              {% if fields.checkAnswersSummary.value == "true" %}
+              <p class="govuk-body">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf-fill" viewBox="0 0 16 16">
+                  <path d="M5.523 12.424c.14-.082.293-.162.459-.238a7.878 7.878 0 0 1-.45.606c-.28.337-.498.516-.635.572a.266.266 0 0 1-.035.012.282.282 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548zm2.455-1.647c-.119.025-.237.05-.356.078a21.148 21.148 0 0 0 .5-1.05 12.045 12.045 0 0 0 .51.858c-.217.032-.436.07-.654.114zm2.525.939a3.881 3.881 0 0 1-.435-.41c.228.005.434.022.612.054.317.057.466.147.518.209a.095.095 0 0 1 .026.064.436.436 0 0 1-.06.2.307.307 0 0 1-.094.124.107.107 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256zM8.278 6.97c-.04.244-.108.524-.2.829a4.86 4.86 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.517.517 0 0 1 .145-.04c.013.03.028.092.032.198.005.122-.007.277-.038.465z"/>
+                  <path fill-rule="evenodd" d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.651 11.651 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.856.856 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.844.844 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.76 5.76 0 0 0-1.335-.05 10.954 10.954 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.238 1.238 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a19.697 19.697 0 0 1-1.062 2.227 7.662 7.662 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103z"/>
+                </svg>
+                <a class="govuk-link anchor-margin-left" id="checkAnswerHref" href="/check-answers-pdf">{{ content.checkAnswersPdf | safe }}</a>
+              </p>
+              {% endif %}
+              {% if fields.legalDeclaration.value == "true" %}
+              <p class="govuk-body">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf-fill" viewBox="0 0 16 16">
+                  <path d="M5.523 12.424c.14-.082.293-.162.459-.238a7.878 7.878 0 0 1-.45.606c-.28.337-.498.516-.635.572a.266.266 0 0 1-.035.012.282.282 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548zm2.455-1.647c-.119.025-.237.05-.356.078a21.148 21.148 0 0 0 .5-1.05 12.045 12.045 0 0 0 .51.858c-.217.032-.436.07-.654.114zm2.525.939a3.881 3.881 0 0 1-.435-.41c.228.005.434.022.612.054.317.057.466.147.518.209a.095.095 0 0 1 .026.064.436.436 0 0 1-.06.2.307.307 0 0 1-.094.124.107.107 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256zM8.278 6.97c-.04.244-.108.524-.2.829a4.86 4.86 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.517.517 0 0 1 .145-.04c.013.03.028.092.032.198.005.122-.007.277-.038.465z"/>
+                  <path fill-rule="evenodd" d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.651 11.651 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.856.856 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.844.844 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.76 5.76 0 0 0-1.335-.05 10.954 10.954 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.238 1.238 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a19.697 19.697 0 0 1-1.062 2.227 7.662 7.662 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103z"/>
+                </svg>
+                <a class="govuk-link anchor-margin-left" id="declarationPdfHref" href="/declaration-pdf">{{ content.declarationPdf | safe }}</a>
+              </p>
+              {% endif %}
+            </div>
+            <div class="govuk-grid-column-one-third" style="padding-right: 0px;">
+                <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-! probate-section-break">
+                <h2 class="govuk-heading-m">{{ content.sideBarHeading | safe }}</h2>
+                <p><a class="govuk-link" href="https://www.gov.uk/applying-for-probate" target="_blank">{{ content.sideBarParagraph | safe }}</a></p>
+                <details class="govuk-details" data-module="govuk-details">
+                  <summary class="govuk-details__summary">
+                        <span class="govuk-details__summary-text">
+                          Contact
+                        </span>
+                  </summary>
+                  <div class="govuk-inset-text">
+                    <p>{{ content.insertText | safe }}</p>
+                    {% if fields.isWebChatEnabled.value === 'true'  and fields.language.value === 'en' %}
+                    <p class="govuk-heading-s" id="avaya-web-chat-header"> {{ common.helpHeading3 | safe }} </p>
+                    {% include "includes/avaya-webchat.html" %}
+                    {% endif %}
+                    <p class="govuk-heading-s govuk-!-padding-top-2"> {{ common.helpHeading2 | safe }} </p>
+                    <p class="govuk-body"> {{ common.helpEmailLabel | replace("{contactEmailAddress}", common.helpEmail) | safe }} </p>
+                    <p class="govuk-heading-s"> {{ common.helpHeading1 | safe }}</p>
+                    <p class="govuk-body"> {{ common.helpTelephoneNumber | safe }}</p>
+                    <p class="govuk-heading-m govuk-!-padding-top-6"> {{ common.helpTelephoneOpeningHoursTitle | safe }} </p>
+                    <p class="govuk-body"> {{ common.helpTelephoneOpeningHours1 | safe }} </p>
+                    <p class="govuk-body"> {{ common.helpTelephoneOpeningHours2 | safe }} </p>
+                    <p class="govuk-body">{{ content.callCharges | replace("{callChargesLink}", globals.links.callCharges) | safe }}</p>
+                  </div>
+                </details>
+            </div>
+        </div>
+    </div>
+{% endblock %}

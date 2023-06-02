@@ -1,6 +1,7 @@
 'use strict';
 
 const Service = require('./Service');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 class AllExecutorsAgreed extends Service {
     get(authToken, serviceAuthorisation, ccdCaseId) {
@@ -12,7 +13,7 @@ class AllExecutorsAgreed extends Service {
         };
         this.log('Get all executors agreed');
         const url = this.formatUrl.format(this.endpoint, `/invite/allAgreed/${ccdCaseId}`);
-        const fetchOptions = this.fetchOptions({}, 'GET', headers);
+        const fetchOptions = AsyncFetch.fetchOptions({}, 'GET', headers);
         return this.fetchText(url, fetchOptions);
     }
 }

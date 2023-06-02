@@ -2,6 +2,7 @@
 
 const Service = require('./Service');
 const caseTypes = require('app/utils/CaseTypes');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 class ValidateData extends Service {
     put(data, authorization, serviceAuthorization, caseType) {
@@ -14,8 +15,8 @@ class ValidateData extends Service {
         };
         const path = this.replacePlaceholderInPath(this.config.services.orchestrator.paths.validations, 'ccdCaseId', data.ccdCase.id);
         const url = this.endpoint + path + '?probateType=' + probateType;
-        const fetchOptions = this.fetchOptions({}, 'PUT', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions({}, 'PUT', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 }
 

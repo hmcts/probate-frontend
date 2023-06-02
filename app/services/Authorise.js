@@ -2,6 +2,7 @@
 
 const Service = require('./Service');
 const otp = require('otp');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 class Authorise extends Service {
     post() {
@@ -16,7 +17,7 @@ class Authorise extends Service {
             microservice: serviceName,
             oneTimePassword: otp({secret: secret}).totp()
         };
-        const fetchOptions = this.fetchOptions(params, 'POST', headers);
+        const fetchOptions = AsyncFetch.fetchOptions(params, 'POST', headers);
         return this.fetchText(url, fetchOptions);
     }
 }

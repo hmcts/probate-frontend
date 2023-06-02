@@ -33,7 +33,7 @@ const applicationSubmittedNock = () => {
                     caseType: 'PA',
                     ccdCase: {
                         id: '1234567890123456',
-                        state: 'CaseCreated'
+                        state: 'CasePrinted'
                     }
                 }
             ]
@@ -89,17 +89,17 @@ describe('dashboard', () => {
 
         it('test content loaded on the page - application in progress', (done) => {
             applicationInProgressNock();
-            testWrapper.testContentNotPresent(done, ['case-status submitted']);
+            testWrapper.testContentNotPresent(done, ['govuk-tag--green']);
         });
 
         it('test content loaded on the page - application submitted', (done) => {
             applicationSubmittedNock();
-            testWrapper.testContentPresent(done, ['case-status submitted']);
+            testWrapper.testContentPresent(done, ['govuk-tag--green']);
         });
 
         it('test content loaded on the page - application progressed by caseworker', (done) => {
             applicationProgressedNock();
-            testWrapper.testContentPresent(done, ['case-status submitted']);
+            testWrapper.testContentPresent(done, ['govuk-tag--green']);
         });
     });
 });

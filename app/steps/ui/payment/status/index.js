@@ -9,7 +9,6 @@ const config = require('config');
 const Payment = require('app/services/Payment');
 const Authorise = require('app/services/Authorise');
 const ServiceMapper = require('app/utils/ServiceMapper');
-const DocumentsWrapper = require('app/wrappers/Documents');
 
 class PaymentStatus extends Step {
 
@@ -54,7 +53,7 @@ class PaymentStatus extends Step {
     }
 
     isComplete(ctx, formdata) {
-        return [typeof formdata.payment !== 'undefined' && formdata.ccdCase.state === 'CaseCreated' && (formdata.payment.status === 'Success' || formdata.payment.status === 'not_required'), 'inProgress'];
+        return [typeof formdata.payment !== 'undefined' && formdata.ccdCase.state === 'CasePrinted' && (formdata.payment.status === 'Success' || formdata.payment.status === 'not_required'), 'inProgress'];
     }
 
     * runnerOptions(ctx, session) {
@@ -101,7 +100,7 @@ class PaymentStatus extends Step {
                 options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
                 logger.error(`Unable to retrieve a payment response with status ${getPaymentResponse.status}`);
-            } else if (!updateCcdCaseResponse || !updateCcdCaseResponse.ccdCase || updateCcdCaseResponse.ccdCase.state !== 'CaseCreated') {
+            } else if (!updateCcdCaseResponse || !updateCcdCaseResponse.ccdCase || updateCcdCaseResponse.ccdCase.state !== 'CasePrinted') {
                 options.redirect = false;
                 logger.warn('Did not get a successful case created state.');
             } else {
@@ -146,12 +145,6 @@ class PaymentStatus extends Step {
         logger.info({tags: 'Analytics'}, 'Application Case Created');
 
         return [result, errors];
-    }
-
-    handleGet(ctx, formdata) {
-        const documentsWrapper = new DocumentsWrapper(formdata);
-        ctx.documentsRequired = documentsWrapper.documentsRequired();
-        return [ctx, ctx.errors];
     }
 
     setErrors(options, errors) {

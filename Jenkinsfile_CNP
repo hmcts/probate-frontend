@@ -48,11 +48,11 @@ def secrets = [
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
-  [ $class: 'AzureKeyVaultSecret',
-    secretType: 'Secret',
-    name: secretName,
-    version: '',
-    envVariable: envVar
+  [$class     : 'AzureKeyVaultSecret',
+   secretType : 'Secret',
+   name       : secretName,
+   version    : '',
+   envVariable: envVar
   ]
 }
 
@@ -60,22 +60,23 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 def branchesToSync = ['demo', 'ithc', 'perftest']
 
 withPipeline("nodejs", product, component) {
- /*  afterCheckout {
-    onMaster {
-      try {
-        sh """
-          git fetch origin demo:demo
-          git push --force origin HEAD:demo
-        """
-            } catch (err) {
-                notifyBuildEvent channel: notificationsChannel, color: 'warning', message: 'Failed to update demo branch'
-            }
-        }
-    } */
+  /*  afterCheckout {
+     onMaster {
+       try {
+         sh """
+           git fetch origin demo:demo
+           git push --force origin HEAD:demo
+         """
+             } catch (err) {
+                 notifyBuildEvent channel: notificationsChannel, color: 'warning', message: 'Failed to update demo branch'
+             }
+         }
+     } */
 
-    afterSuccess('build') {
-        sh 'yarn setup'
-    }
+  afterSuccess('build') {
+    yarnBuilder.yarn('yarn-update')
+    yarnBuilder.yarn('install-dependencies')
+  }
 //    afterSuccess('test') {
 //        if (env.CHANGE_BRANCH || env.BRANCH_NAME == 'master') {
 //            env.PACT_BRANCH_NAME = env.CHANGE_BRANCH
@@ -108,15 +109,15 @@ withPipeline("nodejs", product, component) {
   syncBranchesWithMaster(branchesToSync)
 
   afterSuccess('test') {
-    publishHTML (target: [
-       alwaysLinkToLastBuild: true,
-       reportDir: 'output',
-       reportFiles: 'results.html',
-       reportName: 'Unit Test Results'
+    publishHTML(target: [
+      alwaysLinkToLastBuild: true,
+      reportDir            : 'output',
+      reportFiles          : 'results.html',
+      reportName           : 'Unit Test Results'
     ])
   }
 
-   afterSuccess('functionalTest:preview') {
+  afterSuccess('functionalTest:preview') {
     publishHTML target: [
       reportDir            : "functional-output/",
       reportFiles          : "mochawesome.html",

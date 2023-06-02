@@ -9,7 +9,6 @@ const logger = require('app/components/logger');
 const get = require('lodash').get;
 const ApplicantWrapper = require('app/wrappers/Applicant');
 const CcdCaseWrapper = require('app/wrappers/CcdCase');
-const DocumentsWrapper = require('app/wrappers/Documents');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const PaymentWrapper = require('app/wrappers/Payment');
 const documentUpload = require('app/documentUpload');
@@ -153,22 +152,9 @@ router.use((req, res, next) => {
     const steps = allSteps[req.session.language];
     const currentPageCleanUrl = FormatUrl.getCleanPageUrl(req.originalUrl, 1);
     const formdata = req.session.form;
-    const isHardStop = (formdata, journey) => config.hardStopParams[journey].some(param => get(formdata, param) === 'optionNo');
-
-    const applicantWrapper = new ApplicantWrapper(formdata);
-    const applicantHasDeclared = applicantWrapper.applicantHasDeclared();
 
     const ccdCaseWrapper = new CcdCaseWrapper(formdata.ccdCase);
     const applicationSubmitted = ccdCaseWrapper.applicationSubmitted();
-
-    const documentsWrapper = new DocumentsWrapper(formdata);
-    const documentsSent = documentsWrapper.documentsSent();
-
-    const executorsWrapper = new ExecutorsWrapper(formdata.executors, req.session.haveAllExecutorsDeclared);
-    const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
-    const invitesSent = executorsWrapper.invitesSent();
-    const hasExecutorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
-    const allExecutorsHaveDeclared = executorsWrapper.haveAllExecutorsDeclared();
 
     const paymentWrapper = new PaymentWrapper(formdata.payment);
     const applicantHasPassedPayment = paymentWrapper.hasPassedPayment();
@@ -193,25 +179,11 @@ router.use((req, res, next) => {
             next();
         } else if (config.app.requireCcdCaseId === 'true' && req.method === 'GET' && !noCcdCaseIdPages.includes(currentPageCleanUrl) && !get(formdata, 'ccdCase.id')) {
             res.redirect('/dashboard');
-        } else if (!applicationSubmitted && config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl)) {
-            res.redirect('/task-list');
-        } else if (!applicantHasPassedPayment && config.whitelistedPagesAfterPayment.includes(currentPageCleanUrl)) {
-            res.redirect('/task-list');
-        } else if (!applicantHasDeclared && !applicationSubmitted && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) {
-            res.redirect('/task-list');
-        } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl) && !documentsSent) {
-            res.redirect('/documents');
-        } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl) && documentsSent) {
+        } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && currentPageCleanUrl==='/payment-status') {
             res.redirect('/thank-you');
-        } else if (applicantHasDeclared && hasMultipleApplicants && invitesSent && !allExecutorsHaveDeclared && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) {
-            res.redirect('/task-list');
-        } else if (applicantHasDeclared && (!hasMultipleApplicants || (invitesSent && allExecutorsHaveDeclared)) && !config.whitelistedPagesAfterDeclaration.includes(currentPageCleanUrl)) {
-            res.redirect('/task-list');
-        } else if (applicantHasDeclared && (!hasMultipleApplicants || invitesSent) && currentPageCleanUrl === '/executors-invite') {
-            res.redirect('/task-list');
-        } else if (applicantHasDeclared && (!hasMultipleApplicants || !hasExecutorsEmailChanged) && currentPageCleanUrl === '/executors-update-invite') {
-            res.redirect('/task-list');
-        } else if (currentPageCleanUrl === '/summary' && isHardStop(formdata, caseTypes.getCaseType(req.session))) {
+        } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl)) {
+            res.redirect('/citizens-hub');
+        } else if (redirectTaskList(req, currentPageCleanUrl, formdata, applicationSubmitted, applicantHasPassedPayment)) {
             res.redirect('/task-list');
         } else {
             next();
@@ -247,5 +219,26 @@ if (['sandbox', 'saat', 'preview', 'perftest', 'demo', 'aat', 'local'].includes(
         res.send({'pin': pin});
     });
 }
+
+const redirectTaskList = (req, currentPageCleanUrl, formdata, applicationSubmitted, applicantHasPassedPayment) => {
+    const isHardStop = (formdata, journey) => config.hardStopParams[journey].some(param => get(formdata, param) === 'optionNo');
+    const applicantWrapper = new ApplicantWrapper(formdata);
+    const applicantHasDeclared = applicantWrapper.applicantHasDeclared();
+    const executorsWrapper = new ExecutorsWrapper(formdata.executors, req.session.haveAllExecutorsDeclared);
+    const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
+    const invitesSent = executorsWrapper.invitesSent();
+    const hasExecutorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
+    const allExecutorsHaveDeclared = executorsWrapper.haveAllExecutorsDeclared();
+    if ((!applicationSubmitted && config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl)) ||
+        (!applicantHasPassedPayment && config.whitelistedPagesAfterPayment.includes(currentPageCleanUrl)) ||
+        (!applicantHasDeclared && !applicationSubmitted && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) ||
+        (applicantHasDeclared && hasMultipleApplicants && invitesSent && !allExecutorsHaveDeclared && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) ||
+        (applicantHasDeclared && (!hasMultipleApplicants || (invitesSent && allExecutorsHaveDeclared)) && !config.whitelistedPagesAfterDeclaration.includes(currentPageCleanUrl)) ||
+        (applicantHasDeclared && (!hasMultipleApplicants || invitesSent) && currentPageCleanUrl === '/executors-invite') ||
+        (applicantHasDeclared && (!hasMultipleApplicants || !hasExecutorsEmailChanged) && currentPageCleanUrl === '/executors-update-invite') ||
+        (currentPageCleanUrl === '/summary' && isHardStop(formdata, caseTypes.getCaseType(req.session)))) {
+        return true;
+    }
+};
 
 module.exports = router;

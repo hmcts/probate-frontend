@@ -2,6 +2,7 @@
 
 const Service = require('./Service');
 const superagent = require('superagent');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 class Document extends Service {
     post(userId, uploadedDocument, authToken, serviceAuthorization) {
@@ -26,7 +27,7 @@ class Document extends Service {
             'Authorization': authToken,
             'ServiceAuthorization': serviceAuthorization,
         };
-        const fetchOptions = this.fetchOptions({}, 'DELETE', headers);
+        const fetchOptions = AsyncFetch.fetchOptions({}, 'DELETE', headers);
         return this.fetchText(removeDocumentUrl, fetchOptions);
     }
 }

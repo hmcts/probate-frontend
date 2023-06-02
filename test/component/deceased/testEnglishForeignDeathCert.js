@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const IhtMethod = require('app/steps/ui/iht/method');
 const ForeignDeathCertTranslation = require('app/steps/ui/deceased/foreigndeathcerttranslation');
 const IhtEstateValued = require('app/steps/ui/iht/estatevalued');
+const IhtPaper = require('app/steps/ui/iht/paper');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
@@ -13,6 +14,7 @@ describe('english-foreign-death-cert', () => {
     const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
     const expectedNextUrlForForeignDeathCertTranslation = ForeignDeathCertTranslation.getUrl();
     const expectedNextUrlForEstateValued = IhtEstateValued.getUrl();
+    const expectedNextUrlForIhtPaper = IhtPaper.getUrl();
 
     afterEach(() => {
         testWrapper.destroy();
@@ -95,6 +97,78 @@ describe('english-foreign-death-cert', () => {
                 englishForeignDeathCert: 'optionYes'
             };
             testWrapper.testRedirect(done, data, expectedNextUrlForIhtMethod);
+        });
+        it(`test it redirects to IHT Paper for EE FT on: ${expectedNextUrlForIhtPaper}`, (done) => {
+            testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_stop_ihtonline: true});
+
+            const data = {
+                'dod-date': '2021-12-31',
+                englishForeignDeathCert: 'optionYes'
+            };
+            testWrapper.testRedirect(done, data, expectedNextUrlForIhtPaper);
+        });
+        it('test it redirects to iht method FT when IHT Identifier has value', (done) => {
+            testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_stop_ihtonline: true});
+
+            const sessionData = {
+                iht: {
+                    method: 'optionOnline',
+                    identifier: '12345678F12345'
+                },
+                'dod-date': '2020-02-20',
+                englishForeignDeathCert: 'optionYes'
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, sessionData, expectedNextUrlForIhtMethod);
+                });
+        });
+        it('test it redirects to iht method FT when IHT Identifier has no value', (done) => {
+            testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_stop_ihtonline: true});
+
+            const sessionData = {
+                iht: {
+                    method: 'optionOnline'
+                },
+                'dod-date': '2020-02-20',
+                englishForeignDeathCert: 'optionYes'
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, sessionData, expectedNextUrlForIhtPaper);
+                });
+        });
+        it('test it redirects to iht method FT when IHT method is Paper', (done) => {
+            testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_stop_ihtonline: true});
+
+            const sessionData = {
+                iht: {
+                    method: 'optionPaper'
+                },
+                'dod-date': '2020-02-20',
+                englishForeignDeathCert: 'optionYes'
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, sessionData, expectedNextUrlForIhtPaper);
+                });
+        });
+        it('test it redirects to iht method FT when IHT is empty', (done) => {
+            testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_stop_ihtonline: true});
+
+            const sessionData = {
+                iht: {},
+                'dod-date': '2020-02-20',
+                englishForeignDeathCert: 'optionYes'
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, sessionData, expectedNextUrlForIhtPaper);
+                });
         });
         it(`test it redirects to estate valued for EE FT on and foreign death certificate in eng: ${expectedNextUrlForEstateValued}`, (done) => {
             testWrapper = new TestWrapper('EnglishForeignDeathCert', {ft_excepted_estates: true});

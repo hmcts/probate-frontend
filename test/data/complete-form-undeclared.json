@@ -2,7 +2,7 @@
   "formdata": {
     "type": "gop",
     "ccdCase": {
-      "state": "CaseCreated",
+      "state": "CasePrinted",
       "id": 1234567890123456
     },
     "payloadVersion": "1.0",

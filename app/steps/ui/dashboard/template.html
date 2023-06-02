@@ -1,34 +1,26 @@
 {% extends "includes/layout.html" %}
 
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block content %}
     {% set applicationRows = [] %}
     {% for application in fields.applications.value %}
         {% set pageSubmitted = application.ccdCase.state != "Pending" and application.ccdCase.state != "PAAppCreated" and application.ccdCase.state != "CasePaymentFailed" %}
         {% set actionUrl = "/get-case/" + application.ccdCase.id + '?probateType=' + application.caseType %}
-        {% set actionText = (content.actionContinue if (application.ccdCase.state == "Pending" or application.ccdCase.state == "PAAppCreated" or application.ccdCase.state == "CasePaymentFailed") else content.actionView) | safe %}
 
         {% set caseClasses = "case draft" if not application.deceasedFullName and application.ccdCase.state == "Pending" else "" %}
         {% set caseIdClasses = caseClasses + " govuk-table__cell--numeric case-id" %}
         {% set caseDateClasses = caseClasses + " govuk-table__cell--numeric" %}
-        {% set caseStatusClasses = caseClasses + (" case-status submitted" if pageSubmitted else "") %}
+        {% set caseStatusClasses = caseClasses + (" govuk-tag govuk-tag--green" if pageSubmitted else " govuk-tag govuk-tag--yellow") %}
 
         {% set applicationRows = (applicationRows.push([
-            { text: application.ccdCase.idFormatted, classes: caseIdClasses, attributes: {'aria-label': application.ccdCase.idFormattedAccessible } },
+            { html: "<a href=\"" + actionUrl + "\" class=\"govuk-link\">" + application.ccdCase.idFormatted + "</a>"  },
             { text: (application.deceasedFullName if application.deceasedFullName else (content.statusDraftProbate if application.caseType == "PA" else content.statusDraftIntestacy)) | safe, classes: caseClasses },
             { text: application.dateCreated | safe, classes: caseDateClasses},
-            { text: (content.statusSubmitted if pageSubmitted else content.statusInProgress) | safe, classes: caseStatusClasses },
-            { html: "<a href=\"" + actionUrl + "\" class=\"govuk-link\">" + actionText + "</a>"  }
+            { html: "<strong class=\"" + caseStatusClasses + "\">" + (content.statusSubmitted if pageSubmitted else content.statusInProgress) + "</strong>" }
         ]), applicationRows) %}
     {% endfor %}
-    {% set applicationRows = (applicationRows.push([
-        { text: "", classes: "no-bottom-border" },
-        { text: "", classes: "no-bottom-border" },
-        { text: "", classes: "no-bottom-border" },
-        { text: "", classes: "no-bottom-border" },
-        { html: "<a href=\"/start-eligibility\" class=\"govuk-link\">" + (content.actionStartNewApplication | safe) + "</a>", classes: "no-bottom-border" }
-    ]), applicationRows) %}
 
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
@@ -47,7 +39,13 @@
                 ],
                 rows: applicationRows
             }) }}
-
+            <div class="govuk-form-group">
+              {{ govukButton({
+              text: content.actionNewApplication | safe,
+              href: "/start-eligibility",
+              preventDoubleClick: true
+              }) }}
+            </div>
             {% include "includes/help_details.html" %}
         </div>
     </div>

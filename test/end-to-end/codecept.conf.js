@@ -1,4 +1,5 @@
 const testConfig = require('config');
+const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
 exports.config = {
     tests: testConfig.TestPathToRun,
@@ -8,7 +9,7 @@ exports.config = {
             url: testConfig.TestE2EFrontendUrl,
             waitForTimeout: 120000,
             getPageTimeout: 120000,
-            show: testConfig.TestShowBrowser,
+            show: TestConfigurator.showBrowser(),
             chrome: {
                 ignoreHTTPSErrors: true,
                 'ignore-certificate-errors': true,
@@ -17,9 +18,11 @@ exports.config = {
                     height: 960
                 },
                 args: [
-                    '--headless', '--disable-gpu', '--no-sandbox', '--allow-running-insecure-content', '--ignore-certificate-errors', '--disable-dev-shm-usage',
-                    //'--proxy-server=proxyout.reform.hmcts.net:8080',
-                    //'--proxy-bypass-list=*beta*LB.reform.hmcts.net',
+                    '--disable-gpu',
+                    '--no-sandbox',
+                    '--allow-running-insecure-content',
+                    '--ignore-certificate-errors',
+                    '--disable-dev-shm-usage',
                     '--window-size=1440,1400'
                 ]
             },
@@ -51,7 +54,10 @@ exports.config = {
         },
         autoDelay: {
             enabled: true
-        }
+        },
+        pauseOnFail: {
+            enabled: TestConfigurator.showBrowser(),
+        },
     },
     mocha: {
         reporterOptions: {
@@ -73,6 +79,7 @@ exports.config = {
             }
         }
     },
+    bootstrap: TestConfigurator.bootStrapTestSuite(),
     multiple: {
         parallel: {
             chunks: 4,

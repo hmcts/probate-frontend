@@ -1,14 +1,15 @@
 'use strict';
 
 const Service = require('./Service');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 class FeesRegister extends Service {
     get(url, headers) {
-        const fetchOptions = this.fetchOptions({}, 'GET', {
+        const fetchOptions = AsyncFetch.fetchOptions({}, 'GET', {
             'Content-Type': 'application/json',
             'Authorization': headers.authToken
         });
-        return this.fetchJson(url, fetchOptions);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 }
 

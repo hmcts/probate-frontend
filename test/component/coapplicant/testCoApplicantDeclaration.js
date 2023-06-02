@@ -23,7 +23,7 @@ const inviteAgreedNock = () => {
         .times(2)
         .reply(200, '123');
     nock(idamApiUrl)
-        .post('/oauth2/authorize')
+        .post(config.services.idam.probate_oauth_authorise_path)
         .times(2)
         .reply(200, {code: '456'});
     nock(idamApiUrl)

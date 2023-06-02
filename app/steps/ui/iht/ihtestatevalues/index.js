@@ -1,5 +1,4 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
-//const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
 const IhtEstateValuesUtil = require('app/utils/IhtEstateValuesUtil');
@@ -38,18 +37,7 @@ class IhtEstateValues extends ValidationStep {
                 errors.push(FieldError('estateNetQualifyingValueField', 'invalidInteger', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             }
             ctx.estateNetQualifyingValue = parseFloat(numeral(ctx.estateNetQualifyingValueField).format('0.00'));
-            // if (!validator.isCurrency(ctx.estateNetQualifyingValueField, {symbol: '£', allow_negatives: false})) {
-            //     errors.push(FieldError('estateNetQualifyingValueField', 'invalidCurrencyFormat', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-            // }
         }
-
-        // if (!validator.isCurrency(ctx.estateGrossValueField, {symbol: '£', allow_negatives: false})) {
-        //     errors.push(FieldError('estateGrossValueField', 'invalidCurrencyFormat', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-        // }
-        //
-        // if (!validator.isCurrency(ctx.estateNetValueField, {symbol: '£', allow_negatives: false})) {
-        //     errors.push(FieldError('estateNetValueField', 'invalidCurrencyFormat', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-        // }
 
         if (ctx.estateNetValue > ctx.estateGrossValue) {
             errors.push(FieldError('estateNetValueField', 'netValueGreaterThanGross', this.resourcePath, this.generateContent({}, {}, session.language), session.language));

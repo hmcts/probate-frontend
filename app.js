@@ -17,6 +17,8 @@ const utils = require(`${__dirname}/app/components/utils`);
 const packageJson = require(`${__dirname}/package`);
 const Security = require(`${__dirname}/app/services/Security`);
 const helmet = require('helmet');
+const hpkp = require('hpkp');
+const nocache = require('nocache');
 const csrf = require('csurf');
 const declaration = require(`${__dirname}/app/declaration`);
 const InviteSecurity = require(`${__dirname}/app/invite`);
@@ -37,19 +39,9 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const app = express();
     const port = config.app.port;
     const releaseVersion = packageJson.version;
-    const username = config.app.username;
-    const password = config.app.password;
-    const useAuth = config.app.useAuth.toLowerCase();
-    const useHttps = config.app.useHttps.toLowerCase();
     const useIDAM = config.app.useIDAM.toLowerCase();
     const security = new Security(config.services.idam.loginUrl);
     const inviteSecurity = new InviteSecurity();
-
-    // Authenticate against the environment-provided credentials, if running
-    // the app in production (Heroku, effectively)
-    if (useAuth === 'true') {
-        app.use(utils.basicAuth(username, password));
-    }
 
     // Application settings
     app.set('view engine', 'html');
@@ -100,8 +92,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 '\'self\'',
                 'webchat.ctsc.hmcts.net',
                 'webchat-client.ctsc.hmcts.net',
-                'webchat.training.ctsc.hmcts.net',
-                'webchat-client.training.ctsc.hmcts.net',
                 'webchat.pp.ctsc.hmcts.net',
                 'webchat-client.pp.ctsc.hmcts.net'
             ],
@@ -115,30 +105,25 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 '\'sha256-AaA9Rn5LTFZ5vKyp3xOfFcP4YbyOjvWn2up8IKHVAKk=\'',
                 '\'sha256-G29/qSW/JHHANtFhlrZVDZW1HOkCDRc78ggbqwwIJ2g=\'',
                 '\'sha256-BWhcmwio/4/QdqKNw5PKmTItWBjkevCaOUbLkgW5cHs=\'',
-                'www.google-analytics.com',
-                'www.googletagmanager.com',
+                '*.google-analytics.com',
+                '*.googletagmanager.com',
                 'webchat.ctsc.hmcts.net',
-                'webchat.training.ctsc.hmcts.net',
                 'webchat.pp.ctsc.hmcts.net',
                 'webchat-client.pp.ctsc.hmcts.net',
                 'webchat-client.ctsc.hmcts.net',
-                'webchat-client.training.ctsc.hmcts.net',
                 `'nonce-${nonce}'`,
                 'tagmanager.google.com'
             ],
             connectSrc: [
                 '\'self\'',
-                'www.google-analytics.com',
-                'https://webchat.training.ctsc.hmcts.net',
+                '*.google-analytics.com',
                 'https://webchat.ctsc.hmcts.net',
-                'https://webchat-client.training.ctsc.hmcts.net',
                 'https://webchat-client.ctsc.hmcts.net',
                 'wss://webchat.ctsc.hmcts.net',
-                'wss://webchat.training.ctsc.hmcts.net',
                 'wss://webchat.pp.ctsc.hmcts.net',
                 'https://webchat.pp.ctsc.hmcts.net',
                 'https://webchat-client.pp.ctsc.hmcts.net',
-                'stats.g.doubleclick.net',
+                '*.g.doubleclick.net',
                 'tagmanager.google.com'
             ],
             mediaSrc: [
@@ -147,8 +132,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             imgSrc: [
                 '\'self\'',
                 '\'self\' data:',
-                'www.google-analytics.com',
-                'stats.g.doubleclick.net',
+                '*.google-analytics.com',
+                '*.g.doubleclick.net',
                 'ssl.gstatic.com',
                 'www.gstatic.com',
                 'lh3.googleusercontent.com'
@@ -166,7 +151,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     }));
 
     // Http public key pinning
-    app.use(helmet.hpkp({
+    app.use(hpkp({
         maxAge: 900,
         sha256s: ['AbCdEf123=', 'XyzABC123=']
     }));
@@ -176,7 +161,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         policy: 'origin'
     }));
 
-    app.use(helmet.noCache());
+    app.use(nocache());
     app.use(helmet.xssFilter({setOnOldIE: true}));
 
     const caching = {cacheControl: true, setHeaders: (res) => res.setHeader('Cache-Control', 'max-age=604800')};
@@ -293,11 +278,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         res.locals.releaseVersion = `v${releaseVersion}`;
         next();
     });
-
-    // Force HTTPs on production connections
-    if (useHttps === 'true') {
-        app.use(utils.forceHttps);
-    }
 
     app.post('*', sanitizeRequestBody);
 

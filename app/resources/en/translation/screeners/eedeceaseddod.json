@@ -3,11 +3,10 @@
     "question": "Did the person die on or after 1 January 2022?",
     "optionYes": "Yes",
     "optionNo": "No",
-  
+
     "errors": {
       "eeDeceasedDod": {
-        "required": "Answer &lsquo;yes&rsquo; if the person died on or after 1 January 2022"
+        "required": "Select &lsquo;yes&rsquo; if the person died on or after 1 January 2022"
       }
     }
   }
-  

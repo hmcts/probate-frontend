@@ -18,7 +18,7 @@ describe('documents', () => {
         sessionData = {
             caseType: caseTypes.GOP,
             ccdCase: {
-                state: 'CaseCreated',
+                state: 'CasePrinted',
                 id: 1234123512361237
             },
             declaration: {
@@ -41,7 +41,7 @@ describe('documents', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('Documents', null, null, [], false, {
-            ccdCase: {state: 'CaseCreated'},
+            ccdCase: {state: 'CasePrinted'},
             declaration: {declarationCheckbox: 'true'},
             payment: {total: 0},
             caseType: caseTypes.GOP
@@ -53,6 +53,10 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'intestacyHeader',
+                            'documentsParagraph5',
+                            'checklist-item1-application-coversheet',
+                            'checklist-item2-no-codicils',
                             'checklist-item2-codicils',
                             'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
@@ -81,6 +85,8 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'intestacyHeader',
+                            'documentsParagraph5',
                             'checklist-item2-no-codicils',
                             'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
@@ -112,6 +118,8 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'intestacyHeader',
+                            'documentsParagraph5',
                             'checklist-item2-codicils',
                             'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
@@ -144,6 +152,8 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'intestacyHeader',
+                            'documentsParagraph5',
                             'checklist-item2-codicils',
                             'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
@@ -172,6 +182,8 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'intestacyHeader',
+                            'documentsParagraph5',
                             'checklist-item2-codicils',
                             'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
@@ -201,6 +213,8 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'intestacyHeader',
+                            'documentsParagraph5',
                             'checklist-item2-codicils',
                             'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
@@ -230,6 +244,8 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'intestacyHeader',
+                            'documentsParagraph5',
                             'checklist-item2-codicils',
                             'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
@@ -257,6 +273,8 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'intestacyHeader',
+                            'documentsParagraph5',
                             'checklist-item2-codicils',
                             'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
@@ -284,6 +302,8 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'intestacyHeader',
+                            'documentsParagraph5',
                             'checklist-item2-codicils',
                             'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
@@ -313,6 +333,8 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'intestacyHeader',
+                            'documentsParagraph5',
                             'checklist-item2-codicils',
                             'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
@@ -361,6 +383,8 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'intestacyHeader',
+                            'documentsParagraph5',
                             'checklist-item2-codicils',
                             'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
@@ -411,6 +435,8 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'intestacyHeader',
+                            'documentsParagraph5',
                             'checklist-item2-codicils',
                             'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
@@ -443,6 +469,8 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'intestacyHeader',
+                            'documentsParagraph5',
                             'checklist-item2-codicils',
                             'checklist-item3-codicils-written-wishes',
                             'checklist-item4-foreign-death-cert',
@@ -470,6 +498,8 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'intestacyHeader',
+                            'documentsParagraph5',
                             'checklist-item2-codicils',
                             'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
@@ -500,6 +530,8 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'intestacyHeader',
+                            'documentsParagraph5',
                             'checklist-item2-codicils',
                             'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
@@ -526,6 +558,8 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'intestacyHeader',
+                            'documentsParagraph5',
                             'checklist-item2-codicils',
                             'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
@@ -562,6 +596,10 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'header',
+                            'HelpHeading',
+                            'helpfulParagraph',
+                            'documentsParagraph4',
                             'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
                             'checklist-item3-codicils-written-wishes',
@@ -600,6 +638,10 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'header',
+                            'HelpHeading',
+                            'helpfulParagraph',
+                            'documentsParagraph4',
                             'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
                             'checklist-item3-codicils-written-wishes',
@@ -637,6 +679,10 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'header',
+                            'HelpHeading',
+                            'helpfulParagraph',
+                            'documentsParagraph4',
                             'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
                             'checklist-item3-codicils-written-wishes',
@@ -673,6 +719,10 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'header',
+                            'HelpHeading',
+                            'helpfulParagraph',
+                            'documentsParagraph4',
                             'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
                             'checklist-item3-codicils-written-wishes',
@@ -711,6 +761,10 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'header',
+                            'HelpHeading',
+                            'helpfulParagraph',
+                            'documentsParagraph4',
                             'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
                             'checklist-item3-codicils-written-wishes',
@@ -746,6 +800,10 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'header',
+                            'HelpHeading',
+                            'helpfulParagraph',
+                            'documentsParagraph4',
                             'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
                             'checklist-item3-codicils-written-wishes',
@@ -782,6 +840,10 @@ describe('documents', () => {
                     .send(sessionData)
                     .end(() => {
                         const contentToExclude = [
+                            'header',
+                            'HelpHeading',
+                            'helpfulParagraph',
+                            'documentsParagraph4',
                             'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
                             'checklist-item3-codicils-written-wishes',

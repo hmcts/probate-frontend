@@ -13,7 +13,7 @@
           ]
         },
         {
-          "question": "Do you have the original will?",
+          "question": "Do you have the original will and any codicils?",
           "answers": [
             "Yes"
           ]
@@ -31,13 +31,13 @@
           ]
         },
         {
-          "question": "Do you have a death certificate?",
+          "question": "Do you have the death certificate?",
           "answers": [
             "Yes"
           ]
         },
         {
-          "question": "Are you named as an executor on the will?",
+          "question": "Are you named as an executor on the will or a codicil?",
           "answers": [
             "Yes"
           ]

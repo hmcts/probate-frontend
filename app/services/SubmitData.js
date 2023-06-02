@@ -2,6 +2,7 @@
 
 const Service = require('./Service');
 const caseTypes = require('app/utils/CaseTypes');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 class SubmitData extends Service {
     submit(data, paymentDto, authorisation, serviceAuthorization, caseType) {
@@ -19,8 +20,8 @@ class SubmitData extends Service {
             'Authorization': authorization,
             'ServiceAuthorization': serviceAuthorization
         };
-        const fetchOptions = this.fetchOptions(paymentDto, 'PUT', headers);
-        return this.fetchJson(url, fetchOptions);
+        const fetchOptions = AsyncFetch.fetchOptions(paymentDto, 'PUT', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 }
 

@@ -5,6 +5,6 @@ module.exports = async function() {
 
     await I.checkInUrl('/dashboard');
     await I.waitForElement({css: 'a[href="/start-eligibility"]'});
-    await I.waitForText('Continue application');
-    await I.navByClick('Continue application');
+    await I.waitForElement({css: 'strong.govuk-tag govuk-tag--yellow'});
+    await I.navByClick({css: 'a[href^="/get-case/"]'});
 };

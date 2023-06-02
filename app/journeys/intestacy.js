@@ -92,6 +92,7 @@ const stepList = {
     ProbateEstateValues: 'AssetsOutside',
     EnglishForeignDeathCert: {
         foreignDeathCertIsInEnglish: 'IhtMethod',
+        ihtPaper: 'IhtPaper',
         otherwise: 'ForeignDeathCertTranslation'
     },
     ForeignDeathCertTranslation: 'IhtMethod',

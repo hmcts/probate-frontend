@@ -1,14 +1,15 @@
 {
   "title": "Ydych chi wedi&rsquo;ch enwi fel ysgutor",
-  "question": "Ydych chi wedi&rsquo;ch enwi fel ysgutor yn yr ewyllys?",
+  "question": "Ydych chi wedi cael eich enwi fel ysgutor yn yr ewyllys neu godisil?",
   "hintText1": "Mae ysgutor yn gyfrifol am gyflawni cyfarwyddiadau&rsquo;r ewyllys.",
   "hintText2": "Nid yw hyn yr un fath &acirc; buddiolwr a fydd yn cael arian neu eiddo arall gan yr unigolyn sydd wedi marw. Gallwch gael eich enwi fel ysgutor ac fel buddiolwr.",
+  "hintText3": "Gwiriwch yr ewyllys ac unrhyw godisiliau gan y gallai&rsquo;r ysgutorion a enwir fod wedi&rsquo;u diweddaru heb i chi wybod.",
   "optionYes": "Do",
   "optionNo": "Naddo",
 
   "errors": {
     "executor": {
-      "required": "Atebwch &lsquo;do&rsquo; os ydych yn ysgutor yn yr ewyllys"
+      "required": "Dewiswch &lsquo;ydw&rsquo; os ydych yn ysgutor a enwyd"
     }
   }
 }

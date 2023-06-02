@@ -3,34 +3,35 @@
 const config = require('config');
 const logger = require('app/components/logger');
 const fetch = require('node-fetch');
+const HttpsProxyAgent = require('https-proxy-agent');
 const log = logger('Init');
 
 class AsyncFetch {
-    buildRequest(url, fetchOptions) {
+    static buildRequest(url, fetchOptions) {
         return new fetch.Request(url, fetchOptions);
     }
 
-    retryOptions() {
+    static retryOptions() {
         return {
             retries: config.utils.api.retries,
             retryDelay: config.utils.api.retryDelay
         };
     }
 
-    isHealthEndpoint(url) {
-        return url.endsWith('health');
+    static isHealthEndpoint(url) {
+        return url.endsWith('health') || url.endsWith('info');
     }
 
-    fetch(url, fetchOptions, parseBody) {
-        if (!this.isHealthEndpoint(url)) {
+    static fetch(url, fetchOptions, parseBody) {
+        if (!AsyncFetch.isHealthEndpoint(url)) {
             log.info('Calling external service');
         }
 
         return new Promise((resolve, reject) => {
-            const asyncReq = this.buildRequest(url, fetchOptions);
-            fetch(asyncReq, this.retryOptions())
+            const asyncReq = AsyncFetch.buildRequest(url, fetchOptions);
+            fetch(asyncReq, AsyncFetch.retryOptions())
                 .then(res => {
-                    if (!this.isHealthEndpoint(url)) {
+                    if (!AsyncFetch.isHealthEndpoint(url)) {
                         log.info(`Status: ${res.status}`);
                     }
                     if (res.ok) {
@@ -40,14 +41,14 @@ class AsyncFetch {
                         log.error(res.statusText);
                         return parseBody(res)
                             .then(body => {
-                                this.logBody(body);
+                                AsyncFetch.logBody(body);
                                 return body;
                             });
                     }
                     log.error(res.statusText);
                     return parseBody(res)
                         .then(body => {
-                            this.logBody(body);
+                            AsyncFetch.logBody(body);
                             reject(new Error(res.statusText));
                         });
 
@@ -62,13 +63,39 @@ class AsyncFetch {
         });
     }
 
-    logBody(body) {
+    static logBody(body) {
         try {
-            const json = JSON.stringify(body);
-            log.error(json);
+            if (body instanceof Buffer) {
+                logger.error(body.toLocaleString());
+            } else {
+                const json = JSON.stringify(body);
+                log.error(json);
+            }
         } catch (e) {
             log.error(body);
         }
+    }
+
+    static fetchOptions(data, method, headers, proxy) {
+        const options = {
+            method: method,
+            mode: 'cors',
+            redirect: 'follow',
+            follow: 10,
+            timeout: 10000,
+            headers: new fetch.Headers(headers),
+            agent: proxy ? new HttpsProxyAgent(proxy) : null
+        };
+        if (method !== 'GET') {
+            options.body = JSON.stringify(data);
+        }
+        return options;
+    }
+
+    static fetchJson(url, fetchOptions) {
+        return AsyncFetch.fetch(url, fetchOptions, res => res.json())
+            .then(json => json)
+            .catch(err => err);
     }
 }
 

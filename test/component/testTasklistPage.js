@@ -211,5 +211,25 @@ describe('task-list', () => {
                     testWrapper.testDataPlayback(done, {}, contentToExclude);
                 });
         });
+
+        it('test redirect to citizens hub', (done) => {
+            const singleApplicantSessionData = {
+                ccdCase: {
+                    state: 'CasePrinted',
+                    id: 1234567890123456
+                },
+                payment: {
+                    status: 'Success',
+                    reference: '1234'
+                }
+            };
+            singleApplicantSessionData.caseType = caseTypes.INTESTACY;
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(singleApplicantSessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, singleApplicantSessionData, '/citizens-hub');
+                });
+        });
     });
 });

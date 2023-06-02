@@ -2,6 +2,7 @@
 
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% block form_content %}
     {{ govukRadios({
@@ -16,7 +17,7 @@
             }
         },
         hint: {
-            text: (content.hintText1 + "<br><br>" + content.hintText2) | safe
+            text: (content.hintText1 + "<br><br>" + content.hintText2 + "<div class='govuk-inset-text'>" + content.hintText3 + "</div>") | safe
         },
         errorMessage: { text: fields.executor.errorMessage | safe } if fields.executor.errorMessage,
         items: [

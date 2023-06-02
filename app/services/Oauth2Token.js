@@ -2,6 +2,7 @@
 
 const Service = require('./Service');
 const {URLSearchParams} = require('url');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 class Oauth2Token extends Service {
     post(code, redirectUri) {
@@ -10,9 +11,10 @@ class Oauth2Token extends Service {
         const clientName = idamConfig.probate_oauth2_client;
         const secret = idamConfig.probate_oauth2_secret;
         const url = this.endpoint + idamConfig.probate_oauth_token_path;
+        const clientNameAndSecret = `${clientName}:${secret}`;
         const headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': `Basic ${new Buffer(`${clientName}:${secret}`).toString('base64')}`
+            'Authorization': `Basic ${Buffer.from(clientNameAndSecret).toString('base64')}`
         };
         const params = new URLSearchParams({
             grant_type: 'authorization_code',
@@ -25,7 +27,7 @@ class Oauth2Token extends Service {
             body: params.toString(),
             headers: headers
         };
-        return this.fetchJson(url, fetchOptions);
+        return AsyncFetch.fetchJson(url, fetchOptions);
     }
 }
 

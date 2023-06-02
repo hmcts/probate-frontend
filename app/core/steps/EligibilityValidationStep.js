@@ -63,11 +63,7 @@ class EligibilityValidationStep extends ValidationStep {
             }
         }
 
-        if (!allPreviousEligibilityQuestionsAnswered) {
-            return false;
-        }
-
-        return true;
+        return allPreviousEligibilityQuestionsAnswered;
     }
 }
 

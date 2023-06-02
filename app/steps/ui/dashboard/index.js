@@ -7,7 +7,6 @@ const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
 
 class Dashboard extends Step {
-
     static getUrl() {
         return '/dashboard';
     }

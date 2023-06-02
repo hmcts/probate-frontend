@@ -1,6 +1,6 @@
 'use strict';
 
-const utils = require('app/components/api-utils');
+const AsyncFetch = require('app/utils/AsyncFetch');
 const config = require('config');
 const logger = require('app/components/logger')('Init');
 const {URLSearchParams} = require('url');
@@ -10,12 +10,17 @@ const URL = require('url');
 const {v4: UUID} = require('uuid');
 const IdamSession = require('app/services/IdamSession');
 const Oauth2Token = require('app/services/Oauth2Token');
+const SessionStatusEnum = require('app/utils/SessionStatusEnum');
 const SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
 const REDIRECT_COOKIE = '__redirect';
 const ACCESS_TOKEN_OAUTH2 = 'access_token';
+const NodeCache = require('node-cache');
 
 class Security {
     constructor(loginUrl) {
+        if (String(config.services.idam.caching) === 'true') {
+            this.idamDetailsCache = new NodeCache({stdTTL: 3600, checkperiod: 1800});
+        }
         if (loginUrl) {
             this.loginUrl = loginUrl;
         }
@@ -31,51 +36,75 @@ class Security {
             }
 
             if (securityCookie) {
-                const lostSession = !req.session.expires;
-                const sessionExpired = req.session.expires ? req.session.expires <= Date.now() : false;
-                const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
-                idamSession
-                    .get(securityCookie)
-                    .then(response => {
-                        if (response.name !== 'Error') {
-                            if (lostSession || sessionExpired) {
-                                if (lostSession) {
-                                    req.log.error('The current user session is lost.');
-                                } else {
-                                    req.log.error('The current user session has expired.');
+                if ([SessionStatusEnum.getExpired(), SessionStatusEnum.getLost()].includes(this.getSessionStatus(req))) {
+                    req.log.error(`The current user session is ${this.getSessionStatus(req)}, redirecting user to the time-out page.`);
+                    this.handleLostOrExpiredSession(req, res);
+                    return res.redirect('/time-out');
+                }
+
+                const isIdamDetailsCached = this.idamDetailsCache && req.session.regId && this.idamDetailsCache.get(req.session.regId);
+                if (isIdamDetailsCached) {
+                    console.log('Using cache...');
+                    const cachedResponse = this.idamDetailsCache.get(req.session.regId);
+                    this.handleSuccessfulIdamDetailsResponse(req, cachedResponse);
+                    this._authorize(req, res, next, cachedResponse.roles, authorisedRoles);
+                } else {
+                    const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
+                    idamSession
+                        .get(securityCookie)
+                        .then(response => {
+                            if (response.name !== 'Error') {
+                                req.log.debug('Extending session for active user.');
+                                this.handleSuccessfulIdamDetailsResponse(req, response);
+                                this._authorize(req, res, next, response.roles, authorisedRoles);
+                                if (this.idamDetailsCache) {
+                                    console.log('Setting cache...');
+                                    this.idamDetailsCache.set(req.session.regId, response);
                                 }
-                                req.log.info('Redirecting user to the time-out page.');
-                                res.clearCookie(SECURITY_COOKIE);
-                                if (typeof req.session.destroy === 'function') {
-                                    req.session.destroy();
-                                }
-                                delete req.cookies;
-                                delete req.sessionID;
-                                delete req.session;
-                                delete req.sessionStore;
-                                return res.redirect('/time-out');
-                            }
-                            req.log.debug('Extending session for active user.');
-                            req.session.expires = Date.now() + config.app.session.expires;
-                            req.session.regId = response.email;
-                            req.userId = response.id;
-                            req.authToken = securityCookie;
-                            req.session.authToken = req.authToken;
-                            this._authorize(req, res, next, response.roles, authorisedRoles);
-                        } else {
-                            req.log.error('Error authorising user');
-                            req.log.error(`Error ${JSON.stringify(response)} \n`);
-                            if (response.message === 'Unauthorized') {
-                                this._login(req, res);
                             } else {
-                                this._denyAccess(req, res);
+                                req.log.error('Error authorising user');
+                                req.log.error(`Error ${JSON.stringify(response)} \n`);
+                                if (response.message === 'Unauthorized') {
+                                    this._login(req, res);
+                                } else {
+                                    this._denyAccess(req, res);
+                                }
                             }
-                        }
-                    });
+                        });
+                }
             } else {
                 this._login(req, res);
             }
         };
+    }
+
+    handleSuccessfulIdamDetailsResponse(req, res) {
+        req.session.expires = Date.now() + config.app.session.expires;
+        req.session.regId = res.email;
+        req.userId = res.id;
+        req.authToken = req.cookies[SECURITY_COOKIE];
+        req.session.authToken = req.authToken;
+    }
+
+    getSessionStatus(req) {
+        if (!req.session.expires) {
+            return SessionStatusEnum.getLost();
+        }
+        if (req.session.expires <= Date.now()) {
+            return SessionStatusEnum.getExpired();
+        }
+        return SessionStatusEnum.getActive();
+    }
+
+    handleLostOrExpiredSession(req, res) {
+        res.clearCookie(SECURITY_COOKIE);
+        if (typeof req.session.destroy === 'function') {
+            req.session.destroy();
+        }
+        delete req.cookies;
+        delete req.sessionID;
+        delete req.session;
+        delete req.sessionStore;
     }
 
     _login(req, res) {
@@ -192,20 +221,17 @@ class Security {
 
     getOauth2Code(redirect_uri) {
         logger.info('calling getOauth2Code to get code');
-        const client_id = config.services.idam.probate_oauth2_client;
-        const idam_api_url = config.services.idam.apiUrl;
-        const username = config.services.idam.probate_user_email;
-        const userpassword = config.services.idam.probate_user_password;
+        const usernameAndPassword = `${config.services.idam.probate_user_email}:${config.services.idam.probate_user_password}`;
         const headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': `Basic ${new Buffer(`${username}:${userpassword}`).toString('base64')}`
+            'Authorization': `Basic ${Buffer.from(usernameAndPassword).toString('base64')}`
         };
         const params = new URLSearchParams();
-        params.append('client_id', client_id);
+        params.append('client_id', config.services.idam.probate_oauth2_client);
         params.append('redirect_uri', redirect_uri);
         params.append('response_type', 'code');
 
-        return utils.fetchJson(`${idam_api_url}/oauth2/authorize`, {
+        return AsyncFetch.fetchJson(`${config.services.idam.apiUrl}${config.services.idam.probate_oauth_authorise_path}`, {
             method: 'POST',
             timeout: 10000,
             body: params.toString(),
@@ -231,7 +257,7 @@ class Security {
         params.append('client_id', client_id);
         params.append('client_secret', client_secret);
 
-        return utils.fetchJson(`${idam_api_url}/oauth2/token`, {
+        return AsyncFetch.fetchJson(`${idam_api_url}/oauth2/token`, {
             method: 'POST',
             timeout: 10000,
             body: params.toString(),

@@ -78,7 +78,7 @@ describe('PaymentStatus', () => {
         });
         expectedFormData = {
             'ccdCase': {
-                'state': 'CaseCreated'
+                'state': 'CasePrinted'
             },
             'payment': {
                 'amount': 5000,
@@ -117,49 +117,6 @@ describe('PaymentStatus', () => {
             const url = paymentStatus.constructor.getUrl();
             expect(url).to.equal('/payment-status');
             done();
-        });
-    });
-
-    describe('handleGet()', () => {
-        let revertDocumentsWrapper;
-        afterEach(() => {
-            revertDocumentsWrapper();
-        });
-
-        it('should set documentsRequired to true when documents are required', (done) => {
-            revertDocumentsWrapper = PaymentStatus.__set__({
-                DocumentsWrapper: class {
-                    documentsRequired() {
-                        return true;
-                    }
-                }
-            });
-            const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
-            co(function* () {
-                const [context] = yield paymentStatus.handleGet({}, {}, {});
-                expect(context).to.deep.equal({documentsRequired: true});
-                done();
-            }).catch(err => {
-                done(err);
-            });
-        });
-
-        it('should set documentsRequired to false when documents not required', (done) => {
-            revertDocumentsWrapper = PaymentStatus.__set__({
-                DocumentsWrapper: class {
-                    documentsRequired() {
-                        return false;
-                    }
-                }
-            });
-            const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
-            co(function* () {
-                const [context] = yield paymentStatus.handleGet({}, {}, {});
-                expect(context).to.deep.equal({documentsRequired: false});
-                done();
-            }).catch(err => {
-                done(err);
-            });
         });
     });
 
@@ -265,7 +222,7 @@ describe('PaymentStatus', () => {
             const expectedFormData = {
                 caseType: 'gop',
                 ccdCase: {
-                    state: 'CaseCreated'
+                    state: 'CasePrinted'
                 },
                 payment: {
                     status: 'not_required'

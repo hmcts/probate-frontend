@@ -6,8 +6,8 @@ const expect = require('chai').expect;
 const FeesCalculator = require('app/utils/FeesCalculator');
 const FeesLookup = require('app/services/FeesLookup');
 const sinon = require('sinon');
-const Service = require('app/services/Service');
 const config = require('config');
+const AsyncFetch = require('app/utils/AsyncFetch');
 
 let feesCalculator;
 let formdata;
@@ -18,7 +18,7 @@ describe('FeesCalculator', () => {
     describe('calc()', () => {
         beforeEach(() => {
             feesCalculator = new FeesCalculator('http://localhost', 'dummyId');
-            fetchJsonStub = sinon.stub(Service.prototype, 'fetchJson');
+            fetchJsonStub = sinon.stub(AsyncFetch, 'fetchJson');
             feesLookupStub = sinon.stub(FeesLookup.prototype, 'get').returns(Promise.resolve({}));
         });
 

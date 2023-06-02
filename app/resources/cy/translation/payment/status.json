@@ -1,10 +1,8 @@
 {
   "title": "Talu a chyflwyno - statws",
-  "question": "Diolch yn fawr",
-  "paragraph1": "Rydym wedi cael eich taliad a&rsquo;ch cais.",
-  "paragraph2": "Rydym wedi cael eich cais.",
-  "paragraph3": "Nid oes angen ichi dalu gan fod gwerth net yr ystad yn llai na &pound;5,000.",
-  "callout": "Cyn y gellir prosesu eich cais, mae angen ichi anfon eich dogfennau drwy&rsquo;r post.",
+  "headingNoPayment": "No payment required",
+  "headingPayment": "Payment received",
+  "paragraph1": "You'll usually get the grant within 16 weeks of submitting your application.",
 
   "errors": {
     "update": {

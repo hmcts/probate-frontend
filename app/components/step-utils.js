@@ -28,7 +28,7 @@ const updateTaskStatus = (ctx, req, res, steps) => {
                 const featureToggles = req.session.featureToggles;
                 const [stepCompleted, progressFlag] = step.isComplete(localctx, formdata, featureToggles);
                 const nextStep = step.next(req, localctx);
-                if (stepCompleted && nextStep !== steps.StopPage) {
+                if (stepCompleted && nextStep !== steps.StopPage && step.name!=='PaymentBreakdown') {
                     status = progressFlag !== 'noProgress' ? 'started' : status;
                     step = nextStep;
                 } else {

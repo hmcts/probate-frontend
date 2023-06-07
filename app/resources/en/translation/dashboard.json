@@ -8,9 +8,9 @@
   "tableHeaderActions": "Actions",
   "statusDraftProbate": "Draft (probate)",
   "statusDraftIntestacy": "Draft (intestacy)",
-  "statusInProgress": "In progress",
-  "statusSubmitted": "Submitted",
+  "statusInProgress": "IN PROGRESS",
+  "statusSubmitted": "Sent",
   "actionContinue": "Continue application",
   "actionView": "View application",
-  "actionStartNewApplication": "Start new application"
+  "actionNewApplication": "New application"
 }

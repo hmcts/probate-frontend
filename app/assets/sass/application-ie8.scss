@@ -30,6 +30,7 @@ $path: "/public/images/";
 @import "node_modules/govuk-frontend/govuk/components/warning-text/warning-text";
 @import "node_modules/govuk-frontend/govuk/utilities/all";
 @import "node_modules/govuk-frontend/govuk/overrides/all";
+@import "node_modules/govuk-frontend/govuk/components/notification-banner/notification-banner";
 
 @import "patterns/phase-banner";
 @import "patterns/header";
@@ -41,6 +42,7 @@ $path: "/public/images/";
 @import "patterns/check-your-answers";
 @import "patterns/document-upload";
 @import "patterns/declaration";
+@import "patterns/progress-bar";
 
 @import "application-common.scss";
 

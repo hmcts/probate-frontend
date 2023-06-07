@@ -37,6 +37,8 @@ class Documents extends ValidationStep {
     }
 
     handleGet(ctx, formdata, featureToggles, language) {
+        const documentsWrapper = new DocumentsWrapper(formdata);
+        ctx.documentsRequired = documentsWrapper.documentsRequired();
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         const willWrapper = new WillWrapper(formdata.will);
         const deathCertWrapper = new DeathCertificateWrapper(formdata.deceased);
@@ -46,6 +48,7 @@ class Documents extends ValidationStep {
         const content = this.generateContent(ctx, formdata, language);
 
         ctx.registryAddress = registryAddress ? registryAddress : content.address;
+        ctx.headerContent = ctx.caseType === caseTypes.INTESTACY ? content.intestacyHeader : content.header;
         ctx.interimDeathCertificate = deathCertWrapper.hasInterimDeathCertificate();
         ctx.foreignDeathCertificate = deathCertWrapper.hasForeignDeathCertificate();
         ctx.foreignDeathCertTranslatedSeparately = deathCertWrapper.isForeignDeathCertTranslatedSeparately();
@@ -72,6 +75,14 @@ class Documents extends ValidationStep {
         ctx.checkListItems = DocumentPageUtil.getCheckListItems(ctx, content);
 
         return [ctx];
+    }
+
+    getContextData(req) {
+        const session = req.session;
+        const ctx = super.getContextData(req);
+        ctx.ccdReferenceNumber = FormatCcdCaseId.format(req.session.form.ccdCase);
+        ctx.caseType = caseTypes.getCaseType(session);
+        return ctx;
     }
 
 }

@@ -51,20 +51,7 @@ Build a `git.properties.json` by running the following command:
 ```
 $ yarn git-info
 ```
-
-Note. if setting up on an M1 with ARM architecure, node-sass is not currently supported, so before yarn install and yarn setup, run
-```
-yarn remove node-sass
-yarn add sass
-```
-Then in package.json, replace sass and sass-ie8 scripts with:
-```
-"sass": "NODE_PATH=. sass app/assets/sass/application.scss:public/stylesheets/application.css --quiet --style expanded",
-"sass-ie8": "NODE_PATH=. sass app/assets/sass/application-ie8.scss:public/stylesheets/application.css --quiet --style expanded",
-```
-Finally in ```app/assets/sass/application.scss``` and ```app/assets/sass/application-ie8.scss``` replace ```node_modules``` with ```../../../node_modules``` for all the imports.
-
-### Running the application (FE / AAT combination)
+### Running the application (FE / AAT combination for lightweight development)
 
 Steps:
 
@@ -79,7 +66,7 @@ $ redis-server
 ```
 $ yarn start:dev:ld:aat
 ```
-2. If you are testing FE & orchestrator / just orchestrator (and therefore have local orchestrator service running on
+2. If you are testing FE & orchestrator / just orchestrator (and therefore have local orchestrator service and local business service running on
 port 8888 - see probate-orchestrator README), use the following:
 ```
 $ yarn start:dev:ld:orch
@@ -95,6 +82,23 @@ Redis is important for development because
 it means that each time your server restarts the security cookie is not lost / you are not logged out.
 
 If you need to add more config or secrets, see `dev-aat.yaml` and `app/setupSecrets.js`, respectively.
+
+###### Running tests:
+
+Use the following to run all e2e tests that have the `@e2enightly` tag (ran in parallel, headlessly):
+```
+$ yarn test:fullfunctional:dev-aat:parallel
+```
+Use the following to run a single test with the browser showing. You must add a unique tag to the test you want to run e.g. `@runningNow`, before running:
+```
+$ yarn test:fullfunctional:dev-aat:single '@runningNow'
+```
+
+note. local e2e is liable to fail if the Orchestrator and Business services aren't being ran locally pointing to AAT, so follow these steps on both services in other terminal windows/tabs:
+1. Ensure VPN is on.
+2. Run `./gradlew generateAatEnvFile`
+3. Run `POINT_TO_AAT=true ./gradlew run`
+4. After ~10 seconds, orchestrator or business service will be running.
 
 ### Running the application
 

@@ -30,8 +30,6 @@
                     {% set taskNumber = taskNumber + 1 %}
                     {% include "ui/tasklist/includes/payment.njk" %}
 
-                    {% set taskNumber = taskNumber + 1 %}
-                    {% include "ui/tasklist/includes/documents.njk" %}
                 {% endif %}
                 {% ifAsync fields.caseType.value === globals.caseTypes.intestacy %}
                     {% set taskNumber = taskNumber + 1 %}

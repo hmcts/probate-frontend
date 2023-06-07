@@ -80,7 +80,7 @@ describe('payment-status', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const contentToExclude = ['paragraph2', 'paragraph3'];
+                    const contentToExclude = ['headingNoPayment'];
 
                     testWrapper.testContent(done, {}, contentToExclude);
                 });
@@ -92,7 +92,7 @@ describe('payment-status', () => {
                 .reply(200, {
                     ccdCase: sessionData.ccdCase
                 });
-            const contentToExclude = ['paragraph1'];
+            const contentToExclude = ['headingPayment'];
 
             sessionData = {
                 ccdCase: {
@@ -106,65 +106,6 @@ describe('payment-status', () => {
                     total: 0
                 },
                 caseType: caseTypes.GOP
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.testContent(done, {}, contentToExclude);
-                });
-        });
-
-        it('test right content loaded on the page when documents are not required', (done) => {
-            nock(config.services.orchestrator.url)
-                .put(uri => uri.includes('submissions'))
-                .reply(200, {
-                    ccdCase: sessionData.ccdCase
-                });
-            const contentToExclude = ['paragraph1'];
-            sessionData = {
-                ccdCase: {
-                    state: 'Pending',
-                    id: 1234567890123456
-                },
-                declaration: {
-                    declarationCheckbox: 'true'
-                },
-                payment: {
-                    total: 0
-                },
-                caseType: caseTypes.GOP
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.testContent(done, {}, contentToExclude);
-                });
-        });
-
-        it('test right content loaded on the page when documents are required', (done) => {
-            nock(config.services.orchestrator.url)
-                .put(uri => uri.includes('submissions'))
-                .reply(200, {
-                    ccdCase: sessionData.ccdCase
-                });
-            const contentToExclude = ['paragraph1', 'callout'];
-            sessionData = {
-                ccdCase: {
-                    state: 'Pending',
-                    id: 1234567890123456
-                },
-                declaration: {
-                    declarationCheckbox: 'true'
-                },
-                payment: {
-                    total: 0
-                },
-                caseType: caseTypes.INTESTACY,
-                documents: {
-                    uploads: ['content']
-                }
             };
 
             testWrapper.agent.post('/prepare-session/form')
@@ -179,6 +120,25 @@ describe('payment-status', () => {
                 .send({})
                 .end(() => {
                     testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList);
+                });
+        });
+
+        it('test it redirects to thank-you', (done) => {
+            const singleApplicantSessionData = {
+                ccdCase: {
+                    state: 'CasePrinted',
+                    id: 1234567890123456
+                },
+                payment: {
+                    status: 'Success',
+                    reference: '1234'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(singleApplicantSessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, singleApplicantSessionData, '/thank-you');
                 });
         });
     });

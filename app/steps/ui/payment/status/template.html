@@ -4,26 +4,18 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <h1 class="govuk-heading-l">{{ content.question | safe }}</h1>
-
-    {% if errors == undefined %}
-        {% if fields.paymentDue.value == "true" %}
-            <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
-        {% else %}
-            <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
-        {% endif %}
+    {% if fields.paymentDue.value == "true" %}
+        <h1 class="govuk-heading-l">{{ content.headingPayment | safe }}</h1>
+    {% else %}
+        <h1 class="govuk-heading-l">{{ content.headingNoPayment | safe }}</h1>
     {% endif %}
-
-    {% if fields.documentsRequired.value == "true" %}
-        {{ govukInsetText({
-            text: content.callout | safe
-        }) }}
+    {% if errors == undefined %}
+        <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
     {% endif %}
 
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.saveAndContinue | safe,
+            text: common.submit | safe,
             preventDoubleClick: true
         }) }}
     </div>

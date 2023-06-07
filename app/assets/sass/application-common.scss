@@ -81,6 +81,12 @@ a[href^="tel"] {
   border-bottom: none;
 }
 
+.probate-section-break{
+  height: 4px;
+  background: #1E6FB8;
+  border: none;
+}
+
 .inline-dl {
   display: inline;
 
@@ -89,4 +95,5 @@ a[href^="tel"] {
     display: inline;
     margin-inline-start: unset;
   }
+
 }

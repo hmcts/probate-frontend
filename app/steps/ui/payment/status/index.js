@@ -9,7 +9,6 @@ const config = require('config');
 const Payment = require('app/services/Payment');
 const Authorise = require('app/services/Authorise');
 const ServiceMapper = require('app/utils/ServiceMapper');
-const DocumentsWrapper = require('app/wrappers/Documents');
 
 class PaymentStatus extends Step {
 
@@ -146,12 +145,6 @@ class PaymentStatus extends Step {
         logger.info({tags: 'Analytics'}, 'Application Case Created');
 
         return [result, errors];
-    }
-
-    handleGet(ctx, formdata) {
-        const documentsWrapper = new DocumentsWrapper(formdata);
-        ctx.documentsRequired = documentsWrapper.documentsRequired();
-        return [ctx, ctx.errors];
     }
 
     setErrors(options, errors) {

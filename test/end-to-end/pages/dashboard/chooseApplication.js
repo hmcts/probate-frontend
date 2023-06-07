@@ -20,7 +20,7 @@ module.exports = async function(language ='en') {
     if (language === 'en') {
         for (let i = 0; i <= 5; i++) {
             await I.waitForText(dashboardContent.header, testConfig.TestWaitForTextToAppear);
-            const result = await I.checkForText(dashboardContent.actionContinue, 10);
+            const result = await I.checkForText(dashboardContent.statusInProgress, 10);
             if (result === true) {
                 break;
             }
@@ -31,21 +31,21 @@ module.exports = async function(language ='en') {
         await I.see(dashboardContent.tableHeaderDeceasedName);
         await I.see(dashboardContent.tableHeaderCreateDate);
         await I.see(dashboardContent.tableHeaderCaseStatus);
-        await I.navByClick(dashboardContent.actionContinue);
+        await I.navByClick({css: 'a[href^="/get-case/"]'});
     } else {
         await I.amOnLoadedPage('/dashboard', language);
         await I.saveScreenshot('dashboard-before.png');
 
         for (let i = 0; i <= 5; i++) {
             await I.waitForElement('#main-content', testConfig.TestWaitForTextToAppear);
-            const result = await I.checkForText(dashboardContent.actionContinue, 10);
+            const result = await I.checkForText(dashboardContent.statusInProgress, 10);
             if (result === true) {
                 break;
             }
             await I.amOnPage('/dashboard?lng=cy');
             await I.refreshPage();
         }
-        await I.navByClick(dashboardContent.actionContinue);
+        await I.navByClick({css: 'a[href^="/get-case/"]'});
         await I.wait(2);
     }
 };

@@ -17,6 +17,7 @@ featureToggles:
   ft_newfee_register_code: 'probate-newfee-register-code'
   ft_excepted_estates: 'probate-excepted-estates'
   ft_will_condition : 'probate-will-condition'
+  ft_stop_ihtonline : 'probate-stop-ihtonline'
   appwideToggles: ['ft_avaya_webchat']
 # overrides featureToggles to e.g. switch off in pipeline/locally
 configFeatureToggles:
@@ -170,8 +171,8 @@ dateFormat: 'DD/MM/YYYY'
 payloadVersion: '4.1.1'
 enableTracking: 'true'
 webchat:
-  avayaUrl: 'webchat.training.ctsc.hmcts.net'
-  avayaClientUrl: 'webchat-client.training.ctsc.hmcts.net'
+  avayaUrl: 'webchat.pp.ctsc.hmcts.net'
+  avayaClientUrl: 'webchat-client.pp.ctsc.hmcts.net'
   avayaService: 'Testing'
 links:
   accessibility: '/accessibility-statement'
@@ -230,10 +231,10 @@ payment:
   currency: 'GBP'
 noHeaderLinksPages: ['/time-out', '/sign-out', '/co-applicant-start-page', '/co-applicant-declaration', '/co-applicant-agree-page', '/co-applicant-disagree-page', '/co-applicant-all-agreed-page', '/pin-resend', '/pin-sent', '/sign-in']
 alwaysWhitelistedPages: ['/time-out', '/sign-out', '/contact-us', '/accessibility-statement', '/terms-conditions', '/privacy-policy', '/cookies', '/health', '/stop-page', '/error', '/avaya-webchat']
-whitelistedPagesAfterSubmission: ['/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
+whitelistedPagesAfterSubmission: ['/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/citizens-hub']
 whitelistedPagesAfterPayment: ['/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
-whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/equality-and-diversity']
-blacklistedPagesBeforeDeclaration: ['/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
+whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/equality-and-diversity', '/citizens-hub']
+blacklistedPagesBeforeDeclaration: ['/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/citizens-hub']
 probateScreenersDeathCertificateInEnglish:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionYes'

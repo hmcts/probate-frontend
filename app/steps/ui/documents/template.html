@@ -8,34 +8,33 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: content.header | safe,
+            text: fields.headerContent.value | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
     }) %}
-      <h2 class="govuk-heading-m">{{ content.heading1 | safe }}</h2>
-      <p class="govuk-body">{{ content.text1 | safe }}</p>
+    <p class="govuk-body">{{ content.documentsParagraph1 | safe }}</p>
+    {{ unorderedList(fields.checkListItems.value) }}
 
-      {{ unorderedList(fields.checkListItems.value) }}
-      {{ govukInsetText({
-        text: content.warning | safe
-      }) }}
 
-      <h2 class="govuk-heading-m">{{ content.heading2 | safe }}</h2>
-      <p class="govuk-body">{{ content.text2 | safe }}</p>
+    <p class="govuk-body">{{ content.documentsParagraph2 | safe }}</p>
+    <p class="govuk-body">{{ content.documentsParagraph3 | safe }}</p>
 
-      {{ govukInsetText({
-        text: fields.registryAddress.value | safe | nl2br
-      }) }}
+    {{ govukInsetText({
+    text: fields.registryAddress.value | safe | nl2br
+    }) }}
 
-      <input id="sentDocuments" type="hidden" name="sentDocuments" value="true"/>
+    {% if fields.documentsRequired.value == "true" %}
+          {% if fields.caseType.value === globals.caseTypes.intestacy %}
+              <p class="govuk-body">{{ content.documentsParagraph5 | safe }}</p>
+          {% else %}
+              <p class="govuk-body">{{ content.documentsParagraph4 | safe }}</p>
+              <h2 class="govuk-heading-m">{{ content.HelpHeading | safe }}</h2>
+              <p class="govuk-body">{{ content.helpfulParagraph | safe }}</p>
+          {% endif %}
+    {% endif %}
     {% endcall %}
-
-    <div class="govuk-form-group">
-        {{ govukButton({
-            text: common.continue | safe,
-            preventDoubleClick: true
-        }) }}
-    </div>
 {% endblock %}
+
+{% block save_and_close %}{% endblock %}
 

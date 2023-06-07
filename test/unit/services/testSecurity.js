@@ -1,3 +1,4 @@
+// eslint-disable-line max-lines
 'use strict';
 
 const chai = require('chai');
@@ -5,6 +6,8 @@ const sinon = require('sinon');
 const when = require('when');
 const sinonChai = require('sinon-chai');
 const rewire = require('rewire');
+const proxyquire = require('proxyquire');
+const NodeCache = require('node-cache');
 const Security = rewire('app/services/Security');
 const expect = chai.expect;
 
@@ -20,6 +23,99 @@ describe('Security component', () => {
     const securityCookie = `__auth-token-${appConfig.payloadVersion}`;
     const expiresTime = new Date() + 999999;
     const expiresTimeInThePast = Date.now() - 1;
+
+    describe('Idam caching', () => {
+        let security;
+        let protect;
+        let req;
+        let next;
+        let res;
+
+        beforeEach(() => {
+            req = {
+                cookies: [],
+                query: {
+                    state: 'testState',
+                    code: '123'
+                },
+                session: {
+                    language: 'cy',
+                    form: {
+                        caseType: 'gop'
+                    },
+                    regId: 'regid123',
+                    expires: expiresTime
+                },
+                get: sinon.stub().returns('localhost:3000')
+            };
+            req.cookies[securityCookie] = token;
+            res = {
+                render: sinon.spy(),
+                redirect: sinon.spy(),
+                status: sinon.spy(),
+                cookie: sinon.spy(),
+                clearCookie: sinon.spy()
+            };
+            next = sinon.spy();
+        });
+
+        it('should create a node cache if IDAM caching is enabled', () => {
+            const SecurityStub = proxyquire('app/services/Security', {'config': {'services': {'idam': {'caching': 'true'}}}});
+            security = new SecurityStub(loginUrl);
+            expect(security.idamDetailsCache instanceof NodeCache).to.equal(true);
+        });
+
+        it('should handle successful IDAM response when cached', () => {
+            const nodeCacheGetStub = sinon.stub().returns({roles: ['citizen']});
+            const SecurityStub = proxyquire('app/services/Security', {
+                'config': {'services': {'idam': {'caching': 'true'}}},
+                'node-cache': sinon.stub().callsFake(() => {
+                    return {get: nodeCacheGetStub};
+                })
+            });
+            security = new SecurityStub(loginUrl);
+
+            const handleSuccessfulIdamDetailsResponseStub = sinon.stub();
+            const _authorizeStub = sinon.stub();
+            security.handleSuccessfulIdamDetailsResponse = handleSuccessfulIdamDetailsResponseStub;
+            security._authorize = _authorizeStub;
+
+            protect = security.protect(role);
+            protect(req, res, next);
+            expect(handleSuccessfulIdamDetailsResponseStub.calledOnce).to.equal(true);
+            expect(_authorizeStub.calledOnce).to.equal(true);
+        });
+
+        it('should cache IDAM response if not already cached', (done) => {
+            const promise = when({name: 'Success'});
+            const cacheSetStub = sinon.stub();
+            const SecurityStub = proxyquire('app/services/Security', {
+                'config': {'services': {'idam': {'caching': 'true'}}},
+                'node-cache': sinon.stub().callsFake(() => {
+                    return {get: sinon.stub().returns(), set: cacheSetStub};
+                }),
+                'app/services/IdamSession': sinon.stub().callsFake(() => {
+                    return {get: sinon.stub().returns(promise)};
+                })
+            });
+
+            security = new SecurityStub(loginUrl);
+            security.handleSuccessfulIdamDetailsResponse = sinon.stub();
+            security._authorize = sinon.stub();
+
+            protect = security.protect(role);
+            protect(req, res, next);
+
+            promise
+                .then(() => {
+                    expect(cacheSetStub.calledOnce).to.equal(true);
+                    done();
+                })
+                .catch((err) => {
+                    done(err);
+                });
+        });
+    });
 
     describe('protect', () => {
         let security;
@@ -55,7 +151,8 @@ describe('Security component', () => {
                     language: 'cy',
                     form: {
                         caseType: 'gop'
-                    }
+                    },
+                    regId: 'regid123'
                 },
                 get: sinon.stub().returns('localhost:3000')
             };

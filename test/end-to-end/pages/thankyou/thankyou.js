@@ -8,8 +8,8 @@ module.exports = async function(language ='en') {
     await I.waitForText(thankYouContent.header);
 
     await I.downloadPdfIfNotIE11('#checkAnswerHref');
-    await I.downloadPdfIfNotIE11('#declarationPdfHref');
     await I.downloadPdfIfNotIE11('#coverSheetPdfHref');
+    await I.downloadPdfIfNotIE11('#declarationPdfHref');
     const locator = {css: '#navigation > li:nth-child(2) > a'};
     await I.waitForElement(locator);
     await I.navByClick(locator);

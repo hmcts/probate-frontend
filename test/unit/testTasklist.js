@@ -260,7 +260,7 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
 
                 assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
-                assert.equal(ctx.PaymentTask.status, 'started');
+                assert.equal(ctx.PaymentTask.status, 'notStarted');
             });
 
             it('Updates the context: PaymentTask started (No Fee)', () => {
@@ -548,7 +548,8 @@ describe('Tasklist', () => {
             it('Updates the context: PaymentTask started (Fee to Pay)', () => {
                 req.session.form = {
                     payment: {
-                        reference: '1234'
+                        reference: '1234',
+                        status: 'Initiated'
                     },
                     ccdCase: {
                         state: 'PAAppCreated',
@@ -855,7 +856,8 @@ describe('Tasklist', () => {
             it('Updates the context: PaymentTask started (Fee to Pay)', () => {
                 req.session.form = {
                     payment: {
-                        reference: '1234'
+                        reference: '1234',
+                        status: 'Initiated'
                     },
                     ccdCase: {
                         state: 'PAAppCreated',

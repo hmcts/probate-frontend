@@ -13,7 +13,7 @@ class ActionStepRunner {
     handleGet(step, req, res) {
         const commonContent = require(`app/resources/${req.session.language}/translation/common`);
 
-        req.log.error(`GET  operation not defined for ${step.name} step`);
+        req.log.error(`GET operation not defined for ${step.name} step`);
         res.status(404);
         res.render('errors/error', {common: commonContent, error: '404', userLoggedIn: req.userLoggedIn});
     }

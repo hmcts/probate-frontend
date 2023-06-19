@@ -43,6 +43,11 @@ describe('CaseProgress.js', () => {
             expect(CaseProgress.grantIssued(state)).to.equal(true);
             done();
         });
+        it('should return true for BOGrantIssued', (done) => {
+            const state = 'BOPostGrantIssued';
+            expect(CaseProgress.grantIssued(state)).to.equal(true);
+            done();
+        });
     });
 
     describe('applicationInReview()', () => {

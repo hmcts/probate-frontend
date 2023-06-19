@@ -5,7 +5,7 @@ class CaseProgress {
         return !(state === 'Pending' || state === 'PAAppCreated' || state === 'CasePaymentFailed');
     }
     static grantIssued(state) {
-        return state === 'BOGrantIssued';
+        return (state === 'BOGrantIssued' || state === 'BOPostGrantIssued');
     }
 
     static applicationInReview(state) {

@@ -3,8 +3,14 @@
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% block form_content %}
+    <p class="govuk-body"> {{ govukBackLink({
+        text: common.back | safe,
+        href: content.previousUrl | safe
+        }) }}
+    </p>
     {% if errors %}
         {% set inlineErrors = {
             text:

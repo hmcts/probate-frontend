@@ -6,6 +6,7 @@
   "hint": "Check the <a href=\"{willIsLegal}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"will is legal\">will is legal</a>. Wills made according to the laws of England or Wales must be signed in wet ink by:",
   "hintBullet1": "the person making the will (&lsquo;testator&rsquo;)",
   "hintBullet2": "2 witnesses",
+  "previousUrl": "/ee-estate-valued",
   "errors": {
     "left": {
       "required": "Select &lsquo;yes&rsquo; if there&rsquo;s a will"

@@ -2,8 +2,14 @@
 
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% block form_content %}
+    <p class="govuk-body"> {{ govukBackLink({
+        text: common.back | safe,
+        href: content.previousUrl | safe
+        }) }}
+    </p>
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "mentalCapacity",

@@ -7,6 +7,7 @@
   "hintText2": "By law, we need to see the original will and codicils and keep them as they become a public record.",
   "hintText3": "A codicil is a legal document that's a supplement to a will. Codicils list changes and updates to a will and are signed and witnessed the same way as a will.",
   "hintText4": "Check if a codicil is attached to the will, or they may be loose pages. The word &lsquo;codicil&rsquo; may be at the top of the page.",
+  "previousUrl": "/will-left",
   "errors": {
     "original": {
       "required": "Select &lsquo;yes&rsquo; if you have the original will and any codicils?"

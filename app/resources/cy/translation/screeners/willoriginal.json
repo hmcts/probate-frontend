@@ -7,6 +7,7 @@
   "hintText2": "Yn &ocirc;l y gyfraith, mae angen i ni weld yr ewyllys a&rsquo;r codisiliau gwreiddiol a&rsquo;u cadw wrth iddyn nhw ddod yn gofnod cyhoeddus.",
   "hintText3": "Mae codisil yn ddogfen gyfreithiol sy&rsquo;n atodiad at ewyllys. Mae codisiliau yn rhestru newidiadau a diweddariadau i ewyllys ac yn cael eu llofnodi a&rsquo;u tystio yn yr un ffordd ag ewyllys.",
   "hintText4": "Gwiriwch a oes codisil ynghlwm &acirc;&rsquo;r ewyllys, neu gallant fod yn dudalennau rhydd. Gall y gair &lsquo;codisil&rsquo; fod ar frig y dudalen ",
+  "previousUrl": "/will-left",
   "errors": {
     "original": {
       "required": "Dewiswch &lsquo;oes&rsquo; os oes gennych chi&rsquo;r ewyllys wreiddiol ac unrhyw godisiliau"

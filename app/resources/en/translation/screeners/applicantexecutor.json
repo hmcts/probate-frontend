@@ -6,6 +6,7 @@
   "hintText3": "Check the will and any codicils now as the named executors may have been updated without your knowledge.",
   "optionYes": "Yes",
   "optionNo": "No",
+  "previousUrl": "/will-original",
 
   "errors": {
     "executor": {

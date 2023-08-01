@@ -4,6 +4,7 @@
   "explanation1": "Defnyddiwch yr enw sydd ar y dystysgrif marwolaeth.",
   "firstName": "Enw cyntaf ac unrhyw enwau canol",
   "lastName": "Cyfenw",
+  "previousUrl": "/bilingual-gop",
 
   "errors": {
     "firstName": {

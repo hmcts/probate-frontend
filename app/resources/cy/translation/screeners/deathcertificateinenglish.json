@@ -3,6 +3,7 @@
   "question": "Ydy&rsquo;r dystysgrif marwolaeth wreiddiol yn Saesneg?",
   "optionYes": "Ydy",
   "optionNo": "Nac ydy",
+  "previousUrl": "/death-certificate",
 
   "errors": {
     "deathCertificateInEnglish": {

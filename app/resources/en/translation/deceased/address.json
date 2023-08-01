@@ -10,6 +10,7 @@
   "addressLabel3": "Address Line 3 (optional)",
   "selectAddress": "Select address",
   "enterManually": "Enter their address instead",
+  "previousUrl": "/deceased-dod",
 
   "errors": {
     "addressLine1": {

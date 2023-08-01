@@ -4,6 +4,7 @@
   "hintText1": "This is known as ‘being domiciled in the UK’. Find out about <a href=\"https://www.gov.uk/inheritance-tax/when-someone-living-outside-the-uk-dies\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"when someone living outside the UK dies (opens in a new window)\">when someone living outside the UK dies (opens in a new window)</a>.",
   "optionYes": "Yes",
   "optionNo": "No",
+  "previousUrl": "/death-certificate-english",
 
   "errors": {
     "domicile": {

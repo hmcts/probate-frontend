@@ -2,6 +2,7 @@
   "title": "Dyddiad geni&rsquo;r unigolyn sydd wedi marw",
   "question": "Beth oedd eu dyddiad geni?",
   "questionHint": "Er enghraifft, 31 03 1945",
+  "previousUrl": "/deceased-name",
 
   "errors": {
     "dob-day": {

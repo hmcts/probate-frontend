@@ -3,6 +3,7 @@
     "question": "Did the person die on or after 1 January 2022?",
     "optionYes": "Yes",
     "optionNo": "No",
+    "previousUrl": "/deceased-domicile",
 
     "errors": {
       "eeDeceasedDod": {

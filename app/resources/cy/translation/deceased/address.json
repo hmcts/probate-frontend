@@ -10,6 +10,7 @@
   "addressLabel3": "Trydydd llinell y cyfeiriad (dewisol)",
   "selectAddress": "Dewiswch gyfeiriad",
   "enterManually": "neu teipiwch eu cyfeiriad",
+  "previousUrl": "/deceased-dod",
 
   "errors": {
     "addressLine1": {

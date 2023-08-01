@@ -3,6 +3,7 @@
   "question": "Is the original death certificate in English?",
   "optionYes": "Yes",
   "optionNo": "No",
+  "previousUrl": "/death-certificate",
 
   "errors": {
     "deathCertificateInEnglish": {

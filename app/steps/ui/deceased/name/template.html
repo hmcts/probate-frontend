@@ -3,8 +3,14 @@
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% block form_content %}
+    <p class="govuk-body"> {{ govukBackLink({
+        text: common.back | safe,
+        href: content.previousUrl | safe
+        }) }}
+    </p>
     {% call govukFieldset({
         legend: {
             text: content.question | safe,

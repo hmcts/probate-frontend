@@ -2,6 +2,7 @@
   "title": "Deceased date of death",
   "question": "What was the date that they died?",
   "questionHint": "Use the date from the death certificate. For example, 30 06 2016",
+  "previousUrl": "/deceased-dob",
 
   "errors": {
     "dod-day": {

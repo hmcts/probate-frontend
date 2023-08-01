@@ -4,6 +4,7 @@
   "explanation1": "Use the name on the death certificate.",
   "firstName": "First name and any middle names",
   "lastName": "Last name",
+  "previousUrl": "/bilingual-gop",
 
   "errors": {
     "firstName": {

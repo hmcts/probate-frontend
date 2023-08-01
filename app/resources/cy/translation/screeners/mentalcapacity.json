@@ -5,6 +5,7 @@
   "hintText2": "Rhagor o wybodaeth am <a target=\"_blank\" rel=\"external noopener\" href=\"{assessingMentalCapacity}\" class=\"govuk-link\" aria-label=\"wirio galluedd meddyliol (yn agor mewn ffenestr newydd)\">wirio galluedd meddyliol (yn agor mewn ffenestr newydd)</a>.",
   "optionYes": "Ydyn",
   "optionNo": "Nac ydyn",
+  "previousUrl": "/applicant-executor",
 
   "errors": {
     "mentalCapacity": {

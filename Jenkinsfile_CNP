@@ -3,6 +3,7 @@
 @Library("Infrastructure") _
 
 import uk.gov.hmcts.contino.GithubAPI
+import uk.gov.hmcts.contino.AppPipelineDsl
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 String product = "probate"
@@ -139,5 +140,13 @@ withPipeline("nodejs", product, component) {
       reportName           : "AAT Functional Tests",
       alwaysLinkToLastBuild: true
     ]
+  }
+
+  onMaster() {
+    enablePactAs([AppPipelineDsl.PactRoles.CONSUMER])
+  }
+
+  onPR() {
+    enablePactAs([AppPipelineDsl.PactRoles.CONSUMER])
   }
 }

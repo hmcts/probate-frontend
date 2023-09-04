@@ -13,6 +13,7 @@ const opts = {
     consumerVersion: git.short(),
     tags: config.services.pact.tag || 'Dev'
 };
+
 pact.publishPacts(opts)
     .then(() => {
         console.log('Pact contract publishing complete!');

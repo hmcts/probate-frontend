@@ -31,6 +31,7 @@ postcodeLookup:
   partialAddressPostcode: 'N14'
   invalidAddressPostcode: 'Z99 9ZZ'
   emptyAddressPostcode: ''
+  token: ''
 
 govPayTestCardNos:
   validCardNo: '4242424242424242'

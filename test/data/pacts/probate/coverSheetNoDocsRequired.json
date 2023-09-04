@@ -1,0 +1,10 @@
+{
+"applicantName": "Appfn Surname",
+"applicantAddress": "addressLine1",
+"caseReference": "123454",
+"submitAddress": "manchester",
+"checkListItems": [
+],
+"noDocumentsRequired": true,
+"noDocumentsRequiredText": "Based on the details in the application no documents are required. However if documents are requested  from you  in the future, please send them along with this cover sheet to the address below"
+}

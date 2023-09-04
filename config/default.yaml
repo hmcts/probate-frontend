@@ -89,8 +89,8 @@ services:
       returnUrlPath: '/payment-status'
   pact:
     name: 'PACT Service'
-    url: 'http://localhost:80'
-    tag: 'Dev'
+    url: 'https://pact-broker.platform.hmcts.net'
+    tag: 'master'
     pactDirectory: 'pacts'
   feesRegister:
     name: 'Fees Register Service'

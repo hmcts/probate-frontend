@@ -25,11 +25,10 @@ describe('payment-data.js', () => {
                 amount: 0,
                 description: 'Ffioedd Profiant',
                 ccd_case_number: '123',
-                service: 'PROBATE',
                 currency: 'GBP',
-                site_id: 'P223',
                 fees: [],
-                language: 'CY'
+                language: 'CY',
+                case_type: 'GrantOfRepresentation'
             });
             done();
         });
@@ -59,9 +58,7 @@ describe('payment-data.js', () => {
                 amount: 215,
                 description: 'Ffioedd Profiant',
                 ccd_case_number: '123',
-                service: 'PROBATE',
                 currency: 'GBP',
-                site_id: 'P223',
                 fees: [{
                     calculated_amount: 215,
                     ccd_case_number: '123',
@@ -71,7 +68,8 @@ describe('payment-data.js', () => {
                     version: 3,
                     volume: 1
                 }],
-                language: 'CY'
+                language: 'CY',
+                case_type: 'GrantOfRepresentation'
             });
             done();
         });
@@ -101,9 +99,7 @@ describe('payment-data.js', () => {
                 amount: 1.50,
                 description: 'Ffioedd Profiant',
                 ccd_case_number: '123',
-                service: 'PROBATE',
                 currency: 'GBP',
-                site_id: 'P223',
                 fees: [{
                     calculated_amount: 1.50,
                     ccd_case_number: '123',
@@ -113,7 +109,8 @@ describe('payment-data.js', () => {
                     version: 3,
                     volume: 1
                 }],
-                language: 'CY'
+                language: 'CY',
+                case_type: 'GrantOfRepresentation'
             });
             done();
         });
@@ -143,9 +140,7 @@ describe('payment-data.js', () => {
                 amount: 3,
                 description: 'Ffioedd Profiant',
                 ccd_case_number: '123',
-                service: 'PROBATE',
                 currency: 'GBP',
-                site_id: 'P223',
                 fees: [{
                     calculated_amount: 3,
                     ccd_case_number: '123',
@@ -155,7 +150,8 @@ describe('payment-data.js', () => {
                     version: 3,
                     volume: 2
                 }],
-                language: 'CY'
+                language: 'CY',
+                case_type: 'GrantOfRepresentation'
             });
             done();
         });
@@ -189,9 +185,7 @@ describe('payment-data.js', () => {
                 amount: 219.50,
                 description: 'Ffioedd Profiant',
                 ccd_case_number: '123',
-                service: 'PROBATE',
                 currency: 'GBP',
-                site_id: 'P223',
                 fees: [{
                     calculated_amount: 215,
                     ccd_case_number: '123',
@@ -217,7 +211,8 @@ describe('payment-data.js', () => {
                     version: 3,
                     volume: 2
                 }],
-                language: 'CY'
+                language: 'CY',
+                case_type: 'GrantOfRepresentation'
             });
             done();
         });
@@ -251,9 +246,7 @@ describe('payment-data.js', () => {
                 amount: 219.50,
                 description: 'Probate Fees',
                 ccd_case_number: '123',
-                service: 'PROBATE',
                 currency: 'GBP',
-                site_id: 'P223',
                 fees: [{
                     calculated_amount: 215,
                     ccd_case_number: '123',
@@ -279,7 +272,8 @@ describe('payment-data.js', () => {
                     version: 3,
                     volume: 2
                 }],
-                language: ''
+                language: '',
+                case_type: 'GrantOfRepresentation'
             });
             done();
         });

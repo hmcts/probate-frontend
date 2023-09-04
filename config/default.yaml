@@ -229,6 +229,7 @@ payment:
   siteId: 'P223'
   version: '1'
   currency: 'GBP'
+  caseType: 'GrantOfRepresentation'
 noHeaderLinksPages: ['/time-out', '/sign-out', '/co-applicant-start-page', '/co-applicant-declaration', '/co-applicant-agree-page', '/co-applicant-disagree-page', '/co-applicant-all-agreed-page', '/pin-resend', '/pin-sent', '/sign-in']
 alwaysWhitelistedPages: ['/time-out', '/sign-out', '/contact-us', '/accessibility-statement', '/terms-conditions', '/privacy-policy', '/cookies', '/health', '/stop-page', '/error', '/avaya-webchat']
 whitelistedPagesAfterSubmission: ['/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/citizens-hub']

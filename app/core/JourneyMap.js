@@ -35,20 +35,20 @@ class JourneyMap {
     }
     stopReason(reason, prevStepName) {
         switch (reason) {
-            case 'deathCertificate':
-                prevStepName = prevStepName.DeathCertificate;
-                break;
-            case 'deathCertificateTranslation':
-                prevStepName = prevStepName.DeathCertificateTranslation;
-                break;
-            case 'notInEnglandOrWales':
-                prevStepName = prevStepName.DeceasedDomicile;
-                break;
-            case 'eeEstateNotValued':
-                prevStepName = prevStepName.ExceptedEstateValued;//Need to add more case where stop page is coming.Just added 3 for testing
-                break;
-            default:
-                prevStepName = prevStepName.StartEligibility;
+        case 'deathCertificate':
+            prevStepName = prevStepName.DeathCertificate;
+            break;
+        case 'deathCertificateTranslation':
+            prevStepName = prevStepName.DeathCertificateTranslation;
+            break;
+        case 'notInEnglandOrWales':
+            prevStepName = prevStepName.DeceasedDomicile;
+            break;
+        case 'eeEstateNotValued':
+            prevStepName = prevStepName.ExceptedEstateValued;//Need to add more case where stop page is coming.Just added 3 for testing
+            break;
+        default:
+            prevStepName = prevStepName.StartEligibility;
         }
         return prevStepName;
     }

@@ -42,7 +42,7 @@ class Step {
         this.i18next = i18next;
     }
 
-    previous(req, ctx) {
+    previous(req) {
         const journeyMap = new JourneyMap(req.session.journey);
         return journeyMap.previousStep(this, req);
     }

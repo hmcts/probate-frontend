@@ -30,6 +30,10 @@ class UIStepRunner {
                 forEach(errors, (error) =>
                     req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
                 );
+                if (isEmpty(errors) && req.originalUrl !== '/sign-out' && req.originalUrl !== '/time-out') {
+                    const previousStepUrl = step.previousStepUrl(req, ctx);
+                    res.locals.previousUrl = previousStepUrl;
+                }
                 const content = step.generateContent(ctx, formdata, session.language);
                 const fields = step.generateFields(session.language, ctx, errors, formdata);
                 if (req.query.source === 'back') {

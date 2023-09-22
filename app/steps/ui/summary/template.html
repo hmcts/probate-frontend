@@ -3,10 +3,16 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "widgets/checkanswer.njk" import checkanswer %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% set title = content.Summary.title %}
 
 {% block content %}
+    <p class="govuk-body"> {{ govukBackLink({
+      text: common.back | safe,
+      href: previousUrl
+      }) }}
+    </p>
     <div id="check-your-answers">
         <h1 class="govuk-heading-l">{{ content.Summary.heading | safe }}</h1>
         <p class="govuk-body" id="main-heading-content">{{ content.Summary.checkCarefully | safe }}</p>
@@ -22,7 +28,7 @@
                 {% include "ui/summary/includes/willconditions.njk" %}
             </dl>
         {% endif %}
-        
+
         {% ifAsync fields.summary.caseType.value === globals.caseTypes.gop %}
             <h2 class="govuk-heading-m">{{ content.Summary.codicilsConditionHeading | safe }}</h2>
             <dl class="govuk-summary-list">

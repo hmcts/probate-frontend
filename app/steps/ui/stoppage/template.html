@@ -1,8 +1,16 @@
 {% extends "includes/layout.html" %}
 
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
 {% set tempContent = content[fields.stopReason.value] %}
 
 {% block content %}
+    <p class="govuk-body"> {{ govukBackLink({
+      text: common.back | safe,
+      href: previousUrl
+      }) }}
+    </p>
+    Testing----> {{previousUrl }}  <<-->> {{ pageUrl }}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-l">{{ content[fields.stoppageHeader.value] | safe }}</h1>

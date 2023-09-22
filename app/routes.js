@@ -198,6 +198,7 @@ router.use('/document-upload', documentUpload);
 router.use((req, res, next) => {
     res.locals.session = req.session;
     res.locals.pageUrl = req.url;
+    res.locals.previousUrl = req.session.previousUrl;
     next();
 });
 

@@ -250,5 +250,63 @@ const stepList = {
     CoApplicantDisagreePage: 'CoApplicantDisagreePage'
 };
 
+const previousStepList = {
+    Dashboard: 'StartApply',
+    Summary: 'Dashboard',
+    StartEligibility: 'Dashboard',
+    DeathCertificate: 'StartEligibility',
+    StopPage: {
+        DeathCertificate: 'DeathCertificate',
+        DeathCertificateTranslation: 'DeathCertificateTranslation',
+        DeceasedDomicile: 'DeceasedDomicile',
+        ExceptedEstateValued: 'ExceptedEstateValued',
+        StartEligibility: 'StartEligibility'
+    },
+    DeathCertificateInEnglish: 'DeathCertificate',
+    DeathCertificateTranslation: 'DeathCertificateInEnglish',
+    DeceasedDomicile: 'DeathCertificateInEnglish',
+    ExceptedEstateDeceasedDod: 'DeceasedDomicile',
+    ExceptedEstateValued: 'ExceptedEstateDeceasedDod',
+    IhtCompleted: 'ExceptedEstateDeceasedDod',
+    WillLeft: 'ExceptedEstateValued',
+    WillOriginal: 'WillLeft',
+    ApplicantExecutor: 'WillOriginal',
+    MentalCapacity: 'ApplicantExecutor',
+    TaskList: 'Dashboard',
+    BilingualGOP: 'Dashboard',
+    DeceasedName: 'BilingualGOP',
+    DeceasedDob: 'DeceasedName',
+    DeceasedDod: 'DeceasedDob',
+    DeceasedAddress: 'DeceasedDod',
+    DiedEnglandOrWales: 'DeceasedAddress',
+    DeathCertificateInterim: 'DiedEnglandOrWales',
+    IhtEstateValued: 'DeathCertificateInterim',
+    IhtEstateForm: 'IhtEstateValued',
+    ProbateEstateValues: 'IhtEstateForm',
+    DeceasedAlias: 'ProbateEstateValues',
+    DeceasedOtherNames: 'DeceasedAlias',
+    DeceasedMarried: 'DeceasedAlias',
+    WillHasVisibleDamage: 'DeceasedMarried',
+    WillDamageReasonKnown: 'WillHasVisibleDamage',
+    WillDamageCulpritKnown: 'WillDamageReasonKnown',
+    WillDamageDate: 'WillDamageCulpritKnown',
+    WillCodicils: 'WillHasVisibleDamage',
+    CodicilsNumber: 'WillCodicils',
+    CodicilsHasVisibleDamage: 'CodicilsNumber',
+    CodicilsDamageReasonKnown: 'CodicilsHasVisibleDamage',
+    CodicilsDamageCulpritKnown: 'CodicilsDamageReasonKnown',
+    CodicilsDamageDate: 'CodicilsDamageCulpritKnown',
+    DeceasedWrittenWishes: 'WillCodicils',
+    ApplicantName: 'TaskList',
+    ApplicantNameAsOnWill: 'ApplicantName',
+    ApplicantAlias: 'ApplicantNameAsOnWill',
+    ApplicantPhone: 'ApplicantNameAsOnWill',
+    ApplicantAliasReason: 'ApplicantAlias',
+    ApplicantAddress: 'ApplicantAliasReason',
+    ExecutorsNumber: 'ApplicantAddress',
+
+};
+
+module.exports.previousStepList = previousStepList;
 module.exports.stepList = stepList;
 module.exports.taskList = taskList;

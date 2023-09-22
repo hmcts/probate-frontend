@@ -42,6 +42,14 @@ class Step {
         this.i18next = i18next;
     }
 
+    previous(req, ctx) {
+        const journeyMap = new JourneyMap(req.session.journey);
+        return journeyMap.previousStep(this, req);
+    }
+
+    previousStepUrl(req, ctx) {
+        return this.previous(req, ctx).constructor.getUrl();
+    }
     next(req, ctx) {
         const journeyMap = new JourneyMap(req.session.journey);
         return journeyMap.nextStep(this, ctx);

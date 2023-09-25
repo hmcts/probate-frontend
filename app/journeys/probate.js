@@ -304,6 +304,8 @@ const previousStepList = {
     ApplicantAliasReason: 'ApplicantAlias',
     ApplicantAddress: 'ApplicantAliasReason',
     ExecutorsNumber: 'ApplicantAddress',
+    AdoptionPlace: 'ApplicantAddress',
+    RelationshipToDeceased: 'Dashboard'
 
 };
 

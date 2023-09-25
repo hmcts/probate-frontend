@@ -24,6 +24,7 @@ class JourneyMap {
     }
 
     previousStep(currentStep, req) {
+        console.log("currentStep.name:"+currentStep.name);
         let prevStepName = this.journey.previousStepList[currentStep.name];
         if (prevStepName !== null && typeof prevStepName === 'object') {
             const reason = req.params[0];

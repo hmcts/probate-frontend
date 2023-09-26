@@ -25,113 +25,33 @@ class UIStepRunner {
             if (ctx.redirect) {
                 res.redirect(ctx.redirect);
             } else {
+                console.log('***********************************UIStepRunner.HandleGet********************************');
+                console.log('UIStepRunner.HandleGet:step-->'+step.name);
+                console.log('UIStepRunner.HandleGet:step-->'+step.constructor.getUrl());
+                //req.session.previousUrl = step.constructor.getUrl();
                 const featureToggles = session.featureToggles;
                 [ctx, errors] = yield step.handleGet(ctx, formdata, featureToggles, session.language);
                 forEach(errors, (error) =>
                     req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
                 );
-                if (isEmpty(errors) && req.originalUrl !== '/sign-out' && req.originalUrl !== '/time-out' &&
-                    req.originalUrl !== '/spouse-not-applying-reason' && req.originalUrl !== '/assets-overseas' &&
-                    req.originalUrl !== '/co-applicant-agree-page' && req.originalUrl !== '/co-applicant-declaration' &&
-                    req.originalUrl !== '/co-applicant-all-agreed-page' &&
-                    req.originalUrl !== '/co-applicant-disagree-page' &&
-                    req.originalUrl !== '/co-applicant-start-page' &&
-                    req.originalUrl !== '/copies-start' &&
-                    req.originalUrl !== '/copies-summary' &&
-                    req.originalUrl !== '/copies-uk' &&
-                    req.originalUrl !== '/all-children-over-18' &&
-                    req.originalUrl !== '/any-children' &&
-                    req.originalUrl !== '/any-deceased-children' &&
-                    req.originalUrl !== '/any-grandchildren-under-18' &&
-                    req.originalUrl !== '/any-other-children' &&
-                    req.originalUrl !== '/deceased-details' &&
-                    req.originalUrl !== '/divorce-place' &&
-                    req.originalUrl !== '/english-foreign-death-cert' &&
-                    req.originalUrl !== '/foreign-death-cert-translation' &&
-                    req.originalUrl !== '/deceased-marital-status' &&
-                    req.originalUrl !== '/executors-change-made' &&
-                    req.originalUrl !== '/executors-alias' &&
-                    req.originalUrl !== '/executor-current-name' &&
-                    req.originalUrl !== '/executor-current-name-reason' &&
-                    req.originalUrl !== '/executors-additional-invite' &&
-                    req.originalUrl !== '/executors-additional-invite-sent' &&
-                    req.originalUrl !== '/executors-address' &&
-                    req.originalUrl !== '/executors-all-alive' &&
-                    req.originalUrl !== '/executors-applying' &&
-                    req.originalUrl !== '/executors-contact-details' &&
-                    req.originalUrl !== '/executors-dealing-with-estate' &&
-                    req.originalUrl !== '/executors-invite' &&
-                    req.originalUrl !== '/executors-invites-sent' &&
-                    req.originalUrl !== '/executors-other-names' &&
-                    req.originalUrl !== '/executors-update-invite' &&
-                    req.originalUrl !== '/executors-other-names' &&
-                    req.originalUrl !== '/documents' &&
-                    req.originalUrl !== '/error-pages' &&
-                    req.originalUrl !== '/task-list' &&
-                    req.originalUrl !== '/thank-you' &&
-                    req.originalUrl !== '/declaration' &&
-                    req.originalUrl !== '/deceased-divorce-or-separation-place' &&
-                    req.originalUrl !== '/executor-current-name/4' &&
-                    req.originalUrl !== '/executor-current-name/2' &&
-                    req.originalUrl !== '/executor-current-name-reason/2' &&
-                    req.originalUrl !== '/executor-address/1' &&
-                    req.originalUrl !== '/other-executors-applying' &&
-                    req.originalUrl !== '/executor-contact-details/1' &&
-                    req.originalUrl !== '/executors-names' &&
-                    req.originalUrl !== '/executors-number' &&
-                    req.originalUrl !== '/executors-update-invite-sent' &&
-                    req.originalUrl !== '/executor-when-died/*' &&
-                    req.originalUrl !== '/executor-when-died/1' &&
-                    req.originalUrl !== '/executors-who-died' &&
-                    req.originalUrl !== '/executor-notified/*' &&
-                    req.originalUrl !== '/executor-notified/1' &&
-                    req.originalUrl !== '/executor-roles/*' &&
-                    req.originalUrl !== '/executor-roles/1' &&
-                    req.originalUrl !== '/assets-outside-england-wales' &&
-                    req.originalUrl !== '/deceased-late-spouse-civil-partner' &&
-                    req.originalUrl !== '/iht-identifier' &&
-                    req.originalUrl !== '/iht-estate-values' &&
-                    req.originalUrl !== '/iht-method' &&
-                    req.originalUrl !== '/iht-paper' &&
-                    req.originalUrl !== '/probate-estate-values' &&
-                    req.originalUrl !== '/unused-allowance-claimed' &&
-                    req.originalUrl !== '/iht-value' &&
-                    req.originalUrl !== '/value-assets-outside-england-wales' &&
-                    req.originalUrl !== '/value-assets-outside-england-wales' &&
-                    req.originalUrl !== '/payment-breakdown' &&
-                    req.originalUrl !== '/payment-status' &&
-                    req.originalUrl !== '/pin-resend' &&
-                    req.originalUrl !== '/sign-in' &&
-
-                    req.originalUrl !== '/pin-sent' &&
-                    req.originalUrl !== '/summary/*' &&
-                    req.originalUrl !== '/terms-conditions' &&
-                    req.originalUrl !== '/privacy-policy' &&
-                    req.originalUrl !== '/cookies' &&
-
-                    req.originalUrl !== '/cookies' &&
-                    req.originalUrl !== '/contact-us' &&
-                    req.originalUrl !== '/avaya-webchat' &&
-                    req.originalUrl !== '/accessibility-statement' &&
-                    req.originalUrl !== '/start-apply' &&
-
-                    req.originalUrl !== '/related-to-deceased' &&
-                    req.originalUrl !== '/other-applicants' &&
-                    req.originalUrl !== '/died-after-october-2014' &&
-
-                    req.originalUrl !== '/document-upload' &&
-
-                    req.originalUrl !== '/copies-overseas'
-                ) {
-                    console.log('req.originalUrl--->'+req.originalUrl);
-                    const previousStepUrl = step.previousStepUrl(req, ctx);
-                    res.locals.previousUrl = previousStepUrl;
+                if (isEmpty(errors) && req.originalUrl !== '/sign-out' && req.originalUrl !== '/time-out') {
+                    //console.log('@UIStepRunner:req.originalUrl--->'+req.originalUrl);
+                    //console.log('@UIStepRunner:previousStepUrl-get it from step-->'+step.previousStepUrl(req));
+                    //const previousStepUrl = step.previousStepUrl(req);
+                    console.log('***********************************UIStepRunner.HandleGet* update res.locals.previousUrl from session:'+req.session.previousUrl);
+                    res.locals.previousUrl = req.session.previousUrl;
+                    console.log('***********************************UIStepRunner.HandleGet* update  session to : '+step.constructor.getUrl());
+                    req.session.previousUrl = step.constructor.getUrl();
+                    res.locals.name = step.name;
                 }
                 const content = step.generateContent(ctx, formdata, session.language);
                 const fields = step.generateFields(session.language, ctx, errors, formdata);
                 if (req.query.source === 'back') {
+                    console.log('@UIStepRunner:req.query.source *** trigger session.back.pop--->'+req.originalUrl);
                     session.back.pop();
                 } else if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
+                    console.log('@UIStepRunner:req.query.source ELSE  ELSE ELSE  *** trigger session.back.pop--->'+req.originalUrl);
+                    console.log('@UIStepRunner:req.query.source ELSE  ELSE ELSE  *** trigger session.back.pop--->'+step.constructor.getUrl());
                     session.back.push(step.constructor.getUrl());
                 }
                 const common = step.commonContent(session.language);
@@ -141,6 +61,7 @@ class UIStepRunner {
                         req.log.error(err);
                         return res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
                     }
+                    console.log('***********************************calling.UIStepRunner  .step.renderPage********************************');
                     step.renderPage(res, html);
                 });
             }

@@ -65,7 +65,7 @@ describe('DeceasedDomicile', () => {
                 domicile: 'optionYes'
             };
             const nextStepUrl = DeceasedDomicile.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/iht-completed');
+            expect(nextStepUrl).to.equal('/ee-deceased-dod');
             done();
         });
 

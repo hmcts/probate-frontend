@@ -41,14 +41,12 @@ class Step {
         this.content = require(`app/resources/${language}/translation/${resourcePath}`);
         this.i18next = i18next;
     }
-
-    previous(req) {
-        const journeyMap = new JourneyMap(req.session.journey);
-        return journeyMap.previousStep(this, req);
+    previousStepUrl(req, res, ctx) {
+        utils.getPreviousUrl(ctx, req, res, this.steps, this.name);
     }
 
-    previousStepUrl(req, ctx) {
-        return this.previous(req, ctx).constructor.getUrl();
+    getScrennersPreviousUrl(req, res, ctx) {
+        utils.getScrennersPreviousUrl(ctx, req, res, this.steps, this.name);
     }
     next(req, ctx) {
         const journeyMap = new JourneyMap(req.session.journey);

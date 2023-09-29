@@ -16,6 +16,7 @@ const updateTaskStatus = (ctx, req, res, steps) => {
     const taskList = journeyMap.taskList();
 
     Object.keys(taskList).forEach((taskName) => {
+
         const task = taskList[taskName];
         let status = 'complete';
         let step = steps[task.firstStep];
@@ -45,6 +46,68 @@ const updateTaskStatus = (ctx, req, res, steps) => {
     });
 };
 
+const getPreviousUrl = (ctx, req, res, steps, stepName) => {
+    const formdata = req.session.form;
+    const journeyMap = new JourneyMap(req.session.journey);
+    const taskList = journeyMap.taskList();
+    let previousUrl='';
+
+    Object.keys(taskList).forEach((taskName) => {
+        if (previousUrl !== '') {
+            return;
+        }
+        const task = taskList[taskName];
+        let status = 'complete';
+        let step = steps[task.firstStep];
+        if (stepName===step.name) {
+            previousUrl = '/task-list';
+            ctx.previousUrl = previousUrl;
+            return;
+        }
+        while (step.name !== stepName && step.name !== task.lastStep) {
+            const localctx = step.getContextData(req, res);
+            const featureToggles = req.session.featureToggles;
+            const [stepCompleted, progressFlag] = step.isComplete(localctx, formdata, featureToggles);
+            const nextStep = step.next(req, localctx);
+            if (stepCompleted) {
+                status = progressFlag !== 'noProgress' ? 'started' : status;
+                if (nextStep.name !== stepName) {
+                    step = nextStep;
+                } else {
+                    previousUrl = step.constructor.getUrl();
+                    ctx.previousUrl = previousUrl;
+                    return;
+                }
+            } else {
+                break;
+            }
+        }
+    });
+
+};
+
+const getScrennersPreviousUrl = (ctx, req, res, steps, stepName) => {
+    let previousUrl='';
+    const StartEligibilityStep = 'StartEligibility';
+    const lastStep = 'MentalCapacity';
+    let step = steps[StartEligibilityStep];
+    if (stepName === 'StartEligibility') {
+        previousUrl = '/dashboard';
+        ctx.previousUrl = previousUrl;
+        return;
+    }
+    while (step.name !== stepName && step.name !== lastStep) {
+        const localctx = step.getContextData(req, res);
+        const nextStep = step.next(req, localctx);
+        if (nextStep.name !== stepName) {
+            step = nextStep;
+        } else {
+            previousUrl = step.constructor.getUrl();
+            ctx.previousUrl = previousUrl;
+            return;
+        }
+    }
+};
 const isPreDeclarationTask = (taskName) => {
     return taskName === 'DeceasedTask' || taskName === 'ExecutorsTask';
 };
@@ -61,5 +124,7 @@ const formattedDate = (date, language) => {
 module.exports = {
     commonContent,
     updateTaskStatus,
+    getPreviousUrl,
+    getScrennersPreviousUrl,
     formattedDate
 };

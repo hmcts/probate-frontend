@@ -25,33 +25,24 @@ class UIStepRunner {
             if (ctx.redirect) {
                 res.redirect(ctx.redirect);
             } else {
-                console.log('***********************************UIStepRunner.HandleGet********************************');
-                console.log('UIStepRunner.HandleGet:step-->'+step.name);
-                console.log('UIStepRunner.HandleGet:step-->'+step.constructor.getUrl());
-                //req.session.previousUrl = step.constructor.getUrl();
                 const featureToggles = session.featureToggles;
                 [ctx, errors] = yield step.handleGet(ctx, formdata, featureToggles, session.language);
                 forEach(errors, (error) =>
                     req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
                 );
-                if (isEmpty(errors) && req.originalUrl !== '/sign-out' && req.originalUrl !== '/time-out') {
-                    //console.log('@UIStepRunner:req.originalUrl--->'+req.originalUrl);
-                    //console.log('@UIStepRunner:previousStepUrl-get it from step-->'+step.previousStepUrl(req));
-                    //const previousStepUrl = step.previousStepUrl(req);
-                    console.log('***********************************UIStepRunner.HandleGet* update res.locals.previousUrl from session:'+req.session.previousUrl);
-                    res.locals.previousUrl = req.session.previousUrl;
-                    console.log('***********************************UIStepRunner.HandleGet* update  session to : '+step.constructor.getUrl());
-                    req.session.previousUrl = step.constructor.getUrl();
-                    res.locals.name = step.name;
+                if (isEmpty(errors) && req.originalUrl !== '/sign-out' && req.originalUrl !== '/time-out' &&
+                    req.originalUrl !== '/task-list' && req.originalUrl !== '/dashboard') {
+                    step.previousStepUrl(req, res, ctx);
+                    if (typeof ctx.previousUrl === 'undefined') {
+                        step.getScrennersPreviousUrl(req, res, ctx);
+                    }
+                    res.locals.previousUrl= ctx.previousUrl;
                 }
                 const content = step.generateContent(ctx, formdata, session.language);
                 const fields = step.generateFields(session.language, ctx, errors, formdata);
                 if (req.query.source === 'back') {
-                    console.log('@UIStepRunner:req.query.source *** trigger session.back.pop--->'+req.originalUrl);
                     session.back.pop();
                 } else if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
-                    console.log('@UIStepRunner:req.query.source ELSE  ELSE ELSE  *** trigger session.back.pop--->'+req.originalUrl);
-                    console.log('@UIStepRunner:req.query.source ELSE  ELSE ELSE  *** trigger session.back.pop--->'+step.constructor.getUrl());
                     session.back.push(step.constructor.getUrl());
                 }
                 const common = step.commonContent(session.language);
@@ -61,7 +52,6 @@ class UIStepRunner {
                         req.log.error(err);
                         return res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
                     }
-                    console.log('***********************************calling.UIStepRunner  .step.renderPage********************************');
                     step.renderPage(res, html);
                 });
             }

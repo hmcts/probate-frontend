@@ -57,7 +57,7 @@ describe('deceased-domicile', () => {
                         domicile: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForIhtCompleted, cookies);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForExceptedEstateDeceasedDod, cookies);
                 });
         });
 

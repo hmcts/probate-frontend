@@ -100,10 +100,10 @@ const getScrennersPreviousUrl = (ctx, req, res, steps, currentStepName) => {
         const localctx = loopingStep.getContextData(req, res);
         const nextStep = loopingStep.next(req, localctx);
         if (nextStep.name !== currentStepName) {
-            if (loopingStep.name==='StopPage' && nextStep.name==='StopPage') {
-                return;
-            } else {
+            if (loopingStep.name!=='StopPage' && nextStep.name!=='StopPage') {
                 loopingStep = nextStep;
+            } else {
+                return;
             }
         } else {
             previousUrl = loopingStep.constructor.getUrl();

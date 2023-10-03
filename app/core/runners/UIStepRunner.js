@@ -30,8 +30,8 @@ class UIStepRunner {
                 forEach(errors, (error) =>
                     req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
                 );
-                if (isEmpty(errors) && req.originalUrl !== '/sign-out' && req.originalUrl !== '/time-out' &&
-                    req.originalUrl !== '/task-list' && req.originalUrl !== '/dashboard') {
+                if (isEmpty(errors) && step.name !== 'SignOut' && step.name !== 'Timeout' &&
+                    step.name !== 'TaskList' && step.name !== 'Dashboard') {
                     step.previousStepUrl(req, res, ctx);
                     if (typeof ctx.previousUrl === 'undefined') {
                         step.getScrennersPreviousUrl(req, res, ctx);

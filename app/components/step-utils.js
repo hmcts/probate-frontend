@@ -86,23 +86,27 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
 
 };
 
-const getScrennersPreviousUrl = (ctx, req, res, steps, stepName) => {
+const getScrennersPreviousUrl = (ctx, req, res, steps, currentStepName) => {
     let previousUrl='';
     const StartEligibilityStep = 'StartEligibility';
     const lastStep = 'MentalCapacity';
-    let step = steps[StartEligibilityStep];
-    if (stepName === 'StartEligibility') {
+    let loopingStep = steps[StartEligibilityStep];
+    if (currentStepName === 'StartEligibility') {
         previousUrl = '/dashboard';
         ctx.previousUrl = previousUrl;
         return;
     }
-    while (step.name !== stepName && step.name !== lastStep) {
-        const localctx = step.getContextData(req, res);
-        const nextStep = step.next(req, localctx);
-        if (nextStep.name !== stepName) {
-            step = nextStep;
+    while (loopingStep.name !== currentStepName && loopingStep.name !== lastStep) {
+        const localctx = loopingStep.getContextData(req, res);
+        const nextStep = loopingStep.next(req, localctx);
+        if (nextStep.name !== currentStepName) {
+            if (loopingStep.name==='StopPage' && nextStep.name==='StopPage') {
+                return;
+            } else {
+                loopingStep = nextStep;
+            }
         } else {
-            previousUrl = step.constructor.getUrl();
+            previousUrl = loopingStep.constructor.getUrl();
             ctx.previousUrl = previousUrl;
             return;
         }

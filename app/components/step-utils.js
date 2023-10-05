@@ -59,7 +59,7 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
         const task = taskList[taskName];
         let status = 'complete';
         let step = steps[task.firstStep];
-        if (stepName===step.name) {
+        if (stepName===step.name || stepName==='Summary') {
             previousUrl = '/task-list';
             ctx.previousUrl = previousUrl;
             return;

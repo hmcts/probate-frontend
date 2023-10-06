@@ -1,0 +1,43 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+
+{% block form_content %}
+
+{{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "hmrcLetterId",
+        name: "hmrcLetterId",
+        fieldset: {
+            legend: {
+                text: content.question | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: { text: fields.hmrcLetterId.errorMessage | safe } if fields.hmrcLetterId.errorMessage,
+        items: [
+            {
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.hmrcLetterId.value == "optionYes"
+            },
+            {
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.hmrcLetterId.value == "optionNo"
+            }
+        ]
+}) }}
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+
+
+{% endblock %}

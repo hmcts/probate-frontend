@@ -44,7 +44,7 @@ describe('SubmittedToHmrc', () => {
     describe('next()', () => {
         it('should set nextStep to IhtEstateValued when optionIHT400', (done) => {
             ctx.ihtFormEstateId = 'optionIHT400';
-            const expectedStep = steps.IhtEstateValued;
+            const expectedStep = steps.HmrcLetter;
             const returnedStep = SubmittedToHmrc.next(req, ctx);
             expect(returnedStep).to.equal(expectedStep);
             done();

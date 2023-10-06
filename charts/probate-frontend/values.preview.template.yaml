@@ -30,6 +30,10 @@ nodejs:
         - pcq-token-key
 redis:
   enabled: true
+  image:
+    registry: hmctspublic.azurecr.io
+    repository: imported/bitnami/redis
+    tag: '6.2.7'
 
 idam-pr:
   enabled: true

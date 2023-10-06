@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "uniqueProbateCodeId",
+  "type": "object",
+  "properties": {
+    "uniqueProbateCodeId": {
+      "type": "string",
+      "minLength": 21,
+      "maxLength": 24,
+      "pattern": "^(cts|CTS) [a-zA-Z0-9]{10} [a-zA-Z0-9]{4} [a-zA-Z0-9]{4}$|^(cts|CTS)[a-zA-Z0-9]{18}$"
+    }
+  },
+  "required": [
+    "uniqueProbateCodeId"
+  ]
+}

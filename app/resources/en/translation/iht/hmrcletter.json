@@ -1,0 +1,14 @@
+{
+  "title": "Have you received a letter from HMRC with your unique probate code?",
+  "question": "Have you received a letter from HMRC with your unique probate code?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "errors" : {
+
+    "hmrcLetterId" : {
+      "required": "You must select an option to continue",
+      "unimplemented": "This page should not be accessed"
+    }
+
+  }
+}

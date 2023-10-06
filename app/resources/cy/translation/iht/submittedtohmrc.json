@@ -8,6 +8,7 @@
   "optionIHT400421": "IHT400 and IHT421",
   "optionIHT400421Conditional": "Only select this option if you applied before ((date))",
   "optionNotRequired": "I did not have to submit any forms to HMRC",
+  "optionIHT205": "IHT 205",
 
   "errors": {
     "ihtFormEstateId": {

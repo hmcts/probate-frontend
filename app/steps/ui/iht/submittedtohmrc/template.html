@@ -16,6 +16,10 @@
 <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
 <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
 
+{% set conditionalIHT205 %}
+<p class="govuk-body">{{ content.optionIHT400Conditional | safe }}</p>
+{% endset -%}
+
 {% set conditionalIHT400 %}
 <p class="govuk-body">{{ content.optionIHT400Conditional | safe }}</p>
 {% endset -%}
@@ -31,6 +35,14 @@
         errorMessage: { text: fields.ihtFormEstateId.errorMessage | safe } if fields.ihtFormEstateId.errorMessage,
         items: [
             {
+            value: "optionIHT205",
+            text: content["optionIHT205"] | safe,
+            conditional: {
+            html: conditionalIHT400
+            },
+            checked: true if fields.ihtFormEstateId.value == "optionIHT205"
+            },
+            {
                 value: "optionIHT400",
                 text: content["optionIHT400"] | safe,
                 conditional: {
@@ -45,14 +57,6 @@
                     html: conditionalIHT400421
                 },
                 checked: true if fields.ihtFormEstateId.value == "optionIHT400421"
-            },
-            {
-                divider: "or"
-            },
-            {
-                value: "optionNotRequired",
-                text: content["optionNotRequired"] | safe,
-                checked: true if fields.ihtFormEstateId.value == "optionNotRequired"
             }
         ]
 }) }}

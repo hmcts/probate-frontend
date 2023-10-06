@@ -45,10 +45,8 @@ class Step {
         utils.getPreviousUrl(ctx, req, res, this.steps, this.name);
     }
 
-    getScrennersPreviousUrl(req, res, ctx) {
-        if (this.resourcePath.indexOf('screeners')>=0 || this.name==='StopPage') {
-            utils.getScrennersPreviousUrl(ctx, req, res, this.steps, this.name);
-        }
+    previousScrennerStepUrl(req, res, ctx) {
+        utils.getScrennersPreviousUrl(ctx, req, res, this.steps, this.name);
     }
     next(req, ctx) {
         const journeyMap = new JourneyMap(req.session.journey);

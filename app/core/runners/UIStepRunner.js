@@ -32,9 +32,10 @@ class UIStepRunner {
                 );
                 if (isEmpty(errors) && step.name !== 'SignOut' && step.name !== 'Timeout' &&
                     step.name !== 'TaskList' && step.name !== 'Dashboard') {
-                    step.previousStepUrl(req, res, ctx);
-                    if (typeof ctx.previousUrl === 'undefined') {
-                        step.getScrennersPreviousUrl(req, res, ctx);
+                    if (step.resourcePath.indexOf('screeners')>=0 || step.name==='StopPage') {
+                        step.previousScrennerStepUrl(req, res, ctx);
+                    } else {
+                        step.previousStepUrl(req, res, ctx);
                     }
                     res.locals.previousUrl= ctx.previousUrl;
                 }

@@ -5,7 +5,8 @@ const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DeceasedDob = steps.DeceasedDob;
 const content = require('app/resources/en/translation/deceased/dob');
-
+const journeyProbate = require('../../../app/journeys/probate');
+const PreviousStep = steps.DeceasedName;
 describe('DeceasedDob', () => {
     describe('dateName()', () => {
         it('should return the date names array', (done) => {
@@ -109,4 +110,37 @@ describe('DeceasedDob', () => {
             done();
         });
     });
+
+    describe('previousStepUrl()', () => {
+        let ctx;
+        it('should return the previous step url', (done) => {
+            const res = {
+                redirect: (url) => url
+            };
+            const req = {
+                session: {
+                    language: 'en',
+                    form: {
+                        language: {
+                            bilingual: 'optionYes'
+                        },
+                        deceased: {
+                            firstName: 'John',
+                            lastName: 'Doe'
+                        },
+                        declaration: {
+                            declarationCheckbox: 'true'
+                        }
+                    },
+                    back: ['hello']
+                }
+            };
+            req.session.journey = journeyProbate;
+            ctx = {};
+            DeceasedDob.previousStepUrl(req, res, ctx);
+            expect(ctx.previousUrl).to.equal(PreviousStep.constructor.getUrl());
+            done();
+        });
+    });
+
 });

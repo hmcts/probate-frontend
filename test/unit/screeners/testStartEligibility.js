@@ -1,10 +1,11 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
+const journeyProbate = require("../../../app/journeys/probate");
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const startEligibility = steps.StartEligibility;
-
+const PreviousStep = steps.Dashboard;
 describe('StartEligibility', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
@@ -32,6 +33,25 @@ describe('StartEligibility', () => {
             const featureToggles = {};
             const [ctx] = startEligibility.handleGet(ctxToTest, formdata, featureToggles);
             expect(ctx.isFeesApiToggleEnabled).to.equal(false);
+            done();
+        });
+    });
+
+    describe('previousScrennerStepUrl()', () => {
+        let ctx;
+        it('should return the previous step url', (done) => {
+            const res = {
+                redirect: (url) => url
+            };
+            const req = {
+                session: {
+                    language: 'en'
+                }
+            };
+            req.session.journey = journeyProbate;
+            ctx = {};
+            startEligibility.previousScrennerStepUrl(req, res, ctx);
+            expect(ctx.previousUrl).to.equal(PreviousStep.constructor.getUrl());
             done();
         });
     });

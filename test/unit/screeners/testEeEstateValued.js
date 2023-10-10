@@ -5,8 +5,9 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const coreContextMockData = require('../../data/core-context-mock-data.json');
+const journeyProbate = require('../../../app/journeys/probate');
 const ExceptedEstateValued = steps.ExceptedEstateValued;
-
+const PreviousStep = steps.ExceptedEstateDeceasedDod;
 describe('ExceptedEstateValued', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
@@ -108,6 +109,35 @@ describe('ExceptedEstateValued', () => {
                     choice: 'eeEstateValued'
                 }]
             });
+            done();
+        });
+    });
+
+    describe('previousScrennerStepUrl()', () => {
+        let ctx;
+        it('should return the previous step url', (done) => {
+            const res = {
+                redirect: (url) => url
+            };
+            const req = {
+                method: 'GET',
+                session: {
+                    language: 'en',
+                    form: {
+                        screeners: {
+                            deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionYes',
+                            domicile: 'optionYes',
+                            eeDeceasedDod: 'optionYes'
+                        }
+                    },
+                    caseType: 'gop'
+                }
+            };
+            req.session.journey = journeyProbate;
+            ctx = {};
+            ExceptedEstateValued.previousScrennerStepUrl(req, res, ctx);
+            expect(ctx.previousUrl).to.equal(PreviousStep.constructor.getUrl());
             done();
         });
     });

@@ -8,6 +8,7 @@ const coreContextMockData = require('../../data/core-context-mock-data.json');
 const journeyProbate = require('../../../app/journeys/probate');
 const DeceasedDomicile = steps.DeceasedDomicile;
 const PreviousStep = steps.DeathCertificateInEnglish;
+const DeathCertificateTranslation = steps.DeathCertificateTranslation;
 describe('DeceasedDomicile', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
@@ -152,7 +153,7 @@ describe('DeceasedDomicile', () => {
 
     describe('previousScrennerStepUrl()', () => {
         let ctx;
-        it('should return the previous step url', (done) => {
+        it('should return the DeathCertificateInEnglish step url', (done) => {
             const res = {
                 redirect: (url) => url
             };
@@ -173,6 +174,31 @@ describe('DeceasedDomicile', () => {
             ctx = {};
             DeceasedDomicile.previousScrennerStepUrl(req, res, ctx);
             expect(ctx.previousUrl).to.equal(PreviousStep.constructor.getUrl());
+            done();
+        });
+
+        it('should return the DeathCertificateTranslation step url', (done) => {
+            const res = {
+                redirect: (url) => url
+            };
+            const req = {
+                method: 'GET',
+                session: {
+                    language: 'en',
+                    form: {
+                        screeners: {
+                            deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes'
+                        }
+                    },
+                    caseType: 'gop'
+                }
+            };
+            req.session.journey = journeyProbate;
+            ctx = {};
+            DeceasedDomicile.previousScrennerStepUrl(req, res, ctx);
+            expect(ctx.previousUrl).to.equal(DeathCertificateTranslation.constructor.getUrl());
             done();
         });
     });

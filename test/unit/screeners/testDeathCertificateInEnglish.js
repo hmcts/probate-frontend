@@ -121,7 +121,6 @@ describe('DeathCertificateInEnglish', () => {
                     form: {
                         screeners: {
                             deathCertificate: 'optionYes',
-                            deathCertificateInEnglish: 'optionYes'
                         }
                     },
                     caseType: 'gop'

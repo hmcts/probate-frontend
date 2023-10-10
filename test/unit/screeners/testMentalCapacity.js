@@ -5,8 +5,9 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const coreContextMockData = require('../../data/core-context-mock-data.json');
+const journeyProbate = require('../../../app/journeys/probate');
 const MentalCapacity = steps.MentalCapacity;
-
+const PreviousStep = steps.ApplicantExecutor;
 describe('MentalCapacity', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
@@ -111,6 +112,40 @@ describe('MentalCapacity', () => {
                     choice: 'isCapable'
                 }]
             });
+            done();
+        });
+    });
+
+    describe('previousScrennerStepUrl()', () => {
+        let ctx;
+        it('should return the previous step url', (done) => {
+            const res = {
+                redirect: (url) => url
+            };
+            const req = {
+                method: 'GET',
+                session: {
+                    language: 'en',
+                    form: {
+                        screeners: {
+                            deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionYes',
+                            domicile: 'optionYes',
+                            eeDeceasedDod: 'optionYes',
+                            eeEstateValued: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionYes',
+                            original: 'optionYes',
+                            executor: 'optionYes'
+                        }
+                    },
+                    caseType: 'gop'
+                }
+            };
+            req.session.journey = journeyProbate;
+            ctx = {};
+            MentalCapacity.previousScrennerStepUrl(req, res, ctx);
+            expect(ctx.previousUrl).to.equal(PreviousStep.constructor.getUrl());
             done();
         });
     });

@@ -6,6 +6,7 @@ const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const coreContextMockData = require('../../data/core-context-mock-data.json');
 const OtherApplicants = steps.OtherApplicants;
+const PreviousStep = steps.RelatedToDeceased;
 
 describe('OtherApplicants', () => {
     describe('getUrl()', () => {
@@ -109,6 +110,39 @@ describe('OtherApplicants', () => {
                     choice: 'noOthers'
                 }]
             });
+            done();
+        });
+    });
+
+    describe('previousScrennerStepUrl()', () => {
+        let ctx;
+        it('should return the previous step url', (done) => {
+            const res = {
+                redirect: (url) => url
+            };
+            const req = {
+                method: 'GET',
+                session: {
+                    journey: journey,
+                    language: 'en',
+                    form: {
+                        screeners: {
+                            deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionYes',
+                            domicile: 'optionYes',
+                            eeDeceasedDod: 'optionYes',
+                            eeEstateValued: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionNo',
+                            diedAfter: 'optionYes',
+                            related: 'optionYes'
+                        }
+                    }
+                }
+            };
+            ctx = {};
+            OtherApplicants.previousScrennerStepUrl(req, res, ctx);
+            expect(ctx.previousUrl).to.equal(PreviousStep.constructor.getUrl());
             done();
         });
     });

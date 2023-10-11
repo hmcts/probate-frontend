@@ -1,9 +1,11 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
+const journeyProbate = require('../../../app/journeys/probate');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const EnglishForeignDeathCert = steps.EnglishForeignDeathCert;
+const PreviousStep = steps.DiedEnglandOrWales;
 
 describe('EnglishForeignDeathCert', () => {
     describe('getUrl()', () => {
@@ -53,4 +55,47 @@ describe('EnglishForeignDeathCert', () => {
             done();
         });
     });
+
+    describe('previousStepUrl()', () => {
+        let ctx;
+        it('should return the previous step url', (done) => {
+            const res = {
+                redirect: (url) => url
+            };
+            const req = {
+                session: {
+                    language: 'en',
+                    form: {
+                        language: {
+                            bilingual: 'optionYes'
+                        },
+                        deceased: {
+                            firstName: 'John',
+                            lastName: 'Doe',
+                            'dob-day': '02',
+                            'dob-month': '03',
+                            'dob-year': '2002',
+                            'dod-day': '02',
+                            'dod-month': '03',
+                            'dod-year': '2003',
+                            address: {
+                                addressLine1: '143 Caerfai Bay Road',
+                                postTown: 'town',
+                                newPostCode: 'L23 6WW',
+                                country: 'United Kingdon',
+                                postcode: 'L23 6WW'
+                            },
+                            diedEngOrWales: 'optionNo'
+                        }
+                    }
+                }
+            };
+            req.session.journey = journeyProbate;
+            ctx = {};
+            EnglishForeignDeathCert.previousStepUrl(req, res, ctx);
+            expect(ctx.previousUrl).to.equal(PreviousStep.constructor.getUrl());
+            done();
+        });
+    });
+
 });

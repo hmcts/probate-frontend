@@ -40,7 +40,15 @@ const stepList = {
         otherwise: 'StopPage'
     },
     DeceasedDomicile: {
-        inEnglandOrWales: 'IhtCompleted',
+        inEnglandOrWales: 'ExceptedEstateDeceasedDod',
+        otherwise: 'StopPage'
+    },
+    ExceptedEstateDeceasedDod: {
+        dodAfterEeThreshold: 'ExceptedEstateValued',
+        otherwise: 'IhtCompleted'
+    },
+    ExceptedEstateValued: {
+        eeEstateValued: 'WillLeft',
         otherwise: 'StopPage'
     },
     IhtCompleted: {

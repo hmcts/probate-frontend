@@ -11,14 +11,15 @@
             {% endblock %}
 
             {% block page_content %}{% endblock %}
-
-          <p class="govuk-body"> {{ govukBackLink({
-            text: common.back | safe,
-            href: previousUrl,
-            attributes: {
-              title: "Back"
-            }
-            }) }}
+            {% if previousUrl !== undefined and previousUrl.length > 0 %}
+              <p class="govuk-body"> {{ govukBackLink({
+              text: common.back | safe,
+              href: previousUrl,
+              attributes: {
+                title: "Back"
+              }
+              }) }}
+            {% endif %}
           </p>
           <form class="form" id="main-form" method="post" autocomplete="off" action="{{ pageUrl }}" novalidate>
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}">

@@ -1,5 +1,5 @@
 {
-  "title": "What are the values of assets for probate",
+  "question": "What are the values of assets for probate",
   "hint1": "You can find these values in the letter HMRC sent you.",
   "hint2": "The values you enter must be whole numbers and must not include decimals full stops and commas. for example 25000, not 25,000",
   "grossHint400": "Gross value of assets for probate in &pound;",

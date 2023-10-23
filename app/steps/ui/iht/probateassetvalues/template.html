@@ -4,18 +4,21 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% set displayQuestion = content.question %}
+{% set displayQuestionHint1 = content.hint1 %}
+{% set displayQuestionHint2 = content.hint2 %}
+
 
 {% block form_content %}
-<h1 class="govuk-fieldset__legend--l">{{ content.title }}</h1>
-<p class="govuk-hint">{{ content.hint1 }}</p>
-<p class="govuk-hint">{{ content.hint2 }}</p>
   {% call govukFieldset({
   legend: {
-  text: title | safe,
+  text: displayQuestion | safe,
   classes: "govuk-fieldset__legend--l",
   isPageHeading: true
   }
   }) %}
+<p class="govuk-hint">{{ displayQuestionHint1 }}</p>
+<p class="govuk-hint">{{ displayQuestionHint2 }}</p>
 
 
 

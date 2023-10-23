@@ -16,9 +16,11 @@ class SubmittedToHmrc extends ValidationStep {
         } else if (ctx.ihtFormEstateId === 'optionIHT400421') {
             ctx.estateValueCompleted = 'optionYes';
             return journeyMap.getNextStepByName('ProbateEstateValues');
+        } else if (ctx.ihtFormEstateId === 'optionNotRequired') {
+            ctx.estateValueCompleted = 'optionNotRequired';
+            return journeyMap.getNextStepByName('IhtEstateValues');
         }
-        ctx.estateValueCompleted = 'optionIHT205';
-        return journeyMap.getNextStepByName('IhtEstateValues');
+
     }
 
     nextStepOptions() {

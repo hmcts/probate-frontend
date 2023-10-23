@@ -35,14 +35,6 @@
         errorMessage: { text: fields.ihtFormEstateId.errorMessage | safe } if fields.ihtFormEstateId.errorMessage,
         items: [
             {
-            value: "optionIHT205",
-            text: content["optionIHT205"] | safe,
-            conditional: {
-            html: conditionalIHT400
-            },
-            checked: true if fields.ihtFormEstateId.value == "optionIHT205"
-            },
-            {
                 value: "optionIHT400",
                 text: content["optionIHT400"] | safe,
                 conditional: {
@@ -56,7 +48,13 @@
                 conditional: {
                     html: conditionalIHT400421
                 },
-                checked: true if fields.ihtFormEstateId.value == "optionIHT400421"
+                checked: true if fields.ihtFormEstateId.value == "optionIHT400421",
+                visible: fields.iht.method.value == "optionPaper" and fields.summary.exceptedEstateDodAfterThreshold.value == "false"
+            },
+            {
+            value: "optionNotRequired",
+            text: content["optionNotRequired"] | safe,
+            checked: true if fields.ihtFormEstateId.value == "optionNotRequired"
             }
         ]
 }) }}

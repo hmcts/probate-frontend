@@ -114,7 +114,8 @@ const stepList = {
         deceasedHadLateSpouseOrCivilPartner: 'IhtUnusedAllowanceClaimed',
         otherwise: 'ProbateEstateValues'
     },
-    UniqueProbateCode: 'ProbateEstateValues',
+    UniqueProbateCode: 'ProbateAssetValues',
+    ProbateAssetValues: 'DeceasedAlias',
     WaitingForHmrc: 'HmrcLetter',
     IhtUnusedAllowanceClaimed: 'ProbateEstateValues',
     ProbateEstateValues: 'DeceasedAlias',

@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const IhtMethod = require('app/steps/ui/iht/method');
 const IhtEstateValued = require('app/steps/ui/iht/estatevalued');
+const SubmittedToHmrcBeforeThreshold = require('app/steps/ui/iht/submittedtohmrcbeforethreshold');
 const IhtPaper = require('app/steps/ui/iht/paper');
 const config = require('config');
 const caseTypes = require('app/utils/CaseTypes');
@@ -12,6 +13,7 @@ describe('death-certificate-interim', () => {
     let testWrapper;
     const expectedNextUrlForIhtMethod = IhtMethod.getUrl();
     const expectedNextUrlForEstateValued = IhtEstateValued.getUrl();
+    const expectedNextUrlForSubmittedToHmrcBeforeThreshold = SubmittedToHmrcBeforeThreshold.getUrl();
     const expectedNextUrlForIhtPaper = IhtPaper.getUrl();
 
     afterEach(() => {
@@ -100,14 +102,14 @@ describe('death-certificate-interim', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
         });
 
-        it(`test it redirects to estate valued FT on but dod before EE dod threshold: ${expectedNextUrlForEstateValued}`, (done) => {
+        it(`test it redirects to submitted-to-hmrc-before-threshold FT on but dod before EE dod threshold: ${expectedNextUrlForSubmittedToHmrcBeforeThreshold}`, (done) => {
             testWrapper = new TestWrapper('DeathCertificateInterim', {ft_excepted_estates: true});
 
             const data = {
                 'dod-date': '2021-12-31',
                 deathCertificate: 'optionDeathCertificate'
             };
-            testWrapper.testRedirect(done, data, expectedNextUrlForEstateValued);
+            testWrapper.testRedirect(done, data, expectedNextUrlForSubmittedToHmrcBeforeThreshold);
         });
 
         it(`test it redirects to iht paper FT on but dod before EE dod threshold: ${expectedNextUrlForIhtPaper}`, (done) => {

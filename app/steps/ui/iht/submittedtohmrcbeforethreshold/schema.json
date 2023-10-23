@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "submitted-to-hmrc-before-threshold",
+  "type": "object",
+  "properties": {
+    "ihtFormEstateId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "ihtFormEstateId"
+  ]
+}

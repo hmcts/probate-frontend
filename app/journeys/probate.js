@@ -94,6 +94,7 @@ const stepList = {
         ihtEstateFormsCompleted: 'SubmittedToHmrc',
         otherwise: 'ReportEstateValues',
     },
+    SubmittedToHmrcBeforeThreshold: 'IhtEstateValued',
     ReportEstateValues: 'IhtEstateValued',
     SubmittedToHmrc: {
         optionIHT400: 'HmrcLetter',

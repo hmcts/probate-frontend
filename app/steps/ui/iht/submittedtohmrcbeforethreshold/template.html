@@ -1,0 +1,69 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% block form_content %}
+{% call govukFieldset({
+    legend: {
+    text: content.header | safe,
+    isPageHeading: true,
+    classes: "govuk-fieldset__legend--l"
+    }
+}) %}
+
+
+{% set conditionalIHT205 %}
+<p class="govuk-body">{{ content.optionIHT400Conditional | safe }}</p>
+{% endset -%}
+
+{% set conditionalIHT400 %}
+<p class="govuk-body">{{ content.optionIHT400Conditional | safe }}</p>
+{% endset -%}
+
+{% set conditionalIHT400421 %}
+<p class="govuk-body">{{ content.optionIHT400421Conditional | safe }}</p>
+{% endset -%}
+
+{{ govukRadios({
+    classes: "govuk-radios",
+    idPrefix: "ihtFormEstateId",
+    name: "ihtFormEstateId",
+    errorMessage: { text: fields.ihtFormEstateId.errorMessage | safe } if fields.ihtFormEstateId.errorMessage,
+    items: [
+    {
+      value: "optionIHT205",
+      text: content["optionIHT205"] | safe,
+      conditional: {
+      html: conditionalIHT400
+    },
+    checked: true if fields.ihtFormEstateId.value == "optionIHT205"
+    },
+    {
+    value: "optionIHT400",
+    text: content["optionIHT400"] | safe,
+    conditional: {
+    html: conditionalIHT400
+    },
+    checked: true if fields.ihtFormEstateId.value == "optionIHT400"
+    },
+    {
+    value: "optionIHT400421",
+    text: content["optionIHT400421"] | safe,
+    conditional: {
+    html: conditionalIHT400421
+    },
+    checked: true if fields.ihtFormEstateId.value == "optionIHT400421",
+    visible: fields.iht.method.value == "optionPaper" and fields.summary.exceptedEstateDodAfterThreshold.value == "false"
+    }
+    ]
+}) }}
+{% endcall %}
+<div class="govuk-form-group">
+  {{ govukButton({
+  text: common.saveAndContinue | safe,
+  preventDoubleClick: true
+  }) }}
+</div>
+{% endblock %}

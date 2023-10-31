@@ -15,7 +15,7 @@
 
 
 {% set conditionalIHT205 %}
-<p class="govuk-body">{{ content.optionIHT400Conditional | safe }}</p>
+<p class="govuk-body">{{ content.optionIHT205 | safe }}</p>
 {% endset -%}
 
 {% set conditionalIHT400 %}
@@ -36,7 +36,7 @@
       value: "optionIHT205",
       text: content["optionIHT205"] | safe,
       conditional: {
-      html: conditionalIHT400
+      html: conditionalIHT205
     },
     checked: true if fields.ihtFormEstateId.value == "optionIHT205"
     },

@@ -77,7 +77,7 @@ const stepList = {
     DeathCertificateInterim: 'IhtMethod',
     ReportEstateValues: 'IhtEstateValued',
     SubmittedToHmrc: {
-        optionIHT400: 'IhtEstateValued',
+        optionIHT400: 'HmrcLetter',
         optionIHT400421: 'ProbateEstateValues',
         optionIHT205: 'IhtEstateValues'
     },
@@ -95,8 +95,7 @@ const stepList = {
         optionYes: 'UniqueProbateCode',
         optionNo: 'WaitingForHmrc'
     },
-    UniqueProbateCode: 'ProbateAssetValues',
-    ProbateAssetValues: 'DeceasedAlias',
+    UniqueProbateCode: 'ProbateEstateValues',
     DeceasedHadLateSpouseOrCivilPartner: {
         deceasedHadLateSpouseOrCivilPartner: 'IhtUnusedAllowanceClaimed',
         otherwise: 'ProbateEstateValues'

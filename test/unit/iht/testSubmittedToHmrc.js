@@ -78,6 +78,12 @@ describe('SubmittedToHmrc', () => {
                     key: 'optionIHT400421',
                     value: 'optionIHT400421',
                     choice: 'optionIHT400421'
+                },
+                {
+                    key: 'optionNotRequired',
+                    value: 'optionNotRequired',
+                    choice: 'optionNotRequired'
+
                 }]
             });
             done();

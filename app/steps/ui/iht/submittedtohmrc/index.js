@@ -27,7 +27,8 @@ class SubmittedToHmrc extends ValidationStep {
         return {
             options: [
                 {key: 'optionIHT400', value: 'optionIHT400', choice: 'optionIHT400'},
-                {key: 'optionIHT400421', value: 'optionIHT400421', choice: 'optionIHT400421'}
+                {key: 'optionIHT400421', value: 'optionIHT400421', choice: 'optionIHT400421'},
+                {key: 'optionNotRequired', value: 'optionNotRequired', choice: 'optionNotRequired'}
             ]
         };
     }

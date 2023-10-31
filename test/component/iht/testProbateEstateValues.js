@@ -25,10 +25,15 @@ describe('Tests for Probate Estate Values ', () => {
             const contentToExclude = [
                 'question421',
                 'questionNoIHT',
+                'question400',
                 'hint421',
+                'hint400part1',
+                'hint400part2',
                 'grossHint421',
+                'grossHint400',
                 'grossHintNoIHT',
                 'netHint421',
+                'netHint400',
                 'netHintNoIHT',
                 'netValueSummary',
                 'grossValueSummary'
@@ -58,10 +63,15 @@ describe('Tests for Probate Estate Values ', () => {
             const contentToExclude = [
                 'question207',
                 'questionNoIHT',
+                'question400',
                 'hint207',
+                'hint400part1',
+                'hint400part2',
                 'grossHint207',
+                'grossHint400',
                 'grossHintNoIHT',
                 'netHint207',
+                'netHint400',
                 'netHintNoIHT',
                 'netValueSummary',
                 'grossValueSummary'
@@ -91,12 +101,53 @@ describe('Tests for Probate Estate Values ', () => {
             const contentToExclude = [
                 'question207',
                 'question421',
+                'question400',
+                'hint207',
+                'hint400part1',
+                'hint400part2',
+                'hint421',
+                'grossHint207',
+                'grossHint421',
+                'grossHint400',
+                'netHint207',
+                'netHint421',
+                'netHint400',
+                'netValueSummary',
+                'grossValueSummary'
+            ];
+
+            const sessionData = {
+                type: caseTypes.GOP,
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+            };
+
+            const contentData = {
+                ihtGifts: config.links.ihtGifts
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+
+        it('test content loaded on the page for iht400 form completed', (done) => {
+            const contentToExclude = [
+                'question207',
+                'questionNoIHT',
+                'question421',
                 'hint207',
                 'hint421',
                 'grossHint207',
                 'grossHint421',
+                'grossHintNoIHT',
                 'netHint207',
                 'netHint421',
+                'netHintNoIHT',
                 'netValueSummary',
                 'grossValueSummary'
             ];

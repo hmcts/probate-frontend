@@ -158,6 +158,10 @@ describe('Tests for Probate Estate Values ', () => {
                     state: 'Pending',
                     id: 1234567890123456
                 },
+                iht: {
+                    ihtFormEstateId: 'optionIHT400',
+                    estateValueCompleted: 'optionYes'
+                }
             };
 
             const contentData = {

@@ -68,6 +68,9 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
             const localctx = step.getContextData(req, res);
             const featureToggles = req.session.featureToggles;
             const [stepCompleted, progressFlag] = step.isComplete(localctx, formdata, featureToggles);
+            if (step.name==='ExecutorsWhenDied') {
+                delete localctx.index;
+            }
             const nextStep = step.next(req, localctx);
             if (stepCompleted) {
                 status = progressFlag !== 'noProgress' ? 'started' : status;

@@ -11,6 +11,7 @@
   "checkApply": "Check you can apply",
   "createAccount": "Create your account",
   "back": "Back",
+  "backArrow": "&lt;&nbsp;",
   "continue": "Continue",
   "saveAndContinue": "Save and continue",
   "payAndSubmitApplication": "Pay and submit application",

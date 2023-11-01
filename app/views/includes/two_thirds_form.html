@@ -5,22 +5,16 @@
 
 {% block content %}
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            {% block error_summary %}
-                {% include "includes/error_summary.html" %}
-            {% endblock %}
+      <div class="govuk-grid-column-two-thirds">
+          {% if previousUrl !== undefined and previousUrl.length > 0 %}
+            <p class="govuk-back-link">{{ common.backArrow | safe }}<a href="{{ previousUrl }}" class="govuk-back-link">{{ common.back | safe }}</a></p>
+          {% endif %}
 
-            {% block page_content %}{% endblock %}
-            {% if previousUrl !== undefined and previousUrl.length > 0 %}
-              <p class="govuk-body"> {{ govukBackLink({
-              text: common.back | safe,
-              href: previousUrl,
-              attributes: {
-                title: "Back"
-              }
-              }) }}
-            {% endif %}
-          </p>
+          {% block error_summary %}
+              {% include "includes/error_summary.html" %}
+          {% endblock %}
+          {% block page_content %}{% endblock %}
+
           <form class="form" id="main-form" method="post" autocomplete="off" action="{{ pageUrl }}" novalidate>
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}">
                 {% block form_content %}{% endblock %}

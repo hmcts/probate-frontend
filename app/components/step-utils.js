@@ -68,10 +68,22 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
             const localctx = step.getContextData(req, res);
             const featureToggles = req.session.featureToggles;
             const [stepCompleted, progressFlag] = step.isComplete(localctx, formdata, featureToggles);
-            if (step.name==='ExecutorsWhenDied') {
+            if (step.name==='ExecutorRoles' || step.name==='ExecutorNotified') {
+                console.log('looping at next? ? ? ? ? ? ? ? ? ? ? ?? ? ? ? ?? ? ----step '+ step.name + '---localctx.index--->' +localctx.index);
+            }
+            if (localctx.index > 0) {
                 delete localctx.index;
             }
+            if (step.name==='ExecutorRoles' || step.name==='ExecutorNotified') {
+                console.log('looping at next? ? ? ? ? ? ? ? ? ? ? ?? ? ? ? ?? ? ----step '+ step.name);
+            }
+            if (step.name==='ExecutorRoles' || step.name==='ExecutorNotified') {
+                localctx.index=3;
+            }
             const nextStep = step.next(req, localctx);
+            if (step.name==='ExecutorRoles' || step.name==='ExecutorNotified') {
+                console.log('looping at next? @ @ @ @ @ @ @ @ @ @ @ ----nextStep '+ nextStep.name + '---localctx.index--->' +localctx.index+ '----stepCompleted--->'+stepCompleted);
+            }
             if (stepCompleted) {
                 status = progressFlag !== 'noProgress' ? 'started' : status;
                 if (nextStep.name !== stepName) {

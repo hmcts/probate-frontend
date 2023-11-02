@@ -68,21 +68,14 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
             const localctx = step.getContextData(req, res);
             const featureToggles = req.session.featureToggles;
             const [stepCompleted, progressFlag] = step.isComplete(localctx, formdata, featureToggles);
-            if (step.name==='ExecutorRoles' || step.name==='ExecutorNotified') {
-                console.log('looping at next? ? ? ? ? ? ? ? ? ? ? ?? ? ? ? ?? ? ----step '+ step.name + '---localctx.index--->' +localctx.index);
-            }
             if (localctx.index > 0) {
                 delete localctx.index;
             }
-            if (step.name==='ExecutorRoles' || step.name==='ExecutorNotified') {
-                console.log('looping at next? ? ? ? ? ? ? ? ? ? ? ?? ? ? ? ?? ? ----step '+ step.name);
-            }
-            if (step.name==='ExecutorRoles' || step.name==='ExecutorNotified') {
-                localctx.index=3;
-            }
             const nextStep = step.next(req, localctx);
-            if (step.name==='ExecutorRoles' || step.name==='ExecutorNotified') {
-                console.log('looping at next? @ @ @ @ @ @ @ @ @ @ @ ----nextStep '+ nextStep.name + '---localctx.index--->' +localctx.index+ '----stepCompleted--->'+stepCompleted);
+            if (stepName==='ExecutorNotified' || stepName==='Equality') {
+                previousUrl = '/executor-roles/*';
+                ctx.previousUrl = previousUrl;
+                return;
             }
             if (stepCompleted) {
                 status = progressFlag !== 'noProgress' ? 'started' : status;
@@ -94,7 +87,9 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
                     return;
                 }
             } else {
-                break;
+                previousUrl = step.constructor.getUrl();
+                ctx.previousUrl = previousUrl;
+                return;
             }
         }
     });

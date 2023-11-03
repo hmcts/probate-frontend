@@ -8,9 +8,6 @@
 {% set title = content.Summary.title %}
 
 {% block content %}
-    {% if previousUrl !== undefined and previousUrl.length > 0 %}
-    <p class="govuk-back-link">{{ common.backArrow | safe }}<a href="{{ previousUrl }}" class="govuk-back-link">{{ common.back | safe }}</a></p>
-    {% endif %}
     <div id="check-your-answers">
         <h1 class="govuk-heading-l">{{ content.Summary.heading | safe }}</h1>
         <p class="govuk-body" id="main-heading-content">{{ content.Summary.checkCarefully | safe }}</p>

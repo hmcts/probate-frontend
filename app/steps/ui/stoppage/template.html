@@ -5,9 +5,6 @@
 {% set tempContent = content[fields.stopReason.value] %}
 
 {% block content %}
-    {% if previousUrl !== undefined and previousUrl.length > 0 %}
-    <p class="govuk-back-link">{{ common.backArrow | safe }}<a href="{{ previousUrl }}" class="govuk-back-link">{{ common.back | safe }}</a></p>
-    {% endif %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-l">{{ content[fields.stoppageHeader.value] | safe }}</h1>

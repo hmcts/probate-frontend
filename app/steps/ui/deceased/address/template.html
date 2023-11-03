@@ -5,7 +5,6 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "widgets/addresslookup.html" import addressFinder %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% block content %}
     <div class="govuk-grid-row">
@@ -13,6 +12,7 @@
             {% block error_summary %}
                 {% include "includes/error_summary.html" %}
             {% endblock %}
+
             <form class="form" method="post" autocomplete="off" action="/find-address" novalidate>
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}">
                 {% call govukFieldset({

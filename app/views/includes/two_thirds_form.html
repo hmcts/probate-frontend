@@ -1,7 +1,6 @@
 {% extends "includes/layout.html" %}
 
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% block content %}
     <div class="govuk-grid-row">
@@ -11,7 +10,7 @@
           {% endblock %}
           {% block page_content %}{% endblock %}
 
-          <form class="form" id="main-form" method="post" autocomplete="off" action="{{ pageUrl }}" novalidate>
+            <form class="form" id="main-form" method="post" autocomplete="off" action="{{ pageUrl }}" novalidate>
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}">
                 {% block form_content %}{% endblock %}
             </form>

@@ -72,7 +72,7 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
                 delete localctx.index;
             }
             const nextStep = step.next(req, localctx);
-            if (stepName==='ExecutorNotified' || stepName==='Equality') {
+            if (stepName==='ExecutorNotified') {
                 previousUrl = '/executor-roles/*';
                 ctx.previousUrl = previousUrl;
                 return;

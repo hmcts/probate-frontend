@@ -22,7 +22,6 @@
                 {% include "ui/summary/includes/willconditions.njk" %}
             </dl>
         {% endif %}
-
         {% ifAsync fields.summary.caseType.value === globals.caseTypes.gop %}
             <h2 class="govuk-heading-m">{{ content.Summary.codicilsConditionHeading | safe }}</h2>
             <dl class="govuk-summary-list">

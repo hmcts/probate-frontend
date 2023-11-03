@@ -4,11 +4,11 @@
 
 {% block content %}
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-          {% block error_summary %}
-              {% include "includes/error_summary.html" %}
-          {% endblock %}
-          {% block page_content %}{% endblock %}
+        <div class="govuk-grid-column-two-thirds">
+            {% block error_summary %}
+                {% include "includes/error_summary.html" %}
+            {% endblock %}
+            {% block page_content %}{% endblock %}
 
             <form class="form" id="main-form" method="post" autocomplete="off" action="{{ pageUrl }}" novalidate>
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}">

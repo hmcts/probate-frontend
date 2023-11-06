@@ -1,7 +1,6 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const probateJourney = require('app/journeys/probate');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const HmrcLetter = steps.HmrcLetter;
@@ -30,8 +29,7 @@ describe('HmrcLetter', () => {
                         state: 'Pending'
                     }
                 },
-                caseType: 'gop',
-                journey: probateJourney,
+                caseType: 'gop'
             },
             sessionID: 'abc123'
         };

@@ -16,6 +16,7 @@
   },
   "required": [
     "estateGrossValueField",
-    "estateNetValueField"
+    "estateNetValueField",
+    "estateNetQualifyingValueField"
   ]
 }

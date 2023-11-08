@@ -25,6 +25,14 @@ describe('ExceptedEstateDod.js', () => {
             done();
         });
 
+        it('should return true if dod < threshold ', (done) => {
+            const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
+            const date = new Date('2021-01-01').getTime();
+            const result = ExceptedEstateDod.beforeEeDodThreshold(date);
+            expect(result).to.equal(true);
+            done();
+        });
+
         it('should override threshold from env var ', (done) => {
             process.env.EXCEPTED_ESTATE_DATE_OF_DEATH = '2021-01-01';
             const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');

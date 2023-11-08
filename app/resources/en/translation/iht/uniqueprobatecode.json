@@ -1,0 +1,13 @@
+{
+  "title": "Enter the unique probate code HMRC sent you",
+  "heading1": "Enter the unique probate code HMRC sent you",
+  "label": "HMRC code",
+  "hint" : "The unique probate code looks like this: CTS 0405231104 3tpp s8e9 and is on the first page of the letter.",
+  "errors" : {
+    "uniqueProbateCodeId" : {
+      "required" : "The unique probate code has been entered incorrectly. The unique probate code has 21 characters and is in this format CTS 0405231104 3tpp s8e9",
+      "invalid" : "The unique probate code has been entered incorrectly. The unique probate code has 21 characters and is in this format CTS 0405231104 3tpp s8e9"
+    }
+
+  }
+}

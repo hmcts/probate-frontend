@@ -1,0 +1,31 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block form_content %}
+
+<h1 class="govuk-fieldset__legend--l">{{ content.question }}</h1>
+
+<p class="govuk-body">{{content.line1 | safe }}</p>
+
+<h2 class="govuk-body"><strong>{{content.line2 | safe }}</strong></h2>
+
+<p class="govuk-body">{{content.contactHeading | safe }}</p>
+
+<p class="govuk-body">{{content.contactParagraph1 | safe }}</p>
+
+<p class="govuk-body">{{content.contactParagraph2 | safe }}</p>
+
+<a href="#" class="govuk-link" rel="noreferrer noopener"><p class="govuk-link">{{ content.contactParagraph3 | safe }}</p></a>
+
+<br>
+
+<div class="govuk-form-group">
+  {{ govukButton({
+  text: common.saveAndContinue | safe,
+  preventDoubleClick: true
+  }) }}
+</div>
+
+
+{% endblock %}

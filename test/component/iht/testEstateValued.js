@@ -1,16 +1,16 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const EstateForm = require('app/steps/ui/iht/estateform');
-const IhtEstateValues = require('app/steps/ui/iht/ihtestatevalues');
+const SubmittedToHmrc = require('app/steps/ui/iht/submittedtohmrc');
+const ReportEstateValues = require('app/steps/ui/iht/reportestatevalues');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 const config = require('config');
 
 describe('Tests for IHT Estate Valued', () => {
     let testWrapper;
-    const expectedNextUrlIhtEstateForm = EstateForm.getUrl();
-    const expectedNextUrlIhtEstateValues = IhtEstateValues.getUrl();
+    const expectedNextUrlSubmittedToHmrc = SubmittedToHmrc.getUrl();
+    const expectedNextUrlReportEstateValues = ReportEstateValues.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('IhtEstateValued');
@@ -47,7 +47,7 @@ describe('Tests for IHT Estate Valued', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlIhtEstateForm}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlSubmittedToHmrc}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.GOP})
                 .end(() => {
@@ -55,11 +55,11 @@ describe('Tests for IHT Estate Valued', () => {
                         estateValueCompleted: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlIhtEstateForm);
+                    testWrapper.testRedirect(done, data, expectedNextUrlSubmittedToHmrc);
                 });
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlIhtEstateValues}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlReportEstateValues}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.GOP})
                 .end(() => {
@@ -67,7 +67,7 @@ describe('Tests for IHT Estate Valued', () => {
                         estateValueCompleted: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlIhtEstateValues);
+                    testWrapper.testRedirect(done, data, expectedNextUrlReportEstateValues);
                 });
         });
     });

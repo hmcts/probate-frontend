@@ -10,6 +10,12 @@
     {% set displayQuestionHint = content.hint207 %}
     {% set displayGrossHint = content.grossHint207 %}
     {% set displayNetHint = content.netHint207 %}
+  {% elif fields.ihtFormEstateId.value == "optionIHT400" %}
+    {% set displayQuestion = content.question400 %}
+    {% set displayQuestionHint = content.hint400part1 %}
+    {% set displayQuestionHint2 = content.hint400part2 %}
+    {% set displayGrossHint = content.grossHint400 %}
+    {% set displayNetHint = content.netHint400 %}
   {% else %}
     {% set displayQuestion = content.question421 %}
     {% set displayQuestionHint = content.hint421 %}
@@ -32,6 +38,7 @@
     }) %}
 
         <p class="govuk-hint">{{ displayQuestionHint | safe }}</p>
+        <p class="govuk-hint">{{ displayQuestionHint2 | safe }}</p>
 
         {{ govukInput({
             label: {

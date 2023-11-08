@@ -5,8 +5,7 @@
     "optionNo": "No",
     "errors": {
         "deceasedHadLateSpouseOrCivilPartner": {
-            "required": "Answer &lsquo;yes&rsquo; if the deceased had a late spouse or partner"
+            "required": "You must select an option to continue"
         }
     }
 }
-  

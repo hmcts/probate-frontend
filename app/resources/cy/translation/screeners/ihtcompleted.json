@@ -1,6 +1,7 @@
 {
   "title": "A oes ffurflen Treth Etifeddiant (IHT) wedi cael ei llenwi",
   "hintText": "Gallai hyn fod yn adroddiad ystad Treth Etifeddiant neu ffurflen bapur Treth Etifeddiant.",
+  "hintTextIHTSubmitted": "If you submitted an IHT 400 form, HMRC will send you a letter with the unique probate code you need to complete this probate application. The letter can take up to 20 working days to arrive.",
   "question": "A oes ffurflen Treth Etifeddiant (IHT) wedi cael ei llenwi?",
   "optionYes": "Oes",
   "optionNo": "Nag oes",

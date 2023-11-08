@@ -1,13 +1,13 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ProbateEstateValues = require('app/steps/ui/iht/probateestatevalues');
+const HmrcLetter = require('app/steps/ui/iht/hmrcletter');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('Tests for Probate Estate Valued', () => {
     let testWrapper;
-    const expectedNextUrlForProbateEstateValues = ProbateEstateValues.getUrl();
+    const expectedNextUrlForHmrcLetter = HmrcLetter.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('IhtEstateForm');
@@ -40,12 +40,12 @@ describe('Tests for Probate Estate Valued', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForProbateEstateValues}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForHmrcLetter}`, (done) => {
             const data = {
                 ihtFormEstateId: 'optionIHT207'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForProbateEstateValues);
+            testWrapper.testRedirect(done, data, expectedNextUrlForHmrcLetter);
         });
 
     });

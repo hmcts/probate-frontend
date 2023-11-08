@@ -19,20 +19,25 @@
         errorMessage: { text: fields.ihtFormEstateId.errorMessage | safe } if fields.ihtFormEstateId.errorMessage,
         items: [
             {
+              value: "optionIHT205",
+              text: content["optionIHT205"] | safe,
+              checked: true if fields.ihtFormEstateId.value == "optionIHT205"
+            },
+            {
+              value: "optionIHT400",
+              text: content["optionIHT400"] | safe,
+              hint: {
+              text: content["optionIHT400Hint"] | safe
+              },
+              checked: true if fields.ihtFormEstateId.value == "optionIHT400"
+            },
+            {
                 value: "optionIHT400421",
                 text: content["optionIHT400421"] | safe,
                 hint: {
                   text: content["optionIHT400421Hint"] | safe
                 },
                 checked: true if fields.ihtFormEstateId.value == "optionIHT400421"
-            },
-            {
-                value: "optionIHT207",
-                text: content["optionIHT207"] | safe,
-                hint: {
-                  text: content["optionIHT207Hint"] | safe
-                },
-                checked: true if fields.ihtFormEstateId.value == "optionIHT207"
             }
         ]
     }) }}

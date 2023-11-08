@@ -23,7 +23,7 @@ git.properties.json
 /pacts/
 /mochawesome-report
 /config/dev.yaml
-/functional-output
+/functional-output/
 dump.rdb
 .nyc_output/
 

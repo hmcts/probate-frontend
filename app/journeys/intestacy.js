@@ -75,15 +75,27 @@ const stepList = {
         otherwise: 'EnglishForeignDeathCert'
     },
     DeathCertificateInterim: 'IhtMethod',
+    ReportEstateValues: 'IhtEstateValued',
+    SubmittedToHmrc: {
+        optionIHT400: 'HmrcLetter',
+        optionIHT400421: 'ProbateEstateValues',
+        optionIHT205: 'IhtEstateValues'
+    },
+    SubmittedToHmrcBeforeThreshold: 'IhtEstateValued',
     IhtEstateValued: {
-        ihtEstateFormsCompleted: 'IhtEstateForm',
-        otherwise: 'IhtEstateValues',
+        ihtEstateFormsCompleted: 'SubmittedToHmrc',
+        otherwise: 'ReportEstateValues',
     },
     IhtEstateForm: 'ProbateEstateValues',
     IhtEstateValues: {
         netQualifyingValueWithinRange: 'DeceasedHadLateSpouseOrCivilPartner',
         otherwise: 'ProbateEstateValues'
     },
+    HmrcLetter: {
+        optionYes: 'UniqueProbateCode',
+        optionNo: 'WaitingForHmrc'
+    },
+    UniqueProbateCode: 'ProbateEstateValues',
     DeceasedHadLateSpouseOrCivilPartner: {
         deceasedHadLateSpouseOrCivilPartner: 'IhtUnusedAllowanceClaimed',
         otherwise: 'ProbateEstateValues'

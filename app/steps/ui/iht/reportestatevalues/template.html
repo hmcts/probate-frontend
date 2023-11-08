@@ -1,0 +1,24 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+
+{% block form_content %}
+{% call govukFieldset({
+    legend: {
+    text: content.header | safe,
+    isPageHeading: true,
+    classes: "govuk-fieldset__legend--l"
+    }
+}) %}
+
+<p class="govuk-body">{{ content.paragraph1prefix | safe }}<a href="{{globals.links.ihtChecker}}" rel="external noopener" target="_blank" class="govuk-link" aria-label="{{content.linkText}}">{{ content.linkText | safe }}</a>{{ content.paragraph1suffix | safe }}</p>
+
+{% endcall %}
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

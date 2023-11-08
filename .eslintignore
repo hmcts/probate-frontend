@@ -1,4 +1,5 @@
 node_modules/*
+functional-output/*
 govuk/*
 public/*
 app/assets/javascripts/*.js

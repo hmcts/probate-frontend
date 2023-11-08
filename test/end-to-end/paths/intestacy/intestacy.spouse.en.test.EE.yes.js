@@ -10,6 +10,7 @@ const optionNo = '-2';
 const maritalStatusMarried = '';
 const spousePartner = '';
 const bilingualGOP = false;
+const optionIHT400421 = '-2';
 
 Feature('GOP Intestacy spouse E2E - EE Yes Journey');
 
@@ -68,7 +69,7 @@ getTestLanguages().forEach(language => {
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
         await I.selectEEComplete(language, optionYes);
-        await I.selectForm(language, optionYes);
+        await I.selectSubmittedToHmrc(language, optionIHT400421);
         await I.enterProbateEstateValues(language, 400000, 400000);
 
         await I.selectAssetsOutsideEnglandWales(language, optionYes);

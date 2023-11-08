@@ -7,6 +7,7 @@ const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'
 const optionYes = '';
 const optionNo = '-2';
 const bilingualGOP = false;
+const optionIHT400421 = '-2';
 
 Feature('GOP-Single Executor - EE Yes Journey');
 
@@ -76,7 +77,7 @@ getTestLanguages().forEach(language => {
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
         await I.selectEEComplete(language, optionYes);
-        await I.selectForm(language, optionYes);
+        await I.selectSubmittedToHmrc(language, optionIHT400421);
         await I.enterProbateEstateValues(language, 400000, 400000);
 
         await I.selectDeceasedAlias(language, optionNo);

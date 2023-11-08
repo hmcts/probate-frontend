@@ -105,7 +105,9 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 '\'sha256-AaA9Rn5LTFZ5vKyp3xOfFcP4YbyOjvWn2up8IKHVAKk=\'',
                 '\'sha256-G29/qSW/JHHANtFhlrZVDZW1HOkCDRc78ggbqwwIJ2g=\'',
                 '\'sha256-BWhcmwio/4/QdqKNw5PKmTItWBjkevCaOUbLkgW5cHs=\'',
+                '\'sha256-L7viC3kUpXu9uCOi97VqCR2bLlMwSQlmLmSuuQ93ngU=\'',
                 '*.google-analytics.com',
+                'https://*.dynatrace.com',
                 '*.googletagmanager.com',
                 'webchat.ctsc.hmcts.net',
                 'webchat.pp.ctsc.hmcts.net',
@@ -117,6 +119,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             connectSrc: [
                 '\'self\'',
                 '*.google-analytics.com',
+                '*.googletagmanager.com',
+                'https://*.dynatrace.com',
                 'https://webchat.ctsc.hmcts.net',
                 'https://webchat-client.ctsc.hmcts.net',
                 'wss://webchat.ctsc.hmcts.net',
@@ -136,13 +140,16 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 '*.g.doubleclick.net',
                 'ssl.gstatic.com',
                 'www.gstatic.com',
-                'lh3.googleusercontent.com'
+                'fonts.gstatic.com',
+                'lh3.googleusercontent.com',
+                '*.googletagmanager.com'
             ],
             styleSrc: [
                 '\'self\'',
                 '\'unsafe-inline\'',
                 'tagmanager.google.com',
                 'fonts.googleapis.com',
+                '*.googletagmanager.com'
             ],
             frameAncestors: ['\'self\'']
         },

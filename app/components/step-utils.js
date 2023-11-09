@@ -59,13 +59,21 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
         const task = taskList[taskName];
         let status = 'complete';
         let step = steps[task.firstStep];
-        if (stepName===step.name) {
-            previousUrl = '/task-list';
+        if (stepName==='Declaration') {
+            previousUrl = '/summary/declaration';
             ctx.previousUrl = previousUrl;
             return;
         }
-        if (stepName==='Summary') {
+        if (stepName==='CitizensHub' || stepName==='PaymentBreakdown' || stepName==='PaymentStatus' ||
+            stepName==='ExecutorsAdditionalInvite' || stepName==='ExecutorsUpdateInvite' ||
+            stepName==='ExecutorsChangeMade' || stepName==='ExecutorsInvite'
+        ) {
             previousUrl = '';
+            ctx.previousUrl = previousUrl;
+            return;
+        }
+        if (stepName===step.name || stepName==='Summary') {
+            previousUrl = '/task-list';
             ctx.previousUrl = previousUrl;
             return;
         }

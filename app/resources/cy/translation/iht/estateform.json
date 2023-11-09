@@ -1,14 +1,14 @@
 {
-  "title": "Which forms did you submit to HMRC?",
-  "question": "Which forms did you submit to HMRC?",
-  "optionIHT400421": "IHT 400 and 421",
-  "optionIHT400": "IHT400 only.",
-  "optionIHT400Hint": "Only select this option if you applied after ((date))",
-  "optionIHT400421Hint": "Only select this option if you applied before ((date))",
+  "title": "Pa ffurflenni wnaethoch chi eu cyflwyno i CThEM?",
+  "question": "Pa ffurflenni wnaethoch chi eu cyflwyno i CThEM?",
+  "optionIHT400421": "IHT 400 a 421",
+  "optionIHT400": "IHT400 yn unig.",
+  "optionIHT400Hint": "Dewiswch yr opsiwn hwn dim ond os gwnaethoch gais ar ôl ((dyddiad))",
+  "optionIHT400421Hint": "Dewiswch yr opsiwn hwn dim ond os gwnaethoch gais cyn ((dyddiad))",
   "optionIHT205": "IHT 205",
   "errors": {
     "ihtFormEstateId": {
-      "required": "Select which IHT forms you completed to report the estate’s value"
+      "required": "Dewiswch pa ffurflenni IHT wnaethoch chi eu llenwi i adrodd am werth yr ystad"
     }
   }
 }

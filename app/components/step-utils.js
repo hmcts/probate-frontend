@@ -66,7 +66,7 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
         }
         if (stepName==='CitizensHub' || stepName==='PaymentBreakdown' || stepName==='PaymentStatus' ||
             stepName==='ExecutorsAdditionalInvite' || stepName==='ExecutorsUpdateInvite' ||
-            stepName==='ExecutorsChangeMade' || stepName==='ExecutorsInvite'
+            stepName==='ExecutorsChangeMade' || stepName==='ExecutorsInvite' || stepName==='ExecutorsInvitesSent'
         ) {
             previousUrl = '';
             ctx.previousUrl = previousUrl;

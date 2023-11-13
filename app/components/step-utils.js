@@ -64,15 +64,12 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
             ctx.previousUrl = previousUrl;
             return;
         }
-        if (stepName==='CitizensHub' || stepName==='PaymentBreakdown' || stepName==='PaymentStatus' ||
-            stepName==='ExecutorsAdditionalInvite' || stepName==='ExecutorsUpdateInvite' ||
-            stepName==='ExecutorsChangeMade' || stepName==='ExecutorsInvite' || stepName==='ExecutorsInvitesSent'
-        ) {
+        if (isNoBackLinkStepName(stepName)) {
             previousUrl = '';
             ctx.previousUrl = previousUrl;
             return;
         }
-        if (stepName===step.name || stepName==='Summary') {
+        if (stepName===step.name || stepName==='Summary' || stepName==='CopiesSummary') {
             previousUrl = '/task-list';
             ctx.previousUrl = previousUrl;
             return;
@@ -133,6 +130,12 @@ const getScrennersPreviousUrl = (ctx, req, res, steps, currentStepName) => {
             return;
         }
     }
+};
+
+const isNoBackLinkStepName = (stepName) => {
+    return stepName==='CitizensHub' || stepName==='PaymentBreakdown' || stepName==='PaymentStatus' ||
+        stepName==='ExecutorsAdditionalInvite' || stepName==='ExecutorsUpdateInvite' ||
+        stepName==='ExecutorsChangeMade' || stepName==='ExecutorsInvite' || stepName==='ExecutorsInvitesSent';
 };
 const isPreDeclarationTask = (taskName) => {
     return taskName === 'DeceasedTask' || taskName === 'ExecutorsTask';

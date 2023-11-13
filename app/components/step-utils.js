@@ -113,7 +113,7 @@ const getScrennersPreviousUrl = (ctx, req, res, steps, currentStepName) => {
     let previousUrl='';
     const StartEligibilityStep = 'StartEligibility';
     let loopingStep = steps[StartEligibilityStep];
-    if (currentStepName === 'StartEligibility') {
+    if (currentStepName === 'StartEligibility' && req.userLoggedIn) {
         previousUrl = '/dashboard';
         ctx.previousUrl = previousUrl;
         return;

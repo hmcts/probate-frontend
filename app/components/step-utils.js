@@ -112,14 +112,13 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
 const getScrennersPreviousUrl = (ctx, req, res, steps, currentStepName) => {
     let previousUrl='';
     const StartEligibilityStep = 'StartEligibility';
-    const lastStep = 'MentalCapacity';
     let loopingStep = steps[StartEligibilityStep];
     if (currentStepName === 'StartEligibility') {
         previousUrl = '/dashboard';
         ctx.previousUrl = previousUrl;
         return;
     }
-    while (loopingStep.name !== currentStepName && loopingStep.name !== lastStep) {
+    while (loopingStep.name !== currentStepName) {
         const localctx = loopingStep.getContextData(req, res);
         const nextStep = loopingStep.next(req, localctx);
         if (nextStep.name !== currentStepName) {

@@ -46,7 +46,8 @@ describe('StartEligibility', () => {
             const req = {
                 session: {
                     language: 'en'
-                }
+                },
+                userLoggedIn: true
             };
             req.session.journey = journeyProbate;
             ctx = {};

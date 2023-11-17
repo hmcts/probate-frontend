@@ -1,6 +1,6 @@
 #!groovy
 
-@Library("Infrastructure") _
+@Library("Infrastructure@debugauditfail") _
 
 import uk.gov.hmcts.contino.GithubAPI
 

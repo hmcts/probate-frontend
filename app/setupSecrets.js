@@ -25,7 +25,7 @@ const setupSecrets = () => {
         setSecret('secrets.probate.webchat-avaya-service', 'webchat.avayaService');
     }
 
-    if (process.env.NODE_ENV === 'dev-aat') {
+    if (process.env.NODE_ENV === 'dev-aat' || process.env.NODE_ENV === 'dev-demo') {
         console.log('Setting local secrets...');
         setLocalSecret('idam-s2s-secret', 'services.idam.service_key');
         setLocalSecret('ccidam-idam-api-secrets-probate', 'services.idam.probate_oauth2_secret');

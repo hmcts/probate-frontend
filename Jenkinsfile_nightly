@@ -63,7 +63,6 @@ withNightlyPipeline("nodejs", product, component) {
   env.GA_ENABLED = params.GA_ENABLED
 
   enableFullFunctionalTest(200)
-  enableFortifyScan('probate-aat')
   enableCrossBrowserTest(120)
 //    enableSecurityScan()  //we do this in other builds
   afterAlways('build') {
@@ -78,9 +77,7 @@ withNightlyPipeline("nodejs", product, component) {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
   }
 
-  afterAlways('fortify-scan') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
-  }
+
 
   //    enableSlackNotifications('#div-dev')  // can be turned back on once the overnight functionality is working fully
 }

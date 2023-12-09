@@ -1,0 +1,71 @@
+featureToggles:
+  enabled: 'true'
+app:
+  useIDAM: 'true'
+  requireCcdCaseId: 'true'
+  port: '3001'
+  useCSRFProtection: 'false'
+services:
+  idam:
+    loginUrl: http://idam-web-public.demo.platform.hmcts.net/login
+    apiUrl: https://idam-api.demo.platform.hmcts.net
+    s2s_url: http://rpe-service-auth-provider-demo.service.core-compute-demo.internal
+    service_name: probate_frontend
+    probate_oauth2_client: probate
+    probate_redirect_base_url: http://localhost:3001
+    caching: true
+  orchestrator:
+    url: http://probate-orchestrator-service-demo.service.core-compute-demo.internal
+  validation:
+    url: http://probate-business-service-demo.service.core-compute-demo.internal/validate
+  payment:
+    url: http://payment-api-demo.service.core-compute-demo.internal
+  feesRegister:
+    url: http://fees-register-api-demo.service.core-compute-demo.internal/fees-register
+redis:
+  enabled: 'true'
+  password: ''
+
+TestCitizenDomain: '/@probateTest.com'
+TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png'
+TestE2EFrontendUrl: 'http://localhost:3001'
+TestFrontendUrl: 'http://localhost:3001'
+TestIdamAddUserUrl: '/testing-support/accounts'
+TestIdamBaseUrl: 'https://idam-api.demo.platform.hmcts.net'
+TestIdamLoginUrl: 'https://idam-web-public.demo.platform.hmcts.net/login'
+TestIdamRole: 'citizen'
+TestIdamUserGroup: 'caseworker'
+TestOutputDir: './functional-output'
+TestPathToRun: './paths/**/*.js'
+TestProxy: 'socks5:proxyout.reform.hmcts.net:8080'
+TestRetryFeatures: 2
+
+
+TestRetryScenarios: 2
+TestRetrySteps: 2
+TestShowBrowser: true
+TestUseGovPay: 'true'
+TestUseIdam: 'true'
+TestUseProxy: 'false'
+TestWaitForDocumentUpload: 60
+TestWaitForTextToAppear: 120
+TestWaitForElementToAppear: 60
+TestOneMilliSecond: 1000
+TestEnvEmailAddress: 'test.probate.inbox@gmail.com'
+TestEnvMobileNumber: '07765453421'
+TestInviteIdListUrl: '/inviteIdList'
+TestInvitationUrl: '/executors/invitation'
+
+govPayTestCardNos:
+  validCardNo: '4242424242424242'
+
+govPayTestCardDetails:
+  expiryMonth: '06'
+  expiryYear: '99'
+  cardholderName: 'Test Payment'
+  cvc: '123'
+  addressLine1: '1'
+  addressCity: 'London'
+  addressPostcode: 'SW1A1AA'
+
+environment: local

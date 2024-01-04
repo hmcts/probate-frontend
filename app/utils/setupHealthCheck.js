@@ -11,6 +11,8 @@ const healthOptions = message => {
         callback: (error, res) => { // eslint-disable-line id-blacklist
             if (error) {
                 logger.error(null, 'health_check_error', message, error);
+            } else {
+                logger.info(null, 'health check received', message);
             }
             return !error && res.status === 200 ? outputs.up() : outputs.down(error);
         },

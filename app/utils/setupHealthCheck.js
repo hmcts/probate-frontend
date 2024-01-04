@@ -16,6 +16,17 @@ const setupHealthCheck = app => {
         });
     });
 
+    app.get('/health', (req, res) => {
+        logger.info('health check route hit');
+        res.status(200).json({
+            status: 'UP',
+            message: 'Health check passed',
+            name: config.health.service_name,
+            host: os.hostname(),
+            uptime: process.uptime()
+        });
+    });
+
     app.get('/health/readiness', (req, res) => {
         logger.info('Readiness health check route hit');
         res.status(200).json({

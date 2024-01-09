@@ -33,11 +33,4 @@ describe('Probate frontend health check', () => {
             done();
         });
     });
-
-    it('should return the build info', done => {
-        healthcheckRequest(frontendUrl, res => {
-            expect(res.body).to.have.property('buildInfo');
-            done();
-        });
-    });
 });

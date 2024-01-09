@@ -1725,7 +1725,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^6.10.0, ajv@npm:^6.10.2, ajv@npm:^6.12.3, ajv@npm:^6.12.4, ajv@npm:^6.12.6":
+"ajv@npm:^6.10.0, ajv@npm:^6.10.2, ajv@npm:^6.12.3, ajv@npm:^6.12.4":
   version: 6.12.6
   resolution: "ajv@npm:6.12.6"
   dependencies:
@@ -1737,7 +1737,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^8.0.1":
+"ajv@npm:^8.0.0, ajv@npm:^8.0.1":
   version: 8.12.0
   resolution: "ajv@npm:8.12.0"
   dependencies:
@@ -9925,7 +9925,7 @@ __metadata:
     "@pact-foundation/pact-node": ^10.17.7
     "@wdio/cli": ^8.10.5
     "@wdio/selenium-standalone-service": ^8.10.4
-    ajv: ^6.12.6
+    ajv: ^8.0.0
     ajv-keywords: ^3.5.2
     applicationinsights: ^2.5.0
     basic-auth: ^2.0.1

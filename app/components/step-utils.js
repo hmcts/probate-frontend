@@ -134,7 +134,7 @@ const getScrennersPreviousUrl = (ctx, req, res, steps, currentStepName) => {
 
 const isNoBackLinkStepName = (stepName) => {
     return stepName==='CitizensHub' || stepName==='PaymentBreakdown' || stepName==='PaymentStatus' ||
-        stepName==='ExecutorsAdditionalInvite' || stepName==='ExecutorsUpdateInvite' ||
+        stepName==='ExecutorsAdditionalInvite' || stepName==='ExecutorsUpdateInvite' || stepName==='ThankYou' ||
         stepName==='ExecutorsChangeMade' || stepName==='ExecutorsInvite' || stepName==='ExecutorsInvitesSent';
 };
 const isPreDeclarationTask = (taskName) => {

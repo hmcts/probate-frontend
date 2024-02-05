@@ -1,5 +1,6 @@
 'use strict';
 
+const config = require('config');
 module.exports = async function(language ='en', formName = null) {
     const commonContent = require(`app/resources/${language}/translation/common`);
     const I = this;
@@ -21,7 +22,7 @@ module.exports = async function(language ='en', formName = null) {
 
     await I.checkInUrl('/estate-form');
     const locator = {css: `#ihtFormId${option}`};
-    await I.waitForEnabled(locator);
+    await I.waitForEnabled(locator, config.TestWaitForElementToAppear);
     await I.click(locator);
 
     await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');

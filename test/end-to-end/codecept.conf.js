@@ -5,7 +5,7 @@ exports.config = {
     tests: testConfig.TestPathToRun,
     output: `${process.cwd()}/${testConfig.TestOutputDir}`,
     helpers: {
-        Puppeteer: {
+        Playwright: {
             url: testConfig.TestE2EFrontendUrl,
             waitForTimeout: 120000,
             getPageTimeout: 120000,
@@ -27,8 +27,8 @@ exports.config = {
                 ]
             },
         },
-        PuppeteerHelper: {
-            require: './helpers/PuppeteerHelper.js'
+        PlaywrightHelper: {
+            require: './helpers/PlaywrightHelper.js'
         },
         JSWait: {
             require: './helpers/JSWait.js'

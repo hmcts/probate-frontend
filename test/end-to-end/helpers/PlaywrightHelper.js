@@ -1,7 +1,7 @@
 'use strict';
 
 const Helper = codecept_helper;
-const helperName = 'Puppeteer';
+const helperName = 'Playwright';
 const testConfig = require('config');
 
 const countObjects = async (page) => {
@@ -15,7 +15,7 @@ const countObjects = async (page) => {
     return numberOfObjects;
 };
 
-class PuppeteerHelper extends Helper {
+class PlaywrightHelper extends Helper {
 
     clickBrowserBackButton() {
         const page = this.helpers[helperName].page;
@@ -49,4 +49,4 @@ class PuppeteerHelper extends Helper {
         console.log(`${pageName}>>>>`, numberOfObjectsAfter);
     }
 }
-module.exports = PuppeteerHelper;
+module.exports = PlaywrightHelper;

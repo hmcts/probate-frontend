@@ -1,12 +1,13 @@
 'use strict';
 
+const config = require('config');
 module.exports = async function(language = 'en', option = null, description = null) {
     const I = this;
     const commonContent = require(`app/resources/${language}/translation/common`);
 
     await I.checkInUrl('/will-has-damage');
     const locator = {css: `#willHasVisibleDamage${option}`};
-    await I.waitForEnabled(locator);
+    await I.waitForEnabled(locator, config.TestWaitForElementToAppear);
     await I.click(locator);
     if (option === '') {
         await I.click('#willDamageTypes');

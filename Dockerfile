@@ -22,7 +22,7 @@ RUN apk add git
 USER hmcts
 
 RUN PLAYWRIGHT_SKIP_CHROMIUM_DOWNLOAD=true && PLAYWRIGHT_BROWSERS_PATH=false yarn install
-RUN npx playwright install
+RUN yarn playwright install
 RUN yarn -v
 RUN node -v
 RUN yarn setup-sass

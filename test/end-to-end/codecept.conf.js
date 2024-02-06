@@ -10,6 +10,7 @@ exports.config = {
             waitForTimeout: 120000,
             getPageTimeout: 120000,
             show: TestConfigurator.showBrowser(),
+            waitForNavigation: 'domcontentloaded',
             chrome: {
                 ignoreHTTPSErrors: true,
                 'ignore-certificate-errors': true,

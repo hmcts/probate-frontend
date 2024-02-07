@@ -4,6 +4,9 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+env:
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1 # Skip downloading during yarn install
+  PLAYWRIGHT_BROWSERS_PATH: 0 # Places binaries to node_modules/@playwright/test
 jobs:
   test:
     timeout-minutes: 60
@@ -14,9 +17,12 @@ jobs:
       with:
         node-version: 18
     - name: Install dependencies
-      run: npm install -g yarn && yarn
-    - name: Install Playwright Browsers
-      run: yarn playwright install --with-deps
+      run: |
+        npx playwright install-deps
+    - name: Setup
+        run: |
+          yarn install
+          npx playwright install
     - name: Run Playwright tests
       run: yarn playwright test
     - uses: actions/upload-artifact@v3

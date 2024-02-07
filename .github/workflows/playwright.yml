@@ -20,9 +20,9 @@ jobs:
       run: |
         npx playwright install-deps
     - name: Setup
-        run: |
-          yarn install
-          npx playwright install
+      run: |
+        yarn install
+        npx playwright install
     - name: Run Playwright tests
       run: yarn playwright test
     - uses: actions/upload-artifact@v3

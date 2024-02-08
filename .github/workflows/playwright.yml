@@ -6,7 +6,7 @@ on:
     branches: [ main, master ]
 env:
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1 # Skip downloading during yarn install
-  PLAYWRIGHT_BROWSERS_PATH: 0 # Places binaries to node_modules/@playwright/test
+  RUN PLAYWRIGHT_BROWSERS_PATH: /usr/lib/playwright yarn add playwright-chromium@1.11.1
 jobs:
   test:
     timeout-minutes: 60
@@ -16,15 +16,17 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 18
-    - name: Install dependencies
+    - name: Download Browsers
       run: |
-        npx playwright install-deps
+       PLAYWRIGHT_BROWSERS_PATH=/usr/lib/playwright yarn add playwright-chromium@1.11.1
+       PLAYWRIGHT_BROWSERS_PATH=/usr/lib/playwright yarn add playwright-webkit@1.11.1
+       PLAYWRIGHT_BROWSERS_PATH=/usr/lib/playwright yarn add playwright-firefox@1.11.1
     - name: Setup
       run: |
         yarn install
-        yarn playwright install
+        yarn playwright install --with-deps
     - name: Run Playwright tests
-      run: yarn playwright test
+      run: PLAYWRIGHT_BROWSERS_PATH=/usr/lib/playwright yarn playwright test
     - uses: actions/upload-artifact@v3
       if: always()
       with:

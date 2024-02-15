@@ -21,6 +21,7 @@ chai.use(chaiHttp);
 
 describe('Probate frontend health check', () => {
     it('should return a 200 status code', done => {
+        console.log(`FE URL is: ${frontendUrl}`);
         healthcheckRequest(frontendUrl, res => {
             expect(res).to.have.status(200);
             done();

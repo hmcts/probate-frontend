@@ -28,7 +28,7 @@ exports.config = {
             },
         },
         PuppeteerHelper: {
-            require: './helpers/PuppeteerHelper.js'
+            require: './helpers/PlaywrightHelper.js'
         },
         JSWait: {
             require: './helpers/JSWait.js'

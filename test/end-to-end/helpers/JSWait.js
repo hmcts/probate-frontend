@@ -10,8 +10,8 @@ class JSWait extends codecept_helper {
     }
 
     async navByClick(textOrLocator, locator = null, webDriverWait = 2) {
-        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
-        const helperIsPuppeteer = this.helpers.Puppeteer;
+        const helper = this.helpers.WebDriver || this.helpers.Playwright;
+        const helperIsPlaywright = this.helpers.Playwright;
 
         if (locator) {
             locator = this.appendNotCookieBannerToSelector(locator);
@@ -33,18 +33,22 @@ class JSWait extends codecept_helper {
             await helper.waitForEnabled(textOrLocator);
         }
 
-        if (helperIsPuppeteer) {
+        if (helperIsPlaywright) {
 
-            const promises = [
+            /*const promises = [
                 helper.page.waitForNavigation({
-                    waitUntil: ['domcontentloaded', 'networkidle0'],
+                    waitUntil: ['domcontentloaded'],
                     timeout: 600000
                 }),
                 helper.click(textOrLocator)
             ];
+*/
+            const promises = [
+                helper.click(textOrLocator)
+            ];
 
             await Promise.all(promises);
-
+            await helper.wait(webDriverWait);
             return;
         }
 
@@ -69,22 +73,22 @@ class JSWait extends codecept_helper {
 
     async amOnLoadedPage (url, language ='en') {
         let newUrl = `${url}?lng=${language}`;
-        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
-        const helperIsPuppeteer = this.helpers.Puppeteer;
+        const helper = this.helpers.WebDriver || this.helpers.Playwright;
+        const helperIsPlaywright = this.helpers.Playwright;
 
-        if (helperIsPuppeteer) {
+        if (helperIsPlaywright) {
             if (newUrl.indexOf('http') !== 0) {
                 newUrl = helper.options.url + newUrl;
             }
 
-            await Promise.all([
-                helper.page.waitForNavigation({waitUntil: 'networkidle0'}),
+            /*await Promise.all([
+                helper.page.waitForNavigation({waitUntil: ['domcontentloaded']}),
                 helper.page.goto(newUrl).catch(err => {
                     console.error(err.message);
                 })
             ]);
 
-        } else {
+        } else {*/
             await helper.amOnPage(newUrl);
             await helper.waitInUrl(url);
             await helper.waitForElement('body');
@@ -92,11 +96,11 @@ class JSWait extends codecept_helper {
     }
 
     async enterAddress() {
-        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
-        const helperIsPuppeteer = this.helpers.Puppeteer;
+        const helper = this.helpers.WebDriver || this.helpers.Playwright;
+        const helperIsPlaywright = this.helpers.Playwright;
         const page = helper.page;
 
-        if (helperIsPuppeteer) {
+        if (helperIsPlaywright) {
             await page.waitForSelector('#addressLine1', {visible: false, timeout: 5000});
             await page.click('.govuk-details__summary-text');
             await page.waitForSelector('#addressLine1', {visible: true, timeout: 5000});
@@ -123,12 +127,12 @@ class JSWait extends codecept_helper {
 
     async checkInUrl(url, timeoutWait=120) {
         // do for both Puppeteer and Webdriver - doesn't take long
-        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
+        const helper = this.helpers.WebDriver || this.helpers.Playwright;
         await helper.waitInUrl(url, timeoutWait);
     }
 
     async checkForText(text, timeout = null) {
-        const helper = this.helpers.WebDriver || this.helpers.Puppeteer;
+        const helper = this.helpers.WebDriver || this.helpers.Playwright;
         try {
             await helper.waitForText(text, timeout);
         } catch (e) {

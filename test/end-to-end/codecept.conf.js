@@ -10,6 +10,7 @@ exports.config = {
             waitForTimeout: 120000,
             getPageTimeout: 120000,
             show: TestConfigurator.showBrowser(),
+            waitForNavigation: 'domcontentloaded',
             chrome: {
                 ignoreHTTPSErrors: true,
                 'ignore-certificate-errors': true,
@@ -22,7 +23,7 @@ exports.config = {
                     '--no-sandbox',
                     '--allow-running-insecure-content',
                     '--ignore-certificate-errors',
-                    '--disable-dev-shm-usage',
+                    //'--disable-dev-shm-usage',
                     '--window-size=1440,1400'
                 ]
             },

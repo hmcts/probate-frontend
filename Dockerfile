@@ -29,7 +29,7 @@ RUN rm -rf /opt/app/.git
 
 # ---- Runtime image ----
 FROM build as runtime
-#COPY --from=build . .
+#COPY --from=build . . .
 #COPY --from=build ${WORKDIR}/app app/
 #COPY --from=build ${WORKDIR}/config config/
 #COPY --from=build ${WORKDIR}/public public/

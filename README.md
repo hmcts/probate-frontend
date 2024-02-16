@@ -4,7 +4,7 @@
 
 This is the frontend application for the Probate Personal Applicants online service. The service provides a clear interface for citizens, presented as sequence of HTML 5 web pages designed to GDS Service Design guidelines, so that they can apply for Probate online. The service provides functionality for both single and multiple applicant journeys.
 
-The Frontend Application uses Orchestrator to route specific requests to the underlying services such as Business Service and Submit Service.
+The Frontend Application uses  Orchestrator to route specific requests to the underlying services such as Business Service and Submit Service.
 
 ## Overview
 

@@ -35,7 +35,7 @@ def secrets = [
     secret('webchat-avaya-url', 'WEBCHAT_AVAYA_URL'),
     secret('webchat-avaya-client-url', 'WEBCHAT_AVAYA_CLIENT_URL'),
     secret('webchat-avaya-service', 'WEBCHAT_AVAYA_SERVICE'),
-    secret('AppInsightsInstrumentationKey', 'APPINSIGHTS_INSTRUMENTATIONKEY')
+    secret('app-insights-connection-string', 'app-insights-connection-string')
   ]
 ]
 

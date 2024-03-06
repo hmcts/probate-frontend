@@ -46,7 +46,6 @@ nodejs:
         - payCaseWorkerUser
         - payCaseWorkerPass
         - frontend-redis-access-key
-        - AppInsightsInstrumentationKey
         - app-insights-connection-string
         - launchdarkly-key
         - pcq-token-key

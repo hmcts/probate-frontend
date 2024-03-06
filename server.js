@@ -16,7 +16,7 @@ if (config.appInsights.connectionString) {
     appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = 'probate-frontend';
     appInsights.start();
 } else {
-    console.log('No AppInsights instrumentation key present');
+    console.log('No app-insights-connection-string present');
 }
 
 const app = require('app');

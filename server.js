@@ -6,8 +6,8 @@ const setupSecrets = require('app/setupSecrets');
 // Setup secrets before loading the app
 setupSecrets();
 
-if (config.appInsights.instrumentationKey) {
-    appInsights.setup(config.appInsights.instrumentationKey)
+if (config.appInsights.connectionString) {
+    appInsights.setup(config.appInsights.connectionString)
         .setAutoDependencyCorrelation(true)
         .setAutoCollectRequests(true)
         .setAutoCollectPerformance(true)

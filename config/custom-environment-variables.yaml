@@ -73,7 +73,7 @@ payment:
   currency: currency
 
 appInsights:
-  app-insights-connection-string: app-insights-connection-string
+  connectionString: APP-INSIGHTS-CONNECTION-STRING
 
 TestCitizenDomain: CITIZEN_EMAIL_DOMAIN
 TestE2EFrontendUrl: TEST_URL

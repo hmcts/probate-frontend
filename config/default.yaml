@@ -367,7 +367,7 @@ endpoints:
   health: '/health'
   info: '/info'
 appInsights:
-  instrumentationKey:
+  connectionString:
 documentUpload:
   validMimeTypes: ['image/jpeg', 'image/bmp', 'image/tiff', 'image/png', 'application/pdf']
   maxFiles: 10

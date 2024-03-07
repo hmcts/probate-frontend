@@ -16,7 +16,7 @@ const setupSecrets = () => {
         setSecret('secrets.probate.probate-site-id', 'payment.siteId');
         setSecret('secrets.probate.payCaseWorkerUser', 'services.idam.probate_user_email');
         setSecret('secrets.probate.payCaseWorkerPass', 'services.idam.probate_user_password');
-        setSecret('secrets.probate.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
+        setSecret('secrets.probate.app-insights-connection-string', 'appInsights.connectionString');
         setSecret('secrets.probate.launchdarkly-key', 'featureToggles.launchDarklyKey');
         setSecret('secrets.probate.launchdarklyUserkeyFrontend', 'featureToggles.launchDarklyUser.key');
         setSecret('secrets.probate.pcq-token-key', 'services.equalityAndDiversity.tokenKey');

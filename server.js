@@ -6,8 +6,8 @@ const setupSecrets = require('app/setupSecrets');
 // Setup secrets before loading the app
 setupSecrets();
 
-if (config.appInsights.instrumentationKey) {
-    appInsights.setup(config.appInsights.instrumentationKey)
+if (config.appInsights.connectionString) {
+    appInsights.setup(config.appInsights.connectionString)
         .setAutoDependencyCorrelation(true)
         .setAutoCollectRequests(true)
         .setAutoCollectPerformance(true)
@@ -16,7 +16,7 @@ if (config.appInsights.instrumentationKey) {
     appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = 'probate-frontend';
     appInsights.start();
 } else {
-    console.log('No AppInsights instrumentation key present');
+    console.log('No app-insights-connection-string key present');
 }
 
 const app = require('app');

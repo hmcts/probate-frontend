@@ -31,6 +31,7 @@ nodejs:
     USE_IDAM: true
     REQUIRE_CCD_CASE_ID : true
     EQUALITY_URL: https://pcq.aat.platform.hmcts.net
+    VAR_INC: trigger-1
   keyVaults:
     probate:
       resourceGroup: probate

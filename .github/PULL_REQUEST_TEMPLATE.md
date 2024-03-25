@@ -21,3 +21,9 @@ Please remove this line and everything above and fill the following sections:
 [ ] Yes
 [ ] No
 ```
+**Does this PR introduce any css change?** (check one with "x")
+Reminder: Update css version to force refresh
+```
+[ ] Yes
+[ ] No
+```

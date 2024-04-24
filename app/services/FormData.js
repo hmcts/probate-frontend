@@ -28,9 +28,7 @@ class FormData extends Service {
             'Authorization': authToken,
             'ServiceAuthorization': serviceAuthorisation
         };
-        this.log('Get application form data1111');
         const fetchOptions = AsyncFetch.fetchOptions({}, 'GET', headers);
-        this.log('Get application form data2222');
         return AsyncFetch.fetchJson(url, fetchOptions);
     }
 

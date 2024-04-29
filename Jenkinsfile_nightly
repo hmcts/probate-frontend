@@ -8,7 +8,9 @@ properties([
     string(name: 'test_path', defaultValue: './paths/**/*.js', description: 'any three like ./paths/probate/*.js or ./paths/generic/*.js or ./paths/intestacy/*.js'),
     string(name: 'URL_TO_TEST', defaultValue: 'https://probate.aat.platform.hmcts.net', description: 'The URL you want to run these tests against'),
     string(name: 'WEBCHAT_ENABLED', defaultValue: 'false', description: 'Run with webchat enabled or disabled'),
-    string(name: 'GA_ENABLED', defaultValue: 'false', description: 'Run with Google analytics enabled or disabled')
+    string(name: 'GA_ENABLED', defaultValue: 'false', description: 'Run with Google analytics enabled or disabled'),
+    string(name: 'IDAM_API_URL', defaultValue: 'https://idam-api.aat.platform.hmcts.net', description: 'The URL of idam api'),
+    string(name: 'IDAM_LOGIN_URL', defaultValue: 'https://idam-web-public.aat.platform.hmcts.net/login', description: 'The URL of idam login')
   ])
 ])
 

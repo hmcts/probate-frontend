@@ -1,6 +1,6 @@
 nodejs:
   image: hmctspublic.azurecr.io/probate/frontend:latest
-  ingressHost: probate.demo.platform.hmcts.net
+  ingressHost: probate.{{ .Values.global.environment }}.platform.hmcts.net
   cpuLimits: 500m
   cpuRequests: 100m
   autoscaling:        # Default is false
@@ -16,15 +16,15 @@ nodejs:
     REFORM_TEAM: probate
     REFORM_SERVICE_NAME: probate-frontend
     IDAM_CLIENT_NAME: probate
-    IDAM_LOGIN_URL: https://idam-web-public.demo.platform.hmcts.net/login
-    IDAM_API_URL: https://idam-api.demo.platform.hmcts.net
-    IDAM_S2S_URL: http://rpe-service-auth-provider-demo.service.core-compute-demo.internal
-    PAYMENT_API_URL: http://payment-api-demo.service.core-compute-demo.internal
-    VALIDATION_SERVICE_URL: http://probate-business-service-demo.service.core-compute-demo.internal/validate
-    ORCHESTRATOR_SERVICE_URL : http://probate-orchestrator-service-demo.service.core-compute-demo.internal
-    FEES_REGISTRY_URL: http://fees-register-api-demo.service.core-compute-demo.internal/fees-register
+    IDAM_LOGIN_URL: https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net/login
+    IDAM_API_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
+    IDAM_S2S_URL: http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+    PAYMENT_API_URL: http://payment-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+    VALIDATION_SERVICE_URL: http://probate-business-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal/validate
+    ORCHESTRATOR_SERVICE_URL : http://probate-orchestrator-service-pr-893-java
+    FEES_REGISTRY_URL: http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal/fees-register
     REFORM_ENVIRONMENT : '{{ .Values.global.environment }}'
-    REDIS_HOST: probate-frontend-redis-cache-demo.redis.cache.windows.net
+    REDIS_HOST: probate-frontend-redis-cache-{{ .Values.global.environment }}.redis.cache.windows.net
     REDIS_PORT: 6380
     USE_REDIS: true
     REDIS_USE_TLS: true

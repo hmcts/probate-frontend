@@ -12,5 +12,6 @@
     "isAvayaWebChatEnabled": false,
     "isGaEnabled": true,
     "isWebChatEnabled": true,
+    "isDynatraceEnabled": true,
     "language": "en"
 }

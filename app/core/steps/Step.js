@@ -74,6 +74,7 @@ class Step {
         ctx.isAvayaWebChatEnabled = ctx.featureToggles && ctx.featureToggles.ft_avaya_webchat && ctx.featureToggles.ft_avaya_webchat === 'true';
         ctx.isWebChatEnabled = config.configFeatureToggles.webchatEnabled;
         ctx.isGaEnabled = config.configFeatureToggles.gaEnabled; // this is a boolean type
+        ctx.isDynatraceEnabled = config.environment !== 'prod';
         return ctx;
     }
 

@@ -52,7 +52,8 @@ describe('Dashboard', () => {
                 },
                 isAvayaWebChatEnabled: false,
                 isGaEnabled: true,
-                isWebChatEnabled: true
+                isWebChatEnabled: true,
+                isDynatraceEnabled: true
             });
             revert();
             done();

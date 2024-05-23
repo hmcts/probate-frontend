@@ -259,5 +259,65 @@ describe('CoverSheetPdfService', () => {
             postStub.restore();
             done();
         });
+
+        it('should call super.post() and call with docs required and docs required text if intestacy no docs required conditions met, excepted estate and interim death certificate selected', (done) => {
+            const endpoint = 'http://localhost';
+            const formdata = {
+                caseType: 'intestacy',
+                applicant: {
+                    firstName: 'Joe',
+                    lastName: 'Bloggs',
+                    address: {
+                        formattedAddress: '1 Red Road, London, L1 1LL'
+                    },
+                    relationshipToDeceased: 'optionSpousePartner',
+                },
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    'dod-date': '2018-01-01',
+                    deathCertificate: 'optionInterimCertificate'
+                },
+                iht: {
+                    estateValueCompleted: 'optionNo'
+                },
+                ccdCase: {
+                    id: 'ccd123'
+                },
+                registry: {
+                    address: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY'
+                }
+            };
+            const coverSheetPdf = new CoverSheetPdf(endpoint, 'abc123');
+            postStub = sinon.stub(Pdf.prototype, 'post');
+
+            const req = {
+                session: {
+                    form: formdata,
+                    language: 'en'
+                }
+            };
+
+            coverSheetPdf.post(req);
+
+            expect(postStub.calledOnce).to.equal(true);
+            expect(postStub.calledWith(
+                config.pdf.template.coverSheet,
+                {
+                    applicantAddress: '1 Red Road, London, L1 1LL',
+                    applicantName: 'Joe Bloggs',
+                    caseReference: 'ccd123',
+                    submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY',
+                    checkListItems: [
+                        {text: 'the interim death certificate', type: 'textOnly'}
+                    ],
+                    noDocumentsRequired: false,
+                    noDocumentsRequiredText: null
+                },
+                'Post cover sheet pdf'
+            )).to.equal(true);
+
+            postStub.restore();
+            done();
+        });
     });
 });

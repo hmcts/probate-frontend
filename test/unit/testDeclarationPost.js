@@ -8,6 +8,7 @@ const Declaration = rewire('app/steps/ui/declaration');
 const co = require('co');
 const UploadLegalDeclaration = require('app/services/UploadLegalDeclaration');
 const caseTypes = require('app/utils/CaseTypes');
+const {assert} = require('chai');
 
 describe('Declaration', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).Declaration;
@@ -93,7 +94,7 @@ describe('Declaration', () => {
                 done(err);
             });
         });
-        it('should call handle post and set no docs required field if conditions met', (done) => {
+        it('should call handle post and set Interim Certificate docs required field if conditions met', (done) => {
             const revert = Declaration.__set__('ServiceMapper', class {
                 static map() {
                     return class {
@@ -136,7 +137,7 @@ describe('Declaration', () => {
                 [ctx, errors] = yield declaration.handlePost(ctx, errors, formdata, session);
 
                 expect(errors).to.deep.equal([]);
-                expect(formdata.applicant.notRequiredToSendDocuments).to.deep.equal(true);
+                assert.isUndefined(formdata.applicant.notRequiredToSendDocuments);
                 stub.restore();
                 revert();
                 done();

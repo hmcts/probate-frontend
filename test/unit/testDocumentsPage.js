@@ -622,7 +622,7 @@ describe('Documents', () => {
             });
         });
 
-        it('redirect if journey is intestacy and excepted estate and interim death cert', (done) => {
+        it('do not redirect if journey is intestacy and excepted estate and interim death cert', (done) => {
             session.form = {
                 deceased: {maritalStatus: 'optionSeparated', deathCertificate: 'optionInterimCertificate'},
                 applicant: {relationshipToDeceased: 'optionChild'},
@@ -632,10 +632,7 @@ describe('Documents', () => {
             co(function* () {
                 const options = yield Documents.runnerOptions(ctx, session);
 
-                expect(options).to.deep.equal({
-                    redirect: true,
-                    url: '/thank-you'
-                });
+                expect(options).to.deep.equal({});
                 done();
             }).catch(err => {
                 done(err);

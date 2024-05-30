@@ -47,7 +47,7 @@ Scenario('Check survey link works', async ({I}) => {
     await I.authenticateWithIdamIfAvailable(language);
 
     // Dashboard
-    await I.chooseApplication(language);
+    // await I.chooseApplication(language);
 
     // Deceased Details
     await I.selectATask(language, taskListContent.taskNotStarted);

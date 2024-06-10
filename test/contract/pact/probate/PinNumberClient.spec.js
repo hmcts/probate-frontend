@@ -64,7 +64,9 @@ describe('Pact PinNumberClient', () => {
                     withRequest: {
                         method: 'GET',
                         path: '/invite/pin',
-                        query: 'phoneNumber=07954765765',
+                        query: {
+                            'phoneNumber': '07954765765'
+                        },
                         headers: {
                             'Content-Type': 'application/json',
                             'Session-Id': ctx.sessionID
@@ -80,7 +82,7 @@ describe('Pact PinNumberClient', () => {
 
             it('successfully returns pin number', (done) => {
                 const pinNumberClient = new PinNumberClient('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
-                const verificationPromise = pinNumberClient.get('07954765765');
+                const verificationPromise = pinNumberClient.get('07954765765', false, ctx.authToken, ctx.session.serviceAuthorization);
                 assert.eventually.ok(verificationPromise).notify(done);
             });
         });

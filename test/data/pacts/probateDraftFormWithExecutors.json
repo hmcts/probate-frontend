@@ -24,6 +24,7 @@
     "addressFound": "none"
   },
   "applicant": {
+    "email": "someemailaddress@host.com",
     "firstName": "Jackie",
     "lastName": "Smith",
     "address": {
@@ -35,7 +36,6 @@
     "phoneNumber": "07951058088",
     "nameAsOnTheWill": "Yes"
   },
-  "applicantEmail": "someemailaddress@host.com",
   "executors": {
     "alias": "Yes",
     "allalive": "Yes",

@@ -5,7 +5,7 @@ const path = require('path');
 const chai = require('chai');
 const {Pact} = require('@pact-foundation/pact');
 const chaiAsPromised = require('chai-as-promised');
-const IntestacyFormData = require('app/services/IntestacyFormData');
+const IntestacyFormData = require('app/services/FormData');
 const config = require('config');
 const getPort = require('get-port');
 const expect = chai.expect;
@@ -19,6 +19,7 @@ describe('Pact IntestacyFormData', () => {
     let provider;
     getPort().then(portNumber => {
         MOCK_SERVER_PORT = portNumber;
+        console.log('PORTNUMBER => ', portNumber);
         // (1) Create the Pact object to represent your provider
         provider = new Pact({
             consumer: 'probate_frontend',
@@ -32,14 +33,14 @@ describe('Pact IntestacyFormData', () => {
     });
     const ctx = {
         sessionID: 'someSessionId',
-        authToken: 'authToken',
+        authToken: 'someAuthToken',
         session: {
             serviceAuthorization: 'someServiceAuthorization'
         }
     };
     function getRequestBody() {
         const fullBody = JSON.parse(JSON.stringify(FORM_DATA_BODY_PAYLOAD));
-        fullBody.type = 'Intestacy';
+        //fullBody.type = 'Intestacy';
         return fullBody;
     }
     function getExpectedResponseBody() {
@@ -49,7 +50,7 @@ describe('Pact IntestacyFormData', () => {
             'id': 1535574519543819,
             'state': 'Pending'
         };
-        expectedJSON.type = 'Intestacy';
+        //expectedJSON.type = 'Intestacy';
         return expectedJSON;
     }
 
@@ -59,32 +60,29 @@ describe('Pact IntestacyFormData', () => {
     // to act like the Provider
     // It also sets up expectations for what requests are to come, and will fail
     // if the calls are not seen.
-    before(() =>
-        provider.setup()
-    );
+
+    before(async () => {
+        await provider.setup();
+    });
 
     // After each individual test (one or more interactions)
     // we validate that the correct request came through.
     // This ensures what we _expect_ from the provider, is actually
     // what we've asked for (and is what gets captured in the contract)
     afterEach(() => provider.verify());
-
-    describe('when intestacy formdata is posted', () => {
+    context('when intestacy formdata is posted', () => {
         describe('and is required to be persisted', () => {
             before(() => {
-                // (2) Start the mock server
                 provider.addInteraction({
                     // The 'state' field specifies a 'Provider State'
                     state: 'probate_orchestrator_service persists intestacy formdata with success',
                     uponReceiving: 'a request to POST intestacy formdata',
                     withRequest: {
                         method: 'POST',
-                        path: '/forms/someemailaddress@host.com',
+                        path: '/forms/case/1535574519543819',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Session-Id': ctx.sessionID,
-                            'Authorization': ctx.authToken,
-                            'ServiceAuthorization': ctx.session.serviceAuthorization
+                            'Authorization': ctx.authToken
                         },
                         body: getRequestBody()
                     },
@@ -95,15 +93,14 @@ describe('Pact IntestacyFormData', () => {
                     }
                 });
             });
-
             // (4) write your test(s)
             // Verify service client works as expected
-            it('successfully validated form data', (done) => {
-                const formDataClient = new IntestacyFormData('http://localhost:' + MOCK_SERVER_PORT, 'someSessionId');
-                const verificationPromise = formDataClient.post('someemailaddress@host.com', FORM_DATA_BODY_PAYLOAD, ctx);
-                expect(verificationPromise).to.eventually.eql(getExpectedResponseBody()).notify(done);
+            it('successfully validated form data', async () => {
+                const formDataClient = new IntestacyFormData(`http://localhost:${MOCK_SERVER_PORT}`, ctx.sessionID);
+                const verificationPromise = formDataClient.post(ctx.authToken, ctx.serviceAuthorization, '1535574519543819', getRequestBody());
+                const response = await verificationPromise;
+                expect(response).to.eql(getExpectedResponseBody());
             });
-
         });
     });
     // (6) write the pact file for this consumer-provider pair,

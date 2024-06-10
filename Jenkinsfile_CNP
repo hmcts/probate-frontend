@@ -3,6 +3,7 @@
 @Library("Infrastructure") _
 
 import uk.gov.hmcts.contino.GithubAPI
+import uk.gov.hmcts.contino.AppPipelineDsl
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 String product = "probate"
@@ -72,24 +73,24 @@ withPipeline("nodejs", product, component) {
          }
      } */
 
-    afterSuccess('test') {
-        if (env.CHANGE_BRANCH || env.BRANCH_NAME == 'master') {
-            env.PACT_BRANCH_NAME = env.CHANGE_BRANCH
-            env.PACT_BROKER_URL = "https://pact-broker.platform.hmcts.net"
-            if (env.BRANCH_NAME == 'master') {
-                env.PACT_BRANCH_NAME = 'master'
-            }
-            env.PACT_BROKER_VERSION = sh(returnStdout: true, script: 'git rev-parse --verify --short HEAD')
-            sh 'printenv'
-            sh 'yarn test-pact'
-            sh 'yarn publish-pact'
-            sh 'curl -LO https://github.com/pact-foundation/pact-ruby-standalone/releases/download/v1.63.0/pact-1.63.0-linux-x86_64.tar.gz'
-            sh 'tar xzf pact-1.63.0-linux-x86_64.tar.gz'
-            dir('pact/bin') {
-                sh './pact-broker can-i-deploy --retry-while-unknown=12 --retry-interval=10 -a probate_frontend -b ${PACT_BROKER_URL} -e ${PACT_BROKER_VERSION}'
-            }
-        }
-    }
+//    afterSuccess('test') {
+//        if (env.CHANGE_BRANCH || env.BRANCH_NAME == 'master') {
+//            env.PACT_BRANCH_NAME = env.CHANGE_BRANCH
+//            env.PACT_BROKER_URL = "https://pact-broker.platform.hmcts.net"
+//            if (env.BRANCH_NAME == 'master') {
+//                env.PACT_BRANCH_NAME = 'master'
+//            }
+//            env.PACT_BROKER_VERSION = sh(returnStdout: true, script: 'git rev-parse --verify --short HEAD')
+//            sh 'printenv'
+//            sh 'yarn test-pact'
+//            sh 'yarn publish-pact'
+//            sh 'curl -LO https://github.com/pact-foundation/pact-ruby-standalone/releases/download/v1.63.0/pact-1.63.0-linux-x86_64.tar.gz'
+//            sh 'tar xzf pact-1.63.0-linux-x86_64.tar.gz'
+//            dir('pact/bin') {
+//                sh './pact-broker can-i-deploy --retry-while-unknown=12 --retry-interval=10 -a probate_frontend -b ${PACT_BROKER_URL} -e ${PACT_BROKER_VERSION}'
+//            }
+//        }
+//    }
 
 /*
    before('buildinfra:prod') {
@@ -136,4 +137,8 @@ withPipeline("nodejs", product, component) {
       alwaysLinkToLastBuild: true
     ]
   }
+
+  enablePactAs([
+    AppPipelineDsl.PactRoles.CONSUMER
+  ])
 }

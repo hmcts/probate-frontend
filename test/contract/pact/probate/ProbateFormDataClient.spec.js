@@ -84,6 +84,9 @@ describe('Pact ProbateFormData', () => {
                     withRequest: {
                         method: 'GET',
                         path: '/forms/case/1535574519543819',
+                        query: {
+                            'probateType': 'PA'
+                        },
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': ctx.authToken,

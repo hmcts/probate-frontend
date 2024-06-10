@@ -35,9 +35,7 @@ describe('Pact Probate Submit Data', () => {
     const ctx = {
         sessionID: 'someSessionId',
         authToken: 'authToken',
-        session: {
-            serviceAuthorization: 'someServiceAuthorization'
-        },
+        serviceAuthorization: 'someServiceAuthorization',
         paymentDto: {
             id: 'paymentDtoID',
             amount: 273.0,
@@ -105,6 +103,9 @@ describe('Pact Probate Submit Data', () => {
                     withRequest: {
                         method: 'PUT',
                         path: '/forms/1535574519543819/submissions',
+                        query: {
+                            'probateType': 'PA'
+                        },
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': ctx.authToken,

@@ -33,7 +33,7 @@ describe('Pact ProbateCheckAnswersPdf', () => {
     });
 
     const req = {
-        // sessionID: 'someSessionId',
+        sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
             form: {
@@ -44,7 +44,7 @@ describe('Pact ProbateCheckAnswersPdf', () => {
     };
 
     const reqInvalid = {
-        // sessionID: 'someSessionId',
+        sessionID: 'someSessionId',
         authToken: 'authToken',
         session: {
             form: {
@@ -86,7 +86,6 @@ describe('Pact ProbateCheckAnswersPdf', () => {
                         path: '/documents/generate/checkAnswersSummary',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Session-Id': req.sessionID,
                             'Authorization': req.authToken,
                             'ServiceAuthorization': req.session.serviceAuthorization
                         },
@@ -119,7 +118,6 @@ describe('Pact ProbateCheckAnswersPdf', () => {
                         path: '/documents/generate/checkAnswersSummary',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Session-Id': reqInvalid.sessionID,
                             'Authorization': reqInvalid.authToken,
                             'ServiceAuthorization': reqInvalid.session.serviceAuthorization
                         },

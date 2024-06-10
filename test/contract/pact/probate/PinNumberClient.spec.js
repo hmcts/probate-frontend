@@ -64,7 +64,9 @@ describe('Pact PinNumberClient', () => {
                     withRequest: {
                         method: 'GET',
                         path: '/invite/pin',
-                        query: 'phoneNumber=07954765765',
+                        query: {
+                            'phoneNumber': '07954765765'
+                        },
                         headers: {
                             'Content-Type': 'application/json',
                             'Session-Id': ctx.sessionID

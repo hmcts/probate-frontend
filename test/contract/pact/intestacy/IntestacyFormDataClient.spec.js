@@ -40,7 +40,7 @@ describe('Pact IntestacyFormData', () => {
     };
     function getRequestBody() {
         const fullBody = JSON.parse(JSON.stringify(FORM_DATA_BODY_PAYLOAD));
-        // fullBody.type = 'Intestacy';
+        //fullBody.type = 'Intestacy';
         return fullBody;
     }
     function getExpectedResponseBody() {
@@ -50,7 +50,7 @@ describe('Pact IntestacyFormData', () => {
             'id': 1535574519543819,
             'state': 'Pending'
         };
-        // expectedJSON.type = 'Intestacy';
+        //expectedJSON.type = 'Intestacy';
         return expectedJSON;
     }
 
@@ -61,9 +61,9 @@ describe('Pact IntestacyFormData', () => {
     // It also sets up expectations for what requests are to come, and will fail
     // if the calls are not seen.
 
-    before(() =>
-        provider.setup()
-    );
+    before(async () => {
+        await provider.setup();
+    });
 
     // After each individual test (one or more interactions)
     // we validate that the correct request came through.
@@ -95,12 +95,11 @@ describe('Pact IntestacyFormData', () => {
             });
             // (4) write your test(s)
             // Verify service client works as expected
-            it('successfully validated form data', (done) => {
-                const formDataClient = new IntestacyFormData('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
-                const verificationPromise = formDataClient.post(ctx.authToken, ctx.serviceAuthorization, '1535574519543819', FORM_DATA_BODY_PAYLOAD);
-                expect(verificationPromise).to.eventually.eql(getExpectedResponseBody());
-                done();
-
+            it('successfully validated form data', async () => {
+                const formDataClient = new IntestacyFormData(`http://localhost:${MOCK_SERVER_PORT}`, ctx.sessionID);
+                const verificationPromise = formDataClient.post(ctx.authToken, ctx.serviceAuthorization, '1535574519543819', getRequestBody());
+                const response = await verificationPromise;
+                expect(response).to.eql(getExpectedResponseBody());
             });
         });
     });

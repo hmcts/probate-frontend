@@ -63,6 +63,7 @@
     "test-api": "NODE_ENV=dev NODE_PATH=. LOG_LEVEL=error mocha 'test/api/*.js' --timeout 10000 --reporter spec --exit",
     "test-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/pact/**' --timeout 10000 --reporter spec",
     "publish-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'test/contract/publish/*.js' --timeout 10000 --reporter spec",
+    "test:pact:run-and-publish": "yarn test-pact && yarn publish-pact",
     "lint": "NODE_PATH=. eslint .",
     "eslint": "NODE_PATH=. eslint .",
     "test:functional": "NODE_ENV=test yarn test-contract && NODE_ENV=test yarn test-e2e-http-launch-darkly",
@@ -157,8 +158,8 @@
     "webdriverio": "^8.10.5"
   },
   "devDependencies": {
-    "@pact-foundation/pact": "^12.2.0",
-    "@pact-foundation/pact-node": "^10.17.7",
+    "@pact-foundation/pact": "^12.5.2",
+    "@pact-foundation/pact-node": "^10.18.0",
     "@playwright/test": "^1.41.2",
     "@types/node": "^20.11.18",
     "chai": "^4.3.7",

@@ -86,9 +86,9 @@ describe('Pact Intestacy Submit Data', () => {
     // to act like the Provider
     // It also sets up expectations for what requests are to come, and will fail
     // if the calls are not seen.
-    before(() =>
-        provider.setup()
-    );
+    before(async () => {
+        await provider.setup();
+    });
 
     // After each individual test (one or more interactions)
     // we validate that the correct request came through.
@@ -105,6 +105,9 @@ describe('Pact Intestacy Submit Data', () => {
                     withRequest: {
                         method: 'PUT',
                         path: '/forms/1535574519543819/submissions',
+                        query: {
+                            'probateType': 'INTESTACY'
+                        },
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': ctx.authToken,
@@ -122,11 +125,11 @@ describe('Pact Intestacy Submit Data', () => {
 
             // (4) write your test(s)
             // Verify service client works as expected
-            it('successfully submitted form data', (done) => {
+            it('successfully submitted form data', async () => {
                 const submitDataClient = new IntestacySubmitData('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
                 const verificationPromise = submitDataClient.submit(getRequestPayload(), ctx.paymentDto, ctx.authToken, ctx.session.serviceAuthorization, 'intestacy');
-                expect(verificationPromise).to.eventually.eql(getExpectedPayload());
-                done();
+                const response = await verificationPromise;
+                expect(response).to.eql(getExpectedPayload());
             });
 
         });

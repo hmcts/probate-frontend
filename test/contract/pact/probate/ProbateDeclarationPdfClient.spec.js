@@ -91,7 +91,6 @@ describe('Pact ProbateDeclarationPdf', () => {
                         path: '/documents/generate/legalDeclaration',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Session-Id': req.sessionID,
                             'Authorization': req.authToken,
                             'ServiceAuthorization': serviceToken
                         },
@@ -126,7 +125,6 @@ describe('Pact ProbateDeclarationPdf', () => {
                         path: '/documents/generate/legalDeclaration',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Session-Id': req.sessionID,
                             'Authorization': req.authToken,
                             'ServiceAuthorization': serviceToken
                         },

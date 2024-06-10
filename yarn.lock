@@ -1746,7 +1746,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pact-foundation/pact-node@npm:^10.17.7":
+"@pact-foundation/pact-node@npm:^10.18.0":
   version: 10.18.0
   resolution: "@pact-foundation/pact-node@npm:10.18.0"
   dependencies:
@@ -1781,7 +1781,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pact-foundation/pact@npm:^12.2.0":
+"@pact-foundation/pact@npm:^12.5.2":
   version: 12.5.2
   resolution: "@pact-foundation/pact@npm:12.5.2"
   dependencies:
@@ -13776,8 +13776,8 @@ __metadata:
     "@hmcts/nodejs-logging": ^4.0.4
     "@hmcts/os-places-client": ^1.1.7
     "@hmcts/properties-volume": ^1.0.0
-    "@pact-foundation/pact": ^12.2.0
-    "@pact-foundation/pact-node": ^10.17.7
+    "@pact-foundation/pact": ^12.5.2
+    "@pact-foundation/pact-node": ^10.18.0
     "@playwright/test": ^1.41.2
     "@types/node": ^20.11.18
     "@wdio/cli": ^8.10.5

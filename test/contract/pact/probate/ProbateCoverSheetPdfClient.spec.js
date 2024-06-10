@@ -135,7 +135,6 @@ describe('Pact ProbateCoverSheetPdf', () => {
                         path: '/documents/generate/bulkScanCoversheet',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Session-Id': req.sessionID,
                             'Authorization': req.authToken,
                             'ServiceAuthorization': serviceToken
                         },
@@ -172,7 +171,6 @@ describe('Pact ProbateCoverSheetPdf', () => {
                         path: '/documents/generate/bulkScanCoversheet',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Session-Id': req.sessionID,
                             'Authorization': req.authToken,
                             'ServiceAuthorization': serviceToken
                         },
@@ -208,7 +206,6 @@ describe('Pact ProbateCoverSheetPdf', () => {
                         path: '/documents/generate/bulkScanCoversheet',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Session-Id': req.sessionID,
                             'Authorization': req.authToken,
                             'ServiceAuthorization': serviceToken
                         },

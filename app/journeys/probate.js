@@ -79,7 +79,7 @@ const stepList = {
         isCapable: 'StartApply',
         otherwise: 'StopPage'
     },
-    StartApply: 'Dashboard',
+    StartApply: 'TaskList',
     BilingualGOP: 'DeceasedName',
     DeceasedName: 'DeceasedDob',
     DeceasedDob: 'DeceasedDod',

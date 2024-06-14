@@ -82,7 +82,7 @@ exports.config = {
     bootstrap: TestConfigurator.bootStrapTestSuite(),
     multiple: {
         parallel: {
-            chunks: 4,
+            chunks: 3,
             browsers: ['chrome']
         }
     },

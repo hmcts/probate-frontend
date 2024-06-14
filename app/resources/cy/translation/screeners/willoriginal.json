@@ -1,11 +1,12 @@
 {
+  "eligibilityTitle": "Cymhwysedd i wneud cais ar-lein",
   "title": "Oes gennych chi&rsquo;r ewyllys wreiddiol ac unrhyw godisiliau?",
   "question": "Oes gennych chi&rsquo;r ewyllys wreiddiol ac unrhyw godisiliau?",
   "optionYes": "Oes",
   "optionNo": "Nag oes",
-  "hintText1": "Mae&rsquo;n rhaid i chi anfon yr ewyllys wreiddiol ac unrhyw godisiliau atom ni, nid llungop&iuml;au, fel rhan o'ch cais.",
-  "hintText2": "Yn &ocirc;l y gyfraith, mae angen i ni weld yr ewyllys a&rsquo;r codisiliau gwreiddiol a&rsquo;u cadw wrth iddyn nhw ddod yn gofnod cyhoeddus.",
-  "hintText3": "Mae codisil yn ddogfen gyfreithiol sy&rsquo;n atodiad at ewyllys. Mae codisiliau yn rhestru newidiadau a diweddariadau i ewyllys ac yn cael eu llofnodi a&rsquo;u tystio yn yr un ffordd ag ewyllys.",
+  "hintText1": "Mae codisil yn ddogfen gyfreithiol sy&rsquo;n atodiad at ewyllys. Mae codisiliau yn rhestru newidiadau a diweddariadau i ewyllys ac yn cael eu llofnodi a&rsquo;u tystio yn yr un ffordd ag ewyllys.",
+  "hintText2": "Mae&rsquo;n rhaid i chi anfon yr ewyllys wreiddiol ac unrhyw godisiliau atom ni, nid llungop&iuml;au, fel rhan o'ch cais.",
+  "hintText3": "Yn &ocirc;l y gyfraith, mae angen i ni weld yr ewyllys a&rsquo;r codisiliau gwreiddiol a&rsquo;u cadw wrth iddyn nhw ddod yn gofnod cyhoeddus.",
   "hintText4": "Gwiriwch a oes codisil ynghlwm &acirc;&rsquo;r ewyllys, neu gallant fod yn dudalennau rhydd. Gall y gair &lsquo;codisil&rsquo; fod ar frig y dudalen ",
   "errors": {
     "original": {

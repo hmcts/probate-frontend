@@ -1,4 +1,5 @@
 {
+  "eligibilityTitle": "Eligibility to apply online",
   "title": "Has an Inheritance Tax (IHT) form been filled in",
   "hintText": "This could be an Inheritance Tax estate report or a paper Inheritance Tax form.",
   "hintTextIHTSubmitted": "If you submitted an IHT400 form, HMRC will send you a letter with the unique probate code you need to complete this probate application. The letter can take up to 20 working days to arrive.",

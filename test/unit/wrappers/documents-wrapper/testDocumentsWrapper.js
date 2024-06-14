@@ -180,7 +180,7 @@ describe('Documents.js', () => {
             done();
         });
 
-        it('should return false when intestacy document screening conditions are met, interim death certifcate option and excepted estate', (done) => {
+        it('should return true when intestacy document screening conditions are met, interim death certifcate option and excepted estate', (done) => {
             const data = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -195,7 +195,7 @@ describe('Documents.js', () => {
                 }
             };
             const documentsWrapper = new DocumentsWrapper(data);
-            expect(documentsWrapper.documentsRequired()).to.equal(false);
+            expect(documentsWrapper.documentsRequired()).to.equal(true);
             done();
         });
     });

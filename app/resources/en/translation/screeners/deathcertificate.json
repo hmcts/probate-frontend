@@ -1,4 +1,5 @@
 {
+  "eligibilityTitle": "Eligibility to apply online",
   "title": "Do you have the death certificate",
   "question": "Do you have the death certificate?",
   "hintText": "You need the original death certificate or an <a target=\"_blank\" rel=\"external noopener\" href=\"{deathReportedToCoroner}\" class=\"govuk-link\" aria-label=\"interim death certificate (opens in a new window)\">interim death certificate (opens in a new window)</a> from the coroner.",

@@ -5,6 +5,7 @@
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
+            <p class="govuk-hint" style="font-size: 24px; margin-bottom: 0;">{{ content.eligibilityTitle | safe }}</p>
             <h1 class="govuk-heading-l">{{ content[fields.stoppageHeader.value] | safe }}</h1>
 
             {% for placeholder in fields.linkPlaceholders.value %}

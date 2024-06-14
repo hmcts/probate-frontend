@@ -1,4 +1,5 @@
 {
+  "eligibilityTitle": "Cymhwysedd i wneud cais ar-lein",
   "title": "Ydych chi wedi cyfrifo gwerth yr yst&acirc;d?",
   "question": "Ydych chi wedi cyfrifo gwerth yr yst&acirc;d?",
   "hint": "Cyn gwneud cais am brofiant, rhaid i chi <a href=\"{ihtChecker}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"gyfrifo gwerth yr yst&acirc;d\">gyfrifo gwerth yr yst&acirc;d</a> i weld a oes angen i chi dalu Treth Etifeddiant (IHT). Gallwch <a href=\"{ihtChecker}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"ddefnyddio&lsquo;r gwiriwr IHT\">ddefnyddio&lsquo;r gwiriwr IHT</a> i ddod o hyd i&lsquo;r gwerthoedd hyn.",

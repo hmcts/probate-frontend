@@ -94,7 +94,7 @@
     "@hmcts/nodejs-healthcheck": "^1.8.0",
     "@hmcts/nodejs-logging": "^4.0.4",
     "@hmcts/os-places-client": "^1.1.7",
-    "@hmcts/properties-volume": "^0.0.14",
+    "@hmcts/properties-volume": "^1.0.0",
     "@wdio/cli": "^8.10.5",
     "@wdio/selenium-standalone-service": "^8.10.4",
     "ajv": "^6.12.6",
@@ -205,7 +205,10 @@
     "puppeteer": "^22.0.0",
     "express": "^4.19.2",
     "qs": ">=6.9.7",
-    "formidable": "3.5.1"
+    "formidable": "3.5.1",
+    "@azure/msal-node": "^2.9.2",
+    "@azure/identity": "^4.2.1",
+    "braces": "^3.0.3"
   },
   "packageManager": "yarn@3.6.3"
 }

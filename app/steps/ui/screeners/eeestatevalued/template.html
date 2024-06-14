@@ -4,6 +4,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block form_content %}
+    <p class="govuk-hint" style="font-size: 24px; margin-bottom: 0;">{{ content.eligibilityTitle | safe }}</p>
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "eeEstateValued",

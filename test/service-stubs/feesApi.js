@@ -16,7 +16,7 @@ router.get(`/fees-register${config.services.feesRegister.paths.feesLookup}`, (re
     switch (req.query.event) {
     case 'issue':
         if (req.query.amount_or_volume > config.services.feesRegister.ihtMinAmt) {
-            feeAmount = 273;
+            feeAmount = 300;
         }
 
         logger().info(`Application fee: £${feeAmount}`);

@@ -349,6 +349,72 @@ describe('multipleApplicationsMiddleware', () => {
             });
         });
 
+        it('should create a new gop draft application based on mental capacity', (done) => {
+            delete allApplicationsExpectedResponse.applications[4];
+
+            const revert = multipleApplicationsMiddleware.__set__({
+                renderTaskList: function () {
+                    req.session.form.applications = allApplicationsExpectedResponse.applications;
+                    return Promise.resolve();
+                },
+                ScreenerValidation: class {
+                    getScreeners() {
+                        return probateScreeners;
+                    }
+                }
+            });
+
+            const req = {
+                session: {
+                    form: {
+                        applicantEmail: 'test@email.com',
+                        caseType: 'gop',
+                        payloadVersion: 'dummy',
+                        userLoggedIn: true,
+                        eventDescription: 'Page completed: mental-capacity',
+                        screeners: {
+                            deathCertificate: 'optionYes',
+                            deathCertificateInEnglish: 'optionNo',
+                            deathCertificateTranslation: 'optionYes',
+                            domicile: 'optionYes',
+                            completed: 'optionYes',
+                            left: 'optionYes',
+                            original: 'optionYes',
+                            executor: 'optionYes',
+                            mentalCapacity: 'optionYes'
+                        }
+                    }
+                }
+            };
+            const res = {redirect: () => {
+                // Do nothing
+            }};
+            const next = sinon.spy();
+
+            const asyncFetchStub = sinon.stub(AsyncFetch, 'fetchJson')
+                .returns(Promise.resolve({applications: []}));
+
+            multipleApplicationsMiddleware.initDashboard(req, res, next);
+
+            setTimeout(() => {
+                expect(asyncFetchStub.callCount).to.equal(2);
+                expect(req.session).to.deep.equal({
+                    form: {
+                        applicantEmail: 'test@email.com',
+                        payloadVersion: 'dummy',
+                        userLoggedIn: true,
+                        applications: allApplicationsExpectedResponse.applications,
+                        eventDescription: 'Page completed: mental-capacity'
+
+                    }
+                });
+
+                asyncFetchStub.restore();
+                revert();
+                done();
+            });
+        });
+
         it('should create a new draft application if all screeners are present and no Draft applications of same case type found', (done) => {
             delete allApplicationsExpectedResponse.applications[4];
 
@@ -654,6 +720,52 @@ describe('multipleApplicationsMiddleware', () => {
             });
         });
 
+        it('should return a case in progress and redirect to task-list when previous page is mental-capacity', (done) => {
+            const req = {
+                originalUrl: '/get-case/1234567890123456',
+                session: {
+                    id: 'fb2e77d.47a0479900504cb3ab4a1f626d174d2d',
+                    form: {
+                        caseType: 'gop',
+                        applicantEmail: 'test@email.com',
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Pending',
+                        }
+                    }
+                }
+            };
+            const res = {redirect: () => {
+                // Do nothing
+            }};
+
+            const multipleAppGetCaseStubResponse = {
+                applicantEmail: 'test@email.com',
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Pending',
+                }
+            };
+
+            const redirectSpy = sinon.spy(res, 'redirect');
+            const asyncFetchStub = sinon.stub(AsyncFetch, 'fetchJson')
+                .returns(Promise.resolve(multipleAppGetCaseStubResponse));
+
+            multipleApplicationsMiddleware.getCase(req, res, '', false,
+                'Page completed: mental-capacity');
+
+            setTimeout(() => {
+                expect(asyncFetchStub.calledOnce).to.equal(true);
+                expect(redirectSpy.calledOnce).to.equal(true);
+                expect(redirectSpy.calledWith('/task-list')).to.equal(true);
+
+                asyncFetchStub.restore();
+                redirectSpy.restore();
+
+                done();
+            });
+        });
+
         it('should return a submitted case and redirect to task-list (which in turn would then redirect to documents or thank-you)', (done) => {
             const req = {
                 originalUrl: '/get-case/9012345678901234?probateType=PA',
@@ -888,6 +1000,68 @@ describe('multipleApplicationsMiddleware', () => {
                     ]
                 });
                 asyncFetchStub.restore();
+                done();
+            });
+        });
+    });
+
+    describe('renderTaskList function', () => {
+        it('should redirect to task-list when previous page is mental-capacity', (done) => {
+            const req = {
+                originalUrl: '/get-case/1234567890123456',
+                session: {
+                    id: 'fb2e77d.47a0479900504cb3ab4a1f626d174d2d',
+                    form: {
+                        caseType: 'gop',
+                        applicantEmail: 'test@email.com',
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'Pending',
+                        },
+                        eventDescription: 'Page completed: mental-capacity'
+                    }
+                }
+            };
+            const result = {
+                applications: [
+                    {
+                        dateCreated: '9 November 2019',
+                        caseType: 'PA',
+                        deceasedFullName: '',
+                        ccdCase: {
+                            id: '9999999999999999',
+                            state: 'Pending'
+                        }
+                    }
+                ]
+            };
+            const res = {redirect: () => {
+                // Do nothing
+            }};
+
+            const multipleAppGetCaseStubResponse = {
+                applicantEmail: 'test@email.com',
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'Pending',
+                }
+            };
+
+            const redirectSpy = sinon.spy(res, 'redirect');
+            const asyncFetchStub = sinon.stub(AsyncFetch, 'fetchJson')
+                .returns(Promise.resolve(multipleAppGetCaseStubResponse));
+            const next = sinon.spy();
+
+            multipleApplicationsMiddleware.renderTaskList(req, res, result, next);
+            // eslint-disable-next-line no-unused-expressions
+            setTimeout(() => {
+                expect(asyncFetchStub.calledOnce).to.equal(true);
+                expect(redirectSpy.calledOnce).to.equal(true);
+                expect(redirectSpy.calledWith('/task-list')).to.equal(true);
+
+                asyncFetchStub.restore();
+                redirectSpy.restore();
+
                 done();
             });
         });

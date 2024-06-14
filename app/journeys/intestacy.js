@@ -71,7 +71,7 @@ const stepList = {
         noOthers: 'StartApply',
         otherwise: 'StopPage'
     },
-    StartApply: 'Dashboard',
+    StartApply: 'TaskList',
     BilingualGOP: 'DeceasedDetails',
     DeceasedDetails: {
         diedAfter: 'DeceasedAddress',

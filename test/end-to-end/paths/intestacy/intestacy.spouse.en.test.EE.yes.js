@@ -59,7 +59,7 @@ getTestLanguages().forEach(language => {
         await I.authenticateWithIdamIfAvailable(language);
 
         // Dashboard
-        await I.chooseApplication(language);
+        // await I.chooseApplication(language);
 
         // Deceased Task
         await I.selectATask(language, taskListContent.taskNotStarted);

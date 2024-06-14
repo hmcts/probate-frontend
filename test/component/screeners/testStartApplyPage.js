@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const Dashboard = require('app/steps/ui/dashboard');
+const TaskList = require('app/steps/ui/tasklist');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('config');
 const cookies = [{
@@ -22,7 +22,7 @@ const cookies = [{
 
 describe('start-apply', () => {
     let testWrapper;
-    const expectedNextUrlForDashboard = Dashboard.getUrl();
+    const expectedNextUrlForTaskList = TaskList.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('StartApply');
@@ -37,8 +37,8 @@ describe('start-apply', () => {
             testWrapper.testContent(done, {}, [], cookies);
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForDashboard}`, (done) => {
-            testWrapper.testRedirect(done, {}, expectedNextUrlForDashboard, cookies);
+        it(`test it redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {
+            testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList, cookies);
         });
 
         it('test "save and close" link is not displayed on the page', (done) => {

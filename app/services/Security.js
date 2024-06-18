@@ -156,7 +156,7 @@ class Security {
                 this._login(req, res);
             } else if (!req.query.code) {
                 req.log.warn('No code received');
-                res.redirect('/');
+                this._login(req, res);
             } else if (redirectInfo.state !== req.query.state) {
                 req.log.error(`States do not match: ${redirectInfo.state} is not ${req.query.state}`);
                 this._denyAccess(req, res);

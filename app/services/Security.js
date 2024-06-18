@@ -160,7 +160,7 @@ class Security {
                     req.log.error('Invalid redirect_uri: ' + redirectInfo.continue_url);
                     return this._denyAccess(req, res);
                 }
-                res.redirect(redirectInfo.continue_url);
+                res.redirect('/');
             } else if (redirectInfo.state !== req.query.state) {
                 req.log.error(`States do not match: ${redirectInfo.state} is not ${req.query.state}`);
                 this._denyAccess(req, res);

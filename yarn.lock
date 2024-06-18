@@ -13840,7 +13840,6 @@ __metadata:
     watch: ^0.13.0
     webdriverio: ^8.10.5
     when: ^3.7.8
-    ws: ^8.17.1
   languageName: unknown
   linkType: soft
 
@@ -17898,7 +17897,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:8.16.0, ws@npm:^8.13.0, ws@npm:^8.17.1, ws@npm:^8.8.0":
+"ws@npm:8.16.0, ws@npm:^8.13.0, ws@npm:^8.8.0":
   version: 8.17.1
   resolution: "ws@npm:8.17.1"
   peerDependencies:

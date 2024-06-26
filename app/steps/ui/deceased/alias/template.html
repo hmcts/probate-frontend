@@ -1,23 +1,30 @@
 {% extends "includes/two_thirds_form.html" %}
 
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
 {% block form_content %}
+    {% call govukFieldset({
+        legend: {
+            text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+
+    {% if fields.caseType.value === globals.caseTypes.intestacy %}
+        <p class="govuk-body">{{ content.intestacyParagraph1 | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+    {% else %}
+        <p class="govuk-body">{{ content.GopParagraph1 | safe }}</p>
+        <p class="govuk-body">{{ content.GopParagraph2 | safe }}</p>
+    {% endif %}
+
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "alias",
         name: "alias",
-        fieldset: {
-            legend: {
-                text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
-                isPageHeading: true,
-                classes: "govuk-fieldset__legend--l"
-            }
-        },
-        hint: {
-            text: content.paragraph1 | safe
-        },
         errorMessage: { text: fields.alias.errorMessage | safe } if fields.alias.errorMessage,
         items: [
             {
@@ -31,6 +38,12 @@
                 checked: true if fields.alias.value == "optionNo"
             }
         ]
+    }) }}
+    {% endcall %}
+
+    {{ govukWarningText({
+    text: content.warningText | safe,
+    iconFallbackText: "Warning"
     }) }}
 
     <div class="govuk-form-group">

@@ -2,13 +2,13 @@
   "title": "Deceased details",
   "question": "What are the details of the person who died?",
   "questionName": "The name of the person who died",
-  "firstName": "First name(s)",
-  "firstNameHint": "Including middle names",
-  "lastName": "Last name(s)",
+  "deathCertificateHint": "You should use the details from the death certificate.",
+  "firstName": "First name and any middle names",
+  "lastName": "Last name",
   "questionDob": "Date of birth",
   "questionHintDob": "For example, 31 03 1945",
   "questionDod": "Date of death",
-  "questionHintDod": "Use the date from the death certificate. For example, 30 06 2016",
+  "questionHintDod": "For example, 30 06 2016",
   "errors": {
     "firstName": {
       "required": "Enter the person who died&rsquo;s first name",

@@ -1,18 +1,18 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames');
-const DeceasedMarried = require('app/steps/ui/deceased/married');
+const DeceasedDob = require('app/steps/ui/deceased/dob');
+const DeceasedAliasNameOnWill = require('app/steps/ui/deceased/aliasnameonwill');
 const testCommonContent = require('test/component/common/testCommonContent.js');
-const caseTypes = require('app/utils/CaseTypes');
+const caseTypes = require('../../../app/utils/CaseTypes');
 
-describe('deceased-alias', () => {
+describe('deceased-name-as-on-will', () => {
     let testWrapper;
-    const expectedNextUrlForDeceasedOtherNames = DeceasedOtherNames.getUrl();
-    const expectedNextUrlForDeceasedMarried = DeceasedMarried.getUrl();
+    const expectedNextUrlForDeceasedDob = DeceasedDob.getUrl();
+    const expectedNextUrlForDeceasedAliasNameOnWill = DeceasedAliasNameOnWill.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('DeceasedAlias');
+        testWrapper = new TestWrapper('DeceasedNameAsOnWill');
     });
 
     afterEach(() => {
@@ -20,7 +20,7 @@ describe('deceased-alias', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('DeceasedAlias');
+        testCommonContent.runTest('DeceasedNameAsOnWill', null, null, [], false, {type: caseTypes.GOP});
 
         it('test right content loaded on the page', (done) => {
             const sessionData = {
@@ -34,7 +34,7 @@ describe('deceased-alias', () => {
                     lastName: 'Doe'
                 }
             };
-            const contentToExclude = ['theDeceased', 'intestacyParagraph1'];
+            const contentToExclude = ['theDeceased', 'questionWithoutName'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -49,22 +49,20 @@ describe('deceased-alias', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to deceased other names page: ${expectedNextUrlForDeceasedOtherNames}`, (done) => {
+        it(`test it redirects to Deceased DoB page: ${expectedNextUrlForDeceasedDob}`, (done) => {
             const data = {
-                alias: 'optionYes'
+                nameAsOnTheWill: 'optionYes',
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedOtherNames);
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDob);
         });
-        it(`test it redirects to deceased married page: ${expectedNextUrlForDeceasedMarried}`, (done) => {
+
+        it(`test it redirects to Deceased Alias Name on Will page: ${expectedNextUrlForDeceasedAliasNameOnWill}`, (done) => {
             const data = {
-                alias: 'optionNo'
+                nameAsOnTheWill: 'optionNo'
             };
 
-            testWrapper.agent.post('/prepare-session/form')
-                .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedMarried);
-                });
+            testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAliasNameOnWill);
         });
     });
 });

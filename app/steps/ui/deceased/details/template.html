@@ -30,6 +30,7 @@
     {% endif %}
 
     <h1 class="govuk-heading-l">{{ content.question }}</h1>
+    <p class="govuk-body">{{ content.deathCertificateHint | safe }}</p>
 
     {% call govukFieldset({
         legend: {
@@ -40,9 +41,6 @@
         {{ govukInput({
             label: {
                 text: content.firstName | safe
-            },
-            hint: {
-                text: content.firstNameHint | safe
             },
             id: "firstName",
             name: "firstName",

@@ -115,6 +115,7 @@ describe('Summary', () => {
                 alreadyDeclared: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
                 diedEnglandOrWalesQuestion: 'Did Dee Ceased die in England or Wales?',
+                deceasedNameAsOnWillQuestion: 'Is Dee Ceased exactly how the name is written on the will?',
                 deceasedMarriedQuestion: 'Did Dee Ceased get married or enter into a civil partnership after the will was signed?',
                 ihtTotalNetValue: 300000,
                 exceptedEstateDodAfterThreshold: true,

@@ -1,0 +1,14 @@
+{
+  "title": "Enw&rsquo;r ceisydd ar yr ewyllys",
+  "question": "A yw &lsquo;{deceasedName}&rsquo; yn union yr un fath â sut mae’r enw wedi ei ysgrifennu ar yr ewyllys?",
+  "questionWithoutName": "A yw eich enw union beth sy&rsquo;n ymddangos ar yr ewyllys?",
+  "explanation1": "Dylech wirio'r ewyllys i sicrhau bod yr enwau yn union yr un fath.",
+  "optionYes": "Ydi",
+  "optionNo": "Nac ydi",
+
+  "errors": {
+    "nameAsOnTheWill": {
+      "required": "Rhaid i chi ddewis opsiwn i barhau"
+    }
+  }
+}

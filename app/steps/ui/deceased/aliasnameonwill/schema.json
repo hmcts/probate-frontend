@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "deceased-alias-name-on-will",
+  "type": "object",
+  "properties": {
+    "aliasFirstNameOnWill": {
+      "type": "string",
+      "minLength": 2,
+      "pattern": "^[^<>]+$"
+    },
+    "aliasLastNameOnWill": {
+      "type": "string",
+      "minLength": 2,
+      "pattern": "^[^<>]+$"
+    }
+  },
+  "required":[
+    "aliasFirstNameOnWill",
+    "aliasLastNameOnWill"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Applicant name on the will",
+  "question": "Is {deceasedName} exactly how the name is written on the will?",
+  "questionWithoutName": "Is your name exactly what appears on the will?",
+  "explanation1": "You should check the will to make sure the names are exactly the same.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "nameAsOnTheWill": {
+      "required": "You must select an option to continue"
+    }
+  }
+}

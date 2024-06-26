@@ -1,0 +1,15 @@
+{
+  "title": "Enw arall y ceisydd",
+  "question": "Sut mae’r enw wedi cael ei ysgrifennu ar yr ewyllys?",
+  "aliasFirstNameOnWill": "Enw cyntaf ac unrhyw enwau canol",
+  "aliasLastNameOnWill": "Enw olaf",
+
+  "errors": {
+    "aliasFirstNameOnWill": {
+      "required": "Rhowch enw cyntaf ac unrhyw enwau canol yr unigolyn a fu farw"
+    },
+    "aliasLastNameOnWill": {
+      "required": "Nodwch enw olaf yr unigolyn a fu farw"
+    }
+  }
+}

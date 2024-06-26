@@ -1,7 +1,7 @@
 {
   "title": "Deceased name",
-  "question": "What&rsquo;s the full name of the person who died?",
-  "explanation1": "Use the name on the death certificate.",
+  "question": "What is the full name of the person who died?",
+  "explanation1": "You should use the name that is written on the death certificate.",
   "firstName": "First name and any middle names",
   "lastName": "Last name",
 

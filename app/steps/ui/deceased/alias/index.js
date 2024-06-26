@@ -3,6 +3,8 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const DeceasedWrapper = require('app/wrappers/Deceased');
 const FormatName = require('app/utils/FormatName');
+const FormatCcdCaseId = require('../../../../utils/FormatCcdCaseId');
+const caseTypes = require('../../../../utils/CaseTypes');
 
 class DeceasedAlias extends ValidationStep {
 
@@ -20,8 +22,11 @@ class DeceasedAlias extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        const formdata = req.session.form;
+        const session = req.session;
+        const formdata = session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.ccdReferenceNumber = FormatCcdCaseId.format(formdata.ccdCase);
+        ctx.caseType = caseTypes.getCaseType(session);
         return ctx;
     }
 

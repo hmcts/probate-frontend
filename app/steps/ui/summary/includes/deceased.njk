@@ -32,6 +32,19 @@
 {{checkanswer(
     items = [
         {
+            question: fields.summary.deceasedNameAsOnWillQuestion.value,
+            answer: content.DeceasedNameAsOnWill[fields.deceased.nameAsOnWill.value],
+            visible: true
+        }
+    ],
+    url = content.DeceasedNameAsOnWill.url,
+    common = common,
+    alreadyDeclared = "fields.summary.alreadyDeclared.value"
+)}}
+
+{{checkanswer(
+    items = [
+        {
             question: fields.summary.deceasedAliasQuestion.value,
             answer: content.DeceasedAlias[fields.deceased.alias.value],
             visible: true

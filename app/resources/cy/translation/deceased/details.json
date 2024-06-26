@@ -2,13 +2,14 @@
   "title": "Manylion yr unigolyn sydd wedi marw",
   "question": "Beth yw manylion yr unigolyn sydd wedi marw?",
   "questionName": "Enw&rsquo;r unigolyn sydd wedi marw",
-  "firstName": "Enw(au) cyntaf",
+  "deathCertificateHint": "Dylech ddefnyddio’r manylion sydd ar y dystysgrif marwolaeth.",
+  "firstName": "Enw cyntaf ac unrhyw enwau canol",
   "firstNameHint": "Gan gynnwys enwau canol",
   "lastName": "Cyfenw(au)",
   "questionDob": "Dyddiad geni",
   "questionHintDob": "Er enghraifft, 31 03 1945",
   "questionDod": "Dyddiad y farwolaeth",
-  "questionHintDod": "Defnyddiwch y dyddiad sydd ar y dystysgrif marwolaeth. Er enghraifft, 30 06 2016",
+  "questionHintDod": "Er enghraifft, 30 06 2016",
   "errors": {
     "firstName": {
       "required": "Nodwch enw cyntaf yr unigolyn sydd wedi marw",

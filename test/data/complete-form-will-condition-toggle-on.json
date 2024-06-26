@@ -36,6 +36,7 @@
     },
     "deceased": {
       "alias": "optionNo",
+      "nameAsOnTheWill": "Yes",
       "address": {
         "addressLine1": "21 Treelined Avenue",
         "addressLine2": "",

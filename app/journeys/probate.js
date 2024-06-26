@@ -81,7 +81,12 @@ const stepList = {
     },
     StartApply: 'TaskList',
     BilingualGOP: 'DeceasedName',
-    DeceasedName: 'DeceasedDob',
+    DeceasedName: 'DeceasedNameAsOnWill',
+    DeceasedNameAsOnWill: {
+        hasAlias: 'DeceasedAliasNameOnWill',
+        otherwise: 'DeceasedDob'
+    },
+    DeceasedAliasNameOnWill: 'DeceasedDob',
     DeceasedDob: 'DeceasedDod',
     DeceasedDod: 'DeceasedAddress',
     DeceasedAddress: 'DiedEnglandOrWales',

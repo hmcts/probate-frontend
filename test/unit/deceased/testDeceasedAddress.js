@@ -77,7 +77,8 @@ describe('DeceasedAddress', () => {
                             'dob-year': '2002',
                             'dod-day': '02',
                             'dod-month': '03',
-                            'dod-year': '2003'
+                            'dod-year': '2003',
+                            nameAsOnTheWill: 'Yes'
                         }
                     }
                 }

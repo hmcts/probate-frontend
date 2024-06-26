@@ -26,7 +26,8 @@ describe('IhtMethod', () => {
                 anyChildren: 'optionYes',
                 allChildrenOver18: 'optionYes',
                 anyDeceasedChildren: 'optionYes',
-                anyGrandchildrenUnder18: 'optionNo'
+                anyGrandchildrenUnder18: 'optionNo',
+                nameAsOnTheWill: 'Yes',
             }
         };
         const ctx = {};
@@ -160,6 +161,7 @@ describe('IhtMethod', () => {
                             'dod-day': '02',
                             'dod-month': '03',
                             'dod-year': '2003',
+                            nameAsOnTheWill: 'Yes',
                             address: {
                                 addressLine1: '143 Caerfai Bay Road',
                                 postTown: 'town',
@@ -200,6 +202,7 @@ describe('IhtMethod', () => {
                             'dod-day': '02',
                             'dod-month': '03',
                             'dod-year': '2003',
+                            nameAsOnTheWill: 'Yes',
                             address: {
                                 addressLine1: '143 Caerfai Bay Road',
                                 postTown: 'town',

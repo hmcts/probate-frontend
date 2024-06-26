@@ -43,7 +43,7 @@ describe('DeceasedAlias', () => {
                         },
                         deceased: {
                             firstName: 'Dee',
-                            lastName: 'Ceased'
+                            lastName: 'Ceased',
                         }
                     },
                     caseType: 'gop'
@@ -55,7 +55,8 @@ describe('DeceasedAlias', () => {
                 firstName: 'Dee',
                 lastName: 'Ceased',
                 deceasedName: 'Dee Ceased',
-                sessionID: 'dummy_sessionId'
+                sessionID: 'dummy_sessionId',
+                ccdReferenceNumber: '1234-5678-9012-3456'
             });
             done();
         });

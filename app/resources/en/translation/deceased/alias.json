@@ -3,8 +3,11 @@
   "question": "Did {deceasedName} have assets in another name?",
   "optionYes": "Yes",
   "optionNo": "No",
-  "paragraph1": "This could be shares or property that they held in their maiden name or nickname. They might also have used a different spelling or missed out some parts of their name.",
+  "intestacyParagraph1": "You may find it helpful to check any documents you have from {deceasedName}, for example bank statements, to see if they used a different name or spelling.",
+  "GopParagraph1": "The grant of probate will list all names that you give us.",
+  "GopParagraph2": "The person who died could have used their maiden name, a nickname, or a different spelling of their name for some of their assets. You may find it helpful to check any documents you have from the person who died, for example, bank statements, property deeds or records of any shares they held, to see if they used a different name.",
   "theDeceased": "the deceased",
+  "warningText": "If there are any assets held in names that are not listed on the grant of probate, you may have difficulties accessing them.",
   "errors": {
     "alias": {
       "required": "Answer &lsquo;yes&rsquo; if the person who died had assets in another name"

@@ -1,0 +1,49 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block form_content %}
+    {% call govukFieldset({
+        legend: {
+            text: content.question | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+        {{ govukInput({
+            label: {
+                text: content.aliasFirstNameOnWill | safe
+            },
+            id: "aliasFirstNameOnWill",
+            name: "aliasFirstNameOnWill",
+            value: fields.aliasFirstNameOnWill.value | safe,
+            errorMessage: { text: fields.aliasFirstNameOnWill.errorMessage | safe } if fields.aliasFirstNameOnWill.errorMessage,
+            attributes: {
+                maxlength: 200
+            },
+            classes: "govuk-!-width-three-quarters"
+        }) }}
+        {{ govukInput({
+            label: {
+                text: content.aliasLastNameOnWill | safe
+            },
+            id: "aliasLastNameOnWill",
+            name: "aliasLastNameOnWill",
+            value: fields.aliasLastNameOnWill.value | safe,
+            errorMessage: { text: fields.aliasLastNameOnWill.errorMessage | safe } if fields.aliasLastNameOnWill.errorMessage,
+            attributes: {
+                maxlength: 200
+            },
+            classes: "govuk-!-width-three-quarters"
+        }) }}
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

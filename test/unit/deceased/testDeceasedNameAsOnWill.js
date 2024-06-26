@@ -4,25 +4,26 @@ const initSteps = require('app/core/initSteps');
 const journeyProbate = require('../../../app/journeys/probate');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-const DiedEnglandOrWales = steps.DiedEnglandOrWales;
-const PreviousStep = steps.DeceasedAddress;
-describe('DiedEnglandOrWales', () => {
+const DeceasedNameAsOnWill = steps.DeceasedNameAsOnWill;
+const PreviousStep = steps.DeceasedName;
+
+describe('DeceasedNameAsOnWill', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = DiedEnglandOrWales.constructor.getUrl();
-            expect(url).to.equal('/died-eng-or-wales');
+            const url = DeceasedNameAsOnWill.constructor.getUrl();
+            expect(url).to.equal('/deceased-name-as-on-will');
             done();
         });
     });
 
     describe('nextStepOptions()', () => {
         it('should return the correct next step options', (done) => {
-            const result = DiedEnglandOrWales.nextStepOptions();
+            const result = DeceasedNameAsOnWill.nextStepOptions();
             expect(result).to.deep.equal({
                 options: [{
-                    key: 'diedEngOrWales',
-                    value: 'optionYes',
-                    choice: 'hasDiedEngOrWales'
+                    key: 'nameAsOnTheWill',
+                    value: 'optionNo',
+                    choice: 'hasAlias'
                 }]
             });
             done();
@@ -40,31 +41,15 @@ describe('DiedEnglandOrWales', () => {
                         deceased: {
                             firstName: 'John',
                             lastName: 'Doe',
-                            'dod-date': '2022-01-01'
+                            'dod-date': '2022-01-01',
                         }
                     }
                 }
             };
 
-            ctx = DiedEnglandOrWales.getContextData(req);
+            ctx = DeceasedNameAsOnWill.getContextData(req);
             expect(ctx.deceasedName).to.equal('John Doe');
             done();
-        });
-    });
-
-    describe('action()', () => {
-        it('test that deceased name is removed from context', () => {
-            const formdata = {
-                deceased: {
-                    firstName: 'John',
-                    lastName: 'Doe'
-                }
-            };
-            let ctx = {
-                deceasedName: 'Dee Ceased',
-            };
-            [ctx] = DiedEnglandOrWales.action(ctx, formdata);
-            expect(ctx).to.deep.equal({});
         });
     });
 
@@ -98,14 +83,14 @@ describe('DiedEnglandOrWales', () => {
                                 country: 'United Kingdon',
                                 postcode: 'L23 6WW'
                             }
+
                         }
-                    },
-                    back: ['hello']
+                    }
                 }
             };
             req.session.journey = journeyProbate;
             ctx = {};
-            DiedEnglandOrWales.previousStepUrl(req, res, ctx);
+            DeceasedNameAsOnWill.previousStepUrl(req, res, ctx);
             expect(ctx.previousUrl).to.equal(PreviousStep.constructor.getUrl());
             done();
         });

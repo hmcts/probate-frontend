@@ -6,7 +6,9 @@ const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname
 const DeceasedDob = steps.DeceasedDob;
 const content = require('app/resources/en/translation/deceased/dob');
 const journeyProbate = require('../../../app/journeys/probate');
-const PreviousStep = steps.DeceasedName;
+const PreviousStep = steps.DeceasedNameAsOnWill;
+//const PreviousStep = steps.DeceasedAliasNameOnWill;
+
 describe('DeceasedDob', () => {
     describe('dateName()', () => {
         it('should return the date names array', (done) => {
@@ -126,7 +128,7 @@ describe('DeceasedDob', () => {
                         },
                         deceased: {
                             firstName: 'John',
-                            lastName: 'Doe'
+                            lastName: 'Doe',
                         },
                         declaration: {
                             declarationCheckbox: 'true'

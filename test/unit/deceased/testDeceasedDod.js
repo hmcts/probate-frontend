@@ -137,7 +137,8 @@ describe('DeceasedDod', () => {
                             lastName: 'Doe',
                             'dob-day': '02',
                             'dob-month': '03',
-                            'dob-year': '2002'
+                            'dob-year': '2002',
+                            nameAsOnTheWill: 'Yes',
                         },
                         declaration: {
                             declarationCheckbox: 'true'

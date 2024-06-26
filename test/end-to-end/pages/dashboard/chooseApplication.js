@@ -26,11 +26,10 @@ module.exports = async function(language ='en') {
             }
             await I.refreshPage();
         }
-
-        await I.see(dashboardContent.tableHeaderCcdCaseId);
         await I.see(dashboardContent.tableHeaderDeceasedName);
         await I.see(dashboardContent.tableHeaderCreateDate);
         await I.see(dashboardContent.tableHeaderCaseStatus);
+        await I.see(dashboardContent.tableHeaderActionStatus);
         await I.navByClick({css: 'a[href^="/get-case/"]'});
     } else {
         await I.amOnLoadedPage('/dashboard', language);

@@ -1,16 +1,18 @@
 {
   "title": "Dangosfwrdd",
   "header": "Ceisiadau profiant",
-  "tableHeaderCcdCaseId": "Rhif adnabod yr achos",
-  "tableHeaderDeceasedName": "Yr unigolyn sydd wedi marw",
+  "tableHeaderActionStatus": "Y camau nesaf",
+  "tableHeaderDeceasedName": "Y sawl a fu farw",
   "tableHeaderCreateDate": "Dyddiad creu",
   "tableHeaderCaseStatus": "Statws",
   "tableHeaderActions": "Camau gweithredu",
-  "statusDraftProbate": "Drafft (profiant)",
-  "statusDraftIntestacy": "Drafft (pan nad oes ewyllys)",
-  "statusInProgress": "AR Y GWEILL",
-  "statusSubmitted": "Anfonwyd",
-  "actionContinue": "Parhau â chais",
-  "actionView": "Gweld cais",
-  "actionNewApplication": "Cais newydd"
+  "statusDraftProbate": "Nid yw'r enw wedi'i nodi eto",
+  "statusDraftIntestacy": "Nid yw'r enw wedi'i nodi eto",
+  "statusInProgress": "YN MYND RHAGDDO",
+  "statusSubmitted": "CYFLWYNWYD",
+  "statusGrantIssued": "GRANT WEDI'I GYHOEDDI",
+  "actionContinue": "Parhau gyda’r cais",
+  "actionView": "Gweld cynnydd y cais",
+  "actionFindMore": "Dewch o hyd i ragor o wybodaeth",
+  "actionNewApplication": "Cychwyn cais newydd"
 }

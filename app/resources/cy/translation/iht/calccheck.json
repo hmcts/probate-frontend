@@ -7,8 +7,7 @@
 
   "errors": {
     "calcCheckCompleted": {
-      "required": "Atebwch &lsquo;do&rsquo; os wnaethoch chi lenwi ffurflenni IHT i adrodd am werthoedd yr ystad”",
-      "unimplemented": "This page should not be accessed"
+      "required": "Atebwch &lsquo;do&rsquo; os wnaethoch chi lenwi ffurflenni IHT i adrodd am werthoedd yr ystad”"
     }
   }
 }

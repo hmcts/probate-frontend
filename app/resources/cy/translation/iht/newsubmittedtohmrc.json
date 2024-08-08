@@ -14,8 +14,7 @@
 
   "errors": {
     "ihtFormEstateId": {
-      "required": "Rhaid i chi ddewis opsiwn i barhau",
-      "unimplemented": "This page should not be accessed"
+      "required": "Rhaid i chi ddewis opsiwn i barhau"
     }
   }
 }

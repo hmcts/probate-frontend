@@ -1,13 +1,12 @@
 {
-  "title": "Have you received a letter from HMRC with your unique probate code?",
-  "question": "Have you received a letter from HMRC with your unique probate code?",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "title": "A ydych wedi cael llythyr gan CThEF gyda'ch cod profiant unigryw?",
+  "question": "A ydych wedi cael llythyr gan CThEF gyda'ch cod profiant unigryw?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
   "errors" : {
 
     "hmrcLetterId" : {
-      "required": "You must select an option to continue",
-      "unimplemented": "This page should not be accessed"
+      "required": "Rhaid i chi ddewis opsiwn i barhau"
     }
 
   }

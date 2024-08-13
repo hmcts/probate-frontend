@@ -1782,8 +1782,8 @@ __metadata:
   linkType: hard
 
 "@pact-foundation/pact@npm:^13.0.0":
-  version: 13.1.0
-  resolution: "@pact-foundation/pact@npm:13.1.0"
+  version: 13.1.1
+  resolution: "@pact-foundation/pact@npm:13.1.1"
   dependencies:
     "@pact-foundation/pact-core": "npm:^15.1.0"
     "@types/express": "npm:^4.17.11"
@@ -1804,7 +1804,7 @@ __metadata:
     pkginfo: "npm:^0.4.1"
     ramda: "npm:^0.30.0"
     randexp: "npm:^0.5.3"
-  checksum: 10/ce3ebd90ca7798a6eb13b73a371850824c3fbddd34ac84e2d305b4011c0b244d2b2f1ba61a2c50649d863bd71f13dc40ae23d211a6cf1a7694c0106b7470f201
+  checksum: 10/0cdcc9135f3233685d65ab3826f6744781a50ac8aea4eba8dc9b1bd4779bc8738fd8c84f0985893f4283b237797652ff1e0b282c62e3b486df26a3ee7651fa25
   languageName: node
   linkType: hard
 
@@ -2552,12 +2552,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^20.1.0, @types/node@npm:^20.1.1, @types/node@npm:^20.11.18":
-  version: 20.14.12
-  resolution: "@types/node@npm:20.14.12"
+"@types/node@npm:*":
+  version: 22.2.0
+  resolution: "@types/node@npm:22.2.0"
+  dependencies:
+    undici-types: "npm:~6.13.0"
+  checksum: 10/2957c5c81f1a07a1210f28382adae65c11070c301e395fa819448516f1a2a710054b29e0ec7d8e28624afbcd90dae810403a497109545dea835b554fc76edf6c
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^20.1.0, @types/node@npm:^20.1.1, @types/node@npm:^20.11.18":
+  version: 20.14.15
+  resolution: "@types/node@npm:20.14.15"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: 10/9205bf46ef6a99d99cdde9efeb8218cd15803cc407249c2336557cd630b006380dad68c03ee574934414639f8e450044f45530c92788a8e82078bae45ee40f93
+  checksum: 10/87a4a4313e886c1db1c8042004956095477e040f67df993fd16a2d50488c750bda81e85bf702c2e629e964605034e8dfe0cb91b65ce22b6b8eec37ece61c6b6c
   languageName: node
   linkType: hard
 
@@ -17224,6 +17233,13 @@ __metadata:
   version: 5.26.5
   resolution: "undici-types@npm:5.26.5"
   checksum: 10/0097779d94bc0fd26f0418b3a05472410408877279141ded2bd449167be1aed7ea5b76f756562cb3586a07f251b90799bab22d9019ceba49c037c76445f7cddd
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~6.13.0":
+  version: 6.13.0
+  resolution: "undici-types@npm:6.13.0"
+  checksum: 10/da52e37cbc6da3a75da86fa08dd795ca8924430deb91005eb884b840e46e19013ccd4c1c289f70018e8cf0c338add24a500e7c3acfcd49b1ffb27ff9f91e38b9
   languageName: node
   linkType: hard
 

@@ -85,7 +85,7 @@ class UIStepRunner {
                     }
                 });
             }
-            this.log('isEmptyForm: ' + isEmptyForm + ' isSaveAndClose: ' + isSaveAndClose);
+            console.log('isEmptyForm:' + isEmptyForm.toString() + 'isSaveAndClose:' + isSaveAndClose.toString());
             if (isEmptyForm && isSaveAndClose) {
                 res.redirect('/task-list');
             } else {
@@ -100,7 +100,7 @@ class UIStepRunner {
                 if (isEmpty(errors)) {
                     const nextStepUrl = step.nextStepUrl(req, ctx);
                     [ctx, formdata] = step.action(ctx, formdata);
-                    this.log('nextStepUrl: ' + nextStepUrl);
+
                     delete ctx.ccdCase;
                     set(formdata, step.section, ctx);
 
@@ -125,7 +125,7 @@ class UIStepRunner {
                     if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
                         session.back.push(step.constructor.getUrl());
                     }
-                    this.log('errorOccurred: ' + errorOccurred + ' isSaveAndClose: ' + isSaveAndClose);
+                    console.log('errorOccurred: ' + errorOccurred.toString() + ' nextStepUrl: ' + nextStepUrl.toString());
                     if (errorOccurred === false) {
                         if (isSaveAndClose) {
                             res.redirect('/task-list');

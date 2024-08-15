@@ -62,11 +62,6 @@ class ExecutorsInvite extends ValidationStep {
                 });
         }
 
-        yield new Promise((resolve) => resolve())
-            .then(() => {
-                return true;
-            });
-
         ctx.invitesSent = 'true';
         return [ctx, errors];
     }

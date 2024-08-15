@@ -234,7 +234,7 @@ const redirectTaskList = (req, currentPageCleanUrl, formdata, applicationSubmitt
         (!applicantHasDeclared && !applicationSubmitted && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) ||
         (applicantHasDeclared && hasMultipleApplicants && invitesSent && !allExecutorsHaveDeclared && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) ||
         (applicantHasDeclared && (!hasMultipleApplicants || (invitesSent && allExecutorsHaveDeclared)) && !config.whitelistedPagesAfterDeclaration.includes(currentPageCleanUrl)) ||
-        (applicantHasDeclared && (!hasMultipleApplicants || invitesSent) && currentPageCleanUrl === '/executors-invite') ||
+        //(applicantHasDeclared && (!hasMultipleApplicants || invitesSent) && currentPageCleanUrl === '/executors-invite') ||
         (applicantHasDeclared && (!hasMultipleApplicants || !hasExecutorsEmailChanged) && currentPageCleanUrl === '/executors-update-invite') ||
         (currentPageCleanUrl === '/summary' && isHardStop(formdata, caseTypes.getCaseType(req.session)))) {
         return true;

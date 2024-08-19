@@ -3,6 +3,7 @@
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
 {% block form_content %}
     {% call govukFieldset({
@@ -12,33 +13,43 @@
             isPageHeading: true
         }
     }) %}
-        {{ govukInput({
-            label: {
-                text: content.firstName | safe
-            },
-            id: "firstName",
-            name: "firstName",
-            value: fields.firstName.value | safe,
-            errorMessage: { text: fields.firstName.errorMessage | safe } if fields.firstName.errorMessage,
-            attributes: {
-                maxlength: 100
-            },
-            classes: "govuk-!-width-three-quarters"
-        }) }}
-        {{ govukInput({
-            label: {
-                text: content.lastName | safe
-            },
-            id: "lastName",
-            name: "lastName",
-            value: fields.lastName.value | safe,
-            errorMessage: { text: fields.lastName.errorMessage | safe } if fields.lastName.errorMessage,
-            attributes: {
-                maxlength: 100
-            },
-            classes: "govuk-!-width-three-quarters"
-        }) }}
+
+    <p class="govuk-body">{{ content.content1 | safe }}</p>
+    <p class="govuk-body">{{ content.content2 | safe }}</p>
+    <p class="govuk-body">{{ content.content3 | safe }}</p>
+
+    {{ govukInput({
+        label: {
+            text: content.firstName | safe
+        },
+        id: "firstName",
+        name: "firstName",
+        value: fields.firstName.value | safe,
+        errorMessage: { text: fields.firstName.errorMessage | safe } if fields.firstName.errorMessage,
+        attributes: {
+            maxlength: 100
+        },
+        classes: "govuk-!-width-three-quarters"
+    }) }}
+    {{ govukInput({
+        label: {
+            text: content.lastName | safe
+        },
+        id: "lastName",
+        name: "lastName",
+        value: fields.lastName.value | safe,
+        errorMessage: { text: fields.lastName.errorMessage | safe } if fields.lastName.errorMessage,
+        attributes: {
+            maxlength: 100
+        },
+        classes: "govuk-!-width-three-quarters"
+    }) }}
     {% endcall %}
+
+    {{ govukWarningText({
+        text: content.warningText | safe,
+        iconFallbackText: "Warning"
+    }) }}
 
     <div class="govuk-form-group">
         {{ govukButton({

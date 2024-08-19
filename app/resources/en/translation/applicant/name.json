@@ -1,8 +1,12 @@
 {
   "title": "Applicant name",
   "question": "What is your full name?",
+  "content1": "The name you give us will be written on the grant of probate.",
+  "content2": "Your name should match exactly what is written on your passport or other official identification document, such as a driving licence.",
+  "content3": "You should make sure that this is the same form of identification you use when you are dealing with the estate of the person who died.",
   "firstName": "First name and any middle names",
   "lastName": "Last name",
+  "warningText": "If the name on the grant does not match the identification you use, you may have difficulties dealing with the estate.",
 
   "errors": {
     "firstName": {

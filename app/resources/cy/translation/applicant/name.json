@@ -1,8 +1,12 @@
 {
   "title": "Enw&rsquo;r ceisydd",
   "question": "Beth yw eich enw llawn?",
+  "content1": "Bydd yr enw a roddwch inni yn cael ei ysgrifennu ar y grant profiant.",
+  "content2": "Dylai eich enw fod union yr un fath ag y mae wedi’i ysgrifennu ar eich pasbort neu fath arall o ddogfen adnabod awdurdodedig, er enghraifft trwydded yrru.",
+  "content3": "Dylech wneud yn siŵr mai dyma’r un math o brawf adnabod a ddefnyddiwch pan fyddwch yn delio ag ystad yr unigolyn sydd wedi marw.",
   "firstName": "Enw cyntaf ac unrhyw enwau canol",
   "lastName": "Cyfenw",
+  "warningText": "Os nad yw’r enw ar y grant yn cyfateb i’r prawf adnabod a ddefnyddiwch, efallai y cewch anawsterau wrth ddelio â’r ystad.",
 
   "errors": {
     "firstName": {

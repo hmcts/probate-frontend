@@ -4,6 +4,20 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block form_content %}
+    <h1 class="govuk-heading-l">{{ content.reminder | safe }}</h1>
+
+    <p class="govuk-body">{{ content.content1 | safe }}</p>
+
+    <p class="govuk-body">{{ content.content2 | safe }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>{{ content["listItem1"] | safe  }}</li>
+      <li>{{ content["listItem2"] | safe  }}</li>
+      <li>{{ content["listItem3"] | safe  }}</li>
+      <li>{{ content["listItem4"] | safe  }}</li>
+    </ul>
+
+    <p class="govuk-body">{{ content.content3 | safe }}</p>
+
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "nameAsOnTheWill",
@@ -12,7 +26,7 @@
             legend: {
                 text: (content.questionWithCodicil if fields.codicilPresent.value == "true" else content.question) | replace("{applicantName}", fields.firstName.value +" "+ fields.lastName.value) | safe,
                 isPageHeading: true,
-                classes: "govuk-fieldset__legend--l"
+                classes: "govuk-fieldset__legend--m"
             }
         },
         errorMessage: { text: fields.nameAsOnTheWill.errorMessage | safe } if fields.nameAsOnTheWill.errorMessage,

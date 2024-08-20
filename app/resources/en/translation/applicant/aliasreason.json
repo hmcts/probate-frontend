@@ -1,11 +1,14 @@
 {
   "title": "Applicant alias",
-  "question": "What is the reason for the name change?",
-  "optionMarriage": "Marriage",
-  "optionDivorce": "Divorce",
-  "optionDeedPoll": "Change by deed poll",
+  "question": "Why is your name different to how it is written in the will or any codicils?",
+  "content1": "You must explain the reason for the difference, for example, you changed your name since the will was written, or your middle name was not included.",
+  "optionMarriage": "I got married or formed a civil partnership",
+  "optionDivorce": "I got divorced or ended my civil partnership",
+  "optionDeedPoll": "I changed my name by deed poll",
+  "optionNameSpelling": "My name was spelled differently",
+  "optionPartOfNameNotIncluded": "Part of my name was not included",
   "optionOther": "Other",
-  "optionOtherHint": "Reason for name change",
+  "optionOtherHint": "Reason for difference",
 
   "errors": {
     "aliasReason": {

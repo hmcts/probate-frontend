@@ -1,11 +1,14 @@
 {
   "title": "Enw arall y ceisydd",
-  "question": "Beth yw&rsquo;r rheswm dros y newid enw?",
-  "optionMarriage": "Priodas",
-  "optionDivorce": "Ysgariad",
-  "optionDeedPoll": "Gweithred newid enw",
+  "question": "Pam fod eich enw yn wahanol i’r ffordd y mae wedi’i ysgrifennu yn yr ewyllys neu unrhyw godisiliau?",
+  "content1": "Rhaid i chi egluro'r rheswm am y gwahaniaeth, er enghraifft, rydych wedi newid eich enw ers ysgrifennwyd yr ewyllys, neu ni chynhwyswyd eich enw canol.",
+  "optionMarriage": "Priodais neu ffurfiais bartneriaeth sifil",
+  "optionDivorce": "Cefais ysgariad neu daeth fy mhartneriaeth sifil i ben",
+  "optionDeedPoll": "Newidiais fy enw trwy weithred newid enw",
+  "optionNameSpelling": "Cafodd fy enw ei sillafu’n wahanol",
+  "optionPartOfNameNotIncluded": "Ni chynhwyswyd rhan o fy enw",
   "optionOther": "Arall",
-  "optionOtherHint": "Rheswm dros newid enw",
+  "optionOtherHint": "Rheswm dros y gwahaniaeth",
 
   "errors": {
     "aliasReason": {

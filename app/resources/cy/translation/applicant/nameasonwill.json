@@ -1,8 +1,16 @@
 {
   "title": "Enw&rsquo;r ceisydd ar yr ewyllys",
-  "question": "A yw eich enw &lsquo;{applicantName}&rsquo; union beth sy&rsquo;n ymddangos ar yr ewyllys?",
+  "reminder": "Gwiriwch yr ewyllys a’r codisiliau gwreiddiol nawr",
+  "question": "Ai &lsquo;{applicantName}&rsquo; yw sut mae eich enw wedi ei ysgrifennu yn union yn yr ewyllys neu unrhyw godisiliau?",
   "questionWithoutName": "A yw eich enw union beth sy&rsquo;n ymddangos ar yr ewyllys?",
   "questionWithCodicil": "A yw eich enw &lsquo;{applicantName}&rsquo; union beth sy&rsquo;n ymddangos ar yr ewyllys neu&rsquo;r codisil?",
+  "content1": "Mae angen i ni wybod a yw eich enw wedi’i ysgrifennu’n wahanol yn yr ewyllys neu mewn unrhyw godisiliau.",
+  "content2": "Fe allai hyn fod oherwydd:",
+  "listItem1": "gwnaethoch newid eich enw ar ôl gwneud yr ewyllys",
+  "listItem2": "ni chynhwyswyd rhan o’ch enw yn yr ewyllys",
+  "listItem3": "roedd camgymeriad sillafu yn yr ewyllys",
+  "listItem4": "rydych hefyd yn cael eich adnabod dan enw gwahanol",
+  "content3": "Os oes gwahaniaeth, byddwch yn gallu dweud wrthym pam yn ddiweddarach.",
   "optionYes": "Ydi",
   "optionNo": "Nac ydi",
 

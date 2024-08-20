@@ -1,8 +1,16 @@
 {
   "title": "Applicant name on the will",
-  "question": "Is your name &lsquo;{applicantName}&rsquo; exactly what appears on the will?",
+  "reminder": "Check the original will and codicils now",
+  "question": "Is &lsquo;{applicantName}&rsquo; exactly how your name is written in the will or any codicils?",
   "questionWithoutName": "Is your name exactly what appears on the will?",
   "questionWithCodicil": "Is your name &lsquo;{applicantName}&rsquo; exactly what appears on the will or codicil?",
+  "content1": "We need to know if your name is written differently in the will or any codicils.",
+  "content2": "This could be because:",
+  "listItem1": "you changed your name after the will was made",
+  "listItem2": "part of your name was not included in the will",
+  "listItem3": "there was a spelling mistake in the will",
+  "listItem4": "you’re also known by a different name",
+  "content3": "If there is a difference, you’ll be able to tell us why later.",
   "optionYes": "Yes",
   "optionNo": "No",
 

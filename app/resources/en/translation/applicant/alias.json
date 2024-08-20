@@ -1,6 +1,6 @@
 {
   "title": "Applicant alias",
-  "question": "How is your name written on the will?",
+  "question": "How is your name written in the will or any codicils?",
   "alias": "Name",
   "nameOnWill": "Name on will",
 

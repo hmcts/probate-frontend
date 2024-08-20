@@ -3,6 +3,7 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 
 {% block form_content %}
     {% set otherHtml %}
@@ -21,17 +22,20 @@
         }) }}
     {% endset -%}
 
+    {% call govukFieldset({
+        legend: {
+            text: content.question | safe,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+        }
+    }) %}
+
+    <p class="govuk-body">{{ content.content1 | safe }}</p>
+
     {{ govukRadios({
         classes: "govuk-radios",
         idPrefix: "aliasReason",
         name: "aliasReason",
-        fieldset: {
-            legend: {
-                text: content.question | safe,
-                isPageHeading: true,
-                classes: "govuk-fieldset__legend--l"
-            }
-        },
         errorMessage: { text: fields.aliasReason.errorMessage | safe } if fields.aliasReason.errorMessage,
         items: [
             {
@@ -50,6 +54,16 @@
                 checked: true if fields.aliasReason.value == "optionDeedPoll"
             },
             {
+                value: "optionDeedPoll",
+                text: content["optionNameSpelling"] | safe,
+                checked: true if fields.aliasReason.value == "optionNameSpelling"
+            },
+            {
+                value: "optionDeedPoll",
+                text: content["optionPartOfNameNotIncluded"] | safe,
+                checked: true if fields.aliasReason.value == "optionPartOfNameNotIncluded"
+            },
+            {
                 value: "optionOther",
                 text: content["optionOther"] | safe,
                 checked: true if fields.aliasReason.value == "optionOther",
@@ -59,6 +73,7 @@
             }
         ]
     }) }}
+    {% endcall %}
 
     <div class="govuk-form-group">
         {{ govukButton({

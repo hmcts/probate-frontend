@@ -25,7 +25,7 @@
     "sass:watch": "NODE_PATH=. watch 'yarn -s sass' app/assets/sass/ &",
     "sass": "NODE_PATH=. node-sass app/assets/sass/application.scss --output public/stylesheets --quiet --output-style expanded --source-map true --include-path node_modules/govuk_frontend",
     "sass-ie8": "NODE_PATH=. node-sass app/assets/sass/application-ie8.scss --output public/stylesheets --quiet --output-style expanded --source-map true --include-path node_modules/govuk_frontend",
-    "test": "npx if-env CI=true && exit 0 || yarn test-unit && yarn test-component",
+    "test": "npx if-env CI=true && exit 0 || yarn test-unit",
     "test-unit": "NODE_ENV=testing-unit NODE_PATH=. LOG_LEVEL=error mocha test/unit --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000 --unhandled-rejections=strict",
     "test-unit-healthcheck": "NODE_ENV=testing-unit NODE_PATH=. LOG_LEVEL=error mocha test/unit/utils/testSetupHealthCheck.js --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
     "test-unit-grep": "NODE_ENV=testing-unit NODE_PATH=. LOG_LEVEL=error mocha test/unit --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000 --grep",

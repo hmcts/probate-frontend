@@ -9,13 +9,14 @@
   "optionPartOfNameNotIncluded": "Part of my name was not included",
   "optionOther": "Other",
   "optionOtherHint": "Reason for difference",
+  "reasonForNameChangeQuestionSummary": "Why is your name different in the will?",
 
   "errors": {
     "aliasReason": {
-      "required": "Select a reason for the change of name"
+      "required": "Select a reason why your name is different"
     },
     "otherReason": {
-      "required": "Enter the reason for the change of name"
+      "required": "Enter the reason for the difference"
     }
   }
 }

@@ -3,10 +3,11 @@
   "question": "How is your name written in the will or any codicils?",
   "alias": "Name",
   "nameOnWill": "Name on will",
+  "nameOnWillQuestionSummary": "Your name as it is written in the will",
 
   "errors": {
     "alias": {
-      "required": "Enter the name as it appears on the will"
+      "required": "Enter your name as it is written in the will"
     }
   }
 }

@@ -16,7 +16,7 @@
 
   "errors": {
     "nameAsOnTheWill": {
-      "required": "Answer &lsquo;yes&rsquo; if your name is exactly the same on the will or codicil"
+      "required": "Answer &lsquo;yes&rsquo; if your name is exactly the same in the will or codicil"
     }
   }
 }

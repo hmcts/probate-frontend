@@ -9,13 +9,14 @@
   "optionPartOfNameNotIncluded": "Ni chynhwyswyd rhan o fy enw",
   "optionOther": "Arall",
   "optionOtherHint": "Rheswm dros y gwahaniaeth",
+  "reasonForNameChangeQuestionSummary": "Pam fod eich enw yn wahanol yn yr ewyllys?",
 
   "errors": {
     "aliasReason": {
-      "required": "Dewiswch reswm dros y newid enw"
+      "required": "Dewiswch reswm pam fod eich enw yn wahanol"
     },
     "otherReason": {
-      "required": "Nodwch y rheswm dros y newid enw"
+      "required": "Nodwch y rheswm dros y gwahaniaeth"
     }
   }
 }

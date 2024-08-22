@@ -97,7 +97,7 @@ describe('summary-executor-section', () => {
                         firstName: applicantNameContent.firstName,
                         lastName: applicantNameContent.lastName,
                         alias: applicantAliasContent.nameOnWill,
-                        aliasReason: applicantAliasReasonContent.optionOtherHint,
+                        aliasReason: applicantAliasReasonContent.reasonForNameChangeQuestionSummary,
                         phoneNumber: applicantPhoneContent.phoneNumber,
                         applicantAddress: applicantAddressContent.question,
                         applicantNameAsOnWill: applicantNameAsOnWillContent.question.replace('{applicantName}', FormatName.format(sessionData.applicant))
@@ -123,7 +123,7 @@ describe('summary-executor-section', () => {
                         firstName: applicantNameContent.firstName,
                         lastName: applicantNameContent.lastName,
                         alias: applicantAliasContent.nameOnWill,
-                        aliasReason: applicantAliasReasonContent.optionOtherHint,
+                        aliasReason: applicantAliasReasonContent.reasonForNameChangeQuestionSummary,
                         phoneNumber: applicantPhoneContent.phoneNumber,
                         applicantAddress: applicantAddressContent.question,
                         applicantNameAsOnWill: applicantNameAsOnWillContent.question.replace('{applicantName}', FormatName.format(sessionData.applicant))

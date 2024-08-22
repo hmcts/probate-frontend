@@ -26,10 +26,12 @@ describe('applicant-alias-reason', () => {
                 }
             };
 
+            const contentToExclude = ['reasonForNameChangeQuestionSummary'];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done);
+                    testWrapper.testContent(done, {}, contentToExclude);
                 });
         });
 

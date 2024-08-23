@@ -104,15 +104,6 @@ withPipeline("nodejs", product, component) {
   enableSlackNotifications('#probate-jenkins')
   syncBranchesWithMaster(branchesToSync)
 
-  afterSuccess('test') {
-    publishHTML(target: [
-      alwaysLinkToLastBuild: true,
-      reportDir            : 'output',
-      reportFiles          : 'results.html',
-      reportName           : 'Unit Test Results'
-    ])
-  }
-
   afterSuccess('functionalTest:preview') {
     publishHTML target: [
       reportDir            : "functional-output/",

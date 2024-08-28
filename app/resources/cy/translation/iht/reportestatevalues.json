@@ -1,10 +1,10 @@
 {
-  "title": "Find out if you need to report the estate value to HMRC",
-  "header": "Find out if you need to report the estate value to HMRC",
-  "paragraph1prefix": "You can use the ",
-  "paragraph1suffix": " to find out if you need to report the value of the estate to HMRC.",
-  "linkText": "Inheritance Tax checker (opens in a new tab)",
-  "continueApplication": " Continue with your application",
+  "title": "Canfod a oes angen i chi adrodd am werth yr ystad i Gyllid a Thollau Ei Fawrhydi (HMRC)",
+  "header": "Canfod a oes angen i chi adrodd am werth yr ystad i Gyllid a Thollau Ei Fawrhydi (HMRC)",
+  "paragraph1prefix": "Gallwch ddefnyddio’r ",
+  "paragraph1suffix": " ti ganfod a oes arnoch angen adrodd am werth yr ystad i HMRC.",
+  "linkText": "Gwiriwr Treth Etifeddiaeth (agor mewn tab newydd)",
+  "continueApplication": " Parhau gyda’ch cais",
 
   "errors": {}
 }

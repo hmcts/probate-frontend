@@ -205,7 +205,7 @@
     "minimist": "^1.2.8",
     "async": ">=2.6.4",
     "cookiejar": ">=2.1.4",
-    "puppeteer": "^22.0.0",
+    "puppeteer": "^23.2.0",
     "express": "^4.19.2",
     "qs": ">=6.9.7",
     "formidable": "^3.5.1",

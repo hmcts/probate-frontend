@@ -7,8 +7,7 @@
 
   "errors": {
     "estateValueCompleted": {
-      "required": "Answer &lsquo;yes&rsquo; if you completed IHT forms to report the estate&rsquo;s values",
-      "unimplemented": "This page should not be accessed"
+      "required": "Answer &lsquo;yes&rsquo; if you completed IHT forms to report the estate&rsquo;s values"
     }
   }
 }

@@ -242,7 +242,7 @@ const stepList = {
     ExecutorsAdditionalInviteSent: 'TaskList',
     ExecutorsUpdateInvite: 'ExecutorsUpdateInviteSent',
     ExecutorsUpdateInviteSent: 'TaskList',
-    ExecutorsInvite: 'ExecutorsInvitesSent',
+    ExecutorsInvite: 'ExecutorsUpdateInviteSent',
     ExecutorsInvitesSent: 'TaskList',
     ExecutorsChangeMade: 'TaskList',
     Submit: 'TaskList',

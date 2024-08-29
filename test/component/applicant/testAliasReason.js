@@ -26,7 +26,7 @@ describe('applicant-alias-reason', () => {
                 }
             };
 
-            const contentToExclude = ['reasonForNameChangeQuestionSummary'];
+            const contentToExclude = ['reasonForNameChangeQuestionSummary', 'optionDifferentSpelling'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

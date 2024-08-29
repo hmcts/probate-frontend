@@ -5,7 +5,7 @@
   "optionMarriage": "I got married or formed a civil partnership",
   "optionDivorce": "I got divorced or ended my civil partnership",
   "optionDeedPoll": "I changed my name by deed poll",
-  "optionNameSpelling": "My name was spelled differently",
+  "optionDifferentSpelling": "My name was spelled differently",
   "optionPartOfNameNotIncluded": "Part of my name was not included",
   "optionOther": "Other",
   "optionOtherHint": "Reason for difference",

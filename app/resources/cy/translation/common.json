@@ -90,7 +90,7 @@
   "helpChatClosed": "Mae&rsquo;r gwasanaeth sgwrsio dros y we nawr ar gau. Yr oriau agor yw {chatOpeningHours}.",
   "helpChatAlreadyOpen": "Mae ffenestr sgwrsio dros y we ar agor yn barod.",
   "helpChatOpeningHours": "Dydd Llun i ddydd Gwener, 8:00am i 6:00pm.",
-  "helpChatMaintenance": "Probate webchat is temporarily unavailable while we address a technical issue. We&rsquo;re sorry for any inconvenience caused.",
+  "helpChatMaintenance": "Nid yw gwasanaeth sgwrsio dros y we profiant ar gael dros dro tra byddwn yn ceisio datrys problem dechnegol. Ymddiheurwn am unrhyw anghyfleustra a achosir.",
 
 
   "errors": {

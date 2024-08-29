@@ -14,8 +14,7 @@
 
   "errors": {
     "ihtFormEstateId": {
-      "required": "You must select an option to continue",
-      "unimplemented": "This page should not be accessed"
+      "required": "You must select an option to continue"
     }
   }
 }

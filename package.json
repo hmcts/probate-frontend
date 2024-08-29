@@ -25,7 +25,7 @@
     "sass:watch": "NODE_PATH=. watch 'yarn -s sass' app/assets/sass/ &",
     "sass": "NODE_PATH=. node-sass app/assets/sass/application.scss --output public/stylesheets --quiet --output-style expanded --source-map true --include-path node_modules/govuk_frontend",
     "sass-ie8": "NODE_PATH=. node-sass app/assets/sass/application-ie8.scss --output public/stylesheets --quiet --output-style expanded --source-map true --include-path node_modules/govuk_frontend",
-    "test": "yarn test-unit $@ && yarn test-component $@",
+    "test": "npx if-env CI=true && mkdir -m 777 output && exit 0 || yarn test-unit $@ && yarn test-component $@",
     "test-unit": "NODE_ENV=testing-unit NODE_PATH=. LOG_LEVEL=error mocha test/unit --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000 --unhandled-rejections=strict",
     "test-unit-healthcheck": "NODE_ENV=testing-unit NODE_PATH=. LOG_LEVEL=error mocha test/unit/utils/testSetupHealthCheck.js --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000",
     "test-unit-grep": "NODE_ENV=testing-unit NODE_PATH=. LOG_LEVEL=error mocha test/unit --reporter mochawesome --reporter-options reportDir=output,reportFilename=results --recursive --timeout 15000 --grep",
@@ -71,7 +71,7 @@
     "test:fullfunctional-pr": "yarn playwright install && NODE_ENV=test-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly-pr'",
     "test:fullfunctional:dev-aat:single": "TEST_HEADLESS=false NODE_ENV=dev-aat NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --verbose --grep '@runningNow'",
     "test:fullfunctional:dev-aat:parallel": "TEST_HEADLESS=true NODE_ENV=dev-aat NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly'",
-    "test:coverage": "NODE_ENV=test NODE_PATH=. nyc --reporter=lcov mocha './test/unit/**/test*.js' './test/component/**/test*.js' --timeout 10000 --recursive --exit",
+    "test:coverage": "NODE_ENV=test NODE_PATH=. nyc --reporter=lcov --reporter-options reportDir=output,reportFilename=results mocha './test/unit/**/test*.js' './test/component/**/test*.js' --timeout 10000 --recursive --exit",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner",
     "sonar-scan-comment": "cookies has been excluded by -Dcpd.exclusions - it is covered by both unit and component test yet reports incorrectly as not covered",
     "sonar-scan": "node_modules/sonar-scanner/bin/sonar-scanner -Dsonar.projectName='Probate :: frontend' -Dsonar.sources=app -Dsonar.language=js -Dsonar.cpd.exclusions=app/journeys/*.js,app/**/*.njk,app/**/template.html,app/**/scripts.html,app/steps/**/index.js -Dsonar.exclusions=app/routes.js,app/components/launch-darkly.js,app/assets/**,app/**/scripts.html,app/steps/ui/static/cookies/index.js -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info",
@@ -170,6 +170,7 @@
     "codeceptjs": "^3.4.1",
     "eslint": "^6.8.0",
     "eslint-plugin-mocha": "^6.3.0",
+    "if-env": "^1.0.4",
     "ip": "^2.0.1",
     "mocha": "^10.2.0",
     "mocha-jenkins-reporter": "^0.4.8",
@@ -204,7 +205,7 @@
     "minimist": "^1.2.8",
     "async": ">=2.6.4",
     "cookiejar": ">=2.1.4",
-    "puppeteer": "^22.0.0",
+    "puppeteer": "^23.2.0",
     "express": "^4.19.2",
     "qs": ">=6.9.7",
     "formidable": "^3.5.1",
@@ -212,5 +213,5 @@
     "@azure/identity": "^4.2.1",
     "braces": "^3.0.3"
   },
-  "packageManager": "yarn@4.4.0"
+  "packageManager": "yarn@4.4.1"
 }

@@ -1789,12 +1789,12 @@ __metadata:
   linkType: hard
 
 "@pact-foundation/pact@npm:^13.0.0":
-  version: 13.1.1
-  resolution: "@pact-foundation/pact@npm:13.1.1"
+  version: 13.1.2
+  resolution: "@pact-foundation/pact@npm:13.1.2"
   dependencies:
     "@pact-foundation/pact-core": "npm:^15.1.0"
     "@types/express": "npm:^4.17.11"
-    axios: "npm:^1.6.1"
+    axios: "npm:^1.7.4"
     body-parser: "npm:^1.20.0"
     cli-color: "npm:^2.0.1"
     express: "npm:^4.19.2"
@@ -1811,7 +1811,7 @@ __metadata:
     pkginfo: "npm:^0.4.1"
     ramda: "npm:^0.30.0"
     randexp: "npm:^0.5.3"
-  checksum: 10/0cdcc9135f3233685d65ab3826f6744781a50ac8aea4eba8dc9b1bd4779bc8738fd8c84f0985893f4283b237797652ff1e0b282c62e3b486df26a3ee7651fa25
+  checksum: 10/bb3db7a3898a3442f8df9cf64553c80d6eecb71b84909720813e7dd7ba3fccba769fbb53df06ae15ab46a332a4c0d231d07feb2cfc647f33f94e4e5b604f003e
   languageName: node
   linkType: hard
 
@@ -3611,7 +3611,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:1.7.2, axios@npm:^1.6.1":
+"axios@npm:1.7.2":
   version: 1.7.2
   resolution: "axios@npm:1.7.2"
   dependencies:
@@ -3619,6 +3619,17 @@ __metadata:
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
   checksum: 10/6ae80dda9736bb4762ce717f1a26ff997d94672d3a5799ad9941c24d4fb019c1dff45be8272f08d1975d7950bac281f3ba24aff5ecd49ef5a04d872ec428782f
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.7.4":
+  version: 1.7.7
+  resolution: "axios@npm:1.7.7"
+  dependencies:
+    follow-redirects: "npm:^1.15.6"
+    form-data: "npm:^4.0.0"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: 10/7f875ea13b9298cd7b40fd09985209f7a38d38321f1118c701520939de2f113c4ba137832fe8e3f811f99a38e12c8225481011023209a77b0c0641270e20cde1
   languageName: node
   linkType: hard
 

@@ -3604,7 +3604,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axe-core@npm:~4.8.2":
+"axe-core@npm:~4.8.4":
   version: 4.8.4
   resolution: "axe-core@npm:4.8.4"
   checksum: 10/c8b3972b17afac33b9e151556fa500b9218086ca763866942de30e7f51ac50582902ad03ec16381796c95afaacfa8c33efb2d02ab4f09b6c09d6be58b95da978
@@ -5126,7 +5126,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:11.1.0, commander@npm:~11.1.0":
+"commander@npm:11.1.0":
   version: 11.1.0
   resolution: "commander@npm:11.1.0"
   checksum: 10/66bd2d8a0547f6cb1d34022efb25f348e433b0e04ad76a65279b1b09da108f59a4d3001ca539c60a7a46ea38bcf399fc17d91adad76a8cf43845d8dcbaf5cda1
@@ -5165,6 +5165,13 @@ __metadata:
   version: 9.5.0
   resolution: "commander@npm:9.5.0"
   checksum: 10/41c49b3d0f94a1fbeb0463c85b13f15aa15a9e0b4d5e10a49c0a1d58d4489b549d62262b052ae0aa6cfda53299bee487bfe337825df15e342114dde543f82906
+  languageName: node
+  linkType: hard
+
+"commander@npm:~12.0.0":
+  version: 12.0.0
+  resolution: "commander@npm:12.0.0"
+  checksum: 10/62062e2ffe6abd5aa42a551e62fd5eb9b2620f6ac4299382b2aa9fb02f95cda0242d7e84acb890479bd6491edb805f7f91aecb5b4f5c70dc57df49ed7f02ef14
   languageName: node
   linkType: hard
 
@@ -6531,7 +6538,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"envinfo@npm:7.11.1, envinfo@npm:~7.11.0":
+"envinfo@npm:7.11.1, envinfo@npm:~7.11.1":
   version: 7.11.1
   resolution: "envinfo@npm:7.11.1"
   bin:
@@ -13167,13 +13174,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-timeout@npm:~4.1.0":
-  version: 4.1.0
-  resolution: "p-timeout@npm:4.1.0"
-  checksum: 10/321fec524c23a754e3f1487f2b0a5516fd32aba960d5610490eac56f8a0114b549a93f9919ffc05aa68956dc52e8330e0519f3ddf951d208d19c845f9cd778de
-  languageName: node
-  linkType: hard
-
 "p-try@npm:^2.0.0":
   version: 2.2.0
   resolution: "p-try@npm:2.2.0"
@@ -13181,24 +13181,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pa11y@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "pa11y@npm:7.0.0"
+"pa11y@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "pa11y@npm:8.0.0"
   dependencies:
-    axe-core: "npm:~4.8.2"
+    axe-core: "npm:~4.8.4"
     bfj: "npm:~8.0.0"
-    commander: "npm:~11.1.0"
-    envinfo: "npm:~7.11.0"
+    commander: "npm:~12.0.0"
+    envinfo: "npm:~7.11.1"
     html_codesniffer: "npm:~2.5.1"
     kleur: "npm:~4.1.5"
     mustache: "npm:~4.2.0"
     node.extend: "npm:~2.0.3"
-    p-timeout: "npm:~4.1.0"
-    puppeteer: "npm:^20.9.0"
-    semver: "npm:~7.5.4"
+    puppeteer: "npm:^22.3.0"
+    semver: "npm:~7.6.0"
   bin:
     pa11y: bin/pa11y.js
-  checksum: 10/786308572aa5c2cbc0ac0bacda0c4744b312be6279cbaef81fefa6137e9a7dd46887f90d39eb2a3e41d96e089e2bf1b8ae5a553d8b11e2083f3bb35292ab72fc
+  checksum: 10/ca73ab1c9596e556eddcdd0890e58e3a2418991f39131cca3d520ee98a3182c59358a4cb93c610742c5c87e5597d81005904a5f3cd5de69b1264b18f9bf6a6bd
   languageName: node
   linkType: hard
 
@@ -13864,7 +13863,7 @@ __metadata:
     nunjucks: "npm:^3.2.4"
     nyc: "npm:^15.1.0"
     otp: "npm:^0.1.3"
-    pa11y: "npm:^7.0.0"
+    pa11y: "npm:^8.0.0"
     phantomjs-prebuilt: "npm:^2.1.16"
     pre-commit: "npm:^1.2.2"
     proxyquire: "npm:^2.1.3"
@@ -15424,23 +15423,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.0.0, semver@npm:^7.2.1, semver@npm:^7.3.0, semver@npm:^7.3.2, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.8, semver@npm:^7.5.1, semver@npm:^7.5.2, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.3":
+"semver@npm:^7.0.0, semver@npm:^7.2.1, semver@npm:^7.3.0, semver@npm:^7.3.2, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.8, semver@npm:^7.5.1, semver@npm:^7.5.2, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.3, semver@npm:~7.6.0":
   version: 7.6.3
   resolution: "semver@npm:7.6.3"
   bin:
     semver: bin/semver.js
   checksum: 10/36b1fbe1a2b6f873559cd57b238f1094a053dbfd997ceeb8757d79d1d2089c56d1321b9f1069ce263dc64cfa922fa1d2ad566b39426fe1ac6c723c1487589e10
-  languageName: node
-  linkType: hard
-
-"semver@npm:~7.5.4":
-  version: 7.5.4
-  resolution: "semver@npm:7.5.4"
-  dependencies:
-    lru-cache: "npm:^6.0.0"
-  bin:
-    semver: bin/semver.js
-  checksum: 10/985dec0d372370229a262c737063860fabd4a1c730662c1ea3200a2f649117761a42184c96df62a0e885e76fbd5dace41087d6c1ac0351b13c0df5d6bcb1b5ac
   languageName: node
   linkType: hard
 

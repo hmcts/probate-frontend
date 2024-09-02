@@ -13882,7 +13882,7 @@ __metadata:
     sonarqube-scanner: "npm:^3.0.1"
     superagent: "npm:^5.3.1"
     superagent-proxy: "npm:^1.0.3"
-    supertest: "npm:^6.3.3"
+    supertest: "npm:^7.0.0"
     tar: "npm:^6.2.1"
     traverse: "npm:^0.6.7"
     tunnel-agent: "npm:^0.6.0"
@@ -16386,7 +16386,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"superagent@npm:9":
+"superagent@npm:9, superagent@npm:^9.0.1":
   version: 9.0.2
   resolution: "superagent@npm:9.0.2"
   dependencies:
@@ -16422,7 +16422,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"superagent@npm:^8.0.9, superagent@npm:^8.1.2":
+"superagent@npm:^8.0.9":
   version: 8.1.2
   resolution: "superagent@npm:8.1.2"
   dependencies:
@@ -16440,13 +16440,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"supertest@npm:^6.3.3":
-  version: 6.3.4
-  resolution: "supertest@npm:6.3.4"
+"supertest@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "supertest@npm:7.0.0"
   dependencies:
     methods: "npm:^1.1.2"
-    superagent: "npm:^8.1.2"
-  checksum: 10/93015318f5a90398915a032747973d9eacf9aebec3f07b413eba9d8b3db83ff48fbf6f5a92f9526578cae50153b0f76a37de197141030d856db4371a711b86ee
+    superagent: "npm:^9.0.1"
+  checksum: 10/73bf2a37e13856a1b3e6a37b9df5cec8e506aa0360a5f5ecd989d1f4b0edf168883e306012e81e371d5252c17d4c7bef4ba30633dbf3877cbf52fc7af51cca9b
   languageName: node
   linkType: hard
 

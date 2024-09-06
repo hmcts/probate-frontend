@@ -13,7 +13,7 @@ class DetectDataChanges {
     }
 
     accessDataKey(paramsKey) {
-        if (['address'].includes(paramsKey)) {
+        if (['addressLine1'].includes(paramsKey)) {
             return 'address.formattedAddress';
         }
         return paramsKey;
@@ -24,6 +24,17 @@ class DetectDataChanges {
             const sectionDataKey = this.accessDataKey(paramsKey);
             return paramsKey !== 'declarationCheckbox' && sectionData && get(sectionData, sectionDataKey) && this.isNotEqual(get(params, sectionDataKey), get(sectionData, sectionDataKey));
         });
+    }
+
+    getFormattedAddress(paramsKey) {
+        let formattedAddress = '';
+        Object.values(paramsKey).forEach((value) => {
+            if (value) {
+                formattedAddress = `${formattedAddress}${value} `;
+            }
+        });
+
+        return formattedAddress;
     }
 
     hasDataChanged(ctx, req, step) {
@@ -44,8 +55,16 @@ class DetectDataChanges {
             !formdata.declaration.hasDataChanged
         ) {
             if (step.section === 'executors') {
-                if (Object.keys(req.body).includes('address') || Object.keys(req.body).includes('email')) {
+                if (Object.keys(req.body).includes('email')) {
                     const index = (req.params && !isNaN(req.params[0])) ? req.params[0] : req.session.indexPosition;
+                    return this.hasChanged(req.body, formdata[step.section].list[index]);
+                } else if (Object.keys(req.body).includes('addressLine1')) {
+                    const index = (req.params && !isNaN(req.params[0])) ? req.params[0] : req.session.indexPosition;
+                    const address = {...req.body};
+                    delete address._csrf;
+                    delete address.isSaveAndClose;
+                    address.formattedAddress = this.getFormattedAddress(address);
+                    req.body.address = address;
                     return this.hasChanged(req.body, formdata[step.section].list[index]);
                 } else if (req.body.executorName) {
                     const currentExecutors = executorsWrapper.executors(true).map(executor => executor.fullName);

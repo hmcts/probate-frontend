@@ -21,7 +21,7 @@ USER root
 RUN apk add git
 USER hmcts
 
-RUN PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install
+RUN PUPPETEER_SKIP_DOWNLOAD=true yarn install
 RUN yarn -v
 RUN node -v
 RUN yarn setup-sass

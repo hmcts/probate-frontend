@@ -1,8 +1,8 @@
 {
   "title": "Talu a chyflwyno - statws",
-  "headingNoPayment": "No payment required",
-  "headingPayment": "Payment received",
-  "paragraph1": "You&rsquo;ll usually get the grant within 16 weeks of submitting your application.",
+  "headingNoPayment": "Nid oes angen taliad",
+  "headingPayment": "Taliad wedi’i wneud",
+  "paragraph1": "Gan amlaf, byddwch yn cael y grant o fewn 16 wythnos i chi gyflwyno eich cais",
 
   "errors": {
     "update": {

@@ -88,6 +88,17 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     // Security library helmet to verify 11 smaller middleware functions
     app.use(helmet());
 
+    app.use(globals.dynatrace.dynatraceUrl, (req, res, next) => {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Credentials', 'true');
+        res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+        res.header(
+            'Access-Control-Allow-Headers',
+            'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+        );
+        next();
+    });
+
     // Content security policy to allow just assets from same domain
     app.use(helmet.contentSecurityPolicy({
         directives: {

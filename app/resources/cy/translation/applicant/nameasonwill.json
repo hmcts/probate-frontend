@@ -1,7 +1,7 @@
 {
   "title": "Enw&rsquo;r ceisydd ar yr ewyllys",
   "reminder": "Gwiriwch yr ewyllys a’r codisiliau gwreiddiol nawr",
-  "question": "Ai &lsquo;{applicantName}&rsquo; yw sut mae eich enw wedi ei ysgrifennu yn union yn yr ewyllys?",
+  "question": "A ydy &lsquo;{applicantName}&rsquo; yn union yr un fath â sut mae eich enw wedi ei ysgrifennu yn yr ewyllys?",
   "questionWithoutName": "A yw eich enw union beth sy&rsquo;n ymddangos ar yr ewyllys?",
   "questionWithCodicil": "Ai &lsquo;{applicantName}&rsquo; yw sut mae eich enw wedi ei ysgrifennu yn union yn yr ewyllys neu unrhyw godisiliau?",
   "content1": "Mae angen i ni wybod a yw eich enw wedi’i ysgrifennu’n wahanol yn yr ewyllys neu mewn unrhyw godisiliau.",

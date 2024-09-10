@@ -26,10 +26,15 @@
             uploadTimeoutSummary: '{{ common["documentUpload-uploadTimeoutSummary"] | safe }}'
         }
     };
-    document.getElementById("saveAndClose").addEventListener("click", function(e) {
-      e.preventDefault();
-      document.getElementById("isSaveAndClose").value='true';
-      document.getElementById("main-form").submit();
+    document.addEventListener("DOMContentLoaded", function() {
+      var saveAndCloseBtn = document.getElementById("saveAndClose");
+      if (saveAndCloseBtn) {
+        saveAndCloseBtn.addEventListener("click", function(e) {
+          e.preventDefault();
+          document.getElementById("isSaveAndClose").value = 'true';
+          document.getElementById("main-form").submit();
+        });
+      }
     });
 </script>
 <script src="/public/javascripts/document-upload.js"></script>

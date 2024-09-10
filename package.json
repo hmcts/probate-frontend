@@ -112,7 +112,7 @@
     "csurf": "^1.10.0",
     "debug": "^4.3.4",
     "email-validator": "^2.0.4",
-    "express": "^4.19.2",
+    "express": "^4.20.0",
     "express-session": "^1.17.3",
     "file-type": "^12.4.2",
     "get-port": "^4.2.0",
@@ -211,7 +211,8 @@
     "formidable": "^3.5.1",
     "@azure/msal-node": "^2.9.2",
     "@azure/identity": "^4.2.1",
-    "braces": "^3.0.3"
+    "braces": "^3.0.3",
+    "path-to-regexp": "^0.1.10"
   },
   "packageManager": "yarn@4.4.1"
 }

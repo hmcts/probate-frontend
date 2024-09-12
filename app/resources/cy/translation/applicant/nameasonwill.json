@@ -16,7 +16,7 @@
 
   "errors": {
     "nameAsOnTheWill": {
-      "required": "Atebwch &lsquo;ydw&rsquo; os yw eich enw yn union yr un fath yn yr ewyllys neu’r codisil"
+      "required": "Atebwch &lsquo;ydy&rsquo; os yw'ch enw'n union yr un fath ar yr ewyllys neu'r codisil"
     }
   }
 }

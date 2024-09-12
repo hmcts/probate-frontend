@@ -13,10 +13,10 @@
 
   "errors": {
     "aliasReason": {
-      "required": "Dewiswch reswm pam fod eich enw yn wahanol"
+      "required": "Dewiswch reswm dros pam fod eich enw yn wahanol"
     },
     "otherReason": {
-      "required": "Nodwch y rheswm dros y gwahaniaeth"
+      "required": "Rhowch y rheswm dros y gwahaniaeth"
     }
   }
 }

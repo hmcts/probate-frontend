@@ -9,7 +9,7 @@ class FormatAlias {
             isExecutorApplicant, executorCurrentName) : this.formatAliasReason(aliasReason, otherReason)) || '';
     }
 
-    static formatAliasReason(aliasReason, otherReason, isExecutorApplicant, executorCurrentName) {
+    static formatMultipleApplicantAliasReason(aliasReason, otherReason, isExecutorApplicant, executorCurrentName) {
         if (aliasReason === 'optionMarriage') {
             return isExecutorApplicant ? ' ' + executorCurrentName + ' got married or formed a civil partnership' : ' They got married or formed a civil partnership';
         } else if (aliasReason === 'optionDivorce') {
@@ -25,7 +25,7 @@ class FormatAlias {
         }
     }
 
-    static formatMultipleApplicantAliasReason(aliasReason, otherReason) {
+    static formatAliasReason(aliasReason, otherReason) {
         if (aliasReason === 'optionMarriage') {
             return 'I got married or formed a civil partnership';
         } else if (aliasReason === 'optionDivorce') {

@@ -17,9 +17,9 @@ class FormatAlias {
         } else if (aliasReason === 'optionDeedPoll') {
             return isExecutorApplicant ? ' ' + executorCurrentName + ' changed their name by deed poll' : ' They changed their name by deed poll';
         } else if (aliasReason === 'optionDifferentSpelling') {
-            return isExecutorApplicant ? ' ' + executorCurrentName + ' ‘s name was spelled differently' : ' Their name was spelled differently';
+            return isExecutorApplicant ? ' ' + executorCurrentName + '‘s name was spelled differently' : ' Their name was spelled differently';
         } else if (aliasReason === 'optionPartOfNameNotIncluded') {
-            return isExecutorApplicant ? ' Part of' + executorCurrentName + 'name was not included ' : ' Part of their name was not included';
+            return isExecutorApplicant ? ' Part of' + executorCurrentName + ' name was not included ' : ' Part of their name was not included';
         } else if (aliasReason === 'optionOther') {
             return `: ${otherReason}`;
         }

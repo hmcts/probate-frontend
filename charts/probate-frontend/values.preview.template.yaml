@@ -8,6 +8,7 @@ nodejs:
     REDIS_PORT: 6379
     REDIS_USE_TLS: false
     LAUNCHDARKLY_ENABLED: true
+    DYNATRACE_URL: /public/javascripts/document-upload.js
   keyVaults:
     probate:
       resourceGroup: probate

@@ -20,7 +20,7 @@ class FormatAlias {
         } else if (aliasReason === 'optionDifferentSpelling') {
             return isExecutorApplicant ? ' ' + executorCurrentName + '‘s name was spelled differently' : ' Their name was spelled differently';
         } else if (aliasReason === 'optionPartOfNameNotIncluded') {
-            return isExecutorApplicant ? ' Part of ' + executorCurrentName + '‘s name was not included ' : ' Part of their name was not included';
+            return isExecutorApplicant ? ' Part of ' + executorCurrentName + '‘s name was not included' : ' Part of their name was not included';
         } else if (aliasReason === 'optionOther') {
             return ` ${otherReason}`;
         }

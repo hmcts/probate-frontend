@@ -5813,6 +5813,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"debug@npm:^4.3.7":
+  version: 4.3.7
+  resolution: "debug@npm:4.3.7"
+  dependencies:
+    ms: "npm:^2.1.3"
+  peerDependenciesMeta:
+    supports-color:
+      optional: true
+  checksum: 10/71168908b9a78227ab29d5d25fe03c5867750e31ce24bf2c44a86efc5af041758bb56569b0a3d48a9b5344c00a24a777e6f4100ed6dfd9534a42c1dde285125a
+  languageName: node
+  linkType: hard
+
 "decamelize-keys@npm:^1.1.0":
   version: 1.1.1
   resolution: "decamelize-keys@npm:1.1.1"
@@ -6139,10 +6151,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devtools-protocol@npm:0.0.1330662":
-  version: 0.0.1330662
-  resolution: "devtools-protocol@npm:0.0.1330662"
-  checksum: 10/e65eeba972dd51319838d4c53dd6dcd77a2b1a345191d8b777e7ca3daee44534e674362564be1485d0c630bfc0dfcd2d080689f3b170c357f75076cebbc19002
+"devtools-protocol@npm:0.0.1342118":
+  version: 0.0.1342118
+  resolution: "devtools-protocol@npm:0.0.1342118"
+  checksum: 10/3a6dbff74db04c432d9818a87247a7c6307518e0fdc857bb52a2c8febdfb5b02c3384d06b5b27c4cd1b975e17380e7899510c92f3874ef331331aeced419ed5f
   languageName: node
   linkType: hard
 
@@ -14209,17 +14221,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:23.3.0":
-  version: 23.3.0
-  resolution: "puppeteer-core@npm:23.3.0"
+"puppeteer-core@npm:23.4.0":
+  version: 23.4.0
+  resolution: "puppeteer-core@npm:23.4.0"
   dependencies:
     "@puppeteer/browsers": "npm:2.4.0"
     chromium-bidi: "npm:0.6.5"
-    debug: "npm:^4.3.6"
-    devtools-protocol: "npm:0.0.1330662"
+    debug: "npm:^4.3.7"
+    devtools-protocol: "npm:0.0.1342118"
     typed-query-selector: "npm:^2.12.0"
     ws: "npm:^8.18.0"
-  checksum: 10/82b512eef12dda3e174a2d577400a55cb17767487bc01f769f325f1256008bf57dc96e262e1116aec92b37738724fe54b257407084a34636c90c4b90d57926b7
+  checksum: 10/d78431c642283a6e585080839384c3129c8679bb036c9a77ceaac9cc5ff44d723f741ee97e1afbc3f5d0502a990741e6a59be6167b4e74bf3997d0e37ca8232d
   languageName: node
   linkType: hard
 
@@ -14243,18 +14255,18 @@ __metadata:
   linkType: hard
 
 "puppeteer@npm:^23.2.0":
-  version: 23.3.0
-  resolution: "puppeteer@npm:23.3.0"
+  version: 23.4.0
+  resolution: "puppeteer@npm:23.4.0"
   dependencies:
     "@puppeteer/browsers": "npm:2.4.0"
     chromium-bidi: "npm:0.6.5"
     cosmiconfig: "npm:^9.0.0"
-    devtools-protocol: "npm:0.0.1330662"
-    puppeteer-core: "npm:23.3.0"
+    devtools-protocol: "npm:0.0.1342118"
+    puppeteer-core: "npm:23.4.0"
     typed-query-selector: "npm:^2.12.0"
   bin:
     puppeteer: lib/cjs/puppeteer/node/cli.js
-  checksum: 10/cb2046bc19dcafc4722910b24b8be12c7eab63ce7ae8eea20c5b1641bfbc9c2472748f7c0033f8b7526a3d27052d5c8e049586eb6239de90e7f4034c1bc51e32
+  checksum: 10/b5fc1dd160890d727516bfd29174b8f4a155cb6aac77f96d3e8d0852fac2bfd8a271e95f0fdc51d7326421e8918bf58394ca94e95ffdf2566a477842d03c21d8
   languageName: node
   linkType: hard
 

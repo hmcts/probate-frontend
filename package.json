@@ -114,7 +114,7 @@
     "email-validator": "^2.0.4",
     "express": "^4.21.0",
     "express-session": "^1.17.3",
-    "file-type": "^12.4.2",
+    "file-type": "^19.0.0",
     "get-port": "^4.2.0",
     "git-rev-sync": "^3.0.2",
     "govuk-frontend": "^4.8.0",

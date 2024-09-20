@@ -96,7 +96,7 @@
     "@hmcts/nodejs-logging": "^4.0.4",
     "@hmcts/os-places-client": "^1.1.7",
     "@hmcts/properties-volume": "^1.0.0",
-    "@wdio/cli": "^8.10.5",
+    "@wdio/cli": "^9.0.0",
     "@wdio/selenium-standalone-service": "^8.10.4",
     "ajv": "^6.12.6",
     "ajv-keywords": "^3.5.2",
@@ -155,7 +155,7 @@
     "tunnel-agent": "^0.6.0",
     "uuid": "^10.0.0",
     "validator": "^13.9.0",
-    "webdriverio": "^8.10.5",
+    "webdriverio": "^9.0.0",
     "ws": "^8.17.1"
   },
   "devDependencies": {

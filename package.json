@@ -118,7 +118,7 @@
     "get-port": "^4.2.0",
     "git-rev-sync": "^3.0.2",
     "govuk-frontend": "^4.8.0",
-    "helmet": "^3.23.3",
+    "helmet": "^7.0.0",
     "hpkp": "^2.0.3",
     "http-terminator": "^2.0.3",
     "https-proxy-agent": "^5.0.1",

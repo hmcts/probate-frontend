@@ -123,7 +123,7 @@
     "http-terminator": "^3.0.0",
     "https-proxy-agent": "^5.0.1",
     "i18next": "^17.3.1",
-    "ioredis": "^4.28.5",
+    "ioredis": "^5.0.0",
     "ip": "^2.0.1",
     "jquery": "^3.6.4",
     "js-yaml": "^3.14.1",

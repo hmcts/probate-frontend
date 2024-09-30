@@ -4771,7 +4771,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"charenc@npm:0.0.2":
+"charenc@npm:0.0.2, charenc@npm:>= 0.0.1":
   version: 0.0.2
   resolution: "charenc@npm:0.0.2"
   checksum: 10/81dcadbe57e861d527faf6dd3855dc857395a1c4d6781f4847288ab23cffb7b3ee80d57c15bba7252ffe3e5e8019db767757ee7975663ad2ca0939bb8fcaf2e5
@@ -5771,7 +5771,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"crypt@npm:0.0.2":
+"crypt@npm:0.0.2, crypt@npm:>= 0.0.1":
   version: 0.0.2
   resolution: "crypt@npm:0.0.2"
   checksum: 10/2c72768de3d28278c7c9ffd81a298b26f87ecdfe94415084f339e6632f089b43fe039f2c93f612bcb5ffe447238373d93b2e8c90894cba6cfb0ac7a74616f8b9
@@ -13350,12 +13350,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"otp@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "otp@npm:0.1.3"
+"otp@npm:^1.0.0":
+  version: 1.1.2
+  resolution: "otp@npm:1.1.2"
   dependencies:
-    thirty-two: "npm:^0.0.2"
-  checksum: 10/82c8511323ef82a18c7dd9f1b479c18a653fcb664023aa67bb1d48721fff7282e81fa9be56735c246f2e85757d9f4e3181a1851e2c4e61f1378c6e80bbaac846
+    sha1: "npm:^1.1.1"
+  checksum: 10/3fd1a46ae889b71c62d91358a1db678e6f32bcd41264f978902fad1fe4c4d3b01c109e845d314e2b3844fc4de83b7f3ab189bed6a8a612681127110acb7b11b9
   languageName: node
   linkType: hard
 
@@ -14183,7 +14183,7 @@ __metadata:
     numeral: "npm:^2.0.6"
     nunjucks: "npm:^3.2.4"
     nyc: "npm:^17.0.0"
-    otp: "npm:^0.1.3"
+    otp: "npm:^1.0.0"
     pa11y: "npm:^8.0.0"
     phantomjs-prebuilt: "npm:^2.1.16"
     pre-commit: "npm:^1.2.2"
@@ -15933,6 +15933,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sha1@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "sha1@npm:1.1.1"
+  dependencies:
+    charenc: "npm:>= 0.0.1"
+    crypt: "npm:>= 0.0.1"
+  checksum: 10/da9f47e949988e2f595ef19733fd1dc736866ef6de4e421a55c13b444c03ae532e528b7350ae6ea55d9fb053be61d4648ec2cd5250d46cfdbdf4f6b4e763713d
+  languageName: node
+  linkType: hard
+
 "shallow-clone@npm:^3.0.0":
   version: 3.0.1
   resolution: "shallow-clone@npm:3.0.1"
@@ -17048,13 +17058,6 @@ __metadata:
   version: 0.2.0
   resolution: "text-table@npm:0.2.0"
   checksum: 10/4383b5baaeffa9bb4cda2ac33a4aa2e6d1f8aaf811848bf73513a9b88fd76372dc461f6fd6d2e9cb5100f48b473be32c6f95bd983509b7d92bb4d92c10747452
-  languageName: node
-  linkType: hard
-
-"thirty-two@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "thirty-two@npm:0.0.2"
-  checksum: 10/e5766d18e713fca70c6795c24063299ddfebec1ebe0c338df06d5be14f3def140e49f6bbff283d6149cf34be99b31dd0e8cff41664adec8df131335dfda1d764
   languageName: node
   linkType: hard
 

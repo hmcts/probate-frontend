@@ -11567,7 +11567,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"md5@npm:^2.1.0, md5@npm:^2.3.0":
+"md5@npm:^2.3.0":
   version: 2.3.0
   resolution: "md5@npm:2.3.0"
   dependencies:
@@ -12219,6 +12219,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mkdirp@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "mkdirp@npm:3.0.1"
+  bin:
+    mkdirp: dist/cjs/src/bin.js
+  checksum: 10/16fd79c28645759505914561e249b9a1f5fe3362279ad95487a4501e4467abeb714fd35b95307326b8fd03f3c7719065ef11a6f97b7285d7888306d1bd2232ba
+  languageName: node
+  linkType: hard
+
 "mocha-jenkins-reporter@npm:^0.4.8":
   version: 0.4.8
   resolution: "mocha-jenkins-reporter@npm:0.4.8"
@@ -12232,18 +12241,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mocha-junit-reporter@npm:^1.23.3":
-  version: 1.23.3
-  resolution: "mocha-junit-reporter@npm:1.23.3"
+"mocha-junit-reporter@npm:^2.0.0":
+  version: 2.2.1
+  resolution: "mocha-junit-reporter@npm:2.2.1"
   dependencies:
-    debug: "npm:^2.2.0"
-    md5: "npm:^2.1.0"
-    mkdirp: "npm:~0.5.1"
-    strip-ansi: "npm:^4.0.0"
-    xml: "npm:^1.0.0"
+    debug: "npm:^4.3.4"
+    md5: "npm:^2.3.0"
+    mkdirp: "npm:^3.0.0"
+    strip-ansi: "npm:^6.0.1"
+    xml: "npm:^1.0.1"
   peerDependencies:
     mocha: ">=2.2.5"
-  checksum: 10/2a7ffef41723da7bcce897755318014ef54378547344213bf2e28849047780206cd3833cba108aa3d31a8b1907ee33d17be84678c65c1d196c0574c33c21f966
+  checksum: 10/f2e9db2daf4b5de8824ed557a7d6b534683558fadf843de6b4f96385c6edad239ee6194e81f5983809d7223b45f57c7af0337442552cab47103e9e92d5ee4cb3
   languageName: node
   linkType: hard
 
@@ -14166,7 +14175,7 @@ __metadata:
     lodash: "npm:^4.17.21"
     mocha: "npm:^10.2.0"
     mocha-jenkins-reporter: "npm:^0.4.8"
-    mocha-junit-reporter: "npm:^1.23.3"
+    mocha-junit-reporter: "npm:^2.0.0"
     mocha-lcov-reporter: "npm:^1.3.0"
     mocha-multi: "npm:^1.1.7"
     mochawesome: "npm:^7.1.3"
@@ -18426,7 +18435,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"xml@npm:^1.0.0, xml@npm:^1.0.1":
+"xml@npm:^1.0.1":
   version: 1.0.1
   resolution: "xml@npm:1.0.1"
   checksum: 10/6c4c31a1308e45732e5ac6b50edbca0e8f7abe5cb5de10215d8e3c688819fe7c7706e056f6fb59b1a23fdf1000c2d7a8bba0a89e94aa1796cd2376d9a5ba401e

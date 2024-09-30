@@ -12550,10 +12550,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nocache@npm:^3.0.1, nocache@npm:^3.0.4":
+"nocache@npm:^3.0.1":
   version: 3.0.4
   resolution: "nocache@npm:3.0.4"
   checksum: 10/e980eac3c6c81ff6336728e10e798a251b48866822a3fbf98f74b800cafe2b1a8ac8f676a48ac454d4db9509cd501d72ffb9d5509c30b054b5d8800117a079fc
+  languageName: node
+  linkType: hard
+
+"nocache@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "nocache@npm:4.0.0"
+  checksum: 10/5b018b7900fbc580c327b1a87decb20e8d9d233face8b8dfa286a54304f2cc11bfaea9828d0d4b635ca55a73539269a6b64a85185c4a363cc288fd706f6e3825
   languageName: node
   linkType: hard
 
@@ -14087,7 +14094,7 @@ __metadata:
     mochawesome: "npm:^7.1.3"
     moment: "npm:^2.29.4"
     multer: "npm:1.4.5-lts.1"
-    nocache: "npm:^3.0.4"
+    nocache: "npm:^4.0.0"
     nock: "npm:^13.3.1"
     node-cache: "npm:^5.1.2"
     node-emoji: "npm:^1.11.0"

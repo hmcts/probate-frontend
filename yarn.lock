@@ -10425,7 +10425,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:^3.13.1, js-yaml@npm:^3.14.1":
+"js-yaml@npm:^3.13.1":
   version: 3.14.1
   resolution: "js-yaml@npm:3.14.1"
   dependencies:
@@ -14160,7 +14160,7 @@ __metadata:
     ioredis: "npm:^5.0.0"
     ip: "npm:^2.0.1"
     jquery: "npm:^3.6.4"
-    js-yaml: "npm:^3.14.1"
+    js-yaml: "npm:^4.0.0"
     jsdom: "npm:^22.1.0"
     launchdarkly-node-server-sdk: "npm:^6.4.3"
     lodash: "npm:^4.17.21"

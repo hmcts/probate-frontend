@@ -126,7 +126,7 @@
     "ioredis": "^5.0.0",
     "ip": "^2.0.1",
     "jquery": "^3.6.4",
-    "js-yaml": "^3.14.1",
+    "js-yaml": "^4.0.0",
     "jsdom": "^22.1.0",
     "launchdarkly-node-server-sdk": "^6.4.3",
     "lodash": "^4.17.21",

@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const rewire = require('rewire');
 const Service = rewire('app/services/Service');
 const fetch = require('node-fetch');
-const HttpsProxyAgent = require('https-proxy-agent');
+const {HttpsProxyAgent} = require('https-proxy-agent');
 const sinon = require('sinon');
 const AsyncFetch = require('app/utils/AsyncFetch');
 

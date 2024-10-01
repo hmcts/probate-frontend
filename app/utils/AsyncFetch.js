@@ -3,7 +3,7 @@
 const config = require('config');
 const logger = require('app/components/logger');
 const fetch = require('node-fetch');
-const HttpsProxyAgent = require('https-proxy-agent');
+const {HttpsProxyAgent} = require('https-proxy-agent');
 const log = logger('Init');
 
 class AsyncFetch {

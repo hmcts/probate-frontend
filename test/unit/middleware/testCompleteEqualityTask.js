@@ -11,7 +11,7 @@ const proxyquire = require('proxyquire');
 const FormData = require('app/services/FormData');
 const completeEqualityTask = require('../../../app/middleware/completeEqualityTask');
 const fetch = require('node-fetch');
-const HttpsProxyAgent = require('https-proxy-agent');
+const {HttpsProxyAgent} = require('https-proxy-agent');
 const AsyncFetch = require('app/utils/AsyncFetch');
 
 let equalityStub;

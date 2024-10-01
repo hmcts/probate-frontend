@@ -154,6 +154,7 @@ describe('Service', () => {
             };
             const proxy = 'http://localhost';
             const options = AsyncFetch.fetchOptions(data, method, headers, proxy);
+            console.log('Returned options:', options);
             expect(options).to.deep.equal({
                 method: 'POST',
                 mode: 'cors',

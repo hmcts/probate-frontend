@@ -13,8 +13,8 @@
 
             <form class="form" id="main-form" method="post" autocomplete="off" action="{{ pageUrl }}" novalidate>
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-                <input type="hidden" name="isSaveAndClose" id = "isSaveAndClose" value="false">
                 {% block form_content %}{% endblock %}
+                <input type="hidden" name="isSaveAndClose" id = "isSaveAndClose" value="false">
             </form>
 
             {% block save_and_close %}

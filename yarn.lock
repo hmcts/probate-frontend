@@ -1611,6 +1611,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@kwsites/file-exists@npm:^1.0.0":
+  version: 1.1.1
+  resolution: "@kwsites/file-exists@npm:1.1.1"
+  dependencies:
+    debug: "npm:^4.1.1"
+  checksum: 10/4ff945de7293285133aeae759caddc71e73c4a44a12fac710fdd4f574cce2671a3f89d8165fdb03d383cfc97f3f96f677d8de3c95133da3d0e12a123a23109fe
+  languageName: node
+  linkType: hard
+
+"@kwsites/math-sum@npm:^1.0.0":
+  version: 1.0.1
+  resolution: "@kwsites/math-sum@npm:1.0.1"
+  checksum: 10/47bc435b67d3f60cf20dbb51999e22c986bf83a80674c8a3499e40a0f26e12aa690187a97783bea2662d94497d5c449c173cae91c06067c3837adc0511e3567d
+  languageName: node
+  linkType: hard
+
 "@ljharb/through@npm:^2.3.11":
   version: 2.3.13
   resolution: "@ljharb/through@npm:2.3.13"
@@ -14022,7 +14038,7 @@ __metadata:
     pre-commit: "npm:^1.2.2"
     proxyquire: "npm:^2.1.3"
     randomstring: "npm:^1.2.3"
-    readdir: "npm:^0.1.0"
+    readdir: "npm:^1.0.0"
     request: "npm:^2.88.2"
     require-directory: "npm:^2.1.1"
     rewire: "npm:^7.0.0"
@@ -14431,13 +14447,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"q@npm:~1.0.1":
-  version: 1.0.1
-  resolution: "q@npm:1.0.1"
-  checksum: 10/4f67ea902834b31e134f86aca11e857f30862e67460cd27b37c9449c0cc5b3aebbab0730c1af31bf0084ddccfba240f26439cd9f96369d3c6e071bd7a6bbc17b
-  languageName: node
-  linkType: hard
-
 "qs@npm:>=6.9.7":
   version: 6.13.0
   resolution: "qs@npm:6.13.0"
@@ -14792,12 +14801,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"readdir@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "readdir@npm:0.1.0"
+"readdir@npm:^1.0.0":
+  version: 1.0.2
+  resolution: "readdir@npm:1.0.2"
   dependencies:
-    q: "npm:~1.0.1"
-  checksum: 10/ac3b9c675bccc57859717e45fb51adbfe4c5452603f6e707aa9bea1f2792aaf6c1aed0b1eb931a517131940c765142d8adddea74b56ffbffb9124f52273e42b4
+    "@kwsites/file-exists": "npm:^1.0.0"
+    "@kwsites/math-sum": "npm:^1.0.0"
+  checksum: 10/3b0b154f0dc4ae0f10fb35f5e5ffaa8a3a8c27de4972d2265059cfc81293028c8bbe0bc8830c2d853750a60f72f7c051845312c4a5cae2c65f35e82c1aef842b
   languageName: node
   linkType: hard
 

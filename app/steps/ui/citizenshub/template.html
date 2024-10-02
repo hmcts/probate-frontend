@@ -1,5 +1,6 @@
 {% extends "includes/layout.html" %}
 
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
@@ -58,7 +59,34 @@
                       {% elseif fields.applicationInReview.value == "true" %}
                           {% if fields.caseStopped.value == "true" %}
                               <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.caseStoppedHeading | safe }}</p>
-                              <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph1 | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph2 | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px"><strong>{{ content.caseStoppedSubheading | safe }}</strong></p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph3 | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph4 | safe }}</p>
+                              <div class="govuk-form-group">
+                                {{ govukButton({
+                                text: content.provideInfo | safe,
+                                href: "/provide-information",
+                                preventDoubleClick: true,
+                                isStartButton: true
+                                }) }}
+                              </div>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph5 | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph6 | safe }}</p>
+                          {% elseif fields.informationProvided.value == "true" %}
+                              <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.informationProvidedHeading | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.informationProvidedParagraph1 | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.informationProvidedParagraph2 | safe }}</p>
+                          {% elseif fields.partialInformationProvided.value == "true" %}
+                              <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.informationProvidedHeading | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph1 | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph2 | safe }}</p>
+                              <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.partialInformationProvidedHeading | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph3 | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph4 | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph5 | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph6 | safe }}</p>
                           {% elseif fields.caseClosed.value == "true" %}
                               <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.caseClosedHeading | safe }}</p>
                               <p class="govuk-body" style="max-width: 600px">{{ content.caseClosedParagraph | safe }}</p>

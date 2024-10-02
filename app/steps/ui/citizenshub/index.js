@@ -5,6 +5,7 @@ const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
 const FormatName = require('app/utils/FormatName');
 const DocumentsWrapper = require('app/wrappers/Documents');
 const CaseProgress = require('app/utils/CaseProgress');
+const FormatDate = require('app/utils/FormatDate');
 
 class CitizensHub extends Step {
 
@@ -28,16 +29,22 @@ class CitizensHub extends Step {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
+        const state = req.session.form.ccdCase.state;
         ctx.deceasedName = FormatName.format(req.session.form.deceased);
-        ctx.grantIssued = CaseProgress.grantIssued(req.session.form.ccdCase.state);
-        ctx.applicationInReview = CaseProgress.applicationInReview(req.session.form.ccdCase.state);
-        ctx.documentsReceived = CaseProgress.documentsReceived(req.session.form.ccdCase.state, req.session.form.documentsReceivedNotificationSent);
-        ctx.applicationSubmitted = CaseProgress.applicationSubmitted(req.session.form.ccdCase.state);
-        ctx.caseStopped = CaseProgress.caseStopped(req.session.form.ccdCase.state);
-        ctx.caseClosed = CaseProgress.caseClosed(req.session.form.ccdCase.state);
+        ctx.grantIssued = CaseProgress.grantIssued(state);
+        ctx.applicationInReview = CaseProgress.applicationInReview(state);
+        ctx.documentsReceived = CaseProgress.documentsReceived(state, req.session.form.documentsReceivedNotificationSent);
+        ctx.applicationSubmitted = CaseProgress.applicationSubmitted(state);
+        ctx.caseStopped = CaseProgress.caseStopped(state, req.session.form.citizenResponseSubmittedDate);
+        ctx.caseClosed = CaseProgress.caseClosed(state);
         ctx.ccdReferenceNumber = FormatCcdCaseId.format(req.session.form.ccdCase);
         ctx.ccdReferenceNumberAccessible = FormatCcdCaseId.formatAccessible(req.session.form.ccdCase);
         ctx.caseType = req.session.form.caseType;
+        if (req.session.form.citizenResponseSubmittedDate) {
+            ctx.date = FormatDate.addWeeksToDate(req.session.form.citizenResponseSubmittedDate, 7);
+        }
+        ctx.informationProvided = CaseProgress.informationProvided(state, req.session.form.documentUploadIssue, req.session.form.citizenResponseSubmittedDate);
+        ctx.partialInformationProvided = CaseProgress.partialInformationProvided(state, req.session.form.documentUploadIssue, req.session.form.citizenResponseSubmittedDate);
         return ctx;
     }
 

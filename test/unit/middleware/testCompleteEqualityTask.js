@@ -217,7 +217,7 @@ describe('completeEqualityTask', () => {
             const headers = {
                 'Content-Type': 'application/json'
             };
-            const proxy = 'http://localhost';
+            const proxy = 'http://localhost.gov.uk';
             const options = AsyncFetch.fetchOptions(data, method, headers, proxy);
             expect(options).to.deep.equal({
                 method: 'POST',

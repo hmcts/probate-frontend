@@ -136,7 +136,7 @@
     "nocache": "^4.0.0",
     "node-cache": "^5.1.2",
     "node-emoji": "^2.0.0",
-    "node-fetch": "^2.6.9",
+    "node-fetch": "^3.0.0",
     "node-git-info-json": "^0.1.1",
     "numeral": "^2.0.6",
     "nunjucks": "^3.2.4",

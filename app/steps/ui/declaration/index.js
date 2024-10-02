@@ -141,8 +141,8 @@ class Declaration extends ValidationStep {
 
             const executorsApplying = ctx.executorsWrapper.executorsApplying();
             const executorsApplyingText = {
-                en: this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.en, hasCodicils, codicilsNumber, formdata.deceasedName, formdata.applicantName),
-                cy: this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.cy, hasCodicils, codicilsNumber, formdata.deceasedName, formdata.applicantName)
+                en: this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.en, hasCodicils, codicilsNumber, formdata.deceasedName, formdata.applicantName, ctx.bilingual),
+                cy: this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.cy, hasCodicils, codicilsNumber, formdata.deceasedName, formdata.applicantName, ctx.bilingual)
             };
 
             const executorsNotApplying = ctx.executorsWrapper.executorsNotApplying();
@@ -167,7 +167,7 @@ class Declaration extends ValidationStep {
         return hasMultipleApplicants ? '-multipleApplicants' : '';
     }
 
-    executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, mainApplicantName) {
+    executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, mainApplicantName, isBilingual) {
         const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
         return executorsApplying.map(executor => {
             return this.executorsApplyingText(
@@ -179,7 +179,8 @@ class Declaration extends ValidationStep {
                     multipleApplicantSuffix,
                     executor,
                     deceasedName,
-                    mainApplicantName
+                    mainApplicantName,
+                    isBilingual
                 });
         });
     }
@@ -190,7 +191,7 @@ class Declaration extends ValidationStep {
         const applicantNameOnWill = FormatName.formatName(props.executor);
         const applicantCurrentName = FormatName.formatName(props.executor, true);
         const aliasSuffix = (typeof props.executor.nameAsOnTheWill !== 'undefined' && props.executor.nameAsOnTheWill === 'optionNo') || props.executor.currentName ? '-alias' : '';
-        const aliasReason = FormatAlias.aliasReason(props.executor, props.hasMultipleApplicants);
+        const aliasReason = FormatAlias.aliasReason(props.executor, props.hasMultipleApplicants, props.isBilingual);
         const content = {
             name: props.content[`applicantName${props.multipleApplicantSuffix}${mainApplicantSuffix}${aliasSuffix}${codicilsSuffix}`]
                 .replace('{applicantWillName}', props.executor.isApplicant && (typeof props.executor.nameAsOnTheWill !== 'undefined' && props.executor.nameAsOnTheWill === 'optionNo') ? FormatName.applicantWillName(props.executor) : props.mainApplicantName)

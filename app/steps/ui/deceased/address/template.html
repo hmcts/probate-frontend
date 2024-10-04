@@ -32,7 +32,6 @@
 
             <form class="form" id="main-form" method="post" autocomplete="off" action="{{ pageUrl }}" novalidate>
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-                <input type="hidden" name="isSaveAndClose" id = "isSaveAndClose" value="false">
                 {% call govukFieldset({
                     legend: {
                         text: content.enterManually | safe,
@@ -148,6 +147,7 @@
                         }) }}
                     </div>
                 {% endcall %}
+              <input type="hidden" name="isSaveAndClose" id = "isSaveAndClose" value="false">
             </form>
 
             {% block save_and_close %}

@@ -1,12 +1,13 @@
 {
   "title": "Enw arall y ceisydd",
-  "question": "Sut mae eich enw wedi cael ei ysgrifennu ar yr ewyllys?",
+  "question": "Sut mae eich enw wedi cael ei ysgrifennu yn yr ewyllys neu unrhyw godisiliau?",
   "alias": "Enw",
   "nameOnWill": "Enw ar yr ewyllys",
+  "nameOnWillQuestionSummary": "Eich enw fel y mae wedi ei ysgrifennu yn yr ewyllys",
 
   "errors": {
     "alias": {
-      "required": "Nodwch yr enw fel y mae&rsquo;n ymddangos ar yr ewyllys"
+      "required": "Rhowch eich enw fel y mae wedi'i ysgrifennu ar yr ewyllys"
     }
   }
 }

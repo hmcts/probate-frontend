@@ -7169,6 +7169,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"exec-sh@npm:^0.2.0":
+  version: 0.2.2
+  resolution: "exec-sh@npm:0.2.2"
+  dependencies:
+    merge: "npm:^1.2.0"
+  checksum: 10/f0e2bdc9fded34f33a6473293cf06dd89f09da1dd7850369001e56b055bb00dae449dbf2e1dd0a1bce2083f13e30e0a0e1b9ab9e42efb1954a538349340c5562
+  languageName: node
+  linkType: hard
+
 "execa@npm:^3.3.0":
   version: 3.4.0
   resolution: "execa@npm:3.4.0"
@@ -11407,6 +11416,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"merge@npm:^1.2.0":
+  version: 1.2.1
+  resolution: "merge@npm:1.2.1"
+  checksum: 10/2298c4fdcf64561f320b92338681f7ffcafafb579a6e294066ae3e7bd10ae25df363903d2f028072733b9f79a1f75d2b999aef98ad5d73de13641da39cda0913
+  languageName: node
+  linkType: hard
+
 "methods@npm:^1.1.2, methods@npm:~1.1.2":
   version: 1.1.2
   resolution: "methods@npm:1.1.2"
@@ -13982,7 +13998,7 @@ __metadata:
     unirest: "npm:^0.6.0"
     uuid: "npm:^10.0.0"
     validator: "npm:^13.9.0"
-    watch: "npm:^0.13.0"
+    watch: "npm:^1.0.0"
     webdriverio: "npm:^8.10.5"
     when: "npm:^3.7.8"
     ws: "npm:^8.17.1"
@@ -17758,14 +17774,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"watch@npm:^0.13.0":
-  version: 0.13.0
-  resolution: "watch@npm:0.13.0"
+"watch@npm:^1.0.0":
+  version: 1.0.2
+  resolution: "watch@npm:1.0.2"
   dependencies:
-    minimist: "npm:^1.1.0"
+    exec-sh: "npm:^0.2.0"
+    minimist: "npm:^1.2.0"
   bin:
     watch: ./cli.js
-  checksum: 10/ba5a6779beebf639ac9595ced86a40049a9954fc1ece2919ad4f1ca0da214586c3f9efb016cf91dbed8c42bc0b3cd91e156f5c3f4e92cd0a3f9bf61841639eef
+  checksum: 10/796441860f548ade132bb5f43c40677e1249b7e766058c91df6581ac53401295690fc6311a1603878c89de5e7b480c2bf00c6cb2d7532fe24b9d4ac7df25f1c7
   languageName: node
   linkType: hard
 

@@ -76,7 +76,7 @@
                               <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph6 | safe }}</p>
                           {% elseif fields.informationProvided.value == "true" %}
                               <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.informationProvidedHeading | safe }}</p>
-                              <p class="govuk-body" style="max-width: 600px">{{ content.informationProvidedParagraph1 | safe }}</p>
+                              <p class="govuk-body" style="max-width: 600px">{{ content.informationProvidedParagraph1 | replace("{date}", fields.date.value) | safe }}</p>
                               <p class="govuk-body" style="max-width: 600px">{{ content.informationProvidedParagraph2 | safe }}</p>
                           {% elseif fields.partialInformationProvided.value == "true" %}
                               <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.informationProvidedHeading | safe }}</p>

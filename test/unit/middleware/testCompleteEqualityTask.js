@@ -11,7 +11,7 @@ const proxyquire = require('proxyquire');
 const FormData = require('app/services/FormData');
 const completeEqualityTask = require('../../../app/middleware/completeEqualityTask');
 const fetch = require('node-fetch');
-const HttpsProxyAgent = require('https-proxy-agent');
+const {HttpsProxyAgent} = require('https-proxy-agent');
 const AsyncFetch = require('app/utils/AsyncFetch');
 
 let equalityStub;
@@ -217,7 +217,7 @@ describe('completeEqualityTask', () => {
             const headers = {
                 'Content-Type': 'application/json'
             };
-            const proxy = 'http://localhost';
+            const proxy = 'http://localhost.gov.uk';
             const options = AsyncFetch.fetchOptions(data, method, headers, proxy);
             expect(options).to.deep.equal({
                 method: 'POST',

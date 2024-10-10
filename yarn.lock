@@ -9065,7 +9065,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"https-proxy-agent@npm:5, https-proxy-agent@npm:^5.0.0, https-proxy-agent@npm:^5.0.1":
+"https-proxy-agent@npm:5, https-proxy-agent@npm:^5.0.0":
   version: 5.0.1
   resolution: "https-proxy-agent@npm:5.0.1"
   dependencies:
@@ -13942,7 +13942,7 @@ __metadata:
     helmet: "npm:^3.23.3"
     hpkp: "npm:^3.0.0"
     http-terminator: "npm:^3.0.0"
-    https-proxy-agent: "npm:^5.0.1"
+    https-proxy-agent: "npm:^7.0.0"
     i18next: "npm:^23.0.0"
     if-env: "npm:^1.0.4"
     ioredis: "npm:^5.0.0"

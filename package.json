@@ -119,7 +119,7 @@
     "git-rev-sync": "^3.0.2",
     "govuk-frontend": "^4.8.0",
     "helmet": "^3.23.3",
-    "hpkp": "^2.0.3",
+    "hpkp": "^3.0.0",
     "http-terminator": "^3.0.0",
     "https-proxy-agent": "^5.0.1",
     "i18next": "^23.0.0",

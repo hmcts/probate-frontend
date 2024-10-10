@@ -8866,10 +8866,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hpkp@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "hpkp@npm:2.0.3"
-  checksum: 10/185055d2a770e2ed0d34b23280c2974327eee28fb41504a692897f2be860fba3aa096defd8862165076a13b03e51b493e70ab884ec213461aa0c12e94b4c2d58
+"hpkp@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "hpkp@npm:3.0.0"
+  checksum: 10/fc05c98c46ef5e8a8fd99f01f61b0a8b1f6483abdbaea6a8c1b1522329929544e994289cde2684b7ae36e188a8a4bf0f9abc2f182106cf51442fc8ecaf48f2af
   languageName: node
   linkType: hard
 
@@ -13940,7 +13940,7 @@ __metadata:
     git-rev-sync: "npm:^3.0.2"
     govuk-frontend: "npm:^4.8.0"
     helmet: "npm:^3.23.3"
-    hpkp: "npm:^2.0.3"
+    hpkp: "npm:^3.0.0"
     http-terminator: "npm:^3.0.0"
     https-proxy-agent: "npm:^5.0.1"
     i18next: "npm:^23.0.0"

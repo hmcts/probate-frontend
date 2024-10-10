@@ -1854,8 +1854,8 @@ __metadata:
   linkType: hard
 
 "@pact-foundation/pact@npm:^13.0.0":
-  version: 13.1.3
-  resolution: "@pact-foundation/pact@npm:13.1.3"
+  version: 13.1.4
+  resolution: "@pact-foundation/pact@npm:13.1.4"
   dependencies:
     "@pact-foundation/pact-core": "npm:^15.1.0"
     "@types/express": "npm:^4.17.11"
@@ -1876,7 +1876,7 @@ __metadata:
     pkginfo: "npm:^0.4.1"
     ramda: "npm:^0.30.0"
     randexp: "npm:^0.5.3"
-  checksum: 10/10ff079adc697f0ad31c46c61dc4224bf4941c75887b7d2629330d8c71bf64ea7d24de2983da7cdf49695850f9058d4223819319421f9429113fafaa99ce720c
+  checksum: 10/f1dad84110eb57c43b604d7d51f2673923271322fbc2b1c47ea109ea224ec150c252ad03275edbc07e3ec931e62c320421c2a08a13cb5c8f8bcfa6cf384a6333
   languageName: node
   linkType: hard
 

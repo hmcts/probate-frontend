@@ -1,5 +1,5 @@
 (function () {
-    
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
             initialiseCookieBanner();
@@ -9,7 +9,7 @@
     }
 
     function initialiseCookieBanner() {
-        
+
         /*  This callback is called when the 'accept' action is fired within the cookie banner
         *   This is where you'd hide the first stage in a decision/confirmation style banner
         */
@@ -35,9 +35,12 @@
             // GTM based GA consent
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({'event': 'Cookie Preferences', 'cookiePreferences': cookieStatus});
-            
+
             // Dynatrace RUM Consent
             const dtrum = window.dtrum;
+            dtrum.enableSessionReplay = function () {
+
+            }
             if (dtrum) {
                 if (cookieStatus.apm === 'on') {
                     dtrum.enable();
@@ -45,7 +48,7 @@
                 } else {
                     dtrum.disableSessionReplay();
                     dtrum.disable();
-                }    
+                }
             }
         }
 
@@ -99,7 +102,7 @@
               }
             ]
           });
-    }    
+    }
 })();
 
 

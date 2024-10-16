@@ -38,7 +38,6 @@
 
             // Dynatrace RUM Consent
             const dtrum = window.dtrum;
-            dtrum.enableSessionReplay = function () {
 
             /*
 

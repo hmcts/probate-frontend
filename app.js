@@ -96,6 +96,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             'Access-Control-Allow-Headers',
             'Origin, X-Requested-With, Content-Type, Accept, Authorization',
         );
+        njkEnv.addGlobal('currentHost', req.headers.host.toLowerCase());
         next();
     });
 

@@ -4,24 +4,30 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
 const {get} = require('lodash');
 
-class DocumentUpload extends ValidationStep {
+class ProvideInformation extends ValidationStep {
 
     static getUrl() {
-        return '/document-upload';
+        return '/provide-information';
     }
 
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        if (formdata.documents && formdata.documents.uploads) {
+        if (formdata.documents?.uploads) {
             ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
         }
-        ctx.isUploadingDocument = req.body && req.body.isUploadingDocument;
+        ctx.isUploadingDocument = req.body?.isUploadingDocument;
         return ctx;
     }
 
     handlePost(ctx, errors, formdata, session) {
-        const error = formdata.documents && formdata.documents.error;
+        if ((ctx.citizenResponse==='' || typeof ctx.citizenResponse==='undefined') &&
+            (!ctx.documentUploadIssue || typeof ctx.documentUploadIssue==='undefined') &&
+            (typeof ctx.uploadedDocuments==='undefined' || ctx.uploadedDocuments.length === 0)
+        ) {
+            errors.push(FieldError('citizenResponse', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        }
+        const error = formdata.documents?.error;
         if (error) {
             errors = errors || [];
             errors.push(FieldError('file', error, this.resourcePath, this.generateContent({}, {}, session.language), session.language));
@@ -30,7 +36,7 @@ class DocumentUpload extends ValidationStep {
         return [ctx, errors];
     }
 
-    isComplete(ctx, formdata) {
+    isComplete(formdata) {
         return [(typeof get(formdata, 'documentupload') !== 'undefined' || typeof get(formdata, 'documents.uploads') !== 'undefined'), 'inProgress'];
     }
 
@@ -50,4 +56,4 @@ class DocumentUpload extends ValidationStep {
     }
 }
 
-module.exports = DocumentUpload;
+module.exports = ProvideInformation;

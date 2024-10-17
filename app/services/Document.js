@@ -30,6 +30,19 @@ class Document extends Service {
         const fetchOptions = AsyncFetch.fetchOptions({}, 'DELETE', headers);
         return this.fetchText(removeDocumentUrl, fetchOptions);
     }
+
+    notifyApplicant(ccdCaseId, authToken, serviceAuthorisation) {
+        this.log('Notify Document upload');
+        const url = this.formatUrl.format(this.endpoint, `/document/notification/${ccdCaseId}`);
+        const headers = {
+            'Content-Type': 'application/json',
+            'Session-Id': this.sessionId,
+            'Authorization': authToken,
+            'ServiceAuthorization': serviceAuthorisation
+        };
+        const fetchOptions = AsyncFetch.fetchOptions({}, 'POST', headers);
+        return AsyncFetch.fetchJson(url, fetchOptions);
+    }
 }
 
 module.exports = Document;

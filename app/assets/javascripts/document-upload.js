@@ -8,7 +8,7 @@ var DocumentUpload = {
     initDropzone: function() {
         if ($('.document-upload__dropzone').length) {
             new Dropzone('.document-upload__dropzone', {
-                url: '/document-upload',
+                url: '/provide-information',
                 previewsContainer: '.document-upload__preview',
                 headers: {
                     'x-csrf-token': documentUploadConfig.csrfToken
@@ -110,6 +110,6 @@ var DocumentUpload = {
         });
     },
     removeDocument: function(index) {
-        $.get('/document-upload/remove/' + index);
+        $.get('/provide-information/remove/' + index);
     }
 };

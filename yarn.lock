@@ -51,6 +51,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@azure/core-auth@npm:^1.8.0, @azure/core-auth@npm:^1.9.0":
+  version: 1.9.0
+  resolution: "@azure/core-auth@npm:1.9.0"
+  dependencies:
+    "@azure/abort-controller": "npm:^2.0.0"
+    "@azure/core-util": "npm:^1.11.0"
+    tslib: "npm:^2.6.2"
+  checksum: 10/d1ae2847fddfad752b5f4092a3cbe7ad5809bc5c510447809b5e678abc3fc280af629c5155d2100f37ca8f43f88d7d3ea78279f98bd9f7eb44ec492f6cdbbe35
+  languageName: node
+  linkType: hard
+
 "@azure/core-client@npm:^1.3.0, @azure/core-client@npm:^1.5.0, @azure/core-client@npm:^1.9.2":
   version: 1.9.2
   resolution: "@azure/core-client@npm:1.9.2"
@@ -116,7 +127,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/core-rest-pipeline@npm:^1.1.0, @azure/core-rest-pipeline@npm:^1.3.0, @azure/core-rest-pipeline@npm:^1.8.0, @azure/core-rest-pipeline@npm:^1.9.1":
+"@azure/core-rest-pipeline@npm:^1.17.0":
+  version: 1.17.0
+  resolution: "@azure/core-rest-pipeline@npm:1.17.0"
+  dependencies:
+    "@azure/abort-controller": "npm:^2.0.0"
+    "@azure/core-auth": "npm:^1.8.0"
+    "@azure/core-tracing": "npm:^1.0.1"
+    "@azure/core-util": "npm:^1.9.0"
+    "@azure/logger": "npm:^1.0.0"
+    http-proxy-agent: "npm:^7.0.0"
+    https-proxy-agent: "npm:^7.0.0"
+    tslib: "npm:^2.6.2"
+  checksum: 10/88b79c37e0bf822002745013084d01eb104809186fb56633b046fad35eec64fcccceaa3b2e5bc10a5c15425d723101ee73f885c5a57f074ca993d15f9df25b9c
+  languageName: node
+  linkType: hard
+
+"@azure/core-rest-pipeline@npm:^1.3.0, @azure/core-rest-pipeline@npm:^1.8.0, @azure/core-rest-pipeline@npm:^1.9.1":
   version: 1.16.0
   resolution: "@azure/core-rest-pipeline@npm:1.16.0"
   dependencies:
@@ -151,7 +178,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/core-util@npm:^1.0.0, @azure/core-util@npm:^1.1.0, @azure/core-util@npm:^1.2.0, @azure/core-util@npm:^1.3.0, @azure/core-util@npm:^1.6.1, @azure/core-util@npm:^1.9.0":
+"@azure/core-util@npm:^1.0.0, @azure/core-util@npm:^1.1.0, @azure/core-util@npm:^1.2.0, @azure/core-util@npm:^1.6.1, @azure/core-util@npm:^1.9.0":
   version: 1.9.0
   resolution: "@azure/core-util@npm:1.9.0"
   dependencies:
@@ -161,25 +188,35 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/identity@npm:^4.2.1":
-  version: 4.4.1
-  resolution: "@azure/identity@npm:4.4.1"
+"@azure/core-util@npm:^1.11.0":
+  version: 1.11.0
+  resolution: "@azure/core-util@npm:1.11.0"
   dependencies:
-    "@azure/abort-controller": "npm:^1.0.0"
-    "@azure/core-auth": "npm:^1.5.0"
+    "@azure/abort-controller": "npm:^2.0.0"
+    tslib: "npm:^2.6.2"
+  checksum: 10/16d39f4ed9e224c190f0ffcb040b4f0a9723946b4312784a7a2a227cf2c56cd68328ce28fa05d1109c2e88bb5b34af159264c854e876f182461976a65fa1b5e5
+  languageName: node
+  linkType: hard
+
+"@azure/identity@npm:^4.2.1":
+  version: 4.5.0
+  resolution: "@azure/identity@npm:4.5.0"
+  dependencies:
+    "@azure/abort-controller": "npm:^2.0.0"
+    "@azure/core-auth": "npm:^1.9.0"
     "@azure/core-client": "npm:^1.9.2"
-    "@azure/core-rest-pipeline": "npm:^1.1.0"
+    "@azure/core-rest-pipeline": "npm:^1.17.0"
     "@azure/core-tracing": "npm:^1.0.0"
-    "@azure/core-util": "npm:^1.3.0"
+    "@azure/core-util": "npm:^1.11.0"
     "@azure/logger": "npm:^1.0.0"
-    "@azure/msal-browser": "npm:^3.14.0"
-    "@azure/msal-node": "npm:^2.9.2"
+    "@azure/msal-browser": "npm:^3.26.1"
+    "@azure/msal-node": "npm:^2.15.0"
     events: "npm:^3.0.0"
     jws: "npm:^4.0.0"
     open: "npm:^8.0.0"
     stoppable: "npm:^1.1.0"
     tslib: "npm:^2.2.0"
-  checksum: 10/93891329e115ed675e1cda3dca22031f37a75d0779fd145790c21990bc440ab2ffc9f1fbacec3b33dc7a0ac87661bdd9e8e763ae12d494a5daf3f1baa8915a5b
+  checksum: 10/b25711ce403c287da7fed446561891c4ee5c942f7e261b463c0936136122418823ff24dd8cc249f5bc5311ba7c76205ebc3dc32361e668fa3f88e5f74f72ba33
   languageName: node
   linkType: hard
 
@@ -211,19 +248,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-browser@npm:^3.14.0":
-  version: 3.20.0
-  resolution: "@azure/msal-browser@npm:3.20.0"
+"@azure/msal-browser@npm:^3.26.1":
+  version: 3.26.1
+  resolution: "@azure/msal-browser@npm:3.26.1"
   dependencies:
-    "@azure/msal-common": "npm:14.14.0"
-  checksum: 10/25bf912f41c5931894473dc097bbcc13cb603531285cbd1ca5e30f29fa1f3f0752bbb66fab96974b52f8c682b05619a84812a34303040f879325ae4ecb636724
-  languageName: node
-  linkType: hard
-
-"@azure/msal-common@npm:14.14.0":
-  version: 14.14.0
-  resolution: "@azure/msal-common@npm:14.14.0"
-  checksum: 10/1c8b19c6e2846dc2085c32c24992488bd2338c85db8fcfad78c74a8481e900f4423d72411af026ec1d581a293667c4f2b269f575b23775dae843390bad1babe3
+    "@azure/msal-common": "npm:14.15.0"
+  checksum: 10/69e28e598d9cead3650bc9e4adf42322da75ef10766fabf78369591d1b4b843fa7918f031ab2b7c936b68a017f1d36cf473043c9eadb8ea90ed132cc5cfd159c
   languageName: node
   linkType: hard
 
@@ -1888,13 +1918,13 @@ __metadata:
   linkType: hard
 
 "@playwright/test@npm:^1.41.2":
-  version: 1.48.0
-  resolution: "@playwright/test@npm:1.48.0"
+  version: 1.48.1
+  resolution: "@playwright/test@npm:1.48.1"
   dependencies:
-    playwright: "npm:1.48.0"
+    playwright: "npm:1.48.1"
   bin:
     playwright: cli.js
-  checksum: 10/8845ed0f0b303e10ee0a0f04562ef83be3f9123fac91d722f697ad964a119af74cd5fb08e1139f1b20b27396479456c984bfdc699fadedd92af9c0490fb4c7c0
+  checksum: 10/26fe791868a965790bb39e434a799d743261fb073fa0bec49435e0f2d1aceca99dc2f408fc64b0e2d4c07984021059b27096d4477b989e990b551cf60e2652e6
   languageName: node
   linkType: hard
 
@@ -2592,20 +2622,20 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 22.7.5
-  resolution: "@types/node@npm:22.7.5"
+  version: 22.7.7
+  resolution: "@types/node@npm:22.7.7"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10/e8ba102f8c1aa7623787d625389be68d64e54fcbb76d41f6c2c64e8cf4c9f4a2370e7ef5e5f1732f3c57529d3d26afdcb2edc0101c5e413a79081449825c57ac
+  checksum: 10/ada6c5f850fa09621e21923d7b17c3f3b5264c3b39c0953006f4a8b0b3d4b6d77ac02e2bbf8bae1d493abf81668804624470d895dd4483875fde8382b6eb7933
   languageName: node
   linkType: hard
 
 "@types/node@npm:^20.1.0, @types/node@npm:^20.1.1, @types/node@npm:^20.11.18":
-  version: 20.16.11
-  resolution: "@types/node@npm:20.16.11"
+  version: 20.16.13
+  resolution: "@types/node@npm:20.16.13"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10/6d2f92b7b320c32ba0c2bc54d21651bd21690998a2e27f00d15019d4db3e0ec30fce85332efed5e37d4cda078ff93ea86ee3e92b76b7a25a9b92a52a039b60b2
+  checksum: 10/6e7b82119372cc12d28fcc1b0c10d1b8fa560bbb500f87a4c68bc446a0986d42c92e0f583040167841a0c598131979c3399b17c736c9fb8ba4f0dcf2b2048a84
   languageName: node
   linkType: hard
 
@@ -6118,10 +6148,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devtools-protocol@npm:0.0.1342118":
-  version: 0.0.1342118
-  resolution: "devtools-protocol@npm:0.0.1342118"
-  checksum: 10/3a6dbff74db04c432d9818a87247a7c6307518e0fdc857bb52a2c8febdfb5b02c3384d06b5b27c4cd1b975e17380e7899510c92f3874ef331331aeced419ed5f
+"devtools-protocol@npm:0.0.1354347":
+  version: 0.0.1354347
+  resolution: "devtools-protocol@npm:0.0.1354347"
+  checksum: 10/907049238efd04b4e06b7d4af3eab4899717fd27f85ac8c5be0a1998a04086ab5e4728509ac85c4fdb2549d2697a5c465873a87fefcf97ae9ebbe74cbce442fe
   languageName: node
   linkType: hard
 
@@ -7817,13 +7847,13 @@ __metadata:
   linkType: hard
 
 "formidable@npm:^3.5.1":
-  version: 3.5.1
-  resolution: "formidable@npm:3.5.1"
+  version: 3.5.2
+  resolution: "formidable@npm:3.5.2"
   dependencies:
     dezalgo: "npm:^1.0.4"
-    hexoid: "npm:^1.0.0"
+    hexoid: "npm:^2.0.0"
     once: "npm:^1.4.0"
-  checksum: 10/c9a7bbbd4ca8142893da88b51cf7797adee022344ea180cf157a108bf999bed5ad8bc07a10a28d8a39fcbfaa02e8cba07f4ba336fbeb330deb23907336ba1fc2
+  checksum: 10/b9d87af44be8ba82f8f4955c240e65c559aedb84fecce6b294d97b256db66e6a20d50e799776fdf29ee46cb83857231d12c416c735696b18d3895b85620704f4
   languageName: node
   linkType: hard
 
@@ -8393,10 +8423,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"govuk-frontend@npm:^4.8.0":
-  version: 4.8.0
-  resolution: "govuk-frontend@npm:4.8.0"
-  checksum: 10/be938670a923d1edfc9a87521bbe070c99e5c5182d32dabfb61d75b630111ebfb90da0f015ae94afbe16458ce350a0863428209afb85e8f7af191bad7d444e26
+"govuk-frontend@npm:^4.9.0":
+  version: 4.9.0
+  resolution: "govuk-frontend@npm:4.9.0"
+  checksum: 10/03bae503b0c5aabcfb2724409f55f2221101a60f5334488319c9911408637efaa6737b733d4774436a520e9a79bf52bd9ae9a9e60f61a929c529b8125c0d5e29
   languageName: node
   linkType: hard
 
@@ -8659,10 +8689,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hexoid@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "hexoid@npm:1.0.0"
-  checksum: 10/f2271b8b6b0e13fb5a1eccf740f53ce8bae689c80b9498b854c447f9dc94f75f44e0de064c0e4660ecdbfa8942bb2b69973fdcb080187b45bbb409a3c71f19d4
+"hexoid@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "hexoid@npm:2.0.0"
+  checksum: 10/73d8e135bdd9326d0fa9ea05356741d48a3e67fbd3b2ce14c4f7b523a1cdabe70fa42f2c53447244886a0aecdf7873d4124abc30093a72d15188805f7a7ee406
   languageName: node
   linkType: hard
 
@@ -13597,27 +13627,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.48.0":
-  version: 1.48.0
-  resolution: "playwright-core@npm:1.48.0"
+"playwright-core@npm:1.48.1":
+  version: 1.48.1
+  resolution: "playwright-core@npm:1.48.1"
   bin:
     playwright-core: cli.js
-  checksum: 10/644489b4de9cc181e83eb639a283d3c4f8e4c3b1b1759d7c93b72fd0373b5a66ba376ee6a5ee3eca67f1b773bf15c5e01b6aeedd43c94c355bf4fc0d110713bc
+  checksum: 10/81b51d288be78b75898470eb192ef0bc65594eebfb5f7602d83ba2505e1d2163c9923a0d7bae46779d5f3a16e1daf392acfbccde01d9f302cdf90bf2b21b8988
   languageName: node
   linkType: hard
 
-"playwright@npm:1.48.0":
-  version: 1.48.0
-  resolution: "playwright@npm:1.48.0"
+"playwright@npm:1.48.1":
+  version: 1.48.1
+  resolution: "playwright@npm:1.48.1"
   dependencies:
     fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.48.0"
+    playwright-core: "npm:1.48.1"
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: 10/85b06ae8d0ab7a5a8c9a0d416007b18f35a59455fad40438bda98cbe07c48f338e97b98b1d9214e27f08d6ac284eba0eaab722f5684cd17dd4a47f5b69d004b9
+  checksum: 10/39e231af3d9e576ba835813c5319b8773d8536ba54c7e34c7004cf06fadb412b6bbfc91badf4bb5cda3f138e5a8994c314de4c76d06d9424430e415f86fb3dd1
   languageName: node
   linkType: hard
 
@@ -13726,7 +13756,7 @@ __metadata:
     file-type: "npm:^12.4.2"
     get-port: "npm:^4.2.0"
     git-rev-sync: "npm:^3.0.2"
-    govuk-frontend: "npm:^4.8.0"
+    govuk-frontend: "npm:^4.9.0"
     helmet: "npm:^3.23.3"
     hpkp: "npm:^3.0.0"
     http-terminator: "npm:^3.0.0"
@@ -14104,17 +14134,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:23.5.3":
-  version: 23.5.3
-  resolution: "puppeteer-core@npm:23.5.3"
+"puppeteer-core@npm:23.6.0":
+  version: 23.6.0
+  resolution: "puppeteer-core@npm:23.6.0"
   dependencies:
     "@puppeteer/browsers": "npm:2.4.0"
     chromium-bidi: "npm:0.8.0"
     debug: "npm:^4.3.7"
-    devtools-protocol: "npm:0.0.1342118"
+    devtools-protocol: "npm:0.0.1354347"
     typed-query-selector: "npm:^2.12.0"
     ws: "npm:^8.18.0"
-  checksum: 10/44bf3b3dee32bcc99596e0d817468f7b66754b1dfeea912fee3a1472892756c117b3860651c9517417970278e696aeefac917180659de672777290783e4b7ad8
+  checksum: 10/4a8d255d8420217603d92b0547bf379221897fcd19ccc2156cbbb8a5c78e587b3a598ddd8df5d859e75c54906d927c84bcf43bc8ec7aa88160fa3f71c6552d50
   languageName: node
   linkType: hard
 
@@ -14152,18 +14182,18 @@ __metadata:
   linkType: hard
 
 "puppeteer@npm:^23.2.0":
-  version: 23.5.3
-  resolution: "puppeteer@npm:23.5.3"
+  version: 23.6.0
+  resolution: "puppeteer@npm:23.6.0"
   dependencies:
     "@puppeteer/browsers": "npm:2.4.0"
     chromium-bidi: "npm:0.8.0"
     cosmiconfig: "npm:^9.0.0"
-    devtools-protocol: "npm:0.0.1342118"
-    puppeteer-core: "npm:23.5.3"
+    devtools-protocol: "npm:0.0.1354347"
+    puppeteer-core: "npm:23.6.0"
     typed-query-selector: "npm:^2.12.0"
   bin:
     puppeteer: lib/cjs/puppeteer/node/cli.js
-  checksum: 10/2b2a8e093782d6da157febd5275a22d03dc3c3246abf876ac92529f998c0353b53c5988451ba340a5a704191c9ef47822d400e8cd5a6567c0bcc730768cb9a45
+  checksum: 10/b96f975bb504f90778615261101895b2d7c681f98d81ee3ee05e097786f617ce1860f64c4b15a179897fa4562910c889ec36951ce72ffefa720b7e67a5c1a1bc
   languageName: node
   linkType: hard
 
@@ -15755,8 +15785,8 @@ __metadata:
   linkType: hard
 
 "sonarqube-scanner@npm:^4.0.0":
-  version: 4.2.4
-  resolution: "sonarqube-scanner@npm:4.2.4"
+  version: 4.2.5
+  resolution: "sonarqube-scanner@npm:4.2.5"
   dependencies:
     adm-zip: "npm:0.5.12"
     axios: "npm:1.7.7"
@@ -15772,7 +15802,7 @@ __metadata:
     tar-stream: "npm:3.1.7"
   bin:
     sonar-scanner: bin/sonar-scanner
-  checksum: 10/8f4e4a20cb3d6bcdec92e15e05800d1a920f6145b11abc33131178dfc1915789415ed9055a37d1a1786085343cd9d64d5e55186ef51baf6853ad90d6a2e9a4a8
+  checksum: 10/c3d9bdcb8794a022d4550815a67324469247266de81a1d2c12736c0d73c43d46c87355727089a8acb41ebf0aeb46f5e4938dc60f2a4b3625ce6ff1fc286c5d61
   languageName: node
   linkType: hard
 
@@ -16314,19 +16344,19 @@ __metadata:
   linkType: hard
 
 "superagent@npm:^10.0.0":
-  version: 10.1.0
-  resolution: "superagent@npm:10.1.0"
+  version: 10.1.1
+  resolution: "superagent@npm:10.1.1"
   dependencies:
     component-emitter: "npm:^1.3.0"
     cookiejar: "npm:^2.1.4"
     debug: "npm:^4.3.4"
     fast-safe-stringify: "npm:^2.1.1"
     form-data: "npm:^4.0.0"
-    formidable: "npm:^3.5.1"
+    formidable: "npm:^3.5.2"
     methods: "npm:^1.1.2"
     mime: "npm:2.6.0"
     qs: "npm:^6.11.0"
-  checksum: 10/4b6d9f9c85987c78ee7c3f969f1fa556f18c03142ed32643e029b517c42b8f77ae850cd0b6df7fe05f5993dc51083f168707ec61df5e625e7fd77ddf45ea6e1a
+  checksum: 10/8c3ecbad31e2ae4d21d98b10be56e4242f3de77d13b39aa0b358d900eb75fc738e93e936ced3988a96ca2e66bf2cc471470c251d751c1975ba9c08744ad5f880
   languageName: node
   linkType: hard
 

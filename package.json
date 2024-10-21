@@ -117,7 +117,7 @@
     "file-type": "^12.4.2",
     "get-port": "^4.2.0",
     "git-rev-sync": "^3.0.2",
-    "govuk-frontend": "^4.8.0",
+    "govuk-frontend": "^4.9.0",
     "helmet": "^3.23.3",
     "hpkp": "^3.0.0",
     "http-terminator": "^3.0.0",
@@ -215,5 +215,5 @@
     "braces": "^3.0.3",
     "path-to-regexp": "^0.1.10"
   },
-  "packageManager": "yarn@4.5.0"
+  "packageManager": "yarn@4.5.1"
 }

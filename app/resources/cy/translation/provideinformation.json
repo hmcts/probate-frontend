@@ -1,0 +1,28 @@
+{
+  "title": "Ymateb i sylwadau’r gweithiwr achos",
+  "header": "Ymateb i sylwadau’r gweithiwr achos",
+  "paragraph1": "Darllenwch resymau’r gweithiwr achos dros atal y cais yn yr e-bost a anfonwyd atoch a darparwch yr wybodaeth y maent wedi gofyn amdani.",
+  "subheader1": "Nodi eich ymateb",
+  "paragraph2": "Ysgrifennwch eich ymateb os yw’r gweithiwr achos am i chi egluro rhywbeth neu ddarparu gwybodaeth ychwanegol. Os yw’r gweithiwr achos ond wedi ofyn i chi uwchlwytho dogfennau, nid oes rhaid i chi ysgrifennu unrhyw beth, oni bai eich bod yn credu ei fod yn wybodaeth ddefnyddiol.",
+  "subheader2": "Uwchlwytho dogfennau",
+  "paragraph3": "Uwchlwythwch ddogfennau os yw’r gweithiwr achos wedi gofyn i chi ddarparu rhai, neu os oes gennych unrhyw dystiolaeth i gefnogi eich ymateb.",
+  "help1": "Os ydych chi'n uwchlwytho llun neu sgan, gwnewch yn siŵr ei fod yn dangos y ddogfen gyfan. Gwiriwch eich bod yn gallu darllen y testun i gyd cyn llwytho’r ffeil. Os na fydd y gweithiwr achos yn gallu ei ddarllen, gall gael ei wrthod.",
+  "paragraph4": "Rhaid i'r ffeil fod ar ffurf jpg, bmp, tiff, png neu pdf.",
+  "paragraph5": "Uchafswm maint y ffeil yw 10MB.",
+  "documentUploadIssue": "Rwyf yn cael trafferth wrth lwytho rhai neu’r cyfan o fy nogfennau.",
+  "troubleUploadCheckHint": "If you are unable to upload your documents due to a technical issue, you can post or email your documents instead. You will receive details on how to send them after you have submitted your response.",
+
+  "errors": {
+    "file": {
+      "invalidFileType": "You have used a file type that can&rsquo;t be accepted. Save your file as a jpg, bmp, tiff, png or PDF file and try again",
+      "maxSize": "Your file is too large to upload. Use a file that is under 10MB and try again",
+      "maxFilesExceeded": "You have uploaded too many files. You can upload a maximum of 10 files",
+      "uploadFailed": "Your document failed to upload. Select your document and try again",
+      "nothingUploaded": "You need to select a file before you can upload it. Click &lsquo;browse&rsquo; to find a file to upload",
+      "uploadTimeout": "The file has taken too long to upload. The file may be too big, reduce the file size and try again or post the death certificate"
+    },
+    "citizenResponse": {
+      "required": "You must either enter a response, upload a document, or tell us if you are having trouble uploading any documents"
+    }
+  }
+}

@@ -216,7 +216,12 @@ const stepList = {
     ThankYou: 'TaskList',
     TaskList: 'TaskList',
     Dashboard: 'TaskList',
-    StopPage: 'StopPage'
+    StopPage: 'StopPage',
+    ProvideInformation: {
+        responseOrDocument: 'ReviewResponse',
+        otherwise: 'CitizensHub'
+    },
+    ReviewResponse: 'CitizensHub'
 };
 
 module.exports.stepList = stepList;

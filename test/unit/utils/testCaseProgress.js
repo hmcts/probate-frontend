@@ -25,6 +25,25 @@ describe('CaseProgress.js', () => {
             expect(CaseProgress.applicationSubmitted(state)).to.equal(true);
             done();
         });
+        it('should return true for BOCaseStopped', (done) => {
+            const state = 'BOCaseStopped';
+            expect(CaseProgress.caseStopped(state)).to.equal(true);
+            done();
+        });
+        it('should return true for informationProvided', (done) => {
+            const state = 'BOCaseStopped';
+            const documentUploadIssue = 'false';
+            const expectedResponseDate = '2024-12-11';
+            expect(CaseProgress.informationProvided(state, documentUploadIssue, expectedResponseDate)).to.equal(true);
+            done();
+        });
+        it('should return true for partialInformationProvided', (done) => {
+            const state = 'BOCaseStopped';
+            const documentUploadIssue = 'true';
+            const expectedResponseDate = '2024-12-11';
+            expect(CaseProgress.partialInformationProvided(state, documentUploadIssue, expectedResponseDate)).to.equal(true);
+            done();
+        });
     });
 
     describe('grantIssued()', () => {

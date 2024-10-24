@@ -48,7 +48,7 @@ const uploadDocument = (req, res, next) => {
     const error = documentUpload.validate(uploadedDocument, uploads, maxFileSize, req.session.language);
 
     if (error === null) {
-        req.log.info('Uploaded document passed frontend validation');
+        req.log.info(`Uploaded document passed frontend validation for case: ${req.session.form.ccdCase.id}`);
         const document = new Document(config.services.orchestrator.url, req.sessionID);
         document.post(req.session.regId, uploadedDocument, req.authToken, req.session.serviceAuthorization)
             .then(result => {
@@ -58,7 +58,7 @@ const uploadDocument = (req, res, next) => {
                     req.session.form.documents.uploads = documentUpload.addDocument(filename, resultBody, uploads);
                     next();
                 } else {
-                    req.log.error('Uploaded document failed backend validation');
+                    req.log.error(`Uploaded document failed backend validation for case: ${req.session.form.ccdCase.id}`);
                     const errorType = Object.entries(config.documentUpload.error).filter(value => value[1] === resultBody)[0][0];
                     const error = documentUpload.mapError(req.session.language, errorType);
                     returnError(req, res, next, error);
@@ -85,7 +85,7 @@ const removeDocument = (req, res, next) => {
         .then(() => {
             req.session.form.documents.uploads = documentUpload.removeDocument(index, uploads);
             persistFormData(req.session.form.ccdCase.id, req.session.form, req.session.regId, req);
-            res.redirect('/document-upload');
+            res.redirect('/provide-information');
         })
         .catch((err) => {
             next(err);

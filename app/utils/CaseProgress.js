@@ -16,12 +16,20 @@ class CaseProgress {
         return this.applicationSubmitted(state) && (this.applicationInReview(state) || documentsReceivedNotificationSent === 'true');
     }
 
-    static caseStopped(state) {
-        return (state === 'BOCaseStopped' || state === 'Dormant');
+    static caseStopped(state, expectedResponseDate) {
+        return (state === 'BOCaseStopped' || state === 'Dormant') && (typeof expectedResponseDate === 'undefined' || expectedResponseDate === null);
     }
 
     static caseClosed(state) {
         return state === 'BOCaseClosed';
+    }
+
+    static informationProvided(state, documentUploadIssue, expectedResponseDate) {
+        return (state === 'BOCaseStopped' || state === 'Dormant') && documentUploadIssue !== 'true' && (typeof expectedResponseDate !== 'undefined');
+    }
+
+    static partialInformationProvided(state, documentUploadIssue, expectedResponseDate) {
+        return (state === 'BOCaseStopped' || state === 'Dormant') && documentUploadIssue === 'true' && (typeof expectedResponseDate !== 'undefined');
     }
 }
 

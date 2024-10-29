@@ -17453,11 +17453,11 @@ __metadata:
   linkType: hard
 
 "uuid@npm:^11.0.0":
-  version: 11.0.1
-  resolution: "uuid@npm:11.0.1"
+  version: 11.0.2
+  resolution: "uuid@npm:11.0.2"
   bin:
     uuid: dist/esm/bin/uuid
-  checksum: 10/8f2a93ce747613ab63531796fdd383123ad85bd6592808e7035b6975688ef7f01d9279ef66903fcfba6649b1583d77b88f9512b339c93f9a515964f79203a493
+  checksum: 10/b98082f398fa2ece8cacc2264402f739256ca70def4bb82e3a14ec70777d189c01ce1054764c3b59b8fc098b62b135a15d1b24914712904c988822e2ac9b4f44
   languageName: node
   linkType: hard
 

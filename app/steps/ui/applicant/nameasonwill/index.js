@@ -17,9 +17,18 @@ class ApplicantNameAsOnWill extends ValidationStep {
         };
     }
 
+    generateContent(ctx, formdata, language = 'en') {
+        this.setCodicilFlagInCtx(ctx, formdata);
+        return super.generateContent(ctx, formdata, language);
+    }
+
     handleGet(ctx, formdata) {
-        ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicils();
+        this.setCodicilFlagInCtx(ctx, formdata);
         return [ctx];
+    }
+
+    setCodicilFlagInCtx(ctx, formdata) {
+        ctx.codicilPresent = (new WillWrapper(formdata.will)).hasCodicils();
     }
 
     handlePost(ctx, errors) {

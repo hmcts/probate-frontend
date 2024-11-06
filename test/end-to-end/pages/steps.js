@@ -80,10 +80,12 @@ module.exports = () => {
         selectWillNoOfCodicils: steps.will.codicilsnumber,
         enterAnyChildren: steps.deceased.anychildren,
         enterAnyOtherChildren: steps.deceased.anyotherchildren,
+        goBackAndAddACodicil: steps.will.goBackAndAddACodicil,
 
         // Executors
         enterApplicantName: steps.applicant.name,
         selectNameAsOnTheWill: steps.applicant.nameasonwill,
+        checkErrorForNameAsOnTheWill: steps.applicant.nameasonwill_checkerror,
         enterApplicantAlias: steps.applicant.alias,
         enterApplicantAliasReason: steps.applicant.aliasreason,
         enterApplicantPhone: steps.applicant.phone,
@@ -111,6 +113,7 @@ module.exports = () => {
         completeEqualityAndDiversity: steps.equalityanddiversity.completedpage,
 
         // Summary page
+        checkSummaryCodicilStrings: steps.summary.summary_checkCodicilStrings,
         seeSummaryPage: steps.summary.summary,
         acceptDeclaration: steps.declaration.declaration,
 

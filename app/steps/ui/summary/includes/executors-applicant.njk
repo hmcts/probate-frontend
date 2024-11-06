@@ -16,7 +16,9 @@
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
 
-{% if fields.summary.codicilPresent %}
+{# this seems like the worst possible way to have a boolean comparison #}
+{# we're passing a boolean into this from js and we end up with a string? i have no idea here #}
+{% if fields.summary.codicilPresent.value == 'true' %}
   {% set applicantNameAsOnWillQuestion = content.ApplicantNameAsOnWill.questionWithoutNameWithCodicil %}
 
   {% if fields.applicant.firstName.value and fields.applicant.lastName.value %}

@@ -3,6 +3,7 @@
   "reminder": "Gwiriwch yr ewyllys a’r codisiliau gwreiddiol nawr",
   "question": "A ydy {applicantName} yn union yr un fath â sut mae eich enw wedi ei ysgrifennu yn yr ewyllys?",
   "questionWithoutName": "A yw eich enw union beth sy&rsquo;n ymddangos ar yr ewyllys?",
+  "questionWithoutNameWithCodicil": "[TOTRANSLATE] Is your name exactly what appears on the will or any codicils?",
   "questionWithCodicil": "Ai {applicantName} yw sut mae eich enw wedi ei ysgrifennu yn union yn yr ewyllys neu unrhyw godisiliau?",
   "content1": "Mae angen i ni wybod a yw eich enw wedi’i ysgrifennu’n wahanol yn yr ewyllys neu mewn unrhyw godisiliau.",
   "content2": "Fe allai hyn fod oherwydd:",

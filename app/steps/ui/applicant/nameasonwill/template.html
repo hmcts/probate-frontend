@@ -24,7 +24,7 @@
         name: "nameAsOnTheWill",
         fieldset: {
             legend: {
-                text: (content.questionWithCodicil if fields.codicilPresent.value == "true" else content.question) | replace("{applicantName}", fields.firstName.value +" "+ fields.lastName.value) | safe,
+                text: (content.questionWithCodicil if fields.codicilsPresent.value == "true" else content.question) | replace("{applicantName}", fields.firstName.value +" "+ fields.lastName.value) | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--m"
             }

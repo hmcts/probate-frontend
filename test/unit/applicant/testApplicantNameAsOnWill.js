@@ -12,6 +12,34 @@ describe('ApplicantNameAsOnWill', () => {
             expect(url).to.equal('/applicant-name-as-on-will');
             done();
         });
+
+        it('should report codicilsPresent true if codicils in will', (done) => {
+            const ctxIn = {};
+            const formdataWithCodicils = {
+                will: {
+                    codicils: 'optionYes',
+                },
+            };
+
+            const [ctxWith,] = ApplicantNameAsOnWill.handleGet(ctxIn, formdataWithCodicils);
+
+            expect(ctxWith).to.have.property('codicilsPresent', true);
+            done();
+        });
+
+        it('should report codicilsPresent false if no codicils in will', (done) => {
+            const ctxIn = {};
+            const formdataWithoutCodicils = {
+                will: {
+                    codicils: 'optionNo',
+                },
+            };
+
+            const [ctxWithout,] = ApplicantNameAsOnWill.handleGet(ctxIn, formdataWithoutCodicils);
+
+            expect(ctxWithout).to.have.property('codicilsPresent', false);
+            done();
+        });
     });
 
     describe('handlePost()', () => {

@@ -83,7 +83,7 @@ describe('Summary', () => {
     });
 
     describe('getContextData()', () => {
-        it('[PROBATE] return the correct properties in ctx', (done) => {
+        it('[PROBATE] return the correct properties in ctx when codicils not present', (done) => {
             const req = {
                 sessionID: 'dummy_sessionId',
                 session: {
@@ -115,6 +115,7 @@ describe('Summary', () => {
                 ...coreContextMockData,
                 authToken: '1234',
                 alreadyDeclared: false,
+                codicilsPresent: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
                 diedEnglandOrWalesQuestion: 'Did Dee Ceased die in England or Wales?',
                 deceasedNameAsOnWillQuestion: 'Is Dee Ceased exactly how the name is written on the will?',

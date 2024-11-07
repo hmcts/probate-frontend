@@ -6,7 +6,7 @@ module.exports = async function({applicantName, hasCodicils, language = 'en'} = 
     const pageStrings = require(`app/resources/${language}/translation/applicant/nameasonwill`);
 
     const expectedQuestionUnsubs = hasCodicils ? pageStrings.questionWithCodicil : pageStrings.question;
-    const expectedQuestion = expectedQuestionUnsubs.replace('{applicantName}', applicantName)
+    const expectedQuestion = expectedQuestionUnsubs.replace('{applicantName}', applicantName);
 
     await I.checkInUrl('/applicant-name-as-on-will');
     const locator = {css: '#nameAsOnTheWill'};

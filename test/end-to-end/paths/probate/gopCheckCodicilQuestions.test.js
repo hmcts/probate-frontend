@@ -13,8 +13,6 @@ const optionIHT400 = ihtDataConfig.optionIHT400;
 
 const hmrcCode = ihtDataConfig.hmrcCode;
 
-const bilingualGOP = false;
-
 Feature('GOP - Codicil changes question wording');
 
 Before(async () => {
@@ -79,8 +77,6 @@ getTestLanguages().forEach(language => {
         await I.selectHmrcLetterComplete(language, optionYes);
         await I.enterHmrcCode(language, hmrcCode);
 
-
-
         await I.enterProbateAssetValues(language, '500', '400');
 
         await I.selectDeceasedAliasGop(language, optionNo);
@@ -132,7 +128,6 @@ getTestLanguages().forEach(language => {
             decName: decName,
             applName: applName,
         });
-
 
         await I.selectATask(language, taskListContent.taskNotStarted);
         await I.checkErrorForNameAsOnTheWill({

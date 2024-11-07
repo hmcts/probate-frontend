@@ -14,7 +14,7 @@ module.exports = async function({language = 'en', codicilsNumber} = {}) {
 
     await I.navByClick({css: 'a[href="/will-codicils"]'});
     await I.waitForText(codicilContent.title);
-    const codicilsLocator = {css: `#codicils`};
+    const codicilsLocator = {css: '#codicils'};
     await I.waitForEnabled(codicilsLocator);
     await I.click(codicilsLocator);
 
@@ -27,7 +27,7 @@ module.exports = async function({language = 'en', codicilsNumber} = {}) {
     await I.navByClick({css: 'button.govuk-button'});
 
     await I.checkInUrl('/codicils-have-damage');
-    const damageLocator = {css: `#codicilsHasVisibleDamage-2`};
+    const damageLocator = {css: '#codicilsHasVisibleDamage-2'};
     await I.waitForEnabled(damageLocator);
     await I.click(damageLocator);
     await I.navByClick({css: 'button.govuk-button'});

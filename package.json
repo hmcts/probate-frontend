@@ -171,6 +171,7 @@
     "eslint": "^8.0.0",
     "eslint-plugin-mocha": "^10.0.0",
     "if-env": "^1.0.4",
+    "import-in-the-middle": "^1.11.2",
     "ip": "^2.0.1",
     "mocha": "^10.2.0",
     "mocha-jenkins-reporter": "^0.4.8",

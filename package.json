@@ -213,7 +213,8 @@
     "@azure/msal-node": "^2.9.2",
     "@azure/identity": "^4.2.1",
     "braces": "^3.0.3",
-    "path-to-regexp": "^0.1.10"
+    "path-to-regexp": "^0.1.10",
+    "import-in-the-middle": "^1.11.2"
   },
   "packageManager": "yarn@4.5.1"
 }

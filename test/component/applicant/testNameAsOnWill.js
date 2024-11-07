@@ -33,7 +33,7 @@ describe('applicant-name-as-on-will', () => {
                     lastName: 'TheApplicant'
                 }
             };
-            const contentToExclude = ['questionWithoutName', 'questionWithCodicil', 'legendWithCodicil'];
+            const contentToExclude = ['questionWithoutName', 'questionWithCodicil', 'questionWithoutNameWithCodicil', 'legendWithCodicil'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -61,7 +61,7 @@ describe('applicant-name-as-on-will', () => {
                     codicils: 'optionYes'
                 }
             };
-            const contentToExclude = ['question', 'questionWithoutName', 'legend'];
+            const contentToExclude = ['question', 'questionWithoutName', 'questionWithoutNameWithCodicil', 'legend'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

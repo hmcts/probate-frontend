@@ -8660,11 +8660,11 @@ __metadata:
   linkType: hard
 
 "hosted-git-info@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "hosted-git-info@npm:8.0.0"
+  version: 8.0.1
+  resolution: "hosted-git-info@npm:8.0.1"
   dependencies:
     lru-cache: "npm:^10.0.1"
-  checksum: 10/fb1e5600a57dbebfc4d708ccd6256facabb1cdfb182ac20ab7c900c311bda91f71b2129d3e15b4d1faaef82d1acb5f7c3558e50c4249402020f866a4f9958b8b
+  checksum: 10/1695285c8556f22d1b1c415a2301fccd5125cea5608c0a0bac899568e696ee3bb420f254a676b5d711eddc2ddecda68dca861caada16a2096cf280ecee765617
   languageName: node
   linkType: hard
 

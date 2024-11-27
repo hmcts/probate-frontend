@@ -185,7 +185,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.use(nocache());
     app.use(helmet.xssFilter({setOnOldIE: true}));
 
-    app.use(helmet.hsts({
+    app.use(helmet.strictTransportSecurity({
         maxAge: 31536000,
     }));
 

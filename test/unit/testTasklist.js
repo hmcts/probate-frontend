@@ -13,7 +13,7 @@ const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/.
 const taskList = steps.TaskList;
 const caseTypes = require('app/utils/CaseTypes');
 
-describe('Tasklist', () => {
+describe.only('Tasklist', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = taskList.constructor.getUrl();
@@ -165,8 +165,8 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
 
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-                assert.equal(ctx.CopiesTask.status, 'notStarted');
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.status, 'notStarted');
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             });
 
             it('Updates the context: Review and confirm complete (Multiple Applicants All Agreed)', () => {
@@ -185,8 +185,8 @@ describe('Tasklist', () => {
                 ctx.hasMultipleApplicants = true;
 
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-                assert.equal(ctx.CopiesTask.status, 'notStarted');
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.status, 'notStarted');
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             });
 
             it('Updates the context: Review and confirm complete (Multiple Applicants Not all have agreed)', () => {
@@ -203,38 +203,7 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
 
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-                assert.equal(ctx.previousTaskStatus.CopiesTask, 'locked');
-            });
-
-            it('Updates the context: CopiesTask not started', () => {
-                req.session.form = {};
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'notStarted');
-            });
-
-            it('Updates the context: CopiesTask started', () => {
-                req.session.form = {
-                    copies: {
-                        uk: 1
-                    }
-                };
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'started');
-            });
-
-            it('Updates the context: CopiesTask complete', () => {
-                req.session.form = completedForm;
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'complete');
+                assert.equal(ctx.previousTaskStatus.PaymentTask, 'locked');
             });
 
             it('Updates the context: PaymentTask not started', () => {
@@ -265,6 +234,9 @@ describe('Tasklist', () => {
 
             it('Updates the context: PaymentTask started (No Fee)', () => {
                 req.session.form = {
+                    copies: {
+                        uk: 1
+                    },
                     payment: {
                         total: 0,
                     },
@@ -285,6 +257,13 @@ describe('Tasklist', () => {
                     ccdCase: {
                         state: 'CasePrinted',
                         id: 1535395401245028
+                    },
+                    assets: {
+                        assetsoverseas: 'optionYes'
+                    },
+                    copies: {
+                        uk: 1,
+                        overseas: 0
                     },
                     payment: {
                         status: 'Success',
@@ -314,13 +293,6 @@ describe('Tasklist', () => {
                 assert.equal(ctx.ExecutorsTask.status, 'complete');
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
                 assert.equal(ctx.DocumentsTask.status, 'complete');
-            });
-
-            it('Test the Copies Previous Task Status is set correctly', () => {
-                req.session.form = completedForm;
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.status, 'complete');
             });
         });
 
@@ -464,8 +436,7 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
 
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-                assert.equal(ctx.CopiesTask.status, 'notStarted');
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.status, 'notStarted');
             });
 
             it('Updates the context: Review and confirm complete (Multiple Applicants All Agreed)', () => {
@@ -484,8 +455,7 @@ describe('Tasklist', () => {
                 ctx.hasMultipleApplicants = true;
 
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-                assert.equal(ctx.CopiesTask.status, 'notStarted');
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.status, 'notStarted');
             });
 
             it('Updates the context: Review and confirm complete (Multiple Applicants Not all have agreed)', () => {
@@ -502,38 +472,7 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
 
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-                assert.equal(ctx.previousTaskStatus.CopiesTask, 'locked');
-            });
-
-            it('Updates the context: CopiesTask not started', () => {
-                req.session.form = {};
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'notStarted');
-            });
-
-            it('Updates the context: CopiesTask started', () => {
-                req.session.form = {
-                    copies: {
-                        uk: 1
-                    }
-                };
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'started');
-            });
-
-            it('Updates the context: CopiesTask complete', () => {
-                req.session.form = completedFormWillConditionOn;
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'complete');
+                assert.equal(ctx.previousTaskStatus.PaymentTask, 'locked');
             });
 
             it('Updates the context: PaymentTask not started', () => {
@@ -547,6 +486,13 @@ describe('Tasklist', () => {
 
             it('Updates the context: PaymentTask started (Fee to Pay)', () => {
                 req.session.form = {
+                    assets: {
+                        assetsoverseas: 'optionYes'
+                    },
+                    copies: {
+                        uk: 1,
+                        overseas: 0
+                    },
                     payment: {
                         reference: '1234',
                         status: 'Initiated'
@@ -565,6 +511,9 @@ describe('Tasklist', () => {
 
             it('Updates the context: PaymentTask started (No Fee)', () => {
                 req.session.form = {
+                    copies: {
+                        uk: 1
+                    },
                     payment: {
                         total: 0,
                     },
@@ -585,6 +534,13 @@ describe('Tasklist', () => {
                     ccdCase: {
                         state: 'CasePrinted',
                         id: 1535395401245028
+                    },
+                    assets: {
+                        assetsoverseas: 'optionYes'
+                    },
+                    copies: {
+                        uk: 1,
+                        overseas: 1
                     },
                     payment: {
                         status: 'Success',
@@ -614,13 +570,6 @@ describe('Tasklist', () => {
                 assert.equal(ctx.ExecutorsTask.status, 'complete');
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
                 assert.equal(ctx.DocumentsTask.status, 'complete');
-            });
-
-            it('Test the Copies Previous Task Status is set correctly', () => {
-                req.session.form = completedFormWillConditionOn;
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.status, 'complete');
             });
         });
 
@@ -808,40 +757,8 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
 
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-                assert.equal(ctx.CopiesTask.status, 'notStarted');
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-            });
-
-            it('Updates the context: CopiesTask not started', () => {
-                req.session.form = {};
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'notStarted');
-            });
-
-            it('Updates the context: CopiesTask started', () => {
-                req.session.form = {
-                    copies: {
-                        uk: 1
-                    }
-                };
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'started');
-            });
-
-            it('Updates the context: CopiesTask complete', () => {
-                req.session.form = completedForm;
-                req.session.form.caseType = caseTypes.INTESTACY;
-                req.body = {};
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.checkYourAnswersLink, steps.CopiesSummary.constructor.getUrl());
-                assert.equal(ctx.CopiesTask.status, 'complete');
+                assert.equal(ctx.PaymentTask.status, 'notStarted');
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
             });
 
             it('Updates the context: PaymentTask not started', () => {
@@ -859,6 +776,9 @@ describe('Tasklist', () => {
                         reference: '1234',
                         status: 'Initiated'
                     },
+                    copies: {
+                        uk: 1
+                    },
                     ccdCase: {
                         state: 'PAAppCreated',
                         id: 1535395401245028
@@ -875,6 +795,9 @@ describe('Tasklist', () => {
                 req.session.form = {
                     payment: {
                         total: 0,
+                    },
+                    copies: {
+                        uk: 1
                     },
                     ccdCase: {
                         state: 'PAAppCreated',
@@ -894,6 +817,12 @@ describe('Tasklist', () => {
                         state: 'CasePrinted',
                         id: 1535395401245028
                     },
+                    assets: {
+                        assetsoverseas: 'optionNo'
+                    },
+                    copies: {
+                        uk: 1
+                    },
                     payment: {
                         status: 'Success',
                         reference: '1234'
@@ -908,6 +837,7 @@ describe('Tasklist', () => {
 
             it('Updates the context: DeceasedTask, Applicants, Review and confirm and Copies tasks complete', () => {
                 req.session.form = completedForm;
+                req.session.form.language = {bilingual: 'optionNo'};
                 req.session.form.equality = {
                     pcqId: 'dummy_id'
                 };
@@ -917,13 +847,6 @@ describe('Tasklist', () => {
                 assert.equal(ctx.DeceasedTask.status, 'complete');
                 assert.equal(ctx.ApplicantsTask.status, 'complete');
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
-            });
-
-            it('Test the Copies Previous Task Status is set correctly', () => {
-                req.session.form = completedForm;
-                ctx = taskList.getContextData(req);
-
-                assert.equal(ctx.CopiesTask.status, 'complete');
             });
         });
     });

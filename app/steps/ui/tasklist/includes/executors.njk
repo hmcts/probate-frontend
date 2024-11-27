@@ -1,13 +1,6 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.ExecutorsTask %}
 
 <li class="task-item">
-    {{ taskHeader(
-        number = taskNumber + ".",
-        content = content,
-        title = content.executorsTask | safe,
-        status = fields.ExecutorsTask.value.status,
-        previousTaskStatus = previousTaskStatus
-    ) }}
     <div class="task-list-items">
         {{ taskAction(
             prevTaskStatus = previousTaskStatus,

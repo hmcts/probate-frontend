@@ -16,35 +16,60 @@
             <ol class="task-list">
                 {% ifAsync fields.caseType.value === globals.caseTypes.gop %}
                     {% set taskNumber = taskNumber + 1 %}
+                    {{ taskHeader(
+                    number = taskNumber + ".",
+                    content = content,
+                    title = content.taskGroup1 | safe
+                    ) }}
+                    {% include "ui/tasklist/includes/eligibility.njk" %}
+
+                    {% set taskNumber = taskNumber + 1 %}
+                    {{ taskHeader(
+                    number = taskNumber + ".",
+                    content = content,
+                    title = content.taskGroup2 | safe
+                    ) }}
                     {% include "ui/tasklist/includes/deceased.njk" %}
 
-                    {% set taskNumber = taskNumber + 1 %}
                     {% include "ui/tasklist/includes/executors.njk" %}
 
-                    {% set taskNumber = taskNumber + 1 %}
                     {% include "ui/tasklist/includes/reviewAndConfirm.njk" %}
 
                     {% set taskNumber = taskNumber + 1 %}
-                    {% include "ui/tasklist/includes/copies.njk" %}
-
-                    {% set taskNumber = taskNumber + 1 %}
+                    {{ taskHeader(
+                    number = taskNumber + ".",
+                    content = content,
+                    title = content.taskGroup3 | safe
+                    ) }}
                     {% include "ui/tasklist/includes/payment.njk" %}
-
                 {% endif %}
                 {% ifAsync fields.caseType.value === globals.caseTypes.intestacy %}
                     {% set taskNumber = taskNumber + 1 %}
+                    {{ taskHeader(
+                    number = taskNumber + ".",
+                    content = content,
+                    title = content.taskGroup1 | safe
+                    ) }}
+                    {% include "ui/tasklist/includes/eligibility.njk" %}
+
+                    {% set taskNumber = taskNumber + 1 %}
+                    {{ taskHeader(
+                    number = taskNumber + ".",
+                    content = content,
+                    title = content.taskGroup2 | safe
+                    ) }}
                     {% include "ui/tasklist/includes/deceased.njk" %}
 
-                    {% set taskNumber = taskNumber + 1 %}
                     {% include "ui/tasklist/includes/applicants.njk" %}
 
-                    {% set taskNumber = taskNumber + 1 %}
                     {% include "ui/tasklist/includes/reviewAndConfirm.njk" %}
 
                     {% set taskNumber = taskNumber + 1 %}
-                    {% include "ui/tasklist/includes/copies.njk" %}
-
-                    {% set taskNumber = taskNumber + 1 %}
+                    {{ taskHeader(
+                    number = taskNumber + ".",
+                    content = content,
+                    title = content.taskGroup3 | safe
+                    ) }}
                     {% include "ui/tasklist/includes/payment.njk" %}
                 {% endif %}
             </ol>

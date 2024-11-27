@@ -18,7 +18,7 @@ class TaskList extends Step {
         return allPreviousTasksComplete ? 'complete' : 'started';
     }
 
-    copiesPreviousTaskStatus(session, ctx) {
+    paymentPreviousTaskStatus(session, ctx) {
         if (ctx.caseType === caseTypes.GOP) {
             if (ctx.hasMultipleApplicants && session.haveAllExecutorsDeclared === 'false') {
                 return 'locked';
@@ -47,20 +47,17 @@ class TaskList extends Step {
                 DeceasedTask: ctx.DeceasedTask.status,
                 ExecutorsTask: ctx.DeceasedTask.status,
                 ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask]),
-                CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
-                PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
-                DocumentsTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask, ctx.PaymentTask])
+                PaymentTask: this.paymentPreviousTaskStatus(req.session, ctx),
+                DocumentsTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask, ctx.PaymentTask])
             };
         } else {
             ctx.previousTaskStatus = {
                 DeceasedTask: ctx.DeceasedTask.status,
                 ApplicantsTask: ctx.DeceasedTask.status,
                 ReviewAndConfirmTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask]),
-                CopiesTask: this.copiesPreviousTaskStatus(req.session, ctx),
-                PaymentTask: this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask, ctx.CopiesTask]),
+                PaymentTask: this.paymentPreviousTaskStatus(req.session, ctx)
             };
         }
-
         return ctx;
     }
 

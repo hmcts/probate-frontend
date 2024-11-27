@@ -1,0 +1,12 @@
+<li class="task-item">
+    <div class="task-list-items">
+        {{ taskAction(
+            prevTaskStatus = "complete",
+            status = "hide",
+            nextURL = "NotApplicable",
+            content = content,
+            title = content.eligibilityTask | safe,
+            alreadyDeclared = fields.alreadyDeclared.value
+        ) }}
+    </div>
+</li>

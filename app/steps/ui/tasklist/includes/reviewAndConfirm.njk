@@ -1,17 +1,6 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.ReviewAndConfirmTask %}
 
 <li class="task-item">
-    {{ taskHeader(
-        number = taskNumber + ".",
-        content = content,
-        title = content.reviewAndConfirmTask | safe,
-        status = "pending" if (
-                fields.ReviewAndConfirmTask.value.status == "complete" and
-                fields.hasMultipleApplicants.value == "true" and
-                fields.alreadyDeclared.value == "false"
-            ) else fields.ReviewAndConfirmTask.value.status,
-        previousTaskStatus = fields.previousTaskStatus.value.ReviewAndConfirmTask
-    ) }}
     <div class="task-list-items">
         {{ taskAction(
             prevTaskStatus = previousTaskStatus,

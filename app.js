@@ -249,10 +249,21 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         }
 
         if (req.query) {
-            if (req.query.lng && config.languages.includes(req.query.lng)) {
-                req.session.language = req.query.lng;
-            } else if (req.query.locale && config.languages.includes(req.query.locale)) {
-                req.session.language = req.query.locale;
+            const getLangFromQuery = (queryVal) => {
+                if (queryVal) {
+                    if (!Array.isArray(queryVal)) {
+                        queryVal = [queryVal];
+                    }
+
+                    return queryVal.find((l) => config.languages.includes(l));
+                }
+            };
+            const fromLng = getLangFromQuery(req.query.lng);
+            const fromLocale = getLangFromQuery(req.query.locale);
+            if (fromLng) {
+                req.session.language = fromLng;
+            } else if (fromLocale) {
+                req.session.language = fromLocale;
             }
         }
 

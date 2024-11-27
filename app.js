@@ -32,6 +32,7 @@ const eligibilityCookie = new EligibilityCookie();
 const caseTypes = require('app/utils/CaseTypes');
 const featureToggles = require('app/featureToggles');
 const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody');
+const setSessionLanguage = require('app/middleware/setSessionLanguage');
 const isEmpty = require('lodash').isEmpty;
 const setupHealthCheck = require('app/utils/setupHealthCheck');
 
@@ -247,30 +248,9 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         next();
     });
 
+    app.use(setSessionLanguage);
+
     app.use((req, res, next) => {
-        if (!req.session.language) {
-            req.session.language = 'en';
-        }
-
-        if (req.query) {
-            const getLangFromQuery = (queryVal) => {
-                if (queryVal) {
-                    if (!Array.isArray(queryVal)) {
-                        queryVal = [queryVal];
-                    }
-
-                    return queryVal.find((l) => config.languages.includes(l));
-                }
-            };
-            const fromLng = getLangFromQuery(req.query.lng);
-            const fromLocale = getLangFromQuery(req.query.locale);
-            if (fromLng) {
-                req.session.language = fromLng;
-            } else if (fromLocale) {
-                req.session.language = fromLocale;
-            }
-        }
-
         if (isA11yTest && !isEmpty(a11yTestSession)) {
             req.session = Object.assign(req.session, a11yTestSession);
         }

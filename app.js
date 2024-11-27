@@ -185,6 +185,10 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.use(nocache());
     app.use(helmet.xssFilter({setOnOldIE: true}));
 
+    app.use(helmet.hsts({
+        maxAge: 31536000,
+    }));
+
     const caching = {cacheControl: true, setHeaders: (res) => res.setHeader('Cache-Control', 'max-age=604800')};
 
     // Middleware to serve static assets

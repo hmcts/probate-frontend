@@ -2,14 +2,14 @@
     {% if prevTaskStatus == "complete" %}
         {% if status == "notStarted" %}
         <p class="govuk-body">
-          <a href="{{ checkYourAnswersURL }}" class="govuk-link">{{ title | safe }}</a>
+          <a href="{{ nextURL }}" class="govuk-link">{{ title | safe }}</a>
           <span class="govuk-tag govuk-tag--blue">{{ content.taskNotStarted | safe }}</span>
         </p>
         {% elif status == "started" %}
         <p class="govuk-body">
-          <a href="{{ checkYourAnswersURL }}" class="govuk-link">{{ title | safe }}</a>
+          <a href="{{ nextURL }}" class="govuk-link">{{ title | safe }}</a>
+          <span class="govuk-tag govuk-tag--yellow">{{ content.taskStarted | safe }}</span>
         </p>
-        <span class="govuk-tag govuk-tag--yellow">{{ content.taskStarted | safe }}</span>
         {% elif status == "complete" %}
             {% if alreadyDeclared == "true" %}
                 <p class="govuk-body">{{ title | safe }}

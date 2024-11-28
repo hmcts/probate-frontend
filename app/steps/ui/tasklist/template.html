@@ -15,6 +15,7 @@
             <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
             <ol class="task-list">
                 {% ifAsync fields.caseType.value === globals.caseTypes.gop %}
+                  <li>
                     {% set taskNumber = taskNumber + 1 %}
                     {{ taskHeader(
                     number = taskNumber + ".",
@@ -22,7 +23,8 @@
                     title = content.taskGroup1 | safe
                     ) }}
                     {% include "ui/tasklist/includes/eligibility.njk" %}
-
+                  </li>
+                  <li>
                     {% set taskNumber = taskNumber + 1 %}
                     {{ taskHeader(
                     number = taskNumber + ".",
@@ -34,7 +36,8 @@
                     {% include "ui/tasklist/includes/executors.njk" %}
 
                     {% include "ui/tasklist/includes/reviewAndConfirm.njk" %}
-
+                  </li>
+                  <li>
                     {% set taskNumber = taskNumber + 1 %}
                     {{ taskHeader(
                     number = taskNumber + ".",
@@ -42,6 +45,7 @@
                     title = content.taskGroup3 | safe
                     ) }}
                     {% include "ui/tasklist/includes/payment.njk" %}
+                  </li>
                 {% endif %}
                 {% ifAsync fields.caseType.value === globals.caseTypes.intestacy %}
                     {% set taskNumber = taskNumber + 1 %}

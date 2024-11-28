@@ -1,7 +1,8 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.ExecutorsTask %}
 
-<li class="task-item">
-    <div class="task-list-items">
+<ul class="task-list-items" style="list-style-type: none;">
+  <li class="task-list-item">
+    <div>
         {{ taskAction(
             prevTaskStatus = previousTaskStatus,
             status = fields.ExecutorsTask.value.status,
@@ -12,4 +13,6 @@
             alreadyDeclared = fields.alreadyDeclared.value
         ) }}
     </div>
-</li>
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible probate-section-break-grey">
+  </li>
+ </ul>

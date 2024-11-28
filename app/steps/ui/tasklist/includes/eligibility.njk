@@ -1,5 +1,7 @@
-<li class="task-item">
-    <div class="task-list-items">
+<ul class="task-list-items" style="list-style-type: none;">
+<li class="task-list-item">
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible probate-section-break-grey">
+    <div>
         {{ taskAction(
             prevTaskStatus = "complete",
             status = "hide",
@@ -9,4 +11,6 @@
             alreadyDeclared = fields.alreadyDeclared.value
         ) }}
     </div>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible probate-section-break-grey">
 </li>
+</ul>

@@ -36,7 +36,7 @@ Task List
 .task-item {
   border-top: 1px solid govuk-colour("mid-grey");
   line-height: 1.5;
-  padding: 20px 0 10px 0;
+  padding: 10px 0 10px 0;
 
   &:last-child {
     border-bottom: 1px solid govuk-colour("mid-grey");
@@ -71,5 +71,11 @@ Task List
 
   @include govuk-media-query($from: desktop) {
     padding-left: govuk-spacing(8);
+  }
+
+  .probate-section-break-grey {
+    height: 1px;
+    background:  #b1b4b6;
+    border: none;
   }
 }

@@ -57,11 +57,12 @@ Task List
 }
 
 .task-list-section-number {
+  width: govuk-spacing(1);
   padding-right: 0;
   display: table-cell;
 
   @include govuk-media-query($from: desktop) {
-    width: govuk-spacing(8);
+    width: govuk-spacing(2);
   }
 }
 

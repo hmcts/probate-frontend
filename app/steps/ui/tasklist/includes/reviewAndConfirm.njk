@@ -1,6 +1,5 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.ReviewAndConfirmTask %}
 
-    <div>
       <li class="govuk-task-list__item govuk-task-list__item--with-link">
         {{ taskAction(
             prevTaskStatus = previousTaskStatus,
@@ -11,7 +10,8 @@
             title = content.reviewAndConfirmTask | safe,
             alreadyDeclared = fields.alreadyDeclared.value
         ) }}
-        </li>
+    </li>
+        <div>
         {% if fields.ReviewAndConfirmTask.value.status == "complete" %}
             {% if fields.hasMultipleApplicants.value == "true" and fields.alreadyDeclared.value == "false" %}
                 {% set declarationStatusRows = [] %}
@@ -21,7 +21,7 @@
                         { text: (content.declared if executor.agreed else content.notDeclared) | safe }
                     ]), declarationStatusRows) %}
                 {% endfor %}
-
+                <br>
                 <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph1 | safe }}</p>
                 <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph2 | safe }}</p>
 

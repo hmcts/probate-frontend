@@ -13,7 +13,7 @@ class TaskList extends Step {
 
     previousTaskStatus(previousTasks) {
         const allPreviousTasksComplete = previousTasks.every((task) => {
-            return task.status === 'complete';
+            return task && task.status === 'complete';
         });
         return allPreviousTasksComplete ? 'complete' : 'started';
     }

@@ -43,9 +43,7 @@
 
                 <ul class="govuk-task-list">
                     {% include "ui/tasklist/includes/deceased.njk" %}
-
                     {% include "ui/tasklist/includes/executors.njk" %}
-
                     {% include "ui/tasklist/includes/reviewAndConfirm.njk" %}
                 </ul>
 
@@ -72,11 +70,13 @@
                     content = content,
                     title = content.taskGroup2 | safe
                     ) }}
+                  <ul class="govuk-task-list">
                     {% include "ui/tasklist/includes/deceased.njk" %}
 
                     {% include "ui/tasklist/includes/applicants.njk" %}
 
                     {% include "ui/tasklist/includes/reviewAndConfirm.njk" %}
+                  </ul>
 
                     {% set taskNumber = taskNumber + 1 %}
                     {{ taskHeader(

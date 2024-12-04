@@ -3,12 +3,22 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "widgets/lists.html" import taskAction, unorderedList %}
 {% from "widgets/taskheader.html" import taskHeader %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% set taskNumber = 0 %}
 
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
+          {% if fields.hasMultipleApplicants.value == "true" %}
+            {% for executor in fields.declarationStatuses.value %}
+            {% if executor.agreed != "agreed" %}
+                {{ govukNotificationBanner({
+                  text: content.notificationBanner | safe
+                }) }}
+            {% endif %}
+            {% endfor %}
+          {% endif %}
             <h1 class="govuk-heading-l">{{ content.header | safe }}</h1>
             <p class="govuk-body">{{ content.introduction | safe }}</p>
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>

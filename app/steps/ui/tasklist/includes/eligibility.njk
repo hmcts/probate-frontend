@@ -1,7 +1,6 @@
 <ul class="task-list-items" style="list-style-type: none;">
 <li class="task-list-item">
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible probate-section-break-grey">
-    <div>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible hmcts-section-break">
         {{ taskAction(
             prevTaskStatus = "complete",
             status = "hide",
@@ -10,7 +9,6 @@
             title = content.eligibilityTask | safe,
             alreadyDeclared = fields.alreadyDeclared.value
         ) }}
-    </div>
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible probate-section-break-grey">
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible hmcts-section-break">
 </li>
 </ul>

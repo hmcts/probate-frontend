@@ -3,11 +3,11 @@
   "header": "Gwneud cais am brofiant",
   "introduction": "Cwblhewch y camau hyn i gael yr hawl gyfreithiol i ddelio ag eiddo rhywun sydd wedi marw.",
   "paragraph1": "Gallwch arbed eich cais a dychwelyd ato hwyrach ymlaen.",
-  "paragraph2": "At the end of each section you will be required to check your answers. If any are incorrect you will have the opportunity to change them before proceeding to the next section. Once you have made your legal declaration, any amendments you want to make to your application after that time will have to be sent in writing to the registry.",
-  "taskGroup1": "Check before you start",
-  "taskGroup2": "Prepare application",
-  "taskGroup3": "Submit application",
-  "eligibilityTask": "Check eligibility",
+  "paragraph2": "Ar ddiwedd bob adran, gofynnir ichi wirio eich atebion. Os oes unrhyw un yn anghywir, cewch gyfle i&rsquo;w newid cyn mynd ymlaen i&rsquo;r adran nesaf. Unwaith y byddwch wedi gwneud eich datganiad cyfreithiol, bydd yn rhaid i unrhyw ddiwygiadau rydych am eu gwneud i&rsquo;ch cais ar &ocirc;l yr amser hwnnw gael eu hanfon ar bapur i&rsquo;r gofrestrfa.",
+  "taskGroup1": "Gwirio cyn i chi gychwyn",
+  "taskGroup2": "Paratoi&rsquo;r cais",
+  "taskGroup3": "Cyflwyno&rsquo;r cais",
+  "eligibilityTask": "Gwirio cymhwysedd",
   "deceasedTask": "Dywedwch wrthym am yr unigolyn sydd wedi marw",
   "executorsTask": "Rhowch fanylion am yr ysgutorion",
   "applicantsTask": "Rhowch fanylion am y bobl sy&rsquo;n gwneud cais",
@@ -18,7 +18,7 @@
   "reviewAndConfirmTaskMultiplesParagraph3": "Rhaid bod pob ysgutor wedi gwneud eu datganiad cyfreithiol cyn y gallwch barhau &acirc;&rsquo;ch cais.",
   "paymentTask": "Talu a chyflwyno eich cais",
   "documentTask": "Anfon dogfennau",
-  "taskNotStarted": "Not yet started",
+  "taskNotStarted": "Heb ddechrau eto",
   "taskStarted": "In progress",
   "taskUnavailable": "Ni allwch ddechrau eto",
   "checkYourAnswers": "Gwirio a newid eich atebion",
@@ -28,5 +28,6 @@
   "disagreed": "Anghytuno",
   "notDeclared": "Heb ddatgan",
   "executorName": "Enw&rsquo;r ysgutor",
-  "declarationStatus": "Statws y datganiad cyfreithiol"
+  "declarationStatus": "Statws y datganiad cyfreithiol",
+  "notificationBanner": "Rhaid i bob ysgutor wneud eu datganiad cyfreithiol cyn y gallwch barhau &acirc;&rsquo;ch cais."
 }

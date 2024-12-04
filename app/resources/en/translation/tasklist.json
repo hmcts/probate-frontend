@@ -11,8 +11,8 @@
   "deceasedTask": "Tell us about the person who has died",
   "executorsTask": "Give details about the executors",
   "applicantsTask": "Give details about the people applying",
-  "reviewAndConfirmTask": "Check your answers and make your legal declaration",
-  "reviewAndConfirmTaskMultiplesParagraph1": "You can continue with your application when all the executors have made their legal declaration. They have received an email which tells them what they need to do.",
+  "reviewAndConfirmTask": "Check your answers and make <br>your legal declaration",
+  "reviewAndConfirmTaskMultiplesParagraph1": "You can continue with your application once all the executors have made their legal declaration. They have received an email which tells them what they need to do.",
   "reviewAndConfirmTaskMultiplesParagraph2": "If you change your answers, the executors will see the updated declaration using the same link in the email they received.",
   "reviewAndConfirmTaskMultiplesParagraph3Heading": "Executors to declare",
   "reviewAndConfirmTaskMultiplesParagraph3": "All executors must have made their legal declaration before you can continue with your application.",
@@ -27,5 +27,6 @@
   "disagreed": "Disagreed",
   "notDeclared": "Not declared",
   "executorName": "Executor name",
-  "declarationStatus": "Declaration Status"
+  "declarationStatus": "Declaration Status",
+  "notificationBanner": "All executors must make their legal declaration before you can continue with your application."
 }

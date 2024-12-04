@@ -1,8 +1,5 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.DeceasedTask %}
-<ul class="task-list-items" style="list-style-type: none;">
-  <li>
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible probate-section-break-grey">
-    <div>
+    <li class="govuk-task-list__item govuk-task-list__item--with-link">
         {{ taskAction(
             prevTaskStatus = "complete",
             status = fields.DeceasedTask.value.status,
@@ -12,7 +9,4 @@
             title = content.deceasedTask | safe,
             alreadyDeclared = fields.alreadyDeclared.value
         ) }}
-    </div>
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible probate-section-break-grey">
-  </li>
-</ul>
+    </li>

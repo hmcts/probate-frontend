@@ -11,11 +11,13 @@
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
           {% if fields.hasMultipleApplicants.value == "true" %}
-            {% for executor in fields.declarationStatuses.value %}
-            {% if executor.agreed != "agreed" %}
+          {% set bannerDisplayed = false %}
+          {% for executor in fields.declarationStatuses.value %}
+            {% if executor.agreed != "agreed" and not bannerDisplayed %}
                 {{ govukNotificationBanner({
                   text: content.notificationBanner | safe
                 }) }}
+                {% set bannerDisplayed = true %}
             {% endif %}
             {% endfor %}
           {% endif %}
@@ -23,9 +25,7 @@
             <p class="govuk-body">{{ content.introduction | safe }}</p>
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
             <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
-            <ol class="task-list">
                 {% ifAsync fields.caseType.value === globals.caseTypes.gop %}
-                  <li>
                     {% set taskNumber = taskNumber + 1 %}
                     {{ taskHeader(
                     number = taskNumber + ".",
@@ -33,21 +33,22 @@
                     title = content.taskGroup1 | safe
                     ) }}
                     {% include "ui/tasklist/includes/eligibility.njk" %}
-                  </li>
-                  <li>
+
                     {% set taskNumber = taskNumber + 1 %}
                     {{ taskHeader(
                     number = taskNumber + ".",
                     content = content,
                     title = content.taskGroup2 | safe
                     ) }}
+
+                <ul class="govuk-task-list">
                     {% include "ui/tasklist/includes/deceased.njk" %}
 
                     {% include "ui/tasklist/includes/executors.njk" %}
 
                     {% include "ui/tasklist/includes/reviewAndConfirm.njk" %}
-                  </li>
-                  <li>
+                </ul>
+
                     {% set taskNumber = taskNumber + 1 %}
                     {{ taskHeader(
                     number = taskNumber + ".",
@@ -55,7 +56,6 @@
                     title = content.taskGroup3 | safe
                     ) }}
                     {% include "ui/tasklist/includes/payment.njk" %}
-                  </li>
                 {% endif %}
                 {% ifAsync fields.caseType.value === globals.caseTypes.intestacy %}
                     {% set taskNumber = taskNumber + 1 %}
@@ -86,7 +86,6 @@
                     ) }}
                     {% include "ui/tasklist/includes/payment.njk" %}
                 {% endif %}
-            </ol>
 
             {% include "includes/help_details.html" %}
         </div>

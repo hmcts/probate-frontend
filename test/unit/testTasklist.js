@@ -13,7 +13,7 @@ const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/.
 const taskList = steps.TaskList;
 const caseTypes = require('app/utils/CaseTypes');
 
-describe.only('Tasklist', () => {
+describe('Tasklist', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = taskList.constructor.getUrl();

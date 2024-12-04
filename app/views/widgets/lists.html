@@ -1,32 +1,38 @@
 {% macro taskAction(prevTaskStatus, status, nextURL, checkYourAnswersURL, content, title, alreadyDeclared) %}
     {% if prevTaskStatus == "complete" %}
         {% if status == "notStarted" %}
-        <p class="govuk-body">
-          <a href="{{ nextURL }}" class="govuk-link">{{ title | safe }}</a>
-          <span class="govuk-tag govuk-tag--blue">{{ content.taskNotStarted | safe }}</span>
-        </p>
+          <div class="govuk-task-list__name-and-hint">
+            <a href="{{ nextURL }}" class="govuk-link govuk-task-list__link">{{ title | safe }}</a>
+          </div>
+          <div class="govuk-task-list__status">
+            <strong class="govuk-tag govuk-tag--blue">{{ content.taskNotStarted | safe }}</strong>
+          </div>
         {% elif status == "started" %}
-        <p class="govuk-body">
-          <a href="{{ nextURL }}" class="govuk-link">{{ title | safe }}</a>
-          <span class="govuk-tag govuk-tag--yellow">{{ content.taskStarted | safe }}</span>
-        </p>
+          <div class="govuk-task-list__name-and-hint">
+            <a href="{{ nextURL }}" class="govuk-link govuk-task-list__link">{{ title | safe }}</a>
+          </div>
+          <div class="govuk-task-list__status">
+            <strong class="govuk-tag govuk-tag--yellow">{{ content.taskStarted | safe }}</strong>
+          </div>
         {% elif status == "complete" %}
             {% if alreadyDeclared == "true" %}
-                <p class="govuk-body">{{ title | safe }}
-                <span class="govuk-tag">{{ content.taskComplete | safe }}</span>
-                </p>
+              <div class="govuk-task-list__name-and-hint">{{ title | safe }}</div>
+                <div class="govuk-task-list__status">{{ content.taskComplete | safe }}</div>
             {% elif alreadyDeclared != "hide" %}
-                <p class="govuk-body"><a href="{{ checkYourAnswersURL }}" class="govuk-link">{{ title | safe }}</a>
-                <span class="govuk-tag">{{ content.taskComplete | safe }}</span>
-                </p>
+                <div class="govuk-task-list__name-and-hint">
+                  <a href="{{ checkYourAnswersURL }}" class="govuk-link govuk-task-list__link">{{ title | safe }}</a>
+                </div>
+                <div class="govuk-task-list__status">{{ content.taskComplete | safe }}</div>
             {% endif %}
         {% else %}
-        <p class="govuk-body">{{ title | safe }}
-        <span class="govuk-tag">{{ content.taskComplete | safe }}</span></p>
+          <div class="govuk-task-list__name-and-hint">{{ title | safe }}</div>
+          <div class="govuk-task-list__status">{{ content.taskComplete | safe }}</div>
         {% endif %}
     {% else %}
-        <p class="govuk-body">{{ title | safe }}
-        <span class="govuk-tag govuk-tag--grey">{{ content.taskUnavailable | safe }}</span></p>
+        <div class="govuk-task-list__name-and-hint">{{ title | safe }}</div>
+        <div class="govuk-task-list__status">
+          <strong class="govuk-tag govuk-tag--grey">{{ content.taskUnavailable | safe }}</strong>
+        </div>
     {% endif %}
 {% endmacro %}
 

@@ -10,7 +10,6 @@
             title = content.reviewAndConfirmTask | safe,
             alreadyDeclared = fields.alreadyDeclared.value
         ) }}
-    </li>
         <div>
         {% if fields.ReviewAndConfirmTask.value.status == "complete" %}
             {% if fields.hasMultipleApplicants.value == "true" and fields.alreadyDeclared.value == "false" %}
@@ -59,4 +58,5 @@
                 }) }}
             {% endif %}
         {% endif %}
-    </div>
+        </div>
+      </li>

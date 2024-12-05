@@ -106,7 +106,7 @@
     "cheerio": "^1.0.0-rc.12",
     "co": "^4.6.0",
     "config": "^3.3.9",
-    "connect-redis": "^7.0.0",
+    "connect-redis": "^8.0.0",
     "connect-timeout": "^1.9.0",
     "cookie-parser": "^1.4.6",
     "csurf": "^1.10.0",

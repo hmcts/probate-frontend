@@ -3,51 +3,89 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "widgets/lists.html" import taskAction, unorderedList %}
 {% from "widgets/taskheader.html" import taskHeader %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% set taskNumber = 0 %}
 
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
+          {% if fields.hasMultipleApplicants.value == "true" %}
+          {% set bannerDisplayed = false %}
+          {% for executor in fields.declarationStatuses.value %}
+            {% if executor.agreed != "agreed" and not bannerDisplayed %}
+                {{ govukNotificationBanner({
+                  text: content.notificationBanner | safe
+                }) }}
+                {% set bannerDisplayed = true %}
+            {% endif %}
+            {% endfor %}
+          {% endif %}
             <h1 class="govuk-heading-l">{{ content.header | safe }}</h1>
             <p class="govuk-body">{{ content.introduction | safe }}</p>
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
             <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
-            <ol class="task-list">
                 {% ifAsync fields.caseType.value === globals.caseTypes.gop %}
                     {% set taskNumber = taskNumber + 1 %}
+                    {{ taskHeader(
+                    number = taskNumber + ".",
+                    content = content,
+                    title = content.taskGroup1 | safe
+                    ) }}
+                    {% include "ui/tasklist/includes/eligibility.njk" %}
+
+                    {% set taskNumber = taskNumber + 1 %}
+                    {{ taskHeader(
+                    number = taskNumber + ".",
+                    content = content,
+                    title = content.taskGroup2 | safe
+                    ) }}
+
+                <ul class="govuk-task-list">
                     {% include "ui/tasklist/includes/deceased.njk" %}
-
-                    {% set taskNumber = taskNumber + 1 %}
                     {% include "ui/tasklist/includes/executors.njk" %}
-
-                    {% set taskNumber = taskNumber + 1 %}
                     {% include "ui/tasklist/includes/reviewAndConfirm.njk" %}
+                </ul>
 
                     {% set taskNumber = taskNumber + 1 %}
-                    {% include "ui/tasklist/includes/copies.njk" %}
-
-                    {% set taskNumber = taskNumber + 1 %}
+                    {{ taskHeader(
+                    number = taskNumber + ".",
+                    content = content,
+                    title = content.taskGroup3 | safe
+                    ) }}
                     {% include "ui/tasklist/includes/payment.njk" %}
-
                 {% endif %}
                 {% ifAsync fields.caseType.value === globals.caseTypes.intestacy %}
                     {% set taskNumber = taskNumber + 1 %}
+                    {{ taskHeader(
+                    number = taskNumber + ".",
+                    content = content,
+                    title = content.taskGroup1 | safe
+                    ) }}
+                    {% include "ui/tasklist/includes/eligibility.njk" %}
+
+                    {% set taskNumber = taskNumber + 1 %}
+                    {{ taskHeader(
+                    number = taskNumber + ".",
+                    content = content,
+                    title = content.taskGroup2 | safe
+                    ) }}
+                  <ul class="govuk-task-list">
                     {% include "ui/tasklist/includes/deceased.njk" %}
 
-                    {% set taskNumber = taskNumber + 1 %}
                     {% include "ui/tasklist/includes/applicants.njk" %}
 
-                    {% set taskNumber = taskNumber + 1 %}
                     {% include "ui/tasklist/includes/reviewAndConfirm.njk" %}
+                  </ul>
 
                     {% set taskNumber = taskNumber + 1 %}
-                    {% include "ui/tasklist/includes/copies.njk" %}
-
-                    {% set taskNumber = taskNumber + 1 %}
+                    {{ taskHeader(
+                    number = taskNumber + ".",
+                    content = content,
+                    title = content.taskGroup3 | safe
+                    ) }}
                     {% include "ui/tasklist/includes/payment.njk" %}
                 {% endif %}
-            </ol>
 
             {% include "includes/help_details.html" %}
         </div>

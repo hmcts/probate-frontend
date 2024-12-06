@@ -2,13 +2,13 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const requireDir = require('require-directory');
-const TaskList = require('app/steps/ui/tasklist');
+const PaymentBreakdown = require('app/steps/ui/payment/breakdown');
 const copiesContent = requireDir(module, '../../../app/resources/en/translation/copies');
 const assetsContent = requireDir(module, '../../../app/resources/en/translation/assets');
 
 describe('copies-summary', () => {
     let testWrapper;
-    const expectedNextUrlForTaskList = TaskList.getUrl();
+    const expectedNextUrlForPaymentBreakdown = PaymentBreakdown.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CopiesSummary');
@@ -65,8 +65,8 @@ describe('copies-summary', () => {
                 });
         });
 
-        it(`test it redirects to Tasklist: ${expectedNextUrlForTaskList}`, (done) => {
-            testWrapper.testRedirect(done, {}, expectedNextUrlForTaskList);
+        it(`test it redirects to Tasklist: ${expectedNextUrlForPaymentBreakdown}`, (done) => {
+            testWrapper.testRedirect(done, {}, expectedNextUrlForPaymentBreakdown);
         });
     });
 });

@@ -8,5 +8,5 @@ module.exports = async function(language ='en') {
     const taskListContent = require(`app/resources/${language}/translation/tasklist`);
     await I.waitForText(taskListContent.introduction, testConfig.TestWaitForTextToAppear);
     await I.checkInUrl('/task-list');
-    await I.navByClick({css: '.govuk-button'});
+    await I.navByClick({css: '.govuk-task-list__link'});
 };

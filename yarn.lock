@@ -11859,7 +11859,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mocha@npm:10.7.3, mocha@npm:^10.2.0":
+"mocha@npm:10.7.3":
   version: 10.7.3
   resolution: "mocha@npm:10.7.3"
   dependencies:

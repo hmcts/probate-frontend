@@ -74,7 +74,7 @@
 
                     {% elif fields.alreadyDeclared.value != "hide" %}
                         <div class="govuk-task-list__name-and-hint">
-                          <a href="fields.ReviewAndConfirmTask.value.checkYourAnswersLink" class="govuk-link govuk-task-list__link">{{ content.reviewAndConfirmTask | safe }}</a>
+                          <a href="{{ fields.ReviewAndConfirmTask.value.checkYourAnswersLink }}" class="govuk-link govuk-task-list__link">{{ content.reviewAndConfirmTask | safe }}</a>
                             <div>
                                     {% if fields.ReviewAndConfirmTask.value.status == "complete" %}
                                         {% if fields.hasMultipleApplicants.value == "true" and fields.alreadyDeclared.value == "false" %}

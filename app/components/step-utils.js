@@ -142,7 +142,7 @@ const getScrennersPreviousUrl = (ctx, req, res, steps, currentStepName) => {
 };
 
 const isNoBackLinkStepName = (stepName) => {
-    return stepName==='CitizensHub' || stepName==='PaymentBreakdown' || stepName==='PaymentStatus' ||
+    return stepName==='CitizensHub' || stepName==='PaymentStatus' ||
         stepName==='ExecutorsAdditionalInvite' || stepName==='ThankYou' || stepName==='ExecutorsChangeMade' ||
         stepName==='ExecutorsInvitesSent' || stepName==='ExecutorsUpdateInviteSent';
 };

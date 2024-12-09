@@ -16,13 +16,8 @@ const taskList = {
         lastStep: 'TaskList',
         summary: 'Summary'
     },
-    CopiesTask: {
-        firstStep: 'CopiesStart',
-        lastStep: 'CopiesSummary',
-        summary: 'CopiesSummary'
-    },
     PaymentTask: {
-        firstStep: 'PaymentBreakdown',
+        firstStep: 'CopiesStart',
         lastStep: 'TaskList',
         summary: 'Summary'
     },
@@ -255,7 +250,7 @@ const stepList = {
         otherwise: 'CopiesSummary'
     },
     CopiesOverseas: 'CopiesSummary',
-    CopiesSummary: 'TaskList',
+    CopiesSummary: 'PaymentBreakdown',
     PaymentBreakdown: 'PaymentStatus',
     PaymentStatus: 'TaskList',
     AddressLookup: 'AddressLookup',

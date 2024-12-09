@@ -1,73 +1,189 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.ReviewAndConfirmTask %}
 
-<li class="task-item">
-    {{ taskHeader(
-        number = taskNumber + ".",
-        content = content,
-        title = content.reviewAndConfirmTask | safe,
-        status = "pending" if (
-                fields.ReviewAndConfirmTask.value.status == "complete" and
-                fields.hasMultipleApplicants.value == "true" and
-                fields.alreadyDeclared.value == "false"
-            ) else fields.ReviewAndConfirmTask.value.status,
-        previousTaskStatus = fields.previousTaskStatus.value.ReviewAndConfirmTask
-    ) }}
-    <div class="task-list-items">
-        {{ taskAction(
-            prevTaskStatus = previousTaskStatus,
-            status = fields.ReviewAndConfirmTask.value.status,
-            nextURL = "summary/declaration",
-            checkYourAnswersURL = fields.ReviewAndConfirmTask.value.checkYourAnswersLink,
-            content = content,
-            title = content.reviewAndConfirmTask | safe,
-            alreadyDeclared = fields.alreadyDeclared.value
-        ) }}
-        {% if fields.ReviewAndConfirmTask.value.status == "complete" %}
-            {% if fields.hasMultipleApplicants.value == "true" and fields.alreadyDeclared.value == "false" %}
-                {% set declarationStatusRows = [] %}
-                {% for executor in fields.declarationStatuses.value %}
-                    {% set declarationStatusRows = (declarationStatusRows.push([
-                        { text: executor.executorName | safe },
-                        { text: (content.declared if executor.agreed else content.notDeclared) | safe }
-                    ]), declarationStatusRows) %}
-                {% endfor %}
+      <li class="govuk-task-list__item govuk-task-list__item--with-link">
 
-                <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph1 | safe }}</p>
-                <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph2 | safe }}</p>
+        {% if previousTaskStatus == "complete" %}
+                {% if fields.ReviewAndConfirmTask.value.status == "notStarted" %}
+                  <div class="govuk-task-list__name-and-hint">
+                    <a href="summary/declaration" class="govuk-link govuk-task-list__link">{{ content.reviewAndConfirmTask | safe | safe }}</a>
+                  </div>
+                  <div class="govuk-task-list__status">
+                    <strong class="govuk-tag govuk-tag--blue">{{ content.taskNotStarted | safe }}</strong>
+                  </div>
+                {% elif fields.ReviewAndConfirmTask.value.status == "started" %}
+                  <div class="govuk-task-list__name-and-hint">
+                    <a href="summary/declaration" class="govuk-link govuk-task-list__link">{{ content.reviewAndConfirmTask | safe }}</a>
+                  </div>
+                  <div class="govuk-task-list__status">
+                    <strong class="govuk-tag govuk-tag--yellow">{{ content.taskStarted | safe }}</strong>
+                  </div>
+                {% elif fields.ReviewAndConfirmTask.value.status == "complete" %}
+                    {% if fields.alreadyDeclared.value == "true" %}
+                      <div class="govuk-task-list__name-and-hint">{{ content.reviewAndConfirmTask | safe }}
+                          <div>
+                                  {% if fields.ReviewAndConfirmTask.value.status == "complete" %}
+                                      {% if fields.hasMultipleApplicants.value == "true" and fields.alreadyDeclared.value == "false" %}
+                                          {% set declarationStatusRows = [] %}
+                                          {% for executor in fields.declarationStatuses.value %}
+                                              {% set declarationStatusRows = (declarationStatusRows.push([
+                                                  { text: executor.executorName | safe },
+                                                  { text: (content.declared if executor.agreed else content.notDeclared) | safe }
+                                              ]), declarationStatusRows) %}
+                                          {% endfor %}
+                                          <br>
+                                          <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph1 | safe }}</p>
+                                          <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph2 | safe }}</p>
 
-                {% set declarationStatusRows = [] %}
+                                          {% set declarationStatusRows = [] %}
 
-                {% if fields.declarationStatuses.value | length == 0 %}
-                    {% for executor in fields.declarationStatuses.value %}
-                        {% set declarationStatusRows = (declarationStatusRows.push([
-                            { text: executor.executorName | safe },
-                            { text: content.notDeclared }
-                        ]), declarationStatusRows) %}
-                    {% endfor %}
+                                          {% if fields.declarationStatuses.value | length == 0 %}
+                                              {% for executor in fields.declarationStatuses.value %}
+                                                  {% set declarationStatusRows = (declarationStatusRows.push([
+                                                      { text: executor.executorName | safe },
+                                                      { text: content.notDeclared }
+                                                  ]), declarationStatusRows) %}
+                                              {% endfor %}
+                                          {% else %}
+                                              {% for executor in fields.declarationStatuses.value %}
+                                                  {% set declarationStatusRows = (declarationStatusRows.push([
+                                                      { text: executor.executorName | safe },
+                                                      { text: content.agreed if executor.agreed == "agreed" else (content.disagreed if executor.agreed == "disagreed" else content.notDeclared) }
+                                                  ]), declarationStatusRows) %}
+                                              {% endfor %}
+                                          {% endif %}
+
+                                          {{ govukTable({
+                                            caption: content.reviewAndConfirmTaskMultiplesParagraph3Heading | safe,
+                                            captionClasses: "govuk-visually-hidden",
+                                            firstCellIsHeader: false,
+                                            head: [
+                                              {
+                                                text: content.executorName | safe
+                                              },
+                                              {
+                                                text: content.declarationStatus | safe
+                                              }
+                                            ],
+                                            rows: declarationStatusRows
+                                          }) }}
+                                      {% endif %}
+                                  {% endif %}
+                          </div>
+                      </div>
+                      <div class="govuk-task-list__status">{{ content.taskComplete | safe }}</div>
+
+                    {% elif fields.alreadyDeclared.value != "hide" %}
+                        <div class="govuk-task-list__name-and-hint">
+                          <a href="{{ fields.ReviewAndConfirmTask.value.checkYourAnswersLink }}" class="govuk-link govuk-task-list__link">{{ content.reviewAndConfirmTask | safe }}</a>
+                            <div>
+                                    {% if fields.ReviewAndConfirmTask.value.status == "complete" %}
+                                        {% if fields.hasMultipleApplicants.value == "true" and fields.alreadyDeclared.value == "false" %}
+                                            {% set declarationStatusRows = [] %}
+                                            {% for executor in fields.declarationStatuses.value %}
+                                                {% set declarationStatusRows = (declarationStatusRows.push([
+                                                    { text: executor.executorName | safe },
+                                                    { text: (content.declared if executor.agreed else content.notDeclared) | safe }
+                                                ]), declarationStatusRows) %}
+                                            {% endfor %}
+                                            <br>
+                                            <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph1 | safe }}</p>
+                                            <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph2 | safe }}</p>
+
+                                            {% set declarationStatusRows = [] %}
+
+                                            {% if fields.declarationStatuses.value | length == 0 %}
+                                                {% for executor in fields.declarationStatuses.value %}
+                                                    {% set declarationStatusRows = (declarationStatusRows.push([
+                                                        { text: executor.executorName | safe },
+                                                        { text: content.notDeclared }
+                                                    ]), declarationStatusRows) %}
+                                                {% endfor %}
+                                            {% else %}
+                                                {% for executor in fields.declarationStatuses.value %}
+                                                    {% set declarationStatusRows = (declarationStatusRows.push([
+                                                        { text: executor.executorName | safe },
+                                                        { text: content.agreed if executor.agreed == "agreed" else (content.disagreed if executor.agreed == "disagreed" else content.notDeclared) }
+                                                    ]), declarationStatusRows) %}
+                                                {% endfor %}
+                                            {% endif %}
+
+                                            {{ govukTable({
+                                              caption: content.reviewAndConfirmTaskMultiplesParagraph3Heading | safe,
+                                              captionClasses: "govuk-visually-hidden",
+                                              firstCellIsHeader: false,
+                                              head: [
+                                                {
+                                                  text: content.executorName | safe
+                                                },
+                                                {
+                                                  text: content.declarationStatus | safe
+                                                }
+                                              ],
+                                              rows: declarationStatusRows
+                                            }) }}
+                                        {% endif %}
+                                    {% endif %}
+                            </div>
+                        </div>
+                        <div class="govuk-task-list__status">{{ content.taskComplete | safe }}</div>
+                    {% endif %}
                 {% else %}
-                    {% for executor in fields.declarationStatuses.value %}
-                        {% set declarationStatusRows = (declarationStatusRows.push([
-                            { text: executor.executorName | safe },
-                            { text: content.agreed if executor.agreed == "agreed" else (content.disagreed if executor.agreed == "disagreed" else content.notDeclared) }
-                        ]), declarationStatusRows) %}
-                    {% endfor %}
-                {% endif %}
+                  <div class="govuk-task-list__name-and-hint">{{ content.reviewAndConfirmTask | safe }}
+                  <div>
+                          {% if fields.ReviewAndConfirmTask.value.status == "complete" %}
+                              {% if fields.hasMultipleApplicants.value == "true" and fields.alreadyDeclared.value == "false" %}
+                                  {% set declarationStatusRows = [] %}
+                                  {% for executor in fields.declarationStatuses.value %}
+                                      {% set declarationStatusRows = (declarationStatusRows.push([
+                                          { text: executor.executorName | safe },
+                                          { text: (content.declared if executor.agreed else content.notDeclared) | safe }
+                                      ]), declarationStatusRows) %}
+                                  {% endfor %}
+                                  <br>
+                                  <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph1 | safe }}</p>
+                                  <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph2 | safe }}</p>
 
-                {{ govukTable({
-                  caption: content.reviewAndConfirmTaskMultiplesParagraph3Heading | safe,
-                  captionClasses: "govuk-visually-hidden",
-                  firstCellIsHeader: false,
-                  head: [
-                    {
-                      text: content.executorName | safe
-                    },
-                    {
-                      text: content.declarationStatus | safe
-                    }
-                  ],
-                  rows: declarationStatusRows
-                }) }}
+                                  {% set declarationStatusRows = [] %}
+
+                                  {% if fields.declarationStatuses.value | length == 0 %}
+                                      {% for executor in fields.declarationStatuses.value %}
+                                          {% set declarationStatusRows = (declarationStatusRows.push([
+                                              { text: executor.executorName | safe },
+                                              { text: content.notDeclared }
+                                          ]), declarationStatusRows) %}
+                                      {% endfor %}
+                                  {% else %}
+                                      {% for executor in fields.declarationStatuses.value %}
+                                          {% set declarationStatusRows = (declarationStatusRows.push([
+                                              { text: executor.executorName | safe },
+                                              { text: content.agreed if executor.agreed == "agreed" else (content.disagreed if executor.agreed == "disagreed" else content.notDeclared) }
+                                          ]), declarationStatusRows) %}
+                                      {% endfor %}
+                                  {% endif %}
+
+                                  {{ govukTable({
+                                    caption: content.reviewAndConfirmTaskMultiplesParagraph3Heading | safe,
+                                    captionClasses: "govuk-visually-hidden",
+                                    firstCellIsHeader: false,
+                                    head: [
+                                      {
+                                        text: content.executorName | safe
+                                      },
+                                      {
+                                        text: content.declarationStatus | safe
+                                      }
+                                    ],
+                                    rows: declarationStatusRows
+                                  }) }}
+                              {% endif %}
+                          {% endif %}
+                          </div></div>
+                  <div class="govuk-task-list__status">{{ content.taskComplete | safe }}</div>
+                {% endif %}
+            {% else %}
+                <div class="govuk-task-list__name-and-hint">{{ content.reviewAndConfirmTask | safe }}</div>
+                <div class="govuk-task-list__status">
+                  <strong class="govuk-tag govuk-tag--grey">{{ content.taskUnavailable | safe }}</strong>
+                </div>
             {% endif %}
-        {% endif %}
-    </div>
-</li>
+        </li>

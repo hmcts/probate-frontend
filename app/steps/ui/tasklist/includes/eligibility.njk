@@ -1,0 +1,12 @@
+<ul class="govuk-task-list">
+    <li class="govuk-task-list__item govuk-task-list__item--with-link">
+        {{ taskAction(
+            prevTaskStatus = "complete",
+            status = "hide",
+            nextURL = "NotApplicable",
+            content = content,
+            title = content.eligibilityTask | safe,
+            alreadyDeclared = fields.alreadyDeclared.value
+        ) }}
+    </li>
+</ul>

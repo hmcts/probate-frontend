@@ -7,7 +7,7 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: content.question,
+            text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
         }
@@ -24,7 +24,7 @@
             classes: "govuk-radios--inline",
             idPrefix: "deceasedWrittenWishes",
             name: "deceasedWrittenWishes",
-            errorMessage: { text: fields.deceasedWrittenWishes.errorMessage | safe } if fields.deceasedWrittenWishes.errorMessage,
+            errorMessage: { text: fields.deceasedWrittenWishes.errorMessage | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.deceasedWrittenWishes.errorMessage,
             items: [
                 {
                     value: "optionYes",

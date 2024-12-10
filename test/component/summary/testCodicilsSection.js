@@ -2,6 +2,7 @@
 
 const requireDir = require('require-directory');
 const TestWrapper = require('test/util/TestWrapper');
+const FormatName = require('../../../app/utils/FormatName');
 const willContent = requireDir(module, '../../../app/resources/en/translation/will');
 const willContentWelsh = requireDir(module, '../../../app/resources/cy/translation/will');
 
@@ -71,6 +72,7 @@ describe('summary-codicils-section', () => {
                         throw err;
                     }
                     delete require.cache[require.resolve('test/data/will/codicils')];
+                    const deceasedName = FormatName.format(sessionData.deceased);
                     const playbackData = {
                         otherDamageDescriptionHint: willContent.codicilshasvisibledamage.otherDamageDescriptionHint,
                         otherDamage: willContent.codicilshasvisibledamage.otherDamage,
@@ -84,7 +86,7 @@ describe('summary-codicils-section', () => {
                         culpritQuestion: willContent.codicilsdamageculpritknown.question,
                         culpritFirstName: willContent.codicilsdamageculpritknown.firstName,
                         culpritLastName: willContent.codicilsdamageculpritknown.lastName,
-                        writtentWishes: willContent.deceasedwrittenwishes.question
+                        writtentWishes: willContent.deceasedwrittenwishes.question.replace('{deceasedName}', deceasedName),
                     };
 
                     testWrapper.testDataPlayback(done, playbackData);

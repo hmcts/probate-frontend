@@ -1,0 +1,96 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "widgets/checkanswer.njk" import checkanswer %}
+{% from "widgets/lists.html" import unorderedList %}
+
+{% block form_content %}
+    {% call govukFieldset({
+        legend: {
+            text: content.title | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+
+
+<pre>{{ fields | dump | safe }}</pre>
+
+        {% for i in range(0, fields.executorsNumber.value -1) %}
+        <h2 class="govuk-heading-s executor-header">{{ content.executor | safe }} {{ loop.index + 1 }}</h2>
+        {{ govukInput({
+            label: {
+                text: content.fullName | safe
+            },
+            id: "executorName_" + i,
+            name: "executorName[" + i + "]",
+            hint: {
+                text: content.fullNameHint | safe
+            },
+            value: fields.executorName.value[i] | safe,
+            errorMessage: { text: fields["executorName_" + i].errorMessage | safe } if fields["executorName_" + i].errorMessage,
+            attributes: {
+                maxlength: 200
+            },
+            classes: "govuk-!-width-three-quarters"
+            }) }}
+        {% endfor %}
+
+    {{ govukSummaryList({
+      rows: [
+        {
+          key: {
+            text: content.applicantExecutor,
+            classes: "govuk-!-font-weight-bold"
+          },
+          value: {
+            text: fields.list.value[0].firstName | safe + " " + fields.list.value[0].lastName | safe
+          }
+        }
+      ]
+    }) }}
+
+    <h2 class="govuk-fieldset__legend--m">{{ content.question | safe }}</h2>
+    <p class="govuk-body">{{ content.hintText | safe }}</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>{{ content.executorsDied | safe }}</li>
+      <li>{{ content.executorsNotApplying | safe }}</li>
+      <li>{{ content.executorsGivenUpRight | safe }}</li>
+    </ul>
+
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "executorsNamed",
+        name: "executorsNamed",
+        fieldset: {
+            legend: {
+                text: content.executorTellUsMore | safe,
+                isPageHeading: true,
+                classes: "govuk-body"
+            }
+        },
+        errorMessage: { text: fields.executorsNamed.errorMessage | safe } if fields.executorsNamed.errorMessage,
+        items: [{
+            value: "optionYes",
+            text: content["optionYes"] | safe,
+            checked: true if fields.executorsNamed.value == "optionYes"
+        },
+        {
+            value: "optionNo",
+            text: content["optionNo"] | safe,
+            checked: true if fields.executorsNamed.value == "optionNo"
+        }]
+    }) }}
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

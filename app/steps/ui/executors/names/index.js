@@ -4,8 +4,9 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('app/components/error');
 const resourcePath = 'executors.names';
 const i18next = require('i18next');
-const {isEmpty, size} = require('lodash');
+const {isEmpty, size, get} = require('lodash');
 const FormatName = require('app/utils/FormatName');
+const ExecutorsWrapper = require('app/wrappers/Executors');
 
 class ExecutorsNames extends ValidationStep {
 
@@ -37,10 +38,26 @@ class ExecutorsNames extends ValidationStep {
         }
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, formdata, errors) {
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        ctx.list = executorsWrapper.executors();
+        ctx.list[ctx.index] = {
+            firstName: get(formdata, 'applicant.firstName'),
+            lastName: get(formdata, 'applicant.lastName'),
+            nameAsOnTheWill: get(formdata, 'applicant.nameAsOnTheWill'),
+            isApplying: true,
+            isApplicant: false
+        };
+
         for (let i=1; i < ctx.executorsNumber; i++) {
             if (isEmpty(ctx.list[i])) {
-                ctx.list[i] = {fullName: ctx.executorName[i-1]};
+                ctx.list[i] = {
+                    firstName: get(formdata, 'applicant.firstName'),
+                    lastName: get(formdata, 'applicant.lastName'),
+                    nameAsOnTheWill: get(formdata, 'applicant.nameAsOnTheWill'),
+                    isApplying: true,
+                    isApplicant: false
+                };
             } else {
                 ctx.list[i].fullName = ctx.executorName[i-1];
             }

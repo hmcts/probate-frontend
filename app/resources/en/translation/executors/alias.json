@@ -1,12 +1,19 @@
 {
-  "title": "Do any of these executors now have a different name to that on the will or any codicil",
-  "question": "Do any of these executors now have a different name to that on the will or any codicil?",
+  "title": "Executor alias",
+  "question": "Is the name &lsquo;{executorWillName}&rsquo; different to how it appears on their passport or other form of ID?",
+  "paragraph1": "You should make sure that this is the same form of identification {executorWillName} will use when they are dealing with {deceasedName}&rsquo;s estate.",
+  "paragraph2": "Their name could be different because:",
+  "listItem1": "they changed their name after the will was made",
+  "listItem2": "part of their name was not included in the will",
+  "listItem3": "there was a spelling mistake in the will",
+  "listItem4": "they are also known by a different name",
+  "paragraph3": "If there is a difference, you’ll be able to tell us why later.",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
     "alias": {
-      "required": "Select &lsquo;yes&rsquo; if any of the executors have a different name to that on the will or any codicil"
+      "required": "Select no if {executorWillName}&rsquo;s name is different to how it appears on their passport or other form of ID"
     }
   }
 }

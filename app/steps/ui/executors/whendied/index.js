@@ -2,6 +2,7 @@
 
 const CollectionStep = require('app/core/steps/CollectionStep');
 const {findIndex, every, tail, has, get} = require('lodash');
+const FormatName = require('../../../../utils/FormatName');
 const path = '/executor-when-died/';
 
 class ExecutorsWhenDied extends CollectionStep {
@@ -20,6 +21,13 @@ class ExecutorsWhenDied extends CollectionStep {
             ctx.diedbefore = ctx.list[ctx.index].diedBefore;
         }
         return [ctx];
+    }
+
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        const formData = req.session.form;
+        ctx.deceasedName = FormatName.format(formData.deceased);
+        return ctx;
     }
 
     recalcIndex(ctx, index) {

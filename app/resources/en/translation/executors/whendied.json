@@ -1,6 +1,6 @@
 {
   "title": "When did the executor die?",
-  "question": "Did {executorFullName} die before the person who died?",
+  "question": "Did {executorFullName} die before {deceasedName}?",
   "optionYes": "Yes",
   "optionNo": "No",
   "executorFullName": "",

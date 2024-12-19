@@ -1,16 +1,22 @@
 {
   "title": "Will any of the other executors be dealing with the estate",
-  "question": "Will any of the other executors be dealing with the estate?",
-  "paragraph1": "These executors will be given the legal right to:",
+  "question": "Executors dealing with the estate",
+  "paragraph1": "Up to 4 executors, including yourself, can be named on the application and the grant of probate.",
+  "paragraph2": "All named executors will be given the legal right to deal with {deceasedName}'s estate. This includes: ",
   "applicant-rights1": "collect the estate&rsquo;s assets (property, money and possessions)",
   "applicant-rights2": "pay any taxes and debts",
   "applicant-rights3": "distribute what&rsquo;s left to the people entitled to it (the &lsquo;beneficiaries&rsquo;)",
+  "contactOtherExecs": "We will contact the other executors and ask them to check the information you have provided in this application and confirmation that it is correct.",
+  "applicantsNotDealing": "You will be asked about executors who will not be dealing with the estate later.",
+  "multiExecQuestion": "Which executors will also be dealing with the estate?",
+  "oneOtherExecQuestion": "Will {executorName} also be dealing with the estate?",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
     "otherExecutorsApplying": {
-      "required": "Answer &lsquo;yes&rsquo; if any of the other executors are dealing with the estate"
+      "invalid": "You can not select more than 4 executors",
+      "required": "Answer &lsquo;yes&rsquo; if {executorName} will be dealing with the estate"
     }
   }
 }

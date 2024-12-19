@@ -1,10 +1,6 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const FieldError = require('app/components/error');
-const resourcePath = 'executors.names';
-const i18next = require('i18next');
-const {isEmpty, size} = require('lodash');
 const FormatName = require('app/utils/FormatName');
 
 class ExecutorsNames extends ValidationStep {
@@ -28,22 +24,23 @@ class ExecutorsNames extends ValidationStep {
 
     createExecutorFullNameArray(ctx) {
         ctx.executorName = [];
-        if (ctx.list) {
+
+        /*if (ctx.list) {
             ctx.list.forEach((executor) => {
                 if (executor && 'fullName' in executor && !executor.isApplicant) {
                     ctx.executorName.push(executor.fullName);
+                    console.log('ctx.executorName', ctx.executorName);
                 }
             });
-        }
+        }*/
     }
 
     handlePost(ctx, errors) {
-        for (let i=1; i < ctx.executorsNumber; i++) {
-            if (isEmpty(ctx.list[i])) {
-                ctx.list[i] = {fullName: ctx.executorName[i-1]};
-            } else {
-                ctx.list[i].fullName = ctx.executorName[i-1];
-            }
+        if (!ctx.list) {
+            ctx.list = [];
+        }
+        if (ctx.executorName && ctx.executorName.length > 0) {
+            ctx.list.push({fullName: ctx.executorName});
         }
         return [ctx, errors];
     }
@@ -55,7 +52,7 @@ class ExecutorsNames extends ValidationStep {
         return [ctx, formdata];
     }
 
-    validate(ctx, formdata, language) {
+    /*validate(ctx, formdata, language) {
         let validationResult = [];
         if (isEmpty(ctx.executorName)) {
             validationResult[0] = size(ctx.list) === ctx.executorsNumber;
@@ -70,7 +67,7 @@ class ExecutorsNames extends ValidationStep {
     }
 
     trimArrayTextFields(ctx) {
-        if (ctx.executorName) {
+        if (Array.isArray(ctx.executorName)) {
             for (let i = 0; i < ctx.executorName.length; i++) {
                 ctx.executorName[i] = ctx.executorName[i].trim();
                 if (ctx.executorName[i].length > 0 && !isNaN(ctx.executorName[i])) {
@@ -103,7 +100,7 @@ class ExecutorsNames extends ValidationStep {
         const displayExecutor = i18next.t(`${resourcePath}.executor`);
         errorMessage.msg = `${displayExecutor} ${screenExecutorNumber}: ${errorMessage.msg}`;
         return errorMessage;
-    }
+    }*/
 }
 
 module.exports = ExecutorsNames;

@@ -1,8 +1,9 @@
 {% extends "includes/two_thirds_form.html" %}
 
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "widgets/lists.html" import unorderedList %}
 
 {% block form_content %}
@@ -13,13 +14,19 @@
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+    <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+    <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
         {{ unorderedList([
             content["applicant-rights1"],
             content["applicant-rights2"],
             content["applicant-rights3"]])
         }}
+    <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+    <p class="govuk-body">{{ content.contactOtherExecs | safe }}</p>
+    <p class="govuk-body">{{ content.applicantsNotDealing | safe }}</p>
 
+    {% if fields.list.value | length == 2 %}
+        <h2 class="govuk-heading-m">{{ content.oneOtherExecQuestion | safe }}</h2>
         {{ govukRadios({
             classes: "govuk-radios--inline",
             idPrefix: "otherExecutorsApplying",
@@ -38,6 +45,15 @@
                 }
             ]
         }) }}
+    {% else %}
+        <h2 class="govuk-heading-m">{{ content.multiExecQuestion | safe }}</h2>
+        {{ govukCheckboxes({
+            idPrefix: "otherExecutorsApplying",
+            name: "otherExecutorsApplying[]",
+            errorMessage: { text: fields.otherExecutorsApplying.errorMessage | safe } if fields.otherExecutorsApplying.errorMessage,
+            items: fields.options.value
+        }) }}
+    {% endif %}
     {% endcall %}
 
     <div class="govuk-form-group">

@@ -3,7 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex, get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const pageUrl = '/executor-current-name';
+const pageUrl = '/executor-id-name';
 
 class ExecutorCurrentName extends ValidationStep {
 

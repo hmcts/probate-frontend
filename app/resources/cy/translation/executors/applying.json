@@ -2,14 +2,20 @@
   "title": "A fydd unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad",
   "question": "A fydd unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad?",
   "paragraph1": "Bydd yr ysgutorion hyn yn cael hawl gyfreithiol i:",
+  "paragraph2": "All named executors will be given the legal right to deal with {deceasedName}'s estate. This includes: ",
   "applicant-rights1": "gasglu asedau&rsquo;r ystad (eiddo ac arian)",
   "applicant-rights2": "talu unrhyw drethi a dyledion",
   "applicant-rights3": "dosrannu beth sydd ar &ocirc;l i&rsquo;r bobl sydd &acirc; hawl iddo (y &lsquo;buddiolwyr&rsquo;)",
-  "optionYes": "Bydd",
-  "optionNo": "Na fydd",
+  "contactOtherExecs": "We will contact the other executors and ask them to check the information you have provided in this application and confirmation that it is correct.",
+  "applicants-not-dealing": "You&rsquo;ll be asked about executors who won&rsquo;t be dealing with the estate later in the application.",
+  "multiExecQuestion": "Which executors will also be dealing with the estate?",
+  "oneOtherExecQuestion": "Will {executorName} also be dealing with the estate?",
+  "optionYes": "Yes",
+  "optionNo": "No",
 
   "errors": {
     "otherExecutorsApplying": {
+      "invalid": "You can not select more than 4 executors",
       "required": "Atebwch &lsquo;bydd&rsquo; os yw unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad"
     }
   }

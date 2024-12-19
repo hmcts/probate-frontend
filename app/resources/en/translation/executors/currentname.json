@@ -1,8 +1,7 @@
 {
   "title": "Current name",
-  "question": "What is {executorFullName}&rsquo;s current name?",
-  "currentNameHint": "Including middle names",
-  "currentName": "Current name",
+  "question": "How is {executorFullName}&rsquo;s name written on their passport or other form of ID?",
+  "currentName": "Full name",
 
   "errors": {
     "currentName": {

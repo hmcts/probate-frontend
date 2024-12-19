@@ -1,6 +1,6 @@
 {
   "title": "Cyfeiriad yr ysgutor",
-  "question": "Beth yw cyfeiriad parhaol {executorName}?",
+  "question": "Beth yw cyfeiriad {executorName}?",
   "explanation1": "Bydd hwn yn cael ei argraffu ar y grant profiant.",
   "postcode": "Cod post",
   "postTown": "Tref neu ddinas",
@@ -10,7 +10,7 @@
   "addressLabel2": "Ail linell y cyfeiriad (dewisol)",
   "addressLabel3": "Trydydd llinell y cyfeiriad (dewisol)",
   "selectAddress": "Dewiswch gyfeiriad",
-  "enterManually": "Teipiwch y cyfeiriad (gan gynnwys cyfeiriadau rhyngwladol)",
+  "enterManually": "Neu teipiwch eu cyfeiriad",
 
   "errors": {
     "addressLine1": {

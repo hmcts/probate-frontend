@@ -1,6 +1,6 @@
 {
   "title": "Pryd farwodd yr ysgutor?",
-  "question": "A wnaeth {executorFullName} farw cyn yr unigolyn sydd wedi marw?",
+  "question": "A wnaeth {executorFullName} farw cyn {deceasedName}?",
   "optionYes": "Do",
   "optionNo": "Naddo",
   "executorFullName": "",

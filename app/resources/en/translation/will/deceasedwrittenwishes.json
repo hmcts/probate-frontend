@@ -1,6 +1,6 @@
 {
   "title": "Did the person who died leave any other written wishes?",
-  "question": "Did the person who died leave any other written wishes?",
+  "question": "Did {deceasedName} leave any other written wishes?",
   "interestedDetailsHint": "We&rsquo;re only interested in written wishes that have details of:",
   "interestedDetail1": "an appointed executor",
   "interestedDetail2": "instructions to sort out the estate",
@@ -9,7 +9,7 @@
   "optionNo": "No",
   "errors": {
     "deceasedWrittenWishes": {
-      "required": "Select &lsquo;yes&rsquo; if you know if the person who died left any written wishes"
+      "required": "Select ‘yes’ if {deceasedName} left any written wishes"
     }
   }
 }

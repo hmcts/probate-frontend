@@ -12,29 +12,22 @@
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-hint">{{ content.paragraph | safe }}</p>
-        <h2 class="govuk-heading-s executor-header">{{ content.executor | safe }} 1</h2>
-        <p class="govuk-body">{{ fields.applicantCurrentName.value | safe }}</p>
+        <p class="govuk-body">{{ content.paragraph | safe }}</p>
+        <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
 
-        {% for i in range(0, fields.executorsNumber.value -1) %}
-            <h2 class="govuk-heading-s executor-header">{{ content.executor | safe }} {{ loop.index + 1 }}</h2>
-            {{ govukInput({
-                label: {
-                    text: content.fullName | safe
-                },
-                id: "executorName_" + i,
-                name: "executorName[" + i + "]",
-                hint: {
-                    text: content.fullNameHint | safe
-                },
-                value: fields.executorName.value[i] | safe,
-                errorMessage: { text: fields["executorName_" + i].errorMessage | safe } if fields["executorName_" + i].errorMessage,
-                attributes: {
-                    maxlength: 200
-                },
-                classes: "govuk-!-width-three-quarters"
-            }) }}
-        {% endfor %}
+    {{ govukInput({
+        label: {
+            text: content.fullName | safe
+        },
+        id: "fullName",
+        name: "fullName",
+        value: fields.fullName.value | safe,
+        errorMessage: { text: fields.fullName.errorMessage | safe } if fields.fullName.errorMessage,
+        attributes: {
+            maxlength: 100
+        },
+        classes: "govuk-!-width-three-quarters"
+    }) }}
     {% endcall %}
 
     <div class="govuk-form-group">
@@ -42,9 +35,5 @@
             text: common.saveAndContinue | safe,
             preventDoubleClick: true
         }) }}
-    </div>
-
-    <div class="govuk-form-group">
-        <p class="govuk-body"><a href="/executors-number" class="govuk-link">{{ content.numberOfExecutorsPage | safe }}</a></p>
     </div>
 {% endblock %}

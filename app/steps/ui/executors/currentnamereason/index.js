@@ -5,7 +5,7 @@ const {findIndex, get, startsWith} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const AliasData = require('app/utils/AliasData.js');
 
-const path = '/executor-current-name-reason/';
+const path = '/executor-name-reason/';
 
 class ExecutorCurrentNameReason extends ValidationStep {
 

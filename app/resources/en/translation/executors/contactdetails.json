@@ -1,11 +1,11 @@
 {
   "title": "Executor contact details",
-  "question": "What are {executorName}&rsquo;s email address and mobile number?",
-  "questionHint": "This executor will be contacted and asked to confirm details of the estate.",
+  "question": "What are {executorName}&rsquo;s contact details?",
+  "paragraph1": "We will send {executorName} an email and text message to verify their identity and to confirm details of the estate.",
+  "paragraph2": "You must provide their current email address and mobile phone number. For international numbers include the country code.",
   "email": "Email address",
-  "email2": "This must be the executor&rsquo;s own email address",
-  "mobile": "Mobile phone number",
-  "mobileHint": "This must be the executor&rsquo;s own mobile phone number. For example, 07900123456 or +33123456789",
+  "mobile": "Mobile number",
+  "mobileHint": "For example, 07700900900 or +39133457090",
 
   "errors": {
     "email": {

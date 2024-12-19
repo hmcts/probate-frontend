@@ -2,19 +2,31 @@
 
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 
 {% block form_content %}
-    {{ govukRadios({
+    {% call govukFieldset({
+        legend: {
+            text: content.question | replace("{executorWillName}", fields.otherExecName.value) | safe,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+    }
+    }) %}
+    <p class="govuk-body">{{ content.paragraph1 | replace("{executorWillName}", fields.otherExecName.value)
+                                                | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+
+    <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>{{ content.listItem1 | safe }}</li>
+            <li>{{ content.listItem2 | safe }}</li>
+            <li>{{ content.listItem3 | safe }}</li>
+            <li>{{ content.listItem4 | safe }}</li>
+        </ul>
+    <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
+{{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "alias",
         name: "alias",
-        fieldset: {
-            legend: {
-                text: content.question | safe,
-                isPageHeading: true,
-                classes: "govuk-fieldset__legend--l"
-            }
-        },
         errorMessage: { text: fields.alias.errorMessage | safe } if fields.alias.errorMessage,
         items: [
             {
@@ -29,6 +41,7 @@
             }
         ]
     }) }}
+    {% endcall %}
 
     <div class="govuk-form-group">
         {{ govukButton({

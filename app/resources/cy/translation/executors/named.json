@@ -1,0 +1,21 @@
+{
+  "title": "Faint o ysgutorion sydd wedi&rsquo;u henwi ar yr ewyllys ac unrhyw codisiliau",
+  "question": "Faint o ysgutorion sydd wedi&rsquo;u henwi ar yr ewyllys ac unrhyw codisiliau?",
+  "hintText": "Gwiriwch yr ewyllys a&rsquo;r codisiliau nawr gan fod rhaid ichi gynnwys pob ysgutor a enwir, yn cynnwys y rhai sydd wedi marw.",
+  "executorsDied": "has died",
+  "executorsNotApplying": "is not applying for probate",
+  "executorsGivenUpRight": "has given up their right to apply",
+  "executorsNamed": "Nifer yr ysgutorion",
+  "applicantExecutor" : "Executor (you)",
+  "furtherExecutor": "Executor",
+  "executorTellUsMore": "You'll be able to tell us more about each executor later.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "removeAction": "Remove",
+
+  "errors": {
+    "executorsNamed": {
+      "required": "Nodwch nifer yr ysgutorion"
+    }
+  }
+}

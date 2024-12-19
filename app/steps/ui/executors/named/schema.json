@@ -1,15 +1,15 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "executors-names",
+  "$id": "executors-named",
   "type": "object",
   "properties": {
-    "executorNames": {
+    "executorNamed": {
       "type": "string",
       "minLength": 2,
       "pattern": "^[\\sa-zA-Z'-]+$"
     }
   },
   "required": [
-    "executorName"
+    "executorsNamed"
   ]
 }

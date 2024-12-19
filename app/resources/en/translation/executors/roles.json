@@ -1,11 +1,10 @@
 {
   "title": "Executor non application reason",
-  "question": "Why isn&rsquo;t {executorFullName} applying for probate?",
-  "optionPowerReserved": "This executor doesn&rsquo;t want to apply now, but may do in the future (this is also known as power reserved)",
-  "optionRenunciated": "This executor doesn&rsquo;t want to apply now, and gives up the right to do so in the future (this is also known as renunciation, and the executor will need to fill in a form)",
-  "optionRenunciatedHint": "Fill in either <a href=\"{applicationFormPA15}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"form PA15 or PA16 (opens in a new window)\">form PA15 or PA16 (opens in a new window)</a> if you want to give up your legal responsibility and role permanently (also known as ‘renunciation’) to apply for probate to manage the estate of someone who died as either:",
-  "optionRenunciatedHintBullet1": "an executor named in their will or",
-  "optionRenunciatedHintBullet2": "their spouse or civil partner acting as an administrator.",
+  "question": "Why is {executorFullName} not applying for probate?",
+  "optionPowerReserved": "{executorFullName} is reserving the right to apply later (also known as holding &lsquo;power reserved&rsquo;)",
+  "optionPowerReservedHint": "You will need to inform them in writing that you are making this application.",
+  "optionRenunciated": "{executorFullName} is giving up their right to apply permanently (also known as &lsquo;renunciation&rsquo;)",
+  "optionRenunciatedHint": "You will need to send us their completed <a href=\"{applicationFormPA15}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"PA15 renunciation form (opens in a new tab)\">PA15 renunciation form (opens in a new tab)</a> along with your other documents.",
 
   "errors": {
     "notApplyingReason": {

@@ -1,11 +1,14 @@
 {
   "title": "Executor Alias Reason",
-  "question": "What is the reason for {executorName}&rsquo;s name change?",
-  "optionMarriage": "Marriage",
-  "optionDivorce": "Divorce",
-  "optionDeedPoll": "Change by deed poll",
+  "question": "Why is {executorName}&rsquo;s name different to how it is written in the will or any codicils?",
+  "paragraph1": "You must explain the reason for the difference, for example, {executorName} changed their name since the will was written, or their middle name was not included.",
+  "optionMarriage": "They got married or formed a civil partnership",
+  "optionDivorce": "They got divorced or ended their civil partnership",
+  "optionDeedPoll": "They changed their name by deed poll",
+  "optionDifferentSpelling": "Their name was spelled differently",
+  "optionPartOfNameNotIncluded": "Part of their name was not included",
   "optionOther": "Other",
-  "optionOtherHint": "Reason for name change",
+  "optionOtherHint": "Reason for difference",
 
   "errors": {
     "currentNameReason": {

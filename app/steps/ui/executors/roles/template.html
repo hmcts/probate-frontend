@@ -6,10 +6,10 @@
 {% block form_content %}
     {% set optionRenunciatedHint %}
         <p class="govuk-body">{{ content.optionRenunciatedHint | replace("{applicationFormPA15}", globals.links.applicationFormPA15) | safe }}</p>
-        <ul class="govuk-body">
-            <li>{{ content.optionRenunciatedHintBullet1 | safe }}</li>
-            <li>{{ content.optionRenunciatedHintBullet2 | safe }}</li>
-        </ul>
+    {% endset %}
+
+    {% set optionPowerReservedHint %}
+        <p class="govuk-body">{{ content.optionPowerReservedHint | safe }}</p>
     {% endset %}
 
     {{ govukRadios({
@@ -26,12 +26,15 @@
         items: [
             {
                 value: "optionPowerReserved",
-                text: content["optionPowerReserved"] | safe,
-                checked: true if fields.notApplyingReason.value == "optionPowerReserved"
+                text: content["optionPowerReserved"] | replace("{executorFullName}", fields.list.value[fields.index.value].fullName) | safe,
+                checked: true if fields.notApplyingReason.value == "optionPowerReserved",
+                conditional: {
+                    html: optionPowerReservedHint
+                }
             },
             {
                 value: "optionRenunciated",
-                text: content["optionRenunciated"] | safe,
+                text: content["optionRenunciated"] | replace("{executorFullName}", fields.list.value[fields.index.value].fullName) | safe,
                 checked: true if fields.notApplyingReason.value == "optionRenunciated",
                 conditional: {
                     html: optionRenunciatedHint

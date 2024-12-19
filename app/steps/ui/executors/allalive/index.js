@@ -15,8 +15,8 @@ class ExecutorsAllAlive extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'allalive', value: 'optionYes', choice: 'isAlive'},
-                {key: 'allalive', value: 'optionNo', choice: 'whoDied'}
+                {key: 'allalive', value: 'optionYes', choice: 'whoDied'},
+                {key: 'allalive', value: 'optionNo', choice: 'isAlive'}
             ]
         };
     }

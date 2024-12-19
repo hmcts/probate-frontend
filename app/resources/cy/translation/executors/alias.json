@@ -1,12 +1,19 @@
 {
   "title": "A oes gan unrhyw un o&rsquo;r ysgutorion hyn enw gwahanol nawr i beth sydd yn yr ewyllys neu unrhyw godisiliau",
-  "question": "A oes gan unrhyw un o&rsquo;r ysgutorion hyn enw gwahanol nawr i beth sydd yn yr ewyllys neu unrhyw godisiliau?",
-  "optionYes": "Oes",
-  "optionNo": "Nac oes",
+  "question": "Ydy&rsquo;r enw &lsquo;{executorWillName}&rsquo; yn wahanol i sut mae&rsquo;n ymddangos ar eu pasbort neu ffurf arall o brawf adnabod?",
+  "paragraph1": "Dylech wneud yn siŵr mai hwn yw&rsquo;r un math o ddull adnabod y bydd {executorWillName} yn ei ddefnyddio pan fyddant yn delio ag ystad {deceasedName}.",
+  "paragraph2": "Gallai eu henw fod yn wahanol oherwydd:",
+  "listItem1": "gwnaethant newid eu henw ar ôl gwneud yr ewyllys",
+  "listItem2": "ni chafodd rhan o&rsquo;u henw ei gynnwys yn yr ewyllys",
+  "listItem3": "roedd camgymeriad sillafu yn yr ewyllys",
+  "listItem4": "maent hefyd yn cael eu hadnabod fel enw gwahanol",
+  "paragraph3": "Os oes gwahaniaeth, byddwch yn gallu dweud wrthym pam yn ddiweddarach.",
+  "optionYes": "Yes",
+  "optionNo": "No",
 
   "errors": {
     "alias": {
-      "required": "Dewiswch &lsquo;oes&rsquo; os oes gan unrhyw un o&rsquo;r ysgutorion enw gwahanol i beth sydd yn yr ewyllys neu unrhyw godisiliau"
+      "required": "Select no if {executorWillName}&rsquo;s name is different to how it appears on their passport or other form of ID"
     }
   }
 }

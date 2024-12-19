@@ -1,9 +1,8 @@
 {
   "title": "Executor notified",
-  "question": "Have you notified {executorName} in writing that you are applying?",
+  "question": "Have you notified {executorName} in writing that you are making this application?",
   "optionYes": "Yes",
   "optionNo": "No",
-  "informInWriting": "You must inform the executor in writing that you are applying for probate",
 
   "errors": {
     "executorNotified": {

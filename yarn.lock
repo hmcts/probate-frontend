@@ -10823,6 +10823,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"libphonenumber-js@npm:^1.11.17":
+  version: 1.11.17
+  resolution: "libphonenumber-js@npm:1.11.17"
+  checksum: 10/e8e897834822060fe3067fc573a76f94eb0fbcc1ac075e3fdd9e1870b0c68f7c20f2bc50053ceeb69364fc3a8b881395bd121d904c38f716c4b69c3382b8f011
+  languageName: node
+  linkType: hard
+
 "lie@npm:~3.3.0":
   version: 3.3.0
   resolution: "lie@npm:3.3.0"
@@ -14018,6 +14025,7 @@ __metadata:
     js-yaml: "npm:^4.0.0"
     jsdom: "npm:^26.0.0"
     launchdarkly-node-server-sdk: "npm:^7.0.0"
+    libphonenumber-js: "npm:^1.11.17"
     lodash: "npm:^4.17.21"
     mocha: "npm:^11.0.0"
     mocha-jenkins-reporter: "npm:^0.4.8"

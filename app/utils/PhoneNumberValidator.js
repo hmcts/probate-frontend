@@ -2,9 +2,13 @@ const parsePhoneNumber = require('libphonenumber-js/mobile').parsePhoneNumber;
 
 class PhoneNumberValidator {
     static validateMobilePhoneNumber(num) {
-        const parsed = parsePhoneNumber(num, 'GB');
-        if (parsed) {
-            return parsed.isValid();
+        try {
+            const parsed = parsePhoneNumber(num, 'GB');
+            if (parsed) {
+                return parsed.isValid();
+            }
+        } catch (e) {
+            return false;
         }
         return false;
     }

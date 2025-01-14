@@ -30,8 +30,8 @@
   "documentsParagraph2": "You should make a copy of the documents for your records.<br><br>Send the documents, preferably by &lsquo;tracked with signature&rsquo;, to:",
   "successParagraph1": "We&rsquo;ll email you when we've received your documents.There might be a delay of up to 2 weeks from us receiving your documents and sending the email. We’ll keep the original will as it becomes a public document by law.<br>",
   "successParagraph1NoDocumentsRequired": "A caseworker will review your application.",
-  "successParagraph2NoDocumentsRequired": "You'll usually get the grant within 16 weeks. It can take longer if you need to provide additional information.",
-  "successParagraph2": "A caseworker will review your application.<br><br>You&rsquo;ll usually get the grant within 16 weeks. It can take longer if you need to provide additional information.",
+  "successParagraph2NoDocumentsRequired": "You'll usually get the grant within 12 weeks. It can take longer if you need to provide additional information.",
+  "successParagraph2": "A caseworker will review your application.<br><br>You&rsquo;ll usually get the grant within 12 weeks. It can take longer if you need to provide additional information.",
   "successParagraph3": "You don't need to do anything else now, we'll email you if we need more information.",
   "successParagraph4": "Find out what to do <a href=\"{findOutNext}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"when you receive your grant (opens in a new window)\">when you receive your grant (opens in a new window)</a>."
 }

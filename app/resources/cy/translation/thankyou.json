@@ -30,8 +30,8 @@
   "documentsParagraph2": "Dylech wneud copi o’r dogfennau ar gyfer eich cofnodion.<br><br>Anfonwch y dogfennau, yn ddelfrydol gan ddefnyddio’r gwasanaeth &lsquo;olrhain gyda llofnod&rsquo;, i:",
   "successParagraph1": "Byddwn yn anfon e-bost atoch pan fyddwn wedi cael eich dogfennau. Byddwn wedyn yn adolygu eich cais.",
   "successParagraph1NoDocumentsRequired": "Byddwn yn adolygu eich cais.",
-  "successParagraph2NoDocumentsRequired": "Fel arfer byddwch yn cael llythyr gweinyddu o fewn 16 wythnos. Gall gymryd mwy o amser os oes angen i chi ddarparu gwybodaeth ychwanegol.",
-  "successParagraph2": "Fel arfer, byddwch yn cael y grant profiant o fewn 16 wythnos. Gall gymryd mwy o amser os oes angen i chi ddarparu gwybodaeth ychwanegol.",
+  "successParagraph2NoDocumentsRequired": "Fel arfer byddwch yn cael llythyr gweinyddu o fewn 12 wythnos. Gall gymryd mwy o amser os oes angen i chi ddarparu gwybodaeth ychwanegol.",
+  "successParagraph2": "Fel arfer, byddwch yn cael y grant profiant o fewn 12 wythnos. Gall gymryd mwy o amser os oes angen i chi ddarparu gwybodaeth ychwanegol.",
   "successParagraph3": "Nid oes angen i chi wneud unrhyw beth arall nawr, byddwn yn anfon e-bost atoch os bydd arnom angen mwy o wybodaeth.",
   "successParagraph4": "Mwy o wybodaeth am beth i&rsquo;w wneud <a href=\"{findOutNext}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"pan fyddwch wedi cael eich grant profiant (agor mewn ffenestr newydd)\">pan fyddwch wedi cael eich grant profiant (agor mewn ffenestr newydd)</a>."
 }

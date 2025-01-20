@@ -13994,14 +13994,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"randombytes@npm:2.0.3":
-  version: 2.0.3
-  resolution: "randombytes@npm:2.0.3"
-  checksum: 10/13e1abd143404dd87024bf345fb1a446b2e2ee46d8e1a5a073e8370c9b1e58000d81a97d4327ba7089087213eb6d8c77fa67ab4e91aa00605126d634fcccb9d4
-  languageName: node
-  linkType: hard
-
-"randombytes@npm:^2.1.0":
+"randombytes@npm:2.1.0, randombytes@npm:^2.1.0":
   version: 2.1.0
   resolution: "randombytes@npm:2.1.0"
   dependencies:
@@ -14011,13 +14004,13 @@ __metadata:
   linkType: hard
 
 "randomstring@npm:^1.2.3":
-  version: 1.3.0
-  resolution: "randomstring@npm:1.3.0"
+  version: 1.3.1
+  resolution: "randomstring@npm:1.3.1"
   dependencies:
-    randombytes: "npm:2.0.3"
+    randombytes: "npm:2.1.0"
   bin:
     randomstring: bin/randomstring
-  checksum: 10/6ecfee8fae44ca6fcf4be5dc739d86a2457ac3d6d3142ac65f5df72b57deddb897797659e2b339772380a941774e3d55d4988a64ae3f2f0588fdf5b55b56c901
+  checksum: 10/04225d1d476d5ae400fde4d6186510e88ad915eeb4cca94b70d3680fa5ea92bca0284ad775b3ce7d03a59f97f248eaaf569e58919c7a85425cefc40d22a87103
   languageName: node
   linkType: hard
 

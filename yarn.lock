@@ -7391,7 +7391,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-process@npm:^1.4.7":
+"find-process@npm:1.4.7":
   version: 1.4.7
   resolution: "find-process@npm:1.4.7"
   dependencies:
@@ -14986,14 +14986,14 @@ __metadata:
   linkType: hard
 
 "selenium-standalone@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "selenium-standalone@npm:10.0.0"
+  version: 10.0.1
+  resolution: "selenium-standalone@npm:10.0.1"
   dependencies:
     commander: "npm:^8.3.0"
     cross-spawn: "npm:^7.0.3"
     debug: "npm:^4.3.1"
     execa: "npm:^5.1.1"
-    find-process: "npm:^1.4.7"
+    find-process: "npm:1.4.7"
     fkill: "npm:^7.2.1"
     got: "npm:^11.8.6"
     http-proxy-agent: "npm:^7.0.2"
@@ -15010,7 +15010,7 @@ __metadata:
     yauzl: "npm:^3.1.2"
   bin:
     selenium-standalone: bin/selenium-standalone
-  checksum: 10/124f0146042eefa882b1756b6d61b735d55b8a8793725cfa4916d000d07548b856db80008f1fc74fc06e29a0faeda15bff2b612a0e04154bd42b5e885ea1cb0f
+  checksum: 10/5a9494768fb79c0e12fe7947923c85445ef2a6ac3298b931ccce30464c032e2379cbe6c3439f8bf263f7d927a7b3c4ac0dc90c24cd532d41a7715b20c7ee3e8c
   languageName: node
   linkType: hard
 

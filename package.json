@@ -210,7 +210,7 @@
     "express": "^4.21.0",
     "qs": ">=6.9.7",
     "formidable": "^3.5.1",
-    "@azure/msal-node": "^2.9.2",
+    "@azure/msal-node": "^3.0.0",
     "@azure/identity": "^4.2.1",
     "braces": "^3.0.3",
     "path-to-regexp": "^0.1.10",

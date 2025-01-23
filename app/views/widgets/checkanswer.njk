@@ -4,6 +4,12 @@
         {% for item in items %}
             {% if item.visible %}
                 {% set complete = true if isComplete !== false and item.answer else false %}
+                {% set actionLink = common.change if complete else common.answer %}
+                {% if item.a11yCtx %}
+                    {% set aria_content = item.a11yCtx.change if complete else item.a11yCtx.answer %}
+                {% else %}
+                    {% set aria_content %}{{actionLink}} {{item.question}}{% endset %}
+                {% endif %}
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">{{ item.question | safe }}</dt>
                     {% if answerIsCollection %}
@@ -19,8 +25,7 @@
                     {% endif %}
                     <dd class="govuk-summary-list__actions">
                         {% if alreadyDeclared == "false" %}
-                            {% set actionLink = common.change if complete else common.answer %}
-                            <a class="govuk-link" href="{{ url }}">{{ actionLink | safe }}</a>
+                            <a class="govuk-link" href="{{ url }}" aria-label="{{aria_content | safe}}">{{ actionLink | safe }}</a>
                         {% endif %}
                     </dd>
                 </div>

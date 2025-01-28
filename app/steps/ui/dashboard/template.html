@@ -28,19 +28,27 @@
         <div class="govuk-grid-column-full">
             <h1 class="govuk-heading-l">{{ content.header | safe }}</h1>
 
-            {{ govukTable({
-                caption: content.header | safe,
-                captionClasses: "govuk-visually-hidden",
-                classes: "dashboard",
-                head: [
-                    { text: content.tableHeaderDeceasedName | safe },
-                    { text: content.tableHeaderCreateDate | safe, classes: "case-date" + "app-custom-class" },
-                    { text: content.tableHeaderCaseStatus | safe },
-                    { text: content.tableHeaderActionStatus | safe },
-                    { html: "<span class=\"govuk-visually-hidden\">" + (content.tableHeaderActions | safe) + "</span>" }
-                ],
-                rows: applicationRows
-            }) }}
+            {% set tableVars %}
+            --dashboard-deceasedName:"{{content.tableHeaderDeceasedName | safe}}: ";
+            --dashboard-createdDate:"{{content.tableHeaderCreateDate | safe}}: ";
+            --dashboard-status:"{{content.tableHeaderCaseStatus | safe}}: ";
+            --dashboard-action:"{{content.tableHeaderActionStatus | safe}}: ";
+            {% endset %}
+            {% set tableVars = tableVars | replace("\n", "") %}
+            <div style="{{tableVars}}">
+              {{ govukTable({
+                  caption: content.header | safe,
+                  captionClasses: "govuk-visually-hidden",
+                  classes: "dashboard",
+                  head: [
+                      { text: content.tableHeaderDeceasedName | safe },
+                      { text: content.tableHeaderCreateDate | safe, classes: "case-date" + "app-custom-class" },
+                      { text: content.tableHeaderCaseStatus | safe },
+                      { text: content.tableHeaderActionStatus | safe }
+                  ],
+                  rows: applicationRows
+              }) }}
+            </div>
             <p class="govuk-body">
                 <a class="govuk-link" href="/start-eligibility">{{ content.actionNewApplication | safe }}</a>
             </p>

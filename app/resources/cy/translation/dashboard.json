@@ -6,6 +6,8 @@
   "tableHeaderCreateDate": "Dyddiad creu",
   "tableHeaderCaseStatus": "Statws",
   "tableHeaderActions": "Camau gweithredu",
+  "unnamedProbateAppl": "WELSH Unnamed probate application",
+  "unnamedIntestacyAppl": "WELSH Unnamed intestacy application",
   "statusDraftProbate": "Nid yw'r enw wedi'i nodi eto",
   "statusDraftIntestacy": "Nid yw'r enw wedi'i nodi eto",
   "statusInProgress": "YN MYND RHAGDDO",

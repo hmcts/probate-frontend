@@ -6,6 +6,8 @@
   "tableHeaderCreateDate": "Date created",
   "tableHeaderCaseStatus": "Status",
   "tableHeaderActions": "Actions",
+  "unnamedProbateAppl": "Unnamed probate application",
+  "unnamedIntestacyAppl": "Unnamed intestacy application",
   "statusDraftProbate": "Name not entered yet",
   "statusDraftIntestacy": "Name not entered yet",
   "statusInProgress": "IN PROGRESS",

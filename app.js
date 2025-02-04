@@ -166,7 +166,12 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'fonts.googleapis.com',
                 '*.googletagmanager.com'
             ],
-            frameAncestors: ['\'self\'']
+            frameAncestors: ['\'self\''],
+            formAction: [
+                '\'self\'',
+                config.services.equalityAndDiversity.url,
+                config.services.payment.externalUrl
+            ]
         },
         browserSniff: true,
         setAllHeaders: true

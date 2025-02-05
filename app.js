@@ -32,6 +32,7 @@ const eligibilityCookie = new EligibilityCookie();
 const caseTypes = require('app/utils/CaseTypes');
 const featureToggles = require('app/featureToggles');
 const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody');
+const setSessionLanguage = require('app/middleware/setSessionLanguage');
 const isEmpty = require('lodash').isEmpty;
 const setupHealthCheck = require('app/utils/setupHealthCheck');
 
@@ -165,7 +166,12 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'fonts.googleapis.com',
                 '*.googletagmanager.com'
             ],
-            frameAncestors: ['\'self\'']
+            frameAncestors: ['\'self\''],
+            formAction: [
+                '\'self\'',
+                config.services.equalityAndDiversity.url,
+                config.services.payment.externalUrl
+            ]
         },
         browserSniff: true,
         setAllHeaders: true
@@ -184,6 +190,10 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
 
     app.use(nocache());
     app.use(helmet.xssFilter({setOnOldIE: true}));
+
+    app.use(helmet.strictTransportSecurity({
+        maxAge: 31536000,
+    }));
 
     const caching = {cacheControl: true, setHeaders: (res) => res.setHeader('Cache-Control', 'max-age=604800')};
 
@@ -243,19 +253,9 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         next();
     });
 
+    app.use(setSessionLanguage);
+
     app.use((req, res, next) => {
-        if (!req.session.language) {
-            req.session.language = 'en';
-        }
-
-        if (req.query) {
-            if (req.query.lng && config.languages.includes(req.query.lng)) {
-                req.session.language = req.query.lng;
-            } else if (req.query.locale && config.languages.includes(req.query.locale)) {
-                req.session.language = req.query.locale;
-            }
-        }
-
         if (isA11yTest && !isEmpty(a11yTestSession)) {
             req.session = Object.assign(req.session, a11yTestSession);
         }

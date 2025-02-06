@@ -108,8 +108,7 @@ class UIStepRunner {
                         formdata.declaration.hasDataChanged = true;
                     }
                     let errorOccurred = false;
-
-                    if ((get(formdata, 'ccdCase.state') === 'Pending' || get(formdata, 'ccdCase.state') === 'CasePaymentFailed') && session.regId && step.shouldPersistFormData()) {
+                    if ((get(formdata, 'ccdCase.state') === 'Pending' || get(formdata, 'ccdCase.state') === 'CasePaymentFailed' || get(formdata, 'ccdCase.state') === 'BOCaseStopped') && session.regId && step.shouldPersistFormData()) {
                         const ccdCaseId = formdata.ccdCase.id;
                         const result = yield step.persistFormData(ccdCaseId, formdata, session.id, req);
                         if (result.name === 'Error') {

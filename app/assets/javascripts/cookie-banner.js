@@ -1,5 +1,5 @@
 (function () {
-    
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
             initialiseCookieBanner();
@@ -9,7 +9,7 @@
     }
 
     function initialiseCookieBanner() {
-        
+
         /*  This callback is called when the 'accept' action is fired within the cookie banner
         *   This is where you'd hide the first stage in a decision/confirmation style banner
         */
@@ -35,17 +35,32 @@
             // GTM based GA consent
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({'event': 'Cookie Preferences', 'cookiePreferences': cookieStatus});
-            
+
             // Dynatrace RUM Consent
             const dtrum = window.dtrum;
+
+            /*
+
+                Session Replay creates anonymized, video-like recordings of users' interactions with
+                your website or mobile app, right down to each click, scroll, and tap. You can watch
+                their mouse movements to identify what they’re trying to do, where they’re having trouble,
+                and what’s frustrating them (or causing them to abandon their journey altogether).
+
+                This is set in the function below. If its needed then dtrum.enableSessionReplay() needs to
+                be added after the dtrum.enable() line. Conversly, dtrum.disableSessionReplay() should be added
+                after the disable call.
+
+                dtrum.enableSessionReplay = function () {
+
+                }
+
+            */
             if (dtrum) {
                 if (cookieStatus.apm === 'on') {
                     dtrum.enable();
-                    dtrum.enableSessionReplay();
                 } else {
-                    dtrum.disableSessionReplay();
                     dtrum.disable();
-                }    
+                }
             }
         }
 
@@ -99,7 +114,7 @@
               }
             ]
           });
-    }    
+    }
 })();
 
 

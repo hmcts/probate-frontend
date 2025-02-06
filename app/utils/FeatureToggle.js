@@ -1,6 +1,5 @@
 'use strict';
 
-const logger = require('app/components/logger');
 const config = require('config');
 const caseTypes = require('app/utils/CaseTypes');
 const LaunchDarkly = require('app/components/launch-darkly');
@@ -25,7 +24,6 @@ class FeatureToggle {
     checkToggle(params) {
         const featureToggleKey = config.featureToggles[params.featureToggleKey];
         const ldUser = config.featureToggles.launchDarklyUser;
-        const sessionId = params.req.session.id;
 
         let ldDefaultValue = false;
 
@@ -38,7 +36,6 @@ class FeatureToggle {
                 if (err) {
                     params.next();
                 } else {
-                    logger(sessionId).info(`Checking feature toggle: ${params.featureToggleKey}, isEnabled: ${showFeature}`);
                     params.callback({
                         req: params.req,
                         res: params.res,

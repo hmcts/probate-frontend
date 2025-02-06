@@ -3,7 +3,7 @@
 <script src="/public/javascripts/govuk-frontend/govuk/all.js"></script>
 <script nonce="{{ globals.nonce }}">window.GOVUKFrontend.initAll()</script>
 
-<script src="/public/javascripts/dropzone.js"></script>
+<script src="/public/javascripts/dropzone.js?v=1.0"></script>
 <script nonce="{{ globals.nonce }}">
     const documentUploadConfig = {
         csrfToken: '{{ csrfToken }}',
@@ -15,17 +15,18 @@
             removeFileText: '{{ common.documentUploadRemoveFile | safe }}',
             errorSummaryHeading: '{{ common.errorSummaryHeading | safe }}',
             invalidFileType: '{{ common["documentUpload-invalidFileType"] | safe }}',
-            invalidFileTypeSummary: '{{ common["documentUpload-invalidFileTypeSummary"] | safe }}',
+            invalidFileTypeSummary: '{{ common["documentUpload-invalidFileType"] | safe }}',
             maxFiles: '{{ common["documentUpload-maxFiles"] | safe }}',
-            maxFilesSummary: '{{ common["documentUpload-maxFilesSummary"] | safe }}',
+            maxFilesSummary: '{{ common["documentUpload-maxFiles"] | safe }}',
             maxSize: '{{ common["documentUpload-maxSize"] | safe }}',
-            maxSizeSummary: '{{ common["documentUpload-maxSizeSummary"] | safe }}',
+            maxSizeSummary: '{{ common["documentUpload-maxSize"] | safe }}',
             uploadFailed: '{{ common["documentUpload-uploadFailed"] | safe }}',
             uploadFailedSummary: '{{ common["documentUpload-uploadFailedSummary"] | safe }}',
             uploadTimeout: '{{ common["documentUpload-uploadTimeout"] | safe }}',
             uploadTimeoutSummary: '{{ common["documentUpload-uploadTimeoutSummary"] | safe }}'
         }
     };
+
     document.addEventListener("DOMContentLoaded", function() {
       var saveAndCloseBtn = document.getElementById("saveAndClose");
       if (saveAndCloseBtn) {
@@ -37,7 +38,7 @@
       }
     });
 </script>
-<script src="/public/javascripts/document-upload.js"></script>
+<script src="/public/javascripts/document-upload.js?v=1.0"></script>
 <!-- Dynatrace -->
 <script type="text/javascript" src="{{ globals.dynatrace.dynatraceUrl }}" crossorigin="anonymous"></script>
 <!-- End Dynatrace -->

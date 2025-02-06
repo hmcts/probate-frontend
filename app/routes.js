@@ -25,6 +25,9 @@ const emailValidator = require('email-validator');
 const Security = require('app/services/Security');
 const Authorise = require('app/services/Authorise');
 const FormatUrl = require('app/utils/FormatUrl');
+const CaseProgress = require('./utils/CaseProgress');
+const utils = require('./components/step-utils');
+const moment = require('moment/moment');
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
@@ -160,6 +163,9 @@ router.use((req, res, next) => {
     const applicantHasPassedPayment = paymentWrapper.hasPassedPayment();
     const paymentIsSuccessful = paymentWrapper.paymentIsSuccessful();
     const paymentIsNotRequired = paymentWrapper.paymentIsNotRequired();
+    const date = (formdata.reviewresponse?.expectedResponseDate || formdata.expectedResponseDate)? utils.formattedDate(moment(formdata.reviewresponse?.expectedResponseDate || formdata.expectedResponseDate, 'YYYY-MM-DD').parseZone(), req.session.language): null;
+    const informationProvided = CaseProgress.informationProvided(formdata.ccdCase?.state, formdata.provideinformation?.documentUploadIssue, date);
+    const partialInformationProvided = CaseProgress.partialInformationProvided(formdata.ccdCase?.state, formdata.provideinformation?.documentUploadIssue, date, formdata.provideinformation?.citizenResponse, formdata.documents?.uploads.map(doc => doc.filename), formdata.provideinformation?.isSaveAndClose);
 
     const allPageUrls = [];
     Object.entries(steps).forEach(([, step]) => {
@@ -179,10 +185,16 @@ router.use((req, res, next) => {
             next();
         } else if (config.app.requireCcdCaseId === 'true' && req.method === 'GET' && !noCcdCaseIdPages.includes(currentPageCleanUrl) && !get(formdata, 'ccdCase.id')) {
             res.redirect('/dashboard');
-        } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && currentPageCleanUrl==='/payment-status') {
+        } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && currentPageCleanUrl === '/payment-status') {
             res.redirect('/thank-you');
         } else if (applicationSubmitted && (paymentIsSuccessful || paymentIsNotRequired) && !config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl)) {
-            res.redirect('/citizens-hub');
+            if (currentPageCleanUrl === '/provide-information' && !(informationProvided || partialInformationProvided)) {
+                next();
+            } else if (currentPageCleanUrl === '/review-response' && !(informationProvided || partialInformationProvided)) {
+                next();
+            } else {
+                res.redirect('/citizens-hub');
+            }
         } else if (redirectTaskList(req, currentPageCleanUrl, formdata, applicationSubmitted, applicantHasPassedPayment)) {
             res.redirect('/task-list');
         } else {
@@ -194,6 +206,7 @@ router.use((req, res, next) => {
 });
 
 router.use('/document-upload', documentUpload);
+router.use('/provide-information', documentUpload);
 
 router.use((req, res, next) => {
     res.locals.session = req.session;

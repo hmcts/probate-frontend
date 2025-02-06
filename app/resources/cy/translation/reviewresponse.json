@@ -1,0 +1,16 @@
+{
+  "title": "Adolygu eich ymateb cyn cyflwyno",
+  "header": "Adolygu eich ymateb cyn cyflwyno",
+  "paragraph1": "Drwy gyflwyno’r ymateb hwn, rydych yn cadarnhau bod yr wybodaeth yr ydych wedi ei darparu yn gywir hyd eithaf eich gwybodaeth ac rydych yn deall y bydd yn cael ei storio fel cofnod cyhoeddus.",
+  "subheader1": "Eich ymateb",
+  "subheader2": "Enw’r ddogfen",
+  "subheader3": "Datganiad cyfreithiol",
+  "paragraph2": "Os byddwch yn darparu gwybodaeth anwir, efallai y bydd eich cais yn cael ei dynnu’n ôl neu fydd eich grant profiant yn cael ei ddiddymu. Gallwch fod yn euog o ddirmyg llys, sy’n golygu y gallwch gael eich dirwyo neu eich anfon i’r carchar.",
+  "citizenResponseCheckbox": "Cadarnhaf fy mod yn deall ac yn derbyn y datganiad hwn",
+  "documentUploadIssue": "Rwyf yn cael trafferth wrth lwytho rhai neu’r cyfan o fy nogfennau.",
+  "errors": {
+    "citizenResponseCheckbox": {
+      "required": "Rhaid i chi gadarnhau eich bod yn deall ac yn derbyn y datganiad cyfreithiol."
+    }
+  }
+}

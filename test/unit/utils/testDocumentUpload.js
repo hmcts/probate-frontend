@@ -1,4 +1,4 @@
-// eslint-disable-line max-lines
+/* eslint-disable max-lines */
 
 'use strict';
 
@@ -325,7 +325,7 @@ describe('DocumentUploadUtil', () => {
             const documentUpload = new DocumentUpload();
             const error = documentUpload.validate(document);
             expect(error).to.deep.equal({
-                js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
+                js: 'The selected file must be a JPG, BMP, TIFF, PNG or PDF',
                 nonJs: 'invalidFileType'
             });
             revert();
@@ -342,7 +342,7 @@ describe('DocumentUploadUtil', () => {
             const documentUpload = new DocumentUpload();
             const error = documentUpload.validate(document);
             expect(error).to.deep.equal({
-                js: 'Use a file that is under 10MB and try again',
+                js: 'The selected file must be smaller than 10MB',
                 nonJs: 'maxSize'
             });
             revert();
@@ -396,7 +396,7 @@ describe('DocumentUploadUtil', () => {
             const documentUpload = new DocumentUpload();
             const error = documentUpload.mapError('en', errorKey);
             expect(error).to.deep.equal({
-                js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
+                js: 'The selected file must be a JPG, BMP, TIFF, PNG or PDF',
                 nonJs: 'invalidFileType'
             });
             done();
@@ -407,7 +407,7 @@ describe('DocumentUploadUtil', () => {
             const documentUpload = new DocumentUpload();
             const error = documentUpload.mapError('en', errorKey);
             expect(error).to.deep.equal({
-                js: 'Use a file that is under 10MB and try again',
+                js: 'The selected file must be smaller than 10MB',
                 nonJs: 'maxSize'
             });
             done();

@@ -8,7 +8,7 @@ var DocumentUpload = {
     initDropzone: function() {
         if ($('.document-upload__dropzone').length) {
             new Dropzone('.document-upload__dropzone', {
-                url: '/document-upload',
+                url: '/provide-information',
                 previewsContainer: '.document-upload__preview',
                 headers: {
                     'x-csrf-token': documentUploadConfig.csrfToken
@@ -75,7 +75,7 @@ var DocumentUpload = {
     },
     showErrorSummary: function() {
         if ($('.govuk-error-summary').length === 0) {
-            $('.govuk-fieldset').before('<div class="govuk-error-summary" role="alert" aria-labelledby="error-summary-title" tabindex="-1" data-module="govuk-error-summary"><h2 class="govuk-error-summary__title" id="error-summary-title">' + documentUploadConfig.content.errorSummaryHeading + '</h2><div class="govuk-error-summary__body"><ul class="govuk-list govuk-error-summary__list"></ul></div></div>');
+            $('.uploadDocumentH1').before('<div class="govuk-error-summary" role="alert" aria-labelledby="error-summary-title" tabindex="-1" data-module="govuk-error-summary"><h2 class="govuk-error-summary__title" id="error-summary-title">' + documentUploadConfig.content.errorSummaryHeading + '</h2><div class="govuk-error-summary__body"><ul class="govuk-list govuk-error-summary__list"></ul></div></div>');
         }
     },
     removeErrorSummary: function() {
@@ -110,6 +110,6 @@ var DocumentUpload = {
         });
     },
     removeDocument: function(index) {
-        $.get('/document-upload/remove/' + index);
+        $.get('/provide-information/remove/' + index);
     }
 };

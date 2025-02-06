@@ -1,6 +1,7 @@
 {
   "title": "Cyfeiriad yr unigolyn sydd wedi marw",
-  "question": "Beth oedd eu cyfeiriad parhaol pan fu iddynt farw?",
+  "question": "Beth oedd cyfeiriad parhaol {deceasedName} pan fu iddi farw?",
+  "explanation1": "Os oedd yn byw mewn cartref gofal, dylech nodi'r cyfeiriad hwnnw.",
   "postTown": "Tref neu ddinas",
   "postcode": "Cod post",
   "country": "Gwlad (dewisol)",

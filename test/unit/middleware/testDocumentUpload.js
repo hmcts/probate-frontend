@@ -1,4 +1,4 @@
-// eslint-disable-line max-lines
+/* eslint-disable max-lines */
 
 'use strict';
 
@@ -168,11 +168,18 @@ describe('DocumentUploadMiddleware', () => {
                 },
                 file: {
                     mimetype: 'image/jpeg'
+                },
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: 1234
+                        }
+                    }
                 }
             });
             documentUploadMiddleware.uploadDocument(req, res, next);
             setTimeout(() => {
-                expect(req.log.info.calledWith('Uploaded document passed frontend validation')).to.equal(true);
+                expect(req.log.info.calledWith('Uploaded document passed frontend validation for case: 1234')).to.equal(true);
                 expect(req.session.form.documents.uploads).to.deep.equal([{
                     filename: 'death-certificate.pdf',
                     url: 'http://localhost:8383/documents/60e34ae2-8816-48a6-8b74-a1a3639cd505'
@@ -189,7 +196,7 @@ describe('DocumentUploadMiddleware', () => {
                 req.log.error = sinon.spy();
                 const revert = documentUploadMiddleware.__set__('returnError', sinon.spy());
                 const error = {
-                    js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
+                    js: 'The selected file must be a JPG, BMP, TIFF, PNG or PDF',
                     nonJs: 'invalidFileType'
                 };
                 documentValidateStub.returns(error);
@@ -226,16 +233,24 @@ describe('DocumentUploadMiddleware', () => {
                     },
                     file: {
                         mimetype: 'image/jpeg'
+                    },
+                    session: {
+                        form: {
+                            ccdCase: {
+                                id: 1234
+                            }
+                        },
+                        language: 'en'
                     }
                 });
                 const error = {
-                    js: 'Save your file as a jpg, bmp, tiff, png or PDF file and try again',
+                    js: 'The selected file must be a JPG, BMP, TIFF, PNG or PDF',
                     nonJs: 'invalidFileType'
                 };
                 documentUploadMiddleware.uploadDocument(req, res, next);
                 setTimeout(() => {
-                    expect(req.log.info.calledWith('Uploaded document passed frontend validation')).to.equal(true);
-                    expect(req.log.error.calledWith('Uploaded document failed backend validation')).to.equal(true);
+                    expect(req.log.info.calledWith('Uploaded document passed frontend validation for case: 1234')).to.equal(true);
+                    expect(req.log.error.calledWith('Uploaded document failed backend validation for case: 1234')).to.equal(true);
                     expect(documentUploadMiddleware.__get__('returnError').calledWith(req, res, next, error)).to.equal(true);
                     revert();
                     addDocumentStub.restore();
@@ -260,15 +275,23 @@ describe('DocumentUploadMiddleware', () => {
                     },
                     file: {
                         mimetype: 'image/jpeg'
+                    },
+                    session: {
+                        form: {
+                            ccdCase: {
+                                id: 1234
+                            }
+                        },
+                        language: 'en'
                     }
                 });
                 const error = {
-                    js: 'Select your document and try again',
+                    js: 'The selected file could not be uploaded – try again.',
                     nonJs: 'uploadFailed'
                 };
                 documentUploadMiddleware.uploadDocument(req, res, next);
                 setTimeout(() => {
-                    expect(req.log.info.calledWith('Uploaded document passed frontend validation')).to.equal(true);
+                    expect(req.log.info.calledWith('Uploaded document passed frontend validation for case: 1234')).to.equal(true);
                     expect(req.log.error.calledWith('Document upload failed: Error: Upload failed')).to.equal(true);
                     expect(documentUploadMiddleware.__get__('returnError').calledWith(req, res, next, error)).to.equal(true);
                     revert();
@@ -324,7 +347,7 @@ describe('DocumentUploadMiddleware', () => {
             revertFormData();
             setTimeout(() => {
                 expect(req.session.form.documents.uploads).to.deep.equal([]);
-                expect(res.redirect.calledWith('/document-upload')).to.equal(true);
+                expect(res.redirect.calledWith('/provide-information')).to.equal(true);
                 done();
                 formDataStub.restore();
             });

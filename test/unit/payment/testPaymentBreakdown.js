@@ -1,4 +1,4 @@
-// eslint-disable-line max-lines
+/* eslint-disable max-lines */
 
 'use strict';
 

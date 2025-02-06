@@ -1,0 +1,79 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "widgets/lists.html" import orderedList %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% block form_content %}
+  <h1 class="govuk-heading-xl govuk-!-margin-bottom-4 uploadDocumentH1">{{ content.header | safe }}</h1>
+  <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+  {% set documentUploadIssueHintHtml %}
+    <p class="govuk-body">{{ content.troubleUploadCheckHint | safe }}</p>
+  {% endset -%}
+  <h1 class="govuk-body"><strong>{{ content.subheader1 | safe }} </strong></h1>
+  <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+
+  {{govukTextarea({
+      name: "citizenResponse",
+      label: {
+        text: " ",
+        classes: "govuk-label--s",
+        isPageHeading: false
+      },
+      id: "citizenResponse",
+      value: fields.citizenResponse.value,
+      errorMessage: { text: fields.citizenResponse.errorMessage | safe } if fields.citizenResponse.errorMessage
+  }) }}
+
+  <h1 class="govuk-body"><strong>{{ content.subheader2 | safe }} </strong></h1>
+  <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
+
+  {{ govukInsetText({
+  text: ("<p class=\"govuk-body\">" + content.help1 + "</p>") | safe
+  }) }}
+  <p class="govuk-body">{{ content.paragraph4 | safe }}<br/>{{ content.paragraph5 | safe }}</p>
+  {% include "includes/document-upload.html" %}
+
+  {{ govukCheckboxes({
+      idPrefix: "documentUploadIssue",
+      name: "documentUploadIssue",
+      items: [
+          {
+              value: true,
+              text: content.documentUploadIssue | safe,
+              checked: true if fields.documentUploadIssue.value === "true",
+              conditional: {
+                html: documentUploadIssueHintHtml
+              }
+          }
+      ],
+      errorMessage: { text: fields.citizenResponse.errorMessage | safe } if fields.citizenResponse.errorMessage
+  }) }}
+
+  <div class="govuk-form-group">
+    {{ govukButton({
+    text: common.continue | safe,
+    preventDoubleClick: true,
+    id: "provideInformationContinueBtn"
+    }) }}
+  </div>
+<script nonce="{{ globals.nonce }}">
+  document.addEventListener("DOMContentLoaded", function() {
+    var provideInformationContinueBtn = document.getElementById("provideInformationContinueBtn");
+    if (provideInformationContinueBtn) {
+      provideInformationContinueBtn.addEventListener("click", function(e) {
+        var invalidFileTypeError=$('[data-fielderror="' + documentUploadConfig.content.invalidFileType + '"]').length;
+        var maxFilesError=$('[data-fielderror="' + documentUploadConfig.content.maxFiles + '"]').length;
+        var maxSizeError=$('[data-fielderror="' + documentUploadConfig.content.maxSize + '"]').length;
+        if(invalidFileTypeError + maxFilesError + maxSizeError > 0){
+          e.preventDefault();
+        }
+      });
+    }
+  });
+</script>
+{% endblock %}

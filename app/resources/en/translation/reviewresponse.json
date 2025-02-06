@@ -1,0 +1,16 @@
+{
+  "title": "Review your response before submitting",
+  "header": "Review your response before submitting",
+  "paragraph1": "By submitting this response, you confirm that the information you are providing is correct to the best of your knowledge and you understand that it will be stored as a public record.",
+  "subheader1": "Your response",
+  "subheader2": "Document name",
+  "subheader3": "Legal declaration",
+  "paragraph2": "If you provide false information, your application may be withdrawn or your grant of probate revoked. You may also be found to be in contempt of court, which means you can be fined or sent to prison.",
+  "citizenResponseCheckbox": "I confirm that I understand and accept this declaration",
+  "documentUploadIssue": "I’m having trouble uploading some or all of my documents",
+  "errors": {
+    "citizenResponseCheckbox": {
+      "required": "You must confirm that you understand and accept the legal declaration."
+    }
+  }
+}

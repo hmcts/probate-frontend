@@ -1,7 +1,9 @@
 {% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "widgets/fielderror.html" import fieldError %}
 
 <div class="document-upload">
     <div class="document-upload__dropzone">
+      {{ fieldError(fields.citizenResponse) }}
         <img src="/public/images/document-upload-arrow.png" class="document-upload__image" alt="{{ content.title | safe }}">
         <div class="document-upload__text">
             <p class="govuk-body document-upload__dropzone-text document-upload__dropzone-text--choose-file">{{ common.documentUploadChooseFile | safe }}</p>
@@ -9,29 +11,25 @@
             <p class="govuk-body document-upload__dropzone-text">{{ common.documentUploadDragAndDrop | safe }}</p>
         </div>
         <div class="document-upload__fallback fallback">
-            <form class="form" method="post" autocomplete="off" action="/document-upload?_csrf={{ csrfToken }}" enctype="multipart/form-data" novalidate>
-                <div class="govuk-form-group">
-                    {{ govukFileUpload({
-                        id: "file",
-                        name: "file",
-                        label: {
-                            text: content.title | safe
-                        }
-                    }) }}
-
-                    <input name="isUploadingDocument" type="hidden" value="true">
-                </div>
-                <div class="govuk-form-group">
-                    {{ govukButton({
-                        text: common.documentUploadUploadDocument | safe,
-                        preventDoubleClick: true,
-                        classes: "govuk-button--secondary",
-                        attributes: {
-                            id: "button"
-                        }
-                    }) }}
-                </div>
-            </form>
+          <div class="govuk-form-group">
+              {{ govukFileUpload({
+                  id: "file",
+                  name: "file",
+                  label: {
+                      text: content.title | safe
+                  }
+              }) }}
+          </div>
+          <div class="govuk-form-group">
+              {{ govukButton({
+                  text: common.documentUploadUploadDocument | safe,
+                  preventDoubleClick: true,
+                  classes: "govuk-button--secondary",
+                  attributes: {
+                      id: "button"
+                  }
+              }) }}
+          </div>
         </div>
     </div>
     <div class="document-upload__preview" id="uploaded-files">
@@ -54,7 +52,7 @@
                 <div class="dz-progress">
                     <span class="dz-upload" data-dz-uploadprogress></span>
                 </div>
-                <a class="govuk-link dz-remove" href="/document-upload/remove/{{ loop.index0 }}">{{ common.documentUploadRemoveFile | safe }}</a>
+                <a class="govuk-link dz-remove" href="/provide-information/remove/{{ loop.index0 }}">{{ common.documentUploadRemoveFile | safe }}</a>
             </div>
         {% endfor %}
     </div>

@@ -1,0 +1,28 @@
+{
+  "title": "Respond to the caseworker’s comments",
+  "header": "Respond to the caseworker’s comments",
+  "paragraph1": "Read the caseworker’s reasons for stopping the application in the email they sent you and provide the information they’ve asked for.",
+  "subheader1": "Enter your response",
+  "paragraph2": "Write your response if the caseworker wants you to explain something or provide additional information. If the caseworker has only asked you to upload documents, you do not have to write anything unless you think it’s useful information.",
+  "subheader2": "Upload documents",
+  "paragraph3": "Upload documents if the caseworker has asked you to provide any, or if you have any evidence to support your response.",
+  "help1": "If you are uploading a photo or scan, make sure it shows the whole document. Check you can read all the text before uploading it. If the caseworker cannot read it, the document may be rejected.",
+  "paragraph4": "The file must be in jpg, bmp, tiff, png or pdf format.",
+  "paragraph5": "Maximum file size is 10MB.",
+  "documentUploadIssue": "I’m having trouble uploading some or all of my documents",
+  "troubleUploadCheckHint": "If you are unable to upload your documents due to a technical issue, you can post or email your documents instead. You will receive details on how to send them after you have submitted your response.",
+
+  "errors": {
+    "file": {
+      "invalidFileType": "The selected file must be a JPG, BMP, TIFF, PNG or PDF",
+      "maxSize": "The selected file must be smaller than 10MB",
+      "maxFilesExceeded": "You have uploaded too many files. You can upload a maximum of 10 files",
+      "uploadFailed": "The selected file could not be uploaded – try again. ",
+      "nothingUploaded": "You need to select a file before you can upload it. Click &lsquo;browse&rsquo; to find a file to upload",
+      "uploadTimeout": "The file has taken too long to upload. The file may be too big, reduce the file size and try again"
+    },
+    "citizenResponse": {
+      "required": "You must either enter a response, upload a document, or tell us if you are having trouble uploading any documents"
+    }
+  }
+}

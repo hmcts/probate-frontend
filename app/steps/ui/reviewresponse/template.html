@@ -1,0 +1,78 @@
+{% extends "includes/layout.html" %}
+
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "widgets/checkanswer.njk" import checkanswer %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+      {% block error_summary %}
+      {% include "includes/error_summary.html" %}
+      {% endblock %}
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">{{ content.header | safe }}</h1>
+      <dl class="govuk-summary-list">
+        {{ checkanswer(
+          items = [
+              {
+                  question: '<strong>'+content.subheader1+'</strong>',
+                  answer: fields.citizenResponse.value,
+                  visible: true
+              }],
+              url = '/provide-information',
+              common = common,
+              alreadyDeclared = "false"
+        ) }}
+          {{checkanswer(
+            items = [
+                {
+                    question: '<strong>'+content.subheader2+'</strong>',
+                    answer: fields.uploadedDocuments.value,
+                    visible: true if (fields.uploadedDocuments.value != undefined and fields.uploadedDocuments.value.length > 0)
+                }
+                ],
+                url = '/provide-information',
+                common = common,
+                alreadyDeclared = "false"
+          )}}
+        {{checkanswer(
+            items = [
+            {
+                question: '<strong>'+content.subheader2+'</strong>',
+                answer: content.documentUploadIssue,
+                visible: true if fields.documentUploadIssue.value === "true"
+            }
+            ],
+            url = '/provide-information',
+            common = common,
+            alreadyDeclared = "false"
+        )}}
+      </dl>
+      <form class="form" id="main-form" method="post" autocomplete="off" action="{{ pageUrl }}" novalidate>
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+          <div class="govuk-grid-column-two-thirds" style="padding-left: 0px;">
+              <h1 class="govuk-notification-banner__heading"  ><strong>{{ content.subheader3 | safe }} </strong></h1>
+              <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+              <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+              {{ govukCheckboxes({
+                idPrefix: "citizenResponseCheckbox",
+                name: "citizenResponseCheckbox",
+                errorMessage: { text: fields.citizenResponseCheckbox.errorMessage | safe } if fields.citizenResponseCheckbox.errorMessage,
+                items: [
+                  {
+                    value: true,
+                    text: content.citizenResponseCheckbox | safe
+                  }
+                ]
+              }) }}
+              <div class="govuk-form-group">
+                {{ govukButton({
+                text: common.submitOnly | safe,
+                preventDoubleClick: true
+                }) }}
+              </div>
+          </div>
+      </form>
+    </div>
+{% endblock %}
+

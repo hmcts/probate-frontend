@@ -165,6 +165,43 @@ describe('CitizensHub', () => {
             expect(ctx.caseType).to.equal('gop');
             done();
         });
+        it('should return the context with uploaded documents', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'BOGrantIssued'
+                        },
+                        documents: {
+                            uploads: [{filename: 'screenshot1.png'}, {filename: 'screenshot2.png'}]
+                        }
+                    }
+                },
+            };
+            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
+            ctx = citizensHub.getContextData(req);
+            expect(ctx.uploadedDocuments).to.deep.equal(['screenshot1.png', 'screenshot2.png']);
+            done();
+        });
+        it('should return the context with formatted date', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        ccdCase: {
+                            id: 1234567890123456,
+                            state: 'BOGrantIssued'
+                        },
+                        expectedResponseDate: '2024-10-25'
+                    },
+                    language: 'en'
+                },
+            };
+            const citizensHub = new CitizensHub(steps, section, templatePath, i18next, schema);
+            ctx = citizensHub.getContextData(req);
+            expect(ctx.date).to.deep.equal('25 October 2024');
+            done();
+        });
     });
     describe('action()', () => {
         it('test that context variables are removed and empty object returned', () => {

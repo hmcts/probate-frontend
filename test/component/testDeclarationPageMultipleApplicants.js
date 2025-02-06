@@ -1,4 +1,4 @@
-// eslint-disable-line max-lines
+/* eslint-disable max-lines */
 
 'use strict';
 
@@ -341,7 +341,7 @@ describe('declaration, multiple applicants', () => {
             contentData.applicantCurrentNameSign = 'fname1 sname1';
             contentData.applicantCurrentName = 'Bob Smith';
             contentData.applicantWillName = 'larry bird';
-            contentData.aliasReason = ' Bob Smith got divorced or ended their civil partnership';
+            contentData.aliasReason = ' They got divorced or ended their civil partnership';
             contentData.detailsOfApplicants = 'Bob Smith of flat 1, somewhere rd, nowhere., fname1 sname1 of 1 qwe\r\n1 asd\r\n1 zxc and fname4 sname4 of 4 qwe\r\n4 asd\r\n4 zxc';
 
             testWrapper.agent.post('/prepare-session/form')
@@ -430,7 +430,7 @@ describe('declaration, multiple applicants', () => {
             contentData.applicantCurrentNameSign = 'fname1 sname1';
             contentData.applicantCurrentName = 'Bob Smith';
             contentData.applicantWillName = 'larry bird';
-            contentData.aliasReason = ' Bob Smith got divorced or ended their civil partnership';
+            contentData.aliasReason = ' They got divorced or ended their civil partnership';
             contentData.detailsOfApplicants = 'Bob Smith of flat 1, somewhere rd, nowhere., fname1 sname1 of 1 qwe\r\n1 asd\r\n1 zxc and fname4 sname4 of 4 qwe\r\n4 asd\r\n4 zxc';
 
             testWrapper.agent.post('/prepare-session/form')
@@ -606,7 +606,7 @@ describe('declaration, multiple applicants', () => {
 
             contentData.codicilsNumber = '';
             contentData.codicils = 'codicil';
-            contentData.aliasReason = ' Bob Smith got divorced or ended their civil partnership';
+            contentData.aliasReason = ' They got divorced or ended their civil partnership';
             contentData.applicantWillName = 'fname1 sname1';
             contentData.aliasReason = ' They changed their name by deed poll';
             contentData.detailsOfApplicants = 'Bob Smith of flat 1, somewhere rd, nowhere., fname1other sname1other of 1 qwe\r\n1 asd\r\n1 zxc and fname4other sname4other of 4 qwe\r\n4 asd\r\n4 zxc';
@@ -807,7 +807,7 @@ describe('declaration, multiple applicants', () => {
                 .end(() => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
-                            assert(response.text.includes('Bob Smith, an executor named in the will or codicils as Bob Alias, is applying for probate. Their name is different because: Bob Smith got divorced or ended their civil partnership.'));
+                            assert(response.text.includes('Bob Smith, an executor named in the will or codicils as Bob Alias, is applying for probate. Their name is different because: They got divorced or ended their civil partnership.'));
                             assert(response.text.includes('Bob Smith will send to the probate registry what we have seen and believe to be the true and original last will and testament, and 3 codicils of Dee Ceased.'));
                             assert(response.text.includes('fname1 sname1, an executor named in the will or codicils, is applying for probate.'));
                             assert(response.text.includes('fname4 sname4, an executor named in the will or codicils, is applying for probate.'));
@@ -832,7 +832,7 @@ describe('declaration, multiple applicants', () => {
                 .end(() => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
-                            assert(response.text.includes('Bob Smith, an executor named in the will as Bob Alias, is applying for probate. Their name is different because: Bob Smith got divorced or ended their civil partnership.'));
+                            assert(response.text.includes('Bob Smith, an executor named in the will as Bob Alias, is applying for probate. Their name is different because: They got divorced or ended their civil partnership.'));
                             assert(response.text.includes('Bob Smith will send to the probate registry what we have seen and believe to be the true and original last will and testament of Dee Ceased.'));
                             assert(response.text.includes('fname1 sname1, an executor named in the will, is applying for probate.'));
                             assert(response.text.includes('fname4 sname4, an executor named in the will, is applying for probate.'));
@@ -857,7 +857,7 @@ describe('declaration, multiple applicants', () => {
                 .end(() => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
-                            assert(response.text.includes('Bob Smith, an executor named in the will or codicils as Bob Alias, is applying for probate. Their name is different because: Bob Smith got divorced or ended their civil partnership.'));
+                            assert(response.text.includes('Bob Smith, an executor named in the will or codicils as Bob Alias, is applying for probate. Their name is different because: They got divorced or ended their civil partnership.'));
                             assert(response.text.includes('Bob Smith will send to the probate registry what we have seen and believe to be the true and original last will and testament, and 2 codicils of Dee Ceased.'));
                             assert(response.text.includes('fname1other sname1other, an executor named in the will or codicils as fname1 sname1, is applying for probate. Their name is different because: They got divorced or ended their civil partnership.'));
                             assert(response.text.includes('fname4 sname4, an executor named in the will or codicils, is applying for probate.'));
@@ -886,7 +886,7 @@ describe('declaration, multiple applicants', () => {
                 .end(() => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
-                            assert(response.text.includes('Bob Smith, an executor named in the will or codicils as Bob Alias, is applying for probate. Their name is different because: Bob Smith got divorced or ended their civil partnership.'));
+                            assert(response.text.includes('Bob Smith, an executor named in the will or codicils as Bob Alias, is applying for probate. Their name is different because: They got divorced or ended their civil partnership.'));
                             assert(response.text.includes('Bob Smith will send to the probate registry what we have seen and believe to be the true and original last will and testament, and  codicil of Dee Ceased.'));
                             assert(response.text.includes('fname1other sname1other, an executor named in the will or codicils as fname1 sname1, is applying for probate. Their name is different because: They got divorced or ended their civil partnership.'));
                             assert(response.text.includes('dave buster, an executor named in the will or codicils as fname4 sname4, is applying for probate. Their name is different because: they felt like it.'));
@@ -910,7 +910,7 @@ describe('declaration, multiple applicants', () => {
                 .end(() => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
-                            assert(response.text.includes('Bob Smith, an executor named in the will as Bob Alias, is applying for probate. Their name is different because: Bob Smith got divorced or ended their civil partnership.'));
+                            assert(response.text.includes('Bob Smith, an executor named in the will as Bob Alias, is applying for probate. Their name is different because: They got divorced or ended their civil partnership.'));
                             assert(response.text.includes('Bob Smith will send to the probate registry what we have seen and believe to be the true and original last will and testament of Dee Ceased.'));
                             assert(response.text.includes('fname1other sname1other, an executor named in the will as fname1 sname1, is applying for probate. Their name is different because: They got married or formed a civil partnership.'));
                             assert(response.text.includes('fname4 sname4, an executor named in the will, is applying for probate.'));
@@ -938,7 +938,7 @@ describe('declaration, multiple applicants', () => {
                 .end(() => {
                     testWrapper.agent.get(testWrapper.pageUrl)
                         .then(response => {
-                            assert(response.text.includes('Bob Smith, an executor named in the will as Bob Alias, is applying for probate. Their name is different because: Bob Smith got divorced or ended their civil partnership.'));
+                            assert(response.text.includes('Bob Smith, an executor named in the will as Bob Alias, is applying for probate. Their name is different because: They got divorced or ended their civil partnership.'));
                             assert(response.text.includes('Bob Smith will send to the probate registry what we have seen and believe to be the true and original last will and testament of Dee Ceased.'));
                             assert(response.text.includes('fname1other sname1other, an executor named in the will as fname1 sname1, is applying for probate. Their name is different because: They got divorced or ended their civil partnership.'));
                             assert(response.text.includes('dave buster, an executor named in the will as fname4 sname4, is applying for probate. Their name is different because: they felt like it.'));

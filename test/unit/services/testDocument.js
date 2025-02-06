@@ -21,6 +21,32 @@ describe('DocumentService', () => {
             logSpy.restore();
             done();
         });
+        it('should post call log() and fetchJson()', (done) => {
+            const endpoint = '';
+            const fetchOptions = {method: 'POST'};
+            const caseId = '123';
+            const response = 'true';
+            const documentData = new Document(endpoint, 'abc123');
+            const logSpy = sinon.spy(documentData, 'log');
+            const fetchTextStub = sinon.stub(documentData, 'fetchText');
+            const fetchOptionsStub = sinon.stub(AsyncFetch, 'fetchOptions').returns(fetchOptions);
+            const formatUrlStub = sinon.stub(FormatUrl, 'format').returns('/formattedUrl');
+
+            documentData.notifyApplicant(caseId, response);
+
+            expect(documentData.log.calledOnce).to.equal(true);
+            expect(documentData.log.calledWith('Notify Document upload')).to.equal(true);
+            expect(formatUrlStub.calledOnce).to.equal(true);
+            expect(formatUrlStub.calledWith(endpoint, `/documents/notification/${caseId}/${response}`)).to.equal(true);
+            expect(fetchTextStub.calledOnce).to.equal(true);
+            expect(fetchTextStub.calledWith('/formattedUrl', fetchOptions)).to.equal(true);
+
+            logSpy.restore();
+            fetchTextStub.restore();
+            fetchOptionsStub.restore();
+            formatUrlStub.restore();
+            done();
+        });
     });
 
     describe('delete()', () => {

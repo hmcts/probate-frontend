@@ -16,10 +16,20 @@
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
 
-{% set applicantNameAsOnWillQuestion = content.ApplicantNameAsOnWill.questionWithoutName %}
+{# this seems like the worst possible way to have a boolean comparison #}
+{# we're passing a boolean into this from js and we end up with a string? i have no idea here #}
+{% if fields.summary.codicilPresent.value == 'true' %}
+  {% set applicantNameAsOnWillQuestion = content.ApplicantNameAsOnWill.questionWithoutNameWithCodicil %}
 
-{% if fields.applicant.firstName.value and fields.applicant.lastName.value %}
-    {% set applicantNameAsOnWillQuestion = content.ApplicantNameAsOnWill.question | replace("{applicantName}", fields.applicant.firstName.value + " " + fields.applicant.lastName.value) %}
+  {% if fields.applicant.firstName.value and fields.applicant.lastName.value %}
+      {% set applicantNameAsOnWillQuestion = content.ApplicantNameAsOnWill.questionWithCodicil | replace("{applicantName}", fields.applicant.firstName.value + " " + fields.applicant.lastName.value) %}
+  {% endif %}
+{% else %}
+  {% set applicantNameAsOnWillQuestion = content.ApplicantNameAsOnWill.questionWithoutName %}
+
+  {% if fields.applicant.firstName.value and fields.applicant.lastName.value %}
+      {% set applicantNameAsOnWillQuestion = content.ApplicantNameAsOnWill.question | replace("{applicantName}", fields.applicant.firstName.value + " " + fields.applicant.lastName.value) %}
+  {% endif %}
 {% endif %}
 
 {{checkanswer(

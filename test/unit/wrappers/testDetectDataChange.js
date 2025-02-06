@@ -1,4 +1,4 @@
-// eslint-disable-line max-lines
+/* eslint-disable max-lines */
 
 'use strict';
 
@@ -37,9 +37,15 @@ describe('DetectDataChange.js', () => {
     });
 
     describe('accessDataKey()', () => {
-        it('should return address when paramsKey is address', (done) => {
+        it('should return formattedAddress when paramsKey is address and section is executor', (done) => {
             const detectDataChange = new DetectDataChange();
-            expect(detectDataChange.accessDataKey('address')).to.equal('address.formattedAddress');
+            expect(detectDataChange.accessDataKey('addressLine1', 'executors')).to.equal('address.formattedAddress');
+            done();
+        });
+
+        it('should return addressLine1 when paramsKey is addressLine1 and section is deceased', (done) => {
+            const detectDataChange = new DetectDataChange();
+            expect(detectDataChange.accessDataKey('addressLine1', 'deceased')).to.equal('addressLine1');
             done();
         });
 
@@ -65,22 +71,27 @@ describe('DetectDataChange.js', () => {
             });
 
             it('when address is set', (done) => {
-                const params = {address: {
+                const params = {
                     addressLine1: '1 Silver Street',
                     formattedAddress: '1 Silver Street London L23 3LP',
                     postTown: 'London',
                     postCode: 'L23 3LP',
-                    country: 'United Kingdom'}
+                    country: 'United Kingdom',
+                    address: {
+                        formattedAddress: '1 Silver Street London L23 3LP',
+                    }
                 };
                 const sectionData = {
-                    address: {addressLine1: '11 Silver Street',
+                    address: {
+                        addressLine1: '11 Silver Street',
                         formattedAddress: '11 Silver Street London L23 3LP',
                         postTown: 'London',
                         postCode: 'L23 3LP',
-                        country: 'United Kingdom'}
+                        country: 'United Kingdom'
+                    }
                 };
                 const detectDataChange = new DetectDataChange();
-                expect(detectDataChange.hasChanged(params, sectionData)).to.equal(true);
+                expect(detectDataChange.hasChanged(params, sectionData, 'executors')).to.equal(true);
                 done();
             });
 
@@ -162,7 +173,7 @@ describe('DetectDataChange.js', () => {
 
             it('when the executors address is not equal and req.params[0] is set', (done) => {
                 req.params[0] = 1;
-                req.body.address = {
+                req.body = {
                     addressLine1: '1 Red Street',
                     formattedAddress: '1 Red Street London L21 1LL United Kingdom',
                     postTown: 'London',
@@ -177,7 +188,7 @@ describe('DetectDataChange.js', () => {
             it('when the executors address is not equal and indexPosition is set', (done) => {
                 req.session.indexPosition = 1;
                 req.params[0] = '*';
-                req.body.address = {
+                req.body = {
                     addressLine1: '1 Red Street',
                     formattedAddress: '1 Red Street London L21 1LL United Kingdom',
                     postTown: 'London',

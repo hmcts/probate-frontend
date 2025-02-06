@@ -10,76 +10,28 @@
             <h1 class="govuk-heading-l">{{ content.header | safe }}</h1>
             <p class="govuk-body">{{ content.introduction | safe }}</p>
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
-
-            {{ govukInsetText({
-                text: content.paragraph2 | replace("{applicationFormPA1P}", globals.links.applicationFormPA1P) | replace("{applicationFormPA1A}", globals.links.applicationFormPA1A) | safe
-            }) }}
-
             <h2 class="govuk-heading-m">{{ content.multipleHeader | safe }}</h2>
-            <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph4 | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph5 | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph6 | safe }}</p>
-
-            <h2 class="govuk-heading-m">{{ content.feesHeader | safe }}</h2>
-            {% if fields.isFeesApiToggleEnabled.value == "true" %}
-                <p class="govuk-body">{{ content.paragraph7 | safe }}</p>
-                {{ govukTable({
-                    caption: content.tableHeadLeft | safe,
-                    captionClasses: "govuk-visually-hidden",
-                    head: [
-                        { text: content.tableHeadLeft | safe },
-                        { text: content.tableHeadRight | safe, format: "numeric" }
-                    ],
-                    rows: [
-                        [
-                            { text: content.tableBodyFeeRange1 | safe },
-                            { text: content.tableBodyFeeRange1Value | safe, format: "numeric" }
-                        ],
-                        [
-                            { text: content.tableBodyFeeRange2 | safe },
-                            { text: content.tableBodyFeeRange2Value | safe, format: "numeric" }
-                        ],
-                        [
-                            { text: content.tableBodyFeeRange3 | safe },
-                            { text: content.tableBodyFeeRange3Value | safe, format: "numeric" }
-                        ],
-                        [
-                            { text: content.tableBodyFeeRange4 | safe },
-                            { text: content.tableBodyFeeRange4Value | safe, format: "numeric" }
-                        ],
-                        [
-                            { text: content.tableBodyFeeRange5 | safe },
-                            { text: content.tableBodyFeeRange5Value | safe, format: "numeric" }
-                        ],
-                        [
-                            { text: content.tableBodyFeeRange6 | safe },
-                            { text: content.tableBodyFeeRange6Value | safe, format: "numeric" }
-                        ],
-                        [
-                            { text: content.tableBodyFeeRange7 | safe },
-                            { text: content.tableBodyFeeRange7Value | safe, format: "numeric" }
-                        ]
-                    ]
-                }) }}
-                <p class="govuk-body">{{ content.paragraph8 | safe }}</p>
-            {% else %}
-                <p class="govuk-body">{{ content.paragraph7old | safe }}</p>
-                <p class="govuk-body">{{ content.paragraph8old | safe }}</p>
-            {% endif %}
-            <p class="govuk-body">{{ content.paragraph9 | safe }}</p>
-
-            <h2 class="govuk-heading-m">{{ content.feedbackHeader | safe }}</h2>
-            <p class="govuk-body">{{ content.paragraph10 | safe }}</p>
+          <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+            <p class="govuk-body">
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>{{ content.listItem1 | safe }}</li>
+                    <li>{{ content.listItem2 | safe }}</li>
+                    <li>{{ content.listItem3 | safe }}</li>
+                    <li>{{ content.listItem4 | safe }}<a href="{{globals.links.ihtChecker}}" rel="external noopener" target="_blank" class="govuk-link" aria-label="{{content.linkText3}}">{{ content.linkText3 | safe }}</a></li>
+                    <li>{{ content.listItem5 | safe }}</li>
+                </ul>
+            </p>
         </div>
     </div>
+    <br>
     <div class="govuk-form-group">
         {{ govukButton({
-            text: common.checkApply | safe,
+            text: common.continue | safe,
             href: "/death-certificate",
             isStartButton: true
         }) }}
     </div>
-
-    <p class="govuk-body"><a href="/dashboard" class="govuk-link">{{ content.paragraph11 | safe }}</a></p>
+    <h2 class="govuk-heading-m">{{ content.applicationStartedHeader | safe }}</h2>
+    <p class="govuk-body"><a href="/dashboard" class="govuk-link">{{ content.paragraph3 | safe }}</a></p>
+    {% include "includes/help_details.html" %}
 {% endblock %}

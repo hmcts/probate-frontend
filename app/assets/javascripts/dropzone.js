@@ -1797,7 +1797,7 @@ var Dropzone = function (_Emitter) {
   }, {
     key: "accept",
     value: function accept(file, done) {
-      if (this.options.maxFilesize && file.size > this.options.maxFilesize * 1024 * 1024) {
+      if (this.options.maxFilesize && file.size > this.options.maxFilesize ) {
         return done(this.options.dictFileTooBig.replace("{{filesize}}", Math.round(file.size / 1024 / 10.24) / 100).replace("{{maxFilesize}}", this.options.maxFilesize));
       } else if (!Dropzone.isValidFile(file, this.options.acceptedFiles)) {
         return done(this.options.dictInvalidFileType);

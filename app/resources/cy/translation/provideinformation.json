@@ -1,0 +1,28 @@
+{
+  "title": "Ymateb i sylwadau’r gweithiwr achos",
+  "header": "Ymateb i sylwadau’r gweithiwr achos",
+  "paragraph1": "Darllenwch resymau’r gweithiwr achos dros atal y cais yn yr e-bost a anfonwyd atoch a darparwch yr wybodaeth y maent wedi gofyn amdani.",
+  "subheader1": "Nodi eich ymateb",
+  "paragraph2": "Ysgrifennwch eich ymateb os yw’r gweithiwr achos am i chi egluro rhywbeth neu ddarparu gwybodaeth ychwanegol. Os yw’r gweithiwr achos ond wedi ofyn i chi uwchlwytho dogfennau, nid oes rhaid i chi ysgrifennu unrhyw beth, oni bai eich bod yn credu ei fod yn wybodaeth ddefnyddiol.",
+  "subheader2": "Uwchlwytho dogfennau",
+  "paragraph3": "Uwchlwythwch ddogfennau os yw’r gweithiwr achos wedi gofyn i chi ddarparu rhai, neu os oes gennych unrhyw dystiolaeth i gefnogi eich ymateb.",
+  "help1": "Os ydych chi'n uwchlwytho llun neu sgan, gwnewch yn siŵr ei fod yn dangos y ddogfen gyfan. Gwiriwch eich bod yn gallu darllen y testun i gyd cyn llwytho’r ffeil. Os na fydd y gweithiwr achos yn gallu ei ddarllen, gall gael ei wrthod.",
+  "paragraph4": "Rhaid i'r ffeil fod ar ffurf jpg, bmp, tiff, png neu pdf.",
+  "paragraph5": "Uchafswm maint y ffeil yw 10MB.",
+  "documentUploadIssue": "Rwyf yn cael trafferth wrth lwytho rhai neu’r cyfan o fy nogfennau.",
+  "troubleUploadCheckHint": "Os na allwch uwchlwytho’ch dogfennau oherwydd mater technegol, gallwch bostio dogfennau neu eu hanfon trwy e-bost yn lle hynny. Byddwch yn cael manylion ar sut i’w hanfon ar ôl ichi gyflwyno’ch ymateb.",
+
+  "errors": {
+    "file": {
+      "invalidFileType": "Rhaid i’r ffeil fod ar ffurf JPG, BMP, TIFF, PNG neu PDF",
+      "maxSize": "Rhaid i’r ffeil a ddewiswyd fod yn llai na 10MB",
+      "maxFilesExceeded": "Rydych wedi uwchlwytho gormod o ffeiliau. Gallwch uwchlwytho hyd at 10 ffeil",
+      "uploadFailed": "Ni ellid uwchlwytho’r ffeil a ddewiswyd - rhowch gynnig arall arni.",
+      "nothingUploaded": "Mae angen ichi ddewis ffeil cyn y gallwch ei huwchlwytho. Cliciwch &lsquo;browse&rsquo; i ddod o hyd i ffeil i&rsquo;w huwchlwytho",
+      "uploadTimeout": "Mae eich ffeil wedi cymryd gormod o amser i&rsquo;w huwchlwytho. Efallai bod y ffeil rhy fawr, gwnewch y ffeil yn llai a rhowch gynnig arall"
+    },
+    "citizenResponse": {
+      "required": "Rhaid i chi naill ai nodi ymateb, uwchlwytho dogfen, neu ddweud wrthym os ydych yn cael trafferth uwchlwytho unrhyw ddogfennau"
+    }
+  }
+}

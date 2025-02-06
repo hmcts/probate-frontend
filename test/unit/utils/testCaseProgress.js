@@ -50,6 +50,75 @@ describe('CaseProgress.js', () => {
         });
     });
 
+    describe('informationProvided()', () => {
+        it('should return true for informationProvided', (done) => {
+            const state = 'BOCaseStopped';
+            const documentUploadIssue = 'false';
+            const expectedResponseDate = '2024-12-11';
+            expect(CaseProgress.informationProvided(state, documentUploadIssue, expectedResponseDate)).to.equal(true);
+            done();
+        });
+        it('should return false for informationProvided', (done) => {
+            const state = 'BOCaseStopped';
+            const documentUploadIssue = 'false';
+            expect(CaseProgress.informationProvided(state, documentUploadIssue)).to.equal(false);
+            done();
+        });
+    });
+
+    describe('partialInformationProvided()', () => {
+        it('should return true for partialInformationProvided', (done) => {
+            const state = 'BOCaseStopped';
+            const documentUploadIssue = 'true';
+            expect(CaseProgress.partialInformationProvided(state, documentUploadIssue)).to.equal(true);
+            done();
+        });
+        it('should return true for partialInformationProvided', (done) => {
+            const state = 'BOCaseStopped';
+            const documentUploadIssue = 'true';
+            const expectedResponseDate = '2024-12-11';
+            expect(CaseProgress.partialInformationProvided(state, documentUploadIssue, expectedResponseDate)).to.equal(true);
+            done();
+        });
+        it('should return true for partialInformationProvided', (done) => {
+            const state = 'Dormant';
+            const documentUploadIssue = 'true';
+            const expectedResponseDate = null;
+            const citizenResponse = '';
+            const uploadedDocuments = [];
+            expect(CaseProgress.partialInformationProvided(state, documentUploadIssue, expectedResponseDate, citizenResponse, uploadedDocuments)).to.equal(true);
+            done();
+        });
+        it('should return false for partialInformationProvided', (done) => {
+            const state = 'BOCaseStopped';
+            const documentUploadIssue = null;
+            const expectedResponseDate = '2024-12-11';
+            const citizenResponse = 'something';
+            const uploadedDocuments = ['screenshot1.png', 'screenshot2.png'];
+            const isSaveAndClose = 'false';
+            expect(CaseProgress.partialInformationProvided(state, documentUploadIssue, expectedResponseDate, citizenResponse, uploadedDocuments, isSaveAndClose)).to.equal(false);
+            done();
+        });
+    });
+
+    describe('caseStopped()', () => {
+        it('should return true for BOCaseStopped', (done) => {
+            const state = 'BOCaseStopped';
+            expect(CaseProgress.caseStopped(state)).to.equal(true);
+            done();
+        });
+        it('should return true for Dormant', (done) => {
+            const state = 'Dormant';
+            expect(CaseProgress.caseStopped(state)).to.equal(true);
+            done();
+        });
+        it('should return false for BOCaseStoppedReissue', (done) => {
+            const state = 'BOCaseStoppedReissue';
+            expect(CaseProgress.caseStopped(state)).to.equal(false);
+            done();
+        });
+    });
+
     describe('applicationInReview()', () => {
         it('should return false for Pending', (done) => {
             const state = 'Pending';

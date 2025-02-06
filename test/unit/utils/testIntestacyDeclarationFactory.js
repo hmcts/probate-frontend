@@ -90,7 +90,7 @@ describe('IntestacyDeclarationFactory', () => {
                         deceasedEstateValue: content.cy.deceasedEstateValue
                             .replace('{ihtGrossValue}', formdata.ihtGrossValue)
                             .replace('{ihtNetValue}', formdata.ihtNetValue),
-                        deceasedEstateValueExceptedEstateConfirmation: 'Rwy\'n cadarnhau bod yr ystad yn ystad eithriedig.',
+                        deceasedEstateValueExceptedEstateConfirmation: 'Rwy&rsquo;n cadarnhau bod yr ystad yn ystad eithriedig.',
                         deceasedEstateAssetsOverseas: content.cy.intestacyDeceasedEstateOutside
                             .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
                         deceasedMaritalStatus: content.cy.intestacyDeceasedMaritalStatus
@@ -189,7 +189,7 @@ describe('IntestacyDeclarationFactory', () => {
                         deceasedEstateValue: content.cy.deceasedEstateValue
                             .replace('{ihtGrossValue}', formdata.ihtGrossValue)
                             .replace('{ihtNetValue}', formdata.ihtNetValue),
-                        deceasedEstateValueExceptedEstateConfirmation: 'Rwy\'n cadarnhau bod yr ystad yn ystad eithriedig.',
+                        deceasedEstateValueExceptedEstateConfirmation: 'Rwy&rsquo;n cadarnhau bod yr ystad yn ystad eithriedig.',
                         deceasedEstateAssetsOverseas: content.cy.intestacyDeceasedEstateOutside
                             .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
                         deceasedMaritalStatus: content.cy.intestacyDeceasedMaritalStatus

@@ -5,6 +5,8 @@ const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
 const FormatName = require('app/utils/FormatName');
 const DocumentsWrapper = require('app/wrappers/Documents');
 const CaseProgress = require('app/utils/CaseProgress');
+const moment = require('moment');
+const utils = require('app/components/step-utils');
 
 class CitizensHub extends Step {
 
@@ -28,16 +30,25 @@ class CitizensHub extends Step {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
+        const state = req.session.form.ccdCase.state;
         ctx.deceasedName = FormatName.format(req.session.form.deceased);
-        ctx.grantIssued = CaseProgress.grantIssued(req.session.form.ccdCase.state);
-        ctx.applicationInReview = CaseProgress.applicationInReview(req.session.form.ccdCase.state);
-        ctx.documentsReceived = CaseProgress.documentsReceived(req.session.form.ccdCase.state, req.session.form.documentsReceivedNotificationSent);
-        ctx.applicationSubmitted = CaseProgress.applicationSubmitted(req.session.form.ccdCase.state);
-        ctx.caseStopped = CaseProgress.caseStopped(req.session.form.ccdCase.state);
-        ctx.caseClosed = CaseProgress.caseClosed(req.session.form.ccdCase.state);
+        ctx.grantIssued = CaseProgress.grantIssued(state);
+        ctx.applicationInReview = CaseProgress.applicationInReview(state);
+        ctx.documentsReceived = CaseProgress.documentsReceived(state, req.session.form.documentsReceivedNotificationSent);
+        ctx.applicationSubmitted = CaseProgress.applicationSubmitted(state);
+        ctx.caseStopped = CaseProgress.caseStopped(state);
+        ctx.caseClosed = CaseProgress.caseClosed(state);
         ctx.ccdReferenceNumber = FormatCcdCaseId.format(req.session.form.ccdCase);
         ctx.ccdReferenceNumberAccessible = FormatCcdCaseId.formatAccessible(req.session.form.ccdCase);
         ctx.caseType = req.session.form.caseType;
+        ctx.informationNeededByPost=req.session.form.informationNeededByPost;
+        ctx.informationNeeded=req.session.form.informationNeeded;
+        if (req.session.form.documents?.uploads) {
+            ctx.uploadedDocuments = req.session.form.documents.uploads.map(doc => doc.filename);
+        }
+        ctx.date = (req.session.form.reviewresponse?.expectedResponseDate || req.session.form.expectedResponseDate)? utils.formattedDate(moment(req.session.form.reviewresponse?.expectedResponseDate || req.session.form.expectedResponseDate, 'YYYY-MM-DD').parseZone(), req.session.language): null;
+        ctx.informationProvided = CaseProgress.informationProvided(state, req.session.form.provideinformation?.documentUploadIssue, ctx.date);
+        ctx.partialInformationProvided = CaseProgress.partialInformationProvided(state, req.session.form.provideinformation?.documentUploadIssue, ctx.date, req.session.form.provideinformation?.citizenResponse, ctx.uploadedDocuments, req.session.form.provideinformation?.isSaveAndClose);
         return ctx;
     }
 
@@ -45,6 +56,8 @@ class CitizensHub extends Step {
         super.action(ctx, formdata);
         delete ctx.ccdReferenceNumber;
         delete ctx.ccdReferenceNumberAccessible;
+        delete ctx.uploadedDocuments;
+        delete ctx.date;
         return [ctx, formdata];
     }
 }

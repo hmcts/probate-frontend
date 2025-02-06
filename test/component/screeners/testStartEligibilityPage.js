@@ -14,43 +14,14 @@ describe('start-eligibility', () => {
         await testWrapper.destroy();
     });
 
-    describe('Verify Content, Errors and Redirection - Feature toggles', () => {
-        it('test right content loaded on the page with the ft_fees_api toggle ON', (done) => {
-            testWrapper = new TestWrapper('StartEligibility', {ft_fees_api: true});
+    describe('Verify Content, Errors and Redirection', () => {
+        it('test right content loaded on the page', (done) => {
+            testWrapper = new TestWrapper('StartEligibility');
 
             const contentToExclude = [
-                'paragraph2',
-                'paragraph7old',
-                'paragraph8old'
+                'paragraph1',
+                'paragraph3'
             ];
-            testWrapper.testContent(done, {}, contentToExclude);
-        });
-
-        it('test right content loaded on the page with the ft_fees_api toggle OFF', (done) => {
-            testWrapper = new TestWrapper('StartEligibility', {ft_fees_api: false});
-
-            const contentToExclude = [
-                'paragraph2',
-                'paragraph7',
-                'paragraph8',
-                'tableHeadLeft',
-                'tableHeadRight',
-                'tableBodyFeeRange1',
-                'tableBodyFeeRange1Value',
-                'tableBodyFeeRange2',
-                'tableBodyFeeRange2Value',
-                'tableBodyFeeRange3',
-                'tableBodyFeeRange3Value',
-                'tableBodyFeeRange4',
-                'tableBodyFeeRange4Value',
-                'tableBodyFeeRange5',
-                'tableBodyFeeRange5Value',
-                'tableBodyFeeRange6',
-                'tableBodyFeeRange6Value',
-                'tableBodyFeeRange7',
-                'tableBodyFeeRange7Value'
-            ];
-
             testWrapper.testContent(done, {}, contentToExclude);
         });
     });

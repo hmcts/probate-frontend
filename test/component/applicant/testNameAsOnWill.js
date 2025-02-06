@@ -33,7 +33,7 @@ describe('applicant-name-as-on-will', () => {
                     lastName: 'TheApplicant'
                 }
             };
-            const contentToExclude = ['questionWithoutName', 'questionWithCodicil', 'legendWithCodicil'];
+            const contentToExclude = ['questionWithoutName', 'questionWithCodicil', 'questionWithoutNameWithCodicil', 'legendWithCodicil'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -61,7 +61,7 @@ describe('applicant-name-as-on-will', () => {
                     codicils: 'optionYes'
                 }
             };
-            const contentToExclude = ['question', 'questionWithoutName', 'legend'];
+            const contentToExclude = ['question', 'questionWithoutName', 'questionWithoutNameWithCodicil', 'legend'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -86,6 +86,56 @@ describe('applicant-name-as-on-will', () => {
                 .send(sessionData)
                 .end(() => {
                     testWrapper.testErrors(done, {}, 'required');
+                });
+        });
+
+        it('displays correct question displayed after error', (done) => {
+            const applFN = 'John';
+            const applLN = 'TheApplicant';
+            const applName = `${applFN} ${applLN}`;
+            const sessionData = {
+                applicant: {
+                    firstName: applFN,
+                    lastName: applLN,
+                },
+                will: {
+                    codicils: 'optionNo',
+                },
+            };
+
+            const qWithoutCodicil = testWrapper.content_en.question;
+            const formattedQuestionWithoutCodicil = qWithoutCodicil.replace('{applicantName}', applName);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContentAfterError({}, [
+                        formattedQuestionWithoutCodicil
+                    ], done);
+                });
+        });
+
+        it('displays correct question displayed after error with codicil', (done) => {
+            const applFN = 'John';
+            const applLN = 'TheApplicant';
+            const applName = `${applFN} ${applLN}`;
+            const sessionData = {
+                applicant: {
+                    firstName: applFN,
+                    lastName: applLN,
+                },
+                will: {
+                    codicils: 'optionYes',
+                },
+            };
+
+            const qWithCodicil = testWrapper.content_en.questionWithCodicil;
+            const formattedQuestionWithCodicil = qWithCodicil.replace('{applicantName}', applName);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContentAfterError({}, [
+                        formattedQuestionWithCodicil
+                    ], done);
                 });
         });
 

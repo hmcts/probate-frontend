@@ -14,6 +14,42 @@ describe('ApplicantNameAsOnWill', () => {
         });
     });
 
+    describe('getContextData()', () => {
+        it('should report codicilsPresent True if codicils in will', (done) => {
+            const reqIn = {
+                session: {
+                    form: {
+                        will: {
+                            codicils: 'optionYes',
+                        }
+                    },
+                },
+            };
+
+            const ctxWith = ApplicantNameAsOnWill.getContextData(reqIn);
+
+            expect(ctxWith).to.have.property('codicilPresent', true);
+            done();
+        });
+
+        it('should report codicilsPresent False if no codicils in will', (done) => {
+            const reqIn = {
+                session: {
+                    form: {
+                        will: {
+                            codicils: 'optionNo',
+                        }
+                    },
+                },
+            };
+
+            const ctxWithout = ApplicantNameAsOnWill.getContextData(reqIn);
+
+            expect(ctxWithout).to.have.property('codicilPresent', false);
+            done();
+        });
+    });
+
     describe('handlePost()', () => {
         let ctx;
         let errors;

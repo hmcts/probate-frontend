@@ -1,4 +1,4 @@
-// eslint-disable-line max-lines
+/* eslint-disable max-lines */
 
 'use strict';
 
@@ -1090,7 +1090,7 @@ describe('declaration, single applicant', () => {
             contentData.applicantWillName = 'Robert Bruce';
             contentData.applicantCurrentNameSign = 'Robert Bruce';
             contentData.applicantCurrentName = 'Bob Smith';
-            contentData.aliasReason = ': legal name change';
+            contentData.aliasReason = ' legal name change';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -1182,7 +1182,7 @@ describe('declaration, single applicant', () => {
             contentData.applicantWillName = 'Robert Bruce';
             contentData.applicantCurrentNameSign = 'Robert Bruce';
             contentData.applicantCurrentName = 'Bob Smith';
-            contentData.aliasReason = ': legal name change';
+            contentData.aliasReason = ' legal name change';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -1283,7 +1283,7 @@ describe('declaration, single applicant', () => {
             contentData.applicantCurrentNameSign = 'Robert Bruce';
             contentData.deceasedOtherNames = 'James Miller';
             contentData.applicantCurrentName = 'Bob Smith';
-            contentData.aliasReason = ': legal name change';
+            contentData.aliasReason = ' legal name change';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -1381,7 +1381,7 @@ describe('declaration, single applicant', () => {
             contentData.applicantCurrentNameSign = 'Robert Bruce';
             contentData.deceasedOtherNames = 'James Miller';
             contentData.applicantCurrentName = 'Bob Smith';
-            contentData.aliasReason = ': legal name change';
+            contentData.aliasReason = ' legal name change';
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

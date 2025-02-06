@@ -3,28 +3,31 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: content.question,
+            text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
         }
     }) %}
-
-        <p class="govuk-body">{{ content["interestedDetailsHint"] | safe }}</p>
+        <p class="govuk-body">{{ content["interestedDetailsHint0"] | safe }}</p>
+        <p class="govuk-body">{{ content["interestedDetailsHint1"] | safe }}</p>
         <ul class="govuk-list govuk-list--bullet">
             <li>{{ content["interestedDetail1"] | safe  }}</li>
             <li>{{ content["interestedDetail2"] | safe  }}</li>
             <li>{{ content["interestedDetail3"] | safe  }}</li>
         </ul>
-
+        {{ govukInsetText({
+        text: ("<p class=\"govuk-body\">" + content.helpText + "</p>") | safe
+        }) }}
         {{ govukRadios({
             classes: "govuk-radios--inline",
             idPrefix: "deceasedWrittenWishes",
             name: "deceasedWrittenWishes",
-            errorMessage: { text: fields.deceasedWrittenWishes.errorMessage | safe } if fields.deceasedWrittenWishes.errorMessage,
+            errorMessage: { text: fields.deceasedWrittenWishes.errorMessage | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.deceasedWrittenWishes.errorMessage,
             items: [
                 {
                     value: "optionYes",

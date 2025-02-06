@@ -24,8 +24,7 @@ describe('Declaration', () => {
         let executorsApplying;
         let hasCodicils;
         let codicilsNumber;
-        let deceasedName;
-        let mainApplicantName;
+        let formdata;
 
         beforeEach(() => {
             hasMultipleApplicants = true;
@@ -54,16 +53,17 @@ describe('Declaration', () => {
                 hasOtherName: true
             }];
             hasCodicils = false;
-            deceasedName = 'Mrs Deceased';
-            mainApplicantName = 'Applicant Current Name';
+            formdata = {
+                deceasedName: 'Mrs Deceased',
+                applicantName: 'Applicant Current Name'
+            };
         });
 
         it('should return the correct data when there are no codicils', (done) => {
             const declaration = new Declaration(steps, section, templatePath, i18next, schema);
-            const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, mainApplicantName);
-
+            const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata, 'en');
             expect(data).to.deep.equal([{
-                name: 'Applicant Current Name, an executor named in the will as Applicant Will Name, is applying for probate. Their name is different because: Applicant Current Name changed their name by deed poll.',
+                name: 'Applicant Current Name, an executor named in the will as Applicant Will Name, is applying for probate. Their name is different because: They changed their name by deed poll.',
                 sign: 'Applicant Current Name will send to the probate registry what we have seen and believe to be the true and original last will and testament of Mrs Deceased.'
             }, {
                 name: 'Exec 1 Current Name, an executor named in the will as Exec 1 Will Name, is applying for probate. Their name is different because: They got married or formed a civil partnership.',
@@ -79,10 +79,10 @@ describe('Declaration', () => {
             hasCodicils = true;
             codicilsNumber = 1;
             const declaration = new Declaration(steps, section, templatePath, i18next, schema);
-            const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, mainApplicantName);
+            const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata, 'en');
 
             expect(data).to.deep.equal([{
-                name: 'Applicant Current Name, an executor named in the will or codicils as Applicant Will Name, is applying for probate. Their name is different because: Applicant Current Name changed their name by deed poll.',
+                name: 'Applicant Current Name, an executor named in the will or codicils as Applicant Will Name, is applying for probate. Their name is different because: They changed their name by deed poll.',
                 sign: 'Applicant Current Name will send to the probate registry what we have seen and believe to be the true and original last will and testament, and  codicil of Mrs Deceased.'
             }, {
                 name: 'Exec 1 Current Name, an executor named in the will or codicils as Exec 1 Will Name, is applying for probate. Their name is different because: They got married or formed a civil partnership.',
@@ -98,10 +98,10 @@ describe('Declaration', () => {
             hasCodicils = true;
             codicilsNumber = 3;
             const declaration = new Declaration(steps, section, templatePath, i18next, schema);
-            const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, deceasedName, mainApplicantName);
+            const data = declaration.executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata, 'en');
 
             expect(data).to.deep.equal([{
-                name: 'Applicant Current Name, an executor named in the will or codicils as Applicant Will Name, is applying for probate. Their name is different because: Applicant Current Name changed their name by deed poll.',
+                name: 'Applicant Current Name, an executor named in the will or codicils as Applicant Will Name, is applying for probate. Their name is different because: They changed their name by deed poll.',
                 sign: 'Applicant Current Name will send to the probate registry what we have seen and believe to be the true and original last will and testament, and 3 codicils of Mrs Deceased.'
             }, {
                 name: 'Exec 1 Current Name, an executor named in the will or codicils as Exec 1 Will Name, is applying for probate. Their name is different because: They got married or formed a civil partnership.',
@@ -132,7 +132,8 @@ describe('Declaration', () => {
                     hasOtherName: true
                 },
                 deceasedName: 'Mrs Deceased',
-                mainApplicantName: 'Applicant Current Name'
+                mainApplicantName: 'Applicant Current Name',
+                language: 'en'
             };
         });
 
@@ -142,7 +143,7 @@ describe('Declaration', () => {
             const content = declaration.executorsApplyingText(props);
 
             expect(content).to.deep.equal({
-                name: 'Exec 1 Current Name, an executor named in the will as Applicant Current Name, is applying for probate. Their name is different because: Exec 1 Current Name got married or formed a civil partnership.',
+                name: 'Exec 1 Current Name, an executor named in the will as Applicant Current Name, is applying for probate. Their name is different because: They got married or formed a civil partnership.',
                 sign: 'Applicant Current Name will send to the probate registry what we have seen and believe to be the true and original last will and testament of Mrs Deceased.'
             });
 

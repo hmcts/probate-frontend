@@ -82,7 +82,7 @@
 .hmcts-progress-bar__icon {
   position: relative;
   background-color: #ffffff;
-  border: 6px solid #1E6FB8;
+  border: 6px solid #B1B4B6;
   border-radius: 50%;
   box-sizing: border-box;
   display: block;
@@ -92,9 +92,18 @@
   width: 32px;
 }
 
+
 .hmcts-progress-bar__icon--complete {
   background-color: #1E6FB8;
   background-image: url(/public/images/icon-progress-tick.png);
+  border: 6px solid #1E6FB8;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+.hmcts-progress-bar__icon--inprogress {
+  background-color: #1E6FB8;
+  border: 6px solid #1E6FB8;
   background-position: 50% 50%;
   background-repeat: no-repeat;
 }
@@ -109,6 +118,19 @@
   line-height: 1.1428571429;
   display: block;
   font-weight: inherit;
+  margin-top: 10px;
+  position: relative;
+  word-wrap: break-word;
+}
+.hmcts-progress-bar__label--inprogress {
+  font-family: "GDS Transport", arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.1428571429;
+  display: block;
+  font-weight: bold;
   margin-top: 10px;
   position: relative;
   word-wrap: break-word;

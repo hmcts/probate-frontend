@@ -7,25 +7,6 @@ const executorsInviteSchema = require('app/steps/ui/executors/invite/schema');
 const {get} = require('lodash');
 
 class DetectDataChanges {
-    isNotEqual(val1, val2) {
-        val2 = val2 || '';
-        return val1.toString() !== val2.toString();
-    }
-
-    accessDataKey(paramsKey) {
-        if (['address'].includes(paramsKey)) {
-            return 'address.formattedAddress';
-        }
-        return paramsKey;
-    }
-
-    hasChanged(params, sectionData) {
-        return Object.keys(params).some(paramsKey => {
-            const sectionDataKey = this.accessDataKey(paramsKey);
-            return paramsKey !== 'declarationCheckbox' && sectionData && get(sectionData, sectionDataKey) && this.isNotEqual(get(params, sectionDataKey), get(sectionData, sectionDataKey));
-        });
-    }
-
     hasDataChanged(ctx, req, step) {
         const formdata = req.session ? req.session.form : {};
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
@@ -44,9 +25,12 @@ class DetectDataChanges {
             !formdata.declaration.hasDataChanged
         ) {
             if (step.section === 'executors') {
-                if (Object.keys(req.body).includes('address') || Object.keys(req.body).includes('email')) {
-                    const index = (req.params && !isNaN(req.params[0])) ? req.params[0] : req.session.indexPosition;
-                    return this.hasChanged(req.body, formdata[step.section].list[index]);
+                const index = (req.params && !isNaN(req.params[0])) ? req.params[0] : req.session.indexPosition;
+                if (Object.keys(req.body).includes('email')) {
+                    return this.hasChanged(req.body, formdata[step.section].list[index], step.section);
+                } else if (Object.keys(req.body).includes('addressLine1')) {
+                    req.body.address = this.sanitiseAddressObject(req.body);
+                    return this.hasChanged(req.body, formdata[step.section].list[index], step.section);
                 } else if (req.body.executorName) {
                     const currentExecutors = executorsWrapper.executors(true).map(executor => executor.fullName);
                     return this.isNotEqual(req.body.executorName, currentExecutors);
@@ -58,10 +42,48 @@ class DetectDataChanges {
                     return this.isNotEqual(req.body.executorsWhoDied, executorsWhoDied);
                 }
             }
-            return this.hasChanged(req.body, formdata[step.section]);
+            return this.hasChanged(req.body, formdata[step.section], step.section);
         }
 
         return false;
+    }
+
+    hasChanged(params, sectionData, stepSection) {
+        return Object.keys(params).some(paramsKey => {
+            const sectionDataKey = this.accessDataKey(paramsKey, stepSection);
+            return paramsKey !== 'declarationCheckbox' && sectionData && get(sectionData, sectionDataKey) && this.isNotEqual(get(params, sectionDataKey), get(sectionData, sectionDataKey));
+        });
+    }
+
+    accessDataKey(paramsKey, stepSection) {
+        if (stepSection === 'executors' && ['addressLine1'].includes(paramsKey)) {
+            return 'address.formattedAddress';
+        }
+        return paramsKey;
+    }
+
+    isNotEqual(val1, val2) {
+        val2 = val2 || '';
+        return val1.toString() !== val2.toString();
+    }
+
+    sanitiseAddressObject(address) {
+        const sanitisedAddress = {...address};
+        delete sanitisedAddress._csrf;
+        delete sanitisedAddress.isSaveAndClose;
+        sanitisedAddress.formattedAddress = this.getFormattedAddress(address);
+        return sanitisedAddress;
+    }
+
+    getFormattedAddress(paramsKey) {
+        let formattedAddress = '';
+        Object.values(paramsKey).forEach((value) => {
+            if (value) {
+                formattedAddress = `${formattedAddress}${value} `;
+            }
+        });
+
+        return formattedAddress;
     }
 }
 

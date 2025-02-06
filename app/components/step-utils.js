@@ -64,6 +64,16 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
             ctx.previousUrl = previousUrl;
             return;
         }
+        if (stepName==='ProvideInformation') {
+            previousUrl = '/citizens-hub';
+            ctx.previousUrl = previousUrl;
+            return;
+        }
+        if (stepName==='ReviewResponse') {
+            previousUrl = '/provide-information';
+            ctx.previousUrl = previousUrl;
+            return;
+        }
         if (isNoBackLinkStepName(stepName)) {
             previousUrl = '';
             ctx.previousUrl = previousUrl;
@@ -111,7 +121,6 @@ const getScrennersPreviousUrl = (ctx, req, res, steps, currentStepName) => {
     const StartEligibilityStep = 'StartEligibility';
     let loopingStep = steps[StartEligibilityStep];
     if (currentStepName === 'StartEligibility' && req.userLoggedIn) {
-        previousUrl = '/dashboard';
         ctx.previousUrl = previousUrl;
         return;
     }

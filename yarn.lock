@@ -167,7 +167,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/identity@npm:^4.2.1":
+"@azure/identity@npm:^4.6.0":
   version: 4.6.0
   resolution: "@azure/identity@npm:4.6.0"
   dependencies:

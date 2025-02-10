@@ -18,14 +18,12 @@
 
         {% if application.deceasedFullName %}
             {% set nameValue = application.deceasedFullName %}
-            {% set actionLabel = actionText + " " + nameValue %}
         {% elif application.caseType == "PA" %}
             {% set nameValue = content.statusDraftProbate %}
-            {% set actionLabel = actionText + " " + content.unnamedProbateAppl %}
         {% else %}
             {% set nameValue = content.statusDraftIntestacy %}
-            {% set actionLabel = actionText + " " + content.unnamedIntestacyAppl %}
         {% endif %}
+        {% set actionLabel = actionText + " " + nameValue %}
 
         {% if grantIssued %}
            {% set statusValue = content.StatusGrantIssued %}

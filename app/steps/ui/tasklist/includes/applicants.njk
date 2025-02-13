@@ -1,15 +1,7 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.ApplicantsTask %}
 
-<li class="task-item">
-    {{ taskHeader(
-        number = taskNumber + ".",
-        content = content,
-        title = content.applicantsTask | safe,
-        status = fields.ApplicantsTask.value.status,
-        previousTaskStatus = previousTaskStatus
-    ) }}
-    <div class="task-list-items">
-        {{ taskAction(
+<li class="govuk-task-list__item govuk-task-list__item--with-link">
+    {{ taskAction(
             prevTaskStatus = previousTaskStatus,
             status = fields.ApplicantsTask.value.status,
             nextURL = fields.ApplicantsTask.value.nextURL,
@@ -17,6 +9,5 @@
             content = content,
             title = content.applicantsTask | safe,
             alreadyDeclared = fields.alreadyDeclared.value
-        ) }}
-    </div>
+    ) }}
 </li>

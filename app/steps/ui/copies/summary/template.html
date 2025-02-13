@@ -49,11 +49,13 @@
         <div class="govuk-form-group">
             {{ govukButton({
                 text: common.saveAndContinue | safe,
-                href: "/task-list",
+                href: "/payment-breakdown",
                 isStartButton: true
             }) }}
         </div>
     </div>
-
+    {% block save_and_close %}
+    <p class="govuk-body"><a href="/task-list" class="govuk-link">{{ common.saveAndClose | safe }}</a></p>
+    {% endblock %}
     {% include "includes/help_details.html" %}
 {% endblock %}

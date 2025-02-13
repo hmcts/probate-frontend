@@ -50,7 +50,7 @@ Scenario('Check survey link works', async ({I}) => {
     // await I.chooseApplication(language);
 
     // Deceased Details
-    await I.selectATask(language, taskListContent.taskNotStarted);
+    await I.selectATask(language, 'deceasedTask', taskListContent.taskNotStarted);
     await I.chooseBiLingualGrant(language, optionNo);
     await I.enterDeceasedName(language, 'Deceased First Name', 'Deceased Last Name');
     await I.enterDeceasedNameOnWill(language, optionYes);
@@ -64,7 +64,7 @@ Scenario('Check survey link works', async ({I}) => {
     await I.chooseApplication(language);
 
     // Deceased Details
-    await I.selectATask(language, taskListContent.taskNotStarted);
+    await I.selectATask(language, 'deceasedTask', taskListContent.taskNotStarted);
 
     await I.enterDeceasedDateOfBirth(language, '01', '01', '1950');
     await I.enterDeceasedDateOfDeath(language, '02', '01', '2022');
@@ -104,7 +104,7 @@ Scenario('Check survey link works', async ({I}) => {
     }
 
     // ExecutorsTask
-    await I.selectATask(language, taskListContent.taskNotStarted);
+    await I.selectATask(language, 'executorsTask', taskListContent.taskNotStarted);
     await I.enterApplicantName(language, 'Applicant First Name', 'Applicant Last Name');
     await I.selectNameAsOnTheWill(language, optionYes);
     await I.enterApplicantPhone(language);
@@ -120,12 +120,12 @@ Scenario('Check survey link works', async ({I}) => {
     }
 
     // Review and Confirm Task
-    await I.selectATask(language, taskListContent.taskNotStarted);
+    await I.selectATask(language, 'reviewAndConfirmTask', taskListContent.taskNotStarted);
     await I.seeSummaryPage(language, 'declaration');
     await I.acceptDeclaration(language, bilingualGOP);
 
-    // Extra Copies Task
-    await I.selectATask(language, taskListContent.taskNotStarted);
+    // Payment Task
+    await I.selectATask(language, 'paymentTask', taskListContent.taskNotStarted);
 
     if (TestConfigurator.getUseGovPay() === 'true') {
         await I.enterUkCopies(language, '5');
@@ -138,9 +138,6 @@ Scenario('Check survey link works', async ({I}) => {
     }
 
     await I.seeCopiesSummary(language);
-
-    // Payment Task
-    await I.selectATask(language, taskListContent.taskNotStarted);
     await I.seePaymentBreakdownPage(language);
 
     if (TestConfigurator.getUseGovPay() === 'true') {

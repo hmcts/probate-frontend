@@ -26,5 +26,9 @@
   },
   "executors": {
     "mentalCapacity": "Yes"
+  },
+  "deceased": {
+    "firstName": "Joe",
+    "lastName": "Bloggs"
   }
 }

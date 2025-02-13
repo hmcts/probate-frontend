@@ -17,11 +17,12 @@
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}">
                 {% call govukFieldset({
                     legend: {
-                        text: content.question | safe,
+                        text: content.question | replace("{deceasedName}", fields.firstName.value +" "+ fields.lastName.value) | safe,
                         classes: "govuk-fieldset__legend--l",
                         isPageHeading: true
                     }
                 }) %}
+                <p class="govuk-body">{{ content.explanation1 | safe }}</p>
                     {{ addressFinder(
                         fields,
                         content,
@@ -151,7 +152,7 @@
             </form>
 
             {% block save_and_close %}
-            <p class="govuk-body"><a href="/sign-out" class="govuk-link" id="saveAndClose">{{ common.saveAndClose | safe }}</a></p>
+            <p class="govuk-body"><a href="/task-list" class="govuk-link" id="saveAndClose">{{ common.saveAndClose | safe }}</a></p>
             {% endblock %}
 
             {% include "includes/help_details.html" %}

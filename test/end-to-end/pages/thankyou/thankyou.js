@@ -26,6 +26,7 @@ module.exports = async function(language ='en', testSurvey = false) {
         // running locally I get no internet here so have commented ths, but at least we've proved we've opened a new tab.
         // await I.waitForVisible({css: '#cmdGo'});
         await I.closeCurrentTab();
+        await I.wait(0.2);
     }
 
     const locator = {css: '#navigation > li:nth-child(2) > a'};

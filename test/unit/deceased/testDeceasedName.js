@@ -41,9 +41,6 @@ describe('DeceasedName', () => {
                         deceased: {
                             firstName: 'John',
                             lastName: 'Doe'
-                        },
-                        declaration: {
-                            declarationCheckbox: 'true'
                         }
                     },
                     back: ['hello']

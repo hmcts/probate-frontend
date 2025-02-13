@@ -1,14 +1,7 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.PaymentTask %}
 
-<li class="task-item">
-    {{ taskHeader(
-        number = taskNumber + ".",
-        content = content,
-        title = content.paymentTask | safe,
-        status = fields.PaymentTask.value.status,
-        previousTaskStatus = previousTaskStatus
-    ) }}
-    <div class="task-list-items">
+<ul class="govuk-task-list">
+    <li class="govuk-task-list__item govuk-task-list__item--with-link">
         {{ taskAction(
             prevTaskStatus = previousTaskStatus,
             status = fields.PaymentTask.value.status,
@@ -17,5 +10,5 @@
             content = content,
             title = content.paymentTask | safe
         ) }}
-    </div>
-</li>
+    </li>
+</ul>

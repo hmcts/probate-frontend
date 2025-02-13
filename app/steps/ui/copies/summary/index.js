@@ -4,6 +4,7 @@ const Step = require('app/core/steps/Step');
 const copiesSteps = ['CopiesUk', 'AssetsJEGG', 'CopiesJEGG', 'AssetsOverseas', 'CopiesOverseas'];
 const FormatName = require('app/utils/FormatName');
 const {unescape, forEach} = require('lodash');
+const PaymentWrapper = require('app/wrappers/Payment');
 
 class CopiesSummary extends Step {
 
@@ -68,8 +69,14 @@ class CopiesSummary extends Step {
         const content = this.generateContent(ctx, formdata, req.session.language);
 
         ctx.assetsOverseasQuestion = content.AssetsOverseas.question.replace('{deceasedName}', deceasedName);
+        const paymentWrapper = new PaymentWrapper(formdata.payment);
+        ctx.passedPayment = paymentWrapper.hasPassedPayment();
 
         return ctx;
+    }
+
+    isComplete(ctx) {
+        return [ctx.passedPayment, 'inProgress'];
     }
 }
 

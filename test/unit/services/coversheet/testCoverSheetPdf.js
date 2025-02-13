@@ -173,7 +173,7 @@ describe('CoverSheetPdfService', () => {
                     submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY',
                     checkListItems: [
                         {text: 'the original will and any codicils (by law, we must keep your original will as it becomes a public document)', type: 'textOnly'},
-                        {text: 'the letters of written wishes (we will keep this as part of the application)', type: 'textOnly'},
+                        {text: 'any written wishes', type: 'textOnly'},
                         {text: 'the interim death certificate', type: 'textOnly'},
                         {text: 'the English translation of the foreign death certificate', type: 'textOnly'},
                         {text: 'Foreign death certificate form (opens in a new window)', type: 'textWithLink', url: 'https://www.gov.uk/government/publications/form-pa19-apply-for-a-grant-of-representation-with-a-foreign-death-certificate-not-translated-by-a-licensed-company', beforeLinkText: 'either a completed PA19 - ', afterLinkText: ' or a certificate from the translator confirming the translation\'s validity'}

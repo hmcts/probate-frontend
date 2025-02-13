@@ -14,6 +14,9 @@ if (config.appInsights.connectionString) {
         .setAutoCollectDependencies(true)
         .setAutoCollectConsole(true, true);
     appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = 'probate-frontend';
+    appInsights.defaultClient.addTelemetryProcessor(
+        (envelope) => !envelope.data.baseData.url?.includes('/health/')
+    );
     appInsights.start();
 } else {
     console.log('No app-insights-connection-string key present');

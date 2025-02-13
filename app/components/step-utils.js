@@ -53,6 +53,9 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
     let previousUrl='';
 
     Object.keys(taskList).forEach((taskName) => {
+        if (isDeclarationComplete(formdata) && isPreDeclarationTask(taskName)) {
+            return;
+        }
         if (previousUrl !== '') {
             return;
         }
@@ -79,7 +82,7 @@ const getPreviousUrl = (ctx, req, res, steps, stepName) => {
             ctx.previousUrl = previousUrl;
             return;
         }
-        if (stepName===step.name || stepName==='Summary' || stepName==='CopiesSummary') {
+        if (stepName===step.name || stepName==='Summary') {
             previousUrl = '/task-list';
             ctx.previousUrl = previousUrl;
             return;
@@ -142,7 +145,7 @@ const getScrennersPreviousUrl = (ctx, req, res, steps, currentStepName) => {
 };
 
 const isNoBackLinkStepName = (stepName) => {
-    return stepName==='CitizensHub' || stepName==='PaymentBreakdown' || stepName==='PaymentStatus' ||
+    return stepName==='CitizensHub' || stepName==='PaymentStatus' ||
         stepName==='ExecutorsAdditionalInvite' || stepName==='ThankYou' || stepName==='ExecutorsChangeMade' ||
         stepName==='ExecutorsInvitesSent' || stepName==='ExecutorsUpdateInviteSent';
 };

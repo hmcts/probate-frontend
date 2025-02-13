@@ -178,7 +178,6 @@ class PaymentBreakdown extends Step {
         if (result.type === 'VALIDATION') {
             errors.push(FieldError('submit', 'validation', this.resourcePath, this.generateContent(ctx, formdata, language), language));
         }
-        logger.info(`submitData.submit result = ${JSON.stringify(result)}`);
 
         if (result.name === 'Error') {
             errors.push(FieldError('submit', 'failure', this.resourcePath, this.generateContent(ctx, formdata, language), language));

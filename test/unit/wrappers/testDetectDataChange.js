@@ -37,7 +37,7 @@ describe('DetectDataChange.js', () => {
     });
 
     describe('accessDataKey()', () => {
-        it('should return address when paramsKey is address', (done) => {
+        it('should return formattedAddress when paramsKey is address and section is executor', (done) => {
             const detectDataChange = new DetectDataChange();
             expect(detectDataChange.accessDataKey('addressLine1')).to.equal('address.formattedAddress');
             done();

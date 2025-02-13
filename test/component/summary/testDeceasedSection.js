@@ -40,7 +40,7 @@ describe('summary-deceased-section', () => {
                         alias: deceasedContent.alias.question.replace('{deceasedName}', deceasedContent.alias.theDeceased),
                         dob: deceasedContent.dob.question,
                         dod: deceasedContent.dod.question,
-                        address: deceasedContent.address.question
+                        address: deceasedContent.address.question.replace('{deceasedName}', deceasedContent.alias.theDeceased)
                     };
 
                     testWrapper.testDataPlayback(done, playbackData);
@@ -69,7 +69,7 @@ describe('summary-deceased-section', () => {
                         married: deceasedContent.married.question.replace('{deceasedName}', deceasedName),
                         dob: deceasedContent.dob.question,
                         dod: deceasedContent.dod.question,
-                        address: deceasedContent.address.question
+                        address: deceasedContent.address.question.replace('{deceasedName}', deceasedName)
                     };
 
                     testWrapper.testDataPlayback(done, playbackData);
@@ -98,7 +98,7 @@ describe('summary-deceased-section', () => {
                         questionMarried: deceasedContent.married.question.replace('{deceasedName}', deceasedName),
                         questionDob: deceasedContent.dob.question,
                         questionDod: deceasedContent.dod.question,
-                        questionAddress: deceasedContent.address.question
+                        questionAddress: deceasedContent.address.question.replace('{deceasedName}', deceasedName)
                     };
                     Object.assign(playbackData, sessionData.deceased);
                     playbackData.alias = deceasedContent.alias[playbackData.alias];

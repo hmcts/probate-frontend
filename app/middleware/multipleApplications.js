@@ -122,7 +122,7 @@ const renderTaskList = (req, res, result, next) => {
 
 const getCase = (req, res, next, checkDeclarationStatuses, screenersCompleted = false) => {
     const session = req.session;
-    const redirectingFromDashboard = req.originalUrl !== '/task-list';
+    const redirectingFromDashboard = !(/^\/task-list(\?lng=(cy|en))?$/).test(req.originalUrl);
     let ccdCaseId;
     let probateType;
 

@@ -42,6 +42,9 @@ class DetectDataChanges {
                     return this.isNotEqual(req.body.executorsWhoDied, executorsWhoDied);
                 }
             }
+            if (Object.keys(req.body).includes('addressLine1')) {
+                req.body.address = this.sanitiseAddressObject(req.body);
+            }
             return this.hasChanged(req.body, formdata[step.section]);
         }
 

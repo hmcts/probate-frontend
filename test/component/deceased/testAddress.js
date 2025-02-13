@@ -24,6 +24,10 @@ describe('deceased-address', () => {
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456
+                },
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe'
                 }
             };
             const contentToExclude = ['selectAddress'];
@@ -31,7 +35,7 @@ describe('deceased-address', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, {}, contentToExclude);
+                    testWrapper.testContent(done, {deceasedName: 'John Doe'}, contentToExclude);
                 });
         });
 

@@ -32,9 +32,6 @@ describe('DeceasedAliasNameOnWill', () => {
                         deceased: {
                             firstName: 'John',
                             lastName: 'Doe'
-                        },
-                        declaration: {
-                            declarationCheckbox: 'true'
                         }
                     },
                     back: ['hello']

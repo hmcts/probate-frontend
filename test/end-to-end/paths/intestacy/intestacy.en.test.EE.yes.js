@@ -67,7 +67,7 @@ getTestLanguages().forEach(language => {
         // await I.chooseApplication(language);
 
         // Deceased Task
-        await I.selectATask(language, taskListContent.taskNotStarted);
+        await I.selectATask(language, 'deceasedTask', taskListContent.taskNotStarted);
         await I.chooseBiLingualGrant(language, optionNo);
         await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '02', '01', '2022');
         await I.enterDeceasedAddress(language);
@@ -88,7 +88,7 @@ getTestLanguages().forEach(language => {
         await I.selectDeceasedMaritalStatus(language, maritalStatusMarried);
 
         // Executors Task
-        await I.selectATask(language, taskListContent.taskNotStarted);
+        await I.selectATask(language, 'applicantsTask', taskListContent.taskNotStarted);
         await I.selectRelationshipToDeceased(language, spouseOfDeceased);
         await I.enterAnyChildren(language, optionNo);
         await I.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
@@ -100,12 +100,12 @@ getTestLanguages().forEach(language => {
         }
 
         // Check your answers and declaration
-        await I.selectATask(language, taskListContent.taskNotStarted);
+        await I.selectATask(language, 'reviewAndConfirmTask', taskListContent.taskNotStarted);
         await I.seeSummaryPage(language, 'declaration');
         await I.acceptDeclaration(language, bilingualGOP);
 
-        // Copies Task
-        await I.selectATask(language, taskListContent.taskNotStarted);
+        // Payment Task
+        await I.selectATask(language, 'paymentTask', taskListContent.taskNotStarted);
 
         if (TestConfigurator.getUseGovPay() === 'true') {
             await I.enterUkCopies(language, '5');
@@ -115,9 +115,6 @@ getTestLanguages().forEach(language => {
             await I.selectOverseasAssets(language, optionNo);
         }
         await I.seeCopiesSummary(language);
-
-        // Payment Task
-        await I.selectATask(language, taskListContent.taskNotStarted);
         await I.seePaymentBreakdownPage(language);
         if (TestConfigurator.getUseGovPay() === 'true') {
             await I.seeGovUkPaymentPage(language);
@@ -167,7 +164,7 @@ getTestLanguages().forEach(language => {
         // await I.chooseApplication(language);
 
         // Deceased Task
-        await I.selectATask(language, taskListContent.taskNotStarted);
+        await I.selectATask(language, 'deceasedTask', taskListContent.taskNotStarted);
         await I.chooseBiLingualGrant(language, optionNo);
         await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '02', '01', '2022');
         await I.enterDeceasedAddress(language);
@@ -188,7 +185,7 @@ getTestLanguages().forEach(language => {
         await I.selectDeceasedMaritalStatus(language, maritalStatusMarried);
 
         // Executors Task
-        await I.selectATask(language, taskListContent.taskNotStarted);
+        await I.selectATask(language, 'applicantsTask', taskListContent.taskNotStarted);
         await I.selectRelationshipToDeceased(language, relationshipChildOfDeceased);
         await I.selectSpouseNotApplyingReason(language, optionRenouncing);
         await I.enterAnyOtherChildren(language, optionNo);
@@ -201,12 +198,12 @@ getTestLanguages().forEach(language => {
         }
 
         // Check your answers and declaration
-        await I.selectATask(language, taskListContent.taskNotStarted);
+        await I.selectATask(language, 'reviewAndConfirmTask', taskListContent.taskNotStarted);
         await I.seeSummaryPage(language, 'declaration');
         await I.acceptDeclaration(language, bilingualGOP);
 
-        // Copies Task
-        await I.selectATask(language, taskListContent.taskNotStarted);
+        // Payment Task
+        await I.selectATask(language, 'paymentTask', taskListContent.taskNotStarted);
         if (TestConfigurator.getUseGovPay() === 'true') {
             await I.enterUkCopies(language, '5');
             await I.selectOverseasAssets(language, optionNo);
@@ -216,9 +213,6 @@ getTestLanguages().forEach(language => {
 
         }
         await I.seeCopiesSummary(language);
-
-        // Payment Task
-        await I.selectATask(language, taskListContent.taskNotStarted);
         await I.seePaymentBreakdownPage(language);
         if (TestConfigurator.getUseGovPay() === 'true') {
             await I.seeGovUkPaymentPage(language);

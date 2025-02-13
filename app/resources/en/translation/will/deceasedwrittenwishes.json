@@ -1,15 +1,17 @@
 {
   "title": "Did the person who died leave any other written wishes?",
-  "question": "Did the person who died leave any other written wishes?",
-  "interestedDetailsHint": "We&rsquo;re only interested in written wishes that have details of:",
-  "interestedDetail1": "an appointed executor",
-  "interestedDetail2": "instructions to sort out the estate",
-  "interestedDetail3": "names and signatures of witnesses",
+  "question": "Did {deceasedName} leave any other written wishes?",
+  "interestedDetailsHint0" : "These may also be referred to as a “letter of wishes”.",
+  "interestedDetailsHint1": "We&rsquo;re interested in written wishes that include any information on:",
+  "interestedDetail1": "what to do with the estate",
+  "interestedDetail2": "named executors",
+  "interestedDetail3": "details of witnesses",
+  "helpText": "If there are any such written wishes, you will need to send these to us along with the other documents we need from you.",
   "optionYes": "Yes",
   "optionNo": "No",
   "errors": {
     "deceasedWrittenWishes": {
-      "required": "Select &lsquo;yes&rsquo; if you know if the person who died left any written wishes"
+      "required": "Select ‘yes’ if {deceasedName} left any written wishes"
     }
   }
 }

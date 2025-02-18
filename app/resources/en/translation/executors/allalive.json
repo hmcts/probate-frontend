@@ -1,12 +1,14 @@
 {
-  "title": "Are all the executors still alive",
-  "question": "Are all the executors alive?",
+  "title": "Have any of the executors died since the will was signed?",
+  "oneOtherQuestion": "Has {executorName} died since the will was signed?",
+  "multipleExecutorQuestion": "Have any of the executors died since the will was signed?",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
     "allalive": {
-      "required": "Answer &lsquo;yes&rsquo; if all executors are still alive"
+      "required": "Select &lsquo;yes&rsquo; if any {executorName} has died since the will was signed",
+      "required1": "Select &lsquo;yes&rsquo; if any of the executors have died since the will was signed"
     }
   }
 }

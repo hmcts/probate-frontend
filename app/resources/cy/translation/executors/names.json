@@ -2,9 +2,9 @@
   "title": "Enwau&rsquo;r ysgutorion",
   "question": "Beth yw enwau&rsquo;r ysgutorion?",
   "paragraph": "Ysgrifennwch enwau&rsquo;r holl ysgutorion yn union fel y maent yn ymddangos ar yr ewyllys ac unrhyw godisiliau.",
+  "paragraph2": "If there are more executors, you will be able to add them in the next step.",
   "executor": "Ysgutor",
   "fullName": "Enw Llawn",
-  "fullNameHint": "Gan gynnwys enwau canol",
   "numberOfExecutorsPage": "Newid y nifer o ysgutorion",
 
   "errors": {

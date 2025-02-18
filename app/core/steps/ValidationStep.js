@@ -16,11 +16,23 @@ class ValidationStep extends Step {
         return this.schemaFile;
     }
 
+    get saveSchema() {
+        if (!this.schemaFile) {
+            throw new TypeError(`Step ${this.name} has no schema file in it's resource folder`);
+        }
+        const saveSchema = {...this.schemaFile};
+        const altId = saveSchema.$id + '-save';
+        saveSchema.$id = altId;
+        delete saveSchema.required;
+        return saveSchema;
+    }
+
     constructor(steps, section, templatePath, i18next, schema, language = 'en') {
         super(steps, section, templatePath, i18next, schema, language);
 
         this.schemaFile = schema;
         this.validateSchema = validator.compile(this.schema);
+        this.validateSaveSchema = validator.compile(this.saveSchema);
         this.properties = this.uniqueProperties(this.schema);
     }
 
@@ -42,7 +54,7 @@ class ValidationStep extends Step {
         throw new Error(`Step ${this.name} has an invalid schema: schema has no properties or oneOf keywords`);
     }
 
-    validate(ctx, formdata, language) {
+    validate(ctx, formdata, language, isSaveAndClose) {
         let [isValid, errors] = [true, []];
 
         const removeEmptyFields = field => (typeof ctx[field] === 'string' && ctx[field].trim() === '') || ctx[field] === '';
@@ -54,8 +66,10 @@ class ValidationStep extends Step {
             });
 
         if (ctx) {
-            isValid = this.validateSchema(ctx);
-            errors = isValid ? [] : generateErrors(this.validateSchema.errors, ctx, formdata, `${this.resourcePath}`, language);
+            const validator = isSaveAndClose ? this.validateSaveSchema : this.validateSchema;
+
+            isValid = validator(ctx);
+            errors = isValid ? [] : generateErrors(validator.errors, ctx, formdata, `${this.resourcePath}`, language);
         }
         return [isValid, errors];
     }

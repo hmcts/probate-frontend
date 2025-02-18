@@ -55,13 +55,13 @@ class ExecutorsNames extends ValidationStep {
         return [ctx, formdata];
     }
 
-    validate(ctx, formdata, language) {
+    validate(ctx, formdata, language, isSaveAndClose) {
         let validationResult = [];
         if (isEmpty(ctx.executorName)) {
             validationResult[0] = size(ctx.list) === ctx.executorsNumber;
         } else {
             this.trimArrayTextFields(ctx);
-            validationResult = super.validate(ctx, formdata, language);
+            validationResult = super.validate(ctx, formdata, language, isSaveAndClose);
             if (!validationResult[0]) { // has errors
                 ctx.errors = this.createErrorMessages(validationResult[1], ctx, language);
             }

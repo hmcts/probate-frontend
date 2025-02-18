@@ -88,7 +88,7 @@ class UIStepRunner {
             if (isEmptyForm && isSaveAndClose) {
                 res.redirect('/task-list');
             } else {
-                [isValid, errors] = step.validate(ctx, formdata, session.language);
+                [isValid, errors] = step.validate(ctx, formdata, session.language, isSaveAndClose);
                 const hasDataChanged = (new DetectDataChange()).hasDataChanged(ctx, req, step);
                 const featureToggles = session.featureToggles;
 
@@ -120,13 +120,13 @@ class UIStepRunner {
                         }
                     }
 
-                    if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
-                        session.back.push(step.constructor.getUrl());
-                    }
                     if (errorOccurred === false) {
                         if (isSaveAndClose) {
                             res.redirect('/task-list');
                         } else {
+                            if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
+                                session.back.push(step.constructor.getUrl());
+                            }
                             res.redirect(nextStepUrl);
                         }
 

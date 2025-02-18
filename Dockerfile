@@ -10,6 +10,9 @@ WORKDIR ${WORKDIR}
 
 
 COPY --chown=hmcts:hmcts package.json yarn.lock ./
+RUN which yarn
+RUN env
+RUN yarn --version
 RUN yarn config set http-proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
 RUN yarn install --production  \
     && yarn cache clean

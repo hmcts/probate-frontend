@@ -1,12 +1,14 @@
 {
   "title": "A yw&rsquo;r holl ysgutorion dal yn fyw",
-  "question": "A yw&rsquo;r holl ysgutorion yn fyw?",
+  "oneOtherQuestion": "Has {executorName} died since the will was signed?",
+  "multipleExecutorQuestion": "Have any of the executors died since the will was signed?",
   "optionYes": "Ydyn",
   "optionNo": "Nac ydyn",
 
   "errors": {
     "allalive": {
-      "required": "Atebwch &lsquo;ydyn&rsquo; os yw&rsquo;r holl ysgutorion dal yn fyw"
+      "required": "Atebwch &lsquo;ydyn&rsquo; os yw&rsquo;r holl ysgutorion dal yn fyw",
+      "required1": "Select &lsquo;yes&rsquo; if any of the executors have died since the will was signed"
     }
   }
 }

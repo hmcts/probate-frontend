@@ -15,8 +15,8 @@ RUN ls -l $(which yarn)
 RUN env
 RUN yarn --version
 
-RUN mkdir /opt/app_corepack
-RUN corepack enable --install-directory /opt/app_corepack
+RUN mkdir /home/hmcts/app_corepack
+RUN corepack enable --install-directory /home/hmcts/app_corepack
 
 RUN yarn config set http-proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
 RUN yarn install --production  \

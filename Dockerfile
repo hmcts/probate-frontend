@@ -13,7 +13,7 @@ RUN corepack enable
 USER hmcts
 
 
-RUN yarn config set http-proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
+RUN yarn config set proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
 RUN yarn install --production  \
     && yarn cache clean
 # ---- Build image ----

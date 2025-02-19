@@ -16,11 +16,11 @@ RUN env
 RUN yarn --version
 
 RUN mkdir /home/hmcts/app_corepack
-RUN corepack enable --install-directory /home/hmcts/app_corepack
+RUN corepack enable --install-directory /home/hmcts/corepack_install
 
-RUN yarn config set http-proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
-RUN yarn install --production  \
-    && yarn cache clean
+RUN /home/hmcts/corepack_install/yarn config set http-proxy "$http_proxy" && /home/hmcts/corepack_install/yarn config set https-proxy "$https_proxy"
+RUN /home/hmcts/corepack_install/yarn install --production  \
+    && /home/hmcts/corepack_install/yarn cache clean
 # ---- Build image ----
 FROM base as build
 COPY --chown=hmcts:hmcts . ./
@@ -29,10 +29,10 @@ USER root
 RUN apk add git
 USER hmcts
 
-RUN PUPPETEER_SKIP_DOWNLOAD=true yarn install
-RUN yarn -v
+RUN PUPPETEER_SKIP_DOWNLOAD=true /home/hmcts/corepack_install/yarn install
+RUN /home/hmcts/corepack_install/yarn -v
 RUN node -v
-RUN yarn setup-sass
+RUN /home/hmcts/corepack_install/yarn setup-sass
 RUN rm -rf /opt/app/.git
 
 # ---- Runtime image ----
@@ -43,4 +43,4 @@ FROM build as runtime
 #COPY --from=build ${WORKDIR}/public public/
 #COPY --from=build ${WORKDIR}/server.js ${WORKDIR}/app.js ${WORKDIR}/git.properties.json ./
 EXPOSE 3000
-CMD ["yarn", "start" ]
+CMD ["/home/hmcts/corepack_install/yarn", "start" ]

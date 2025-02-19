@@ -11,9 +11,11 @@ WORKDIR ${WORKDIR}
 
 COPY --chown=hmcts:hmcts package.json yarn.lock ./
 RUN which yarn
+RUN ls -l $(which yarn)
 RUN env
 RUN yarn --version
-RUN find /opt/app/.yarn | sort
+
+RUN corepack enable
 
 RUN yarn config set http-proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
 RUN yarn install --production  \

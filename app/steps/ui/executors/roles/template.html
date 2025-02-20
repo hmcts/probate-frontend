@@ -1,4 +1,4 @@
-{% extends "includes/two_thirds_form.html" %}
+  {% extends "includes/two_thirds_form.html" %}
 
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
@@ -6,10 +6,10 @@
 {% block form_content %}
     {% set optionRenunciatedHint %}
         <p class="govuk-body">{{ content.optionRenunciatedHint | replace("{applicationFormPA15}", globals.links.applicationFormPA15) | safe }}</p>
-        <ul class="govuk-body">
-            <li>{{ content.optionRenunciatedHintBullet1 | safe }}</li>
-            <li>{{ content.optionRenunciatedHintBullet2 | safe }}</li>
-        </ul>
+    {% endset %}
+
+    {% set optionPowerReservedHint %}
+        <p class="govuk-body">{{ content.optionPowerReservedHint | safe }}</p>
     {% endset %}
 
     {{ govukRadios({
@@ -17,21 +17,25 @@
         name: "notApplyingReason",
         fieldset: {
             legend: {
-                text: content.question | replace("{executorFullName}", fields.list.value[fields.index.value].fullName) | safe,
+                text: content.question | replace("{executorName}", fields.executorName.value) | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.notApplyingReason.errorMessage | safe } if fields.notApplyingReason.errorMessage,
+        errorMessage: { text: fields.notApplyingReason.errorMessage
+            | replace("{executorName}", fields.executorName.value) | safe } if fields.notApplyingReason.errorMessage,
         items: [
             {
                 value: "optionPowerReserved",
-                text: content["optionPowerReserved"] | safe,
-                checked: true if fields.notApplyingReason.value == "optionPowerReserved"
+                text: content["optionPowerReserved"] | replace("{executorName}", fields.executorName.value) | safe,
+                checked: true if fields.notApplyingReason.value == "optionPowerReserved",
+                conditional: {
+                    html: optionPowerReservedHint
+                }
             },
             {
                 value: "optionRenunciated",
-                text: content["optionRenunciated"] | safe,
+                text: content["optionRenunciated"] | replace("{executorName}", fields.executorName.value) | safe,
                 checked: true if fields.notApplyingReason.value == "optionRenunciated",
                 conditional: {
                     html: optionRenunciatedHint

@@ -39,12 +39,37 @@ describe('executors-all-alive', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
+            const sessionData = {
+                type: caseTypes.GOP,
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                executors: {
+                    executorsNumber: 3,
+                    list: [
+                        {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
+                        {fullName: 'Many Clouds', isApplying: true},
+                        {fullName: 'Harvey Smith', isApplying: false}
+                    ]
+                },
+                applicant: {}
+            };
+            const errorsToTest = ['allalive'];
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                    };
+                    testWrapper.testErrors(done, data, 'multipleExecutorRequired', errorsToTest);
+                });
         });
 
         it(`test it redirects to executors applying: ${expectedNextUrlForExecsApplying}`, (done) => {
             const data = {
-                allalive: 'optionYes'
+                allalive: 'optionNo',
+                list: [{fullName: 'ExecutorOne'}, {fullName: 'ExecutorTwo'}, {fullName: 'ExecutorThree'}]
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForExecsApplying);
@@ -52,7 +77,8 @@ describe('executors-all-alive', () => {
 
         it(`test it redirects to which executors died: ${expectedNextUrlForExecsWhoDied}`, (done) => {
             const data = {
-                allalive: 'optionNo'
+                allalive: 'optionYes',
+                list: [{fullName: 'ExecutorOne'}, {fullName: 'ExecutorTwo'}, {fullName: 'ExecutorThree'}]
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForExecsWhoDied);

@@ -14,12 +14,13 @@
         name: "executorNotified",
         fieldset: {
             legend: {
-                text: content.question | replace("{executorName}", fields.list.value[fields.index.value].fullName) | safe,
+                text: content.question | replace("{executorName}", fields.executorName.value) | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.executorNotified.errorMessage | safe } if fields.executorNotified.errorMessage,
+        errorMessage: { text: fields.executorNotified.errorMessage
+          | replace("{executorName}", fields.executorName.value) | safe } if fields.executorNotified.errorMessage,
         items: [
             {
                 value: "optionYes",

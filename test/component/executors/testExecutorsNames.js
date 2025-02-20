@@ -36,19 +36,21 @@ describe('executors-names', () => {
         testCommonContent.runTest('ExecutorsNames', null, null, [], false, {type: caseTypes.GOP});
 
         it('test correct content loaded on the page when lead applicant does not have an alias', (done) => {
+            const idsToExclude = ['questionWithCodicil', 'paragraphWithCodicil'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done);
+                    testWrapper.testContent(done, {}, idsToExclude);
                 });
         });
 
         it('test correct content loaded on the page when lead applicant does have an alias', (done) => {
             sessionData.executors.list[0].alias = 'Bobby Alias';
+            const idsToExclude = ['questionWithCodicil', 'paragraphWithCodicil'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done);
+                    testWrapper.testContent(done, {}, idsToExclude);
                 });
         });
 
@@ -70,7 +72,7 @@ describe('executors-names', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        executorName: ['']
+                        executorName: ''
                     };
                     const errorsToTest = ['executorName'];
 

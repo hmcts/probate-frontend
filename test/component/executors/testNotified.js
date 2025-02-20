@@ -52,13 +52,12 @@ describe('executor-notified', () => {
         });
 
         it('test right content loaded on the page', (done) => {
-
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {executorName: 'Manah Mana'};
 
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
                     testWrapper.testContent(done, contentData);
                 });
         });

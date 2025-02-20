@@ -1,11 +1,12 @@
 {
   "title": "Enwau&rsquo;r ysgutorion",
-  "question": "Beth yw enwau&rsquo;r ysgutorion?",
-  "paragraph": "Ysgrifennwch enwau&rsquo;r holl ysgutorion yn union fel y maent yn ymddangos ar yr ewyllys ac unrhyw godisiliau.",
+  "question": "Sut mae enw&rsquo;r ysgutor wedi&rsquo;i ysgrifennu ar yr ewyllys",
+  "questionWithCodicil": "Sut mae enw&rsquo;r ysgutor wedi&rsquo;i ysgrifennu ar yr ewyllys neu&rsquo;r codisil?",
+  "paragraph": "Rhowch enw’r ysgutor yn union fel y mae wedi’i ysgrifennu ar yr ewyllys",
+  "paragraphWithCodicil": "Rhowch enw’r ysgutor yn union fel y mae wedi’i ysgrifennu ar yr ewyllys neu’r codisil.",
+  "paragraph2": "Os oes mwy o ysgutorion, byddwch yn gallu eu hychwanegu yn y cam nesaf.",
   "executor": "Ysgutor",
-  "fullName": "Enw Llawn",
-  "fullNameHint": "Gan gynnwys enwau canol",
-  "numberOfExecutorsPage": "Newid y nifer o ysgutorion",
+  "fullName": "Enw llawn",
 
   "errors": {
     "executorName": {

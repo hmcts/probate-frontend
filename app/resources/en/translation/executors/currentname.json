@@ -1,12 +1,11 @@
 {
   "title": "Current name",
-  "question": "What is {executorFullName}&rsquo;s current name?",
-  "currentNameHint": "Including middle names",
-  "currentName": "Current name",
+  "question": "How is {executorFullName}&rsquo;s name written on their passport or other form of ID?",
+  "currentName": "Full name",
 
   "errors": {
     "currentName": {
-      "required": "Enter the executor&rsquo;s current name",
+      "required": "Enter {executorName}&rsquo;s name exactly as it is written in their passport or other form of ID",
       "invalid": "Enter a valid executor&rsquo;s name - can only contain letters a to z, spaces, hyphens and apostrophes"
     }
   }

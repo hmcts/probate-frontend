@@ -1,12 +1,11 @@
 {
   "title": "Enw cyfredol",
-  "question": "Beth yw enw cyfredol {executorFullName}?",
-  "currentNameHint": "Gan gynnwys enwau canol",
-  "currentName": "Enw cyfredol",
+  "question": "Sut mae enw {executorFullName} wedi&rsquo;i ysgrifennu ar eu pasbort neu ffurf arall o brawf adnabod?",
+  "currentName": "Enw llawn",
 
   "errors": {
     "currentName": {
-      "required": "Nodwch enw cyfredol yr ysgutor",
+      "required": "Nodwch enw {executorName} yn union fel y mae wedi&rsquo;i ysgrifennu ar eu pasbort neu ffurf arall o brawf adnabod",
       "invalid": "Rhowch enw ysgutor dilys - dim ond llythrennau a i z, bylchau, cysylltnodau a chollnodau y gellir eu cynnwys"
     }
   }

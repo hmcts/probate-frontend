@@ -34,7 +34,16 @@ class ExecutorNotified extends CollectionStep {
     handleGet(ctx, formdata) {
         const currentExecutor = formdata.executors.list[ctx.index];
         ctx.executorNotified = currentExecutor.executorNotified;
+        ctx.executorName = ctx.list?.[ctx.index] ? ctx.list[ctx.index].fullName : '';
         return [ctx];
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.executorName && errors) {
+            errors[0].msg = errors[0].msg.replace('{executorName}', fields.executorName.value);
+        }
+        return fields;
     }
 
     action(ctx, formdata) {

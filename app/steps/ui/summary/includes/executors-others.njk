@@ -10,20 +10,22 @@
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
-
+{% if fields.executors.executorsNumber.value > 2 %}
 {{checkanswer(
     items = [
         {
-            question: content.ExecutorsDealingWithEstate.question,
+            question: content.ExecutorsApplying.question,
             answer: fields.summary.executorsDealingWithEstate.value,
-            visible: fields.executors.otherExecutorsApplying.value == "optionYes"
+            visible: fields.summary.executorsDealingWithEstate.value
         }
     ],
-    url = content.ExecutorsDealingWithEstate.url,
+    url = content.ExecutorsApplying.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value,
     answerIsCollection = true
 )}}
+{% endif %}
+
 
 {% if fields.executors.alias.value == "optionYes" %}
     {{checkanswer(

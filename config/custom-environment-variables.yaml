@@ -108,3 +108,9 @@ exceptedEstateDateOfDeath: EXCEPTED_ESTATE_DATE_OF_DEATH
 
 dynatrace:
   dynatraceUrl: DYNATRACE_URL
+
+inactivityDaysThreshold: INACTIVITY_DAYS_THRESHOLD
+disposal:
+  switchDay: SWITCH_DAY
+  inactivityDaysThreshold: INACTIVITY_DAYS_THRESHOLD
+  deletionDaysThreshold: DELETION_DAYS_THRESHOLD

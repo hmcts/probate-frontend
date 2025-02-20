@@ -173,6 +173,7 @@ describe('Security component', () => {
         it('should redirect to login page when security cookie not defined', () => {
             req.protocol = 'http';
             req.originalUrl = '/';
+            req.baseUrl = '/';
 
             protect(req, res, next);
 
@@ -184,6 +185,7 @@ describe('Security component', () => {
             req.cookies = null;
             req.protocol = 'http';
             req.originalUrl = '/';
+            req.baseUrl = '/';
 
             protect(req, res, next);
 
@@ -201,6 +203,7 @@ describe('Security component', () => {
             req.session = {language: 'cy', expires: expiresTime};
             req.cookies[securityCookie] = token;
             req.protocol = 'http';
+            req.baseUrl = '/';
             const promise = when({name: 'Error', message: 'Unauthorized'});
 
             protect(req, res, next);

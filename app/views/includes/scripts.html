@@ -40,6 +40,21 @@
         });
       }
     });
+
+    document.addEventListener("DOMContentLoaded", function() {
+      var keepDraftLink = document.getElementById("keepDraftLink");
+      if (keepDraftLink) {
+        keepDraftLink.addEventListener("click", function(e) {
+          e.preventDefault();
+          if (keepDraftLink.dataset.clicked === "true") {
+            return;
+          }
+          keepDraftLink.dataset.clicked = "true";
+          document.getElementById("isKeepDraft").value = 'true';
+          document.getElementById("main-form").submit();
+        });
+      }
+    });
 </script>
 <script src="/public/javascripts/document-upload.js?v=1.0"></script>
 <!-- Dynatrace -->

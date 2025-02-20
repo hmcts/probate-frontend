@@ -12,6 +12,8 @@ const journeyIntestacy = require('app/journeys/intestacy');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const taskList = steps.TaskList;
 const caseTypes = require('app/utils/CaseTypes');
+const DateValidation = require('app/utils/DateValidation');
+const sinon = require('sinon');
 
 describe('Tasklist', () => {
     describe('getUrl()', () => {
@@ -29,7 +31,11 @@ describe('Tasklist', () => {
             let ctx = {};
             const req = {
                 session: {
-                    form: {},
+                    form: {
+                        ccdCase: {
+                            lastModifiedDate: '2020-01-01'
+                        }
+                    },
                     featureToggles: {'ft_will_condition': false}
                 },
                 query: {}
@@ -196,7 +202,10 @@ describe('Tasklist', () => {
                     applicant: completedForm.applicant,
                     deceased: completedForm.deceased,
                     executors: completedForm.executors,
-                    declaration: completedForm.declaration
+                    declaration: completedForm.declaration,
+                    ccdCase: {
+                        lastModifiedDate: '2020-01-01'
+                    }
                 };
                 req.body = {};
                 req.session.haveAllExecutorsDeclared = 'false';
@@ -222,7 +231,8 @@ describe('Tasklist', () => {
                     },
                     ccdCase: {
                         state: 'PAAppCreated',
-                        id: 1535395401245028
+                        id: 1535395401245028,
+                        lastModifiedDate: '2020-01-01'
                     }
                 };
                 req.body = {};
@@ -242,7 +252,8 @@ describe('Tasklist', () => {
                     },
                     ccdCase: {
                         state: 'PAAppCreated',
-                        id: 1535395401245028
+                        id: 1535395401245028,
+                        lastModifiedDate: '2020-01-01'
                     }
                 };
                 req.body = {};
@@ -256,7 +267,8 @@ describe('Tasklist', () => {
                 req.session.form = {
                     ccdCase: {
                         state: 'CasePrinted',
-                        id: 1535395401245028
+                        id: 1535395401245028,
+                        lastModifiedDate: '2020-01-01'
                     },
                     assets: {
                         assetsoverseas: 'optionYes'
@@ -300,7 +312,9 @@ describe('Tasklist', () => {
             let ctx = {};
             const req = {
                 session: {
-                    form: {},
+                    form: {
+                        ccdCase: {},
+                    },
                 },
                 featureToggles: {'ft_will_condition': true},
                 query: {}
@@ -309,6 +323,10 @@ describe('Tasklist', () => {
             beforeEach(() => {
                 req.session.journey = journeyProbate;
                 journeyMap = new JourneyMap(journeyProbate);
+            });
+
+            afterEach(() => {
+                sinon.restore();
             });
 
             it('Updates the context: neither task is started', () => {
@@ -570,6 +588,70 @@ describe('Tasklist', () => {
                 assert.equal(ctx.ExecutorsTask.status, 'complete');
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
                 assert.equal(ctx.DocumentsTask.status, 'complete');
+            });
+
+            it('Test the inactivity banner is set to display', () => {
+                req.session.form = completedFormWillConditionOn;
+                ctx = taskList.getContextData(req);
+
+                assert.equal(ctx.displayInactiveAlertBanner, true);
+                assert.equal(ctx.daysToDeleteText, '0 day');
+            });
+
+            it('should return correct context data with inactive alert and days to delete', () => {
+                sinon.stub(DateValidation, 'isInactivePeriod').returns(true);
+                sinon.stub(DateValidation, 'daysToDelete').returns(45);
+
+                const ctx = taskList.getContextData(req);
+
+                expect(ctx.displayInactiveAlertBanner).to.equal(true);
+                expect(ctx.daysToDeleteText).to.equal('45 days');
+            });
+
+            it('should format daysToDeleteText correctly for singular value (1 day)', () => {
+                sinon.stub(DateValidation, 'isInactivePeriod').returns(false);
+                sinon.stub(DateValidation, 'daysToDelete').returns(1);
+
+                const ctx = taskList.getContextData(req);
+
+                expect(ctx.displayInactiveAlertBanner).to.equal(false);
+                expect(ctx.daysToDeleteText).to.equal('1 day');
+            });
+
+            it('should return default values when ccdCase is missing', () => {
+                req.session.form = {ccdCase: null};
+
+                sinon.stub(DateValidation, 'isInactivePeriod').returns(false);
+                sinon.stub(DateValidation, 'daysToDelete').returns(0);
+
+                const ctx = taskList.getContextData(req);
+
+                expect(ctx.displayInactiveAlertBanner).to.equal(false);
+                expect(ctx.daysToDeleteText).to.equal('0 day');
+            });
+
+            it('should return default values when formdata is missing', () => {
+                req.session.form = {};
+
+                sinon.stub(DateValidation, 'isInactivePeriod').returns(false);
+                sinon.stub(DateValidation, 'daysToDelete').returns(0);
+
+                const ctx = taskList.getContextData(req);
+
+                expect(ctx.displayInactiveAlertBanner).to.equal(false);
+                expect(ctx.daysToDeleteText).to.equal('0 day');
+            });
+
+            it('should handle null lastModifiedDate gracefully', () => {
+                req.session.form = {ccdCase: {lastModifiedDate: null}};
+
+                sinon.stub(DateValidation, 'isInactivePeriod').returns(false);
+                sinon.stub(DateValidation, 'daysToDelete').returns(0);
+
+                const ctx = taskList.getContextData(req);
+
+                expect(ctx.displayInactiveAlertBanner).to.equal(false);
+                expect(ctx.daysToDeleteText).to.equal('0 day');
             });
         });
 
@@ -851,6 +933,16 @@ describe('Tasklist', () => {
         });
     });
 
+    describe('handlePost()', () => {
+        it('test it sets displaySuccessBanner', () => {
+            const ctx = {
+                isKeepDraft: 'true'
+            };
+            taskList.handlePost(ctx);
+            assert.isTrue(ctx.displaySuccessBanner);
+        });
+    });
+
     describe('action()', () => {
         it('test it cleans up context', () => {
             const ctx = {
@@ -866,7 +958,10 @@ describe('Tasklist', () => {
                         executorName: 'exec 2',
                         agreed: false
                     }
-                ]
+                ],
+                displayInactiveAlertBanner: true,
+                daysToDeleteText: '1 day',
+                isKeepDraft: true
             };
 
             taskList.action(ctx);
@@ -874,6 +969,9 @@ describe('Tasklist', () => {
             assert.isUndefined(ctx.alreadyDeclared);
             assert.isUndefined(ctx.previousTaskStatus);
             assert.isUndefined(ctx.declarationStatuses);
+            assert.isUndefined(ctx.displayInactiveAlertBanner);
+            assert.isUndefined(ctx.daysToDeleteText);
+            assert.isUndefined(ctx.isKeepDraft);
         });
     });
 });

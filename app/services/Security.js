@@ -109,7 +109,10 @@ class Security {
 
     _login(req, res) {
         const state = this._generateState();
-        const returnUrl = FormatUrl.createHostname(req);
+        let returnUrl = FormatUrl.createHostname(req);
+        if (req.baseUrl.indexOf('get-case') > 0) {
+            returnUrl += req.originalUrl;
+        }
         this._storeRedirectCookie(req, res, returnUrl, state);
         const idamConfig = config.services.idam;
 

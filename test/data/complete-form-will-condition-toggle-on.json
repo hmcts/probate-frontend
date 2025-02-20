@@ -2,7 +2,8 @@
   "formdata": {
     "ccdCase": {
       "state": "CasePrinted",
-      "id": 1535395401245028
+      "id": 1535395401245028,
+      "lastModifiedDate": "2020-10-01"
     },
     "documents": {
       "uploads": ""

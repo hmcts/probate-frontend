@@ -409,3 +409,7 @@ estateQualifyingValueRange:
 eventDescriptionPrefix: 'Page completed: '
 dynatrace:
   dynatraceUrl: 'https://js-cdn.dynatrace.com/jstag/17177a07246/bf24054dsx/27a3075f1661d271_complete.js'
+disposal:
+  switchDay: '2025-03-04'
+  inactivityDaysThreshold: 90
+  deletionDaysThreshold: 90

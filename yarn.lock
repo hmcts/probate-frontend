@@ -4693,15 +4693,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chromium-bidi@npm:1.2.0":
-  version: 1.2.0
-  resolution: "chromium-bidi@npm:1.2.0"
+"chromium-bidi@npm:2.0.0":
+  version: 2.0.0
+  resolution: "chromium-bidi@npm:2.0.0"
   dependencies:
     mitt: "npm:^3.0.1"
     zod: "npm:^3.24.1"
   peerDependencies:
     devtools-protocol: "*"
-  checksum: 10/7174ca53954a35a072bf1032469088cc5e96461ea61219286d34ad43cd4345a9dfb99d822ed1deff7f678ab415db98987efc0f2b0e4ca3048c463bc1e1dacf26
+  checksum: 10/a48dd870e6ca745de3f516ee968f3d8357cb12f7f38f9baa5cab8e716f6ad29d41cf20c22012b470d4c6b7b2f6b188b9c7196a6383364c57a056f24816e7d209
   languageName: node
   linkType: hard
 
@@ -13985,17 +13985,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:24.2.0":
-  version: 24.2.0
-  resolution: "puppeteer-core@npm:24.2.0"
+"puppeteer-core@npm:24.3.0":
+  version: 24.3.0
+  resolution: "puppeteer-core@npm:24.3.0"
   dependencies:
     "@puppeteer/browsers": "npm:2.7.1"
-    chromium-bidi: "npm:1.2.0"
+    chromium-bidi: "npm:2.0.0"
     debug: "npm:^4.4.0"
     devtools-protocol: "npm:0.0.1402036"
     typed-query-selector: "npm:^2.12.0"
-    ws: "npm:^8.18.0"
-  checksum: 10/8587027a716f501da46cb98d046b77303bc9d5bef3f1d0a9da641b18e61444546331bd36c89b3e30f207a283bb6729f8f61aa4fa09e77e816ac9c7f923a45187
+    ws: "npm:^8.18.1"
+  checksum: 10/7cff540bab36fea302198f4d77cd891a4cd2fdd5abc226068c17daed0bfd0c8b8a90a303701a76c67d9b5f8a8af3d7e7a455bbb35bb20d320d56641c3bd7efaf
   languageName: node
   linkType: hard
 
@@ -14019,18 +14019,18 @@ __metadata:
   linkType: hard
 
 "puppeteer@npm:^24.0.0":
-  version: 24.2.0
-  resolution: "puppeteer@npm:24.2.0"
+  version: 24.3.0
+  resolution: "puppeteer@npm:24.3.0"
   dependencies:
     "@puppeteer/browsers": "npm:2.7.1"
-    chromium-bidi: "npm:1.2.0"
+    chromium-bidi: "npm:2.0.0"
     cosmiconfig: "npm:^9.0.0"
     devtools-protocol: "npm:0.0.1402036"
-    puppeteer-core: "npm:24.2.0"
+    puppeteer-core: "npm:24.3.0"
     typed-query-selector: "npm:^2.12.0"
   bin:
     puppeteer: lib/cjs/puppeteer/node/cli.js
-  checksum: 10/b316f3418fa120def3347c7c3e7461a040b1e9c9b5832865eacd6440e392b27daa356ecf21b9dcb5bcbde8be3fc26f1ddba72d670ac34fda2a1d93014905568a
+  checksum: 10/f6b23b376cdd74d0b55e9e1ef08307106939d57c611dfa3105d995c7957b611a7e672aba8d7eedb7d0b179d3e4a8b2bb03ff6c774acfa4fa124a3886cd130a82
   languageName: node
   linkType: hard
 
@@ -17864,6 +17864,21 @@ __metadata:
     utf-8-validate:
       optional: true
   checksum: 10/70dfe53f23ff4368d46e4c0b1d4ca734db2c4149c6f68bc62cb16fc21f753c47b35fcc6e582f3bdfba0eaeb1c488cddab3c2255755a5c3eecb251431e42b3ff6
+  languageName: node
+  linkType: hard
+
+"ws@npm:^8.18.1":
+  version: 8.18.1
+  resolution: "ws@npm:8.18.1"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ">=5.0.2"
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: 10/3f38e9594f2af5b6324138e86b74df7d77bbb8e310bf8188679dd80bac0d1f47e51536a1923ac3365f31f3d8b25ea0b03e4ade466aa8292a86cd5defca64b19b
   languageName: node
   linkType: hard
 

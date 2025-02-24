@@ -2,6 +2,7 @@
 
 const CollectionStep = require('app/core/steps/CollectionStep');
 const {findIndex, every, tail, has, get} = require('lodash');
+const FormatName = require('../../../../utils/FormatName');
 const path = '/executor-when-died/';
 
 class ExecutorsWhenDied extends CollectionStep {
@@ -20,6 +21,14 @@ class ExecutorsWhenDied extends CollectionStep {
             ctx.diedbefore = ctx.list[ctx.index].diedBefore;
         }
         return [ctx];
+    }
+
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        const formData = req.session.form;
+        ctx.deceasedName = FormatName.format(formData.deceased);
+        ctx.executorFullName = ctx.list?.[ctx.index] ? ctx.list[ctx.index].fullName : '';
+        return ctx;
     }
 
     recalcIndex(ctx, index) {
@@ -57,6 +66,15 @@ class ExecutorsWhenDied extends CollectionStep {
     isComplete(ctx) {
         const deadExecs = tail(ctx.list).filter(executor => executor.isDead);
         return [every(deadExecs, exec => has(exec, 'diedBefore')), 'inProgress'];
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && fields.executorFullName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value)
+                .replace('{executorName}', fields.executorFullName.value);
+        }
+        return fields;
     }
 
     action(ctx, formdata) {

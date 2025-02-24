@@ -10,7 +10,7 @@
         name: "allalive",
         fieldset: {
             legend: {
-                text: content.question | safe,
+                text: (content.multipleExecutorQuestion) if fields.executorsNumber.value > 2 else content.oneOtherQuestion  | replace("{executorName}", fields.list.value[1].fullName) | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }

@@ -1,0 +1,10 @@
+{
+  "title": "Gwiriwch yr ewyllys wreiddiol nawr",
+  "titleWithCodicil": "Gwiriwch yr ewyllys wreiddiol a&rsquo;r codisiliau nawr",
+  "paragraph1": "Mae angen i ni wybod am bawb a enwir gan {deceasedName} fel ysgutor yn yr ewyllys.",
+  "paragraph1WithCodicil": "Mae angen i ni wybod am bawb a enwir gan {deceasedName} fel ysgutor yn yr ewyllys ac unrhyw godisiliau.",
+  "paragraph2": "Mae hyn yn cynnwys unrhyw un sydd:",
+  "bullet1": "wedi marw ers llofnodi’r ewyllys – hyd yn oed os yw’r ewyllys yn enwi ysgutor dirprwyol",
+  "bullet2": "ddim eisiau gwneud cais am brofiant ar hyn o bryd",
+  "bullet3": "yn ildio eu hawl i wneud cais yn barhaol"
+}

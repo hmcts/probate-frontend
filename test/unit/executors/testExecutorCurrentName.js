@@ -93,7 +93,7 @@ describe('ExecutorCurrentName', () => {
             };
             const ExecutorCurrentName = steps.ExecutorCurrentName;
             const nextStepUrl = ExecutorCurrentName.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/executor-current-name-reason/1');
+            expect(nextStepUrl).to.equal('/executor-name-reason/1');
             done();
         });
     });

@@ -132,7 +132,6 @@ describe('summary-executor-section', () => {
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });
-
         it('test data is played back correctly on the summary page executors section', (done) => {
             const executorsData = require('test/data/summary-executors');
 
@@ -148,7 +147,7 @@ describe('summary-executor-section', () => {
                         questionLastName: applicantNameContent.lastName,
                         questionPhoneNumber: applicantPhoneContent.phoneNumber,
                         questionApplicantAddress: applicantAddressContent.question,
-                        questionExecutorsAllAlive: executorsAllAliveContent.question,
+                        questionExecutorsAllAlive: executorsAllAliveContent.multipleExecutorQuestion,
 
                         allAlive: executorsAllAliveContent[executorsData.executors.allAlive],
 
@@ -160,7 +159,7 @@ describe('summary-executor-section', () => {
 
                         exec3fullName: executorsData.executors.list[2].fullName,
                         exec3IsApplying: executorsData.executors.list[2].isApplying ? executorsApplyingContent.optionYes : executorsApplyingContent.optionNo,
-                        exec3NotApplyingReason: executorsRoles[executorsData.executors.list[2].notApplyingReason],
+                        exec3NotApplyingReason: executorsRoles[executorsData.executors.list[2].notApplyingReason].replace('{executorName}', executorsData.executors.list[2].fullName),
 
                         exec4fullName: executorsData.executors.list[3].fullName,
                         exec4IsApplying: executorsData.executors.list[3].isApplying ? executorsApplyingContent.optionYes : executorsApplyingContent.optionNo,
@@ -171,7 +170,6 @@ describe('summary-executor-section', () => {
                     playbackData.address = executorsData.applicant.address.formattedAddress;
                     playbackData.nameAsOnTheWill = applicantNameAsOnWillContent[playbackData.nameAsOnTheWill];
                     playbackData.aliasReason = applicantAliasReasonContent[playbackData.aliasReason];
-
                     testWrapper.testDataPlayback(done, playbackData);
                 });
         });

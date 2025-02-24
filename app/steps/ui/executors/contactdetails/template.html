@@ -12,9 +12,10 @@
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-hint">{{ content.questionHint | safe }}</p>
+        <p class="govuk-body">{{ content.paragraph1 | replace("{executorName}", fields.otherExecName.value) | safe }}</p>
+        <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
 
-        {% set label = content.email + "<br/>" + content.email2 %}
+        {% set label = content.email %}
 
         {{ govukInput({
             label: {
@@ -30,14 +31,15 @@
             classes: "govuk-!-width-three-quarters"
         }) }}
 
-        <p class="govuk-hint">{{ content.mobileHint | safe }}</p>
-
         {{ govukInput({
             label: {
                 text: content.mobile | safe
             },
             id: "mobile",
             name: "mobile",
+            hint: {
+                text: content.mobileHint | safe
+            },
             value: fields.mobile.value | safe,
             errorMessage: { text: fields.mobile.errorMessage | safe } if fields.mobile.errorMessage,
             attributes: {

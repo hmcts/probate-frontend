@@ -22,7 +22,7 @@ class ExecutorRoles extends CollectionStep {
                 exec.notApplyingReason = exec.notApplyingKey;
             }
         });
-
+        ctx.executorName = ctx.list?.[ctx.index] ? ctx.list[ctx.index].fullName : '';
         return ctx;
     }
 
@@ -80,6 +80,14 @@ class ExecutorRoles extends CollectionStep {
                 {key: 'continue', value: true, choice: 'continue'}
             ]
         };
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.executorName && errors) {
+            errors[0].msg = errors[0].msg.replace('{executorName}', fields.executorName.value);
+        }
+        return fields;
     }
 
     action(ctx, formdata) {

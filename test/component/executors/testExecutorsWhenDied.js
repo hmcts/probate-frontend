@@ -3,7 +3,6 @@
 const initSteps = require('app/core/initSteps');
 const assert = require('chai').assert;
 const TestWrapper = require('test/util/TestWrapper');
-const contentData = {executorFullName: 'many clouds'};
 const commonContent = require('app/resources/en/translation/common');
 const caseTypes = require('app/utils/CaseTypes');
 
@@ -53,6 +52,10 @@ describe('executors-when-died', () => {
                     {fullName: 'many clouds', isDead: true},
                     {fullName: 'harvey smith', isDead: false}
                 ]
+            },
+            deceased: {
+                firstName: 'John',
+                lastName: 'Doe'
             }
         };
     });
@@ -87,19 +90,16 @@ describe('executors-when-died', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
+                    const contentData = {deceasedName: 'John Doe', executorFullName: 'Many Clouds'};
+
                     testWrapper.testContent(done, contentData);
                 });
         });
 
         it('test errors message displayed for missing data', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                    };
-                    testWrapper.testErrors(done, data, 'required');
-                });
+            const errorsToTest = ['diedbefore'];
+            testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });
     });
 

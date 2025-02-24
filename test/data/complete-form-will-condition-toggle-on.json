@@ -92,6 +92,7 @@
         {
           "fullName": "Number 2",
           "isApplying": true,
+          "hasOtherName": false,
           "email": "test@email.com",
           "mobile": "07234156431",
           "address": {
@@ -108,8 +109,9 @@
         }
       ],
       "executorsNumber": 2,
+      "executorsNamed": "optionNo",
       "invitesSent": "true",
-      "allalive": "optionYes",
+      "allalive": "optionNo",
       "otherExecutorsApplying": "optionYes",
       "alias": "optionNo",
       "mentalCapacity": "optionYes"

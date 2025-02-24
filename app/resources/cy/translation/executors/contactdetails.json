@@ -1,11 +1,11 @@
 {
   "title": "Manylion cyswllt ysgutor",
-  "question": "Beth yw cyfeiriad e-bost a rhif ff&ocirc;n symudol {executorName}?",
-  "questionHint": "Byddwn yn cysylltu &acirc;&rsquo;r ysgutor hwn ac fe ofynnir iddynt gadarnhau manylion yr ystad.",
+  "question": "Beth yw manylion cyswllt {executorName}?",
+  "paragraph1": "Byddwn yn anfon e-bost a neges testun at {executorName} i wirio eu hunaniaeth ac i gadarnhau manylion yr ystad.",
+  "paragraph2": "Mae&rsquo;n rhaid i chi ddarparu eu cyfeiriad e-bost cyfredol a&rsquo;u rhif ff&ocirc;n symudol. Ar gyfer rhifau rhyngwladol, nodwch god y wlad.",
   "email": "Cyfeiriad e-bost",
-  "email2": "Rhaid i hwn fod yn gyfeiriad e-bost personol yr ysgutor",
   "mobile": "Rhif ff&ocirc;n symudol",
-  "mobileHint": "Rhaid i hwn fod yn rhif ffôn symudol personol yr ysgutor. Er enghraifft, 07900123456 neu +33123456789",
+  "mobileHint": "Er enghraifft, 07700900900 neu +39133457090",
 
   "errors": {
     "email": {

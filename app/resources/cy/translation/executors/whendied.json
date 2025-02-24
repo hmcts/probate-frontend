@@ -1,13 +1,13 @@
 {
   "title": "Pryd farwodd yr ysgutor?",
-  "question": "A wnaeth {executorFullName} farw cyn yr unigolyn sydd wedi marw?",
+  "question": "A wnaeth {executorFullName} farw cyn {deceasedName}?",
   "optionYes": "Do",
   "optionNo": "Naddo",
   "executorFullName": "",
 
   "errors": {
     "diedbefore": {
-      "required": "Atebwch &lsquo;do&rsquo; os farwodd yr ysgutor cyn yr unigolyn sydd wedi marw"
+      "required": "Dewiswch do os wnaeth {executorName} farw cyn {deceasedName}"
     }
   }
 }

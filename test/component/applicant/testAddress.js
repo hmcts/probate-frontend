@@ -1,14 +1,14 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ExecutorsNumber = require('app/steps/ui/executors/number');
+const ExecutorCheckWill = require('app/steps/ui/executors/checkwill');
 const formatAddress = address => address.replace(/,/g, ', ');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 
 describe('applicant-address', () => {
     let testWrapper;
     let testAddressData;
-    const expectedNextUrlForExecsNumber = ExecutorsNumber.getUrl();
+    const expectedNextUrlForExecsNumber = ExecutorCheckWill.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ApplicantAddress');

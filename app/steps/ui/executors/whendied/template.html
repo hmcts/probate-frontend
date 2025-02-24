@@ -10,12 +10,14 @@
         name: "diedbefore",
         fieldset: {
             legend: {
-                text: content.question | replace("{executorFullName}", fields.list.value[fields.index.value].fullName) | safe,
+                text: content.question | replace("{executorFullName}", fields.executorFullName.value)
+                    | replace("{deceasedName}", fields.deceasedName.value) | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.diedbefore.errorMessage | safe } if fields.diedbefore.errorMessage,
+        errorMessage: { text: fields.diedbefore.errorMessage | replace("{executorName}", fields.executorFullName.value)
+| replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.diedbefore.errorMessage,
         items: [
             {
                 value: "optionYes",

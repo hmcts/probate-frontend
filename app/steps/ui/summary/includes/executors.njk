@@ -1,12 +1,12 @@
 {{checkanswer(
     items = [
         {
-            question: content.ExecutorsNumber.question,
-            answer: fields.executors.executorsNumber.value,
+            question: content.ExecutorsNamed.question,
+            answer: content.ExecutorsNamed[fields.executors.executorsNamed.value],
             visible: true
         }
     ],
-    url = content.ExecutorsNumber.url,
+    url = content.ExecutorsNamed.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
@@ -14,7 +14,7 @@
 {{checkanswer(
     items = [
         {
-            question: content.ExecutorsAllAlive.question,
+            question: content.ExecutorsAllAlive.multipleExecutorQuestion,
             answer: content.ExecutorsAllAlive[fields.executors.allalive.value],
             visible: fields.executors.executorsNumber.value > 1
         }
@@ -29,7 +29,7 @@
         {
             question: content.ExecutorsWhoDied.question,
             answer: fields.summary.executorsWhoDied.value,
-            visible: fields.executors.allalive.value == "optionNo"
+            visible: fields.executors.allalive.value == "optionYes"
         }
     ],
     url = content.ExecutorsWhoDied.url,

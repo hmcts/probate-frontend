@@ -1,0 +1,30 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block form_content %}
+    {% call govukFieldset({
+        legend: {
+            text: (content.titleWithCodicil if fields.codicilPresent.value == "true" else content.title) | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+
+    <p class="govuk-body">{{ (content.paragraph1WithCodicil if fields.codicilPresent.value == "true" else content.paragraph1) | replace("{deceasedName}", fields.deceasedName.value) | safe}}</p>
+    <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>{{ content.bullet1 | safe }}</li>
+      <li>{{ content.bullet2 | safe }}</li>
+      <li>{{ content.bullet3 | safe }}</li>
+    </ul>
+    {% endcall %}
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.continue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

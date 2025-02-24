@@ -1,0 +1,23 @@
+{
+  "title": "Ysgutorion a enwir yn yr ewyllys",
+  "titleWithCodicil": "Ysgutorion a enwir yn yr ewyllys ac unrhyw godisiliau",
+  "question": "A oes unrhyw ysgutorion eraill a enwir?",
+  "hintText": "Sicrhewch eich bod yn cynnwys pob ysgutor a enwir yn yr ewyllys, gan gynnwys unrhyw un sydd:",
+  "hintTextWithCodicil": "Sicrhewch eich bod yn cynnwys pob ysgutor a enwir yn yr ewyllys ac unrhyw godisiliau, gan gynnwys unrhyw un sydd:",
+  "executorsDied": "wedi marw",
+  "executorsNotApplying": "ddim yn gwneud cais am brofiant",
+  "executorsGivenUpRight": "wedi ildio eu hawl i wneud cais",
+  "executorsNamed": "Nifer yr ysgutorion",
+  "applicantExecutor" : "Ysgutor (chi)",
+  "furtherExecutor": "Ysgutor",
+  "executorTellUsMore": "Byddwch yn gallu dweud mwy wrthym am bob ysgutor yn ddiweddarach.",
+  "optionYes": "Oes",
+  "optionNo": "Nac oes",
+  "removeAction": "Dileu",
+
+  "errors": {
+    "executorsNamed": {
+      "required": "Nodwch nifer yr ysgutorion"
+    }
+  }
+}

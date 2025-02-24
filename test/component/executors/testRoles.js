@@ -71,7 +71,7 @@ describe('executor-roles', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        executorFullName: 'Mana Manah',
+                        executorName: 'Mana Manah',
                         applicationFormPA15: config.links.applicationFormPA15
                     };
 
@@ -81,17 +81,9 @@ describe('executor-roles', () => {
         });
 
         it('test schema validation when executor is not applying', (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const errorsToTest = ['notApplyingReason'];
-                    const data = {
-                        notApplyingReason: null
-                    };
-
-                    testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-                    testWrapper.testErrors(done, data, 'required', errorsToTest);
-                });
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+            const errorsToTest = ['notApplyingReason'];
+            testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });
     });
 

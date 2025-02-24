@@ -16,11 +16,28 @@
         {% set caseDateClasses = " govuk-table__cell--numeric" + "app-custom-class" %}
         {% set caseStatusClasses = (" govuk-tag govuk-tag--grey" if grantIssued else (" govuk-tag govuk-tag--green" if pageSubmitted else " govuk-tag govuk-tag--blue")) %}
 
+        {% if application.deceasedFullName %}
+            {% set nameValue = application.deceasedFullName %}
+        {% elif application.caseType == "PA" %}
+            {% set nameValue = content.statusDraftProbate %}
+        {% else %}
+            {% set nameValue = content.statusDraftIntestacy %}
+        {% endif %}
+        {% set actionLabel = actionText + " " + nameValue %}
+
+        {% if grantIssued %}
+           {% set statusValue = content.StatusGrantIssued %}
+        {% elif pageSubmitted %}
+           {% set statusValue = content.statusSubmitted %}
+        {% else %}
+           {% set statusValue = content.statusInProgress %}
+        {% endif %}
+
         {% set applicationRows = (applicationRows.push([
-            { text: (application.deceasedFullName if application.deceasedFullName else (content.statusDraftProbate if application.caseType == "PA" else content.statusDraftIntestacy)) | safe, classes: caseClasses },
+            { text: nameValue | safe, classes: caseClasses },
             { text: application.dateCreated | safe, classes: caseDateClasses},
-            { html: "<strong class=\"" + caseStatusClasses + "\">" + (content.statusGrantIssued if grantIssued else (content.statusSubmitted if pageSubmitted else content.statusInProgress)) + "</strong>" },
-            { html: "<a href=\"" + actionUrl + "\" class=\"govuk-link\">" + actionText + "</a>"  }
+            { html: "<strong class=\"" + caseStatusClasses + "\">" + statusValue + "</strong>" },
+            { html: "<a href=\"" + actionUrl + "\" class=\"govuk-link\" aria-label=\"" + actionLabel + "\">" + actionText + "</a>"  }
         ]), applicationRows) %}
     {% endfor %}
 

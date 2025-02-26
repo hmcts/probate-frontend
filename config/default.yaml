@@ -80,6 +80,7 @@ services:
   payment:
     name: 'Payment Service'
     url: 'http://localhost:8383'
+    externalUrl: 'https://card.payments.service.gov.uk'
     authorization: 'DUMMY_TOKEN'
     serviceAuthorization: 'DUMMY_TOKEN'
     userId: 46

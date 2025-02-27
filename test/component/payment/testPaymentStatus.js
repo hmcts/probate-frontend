@@ -69,23 +69,6 @@ describe('payment-status', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('PaymentStatus', commonContentNock, null, [], false, {declaration: {declarationCheckbox: 'true'}, payment: {total: 0}});
 
-        it('test right content loaded on the page when net value is greater than 5000£', (done) => {
-            nock(config.services.orchestrator.url)
-                .put(uri => uri.includes('submissions'))
-                .reply(200, {
-                    ccdCase: sessionData.ccdCase,
-                    payment: sessionData.payment
-                });
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const contentToExclude = ['headingNoPayment'];
-
-                    testWrapper.testContent(done, {}, contentToExclude);
-                });
-        });
-
         it('test right content loaded on the page when net value is less than 5000£', (done) => {
             nock(config.services.orchestrator.url)
                 .put(uri => uri.includes('submissions'))

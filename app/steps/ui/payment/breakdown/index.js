@@ -92,7 +92,7 @@ class PaymentBreakdown extends Step {
 
             const [canCreatePayment, paymentStatus] = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
             logger.info(`canCreatePayment result = ${canCreatePayment} with status ${paymentStatus}`);
-            if (paymentStatus === 'Initiated') {
+            if (paymentStatus && paymentStatus.toLowerCase() === 'initiated') {
                 const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
                 const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
                 const data = {
@@ -103,7 +103,7 @@ class PaymentBreakdown extends Step {
                 };
                 const paymentResponse = yield payment.get(data);
                 logger.info('Checking status of reference = ' + ctx.reference + ' with response = ' + paymentResponse.status);
-                if (paymentResponse.status === 'Initiated') {
+                if (paymentResponse.status.toLowerCase() === 'initiated') {
                     logger.error('As payment is still Initiated, user will need to wait for this state to expire.');
                     errors.push(FieldError('payment', 'initiated', this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
                     return [ctx, errors];
@@ -217,7 +217,8 @@ class PaymentBreakdown extends Step {
             logger.debug(`Payment retrieval in breakdown for caseId = ${caseId} with response = ${JSON.stringify(paymentResponse)}`);
             if (!paymentResponse) {
                 logger.info('No payments of Initiated or Success found for case.');
-            } else if (paymentResponse.status === 'Initiated' || paymentResponse.status === 'Success') {
+            } else if (paymentResponse.status.toLowerCase() === 'initiated' ||
+                    paymentResponse.status.toLowerCase() === 'success') {
                 paymentStatus = paymentResponse.status;
                 if (paymentResponse.payment_reference !== paymentReference) {
                     logger.info(`Payment with status ${paymentResponse.status} found, using reference ${paymentResponse.payment_reference}.`);

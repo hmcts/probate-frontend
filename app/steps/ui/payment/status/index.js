@@ -89,7 +89,10 @@ class PaymentStatus extends Step {
                 return options;
             }
 
-            const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, getPaymentResponse, serviceAuthResult, session.language);
+            logger.error('bail out without saving the response');
+            const updateCcdCaseResponse = false;
+            const errors = ['skipped payment record'];
+            //const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, getPaymentResponse, serviceAuthResult, session.language);
             set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
             set(formdata, 'payment', updateCcdCaseResponse.payment);
             set(formdata, 'registry', updateCcdCaseResponse.registry);

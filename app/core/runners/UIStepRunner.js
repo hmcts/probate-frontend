@@ -77,10 +77,10 @@ class UIStepRunner {
             let isEmptyForm = true;
             if (req.body) {
                 Object.keys(req.body).forEach((value) => {
-                    if (value && value !== '_csrf' && value !== 'isSaveAndClose') {
+                    if (value && value !== '_csrf' && value !== 'isSaveAndClose' && value !== 'isKeepDraft') {
                         const reqFormData = get(req.body, value);
                         if (reqFormData && !isEmpty(reqFormData)) {
-                            isEmptyForm=false;
+                            isEmptyForm = false;
                         }
                     }
                 });

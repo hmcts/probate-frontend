@@ -29,5 +29,10 @@
   "notDeclared": "Heb ddatgan",
   "executorName": "Enw&rsquo;r ysgutor",
   "declarationStatus": "Statws y datganiad cyfreithiol",
-  "notificationBanner": "Rhaid i bob ysgutor wneud eu datganiad cyfreithiol cyn y gallwch barhau &acirc;&rsquo;ch cais."
+  "notificationBanner": "Rhaid i bob ysgutor wneud eu datganiad cyfreithiol cyn y gallwch barhau &acirc;&rsquo;ch cais.",
+  "inactiveAlertBannerTitle": "Pwysig",
+  "inactiveAlertBannerContent": "Gan nad ydych wedi cyflwyno'ch cais, bydd yn cael ei ddileu mewn {daysToDelete}. ",
+  "keepMyApplication": "Cadw fy nghais.",
+  "successBannerTitle": "Llwyddiant",
+  "successBannerContent": "Ni fydd eich cais yn cael ei ddileu."
 }

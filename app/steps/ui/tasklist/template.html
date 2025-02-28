@@ -1,14 +1,45 @@
 {% extends "includes/layout.html" %}
 
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "widgets/lists.html" import taskAction, unorderedList %}
 {% from "widgets/taskheader.html" import taskHeader %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% set taskNumber = 0 %}
-
 {% block content %}
     <div class="govuk-grid-row">
+        {% if fields.displaySuccessBanner.value == "true" %}
+          <div class="govuk-grid-column-two-thirds" style="padding-left: 0px;">
+            {% set html %}
+            <p class="govuk-notification-banner__heading">
+              {{ content.successBannerContent | safe }}
+            </p>
+            {% endset %}
+            {{ govukNotificationBanner({
+              html: html,
+              type: "success",
+              titleText: content.successBannerTitle | safe
+            }) }}
+          </div>
+        {% elseif fields.displayInactiveAlertBanner.value == "true" %}
+          <div class="govuk-grid-column-two-thirds" style="padding-left: 0px;">
+            {% set html %}
+              <form class="form" id="main-form" method="post" autocomplete="off" action="{{ pageUrl }}" novalidate>
+                <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+                <p class="govuk-notification-banner__heading">
+                  {{ content.inactiveAlertBannerContent | replace("{daysToDelete}", fields.daysToDeleteText.value) | safe }}
+                <a href="/task-list" class="govuk-link govuk-link--no-visited-state" id="keepDraftLink">{{ content.keepMyApplication | safe }}</a>
+                </p>
+                <input type="hidden" name="isKeepDraft" id = "isKeepDraft" value="false">
+              </form>
+            {% endset %}
+            {{ govukNotificationBanner({
+              html: html,
+              titleText: content.inactiveAlertBannerTitle | safe
+            }) }}
+          </div>
+        {% endif %}
         <div class="govuk-grid-column-two-thirds">
           {% if fields.hasMultipleApplicants.value == "true" %}
           {% set bannerDisplayed = false %}

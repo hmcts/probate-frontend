@@ -28,5 +28,10 @@
   "notDeclared": "Not declared",
   "executorName": "Executor name",
   "declarationStatus": "Declaration Status",
-  "notificationBanner": "All executors must make their legal declaration before you can continue with your application."
+  "notificationBanner": "All executors must make their legal declaration before you can continue with your application.",
+  "inactiveAlertBannerTitle": "Important",
+  "inactiveAlertBannerContent": "As you have not submitted your application, it will be deleted in {daysToDelete}. ",
+  "keepMyApplication": "Keep my application.",
+  "successBannerTitle": "Success",
+  "successBannerContent": "Your application will not be deleted."
 }

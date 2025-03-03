@@ -75,9 +75,11 @@ class Declaration extends ValidationStep {
         const formdataDeceased = formdata.deceased || {};
         formdata.deceasedName = FormatName.format(formdataDeceased);
         formdata.deceasedAddress = get(formdataDeceased, 'address', {});
+        const otherNames = this.collectOtherNames(formdataDeceased);
+
         formdata.deceasedOtherNames = {
-            en: FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content.en),
-            cy: FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content.cy)
+            en: FormatName.formatMultipleNamesAndAddress(otherNames, content.en),
+            cy: FormatName.formatMultipleNamesAndAddress(otherNames, content.cy)
         };
 
         formdata.dobFormattedDate = {};
@@ -102,6 +104,21 @@ class Declaration extends ValidationStep {
         formdata.ihtTotalNetValue = formdataIht.netValue;
         formdata.ihtTotalNetValue += formdataIht.netValueAssetsOutside ? formdataIht.netValueAssetsOutside : 0;
         return formdata;
+    }
+
+    collectOtherNames(formdataDeceased) {
+        const caseDataDeceasedNames = get(formdataDeceased, 'otherNames', {});
+        const otherNames = structuredClone(caseDataDeceasedNames);
+        const nameSameOnWill = get(formdataDeceased, 'nameAsOnTheWill', 'optionYes');
+
+        if (nameSameOnWill === 'optionNo') {
+            const nameOnWill = {
+                firstName: formdataDeceased.aliasFirstNameOnWill,
+                lastName: formdataDeceased.aliasLastNameOnWill
+            };
+            otherNames.willAlias = nameOnWill;
+        }
+        return otherNames;
     }
 
     generateContent(ctx, formdata) {

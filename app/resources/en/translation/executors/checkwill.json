@@ -1,0 +1,10 @@
+{
+  "title": "Check the original will now",
+  "titleWithCodicil": "Check the original will and codicils now",
+  "paragraph1": "We need to know about everyone {deceasedName} named as an executor in the will.",
+  "paragraph1WithCodicil": "We need to know about everyone {deceasedName} named as an executor in the will and any codicils.",
+  "paragraph2": "This includes anyone who:",
+  "bullet1": "has died since the will was signed - even if the will names a substitute executor",
+  "bullet2": "does not want to apply for probate right now",
+  "bullet3": "is permanently giving up their right to apply"
+}

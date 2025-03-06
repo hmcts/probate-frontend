@@ -72,7 +72,9 @@ describe('executor-current-name', () => {
         });
 
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+            const errorsToTest = ['currentName'];
+            testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });
 
         it('test errors message displayed for invalid currentname', (done) => {

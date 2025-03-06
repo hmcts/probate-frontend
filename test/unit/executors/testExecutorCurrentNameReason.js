@@ -6,7 +6,7 @@ const initSteps = require('app/core/initSteps');
 const {assert, expect} = require('chai');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const journey = require('app/journeys/probate');
-const executorCurrentNameReasonPath = '/executor-current-name-reason/';
+const executorCurrentNameReasonPath = '/executor-name-reason/';
 
 describe('ExecutorCurrentNameReason', () => {
     const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
@@ -87,13 +87,13 @@ describe('ExecutorCurrentNameReason', () => {
 
         it('sets the index when startsWith(req.path, path)', (done) => {
             const req = {
-                path: '/executor-current-name-reason/',
+                path: '/executor-name-reason/',
                 session: {
                     form: {
                         executors: {
                             list: [
-                                {currentName: 'executor current name', hasOtherName: true},
-                                {currentName: 'bob smith', hasOtherName: true}
+                                {currentName: 'executor current name', isApplying: true, hasOtherName: true},
+                                {currentName: 'bob smith', isApplying: true, hasOtherName: true}
                             ]
                         }
                     }
@@ -255,7 +255,7 @@ describe('ExecutorCurrentNameReason', () => {
                 }, {
                     isApplying: true
                 }],
-                index: -1,
+                index: 1,
                 executorsWrapper: new ExecutorsWrapper(),
                 currentNameReason: 'optionMarriage'
             });
@@ -275,7 +275,7 @@ describe('ExecutorCurrentNameReason', () => {
             };
             const index = ExecutorCurrentNameReason.recalcIndex(testCtx, 0);
 
-            expect(index).to.equal(2);
+            expect(index).to.equal(1);
             done();
         });
 
@@ -318,7 +318,7 @@ describe('ExecutorCurrentNameReason', () => {
             };
             const ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
             const nextStepUrl = ExecutorCurrentNameReason.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/executor-current-name/1');
+            expect(nextStepUrl).to.equal('/executors-alias/1');
             done();
         });
     });
@@ -372,6 +372,39 @@ describe('ExecutorCurrentNameReason', () => {
 
             expect(action).to.deep.equal([{}, {declaration: {hasDataChanged: true}}]);
             done();
+        });
+    });
+    describe('ExecutorCurrentNameReason isComplete', () => {
+        let ctx;
+
+        beforeEach(() => {
+            ctx = {
+                list: [
+                    {fullName: 'Executor 1', hasOtherName: true, currentNameReason: 'Reason 1'},
+                    {fullName: 'Executor 2', hasOtherName: true, currentNameReason: 'Reason 2'},
+                    {fullName: 'Executor 3', hasOtherName: false}
+                ]
+            };
+        });
+
+        it('should return inProgress if all executors with another name have a current name reason', () => {
+            const result = ExecutorCurrentNameReason.isComplete(ctx);
+            expect(result).to.deep.equal([true, 'inProgress']);
+        });
+
+        it('should return inProgress if no executors have another name', () => {
+            ctx.list = [
+                {fullName: 'Executor 1', hasOtherName: false},
+                {fullName: 'Executor 2', hasOtherName: false}
+            ];
+            const result = ExecutorCurrentNameReason.isComplete(ctx);
+            expect(result).to.deep.equal([true, 'inProgress']);
+        });
+
+        it('should return inProgress if executors list is empty', () => {
+            ctx.list = [];
+            const result = ExecutorCurrentNameReason.isComplete(ctx);
+            expect(result).to.deep.equal([true, 'inProgress']);
         });
     });
 });

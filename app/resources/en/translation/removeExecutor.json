@@ -1,0 +1,23 @@
+{
+  "title": "Executors named in the will",
+  "titleWithCodicil": "Executors named in the will and any codicils",
+  "question": "Are there any other executors named?",
+  "hintText": "You must make sure to include every executor named in the will, including anyone who:",
+  "hintTextWithCodicil": "You must make sure to include every executor named in the will and any codicils, including anyone who:",
+  "executorsDied": "has died",
+  "executorsNotApplying": "is not applying for probate",
+  "executorsGivenUpRight": "has given up their right to apply",
+  "executorsNamed": "Number of executors",
+  "applicantExecutor" : "Executor (you)",
+  "furtherExecutor": "Executor",
+  "executorTellUsMore": "You'll be able to tell us more about each executor later.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "removeAction": "Remove",
+
+  "errors": {
+    "executorsNamed": {
+      "required": "Select yes if there are more executors named in the will and any codicils"
+    }
+  }
+}

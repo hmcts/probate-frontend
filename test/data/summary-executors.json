@@ -9,8 +9,10 @@
   },
 
   "executors": {
-   "executorsNumber": 3,
+    "executorsNamed": "optionNo",
+    "executorsNumber": 3,
     "otherExecutorsApplying": "optionYes",
+    "executorsApplying": ["dean plummer", "sam simms"],
     "allAlive": "optionNo",
     "list": [
       {

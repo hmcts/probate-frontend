@@ -3,7 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex, get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const pageUrl = '/executor-current-name';
+const pageUrl = '/executor-id-name';
 
 class ExecutorCurrentName extends ValidationStep {
 
@@ -19,11 +19,12 @@ class ExecutorCurrentName extends ValidationStep {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
+        ctx.executorName = ctx.list?.[ctx.index] ? ctx.list[ctx.index].fullName : '';
         return ctx;
     }
 
     handleGet(ctx) {
-        if (ctx.list && ctx.list[ctx.index]) {
+        if (ctx.list?.[ctx.index]) {
             ctx.currentName = ctx.list[ctx.index].currentName;
         }
         return [ctx];
@@ -65,6 +66,14 @@ class ExecutorCurrentName extends ValidationStep {
     isComplete(ctx) {
         const executorsWrapper = new ExecutorsWrapper(ctx);
         return [executorsWrapper.executorsWithAnotherName().every(exec => exec.currentName), 'inProgress'];
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.executorName && errors) {
+            errors[0].msg = errors[0].msg.replace('{executorName}', fields.executorName.value);
+        }
+        return fields;
     }
 }
 

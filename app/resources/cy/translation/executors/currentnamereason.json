@@ -1,15 +1,19 @@
 {
   "title": "Rheswm dros yr Enw Arall",
-  "question": "Pam bod gan {executorName} enw arall?",
-  "optionMarriage": "Wedi priodi",
-  "optionDivorce": "Wedi ysgaru",
-  "optionDeedPoll": "Gweithred newid enw",
+  "question": "Pam fod enw {executorName} yn wahanol i sut mae wedi&rsquo;i ysgrifennu ar yr ewyllys?",
+  "questionWithCodicil": "Pam fod enw {executorName} yn wahanol i sut mae wedi&rsquo;i ysgrifennu ar yr ewyllys neu unrhyw godisiliau?",
+  "paragraph1": "Rhaid i chi egluro&rsquo;r rheswm am y gwahaniaeth, er enghraifft, mae {executorName} wedi newid eu henw ers ysgrifennu&rsquo;r ewyllys, neu ni chafodd eu henw canol ei gynnwys.",
+  "optionMarriage": "Mae nhw wedi priodi neu wedi ffurfio partneriaeth sifil",
+  "optionDivorce": "Mae nhw wedi ysgaru neu wedi dod â&rsquo;u partneriaeth sifil i ben",
+  "optionDeedPoll": "Bu iddynt newid eu henw trwy weithred newid enw",
+  "optionDifferentSpelling": "Cafodd eu henw ei sillafu&rsquo;n wahanol",
+  "optionPartOfNameNotIncluded": "Ni chafodd rhan o&rsquo;u henw ei gynnwys",
   "optionOther": "Arall",
-  "optionOtherHint": "Rheswm dros y newid enw",
+  "optionOtherHint": "Rheswm dros y gwahaniaeth",
 
   "errors": {
     "currentNameReason": {
-      "required": "Dewiswch reswm dros y newid enw"
+      "required": "Dewiswch reswm dros pam fod enw {executorName} yn wahanol"
     },
     "otherReason": {
       "required": "Nodwch y rheswm dros y newid enw"

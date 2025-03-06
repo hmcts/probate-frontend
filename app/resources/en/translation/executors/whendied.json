@@ -1,13 +1,13 @@
 {
   "title": "When did the executor die?",
-  "question": "Did {executorFullName} die before the person who died?",
+  "question": "Did {executorFullName} die before {deceasedName}?",
   "optionYes": "Yes",
   "optionNo": "No",
   "executorFullName": "",
 
   "errors": {
     "diedbefore": {
-      "required": "Answer &lsquo;yes&rsquo; if the executor died before the person who died"
+      "required": "Select yes if {executorName} died before {deceasedName}"
     }
   }
 }

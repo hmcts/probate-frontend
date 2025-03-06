@@ -1,16 +1,24 @@
 {
-  "title": "A fydd unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad",
-  "question": "A fydd unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad?",
-  "paragraph1": "Bydd yr ysgutorion hyn yn cael hawl gyfreithiol i:",
-  "applicant-rights1": "gasglu asedau&rsquo;r ystad (eiddo ac arian)",
+  "title": "Ysgutorion sy&rsquo;n delio &acirc;&rsquo;r ystad",
+  "question": "Ysgutorion sy&rsquo;n delio &acirc;&rsquo;r ystad",
+  "paragraph1": "Gellir enwi hyd at 4 ysgutor gan gynnwys eich hun, ar y cais a&rsquo;r grant am brofiant.",
+  "paragraph2": "Bydd pob ysgutor a enwir yn cael yr hawl gyfreithiol i ddelio ag ystad {deceasedName}. Mae hyn yn cynnwys:",
+  "applicant-rights1": "casglu asedau&rsquo;r ystad (eiddo ac arian)",
   "applicant-rights2": "talu unrhyw drethi a dyledion",
   "applicant-rights3": "dosrannu beth sydd ar &ocirc;l i&rsquo;r bobl sydd &acirc; hawl iddo (y &lsquo;buddiolwyr&rsquo;)",
+  "contactOtherExecs": "Byddwn yn cysylltu &acirc;&rsquo;r ysgutorion eraill ac yn gofyn iddynt wirio&rsquo;r wybodaeth a ddarparwyd gennych yn y cais hwn ac yn cadarnhau ei fod yn gywir.",
+  "applicantsNotDealing": "Gofynnir i chi am ysgutorion na fyddant yn delio &acirc;&rsquo;r ystad yn ddiweddarach.",
+  "multiExecQuestion": "Pa ysgutorion fydd hefyd yn delio &acirc;&rsquo;r ystad?",
+  "oneOtherExecQuestion": "A fydd {executorName} hefyd yn delio &acirc;&rsquo;r ystad?",
   "optionYes": "Bydd",
   "optionNo": "Na fydd",
 
   "errors": {
     "otherExecutorsApplying": {
-      "required": "Atebwch &lsquo;bydd&rsquo; os yw unrhyw un o&rsquo;r ysgutorion eraill yn delio &acirc;&rsquo;r ystad"
+      "required": "Dewiswch bydd os bydd {executorName} yn delio â'r ystad"
+    },
+    "executorsApplying": {
+      "invalid": "Ni allwch ddewis mwy na 4 ysgutor"
     }
   }
 }

@@ -34,30 +34,52 @@ describe('/executor-current-name-reason/', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         it('test content loaded on the page', (done) => {
+            const idsToExclude = ['questionWithCodicil'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
                         executorFullName: 'Executor Name2',
-                        executorName: 'Name2 Executor'
+                        executorName: 'Name2 Executor',
+                        list: [
+                            {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
+                            {fullName: 'Executor Name1', isApplying: false},
+                            {fullName: 'Executor Name2', isApplying: true, currentName: 'Name2 Executor', hasOtherName: true},
+                        ]
                     };
 
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
-                    testWrapper.testContent(done, contentData);
+                    testWrapper.testContent(done, contentData, idsToExclude);
                 });
         });
 
-        it('test alias reason validation when no data is entered', (done) => {
+        it('test alias reason validation when no data is entered for current name reason', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
             const errorsToTest = ['currentNameReason'];
 
-            testWrapper.testErrors(done, {}, 'required', errorsToTest);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        currentNameReason: '',
+                        executorName: 'Executor Name2'
+                    };
+
+                    testWrapper.testErrors(done, data, 'required', errorsToTest);
+                });
         });
 
         it('test alias reason validation when other is selected but no reason is entered', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
             const errorsToTest = ['otherReason'];
             const data = {
                 currentNameReason: 'optionOther',
-                otherReason: ''
+                otherReason: '',
+                list: [
+                    {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
+                    {fullName: 'Executor Name1', isApplying: false},
+                    {fullName: 'Executor Name2', isApplying: true, currentName: 'Name2 Executor', hasOtherName: true},
+                ]
             };
 
             testWrapper.testErrors(done, data, 'required', errorsToTest);

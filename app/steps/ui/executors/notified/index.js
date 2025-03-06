@@ -31,10 +31,24 @@ class ExecutorNotified extends CollectionStep {
         return [ctx, errors];
     }
 
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        ctx.executorName = ctx.list?.[ctx.index] ? ctx.list[ctx.index].fullName : '';
+        return ctx;
+    }
+
     handleGet(ctx, formdata) {
         const currentExecutor = formdata.executors.list[ctx.index];
         ctx.executorNotified = currentExecutor.executorNotified;
         return [ctx];
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.executorName && errors) {
+            errors[0].msg = errors[0].msg.replace('{executorName}', fields.executorName.value);
+        }
+        return fields;
     }
 
     action(ctx, formdata) {

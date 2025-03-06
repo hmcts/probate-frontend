@@ -77,4 +77,33 @@ describe('ExecutorNotified', () => {
             assert.isUndefined(ctx.nextExecutor);
         });
     });
+    describe('ExecutorNotified generateFields', () => {
+        let ctx;
+        let errors;
+        let language;
+
+        beforeEach(() => {
+            ctx = {
+                list: [
+                    {fullName: 'Executor 1', isDead: false},
+                    {fullName: 'Executor 2', isDead: false}
+                ],
+                executorName: 'Executor 1',
+                index: 0
+            };
+            errors = [{msg: 'Error message for {executorName}'}];
+            language = 'en';
+        });
+
+        it('should replace {executorName} placeholder in error message if executorName is present', () => {
+            ExecutorNotified.generateFields(language, ctx, errors);
+            expect(errors[0].msg).to.equal('Error message for Executor 1');
+        });
+
+        it('should not modify error message if executorName is not present in fields', () => {
+            ctx.executorName = '';
+            ExecutorNotified.generateFields(language, ctx, errors);
+            expect(errors[0].msg).to.equal('Error message for ');
+        });
+    });
 });

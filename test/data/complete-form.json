@@ -93,6 +93,9 @@
           "isApplying": true,
           "email": "test@email.com",
           "mobile": "07234156431",
+          "hasOtherName": true,
+          "currentName": "Number 2",
+          "currentNameReason": "optionMarriage",
           "address": {
             "addressLine1": "21 Treelined Avenue",
             "addressLine2": "",
@@ -107,8 +110,9 @@
         }
       ],
       "executorsNumber": 2,
+      "executorsNamed": "optionNo",
       "invitesSent": "true",
-      "allalive": "optionYes",
+      "allalive": "optionNo",
       "otherExecutorsApplying": "optionYes",
       "alias": "optionNo",
       "mentalCapacity": "optionYes"

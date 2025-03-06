@@ -246,6 +246,7 @@ class TestWrapper {
             if (errorMessageValueMatch) {
                 errorMessageValueMatch.forEach(placeholder => {
                     const placeholderRegex = new RegExp(placeholder, 'g');
+                    placeholder = placeholder.replace(/[{}]/g, '');
                     contentToSubstitute[contentKey][type] = contentToSubstitute[contentKey][type].replace(placeholderRegex, data[placeholder]);
                 });
             }

@@ -14,6 +14,47 @@ Dashboard
     }
   }
 
+  @include govuk-media-query($until: desktop) {
+    display: grid;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(1, auto);
+
+    :is(thead, tbody, tfoot),
+    :is(thead, tbody, tfoot) > tr {
+      display: contents;
+    }
+
+    thead > tr > :is(td, th) {
+      display: none;
+    }
+
+    tbody > tr > :is(td, th) {
+      grid-column: 1 / -1;
+
+      &:not(:nth-child(4)) {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      &::before {
+        font-weight: bold;
+      }
+
+      &:nth-child(1)::before {
+        content: var(--dashboard-deceasedName);
+      }
+      &:nth-child(2)::before {
+        content: var(--dashboard-createdDate);
+      }
+      &:nth-child(3)::before {
+        content: var(--dashboard-status);
+      }
+      &:nth-child(4)::before {
+        content: var(--dashboard-action);
+      }
+    }
+  }
+
   .case {
     &.draft {
       color: govuk-colour("dark-grey");

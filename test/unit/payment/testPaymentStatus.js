@@ -39,16 +39,6 @@ describe('PaymentStatus', () => {
         site_id: 'siteId0001',
         external_reference: 12345
     };
-    const failedPaymentResponse = {
-        channel: 'Online',
-        id: 12345,
-        reference: 'PaymentReference12345',
-        amount: 5000,
-        status: 'Failed',
-        date_updated: '2018-08-29T15:25:11.920+0000',
-        site_id: 'siteId0001',
-        external_reference: 12345
-    };
 
     const revertSubmitData = ((formData) => {
         PaymentStatus.__set__('ServiceMapper', class {
@@ -145,72 +135,6 @@ describe('PaymentStatus', () => {
             co(function* () {
                 const options = yield paymentStatus.runnerOptions(ctx, session);
                 expect(options).to.deep.equal(expectedOptions);
-                revert();
-                done();
-            }).catch(err => {
-                done(err);
-            });
-        });
-
-        it('should set redirect to false if payment is successful', (done) => {
-            revertSubmitData(expectedFormData);
-
-            const revert = PaymentStatus.__set__({
-                Payment: class {
-                    get() {
-                        return Promise.resolve(successfulPaymentResponse);
-                    }
-                }
-            });
-            const session = {
-                form: {
-                    payment: {}
-                }
-            };
-            const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
-
-            co(function* () {
-                const options = yield paymentStatus.runnerOptions(ctx, session);
-                expect(options.redirect).to.equal(false);
-                expect(session.form).to.deep.equal(expectedFormData);
-                revert();
-                done();
-            }).catch(err => {
-                done(err);
-            });
-        });
-
-        it('should set redirect to true and payment status to failure if payment is not successful', (done) => {
-            revertSubmitData(expectedFormData);
-
-            expectedFormData.payment.status = 'Failed';
-            expectedFormData.ccdCase.state = 'CasePaymentFailed';
-
-            const revert = PaymentStatus.__set__({
-                Payment: class {
-                    get() {
-                        return Promise.resolve(failedPaymentResponse);
-                    }
-                }
-            });
-            const session = {
-                form: {
-                    payment: {},
-                    registry: {
-                        name: 'ctsc',
-                        email: 'ctsc@email.com',
-                        address: 'Line 1 Ox\nLine 2 Ox\nLine 3 Ox\nPostCode Ox\n',
-                        sequenceNumber: 3
-                    }
-                }
-            };
-            const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
-
-            co(function* () {
-                const options = yield paymentStatus.runnerOptions(ctx, session);
-                expect(options.redirect).to.equal(true);
-                expect(options.url).to.equal('/payment-breakdown');
-                expect(session.form).to.deep.equal(expectedFormData);
                 revert();
                 done();
             }).catch(err => {

@@ -7,6 +7,7 @@ const content = require('app/resources/en/translation/declaration');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const nock = require('nock');
 const config = require('config');
+const commonContent = require('../../app/resources/en/translation/common.json');
 
 describe('declaration, single applicant', () => {
     let testWrapper, contentData, sessionData;
@@ -1398,6 +1399,14 @@ describe('declaration, single applicant', () => {
 
                     testWrapper.testErrors(done, {}, 'required', errorsToTest);
                 });
+        });
+
+        it('test "save and close" link is not displayed on the page', (done) => {
+            const playbackData = {
+                saveAndClose: commonContent.saveAndClose
+            };
+
+            testWrapper.testContentNotPresent(done, playbackData);
         });
     });
 });

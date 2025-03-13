@@ -50,11 +50,11 @@ class Payment extends Service {
     identifySuccessfulOrInitiatedPayment(casePayments) {
         let response = false;
         forEach(casePayments.payments, (payment) => {
-            if (payment.status === 'Success') {
+            if (payment.status.toLowerCase() === 'success') {
                 this.log(`Found a successful payment: ${payment.payment_reference}`);
                 response = payment;
                 return false;
-            } else if (payment.status === 'Initiated') {
+            } else if (payment.status.toLowerCase() === 'initiated') {
                 this.log(`Found an initiated payment: ${payment.payment_reference}`);
                 response = payment;
             }

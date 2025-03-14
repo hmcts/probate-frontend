@@ -8,9 +8,9 @@ class IhtIdentifier extends ValidationStep {
         return '/iht-identifier';
     }
 
-    validate(ctx, formdata, language) {
+    validate(ctx, formdata, language, isSaveAndClose) {
         this.parseIdentifier(ctx);
-        return super.validate(ctx, formdata, language);
+        return super.validate(ctx, formdata, language, isSaveAndClose);
     }
 
     parseIdentifier(ctx) {

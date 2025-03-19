@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 'use strict';
 
 const taskList = {
@@ -173,12 +174,14 @@ const stepList = {
     ApplicantAlias: 'ApplicantAliasReason',
     ApplicantAliasReason: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
-    ApplicantAddress: 'ExecutorsNumber',
-    ExecutorsNumber: {
-        oneExecutor: 'Equality',
-        otherwise: 'ExecutorsNames'
+    ApplicantAddress: 'ExecutorCheckWill',
+    ExecutorCheckWill: 'ExecutorsNamed',
+    ExecutorsNamed: {
+        multiExec: 'ExecutorsNames',
+        multiExecOptionNo: 'ExecutorsAllAlive',
+        otherwise: 'Equality'
     },
-    ExecutorsNames: 'ExecutorsAllAlive',
+    ExecutorsNames: 'ExecutorsNamed',
     ExecutorsAllAlive: {
         isAlive: 'ExecutorsApplying',
         whoDied: 'ExecutorsWhoDied'
@@ -275,5 +278,125 @@ const stepList = {
     ReviewResponse: 'CitizensHub'
 };
 
+const previousStepList = {
+    Dashboard: 'StartApply',
+    StartEligibility: 'Dashboard',
+    DeathCertificate: 'StartEligibility',
+    StopPage: {
+        DeathCertificate: 'DeathCertificate',
+        DeathCertificateTranslation: 'DeathCertificateTranslation',
+        DeceasedDomicile: 'DeceasedDomicile',
+        ExceptedEstateValued: 'ExceptedEstateValued',
+        StartEligibility: 'StartEligibility'
+    },
+    DeathCertificateInEnglish: 'DeathCertificate',
+    DeathCertificateTranslation: 'DeathCertificateInEnglish',
+    DeceasedDomicile: 'DeathCertificateInEnglish',
+    ExceptedEstateDeceasedDod: 'DeceasedDomicile',
+    ExceptedEstateValued: 'ExceptedEstateDeceasedDod',
+    IhtCompleted: 'ExceptedEstateDeceasedDod',
+    WillLeft: 'ExceptedEstateValued',
+    WillOriginal: 'WillLeft',
+    ApplicantExecutor: 'WillOriginal',
+    MentalCapacity: 'ApplicantExecutor',
+    TaskList: 'Dashboard',
+    BilingualGOP: 'Dashboard',
+    DeceasedName: 'BilingualGOP',
+    DeceasedDob: 'DeceasedName',
+    DeceasedDod: 'DeceasedDob',
+    DeceasedAddress: 'DeceasedDod',
+    DiedEnglandOrWales: 'DeceasedAddress',
+    DeathCertificateInterim: 'DiedEnglandOrWales',
+    IhtEstateValued: 'DeathCertificateInterim',
+    IhtEstateForm: 'IhtEstateValued',
+    ProbateEstateValues: 'IhtEstateForm',
+    DeceasedAlias: 'ProbateEstateValues',
+    DeceasedOtherNames: 'DeceasedAlias',
+    DeceasedMarried: 'DeceasedOtherNames',
+    WillHasVisibleDamage: 'DeceasedMarried',
+    WillDamageReasonKnown: 'WillHasVisibleDamage',
+    WillDamageCulpritKnown: 'WillDamageReasonKnown',
+    WillDamageDate: 'WillDamageCulpritKnown',
+    WillCodicils: 'WillHasVisibleDamage',
+    CodicilsNumber: 'WillCodicils',
+    CodicilsHasVisibleDamage: 'CodicilsNumber',
+    CodicilsDamageReasonKnown: 'CodicilsHasVisibleDamage',
+    CodicilsDamageCulpritKnown: 'CodicilsDamageReasonKnown',
+    CodicilsDamageDate: 'CodicilsDamageCulpritKnown',
+    DeceasedWrittenWishes: {
+        CodicilsDamageDate: 'CodicilsDamageDate',
+        WillCodicils: 'WillCodicils'
+    },
+    ApplicantName: 'TaskList',
+    ApplicantNameAsOnWill: 'ApplicantName',
+    ApplicantAlias: 'ApplicantNameAsOnWill',
+    ApplicantAliasReason: 'ApplicantAlias',
+    ApplicantPhone: {
+        ApplicantNameAsOnWill: 'ApplicantNameAsOnWill',
+        ApplicantAliasReason: 'ApplicantAliasReason',
+    },
+    ApplicantAddress: 'ApplicantPhone',
+    ExecutorsNamed: 'ApplicantAddress',
+    ExecutorsAllAlive: 'ExecutorsNamed',
+    OtherExecutorsApplying: {
+        ExecutorsWhenDied: 'OtherExecutorsApplying',
+        ExecutorsAllAlive: 'ExecutorsAllAlive'
+    },
+    ExecutorsWhenDied: 'ExecutorsWhoDied',
+    ExecutorCurrentName: 'ExecutorsAlias',
+    ExecutorCurrentNameReason: 'ExecutorCurrentName',
+    ExecutorContactDetails: 'ExecutorsAlias',
+    ExecutorAddress: 'ExecutorContactDetails',
+    ExecutorRoles: {
+        OtherExecutorsApplying: 'OtherExecutorsApplying',
+        ExecutorNotified: 'ExecutorNotified',
+        ExecutorAddress: 'ExecutorAddress'
+    },
+    ExecutorNotified: 'ExecutorRoles',
+    Equality: {
+        ExecutorsWhenDied: 'ExecutorsWhenDied',
+        ExecutorRoles: 'ExecutorRoles',
+        ExecutorNotified: 'ExecutorNotified',
+        ExecutorAddress: 'ExecutorAddress'
+    }
+};
+
+const multiExecPreviousStepList = {
+    ApplicantName: 'TaskList',
+    ApplicantNameAsOnWill: 'ApplicantName',
+    ApplicantAlias: 'ApplicantNameAsOnWill',
+    ApplicantAliasReason: 'ApplicantAlias',
+    ApplicantPhone: {
+        ApplicantNameAsOnWill: 'ApplicantNameAsOnWill',
+        ApplicantAliasReason: 'ApplicantAliasReason',
+    },
+    ApplicantAddress: 'ApplicantPhone',
+    ExecutorsNamed: 'ApplicantAddress',
+    ExecutorsAllAlive: 'ExecutorsNamed',
+    OtherExecutorsApplying: {
+        ExecutorsWhenDied: 'OtherExecutorsApplying',
+        ExecutorsAllAlive: 'ExecutorsAllAlive'
+    },
+    ExecutorsWhenDied: 'ExecutorsWhoDied',
+    ExecutorCurrentName: 'ExecutorsAlias',
+    ExecutorCurrentNameReason: 'ExecutorCurrentName',
+    ExecutorContactDetails: 'ExecutorsAlias',
+    ExecutorAddress: 'ExecutorContactDetails',
+    ExecutorRoles: {
+        OtherExecutorsApplying: 'OtherExecutorsApplying',
+        ExecutorNotified: 'ExecutorNotified',
+        ExecutorAddress: 'ExecutorAddress'
+    },
+    ExecutorNotified: 'ExecutorRoles',
+    Equality: {
+        ExecutorsWhenDied: 'ExecutorsWhenDied',
+        ExecutorRoles: 'ExecutorRoles',
+        ExecutorNotified: 'ExecutorNotified',
+        ExecutorAddress: 'ExecutorAddress'
+    }
+};
+
 module.exports.stepList = stepList;
 module.exports.taskList = taskList;
+module.exports.previousStepList = previousStepList;
+module.exports.multiExecPreviousStepList = multiExecPreviousStepList;

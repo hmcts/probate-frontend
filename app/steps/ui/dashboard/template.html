@@ -26,7 +26,7 @@
         {% set actionLabel = actionText + " " + nameValue %}
 
         {% if grantIssued %}
-           {% set statusValue = content.StatusGrantIssued %}
+           {% set statusValue = content.statusGrantIssued %}
         {% elif pageSubmitted %}
            {% set statusValue = content.statusSubmitted %}
         {% else %}

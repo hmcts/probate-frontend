@@ -40,9 +40,9 @@ class DateStep extends ValidationStep {
         return ctx;
     }
 
-    validate(ctx, formdata, language) {
+    validate(ctx, formdata, language, isSaveAndClose) {
         let [isValid, errors] = [true, []];
-        [isValid, errors] = super.validate(ctx, formdata, language);
+        [isValid, errors] = super.validate(ctx, formdata, language, isSaveAndClose);
 
         const dateNames = this.dateName();
 

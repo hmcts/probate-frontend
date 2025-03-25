@@ -30,8 +30,9 @@ class DeceasedOtherNames extends ValidationStep {
         return ctx;
     }
 
-    validate(ctx, formdata, language) {
-        let allValid = true;
+    validate(ctx, formdata, language, isSaveAndClose) {
+        let allValid = isSaveAndClose;
+        allValid = true;
         let allErrors = [];
         const otherNameErrors = new Map();
 

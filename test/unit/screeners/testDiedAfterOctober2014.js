@@ -125,7 +125,7 @@ describe('DiedAfterOctober2014', () => {
                             deathCertificate: 'optionYes',
                             deathCertificateInEnglish: 'optionYes',
                             domicile: 'optionYes',
-                            eeDeceasedDod: 'optionYes',
+                            eeDeceasedDod: 'optionNo',
                             eeEstateValued: 'optionYes',
                             completed: 'optionYes',
                             left: 'optionNo'

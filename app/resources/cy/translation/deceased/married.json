@@ -1,13 +1,13 @@
 {
-  "title": "Wedi priodi neu wedi ymrwymo i bartneriaeth sifil ar &ocirc;l y dyddiad a nodwyd ar yr ewyllys",
-  "question": "A wnaeth {deceasedName} briodi neu ymrwymo i bartneriaeth sifil ar &ocirc;l i&rsquo;r ewyllys gael ei harwyddo?",
-  "questionWithCodicil": "A wnaeth {deceasedName} briodi neu ymrwymo i bartneriaeth sifil ar &ocirc;l i&rsquo;r codisil diweddaraf gael ei arwyddo?",
+  "title": "Wedi priodi neu wedi ffurfio partneriaeth sifil ar &ocirc;l y dyddiad a nodwyd ar yr ewyllys",
+  "question": "A wnaeth {deceasedName} briodi neu ffurfio partneriaeth sifil ar &ocirc;l llofnodi’r ewyllys?",
+  "questionWithCodicil": "A wnaeth {deceasedName} briodi neu ffurfio partneriaeth sifil ar &ocirc;l i&rsquo;r codisil diweddaraf gael ei arwyddo?",
   "optionYes": "Do",
   "optionNo": "Naddo",
 
   "errors": {
     "married": {
-      "required": "Atebwch &lsquo;do&rsquo; os ymrwymodd yr unigolyn sydd wedi marw i bartneriaeth sifil ar &ocirc;l i&rsquo;r ewyllys gael ei harwyddo"
+      "required": "Atebwch &lsquo;do&rsquo; os bu i’r unigolyn a fu farw briodi neu ffurfio partneriaeth sifil ar &ocirc;l i'r ewyllys gael ei llofnodi."
     }
   }
 }

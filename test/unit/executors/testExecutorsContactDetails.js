@@ -228,6 +228,53 @@ describe('Contact-Details', () => {
                     done(err);
                 });
         });
+
+        it ('test mobile number is sanitised and updated', (done) => {
+            co(function* () {
+                ctx.mobile = 'invalidChar-07321321322‬';
+                const contactDetails = new ContactDetails(steps, section, templatePath, i18next, schema);
+                [ctx, errors] = yield contactDetails.handlePost(ctx, errors, formdata);
+                expect(ctx).to.deep.equal({
+                    executorsNumber: 3,
+                    list: [
+                        {
+                            firstName: 'Lead',
+                            lastName: 'Applicant',
+                            isApplying: true,
+                            isApplicant: true
+                        },
+                        {
+                            fullName: 'Bob Cratchett',
+                            isApplying: true,
+                            email: 'newtestemail@gmail.com',
+                            mobile: '07321321322',
+                        },
+                        {
+                            fullName: 'Billy Jean',
+                            isApplying: true,
+                            email: 'testemail@gmail.com',
+                            mobile: '07567567567',
+                            emailSent: true
+                        }
+                    ],
+                    invitesSent: 'true',
+                    otherExecutorsApplying: 'optionYes',
+                    email: 'newtestemail@gmail.com',
+                    mobile: '07321321322',
+                    index: 1,
+                    otherExecName: 'Bob Cratchett',
+                    executorsEmailChanged: false,
+                    ccdCase: {
+                        id: 1234567890123456,
+                        state: 'Pending'
+                    }
+                });
+                done();
+            })
+                .catch((err) => {
+                    done(err);
+                });
+        });
     });
 
     describe('nextStepUrl()', () => {

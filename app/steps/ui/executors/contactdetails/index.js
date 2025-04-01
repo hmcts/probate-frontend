@@ -112,7 +112,6 @@ class ExecutorContactDetails extends ValidationStep {
         phoneNumber = String(phoneNumber).trim();
         const plusBeforeDigits = (/^\D*\+/).test(phoneNumber);
         const digitsOnly = phoneNumber.replace(/\D/g, '');
-
         return plusBeforeDigits ? '+' + digitsOnly : digitsOnly;
     }
 }

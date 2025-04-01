@@ -120,7 +120,7 @@ describe('Summary', () => {
                 deceasedAddressQuestion: 'What was Dee Ceased\'s permanent address at the time of their death?',
                 diedEnglandOrWalesQuestion: 'Did Dee Ceased die in England or Wales?',
                 deceasedNameAsOnWillQuestion: 'Is Dee Ceased exactly how the name is written on the will?',
-                deceasedMarriedQuestion: 'Did Dee Ceased get married or enter into a civil partnership after the will was signed?',
+                deceasedMarriedQuestion: 'Did Dee Ceased get married or form a civil partnership after the will was signed?',
                 deceasedWrittenWishesQuestion: 'Did Dee Ceased leave any other written wishes?',
                 ihtTotalNetValue: 300000,
                 exceptedEstateDodAfterThreshold: true,

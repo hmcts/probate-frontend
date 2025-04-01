@@ -2,8 +2,8 @@
 
 const config = require('config');
 
-const deceasedContentEn = 'get married or enter into a civil partnership';
-const deceasedContentCy = 'briodi neu ymrwymo i bartneriaeth sifil ar';
+const deceasedContentEn = 'get married or form a civil partnership';
+const deceasedContentCy = 'briodi neu ffurfio partneriaeth sifil ar';
 
 module.exports = async function(language ='en', answer = null) {
     const I = this;

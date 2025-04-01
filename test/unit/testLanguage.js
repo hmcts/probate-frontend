@@ -13,4 +13,46 @@ describe('BilingualGOP', () => {
             done();
         });
     });
+
+    describe('getContextData()', () => {
+        it('should delete `bilingual` if null from req.session.form', (done) => {
+
+            const req = {
+                session: {
+                    form: {
+                        language: {
+                            bilingual: null
+                        }
+                    }
+                }
+            };
+
+            const ctx = BilingualGOP.getContextData(req);
+
+            // undefined is not a method so cannot be called
+            // eslint-disable-next-line no-unused-expressions
+            expect(ctx.bilingual).to.be.undefined;
+
+            done();
+        });
+
+        it('should not delete `bilingual` if nonnull from req.session.form', (done) => {
+            const bilingualValue = {};
+            const req = {
+                session: {
+                    form: {
+                        language: {
+                            bilingual: bilingualValue
+                        }
+                    }
+                }
+            };
+
+            const ctx = BilingualGOP.getContextData(req);
+
+            expect(ctx.bilingual).to.equal(bilingualValue, 'Strict equality expected');
+
+            done();
+        });
+    });
 });

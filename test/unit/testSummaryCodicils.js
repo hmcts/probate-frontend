@@ -43,7 +43,7 @@ describe('Summary - Codicils', () => {
             expect(ctx).to.have.property('codicilPresent', false);
             expect(ctx).to.have.property(
                 'deceasedMarriedQuestion',
-                'Did Dee Ceased get married or enter into a civil partnership after the will was signed?');
+                'Did Dee Ceased get married or form a civil partnership after the will was signed?');
             done();
         });
 
@@ -56,7 +56,7 @@ describe('Summary - Codicils', () => {
             expect(ctx).to.have.property('codicilPresent', true);
             expect(ctx).to.have.property(
                 'deceasedMarriedQuestion',
-                'Did Dee Ceased get married or enter into a civil partnership after the latest codicil was signed?');
+                'Did Dee Ceased get married or form a civil partnership after the latest codicil was signed?');
             done();
         });
     });

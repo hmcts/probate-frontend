@@ -110,7 +110,10 @@ class ExecutorContactDetails extends ValidationStep {
 
     sanitisePhoneNumber(phoneNumber) {
         phoneNumber = String(phoneNumber).trim();
-        return (phoneNumber.startsWith('+') ? '+' : '') + phoneNumber.replace(/\D/g, '');
+        const plusBeforeDigits = (/^\D*\+/).test(phoneNumber);
+        const digitsOnly = phoneNumber.replace(/\D/g, '');
+
+        return plusBeforeDigits ? '+' + digitsOnly : digitsOnly;
     }
 }
 

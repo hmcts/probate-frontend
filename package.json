@@ -220,5 +220,5 @@
     "cross-spawn": "^7.0.5",
     "codeceptjs": "3.6.10"
   },
-  "packageManager": "yarn@4.6.0"
+  "packageManager": "yarn@4.8.1"
 }

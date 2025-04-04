@@ -41,13 +41,24 @@ class WillLeft extends EligibilityValidationStep {
         return super.nextStepUrl(req, ctx);
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.skipDod2014 = ctx.eeDeceasedDod === 'optionYes' && ctx.left === 'optionNo';
+        ctx.withWill = ctx.left === 'optionYes';
         return {
             options: [
-                {key: fieldKey, value: 'optionYes', choice: 'withWill'}
+                {key: 'skipDod2014', value: true, choice: 'skipDod2014'},
+                {key: 'withWill', value: true, choice: 'withWill'},
             ]
         };
     }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.skipDod2014;
+        delete ctx.withWill;
+        return [ctx, formdata];
+    }
+
 }
 
 module.exports = WillLeft;

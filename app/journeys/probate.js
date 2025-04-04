@@ -60,7 +60,8 @@ const stepList = {
     },
     WillLeft: {
         withWill: 'WillOriginal',
-        otherwise: 'DiedAfterOctober2014'
+        otherwise: 'DiedAfterOctober2014',
+        skipDod2014: 'RelatedToDeceased'
     },
     WillOriginal: {
         isOriginal: 'ApplicantExecutor',

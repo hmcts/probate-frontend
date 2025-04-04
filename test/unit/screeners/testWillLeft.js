@@ -163,14 +163,15 @@ describe('WillLeft', () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const nextStepOptions = WillLeft.nextStepOptions();
+            const ctx = {
+                eeDeceasedDod: 'optionNo',
+                left: 'optionYes'
+            };
+            const nextStepOptions = WillLeft.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {
-                        key: 'left',
-                        value: 'optionYes',
-                        choice: 'withWill'
-                    }
+                    {key: 'skipDod2014', value: true, choice: 'skipDod2014'},
+                    {key: 'withWill', value: true, choice: 'withWill'}
                 ]
             });
             done();

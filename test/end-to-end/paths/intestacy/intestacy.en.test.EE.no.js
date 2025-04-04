@@ -44,7 +44,7 @@ getTestLanguages().forEach(language => {
         await I.selectDeceasedDomicile(language);
         const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
         if (isEEEnabled) {
-            await I.selectEEDeceasedDod(language);
+            await I.selectEEDeceasedDod(language, optionYes);
             await I.selectEEvalue(language);
         } else {
             await I.selectIhtCompleted(language, optionYes);
@@ -52,7 +52,6 @@ getTestLanguages().forEach(language => {
         await I.selectPersonWhoDiedLeftAWill(language, optionNo);
 
         // Intestacy Sceeners
-        await I.selectDiedAfterOctober2014(language, optionYes);
         await I.selectRelatedToDeceased(language, optionYes);
         await I.selectOtherApplicants(language, optionNo);
 
@@ -145,7 +144,7 @@ getTestLanguages().forEach(language => {
         await I.selectDeceasedDomicile(language, optionYes);
         const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
         if (isEEEnabled) {
-            await I.selectEEDeceasedDod(language);
+            await I.selectEEDeceasedDod(language, optionYes);
             await I.selectEEvalue(language);
         } else {
             await I.selectIhtCompleted(language, optionYes);
@@ -153,7 +152,6 @@ getTestLanguages().forEach(language => {
         await I.selectPersonWhoDiedLeftAWill(language, optionNo);
 
         // Intestacy Sceeners
-        await I.selectDiedAfterOctober2014(language, optionYes);
         await I.selectRelatedToDeceased(language, optionYes);
         await I.selectOtherApplicants(language, optionNo);
 

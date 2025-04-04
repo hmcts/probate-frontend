@@ -314,7 +314,6 @@ intestacyScreenersDeathCertificateNotInEnglish:
   domicile: 'optionYes'
   completed: 'optionYes'
   left: 'optionNo'
-  diedAfter: 'optionYes'
   related: 'optionYes'
   otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateInEnglishExceptedEstates:
@@ -324,7 +323,6 @@ intestacyScreenersDeathCertificateInEnglishExceptedEstates:
   eeDeceasedDod: 'optionYes'
   eeEstateValued: 'optionYes'
   left: 'optionNo'
-  diedAfter: 'optionYes'
   related: 'optionYes'
   otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateNotInEnglishExceptedEstates:
@@ -335,7 +333,6 @@ intestacyScreenersDeathCertificateNotInEnglishExceptedEstates:
   eeDeceasedDod: 'optionYes'
   eeEstateValued: 'optionYes'
   left: 'optionNo'
-  diedAfter: 'optionYes'
   related: 'optionYes'
   otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateInEnglishDodBeforeThresholdExceptedEstates:

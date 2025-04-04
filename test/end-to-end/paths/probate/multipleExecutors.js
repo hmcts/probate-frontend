@@ -39,7 +39,7 @@ getTestLanguages().forEach(language => {
         const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
         // console.log(isEEEnabled);
         if (isEEEnabled) {
-            await I.selectEEDeceasedDod(language);
+            await I.selectEEDeceasedDod(language, optionYes);
             await I.selectEEvalue(language);
         } else {
             await I.selectIhtCompleted(language, optionYes);

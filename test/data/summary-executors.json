@@ -13,7 +13,7 @@
     "executorsNumber": 3,
     "otherExecutorsApplying": "optionYes",
     "executorsApplying": ["dean plummer", "sam simms"],
-    "allAlive": "optionNo",
+    "anyExecutorsDied": "optionNo",
     "list": [
       {
         "fullName": "dean plummer",

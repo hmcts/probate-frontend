@@ -6,7 +6,7 @@
   "optionNo": "Naddo",
 
   "errors": {
-    "allalive": {
+    "anyExecutorsDied": {
       "singleExecutorRequired": "Dewiswch ydy os yw {executorName} wedi marw ers i&rsquo;r ewyllys gael ei llofnodi",
       "multipleExecutorRequired": "Dewiswch oes os oes unrhyw un o&rsquo;r ysgutorion wedi marw ers llofnodi&rsquo;r ewyllys"
     }

@@ -481,7 +481,7 @@
       }
     ],
     "alias": "optionNo",
-    "allalive": "optionYes",
+    "anyExecutorsDied": "optionYes",
     "referrer": "ExecutorAddress",
     "invitesSent": "true",
     "addressFound": "true",

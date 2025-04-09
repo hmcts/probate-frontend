@@ -3,10 +3,10 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FieldError = require('../../../../components/error');
 
-class ExecutorsAllAlive extends ValidationStep {
+class AnyExecutorsDied extends ValidationStep {
 
     static getUrl() {
-        return '/executors-all-alive';
+        return '/any-executors-died';
     }
 
     nextStepUrl(req, ctx) {
@@ -14,19 +14,19 @@ class ExecutorsAllAlive extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.singleExecutor = ctx.list && ctx.list.length === 2 && ctx.allalive === 'optionYes';
-        ctx.multiExecutor = ctx.list && ctx.list.length > 2 && ctx.allalive === 'optionYes';
+        ctx.singleExecutor = ctx.list && ctx.list.length === 2 && ctx.anyExecutorsDied === 'optionYes';
+        ctx.multiExecutor = ctx.list && ctx.list.length > 2 && ctx.anyExecutorsDied === 'optionYes';
         return {
             options: [
                 {key: 'singleExecutor', value: true, choice: 'whenDied'},
                 {key: 'multiExecutor', value: true, choice: 'whoDied'},
-                {key: 'allalive', value: 'optionNo', choice: 'isAlive'}
+                {key: 'anyExecutorsDied', value: 'optionNo', choice: 'isAlive'}
             ]
         };
     }
 
     handlePost(ctx, errors) {
-        if (ctx.list.length === 2 && ctx.allalive === 'optionYes') {
+        if (ctx.list.length === 2 && ctx.anyExecutorsDied === 'optionYes') {
             ctx.list[1].isDead = true;
             ctx.list[1] = this.pruneFormData(ctx.list[1]);
         }
@@ -55,21 +55,21 @@ class ExecutorsAllAlive extends ValidationStep {
             const errorMessage = this.composeMessage(language, ctx, dynamicText);
             errorMessages.push(errorMessage);
             validationError.msg = errorMessage.msg;
-            validationError.field = 'allalive';
+            validationError.field = 'anyExecutorsDied';
         });
         return errorMessages;
     }
 
     composeMessage(language, ctx, dynamicText) {
         const messageType = ctx.list.length > 2 ? 'multipleExecutorRequired' : 'singleExecutorRequired';
-        const errorMessage = FieldError('allalive', messageType, this.resourcePath, this.generateContent({}, {}, language), language);
+        const errorMessage = FieldError('anyExecutorsDied', messageType, this.resourcePath, this.generateContent({}, {}, language), language);
         errorMessage.msg = errorMessage.msg.replace('{executorName}', dynamicText);
         return errorMessage;
     }
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-        if (ctx.allalive === 'optionNo') {
+        if (ctx.anyExecutorsDied === 'optionNo') {
             for (let i = 1; i < ctx.executorsNumber; i++) {
                 if (ctx.list[i].isDead) {
                     ctx.list[i].isDead = false;
@@ -85,4 +85,4 @@ class ExecutorsAllAlive extends ValidationStep {
     }
 }
 
-module.exports = ExecutorsAllAlive;
+module.exports = AnyExecutorsDied;

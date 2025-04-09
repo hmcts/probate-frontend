@@ -36,7 +36,7 @@ const gopOnlyPages = [
     '/executor-address/*',
     '/check-will-executors',
     '/executors-alias',
-    '/executors-all-alive',
+    '/any-executors-died',
     '/other-executors-applying',
     '/executors-change-made',
     '/executor-contact-details',

@@ -10,7 +10,7 @@ describe('PinNumberService', () => {
     describe('get()', () => {
         it('should call log() and fetchJson()', (done) => {
             const endpoint = '';
-            const fetchOptions = {method: 'GET'};
+            const fetchOptions = {method: 'POST'};
             const phoneNumber = '02071234567';
             const pinNumber = new PinNumber(endpoint, 'abc123');
             const logSpy = sinon.spy(pinNumber, 'log');
@@ -21,9 +21,9 @@ describe('PinNumberService', () => {
             pinNumber.get(phoneNumber);
 
             expect(pinNumber.log.calledOnce).to.equal(true);
-            expect(pinNumber.log.calledWith('Get pin number')).to.equal(true);
+            expect(pinNumber.log.calledWith('POST pin number')).to.equal(true);
             expect(formatUrlStub.calledOnce).to.equal(true);
-            expect(formatUrlStub.calledWith(endpoint, `/invite/pin?phoneNumber=${phoneNumber}`)).to.equal(true);
+            expect(formatUrlStub.calledWith(endpoint, '/invite/pin')).to.equal(true);
             expect(AsyncFetch.fetchJson.calledOnce).to.equal(true);
             expect(AsyncFetch.fetchJson.calledWith('/formattedUrl', fetchOptions)).to.equal(true);
 

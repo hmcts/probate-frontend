@@ -6,13 +6,13 @@ const ExecutorsWhoDied = require('app/steps/ui/executors/whodied');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe('executors-all-alive', () => {
+describe('any-executors-died', () => {
     let testWrapper;
     const expectedNextUrlForExecsApplying = ExecutorsApplying.getUrl(1);
     const expectedNextUrlForExecsWhoDied = ExecutorsWhoDied.getUrl();
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('ExecutorsAllAlive');
+        testWrapper = new TestWrapper('AnyExecutorsDied');
     });
 
     afterEach(() => {
@@ -20,7 +20,7 @@ describe('executors-all-alive', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ExecutorsAllAlive', null, null, [], false, {type: caseTypes.GOP});
+        testCommonContent.runTest('AnyExecutorsDied', null, null, [], false, {type: caseTypes.GOP});
 
         it('test right content loaded on the page', (done) => {
             const sessionData = {
@@ -55,7 +55,7 @@ describe('executors-all-alive', () => {
                 },
                 applicant: {}
             };
-            const errorsToTest = ['allalive'];
+            const errorsToTest = ['anyExecutorsDied'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -68,7 +68,7 @@ describe('executors-all-alive', () => {
 
         it(`test it redirects to executors applying: ${expectedNextUrlForExecsApplying}`, (done) => {
             const data = {
-                allalive: 'optionNo',
+                anyExecutorsDied: 'optionNo',
                 list: [{fullName: 'ExecutorOne'}, {fullName: 'ExecutorTwo'}, {fullName: 'ExecutorThree'}]
             };
 
@@ -77,7 +77,7 @@ describe('executors-all-alive', () => {
 
         it(`test it redirects to which executors died: ${expectedNextUrlForExecsWhoDied}`, (done) => {
             const data = {
-                allalive: 'optionYes',
+                anyExecutorsDied: 'optionYes',
                 list: [{fullName: 'ExecutorOne'}, {fullName: 'ExecutorTwo'}, {fullName: 'ExecutorThree'}]
             };
 

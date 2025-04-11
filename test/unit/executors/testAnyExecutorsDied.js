@@ -4,9 +4,9 @@ const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const journey = require('app/journeys/probate');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-const ExecutorsAllAlive = steps.ExecutorsAllAlive;
+const AnyExecutorsDied = steps.AnyExecutorsDied;
 
-describe('ExecutorsAllAlive', () => {
+describe('anyExecutorsDied', () => {
     describe('nextStepUrl()', () => {
         it('should return url for the next step if all the executors are not alive', (done) => {
             const req = {
@@ -15,10 +15,10 @@ describe('ExecutorsAllAlive', () => {
                 }
             };
             const ctx = {
-                allalive: 'optionYes',
+                anyExecutorsDied: 'optionYes',
                 list: [{fullName: 'ExecutorOne'}, {fullName: 'ExecutorTwo'}, {fullName: 'ExecutorThree'}]
             };
-            const nextStepUrl = ExecutorsAllAlive.nextStepUrl(req, ctx);
+            const nextStepUrl = AnyExecutorsDied.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/executors-who-died');
             done();
         });
@@ -30,10 +30,10 @@ describe('ExecutorsAllAlive', () => {
                 }
             };
             const ctx = {
-                allalive: 'optionYes',
+                anyExecutorsDied: 'optionYes',
                 list: [{fullName: 'ExecutorOne'}, {fullName: 'ExecutorTwo'}],
             };
-            const nextStepUrl = ExecutorsAllAlive.nextStepUrl(req, ctx);
+            const nextStepUrl = AnyExecutorsDied.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/executor-when-died/1');
             done();
         });
@@ -45,9 +45,9 @@ describe('ExecutorsAllAlive', () => {
                 }
             };
             const ctx = {
-                allalive: 'optionNo'
+                anyExecutorsDied: 'optionNo'
             };
-            const nextStepUrl = ExecutorsAllAlive.nextStepUrl(req, ctx);
+            const nextStepUrl = AnyExecutorsDied.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/other-executors-applying');
             done();
         });
@@ -57,7 +57,7 @@ describe('ExecutorsAllAlive', () => {
         it('removes the correct values from the context when some executors have died', (done) => {
             let formdata = {};
             let ctx = {
-                allalive: 'optionYes',
+                anyExecutorsDied: 'optionYes',
                 executorsNumber: 4,
                 list: [
                     {firstName: 'Applicant FN', lastName: 'Applicant LN', isApplicant: true},
@@ -66,9 +66,9 @@ describe('ExecutorsAllAlive', () => {
                     {firstName: 'FN3', lastName: 'LN3', isDead: false, notApplyingKey: 'optionPowerReserved', notApplyingReason: 'optionPowerReserved'}
                 ]
             };
-            [ctx, formdata] = ExecutorsAllAlive.action(ctx, formdata);
+            [ctx, formdata] = AnyExecutorsDied.action(ctx, formdata);
             expect(ctx).to.deep.equal({
-                allalive: 'optionYes',
+                anyExecutorsDied: 'optionYes',
                 executorsNumber: 4,
                 list: [
                     {firstName: 'Applicant FN', lastName: 'Applicant LN', isApplicant: true},
@@ -83,7 +83,7 @@ describe('ExecutorsAllAlive', () => {
         it('removes the correct values from the context when all the executors are alive', (done) => {
             let formdata = {};
             let ctx = {
-                allalive: 'optionNo',
+                anyExecutorsDied: 'optionNo',
                 executorsNumber: 4,
                 list: [
                     {firstName: 'Applicant FN', lastName: 'Applicant LN', isApplicant: true},
@@ -92,9 +92,9 @@ describe('ExecutorsAllAlive', () => {
                     {firstName: 'FN3', lastName: 'LN3', isDead: false, notApplyingKey: 'optionPowerReserved', notApplyingReason: 'optionPowerReserved'}
                 ]
             };
-            [ctx, formdata] = ExecutorsAllAlive.action(ctx, formdata);
+            [ctx, formdata] = AnyExecutorsDied.action(ctx, formdata);
             expect(ctx).to.deep.equal({
-                allalive: 'optionNo',
+                anyExecutorsDied: 'optionNo',
                 executorsNumber: 4,
                 list: [
                     {firstName: 'Applicant FN', lastName: 'Applicant LN', isApplicant: true},
@@ -108,18 +108,18 @@ describe('ExecutorsAllAlive', () => {
     });
 
     describe('handlePost()', () => {
-        it('should set isDead to true and prune form data when there are 2 executors and allalive is optionYes', () => {
+        it('should set isDead to true and prune form data when there are 2 executors and anyExecutorsDied is optionYes', () => {
             let formdata = {};
             let ctx = {
-                allalive: 'optionYes',
+                anyExecutorsDied: 'optionYes',
                 list: [
                     {firstName: 'Applicant FN', lastName: 'Applicant LN', isApplicant: true},
                     {fullName: 'FN1'}
                 ]
             };
-            [ctx, formdata] = ExecutorsAllAlive.handlePost(ctx, formdata);
+            [ctx, formdata] = AnyExecutorsDied.handlePost(ctx, formdata);
             expect(ctx).to.deep.equal({
-                allalive: 'optionYes',
+                anyExecutorsDied: 'optionYes',
                 list: [
                     {firstName: 'Applicant FN', lastName: 'Applicant LN', isApplicant: true},
                     {fullName: 'FN1', isDead: true}
@@ -133,7 +133,7 @@ describe('ExecutorsAllAlive', () => {
 
         it('test isApplying flag is correctly removed', (done) => {
             data = {fullname: 'bob smith', isApplying: true, isDead: true};
-            expect(ExecutorsAllAlive.pruneFormData(data)).to.deep.equal({
+            expect(AnyExecutorsDied.pruneFormData(data)).to.deep.equal({
                 fullname: 'bob smith', isDead: true
             });
             done();
@@ -141,7 +141,7 @@ describe('ExecutorsAllAlive', () => {
 
         it('test isApplying flag is not removed', (done) => {
             data = {fullname: 'bob smith', isApplying: true, isDead: false};
-            expect(ExecutorsAllAlive.pruneFormData(data)).to.deep.equal({
+            expect(AnyExecutorsDied.pruneFormData(data)).to.deep.equal({
                 fullname: 'bob smith', isApplying: true, isDead: false
             });
             done();

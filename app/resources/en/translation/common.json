@@ -96,6 +96,8 @@
   "errors": {
     "formSubmissionUnsuccessful": {
       "required": "The information you entered could not be saved – try again."
+    },"formSubmissionConflict": {
+      "required": "This case has been updated by another user. Please log out and try again."
     }
   }
 }

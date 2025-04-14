@@ -53,7 +53,7 @@ class Summary extends Step {
         return content;
     }
 
-    generateFields(language, ctx, errors, formdata) {
+    generateFields(language, ctx, errors, formdata, req) {
         const fields = {};
         Object.keys(this.steps).filter((stepName) => stepName !== this.name)
             .forEach((stepName) => {
@@ -86,6 +86,11 @@ class Summary extends Step {
             });
         }
 
+        if (req && req.log) {
+            req.log.info('DUMPING FIELDS');
+            req.log.info(JSON.stringify(fields, null, 2));
+            req.log.info('DUMPED FIELDS');
+        }
         return fields;
     }
 

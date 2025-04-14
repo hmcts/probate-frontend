@@ -41,7 +41,7 @@ class UIStepRunner {
                     res.locals.previousUrl= ctx.previousUrl;
                 }
                 const content = step.generateContent(ctx, formdata, session.language);
-                const fields = step.generateFields(session.language, ctx, errors, formdata);
+                const fields = step.generateFields(session.language, ctx, errors, formdata, req);
                 if (req.query.source === 'back') {
                     session.back.pop();
                 } else if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
@@ -132,7 +132,7 @@ class UIStepRunner {
 
                     } else {
                         const content = step.generateContent(ctx, formdata, session.language);
-                        const fields = step.generateFields(session.language, ctx, errors, formdata);
+                        const fields = step.generateFields(session.language, ctx, errors, formdata, req);
                         const common = step.commonContent(session.language);
                         errors.push(FieldError('formSubmissionUnsuccessful', 'required', 'common', ctx, session.language));
                         res.render(step.template, {content, fields, errors, common, userLoggedIn: req.userLoggedIn});
@@ -145,7 +145,7 @@ class UIStepRunner {
                         }, JSON.stringify(error))
                     );
                     const content = step.generateContent(ctx, formdata, session.language);
-                    const fields = step.generateFields(session.language, ctx, errors, formdata);
+                    const fields = step.generateFields(session.language, ctx, errors, formdata, req);
                     const common = step.commonContent(session.language);
                     res.render(step.template, {content, fields, errors, common, userLoggedIn: req.userLoggedIn});
                 }
@@ -153,7 +153,7 @@ class UIStepRunner {
         }).catch((error) => {
             req.log.error(error);
             const ctx = step.getContextData(req, res);
-            const fields = step.generateFields(req.session.language, ctx, [], {});
+            const fields = step.generateFields(req.session.language, ctx, [], {}, req);
             res.status(500).render('errors/500', {fields, common: commonContent, userLoggedIn: req.userLoggedIn});
         });
     }

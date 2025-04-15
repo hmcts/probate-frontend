@@ -41,7 +41,7 @@ class UIStepRunner {
                     res.locals.previousUrl= ctx.previousUrl;
                 }
                 const content = step.generateContent(ctx, formdata, session.language);
-                const fields = step.generateFields(session.language, ctx, errors, formdata, req);
+                const fields = step.generateFields(session.language, ctx, errors, formdata);
                 if (req.query.source === 'back') {
                     session.back.pop();
                 } else if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
@@ -51,6 +51,8 @@ class UIStepRunner {
                 common.SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
                 res.render(step.template, {content, fields, errors, common, userLoggedIn: req.userLoggedIn}, (err, html) => {
                     if (err) {
+                        const maybeCaseId = req?.session?.form?.ccdCase?.id;
+                        req.log.error(`Error in POST for case ${maybeCaseId} error: ${err}`);
                         req.log.error(err);
                         return res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
                     }
@@ -59,7 +61,7 @@ class UIStepRunner {
             }
         }).catch((error) => {
             const maybeCaseId = req?.session?.form?.ccdCase?.id;
-            req.log.error(`Error in POST for case ${maybeCaseId} error: ${error}`);
+            req.log.error(`Error in GET for case ${maybeCaseId} error: ${error}`);
             req.log.error(error);
             res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
         });
@@ -134,7 +136,7 @@ class UIStepRunner {
 
                     } else {
                         const content = step.generateContent(ctx, formdata, session.language);
-                        const fields = step.generateFields(session.language, ctx, errors, formdata, req);
+                        const fields = step.generateFields(session.language, ctx, errors, formdata);
                         const common = step.commonContent(session.language);
                         errors.push(FieldError('formSubmissionUnsuccessful', 'required', 'common', ctx, session.language));
                         res.render(step.template, {content, fields, errors, common, userLoggedIn: req.userLoggedIn});
@@ -147,7 +149,7 @@ class UIStepRunner {
                         }, JSON.stringify(error))
                     );
                     const content = step.generateContent(ctx, formdata, session.language);
-                    const fields = step.generateFields(session.language, ctx, errors, formdata, req);
+                    const fields = step.generateFields(session.language, ctx, errors, formdata);
                     const common = step.commonContent(session.language);
                     res.render(step.template, {content, fields, errors, common, userLoggedIn: req.userLoggedIn});
                 }
@@ -157,7 +159,7 @@ class UIStepRunner {
             req.log.error(`Error in POST for case ${maybeCaseId} error: ${error}`);
             req.log.error(error);
             const ctx = step.getContextData(req, res);
-            const fields = step.generateFields(req.session.language, ctx, [], {}, req);
+            const fields = step.generateFields(req.session.language, ctx, [], {});
             res.status(500).render('errors/500', {fields, common: commonContent, userLoggedIn: req.userLoggedIn});
         });
     }

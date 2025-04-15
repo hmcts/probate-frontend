@@ -5,163 +5,170 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% block content %}
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-xl govuk-!-margin-bottom-4" style="margin-bottom: 10px!important;">{{ content.header | safe }} - {{ fields.deceasedName.value }}</h1>
-            <h1 class="govuk-body"><strong>{{ content.referenceNumber | safe }}: {{ fields.ccdReferenceNumber.value }} </strong></h1>
-            <div class="govuk-grid-column-two-thirds" style="padding-left: 0px;">
-                <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible probate-section-break">
-                <br>
-                <div class="hmcts-progress-bar-vertical" role="progressbar">
-                    <ol class="hmcts-progress-bar__list">
-                      <li class="hmcts-progress-bar__list-item">
-                        <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
-                        <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 1: </span>{{ content.progressBarStep1 | safe }}</span>
-                      </li>
-                      {% if fields.documentsRequired.value == "true" %}
-                      <li class="hmcts-progress-bar__list-item">
-                        {% if fields.documentsReceived.value == "true" %}
-                        <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
-                        {% else %}
-                        <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--inprogress"></span>
-                        {% endif %}
-                        {% if fields.applicationInReview.value != "true" and fields.grantIssued.value != "true"%}
-                        <span class="hmcts-progress-bar__label  hmcts-progress-bar__label--inprogress" ><span class="govuk-visually-hidden">Step 2: </span>{{ content.progressBarStep2 | safe }}</span>
-                        {% else %}
-                          <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 2: </span>{{ content.progressBarStep2 | safe }}</span>
-                        {% endif %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4" style="margin-bottom: 10px!important;">{{ content.header | safe }} - {{ fields.deceasedName.value }}</h1>
+    <h2 class="govuk-body"><strong>{{ content.referenceNumber | safe }}: {{ fields.ccdReferenceNumber.value }} </strong></h2>
+    <div class="govuk-grid-column-two-thirds" style="padding-left: 0px;">
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible probate-section-break">
+      <br>
+      <div class="hmcts-progress-bar-vertical" role="progressbar">
+        <ol class="hmcts-progress-bar__list">
+          <li class="hmcts-progress-bar__list-item">
+            <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
+            <span class="hmcts-progress-bar__label">
+              <span class="govuk-visually-hidden">Step 1: </span>{{content.progressBarStep1 | safe }}
+            </span>
+          </li>
+          {% if fields.documentsRequired.value == "true" %}
+          <li class="hmcts-progress-bar__list-item">
+            {% if fields.documentsReceived.value == "true" %}
+              <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
+            {% else %}
+              <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--inprogress"></span>
+            {% endif %}
+            {% if fields.applicationInReview.value != "true" and fields.grantIssued.value != "true"%}
+              <span class="hmcts-progress-bar__label  hmcts-progress-bar__label--inprogress">
+                <span class="govuk-visually-hidden">Step 2: </span>{{ content.progressBarStep2 | safe }}
+              </span>
+            {% else %}
+              <span class="hmcts-progress-bar__label">
+                <span class="govuk-visually-hidden">Step 2: </span>{{content.progressBarStep2 | safe }}
+              </span>
+            {% endif %}
+          </li>
+          {% endif %}
+          <li class="hmcts-progress-bar__list-item" style="width:120px">
+            {% if fields.grantIssued.value == "true" %}
+              <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
+            {% elseif fields.caseClosed.value == "true" %}
+              <span class="hmcts-progress-bar__icon"></span>
+            {% elseif fields.applicationInReview.value == "true" or fields.documentsRequired.value != "true"%}
+              <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--inprogress"></span>
+            {% else %}
+              <span class="hmcts-progress-bar__icon"></span>
+            {% endif %}
+            {% if (fields.applicationInReview.value == "true" and fields.grantIssued.value != "true" and fields.caseClosed.value != "true") or fields.documentsRequired.value != "true"%}
+              <span class="hmcts-progress-bar__label  hmcts-progress-bar__label--inprogress">
+                <span class="govuk-visually-hidden">Step 3: </span>{{ content.progressBarStep3 | safe }}
+              </span>
+            {% else %}
+              <span class="hmcts-progress-bar__label">
+                <span class="govuk-visually-hidden">Step 3: </span>{{content.progressBarStep3 | safe }}
+              </span>
+            {% endif %}
+          </li>
+          <li class="hmcts-progress-bar__list-item">
+            {% if fields.grantIssued.value == "true" %}
+              <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
+            {% else %}
+             <span class="hmcts-progress-bar__icon"></span>
+            {% endif %}
+              <span class="hmcts-progress-bar__label">
+                <span class="govuk-visually-hidden">Step 4: </span>{{content.progressBarStep4 | safe }}
+              </span>
+          </li>
+        </ol>
+      </div>
+      <br><br>
 
-                      </li>
-                      {% endif %}
-                      <li class="hmcts-progress-bar__list-item" style="width:120px">
-                        {% if fields.grantIssued.value == "true" %}
-                          <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
-                        {% elseif fields.caseClosed.value == "true" %}
-                          <span class="hmcts-progress-bar__icon"></span>
-                        {% elseif fields.applicationInReview.value == "true" or fields.documentsRequired.value != "true"%}
-                          <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--inprogress"></span>
-                        {% else %}
-                          <span class="hmcts-progress-bar__icon"></span>
-                        {% endif %}
-                        {% if (fields.applicationInReview.value == "true" and fields.grantIssued.value != "true" and fields.caseClosed.value != "true") or fields.documentsRequired.value != "true"%}
-                          <span class="hmcts-progress-bar__label  hmcts-progress-bar__label--inprogress" ><span class="govuk-visually-hidden">Step 3: </span>{{ content.progressBarStep3 | safe }}</span>
-                        {% else %}
-                          <span class="hmcts-progress-bar__label" ><span class="govuk-visually-hidden">Step 3: </span>{{ content.progressBarStep3 | safe }}</span>
-                        {% endif %}
-                      </li>
-                      <li class="hmcts-progress-bar__list-item">
-                        {% if fields.grantIssued.value == "true" %}
-                        <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
-                        {% else %}
-                        <span class="hmcts-progress-bar__icon"></span>
-                        {% endif %}
-                        <span class="hmcts-progress-bar__label"><span class="govuk-visually-hidden">Step 4: </span>{{ content.progressBarStep4 | safe }}</span>
-                      </li>
-                    </ol>
-                </div>
-              <br><br>
-              <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title-1" data-module="govuk-notification-banner" style="margin-bottom:30px;">
-                  <div class="govuk-notification-banner__header">
-                      <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title-1">{{ content.latestInfo | safe }}</h2>
-                  </div>
-                  <div class="govuk-notification-banner__content">
-                      {% if fields.grantIssued.value == "true" %}
-                          <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.grantIssuedHeading | safe }}</p>
-                          <p class="govuk-body" style="max-width: 600px">{{ content.grantIssuedParagraph1 | safe }}</p>
-                          <p class="govuk-body" style="max-width: 600px">{{ content.grantIssuedParagraph2 | safe }}</p>
-                      {% elseif fields.applicationInReview.value == "true" %}
-                          {% if fields.informationProvided.value == "true" %}
-                              <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.informationProvidedHeading | safe }}</p>
-                              <p class="govuk-body" style="max-width: 600px">{{ content.informationProvidedParagraph1 | replace("{date}", fields.date.value) | safe }}</p>
-                              <p class="govuk-body" style="max-width: 600px">{{ content.informationProvidedParagraph2 | safe }}</p>
-                          {% elseif fields.partialInformationProvided.value == "true" %}
-                              <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.informationProvidedHeading | safe }}</p>
-                              <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph1 | safe }}</p>
-                              <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph2 | safe }}</p>
-                              <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.partialInformationProvidedHeading | safe }}</p>
-                              <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph3 | safe }}</p>
-                              <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph4 | safe }}</p>
-                              <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph5 | safe }}</p>
-                              <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph6 | safe }}</p>
-                          {% elseif fields.caseStopped.value == "true" %}
-                              <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.caseStoppedHeading | safe }}</p>
-                              {% if fields.informationNeeded.value === "true" and fields.informationNeededByPost.value === "false" %}
-                                  <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph1 | safe }}</p>
-                                  <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph2 | safe }}</p>
-                                  <p class="govuk-body" style="max-width: 600px"><strong>{{ content.caseStoppedSubheading | safe }}</strong></p>
-                                  <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph3 | safe }}</p>
-                                  <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph4 | safe }}</p>
-                                  <div>
-                                    {{ govukButton({
-                                    text: content.provideInfo | safe,
-                                    href: "/provide-information",
-                                    preventDoubleClick: true
-                                    }) }}
-                                  </div>
-                                  <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph5 | safe }}</p>
-                                  <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph6 | safe }}</p>
-                              {% else %}
-                                  <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph | safe }}</p>
-                              {% endif %}
-                          {% elseif fields.caseClosed.value == "true" %}
-                              <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.caseClosedHeading | safe }}</p>
-                              <p class="govuk-body" style="max-width: 600px">{{ content.caseClosedParagraph | safe }}</p>
-                          {% else %}
-                              <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.applicationReviewHeading | safe }}</p>
-                              <p class="govuk-body" style="max-width: 600px">{{ content.applicationReviewParagraph | safe }}</p>
-                          {% endif %}
-                      {% elseif fields.documentsReceived.value == "true" %}
-                      <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.documentsReceivedHeading | safe }}</p>
-                      <p class="govuk-body" style="max-width: 600px">{{ content.documentsReceivedParagraph | safe }}</p>
-                      {% elseif fields.applicationSubmitted.value == "true" %}
-                          {% if fields.documentsRequired.value == "true" %}
-                              <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.applicationReceivedHeading | safe }}</p>
-                              {% if fields.caseType.value == "intestacy" %}
-                                  <p class="govuk-body" style="max-width: 600px">{{ content.intestacyApplicationReceivedParagraph | safe }}</p>
-                              {% else %}
-                                  <p class="govuk-body" style="max-width: 600px">{{ content.applicationReceivedParagraph | safe }}</p>
-                              {% endif %}
-                          {% else %}
-                              <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ content.applicationReceivedHeading | safe }}</p>
-                              <p class="govuk-body" style="max-width: 600px">{{ content.noDocsRequiredAppReceivedParagraph | safe }}</p>
-                          {% endif %}
-                      {% endif %}
-                  </div>
-              </div>
+      <div class="govuk-body govuk-!-static-padding-4 govuk-!-text-align-left" style="background-color: #f3f2f1;">
+        {% if fields.grantIssued.value == "true" %}
+          <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.grantIssuedHeading | safe }}</h2>
+          <p class="govuk-body" style="max-width: 600px">{{ content.grantIssuedParagraph1 | safe }}</p>
+          <p class="govuk-body" style="max-width: 600px">{{ content.grantIssuedParagraph2 | safe }}</p>
+        {% elseif fields.applicationInReview.value == "true" %}
+          {% if fields.informationProvided.value == "true" %}
+            <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.informationProvidedHeading | safe }}</h2>
+            <p class="govuk-body" style="max-width: 600px">{{ content.informationProvidedParagraph1 | replace("{date}", fields.date.value) | safe }}</p>
+            <p class="govuk-body" style="max-width: 600px">{{ content.informationProvidedParagraph2 | safe }}</p>
+          {% elseif fields.partialInformationProvided.value == "true" %}
+            <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.informationProvidedHeading | safe }}</h2>
+            <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph1 | safe }}</p>
+            <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph2 | safe }}</p>
+            <h3 class="govuk-heading-s" style="max-width: 600px">{{ content.partialInformationProvidedHeading | safe }}</h3>
+            <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph3 | safe }}</p>
+            <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph4 | safe }}</p>
+            <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph5 | safe }}</p>
+            <p class="govuk-body" style="max-width: 600px">{{ content.partialInformationParagraph6 | safe }}</p>
+          {% elseif fields.caseStopped.value == "true" %}
+            <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.caseStoppedHeading | safe }}</h2>
+          {% if fields.informationNeeded.value === "true" and fields.informationNeededByPost.value === "false" %}
+            <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph1 | safe }}</p>
+            <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph2 | safe }}</p>
+            <p class="govuk-body" style="max-width: 600px"><strong>{{ content.caseStoppedSubheading | safe }}</strong></p>
+            <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph3 | safe }}</p>
+            <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph4 | safe }}</p>
+            <div>
+              {{ govukButton({
+              text: content.provideInfo | safe,
+              href: "/provide-information",
+              preventDoubleClick: true
+              }) }}
             </div>
-            <div class="govuk-grid-column-one-third" style="padding-right: 0px;">
-                <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-! probate-section-break">
-                <h2 class="govuk-heading-m">{{ content.sideBarHeading | safe }}</h2>
-                <p><a class="govuk-link" href="https://www.gov.uk/applying-for-probate" target="_blank">{{ content.sideBarParagraph | safe }}</a></p>
-                {% if fields.checkAnswersSummary.value == "true" %}
-                    <p><a class="govuk-link" id="checkAnswerHref" href="/check-answers-pdf">{{ content.checkAnswersPdf | safe }}</a></p>
-                {% endif %}
-                {% if fields.legalDeclaration.value == "true" %}
-                    <p><a class="govuk-link" id="declarationPdfHref" href="/declaration-pdf">{{ content.declarationPdf | safe }}</a></p>
-                {% endif %}
-                <details class="govuk-details" data-module="govuk-details">
-                  <summary class="govuk-details__summary">
-                        <span class="govuk-details__summary-text">
-                          Contact
-                        </span>
-                  </summary>
-                  <div class="govuk-inset-text">
-                    <p>{{ content.insertText | safe }}</p>
-                    {% if fields.isWebChatEnabled.value === 'true' %}
-                    <p class="govuk-heading-s" id="avaya-web-chat-header"> {{ common.helpHeading3 | safe }} </p>
-                    {% include "includes/avaya-webchat.html" %}
-                    {% endif %}
-                    <p class="govuk-heading-s govuk-!-padding-top-2"> {{ common.helpHeading2 | safe }} </p>
-                    <p class="govuk-body"> {{ common.helpEmailLabel | replace("{contactEmailAddress}", common.helpEmail) | safe }} </p>
-                    <p class="govuk-heading-s"> {{ common.helpHeading1 | safe }}</p>
-                    <p class="govuk-body"> {{ common.helpTelephoneNumber | safe }}</p>
-                    <p class="govuk-heading-m govuk-!-padding-top-6"> {{ common.helpTelephoneOpeningHoursTitle | safe }} </p>
-                    <p class="govuk-body"> {{ common.helpTelephoneOpeningHours1 | safe }} </p>
-                    <p class="govuk-body"> {{ common.helpTelephoneOpeningHours2 | safe }} </p>
-                    <p class="govuk-body">{{ content.callCharges | replace("{callChargesLink}", globals.links.callCharges) | safe }}</p>
-                  </div>
-                </details>
-            </div>
-        </div>
+            <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph5 | safe }}</p>
+            <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph6 | safe }}</p>
+          {% else %}
+            <p class="govuk-body" style="max-width: 600px">{{ content.caseStoppedParagraph | safe }}</p>
+          {% endif %}
+          {% elseif fields.caseClosed.value == "true" %}
+            <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.caseClosedHeading | safe }}</h2>
+            <p class="govuk-body" style="max-width: 600px">{{ content.caseClosedParagraph | safe }}</p>
+          {% else %}
+            <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.applicationReviewHeading | safe }}</h2>
+            <p class="govuk-body" style="max-width: 600px">{{ content.applicationReviewParagraph | safe }}</p>
+          {% endif %}
+          {% elseif fields.documentsReceived.value == "true" %}
+            <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.documentsReceivedHeading | safe }}</h2>
+            <p class="govuk-body" style="max-width: 600px">{{ content.documentsReceivedParagraph | safe }}</p>
+          {% elseif fields.applicationSubmitted.value == "true" %}
+          {% if fields.documentsRequired.value == "true" %}
+            <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.applicationReceivedHeading | safe }}</h2>
+          {% if fields.caseType.value == "intestacy" %}
+            <p class="govuk-body" style="max-width: 600px">{{ content.intestacyApplicationReceivedParagraph | safe }}</p>
+          {% else %}
+            <p class="govuk-body" style="max-width: 600px">{{ content.applicationReceivedParagraph | safe }}</p>
+          {% endif %}
+          {% else %}
+            <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.applicationReceivedHeading | safe }}</h2>
+            <p class="govuk-body" style="max-width: 600px">{{ content.noDocsRequiredAppReceivedParagraph | safe }}</p>
+          {% endif %}
+        {% endif %}
+      </div>
     </div>
+    <div class="govuk-grid-column-one-third" style="padding-right: 0px;">
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-! probate-section-break">
+      <h2 class="govuk-heading-m">{{ content.sideBarHeading | safe }}</h2>
+      <p><a class="govuk-link" href="https://www.gov.uk/applying-for-probate" target="_blank">{{ content.sideBarParagraph | safe }}</a></p>
+      {% if fields.checkAnswersSummary.value == "true" %}
+        <p><a class="govuk-link" id="checkAnswerHref" href="/check-answers-pdf">{{ content.checkAnswersPdf | safe }}</a>
+        </p>
+      {% endif %}
+      {% if fields.legalDeclaration.value == "true" %}
+        <p><a class="govuk-link" id="declarationPdfHref" href="/declaration-pdf">{{ content.declarationPdf | safe }}</a>
+        </p>
+      {% endif %}
+      <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">Contact</span>
+        </summary>
+        <div class="govuk-inset-text">
+          <p>{{ content.insertText | safe }}</p>
+          {% if fields.isWebChatEnabled.value === 'true' %}
+            <p class="govuk-heading-s" id="avaya-web-chat-header"> {{ common.helpHeading3 | safe }} </p>
+          {% include "includes/avaya-webchat.html" %}
+          {% endif %}
+          <p class="govuk-heading-s govuk-!-padding-top-2"> {{ common.helpHeading2 | safe }} </p>
+          <p class="govuk-body"> {{ common.helpEmailLabel | replace("{contactEmailAddress}", common.helpEmail) | safe }}</p>
+          <p class="govuk-heading-s"> {{ common.helpHeading1 | safe }}</p>
+          <p class="govuk-body"> {{ common.helpTelephoneNumber | safe }}</p>
+          <p class="govuk-heading-m govuk-!-padding-top-6"> {{ common.helpTelephoneOpeningHoursTitle | safe }} </p>
+          <p class="govuk-body"> {{ common.helpTelephoneOpeningHours1 | safe }} </p>
+          <p class="govuk-body"> {{ common.helpTelephoneOpeningHours2 | safe }} </p>
+          <p class="govuk-body">{{ content.callCharges | replace("{callChargesLink}", globals.links.callCharges) | safe }}</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
 {% endblock %}

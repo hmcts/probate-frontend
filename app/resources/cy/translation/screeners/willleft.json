@@ -4,7 +4,7 @@
   "question": "A wnaeth yr unigolyn sydd wedi marw adael ewyllys?",
   "optionYes": "Do",
   "optionNo": "Naddo",
-  "hint": "Gwiriwch fod yr <a href=\"{willIsLegal}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"ewyllys yn gyfreithlon\">ewyllys yn gyfreithlon</a>. Rhaid i Ewyllysiau a wneir yn unol &acirc; chyfreithiau Cymru a Lloegr gael eu harwyddo gydag inc gwlyb gan:",
+  "hint": "Gwiriwch fod yr <a href=\"{willIsLegal}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"ewyllys yn gyfreithlon (yn agor mewn tab newydd)\">ewyllys yn gyfreithlon (yn agor mewn tab newydd)</a>. Rhaid i Ewyllysiau a wneir yn unol &acirc; chyfreithiau Cymru a Lloegr gael eu harwyddo gydag inc gwlyb gan:",
   "hintBullet1": "yr unigolyn sy&rsquo;n gwneud yr ewyllys (&lsquo;ewyllysiwr&rsquo;)",
   "hintBullet2": "2 dyst",
   "errors": {

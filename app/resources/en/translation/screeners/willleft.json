@@ -4,7 +4,7 @@
   "question": "Did the person who died leave a will?",
   "optionYes": "Yes",
   "optionNo": "No",
-  "hint": "Check the <a href=\"{willIsLegal}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"will is legal\">will is legal</a>. Wills made according to the laws of England or Wales must be signed in wet ink by:",
+  "hint": "Check the <a href=\"{willIsLegal}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"will is legal (opens in a new tab)\">will is legal (opens in a new tab)</a>. Wills made according to the laws of England or Wales must be signed in wet ink by:",
   "hintBullet1": "the person making the will (&lsquo;testator&rsquo;)",
   "hintBullet2": "2 witnesses",
   "errors": {

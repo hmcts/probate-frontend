@@ -8,7 +8,7 @@ const applicantAliasContent = require('app/resources/en/translation/applicant/al
 const applicantAliasReasonContent = require('app/resources/en/translation/applicant/aliasreason');
 const applicantNameAsOnWillContent = require('app/resources/en/translation/applicant/nameasonwill');
 const executorsApplyingContent = require('app/resources/en/translation/executors/applying');
-const executorsAllAliveContent = require('app/resources/en/translation/executors/allalive');
+const anyExecutorsDiedContent = require('app/resources/en/translation/executors/anyexecutorsdied');
 const executorsRoles = require('app/resources/en/translation/executors/roles');
 const executorsAliasReason = require('app/resources/en/translation/executors/currentnamereason');
 const executorsDiedBefore = require('app/resources/en/translation/executors/whendied');
@@ -36,7 +36,7 @@ describe('summary-executor-section', () => {
         delete require.cache[require.resolve('app/resources/en/translation/applicant/address')];
         delete require.cache[require.resolve('app/resources/en/translation/applicant/alias')];
         delete require.cache[require.resolve('app/resources/en/translation/applicant/aliasreason')];
-        delete require.cache[require.resolve('app/resources/en/translation/executors/allalive')];
+        delete require.cache[require.resolve('app/resources/en/translation/executors/anyexecutorsdied')];
     });
 
     describe('Verify Content, Errors and Redirection', () => {
@@ -147,9 +147,9 @@ describe('summary-executor-section', () => {
                         questionLastName: applicantNameContent.lastName,
                         questionPhoneNumber: applicantPhoneContent.phoneNumber,
                         questionApplicantAddress: applicantAddressContent.question,
-                        questionExecutorsAllAlive: executorsAllAliveContent.multipleExecutorQuestion,
+                        questionAnyExecutorsDied: anyExecutorsDiedContent.multipleExecutorQuestion,
 
-                        allAlive: executorsAllAliveContent[executorsData.executors.allAlive],
+                        anyExecutorsDied: anyExecutorsDiedContent[executorsData.executors.anyExecutorsDied],
 
                         exec2fullName: executorsData.executors.list[1].fullName,
                         exec2IsApplying: executorsData.executors.list[1].isApplying ? executorsApplyingContent.optionYes : executorsApplyingContent.optionNo,

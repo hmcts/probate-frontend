@@ -178,12 +178,12 @@ const stepList = {
     ExecutorCheckWill: 'ExecutorsNamed',
     ExecutorsNamed: {
         multiExec: 'ExecutorsNames',
-        multiExecOptionNo: 'ExecutorsAllAlive',
+        multiExecOptionNo: 'AnyExecutorsDied',
         otherwise: 'Equality'
     },
     RemoveExecutor: 'ExecutorsNamed',
     ExecutorsNames: 'ExecutorsNamed',
-    ExecutorsAllAlive: {
+    AnyExecutorsDied: {
         isAlive: 'ExecutorsApplying',
         whoDied: 'ExecutorsWhoDied',
         whenDied: 'ExecutorsWhenDied'

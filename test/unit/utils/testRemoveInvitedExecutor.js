@@ -60,7 +60,7 @@ describe('RemoveInvitedExecutor', () => {
                                 inviteId: 'dummy_inviteId_3',
                                 emailSent: true
                             }],
-                            allalive: 'optionNo',
+                            anyExecutorsDied: 'optionNo',
                             otherExecutorsApplying: 'optionYes',
                             alias: 'optionYes',
                             invitesSent: 'true',
@@ -101,7 +101,7 @@ describe('RemoveInvitedExecutor', () => {
                     .then(res => {
                         expect(res).to.deep.equal({
                             alias: 'optionYes',
-                            allalive: 'optionNo',
+                            anyExecutorsDied: 'optionNo',
                             executorsNumber: 4,
                             invitesSent: 'true',
                             list: [

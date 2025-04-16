@@ -82,7 +82,7 @@
         "notApplyingKey": "optionRenunciated"
       }
     ],
-    "allalive": "optionNo",
+    "anyExecutorsDied": "optionNo",
     "otherExecutorsApplying": "optionYes",
     "alias": "optionYes",
     "referrer": "ExecutorAddress",

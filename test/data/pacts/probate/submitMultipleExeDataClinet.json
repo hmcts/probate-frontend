@@ -160,7 +160,7 @@
         "notApplyingReason": "This executor died (after the person who has died)"
       } ],
       "alias": "Yes",
-      "allalive": "No",
+      "anyExecutorsDied": "No",
       "referrer": "ExecutorAddress",
       "invitesSent": "true",
       "addressFound": "true",

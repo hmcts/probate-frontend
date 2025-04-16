@@ -38,7 +38,7 @@
   },
   "executors": {
     "alias": "Yes",
-    "allalive": "Yes",
+    "anyExecutorsDied": "Yes",
     "otherExecutorsApplying": "No",
     "executorsNumber": 2,
     "list": [

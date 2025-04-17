@@ -139,4 +139,40 @@ describe('UIStepRunner', () => {
             done();
         });
     });
+
+    it('should return an error on a 409 Conflict', (done) => {
+        const stepName = 'DeceasedAddress';
+        const step = {
+            name: stepName,
+            template: 'ui/copies/uk/template',
+            validate: () => [false, []],
+            getContextData: () => '',
+            nextStepUrl: () => '',
+            action: () => [{}, req400.session.form],
+            constructor: {
+                getUrl: () => 'hello'
+            },
+            shouldPersistFormData: () => true,
+            persistFormData: () => ({name: 'Error', message: 'Conflict'}),
+            generateContent: () => '',
+            generateFields: () => '',
+            commonContent: () => ''
+        };
+
+        const res409 = {
+            redirect: (url) => url,
+        };
+
+        res409.render = sinon.spy();
+        res409.statusCode=409;
+
+        const runner = new UIStepRunner();
+        co(function* () {
+            yield runner.handlePost(step, req400, res409);
+            const result = yield step.persistFormData('1200340056007800', {}, 'session.id', req400);
+            expect(res409.statusCode).to.equal(409);
+            expect(result.message).to.equal('Conflict');
+            done();
+        });
+    });
 });

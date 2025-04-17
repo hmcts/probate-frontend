@@ -108,12 +108,14 @@ class UIStepRunner {
                         formdata.declaration.hasDataChanged = true;
                     }
                     let errorOccurred = false;
+                    let errorConflict = false;
                     if ((get(formdata, 'ccdCase.state') === 'Pending' || get(formdata, 'ccdCase.state') === 'CasePaymentFailed' || get(formdata, 'ccdCase.state') === 'BOCaseStopped') && session.regId && step.shouldPersistFormData()) {
                         const ccdCaseId = formdata.ccdCase.id;
                         const result = yield step.persistFormData(ccdCaseId, formdata, session.id, req);
                         if (result.name === 'Error') {
                             errorOccurred = true;
-                            req.log.error('Could not persist user data', result.message);
+                            errorConflict = (result.message === 'Conflict');
+                            req.log.error('Could not persist user data:', result.message);
                         } else if (result) {
                             session.form = Object.assign(session.form, result);
                             req.log.info('Successfully persisted user data');
@@ -134,7 +136,11 @@ class UIStepRunner {
                         const content = step.generateContent(ctx, formdata, session.language);
                         const fields = step.generateFields(session.language, ctx, errors, formdata);
                         const common = step.commonContent(session.language);
-                        errors.push(FieldError('formSubmissionUnsuccessful', 'required', 'common', ctx, session.language));
+                        if (errorConflict) {
+                            errors.push(FieldError('formSubmissionConflict', 'required', 'common', ctx, session.language));
+                        } else {
+                            errors.push(FieldError('formSubmissionUnsuccessful', 'required', 'common', ctx, session.language));
+                        }
                         res.render(step.template, {content, fields, errors, common, userLoggedIn: req.userLoggedIn});
                     }
                 } else {

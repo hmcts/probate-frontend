@@ -41,6 +41,10 @@ class AsyncFetch {
                                 return body;
                             });
                     }
+                    if (res.status === 409) {
+                        log.error('res 409 : ' + res.statusText);
+                        return new Error(res.statusText);
+                    }
                     log.error(res.statusText);
                     return parseBody(res)
                         .then(body => {

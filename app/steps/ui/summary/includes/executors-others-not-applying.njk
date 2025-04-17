@@ -4,7 +4,7 @@
             items = [
                 {
                     question: content.ExecutorRoles.question | replace("{executorName}", executor.fullName ),
-                    answer: content.ExecutorRoles[executor.notApplyingReason].replace("{executorName}", executor.fullName),
+                    answer: content.ExecutorRoles[executor.notApplyingKey].replace("{executorName}", executor.fullName),
                     visible: true
                 }
             ],

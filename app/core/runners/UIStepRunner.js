@@ -51,14 +51,16 @@ class UIStepRunner {
                 common.SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
                 res.render(step.template, {content, fields, errors, common, userLoggedIn: req.userLoggedIn}, (err, html) => {
                     if (err) {
-                        req.log.error(err);
+                        const maybeCaseId = req?.session?.form?.ccdCase?.id;
+                        req.log.error(`Error in GET for case ${maybeCaseId} error: ${err}`);
                         return res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
                     }
                     step.renderPage(res, html);
                 });
             }
         }).catch((error) => {
-            req.log.error(error);
+            const maybeCaseId = req?.session?.form?.ccdCase?.id;
+            req.log.error(`Error in GET for case ${maybeCaseId} error: ${error}`);
             res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
         });
     }
@@ -151,7 +153,8 @@ class UIStepRunner {
                 }
             }
         }).catch((error) => {
-            req.log.error(error);
+            const maybeCaseId = req?.session?.form?.ccdCase?.id;
+            req.log.error(`Error in POST for case ${maybeCaseId} error: ${error}`);
             const ctx = step.getContextData(req, res);
             const fields = step.generateFields(req.session.language, ctx, [], {});
             res.status(500).render('errors/500', {fields, common: commonContent, userLoggedIn: req.userLoggedIn});

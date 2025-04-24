@@ -101,10 +101,12 @@ class PaymentStatus extends Step {
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
                 logger.error(`Unable to retrieve a payment response with status ${getPaymentResponse.status}`);
             } else if (!updateCcdCaseResponse || !updateCcdCaseResponse.ccdCase || updateCcdCaseResponse.ccdCase.state !== 'CasePrinted') {
-                options.redirect = false;
+                options.redirect = true;
+                options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
                 logger.warn('Did not get a successful case created state.');
             } else {
-                options.redirect = false;
+                options.redirect = true;
+                options.url = `${this.steps.ThankYou.constructor.getUrl()}`;
             }
         } else {
             if (ctx.paymentNotRequired) {
@@ -118,7 +120,8 @@ class PaymentStatus extends Step {
                 set(formdata, 'registry', updateCcdCaseResponse.registry);
             }
             this.setErrors(options, errors);
-            options.redirect = false;
+            options.redirect = true;
+            options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
         }
 
         return options;

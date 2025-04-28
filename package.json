@@ -123,7 +123,7 @@
     "hpkp": "^3.0.0",
     "http-terminator": "^3.0.0",
     "https-proxy-agent": "^5.0.1",
-    "i18next": "^24.0.0",
+    "i18next": "^25.0.0",
     "ioredis": "^5.0.0",
     "ip": "^2.0.1",
     "jquery": "^3.6.4",

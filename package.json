@@ -218,7 +218,7 @@
     "path-to-regexp": "^0.1.10",
     "import-in-the-middle": "^1.11.2",
     "cross-spawn": "^7.0.5",
-    "codeceptjs": "3.6.10",
+    "codeceptjs": "3.7.3",
     "tar-fs": "^3.0.8"
   },
   "packageManager": "yarn@4.9.1"

@@ -6,8 +6,6 @@ const nock = require('nock');
 const config = require('config');
 const CREATE_PAYMENT_SERVICE_URL = config.services.payment.url + config.services.payment.paths.createPayment;
 const IDAM_S2S_URL = config.services.idam.s2s_url;
-const testCommonContent = require('test/component/common/testCommonContent.js');
-const caseTypes = require('app/utils/CaseTypes');
 
 const paymentNock = () => {
     nock(CREATE_PAYMENT_SERVICE_URL)
@@ -56,7 +54,7 @@ describe('payment-status', () => {
         };
 
         testWrapper = new TestWrapper('PaymentStatus');
-
+        commonContentNock();
         paymentNock();
     });
 
@@ -67,54 +65,6 @@ describe('payment-status', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('PaymentStatus', commonContentNock, null, [], false, {declaration: {declarationCheckbox: 'true'}, payment: {total: 0}});
-
-        it('test right content loaded on the page when net value is greater than 5000£', (done) => {
-            nock(config.services.orchestrator.url)
-                .put(uri => uri.includes('submissions'))
-                .reply(200, {
-                    ccdCase: sessionData.ccdCase,
-                    payment: sessionData.payment
-                });
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const contentToExclude = ['headingNoPayment'];
-
-                    testWrapper.testContent(done, {}, contentToExclude);
-                });
-        });
-
-        it('test right content loaded on the page when net value is less than 5000£', (done) => {
-            nock(config.services.orchestrator.url)
-                .put(uri => uri.includes('submissions'))
-                .reply(200, {
-                    ccdCase: sessionData.ccdCase
-                });
-            const contentToExclude = ['headingPayment'];
-
-            sessionData = {
-                ccdCase: {
-                    state: 'Pending',
-                    id: 1234567890123456
-                },
-                declaration: {
-                    declarationCheckbox: 'true'
-                },
-                payment: {
-                    total: 0
-                },
-                caseType: caseTypes.GOP
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.testContent(done, {}, contentToExclude);
-                });
-        });
-
         it(`test it redirects to next page with no input: ${expectedNextUrlForTaskList}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({})

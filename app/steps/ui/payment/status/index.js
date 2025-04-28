@@ -62,9 +62,9 @@ class PaymentStatus extends Step {
         const options = {};
         const authorise = new Authorise(config.services.idam.s2s_url, ctx.sessionID);
         const serviceAuthResult = yield authorise.post();
+        options.redirect = true;
 
         if (serviceAuthResult.name === 'Error') {
-            options.redirect = true;
             options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
             return options;
         }
@@ -83,8 +83,6 @@ class PaymentStatus extends Step {
             logger.info('Payment retrieval in status for reference = ' + ctx.reference + ' with response = ' + JSON.stringify(getPaymentResponse));
             if (getPaymentResponse.name === 'Error' || getPaymentResponse.status === 'Initiated') {
                 logger.error('Payment retrieval failed for reference = ' + ctx.reference + ' with status = ' + getPaymentResponse.status);
-                const options = {};
-                options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
                 return options;
             }
@@ -97,15 +95,12 @@ class PaymentStatus extends Step {
             this.setErrors(options, errors);
 
             if (getPaymentResponse.status !== 'Success') {
-                options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
                 logger.error(`Unable to retrieve a payment response with status ${getPaymentResponse.status}`);
             } else if (!updateCcdCaseResponse || !updateCcdCaseResponse.ccdCase || updateCcdCaseResponse.ccdCase.state !== 'CasePrinted') {
-                options.redirect = true;
                 options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
                 logger.warn('Did not get a successful case created state.');
             } else {
-                options.redirect = true;
                 options.url = `${this.steps.ThankYou.constructor.getUrl()}`;
             }
         } else {
@@ -113,15 +108,15 @@ class PaymentStatus extends Step {
                 set(ctx.payment, 'status', 'not_required');
             }
             const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, ctx.payment, serviceAuthResult, session.language);
+            this.setErrors(options, errors);
+            options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
 
             if (ctx.paymentNotRequired) {
                 set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
                 set(formdata, 'payment', updateCcdCaseResponse.payment);
                 set(formdata, 'registry', updateCcdCaseResponse.registry);
+                options.url = `${this.steps.ThankYou.constructor.getUrl()}`;
             }
-            this.setErrors(options, errors);
-            options.redirect = true;
-            options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
         }
 
         return options;

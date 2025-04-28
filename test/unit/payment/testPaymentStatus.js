@@ -152,7 +152,7 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it('should set redirect to false if payment is successful', (done) => {
+        it('should set redirect to true if payment is successful', (done) => {
             revertSubmitData(expectedFormData);
 
             const revert = PaymentStatus.__set__({
@@ -171,7 +171,8 @@ describe('PaymentStatus', () => {
 
             co(function* () {
                 const options = yield paymentStatus.runnerOptions(ctx, session);
-                expect(options.redirect).to.equal(false);
+                expect(options.redirect).to.equal(true);
+                expect(options.url).to.equal('/thank-you');
                 expect(session.form).to.deep.equal(expectedFormData);
                 revert();
                 done();
@@ -218,7 +219,7 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it('should set payment status to not_required and redirect to false when paymentDue is false and paymentNotRequired is true', (done) => {
+        it('should set payment status to not_required and redirect to true when paymentDue is false and paymentNotRequired is true', (done) => {
             const expectedFormData = {
                 caseType: 'gop',
                 ccdCase: {
@@ -260,7 +261,8 @@ describe('PaymentStatus', () => {
 
             co(function* () {
                 const options = yield paymentStatus.runnerOptions(ctx, session);
-                expect(options.redirect).to.equal(false);
+                expect(options.redirect).to.equal(true);
+                expect(options.url).to.equal('/thank-you');
                 expect(session.form).to.deep.equal(expectedFormData);
                 done();
             }).catch(err => {
@@ -292,7 +294,8 @@ describe('PaymentStatus', () => {
             co(function* () {
                 const options = yield paymentStatus.runnerOptions(ctx, session);
                 expect(session.form).to.deep.equal(expectedFormData);
-                expect(options.redirect).to.equal(false);
+                expect(options.redirect).to.equal(true);
+                expect(options.url).to.equal('/payment-breakdown');
                 expect(options.errors).to.deep.equal([{
                     field: 'update',
                     href: '#update',

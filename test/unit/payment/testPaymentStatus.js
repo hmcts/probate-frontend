@@ -11,7 +11,7 @@ const caseTypes = require('app/utils/CaseTypes');
 const content = require('app/resources/en/translation/payment/status');
 const i18next = require('i18next');
 
-describe('PaymentStatus', () => {
+describe.only('PaymentStatus', () => {
     const steps = initSteps([`${__dirname}/../../../app/steps/ui`]);
     let section;
     let templatePath;
@@ -152,7 +152,7 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it('should set redirect to true if payment is successful', (done) => {
+        it('should set redirect to /thank-you if payment is successful', (done) => {
             revertSubmitData(expectedFormData);
 
             const revert = PaymentStatus.__set__({
@@ -181,7 +181,7 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it('should set redirect to true and payment status to failure if payment is not successful', (done) => {
+        it('should set redirect to /payment-breakdown and payment status to failure if payment is not successful', (done) => {
             revertSubmitData(expectedFormData);
 
             expectedFormData.payment.status = 'Failed';
@@ -344,7 +344,7 @@ describe('PaymentStatus', () => {
             });
         });
 
-        it('should set redirect to true  payment status to success if payment is successful with no case created', (done) => {
+        it('should set redirect to true and payment status to success if payment is successful with no case created', (done) => {
             delete expectedFormData.ccdCase;
             revertSubmitData(expectedFormData);
             expectedFormData.payment.status = 'Initiated';

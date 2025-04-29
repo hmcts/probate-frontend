@@ -119,7 +119,6 @@ getTestLanguages().forEach(language => {
             await I.seeGovUkPaymentPage(language);
             await I.seeGovUkConfirmPage(language);
         }
-        //await I.seePaymentStatusPage(language);
 
         // Thank You
         await I.seeThankYouPage(language);
@@ -216,7 +215,6 @@ getTestLanguages().forEach(language => {
             await I.seeGovUkPaymentPage(language);
             await I.seeGovUkConfirmPage(language);
         }
-        //await I.seePaymentStatusPage(language);
 
         // Thank You
         await I.seeThankYouPage(language);

@@ -103,7 +103,7 @@
     "applicationinsights": "^2.5.0",
     "axios": "^1.8.2",
     "basic-auth": "^2.0.1",
-    "body-parser": "^1.20.3",
+    "body-parser": "^2.0.0",
     "cheerio": "^1.0.0-rc.12",
     "co": "^4.6.0",
     "config": "^3.3.9",

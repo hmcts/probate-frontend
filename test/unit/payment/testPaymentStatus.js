@@ -11,7 +11,7 @@ const caseTypes = require('app/utils/CaseTypes');
 const content = require('app/resources/en/translation/payment/status');
 const i18next = require('i18next');
 
-describe.only('PaymentStatus', () => {
+describe('PaymentStatus', () => {
     const steps = initSteps([`${__dirname}/../../../app/steps/ui`]);
     let section;
     let templatePath;
@@ -120,6 +120,31 @@ describe.only('PaymentStatus', () => {
         });
     });
 
+    describe('getContextData()', () => {
+        it('should return the context with the deceased name', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        payment: {
+                            total: 5001,
+                            reference: 1
+                        },
+                    },
+                    regId: '123456',
+                    id: '1234567890',
+                },
+                userId: '12345',
+                authToken: 'XXXXX'
+            };
+            const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
+
+            const ctx = paymentStatus.getContextData(req);
+            expect(ctx.paymentNotRequired).to.equal(false);
+            expect(ctx.paymentBreakdownSkipped).to.equal(false);
+            expect(ctx.paymentDue).to.equal(true);
+            done();
+        });
+    });
     describe('runnerOptions', () => {
         it('redirect if there is an authorise failure', (done) => {
             revertSubmitData(expectedFormData);
@@ -173,6 +198,36 @@ describe.only('PaymentStatus', () => {
                 const options = yield paymentStatus.runnerOptions(ctx, session);
                 expect(options.redirect).to.equal(true);
                 expect(options.url).to.equal('/thank-you');
+                expect(session.form).to.deep.equal(expectedFormData);
+                revert();
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+
+        it('should set redirect to /payment-breakdown if state is not CasePrinted', (done) => {
+            expectedFormData.ccdCase.state = 'PAAppCreated';
+            revertSubmitData(expectedFormData);
+
+            const revert = PaymentStatus.__set__({
+                Payment: class {
+                    get() {
+                        return Promise.resolve(successfulPaymentResponse);
+                    }
+                }
+            });
+            const session = {
+                form: {
+                    payment: {}
+                }
+            };
+            const paymentStatus = new PaymentStatus(steps, section, templatePath, i18next, schema);
+
+            co(function* () {
+                const options = yield paymentStatus.runnerOptions(ctx, session);
+                expect(options.redirect).to.equal(true);
+                expect(options.url).to.equal('/payment-breakdown');
                 expect(session.form).to.deep.equal(expectedFormData);
                 revert();
                 done();
@@ -366,6 +421,7 @@ describe.only('PaymentStatus', () => {
             co(function* () {
                 const options = yield paymentStatus.runnerOptions(ctx, session);
                 expect(options.redirect).to.equal(true);
+                expect(options.url).to.equal('/payment-breakdown');
                 revert();
                 done();
             }).catch(err => {

@@ -147,8 +147,6 @@ Scenario('Check survey link works', async ({I}) => {
         await I.seeGovUkConfirmPage(language);
     }
 
-    //await I.seePaymentStatusPage(language);
-
     // Thank You
     await I.seeThankYouPage(language, true);
 

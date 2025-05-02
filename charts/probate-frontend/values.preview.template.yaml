@@ -55,7 +55,7 @@ redis:
   image:
     registry: hmctspublic.azurecr.io
     repository: imported/bitnami/redis
-    tag: '6.2.7'
+    tag: '7.2.5'
   serviceAccount:
     create: false
     name: probate

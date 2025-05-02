@@ -215,29 +215,29 @@ __metadata:
   linkType: hard
 
 "@azure/msal-browser@npm:^4.2.0":
-  version: 4.11.0
-  resolution: "@azure/msal-browser@npm:4.11.0"
+  version: 4.11.1
+  resolution: "@azure/msal-browser@npm:4.11.1"
   dependencies:
-    "@azure/msal-common": "npm:15.5.1"
-  checksum: 10/8bbf3e5eb02ef0a2b0cf72c34a43c31c0cbc040f2cd4abb29fa0a3e4c7a7e75b20ab7c45c466ff14186a48cf77f806b6f7c7442acc7405a182c8189ba0a385c8
+    "@azure/msal-common": "npm:15.5.2"
+  checksum: 10/fff6e0f607ab2410b3362762d0441e344441a61919dbc34099f995fc9d44e0e55ff39488875fecebe266c046d2a5ce4122937f2c5102892a8381d4db3fde77d8
   languageName: node
   linkType: hard
 
-"@azure/msal-common@npm:15.5.1":
-  version: 15.5.1
-  resolution: "@azure/msal-common@npm:15.5.1"
-  checksum: 10/caa187c73190a3f8a7820099401672cd986a1df24426a606aa84ab529e1338ec73c2dd0d277e6d0b40987815d3702b468a49800b1a2a62113ea0defc8e18bc78
+"@azure/msal-common@npm:15.5.2":
+  version: 15.5.2
+  resolution: "@azure/msal-common@npm:15.5.2"
+  checksum: 10/faa718d8f989cfc86db36b17d88e649ae4e24185559a98189c3478a9f12168034bdf7d249f55393f54cd6bae09c3bf2b878417fb6ae5577f6e49dd94518feace
   languageName: node
   linkType: hard
 
 "@azure/msal-node@npm:^3.0.0":
-  version: 3.5.1
-  resolution: "@azure/msal-node@npm:3.5.1"
+  version: 3.5.2
+  resolution: "@azure/msal-node@npm:3.5.2"
   dependencies:
-    "@azure/msal-common": "npm:15.5.1"
+    "@azure/msal-common": "npm:15.5.2"
     jsonwebtoken: "npm:^9.0.0"
     uuid: "npm:^8.3.0"
-  checksum: 10/c972aacee2c0bb13d3d8c2c73094799bb2e47bffc0be9195f8a749ae2d0ae6e53e12adb16c7df6e20ea73a4773509e4d604cb0616a7090b0b6ca6285e8ae08e0
+  checksum: 10/78fb7bc401f77032292d977cf9e8baaa6eabcdbf34e8dd7a7c765121c93342f964b36befd7a288731d5025f8c057c1364c238478cff9a4a937abfffda1d9ea1f
   languageName: node
   linkType: hard
 
@@ -1292,6 +1292,17 @@ __metadata:
   peerDependencies:
     eslint: ^6.0.0 || ^7.0.0 || >=8.0.0
   checksum: 10/8d70bcdcd8cd279049183aca747d6c2ed7092a5cf0cf5916faac1ef37ffa74f0c245c2a3a3d3b9979d9dfdd4ca59257b4c5621db699d637b847a2c5e02f491c2
+  languageName: node
+  linkType: hard
+
+"@eslint-community/eslint-utils@npm:^4.4.1":
+  version: 4.6.1
+  resolution: "@eslint-community/eslint-utils@npm:4.6.1"
+  dependencies:
+    eslint-visitor-keys: "npm:^3.4.3"
+  peerDependencies:
+    eslint: ^6.0.0 || ^7.0.0 || >=8.0.0
+  checksum: 10/9f1a91bddf0a68b2b8bb71b3390d0e665e842770ff4a0188d38199e8a66ac050608da14eb614d211535ed312633d9dc237bd297857bf0e78abac927029909e50
   languageName: node
   linkType: hard
 
@@ -4879,6 +4890,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chokidar@npm:^4.0.1":
+  version: 4.0.3
+  resolution: "chokidar@npm:4.0.3"
+  dependencies:
+    readdirp: "npm:^4.0.1"
+  checksum: 10/bf2a575ea5596000e88f5db95461a9d59ad2047e939d5a4aac59dd472d126be8f1c1ff3c7654b477cf532d18f42a97279ef80ee847972fd2a25410bf00b80b59
+  languageName: node
+  linkType: hard
+
 "chownr@npm:^2.0.0":
   version: 2.0.0
   resolution: "chownr@npm:2.0.0"
@@ -6890,16 +6910,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-mocha@npm:^10.0.0":
-  version: 10.5.0
-  resolution: "eslint-plugin-mocha@npm:10.5.0"
+"eslint-plugin-mocha@npm:^11.0.0":
+  version: 11.0.0
+  resolution: "eslint-plugin-mocha@npm:11.0.0"
   dependencies:
-    eslint-utils: "npm:^3.0.0"
-    globals: "npm:^13.24.0"
-    rambda: "npm:^7.4.0"
-  peerDependencies:
-    eslint: ">=7.0.0"
-  checksum: 10/cc2e9cc8efda173967fb31a27b5ebbab989a20a06fd310bb88e4ddf4299c1445365b48c74eadf37eacffb1b16386e5a866ed098a2c242ad61763aea17f324c83
+    "@eslint-community/eslint-utils": "npm:^4.4.1"
+    globals: "npm:^15.14.0"
+  checksum: 10/57e5f96bf258cb5d68027a8839cc4f5a00bb42d8d1fe7038440b5383b4e69c0e8436f0bd703d14428c1e34ac988ef25ee7b489f5269db6dcb0d7b83c6ae723ea
   languageName: node
   linkType: hard
 
@@ -6910,24 +6927,6 @@ __metadata:
     esrecurse: "npm:^4.3.0"
     estraverse: "npm:^5.2.0"
   checksum: 10/5c660fb905d5883ad018a6fea2b49f3cb5b1cbf2cd4bd08e98646e9864f9bc2c74c0839bed2d292e90a4a328833accc197c8f0baed89cbe8d605d6f918465491
-  languageName: node
-  linkType: hard
-
-"eslint-utils@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "eslint-utils@npm:3.0.0"
-  dependencies:
-    eslint-visitor-keys: "npm:^2.0.0"
-  peerDependencies:
-    eslint: ">=5"
-  checksum: 10/7675260a6b220c70f13e4cdbf077e93cad0dfb388429a27d6c0b584b2b20dca24594508e8bdb00a460a5764bd364a5018e20c2b8b1d70f82bcc3fdc30692a4d2
-  languageName: node
-  linkType: hard
-
-"eslint-visitor-keys@npm:^2.0.0":
-  version: 2.1.0
-  resolution: "eslint-visitor-keys@npm:2.1.0"
-  checksum: 10/db4547eef5039122d518fa307e938ceb8589da5f6e8f5222efaf14dd62f748ce82e2d2becd3ff9412a50350b726bda95dbea8515a471074547daefa58aee8735
   languageName: node
   linkType: hard
 
@@ -8343,7 +8342,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^10.0.0, glob@npm:^10.2.2, glob@npm:^10.3.10, glob@npm:^10.3.3, glob@npm:^10.3.7":
+"glob@npm:^10.0.0, glob@npm:^10.2.2, glob@npm:^10.3.10, glob@npm:^10.3.3, glob@npm:^10.3.7, glob@npm:^10.4.5":
   version: 10.4.5
   resolution: "glob@npm:10.4.5"
   dependencies:
@@ -8420,12 +8419,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:^13.19.0, globals@npm:^13.24.0":
+"globals@npm:^13.19.0":
   version: 13.24.0
   resolution: "globals@npm:13.24.0"
   dependencies:
     type-fest: "npm:^0.20.2"
   checksum: 10/62c5b1997d06674fc7191d3e01e324d3eda4d65ac9cc4e78329fa3b5c4fd42a0e1c8722822497a6964eee075255ce21ccf1eec2d83f92ef3f06653af4d0ee28e
+  languageName: node
+  linkType: hard
+
+"globals@npm:^15.14.0":
+  version: 15.15.0
+  resolution: "globals@npm:15.15.0"
+  checksum: 10/7f561c87b2fd381b27fc2db7df8a4ea7a9bb378667b8a7193e61fd2ca3a876479174e2a303a74345fbea6e1242e16db48915c1fd3bf35adcf4060a795b425e18
   languageName: node
   linkType: hard
 
@@ -11925,7 +11931,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mocha@npm:10.8.2, mocha@npm:^10.8.2":
+"mocha@npm:10.8.2":
   version: 10.8.2
   resolution: "mocha@npm:10.8.2"
   dependencies:
@@ -11953,6 +11959,37 @@ __metadata:
     _mocha: bin/_mocha
     mocha: bin/mocha.js
   checksum: 10/903bbffcb195ef9d36b27db54e3462c5486de1397289e0953735b3530397a139336c452bcf5188c663496c660d2285bbb6c7213290d36d536ad647b6145cb917
+  languageName: node
+  linkType: hard
+
+"mocha@npm:^11.0.0":
+  version: 11.2.2
+  resolution: "mocha@npm:11.2.2"
+  dependencies:
+    browser-stdout: "npm:^1.3.1"
+    chokidar: "npm:^4.0.1"
+    debug: "npm:^4.3.5"
+    diff: "npm:^5.2.0"
+    escape-string-regexp: "npm:^4.0.0"
+    find-up: "npm:^5.0.0"
+    glob: "npm:^10.4.5"
+    he: "npm:^1.2.0"
+    js-yaml: "npm:^4.1.0"
+    log-symbols: "npm:^4.1.0"
+    minimatch: "npm:^5.1.6"
+    ms: "npm:^2.1.3"
+    picocolors: "npm:^1.1.1"
+    serialize-javascript: "npm:^6.0.2"
+    strip-json-comments: "npm:^3.1.1"
+    supports-color: "npm:^8.1.1"
+    workerpool: "npm:^6.5.1"
+    yargs: "npm:^17.7.2"
+    yargs-parser: "npm:^21.1.1"
+    yargs-unparser: "npm:^2.0.0"
+  bin:
+    _mocha: bin/_mocha
+    mocha: bin/mocha.js
+  checksum: 10/adb5fbb95658f56cc4a41f45c29ade01674281cbd4ff06920216f3a663cb572e1fbb098ef6fd76335d1690d30eb20733946dc3211338a2b48afcaa7da2bbb068
   languageName: node
   linkType: hard
 
@@ -13767,7 +13804,7 @@ __metadata:
     debug: "npm:^4.3.4"
     email-validator: "npm:^2.0.4"
     eslint: "npm:^8.0.0"
-    eslint-plugin-mocha: "npm:^10.0.0"
+    eslint-plugin-mocha: "npm:^11.0.0"
     express: "npm:^4.21.2"
     express-session: "npm:^1.17.3"
     file-type: "npm:^12.4.2"
@@ -13788,7 +13825,7 @@ __metadata:
     launchdarkly-node-server-sdk: "npm:^7.0.0"
     libphonenumber-js: "npm:^1.11.17"
     lodash: "npm:^4.17.21"
-    mocha: "npm:^10.8.2"
+    mocha: "npm:^11.0.0"
     mocha-jenkins-reporter: "npm:^0.4.8"
     mocha-junit-reporter: "npm:^2.0.0"
     mocha-lcov-reporter: "npm:^1.3.0"
@@ -14267,13 +14304,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rambda@npm:^7.4.0":
-  version: 7.5.0
-  resolution: "rambda@npm:7.5.0"
-  checksum: 10/a87ee033803bf841ac35a12a04583cc36e2d8957e3bee97e45fc8944e64915f4534685724efe663a3088a8d719489f76febf444544b300642e7398c2e5412217
-  languageName: node
-  linkType: hard
-
 "ramda@npm:^0.30.0":
   version: 0.30.1
   resolution: "ramda@npm:0.30.1"
@@ -14573,6 +14603,13 @@ __metadata:
     "@kwsites/file-exists": "npm:^1.0.0"
     "@kwsites/math-sum": "npm:^1.0.0"
   checksum: 10/3b0b154f0dc4ae0f10fb35f5e5ffaa8a3a8c27de4972d2265059cfc81293028c8bbe0bc8830c2d853750a60f72f7c051845312c4a5cae2c65f35e82c1aef842b
+  languageName: node
+  linkType: hard
+
+"readdirp@npm:^4.0.1":
+  version: 4.1.2
+  resolution: "readdirp@npm:4.1.2"
+  checksum: 10/7b817c265940dba90bb9c94d82920d76c3a35ea2d67f9f9d8bd936adcfe02d50c802b14be3dd2e725e002dddbe2cc1c7a0edfb1bc3a365c9dfd5a61e612eea1e
   languageName: node
   linkType: hard
 

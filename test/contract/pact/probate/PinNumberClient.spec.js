@@ -55,16 +55,16 @@ describe('Pact PinNumberClient', () => {
     afterEach(() => provider.verify());
 
     describe('when a request for a Pin Number', () => {
-        describe('is required from a GET', () => {
+        describe('is required from a POST', () => {
             before(() =>
                 provider.addInteraction({
                     // The 'state' field specifies a 'Provider State'
                     state: 'probate_orchestrator_service returns pin number',
-                    uponReceiving: 'a request to GET Pin Number',
+                    uponReceiving: 'a request to POST Pin Number',
                     withRequest: {
-                        method: 'GET',
+                        method: 'POST',
                         path: '/invite/pin',
-                        query: {
+                        body: {
                             'phoneNumber': '07954765765'
                         },
                         headers: {

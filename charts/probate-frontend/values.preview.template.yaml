@@ -54,7 +54,7 @@ redis:
   enabled: true
   serviceAccount:
     create: false
-    name: probate
+    name: "probate"
     automountServiceAccountToken: true
 
 idam-pr:

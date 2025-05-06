@@ -124,7 +124,7 @@ describe('pin-resend', () => {
 
         it(`test it redirects to next page: ${expectedNextUrlForPinSent}`, (done) => {
             nock(orchestratorServiceUrl)
-                .get('/invite/pin?phoneNumber=07912345678')
+                .post('/invite/pin')
                 .reply(200, '12345');
 
             testWrapper.agent.post('/prepare-session-field/phoneNumber/07912345678')
@@ -135,7 +135,7 @@ describe('pin-resend', () => {
 
         it('test error page when pin resend fails - no phone number provided', (done) => {
             nock(orchestratorServiceUrl)
-                .get('/invite/pin?phoneNumber=undefined')
+                .post('/invite/pin')
                 .reply(500, new Error('ReferenceError'));
 
             const sessionData = require('test/data/multipleApplicant');
@@ -160,7 +160,7 @@ describe('pin-resend', () => {
 
         it('test error page when pin resend fails - no headers provided', (done) => {
             nock(orchestratorServiceUrl)
-                .get('/invite/pin?phoneNumber=07912345678')
+                .post('/invite/pin')
                 .reply(500, new Error('ReferenceError'));
 
             const sessionData = require('test/data/multipleApplicant');

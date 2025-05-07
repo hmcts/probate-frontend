@@ -41,6 +41,19 @@ class Step {
         this.content = require(`app/resources/${language}/translation/${resourcePath}`);
         this.i18next = i18next;
     }
+
+    getBackLink (req, res, ctx) {
+        if (this.name !== 'SignOut' && this.name !== 'Timeout' &&
+            this.name !== 'TaskList' && this.name !== 'Dashboard') {
+            if ((this.resourcePath.indexOf('screeners')>=0 || this.name==='StopPage') &&
+                typeof req.session.form.ccdCase === 'undefined') {
+                this.previousScrennerStepUrl(req, res, ctx);
+            } else {
+                this.previousStepUrl(req, res, ctx);
+            }
+            return ctx.previousUrl;
+        }
+    }
     previousStepUrl(req, res, ctx) {
         utils.getPreviousUrl(ctx, req, res, this.steps, this.name);
     }

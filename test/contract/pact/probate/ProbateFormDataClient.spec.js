@@ -122,7 +122,7 @@ describe('Pact ProbateFormData', () => {
                     uponReceiving: 'a request to POST probate formdata',
                     withRequest: {
                         method: 'POST',
-                        path: '/forms/case/1535574519543819',
+                        path: '/forms/case/1535574519543819/2018-01-01T00:00:00.000',
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'authToken',
@@ -142,7 +142,8 @@ describe('Pact ProbateFormData', () => {
             // Verify service client works as expected
             it('successfully validated form data', (done) => {
                 const formDataClient = new ProbateFormData('http://localhost:' + MOCK_SERVER_PORT, ctx.sessionID);
-                const verificationPromise = formDataClient.post(ctx.authToken, ctx.session.serviceAuthorization, '1535574519543819', PA_FORMDATA_PAYLOAD);
+                const verificationPromise = formDataClient.post(ctx.authToken, ctx.session.serviceAuthorization,
+                    '1535574519543819', '2018-01-01T00:00:00.000', PA_FORMDATA_PAYLOAD);
                 expect(verificationPromise).to.eventually.eql(getExpectedResponseBody()).notify(done);
             });
         });

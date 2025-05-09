@@ -97,6 +97,8 @@
   "errors": {
     "formSubmissionUnsuccessful": {
       "required": "Nid oedd modd cadw’r wybodaeth a roddwyd gennych – rhowch gynnig arall arni."
+    },"formSubmissionConflict": {
+      "required": "This case has been updated by another user. Please log out and try again."
     }
   }
 }

@@ -12,60 +12,69 @@
     <div class="govuk-grid-column-two-thirds" style="padding-left: 0px;">
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible probate-section-break">
       <br>
-      <div class="hmcts-progress-bar-vertical" role="progressbar">
+      <div class="hmcts-progress-bar-vertical">
         <ol class="hmcts-progress-bar__list">
           <li class="hmcts-progress-bar__list-item">
-            <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
-            <span class="hmcts-progress-bar__label">
-              <span class="govuk-visually-hidden">Step 1: </span>{{content.progressBarStep1 | safe }}
+            <span  class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
+            <span  class="hmcts-progress-bar__label">
+              <span aria-label="{{content.progressBarStep1Done | safe }}" class="govuk-visually-hidden">Step 1: </span>{{content.progressBarStep1 | safe }}
             </span>
           </li>
           {% if fields.documentsRequired.value == "true" %}
           <li class="hmcts-progress-bar__list-item">
             {% if fields.documentsReceived.value == "true" %}
+              {% set aria_content = content.progressBarStep2Done %}
               <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
             {% else %}
+              {% set aria_content = content.progressBarStep2NotDone %}
               <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--inprogress"></span>
             {% endif %}
             {% if fields.applicationInReview.value != "true" and fields.grantIssued.value != "true"%}
               <span class="hmcts-progress-bar__label  hmcts-progress-bar__label--inprogress">
-                <span class="govuk-visually-hidden">Step 2: </span>{{ content.progressBarStep2 | safe }}
+                <span aria-label="{{aria_content | safe}}"  class="govuk-visually-hidden">Step 2: </span>{{ content.progressBarStep2 | safe }}
               </span>
             {% else %}
               <span class="hmcts-progress-bar__label">
-                <span class="govuk-visually-hidden">Step 2: </span>{{content.progressBarStep2 | safe }}
+                <span aria-label="{{aria_content | safe}}"  class="govuk-visually-hidden">Step 2: </span>{{content.progressBarStep2 | safe }}
               </span>
             {% endif %}
           </li>
           {% endif %}
           <li class="hmcts-progress-bar__list-item" style="width:120px">
             {% if fields.grantIssued.value == "true" %}
+              {% set aria_content = content.progressBarStep3Done %}
               <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
             {% elseif fields.caseClosed.value == "true" %}
+              {% set aria_content = "Application is not in review" %}
               <span class="hmcts-progress-bar__icon"></span>
             {% elseif fields.applicationInReview.value == "true" or fields.documentsRequired.value != "true"%}
+              {% set aria_content = content.progressBarStep3NotDone %}
               <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--inprogress"></span>
             {% else %}
+              {% set aria_content = "Application is in review" %}
               <span class="hmcts-progress-bar__icon"></span>
             {% endif %}
             {% if (fields.applicationInReview.value == "true" and fields.grantIssued.value != "true" and fields.caseClosed.value != "true") or fields.documentsRequired.value != "true"%}
+              {% set aria_content = content.progressBarStep3NotDone %}
               <span class="hmcts-progress-bar__label  hmcts-progress-bar__label--inprogress">
-                <span class="govuk-visually-hidden">Step 3: </span>{{ content.progressBarStep3 | safe }}
+                <span aria-label="{{aria_content | safe}}" class="govuk-visually-hidden">Step 3: </span>{{ content.progressBarStep3 | safe }}
               </span>
             {% else %}
               <span class="hmcts-progress-bar__label">
-                <span class="govuk-visually-hidden">Step 3: </span>{{content.progressBarStep3 | safe }}
+                <span aria-label="{{aria_content | safe}}" class="govuk-visually-hidden">Step 3: </span>{{content.progressBarStep3 | safe }}
               </span>
             {% endif %}
           </li>
           <li class="hmcts-progress-bar__list-item">
             {% if fields.grantIssued.value == "true" %}
+              {% set aria_content = content.progressBarStep4Done %}
               <span class="hmcts-progress-bar__icon hmcts-progress-bar__icon--complete"></span>
             {% else %}
+              {% set aria_content = content.progressBarStep4NotDone %}
              <span class="hmcts-progress-bar__icon"></span>
             {% endif %}
               <span class="hmcts-progress-bar__label">
-                <span class="govuk-visually-hidden">Step 4: </span>{{content.progressBarStep4 | safe }}
+                <span aria-label="{{aria_content | safe}}" class="govuk-visually-hidden">Step 4: </span>{{content.progressBarStep4 | safe }}
               </span>
           </li>
         </ol>

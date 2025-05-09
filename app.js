@@ -83,6 +83,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         }
     };
     njkEnv.addGlobal('globals', globals);
+    njkEnv.addGlobal('govukRebrand', true);
 
     app.enable('trust proxy');
 

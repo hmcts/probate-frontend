@@ -389,5 +389,74 @@ describe('Declaration', () => {
             expect(actualResults).to.deep.equal(expected);
             done();
         });
+
+        it('should return an object with both Other Name & will Name if will Name not Exit', (done) => {
+            const otherNamesObj = {
+                'name_0': {
+                    'firstName': 'OtherFirstName',
+                    'lastName': 'OtherLastName'
+                },
+                'name_1': {
+                    'firstName': 'SecondOtherFirstName',
+                    'lastName': 'SecondOtherLastName'
+                },
+                'name_2': {
+                    'firstName': 'ThirdOtherFirstName',
+                    'lastName': 'ThirdOtherLastName'
+                }
+            };
+            const willFN = 'willFName';
+            const willLN = 'willLName';
+            const willNameObj = {
+                firstName: willFN,
+                lastName: willLN
+            };
+            const formdataDeceased = {
+                otherNames: otherNamesObj,
+                nameAsOnTheWill: 'optionNo',
+                aliasFirstNameOnWill: willFN,
+                aliasLastNameOnWill: willLN
+            };
+            const declaration = new Declaration(steps, section, templatePath, i18next, schema);
+            const actualResults = declaration.collectOtherNames(formdataDeceased);
+            const expected = {
+                ...otherNamesObj,
+                willAlias: willNameObj
+            };
+            expect(actualResults).to.deep.equal(expected);
+            done();
+        });
+
+        it('should return an object with both Other Name if will Name Exit', (done) => {
+            const otherNamesObj = {
+                'name_0': {
+                    'firstName': 'OtherFirstName',
+                    'lastName': 'OtherLastName'
+                },
+                'name_1': {
+                    'firstName': 'SecondOtherFirstName',
+                    'lastName': 'SecondOtherLastName'
+                },
+                'name_2': {
+                    'firstName': 'ThirdOtherFirstName',
+                    'lastName': 'ThirdOtherLastName'
+                }
+            };
+            const willFN = 'SecondOtherFirstName';
+            const willLN = 'SecondOtherLastName';
+            const formdataDeceased = {
+                otherNames: otherNamesObj,
+                nameAsOnTheWill: 'optionNo',
+                aliasFirstNameOnWill: willFN,
+                aliasLastNameOnWill: willLN
+            };
+            const declaration = new Declaration(steps, section, templatePath, i18next, schema);
+            const actualResults = declaration.collectOtherNames(formdataDeceased);
+            const expected = {
+                ...otherNamesObj
+            };
+            expect(actualResults).to.deep.equal(expected);
+            done();
+        });
     });
 });

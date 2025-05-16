@@ -100,7 +100,7 @@
             }) }}
           <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" style="margin-bottom:30px;">
             <div class="govuk-notification-banner__content">
-              <p class="govuk-notification-banner__heading" style="max-width: 600px">{{ common.exitFeedbackHeading | safe }}</p>
+              <h2 class="govuk-notification-banner__heading" style="max-width: 600px">{{ common.exitFeedbackHeading | safe }}</h2>
               <p class="govuk-body" style="max-width: 600px">{{ common.exitFeedback | replace("{smartSurveyFeedbackUrl}", globals.links.surveyEndOfApplication) | replace("{currentPageUrl}", pageUrl) | safe }}</p>
             </div>
           </div>

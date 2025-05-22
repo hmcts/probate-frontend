@@ -77,6 +77,8 @@
           <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.grantIssuedHeading | safe }}</h2>
           <p class="govuk-body" style="max-width: 600px">{{ content.grantIssuedParagraph1 | safe }}</p>
           <p class="govuk-body" style="max-width: 600px">{{ content.grantIssuedParagraph2 | safe }}</p>
+          <h3 class="govuk-heading-s" style="max-width: 600px">{{ content.helpfulInformationHeading | safe }}</h3>
+          <p class="govuk-body" style="max-width: 600px">{{ content.grantIssuedParagraph3 | safe }}</p>
         {% elseif fields.applicationInReview.value == "true" %}
           {% if fields.informationProvided.value == "true" %}
             <h2 class="govuk-heading-m" style="max-width: 600px">{{ content.informationProvidedHeading | safe }}</h2>

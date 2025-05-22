@@ -32,10 +32,10 @@ class FormData extends Service {
         return AsyncFetch.fetchJson(url, fetchOptions);
     }
 
-    post(authToken, serviceAuthorisation, ccdCaseId, data = {}) {
+    post(authToken, serviceAuthorisation, ccdCaseId, lastModifiedDateTime, data = {}) {
         data.type = data.caseType;
-        const path = this.replacePlaceholderInPath(this.config.services.orchestrator.paths.forms, 'ccdCaseId', ccdCaseId);
-        const url = this.endpoint + path;
+        const path = this.replacePlaceholderInPath(this.config.services.orchestrator.paths.save_forms, 'ccdCaseId', ccdCaseId);
+        const url = this.endpoint + this.replacePlaceholderInPath(path, 'lastModifiedDateTime', lastModifiedDateTime);
         this.log('Post application form data');
         const headers = {
             'Content-Type': 'application/json',

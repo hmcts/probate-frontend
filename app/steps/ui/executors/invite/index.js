@@ -40,7 +40,6 @@ class ExecutorsInvite extends ValidationStep {
                     leadExecutorName: FormatName.format(formdata.applicant)
                 };
             });
-
         if (executorsToNotifyList.length) {
             const bilingual = get(formdata, 'language.bilingual', 'optionNo') === 'optionYes';
 
@@ -58,6 +57,7 @@ class ExecutorsInvite extends ValidationStep {
 
                             Object.assign(ctx.list.find(execList => execList.email === execResult.email && execList.fullName === execResult.executorName), result);
                         });
+                        formdata.ccdCase.lastModifiedDateTime = result.lastModifiedDateTime;
                     }
                 });
         }

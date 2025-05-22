@@ -57,6 +57,7 @@ class ExecutorsUpdateInvite extends ValidationStep {
                             };
                             Object.assign(formdata.executors.list.find(execList => execList.email === execResult.email && execList.fullName === execResult.executorName), result);
                         });
+                        formdata.ccdCase.lastModifiedDateTime = result.lastModifiedDateTime;
                         formdata.executors.list = executorsWrapper.removeExecutorsEmailChangedFlag();
                     }
                 });

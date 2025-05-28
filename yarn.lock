@@ -5773,14 +5773,14 @@ __metadata:
   linkType: hard
 
 "csurf@npm:^1.10.0":
-  version: 1.10.0
-  resolution: "csurf@npm:1.10.0"
+  version: 1.11.0
+  resolution: "csurf@npm:1.11.0"
   dependencies:
-    cookie: "npm:0.3.1"
+    cookie: "npm:0.4.0"
     cookie-signature: "npm:1.0.6"
     csrf: "npm:3.1.0"
-    http-errors: "npm:~1.7.2"
-  checksum: 10/ae297b051bd629a0027f980c79059420364cf2e08e7222c2a7c48a82a5d997e0790d0ae12730925dbe1a1be50d34ce0af21ac2cface37393f430e9c055c68c7f
+    http-errors: "npm:~1.7.3"
+  checksum: 10/823e6f4a11a7cded7473af18f7f3605477102f154b892291e37e99f67ba00863ef299369d1facdf9603ea8946acfb8281d35f54831d5e9c8ac704d526cd9ca4e
   languageName: node
   linkType: hard
 
@@ -8823,7 +8823,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-errors@npm:~1.7.2":
+"http-errors@npm:~1.7.3":
   version: 1.7.3
   resolution: "http-errors@npm:1.7.3"
   dependencies:

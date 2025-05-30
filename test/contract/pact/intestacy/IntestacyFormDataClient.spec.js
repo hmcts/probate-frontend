@@ -79,7 +79,7 @@ describe('Pact IntestacyFormData', () => {
                     uponReceiving: 'a request to POST intestacy formdata',
                     withRequest: {
                         method: 'POST',
-                        path: '/forms/case/1535574519543819',
+                        path: '/forms/case/1535574519543819/2018-01-01T00:00:00.000',
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': ctx.authToken
@@ -97,7 +97,8 @@ describe('Pact IntestacyFormData', () => {
             // Verify service client works as expected
             it('successfully validated form data', async () => {
                 const formDataClient = new IntestacyFormData(`http://localhost:${MOCK_SERVER_PORT}`, ctx.sessionID);
-                const verificationPromise = formDataClient.post(ctx.authToken, ctx.serviceAuthorization, '1535574519543819', getRequestBody());
+                const verificationPromise = formDataClient.post(ctx.authToken, ctx.serviceAuthorization,
+                    '1535574519543819', '2018-01-01T00:00:00.000', getRequestBody());
                 const response = await verificationPromise;
                 expect(response).to.eql(getExpectedResponseBody());
             });

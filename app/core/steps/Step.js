@@ -142,7 +142,7 @@ class Step {
             'FormData',
             [config.services.orchestrator.url, sessionID]
         );
-        return formData.post(req.authToken, req.session.serviceAuthorization, ccdCaseId, formdata);
+        return formData.post(req.authToken, req.session.serviceAuthorization, ccdCaseId, formdata.ccdCase.lastModifiedDateTime, formdata);
     }
 
     action(ctx, formdata) {

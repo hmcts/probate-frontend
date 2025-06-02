@@ -46,6 +46,7 @@ services:
     url: 'http://localhost:8888'
     paths:
       forms: '/forms/case/{ccdCaseId}'
+      save_forms: '/forms/case/{ccdCaseId}/{lastModifiedDateTime}'
       create: '/forms/newcase'
       submissions: '/forms/{ccdCaseId}/submissions'
       payments: '/forms/{ccdCaseId}/payments'

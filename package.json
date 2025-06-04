@@ -221,5 +221,5 @@
     "codeceptjs": "3.6.10",
     "tar-fs": "^3.0.8"
   },
-  "packageManager": "yarn@4.9.1"
+  "packageManager": "yarn@4.9.2"
 }

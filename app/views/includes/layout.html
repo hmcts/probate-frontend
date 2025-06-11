@@ -110,8 +110,9 @@
 html: (common.feedback + common.languageToggle) | replace("{smartSurveyFeedbackUrl}", globals.links.survey) | replace("{currentPageUrl}", pageUrl) | safe
     }) }}
 
+
     {% if previousUrl !== undefined and previousUrl.length > 0 %}
-    <a href="{{ previousUrl }}" class="govuk-back-link">{{ common.back | safe }}</a>
+    <span class="govuk-back-link govuk-visually-hidden" id="backLink">{{common.back }}</span>
     {% endif %}
 
 {% endblock %}

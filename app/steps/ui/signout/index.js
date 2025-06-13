@@ -39,6 +39,9 @@ class SignOut extends Step {
             });
     }
 
+    shouldHaveBackLink() {
+        return false;
+    }
 }
 
 module.exports = SignOut;

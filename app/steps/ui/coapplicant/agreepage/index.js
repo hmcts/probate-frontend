@@ -21,6 +21,10 @@ class CoApplicantAgreePage extends Step {
         delete ctx.leadExecFullName;
         return [ctx, formdata];
     }
+
+    shouldHaveBackLink() {
+        return false;
+    }
 }
 
 module.exports = CoApplicantAgreePage;

@@ -60,6 +60,10 @@ class CitizensHub extends Step {
         delete ctx.date;
         return [ctx, formdata];
     }
+
+    shouldHaveBackLink() {
+        return false;
+    }
 }
 
 module.exports = CitizensHub;

@@ -60,6 +60,10 @@ class PinPage extends ValidationStep {
         }
         return [ctx, errors];
     }
+
+    shouldHaveBackLink() {
+        return false;
+    }
 }
 
 module.exports = PinPage;

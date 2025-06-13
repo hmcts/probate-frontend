@@ -88,6 +88,10 @@ class TaskList extends Step {
         delete ctx.isKeepDraft;
         return [ctx, formdata];
     }
+
+    shouldHaveBackLink() {
+        return false;
+    }
 }
 
 module.exports = TaskList;

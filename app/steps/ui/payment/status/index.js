@@ -149,6 +149,10 @@ class PaymentStatus extends Step {
             options.errors = errors;
         }
     }
+
+    shouldHaveBackLink() {
+        return false;
+    }
 }
 
 module.exports = PaymentStatus;

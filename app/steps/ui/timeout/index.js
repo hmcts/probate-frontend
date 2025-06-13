@@ -18,6 +18,10 @@ class Timeout extends Step {
 
         return ctx;
     }
+
+    shouldHaveBackLink() {
+        return false;
+    }
 }
 
 module.exports = Timeout;

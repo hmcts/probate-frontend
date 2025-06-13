@@ -31,14 +31,23 @@ class UIStepRunner {
                 forEach(errors, (error) =>
                     req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
                 );
-                if (isEmpty(errors) && step.name !== 'SignOut' && step.name !== 'Timeout' &&
-                    step.name !== 'TaskList' && step.name !== 'Dashboard') {
-                    if ((step.resourcePath.indexOf('screeners')>=0 || step.name==='StopPage') && typeof req.session.form.ccdCase === 'undefined') {
-                        step.previousScrennerStepUrl(req, res, ctx);
-                    } else {
-                        step.previousStepUrl(req, res, ctx);
+
+                ctx.showBackLink = step.shouldHaveBackLink();
+                res.locals.showBackLink = ctx.showBackLink;
+
+                if (isEmpty(errors)) {
+                    if (step.name !== 'SignOut' &&
+                            step.name !== 'Timeout' &&
+                            step.name !== 'TaskList' &&
+                            step.name !== 'Dashboard') {
+                        if ((step.resourcePath.indexOf('screeners') >= 0 || step.name === 'StopPage') &&
+                                typeof req.session.form.ccdCase === 'undefined') {
+                            step.previousScrennerStepUrl(req, res, ctx);
+                        } else {
+                            step.previousStepUrl(req, res, ctx);
+                        }
                     }
-                    res.locals.previousUrl= ctx.previousUrl;
+                    res.locals.previousUrl = ctx.previousUrl;
                 }
                 const content = step.generateContent(ctx, formdata, session.language);
                 const fields = step.generateFields(session.language, ctx, errors, formdata);

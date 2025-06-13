@@ -85,6 +85,10 @@ class ThankYou extends Step {
         delete ctx.ccdReferenceNumberAccessible;
         return [ctx, formdata];
     }
+
+    shouldHaveBackLink() {
+        return false;
+    }
 }
 
 module.exports = ThankYou;

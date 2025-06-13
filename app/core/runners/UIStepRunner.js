@@ -31,9 +31,11 @@ class UIStepRunner {
                 forEach(errors, (error) =>
                     req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
                 );
+
+                ctx.showBackLink = step.shouldHaveBackLink();
+                res.locals.showBackLink = ctx.showBackLink;
+
                 if (isEmpty(errors)) {
-                    ctx.showBackLink = step.shouldHaveBackLink();
-                    res.locals.showBackLink = ctx.showBackLink;
                     if (step.name !== 'SignOut' &&
                             step.name !== 'Timeout' &&
                             step.name !== 'TaskList' &&

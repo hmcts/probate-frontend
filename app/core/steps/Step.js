@@ -57,6 +57,10 @@ class Step {
         return this.next(req, ctx).constructor.getUrl();
     }
 
+    shouldHaveBackLink() {
+        return true;
+    }
+
     getContextData(req) {
         const session = req.session;
         let ctx = {};

@@ -17,6 +17,10 @@ class CoApplicantStartPage extends Step {
         delete req.session.pin;
         return ctx;
     }
+
+    shouldHaveBackLink() {
+        return false;
+    }
 }
 
 module.exports = CoApplicantStartPage;

@@ -15,6 +15,10 @@ class CoApplicantDisagreePage extends Step {
         ctx.leadExecFullName = FormatName.format(formdata.applicant);
         return ctx;
     }
+
+    shouldHaveBackLink() {
+        return false;
+    }
 }
 
 module.exports = CoApplicantDisagreePage;

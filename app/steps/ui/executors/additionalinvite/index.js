@@ -34,6 +34,10 @@ class ExecutorsAdditionalInvite extends ValidationStep {
         delete ctx.authToken;
         return [ctx, formdata];
     }
+
+    shouldHaveBackLink() {
+        return false;
+    }
 }
 
 module.exports = ExecutorsAdditionalInvite;

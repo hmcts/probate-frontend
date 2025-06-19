@@ -1,7 +1,6 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const journeyProbate = require('../../../app/journeys/probate');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const startEligibility = steps.StartEligibility;
@@ -14,22 +13,10 @@ describe('StartEligibility', () => {
         });
     });
 
-    describe('previousScrennerStepUrl()', () => {
-        let ctx;
-        it('should return the previous step url', (done) => {
-            const res = {
-                redirect: (url) => url
-            };
-            const req = {
-                session: {
-                    language: 'en'
-                },
-                userLoggedIn: true
-            };
-            req.session.journey = journeyProbate;
-            ctx = {};
-            startEligibility.previousScrennerStepUrl(req, res, ctx);
-            expect(ctx.previousUrl).to.equal('');
+    describe('shouldHaveBackLink()', () => {
+        it('should not have a back link', (done) => {
+            const actual = startEligibility.shouldHaveBackLink();
+            expect(actual).to.equal(false);
             done();
         });
     });

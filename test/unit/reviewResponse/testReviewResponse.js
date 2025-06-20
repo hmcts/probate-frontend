@@ -2,12 +2,10 @@
 
 const initSteps = require('app/core/initSteps');
 const {assert} = require('chai');
-const journeyProbate = require('../../../app/journeys/probate');
 const {stub} = require('sinon');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ReviewResponse = steps.ReviewResponse;
-const ProvideInformation = steps.ProvideInformation;
 const Document = require('app/services/Document');
 describe('ReviewResponse', () => {
     describe('getUrl()', () => {
@@ -128,26 +126,11 @@ describe('ReviewResponse', () => {
             documentStub.restore();
         });
     });
-    describe('previousStepUrl()', () => {
-        let ctx;
-        it('should return the previous step url', (done) => {
-            const res = {
-                redirect: (url) => url
-            };
-            const req = {
-                session: {
-                    language: 'en',
-                    form: {
-                        language: {
-                            bilingual: 'optionYes'
-                        }
-                    }
-                }
-            };
-            req.session.journey = journeyProbate;
-            ctx = {};
-            ReviewResponse.previousStepUrl(req, res, ctx);
-            expect(ctx.previousUrl).to.equal(ProvideInformation.constructor.getUrl());
+
+    describe('shouldHaveBackLink()', () => {
+        it('should have a back link', (done) => {
+            const actual = ReviewResponse.shouldHaveBackLink();
+            expect(actual).to.equal(true);
             done();
         });
     });

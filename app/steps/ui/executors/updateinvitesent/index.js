@@ -7,6 +7,10 @@ class ExecutorsUpdateInviteSent extends Step {
     static getUrl() {
         return '/executors-update-invite-sent';
     }
+
+    shouldHaveBackLink() {
+        return false;
+    }
 }
 
 module.exports = ExecutorsUpdateInviteSent;

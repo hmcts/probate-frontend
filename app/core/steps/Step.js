@@ -41,13 +41,7 @@ class Step {
         this.content = require(`app/resources/${language}/translation/${resourcePath}`);
         this.i18next = i18next;
     }
-    previousStepUrl(req, res, ctx) {
-        utils.getPreviousUrl(ctx, req, res, this.steps, this.name);
-    }
 
-    previousScrennerStepUrl(req, res, ctx) {
-        utils.getScrennersPreviousUrl(ctx, req, res, this.steps, this.name);
-    }
     next(req, ctx) {
         const journeyMap = new JourneyMap(req.session.journey);
         return journeyMap.nextStep(this, ctx);
@@ -55,6 +49,10 @@ class Step {
 
     nextStepUrl(req, ctx) {
         return this.next(req, ctx).constructor.getUrl();
+    }
+
+    shouldHaveBackLink() {
+        return true;
     }
 
     getContextData(req) {

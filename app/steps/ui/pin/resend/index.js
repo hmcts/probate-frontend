@@ -64,6 +64,10 @@ class PinResend extends Step {
 
         return [ctx, errors];
     }
+
+    shouldHaveBackLink() {
+        return false;
+    }
 }
 
 module.exports = PinResend;

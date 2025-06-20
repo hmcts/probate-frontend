@@ -6,8 +6,6 @@ const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DeathCertificate = steps.DeathCertificate;
 const coreContextMockData = require('../../data/core-context-mock-data.json');
-const journeyProbate = require('../../../app/journeys/probate');
-const PreviousStep = steps.StartEligibility;
 
 describe('DeathCertificate', () => {
     describe('getUrl()', () => {
@@ -93,23 +91,10 @@ describe('DeathCertificate', () => {
         });
     });
 
-    describe('previousScrennerStepUrl()', () => {
-        let ctx;
-        it('should return the previous step url', (done) => {
-            const res = {
-                redirect: (url) => url
-            };
-            const req = {
-                session: {
-                    language: 'en',
-                    form: {
-                    }
-                }
-            };
-            req.session.journey = journeyProbate;
-            ctx = {};
-            DeathCertificate.previousScrennerStepUrl(req, res, ctx);
-            expect(ctx.previousUrl).to.equal(PreviousStep.constructor.getUrl());
+    describe('shouldHaveBackLink()', () => {
+        it('should have a back link', (done) => {
+            const actual = DeathCertificate.shouldHaveBackLink();
+            expect(actual).to.equal(true);
             done();
         });
     });

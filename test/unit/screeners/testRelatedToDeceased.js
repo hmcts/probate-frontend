@@ -6,7 +6,6 @@ const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const coreContextMockData = require('../../data/core-context-mock-data.json');
 const RelatedToDeceased = steps.RelatedToDeceased;
-const PreviousStep = steps.DiedAfterOctober2014;
 
 describe('RelatedToDeceased', () => {
     describe('getUrl()', () => {
@@ -112,34 +111,10 @@ describe('RelatedToDeceased', () => {
         });
     });
 
-    describe('previousScrennerStepUrl()', () => {
-        let ctx;
-        it('should return the previous step url', (done) => {
-            const res = {
-                redirect: (url) => url
-            };
-            const req = {
-                method: 'GET',
-                session: {
-                    journey: journey,
-                    language: 'en',
-                    form: {
-                        screeners: {
-                            deathCertificate: 'optionYes',
-                            deathCertificateInEnglish: 'optionYes',
-                            domicile: 'optionYes',
-                            eeDeceasedDod: 'optionNo',
-                            eeEstateValued: 'optionYes',
-                            completed: 'optionYes',
-                            left: 'optionNo',
-                            diedAfter: 'optionYes'
-                        }
-                    }
-                }
-            };
-            ctx = {};
-            RelatedToDeceased.previousScrennerStepUrl(req, res, ctx);
-            expect(ctx.previousUrl).to.equal(PreviousStep.constructor.getUrl());
+    describe('shouldHaveBackLink()', () => {
+        it('should have a back link', (done) => {
+            const actual = RelatedToDeceased.shouldHaveBackLink();
+            expect(actual).to.equal(true);
             done();
         });
     });

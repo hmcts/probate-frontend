@@ -1,6 +1,6 @@
 'use strict';
 
-const {mapValues, map, reduce, escape, isObject, isEmpty, get} = require('lodash');
+const {mapValues, map, reduce, escape, isObject, isEmpty, get, merge} = require('lodash');
 const UIStepRunner = require('app/core/runners/UIStepRunner');
 const JourneyMap = require('app/core/JourneyMap');
 const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
@@ -69,14 +69,13 @@ class Step {
         if (typeof session.form.userLoggedIn === 'boolean') {
             ctx.userLoggedIn = session.form.userLoggedIn;
         }
-        ctx = Object.assign(ctx, req.body);
+        ctx = merge(ctx, this.sanitizeInput(req.body));
         ctx = FeatureToggle.appwideToggles(req, ctx, config.featureToggles.appwideToggles);
         ctx.isAvayaWebChatEnabled = ctx.featureToggles && ctx.featureToggles.ft_avaya_webchat && ctx.featureToggles.ft_avaya_webchat === 'true';
         ctx.isWebChatEnabled = config.configFeatureToggles.webchatEnabled;
         ctx.isGaEnabled = config.configFeatureToggles.gaEnabled; // this is a boolean type
         return ctx;
     }
-
     handleGet(ctx) {
         return [ctx];
     }
@@ -143,6 +142,15 @@ class Step {
             [config.services.orchestrator.url, sessionID]
         );
         return formData.post(req.authToken, req.session.serviceAuthorization, ccdCaseId, formdata);
+    }
+    sanitizeInput(input) {
+        const sanitized = {};
+        for (const key in input) {
+            if (!['__proto__', 'constructor', 'prototype'].includes(key)) {
+                sanitized[key] = input[key];
+            }
+        }
+        return sanitized;
     }
 
     action(ctx, formdata) {

@@ -1,11 +1,9 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const journeyProbate = require('../../../app/journeys/probate');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DeceasedNameAsOnWill = steps.DeceasedNameAsOnWill;
-const PreviousStep = steps.DeceasedName;
 
 describe('DeceasedNameAsOnWill', () => {
     describe('getUrl()', () => {
@@ -53,45 +51,10 @@ describe('DeceasedNameAsOnWill', () => {
         });
     });
 
-    describe('previousStepUrl()', () => {
-        let ctx;
-        it('should return the previous step url', (done) => {
-            const res = {
-                redirect: (url) => url
-            };
-            const req = {
-                session: {
-                    language: 'en',
-                    form: {
-                        language: {
-                            bilingual: 'optionYes'
-                        },
-                        deceased: {
-                            firstName: 'John',
-                            lastName: 'Doe',
-                            'dob-day': '02',
-                            'dob-month': '03',
-                            'dob-year': '2002',
-                            'dod-day': '02',
-                            'dod-month': '03',
-                            'dod-year': '2003',
-                            nameAsOnTheWill: 'Yes',
-                            address: {
-                                addressLine1: '143 Caerfai Bay Road',
-                                postTown: 'town',
-                                newPostCode: 'L23 6WW',
-                                country: 'United Kingdon',
-                                postcode: 'L23 6WW'
-                            }
-
-                        }
-                    }
-                }
-            };
-            req.session.journey = journeyProbate;
-            ctx = {};
-            DeceasedNameAsOnWill.previousStepUrl(req, res, ctx);
-            expect(ctx.previousUrl).to.equal(PreviousStep.constructor.getUrl());
+    describe('shouldHaveBackLink()', () => {
+        it('should have a back link', (done) => {
+            const actual = DeceasedNameAsOnWill.shouldHaveBackLink();
+            expect(actual).to.equal(true);
             done();
         });
     });

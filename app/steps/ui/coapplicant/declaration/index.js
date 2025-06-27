@@ -104,6 +104,10 @@ class CoApplicantDeclaration extends ValidationStep {
         delete ctx.language;
         return [ctx, formdata];
     }
+
+    shouldHaveBackLink() {
+        return false;
+    }
 }
 
 module.exports = CoApplicantDeclaration;

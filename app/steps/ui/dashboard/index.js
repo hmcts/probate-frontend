@@ -34,6 +34,10 @@ class Dashboard extends Step {
         delete ctx.applications;
         return [ctx, formdata];
     }
+
+    shouldHaveBackLink() {
+        return false;
+    }
 }
 
 module.exports = Dashboard;

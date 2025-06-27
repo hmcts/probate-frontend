@@ -5,9 +5,7 @@ const initSteps = require('../../../app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const coreContextMockData = require('../../data/core-context-mock-data.json');
-const journeyProbate = require('../../../app/journeys/probate');
 const DiedAfterOctober2014 = steps.DiedAfterOctober2014;
-const PreviousStep = steps.WillLeft;
 describe('DiedAfterOctober2014', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
@@ -110,34 +108,10 @@ describe('DiedAfterOctober2014', () => {
         });
     });
 
-    describe('previousScrennerStepUrl()', () => {
-        let ctx;
-        it('should return the previous step url', (done) => {
-            const res = {
-                redirect: (url) => url
-            };
-            const req = {
-                method: 'GET',
-                session: {
-                    language: 'en',
-                    form: {
-                        screeners: {
-                            deathCertificate: 'optionYes',
-                            deathCertificateInEnglish: 'optionYes',
-                            domicile: 'optionYes',
-                            eeDeceasedDod: 'optionNo',
-                            eeEstateValued: 'optionYes',
-                            completed: 'optionYes',
-                            left: 'optionNo'
-                        }
-                    },
-                    caseType: 'gop'
-                }
-            };
-            req.session.journey = journeyProbate;
-            ctx = {};
-            DiedAfterOctober2014.previousScrennerStepUrl(req, res, ctx);
-            expect(ctx.previousUrl).to.equal(PreviousStep.constructor.getUrl());
+    describe('shouldHaveBackLink()', () => {
+        it('should have a back link', (done) => {
+            const actual = DiedAfterOctober2014.shouldHaveBackLink();
+            expect(actual).to.equal(true);
             done();
         });
     });

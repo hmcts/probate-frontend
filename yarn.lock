@@ -16375,8 +16375,8 @@ __metadata:
   linkType: hard
 
 "tar-fs@npm:^3.0.10":
-  version: 3.0.10
-  resolution: "tar-fs@npm:3.0.10"
+  version: 3.1.0
+  resolution: "tar-fs@npm:3.1.0"
   dependencies:
     bare-fs: "npm:^4.0.1"
     bare-path: "npm:^3.0.0"
@@ -16387,7 +16387,7 @@ __metadata:
       optional: true
     bare-path:
       optional: true
-  checksum: 10/0a18701d015ed3db2762db716d4836c0f253d2f8a6fe5e28ded05e1f4ca4f9f29729b7eca1a0d00a5a1629f26a8618c3cbb4a4816e73e570cf381728112117b9
+  checksum: 10/272054aa93adf66f3febac1ab666c2e1ae80fb7d9b7483efa9e9216aca6f7900dfecb9ef04e83f179251f95a965f960d760c42ebbb1e04580a182da997af98da
   languageName: node
   linkType: hard
 

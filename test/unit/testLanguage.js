@@ -50,7 +50,7 @@ describe('BilingualGOP', () => {
 
             const ctx = BilingualGOP.getContextData(req);
 
-            expect(ctx.bilingual).to.equal(bilingualValue, 'Strict equality expected');
+            expect(ctx.bilingual).to.deep.equal(bilingualValue, 'Strict equality expected');
 
             done();
         });

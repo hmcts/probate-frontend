@@ -6369,10 +6369,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devtools-protocol@npm:0.0.1452169":
-  version: 0.0.1452169
-  resolution: "devtools-protocol@npm:0.0.1452169"
-  checksum: 10/5f57635a418c18746c2aa9a22621562c05a930f385c4aa5c75fcea6ccd31c2370ef54c3abee13591f17812bf920ba4daffab394a9085209eb3e71ed63c0077c8
+"devtools-protocol@npm:0.0.1464554":
+  version: 0.0.1464554
+  resolution: "devtools-protocol@npm:0.0.1464554"
+  checksum: 10/c179c23a27d180d6f2196199babaea3c1e59995515df1b082621930cbff7428c2ca2fc12ef0a8fc82fcb133e08dcddaf80e17a7fe841924d6042c2c54511c431
   languageName: node
   linkType: hard
 
@@ -14080,33 +14080,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:24.10.2":
-  version: 24.10.2
-  resolution: "puppeteer-core@npm:24.10.2"
+"puppeteer-core@npm:24.11.2":
+  version: 24.11.2
+  resolution: "puppeteer-core@npm:24.11.2"
   dependencies:
     "@puppeteer/browsers": "npm:2.10.5"
     chromium-bidi: "npm:5.1.0"
     debug: "npm:^4.4.1"
-    devtools-protocol: "npm:0.0.1452169"
+    devtools-protocol: "npm:0.0.1464554"
     typed-query-selector: "npm:^2.12.0"
-    ws: "npm:^8.18.2"
-  checksum: 10/6170521ac7316f4c9e2889cb09eb19b268088eb2c2df5ac46fe8ef1ee69c977a1b54aefad3a5177e1e6bcefd7f5ab577b1d73786da1793c473f3d0544fca0789
+    ws: "npm:^8.18.3"
+  checksum: 10/bd54dd2752e8a061925c054d9921696971fbad707d5d593fea8968bab0756424826f7e2a25696ffe0ad721bb1d2bc05d7db4b6df94a0710675811659fc2cfd83
   languageName: node
   linkType: hard
 
 "puppeteer@npm:^24.10.2":
-  version: 24.10.2
-  resolution: "puppeteer@npm:24.10.2"
+  version: 24.11.2
+  resolution: "puppeteer@npm:24.11.2"
   dependencies:
     "@puppeteer/browsers": "npm:2.10.5"
     chromium-bidi: "npm:5.1.0"
     cosmiconfig: "npm:^9.0.0"
-    devtools-protocol: "npm:0.0.1452169"
-    puppeteer-core: "npm:24.10.2"
+    devtools-protocol: "npm:0.0.1464554"
+    puppeteer-core: "npm:24.11.2"
     typed-query-selector: "npm:^2.12.0"
   bin:
     puppeteer: lib/cjs/puppeteer/node/cli.js
-  checksum: 10/35917e4f536773361f4b6f090cf817781779a18dd2f40f0b6482d4d857cb59b3869febbe9b8cf189babbf990d7d2da71b857699ef6ff88a990bb2a6b91907057
+  checksum: 10/ee270961a8deadc0efd44676593aa74fd733f16070352f7826f398e79014d122066eec69e792cbdc8c8b34145a85a458cc58b88ddc7f5929a9426d4c3fb485ad
   languageName: node
   linkType: hard
 
@@ -17899,7 +17899,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:^8.17.1, ws@npm:^8.18.0, ws@npm:^8.18.2, ws@npm:^8.8.0":
+"ws@npm:^8.17.1, ws@npm:^8.18.0, ws@npm:^8.18.3, ws@npm:^8.8.0":
   version: 8.18.3
   resolution: "ws@npm:8.18.3"
   peerDependencies:

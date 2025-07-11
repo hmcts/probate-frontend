@@ -5,8 +5,6 @@ const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DeceasedDod = steps.DeceasedDod;
 const content = require('app/resources/en/translation/deceased/dod');
-const journeyProbate = require('../../../app/journeys/probate');
-const PreviousStep = steps.DeceasedDob;
 
 describe('DeceasedDod', () => {
     describe('dateName()', () => {
@@ -119,35 +117,11 @@ describe('DeceasedDod', () => {
             done();
         });
     });
-    describe('previousStepUrl()', () => {
-        let ctx;
-        it('should return the previous step url', (done) => {
-            const res = {
-                redirect: (url) => url
-            };
-            const req = {
-                session: {
-                    language: 'en',
-                    form: {
-                        language: {
-                            bilingual: 'optionYes'
-                        },
-                        deceased: {
-                            firstName: 'John',
-                            lastName: 'Doe',
-                            'dob-day': '02',
-                            'dob-month': '03',
-                            'dob-year': '2002',
-                            nameAsOnTheWill: 'Yes',
-                        }
-                    },
-                    back: ['hello']
-                }
-            };
-            req.session.journey = journeyProbate;
-            ctx = {};
-            DeceasedDod.previousStepUrl(req, res, ctx);
-            expect(ctx.previousUrl).to.equal(PreviousStep.constructor.getUrl());
+
+    describe('shouldHaveBackLink()', () => {
+        it('should have a back link', (done) => {
+            const actual = DeceasedDod.shouldHaveBackLink();
+            expect(actual).to.equal(true);
             done();
         });
     });

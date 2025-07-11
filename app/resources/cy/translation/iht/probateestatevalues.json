@@ -1,6 +1,6 @@
 {
   "title": "Beth yw gwerthoedd yr ystad wnaethoch chi eu nodi ar ffurflen IHT?",
-  "question205": "Beth yw gwerth yr ystâd a gofnodwyd gennych ar ffurflen IHT205?",
+  "question205": "Beth yw gwerthoedd yr ystad hwn?",
   "question207": "Beth yw gwerth yr ystâd a gofnodwyd gennych ar ffurflen IHT207?",
   "question421": "Beth yw gwerth yr ystad a gofnodwyd gennych ar ffurflen IHT421?",
   "question400": "Beth yw gwerthoedd yr ystad ar gyfer profiant?",
@@ -11,7 +11,7 @@
   "hint205part2": "Rhaid i'r gwerthoedd y byddwch yn eu nodi fod yn rhifau cyfan, ac ni ddylent gynnwys degolion, atalnodau llawn ac atalnodau. Er enghraifft 25000, nid 25,000.",
   "hint421part1": "Gallwch ddod o hyd i&rsquo;r gwerthoedd hyn ar y ffurflen IHT421 wedi&rsquo;i llenwi.",
   "hint421part2": "Rhaid i'r gwerthoedd y byddwch yn eu nodi fod yn rhifau cyfan, ac ni ddylent gynnwys degolion, atalnodau llawn ac atalnodau. Er enghraifft 25000, nid 25,000.",
-  "hint400part1": "Gallwch ddod o hyd i'r gwerthoedd hyn yn y llythyr a anfonodd CThEF atoch.",
+  "hint400part1": "Mae’r gwerthoedd hyn i’w gweld yn y llythyr neu’r e-bost a anfonwyd atoch gan HMRC.",
   "hint400part2": "Rhaid i'r gwerthoedd y byddwch yn eu nodi fod yn rhifau cyfan, ac ni ddylent gynnwys degolion, atalnodau llawn ac atalnodau. Er enghraifft 25000, nid 25,000.",
   "hintNoIHTPart1": "Mae gwerthoedd yr ystâd ar gyfer profiant ar wahân i werthoedd Treth Etifeddiant, er y gall y ffigurau fod yr un peth mewn rhai achosion.",
   "hintNoIHTPart2": "Bydd y ffigurau hyn yn cael eu defnyddio ar y grant profiant pan gaiff ei gyhoeddi.",

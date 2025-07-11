@@ -9,7 +9,7 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-        text: content.question | safe,
+        text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
         isPageHeading: true,
         classes: "govuk-fieldset__legend--l"
         }

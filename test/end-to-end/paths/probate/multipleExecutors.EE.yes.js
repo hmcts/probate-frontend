@@ -11,7 +11,6 @@ const ihtDataConfig = require('test/end-to-end/pages/ee/ihtData');
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
-const optionIHT400 = ihtDataConfig.optionIHT400;
 const hmrcCode = ihtDataConfig.hmrcCode;
 
 Feature('GOP Multiple Executors E2E - EE Yes Journey');
@@ -71,7 +70,7 @@ getTestLanguages().forEach(language => {
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
         await I.selectEEComplete(language, optionYes);
-        await I.selectSubmittedToHmrc(language, optionIHT400);
+        await I.selectSubmittedToHmrc(language, optionYes);
         await I.selectHmrcLetterComplete(language, optionYes);
         await I.enterHmrcCode(language, hmrcCode);
         await I.enterProbateAssetValues(language, 400000, 400000);

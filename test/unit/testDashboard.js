@@ -48,9 +48,11 @@ describe('Dashboard', () => {
                 userLoggedIn: false,
                 language: 'en',
                 featureToggles: {
-                    ft_avaya_webchat: 'false'
+                    ft_avaya_webchat: 'false',
+                    ft_use_new_webchat: 'false',
                 },
                 isAvayaWebChatEnabled: false,
+                useNewWebChat: false,
                 isGaEnabled: true,
                 isWebChatEnabled: true
             });

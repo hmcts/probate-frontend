@@ -130,6 +130,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'webchat-client.ctsc.hmcts.net',
                 `'nonce-${nonce}'`,
                 'tagmanager.google.com',
+                'apps.euw2.pure.cloud',
             ],
             connectSrc: [
                 '\'self\'',
@@ -144,6 +145,10 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'https://webchat-client.pp.ctsc.hmcts.net',
                 '*.g.doubleclick.net',
                 'tagmanager.google.com',
+                'https://api.hmcts.hs-cx.com',
+                'https://api.euw2.pure.cloud',
+                'https://api-cdn.euw2.pure.cloud',
+                'wss://webmessaging.euw2.pure.cloud',
             ],
             mediaSrc: [
                 '\'self\''
@@ -171,7 +176,11 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 '\'self\'',
                 config.services.equalityAndDiversity.url,
                 config.services.payment.externalUrl
-            ]
+            ],
+            frameSrc: [
+                '\'self\'',
+                'https://apps.euw2.pure.cloud',
+            ],
         },
         browserSniff: true,
         setAllHeaders: true

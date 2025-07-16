@@ -129,7 +129,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'webchat-client.pp.ctsc.hmcts.net',
                 'webchat-client.ctsc.hmcts.net',
                 `'nonce-${nonce}'`,
-                'tagmanager.google.com'
+                'tagmanager.google.com',
             ],
             connectSrc: [
                 '\'self\'',
@@ -143,7 +143,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'https://webchat.pp.ctsc.hmcts.net',
                 'https://webchat-client.pp.ctsc.hmcts.net',
                 '*.g.doubleclick.net',
-                'tagmanager.google.com'
+                'tagmanager.google.com',
             ],
             mediaSrc: [
                 '\'self\''

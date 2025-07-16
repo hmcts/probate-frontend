@@ -10,7 +10,7 @@
     <div class="govuk-details__text">
       {% if fields.isWebChatEnabled.value === 'true' and fields.isAvayaWebChatEnabled.value === 'true' %}
         <p class="govuk-heading-s" id="avaya-web-chat-header"> {{ common.helpHeading3 | safe }} </p>
-        {% if fields.useNewWebChat === 'true' %}
+        {% if fields.useNewWebChat.value === 'true' %}
           {% include "includes/kerv-webchat.html" %}
         {% else %}
           {% include "includes/avaya-webchat.html" %}

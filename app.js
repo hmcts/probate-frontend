@@ -156,6 +156,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 '*.g.doubleclick.net',
                 'tagmanager.google.com',
                 config.webchat.kerv.kervBaseUrl,
+                // these being fixed values here seems like it's going to fail at some point
                 'https://api.euw2.pure.cloud',
                 'https://api-cdn.euw2.pure.cloud',
                 'wss://webmessaging.euw2.pure.cloud',

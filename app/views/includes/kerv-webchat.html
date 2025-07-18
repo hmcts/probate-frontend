@@ -46,15 +46,15 @@
     const REFERRER_PAGE    = 'Divorce Site';
     {% if fields.language.value === 'en' %}
       <!-- english deployment id -->
-      const DEPLOYMENT_ID_    = '{{ globals.webchat.kerv.deployment_id.en }}';
+      const DEPLOYMENT_ID_    = '{{ globals.webchat.kerv.deploymentId.en }}';
     {% else %}
       <!-- welsh deployment id -->
-      const DEPLOYMENT_ID    = '{{ globals.webchat.kerv.deployment_id.cy }}';
+      const DEPLOYMENT_ID    = '{{ globals.webchat.kerv.deploymentId.cy }}';
     {% endif %}
-    const GENESYS_BASE_URL = '{{ globals.webchat.kerv.genesys_base_url }}';
+    const GENESYS_BASE_URL = '{{ globals.webchat.kerv.genesysBaseUrl }}';
     const ENVIRONMENT     = '{{ globals.webchat.kerv.environment}}';
-    const KERV_BASE_URL    = '{{ globals.webchat.kerv.kerv_base_url }}';
-    const API_KEY          = '{{ globals.webchat.kerv.api_key }}';
+    const KERV_BASE_URL    = '{{ globals.webchat.kerv.kervBaseUrl }}';
+    const API_KEY          = '{{ globals.webchat.kerv.apiKey }}';
 
     /* ---------------------------------------------------------------
        Open‑chat popup

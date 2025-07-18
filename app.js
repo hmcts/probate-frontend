@@ -72,7 +72,17 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         webchat: {
             avayaUrl: config.webchat.avayaUrl,
             avayaClientUrl: config.webchat.avayaClientUrl,
-            avayaService: config.webchat.avayaService
+            avayaService: config.webchat.avayaService,
+            kerv: {
+                deploymentId: {
+                    en: config.webchat.kerv.deploymentId.en,
+                    cy: config.webchat.kerv.deploymentId.cy,
+                },
+                genesysBaseUrl: config.webchat.kerv.genesysBaseUrl,
+                environment: config.webchat.kerv.environment,
+                kervBaseUrl: config.webchat.kerv.kervBaseUrl,
+                apiKey: config.webchat.kerv.apiKey,
+            },
         },
         caseTypes: {
             gop: caseTypes.GOP,
@@ -130,7 +140,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'webchat-client.ctsc.hmcts.net',
                 `'nonce-${nonce}'`,
                 'tagmanager.google.com',
-                'apps.euw2.pure.cloud',
+                config.webchat.kerv.genesysBaseUrl,
             ],
             connectSrc: [
                 '\'self\'',
@@ -145,7 +155,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 'https://webchat-client.pp.ctsc.hmcts.net',
                 '*.g.doubleclick.net',
                 'tagmanager.google.com',
-                'https://api.hmcts.hs-cx.com',
+                config.webchat.kerv.kervBaseUrl,
                 'https://api.euw2.pure.cloud',
                 'https://api-cdn.euw2.pure.cloud',
                 'wss://webmessaging.euw2.pure.cloud',
@@ -179,7 +189,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             ],
             frameSrc: [
                 '\'self\'',
-                'https://apps.euw2.pure.cloud',
+                config.webchat.kerv.genesysBaseUrl,
             ],
         },
         browserSniff: true,

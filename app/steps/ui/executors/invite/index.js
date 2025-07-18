@@ -5,6 +5,8 @@ const FormatName = require('app/utils/FormatName');
 const logger = require('app/components/logger')('Init');
 const InviteLink = require('app/services/InviteLink');
 const config = require('config');
+const {sanitizeInput} = require('../../../../utils/Sanitize');
+const {merge} = require('lodash');
 const get = require('lodash').get;
 
 class ExecutorsInvite extends ValidationStep {
@@ -56,7 +58,10 @@ class ExecutorsInvite extends ValidationStep {
                                 emailSent: true
                             };
 
-                            Object.assign(ctx.list.find(execList => execList.email === execResult.email && execList.fullName === execResult.executorName), result);
+                            merge(
+                                ctx.list.find(execList => execList.email === execResult.email && execList.fullName === execResult.executorName),
+                                sanitizeInput(result)
+                            );
                         });
                     }
                 });

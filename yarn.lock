@@ -3433,8 +3433,8 @@ __metadata:
   linkType: hard
 
 "@wdio/cli@npm:^9.0.0":
-  version: 9.18.2
-  resolution: "@wdio/cli@npm:9.18.2"
+  version: 9.18.3
+  resolution: "@wdio/cli@npm:9.18.3"
   dependencies:
     "@vitest/snapshot": "npm:^2.1.1"
     "@wdio/config": "npm:9.18.0"
@@ -3454,11 +3454,11 @@ __metadata:
     lodash.union: "npm:^4.6.0"
     read-pkg-up: "npm:^10.0.0"
     tsx: "npm:^4.7.2"
-    webdriverio: "npm:9.18.1"
+    webdriverio: "npm:9.18.3"
     yargs: "npm:^17.7.2"
   bin:
     wdio: ./bin/wdio.js
-  checksum: 10/2171133fd5b33d06d1dc04e4d1ca09f6ba744aa437521c539b14f827ab004773bc2b990e79774d402bdae28c3b6908dfb90c029d6a812fc1e0d35435d95fed96
+  checksum: 10/4576a52a760b7b21ebdb3b4920566859a162a59a1628ae0d31366c65caca1ff0e4438512a30a6dd9ef785e38565c9554939637b789679b6a97e6eeea48c41557
   languageName: node
   linkType: hard
 
@@ -17360,9 +17360,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webdriverio@npm:9.18.1, webdriverio@npm:^9.0.0":
-  version: 9.18.1
-  resolution: "webdriverio@npm:9.18.1"
+"webdriverio@npm:9.18.3, webdriverio@npm:^9.0.0":
+  version: 9.18.3
+  resolution: "webdriverio@npm:9.18.3"
   dependencies:
     "@types/node": "npm:^20.11.30"
     "@types/sinonjs__fake-timers": "npm:^8.1.5"
@@ -17394,7 +17394,7 @@ __metadata:
   peerDependenciesMeta:
     puppeteer-core:
       optional: true
-  checksum: 10/d35687aff709092c14e37cb9ca3502a3242e2c755b4692241ce0e54def47a63872e719d7547c9b98810f0b93e56cb9b69870af16abe9784b4e8b46b1b8c052e5
+  checksum: 10/ae7b0ead7296db3038ca4b8b226e0707ede1aec9077762a958f42bc4e69fa47a77630a9b924c00d2677500df7602dd4a6614f36382c0bebc99950c1f8a74481b
   languageName: node
   linkType: hard
 

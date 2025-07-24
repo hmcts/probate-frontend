@@ -11,7 +11,6 @@ const ihtDataConfig = require('test/end-to-end/pages/ee/ihtData');
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
-const ihtOptionNotSubmitted = ihtDataConfig.ihtOptionNotSubmitted;
 
 Feature('GOP Multiple Executors E2E - EE No Journey');
 
@@ -69,7 +68,7 @@ getTestLanguages().forEach(language => {
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
         await I.selectEEComplete(language, optionYes);
-        await I.selectSubmittedToHmrc(language, ihtOptionNotSubmitted);
+        await I.selectSubmittedToHmrc(language, optionNo);
         await I.enterEEValue(language, 500000, 400000, 400000);
         await I.selectLateSpouseCivilPartner(language, optionYes);
         await I.selectUnusedAllowance(language, optionYes);

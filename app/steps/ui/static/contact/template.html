@@ -7,7 +7,11 @@
 
             {% if fields.isWebChatEnabled.value === 'true'  %}
                 <p class="govuk-heading-s" id="avaya-web-chat-header"> {{ common.helpHeading3 | safe }} </p>
-                {% include "includes/avaya-webchat.html" %}
+                {% if fields.useNewWebChat.value === 'true' %}
+                  {% include "includes/kerv-webchat.html" %}
+                {% else %}
+                  {% include "includes/avaya-webchat.html" %}
+                {% endif %}
             {% endif %}
             <p class="govuk-heading-s govuk-!-padding-top-2"> {{ common.helpHeading2 | safe }} </p>
             <p class="govuk-body"> {{ common.helpEmailLabel | replace("{contactEmailAddress}", common.helpEmail) | safe }} </p>

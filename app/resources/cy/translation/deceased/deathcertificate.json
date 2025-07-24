@@ -4,7 +4,7 @@
   "optionDeathCertificate": "Tystysgrif marwolaeth",
   "optionInterimCertificate": "Tystysgrif marwolaeth dros dro",
   "paragraph1": "Mae tystysgrif marwolaeth wedi&rsquo;i hargraffu ar ddwy ochr dalen o bapur gwyrdd ac fe&rsquo;i rhoir i chi gan gofrestrydd o&rsquo;r gofrestrfa genedigaethau, marwolaethau a phriodasau.",
-  "paragraph2": "Dim ond os oes cwest i ddarganfod achos y farwolaeth y rhoir  <a target=\"_blank\" rel=\"external noopener\" href=\"{deathReportedToCoroner}\" class=\"govuk-link\" aria-label=\"tystysgrif marwolaeth dros dro (bydd yn agor mewn ffenestr newydd)\">tystysgrif marwolaeth dros dro (bydd yn agor mewn ffenestr newydd)</a>.",
+  "paragraph2": "Dim ond os oes cwest i ddarganfod achos y farwolaeth y rhoir  <a target=\"_blank\" rel=\"external noopener\" href=\"{deathReportedToCoroner}\" class=\"govuk-link\" aria-label=\"tystysgrif marwolaeth dros dro (yn agor mewn tab newydd)\">tystysgrif marwolaeth dros dro (yn agor mewn tab newydd)</a>.",
 
   "errors": {
     "deathCertificate": {

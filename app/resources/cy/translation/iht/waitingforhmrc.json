@@ -6,7 +6,7 @@
   "contactHeading": "Defnyddiwch y rhif ffôn hwn i gysylltu â HMRC:",
   "contactParagraph1": "Rhif ffôn: 0300 123 1072",
   "contactParagraph2": "Dydd Llun i ddydd Gwener 9am i 5pm (ac eithrio gwyliau cyhoeddus)",
-  "contactParagraph3": "<a href=\"{callChargesLink}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"Gwybodaeth am gostau galwadau (yn agor mewn ffenestr newydd)\">Gwybodaeth am gostau galwadau (yn agor mewn ffenestr newydd)</a>",
+  "contactParagraph3": "<a href=\"{callChargesLink}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"Gwybodaeth am gostau galwadau (yn agor mewn tab newydd)\">Gwybodaeth am gostau galwadau (yn agor mewn tab newydd)</a>",
 
   "errors": {}
 

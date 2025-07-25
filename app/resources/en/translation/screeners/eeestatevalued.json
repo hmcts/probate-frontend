@@ -1,5 +1,5 @@
 {
-    "eligibilityTitle": "Eligibility to apply online",
+    "eligibilityTitle": "Check if you can apply online",
     "title": "Excepted estates, estate valued",
     "question": "Have you worked out the estate&rsquo;s value?",
     "hint": "Before applying for probate, you must <a href=\"{ihtChecker}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"work out the estate&rsquo;s value (opens in a new tab)\">work out the estate&rsquo;s value (opens in a new tab)</a> to check if you need to pay Inheritance Tax (IHT). You can <a href=\"{ihtChecker}\" rel=\"external noopener\" target=\"_blank\" class=\"govuk-link\" aria-label=\"use the IHT checker (opens in a new tab)\">use the IHT checker (opens in a new tab)</a> to get these values.",

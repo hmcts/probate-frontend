@@ -57,5 +57,5 @@
   "sideBarHeading": "I want to...",
   "sideBarParagraph": "Read applying for probate guidance (opens in a new tab)",
   "insertText": "Call the Probate Call Centre if you have any questions about your application. They cannot give you any legal advice or process any updates to your application.",
-  "callCharges": "<a href=\"{callChargesLink}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"Find out about call charges (opens in a new window)\">Find out about call charges (opens in a new window)</a>"
+  "callCharges": "<a href=\"{callChargesLink}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"Find out about call charges (opens in a new tab)\">Find out about call charges (opens in a new tab)</a>"
 }

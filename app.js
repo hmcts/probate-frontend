@@ -35,6 +35,8 @@ const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody');
 const setSessionLanguage = require('app/middleware/setSessionLanguage');
 const isEmpty = require('lodash').isEmpty;
 const setupHealthCheck = require('app/utils/setupHealthCheck');
+const {sanitizeInput} = require('./app/utils/Sanitize');
+const {merge} = require('lodash');
 
 exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const app = express();
@@ -247,7 +249,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         }
 
         if (isA11yTest && !isEmpty(a11yTestSession)) {
-            req.session = Object.assign(req.session, a11yTestSession);
+            req.session = merge(req.session, sanitizeInput(a11yTestSession));
         }
 
         next();
@@ -257,7 +259,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
 
     app.use((req, res, next) => {
         if (isA11yTest && !isEmpty(a11yTestSession)) {
-            req.session = Object.assign(req.session, a11yTestSession);
+            req.session = merge(req.session, sanitizeInput(a11yTestSession));
         }
 
         req.session.uuid = uuidv4();

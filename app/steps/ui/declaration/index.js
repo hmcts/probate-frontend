@@ -3,7 +3,7 @@
 const probateDeclarationFactory = require('app/utils/ProbateDeclarationFactory');
 const intestacyDeclarationFactory = require('app/utils/IntestacyDeclarationFactory');
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {mapValues, get} = require('lodash');
+const {mapValues, get, merge} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
@@ -20,6 +20,7 @@ const utils = require('app/components/step-utils');
 const moment = require('moment');
 const IhtThreshold = require('app/utils/IhtThreshold');
 const DocumentsWrapper = require('app/wrappers/Documents');
+const {sanitizeInput} = require('../../../utils/Sanitize');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -129,7 +130,12 @@ class Declaration extends ValidationStep {
     }
 
     generateContent(ctx, formdata) {
-        const contentCtx = Object.assign({}, formdata, ctx, this.commonProps);
+        const contentCtx = merge(
+            {},
+            sanitizeInput(formdata),
+            sanitizeInput(ctx),
+            this.commonProps
+        );
         mapValues(this.content.en, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
         mapValues(this.content.cy, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
         return this.content;
@@ -178,7 +184,7 @@ class Declaration extends ValidationStep {
             templateData = probateDeclarationFactory.build(ctx, content, formDataForTemplate, multipleApplicantSuffix, executorsApplying, executorsApplyingText, executorsNotApplyingText);
         }
 
-        Object.assign(ctx, templateData);
+        merge(ctx, sanitizeInput(templateData));
         ctx.softStop = this.anySoftStops(formdata, ctx);
         return ctx;
     }

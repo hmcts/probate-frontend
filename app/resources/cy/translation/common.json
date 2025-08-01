@@ -92,7 +92,9 @@
   "helpChatAlreadyOpen": "Mae ffenestr sgwrsio dros y we ar agor yn barod.",
   "helpChatOpeningHours": "Dydd Llun i ddydd Gwener, 8:00am i 6:00pm.",
   "helpChatMaintenance": "Nid yw gwasanaeth sgwrsio dros y we profiant ar gael dros dro tra byddwn yn ceisio datrys problem dechnegol. Ymddiheurwn am unrhyw anghyfleustra a achosir.",
-
+  "helpChatCheckingAvail": "WIP (not translated) Checking availability… WIP",
+  "helpChatNeedsJavascript": "WIP (not translated) Webchat needs javascript enabling WIP",
+  "helpChatNeedsPopups": "WIP (not translated) Popup blocked. Please allow pop-ups for this site. WIP",
 
   "errors": {
     "formSubmissionUnsuccessful": {

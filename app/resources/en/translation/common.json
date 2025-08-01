@@ -92,6 +92,9 @@
   "helpChatAlreadyOpen": "A web chat window is already open.",
   "helpChatOpeningHours": "Monday to Friday, 9:00am to 5:00pm.",
   "helpChatMaintenance": "Sorry, we’re having technical difficulties. Try email or telephone instead.",
+  "helpChatCheckingAvail": "Checking availability…",
+  "helpChatNeedsJavascript": "Webchat needs javascript enabling.",
+  "helpChatNeedsPopups": "Popup blocked. Please allow pop-ups for this site.",
 
   "errors": {
     "formSubmissionUnsuccessful": {

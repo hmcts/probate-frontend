@@ -107,6 +107,10 @@ class Summary extends Step {
             .replace('{deceasedName}', deceasedName || content.DiedEnglandOrWales.theDeceased);
         ctx.deceasedWrittenWishesQuestion = content.DeceasedWrittenWishes.question
             .replace('{deceasedName}', deceasedName || content.DeceasedAlias.theDeceased);
+        ctx.ihtUnusedAllowanceClaimedQuestion = content.IhtUnusedAllowanceClaimed.question
+            .replace('{deceasedName}', deceasedName || content.DeceasedAlias.theDeceased);
+        ctx.deceasedHadLateSpouseOrCivilPartnerQuestion = content.DeceasedHadLateSpouseOrCivilPartner.question
+            .replace('{deceasedName}', deceasedName || content.DeceasedAlias.theDeceased);
         if (ctx.caseType === caseTypes.GOP) {
             ctx.deceasedMarriedQuestion = (hasCodicils ? content.DeceasedMarried.questionWithCodicil : content.DeceasedMarried.question)
                 .replace('{deceasedName}', deceasedName);

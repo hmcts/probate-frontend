@@ -6,7 +6,7 @@ const ProbateEstateValues = require('app/steps/ui/iht/probateestatevalues');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe('Tests for IHT Estate Valued', () => {
+describe('Tests for Deceased Late spouse or civil partner', () => {
     let testWrapper;
     const expectedNextUrlForIhtUnusedAllowanceClaimed = IhtUnusedAllowanceClaimed.getUrl();
     const expectedNextUrlForProbateEstateValues = ProbateEstateValues.getUrl();
@@ -28,13 +28,18 @@ describe('Tests for IHT Estate Valued', () => {
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456
+                },
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe'
                 }
             };
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done);
+                    const contentData = {deceasedName: 'John Doe'};
+                    testWrapper.testContent(done, contentData);
                 });
         });
 

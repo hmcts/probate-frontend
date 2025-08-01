@@ -4,7 +4,11 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    <p class="govuk-hint" style="font-size: 24px; margin-bottom: 0;">{{ content.eligibilityTitle | safe }}</p>
+    {% if errors and errors.length > 0 %}
+      <p class="govuk-hint govuk-form-group--error" style="font-size: 24px; margin-bottom: 0;">{{ content.eligibilityTitle | safe }}</p>
+    {% else %}
+      <p class="govuk-hint" style="font-size: 24px; margin-bottom: 0;">{{ content.eligibilityTitle | safe }}</p>
+    {% endif %}
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "domicile",

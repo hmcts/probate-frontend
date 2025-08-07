@@ -4,7 +4,7 @@
   "optionPowerReserved": "{executorName} is reserving the right to apply later (also known as holding &lsquo;power reserved&rsquo;)",
   "optionPowerReservedHint": "You will need to inform them in writing that you are making this application.",
   "optionRenunciated": "{executorName} is giving up their right to apply permanently (also known as &lsquo;renunciation&rsquo;)",
-  "optionRenunciatedHint": "You will need to send us their completed <a href=\"{applicationFormPA15}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"PA15 renunciation form (opens in a new tab)\">PA15 renunciation form (opens in a new tab)</a> along with your other documents.",
+  "optionRenunciatedHint": "You will need to send us their completed <a href=\"{applicationFormPA15}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"PA15 renunciation form (opens in a new tab)\">PA15 renunciation form (opens in a new tab)</a> or their <a href=\"{applicationFormPA17}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"PA17 renunciation form if they are a probate practitioner (opens in a new tab)\">PA17 renunciation form if they are a probate practitioner (opens in a new tab)</a>, along with your other documents.",
 
   "errors": {
     "notApplyingReason": {

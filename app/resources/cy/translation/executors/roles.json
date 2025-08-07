@@ -4,7 +4,7 @@
   "optionPowerReserved": "Mae {executorName} yn cadw&rsquo;r hawl i wneud cais yn ddiweddarach (a elwir yn &lsquo;cadw&rsquo;r hawl&rsquo;)",
   "optionPowerReservedHint": "Bydd angen i chi roi gwybod iddynt yn ysgrifenedig eich bod yn gwneud y cais hwn.",
   "optionRenunciated": "Mae {executorName} yn ildio eu hawl i wneud cais yn barhaol (a elwir hefyd yn &lsquo;ymwrthod&rsquo;)",
-  "optionRenunciatedHint": "Bydd angen i chi anfon eu <a href=\"{applicationFormPA15}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"ffurflen ymwrthod PA15 wedi&rsquo;i llenwi atom (yn agor mewn tab newydd)\">ffurflen ymwrthod PA15 wedi&rsquo;i llenwi atom (yn agor mewn tab newydd)</a> ynghyd â&rsquo;ch dogfennau eraill.",
+  "optionRenunciatedHint": "Bydd angen i chi anfon eu <a href=\"{applicationFormPA15}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"ffurflen ymwrthod PA15 wedi&rsquo;i llenwi atom (yn agor mewn tab newydd)\">ffurflen ymwrthod PA15 wedi&rsquo;i llenwi atom (yn agor mewn tab newydd)</a> neu eu <a href=\"{applicationFormPA17}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"ffurflen ymwrthod PA17 os ydynt yn ymarferydd profiant (yn agor mewn tab newydd)\">ffurflen ymwrthod PA17 os ydynt yn ymarferydd profiant (yn agor mewn tab newydd)</a> atom,ynghyd â&rsquo;ch dogfennau eraill.",
 
   "errors": {
     "notApplyingReason": {

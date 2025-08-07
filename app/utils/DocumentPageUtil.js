@@ -47,7 +47,7 @@ class DocumentPageUtil {
             checkListItems.push(content['checklist-item10-iht207']);
         }
         if (ctx.hasRenunciated) {
-            checkListItems.push(content['checklist-item8-renunciated'].replace('{renunciationFormLink}', config.links.renunciationForm));
+            checkListItems.push(content['checklist-item8-renunciated'].replace('{applicationFormPA15}', config.links.applicationFormPA15).replace('{applicationFormPA17}', config.links.applicationFormPA17));
         }
         if (ctx.executorsNameChangedByDeedPollList && ctx.executorsNameChangedByDeedPollList.length > 0) {
             ctx.executorsNameChangedByDeedPollList.forEach(executor => {

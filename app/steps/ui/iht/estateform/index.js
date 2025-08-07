@@ -11,7 +11,6 @@ class IhtEstateForm extends ValidationStep {
         return {
             options: [
                 {key: 'ihtFormId', value: 'optionIHT400', choice: 'optionIHT400'},
-                {key: 'ihtFormId', value: 'optionIHT400421', choice: 'optionIHT400421'},
                 {key: 'ihtFormId', value: 'optionIHT205', choice: 'optionIHT205'}
             ]
         };

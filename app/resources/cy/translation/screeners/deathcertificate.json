@@ -2,7 +2,7 @@
   "eligibilityTitle": "Gwiriwch i weld os yw’n bosib i chi wneud cais ar-lein",
   "title": "Oes gennych chi&rsquo;r dystysgrif marwolaeth?",
   "question": "Oes gennych chi&rsquo;r dystysgrif marwolaeth?",
-  "hintText": "Rydych angen y dystysgrif marwolaeth wreiddiol neu <a target=\"_blank\" rel=\"external noopener\" href=\"{deathReportedToCoroner}\" class=\"govuk-link\" aria-label=\"dystysgrif marwolaeth interim (agor mewn ffenestr newydd)\">dystysgrif marwolaeth interim (agor mewn ffenestr newydd)</a> gan y crwne.",
+  "hintText": "Rydych angen y dystysgrif marwolaeth wreiddiol neu <a target=\"_blank\" rel=\"external noopener\" href=\"{deathReportedToCoroner}\" class=\"govuk-link\" aria-label=\"dystysgrif marwolaeth interim (yn agor mewn tab newydd)\">dystysgrif marwolaeth interim (yn agor mewn tab newydd)</a> gan y crwne.",
   "optionYes": "Oes",
   "optionNo": "Nag oes",
 

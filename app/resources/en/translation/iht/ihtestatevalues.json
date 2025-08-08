@@ -2,7 +2,7 @@
     "title": "What is the value of the estate",
     "question": "What are the values of the estate for Inheritance Tax?",
     "questionHintPrefix": "You can get these figures by using the ",
-    "linkText": "Inheritance Tax (IHT) checker",
+    "linkText": "Inheritance Tax (IHT) checker (opens in a new tab)",
     "questionHintSuffix": ".<br/><br/>When you use the checker, make sure you save the results as you can copy the figures straight from the checker results onto this page.<br /><br />The values you enter can be estimates, but must be whole numbers, not including decimals, full stops or commas. For example, 25000, not 25,000.",
     "estateGrossValue": "Gross estate value for IHT:<br><br>",
     "estateGrossValueHint": "This is the value of all assets like property, money, and <a href=\"https://www.gov.uk/inheritance-tax/gifts\" class=\"govuk-link\" target=\"_blank\">gifts in the last 7 years</a>, before taking off any debts owed by the person who died.",

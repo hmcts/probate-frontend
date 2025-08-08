@@ -221,7 +221,8 @@
     "puppeteer": "^24.10.2",
     "qs": "^6.14.0",
     "shelljs": ">=0.10.0",
-    "tar-fs": "^3.0.10"
+    "tar-fs": "^3.0.10",
+    "tmp": "0.2.4"
   },
   "packageManager": "yarn@4.9.2"
 }

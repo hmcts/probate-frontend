@@ -2,7 +2,7 @@
     "title": "Beth yw gwerth yr ystad ar gyfer Treth Etifeddiant?",
     "question": "Beth yw gwerth yr ystad ar gyfer Treth Etifeddiant?",
     "questionHintPrefix": "Os nad oes gennych y gwerthoedd hyn, defnyddiwch ",
-    "linkText": "y gwiriwr IHT",
+    "linkText": "y gwiriwr IHT (yn agor mewn tab newydd)",
     "questionHintSuffix": " i ddod o hyd iddynt. Rydym yn casglu&rsquo;r gwerthoedd hyn ar gyfer HMRC fel y gallant wirio a oes angen i chi dalu Treth Etifeddiant ai peidio.",
     "estateGrossValue": "Gwerth ystad gros ar gyfer IHT:<br><br>",
     "estateGrossValueHint": "Dyma werth yr holl asedau fel eiddo, arian, a <a href=\"https://www.gov.uk/inheritance-tax/gifts\" class=\"govuk-link\" target=\"_blank\">anrhegion yn y 7 mlynedd diwethaf</a>, cyn didynnu unrhyw ddyledion sy’n ddyledus gan y person a fu farw.",

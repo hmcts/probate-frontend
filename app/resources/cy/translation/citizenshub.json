@@ -57,5 +57,5 @@
   "sideBarHeading": "Rwyf eisiau...",
   "sideBarParagraph": "Darllen y canllawiau gwneud cais am brofiant (yn agor mewn tab newydd)",
   "insertText": "Ffoniwch y Ganolfan Alwadau Profiant os oes gennych unrhyw gwestiynau ynghylch eich cais. Ni allant roi cyngor cyfreithiol i chi na phrosesu unrhyw ddiweddariadau i'ch cais.",
-  "callCharges": "<a href=\"{callChargesLink}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"Gwybodaeth am gostau galwadau (yn agor mewn ffenestr newydd)\">Gwybodaeth am gostau galwadau (yn agor mewn ffenestr newydd)</a>"
+  "callCharges": "<a href=\"{callChargesLink}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"Gwybodaeth am gostau galwadau (yn agor mewn tab newydd)\">Gwybodaeth am gostau galwadau (yn agor mewn tab newydd)</a>"
 }

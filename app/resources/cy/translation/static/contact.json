@@ -3,7 +3,7 @@
   "heading1": "Profiant",
   "paragraph1": "Sgwrsio dros y we: ",
   "paragraph2": "E-bost: {helpEmail}",
-  "paragraph3": "<a target=\"_blank\" rel=\"external noopener\" href=\"{callChargesLink}\" class=\"govuk-link\" aria-label=\"Gwybodaeth am brisiau galwadau (agor mewn ffenestr newydd)\">Gwybodaeth am brisiau galwadau (agor mewn ffenestr newydd)</a>",
+  "paragraph3": "<a target=\"_blank\" rel=\"external noopener\" href=\"{callChargesLink}\" class=\"govuk-link\" aria-label=\"Gwybodaeth am brisiau galwadau (yn agor mewn tab newydd)\">Gwybodaeth am brisiau galwadau (yn agor mewn tab newydd)</a>",
   "paragraph4": "Oriau agor:",
   "paragraph5": "{helpLineHours1}",
   "paragraph6": "{helpLineHours2}",

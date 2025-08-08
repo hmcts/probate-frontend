@@ -1,7 +1,7 @@
 {
   "title": "Datganiad Hygyrchedd",
   "heading1": "Datganiad hygyrchedd ar gyfer y gwasanaeth &lsquo;Gwneud cais am brofiant&rsquo;",
-  "paragraph1": "TMae’r datganiad hygyrchedd hwn yn berthnasol i <a href=\"{applyForProbateFrontpage}\"class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\"\">gwneud cais am brofiant - GOV.UK (agor mewn tab newydd)</a>",
+  "paragraph1": "TMae’r datganiad hygyrchedd hwn yn berthnasol i <a href=\"{applyForProbateFrontpage}\"class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\"\">gwneud cais am brofiant - GOV.UK (yn agor mewn tab newydd)</a>",
   "paragraph2": "Mae&rsquo;r gwasanaeth hwn yn galluogi defnyddwyr i wneud cais am grant cynrychiolaeth (a elwir hefyd yn profiant) ar-lein.",
   "paragraph3": "Gwasanaeth Llysoedd a Thribiwnlysoedd EF (GLlTEF) sy’n gyfrifol am y wefan hon. Rydym eisiau i gymaint o bobl â phosibl allu defnyddio'r wefan hon, felly rydym wedi ceisio ei gwneud mor hygyrch â phosibl. Er enghraifft, golyga hyn y dylech allu:",
   "list1-item1": "newid y lliwiau, y lefelau cyferbyniad a&rsquo;r ffontiau",
@@ -10,7 +10,7 @@
   "list1-item4": "mynd drwy&rsquo;r rhan fwyaf o&rsquo;r wefan gan ddefnyddio meddalwedd adnabod llais",
   "list1-item5": "gwrando ar y rhan fwyaf o&rsquo;r wefan gan ddefnyddio darllenydd sgrin (gan gynnwys fersiynau diweddaraf JAWS, NVDA a VoiceOver)",
   "paragraph4": "Rydym hefyd wedi sicrhau ein bod wedi defnyddio iaith syml ar y wefan.",
-  "paragraph5": "Mae gan <a href=\"{myAbilityLink}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"AbilityNet (agor mewn ffenestr newydd)\">AbilityNet (agor mewn ffenestr newydd)</a> gyngor ar wneud eich dyfais yn haws i&rsquo;w defnyddio os oes gennych anabledd.",
+  "paragraph5": "Mae gan <a href=\"{myAbilityLink}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"AbilityNet (yn agor mewn tab newydd)\">AbilityNet (yn agor mewn tab newydd)</a> gyngor ar wneud eich dyfais yn haws i&rsquo;w defnyddio os oes gennych anabledd.",
 
   "heading2": "Pa mor hygyrch yw&rsquo;r wefan hon",
   "paragraph6": "Gwyddwn nad yw rhai rhannau o&rsquo;r wefan hon yn gwbl hygyrch:",
@@ -33,7 +33,7 @@
   "paragraph10": "Byddwn yn ystyried eich cais ac yn ymateb o fewn 10 diwrnod gwaith.",
 
   "heading5": "Y Weithdrefn Orfodi",
-  "paragraph11": "Y Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) sy&rsquo;n gyfrifol am orfodi Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018 (y &lsquo;rheoliadau hygyrchedd&rsquo;). Os nad ydych chi’n fodlon gyda’r ffordd rydym yn ymateb i’ch cwyn, <a href=\"{equalityAdvisorLink}\" target=\"_blank\" rel=\"external noopener\" class=\"govuk-link\" aria-label=\"cysylltwch â&rsquo;r Gwasanaeth Cynghori a Chymorth Cydraddoldeb (EASS) (agor mewn tab newydd)\">cysylltwch â&rsquo;r Gwasanaeth Cynghori a Chymorth Cydraddoldeb (EASS) (agor mewn tab newydd)</a>.",
+  "paragraph11": "Y Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) sy&rsquo;n gyfrifol am orfodi Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018 (y &lsquo;rheoliadau hygyrchedd&rsquo;). Os nad ydych chi’n fodlon gyda’r ffordd rydym yn ymateb i’ch cwyn, <a href=\"{equalityAdvisorLink}\" target=\"_blank\" rel=\"external noopener\" class=\"govuk-link\" aria-label=\"cysylltwch â&rsquo;r Gwasanaeth Cynghori a Chymorth Cydraddoldeb (EASS) (yn agor mewn tab newydd)\">cysylltwch â&rsquo;r Gwasanaeth Cynghori a Chymorth Cydraddoldeb (EASS) (yn agor mewn tab newydd)</a>.",
 
   "heading7": "Gwybodaeth dechnegol am hygyrchedd y wefan hon",
   "paragraph15": "Mae GLlTEF wedi ymrwymo i sicrhau bod ei wefannau yn hygyrch, a hynny yn unol â Rheoliadau Hygyrchedd Cyrff y Sector Gyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018.",

@@ -72,7 +72,8 @@ describe('executor-roles', () => {
                 .end(() => {
                     const contentData = {
                         executorName: 'Mana Manah',
-                        applicationFormPA15: config.links.applicationFormPA15
+                        applicationFormPA15: config.links.applicationFormPA15,
+                        applicationFormPA17: config.links.applicationFormPA17
                     };
 
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);

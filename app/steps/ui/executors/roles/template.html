@@ -5,7 +5,8 @@
 
 {% block form_content %}
     {% set optionRenunciatedHint %}
-        <p class="govuk-body">{{ content.optionRenunciatedHint | replace("{applicationFormPA15}", globals.links.applicationFormPA15) | safe }}</p>
+        <p class="govuk-body">{{ content.optionRenunciatedHint
+          | replace("{applicationFormPA15}", globals.links.applicationFormPA15) | replace("{applicationFormPA17}", globals.links.applicationFormPA17) | safe }}</p>
     {% endset %}
 
     {% set optionPowerReservedHint %}

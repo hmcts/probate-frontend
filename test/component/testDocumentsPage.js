@@ -170,7 +170,8 @@ describe('documents', () => {
                             'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
-                        contentData.renunciationFormLink = config.links.renunciationForm;
+                        contentData.applicationFormPA15 = config.links.applicationFormPA15;
+                        contentData.applicationFormPA17 = config.links.applicationFormPA17;
 
                         testWrapper.testContent(done, contentData, contentToExclude);
                     });

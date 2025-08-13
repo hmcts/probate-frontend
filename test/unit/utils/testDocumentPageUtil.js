@@ -68,4 +68,40 @@ describe('DocumentPageUtil.js', () => {
             done();
         });
     });
+    describe('getCheckListItemTextWithLinks()', () => {
+        it('should return concatenated link texts for multiple links', (done) => {
+            const content = 'Text before <a href="{link1}">First Link</a> middle <a href="{link2}">Second Link</a> after';
+            const links = ['http://first.com', 'http://second.com'];
+            const expected = 'First LinkSecond Link';
+            expect(DocumentPageUtil.getCheckListItemTextWithLinks(content, links)).to.equal(expected);
+            done();
+        });
+
+        it('should handle single link', (done) => {
+            const content = 'Start <a href="{link1}">Only Link</a> End';
+            const links = ['http://only.com'];
+            expect(DocumentPageUtil.getCheckListItemTextWithLinks(content, links)).to.equal('Only Link');
+            done();
+        });
+
+        it('should throw error if links array is empty', (done) => {
+            const content = 'Text <a href="{link1}">Link</a> more text';
+            expect(() => DocumentPageUtil.getCheckListItemTextWithLinks(content, [])).to.throw('please pass at least one valid url');
+            done();
+        });
+
+        it('should throw error if not enough links for anchors', (done) => {
+            const content = 'Text <a href="{link1}">Link1</a> <a href="{link2}">Link2</a>';
+            const links = ['http://onlyone.com'];
+            expect(() => DocumentPageUtil.getCheckListItemTextWithLinks(content, links)).to.throw('Not enough links provided for the number of anchors in content');
+            done();
+        });
+
+        it('should throw error if no anchor tags in content', (done) => {
+            const content = 'No links here';
+            const links = ['http://something.com'];
+            expect(() => DocumentPageUtil.getCheckListItemTextWithLinks(content, links)).to.throw('there is no link in content item: "No links here"');
+            done();
+        });
+    });
 });

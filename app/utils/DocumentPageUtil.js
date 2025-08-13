@@ -47,7 +47,7 @@ class DocumentPageUtil {
             checkListItems.push(content['checklist-item10-iht207']);
         }
         if (ctx.hasRenunciated) {
-            checkListItems.push(content['checklist-item8-renunciated'].replace('{renunciationFormLink}', config.links.renunciationForm));
+            checkListItems.push(content['checklist-item8-renunciated'].replace('{applicationFormPA15}', config.links.applicationFormPA15).replace('{applicationFormPA17}', config.links.applicationFormPA17));
         }
         if (ctx.executorsNameChangedByDeedPollList && ctx.executorsNameChangedByDeedPollList.length > 0) {
             ctx.executorsNameChangedByDeedPollList.forEach(executor => {
@@ -103,7 +103,8 @@ class DocumentPageUtil {
             checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item10-iht207']));
         }
         if (executorsWrapper.hasRenunciated()) {
-            checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item8-renunciated'], config.links.renunciationForm));
+            checkListItems.push(this.getCheckListItemTextWithLinks(content['checklist-item8-renunciated'],
+                [config.links.applicationFormPA15, config.links.applicationFormPA17]));
         }
         if (executorsWrapper.executorsNameChangedByDeedPoll() && executorsWrapper.executorsNameChangedByDeedPoll().length > 0) {
             executorsWrapper.executorsNameChangedByDeedPoll().forEach(executor => {
@@ -139,7 +140,38 @@ class DocumentPageUtil {
         }
         throw new Error(`there is no link in content item: "${contentCheckListItem}"`);
     }
+    static getCheckListItemTextWithLinks(contentCheckListItem, links) {
+        if (!Array.isArray(links) || links.length === 0) {
+            throw new Error('please pass at least one valid url');
+        }
 
+        const splitContentItem = contentCheckListItem.split(/(<a.*?<\/a>)/g).filter(Boolean);
+        const result = [];
+        let linkIndex = 0;
+
+        for (let i = 0; i < splitContentItem.length; i++) {
+            if (splitContentItem[i].includes('<a')) {
+                if (!links[linkIndex]) {
+                    throw new Error('Not enough links provided for the number of anchors in content');
+                }
+                const linkText = splitContentItem[i].replace(/<a\s+[^>]*>([^<]*)<\/a>/i, '$1');
+                result.push({
+                    text: linkText,
+                    type: 'textWithMultipleLinks',
+                    url: links[linkIndex],
+                    beforeLinkText: splitContentItem[i - 1] || '',
+                    afterLinkText: splitContentItem[i + 1] || ''
+                });
+                // eslint-disable-next-line no-plusplus
+                linkIndex++;
+            }
+        }
+        if (!result.length) {
+            throw new Error(`there is no link in content item: "${contentCheckListItem}"`);
+        }
+        console.log('CheckListItemTextWithLinks result:', JSON.stringify(result));
+        return result.map(item => item.text).join('');
+    }
     static noDocsRequired(formdata) {
         const documentsWrapper = new DocumentsWrapper(formdata);
         return !documentsWrapper.documentsRequired();

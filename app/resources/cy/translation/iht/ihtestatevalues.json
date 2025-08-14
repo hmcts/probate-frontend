@@ -9,7 +9,7 @@
     "estateNetValue": "Gwerth ystad net ar gyfer IHT:<br><br>",
     "estateNetValueHint": "Gan ddechrau gyda'r gwerth gros uchod, cymerwch unrhyw ddyledion fel cardiau morgais a chredyd.",
     "estateNetQualifyingValue": "Gwerth ystad cymwys net ar gyfer IHT:<br><br>",
-    "estateNetQualifyingValueHint": "Gan ddechrau gyda'r gwerth net uchod, tynnwch gyfanswm gwerth unrhyw asedau a drosglwyddwyd i briod neu bartner sifil ac unrhyw arian a adawyd i elusen.",
+    "estateNetQualifyingValueHint": "Gan gychwyn gyda’r gwerth net uchod, tynnwch gyfanswm gwerth unrhyw asedau sydd wedi pasio i ŵr, gwraig neu bartner sifil ac unrhyw arian a adawyd i elusen.",
     "poundSymbol": "&pound;",
     "forEstateIht": "Beth yw gwerthoedd  yr ystad at ddiben treth etifeddiant",
     "forEstateProbate": "Beth yw gwerthoedd  yr ystad at ddiben profian",

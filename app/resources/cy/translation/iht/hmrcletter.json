@@ -1,6 +1,6 @@
 {
-  "title": "A ydych wedi cael llythyr gan CThEF gyda'ch cod profiant unigryw?",
-  "question": "A ydych wedi cael llythyr gan CThEF gyda'ch cod profiant unigryw?",
+  "title": "A ydych wedi cael llythyr neu e-bost gan HMRC gyda’ch cod profiant unigryw?",
+  "question": "A ydych wedi cael llythyr neu e-bost gan HMRC gyda’ch cod profiant unigryw?",
   "optionYes": "Do",
   "optionNo": "Naddo",
   "errors" : {

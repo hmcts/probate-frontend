@@ -10,7 +10,6 @@ const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
 const maritalStatusMarried = ihtDataConfig.maritalStatusMarried;
 const bilingualGOP = false;
-const optionIHT400 = ihtDataConfig.optionIHT400;
 const hmrcCode = ihtDataConfig.hmrcCode;
 const spousePartner = ihtDataConfig.spousePartner;
 
@@ -70,7 +69,7 @@ getTestLanguages().forEach(language => {
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
         await I.selectEEComplete(language, optionYes);
-        await I.selectSubmittedToHmrc(language, optionIHT400);
+        await I.selectSubmittedToHmrc(language, optionYes);
         await I.selectHmrcLetterComplete(language, optionYes);
         await I.enterHmrcCode(language, hmrcCode);
         await I.enterProbateAssetValues(language, 400000, 400000);

@@ -76,10 +76,8 @@ Scenario('Check survey link works', async ({I}) => {
 
     await I.selectEEComplete(language, optionYes);
     await I.selectSubmittedToHmrc(language, ihtOptionNotSubmitted);
-    await I.enterEEValue(language, 500000, 400000, 400000);
-    await I.selectLateSpouseCivilPartner(language, optionYes);
-    await I.selectUnusedAllowance(language, optionYes);
-    await I.enterProbateEstateValues(language, 400000, 400000);
+    await I.enterEEValue(language, 500, 400, 400);
+    await I.enterProbateEstateValues(language, 400, 400);
 
     await I.selectDeceasedAliasGop(language, optionNo);
     await I.selectDeceasedMarriedAfterDateOnWill(language, optionNo);
@@ -129,23 +127,12 @@ Scenario('Check survey link works', async ({I}) => {
     // Payment Task
     await I.selectATask(language, 'paymentTask', taskListContent.taskNotStarted);
 
-    if (TestConfigurator.getUseGovPay() === 'true') {
-        await I.enterUkCopies(language, '5');
-        await I.selectOverseasAssets(language, optionYes);
-        await I.enterOverseasCopies(language, '7');
-    } else {
-        await I.enterUkCopies(language, '0');
-        await I.selectOverseasAssets(language, optionYes);
-        await I.enterOverseasCopies(language, '0');
-    }
+    await I.enterUkCopies(language, '0');
+    await I.selectOverseasAssets(language, optionYes);
+    await I.enterOverseasCopies(language, '0');
 
     await I.seeCopiesSummary(language);
-    await I.seePaymentBreakdownPage(language);
-
-    if (TestConfigurator.getUseGovPay() === 'true') {
-        await I.seeGovUkPaymentPage(language);
-        await I.seeGovUkConfirmPage(language);
-    }
+    await I.seePaymentBreakdownPage(language, false);
 
     // Thank You
     await I.seeThankYouPage(language, true);

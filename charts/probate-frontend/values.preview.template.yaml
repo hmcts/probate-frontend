@@ -1,6 +1,10 @@
 nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_NAME}.preview.platform.hmcts.net
+  memoryRequests: 64Mi
+  memoryLimits: 1Gi
+  devmemoryRequests: 64Mi
+  devmemoryLimits: 1Gi
   autoscaling:
     enabled: false
   environment:

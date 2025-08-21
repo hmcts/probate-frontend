@@ -110,52 +110,71 @@ class PaymentBreakdown extends Step {
                 }
             }
 
-            if (ctx.total > 0 && canCreatePayment) {
-                session.save();
+            if (canCreatePayment) {
+                if (ctx.total > 0) {
+                    session.save();
 
-                const serviceAuthResult = yield authorise.post();
-                if (serviceAuthResult.name === 'Error') {
-                    logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
-                    const keyword = 'failure';
-                    errors.push(FieldError('authorisation', keyword, this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
-                    return [ctx, errors];
-                }
+                    const serviceAuthResult = yield authorise.post();
+                    if (serviceAuthResult.name === 'Error') {
+                        logger.info(`serviceAuthResult Error = ${serviceAuthResult}`);
+                        const keyword = 'failure';
+                        errors.push(FieldError('authorisation', keyword, this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
+                        return [ctx, errors];
+                    }
 
-                const data = {
-                    amount: parseFloat(ctx.total),
-                    authToken: ctx.authToken,
-                    serviceAuthToken: serviceAuthResult,
-                    userId: ctx.userId,
-                    applicationFee: ctx.applicationFee,
-                    copies: ctx.copies,
-                    deceasedLastName: ctx.deceasedLastName,
-                    ccdCaseId: formdata.ccdCase.id,
-                    applicationversion: ctx.applicationversion,
-                    applicationcode: ctx.applicationcode,
-                    ukcopiesversion: ctx.ukcopiesversion,
-                    ukcopiescode: ctx.ukcopiescode,
-                    overseascopiesversion: ctx.overseascopiesversion,
-                    overseascopiescode: ctx.overseascopiescode
-                };
+                    const data = {
+                        amount: parseFloat(ctx.total),
+                        authToken: ctx.authToken,
+                        serviceAuthToken: serviceAuthResult,
+                        userId: ctx.userId,
+                        applicationFee: ctx.applicationFee,
+                        copies: ctx.copies,
+                        deceasedLastName: ctx.deceasedLastName,
+                        ccdCaseId: formdata.ccdCase.id,
+                        applicationversion: ctx.applicationversion,
+                        applicationcode: ctx.applicationcode,
+                        ukcopiesversion: ctx.ukcopiesversion,
+                        ukcopiescode: ctx.ukcopiescode,
+                        overseascopiesversion: ctx.overseascopiesversion,
+                        overseascopiescode: ctx.overseascopiescode
+                    };
 
-                const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
-                const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
-                const paymentResponse = yield payment.post(data, hostname, session.language);
-                logger.info(`Payment creation in breakdown for ccdCaseId = ${formdata.ccdCase.id} with response = ${JSON.stringify(paymentResponse)}`);
-                if (paymentResponse.name === 'Error') {
-                    errors.push(FieldError('payment', 'failure', this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
-                    return [ctx, errors];
+                    const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
+                    const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
+                    const paymentResponse = yield payment.post(data, hostname, session.language);
+                    logger.info(`Payment creation in breakdown for ccdCaseId = ${formdata.ccdCase.id} with response = ${JSON.stringify(paymentResponse)}`);
+                    if (paymentResponse.name === 'Error') {
+                        errors.push(FieldError('payment', 'failure', this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
+                        return [ctx, errors];
+                    }
+                    const formDataResult = yield this.submitForm(ctx, errors, formdata, paymentResponse, serviceAuthResult, session.language);
+                    set(formdata, 'ccdCase', formDataResult.ccdCase);
+                    set(formdata, 'payment', formDataResult.payment);
+                    if (errors.length > 0) {
+                        logger.error('Failed to create case in CCD.', errors);
+                        return [ctx, errors];
+                    }
+                    ctx.reference = paymentResponse.reference;
+                    ctx.paymentCreatedDate = paymentResponse.date_created;
+                    this.nextStepUrl = () => paymentResponse._links.next_url.href;
+                } else {
+                    logger.info(`forcing case submission for case: ${formdata.ccdCase.id}. ` +
+                        'this will cause a case save failure and redirect the user to the dashboard.');
+                    const notReqPayment = {
+                        date: null,
+                        amount: null,
+                        total: null,
+                        method: null,
+                        siteId: null,
+                        reference: null,
+                        transactionId: null,
+                        status: 'not_required',
+                    };
+                    const formDataResult = yield this.submitForm(ctx, errors, formdata, notReqPayment, serviceAuthResult, session.language);
+                    set(formdata, 'ccdCase', formDataResult.ccdCase);
+                    set(formdata, 'payment', formDataResult.payment);
+                    delete this.nextStepUrl;
                 }
-                const formDataResult = yield this.submitForm(ctx, errors, formdata, paymentResponse, serviceAuthResult, session.language);
-                set(formdata, 'ccdCase', formDataResult.ccdCase);
-                set(formdata, 'payment', formDataResult.payment);
-                if (errors.length > 0) {
-                    logger.error('Failed to create case in CCD.', errors);
-                    return [ctx, errors];
-                }
-                ctx.reference = paymentResponse.reference;
-                ctx.paymentCreatedDate = paymentResponse.date_created;
-                this.nextStepUrl = () => paymentResponse._links.next_url.href;
             } else {
                 delete this.nextStepUrl;
             }

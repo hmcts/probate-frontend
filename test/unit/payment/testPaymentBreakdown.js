@@ -225,6 +225,9 @@ describe('PaymentBreakdown', () => {
             let ctx = {total: 0};
             let errors = [];
             const formdata = {
+                ccdCase: {
+                    id: 1,
+                },
                 fees: {
                     total: 0,
                     ukcopiesfee: 0,
@@ -254,7 +257,18 @@ describe('PaymentBreakdown', () => {
             co(function* () {
                 [ctx, errors] = yield paymentBreakdown.handlePost(ctx, errors, formdata, session, hostname);
                 expect(paymentBreakdown.nextStepUrl(req)).to.equal('/payment-status');
-                expect(errors).to.deep.equal(errorsTestData);
+                // DTSPB-4916 this is a mess... the current tests where a call to submit the case are all
+                // playing a little loose with the actual behaviour being tested as they seem to pass the
+                // errorsTestData reference into the handlePost call which then mutates it.
+                // This means that when they then check errors === errorsTestData this is true, but the content of
+                // errorsTestData is no longer the same as at the start of the test.
+                // The error itself is because the SubmitData service is not being mocked, so it is attempting to
+                // reach a URL which cannot be accessed which fails.
+                expect(errors).to.deep.equal([{
+                    field: 'submit',
+                    href: '#submit',
+                    msg: content.errors.submit.failure
+                }]);
                 done();
             }).catch((err) => {
                 done(err);

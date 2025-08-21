@@ -1,20 +1,14 @@
 {
-  "title": "Pa ffurflenni wnaethoch chi eu cyflwyno i CThEM?",
-  "header": "Pa ffurflenni wnaethoch chi eu cyflwyno i CThEM?",
-  "question": "Pa ffurflenni wnaethoch chi eu cyflwyno i CThEM?",
-  "paragraph1": "Nid yw defnyddio gwiriwr Treth Etifeddiant yr un peth â chyflwyno ffurflen i CThEM. Bydd y gwiriwr yn dweud wrthych yn syth os oes angen i chi gyflwyno ffurflen i CThEM. Os mai dim ond y gwiriwr Treth Etifeddiant rydych wedi'i ddefnyddio, dewiswch nad oedd yn rhaid i chi gyflwyno ffurflen.",
-  "paragraph2":"\nOs gwnaethoch gyflwyno’r IHT400 neu’r IHT400 ac IHT421 byddwch wedi gorfod aros am ateb gan CThEM.",
-  "optionIHT400": "IHT400 yn unig",
-  "optionIHT400Conditional": "Dewiswch yr opsiwn hwn dim ond os gwnaethoch gais ar ôl 17 Ionawr 2024",
-  "optionIHT400421": "IHT400 ag IHT421",
-  "optionIHT400421Conditional": "Dewiswch yr opsiwn hwn dim ond os gwnaethoch gais cyn 17 Ionawr 2024",
-  "optionIHT205": "IHT205",
-  "optionNA": "Nid oedd yn rhaid i mi gyflwyno unrhyw ffurflenni i CThEM",
-  "orDefault": "neu",
+  "title": "A oedd angen i chi gyflwyno ffurflen IHT400 i HMRC?",
+  "header": "A oedd angen i chi gyflwyno ffurflen IHT400 i HMRC?",
+  "question": "A oedd angen i chi gyflwyno ffurflen IHT400 i HMRC?",
+  "paragraph1": "Nid yw defnyddio’r gwiriwr Treth Etifeddiant yr un peth â chyflwyno ffurflen i HMRC. Bydd y gwiriwr yn dweud wrthych os oes arnoch angen cyflwyno ffurflen IHT400, neu os yw’r ystad yn ‘ystad eithriedig’ ac nid oes angen i chi gyflwyno ffurflen.",
+  "optionYes": "Oedd",
+  "optionNo": "Nac oedd",
 
   "errors": {
-    "ihtFormEstateId": {
-      "required": "Rhaid i chi ddewis opsiwn i barhau"
+    "estateValueCompleted": {
+      "required": "Dewiswch 'Nac oedd' os nad oedd angen i chi gyflwyno ffurflen i HMRC"
     }
   }
 }

@@ -8,6 +8,7 @@ const {get} = require('lodash');
 const config = require('config');
 const FieldError = require('../../components/error');
 const {sanitizeInput} = require('../../utils/Sanitize');
+const {merge} = require('lodash');
 
 class UIStepRunner {
 
@@ -113,7 +114,9 @@ class UIStepRunner {
                             errorOccurred = true;
                             req.log.error('Could not persist user data', result.message);
                         } else if (result) {
-                            session.form = sanitizeInput(result);
+                            session.form = merge(
+                                session.form,
+                                sanitizeInput(result));
                             req.log.info('Successfully persisted user data');
                         }
                     }

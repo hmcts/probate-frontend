@@ -67,9 +67,6 @@ class StopPage extends Step {
         case 'notRelated':
             pageHeader = 'applyByPostHeader';
             break;
-        case 'otherApplicants':
-            pageHeader = 'applyByPostHeader';
-            break;
         case 'notOriginal':
             pageHeader = 'notOriginalHeader';
             break;

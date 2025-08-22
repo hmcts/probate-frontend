@@ -1,16 +1,22 @@
 {
   "eligibilityTitle": "Gwiriwch i weld os yw’n bosib i chi wneud cais ar-lein",
-  "title": "A ydych chi&rsquo;n &wcirc;r/gwraig, yn bartner sifil neu&rsquo;n blentyn yr unigolyn sydd wedi marw",
-  "question": "A ydych chi&rsquo;n &wcirc;r/gwraig, yn bartner sifil neu&rsquo;n blentyn yr unigolyn sydd wedi marw?",
-  "hintText1": "Mae&rsquo;n rhaid ichi fod yn &wcirc;r/gwraig, yn bartner sifil neu&rsquo;n blentyn dros 18 oed yr unigolyn sydd wedi marw i barhau gyda&rsquo;ch cais ar-lein.",
-  "hintText2": "Nid yw hyn yn cynnwys partneriaid hirdymor a oedd yn cyd-fyw ond nad oedd yn briod neu mewn partneriaeth sifil.",
-  "hintText3": "Efallai y bydd angen ichi ddarparu eich tystysgrif priodas neu bartneriaeth sifil.",
-  "optionYes": "Ydw",
-  "optionNo": "Nac ydw",
+  "title": "Beth yw eich perthynas â’r unigolyn sydd wedi marw",
+  "question": "Beth yw eich perthynas â’r unigolyn sydd wedi marw?",
+  "optionPartner": "Fi yw eu gŵr, eu gwraig neu eu partner sifil",
+  "hintTextPartner": "Nid yw’n cynnwys partneriaid sydd heb briodi neu heb gofrestru sy’n byw gyda’i gilydd",
+  "optionChild": "Fi yw eu plentyn",
+  "hintTextChild": "Gan gynnwys plant a fabwysiadwyd, ond nid llysblant",
+  "optionGrandchild": "Fi yw eu ŵyr/wyres",
+  "hintTextGrandchild": "Gan gynnwys wyrion a fabwysiadwyd, ond nid llyswyrion",
+  "optionParent": "Fi yw eu rhiant",
+  "hintTextParent": "Gan gynnwys rhieni mabwysiedig, ond nid llysrieni",
+  "optionSibling": "Fi yw eu brawd/chwaer",
+  "hintTextSibling": "Gan gynnwys brodyr/chwiorydd mabwysiedig, ond nid llysfrodyr/llyschwiorydd",
+  "optionNone": "Dim un o’r uchod",
 
   "errors": {
     "related": {
-      "required": "Dewiswch &lsquo;ie&rsquo; os ydych yn briod, yn bartner sifil neu&rsquo;n blentyn i&rsquo;r sawl a fu farw"
+      "required": "Dewiswch beth yw eich perthynas â’r unigolyn sydd wedi marw"
     }
   }
 }

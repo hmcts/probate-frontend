@@ -78,3 +78,7 @@ idam-pr:
   redirect_uris:
     Probate:
       - https://${SERVICE_FQDN}/oauth2/callback
+
+global:
+  security:
+    allowInsecureImages: true

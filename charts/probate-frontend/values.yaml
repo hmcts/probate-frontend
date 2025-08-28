@@ -88,6 +88,9 @@ nodejs:
 redis:
   enabled: false
   architecture: standalone
+  image:
+    registry: hmctspublic.azurecr.io
+    repository: imported/bitnami/redis
   master:
     persistence:
       enabled: false

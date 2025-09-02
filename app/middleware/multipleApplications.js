@@ -116,7 +116,7 @@ const renderTaskList = (req, res, result, next) => {
         }
     });
     const screenersCompleted = req.session.form.caseType &&
-    req.session.form.caseType === 'PA' ? description === 'Page completed: mental-capacity' : description === 'Page completed: other-applicants';
+    req.session.form.caseType === 'PA' ? description === 'Page completed: mental-capacity' : description === 'Page completed: related-to-deceased';
     getCase(req, res, next, false, screenersCompleted);
 };
 

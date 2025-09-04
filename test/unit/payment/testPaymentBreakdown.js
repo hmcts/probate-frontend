@@ -844,7 +844,7 @@ describe('PaymentBreakdown', () => {
         });
 
         it('test it cleans up context', () => {
-            let ctx = {
+            const ctx = {
                 _csrf: 'dummyCSRF',
                 sessionID: 'dummySessionID',
                 authToken: 'dummyAuthToken',
@@ -855,24 +855,28 @@ describe('PaymentBreakdown', () => {
                 fees: 'fees object'
             };
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
-            feesCalculator.returns(Promise.resolve({
-                status: 'success',
-                applicationfee: 215,
-                applicationvalue: 6000,
-                ukcopies: 1,
-                ukcopiesfee: 1.50,
-                overseascopies: 2,
-                overseascopiesfee: 3,
-                applicationcode: 'FEE0226',
-                applicationversion: 1,
-                ukcopiescode: 'FEE0003',
-                ukcopiesversion: 2,
-                overseascopiescode: 'FEE0003',
-                overseascopiesversion: 3,
-                total: 219.50
-            }));
-            [ctx] = paymentBreakdown.action(ctx, formdata);
-            expect(ctx).to.deep.equal({});
+
+            const [ctxRes, formdataRes] = paymentBreakdown.action(ctx, formdata);
+
+            expect(ctxRes).to.deep.equal({});
+            expect(formdataRes).to.deep.equal({});
+        });
+
+        it('sets status in context to payment status (DTSPB-4942)', () => {
+            const someStatus = 'some_status';
+            const ctx = {};
+            const formdata = {
+                payment: {
+                    status: someStatus,
+                },
+            };
+            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
+
+            const [ctxRes] = paymentBreakdown.action(ctx, formdata);
+
+            expect(ctxRes).to.deep.equal({
+                status: someStatus,
+            });
         });
     });
 });

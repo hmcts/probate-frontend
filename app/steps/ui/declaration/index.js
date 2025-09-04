@@ -1,5 +1,5 @@
 'use strict';
-
+/* eslint-disable max-lines */
 const probateDeclarationFactory = require('app/utils/ProbateDeclarationFactory');
 const intestacyDeclarationFactory = require('app/utils/IntestacyDeclarationFactory');
 const ValidationStep = require('app/core/steps/ValidationStep');
@@ -10,6 +10,7 @@ const FormatName = require('app/utils/FormatName');
 const FormatAlias = require('app/utils/FormatAlias');
 const LegalDocumentJSONObjectBuilder = require('app/utils/LegalDocumentJSONObjectBuilder');
 const legalDocumentJSONObjBuilder = new LegalDocumentJSONObjectBuilder();
+const logger = require('app/components/logger')('Init');
 const InviteData = require('app/services/InviteData');
 const config = require('config');
 const caseTypes = require('app/utils/CaseTypes');
@@ -57,6 +58,19 @@ class Declaration extends ValidationStep {
         const documentsWrapper = new DocumentsWrapper(formdata);
         if (!documentsWrapper.documentsRequired() && formdata.applicant) {
             formdata.applicant.notRequiredToSendDocuments = true;
+        }
+        if (ctx.hasDataChanged && ctx.invitesSent) {
+            const inviteData = new InviteData(config.services.orchestrator.url, ctx.sessionID);
+            yield inviteData.resetAgreedFlag(ctx.ccdCase.id, ctx)
+                .then(result => {
+                    if (result.name === 'Error') {
+                        logger.error(`Error while reset agreed flags: ${result}`);
+                        throw new ReferenceError('Error reset agreed flags');
+                    } else {
+                        formdata.executors.list = ctx.executorsWrapper.removeAgreedFlag();
+                        formdata.declaration.hasDataChanged = false;
+                    }
+                });
         }
         return [ctx, returnErrors];
     }
@@ -186,6 +200,8 @@ class Declaration extends ValidationStep {
 
         merge(ctx, sanitizeInput(templateData));
         ctx.softStop = this.anySoftStops(formdata, ctx);
+        ctx.authToken = req.authToken;
+        ctx.serviceAuthorization = req.session.serviceAuthorization;
         return ctx;
     }
 
@@ -288,21 +304,11 @@ class Declaration extends ValidationStep {
         };
     }
 
-    resetAgreedFlags(ctx) {
-        const inviteData = new InviteData(config.services.orchestrator.url, ctx.sessionID);
-        const promise = inviteData.resetAgreedFlag(ctx.ccdCase.id, ctx);
-        return promise;
-    }
-
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.showNetValueAssetsOutside;
         delete ctx.ihtNetValueAssetsOutside;
         delete ctx.hasMultipleApplicants;
-
-        if (ctx.hasDataChanged === true) {
-            this.resetAgreedFlags(ctx);
-        }
 
         delete ctx.executorsWrapper;
         delete ctx.hasDataChanged;
@@ -315,6 +321,8 @@ class Declaration extends ValidationStep {
         delete ctx.bilingual;
         delete ctx.language;
         delete ctx.exceptedEstate;
+        delete ctx.serviceAuthorization;
+        delete ctx.authToken;
         return [ctx, formdata];
     }
 

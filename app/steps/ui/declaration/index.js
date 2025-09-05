@@ -186,6 +186,8 @@ class Declaration extends ValidationStep {
 
         merge(ctx, sanitizeInput(templateData));
         ctx.softStop = this.anySoftStops(formdata, ctx);
+        ctx.authToken = req.authToken;
+        ctx.serviceAuthorization = req.session.serviceAuthorization;
         return ctx;
     }
 
@@ -295,14 +297,13 @@ class Declaration extends ValidationStep {
     }
 
     action(ctx, formdata) {
+        if (ctx.hasDataChanged === 'true') {
+            this.resetAgreedFlags(ctx);
+        }
         super.action(ctx, formdata);
         delete ctx.showNetValueAssetsOutside;
         delete ctx.ihtNetValueAssetsOutside;
         delete ctx.hasMultipleApplicants;
-
-        if (ctx.hasDataChanged === true) {
-            this.resetAgreedFlags(ctx);
-        }
 
         delete ctx.executorsWrapper;
         delete ctx.hasDataChanged;
@@ -315,6 +316,8 @@ class Declaration extends ValidationStep {
         delete ctx.bilingual;
         delete ctx.language;
         delete ctx.exceptedEstate;
+        delete ctx.serviceAuthorization;
+        delete ctx.authToken;
         return [ctx, formdata];
     }
 

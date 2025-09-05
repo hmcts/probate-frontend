@@ -255,7 +255,7 @@ describe('Declaration', () => {
         });
 
         it('test that context variables are removed and resetAgreedFlags is called', (done) => {
-            ctx.hasDataChanged = true;
+            ctx.hasDataChanged = 'true';
             ctx.executors = {
                 executorsNumber: 3,
                 invitesSent: 'true',

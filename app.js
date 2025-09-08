@@ -415,5 +415,30 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         });
     });
 
+    if (process.env.NODE_ENV === 'dev-aat' || process.env.NODE_ENV === 'dev-pr') {
+        const v8 = require('node:v8');
+
+        const inMb = (v) => (v / 1024 / 1024).toFixed(2);
+        const doLogMem = () => {
+            const heapStat = v8.getHeapStatistics();
+
+            const logMsg = 'Current memory usage (in mb): ' +
+                `totalHeapSize=${inMb(heapStat.total_heap_size)} ` +
+                `totalHeapSizeExec=${inMb(heapStat.total_heap_size_executable)} ` +
+                `totalPhysicalSize=${inMb(heapStat.total_physical_size)} ` +
+                `totalAvailableSize=${inMb(heapStat.total_available_size)} ` +
+                `usedHeapSize=${inMb(heapStat.used_heap_size)} ` +
+                `heapSizeLimit=${inMb(heapStat.heap_size_limit)}`;
+
+            logger('MemUsage').info(logMsg);
+        };
+
+        logger('MemUsage').info('Scheduling memory reporting every 60 seconds');
+        const logMem = setInterval(doLogMem, 60000);
+    } else {
+        logger('MemUsage')
+            .info('Not triggering regular memory logging for production-like environment');
+    }
+
     return {app, http};
 };

@@ -146,22 +146,6 @@ router.use(['/task-list', '/assets-overseas', '/copies-overseas', '/copies-uk', 
     }
 });
 
-const allSteps = {
-    'en': initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`], 'en'),
-    'cy': initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`], 'cy')
-};
-const allPageUrls = [];
-Object.entries(allSteps.en).forEach(([, step]) => {
-    const stepUrl = step.constructor.getUrl();
-    const cleanStepUrl = FormatUrl.getCleanPageUrl(stepUrl, 1);
-    if (!allPageUrls.includes(cleanStepUrl)) {
-        allPageUrls.push(cleanStepUrl);
-    }
-
-    router.get(stepUrl, step.runner().GET(step));
-    router.post(stepUrl, step.runner().POST(step));
-});
-
 router.use((req, res, next) => {
     const currentPageCleanUrl = FormatUrl.getCleanPageUrl(req.originalUrl, 1);
     const formdata = req.session.form;
@@ -252,5 +236,21 @@ const redirectTaskList = (req, currentPageCleanUrl, formdata, applicationSubmitt
         return true;
     }
 };
+
+const allSteps = {
+    'en': initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`], 'en'),
+    'cy': initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`], 'cy')
+};
+const allPageUrls = [];
+Object.entries(allSteps.en).forEach(([, step]) => {
+    const stepUrl = step.constructor.getUrl();
+    const cleanStepUrl = FormatUrl.getCleanPageUrl(stepUrl, 1);
+    if (!allPageUrls.includes(cleanStepUrl)) {
+        allPageUrls.push(cleanStepUrl);
+    }
+
+    router.get(stepUrl, step.runner().GET(step));
+    router.post(stepUrl, step.runner().POST(step));
+});
 
 module.exports = router;

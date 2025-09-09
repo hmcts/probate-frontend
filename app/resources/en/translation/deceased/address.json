@@ -3,14 +3,14 @@
   "question": "What was {deceasedName}'s permanent address at the time of their death?",
   "explanation1": "If they were living in a care home, you should enter that address.",
   "postTown": "Town or city",
-  "postcode": "Postcode",
+  "postcode": "UK postcode",
   "country": "Country (optional)",
-  "findAddress": "Find UK address",
+  "findAddress": "Find address",
   "addressLabel": "Address",
   "addressLabel2": "Address Line 2 (optional)",
   "addressLabel3": "Address Line 3 (optional)",
   "selectAddress": "Select address",
-  "enterManually": "Enter their address instead",
+  "enterManually": "Enter an address instead",
 
   "errors": {
     "addressLine1": {

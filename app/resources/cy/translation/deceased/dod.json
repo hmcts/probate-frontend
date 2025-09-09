@@ -1,23 +1,23 @@
 {
   "title": "Dyddiad marwolaeth yr unigolyn sydd wedi marw",
-  "question": "Beth oedd y dyddiad pan fu iddynt farw?",
-  "questionHint": "Defnyddiwch y dyddiad sydd ar y dystysgrif marwolaeth. Er enghraifft, 30 06 2016",
+  "question": "Beth oedd y dyddiad pan fu {deceasedName} farw?",
+  "questionHint": "Defnyddiwch y dyddiad sydd ar y dystysgrif marwolaeth. Er enghraifft, 30 01 2025",
 
   "errors": {
     "dod-day": {
-      "required": "Nodwch y diwrnod y bu iddynt farw",
+      "required": "Rhaid i ddyddiad y farwolaeth gynnwys diwrnod",
       "invalid": "Nodwch ddiwrnod dilys ar gyfer pryd bu iddynt farw"
     },
     "dod-month": {
-      "required": "Nodwch y mis y bu iddynt farw",
+      "required": "Rhaid i ddyddiad y farwolaeth gynnwys mis",
       "invalid": "Nodwch fis dilys ar gyfer pryd bu iddynt farw"
     },
     "dod-year": {
-      "required": "Nodwch y flwyddyn y bu iddynt farw",
+      "required": "Rhaid i ddyddiad y farwolaeth gynnwys blwyddyn",
       "invalid": "Nodwch flwyddyn ddilys ar gyfer pryd bu iddynt farw"
     },
     "dod-date": {
-      "required": "Nodwch y dyddiad y bu iddynt farw",
+      "required": "Nodwch y dyddiad pan fu {deceasedName} farw",
       "invalid": "Nodwch ddyddiad dilys ar gyfer pryd bu iddynt farw",
       "dateInFuture": "Nodwch ddyddiad yn y gorffennol",
       "dodBeforeDob": "Nodwch ddyddiad marwolaeth sydd ar &ocirc;l y dyddiad geni"

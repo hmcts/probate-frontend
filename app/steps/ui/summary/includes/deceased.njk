@@ -24,7 +24,7 @@
             visible: true
         }
     ],
-    url = content.DeceasedName.url if fields.summary.caseType.value == "gop" else content.DeceasedDetails.url,
+    url = content.DeceasedName.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
@@ -107,7 +107,7 @@
             visible: true
         }
     ],
-    url = content.DeceasedDob.url if fields.summary.caseType.value == "gop" else content.DeceasedDetails.url,
+    url = content.DeceasedDob.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
@@ -120,7 +120,7 @@
             visible: true
         }
     ],
-    url = content.DeceasedDod.url if fields.summary.caseType.value == "gop" else content.DeceasedDetails.url,
+    url = content.DeceasedDod.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}

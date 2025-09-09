@@ -195,7 +195,7 @@ describe('Summary', () => {
                 deceasedAnyChildrenQuestion: 'Did Dee Ceased have any children?',
                 deceasedAnyDeceasedChildrenQuestion: 'Did any of Dee Ceased&rsquo;s children die before 2 February 2015?',
                 deceasedAnyOtherChildrenQuestion: 'Did Dee Ceased have any other children?',
-                deceasedDivorcePlaceQuestion: 'Did the separation take place in England or Wales?',
+                deceasedDivorcePlaceQuestion: 'Did the divorce or dissolution take place in England or Wales?',
                 deceasedMaritalStatusQuestion: 'What was Dee Ceased&rsquo;s marital status?',
                 deceasedSpouseNotApplyingReasonQuestion: 'Why isn&rsquo;t Dee Ceased&rsquo;s spouse applying?',
                 deceasedWrittenWishesQuestion: 'Did Dee Ceased leave any other written wishes?',

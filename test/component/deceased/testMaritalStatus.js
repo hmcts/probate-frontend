@@ -2,6 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const DivorcePlace = require('app/steps/ui/deceased/divorceplace');
+const SeparationPlace = require('app/steps/ui/deceased/separationplace');
 const TaskList = require('app/steps/ui/tasklist');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
@@ -9,6 +10,7 @@ const caseTypes = require('app/utils/CaseTypes');
 describe('deceased-marital-status', () => {
     let testWrapper;
     const expectedNextUrlForDivorcePlace = DivorcePlace.getUrl();
+    const expectedNextUrlForSeparationPlace = SeparationPlace.getUrl();
     const expectedNextUrlForTaskList = TaskList.getUrl();
 
     beforeEach(() => {
@@ -61,7 +63,7 @@ describe('deceased-marital-status', () => {
                 });
         });
 
-        it(`test it redirects to divorce place page if separated: ${expectedNextUrlForDivorcePlace}`, (done) => {
+        it(`test it redirects to divorce place page if separated: ${expectedNextUrlForSeparationPlace}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -69,7 +71,7 @@ describe('deceased-marital-status', () => {
                         maritalStatus: 'optionSeparated'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDivorcePlace);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForSeparationPlace);
                 });
         });
 

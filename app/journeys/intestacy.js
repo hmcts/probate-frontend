@@ -64,8 +64,10 @@ const stepList = {
         otherwise: 'StopPage'
     },
     StartApply: 'TaskList',
-    BilingualGOP: 'DeceasedDetails',
-    DeceasedDetails: {
+    BilingualGOP: 'DeceasedName',
+    DeceasedName: 'DeceasedDob',
+    DeceasedDob: 'DeceasedDod',
+    DeceasedDod: {
         diedAfter: 'DeceasedAddress',
         otherwise: 'StopPage'
     },
@@ -144,13 +146,20 @@ const stepList = {
     AddAlias: 'DeceasedOtherNames',
     RemoveAlias: 'DeceasedOtherNames',
     DeceasedMaritalStatus: {
-        divorcedOrSeparated: 'DivorcePlace',
+        divorced: 'DivorcePlace',
+        separated: 'SeparationPlace',
         otherwise: 'TaskList'
     },
     DivorcePlace: {
-        inEnglandOrWales: 'TaskList',
+        inEnglandOrWales: 'DivorceDate',
         otherwise: 'StopPage'
     },
+    SeparationPlace: {
+        inEnglandOrWales: 'SeparationDate',
+        otherwise: 'StopPage'
+    },
+    DivorceDate: 'TaskList',
+    SeparationDate: 'TaskList',
     RelationshipToDeceased: {
         childDeceasedMarried: 'SpouseNotApplyingReason',
         childDeceasedNotMarried: 'AnyOtherChildren',

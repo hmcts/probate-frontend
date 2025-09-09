@@ -2,6 +2,7 @@
 
 const DateStep = require('app/core/steps/DateStep');
 const FieldError = require('app/components/error');
+const FormatName = require('../../../../utils/FormatName');
 
 class DeceasedDob extends DateStep {
 
@@ -32,6 +33,20 @@ class DeceasedDob extends DateStep {
         }
 
         return [ctx, errors];
+    }
+
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        ctx.deceasedName = FormatName.format(req.session.form.deceased);
+        return ctx;
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+        }
+        return fields;
     }
 }
 

@@ -1,0 +1,12 @@
+{
+  "title": "Did the legal separation take place in England or Wales?",
+  "question": "Did the legal separation take place in England or Wales?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "separationPlace": {
+      "required": "Select &lsquo;Yes&rsquo; if the legal separation took place in England or Wales"
+    }
+  }
+}

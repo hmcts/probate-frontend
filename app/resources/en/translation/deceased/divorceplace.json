@@ -1,12 +1,12 @@
 {
-  "title": "Where the {legalProcess} took place",
-  "question": "Did the {legalProcess} take place in England or Wales?",
+  "title": "Did the divorce or dissolution take place in England or Wales?",
+  "question": "Did the divorce or dissolution take place in England or Wales?",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
     "divorcePlace": {
-      "required": "Answer &lsquo;yes&rsquo; if the {legalProcess} took place in England or Wales"
+      "required": "Select &lsquo;Yes&rsquo; if the divorce or dissolution took place in England or Wales"
     }
   }
 }

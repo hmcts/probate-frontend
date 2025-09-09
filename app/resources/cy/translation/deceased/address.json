@@ -3,14 +3,14 @@
   "question": "Beth oedd cyfeiriad parhaol {deceasedName} pan fu iddi farw?",
   "explanation1": "Os oedd yn byw mewn cartref gofal, dylech nodi'r cyfeiriad hwnnw.",
   "postTown": "Tref neu ddinas",
-  "postcode": "Cod post",
+  "postcode": "Cod post yn y DU",
   "country": "Gwlad (dewisol)",
-  "findAddress": "Dod o hyd i gyfeiriad yn y DU",
+  "findAddress": "Dod o hyd i gyfeiriad",
   "addressLabel": "Cyfeiriad",
   "addressLabel2": "Ail linell y cyfeiriad (dewisol)",
   "addressLabel3": "Trydydd llinell y cyfeiriad (dewisol)",
   "selectAddress": "Dewiswch gyfeiriad",
-  "enterManually": "neu teipiwch eu cyfeiriad",
+  "enterManually": "Neu fel arall teipiwch gyfeiriad",
 
   "errors": {
     "addressLine1": {

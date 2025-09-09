@@ -1,0 +1,43 @@
+{
+  "title": "Do you know the date the divorce or dissolution took place?",
+  "question": "Do you know the date the divorce or dissolution took place?",
+  "paragraph1": "You can find the date on the decree absolute or final order.",
+  "paragraph2": "If you do not have this, you can <a href=\"https://www.gov.uk/copy-decree-absolute-final-order\" class=\"govuk-link\" target=\"_blank\" aria-label=\"get an official copy of the decree absolute or final order (opens in a new tab)\">get an official copy of the decree absolute or final order (opens in a new tab)</a>.",
+  "optionYes": "Yes, I know the date",
+  "optionNo": "No, I do not know the date",
+  "optionNoHint": "A caseworker will need to ask you for more information which may delay your application",
+  "dayName": "Day",
+  "monthName": "Month",
+  "yearName": "Year",
+  "date": "Date of divorce or dissolution",
+  "errors": {
+    "divorceDateKnown": {
+      "required": "Select &lsquo;yes&rsquo; if you know the date of the divorce or dissolution"
+    },
+    "divorceDate-year": {
+      "required": "Date of divorce or dissolution must include a year"
+    },
+    "divorceDate-month": {
+      "required": "Date of divorce or dissolution must include a month"
+    },
+    "divorceDate-day": {
+      "required": "Date of divorce or dissolution must include a day"
+    },
+    "divorceDate-day-month": {
+      "required": "Date of divorce or dissolution must include a day and month"
+    },
+    "divorceDate-month-year": {
+      "required": "Date of divorce or dissolution must include a month and year"
+    },
+    "divorceDate-day-year": {
+      "required": "Date of divorce or dissolution must include a day and year"
+    },
+    "divorceDate-day-month-year": {
+      "required": "Enter the date the divorce or dissolution took place"
+    },
+    "divorceDate": {
+      "future": "The date of divorce or dissolution must be before {deceasedName}’s date of death",
+      "invalid": "Date of divorce or dissolution must be a real date"
+    }
+  }
+}

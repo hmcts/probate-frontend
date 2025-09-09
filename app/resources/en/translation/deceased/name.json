@@ -1,18 +1,18 @@
 {
   "title": "Deceased name",
   "question": "What is the full name of the person who died?",
-  "explanation1": "You should use the name that is written on the death certificate.",
+  "explanation1": "You should use the name as it is written on the death certificate.",
   "firstName": "First name and any middle names",
   "lastName": "Last name",
 
   "errors": {
     "firstName": {
-      "required": "Enter the person who died&rsquo;s first name",
-      "invalid": "Enter a valid first name - can only contain letters a to z, spaces, hyphens and apostrophes"
+      "required": "Enter the first name and any middle names of the person who died",
+      "invalid": "First name must only include letters a to z, and special characters such as hyphens, spaces and apostrophes"
     },
     "lastName": {
-      "required": "Enter the person who died&rsquo;s last name",
-      "invalid": "Enter a valid last name - can only contain letters a to z, spaces, hyphens and apostrophes"
+      "required": "Enter the last name of the person who died",
+      "invalid": "Last name must only include letters a to z, and special characters such as hyphens, spaces and apostrophes"
     }
   }
 }

@@ -2,6 +2,8 @@
 
 const DateStep = require('app/core/steps/DateStep');
 const FieldError = require('app/components/error');
+const FormatName = require('../../../../utils/FormatName');
+const caseTypes = require('../../../../utils/CaseTypes');
 
 class DeceasedDod extends DateStep {
 
@@ -32,6 +34,38 @@ class DeceasedDod extends DateStep {
         }
 
         return [ctx, errors];
+    }
+
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        ctx.deceasedName = FormatName.format(req.session.form.deceased);
+        return ctx;
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+        }
+        return fields;
+    }
+
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('notDiedAfterOctober2014');
+    }
+
+    nextStepOptions(ctx) {
+        const dod = new Date(`${ctx['dod-year']}-${ctx['dod-month']}-${ctx['dod-day']}`);
+        const dod1Oct2014 = new Date('2014-10-01');
+        dod1Oct2014.setHours(0, 0, 0, 0);
+
+        ctx.diedAfterOctober2014 = (dod >= dod1Oct2014 && ctx.caseType === caseTypes.INTESTACY) || ctx.caseType === caseTypes.GOP;
+
+        return {
+            options: [
+                {key: 'diedAfterOctober2014', value: true, choice: 'diedAfter'}
+            ]
+        };
     }
 }
 

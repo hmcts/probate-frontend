@@ -10,8 +10,8 @@
 {% block form_content %}
     {{ govukRadios({
         classes: "govuk-radios--inline",
-        idPrefix: "divorcePlace",
-        name: "divorcePlace",
+        idPrefix: "separationPlace",
+        name: "separationPlace",
         fieldset: {
             legend: {
                 text: content.question | safe,
@@ -19,17 +19,17 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.divorcePlace.errorMessage | safe } if fields.divorcePlace.errorMessage,
+        errorMessage: { text: fields.separationPlace.errorMessage | safe } if fields.separationPlace.errorMessage,
         items: [
             {
                 value: "optionYes",
                 text: content["optionYes"] | safe,
-                checked: true if fields.divorcePlace.value == "optionYes"
+                checked: true if fields.separationPlace.value == "optionYes"
             },
             {
                 value: "optionNo",
                 text: content["optionNo"] | safe,
-                checked: true if fields.divorcePlace.value == "optionNo"
+                checked: true if fields.separationPlace.value == "optionNo"
             }
         ]
     }) }}

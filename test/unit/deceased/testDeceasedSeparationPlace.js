@@ -4,13 +4,13 @@ const journey = require('app/journeys/intestacy');
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-const DivorcePlace = steps.DivorcePlace;
+const SeparationPlace = steps.SeparationPlace;
 
-describe('DivorcePlace', () => {
+describe('SeparationPlace', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = DivorcePlace.constructor.getUrl();
-            expect(url).to.equal('/deceased-divorce-place');
+            const url = SeparationPlace.constructor.getUrl();
+            expect(url).to.equal('/deceased-separation-place');
             done();
         });
     });
@@ -23,10 +23,10 @@ describe('DivorcePlace', () => {
                 }
             };
             const ctx = {
-                divorcePlace: 'optionYes'
+                separationPlace: 'optionYes'
             };
-            const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/deceased-divorce-date');
+            const nextStepUrl = SeparationPlace.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/deceased-separation-date');
             done();
         });
 
@@ -37,20 +37,20 @@ describe('DivorcePlace', () => {
                 }
             };
             const ctx = {
-                divorcePlace: 'optionNo'
+                separationPlace: 'optionNo'
             };
-            const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/stop-page/divorcePlace');
+            const nextStepUrl = SeparationPlace.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/stop-page/separationPlace');
             done();
         });
     });
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const nextStepOptions = DivorcePlace.nextStepOptions();
+            const nextStepOptions = SeparationPlace.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [{
-                    key: 'divorcePlace',
+                    key: 'separationPlace',
                     value: 'optionYes',
                     choice: 'inEnglandOrWales'
                 }]

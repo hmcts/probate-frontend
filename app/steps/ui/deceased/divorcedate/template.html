@@ -1,0 +1,94 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+
+
+{% block form_content %}
+
+    {% if errors %}
+        {% set inlineErrors = {
+            text:
+            (
+                (fields["divorceDate-date"].errorMessage + "<br>" if fields["divorceDate-date"].errorMessage) +
+                (fields["divorceDate-year"].errorMessage + "<br>" if fields["divorceDate-year"].errorMessage)
+            ) | safe
+        } %}
+    {% endif %}
+
+    {% set dateHtml %}
+      {{ govukDateInput({
+          id: "divorceDate",
+          namePrefix: "divorceDate",
+          fieldset: {
+              legend: {
+                  text: content.date | safe
+              }
+          },
+          text: content.date | safe,
+          errorMessage: inlineErrors,
+          items: [
+              {
+                  classes: "govuk-input--width-2" + (" govuk-input--error" if fields["divorceDate-date"].error),
+                  name: "day",
+                  label: content["dayName"] | safe,
+                  value: fields["divorceDate-day"].value
+              },
+              {
+                  classes: "govuk-input--width-2" + (" govuk-input--error" if fields["divorceDate-date"].error),
+                  name: "month",
+                  label: content["monthName"] | safe,
+                  value: fields["divorceDate-month"].value
+              },
+              {
+                  classes: "govuk-input--width-4" + (" govuk-input--error" if fields["divorceDate-year"].error or fields["divorceDate-date"].error),
+                  name: "year",
+                  label: content["yearName"] | safe,
+                  value: fields["divorceDate-year"].value
+              }
+          ]
+      }) }}
+    {% endset -%}
+
+    {{ govukFieldset({
+        legend: {
+            text: content.question | safe,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+        }
+    }) }}
+    <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+    <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+    {{ govukRadios({
+        idPrefix: "divorceDateKnown",
+        name: "divorceDateKnown",
+        errorMessage: { text: fields.divorceDateKnown.errorMessage | safe } if fields.divorceDateKnown.errorMessage,
+        items: [
+            {
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.divorceDateKnown.value == "optionYes",
+                conditional: {
+                    html: dateHtml
+                }
+            },
+            {
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.divorceDateKnown.value == "optionNo",
+                hint: {
+                    text: content["optionNoHint"] | safe
+                }
+            }
+        ]
+    }) }}
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+          text: common.saveAndContinue | safe,
+          preventDoubleClick: true
+      }) }}
+    </div>
+{% endblock %}

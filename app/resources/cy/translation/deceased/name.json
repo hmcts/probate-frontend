@@ -7,11 +7,11 @@
 
   "errors": {
     "firstName": {
-      "required": "Nodwch enw cyntaf yr unigolyn sydd wedi marw",
+      "required": "Rhowch yr enw cyntaf ac unrhyw enwau canol y sawl a fu farw",
       "invalid": "Rhowch enw cyntaf dilys - dim ond llythrennau a i z, bylchau, cysylltnodau a chollnodau y gellir eu cynnwys"
     },
     "lastName": {
-      "required": "Nodwch gyfenw&rsquo;r unigolyn sydd wedi marw",
+      "required": "Nodwch enw olaf yr unigolyn sydd wedi marw",
       "invalid": "Rhowch enw olaf dilys - dim ond llythrennau a i z, bylchau, cysylltnodau a chollnodau y gellir eu cynnwys"
     }
   }

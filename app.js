@@ -44,9 +44,12 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const releaseVersion = packageJson.version;
     const useIDAM = config.app.useIDAM.toLowerCase();
     const security = new Security(config.services.idam.loginUrl);
-    const inviteSecurity = new InviteSecurity();
+
+    const redisClient = utils.getRedisClient(config.redis);
+    const inviteSecurity = new InviteSecurity(redisClient, 30);
 
     // Application settings
+    app.set('redisClient', redisClient);
     app.set('view engine', 'html');
     app.set('views', ['app/steps', 'app/views']);
 

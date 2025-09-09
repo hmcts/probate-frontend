@@ -415,7 +415,9 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         });
     });
 
-    if (process.env.NODE_ENV === 'dev-aat' || process.env.NODE_ENV === 'dev-pr') {
+    const environment = config.environment;
+    const memlogEnvironments = ['aat'];
+    if (memlogEnvironments.includes(environment)) {
         const v8 = require('node:v8');
 
         const inMb = (v) => (v / 1024 / 1024).toFixed(2);
@@ -433,11 +435,12 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             logger('MemUsage').info(logMsg);
         };
 
-        logger('MemUsage').info('Scheduling memory reporting every 60 seconds');
+        logger('MemUsage')
+            .info(`Scheduling memory reporting every 60 seconds in config.environment: ${environment}`);
         const logMem = setInterval(doLogMem, 60000);
     } else {
         logger('MemUsage')
-            .info('Not triggering regular memory logging for production-like environment');
+            .info(`Not triggering regular memory logging for config.environment: ${environment}`);
     }
 
     return {app, http};

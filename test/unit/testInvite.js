@@ -66,7 +66,14 @@ describe('Executors invite endpoints', () => {
                 }
             }
         });
-        const inviteLink = new InviteLink();
+
+        const redisStub = {
+            get: sinon.stub().resolves(null),
+            set: sinon.stub(),
+            expire: sinon.stub(),
+        };
+
+        const inviteLink = new InviteLink(redisStub, 30);
 
         inviteLink.verify()(req, res, next);
 

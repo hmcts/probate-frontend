@@ -68,6 +68,16 @@ class InviteLink {
                 req.session.inviteId = inviteId;
                 req.session.validLink = true;
 
+                if (!(this.redisClient)) {
+                    logger.warn(`No redis client, send pin unconditionally for invite: ${inviteId}`);
+                    const pinNumber = new PinNumber(config.services.orchestrator.url, sessionId);
+                    const bilingual = result.bilingual === 'optionYes';
+
+                    return pinNumber.get(result.phoneNumber, bilingual, authToken, serviceAuthorisation)
+                        .then(generatedPin => {
+                            return generatedPin;
+                        });
+                }
                 // check whether we have recently sent a PIN
                 return this.redisClient.get(inviteId)
                     .then(pinValue => {

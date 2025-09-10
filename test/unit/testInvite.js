@@ -131,6 +131,47 @@ describe('Executors invite endpoints', () => {
         });
     });
 
+    it('when there is a valid link but no redis client', (done) => {
+        const restore = InviteLink.__set__({
+            FormatUrl: {
+                createHostname() {
+                    return 'hostname';
+                }
+            },
+            Authorise: class {
+                post() {
+                    return Promise.resolve('serviceAuthorisation');
+                }
+            },
+            Security: class {
+                getUserToken() {
+                    return Promise.resolve('authToken');
+                }
+            },
+            InviteLinkService: class {
+                get() {
+                    return Promise.resolve({valid: true});
+                }
+            },
+            PinNumber: class {
+                get() {
+                    return Promise.resolve('1234');
+                }
+            }
+        });
+
+        const inviteLink = new InviteLink(null, 30);
+
+        inviteLink.verify()(req, res, next);
+
+        checkAsync(() => {
+            sinon.assert.calledOnce(res.redirect);
+            expect(res.redirect).to.have.been.calledWith('/sign-in');
+            restore();
+            done();
+        });
+    });
+
     it('when there is an invalid link', (done) => {
         const restore = InviteLink.__set__({
             Authorise: class {

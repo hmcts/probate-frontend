@@ -85,7 +85,7 @@ describe('Executors invite endpoints', () => {
         });
     });
 
-    it('when there is a valid link and has not been recently used', (done) => {
+    it('when there is a valid link and has been recently used', (done) => {
         const restore = InviteLink.__set__({
             FormatUrl: {
                 createHostname() {

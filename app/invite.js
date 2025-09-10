@@ -43,9 +43,10 @@ class InviteLink {
                 const inviteId = req.params.inviteId;
                 const inviteLink = new InviteLinkService(config.services.orchestrator.url, req.sessionID);
 
+                const sessionId = req.sessionID;
                 return inviteLink.get(inviteId, authToken, serviceAuthorisation)
                     .then(result => {
-                        return {authToken, serviceAuthorisation, inviteId, result};
+                        return {authToken, serviceAuthorisation, inviteId, result, sessionId};
                     });
             })
             .then(resultObj => {
@@ -53,6 +54,7 @@ class InviteLink {
                 const serviceAuthorisation = resultObj.serviceAuthorisation;
                 const authToken = resultObj.authToken;
                 const inviteId = resultObj.inviteId;
+                const sessionId = resultObj.sessionId;
 
                 if (result.name === 'Error') {
                     logger.error(`Error while verifying the token: ${result.message}`);
@@ -77,7 +79,7 @@ class InviteLink {
                                 });
                         }
                         logger.info(`Not seen invite: ${inviteId}, send pin and setting timeout to ${this.pinTimeout}`);
-                        const pinNumber = new PinNumber(config.services.orchestrator.url, req.sessionID);
+                        const pinNumber = new PinNumber(config.services.orchestrator.url, sessionId);
                         const bilingual = result.bilingual === 'optionYes';
 
                         return pinNumber.get(result.phoneNumber, bilingual, authToken, serviceAuthorisation)

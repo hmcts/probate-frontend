@@ -38,7 +38,7 @@ describe('Executors invite endpoints', () => {
         next = sinon.spy();
     });
 
-    it('when there is a valid link', (done) => {
+    it('when there is a valid link and has not been recently used', (done) => {
         const restore = InviteLink.__set__({
             FormatUrl: {
                 createHostname() {
@@ -71,6 +71,52 @@ describe('Executors invite endpoints', () => {
             get: sinon.stub().resolves(null),
             set: sinon.stub(),
             expire: sinon.stub(),
+        };
+
+        const inviteLink = new InviteLink(redisStub, 30);
+
+        inviteLink.verify()(req, res, next);
+
+        checkAsync(() => {
+            sinon.assert.calledOnce(res.redirect);
+            expect(res.redirect).to.have.been.calledWith('/sign-in');
+            restore();
+            done();
+        });
+    });
+
+    it('when there is a valid link and has not been recently used', (done) => {
+        const restore = InviteLink.__set__({
+            FormatUrl: {
+                createHostname() {
+                    return 'hostname';
+                }
+            },
+            Authorise: class {
+                post() {
+                    return Promise.resolve('serviceAuthorisation');
+                }
+            },
+            Security: class {
+                getUserToken() {
+                    return Promise.resolve('authToken');
+                }
+            },
+            InviteLinkService: class {
+                get() {
+                    return Promise.resolve({valid: true});
+                }
+            },
+            PinNumber: class {
+                get() {
+                    return Promise.resolve('1234');
+                }
+            }
+        });
+
+        const redisStub = {
+            get: sinon.stub().resolves(1234),
+            ttl: sinon.stub().resolves(12),
         };
 
         const inviteLink = new InviteLink(redisStub, 30);

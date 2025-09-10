@@ -43,54 +43,57 @@ class InviteLink {
                     const inviteId = req.params.inviteId;
                     const inviteLink = new InviteLinkService(config.services.orchestrator.url, req.sessionID);
 
-                    inviteLink.get(inviteId, authToken, serviceAuthorisation)
+                    return inviteLink.get(inviteId, authToken, serviceAuthorisation)
                         .then(result => {
-                            if (result.name === 'Error') {
-                                logger.error(`Error while verifying the token: ${result.message}`);
-                                failure(res);
-                            } else {
-                                logger.info('Link is valid');
-
-                                req.session.phoneNumber = result.phoneNumber;
-                                req.session.leadExecutorName = result.mainExecutorName;
-                                req.session.formdataId = result.formdataId;
-                                req.session.inviteId = inviteId;
-                                req.session.validLink = true;
-                                // check whether we have recently sent a PIN
-                                this.redisClient.get(inviteId)
-                                    .then(pinValue => {
-                                        if (pinValue) {
-                                            this.redisClient.ttl(inviteId)
-                                                .then(ttl => {
-                                                    logger.info(`Recently seen invite: ${inviteId} (ttl: ${ttl}), not resending`);
-                                                    req.session.pin = pinValue;
-                                                    success(res);
-                                                });
-                                        } else {
-                                            logger.info(`Not seen invite: ${inviteId}, send pin and setting timeout to ${this.pinTimeout}`);
-                                            const pinNumber = new PinNumber(config.services.orchestrator.url, req.sessionID);
-                                            const bilingual = result.bilingual === 'optionYes';
-
-                                            pinNumber.get(result.phoneNumber, bilingual, authToken, serviceAuthorisation)
-                                                .then(generatedPin => {
-                                                    this.redisClient.set(inviteId, generatedPin);
-                                                    this.redisClient.expire(inviteId, this.pinTimeout);
-
-                                                    req.session.pin = generatedPin;
-                                                    success(res);
-                                                });
-                                        }
-                                    })
-                                    .catch(error => {
-                                        logger.error(`Error looking up from redis: ${error}`);
-                                    });
-                            }
-                        })
-                        .catch(err => {
-                            logger.error(`Error while checking the link or sending the pin: ${err}`);
-                            failure(res);
+                            return {authToken, serviceAuthorisation, inviteId, result};
                         });
                 }
+            })
+            .then(resultObj => {
+                const result = resultObj.result;
+                const serviceAuthorisation = result.serviceAuthorisation;
+                const authToken = result.authToken;
+                const inviteId = result.inviteId;
+
+                if (result.name === 'Error') {
+                    logger.error(`Error while verifying the token: ${result.message}`);
+                    failure(res);
+                } else {
+                    logger.info('Link is valid');
+
+                    req.session.phoneNumber = result.phoneNumber;
+                    req.session.leadExecutorName = result.mainExecutorName;
+                    req.session.formdataId = result.formdataId;
+                    req.session.inviteId = inviteId;
+                    req.session.validLink = true;
+
+                    // check whether we have recently sent a PIN
+                    return this.redisClient.get(inviteId)
+                        .then(pinValue => {
+                            if (pinValue) {
+                                return this.redisClient.ttl(inviteId)
+                                    .then(ttl => {
+                                        logger.info(`Recently seen invite: ${inviteId} (ttl: ${ttl}), not resending`);
+                                        return pinValue;
+                                    });
+                            }
+                            logger.info(`Not seen invite: ${inviteId}, send pin and setting timeout to ${this.pinTimeout}`);
+                            const pinNumber = new PinNumber(config.services.orchestrator.url, req.sessionID);
+                            const bilingual = result.bilingual === 'optionYes';
+
+                            return pinNumber.get(result.phoneNumber, bilingual, authToken, serviceAuthorisation)
+                                .then(generatedPin => {
+                                    this.redisClient.set(inviteId, generatedPin);
+                                    this.redisClient.expire(inviteId, this.pinTimeout);
+
+                                    return generatedPin;
+                                });
+                        });
+                }
+            })
+            .then(pin => {
+                req.session.pin = pin;
+                success(res);
             })
             .catch(err => {
                 logger.error(`Error while getting the authToken and serviceAuthorisation: ${err}`);

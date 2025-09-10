@@ -50,9 +50,9 @@ class InviteLink {
             })
             .then(resultObj => {
                 const result = resultObj.result;
-                const serviceAuthorisation = result.serviceAuthorisation;
-                const authToken = result.authToken;
-                const inviteId = result.inviteId;
+                const serviceAuthorisation = resultObj.serviceAuthorisation;
+                const authToken = resultObj.authToken;
+                const inviteId = resultObj.inviteId;
 
                 if (result.name === 'Error') {
                     logger.error(`Error while verifying the token: ${result.message}`);

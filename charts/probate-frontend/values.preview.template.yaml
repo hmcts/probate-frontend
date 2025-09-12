@@ -1,10 +1,10 @@
 nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_NAME}.preview.platform.hmcts.net
-  memoryRequests: 64Mi
-  memoryLimits: 1Gi
-  devmemoryRequests: 64Mi
-  devmemoryLimits: 1Gi
+  memoryRequests: 1Gi
+  memoryLimits: 2Gi
+  devmemoryRequests: 1Gi
+  devmemoryLimits: 2Gi
   autoscaling:
     enabled: false
   environment:
@@ -13,6 +13,7 @@ nodejs:
     REDIS_USE_TLS: false
     LAUNCHDARKLY_ENABLED: true
     DYNATRACE_URL: /public/javascripts/document-upload.js
+    NODE_OPTIONS: '--max-old-space-size=2048'
   keyVaults:
     probate:
       resourceGroup: probate

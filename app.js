@@ -37,6 +37,8 @@ const isEmpty = require('lodash').isEmpty;
 const setupHealthCheck = require('app/utils/setupHealthCheck');
 const {sanitizeInput} = require('./app/utils/Sanitize');
 const {merge} = require('lodash');
+const os = require('node:os');
+const v8 = require('node:v8');
 
 exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const app = express();
@@ -45,6 +47,29 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const useIDAM = config.app.useIDAM.toLowerCase();
     const security = new Security(config.services.idam.loginUrl);
     const inviteSecurity = new InviteSecurity();
+
+    const logMem = setInterval(() => {
+        const inMb = (v) => (v / 1024 / 1024).toFixed(2);
+
+        const heapStat = v8.getHeapStatistics();
+        const ths = inMb(heapStat.total_heap_size);
+        const thse = inMb(heapStat.total_heap_size_executable);
+        const tps = inMb(heapStat.total_physical_size);
+        const tas = inMb(heapStat.total_available_size);
+        const uhs = inMb(heapStat.used_heap_size);
+        const hsl = inMb(heapStat.heap_size_limit);
+
+        logger('MemUsage').info(`ths: ${ths} tshe: ${thse} tps: ${tps} tas: ${tas} uhs: ${uhs} hsl: ${hsl}`);
+
+        const usage = process.memoryUsage();
+        const rss = inMb(usage.rss);
+        const heapTotal = inMb(usage.heapTotal);
+        const heapUsed = inMb(usage.heapUsed);
+        const ext = inMb(usage.external);
+        const osm = inMb(os.freemem());
+
+        logger('MemUsage').info(`rss: ${rss} hT: ${heapTotal} hU: ${heapUsed} ext: ${ext} av: ${osm}`);
+    }, 10000);
 
     // Application settings
     app.set('view engine', 'html');

@@ -29,7 +29,7 @@ describe('payment-breakdown', () => {
             applicationfee: 215,
             applicationvalue: 6000,
             ukcopies: 1,
-            ukcopiesfee: 1.50,
+            ukcopiesfee: 16.00,
             overseascopies: 2,
             overseascopiesfee: 3,
             applicationversion: 0,
@@ -67,7 +67,7 @@ describe('payment-breakdown', () => {
                     applicationfee: 215,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 1.50,
+                    ukcopiesfee: 16.00,
                     overseascopies: 2,
                     overseascopiesfee: 3,
                     total: 219.50
@@ -149,7 +149,7 @@ describe('payment-breakdown', () => {
                     applicationfee: 215,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 1.50,
+                    ukcopiesfee: 16.00,
                     overseascopies: 2,
                     overseascopiesfee: 3,
                     total: 219.50

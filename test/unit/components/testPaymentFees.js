@@ -78,14 +78,14 @@ describe('payment-data.js', () => {
 
         it('should return the uk copies when uk.copies.number > 0', (done) => {
             const data = {
-                amount: 1.50,
+                amount: 16.00,
                 description: 'Ffioedd Profiant',
                 ccdCaseId: '123',
                 applicationFee: 0,
                 copies: {
                     uk: {
                         number: 1,
-                        cost: 1.50
+                        cost: 16.00
                     },
                     overseas: {
                         number: 0,
@@ -98,14 +98,14 @@ describe('payment-data.js', () => {
             };
             const result = paymentData.createPaymentData(data, 'cy');
             expect(result).to.deep.equal({
-                amount: 1.50,
+                amount: 16.00,
                 description: 'Ffioedd Profiant',
                 ccd_case_number: '123',
                 service: 'PROBATE',
                 currency: 'GBP',
                 site_id: 'P223',
                 fees: [{
-                    calculated_amount: 1.50,
+                    calculated_amount: 16.00,
                     ccd_case_number: '123',
                     code: 'FEE0003',
                     memo_line: 'Additional UK copies',
@@ -162,14 +162,14 @@ describe('payment-data.js', () => {
 
         it('should return all fees when there is an application fee, uk copies and overseas copies', (done) => {
             const data = {
-                amount: 219.50,
+                amount: 498.00,
                 description: 'Ffioedd Profiant',
                 ccdCaseId: '123',
-                applicationFee: 215,
+                applicationFee: 450,
                 copies: {
                     uk: {
                         number: 1,
-                        cost: 1.50
+                        cost: 16.00
                     },
                     overseas: {
                         number: 2,
@@ -186,14 +186,14 @@ describe('payment-data.js', () => {
             };
             const result = paymentData.createPaymentData(data, 'cy');
             expect(result).to.deep.equal({
-                amount: 219.50,
+                amount: 498.00,
                 description: 'Ffioedd Profiant',
                 ccd_case_number: '123',
                 service: 'PROBATE',
                 currency: 'GBP',
                 site_id: 'P223',
                 fees: [{
-                    calculated_amount: 215,
+                    calculated_amount: 450,
                     ccd_case_number: '123',
                     code: 'FEE0226',
                     memo_line: 'Probate Fees',
@@ -201,7 +201,7 @@ describe('payment-data.js', () => {
                     version: 1,
                     volume: 1
                 }, {
-                    calculated_amount: 1.50,
+                    calculated_amount: 16.00,
                     ccd_case_number: '123',
                     code: 'FEE0003',
                     memo_line: 'Additional UK copies',
@@ -224,14 +224,14 @@ describe('payment-data.js', () => {
 
         it('should return all fees when there is an application fee, uk copies and overseas copies, but an empty language flag when english selected', (done) => {
             const data = {
-                amount: 219.50,
+                amount: 498.00,
                 description: 'Probate Fees',
                 ccdCaseId: '123',
-                applicationFee: 215,
+                applicationFee: 450,
                 copies: {
                     uk: {
                         number: 1,
-                        cost: 1.50
+                        cost: 16.00
                     },
                     overseas: {
                         number: 2,
@@ -248,14 +248,14 @@ describe('payment-data.js', () => {
             };
             const result = paymentData.createPaymentData(data, 'en');
             expect(result).to.deep.equal({
-                amount: 219.50,
+                amount: 498.00,
                 description: 'Probate Fees',
                 ccd_case_number: '123',
                 service: 'PROBATE',
                 currency: 'GBP',
                 site_id: 'P223',
                 fees: [{
-                    calculated_amount: 215,
+                    calculated_amount: 450,
                     ccd_case_number: '123',
                     code: 'FEE0226',
                     memo_line: 'Probate Fees',
@@ -263,7 +263,7 @@ describe('payment-data.js', () => {
                     version: 1,
                     volume: 1
                 }, {
-                    calculated_amount: 1.50,
+                    calculated_amount: 16.00,
                     ccd_case_number: '123',
                     code: 'FEE0003',
                     memo_line: 'Additional UK copies',

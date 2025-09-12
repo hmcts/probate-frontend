@@ -146,13 +146,7 @@ router.use(['/task-list', '/assets-overseas', '/copies-overseas', '/copies-uk', 
     }
 });
 
-const allSteps = {
-    'en': initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`], 'en'),
-    'cy': initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`], 'cy')
-};
-
 router.use((req, res, next) => {
-    const steps = allSteps[req.session.language];
     const currentPageCleanUrl = FormatUrl.getCleanPageUrl(req.originalUrl, 1);
     const formdata = req.session.form;
 
@@ -166,17 +160,6 @@ router.use((req, res, next) => {
     const date = (formdata.reviewresponse?.expectedResponseDate || formdata.expectedResponseDate)? utils.formattedDate(moment(formdata.reviewresponse?.expectedResponseDate || formdata.expectedResponseDate, 'YYYY-MM-DD').parseZone(), req.session.language): null;
     const informationProvided = CaseProgress.informationProvided(formdata.ccdCase?.state, formdata.provideinformation?.documentUploadIssue, date);
     const partialInformationProvided = CaseProgress.partialInformationProvided(formdata.ccdCase?.state, formdata.provideinformation?.documentUploadIssue, date, formdata.provideinformation?.citizenResponse, formdata.documents?.uploads.map(doc => doc.filename), formdata.provideinformation?.isSaveAndClose);
-
-    const allPageUrls = [];
-    Object.entries(steps).forEach(([, step]) => {
-        const stepUrl = FormatUrl.getCleanPageUrl(step.constructor.getUrl(), 1);
-        if (!allPageUrls.includes(stepUrl)) {
-            allPageUrls.push(stepUrl);
-        }
-
-        router.get(step.constructor.getUrl(), step.runner().GET(step));
-        router.post(step.constructor.getUrl(), step.runner().POST(step));
-    });
 
     const noCcdCaseIdPages = config.noCcdCaseIdPages.map(item => FormatUrl.getCleanPageUrl(item, 0));
 
@@ -253,5 +236,21 @@ const redirectTaskList = (req, currentPageCleanUrl, formdata, applicationSubmitt
         return true;
     }
 };
+
+const allSteps = {
+    'en': initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`], 'en'),
+    'cy': initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`], 'cy')
+};
+const allPageUrls = [];
+Object.entries(allSteps.en).forEach(([, step]) => {
+    const stepUrl = step.constructor.getUrl();
+    const cleanStepUrl = FormatUrl.getCleanPageUrl(stepUrl, 1);
+    if (!allPageUrls.includes(cleanStepUrl)) {
+        allPageUrls.push(cleanStepUrl);
+    }
+
+    router.get(stepUrl, step.runner().GET(step));
+    router.post(stepUrl, step.runner().POST(step));
+});
 
 module.exports = router;

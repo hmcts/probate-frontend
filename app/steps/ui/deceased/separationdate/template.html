@@ -8,15 +8,26 @@
 
 {% block form_content %}
 
-    {% if errors %}
-        {% set inlineErrors = {
-            text:
-            (
-                (fields["separationDate-date"].errorMessage + "<br>" if fields["separationDate-date"].errorMessage) +
-                (fields["separationDate-year"].errorMessage + "<br>" if fields["separationDate-year"].errorMessage)
-            ) | safe
-        } %}
-    {% endif %}
+{% set errorFields = [
+    "separationDate",
+    "separationDate-day",
+    "separationDate-month",
+    "separationDate-year",
+    "separationDate-day-month",
+    "separationDate-month-year",
+    "separationDate-day-year"
+] %}
+{% if errors %}
+    {% set errorMessages = [] %}
+        {% for field in errorFields %}
+            {% if fields[field].errorMessage %}
+                {% set errorMessages = errorMessages.concat([fields[field].errorMessage | replace("{deceasedName}", fields.deceasedName.value) | safe]) %}
+            {% endif %}
+        {% endfor %}
+    {% set inlineErrors = {
+        text: errorMessages | join("<br>") | safe
+    } %}
+{% endif %}
 
     {% set dateHtml %}
       {{ govukDateInput({
@@ -30,19 +41,22 @@
           errorMessage: inlineErrors,
           items: [
               {
-                  classes: "govuk-input--width-2" + (" govuk-input--error" if fields["separationDate-date"].error),
+                  classes: "govuk-input--width-2" + (" govuk-input--error" if fields["separationDate"].error or fields["separationDate-day"].error
+                      or fields["separationDate-day-month"].error or fields["separationDate-day-year"].error),
                   name: "day",
                   label: content["dayName"] | safe,
                   value: fields["separationDate-day"].value
               },
               {
-                  classes: "govuk-input--width-2" + (" govuk-input--error" if fields["separationDate-date"].error),
+                  classes: "govuk-input--width-2" + (" govuk-input--error" if fields["separationDate"].error or fields["separationDate-month"].error
+                      or fields["separationDate-day-month"].error or fields["separationDate-month-year"].error),
                   name: "month",
                   label: content["monthName"] | safe,
                   value: fields["separationDate-month"].value
               },
               {
-                  classes: "govuk-input--width-4" + (" govuk-input--error" if fields["separationDate-year"].error or fields["separationDate-date"].error),
+                  classes: "govuk-input--width-4" + (" govuk-input--error" if fields["separationDate-year"].error or fields["separationDate"].error
+                      or fields["separationDate-month-year"].error or fields["separationDate-day-year"].error),
                   name: "year",
                   label: content["yearName"] | safe,
                   value: fields["separationDate-year"].value

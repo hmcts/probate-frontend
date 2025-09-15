@@ -2,25 +2,37 @@
   "title": "Dyddiad marwolaeth yr unigolyn sydd wedi marw",
   "question": "Beth oedd y dyddiad pan fu {deceasedName} farw?",
   "questionHint": "Defnyddiwch y dyddiad sydd ar y dystysgrif marwolaeth. Er enghraifft, 30 01 2025",
+  "dayName": "Diwrnod",
+  "monthName": "Mis",
+  "yearName": "Blwyddyn",
 
   "errors": {
     "dod-day": {
       "required": "Rhaid i ddyddiad y farwolaeth gynnwys diwrnod",
-      "invalid": "Nodwch ddiwrnod dilys ar gyfer pryd bu iddynt farw"
+      "invalid": "Rhaid i ddyddiad y farwolaeth fod yn ddyddiad dilys"
     },
     "dod-month": {
       "required": "Rhaid i ddyddiad y farwolaeth gynnwys mis",
-      "invalid": "Nodwch fis dilys ar gyfer pryd bu iddynt farw"
+      "invalid": "Rhaid i ddyddiad y farwolaeth fod yn ddyddiad dilys"
     },
     "dod-year": {
       "required": "Rhaid i ddyddiad y farwolaeth gynnwys blwyddyn",
-      "invalid": "Nodwch flwyddyn ddilys ar gyfer pryd bu iddynt farw"
+      "invalid": "Rhaid i ddyddiad y farwolaeth fod yn ddyddiad dilys"
+    },
+    "dod-day-month": {
+      "required": "Rhaid i ddyddiad y farwolaeth gynnwys diwrnod a mis"
+    },
+    "dod-month-year": {
+      "required": "Rhaid i ddyddiad y farwolaeth gynnwys mis a blwyddyn"
+    },
+    "dod-day-year": {
+      "required": "Rhaid i ddyddiad y farwolaeth gynnwys diwrnod a blwyddyn"
     },
     "dod-date": {
       "required": "Nodwch y dyddiad pan fu {deceasedName} farw",
-      "invalid": "Nodwch ddyddiad dilys ar gyfer pryd bu iddynt farw",
-      "dateInFuture": "Nodwch ddyddiad yn y gorffennol",
-      "dodBeforeDob": "Nodwch ddyddiad marwolaeth sydd ar &ocirc;l y dyddiad geni"
+      "invalid": "Rhaid i ddyddiad y farwolaeth fod yn ddyddiad dilys",
+      "dateInFuture": "Rhaid i ddyddiad y farwolaeth fod yn y gorffennol",
+      "dodBeforeDob": "Rhaid i ddyddiad y farwolaeth fod ar &ocirc;l dyddiad geni {deceasedName}"
     }
   }
 }

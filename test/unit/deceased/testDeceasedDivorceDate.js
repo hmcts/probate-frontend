@@ -24,9 +24,9 @@ describe('DivorceDate', () => {
             expect(ctx).to.deep.equal({
                 'divorceDateKnown': 'optionYes',
                 'divorceDate': '4/10/2025',
-                'divorce-day': '4',
-                'divorce-month': '10',
-                'divorce-year': '2025'
+                'divorceDate-day': '4',
+                'divorceDate-month': '10',
+                'divorceDate-year': '2025'
             });
             done();
         });
@@ -56,8 +56,8 @@ describe('DivorceDate', () => {
             const session = {};
             const [, errors] = DivorceDate.handlePost(ctxIn, errorsIn, formdata, session);
             expect(errors).to.deep.equal([{
-                'field': 'divorceDate-day-month-year',
-                'href': '#divorceDate-day-month-year',
+                'field': 'divorceDate',
+                'href': '#divorceDate',
                 'msg': 'Enter the date the divorce or dissolution took place'
             }]);
             done();
@@ -66,8 +66,8 @@ describe('DivorceDate', () => {
         it ('should create an error when no year has been entered', (done) => {
             const ctxIn = {
                 'divorceDateKnown': 'optionYes',
-                'divorce-day': '4',
-                'divorce-month': '10',
+                'divorceDate-day': '4',
+                'divorceDate-month': '10',
 
             };
             const errorsIn = [];
@@ -85,8 +85,8 @@ describe('DivorceDate', () => {
         it ('should create an error when no month has been entered', (done) => {
             const ctxIn = {
                 'divorceDateKnown': 'optionYes',
-                'divorce-day': '4',
-                'divorce-year': '2025',
+                'divorceDate-day': '4',
+                'divorceDate-year': '2025',
 
             };
             const errorsIn = [];
@@ -104,8 +104,8 @@ describe('DivorceDate', () => {
         it ('should create an error when no day has been entered', (done) => {
             const ctxIn = {
                 'divorceDateKnown': 'optionYes',
-                'divorce-month': '10',
-                'divorce-year': '2025',
+                'divorceDate-month': '10',
+                'divorceDate-year': '2025',
 
             };
             const errorsIn = [];
@@ -123,7 +123,7 @@ describe('DivorceDate', () => {
         it ('should create an error when day but no year and no month', (done) => {
             const ctxIn = {
                 'divorceDateKnown': 'optionYes',
-                'divorce-day': '4',
+                'divorceDate-day': '4',
             };
             const errorsIn = [];
             const formdata = {};
@@ -140,7 +140,7 @@ describe('DivorceDate', () => {
         it ('should create an error when month but no day and no year', (done) => {
             const ctxIn = {
                 'divorceDateKnown': 'optionYes',
-                'divorce-month': '10',
+                'divorceDate-month': '10',
             };
             const errorsIn = [];
             const formdata = {};
@@ -157,7 +157,7 @@ describe('DivorceDate', () => {
         it ('should create an error when year but no day and no month', (done) => {
             const ctxIn = {
                 'divorceDateKnown': 'optionYes',
-                'divorce-year': '2025',
+                'divorceDate-year': '2025',
             };
             const errorsIn = [];
             const formdata = {};
@@ -174,9 +174,9 @@ describe('DivorceDate', () => {
         it ('should create an error when a future date has been entered', (done) => {
             const ctxIn = {
                 'divorceDateKnown': 'optionYes',
-                'divorce-day': '4',
-                'divorce-month': '10',
-                'divorce-year': '3000'
+                'divorceDate-day': '4',
+                'divorceDate-month': '10',
+                'divorceDate-year': '3000'
             };
             const errorsIn = [];
             const formdata = {};
@@ -193,9 +193,9 @@ describe('DivorceDate', () => {
         it ('should create an error if negative day, month or year entered', (done) => {
             const ctxIn = {
                 'divorceDateKnown': 'optionYes',
-                'divorce-day': '-4',
-                'divorce-month': '10',
-                'divorce-year': '2022'
+                'divorceDate-day': '-4',
+                'divorceDate-month': '10',
+                'divorceDate-year': '2022'
             };
             const errorsIn = [];
             const formdata = {};
@@ -212,9 +212,9 @@ describe('DivorceDate', () => {
         it ('should create an error when an invalid date has been entered', (done) => {
             const ctxIn = {
                 'divorceDateKnown': 'optionYes',
-                'divorce-day': 'a',
-                'divorce-month': 'b',
-                'divorce-year': 'c'
+                'divorceDate-day': 'a',
+                'divorceDate-month': 'b',
+                'divorceDate-year': 'c'
             };
             const errorsIn = [];
             const formdata = {};
@@ -231,25 +231,44 @@ describe('DivorceDate', () => {
         it ('should add the date with day, month and year as a formatted string to the context', (done) => {
             const ctxIn = {
                 'divorceDateKnown': 'optionYes',
-                'divorceDate-day': '4',
+                'divorceDate-day': '04',
                 'divorceDate-month': '08',
-                'divorceDate-year': '2025',
-                'divorce-day': '4',
-                'divorce-month': '08',
-                'divorce-year': '2025'
+                'divorceDate-year': '2025'
             };
             const [ctx] = DivorceDate.handlePost(ctxIn);
             const ctxOut = {
                 'divorceDateKnown': 'optionYes',
-                'divorceDate': '4/08/2025',
-                'divorceDate-day': '4',
+                'divorceDate': '04/08/2025',
+                'divorceDate-day': '04',
                 'divorceDate-month': '08',
-                'divorceDate-year': '2025',
-                'divorce-day': '4',
-                'divorce-month': '08',
-                'divorce-year': '2025'
+                'divorceDate-year': '2025'
             };
             expect(ctx).to.deep.equal(ctxOut);
+            done();
+        });
+    });
+
+    describe('getContextData()', () => {
+        let ctx;
+        let req;
+
+        it('should return the context with the deceased name', (done) => {
+            req = {
+                session: {
+                    form: {
+                        deceased: {
+                            firstName: 'John',
+                            lastName: 'Doe',
+                            'dob-date': '1918-01-01',
+                            'dod-date': '2020-03-02',
+                            'maritalStatus': 'divorced'
+                        }
+                    }
+                }
+            };
+
+            ctx = DivorceDate.getContextData(req);
+            expect(ctx.deceasedName).to.equal('John Doe');
             done();
         });
     });

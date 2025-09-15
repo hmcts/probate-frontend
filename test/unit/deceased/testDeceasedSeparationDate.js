@@ -24,9 +24,9 @@ describe('SeparationDate', () => {
             expect(ctx).to.deep.equal({
                 'separationDateKnown': 'optionYes',
                 'separationDate': '4/10/2025',
-                'separation-day': '4',
-                'separation-month': '10',
-                'separation-year': '2025'
+                'separationDate-day': '4',
+                'separationDate-month': '10',
+                'separationDate-year': '2025'
             });
             done();
         });
@@ -56,8 +56,8 @@ describe('SeparationDate', () => {
             const session = {};
             const [, errors] = SeparationDate.handlePost(ctxIn, errorsIn, formdata, session);
             expect(errors).to.deep.equal([{
-                'field': 'separationDate-day-month-year',
-                'href': '#separationDate-day-month-year',
+                'field': 'separationDate',
+                'href': '#separationDate',
                 'msg': 'Enter the date the legal separation took place'
             }]);
             done();
@@ -66,8 +66,8 @@ describe('SeparationDate', () => {
         it ('should create an error when no year has been entered', (done) => {
             const ctxIn = {
                 'separationDateKnown': 'optionYes',
-                'separation-day': '4',
-                'separation-month': '10',
+                'separationDate-day': '4',
+                'separationDate-month': '10',
 
             };
             const errorsIn = [];
@@ -85,8 +85,8 @@ describe('SeparationDate', () => {
         it ('should create an error when no month has been entered', (done) => {
             const ctxIn = {
                 'separationDateKnown': 'optionYes',
-                'separation-day': '4',
-                'separation-year': '2025',
+                'separationDate-day': '4',
+                'separationDate-year': '2025',
 
             };
             const errorsIn = [];
@@ -104,8 +104,8 @@ describe('SeparationDate', () => {
         it ('should create an error when no day has been entered', (done) => {
             const ctxIn = {
                 'separationDateKnown': 'optionYes',
-                'separation-month': '10',
-                'separation-year': '2025',
+                'separationDate-month': '10',
+                'separationDate-year': '2025',
 
             };
             const errorsIn = [];
@@ -123,7 +123,7 @@ describe('SeparationDate', () => {
         it ('should create an error when day but no year and no month', (done) => {
             const ctxIn = {
                 'separationDateKnown': 'optionYes',
-                'separation-day': '4',
+                'separationDate-day': '4',
             };
             const errorsIn = [];
             const formdata = {};
@@ -140,7 +140,7 @@ describe('SeparationDate', () => {
         it ('should create an error when month but no day and no year', (done) => {
             const ctxIn = {
                 'separationDateKnown': 'optionYes',
-                'separation-month': '10',
+                'separationDate-month': '10',
             };
             const errorsIn = [];
             const formdata = {};
@@ -157,7 +157,7 @@ describe('SeparationDate', () => {
         it ('should create an error when year but no day and no month', (done) => {
             const ctxIn = {
                 'separationDateKnown': 'optionYes',
-                'separation-year': '2025',
+                'separationDate-year': '2025',
             };
             const errorsIn = [];
             const formdata = {};
@@ -174,9 +174,9 @@ describe('SeparationDate', () => {
         it ('should create an error when a future date has been entered', (done) => {
             const ctxIn = {
                 'separationDateKnown': 'optionYes',
-                'separation-day': '4',
-                'separation-month': '10',
-                'separation-year': '3000'
+                'separationDate-day': '4',
+                'separationDate-month': '10',
+                'separationDate-year': '3000'
             };
             const errorsIn = [];
             const formdata = {};
@@ -193,9 +193,9 @@ describe('SeparationDate', () => {
         it ('should create an error if negative day, month or year entered', (done) => {
             const ctxIn = {
                 'separationDateKnown': 'optionYes',
-                'separation-day': '-4',
-                'separation-month': '10',
-                'separation-year': '2022'
+                'separationDate-day': '-4',
+                'separationDate-month': '10',
+                'separationDate-year': '2022'
             };
             const errorsIn = [];
             const formdata = {};
@@ -212,9 +212,9 @@ describe('SeparationDate', () => {
         it ('should create an error when an invalid date has been entered', (done) => {
             const ctxIn = {
                 'separationDateKnown': 'optionYes',
-                'separation-day': 'a',
-                'separation-month': 'b',
-                'separation-year': 'c'
+                'separationDate-day': 'a',
+                'separationDate-month': 'b',
+                'separationDate-year': 'c'
             };
             const errorsIn = [];
             const formdata = {};
@@ -231,25 +231,44 @@ describe('SeparationDate', () => {
         it ('should add the date with day, month and year as a formatted string to the context', (done) => {
             const ctxIn = {
                 'separationDateKnown': 'optionYes',
-                'separationDate-day': '4',
+                'separationDate-day': '04',
                 'separationDate-month': '08',
-                'separationDate-year': '2025',
-                'separation-day': '4',
-                'separation-month': '08',
-                'separation-year': '2025'
+                'separationDate-year': '2025'
             };
             const [ctx] = SeparationDate.handlePost(ctxIn);
             const ctxOut = {
                 'separationDateKnown': 'optionYes',
-                'separationDate': '4/08/2025',
-                'separationDate-day': '4',
+                'separationDate': '04/08/2025',
+                'separationDate-day': '04',
                 'separationDate-month': '08',
-                'separationDate-year': '2025',
-                'separation-day': '4',
-                'separation-month': '08',
-                'separation-year': '2025'
+                'separationDate-year': '2025'
             };
             expect(ctx).to.deep.equal(ctxOut);
+            done();
+        });
+    });
+
+    describe('getContextData()', () => {
+        let ctx;
+        let req;
+
+        it('should return the context with the deceased name', (done) => {
+            req = {
+                session: {
+                    form: {
+                        deceased: {
+                            firstName: 'John',
+                            lastName: 'Doe',
+                            'dob-date': '1918-01-01',
+                            'dod-date': '2020-03-02',
+                            'maritalStatus': 'separated'
+                        }
+                    }
+                }
+            };
+
+            ctx = SeparationDate.getContextData(req);
+            expect(ctx.deceasedName).to.equal('John Doe');
             done();
         });
     });

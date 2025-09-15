@@ -32,10 +32,8 @@
     "separationDate-day-year": {
       "required": "Date of legal separation must include a day and year"
     },
-    "separationDate-day-month-year": {
-      "required": "Enter the date the legal separation took place"
-    },
     "separationDate": {
+      "required": "Enter the date the legal separation took place",
       "future": "The date of legal separation must be before {deceasedName}’s date of death",
       "invalid": "Date of legal separation must be a real date"
     }

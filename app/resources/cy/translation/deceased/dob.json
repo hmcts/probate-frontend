@@ -2,6 +2,9 @@
   "title": "Dyddiad geni&rsquo;r unigolyn sydd wedi marw",
   "question": "Beth oedd dyddiad geni {deceasedName}?",
   "questionHint": "Er enghraifft, 30 03 1945",
+  "dayName": "Diwrnod ",
+  "monthName": "Mis",
+  "yearName": "Blwyddyn",
 
   "errors": {
     "dob-day": {
@@ -15,6 +18,15 @@
     "dob-year": {
       "required": "Rhaid i’r dyddiad geni gynnwys blwyddyn",
       "invalid": "Nodwch flwyddyn geni ddilys"
+    },
+    "dob-day-month": {
+      "required": "Date of birth must include a day and month"
+    },
+    "dob-month-year": {
+      "required": "Date of birth must include a month and year"
+    },
+    "dob-day-year": {
+      "required": "Date of birth must include a day and year"
     },
     "dob-date": {
       "required": "Nodwch y dyddiad pan ganwyd {deceasedName}",

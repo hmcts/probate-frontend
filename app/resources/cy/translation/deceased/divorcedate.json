@@ -32,10 +32,8 @@
     "divorceDate-day-year": {
       "required": "Rhaid i ddyddiad yr ysgariad neu ddiddymiad gynnwys diwrnod a blwyddyn"
     },
-    "divorceDate-day-month-year": {
-      "required": "Nodwch y dyddiad pan ddigwyddodd yr ysgariad neu’r diddymiad"
-    },
     "divorceDate": {
+      "required": "Nodwch y dyddiad pan ddigwyddodd yr ysgariad neu’r diddymiad",
       "future": "Rhaid i ddyddiad yr ysgariad neu ddiddymiad fod cyn dyddiad marwolaeth {deceasedName}",
       "invalid": "Rhaid i ddyddiad yr ysgariad neu ddiddymiad fod yn ddyddiad dilys"
     }

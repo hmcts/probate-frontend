@@ -2,24 +2,36 @@
   "title": "Deceased date of birth",
   "question": "What was {deceasedName}’s date of birth?",
   "questionHint": "For example, 30 03 1945",
+  "dayName": "Day",
+  "monthName": "Month",
+  "yearName": "Year",
 
   "errors": {
     "dob-day": {
       "required": "Date of birth must include a day",
-      "invalid": "Enter a valid day of birth"
+      "invalid": "Date of birth must be a real date"
     },
     "dob-month": {
       "required": "Date of birth must include a month",
-      "invalid": "Enter a valid month of birth"
+      "invalid": "Date of birth must be a real date"
     },
     "dob-year": {
       "required": "Date of birth must include a year",
-      "invalid": "Enter a valid year of birth"
+      "invalid": "Date of birth must be a real date"
+    },
+    "dob-day-month": {
+      "required": "Date of birth must include a day and month"
+    },
+    "dob-month-year": {
+      "required": "Date of birth must include a month and year"
+    },
+    "dob-day-year": {
+      "required": "Date of birth must include a day and year"
     },
     "dob-date": {
       "required": "Enter the date {deceasedName} was born",
-      "invalid": "Enter a valid date of birth",
-      "dateInFuture": "Enter a date in the past",
+      "invalid": "Date of birth must be a real date",
+      "dateInFuture": "Date of birth must be in the past",
       "dodBeforeDob": "Enter a date of birth that is before the date of death"
     }
   }

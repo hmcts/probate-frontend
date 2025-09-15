@@ -15,7 +15,7 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.maritalStatus.errorMessage | safe } if fields.maritalStatus.errorMessage,
+        errorMessage: { text: fields.maritalStatus.errorMessage | replace("{deceasedName}", fields.deceasedName.value) | safe} if fields.maritalStatus.errorMessage,
         items: [
             {
                 value: "optionMarried",

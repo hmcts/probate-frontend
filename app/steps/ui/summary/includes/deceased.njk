@@ -141,19 +141,71 @@
 {{checkanswer(
     items = [
         {
-            question: fields.summary.deceasedDivorcePlaceQuestion.value,
+            question: content.DivorcePlace.question,
             answer: content.DivorcePlace[fields.deceased.divorcePlace.value],
             visible:
                 fields.summary.caseType.value == "intestacy"
-                and
-                (
-                    fields.deceased.maritalStatus.value == "optionDivorced"
-                    or
-                    fields.deceased.maritalStatus.value == "optionSeparated"
-                )
+                and fields.deceased.maritalStatus.value == "optionDivorced"
         }
     ],
     url = content.DivorcePlace.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.DivorceDate.question,
+            answer: content.DivorceDate[fields.deceased.divorceDateKnown.value],
+            visible: fields.summary.caseType.value == "intestacy"
+                 and fields.deceased.maritalStatus.value == "optionDivorced"
+        },
+        {
+            question: content.DivorceDate.date,
+            answer: fields.deceased.divorceDate.value,
+            visible: fields.summary.caseType.value == "intestacy"
+                and fields.deceased.maritalStatus.value == "optionDivorced"
+                and fields.deceased.divorceDateKnown.value == 'optionYes'
+        }
+    ],
+    url = content.DivorceDate.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.SeparationPlace.question,
+            answer: content.SeparationPlace[fields.deceased.separationPlace.value],
+            visible:
+                fields.summary.caseType.value == "intestacy"
+                and fields.deceased.maritalStatus.value == "optionSeparated"
+        }
+    ],
+    url = content.SeparationPlace.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.SeparationDate.question,
+            answer: content.SeparationDate[fields.deceased.separationDateKnown.value],
+            visible: fields.summary.caseType.value == "intestacy"
+                 and fields.deceased.maritalStatus.value == "optionSeparated"
+        },
+        {
+            question: content.SeparationDate.date,
+            answer: fields.deceased.separationDate.value,
+            visible: fields.summary.caseType.value == "intestacy"
+                and fields.deceased.maritalStatus.value == "optionSeparated"
+                and fields.deceased.separationDateKnown.value == 'optionYes'
+        }
+    ],
+    url = content.SeparationDate.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}

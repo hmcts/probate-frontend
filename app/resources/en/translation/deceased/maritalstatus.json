@@ -13,7 +13,7 @@
 
   "errors": {
     "maritalStatus": {
-      "required": "Choose a marital status option"
+      "required": "Select {deceasedName}&rsquo;s marital status at the time of their death"
     }
   }
 }

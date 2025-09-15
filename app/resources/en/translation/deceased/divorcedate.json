@@ -32,10 +32,8 @@
     "divorceDate-day-year": {
       "required": "Date of divorce or dissolution must include a day and year"
     },
-    "divorceDate-day-month-year": {
-      "required": "Enter the date the divorce or dissolution took place"
-    },
     "divorceDate": {
+      "required": "Enter the date the divorce or dissolution took place",
       "future": "The date of divorce or dissolution must be before {deceasedName}’s date of death",
       "invalid": "Date of divorce or dissolution must be a real date"
     }

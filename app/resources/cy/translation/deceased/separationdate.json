@@ -32,10 +32,8 @@
     "separationDate-day-year": {
       "required": "Rhaid i ddyddiad yr ymwahaniad cyfreithiol gynnwys diwrnod a blwyddyn"
     },
-    "separationDate-day-month-year": {
-      "required": "Nodwch y dyddiad pan ddigwyddodd yr ymwahaniad cyfreithiol"
-    },
     "separationDate": {
+      "required": "Nodwch y dyddiad pan ddigwyddodd yr ymwahaniad cyfreithiol",
       "future": "Rhaid i ddyddiad yr ymwahaniad cyfreithiol fod cyn dyddiad marwolaeth {deceasedName}",
       "invalid": "Rhaid i ddyddiad yr ymwahaniad cyfreithiol fod yn ddyddiad dilys"
     }

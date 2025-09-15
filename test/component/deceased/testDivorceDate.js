@@ -47,8 +47,7 @@ describe('divorce-date', () => {
                 .end(() => {
                     const data = {
                         maritalStatus: 'optionDivorced',
-                        divorceDateKnown: 'optionNo',
-                        divorceDate: '4/10/2025'
+                        divorceDateKnown: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);

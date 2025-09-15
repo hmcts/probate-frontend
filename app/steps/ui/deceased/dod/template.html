@@ -5,15 +5,24 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block form_content %}
+    {% set errorFields = [
+    "dod-date",
+    "dod-day",
+    "dod-month",
+    "dod-year",
+    "dod-day-month",
+    "dod-month-year",
+    "dod-day-year"
+    ] %}
     {% if errors %}
+        {% set errorMessages = [] %}
+        {% for field in errorFields %}
+            {% if fields[field].errorMessage %}
+                {% set errorMessages = errorMessages.concat([fields[field].errorMessage | replace("{deceasedName}", fields.deceasedName.value) | safe]) %}
+            {% endif %}
+        {% endfor %}
         {% set inlineErrors = {
-            text:
-            (
-                (fields["dod-date"].errorMessage | replace("{deceasedName}", fields.deceasedName.value) | safe + "<br>" if fields["dod-date"].errorMessage) +
-                (fields["dod-day"].errorMessage + "<br>" if fields["dod-day"].errorMessage) +
-                (fields["dod-month"].errorMessage + "<br>" if fields["dod-month"].errorMessage) +
-                (fields["dod-year"].errorMessage + "<br>" if fields["dod-year"].errorMessage)
-            ) | safe
+            text: errorMessages | join("<br>") | safe
         } %}
     {% endif %}
 
@@ -33,18 +42,24 @@
         errorMessage: inlineErrors,
         items: [
             {
-                classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dod-day"].error or fields["dod-date"].error),
+                classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dod-day"].error or fields["dod-date"].error
+                    or fields["dod-day-month"].error or fields["dod-day-year"].error),
                 name: "day",
+                label: content["dayName"] | safe,
                 value: fields["dod-day"].value
             },
             {
-                classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dod-month"].error or fields["dod-date"].error),
+                classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dod-month"].error or fields["dod-date"].error
+                    or fields["dod-day-month"].error or fields["dod-month-year"].error),
                 name: "month",
+                label: content["monthName"] | safe,
                 value: fields["dod-month"].value
             },
             {
-                classes: "govuk-input--width-4" + (" govuk-input--error" if fields["dod-year"].error or fields["dod-date"].error),
+                classes: "govuk-input--width-4" + (" govuk-input--error" if fields["dod-year"].error or fields["dod-date"].error
+                    or fields["dod-day-year"].error or fields["dod-month-year"].error),
                 name: "year",
+                label: content["yearName"] | safe,
                 value: fields["dod-year"].value
             }
         ]

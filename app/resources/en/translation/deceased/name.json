@@ -8,11 +8,15 @@
   "errors": {
     "firstName": {
       "required": "Enter the first name and any middle names of the person who died",
-      "invalid": "First name must only include letters a to z, and special characters such as hyphens, spaces and apostrophes"
+      "invalid": "First name must only include letters a to z, and special characters such as hyphens, spaces and apostrophes",
+      "minLength": "First name must be 2 characters or more",
+      "maxLength": "First name must be 100 characters or less"
     },
     "lastName": {
       "required": "Enter the last name of the person who died",
-      "invalid": "Last name must only include letters a to z, and special characters such as hyphens, spaces and apostrophes"
+      "invalid": "Last name must only include letters a to z, and special characters such as hyphens, spaces and apostrophes",
+      "minLength": "Last name must be 2 characters or more",
+      "maxLength": "Last name must be 100 characters or less"
     }
   }
 }

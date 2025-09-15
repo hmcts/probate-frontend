@@ -13,7 +13,7 @@
 
   "errors": {
     "maritalStatus": {
-      "required": "Dewiswch opsiwn ar gyfer eu statws priodasol"
+      "required": "Dewiswch statws priodasol {deceasedName} ar adeg eu marwolaeth"
     }
   }
 }

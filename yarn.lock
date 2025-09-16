@@ -2650,7 +2650,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@puppeteer/browsers@npm:2.10.10":
+"@puppeteer/browsers@npm:2.10.10, @puppeteer/browsers@npm:^2.2.0":
   version: 2.10.10
   resolution: "@puppeteer/browsers@npm:2.10.10"
   dependencies:
@@ -2664,23 +2664,6 @@ __metadata:
   bin:
     browsers: lib/cjs/main-cli.js
   checksum: 10/6e9763a567252faf88ba3a699d76b9651cc4355be7602feb6dd21eab1c826cc7616e22f50d584a5727a1cab420ee0c2f232da22704fe25903f7a41c96470a227
-  languageName: node
-  linkType: hard
-
-"@puppeteer/browsers@npm:^2.2.0":
-  version: 2.10.6
-  resolution: "@puppeteer/browsers@npm:2.10.6"
-  dependencies:
-    debug: "npm:^4.4.1"
-    extract-zip: "npm:^2.0.1"
-    progress: "npm:^2.0.3"
-    proxy-agent: "npm:^6.5.0"
-    semver: "npm:^7.7.2"
-    tar-fs: "npm:^3.1.0"
-    yargs: "npm:^17.7.2"
-  bin:
-    browsers: lib/cjs/main-cli.js
-  checksum: 10/f6af7260b9df0bc4af55be139bab64e4a92b2019553eb48e57659cf589e80cc2a2f82fd613fec2fb933eb2de5a096ede53ba8a3471c71f14d170065880155ea3
   languageName: node
   linkType: hard
 
@@ -4252,7 +4235,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.12.2":
+"axios@npm:^1.12.2, axios@npm:^1.8.4":
   version: 1.12.2
   resolution: "axios@npm:1.12.2"
   dependencies:
@@ -4260,17 +4243,6 @@ __metadata:
     form-data: "npm:^4.0.4"
     proxy-from-env: "npm:^1.1.0"
   checksum: 10/886a79770594eaad76493fecf90344b567bd956240609b5dcd09bd0afe8d3e6f1ad6d3257a93a483b6192b409d4b673d9515a34619e3e3ed1b2c0ec2a83b20ba
-  languageName: node
-  linkType: hard
-
-"axios@npm:^1.8.4":
-  version: 1.11.0
-  resolution: "axios@npm:1.11.0"
-  dependencies:
-    follow-redirects: "npm:^1.15.6"
-    form-data: "npm:^4.0.4"
-    proxy-from-env: "npm:^1.1.0"
-  checksum: 10/232df4af7a4e4e07baa84621b9cc4b0c518a757b4eacc7f635c0eb3642cb98dff347326739f24b891b3b4481b7b838c79a3a0c4819c9fbc1fc40232431b9c5dc
   languageName: node
   linkType: hard
 
@@ -5723,14 +5695,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"component-emitter@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "component-emitter@npm:1.3.0"
-  checksum: 10/dfc1ec2e7aa2486346c068f8d764e3eefe2e1ca0b24f57506cd93b2ae3d67829a7ebd7cc16e2bf51368fac2f45f78fcff231718e40b1975647e4a86be65e1d05
-  languageName: node
-  linkType: hard
-
-"component-emitter@npm:^1.3.1":
+"component-emitter@npm:^1.3.0, component-emitter@npm:^1.3.1":
   version: 1.3.1
   resolution: "component-emitter@npm:1.3.1"
   checksum: 10/94550aa462c7bd5a61c1bc480e28554aa306066930152d1b1844a0dd3845d4e5db7e261ddec62ae184913b3e59b55a2ad84093b9d3596a8f17c341514d6c483d
@@ -6257,7 +6222,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:^4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4, debug@npm:^4.3.5, debug@npm:^4.3.7, debug@npm:^4.4.0, debug@npm:^4.4.1, debug@npm:^4.4.3":
+"debug@npm:4, debug@npm:^4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4, debug@npm:^4.3.5, debug@npm:^4.3.7, debug@npm:^4.4.0, debug@npm:^4.4.3":
   version: 4.4.3
   resolution: "debug@npm:4.4.3"
   dependencies:
@@ -13567,14 +13532,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pirates@npm:^4.0.6":
-  version: 4.0.6
-  resolution: "pirates@npm:4.0.6"
-  checksum: 10/d02dda76f4fec1cbdf395c36c11cf26f76a644f9f9a1bfa84d3167d0d3154d5289aacc72677aa20d599bb4a6937a471de1b65c995e2aea2d8687cbcd7e43ea5f
-  languageName: node
-  linkType: hard
-
-"pirates@npm:^4.0.7":
+"pirates@npm:^4.0.6, pirates@npm:^4.0.7":
   version: 4.0.7
   resolution: "pirates@npm:4.0.7"
   checksum: 10/2427f371366081ae42feb58214f04805d6b41d6b84d74480ebcc9e0ddbd7105a139f7c653daeaf83ad8a1a77214cf07f64178e76de048128fec501eab3305a96

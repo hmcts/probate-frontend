@@ -61,19 +61,14 @@ class SeparationDate extends ValidationStep {
 
         if (missingFields.length === 3) {
             errors.push(FieldError('separationDate', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-            return [ctx, errors];
         } else if (missingFields.length === 2) {
             errors.push(FieldError(`separationDate-${missingFields.join('-')}`, 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-            return [ctx, errors];
         } else if (missingFields.length === 1) {
             errors.push(FieldError(`separationDate-${missingFields[0]}`, 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-            return [ctx, errors];
         } else if (isDateOutOfRange || !separationDate.isValid() || !DateValidation.isPositive([day, month, year])) {
             errors.push(FieldError('separationDate', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-            return [ctx, errors];
         } else if (separationDate.isAfter(moment())) {
             errors.push(FieldError('separationDate', 'future', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-            return [ctx, errors];
         }
 
         ctx.separationDate = FormatDate.formatDatePost({'day': day, 'month': month, 'year': year});

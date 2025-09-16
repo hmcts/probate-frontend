@@ -60,19 +60,14 @@ class DivorceDate extends ValidationStep {
 
         if (missingFields.length === 3) {
             errors.push(FieldError('divorceDate', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-            return [ctx, errors];
         } else if (missingFields.length === 2) {
             errors.push(FieldError(`divorceDate-${missingFields.join('-')}`, 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-            return [ctx, errors];
         } else if (missingFields.length === 1) {
             errors.push(FieldError(`divorceDate-${missingFields[0]}`, 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-            return [ctx, errors];
         } else if (dateOutOfRange || !divorceDate.isValid() || !DateValidation.isPositive([day, month, year])) {
             errors.push(FieldError('divorceDate', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-            return [ctx, errors];
         } else if (divorceDate.isAfter(moment())) {
             errors.push(FieldError('divorceDate', 'future', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-            return [ctx, errors];
         }
         const formattedDate = FormatDate.formatDatePost({'day': day, 'month': month, 'year': year});
         ctx.divorceDate = formattedDate;

@@ -151,6 +151,8 @@ const allSteps = {
     'cy': initSteps([`${__dirname}/steps/action/`, `${__dirname}/steps/ui`], 'cy')
 };
 
+const addedRoutes = {};
+
 router.use((req, res, next) => {
     const steps = allSteps[req.session.language];
     const currentPageCleanUrl = FormatUrl.getCleanPageUrl(req.originalUrl, 1);
@@ -174,8 +176,12 @@ router.use((req, res, next) => {
             allPageUrls.push(stepUrl);
         }
 
-        router.get(step.constructor.getUrl(), step.runner().GET(step));
-        router.post(step.constructor.getUrl(), step.runner().POST(step));
+        if (!addedRoutes[step.constructor.getUrl()]) {
+            addedRoutes[step.constructor.getUrl()] = true;
+            logger('route').info(`adding step: ${step.constructor.getUrl()}`);
+            router.get(step.constructor.getUrl(), step.runner().GET(step));
+            router.post(step.constructor.getUrl(), step.runner().POST(step));
+        }
     });
 
     const noCcdCaseIdPages = config.noCcdCaseIdPages.map(item => FormatUrl.getCleanPageUrl(item, 0));

@@ -158,8 +158,7 @@ class PaymentBreakdown extends Step {
                     ctx.paymentCreatedDate = paymentResponse.date_created;
                     this.nextStepUrl = () => paymentResponse._links.next_url.href;
                 } else {
-                    logger.info(`forcing case submission for case: ${formdata.ccdCase.id}. ` +
-                        'this will cause a case save failure and redirect the user to the dashboard.');
+                    logger.info(`setting payment.status -> not_required for case: ${formdata.ccdCase.id}.`);
                     const notReqPayment = {
                         date: null,
                         amount: null,
@@ -170,9 +169,7 @@ class PaymentBreakdown extends Step {
                         transactionId: null,
                         status: 'not_required',
                     };
-                    const formDataResult = yield this.submitForm(ctx, errors, formdata, notReqPayment, serviceAuthResult, session.language);
-                    set(formdata, 'ccdCase', formDataResult.ccdCase);
-                    set(formdata, 'payment', formDataResult.payment);
+                    set(formdata, 'payment', notReqPayment);
                     delete this.nextStepUrl;
                 }
             } else {
@@ -213,6 +210,19 @@ class PaymentBreakdown extends Step {
         delete ctx.paymentError;
         delete ctx.deceasedLastName;
         delete formdata.fees;
+
+        if (formdata?.payment?.status) {
+            // this is a mess of a workaround
+            // - UIStepRunner will set formdata.payment = ctx after this has been called
+            // - the redirect handling in routes.js checks ctx.payment.status to determine
+            //   when a payment is not needed
+            // - we set ctx.status here so the overriding of payment above results in
+            //   ctx.payment.status having the expected value at that point in time
+            // without this we redirect to /task-list which means the GET handling of
+            // /payment-status is never called - this is where the case submission is done
+            // which then redirects to the /thank-you page
+            ctx.status = formdata.payment.status;
+        }
         return [ctx, formdata];
     }
 

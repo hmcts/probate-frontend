@@ -30,7 +30,7 @@ describe('relationship-to-deceased', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('RelationshipToDeceased', null, null, [], false, {type: caseTypes.INTESTACY});
 
-        it('test content loaded on the page', (done) => {
+        it('test content loaded on the page when married', (done) => {
             const sessionData = {
                 type: caseTypes.INTESTACY,
                 ccdCase: {
@@ -45,7 +45,27 @@ describe('relationship-to-deceased', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done);
+                    const excludeKeys = ['optionParent', 'hintParent', 'optionSibling', 'hintSibling'];
+                    testWrapper.testContent(done, {}, excludeKeys);
+                });
+        });
+        it('test content loaded on the page when not married', (done) => {
+            const sessionData = {
+                type: caseTypes.INTESTACY,
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                deceased: {
+                    maritalStatus: 'optionSeparated'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const excludeKeys = ['optionSpousePartner', 'hintSpousePartner'];
+                    testWrapper.testContent(done, {}, excludeKeys);
                 });
         });
 

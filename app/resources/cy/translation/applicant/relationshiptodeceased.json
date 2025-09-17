@@ -1,6 +1,6 @@
 {
   "title": "Perthynas &acirc;&rsquo;r unigolyn sydd wedi marw",
-  "question": "Beth yw eich perthynas &acirc; {{deceasedName}}?",
+  "question": "Beth yw eich perthynas &acirc; {deceasedName}?",
   "optionSpousePartner": "Fi yw eu g&wcirc;r, eu gwraig neu eu partner sifil",
   "hintSpousePartner": "Nid yw&rsquo;n cynnwys partneriaid sydd heb briodi neu heb fogrestru sy&rsquo;n byw gydd&rsquo;i gilydd",
   "optionChild": "Fi yw eu plentyn",

@@ -91,7 +91,7 @@
     /* ---------------------------------------------------------------
        Availability checker (polls your service)
     --------------------------------------------------------------- */
-    async function checkChatAvailability(maxRetries = 5, initialDelay = 1000) {
+    async function checkChatAvailability(maxRetries = 0, initialDelay = 1000) {
         const URL   = KERV_BASE_URL + '?deploymentId=' + DEPLOYMENT_ID;
         let attempt = 0;
         let delay   = initialDelay;

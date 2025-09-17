@@ -16,7 +16,7 @@ services:
     caching: true
   orchestrator:
     # if this is a ???.preview.platform.hmcts.net this _MUST_ be https://
-    url: https://probate-orchestrator-service-pr-789.preview.platform.hmcts.net
+    url: https://probate-orchestrator-service-pr-1385.preview.platform.hmcts.net
   validation:
     url: http://probate-business-service-aat.service.core-compute-aat.internal/validate
   payment:

@@ -1,6 +1,6 @@
 {
   "title": "Relationship to the deceased",
-  "question": "What is your relationship to {{deceasedName}}?",
+  "question": "What is your relationship to {deceasedName}?",
   "optionSpousePartner": "I am their husband, wife or registered civil partner",
   "hintSpousePartner": "Not including unmarried or unregistered partners living together",
   "optionChild": "I am their child",

@@ -8,19 +8,37 @@
     {% set answers = (answers.push({
         value: "optionSpousePartner",
         text: content["optionSpousePartner"] | safe,
+        hint: { text: content["hintSpousePartner"] | safe },
         checked: true if fields.relationshipToDeceased.value == "optionSpousePartner"
     }), answers) %}
 {% endif %}
 {% set answers = (answers.push({
     value: "optionChild",
     text: content["optionChild"] | safe,
+    hint: { text: content["hintChild"] | safe },
     checked: true if fields.relationshipToDeceased.value == "optionChild"
 }), answers) %}
 {% set answers = (answers.push({
-    value: "optionAdoptedChild",
-    text: content["optionAdoptedChild"] | safe,
-    checked: true if fields.relationshipToDeceased.value == "optionAdoptedChild"
+    value: "optionGrandchild",
+    text: content["optionGrandchild"] | safe,
+    hint: { text: content["hintGrandchild"] | safe },
+    checked: true if fields.relationshipToDeceased.value == "optionGrandchild"
 }), answers) %}
+{% if fields.deceasedMaritalStatus.value != "optionMarried" %}
+  {% set answers = (answers.push({
+      value: "optionParent",
+      text: content["optionParent"] | safe,
+      hint: { text: content["hintParent"] | safe },
+      checked: true if fields.relationshipToDeceased.value == "optionParent"
+  }), answers) %}
+  {% set answers = (answers.push({
+      value: "optionSibling",
+      text: content["optionSibling"] | safe,
+      hint: { text: content["hintSibling"] | safe },
+      checked: true if fields.relationshipToDeceased.value == "optionSibling"
+  }), answers) %}
+{% endif %}
+
 {% set answers = (answers.push({
     value: "optionOther",
     text: content["optionOther"] | safe,

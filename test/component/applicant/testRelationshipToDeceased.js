@@ -38,15 +38,18 @@ describe('relationship-to-deceased', () => {
                     id: 1234567890123456
                 },
                 deceased: {
-                    maritalStatus: 'optionMarried'
+                    maritalStatus: 'optionMarried',
+                    firstName: 'DECEASED',
+                    lastName: 'NAME',
                 }
             };
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
+                    const data = {deceasedName: 'DECEASED NAME'};
                     const excludeKeys = ['optionParent', 'hintParent', 'optionSibling', 'hintSibling'];
-                    testWrapper.testContent(done, {}, excludeKeys);
+                    testWrapper.testContent(done, data, excludeKeys);
                 });
         });
         it('test content loaded on the page when not married', (done) => {
@@ -57,15 +60,18 @@ describe('relationship-to-deceased', () => {
                     id: 1234567890123456
                 },
                 deceased: {
-                    maritalStatus: 'optionSeparated'
+                    maritalStatus: 'optionSeparated',
+                    firstName: 'DECEASED',
+                    lastName: 'NAME',
                 }
             };
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
+                    const data = {deceasedName: 'DECEASED NAME'};
                     const excludeKeys = ['optionSpousePartner', 'hintSpousePartner'];
-                    testWrapper.testContent(done, {}, excludeKeys);
+                    testWrapper.testContent(done, data, excludeKeys);
                 });
         });
 

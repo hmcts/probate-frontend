@@ -15,7 +15,7 @@
 
   "errors": {
     "relationshipToDeceased": {
-      "required": "Choose an option for your relationship to the person who died"
+      "required": "Choose an option for your relationship to {deceasedName}"
     }
   }
 }

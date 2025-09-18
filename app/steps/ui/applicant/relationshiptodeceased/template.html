@@ -57,7 +57,9 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.relationshipToDeceased.errorMessage | safe } if fields.relationshipToDeceased.errorMessage,
+        errorMessage: {
+          text: fields.relationshipToDeceased.errorMessage | replace("{deceasedName}", fields.deceasedName.value) | safe
+        } if fields.relationshipToDeceased.errorMessage,
         items: answers
     }) }}
 

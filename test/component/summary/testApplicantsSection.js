@@ -39,7 +39,9 @@ describe('summary-applicants-section', () => {
                                 throw err;
                             }
                             const playbackData = {
-                                relationshipToDeceased: applicantContent.relationshiptodeceased.question
+                                relationshipToDeceased: applicantContent.relationshiptodeceased.question.replace(
+                                    '{deceasedName}',
+                                    'the deceased'),
                             };
                             testWrapper.testDataPlayback(done, playbackData);
                         });
@@ -62,7 +64,7 @@ describe('summary-applicants-section', () => {
                     delete require.cache[require.resolve('test/data/deceased')];
                     const deceasedName = FormatName.format(deceasedData.deceased);
                     const playbackData = {
-                        relationshipToDeceased: applicantContent.relationshiptodeceased.question,
+                        relationshipToDeceased: applicantContent.relationshiptodeceased.question.replace('{deceasedName}', deceasedName),
                         adoptionPlace: applicantContent.adoptionplace.question,
                         spouseNotApplyingReason: applicantContent.spousenotapplyingreason.question.replace('{deceasedName}', deceasedName),
                         anyOtherChildren: deceasedContent.anyotherchildren.question.replace('{deceasedName}', deceasedName),

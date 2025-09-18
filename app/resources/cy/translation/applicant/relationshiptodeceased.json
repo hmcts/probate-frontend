@@ -15,7 +15,7 @@
 
   "errors": {
     "relationshipToDeceased": {
-      "required": "Dewiswch opsiwn ar gyfer eich perthynas &acirc;&rsquo;r unigolyn sydd wedi marw"
+      "required": "Dewiswch beth yw eich perthynas &acirc; {deceasedName}"
     }
   }
 }

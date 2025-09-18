@@ -3,6 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {get} = require('lodash');
 const IhtThreshold = require('app/utils/IhtThreshold');
+const FormatName = require('app/utils/FormatName');
 
 class RelationshipToDeceased extends ValidationStep {
 
@@ -16,6 +17,7 @@ class RelationshipToDeceased extends ValidationStep {
         ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
         ctx.deceasedMaritalStatus = get(formdata, 'deceased.maritalStatus');
         ctx.assetsValue = get(formdata, 'iht.netValue', 0) + get(formdata, 'iht.netValueAssetsOutside', 0);
+        ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
 

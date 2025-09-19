@@ -3,6 +3,8 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {get} = require('lodash');
 const IhtThreshold = require('app/utils/IhtThreshold');
+const FormatName = require('app/utils/FormatName');
+const logger = require('app/components/logger');
 
 class RelationshipToDeceased extends ValidationStep {
 
@@ -16,6 +18,7 @@ class RelationshipToDeceased extends ValidationStep {
         ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
         ctx.deceasedMaritalStatus = get(formdata, 'deceased.maritalStatus');
         ctx.assetsValue = get(formdata, 'iht.netValue', 0) + get(formdata, 'iht.netValueAssetsOutside', 0);
+        ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
 
@@ -64,6 +67,27 @@ class RelationshipToDeceased extends ValidationStep {
         }
 
         return [ctx, formdata];
+    }
+
+    isComplete(ctx, formdata) {
+        const marStat = formdata.maritalStatus;
+        const relToDec = formdata.relationshipToDeceased;
+        if (marStat) {
+            if (marStat !== 'optionMarried' &&
+                relToDec === 'optionSpousePartner') {
+                logger().info(`marStat: ${marStat}, relToDec: ${relToDec}, cannot be spouse if unmarried`);
+                return [false, 'inProgress'];
+            } else if (marStat === 'optionMarried' &&
+                    (relToDec === 'optionParent' ||
+                        relToDec === 'optionSibling')) {
+                logger().info(`marStat: ${marStat}, relToDec: ${relToDec}, cannot be parent/sibling if married`);
+                return [false, 'inProgress'];
+            }
+        }
+
+        logger().info(`rel_to_dec isComplete ctx: ${JSON.stringify(ctx)}`);
+        logger().info(`rel_to_dec isComplete formdata: ${JSON.stringify(formdata)}`);
+        return super.isComplete(ctx, formdata);
     }
 }
 

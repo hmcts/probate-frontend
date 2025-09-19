@@ -4,6 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const {get} = require('lodash');
 const IhtThreshold = require('app/utils/IhtThreshold');
 const FormatName = require('app/utils/FormatName');
+const logger = require('app/components/logger');
 
 class RelationshipToDeceased extends ValidationStep {
 
@@ -66,6 +67,25 @@ class RelationshipToDeceased extends ValidationStep {
         }
 
         return [ctx, formdata];
+    }
+
+    isComplete(ctx, formdata) {
+        const marStat = formdata?.deceased?.maritalStatus;
+        const relToDec = formdata?.applicant?.relationshipToDeceased;
+        if (marStat) {
+            if (marStat !== 'optionMarried' &&
+                relToDec === 'optionSpousePartner') {
+                logger().info(`marStat: ${marStat}, relToDec: ${relToDec}, cannot be spouse if unmarried`);
+                return [false, 'inProgress'];
+            } else if (marStat === 'optionMarried' &&
+                    (relToDec === 'optionParent' ||
+                        relToDec === 'optionSibling')) {
+                logger().info(`marStat: ${marStat}, relToDec: ${relToDec}, cannot be parent/sibling if married`);
+                return [false, 'inProgress'];
+            }
+        }
+
+        return super.isComplete(ctx, formdata);
     }
 }
 

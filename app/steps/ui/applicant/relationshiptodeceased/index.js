@@ -70,6 +70,20 @@ class RelationshipToDeceased extends ValidationStep {
     }
 
     isComplete(ctx, formdata) {
+        const marStat = formdata.maritalStatus;
+        const relToDec = formdata.relationshipToDeceased;
+        if (marStat) {
+            if (marStat !== 'optionMarried' &&
+                relToDec === 'optionSpousePartner') {
+                logger().info(`marStat: ${marStat}, relToDec: ${relToDec}, cannot be spouse if unmarried`);
+                return [false, 'inProgress'];
+            } else if (marStat === 'optionMarried' &&
+                    (relToDec === 'optionParent' ||
+                        relToDec === 'optionSibling')) {
+                logger().info(`marStat: ${marStat}, relToDec: ${relToDec}, cannot be parent/sibling if married`);
+                return [false, 'inProgress'];
+            }
+        }
 
         logger().info(`rel_to_dec isComplete ctx: ${JSON.stringify(ctx)}`);
         logger().info(`rel_to_dec isComplete formdata: ${JSON.stringify(formdata)}`);

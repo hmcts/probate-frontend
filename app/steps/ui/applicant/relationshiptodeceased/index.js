@@ -4,6 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const {get} = require('lodash');
 const IhtThreshold = require('app/utils/IhtThreshold');
 const FormatName = require('app/utils/FormatName');
+const logger = require('app/components/logger');
 
 class RelationshipToDeceased extends ValidationStep {
 
@@ -66,6 +67,13 @@ class RelationshipToDeceased extends ValidationStep {
         }
 
         return [ctx, formdata];
+    }
+
+    isComplete(ctx, formdata) {
+
+        logger().info(`rel_to_dec isComplete ctx: ${JSON.stringify(ctx)}`);
+        logger().info(`rel_to_dec isComplete formdata: ${JSON.stringify(formdata)}`);
+        return super.isComplete(ctx, formdata);
     }
 }
 

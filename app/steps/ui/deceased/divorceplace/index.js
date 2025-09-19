@@ -39,7 +39,7 @@ class DivorcePlace extends ValidationStep {
         return fields;
     }
     nextStepUrl(req, ctx) {
-        if (ctx.legalProcess === 'divorce') {
+        if (ctx.legalProcess === 'divorce or dissolution') {
             return this.next(req, ctx).constructor.getUrl('divorcePlace');
         }
 

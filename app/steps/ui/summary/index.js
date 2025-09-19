@@ -120,6 +120,10 @@ class Summary extends Step {
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedMaritalStatus.theDeceased);
             ctx.deceasedDivorcePlaceQuestion = content.DivorcePlace.question
                 .replace('{legalProcess}', (formdata.deceased && formdata.deceased.maritalStatus === content.DeceasedMaritalStatus.optionDivorced) ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
+            ctx.deceasedDivorceDateKnownQuestion = content.DivorceDate.question
+                .replace('{legalProcess}', (formdata.deceased && formdata.deceased.maritalStatus === content.DeceasedMaritalStatus.optionDivorced) ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
+            ctx.deceasedDivorceDate = content.DivorceDate.date
+                .replace('{legalProcess}', (formdata.deceased && formdata.deceased.maritalStatus === content.DeceasedMaritalStatus.optionDivorced) ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
             ctx.deceasedAnyChildrenQuestion = content.AnyChildren.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyChildren.theDeceased);
             ctx.deceasedAnyOtherChildrenQuestion = content.AnyOtherChildren.question

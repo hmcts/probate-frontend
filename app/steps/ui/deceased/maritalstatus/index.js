@@ -18,6 +18,8 @@ class DeceasedMaritalStatus extends ValidationStep {
 
     nextStepOptions(ctx) {
         ctx.divorcedOrSeparated = (ctx.maritalStatus === 'optionDivorced' || ctx.maritalStatus === 'optionSeparated');
+        ctx.divorced = ctx.maritalStatus === 'optionDivorced';
+        ctx.separated = ctx.maritalStatus === 'optionSeparated';
         return {
             options: [
                 {key: 'divorcedOrSeparated', value: true, choice: 'divorcedOrSeparated'}
@@ -25,11 +27,18 @@ class DeceasedMaritalStatus extends ValidationStep {
         };
     }
 
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+        }
+        return fields;
+    }
+
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.deceasedName;
         delete ctx.divorcedOrSeparated;
-
         if (formdata.deceased && formdata.deceased.maritalStatus && ctx.maritalStatus !== formdata.deceased.maritalStatus) {
             delete ctx.divorcePlace;
             delete ctx.anyChildren;

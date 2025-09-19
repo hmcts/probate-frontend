@@ -26,13 +26,17 @@ describe('deceased-dob', () => {
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456
+                },
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe'
                 }
             };
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done);
+                    testWrapper.testContent(done, {deceasedName: 'John Doe'});
                 });
         });
 

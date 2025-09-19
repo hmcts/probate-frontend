@@ -78,6 +78,8 @@ class DivorceDate extends ValidationStep {
             errors.push(FieldError('divorceDate', 'future', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
 
+        ctx.divorceDate = FormatDate.formatDateBackend({'day': day, 'month': month, 'year': year});
+
         return [ctx, errors];
     }
 

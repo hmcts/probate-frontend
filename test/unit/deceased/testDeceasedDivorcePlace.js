@@ -80,7 +80,7 @@ describe('DivorcePlace', () => {
             };
             const ctx = {
                 divorcePlace: 'optionNo',
-                legalProcess: 'divorce'
+                legalProcess: 'divorce or dissolution'
             };
             const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/divorcePlace');

@@ -17,6 +17,17 @@ class FormatDate {
         return formattedDateString;
     }
 
+    static formatDateBackend(dateObject) {
+        if (dateObject.year !== '' && dateObject.month !== '' && dateObject.day !== '') {
+            return `${dateObject.year}-${FormatDate.pad(dateObject.month)}-${FormatDate.pad(dateObject.day)}`;
+        }
+        return '';
+    }
+
+    static pad(n) {
+        return n && n.length === 1 ? '0' + n : n;
+    }
+
     static formatDateGet(dateString) {
         const dateArray = dateString.split('/');
         for (let i = 0; i < 3; i++) {

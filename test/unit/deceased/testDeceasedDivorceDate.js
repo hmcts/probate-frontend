@@ -243,7 +243,8 @@ describe('DivorceDate', () => {
                 'divorceDateKnown': 'optionYes',
                 'divorceDate-day': '04',
                 'divorceDate-month': '08',
-                'divorceDate-year': '2025'
+                'divorceDate-year': '2025',
+                'divorceDate': '2025-08-04'
             };
             expect(ctx).to.deep.equal(ctxOut);
             done();

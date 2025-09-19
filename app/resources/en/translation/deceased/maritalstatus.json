@@ -7,8 +7,8 @@
   "optionNotMarried": "Never married or never in a civil partnership",
   "optionSeparated": "Legally separated (also known as judicially separated)",
   "hintTextMarried": "A civil partnership must be registered and is different than living together as partners",
-  "divorce": "divorce",
-  "separation": "separation",
+  "divorce": "divorce or dissolution",
+  "separation": "legal separation",
   "theDeceased": "the deceased",
 
   "errors": {

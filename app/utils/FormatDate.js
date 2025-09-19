@@ -27,6 +27,16 @@ class FormatDate {
         return dateArray;
     }
 
+    static formatDateGetHyphen(dateString) {
+        const dateArray = dateString.split('-');
+        for (let i = 0; i < 3; i++) {
+            if (dateArray.length < 3) {
+                dateArray.unshift('');
+            }
+        }
+        return dateArray;
+    }
+
     static addWeeksToDate(dateString, weeksToAdd) {
         const date = new Date(dateString);
         date.setDate(date.getDate() + (weeksToAdd * 7));

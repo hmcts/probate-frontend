@@ -2,18 +2,19 @@ const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const DivorceDate = steps.DivorceDate;
+const content = require('app/resources/en/translation/deceased/divorcedate');
 
 describe('DivorceDate', () => {
 
     const ctxWithYes = {
         divorceDateKnown: 'optionYes',
-        divorceDate: '4/10/2025'
+        divorceDate: '2025-10-04'
     };
 
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = DivorceDate.constructor.getUrl();
-            expect(url).to.equal('/deceased-divorce-date');
+            expect(url).to.equal('/deceased-divorce-or-separation-date');
             done();
         });
     });
@@ -23,8 +24,8 @@ describe('DivorceDate', () => {
             const [ctx] = DivorceDate.handleGet(ctxWithYes);
             expect(ctx).to.deep.equal({
                 'divorceDateKnown': 'optionYes',
-                'divorceDate': '4/10/2025',
-                'divorceDate-day': '4',
+                'divorceDate': '2025-10-04',
+                'divorceDate-day': '04',
                 'divorceDate-month': '10',
                 'divorceDate-year': '2025'
             });
@@ -36,7 +37,7 @@ describe('DivorceDate', () => {
         it ('should reset divorce date when date is not known', (done) => {
             const ctxIn = {
                 'divorceDateKnown': 'optionNo',
-                'divorceDate': '4/10/2025'
+                'divorceDate': '2025-10-04'
             };
             const [ctx] = DivorceDate.handlePost(ctxIn);
             const ctxOut = {
@@ -49,7 +50,8 @@ describe('DivorceDate', () => {
 
         it ('should create an error when no year no month no day has been entered', (done) => {
             const ctxIn = {
-                'divorceDateKnown': 'optionYes'
+                'divorceDateKnown': 'optionYes',
+                'legalProcess': 'divorce or dissolution',
             };
             const errorsIn = [];
             const formdata = {};
@@ -58,7 +60,7 @@ describe('DivorceDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'divorceDate',
                 'href': '#divorceDate',
-                'msg': 'Enter the date the divorce or dissolution took place'
+                'msg': content.errors.divorceDate.required
             }]);
             done();
         });
@@ -77,7 +79,7 @@ describe('DivorceDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'divorceDate-year',
                 'href': '#divorceDate-year',
-                'msg': 'Date of divorce or dissolution must include a year'
+                'msg': content.errors['divorceDate-year'].required
             }]);
             done();
         });
@@ -96,7 +98,7 @@ describe('DivorceDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'divorceDate-month',
                 'href': '#divorceDate-month',
-                'msg': 'Date of divorce or dissolution must include a month'
+                'msg': content.errors['divorceDate-month'].required
             }]);
             done();
         });
@@ -115,7 +117,7 @@ describe('DivorceDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'divorceDate-day',
                 'href': '#divorceDate-day',
-                'msg': 'Date of divorce or dissolution must include a day'
+                'msg': content.errors['divorceDate-day'].required
             }]);
             done();
         });
@@ -132,7 +134,7 @@ describe('DivorceDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'divorceDate-month-year',
                 'href': '#divorceDate-month-year',
-                'msg': 'Date of divorce or dissolution must include a month and year'
+                'msg': content.errors['divorceDate-month-year'].required
             }]);
             done();
         });
@@ -149,7 +151,7 @@ describe('DivorceDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'divorceDate-day-year',
                 'href': '#divorceDate-day-year',
-                'msg': 'Date of divorce or dissolution must include a day and year'
+                'msg': content.errors['divorceDate-day-year'].required
             }]);
             done();
         });
@@ -166,7 +168,7 @@ describe('DivorceDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'divorceDate-day-month',
                 'href': '#divorceDate-day-month',
-                'msg': 'Date of divorce or dissolution must include a day and month'
+                'msg': content.errors['divorceDate-day-month'].required
             }]);
             done();
         });
@@ -180,12 +182,13 @@ describe('DivorceDate', () => {
             };
             const errorsIn = [];
             const formdata = {};
-            const session = {};
+            const session = {
+            };
             const [, errors] = DivorceDate.handlePost(ctxIn, errorsIn, formdata, session);
             expect(errors).to.deep.equal([{
                 'field': 'divorceDate',
                 'href': '#divorceDate',
-                'msg': 'The date of divorce or dissolution must be before {deceasedName}’s date of death'
+                'msg': content.errors.divorceDate.future
             }]);
             done();
         });
@@ -204,7 +207,7 @@ describe('DivorceDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'divorceDate',
                 'href': '#divorceDate',
-                'msg': 'Date of divorce or dissolution must be a real date'
+                'msg': content.errors.divorceDate.invalid
             }]);
             done();
         });
@@ -223,7 +226,7 @@ describe('DivorceDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'divorceDate',
                 'href': '#divorceDate',
-                'msg': 'Date of divorce or dissolution must be a real date'
+                'msg': content.errors.divorceDate.invalid
             }]);
             done();
         });
@@ -238,7 +241,6 @@ describe('DivorceDate', () => {
             const [ctx] = DivorceDate.handlePost(ctxIn);
             const ctxOut = {
                 'divorceDateKnown': 'optionYes',
-                'divorceDate': '04/08/2025',
                 'divorceDate-day': '04',
                 'divorceDate-month': '08',
                 'divorceDate-year': '2025'
@@ -252,16 +254,17 @@ describe('DivorceDate', () => {
         let ctx;
         let req;
 
-        it('should return the context with the deceased name', (done) => {
+        it('should return the context with the deceased name and legal process as divorced', (done) => {
             req = {
                 session: {
+                    language: 'en',
                     form: {
                         deceased: {
                             firstName: 'John',
                             lastName: 'Doe',
                             'dob-date': '1918-01-01',
                             'dod-date': '2020-03-02',
-                            'maritalStatus': 'divorced'
+                            'maritalStatus': 'optionDivorced'
                         }
                     }
                 }
@@ -269,6 +272,29 @@ describe('DivorceDate', () => {
 
             ctx = DivorceDate.getContextData(req);
             expect(ctx.deceasedName).to.equal('John Doe');
+            expect(ctx.legalProcess).to.equal('divorce or dissolution');
+            done();
+        });
+
+        it('should return the context with the deceased name and legal process as separated', (done) => {
+            req = {
+                session: {
+                    language: 'en',
+                    form: {
+                        deceased: {
+                            firstName: 'John',
+                            lastName: 'Doe',
+                            'dob-date': '1918-01-01',
+                            'dod-date': '2020-03-02',
+                            'maritalStatus': 'optionSeparated'
+                        }
+                    }
+                }
+            };
+
+            ctx = DivorceDate.getContextData(req);
+            expect(ctx.deceasedName).to.equal('John Doe');
+            expect(ctx.legalProcess).to.equal('legal separation');
             done();
         });
     });
@@ -278,7 +304,8 @@ describe('DivorceDate', () => {
             const ctxIn = {
                 'divorceDate-day': '4',
                 'divorceDate-month': '10',
-                'divorceDate-year': '2025'
+                'divorceDate-year': '2025',
+                legalProcess: 'divorce or dissolution'
             };
             const [ctx] = DivorceDate.action(ctxIn);
             expect(ctx).to.deep.equal({});

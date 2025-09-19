@@ -5,6 +5,9 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 
+{% block pageTitle %}
+    {{ fields.title }}
+{% endblock %}
 
 {% block form_content %}
 
@@ -21,7 +24,8 @@
         {% set errorMessages = [] %}
         {% for field in errorFields %}
             {% if fields[field].errorMessage %}
-                {% set errorMessages = errorMessages.concat([fields[field].errorMessage | replace("{deceasedName}", fields.deceasedName.value) | safe]) %}
+                {% set errorMessages = errorMessages.concat([fields[field].errorMessage
+            | replace("{legalProcess}", fields.legalProcess.value) | replace("{deceasedName}", fields.deceasedName.value) | safe]) %}
             {% endif %}
         {% endfor %}
         {% set inlineErrors = {
@@ -35,10 +39,9 @@
           namePrefix: "divorceDate",
           fieldset: {
               legend: {
-                  text: content.date | safe
+                  text: content.date | replace("{legalProcess}", fields.legalProcess.value) | safe
               }
           },
-          text: content.date | safe,
           errorMessage: inlineErrors,
           items: [
               {
@@ -68,7 +71,7 @@
 
     {% call govukFieldset({
         legend: {
-            text: content.question | safe,
+            text: content.question | replace("{legalProcess}", fields.legalProcess.value) | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
@@ -78,7 +81,8 @@
     {{ govukRadios({
         idPrefix: "divorceDateKnown",
         name: "divorceDateKnown",
-        errorMessage: { text: fields.divorceDateKnown.errorMessage | safe } if fields.divorceDateKnown.errorMessage,
+        errorMessage: { text: fields.divorceDateKnown.errorMessage
+            | replace("{legalProcess}", fields.legalProcess.value) | safe } if fields.divorceDateKnown.errorMessage,
         items: [
             {
                 value: "optionYes",

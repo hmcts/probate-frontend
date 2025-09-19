@@ -2,6 +2,9 @@
 
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% block pageTitle %}
+    {{ fields.title }}
+{% endblock %}
 
 {% block form_content %}
     {{ govukRadios({
@@ -10,7 +13,7 @@
         name: "divorcePlace",
         fieldset: {
             legend: {
-                text: content.question | safe,
+                text: content.question | replace("{legalProcess}", fields.legalProcess.value) | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }

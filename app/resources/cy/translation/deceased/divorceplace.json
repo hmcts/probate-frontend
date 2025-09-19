@@ -1,12 +1,12 @@
 {
-  "title": "A ddigwyddodd yr ysgariad neu’r diddymiad yng Nghymru neu Loegr?",
-  "question": "A ddigwyddodd yr ysgariad neu’r diddymiad yng Nghymru neu Loegr?",
+  "title": "A ddigwyddodd yr {legalProcess} yng Nghymru neu Loegr?",
+  "question": "A ddigwyddodd yr {legalProcess} yng Nghymru neu Loegr?",
   "optionYes": "Do",
   "optionNo": "Naddo",
 
   "errors": {
     "divorcePlace": {
-      "required": "Dewiswch &lsquo;Do&rsquo; os wnaeth yr ysgariad neu’r diddymiad ddigwydd yng Nghymru neu Loegr"
+      "required": "Dewiswch &lsquo;Do&rsquo; os wnaeth yr {legalProcess} ddigwydd yng Nghymru neu Loegr"
     }
   }
 }

@@ -143,20 +143,14 @@ const stepList = {
     AddAlias: 'DeceasedOtherNames',
     RemoveAlias: 'DeceasedOtherNames',
     DeceasedMaritalStatus: {
-        divorced: 'DivorcePlace',
-        separated: 'SeparationPlace',
+        divorcedOrSeparated: 'DivorcePlace',
         otherwise: 'TaskList'
     },
     DivorcePlace: {
         inEnglandOrWales: 'DivorceDate',
         otherwise: 'StopPage'
     },
-    SeparationPlace: {
-        inEnglandOrWales: 'SeparationDate',
-        otherwise: 'StopPage'
-    },
     DivorceDate: 'TaskList',
-    SeparationDate: 'TaskList',
     RelationshipToDeceased: {
         childDeceasedMarried: 'SpouseNotApplyingReason',
         childDeceasedNotMarried: 'AnyOtherChildren',

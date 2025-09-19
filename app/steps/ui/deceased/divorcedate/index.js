@@ -10,18 +10,26 @@ const FormatName = require('../../../../utils/FormatName');
 class DivorceDate extends ValidationStep {
 
     static getUrl() {
-        return '/deceased-divorce-date';
+        return '/deceased-divorce-or-separation-date';
     }
 
     handleGet(ctx) {
         if (ctx.divorceDate) {
-            [ctx['divorceDate-day'], ctx['divorceDate-month'], ctx['divorceDate-year']] = FormatDate.formatDateGet(ctx.divorceDate);
+            [ctx['divorceDate-year'], ctx['divorceDate-month'], ctx['divorceDate-day']] = FormatDate.formatDateGetHyphen(ctx.divorceDate);
         }
         return [ctx];
     }
+
     getContextData(req) {
+        const contentMaritalStatus = require(`app/resources/${req.session.language}/translation/deceased/maritalstatus`);
         const ctx = super.getContextData(req);
+        const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(req.session.form.deceased);
+
+        if (formdata.deceased && formdata.deceased.maritalStatus) {
+            ctx.legalProcess = formdata.deceased.maritalStatus === 'optionDivorced' ? contentMaritalStatus.divorce : contentMaritalStatus.separation;
+        }
+
         return ctx;
     }
 
@@ -69,22 +77,50 @@ class DivorceDate extends ValidationStep {
         } else if (divorceDate.isAfter(moment())) {
             errors.push(FieldError('divorceDate', 'future', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
-        const formattedDate = FormatDate.formatDatePost({'day': day, 'month': month, 'year': year});
-        ctx.divorceDate = formattedDate;
 
         return [ctx, errors];
     }
 
     generateFields(language, ctx, errors) {
+        const commonContent = require(`app/resources/${language}/translation/common`);
+        const content = require(`app/resources/${language}/translation/deceased/divorcedate`);
         const fields = super.generateFields(language, ctx, errors);
-        if (fields.deceasedName && errors) {
-            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+
+        fields.title = `${content.title} - ${commonContent.serviceName}`;
+
+        if (ctx && ctx.legalProcess) {
+            fields.title = fields.title.replace('{legalProcess}', ctx.legalProcess);
+
+            const divorceDateFields = [
+                'divorceDate',
+                'divorceDate-day',
+                'divorceDate-month',
+                'divorceDate-year',
+                'divorceDate-day-month',
+                'divorceDate-day-year',
+                'divorceDate-month-year'
+            ];
+
+            divorceDateFields.forEach(field => {
+                if (fields[field] && fields[field].error) {
+                    fields[field].errorMessage = fields[field].errorMessage
+                        .replace('{legalProcess}', ctx.legalProcess)
+                        .replace('{deceasedName}', fields.deceasedName.value);
+                    errors[0].msg = fields[field].errorMessage;
+                }
+            });
+            if (fields.divorceDateKnown && fields.divorceDateKnown.error) {
+                fields.divorceDateKnown.errorMessage = fields.divorceDateKnown.errorMessage.replace('{legalProcess}', ctx.legalProcess);
+                errors[0].msg = fields.divorceDateKnown.errorMessage;
+            }
         }
+
         return fields;
     }
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        delete ctx.legalProcess;
         delete ctx['divorceDate-day'];
         delete ctx['divorceDate-month'];
         delete ctx['divorceDate-year'];

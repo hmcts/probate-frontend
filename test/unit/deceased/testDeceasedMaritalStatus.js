@@ -44,13 +44,9 @@ describe('DeceasedMaritalStatus', () => {
             const nextStepOptions = DeceasedMaritalStatus.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [{
-                    key: 'divorced',
+                    key: 'divorcedOrSeparated',
                     value: true,
-                    choice: 'divorced'
-                }, {
-                    key: 'separated',
-                    value: true,
-                    choice: 'separated'
+                    choice: 'divorcedOrSeparated'
                 }]
             });
             done();
@@ -72,7 +68,7 @@ describe('DeceasedMaritalStatus', () => {
             let ctx = {
                 maritalStatus: 'optionMarried',
                 deceasedName: 'Dee Ceased',
-                divorced: true,
+                divorcedOrSeparated: true,
                 divorcePlace: 'optionYes',
                 anyChildren: 'optionYes',
                 anyOtherChildren: 'optionYes',

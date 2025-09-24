@@ -1,12 +1,12 @@
 {
   "title": "Applicant address",
   "question": "What is your address?",
-  "explanation1": "We&rsquo;ll send the grant of probate to this address.",
+  "explanation1": "We will send the grant of probate to this address.",
   "postTown": "Town or city",
-  "postcode": "Postcode",
+  "postcode": "UK Postcode",
   "country": "Country (optional)",
   "findAddress": "Find UK address",
-  "addressLabel": "Address",
+  "addressLabel": "Address Line 1",
   "addressLabel2": "Address Line 2 (optional)",
   "addressLabel3": "Address Line 3 (optional)",
   "selectAddress": "Select address",
@@ -14,7 +14,7 @@
 
   "errors": {
     "addressLine1": {
-      "required": "Enter the first line of the address",
+      "required": "Enter address line 1, typically the building and street",
       "invalid": "Enter an address line that is 2-150 characters long"
     },
     "postTown": {

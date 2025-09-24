@@ -1,12 +1,12 @@
 {
   "title": "Cyfeiriad y sawl sy&rsquo;n gwneud y cais",
   "question": "Beth yw eich cyfeiriad?",
-  "explanation1": "Byddwn yn anfon y grant profiant i&rsquo;r cyfeiriad hwn.",
+  "explanation1": "Mi wnawn anfon y grant profiant i'r cyfeiriad hwn.",
   "postTown": "Tref neu ddinas",
-  "postcode": "Cod post",
+  "postcode": "Cod post yn y DU",
   "country": "Gwlad (dewisol)",
   "findAddress": "Dod o hyd i gyfeiriad yn y DU",
-  "addressLabel": "Cyfeiriad",
+  "addressLabel": "Llinell cyfeiriad 1",
   "addressLabel2": "Ail linell y cyfeiriad (dewisol)",
   "addressLabel3": "Trydydd llinell y cyfeiriad (dewisol)",
   "selectAddress": "Dewiswch gyfeiriad",
@@ -14,7 +14,7 @@
 
   "errors": {
     "addressLine1": {
-      "required": "Nodwch linell gyntaf y cyfeiriad",
+      "required": "Nodwch linell 1 y cyfeiriad, fel arfer yr adeilad a’r stryd",
       "invalid": "Rhowch linell cyfeiriad sydd rhwng 2 a 150 nod o hyd"
     },
     "postTown": {

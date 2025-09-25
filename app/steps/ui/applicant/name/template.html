@@ -16,7 +16,7 @@
 
     <p class="govuk-body">{{ content.content1 | safe }}</p>
     <p class="govuk-body">{{ content.content2 | safe }}</p>
-    <p class="govuk-body">{{ content.content3 | safe }}</p>
+    <p class="govuk-body">{{ content.content3 | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
 
     {{ govukInput({
         label: {

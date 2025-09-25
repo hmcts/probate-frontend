@@ -1,12 +1,15 @@
 {
   "title": "Rhif ff&ocirc;n y ceisydd",
-  "question": "Beth yw eich rhif ff&ocirc;n?",
+  "question": "Beth yw eich rhif ffôn?",
+  "content1": "Fel arfer byddwn yn anfon e-bost neu lythyr atoch os oes gennym unrhyw gwestiynau am eich cais, ond gallwn ddefnyddio’r rhif hwn i gysylltu gyda chi fel arall.",
+  "content2": "Ar gyfer rhifau rhyngwladol, nodwch god y wlad",
   "phoneNumber": "Rhif ff&ocirc;n",
+  "hint": "Er enghraifft, 07700900900 neu +39133457090",
 
   "errors": {
     "phoneNumber": {
-      "required": "Nodwch rif ff&ocirc;n",
-      "invalid": "Nodwch rif ff&ocirc;n dilys"
+      "required": "Nodwch eich rhif ffôn",
+      "invalid": "Nodwch rif ffôn sydd yn y fformat cywir"
     }
   }
 }

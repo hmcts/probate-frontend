@@ -4,13 +4,13 @@
   "explanation1": "Mi wnawn anfon y grant profiant i'r cyfeiriad hwn.",
   "postTown": "Tref neu ddinas",
   "postcode": "Cod post yn y DU",
-  "country": "Gwlad (dewisol)",
+  "country": "Gwlad",
   "findAddress": "Dod o hyd i gyfeiriad yn y DU",
   "addressLabel": "Llinell cyfeiriad 1",
   "addressLabel2": "Ail linell y cyfeiriad (dewisol)",
   "addressLabel3": "Trydydd llinell y cyfeiriad (dewisol)",
   "selectAddress": "Dewiswch gyfeiriad",
-  "enterManually": "neu teipiwch eich cyfeiriad",
+  "enterManually": "Neu fel arall teipiwch gyfeiriad",
 
   "errors": {
     "addressLine1": {
@@ -18,12 +18,15 @@
       "invalid": "Rhowch linell cyfeiriad sydd rhwng 2 a 150 nod o hyd"
     },
     "postTown": {
-      "required": "Nodwch dref neu ddinas",
+      "required": "Nodwch tref neu ddinas",
       "invalid": "Rhowch dref sydd rhwng 2 a 50 nod o hyd"
     },
     "newPostCode": {
-      "required": "Nodwch god post",
+      "required": "Rhowch god post",
       "invalid": "Nodwch god post sydd 2-14 nod o hyd"
+    },
+    "country": {
+      "required": "Nodwch y wlad"
     }
   }
 }

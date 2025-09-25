@@ -55,7 +55,8 @@ describe('applicant-address', () => {
             const data = {
                 addressLine1: 'value',
                 postTown: 'value',
-                newPostCode: 'value'
+                newPostCode: 'value',
+                country: 'value',
             };
 
             testWrapper.testRedirect(done, data, expectedNextUrlForExecutorCheckWill);

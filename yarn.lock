@@ -4819,10 +4819,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:14.0.1":
-  version: 14.0.1
-  resolution: "commander@npm:14.0.1"
-  checksum: 10/783115e9403caeca29c0fcbd4e0358f70c67760e4e4933f3453fcdd5ddba2ec44173c8da5213d7ce5e404f51c7e71203a42c548164dbe27b668b32a8981577f1
+"commander@npm:13.1.0, commander@npm:~13.1.0":
+  version: 13.1.0
+  resolution: "commander@npm:13.1.0"
+  checksum: 10/d3b4b79e6be8471ddadacbb8cd441fe82154d7da7393b50e76165a9e29ccdb74fa911a186437b9a211d0fc071db6051915c94fb8ef16d77511d898e9dbabc6af
   languageName: node
   linkType: hard
 
@@ -4872,13 +4872,6 @@ __metadata:
   version: 9.5.0
   resolution: "commander@npm:9.5.0"
   checksum: 10/41c49b3d0f94a1fbeb0463c85b13f15aa15a9e0b4d5e10a49c0a1d58d4489b549d62262b052ae0aa6cfda53299bee487bfe337825df15e342114dde543f82906
-  languageName: node
-  linkType: hard
-
-"commander@npm:~13.1.0":
-  version: 13.1.0
-  resolution: "commander@npm:13.1.0"
-  checksum: 10/d3b4b79e6be8471ddadacbb8cd441fe82154d7da7393b50e76165a9e29ccdb74fa911a186437b9a211d0fc071db6051915c94fb8ef16d77511d898e9dbabc6af
   languageName: node
   linkType: hard
 
@@ -9323,15 +9316,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-sonar-reporter@npm:2.0.0":
-  version: 2.0.0
-  resolution: "jest-sonar-reporter@npm:2.0.0"
-  dependencies:
-    xml: "npm:^1.0.1"
-  checksum: 10/cf9fdc3b0b2cc904f5a4cc12acc9f489ee5483269d8cfae45b56aa9db735b87d80fb6d3cb338b5ca36c79f683b48384b250d500e8f1c84fcd14925f2d740a82b
-  languageName: node
-  linkType: hard
-
 "jest-util@npm:^29.7.0":
   version: 29.7.0
   resolution: "jest-util@npm:29.7.0"
@@ -13373,19 +13357,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"replace-in-file@npm:8.3.0":
-  version: 8.3.0
-  resolution: "replace-in-file@npm:8.3.0"
-  dependencies:
-    chalk: "npm:^5.3.0"
-    glob: "npm:^10.4.2"
-    yargs: "npm:^17.7.2"
-  bin:
-    replace-in-file: bin/cli.js
-  checksum: 10/9d5641019d26602a59cecc38883c157fa3008722e1f88e2f15b4c5bbf298a373745aad19a383d75c7788c100395c5b7469eec7d6b9e14fdc1d6732ddefffebfd
-  languageName: node
-  linkType: hard
-
 "request-progress@npm:^2.0.1":
   version: 2.0.1
   resolution: "request-progress@npm:2.0.1"
@@ -14332,26 +14303,24 @@ __metadata:
   linkType: hard
 
 "sonarqube-scanner@npm:^4.0.0":
-  version: 4.3.1
-  resolution: "sonarqube-scanner@npm:4.3.1"
+  version: 4.3.2
+  resolution: "sonarqube-scanner@npm:4.3.2"
   dependencies:
     adm-zip: "npm:0.5.16"
     axios: "npm:1.12.2"
-    commander: "npm:14.0.1"
+    commander: "npm:13.1.0"
     fs-extra: "npm:11.3.2"
     hpagent: "npm:1.2.0"
-    jest-sonar-reporter: "npm:2.0.0"
     node-forge: "npm:1.3.1"
     properties-file: "npm:3.6.1"
     proxy-from-env: "npm:1.1.0"
-    replace-in-file: "npm:8.3.0"
     semver: "npm:7.7.2"
     slugify: "npm:1.6.6"
     tar-stream: "npm:3.1.7"
   bin:
     sonar: bin/sonar-scanner.js
     sonar-scanner: bin/sonar-scanner.js
-  checksum: 10/6bf63281e69d3a6b9898fe6eda9b27c4b280ca39506df4a2afe5f622f8b426624b96b666a13ef4fdeec1a94b7253c4433cfd14728bd955f1d11db2c69779ddc7
+  checksum: 10/dd218acc93eefa048ccf6b62041becfb288de1a5c0b17845bea709189eed0ba0ce4df71bf5887fea90be0b824d6e70bac4c9be129d1b73c6129fea67f92d764f
   languageName: node
   linkType: hard
 

@@ -16,7 +16,8 @@ class StopPage extends Step {
 
         ctx.stoppageHeader = this.returnStopPageHeader(ctx.stopReason);
 
-        const templateContent = this.generateContent(ctx, formdata, req.session.language)[ctx.stopReason];
+        const allContent = this.generateContent(ctx, formdata, req.session.language);
+        const templateContent = allContent[ctx.stopReason];
 
         if (templateContent) {
             ctx.linkPlaceholders = this.replaceLinkPlaceholders(templateContent);
@@ -75,6 +76,9 @@ class StopPage extends Step {
             break;
         case 'mentalCapacity':
             pageHeader = 'applyByPostHeader';
+            break;
+        case 'relToDecMarriedOther':
+            pageHeader = 'relToDecMarriedOtherHeader';
             break;
         default:
             pageHeader = 'defaultHeader';

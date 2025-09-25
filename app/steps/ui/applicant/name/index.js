@@ -15,6 +15,13 @@ class ApplicantName extends ValidationStep {
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.deceasedName;
+
+        return [ctx, formdata];
+    }
 }
 
 module.exports = ApplicantName;

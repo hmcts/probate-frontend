@@ -30,11 +30,13 @@ describe('applicant-name', () => {
                     lastName: 'Doe'
                 }
             };
+            const contentToExclude = ['theDeceased'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done);
+                    const contentData = {deceasedName: 'John Doe'};
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 

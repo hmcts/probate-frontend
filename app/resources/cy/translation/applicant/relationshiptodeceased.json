@@ -12,6 +12,7 @@
   "optionSibling": "Fi yw eu brawd/chwaer",
   "hintSibling": "Gan gynnwys brodyr/chwiorydd mabwysiedig, ond nid llysfrodyr/llyschwiorydd",
   "optionOther": "Arall",
+  "or": "neu",
 
   "errors": {
     "relationshipToDeceased": {

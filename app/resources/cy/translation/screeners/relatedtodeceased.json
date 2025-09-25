@@ -13,6 +13,7 @@
   "optionSibling": "Fi yw eu brawd/chwaer",
   "hintTextSibling": "Gan gynnwys brodyr/chwiorydd mabwysiedig, ond nid llysfrodyr/llyschwiorydd",
   "optionNone": "Dim un o’r uchod",
+  "or": "neu",
 
   "errors": {
     "related": {

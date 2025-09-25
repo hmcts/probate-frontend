@@ -13,6 +13,7 @@
   "optionSibling": "I am their sibling",
   "hintTextSibling": "Including adopted and half-siblings, but not step-siblings",
   "optionNone": "None of the above",
+  "or": "or",
 
   "errors": {
     "related": {

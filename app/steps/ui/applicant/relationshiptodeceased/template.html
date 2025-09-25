@@ -40,8 +40,8 @@
 {% endif %}
 
 {% set answers = (answers.push({
-    divider: content["or"] | safe,
-}, answers) %}
+    divider: content["or"] | safe
+}), answers) %}
 
 {% set answers = (answers.push({
     value: "optionOther",

@@ -11,10 +11,14 @@
   "errors": {
     "firstName": {
       "required": "Enter your first name and any middle names",
+      "minLength": "First name must be 2 characters or more",
+      "maxLength": "First name must be 100 characters or less",
       "invalid": "First name must only include letters a to z, and special characters such as hyphens, spaces and apostrophes"
     },
     "lastName": {
       "required": "Enter your last name",
+      "length": "Last name must be 2 characters or more",
+      "maxLength": "Last name must be 100 characters or less",
       "invalid": "Last name must only include letters a to z, and special characters such as hyphens, spaces and apostrophes"
     }
   }

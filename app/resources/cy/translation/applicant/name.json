@@ -11,10 +11,14 @@
   "errors": {
     "firstName": {
       "required": "Nodwch eich enw cyntaf ac unrhyw enwau canol",
+      "minLength": "Rhaid i’r enw cyntaf fod yn 2 o nodau neu fwy",
+      "maxLength": "Rhaid i’r enw cyntaf fod yn 100 o nodau neu lai",
       "invalid": "Rhaid i’r enw cyntaf ond cynnwys llythrennau o a i z, a nodau arbenning fel cysylltnodau, bylchau a chollnodau"
     },
     "lastName": {
       "required": "Nodwch eich cyfenw",
+      "minLength": "Rhaid i’r cyfenw fod yn 2 o nodau neu fwy",
+      "maxLength": "Rhaid i’r cyfenw fod yn 100 o nodau neu lai",
       "invalid": "Rhaid i’r cyfenw ond cynnwys llythrennau o a i z, a nodau arbenning fel cysylltnodau, bylchau a chollnodau"
     }
   }

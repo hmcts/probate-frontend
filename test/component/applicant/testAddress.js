@@ -291,7 +291,8 @@ describe('applicant-address', () => {
                         addresses: testAddressData,
                         addressLine1: 'value',
                         postTown: 'value',
-                        newPostCode: 'value'
+                        newPostCode: 'value',
+                        country: 'value'
                     };
 
                     testWrapper.agent

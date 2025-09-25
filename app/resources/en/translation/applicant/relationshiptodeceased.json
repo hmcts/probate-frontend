@@ -12,6 +12,7 @@
   "optionSibling": "I am their sibling",
   "hintSibling": "Including adopted and half-siblings, but not step-siblings",
   "optionOther": "Other",
+  "or": "or",
 
   "errors": {
     "relationshipToDeceased": {

@@ -17,7 +17,7 @@
     },
     "lastName": {
       "required": "Enter your last name",
-      "length": "Last name must be 2 characters or more",
+      "minLength": "Last name must be 2 characters or more",
       "maxLength": "Last name must be 100 characters or less",
       "invalid": "Last name must only include letters a to z, and special characters such as hyphens, spaces and apostrophes"
     }

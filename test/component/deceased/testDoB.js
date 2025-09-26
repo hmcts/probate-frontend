@@ -32,11 +32,11 @@ describe('deceased-dob', () => {
                     lastName: 'Doe'
                 }
             };
-
+            const contentToExclude = ['theDeceased'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, {deceasedName: 'John Doe'});
+                    testWrapper.testContent(done, {deceasedName: 'John Doe'}, contentToExclude);
                 });
         });
 

@@ -64,16 +64,8 @@ describe('stop-page', () => {
 
         it('test right content loaded on the page - not related', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('notRelated');
-            const contentData = {stopReason: 'notRelated', applicationFormPA1A: config.links.applicationFormPA1A};
+            const contentData = {stopReason: 'notRelated', whoInherits: config.links.whoInherits, applicationFormPA1A: config.links.applicationFormPA1A};
             const contentToExclude = ['defaultHeader', 'deathCertificateHeader', 'deathCertificateTranslationHeader', 'inheritanceHeader', 'eeEstateValuedHeader', 'notOriginalHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'ihtNotCompleted', 'eeEstateNotValued', 'notDiedAfterOctober2014', 'otherApplicants', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
-
-            testWrapper.testContent(done, contentData, contentToExclude);
-        });
-
-        it('test right content loaded on the page - other applicants', (done) => {
-            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('otherApplicants');
-            const contentData = {stopReason: 'otherApplicants', applicationFormPA1A: config.links.applicationFormPA1A};
-            const contentToExclude = ['defaultHeader', 'deathCertificateHeader', 'deathCertificateTranslationHeader', 'inheritanceHeader', 'eeEstateValuedHeader', 'notOriginalHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'ihtNotCompleted', 'eeEstateNotValued', 'notDiedAfterOctober2014', 'notRelated', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18'];
 
             testWrapper.testContent(done, contentData, contentToExclude);
         });

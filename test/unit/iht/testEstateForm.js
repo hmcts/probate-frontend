@@ -21,10 +21,6 @@ describe('EstateForm', () => {
                     key: 'ihtFormId',
                     value: 'optionIHT400',
                     choice: 'optionIHT400'
-                }, {
-                    key: 'ihtFormId',
-                    value: 'optionIHT400421',
-                    choice: 'optionIHT400421'
                 },
                 {
                     key: 'ihtFormId',

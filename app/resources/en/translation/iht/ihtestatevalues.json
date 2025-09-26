@@ -9,7 +9,7 @@
     "estateNetValue": "Net estate value for IHT:<br><br>",
     "estateNetValueHint": "Starting with the gross value above, take away any debts like mortgage and credit cards.",
     "estateNetQualifyingValue": "Net qualifying estate value for IHT:<br><br>",
-    "estateNetQualifyingValueHint": "Starting with the net value above, take away the total value of any assets passed to a spouse or civil partner and any money left to charity.",
+    "estateNetQualifyingValueHint": "Starting with the net value above, take away the total value of any assets passed to a husband, wife or civil partner and any money left to charity.",
     "poundSymbol": "&pound;",
     "forEstateIht": " for the estate for inheritance tax in &pound;",
     "forEstateProbate": " for the estate of probate",

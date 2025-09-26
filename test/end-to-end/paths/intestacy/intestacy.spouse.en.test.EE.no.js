@@ -10,7 +10,6 @@ const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
 const maritalStatusMarried = ihtDataConfig.maritalStatusMarried;
 const bilingualGOP = false;
-const ihtOptionNotSubmitted = ihtDataConfig.ihtOptionNotSubmitted;
 const spousePartner = ihtDataConfig.spousePartner;
 
 Feature('GOP Intestacy spouse E2E - EE No Journey');
@@ -70,7 +69,7 @@ getTestLanguages().forEach(language => {
 
         await I.selectEEComplete(language, optionYes);
         //await I.reportEstateValue(language);
-        await I.selectSubmittedToHmrc(language, ihtOptionNotSubmitted);
+        await I.selectSubmittedToHmrc(language, optionNo);
         await I.enterEEValue(language, 500000, 400000, 400000);
         await I.selectLateSpouseCivilPartner(language, optionYes);
         await I.selectUnusedAllowance(language, optionYes);

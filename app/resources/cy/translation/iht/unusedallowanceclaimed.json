@@ -1,7 +1,8 @@
 {
     "title": "Ydych chi&rsquo;n hawlio&rsquo;r lwfans IHT nas defnyddir (&lsquo;band dim cyfradd&rsquo;) priod neu bartner sifil diweddar yr ymadawedig?",
-    "question": "Ydych chi&rsquo;n hawlio&rsquo;r lwfans IHT nas defnyddir (&lsquo;band dim cyfradd&rsquo;) priod neu bartner sifil diweddar yr ymadawedig?",
-    "hint": "Mae gan bawb lwfans di-dreth o £325,000 cyn bod yn rhaid iddynt dalu Treth Etifeddiant. Os ydych yn gwneud cais am brofiant ar gyfer ystâd rhywun na ddefnyddiodd rywfaint neu’r cyfan o’r lwfans pan fu farw eu priod neu bartner sifil, gallwch ychwanegu’r lwfans hwnnw sy’n weddill at y cais hwn.",
+    "question": "A ydych yn hawlio lwfans Treth Etifeddiant gŵr, gwraig neu bartner sifil {deceasedName} na gafodd ei ddefnyddio?",
+    "hint1": "Mae gan bawb lwfans yn rhydd o dreth o £325,000 (a elwir yn &lsquo;band cyfradd sero&rsquo;) cyn rhaid iddynt dalu Treth Etifeddiant.",
+    "hint2": "Os na wnaeth {deceasedName} ddefnyddio rhan o, neu’r holl lwfans pan fu farw eu gŵr, gwraig neu bartner sifil, yna gallwch ychwanegu’r lwfans sy’n weddill i’r cais hwn.",
     "optionYes": "Ydw",
     "optionNo": "Nac ydw",
     "errors": {

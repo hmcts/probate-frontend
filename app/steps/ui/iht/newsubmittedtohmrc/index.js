@@ -11,28 +11,25 @@ class NewSubmittedToHmrc extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'ihtFormEstateId', value: 'optionIHT400', choice: 'optionIHT400'},
-                {key: 'ihtFormEstateId', value: 'optionIHT400421', choice: 'optionIHT400421'},
-                {key: 'ihtFormEstateId', value: 'optionNA', choice: 'optionNA'},
+                {key: 'estateValueCompleted', value: 'optionYes', choice: 'optionIHT400'},
             ]
         };
     }
 
     handlePost(ctx, errors) {
-        if (ctx.ihtFormEstateId === 'optionIHT400421' || ctx.ihtFormEstateId === 'optionIHT400') {
+        if (ctx.estateValueCompleted === 'optionYes') {
             delete ctx.estateGrossValue;
             delete ctx.estateNetValue;
             delete ctx.estateNetQualifyingValue;
             delete ctx.estateNetQualifyingValueField;
             delete ctx.estateGrossValueField;
             delete ctx.estateNetValueField;
-            ctx.estateValueCompleted = 'optionYes';
-        } else if (ctx.ihtFormEstateId === 'optionNA') {
+            ctx.ihtFormEstateId = 'optionIHT400';
+        } else if (ctx.estateValueCompleted === 'optionNo') {
             delete ctx.ihtGrossValue;
             delete ctx.ihtNetValue;
             delete ctx.grossValueField;
             delete ctx.netValueField;
-            ctx.estateValueCompleted = 'optionNo';
         }
         return super.handlePost(ctx, errors);
     }

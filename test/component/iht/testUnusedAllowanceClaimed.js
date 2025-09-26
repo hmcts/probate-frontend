@@ -26,13 +26,18 @@ describe('Tests for Unused allowance claimed', () => {
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456
+                },
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe'
                 }
             };
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done);
+                    const contentData = {deceasedName: 'John Doe'};
+                    testWrapper.testContent(done, contentData);
                 });
         });
 

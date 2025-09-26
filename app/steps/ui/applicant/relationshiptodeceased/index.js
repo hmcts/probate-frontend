@@ -49,6 +49,21 @@ class RelationshipToDeceased extends ValidationStep {
         };
     }
 
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+
+        if (fields.deceasedName && errors) {
+            for (const error of errors) {
+                const match = error.msg.match(/{deceasedName}/g);
+                if (match) {
+                    error.msg = error.msg.replace('{deceasedName}', fields.deceasedName.value);
+                }
+            }
+        }
+
+        return fields;
+    }
+
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.assetsValue;

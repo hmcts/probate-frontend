@@ -3,6 +3,8 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {get} = require('lodash');
 const IhtThreshold = require('app/utils/IhtThreshold');
+const FormatName = require('app/utils/FormatName');
+const logger = require('app/components/logger');
 
 class RelationshipToDeceased extends ValidationStep {
 
@@ -16,10 +18,17 @@ class RelationshipToDeceased extends ValidationStep {
         ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
         ctx.deceasedMaritalStatus = get(formdata, 'deceased.maritalStatus');
         ctx.assetsValue = get(formdata, 'iht.netValue', 0) + get(formdata, 'iht.netValueAssetsOutside', 0);
+        ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
 
     nextStepUrl(req, ctx) {
+        if (ctx.relationshipToDeceased === 'optionOther') {
+            if (ctx.deceasedMaritalStatus === 'optionMarried') {
+                return this.next(req, ctx).constructor.getUrl('relToDecMarriedOther');
+            }
+            return this.next(req, ctx).constructor.getUrl('relToDecUnmarriedOther');
+        }
         return this.next(req, ctx).constructor.getUrl('otherRelationship');
     }
 
@@ -38,6 +47,21 @@ class RelationshipToDeceased extends ValidationStep {
                 {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'},
             ]
         };
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+
+        if (fields.deceasedName && errors) {
+            for (const error of errors) {
+                const match = error.msg.match(/{deceasedName}/g);
+                if (match) {
+                    error.msg = error.msg.replace('{deceasedName}', fields.deceasedName.value);
+                }
+            }
+        }
+
+        return fields;
     }
 
     action(ctx, formdata) {
@@ -64,6 +88,25 @@ class RelationshipToDeceased extends ValidationStep {
         }
 
         return [ctx, formdata];
+    }
+
+    isComplete(ctx, formdata) {
+        const marStat = formdata?.deceased?.maritalStatus;
+        const relToDec = formdata?.applicant?.relationshipToDeceased;
+        if (marStat) {
+            if (marStat !== 'optionMarried' &&
+                relToDec === 'optionSpousePartner') {
+                logger().info(`marStat: ${marStat}, relToDec: ${relToDec}, cannot be spouse if unmarried`);
+                return [false, 'inProgress'];
+            } else if (marStat === 'optionMarried' &&
+                    (relToDec === 'optionParent' ||
+                        relToDec === 'optionSibling')) {
+                logger().info(`marStat: ${marStat}, relToDec: ${relToDec}, cannot be parent/sibling if married`);
+                return [false, 'inProgress'];
+            }
+        }
+
+        return super.isComplete(ctx, formdata);
     }
 }
 

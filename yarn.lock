@@ -8420,14 +8420,14 @@ __metadata:
   linkType: hard
 
 "import-in-the-middle@npm:^1.14.2":
-  version: 1.14.3
-  resolution: "import-in-the-middle@npm:1.14.3"
+  version: 1.14.4
+  resolution: "import-in-the-middle@npm:1.14.4"
   dependencies:
     acorn: "npm:^8.14.0"
     acorn-import-attributes: "npm:^1.9.5"
     cjs-module-lexer: "npm:^1.2.2"
     module-details-from-path: "npm:^1.0.3"
-  checksum: 10/0998171893d2cfbec9a1c3d9323153c68a448709e66e59894aba0f0f0bd0a926d61331721d7180fe803f4189ba7dcbbad75dd0f755bcec87bfcebd60b47b9f81
+  checksum: 10/96b657cfe33dda86cc1160446039b1ff115154a0242ff26b275177621e12f88ba2b23df5f15e1fa8e5cba57ee8f8d02d353df0d2ec1b08d3a3503e3e4e987ab3
   languageName: node
   linkType: hard
 

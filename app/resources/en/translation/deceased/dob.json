@@ -5,6 +5,7 @@
   "dayName": "Day",
   "monthName": "Month",
   "yearName": "Year",
+  "theDeceased": "the deceased",
 
   "errors": {
     "dob-day": {

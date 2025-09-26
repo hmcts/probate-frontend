@@ -117,6 +117,8 @@ describe('Summary', () => {
                 alreadyDeclared: false,
                 codicilPresent: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
+                deceasedDobQuestion: 'What was Dee Ceased’s date of birth?',
+                deceasedDodQuestion: 'What was the date that Dee Ceased died?',
                 deceasedAddressQuestion: 'What was Dee Ceased\'s permanent address at the time of their death?',
                 diedEnglandOrWalesQuestion: 'Did Dee Ceased die in England or Wales?',
                 deceasedNameAsOnWillQuestion: 'Is Dee Ceased exactly how the name is written on the will?',

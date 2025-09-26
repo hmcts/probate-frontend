@@ -5,6 +5,7 @@
   "dayName": "Diwrnod",
   "monthName": "Mis",
   "yearName": "Blwyddyn",
+  "theDeceased": "yr unigolyn sydd wedi marw",
 
   "errors": {
     "dod-day": {

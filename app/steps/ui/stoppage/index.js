@@ -82,6 +82,9 @@ class StopPage extends Step {
         case 'relToDecMarriedOther':
             pageHeader = 'relToDecMarriedOtherHeader';
             break;
+        case 'relToDecUnmarriedOther':
+            pageHeader = 'relToDecUnmarriedOtherHeader';
+            break;
         default:
             pageHeader = 'defaultHeader';
         }

@@ -119,14 +119,42 @@ describe('RelationshipToDeceased', () => {
             done();
         });
 
-        it('should return the correct url when Other is given', (done) => {
+        it('should return the correct url when Other is given and deceased married', (done) => {
             const req = {
                 session: {
                     journey: journey
                 }
             };
             const ctx = {
-                relationshipToDeceased: 'optionOther'
+                relationshipToDeceased: 'optionOther',
+                deceasedMaritalStatus: 'optionMarried',
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/stop-page/relToDecMarriedOther');
+            done();
+        });
+
+        it('should return the correct url when Other is given and deceased not married', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                relationshipToDeceased: 'optionOther',
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/stop-page/relToDecUnmarriedOther');
+            done();
+        });
+
+        it('should return the correct url when Other not given', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/otherRelationship');

@@ -11,6 +11,7 @@ describe('summary-deceased-section', () => {
 
     beforeEach(() => {
         testWrapper = new TestWrapper('Summary');
+        delete require.cache[require.resolve('test/data/deceased')];
         sessionData = require('test/data/deceased');
     });
 
@@ -67,8 +68,8 @@ describe('summary-deceased-section', () => {
                         lastName: deceasedContent.name.lastName,
                         alias: deceasedContent.alias.question.replace('{deceasedName}', deceasedName),
                         married: deceasedContent.married.question.replace('{deceasedName}', deceasedName),
-                        dob: deceasedContent.dob.question.replace('{deceasedName}', deceasedContent.dob.theDeceased),
-                        dod: deceasedContent.dod.question.replace('{deceasedName}', deceasedContent.dod.theDeceased),
+                        dob: deceasedContent.dob.question.replace('{deceasedName}', deceasedName),
+                        dod: deceasedContent.dod.question.replace('{deceasedName}', deceasedName),
                         address: deceasedContent.address.question.replace('{deceasedName}', deceasedName)
                     };
 
@@ -96,8 +97,8 @@ describe('summary-deceased-section', () => {
                         questionLastName: deceasedContent.name.lastName,
                         questionAlias: deceasedContent.alias.question.replace('{deceasedName}', deceasedName),
                         questionMarried: deceasedContent.married.question.replace('{deceasedName}', deceasedName),
-                        questionDob: deceasedContent.dob.question.replace('{deceasedName}', deceasedContent.dob.theDeceased),
-                        questionDod: deceasedContent.dod.question.replace('{deceasedName}', deceasedContent.dod.theDeceased),
+                        questionDob: deceasedContent.dob.question.replace('{deceasedName}', deceasedName),
+                        questionDod: deceasedContent.dod.question.replace('{deceasedName}', deceasedName),
                         questionAddress: deceasedContent.address.question.replace('{deceasedName}', deceasedName)
                     };
                     Object.assign(playbackData, sessionData.deceased);

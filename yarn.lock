@@ -9820,9 +9820,9 @@ __metadata:
   linkType: hard
 
 "libphonenumber-js@npm:^1.11.17":
-  version: 1.12.22
-  resolution: "libphonenumber-js@npm:1.12.22"
-  checksum: 10/d6665870908489e16a5c124bf95adab3ff82a6606446d564cbea03380404adcfcafffbdf6d1a31c039b025dd28723997102980b88bde959bfbdac54c0a5687e0
+  version: 1.12.23
+  resolution: "libphonenumber-js@npm:1.12.23"
+  checksum: 10/74b00fa8dd51f3b99d3d0be2c108186aa260fbf832f7d29b8d79a1eed4e874a542e9fced315477c5f57e6c6958e4c93f1ea7267873248bd1ad83d04b852ba553
   languageName: node
   linkType: hard
 

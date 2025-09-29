@@ -10,12 +10,13 @@ describe('summary-deceased-section', () => {
     let testWrapper, sessionData;
 
     beforeEach(() => {
+        delete require.cache[require.resolve('test/data/deceased.json')];
+        sessionData = require('test/data/deceased.json');
         testWrapper = new TestWrapper('Summary');
-        delete require.cache[require.resolve('test/data/deceased')];
-        sessionData = require('test/data/deceased');
     });
 
     afterEach(() => {
+        delete require.cache[require.resolve('test/data/deceased')];
         testWrapper.destroy();
     });
 

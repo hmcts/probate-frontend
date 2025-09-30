@@ -188,6 +188,12 @@ const stepList = {
         allGrandchildrenOver18: 'ApplicantName',
         otherwise: 'StopPage'
     },
+    JoinApplication: 'CoApplicantRelationshipToDeceased',
+    CoApplicantRelationshipToDeceased: {
+        optionChild: 'CoApplicantName',
+        optionGrandchild: 'ParentDieBefore',
+        otherwise: 'StopPage'
+    },
     ApplicantName: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
     ApplicantAddress: 'Equality',

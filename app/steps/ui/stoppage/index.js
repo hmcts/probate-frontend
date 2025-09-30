@@ -11,16 +11,16 @@ class StopPage extends Step {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        ctx.stopReason = req.params[0];
 
+        ctx.stopReason = req.params[0];
         const formdata = req.session.form;
 
         ctx.stoppageHeader = this.returnStopPageHeader(ctx.stopReason);
-
+        console.log('ctx.stopReason-->'+ctx.stopReason);
         ctx.deceasedName = FormatName.format(formdata.deceased);
 
         const templateContent = this.generateContent(ctx, formdata, req.session.language)[ctx.stopReason];
-
+        console.log('ctx.templateContent-->'+ctx.templateContent);
         if (templateContent) {
             ctx.linkPlaceholders = this.replaceLinkPlaceholders(templateContent);
         }
@@ -82,6 +82,9 @@ class StopPage extends Step {
         case 'divorcePlace':
         case 'separationPlace':
             pageHeader = 'postHeader';
+            break;
+        case 'coApplicantRelationshipToDeceased':
+            pageHeader = 'coApplicantRelationshipToDeceasedHeader';
             break;
         default:
             pageHeader = 'defaultHeader';

@@ -1,0 +1,23 @@
+{
+  "title": "People applying for probate",
+  "titleWithCodicil": "Executors named in the will and any codicils",
+  "question": "Do you want to apply with anyone else?",
+  "hintText": "If there are other people entitled to inherit, you can make a joint application with up to 3 of them. \nThey will also be named on the grant of probate.",
+  "hintTextDeceasedName": "All applicants will be given the legal right to deal with {{ deceased name }}’s estate. This includes:",
+  "bullet1": "collecting the estate’s assets (property, money and possessions)",
+  "bullet2": "paying any taxes and debts",
+  "bullet3": "distributing what is left to the people entitled to it (the ‘beneficiaries’)",
+  "applicantExecutor" : "Applicant (you)",
+  "furtherExecutor": "Applicant",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "removeAction": "Remove",
+
+  "errors": {
+    "executorsNamed": {
+      "required": "Select 'Yes' if there are more executors named in the will",
+      "requiredCodicils": "Select 'Yes' if there are more executors named in the will and any codicils",
+      "invalid": "Number of executors must be a whole number between 1 and 20"
+    }
+  }
+}

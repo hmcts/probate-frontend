@@ -182,5 +182,62 @@ describe('stop-page', () => {
 
             testWrapper.testContent(done, contentData, contentToExclude);
         });
+
+        it('test right content loaded on the page - relationship other, married', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('relToDecMarriedOther');
+            const sessionData = {
+                type: caseTypes.INTESTACY,
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe'
+                }
+            };
+            const contentData = {
+                applicationFormPA1A: config.links.applicationFormPA1A,
+                applicationFormPA12: config.links.applicationFormPA12,
+                applicationFormPA16: config.links.applicationFormPA16,
+                deceasedName: 'John Doe',
+            };
+            const contentToExclude = ['defaultHeader', 'deathCertificateHeader', 'deathCertificateTranslationHeader', 'inheritanceHeader', 'eeEstateValuedHeader', 'notOriginalHeader', 'applyByPostHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'ihtNotCompleted', 'eeEstateNotValued', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18', 'relToDecUnmarriedOther', 'relToDecUnmarriedOtherHeader'];
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+
+        it('test right content loaded on the page - relationship other, unmarried', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('relToDecUnmarriedOther');
+            const sessionData = {
+                type: caseTypes.INTESTACY,
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe'
+                }
+            };
+            const contentData = {
+                applicationFormPA1A: config.links.applicationFormPA1A,
+                applicationFormPA12: config.links.applicationFormPA12,
+                applicationFormPA16: config.links.applicationFormPA16,
+                whoInherits: config.links.whoInherits,
+                deceasedName: 'John Doe',
+            };
+            const contentToExclude = ['defaultHeader', 'deathCertificateHeader', 'deathCertificateTranslationHeader', 'inheritanceHeader', 'eeEstateValuedHeader', 'notOriginalHeader', 'applyByPostHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'ihtNotCompleted', 'eeEstateNotValued', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18', 'relToDecMarriedOther', 'relToDecMarriedOtherHeader'];
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
     });
 });

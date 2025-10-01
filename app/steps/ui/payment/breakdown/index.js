@@ -15,6 +15,13 @@ class PaymentBreakdown extends Step {
         return '/payment-breakdown';
     }
 
+    nextStepUrl(req, ctx) {
+        if (ctx?.paymentNextUrl) {
+            return ctx.paymentNextUrl;
+        }
+        return super.nextStepUrl(req, ctx);
+    }
+
     handleGet(ctx, formdata) {
         const fees = formdata.fees;
         this.checkFeesStatus(fees);
@@ -156,7 +163,7 @@ class PaymentBreakdown extends Step {
                     }
                     ctx.reference = paymentResponse.reference;
                     ctx.paymentCreatedDate = paymentResponse.date_created;
-                    this.nextStepUrl = () => paymentResponse._links.next_url.href;
+                    ctx.paymentNextUrl = paymentResponse._links.next_url.href;
                 } else {
                     logger.info(`setting payment.status -> not_required for case: ${formdata.ccdCase.id}.`);
                     const notReqPayment = {
@@ -170,10 +177,7 @@ class PaymentBreakdown extends Step {
                         status: 'not_required',
                     };
                     set(formdata, 'payment', notReqPayment);
-                    delete this.nextStepUrl;
                 }
-            } else {
-                delete this.nextStepUrl;
             }
             return [ctx, errors];
         } finally {
@@ -209,6 +213,7 @@ class PaymentBreakdown extends Step {
         delete ctx.authToken;
         delete ctx.paymentError;
         delete ctx.deceasedLastName;
+        delete ctx.paymentNextUrl;
         delete formdata.fees;
 
         if (formdata?.payment?.status) {

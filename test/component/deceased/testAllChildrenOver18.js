@@ -1,14 +1,14 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const AnyDeceasedChildren = require('app/steps/ui/deceased/anydeceasedchildren/index');
+const ApplicantName = require('app/steps/ui/applicant/name/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('all-children-over-18', () => {
     let testWrapper;
-    const expectedNextUrlForAnyDeceasedChildren = AnyDeceasedChildren.getUrl();
+    const expectedNextUrlForApplicantName = ApplicantName.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('childrenUnder18');
 
     beforeEach(() => {
@@ -48,7 +48,7 @@ describe('all-children-over-18', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to Any Deceased Children page if deceased children were all over 18: ${expectedNextUrlForAnyDeceasedChildren}`, (done) => {
+        it(`test it redirects to Any Deceased Children page if deceased children were all over 18: ${expectedNextUrlForApplicantName}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -56,7 +56,7 @@ describe('all-children-over-18', () => {
                         allChildrenOver18: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyDeceasedChildren);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
                 });
         });
 

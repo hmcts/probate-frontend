@@ -1,13 +1,17 @@
 {
   "title": "A oedd gan yr unigolyn sydd wedi marw blant eraill",
-  "question": "A oedd gan {deceasedName} blant eraill?",
+  "question": "A oedd gan {deceasedName} unrhyw blant eraill?",
+  "paragraph1": "Mae arnom angen gwybod am yr holl blant oedd gan {deceasedName}, gan gynnwys unrhyw blant oedd:",
+  "listItem1": "Wedi cael eu mabwysiadu&rsquo;r gyfreithlon neu wedi cael eu rhoi i ffwrdd i gael eu mabwysiadu",
+  "listItem2": "wedi marw, un ai cyn neu ar &ocirc;l {deceasedName}",
+  "paragraph2": "Nid yw hyn yn cynnwys unrhyw lysblant.",
   "optionYes": "Oedd",
-  "optionNo": "Nag oedd",
+  "optionNo": "Nac oedd",
   "theDeceased": "yr unigolyn sydd wedi marw",
 
   "errors": {
     "anyOtherChildren": {
-      "required": "Atebwch &lsquo;oedd&rsquo; os oedd gan yr unigolyn sydd wedi marw blant eraill"
+      "required": "Dewiswch &lsquo;oedd&rsquo; os oedd gan {deceasedName} unrhyw blant eraill"
     }
   }
 }

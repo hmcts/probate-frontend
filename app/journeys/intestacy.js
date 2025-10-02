@@ -152,15 +152,27 @@ const stepList = {
     },
     DivorceDate: 'TaskList',
     RelationshipToDeceased: {
-        childDeceasedMarried: 'SpouseNotApplyingReason',
-        childDeceasedNotMarried: 'AnyOtherChildren',
+        childOrGrandchildDeceasedMarried: 'SpouseNotApplyingReason',
+        childOrGrandchildDeceasedNotMarried: 'ChildAdoptedIn',
         adoptedChild: 'AdoptionPlace',
         spousePartnerLessThanAssetsThreshold: 'ApplicantName',
         spousePartnerMoreThanAssetsThreshold: 'AnyChildren',
         otherwise: 'StopPage'
     },
     SpouseNotApplyingReason: {
-        renouncing: 'AnyOtherChildren',
+        renouncing: 'ChildAdoptedIn',
+        otherwise: 'StopPage'
+    },
+    ChildAdoptedIn: {
+        childAdoptedIn: 'ChildAdoptionPlace',
+        childNotAdoptedIn: 'ChildAdoptedOut'
+    },
+    ChildAdoptedOut: {
+        childAdoptedOut: 'AnyOtherChildren',
+        otherwise: 'StopPage'
+    },
+    ChildAdoptionPlace: {
+        childAdoptedInEnglandOrWales: 'AnyOtherChildren',
         otherwise: 'StopPage'
     },
     AdoptionPlace: {
@@ -173,19 +185,25 @@ const stepList = {
         otherwise: 'ApplicantName'
     },
     AnyOtherChildren: {
-        hadOtherChildren: 'AllChildrenOver18',
+        hadOtherChildren: 'AnyPredeceasedChildren',
         otherwise: 'ApplicantName'
     },
     AllChildrenOver18: {
-        allChildrenOver18: 'AnyDeceasedChildren',
+        allChildrenOver18: 'ApplicantName',
         otherwise: 'StopPage'
     },
-    AnyDeceasedChildren: {
-        hadDeceasedChildren: 'AnyGrandchildrenUnder18',
-        otherwise: 'ApplicantName'
+    AnyPredeceasedChildren: {
+        hadSomeOrAllPredeceasedChildren: 'AnySurvivingGrandchildren',
+        optionNo: 'AllChildrenOver18'
+    },
+    AnySurvivingGrandchildren: {
+        hadSurvivingGrandchildren: 'AnyGrandchildrenUnder18',
+        hadOtherChildrenAndHadNoSurvivingGrandchildren: 'AllChildrenOver18',
+        hadNoOtherChildrenAndHadNoSurvivingGrandchildren: 'ApplicantName'
     },
     AnyGrandchildrenUnder18: {
-        allGrandchildrenOver18: 'ApplicantName',
+        allGrandchildrenOver18AndSomePredeceasedChildren: 'AllChildrenOver18',
+        allGrandchildrenOver18AndAllPredeceasedChildren: 'ApplicantName',
         otherwise: 'StopPage'
     },
     JoinApplication: 'CoApplicantRelationshipToDeceased',

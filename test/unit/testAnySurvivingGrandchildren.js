@@ -3,13 +3,13 @@
 const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
-const AnyDeceasedChildren = steps.AnyDeceasedChildren;
+const AnySurvivingGrandchildren = steps.AnySurvivingGrandchildren;
 
-describe('AnyDeceasedChildren', () => {
+describe('AnySurvivingGrandchildren', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = AnyDeceasedChildren.constructor.getUrl();
-            expect(url).to.equal('/any-deceased-children');
+            const url = AnySurvivingGrandchildren.constructor.getUrl();
+            expect(url).to.equal('/any-surviving-grandchildren');
             done();
         });
     });
@@ -27,7 +27,7 @@ describe('AnyDeceasedChildren', () => {
                 }
             };
 
-            const ctx = AnyDeceasedChildren.getContextData(req);
+            const ctx = AnySurvivingGrandchildren.getContextData(req);
             expect(ctx.deceasedName).to.equal('John Doe');
             done();
         });
@@ -36,10 +36,12 @@ describe('AnyDeceasedChildren', () => {
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
             const ctx = {};
-            const nextStepOptions = AnyDeceasedChildren.nextStepOptions(ctx);
+            const nextStepOptions = AnySurvivingGrandchildren.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'anyDeceasedChildren', value: 'optionYes', choice: 'hadDeceasedChildren'},
+                    {key: 'anySurvivingGrandchildren', value: 'optionYes', choice: 'hadSurvivingGrandchildren'},
+                    {key: 'hadOtherChildrenAndHadNoSurvivingGrandchildren', value: true, choice: 'hadOtherChildrenAndHadNoSurvivingGrandchildren'},
+                    {key: 'hadNoOtherChildrenAndHadNoSurvivingGrandchildren', value: true, choice: 'hadNoOtherChildrenAndHadNoSurvivingGrandchildren'},
                 ]
             });
             done();
@@ -50,18 +52,18 @@ describe('AnyDeceasedChildren', () => {
         it('test it cleans up context', () => {
             const ctx = {
                 deceasedName: 'Dee Ceased',
-                anyDeceasedChildren: 'optionNo',
-                anyGrandchildrenUnder18: 'optionNo'
+                anyPredeceasedChildren: 'optionYesSome',
+                anySurvivingGrandchildren: 'optionYes',
+                anyGrandchildrenUnder18: 'optionNo',
+                allChildrenOver18: 'optionYes'
             };
             const formdata = {
                 deceased: {
-                    anyDeceasedChildren: 'optionYes'
+                    anySurvivingGrandchildren: 'optionNo'
                 }
             };
 
-            AnyDeceasedChildren.action(ctx, formdata);
-
-            assert.isUndefined(ctx.deceasedName);
+            AnySurvivingGrandchildren.action(ctx, formdata);
             assert.isUndefined(ctx.anyGrandchildrenUnder18);
         });
     });

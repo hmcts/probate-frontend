@@ -1,13 +1,17 @@
 {
   "title": "Did the deceased have any other children",
   "question": "Did {deceasedName} have any other children?",
+  "paragraph1": "We need to know about all children {deceasedName} had, including any children who:",
+  "listItem1": "were legally adopted or given up for adoption",
+  "listItem2": "have died, either before or after {deceasedName}",
+  "paragraph2": "This does not include any step-children.",
   "optionYes": "Yes",
   "optionNo": "No",
   "theDeceased": "the deceased",
 
   "errors": {
     "anyOtherChildren": {
-      "required": "Answer &lsquo;yes&rsquo; if the person who died had any other children"
+      "required": "Select &lsquo;yes&rsquo; if {deceasedName} had any other children"
     }
   }
 }

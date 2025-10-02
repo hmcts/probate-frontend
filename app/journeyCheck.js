@@ -11,12 +11,16 @@ const intestacyOnlyPages = [
     '/deceased-divorce-or-separation-place',
     '/deceased-divorce-date',
     '/relationship-to-deceased',
+    '/child-adopted-in',
+    '/child-adoption-place',
+    '/child-adopted-out',
     '/adoption-place',
     '/spouse-not-applying-reason',
     '/any-children',
     '/any-other-children',
     '/all-children-over-18',
-    '/any-deceased-children',
+    '/any-predeceased-children',
+    '/any-surviving-grandchildren',
     '/any-grandchildren-under-18'
 ];
 

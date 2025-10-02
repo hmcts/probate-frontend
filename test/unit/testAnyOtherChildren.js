@@ -50,7 +50,7 @@ describe('AnyOtherChildren', () => {
             const ctx = {
                 anyOtherChildren: 'optionNo',
                 allChildrenOver18: 'optionYes',
-                anyDeceasedChildren: 'optionYes',
+                anyPredeceasedChildren: 'optionYesAll',
                 anyGrandchildrenUnder18: 'optionNo'
             };
             const formdata = {
@@ -62,7 +62,7 @@ describe('AnyOtherChildren', () => {
             AnyOtherChildren.action(ctx, formdata);
 
             assert.isUndefined(ctx.allChildrenOver18);
-            assert.isUndefined(ctx.anyDeceasedChildren);
+            assert.isUndefined(ctx.anyPredeceasedChildren);
             assert.isUndefined(ctx.anyGrandchildrenUnder18);
         });
     });

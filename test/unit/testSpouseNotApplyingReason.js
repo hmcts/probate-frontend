@@ -48,7 +48,7 @@ describe('SpouseNotApplyingReason', () => {
                 spouseNotApplyingReason: 'optionRenouncing'
             };
             const nextStepUrl = SpouseNotApplyingReason.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/any-other-children');
+            expect(nextStepUrl).to.equal('/child-adopted-in');
             done();
         });
 

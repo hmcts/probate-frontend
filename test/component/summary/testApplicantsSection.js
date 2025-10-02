@@ -67,8 +67,7 @@ describe('summary-applicants-section', () => {
                         spouseNotApplyingReason: applicantContent.spousenotapplyingreason.question.replace('{deceasedName}', deceasedName),
                         anyOtherChildren: deceasedContent.anyotherchildren.question.replace('{deceasedName}', deceasedName),
                         allChildrenOver18: deceasedContent.allchildrenover18.question.replace('{deceasedName}', deceasedName),
-                        anyDeceasedChildren: deceasedContent.anydeceasedchildren.question.replace('{deceasedName}', deceasedName).replace('{deceasedDoD}', deceasedData.deceased['dod-formattedDate']),
-                        anyGrandchildrenUnder18: deceasedContent.anygrandchildrenunder18.question
+                        anyPredeceasedChildren: deceasedContent.anypredeceasedchildren.question.replace('{deceasedName}', deceasedName).replace('{deceasedDoD}', deceasedData.deceased['dod-formattedDate']),
                     };
 
                     testWrapper.testDataPlayback(done, playbackData);

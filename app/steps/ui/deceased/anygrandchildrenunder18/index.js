@@ -20,10 +20,13 @@ class AnyGrandchildrenUnder18 extends ValidationStep {
         return this.next(req, ctx).constructor.getUrl('grandchildrenUnder18');
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.allGrandchildrenOver18AndSomePredeceasedChildren = ctx.anyGrandchildrenUnder18 === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesSome';
+        ctx.allGrandchildrenOver18AndAllPredeceasedChildren = ctx.anyGrandchildrenUnder18 === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesAll';
         return {
             options: [
-                {key: 'anyGrandchildrenUnder18', value: 'optionNo', choice: 'allGrandchildrenOver18'}
+                {key: 'allGrandchildrenOver18AndSomePredeceasedChildren', value: true, choice: 'allGrandchildrenOver18AndSomePredeceasedChildren'},
+                {key: 'allGrandchildrenOver18AndAllPredeceasedChildren', value: true, choice: 'allGrandchildrenOver18AndAllPredeceasedChildren'}
             ]
         };
     }

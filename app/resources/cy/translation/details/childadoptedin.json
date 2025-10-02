@@ -1,0 +1,12 @@
+{
+  "title": "A wnaeth yr unigolyn sydd wedi marw eich mabwysiadau&rsquo;n gyfreithlon i mewn i&rsquo;w teulu nhw?",
+  "question": "A wnaeth {deceasedName} eich mabwysiadau&rsquo;n gyfreithlon i mewn i&rsquo;w teulu nhw?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+
+  "errors": {
+    "childAdoptedIn": {
+      "required": "Dewiswch &lsquo;Do&rsquo; os wnaeth {deceasedName} eich mabwysiadu&rsquo;n gyfreithlon"
+    }
+  }
+}

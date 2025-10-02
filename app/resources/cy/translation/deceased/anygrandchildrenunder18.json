@@ -1,9 +1,9 @@
 {
   "title": "Unrhyw wyrion/wyresau dan 18 oed",
   "question": "A oedd gan y plentyn hwnnw blant sydd dan 18 oed?",
-  "hint": "Wyrion/Wyresau {deceasedName} fyddai&rsquo;r plant hyn.",
-  "optionYes": "Oedd",
-  "optionNo": "Nag oedd",
+  "paragraph": "Nhw fyddai wyrion {deceasedName}.",
+  "optionYes": "Ydyn",
+  "optionNo": "Nac ydyn",
 
   "errors": {
     "anyGrandchildrenUnder18": {

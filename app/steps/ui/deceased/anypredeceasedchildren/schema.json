@@ -1,13 +1,13 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "any-deceased-children",
+  "$id": "predeceased-children",
   "type": "object",
   "properties": {
-    "anyDeceasedChildren": {
+    "anyPredeceasedChildren": {
       "type": "string"
     }
   },
   "required": [
-    "anyDeceasedChildren"
+    "anyPredeceasedChildren"
   ]
 }

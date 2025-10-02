@@ -6,26 +6,27 @@
 {% block form_content %}
     {{ govukRadios({
         classes: "govuk-radios--inline",
-        idPrefix: "anyDeceasedChildren",
-        name: "anyDeceasedChildren",
+        idPrefix: "childAdoptedIn",
+        name: "childAdoptedIn",
         fieldset: {
             legend: {
-                text: content.question | replace("{deceasedName}", fields.deceasedName.value) | replace("{deceasedDoD}", fields["dod-formattedDate"].value) | safe,
+                text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.anyDeceasedChildren.errorMessage | safe } if fields.anyDeceasedChildren.errorMessage,
+        errorMessage: { text: fields.childAdoptedIn.errorMessage
+            | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.childAdoptedIn.errorMessage,
         items: [
             {
                 value: "optionYes",
                 text: content["optionYes"] | safe,
-                checked: true if fields.anyDeceasedChildren.value == "optionYes"
+                checked: true if fields.childAdoptedIn.value == "optionYes"
             },
             {
                 value: "optionNo",
                 text: content["optionNo"] | safe,
-                checked: true if fields.anyDeceasedChildren.value == "optionNo"
+                checked: true if fields.childAdoptedIn.value == "optionNo"
             }
         ]
     }) }}

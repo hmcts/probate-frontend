@@ -202,7 +202,7 @@ describe('stop-page', () => {
                 applicationFormPA16: config.links.applicationFormPA16,
                 deceasedName: 'John Doe',
             };
-            const contentToExclude = ['defaultHeader', 'deathCertificateHeader', 'deathCertificateTranslationHeader', 'inheritanceHeader', 'eeEstateValuedHeader', 'notOriginalHeader', 'applyByPostHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'ihtNotCompleted', 'eeEstateNotValued', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18', 'relToDecUnmarriedOther', 'relToDecUnmarriedOtherHeader'];
+            const contentToExclude = ['defaultHeader', 'deathCertificateHeader', 'deathCertificateTranslationHeader', 'inheritanceHeader', 'eeEstateValuedHeader', 'notOriginalHeader', 'postHeader', 'applyByPostHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'ihtNotCompleted', 'eeEstateNotValued', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18', 'relToDecUnmarriedOther', 'relToDecUnmarriedOtherHeader'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -231,7 +231,7 @@ describe('stop-page', () => {
                 whoInherits: config.links.whoInherits,
                 deceasedName: 'John Doe',
             };
-            const contentToExclude = ['defaultHeader', 'deathCertificateHeader', 'deathCertificateTranslationHeader', 'inheritanceHeader', 'eeEstateValuedHeader', 'notOriginalHeader', 'applyByPostHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'ihtNotCompleted', 'eeEstateNotValued', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18', 'relToDecMarriedOther', 'relToDecMarriedOtherHeader'];
+            const contentToExclude = ['defaultHeader', 'deathCertificateHeader', 'deathCertificateTranslationHeader', 'inheritanceHeader', 'eeEstateValuedHeader', 'notOriginalHeader', 'applyByPostHeader', 'postHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'ihtNotCompleted', 'eeEstateNotValued', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18', 'relToDecMarriedOther', 'relToDecMarriedOtherHeader'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

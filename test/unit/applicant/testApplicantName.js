@@ -18,7 +18,7 @@ describe('ApplicantName', () => {
         let errors;
         let formdata;
         const session = {};
-        it('should return the error when first name is missing', (done) => {
+        it('should return the error when first name is less than 2 characters', (done) => {
             ctx = {
                 'firstName': 'a',
                 'lastName': 'abc'
@@ -34,7 +34,7 @@ describe('ApplicantName', () => {
             ]);
             done();
         });
-        it('should return the error when last name is missing', (done) => {
+        it('should return the error when last name is less than 2 characters', (done) => {
             ctx = {
                 'firstName': 'abc',
                 'lastName': 'a'

@@ -24,7 +24,7 @@ class RelationshipToDeceased extends ValidationStep {
             if (ctx.deceasedMaritalStatus === 'optionMarried') {
                 return this.next(req, ctx).constructor.getUrl('deceasedHadLegalPartnerAndRelationshipOther');
             }
-            return this.next(req, ctx).constructor.getUrl('relToDecUnmarriedOther');
+            return this.next(req, ctx).constructor.getUrl('deceasedNoLegalPartnerAndRelationshipOther');
         }
         return this.next(req, ctx).constructor.getUrl('otherRelationship');
     }

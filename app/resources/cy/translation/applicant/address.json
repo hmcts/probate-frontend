@@ -7,8 +7,8 @@
   "country": "Gwlad",
   "findAddress": "Dod o hyd i gyfeiriad yn y DU",
   "addressLabel": "Llinell cyfeiriad 1",
-  "addressLabel2": "Ail linell y cyfeiriad (dewisol)",
-  "addressLabel3": "Trydydd llinell y cyfeiriad (dewisol)",
+  "addressLabel2": "Llinell cyfeiriad 2 (dewisol)",
+  "addressLabel3": "Llinell cyfeiriad 3 (dewisol)",
   "selectAddress": "Dewiswch gyfeiriad",
   "enterManually": "Neu fel arall teipiwch gyfeiriad",
 

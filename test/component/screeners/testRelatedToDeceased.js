@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const OtherApplicants = require('app/steps/ui/screeners/otherapplicants');
+const StartApply = require('app/steps/ui/screeners/startapply');
 const StopPage = require('app/steps/ui/stoppage');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const commonContent = require('app/resources/en/translation/common');
@@ -23,7 +23,7 @@ const cookies = [{
 
 describe('related-to-deceased', () => {
     let testWrapper;
-    const expectedNextUrlForOtherApplicants = OtherApplicants.getUrl();
+    const expectedNextUrlForStartApply = StartApply.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('notRelated');
 
     beforeEach(() => {
@@ -49,7 +49,7 @@ describe('related-to-deceased', () => {
                 });
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForOtherApplicants}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
@@ -69,7 +69,7 @@ describe('related-to-deceased', () => {
                         related: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForOtherApplicants, cookies);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
                 });
         });
 

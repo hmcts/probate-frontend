@@ -17,7 +17,8 @@ describe('relationship-to-deceased', () => {
     const expectedNextUrlForAnyOtherChildren = AnyOtherChildren.getUrl();
     const expectedNextUrlForAdoptionPlace = AdoptionPlace.getUrl();
     const expectedNextUrlForApplicantName = ApplicantName.getUrl();
-    const expectedNextUrlForStopPage = StopPage.getUrl('otherRelationship');
+    const expectedNextUrlForMarriedOtherRel = StopPage.getUrl('relToDecMarriedOther');
+    const expectedNextUrlForUnmarriedOtherRel = StopPage.getUrl('relToDecUnmarriedOther');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('RelationshipToDeceased');
@@ -30,7 +31,7 @@ describe('relationship-to-deceased', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('RelationshipToDeceased', null, null, [], false, {type: caseTypes.INTESTACY});
 
-        it('test content loaded on the page', (done) => {
+        it('test content loaded on the page when married', (done) => {
             const sessionData = {
                 type: caseTypes.INTESTACY,
                 ccdCase: {
@@ -38,14 +39,40 @@ describe('relationship-to-deceased', () => {
                     id: 1234567890123456
                 },
                 deceased: {
-                    maritalStatus: 'optionMarried'
+                    maritalStatus: 'optionMarried',
+                    firstName: 'DECEASED',
+                    lastName: 'NAME',
                 }
             };
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done);
+                    const data = {deceasedName: 'DECEASED NAME'};
+                    const excludeKeys = ['optionParent', 'hintParent', 'optionSibling', 'hintSibling'];
+                    testWrapper.testContent(done, data, excludeKeys);
+                });
+        });
+        it('test content loaded on the page when not married', (done) => {
+            const sessionData = {
+                type: caseTypes.INTESTACY,
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                deceased: {
+                    maritalStatus: 'optionSeparated',
+                    firstName: 'DECEASED',
+                    lastName: 'NAME',
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {deceasedName: 'DECEASED NAME'};
+                    const excludeKeys = ['optionSpousePartner', 'hintSpousePartner'];
+                    testWrapper.testContent(done, data, excludeKeys);
                 });
         });
 
@@ -195,15 +222,37 @@ describe('relationship-to-deceased', () => {
                 });
         });
 
-        it(`test it redirects to Stop page if relationship is Other: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to Stop page if relationship is Other and deceased married: ${expectedNextUrlForMarriedOtherRel}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send({
+                    caseType: caseTypes.INTESTACY,
+                    deceased: {
+                        maritalStatus: 'optionMarried',
+                    },
+                })
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: 'optionOther'
+                        relationshipToDeceased: 'optionOther',
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForMarriedOtherRel);
+                });
+        });
+
+        it(`test it redirects to Stop page if relationship is Other and deceased not married: ${expectedNextUrlForUnmarriedOtherRel}`, (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send({
+                    caseType: caseTypes.INTESTACY,
+                    deceased: {
+                        maritalStatus: 'optionDivorced',
+                    },
+                })
+                .end(() => {
+                    const data = {
+                        relationshipToDeceased: 'optionOther',
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForUnmarriedOtherRel);
                 });
         });
     });

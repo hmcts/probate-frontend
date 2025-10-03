@@ -1,14 +1,22 @@
 {
   "title": "Relationship to the deceased",
-  "question": "What was your relationship to the person who died?",
-  "optionSpousePartner": "Husband, wife or civil partner (this does not include common law partners even if you lived together)",
-  "optionChild": "Child (this does not include stepchildren)",
-  "optionAdoptedChild": "Child who was lawfully adopted",
+  "question": "What is your relationship to {deceasedName}?",
+  "optionSpousePartner": "I am their husband, wife or registered civil partner",
+  "hintSpousePartner": "Not including unmarried or unregistered partners living together",
+  "optionChild": "I am their child",
+  "hintChild": "Including adopted children, but not step-children",
+  "optionGrandchild": "I am their grandchild",
+  "hintGrandchild": "Including adopted grandchildren, but not step-grandchildren",
+  "optionParent": "I am their parent",
+  "hintParent": "including adoptive parents, but not step-parents",
+  "optionSibling": "I am their sibling",
+  "hintSibling": "Including adopted and half-siblings, but not step-siblings",
   "optionOther": "Other",
+  "or": "or",
 
   "errors": {
     "relationshipToDeceased": {
-      "required": "Choose an option for your relationship to the person who died"
+      "required": "Choose an option for your relationship to {deceasedName}"
     }
   }
 }

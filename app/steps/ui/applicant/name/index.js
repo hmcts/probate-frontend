@@ -24,18 +24,29 @@ class ApplicantName extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata, session) {
-        if (ctx.firstName && ctx.firstName.length < 2) {
-            errors.push(FieldError('firstName', 'minLength', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-        } else if (ctx.firstName && ctx.firstName.length > 100) {
-            errors.push(FieldError('firstName', 'maxLength', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-        }
+        const firstNameKeyword = ApplicantName.getLengthKeyword(ctx.firstName);
+        const lastNameKeyword = ApplicantName.getLengthKeyword(ctx.lastName);
 
-        if (ctx.lastName && ctx.lastName.length < 2) {
-            errors.push(FieldError('lastName', 'minLength', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-        } else if (ctx.lastName && ctx.lastName.length > 100) {
-            errors.push(FieldError('lastName', 'maxLength', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        if (firstNameKeyword) {
+            errors.push(FieldError('firstName', firstNameKeyword, this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        }
+        if (lastNameKeyword) {
+            errors.push(FieldError('lastName', lastNameKeyword, this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
         return [ctx, errors];
+    }
+
+    static getLengthKeyword(value) {
+        if (!value) {
+            return '';
+        }
+        if (value.length < 2) {
+            return 'minLength';
+        }
+        if (value.length > 100) {
+            return 'maxLength';
+        }
+        return '';
     }
 }
 

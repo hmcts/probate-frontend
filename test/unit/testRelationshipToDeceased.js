@@ -130,7 +130,7 @@ describe('RelationshipToDeceased', () => {
                 deceasedMaritalStatus: 'optionMarried',
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/stop-page/relToDecMarriedOther');
+            expect(nextStepUrl).to.equal('/stop-page/deceasedHadLegalPartnerAndRelationshipOther');
             done();
         });
 

@@ -1,0 +1,37 @@
+{% extends "includes/two_thirds_form.html" %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set conditionalGrandchildHintHtml %}
+<p class="govuk-body">{{ content.optionGrandchildHintText | safe }}</p>
+{% endset -%}
+
+{% set answers = [] %}
+{% block form_content %}
+
+    {% call govukFieldset({
+      legend: {
+        text: content.title | safe,
+        classes: "govuk-fieldset__legend--l",
+        isPageHeading: true
+      }
+    }) %}
+    {% endcall %}
+
+    <p class="govuk-body">{{ content.hintText | safe }}</p>
+    {{ govukRadios({
+        classes: "govuk-radios",
+        idPrefix: "otherApplicantName",
+        name: "otherApplicantName",
+        errorMessage: { text: fields.otherApplicantName.errorMessage | safe } if fields.otherApplicantName.errorMessage,
+        items: answers
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

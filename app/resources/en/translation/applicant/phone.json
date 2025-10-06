@@ -4,7 +4,7 @@
   "content1": "We will usually send you an email or a letter if we have any questions about your application, but may use this number to contact you otherwise.",
   "content2": "For international numbers include the country code.",
   "phoneNumber": "Phone number",
-  "hint": "For example, 07700900900 or +39133457090",
+  "hint": "For example, 07771 900 900 or +39 1 33 45 70 90",
 
   "errors": {
     "phoneNumber": {

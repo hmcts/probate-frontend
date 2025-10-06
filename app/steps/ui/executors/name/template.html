@@ -1,0 +1,47 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% block form_content %}
+    {% call govukFieldset({
+        legend: {
+            text: content.question | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+
+    <p class="govuk-body">{{ content.content1 | safe }}</p>
+    <p class="govuk-body">{{ content.content2 | safe }}</p>
+    <p class="govuk-body">{{ content.content3 | safe }}</p>
+
+    {{ govukInput({
+        label: {
+            text: content.fullName | safe
+        },
+        id: "fullName",
+        name: "fullName",
+        value: fields.fullName.value | safe,
+        errorMessage: { text: fields.fullName.errorMessage | safe } if fields.fullName.errorMessage,
+        attributes: {
+            maxlength: 100
+        },
+        classes: "govuk-!-width-three-quarters"
+    }) }}
+    {% endcall %}
+
+    {{ govukWarningText({
+        text: content.warningText | safe,
+        iconFallbackText: "Warning"
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

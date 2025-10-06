@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "applicant-fullName",
+  "type": "object",
+  "properties": {
+    "fullName": {
+      "type": "string",
+      "minLength": 2
+    }
+  },
+  "required": [
+    "fullName"
+  ]
+}

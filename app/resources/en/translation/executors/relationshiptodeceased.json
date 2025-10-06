@@ -1,0 +1,14 @@
+{
+  "title": "What is the other applicant’s relationship to {{ deceasedName }}?",
+  "hintText": "Based on the information you have given us, there are other people entitled to inherit who you can apply with.",
+  "optionChild": "Child",
+  "optionGrandchild": "Grandchild",
+  "optionGrandchildHintText": "This can only be through any of {{ deceasedName }}’s children that died before {{ deceasedName }}",
+  "optionOther": "Other",
+
+  "errors": {
+    "relationshipToDeceased": {
+      "required": "Choose an option for your relationship to the person who died"
+    }
+  }
+}

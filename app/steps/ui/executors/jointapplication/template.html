@@ -1,0 +1,111 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "widgets/checkanswer.njk" import checkanswer %}
+{% from "widgets/lists.html" import unorderedList %}
+
+{% block form_content %}
+    {% call govukFieldset({
+        legend: {
+            text: (content.titleWithCodicil if fields.codicilPresent.value == "true" else content.title) | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+
+{% set summaryListRows = [] %}
+  {% for executor in fields.list.value %}
+    {% if loop.index0 == 0 %}
+      {% set summaryListRows = (summaryListRows.push({
+      key: { text: content.applicantExecutor | safe, classes: "govuk-!-font-weight-bold" },
+      value: { text: fields.applicantName.value | safe }
+      }), summaryListRows) %}
+    {% else %}
+      {% set summaryListRows = (summaryListRows.push({
+      key: { text: content.furtherExecutor | safe, classes: "govuk-!-font-weight-bold" },
+      value: { text: executor.fullName | safe },
+      actions: {
+      items: [{
+        href: "#",
+        text: content.removeAction | safe,
+        visuallyHiddenText: executor.fullName | safe,
+        attributes: {
+          'data-executor-index': loop.index0,
+          formaction: "/executor-names/remove/" + loop.index0
+        }
+      }]
+      }
+      }), summaryListRows) %}
+    {% endif %}
+  {% endfor %}
+
+{{ govukSummaryList({
+rows: summaryListRows
+}) }}
+
+    <p class="govuk-body">{{ content.hintText | safe }}</p>
+
+    <p class="govuk-body">{{ content.hintTextDeceasedName | safe }}</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>{{ content.bullet1 | safe }}</li>
+      <li>{{ content.bullet2 | replace("{deceasedName}", fields.deceasedName.value) | safe }}</li>
+      <li>{{ content.bullet3 | safe }}</li>
+    </ul>
+    <h2 class="govuk-heading-m">{{ content.question | safe }}</h2>
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "executorsNamed",
+        name: "executorsNamed",
+    items: [{
+            value: "optionYes",
+            text: content["optionYes"] | safe
+        },
+        {
+            value: "optionNo",
+            text: content["optionNo"] | safe
+        }]
+    }) }}
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+<input type="hidden" id="executorsNamedChecked" name="executorsNamedChecked" value="false">
+<script nonce="{{ globals.nonce }}">
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('[data-executor-index]').forEach(function(removeLink) {
+      removeLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        const formAction = event.target.getAttribute('formaction');
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = formAction;
+
+        const csrfInput = document.createElement('input');
+        csrfInput.type = 'hidden';
+        csrfInput.name = '_csrf';
+        csrfInput.value = '{{ csrfToken }}';
+        form.appendChild(csrfInput);
+        document.body.appendChild(form);
+        form.submit();
+      });
+    });
+
+    var saveAndContinueButton = document.querySelector('.govuk-button[data-module="govuk-button"]');
+    if (saveAndContinueButton) {
+      saveAndContinueButton.addEventListener("click", function(e) {
+        var optionYes = document.querySelector('input[name="executorsNamed"][value="optionYes"]').checked;
+        var optionNo = document.querySelector('input[name="executorsNamed"][value="optionNo"]').checked;
+        document.getElementById('executorsNamedChecked').value = (optionYes || optionNo) ? "true" : "false";
+      });
+    }
+  });
+</script>
+{% endblock %}

@@ -30,7 +30,7 @@ class OtherApplicantName extends ValidationStep {
         return this.next(req, ctx).constructor.getUrl('adoptedIn');
     }
 
-    nextStepOptions(ctx) {
+    nextStepOptions() {
         //ctx.continue = get(ctx, 'index', -1) !== -1;
     }
 }

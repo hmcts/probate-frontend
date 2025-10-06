@@ -1,0 +1,20 @@
+{
+  "title": "Applicant name",
+  "question": "Beth yw enw’r ceisydd arall?",
+  "content1": "Bydd yr enw a roddwch inni yn cael ei ysgrifennu ar y grant profiant.",
+  "content2": "Dylai eu henw fod union yr un fath ag y mae wedi’i ysgrifennu ar eu pasbort neu fath arall o ddogfen adnabod awdurdodedig, er enghraifft trwydded yrru.",
+  "content3": "Dylech wneud yn siŵr mai hwn yw’r un math o ddull adnabod byddwch yn ei ddefnyddio pan fyddwch yn delio ag ystad {{deceased name}}.",
+  "fullName": "Enw llawn",
+  "warningText": "Os nad yw’r enw ar y grant yn cyfateb â’r prawf adnabod maen nhw’n ei ddefnyddio, efallai y cânt anawsterau wrth ddelio â’r ystad.",
+
+  "errors": {
+    "firstName": {
+      "required": "Enter your first name, including any middle names",
+      "invalid": "Enter a valid first name - can only contain letters a to z, spaces, hyphens and apostrophes"
+    },
+    "lastName": {
+      "required": "Enter your last name",
+      "invalid": "Enter a valid last name - can only contain letters a to z, spaces, hyphens and apostrophes"
+    }
+  }
+}

@@ -8080,11 +8080,11 @@ __metadata:
   linkType: hard
 
 "hosted-git-info@npm:^9.0.0":
-  version: 9.0.0
-  resolution: "hosted-git-info@npm:9.0.0"
+  version: 9.0.1
+  resolution: "hosted-git-info@npm:9.0.1"
   dependencies:
     lru-cache: "npm:^11.1.0"
-  checksum: 10/be173362917e29ca11f75d6f83b42ea68b7addfa38ab16fa115963611ccc20c34c28f6fce0c3b5d05380bf559436c752f9fef6dd7cea6ebe2c23823dd6cdff6f
+  checksum: 10/6a08c9fade8e36d17f52cd1875d497eef9a7ca57cf42ae1278203a2f90152725257ac47a4e21f67372c1bd0a24ade1832c69c4c29395803ae2be432dd548b5e9
   languageName: node
   linkType: hard
 

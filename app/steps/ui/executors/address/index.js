@@ -3,6 +3,7 @@
 const AddressStep = require('app/core/steps/AddressStep');
 const {findIndex, get, startsWith} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const caseTypes = require('../../../../utils/CaseTypes');
 const pageUrl = '/executor-address';
 
 class ExecutorAddress extends AddressStep {
@@ -13,6 +14,7 @@ class ExecutorAddress extends AddressStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
+        ctx.caseType = caseTypes.getCaseType(req.session);
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
             req.session.indexPosition = ctx.index;
@@ -85,11 +87,13 @@ class ExecutorAddress extends AddressStep {
 
     nextStepOptions(ctx) {
         ctx.continue = get(ctx, 'index', -1) !== -1;
+        ctx.hasCoApplicant = ctx.caseType === caseTypes.INTESTACY && get(ctx, 'index', -1) === -1;
         ctx.allExecsApplying = ctx.executorsWrapper.areAllAliveExecutorsApplying();
 
         return {
             options: [
                 {key: 'continue', value: true, choice: 'continue'},
+                {key: 'hasCoApplicant', value: true, choice: 'hasCoApplicant'},
                 {key: 'allExecsApplying', value: true, choice: 'allExecsApplying'}
             ],
         };

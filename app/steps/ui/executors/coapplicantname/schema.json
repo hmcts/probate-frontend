@@ -3,12 +3,12 @@
   "$id": "applicant-fullName",
   "type": "object",
   "properties": {
-    "fullName": {
+    "coApplicantName": {
       "type": "string",
       "minLength": 2
     }
   },
   "required": [
-    "fullName"
+    "coApplicantName"
   ]
 }

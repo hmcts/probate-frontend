@@ -58,8 +58,8 @@ rows: summaryListRows
     <h2 class="govuk-heading-m">{{ content.question | safe }}</h2>
     {{ govukRadios({
         classes: "govuk-radios--inline",
-        idPrefix: "executorsNamed",
-        name: "executorsNamed",
+        idPrefix: "hasCoApplicant",
+        name: "hasCoApplicant",
     items: [{
             value: "optionYes",
             text: content["optionYes"] | safe
@@ -101,8 +101,8 @@ rows: summaryListRows
     var saveAndContinueButton = document.querySelector('.govuk-button[data-module="govuk-button"]');
     if (saveAndContinueButton) {
       saveAndContinueButton.addEventListener("click", function(e) {
-        var optionYes = document.querySelector('input[name="executorsNamed"][value="optionYes"]').checked;
-        var optionNo = document.querySelector('input[name="executorsNamed"][value="optionNo"]').checked;
+        var optionYes = document.querySelector('input[name="hasCoApplicant"][value="optionYes"]').checked;
+        var optionNo = document.querySelector('input[name="hasCoApplicant"][value="optionNo"]').checked;
         document.getElementById('executorsNamedChecked').value = (optionYes || optionNo) ? "true" : "false";
       });
     }

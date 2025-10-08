@@ -212,12 +212,16 @@ const stepList = {
         optionGrandchild: 'ParentDieBefore',
         otherwise: 'StopPage'
     },
-    CoApplicantName: 'OtherApplicantName',
+    CoApplicantName: 'JointApplication',
     OtherApplicantsName: 'AdoptedIn',
     AdoptedIn: 'ApplicantName',
     ApplicantName: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
-    ApplicantAddress: 'Equality',
+    ApplicantAddress: {
+        hasCoApplicant: 'JointApplication',
+        hasNoCoApplicant: 'Equality',
+        otherwise: 'Equality'
+    },
     Equality: 'Summary',
     Summary: 'TaskList',
     Declaration: 'TaskList',

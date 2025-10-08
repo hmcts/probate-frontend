@@ -7,22 +7,47 @@ const pageUrl = '/coapplicant-relationship-to-deceased';
 
 class CoApplicantRelationshipToDeceased extends ValidationStep {
 
-    static getUrl() {
-        //return `${pageUrl}/${index}`;
-        return pageUrl;
+    static getUrl(index = '*') {
+        return `${pageUrl}/${index}`;
+    }
+
+    handleGet(ctx) {
+        if (ctx.list?.[ctx.index]) {
+            ctx.coApplicantRelationshipToDeceased = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
+        }
+        return [ctx];
     }
 
     getContextData(req) {
-        const ctx = super.getContextData(req);
-        ctx.childOnly = true;
-        ctx.grandChildOnly = true;
         const formdata = req.session.form;
+        const ctx = super.getContextData(req);
+        if (req.params && !isNaN(req.params[0])) {
+            ctx.index = parseInt(req.params[0]);
+        } else {
+            ctx.index = ctx.list.length;
+            ctx.redirect = `${pageUrl}/${ctx.index}`;
+        }
+        ctx.deceased = formdata.deceased;
+        const hasOtherChildren = ctx.deceased.anyOtherChildren === 'optionYes';
+
+        ctx.childOnly = hasOtherChildren &&
+            (ctx.deceased.anyPredeceasedChildren === 'optionNo' ||
+                (ctx.deceased.anyPredeceasedChildren === 'optionYesSome' && ctx.deceased.anySurvivingGrandchildren === 'optionYes'));
+        ctx.grandChildOnly = hasOtherChildren &&
+            ctx.deceased.anySurvivingGrandchildren === 'optionYes' &&
+            (ctx.deceased.anyPredeceasedChildren === 'optionYesAll' || ctx.deceased.anyPredeceasedChildren === 'optionYesSome');
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('coApplicantRelationshipToDeceased');
+        if (ctx.coApplicantRelationshipToDeceased === 'optionChild') {
+            return `/coapplicant-name/${ctx.index}`;
+        } else if (ctx.coApplicantRelationshipToDeceased === 'optionGrandchild') {
+            return `/parent-die-before/${ctx.index}`;
+        } else if (ctx.coApplicantRelationshipToDeceased === 'other') {
+            return this.next(req, ctx).constructor.getUrl('coApplicantRelationshipToDeceasedOther');
+        }
     }
 
     nextStepOptions() {
@@ -35,8 +60,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
-        ctx.list[0].fullName = 'full Name Hello 123';
-        ctx.list[0].coApplicantRelationshipToDeceased = ctx.coApplicantRelationshipToDeceased;
+        ctx.list[ctx.index] = {...ctx.list[ctx.index], coApplicantRelationshipToDeceased: ctx.coApplicantRelationshipToDeceased, isApplying: true};
         set(formdata, 'coApplicants.list', ctx.list);
         return [ctx, errors];
     }

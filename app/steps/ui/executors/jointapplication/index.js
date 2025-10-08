@@ -13,10 +13,10 @@ class JointApplication extends ValidationStep {
     }
 
     getContextData(req) {
+        const formdata = req.session.form;
         let ctx = super.getContextData(req);
         ctx = this.createExecutorList(ctx, req.session.form);
         this.setCodicilFlagInCtx(ctx, req.session.form);
-        const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
@@ -26,12 +26,12 @@ class JointApplication extends ValidationStep {
     }
 
     handleGet(ctx) {
-        ctx.executorsNamed = '';
+        ctx.hasCoApplicant = '';
         return [ctx];
     }
 
     createExecutorList(ctx, formdata) {
-        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        const executorsWrapper = new ExecutorsWrapper(formdata.coApplicants);
         ctx.list = executorsWrapper.executors();
         ctx.list[0] = {
             firstName: get(formdata, 'applicant.firstName'),
@@ -41,7 +41,7 @@ class JointApplication extends ValidationStep {
             aliasReason: get(formdata, 'applicant.aliasReason'),
             otherReason: get(formdata, 'applicant.otherReason'),
             isApplying: true,
-            isApplicant: false,
+            isApplicant: true,
             fullName: `${get(formdata, 'applicant.firstName')} ${get(formdata, 'applicant.lastName')}`
         };
 
@@ -64,7 +64,7 @@ class JointApplication extends ValidationStep {
     }
 
     isComplete(ctx) {
-        return [ctx.executorsNamed === 'optionYes' || ctx.executorsNamed === 'optionNo', 'inProgress'];
+        return [ctx.hasCoApplicant === 'optionYes' || ctx.hasCoApplicant === 'optionNo', 'inProgress'];
     }
 
     action(ctx, formdata) {
@@ -74,6 +74,11 @@ class JointApplication extends ValidationStep {
 
     shouldPersistFormData() {
         return false;
+    }
+
+    handlePost(ctx, errors) {
+        ctx.executorsNamed = ctx.hasCoApplicant;
+        return [ctx, errors];
     }
 }
 

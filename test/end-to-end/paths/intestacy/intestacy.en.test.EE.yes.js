@@ -48,7 +48,6 @@ getTestLanguages().forEach(language => {
 
         // Intestacy Sceeners
         await I.selectRelatedToDeceased(language, optionYes);
-        await I.selectOtherApplicants(language, optionNo);
 
         await I.startApply(language);
 
@@ -144,7 +143,6 @@ getTestLanguages().forEach(language => {
 
         // Intestacy Sceeners
         await I.selectRelatedToDeceased(language, optionYes);
-        await I.selectOtherApplicants(language, optionNo);
 
         await I.startApply(language);
 

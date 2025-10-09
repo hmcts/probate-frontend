@@ -1,0 +1,41 @@
+{
+  "title": "A ydych yn gwybod y dyddiad pan ddigwyddodd yr {legalProcess}?",
+  "question": "A ydych yn gwybod y dyddiad pan ddigwyddodd yr {legalProcess}",
+  "paragraph1": "Gallwch ddod o hyd i’r dyddiad ar y dyfarniad absoliwt neu’r gorchymyn terfynol.",
+  "paragraph2": "Os nad oes gennych chi hwn, gallwch <a href=\"https://www.gov.uk/copy-decree-absolute-final-order\" class=\"govuk-link\" target=\"_blank\" aria-label=\"gael copi swyddogol o’r dyfarniad absoliwt neu’r gorchymyn terfynol (yn agor mewn tab newydd)\">gael copi swyddogol o’r dyfarniad absoliwt neu’r gorchymyn terfynol (yn agor mewn tab newydd)</a>.",
+  "optionYes": "Ydw, dw i’n gwybod beth yw’r dyddiad",
+  "optionNo": "Nac ydw, nid wyf yn gwybod beth yw’r dyddiad",
+  "optionNoHint": "Bydd gweithiwr achos angen gofyn am fwy o wybodaeth gennych, a all achosi oedi gyda’r cais",
+  "dayName": "Diwrnod",
+  "monthName": "Mis",
+  "yearName": "Blwyddyn",
+  "date": "Dyddiad yr {legalProcess}",
+  "errors": {
+    "divorceDateKnown": {
+      "required": "Dewiswch &lsquo;ydw&rsquo; os ydych yn gwybod y dyddiad yr {legalProcess}"
+    },
+    "divorceDate-year": {
+      "required": "Rhaid i ddyddiad yr {legalProcess} gynnwys blwyddyn"
+    },
+    "divorceDate-month": {
+      "required": "Rhaid i ddyddiad y {legalProcess} gynnwys mis"
+    },
+    "divorceDate-day": {
+      "required": "Rhaid i ddyddiad yr {legalProcess} gynnwys diwrnod"
+    },
+    "divorceDate-day-month": {
+      "required": "Rhaid i ddyddiad yr {legalProcess} gynnwys diwrnod a mis"
+    },
+    "divorceDate-month-year": {
+      "required": "Rhaid i ddyddiad yr {legalProcess} gynnwys mis a blwyddyn"
+    },
+    "divorceDate-day-year": {
+      "required": "Rhaid i ddyddiad yr {legalProcess} gynnwys diwrnod a blwyddyn"
+    },
+    "divorceDate": {
+      "required": "Nodwch y dyddiad pan ddigwyddodd yr {legalProcess}",
+      "future": "Rhaid i ddyddiad yr {legalProcess} fod cyn dyddiad marwolaeth {deceasedName}",
+      "invalid": "Rhaid i ddyddiad yr {legalProcess} fod yn ddyddiad dilys"
+    }
+  }
+}

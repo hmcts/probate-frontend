@@ -60,16 +60,14 @@ const stepList = {
         otherwise: 'StopPage'
     },
     RelatedToDeceased: {
-        related: 'OtherApplicants',
-        otherwise: 'StopPage'
-    },
-    OtherApplicants: {
-        noOthers: 'StartApply',
+        related: 'StartApply',
         otherwise: 'StopPage'
     },
     StartApply: 'TaskList',
-    BilingualGOP: 'DeceasedDetails',
-    DeceasedDetails: {
+    BilingualGOP: 'DeceasedName',
+    DeceasedName: 'DeceasedDob',
+    DeceasedDob: 'DeceasedDod',
+    DeceasedDod: {
         diedAfter: 'DeceasedAddress',
         otherwise: 'StopPage'
     },
@@ -149,9 +147,10 @@ const stepList = {
         otherwise: 'TaskList'
     },
     DivorcePlace: {
-        inEnglandOrWales: 'TaskList',
+        inEnglandOrWales: 'DivorceDate',
         otherwise: 'StopPage'
     },
+    DivorceDate: 'TaskList',
     RelationshipToDeceased: {
         childDeceasedMarried: 'SpouseNotApplyingReason',
         childDeceasedNotMarried: 'AnyOtherChildren',

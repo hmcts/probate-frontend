@@ -57,6 +57,65 @@ describe('DivorcePlace', () => {
         });
     });
 
+    describe('nextStepUrl()', () => {
+        it('should return the correct url when Yes is given', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                divorcePlace: 'optionYes'
+            };
+            const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/deceased-divorce-or-separation-date');
+            done();
+        });
+
+        it('should return the correct url when No is given and legal act is Divorce', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                divorcePlace: 'optionNo',
+                legalProcess: 'divorce or dissolution'
+            };
+            const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/stop-page/divorcePlace');
+            done();
+        });
+        it('should return the correct url when No is given and legal act is Separation', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                legalProcess: 'separation',
+                divorcePlace: 'optionNo'
+            };
+            const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/stop-page/separationPlace');
+            done();
+        });
+    });
+
+    describe('nextStepOptions()', () => {
+        it('should return the correct options', (done) => {
+            const nextStepOptions = DivorcePlace.nextStepOptions();
+            expect(nextStepOptions).to.deep.equal({
+                options: [{
+                    key: 'divorcePlace',
+                    value: 'optionYes',
+                    choice: 'inEnglandOrWales'
+                }]
+            });
+            done();
+        });
+    });
+
     describe('generateFields()', () => {
         it('should return the correct content fields', (done) => {
             const ctx = {
@@ -86,67 +145,7 @@ describe('DivorcePlace', () => {
                     error: false,
                     value: 'divorce'
                 },
-                title: `Where the divorce took place - ${commonContent.serviceName}`
-            });
-            done();
-        });
-    });
-
-    describe('nextStepUrl()', () => {
-        it('should return the correct url when Yes is given', (done) => {
-            const req = {
-                session: {
-                    journey: journey
-                }
-            };
-            const ctx = {
-                divorcePlace: 'optionYes'
-            };
-            const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/task-list');
-            done();
-        });
-
-        it('should return the correct url when No is given and legal act is Divorce', (done) => {
-            const req = {
-                session: {
-                    journey: journey
-                }
-            };
-            const ctx = {
-                legalProcess: 'divorce',
-                divorcePlace: 'optionNo'
-            };
-            const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/stop-page/divorcePlace');
-            done();
-        });
-
-        it('should return the correct url when No is given and legal act is Separation', (done) => {
-            const req = {
-                session: {
-                    journey: journey
-                }
-            };
-            const ctx = {
-                legalProcess: 'separation',
-                divorcePlace: 'optionNo'
-            };
-            const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/stop-page/separationPlace');
-            done();
-        });
-    });
-
-    describe('nextStepOptions()', () => {
-        it('should return the correct options', (done) => {
-            const nextStepOptions = DivorcePlace.nextStepOptions();
-            expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'divorcePlace',
-                    value: 'optionYes',
-                    choice: 'inEnglandOrWales'
-                }]
+                title: `Did the divorce take place in England or Wales? - ${commonContent.serviceName}`
             });
             done();
         });

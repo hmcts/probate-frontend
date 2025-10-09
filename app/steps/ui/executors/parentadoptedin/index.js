@@ -1,18 +1,18 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const FormatName = require('app/utils/FormatName');
+const FormatName = require('../../../../utils/FormatName');
 const {findIndex} = require('lodash');
-const pageUrl = '/parent-die-before';
-class ParentDieBefore extends ValidationStep {
+const pageUrl = '/parent-adopted-in';
 
+class ParentAdoptedIn extends ValidationStep {
     static getUrl(index = '*') {
         return `${pageUrl}/${index}`;
     }
 
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
-            ctx.applicantParentDieBeforeDeceased = ctx.list[ctx.index].childDieBeforeDeceased;
+            ctx.applicantParentAdoptedIn = ctx.list[ctx.index].childAdoptedIn;
         }
         return [ctx];
     }
@@ -37,22 +37,27 @@ class ParentDieBefore extends ValidationStep {
         return findIndex(ctx.list, o => o.isApplying === true, index + 1);
     }
 
-    nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('parentDieBefore');
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+        }
+        return fields;
     }
 
     nextStepOptions() {
         return {
             options: [
-                {key: 'applicantParentDieBeforeDeceased', value: 'optionYes', choice: 'parentDieBefore'}
+                {key: 'applicantParentAdoptedIn', value: 'optionYes', choice: 'parentAdoptedIn'},
+                {key: 'applicantParentAdoptedIn', value: 'optionNo', choice: 'notParentAdoptedIn'},
             ]
         };
     }
 
     handlePost(ctx, errors, formdata) {
-        formdata.coApplicants.list[ctx.index].childDieBeforeDeceased=ctx.applicantParentDieBeforeDeceased;
+        formdata.coApplicants.list[ctx.index].childAdoptedIn=ctx.applicantParentAdoptedIn;
         return [ctx, errors];
     }
 }
 
-module.exports = ParentDieBefore;
+module.exports = ParentAdoptedIn;

@@ -1,0 +1,12 @@
+{
+  "title": "Co-Applicant adopted out",
+  "question": "A wnaeth {{ deceasedName }} eich mabwysiadu'n gyfreithlon allan o'u teulu (eich rhoi i ffwrdd i gael eich mabwysiadu)?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "adoptedOut": {
+      "required": "Select &lsquo;Yes&rsquo; if {deceasedName} gave you up for adoption"
+    }
+  }
+}

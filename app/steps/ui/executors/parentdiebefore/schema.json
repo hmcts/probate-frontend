@@ -1,14 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "died-eng-or-wales",
+  "$id": "parent-die-before-deceased",
   "type": "object",
   "properties": {
-    "diedEngOrWales": {
+    "applicantParentDieBeforeDeceased": {
       "type": "string",
       "minLength": 1
     }
   },
   "required": [
-    "diedEngOrWales"
+    "applicantParentDieBeforeDeceased"
   ]
 }

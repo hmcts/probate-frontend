@@ -11,7 +11,9 @@ class CoApplicantName extends ValidationStep {
     }
 
     getContextData(req) {
+        const formdata = req.session.form;
         const ctx = super.getContextData(req);
+        ctx.list = formdata.coApplicants.list;
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {

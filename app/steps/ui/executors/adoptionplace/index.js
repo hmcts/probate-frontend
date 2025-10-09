@@ -1,10 +1,11 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const FormatName = require('app/utils/FormatName');
+const FormatName = require('../../../../utils/FormatName');
+const pageUrl = '/coapplicant-adoption-place';
 const {findIndex} = require('lodash');
-const pageUrl = '/parent-die-before';
-class ParentDieBefore extends ValidationStep {
+
+class CoApplicantAdoptionPlace extends ValidationStep {
 
     static getUrl(index = '*') {
         return `${pageUrl}/${index}`;
@@ -12,7 +13,7 @@ class ParentDieBefore extends ValidationStep {
 
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
-            ctx.applicantParentDieBeforeDeceased = ctx.list[ctx.index].childDieBeforeDeceased;
+            ctx.adoptionPlace = ctx.list[ctx.index].childAdoptionInEnglandOrWales;
         }
         return [ctx];
     }
@@ -38,21 +39,26 @@ class ParentDieBefore extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('parentDieBefore');
+        return this.next(req, ctx).constructor.getUrl('adoptionNotEnglandOrWales');
     }
 
     nextStepOptions() {
         return {
             options: [
-                {key: 'applicantParentDieBeforeDeceased', value: 'optionYes', choice: 'parentDieBefore'}
+                {key: 'adoptionPlace', value: 'optionYes', choice: 'adoptedInEnglandOrWales'}
             ]
         };
     }
 
     handlePost(ctx, errors, formdata) {
-        formdata.coApplicants.list[ctx.index].childDieBeforeDeceased=ctx.applicantParentDieBeforeDeceased;
+        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased==='optionChild') {
+            formdata.coApplicants.list[ctx.index].childAdoptionInEnglandOrWales=ctx.adoptionPlace;
+        }
+        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased==='optionGrandchild') {
+            formdata.coApplicants.list[ctx.index].grandchildAdoptionInEnglandOrWales=ctx.adoptionPlace;
+        }
         return [ctx, errors];
     }
 }
 
-module.exports = ParentDieBefore;
+module.exports = CoApplicantAdoptionPlace;

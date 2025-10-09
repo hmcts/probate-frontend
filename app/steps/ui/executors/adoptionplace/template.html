@@ -6,8 +6,8 @@
 {% block form_content %}
     {{ govukRadios({
         classes: "govuk-radios--inline",
-        idPrefix: "adoptedIn",
-        name: "adoptedIn",
+        idPrefix: "adoptionPlace",
+        name: "adoptionPlace",
         fieldset: {
             legend: {
                 text: content.question | safe,
@@ -15,17 +15,17 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.adoptedIn.errorMessage | safe } if fields.adoptedIn.errorMessage,
+        errorMessage: { text: fields.adoptionPlace.errorMessage | safe } if fields.adoptionPlace.errorMessage,
         items: [
             {
                 value: "optionYes",
                 text: content["optionYes"] | safe,
-                checked: true if fields.adoptedIn.value == "optionYes"
+                checked: true if fields.adoptionPlace.value == "optionYes"
             },
             {
                 value: "optionNo",
                 text: content["optionNo"] | safe,
-                checked: true if fields.adoptedIn.value == "optionNo"
+                checked: true if fields.adoptionPlace.value == "optionNo"
             }
         ]
     }) }}
@@ -37,5 +37,3 @@
         }) }}
     </div>
 {% endblock %}
-
-{% block executor_summary %}{% endblock %}

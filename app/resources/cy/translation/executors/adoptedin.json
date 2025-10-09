@@ -1,0 +1,12 @@
+{
+  "title": "Co-Applicant adopted in",
+  "question": "A gafodd {{ applicantName }} ei fabwysiadu’r gyfreithlon i deulu {{ deceasedName }}?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "adoptedIn": {
+      "required": "Select &lsquo;Yes&rsquo; if {deceasedName} legally adopted you"
+    }
+  }
+}

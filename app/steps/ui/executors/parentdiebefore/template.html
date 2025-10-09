@@ -15,19 +15,19 @@
     <p class="govuk-body">{{ content.hintText | safe }}</p>
     {{ govukRadios({
         classes: "govuk-radios--inline",
-        idPrefix: "diedEngOrWales",
-        name: "diedEngOrWales",
-        errorMessage: { text: fields.diedEngOrWales.errorMessage | safe } if fields.diedEngOrWales.errorMessage,
+        idPrefix: "applicantParentDieBeforeDeceased",
+        name: "applicantParentDieBeforeDeceased",
+        errorMessage: { text: fields.applicantParentDieBeforeDeceased.errorMessage | safe } if fields.applicantParentDieBeforeDeceased.errorMessage,
         items: [
             {
                 value: "optionYes",
                 text: content["optionYes"] | safe,
-                checked: true if fields.diedEngOrWales.value == "optionYes"
+                checked: true if fields.applicantParentDieBeforeDeceased.value == "optionYes"
             },
             {
                 value: "optionNo",
                 text: content["optionNo"] | safe,
-                checked: true if fields.diedEngOrWales.value == "optionNo"
+                checked: true if fields.applicantParentDieBeforeDeceased.value == "optionNo"
             }
         ]
     }) }}

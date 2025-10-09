@@ -1,6 +1,6 @@
 {
-  "question": "Did this person’s parent ({{ deceased name }}’s child) die before {{ deceased name }}?",
-  "hintText": "{{ deceased name }}’s grandchildren are only entitled to apply if their parent ({{ deceased name }}’s child) died before {{ deceased name }}.",
+  "question": "Did this person’s parent ({{ deceasedName }}’s child) die before {{ deceasedName }}?",
+  "hintText": "{{ deceasedName }}’s grandchildren are only entitled to apply if their parent ({{ deceasedName }}’s child) died before {{ deceasedName }}.",
   "optionYes": "Yes",
   "optionNo": "No",
   "theDeceased": "the deceased",

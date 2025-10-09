@@ -1,10 +1,11 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const FormatName = require('app/utils/FormatName');
+const FormatName = require('../../../../utils/FormatName');
+const pageUrl = '/coapplicant-adopted-out';
 const {findIndex} = require('lodash');
-const pageUrl = '/parent-die-before';
-class ParentDieBefore extends ValidationStep {
+
+class CoApplicantAdoptedOut extends ValidationStep {
 
     static getUrl(index = '*') {
         return `${pageUrl}/${index}`;
@@ -12,7 +13,7 @@ class ParentDieBefore extends ValidationStep {
 
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
-            ctx.applicantParentDieBeforeDeceased = ctx.list[ctx.index].childDieBeforeDeceased;
+            ctx.adoptedOut = ctx.list[ctx.index].childAdoptedOut;
         }
         return [ctx];
     }
@@ -37,22 +38,35 @@ class ParentDieBefore extends ValidationStep {
         return findIndex(ctx.list, o => o.isApplying === true, index + 1);
     }
 
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+        }
+        return fields;
+    }
+
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('parentDieBefore');
+        return this.next(req, ctx).constructor.getUrl('adoptedOut');
     }
 
     nextStepOptions() {
         return {
             options: [
-                {key: 'applicantParentDieBeforeDeceased', value: 'optionYes', choice: 'parentDieBefore'}
+                {key: 'AdoptedOut', value: 'optionNo', choice: 'adoptedOut'},
             ]
         };
     }
 
     handlePost(ctx, errors, formdata) {
-        formdata.coApplicants.list[ctx.index].childDieBeforeDeceased=ctx.applicantParentDieBeforeDeceased;
+        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased==='optionChild') {
+            formdata.coApplicants.list[ctx.index].childAdoptedOut=ctx.adoptedOut;
+        }
+        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased==='optionGrandchild') {
+            formdata.coApplicants.list[ctx.index].grandchildAdoptedOut=ctx.adoptedOut;
+        }
         return [ctx, errors];
     }
 }
 
-module.exports = ParentDieBefore;
+module.exports = CoApplicantAdoptedOut;

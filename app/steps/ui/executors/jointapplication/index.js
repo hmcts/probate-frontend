@@ -76,8 +76,8 @@ class JointApplication extends ValidationStep {
         return false;
     }
 
-    handlePost(ctx, errors) {
-        ctx.executorsNamed = ctx.hasCoApplicant;
+    handlePost(ctx, errors, formdata) {
+        formdata.coApplicants.hasCoApplicant = ctx.hasCoApplicant;
         return [ctx, errors];
     }
 }

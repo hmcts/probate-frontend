@@ -20,7 +20,7 @@ class CoApplicantName extends ValidationStep {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
-        ctx.executorName = ctx.list?.[ctx.index] ? ctx.list[ctx.index].fullName : '';
+        ctx.coApplicantName = ctx.list?.[ctx.index] ? ctx.list[ctx.index].fullName : '';
         return ctx;
     }
 
@@ -37,7 +37,7 @@ class CoApplicantName extends ValidationStep {
 
     handleGet(ctx, formdata) {
         const coApplicants = formdata.coApplicants.list[ctx.index];
-        ctx.coApplicantName = coApplicants.coApplicantName;
+        ctx.coApplicantName = coApplicants.fullName;
         return [ctx];
     }
 

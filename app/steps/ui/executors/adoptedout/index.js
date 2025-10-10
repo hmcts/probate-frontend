@@ -21,7 +21,7 @@ class CoApplicantAdoptedOut extends ValidationStep {
     getContextData(req) {
         const formdata = req.session.form;
         const ctx = super.getContextData(req);
-        ctx.list = formdata.coApplicants.list;
+        ctx.list = formdata.coApplicants?.list || [];
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
@@ -47,13 +47,16 @@ class CoApplicantAdoptedOut extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
+        if (ctx.adoptedOut === 'optionNo') {
+            return `/parent-adopted-in/${ctx.index}`;
+        }
         return this.next(req, ctx).constructor.getUrl('adoptedOut');
     }
 
     nextStepOptions() {
         return {
             options: [
-                {key: 'AdoptedOut', value: 'optionNo', choice: 'adoptedOut'},
+                {key: 'AdoptedOut', value: 'optionNo', choice: 'notAdoptedOut'},
             ]
         };
     }

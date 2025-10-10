@@ -21,7 +21,7 @@ class ParentAdoptionPlace extends ValidationStep {
     getContextData(req) {
         const formdata = req.session.form;
         const ctx = super.getContextData(req);
-        ctx.list = formdata.coApplicants.list;
+        ctx.list = formdata.coApplicants?.list || [];
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
@@ -39,13 +39,16 @@ class ParentAdoptionPlace extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('parentAdoptionNotEnglandOrWales');
+        if (ctx.applicantParentAdoptionPlace === 'optionYes') {
+            return `/executor-contact-details/${ctx.index}`;
+        }
+        return this.next(req, ctx).constructor.getUrl('parentAdoptedOutEnglandOrWales');
     }
 
     nextStepOptions() {
         return {
             options: [
-                {key: 'applicantParentAdoptionPlace', value: 'optionYes', choice: 'parentAdoptedInEnglandOrWales'}
+                {key: 'applicantParentAdoptionPlace', value: 'optionYes', choice: 'parentAdoptedOutEnglandOrWales'},
             ]
         };
     }

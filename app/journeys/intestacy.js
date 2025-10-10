@@ -221,15 +221,28 @@ const stepList = {
         parentDieBefore: 'CoApplicantName',
         otherwise: 'StopPage'
     },
-    AdoptedIn: 'CoApplicantName',
-    CoApplicantAdoptionPlace: 'ParentAdoptedIn',
-    CoApplicantAdoptedOut: 'ParentAdoptedIn',
+    CoApplicantAdoptionPlace: {
+        adoptionPlace: 'ParentAdoptedIn',
+        otherwise: 'StopPage'
+    },
+    CoApplicantAdoptedOut: {
+        notAdoptedOut: 'ParentAdoptedIn',
+        otherwise: 'StopPage'
+    },
     ParentAdoptedIn: {
         parentAdoptedIn: 'ParentAdoptionPlace',
         notParentAdoptedIn: 'ParentAdoptedOut'
     },
-    ParentAdoptedOut: 'JointApplication',
-    ParentAdoptionPlace: 'JointApplication',
+    ParentAdoptedOut: {
+        parentNotAdoptedOut: 'ExecutorAddress',
+        otherwise: 'StopPage'
+    },
+    ParentAdoptionPlace: {
+        parentAdoptedOutEnglandOrWales: 'ExecutorContactDetails',
+        otherwise: 'StopPage'
+    },
+    ExecutorContactDetails: 'ExecutorAddress',
+    ExecutorAddress: 'JointApplication',
     ApplicantName: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
     ApplicantAddress: {

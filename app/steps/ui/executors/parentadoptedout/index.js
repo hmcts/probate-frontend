@@ -21,7 +21,7 @@ class ParentAdoptedOut extends ValidationStep {
     getContextData(req) {
         const formdata = req.session.form;
         const ctx = super.getContextData(req);
-        ctx.list = formdata.coApplicants.list;
+        ctx.list = formdata.coApplicants?.list || [];
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
@@ -47,13 +47,16 @@ class ParentAdoptedOut extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('adoptedOut');
+        if (ctx.applicantParentAdoptedOut === 'optionNo') {
+            return `/executor-contact-details/${ctx.index}`;
+        }
+        return this.next(req, ctx).constructor.getUrl('parentDieBefore');
     }
 
     nextStepOptions() {
         return {
             options: [
-                {key: 'applicantParentAdoptedOut', value: 'optionNo', choice: 'adoptedOut'},
+                {key: 'applicantParentAdoptedOut', value: 'optionNo', choice: 'parentNotAdoptedOut'},
             ]
         };
     }

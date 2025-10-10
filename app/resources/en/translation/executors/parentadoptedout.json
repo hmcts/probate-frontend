@@ -5,8 +5,8 @@
   "optionNo": "No",
 
   "errors": {
-    "parentAdoptedOut": {
-      "required": "Select &lsquo;Yes&rsquo; if {deceasedName} gave you up for adoption"
+    "applicantParentAdoptedOut": {
+      "required": "Select ‘Yes’ if {{ applicantName }}’s parent was adopted out of {{ deceasedName }}’s family"
     }
   }
 }

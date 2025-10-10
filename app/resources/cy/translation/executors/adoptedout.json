@@ -6,7 +6,7 @@
 
   "errors": {
     "adoptedOut": {
-      "required": "Select &lsquo;Yes&rsquo; if {deceasedName} gave you up for adoption"
+      "required": "Select ‘Yes’ if {{ applicantName }} was adopted out of {{ deceasedName }}’s family"
     }
   }
 }

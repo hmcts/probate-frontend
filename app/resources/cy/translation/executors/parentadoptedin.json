@@ -5,8 +5,8 @@
   "optionNo": "No",
 
   "errors": {
-    "parentAdoptedIn": {
-      "required": "Select &lsquo;Yes&rsquo; if {deceasedName} legally adopted you"
+    "applicantParentAdoptedIn": {
+      "required": "Select ‘Yes’ if {{ applicantName }}’s parent was adopted by {{ deceasedName }}"
     }
   }
 }

@@ -6,7 +6,7 @@
 
   "errors": {
     "adoptedIn": {
-      "required": "Select &lsquo;Yes&rsquo; if {deceasedName} legally adopted you"
+      "required": "Select ‘Yes’ if {{ applicantName }} was adopted in to {{ deceasedName }}’s family"
     }
   }
 }

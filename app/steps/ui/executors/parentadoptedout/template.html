@@ -15,8 +15,8 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.applicantParentAdoptedOut.errorMessage
-            | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.applicantParentAdoptedOut.errorMessage,
+        errorMessage: { text: fields.applicantParentAdoptedOut.errorMessage | replace("{applicantName}", fields.applicantName.value)
+| replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.applicantParentAdoptedOut.errorMessage,
         items: [
             {
                 value: "optionYes",

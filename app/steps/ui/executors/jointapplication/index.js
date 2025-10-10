@@ -73,6 +73,14 @@ class JointApplication extends ValidationStep {
         return [ctx, formdata];
     }
 
+    nextStepOptions() {
+        return {
+            options: [
+                {key: 'hasCoApplicant', value: 'optionYes', choice: 'hasCoApplicant'},
+                {key: 'hasCoApplicant', value: 'optionNo', choice: 'hasNoCoApplicant'},
+            ]
+        };
+    }
     handlePost(ctx, errors, formdata, session) {
         const isSaveAndClose = typeof get(ctx, 'isSaveAndClose') !== 'undefined' && get(ctx, 'isSaveAndClose') === 'true';
         if (!isSaveAndClose) {

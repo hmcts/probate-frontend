@@ -104,6 +104,18 @@ withPipeline("nodejs", product, component) {
   enableSlackNotifications('#probate-jenkins')
   syncBranchesWithMaster(branchesToSync)
 
+  afterAlways('functionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+    publishHTML([
+      allowMissing: true,
+      alwaysLinkToLastBuild: true,
+      keepAll: true,
+      reportDir: "./functional-output/reports",
+      reportFiles: 'functional_report.html',
+      reportName: 'Functional Test Report'
+    ])
+  }
+
   afterSuccess('functionalTest:preview') {
     publishHTML target: [
       reportDir            : "functional-output/",

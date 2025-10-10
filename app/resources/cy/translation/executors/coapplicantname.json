@@ -1,20 +1,15 @@
 {
-  "title": "Applicant name",
-  "question": "Beth yw enw’r ceisydd arall?",
+  "title": "Beth yw enw&rsquo;r ceisydd arall?",
+  "question": "Beth yw enw&rsquo;r ceisydd arall?",
   "content1": "Bydd yr enw a roddwch inni yn cael ei ysgrifennu ar y grant profiant.",
   "content2": "Dylai eu henw fod union yr un fath ag y mae wedi’i ysgrifennu ar eu pasbort neu fath arall o ddogfen adnabod awdurdodedig, er enghraifft trwydded yrru.",
-  "content3": "Dylech wneud yn siŵr mai hwn yw’r un math o ddull adnabod byddwch yn ei ddefnyddio pan fyddwch yn delio ag ystad {{deceased name}}.",
+  "content3": "Dylech wneud yn si&wcirc;r mai hwn yw&rsquo;r un math o ddull adnabod byddwch yn ei ddefnyddio pan fyddwch yn delio ag ystad {deceasedName}.",
   "fullName": "Enw llawn",
-  "warningText": "Os nad yw’r enw ar y grant yn cyfateb â’r prawf adnabod maen nhw’n ei ddefnyddio, efallai y cânt anawsterau wrth ddelio â’r ystad.",
+  "warningText": "Os nad yw&rsquo;r enw ar y grant yn cyfateb &acirc;&rsquo;r prawf adnabod maen nhw&rsquo;n ei ddefnyddio, efallai y c&acirc;nt anawsterau wrth ddelio &acirc;&rsquo;r ystad.",
 
   "errors": {
-    "firstName": {
-      "required": "Enter your first name, including any middle names",
-      "invalid": "Enter a valid first name - can only contain letters a to z, spaces, hyphens and apostrophes"
-    },
-    "lastName": {
-      "required": "Enter your last name",
-      "invalid": "Enter a valid last name - can only contain letters a to z, spaces, hyphens and apostrophes"
+    "coApplicantName": {
+      "required": "Nodwch enw llawn y ceisydd"
     }
   }
 }

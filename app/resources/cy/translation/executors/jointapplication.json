@@ -1,23 +1,21 @@
 {
   "title": "Pobl yn gwneud cais am brofiant",
-  "titleWithCodicil": "Executors named in the will and any codicils",
   "question": "Ydych chi eisiau gwneud cais gyda rhywun arall?",
-  "hintText": "Os oes pobl eraill sydd â hawl i etifeddu, gallwch wneud cais ar y cyd gyda hyd at 3 ohonynt. \nByddant hefyd yn cael eu henwi ar y grant profiant.",
-  "hintTextDeceasedName": "All applicants will be given the legal right to deal with {{ deceasedName }}’s estate. This includes:",
-  "bullet1": "casglu asedau'r ystad (eiddo ac arian)",
+  "Paragraph1": "Os oes pobl eraill sydd â hawl i etifeddu, gallwch wneud cais ar y cyd gyda hyd at 3 ohonynt. Byddant hefyd yn cael eu henwi ar y grant profiant.",
+  "Paragraph2": "Bydd pob Ceisydd yn cael yr hawl gyfreithiol i ddelio ag ystad {deceasedName}. Mae hyn yn cynnwys:",
+  "bullet1": "casglu asedau&rsquo;r ystad (eiddo ac arian)",
   "bullet2": "talu unrhyw drethi a dyledion",
-  "bullet3": "distributing what is left to the people entitled to it (the ‘beneficiaries’)",
+  "bullet3": "dosrannu beth sydd ar &ocirc;l i&rsquo;r bobl sydd &acirc; hawl iddo (y &rsquo;buddiolwyr&rsquo;)",
   "applicantExecutor" : "Ceisydd (chi)",
   "furtherExecutor": "Ceisydd",
-  "optionYes": "Oes",
-  "optionNo": "Nac oes",
-  "removeAction": "Remove",
+  "optionYes": "Ydw",
+  "optionNo": "Nac ydw",
+  "removeAction": "Dileu",
 
   "errors": {
-    "executorsNamed": {
-      "required": "Select 'Yes' if there are more executors named in the will",
-      "requiredCodicils": "Select 'Yes' if there are more executors named in the will and any codicils",
-      "invalid": "Number of executors must be a whole number between 1 and 20"
+    "hasCoApplicant": {
+      "required": "Dewiswch &lsquo;Ydw&rsquo; os ydych eisiau gwneud cais gyda rhywun arall",
+      "invalid": "Gallwch ond gwneud cais gyda hyd at 3 o bobl"
     }
   }
 }

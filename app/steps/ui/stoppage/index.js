@@ -86,6 +86,9 @@ class StopPage extends Step {
         case 'coApplicantRelationshipToDeceased':
             pageHeader = 'coApplicantRelationshipToDeceasedHeader';
             break;
+        case 'otherCoApplicantRelationship':
+            pageHeader = 'personCannotApplyByOnlineHeader';
+            break;
         default:
             pageHeader = 'defaultHeader';
         }

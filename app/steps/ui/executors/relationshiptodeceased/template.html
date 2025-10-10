@@ -21,8 +21,8 @@
     value: "optionGrandchild",
     text: content["optionGrandchild"] | safe,
     checked: true if fields.coApplicantRelationshipToDeceased.value == "optionGrandchild",
-    conditional: {
-        html: conditionalGrandchildHintHtml
+    hint: {
+        text: content["optionGrandchildHintText"] | replace("{deceasedName}", fields.deceasedName.value) | safe
     }
 }), answers) %}
 
@@ -36,7 +36,7 @@
 
     {% call govukFieldset({
     legend: {
-    text: content.title | replace("{deceasedName}", fields.deceasedName.value) | safe,
+    text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
     classes: "govuk-fieldset__legend--l",
     isPageHeading: true
     }
@@ -47,7 +47,8 @@
         classes: "govuk-radios",
         idPrefix: "coApplicantRelationshipToDeceased",
         name: "coApplicantRelationshipToDeceased",
-        errorMessage: { text: fields.coApplicantRelationshipToDeceased.errorMessage | safe } if fields.coApplicantRelationshipToDeceased.errorMessage,
+        errorMessage: { text: fields.coApplicantRelationshipToDeceased.errorMessage
+            | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.coApplicantRelationshipToDeceased.errorMessage,
         items: answers
     }) }}
 

@@ -2,6 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex} = require('lodash');
+const FormatName = require('../../../../utils/FormatName');
 const pageUrl = '/coapplicant-name';
 
 class CoApplicantName extends ValidationStep {
@@ -11,8 +12,8 @@ class CoApplicantName extends ValidationStep {
     }
 
     getContextData(req) {
-        const formdata = req.session.form;
         const ctx = super.getContextData(req);
+        const formdata = req.session.form;
         ctx.list = formdata.coApplicants.list;
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
@@ -20,7 +21,7 @@ class CoApplicantName extends ValidationStep {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
-        ctx.coApplicantName = ctx.list?.[ctx.index] ? ctx.list[ctx.index].fullName : '';
+        ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
 
@@ -37,7 +38,7 @@ class CoApplicantName extends ValidationStep {
 
     handleGet(ctx, formdata) {
         const coApplicants = formdata.coApplicants.list[ctx.index];
-        ctx.coApplicantName = coApplicants.fullName;
+        ctx.coApplicantName = coApplicants.coApplicantName;
         return [ctx];
     }
 

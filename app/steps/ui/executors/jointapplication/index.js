@@ -2,9 +2,10 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const {get} = require('lodash');
+const {get, set} = require('lodash');
 const FormatName = require('../../../../utils/FormatName');
 const WillWrapper = require('../../../../wrappers/Will');
+const FieldError = require('../../../../components/error');
 
 class JointApplication extends ValidationStep {
 
@@ -72,12 +73,20 @@ class JointApplication extends ValidationStep {
         return [ctx, formdata];
     }
 
-    shouldPersistFormData() {
-        return false;
-    }
-
-    handlePost(ctx, errors, formdata) {
-        formdata.coApplicants.hasCoApplicant = ctx.hasCoApplicant;
+    handlePost(ctx, errors, formdata, session) {
+        const isSaveAndClose = typeof get(ctx, 'isSaveAndClose') !== 'undefined' && get(ctx, 'isSaveAndClose') === 'true';
+        if (!isSaveAndClose) {
+            const hasCoApplicantChecked = ctx.hasCoApplicantChecked === 'true';
+            if (hasCoApplicantChecked === false) {
+                errors.push(FieldError('hasCoApplicant', 'required', this.resourcePath,
+                    this.generateContent({}, {}, session.language), session.language));
+            } else if (ctx.list.length > 4) {
+                errors.push(FieldError('hasCoApplicant', 'invalid', this.resourcePath,
+                    this.generateContent({}, {}, session.language), session.language));
+            }
+            formdata.coApplicants.hasCoApplicant = ctx.hasCoApplicant;
+            set(formdata, 'coApplicants.list', ctx.list);
+        }
         return [ctx, errors];
     }
 }

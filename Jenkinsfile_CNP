@@ -104,7 +104,7 @@ withPipeline("nodejs", product, component) {
   enableSlackNotifications('#probate-jenkins')
   syncBranchesWithMaster(branchesToSync)
 
-  afterAlways('functionalTest:preview') {
+  afterAlways('fullFunctionalTest:preview') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
     publishHTML([
       allowMissing: true,

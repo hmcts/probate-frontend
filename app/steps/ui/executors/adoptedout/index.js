@@ -50,7 +50,7 @@ class CoApplicantAdoptedOut extends ValidationStep {
         if (ctx.adoptedOut === 'optionNo') {
             return `/parent-adopted-in/${ctx.index}`;
         }
-        return this.next(req, ctx).constructor.getUrl('adoptedOut');
+        return this.next(req, ctx).constructor.getUrl('coApplicantStop');
     }
 
     nextStepOptions() {

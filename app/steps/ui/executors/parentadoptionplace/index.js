@@ -42,7 +42,7 @@ class ParentAdoptionPlace extends ValidationStep {
         if (ctx.applicantParentAdoptionPlace === 'optionYes') {
             return `/executor-contact-details/${ctx.index}`;
         }
-        return this.next(req, ctx).constructor.getUrl('parentAdoptedOutEnglandOrWales');
+        return this.next(req, ctx).constructor.getUrl('coApplicantStop');
     }
 
     nextStepOptions() {

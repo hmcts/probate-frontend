@@ -66,7 +66,7 @@
     "test:pact:run-and-publish": "yarn test-pact && yarn publish-pact",
     "lint": "NODE_PATH=. eslint .",
     "eslint": "NODE_PATH=. eslint .",
-    "test:functional": "NODE_ENV=test yarn test-contract && NODE_ENV=test yarn test-e2e-http-launch-darkly",
+    "test:functional": "yarn playwright install && DONT_FAIL_ON_EMPTY_RUN=1 NODE_ENV=test-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly-pr' --reporter=mocha-multi; yarn merge-reports",
     "test:fullfunctional": "yarn playwright install DONT_FAIL_ON_EMPTY_RUN=1 NODE_ENV=test-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly' --reporter=mocha-multi; yarn merge-reports",
     "test:fullfunctional-pr": "yarn playwright install && DONT_FAIL_ON_EMPTY_RUN=1 NODE_ENV=test-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly-pr' --reporter=mocha-multi; yarn merge-reports",
     "merge-reports": "mkdir -p ./temp-reports && mochawesome-merge ./temp-reports/*.json > './functional-output/functional/reports/Functional test report.json' && marge './functional-output/functional/reports/Functional test report.json' -f 'Functional test report' -o ./functional-output/functional/reports --inline && rm -rf ./temp-reports",

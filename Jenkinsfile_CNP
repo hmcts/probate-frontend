@@ -97,12 +97,18 @@ withPipeline("nodejs", product, component) {
        error 'Deliberately breaking pipeline to prevent prod deployment'
    }
 */
+
   enableAksStagingDeployment()
   disableLegacyDeployment()
 
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
   syncBranchesWithMaster(branchesToSync)
+
+  afterAlways('build') {
+    sh 'mkdir -p functional-output/reports'
+    yarnBuilder.yarn('setup')
+  }
 
   afterSuccess('functionalTest:preview') {
     publishHTML target: [
@@ -114,9 +120,9 @@ withPipeline("nodejs", product, component) {
 
     if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
       env.DONT_TEST_WELSH = true
-      yarnBuilder.yarn('test:fullfunctional-pr');
+      yarnBuilder.yarn('test:functional');
     } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
-      yarnBuilder.yarn('test:fullfunctional-pr');
+      yarnBuilder.yarn('test:functional');
     }
   }
 

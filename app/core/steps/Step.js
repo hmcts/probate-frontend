@@ -15,8 +15,17 @@ const Sanitize = require('app/utils/Sanitize');
 
 class Step {
 
-    static getUrl() {
+    static getUrl(unused) {
+        this._unused = unused;
         throw new ReferenceError('Step must override #url');
+    }
+
+    getUrlWithContext(ctx, unused) {
+        const noCtxUrl = this.constructor.getUrl(unused);
+        if (ctx?.caseType === 'intestacy') {
+            return `/intestacy${noCtxUrl}`;
+        }
+        return noCtxUrl;
     }
 
     get name() {
@@ -49,7 +58,7 @@ class Step {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl();
+        return this.next(req, ctx).getUrlWithContext(ctx);
     }
 
     shouldHaveBackLink() {

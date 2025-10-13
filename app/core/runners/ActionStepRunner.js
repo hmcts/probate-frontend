@@ -30,7 +30,7 @@ class ActionStepRunner {
 
             const next = step.next(req, ctx);
             step.action(ctx, formdata);
-            res.redirect(next.constructor.getUrl());
+            res.redirect(next.getUrlWithContext(ctx));
         }).catch((error) => {
             const commonContent = require(`app/resources/${req.session.language}/translation/common`);
 

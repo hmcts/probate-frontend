@@ -10,7 +10,7 @@ class AnyExecutorsDied extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl(1);
+        return this.next(req, ctx).getUrlWithContext(ctx, 1);
     }
 
     nextStepOptions(ctx) {

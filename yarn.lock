@@ -224,11 +224,11 @@ __metadata:
   linkType: hard
 
 "@azure/msal-browser@npm:^4.13.2":
-  version: 4.24.1
-  resolution: "@azure/msal-browser@npm:4.24.1"
+  version: 4.25.0
+  resolution: "@azure/msal-browser@npm:4.25.0"
   dependencies:
     "@azure/msal-common": "npm:15.13.0"
-  checksum: 10/b2dce52d8c93b37b2ff0674cc757dda49e4803efa2c06d617a2f926b3d93bb28f06f9b0ab25eb9e98b41749f8fbebdd3a05400b6adbea00559690d757dbae4bc
+  checksum: 10/26406a0c505f82a9bdd41383888dbea0e5c517b0961fd4da43c09dba8b7b8c06778066d7efb1d58d5c39f15c7911e5599e6de62ba72d2498748a77f17243dfb1
   languageName: node
   linkType: hard
 
@@ -2601,29 +2601,29 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 24.7.0
-  resolution: "@types/node@npm:24.7.0"
+  version: 24.7.2
+  resolution: "@types/node@npm:24.7.2"
   dependencies:
     undici-types: "npm:~7.14.0"
-  checksum: 10/db0b77e9b132906cdf0350661df660c970e924093ccaa781472d61bc5c448f3d15514b15f55b4df6827254a041aad2418339fe00d45ef10687557ffc0f026d47
+  checksum: 10/62073022f7fc11363683e6ce82332193129c3053e7f973127a83b0daa5d755ecf5806d310f5a7c78375e6c3d309aa15b4ae87c4c1797a9eec091425d36098b60
   languageName: node
   linkType: hard
 
 "@types/node@npm:^20.1.0, @types/node@npm:^20.11.30":
-  version: 20.19.19
-  resolution: "@types/node@npm:20.19.19"
+  version: 20.19.21
+  resolution: "@types/node@npm:20.19.21"
   dependencies:
     undici-types: "npm:~6.21.0"
-  checksum: 10/0230dadfe83f1aa6a5e4aad5e00a6ee3501bd539f19024b40ac198afcb4e21e3ab8b8f47c4765e5c537a1da1e53dcb41cd5549aa48efc686c9542cc9841663bb
+  checksum: 10/5e460265afe6b08e40a60b7b353bfe03836a9f73f5fae9ef90d5fa746f2173cbb4b20874adb611c711d4246f905d92f409339f4e5268048307306c7ecf5a16a7
   languageName: node
   linkType: hard
 
 "@types/node@npm:^22.0.0":
-  version: 22.18.8
-  resolution: "@types/node@npm:22.18.8"
+  version: 22.18.10
+  resolution: "@types/node@npm:22.18.10"
   dependencies:
     undici-types: "npm:~6.21.0"
-  checksum: 10/dc8e883680993bebf45ac641af6648fd88a8d6ec0e375ff737221eef6c93b6a4d20311dfc070bb595095adbf9a2a411a9b3d9230a763eb744bb1d8ca831c331c
+  checksum: 10/07e9ce07767c48fc4860c78d2d9c90a87ef6fa30fa065beb2fd838ae1ba6fe787218f344a01cb14b4bf0a97cdfea5488fcbfbd343ccd07ab97154bceeb394f2f
   languageName: node
   linkType: hard
 
@@ -7861,9 +7861,9 @@ __metadata:
   linkType: hard
 
 "govuk-frontend@npm:^5.8.0":
-  version: 5.12.0
-  resolution: "govuk-frontend@npm:5.12.0"
-  checksum: 10/966974213fc243327217112d6113cc07957dbd55496e8e3beecac74dc92b243b0fa7d5368a17ea6e4f3dd7066f3cb969f5891f278b3aada0541c37dde5aa8054
+  version: 5.13.0
+  resolution: "govuk-frontend@npm:5.13.0"
+  checksum: 10/6eca01260e4eb8740c805c58a7bac034041e0190226c7ef200e49a715f630f304a5816dfea3c0c6b0cfabe30995b05b024df2824546e8dd00066059c0f8d1bdb
   languageName: node
   linkType: hard
 
@@ -8080,11 +8080,11 @@ __metadata:
   linkType: hard
 
 "hosted-git-info@npm:^9.0.0":
-  version: 9.0.1
-  resolution: "hosted-git-info@npm:9.0.1"
+  version: 9.0.2
+  resolution: "hosted-git-info@npm:9.0.2"
   dependencies:
     lru-cache: "npm:^11.1.0"
-  checksum: 10/6a08c9fade8e36d17f52cd1875d497eef9a7ca57cf42ae1278203a2f90152725257ac47a4e21f67372c1bd0a24ade1832c69c4c29395803ae2be432dd548b5e9
+  checksum: 10/0619c284ca7fc35322735e03fece90ed3ded67a2cf68e855e688d1bffd47078515d98ab8dff4bd08fb78d68d1a72ab8892180e15c7f23f24c922a6dfa601dbad
   languageName: node
   linkType: hard
 
@@ -9830,9 +9830,9 @@ __metadata:
   linkType: hard
 
 "libphonenumber-js@npm:^1.11.17":
-  version: 1.12.23
-  resolution: "libphonenumber-js@npm:1.12.23"
-  checksum: 10/74b00fa8dd51f3b99d3d0be2c108186aa260fbf832f7d29b8d79a1eed4e874a542e9fced315477c5f57e6c6958e4c93f1ea7267873248bd1ad83d04b852ba553
+  version: 1.12.24
+  resolution: "libphonenumber-js@npm:1.12.24"
+  checksum: 10/7aee739a7ad348eebe23e9f1cfd244c083bd1a3c0eba62e04e99585e52f2feb35bc72c2b88076e6bf167417e694e5e5f6f322ffba879a64ccc924746d3803655
   languageName: node
   linkType: hard
 

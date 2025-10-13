@@ -8,8 +8,8 @@ const caseTypes= require('app/utils/CaseTypes');
 
 describe('adoption-place', () => {
     let testWrapper;
-    const expectedNextUrlForAnyOtherChildren = AnyOtherChildren.getUrl();
-    const expectedNextUrlForStopPage = StopPage.getUrl('adoptionNotEnglandOrWales');
+    const expectedNextUrlForAnyOtherChildren = '/intestacy' + AnyOtherChildren.getUrl();
+    const expectedNextUrlForStopPage = '/intestacy' + StopPage.getUrl('adoptionNotEnglandOrWales');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('AdoptionPlace');

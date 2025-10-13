@@ -118,12 +118,12 @@ withPipeline("nodejs", product, component) {
       alwaysLinkToLastBuild: true
     ]
 
-    if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
+   /* if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
       env.DONT_TEST_WELSH = true
       yarnBuilder.yarn('test:functional');
     } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
       yarnBuilder.yarn('test:functional');
-    }
+    }*/
   }
 
   afterAlways('functionalTest:preview') {

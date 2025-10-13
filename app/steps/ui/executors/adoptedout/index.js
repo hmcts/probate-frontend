@@ -47,16 +47,21 @@ class CoApplicantAdoptedOut extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        if (ctx.adoptedOut === 'optionNo') {
+        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' && ctx.adoptedOut === 'optionNo') {
+            return `/coapplicant-email/${ctx.index}`;
+        } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild' && ctx.adoptedOut === 'optionNo') {
             return `/parent-adopted-in/${ctx.index}`;
         }
         return this.next(req, ctx).constructor.getUrl('coApplicantStop');
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.childNotAdoptedOut = ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' && ctx.adoptedOut === 'optionNo';
+        ctx.grandChildNotAdoptedOut = ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild' && ctx.adoptedOut === 'optionNo';
         return {
             options: [
-                {key: 'AdoptedOut', value: 'optionNo', choice: 'notAdoptedOut'},
+                {key: 'childNotAdoptedOut', value: true, choice: 'childNotAdoptedOut'},
+                {key: 'grandChildNotAdoptedOut', value: true, choice: 'grandChildNotAdoptedOut'}
             ]
         };
     }

@@ -1,0 +1,14 @@
+{
+  "title": "Email address",
+  "question": "What is {executorName}&rsquo;s email address?",
+  "paragraph1": "We will send {executorName} an email to verify their identity and to confirm details of the estate.",
+  "email": "Email address",
+
+  "errors": {
+    "email": {
+      "required": "Beth yw cyfeiriad e-bost {executorName}?",
+      "invalid": "Enter a valid email address",
+      "duplicate": "You have used this email address for another executor"
+    }
+  }
+}

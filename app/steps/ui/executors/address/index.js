@@ -13,7 +13,11 @@ class ExecutorAddress extends AddressStep {
     }
 
     getContextData(req) {
+        const formdata = req.session.form;
         const ctx = super.getContextData(req);
+        if (formdata.coApplicants && formdata.coApplicants.list) {
+            ctx.list = formdata.coApplicants.list;
+        }
         ctx.caseType = caseTypes.getCaseType(req.session);
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
@@ -66,6 +70,12 @@ class ExecutorAddress extends AddressStep {
         ctx.list[ctx.index].postcode = ctx.postcode;
         ctx.list[ctx.index].addresses = ctx.addresses;
 
+        if (formdata.coApplicants && formdata.coApplicants.list) {
+            formdata.coApplicants.list[ctx.index].address = ctx.address;
+            formdata.coApplicants.list[ctx.index].postcode = ctx.postcode;
+            formdata.coApplicants.list[ctx.index].addresses = ctx.addresses;
+        }
+
         ctx.index = this.recalcIndex(ctx, ctx.index);
         if (ctx.index === -1) {
             ctx.allExecsApplying = ctx.executorsWrapper.areAllAliveExecutorsApplying();
@@ -86,17 +96,22 @@ class ExecutorAddress extends AddressStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.continue = get(ctx, 'index', -1) !== -1;
-        ctx.hasCoApplicant = ctx.caseType === caseTypes.INTESTACY && get(ctx, 'index', -1) === -1;
-        ctx.allExecsApplying = ctx.executorsWrapper.areAllAliveExecutorsApplying();
-
-        return {
-            options: [
-                {key: 'continue', value: true, choice: 'continue'},
-                {key: 'hasCoApplicant', value: true, choice: 'hasCoApplicant'},
-                {key: 'allExecsApplying', value: true, choice: 'allExecsApplying'}
-            ],
-        };
+        if (ctx.caseType === caseTypes.GOP) {
+            return {
+                options: [
+                    {key: 'continue', value: true, choice: 'continue'},
+                    {key: 'allExecsApplying', value: true, choice: 'allExecsApplying'},
+                    {key: 'otherwise', value: true, choice: 'otherwise'}
+                ],
+            };
+        }
+        if (ctx.caseType === caseTypes.INTESTACY) {
+            return {
+                options: [
+                    {key: 'JointApplication', value: true, choice: 'JointApplication'},
+                ],
+            };
+        }
     }
 
     action(ctx, formdata) {

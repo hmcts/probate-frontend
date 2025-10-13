@@ -39,25 +39,30 @@ class CoApplicantAdoptionPlace extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        if (ctx.adoptionPlace === 'optionYes') {
+        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' && ctx.adoptionPlace === 'optionYes') {
+            return `/coapplicant-email/${ctx.index}`;
+        } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild' && ctx.adoptionPlace === 'optionYes') {
             return `/parent-adopted-in/${ctx.index}`;
         }
         return this.next(req, ctx).constructor.getUrl('coApplicantStop');
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.childAdoptedInEnglandOrWales = ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' && ctx.adoptionPlace === 'optionYes';
+        ctx.grandChildAdoptedInEnglandOrWales = ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild' && ctx.adoptionPlace === 'optionYes';
         return {
             options: [
-                {key: 'adoptionPlace', value: 'optionYes', choice: 'ParentAdoptedIn'},
+                {key: 'childAdoptedInEnglandOrWales', value: true, choice: 'childAdoptedInEnglandOrWales'},
+                {key: 'grandChildAdoptedInEnglandOrWales', value: true, choice: 'grandChildAdoptedInEnglandOrWales'},
             ]
         };
     }
 
     handlePost(ctx, errors, formdata) {
-        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased==='optionChild') {
+        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased ==='optionChild') {
             formdata.coApplicants.list[ctx.index].childAdoptionInEnglandOrWales=ctx.adoptionPlace;
         }
-        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased==='optionGrandchild') {
+        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased ==='optionGrandchild') {
             formdata.coApplicants.list[ctx.index].grandchildAdoptionInEnglandOrWales=ctx.adoptionPlace;
         }
         return [ctx, errors];

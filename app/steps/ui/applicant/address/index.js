@@ -18,7 +18,20 @@ class ApplicantAddress extends AddressStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.hasNoCoApplicant = ctx.caseType === caseTypes.INTESTACY && ((ctx.deceased.anyOtherChildren === 'optionYes' && ctx.deceased.anyPredeceasedChildren === 'optionYesAll' && ctx.deceased.anySurvivingGrandchildren === 'optionNo') || (ctx.deceased.anyOtherChildren === 'optionNo'));
+        if (ctx.caseType === caseTypes.GOP) {
+            return {
+                options: [
+                    {key: 'ExecutorCheckWill', value: true, choice: 'ExecutorCheckWill'},
+                ],
+            };
+        }
+
+        ctx.hasNoCoApplicant = ctx.caseType === caseTypes.INTESTACY && (
+            (ctx.deceased.anyOtherChildren === 'optionYes' &&
+                ctx.deceased.anyPredeceasedChildren === 'optionYesAll' &&
+                ctx.deceased.anySurvivingGrandchildren === 'optionNo') ||
+            (ctx.deceased.anyOtherChildren === 'optionNo')
+        );
         ctx.hasCoApplicant = ctx.caseType === caseTypes.INTESTACY && !ctx.hasNoCoApplicant;
 
         return {

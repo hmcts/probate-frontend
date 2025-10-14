@@ -53,7 +53,7 @@ describe('any-other-children', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to Any Predeceased children page if deceased had other children: ${expectedNextUrlForAnyPredeceasedChildren}`, (done) => {
+        it(`test it redirects to Any Predeceased children page if deceased had other children: /intestacy${expectedNextUrlForAnyPredeceasedChildren}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -62,11 +62,11 @@ describe('any-other-children', () => {
                         anyOtherChildren: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyPredeceasedChildren);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAnyPredeceasedChildren}`);
                 });
         });
 
-        it(`test it redirects to Applicant Name page if deceased had no other children: ${expectedNextUrlForApplicantName}`, (done) => {
+        it(`test it redirects to Applicant Name page if deceased had no other children: /intestacy${expectedNextUrlForApplicantName}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 applicant: {
@@ -81,7 +81,7 @@ describe('any-other-children', () => {
                         anyOtherChildren: 'optionNo',
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForApplicantName}`);
                 });
         });
         it(`test it redirects to Grandchild parent has other children page if deceased had no other children and applicant is grandchild: ${expectedNextUrlForGrandchildParentHasOtherChildren}`, (done) => {

@@ -80,7 +80,7 @@ describe('relationship-to-deceased', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to Spouse Not Applying Reason page if relationship is Child and deceased was married: ${expectedNextUrlForSpouseNotApplyingReason}`, (done) => {
+        it(`test it redirects to Spouse Not Applying Reason page if relationship is Child and deceased was married: /intestacy${expectedNextUrlForSpouseNotApplyingReason}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -95,11 +95,11 @@ describe('relationship-to-deceased', () => {
                         relationshipToDeceased: 'optionChild'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForSpouseNotApplyingReason);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForSpouseNotApplyingReason}`);
                 });
         });
 
-        it(`test it redirects to Any Other Children page if relationship is Child and deceased was not married: ${expectedNextUrlForAdoptedIn}`, (done) => {
+        it(`test it redirects to Any Other Children page if relationship is Child and deceased was not married: /intestacy${expectedNextUrlForAdoptedIn}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -115,11 +115,11 @@ describe('relationship-to-deceased', () => {
                         deceasedMaritalStatus: 'optionDivorced'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAdoptedIn);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAdoptedIn}`);
                 });
         });
 
-        it(`test it redirects to Adoption Place page if relationship is Adopted Child: ${expectedNextUrlForAdoptionPlace}`, (done) => {
+        it(`test it redirects to Adoption Place page if relationship is Adopted Child: /intestacy${expectedNextUrlForAdoptionPlace}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -127,11 +127,11 @@ describe('relationship-to-deceased', () => {
                         relationshipToDeceased: 'optionAdoptedChild'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAdoptionPlace);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAdoptionPlace}`);
                 });
         });
 
-        it(`test it redirects to Any Children page if relationship is Spouse/Partner and the estate value is more than the IHT threshold for DoD between 1 Oct 2014 and 5 Feb 2020: ${expectedNextUrlForAnyChildren}`, (done) => {
+        it(`test it redirects to Any Children page if relationship is Spouse/Partner and the estate value is more than the IHT threshold for DoD between 1 Oct 2014 and 5 Feb 2020: /intestacy${expectedNextUrlForAnyChildren}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -150,11 +150,11 @@ describe('relationship-to-deceased', () => {
                         relationshipToDeceased: 'optionSpousePartner'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyChildren);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAnyChildren}`);
                 });
         });
 
-        it(`test it redirects to Any Children page if relationship is Spouse/Partner and the estate value is more than the IHT threshold for DoD after 5 Feb 2020: ${expectedNextUrlForAnyChildren}`, (done) => {
+        it(`test it redirects to Any Children page if relationship is Spouse/Partner and the estate value is more than the IHT threshold for DoD after 5 Feb 2020: /intestacy${expectedNextUrlForAnyChildren}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -173,11 +173,11 @@ describe('relationship-to-deceased', () => {
                         relationshipToDeceased: 'optionSpousePartner'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyChildren);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAnyChildren}`);
                 });
         });
 
-        it(`test it redirects to Applicant Name page if relationship is Spouse/Partner and the estate value is less than or equal to the IHT threshold for DoD between 1 Oct 2014 and 5 Feb 2020: ${expectedNextUrlForApplicantName}`, (done) => {
+        it(`test it redirects to Applicant Name page if relationship is Spouse/Partner and the estate value is less than or equal to the IHT threshold for DoD between 1 Oct 2014 and 5 Feb 2020: /intestacy${expectedNextUrlForApplicantName}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -196,11 +196,11 @@ describe('relationship-to-deceased', () => {
                         relationshipToDeceased: 'optionSpousePartner'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForApplicantName}`);
                 });
         });
 
-        it(`test it redirects to Applicant Name page if relationship is Spouse/Partner and the estate value is less than or equal to the IHT threshold for DoD after 5 Feb 2020: ${expectedNextUrlForApplicantName}`, (done) => {
+        it(`test it redirects to Applicant Name page if relationship is Spouse/Partner and the estate value is less than or equal to the IHT threshold for DoD after 5 Feb 2020: /intestacy${expectedNextUrlForApplicantName}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -219,11 +219,11 @@ describe('relationship-to-deceased', () => {
                         relationshipToDeceased: 'optionSpousePartner'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForApplicantName}`);
                 });
         });
 
-        it(`test it redirects to Stop page if relationship is Other and deceased married: ${expectedNextUrlForMarriedOtherRel}`, (done) => {
+        it(`test it redirects to Stop page if relationship is Other and deceased married: /intestacy${expectedNextUrlForMarriedOtherRel}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({
                     caseType: caseTypes.INTESTACY,
@@ -236,11 +236,11 @@ describe('relationship-to-deceased', () => {
                         relationshipToDeceased: 'optionOther',
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForMarriedOtherRel);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForMarriedOtherRel}`);
                 });
         });
 
-        it(`test it redirects to Stop page if relationship is Other and deceased not married: ${expectedNextUrlForUnmarriedOtherRel}`, (done) => {
+        it(`test it redirects to Stop page if relationship is Other and deceased not married: /intestacy${expectedNextUrlForUnmarriedOtherRel}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({
                     caseType: caseTypes.INTESTACY,
@@ -253,7 +253,7 @@ describe('relationship-to-deceased', () => {
                         relationshipToDeceased: 'optionOther',
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForUnmarriedOtherRel);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForUnmarriedOtherRel}`);
                 });
         });
     });

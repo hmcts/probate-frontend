@@ -50,7 +50,7 @@ describe('all-children-over-18', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to Applicant name page if deceased children were all over 18 and child is applying: ${expectedNextUrlForApplicantName}`, (done) => {
+        it(`test it redirects to Applicant name page if deceased children were all over 18 and child is applying: /intestacy${expectedNextUrlForApplicantName}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 applicant: {
@@ -65,11 +65,11 @@ describe('all-children-over-18', () => {
                         allChildrenOver18: 'optionYes',
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForApplicantName}`);
                 });
         });
 
-        it(`test it redirects to Parent has any children page if deceased children were all over 18 and grandchild is applying: ${expectedNextUrlForGrandchildParentHasOtherChildren}`, (done) => {
+        it(`test it redirects to Parent has any children page if deceased children were all over 18 and grandchild is applying: /intestacy${expectedNextUrlForGrandchildParentHasOtherChildren}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 applicant: {
@@ -84,11 +84,11 @@ describe('all-children-over-18', () => {
                         allChildrenOver18: 'optionYes',
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForGrandchildParentHasOtherChildren);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForGrandchildParentHasOtherChildren}`);
                 });
         });
 
-        it(`test it redirects to Stop page if some deceased children were under 18: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to Stop page if some deceased children were under 18: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -96,7 +96,7 @@ describe('all-children-over-18', () => {
                         allChildrenOver18: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
     });

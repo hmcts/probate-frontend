@@ -237,11 +237,11 @@ const stepList = {
         notParentAdoptedIn: 'ParentAdoptedOut'
     },
     ParentAdoptedOut: {
-        parentNotAdoptedOut: 'ExecutorAddress',
+        parentNotAdoptedOut: 'CoApplicantEmail',
         otherwise: 'StopPage'
     },
     ParentAdoptionPlace: {
-        parentAdoptedOutEnglandOrWales: 'ExecutorContactDetails',
+        parentAdoptedOutEnglandOrWales: 'CoApplicantEmail',
         otherwise: 'StopPage'
     },
     CoApplicantEmail: 'ExecutorAddress',

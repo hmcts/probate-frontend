@@ -44,6 +44,13 @@ class ParentAdoptedIn extends ValidationStep {
         return fields;
     }
 
+    nextStepUrl(req, ctx) {
+        if (ctx.applicantParentAdoptedIn === 'optionYes') {
+            return `/parent-adoption-place/${ctx.index}`;
+        }
+        return `/parent-adopted-out/${ctx.index}`;
+    }
+
     nextStepOptions() {
         return {
             options: [

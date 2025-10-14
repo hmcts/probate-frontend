@@ -39,7 +39,7 @@ class ParentAdoptionPlace extends ValidationStep {
 
     nextStepUrl(req, ctx) {
         if (ctx.applicantParentAdoptionPlace === 'optionYes') {
-            return `/executor-contact-details/${ctx.index}`;
+            return `/coapplicant-email/${ctx.index}`;
         }
         return this.next(req, ctx).constructor.getUrl('coApplicantStop');
     }

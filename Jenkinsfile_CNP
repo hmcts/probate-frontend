@@ -106,7 +106,7 @@ withPipeline("nodejs", product, component) {
   syncBranchesWithMaster(branchesToSync)
 
   afterAlways('build') {
-    sh 'mkdir -p functional-output/reports'
+    sh 'mkdir -p functional-output/'
     yarnBuilder.yarn('setup')
   }
 
@@ -132,7 +132,7 @@ withPipeline("nodejs", product, component) {
       allowMissing: true,
       alwaysLinkToLastBuild: true,
       keepAll: true,
-      reportDir: "./functional-output/reports",
+      reportDir: "./functional-output/",
       reportFiles: 'functional_report.html',
       reportName: 'Functional Test Report'
     ])

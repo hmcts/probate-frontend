@@ -7,13 +7,12 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: content.question | replace("{executorName}", fields.otherExecName.value) | safe,
+            text: content.question | replace("{executorName}", fields.executorName.value) | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-body">{{ content.paragraph1 | replace("{executorName}", fields.otherExecName.value) | safe }}</p>
-        <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+        <p class="govuk-body">{{ content.paragraph1 | replace("{executorName}", fields.executorName.value) | safe }}</p>
 
         {% set label = content.email %}
 
@@ -24,7 +23,7 @@
             id: "email",
             name: "email",
             value: fields.email.value | safe,
-            errorMessage: { text: fields.email.errorMessage | safe } if fields.email.errorMessage,
+            errorMessage: { text: fields.email.errorMessage | replace("{executorName}", fields.executorName.value) | safe } if fields.email.errorMessage,
             attributes: {
                 maxlength: 320
             },

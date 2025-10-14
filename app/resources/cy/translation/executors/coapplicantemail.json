@@ -2,12 +2,11 @@
   "title": "Cyfeiriad e-bost",
   "question": "Beth yw cyfeiriad e-bost {executorName}?",
   "paragraph1": "Byddwn yn anfon e-bost at {executorName} i wirio eu hunaniaeth ac i gadarnhau manylion yr ystad.",
-  "paragraph2": "Mae&rsquo;n rhaid i chi ddarparu eu cyfeiriad e-bost cyfredol a&rsquo;u rhif ff&ocirc;n symudol. Ar gyfer rhifau rhyngwladol, nodwch god y wlad.",
   "email": "Cyfeiriad e-bost",
 
   "errors": {
     "email": {
-      "required": "Nodwch gyfeiriad e-bost",
+      "required": "Beth yw cyfeiriad e-bost {{ executorName }} ?",
       "invalid": "Nodwch gyfeiriad e-bost dilys",
       "duplicate": "Rydych wedi defnyddio&rsquo;r cyfeiriad e-bost hwn ar gyfer ysgutor arall"
     }

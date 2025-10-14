@@ -1,12 +1,12 @@
 {
-  "title": "Place of adoption",
-  "question": "Did the adoption take place in England or Wales?",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "title": "A ddigwyddodd y mabwysiadu yng Nghymru neu Loegr?",
+  "question": "A ddigwyddodd y mabwysiadu yng Nghymru neu Loegr?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
 
   "errors": {
     "adoptionPlace": {
-      "required": "Select &lsquo;Yes&rsquo; if the adoption took place in England or Wales"
+      "required": "Dewiswch &lsquo;Do&rsquo; os wnaeth y mabwysiadu ddigwydd yng Nghymru neu Loegr"
     }
   }
 }

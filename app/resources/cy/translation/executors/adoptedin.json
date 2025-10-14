@@ -1,12 +1,12 @@
 {
   "title": "Co-Applicant adopted in",
-  "question": "A wnaeth {{ deceasedName }} fabwysiadu rhiant ({{ applicant 2 name }}  plentyn ({{ deceasedName }}) yn gyfreithlon??",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "question": "A gafodd {{ applicantName }} ei fabwysiadu&rsquo;r gyfreithlon i deulu {{ deceasedName }}?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
 
   "errors": {
     "adoptedIn": {
-      "required": "Dewiswch ‘Do’ os cafodd rhiant {{ applicantName }} eu mabwysiadu gan {{ deceasedName }}"
+      "required": "Dewiswch &lsquo;Do&rsquo; os cafodd {{ applicantName }} ei fabwysiadu’n gyfreithlon i deulu {{ deceasedName }}?"
     }
   }
 }

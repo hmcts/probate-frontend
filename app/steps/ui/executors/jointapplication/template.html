@@ -10,7 +10,7 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: (content.titleWithCodicil if fields.codicilPresent.value == "true" else content.title) | safe,
+            text: content.title | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
@@ -46,14 +46,13 @@ rows: summaryListRows
 }) }}
 
     <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
-
-    <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
-
+    <p class="govuk-body">{{ content.paragraph2 | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
     <ul class="govuk-list govuk-list--bullet">
       <li>{{ content.bullet1 | safe }}</li>
-      <li>{{ content.bullet2 | replace("{deceasedName}", fields.deceasedName.value) | safe }}</li>
+      <li>{{ content.bullet2 | safe }}</li>
       <li>{{ content.bullet3 | safe }}</li>
     </ul>
+    <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
     <h2 class="govuk-heading-m">{{ content.question | safe }}</h2>
     {{ govukRadios({
         classes: "govuk-radios--inline",

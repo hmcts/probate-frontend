@@ -6,7 +6,7 @@
 
   "errors": {
     "email": {
-      "required": "Beth yw cyfeiriad e-bost {executorName}?",
+      "required": "Enter {executorName}&rsquo;s email address",
       "invalid": "Enter a valid email address",
       "duplicate": "You have used this email address for another executor"
     }

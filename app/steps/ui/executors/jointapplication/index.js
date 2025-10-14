@@ -50,6 +50,12 @@ class JointApplication extends ValidationStep {
             ...executor,
             fullName: executor.fullName
         }))];
+        ctx.list = ctx.list.filter(executor =>
+            executor.childAdoptionInEnglandOrWales !== 'optionNo' &&
+            executor.grandchildAdoptionInEnglandOrWales !== 'optionNo' &&
+            executor.childAdoptedOut !== 'optionYes' &&
+            executor.grandchildAdoptedOut !== 'optionYes'
+        );
         ctx.executorsNumber = ctx.list.length;
         const applicant = formdata.applicant;
         ctx.applicantName= applicant?.alias ?? FormatName.format(applicant);

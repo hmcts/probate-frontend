@@ -51,7 +51,7 @@ class CoApplicantAdoptedOut extends ValidationStep {
         } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild' && ctx.adoptedOut === 'optionNo') {
             return `/parent-adopted-in/${ctx.index}`;
         }
-        return this.next(req, ctx).constructor.getUrl('coApplicantStop');
+        return this.next(req, ctx).constructor.getUrl('coApplicantAdoptedOutStop');
     }
 
     nextStepOptions(ctx) {

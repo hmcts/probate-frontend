@@ -1,12 +1,12 @@
 {
   "title": "Co-Applicant adopted out",
-  "question": "A wnaeth {{ deceasedName }} eich mabwysiadu'n gyfreithlon allan o'u teulu (eich rhoi i ffwrdd i gael eich mabwysiadu)?",
+  "question": "A wnaeth {{ deceasedName }} fabwysiadu rhiant ({{ applicantName }} plentyn ({{ deceased name}}) yn gyfreithlon allan o’u teulu nhw (eu rhoi i ffwrdd i gael eu mabwysiadu)?",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
     "adoptedOut": {
-      "required": "Select ‘Yes’ if {{ applicantName }} was adopted out of {{ deceasedName }}’s family"
+      "required": "Dewiswch ‘Do’ os cafodd rhiant {{ applicantName }} eu mabwysiadu allan o deulu {{ deceasedName }}"
     }
   }
 }

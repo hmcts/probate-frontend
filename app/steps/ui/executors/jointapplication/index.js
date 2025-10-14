@@ -32,7 +32,7 @@ class JointApplication extends ValidationStep {
     }
 
     createExecutorList(ctx, formdata) {
-        const executorsWrapper = new ExecutorsWrapper(formdata.coApplicants);
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         ctx.list = executorsWrapper.executors();
         ctx.list[0] = {
             firstName: get(formdata, 'applicant.firstName'),
@@ -92,7 +92,7 @@ class JointApplication extends ValidationStep {
                 errors.push(FieldError('hasCoApplicant', 'invalid', this.resourcePath,
                     this.generateContent({}, {}, session.language), session.language));
             }
-            formdata.coApplicants.hasCoApplicant = ctx.hasCoApplicant;
+            //formdata.executors.hasCoApplicant = ctx.hasCoApplicant;
             set(formdata, 'coApplicants.list', ctx.list);
         }
         return [ctx, errors];

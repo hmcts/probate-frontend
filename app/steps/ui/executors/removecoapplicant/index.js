@@ -11,7 +11,6 @@ class RemoveCoApplicant extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         ctx.index = req.params[0];
-        ctx.list = req.session.form.coApplicants?.list || [];
         ctx.executorFullName = ctx.list?.[ctx.index] ? ctx.list[ctx.index].fullName : '';
         return ctx;
     }
@@ -20,7 +19,6 @@ class RemoveCoApplicant extends ValidationStep {
         if (ctx.removeCoApplicant === 'optionYes') {
             ctx.list.splice(ctx.index, 1);
             set(formdata, 'executors.list', ctx.list);
-            set(formdata, 'coApplicants.list', ctx.list);
         }
         return [ctx, errors];
     }

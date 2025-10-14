@@ -21,7 +21,6 @@ class CoApplicantAdoptedOut extends ValidationStep {
     getContextData(req) {
         const formdata = req.session.form;
         const ctx = super.getContextData(req);
-        ctx.list = formdata.coApplicants?.list || [];
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
@@ -68,10 +67,10 @@ class CoApplicantAdoptedOut extends ValidationStep {
 
     handlePost(ctx, errors, formdata) {
         if (ctx.list[ctx.index].coApplicantRelationshipToDeceased==='optionChild') {
-            formdata.coApplicants.list[ctx.index].childAdoptedOut=ctx.adoptedOut;
+            formdata.executors.list[ctx.index].childAdoptedOut=ctx.adoptedOut;
         }
         if (ctx.list[ctx.index].coApplicantRelationshipToDeceased==='optionGrandchild') {
-            formdata.coApplicants.list[ctx.index].grandchildAdoptedOut=ctx.adoptedOut;
+            formdata.executors.list[ctx.index].grandchildAdoptedOut=ctx.adoptedOut;
         }
         return [ctx, errors];
     }

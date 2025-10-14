@@ -13,11 +13,7 @@ class ExecutorAddress extends AddressStep {
     }
 
     getContextData(req) {
-        const formdata = req.session.form;
         const ctx = super.getContextData(req);
-        if (formdata.coApplicants && formdata.coApplicants.list) {
-            ctx.list = formdata.coApplicants.list;
-        }
         ctx.caseType = caseTypes.getCaseType(req.session);
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
@@ -69,12 +65,6 @@ class ExecutorAddress extends AddressStep {
         ctx.list[ctx.index].address = ctx.address;
         ctx.list[ctx.index].postcode = ctx.postcode;
         ctx.list[ctx.index].addresses = ctx.addresses;
-
-        if (formdata.coApplicants && formdata.coApplicants.list) {
-            formdata.coApplicants.list[ctx.index].address = ctx.address;
-            formdata.coApplicants.list[ctx.index].postcode = ctx.postcode;
-            formdata.coApplicants.list[ctx.index].addresses = ctx.addresses;
-        }
 
         ctx.index = this.recalcIndex(ctx, ctx.index);
         if (ctx.index === -1) {

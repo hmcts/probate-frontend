@@ -20,7 +20,6 @@ class ParentDieBefore extends ValidationStep {
     getContextData(req) {
         const formdata = req.session.form;
         const ctx = super.getContextData(req);
-        ctx.list = formdata.coApplicants?.list || [];
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
@@ -53,7 +52,7 @@ class ParentDieBefore extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
-        formdata.coApplicants.list[ctx.index].childDieBeforeDeceased=ctx.applicantParentDieBeforeDeceased;
+        formdata.executors.list[ctx.index].childDieBeforeDeceased=ctx.applicantParentDieBeforeDeceased;
         return [ctx, errors];
     }
 }

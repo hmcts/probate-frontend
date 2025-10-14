@@ -2,7 +2,6 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('../../../../utils/FormatName');
-const {set} = require('lodash');
 const pageUrl = '/coapplicant-relationship-to-deceased';
 
 class CoApplicantRelationshipToDeceased extends ValidationStep {
@@ -21,7 +20,6 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     getContextData(req) {
         const formdata = req.session.form;
         const ctx = super.getContextData(req);
-        ctx.list = formdata.coApplicants?.list || [];
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
@@ -67,14 +65,13 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         };
     }
 
-    handlePost(ctx, errors, formdata) {
+    handlePost(ctx, errors) {
         if (ctx.coApplicantRelationshipToDeceased === 'optionChild' || ctx.coApplicantRelationshipToDeceased === 'optionGrandchild') {
             ctx.list[ctx.index] = {
                 ...ctx.list[ctx.index],
                 coApplicantRelationshipToDeceased: ctx.coApplicantRelationshipToDeceased,
                 isApplying: true
             };
-            set(formdata, 'coApplicants.list', ctx.list);
         }
         return [ctx, errors];
     }

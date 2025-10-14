@@ -14,7 +14,6 @@ class CoApplicantName extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        ctx.list = formdata.coApplicants?.list || [];
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
@@ -36,20 +35,16 @@ class CoApplicantName extends ValidationStep {
         return this.next(req, ctx).constructor.getUrl(ctx.index);
     }
 
-    handleGet(ctx, formdata) {
-        const coApplicants = formdata.coApplicants.list[ctx.index];
-        ctx.coApplicantName = coApplicants.coApplicantName;
-        return [ctx];
-    }
-
-    handlePost(ctx, errors, formdata) {
-        formdata.coApplicants.list[ctx.index].fullName = ctx.coApplicantName;
-        return [ctx, errors];
-    }
-
     action(ctx, formdata) {
         super.action(ctx, formdata);
         return [ctx, formdata];
+    }
+
+    handlePost(ctx, errors) {
+        if (ctx.coApplicantName !== null) {
+            ctx.list[ctx.index].fullName = ctx.coApplicantName.trim();
+        }
+        return [ctx, errors];
     }
 }
 

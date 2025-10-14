@@ -21,7 +21,6 @@ class ParentAdoptionPlace extends ValidationStep {
     getContextData(req) {
         const formdata = req.session.form;
         const ctx = super.getContextData(req);
-        ctx.list = formdata.coApplicants?.list || [];
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
@@ -54,7 +53,7 @@ class ParentAdoptionPlace extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
-        formdata.coApplicants.list[ctx.index].childAdoptionInEnglandOrWales=ctx.applicantParentAdoptionPlace;
+        formdata.executors.list[ctx.index].childAdoptionInEnglandOrWales=ctx.applicantParentAdoptionPlace;
         return [ctx, errors];
     }
 }

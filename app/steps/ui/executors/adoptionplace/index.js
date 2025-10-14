@@ -21,7 +21,6 @@ class CoApplicantAdoptionPlace extends ValidationStep {
     getContextData(req) {
         const formdata = req.session.form;
         const ctx = super.getContextData(req);
-        ctx.list = formdata.coApplicants?.list || [];
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
@@ -60,10 +59,10 @@ class CoApplicantAdoptionPlace extends ValidationStep {
 
     handlePost(ctx, errors, formdata) {
         if (ctx.list[ctx.index].coApplicantRelationshipToDeceased ==='optionChild') {
-            formdata.coApplicants.list[ctx.index].childAdoptionInEnglandOrWales=ctx.adoptionPlace;
+            formdata.executors.list[ctx.index].childAdoptionInEnglandOrWales=ctx.adoptionPlace;
         }
         if (ctx.list[ctx.index].coApplicantRelationshipToDeceased ==='optionGrandchild') {
-            formdata.coApplicants.list[ctx.index].grandchildAdoptionInEnglandOrWales=ctx.adoptionPlace;
+            formdata.executors.list[ctx.index].grandchildAdoptionInEnglandOrWales=ctx.adoptionPlace;
         }
         return [ctx, errors];
     }

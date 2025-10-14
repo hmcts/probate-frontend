@@ -16,9 +16,7 @@ class CoApplicantEmail extends ValidationStep {
     }
 
     getContextData(req) {
-        const formdata = req.session.form;
         const ctx = super.getContextData(req);
-        ctx.list = formdata.coApplicants?.list || [];
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
@@ -26,6 +24,7 @@ class CoApplicantEmail extends ValidationStep {
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         const executor = ctx.list[ctx.index];
+        ctx.executorName= executor.fullName;
         ctx.inviteId = executor.inviteId;
         ctx.otherExecName = executor.hasOtherName ? executor.currentName : executor.fullName;
         ctx.formdataId = req.session.form.applicantEmail;
@@ -55,7 +54,6 @@ class CoApplicantEmail extends ValidationStep {
 
         ctx.executorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
         executor.email = ctx.email;
-        formdata.coApplicants.list[ctx.index].email=ctx.email;
         if (executor.emailSent || executor.inviteId) {
             const data = {
                 inviteId: ctx.inviteId,
@@ -85,7 +83,6 @@ class CoApplicantEmail extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.otherExecName;
         delete ctx.email;
-        delete ctx.mobile;
         delete ctx.index;
         delete ctx.formdataId;
         delete ctx.serviceAuthorization;
@@ -95,6 +92,14 @@ class CoApplicantEmail extends ValidationStep {
 
     isComplete(ctx) {
         return [every(tail(ctx.list).filter(exec => exec.isApplying === true), exec => exec.email && exec.address), 'inProgress'];
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.executorName && errors) {
+            errors[0].msg = errors[0].msg.replace('{executorName}', fields.executorName.value);
+        }
+        return fields;
     }
 }
 

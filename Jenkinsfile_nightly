@@ -62,7 +62,7 @@ withNightlyPipeline("nodejs", product, component) {
   env.WEBCHAT_ENABLED = params.WEBCHAT_ENABLED
   env.GA_ENABLED = params.GA_ENABLED
 
-    enableFullFunctionalTest(200)
+  enableFullFunctionalTest(200)
   enableCrossBrowserTest(120)
   enableFortifyScan('probate-aat')
 //    enableSecurityScan()  //we do this in other builds

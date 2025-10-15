@@ -69,14 +69,17 @@ exports.config = {
                 stdout: '-',
                 options: {mochaFile: './functional-output/result.xml'}
             },
-            mochawesome: {
-                stdout: './functional-output/console.log',
+            'mocha-multi': {
+                stdout: '-',
                 options: {
-                    reportDir: './temp-reports',
-                    inlineAssets: true,
-                    overwrite: false,
-                    html: false,
-                    json: true,
+                    reporterEnabled: 'mochawesome',
+                    mochawesomeReporterOptions: {
+                        reportDir: './temp-reports', // Separate files per worker
+                        quiet: true,
+                        overwrite: false, // IMPORTANT: Don't overwrite
+                        html: false, // Only JSON, merge later
+                        json: true
+                    }
                 }
             }
         }

@@ -8,7 +8,7 @@
   "warningText": "Os nad yw&rsquo;r enw ar y grant yn cyfateb &acirc;&rsquo;r prawf adnabod maen nhw&rsquo;n ei ddefnyddio, efallai y c&acirc;nt anawsterau wrth ddelio &acirc;&rsquo;r ystad.",
 
   "errors": {
-    "coApplicantName": {
+    "fullName": {
       "required": "Nodwch enw llawn y ceisydd"
     }
   }

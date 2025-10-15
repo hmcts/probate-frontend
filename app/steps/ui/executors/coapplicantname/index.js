@@ -41,9 +41,7 @@ class CoApplicantName extends ValidationStep {
     }
 
     handlePost(ctx, errors) {
-        if (ctx.coApplicantName !== null) {
-            ctx.list[ctx.index].fullName = ctx.coApplicantName.trim();
-        }
+        ctx.list[ctx.index].fullName = ctx.fullName;
         return [ctx, errors];
     }
 }

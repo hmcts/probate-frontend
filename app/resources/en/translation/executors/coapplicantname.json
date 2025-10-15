@@ -8,7 +8,7 @@
   "warningText": "If the name on the grant does not match the identification they use, they may have difficulties dealing with the estate.",
 
   "errors": {
-    "coApplicantName": {
+    "fullName": {
       "required": "Enter the applicant’s full name"
     }
   }

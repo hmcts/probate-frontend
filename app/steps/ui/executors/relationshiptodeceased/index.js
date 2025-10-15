@@ -23,7 +23,12 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
-            ctx.index = ctx.list.length;
+            const lastIndex = ctx.list.length - 1;
+            if (ctx.list[lastIndex] && (ctx.list[lastIndex].isApplicant === true || (typeof ctx.list[lastIndex].isApplicant === 'undefined' && this.areLastExecutorValid(ctx)))) {
+                ctx.index = ctx.list.length;
+            } else {
+                ctx.index = lastIndex;
+            }
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         ctx.deceased = formdata.deceased;
@@ -37,6 +42,16 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
             (ctx.deceased.anyPredeceasedChildren === 'optionYesAll' || ctx.deceased.anyPredeceasedChildren === 'optionYesSome');
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
+    }
+
+    areLastExecutorValid(ctx) {
+        const lastIndex = ctx.list.length - 1;
+        const executor = ctx.list[lastIndex];
+        return executor &&
+            executor.fullName &&
+            executor.childAdoptedIn &&
+            executor.email &&
+            executor.address;
     }
 
     generateFields(language, ctx, errors) {

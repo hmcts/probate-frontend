@@ -127,7 +127,7 @@ withPipeline("nodejs", product, component) {
   }*/
 
   afterAlways('functionalTest:preview') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/'
     publishHTML([
       allowMissing: true,
       alwaysLinkToLastBuild: true,

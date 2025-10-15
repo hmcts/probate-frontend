@@ -11,6 +11,13 @@ class CoApplicantName extends ValidationStep {
         return `${pageUrl}/${index}`;
     }
 
+    handleGet(ctx) {
+        if (ctx.list?.[ctx.index]) {
+            ctx.fullName = ctx.list[ctx.index].fullName;
+        }
+        return [ctx];
+    }
+
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;

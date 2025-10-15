@@ -68,7 +68,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         } else if (ctx.coApplicantRelationshipToDeceased === 'optionGrandchild') {
             return `/parent-die-before/${ctx.index}`;
         }
-        return this.next(req, ctx).constructor.getUrl('OtherCoApplicantRelationship');
+        return this.next(req, ctx).constructor.getUrl('otherCoApplicantRelationship');
     }
 
     nextStepOptions() {

@@ -117,16 +117,16 @@ withPipeline("nodejs", product, component) {
       reportName           : "Preview Functional Tests",
       alwaysLinkToLastBuild: true
     ]
-
+*/
     if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
       env.DONT_TEST_WELSH = true
       yarnBuilder.yarn('test:functional');
     } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
       yarnBuilder.yarn('test:functional');
     }
-  }*/
+  // }
 
-  afterAlways('functionalTest:preview') {
+  /*afterAlways('functionalTest:preview') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/'
     publishHTML([
       allowMissing: true,
@@ -136,7 +136,7 @@ withPipeline("nodejs", product, component) {
       reportFiles: 'functional_report.html',
       reportName: 'Functional Test Report'
     ])
-  }
+  }*/
 
   /*afterSuccess('functionalTest:aat') {
     publishHTML target: [

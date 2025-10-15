@@ -110,21 +110,21 @@ withPipeline("nodejs", product, component) {
     yarnBuilder.yarn('setup')
   }
 
-  /*afterSuccess('functionalTest:preview') {
-    publishHTML target: [
-      reportDir            : "functional-output/",
-      reportFiles          : "mochawesome.html",
-      reportName           : "Preview Functional Tests",
-      alwaysLinkToLastBuild: true
-    ]
-*/
+  afterSuccess('functionalTest:preview') {
+    /*  publishHTML target: [
+        reportDir            : "functional-output/",
+        reportFiles          : "mochawesome.html",
+        reportName           : "Preview Functional Tests",
+        alwaysLinkToLastBuild: true
+      ]
+  */
     if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
       env.DONT_TEST_WELSH = true
       yarnBuilder.yarn('test:functional');
     } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
       yarnBuilder.yarn('test:functional');
     }
-  // }
+  }
 
   /*afterAlways('functionalTest:preview') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/'

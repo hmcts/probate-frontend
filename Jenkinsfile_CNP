@@ -111,13 +111,16 @@ withPipeline("nodejs", product, component) {
   }
 
   afterSuccess('functionalTest:preview') {
-    /*  publishHTML target: [
-        reportDir            : "functional-output/",
-        reportFiles          : "mochawesome.html",
-        reportName           : "Preview Functional Tests",
-        alwaysLinkToLastBuild: true
-      ]
-  */
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/'
+    publishHTML([
+      allowMissing: true,
+      alwaysLinkToLastBuild: true,
+      keepAll: true,
+      reportDir: "./functional-output/",
+      reportFiles: 'functional_report.html',
+      reportName: 'Functional Test Report'
+    ])
+
     if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
       env.DONT_TEST_WELSH = true
       yarnBuilder.yarn('test:functional');
@@ -138,14 +141,14 @@ withPipeline("nodejs", product, component) {
     ])
   }*/
 
-  /*afterSuccess('functionalTest:aat') {
+  afterSuccess('functionalTest:aat') {
     publishHTML target: [
       reportDir            : "functional-output/",
       reportFiles          : "mochawesome.html",
       reportName           : "AAT Functional Tests",
       alwaysLinkToLastBuild: true
     ]
-  }*/
+  }
 
   enablePactAs([
     AppPipelineDsl.PactRoles.CONSUMER

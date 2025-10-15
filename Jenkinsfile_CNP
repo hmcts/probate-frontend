@@ -138,14 +138,14 @@ withPipeline("nodejs", product, component) {
     ])
   }
 
-  afterSuccess('functionalTest:aat') {
+  /*afterSuccess('functionalTest:aat') {
     publishHTML target: [
       reportDir            : "functional-output/",
       reportFiles          : "mochawesome.html",
       reportName           : "AAT Functional Tests",
       alwaysLinkToLastBuild: true
     ]
-  }
+  }*/
 
   enablePactAs([
     AppPipelineDsl.PactRoles.CONSUMER

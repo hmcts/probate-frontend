@@ -16,15 +16,18 @@ jsconfig.json
 coverage
 *.iml
 /test/end-to-end/output/**
+/test/end-to-end/functional-output/**
 package-lock.json
 yarn-error.log
 git.properties.json
 /logs/
 /pacts/
-/mochawesome-report/**
+/mochawesome-report/
 /temp-reports/
 /config/dev.yaml
 /functional-output/
+output/
+/output/**
 dump.rdb
 .nyc_output/
 

@@ -60,6 +60,7 @@ exports.config = {
         },
     },
     mocha: {
+        timeout: 7200000,
         reporterOptions: {
             'codeceptjs-cli-reporter': {
                 stdout: '-',
@@ -72,11 +73,9 @@ exports.config = {
             mochawesome: {
                 stdout: './functional-output/console.log',
                 options: {
-                    reportDir: './temp-reports',
-                    inlineAssets: true,
-                    overwrite: false,
-                    html: false,
-                    json: true,
+                    reportDir: testConfig.TestOutputDir || './functional-output',
+                    reportName: 'index',
+                    inlineAssets: true
                 }
             }
         }

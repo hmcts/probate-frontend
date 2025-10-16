@@ -64,14 +64,12 @@ exports.config = {
         reporter: 'mocha-multi',
         reporterOptions: {
             reporterEnabled: 'spec, mochawesome',
-            mochawesomeReporterOptions: {
-                'mochawesomeReporterOptions.reportDir': './temp-reports',
-                'mochawesomeReporterOptions.reportFilename': 'report-[name]',
-                'mochawesomeReporterOptions.quiet': false,
-                'mochawesomeReporterOptions.overwrite': false,
-                'mochawesomeReporterOptions.html': false,
-                'mochawesomeReporterOptions.json': true
-            }
+            'mochawesomeReporterOptions.reportDir': './temp-reports',
+            'mochawesomeReporterOptions.reportFilename': 'report-[name]',
+            'mochawesomeReporterOptions.quiet': false,
+            'mochawesomeReporterOptions.overwrite': false,
+            'mochawesomeReporterOptions.html': false,
+            'mochawesomeReporterOptions.json': true
         }
     },
     bootstrap: TestConfigurator.bootStrapTestSuite(),

@@ -63,13 +63,13 @@ exports.config = {
         timeout: 7200000,
         reporterOptions: {
             reporterEnabled: 'codeceptjs-cli-reporter, mocha-junit-reporter, mochawesome',
-            'codeceptjs-cli-reporterReporterOptions': {
+            'codeceptjs-cli-reporter_reporterOptions': {
                 steps: true
             },
-            'mochaJunitReporterReporterOptions': {
+            'mocha-junit-reporter_reporterOptions': {
                 mochaFile: './functional-output/result.xml'
             },
-            'mochawesomeReporterOptions': {
+            'mochawesome_reporterOptions': {
                 reportDir: testConfig.TestOutputDir || './functional-output',
                 reportName: 'index',
                 inlineAssets: true

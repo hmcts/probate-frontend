@@ -87,11 +87,12 @@ class ExecutorAddress extends AddressStep {
 
     nextStepOptions(ctx) {
         if (ctx.caseType === caseTypes.GOP) {
+            ctx.continue = get(ctx, 'index', -1) !== -1;
+            ctx.allExecsApplying = ctx.executorsWrapper.areAllAliveExecutorsApplying();
             return {
                 options: [
                     {key: 'continue', value: true, choice: 'continue'},
-                    {key: 'allExecsApplying', value: true, choice: 'allExecsApplying'},
-                    {key: 'otherwise', value: true, choice: 'otherwise'}
+                    {key: 'allExecsApplying', value: true, choice: 'allExecsApplying'}
                 ],
             };
         }

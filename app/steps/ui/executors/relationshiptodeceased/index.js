@@ -32,7 +32,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         ctx.deceased = formdata.deceased;
-        const hasOtherChildren = ctx.deceased.anyOtherChildren === 'optionYes';
+        const hasOtherChildren = ctx.deceased?.anyOtherChildren === 'optionYes';
 
         ctx.childOnly = hasOtherChildren &&
             (ctx.deceased.anyPredeceasedChildren === 'optionNo' ||
@@ -89,32 +89,6 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
             };
         }
         return [ctx, errors];
-    }
-
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-        delete ctx.assetsValue;
-        delete ctx.spousePartnerLessThanIhtThreshold;
-        delete ctx.spousePartnerMoreThanIhtThreshold;
-        delete ctx.childDeceasedMarried;
-        delete ctx.childDeceasedNotMarried;
-        delete ctx.deceasedMaritalStatus;
-        delete ctx.ihtThreshold;
-
-        if (formdata.applicant && formdata.applicant.relationshipToDeceased && ctx.relationshipToDeceased !== formdata.applicant.relationshipToDeceased) {
-            delete ctx.adoptionPlace;
-            delete ctx.spouseNotApplyingReason;
-
-            if (formdata.deceased) {
-                delete formdata.deceased.anyChildren;
-                delete formdata.deceased.anyOtherChildren;
-                delete formdata.deceased.allChildrenOver18;
-                delete formdata.deceased.anyDeceasedChildren;
-                delete formdata.deceased.anyGrandchildrenUnder18;
-            }
-        }
-
-        return [ctx, formdata];
     }
 }
 

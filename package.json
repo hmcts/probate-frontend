@@ -178,7 +178,7 @@
     "mocha": "^11.0.0",
     "mocha-jenkins-reporter": "^0.4.8",
     "mocha-junit-reporter": "^2.0.0",
-    "mocha-multi": "^1.1.7",
+    "mocha-multi": "^1.1.3",
     "mochawesome": "^7.1.3",
     "mochawesome-merge": "^5.0.0",
     "mochawesome-report-generator": "^6.2.0",

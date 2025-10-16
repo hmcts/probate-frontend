@@ -73,7 +73,7 @@ exports.config = {
                 stdout: './functional-output/console.log',
                 options: {
                     reportDir: testConfig.TestOutputDir || './functional-output',
-                    reportName: 'index',
+                    reportName: 'report',
                     inlineAssets: true
                 }
             }

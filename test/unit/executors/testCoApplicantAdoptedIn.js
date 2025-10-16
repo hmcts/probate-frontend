@@ -11,7 +11,7 @@ const optionYesUrl='/coapplicant-adoption-place/1';
 const optionNoUrl='/coapplicant-adopted-out/1';
 
 describe('CoApplicantAdoptedIn', () => {
-    describe('getUrl()', () => {
+    describe('CoApplicantAdoptedIn.getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = CoApplicantAdoptedIn.constructor.getUrl('1');
             expect(url).to.equal(stepUrl);
@@ -19,7 +19,7 @@ describe('CoApplicantAdoptedIn', () => {
         });
     });
 
-    describe('getContextData()', () => {
+    describe('CoApplicantAdoptedIn.getContextData()', () => {
         let ctx;
         let req;
 

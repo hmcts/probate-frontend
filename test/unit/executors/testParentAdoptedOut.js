@@ -11,7 +11,7 @@ const optionNoUrl='/coapplicant-email/1';
 const optionYesUrl='/stop-page/coApplicantAdoptedOutStop';
 
 describe('ParentAdoptedOut', () => {
-    describe('getUrl()', () => {
+    describe('ParentAdoptedOut.getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ParentAdoptedOut.constructor.getUrl('1');
             expect(url).to.equal(stepUrl);
@@ -19,7 +19,7 @@ describe('ParentAdoptedOut', () => {
         });
     });
 
-    describe('getContextData()', () => {
+    describe('ParentAdoptedOut.getContextData()', () => {
         let ctx;
         let req;
 
@@ -50,9 +50,9 @@ describe('ParentAdoptedOut', () => {
         });
     });
 
-    describe('Parent nextStepUrl()', () => {
+    describe('ParentAdoptedOut nextStepUrl()', () => {
 
-        it('should return the correct url when the co-applicant is adopted out', (done) => {
+        it('should return the correct url when the co-applicant parent is adopted out', (done) => {
             const req = {
                 session: {
                     journey: journey
@@ -71,7 +71,7 @@ describe('ParentAdoptedOut', () => {
             done();
         });
 
-        it('should return the correct url when the co-applicant Child is not adopted out', (done) => {
+        it('should return the correct url when the co-applicant parent is not adopted out', (done) => {
             const req = {
                 session: {
                     journey: journey
@@ -92,7 +92,7 @@ describe('ParentAdoptedOut', () => {
         });
     });
 
-    describe('generateFields()', () => {
+    describe('ParentAdoptedOut.generateFields()', () => {
         it('should return the correct content fields', (done) => {
             const ctx = {
                 language: 'en',
@@ -132,7 +132,7 @@ describe('ParentAdoptedOut', () => {
     });
 
     describe('ParentAdoptedOut handlePost', () => {
-        it('should adoptedOut = optionNo if coApplicantRelationshipToDeceased is Child', () => {
+        it('should adoptedOut = optionNo if coApplicantRelationshipToDeceased is grandChild', () => {
             const ctx = {
                 index: '1',
                 applicantParentAdoptedOut: 'optionNo',

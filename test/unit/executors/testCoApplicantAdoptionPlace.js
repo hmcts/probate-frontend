@@ -11,7 +11,7 @@ const optionYesGrandchildUrl='/parent-adopted-in/2';
 const optionNoUrl='/stop-page/coApplicantAdoptionPlaceStop';
 
 describe('CoApplicantAdoptionPlace', () => {
-    describe('getUrl()', () => {
+    describe('CoApplicantAdoptionPlace.getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = CoApplicantAdoptionPlace.constructor.getUrl('1');
             expect(url).to.equal(stepUrl);
@@ -19,7 +19,7 @@ describe('CoApplicantAdoptionPlace', () => {
         });
     });
 
-    describe('getContextData()', () => {
+    describe('CoApplicantAdoptionPlace.getContextData()', () => {
         let ctx;
         let req;
 
@@ -50,7 +50,7 @@ describe('CoApplicantAdoptionPlace', () => {
         });
     });
 
-    describe('nextStepUrl()', () => {
+    describe('CoApplicantAdoptionPlace.nextStepUrl()', () => {
 
         it('should return the correct url when the co-applicant child is AdoptionPlace', (done) => {
             const req = {

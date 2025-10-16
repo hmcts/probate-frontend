@@ -11,7 +11,7 @@ const optionYesUrl='/parent-adoption-place/1';
 const optionNoUrl='/parent-adopted-out/1';
 
 describe('ParentAdoptedIn', () => {
-    describe('getUrl()', () => {
+    describe('ParentAdoptedIn.getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = ParentAdoptedIn.constructor.getUrl('1');
             expect(url).to.equal(stepUrl);
@@ -19,7 +19,7 @@ describe('ParentAdoptedIn', () => {
         });
     });
 
-    describe('getContextData()', () => {
+    describe('ParentAdoptedIn.getContextData()', () => {
         let ctx;
         let req;
 
@@ -50,9 +50,9 @@ describe('ParentAdoptedIn', () => {
         });
     });
 
-    describe('nextStepUrl()', () => {
+    describe('ParentAdoptedIn.nextStepUrl()', () => {
 
-        it('should return the correct url when the co-applicant is adopted in', (done) => {
+        it('should return the correct url when the co-applicant is ParentAdopted In', (done) => {
             const req = {
                 session: {
                     journey: journey
@@ -67,7 +67,7 @@ describe('ParentAdoptedIn', () => {
             done();
         });
 
-        it('should return the correct url when the co-applicant is not adopted In', (done) => {
+        it('should return the correct url when the co-applicant Parent is not adopted In', (done) => {
             const req = {
                 session: {
                     journey: journey
@@ -83,8 +83,8 @@ describe('ParentAdoptedIn', () => {
         });
     });
 
-    describe('handlePost', () => {
-        it('should childAdoptedIn = optionYes if coApplicantRelationshipToDeceased is Child', () => {
+    describe('ParentAdoptedIn.handlePost', () => {
+        it('should childAdoptedIn = optionYes if coApplicantRelationshipToDeceased is grandChild', () => {
             const ctx = {
                 index: '1',
                 applicantParentAdoptedIn: 'optionYes',

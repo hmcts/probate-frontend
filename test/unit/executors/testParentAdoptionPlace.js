@@ -51,7 +51,7 @@ describe('ParentAdoptionPlace', () => {
 
     describe('nextStepUrl()', () => {
 
-        it('should return the correct url when the co-applicant child is AdoptionPlace', (done) => {
+        it('should return the correct url when the co-applicant parent is AdoptionPlace', (done) => {
             const req = {
                 session: {
                     journey: journey
@@ -71,7 +71,7 @@ describe('ParentAdoptionPlace', () => {
             done();
         });
 
-        it('should return the correct url when the co-applicant grandchild is AdoptionPlace', (done) => {
+        it('should return the correct url when the co-applicant parent is AdoptionPlace', (done) => {
             const req = {
                 session: {
                     journey: journey
@@ -85,26 +85,6 @@ describe('ParentAdoptionPlace', () => {
                     {coApplicantRelationshipToDeceased: 'optionGrandchild'}
                 ],
                 applicantParentAdoptionPlace: 'optionNo',
-            };
-            const nextStepUrl = ParentAdoptionPlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal(optionNoUrl);
-            done();
-        });
-
-        it('should return the correct url when the co-applicant Grandchild is not AdoptionPlace', (done) => {
-            const req = {
-                session: {
-                    journey: journey
-                }
-            };
-            const ctx = {
-                index: '2',
-                list: [
-                    {},
-                    {coApplicantRelationshipToDeceased: 'optionChild'},
-                    {coApplicantRelationshipToDeceased: 'optionGrandchild'}
-                ],
-                adoptionPlace: 'optionNo',
             };
             const nextStepUrl = ParentAdoptionPlace.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal(optionNoUrl);

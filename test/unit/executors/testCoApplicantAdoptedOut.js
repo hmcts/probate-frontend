@@ -20,7 +20,7 @@ describe('CoApplicantAdoptedOut', () => {
         });
     });
 
-    describe('getContextData()', () => {
+    describe('CoApplicantAdoptedOut.getContextData()', () => {
         let ctx;
         let req;
 
@@ -51,7 +51,7 @@ describe('CoApplicantAdoptedOut', () => {
         });
     });
 
-    describe('nextStepUrl()', () => {
+    describe('CoApplicantAdoptedOut nextStepUrl()', () => {
 
         it('should return the correct url when the co-applicant is adopted out', (done) => {
             const req = {
@@ -113,7 +113,7 @@ describe('CoApplicantAdoptedOut', () => {
         });
     });
 
-    describe('generateFields()', () => {
+    describe('CoApplicantAdoptedOut generateFields()', () => {
         it('should return the correct content fields', (done) => {
             const ctx = {
                 language: 'en',

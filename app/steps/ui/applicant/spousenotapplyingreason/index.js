@@ -17,7 +17,7 @@ class SpouseNotApplyingReason extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('spouseNotApplying');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'spouseNotApplying');
     }
 
     nextStepOptions() {

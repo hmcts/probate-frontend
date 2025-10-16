@@ -20,7 +20,7 @@ class RelatedToDeceased extends EligibilityValidationStep {
             return Dashboard.getUrl();
         }
 
-        return this.next(req, ctx).constructor.getUrl('notRelated');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'notRelated');
     }
 
     nextStepOptions() {

@@ -54,6 +54,7 @@ describe('UIStepRunner', () => {
         const step = {
             name: stepName,
             validate: () => [false, []],
+            getUrlWithContext: () => 'hello',
             getContextData: () => '',
             nextStepUrl: () => '',
             action: () => [{}, req.session.form],
@@ -85,6 +86,7 @@ describe('UIStepRunner', () => {
         const step = {
             name: stepName,
             validate: () => [false, []],
+            getUrlWithContext: () => 'hello',
             getContextData: () => ({'isSaveAndClose': 'true'}),
             nextStepUrl: () => '',
             action: () => [{}, req.session.form],
@@ -109,6 +111,7 @@ describe('UIStepRunner', () => {
             name: stepName,
             template: 'ui/copies/uk/template',
             validate: () => [false, []],
+            getUrlWithContext: () => 'hello',
             getContextData: () => '',
             nextStepUrl: () => '',
             action: () => [{}, req400.session.form],
@@ -127,6 +130,7 @@ describe('UIStepRunner', () => {
         };
 
         res400.render = sinon.spy();
+        res400.status = sinon.spy();
         res400.statusCode=400;
         res400.body = 'wrong header';
 

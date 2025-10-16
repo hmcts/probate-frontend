@@ -18,7 +18,7 @@ const sinon = require('sinon');
 describe('Tasklist', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = taskList.constructor.getUrl();
+            const url = taskList.getUrlWithContext({});
             expect(url).to.equal('/task-list');
             done();
         });
@@ -49,11 +49,11 @@ describe('Tasklist', () => {
             it('Updates the context: neither task is started', () => {
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'notStarted');
-                assert.equal(ctx.DeceasedTask.nextURL, steps[journeyMap.taskList().DeceasedTask.firstStep].constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.nextURL, steps[journeyMap.taskList().DeceasedTask.firstStep].getUrlWithContext(ctx));
                 assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-                assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
+                assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].getUrlWithContext(ctx));
             });
 
             it('Updates the context: DeceasedTask started', () => {
@@ -62,11 +62,11 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
                 ctx = Object.assign(ctx, formdata.deceased);
 
-                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'started');
-                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).getUrlWithContext(ctx));
                 assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-                assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
+                assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].getUrlWithContext(ctx));
             });
 
             it('Updates the context: DeceasedTask complete, ExecutorsTask not started', () => {
@@ -83,10 +83,10 @@ describe('Tasklist', () => {
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'complete');
                 assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-                assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
+                assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].getUrlWithContext(ctx));
             });
 
             it('Updates the context: DeceasedTask complete, ExecutorsTask started', () => {
@@ -107,10 +107,10 @@ describe('Tasklist', () => {
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'complete');
                 assert.equal(ctx.ExecutorsTask.status, 'started');
-                assert.equal(ctx.ExecutorsTask.nextURL, journeyMap.nextStep(steps.ApplicantName, formdata.will).constructor.getUrl());
+                assert.equal(ctx.ExecutorsTask.nextURL, journeyMap.nextStep(steps.ApplicantName, formdata.will).getUrlWithContext(ctx));
             });
 
             it('Updates the context: DeceasedTask & ExecutorsTask started (ExecutorsTask blocked)', () => {
@@ -126,9 +126,9 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
                 ctx = Object.assign(ctx, formdata.deceased);
 
-                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'started');
-                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).getUrlWithContext(ctx));
                 assert.equal(ctx.ExecutorsTask.status, 'started');
             });
 
@@ -151,12 +151,12 @@ describe('Tasklist', () => {
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'complete');
                 assert.equal(ctx.ExecutorsTask.status, 'complete');
-                assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'notStarted');
-                assert.equal(ctx.ReviewAndConfirmTask.nextURL, steps[journeyMap.taskList().ReviewAndConfirmTask.firstStep].constructor.getUrl());
+                assert.equal(ctx.ReviewAndConfirmTask.nextURL, steps[journeyMap.taskList().ReviewAndConfirmTask.firstStep].getUrlWithContext(ctx));
             });
 
             it('Updates the context: Review and confirm complete (Single Applicants)', () => {
@@ -172,7 +172,7 @@ describe('Tasklist', () => {
 
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
                 assert.equal(ctx.PaymentTask.status, 'notStarted');
-                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
             });
 
             it('Updates the context: Review and confirm complete (Multiple Applicants All Agreed)', () => {
@@ -192,7 +192,7 @@ describe('Tasklist', () => {
 
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
                 assert.equal(ctx.PaymentTask.status, 'notStarted');
-                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
             });
 
             it('Updates the context: Review and confirm complete (Multiple Applicants Not all have agreed)', () => {
@@ -220,7 +220,7 @@ describe('Tasklist', () => {
                 req.body = {};
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.PaymentTask.status, 'notStarted');
             });
 
@@ -238,7 +238,7 @@ describe('Tasklist', () => {
                 req.body = {};
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.PaymentTask.status, 'notStarted');
             });
 
@@ -259,7 +259,7 @@ describe('Tasklist', () => {
                 req.body = {};
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.PaymentTask.status, 'started');
             });
 
@@ -285,7 +285,7 @@ describe('Tasklist', () => {
                 req.body = {};
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.PaymentTask.status, 'complete');
             });
 
@@ -300,7 +300,7 @@ describe('Tasklist', () => {
                 req.body = {};
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.DocumentsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DocumentsTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'complete');
                 assert.equal(ctx.ExecutorsTask.status, 'complete');
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
@@ -332,11 +332,11 @@ describe('Tasklist', () => {
             it('Updates the context: neither task is started', () => {
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'notStarted');
-                assert.equal(ctx.DeceasedTask.nextURL, steps[journeyMap.taskList().DeceasedTask.firstStep].constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.nextURL, steps[journeyMap.taskList().DeceasedTask.firstStep].getUrlWithContext(ctx));
                 assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-                assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
+                assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].getUrlWithContext(ctx));
             });
 
             it('Updates the context: DeceasedTask started', () => {
@@ -345,11 +345,11 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
                 ctx = Object.assign(ctx, formdata.deceased);
 
-                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'started');
-                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).getUrlWithContext(ctx));
                 assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-                assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
+                assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].getUrlWithContext(ctx));
             });
 
             it('Updates the context: DeceasedTask complete, ExecutorsTask not started', () => {
@@ -366,10 +366,10 @@ describe('Tasklist', () => {
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'complete');
                 assert.equal(ctx.ExecutorsTask.status, 'notStarted');
-                assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].constructor.getUrl());
+                assert.equal(ctx.ExecutorsTask.nextURL, steps[journeyMap.taskList().ExecutorsTask.firstStep].getUrlWithContext(ctx));
             });
 
             it('Updates the context: DeceasedTask complete, ExecutorsTask started', () => {
@@ -390,10 +390,10 @@ describe('Tasklist', () => {
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'complete');
                 assert.equal(ctx.ExecutorsTask.status, 'started');
-                assert.equal(ctx.ExecutorsTask.nextURL, journeyMap.nextStep(steps.ApplicantName, formdata.will).constructor.getUrl());
+                assert.equal(ctx.ExecutorsTask.nextURL, journeyMap.nextStep(steps.ApplicantName, formdata.will).getUrlWithContext(ctx));
             });
 
             it('Updates the context: DeceasedTask & ExecutorsTask started (ExecutorsTask blocked)', () => {
@@ -409,9 +409,9 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
                 ctx = Object.assign(ctx, formdata.deceased);
 
-                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'started');
-                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedName, ctx).getUrlWithContext(ctx));
                 assert.equal(ctx.ExecutorsTask.status, 'started');
             });
 
@@ -434,12 +434,12 @@ describe('Tasklist', () => {
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'complete');
                 assert.equal(ctx.ExecutorsTask.status, 'complete');
-                assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.ExecutorsTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'notStarted');
-                assert.equal(ctx.ReviewAndConfirmTask.nextURL, steps[journeyMap.taskList().ReviewAndConfirmTask.firstStep].constructor.getUrl());
+                assert.equal(ctx.ReviewAndConfirmTask.nextURL, steps[journeyMap.taskList().ReviewAndConfirmTask.firstStep].getUrlWithContext(ctx));
             });
 
             it('Updates the context: Review and confirm complete (Single Applicants)', () => {
@@ -498,7 +498,7 @@ describe('Tasklist', () => {
                 req.body = {};
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.PaymentTask.status, 'notStarted');
             });
 
@@ -523,7 +523,7 @@ describe('Tasklist', () => {
                 req.body = {};
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.PaymentTask.status, 'started');
             });
 
@@ -543,7 +543,7 @@ describe('Tasklist', () => {
                 req.body = {};
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.PaymentTask.status, 'started');
             });
 
@@ -568,7 +568,7 @@ describe('Tasklist', () => {
                 req.body = {};
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.PaymentTask.status, 'complete');
             });
 
@@ -583,7 +583,7 @@ describe('Tasklist', () => {
                 req.body = {};
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.DocumentsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DocumentsTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'complete');
                 assert.equal(ctx.ExecutorsTask.status, 'complete');
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
@@ -673,11 +673,11 @@ describe('Tasklist', () => {
             it('Updates the context: neither task is started', () => {
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'notStarted');
-                assert.equal(ctx.DeceasedTask.nextURL, steps[journeyMap.taskList().DeceasedTask.firstStep].constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.nextURL, steps[journeyMap.taskList().DeceasedTask.firstStep].getUrlWithContext(ctx));
                 assert.equal(ctx.ApplicantsTask.status, 'notStarted');
-                assert.equal(ctx.ApplicantsTask.nextURL, steps[journeyMap.taskList().ApplicantsTask.firstStep].constructor.getUrl());
+                assert.equal(ctx.ApplicantsTask.nextURL, steps[journeyMap.taskList().ApplicantsTask.firstStep].getUrlWithContext(ctx));
             });
 
             it('Updates the context: DeceasedTask started', () => {
@@ -704,11 +704,11 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
                 ctx = Object.assign(ctx, formdata.deceased);
 
-                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'started');
-                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedDod, ctx).constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedDod, ctx).getUrlWithContext(ctx));
                 assert.equal(ctx.ApplicantsTask.status, 'notStarted');
-                assert.equal(ctx.ApplicantsTask.nextURL, steps[journeyMap.taskList().ApplicantsTask.firstStep].constructor.getUrl());
+                assert.equal(ctx.ApplicantsTask.nextURL, steps[journeyMap.taskList().ApplicantsTask.firstStep].getUrlWithContext(ctx));
             });
 
             it('Updates the context: DeceasedTask complete, ApplicantsTask not started', () => {
@@ -728,10 +728,10 @@ describe('Tasklist', () => {
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'complete');
                 assert.equal(ctx.ApplicantsTask.status, 'notStarted');
-                assert.equal(ctx.ApplicantsTask.nextURL, steps[journeyMap.taskList().ApplicantsTask.firstStep].constructor.getUrl());
+                assert.equal(ctx.ApplicantsTask.nextURL, steps[journeyMap.taskList().ApplicantsTask.firstStep].getUrlWithContext(ctx));
             });
 
             it('Updates the context: DeceasedTask complete, ApplicantsTask started', () => {
@@ -757,10 +757,10 @@ describe('Tasklist', () => {
                 const nextUrlCtx = formdata.applicant;
                 nextUrlCtx.ihtThreshold = 250000;
 
-                assert.equal(ctx.ApplicantsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.ApplicantsTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'complete');
                 assert.equal(ctx.ApplicantsTask.status, 'started');
-                assert.equal(ctx.ApplicantsTask.nextURL, journeyMap.nextStep(steps.RelationshipToDeceased, nextUrlCtx).constructor.getUrl());
+                assert.equal(ctx.ApplicantsTask.nextURL, journeyMap.nextStep(steps.RelationshipToDeceased, nextUrlCtx).getUrlWithContext(ctx));
             });
 
             it('Updates the context: DeceasedTask & ApplicantsTask started (ApplicantsTask blocked)', () => {
@@ -790,9 +790,9 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
                 ctx = Object.assign(ctx, formdata.deceased);
 
-                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'started');
-                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedDod, ctx).constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedDod, ctx).getUrlWithContext(ctx));
                 assert.equal(ctx.ApplicantsTask.status, 'started');
             });
 
@@ -819,12 +819,12 @@ describe('Tasklist', () => {
                 req.session.form = formdata;
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.ApplicantsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.ApplicantsTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'complete');
                 assert.equal(ctx.ApplicantsTask.status, 'complete');
-                assert.equal(ctx.ApplicantsTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.ApplicantsTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'notStarted');
-                assert.equal(ctx.ReviewAndConfirmTask.nextURL, steps[journeyMap.taskList().ReviewAndConfirmTask.firstStep].constructor.getUrl());
+                assert.equal(ctx.ReviewAndConfirmTask.nextURL, steps[journeyMap.taskList().ReviewAndConfirmTask.firstStep].getUrlWithContext(ctx));
             });
 
             it('Updates the context: Review and confirm complete (Single Applicants)', () => {
@@ -841,7 +841,7 @@ describe('Tasklist', () => {
 
                 assert.equal(ctx.ReviewAndConfirmTask.status, 'complete');
                 assert.equal(ctx.PaymentTask.status, 'notStarted');
-                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
             });
 
             it('Updates the context: PaymentTask not started', () => {
@@ -849,7 +849,7 @@ describe('Tasklist', () => {
                 req.body = {};
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.PaymentTask.status, 'notStarted');
             });
 
@@ -870,7 +870,7 @@ describe('Tasklist', () => {
                 req.body = {};
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.PaymentTask.status, 'started');
             });
 
@@ -890,7 +890,7 @@ describe('Tasklist', () => {
                 req.body = {};
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.PaymentTask.status, 'started');
             });
 
@@ -914,7 +914,7 @@ describe('Tasklist', () => {
                 req.body = {};
                 ctx = taskList.getContextData(req);
 
-                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
+                assert.equal(ctx.PaymentTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.PaymentTask.status, 'complete');
             });
 

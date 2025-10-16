@@ -44,7 +44,7 @@ describe('bilingual-gop', () => {
                 });
         });
 
-        it(`test it redirects to next page for an Intestacy case: ${expectedNextUrlForDeceasedName}`, (done) => {
+        it(`test it redirects to next page for an Intestacy case: /intestacy${expectedNextUrlForDeceasedName}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -52,7 +52,7 @@ describe('bilingual-gop', () => {
                         bilingual: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedName);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForDeceasedName}`);
                 });
         });
     });

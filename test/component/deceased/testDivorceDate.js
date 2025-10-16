@@ -41,7 +41,7 @@ describe('divorce-date', () => {
             testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });
 
-        it(`test it redirects to tasklist page: ${expectedNextUrlForTaskList}`, (done) => {
+        it(`test it redirects to tasklist page: /intestacy${expectedNextUrlForTaskList}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -50,7 +50,7 @@ describe('divorce-date', () => {
                         divorceDateKnown: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForTaskList}`);
                 });
         });
     });

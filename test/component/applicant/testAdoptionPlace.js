@@ -9,9 +9,9 @@ const caseTypes= require('app/utils/CaseTypes');
 
 describe('adoption-place', () => {
     let testWrapper;
-    const expectedNextUrlForSpouseNotApplyingReason = SpouseNotApplyingReason.getUrl();
-    const expectedNextUrlForAnyOtherChildren = AnyOtherChildren.getUrl();
-    const expectedNextUrlForStopPage = StopPage.getUrl('adoptionNotEnglandOrWales');
+    const expectedNextUrlForSpouseNotApplyingReason = '/intestacy' + SpouseNotApplyingReason.getUrl();
+    const expectedNextUrlForAnyOtherChildren = '/intestacy' + AnyOtherChildren.getUrl();
+    const expectedNextUrlForStopPage = '/intestacy' + StopPage.getUrl('adoptionNotEnglandOrWales');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('AdoptionPlace');

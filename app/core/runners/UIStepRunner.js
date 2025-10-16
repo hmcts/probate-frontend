@@ -30,7 +30,7 @@ class UIStepRunner {
                 const featureToggles = session.featureToggles;
                 [ctx, errors] = yield step.handleGet(ctx, formdata, featureToggles, session.language);
                 forEach(errors, (error) =>
-                    req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
+                    req.log.info({type: 'Validation Message', url: step.getUrlWithContext(ctx)}, JSON.stringify(error))
                 );
 
                 ctx.showBackLink = step.shouldHaveBackLink();
@@ -40,8 +40,8 @@ class UIStepRunner {
                 const fields = step.generateFields(session.language, ctx, errors, formdata);
                 if (req.query.source === 'back') {
                     session.back.pop();
-                } else if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
-                    session.back.push(step.constructor.getUrl());
+                } else if (session.back[session.back.length - 1] !== step.getUrlWithContext(ctx)) {
+                    session.back.push(step.getUrlWithContext(ctx));
                 }
                 const common = step.commonContent(session.language);
                 common.SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
@@ -70,7 +70,7 @@ class UIStepRunner {
             let ctx = step.getContextData(req, res);
             const isSaveAndClose = typeof get(ctx, 'isSaveAndClose') !== 'undefined' && get(ctx, 'isSaveAndClose') === 'true';
             let [isValid, errors] = [];
-            formdata.eventDescription = config.eventDescriptionPrefix + (step.constructor.getUrl()).replace('/', '');
+            formdata.eventDescription = config.eventDescriptionPrefix + (step.getUrlWithContext(ctx)).replace('/', '');
 
             let isEmptyForm = true;
             if (req.body) {
@@ -118,8 +118,8 @@ class UIStepRunner {
                         }
                     }
 
-                    if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
-                        session.back.push(step.constructor.getUrl());
+                    if (session.back[session.back.length - 1] !== step.getUrlWithContext(ctx)) {
+                        session.back.push(step.getUrlWithContext(ctx));
                     }
                     if (errorOccurred === false) {
                         if (isSaveAndClose) {
@@ -139,7 +139,7 @@ class UIStepRunner {
                     forEach(errors, (error) =>
                         req.log.info({
                             type: 'Validation Message',
-                            url: step.constructor.getUrl()
+                            url: step.getUrlWithContext(ctx)
                         }, JSON.stringify(error))
                     );
                     const content = step.generateContent(ctx, formdata, session.language);

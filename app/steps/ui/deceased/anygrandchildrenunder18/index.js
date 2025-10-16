@@ -17,7 +17,7 @@ class AnyGrandchildrenUnder18 extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('grandchildrenUnder18');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'grandchildrenUnder18');
     }
 
     nextStepOptions() {

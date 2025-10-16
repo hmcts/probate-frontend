@@ -46,7 +46,7 @@ class Summary extends Step {
             .forEach((stepName) => {
                 const step = this.steps[stepName];
                 content[stepName] = step.generateContent(formdata[step.section], formdata, language);
-                content[stepName].url = step.constructor.getUrl();
+                content[stepName].url = step.getUrlWithContext(ctx);
             });
         content[this.name] = super.generateContent(ctx, formdata, language);
         content[this.name].url = Summary.getUrl();

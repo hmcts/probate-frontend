@@ -41,9 +41,9 @@ class ExecutorCurrentName extends ValidationStep {
 
     nextStepUrl(req, ctx) {
         if (ctx.index === -1) {
-            return this.next(req, ctx).constructor.getUrl();
+            return this.next(req, ctx).getUrlWithContext(ctx);
         }
-        return this.next(req, ctx).constructor.getUrl(ctx.index);
+        return this.next(req, ctx).getUrlWithContext(ctx, ctx.index);
     }
 
     nextStepOptions(ctx) {

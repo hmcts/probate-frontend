@@ -72,9 +72,11 @@ exports.config = {
             mochawesome: {
                 stdout: './functional-output/console.log',
                 options: {
-                    reportDir: testConfig.TestOutputDir || './functional-output',
-                    reportName: 'report',
-                    inlineAssets: true
+                    reportDir: './temp-reports',
+                    inlineAssets: true,
+                    overwrite: false,
+                    html: false,
+                    json: true,
                 }
             }
         }

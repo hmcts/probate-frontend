@@ -61,6 +61,7 @@ exports.config = {
     },
     mocha: {
         timeout: 7200000,
+        reporter: 'mocha-multi',
         reporterOptions: {
             reporterEnabled: 'spec, mochawesome',
             mochawesomeReporterOptions: {

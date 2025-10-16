@@ -1,6 +1,7 @@
 const testConfig = require('config');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
+console.log('Loaded config: mocha-multi with mochawesome');
 exports.config = {
     tests: testConfig.TestPathToRun,
     output: `${process.cwd()}/${testConfig.TestOutputDir}`,

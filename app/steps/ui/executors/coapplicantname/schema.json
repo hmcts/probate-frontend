@@ -4,8 +4,7 @@
   "type": "object",
   "properties": {
     "coApplicantName": {
-      "type": "string",
-      "minLength": 2
+      "type": "string"
     }
   },
   "required": [

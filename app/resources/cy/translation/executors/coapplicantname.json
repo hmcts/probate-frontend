@@ -9,7 +9,9 @@
 
   "errors": {
     "fullName": {
-      "required": "Nodwch enw llawn y ceisydd"
+      "required": "Nodwch enw llawn y ceisydd",
+      "minLength": "Rhaid i’r enw fod yn 2 o nodau neu fwy",
+      "maxLength": "Rhaid i’r enw fod yn 100 o nodau neu lai"
     }
   }
 }

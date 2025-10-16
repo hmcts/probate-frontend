@@ -3,6 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {findIndex} = require('lodash');
 const FormatName = require('../../../../utils/FormatName');
+const FieldError = require('../../../../components/error');
 const pageUrl = '/coapplicant-name';
 
 class CoApplicantName extends ValidationStep {
@@ -47,7 +48,12 @@ class CoApplicantName extends ValidationStep {
         return [ctx, formdata];
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata, session) {
+        if (ctx.fullName && ctx.fullName.length < 2) {
+            errors.push(FieldError('fullName', 'minLength', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        } else if (ctx.fullName && ctx.fullName.length > 100) {
+            errors.push(FieldError('fullName', 'maxLength', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        }
         ctx.list[ctx.index].fullName = ctx.fullName;
         return [ctx, errors];
     }

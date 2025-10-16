@@ -66,10 +66,10 @@ exports.config = {
             reporterEnabled: 'spec, mochawesome',
             'mochawesomeReporterOptions.reportDir': './temp-reports',
             'mochawesomeReporterOptions.reportFilename': 'report-[name]',
-            'mochawesomeReporterOptions.quiet': false,
-            'mochawesomeReporterOptions.overwrite': false,
-            'mochawesomeReporterOptions.html': false,
-            'mochawesomeReporterOptions.json': true
+            'mochawesomeReporterOptions.quiet': 'false',
+            'mochawesomeReporterOptions.overwrite': 'false',
+            'mochawesomeReporterOptions.html': 'false',
+            'mochawesomeReporterOptions.json': 'true'
         }
     },
     bootstrap: TestConfigurator.bootStrapTestSuite(),

@@ -28,8 +28,7 @@ class ParentAdoptionPlace extends ValidationStep {
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         ctx.deceasedName = FormatName.format(formdata.deceased);
-        const applicant = formdata.applicant;
-        ctx.applicantName= applicant?.alias ?? FormatName.format(applicant);
+        ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
         return ctx;
     }
 

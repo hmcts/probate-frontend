@@ -60,22 +60,19 @@ exports.config = {
         },
     },
     mocha: {
+        timeout: 7200000,
         reporterOptions: {
-            'codeceptjs-cli-reporter': {
-                stdout: '-',
-                options: {steps: true}
+            reporterEnabled: 'codeceptjs-cli-reporter, mocha-junit-reporter, mochawesome',
+            'codeceptjs-cli-reporter_reporterOptions': {
+                steps: true
             },
-            'mocha-junit-reporter': {
-                stdout: '-',
-                options: {mochaFile: './functional-output/result.xml'}
+            'mocha-junit-reporter_reporterOptions': {
+                mochaFile: './functional-output/result.xml'
             },
-            mochawesome: {
-                stdout: './functional-output/console.log',
-                options: {
-                    reportDir: testConfig.TestOutputDir || './functional-output',
-                    reportName: 'index',
-                    inlineAssets: true
-                }
+            'mochawesome_reporterOptions': {
+                reportDir: testConfig.TestOutputDir || './functional-output',
+                reportName: 'index',
+                inlineAssets: true
             }
         }
     },

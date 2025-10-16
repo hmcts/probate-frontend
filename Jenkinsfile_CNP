@@ -97,6 +97,7 @@ withPipeline("nodejs", product, component) {
        error 'Deliberately breaking pipeline to prevent prod deployment'
    }
 */
+
   enableAksStagingDeployment()
   disableLegacyDeployment()
 
@@ -104,21 +105,41 @@ withPipeline("nodejs", product, component) {
   enableSlackNotifications('#probate-jenkins')
   syncBranchesWithMaster(branchesToSync)
 
+  afterAlways('build') {
+    sh 'mkdir -p functional-output/'
+    yarnBuilder.yarn('setup')
+  }
+
   afterSuccess('functionalTest:preview') {
-    publishHTML target: [
-      reportDir            : "functional-output/",
-      reportFiles          : "mochawesome.html",
-      reportName           : "Preview Functional Tests",
-      alwaysLinkToLastBuild: true
-    ]
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/'
+    publishHTML([
+      allowMissing: true,
+      alwaysLinkToLastBuild: true,
+      keepAll: true,
+      reportDir: "./functional-output/",
+      reportFiles: 'functional_report.html',
+      reportName: 'Functional Test Report'
+    ])
 
     if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
       env.DONT_TEST_WELSH = true
-      yarnBuilder.yarn('test:fullfunctional-pr');
+      yarnBuilder.yarn('test:functional');
     } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
-      yarnBuilder.yarn('test:fullfunctional-pr');
+      yarnBuilder.yarn('test:functional');
     }
   }
+
+  /*afterAlways('functionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/'
+    publishHTML([
+      allowMissing: true,
+      alwaysLinkToLastBuild: true,
+      keepAll: true,
+      reportDir: "./functional-output/",
+      reportFiles: 'functional_report.html',
+      reportName: 'Functional Test Report'
+    ])
+  }*/
 
   afterSuccess('functionalTest:aat') {
     publishHTML target: [

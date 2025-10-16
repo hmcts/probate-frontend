@@ -62,14 +62,8 @@ exports.config = {
     mocha: {
         timeout: 7200000,
         reporterOptions: {
-            reporterEnabled: 'codeceptjs-cli-reporter, mocha-junit-reporter, mochawesome',
-            'codeceptjs-cli-reporter_reporterOptions': {
-                steps: true
-            },
-            'mocha-junit-reporter_reporterOptions': {
-                mochaFile: './functional-output/parallel-result.xml'
-            },
-            'mochawesomeReporterOptions': {
+            reporterEnabled: 'spec, mochawesome',
+            mochawesomeReporterOptions: {
                 reportDir: './temp-reports',
                 reportFilename: 'report',
                 quiet: false,

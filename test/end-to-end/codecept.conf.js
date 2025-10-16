@@ -64,12 +64,12 @@ exports.config = {
         reporterOptions: {
             reporterEnabled: 'spec, mochawesome',
             mochawesomeReporterOptions: {
-                reportDir: './temp-reports',
-                reportFilename: 'report',
-                quiet: false,
-                overwrite: false,
-                html: false,
-                json: true
+                'mochawesomeReporterOptions.reportDir': './temp-reports',
+                'mochawesomeReporterOptions.reportFilename': 'report-[name]',
+                'mochawesomeReporterOptions.quiet': false,
+                'mochawesomeReporterOptions.overwrite': false,
+                'mochawesomeReporterOptions.html': false,
+                'mochawesomeReporterOptions.json': true
             }
         }
     },

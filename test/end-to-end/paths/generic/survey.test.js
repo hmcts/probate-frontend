@@ -127,4 +127,5 @@ Scenario('Check survey link works', async ({I}) => {
 
 }).tag('@e2enightly')
     .tag('@e2enightly-pr')
+    .tag('@sampleTest')
     .retry(TestConfigurator.getRetryScenarios());

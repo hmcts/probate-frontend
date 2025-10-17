@@ -65,7 +65,6 @@ exports.config = {
         reporterOptions: {
             reportDir: './temp-reports',
             reportFilename: 'report-[name]',
-            inlineAssets: true,
             quiet: false,
             overwrite: false,
             html: false,

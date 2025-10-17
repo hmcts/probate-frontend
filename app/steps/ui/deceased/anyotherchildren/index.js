@@ -24,12 +24,20 @@ class AnyOtherChildren extends ValidationStep {
         };
     }
 
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+        }
+        return fields;
+    }
+
     action(ctx, formdata) {
         super.action(ctx, formdata);
 
         if (formdata.deceased && formdata.deceased.anyOtherChildren && ctx.anyOtherChildren !== formdata.deceased.anyOtherChildren) {
             delete ctx.allChildrenOver18;
-            delete ctx.anyDeceasedChildren;
+            delete ctx.anyPredeceasedChildren;
             delete ctx.anyGrandchildrenUnder18;
         }
 

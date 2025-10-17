@@ -1,0 +1,113 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+
+{% block pageTitle %}
+    {{ fields.title }}
+{% endblock %}
+
+{% block form_content %}
+
+    {% set errorFields = [
+        "divorceDate",
+        "divorceDate-day",
+        "divorceDate-month",
+        "divorceDate-year",
+        "divorceDate-day-month",
+        "divorceDate-month-year",
+        "divorceDate-day-year"
+    ] %}
+    {% if errors %}
+        {% set errorMessages = [] %}
+        {% for field in errorFields %}
+            {% if fields[field].errorMessage %}
+                {% set errorMessages = errorMessages.concat([fields[field].errorMessage
+            | replace("{legalProcess}", fields.legalProcess.value) | replace("{deceasedName}", fields.deceasedName.value) | safe]) %}
+            {% endif %}
+        {% endfor %}
+        {% set inlineErrors = {
+            text: errorMessages | join("<br>") | safe
+        } %}
+    {% endif %}
+
+    {% set dateHtml %}
+      {{ govukDateInput({
+          id: "divorceDate",
+          namePrefix: "divorceDate",
+          fieldset: {
+              legend: {
+                  text: content.date | replace("{legalProcess}", fields.legalProcess.value) | safe
+              }
+          },
+          errorMessage: inlineErrors,
+          items: [
+              {
+                  classes: "govuk-input--width-2" + (" govuk-input--error" if fields["divorceDate"].error or fields["divorceDate-day"].error
+                      or fields["divorceDate-day-month"].error or fields["divorceDate-day-year"].error),
+                  name: "day",
+                  label: content["dayName"] | safe,
+                  value: fields["divorceDate-day"].value
+              },
+              {
+                  classes: "govuk-input--width-2" + (" govuk-input--error" if fields["divorceDate"].error or fields["divorceDate-month"].error
+                      or fields["divorceDate-day-month"].error or fields["divorceDate-month-year"].error),
+                  name: "month",
+                  label: content["monthName"] | safe,
+                  value: fields["divorceDate-month"].value
+              },
+              {
+                  classes: "govuk-input--width-4" + (" govuk-input--error" if fields["divorceDate-year"].error or fields["divorceDate"].error
+                      or fields["divorceDate-day-year"].error or fields["divorceDate-month-year"].error),
+                  name: "year",
+                  label: content["yearName"] | safe,
+                  value: fields["divorceDate-year"].value
+              }
+          ]
+      }) }}
+    {% endset -%}
+
+    {% call govukFieldset({
+        legend: {
+            text: content.question | replace("{legalProcess}", fields.legalProcess.value) | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+    <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+    <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+    {{ govukRadios({
+        idPrefix: "divorceDateKnown",
+        name: "divorceDateKnown",
+        errorMessage: { text: fields.divorceDateKnown.errorMessage
+            | replace("{legalProcess}", fields.legalProcess.value) | safe } if fields.divorceDateKnown.errorMessage,
+        items: [
+            {
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.divorceDateKnown.value == "optionYes",
+                conditional: {
+                    html: dateHtml
+                }
+            },
+            {
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.divorceDateKnown.value == "optionNo",
+                hint: {
+                    text: content["optionNoHint"] | safe
+                }
+            }
+        ]
+    }) }}
+    {% endcall %}
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+          text: common.saveAndContinue | safe,
+          preventDoubleClick: true
+      }) }}
+    </div>
+{% endblock %}

@@ -216,6 +216,7 @@
     "http-cache-semantics": ">=4.2.0",
     "import-in-the-middle": "^1.14.2",
     "ip": "^2.0.1",
+    "mocha": "10.2.0",
     "minimist": "^1.2.8",
     "path-to-regexp": "^0.1.12",
     "puppeteer": "^24.10.2",

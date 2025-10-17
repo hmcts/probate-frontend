@@ -319,7 +319,6 @@ intestacyScreenersDeathCertificateInEnglish:
   left: 'optionNo'
   diedAfter: 'optionYes'
   related: 'optionYes'
-  otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateNotInEnglish:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionNo'
@@ -328,7 +327,6 @@ intestacyScreenersDeathCertificateNotInEnglish:
   completed: 'optionYes'
   left: 'optionNo'
   related: 'optionYes'
-  otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateInEnglishExceptedEstates:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionYes'
@@ -337,7 +335,6 @@ intestacyScreenersDeathCertificateInEnglishExceptedEstates:
   eeEstateValued: 'optionYes'
   left: 'optionNo'
   related: 'optionYes'
-  otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateNotInEnglishExceptedEstates:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionNo'
@@ -347,7 +344,6 @@ intestacyScreenersDeathCertificateNotInEnglishExceptedEstates:
   eeEstateValued: 'optionYes'
   left: 'optionNo'
   related: 'optionYes'
-  otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateInEnglishDodBeforeThresholdExceptedEstates:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionYes'
@@ -357,7 +353,6 @@ intestacyScreenersDeathCertificateInEnglishDodBeforeThresholdExceptedEstates:
   left: 'optionNo'
   diedAfter: 'optionYes'
   related: 'optionYes'
-  otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateNotInEnglishDodBeforeThresholdExceptedEstates:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionNo'
@@ -368,7 +363,6 @@ intestacyScreenersDeathCertificateNotInEnglishDodBeforeThresholdExceptedEstates:
   left: 'optionNo'
   diedAfter: 'optionYes'
   related: 'optionYes'
-  otherApplicants: 'optionNo'
 hardStopParams:
   gop: []
   intestacy: []

@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const SpouseNotApplyingReason = require('app/steps/ui/applicant/spousenotapplyingreason');
 const AnyChildren = require('app/steps/ui/deceased/anychildren');
-const AnyOtherChildren = require('app/steps/ui/deceased/anyotherchildren');
+const ChildAdoptedIn = require('app/steps/ui/details/childadoptedin');
 const AdoptionPlace = require('app/steps/ui/applicant/adoptionplace');
 const ApplicantName = require('app/steps/ui/applicant/name');
 const StopPage = require('app/steps/ui/stoppage');
@@ -14,9 +14,10 @@ describe('relationship-to-deceased', () => {
     let testWrapper;
     const expectedNextUrlForSpouseNotApplyingReason = SpouseNotApplyingReason.getUrl();
     const expectedNextUrlForAnyChildren = AnyChildren.getUrl();
-    const expectedNextUrlForAnyOtherChildren = AnyOtherChildren.getUrl();
     const expectedNextUrlForAdoptionPlace = AdoptionPlace.getUrl();
     const expectedNextUrlForApplicantName = ApplicantName.getUrl();
+    const expectedNextUrlForChildAdoptedIn = ChildAdoptedIn.getUrl();
+
     const expectedNextUrlForStopPage = StopPage.getUrl('otherRelationship');
 
     beforeEach(() => {
@@ -72,7 +73,7 @@ describe('relationship-to-deceased', () => {
                 });
         });
 
-        it(`test it redirects to Any Other Children page if relationship is Child and deceased was not married: ${expectedNextUrlForAnyOtherChildren}`, (done) => {
+        it(`test it redirects to Any Other Children page if relationship is Child and deceased was not married: ${expectedNextUrlForChildAdoptedIn}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -84,10 +85,11 @@ describe('relationship-to-deceased', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: 'optionChild'
+                        relationshipToDeceased: 'optionChild',
+                        deceasedMaritalStatus: 'optionDivorced'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherChildren);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForChildAdoptedIn);
                 });
         });
 

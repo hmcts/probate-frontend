@@ -35,17 +35,33 @@ describe('AnyGrandchildrenUnder18', () => {
     });
 
     describe('nextStepUrl()', () => {
-        it('should return the correct url when all grandchildren are over 18', (done) => {
+        it('should return the correct url when all grandchildren are over 18 and all predeceased children', (done) => {
             const req = {
                 session: {
                     journey: journey
                 }
             };
             const ctx = {
-                anyGrandchildrenUnder18: 'optionNo'
+                anyGrandchildrenUnder18: 'optionNo',
+                anyPredeceasedChildren: 'optionYesAll'
             };
             const nextStepUrl = AnyGrandchildrenUnder18.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/applicant-name');
+            done();
+        });
+
+        it('should return the correct url when all grandchildren are over 18 and some predeceased children', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                anyGrandchildrenUnder18: 'optionNo',
+                anyPredeceasedChildren: 'optionYesSome'
+            };
+            const nextStepUrl = AnyGrandchildrenUnder18.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/all-children-over-18');
             done();
         });
 
@@ -70,7 +86,8 @@ describe('AnyGrandchildrenUnder18', () => {
             const nextStepOptions = AnyGrandchildrenUnder18.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'anyGrandchildrenUnder18', value: 'optionNo', choice: 'allGrandchildrenOver18'},
+                    {key: 'allGrandchildrenOver18AndSomePredeceasedChildren', value: true, choice: 'allGrandchildrenOver18AndSomePredeceasedChildren'},
+                    {key: 'allGrandchildrenOver18AndAllPredeceasedChildren', value: true, choice: 'allGrandchildrenOver18AndAllPredeceasedChildren'}
                 ]
             });
             done();

@@ -1,0 +1,13 @@
+{
+  "question": "Did this person’s parent ({{ deceased name }}’s child) die before {{ deceased name }}?",
+  "hintText": "{{ deceased name }}’s grandchildren are only entitled to apply if their parent ({{ deceased name }}’s child) died before {{ deceased name }}.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "theDeceased": "the deceased",
+
+  "errors": {
+    "diedEngOrWales": {
+      "required": "Answer &lsquo;yes&rsquo; if the person who died lived in England or Wales or intended to return here"
+    }
+  }
+}

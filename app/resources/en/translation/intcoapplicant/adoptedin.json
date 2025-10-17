@@ -1,0 +1,12 @@
+{
+  "title": "Was so and so legally adopted in to deceased's family?",
+  "question": "Was so and so legally adopted in to deceased's family?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "adoptedIn": {
+      "required": "Answer &lsquo;yes&rsquo if something"
+    }
+  }
+}

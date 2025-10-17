@@ -1,0 +1,20 @@
+{
+  "title": "Applicant name",
+  "question": "What is the other applicant’s name?",
+  "content1": "The name you give us will be written on the grant of probate.",
+  "content2": "Their name should match exactly what is written on their passport or other official \nidentification document, such as a driving licence.",
+  "content3": "You should make sure that this is the same form of identification they use when \nthey are dealing with {{ deceased name }}’s estate.",
+  "fullName": "Full name",
+  "warningText": "If the name on the grant does not match the identification they use, they may \nhave difficulties dealing with the estate.",
+
+  "errors": {
+    "firstName": {
+      "required": "Enter your first name, including any middle names",
+      "invalid": "Enter a valid first name - can only contain letters a to z, spaces, hyphens and apostrophes"
+    },
+    "lastName": {
+      "required": "Enter your last name",
+      "invalid": "Enter a valid last name - can only contain letters a to z, spaces, hyphens and apostrophes"
+    }
+  }
+}

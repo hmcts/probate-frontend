@@ -1,9 +1,9 @@
 {
   "title": "Pob plentyn dros 18",
-  "question": "A yw pob plentyn {deceasedName} dros 18 oed?",
-  "hint": "Dylech gynnwys pob plentyn dan 18 oed, hyd yn oed os ydynt wedi cael eu mabwysiadu gan deulu arall.",
-  "optionYes": "Ydi",
-  "optionNo": "Nac ydi",
+  "question": "A yw holl blant {deceasedName} yn 18 oed neu&rsquo;n h&ycirc;n?",
+  "paragraph": "Nid oes arnoch angen cynnwys unrhyw blant wnaeth farw ar &ocirc;l {deceasedName}.",
+  "optionYes": "Ydyn",
+  "optionNo": "Nac ydyn",
   "theDeceased": "yr unigolyn sydd wedi marw",
 
   "errors": {

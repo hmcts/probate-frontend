@@ -33,6 +33,8 @@
             (
                 fields.applicant.relationshipToDeceased.value == "optionChild"
                 or
+                fields.applicant.relationshipToDeceased.value == "optionGrandchild"
+                or
                 (
                     fields.applicant.relationshipToDeceased.value == "optionAdoptedChild"
                     and
@@ -133,8 +135,8 @@
 {{checkanswer(
     items = [
         {
-            question: fields.summary.deceasedAnyDeceasedChildrenQuestion.value,
-            answer: content.AnyDeceasedChildren[fields.deceased.anyDeceasedChildren.value],
+            question: fields.summary.deceasedAnyPredeceasedChildrenQuestion.value,
+            answer: content.AnyPredeceasedChildren[fields.deceased.anyPredeceasedChildren.value],
             visible:
             (
                 (
@@ -159,7 +161,7 @@
             fields.deceased.allChildrenOver18.value == "optionYes"
         }
     ],
-    url = content.AnyDeceasedChildren.url,
+    url = content.AnyPredeceasedChildren.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
@@ -192,7 +194,7 @@
             and
             fields.deceased.allChildrenOver18.value == "optionYes"
             and
-            fields.deceased.anyDeceasedChildren.value == "optionYes"
+            fields.deceased.anyPredeceasedChildren.value == "optionYes"
         }
     ],
     url = content.AnyGrandchildrenUnder18.url,

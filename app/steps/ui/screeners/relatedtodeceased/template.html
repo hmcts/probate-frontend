@@ -10,7 +10,6 @@
       <p class="govuk-hint" style="font-size: 24px; margin-bottom: 0;">{{ content.eligibilityTitle | safe }}</p>
     {% endif %}
     {{ govukRadios({
-        classes: "govuk-radios--inline",
         idPrefix: "related",
         name: "related",
         fieldset: {
@@ -20,20 +19,49 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        hint: {
-            text: (content.hintText1 + "<br><br>" + content.hintText2) | safe
-        },
         errorMessage: { text: fields.related.errorMessage | safe } if fields.related.errorMessage,
         items: [
             {
                 value: "optionYes",
-                text: content["optionYes"] | safe,
-                checked: true if fields.related.value == "optionYes"
+                text: content["optionPartner"] | safe,
+                hint: {
+                    text: content["hintTextPartner"] | safe
+                }
+            },
+            {
+                value: "optionYes",
+                text: content["optionChild"] | safe,
+                hint: {
+                    text: content["hintTextChild"] | safe
+                }
+            },
+            {
+                value: "optionYes",
+                text: content["optionGrandchild"] | safe,
+                hint: {
+                    text: content["hintTextGrandchild"] | safe
+                }
+            },
+            {
+                value: "optionYes",
+                text: content["optionParent"] | safe,
+                hint: {
+                    text: content["hintTextParent"] | safe
+                }
+            },
+            {
+                value: "optionYes",
+                text: content["optionSibling"] | safe,
+                hint: {
+                    text: content["hintTextSibling"] | safe
+                }
+            },
+            {
+                divider: "or"
             },
             {
                 value: "optionNo",
-                text: content["optionNo"] | safe,
-                checked: true if fields.related.value == "optionNo"
+                text: content["optionNone"] | safe
             }
         ]
     }) }}

@@ -58,6 +58,21 @@ describe('RelationshipToDeceased', () => {
             done();
         });
 
+        it('should return the correct url when relationship is Grandchild and the deceased was married', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                relationshipToDeceased: 'optionGrandchild',
+                deceasedMaritalStatus: 'optionMarried'
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/spouse-not-applying-reason');
+            done();
+        });
+
         it('should return the correct url when relationship is Child and the deceased was not married', (done) => {
             const req = {
                 session: {
@@ -66,10 +81,25 @@ describe('RelationshipToDeceased', () => {
             };
             const ctx = {
                 relationshipToDeceased: 'optionChild',
-                deceasedMaritalStatus: 'optionNotMarried'
+                deceasedMaritalStatus: 'optionDivorced'
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/any-other-children');
+            expect(nextStepUrl).to.equal('/child-adopted-in');
+            done();
+        });
+
+        it('should return the correct url when relationship is Grandchild and the deceased was not married', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                relationshipToDeceased: 'optionGrandchild',
+                deceasedMaritalStatus: 'optionDivorced'
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/child-adopted-in');
             done();
         });
 
@@ -142,8 +172,8 @@ describe('RelationshipToDeceased', () => {
                 options: [
                     {key: 'spousePartnerLessThanIhtThreshold', value: true, choice: 'spousePartnerLessThanIhtThreshold'},
                     {key: 'spousePartnerMoreThanIhtThreshold', value: true, choice: 'spousePartnerMoreThanIhtThreshold'},
-                    {key: 'childDeceasedMarried', value: true, choice: 'childDeceasedMarried'},
-                    {key: 'childDeceasedNotMarried', value: true, choice: 'childDeceasedNotMarried'},
+                    {key: 'childOrGrandchildDeceasedMarried', value: true, choice: 'childOrGrandchildDeceasedMarried'},
+                    {key: 'childOrGrandchildDeceasedNotMarried', value: true, choice: 'childOrGrandchildDeceasedNotMarried'},
                     {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'},
                 ]
             });
@@ -174,7 +204,7 @@ describe('RelationshipToDeceased', () => {
                     anyChildren: 'optionYes',
                     anyOtherChildren: 'optionYes',
                     allChildrenOver18: 'optionYes',
-                    anyDeceasedChildren: 'optionYes',
+                    anyPredeceasedChildren: 'optionYesAll',
                     anyGrandchildrenUnder18: 'optionNo'
                 }
             };
@@ -193,7 +223,7 @@ describe('RelationshipToDeceased', () => {
             assert.isUndefined(formdata.deceased.anyChildren);
             assert.isUndefined(formdata.deceased.anyOtherChildren);
             assert.isUndefined(formdata.deceased.allChildrenOver18);
-            assert.isUndefined(formdata.deceased.anyDeceasedChildren);
+            assert.isUndefined(formdata.deceased.anyPredeceasedChildren);
             assert.isUndefined(formdata.deceased.anyGrandchildrenUnder18);
         });
     });

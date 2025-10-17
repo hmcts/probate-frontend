@@ -101,6 +101,10 @@ class Summary extends Step {
         ctx.ihtTotalNetValue = get(formdata, 'iht.netValue', 0);
         ctx.deceasedAliasQuestion = content.DeceasedAlias.question
             .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedAlias.theDeceased);
+        ctx.deceasedDobQuestion = content.DeceasedDob.question
+            .replace('{deceasedName}', deceasedName ? deceasedName : content.DiedEnglandOrWales.theDeceased);
+        ctx.deceasedDodQuestion = content.DeceasedDod.question
+            .replace('{deceasedName}', deceasedName ? deceasedName : content.DiedEnglandOrWales.theDeceased);
         ctx.diedEnglandOrWalesQuestion = content.DiedEnglandOrWales.question
             .replace('{deceasedName}', deceasedName ? deceasedName : content.DiedEnglandOrWales.theDeceased);
         ctx.deceasedAddressQuestion = content.DeceasedAddress.question
@@ -124,12 +128,16 @@ class Summary extends Step {
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedMaritalStatus.theDeceased);
             ctx.deceasedDivorcePlaceQuestion = content.DivorcePlace.question
                 .replace('{legalProcess}', (formdata.deceased && formdata.deceased.maritalStatus === content.DeceasedMaritalStatus.optionDivorced) ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
+            ctx.deceasedDivorceDateKnownQuestion = content.DivorceDate.question
+                .replace('{legalProcess}', (formdata.deceased && formdata.deceased.maritalStatus === content.DeceasedMaritalStatus.optionDivorced) ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
+            ctx.deceasedDivorceDate = content.DivorceDate.date
+                .replace('{legalProcess}', (formdata.deceased && formdata.deceased.maritalStatus === content.DeceasedMaritalStatus.optionDivorced) ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
             ctx.deceasedAnyChildrenQuestion = content.AnyChildren.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyChildren.theDeceased);
             ctx.deceasedAnyOtherChildrenQuestion = content.AnyOtherChildren.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyOtherChildren.theDeceased);
-            ctx.deceasedAnyDeceasedChildrenQuestion = content.AnyDeceasedChildren.question
-                .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyDeceasedChildren.theDeceased)
+            ctx.deceasedAnyPredeceasedChildrenQuestion = content.AnyPredeceasedChildren.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyPredeceasedChildren.theDeceased)
                 .replace('{deceasedDoD}', (formdata.deceased && formdata.deceased['dod-formattedDate']) ? formdata.deceased['dod-formattedDate'] : '');
             ctx.deceasedAllChildrenOver18Question = content.AllChildrenOver18.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.AllChildrenOver18.theDeceased);

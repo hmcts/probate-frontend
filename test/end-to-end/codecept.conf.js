@@ -1,6 +1,7 @@
 const testConfig = require('config');
 const TestConfigurator = new (require('test/end-to-end/helpers/TestConfigurator'))();
 
+console.log('Loaded config: mocha-multi with mochawesome');
 exports.config = {
     tests: testConfig.TestPathToRun,
     output: `${process.cwd()}/${testConfig.TestOutputDir}`,
@@ -60,23 +61,16 @@ exports.config = {
         },
     },
     mocha: {
+        timeout: 7200000,
+        reporter: 'mochawesome',
         reporterOptions: {
-            'codeceptjs-cli-reporter': {
-                stdout: '-',
-                options: {steps: true}
-            },
-            'mocha-junit-reporter': {
-                stdout: '-',
-                options: {mochaFile: './functional-output/result.xml'}
-            },
-            mochawesome: {
-                stdout: './functional-output/console.log',
-                options: {
-                    reportDir: testConfig.TestOutputDir || './functional-output',
-                    reportName: 'index',
-                    inlineAssets: true
-                }
-            }
+            reportDir: './temp-reports',
+            reportFilename: 'report-[name]',
+            inlineAssets: true,
+            quiet: false,
+            overwrite: false,
+            html: false,
+            json: true
         }
     },
     bootstrap: TestConfigurator.bootStrapTestSuite(),

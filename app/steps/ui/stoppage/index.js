@@ -2,6 +2,7 @@
 
 const Step = require('app/core/steps/Step');
 const {format} = require('../../../utils/FormatName');
+const FormatName = require('../../../utils/FormatName');
 
 class StopPage extends Step {
 
@@ -18,7 +19,7 @@ class StopPage extends Step {
         ctx.stoppageHeader = this.returnStopPageHeader(ctx.stopReason);
 
         ctx.deceasedName = format(formdata.deceased);
-
+        ctx.applicantName= formdata.applicant?.alias ?? FormatName.format(formdata.applicant);
         const templateContent = this.generateContent(ctx, formdata, req.session.language)[ctx.stopReason];
 
         if (templateContent) {
@@ -46,6 +47,7 @@ class StopPage extends Step {
         return [];
     }
 
+    // eslint-disable-next-line complexity
     returnStopPageHeader(stopReason) {
         let pageHeader;
         switch (stopReason) {
@@ -93,8 +95,13 @@ class StopPage extends Step {
         case 'adoptionNotEnglandOrWales':
         case 'adoptedOut':
         case 'childrenUnder18':
+        case 'coApplicantAdoptionPlaceStop':
+        case 'coApplicantAdoptedOutStop':
         case 'grandchildrenUnder18':
             pageHeader = 'cannotApplyByOnlineHeader';
+            break;
+        case 'otherCoApplicantRelationship':
+            pageHeader = 'personCannotApplyByOnlineHeader';
             break;
         default:
             pageHeader = 'defaultHeader';

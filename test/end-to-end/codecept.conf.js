@@ -66,10 +66,10 @@ exports.config = {
         reporterOptions: {
             reportDir: './temp-reports',
             reportFilename: 'report-[name]',
-            quiet: 'false',
-            overwrite: 'false',
-            html: 'false',
-            json: 'true'
+            quiet: false,
+            overwrite: false,
+            html: false,
+            json: true
         }
     },
     bootstrap: TestConfigurator.bootStrapTestSuite(),

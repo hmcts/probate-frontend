@@ -27,8 +27,6 @@ class ParentDieBefore extends ValidationStep {
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         ctx.deceasedName = FormatName.format(formdata.deceased);
-        const applicant = formdata.applicant;
-        ctx.applicantName= applicant?.alias ?? FormatName.format(applicant);
         return ctx;
     }
 
@@ -51,9 +49,17 @@ class ParentDieBefore extends ValidationStep {
         };
     }
 
-    handlePost(ctx, errors, formdata) {
-        formdata.executors.list[ctx.index].childDieBeforeDeceased=ctx.applicantParentDieBeforeDeceased;
+    handlePost(ctx, errors) {
+        ctx.list[ctx.index].childDieBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
         return [ctx, errors];
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+        }
+        return fields;
     }
 }
 

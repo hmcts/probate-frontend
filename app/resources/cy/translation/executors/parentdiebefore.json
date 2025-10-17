@@ -1,8 +1,8 @@
 {
-  "question": "Did this person’s parent ({{ deceasedName }}’s child) die before {{ deceasedName }}?",
-  "hintText": "{{ deceasedName }}’s grandchildren are only entitled to apply if their parent ({{ deceasedName }}’s child) died before {{ deceasedName }}.",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "question": "A fu farw rhiant yr unigolyn hwn (plentyn {{ deceasedName }}) cyn {{ deceasedName }}?",
+  "hintText": "dim ond os bu farw eu rhiant (plentyn {{ deceasedName }}) cyn {{ deceasedName }} y mae wyrion a wyresau {{ deceasedName }} yn gymwys i wneud cais.",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
   "theDeceased": "the deceased",
 
   "errors": {

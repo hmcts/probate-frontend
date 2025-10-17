@@ -105,7 +105,7 @@ describe('Co-applicant-relationship', () => {
             expect(errors[0].msg).to.equal('Error message for John Doe');
         });
 
-        it('should not modify error message if otherExecName is not present in fields', () => {
+        it('should not modify error message if deceased name is not present in fields', () => {
             ctx.deceasedName = '';
             CoApplicantRelationshipToDeceased.generateFields(language, ctx, errors);
             expect(errors[0].msg).to.equal('Error message for ');

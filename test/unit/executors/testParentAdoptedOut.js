@@ -8,7 +8,7 @@ const ParentAdoptedOut = steps.ParentAdoptedOut;
 const content = require('app/resources/en/translation/executors/adoptedout');
 const stepUrl='/parent-adopted-out/1';
 const optionNoUrl='/coapplicant-email/1';
-const optionYesUrl='/stop-page/coApplicantAdoptedOutStop';
+const optionYesUrl='/stop-page/coApplicantParentAdoptedOutStop';
 
 describe('ParentAdoptedOut', () => {
     describe('ParentAdoptedOut.getUrl()', () => {

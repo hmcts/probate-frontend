@@ -1,12 +1,12 @@
 {
   "title": "Parent adopted in",
-  "question": "Did {{ deceasedName }} legally adopt {{ applicantName }}’s parent ({{ deceasedName }}’s child)?",
+  "question": "Did {deceasedName} legally adopt {applicantName}’s parent ({deceasedName}’s child)?",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
     "applicantParentAdoptedIn": {
-      "required": "Select ‘Yes’ if {{ applicantName }}’s parent was adopted by {{ deceasedName }}"
+      "required": "Select ‘Yes’ if {applicantName}’s parent was adopted by {deceasedName}"
     }
   }
 }

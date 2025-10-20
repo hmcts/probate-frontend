@@ -1,12 +1,12 @@
 {
   "title": "Parent adopted in",
-  "question": "Did {{ deceasedName }} legally adopt {{ applicantName }}’s parent ({{ deceasedName }}’s child)?",
+  "question": "A wnaeth {deceasedName} fabwysiadu rhiant ({applicantName}  plentyn ({deceasedMame}) yn gyfreithlon?",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
     "applicantParentAdoptedIn": {
-      "required": "Select ‘Yes’ if {{ applicantName }}’s parent was adopted by {{ deceasedName }}"
+      "required": "Dewiswch ‘Do’ os cafodd rhiant {applicantName} eu mabwysiadu gan {DeceasedName}"
     }
   }
 }

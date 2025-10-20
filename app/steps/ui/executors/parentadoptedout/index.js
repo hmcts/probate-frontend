@@ -48,7 +48,7 @@ class ParentAdoptedOut extends ValidationStep {
         if (ctx.applicantParentAdoptedOut === 'optionNo') {
             return `/coapplicant-email/${ctx.index}`;
         }
-        return this.next(req, ctx).constructor.getUrl('coApplicantAdoptedOutStop');
+        return this.next(req, ctx).constructor.getUrl('coApplicantParentAdoptedOutStop');
     }
 
     nextStepOptions() {

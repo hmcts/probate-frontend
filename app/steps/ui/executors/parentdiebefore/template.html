@@ -11,7 +11,6 @@
     isPageHeading: true
     }
     }) %}
-    {% endcall %}
     <p class="govuk-body">{{ content.hintText | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
     {{ govukRadios({
         classes: "govuk-radios--inline",
@@ -31,6 +30,7 @@
             }
         ]
     }) }}
+{% endcall %}
 
     <div class="govuk-form-group">
         {{ govukButton({

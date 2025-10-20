@@ -1,12 +1,12 @@
 {
   "title": "Parent adopted out",
-  "question": "Did {{ deceasedName }} legally adopt {{ applicantName }}’s parent ({{ deceasedName }}’s child) out of their family (give them up for adoption)?",
+  "question": "Did {deceasedName} legally adopt {applicantName}’s parent ({deceasedName}’s child) out of their family (give them up for adoption)?",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
     "applicantParentAdoptedOut": {
-      "required": "Select ‘Yes’ if {{ applicantName }}’s parent was adopted out of {{ deceasedName }}’s family"
+      "required": "Select ‘Yes’ if {applicantName}’s parent was adopted out of {deceasedName}’s family"
     }
   }
 }

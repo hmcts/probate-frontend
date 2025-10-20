@@ -57,23 +57,14 @@ exports.config = {
         },
     },
     mocha: {
-        reporter: 'mocha-multi',
+        reporter: 'mochawesome',
         reporterOptions: {
-            'codeceptjs-cli-reporter': {
-                stdout: '-',
-                options: {steps: true}
-            },
-            mochawesome: {
-                stdout: './functional-output/console.log',
-                options: {
-                    reportDir: './temp-reports',
-                    reportFilename: 'report-[name]',
-                    inlineAssets: true,
-                    overwrite: false,
-                    html: false,
-                    json: true,
-                }
-            }
+            reportDir: './temp-reports',
+            reportFilename: 'report-[name]',
+            inlineAssets: true,
+            overwrite: false,
+            html: false,
+            json: true,
         }
     },
     bootstrap: TestConfigurator.bootStrapTestSuite(),

@@ -1,21 +1,19 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const CoApplicantParentAdoptedIn = require('app/steps/ui/executors/parentadoptedin');
-const CoApplicantEmail = require('app/steps/ui/executors/coapplicantemail');
 const CoApplicantAdoptionPlace = require('app/steps/ui/executors/adoptionplace');
+const CoApplicantAdoptedOut = require('app/steps/ui/executors/adoptedout');
+const CoApplicantAdoptedIn = require('app/steps/ui/executors/adoptedin');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes= require('app/utils/CaseTypes');
-const StopPage = require('../../../app/steps/ui/stoppage');
 
-describe('coapplicant-adoption-place', () => {
+describe('coapplicant-adopted-in', () => {
     let testWrapper, sessionData;
-    const expectedNextUrlForCoApplicantCoApplicantParentAdoptedIn = CoApplicantParentAdoptedIn.getUrl(2);
-    const expectedNextUrlForCoApplicantEmail = CoApplicantEmail.getUrl(1);
-    const expectedNextUrlForStopPage = StopPage.getUrl('coApplicantAdoptionPlaceStop');
+    const expectedNextUrlForCoApplicantAdoptionPlace = CoApplicantAdoptionPlace.getUrl(1);
+    const expectedNextUrlForCoApplicantAdoptedOut = CoApplicantAdoptedOut.getUrl(1);
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('CoApplicantAdoptionPlace');
+        testWrapper = new TestWrapper('CoApplicantAdoptedIn');
         sessionData = {
             caseType: caseTypes.INTESTACY,
             applicantName: 'First coApplicant',
@@ -32,7 +30,7 @@ describe('coapplicant-adoption-place', () => {
             },
             executors: {
                 list: [
-                    {fullName: 'Main Applicant', isApplicant: true},
+                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionChild', isApplicant: true},
                     {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionChild', isApplicant: true},
                     {fullName: 'Second coApplicant', coApplicantRelationshipToDeceased: 'optionGrandchild', isApplicant: true}
                 ]
@@ -46,17 +44,18 @@ describe('coapplicant-adoption-place', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('CoApplicantAdoptionPlace', null, null, [],
-            false, {type: caseTypes.INTESTACY}, CoApplicantAdoptionPlace.getUrl(1));
+            false, {type: caseTypes.INTESTACY}, CoApplicantAdoptedIn.getUrl(1));
         it('test content loaded on the page', (done) => {
-            testWrapper.pageUrl = CoApplicantAdoptionPlace.getUrl(1);
+            testWrapper.pageUrl = CoApplicantAdoptedIn.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done);
+                    testWrapper.testContent(done, {deceasedName: 'John Doe', applicantName: 'First coApplicant'});
                 });
         });
+
         it('test errors message displayed for missing data', (done) => {
-            testWrapper.pageUrl = CoApplicantAdoptionPlace.getUrl(1);
+            testWrapper.pageUrl = CoApplicantAdoptedIn.getUrl(1);
             const data= {
                 type: caseTypes.INTESTACY,
                 applicantName: 'First coApplicant',
@@ -70,41 +69,29 @@ describe('coapplicant-adoption-place', () => {
             testWrapper.testErrors(done, data, 'required');
         });
 
-        it(`test it redirects to any other children page if co-applicant is adopted in England or Wales: ${expectedNextUrlForCoApplicantEmail}`, (done) => {
-            testWrapper.pageUrl = CoApplicantAdoptionPlace.getUrl(1);
+        it(`test it redirects to CoApplicant Adoption place page if child is adopted in: ${expectedNextUrlForCoApplicantAdoptionPlace}`, (done) => {
+            testWrapper.pageUrl = CoApplicantAdoptedIn.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        adoptionPlace: 'optionYes'
+                        adoptedIn: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantEmail);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantAdoptionPlace);
                 });
         });
 
-        it(`test it redirects to any other children page if co-applicant is adopted in England or Wales: ${expectedNextUrlForCoApplicantCoApplicantParentAdoptedIn}`, (done) => {
-            testWrapper.pageUrl = CoApplicantAdoptionPlace.getUrl(2);
+        it(`test it redirects to CoApplicant Adoption place page if child is adopted out: ${expectedNextUrlForCoApplicantAdoptedOut}`, (done) => {
+            testWrapper.pageUrl = CoApplicantAdoptedIn.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        adoptionPlace: 'optionYes'
+                        adoptedIn: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantCoApplicantParentAdoptedIn);
-                });
-        });
-        it(`test it redirects to stop page if co-applicant is not adopted in England or Wales: ${expectedNextUrlForStopPage}`, (done) => {
-            testWrapper.pageUrl = CoApplicantAdoptionPlace.getUrl(1);
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        adoptionPlace: 'optionNo'
-                    };
-
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantAdoptedOut);
                 });
         });
     });

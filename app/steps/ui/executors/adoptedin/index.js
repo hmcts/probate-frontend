@@ -39,7 +39,7 @@ class CoApplicantAdoptedIn extends ValidationStep {
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
         if (fields.deceasedName && errors) {
-            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value).replace('{applicantName}', fields.applicantName.value);
         }
         return fields;
     }
@@ -51,12 +51,12 @@ class CoApplicantAdoptedIn extends ValidationStep {
         return `/coapplicant-adopted-out/${ctx.index}`;
     }
 
-    handlePost(ctx, errors, formdata) {
+    handlePost(ctx, errors) {
         if (ctx.list[ctx.index].coApplicantRelationshipToDeceased==='optionChild') {
-            formdata.executors.list[ctx.index].childAdoptedIn=ctx.adoptedIn;
+            ctx.list[ctx.index].childAdoptedIn=ctx.adoptedIn;
         }
         if (ctx.list[ctx.index].coApplicantRelationshipToDeceased==='optionGrandchild') {
-            formdata.executors.list[ctx.index].grandchildAdoptedIn=ctx.adoptedIn;
+            ctx.list[ctx.index].grandchildAdoptedIn=ctx.adoptedIn;
         }
         return [ctx, errors];
     }

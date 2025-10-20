@@ -64,12 +64,12 @@ class CoApplicantAdoptedOut extends ValidationStep {
         };
     }
 
-    handlePost(ctx, errors, formdata) {
+    handlePost(ctx, errors) {
         if (ctx.list[ctx.index].coApplicantRelationshipToDeceased==='optionChild') {
-            formdata.executors.list[ctx.index].childAdoptedOut=ctx.adoptedOut;
+            ctx.list[ctx.index].childAdoptedOut=ctx.adoptedOut;
         }
         if (ctx.list[ctx.index].coApplicantRelationshipToDeceased==='optionGrandchild') {
-            formdata.executors.list[ctx.index].grandchildAdoptedOut=ctx.adoptedOut;
+            ctx.list[ctx.index].grandchildAdoptedOut=ctx.adoptedOut;
         }
         return [ctx, errors];
     }

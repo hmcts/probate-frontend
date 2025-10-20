@@ -61,7 +61,7 @@ exports.config = {
     },
     mocha: {
         timeout: 7200000,
-        reporter: 'mochawesome'
+        reporter: 'mocha-multi'
     },
     bootstrap: TestConfigurator.bootStrapTestSuite(),
     multiple: {

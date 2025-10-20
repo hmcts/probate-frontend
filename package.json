@@ -175,7 +175,7 @@
     "eslint-plugin-mocha": "^11.0.0",
     "if-env": "^1.0.4",
     "ip": "^2.0.1",
-    "mocha": "11.2.0",
+    "mocha": "^11.0.0",
     "mocha-multi": "^1.1.7",
     "mochawesome": "7.1.4",
     "mochawesome-merge": "^5.0.0",

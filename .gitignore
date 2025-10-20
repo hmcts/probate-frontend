@@ -24,6 +24,7 @@ git.properties.json
 /mochawesome-report
 /config/dev.yaml
 /functional-output/
+temp-reports/
 dump.rdb
 .nyc_output/
 

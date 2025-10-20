@@ -68,7 +68,7 @@ class Declaration extends ValidationStep {
                         throw new ReferenceError('Error reset agreed flags');
                     } else {
                         formdata.executors.list = ctx.executorsWrapper.removeAgreedFlag();
-                        formdata.declaration.hasDataChanged = false;
+                        formdata.declaration.hasDataChanged = 'false';
                     }
                 });
         }

@@ -61,8 +61,7 @@ exports.config = {
     },
     mocha: {
         timeout: 7200000,
-        reporter: 'mochawesome',
-        reporterOptions: 'reportDir=temp-reports,reportFilename=report-[name],overwrite=false,json=true,html=false'
+        reporter: 'mochawesome'
     },
     bootstrap: TestConfigurator.bootStrapTestSuite(),
     multiple: {

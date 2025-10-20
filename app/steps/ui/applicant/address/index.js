@@ -30,7 +30,7 @@ class ApplicantAddress extends AddressStep {
             (ctx.deceased.anyOtherChildren === 'optionYes' &&
                 ctx.deceased.anyPredeceasedChildren === 'optionYesAll' &&
                 ctx.deceased.anySurvivingGrandchildren === 'optionNo') ||
-            (ctx.deceased.anyOtherChildren === 'optionNo')
+            (ctx.deceased.anyOtherChildren === 'optionNo') || (typeof ctx.deceased.anyOtherChildren === 'undefined')
         );
         ctx.hasCoApplicant = ctx.caseType === caseTypes.INTESTACY && !ctx.hasNoCoApplicant;
 

@@ -125,17 +125,9 @@ describe('CoApplicantAdoptionPlace', () => {
                 ]
             };
             const errors = [];
-            const formdata = {
-                executors: {
-                    list: [
-                        {},
-                        {},
-                        {}
-                    ]
-                }
-            };
-            CoApplicantAdoptionPlace.handlePost(ctx, errors, formdata);
-            expect(formdata.executors.list[1]).to.deep.equal({'childAdoptionInEnglandOrWales': 'optionYes'});
+            CoApplicantAdoptionPlace.handlePost(ctx, errors);
+            expect(ctx.list[1]).to.deep.equal({'childAdoptionInEnglandOrWales': 'optionYes',
+                coApplicantRelationshipToDeceased: 'optionChild'});
         });
         it('should grandchildAdoptionInEnglandOrWales = optionYes if coApplicantRelationshipToDeceased is grandchild', () => {
             const ctx = {
@@ -148,17 +140,9 @@ describe('CoApplicantAdoptionPlace', () => {
                 ]
             };
             const errors = [];
-            const formdata = {
-                executors: {
-                    list: [
-                        {},
-                        {},
-                        {}
-                    ]
-                }
-            };
-            CoApplicantAdoptionPlace.handlePost(ctx, errors, formdata);
-            expect(formdata.executors.list[2]).to.deep.equal({'grandchildAdoptionInEnglandOrWales': 'optionYes'});
+            CoApplicantAdoptionPlace.handlePost(ctx, errors);
+            expect(ctx.list[2]).to.deep.equal({'grandchildAdoptionInEnglandOrWales': 'optionYes',
+                coApplicantRelationshipToDeceased: 'optionGrandchild'});
         });
     });
 });

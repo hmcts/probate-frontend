@@ -164,17 +164,9 @@ describe('CoApplicantAdoptedOut', () => {
                 ]
             };
             const errors = [];
-            const formdata = {
-                executors: {
-                    list: [
-                        {},
-                        {},
-                        {}
-                    ]
-                }
-            };
-            CoApplicantAdoptedOut.handlePost(ctx, errors, formdata);
-            expect(formdata.executors.list[1]).to.deep.equal({'childAdoptedOut': 'optionNo'});
+            CoApplicantAdoptedOut.handlePost(ctx, errors);
+            expect(ctx.list[1]).to.deep.equal({'childAdoptedOut': 'optionNo',
+                coApplicantRelationshipToDeceased: 'optionChild'});
         });
         it('should adoptedOut = optionNo if coApplicantRelationshipToDeceased is grandchild', () => {
             const ctx = {
@@ -187,17 +179,9 @@ describe('CoApplicantAdoptedOut', () => {
                 ]
             };
             const errors = [];
-            const formdata = {
-                executors: {
-                    list: [
-                        {},
-                        {},
-                        {}
-                    ]
-                }
-            };
-            CoApplicantAdoptedOut.handlePost(ctx, errors, formdata);
-            expect(formdata.executors.list[2]).to.deep.equal({'grandchildAdoptedOut': 'optionNo'});
+            CoApplicantAdoptedOut.handlePost(ctx, errors);
+            expect(ctx.list[2]).to.deep.equal({'grandchildAdoptedOut': 'optionNo',
+                coApplicantRelationshipToDeceased: 'optionGrandchild'});
         });
     });
 });

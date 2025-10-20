@@ -97,17 +97,9 @@ describe('CoApplicantAdoptedIn', () => {
                 ]
             };
             const errors = [];
-            const formdata = {
-                executors: {
-                    list: [
-                        {},
-                        {},
-                        {}
-                    ]
-                }
-            };
-            CoApplicantAdoptedIn.handlePost(ctx, errors, formdata);
-            expect(formdata.executors.list[1]).to.deep.equal({'childAdoptedIn': 'optionYes'});
+            CoApplicantAdoptedIn.handlePost(ctx, errors);
+            expect(ctx.list[1]).to.deep.equal({'childAdoptedIn': 'optionYes',
+                coApplicantRelationshipToDeceased: 'optionChild'});
         });
         it('should optionGrandchild = optionYes if coApplicantRelationshipToDeceased is Child', () => {
             const ctx = {
@@ -120,17 +112,9 @@ describe('CoApplicantAdoptedIn', () => {
                 ]
             };
             const errors = [];
-            const formdata = {
-                executors: {
-                    list: [
-                        {},
-                        {},
-                        {}
-                    ]
-                }
-            };
-            CoApplicantAdoptedIn.handlePost(ctx, errors, formdata);
-            expect(formdata.executors.list[2]).to.deep.equal({'grandchildAdoptedIn': 'optionYes'});
+            CoApplicantAdoptedIn.handlePost(ctx, errors);
+            expect(ctx.list[2]).to.deep.equal({'grandchildAdoptedIn': 'optionYes',
+                coApplicantRelationshipToDeceased: 'optionGrandchild'});
         });
     });
     describe('generateFields()', () => {
@@ -138,6 +122,7 @@ describe('CoApplicantAdoptedIn', () => {
             const ctx = {
                 language: 'en',
                 deceasedName: 'John Doe',
+                applicantName: 'Main Applicant1',
             };
             const errors = [
                 {
@@ -161,6 +146,10 @@ describe('CoApplicantAdoptedIn', () => {
                 deceasedName: {
                     error: false,
                     value: 'John Doe'
+                },
+                applicantName: {
+                    error: false,
+                    value: 'Main Applicant1'
                 }
             });
             done();

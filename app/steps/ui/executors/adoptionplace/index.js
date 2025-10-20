@@ -57,11 +57,11 @@ class CoApplicantAdoptionPlace extends ValidationStep {
     }
 
     handlePost(ctx, errors) {
-        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased ==='optionChild') {
-            ctx.list[ctx.index].childAdoptionInEnglandOrWales=ctx.adoptionPlace;
+        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild') {
+            ctx.list[ctx.index].childAdoptionInEnglandOrWales = ctx.adoptionPlace;
         }
-        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased ==='optionGrandchild') {
-            ctx.list[ctx.index].grandchildAdoptionInEnglandOrWales=ctx.adoptionPlace;
+        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
+            ctx.list[ctx.index].grandchildAdoptionInEnglandOrWales = ctx.adoptionPlace;
         }
         return [ctx, errors];
     }

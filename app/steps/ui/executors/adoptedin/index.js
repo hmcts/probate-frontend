@@ -52,11 +52,11 @@ class CoApplicantAdoptedIn extends ValidationStep {
     }
 
     handlePost(ctx, errors) {
-        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased==='optionChild') {
-            ctx.list[ctx.index].childAdoptedIn=ctx.adoptedIn;
+        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild') {
+            ctx.list[ctx.index].childAdoptedIn = ctx.adoptedIn;
         }
-        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased==='optionGrandchild') {
-            ctx.list[ctx.index].grandchildAdoptedIn=ctx.adoptedIn;
+        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
+            ctx.list[ctx.index].grandchildAdoptedIn = ctx.adoptedIn;
         }
         return [ctx, errors];
     }

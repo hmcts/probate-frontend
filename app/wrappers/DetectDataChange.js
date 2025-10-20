@@ -22,7 +22,7 @@ class DetectDataChanges {
             step.schemaFile.id !== executorsInviteSchema.$id &&
             formdata[step.section] &&
             formdata.declaration &&
-            !formdata.declaration.hasDataChanged
+            (!formdata.declaration.hasDataChanged || formdata.declaration.hasDataChanged === 'false')
         ) {
             if (step.section === 'executors') {
                 const index = (req.params && !isNaN(req.params[0])) ? req.params[0] : req.session.indexPosition;

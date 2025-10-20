@@ -1,13 +1,12 @@
 {
-  "question": "Did this person&rsquo;s parent ({{ deceasedName }}&rsquo;s child) die before {{ deceasedName }}?",
-  "hintText": "{{ deceasedName }}&rsquo;s grandchildren are only entitled to apply if their parent ({{ deceasedName }}&rsquo;s child) died before {{ deceasedName }}.",
+  "question": "Did this person&rsquo;s parent ({deceasedName}’s child) die before {deceasedName}?",
+  "hintText": "{deceasedName}&rsquo;s grandchildren are only entitled to apply if their parent ({deceasedName}&rsquo;s child) died before {deceasedName}.",
   "optionYes": "Yes",
   "optionNo": "No",
-  "theDeceased": "the deceased",
 
   "errors": {
     "applicantParentDieBeforeDeceased": {
-      "required": "Select &lsquo;Yes&rsquo; if this person’s parent died before {{ deceasedName }}"
+      "required": "Select &lsquo;Yes&rsquo; if this person’s parent died before {deceasedName}"
     }
   }
 }

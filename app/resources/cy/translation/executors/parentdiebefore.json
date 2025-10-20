@@ -1,13 +1,12 @@
 {
-  "question": "A fu farw rhiant yr unigolyn hwn (plentyn {{ deceasedName }}) cyn {{ deceasedName }}?",
-  "hintText": "dim ond os bu farw eu rhiant (plentyn {{ deceasedName }}) cyn {{ deceasedName }} y mae wyrion a wyresau {{ deceasedName }} yn gymwys i wneud cais.",
+  "question": "A fu farw rhiant yr unigolyn hwn (plentyn {deceasedName}) cyn {deceasedName}?",
+  "hintText": "dim ond os bu farw eu rhiant (plentyn {deceasedName}) cyn {deceasedName} y mae wyrion a wyresau {deceasedName} yn gymwys i wneud cais.",
   "optionYes": "Do",
   "optionNo": "Naddo",
-  "theDeceased": "the deceased",
 
   "errors": {
     "applicantParentDieBeforeDeceased": {
-      "required": "Select &lsquo;Yes&rsquo; if this person’s parent died before {{ deceasedName }}"
+      "required": "Select &lsquo;Yes&rsquo; if this person’s parent died before {deceasedName}"
     }
   }
 }

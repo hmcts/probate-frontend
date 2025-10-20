@@ -60,7 +60,7 @@ class ParentAdoptedOut extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
-        formdata.executors.list[ctx.index].childAdoptedOut=ctx.applicantParentAdoptedOut;
+        formdata.executors.list[ctx.index].childAdoptedOut = ctx.applicantParentAdoptedOut;
         return [ctx, errors];
     }
 }

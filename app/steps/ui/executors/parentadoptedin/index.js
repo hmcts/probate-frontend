@@ -60,7 +60,7 @@ class ParentAdoptedIn extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
-        formdata.executors.list[ctx.index].childAdoptedIn=ctx.applicantParentAdoptedIn;
+        formdata.executors.list[ctx.index].childAdoptedIn = ctx.applicantParentAdoptedIn;
         return [ctx, errors];
     }
 }

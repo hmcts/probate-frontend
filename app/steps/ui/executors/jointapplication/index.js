@@ -44,7 +44,8 @@ class JointApplication extends ValidationStep {
             executor.childAdoptionInEnglandOrWales !== 'optionNo' &&
             executor.grandchildAdoptionInEnglandOrWales !== 'optionNo' &&
             executor.childAdoptedOut !== 'optionYes' &&
-            executor.grandchildAdoptedOut !== 'optionYes'
+            executor.grandchildAdoptedOut !== 'optionYes' &&
+            executor.childDieBeforeDeceased !== 'optionNo'
         );
         ctx.executorsNumber = ctx.list.length;
         const applicant = formdata.applicant;

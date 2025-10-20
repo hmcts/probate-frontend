@@ -103,7 +103,7 @@ class UIStepRunner {
 
                     if (hasDataChanged) {
                         formdata.declaration.declarationCheckbox = 'false';
-                        formdata.declaration.hasDataChanged = true;
+                        formdata.declaration.hasDataChanged = 'true';
                     }
                     let errorOccurred = false;
                     if ((get(formdata, 'ccdCase.state') === 'Pending' || get(formdata, 'ccdCase.state') === 'CasePaymentFailed' || get(formdata, 'ccdCase.state') === 'BOCaseStopped') && session.regId && step.shouldPersistFormData()) {

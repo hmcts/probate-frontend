@@ -35,9 +35,6 @@ exports.config = {
         },
         IDAMHelper: {
             require: './helpers/IDAMHelper.js'
-        },
-        Mochawesome: {
-            uniqueScreenshotNames: 'true'
         }
     },
     include: {
@@ -60,6 +57,7 @@ exports.config = {
         },
     },
     mocha: {
+        reporter: 'mocha-multi',
         reporterOptions: {
             'codeceptjs-cli-reporter': {
                 stdout: '-',
@@ -69,6 +67,7 @@ exports.config = {
                 stdout: './functional-output/console.log',
                 options: {
                     reportDir: './temp-reports',
+                    reportFilename: 'report-[name]',
                     inlineAssets: true,
                     overwrite: false,
                     html: false,

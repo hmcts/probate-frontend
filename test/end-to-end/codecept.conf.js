@@ -57,14 +57,17 @@ exports.config = {
         },
     },
     mocha: {
-        reporter: 'mochawesome',
+        reporter: 'mocha-multi-reporters',
         reporterOptions: {
-            reportDir: './functional-output',
-            reportFilename: 'mochawesome',
-            inlineAssets: true,
-            overwrite: false,
-            html: false,
-            json: true
+            reporterEnabled: 'spec, mochawesome',
+            mochawesomeReporterOptions: {
+                reportDir: './functional-output',
+                reportFilename: 'mochawesome',
+                inlineAssets: true,
+                overwrite: false,
+                html: false,
+                json: true
+            }
         }
     },
     bootstrap: TestConfigurator.bootStrapTestSuite(),

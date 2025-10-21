@@ -60,17 +60,17 @@ exports.config = {
         },
     },
     mocha: {
-        'codeceptjs-cli-reporter': {
-            stdout: '-',
-            options: {steps: true}
-        },
-        'mocha-junit-reporter': {
-            stdout: '-',
-            options: {mochaFile: './functional-output/result.xml'}
-        },
-        mochawesome: {
-            stdout: './functional-output/console.log',
-            options: {
+        reporter: 'mocha-multi-reporters', // ADD THIS LINE
+        reporterOptions: {
+            reporterEnabled: 'codeceptjs-cli-reporter, mocha-junit-reporter, mochawesome',
+            codeceptjsCliReporterReporterOptions: {
+                stdout: '-',
+                options: {steps: true}
+            },
+            mochaJunitReporterReporterOptions: {
+                mochaFile: './functional-output/result.xml'
+            },
+            mochawesomeReporterOptions: {
                 reportDir: testConfig.TestOutputDir || './functional-output',
                 reportName: 'index',
                 inlineAssets: true

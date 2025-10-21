@@ -22,7 +22,10 @@ describe('coapplicant-relationship-to-deceased', () => {
             },
             deceased: {
                 firstName: 'John',
-                lastName: 'Doe'
+                lastName: 'Doe',
+                anyOtherChildren: 'optionYes',
+                anyPredeceasedChildren: 'optionYesSome',
+                anySurvivingGrandchildren: 'optionYes'
             },
             applicant: {
                 'firstName': 'Bobby',

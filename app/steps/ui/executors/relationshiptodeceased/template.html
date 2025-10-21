@@ -16,7 +16,7 @@
     }), answers) %}
 {% endif %}
 
-
+{% if fields.grandChildOnly.value == "true"%}
 {% set answers = (answers.push({
     value: "optionGrandchild",
     text: content["optionGrandchild"] | safe,
@@ -25,6 +25,7 @@
         text: content["optionGrandchildHintText"] | replace("{deceasedName}", fields.deceasedName.value) | safe
     }
 }), answers) %}
+{% endif %}
 
 {% set answers = (answers.push({
     value: "optionOther",

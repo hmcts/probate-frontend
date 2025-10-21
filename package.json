@@ -68,7 +68,7 @@
     "eslint": "NODE_PATH=. eslint .",
     "test:functional": "NODE_ENV=test yarn test-contract && NODE_ENV=test yarn test-e2e-http-launch-darkly",
     "test:fullfunctional": "yarn playwright install && DONT_FAIL_ON_EMPTY_RUN=1 NODE_ENV=test-dk NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly'",
-    "test:fullfunctional-pr": "yarn playwright install && DONT_FAIL_ON_EMPTY_RUN=1 NODE_ENV=test NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly-pr' || true && echo 'Tests completed. Checking for reports...' && find ./functional-output -name '*.json' -type f && yarn merge-reports",
+    "test:fullfunctional-pr": "yarn playwright install && DONT_FAIL_ON_EMPTY_RUN=1 NODE_ENV=test NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/codecept.e2e.conf.js --steps --grep '@e2enightly-pr' || true && echo 'Tests completed. Checking for reports...' && find ./functional-output -name '*.json' -type f && yarn merge-reports",
     "merge-reports": "bash bin/merge-reports.sh",
     "test:fullfunctional:dev-aat:single": "TEST_HEADLESS=false NODE_ENV=dev-aat NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --verbose --grep '@runningNow'",
     "test:fullfunctional:dev-aat:parallel": "TEST_HEADLESS=true DONT_FAIL_ON_EMPTY_RUN=1 NODE_ENV=dev-aat NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly'",

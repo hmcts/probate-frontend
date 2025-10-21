@@ -35,9 +35,6 @@ exports.config = {
         },
         IDAMHelper: {
             require: './helpers/IDAMHelper.js'
-        },
-        Mochawesome: {
-            uniqueScreenshotNames: 'true'
         }
     },
     include: {
@@ -60,21 +57,14 @@ exports.config = {
         },
     },
     mocha: {
-        'codeceptjs-cli-reporter': {
-            stdout: '-',
-            options: {steps: true}
-        },
-        'mocha-junit-reporter': {
-            stdout: '-',
-            options: {mochaFile: './functional-output/result.xml'}
-        },
-        mochawesome: {
-            stdout: './functional-output/console.log',
-            options: {
-                reportDir: testConfig.TestOutputDir || './functional-output',
-                reportName: 'index',
-                inlineAssets: true
-            }
+        reporter: 'mochawesome',
+        reporterOptions: {
+            reportDir: './functional-output',
+            reportFilename: 'mochawesome',
+            inlineAssets: true,
+            overwrite: false,
+            html: false,
+            json: true
         }
     },
     bootstrap: TestConfigurator.bootStrapTestSuite(),
@@ -84,5 +74,5 @@ exports.config = {
             browsers: ['chrome']
         }
     },
-    name: 'Probate FE Test'
+    name: 'Probate FE E2E Test'
 };

@@ -58,14 +58,7 @@ exports.config = {
     },
     mocha: {
         reporter: 'mochawesome',
-        reporterOptions: {
-            reportDir: './temp-reports',
-            reportFilename: 'report-[name]',
-            inlineAssets: true,
-            overwrite: false,
-            html: false,
-            json: true,
-        }
+        reporterOptions: {reporterOptions: 'reportDir=./temp-reports,reportFilename=report-[name],inlineAssets=true,overwrite=false,html=false,json=true'}
     },
     bootstrap: TestConfigurator.bootStrapTestSuite(),
     multiple: {

@@ -74,5 +74,5 @@ exports.config = {
             browsers: ['chrome']
         }
     },
-    name: 'Probate FE Tests'
+    name: 'Probate FE Test'
 };

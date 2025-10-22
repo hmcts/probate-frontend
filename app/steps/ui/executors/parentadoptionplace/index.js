@@ -13,7 +13,7 @@ class ParentAdoptionPlace extends ValidationStep {
 
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
-            ctx.applicantParentAdoptionPlace = ctx.list[ctx.index].childAdoptionInEnglandOrWales;
+            ctx.applicantParentAdoptionPlace = ctx.list[ctx.index].grandchildParentAdoptionInEnglandOrWales;
         }
         return [ctx];
     }
@@ -52,7 +52,7 @@ class ParentAdoptionPlace extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
-        formdata.executors.list[ctx.index].childAdoptionInEnglandOrWales=ctx.applicantParentAdoptionPlace;
+        formdata.executors.list[ctx.index].grandchildParentAdoptionInEnglandOrWales = ctx.applicantParentAdoptionPlace;
         return [ctx, errors];
     }
 }

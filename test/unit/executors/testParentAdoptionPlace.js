@@ -114,7 +114,7 @@ describe('ParentAdoptionPlace', () => {
                 }
             };
             ParentAdoptionPlace.handlePost(ctx, errors, formdata);
-            expect(formdata.executors.list[1]).to.deep.equal({'childAdoptionInEnglandOrWales': 'optionYes'});
+            expect(formdata.executors.list[1]).to.deep.equal({'grandchildParentAdoptionInEnglandOrWales': 'optionYes'});
         });
     });
 });

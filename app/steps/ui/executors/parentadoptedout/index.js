@@ -13,7 +13,7 @@ class ParentAdoptedOut extends ValidationStep {
 
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
-            ctx.applicantParentAdoptedOut = ctx.list[ctx.index].childAdoptedOut;
+            ctx.applicantParentAdoptedOut = ctx.list[ctx.index].grandchildParentAdoptedOut;
         }
         return [ctx];
     }
@@ -60,7 +60,7 @@ class ParentAdoptedOut extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
-        formdata.executors.list[ctx.index].childAdoptedOut = ctx.applicantParentAdoptedOut;
+        formdata.executors.list[ctx.index].grandchildParentAdoptedOut = ctx.applicantParentAdoptedOut;
         return [ctx, errors];
     }
 }

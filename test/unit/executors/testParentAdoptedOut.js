@@ -153,7 +153,7 @@ describe('ParentAdoptedOut', () => {
                 }
             };
             ParentAdoptedOut.handlePost(ctx, errors, formdata);
-            expect(formdata.executors.list[1]).to.deep.equal({'childAdoptedOut': 'optionNo'});
+            expect(formdata.executors.list[1]).to.deep.equal({'grandchildParentAdoptedOut': 'optionNo'});
         });
     });
 });

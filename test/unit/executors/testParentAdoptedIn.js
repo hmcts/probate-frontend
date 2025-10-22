@@ -105,7 +105,7 @@ describe('ParentAdoptedIn', () => {
                 }
             };
             ParentAdoptedIn.handlePost(ctx, errors, formdata);
-            expect(formdata.executors.list[1]).to.deep.equal({'childAdoptedIn': 'optionYes'});
+            expect(formdata.executors.list[1]).to.deep.equal({'grandchildParentAdoptedIn': 'optionYes'});
         });
     });
     describe('ParentAdoptedIn generateFields()', () => {

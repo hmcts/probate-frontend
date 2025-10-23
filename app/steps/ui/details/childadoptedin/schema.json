@@ -1,13 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "child-adopted-in",
+  "$id": "adopted-in",
   "type": "object",
-  "properties": {
-    "childAdoptedIn": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "childAdoptedIn"
-  ]
+  "properties": {}
 }

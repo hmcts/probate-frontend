@@ -1,0 +1,50 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block form_content %}
+  {% set relationship = fields.relationshipToDeceased.value %}
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "childAdoptedIn",
+        name: "childAdoptedIn",
+        fieldset: {
+            legend: {
+                {% if relationship == "child" %}
+                text: content.childQuestion | replace("{deceasedName}", fields.deceasedName.value) | safe,
+                {% else %}
+                text: content.grandchildQuestion | replace("{deceasedName}", fields.deceasedName.value) | safe,
+                {% endif %}
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        {% if relationship == "child" %}
+            errorMessage: { text: fields.childAdoptedIn.errorMessage
+            | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.childAdoptedIn.errorMessage,
+            {% else %}
+            errorMessage: { text: fields.grandchildAdoptedIn.errorMessage
+            | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.grandchildAdoptedIn.errorMessage,
+        {% endif %}
+        items: [
+          {
+              value: "optionYes",
+              text: content["optionYes"] | safe,
+              checked: true if fields.childAdoptedIn.value == "optionYes"
+          },
+          {
+              value: "optionNo",
+              text: content["optionNo"] | safe,
+              checked: true if fields.childAdoptedIn.value == "optionNo"
+          }
+        ]
+}) }}
+
+<div class="govuk-form-group">
+  {{ govukButton({
+  text: common.saveAndContinue | safe,
+  preventDoubleClick: true
+  }) }}
+</div>
+{% endblock %}

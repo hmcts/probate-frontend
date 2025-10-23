@@ -1,12 +1,15 @@
 {
   "title": "A wnaeth yr unigolyn sydd wedi marw eich mabwysiadau&rsquo;n gyfreithlon i mewn i&rsquo;w teulu nhw?",
   "question": "A wnaeth {deceasedName} eich mabwysiadau&rsquo;n gyfreithlon i mewn i&rsquo;w teulu nhw?",
+  "childQuestion": "A wnaeth {deceasedName} eich mabwysiadau&rsquo;n gyfreithlon i mewn i&rsquo;w teulu nhw?",
+  "grandchildQuestion": "A wnaeth {deceasedName} fabwysiadu plentyn eich rhiant {{ deceased name }}) yn gyfreithlon?",
   "optionYes": "Do",
   "optionNo": "Naddo",
 
   "errors": {
-    "childAdoptedIn": {
-      "required": "Dewiswch &lsquo;Do&rsquo; os wnaeth {deceasedName} eich mabwysiadu&rsquo;n gyfreithlon"
+    "adoptedIn": {
+      "requiredChild": "Dewiswch &lsquo;Do&rsquo; os wnaeth {deceasedName} eich mabwysiadu&rsquo;n gyfreithlon",
+      "requiredGrandchild": "Select &lsquo;Yes&rsquo; if {deceasedName} legally adopted your parent"
     }
   }
 }

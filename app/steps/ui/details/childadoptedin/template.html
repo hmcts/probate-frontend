@@ -4,29 +4,29 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block form_content %}
+    {% set relationship = fields.relationshipToDeceased.value %}
     {{ govukRadios({
         classes: "govuk-radios--inline",
-        idPrefix: "childAdoptedIn",
-        name: "childAdoptedIn",
+        idPrefix: "adoptedIn",
+        name: "adoptedIn",
         fieldset: {
             legend: {
-                text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
+                text: (content.childQuestion if relationship == "optionChild" else content.grandchildQuestion)
+                    | replace("{deceasedName}", fields.deceasedName.value) | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.childAdoptedIn.errorMessage
-            | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.childAdoptedIn.errorMessage,
         items: [
             {
                 value: "optionYes",
                 text: content["optionYes"] | safe,
-                checked: true if fields.childAdoptedIn.value == "optionYes"
+                checked: true if fields.adoptedIn.value == "optionYes"
             },
             {
                 value: "optionNo",
                 text: content["optionNo"] | safe,
-                checked: true if fields.childAdoptedIn.value == "optionNo"
+                checked: true if fields.adoptedIn.value == "optionNo"
             }
         ]
     }) }}

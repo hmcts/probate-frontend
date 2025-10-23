@@ -1,12 +1,15 @@
 {
   "title": "Child adopted in",
   "question": "Did {deceasedName} legally adopt you into their family?",
+  "childQuestion": "Did {deceasedName} legally adopt you into their family?",
+  "grandchildQuestion": "Did {deceasedName} legally adopt your parent ({deceasedName}'s child)?",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
-    "childAdoptedIn": {
-      "required": "Select &lsquo;Yes&rsquo; if {deceasedName} legally adopted you"
+    "adoptedIn": {
+      "requiredChild": "Select &lsquo;Yes&rsquo; if {deceasedName} legally adopted you",
+      "requiredGrandchild": "Select &lsquo;Yes&rsquo; if {deceasedName} legally adopted your parent"
     }
   }
 }

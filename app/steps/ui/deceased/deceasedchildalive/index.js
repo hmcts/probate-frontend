@@ -3,10 +3,10 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
 
-class SpouseNotApplyingReason extends ValidationStep {
+class DeceasedChildAlive extends ValidationStep {
 
     static getUrl() {
-        return '/spouse-not-applying-reason';
+        return '/child-alive';
     }
 
     getContextData(req) {
@@ -17,16 +17,13 @@ class SpouseNotApplyingReason extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('spouseNotApplying');
+        return this.next(req, ctx).constructor.getUrl('deceasedChildNotAlive');
     }
 
-    nextStepOptions(ctx) {
-        ctx.childAndSpouseNotApplying = ctx.relationshipToDeceased === 'optionChild' && ctx.spouseNotApplyingReason === 'optionRenouncing';
-        ctx.grandchildAndSpouseNotApplying = ctx.relationshipToDeceased === 'optionGrandchild' && ctx.spouseNotApplyingReason === 'optionRenouncing';
+    nextStepOptions() {
         return {
             options: [
-                {key: 'childAndSpouseNotApplying', value: true, choice: 'childAndSpouseNotApplying'},
-                {key: 'grandchildAndSpouseNotApplying', value: true, choice: 'grandchildAndSpouseNotApplying'},
+                {key: 'childAlive', value: 'optionNo', choice: 'childNotAlive'},
             ]
         };
     }
@@ -40,4 +37,4 @@ class SpouseNotApplyingReason extends ValidationStep {
     }
 }
 
-module.exports = SpouseNotApplyingReason;
+module.exports = DeceasedChildAlive;

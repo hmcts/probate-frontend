@@ -1,6 +1,7 @@
 {
   "title": "Child adopted out",
-  "question": "Did {deceasedName} legally adopt you out of their family (give you up for adoption)?",
+  "childQestion": "Did {deceasedName} legally adopt you out of their family (give you up for adoption)?",
+  "grandchildQuestion": "Did {deceasedName} legally adopt your parent ({deceasedName}’s child) out of their family (give them up for adoption)?",
   "optionYes": "Yes",
   "optionNo": "No",
 

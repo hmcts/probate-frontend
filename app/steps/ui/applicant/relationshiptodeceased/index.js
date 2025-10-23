@@ -73,10 +73,15 @@ class RelationshipToDeceased extends ValidationStep {
         delete ctx.childDeceasedNotMarried;
         delete ctx.deceasedMaritalStatus;
         delete ctx.ihtThreshold;
+        delete ctx.childAdoptedIn;
 
         if (formdata.applicant && formdata.applicant.relationshipToDeceased && ctx.relationshipToDeceased !== formdata.applicant.relationshipToDeceased) {
             delete ctx.adoptionPlace;
             delete ctx.spouseNotApplyingReason;
+            if (formdata.details) {
+                delete formdata.details.childAdoptedIn;
+                delete formdata.details.grandchildParentAdoptedIn;
+            }
 
             if (formdata.deceased) {
                 delete formdata.deceased.anyChildren;

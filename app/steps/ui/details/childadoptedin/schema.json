@@ -3,11 +3,5 @@
   "$id": "child-adopted-in",
   "type": "object",
   "properties": {
-    "childAdoptedIn": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "childAdoptedIn"
-  ]
+  }
 }

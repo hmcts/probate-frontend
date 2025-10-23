@@ -3,16 +3,17 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('../../../../utils/FormatName');
 
-class ChildAdoptedOut extends ValidationStep {
+class GrandchildAdoptedOut extends ValidationStep {
 
     static getUrl() {
-        return '/child-adopted-out';
+        return '/grandchild-adopted-out';
     }
 
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.relationshipToDeceased = formdata.applicant && formdata.applicant.relationshipToDeceased;
         return ctx;
     }
 
@@ -25,16 +26,16 @@ class ChildAdoptedOut extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('adoptedOut');
+        return this.next(req, ctx).constructor.getUrl('AnyOtherChildren');
     }
 
     nextStepOptions() {
         return {
             options: [
-                {key: 'childAdoptedOut', value: 'optionNo', choice: 'childAdoptedOut'},
+                {key: 'grandchildAdoptedOut', value: 'optionNo', choice: 'grandchildAdoptedOut'},
             ]
         };
     }
 }
 
-module.exports = ChildAdoptedOut;
+module.exports = GrandchildAdoptedOut;

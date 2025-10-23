@@ -157,10 +157,16 @@ const stepList = {
         adoptedChild: 'AdoptionPlace',
         spousePartnerLessThanIhtThreshold: 'ApplicantName',
         spousePartnerMoreThanIhtThreshold: 'AnyChildren',
+        grandchildOnly: 'DeceasedChildAlive',
         otherwise: 'StopPage'
     },
     SpouseNotApplyingReason: {
-        renouncing: 'ChildAdoptedIn',
+        childAndSpouseNotApplying: 'ChildAdoptedIn',
+        grandchildAndSpouseNotApplying: 'DeceasedChildAlive',
+        otherwise: 'StopPage'
+    },
+    DeceasedChildAlive: {
+        childNotAlive: 'ChildAdoptedIn',
         otherwise: 'StopPage'
     },
     ChildAdoptedIn: {
@@ -169,6 +175,19 @@ const stepList = {
     },
     ChildAdoptedOut: {
         childAdoptedOut: 'AnyOtherChildren',
+        grandchildAdoptedOut: 'GrandchildAdoptedIn',
+        otherwise: 'StopPage'
+    },
+    GrandchildAdoptedIn: {
+        grandchildAdoptedIn: 'GrandchildAdoptionPlace',
+        grandchildNotAdoptedIn: 'GrandchildAdoptedOut',
+    },
+    GrandchildAdoptedOut: {
+        GrandchildAdoptedOut: 'AnyOtherChildren',
+        otherwise: 'StopPage'
+    },
+    GrandchildAdoptionPlace: {
+        grandchildAdoptedInEnglandOrWales: 'AnyOtherChildren',
         otherwise: 'StopPage'
     },
     ChildAdoptionPlace: {
@@ -206,9 +225,37 @@ const stepList = {
         allGrandchildrenOver18AndAllPredeceasedChildren: 'ApplicantName',
         otherwise: 'StopPage'
     },
+    JointApplication: 'CoApplicantRelationshipToDeceased',
+    CoApplicantRelationshipToDeceased: {
+        optionChild: 'CoApplicantName',
+        optionGrandchild: 'ParentDieBefore',
+        otherwise: 'StopPage'
+    },
+    CoApplicantName: 'CoApplicantAdoptedIn',
+    CoApplicantAdoptedIn: {
+        adoptedIn: 'CoApplicantAdoptionPlace',
+        notAdoptedIn: 'CoApplicantAdoptedOut'
+    },
+    ParentDieBefore: {
+        parentDieBefore: 'CoApplicantName',
+        otherwise: 'StopPage'
+    },
+    AdoptedIn: 'CoApplicantName',
+    CoApplicantAdoptionPlace: 'ParentAdoptedIn',
+    CoApplicantAdoptedOut: 'ParentAdoptedIn',
+    ParentAdoptedIn: {
+        parentAdoptedIn: 'ParentAdoptionPlace',
+        notParentAdoptedIn: 'ParentAdoptedOut'
+    },
+    ParentAdoptedOut: 'JointApplication',
+    ParentAdoptionPlace: 'JointApplication',
     ApplicantName: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
-    ApplicantAddress: 'Equality',
+    ApplicantAddress: {
+        hasCoApplicant: 'JointApplication',
+        hasNoCoApplicant: 'Equality',
+        otherwise: 'Equality'
+    },
     Equality: 'Summary',
     Summary: 'TaskList',
     Declaration: 'TaskList',

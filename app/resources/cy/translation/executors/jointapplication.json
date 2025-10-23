@@ -1,0 +1,23 @@
+{
+  "title": "Pobl yn gwneud cais am brofiant",
+  "titleWithCodicil": "Executors named in the will and any codicils",
+  "question": "Ydych chi eisiau gwneud cais gyda rhywun arall?",
+  "hintText": "Os oes pobl eraill sydd â hawl i etifeddu, gallwch wneud cais ar y cyd gyda hyd at 3 ohonynt. \nByddant hefyd yn cael eu henwi ar y grant profiant.",
+  "hintTextDeceasedName": "All applicants will be given the legal right to deal with {{ deceasedName }}’s estate. This includes:",
+  "bullet1": "casglu asedau'r ystad (eiddo ac arian)",
+  "bullet2": "talu unrhyw drethi a dyledion",
+  "bullet3": "distributing what is left to the people entitled to it (the ‘beneficiaries’)",
+  "applicantExecutor" : "Ceisydd (chi)",
+  "furtherExecutor": "Ceisydd",
+  "optionYes": "Oes",
+  "optionNo": "Nac oes",
+  "removeAction": "Remove",
+
+  "errors": {
+    "executorsNamed": {
+      "required": "Select 'Yes' if there are more executors named in the will",
+      "requiredCodicils": "Select 'Yes' if there are more executors named in the will and any codicils",
+      "invalid": "Number of executors must be a whole number between 1 and 20"
+    }
+  }
+}

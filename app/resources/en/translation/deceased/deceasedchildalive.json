@@ -1,0 +1,12 @@
+{
+  "title": "Child Alive",
+  "question": "Is your parent ({deceasedName}'s child) alive?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "childAlive": {
+      "required": "Select &lsquo;Yes&rsquo; if ({deceasedName}'s child) is alive"
+    }
+  }
+}

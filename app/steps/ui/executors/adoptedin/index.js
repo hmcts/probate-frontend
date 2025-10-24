@@ -13,7 +13,12 @@ class CoApplicantAdoptedIn extends ValidationStep {
 
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
-            ctx.adoptedIn = ctx.list[ctx.index].childAdoptedIn;
+            if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild') {
+                ctx.adoptedIn = ctx.list[ctx.index].childAdoptedIn;
+            }
+            if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
+                ctx.adoptedIn = ctx.list[ctx.index].grandchildAdoptedIn;
+            }
         }
         return [ctx];
     }

@@ -13,7 +13,12 @@ class CoApplicantAdoptionPlace extends ValidationStep {
 
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
-            ctx.adoptionPlace = ctx.list[ctx.index].childAdoptionInEnglandOrWales;
+            if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild') {
+                ctx.adoptionPlace = ctx.list[ctx.index].childAdoptionInEnglandOrWales;
+            }
+            if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
+                ctx.adoptionPlace = ctx.list[ctx.index].grandchildAdoptionInEnglandOrWales;
+            }
         }
         return [ctx];
     }

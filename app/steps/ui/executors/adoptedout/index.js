@@ -13,7 +13,12 @@ class CoApplicantAdoptedOut extends ValidationStep {
 
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
-            ctx.adoptedOut = ctx.list[ctx.index].childAdoptedOut;
+            if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild') {
+                ctx.adoptedOut = ctx.list[ctx.index].childAdoptedOut;
+            }
+            if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
+                ctx.adoptedOut = ctx.list[ctx.index].grandchildAdoptedOut;
+            }
         }
         return [ctx];
     }

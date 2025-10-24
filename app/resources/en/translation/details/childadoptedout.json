@@ -1,0 +1,12 @@
+{
+  "title": "Child adopted out",
+  "question": "Did {deceasedName} legally adopt you out of their family (give you up for adoption)?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "childAdoptedOut": {
+      "required": "Select &lsquo;Yes&rsquo; if {deceasedName} gave you up for adoption"
+    }
+  }
+}

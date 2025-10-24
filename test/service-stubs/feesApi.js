@@ -31,7 +31,7 @@ router.get(`/fees-register${config.services.feesRegister.paths.feesLookup}`, (re
     case 'copies':
         feeAmountPerCopy = 0.5;
         if (req.query.keyword === 'NewFee') {
-            feeAmountPerCopy = 1.5;
+            feeAmountPerCopy = 16;
         }
         feeAmount = feeAmountPerCopy * req.query.amount_or_volume;
 

@@ -1,6 +1,6 @@
 {% extends "includes/layout.html" %}
 
-{% set tempContent = content[fields.stopReason.value] | replace("{deceasedName}", fields.deceasedName.value) | safe  %}
+{% set tempContent = content[fields.stopReason.value] | replace("{applicantName}", fields.applicantName.value) | replace("{deceasedName}", fields.deceasedName.value) | safe  %}
 
 {% block content %}
     <div class="govuk-grid-row">

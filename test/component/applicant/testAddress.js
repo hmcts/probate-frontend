@@ -2,13 +2,18 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorCheckWill = require('app/steps/ui/executors/checkwill');
+const JointApplication = require('app/steps/ui/executors/jointapplication');
+const Equality = require('app/steps/ui/equality');
 const formatAddress = address => address.replace(/,/g, ', ');
 const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes = require('../../../app/utils/CaseTypes');
 
 describe('applicant-address', () => {
     let testWrapper;
     let testAddressData;
-    const expectedNextUrlForExecsNumber = ExecutorCheckWill.getUrl();
+    const expectedNextUrlForExecutorCheckWill = ExecutorCheckWill.getUrl();
+    const expectedNextUrlForJointApplication = JointApplication.getUrl();
+    const expectedNextUrlForEquality = Equality.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ApplicantAddress');
@@ -46,14 +51,96 @@ describe('applicant-address', () => {
             testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
-        it(`test it redirects to number of executors page: ${expectedNextUrlForExecsNumber}`, (done) => {
+        it(`test it redirects to number of executors page: ${expectedNextUrlForExecutorCheckWill}`, (done) => {
             const data = {
                 addressLine1: 'value',
                 postTown: 'value',
                 newPostCode: 'value'
             };
 
-            testWrapper.testRedirect(done, data, expectedNextUrlForExecsNumber);
+            testWrapper.testRedirect(done, data, expectedNextUrlForExecutorCheckWill);
+        });
+
+        it(`test it redirects to  page: ${expectedNextUrlForJointApplication}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    anyOtherChildren: 'optionYes',
+                    anyPredeceasedChildren: 'optionYesSome',
+                    childrenOver18: 'optionYes',
+                }
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        fullName: 'CoApplicant',
+                        addressLine1: 'value',
+                        postTown: 'value',
+                        newPostCode: 'value',
+                        list: [
+                            {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
+                        ]};
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForJointApplication);
+                });
+        });
+
+        it(`test it redirects to  page: ${expectedNextUrlForEquality}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    anyOtherChildren: 'optionNo',
+                }
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        fullName: 'CoApplicant',
+                        addressLine1: 'value',
+                        postTown: 'value',
+                        newPostCode: 'value',
+                        list: [
+                            {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
+                        ]};
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForEquality);
+                });
+        });
+
+        it('test it redirects to  Eqaulity page when Predeceased children and no surviving children', (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    anyOtherChildren: 'optionYes',
+                    anyPredeceasedChildren: 'optionYesAll',
+                    anySurvivingGrandchildren: 'optionNo',
+                }
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        fullName: 'CoApplicant',
+                        addressLine1: 'value',
+                        postTown: 'value',
+                        newPostCode: 'value',
+                        list: [
+                            {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
+                        ]};
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForEquality);
+                });
         });
 
         it('test the address dropdown box displays all addresses when the user returns to the page', (done) => {

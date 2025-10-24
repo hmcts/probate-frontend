@@ -343,6 +343,24 @@ describe('stop-page', () => {
 
                 testWrapper.testContent(done, contentData, contentToExclude);
             });
+            it('test right content loaded on the page - co applicant relationship is others', (done) => {
+                testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('otherCoApplicantRelationship');
+                const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
+                const contentToInclude = ['eligibilityTitle', 'title', 'personCannotApplyByOnlineHeader', 'otherCoApplicantRelationship',
+                ];
+                const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
+
+                testWrapper.testContent(done, contentData, contentToExclude);
+            });
+            it('test right content loaded on the page - co applicant adopted out', (done) => {
+                testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('coApplicantAdoptedOutStop');
+                const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
+                const contentToInclude = ['eligibilityTitle', 'title', 'cannotApplyByOnlineHeader', 'coApplicantAdoptedOutStop',
+                ];
+                const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
+
+                testWrapper.testContent(done, contentData, contentToExclude);
+            });
         });
     });
 });

@@ -206,9 +206,57 @@ const stepList = {
         allGrandchildrenOver18AndAllPredeceasedChildren: 'ApplicantName',
         otherwise: 'StopPage'
     },
+    JointApplication: {
+        hasCoApplicant: 'CoApplicantRelationshipToDeceased',
+        hasNoCoApplicant: 'Equality',
+    },
+    CoApplicantRelationshipToDeceased: {
+        optionChild: 'CoApplicantName',
+        optionGrandchild: 'ParentDieBefore',
+        otherwise: 'StopPage'
+    },
+    RemoveCoApplicant: 'JointApplication',
+    CoApplicantName: 'CoApplicantAdoptedIn',
+    CoApplicantAdoptedIn: {
+        adoptedIn: 'CoApplicantAdoptionPlace',
+        notAdoptedIn: 'CoApplicantAdoptedOut'
+    },
+    ParentDieBefore: {
+        parentDieBefore: 'CoApplicantName',
+        otherwise: 'StopPage'
+    },
+    CoApplicantAdoptionPlace: {
+        childAdoptedInEnglandOrWales: 'CoApplicantEmail',
+        grandChildAdoptedInEnglandOrWales: 'ParentAdoptedIn',
+        otherwise: 'StopPage'
+    },
+    CoApplicantAdoptedOut: {
+        childNotAdoptedOut: 'CoApplicantEmail',
+        grandchildNotAdoptedOut: 'ParentAdoptedIn',
+        otherwise: 'StopPage'
+    },
+    ParentAdoptedIn: {
+        parentAdoptedIn: 'ParentAdoptionPlace',
+        notParentAdoptedIn: 'ParentAdoptedOut'
+    },
+    ParentAdoptedOut: {
+        parentNotAdoptedOut: 'CoApplicantEmail',
+        otherwise: 'StopPage'
+    },
+    ParentAdoptionPlace: {
+        parentAdoptedOutEnglandOrWales: 'CoApplicantEmail',
+        otherwise: 'StopPage'
+    },
+    CoApplicantEmail: 'ExecutorAddress',
+    ExecutorContactDetails: 'ExecutorAddress',
+    ExecutorAddress: 'JointApplication',
     ApplicantName: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
-    ApplicantAddress: 'Equality',
+    ApplicantAddress: {
+        hasCoApplicant: 'JointApplication',
+        hasNoCoApplicant: 'Equality',
+        otherwise: 'Equality'
+    },
     Equality: 'Summary',
     Summary: 'TaskList',
     Declaration: 'TaskList',

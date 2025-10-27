@@ -6,27 +6,26 @@
 {% block form_content %}
     {{ govukRadios({
         classes: "govuk-radios--inline",
-        idPrefix: "childAdoptedOut",
-        name: "childAdoptedOut",
+        idPrefix: "adoptionPlace",
+        name: "adoptionPlace",
         fieldset: {
             legend: {
-                text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
+                text: content.question | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.childAdoptedOut.errorMessage
-            | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.childAdoptedOut.errorMessage,
+        errorMessage: { text: fields.childAdoptionPlace.errorMessage | safe } if fields.childAdoptionPlace.errorMessage,
         items: [
             {
                 value: "optionYes",
                 text: content["optionYes"] | safe,
-                checked: true if fields.childAdoptedOut.value == "optionYes"
+                checked: true if fields.adoptionPlace.value == "optionYes"
             },
             {
                 value: "optionNo",
                 text: content["optionNo"] | safe,
-                checked: true if fields.childAdoptedOut.value == "optionNo"
+                checked: true if fields.adoptionPlace.value == "optionNo"
             }
         ]
     }) }}

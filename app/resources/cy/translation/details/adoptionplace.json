@@ -5,7 +5,7 @@
   "optionNo": "Naddo",
 
   "errors": {
-    "childAdoptionPlace": {
+    "adoptionPlace": {
       "required": "Dewiswch &lsquo;Do&rsquo; os wnaeth y mabwysiadu ddigwydd yng Nghymru neu Loegr"
     }
   }

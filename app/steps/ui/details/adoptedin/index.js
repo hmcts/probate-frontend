@@ -5,10 +5,10 @@ const FormatName = require('../../../../utils/FormatName');
 const FieldError = require('../../../../components/error');
 const {get} = require('lodash');
 
-class ChildAdoptedIn extends ValidationStep {
+class AdoptedIn extends ValidationStep {
 
     static getUrl() {
-        return '/child-adopted-in';
+        return '/adopted-in';
     }
 
     getContextData(req) {
@@ -30,15 +30,13 @@ class ChildAdoptedIn extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'adoptedIn', value: 'optionYes', choice: 'childAdoptedIn'},
-                {key: 'adoptedIn', value: 'optionNo', choice: 'childNotAdoptedIn'},
+                {key: 'adoptedIn', value: 'optionYes', choice: 'adoptedIn'},
+                {key: 'adoptedIn', value: 'optionNo', choice: 'notAdoptedIn'},
             ]
         };
     }
 
     handlePost(ctx, errors, formdata, session) {
-        const applicant = formdata.applicant;
-        ctx.relationshipToDeceased = applicant && applicant.relationshipToDeceased;
         const isSaveAndClose = typeof get(ctx, 'isSaveAndClose') !== 'undefined' && get(ctx, 'isSaveAndClose') === 'true';
         if (!isSaveAndClose) {
             if (typeof ctx.adoptedIn === 'undefined' || !ctx.adoptedIn) {
@@ -63,4 +61,4 @@ class ChildAdoptedIn extends ValidationStep {
     }
 }
 
-module.exports = ChildAdoptedIn;
+module.exports = AdoptedIn;

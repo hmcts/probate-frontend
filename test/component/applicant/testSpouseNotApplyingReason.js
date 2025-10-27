@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ChildAdoptedIn = require('app/steps/ui/details/childadoptedin/index');
+const AdoptedIn = require('app/steps/ui/details/adoptedin/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
@@ -9,7 +9,7 @@ const config = require('config');
 
 describe('spouse-not-applying-reason', () => {
     let testWrapper;
-    const expectedNextUrlForChildAdoptedIn = ChildAdoptedIn.getUrl();
+    const expectedNextUrlForAdoptedIn = AdoptedIn.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('spouseNotApplying');
 
     beforeEach(() => {
@@ -50,7 +50,7 @@ describe('spouse-not-applying-reason', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to Any Other Children page if spouse renouncing: ${expectedNextUrlForChildAdoptedIn}`, (done) => {
+        it(`test it redirects to Any Other Children page if spouse renouncing: ${expectedNextUrlForAdoptedIn}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -58,7 +58,7 @@ describe('spouse-not-applying-reason', () => {
                         spouseNotApplyingReason: 'optionRenouncing'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForChildAdoptedIn);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAdoptedIn);
                 });
         });
 

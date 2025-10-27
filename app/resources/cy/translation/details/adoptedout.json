@@ -8,8 +8,9 @@
   "optionNo": "Naddo",
 
   "errors": {
-    "childAdoptedOut": {
-      "required": "Dewiswch &lsquo;Do&rsquo; os wnaeth {deceasedName} eich rhoi i ffwrdd i gael eich mabwysiadu"
+    "adoptedOut": {
+      "requiredChild": "Dewiswch &lsquo;Do&rsquo; os wnaeth {deceasedName} eich rhoi i ffwrdd i gael eich mabwysiadu",
+      "requiredGrandchild": "Select &lsquo;Yes&rsquo; if {deceasedName} gave your parent up for adoption"
     }
   }
 }

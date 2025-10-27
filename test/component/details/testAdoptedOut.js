@@ -6,13 +6,13 @@ const testCommonContent = require('test/component/common/testCommonContent.js');
 const StopPage = require('app/steps/ui/stoppage');
 const caseTypes= require('app/utils/CaseTypes');
 
-describe('child-adoption-out', () => {
+describe('adoption-out', () => {
     let testWrapper;
     const expectedNextUrlForAnyOtherChildren = AnyOtherChildren.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('adoptedOut');
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('ChildAdoptedOut');
+        testWrapper = new TestWrapper('AdoptedOut');
     });
 
     afterEach(async () => {
@@ -20,9 +20,9 @@ describe('child-adoption-out', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ChildAdoptedOut', null, null, [], false, {type: caseTypes.INTESTACY});
+        testCommonContent.runTest('AdoptedOut', null, null, [], false, {type: caseTypes.INTESTACY});
 
-        it('test content loaded on the page', (done) => {
+        it('test content loaded on the page for child', (done) => {
             const sessionData = {
                 type: caseTypes.INTESTACY,
                 ccdCase: {
@@ -32,18 +32,39 @@ describe('child-adoption-out', () => {
                 deceased: {
                     firstName: 'John',
                     lastName: 'Doe'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
                 }
             };
-
+            const contentToExclude = ['grandchildQuestion', 'requiredGrandchild'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, {deceasedName: 'John Doe'});
+                    testWrapper.testContent(done, {deceasedName: 'John Doe'}, contentToExclude);
                 });
         });
-
-        it('test errors message displayed for missing data', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
+        it('test content loaded on the page for grandchild', (done) => {
+            const sessionData = {
+                type: caseTypes.INTESTACY,
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionGrandchild'
+                }
+            };
+            const contentToExclude = ['childQuestion', 'requiredChild'];
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, {deceasedName: 'John Doe'}, contentToExclude);
+                });
         });
 
         it(`test it redirects to stop page if child is adopted out: ${expectedNextUrlForStopPage}`, (done) => {
@@ -51,6 +72,9 @@ describe('child-adoption-out', () => {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
                     maritalStatus: 'optionMarried'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
                 }
             };
 
@@ -58,7 +82,7 @@ describe('child-adoption-out', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        childAdoptedOut: 'optionYes'
+                        adoptedOut: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
@@ -70,6 +94,9 @@ describe('child-adoption-out', () => {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
                     maritalStatus: 'optionMarried'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
                 }
             };
 
@@ -77,7 +104,7 @@ describe('child-adoption-out', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        childAdoptedOut: 'optionNo'
+                        adoptedOut: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherChildren);

@@ -6,13 +6,13 @@ const testCommonContent = require('test/component/common/testCommonContent.js');
 const StopPage = require('app/steps/ui/stoppage');
 const caseTypes= require('app/utils/CaseTypes');
 
-describe('child-adoption-place', () => {
+describe('adoption-place', () => {
     let testWrapper;
     const expectedNextUrlForAnyOtherChildren = AnyOtherChildren.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('adoptionNotEnglandOrWales');
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('ChildAdoptionPlace');
+        testWrapper = new TestWrapper('PlaceOfAdoption');
     });
 
     afterEach(async () => {
@@ -20,7 +20,7 @@ describe('child-adoption-place', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('ChildAdoptionPlace', null, null, [], false, {type: caseTypes.INTESTACY});
+        testCommonContent.runTest('PlaceOfAdoption', null, null, [], false, {type: caseTypes.INTESTACY});
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
@@ -51,6 +51,9 @@ describe('child-adoption-place', () => {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
                     maritalStatus: 'optionMarried'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
                 }
             };
 
@@ -58,7 +61,7 @@ describe('child-adoption-place', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        childAdoptionPlace: 'optionYes'
+                        adoptionPlace: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherChildren);
@@ -70,6 +73,9 @@ describe('child-adoption-place', () => {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
                     maritalStatus: 'optionMarried'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
                 }
             };
 
@@ -77,7 +83,28 @@ describe('child-adoption-place', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        childAdoptionPlace: 'optionNo'
+                        adoptionPlace: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                });
+        });
+        it(`test it redirects to stop page if grandchild is not adopted in England or Wales: ${expectedNextUrlForStopPage}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionGrandchild'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        adoptionPlace: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);

@@ -1,0 +1,18 @@
+{
+  "title": "Did the deceased have any living descendants at the time of their death?",
+  "question": "Did {deceasedName} have any living descendants at the time of their death?",
+  "paragraph1": "These are {deceasedName}’s",
+  "listItem1": "children",
+  "listItem2": "grandchildren",
+  "listItem3": "great-grandchildren",
+  "paragraph2": "This includes anyone who was legally adopted (either in or out of {deceasedName}’s family), but not any step-children or their descendants.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "theDeceased": "the deceased",
+
+  "errors": {
+    "anyLivingDescendants": {
+      "required": "Select &lsquo;Yes&rsquo; if {deceasedName} has any living children, grandchildren or great-grandchildren"
+    }
+  }
+}

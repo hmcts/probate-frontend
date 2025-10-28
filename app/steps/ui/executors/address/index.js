@@ -1,7 +1,7 @@
 'use strict';
 
 const AddressStep = require('app/core/steps/AddressStep');
-const {findIndex, get, startsWith} = require('lodash');
+const {findIndex, get, startsWith, every, tail} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const caseTypes = require('../../../../utils/CaseTypes');
 const pageUrl = '/executor-address';
@@ -28,6 +28,7 @@ class ExecutorAddress extends AddressStep {
         if (ctx.list[ctx.index]) {
             ctx.otherExecName = ctx.list[ctx.index].hasOtherName ? ctx.list[ctx.index].currentName : ctx.list[ctx.index].fullName;
         }
+        ctx.appicantRelationshipToDeceased = get(req.session.form, 'applicant.relationshipToDeceased');
         ctx.executorsWrapper = new ExecutorsWrapper(ctx);
 
         return ctx;
@@ -97,9 +98,12 @@ class ExecutorAddress extends AddressStep {
             };
         }
         if (ctx.caseType === caseTypes.INTESTACY) {
+            ctx.isChildJointApplication = ctx.appicantRelationshipToDeceased === 'optionChild' || ctx.appicantRelationshipToDeceased === 'optionGrandchild';
+            ctx.isParentJointApplication = ctx.appicantRelationshipToDeceased === 'optionParent';
             return {
                 options: [
-                    {key: 'JointApplication', value: true, choice: 'JointApplication'},
+                    {key: 'isChildJointApplication', value: true, choice: 'isChildJointApplication'},
+                    {key: 'isParentJointApplication', value: true, choice: 'isParentJointApplication'},
                 ],
             };
         }
@@ -120,6 +124,10 @@ class ExecutorAddress extends AddressStep {
     }
 
     isComplete(ctx) {
+        if (ctx.caseType === caseTypes.INTESTACY) {
+            return [every(tail(ctx.list).filter(coApplicant => coApplicant.relationshipToDeceased === 'optionParent'), coApplicant => coApplicant.address),
+                'inProgress'];
+        }
         return [
             ctx.executorsWrapper.executorsApplying(true).every(executor => executor.email && executor.mobile && executor.address),
             'inProgress'

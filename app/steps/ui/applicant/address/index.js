@@ -26,18 +26,19 @@ class ApplicantAddress extends AddressStep {
             };
         }
 
-        ctx.hasNoCoApplicant = ctx.caseType === caseTypes.INTESTACY && (
+        ctx.hasNoCoApplicant = ctx.caseType === caseTypes.INTESTACY && ctx.relationshipToDeceased === 'optionChild' && (
             (ctx.deceased.anyOtherChildren === 'optionYes' &&
                 ctx.deceased.anyPredeceasedChildren === 'optionYesAll' &&
                 ctx.deceased.anySurvivingGrandchildren === 'optionNo') ||
             (ctx.deceased.anyOtherChildren === 'optionNo') || (typeof ctx.deceased.anyOtherChildren === 'undefined')
         );
-        ctx.hasCoApplicant = ctx.caseType === caseTypes.INTESTACY && !ctx.hasNoCoApplicant;
-
+        ctx.hasCoApplicant = ctx.caseType === caseTypes.INTESTACY && ctx.relationshipToDeceased === 'optionChild' && !ctx.hasNoCoApplicant;
+        ctx.isIntestacyParent = ctx.caseType === caseTypes.INTESTACY && ctx.relationshipToDeceased === 'optionParent';
         return {
             options: [
                 {key: 'hasNoCoApplicant', value: true, choice: 'hasNoCoApplicant'},
                 {key: 'hasCoApplicant', value: true, choice: 'hasCoApplicant'},
+                {key: 'isIntestacyParent', value: true, choice: 'isIntestacyParent'},
             ],
         };
     }

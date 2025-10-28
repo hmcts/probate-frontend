@@ -5,6 +5,7 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const {get} = require('lodash');
 const FormatName = require('../../../../utils/FormatName');
 const FieldError = require('../../../../components/error');
+const caseTypes = require('../../../../utils/CaseTypes');
 
 class JointApplication extends ValidationStep {
 
@@ -16,7 +17,9 @@ class JointApplication extends ValidationStep {
         const formdata = req.session.form;
         let ctx = super.getContextData(req);
         ctx = this.createExecutorList(ctx, req.session.form);
-        ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.deceased = formdata.deceased;
+        ctx.deceasedName = FormatName.format(ctx.deceased);
+        ctx.appicantRelationshipToDeceased = get(formdata, 'applicant.relationshipToDeceased');
         return ctx;
     }
 
@@ -70,11 +73,17 @@ class JointApplication extends ValidationStep {
         return [ctx, formdata];
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.hasChildCoApplicant = ctx.caseType === caseTypes.INTESTACY && ctx.appicantRelationshipToDeceased === 'optionChild' && ctx.hasCoApplicant === 'optionYes';
+        ctx.hasParentCoApplicant = ctx.caseType === caseTypes.INTESTACY && ctx.appicantRelationshipToDeceased === 'optionParent' && ctx.hasCoApplicant === 'optionYes' &&
+            ctx.deceased.anyOtherParentAlive === 'optionYes';
+        ctx.hasNoCoApplicant = ctx.caseType === caseTypes.INTESTACY && ctx.hasCoApplicant === 'optionNo';
         return {
             options: [
-                {key: 'hasCoApplicant', value: 'optionYes', choice: 'hasCoApplicant'},
-                {key: 'hasCoApplicant', value: 'optionNo', choice: 'hasNoCoApplicant'},
+                {key: 'hasChildCoApplicant', value: true, choice: 'hasCoApplicant'},
+                {key: 'hasParentCoApplicant', value: true, choice: 'hasParentCoApplicant'},
+                {key: 'hasCoApplicant', value: true, choice: 'hasNoCoApplicant'}
+
             ]
         };
     }

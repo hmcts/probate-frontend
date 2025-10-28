@@ -3,7 +3,7 @@
   "$id": "grandchild-adopted-out",
   "type": "object",
   "properties": {
-    "childAdoptedOut": {
+    "grandchildAdoptedOut": {
       "type": "string"
     }
   },

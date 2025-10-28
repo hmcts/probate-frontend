@@ -1,12 +1,12 @@
 {
   "title": "Child Alive",
-  "question": "Is your parent ({deceasedName}'s child) legally alive?",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "question": "A yw plentyn eich rhiant ({deceasedName} yn fyw?",
+  "optionYes": "Ydy",
+  "optionNo": "Nac ydy",
 
   "errors": {
     "childAlive": {
-      "required": "Select &lsquo;Yes&rsquo; if ({deceasedName}'s child) is alive"
+      "required": "Dewiswch &lsquo;ydy&rsquo; os yw plentyn eich rhiant ({deceasedName} yn fyw"
     }
   }
 }

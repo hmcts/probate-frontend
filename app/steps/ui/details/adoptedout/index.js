@@ -33,10 +33,13 @@ class AdoptedOut extends ValidationStep {
         return this.next(req, ctx).constructor.getUrl('adoptedOut');
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.childNotAdoptedOut = ctx.relationshipToDeceased === 'optionChild' && ctx.adoptedOut === 'optionNo';
+        ctx.grandchildNotAdoptedOut = ctx.relationshipToDeceased === 'optionGrandchild' && ctx.adoptedOut === 'optionNo';
         return {
             options: [
-                {key: 'adoptedOut', value: 'optionNo', choice: 'notAdoptedOut'},
+                {key: 'childNotAdoptedOut', value: true, choice: 'childNotAdoptedOut'},
+                {key: 'grandchildNotAdoptedOut', value: true, choice: 'grandchildNotAdoptedOut'}
             ]
         };
     }

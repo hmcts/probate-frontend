@@ -4,11 +4,11 @@
   "$id": "child-adoption-place",
   "type": "object",
   "properties": {
-    "childAdoptionPlace": {
+    "grandchildAdoptionPlace": {
       "type": "string"
     }
   },
   "required": [
-    "childAdoptionPlace"
+    "grandchildAdoptionPlace"
   ]
 }

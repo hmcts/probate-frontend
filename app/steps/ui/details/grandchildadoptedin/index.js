@@ -6,14 +6,13 @@ const FormatName = require('../../../../utils/FormatName');
 class GrandchildAdoptedIn extends ValidationStep {
 
     static getUrl() {
-        return '/grandchild-adopted-in';
+        return '/mainapplicantsparent-adopted-you-in';
     }
 
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
-        ctx.relationshipToDeceased = formdata.applicant && formdata.applicant.relationshipToDeceased;
         return ctx;
     }
 
@@ -28,16 +27,10 @@ class GrandchildAdoptedIn extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'grandchildAdoptedIn', value: 'optionYes', choice: 'grandchildAdoptionEngWales'},
-                {key: 'grandchildAdoptedIn', value: 'optionNo', choice: 'grandchildAdoptedOut'}
+                {key: 'grandchildAdoptedIn', value: 'optionYes', choice: 'grandchildAdoptedIn'},
+                {key: 'grandchildAdoptedIn', value: 'optionNo', choice: 'grandchildNotAdoptedIn'}
             ]
         };
-    }
-
-    handlePost(ctx, errors, formdata) {
-        const applicant = formdata.applicant;
-        ctx.relationshipToDeceased = applicant && applicant.relationshipToDeceased;
-        return [ctx, errors];
     }
 }
 

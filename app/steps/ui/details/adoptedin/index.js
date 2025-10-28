@@ -37,6 +37,7 @@ class AdoptedIn extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata, session) {
+        const relationship = formdata.applicant && formdata.applicant.relationshipToDeceased;
         const isSaveAndClose = typeof get(ctx, 'isSaveAndClose') !== 'undefined' && get(ctx, 'isSaveAndClose') === 'true';
         if (!isSaveAndClose) {
             if (typeof ctx.adoptedIn === 'undefined' || !ctx.adoptedIn) {
@@ -46,8 +47,10 @@ class AdoptedIn extends ValidationStep {
                     errors.push(this.generateDynamicErrorMessage('adoptedIn', 'requiredGrandchild', session, ctx.deceasedName));
                 }
             } else if (ctx.relationshipToDeceased === 'optionGrandchild') {
+                ctx.relationshipToDeceased = relationship;
                 ctx.grandchildParentAdoptedIn = ctx.adoptedIn;
             } else if (ctx.relationshipToDeceased === 'optionChild') {
+                ctx.relationshipToDeceased = relationship;
                 ctx.childAdoptedIn = ctx.adoptedIn;
             }
         }

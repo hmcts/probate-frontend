@@ -1,11 +1,11 @@
 {
-  "title": "Grandchild adopted in",
-  "question": "Did your parent ({deceasedName}'s child) legally adopt you?",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "title": "A wnaeth eich rhiant (plentyn yr unigolyn sydd wedi marw eich mabwysiadu’n gyfreithlon?",
+  "question": "A wnaeth eich rhiant (plentyn {deceasedName} eich mabwysiadu’n gyfreithlon?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
 
   "errors": {
-    "childAdoptedIn": {
+    "grandchildAdoptedIn": {
       "required": "Select &lsquo;Yes&rsquo; if your parent legally adopted you"
     }
   }

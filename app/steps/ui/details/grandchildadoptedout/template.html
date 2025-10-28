@@ -11,13 +11,9 @@
         name: "grandchildAdoptedOut",
         fieldset: {
             legend: {
-                {% if relationship == "child" %}
-                    text: content.childQuestion | replace("{deceasedName}", fields.deceasedName.value) | safe,
-                {% else %}
-                    text: content.grandchildQuestion | replace("{deceasedName}", fields.deceasedName.value) | safe,
-                {% endif %}
-            isPageHeading: true,
-            classes: "govuk-fieldset__legend--l"
+                text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
             }
         },
         errorMessage: { text: fields.grandchildAdoptedOut.errorMessage

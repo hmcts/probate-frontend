@@ -6,8 +6,8 @@
 {% block form_content %}
 {{ govukRadios({
       classes: "govuk-radios--inline",
-      idPrefix: "childAdoptionPlace",
-      name: "childAdoptionPlace",
+      idPrefix: "grandchildAdoptionPlace",
+      name: "grandchildAdoptionPlace",
       fieldset: {
           legend: {
           text: content.question | safe,
@@ -15,17 +15,17 @@
           classes: "govuk-fieldset__legend--l"
           }
       },
-      errorMessage: { text: fields.childAdoptionPlace.errorMessage | safe } if fields.childAdoptionPlace.errorMessage,
+      errorMessage: { text: fields.grandchildAdoptionPlace.errorMessage | safe } if fields.grandchildAdoptionPlace.errorMessage,
       items: [
       {
           value: "optionYes",
           text: content["optionYes"] | safe,
-          checked: true if fields.childAdoptionPlace.value == "optionYes"
+          checked: true if fields.grandchildAdoptionPlace.value == "optionYes"
       },
       {
           value: "optionNo",
           text: content["optionNo"] | safe,
-          checked: true if fields.childAdoptionPlace.value == "optionNo"
+          checked: true if fields.grandchildAdoptionPlace.value == "optionNo"
       }
       ]
 }) }}

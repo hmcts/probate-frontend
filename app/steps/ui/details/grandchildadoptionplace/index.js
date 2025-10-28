@@ -2,10 +2,10 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 
-class ChildAdoptionPlace extends ValidationStep {
+class GrandchildAdoptionPlace extends ValidationStep {
 
     static getUrl() {
-        return '/child-adoption-place';
+        return '/grandchild-adoption-place';
     }
 
     nextStepUrl(req, ctx) {
@@ -15,10 +15,10 @@ class ChildAdoptionPlace extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'childAdoptionPlace', value: 'optionYes', choice: 'childAdoptedInEnglandOrWales'}
+                {key: 'grandchildAdoptionPlace', value: 'optionYes', choice: 'grandchildAdoptedInEnglandOrWales'}
             ]
         };
     }
 }
 
-module.exports = ChildAdoptionPlace;
+module.exports = GrandchildAdoptionPlace;

@@ -142,6 +142,11 @@ describe('AdoptedIn', () => {
                 adoptedIn: 'optionYes',
                 isSaveAndClose: 'false'
             };
+            formdata = {
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
+                }
+            };
             errors = [];
             [ctx, errors] = AdoptedIn.handlePost(ctx, errors, formdata, session);
             expect(ctx).to.deep.equal({
@@ -157,6 +162,11 @@ describe('AdoptedIn', () => {
                 relationshipToDeceased: 'optionGrandchild',
                 adoptedIn: 'optionYes',
                 isSaveAndClose: 'false'
+            };
+            formdata = {
+                applicant: {
+                    relationshipToDeceased: 'optionGrandchild'
+                }
             };
             errors = [];
             [ctx, errors] = AdoptedIn.handlePost(ctx, errors, formdata, session);

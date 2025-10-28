@@ -38,10 +38,13 @@ class PlaceOfAdoption extends ValidationStep {
         return this.next(req, ctx).constructor.getUrl('adoptionNotEnglandOrWales');
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.childAndAdoptedInEnglandOrWales = ctx.relationshipToDeceased === 'optionChild' && ctx.adoptionPlace === 'optionYes';
+        ctx.grandchildAndAdoptedInEnglandOrWales = ctx.relationshipToDeceased === 'optionGrandchild' && ctx.adoptionPlace === 'optionYes';
         return {
             options: [
-                {key: 'adoptionPlace', value: 'optionYes', choice: 'adoptedInEnglandOrWales'}
+                {key: 'childAndAdoptedInEnglandOrWales', value: true, choice: 'childAndAdoptedInEnglandOrWales'},
+                {key: 'grandchildAndAdoptedInEnglandOrWales', value: true, choice: 'grandchildAndAdoptedInEnglandOrWales'}
             ]
         };
     }

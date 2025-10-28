@@ -6,7 +6,7 @@ const FormatName = require('app/utils/FormatName');
 class DeceasedChildAlive extends ValidationStep {
 
     static getUrl() {
-        return '/child-alive';
+        return '/mainapplicantsparent-alive';
     }
 
     getContextData(req) {
@@ -17,7 +17,7 @@ class DeceasedChildAlive extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('deceasedChildNotAlive');
+        return this.next(req, ctx).constructor.getUrl('parentIsAlive');
     }
 
     nextStepOptions() {

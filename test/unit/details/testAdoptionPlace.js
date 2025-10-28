@@ -56,7 +56,8 @@ describe('AdoptionPlace', () => {
             const nextStepOptions = AdoptionPlace.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'adoptionPlace', value: 'optionYes', choice: 'adoptedInEnglandOrWales'}
+                    {key: 'childAndAdoptedInEnglandOrWales', value: true, choice: 'childAndAdoptedInEnglandOrWales'},
+                    {key: 'grandchildAndAdoptedInEnglandOrWales', value: true, choice: 'grandchildAndAdoptedInEnglandOrWales'}
                 ]
             });
             done();

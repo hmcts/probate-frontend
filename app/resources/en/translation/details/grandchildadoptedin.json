@@ -5,7 +5,7 @@
   "optionNo": "No",
 
   "errors": {
-    "childAdoptedIn": {
+    "grandchildAdoptedIn": {
       "required": "Select &lsquo;Yes&rsquo; if your parent legally adopted you"
     }
   }

@@ -33,12 +33,14 @@ class ApplicantAddress extends AddressStep {
             (ctx.deceased.anyOtherChildren === 'optionNo') || (typeof ctx.deceased.anyOtherChildren === 'undefined')
         );
         ctx.hasCoApplicant = ctx.caseType === caseTypes.INTESTACY && ctx.relationshipToDeceased === 'optionChild' && !ctx.hasNoCoApplicant;
-        ctx.isIntestacyParent = ctx.caseType === caseTypes.INTESTACY && ctx.relationshipToDeceased === 'optionParent';
+        ctx.isIntestacyWithOtherParent = ctx.caseType === caseTypes.INTESTACY && ctx.relationshipToDeceased === 'optionParent' && ctx.deceased.anyOtherParentAlive === 'optionYes';
+        ctx.isIntestacyNoOtherParent = ctx.caseType === caseTypes.INTESTACY && ctx.relationshipToDeceased === 'optionParent' && ctx.deceased.anyOtherParentAlive ===' optionNo';
         return {
             options: [
                 {key: 'hasNoCoApplicant', value: true, choice: 'hasNoCoApplicant'},
                 {key: 'hasCoApplicant', value: true, choice: 'hasCoApplicant'},
-                {key: 'isIntestacyParent', value: true, choice: 'isIntestacyParent'},
+                {key: 'isIntestacyWithOtherParent', value: true, choice: 'isIntestacyWithOtherParent'},
+                {key: 'isIntestacyNoOtherParent', value: true, choice: 'isIntestacyNoOtherParent'}
             ],
         };
     }

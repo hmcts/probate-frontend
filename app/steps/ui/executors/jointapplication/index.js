@@ -74,13 +74,13 @@ class JointApplication extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.hasChildCoApplicant = ctx.caseType === caseTypes.INTESTACY && ctx.appicantRelationshipToDeceased === 'optionChild' && ctx.hasCoApplicant === 'optionYes';
-        ctx.hasParentCoApplicant = ctx.caseType === caseTypes.INTESTACY && ctx.appicantRelationshipToDeceased === 'optionParent' && ctx.hasCoApplicant === 'optionYes' &&
-            ctx.deceased.anyOtherParentAlive === 'optionYes';
+        ctx.hasCoApplicant = ctx.caseType === caseTypes.INTESTACY && ctx.appicantRelationshipToDeceased !== 'optionParent' && ctx.hasCoApplicant === 'optionYes';
+        ctx.hasParentCoApplicant = ctx.caseType === caseTypes.INTESTACY && ctx.appicantRelationshipToDeceased === 'optionParent' &&
+            ctx.hasCoApplicant === 'optionYes' && ctx.deceased.anyOtherParentAlive === 'optionYes';
         ctx.hasNoCoApplicant = ctx.caseType === caseTypes.INTESTACY && ctx.hasCoApplicant === 'optionNo';
         return {
             options: [
-                {key: 'hasChildCoApplicant', value: true, choice: 'hasCoApplicant'},
+                {key: 'hasCoApplicant', value: true, choice: 'hasCoApplicant'},
                 {key: 'hasParentCoApplicant', value: true, choice: 'hasParentCoApplicant'},
                 {key: 'hasNoCoApplicant', value: true, choice: 'hasNoCoApplicant'}
 

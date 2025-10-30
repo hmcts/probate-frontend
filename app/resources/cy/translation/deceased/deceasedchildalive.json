@@ -6,7 +6,7 @@
 
   "errors": {
     "childAlive": {
-      "required": "Dewiswch &lsquo;ydy&rsquo; os yw plentyn eich rhiant ({deceasedName} yn fyw"
+      "required": "Dewiswch &lsquo;Ydy&rsquo; os yw plentyn eich rhiant ({deceasedName} yn fyw"
     }
   }
 }

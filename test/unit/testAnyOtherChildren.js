@@ -2,6 +2,7 @@
 
 const initSteps = require('app/core/initSteps');
 const {expect, assert} = require('chai');
+const journey = require('../../app/journeys/intestacy');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const AnyOtherChildren = steps.AnyOtherChildren;
 
@@ -35,12 +36,62 @@ describe('AnyOtherChildren', () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const nextStepOptions = AnyOtherChildren.nextStepOptions();
+            const ctx = {};
+            const nextStepOptions = AnyOtherChildren.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
                     {key: 'anyOtherChildren', value: 'optionYes', choice: 'hadOtherChildren'},
+                    {key: 'childAndHadNoChildren', value: true, choice: 'childAndHadNoChildren'},
+                    {key: 'grandchildAndHadNoChildren', value: true, choice: 'grandchildAndHadNoChildren'}
                 ]
             });
+            done();
+        });
+    });
+
+    describe('nextStepUrl()', () => {
+        it('should return the correct url when deceased has other children', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                anyOtherChildren: 'optionYes',
+                relationshipToDeceased: 'optionChild'
+            };
+            const nextStepUrl = AnyOtherChildren.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/any-predeceased-children');
+            done();
+        });
+
+        it('should return the correct url when deceased has other children and relationship is child', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                anyOtherChildren: 'optionNo',
+                relationshipToDeceased: 'optionChild'
+            };
+            const nextStepUrl = AnyOtherChildren.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/applicant-name');
+            done();
+        });
+
+        it('should return the correct url deceased has other children and relationship is grandchild', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                anyOtherChildren: 'optionNo',
+                relationshipToDeceased: 'optionGrandchild'
+            };
+            const nextStepUrl = AnyOtherChildren.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/mainapplicantsparent-any-other-children');
             done();
         });
     });

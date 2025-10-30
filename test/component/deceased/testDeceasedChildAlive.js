@@ -2,28 +2,25 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const AdoptedIn = require('app/steps/ui/details/adoptedin/index');
-const ChildAlive = require('app/steps/ui/deceased/deceasedchildalive/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
-const config = require('config');
 
-describe('spouse-not-applying-reason', () => {
+describe('deceased-child-alive', () => {
     let testWrapper;
     const expectedNextUrlForAdoptedIn = AdoptedIn.getUrl();
-    const expectedNextUrlForParentAlive = ChildAlive.getUrl();
-    const expectedNextUrlForStopPage = StopPage.getUrl('spouseNotApplying');
+    const expectedNextUrlForStopPage = StopPage.getUrl('parentIsAlive');
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('SpouseNotApplyingReason');
+        testWrapper = new TestWrapper('DeceasedChildAlive');
     });
 
-    afterEach(async () => {
-        await testWrapper.destroy();
+    afterEach(() => {
+        testWrapper.destroy();
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('SpouseNotApplyingReason', null, null, [], false, {type: caseTypes.INTESTACY});
+        testCommonContent.runTest('DeceasedChildAlive', null, null, [], false, {type: caseTypes.INTESTACY});
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
@@ -37,13 +34,13 @@ describe('spouse-not-applying-reason', () => {
                     lastName: 'Doe'
                 }
             };
-            const contentToExclude = ['theDeceased'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const contentData = {deceasedName: 'John Doe',
-                        spouseGivingUpAdminRightsPA16Link: config.links.spouseGivingUpAdminRightsPA16Link};
+                    const contentData = {deceasedName: 'John Doe'};
+                    const contentToExclude = ['theDeceased'];
+
                     testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
@@ -52,38 +49,25 @@ describe('spouse-not-applying-reason', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to Adopted in page if spouse renouncing and child is applying: ${expectedNextUrlForAdoptedIn}`, (done) => {
+        it(`test it redirects to Parent Adopted in page if grandchild parent is not alive: ${expectedNextUrlForAdoptedIn}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        spouseNotApplyingReason: 'optionRenouncing',
-                        relationshipToDeceased: 'optionChild'
+                        relationshipToDeceased: 'optionGrandchild',
+                        childAlive: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForAdoptedIn);
                 });
         });
 
-        it(`test it redirects to Parent alive page if spouse renouncing and grandchild is applying: ${expectedNextUrlForParentAlive}`, (done) => {
+        it(`test it redirects to Applicant Name page if grandchild parent had no other children: ${expectedNextUrlForStopPage}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        spouseNotApplyingReason: 'optionRenouncing',
-                        relationshipToDeceased: 'optionGrandchild'
-                    };
-
-                    testWrapper.testRedirect(done, data, expectedNextUrlForParentAlive);
-                });
-        });
-
-        it(`test it redirects to Any Other Children page if spouse not applying for other reasons: ${expectedNextUrlForStopPage}`, (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
-                .end(() => {
-                    const data = {
-                        spouseNotApplyingReason: 'optionOther'
+                        childAlive: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);

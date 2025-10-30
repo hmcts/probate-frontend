@@ -38,17 +38,33 @@ describe('SpouseNotApplyingReason', () => {
     });
 
     describe('nextStepUrl()', () => {
-        it('should return the correct url when Renouncing is given', (done) => {
+        it('should return the correct url when Renouncing is given and relationship is child', (done) => {
             const req = {
                 session: {
                     journey: journey
                 }
             };
             const ctx = {
-                spouseNotApplyingReason: 'optionRenouncing'
+                spouseNotApplyingReason: 'optionRenouncing',
+                relationshipToDeceased: 'optionChild'
             };
             const nextStepUrl = SpouseNotApplyingReason.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/adopted-in');
+            done();
+        });
+
+        it('should return the correct url when Renouncing is given and relationship is grandchild', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                spouseNotApplyingReason: 'optionRenouncing',
+                relationshipToDeceased: 'optionGrandchild'
+            };
+            const nextStepUrl = SpouseNotApplyingReason.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/mainapplicantsparent-alive');
             done();
         });
 
@@ -69,13 +85,13 @@ describe('SpouseNotApplyingReason', () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const nextStepOptions = SpouseNotApplyingReason.nextStepOptions();
+            const ctx = {};
+            const nextStepOptions = SpouseNotApplyingReason.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'spouseNotApplyingReason',
-                    value: 'optionRenouncing',
-                    choice: 'renouncing'
-                }]
+                options: [
+                    {key: 'childAndSpouseNotApplying', value: true, choice: 'childAndSpouseNotApplying'},
+                    {key: 'grandchildAndSpouseNotApplying', value: true, choice: 'grandchildAndSpouseNotApplying'},
+                ]
             });
             done();
         });

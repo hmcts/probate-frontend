@@ -186,9 +186,19 @@ const stepList = {
     },
     AnyOtherChildren: {
         hadOtherChildren: 'AnyPredeceasedChildren',
-        otherwise: 'ApplicantName'
+        childAndHadNoChildren: 'ApplicantName',
+        grandchildAndHadNoChildren: 'GrandchildParentHasOtherChildren'
     },
     AllChildrenOver18: {
+        childAndAllChildrenOver18: 'ApplicantName',
+        grandchildAndAllChildrenOver18: 'GrandchildParentHasOtherChildren',
+        otherwise: 'StopPage'
+    },
+    GrandchildParentHasOtherChildren: {
+        grandchildParentHasOtherChildren: 'GrandchildParentHasAllChildrenOver18',
+        otherwise: 'ApplicantName'
+    },
+    GrandchildParentHasAllChildrenOver18: {
         allChildrenOver18: 'ApplicantName',
         otherwise: 'StopPage'
     },
@@ -199,11 +209,13 @@ const stepList = {
     AnySurvivingGrandchildren: {
         hadSurvivingGrandchildren: 'AnyGrandchildrenUnder18',
         hadOtherChildrenAndHadNoSurvivingGrandchildren: 'AllChildrenOver18',
-        hadNoOtherChildrenAndHadNoSurvivingGrandchildren: 'ApplicantName'
+        childAndNoOtherChildrenAndHadNoSurvivingGrandchildren: 'ApplicantName',
+        grandchildAndNoSurvivingGrandchildrenOfOtherChildren: 'GrandchildParentHasOtherChildren'
     },
     AnyGrandchildrenUnder18: {
         allGrandchildrenOver18AndSomePredeceasedChildren: 'AllChildrenOver18',
-        allGrandchildrenOver18AndAllPredeceasedChildren: 'ApplicantName',
+        childAndGrandchildrenOver18AndAllPredeceasedChildren: 'ApplicantName',
+        grandchildAndGrandchildrenOver18AndAllPredeceasedChildren: 'GrandchildParentHasOtherChildren',
         otherwise: 'StopPage'
     },
     JoinApplication: 'CoApplicantRelationshipToDeceased',

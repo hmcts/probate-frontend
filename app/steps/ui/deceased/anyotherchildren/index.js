@@ -13,13 +13,18 @@ class AnyOtherChildren extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.relationshipToDeceased = formdata.applicant && formdata.applicant.relationshipToDeceased;
         return ctx;
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.childAndHadNoChildren = ctx.relationshipToDeceased === 'optionChild' && ctx.anyOtherChildren === 'optionNo';
+        ctx.grandchildAndHadNoChildren = ctx.relationshipToDeceased === 'optionGrandchild' && ctx.anyOtherChildren === 'optionNo';
         return {
             options: [
-                {key: 'anyOtherChildren', value: 'optionYes', choice: 'hadOtherChildren'}
+                {key: 'anyOtherChildren', value: 'optionYes', choice: 'hadOtherChildren'},
+                {key: 'childAndHadNoChildren', value: true, choice: 'childAndHadNoChildren'},
+                {key: 'grandchildAndHadNoChildren', value: true, choice: 'grandchildAndHadNoChildren'}
             ]
         };
     }

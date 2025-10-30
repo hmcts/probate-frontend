@@ -12,7 +12,7 @@
   "date": "Dyddiad yr {legalProcess}",
   "errors": {
     "divorceDateKnown": {
-      "required": "Dewiswch &lsquo;ydw&rsquo; os ydych yn gwybod y dyddiad yr {legalProcess}"
+      "required": "Dewiswch &lsquo;Ydw&rsquo; os ydych yn gwybod y dyddiad yr {legalProcess}"
     },
     "divorceDate-year": {
       "required": "Rhaid i ddyddiad yr {legalProcess} gynnwys blwyddyn"

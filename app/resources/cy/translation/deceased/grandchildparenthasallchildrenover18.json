@@ -1,13 +1,13 @@
 {
   "title": "Pob plentyn dros 18",
-  "question": "A yw holl blant {deceasedName} yn 18 oed neu&rsquo;n h&ycirc;n?",
+  "question": "A yw pob un o’r plant hyn yn 18 oed neu’n hŷn?",
   "paragraph": "Nid oes arnoch angen cynnwys unrhyw blant wnaeth farw ar &ocirc;l {deceasedName}.",
   "optionYes": "Ydyn",
   "optionNo": "Nac ydyn",
   "theDeceased": "yr unigolyn sydd wedi marw",
 
   "errors": {
-    "allChildrenOver18": {
+    "grandchildParentHasAllChildrenOver18": {
       "required": "Dewiswch ‘Ydyn’ os ydy’r holl blant hyn yn 18 oed neu’n hŷn"
     }
   }

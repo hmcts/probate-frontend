@@ -2,19 +2,17 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ApplicantName = require('app/steps/ui/applicant/name/index');
-const GrandchildParentHasOtherChildren = require('app/steps/ui/deceased/grandchildparenthasotherchildren/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
-describe('all-children-over-18', () => {
+describe('grandchild-parent-all-children-over-18', () => {
     let testWrapper;
     const expectedNextUrlForApplicantName = ApplicantName.getUrl();
-    const expectedNextUrlForGrandchildParentHasOtherChildren = GrandchildParentHasOtherChildren.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('childrenUnder18');
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('AllChildrenOver18');
+        testWrapper = new TestWrapper('GrandchildParentHasAllChildrenOver18');
     });
 
     afterEach(() => {
@@ -22,7 +20,7 @@ describe('all-children-over-18', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('AllChildrenOver18', null, null, [], false, {type: caseTypes.INTESTACY});
+        testCommonContent.runTest('GrandchildParentHasAllChildrenOver18', null, null, [], false, {type: caseTypes.INTESTACY});
 
         it('test content loaded on the page', (done) => {
             const sessionData = {
@@ -34,7 +32,7 @@ describe('all-children-over-18', () => {
                 deceased: {
                     firstName: 'John',
                     lastName: 'Doe'
-                },
+                }
             };
             const contentToExclude = ['theDeceased'];
 
@@ -50,50 +48,24 @@ describe('all-children-over-18', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to Applicant name page if deceased children were all over 18 and child is applying: ${expectedNextUrlForApplicantName}`, (done) => {
-            const sessionData = {
-                caseType: caseTypes.INTESTACY,
-                applicant: {
-                    relationshipToDeceased: 'optionChild'
-                }
-            };
+        it(`test it redirects to applicant name page if grandchild parent children were all over 18: ${expectedNextUrlForApplicantName}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
+                .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: 'optionChild',
-                        allChildrenOver18: 'optionYes',
+                        grandchildParentHasAllChildrenOver18: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
                 });
         });
 
-        it(`test it redirects to Parent has any children page if deceased children were all over 18 and grandchild is applying: ${expectedNextUrlForGrandchildParentHasOtherChildren}`, (done) => {
-            const sessionData = {
-                caseType: caseTypes.INTESTACY,
-                applicant: {
-                    relationshipToDeceased: 'optionGrandchild'
-                }
-            };
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        relationshipToDeceased: 'optionGrandchild',
-                        allChildrenOver18: 'optionYes',
-                    };
-
-                    testWrapper.testRedirect(done, data, expectedNextUrlForGrandchildParentHasOtherChildren);
-                });
-        });
-
-        it(`test it redirects to Stop page if some deceased children were under 18: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to Stop page if grandchild parent children were under 18: ${expectedNextUrlForStopPage}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        allChildrenOver18: 'optionNo'
+                        grandchildParentHasAllChildrenOver18: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);

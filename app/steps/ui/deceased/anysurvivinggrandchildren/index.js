@@ -13,17 +13,20 @@ class AnySurvivingGrandchildren extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.relationshipToDeceased = formdata.applicant && formdata.applicant.relationshipToDeceased;
         return ctx;
     }
 
     nextStepOptions(ctx) {
         ctx.hadOtherChildrenAndHadNoSurvivingGrandchildren = ctx.anySurvivingGrandchildren === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesSome';
-        ctx.hadNoOtherChildrenAndHadNoSurvivingGrandchildren = ctx.anySurvivingGrandchildren === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesAll';
+        ctx.childAndNoOtherChildrenAndHadNoSurvivingGrandchildren = ctx.relationshipToDeceased === 'optionChild' && ctx.anySurvivingGrandchildren === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesAll';
+        ctx.grandchildAndNoSurvivingGrandchildrenOfOtherChildren = ctx.relationshipToDeceased === 'optionGrandchild' && ctx.anySurvivingGrandchildren === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesAll';
         return {
             options: [
                 {key: 'anySurvivingGrandchildren', value: 'optionYes', choice: 'hadSurvivingGrandchildren'},
                 {key: 'hadOtherChildrenAndHadNoSurvivingGrandchildren', value: true, choice: 'hadOtherChildrenAndHadNoSurvivingGrandchildren'},
-                {key: 'hadNoOtherChildrenAndHadNoSurvivingGrandchildren', value: true, choice: 'hadNoOtherChildrenAndHadNoSurvivingGrandchildren'},
+                {key: 'childAndNoOtherChildrenAndHadNoSurvivingGrandchildren', value: true, choice: 'childAndNoOtherChildrenAndHadNoSurvivingGrandchildren'},
+                {key: 'grandchildAndNoSurvivingGrandchildrenOfOtherChildren', value: true, choice: 'grandchildAndNoSurvivingGrandchildrenOfOtherChildren'}
             ]
         };
     }

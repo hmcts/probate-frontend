@@ -1,0 +1,17 @@
+{
+  "title": "A oedd gan eich rhiant (plentyn (yr unigolyn sydd wedi marw unrhyw blant eraill?",
+  "question": "A oedd gan eich rhiant (plentyn ({deceasedName} unrhyw blant eraill?",
+  "paragraph1": "Mae arnom angen gwybod am yr holl blant oedd gan eich rhiant (plentyn {deceasedName}, gan gynnwys unrhyw blant oedd:",
+  "listItem1": "wedi cael eu mabwysiadu’r gyfreithlon neu wedi cael eu rhoi i ffwrdd i gael eu mabwysiadu",
+  "listItem2": "wedi marw, un ai cyn neu ar ôl {deceasedName}",
+  "paragraph2": "Nid yw hyn yn cynnwys unrhyw lysblant.",
+  "optionYes": "Oedd",
+  "optionNo": "Nac oedd",
+  "theDeceased": "yr unigolyn sydd wedi marw",
+
+  "errors": {
+    "grandchildParentHasOtherChildren": {
+      "required": "Dewiswch &lsquo;Oedd&rsquo; os oedd gan eich rhiant unrhyw blant eraill"
+    }
+  }
+}

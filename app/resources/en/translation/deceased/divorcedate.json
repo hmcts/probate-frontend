@@ -12,7 +12,7 @@
   "date": "Date of {legalProcess}",
   "errors": {
     "divorceDateKnown": {
-      "required": "Select &lsquo;yes&rsquo; if you know the date of the {legalProcess}"
+      "required": "Select &lsquo;Yes&rsquo; if you know the date of the {legalProcess}"
     },
     "divorceDate-year": {
       "required": "Date of {legalProcess} must include a year"

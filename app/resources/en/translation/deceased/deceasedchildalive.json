@@ -6,7 +6,7 @@
 
   "errors": {
     "childAlive": {
-      "required": "Select &lsquo;Yes&rsquo; if ({deceasedName}&rsquo;s child) is alive"
+      "required": "Select &lsquo;Yes&rsquo; if your parent ({deceasedName}&rsquo;s child) is alive"
     }
   }
 }

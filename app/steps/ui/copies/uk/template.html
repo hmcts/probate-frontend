@@ -9,21 +9,15 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: (content.question if fields.isFeesApiToggleEnabled.value == "true" else content.questionOld) | safe,
+            text: content.question | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
     }) %}
-        {% if fields.isFeesApiToggleEnabled.value == "true" %}
+
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
             <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
-           
-        {% else %}
-            <p class="govuk-body">{{ content.paragraph1Old | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph2Old | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph3Old | safe }}</p>
-        {% endif %}
+            <p class="govuk-body">{{ content.paragraph3 | replace("{copiesUKFee}", fields.copiesUKFee.value) | safe }}</p>
 
         <details class="govuk-details" data-module="govuk-details">
         <summary class="govuk-details__summary">
@@ -39,7 +33,7 @@
 
         {{ govukInput({
             label: {
-                text: (content.copies if fields.isFeesApiToggleEnabled.value == "true" else content.copiesOld) | safe
+                text: content.copies | safe
             },
             id: "uk",
             name: "uk",

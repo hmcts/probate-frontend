@@ -87,23 +87,23 @@ describe('PaymentBreakdown', () => {
                     state: 'PaAppCreated'
                 },
                 payment: {
-                    total: 219.50
+                    total: 348.00
                 },
                 fees: {
                     status: 'success',
-                    applicationfee: 215,
+                    applicationfee: 300,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 1.50,
+                    ukcopiesfee: 16.00,
                     overseascopies: 2,
-                    overseascopiesfee: 3,
+                    overseascopiesfee: 32,
                     applicationcode: 'FEE0226',
                     applicationversion: 1,
                     ukcopiescode: 'FEE0003',
                     ukcopiesversion: 2,
                     overseascopiescode: 'FEE0003',
                     overseascopiesversion: 3,
-                    total: 219.50
+                    total: 348.00
                 },
                 registry: {
                     registry: {
@@ -116,23 +116,23 @@ describe('PaymentBreakdown', () => {
             };
             expectedPaymentFormdata = {
                 payment: {
-                    total: 219.50
+                    total: 348.00
                 },
                 fees: {
                     status: 'success',
-                    applicationfee: 215,
+                    applicationfee: 300,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 1.50,
+                    ukcopiesfee: 16.00,
                     overseascopies: 2,
-                    overseascopiesfee: 3,
+                    overseascopiesfee: 32,
                     applicationcode: 'FEE0226',
                     applicationversion: 1,
                     ukcopiescode: 'FEE0003',
                     ukcopiesversion: 2,
                     overseascopiescode: 'FEE0003',
                     overseascopiesversion: 3,
-                    total: 219.50
+                    total: 348.00
                 }
             };
             hostname = 'localhost';
@@ -175,32 +175,32 @@ describe('PaymentBreakdown', () => {
                 },
                 fees: {
                     status: 'success',
-                    applicationfee: 215,
+                    applicationfee: 300,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 1.50,
+                    ukcopiesfee: 16.00,
                     overseascopies: 2,
-                    overseascopiesfee: 3,
-                    total: 219.50
+                    overseascopiesfee: 32,
+                    total: 348.00
                 }
             };
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
             expectedPaAppCreatedFormdata.payment.reference = 'RC-1234-5678-9012-3456';
             feesCalculator.returns(Promise.resolve({
                 status: 'success',
-                applicationfee: 215,
+                applicationfee: 300,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 1.50,
+                ukcopiesfee: 16.00,
                 overseascopies: 2,
-                overseascopiesfee: 3,
+                overseascopiesfee: 32,
                 applicationcode: 'FEE0226',
                 applicationversion: 1,
                 ukcopiescode: 'FEE0003',
                 ukcopiesversion: 2,
                 overseascopiescode: 'FEE0003',
                 overseascopiesversion: 3,
-                total: 219.50
+                total: 348.00
             }));
 
             co(function* () {
@@ -240,7 +240,7 @@ describe('PaymentBreakdown', () => {
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
             feesCalculator.returns(Promise.resolve({
                 status: 'success',
-                applicationfee: 215,
+                applicationfee: 300,
                 applicationvalue: 6000,
                 ukcopies: 0,
                 ukcopiesfee: 0.00,
@@ -281,13 +281,13 @@ describe('PaymentBreakdown', () => {
                 },
                 fees: {
                     status: 'success',
-                    applicationfee: 215,
+                    applicationfee: 300,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 1.50,
+                    ukcopiesfee: 16.00,
                     overseascopies: 2,
-                    overseascopiesfee: 3,
-                    total: 219.50
+                    overseascopiesfee: 32,
+                    total: 348.00
                 },
                 payment: {
                     reference: 'RC-12345'
@@ -295,24 +295,24 @@ describe('PaymentBreakdown', () => {
             };
             feesCalculator.returns(Promise.resolve({
                 status: 'success',
-                applicationfee: 215,
+                applicationfee: 300,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 1.50,
+                ukcopiesfee: 16.00,
                 overseascopies: 2,
-                overseascopiesfee: 3,
+                overseascopiesfee: 32,
                 applicationcode: 'FEE0226',
                 applicationversion: 1,
                 ukcopiescode: 'FEE0003',
                 ukcopiesversion: 2,
                 overseascopiescode: 'FEE0003',
                 overseascopiesversion: 3,
-                total: 219.50
+                total: 348.00
             }));
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
 
             let ctx = {
-                total: 215
+                total: 348
             };
             let errors = [];
 
@@ -343,30 +343,30 @@ describe('PaymentBreakdown', () => {
                 },
                 fees: {
                     status: 'success',
-                    applicationfee: 215,
+                    applicationfee: 300,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 1.50,
+                    ukcopiesfee: 16.00,
                     overseascopies: 2,
-                    overseascopiesfee: 3,
-                    total: 219.50
+                    overseascopiesfee: 32,
+                    total: 348.00
                 }
             };
             feesCalculator.returns(Promise.resolve({
                 status: 'success',
-                applicationfee: 215,
+                applicationfee: 300,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 1.50,
+                ukcopiesfee: 16.00,
                 overseascopies: 2,
-                overseascopiesfee: 3,
+                overseascopiesfee: 32,
                 applicationcode: 'FEE0226',
                 applicationversion: 1,
                 ukcopiescode: 'FEE0003',
                 ukcopiesversion: 2,
                 overseascopiescode: 'FEE0003',
                 overseascopiesversion: 3,
-                total: 219.50
+                total: 348.00
             }));
 
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
@@ -376,14 +376,14 @@ describe('PaymentBreakdown', () => {
                 expect(errors).to.deep.equal(errorsTestData);
                 expect(ctx).to.deep.equal({
                     caseType: 'gop',
-                    applicationFee: '215.00',
+                    applicationFee: '300.00',
                     copies: {
                         uk: {
-                            cost: '1.50',
+                            cost: '16.00',
                             number: 1
                         },
                         overseas: {
-                            cost: '3.00',
+                            cost: '32.00',
                             number: 2
                         }
                     },
@@ -393,7 +393,7 @@ describe('PaymentBreakdown', () => {
                     ukcopiesversion: 2,
                     overseascopiescode: 'FEE0003',
                     overseascopiesversion: 3,
-                    total: '219.50'
+                    total: '348.00'
                 });
                 postStub.restore();
                 done();
@@ -418,30 +418,30 @@ describe('PaymentBreakdown', () => {
                 },
                 fees: {
                     status: 'success',
-                    applicationfee: 215,
+                    applicationfee: 300,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 1.50,
+                    ukcopiesfee: 16.00,
                     overseascopies: 2,
-                    overseascopiesfee: 3,
-                    total: 219.50
+                    overseascopiesfee: 32,
+                    total: 348.00
                 }
             };
             feesCalculator.returns(Promise.resolve({
                 status: 'success',
-                applicationfee: 215,
+                applicationfee: 300,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 1.50,
+                ukcopiesfee: 16.00,
                 overseascopies: 2,
-                overseascopiesfee: 3,
+                overseascopiesfee: 32,
                 applicationcode: 'FEE0226',
                 applicationversion: 1,
                 ukcopiescode: 'FEE0003',
                 ukcopiesversion: 2,
                 overseascopiescode: 'FEE0003',
                 overseascopiesversion: 3,
-                total: 219.50
+                total: 348.00
             }));
 
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
@@ -472,23 +472,23 @@ describe('PaymentBreakdown', () => {
                 },
                 fees: {
                     status: 'success',
-                    applicationfee: 215,
+                    applicationfee: 300,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 1.50,
+                    ukcopiesfee: 16.00,
                     overseascopies: 2,
-                    overseascopiesfee: 3,
+                    overseascopiesfee: 32,
                     applicationcode: 'FEE0226',
                     applicationversion: 1,
                     ukcopiescode: 'FEE0003',
                     ukcopiesversion: 2,
                     overseascopiescode: 'FEE0003',
                     overseascopiesversion: 3,
-                    total: 219.50
+                    total: 348.00
                 },
                 payment: {
                     reference: 'RC-1234-5678-9012-3456',
-                    total: 219.5
+                    total: 348.00
                 },
                 registry: {
                     registry: {
@@ -501,19 +501,19 @@ describe('PaymentBreakdown', () => {
             };
             feesCalculator.returns(Promise.resolve({
                 status: 'success',
-                applicationfee: 215,
+                applicationfee: 300,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 1.50,
+                ukcopiesfee: 16.00,
                 overseascopies: 2,
-                overseascopiesfee: 3,
+                overseascopiesfee: 32,
                 applicationcode: 'FEE0226',
                 applicationversion: 1,
                 ukcopiescode: 'FEE0003',
                 ukcopiesversion: 2,
                 overseascopiescode: 'FEE0003',
                 overseascopiesversion: 3,
-                total: 219.50
+                total: 348.00
             }));
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
             expectedPaAppCreatedFormdata.payment.reference = 'RC-67890';
@@ -534,19 +534,19 @@ describe('PaymentBreakdown', () => {
         it('set ctx.reference to a previous successful reference for a case.', (done) => {
             const caseSuccessPaymentResponse = {
                 'payments': [{
-                    'amount': 219.50,
+                    'amount': 498.00,
                     'ccd_case_number': '1535395401245028',
                     'payment_reference': 'RC-12345',
                     'status': 'Failed'
                 }, {
-                    'amount': 219.50,
+                    'amount': 498.00,
                     'ccd_case_number': '1535395401245028',
                     'payment_reference': 'RC-67890',
                     'status': 'Success'
                 }]
             };
             const identifySuccessfulOrInitiatedPaymentResponse = {
-                'amount': 219.50,
+                'amount': 498.00,
                 'ccd_case_number': '1535395401245028',
                 'payment_reference': 'RC-67890',
                 'status': 'Success'
@@ -568,23 +568,23 @@ describe('PaymentBreakdown', () => {
                 },
                 fees: {
                     status: 'success',
-                    applicationfee: 215,
+                    applicationfee: 300,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 1.50,
+                    ukcopiesfee: 16.00,
                     overseascopies: 2,
-                    overseascopiesfee: 3,
+                    overseascopiesfee: 32,
                     applicationcode: 'FEE0226',
                     applicationversion: 1,
                     ukcopiescode: 'FEE0003',
                     ukcopiesversion: 2,
                     overseascopiescode: 'FEE0003',
                     overseascopiesversion: 3,
-                    total: 219.50
+                    total: 348.00
                 },
                 payment: {
                     reference: 'RC-12345',
-                    total: 219.50
+                    total: 348.00
                 },
                 registry: {
                     registry: {
@@ -599,19 +599,19 @@ describe('PaymentBreakdown', () => {
             expectedPaAppCreatedFormdata.payment.reference = 'RC-67890';
             feesCalculator.returns(Promise.resolve({
                 status: 'success',
-                applicationfee: 215,
+                applicationfee: 300,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 1.50,
+                ukcopiesfee: 16.00,
                 overseascopies: 2,
-                overseascopiesfee: 3,
+                overseascopiesfee: 32,
                 applicationcode: 'FEE0226',
                 applicationversion: 1,
                 ukcopiescode: 'FEE0003',
                 ukcopiesversion: 2,
                 overseascopiescode: 'FEE0003',
                 overseascopiesversion: 3,
-                total: 219.50
+                total: 348.00
             }));
 
             co(function* () {
@@ -641,19 +641,19 @@ describe('PaymentBreakdown', () => {
                 },
                 fees: {
                     status: 'success',
-                    applicationfee: 215,
+                    applicationfee: 300,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 1.50,
+                    ukcopiesfee: 16.00,
                     overseascopies: 2,
-                    overseascopiesfee: 3,
+                    overseascopiesfee: 32,
                     applicationcode: 'FEE0226',
                     applicationversion: 1,
                     ukcopiescode: 'FEE0003',
                     ukcopiesversion: 2,
                     overseascopiescode: 'FEE0003',
                     overseascopiesversion: 3,
-                    total: 219.50
+                    total: 348.00
                 },
                 payment: {
                     reference: 'RC-12345'
@@ -663,19 +663,19 @@ describe('PaymentBreakdown', () => {
             expectedPaymentFormdata.payment.reference = 'RC-12345';
             feesCalculator.returns(Promise.resolve({
                 status: 'success',
-                applicationfee: 215,
+                applicationfee: 300,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 1.50,
+                ukcopiesfee: 16.00,
                 overseascopies: 2,
-                overseascopiesfee: 3,
+                overseascopiesfee: 32,
                 applicationcode: 'FEE0226',
                 applicationversion: 1,
                 ukcopiescode: 'FEE0003',
                 ukcopiesversion: 2,
                 overseascopiescode: 'FEE0003',
                 overseascopiesversion: 3,
-                total: 219.50
+                total: 348.00
             }));
 
             co(function* () {
@@ -711,13 +711,13 @@ describe('PaymentBreakdown', () => {
                 },
                 fees: {
                     status: 'success',
-                    applicationfee: 215,
+                    applicationfee: 300,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 1.50,
+                    ukcopiesfee: 16.00,
                     overseascopies: 2,
                     overseascopiesfee: 3,
-                    total: 219.50
+                    total: 348.00
                 },
                 payment: {
                     reference: 'RC-12345'
@@ -727,19 +727,19 @@ describe('PaymentBreakdown', () => {
             expectedPaymentFormdata.payment.reference = 'RC-12345';
             feesCalculator.returns(Promise.resolve({
                 status: 'success',
-                applicationfee: 215,
+                applicationfee: 300,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 1.50,
+                ukcopiesfee: 16.00,
                 overseascopies: 2,
-                overseascopiesfee: 3,
+                overseascopiesfee: 32,
                 applicationcode: 'FEE0226',
                 applicationversion: 1,
                 ukcopiescode: 'FEE0003',
                 ukcopiesversion: 2,
                 overseascopiescode: 'FEE0003',
                 overseascopiesversion: 3,
-                total: 219.50
+                total: 348.00
             }));
 
             co(function* () {
@@ -761,11 +761,11 @@ describe('PaymentBreakdown', () => {
     describe('Tests formatting of fee and copies amounts', () => {
         it('test that fees and copies that are whole numbers have trailing .00', () => {
             let ctx = {
-                applicationFee: 200,
-                total: 209,
+                applicationFee: 300,
+                total: 348,
                 copies: {
-                    uk: {cost: 3},
-                    overseas: {cost: 6}
+                    uk: {cost: 16},
+                    overseas: {cost: 32}
                 },
                 applicationcode: 'FEE0226',
                 applicationversion: 1,
@@ -776,10 +776,10 @@ describe('PaymentBreakdown', () => {
             };
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
             ctx = paymentBreakdown.formatAmounts(ctx);
-            expect(ctx.applicationFee).to.equal('200.00');
-            expect(ctx.total).to.equal('209.00');
-            expect(ctx.copies.uk.cost).to.equal('3.00');
-            expect(ctx.copies.overseas.cost).to.equal('6.00');
+            expect(ctx.applicationFee).to.equal('300.00');
+            expect(ctx.total).to.equal('348.00');
+            expect(ctx.copies.uk.cost).to.equal('16.00');
+            expect(ctx.copies.overseas.cost).to.equal('32.00');
             expect(ctx.applicationcode).to.equal('FEE0226');
             expect(ctx.applicationversion).to.equal(1);
             expect(ctx.ukcopiescode).to.equal('FEE0003');
@@ -790,28 +790,28 @@ describe('PaymentBreakdown', () => {
 
         it('test that if fees and copies have a single decimal point they are convert to 2 decimal places', () => {
             let ctx = {
-                applicationFee: 200.0,
-                total: 207.5,
+                applicationFee: 300.0,
+                total: 380.0,
                 copies: {
-                    uk: {cost: 3},
-                    overseas: {cost: 4.5}
+                    uk: {cost: 32},
+                    overseas: {cost: 48}
                 }
             };
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
             ctx = paymentBreakdown.formatAmounts(ctx);
-            expect(ctx.applicationFee).to.equal('200.00');
-            expect(ctx.total).to.equal('207.50');
-            expect(ctx.copies.uk.cost).to.equal('3.00');
-            expect(ctx.copies.overseas.cost).to.equal('4.50');
+            expect(ctx.applicationFee).to.equal('300.00');
+            expect(ctx.total).to.equal('380.00');
+            expect(ctx.copies.uk.cost).to.equal('32.00');
+            expect(ctx.copies.overseas.cost).to.equal('48.00');
         });
 
         it('test that if fees and copies have two decimal places they are retured with two decimal places', () => {
             let ctx = {
-                applicationFee: 200.00,
-                total: 207.50,
+                applicationFee: 300.00,
+                total: 380.00,
                 copies: {
-                    uk: {cost: 3.00},
-                    overseas: {cost: 4.50}
+                    uk: {cost: 32.00},
+                    overseas: {cost: 48.00}
                 },
                 applicationcode: 'FEE0226',
                 applicationversion: 1,
@@ -822,10 +822,10 @@ describe('PaymentBreakdown', () => {
             };
             const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
             ctx = paymentBreakdown.formatAmounts(ctx);
-            expect(ctx.applicationFee).to.equal('200.00');
-            expect(ctx.total).to.equal('207.50');
-            expect(ctx.copies.uk.cost).to.equal('3.00');
-            expect(ctx.copies.overseas.cost).to.equal('4.50');
+            expect(ctx.applicationFee).to.equal('300.00');
+            expect(ctx.total).to.equal('380.00');
+            expect(ctx.copies.uk.cost).to.equal('32.00');
+            expect(ctx.copies.overseas.cost).to.equal('48.00');
             expect(ctx.applicationcode).to.equal('FEE0226');
             expect(ctx.applicationversion).to.equal(1);
             expect(ctx.ukcopiescode).to.equal('FEE0003');

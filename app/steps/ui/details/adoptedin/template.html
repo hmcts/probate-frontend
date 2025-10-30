@@ -3,6 +3,14 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% if relationship == "optionChild" %}
+{%    set legendText = content.childQuestion %}
+{% elseif relationship == "optionGrandchild" %}
+{%    set legendText = content.grandchildQuestion %}
+{% else %}
+{%    set legendText = content.parentQuestion %}
+{% endif %}
+
 {% block form_content %}
     {% set relationship = fields.relationshipToDeceased.value %}
     {{ govukRadios({
@@ -11,8 +19,7 @@
         name: "adoptedIn",
         fieldset: {
             legend: {
-                text: (content.childQuestion if relationship == "optionChild" else content.grandchildQuestion)
-                    | replace("{deceasedName}", fields.deceasedName.value) | safe,
+                text: legendText | replace("{deceasedName}", fields.deceasedName.value) | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }

@@ -19,14 +19,7 @@ class AdoptedIn extends ValidationStep {
         ctx.details = formdata.details || {};
         return ctx;
     }
-    handleGet(ctx) {
-        if (ctx.relationshipToDeceased === 'optionGrandchild') {
-            ctx.adoptedIn = ctx.details?.grandchildParentAdoptedIn;
-        } else {
-            ctx.adoptedIn = ctx.details?.childAdoptedIn;
-        }
-        return [ctx];
-    }
+
     nextStepOptions() {
         return {
             options: [
@@ -45,6 +38,8 @@ class AdoptedIn extends ValidationStep {
                     errors.push(this.generateDynamicErrorMessage('adoptedIn', 'requiredChild', session, ctx.deceasedName));
                 } else if (ctx.relationshipToDeceased === 'optionGrandchild') {
                     errors.push(this.generateDynamicErrorMessage('adoptedIn', 'requiredGrandchild', session, ctx.deceasedName));
+                } else if (ctx.relationshipToDeceased === 'optionParent') {
+                    errors.push(this.generateDynamicErrorMessage('adoptedIn', 'requiredParent', session, ctx.deceasedName));
                 }
             } else if (ctx.relationshipToDeceased === 'optionGrandchild') {
                 ctx.relationshipToDeceased = relationship;
@@ -52,6 +47,9 @@ class AdoptedIn extends ValidationStep {
             } else if (ctx.relationshipToDeceased === 'optionChild') {
                 ctx.relationshipToDeceased = relationship;
                 ctx.childAdoptedIn = ctx.adoptedIn;
+            } else if (ctx.relationshipToDeceased === 'optionParent') {
+                ctx.relationshipToDeceased = relationship;
+                ctx.deceasedAdoptedIn = ctx.adoptedIn;
             }
         }
         return [ctx, errors];

@@ -17,7 +17,6 @@ class CoApplicantName extends ValidationStep {
         if (ctx.list?.[ctx.index]) {
             ctx.fullName = ctx.list[ctx.index].fullName;
         }
-        console.log('handleGet-->', ctx.index);
         return [ctx];
     }
 
@@ -32,7 +31,6 @@ class CoApplicantName extends ValidationStep {
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         ctx.deceasedName = FormatName.format(formdata.deceased);
-        console.log('getContextData-->', ctx.index);
         return ctx;
     }
 

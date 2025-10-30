@@ -2,13 +2,15 @@
   "title": "Child adopted out",
   "childQuestion": "Did {deceasedName} legally adopt you out of their family (give you up for adoption)?",
   "grandchildQuestion": "Did {deceasedName} legally adopt your parent ({deceasedName}&rsquo;s child) out of their family (give them up for adoption)?",
+  "parentQuestion": "Did you legally adopt {deceasedName} out of your family (give them up for adoption)?",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
     "adoptedOut": {
       "requiredChild": "Select &lsquo;Yes&rsquo; if {deceasedName} gave you up for adoption",
-      "requiredGrandchild": "Select &lsquo;Yes&rsquo; if {deceasedName} gave your parent up for adoption"
+      "requiredGrandchild": "Select &lsquo;Yes&rsquo; if {deceasedName} gave your parent up for adoption",
+      "requiredParent": "Select &lsquo;Yes&rsquo; if you gave {deceasedName} up for adoption"
     }
   }
 }

@@ -82,7 +82,7 @@ class JointApplication extends ValidationStep {
             options: [
                 {key: 'hasChildCoApplicant', value: true, choice: 'hasCoApplicant'},
                 {key: 'hasParentCoApplicant', value: true, choice: 'hasParentCoApplicant'},
-                {key: 'hasCoApplicant', value: true, choice: 'hasNoCoApplicant'}
+                {key: 'hasNoCoApplicant', value: true, choice: 'hasNoCoApplicant'}
 
             ]
         };

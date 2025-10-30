@@ -20,15 +20,6 @@ class AdoptedOut extends ValidationStep {
         return ctx;
     }
 
-    handleGet(ctx) {
-        if (ctx.relationshipToDeceased === 'optionGrandchild') {
-            ctx.adoptedOut = ctx.details?.grandchildParentAdoptedOut;
-        } else {
-            ctx.adoptedOut = ctx.details?.childAdoptedOut;
-        }
-        return [ctx];
-    }
-
     nextStepUrl(req, ctx) {
         return this.next(req, ctx).constructor.getUrl('adoptedOut');
     }
@@ -36,10 +27,12 @@ class AdoptedOut extends ValidationStep {
     nextStepOptions(ctx) {
         ctx.childNotAdoptedOut = ctx.relationshipToDeceased === 'optionChild' && ctx.adoptedOut === 'optionNo';
         ctx.grandchildNotAdoptedOut = ctx.relationshipToDeceased === 'optionGrandchild' && ctx.adoptedOut === 'optionNo';
+        ctx.deceasedNotAdoptedOut = ctx.relationshipToDeceased === 'optionParent' && ctx.adoptedOut === 'optionNo';
         return {
             options: [
                 {key: 'childNotAdoptedOut', value: true, choice: 'childNotAdoptedOut'},
-                {key: 'grandchildNotAdoptedOut', value: true, choice: 'grandchildNotAdoptedOut'}
+                {key: 'grandchildNotAdoptedOut', value: true, choice: 'grandchildNotAdoptedOut'},
+                {key: 'deceasedNotAdoptedOut', value: true, choice: 'deceasedNotAdoptedOut'}
             ]
         };
     }
@@ -52,11 +45,15 @@ class AdoptedOut extends ValidationStep {
                     errors.push(this.generateDynamicErrorMessage('adoptedOut', 'requiredChild', session, ctx.deceasedName));
                 } else if (ctx.relationshipToDeceased === 'optionGrandchild') {
                     errors.push(this.generateDynamicErrorMessage('adoptedOut', 'requiredGrandchild', session, ctx.deceasedName));
+                } else if (ctx.relationshipToDeceased === 'optionParent') {
+                    errors.push(this.generateDynamicErrorMessage('adoptedOut', 'requiredParent', session, ctx.deceasedName));
                 }
             } else if (ctx.relationshipToDeceased === 'optionGrandchild') {
                 ctx.grandchildParentAdoptedOut = ctx.adoptedOut;
             } else if (ctx.relationshipToDeceased === 'optionChild') {
                 ctx.childAdoptedOut = ctx.adoptedOut;
+            } else if (ctx.relationshipToDeceased === 'optionParent') {
+                ctx.deceasedAdoptedOut = ctx.adoptedOut;
             }
         }
         return [ctx, errors];
@@ -66,6 +63,18 @@ class AdoptedOut extends ValidationStep {
         const baseMessage = FieldError(field, keyword, this.resourcePath, this.generateContent({}, {}, session.language), session.language);
         baseMessage.msg = baseMessage.msg.replace('{deceasedName}', deceasedName);
         return baseMessage;
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        if (ctx.relationshipToDeceased === 'optionGrandchild') {
+            delete ctx.grandchildParentAdoptionPlace;
+        } else if (ctx.relationshipToDeceased === 'optionChild') {
+            delete ctx.childAdoptionPlace;
+        } else if (ctx.relationshipToDeceased === 'optionParent') {
+            delete ctx.deceasedAdoptionPlace;
+        }
+        return [ctx, formdata];
     }
 }
 

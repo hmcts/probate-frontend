@@ -3,6 +3,8 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {get} = require('lodash');
 const IhtThreshold = require('app/utils/IhtThreshold');
+const FormatName = require('app/utils/FormatName');
+const logger = require('app/components/logger');
 
 class RelationshipToDeceased extends ValidationStep {
 
@@ -16,28 +18,50 @@ class RelationshipToDeceased extends ValidationStep {
         ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
         ctx.deceasedMaritalStatus = get(formdata, 'deceased.maritalStatus');
         ctx.assetsValue = get(formdata, 'iht.netValue', 0) + get(formdata, 'iht.netValueAssetsOutside', 0);
+        ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
 
     nextStepUrl(req, ctx) {
+        if (ctx.relationshipToDeceased === 'optionOther') {
+            if (ctx.deceasedMaritalStatus === 'optionMarried') {
+                return this.next(req, ctx).constructor.getUrl('deceasedHadLegalPartnerAndRelationshipOther');
+            }
+            return this.next(req, ctx).constructor.getUrl('deceasedNoLegalPartnerAndRelationshipOther');
+        }
         return this.next(req, ctx).constructor.getUrl('otherRelationship');
     }
 
     nextStepOptions(ctx) {
         ctx.spousePartnerLessThanIhtThreshold = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.assetsValue <= ctx.ihtThreshold;
         ctx.spousePartnerMoreThanIhtThreshold = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.assetsValue > ctx.ihtThreshold;
-        ctx.childDeceasedMarried = ctx.relationshipToDeceased === 'optionChild' && ctx.deceasedMaritalStatus === 'optionMarried';
-        ctx.childDeceasedNotMarried = ctx.relationshipToDeceased === 'optionChild' && ctx.deceasedMaritalStatus !== 'optionMarried';
+        ctx.childOrGrandchildDeceasedMarried = (ctx.relationshipToDeceased === 'optionChild' || ctx.relationshipToDeceased === 'optionGrandchild') && ctx.deceasedMaritalStatus === 'optionMarried';
+        ctx.childOrGrandchildDeceasedNotMarried = (ctx.relationshipToDeceased === 'optionChild' || ctx.relationshipToDeceased === 'optionGrandchild') && ctx.deceasedMaritalStatus !== 'optionMarried';
 
         return {
             options: [
                 {key: 'spousePartnerLessThanIhtThreshold', value: true, choice: 'spousePartnerLessThanIhtThreshold'},
                 {key: 'spousePartnerMoreThanIhtThreshold', value: true, choice: 'spousePartnerMoreThanIhtThreshold'},
-                {key: 'childDeceasedMarried', value: true, choice: 'childDeceasedMarried'},
-                {key: 'childDeceasedNotMarried', value: true, choice: 'childDeceasedNotMarried'},
+                {key: 'childOrGrandchildDeceasedMarried', value: true, choice: 'childOrGrandchildDeceasedMarried'},
+                {key: 'childOrGrandchildDeceasedNotMarried', value: true, choice: 'childOrGrandchildDeceasedNotMarried'},
                 {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'},
             ]
         };
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+
+        if (fields.deceasedName && errors) {
+            for (const error of errors) {
+                const match = error.msg.match(/{deceasedName}/g);
+                if (match) {
+                    error.msg = error.msg.replace('{deceasedName}', fields.deceasedName.value);
+                }
+            }
+        }
+
+        return fields;
     }
 
     action(ctx, formdata) {
@@ -58,12 +82,32 @@ class RelationshipToDeceased extends ValidationStep {
                 delete formdata.deceased.anyChildren;
                 delete formdata.deceased.anyOtherChildren;
                 delete formdata.deceased.allChildrenOver18;
-                delete formdata.deceased.anyDeceasedChildren;
+                delete formdata.deceased.anyPredeceasedChildren;
+                delete formdata.deceased.anySurvivingGrandchildren;
                 delete formdata.deceased.anyGrandchildrenUnder18;
             }
         }
 
         return [ctx, formdata];
+    }
+
+    isComplete(ctx, formdata) {
+        const marStat = formdata?.deceased?.maritalStatus;
+        const relToDec = formdata?.applicant?.relationshipToDeceased;
+        if (marStat) {
+            if (marStat !== 'optionMarried' &&
+                relToDec === 'optionSpousePartner') {
+                logger().info(`marStat: ${marStat}, relToDec: ${relToDec}, cannot be spouse if unmarried`);
+                return [false, 'inProgress'];
+            } else if (marStat === 'optionMarried' &&
+                    (relToDec === 'optionParent' ||
+                        relToDec === 'optionSibling')) {
+                logger().info(`marStat: ${marStat}, relToDec: ${relToDec}, cannot be parent/sibling if married`);
+                return [false, 'inProgress'];
+            }
+        }
+
+        return super.isComplete(ctx, formdata);
     }
 }
 

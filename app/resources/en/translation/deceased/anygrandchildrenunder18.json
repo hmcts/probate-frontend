@@ -1,13 +1,13 @@
 {
   "title": "Any grandchildren under 18",
-  "question": "Did that child have any children who are under 18?",
-  "hint": "These children would be {deceasedName}&rsquo;s grandchildren.",
+  "question": "Are any of these children under 18?",
+  "paragraph": "They would be {deceasedName}&rsquo;s grandchildren.",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
     "anyGrandchildrenUnder18": {
-      "required": "Answer &lsquo;yes&rsquo; if the child who died had children who are under 18"
+      "required": "Select &lsquo;Yes&rsquo; if any of these children are under 18"
     }
   }
 }

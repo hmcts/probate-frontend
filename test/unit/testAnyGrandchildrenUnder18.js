@@ -35,7 +35,7 @@ describe('AnyGrandchildrenUnder18', () => {
     });
 
     describe('nextStepUrl()', () => {
-        it('should return the correct url when all grandchildren are over 18 and all predeceased children', (done) => {
+        it('should return the correct url when other grandchildren are over 18 and all other predeceased children and relationship is child', (done) => {
             const req = {
                 session: {
                     journey: journey
@@ -43,10 +43,27 @@ describe('AnyGrandchildrenUnder18', () => {
             };
             const ctx = {
                 anyGrandchildrenUnder18: 'optionNo',
-                anyPredeceasedChildren: 'optionYesAll'
+                anyPredeceasedChildren: 'optionYesAll',
+                relationshipToDeceased: 'optionChild'
             };
             const nextStepUrl = AnyGrandchildrenUnder18.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/applicant-name');
+            done();
+        });
+
+        it('should return the correct url when other grandchildren are over 18 and all other predeceased children  and relationship is grandchild', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                anyGrandchildrenUnder18: 'optionNo',
+                anyPredeceasedChildren: 'optionYesAll',
+                relationshipToDeceased: 'optionGrandchild'
+            };
+            const nextStepUrl = AnyGrandchildrenUnder18.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/mainapplicantsparent-any-other-children');
             done();
         });
 
@@ -87,7 +104,8 @@ describe('AnyGrandchildrenUnder18', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [
                     {key: 'allGrandchildrenOver18AndSomePredeceasedChildren', value: true, choice: 'allGrandchildrenOver18AndSomePredeceasedChildren'},
-                    {key: 'allGrandchildrenOver18AndAllPredeceasedChildren', value: true, choice: 'allGrandchildrenOver18AndAllPredeceasedChildren'}
+                    {key: 'childAndGrandchildrenOver18AndAllPredeceasedChildren', value: true, choice: 'childAndGrandchildrenOver18AndAllPredeceasedChildren'},
+                    {key: 'grandchildAndGrandchildrenOver18AndAllPredeceasedChildren', value: true, choice: 'grandchildAndGrandchildrenOver18AndAllPredeceasedChildren'}
                 ]
             });
             done();

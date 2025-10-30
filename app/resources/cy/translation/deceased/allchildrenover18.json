@@ -8,7 +8,7 @@
 
   "errors": {
     "allChildrenOver18": {
-      "required": "Atebwch &lsquo;ydi&rsquo; os yw pob plentyn dros 18 oed"
+      "required": "Dewiswch ‘Ydyn’ os ydy’r holl blant hyn yn 18 oed neu’n hŷn"
     }
   }
 }

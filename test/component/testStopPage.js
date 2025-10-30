@@ -293,7 +293,7 @@ describe('stop-page', () => {
                     deceasedName: 'John Doe',
                 };
 
-                const contentToInclude = ['eligibilityTitle', 'title', 'deceasedHadLegalPartnerAndRelationshipOtherHeader', 'deceasedHadLegalPartnerAndRelationshipOther'];
+                const contentToInclude = ['eligibilityTitle', 'title', 'notEntitledHeader', 'deceasedHadLegalPartnerAndRelationshipOther'];
                 const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
                 testWrapper.agent.post('/prepare-session/form')
@@ -324,7 +324,7 @@ describe('stop-page', () => {
                     deceasedName: 'John Doe',
                 };
 
-                const contentToInclude = ['eligibilityTitle', 'title', 'deceasedNoLegalPartnerAndRelationshipOtherHeader', 'deceasedNoLegalPartnerAndRelationshipOther'
+                const contentToInclude = ['eligibilityTitle', 'title', 'cannotApplyByOnlineHeader', 'deceasedNoLegalPartnerAndRelationshipOther'
                 ];
                 const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 

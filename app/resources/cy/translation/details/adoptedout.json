@@ -1,0 +1,15 @@
+
+{
+  "title": "A wnaeth yr unigolyn sydd wedi marw eich mabwysiadu&rsquo;n gyfreithlon allan o&rsquo;u teulu nhw (eich rhoi i ffwrdd i gael eich mabwysiadu)?",
+  "childQuestion": "A wnaeth {deceasedName} eich mabwysiadu&rsquo;n gyfreithlon allan o&rsquo;u teulu nhw (eich rhoi i ffwrdd i gael eich mabwysiadu)?",
+  "grandchildQuestion": "A wnaeth {deceasedName} fabwysiadu eich rhiant ({deceasedName} yn gyfreithlon allan o&rsquo;u teulu nhw (eu rhoi i ffwrdd i gael eu mabwysiadu)",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+
+  "errors": {
+    "adoptedOut": {
+      "requiredChild": "Dewiswch &lsquo;Do&rsquo; os wnaeth {deceasedName} eich rhoi i ffwrdd i gael eich mabwysiadu",
+      "requiredGrandchild": "Dewiswch &lsquo;Do&rsquo; os wnaeth {deceasedName} roi eich rhiant i ffwrdd i gael eu mabwysiadu"
+    }
+  }
+}

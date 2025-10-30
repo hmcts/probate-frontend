@@ -78,7 +78,7 @@ describe('RelationshipToDeceased', () => {
                 deceasedMaritalStatus: 'optionDivorced'
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/child-adopted-in');
+            expect(nextStepUrl).to.equal('/adopted-in');
             done();
         });
 
@@ -93,7 +93,7 @@ describe('RelationshipToDeceased', () => {
                 deceasedMaritalStatus: 'optionDivorced'
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/child-adopted-in');
+            expect(nextStepUrl).to.equal('/mainapplicantsparent-alive');
             done();
         });
 
@@ -190,7 +190,8 @@ describe('RelationshipToDeceased', () => {
                     {key: 'spousePartnerLessThanIhtThreshold', value: true, choice: 'spousePartnerLessThanIhtThreshold'},
                     {key: 'spousePartnerMoreThanIhtThreshold', value: true, choice: 'spousePartnerMoreThanIhtThreshold'},
                     {key: 'childOrGrandchildDeceasedMarried', value: true, choice: 'childOrGrandchildDeceasedMarried'},
-                    {key: 'childOrGrandchildDeceasedNotMarried', value: true, choice: 'childOrGrandchildDeceasedNotMarried'},
+                    {key: 'childAndDeceasedNotMarried', value: true, choice: 'childAndDeceasedNotMarried'},
+                    {key: 'grandchildAndDeceasedNotMarried', value: true, choice: 'grandchildAndDeceasedNotMarried'},
                     {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'},
                 ]
             });

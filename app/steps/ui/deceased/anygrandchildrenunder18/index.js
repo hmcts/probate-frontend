@@ -13,6 +13,7 @@ class AnyGrandchildrenUnder18 extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.relationshipToDeceased = formdata.applicant && formdata.applicant.relationshipToDeceased;
         return ctx;
     }
 
@@ -22,11 +23,13 @@ class AnyGrandchildrenUnder18 extends ValidationStep {
 
     nextStepOptions(ctx) {
         ctx.allGrandchildrenOver18AndSomePredeceasedChildren = ctx.anyGrandchildrenUnder18 === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesSome';
-        ctx.allGrandchildrenOver18AndAllPredeceasedChildren = ctx.anyGrandchildrenUnder18 === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesAll';
+        ctx.childAndGrandchildrenOver18AndAllPredeceasedChildren = ctx.relationshipToDeceased === 'optionChild' && ctx.anyGrandchildrenUnder18 === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesAll';
+        ctx.grandchildAndGrandchildrenOver18AndAllPredeceasedChildren = ctx.relationshipToDeceased === 'optionGrandchild' && ctx.anyGrandchildrenUnder18 === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesAll';
         return {
             options: [
                 {key: 'allGrandchildrenOver18AndSomePredeceasedChildren', value: true, choice: 'allGrandchildrenOver18AndSomePredeceasedChildren'},
-                {key: 'allGrandchildrenOver18AndAllPredeceasedChildren', value: true, choice: 'allGrandchildrenOver18AndAllPredeceasedChildren'}
+                {key: 'childAndGrandchildrenOver18AndAllPredeceasedChildren', value: true, choice: 'childAndGrandchildrenOver18AndAllPredeceasedChildren'},
+                {key: 'grandchildAndGrandchildrenOver18AndAllPredeceasedChildren', value: true, choice: 'grandchildAndGrandchildrenOver18AndAllPredeceasedChildren'}
             ]
         };
     }

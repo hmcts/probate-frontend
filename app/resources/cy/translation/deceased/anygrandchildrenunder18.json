@@ -1,13 +1,13 @@
 {
-  "title": "Unrhyw wyrion/wyresau dan 18 oed",
-  "question": "A oedd gan y plentyn hwnnw blant sydd dan 18 oed?",
+  "title": "A yw unrhyw un o’r plant hyn o dan 18 oed?",
+  "question": "A yw unrhyw un o’r plant hyn o dan 18 oed?",
   "paragraph": "Nhw fyddai wyrion {deceasedName}.",
   "optionYes": "Ydyn",
   "optionNo": "Nac ydyn",
 
   "errors": {
     "anyGrandchildrenUnder18": {
-      "required": "Atebwch &lsquo;oedd&rsquo; os oedd gan y plentyn sydd wedi marw blant sydd dan 18 oed"
+      "required": "Dewiswch &lsquo;Ydy&rsquo; os yw unrhyw un o’r plant hyn yn iau na 18 oed"
     }
   }
 }

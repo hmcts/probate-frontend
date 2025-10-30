@@ -153,26 +153,46 @@ const stepList = {
     DivorceDate: 'TaskList',
     RelationshipToDeceased: {
         childOrGrandchildDeceasedMarried: 'SpouseNotApplyingReason',
-        childOrGrandchildDeceasedNotMarried: 'ChildAdoptedIn',
+        childAndDeceasedNotMarried: 'AdoptedIn',
+        grandchildAndDeceasedNotMarried: 'DeceasedChildAlive',
         adoptedChild: 'AdoptionPlace',
         spousePartnerLessThanIhtThreshold: 'ApplicantName',
         spousePartnerMoreThanIhtThreshold: 'AnyChildren',
         otherwise: 'StopPage'
     },
     SpouseNotApplyingReason: {
-        renouncing: 'ChildAdoptedIn',
+        childAndSpouseNotApplying: 'AdoptedIn',
+        grandchildAndSpouseNotApplying: 'DeceasedChildAlive',
         otherwise: 'StopPage'
     },
-    ChildAdoptedIn: {
-        childAdoptedIn: 'ChildAdoptionPlace',
-        childNotAdoptedIn: 'ChildAdoptedOut'
-    },
-    ChildAdoptedOut: {
-        childAdoptedOut: 'AnyOtherChildren',
+    DeceasedChildAlive: {
+        childNotAlive: 'AdoptedIn',
         otherwise: 'StopPage'
     },
-    ChildAdoptionPlace: {
-        childAdoptedInEnglandOrWales: 'AnyOtherChildren',
+    AdoptedIn: {
+        adoptedIn: 'PlaceOfAdoption',
+        notAdoptedIn: 'AdoptedOut'
+    },
+    AdoptedOut: {
+        childNotAdoptedOut: 'AnyOtherChildren',
+        grandchildNotAdoptedOut: 'GrandchildAdoptedIn',
+        otherwise: 'StopPage'
+    },
+    GrandchildAdoptedIn: {
+        grandchildAdoptedIn: 'GrandchildAdoptionPlace',
+        grandchildNotAdoptedIn: 'GrandchildAdoptedOut',
+    },
+    GrandchildAdoptedOut: {
+        grandchildNotAdoptedOut: 'AnyOtherChildren',
+        otherwise: 'StopPage'
+    },
+    GrandchildAdoptionPlace: {
+        grandchildAdoptedInEnglandOrWales: 'AnyOtherChildren',
+        otherwise: 'StopPage'
+    },
+    PlaceOfAdoption: {
+        childAndAdoptedInEnglandOrWales: 'AnyOtherChildren',
+        grandchildAndAdoptedInEnglandOrWales: 'GrandchildAdoptedIn',
         otherwise: 'StopPage'
     },
     AdoptionPlace: {
@@ -186,9 +206,19 @@ const stepList = {
     },
     AnyOtherChildren: {
         hadOtherChildren: 'AnyPredeceasedChildren',
-        otherwise: 'ApplicantName'
+        childAndHadNoChildren: 'ApplicantName',
+        grandchildAndHadNoChildren: 'GrandchildParentHasOtherChildren'
     },
     AllChildrenOver18: {
+        childAndAllChildrenOver18: 'ApplicantName',
+        grandchildAndAllChildrenOver18: 'GrandchildParentHasOtherChildren',
+        otherwise: 'StopPage'
+    },
+    GrandchildParentHasOtherChildren: {
+        grandchildParentHasOtherChildren: 'GrandchildParentHasAllChildrenOver18',
+        otherwise: 'ApplicantName'
+    },
+    GrandchildParentHasAllChildrenOver18: {
         allChildrenOver18: 'ApplicantName',
         otherwise: 'StopPage'
     },
@@ -199,11 +229,13 @@ const stepList = {
     AnySurvivingGrandchildren: {
         hadSurvivingGrandchildren: 'AnyGrandchildrenUnder18',
         hadOtherChildrenAndHadNoSurvivingGrandchildren: 'AllChildrenOver18',
-        hadNoOtherChildrenAndHadNoSurvivingGrandchildren: 'ApplicantName'
+        childAndNoOtherChildrenAndHadNoSurvivingGrandchildren: 'ApplicantName',
+        grandchildAndNoSurvivingGrandchildrenOfOtherChildren: 'GrandchildParentHasOtherChildren'
     },
     AnyGrandchildrenUnder18: {
         allGrandchildrenOver18AndSomePredeceasedChildren: 'AllChildrenOver18',
-        allGrandchildrenOver18AndAllPredeceasedChildren: 'ApplicantName',
+        childAndGrandchildrenOver18AndAllPredeceasedChildren: 'ApplicantName',
+        grandchildAndGrandchildrenOver18AndAllPredeceasedChildren: 'GrandchildParentHasOtherChildren',
         otherwise: 'StopPage'
     },
     ApplicantName: 'ApplicantPhone',

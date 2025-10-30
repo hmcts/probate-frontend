@@ -11,7 +11,7 @@
 
   "errors": {
     "anyOtherChildren": {
-      "required": "Dewiswch &lsquo;oedd&rsquo; os oedd gan {deceasedName} unrhyw blant eraill"
+      "required": "Dewiswch &lsquo;Oedd&rsquo; os oedd gan {deceasedName} unrhyw blant eraill"
     }
   }
 }

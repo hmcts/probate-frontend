@@ -21,8 +21,9 @@ describe('JointApplication', () => {
             const nextStepOptions = JointApplication.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'hasCoApplicant', value: 'optionYes', choice: 'hasCoApplicant'},
-                    {key: 'hasCoApplicant', value: 'optionNo', choice: 'hasNoCoApplicant'},
+                    {key: 'isJointApplication', value: true, choice: 'isJointApplication'},
+                    {key: 'isParentJointApplication', value: true, choice: 'isParentJointApplication'},
+                    {key: 'notJointApplication', value: true, choice: 'notJointApplication'}
                 ]
             });
             done();

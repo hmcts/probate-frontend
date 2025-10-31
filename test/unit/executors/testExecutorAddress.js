@@ -399,7 +399,7 @@ describe('ExecutorAddress', () => {
             done();
         });
 
-        it('returns the correct url if there are multiple executors applying for Intestacy casetype', (done) => {
+        it('returns the correct url if there are multiple executors applying for Intestacy casetype for child journey', (done) => {
             const req = {
                 session: {
                     journey: intestacyJourney
@@ -409,11 +409,31 @@ describe('ExecutorAddress', () => {
                 list: [{}, {}],
                 index: 1,
                 executorsWrapper: new ExecutorsWrapper(this.list),
-                caseType: caseTypes.INTESTACY
+                caseType: caseTypes.INTESTACY,
+                applicantRelationshipToDeceased: 'optionChild',
             };
             const url = ExecutorAddress.nextStepUrl(req, testCtx);
 
             expect(url).to.equal('/joint-application');
+            done();
+        });
+
+        it('returns the correct url if there are multiple executors applying for Intestacy casetype for parent', (done) => {
+            const req = {
+                session: {
+                    journey: intestacyJourney
+                }
+            };
+            const testCtx = {
+                list: [{}, {}],
+                index: 1,
+                executorsWrapper: new ExecutorsWrapper(this.list),
+                caseType: caseTypes.INTESTACY,
+                applicantRelationshipToDeceased: 'optionParent',
+            };
+            const url = ExecutorAddress.nextStepUrl(req, testCtx);
+
+            expect(url).to.equal('/equality-and-diversity');
             done();
         });
     });
@@ -445,7 +465,8 @@ describe('ExecutorAddress', () => {
 
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'JointApplication', value: true, choice: 'JointApplication'}
+                    {key: 'isChildJointApplication', value: true, choice: 'isChildJointApplication'},
+                    {key: 'isParentJointApplication', value: true, choice: 'isParentJointApplication'},
                 ],
             });
             done();

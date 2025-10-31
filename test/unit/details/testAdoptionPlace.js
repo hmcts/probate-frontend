@@ -57,7 +57,8 @@ describe('AdoptionPlace', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [
                     {key: 'childAndAdoptedInEnglandOrWales', value: true, choice: 'childAndAdoptedInEnglandOrWales'},
-                    {key: 'grandchildAndAdoptedInEnglandOrWales', value: true, choice: 'grandchildAndAdoptedInEnglandOrWales'}
+                    {key: 'grandchildAndAdoptedInEnglandOrWales', value: true, choice: 'grandchildAndAdoptedInEnglandOrWales'},
+                    {key: 'deceasedAdoptedInEnglandOrWales', value: true, choice: 'deceasedAdoptedInEnglandOrWales'}
                 ]
             });
             done();

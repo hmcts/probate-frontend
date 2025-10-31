@@ -23,7 +23,7 @@ class CoApplicantName extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        ctx.appicantRelationshipToDeceased = get(formdata, 'applicant.relationshipToDeceased');
+        ctx.applicantRelationshipToDeceased = get(formdata, 'applicant.relationshipToDeceased');
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
@@ -35,7 +35,7 @@ class CoApplicantName extends ValidationStep {
     }
 
     recalcIndex(ctx, index) {
-        if (ctx.appicantRelationshipToDeceased === 'optionParent') {
+        if (ctx.applicantRelationshipToDeceased === 'optionParent') {
             return 1;
         }
         return findIndex(ctx.list, o => o.isApplying === true, index + 1);
@@ -44,7 +44,7 @@ class CoApplicantName extends ValidationStep {
         if (ctx.index === -1) {
             return this.next(req, ctx).constructor.getUrl();
         }
-        if (ctx.appicantRelationshipToDeceased === 'optionParent') {
+        if (ctx.applicantRelationshipToDeceased === 'optionParent') {
             return '/coapplicant-email/1';
         }
         return this.next(req, ctx).constructor.getUrl(ctx.index);
@@ -52,8 +52,8 @@ class CoApplicantName extends ValidationStep {
 
     nextStepOptions(ctx) {
         if (ctx.caseType === caseTypes.INTESTACY) {
-            ctx.isChildJointApplication = ctx.appicantRelationshipToDeceased === 'optionChild' || ctx.appicantRelationshipToDeceased === 'optionGrandchild';
-            ctx.isParentJointApplication = ctx.appicantRelationshipToDeceased === 'optionParent';
+            ctx.isChildJointApplication = ctx.applicantRelationshipToDeceased === 'optionChild' || ctx.applicantRelationshipToDeceased === 'optionGrandchild';
+            ctx.isParentJointApplication = ctx.applicantRelationshipToDeceased === 'optionParent';
             return {
                 options: [
                     {key: 'isChildJointApplication', value: true, choice: 'isChildJointApplication'},
@@ -78,7 +78,7 @@ class CoApplicantName extends ValidationStep {
         } else if (ctx.fullName && ctx.fullName.length > 100) {
             errors.push(FieldError('fullName', 'maxLength', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
-        if (ctx.appicantRelationshipToDeceased === 'optionParent' && ctx.index === 1) {
+        if (ctx.applicantRelationshipToDeceased === 'optionParent' && ctx.index === 1) {
             ctx.list[1] = {
                 ...ctx.list[1],
                 coApplicantRelationshipToDeceased: 'optionParent',

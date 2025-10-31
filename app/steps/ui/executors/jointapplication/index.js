@@ -19,7 +19,7 @@ class JointApplication extends ValidationStep {
         ctx = this.createExecutorList(ctx, req.session.form);
         ctx.deceased = formdata.deceased;
         ctx.deceasedName = FormatName.format(ctx.deceased);
-        ctx.appicantRelationshipToDeceased = get(formdata, 'applicant.relationshipToDeceased');
+        ctx.applicantRelationshipToDeceased = get(formdata, 'applicant.relationshipToDeceased');
         return ctx;
     }
 
@@ -74,8 +74,8 @@ class JointApplication extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.isJointApplication = ctx.caseType === caseTypes.INTESTACY && ctx.appicantRelationshipToDeceased !== 'optionParent' && ctx.hasCoApplicant === 'optionYes';
-        ctx.isParentJointApplication = ctx.caseType === caseTypes.INTESTACY && ctx.appicantRelationshipToDeceased === 'optionParent' &&
+        ctx.isJointApplication = ctx.caseType === caseTypes.INTESTACY && ctx.applicantRelationshipToDeceased !== 'optionParent' && ctx.hasCoApplicant === 'optionYes';
+        ctx.isParentJointApplication = ctx.caseType === caseTypes.INTESTACY && ctx.applicantRelationshipToDeceased === 'optionParent' &&
             ctx.hasCoApplicant === 'optionYes' && ctx.deceased.anyOtherParentAlive === 'optionYes';
         ctx.notJointApplication = ctx.caseType === caseTypes.INTESTACY && ctx.hasCoApplicant === 'optionNo';
         return {

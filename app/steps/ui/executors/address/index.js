@@ -28,7 +28,7 @@ class ExecutorAddress extends AddressStep {
         if (ctx.list[ctx.index]) {
             ctx.otherExecName = ctx.list[ctx.index].hasOtherName ? ctx.list[ctx.index].currentName : ctx.list[ctx.index].fullName;
         }
-        ctx.appicantRelationshipToDeceased = get(req.session.form, 'applicant.relationshipToDeceased');
+        ctx.applicantRelationshipToDeceased = get(req.session.form, 'applicant.relationshipToDeceased');
         ctx.executorsWrapper = new ExecutorsWrapper(ctx);
 
         return ctx;
@@ -98,8 +98,8 @@ class ExecutorAddress extends AddressStep {
             };
         }
         if (ctx.caseType === caseTypes.INTESTACY) {
-            ctx.isChildJointApplication = ctx.appicantRelationshipToDeceased === 'optionChild' || ctx.appicantRelationshipToDeceased === 'optionGrandchild';
-            ctx.isParentJointApplication = ctx.appicantRelationshipToDeceased === 'optionParent';
+            ctx.isChildJointApplication = ctx.applicantRelationshipToDeceased === 'optionChild' || ctx.applicantRelationshipToDeceased === 'optionGrandchild';
+            ctx.isParentJointApplication = ctx.applicantRelationshipToDeceased === 'optionParent';
             return {
                 options: [
                     {key: 'isChildJointApplication', value: true, choice: 'isChildJointApplication'},

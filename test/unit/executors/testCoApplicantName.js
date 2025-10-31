@@ -60,6 +60,7 @@ describe('Co-applicant-name', () => {
             ctx = {
                 fullName: '',
                 index: 0,
+                caseType: 'intestacy',
                 list: [
                     {firstName: 'John', lastName: 'Doe'},
                     {coApplicantRelationshipToDeceased: 'optionChild'},
@@ -75,14 +76,30 @@ describe('Co-applicant-name', () => {
 
         it('should return the correct URL if the index is there', () => {
             ctx.index = 1;
+            ctx.applicantRelationshipToDeceased = 'optionChild';
             const url = CoApplicantName.nextStepUrl(req, ctx);
             expect(url).to.equal('/coapplicant-adopted-in/1');
         });
 
         it('should return the correct URL with param as * if the index is -1', () => {
             ctx.index = -1;
+            ctx.applicantRelationshipToDeceased = 'optionChild';
             const url = CoApplicantName.nextStepUrl(req, ctx);
             expect(url).to.equal('/coapplicant-adopted-in/*');
+        });
+        it('should return the correct URL if the index is there for parent journey', () => {
+            ctx = {
+                fullName: '',
+                index: 1,
+                applicantRelationshipToDeceased: 'optionParent',
+                caseType: 'intestacy',
+                list: [
+                    {firstName: 'John', lastName: 'Doe'},
+                    {coApplicantRelationshipToDeceased: 'optionParent'}
+                ]
+            };
+            const url = CoApplicantName.nextStepUrl(req, ctx);
+            expect(url).to.equal('/coapplicant-email/1');
         });
     });
     describe('handlePost()', () => {

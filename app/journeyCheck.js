@@ -33,8 +33,6 @@ const gopOnlyPages = [
     '/applicant-alias-reason',
     '/executors-additional-invite',
     '/executors-additional-invite-sent',
-    '/executor-address',
-    '/executor-address/*',
     '/check-will-executors',
     '/executors-alias',
     '/any-executors-died',

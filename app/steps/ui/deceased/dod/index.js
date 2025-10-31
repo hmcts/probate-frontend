@@ -25,7 +25,7 @@ class DeceasedDod extends DateStep {
         const day = ctx['dod-day'];
         const month = ctx['dod-month'];
         const year = ctx['dod-year'];
-        const dod = new Date(`${day}-${month}-${year}`);
+        const dod = new Date(`${year}-${month}-${day}`);
 
         const today = new Date();
         today.setHours(0, 0, 0, 0);

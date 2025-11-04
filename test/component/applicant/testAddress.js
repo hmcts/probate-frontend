@@ -81,6 +81,7 @@ describe('applicant-address', () => {
                         addressLine1: 'value',
                         postTown: 'value',
                         newPostCode: 'value',
+                        relationshipToDeceased: 'optionChild',
                         list: [
                             {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
                         ]};

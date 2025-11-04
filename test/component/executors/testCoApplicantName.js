@@ -67,6 +67,9 @@ describe('coapplicant-name', () => {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
                     maritalStatus: 'optionMarried'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
                 }
             };
             testWrapper.agent.post('/prepare-session/form')

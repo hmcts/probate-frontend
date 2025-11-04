@@ -3,6 +3,7 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% set relationship = fields.relationshipToDeceased.value %}
 {% if relationship == "optionChild" %}
 {%    set legendText = content.childQuestion %}
 {% elseif relationship == "optionGrandchild" %}
@@ -12,7 +13,6 @@
 {% endif %}
 
 {% block form_content %}
-    {% set relationship = fields.relationshipToDeceased.value %}
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "adoptedOut",

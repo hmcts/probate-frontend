@@ -61,7 +61,7 @@ describe('relationship-to-deceased', () => {
                     id: 1234567890123456
                 },
                 deceased: {
-                    maritalStatus: 'optionSeparated',
+                    maritalStatus: 'optionNotMarried',
                     firstName: 'DECEASED',
                     lastName: 'NAME',
                 }

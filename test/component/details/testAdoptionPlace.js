@@ -2,6 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const AnyOtherChildren = require('app/steps/ui/deceased/anyotherchildren');
+const AnyOtherParentAlive = require('app/steps/ui/deceased/anyotherparentalive');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const StopPage = require('app/steps/ui/stoppage');
 const caseTypes= require('app/utils/CaseTypes');
@@ -9,6 +10,7 @@ const caseTypes= require('app/utils/CaseTypes');
 describe('adoption-place', () => {
     let testWrapper;
     const expectedNextUrlForAnyOtherChildren = AnyOtherChildren.getUrl();
+    const expectedNextUrlForAnyOtherParentAlive = AnyOtherParentAlive.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('adoptionNotEnglandOrWales');
 
     beforeEach(() => {
@@ -97,6 +99,43 @@ describe('adoption-place', () => {
                 },
                 applicant: {
                     relationshipToDeceased: 'optionGrandchild'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        adoptionPlace: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                });
+        });
+        it(`test it redirects to any other children page if deceased is adopted in England or Wales: ${expectedNextUrlForAnyOtherParentAlive}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                applicant: {
+                    relationshipToDeceased: 'optionParent'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        adoptionPlace: 'optionYes'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherParentAlive);
+                });
+        });
+
+        it(`test it redirects to stop page if deceased is not adopted in England or Wales: ${expectedNextUrlForStopPage}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                applicant: {
+                    relationshipToDeceased: 'optionParent'
                 }
             };
 

@@ -89,5 +89,43 @@ describe('adoption-in', () => {
                     testWrapper.testRedirect(done, data, expectedNextUrlForAdoptedOut);
                 });
         });
+
+        it(`test it redirects to details Adoption place page if deceased is adopted in: ${expectedNextUrlForAdoptionPlace}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                applicant: {
+                    relationshipToDeceased: 'optionParent'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        adoptedIn: 'optionYes'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAdoptionPlace);
+                });
+        });
+
+        it(`test it redirects to details adopted out page if deceased is not adopted in: ${expectedNextUrlForAdoptedOut}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                applicant: {
+                    relationshipToDeceased: 'optionParent'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        adoptedIn: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAdoptedOut);
+                });
+        });
     });
 });

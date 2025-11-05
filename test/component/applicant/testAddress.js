@@ -98,6 +98,9 @@ describe('applicant-address', () => {
                     firstName: 'John',
                     lastName: 'Doe',
                     anyOtherChildren: 'optionNo',
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
                 }
             };
             testWrapper.agent.post('/prepare-session/form')
@@ -116,7 +119,7 @@ describe('applicant-address', () => {
                 });
         });
 
-        it('test it redirects to  Eqaulity page when Predeceased children and no surviving children', (done) => {
+        it('test it redirects to  Equality page when Predeceased children and no surviving children', (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -126,6 +129,9 @@ describe('applicant-address', () => {
                     anyOtherChildren: 'optionYes',
                     anyPredeceasedChildren: 'optionYesAll',
                     anySurvivingGrandchildren: 'optionNo',
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
                 }
             };
             testWrapper.agent.post('/prepare-session/form')
@@ -143,7 +149,95 @@ describe('applicant-address', () => {
                     testWrapper.testRedirect(done, data, expectedNextUrlForEquality);
                 });
         });
+        it('test it redirects to  Equality page when applicant is grandchild and has all Predeceased children and no surviving children', (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    anyOtherChildren: 'optionYes',
+                    anyPredeceasedChildren: 'optionYesAll',
+                    anySurvivingGrandchildren: 'optionNo',
+                    grandchildParentHasOtherChildren: 'optionNo'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionGrandchild'
+                }
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        fullName: 'CoApplicant',
+                        addressLine1: 'value',
+                        postTown: 'value',
+                        newPostCode: 'value',
+                        relationshipToDeceased: 'optionGrandchild',
+                        list: [
+                            {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
+                        ]};
+                    testWrapper.testRedirect(done, data, expectedNextUrlForEquality);
+                });
+        });
 
+        it('test it redirects to  Equality page when applicant is parent and No any Other Parent Alive', (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    anyOtherChildren: 'optionYes',
+                    anyPredeceasedChildren: 'optionYesAll',
+                    anySurvivingGrandchildren: 'optionNo',
+                    grandchildParentHasOtherChildren: 'optionNo',
+                    anyOtherParentAlive: 'optionNo'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionParent'
+                }
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        addressLine1: 'value',
+                        postTown: 'value',
+                        newPostCode: 'value'
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForEquality);
+                });
+        });
+
+        it('test it redirects to  Joint application page when applicant is parent and has any Other Parent Alive', (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    anyOtherChildren: 'optionYes',
+                    anyPredeceasedChildren: 'optionYesAll',
+                    anySurvivingGrandchildren: 'optionNo',
+                    grandchildParentHasOtherChildren: 'optionNo',
+                    anyOtherParentAlive: 'optionYes'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionParent'
+                }
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        addressLine1: 'value',
+                        postTown: 'value',
+                        newPostCode: 'value'
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForJointApplication);
+                });
+        });
         it('test the address dropdown box displays all addresses when the user returns to the page', (done) => {
             const sessionData = {
                 ccdCase: {

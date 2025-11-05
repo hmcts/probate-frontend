@@ -111,6 +111,7 @@ describe('applicant-address', () => {
                         addressLine1: 'value',
                         postTown: 'value',
                         newPostCode: 'value',
+                        relationshipToDeceased: 'optionChild',
                         list: [
                             {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
                         ]};
@@ -142,6 +143,40 @@ describe('applicant-address', () => {
                         addressLine1: 'value',
                         postTown: 'value',
                         newPostCode: 'value',
+                        relationshipToDeceased: 'optionChild',
+                        list: [
+                            {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
+                        ]};
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForEquality);
+                });
+        });
+
+        it('test it redirects to  Equality page when applicant is grandchild and has all Predeceased children and no surviving children', (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    anyOtherChildren: 'optionYes',
+                    anyPredeceasedChildren: 'optionYesAll',
+                    anySurvivingGrandchildren: 'optionNo',
+                    grandchildParentHasOtherChildren: 'optionNo'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionGrandchild'
+                }
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        fullName: 'CoApplicant',
+                        addressLine1: 'value',
+                        postTown: 'value',
+                        newPostCode: 'value',
+                        relationshipToDeceased: 'optionGrandchild',
                         list: [
                             {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
                         ]};

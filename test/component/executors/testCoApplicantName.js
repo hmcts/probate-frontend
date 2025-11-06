@@ -2,12 +2,14 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const CoApplicantAdoptedIn = require('app/steps/ui/executors/adoptedin');
+const CoApplicantEmail = require('app/steps/ui/executors/coapplicantemail');
 const caseTypes = require('app/utils/CaseTypes');
 const commonContent = require('../../../app/resources/en/translation/common.json');
 
 describe('coapplicant-name', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForCoApplicantAdoptedIn = CoApplicantAdoptedIn.getUrl(1);
+    const expectedNextUrlForCoApplicantEmail = CoApplicantEmail.getUrl(1);
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CoApplicantName');
@@ -83,6 +85,24 @@ describe('coapplicant-name', () => {
                         ]};
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantAdoptedIn);
+                });
+        });
+
+        it('test redirection to co-applicant email in page when co applicant name is provided and is Parent', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                applicant: {
+                    relationshipToDeceased: 'optionParent'
+                }
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        fullName: 'CoApplicant'
+                    };
+                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantEmail);
                 });
         });
 

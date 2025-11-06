@@ -67,12 +67,6 @@ class JointApplication extends ValidationStep {
     isComplete(ctx) {
         return [ctx.hasCoApplicant === 'optionYes' || ctx.hasCoApplicant === 'optionNo', 'inProgress'];
     }
-
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-        return [ctx, formdata];
-    }
-
     nextStepOptions(ctx) {
         ctx.isJointApplication = ctx.caseType === caseTypes.INTESTACY && ctx.applicantRelationshipToDeceased !== 'optionParent' && ctx.hasCoApplicant === 'optionYes';
         ctx.isParentJointApplication = ctx.caseType === caseTypes.INTESTACY && ctx.applicantRelationshipToDeceased === 'optionParent' &&
@@ -100,6 +94,14 @@ class JointApplication extends ValidationStep {
             }
         }
         return [ctx, errors];
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        if (ctx.hasCoApplicant === 'optionNo' && ctx.list?.length >= 2) {
+            ctx.list.pop();
+        }
+        return [ctx, formdata];
     }
 }
 

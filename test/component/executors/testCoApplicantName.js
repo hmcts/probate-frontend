@@ -94,6 +94,10 @@ describe('coapplicant-name', () => {
                 caseType: caseTypes.INTESTACY,
                 applicant: {
                     relationshipToDeceased: 'optionParent'
+                },
+                executors: {
+                    list: [{fullName: 'Bobby Applicant', isApplying: true, isApplicant: true},
+                        {coApplicantRelationshipToDeceased: 'optionChild', isApplying: true}]
                 }
             };
             testWrapper.agent.post('/prepare-session/form')

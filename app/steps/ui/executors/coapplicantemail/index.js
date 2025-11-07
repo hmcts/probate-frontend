@@ -24,8 +24,8 @@ class CoApplicantEmail extends ValidationStep {
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         const executor = ctx.list[ctx.index];
-        ctx.executorName= executor.fullName;
-        ctx.inviteId = executor.inviteId;
+        ctx.executorName= executor?.fullName;
+        ctx.inviteId = executor?.inviteId;
         ctx.formdataId = req.session.form.applicantEmail;
         ctx.authToken = req.authToken;
         ctx.serviceAuthorization = req.session.serviceAuthorization;

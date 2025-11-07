@@ -95,14 +95,6 @@ class JointApplication extends ValidationStep {
         }
         return [ctx, errors];
     }
-
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-        if (ctx.hasCoApplicant === 'optionNo' && ctx.list?.length >= 2) {
-            ctx.list.pop();
-        }
-        return [ctx, formdata];
-    }
 }
 
 module.exports = JointApplication;

@@ -12,6 +12,7 @@ describe('adoption-out', () => {
     const expectedNextUrlForAnyOtherChildren = AnyOtherChildren.getUrl();
     const expectedNextUrlForAnyOtherParentAlive = AnyOtherParentAlive.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('adoptedOut');
+    const expectedNextUrlForDeceasedStopPage = StopPage.getUrl('deceasedAdoptedOut');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('AdoptedOut');
@@ -128,7 +129,7 @@ describe('adoption-out', () => {
                         adoptedOut: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedStopPage);
                 });
         });
 

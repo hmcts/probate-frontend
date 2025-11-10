@@ -30,15 +30,6 @@ class AnySurvivingGrandchildren extends ValidationStep {
             ]
         };
     }
-
-    generateFields(language, ctx, errors) {
-        const fields = super.generateFields(language, ctx, errors);
-        if (fields.deceasedName && errors) {
-            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
-        }
-        return fields;
-    }
-
     action(ctx, formdata) {
         super.action(ctx, formdata);
 
@@ -48,6 +39,14 @@ class AnySurvivingGrandchildren extends ValidationStep {
 
         return [ctx, formdata];
     }
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+        }
+        return fields;
+    }
+
 }
 
 module.exports = AnySurvivingGrandchildren;

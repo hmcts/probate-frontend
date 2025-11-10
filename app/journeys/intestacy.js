@@ -159,6 +159,27 @@ const stepList = {
         spousePartnerMoreThanAssetsThreshold: 'AnyChildren',
         otherwise: 'StopPage'
     },
+    SiblingAnyParentsAlive: {
+        siblingHasParentsAlive: 'SiblingAdoptedIn',
+        otherwise: 'StopPage'
+    },
+    SiblingAdoptedIn: {
+        siblingAdoptedIn: 'SiblingAdoptionPlace',
+        siblingNotAdoptedIn: 'SiblingAdoptedOut'
+    },
+    SiblingAdoptionPlace: {
+        siblingAdoptedInEnglandOrWales: 'SameParents',
+        otherwise: 'StopPage'
+    },
+    SiblingAdoptedOut: {
+        siblingAdoptedOut: 'SameParents',
+        otherwise: 'StopPage'
+    },
+    SameParents: {
+        optionBothParentsSame: 'WholeBloodSiblingAdoptedIn',
+        optionOneParentsSame: 'HalfBloodSiblingAdoptedIn',
+        optionNoParentsSame: 'StopPage'
+    },
     SpouseNotApplyingReason: {
         renouncing: 'ChildAdoptedIn',
         otherwise: 'StopPage'

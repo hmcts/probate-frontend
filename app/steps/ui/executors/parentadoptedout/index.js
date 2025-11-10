@@ -10,14 +10,6 @@ class ParentAdoptedOut extends ValidationStep {
     static getUrl(index = '*') {
         return `${pageUrl}/${index}`;
     }
-
-    handleGet(ctx) {
-        if (ctx.list?.[ctx.index]) {
-            ctx.applicantParentAdoptedOut = ctx.list[ctx.index].grandchildParentAdoptedOut;
-        }
-        return [ctx];
-    }
-
     getContextData(req) {
         const formdata = req.session.form;
         const ctx = super.getContextData(req);
@@ -31,17 +23,14 @@ class ParentAdoptedOut extends ValidationStep {
         ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
         return ctx;
     }
-
+    handleGet(ctx) {
+        if (ctx.list?.[ctx.index]) {
+            ctx.applicantParentAdoptedOut = ctx.list[ctx.index].grandchildParentAdoptedOut;
+        }
+        return [ctx];
+    }
     recalcIndex(ctx, index) {
         return findIndex(ctx.list, o => o.isApplying === true, index + 1);
-    }
-
-    generateFields(language, ctx, errors) {
-        const fields = super.generateFields(language, ctx, errors);
-        if (fields.deceasedName && fields.applicantName && errors) {
-            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value).replace('{applicantName}', fields.applicantName.value);
-        }
-        return fields;
     }
 
     nextStepUrl(req, ctx) {
@@ -50,7 +39,6 @@ class ParentAdoptedOut extends ValidationStep {
         }
         return this.next(req, ctx).constructor.getUrl('coApplicantParentAdoptedOutStop');
     }
-
     nextStepOptions() {
         return {
             options: [
@@ -58,7 +46,13 @@ class ParentAdoptedOut extends ValidationStep {
             ]
         };
     }
-
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && fields.applicantName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value).replace('{applicantName}', fields.applicantName.value);
+        }
+        return fields;
+    }
     handlePost(ctx, errors, formdata) {
         formdata.executors.list[ctx.index].grandchildParentAdoptedOut = ctx.applicantParentAdoptedOut;
         return [ctx, errors];

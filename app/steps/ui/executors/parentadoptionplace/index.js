@@ -11,13 +11,6 @@ class ParentAdoptionPlace extends ValidationStep {
         return `${pageUrl}/${index}`;
     }
 
-    handleGet(ctx) {
-        if (ctx.list?.[ctx.index]) {
-            ctx.applicantParentAdoptionPlace = ctx.list[ctx.index].grandchildParentAdoptionInEnglandOrWales;
-        }
-        return [ctx];
-    }
-
     getContextData(req) {
         const formdata = req.session.form;
         const ctx = super.getContextData(req);
@@ -34,6 +27,12 @@ class ParentAdoptionPlace extends ValidationStep {
 
     recalcIndex(ctx, index) {
         return findIndex(ctx.list, o => o.isApplying === true, index + 1);
+    }
+    handleGet(ctx) {
+        if (ctx.list?.[ctx.index]) {
+            ctx.applicantParentAdoptionPlace = ctx.list[ctx.index].grandchildParentAdoptionInEnglandOrWales;
+        }
+        return [ctx];
     }
 
     nextStepUrl(req, ctx) {

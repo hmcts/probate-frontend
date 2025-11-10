@@ -1,0 +1,14 @@
+{
+  "title": "Same Parents",
+  "question": "Do you have the same parents as {deceasedName}?",
+  "paragraph1": "This includes if you were legally adopted by one or both of {deceasedName}'s parents.",
+  "parentsSame": "Both of my parents are the same",
+  "oneParentsSame": "One of my parents is the same",
+  "noParentsSame": "I have different parents or one of {deceasedName}'s parents is my step-parent",
+
+  "errors": {
+    "sameParents": {
+      "required": "Select whether you have the same parents as {deceasedName}"
+    }
+  }
+}

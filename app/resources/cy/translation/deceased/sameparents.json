@@ -1,14 +1,14 @@
 {
   "title": "Same Parents",
-  "question": "Do you have the same parents as {deceasedName}?",
-  "paragraph1": "This includes if you were legally adopted by one or both of {deceasedName}'s parents.",
-  "parentsSame": "Both of my parents are the same",
-  "oneParentsSame": "One of my parents is the same",
-  "noParentsSame": "I have different parents or one of {deceasedName}'s parents is my step-parent",
+  "question": "A oes gennych chi’r un rhieni â {deceasedName}?",
+  "paragraph1": "Mae hyn yn cynnwys os cawsoch chi eich mabwysiadu gan un neu’r ddau o rieni {deceasedName}.",
+  "parentsSame": "Mae fy dau riant yr un peth",
+  "oneParentsSame": "Mae un o fy rhieni yr un peth",
+  "noParentsSame": "Mae gen i rieni gwahanol neu mae un o rieni {deceasedName} yn lysriant i mi.",
 
   "errors": {
     "sameParents": {
-      "required": "Select whether you have the same parents as {deceasedName}"
+      "required": "Dewiswch a oes gennych chi’r un rhieni â {deceasedName}"
     }
   }
 }

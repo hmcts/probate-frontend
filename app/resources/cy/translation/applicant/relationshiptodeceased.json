@@ -1,14 +1,22 @@
 {
   "title": "Perthynas &acirc;&rsquo;r unigolyn sydd wedi marw",
-  "question": "Beth oedd eich perthynas &acirc;&rsquo;r unigolyn sydd wedi marw?",
-  "optionSpousePartner": "G&wcirc;r, gwraig neu bartner sifil (nid yw&rsquo;n cynnwys partneriaid cyfraith gwlad hyn yn oed os oeddech yn cyd-fyw)",
-  "optionChild": "Plentyn (nid yw&rsquo;n cynnwys llysblant)",
-  "optionAdoptedChild": "Plentyn a gafodd ei fabwysiadu&rsquo;n gyfreithlon",
+  "question": "Beth yw eich perthynas &acirc; {deceasedName}?",
+  "optionSpousePartner": "Fi yw eu g&wcirc;r, eu gwraig neu eu partner sifil",
+  "hintSpousePartner": "Nid yw&rsquo;n cynnwys partneriaid sydd heb briodi neu heb fogrestru sy&rsquo;n byw gydd&rsquo;i gilydd",
+  "optionChild": "Fi yw eu plentyn",
+  "hintChild": "Gan gynnwys plant a fabwysiadwyd, ond nid llysblant",
+  "optionGrandchild": "Fi yw eu &wcirc;yr/wyres",
+  "hintGrandchild": "Gan gynnwys wyrion a fabwysiadwyd, ond nid llyswyrion",
+  "optionParent": "Fi yw eu rhiant",
+  "hintParent": "Gan gynnwys rhieni mabwysiedig, ond nid llysrieni",
+  "optionSibling": "Fi yw eu brawd/chwaer",
+  "hintSibling": "Gan gynnwys brodyr/chwiorydd mabwysiedig, ond nid llysfrodyr/llyschwiorydd",
   "optionOther": "Arall",
+  "or": "neu",
 
   "errors": {
     "relationshipToDeceased": {
-      "required": "Dewiswch opsiwn ar gyfer eich perthynas &acirc;&rsquo;r unigolyn sydd wedi marw"
+      "required": "Dewiswch beth yw eich perthynas &acirc; {deceasedName}"
     }
   }
 }

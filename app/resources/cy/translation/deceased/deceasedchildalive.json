@@ -1,0 +1,12 @@
+{
+  "title": "Child Alive",
+  "question": "A yw plentyn eich rhiant ({deceasedName} yn fyw?",
+  "optionYes": "Ydy",
+  "optionNo": "Nac ydy",
+
+  "errors": {
+    "childAlive": {
+      "required": "Dewiswch &lsquo;Ydy&rsquo; os yw plentyn eich rhiant ({deceasedName} yn fyw"
+    }
+  }
+}

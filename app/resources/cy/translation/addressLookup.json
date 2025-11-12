@@ -1,8 +1,8 @@
 {
   "errors": {
     "postcode": {
-      "required": "Nodwch god post",
-      "invalid": "Nodwch god post dilys",
+      "required": "Nodwch god post yn y DU yn llawn",
+      "invalid": "Nodwch god post yn y DU sy’n ddilys",
       "noAddresses": "Nodwch god post dilys"
     }
   }

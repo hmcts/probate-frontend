@@ -6,13 +6,14 @@
   "optionWidowed": "Gweddw",
   "optionNotMarried": "Erioed wedi priodi",
   "optionSeparated": "Ymwahaniad cyfreithiol",
-  "divorce": "wedi ysgaru",
-  "separation": "wedi gwahanu",
+  "hintTextMarried": "Rhaid bod partneriaeth sifil wedi’i chofrestru ac mae’n wahanol i fyw gyda’ch gilydd fel partneriaid",
+  "divorce": "ysgariad neu’r diddymiad",
+  "separation": "ymwahaniad cyfreithiol",
   "theDeceased": "yr unigolyn sydd wedi marw",
 
   "errors": {
     "maritalStatus": {
-      "required": "Dewiswch opsiwn ar gyfer eu statws priodasol"
+      "required": "Dewiswch statws priodasol {deceasedName} ar adeg eu marwolaeth"
     }
   }
 }

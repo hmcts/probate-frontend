@@ -60,16 +60,14 @@ const stepList = {
         otherwise: 'StopPage'
     },
     RelatedToDeceased: {
-        related: 'OtherApplicants',
-        otherwise: 'StopPage'
-    },
-    OtherApplicants: {
-        noOthers: 'StartApply',
+        related: 'StartApply',
         otherwise: 'StopPage'
     },
     StartApply: 'TaskList',
-    BilingualGOP: 'DeceasedDetails',
-    DeceasedDetails: {
+    BilingualGOP: 'DeceasedName',
+    DeceasedName: 'DeceasedDob',
+    DeceasedDob: 'DeceasedDod',
+    DeceasedDod: {
         diedAfter: 'DeceasedAddress',
         otherwise: 'StopPage'
     },
@@ -86,8 +84,6 @@ const stepList = {
     },
     NewSubmittedToHmrc: {
         optionIHT400: 'HmrcLetter',
-        optionIHT400421: 'ProbateEstateValues',
-        optionNA: 'IhtEstateValues',
         otherwise: 'IhtEstateValues'
     },
     ReportEstateValues: 'CalcCheck',
@@ -97,7 +93,6 @@ const stepList = {
     },
     IhtEstateForm: {
         optionIHT400: 'HmrcLetter',
-        optionIHT400421: 'ProbateEstateValues',
         optionIHT205: 'ProbateEstateValues',
         otherwise: 'ProbateEstateValues'
     },
@@ -152,19 +147,59 @@ const stepList = {
         otherwise: 'TaskList'
     },
     DivorcePlace: {
-        inEnglandOrWales: 'TaskList',
+        inEnglandOrWales: 'DivorceDate',
         otherwise: 'StopPage'
     },
+    DivorceDate: 'TaskList',
     RelationshipToDeceased: {
-        childDeceasedMarried: 'SpouseNotApplyingReason',
-        childDeceasedNotMarried: 'AnyOtherChildren',
+        childOrGrandchildDeceasedMarried: 'SpouseNotApplyingReason',
+        childAndDeceasedNotMarried: 'AdoptedIn',
+        grandchildAndDeceasedNotMarried: 'DeceasedChildAlive',
         adoptedChild: 'AdoptionPlace',
         spousePartnerLessThanIhtThreshold: 'ApplicantName',
         spousePartnerMoreThanIhtThreshold: 'AnyChildren',
+        parentSiblingNotMarried: 'AnyLivingDescendants',
+        otherwise: 'StopPage'
+    },
+    AnyLivingDescendants: {
+        noLivingDescendants: 'AdoptedIn',
         otherwise: 'StopPage'
     },
     SpouseNotApplyingReason: {
-        renouncing: 'AnyOtherChildren',
+        childAndSpouseNotApplying: 'AdoptedIn',
+        grandchildAndSpouseNotApplying: 'DeceasedChildAlive',
+        otherwise: 'StopPage'
+    },
+    DeceasedChildAlive: {
+        childNotAlive: 'AdoptedIn',
+        otherwise: 'StopPage'
+    },
+    AdoptedIn: {
+        adoptedIn: 'PlaceOfAdoption',
+        notAdoptedIn: 'AdoptedOut'
+    },
+    AdoptedOut: {
+        childNotAdoptedOut: 'AnyOtherChildren',
+        grandchildNotAdoptedOut: 'GrandchildAdoptedIn',
+        deceasedNotAdoptedOut: 'AnyOtherParentAlive',
+        otherwise: 'StopPage'
+    },
+    GrandchildAdoptedIn: {
+        grandchildAdoptedIn: 'GrandchildAdoptionPlace',
+        grandchildNotAdoptedIn: 'GrandchildAdoptedOut',
+    },
+    GrandchildAdoptedOut: {
+        grandchildNotAdoptedOut: 'AnyOtherChildren',
+        otherwise: 'StopPage'
+    },
+    GrandchildAdoptionPlace: {
+        grandchildAdoptedInEnglandOrWales: 'AnyOtherChildren',
+        otherwise: 'StopPage'
+    },
+    PlaceOfAdoption: {
+        childAndAdoptedInEnglandOrWales: 'AnyOtherChildren',
+        grandchildAndAdoptedInEnglandOrWales: 'GrandchildAdoptedIn',
+        deceasedAdoptedInEnglandOrWales: 'AnyOtherParentAlive',
         otherwise: 'StopPage'
     },
     AdoptionPlace: {
@@ -177,24 +212,101 @@ const stepList = {
         otherwise: 'ApplicantName'
     },
     AnyOtherChildren: {
-        hadOtherChildren: 'AllChildrenOver18',
-        otherwise: 'ApplicantName'
+        hadOtherChildren: 'AnyPredeceasedChildren',
+        childAndHadNoChildren: 'ApplicantName',
+        grandchildAndHadNoChildren: 'GrandchildParentHasOtherChildren'
     },
     AllChildrenOver18: {
-        allChildrenOver18: 'AnyDeceasedChildren',
+        childAndAllChildrenOver18: 'ApplicantName',
+        grandchildAndAllChildrenOver18: 'GrandchildParentHasOtherChildren',
         otherwise: 'StopPage'
     },
-    AnyDeceasedChildren: {
-        hadDeceasedChildren: 'AnyGrandchildrenUnder18',
+    GrandchildParentHasOtherChildren: {
+        grandchildParentHasOtherChildren: 'GrandchildParentHasAllChildrenOver18',
         otherwise: 'ApplicantName'
     },
-    AnyGrandchildrenUnder18: {
-        allGrandchildrenOver18: 'ApplicantName',
+    GrandchildParentHasAllChildrenOver18: {
+        allChildrenOver18: 'ApplicantName',
         otherwise: 'StopPage'
+    },
+    AnyPredeceasedChildren: {
+        hadSomeOrAllPredeceasedChildren: 'AnySurvivingGrandchildren',
+        optionNo: 'AllChildrenOver18'
+    },
+    AnySurvivingGrandchildren: {
+        hadSurvivingGrandchildren: 'AnyGrandchildrenUnder18',
+        hadOtherChildrenAndHadNoSurvivingGrandchildren: 'AllChildrenOver18',
+        childAndNoOtherChildrenAndHadNoSurvivingGrandchildren: 'ApplicantName',
+        grandchildAndNoSurvivingGrandchildrenOfOtherChildren: 'GrandchildParentHasOtherChildren'
+    },
+    AnyGrandchildrenUnder18: {
+        allGrandchildrenOver18AndSomePredeceasedChildren: 'AllChildrenOver18',
+        childAndGrandchildrenOver18AndAllPredeceasedChildren: 'ApplicantName',
+        grandchildAndGrandchildrenOver18AndAllPredeceasedChildren: 'GrandchildParentHasOtherChildren',
+        otherwise: 'StopPage'
+    },
+    AnyOtherParentAlive: 'ApplicantName',
+    JointApplication: {
+        isJointApplication: 'CoApplicantRelationshipToDeceased',
+        isParentJointApplication: 'CoApplicantName',
+        notJointApplication: 'Equality',
+        otherwise: 'TaskList'
+    },
+    CoApplicantRelationshipToDeceased: {
+        optionChild: 'CoApplicantName',
+        optionGrandchild: 'ParentDieBefore',
+        otherwise: 'StopPage'
+    },
+    RemoveCoApplicant: 'JointApplication',
+    CoApplicantName: {
+        isChildJointApplication: 'CoApplicantAdoptedIn',
+        isParentJointApplication: 'CoApplicantEmail'
+    },
+    CoApplicantAdoptedIn: {
+        adoptedIn: 'CoApplicantAdoptionPlace',
+        notAdoptedIn: 'CoApplicantAdoptedOut'
+    },
+    ParentDieBefore: {
+        parentDieBefore: 'CoApplicantName',
+        otherwise: 'StopPage'
+    },
+    CoApplicantAdoptionPlace: {
+        childAdoptedInEnglandOrWales: 'CoApplicantEmail',
+        grandChildAdoptedInEnglandOrWales: 'ParentAdoptedIn',
+        otherwise: 'StopPage'
+    },
+    CoApplicantAdoptedOut: {
+        childNotAdoptedOut: 'CoApplicantEmail',
+        grandchildNotAdoptedOut: 'ParentAdoptedIn',
+        otherwise: 'StopPage'
+    },
+    ParentAdoptedIn: {
+        parentAdoptedIn: 'ParentAdoptionPlace',
+        notParentAdoptedIn: 'ParentAdoptedOut'
+    },
+    ParentAdoptedOut: {
+        parentNotAdoptedOut: 'CoApplicantEmail',
+        otherwise: 'StopPage'
+    },
+    ParentAdoptionPlace: {
+        parentAdoptedOutEnglandOrWales: 'CoApplicantEmail',
+        otherwise: 'StopPage'
+    },
+    CoApplicantEmail: 'ExecutorAddress',
+    ExecutorContactDetails: 'ExecutorAddress',
+    ExecutorAddress: {
+        isChildJointApplication: 'JointApplication',
+        isParentJointApplication: 'Equality'
     },
     ApplicantName: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',
-    ApplicantAddress: 'Equality',
+    ApplicantAddress: {
+        hasCoApplicant: 'JointApplication',
+        hasNoCoApplicant: 'Equality',
+        isIntestacyWithOtherParent: 'JointApplication',
+        isIntestacyNoOtherParent: 'Equality',
+        otherwise: 'Equality'
+    },
     Equality: 'Summary',
     Summary: 'TaskList',
     Declaration: 'TaskList',

@@ -11,7 +11,6 @@ const ihtDataConfig = require('test/end-to-end/pages/ee/ihtData');
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
-const ihtOptionNotSubmitted = ihtDataConfig.ihtOptionNotSubmitted;
 
 Feature('GOP Multiple Executors E2E - EE No Journey');
 
@@ -36,13 +35,8 @@ getTestLanguages().forEach(language => {
         await I.selectDeathCertificateInEnglish(language, optionNo);
         await I.selectDeathCertificateTranslation(language, optionYes);
         await I.selectDeceasedDomicile(language);
-        const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
-        if (isEEEnabled) {
-            await I.selectEEDeceasedDod(language, optionYes);
-            await I.selectEEvalue(language);
-        } else {
-            await I.selectIhtCompleted(language, optionYes);
-        }
+        await I.selectEEDeceasedDod(language, optionYes);
+        await I.selectEEvalue(language);
         await I.selectPersonWhoDiedLeftAWill(language, optionYes);
         await I.selectOriginalWill(language, optionYes);
         await I.selectApplicantIsExecutor(language, optionYes);
@@ -69,7 +63,7 @@ getTestLanguages().forEach(language => {
         await I.selectForeignDeathCertTranslation(language, optionYes);
 
         await I.selectEEComplete(language, optionYes);
-        await I.selectSubmittedToHmrc(language, ihtOptionNotSubmitted);
+        await I.selectSubmittedToHmrc(language, optionNo);
         await I.enterEEValue(language, 500000, 400000, 400000);
         await I.selectLateSpouseCivilPartner(language, optionYes);
         await I.selectUnusedAllowance(language, optionYes);
@@ -77,24 +71,19 @@ getTestLanguages().forEach(language => {
 
         await I.selectDeceasedAliasGop(language, optionNo);
         await I.selectDeceasedMarriedAfterDateOnWill(language, optionNo);
-        const isWillConditionEnabled = await TestConfigurator.checkFeatureToggle('probate-will-condition');
-        if (isWillConditionEnabled) {
-            await I.selectWillDamage(language, optionYes, 'test');
-            await I.selectWillDamageReason(language, optionYes, 'test');
-            await I.selectWillDamageWho(language, optionYes, 'test', 'test');
-            await I.selectWillDamageDate(language, optionYes, 2017);
-        }
+        await I.selectWillDamage(language, optionYes, 'test');
+        await I.selectWillDamageReason(language, optionYes, 'test');
+        await I.selectWillDamageWho(language, optionYes, 'test', 'test');
+        await I.selectWillDamageDate(language, optionYes, 2017);
 
         await I.selectWillCodicils(language, optionYes);
         await I.selectWillNoOfCodicils(language, 1);
 
-        if (isWillConditionEnabled) {
-            await I.selectCodicilsDamage(language, optionYes, 'test');
-            await I.selectCodicilsReason(language, optionYes, 'test');
-            await I.selectCodicilsWho(language, optionYes, 'test', 'test');
-            await I.selectCodicilsDate(language, optionYes, 2000);
-            await I.selectWrittenWishes(language, optionYes, 'test');
-        }
+        await I.selectCodicilsDamage(language, optionYes, 'test');
+        await I.selectCodicilsReason(language, optionYes, 'test');
+        await I.selectCodicilsWho(language, optionYes, 'test', 'test');
+        await I.selectCodicilsDate(language, optionYes, 2000);
+        await I.selectWrittenWishes(language, optionYes, 'test');
 
         // ExecutorsTask
         await I.selectATask(language, 'executorsTask', taskListContent.taskNotStarted);

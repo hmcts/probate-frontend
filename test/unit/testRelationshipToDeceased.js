@@ -49,10 +49,19 @@ describe('RelationshipToDeceased', () => {
                     journey: journey
                 }
             };
-            const ctx = {
-                relationshipToDeceased: 'optionChild',
-                deceasedMaritalStatus: 'optionMarried'
+            const ctx = {relationshipToDeceased: 'optionChild', deceasedMaritalStatus: 'optionMarried'};
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/spouse-not-applying-reason');
+            done();
+        });
+
+        it('should return the correct url when relationship is Grandchild and the deceased was married', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
             };
+            const ctx = {relationshipToDeceased: 'optionGrandchild', deceasedMaritalStatus: 'optionMarried'};
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/spouse-not-applying-reason');
             done();
@@ -66,10 +75,25 @@ describe('RelationshipToDeceased', () => {
             };
             const ctx = {
                 relationshipToDeceased: 'optionChild',
-                deceasedMaritalStatus: 'optionNotMarried'
+                deceasedMaritalStatus: 'optionDivorced'
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/any-other-children');
+            expect(nextStepUrl).to.equal('/adopted-in');
+            done();
+        });
+
+        it('should return the correct url when relationship is Grandchild and the deceased was not married', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                relationshipToDeceased: 'optionGrandchild',
+                deceasedMaritalStatus: 'optionDivorced'
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/mainapplicantsparent-alive');
             done();
         });
 
@@ -93,11 +117,7 @@ describe('RelationshipToDeceased', () => {
                     journey: journey
                 }
             };
-            const ctx = {
-                ihtThreshold: 250000,
-                relationshipToDeceased: 'optionSpousePartner',
-                assetsValue: 200000
-            };
+            const ctx = {ihtThreshold: 250000, relationshipToDeceased: 'optionSpousePartner', assetsValue: 200000};
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/applicant-name');
             done();
@@ -119,14 +139,41 @@ describe('RelationshipToDeceased', () => {
             done();
         });
 
-        it('should return the correct url when Other is given', (done) => {
+        it('should return the correct url when Other is given and deceased married', (done) => {
             const req = {
                 session: {
                     journey: journey
                 }
             };
             const ctx = {
-                relationshipToDeceased: 'optionOther'
+                relationshipToDeceased: 'optionOther',
+                deceasedMaritalStatus: 'optionMarried',
+            };
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/stop-page/deceasedHadLegalPartnerAndRelationshipOther');
+            done();
+        });
+
+        it('should return the correct url when Other is given and deceased not married', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                relationshipToDeceased: 'optionOther',};
+            const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/stop-page/deceasedNoLegalPartnerAndRelationshipOther');
+            done();
+        });
+
+        it('should return the correct url when Other not given', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/otherRelationship');
@@ -142,8 +189,10 @@ describe('RelationshipToDeceased', () => {
                 options: [
                     {key: 'spousePartnerLessThanIhtThreshold', value: true, choice: 'spousePartnerLessThanIhtThreshold'},
                     {key: 'spousePartnerMoreThanIhtThreshold', value: true, choice: 'spousePartnerMoreThanIhtThreshold'},
-                    {key: 'childDeceasedMarried', value: true, choice: 'childDeceasedMarried'},
-                    {key: 'childDeceasedNotMarried', value: true, choice: 'childDeceasedNotMarried'},
+                    {key: 'childOrGrandchildDeceasedMarried', value: true, choice: 'childOrGrandchildDeceasedMarried'},
+                    {key: 'parentSiblingNotMarried', value: true, choice: 'parentSiblingNotMarried'},
+                    {key: 'childAndDeceasedNotMarried', value: true, choice: 'childAndDeceasedNotMarried'},
+                    {key: 'grandchildAndDeceasedNotMarried', value: true, choice: 'grandchildAndDeceasedNotMarried'},
                     {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'},
                 ]
             });
@@ -153,15 +202,13 @@ describe('RelationshipToDeceased', () => {
 
     describe('action()', () => {
         it('test it cleans up context and formdata', () => {
-            const ctx = {
-                ihtThreshold: 250000,
+            const ctx = {ihtThreshold: 250000,
                 assetsValue: 450000,
                 deceasedMaritalStatus: 'optionMarried',
                 spousePartnerLessThanIhtThreshold: true,
                 spousePartnerMoreThanIhtThreshold: true,
                 childDeceasedMarried: true,
                 childDeceasedNotMarried: true,
-
                 relationshipToDeceased: 'optionChild',
                 adoptionPlace: 'optionYes',
                 spouseNotApplyingReason: 'optionRenouncing'
@@ -174,7 +221,7 @@ describe('RelationshipToDeceased', () => {
                     anyChildren: 'optionYes',
                     anyOtherChildren: 'optionYes',
                     allChildrenOver18: 'optionYes',
-                    anyDeceasedChildren: 'optionYes',
+                    anyPredeceasedChildren: 'optionYesAll',
                     anyGrandchildrenUnder18: 'optionNo'
                 }
             };
@@ -186,15 +233,106 @@ describe('RelationshipToDeceased', () => {
             assert.isUndefined(ctx.spousePartnerMoreThanIhtThreshold);
             assert.isUndefined(ctx.childDeceasedMarried);
             assert.isUndefined(ctx.childDeceasedNotMarried);
-
             assert.isUndefined(ctx.adoptionPlace);
             assert.isUndefined(ctx.spouseNotApplyingReason);
-
             assert.isUndefined(formdata.deceased.anyChildren);
             assert.isUndefined(formdata.deceased.anyOtherChildren);
             assert.isUndefined(formdata.deceased.allChildrenOver18);
-            assert.isUndefined(formdata.deceased.anyDeceasedChildren);
+            assert.isUndefined(formdata.deceased.anyPredeceasedChildren);
             assert.isUndefined(formdata.deceased.anyGrandchildrenUnder18);
+        });
+    });
+
+    describe('isComplete()', () => {
+        it('reports incomplete if relToDec undefined', (done) => {
+            const ctx = {
+            };
+            const formdata = {
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                },
+                applicant: {
+                },
+            };
+
+            const [isComplete,] = RelationshipToDeceased.isComplete(ctx, formdata);
+
+            assert.isFalse(isComplete,
+                'Expect relationship to deceased to report incomplete if no relToDec');
+            done();
+        });
+
+        it('reports complete if marStat=married and relToDec=spouse', (done) => {
+            const ctx = {'relationshipToDeceased': 'value',};
+            const formdata = {
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSpousePartner',
+                },
+            };
+
+            const [isComplete,] = RelationshipToDeceased.isComplete(ctx, formdata);
+
+            assert.isTrue(isComplete,
+                'Expect relationship to deceased to report complete if relStat=married and relToDec=spouse');
+            done();
+        });
+
+        it('reports incomplete if marStat!=married and relToDec=spouse', (done) => {
+            const ctx = {
+                'relationshipToDeceased': 'value',
+            };
+            const formdata = {
+                deceased: {maritalStatus: 'optionDivorced',},
+                applicant: {relationshipToDeceased: 'optionSpousePartner',},
+            };
+
+            const [isComplete,] = RelationshipToDeceased.isComplete(ctx, formdata);
+
+            assert.isFalse(isComplete,
+                'Expect relationship to deceased to report incomplete if relStat!=married and relToDec=spouse');
+
+            done();
+        });
+
+        it('reports incomplete if marStat=married and relToDec=parent', (done) => {
+            const ctx = {
+                'relationshipToDeceased': 'value',
+            };
+            const formdata = {
+                deceased: {maritalStatus: 'optionMarried',},
+                applicant: {relationshipToDeceased: 'optionParent',},
+            };
+
+            const [isComplete,] = RelationshipToDeceased.isComplete(ctx, formdata);
+
+            assert.isFalse(isComplete,
+                'Expect relationship to deceased to report incomplete if relStat=married and relToDec=parent');
+
+            done();
+        });
+
+        it('reports incomplete if marStat=married and relToDec=sibling', (done) => {
+            const ctx = {
+                'relationshipToDeceased': 'value',
+            };
+            const formdata = {
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSibling',
+                },
+            };
+
+            const [isComplete,] = RelationshipToDeceased.isComplete(ctx, formdata);
+
+            assert.isFalse(isComplete,
+                'Expect relationship to deceased to report incomplete if relStat=married and relToDec=sibling');
+
+            done();
         });
     });
 });

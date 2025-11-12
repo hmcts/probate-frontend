@@ -37,6 +37,7 @@ const isEmpty = require('lodash').isEmpty;
 const setupHealthCheck = require('app/utils/setupHealthCheck');
 const {sanitizeInput} = require('./app/utils/Sanitize');
 const {merge} = require('lodash');
+const normalizeNonIdamPages = require('app/utils/configNormalisers');
 
 exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const app = express();
@@ -217,6 +218,11 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         maxAge: 31536000,
     }));
 
+    app.use((req, res, next) => {
+        res.header('X-Robots-Tag', 'noindex');
+        next();
+    });
+
     const caching = {cacheControl: true, setHeaders: (res) => res.setHeader('Cache-Control', 'max-age=604800')};
 
     // Middleware to serve static assets
@@ -341,7 +347,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.use(featureToggles);
 
     if (useIDAM === 'true') {
-        const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);
+        const nonIdamPages = normalizeNonIdamPages(config.nonIdamPages);
+        const idamPages = new RegExp(`/((?!${nonIdamPages.join('|')}).)*`);
         app.use(idamPages, security.protect(config.services.idam.roles));
         app.use('/', routes);
     } else {

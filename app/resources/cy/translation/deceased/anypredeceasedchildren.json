@@ -1,0 +1,14 @@
+{
+  "title": "Unrhyw blant sydd wedi marw",
+  "question": "A wnaeth unrhyw un o&rsquo;r plant hyn farw cyn {deceasedName}?",
+  "optionYesAll": "Do, pob un ohonynt",
+  "optionYesSome": "Do, rhai ohonynt",
+  "optionNo": "Naddo",
+  "theDeceased": "yr unigolyn sydd wedi marw",
+
+  "errors": {
+    "anyPredeceasedChildren": {
+      "required": "Dewiswch os wnaeth unrhyw un o&rsquo;r plant farw cyn {deceasedName}"
+    }
+  }
+}

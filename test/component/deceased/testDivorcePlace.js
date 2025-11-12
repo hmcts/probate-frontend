@@ -63,7 +63,7 @@ describe('divorce-place', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        legalProcess: 'divorce'
+                        legalProcess: 'divorce or dissolution'
                     };
 
                     testWrapper.testErrors(done, data, 'required');

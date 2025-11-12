@@ -26,10 +26,10 @@ describe('NewSubmittedToHmrc', () => {
         let formdata;
         let errors;
 
-        it('should update ctx with estate values for optionIHT400421', () => {
+        it('should update ctx with optionIHT400 for optionYes', () => {
             ctx = {
-                ihtFormEstateId: 'optionIHT400421',
-                estateValueCompleted: 'initialOption',
+                ihtFormEstateId: 'initialValue',
+                estateValueCompleted: 'optionYes',
             };
             formdata = {
                 iht: {
@@ -43,7 +43,7 @@ describe('NewSubmittedToHmrc', () => {
 
             // Assert the expected changes in ctx
             expect(ctx).to.deep.equal({
-                ihtFormEstateId: 'optionIHT400421',
+                ihtFormEstateId: 'optionIHT400',
                 estateValueCompleted: 'optionYes', // Expected change
             });
 
@@ -52,10 +52,10 @@ describe('NewSubmittedToHmrc', () => {
             // You may not need done() for synchronous tests
         });
 
-        it('should update ctx with estate values for optionNA', () => {
+        it('should update ctx with excepted estate for optionNo', () => {
             ctx = {
-                ihtFormEstateId: 'optionNA',
-                estateValueCompleted: 'initialOption',
+                ihtFormEstateId: 'initialValue',
+                estateValueCompleted: 'optionNo',
             };
             formdata = {
                 iht: {
@@ -69,7 +69,7 @@ describe('NewSubmittedToHmrc', () => {
 
             // Assert the expected changes in ctx
             expect(ctx).to.deep.equal({
-                ihtFormEstateId: 'optionNA',
+                ihtFormEstateId: 'initialValue',
                 estateValueCompleted: 'optionNo', // Expected change
             });
         });
@@ -79,19 +79,9 @@ describe('NewSubmittedToHmrc', () => {
             const result = NewSubmittedToHmrc.nextStepOptions();
             expect(result).to.deep.equal({
                 options: [{
-                    key: 'ihtFormEstateId',
-                    value: 'optionIHT400',
+                    key: 'estateValueCompleted',
+                    value: 'optionYes',
                     choice: 'optionIHT400'
-                },
-                {
-                    key: 'ihtFormEstateId',
-                    value: 'optionIHT400421',
-                    choice: 'optionIHT400421'
-                },
-                {
-                    key: 'ihtFormEstateId',
-                    value: 'optionNA',
-                    choice: 'optionNA'
                 }]
             });
             done();

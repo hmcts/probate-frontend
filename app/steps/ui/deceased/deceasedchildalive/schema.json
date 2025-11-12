@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "child-alive",
+  "type": "object",
+  "properties": {
+    "childAlive": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "childAlive"
+  ]
+}

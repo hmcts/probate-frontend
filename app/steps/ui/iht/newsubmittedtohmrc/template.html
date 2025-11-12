@@ -14,45 +14,22 @@ classes: "govuk-fieldset__legend--l"
 }) %}
 
 <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
-<p class="govuk-body">{{ content.paragraph2 | safe }}</p>
-
-{% set conditionalIHT400 %}
-<p class="govuk-body">{{ content.optionIHT400Conditional | safe }}</p>
-{% endset -%}
-
-{% set conditionalIHT400421 %}
-<p class="govuk-body">{{ content.optionIHT400421Conditional | safe }}</p>
-{% endset -%}
 
 {{ govukRadios({
-    classes: "govuk-radios",
-    idPrefix: "ihtFormEstateId",
-    name: "ihtFormEstateId",
-    errorMessage: { text: fields.ihtFormEstateId.errorMessage | safe } if fields.ihtFormEstateId.errorMessage,
+    classes: "govuk-radios--inline",
+    idPrefix: "estateValueCompleted",
+    name: "estateValueCompleted",
+    errorMessage: { text: fields.estateValueCompleted.errorMessage | safe } if fields.estateValueCompleted.errorMessage,
     items: [
         {
-            value: "optionIHT400",
-            text: content["optionIHT400"] | safe,
-            conditional: {
-                html: conditionalIHT400
-            },
-            checked: true if fields.ihtFormEstateId.value == "optionIHT400"
+            value: "optionYes",
+            text: content["optionYes"] | safe,
+            checked: true if fields.estateValueCompleted.value == "optionYes"
         },
         {
-            value: "optionIHT400421",
-            text: content["optionIHT400421"] | safe,
-            conditional: {
-                html: conditionalIHT400421
-            },
-            checked: true if fields.ihtFormEstateId.value == "optionIHT400421"
-        },
-        {
-            divider: content["orDefault"] | safe
-        },
-        {
-            value: "optionNA",
-            text: content["optionNA"] | safe,
-            checked: true if fields.ihtFormEstateId.value == "optionNA"
+            value: "optionNo",
+            text: content["optionNo"] | safe,
+            checked: true if fields.estateValueCompleted.value == "optionNo"
         }
     ]
 }) }}

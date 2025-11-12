@@ -1,0 +1,12 @@
+{
+  "title": "Grandchild adopted in",
+  "question": "Did your parent ({deceasedName}'s child) legally adopt you?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "grandchildAdoptedIn": {
+      "required": "Select &lsquo;Yes&rsquo; if your parent legally adopted you"
+    }
+  }
+}

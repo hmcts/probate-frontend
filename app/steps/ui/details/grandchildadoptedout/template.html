@@ -1,0 +1,41 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block form_content %}
+    {% set relationship = fields.relationshipToDeceased.value %}
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "grandchildAdoptedOut",
+        name: "grandchildAdoptedOut",
+        fieldset: {
+            legend: {
+                text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: { text: fields.grandchildAdoptedOut.errorMessage
+        | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.grandchildAdoptedOut.errorMessage,
+        items: [
+            {
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.grandchildAdoptedOut.value == "optionYes"
+            },
+            {
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.grandchildAdoptedOut.value == "optionNo"
+            }
+        ]
+}) }}
+
+<div class="govuk-form-group">
+  {{ govukButton({
+  text: common.saveAndContinue | safe,
+  preventDoubleClick: true
+  }) }}
+</div>
+{% endblock %}

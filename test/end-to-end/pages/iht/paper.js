@@ -6,17 +6,17 @@ module.exports = async function(language ='en', formName = null) {
     let option;
 
     switch (formName) {
-    case '205':
+    case '400':
         option = '';
         break;
-    case '400':
+    case '205':
         option = '-2';
         break;
     case '421':
         option = '-3';
         break;
     default:
-        option = '';
+        option = '-2';
     }
 
     await I.checkInUrl('/estate-form');

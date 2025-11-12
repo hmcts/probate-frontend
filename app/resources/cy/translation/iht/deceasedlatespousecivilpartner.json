@@ -1,6 +1,6 @@
 {
     "title": "A oedd gan y person a fu farw briod neu bartner sifil a fu farw o'i flaen?",
-    "question": "A oedd gan y person a fu farw briod neu bartner sifil a fu farw o'i flaen?",
+    "question": "A oedd gan {deceasedName} ŵr, gwraig neu bartner sifil a fu farw o’u blaenau?",
     "optionYes": "Oedd",
     "optionNo": "Nac oedd",
     "errors": {

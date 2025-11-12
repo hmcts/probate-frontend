@@ -5,7 +5,8 @@
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
 const co = require('co');
-const journey = require('app/journeys/probate');
+const probateJourney = require('app/journeys/probate');
+const intestacyJourney = require('app/journeys/intestacy');
 const rewire = require('rewire');
 const PaymentBreakdown = rewire('app/steps/ui/payment/breakdown');
 const sinon = require('sinon');
@@ -219,7 +220,7 @@ describe('PaymentBreakdown', () => {
         it('sets nextStepUrl to payment-status if ctx.total = 0', (done) => {
             const req = {
                 session: {
-                    journey: journey
+                    journey: probateJourney
                 }
             };
             let ctx = {total: 0};
@@ -270,7 +271,7 @@ describe('PaymentBreakdown', () => {
                 .returns(successfulCasePaymentsResponse);
             const req = {
                 session: {
-                    journey: journey
+                    journey: probateJourney
                 }
             };
             const formdata = {
@@ -877,6 +878,54 @@ describe('PaymentBreakdown', () => {
             expect(ctxRes).to.deep.equal({
                 status: someStatus,
             });
+        });
+    });
+
+    describe('nextStepURL()', () => {
+        it('returns url from ctx if paymentNextUrl set', () => {
+            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
+
+            const expected = 'specific-next-url';
+            const req = {};
+            const ctx = {
+                paymentNextUrl: expected,
+            };
+
+            const nextUrl = paymentBreakdown.nextStepUrl(req, ctx);
+
+            expect(nextUrl).to.equal(expected);
+        });
+
+        it('returns /payment-status if not set in ctx for probate', () => {
+            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
+
+            const expected = '/payment-status';
+            const req = {
+                session: {
+                    journey: probateJourney
+                }
+            };
+            const ctx = {};
+
+            const nextUrl = paymentBreakdown.nextStepUrl(req, ctx);
+
+            expect(nextUrl).to.equal(expected);
+        });
+
+        it('returns /payment-status if not set in ctx for intestacy', () => {
+            const paymentBreakdown = new PaymentBreakdown(steps, section, templatePath, i18next, schema);
+
+            const expected = '/payment-status';
+            const req = {
+                session: {
+                    journey: intestacyJourney
+                }
+            };
+            const ctx = {};
+
+            const nextUrl = paymentBreakdown.nextStepUrl(req, ctx);
+
+            expect(nextUrl).to.equal(expected);
         });
     });
 });

@@ -1,0 +1,12 @@
+{
+  "title": "A wnaeth eich rhiant (plentyn yr unigolyn sydd wedi marw eich mabwysiadu’n gyfreithlon?",
+  "question": "A wnaeth eich rhiant (plentyn {deceasedName} eich mabwysiadu’n gyfreithlon?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+
+  "errors": {
+    "grandchildAdoptedIn": {
+      "required": "Dewiswch &lsquo;Do&rsquo; os wnaeth eich rhiant eich mabwysiadu Select &lsquo;Yes&rsquo; if your parent legally adopted you"
+    }
+  }
+}

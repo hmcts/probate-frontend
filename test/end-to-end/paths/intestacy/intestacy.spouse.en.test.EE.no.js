@@ -10,7 +10,6 @@ const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
 const maritalStatusMarried = ihtDataConfig.maritalStatusMarried;
 const bilingualGOP = false;
-const ihtOptionNotSubmitted = ihtDataConfig.ihtOptionNotSubmitted;
 const spousePartner = ihtDataConfig.spousePartner;
 
 Feature('GOP Intestacy spouse E2E - EE No Journey');
@@ -38,18 +37,12 @@ getTestLanguages().forEach(language => {
         await I.selectDeathCertificateInEnglish(language, optionNo);
         await I.selectDeathCertificateTranslation(language, optionYes);
         await I.selectDeceasedDomicile(language);
-        const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
-        if (isEEEnabled) {
-            await I.selectEEDeceasedDod(language, optionYes);
-            await I.selectEEvalue(language);
-        } else {
-            await I.selectIhtCompleted(language, optionYes);
-        }
+        await I.selectEEDeceasedDod(language, optionYes);
+        await I.selectEEvalue(language);
         await I.selectPersonWhoDiedLeftAWill(language, optionNo);
 
         // Intestacy Sceeners
         await I.selectRelatedToDeceased(language, optionYes);
-        await I.selectOtherApplicants(language, optionNo);
 
         await I.startApply(language);
 
@@ -70,7 +63,7 @@ getTestLanguages().forEach(language => {
 
         await I.selectEEComplete(language, optionYes);
         //await I.reportEstateValue(language);
-        await I.selectSubmittedToHmrc(language, ihtOptionNotSubmitted);
+        await I.selectSubmittedToHmrc(language, optionNo);
         await I.enterEEValue(language, 500000, 400000, 400000);
         await I.selectLateSpouseCivilPartner(language, optionYes);
         await I.selectUnusedAllowance(language, optionYes);

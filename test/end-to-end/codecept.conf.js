@@ -35,9 +35,6 @@ exports.config = {
         },
         IDAMHelper: {
             require: './helpers/IDAMHelper.js'
-        },
-        Mochawesome: {
-            uniqueScreenshotNames: 'true'
         }
     },
     include: {
@@ -60,24 +57,8 @@ exports.config = {
         },
     },
     mocha: {
-        reporterOptions: {
-            'codeceptjs-cli-reporter': {
-                stdout: '-',
-                options: {steps: true}
-            },
-            'mocha-junit-reporter': {
-                stdout: '-',
-                options: {mochaFile: './functional-output/result.xml'}
-            },
-            mochawesome: {
-                stdout: './functional-output/console.log',
-                options: {
-                    reportDir: testConfig.TestOutputDir || './functional-output',
-                    reportName: 'index',
-                    inlineAssets: true
-                }
-            }
-        }
+        reporter: 'mocha-multi',
+        timeout: 7200000
     },
     bootstrap: TestConfigurator.bootStrapTestSuite(),
     multiple: {

@@ -1,18 +1,19 @@
 {
   "title": "Marital status of the deceased person",
   "question": "What was {deceasedName}&rsquo;s marital status?",
-  "optionMarried": "Married or in a civil partnership",
-  "optionDivorced": "Divorced or their civil partnership was dissolved",
-  "optionWidowed": "Widowed",
-  "optionNotMarried": "Never married",
-  "optionSeparated": "Judicially separated",
-  "divorce": "divorce",
-  "separation": "separation",
+  "optionMarried": "Married or in a registered civil partnership",
+  "optionDivorced": "Divorced or had ended their civil partnership (also known as a dissolution)",
+  "optionWidowed": "Widowed or surviving civil partner",
+  "optionNotMarried": "Never married or never in a civil partnership",
+  "optionSeparated": "Legally separated (also known as judicially separated)",
+  "hintTextMarried": "A civil partnership must be registered and is different than living together as partners",
+  "divorce": "divorce or dissolution",
+  "separation": "legal separation",
   "theDeceased": "the deceased",
 
   "errors": {
     "maritalStatus": {
-      "required": "Choose a marital status option"
+      "required": "Select {deceasedName}&rsquo;s marital status at the time of their death"
     }
   }
 }

@@ -1,20 +1,13 @@
 {
-  "title": "Which forms did you submit to HMRC?",
-  "header": "Which forms did you submit to HMRC?",
-  "question": "Which forms did you submit to HMRC?",
-  "paragraph1": "Using the Inheritance Tax checker is not the same as submitting a form to HMRC. The checker will tell you straight away if you need to submit a form to HMRC. If you have only used the Inheritance Tax checker, select that you did not have to submit a form.",
-  "paragraph2":"If you submitted the IHT400 or the IHT400 and IHT421 you will have had to wait for a reply from HMRC.",
-  "optionIHT400": "IHT400 only",
-  "optionIHT400Conditional": "Only select this option if you applied after 17 January 2024",
-  "optionIHT400421": "IHT400 and IHT421",
-  "optionIHT400421Conditional": "Only select this option if you applied before 17 January 2024",
-  "optionIHT205": "IHT205",
-  "optionNA": "I did not have to submit any forms to HMRC",
-  "orDefault": "or",
-
+  "title": "Did you need to submit form IHT400 to HMRC?",
+  "header": "Did you need to submit form IHT400 to HMRC?",
+  "question": "Did you need to submit form IHT400 to HMRC?",
+  "paragraph1": "Using the Inheritance Tax checker is not the same as submitting a form to HMRC. The checker will tell you if you need to submit form IHT400, or if the estate is an ‘excepted estate’ and you do not need to submit a form.",
+  "optionYes": "Yes",
+  "optionNo": "No",
   "errors": {
-    "ihtFormEstateId": {
-      "required": "You must select an option to continue"
+    "estateValueCompleted": {
+      "required": "Select 'No' if you did not need to submit a form to HMRC"
     }
   }
 }

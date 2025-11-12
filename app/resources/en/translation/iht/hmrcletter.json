@@ -1,6 +1,6 @@
 {
-  "title": "Have you received a letter from HMRC with your unique probate code?",
-  "question": "Have you received a letter from HMRC with your unique probate code?",
+  "title": "Have you received a letter or email from HMRC with your unique probate code?",
+  "question": "Have you received a letter or email from HMRC with your unique probate code?",
   "optionYes": "Yes",
   "optionNo": "No",
   "errors" : {

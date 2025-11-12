@@ -20,12 +20,23 @@ class SpouseNotApplyingReason extends ValidationStep {
         return this.next(req, ctx).constructor.getUrl('spouseNotApplying');
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.childAndSpouseNotApplying = ctx.relationshipToDeceased === 'optionChild' && ctx.spouseNotApplyingReason === 'optionRenouncing';
+        ctx.grandchildAndSpouseNotApplying = ctx.relationshipToDeceased === 'optionGrandchild' && ctx.spouseNotApplyingReason === 'optionRenouncing';
         return {
             options: [
-                {key: 'spouseNotApplyingReason', value: 'optionRenouncing', choice: 'renouncing'},
+                {key: 'childAndSpouseNotApplying', value: true, choice: 'childAndSpouseNotApplying'},
+                {key: 'grandchildAndSpouseNotApplying', value: true, choice: 'grandchildAndSpouseNotApplying'},
             ]
         };
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+        }
+        return fields;
     }
 }
 

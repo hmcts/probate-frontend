@@ -5,18 +5,6 @@
 
 {% block form_content %}
 
-{% set conditionalIHT400 %}
-<p class="govuk-body">{{ content.optionIHT400Conditional | safe }}</p>
-{% endset -%}
-
-{% set conditionalIHT400421 %}
-<p class="govuk-body">{{ content.optionIHT400421Conditional | safe }}</p>
-{% endset -%}
-
-{% set conditionalIHT205 %}
-<p class="govuk-body">{{ content.optionIHT205Conditional | safe }}</p>
-{% endset -%}
-
 {{ govukRadios({
         classes: "govuk-radios",
         idPrefix: "ihtFormId",
@@ -31,28 +19,14 @@
         errorMessage: { text: fields.ihtFormId.errorMessage | safe } if fields.ihtFormId.errorMessage,
         items: [
             {
+            value: "optionIHT400",
+            text: content["optionIHT400"] | safe,
+            checked: true if fields.ihtFormId.value == "optionIHT400"
+            },
+            {
               value: "optionIHT205",
               text: content["optionIHT205"] | safe,
-              conditional: {
-              html: conditionalIHT205
-              },
               checked: true if fields.ihtFormId.value == "optionIHT205"
-            },
-            {
-              value: "optionIHT400",
-              text: content["optionIHT400"] | safe,
-              conditional: {
-              html: conditionalIHT400
-              },
-              checked: true if fields.ihtFormId.value == "optionIHT400"
-            },
-            {
-                value: "optionIHT400421",
-                text: content["optionIHT400421"] | safe,
-                conditional: {
-                html: conditionalIHT400421
-                },
-                checked: true if fields.ihtFormId.value == "optionIHT400421"
             }
         ]
     }) }}

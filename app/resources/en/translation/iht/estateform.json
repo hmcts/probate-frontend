@@ -1,11 +1,7 @@
 {
-  "title": "Which forms did you submit to HMRC?",
-  "question": "Which forms did you submit to HMRC?",
-  "optionIHT400421": "IHT400 and IHT421",
-  "optionIHT400": "IHT400 only",
-  "optionIHT205Conditional": "There was no Inheritance Tax to pay",
-  "optionIHT400Conditional": "Only select this option if you applied after 17 January 2024",
-  "optionIHT400421Conditional": "Only select this option if you applied before 17 January 2024",
+  "title": "Which form did you submit to HMRC?",
+  "question": "Which form did you submit to HMRC?",
+  "optionIHT400": "IHT400",
   "optionIHT205": "IHT205",
   "errors": {
     "ihtFormId": {

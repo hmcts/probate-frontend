@@ -24,7 +24,7 @@
     hint: { text: content["hintGrandchild"] | safe },
     checked: true if fields.relationshipToDeceased.value == "optionGrandchild"
 }), answers) %}
-{% if fields.deceasedMaritalStatus.value != "optionMarried" %}
+{% if fields.deceasedMaritalStatus.value == "optionNotMarried" %}
   {% set answers = (answers.push({
       value: "optionParent",
       text: content["optionParent"] | safe,

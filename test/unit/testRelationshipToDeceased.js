@@ -78,7 +78,7 @@ describe('RelationshipToDeceased', () => {
                 deceasedMaritalStatus: 'optionDivorced'
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/child-adopted-in');
+            expect(nextStepUrl).to.equal('/adopted-in');
             done();
         });
 
@@ -93,7 +93,7 @@ describe('RelationshipToDeceased', () => {
                 deceasedMaritalStatus: 'optionDivorced'
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/child-adopted-in');
+            expect(nextStepUrl).to.equal('/mainapplicantsparent-alive');
             done();
         });
 
@@ -190,7 +190,9 @@ describe('RelationshipToDeceased', () => {
                     {key: 'spousePartnerLessThanIhtThreshold', value: true, choice: 'spousePartnerLessThanIhtThreshold'},
                     {key: 'spousePartnerMoreThanIhtThreshold', value: true, choice: 'spousePartnerMoreThanIhtThreshold'},
                     {key: 'childOrGrandchildDeceasedMarried', value: true, choice: 'childOrGrandchildDeceasedMarried'},
-                    {key: 'childOrGrandchildDeceasedNotMarried', value: true, choice: 'childOrGrandchildDeceasedNotMarried'},
+                    {key: 'parentSiblingNotMarried', value: true, choice: 'parentSiblingNotMarried'},
+                    {key: 'childAndDeceasedNotMarried', value: true, choice: 'childAndDeceasedNotMarried'},
+                    {key: 'grandchildAndDeceasedNotMarried', value: true, choice: 'grandchildAndDeceasedNotMarried'},
                     {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'},
                 ]
             });
@@ -231,10 +233,8 @@ describe('RelationshipToDeceased', () => {
             assert.isUndefined(ctx.spousePartnerMoreThanIhtThreshold);
             assert.isUndefined(ctx.childDeceasedMarried);
             assert.isUndefined(ctx.childDeceasedNotMarried);
-
             assert.isUndefined(ctx.adoptionPlace);
             assert.isUndefined(ctx.spouseNotApplyingReason);
-
             assert.isUndefined(formdata.deceased.anyChildren);
             assert.isUndefined(formdata.deceased.anyOtherChildren);
             assert.isUndefined(formdata.deceased.allChildrenOver18);
@@ -259,7 +259,6 @@ describe('RelationshipToDeceased', () => {
 
             assert.isFalse(isComplete,
                 'Expect relationship to deceased to report incomplete if no relToDec');
-
             done();
         });
 
@@ -278,7 +277,6 @@ describe('RelationshipToDeceased', () => {
 
             assert.isTrue(isComplete,
                 'Expect relationship to deceased to report complete if relStat=married and relToDec=spouse');
-
             done();
         });
 

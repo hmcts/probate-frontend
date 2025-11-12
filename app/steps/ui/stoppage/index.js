@@ -18,7 +18,7 @@ class StopPage extends Step {
         ctx.stoppageHeader = this.returnStopPageHeader(ctx.stopReason);
 
         ctx.deceasedName = format(formdata.deceased);
-
+        ctx.applicantName = formdata.executors?.list?.[formdata.executors.list.length - 1]?.fullName;
         const templateContent = this.generateContent(ctx, formdata, req.session.language)[ctx.stopReason];
 
         if (templateContent) {
@@ -46,6 +46,7 @@ class StopPage extends Step {
         return [];
     }
 
+    // eslint-disable-next-line complexity
     returnStopPageHeader(stopReason) {
         let pageHeader;
         switch (stopReason) {
@@ -65,25 +66,18 @@ class StopPage extends Step {
             pageHeader = 'eeEstateValuedHeader';
             break;
         case 'notDiedAfterOctober2014':
-            pageHeader = 'applyByPostHeader';
-            break;
         case 'notRelated':
+        case 'notExecutor':
+        case 'mentalCapacity':
             pageHeader = 'applyByPostHeader';
             break;
         case 'notOriginal':
             pageHeader = 'notOriginalHeader';
             break;
-        case 'notExecutor':
-            pageHeader = 'applyByPostHeader';
-            break;
-        case 'mentalCapacity':
-            pageHeader = 'applyByPostHeader';
-            break;
         case 'deceasedHadLegalPartnerAndRelationshipOther':
-            pageHeader = 'deceasedHadLegalPartnerAndRelationshipOtherHeader';
-            break;
-        case 'deceasedNoLegalPartnerAndRelationshipOther':
-            pageHeader = 'deceasedNoLegalPartnerAndRelationshipOtherHeader';
+        case 'parentIsAlive':
+        case 'hadLivingDescendants':
+            pageHeader = 'notEntitledHeader';
             break;
         case 'divorcePlace':
         case 'separationPlace':
@@ -92,9 +86,18 @@ class StopPage extends Step {
         case 'spouseNotApplying':
         case 'adoptionNotEnglandOrWales':
         case 'adoptedOut':
+        case 'grandchildParentAdoptedOut':
+        case 'deceasedAdoptedOut':
         case 'childrenUnder18':
+        case 'coApplicantAdoptionPlaceStop':
+        case 'coApplicantAdoptedOutStop':
+        case 'coApplicantParentAdoptedOutStop':
         case 'grandchildrenUnder18':
+        case 'deceasedNoLegalPartnerAndRelationshipOther':
             pageHeader = 'cannotApplyByOnlineHeader';
+            break;
+        case 'otherCoApplicantRelationship':
+            pageHeader = 'personCannotApplyByOnlineHeader';
             break;
         default:
             pageHeader = 'defaultHeader';

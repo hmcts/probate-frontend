@@ -252,97 +252,211 @@ describe('stop-page', () => {
 
                     testWrapper.testContent(done, contentData, contentToExclude);
                 });
+        });
+        it('test right content loaded on the page - did the deceased have any children under 18', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('childrenUnder18');
+            const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
 
-            it('test right content loaded on the page - did the deceased have any children under 18', (done) => {
-                testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('childrenUnder18');
-                const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
+            const contentToInclude = ['eligibilityTitle', 'title', 'cannotApplyByOnlineHeader', 'childrenUnder18',];
+            const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
-                const contentToInclude = ['eligibilityTitle', 'title', 'cannotApplyByOnlineHeader', 'childrenUnder18',];
-                const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
+            testWrapper.testContent(done, contentData, contentToExclude);
+        });
 
-                testWrapper.testContent(done, contentData, contentToExclude);
-            });
+        it('test right content loaded on the page - did the deceased child of the deceased have any children under 18', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('grandchildrenUnder18');
+            const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
 
-            it('test right content loaded on the page - did the deceased child of the deceased have any children under 18', (done) => {
-                testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('grandchildrenUnder18');
-                const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
+            const contentToInclude = ['eligibilityTitle', 'title', 'cannotApplyByOnlineHeader', 'grandchildrenUnder18',
+            ];
+            const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
-                const contentToInclude = ['eligibilityTitle', 'title', 'cannotApplyByOnlineHeader', 'grandchildrenUnder18',
-                ];
-                const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
+            testWrapper.testContent(done, contentData, contentToExclude);
+        });
 
-                testWrapper.testContent(done, contentData, contentToExclude);
-            });
+        it('test right content loaded on the page - relationship other, married', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('deceasedHadLegalPartnerAndRelationshipOther');
+            const sessionData = {
+                type: caseTypes.INTESTACY,
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe'
+                }
+            };
+            const contentData = {applicationFormPA1A: config.links.applicationFormPA1A,
+                applicationFormPA12: config.links.applicationFormPA12,
+                applicationFormPA16: config.links.applicationFormPA16,
+                deceasedName: 'John Doe',
+            };
 
-            it('test right content loaded on the page - relationship other, married', (done) => {
-                testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('deceasedHadLegalPartnerAndRelationshipOther');
-                const sessionData = {
-                    type: caseTypes.INTESTACY,
-                    ccdCase: {
-                        state: 'Pending',
-                        id: 1234567890123456
-                    },
-                    deceased: {
-                        firstName: 'John',
-                        lastName: 'Doe'
-                    }
-                };
-                const contentData = {applicationFormPA1A: config.links.applicationFormPA1A,
-                    applicationFormPA12: config.links.applicationFormPA12,
-                    applicationFormPA16: config.links.applicationFormPA16,
-                    deceasedName: 'John Doe',
-                };
+            const contentToInclude = ['eligibilityTitle', 'title', 'notEntitledHeader', 'deceasedHadLegalPartnerAndRelationshipOther'];
+            const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
-                const contentToInclude = ['eligibilityTitle', 'title', 'deceasedHadLegalPartnerAndRelationshipOtherHeader', 'deceasedHadLegalPartnerAndRelationshipOther'];
-                const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
 
-                testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
-                        testWrapper.testContent(done, contentData, contentToExclude);
-                    });
-            });
+        it('test right content loaded on the page - relationship other, unmarried', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('deceasedNoLegalPartnerAndRelationshipOther');
+            const sessionData = {
+                type: caseTypes.INTESTACY,
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe'
+                }
+            };
+            const contentData = {
+                applicationFormPA1A: config.links.applicationFormPA1A,
+                applicationFormPA12: config.links.applicationFormPA12,
+                applicationFormPA16: config.links.applicationFormPA16,
+                whoInherits: config.links.whoInherits,
+                deceasedName: 'John Doe',
+            };
 
-            it('test right content loaded on the page - relationship other, unmarried', (done) => {
-                testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('deceasedNoLegalPartnerAndRelationshipOther');
-                const sessionData = {
-                    type: caseTypes.INTESTACY,
-                    ccdCase: {
-                        state: 'Pending',
-                        id: 1234567890123456
-                    },
-                    deceased: {
-                        firstName: 'John',
-                        lastName: 'Doe'
-                    }
-                };
-                const contentData = {
-                    applicationFormPA1A: config.links.applicationFormPA1A,
-                    applicationFormPA12: config.links.applicationFormPA12,
-                    applicationFormPA16: config.links.applicationFormPA16,
-                    whoInherits: config.links.whoInherits,
-                    deceasedName: 'John Doe',
-                };
+            const contentToInclude = ['eligibilityTitle', 'title', 'cannotApplyByOnlineHeader', 'deceasedNoLegalPartnerAndRelationshipOther'
+            ];
+            const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
-                const contentToInclude = ['eligibilityTitle', 'title', 'deceasedNoLegalPartnerAndRelationshipOtherHeader', 'deceasedNoLegalPartnerAndRelationshipOther'
-                ];
-                const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+        it('test right content loaded on the page - child adopted out', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('adoptedOut');
+            const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
+            const contentToInclude = ['eligibilityTitle', 'title', 'cannotApplyByOnlineHeader', 'adoptedOut'];
+            const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
-                testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
-                        testWrapper.testContent(done, contentData, contentToExclude);
-                    });
-            });
-            it('test right content loaded on the page - child adopted out', (done) => {
-                testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('adoptedOut');
-                const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
-                const contentToInclude = ['eligibilityTitle', 'title', 'cannotApplyByOnlineHeader', 'adoptedOut',
-                ];
-                const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
+            testWrapper.testContent(done, contentData, contentToExclude);
+        });
+        it('test right content loaded on the page - co applicant relationship is others', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('otherCoApplicantRelationship');
+            const sessionData = {
+                type: caseTypes.INTESTACY,
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                applicationFormPA1A: config.links.applicationFormPA1A,
+                whoInherits: config.links.whoInherits,
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe'
+                }
+            };
+            const contentToInclude = ['eligibilityTitle', 'title', 'personCannotApplyByOnlineHeader', 'otherCoApplicantRelationship'];
+            const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
-                testWrapper.testContent(done, contentData, contentToExclude);
-            });
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        applicationFormPA1A: config.links.applicationFormPA1A,
+                        whoInherits: config.links.whoInherits,
+                        deceasedName: 'John Doe'
+                    };
+
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+        it('test right content loaded on the page - co applicant adopted out', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('coApplicantAdoptedOutStop');
+            const sessionData = {
+                type: caseTypes.INTESTACY,
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                applicationFormPA1A: config.links.applicationFormPA1A,
+                whoInherits: config.links.whoInherits,
+                executors: {
+                    list: [{fullName: 'John Doe', isApplying: true, isApplicant: true}]
+                }
+            };
+            const contentToInclude = ['eligibilityTitle', 'title', 'cannotApplyByOnlineHeader', 'coApplicantAdoptedOutStop'];
+            const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        applicationFormPA1A: config.links.applicationFormPA1A,
+                        whoInherits: config.links.whoInherits,
+                        applicantName: 'John Doe'
+                    };
+
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+        it('test right content loaded on the page - Intestacy Parent hadLivingDescendants ', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('hadLivingDescendants');
+            const sessionData = {
+                type: caseTypes.INTESTACY,
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                applicationFormPA1A: config.links.applicationFormPA1A,
+                whoInherits: config.links.whoInherits,
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe'
+                }
+            };
+            const contentToInclude = ['eligibilityTitle', 'title', 'notEntitledHeader', 'hadLivingDescendants'];
+            const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        applicationFormPA1A: config.links.applicationFormPA1A,
+                        whoInherits: config.links.whoInherits,
+                        deceasedName: 'John Doe'
+                    };
+
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+        it('test right content loaded on the page - deceased adopted out', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('deceasedAdoptedOut');
+            const sessionData = {
+                type: caseTypes.INTESTACY,
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe'
+                }
+            };
+            const contentToInclude = ['eligibilityTitle', 'title', 'cannotApplyByOnlineHeader', 'deceasedAdoptedOut'];
+            const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        applicationFormPA1A: config.links.applicationFormPA1A,
+                        deceasedName: 'John Doe'
+                    };
+
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
         });
     });
 });

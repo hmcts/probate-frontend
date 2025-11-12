@@ -1,13 +1,13 @@
 {
   "title": "Any grandchildren under 18",
-  "question": "Are any of these children under 18?",
+  "question": "Are any of these children under the age of 18?",
   "paragraph": "They would be {deceasedName}&rsquo;s grandchildren.",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
     "anyGrandchildrenUnder18": {
-      "required": "Select &lsquo;Yes&rsquo; if any of these children are under 18"
+      "required": "Select &lsquo;Yes&rsquo; if any of these children are younger than 18"
     }
   }
 }

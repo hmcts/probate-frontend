@@ -316,6 +316,16 @@ module.exports = {
             'never'
         ]
     },
+    'overrides': [
+        {
+            'files': ['app/journeys/intestacy.js',
+                'test/unit/testRelationshipToDeceased.js',
+                'test/component/testStopPage.js'],
+            'rules': {
+                'max-lines': 'off'
+            }
+        }
+    ],
     'globals': {
         'actor': true,
         'Feature': true,

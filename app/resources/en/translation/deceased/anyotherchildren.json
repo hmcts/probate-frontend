@@ -11,7 +11,7 @@
 
   "errors": {
     "anyOtherChildren": {
-      "required": "Select &lsquo;yes&rsquo; if {deceasedName} had any other children"
+      "required": "Select &lsquo;Yes&rsquo; if {deceasedName} had any other children"
     }
   }
 }

@@ -10,6 +10,8 @@ const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname
 const ExecutorAddress = steps.ExecutorAddress;
 const executorAddressPath = '/executor-address/';
 const journey = require('app/journeys/probate');
+const intestacyJourney = require('app/journeys/intestacy');
+const caseTypes = require('../../../app/utils/CaseTypes');
 
 describe('ExecutorAddress', () => {
     describe('getUrl()', () => {
@@ -361,7 +363,7 @@ describe('ExecutorAddress', () => {
     });
 
     describe('nextStepUrl()', () => {
-        it('returns the correct url without an index if there is one executor applying', (done) => {
+        it('returns the correct url without an index if there is one executor applying for GOP', (done) => {
             const req = {
                 session: {
                     journey: journey
@@ -370,7 +372,8 @@ describe('ExecutorAddress', () => {
             const testCtx = {
                 list: [{}, {}],
                 index: -1,
-                executorsWrapper: new ExecutorsWrapper(this.list)
+                executorsWrapper: new ExecutorsWrapper(this.list),
+                caseType: caseTypes.GOP
             };
             const url = ExecutorAddress.nextStepUrl(req, testCtx);
 
@@ -378,7 +381,7 @@ describe('ExecutorAddress', () => {
             done();
         });
 
-        it('returns the correct url with an index if there are multiple executors applying', (done) => {
+        it('returns the correct url with an index if there are multiple executors applying for GOP case type', (done) => {
             const req = {
                 session: {
                     journey: journey
@@ -387,20 +390,60 @@ describe('ExecutorAddress', () => {
             const testCtx = {
                 list: [{}, {}],
                 index: 1,
-                executorsWrapper: new ExecutorsWrapper(this.list)
+                executorsWrapper: new ExecutorsWrapper(this.list),
+                caseType: caseTypes.GOP
             };
             const url = ExecutorAddress.nextStepUrl(req, testCtx);
 
             expect(url).to.equal('/executor-contact-details/1');
             done();
         });
+
+        it('returns the correct url if there are multiple executors applying for Intestacy casetype for child journey', (done) => {
+            const req = {
+                session: {
+                    journey: intestacyJourney
+                }
+            };
+            const testCtx = {
+                list: [{}, {}],
+                index: 1,
+                executorsWrapper: new ExecutorsWrapper(this.list),
+                caseType: caseTypes.INTESTACY,
+                applicantRelationshipToDeceased: 'optionChild',
+            };
+            const url = ExecutorAddress.nextStepUrl(req, testCtx);
+
+            expect(url).to.equal('/joint-application');
+            done();
+        });
+
+        it('returns the correct url if there are multiple executors applying for Intestacy casetype for parent', (done) => {
+            const req = {
+                session: {
+                    journey: intestacyJourney
+                }
+            };
+            const testCtx = {
+                list: [{}, {}],
+                index: 1,
+                executorsWrapper: new ExecutorsWrapper(this.list),
+                caseType: caseTypes.INTESTACY,
+                applicantRelationshipToDeceased: 'optionParent',
+            };
+            const url = ExecutorAddress.nextStepUrl(req, testCtx);
+
+            expect(url).to.equal('/equality-and-diversity');
+            done();
+        });
     });
 
     describe('nextStepOptions()', () => {
-        it('returns the next step options', (done) => {
+        it('returns the next step options for GOP', (done) => {
             const testCtx = {
                 index: 1,
-                executorsWrapper: new ExecutorsWrapper()
+                executorsWrapper: new ExecutorsWrapper(),
+                caseType: caseTypes.GOP
             };
             const nextStepOptions = ExecutorAddress.nextStepOptions(testCtx);
 
@@ -408,6 +451,22 @@ describe('ExecutorAddress', () => {
                 options: [
                     {key: 'continue', value: true, choice: 'continue'},
                     {key: 'allExecsApplying', value: true, choice: 'allExecsApplying'}
+                ],
+            });
+            done();
+        });
+        it('returns the next step options for Intestacy', (done) => {
+            const testCtx = {
+                index: 1,
+                executorsWrapper: new ExecutorsWrapper(),
+                caseType: caseTypes.INTESTACY
+            };
+            const nextStepOptions = ExecutorAddress.nextStepOptions(testCtx);
+
+            expect(nextStepOptions).to.deep.equal({
+                options: [
+                    {key: 'isChildJointApplication', value: true, choice: 'isChildJointApplication'},
+                    {key: 'isParentJointApplication', value: true, choice: 'isParentJointApplication'},
                 ],
             });
             done();

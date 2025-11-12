@@ -1,0 +1,14 @@
+{
+  "title": "Is the deceased other parent alive?",
+  "question": "Is {deceasedName}’s other parent alive?",
+  "paragraph1": "Select ‘No’ if {deceasedName} did not have another parent.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "theDeceased": "the deceased",
+
+  "errors": {
+    "anyOtherParentAlive": {
+      "required": "Select &lsquo;Yes&rsquo; if {deceasedName}’&rsquo; other parent is alive"
+    }
+  }
+}

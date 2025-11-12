@@ -8,7 +8,7 @@
 
   "errors": {
     "allChildrenOver18": {
-      "required": "Select &lsquo;yes&rsquo; if all of the children are 18 or older"
+      "required": "Select &lsquo;Yes&rsquo; if all of these children are 18 or older"
     }
   }
 }

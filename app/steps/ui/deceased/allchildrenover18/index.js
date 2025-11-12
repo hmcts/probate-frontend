@@ -13,6 +13,7 @@ class AllChildrenOver18 extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.relationshipToDeceased = formdata.applicant && formdata.applicant.relationshipToDeceased;
         return ctx;
     }
 
@@ -20,10 +21,13 @@ class AllChildrenOver18 extends ValidationStep {
         return this.next(req, ctx).constructor.getUrl('childrenUnder18');
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.childAndAllChildrenOver18 = ctx.relationshipToDeceased === 'optionChild' && ctx.allChildrenOver18 === 'optionYes';
+        ctx.grandchildAndAllChildrenOver18 = ctx.relationshipToDeceased === 'optionGrandchild' && ctx.allChildrenOver18 === 'optionYes';
         return {
             options: [
-                {key: 'allChildrenOver18', value: 'optionYes', choice: 'allChildrenOver18'}
+                {key: 'childAndAllChildrenOver18', value: true, choice: 'childAndAllChildrenOver18'},
+                {key: 'grandchildAndAllChildrenOver18', value: true, choice: 'grandchildAndAllChildrenOver18'}
             ]
         };
     }

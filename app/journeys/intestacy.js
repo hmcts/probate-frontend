@@ -162,23 +162,12 @@ const stepList = {
         otherwise: 'StopPage'
     },
     AnyLivingDescendants: {
-        noLivingDescendants: 'AdoptedIn',
+        anyLivingParent: 'SiblingAnyParentsAlive',
+        adoptedIn: 'AdoptedIn',
         otherwise: 'StopPage'
     },
     SiblingAnyParentsAlive: {
-        siblingHasParentsAlive: 'SiblingAdoptedIn',
-        otherwise: 'StopPage'
-    },
-    SiblingAdoptedIn: {
-        siblingAdoptedIn: 'SiblingAdoptionPlace',
-        siblingNotAdoptedIn: 'SiblingAdoptedOut'
-    },
-    SiblingAdoptionPlace: {
-        siblingAdoptedInEnglandOrWales: 'SameParents',
-        otherwise: 'StopPage'
-    },
-    SiblingAdoptedOut: {
-        siblingAdoptedOut: 'SameParents',
+        siblingHasParentsAlive: 'AdoptedIn',
         otherwise: 'StopPage'
     },
     SameParents: {

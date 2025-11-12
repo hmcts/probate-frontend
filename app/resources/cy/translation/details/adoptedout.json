@@ -4,6 +4,7 @@
   "childQuestion": "A wnaeth {deceasedName} eich mabwysiadu&rsquo;n gyfreithlon allan o&rsquo;u teulu nhw (eich rhoi i ffwrdd i gael eich mabwysiadu)?",
   "grandchildQuestion": "A wnaeth {deceasedName} fabwysiadu eich rhiant ({deceasedName} yn gyfreithlon allan o&rsquo;u teulu nhw (eu rhoi i ffwrdd i gael eu mabwysiadu)",
   "parentQuestion": "A wnaethoch chi fabwysiadu {deceasedName} yn gyfreithlon allan o’ch teulu (eu rhoi i ffwrdd i gael eu mabwysiadu)?",
+  "siblingQuestion": "A wnaeth rhieni {deceasedName} eu mabwysiadu’n gyfreithlon allan o’u teulu nhw (eu rhoi i ffwrdd i gael eu mabwysiadu)?",
   "optionYes": "Do",
   "optionNo": "Naddo",
 
@@ -11,7 +12,8 @@
     "adoptedOut": {
       "requiredChild": "Dewiswch &lsquo;Do&rsquo; os wnaeth {deceasedName} eich rhoi i ffwrdd i gael eich mabwysiadu",
       "requiredGrandchild": "Dewiswch &lsquo;Do&rsquo; os wnaeth {deceasedName} roi eich rhiant i ffwrdd i gael eu mabwysiadu",
-      "requiredParent": "Dewiswch &lsquo;Do&rsquo; os wnaethoch chi roi {deceasedName} i ffwrdd i gael eich mabwysiadu"
+      "requiredParent": "Dewiswch &lsquo;Do&rsquo; os wnaethoch chi roi {deceasedName} i ffwrdd i gael eich mabwysiadu",
+      "requiredSibling": "Dewiswch ‘Do’ os wnaeth rhieni {deceasedName} eu rhoi i ffwrdd i gael eu mabwysiadu"
     }
   }
 }

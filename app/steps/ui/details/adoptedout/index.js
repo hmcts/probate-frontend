@@ -33,11 +33,13 @@ class AdoptedOut extends ValidationStep {
         ctx.childNotAdoptedOut = ctx.relationshipToDeceased === 'optionChild' && ctx.adoptedOut === 'optionNo';
         ctx.grandchildNotAdoptedOut = ctx.relationshipToDeceased === 'optionGrandchild' && ctx.adoptedOut === 'optionNo';
         ctx.deceasedNotAdoptedOut = ctx.relationshipToDeceased === 'optionParent' && ctx.adoptedOut === 'optionNo';
+        ctx.siblingNotAdoptedOut = ctx.relationshipToDeceased === 'optionSibling' && ctx.adoptedOut === 'optionNo';
         return {
             options: [
                 {key: 'childNotAdoptedOut', value: true, choice: 'childNotAdoptedOut'},
                 {key: 'grandchildNotAdoptedOut', value: true, choice: 'grandchildNotAdoptedOut'},
-                {key: 'deceasedNotAdoptedOut', value: true, choice: 'deceasedNotAdoptedOut'}
+                {key: 'deceasedNotAdoptedOut', value: true, choice: 'deceasedNotAdoptedOut'},
+                {key: 'siblingNotAdoptedOut', value: true, choice: 'siblingNotAdoptedOut'}
             ]
         };
     }
@@ -52,12 +54,14 @@ class AdoptedOut extends ValidationStep {
                     errors.push(this.generateDynamicErrorMessage('adoptedOut', 'requiredGrandchild', session, ctx.deceasedName));
                 } else if (ctx.relationshipToDeceased === 'optionParent') {
                     errors.push(this.generateDynamicErrorMessage('adoptedOut', 'requiredParent', session, ctx.deceasedName));
+                } else if (ctx.relationshipToDeceased === 'optionSibling') {
+                    errors.push(this.generateDynamicErrorMessage('adoptedOut', 'requiredSibling', session, ctx.deceasedName));
                 }
             } else if (ctx.relationshipToDeceased === 'optionGrandchild') {
                 ctx.grandchildParentAdoptedOut = ctx.adoptedOut;
             } else if (ctx.relationshipToDeceased === 'optionChild') {
                 ctx.childAdoptedOut = ctx.adoptedOut;
-            } else if (ctx.relationshipToDeceased === 'optionParent') {
+            } else if (ctx.relationshipToDeceased === 'optionParent' || ctx.relationshipToDeceased === 'optionSibling') {
                 ctx.deceasedAdoptedOut = ctx.adoptedOut;
             }
         }
@@ -76,7 +80,7 @@ class AdoptedOut extends ValidationStep {
             delete ctx.grandchildParentAdoptionPlace;
         } else if (ctx.relationshipToDeceased === 'optionChild') {
             delete ctx.childAdoptionPlace;
-        } else if (ctx.relationshipToDeceased === 'optionParent') {
+        } else if (ctx.relationshipToDeceased === 'optionParent' || ctx.relationshipToDeceased === 'optionSibling') {
             delete ctx.deceasedAdoptionPlace;
         }
         return [ctx, formdata];

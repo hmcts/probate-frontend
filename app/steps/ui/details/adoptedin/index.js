@@ -39,6 +39,8 @@ class AdoptedIn extends ValidationStep {
                     errors.push(this.generateDynamicErrorMessage('adoptedIn', 'requiredGrandchild', session, ctx.deceasedName));
                 } else if (ctx.relationshipToDeceased === 'optionParent') {
                     errors.push(this.generateDynamicErrorMessage('adoptedIn', 'requiredParent', session, ctx.deceasedName));
+                } else if (ctx.relationshipToDeceased === 'optionSibling') {
+                    errors.push(this.generateDynamicErrorMessage('adoptedIn', 'requiredSibling', session, ctx.deceasedName));
                 }
             } else if (ctx.relationshipToDeceased === 'optionGrandchild') {
                 ctx.relationshipToDeceased = relationship;
@@ -46,7 +48,7 @@ class AdoptedIn extends ValidationStep {
             } else if (ctx.relationshipToDeceased === 'optionChild') {
                 ctx.relationshipToDeceased = relationship;
                 ctx.childAdoptedIn = ctx.adoptedIn;
-            } else if (ctx.relationshipToDeceased === 'optionParent') {
+            } else if (ctx.relationshipToDeceased === 'optionParent' || ctx.relationshipToDeceased === 'optionSibling') {
                 ctx.relationshipToDeceased = relationship;
                 ctx.deceasedAdoptedIn = ctx.adoptedIn;
             }

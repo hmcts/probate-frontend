@@ -24,16 +24,18 @@ class InviteLink extends Service {
             'Authorization': authToken,
             'ServiceAuthorization': serviceAuthorisation
         };
-        const fetchOptions = AsyncFetch.fetchOptions(data, 'POST', headers);
+        const fetchOptions = AsyncFetch.fetchOptions(this.encodeURLNameParams(data), 'POST', headers);
         return AsyncFetch.fetchJson(url, fetchOptions);
     }
 
     encodeURLNameParams(invitation) {
-        for (const key in invitation) {
-            if (key.includes('Name')) {
-                invitation[key] = encodeURIComponent(invitation[key]);
+        invitation.forEach(obj => {
+            for (const key in obj) {
+                if (key.includes('Name')) {
+                    obj[key] = encodeURIComponent(obj[key]);
+                }
             }
-        }
+        });
         return invitation;
     }
 }

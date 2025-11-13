@@ -1,0 +1,14 @@
+{
+  "title": "A yw rhiant arall deceasedName yn fyw?",
+  "question": "A yw rhiant arall {deceasedName} yn fyw?",
+  "paragraph1": "Dewiswch ‘Nac ydy’ os nad oedd gan {deceasedName} riant arall.",
+  "optionYes": "Oedd",
+  "optionNo": "Nac oedd",
+  "theDeceased": "yr unigolyn sydd wedi marw",
+
+  "errors": {
+    "anyOtherParentAlive": {
+      "required": "Dewiswch &lsquo;Oes&rsquo; os yw rhiant arall {deceasedName} yn fyw"
+    }
+  }
+}

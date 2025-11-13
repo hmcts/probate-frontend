@@ -1,0 +1,12 @@
+{
+  "title": "A wnaeth eich rhiant (plentyn yr unigolyn sydd wedi marw eich mabwysiadu&rsquo;n gyfreithlon allan o&rsquo;u teulu nhw (eich rhoi i ffwrdd i gael eich mabwysiadu)?",
+  "question": "A wnaeth eich rhiant (plentyn {deceasedName} eich mabwysiadu&rsquo;n gyfreithlon allan o&rsquo;u teulu nhw (eich rhoi i ffwrdd i gael eich mabwysiadu)?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+
+  "errors": {
+    "grandchildAdoptedOut": {
+      "required": "Select &lsquo;Yes&rsquo; if your parent gave you up for adoption"
+    }
+  }
+}

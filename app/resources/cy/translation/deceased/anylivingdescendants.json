@@ -1,0 +1,18 @@
+{
+  "title": "A oedd gan unrhyw ddisgynyddion byw adeg eu marwolaeth?",
+  "question": "A oedd gan {deceasedName} unrhyw ddisgynyddion byw adeg eu marwolaeth?",
+  "paragraph1": "Y rhain yw",
+  "listItem1": "plant {deceasedName}",
+  "listItem2": "wyrion ac wyresau {deceasedName}",
+  "listItem3": "gorwyrion a gorwyresau {deceasedName}",
+  "paragraph2": "Mae hyn yn cynnwys unrhyw un a gafodd ei fabwysiadu (un ai i mewn neu allan o deulu {deceasedName} ), ond nid llysblant neu eu disgynyddion.",
+  "optionYes": "Oedd",
+  "optionNo": "Nac oedd",
+  "theDeceased": "yr unigolyn sydd wedi marw",
+
+  "errors": {
+    "anyLivingDescendants": {
+      "required": "Dewiswch &lsquo;Oes&rsquo; os oes gan {deceasedName} unrhyw blant, wyrion neu orwyrion sy&rsquo;n fyw"
+    }
+  }
+}

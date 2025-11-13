@@ -12,7 +12,7 @@
       "requiredChild": "Dewiswch &lsquo;Do&rsquo; os wnaeth {deceasedName} eich mabwysiadu&rsquo;n gyfreithlon",
       "requiredGrandchild": "Dewiswch &lsquo;Do&rsquo; os wnaeth {deceasedName} fabwysiadu eich rhiant yn gyfreithlon",
       "requiredParent": "Dewiswch ‘Do’ os wnaethoch chi fabwysiadu {deceasedName} yn gyfreithiol",
-      "requiredSibling": "TRANSLATE"
+      "requiredSibling": "Dewiswch ‘Do' os wnaeth rhieni {deceasedName} eu mabwysiadu’n gyfreithiol"
     }
   }
 }

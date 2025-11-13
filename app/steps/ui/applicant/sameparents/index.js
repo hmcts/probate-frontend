@@ -19,9 +19,9 @@ class SameParents extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'sameParents', value: 'optionYes', choice: 'bothParentsSame'},
-                {key: 'sameParents', value: 'optionYes', choice: 'oneParentsSame'},
-                {key: 'sameParents', value: 'optionYes', choice: 'noParentsSame'}
+                {key: 'sameParents', value: 'optionBothParentsSame', choice: 'bothParentsSameAsDeceased'},
+                {key: 'sameParents', value: 'optionOneParentsSame', choice: 'oneParentsSameAsDeceased'},
+                {key: 'sameParents', value: 'optionNoParentsSame', choice: 'noParentsSameAsDeceased'}
             ]
         };
     }

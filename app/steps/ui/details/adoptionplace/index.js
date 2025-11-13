@@ -21,7 +21,7 @@ class PlaceOfAdoption extends ValidationStep {
             ctx.grandchildParentAdoptionPlace = ctx.adoptionPlace;
         } else if (ctx.relationshipToDeceased === 'optionChild') {
             ctx.childAdoptionPlace = ctx.adoptionPlace;
-        } else if (ctx.relationshipToDeceased === 'optionParent') {
+        } else if (ctx.relationshipToDeceased === 'optionParent' || ctx.relationshipToDeceased === 'optionSibling') {
             ctx.deceasedAdoptionPlace = ctx.adoptionPlace;
         }
         return [ctx, errors];
@@ -35,11 +35,13 @@ class PlaceOfAdoption extends ValidationStep {
         ctx.childAndAdoptedInEnglandOrWales = ctx.relationshipToDeceased === 'optionChild' && ctx.adoptionPlace === 'optionYes';
         ctx.grandchildAndAdoptedInEnglandOrWales = ctx.relationshipToDeceased === 'optionGrandchild' && ctx.adoptionPlace === 'optionYes';
         ctx.deceasedAdoptedInEnglandOrWales = ctx.relationshipToDeceased === 'optionParent' && ctx.adoptionPlace === 'optionYes';
+        ctx.siblingAdoptedInEnglandOrWales = ctx.relationshipToDeceased === 'optionSibling' && ctx.adoptionPlace === 'optionYes';
         return {
             options: [
                 {key: 'childAndAdoptedInEnglandOrWales', value: true, choice: 'childAndAdoptedInEnglandOrWales'},
                 {key: 'grandchildAndAdoptedInEnglandOrWales', value: true, choice: 'grandchildAndAdoptedInEnglandOrWales'},
-                {key: 'deceasedAdoptedInEnglandOrWales', value: true, choice: 'deceasedAdoptedInEnglandOrWales'}
+                {key: 'deceasedAdoptedInEnglandOrWales', value: true, choice: 'deceasedAdoptedInEnglandOrWales'},
+                {key: 'siblingAdoptedInEnglandOrWales', value: true, choice: 'siblingAdoptedInEnglandOrWales'}
             ]
         };
     }
@@ -50,7 +52,7 @@ class PlaceOfAdoption extends ValidationStep {
             delete ctx.grandchildParentAdoptedOut;
         } else if (ctx.relationshipToDeceased === 'optionChild') {
             delete ctx.childAdoptedOut;
-        } else if (ctx.relationshipToDeceased === 'optionParent') {
+        } else if (ctx.relationshipToDeceased === 'optionParent' || ctx.relationshipToDeceased === 'optionSibling') {
             delete ctx.deceasedAdoptedOut;
         }
         return [ctx, formdata];

@@ -83,6 +83,8 @@ payment:
 appInsights:
   connectionString: APP-INSIGHTS-CONNECTION-STRING
 
+nonIdamPages: NON_IDAM_PAGES
+
 TestCitizenDomain: CITIZEN_EMAIL_DOMAIN
 TestE2EFrontendUrl: TEST_URL
 TestFrontendUrl: TEST_URL

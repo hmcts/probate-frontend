@@ -192,6 +192,7 @@ const stepList = {
         childNotAdoptedOut: 'AnyOtherChildren',
         grandchildNotAdoptedOut: 'GrandchildAdoptedIn',
         deceasedNotAdoptedOut: 'AnyOtherParentAlive',
+        siblingAdoptedOut: 'SameParents',
         otherwise: 'StopPage'
     },
     GrandchildAdoptedIn: {
